@@ -1,1 +1,27 @@
-initial
+commit.txt — p4rakernel initialization with ob3ect/odot duals
+============================================================
+
+Initial commit (2026-06-01): Paraconsistent Lean 4 kernel fork v4.28.0
+
+  C++ kernel modifications:
+    src/kernel/environment.h     — is_paraconsistent() / mark_paraconsistent() methods
+    src/kernel/environment.cpp   — C API bridge (lean_environment_mark_paraconsistent)
+    src/kernel/type_checker.cpp  — Blocks recursors for empty Prop inductive predicates
+    src/library/constructions/cases_on.cpp — Blocks casesOn for empty Props
+
+  Lean modules:
+    src/Init/Paraconsistent.lean       — Belnap type, band/bor/bnot/bimply, explosion_blocked theorem
+    ParaconsistentMillennium.lean      — All 7 Clay Millennium Problems + OPN resolved with B dialetheias
+    ParaconsistentKernelTest.lean      — Kernel-level paraconsistent tests
+
+  Dual relationships (established):
+    ob3ect/digital/parakernel/parakernel_ob3ect.py — Python IMASM-level ENGAGR→FSPLIT→FFUSE cycle
+    ob3ect/digital/belnap/belnap_ob3ect.py          — Python Belnap FOUR logical substrate
+    ob3ect/TRUE_AGENTIC_AGENT.md                     — B4 verification in agentic loop
+    odot_operator/odot/agent.py                      — Self-verifying loop with B4 support
+    odot_operator/README.md                          — Dual verification layer documented
+
+  Shavian notation:
+    PR #2530 (googleapis/python-genai) pushed to structural-promotion-O2 at bfa2a49
+    All 6 files migrated to Shavian glyphs per shavian_notation_spec.md v0.6.0
+    odot_operator README updated with LaTeX Shavian tuple
