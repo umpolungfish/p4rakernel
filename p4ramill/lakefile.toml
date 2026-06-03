@@ -100,6 +100,7 @@ globs = [
   "Imscribing.Paraconsistent.ParaconsistentShell",
   "Imscribing.Paraconsistent.Portal",
   "Imscribing.Paraconsistent.Belnap",
+  "Imscribing.Paraconsistent.OrbitalBelnap",
   "Imscribing.Paraconsistent.Kernel",
   "Imscribing.Paraconsistent.SelfVerification",
   "Imscribing.Paraconsistent.ConsciousKernel",
