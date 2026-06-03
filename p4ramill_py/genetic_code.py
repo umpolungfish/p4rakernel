@@ -182,18 +182,18 @@ PROMOTED_AAS: List[str] = [
 # Each promoted AA activates exactly one IG primitive.
 # This is the bijection: 12 promoted AAs ↔ 12 IG primitives.
 IG_PRIMITIVE_OF_AA: Dict[str, str] = {
-    "Met": "Ð (Scope/Dimensionality)",
+    "Met": "Ð (Dimensionality)",
     "Trp": "Þ (Topology)",
-    "Cys": "Ř (Reversibility/Relational mode)",
-    "Tyr": "Φ (Parity/Symmetry)",
-    "Phe": "ƒ (Force/Fidelity)",
+    "Cys": "Ř (Recognition)",
+    "Tyr": "Φ (Parity)",
+    "Phe": "ƒ (Fidelity)",
     "Ile": "Ç (Kinetics)",
-    "His": "Γ (Grammar/Interaction range)",
-    "Asn": "ɢ (Interaction grammar)",
-    "Gln": "φ̂ (Criticality)",
+    "His": "Γ (Granularity)",
+    "Asn": "ɢ (Coupling)",
+    "Gln": "⊙ (Criticality)",
     "Asp": "Ħ (Chirality)",
-    "Lys": "Σ (Entropy/Stoichiometry)",
-    "Glu": "Ω (Winding closure)",
+    "Lys": "Σ (Stoichiometry)",
+    "Glu": "Ω (Winding)",
 }
 
 AA_OF_IG_PRIMITIVE: Dict[str, str] = {
@@ -201,17 +201,17 @@ AA_OF_IG_PRIMITIVE: Dict[str, str] = {
 }
 
 PRIMITIVE_RISK: Dict[str, str] = {
-    "Ð": "critical",   # Scope — translation start; loss = catastrophic
+    "Ð": "critical",   # Dimensionality — translation start; loss = catastrophic
     "Þ": "moderate",   # Topology — indole collapse tolerable
-    "Ř": "high",       # Reversibility — disulfide partner needed
+    "Ř": "high",       # Recognition — disulfide partner needed
     "Φ": "moderate",   # Parity — phosphorylation site loss
-    "ƒ": "low",        # Force — hydrophobic class preserved
+    "ƒ": "low",        # Fidelity — hydrophobic class preserved
     "Ç": "moderate",   # Kinetics — β-branching preservation
-    "Γ": "moderate",   # Grammar — pH-gated catalysis redesign
-    "ɢ": "moderate",   # Interaction — glycosylation loss pathological
-    "φ̂": "high",      # Criticality — metabolic critical point
+    "Γ": "moderate",   # Granularity — pH-gated catalysis redesign
+    "ɢ": "moderate",   # Coupling — glycosylation loss pathological
+    "⊙": "high",       # Criticality — metabolic critical point
     "Ħ": "critical",   # Chirality — chiral specificity lost
-    "Σ": "low",        # Entropy — Lys↔Arg conserved
+    "Σ": "low",        # Stoichiometry — Lys↔Arg conserved
     "Ω": "critical",   # Winding — C-terminal boundary removed
     None: "low",       # Ground layer — no primitive activation
 }
@@ -534,7 +534,7 @@ def run_genetic_verification() -> dict:
     results["primitive_bijection"] = len(IG_PRIMITIVE_OF_AA) == 12
     results["all_primitives_covered"] = (
         set(v.split(" (")[0] for v in IG_PRIMITIVE_OF_AA.values())
-        == {"Ð", "Þ", "Ř", "Φ", "ƒ", "Ç", "Γ", "ɢ", "φ̂", "Ħ", "Σ", "Ω"}
+        == {"Ð", "Þ", "Ř", "Φ", "ƒ", "Ç", "Γ", "ɢ", "⊙", "Ħ", "Σ", "Ω"}
     )
     
     # Overall pass/fail
