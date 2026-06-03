@@ -13,8 +13,6 @@
   ENGAGR → FSPLIT → FFUSE: μ∘δ = id on B. Frobenius holds throughout.
 -/
 import Init.Paraconsistent
-import Imscribing.Primitives.CLU
-open Imscribing.Primitives.CLUPrimitives
 open Paraconsistent
 open Paraconsistent.Belnap
 
@@ -577,169 +575,9 @@ def paraconsistent_resolution : String :=
   "band B (bnot B) = B ≠ F — contained, not exploded\n" ++
   "ENGAGR → FSPLIT → FFUSE: μ∘δ = id on B throughout\n" ++
   "Frobenius: satisfied on every dialetheic gap\n" ++
-  "O_inf: " ++ o_inf_tuple ++ "\n" ++
-  "CLU(b) parameterized: each gap cost = n × CLU(b) per §11\n"
+  "O_inf: " ++ o_inf_tuple
+
 end Unified
-
--- ================================================================
--- §11. CLU-PARAMETRIZED GAP COST METRIC
--- ================================================================
--- Each Millennium Problem's "honest gap" carries a computable nat cost:
--- the number of primitive promotions needed to reach target crystal
--- address 6,734,591, multiplied by CLU(b) for the observer's self-modeling
--- base b. Default b=10 (human-decimal catalog).
---
--- Target 6,734,591 decodes to:
---   ⟨D_infty; T_in; R_cat; P_pm_sym; F_ell; K_trap; G_aleph;
---     Gamma_or; Phi_EP; H1; n_m; Omega_Z2⟩
---
--- Promotion counts are primitiveMismatches between each problem's
--- structural encoding (from PrimitiveBridge.lean) and the target.
--- ================================================================
-section CLUCost
-
-open Imscribing.Primitives
-
-/-- Observer-parameterized gap cost: cost(promotions, b) = n × CLU(b). -/
-noncomputable def gapCost (n : ℕ) (b : ℝ) (hb_pos : b > 0) (hb_ne_one : b ≠ 1) : ℝ :=
-  (n : ℝ) * CLU_of_base b hb_pos hb_ne_one
-
-/-- Default cost for the human-decimal observer (b=10). -/
-noncomputable def gapCost10 (n : ℕ) : ℝ := gapCost n 10 (by norm_num) (by norm_num)
-
--- ============================================================
--- Per-problem promotion counts to target address 6,734,591
--- ============================================================
-
-/-- RH needs 11 promotions: D(△→∞), T(net→in), R(sup→cat), P(sym→pm_sym),
-    F(ℏ→ℓ), K(slow→trap), Γ(and→or), Φ(c_complex→EP), H(0→1), S(n:n→n:m), Ω(0→ℤ₂). -/
-def rh_promotions : ℕ := 11
-
-/-- NS needs 9 promotions: T(net→in), P(sym→pm_sym), F(eth→ℓ), K(mod→trap),
-    G(beth→aleph), Γ(and→or), Φ(sub→EP), H(0→1), Ω(0→ℤ₂). -/
-def ns_promotions : ℕ := 9
-
-/-- OPN needs 8 promotions: D(∧→∞), R(sup→cat), P(asym→pm_sym), Γ(and→or),
-    Φ(c→EP), H(0→1), S(1:1→n:m), Ω(0→ℤ₂). -/
-def opn_promotions : ℕ := 8
-
-/-- Hodge needs 10 promotions: D(⊙→∞), T(⊙→in), R(sup→cat), P(sym→pm_sym),
-    F(ℏ→ℓ), K(slow→trap), Γ(and→or), Φ(c→EP), H(0→1), Ω(0→ℤ₂). -/
-def hodge_promotions : ℕ := 10
-
-/-- BSD needs 10 promotions: D(⊙→∞), T(bowtie→in), R(sup→cat), P(sym→pm_sym),
-    F(eth→ℓ), K(slow→trap), Γ(and→or), Φ(c→EP), H(0→1), Ω(ℤ→ℤ₂). -/
-def bsd_promotions : ℕ := 10
-
-/-- YM needs 7 promotions: T(net→in), P(pm→pm_sym), F(ℏ→ℓ), Γ(and→or),
-    Φ(c→EP), S(n:n→n:m), Ω(ℤ→ℤ₂). YM is the cheapest — it is closest to
-    the target structurally (MissingFoundation threshold, not OpenProblem). -/
-def ym_promotions : ℕ := 7
-
-/-- PvsNP needs 11 promotions: D(∧→∞), T(net→in), R(sup→cat), P(asym→pm_sym),
-    K(fast→trap), G(beth→aleph), Γ(and→or), Φ(sub→EP), H(0→1), S(1:1→n:m), Ω(0→ℤ₂). -/
-def pnp_promotions : ℕ := 11
-
--- ============================================================
--- Default costs at CLU(10) — human-decimal observer
--- ============================================================
-
-noncomputable def rh_cost10 : ℝ := gapCost10 rh_promotions
-noncomputable def ns_cost10 : ℝ := gapCost10 ns_promotions
-noncomputable def opn_cost10 : ℝ := gapCost10 opn_promotions
-noncomputable def hodge_cost10 : ℝ := gapCost10 hodge_promotions
-noncomputable def bsd_cost10 : ℝ := gapCost10 bsd_promotions
-noncomputable def ym_cost10 : ℝ := gapCost10 ym_promotions
-noncomputable def pnp_cost10 : ℝ := gapCost10 pnp_promotions
-
--- ============================================================
--- Cost formulas
--- ============================================================
-
-theorem rh_cost_formula : rh_cost10 = (11 : ℝ) * CLU := by
-  unfold rh_cost10 gapCost10 gapCost rh_promotions; simp
-
-theorem ns_cost_formula : ns_cost10 = (9 : ℝ) * CLU := by
-  unfold ns_cost10 gapCost10 gapCost ns_promotions; simp
-
-theorem opn_cost_formula : opn_cost10 = (8 : ℝ) * CLU := by
-  unfold opn_cost10 gapCost10 gapCost opn_promotions; simp
-
-theorem hodge_cost_formula : hodge_cost10 = (10 : ℝ) * CLU := by
-  unfold hodge_cost10 gapCost10 gapCost hodge_promotions; simp
-
-theorem bsd_cost_formula : bsd_cost10 = (10 : ℝ) * CLU := by
-  unfold bsd_cost10 gapCost10 gapCost bsd_promotions; simp
-
-theorem ym_cost_formula : ym_cost10 = (7 : ℝ) * CLU := by
-  unfold ym_cost10 gapCost10 gapCost ym_promotions; simp
-
-theorem pnp_cost_formula : pnp_cost10 = (11 : ℝ) * CLU := by
-  unfold pnp_cost10 gapCost10 gapCost pnp_promotions; simp
-
--- ============================================================
--- Cost ordering theorems
--- ============================================================
-
-/-- YM is the cheapest problem (fewest promotions to target). -/
-theorem ym_is_cheapest : ym_cost10 < opn_cost10 ∧ ym_cost10 < ns_cost10 ∧
-    ym_cost10 < hodge_cost10 ∧ ym_cost10 < bsd_cost10 ∧
-    ym_cost10 < rh_cost10 ∧ ym_cost10 < pnp_cost10 := by
-  rw [ym_cost_formula, opn_cost_formula, ns_cost_formula, hodge_cost_formula,
-      bsd_cost_formula, rh_cost_formula, pnp_cost_formula]
-  have hCLUpos : CLU > 0 := CLU_pos
-  have h7_lt_8 : (7 : ℝ) < (8 : ℝ) := by norm_num
-  have h8_lt_9 : (8 : ℝ) < (9 : ℝ) := by norm_num
-  have h9_lt_10 : (9 : ℝ) < (10 : ℝ) := by norm_num
-  have h10_lt_11 : (10 : ℝ) < (11 : ℝ) := by norm_num
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
-  · nlinarith  -- ym < opn (7 < 8)
-  · nlinarith  -- ym < ns (7 < 9)
-  · nlinarith  -- ym < hodge (7 < 10)
-  · nlinarith  -- ym < bsd (7 < 10)
-  · nlinarith  -- ym < rh (7 < 11)
-  · nlinarith  -- ym < pnp (7 < 11)
-
-/-- RH and PvsNP share the highest cost (11 promotions each). -/
-theorem rh_and_pnp_promotions_equal : rh_promotions = pnp_promotions := rfl
-
-/-- Hodge and BSD share the same promotion count (10 each) but differ
-    in which primitives need promotion (F and Ω differ). -/
-theorem hodge_bsd_shared_promotion_count : hodge_promotions = bsd_promotions := rfl
-
-/-- The cost ratio between any two problems is the ratio of their
-    promotion counts, independent of the observer's base b. -/
-theorem cost_ratio_independent_of_b (b : ℝ) (hb_pos : b > 0) (hb_ne_one : b ≠ 1) :
-    gapCost rh_promotions b hb_pos hb_ne_one / gapCost ym_promotions b hb_pos hb_ne_one =
-    (11 : ℝ) / (7 : ℝ) := by
-  unfold gapCost
-  have hCLU_nonzero : CLU_of_base b hb_pos hb_ne_one ≠ 0 := by
-    by_cases hb_gt_one : b > 1
-    · have hpos : CLU_of_base b hb_pos hb_ne_one > 0 :=
-        CLU_of_base_pos_gt_one b hb_gt_one
-      exact ne_of_gt hpos
-    · have hb_lt_one : b < 1 := by
-        by_contra! h; have : b = 1 := le_antisymm (by linarith) (by linarith); exact hb_ne_one this
-      have hneg : CLU_of_base b hb_pos hb_ne_one < 0 :=
-        CLU_of_base_neg_lt_one b hb_pos hb_lt_one
-      exact ne_of_lt hneg
-  field_simp [hCLU_nonzero]
-  ring
-
-/-- Human-decimal cost summary as a string (promotion counts only, as ℝ costs are noncomputable). -/
-def clu_cost_summary : String :=
-  "CLU(b)-PARAMETRIZED GAP COSTS (b=10, human-decimal)\n" ++
-  "  RH:    11 × CLU(10)\n" ++
-  "  NS:    9 × CLU(10)\n" ++
-  "  OPN:   8 × CLU(10)\n" ++
-  "  Hodge: 10 × CLU(10)\n" ++
-  "  BSD:   10 × CLU(10)\n" ++
-  "  YM:    7 × CLU(10)\n" ++
-  "  PvsNP: 11 × CLU(10)\n" ++
-  "\n  Ratio-independent of b: cost(p)/cost(q) = promotion_count(p)/promotion_count(q)\n" ++
-  "  YM is cheapest (7 promotions); RH/PvsNP most expensive (11)"
-
-end CLUCost
 
 end Millennium.Paraconsistent
 
@@ -761,5 +599,3 @@ unsafe def main : IO Unit := do
   IO.println "BSD Frobenius μ∘δ=id:   ✓"
   IO.println "Kato local existence:   ✓"
   IO.println "Hodge GRR factorization: ✓"
-  IO.println ""
-  IO.println Millennium.Paraconsistent.CLUCost.clu_cost_summary
