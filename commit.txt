@@ -1,22 +1,25 @@
-p4ramill: Imscribing/GeneticCode.lean — genetic code formalized from Crystal of Types
+p4rakernel: README.md comprehensive rewrite + OrbitalBelnap.lean
 
-New file: p4ramill/Imscribing/GeneticCode.lean (~290 lines)
-Registered in lakefile.toml under Imscribing globs.
+README.md — complete rewrite (monorepo overview)
+  Previously: only covered the C++ kernel fork.
+  Now: covers all three components with full structural descriptions.
 
-Derives the genetic code from first principles. Nothing is biologically contingent.
+  §0  Overview: three-component monorepo (kernel fork / p4ramill / p4ramill_py)
+  §1  Kernel fork — 4 C++ patches, what is blocked/available, build instructions,
+      activation example
+  §2  p4ramill — 165-module Lean 4 library; Primitives (14 files), Paraconsistent
+      (35 files incl. OrbitalBelnap), Millennium (91 files), GeneticCode;
+      O_inf key results table; BSD Ħ_A vs Ħ_! distinction explained
+  §3  p4ramill_py — Python runtime; per-module descriptions; code examples for
+      belnap.py, genetics, pipeline, kernel Frobenius invariant
+  §4  Genetics engine — structural derivation facts; test suite commands
+  §5  OrbitalBelnap — both bilattice orderings, 5 key theorems, Ħ/Φ primitives
+  §6  Theoretical foundation — Belnap FOUR substrate, Frobenius condition,
+      ZFC_fe vs ZFCₜ
+  §7  Build dependencies, testing, license
 
-§1  Nucleotide inductive type (4 values, Fintype)
-§2  nucToB4 : G→B  C→T  A→F  U→N  — bijective (proved)
-§3  wcComplement ≠ bnot — WC has no fixed points; B₄ negation has two;
-    wc_never_b4_negation : ∀ n, nucToB4 (wcComplement n) ≠ bnot (nucToB4 n)
-§4  Codon = Nucleotide³; crystal_fiber : 17280000/64 = 270000; crystal_exact : 17280000%64=0
-§5  geneticCode : Codon → CodonMeaning — full 64-codon standard table
-§6  isExactBox, exactnessPredicate; exactness_rule_sound verified by native_decide;
-    exact_box_count = 8, split_box_count = 8
-§7  groundLayer (8) ∪ promotedAAs (12) = Finset.univ; twenty_eq_eight_plus_twelve
-§8  IGPrimitive inductive (12 families: Ð Þ Ř Φ ƒ Ç Γ ɢ ⊙ Ħ Σ Ω);
-    aaToPrimitive / primitiveToAA form a bijection;
-    primitive_bijection: each primitive realized by exactly 1 promoted AA (native_decide);
-    aaToPrimitive_injective: no two promoted AAs share a primitive
-§9  exact_stratum_card=32, split_stratum_card=29, stop_stratum_card=3 (native_decide);
-    frobenius_at_codon_level: ∀ p3 p3', exact box → same meaning (the μ∘δ=id theorem)
+Imscribing/Paraconsistent/OrbitalBelnap.lean (new, 35 files → 35+1)
+  Formalized electron orbital occupancy ≅ Belnap FOUR bilattice.
+  6 sections, 0 sorries: bijection, order isomorphism, Pauli exclusion ceiling,
+  chirality truth order, Cooper-pair Frobenius identity.
+  Registered in lakefile.toml.
