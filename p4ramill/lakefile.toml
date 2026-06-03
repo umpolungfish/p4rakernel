@@ -30,6 +30,7 @@ globs = [
   "Imscribing.Primitives.Lattice",
   "Imscribing.Primitives.ZFCt",
   "Imscribing.Primitives.ZFCs",
+  "Imscribing.GeneticCode",
   "Imscribing.Consciousness",
   "Imscribing.AgentSelf",
   "Imscribing.Algebra",
