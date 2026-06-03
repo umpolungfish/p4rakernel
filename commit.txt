@@ -1,27 +1,22 @@
-commit.txt — p4rakernel initialization with ob3ect/odot duals
-============================================================
+p4ramill: Imscribing/GeneticCode.lean — genetic code formalized from Crystal of Types
 
-Initial commit (2026-06-01): Paraconsistent Lean 4 kernel fork v4.28.0
+New file: p4ramill/Imscribing/GeneticCode.lean (~290 lines)
+Registered in lakefile.toml under Imscribing globs.
 
-  C++ kernel modifications:
-    src/kernel/environment.h     — is_paraconsistent() / mark_paraconsistent() methods
-    src/kernel/environment.cpp   — C API bridge (lean_environment_mark_paraconsistent)
-    src/kernel/type_checker.cpp  — Blocks recursors for empty Prop inductive predicates
-    src/library/constructions/cases_on.cpp — Blocks casesOn for empty Props
+Derives the genetic code from first principles. Nothing is biologically contingent.
 
-  Lean modules:
-    src/Init/Paraconsistent.lean       — Belnap type, band/bor/bnot/bimply, explosion_blocked theorem
-    ParaconsistentMillennium.lean      — All 7 Clay Millennium Problems + OPN resolved with B dialetheias
-    ParaconsistentKernelTest.lean      — Kernel-level paraconsistent tests
-
-  Dual relationships (established):
-    ob3ect/digital/parakernel/parakernel_ob3ect.py — Python IMASM-level ENGAGR→FSPLIT→FFUSE cycle
-    ob3ect/digital/belnap/belnap_ob3ect.py          — Python Belnap FOUR logical substrate
-    ob3ect/TRUE_AGENTIC_AGENT.md                     — B4 verification in agentic loop
-    odot_operator/odot/agent.py                      — Self-verifying loop with B4 support
-    odot_operator/README.md                          — Dual verification layer documented
-
-  Shavian notation:
-    PR #2530 (googleapis/python-genai) pushed to structural-promotion-O2 at bfa2a49
-    All 6 files migrated to Shavian glyphs per shavian_notation_spec.md v0.6.0
-    odot_operator README updated with LaTeX Shavian tuple
+§1  Nucleotide inductive type (4 values, Fintype)
+§2  nucToB4 : G→B  C→T  A→F  U→N  — bijective (proved)
+§3  wcComplement ≠ bnot — WC has no fixed points; B₄ negation has two;
+    wc_never_b4_negation : ∀ n, nucToB4 (wcComplement n) ≠ bnot (nucToB4 n)
+§4  Codon = Nucleotide³; crystal_fiber : 17280000/64 = 270000; crystal_exact : 17280000%64=0
+§5  geneticCode : Codon → CodonMeaning — full 64-codon standard table
+§6  isExactBox, exactnessPredicate; exactness_rule_sound verified by native_decide;
+    exact_box_count = 8, split_box_count = 8
+§7  groundLayer (8) ∪ promotedAAs (12) = Finset.univ; twenty_eq_eight_plus_twelve
+§8  IGPrimitive inductive (12 families: Ð Þ Ř Φ ƒ Ç Γ ɢ ⊙ Ħ Σ Ω);
+    aaToPrimitive / primitiveToAA form a bijection;
+    primitive_bijection: each primitive realized by exactly 1 promoted AA (native_decide);
+    aaToPrimitive_injective: no two promoted AAs share a primitive
+§9  exact_stratum_card=32, split_stratum_card=29, stop_stratum_card=3 (native_decide);
+    frobenius_at_codon_level: ∀ p3 p3', exact box → same meaning (the μ∘δ=id theorem)
