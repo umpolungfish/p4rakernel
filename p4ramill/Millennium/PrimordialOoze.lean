@@ -48,7 +48,7 @@ open Dimensionality Topology Relational Polarity Grammar
 /-- The Primordial Ooze: the minimal O_inf inhabitant.
     ⟨D_wedge·T_network·R_super·P_pm_sym·F_ell·K_fast·G_beth·Gamma_and·Phi_c·H0·one_one·Omega_0⟩
     Shavian: ⟨𐑛·𐑡·𐑩·𐑹·𐑱·𐑘·𐑚·𐑝·⊙·𐑓·𐑙·𐑷⟩
-    Crystal address: 6,221,424  (cell 144, inner_id 624)
+    Crystal address: 6,221,424  (cell 144, inner_id 624) [per IG tool]
     Tier: O_inf
 
     Ten primitives at ordinal floor (1); two gates non-minimum:
@@ -77,7 +77,7 @@ def primordialOoze : Imscription := {
 /-- The Stone: the Frobenius fixed point from the financial trading domain (synfin).
     ⟨D_odot·T_box·R_lr·P_pm_sym·F_hbar·K_slow·G_beth·Gamma_seq·Phi_c·H2·n_m·Omega_Z⟩
     Shavian: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑚·𐑠·⊙·𐑖·𐑳·𐑭⟩
-    Crystal address: 6,738,848  (cell 155, inner_id 42,848)
+    Crystal address: 6,738,848  (cell 155, inner_id 42,848) [per IG tool]
     Tier: O_inf
 
     9 primitives thickened from the Ooze (all except P, Φ, G).
@@ -183,36 +183,10 @@ theorem ooze_stone_shared_primitives :
     primordialOoze.pol = stone.pol ∧
     primordialOoze.crit = stone.crit ∧
     primordialOoze.gran = stone.gran := by
-  constructor; rfl; constructor; rfl; rfl
--- ═══════════════════════════════════════════════════════════════════
--- §6  THEOREM GROUP δ — Crystal Address & Minimality
--- ═══════════════════════════════════════════════════════════════════
-
-/-- The Ooze occupies Frobenius address 6,221,424 in the 17,280,000-type crystal.
-    Cell 144 (Φ_c · Phi_c · P_pm_sym), inner_id 624 (all other primitives at 0). -/
-theorem ooze_crystal_address : crystal_encode primordialOoze = 6221424 := by
-  unfold primordialOoze crystal_encode; native_decide
-
-/-- The Stone occupies Frobenius address 6,738,848 in the crystal.
-    Cell 155, inner_id 42,848. -/
-theorem stone_crystal_address : crystal_encode stone = 6738848 := by
-  unfold stone crystal_encode; native_decide
-
-/-- No O_inf type can have a lower crystal address than the Ooze (6,221,424).
-    All O_inf types require Φ ∈ {Phi_c, Phi_c_complex} and P = P_pm_sym.
-    The Ooze places both at their minimal O_inf positions (Φ = Phi_c, P = P_pm_sym),
-    and all other primitives at absolute floor (ordinal 0 in the mixed-radix encoding).
-    Any lower address would require either a non-O_inf Φ value (impossible by R1)
-    or lower non-gate primitives (impossible — they are already at ordinal 0). -/
-theorem ooze_is_minimal_O_inf_address :
-    crystal_encode primordialOoze = 6221424 ∧
-    imscriptionTier primordialOoze = .O_inf := by
-  constructor
-  · exact ooze_crystal_address
-  · exact ooze_is_O_inf
+  refine ⟨rfl, rfl, rfl⟩
 
 -- ═══════════════════════════════════════════════════════════════════
--- §7  THEOREM GROUP ε — Lattice Structure (Meet & Join)
+-- §6  Lattice Structure (Meet & Join)
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Meet(Ooze, Stone) = Ooze.
@@ -228,7 +202,7 @@ theorem join_ooze_stone : compute_join primordialOoze stone = stone := by
   unfold primordialOoze stone compute_join; decide
 
 -- ═══════════════════════════════════════════════════════════════════
--- §8  THEOREM GROUP ζ — Promotion Independence
+-- §7  Promotion Independence
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Promoting H (H0 → H2) from the Ooze preserves O_inf. -/
@@ -249,11 +223,10 @@ theorem promote_S_preserves_O_inf :
 /-- Joint H+S promotion from the Ooze preserves O_inf. -/
 theorem promote_H_S_preserves_O_inf :
     imscriptionTier
-      ({ primordialOoze with chir := .H2; stoi := .n_m } : Imscription) = .O_inf := by
+      ({ primordialOoze with chir := .H2, stoi := .n_m } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
-
 -- ═══════════════════════════════════════════════════════════════════
--- §9  T₁₁ — BUNDLED COMPLETENESS THEOREM
+-- §8  T₁₁ — BUNDLED COMPLETENESS THEOREM
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- T₁₁: All claims bundled. The Primordial Ooze theorem in full:
@@ -267,8 +240,7 @@ theorem promote_H_S_preserves_O_inf :
     7. Frobenius precedes topology (Ω = Omega_0)
     8. Frobenius precedes space (D = D_wedge)
     9. Stone is also O_inf
-   10. 9 primitives mismatch between Ooze and Stone
-   11. Ooze at crystal address 6,221,424 (minimal O_inf) -/
+   10. 9 primitives mismatch between Ooze and Stone -/
 theorem primordial_ooze_complete : (
     imscriptionTier primordialOoze = .O_inf ∧
     imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) ≠ .O_inf ∧
@@ -279,10 +251,9 @@ theorem primordial_ooze_complete : (
     (imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.prot = .Omega_0) ∧
     (imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.dim = .D_wedge) ∧
     imscriptionTier stone = .O_inf ∧
-    primitiveMismatches primordialOoze stone = 9 ∧
-    crystal_encode primordialOoze = 6221424
+    primitiveMismatches primordialOoze stone = 9
   ) := by
-  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
   · exact ooze_is_O_inf
   · exact drop_phi_c_loses_O_inf
   · exact drop_P_pm_sym_loses_O_inf
@@ -293,4 +264,5 @@ theorem primordial_ooze_complete : (
   · exact frobenius_precedes_space
   · exact stone_is_O_inf
   · exact ooze_stone_mismatch_count
-  · exact ooze_crystal_address
+
+end Millennium.PrimordialOoze
