@@ -17,6 +17,7 @@
 -- Φ (Parity) enforces the two-electron ceiling.
 
 import Imscribing.Paraconsistent.Belnap
+import Mathlib.Logic.Function.Defs
 
 namespace Imscribing.Paraconsistent.Orbital
 
@@ -45,7 +46,7 @@ def orbToB4 : OrbitalState → Belnap
   | .paired   => .B
 
 theorem orbToB4_injective : Function.Injective orbToB4 := by
-  intro a b h; cases a <;> cases b <;> simp [orbToB4] at h
+  intro a b h; cases a <;> cases b <;> simp [orbToB4] at h ⊢
 
 theorem orbToB4_surjective : Function.Surjective orbToB4 := by
   intro b; cases b
