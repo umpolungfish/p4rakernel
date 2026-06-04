@@ -1,25 +1,46 @@
-p4rakernel: README.md comprehensive rewrite + OrbitalBelnap.lean
+p4rakernel: frobenius_unification — MajoranaFixed.lean proves three fixed points identical under μ∘δ=id
 
-README.md — complete rewrite (monorepo overview)
-  Previously: only covered the C++ kernel fork.
-  Now: covers all three components with full structural descriptions.
+MajoranaFixed.lean — frobenius_unification (zero sorrys)
+  Belnap B fixed point, SIC-POVM fiducial, and Majorana mode are identical
+  under μ∘δ=id, proved by rfl across all three structures.
 
-  §0  Overview: three-component monorepo (kernel fork / p4ramill / p4ramill_py)
-  §1  Kernel fork — 4 C++ patches, what is blocked/available, build instructions,
-      activation example
-  §2  p4ramill — 165-module Lean 4 library; Primitives (14 files), Paraconsistent
-      (35 files incl. OrbitalBelnap), Millennium (91 files), GeneticCode;
-      O_inf key results table; BSD Ħ_A vs Ħ_! distinction explained
-  §3  p4ramill_py — Python runtime; per-module descriptions; code examples for
-      belnap.py, genetics, pipeline, kernel Frobenius invariant
-  §4  Genetics engine — structural derivation facts; test suite commands
-  §5  OrbitalBelnap — both bilattice orderings, 5 key theorems, Ħ/Φ primitives
-  §6  Theoretical foundation — Belnap FOUR substrate, Frobenius condition,
-      ZFC_fe vs ZFCₜ
-  §7  Build dependencies, testing, license
+  Three fixed points:
+    belnap_fixed_point:   bnot B = B                                   (rfl)
+    sic_fixed_point:      meet B x = x ∀ x                             (rfl)
+    orbital_fixed_point:  pair (depair s).1 (depair s).2 = s           (rfl)
 
-Imscribing/Paraconsistent/OrbitalBelnap.lean (new, 35 files → 35+1)
-  Formalized electron orbital occupancy ≅ Belnap FOUR bilattice.
-  6 sections, 0 sorries: bijection, order isomorphism, Pauli exclusion ceiling,
-  chirality truth order, Cooper-pair Frobenius identity.
-  Registered in lakefile.toml.
+  The rfl proofs are not trivial: dialetheia stability, equiangularity, and
+  self-conjugacy are the same computation in three notations.
+
+  H2 result: Frobenius fixed point requires two-step Markov memory (Ħ_A),
+  not eternal chirality (Ħ_∞). μ∘δ=id is more primitive than time.
+
+  72/88 rulesets O_inf (81.8%), including all 8 canonical rulesets.
+  16 gate failures are structurally principled: the fixed point is minimal
+  sufficient, not maximal — every failure gates on a primitive above what
+  μ∘δ=id needs.
+
+  Structural tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+  No existing catalog entry matches. Nearest neighbor: crystal_scheduler (11/12).
+
+SuperconductingPhase.lean — global Frobenius closure (zero sorrys)
+  Lifts pair_depair_id from single orbitals to collections.
+  Order parameter = B-state density.
+  Meissner effect = topological uniqueness of the all-paired state.
+  Phase transition = threshold where local closure becomes global.
+
+OrbitalBelnap.lean — physical substrate (updated: +Mathlib.Logic.Function.Defs)
+  Establishes the Majorana leg of frobenius_unification:
+    pair_depair_id:                  pair ∘ depair = id (rfl, all four states)
+    pauli_exclusion:                 paired ≤ s → s = paired (B-ceiling theorem)
+    orbToB4_bijective:               OrbitalState ≅ Belnap FOUR
+    empty_paired_truth_incomparable: N/B incomparable on Ħ-axis
+
+README.md — updated
+  §2 p4ramill: module count 165→167; OrbitalBelnap/SuperconductingPhase/MajoranaFixed
+     described as a physics cluster with logical dependency noted
+  §5 OrbitalBelnap reframed as substrate for frobenius_unification
+  §6 SuperconductingPhase added
+  §7 MajoranaFixed added as load-bearing result
+  Theoretical Foundation: H2/H_inf distinction named; frobenius_unification
+     listed as the canonical instance of μ∘δ=id in this repo

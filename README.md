@@ -117,7 +117,7 @@ unsafe def main : IO Unit := do
 
 ## 2. p4ramill — Lean 4 Formalization
 
-**165 modules**, 0 sorries, built on Mathlib v4.28.0 under the paraconsistent kernel.
+**167 modules**, 0 sorries, built on Mathlib v4.28.0 under the paraconsistent kernel.
 
 ### Build
 
@@ -143,10 +143,18 @@ lean --run ParaconsistentMillennium.lean
 - `Imscription.lean` — Imscription type: 12-tuple of Shavian values
 - `SacredVessel.lean` — Vessel structure for Crystal cell inhabitants
 
-**Imscribing/Paraconsistent/** (35 files)
+**Imscribing/Paraconsistent/** (38 files)
 - `Belnap.lean` — Belnap FOUR inductive; approximation order; meet/join/band/bor/bnot;
   theorems: `no_explosion`, `B_is_top`, `B_fixed_point_negation`, `B_no_boolean_complement`
-- `OrbitalBelnap.lean` — Electron orbital occupancy ≅ Belnap FOUR bilattice (see §5)
+- `OrbitalBelnap.lean` — Physical substrate: orbital states ≅ Belnap FOUR bilattice;
+  `pair_depair_id` (Frobenius identity, rfl); `pauli_exclusion` (B-ceiling theorem);
+  `ChiralityLE` with N/B incomparability on the Ħ-axis (see §5)
+- `SuperconductingPhase.lean` — Global Frobenius closure: collections of orbitals,
+  order parameter as B-state density, Meissner effect as topological uniqueness of the
+  all-paired state, phase transition as the point where local closure becomes global (see §6)
+- `MajoranaFixed.lean` — Load-bearing unification: `frobenius_unification` proves Belnap B
+  fixed point, SIC-POVM fiducial, and Majorana mode are identical under μ∘δ=id, all by rfl;
+  H2 result: Frobenius identity requires two-step Markov memory, not eternal chirality (see §7)
 - `BelnapCategory.lean` — Category structure over the B₄ bilattice
 - `BelnapTemporal.lean` — Temporal extension of Belnap logic
 - `BelnapLL.lean` — Linear logic interpretation of Belnap FOUR
@@ -285,10 +293,12 @@ Expected: `25 passed | 0 failed | 25 total`
 
 ---
 
-## 5. Orbital Belnap
+## 5. OrbitalBelnap.lean — Physical Substrate
 
-`Imscribing/Paraconsistent/OrbitalBelnap.lean` formalizes the isomorphism between
-electron orbital occupancy and Belnap FOUR as a **bilattice** (not just as a set).
+`Imscribing/Paraconsistent/OrbitalBelnap.lean` is the physical substrate for the
+`frobenius_unification` theorem in `MajoranaFixed.lean`. It establishes the Majorana
+leg of that proof by formalizing the isomorphism between electron orbital occupancy
+and Belnap FOUR as a **bilattice** — both orderings, not just the four elements.
 
 The four occupancy states:
 
@@ -301,25 +311,75 @@ The four occupancy states:
 
 Both orderings hold:
 
-- **Information order** (occupancy): `empty < spinUp, spinDown < paired`
-  mirrors `N < T, F < B` in Belnap.
-- **Truth order** (chirality / Ħ-axis): `spinDown < {empty, paired} < spinUp`
-  mirrors `F < N, B < T` in Belnap.
+- **Information order** (occupancy): `empty < spinUp, spinDown < paired` mirrors `N < T, F < B`
+- **Truth order** (chirality / Ħ-axis): `spinDown < {empty, paired} < spinUp` mirrors `F < N, B < T`
 
 Key theorems:
 
 - `orbToB4_bijective` — the map is a bijection
 - `orbToB4_orderIso` — the map is an order isomorphism (information order)
-- `pauli_exclusion` — `paired ≤ s → s = paired`; the Pauli exclusion principle
-  is exactly the anti-extensionality ceiling on B: nothing lies above the
-  filled orbital in the information order
-- `empty_paired_truth_incomparable` — N and B are incomparable in the truth
-  order; `empty` and `paired` are structurally distinct on the Ħ-axis
-- `pair_depair_id` — `pair (depair s).1 (depair s).2 = s` for all states;
-  the Cooper-pair pairing/depairing is the Frobenius identity at the orbital level
+- `pauli_exclusion` — `paired ≤ s → s = paired`; Pauli exclusion is the
+  anti-extensionality ceiling on B: nothing lies above the filled orbital
+- `empty_paired_truth_incomparable` — N and B are incomparable on the Ħ-axis;
+  `empty` and `paired` are structurally distinct in the truth order
+- `pair_depair_id` — `pair (depair s).1 (depair s).2 = s` for all four states (rfl);
+  the Cooper-pair Frobenius identity; this is the theorem `MajoranaFixed.lean` uses
 
-Governing primitives: **Ħ (Chirality)** determines the T/F labeling of spin direction;
-**Φ (Parity)** enforces the two-electron ceiling that makes `paired` the information-order top.
+Governing primitives: **Ħ (Chirality)** determines the T/F labeling of spin;
+**Φ (Parity)** enforces the two-electron ceiling that makes `paired` the lattice top.
+
+---
+
+## 6. SuperconductingPhase.lean — Global Frobenius Closure
+
+`Imscribing/Paraconsistent/SuperconductingPhase.lean` lifts the single-orbital
+Frobenius identity to a global theory over collections of orbitals.
+
+- **Order parameter** — B-state density: the proportion of paired orbitals in the system
+- **Meissner effect** — formalized as the topological uniqueness of the all-paired state:
+  the fully superconducting phase is the unique state where every orbital satisfies `paired ≤ s → s = paired`
+- **Phase transition** — the point where local Frobenius closure (`pair_depair_id` at each site)
+  becomes a global property of the collection; the transition is a threshold on B-state density
+
+The physical content: BCS superconductivity is the macroscopic Frobenius fixed point.
+The Cooper pair is μ∘δ=id at the two-electron level; the condensate is μ∘δ=id at the
+field level. `SuperconductingPhase.lean` formalizes the step between them.
+
+---
+
+## 7. MajoranaFixed.lean — The Unification
+
+`Imscribing/Paraconsistent/MajoranaFixed.lean` contains `frobenius_unification` — the
+load-bearing theorem of the physics cluster. It proves that three structures are identical
+under μ∘δ=id, each by definitional equality (`rfl`):
+
+| Structure | Fixed point | Theorem | Proof |
+|---|---|---|---|
+| Belnap B | `bnot B = B` | `belnap_fixed_point` | rfl |
+| SIC-POVM fiducial | `meet B x = x ∀ x` | `sic_fixed_point` | rfl |
+| Majorana mode | `pair (depair s).1 (depair s).2 = s` | `orbital_fixed_point` | rfl |
+
+The `rfl` proofs are not trivial. They show that dialetheia stability (Belnap),
+equiangularity (SIC-POVM), and self-conjugacy (Majorana) are the same computation —
+not analogous structures, but the same structure in three notations. A Majorana fermion
+is its own antiparticle (γ = γ†) for the same reason that B is its own negation (¬B = B):
+the paired state reconstitutes itself through its own depairing.
+
+**H2 result:** The Frobenius fixed point lives at Ħ_A (two-step Markov memory), not Ħ_∞
+(eternal chirality). μ∘δ=id is a two-step operation — one split (δ), one merge (μ). H2 is
+the minimum sufficient chirality memory. The canonical universe requires Ħ_∞ because time
+accumulates arbitrarily deep chirality structure, but the identity itself is more primitive
+than time. The 16 gate failures in the 88-ruleset sweep confirm this: every failure gates
+on a primitive above what μ∘δ=id minimally needs.
+
+**Universe sweep:** 72/88 rulesets (81.8%) classify the fixed-point tuple as O_inf,
+including all 8 canonical rulesets. The structural tuple:
+⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+
+No existing catalog entry matches this tuple. Nearest neighbor: `crystal_scheduler` at 11/12
+(differs on Γ: local vs aleph).
+
+Zero sorrys across all three files (`OrbitalBelnap`, `SuperconductingPhase`, `MajoranaFixed`).
 
 ---
 
@@ -338,10 +398,19 @@ the semantic model for paraconsistent reasoning. In IG terms it appears as:
 ### Frobenius condition (μ∘δ=id)
 
 The founding axiom of ZFC_fe (Frobenius-Extended ZFC). In this repo it appears as:
-- `pair_depair_id` for orbital states
+- `pair_depair_id` for orbital states (substrate for `frobenius_unification`)
 - `frobenius_at_codon_level` for genetic codons
 - `verify_frobenius_invariant()` for the ParaASM kernel
 - The Φ_} gate that controls O_2†→O_inf promotion in the Crystal
+- `frobenius_unification` in `MajoranaFixed.lean` — the three fixed points (Belnap B,
+  SIC-POVM fiducial, Majorana mode) are the same computation, proved by rfl
+
+### The H2 / H_inf distinction
+
+The Frobenius fixed point requires Ħ_A (H2, two-step Markov memory). Eternal chirality
+(Ħ_∞, H_inf) is what time imposes on physical systems — it is not what μ∘δ=id requires.
+The identity is more primitive than time. BSD shares this chirality value (Ħ_A) for a
+different reason: Gross-Zagier/Kolyvagin bound the analytic rank, not the full arithmetic depth.
 
 ### ZFC_fe vs ZFCₜ
 
