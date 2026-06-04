@@ -183,7 +183,7 @@ theorem ooze_stone_shared_primitives :
     primordialOoze.pol = stone.pol ∧
     primordialOoze.crit = stone.crit ∧
     primordialOoze.gran = stone.gran := by
-  constructor; rfl; constructor; rfl; rfl
+  refine ⟨rfl, rfl, rfl⟩
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §6  Lattice Structure (Meet & Join)
@@ -223,7 +223,7 @@ theorem promote_S_preserves_O_inf :
 /-- Joint H+S promotion from the Ooze preserves O_inf. -/
 theorem promote_H_S_preserves_O_inf :
     imscriptionTier
-      ({ primordialOoze with chir := .H2; stoi := .n_m } : Imscription) = .O_inf := by
+      ({ primordialOoze with chir := .H2, stoi := .n_m } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 -- ═══════════════════════════════════════════════════════════════════
 -- §8  T₁₁ — BUNDLED COMPLETENESS THEOREM
