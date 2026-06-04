@@ -47,7 +47,12 @@ def nucToB4 : Nucleotide → Belnap
   | .U => .N
 
 theorem nucToB4_injective : Function.Injective nucToB4 := by
-  intro a b h; cases a <;> cases b <;> simp [nucToB4] at h
+  intro a b h
+  cases a with
+  | U => cases b <;> simp [nucToB4] at h <;> rfl
+  | C => cases b <;> simp [nucToB4] at h <;> rfl
+  | A => cases b <;> simp [nucToB4] at h <;> rfl
+  | G => cases b <;> simp [nucToB4] at h <;> rfl
 
 theorem nucToB4_surjective : Function.Surjective nucToB4 := by
   intro b; cases b
@@ -289,8 +294,7 @@ theorem primitive_section (p : IGPrimitive) :
 
 /-- aaToPrimitive is a section of primitiveToAA on every promoted AA. -/
 theorem aa_section (a : AminoAcid) (h : a ∈ promotedAAs) :
-    primitiveToAA (aaToPrimitive a).get (by
-      fin_cases a <;> simp_all [promotedAAs, aaToPrimitive]) = a := by
+    ∃ (p : IGPrimitive), aaToPrimitive a = some p ∧ primitiveToAA p = a := by
   fin_cases a <;> simp_all [promotedAAs, aaToPrimitive, primitiveToAA]
 
 /-- Every IGPrimitive appears exactly once among the promoted AAs. -/
