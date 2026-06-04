@@ -33,6 +33,7 @@ from .genetics_b4 import (
 )
 from .genetic_code import (
     STANDARD_CODE, CODON_CATALOG, SYMBOL_TO_AA, AA_TO_SYMBOLS,
+    get_code_table,
     GROUND_LAYER_AAS, PROMOTED_AAS, IG_PRIMITIVE_OF_AA, AA_OF_IG_PRIMITIVE,
     verify_all_codons_frobenius, verify_frobenius_on_codon,
 )
@@ -62,15 +63,15 @@ STAGE_TUPLES = {
         "G": "beth", "Gm": "seq", "Phi": "sub", "H": "two", "S": "hetero", "O": "zero"
     },
     "secondary_structure": {
-        "D": "tri", "T": "odot", "R": "dagger", "P": "pm", "F": "ell", "K": "mod",
+        "D": "odot", "T": "odot", "R": "dagger", "P": "pm", "F": "ell", "K": "mod",
         "G": "beth", "Gm": "seq", "Phi": "sub", "H": "two", "S": "many", "O": "zero"
     },
     "tertiary_structure": {
-        "D": "tri", "T": "odot", "R": "lr", "P": "asym", "F": "ell", "K": "slow",
+        "D": "odot", "T": "odot", "R": "lr", "P": "asym", "F": "ell", "K": "slow",
         "G": "aleph", "Gm": "and", "Phi": "sub", "H": "two", "S": "one", "O": "zero"
     },
     "quaternary_structure": {
-        "D": "tri", "T": "odot", "R": "lr", "P": "pm", "F": "ell", "K": "slow",
+        "D": "odot", "T": "odot", "R": "lr", "P": "pm", "F": "ell", "K": "slow",
         "G": "beth", "Gm": "and", "Phi": "sub", "H": "one", "S": "hetero", "O": "Z"
     }
 }
@@ -206,9 +207,34 @@ class GeneToProteinPipeline:
     tracking B4 beliefs, IG primitive activations, and Frobenius closure.
     """
 
-    def __init__(self, dna_sequence: str, name: str = "unnamed_gene"):
-        self.dna_sequence = dna_sequence.upper().replace("T", "U")
+    def __init__(self, sequence: str, name: str = "unnamed_gene", is_rna: bool = False,
+                 genetic_code: str = "standard"):
+        """
+        Initialize the pipeline with a nucleic acid sequence.
+        
+        Args:
+            sequence: DNA (coding strand) or RNA sequence
+            name: Name for the gene/protein
+            is_rna: True if sequence is RNA (A,U,G,C), False if DNA (A,T,G,C)
+            genetic_code: Genetic code table to use ("standard" or "mitochondrial")
+        """
+        """
+        Initialize the pipeline with a nucleic acid sequence.
+        
+        Args:
+            sequence: DNA (coding strand) or RNA sequence
+            name: Name for the gene/protein
+            is_rna: True if sequence is RNA (A,U,G,C), False if DNA (A,T,G,C)
+        """
+        if is_rna:
+            self.dna_sequence = sequence.upper()
+        else:
+            self.dna_sequence = sequence.upper().replace("T", "U")
         self.name = name
+        self.genetic_code_name = genetic_code
+        self.code_table = get_code_table(genetic_code)
+        # Map codon->AA including mitochondrial reassignments
+        self.symbol_to_aa = self.code_table
         self.verbose = True
         self.stages: List[StructuralState] = []
         self.nucleotide_sites: List[NucleotideSite] = []
@@ -267,34 +293,81 @@ class GeneToProteinPipeline:
     # ------- Stage 2: Splicing -------
     
     def stage_splicing(self) -> StructuralState:
-        """pre-mRNA to mature mRNA (find ORF)."""
+        """pre-mRNA to mature mRNA (find ORF using frame-aware detection).
+        
+        Searches all 3 reading frames for the longest open reading frame
+        starting with a valid start codon (AUG for standard code; AUG or
+        AUA for mitochondrial code where AUA codes for Met).
+        """
         mrna_seq = self.dna_sequence
-        orf_start = mrna_seq.find("AUG")
-        if orf_start == -1:
-            orf_start = 0
-        cds = mrna_seq[orf_start:]
+        
+        # Determine valid start codons based on genetic code
+        valid_starts = {"AUG"}
+        if self.genetic_code_name in ("mitochondrial", "mito", "vertebrate_mitochondrial"):
+            valid_starts.add("AUA")  # AUA → Met in mitochondrial code
+        
+        # Scan all 3 reading frames for the best ORF
+        best_orf = None  # (frame, start_pos, stop_pos, length_in_aas)
+        
+        for frame in range(3):
+            seq = mrna_seq[frame:]
+            # Find first valid start codon in this frame
+            for i in range(0, len(seq) - 2, 3):
+                codon = seq[i:i+3]
+                if codon in valid_starts:
+                    # Translate from here until stop
+                    aa_count = 0
+                    for j in range(i, len(seq) - 2, 3):
+                        c = seq[j:j+3]
+                        aa = self.symbol_to_aa.get(c, "?")
+                        if aa == "Stop":
+                            break
+                        aa_count += 1
+                    if aa_count > (best_orf[3] if best_orf else 0):
+                        best_orf = (frame, frame + i, frame + i + aa_count * 3, aa_count)
+                    break  # Only consider first start per frame
+        
+        # Fallback: if no ORF found, start from position 0 in frame 0
+        if best_orf is None or best_orf[3] < 3:
+            frame = 0
+            start_pos = 0
+            # Translate from start until stop
+            aas = []
+            for i in range(0, len(mrna_seq) - 2, 3):
+                codon = mrna_seq[i:i+3]
+                aa = self.symbol_to_aa.get(codon, "?")
+                if aa == "Stop":
+                    break
+                aas.append(codon)
+            best_orf = (0, 0, len(aas) * 3, len(aas))
+        
+        frame, start_pos, end_pos, _ = best_orf
+        cds = mrna_seq[start_pos:]
+        
+        # Build codon sites from the chosen ORF
         cds_codons = []
         for i in range(0, len(cds) - 2, 3):
             codon = cds[i:i+3]
             if len(codon) < 3:
                 break
-            cds_codons.append(codon)
-            aa = SYMBOL_TO_AA.get(codon, "?")
+            aa = self.symbol_to_aa.get(codon, "?")
             if aa == "Stop":
                 break
+            cds_codons.append(codon)
+        
         codon_sites = []
         for i, codon_str in enumerate(cds_codons):
             bc = BelnapCodon.from_symbol(codon_str)
-            aa = SYMBOL_TO_AA.get(codon_str, "?")
+            aa = self.symbol_to_aa.get(codon_str, "?")
             is_stop = (aa == "Stop")
-            is_start = (codon_str == "AUG")
+            is_start = (codon_str in valid_starts)
             frob_result = verify_frobenius_on_codon(bc)
             prim_activated = None
             if aa in PROMOTED_AAS:
                 prim_activated = IG_PRIMITIVE_OF_AA.get(aa, None)
             site = CodonSite(
                 symbol=codon_str, belnap_codon=bc,
-                position=i, amino_acid=aa,
+                position=start_pos // 3 + i, amino_acid=aa,
                 is_start=is_start, is_stop=is_stop,
                 stratum=bc.stratum,
                 frobenius_holds=frob_result["frobenius_holds"],
@@ -303,17 +376,19 @@ class GeneToProteinPipeline:
             )
             codon_sites.append(site)
         self.codon_sites = codon_sites
+        
         if codon_sites:
             codon_b4s = [c.belnap_codon.p1 for c in codon_sites]
             agg_b4 = self._aggregate_b4(codon_b4s)
         else:
             agg_b4 = Belnap.N
+        
         state = StructuralState(
             stage_name="mature_mrna", stage_index=2,
             structural_tuple=dict(STAGE_TUPLES["mature_mrna"]),
             b4_state=agg_b4,
             frobenius_verified=all(c.frobenius_holds for c in codon_sites if c.stratum == "exact") if codon_sites else False,
-            description=f"Mature mRNA: {len(codon_sites)} codons"
+            description=f"Mature mRNA: {len(codon_sites)} codons | Frame {frame} | Start@{start_pos}"
         )
         self.stages.append(state)
         self.b4_trace.append(("mature_mrna", agg_b4))
@@ -839,6 +914,46 @@ class GeneToProteinPipeline:
         return self._build_report(actual_units)
 
 
+    def _compute_closure_distance(self) -> float:
+        """
+        Compute DNA<->Quaternary structural distance from actual stage tuples.
+        
+        Uses the weighted Euclidean distance formula matching genetic_tuples.py.
+        The closure theorem states DNA and Quaternary are structural nearest-neighbors
+        (distance < distance to any intermediate stage).
+        """
+        if len(self.stages) < 7:
+            return 0.0
+        dna_tup = self.stages[0].structural_tuple
+        quat_tup = self.stages[-1].structural_tuple
+        
+        # Ordinal mapping (pipeline string names -> ordinals)
+        ordinals = {
+            "D": {"wedge": 0, "tri": 1, "infty": 2, "odot": 3},
+            "T": {"network": 0, "in": 1, "bowtie": 2, "boxtimes": 3, "odot": 4},
+            "R": {"super": 0, "cat": 1, "dagger": 2, "lr": 3},
+            "P": {"asym": 0, "psi": 1, "pm": 2, "sym": 3, "pm_sym": 4},
+            "F": {"ell": 0, "eth": 1, "hbar": 2},
+            "K": {"fast": 0, "mod": 1, "slow": 2, "trap": 3, "MBL": 4},
+            "G": {"beth": 0, "gimel": 1, "aleph": 2},
+            "Gm": {"and": 0, "or": 1, "seq": 2, "broad": 3},
+            "Phi": {"sub": 0, "c": 1, "c_complex": 2, "EP": 3, "super": 4},
+            "H": {"0": 0, "1": 1, "2": 2, "inf": 3},
+            "S": {"one": 0, "many": 1, "hetero": 2},
+            "O": {"0": 0, "Z2": 1, "Z": 2, "NA": 3},
+        }
+        
+        squared_sum = 0.0
+        for prim in ordinals:
+            v1 = dna_tup.get(prim, '')
+            v2 = quat_tup.get(prim, '')
+            if v1 in ordinals[prim] and v2 in ordinals[prim]:
+                diff = ordinals[prim][v1] - ordinals[prim][v2]
+                squared_sum += diff * diff
+        
+        return round(squared_sum ** 0.5, 2)
+
+
     def _build_report(self, num_subunits: int):
         """Build comprehensive pipeline report with auto-detection evidence."""
         dna_seq = self.dna_sequence
@@ -908,7 +1023,7 @@ class GeneToProteinPipeline:
             "tertiary": tertiary_summary,
             "quaternary": quat_summary,
             "closure": {
-                "dna_to_quaternary_distance": 4.0,
+                "dna_to_quaternary_distance": self._compute_closure_distance(),
                 "frobenius_across_pathway": all(s.frobenius_verified for s in self.stages),
                 "consciousness_invariant": 0.5
             }
@@ -926,6 +1041,8 @@ def main():
     parser.add_argument("--name", "-n", default="gene", help="Name for the gene/protein")
     parser.add_argument("--subunits", "-s", type=int, default=0,
                         help="Number of quaternary subunits (0=auto-detect, default)")
+    parser.add_argument("--rna", action="store_true",
+                        help="Input is RNA (A,U,G,C) not DNA")
     parser.add_argument("--output", "-o", help="Output JSON file")
     parser.add_argument("--test", "-t", action="store_true", help="Run with test sequence")
     args = parser.parse_args()
@@ -947,7 +1064,7 @@ def main():
         if sym not in valid:
             print(f"ERROR: Invalid nucleotide '{sym}'")
             sys.exit(1)
-    pipeline = GeneToProteinPipeline(sequence, name=args.name)
+    pipeline = GeneToProteinPipeline(sequence, name=args.name, is_rna=args.rna)
     report = pipeline.run(num_subunits=args.subunits)
     if args.output:
         with open(args.output, "w") as f:
