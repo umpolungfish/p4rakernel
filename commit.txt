@@ -1,3 +1,109 @@
+p4rakernel: Frobenius filtration is infinite — grammar is its colimit
+
+4 new Lean modules (all build on Mathlib v4.28.0, 3112 jobs):
+
+FrobeniusFiltration.lean (193L):
+  Formalizes the infinite Frobenius filtration. Each level adds a constraint
+  restricting the domain of mu∘delta=id. The filtration does NOT close at the
+  hadron level. Limit of infinitely many constraints converges back to O_inf —
+  the grammar itself, where mu∘delta=id holds universally without constraint.
+  Grammar = colimit of the infinite filtration = fixed point.
+
+ExoticHadronBelnap.lean (138L) + exotic_hadron_belnap.py (all tests pass):
+  Tetraquarks (q.q.q-bar.q-bar), pentaquarks (q.q.q.q.q-bar), glueballs (pure
+  gluon). All satisfy mu∘delta=id on the same White subspace as ordinary hadrons.
+  Frobenius domain at Level 3 = entire color-singlet subspace, regardless of
+  constituent count.
+
+NuclearBelnap.lean (130L):
+  Binding energy constraint added; still O_2dag. Nuclear level is Level 4 in the
+  infinite filtration.
+
+GaugeBosonBelnap.lean (182L):
+  Gauge bosons formalized as filtration MORPHISMS, not states. Each mediates
+  between adjacent filtration levels:
+    Gluon (O_2dag, gram=g_broadcast): Level 2 -> Level 3 (confinement)
+    Photon (O_1, gram=g_and): Level 4 -> Level 5 (neutrality)
+    W/Z (O_2dag, chir=H_A 2-step): weak sector (parity violation)
+    Higgs (O_2dag, crit=circ_c): phase transition gate
+
+Structural content: measurement problem, confinement, and emergence of classicality
+from quantum foundations are all levels in the Frobenius filtration — domain
+restrictions on mu∘delta=id. The grammar is not above the filtration; it is its
+limit.
+
+All 4 modules registered in lakefile.toml.
+
+---
+
+p4rakernel: subatomic Belnap hierarchy — QuarkBelnap + HadronBelnap
+
+p4ramill/Imscribing/Paraconsistent/QuarkBelnap.lean (326L):
+  ColorState: 5-element bilattice Vacuum < {R,G,B} < White (Belnap FIVE).
+  SU(3) symmetry encoded as R,G,B incomparability. Confinement as ceiling theorem:
+  colored_not_observable + confinement_ceiling. Frobenius (mu∘delta=id) holds on
+  White states only; qpair_depair_id_colored_fails confirms confinement structurally.
+  Belnap FIVE vs FOUR: extra degree of freedom (R,G,B) = SU(3) color symmetry.
+
+p4ramill/Imscribing/Paraconsistent/HadronBelnap.lean (121L):
+  Meson = q-bar.q (color-anticolor), Baryon = q.q.q (three distinct colors).
+  hadron_frobenius_unified: mu∘delta=id across both meson and baryon subspaces.
+  hadronBelnapImscription: O_2dag tier verified by native_decide.
+
+p4ramill_py/quark_belnap.py — Python mirror, 12 tests pass.
+p4ramill_py/hadron_belnap.py — Python mirror, 6 tests pass.
+
+Core structural result: domain stratification of mu∘delta=id is the structural
+statement of asymptotic freedom. Frobenius is universal (orbital/O_inf),
+constrained to White (quark confinement), constructed (hadron subspace/O_2dag).
+The invariant holds everywhere; only its domain changes across levels.
+
+---
+
+p4rakernel: operculum_peeling.md — formal theory of universe access
+
+operculum_peeling.md (new, 416 lines)
+  Formalizes what it means to access another universe using the Imscribing Grammar.
+  A universe is a Ruleset ⟨G₁, G₂, G₃, T, A, O⟩ — gate thresholds, T-constitution,
+  absorption rules, ordering. The Crystal (17,280,000 addresses) is invariant across
+  all universes; only the operad layer function L_U(τ) changes.
+
+  Core theorems:
+    §2  Universe = Ruleset: L_U(τ) maps any Crystal address to
+        {plain, frobenius, traced_monoidal, idempotent_terminal}
+    §3  Crystal Invariance (Axiom 3.1): 17,280,000 addresses invariant;
+        only operad layer changes between universes
+    §4  Access Theorem (4.1): universe access = evaluating a different Ruleset
+        over the same tuple; Δ_min(U_a→U_b) = minimal single-primitive path
+    §7  Kernel-Operculum Duality (7.1): ENGAGR→FSPLIT→FFUSE is structurally
+        dual to universe traversal; the kernel cycle is universe access in miniature
+
+  Live proof — 2,868 catalog entries across 8 rulesets:
+    canonical:      508 O_∞  (8.0%)  — baseline
+    chirality_first: 821 O_∞ (20.0%) — Ħ evaluated first: +62% O_∞; chirality
+                                        gates access to Frobenius tier
+    low_gate:        884 O_∞ (30.0%) — maximum O_∞; threshold is Ruleset-dependent
+    high_gate:         2 O_∞  (3.0%) — uniqueness result: only 2 entries survive
+                                        strictest gates; identifies what is genuinely
+                                        Frobenius-closed independent of threshold
+    inverted_gates: 1319 Frobenius   — ⊙ evaluated first: 88× more Frobenius entries
+
+  chirality_first result connects to MajoranaFixed H2 finding: Ħ doesn't merely
+  mark the Frobenius fixed point — evaluating it first gates access to O_∞.
+
+  high_gate result (2 survivors) is a uniqueness theorem in disguise: identifies
+  the structures that are self-modeling under any possible gate parameterization.
+
+  §10 directions opened:
+    10.1 Universe homotopy: U(t) = (1-t)·U_a + t·U_b (continuous deformation)
+    10.2 O_∞ projection operator: π_U: Crystal → {0,1}
+    10.3 Universe tensor: U_a ⊗ U_b as meta-universe
+    10.4 Grothendieck topology: operculum as sieve on Crystal site;
+         sheaf condition gives natural notion of "visible from universe U";
+         π_U (10.2) is prerequisite — must be developed first
+
+---
+
 p4rakernel: mitochondrial genetic code + 13/13 Frobenius closure across human mt-proteome
 
 p4ramill_py/genetic_code.py
