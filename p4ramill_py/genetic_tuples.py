@@ -281,17 +281,17 @@ DEFAULT_TUPLES: Dict[str, Dict[str, str]] = {
         "H": "2", "S": "hetero", "O": "0",
     },
     "secondary_structure": {
-        "D": "tri", "T": "odot", "R": "dagger", "P": "pm", "F": "ell",
+        "D": "odot", "T": "odot", "R": "dagger", "P": "pm", "F": "ell",
         "K": "mod", "G": "beth", "Gm": "seq", "Phi": "sub",
         "H": "2", "S": "many", "O": "0",
     },
     "tertiary_structure": {
-        "D": "tri", "T": "odot", "R": "lr", "P": "asym", "F": "ell",
+        "D": "odot", "T": "odot", "R": "lr", "P": "asym", "F": "ell",
         "K": "slow", "G": "aleph", "Gm": "and", "Phi": "sub",
         "H": "2", "S": "one", "O": "0",
     },
     "quaternary_structure": {
-        "D": "tri", "T": "odot", "R": "lr", "P": "pm", "F": "ell",
+        "D": "odot", "T": "odot", "R": "lr", "P": "pm", "F": "ell",
         "K": "slow", "G": "beth", "Gm": "and", "Phi": "sub",
         "H": "1", "S": "hetero", "O": "Z",
     },
@@ -582,6 +582,9 @@ def generate_tertiary_tuple(features: Dict[str, Any]) -> Dict[str, str]:
     # φ̂: His at loops → self-modeling criticality
     if crit["critical_flag"]:
         tup["Phi"] = "c"        # ⊙ — self-structuring criticality
+        # φ̂=c requires K≥mod to stabilize self-modeling criticality
+        if tup.get("K") == "fast":
+            tup["K"] = "mod"     # Upgrade kinetics to sustain criticality
     elif crit["cys_pairs"] >= 2:
         tup["Phi"] = "c_complex"  # Complex-plane critical (disulfide network)
     else:

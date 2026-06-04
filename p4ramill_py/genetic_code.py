@@ -622,7 +622,7 @@ if __name__ == "__main__":
 
 
 __all__ = [
-    "BelnapCodon", "CODON_CATALOG", "STANDARD_CODE",
+    "BelnapCodon", "CODON_CATALOG", "STANDARD_CODE", "MITOCHONDRIAL_CODE",
     "SYMBOL_TO_AA", "AA_TO_SYMBOLS", "CODON_TO_AA",
     "get_codon", "verify_frobenius_on_codon", "verify_all_codons_frobenius",
     "analyze_aa_mutation", "box_stratification", "crystal_divisibility",
@@ -631,4 +631,63 @@ __all__ = [
     "GROUND_LAYER_AAS", "PROMOTED_AAS",
     "IG_PRIMITIVE_OF_AA", "AA_OF_IG_PRIMITIVE",
     "STOP_CODON_ANALYSIS",
+    "GENETIC_CODE_TABLES", "get_code_table",
+    "get_symbol_to_aa", "get_aa_to_symbols", "get_stop_codons",
 ]
+
+# ── Vertebrate Mitochondrial Code (NCBI transl_table=2) ─────────────
+
+MITOCHONDRIAL_CODE: Dict[str, str] = {
+    "UUU": "Phe", "UUC": "Phe",
+    "UUA": "Leu", "UUG": "Leu",
+    "CUU": "Leu", "CUC": "Leu", "CUA": "Leu", "CUG": "Leu",
+    "AUU": "Ile", "AUC": "Ile", "AUA": "Met",       # AUA → Met (not Ile)
+    "AUG": "Met",
+    "GUU": "Val", "GUC": "Val", "GUA": "Val", "GUG": "Val",
+    "UCU": "Ser", "UCC": "Ser", "UCA": "Ser", "UCG": "Ser",
+    "AGU": "Ser", "AGC": "Ser",
+    "CCU": "Pro", "CCC": "Pro", "CCA": "Pro", "CCG": "Pro",
+    "ACU": "Thr", "ACC": "Thr", "ACA": "Thr", "ACG": "Thr",
+    "GCU": "Ala", "GCC": "Ala", "GCA": "Ala", "GCG": "Ala",
+    "UAU": "Tyr", "UAC": "Tyr",
+    "UAA": "Stop", "UAG": "Stop", "UGA": "Trp",       # UGA → Trp (not Stop)
+    "CAU": "His", "CAC": "His",
+    "CAA": "Gln", "CAG": "Gln",
+    "AAU": "Asn", "AAC": "Asn",
+    "AAA": "Lys", "AAG": "Lys",
+    "GAU": "Asp", "GAC": "Asp",
+    "GAA": "Glu", "GAG": "Glu",
+    "UGU": "Cys", "UGC": "Cys",
+    "UGG": "Trp",
+    "CGU": "Arg", "CGC": "Arg", "CGA": "Arg", "CGG": "Arg",
+    "AGA": "Stop", "AGG": "Stop",                     # AGA/AGG → Stop (not Arg)
+    "GGU": "Gly", "GGC": "Gly", "GGA": "Gly", "GGG": "Gly",
+}
+
+GENETIC_CODE_TABLES: Dict[str, Dict[str, str]] = {
+    "standard": STANDARD_CODE,
+    "mitochondrial": MITOCHONDRIAL_CODE,
+    "mito": MITOCHONDRIAL_CODE,
+    "vertebrate_mitochondrial": MITOCHONDRIAL_CODE,
+}
+
+def get_code_table(name: str = "standard") -> Dict[str, str]:
+    table = GENETIC_CODE_TABLES.get(name.lower())
+    if table is None:
+        valid = list(GENETIC_CODE_TABLES.keys())
+        raise ValueError(f"Unknown genetic code: '{name}'. Valid: {valid}")
+    return dict(table)
+
+def get_symbol_to_aa(table_name: str = "standard") -> Dict[str, str]:
+    return get_code_table(table_name)
+
+def get_aa_to_symbols(table_name: str = "standard") -> Dict[str, List[str]]:
+    table = get_code_table(table_name)
+    result: Dict[str, List[str]] = defaultdict(list)
+    for sym, aa in table.items():
+        result[aa].append(sym)
+    return dict(result)
+
+def get_stop_codons(table_name: str = "standard") -> List[str]:
+    table = get_code_table(table_name)
+    return [sym for sym, aa in table.items() if aa == "Stop"]
