@@ -172,6 +172,22 @@ bilattice.
 
 ---
 
+p4rakernel: ch3mpiler + serpentrod bridges integrated
+
+p4ramill_py/ch3mpiler_bridge.py — full Python bridge to imscribing_grammar ch3mpiler:
+  analyze(), retrosynthesis(), forward(), fg_info(), rxn_info(), el_info()
+  Importable as: from p4ramill_py.ch3mpiler_bridge import analyze, retrosynthesis
+
+p4ramill_py/ch3mpiler_main.py — symlink → ~/imscribing_grammar/ch3mpiler.py
+p4ramill_py/serpent_main.py   — symlink → ~/ob3ect/bin/serpent.py
+ch3mpiler.py (root)           — symlink → ~/imscribing_grammar/ch3mpiler.py
+serpent.py (root)             — symlink → ~/ob3ect/bin/serpent.py
+
+Both tools now live in the kernel alongside Lean formalization and genetics.
+All 7 bridge tests pass.
+
+---
+
 p4rakernel: Frobenius filtration is infinite — grammar is its colimit
 
 4 new Lean modules (all build on Mathlib v4.28.0, 3112 jobs):
