@@ -170,6 +170,8 @@ globs = [
   "Imscribing.Millennium.ZFC_FrobeniusExact",
   "Imscribing.Millennium.PerfectCuboid.Bootstrap",
   "Imscribing.Millennium.UniverseRulesets",
+  "Imscribing.Millennium.truth",
+
   "Imscribing.Millennium.FrobeniusUnification",
   "Imscribing.Millennium.BSD_Complete_Proof",
   "Imscribing.Millennium.GrammarBridge",
@@ -183,4 +185,9 @@ globs = [
   "Imscribing.Millennium.Cramer",
   "Imscribing.Millennium.PrimordialOoze",
   "Imscribing.CLINK",
+"Imscribing.HowNaturalNumbersArise",
+"Imscribing.HowInductionArise",
+"Imscribing.HowProbabilityArise",
+"Imscribing.HowHilbertQMArise",
+
 ]
