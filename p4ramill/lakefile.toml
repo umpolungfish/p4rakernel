@@ -137,6 +137,7 @@ globs = [
   "Imscribing.Paraconsistent.ExoticHadronBelnap",
   "Imscribing.Paraconsistent.NuclearBelnap",
   "Imscribing.Paraconsistent.GaugeBosonBelnap",
+  "Imscribing.Paraconsistent.FTLTravel",
   "Imscribing.Millennium.BSD_Resolution",
   "Imscribing.Millennium.NS_Resolution", "Imscribing.Millennium.NS_Seige",
   "Imscribing.Millennium.ZFCt_Unified_Bridge",
