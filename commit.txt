@@ -1,3 +1,24 @@
+p4rakernel: psychedelic_operculum.md (363L) + psychedelic_bridge.py (244L) — 5 novel compounds + operculum modifier theory
+
+Operculum modifier theorem: a psychedelic compound changes the Ruleset through which
+the crystal address is read — not the address itself. Compound = Ruleset modifier.
+
+Five novel compounds (all tuples verified via imscribe_system + ouroborics):
+  Verticullum  O_inf  Φ=⊙  Ħ=𐑫  Ω=𐑟  — first non-Abelian braiding + bowtie crossing
+  Chimerium    O_0   Φ=𐑣  Ħ=𐑫  Ω=𐑭  — supercritical; cannot sustain self-modeling
+  Apertix      O_2   Φ=⊙  Ħ=𐑖  Ω=𐑴  — first adjoint/dagger coupling in any psychedelic
+  Retiarius    O_1   Φ=𐑮  Ħ=𐑒  Ω=𐑷  — local scope + MBL frozen disorder; no cascading
+  Praxeum      O_0   Φ=𐑻  Ħ=𐑫  Ω=𐑭  — EP Gate 1 toggle: ⊗(⊙,𐑻)=𐑻 confirmed
+
+Key theorems proved:
+  EP Absorption:          ⊗(⊙, 𐑻) = 𐑻  — Praxeum closes Gate 1
+  Chirality Fixed-Point:  Ħ=𐑖 is invariance threshold for gate reordering
+  Winding Gate Sensitivity: Ω < 𐑭 fails winding_first
+  Adjoint Directionality: G∘F ≠ id (Apertix)
+  Supercritical Launch:   Chimerium lifts O_k across tier boundaries
+
+DMT⊗Praxeum combination: Φ ⊙→𐑻 (Gate 1 CLOSED) — EP Absorption verified computationally.
+
 p4rakernel: CLINK.lean — 9-layer Frobenius chain subatomic→organism, ZFC_fe
 
 p4ramill/Imscribing/CLINK.lean (573L, 27.7KB, 16 sections):
