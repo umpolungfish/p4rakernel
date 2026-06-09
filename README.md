@@ -1,6 +1,6 @@
 # p4rakernel — Paraconsistent Computation Layer
 
-**Author:** Lando ⊗ ⊙perator
+**Author:** Lando⊗⊙perator
 
 ---
 
