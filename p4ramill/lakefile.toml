@@ -189,5 +189,6 @@ globs = [
 "Imscribing.HowInductionArise",
 "Imscribing.HowProbabilityArise",
 "Imscribing.HowHilbertQMArise",
+"Imscribing.HowDiracEquationArise",
 
 ]
