@@ -4,7 +4,7 @@
 --
 -- This module proves P ≠ NP by establishing that the structural type gap
 -- between P (tractable verification + solving) and NP (tractable verification only)
--- is a genuine phase transition — an unbridgeable O_0 → O_inf gap.
+-- is a genuine phase transition — an unbridgeable O₀ → O_∞ gap.
 
 import Mathlib
 import Imscribing.Primitives.Core
@@ -26,7 +26,7 @@ set_option linter.style.whitespace false
 
 namespace Millennium.PvsNP_Proof
 
-/-- P as a structural type: O_0 tier. -/
+/-- P as a structural type: O₀ tier. -/
 def P_as_imscription : Imscription := {
   dim  := .D_wedge
   top  := .T_network
@@ -41,7 +41,7 @@ def P_as_imscription : Imscription := {
   stoi := .n_n
   prot := .Omega_0 }
 
-/-- NP as a structural type: O_1 tier. -/
+/-- NP as a structural type: O₁ tier. -/
 def NP_as_imscription : Imscription := {
   dim  := .D_wedge
   top  := .T_network
@@ -56,13 +56,13 @@ def NP_as_imscription : Imscription := {
   stoi := .n_m
   prot := .Omega_0 }
 
-/-- P is O_0 tier. -/
-theorem P_is_O_0 : imscriptionTier P_as_imscription = .O_0 := by
+/-- P is O₀ tier. -/
+theorem P_is_O_0 : imscriptionTier P_as_imscription = .O₀ := by
   unfold imscriptionTier P_as_imscription
   rfl
 
-/-- NP is O_1 tier. -/
-theorem NP_is_O_1 : imscriptionTier NP_as_imscription = .O_1 := by
+/-- NP is O₁ tier. -/
+theorem NP_is_O_1 : imscriptionTier NP_as_imscription = .O₁ := by
   unfold imscriptionTier NP_as_imscription
   rfl
 
@@ -74,9 +74,9 @@ theorem P_NP_different_tiers : imscriptionTier P_as_imscription ≠
   injection h
 
 /-- THEOREM: P ≠ NP.
-    PROOF: The structural types of P and NP are at DIFFERENT tiers (O_0 vs O_1).
+    PROOF: The structural types of P and NP are at DIFFERENT tiers (O₀ vs O₁).
     Tier invariance (the grammar's tier structure is rigid) shows no grammar
-    operation can collapse O_0 to O_1 or vice versa. Since polynomial-time
+    operation can collapse O₀ to O₁ or vice versa. Since polynomial-time
     reductions correspond to grammar operations, P ≠ NP follows.
 
     HONEST GAP: The formal correspondence between grammar operations

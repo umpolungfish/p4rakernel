@@ -36,7 +36,7 @@ namespace Millennium.PerfectCuboid.StructuralProof
 -- ============================================================
 
 /-- Perfect Cuboid Lifted structural type.
-    Crystal address: 6738896. Tier: O_inf. C-score: 0.828.
+    Crystal address: 6738896. Tier: O_∞. C-score: 0.828.
     Gap: H_A (TEMPD2) → H_! (ETERNAL_FIXEDPOINT). -/
 def perfectCuboidLifted : Imscription := {
   dim  := Dimensionality.D_odot
@@ -54,7 +54,7 @@ def perfectCuboidLifted : Imscription := {
 }
 
 /-- ZFC_fe (Frobenius-Exact ZFC) structural type.
-    All 4 grammar axioms satisfied. O_inf, C=1.0.
+    All 4 grammar axioms satisfied. O_∞, C=1.0.
     8 promoted atoms including HOLOGRAPHIC_STATE and ETERNAL_FIXEDPOINT. -/
 def zfcFE : Imscription := {
   dim  := Dimensionality.D_odot
@@ -109,10 +109,10 @@ theorem tensor_has_h_inf : (tensorProduct zfcFE perfectCuboidLifted).chir = Chir
   rw [absorption_tensor]
   rfl
 
-/-- The absorption closes the ouroboricity gap: both are O_inf. -/
+/-- The absorption closes the ouroboricity gap: both are O_∞. -/
 theorem both_o_inf :
-    imscriptionTier perfectCuboidLifted = OuroboricityTier.O_inf ∧
-    imscriptionTier zfcFE = OuroboricityTier.O_inf := by
+    imscriptionTier perfectCuboidLifted = OuroboricityTier.O_∞ ∧
+    imscriptionTier zfcFE = OuroboricityTier.O_∞ := by
   unfold perfectCuboidLifted zfcFE imscriptionTier
   -- Both have Phi_c criticality, P_pm_sym parity, Omega_Z protection, D_odot dimension
   native_decide

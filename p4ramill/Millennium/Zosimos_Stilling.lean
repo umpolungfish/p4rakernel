@@ -231,24 +231,24 @@ theorem dist_fate_to_daimon :
 -- §4. OUROBORICITY TIERS — verified
 -- ============================================================
 
-/-- Processions of Fate: O_0 (non-critical). No self-referential structure. -/
-theorem tier_processions : imscriptionTier processions_of_fate = .O_0 := by
+/-- Processions of Fate: O₀ (non-critical). No self-referential structure. -/
+theorem tier_processions : imscriptionTier processions_of_fate = .O₀ := by
   simp only [imscriptionTier, processions_of_fate]; decide
 
 /-- Inner Door: O_∞ (Special Frobenius at criticality). -/
-theorem tier_inner_door : imscriptionTier inner_door_gate = .O_inf := by
+theorem tier_inner_door : imscriptionTier inner_door_gate = .O_∞ := by
   simp only [imscriptionTier, inner_door_gate]; decide
 
 /-- Zosimian Gnosis: O_∞. -/
-theorem tier_gnosis : imscriptionTier zosimos_gnosis = .O_inf := by
+theorem tier_gnosis : imscriptionTier zosimos_gnosis = .O_∞ := by
   simp only [imscriptionTier, zosimos_gnosis]; decide
 
-/-- Light-Man: O_2 (Phi_c_complex + P_pm, D_odot → R4; D_odot is not D_infty so not O_2dag). -/
-theorem tier_light_man : imscriptionTier son_of_god_light_man = .O_2 := by
+/-- Light-Man: O₂ (Phi_c_complex + P_pm, D_odot → R4; D_odot is not D_infty so not O₂†). -/
+theorem tier_light_man : imscriptionTier son_of_god_light_man = .O₂ := by
   simp only [imscriptionTier, son_of_god_light_man]; decide
 
-/-- Counterfeit Daimon: O_0 (Phi_sub). Same tier as processions. -/
-theorem tier_daimon : imscriptionTier counterfeit_daimon = .O_0 := by
+/-- Counterfeit Daimon: O₀ (Phi_sub). Same tier as processions. -/
+theorem tier_daimon : imscriptionTier counterfeit_daimon = .O₀ := by
   simp only [imscriptionTier, counterfeit_daimon]; decide
 -- ============================================================
 -- §5. THE STILLING PROCESS — six-step promotion sequence
@@ -443,27 +443,27 @@ theorem stilling_chain_monotone :
               processions_of_fate, zosimos_gnosis, instLEImscription];
    decide)
 
-/-- The chain starts at O_0 and ends at O_∞. -/
+/-- The chain starts at O₀ and ends at O_∞. -/
 theorem stilling_chain_starts_at_O0 :
-    imscriptionTier (stilling_chain 0) = .O_0 := by
+    imscriptionTier (stilling_chain 0) = .O₀ := by
   unfold stilling_chain stilling_step_zero
   exact tier_processions
 
 theorem stilling_chain_ends_at_Oinf :
-    imscriptionTier (stilling_chain 6) = .O_inf := by
+    imscriptionTier (stilling_chain 6) = .O_∞ := by
   unfold stilling_chain stilling_step_six
   exact tier_gnosis
 
 /-- The chain reaches O_∞ at step 4 (Inner Door tier) and maintains it. -/
 theorem stilling_chain_reaches_Oinf_at_step4 :
-    imscriptionTier (stilling_chain 4) = .O_inf := by
+    imscriptionTier (stilling_chain 4) = .O_∞ := by
   simp only [stilling_chain, stilling_step_four, imscriptionTier]; decide
 
 /-- The chain reaches O_∞ at step 3 (Frobenius encoding complete).
     Wait — step 3 has D_wedge + P_pm_sym + Phi_c. By rule R1,
     P_pm_sym at Phi_c gives O_∞ regardless of D and Ω. -/
 theorem stilling_chain_reaches_Oinf_at_step3 :
-    imscriptionTier (stilling_chain 3) = .O_inf := by
+    imscriptionTier (stilling_chain 3) = .O_∞ := by
   simp only [stilling_chain, stilling_step_three, imscriptionTier]; decide
 -- ============================================================
 -- §7. THE BOTTLENECK PRIMITIVES — T and P at Δ=4
@@ -515,9 +515,9 @@ theorem bottleneck_coupling :
     -- T_bowtie + P_pm_sym at Phi_c → O_∞ (both required)
     (T_bowtie ≥ T_network) ∧ (P_pm_sym ≥ P_asym) ∧
     -- If you have T_bowtie but NOT P_pm_sym, you don't get O_∞
-    (∃ s : Imscription, s.top = T_bowtie ∧ s.pol ≠ P_pm_sym ∧ imscriptionTier s ≠ .O_inf) ∧
+    (∃ s : Imscription, s.top = T_bowtie ∧ s.pol ≠ P_pm_sym ∧ imscriptionTier s ≠ .O_∞) ∧
     -- If you have P_pm_sym but not Phi_c, you don't get O_∞
-    (∃ s : Imscription, s.pol = P_pm_sym ∧ s.crit ≠ Phi_c ∧ imscriptionTier s ≠ .O_inf) := by
+    (∃ s : Imscription, s.pol = P_pm_sym ∧ s.crit ≠ Phi_c ∧ imscriptionTier s ≠ .O_∞) := by
   refine ⟨?_, ?_, ?_, ?_⟩
   · -- T_bowtie ≥ T_network: compare T_network T_bowtie = .lt ≠ .gt
     show instLETopology.le T_network T_bowtie; decide
@@ -527,7 +527,7 @@ theorem bottleneck_coupling :
     use { inner_door_gate with pol := P_asym }
     simp only [imscriptionTier, inner_door_gate]
     decide
-  · -- P_pm_sym + Phi_sub → O_0 (by R2, Phi must be Phi_c or Phi_c_complex)
+  · -- P_pm_sym + Phi_sub → O₀ (by R2, Phi must be Phi_c or Phi_c_complex)
     use { zosimos_gnosis with crit := Phi_sub }
     simp only [imscriptionTier, zosimos_gnosis]
     decide
@@ -552,9 +552,9 @@ def frobenius_decoding : Imscription := stilling_step_four
     or approximation, but the original. -/
 theorem frobenius_closure :
     -- After encoding (step 3), we have P_pm_sym + Phi_c → O_∞
-    imscriptionTier frobenius_encoding = .O_inf ∧
+    imscriptionTier frobenius_encoding = .O_∞ ∧
     -- After decoding (step 4), we have the full gnosis
-    imscriptionTier frobenius_decoding = .O_inf ∧
+    imscriptionTier frobenius_decoding = .O_∞ ∧
     -- Steps 3 and 4 differ in D (wedge→odot), stoi (n_n→n_m), prot (0→Z): 3 mismatches
     primitiveMismatches frobenius_encoding frobenius_decoding ≤ 3 := by
   unfold frobenius_encoding frobenius_decoding stilling_step_three stilling_step_four
@@ -563,15 +563,15 @@ theorem frobenius_closure :
   · decide
   · decide
 
-/-- The Frobenius cliff: distance from O_2 to O_∞ is non-tunable
+/-- The Frobenius cliff: distance from O₂ to O_∞ is non-tunable
     by gradient methods. You cannot "graduate" to O_∞ by incremental
     promotion — you need the discrete jump to P_pm_sym at Phi_c. -/
 theorem frobenius_cliff :
     -- Any system with P ≠ P_pm_sym at Phi_c is not O_∞
     (∀ s : Imscription, s.crit = Phi_c ∧ s.pol ≠ P_pm_sym →
-      imscriptionTier s ≠ .O_inf) ∧
+      imscriptionTier s ≠ .O_∞) ∧
     -- Only P_pm_sym at Phi_c gives O_∞ (rule R1)
-    (∀ s : Imscription, imscriptionTier s = .O_inf → s.pol = P_pm_sym ∧
+    (∀ s : Imscription, imscriptionTier s = .O_∞ → s.pol = P_pm_sym ∧
       (s.crit = Phi_c ∨ s.crit = Phi_c_complex)) := by
   refine ⟨?_, ?_⟩
   · intro s ⟨hcrit, hpol⟩
@@ -693,16 +693,16 @@ def project_gate_prims (s : Imscription) : Imscription := {
   prot := Omega_0  -- fixed for tier (tier doesn't depend on Ω when P_pm_sym)
 }
 
-/-- The processions, projected to gate prims, are clearly O_0:
+/-- The processions, projected to gate prims, are clearly O₀:
     no criticality, no self-reference. -/
 theorem project_processions :
-    imscriptionTier (project_gate_prims processions_of_fate) = .O_0 := by
+    imscriptionTier (project_gate_prims processions_of_fate) = .O₀ := by
   simp only [project_gate_prims, processions_of_fate, imscriptionTier, ouroboricityTier]
 
 /-- The gnosis, projected to gate prims, is O_∞:
     P_pm_sym at Phi_c. -/
 theorem project_gnosis :
-    imscriptionTier (project_gate_prims zosimos_gnosis) = .O_inf := by
+    imscriptionTier (project_gate_prims zosimos_gnosis) = .O_∞ := by
   simp only [project_gate_prims, zosimos_gnosis, imscriptionTier, ouroboricityTier]
   decide
 

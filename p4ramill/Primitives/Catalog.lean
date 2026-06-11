@@ -19,7 +19,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- WORKED EXAMPLES
 -- =====================================================
 
--- Riemann zeta function: O_1
+-- Riemann zeta function: O₁
 def riemann_zeta_function : Imscription := {
   dim  := D_infty
   top  := T_network
@@ -35,7 +35,7 @@ def riemann_zeta_function : Imscription := {
   prot := Omega_0
 }
 
--- Langlands correspondence: O_inf example
+-- Langlands correspondence: O_∞ example
 def langlands_correspondence : Imscription := {
   dim  := D_infty
   top  := T_odot
@@ -157,7 +157,7 @@ def ex_o_na : Imscription := example_oinf
 -- MILLENNIUM PRIZE PROBLEMS (7)
 -- =====================================================
 
--- O_inf template for thresholds
+-- O_∞ template for thresholds
 def o_inf_template : Imscription := {
   dim  := D_odot
   top  := T_odot
@@ -173,7 +173,7 @@ def o_inf_template : Imscription := {
   prot := Omega_Z
 }
 
--- 1. Riemann Hypothesis (RH): ⟨D_infty; T_network; ... Phi_c_complex; Omega_Z⟩ O_1
+-- 1. Riemann Hypothesis (RH): ⟨D_infty; T_network; ... Phi_c_complex; Omega_Z⟩ O₁
 def riemann_hypothesis : Imscription := {
   dim  := D_infty
   top  := T_network

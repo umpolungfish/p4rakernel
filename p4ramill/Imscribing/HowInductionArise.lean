@@ -26,9 +26,9 @@ theorem crystal_size : 27 * 1024 * 625 = 17280000 := by decide
 -- ============================================================
 
 theorem tier_exhaustive (s : Imscription) :
-    imscriptionTier s = .O_0 ∨ imscriptionTier s = .O_1 ∨
-    imscriptionTier s = .O_2 ∨ imscriptionTier s = .O_2dag ∨
-    imscriptionTier s = .O_inf := by
+    imscriptionTier s = .O₀ ∨ imscriptionTier s = .O₁ ∨
+    imscriptionTier s = .O₂ ∨ imscriptionTier s = .O₂† ∨
+    imscriptionTier s = .O_∞ := by
   cases imscriptionTier s <;> simp
 
 -- ============================================================

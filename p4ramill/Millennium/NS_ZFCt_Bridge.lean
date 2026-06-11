@@ -21,7 +21,7 @@ import Imscribing.Algebra
   5. TEMPD2 (H0 -> H2): 2-step chirality for the vortex stretching equation
   6. ZWIND (Omega_0 -> Omega_Z): Topological defects (vortex loops) carry integer winding
 
-  The crystal_tier_gap_ladder proves O_2dag -> O_inf is driven 100% by Phi.
+  The crystal_tier_gap_ladder proves O₂† -> O_∞ is driven 100% by Phi.
   For NS, discharging the critical scaling gap requires proving the critical
   manifold is Frobenius-invariant.
 -/

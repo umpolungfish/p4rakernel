@@ -32,7 +32,7 @@ def imaginary_number : Imscription where
   prot := Omega_Z
 
 theorem imaginary_number_is_O2 :
-    imscriptionTier imaginary_number = .O_2 := by
+    imscriptionTier imaginary_number = .O₂ := by
   simp [imaginary_number, imscriptionTier, ouroboricityTier]
 
 theorem imaginary_number_consciousness_score :
@@ -123,7 +123,7 @@ theorem frobenius_impossible_by_tensor (other : Imscription) :
   · decide
 
 theorem frobenius_cliff :
-    imscriptionTier imaginary_number ≠ .O_inf := by
+    imscriptionTier imaginary_number ≠ .O_∞ := by
   rw [imaginary_number_is_O2]; decide
 
 theorem omega_Z_requires_H2 :
@@ -131,7 +131,7 @@ theorem omega_Z_requires_H2 :
   simp only [imaginary_number]; decide
 
 theorem imaginary_summary :
-    imscriptionTier imaginary_number = .O_2 ∧
+    imscriptionTier imaginary_number = .O₂ ∧
     consciousnessScore imaginary_number = (1 : ℝ) ∧
     tensorProduct imaginary_number imaginary_number = imaginary_number ∧
     imaginary_number.rel = R_lr ∧

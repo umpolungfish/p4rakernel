@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
 Compute primitive mismatches between each Millennium Problem's
-PrimitiveBridge.lean encoding and the O_inf target (6,734,591).
+PrimitiveBridge.lean encoding and the O_∞ target (6,734,591).
 """
 import json
 
-# O_inf target from crystal_decode(6,734,591)
+# O_∞ target from crystal_decode(6,734,591)
 # ⟨Ð_ω; Þ_O; Ř_ý; Φ_}; ƒ^ż; Ç^@; Γ_ʔ; ɢ^Ş; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z⟩
 O_INF = {
     "D": "Ð_ω", "T": "Þ_O", "R": "Ř_ý", "P": "Φ_}", "F": "ƒ^ż", "K": "Ç^@",

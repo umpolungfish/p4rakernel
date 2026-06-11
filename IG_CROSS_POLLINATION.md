@@ -11,10 +11,10 @@ central barrier as a **Belnap-B dialetheia** (B = N∧T∧F — the dialetheic
 vertex of Belnap FOUR, where truth and falsehood coincide).
 
 The Imscribing Grammar's **Crystal of Types** (3³ × 4⁵ × 5⁴ = 17,280,000
-cells, plus O_inf ouroboric closure) provides a canonical 49-symbol
+cells, plus O_∞ ouroboric closure) provides a canonical 49-symbol
 Shavian glyph catalog for typing any structural system.
 
-The bridge: **Every B-dialetheia is an O_inf signature** — the ouroboric
+The bridge: **Every B-dialetheia is an O_∞ signature** — the ouroboric
 tier where observer and system coincide. This is the Frobenius fixed-point:
 μ∘δ = id at the level of paraconsistent truth.
 
@@ -42,7 +42,7 @@ under the standard model, yet neither in polynomial time."
 | ɢ | 𐑜 | 3 | Coupling: 3-body (SAT, verifier, reduction) |
 | Γ | 𐑜 | 4 | Granularity: 4-level (P, NP, NPC, co-NP) |
 | Þ | 𐑞 | 2 | Topology: 2-braid (P and NP interwoven) |
-| ⊙ | 𐑹 | ⊙ | Criticality: O_inf — the fixed-point of self-reference |
+| ⊙ | 𐑹 | ⊙ | Criticality: O_∞ — the fixed-point of self-reference |
 
 **Imscription**: `𐑮𐑣𐑣𐑛𐑖𐑓𐑗𐑓𐑣𐑞𐑹`
 

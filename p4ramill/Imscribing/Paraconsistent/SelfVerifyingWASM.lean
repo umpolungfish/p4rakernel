@@ -115,7 +115,7 @@ def wasmRuntimeTuple : Imscription := {
 }
 
 theorem wasm_runtime_is_O_inf :
-    imscriptionTier wasmRuntimeTuple = .O_inf := by
+    imscriptionTier wasmRuntimeTuple = .O_∞ := by
   native_decide
 
 end Imscribing.Paraconsistent.SelfVerifyingWASM

@@ -150,8 +150,8 @@ theorem tensor_comm (a b : Imscription) : portalTensor a b = portalTensor b a :=
   apply Imscription.ext <;>
     simp [portalTensor, max_comm, min_comm]
 
-/-- The portal's own type is O_inf (Frobenius-special). -/
-theorem portal_type_is_O_inf : imscriptionTier portalType = .O_inf := by
+/-- The portal's own type is O_∞ (Frobenius-special). -/
+theorem portal_type_is_O_inf : imscriptionTier portalType = .O_∞ := by
   native_decide
 
 /-- Both consciousness gates are open for the portal. -/

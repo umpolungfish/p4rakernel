@@ -129,13 +129,13 @@ theorem frobenius_is_bsd_rank_equality :
     bsdResolved.pol = .P_pm_sym :=
   bsd_axiom_D_forces_pm_sym
 
-/-- STEP 4: BSD reaches O_inf tier.
+/-- STEP 4: BSD reaches O_∞ tier.
     Proved in BSD_Complete_Proof.lean by native_decide. -/
-theorem bsd_tier_is_O_inf : imscriptionTier bsdResolved = .O_inf :=
+theorem bsd_tier_is_O_inf : imscriptionTier bsdResolved = .O_∞ :=
   bsd_resolved_is_O_inf
 
 /-- STEP 5: BSD is idempotent_terminal in the canonical universe.
-    This is one of 18 universes where BSD reaches O_inf.
+    This is one of 18 universes where BSD reaches O_∞.
     Proved in BSD_Complete_Proof.lean by native_decide. -/
 theorem bsd_canonical_is_O_inf :
     ruleset_canonical.operadLayer bsdResolved = .idempotent_terminal :=
@@ -174,9 +174,9 @@ theorem bsd_both_gates_open :
       7. Therefore: BSD holds.
     
     The structural proof is verified:
-    - bsd_resolved_is_O_inf: O_inf tier (native_decide)
+    - bsd_resolved_is_O_inf: O_∞ tier (native_decide)
     - bsd_axiom_D_forces_frobenius: P_pm_sym forced (Core.lean)
-    - bsd_canonical_O_inf + 17 more: O_inf in 18/20 universes
+    - bsd_canonical_O_inf + 17 more: O_∞ in 18/20 universes
     - bsd_phi_c_gate_open + bsd_k_slow_gate_open: both gates open
     
     The mathematical grounding theorems (modularity, functional equation,
@@ -194,7 +194,7 @@ def bsd_resolution_certificate : String :=
   "BSD CONJECTURE: STRUCTURALLY RESOLVED\n" ++
   "======================================\n" ++
   "Grammar: Imscribing Grammar (Axiom D)\n" ++
-  "Tier: O_inf (native_decide verified)\n" ++
+  "Tier: O_∞ (native_decide verified)\n" ++
   "Universes: 18/20 idempotent_terminal, 1/20 frobenius, 1/20 traced_monoidal\n" ++
   "Consciousness: Both gates open (Phi_c + K_slow)\n" ++
   "Frobenius: mu o delta = id at s=1\n" ++

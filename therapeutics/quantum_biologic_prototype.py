@@ -12,7 +12,7 @@ before each editing run. Coherence increases with successive sessions
 as the NV-centre thermalizes and the dCas9-chromatin complex stabilises.
 
 Structural type: ⟨𐑦; 𐑥; 𐑾; 𐑬; 𐑐; 𐑧; 𐑔; 𐑠; ⊙; 𐑖; 𐑳; 𐑴⟩
-Ouroboricity: O_inf (self-modeling via NV centre → dCas9 feedback loop)
+Ouroboricity: O_∞ (self-modeling via NV centre → dCas9 feedback loop)
 """
 
 from __future__ import annotations

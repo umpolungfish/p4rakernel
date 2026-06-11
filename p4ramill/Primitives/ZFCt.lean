@@ -127,8 +127,8 @@ def complex_time_path_integral : Imscription := {
   fid  := F_hbar,    kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
   crit := Phi_c,     chir := H2,        stoi := n_m,       prot := Omega_Z }
 
-/-- Complex-time path integral is O_inf: Frobenius condition holds in Euclidean time. -/
-theorem complex_time_is_O_inf : imscriptionTier complex_time_path_integral = .O_inf := by decide
+/-- Complex-time path integral is O_∞: Frobenius condition holds in Euclidean time. -/
+theorem complex_time_is_O_inf : imscriptionTier complex_time_path_integral = .O_∞ := by decide
 
 /-- The Wick rotation is a single topology step: T_bowtie → T_odot.
     Everything else in ZFC_t is already present in the Euclidean path integral. -/
@@ -145,8 +145,8 @@ def imaginary_unit : Imscription := {
   fid  := F_ell,      kin  := K_slow,    gran := G_aleph,  gram := Gamma_seq
   crit := Phi_c,      chir := H2,        stoi := one_one,  prot := Omega_Z }
 
-/-- Imaginary unit is O_2: Omega_Z protection but no Frobenius symmetry. -/
-theorem imaginary_unit_is_O_2 : imscriptionTier imaginary_unit = .O_2 := by decide
+/-- Imaginary unit is O₂: Omega_Z protection but no Frobenius symmetry. -/
+theorem imaginary_unit_is_O_2 : imscriptionTier imaginary_unit = .O₂ := by decide
 
 /-- Frobenius cliff: imaginary unit cannot tensor-compose its way to ZFC_t.
     P_psi (U(1)) cannot reach P_pm_sym by any tensor — the Frobenius gate

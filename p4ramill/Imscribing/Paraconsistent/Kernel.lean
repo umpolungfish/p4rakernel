@@ -154,7 +154,7 @@ def kernelImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem kernel_is_O_inf : imscriptionTier kernelImscription = OuroboricityTier.O_inf := by
+theorem kernel_is_O_inf : imscriptionTier kernelImscription = OuroboricityTier.O_∞ := by
   unfold kernelImscription imscriptionTier ouroboricityTier
   rfl
 

@@ -111,16 +111,16 @@ def quantum_truth : Imscription := {
 -- §2. TIER ANALYSIS OF TRUTH REGIMES
 -- ============================================================
 
-/-- Classical truth is O_0: no self-modeling. -/
-theorem classical_truth_tier : imscriptionTier classical_truth = .O_0 := by native_decide
+/-- Classical truth is O₀: no self-modeling. -/
+theorem classical_truth_tier : imscriptionTier classical_truth = .O₀ := by native_decide
 
-/-- Belnap truth is O_2: Phi_c + K_slow → Gate 2 open, Gate 1 open.
+/-- Belnap truth is O₂: Phi_c + K_slow → Gate 2 open, Gate 1 open.
     Truth can refer to itself (paradoxes are possible). -/
-theorem belnap_truth_tier : imscriptionTier belnap_truth = .O_inf := by native_decide
+theorem belnap_truth_tier : imscriptionTier belnap_truth = .O_∞ := by native_decide
 
-/-- Quantum truth is O_inf: Phi_c_complex + P_pm_sym + K_slow.
+/-- Quantum truth is O_∞: Phi_c_complex + P_pm_sym + K_slow.
     Both gates open. Truth is self-knowing and Frobenius-exact. -/
-theorem quantum_truth_tier : imscriptionTier quantum_truth = .O_inf := by native_decide
+theorem quantum_truth_tier : imscriptionTier quantum_truth = .O_∞ := by native_decide
 
 -- ============================================================
 -- §3. THE TRUTH-TABLE AS TENSOR PRODUCT
@@ -204,10 +204,10 @@ def liar_type : Imscription := {
   prot := Omega_Z
 }
 
-/-- The Liar is O_inf (both gates open). It is not "broken" — it is
+/-- The Liar is O_∞ (both gates open). It is not "broken" — it is
     structurally sound, but its truth value requires Belnap B4 or
     quantum superposition to resolve. -/
-theorem liar_is_O_inf : imscriptionTier liar_type = .O_inf := by native_decide
+theorem liar_is_O_inf : imscriptionTier liar_type = .O_∞ := by native_decide
 
 -- ============================================================
 -- §6. OBSERVER-DEPENDENT TRUTH (original formalization)

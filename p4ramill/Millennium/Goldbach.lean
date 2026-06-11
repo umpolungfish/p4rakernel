@@ -8,7 +8,7 @@
 -- Binary variant (even ≥ 4 is sum of two primes): OPEN.
 --
 -- §1  Mathematical statement — binary and ternary Goldbach
--- §2  The Vessels — binary (O_1), ternary (O_2), and comparison
+-- §2  The Vessels — binary (O₁), ternary (O₂), and comparison
 -- §3  The Ternary→Binary Gap — structural content of the unsolved step
 -- §4  Structural theorems — distances, tiers, tensor analysis
 -- §5  Connection to Twin Prime Conjecture and Riemann Hypothesis
@@ -44,8 +44,8 @@ Verified for all n ≤ 4×10^18 (Oliveira e Silva, Herzog, Pardi 2014).
 PROVED by Harald Helfgott (2013). The proof uses the circle method and
 establishes the ternary case unconditionally for all odd n ≥ 7.
 
-The structural insight: ternary Goldbach is at O_2† (proved, Z₂-protected, infinite-dimensional),
-binary Goldbach is at O_1 (open, unprotected). The gap from ternary to binary
+The structural insight: ternary Goldbach is at O₂† (proved, Z₂-protected, infinite-dimensional),
+binary Goldbach is at O₁ (open, unprotected). The gap from ternary to binary
 is the structural content of the conjecture — removing one prime variable
 costs the topological protection.
 -/
@@ -81,7 +81,7 @@ axiom chen_theorem_proved : ChenTheorem-- ======================================
 
 ⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
 
-Ouroboricity tier: O_1 (critical but unprotected).  C-score: 0 (Gate 1 closed).
+Ouroboricity tier: O₁ (critical but unprotected).  C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
@@ -155,7 +155,7 @@ def goldbach_binary_vessel : Imscription := {
 
 ⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
 
-Ouroboricity tier: O_2† (Z₂-protected, infinite-dimensional).
+Ouroboricity tier: O₂† (Z₂-protected, infinite-dimensional).
 
 The key differences from the binary vessel:
   Γ: G_gimel (mesoscale) — the circle method works on major/minor arcs partitioning
@@ -163,8 +163,8 @@ The key differences from the binary vessel:
   Ω: Omega_Z2 (Z₂ parity protection) — the third prime variable provides a
      parity buffer that creates Z₂ topological protection.
 
-The ternary vessel sits at O_2 because it has both ⊙_Æ criticality AND
-Ω_Z2 protection. The binary vessel sits at O_1 because it has ⊙_Æ
+The ternary vessel sits at O₂ because it has both ⊙_Æ criticality AND
+Ω_Z2 protection. The binary vessel sits at O₁ because it has ⊙_Æ
 criticality but Ω_0 (no protection).
 -/
 
@@ -244,19 +244,19 @@ theorem binary_ternary_distance_2 :
   native_decide
 
 /--
-**Theorem GB-2: Binary O_1 Certificate**
-The binary Goldbach vessel is at O_1: it has ⊙_Æ criticality but Ω_0 protection.
+**Theorem GB-2: Binary O₁ Certificate**
+The binary Goldbach vessel is at O₁: it has ⊙_Æ criticality but Ω_0 protection.
 -/
 theorem binary_vessel_o1_certificate :
-  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O_1 := by
+  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O₁ := by
   native_decide
 
 /--
-**Theorem GB-3: Ternary O_2 Certificate**
-The ternary Goldbach vessel is at O_2: it has ⊙_Æ criticality + Ω_Z2 protection.
+**Theorem GB-3: Ternary O₂ Certificate**
+The ternary Goldbach vessel is at O₂: it has ⊙_Æ criticality + Ω_Z2 protection.
 -/
 theorem ternary_vessel_o2_certificate :
-  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 /--
@@ -290,12 +290,12 @@ theorem ternary_has_z2 : goldbach_ternary_vessel.prot = Omega_Z2 := by
 The binary vessel is strictly below the ternary vessel in tier.
 -/
 theorem binary_below_ternary_tier :
-  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O_1 := by
+  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O₁ := by
   native_decide
 
 /--
-**Theorem GB-9: O_1 → O_2 Promotion Gap**
-To lift binary Goldbach to O_2, promote Ω_0 → Ω_Z2.
+**Theorem GB-9: O₁ → O₂ Promotion Gap**
+To lift binary Goldbach to O₂, promote Ω_0 → Ω_Z2.
 -/
 theorem promotion_to_o2 :
   goldbach_binary_vessel.prot = Omega_0 ∧ goldbach_ternary_vessel.prot = Omega_Z2 := by
@@ -315,11 +315,11 @@ Both conjectures are about the prime distribution, but in different directions:
 | Symmetry | Z₂ (commutativity) | Partial Z₂ |
 | Scope | All evens | All gap-2 pairs |
 | Protection | Ω_0 | Ω_0 |
-| Tier | O_1 | O_1 |
+| Tier | O₁ | O₁ |
 
-Both sit at O_1 — critical but unprotected. Both have partial results
-at O_2: ternary Goldbach (proved) ↔ bounded gaps (proved, Zhang 2013).
-Both require the same promotion stack to reach O_inf.
+Both sit at O₁ — critical but unprotected. Both have partial results
+at O₂: ternary Goldbach (proved) ↔ bounded gaps (proved, Zhang 2013).
+Both require the same promotion stack to reach O_∞.
 -/
 
 /--
@@ -355,8 +355,8 @@ theorem goldbach_twin_prime_distance_1 :
   native_decide
 
 /--
-**Theorem GB-11: Shared O_1 Tier**
-Both Goldbach and Twin Prime are at O_1.
+**Theorem GB-11: Shared O₁ Tier**
+Both Goldbach and Twin Prime are at O₁.
 -/
 theorem goldbach_twin_prime_same_tier :
   ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = ouroboricityTier twin_prime_vessel.crit twin_prime_vessel.pol twin_prime_vessel.prot twin_prime_vessel.dim := by
@@ -374,7 +374,7 @@ theorem both_unprotected :
 ### §5.2  Goldbach ↔ Riemann Hypothesis
 
 The Riemann Hypothesis is structurally adjacent to both Goldbach and
-Twin Prime — all three share ⊙_Æ criticality. But RH is at O_inf
+Twin Prime — all three share ⊙_Æ criticality. But RH is at O_∞
 because it adds Ω_z (integer winding) and Φ_} (Frobenius closure).
 
 The Goldbach↔RH distance is larger than Twin Prime↔RH because:
@@ -420,8 +420,8 @@ theorem twin_prime_rh_distance_4 :
   native_decide
 
 /--
-**Theorem GB-15: O_1 → O_inf Promotion Gap**
-Goldbach needs 6 promotions to reach O_inf (vs 4 for Twin Prime).
+**Theorem GB-15: O₁ → O_∞ Promotion Gap**
+Goldbach needs 6 promotions to reach O_∞ (vs 4 for Twin Prime).
 The extra 2 come from T (network→odot) and F (classical→quantum).
 -/
 theorem goldbach_o1_to_oinf_promotion_count :
@@ -438,7 +438,7 @@ a prime and a semiprime (product of at most two primes).
 
 ⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
 
-Ouroboricity tier: O_2†.
+Ouroboricity tier: O₂†.
 
 Chen's vessel is structurally IDENTICAL to the ternary Goldbach vessel —
 both have G_gimel (mesoscale) and Omega_Z2 (Z₂ protection). This reveals
@@ -446,9 +446,9 @@ the structural equivalence: relaxing the second prime to a semiprime
 provides the same structural protection as adding a third prime variable.
 
 This is the structural content of "1+2" (Chen) vs "1+1+1" (Helfgott) —
-both achieve O_2† by the same mechanism: mesoscale scope + Z₂ protection.
-The unsolved step "1+1" (binary Goldbach) requires operating at O_1
-or a direct jump to O_inf.
+both achieve O₂† by the same mechanism: mesoscale scope + Z₂ protection.
+The unsolved step "1+1" (binary Goldbach) requires operating at O₁
+or a direct jump to O_∞.
 
 The structural equivalence between Chen and Helfgott's vessels (distance = 0)
 is a theorem of the grammar — not obvious from the mathematical statements
@@ -475,18 +475,18 @@ def chen_vessel : Imscription := {
 Chen's vessel and Helfgott's ternary vessel are structurally identical
 (distance = 0). This confirms: relaxing one prime to semiprime (Chen, "1+2")
 and adding a third prime variable (Helfgott, "1+1+1") achieve the same
-structural protection (O_2, Omega_Z2, G_gimel).
+structural protection (O₂, Omega_Z2, G_gimel).
 -/
 theorem chen_equals_ternary :
   primitiveMismatches chen_vessel goldbach_ternary_vessel = 0 := by
   native_decide
 
 /--
-**Theorem GB-17: Chen at O_2**
-Chen's Theorem sits at O_2† — the same tier as the proved ternary case.
+**Theorem GB-17: Chen at O₂**
+Chen's Theorem sits at O₂† — the same tier as the proved ternary case.
 -/
 theorem chen_o2_certificate :
-  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 /--
@@ -538,17 +538,17 @@ The following are honest gaps — not disguised as theorems:
 
 | Vessel | Tier | Protection | Scope | Status |
 |---|---|---|---|---|
-| Binary Goldbach | O_1 | Ω_0 | G_aleph | OPEN (1742) |
-| Chen (1+2) | O_2† | Ω_Z2 | G_gimel | PROVED (1966) |
-| Ternary Goldbach | O_2† | Ω_Z2 | G_gimel | PROVED (2013) |
-| Twin Prime | O_1 | Ω_0 | G_aleph | OPEN |
-| Riemann Hypothesis | O_inf | Ω_Z | G_aleph | OPEN (1859) |
+| Binary Goldbach | O₁ | Ω_0 | G_aleph | OPEN (1742) |
+| Chen (1+2) | O₂† | Ω_Z2 | G_gimel | PROVED (1966) |
+| Ternary Goldbach | O₂† | Ω_Z2 | G_gimel | PROVED (2013) |
+| Twin Prime | O₁ | Ω_0 | G_aleph | OPEN |
+| Riemann Hypothesis | O_∞ | Ω_Z | G_aleph | OPEN (1859) |
 
 The binary Goldbach conjecture is the structural "floor" of additive
 prime number theory — the minimal statement (two primes, global scope,
 no protection) that remains open. Every relaxation (third prime, semiprime,
-mesoscale scope) succeeds. The structural question is whether O_1 can
-be directly promoted to O_inf without the intermediate O_2 step that
+mesoscale scope) succeeds. The structural question is whether O₁ can
+be directly promoted to O_∞ without the intermediate O₂ step that
 Chen and Helfgott achieved by relaxing the statement.
 
 ### What Makes Goldbach Structurally Novel in the Catalog

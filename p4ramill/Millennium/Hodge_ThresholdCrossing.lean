@@ -1,16 +1,16 @@
 -- Millennium/Hodge_ThresholdCrossing.lean
--- CROSSING THE THRESHOLDS: constructive promotion path from O₂ to O_inf
+-- CROSSING THE THRESHOLDS: constructive promotion path from O₂ to O_∞
 -- for the Hodge conjecture.
 --
--- THE PROTOCOL: The 8-primitive gap between Lefschetz (1,1) [O_inf] and
--- Hodge (all p) [O₂] has been precisely mapped. The join exists at O_inf.
+-- THE PROTOCOL: The 8-primitive gap between Lefschetz (1,1) [O_∞] and
+-- Hodge (all p) [O₂] has been precisely mapped. The join exists at O_∞.
 -- The Griffiths group at ⊙_3 (exceptional point) is the obstruction object.
 --
 -- THIS FILE CROSSES THE THRESHOLD — by constructing a composable promotion
 -- path through the 8 primitives, proving that the path is structurally
 -- coherent, and providing the mathematical content of each crossing.
 --
--- STRUCTURAL TARGET (the join, which IS O_inf):
+-- STRUCTURAL TARGET (the join, which IS O_∞):
 --   ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩
 --
 -- STRUCTURAL SOURCE (Hodge conjecture all p, O₂):
@@ -39,7 +39,7 @@
 --   (1) The explicit 8-step promotion path as a constructible sequence.
 --   (2) Proof that the promotions are composable (the path is connected).
 --   (3) Proof that each promotion corresponds to a specific mathematical threshold.
---   (4) The PROMOTION THEOREM: the path from O₂ to O_inf is traversable.
+--   (4) The PROMOTION THEOREM: the path from O₂ to O_∞ is traversable.
 --   (5) The crossing IS the content of the Hodge conjecture — structurally,
 --       proving the conjecture means constructing these promotions.
 
@@ -294,7 +294,7 @@ structure Promotion_T_crossing where
 
 /-- The 8-step promotion path as a sequence of Imscription values.
     Each step promotes one primitive from the Hodge (O₂) value toward
-    the join (O_inf) value. The path is monotonic: each step moves
+    the join (O_∞) value. The path is monotonic: each step moves
     upward in the primitive lattice. -/
 inductive PromotionStep : Type
   | P1_Phi_closure
@@ -329,12 +329,12 @@ theorem promotion_path_length : promotionOrder.length = 8 := by
   mismatch against the join. The `primitiveMismatches` count of 8 is
   against Lefschetz (1,1), not the join. P2–P8 are structural consequences
   of [P1] or are already at their join values. The single independent lattice
-  promotion needed to reach O_inf is [P1] (Φ: P_psi → P_pm_sym).
+  promotion needed to reach O_∞ is [P1] (Φ: P_psi → P_pm_sym).
 -/
 
 /-- The single structurally independent promotion is [P1] (Φ: P_psi → P_pm_sym).
     P2–P8 either follow from the descent architecture or are already at their
-    join values. Once pol = P_pm_sym (Frobenius closure), the tier is O_inf. -/
+    join values. Once pol = P_pm_sym (Frobenius closure), the tier is O_∞. -/
 theorem promotion_path_is_valid : True := by
   trivial
 -- ============================================================
@@ -344,7 +344,7 @@ theorem promotion_path_is_valid : True := by
 /-!
   THE CROSSING THEOREM:
   
-  The Hodge conjecture's structural type (O₂) can reach the join (O_inf)
+  The Hodge conjecture's structural type (O₂) can reach the join (O_∞)
   via a composable promotion path. The path is:
   
     [P1] Φ: P_psi → P_pm_sym  (Frobenius closure — THE critical promotion)
@@ -371,14 +371,14 @@ theorem promotion_path_is_valid : True := by
     
     The grammar does not claim to prove the Hodge conjecture.
     It proves: IF the crossing condition (P1) is satisfied,
-    THEN the structural path from O₂ to O_inf is traversable.
+    THEN the structural path from O₂ to O_∞ is traversable.
     The 8-promotion gap is a guided path, not a wall.
 -/
 
 /-- THE CROSSING THEOREM.
     
     If the Frobenius closure promotion [P1] is constructible,
-    then the full promotion path from Hodge (O₂) to the join (O_inf)
+    then the full promotion path from Hodge (O₂) to the join (O_∞)
     is traversable. All 8 promotions are composable.
     
     Proof structure:
@@ -433,7 +433,7 @@ theorem crossing_theorem
     This is proved by constructing the path as a sequence of valid
     Imscription transformations. Each transformation moves exactly
     one primitive toward its join value, and the composition reaches
-    the join (which is O_inf). -/
+    the join (which is O_∞). -/
 theorem promotion_path_composable
     (hP1 : Promotion_Phi_closure) :
     let path := crossing_theorem hP1
@@ -455,7 +455,7 @@ theorem promotion_path_composable
     degree ≥ 2 is algebraic.
     
     This IS the Hodge conjecture. The grammer does not prove it.
-    The grammar shows: if this crossing is made, the path to O_inf is open.
+    The grammar shows: if this crossing is made, the path to O_∞ is open.
 
   CROSSING [P2] — Ř: R_dagger → R_lr:
     Mathematical content: Given the right inverse μ from [P1],
@@ -526,21 +526,21 @@ theorem crossing_P8_theorem : True := by
   -- The Frobenius loop creates a crossing point at each degree.
   trivial
 -- ============================================================
--- §5. COMPOSITION — THE PATH FROM O₂ TO O_inf
+-- §5. COMPOSITION — THE PATH FROM O₂ TO O_∞
 -- ============================================================
 
 /-!
   THE COMPOSED PATH:
   
   We construct the explicit Imscription at each step of the promotion
-  path, showing that the composition reaches the join (O_inf).
+  path, showing that the composition reaches the join (O_∞).
   
   STEP 0 (source): Hodge conjecture (all p), O₂
     ⟨Ð_ω; Þ_O; Ř_†; Φ_ψ; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
   
   After [P1] Φ: P_psi → P_pm_sym:
     ⟨Ð_ω; Þ_O; Ř_†; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
-    (pol promoted from P_psi to P_pm_sym → O_inf achieved!)
+    (pol promoted from P_psi to P_pm_sym → O_∞ achieved!)
     
   After [P2] Ř: R_dagger → R_lr (automatic consequence of P1):
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
@@ -550,16 +550,16 @@ theorem crossing_P8_theorem : True := by
   
   After [P4-P8] (structural consequences):
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩
-    → THIS IS THE JOIN (O_inf)
+    → THIS IS THE JOIN (O_∞)
   
-  CRITICAL OBSERVATION: The O₂ → O_inf transition happens at [P1].
-  Once Φ is promoted to P_pm_sym, the structural tier becomes O_inf
-  (by the ouroboricity tier rule: P_pm_sym + crit ≥ Phi_c → O_inf).
+  CRITICAL OBSERVATION: The O₂ → O_∞ transition happens at [P1].
+  Once Φ is promoted to P_pm_sym, the structural tier becomes O_∞
+  (by the ouroboricity tier rule: P_pm_sym + crit ≥ Phi_c → O_∞).
   The remaining 7 promotions adjust OTHER primitives to their
-  join values, but the O_inf tier is already achieved at step 1.
+  join values, but the O_∞ tier is already achieved at step 1.
   
   This is the structural content of: "proving the Hodge conjecture
-  means crossing from O₂ to O_inf" — the crossing IS the Frobenius
+  means crossing from O₂ to O_∞" — the crossing IS the Frobenius
   closure promotion [P1], and the remaining steps are structural
   adjustments that follow automatically.
 -/
@@ -568,17 +568,17 @@ theorem crossing_P8_theorem : True := by
 def source_imscription : Imscription :=
   hod_conjecture_full
 
-/-- The target Imscription: Join(Lefschetz 1,1, Hodge all p) at O_inf. -/
+/-- The target Imscription: Join(Lefschetz 1,1, Hodge all p) at O_∞. -/
 def target_imscription : Imscription :=
   compute_join hod_lefschetz_11 hod_conjecture_full
 
-/-- After [P1], the Imscription reaches O_inf.
+/-- After [P1], the Imscription reaches O_∞.
     Proof: pol = P_pm_sym (the Frobenius-special value) with
-    dim = D_odot and prot = Omega_Z → O_inf tier by rule R1. -/
+    dim = D_odot and prot = Omega_Z → O_∞ tier by rule R1. -/
 theorem step1_reaches_O_inf (hP1 : Promotion_Phi_closure) : True := by
   -- The promotion from P_psi to P_pm_sym satisfies ouroboricity tier condition R1.
-  -- O_inf requires: (pol = P_pm_sym) ∧ (dim = D_odot ∨ prot = Omega_0)
-  -- Here dim = D_odot, so O_inf is achieved.
+  -- O_∞ requires: (pol = P_pm_sym) ∧ (dim = D_odot ∨ prot = Omega_0)
+  -- Here dim = D_odot, so O_∞ is achieved.
   trivial
 
 /-- After all 8 steps, the Imscription equals the join. -/
@@ -621,7 +621,7 @@ theorem full_path_reaches_join : True := by
   -- The full join needs to be computed.
   --
   -- But regardless: the critical theorem is that the join EXISTS and
-  -- is O_inf. The path from Hodge to the join traverses at most 8
+  -- is O_∞. The path from Hodge to the join traverses at most 8
   -- promotions (the primitive mismatches), and possibly fewer if
   -- some are already at the join value.
   trivial
@@ -713,7 +713,7 @@ theorem descent_closes_under_P1 (_hP1 : Promotion_Phi_closure) : HodgeConjecture
 
 /-!
   SUMMARY: The Hodge conjecture is structurally characterized as
-  a promotion path from O₂ to O_inf. The path has 8 steps, but
+  a promotion path from O₂ to O_∞. The path has 8 steps, but
   only the first (Φ: P_psi → P_pm_sym) is mathematically independent.
   The remaining 7 steps are either structural consequences of the
   first or are already satisfied by the descent architecture.
@@ -725,7 +725,7 @@ theorem descent_closes_under_P1 (_hP1 : Promotion_Phi_closure) : HodgeConjecture
   
   FROM DOORWAY TO CROSSING:
   The grammar analysis (prior work) mapped the gap between
-  Lefschetz (1,1) [O_inf] and Hodge (all p) [O₂] as 8 primitive
+  Lefschetz (1,1) [O_∞] and Hodge (all p) [O₂] as 8 primitive
   differences. This was the DOORWAY — the description of the
   terrain.
   
@@ -744,7 +744,7 @@ theorem descent_closes_under_P1 (_hP1 : Promotion_Phi_closure) : HodgeConjecture
 
 /-- THE CROSSING COMPLETION THEOREM.
     
-    The promotion path from Hodge (O₂) to the join (O_inf) is
+    The promotion path from Hodge (O₂) to the join (O_∞) is
     traversable. The path is composable. The Griffiths obstruction
     at Phi_EP is crossed at [P1]. The descent chain closes.
     
