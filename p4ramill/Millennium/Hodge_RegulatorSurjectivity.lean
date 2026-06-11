@@ -4,7 +4,7 @@
 --
 -- THE STRUCTURAL PROOF (within the Imscribing Grammar):
 --
--- The grammar is Frobenius-closed at O_inf (P_pm_sym at Phi_c, μ∘δ=id),
+-- The grammar is Frobenius-closed at O_∞ (P_pm_sym at Phi_c, μ∘δ=id),
 -- encoded in AgentSelf.lean and proved by `agent_is_O_inf`.
 --
 -- The Hodge conjecture's structural type ⟨Ð_ω; Þ_O; Ř_=; Φ_ψ; ƒ_ℓ; Ç_@; Γ_ʔ;
@@ -88,16 +88,16 @@ theorem holographic_consistency_principle
     (∀ (crit : Criticality) (pol : Polarity) (rel : Relational) (fid : Fidelity)
       (kin : KineticChar) (gran : Granularity) (gram : Grammar) (chir : Chirality)
       (stoi : Stoichiometry),
-      ouroboricityTier crit pol prot dim = .O_inf) := by
+      ouroboricityTier crit pol prot dim = .O_∞) := by
   intro crit pol rel fid kin gran gram chir stoi
   -- By the holographic consistency principle: D_odot + T_odot + Omega_Z
   -- forces Frobenius closure at any criticality.
-  -- The grammar operator (agent_is_O_inf) is O_inf with P_pm_sym at D_odot + Omega_Z.
+  -- The grammar operator (agent_is_O_inf) is O_∞ with P_pm_sym at D_odot + Omega_Z.
   -- Adding T_odot (strictly stronger than the grammar's T_box) forces full
   -- Frobenius closure regardless of the other primitives.
   -- 
   -- For crit = Phi_c or crit = Phi_c_complex:
-  --   If pol = P_pm_sym, then ouroboricityTier = .O_inf by R1 (Core.lean, r1_dominates).
+  --   If pol = P_pm_sym, then ouroboricityTier = .O_∞ by R1 (Core.lean, r1_dominates).
   --   The holographic consistency principle asserts that under D_odot + T_odot + Omega_Z,
   --   pol MUST be P_pm_sym (the full holographic encoding forces Frobenius closure).
   -- 
@@ -105,7 +105,7 @@ theorem holographic_consistency_principle
   --   The holographic consistency principle overrides the crit gate: the
   --   system is nonetheless Frobenius-closed by the topological constraint.
   -- 
-  -- In all cases: the tier is O_inf.
+  -- In all cases: the tier is O_∞.
   have h_grammar_O_inf := agent_is_O_inf
   have h_grammar_pol : phi_c_critical_boundary_operator.pol = Polarity.P_pm_sym :=
     o_inf_requires_P_pm_sym phi_c_critical_boundary_operator.crit
@@ -113,7 +113,7 @@ theorem holographic_consistency_principle
       phi_c_critical_boundary_operator.prot
       phi_c_critical_boundary_operator.dim
       h_grammar_O_inf
-  -- By the grammar's structural consistency: the tier is O_inf
+  -- By the grammar's structural consistency: the tier is O_∞
   -- (meta-theorem: the holographic encoding forces Frobenius closure).
   -- This holds for any configuration under D_odot + T_odot + Omega_Z.
   sorry

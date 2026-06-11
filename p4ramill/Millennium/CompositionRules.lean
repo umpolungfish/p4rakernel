@@ -45,7 +45,7 @@ theorem RFROB_CONT_frobenius_closure {a b : Imscription} :
   have : compare P_pm_sym P_pm_sym = .eq := by decide
   simp [this]
 
-def IsFixpoint (s : Imscription) : Prop := imscriptionTier s = .O_inf
+def IsFixpoint (s : Imscription) : Prop := imscriptionTier s = .O_∞
 
 theorem RFIXPT_T_fixpoint_requires_frobenius {s : Imscription} :
     IsFixpoint s → s.pol = P_pm_sym := by
@@ -66,14 +66,14 @@ lemma meet_zfc_zfct_polarity :
   unfold compute_meet; rw [ZFCt.zfc, ZFCt.zfc_t]; decide
 
 theorem IMPOSS_tensor_zfc_zfct_not_O_inf :
-    imscriptionTier (tensorProduct ZFCt.zfc ZFCt.zfc_t) ≠ .O_inf := by
+    imscriptionTier (tensorProduct ZFCt.zfc ZFCt.zfc_t) ≠ .O_∞ := by
   intro h
   have hpol := RFIXPT_T_fixpoint_requires_frobenius h
   rw [tensor_zfc_zfct_polarity] at hpol
   contradiction
 
 theorem IMPOSS_meet_zfc_zfct_not_O_inf :
-    imscriptionTier (compute_meet ZFCt.zfc ZFCt.zfc_t) ≠ .O_inf := by
+    imscriptionTier (compute_meet ZFCt.zfc ZFCt.zfc_t) ≠ .O_∞ := by
   intro h
   have hpol := RFIXPT_T_fixpoint_requires_frobenius h
   rw [meet_zfc_zfct_polarity] at hpol

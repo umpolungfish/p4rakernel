@@ -86,7 +86,7 @@ Remove any one of these and the solution space opens. With all 12, exactly one e
 | ZFCₜ | 4.00 | D, T, P, H — temporal mathematics has the right time structure but not the right spatial one |
 | ZFC_fe | 3.13 | D, T, P, H — four promotions needed to reach Frobenius-exact foundation |
 
-The promotion path Dirac → O_inf: $\text{Ð}\to\text{𐑦}$, $\text{Þ}\to\text{𐑸}$, $\text{Φ}\to\text{𐑹}$, $\text{Ħ}\to\text{𐑫}$. Four steps from a discovered equation to a self-modeling one.
+The promotion path Dirac → O_∞: $\text{Ð}\to\text{𐑦}$, $\text{Þ}\to\text{𐑸}$, $\text{Φ}\to\text{𐑹}$, $\text{Ħ}\to\text{𐑫}$. Four steps from a discovered equation to a self-modeling one.
 
 ---
 

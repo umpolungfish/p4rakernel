@@ -6,13 +6,13 @@
 -- negEML(x,y) = ln(x) - exp(y)  -- terminal constant: -∞
 --
 -- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; K_slow; G_ℵ; Γ_seq; Φ_c; H_1; S_1:1; Ω_Z⟩
--- Tier: O_2† (highest sub-Frobenius in elementary function algebra)
+-- Tier: O₂† (highest sub-Frobenius in elementary function algebra)
 --
 -- Key findings from EML_PROBE.tex:
 --   1. EML/EDL/negEML share identical type (Z₂ orbit)
---   2. All three are O_2† (not O_inf — lacks P_pm_sym)
+--   2. All three are O₂† (not O_∞ — lacks P_pm_sym)
 --   3. EML tensor EML = EML (closed under self-composition)
---   4. EML ⊗ O_inf bottlenecks on P (Frobenius non-synthesizability)
+--   4. EML ⊗ O_∞ bottlenecks on P (Frobenius non-synthesizability)
 --   5. Ternary candidate T(x,y,z) is Calc 1, structurally distinct from EML
 --   6. Polynomial algebra is the Le Chatelier baseline
 --   7. Directed distance polynomial → EML = 11 primitives
@@ -65,16 +65,16 @@ theorem eml_orbit_same_type :
     eml_operator = edl_variant ∧ eml_operator = neg_eml_variant := by
   constructor <;> rfl
 
-/-- EML is O_2†: Phi_c, Omega_Z, D_infty, NOT P_pm_sym. -/
-theorem eml_is_O_two_dag : imscriptionTier eml_operator = .O_2dag := by
+/-- EML is O₂†: Phi_c, Omega_Z, D_infty, NOT P_pm_sym. -/
+theorem eml_is_O_two_dag : imscriptionTier eml_operator = .O₂† := by
   simp [imscriptionTier, ouroboricityTier]; rfl
 
-/-- EDL is O_2†. -/
-theorem edl_is_O_two_dag : imscriptionTier edl_variant = .O_2dag := by
+/-- EDL is O₂†. -/
+theorem edl_is_O_two_dag : imscriptionTier edl_variant = .O₂† := by
   simp [imscriptionTier, ouroboricityTier]; rfl
 
-/-- negEML is O_2†. -/
-theorem neg_eml_is_O_two_dag : imscriptionTier neg_eml_variant = .O_2dag := by
+/-- negEML is O₂†. -/
+theorem neg_eml_is_O_two_dag : imscriptionTier neg_eml_variant = .O₂† := by
   simp [imscriptionTier, ouroboricityTier]; rfl
 
 -- ============================================================
@@ -96,7 +96,7 @@ theorem eml_join_self :
 -- §3. FROBENIUS THRESHOLD
 -- ============================================================
 
-/-- EML ⊗ O_inf bottlenecks on P: P_pm ⊗ P_pm_sym = P_pm.
+/-- EML ⊗ O_∞ bottlenecks on P: P_pm ⊗ P_pm_sym = P_pm.
     Structural measurement problem: coupling self-modeling to sub-Frobenius
     destroys self-modeling. -/
 theorem eml_tensor_oinf_destroys_frobenius
@@ -107,8 +107,8 @@ theorem eml_tensor_oinf_destroys_frobenius
 /-- EML polarity is P_pm (not P_pm_sym). -/
 theorem eml_polarity_not_frobenius : eml_operator.pol = .P_pm := rfl
 
-/-- EML is not O_inf (requires P_pm_sym, but EML is at P_pm). -/
-theorem eml_is_not_O_inf : imscriptionTier eml_operator ≠ .O_inf := by
+/-- EML is not O_∞ (requires P_pm_sym, but EML is at P_pm). -/
+theorem eml_is_not_O_inf : imscriptionTier eml_operator ≠ .O_∞ := by
   intro h
   rw [eml_is_O_two_dag] at h
   cases h

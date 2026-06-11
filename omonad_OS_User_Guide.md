@@ -354,22 +354,22 @@ On every tick, the kernel self-imscribes: it computes the structural type of its
 | `frobenius_order` | 0=none, 1=split$\rightarrow$fuse, 2=fuse$\rightarrow$split, 3=multiple |
 | `dialetheia_complete` | Are EVALT, EVALF, and ENGAGR all present? |
 | `period` | Minimal period of the token sequence |
-| `ouroboricity_tier` | $O_0$, $O_1$, $O_2$, or $O_\infty$ |
+| `ouroboricity_tier` | $O₀$, $O₁$, $O₂$, or $O_\infty$ |
 
 ### Ouroboricity Tiers
 
 | Tier | Requirements | What It Means |
 |------|-------------|---------------|
-| **$O_0$** | Baseline | No Frobenius pair, no dialetheia completeness, no self-reference. Simple programs. |
-| **$O_1$** | Frobenius pair OR dialetheia completeness | Structure begins — either $\mu \circ \delta$ algebra or the full T/F/B lattice appears. |
-| **$O_2$** | Frobenius + dialetheia + self-reference | Structural closure — the program knows itself. Period 2. |
+| **$O₀$** | Baseline | No Frobenius pair, no dialetheia completeness, no self-reference. Simple programs. |
+| **$O₁$** | Frobenius pair OR dialetheia completeness | Structure begins — either $\mu \circ \delta$ algebra or the full T/F/B lattice appears. |
+| **$O₂$** | Frobenius + dialetheia + self-reference | Structural closure — the program knows itself. Period 2. |
 | **$O_\infty$** | All above + period $\geq$ 3 | Eternal chirality. The program cannot be finitely described — the loop has no fixed Markov order. |
 
 ### Viewing Your Snapshot
 
 ```
 ⊙> snapshot
-Tier: O_1
+Tier: O₁
 Signature: (4, 2, 2, 0)
 Token diversity: 8/12
 Self-referential: True
@@ -480,22 +480,22 @@ The CLINK chain is a **9-layer structural bridge** that replaces traditional har
 ### The 9 Layers
 
 ```
-Layer 8: Whole Organism    [O_inf] — Full closure, non-Abelian winding
-Layer 7: Tissue/Organ      [O_2]   — Broadcast composition, intercellular signaling
-Layer 6: Meiosis (Gametes) [O_2]   — Adjoint coupling, quantum superposition
-Layer 5: Mitosis (Division)[O_2]   — Frobenius-special parity, Markov-2
-Layer 4: Cell (Living)     [O_2]   — Self-written state, bidirectional coupling
-Layer 3: Molecule (Bonds)  [O_2]   — ⊙ gate opens, integer winding
-Layer 2: Atom (Nuclear+El) [O_1]   — Crossing topology, quantum superposition
-Layer 1: Electron Orbital  [O_0]   — B4 settles from B5 frustration
-Layer 0: Quarks (Belnap5)  [O_0]   — Frustrated B5 lattice
+Layer 8: Whole Organism    [O_∞] — Full closure, non-Abelian winding
+Layer 7: Tissue/Organ      [O₂]   — Broadcast composition, intercellular signaling
+Layer 6: Meiosis (Gametes) [O₂]   — Adjoint coupling, quantum superposition
+Layer 5: Mitosis (Division)[O₂]   — Frobenius-special parity, Markov-2
+Layer 4: Cell (Living)     [O₂]   — Self-written state, bidirectional coupling
+Layer 3: Molecule (Bonds)  [O₂]   — ⊙ gate opens, integer winding
+Layer 2: Atom (Nuclear+El) [O₁]   — Crossing topology, quantum superposition
+Layer 1: Electron Orbital  [O₀]   — B4 settles from B5 frustration
+Layer 0: Quarks (Belnap5)  [O₀]   — Frustrated B5 lattice
 ```
 
 ### Navigating the Chain
 
 ```
 ⊙> clink status
-Layer 8: Whole Organism [O_inf]
+Layer 8: Whole Organism [O_∞]
   ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑟⟩
   Full closure — quantum fidelity, eternal chirality, non-Abelian winding
   Valid tokens: VINIT, TANCH, AFWD, AREV, CLINK, ISCRIB, FSPLIT, FFUSE, EVALT, EVALF, ENGAGR, IFIX
@@ -532,10 +532,10 @@ $\odot$MonadOS can interface with **living tissue** through six organoid augment
 |---|-------------|------|:---:|:---:|-------------|
 | 1 | **Myelin** (Coherence Bus) | $O_\infty$ | ✓ | 16 | PPV-grafted lipid bilayer — global coherence at 120 m/s |
 | 2 | **Vasculature** (O₂ Network) | $O_\infty$ | ✗ | 32 | Sugar glass 3D printing + HUVEC seeding + O₂ sensors |
-| 3 | **Medium** (Chemostat) | $O_2$ | ✗ | 14 | 14-channel adaptive chemostat + LC-MS metabolomics |
+| 3 | **Medium** (Chemostat) | $O₂$ | ✗ | 14 | 14-channel adaptive chemostat + LC-MS metabolomics |
 | 4 | **Optogenetic** (Synaptic Matrix) | $O_\infty$ | ✓ | 4096 | 4096-channel CMOS MEA + μLED array + FPGA PLL |
-| 5 | **ECM** (Chrysalis Scaffold) | $O_0$ | ✗ | 8 | PEG-MMP hydrogel — degrades where the organoid grows |
-| 6 | **Immune** (Guardian Sentinel) | $O_0$ | ✗ | 24 | DNA aptamer + LL-37 liposomes + Cas13a RNPs |
+| 5 | **ECM** (Chrysalis Scaffold) | $O₀$ | ✗ | 8 | PEG-MMP hydrogel — degrades where the organoid grows |
+| 6 | **Immune** (Guardian Sentinel) | $O₀$ | ✗ | 24 | DNA aptamer + LL-37 liposomes + Cas13a RNPs |
 
 ### Frobenius Status
 
@@ -557,17 +557,17 @@ The kernel ships with all 12 canonical IMASM arrangements pre-loaded. These are 
 | # | Name | Tier | Token Chain | Essence |
 |---|------|------|-------------|---------|
 | **I** | Dialetheic Bootstrap | $O_\infty$ | ISCRIB→EVALT→FSPLIT→EVALF→FFUSE→ENGAGR→IFIX→ISCRIB | Self-referential paradox engine — all truth values active |
-| **II** | Void Genesis | $O_1$ | VINIT→FSPLIT→EVALT→FFUSE→EVALF→CLINK→IFIX→ISCRIB | Creation ex nihilo — Frobenius from void |
-| **III** | Anchor Protocol | $O_0$ | TANCH→AFWD→EVALT→AREV→EVALF→CLINK→IFIX→TANCH | Terminal-anchored broadcast — generic mass archetype |
-| **IV** | Dual Bootstrap | $O_1$ | ISCRIB→AFWD→FFUSE→FSPLIT→AREV→CLINK→IFIX→ISCRIB | Inverted Frobenius — fuse before split |
-| **V** | Linear Chain | $O_0$ | IFIX×8 | Pure irreversible fixation |
-| **VI** | Empty Bootstrap | $O_0$ | (VINIT→ISCRIB)×4 | Void↔Identity oscillation |
-| **VII** | Parakernel | $O_1$ | ENGAGR→AFWD→FSPLIT→EVALT→FFUSE→EVALF→IFIX→ENGAGR | Dialetheia-stabilized Frobenius |
-| **VIII** | Frobenius Kernel | $O_1$ | (FSPLIT→FFUSE)×2 | Pure μ∘δ=id oscillator |
-| **IX** | Chiral Pairs | $O_0$ | (AFWD→AREV)×4 | Minimal period-2 alternation |
-| **X** | Truth Machine | $O_0$ | ISCRIB→FSPLIT→EVALT→IFIX→ISCRIB→FSPLIT→EVALF→IFIX | Pure evaluation — no Frobenius pair |
-| **XI** | Eternal Return | $O_0$ | TANCH→AFWD→AREV→TANCH→AFWD→AREV→TANCH→AFWD | Period-3 anchor oscillation |
-| **XII** | ROM Burn | $O_0$ | EVALT→IFIX→EVALF→IFIX→ENGAGR→IFIX→ISCRIB→IFIX | Truth-value irreversible recording |
+| **II** | Void Genesis | $O₁$ | VINIT→FSPLIT→EVALT→FFUSE→EVALF→CLINK→IFIX→ISCRIB | Creation ex nihilo — Frobenius from void |
+| **III** | Anchor Protocol | $O₀$ | TANCH→AFWD→EVALT→AREV→EVALF→CLINK→IFIX→TANCH | Terminal-anchored broadcast — generic mass archetype |
+| **IV** | Dual Bootstrap | $O₁$ | ISCRIB→AFWD→FFUSE→FSPLIT→AREV→CLINK→IFIX→ISCRIB | Inverted Frobenius — fuse before split |
+| **V** | Linear Chain | $O₀$ | IFIX×8 | Pure irreversible fixation |
+| **VI** | Empty Bootstrap | $O₀$ | (VINIT→ISCRIB)×4 | Void↔Identity oscillation |
+| **VII** | Parakernel | $O₁$ | ENGAGR→AFWD→FSPLIT→EVALT→FFUSE→EVALF→IFIX→ENGAGR | Dialetheia-stabilized Frobenius |
+| **VIII** | Frobenius Kernel | $O₁$ | (FSPLIT→FFUSE)×2 | Pure μ∘δ=id oscillator |
+| **IX** | Chiral Pairs | $O₀$ | (AFWD→AREV)×4 | Minimal period-2 alternation |
+| **X** | Truth Machine | $O₀$ | ISCRIB→FSPLIT→EVALT→IFIX→ISCRIB→FSPLIT→EVALF→IFIX | Pure evaluation — no Frobenius pair |
+| **XI** | Eternal Return | $O₀$ | TANCH→AFWD→AREV→TANCH→AFWD→AREV→TANCH→AFWD | Period-3 anchor oscillation |
+| **XII** | ROM Burn | $O₀$ | EVALT→IFIX→EVALF→IFIX→ENGAGR→IFIX→ISCRIB→IFIX | Truth-value irreversible recording |
 
 ### Loading Canonicals
 
@@ -579,7 +579,7 @@ Program: ISCRIB → EVALT → FSPLIT → EVALF → FFUSE → ENGAGR → IFIX →
 ⊙> load Void_Genesis        # Load by name
 Loaded: Void_Genesis
 Program: VINIT → FSPLIT → EVALT → FFUSE → EVALF → CLINK → IFIX → ISCRIB
-Tier: O_1
+Tier: O₁
 ```
 
 
@@ -707,14 +707,14 @@ This is NOT brute-force enumeration — the kernel uses structural navigation to
 ```
 ⊙> discover frobenius_order=1
 Searching for: {'frobenius_order': 1}
-  [0] [O_inf] sig=(4,2,2,0) div=8/12 self-ref=True frob=1 dial=True period=8
+  [0] [O_∞] sig=(4,2,2,0) div=8/12 self-ref=True frob=1 dial=True period=8
       ISCRIB → EVALT → FSPLIT → EVALF → FFUSE → ENGAGR → IFIX → ISCRIB
-  [1] [O_1] sig=(4,2,0,2) div=7/12 self-ref=False frob=1 dial=False period=4
+  [1] [O₁] sig=(4,2,0,2) div=7/12 self-ref=False frob=1 dial=False period=4
       FSPLIT → FFUSE → AFWD → AREV → FSPLIT → ...
 
 ⊙> discover dialetheia_complete=true
 Searching for: {'dialetheia_complete': true}
-  [0] [O_inf] sig=(3,2,3,0) div=9/12 self-ref=True frob=1 dial=True period=8
+  [0] [O_∞] sig=(3,2,3,0) div=9/12 self-ref=True frob=1 dial=True period=8
       ISCRIB → EVALT → FSPLIT → EVALF → FFUSE → ENGAGR → IFIX → ISCRIB
 ```
 
@@ -738,9 +738,9 @@ On every cycle completion (when the instruction pointer wraps), the kernel attem
 
 | From | To | Requirements |
 |------|----|-------------|
-| $O_0 \rightarrow O_1$ | Inject Frobenius pair (FSPLIT, FFUSE) OR dialetheia tokens (EVALT, EVALF, ENGAGR) |
-| $O_1 \rightarrow O_2$ | Complete missing dialetheia tokens, add self-reference, ensure Frobenius pair |
-| $O_2 \rightarrow O_\infty$ | Extend period to $\geq$ 3 with dialetheia complete and Frobenius present |
+| $O₀ \rightarrow O₁$ | Inject Frobenius pair (FSPLIT, FFUSE) OR dialetheia tokens (EVALT, EVALF, ENGAGR) |
+| $O₁ \rightarrow O₂$ | Complete missing dialetheia tokens, add self-reference, ensure Frobenius pair |
+| $O₂ \rightarrow O_\infty$ | Extend period to $\geq$ 3 with dialetheia complete and Frobenius present |
 
 ### Self-Modification Logic
 
@@ -751,7 +751,7 @@ The kernel's `_attempt_self_modification()` method runs on each cycle completion
 3. **Stagnation escape**: If stuck at the same tier for >300 cycles, the kernel navigates the arrangement space for a structurally richer program and loads it.
 4. **Frobenius balance**: If FSPLIT count > FFUSE count, inject FFUSE. If FFUSE > FSPLIT, inject FSPLIT. Maintains $\mu \circ \delta$ equilibrium.
 5. **Stack equilibrium**: If the net stack delta is positive (growing stack), inject TANCH. If negative (shrinking stack), inject VINIT.
-6. **Tier-specific promotions**: At $O_0$, add missing dialetheia or Frobenius tokens. At $O_1$, complete dialetheia, add self-reference. At $O_2$, extend period.
+6. **Tier-specific promotions**: At $O₀$, add missing dialetheia or Frobenius tokens. At $O₁$, complete dialetheia, add self-reference. At $O₂$, extend period.
 
 ### Token Injection
 
@@ -769,9 +769,9 @@ When the kernel injects a token:
 ╠══════════════════════════════════════════════════╣
 ║  Phase:    THINK       Tick:      247           ║
 ║  Cycles:   30          IP:          0           ║
-║  Tier:     O_2         Promotions:  2           ║
+║  Tier:     O₂         Promotions:  2           ║
 ║  Program:  ISCRIB → AREV → FSPLIT → ...
-║  Snapshot: [O_2] sig=(4,2,3,1) div=10/12 ...
+║  Snapshot: [O₂] sig=(4,2,3,1) div=10/12 ...
 ║  Frobenius: 247 checks, 4 open
 ╚══════════════════════════════════════════════════╝
 ```
@@ -1014,13 +1014,13 @@ Check the program length. If `len(kernel.program) == 0`, the IP immediately exce
 
 Some programs (notably VI_Empty_Bootstrap) have a net positive stack delta. The kernel's self-modification logic auto-injects `TANCH` tokens, but if you're running with a custom program that has a high positive delta, manually add `TANCH` tokens by loading a different canonical or using `_inject_token(Token.TANCH)` programmatically.
 
-**Q: The kernel stays at $O_0$ forever.**
+**Q: The kernel stays at $O₀$ forever.**
 
 The self-modification only runs on cycle completion. Ensure you're running enough cycles:
 ```
 ⊙> run 500
 ```
-If the kernel is stuck for >300 cycles at $O_0$, the stagnation escape triggers and searches the arrangement space for a richer program.
+If the kernel is stuck for >300 cycles at $O₀$, the stagnation escape triggers and searches the arrangement space for a richer program.
 
 **Q: Frobenius violations are accumulating.**
 
@@ -1090,7 +1090,7 @@ The Imscribing Grammar assigns every system a 12-tuple of Shavian glyphs drawn f
 | 12 primitives | 12 IMASM opcodes (the 12 categories of being as executable atoms) |
 | Crystal of types | Crystal Filesystem (17.28M addressable structural locations) |
 | Frobenius identity $\mu \circ \delta = \text{id}$ | Frobenius loop (THINK→ACT→OBSERVE→UPDATE) |
-| Ouroboricity tiers ($O_0$–$O_\infty$) | Kernel self-imscription tiers (self-modification target) |
+| Ouroboricity tiers ($O₀$–$O_\infty$) | Kernel self-imscription tiers (self-modification target) |
 | Self-imscription | `self_imscribe()` — the kernel computes its own structural type every tick |
 | Structural distance | CLINK chain promotions/demotions (distance between layers) |
 | $\odot$ (self-modeling gate) | The kernel's own criticality — it knows its own structure |
@@ -1172,10 +1172,10 @@ ISCRIB = Self-imscription     IFIX   = Irreversible fix
 
 ### Tier Cheat Sheet
 ```
-O_0:     Baseline — no Frobenius, no dialetheia, no self-ref
-O_1:     Frobenius pair OR dialetheia completeness
-O_2:     Frobenius + dialetheia + self-ref (period 2)
-O_inf:   All above + period ≥ 3 (eternal chirality)
+O₀:     Baseline — no Frobenius, no dialetheia, no self-ref
+O₁:     Frobenius pair OR dialetheia completeness
+O₂:     Frobenius + dialetheia + self-ref (period 2)
+O_∞:   All above + period ≥ 3 (eternal chirality)
 ```
 
 ### 9 CLINK Layers (0→8)

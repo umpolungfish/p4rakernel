@@ -377,7 +377,7 @@ theorem tao_proved_distance_2 :
     share the same structural core but differ at P and H. The Lonely Runner
     has full symmetry (P_sym) vs. Twin Prime's partial ℤ₂ (P_pm), and
     two-step chirality (H2) vs. Twin Prime's H2 (same). The distance is 1
-    (P differs). Both are O_1: critical but unprotected.
+    (P differs). Both are O₁: critical but unprotected.
 
     NOTE: This theorem requires the TwinPrime module to be imported.
     It is stated here as a structural claim; activation requires:
@@ -387,7 +387,7 @@ theorem tao_proved_distance_2 :
 --   native_decide
 --   -- P differs: P_sym vs P_pm
 
-/-- O_1 tier certificate: Phi_c_complex criticality with no topological
+/-- O₁ tier certificate: Phi_c_complex criticality with no topological
     protection. This is the same structural tier as the Twin Prime Conjecture. -/
 theorem o1_tier_certificate :
     lonely_runner_vessel.crit = Phi_c_complex ∧ lonely_runner_vessel.prot = Omega_0 := by
@@ -423,9 +423,9 @@ theorem psym_below_pmsym :
 
 /-!
 The Lonely Runner Conjecture shares with the Twin Prime Conjecture the
-structural type O_1: Phi_c_complex criticality without topological protection
+structural type O₁: Phi_c_complex criticality without topological protection
 (Omega_0). Both are critical but unprotected — approachable from below but
-the final step requires the O_1 → O_inf promotion stack.
+the final step requires the O₁ → O_∞ promotion stack.
 
 LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
@@ -450,14 +450,14 @@ LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
 LONELY RUNNER vs. RIEMANN HYPOTHESIS:
 
-  The RH vessel is O_inf: Phi_c_complex with Omega_Z (integer winding).
+  The RH vessel is O_∞: Phi_c_complex with Omega_Z (integer winding).
   Distance from Lonely Runner = 4:
     P: P_sym → P_pm_sym (Frobenius closure)
     F: F_ell → F_hbar (quantum fidelity)
     H: H2 → H_inf (eternal chirality)
     Ω: Omega_0 → Omega_Z (integer winding)
 
-  The O_1 → O_inf promotion stack requires all four promotions together.
+  The O₁ → O_∞ promotion stack requires all four promotions together.
   This is EXACTLY the same stack as the Twin Prime → RH promotion.
 
 WHY THE LONELY RUNNER IS HARD:

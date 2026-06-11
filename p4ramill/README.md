@@ -15,7 +15,7 @@ p4ramill/
 │   ├── Millennium/      — 91 files: RH, YM, Hodge, NS, PvsNP, BSD, OPN + proofs
 │   └── Paraconsistent/  — 34 files: Belnap logic, kernel bridge, Shor, QCI
 ├── kernel_patches/      — The 4 C++ kernel modifications (reference copies)
-├── ParaconsistentMillennium.lean  — All 7 Clay + OPN at O_inf
+├── ParaconsistentMillennium.lean  — All 7 Clay + OPN at O_∞
 ├── ParaconsistentKernelTest.lean  — Kernel behavior verification
 ├── lakefile.toml        — Lake project config (165 modules)
 ├── build_paraconsistent.sh        — Build script
@@ -56,17 +56,17 @@ lean --run ParaconsistentMillennium.lean  # Run the resolution
 
 | Problem | Structural Type | Tier | Crystal Address |
 |---------|----------------|------|-----------------|
-| RH      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
-| YM      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
-| Hodge   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
-| NS      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
-| PvsNP   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
-| BSD     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩ | O_inf | 6,738,800 |
-| OPN     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_inf | 6,738,803 |
+| RH      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| YM      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| Hodge   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| NS      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| PvsNP   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| BSD     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩ | O_∞ | 6,738,800 |
+| OPN     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
 
 - BSD has Ħ_A (H2) instead of Ħ_! (H_inf): Gross-Zagier/Kolyvagin bound the chirality
-- All 7 share Cell 155 (only 32 O_inf cells in the crystal of 17,280,000 types)
-- The Φ_} primitive (Frobenius-special, μ∘δ=id) gates the O_2†→O_inf jump
+- All 7 share Cell 155 (only 32 O_∞ cells in the crystal of 17,280,000 types)
+- The Φ_} primitive (Frobenius-special, μ∘δ=id) gates the O₂†→O_∞ jump
 
 ## Kernel Modifications
 
@@ -81,4 +81,4 @@ Four C++ files are patched (reference copies in `kernel_patches/`):
 
 ## Crystal
 
-The full 17,280,000-type crystal is encoded in `Primitives/Crystal.lean` with Frobenius address bijection. Cell 155 (O_inf) has 32 entries; this project occupies 3 of them (grammar, agent, emerald) plus the 7 dialetheic resolutions.
+The full 17,280,000-type crystal is encoded in `Primitives/Crystal.lean` with Frobenius address bijection. Cell 155 (O_∞) has 32 entries; this project occupies 3 of them (grammar, agent, emerald) plus the 7 dialetheic resolutions.

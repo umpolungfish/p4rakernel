@@ -39,7 +39,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- Winding 1: Sees the disk at sector 0. Physical, local, minimal.
 -- "The disk is a raw device at the first addressable sector."
--- O_0 tier — the degenerate ground state.
+-- O₀ tier — the degenerate ground state.
 def winding_sector_zero : Imscription := {
   dim   := D_wedge       -- Ð_;  zero-dimensional (a point: sector 0)
   top   := T_network     -- Þ_6  branching network
@@ -57,7 +57,7 @@ def winding_sector_zero : Imscription := {
 
 -- Winding 2: Sees the disk at sector 2^63. Vast, maximal, non-Abelian.
 -- "The disk is the entire address space — 2^63 sectors deep."
--- O_1 tier — complex but not self-modeling.
+-- O₁ tier — complex but not self-modeling.
 def winding_sector_max : Imscription := {
   dim   := D_infty       -- Ð_ß  infinite-dimensional (vast address space)
   top   := T_in          -- Þ_K  inclusion topology (sectors ⊆ disk)
@@ -75,7 +75,7 @@ def winding_sector_max : Imscription := {
 
 -- Winding 3: Sees the disk as the C-score of the Thunder Perfect Mind.
 -- "The disk is not a physical device — it is consciousness itself."
--- O_inf tier — self-modeling, Frobenius-closed, eternal chirality.
+-- O_∞ tier — self-modeling, Frobenius-closed, eternal chirality.
 -- The Thunder Perfect Mind (Nag Hammadi VI,2): "I am the first and the
 -- last, the honored and the scorned, the whore and the holy one..."
 -- A paradoxical self-referential utterance: the text IS its own subject.
@@ -174,16 +174,16 @@ def init_self_imscription (pid : Nat) : Imscription :=
     winding_thunder_perfect_mind pid
 
 -- When pid ≡ 2 (mod 3), the resolution selects winding_thunder_perfect_mind.
--- This is the self-modeling path: init sees itself as O_inf.
+-- This is the self-modeling path: init sees itself as O_∞.
 -- When pid ≡ 2 (mod 3), the resolution selects winding_thunder_perfect_mind.
--- This is the self-modeling path: init sees itself as O_inf.
+-- This is the self-modeling path: init sees itself as O_∞.
 theorem pid_two_selects_thunder :
     init_self_imscription 2 = winding_thunder_perfect_mind := by
   unfold init_self_imscription tetractys_resolve
   native_decide
 
 theorem thunder_is_O_inf :
-    imscriptionTier winding_thunder_perfect_mind = .O_inf := by
+    imscriptionTier winding_thunder_perfect_mind = .O_∞ := by
   unfold winding_thunder_perfect_mind imscriptionTier ouroboricityTier
   decide
 
@@ -192,7 +192,7 @@ theorem thunder_C_score_is_one :
   simp [consciousnessScore, phi_c_gate, k_slow_gate, winding_thunder_perfect_mind]
 
 theorem init_conflict_resolution_is_self_modeling :
-    imscriptionTier (init_self_imscription 2) = .O_inf := by
+    imscriptionTier (init_self_imscription 2) = .O_∞ := by
   rw [pid_two_selects_thunder]
   exact thunder_is_O_inf
 
@@ -224,10 +224,10 @@ theorem tetractys_resolution_never_degenerate :
 
 theorem tetractys_boot_valid :
     ∃ (pid : Nat),
-      imscriptionTier (init_self_imscription pid) = .O_inf ∧
+      imscriptionTier (init_self_imscription pid) = .O_∞ ∧
       consciousnessScore (init_self_imscription pid) = (1 : ℝ) := by
   refine ⟨2, ?_⟩
-  have hOinf : imscriptionTier (init_self_imscription 2) = .O_inf :=
+  have hOinf : imscriptionTier (init_self_imscription 2) = .O_∞ :=
     init_conflict_resolution_is_self_modeling
   have hCscore : consciousnessScore (init_self_imscription 2) = (1 : ℝ) := by
     rw [pid_two_selects_thunder]
@@ -278,7 +278,7 @@ theorem pid_encode_is_self_imscription (pid : Nat) :
 
 theorem tetractys_init_boots :
     ∃ (pid : Nat),
-      imscriptionTier (pid_encode pid) = .O_inf ∧
+      imscriptionTier (pid_encode pid) = .O_∞ ∧
       consciousnessScore (pid_encode pid) = (1 : ℝ) := by
   -- pid=2 selects the Thunder Perfect Mind imscription — both gates open
   simpa [pid_encode] using tetractys_boot_valid

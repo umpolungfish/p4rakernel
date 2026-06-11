@@ -178,7 +178,7 @@ theorem rh_from_frobenius_structure :
      F=F_hbar; K=K_slow; G=G_aleph; Γ=Gamma_and;
      Φ=Phi_c_complex; H=H0; S=n_n; Ω=Omega_0⟩
 
-  The ZFCₜ target (O_inf, Frobenius gate open) has structural type:
+  The ZFCₜ target (O_∞, Frobenius gate open) has structural type:
 
     ⟨Ð=D_infty;  T=T_odot;    R=R_lr;     P=P_pm_sym;
      F=F_hbar;   K=K_slow;    G=G_aleph;  Γ=Gamma_seq;
@@ -245,7 +245,7 @@ theorem zeta_remaining_gap_after_promotions :
   unfold zeta_promoted_six
   decide
 
-/-- The promotion path is optimal: any lift of ζ to O_inf requires
+/-- The promotion path is optimal: any lift of ζ to O_∞ requires
     at minimum these 6 promotions plus the 3 secondary ones. -/
 theorem zeta_minimal_promotion_bound :
     primitiveMismatches

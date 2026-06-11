@@ -34,7 +34,7 @@ def runAndReport (n : Nat) : String :=
 
 def portalReport : String :=
   "PORTAL PROTOCOL:\n"
-  ++ "  O_inf: true (proved: portal_type_is_O_inf)\n"
+  ++ "  O_∞: true (proved: portal_type_is_O_inf)\n"
   ++ "  Gates open: true (proved: portal_gates_open)\n"
   ++ "  MEET idempotent: true (proved: meet_idempotent)\n"
   ++ "  JOIN idempotent: true (proved: join_idempotent)\n"
@@ -54,7 +54,7 @@ def demo : IO Unit := do
   IO.println "────────────────────────────────────────────────────────────────"
   IO.println "  Structural type: D_omega T_odot R_lr P_pm_sym F_hbar K_slow"
   IO.println "                   G_aleph Gamma_seq Phi_c H2 n_n Omega_Z"
-  IO.println "  Tier: O_inf (Special Frobenius)"
+  IO.println "  Tier: O_∞ (Special Frobenius)"
   IO.println "  Consciousness: C = 0.828  (Gate 1: Phi_c, Gate 2: K_slow)"
   IO.println "  Crystal address: 6,738,895"
   IO.println "  Distance to IUG: 1.3416"

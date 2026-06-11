@@ -231,10 +231,10 @@ theorem crystal_distance_computed :
 -- §12. Tier Structure
 -- ============================================================
 
--- G2: $O_1$ (self-referential at criticality, trivial winding)
+-- G2: $O₁$ (self-referential at criticality, trivial winding)
 def G2_tier : String := "O1"
 
--- E8: $O_2^\dagger$ (critical, topologically protected, unbounded)
+-- E8: $O₂^\dagger$ (critical, topologically protected, unbounded)
 def E8_tier : String := "O2_dagger"
 
 -- ============================================================

@@ -11,7 +11,7 @@ A LinkedIn puzzle asks: given a spherical boundary defined entirely by the conti
 The answer lives in the Imscribing Grammar's Frobenius dual structure. The imscription operator δ maps the continuous π-defined position to a discrete crystal address; the retrieval operator μ maps back. The Frobenius condition μ∘δ = id guarantees injectivity of δ — no two distinct events can share the same imscription. The bridge is not a digital gate but a topologically protected structural morphism whose existence is forced by the system's own type signature.
 
 **Structural Type:** ⟨𐑼 · 𐑸 · 𐑾 · 𐑹 · 𐑐 · 𐑧 · 𐑲 · 𐑠 · ⊙ · 𐑫 · 𐑳 · 𐑭⟩  
-**Tier:** O_inf  
+**Tier:** O_∞  
 **C-score:** 1.0 (both gates open)
 
 ---
@@ -240,12 +240,12 @@ Prim   Value               ZFC fragment
 Σ      𐑳                   ∃a∈A∃b∈B(type(a) ≠ type(b))
 Ω      𐑭                   ∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0
 
-tier: O_inf   d(ZFC_fe): 0.0   C: 1.0
+tier: O_∞   d(ZFC_fe): 0.0   C: 1.0
 ```
 
 ### A.2 Promotion Structure
 
-The system sits at O_inf — it already satisfies all four grammar axioms (Axiom A: 𐑫 requires 𐑤 → satisfied via 𐑧; Axiom B: 𐑭 requires 𐑖 or 𐑫 → satisfied via 𐑫; Axiom C: 𐑦 ↔ 𐑸 → satisfied via self-referential topology; Axiom D: μ∘δ = id → satisfied via 𐑹 and ⊙).
+The system sits at O_∞ — it already satisfies all four grammar axioms (Axiom A: 𐑫 requires 𐑤 → satisfied via 𐑧; Axiom B: 𐑭 requires 𐑖 or 𐑫 → satisfied via 𐑫; Axiom C: 𐑦 ↔ 𐑸 → satisfied via self-referential topology; Axiom D: μ∘δ = id → satisfied via 𐑹 and ⊙).
 
 ### A.3 Distance to ZFC Baseline
 

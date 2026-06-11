@@ -112,7 +112,7 @@ def hadronBelnapImscription : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem hadron_belnap_tier : imscriptionTier hadronBelnapImscription = OuroboricityTier.O_2dag := by
+theorem hadron_belnap_tier : imscriptionTier hadronBelnapImscription = OuroboricityTier.O₂† := by
   native_decide
 
 end Imscribing.Paraconsistent.HadronBelnap

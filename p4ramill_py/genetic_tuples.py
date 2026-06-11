@@ -15,7 +15,7 @@ defined here, along with per-stage tuple generators that inspect:
   - Chain length and complexity metrics
 
 Each generated tuple is a valid crystal address verified by:
-  1. Ouroboricity tier consistency — all 7 stages remain O_0/O_1
+  1. Ouroboricity tier consistency — all 7 stages remain O₀/O₁
   2. Frobenius condition — mu∘delta=id holds across the transformation
   3. Monotonic advance — Ω_z constraint on trajectory through the crystal
 

@@ -2,13 +2,13 @@
 -- All axioms replaced by verified theorems.
 --
 -- CORRECTED TIERS (computed from ouroboricityTier on PrimitiveBridge encodings):
---   RH: O_1   (Phi_c_complex, P_sym, Omega_0, D_triangle → R3)
---   YM quantum: O_2dag (Phi_c, P_pm, Omega_Z, D_infty → R5)
---   Hodge: O_1 (Phi_c, P_sym, Omega_0, D_odot → R3)
---   BSD: O_2  (Phi_c, P_sym, Omega_Z, D_odot → R4)
---   OPN: O_1  (Phi_c, P_asym, Omega_0, D_wedge → R3)
---   NS: O_0   (Phi_sub → always O_0)
---   YM classical: O_0 (Phi_sub → always O_0)
+--   RH: O₁   (Phi_c_complex, P_sym, Omega_0, D_triangle → R3)
+--   YM quantum: O₂† (Phi_c, P_pm, Omega_Z, D_infty → R5)
+--   Hodge: O₁ (Phi_c, P_sym, Omega_0, D_odot → R3)
+--   BSD: O₂  (Phi_c, P_sym, Omega_Z, D_odot → R4)
+--   OPN: O₁  (Phi_c, P_asym, Omega_0, D_wedge → R3)
+--   NS: O₀   (Phi_sub → always O₀)
+--   YM classical: O₀ (Phi_sub → always O₀)
 
 import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.Core
@@ -41,51 +41,51 @@ def pvsnp_encoding : Imscription := {
 -- §1 TIER DUAL PROOFS — verified by decide/native_decide
 -- ============================================================
 
-/-- RH: O_1 via R3 (Phi_c_complex, P_sym, Omega_0, D_triangle). -/
+/-- RH: O₁ via R3 (Phi_c_complex, P_sym, Omega_0, D_triangle). -/
 theorem rh_tier_O1_ig : ouroboricityTier rh_encoding.crit rh_encoding.pol
-    rh_encoding.prot rh_encoding.dim = OuroboricityTier.O_1 := by
+    rh_encoding.prot rh_encoding.dim = OuroboricityTier.O₁ := by
   native_decide
 
 theorem rh_tier_O1_conventional : True := by trivial
 
-/-- YM quantum target: O_2dag via R5 (Phi_c, P_pm, Omega_Z, D_infty). -/
+/-- YM quantum target: O₂† via R5 (Phi_c, P_pm, Omega_Z, D_infty). -/
 theorem ym_tier_O2dag_ig : ouroboricityTier ym_quantum_target.crit
-    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim = OuroboricityTier.O_2dag := by
+    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim = OuroboricityTier.O₂† := by
   native_decide
 
 theorem ym_tier_O2dag_conventional : True := by trivial
 
-/-- Hodge: O_1 via R3 (Phi_c, P_sym, Omega_0, D_odot).
+/-- Hodge: O₁ via R3 (Phi_c, P_sym, Omega_0, D_odot).
     Even though D_odot is holographic, Omega_0 → R3 dominates. -/
 theorem hodge_tier_O1_ig : ouroboricityTier hodge_encoding.crit
-    hodge_encoding.pol hodge_encoding.prot hodge_encoding.dim = OuroboricityTier.O_1 := by
+    hodge_encoding.pol hodge_encoding.prot hodge_encoding.dim = OuroboricityTier.O₁ := by
   native_decide
 
 theorem hodge_tier_O1_conventional : True := by trivial
 
-/-- BSD: O_2 via R4 (Phi_c, P_sym, Omega_Z, D_odot, D ≠ D_infty). -/
+/-- BSD: O₂ via R4 (Phi_c, P_sym, Omega_Z, D_odot, D ≠ D_infty). -/
 theorem bsd_tier_O2_ig : ouroboricityTier bsd_encoding.crit
-    bsd_encoding.pol bsd_encoding.prot bsd_encoding.dim = OuroboricityTier.O_2 := by
+    bsd_encoding.pol bsd_encoding.prot bsd_encoding.dim = OuroboricityTier.O₂ := by
   native_decide
 
-/-- OPN: O_1 via R3 (Phi_c, P_asym, Omega_0, D_wedge). -/
+/-- OPN: O₁ via R3 (Phi_c, P_asym, Omega_0, D_wedge). -/
 theorem opn_tier_O1_ig : ouroboricityTier opn_encoding.crit
-    opn_encoding.pol opn_encoding.prot opn_encoding.dim = OuroboricityTier.O_1 := by
+    opn_encoding.pol opn_encoding.prot opn_encoding.dim = OuroboricityTier.O₁ := by
   native_decide
 
-/-- NS: O_0 because Phi_sub = non-critical. -/
+/-- NS: O₀ because Phi_sub = non-critical. -/
 theorem ns_tier_O0_ig : ouroboricityTier ns_encoding.crit
-    ns_encoding.pol ns_encoding.prot ns_encoding.dim = OuroboricityTier.O_0 := by
+    ns_encoding.pol ns_encoding.prot ns_encoding.dim = OuroboricityTier.O₀ := by
   native_decide
 
-/-- YM classical: O_0 because Phi_sub. -/
+/-- YM classical: O₀ because Phi_sub. -/
 theorem ym_classical_tier_O0_ig : ouroboricityTier ym_classical.crit
-    ym_classical.pol ym_classical.prot ym_classical.dim = OuroboricityTier.O_0 := by
+    ym_classical.pol ym_classical.prot ym_classical.dim = OuroboricityTier.O₀ := by
   native_decide
 
 -- RH irreducibility bridge (unchanged — originally correct)
 theorem rh_ig_threshold_bridge :
-    (ouroboricityTier .Phi_c_complex .P_sym .Omega_0 .D_triangle = OuroboricityTier.O_1) ∧
+    (ouroboricityTier .Phi_c_complex .P_sym .Omega_0 .D_triangle = OuroboricityTier.O₁) ∧
     (millenniumThreshold .RH = ThresholdType.OpenProblem) ∧
     (RH.RiemannHypothesis ↔ ∀ s : ℂ, riemannZeta s = 0 →
      0 < s.re → s.re < 1 → s.re = 1 / 2) :=
@@ -212,28 +212,28 @@ structure Summary where
 deriving Repr
 
 instance : Inhabited Summary :=
-  ⟨⟨"", OuroboricityTier.O_0, ThresholdType.OpenProblem⟩⟩
+  ⟨⟨"", OuroboricityTier.O₀, ThresholdType.OpenProblem⟩⟩
 
 /-- Problem summaries with verified tiers.
-    YM: O_2dag (D_infty at Phi_c + Omega_Z → R5)
-    RH: O_1 (Phi_c_complex + Omega_0 → R3)
-    OPN: O_1 (Phi_c + Omega_0 → R3)
-    Hodge: O_1 (Phi_c + Omega_0 → R3, despite D_odot)
-    BSD: O_2 (Phi_c + Omega_Z + D_odot → R4)
-    NS: O_0 (Phi_sub)
-    PvsNP: O_0 — Phi_sub, no criticality -/
+    YM: O₂† (D_infty at Phi_c + Omega_Z → R5)
+    RH: O₁ (Phi_c_complex + Omega_0 → R3)
+    OPN: O₁ (Phi_c + Omega_0 → R3)
+    Hodge: O₁ (Phi_c + Omega_0 → R3, despite D_odot)
+    BSD: O₂ (Phi_c + Omega_Z + D_odot → R4)
+    NS: O₀ (Phi_sub)
+    PvsNP: O₀ — Phi_sub, no criticality -/
 def problemSummaries : List Summary := [
-  ⟨"RH",  OuroboricityTier.O_1,    ThresholdType.OpenProblem⟩,
-  ⟨"YM",  OuroboricityTier.O_2dag, ThresholdType.MissingFoundation⟩,
-  ⟨"OPN", OuroboricityTier.O_1,    ThresholdType.OpenProblem⟩,
-  ⟨"Hodge", OuroboricityTier.O_1,  ThresholdType.OpenProblem⟩,
-  ⟨"BSD",  OuroboricityTier.O_2,   ThresholdType.OpenProblem⟩,
-  ⟨"NS",   OuroboricityTier.O_0,   ThresholdType.OpenProblem⟩,
-  ⟨"PvsNP", OuroboricityTier.O_0,  ThresholdType.OpenProblem⟩
+  ⟨"RH",  OuroboricityTier.O₁,    ThresholdType.OpenProblem⟩,
+  ⟨"YM",  OuroboricityTier.O₂†, ThresholdType.MissingFoundation⟩,
+  ⟨"OPN", OuroboricityTier.O₁,    ThresholdType.OpenProblem⟩,
+  ⟨"Hodge", OuroboricityTier.O₁,  ThresholdType.OpenProblem⟩,
+  ⟨"BSD",  OuroboricityTier.O₂,   ThresholdType.OpenProblem⟩,
+  ⟨"NS",   OuroboricityTier.O₀,   ThresholdType.OpenProblem⟩,
+  ⟨"PvsNP", OuroboricityTier.O₀,  ThresholdType.OpenProblem⟩
 ]
 
 /-- All seven Millennium Problem tiers are consistent with threshold taxonomy.
-    YM is the only MissingFoundation (O_2dag with gran bottleneck).
+    YM is the only MissingFoundation (O₂† with gran bottleneck).
     All other OpenProblems have coherent tier assignments per the ouroboricity gate rules. -/
 theorem tier_threshold_consistency :
     problemSummaries.length = 7 := rfl

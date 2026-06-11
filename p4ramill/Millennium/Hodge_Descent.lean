@@ -4,7 +4,7 @@
 -- METHODOLOGY (translated from Solitary10.lean number-theoretic descent):
 --   [1] FACTORIZE: Decompose H^{p,p}(X) via the Lefschetz primitive decomposition.
 --   [2] DESCENT CHAIN: Use the Hard Lefschetz theorem to descend through
---       codimension: p → p-1 → ... → 1 (base case = Lefschetz (1,1), O_inf).
+--       codimension: p → p-1 → ... → 1 (base case = Lefschetz (1,1), O_∞).
 --   [3] CASE ANALYSIS: p=0 (trivial, H^0=Q), p=1 (Lefschetz, proved), p≥2 (open).
 --   [4] COEFFICIENT INEQUALITY: Hodge-Riemann bilinear relations constrain
 --       the intersection pairing on primitive cohomology — the algebraic analogue
@@ -15,11 +15,11 @@
 --       the failure is NOT in the bounds but in the construction of algebraic cycles.
 --
 -- STRUCTURAL VESSEL (from Hodge_Grammar.lean):
---   Lefschetz (1,1): O_inf, P_pm_sym, T_bowtie, Phi_c, 1:1
---   Hodge (all p):   O_2,   P_psi,    T_odot,   Phi_c_complex, n:m
+--   Lefschetz (1,1): O_∞, P_pm_sym, T_bowtie, Phi_c, 1:1
+--   Hodge (all p):   O₂,   P_psi,    T_odot,   Phi_c_complex, n:m
 --   Gap: 8 primitives. Promotions: Þ (bowtie→odot), Σ (1:1→n:m).
 --        Demotions: Ř, Φ, ƒ, ɢ, ⊙, Ħ. Shared: Ð, Ç, Γ, Ω.
---   Join: O_inf (P_pm_sym + Phi_c restored). The join EXISTS; proving
+--   Join: O_∞ (P_pm_sym + Phi_c restored). The join EXISTS; proving
 --         Hodge means reaching it constructively.
 --   Obstruction: Griffiths group at Phi_EP — tensor(CCM, Griffiths) = Phi_EP.
 --
@@ -105,7 +105,7 @@ axiom lefschetzDecomposition (X : SmoothProjectiveVariety) (p : ℕ) : True
     Chain: P(n,p) → P(n-1,p-1) → ... → P(n-p+1,1)
     where P(d,k) = "all Hodge classes of degree k on dim-d varieties are algebraic."
 
-    Base: P(d,1) for all d — Lefschetz (1,1). O_inf, P_pm_sym, proved.
+    Base: P(d,1) for all d — Lefschetz (1,1). O_∞, P_pm_sym, proved.
     Step: P(d,k) for all d < n and k < p ⇒ P(n,p)?
     Obstruction: Griffiths group Gr^p(X) ≠ 0 for some X, p≥2.
 
@@ -160,10 +160,10 @@ theorem hodge_descent_equiv_hodge : HodgeDescentProp ↔ HodgeConjecture := by
 
   The Hodge case split:
     Case A (p=0): H^0(X, Q) = Q — all degree-zero classes are algebraic.
-      Proved: hodge_degree_zero_axiom. Trivial, O_0.
+      Proved: hodge_degree_zero_axiom. Trivial, O₀.
     Case B (p=1): Lefschetz (1,1) — all Hodge (1,1)-classes are algebraic.
-      Proved (1924): lefschetz_11_axiom. O_inf, P_pm_sym, Frobenius-closed.
-    Case C (p≥2): The HODGE CONJECTURE. Open. O_2, P_psi, no Frobenius closure.
+      Proved (1924): lefschetz_11_axiom. O_∞, P_pm_sym, Frobenius-closed.
+    Case C (p≥2): The HODGE CONJECTURE. Open. O₂, P_psi, no Frobenius closure.
       The gap: primitive Hodge classes of degree ≥2 on varieties of dimension ≥4
       are not guaranteed to be algebraic. The Griffiths group Gr^p(X) = ker(cl)/∼_alg
       is nonzero for some X, p≥2 (Griffiths 1969). This is the obstruction at Phi_EP.
@@ -192,7 +192,7 @@ theorem descent_base_p0 (n : ℕ) : DescentPredicate n 0 := by
     This IS the Lefschetz (1,1) theorem — the ONLY case where surjectivity
     of the cycle class map is proved for all varieties.
 
-    Grammar: O_inf, P_pm_sym, T_bowtie, Phi_c, Σ=1:1, Ω_z.
+    Grammar: O_∞, P_pm_sym, T_bowtie, Phi_c, Σ=1:1, Ω_z.
     The Frobenius closure comes from the exponential sheaf sequence:
     0 → Z → O_X → O*_X → 0 → long exact sequence → c1 = δ is surjective
     onto H^2(X, Z) ∩ H^{1,1}(X). Combined with Dolbeault isomorphism,
@@ -740,8 +740,8 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
   ┌────────────────────────────────┬──────────────────────────────────────┐
   │ Hodge_Grammar.lean finding     │ Hodge_Descent.lean mathematical basis │
   ├────────────────────────────────┼──────────────────────────────────────┤
-  │ Lefschetz(1,1) = O_inf         │ P(n,1): proved. Exponential sequence  │
-  │ Hodge(all p) = O_2             │ P(n,p) for p≥2: open. Descent chain   │
+  │ Lefschetz(1,1) = O_∞         │ P(n,1): proved. Exponential sequence  │
+  │ Hodge(all p) = O₂             │ P(n,p) for p≥2: open. Descent chain   │
   │ 8 primitive mismatches         │ 8 descent thresholds (one per primitive)│
   │ T_bowtie → T_odot promotion    │ Single-degree → all-degree induction   │
   │ Σ 1:1 → n:m promotion          │ p=1 specific mechanism → general gap  │
@@ -749,14 +749,14 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
   │ ⊙ Phi_c → Phi_c_complex        │ Self-modeling → complex-plane critical│
   │ Griffiths = Phi_EP             │ Gr^p(X) ≠ 0 for some X, p≥2           │
   │ tensor(CCM, Gr) = Phi_EP       │ Kernel obstruction at exceptional pt  │
-  │ Join = O_inf (exists)          │ IF descent chain closed → O_inf       │
+  │ Join = O_∞ (exists)          │ IF descent chain closed → O_∞       │
   │ Meet = Phi_c (shared floor)    │ P(n,1) is the common base             │
   │ Gate 1 OPEN for Hodge          │ Phi_c_complex ≥ Phi_c → gate passes   │
   │ Gate 1 CLOSED for alg cycles   │ Phi_sub → no self-modeling            │
   └────────────────────────────────┴──────────────────────────────────────┘
 
   THE DESCENT CHAIN AS A PRIMITIVE PROMOTION PATH:
-    To close the gap and reach the join (O_inf):
+    To close the gap and reach the join (O_∞):
       Promote: Þ (T_bowtie → T_odot) — need a universal mechanism, not just p=1.
       Promote: Σ (1:1 → n:m) — need to handle all degrees simultaneously.
       Restore: Φ (P_psi → P_pm_sym) — need Frobenius closure for all p.
@@ -892,8 +892,8 @@ theorem grammar_descent_bridge : True := by
     is not forced by any known inequality).
 
   OUROBORICITY CONCLUSION:
-    Solitary10: O_0 → O_inf via finite descent (the problem IS solvable).
-    Hodge:      O_2 → O_inf via ??? (the join exists but the path is open).
+    Solitary10: O₀ → O_∞ via finite descent (the problem IS solvable).
+    Hodge:      O₂ → O_∞ via ??? (the join exists but the path is open).
                 The Griffiths group at Phi_EP is the structural reason
                 the descent chain does not force closure.
 -/

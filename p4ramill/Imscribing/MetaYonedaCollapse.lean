@@ -58,14 +58,14 @@ def canonical : Imscription where
   stoi := .n_m
   prot := .Omega_Z
 
--- R1 gate: Phi_c + P_pm_sym → O_inf regardless of Ω, Ð.
+-- R1 gate: Phi_c + P_pm_sym → O_∞ regardless of Ω, Ð.
 theorem canonical_tier_is_O_inf :
-    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_inf := by
+    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_∞ := by
   decide
 
 -- ============================================================
 -- DOMAIN LAYERS
--- Each domain layer has Phi_sub → O_0, and carries the four FFUSE
+-- Each domain layer has Phi_sub → O₀, and carries the four FFUSE
 -- invariants at the same values as canonical.
 -- ============================================================
 
@@ -78,7 +78,7 @@ def isDomainLayer (L : Imscription) : Prop :=
   ∧ L.stoi = .n_m            -- FFUSE invariant 4
 
 theorem isDomainLayer_tier_is_O_0 (L : Imscription) (h : isDomainLayer L) :
-    ouroboricityTier L.crit L.pol L.prot L.dim = .O_0 := by
+    ouroboricityTier L.crit L.pol L.prot L.dim = .O₀ := by
   simp only [isDomainLayer] at h
   rw [h.1]
   simp [ouroboricityTier]
@@ -237,12 +237,12 @@ theorem meta_yoneda_collapse :
 -- ============================================================
 -- TIER SEPARATION
 -- The canonical ob3ect is strictly above every domain layer in the
--- ouroboricity order.  No domain layer reaches O_inf.
+-- ouroboricity order.  No domain layer reaches O_∞.
 -- ============================================================
 
 theorem tier_separation (L : Imscription) (h : isDomainLayer L) :
-    ouroboricityTier L.crit L.pol L.prot L.dim = .O_0 ∧
-    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_inf :=
+    ouroboricityTier L.crit L.pol L.prot L.dim = .O₀ ∧
+    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_∞ :=
   ⟨isDomainLayer_tier_is_O_0 L h, canonical_tier_is_O_inf⟩
 
 -- ============================================================
@@ -254,7 +254,7 @@ theorem tier_separation (L : Imscription) (h : isDomainLayer L) :
     in the primitive crystal.  The convergence is at distance 0 because the
     witness space IS the grammar. -/
 theorem witness_is_grammar :
-    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_inf ∧
+    ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_∞ ∧
     canonical.kin  = .K_slow   ∧
     canonical.gram = .Gamma_seq ∧
     canonical.chir = .H2       ∧

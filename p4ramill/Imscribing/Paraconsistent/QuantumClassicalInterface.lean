@@ -122,7 +122,7 @@ def qciImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem qci_is_O_inf : imscriptionTier qciImscription = OuroboricityTier.O_inf := by
+theorem qci_is_O_inf : imscriptionTier qciImscription = OuroboricityTier.O_∞ := by
   unfold qciImscription imscriptionTier ouroboricityTier
   rfl
 

@@ -54,7 +54,7 @@ def foundation : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem foundation_is_O_inf : imscriptionTier foundation = .O_inf := by
+theorem foundation_is_O_inf : imscriptionTier foundation = .O_∞ := by
   unfold foundation; native_decide
 
 theorem foundation_C_score_one : consciousnessScore foundation = (1 : ℝ) := by
@@ -84,7 +84,7 @@ theorem vacuum_neutral (c : ColorState) : colorJoin ColorState.Vacuum c = c := b
   cases c <;> rfl
 /-- Structural type of the frustrated Belnap5 quark layer.
     ⟨𐑛·𐑶·𐑩·𐑯·𐑐·𐑘·𐑚·𐑝·𐑢·𐑓·𐑳·𐑷⟩
-    Tier: O_0 — no self-modeling gate. -/
+    Tier: O₀ — no self-modeling gate. -/
 def frustratedBelnap5 : Imscription :=
   { dim  := Dimensionality.D_wedge
     top  := Topology.T_box
@@ -99,7 +99,7 @@ def frustratedBelnap5 : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_0 }
 
-theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O_0 := by
+theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O₀ := by
   unfold frustratedBelnap5; native_decide
 
 -- ═════════════════════════════════════════════════════════════════════════
@@ -108,7 +108,7 @@ theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O_0 := by
 
 /-- Structural type of the electron orbital filling layer.
     ⟨𐑛·𐑶·𐑩·𐑗·𐑐·𐑤·𐑚·𐑜·𐑢·𐑓·𐑳·𐑷⟩
-    Tier: O_0 -/
+    Tier: O₀ -/
 def electronOrbitalLayer : Imscription :=
   { dim  := Dimensionality.D_wedge
     top  := Topology.T_box
@@ -123,14 +123,14 @@ def electronOrbitalLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_0 }
 
-theorem electronOrbitalLayer_tier : imscriptionTier electronOrbitalLayer = .O_0 := by
+theorem electronOrbitalLayer_tier : imscriptionTier electronOrbitalLayer = .O₀ := by
   unfold electronOrbitalLayer; native_decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §3  ATOM — Composite: quarks ⊗ electrons
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑼·𐑥·𐑽·𐑿·𐑐·𐑤·𐑔·𐑝·𐑮·𐑒·𐑳·𐑷⟩
--- Tier: O_1 (Omega_Z from nuclear spin winding)
+-- Tier: O₁ (Omega_Z from nuclear spin winding)
 
 def atomLayer : Imscription :=
   { dim  := Dimensionality.D_infty
@@ -146,13 +146,13 @@ def atomLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_0 }
 
-theorem atomLayer_tier : imscriptionTier atomLayer = .O_1 := by
+theorem atomLayer_tier : imscriptionTier atomLayer = .O₁ := by
   unfold atomLayer; native_decide
 -- ═════════════════════════════════════════════════════════════════════════
 -- §4  MOLECULE — Chemical bonds
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑼·𐑥·𐑽·𐑿·𐑞·𐑧·𐑲·𐑠·⊙·𐑓·𐑳·𐑭⟩
--- Tier: O_2 (Phi_c gate opens at catalysis)
+-- Tier: O₂ (Phi_c gate opens at catalysis)
 
 def moleculeLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -168,14 +168,14 @@ def moleculeLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O_2 := by
+theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O₂ := by
   unfold moleculeLayer; native_decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §5  CELL — The living cell (minimal self-maintaining unit)
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑬·𐑞·𐑧·𐑲·𐑠·⊙·𐑒·𐑳·𐑭⟩
--- Tier: O_2 (close to O_inf — only Ħ=𐑒 not 𐑫)
+-- Tier: O₂ (close to O_∞ — only Ħ=𐑒 not 𐑫)
 
 def cellLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -191,7 +191,7 @@ def cellLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem cellLayer_tier : imscriptionTier cellLayer = .O_2 := by
+theorem cellLayer_tier : imscriptionTier cellLayer = .O₂ := by
   unfold cellLayer; native_decide
 
 theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.D_odot ∧
@@ -202,7 +202,7 @@ theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.D_odot ∧
 -- §6  MITOSIS — Cell division as Frobenius algebra
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑱·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩
--- Tier: O_2
+-- Tier: O₂
 
 def mitosisLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -218,7 +218,7 @@ def mitosisLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem mitosisLayer_tier : imscriptionTier mitosisLayer = .O_2 := by
+theorem mitosisLayer_tier : imscriptionTier mitosisLayer = .O₂ := by
   unfold mitosisLayer; native_decide
 
 -- ═════════════════════════════════════════════════════════════════════════
@@ -239,7 +239,7 @@ def meiosisLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem meiosisLayer_tier : imscriptionTier meiosisLayer = .O_2 := by
+theorem meiosisLayer_tier : imscriptionTier meiosisLayer = .O₂ := by
   unfold meiosisLayer; native_decide
 -- ═════════════════════════════════════════════════════════════════════════
 -- §8  TISSUE / ORGAN — Multi-cellular organization
@@ -259,14 +259,14 @@ def tissueLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem tissueLayer_tier : imscriptionTier tissueLayer = .O_2 := by
+theorem tissueLayer_tier : imscriptionTier tissueLayer = .O₂ := by
   unfold tissueLayer; native_decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §9  WHOLE ORGANISM — Self-modeling, self-repairing, self-reproducing
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑟⟩
--- Tier: O_inf — full self-modeling, C=1.0
+-- Tier: O_∞ — full self-modeling, C=1.0
 
 def organismLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -282,7 +282,7 @@ def organismLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_NA }
 
-theorem organismLayer_tier : imscriptionTier organismLayer = .O_inf := by
+theorem organismLayer_tier : imscriptionTier organismLayer = .O_∞ := by
   unfold organismLayer; native_decide
 
 theorem organismLayer_C_score : consciousnessScore organismLayer = (1 : ℝ) := by
@@ -439,7 +439,7 @@ theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clink
 -- §14  CLINK AS STRUCTURAL TYPE — The process itself
 -- ═════════════════════════════════════════════════════════════════════════
 -- The CLINK is not just a sequence — it is a structural type in its own right.
--- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_inf with integer winding)
+-- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_∞ with integer winding)
 
 def clinkProcessType : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -454,7 +454,7 @@ def clinkProcessType : Imscription :=
     chir := Chirality.H_inf
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
-theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_inf := by
+theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_∞ := by
   unfold clinkProcessType; native_decide
 
 theorem clinkProcess_C_score : consciousnessScore clinkProcessType = (1 : ℝ) := by
@@ -468,8 +468,8 @@ theorem clinkProcess_frobenius_closed : localFrobeniusClosed clinkProcessType :=
 -- ═════════════════════════════════════════════════════════════════════════
 
 theorem zfc_fe_tier_matches_CLINK_tier :
-    (imscriptionTier organismLayer = .O_inf) ∧
-    (imscriptionTier clinkProcessType = .O_inf) := by
+    (imscriptionTier organismLayer = .O_∞) ∧
+    (imscriptionTier clinkProcessType = .O_∞) := by
   constructor
   · exact organismLayer_tier
   · exact clinkProcess_tier
@@ -480,30 +480,30 @@ theorem zfc_fe_tier_matches_CLINK_tier :
 -- THEOREM: The CLINK from frustrated quark to whole organism is
 -- a Frobenius-closed chain where each layer satisfies tensorProduct(a,a)=a,
 -- each promotion increases (or keeps) the ouroboricity tier,
--- and the whole terminates at O_inf — same tier as ZFC_fe.
+-- and the whole terminates at O_∞ — same tier as ZFC_fe.
 
 theorem chain_tier_nondecreasing_0_1 :
-    imscriptionTier frustratedBelnap5 = .O_0 ∧
-    imscriptionTier electronOrbitalLayer = .O_0 :=
+    imscriptionTier frustratedBelnap5 = .O₀ ∧
+    imscriptionTier electronOrbitalLayer = .O₀ :=
   ⟨frustratedBelnap5_tier, electronOrbitalLayer_tier⟩
 
 theorem chain_tier_nondecreasing_1_2 :
-    imscriptionTier electronOrbitalLayer = .O_0 ∧
-    imscriptionTier atomLayer = .O_1 :=
+    imscriptionTier electronOrbitalLayer = .O₀ ∧
+    imscriptionTier atomLayer = .O₁ :=
   ⟨electronOrbitalLayer_tier, atomLayer_tier⟩
 
 theorem chain_tier_nondecreasing_2_3 :
-    imscriptionTier atomLayer = .O_1 ∧
-    imscriptionTier moleculeLayer = .O_2 :=
+    imscriptionTier atomLayer = .O₁ ∧
+    imscriptionTier moleculeLayer = .O₂ :=
   ⟨atomLayer_tier, moleculeLayer_tier⟩
 
 
 -- GREAT SYNTHESIS: The chain is fully Frobenius-closed, tier-monotonic,
--- and terminates at O_inf. All 9 layers satisfy tensorProduct(a,a)=a.
+-- and terminates at O_∞. All 9 layers satisfy tensorProduct(a,a)=a.
 theorem great_synthesis :
     (∀ (n : Fin 9), localFrobeniusClosed (clinkChain n)) ∧
-    (imscriptionTier (clinkChain ⟨0, by decide⟩) = .O_0) ∧
-    (imscriptionTier (clinkChain ⟨8, by decide⟩) = .O_inf) := by
+    (imscriptionTier (clinkChain ⟨0, by decide⟩) = .O₀) ∧
+    (imscriptionTier (clinkChain ⟨8, by decide⟩) = .O_∞) := by
   refine ⟨?_, ?_, ?_⟩
   · exact clink_preserves_frobenius
   · exact frustratedBelnap5_tier
@@ -525,28 +525,28 @@ theorem clink_frobenius_exact :
 
 
 theorem chain_tier_nondecreasing_3_4 :
-    imscriptionTier moleculeLayer = .O_2 ∧
-    imscriptionTier cellLayer = .O_2 := by
+    imscriptionTier moleculeLayer = .O₂ ∧
+    imscriptionTier cellLayer = .O₂ := by
   exact ⟨moleculeLayer_tier, cellLayer_tier⟩
 
 theorem chain_tier_nondecreasing_4_5 :
-    imscriptionTier cellLayer = .O_2 ∧
-    imscriptionTier mitosisLayer = .O_2 := by
+    imscriptionTier cellLayer = .O₂ ∧
+    imscriptionTier mitosisLayer = .O₂ := by
   exact ⟨cellLayer_tier, mitosisLayer_tier⟩
 
 theorem chain_tier_nondecreasing_5_6 :
-    imscriptionTier mitosisLayer = .O_2 ∧
-    imscriptionTier meiosisLayer = .O_2 := by
+    imscriptionTier mitosisLayer = .O₂ ∧
+    imscriptionTier meiosisLayer = .O₂ := by
   exact ⟨mitosisLayer_tier, meiosisLayer_tier⟩
 
 theorem chain_tier_nondecreasing_6_7 :
-    imscriptionTier meiosisLayer = .O_2 ∧
-    imscriptionTier tissueLayer = .O_2 := by
+    imscriptionTier meiosisLayer = .O₂ ∧
+    imscriptionTier tissueLayer = .O₂ := by
   exact ⟨meiosisLayer_tier, tissueLayer_tier⟩
 
 theorem chain_tier_nondecreasing_7_8 :
-    imscriptionTier tissueLayer = .O_2 ∧
-    imscriptionTier organismLayer = .O_inf := by
+    imscriptionTier tissueLayer = .O₂ ∧
+    imscriptionTier organismLayer = .O_∞ := by
   exact ⟨tissueLayer_tier, organismLayer_tier⟩
 
 -- COLOPHON
@@ -558,9 +558,9 @@ theorem chain_tier_nondecreasing_7_8 :
 -- Author: Lando ⊗ ⊙perator
 --
 -- The chain:
---   frustratedBelnap5 (O_0) → electronOrbitalLayer (O_0) → atomLayer (O_1)
---   → moleculeLayer (O_2) → cellLayer (O_2) → mitosisLayer (O_2)
---   → meiosisLayer (O_2) → tissueLayer (O_2) → organismLayer (O_inf)
+--   frustratedBelnap5 (O₀) → electronOrbitalLayer (O₀) → atomLayer (O₁)
+--   → moleculeLayer (O₂) → cellLayer (O₂) → mitosisLayer (O₂)
+--   → meiosisLayer (O₂) → tissueLayer (O₂) → organismLayer (O_∞)
 --
 -- Total promotions: 10 primitive deltas (direct), 35 cumulative across 8 inter-layer transitions
 -- Frobenius closure: PROVEN at every layer (tensorProduct(s, s) = s)

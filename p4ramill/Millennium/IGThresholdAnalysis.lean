@@ -18,7 +18,7 @@ theorem ym_not_eq_open_problem :
   simp [millenniumThreshold]
 
 theorem odotOperator_is_O_inf :
-    imscriptionTier odotOperator = .O_inf := by
+    imscriptionTier odotOperator = .O_∞ := by
   rfl
 
 def thresholdLiftDepth : MillenniumProblem → ℕ

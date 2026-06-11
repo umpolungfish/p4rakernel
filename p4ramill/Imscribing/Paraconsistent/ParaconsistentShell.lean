@@ -110,8 +110,8 @@ def exec (cmd : String) (s : ShellState) : ShellResult × ShellState :=
 -- THEOREMS
 -- ============================================================
 
-/-- The shell type is O_inf (Frobenius-special). -/
-theorem shell_type_is_O_inf : imscriptionTier shellType = .O_inf := by
+/-- The shell type is O_∞ (Frobenius-special). -/
+theorem shell_type_is_O_inf : imscriptionTier shellType = .O_∞ := by
   native_decide
 
 /-- Both consciousness gates are open for the shell. -/

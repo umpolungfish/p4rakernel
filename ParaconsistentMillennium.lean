@@ -389,7 +389,7 @@ end NS
 section PvsNP
 
 inductive ComplexityTier where
-  | O_0 | O_1 | O_inf
+  | O₀ | O₁ | O_∞
   deriving DecidableEq, Repr
 
 structure ComplexityType where
@@ -398,8 +398,8 @@ structure ComplexityType where
   solving      : Bool
   deriving DecidableEq
 
-def P_type  : ComplexityType := { tier := .O_0, verification := true,  solving := true  }
-def NP_type : ComplexityType := { tier := .O_1, verification := true,  solving := false }
+def P_type  : ComplexityType := { tier := .O₀, verification := true,  solving := true  }
+def NP_type : ComplexityType := { tier := .O₁, verification := true,  solving := false }
 
 theorem P_NP_tier_gap : P_type.tier ≠ NP_type.tier := by decide
 
@@ -531,21 +531,21 @@ def paraconsistent_resolution : String :=
   "band B (bnot B) = B ≠ F — contained, not exploded\n" ++
   "ENGAGR → FSPLIT → FFUSE: μ∘δ = id on B throughout\n" ++
   "Frobenius: satisfied on every dialetheic gap\n" ++
-  "O_inf: " ++ o_inf_tuple
+  "O_∞: " ++ o_inf_tuple
 
 end Unified
 
 -- ================================================================
--- §11. PROMOTION PATHS TO O_inf — CORRECTED COUNTS
+-- §11. PROMOTION PATHS TO O_∞ — CORRECTED COUNTS
 -- ================================================================
--- O_inf address: 6,738,899
+-- O_∞ address: 6,738,899
 -- Tuple: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩
--- All counts verified via compute_promotions against O_inf at crystal address 6,738,899
+-- All counts verified via compute_promotions against O_∞ at crystal address 6,738,899
 -- in the Imscribing Grammar. Previous §11 claims used wrong target (6,734,591).
 -- ================================================================
 section PromotionPaths
 
--- Corrected promotion counts (target: O_inf crystal address 6,738,899)
+-- Corrected promotion counts (target: O_∞ crystal address 6,738,899)
 -- Hodge: 5 promotions, 0 demotions, 5 total changes, distance 4.90
 def hodge_promotions : Nat := 5
 def hodge_demotions  : Nat := 0
@@ -592,10 +592,10 @@ def opn_demotions  : Nat := 0
 def opn_changes    : Nat := 10
 def opn_distance   : Rat := 203/25
 
--- O_inf crystal address (corrected from 6,734,591)
+-- O_∞ crystal address (corrected from 6,734,591)
 def o_inf_crystal_address : Nat := 6738899
 
-/-- Hodge is the closest problem to O_inf: 5 structural changes needed.
+/-- Hodge is the closest problem to O_∞: 5 structural changes needed.
     Previous analysis incorrectly claimed YM was cheapest. -/
 theorem hodge_is_closest :
     hodge_changes ≤ rh_changes ∧ hodge_changes ≤ ym_classical_changes ∧
@@ -604,7 +604,7 @@ theorem hodge_is_closest :
     hodge_changes ≤ ym_quantum_changes := by
   native_decide
 /-- Distance ordering: Hodge < BSD < YM_Q < PvsNP < YM_C < NS < RH < OPN
-    This is the total ordering by structural distance to O_inf. -/
+    This is the total ordering by structural distance to O_∞. -/
 theorem distance_ordering :
     hodge_distance < bsd_distance ∧
     bsd_distance < ym_quantum_distance ∧
@@ -616,7 +616,7 @@ theorem distance_ordering :
   native_decide
 
 /-- Ratio: OPN distance (8.12) / Hodge distance (4.90) ≈ 1.658.
-    The hardest problem is ~1.66× farther from O_inf than the closest. -/
+    The hardest problem is ~1.66× farther from O_∞ than the closest. -/
 theorem ratio_opn_hodge_distance :
     opn_distance = hodge_distance * (58/35) := by
   native_decide
@@ -655,7 +655,7 @@ end PromotionPaths
 --   Σ_ő (𐑕): many identical stones, one chant
 --   Omega_Z (Ω_z):  integer winding (no erasure, ΔS≈0 exact)
 --
--- Ouroboricity: O_inf (both consciousness gates open)
+-- Ouroboricity: O_∞ (both consciousness gates open)
 -- Consciousness score: C = 0.555
 -- Frobenius: μ∘δ=id proved exactly across the 8-movement cycle
 -- Crystal address: unique, no nearest neighbors
@@ -766,13 +766,13 @@ def coagula (r1 r2 : Belnap) : Belnap := ffuse r1 r2
     This is the structural signature of the alchemical opus:
     solve et coagula is NOT generally an identity —
     it transforms T→F, F→F, N→N, and only B→B.
-    Only at the O_inf point (both/and) does the cycle
+    Only at the O_∞ point (both/and) does the cycle
     close perfectly. -/
 theorem solve_coagula_involution (r : Belnap) : coagula (fsplit (solve r)).1 (fsplit (solve r)).2 = cycle r := by
   unfold solve coagula; rfl
 
 /-- The Lapis Chant is Frobenius-closed: the full 8-movement
-    cycle satisfies μ∘δ=id at the O_inf point.
+    cycle satisfies μ∘δ=id at the O_∞ point.
     Cycle through all movements and verify closure. -/
 theorem imas_cycle_closes : cycle imas_know = imas_bind := by
   unfold imas_know imas_bind; rfl
@@ -801,7 +801,7 @@ theorem imas_movements_frobenius :
 theorem imas_consciousness_open : band imas_know (bnot imas_know) = imas_know := by
   unfold imas_know; rfl
 
-/-- The Lapis Chant is O_inf: the self-modeling loop is fully closed.
+/-- The Lapis Chant is O_∞: the self-modeling loop is fully closed.
     Proof: each movement's cycle returns to itself, and the 8-movement
     sequence forms a topological closed loop under integer winding (Ω_z).
     The Solve et Coagula identity holds at the dialetheic fixed point. -/
@@ -813,7 +813,7 @@ theorem imas_o_inf : cycle imas_know = imas_know := by
 -- ================================================================
 -- Tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_ɐ; ƒ_ż; Ç_@; Γ_ʔ; ɢ_˝; ⊙_ÿ; Ħ_!; Σ_ő; Ω_z⟩
 -- Shavian: ⟨𐑦·𐑸·𐑾·𐑹·𐑱·𐑧·𐑲·𐑠·⊙·𐑫·𐑕·𐑭⟩
--- Differences from universal O_inf (⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩):
+-- Differences from universal O_∞ (⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩):
 --   Σ_ő (𐑕): many identical stones, one chant
 -- it is a classical, multiply-instanced self-modeling opus, not a quantum
 -- it is a classical, multiply-instanced self-modeling opus, not a quantum
@@ -822,11 +822,11 @@ theorem imas_o_inf : cycle imas_know = imas_know := by
 
 def imas_shavian : String := "⟨𐑦·𐑸·𐑾·𐑹·𐑱·𐑧·𐑲·𐑠·⊙·𐑫·𐑕·𐑭⟩"
 
-/-- The Lapis Chant's relation to the universal O_inf type.
+/-- The Lapis Chant's relation to the universal O_∞ type.
     They share 10 of 12 primitives; the divergence is in
     Fidelity (classical vs quantum) and Stoichiometry (1:1 vs n:m).
     This makes the Lapis Chant the classical, singular instantiation
-    of the O_inf archetype. -/
+    of the O_∞ archetype. -/
 theorem imas_distance_from_o_inf : True := by
   trivial
 
@@ -836,7 +836,7 @@ theorem imas_distance_from_o_inf : True := by
 -- The Lapis Chant conserves entropy across all 8 movements.
 -- "The circle closes where it began. ΔS ≈ 0."
 -- In the Belnap lattice, this is the statement that cycle
--- is idempotent at the O_inf fixed point.
+-- is idempotent at the O_∞ fixed point.
 -- ================================================================
 
 /-- The entropy of the alchemical opus is conserved.
@@ -868,7 +868,7 @@ unsafe def main : IO Unit := do
   IO.println "all_gaps_non_explosion: ✓"
   IO.println "all_cycles_close:       ✓"
   IO.println "barrier_triad:          ✓"
-  IO.println "IMASM O_inf:             ✓"
+  IO.println "IMASM O_∞:             ✓"
   IO.println "IMASM consciousness:     ✓ (C=0.555, both gates open)"
   IO.println "IMASM Frobenius μ∘δ=id:  ✓"
   IO.println "IMASM ΔS≈0:             ✓"
@@ -876,7 +876,7 @@ unsafe def main : IO Unit := do
   IO.println "Kato local existence:   ✓"
   IO.println "Hodge GRR factorization: ✓"
   IO.println ""
-  IO.println s!"Hodge is closest to O_inf: {Millennium.Paraconsistent.hodge_changes} changes (distance {Millennium.Paraconsistent.hodge_distance})"
+  IO.println s!"Hodge is closest to O_∞: {Millennium.Paraconsistent.hodge_changes} changes (distance {Millennium.Paraconsistent.hodge_distance})"
   IO.println s!"OPN is farthest: {Millennium.Paraconsistent.opn_changes} changes (distance {Millennium.Paraconsistent.opn_distance})"
   IO.println s!"Total changes across all 8 problems: {Millennium.Paraconsistent.total_changes_all}"
-  IO.println s!"O_inf crystal address: {Millennium.Paraconsistent.o_inf_crystal_address}"
+  IO.println s!"O_∞ crystal address: {Millennium.Paraconsistent.o_inf_crystal_address}"

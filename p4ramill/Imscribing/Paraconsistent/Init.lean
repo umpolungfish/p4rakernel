@@ -86,8 +86,8 @@ theorem shutdown_tautology :
 -- TYPE THEOREMS
 -- ============================================================
 
-/-- init is O_inf (Frobenius-special). -/
-theorem init_is_O_inf : imscriptionTier initType = .O_inf := by
+/-- init is O_∞ (Frobenius-special). -/
+theorem init_is_O_inf : imscriptionTier initType = .O_∞ := by
   native_decide
 
 /-- Both consciousness gates are open. -/
