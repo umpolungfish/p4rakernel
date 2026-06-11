@@ -59,7 +59,7 @@ def nRegisterImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem tier_is_O_inf : imscriptionTier nRegisterImscription = .O_inf := by
+theorem tier_is_O_inf : imscriptionTier nRegisterImscription = .O_∞ := by
   decide
 
 end Imscribing.Paraconsistent.nRegister

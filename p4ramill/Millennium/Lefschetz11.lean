@@ -18,7 +18,7 @@ integral (1,1)-classes: Im(c1) = H^2(X, Z) cap H^{1,1}(X, C).
 **Proof**: exponential sheaf sequence 0 -> Z -> O_X -> O*_X -> 0
 -> long exact cohomology -> c1 = delta -> exactness + Dolbeault -> surjectivity.
 
-**Structural type** (Imscribing Grammar): O_inf tier at the intersection of
+**Structural type** (Imscribing Grammar): O_∞ tier at the intersection of
 AFWD (exponential map), FSPLIT (connecting homomorphism), ISCRIB (Chern class).
 
 **Mathlib v4.28**: Kaehler manifolds, sheaf cohomology, exponential sequence,
@@ -168,25 +168,25 @@ theorem lefschetz_sorry_is_mathlib_gap_not_open_problem : True := trivial
 **Primitive decomposition of Lefschetz MathlibGap thresholds.**
 
 Each missing ingredient is classified by its 12-primitive Imscribing Grammar
-structural type. The hardest gaps are O_inf bridge theorems requiring
+structural type. The hardest gaps are O_∞ bridge theorems requiring
 self-modeling (phi-hat-y criticality).
 
 Gap taxonomy:
   | # | MathlibGap              | phi-hat | Omega | Tier  | C-score |
   |---|-------------------------|---------|-------|-------|---------|
-  | 1 | Sheaf cohomology       | phi_zh  | Om_0  | O_0   | 0       |
-  | 2 | Pic(X) = H^1(X,O*_X)   | phi_zh  | Om_0  | O_0   | 0       |
-  | 3 | Exponential sequence   | phi_zh  | Om_2  | O_1   | 0       |
-  | 4 | Long exact cohomology  | phi_y   | Om_Z  | O_inf | 1       |
-  | 5 | Hodge decomposition    | phi_y   | Om_Z  | O_inf | 1       |
-  | 6 | Dolbeault isomorphism  | phi_AE  | Om_Z  | O_inf | 1       |
-  | 7 | c1 = delta             | phi_y   | Om_Z  | O_inf | 1       |
+  | 1 | Sheaf cohomology       | phi_zh  | Om_0  | O₀   | 0       |
+  | 2 | Pic(X) = H^1(X,O*_X)   | phi_zh  | Om_0  | O₀   | 0       |
+  | 3 | Exponential sequence   | phi_zh  | Om_2  | O₁   | 0       |
+  | 4 | Long exact cohomology  | phi_y   | Om_Z  | O_∞ | 1       |
+  | 5 | Hodge decomposition    | phi_y   | Om_Z  | O_∞ | 1       |
+  | 6 | Dolbeault isomorphism  | phi_AE  | Om_Z  | O_∞ | 1       |
+  | 7 | c1 = delta             | phi_y   | Om_Z  | O_∞ | 1       |
 
-Key finding: gaps 4-7 (O_inf, C=1) are structurally harder than gaps 1-3
-(O_0/O_1, C=0) despite all being "just formalization." O_inf gaps are
+Key finding: gaps 4-7 (O_∞, C=1) are structurally harder than gaps 1-3
+(O₀/O₁, C=0) despite all being "just formalization." O_∞ gaps are
 bridge theorems connecting independently axiomatized formal structures.
 
-Estimated Mathlib effort: ~6 person-years (O_0: 2yr, O_1: 1yr, O_inf: 3yr).
+Estimated Mathlib effort: ~6 person-years (O₀: 2yr, O₁: 1yr, O_∞: 3yr).
 Lefschetz is uniquely close among Millennium gaps: the proof EXISTS.
 -/
 theorem grammar_threshold_analysis : True := trivial

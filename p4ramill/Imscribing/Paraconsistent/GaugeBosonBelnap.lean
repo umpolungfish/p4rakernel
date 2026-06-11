@@ -35,7 +35,7 @@ def gluonImscription : Imscription :=
   , prot := Protection.Omega_Z        -- instanton winding numbers
   }
 
-theorem gluon_tier : imscriptionTier gluonImscription = OuroboricityTier.O_2dag := by
+theorem gluon_tier : imscriptionTier gluonImscription = OuroboricityTier.O₂† := by
   native_decide
 
 -- Key: gluon gram = Gamma_broad (broadcast) reflects non-abelian self-interaction.
@@ -57,7 +57,7 @@ def photonImscription : Imscription :=
   , prot := Protection.Omega_0        -- no topological winding in U(1)
   }
 
-theorem photon_tier : imscriptionTier photonImscription = OuroboricityTier.O_1 := by
+theorem photon_tier : imscriptionTier photonImscription = OuroboricityTier.O₁ := by
   native_decide
 
 -- Key: photon gram = Gamma_and (and) instead of Gamma_broad (broadcast)
@@ -80,7 +80,7 @@ def weakBosonImscription : Imscription :=
   , prot := Protection.Omega_Z         -- electroweak instantons (sphalerons)
   }
 
-theorem weak_tier : imscriptionTier weakBosonImscription = OuroboricityTier.O_2dag := by
+theorem weak_tier : imscriptionTier weakBosonImscription = OuroboricityTier.O₂† := by
   native_decide
 
 -- Key: W/Z chirality = H2 (2-step) encodes chiral nature of weak interaction.
@@ -103,17 +103,17 @@ def higgsImscription : Imscription :=
   , prot := Protection.Omega_Z        -- topological defects (domain walls)
   }
 
-theorem higgs_tier : imscriptionTier higgsImscription = OuroboricityTier.O_2dag := by
+theorem higgs_tier : imscriptionTier higgsImscription = OuroboricityTier.O₂† := by
   native_decide
 
 -- §5  GAUGE BOSONS STRUCTURAL MAP
 --
 --   Boson          | Tier  | Key Primitive
 --   ---------------+-------+--------------
---   Gluon (g)      | O_2dag | gram = Gamma_broad (non-abelian)
---   Photon (gamma) | O_1   | gram = Gamma_and (abelian)
---   W/Z            | O_2dag | chir = H2 (chiral)
---   Higgs (H)      | O_2dag   | crit = Phi_c (phase transition)
+--   Gluon (g)      | O₂† | gram = Gamma_broad (non-abelian)
+--   Photon (gamma) | O₁   | gram = Gamma_and (abelian)
+--   W/Z            | O₂† | chir = H2 (chiral)
+--   Higgs (H)      | O₂†   | crit = Phi_c (phase transition)
 --
 -- Gauge bosons are not states within Frobenius filtration levels.
 -- They are MORPHISMS between levels — the interaction that constrains

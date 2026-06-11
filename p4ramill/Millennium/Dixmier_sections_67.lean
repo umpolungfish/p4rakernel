@@ -4,9 +4,9 @@
 -- ============================================================
 
 /-!
-Ouroboricity tier: O_inf
+Ouroboricity tier: O_∞
 
-The Dixmier Conjecture vessel is at O_inf because:
+The Dixmier Conjecture vessel is at O_∞ because:
   - P = P_pm_sym (Frobenius-special) — the tier singularity
   - Phi = Phi_c (critical, self-modeling gate open)
   - Omega = Omega_Z (integer winding)
@@ -21,8 +21,8 @@ Gate analysis:
 
 theorem dixmier_is_oinf_claim : dixmier_vessel.pol = P_pm_sym := by rfl
 
-/-- If the Dixmier Conjecture were false, the Weyl algebra would be P_sym (O_2),
-    not P_pm_sym (O_inf). The gap is exactly one Frobenius tier. -/
+/-- If the Dixmier Conjecture were false, the Weyl algebra would be P_sym (O₂),
+    not P_pm_sym (O_∞). The gap is exactly one Frobenius tier. -/
 example : P_sym < P_pm_sym := by decide
 
 /-- P_sym and P_pm_sym are distinct parity tiers. -/
@@ -55,8 +55,8 @@ HONEST SORRY MARKERS:
    Specifically: proving A_n(k) has Φ_} requires showing every endomorphism is
    an automorphism — which IS the Dixmier Conjecture. The grammar exposes the
    structural identity of the problem: the Dixmier Conjecture IS the statement
-   that the Weyl algebra occupies the Frobenius-special tier (O_inf), not merely
-   the full-symmetry tier (O_2). The structural distance from O_2 to O_inf is
+   that the Weyl algebra occupies the Frobenius-special tier (O_∞), not merely
+   the full-symmetry tier (O₂). The structural distance from O₂ to O_∞ is
    exactly one Frobenius tier — the μ∘δ=id condition.
 
 5. Jacobian Conjecture equivalence: Tsuchimoto (2005) and BK–K (2007) proved the

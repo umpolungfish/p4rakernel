@@ -22,7 +22,7 @@ theorem euler_structure (N : ℕ) (_h_perfect : True) (_h_odd : ¬ 2 ∣ N) : Tr
 /-- THE KINETIC TRAPPING PROOF:
     The structural type of OPN is:
       ⟨D_wedge, T_in, R_super, P_asym, F_ell, K_trap,
-       G_aleph, Gamma_and, Phi_c, H0, one_one, Omega_0⟩ → O_1
+       G_aleph, Gamma_and, Phi_c, H0, one_one, Omega_0⟩ → O₁
     
     KEY FEATURES:
     · K_trap (kinetic trapping): the constraint system σ(N) = 2N with

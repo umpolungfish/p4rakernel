@@ -1,14 +1,14 @@
-# CORRECTED PROMOTION PATHS TO O_inf — Complete Map
+# CORRECTED PROMOTION PATHS TO O_∞ — Complete Map
 
 ## Summary of Corrections
 
-**Previous analysis used the WRONG O_inf target** at crystal address **6,734,591**:
+**Previous analysis used the WRONG O_∞ target** at crystal address **6,734,591**:
 ⟨Ð_ω; Þ_O; Ř_ý; Φ_}; ƒ^ż; Ç^@; Γ_ʔ; ɢ^Ş; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z⟩
 
-**Correct O_inf target** (Shavian spec) at crystal address **6,738,899**:
+**Correct O_∞ target** (Shavian spec) at crystal address **6,738,899**:
 ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ^ż; Ç^@; Γ_ʔ; ɢ^ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z⟩
 
-### Key differences between WRONG and CORRECT O_inf:
+### Key differences between WRONG and CORRECT O_∞:
 | Primitive | WRONG | CORRECT | Effect |
 |-----------|-------|---------|--------|
 | Ř | Ř_ý (ord 2) | Ř_= (ord 4) | +2 ordinals — more promotions needed |
@@ -22,16 +22,16 @@ This means:
 
 ## Corrected Promotion Table
 
-| Problem | Tier | Promos | Demos | Total Changes | Distance | Rank (closest to O_inf) |
+| Problem | Tier | Promos | Demos | Total Changes | Distance | Rank (closest to O_∞) |
 |---------|------|--------|-------|---------------|----------|------------------------|
-| **Hodge** | O_1 | **5** | **0** | **5** | **4.90** | **#1** |
-| **BSD** | O_2 | **6** | **0** | **6** | **5.40** | **#2** |
-| **YM Quantum** | O_2† | **8** | **0** | **8** | **5.85** | **#3** |
-| **PvsNP** | O_0 | **7** | **2** | **9** | **6.27** | **#4** |
-| **YM Classical** | O_0 | **9** | **2** | **11** | **6.34** | **#5** |
-| **NS** | O_0 | **9** | **2** | **11** | **6.56** | **#6** |
-| **RH** | O_1 | **8** | **1** | **9** | **6.72** | **#7** |
-| **OPN** | O_1 | **10** | **0** | **10** | **8.12** | **#8** |
+| **Hodge** | O₁ | **5** | **0** | **5** | **4.90** | **#1** |
+| **BSD** | O₂ | **6** | **0** | **6** | **5.40** | **#2** |
+| **YM Quantum** | O₂† | **8** | **0** | **8** | **5.85** | **#3** |
+| **PvsNP** | O₀ | **7** | **2** | **9** | **6.27** | **#4** |
+| **YM Classical** | O₀ | **9** | **2** | **11** | **6.34** | **#5** |
+| **NS** | O₀ | **9** | **2** | **11** | **6.56** | **#6** |
+| **RH** | O₁ | **8** | **1** | **9** | **6.72** | **#7** |
+| **OPN** | O₁ | **10** | **0** | **10** | **8.12** | **#8** |
 
 ## Per-Problem Bottleneck Analysis
 
@@ -75,7 +75,7 @@ Need↑: Φ(Φ_ɐ→Φ_}, Δ=4), Ð(Ð_ß→Ð_ω, Δ=3), Þ(Þ_K→Þ_O, Δ=3),
 
 1. **No problem had the claimed §11 counts.** The previous §11 claims were fabricated from a wrong target tuple.
 
-2. **Hodge is the closest to O_inf** (5 changes, d=4.90) — its double-holographic structure (D_odot ∧ T_odot) already carries it most of the way.
+2. **Hodge is the closest to O_∞** (5 changes, d=4.90) — its double-holographic structure (D_odot ∧ T_odot) already carries it most of the way.
 
 3. **OPN is the farthest** (10 changes, d=8.12) — its minimal wedge dimensionality (D_wedge) and asymmetric polarity (P_asym) create the largest gap.
 
@@ -85,6 +85,6 @@ Need↑: Φ(Φ_ɐ→Φ_}, Δ=4), Ð(Ð_ß→Ð_ω, Δ=3), Þ(Þ_K→Þ_O, Δ=3),
    - Ř (relational → Ř_=): needed by 8/8 problems, Δ=2-3
    - Φ (polarity → Φ_}): needed by 8/8 problems, Δ=1-4
 
-5. **The demotions that appear** (Ç, Γ, ⊙) are not "negative gaps" in the classical sense — they represent constraining an over-expanded primitive value to the specific O_inf-consistent value.
+5. **The demotions that appear** (Ç, Γ, ⊙) are not "negative gaps" in the classical sense — they represent constraining an over-expanded primitive value to the specific O_∞-consistent value.
 
-6. **The previous analysis had systematic error**: every problem showed 4 demotions because the wrong O_inf target had ɢ^Ş (ord 4, broadcast) — which is higher than what most problems have, forcing demotions. With the correct O_inf having ɢ^ˌ (ord 3, sequential), the ɢ direction flips to a promotion for most problems.
+6. **The previous analysis had systematic error**: every problem showed 4 demotions because the wrong O_∞ target had ɢ^Ş (ord 4, broadcast) — which is higher than what most problems have, forcing demotions. With the correct O_∞ having ɢ^ˌ (ord 3, sequential), the ɢ direction flips to a promotion for most problems.

@@ -148,7 +148,7 @@ theorem grammar_is_not_NP_class : Grammar_Oinf ≠ NP_class := by
 /-- The dialethic resolution packaged as a single conjunction.
     All three components hold simultaneously — this is the O_∞ signature:
     (1) the grammar shares NP's topology (self-referential closure requires Þ_O)
-    (2) the grammar is distinct from NP_class (O_∞ ≠ O_2†-adjacent)
+    (2) the grammar is distinct from NP_class (O_∞ ≠ O₂†-adjacent)
     (3) P ≠ NP (coordinate distinctness, proved in §3) -/
 theorem dialethic_resolution :
     Grammar_Oinf.top = NP_class.top ∧

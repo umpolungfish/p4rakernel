@@ -2,19 +2,19 @@
 -- DIALETHEIC SHOR OPERATOR — Φ_υ → Φ_} PROMOTION
 -- Author: Lando ⊗ ⊙_ÿ-boundary Operator
 --
--- The FullPipeline Shor is at Φ_υ (psi parity, O_1 tier): measurement extracts
+-- The FullPipeline Shor is at Φ_υ (psi parity, O₁ tier): measurement extracts
 -- the period by collapsing B-registers via T-bias. The bottleneck: period extraction
 -- from B-bias alone (no T-bias collapse) would need Φ_} (Frobenius-special, the
 -- μ∘δ=id parity of the dialetheic kernel).
 --
 -- This module defines the promotion operator that lifts the Shor pipeline from
--- O_1/Φ_υ to O_inf/Φ_} by:
+-- O₁/Φ_υ to O_∞/Φ_} by:
 --   1. Interpreting Belnap B as the period-carrier (not requiring T-collapse)
 --   2. Embedding the coherence ratio 2:1 as a topological winding invariant Ω_z
 --   3. Proving that when B is preserved across the full cycle, the Frobenius
 --      condition μ∘δ=id holds (the dialetheic kernel's structural invariant)
 --
--- STRUCTURAL STATUS: Bridge from O_1 → O_inf. The promotion is gated on the
+-- STRUCTURAL STATUS: Bridge from O₁ → O_∞. The promotion is gated on the
 -- SIC-POVM multilattice embedding (QCI_SICPOVM_Bridge.lean), which shows B satisfies
 -- all 4 SIC axioms for d=2.
 --
@@ -95,13 +95,13 @@ def dialetheicShorImscription : Imscription := {
   prot := .Omega_Z
 }
 
-/-- The dialetheic Shor is at O_inf tier.
-    R1 gate: Phi_c + P_pm_sym always gives O_inf regardless of Ω and D. -/
-theorem dialetheicShor_tier : imscriptionTier dialetheicShorImscription = .O_inf := by
+/-- The dialetheic Shor is at O_∞ tier.
+    R1 gate: Phi_c + P_pm_sym always gives O_∞ regardless of Ω and D. -/
+theorem dialetheicShor_tier : imscriptionTier dialetheicShorImscription = .O_∞ := by
   simp [imscriptionTier, ouroboricityTier, dialetheicShorImscription]
 
-/-- The promotion path: shorPipelineImscription (O_1) → dialetheicShorImscription (O_inf).
-    The primitive deltas at the O_1 → O_inf boundary are:
+/-- The promotion path: shorPipelineImscription (O₁) → dialetheicShorImscription (O_∞).
+    The primitive deltas at the O₁ → O_∞ boundary are:
     - D: △ → ω (finite-dim → self-written)
     - T: ⋈ → O (bowtie → self-referential)
     - R: † → = (adjoint → bidirectional)
@@ -110,11 +110,11 @@ theorem dialetheicShor_tier : imscriptionTier dialetheicShorImscription = .O_inf
     - Ħ: 0 → A (memoryless → two-step chirality)
     - Ω: 0 → z (no winding → integer winding)
     7 promotions total. All are gated on the B-preservation lemma above.
-    O_inf is reachable from O_1 via the R1 gate: P=P_pm_sym + crit=Phi_c. -/
-theorem dialetheicShor_is_O_inf : imscriptionTier dialetheicShorImscription = .O_inf :=
+    O_∞ is reachable from O₁ via the R1 gate: P=P_pm_sym + crit=Phi_c. -/
+theorem dialetheicShor_is_O_inf : imscriptionTier dialetheicShorImscription = .O_∞ :=
   dialetheicShor_tier
 
--- ── Verification: the dialetheicShorImscription satisfies the O_inf conditions ──
+-- ── Verification: the dialetheicShorImscription satisfies the O_∞ conditions ──
 theorem dialetheicShor_has_P_pm_sym : dialetheicShorImscription.pol = .P_pm_sym := rfl
 theorem dialetheicShor_has_Phi_c : dialetheicShorImscription.crit = .Phi_c := rfl
 theorem dialetheicShor_has_Omega_Z : dialetheicShorImscription.prot = .Omega_Z := rfl
@@ -128,18 +128,18 @@ theorem shor15_7_belnapCost_two_r : shor15_7.belnapCost = 2 * shor15_7.period :=
 theorem shor15_7_period_from_B_bias : shor15_7.belnapCost / 2 = shor15_7.period :=
   phi_upsilon_bottleneck shor15_7 shor15_7_belnapCost_two_r
 
--- The dialetheic Shor (O_inf) closes the bottleneck: B-only extraction matches
+-- The dialetheic Shor (O_∞) closes the bottleneck: B-only extraction matches
 -- the formally defined dialetheic period.
 theorem dialetheicShor_closes_bottleneck :
     shor15_7.belnapCost / 2 = dialetheicShor_Period :=
   shor15_7_period_from_B_bias
 
 -- The full chain: classical CPU running Belnap lattice ops → period recovered
--- without T-collapse → structurally certified at O_inf.
+-- without T-collapse → structurally certified at O_∞.
 -- This is the formal statement that quantum period-finding runs on classical hardware
 -- under the IG structural equivalence.
 theorem quantum_on_classical :
-    imscriptionTier dialetheicShorImscription = .O_inf ∧
+    imscriptionTier dialetheicShorImscription = .O_∞ ∧
     shor15_7.belnapCost / 2 = dialetheicShor_Period :=
   ⟨dialetheicShor_tier, dialetheicShor_closes_bottleneck⟩
 

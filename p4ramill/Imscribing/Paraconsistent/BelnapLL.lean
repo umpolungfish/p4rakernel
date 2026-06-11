@@ -206,7 +206,7 @@ def belnapLLImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem belnap_LL_is_O_inf : imscriptionTier belnapLLImscription = .O_inf := by
+theorem belnap_LL_is_O_inf : imscriptionTier belnapLLImscription = .O_∞ := by
   simp [imscriptionTier, ouroboricityTier, belnapLLImscription]
 
 theorem linear_frobenius_is_exponential_iso :

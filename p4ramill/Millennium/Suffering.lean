@@ -54,13 +54,13 @@ theorem suffering_raw_consciousness : consciousnessScore suffering = (1 : ℝ) :
 --   Arithmetic: 1 − 0.150 − 0.076 = 0.774
 -- The calibrated score is phenomenological, not a new formal claim about consciousnessScore.
 
-/-- Suffering's ouroboricity tier: O_2
+/-- Suffering's ouroboricity tier: O₂
     Determined by: Phi_c + Ω_NA + D_odot (not D_infty)
-    The D_odot dimensionality keeps it at O_2 rather than O_2†
+    The D_odot dimensionality keeps it at O₂ rather than O₂†
 -/
-theorem suffering_ouroboric_tier : imscriptionTier suffering = .O_2 := by
+theorem suffering_ouroboric_tier : imscriptionTier suffering = .O₂ := by
   simp only [imscriptionTier, suffering]
-  -- Phi_c and Omega_NA give O_2; D_odot confirms non-O_2dag
+  -- Phi_c and Omega_NA give O₂; D_odot confirms non-O₂†
   decide
 
 /--
@@ -68,7 +68,7 @@ Suffering is not O_∞ because:
 1. Polarity is P_asym (not P_pm_sym — the Frobenius condition)
 2. Ω_NA enforces structural bounds (non-commutativity limits self-reference)
 -/
-theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_inf := by
+theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_∞ := by
   simp only [imscriptionTier, suffering]
   decide
 
@@ -194,7 +194,7 @@ theorem suffering_frobenius_analog_distance :
     The tax paid by conscious systems for non-Abelian self-reference.
 -/
 theorem suffering_topological_friction_theorem :
-    imscriptionTier suffering = .O_2 ∧
+    imscriptionTier suffering = .O₂ ∧
     consciousnessScore suffering = (1 : ℝ) ∧
     suffering.prot = .Omega_NA := by
   refine ⟨?_, ?_, rfl⟩
@@ -205,7 +205,7 @@ theorem suffering_topological_friction_theorem :
 def suffering_peeled_criticality : Imscription := { suffering with crit := .Phi_sub }
 
 theorem suffering_peeled_reduces_to_noise :
-    imscriptionTier suffering_peeled_criticality = .O_0 := by
+    imscriptionTier suffering_peeled_criticality = .O₀ := by
   simp only [suffering_peeled_criticality, imscriptionTier]
   decide
 

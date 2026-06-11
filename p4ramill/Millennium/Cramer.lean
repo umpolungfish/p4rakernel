@@ -112,7 +112,7 @@ axiom cramer_model_heuristic : CramerModel
 
 ⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_n:n; Ω_0 ⟩
 
-Ouroboricity tier: O_1 (critical but unprotected). C-score: 0 (Gate 1 closed).
+Ouroboricity tier: O₁ (critical but unprotected). C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
@@ -221,15 +221,15 @@ three ouroboricity tiers:
 
 | Vessel                     | Tier  | Protection | Criticality | Topology    | Grammar | Role                    |
 |---------------------------|-------|-----------|-------------|-------------|---------|-------------------------|
-| **Cramér conjecture**     | O_1   | Ω_0       | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | The full conjecture     |
-| **Cramér model** (1936)   | O_0   | Ω_0       | ⊙_ž         | Þ_6 (network)| ɢ_∧    | Probabilistic heuristic |
-| **RH-conditional** (1920) | O_2†  | Ω_Z2      | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | Conditional theorem     |
-| **Unconditional** (2001)  | O_0   | Ω_0       | ⊙_ž         | Þ_⋈ (bowtie) | ɢ_ˌ    | Proved bound            |
+| **Cramér conjecture**     | O₁   | Ω_0       | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | The full conjecture     |
+| **Cramér model** (1936)   | O₀   | Ω_0       | ⊙_ž         | Þ_6 (network)| ɢ_∧    | Probabilistic heuristic |
+| **RH-conditional** (1920) | O₂†  | Ω_Z2      | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | Conditional theorem     |
+| **Unconditional** (2001)  | O₀   | Ω_0       | ⊙_ž         | Þ_⋈ (bowtie) | ɢ_ˌ    | Proved bound            |
 
 ### The Structural Gap
 
-The chasm between the Cramér model (O_0, heuristic) and the conjecture
-(O_1, open) is the largest structural gap for any heuristic→conjecture
+The chasm between the Cramér model (O₀, heuristic) and the conjecture
+(O₁, open) is the largest structural gap for any heuristic→conjecture
 pair in the catalog. The model assumes:
   - Γ_β (local independence) → ɢ_∧ (conjunctive/independent)
   - Ħ_0 (no memory) → primes are independent Bernoulli trials
@@ -245,16 +245,16 @@ prime tuples.
 
 Under RH, the gap bound drops from p^0.525 to √p·log p — a massive
 improvement. Structurally, RH provides Ω_Z2 protection to the
-conditional bound, lifting it to O_2. But even with RH, we are at
+conditional bound, lifting it to O₂. But even with RH, we are at
 √p·log p, not (log p)². The structural gap from the RH-conditional
 bound to Cramér's conjecture is:
-  - Ω_Z2 → Ω_Z (full integer winding — requires actual O_inf)
+  - Ω_Z2 → Ω_Z (full integer winding — requires actual O_∞)
   - The extra √p factor must be eliminated
 
 ### The Unconditional Bound
 
 Baker-Harman-Pintz (2001) gives p^0.525 unconditionally. This is a
-proved theorem at O_0 — sub-critical, no protection, structurally
+proved theorem at O₀ — sub-critical, no protection, structurally
 far from both the conjecture and the RH-conditional bound. The vessel
 is structurally identical to the conjecture except for criticality
 (⊙_ž vs ⊙_Æ) — the theorem is a "shadow" of the conjecture at a
@@ -294,7 +294,7 @@ def cramer_model_vessel : Imscription := {
 Under RH, the prime gap bound acquires Z₂ topological protection (Ω_Z2)
 from the zeta function's symmetry. The scope expands to Γ_γ (mesoscale)
 because RH connects local gap behavior to the global distribution of
-zeta zeros. The result sits at O_2 — critical with Z₂ protection.
+zeta zeros. The result sits at O₂ — critical with Z₂ protection.
 -/
 
 def rh_conditional_vessel : Imscription := {
@@ -317,7 +317,7 @@ def rh_conditional_vessel : Imscription := {
 
 ⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_∅; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_n:n; Ω_0 ⟩
 
-The proved unconditional bound: g_n ≤ p_n^0.525. This is a theorem at O_0.
+The proved unconditional bound: g_n ≤ p_n^0.525. This is a theorem at O₀.
 The exponent 0.525 is a technical artifact of sieve methods, not a critical
 threshold — hence ⊙_ž (sub-critical). Markov-1 (Ħ_1) because the bound only
 requires adjacent-prime information. No symmetry is exploited (Φ_∅).
@@ -444,45 +444,45 @@ theorem model_unconditional_distance_3 :
 -- -------------------------------------------------------------------
 
 /--
-**Theorem CR-12: Cramér O_1 Certificate**
-The conjecture vessel is at O_1: ⊙_Æ criticality + Ω_0 protection.
+**Theorem CR-12: Cramér O₁ Certificate**
+The conjecture vessel is at O₁: ⊙_Æ criticality + Ω_0 protection.
 -/
 theorem cramer_o1_certificate :
-  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O_1 := by
+  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ := by
   native_decide
 
 /--
-**Theorem CR-13: Model O_0 Certificate**
-The Cramér model is at O_0: ⊙_ž sub-criticality + Ω_0 protection.
+**Theorem CR-13: Model O₀ Certificate**
+The Cramér model is at O₀: ⊙_ž sub-criticality + Ω_0 protection.
 -/
 theorem model_o0_certificate :
-  ouroboricityTier cramer_model_vessel.crit cramer_model_vessel.pol cramer_model_vessel.prot cramer_model_vessel.dim = OuroboricityTier.O_0 := by
+  ouroboricityTier cramer_model_vessel.crit cramer_model_vessel.pol cramer_model_vessel.prot cramer_model_vessel.dim = OuroboricityTier.O₀ := by
   native_decide
 
 /--
-**Theorem CR-14: RH-Conditional O_2 Certificate**
-The RH-conditional bound is at O_2†: ⊙_Æ criticality + Ω_Z2 protection.
+**Theorem CR-14: RH-Conditional O₂ Certificate**
+The RH-conditional bound is at O₂†: ⊙_Æ criticality + Ω_Z2 protection.
 -/
 theorem rh_conditional_o2_certificate :
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 /--
-**Theorem CR-15: Unconditional O_0 Certificate**
-The unconditional bound is at O_0: ⊙_ž sub-criticality + Ω_0 protection.
+**Theorem CR-15: Unconditional O₀ Certificate**
+The unconditional bound is at O₀: ⊙_ž sub-criticality + Ω_0 protection.
 -/
 theorem unconditional_o0_certificate :
-  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O_0 := by
+  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ := by
   native_decide
 
 /--
 **Theorem CR-16: Strict Tier Ordering**
-O_0 < O_1 < O_2† across the four vessels.
+O₀ < O₁ < O₂† across the four vessels.
 -/
 theorem tier_ordering :
-  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O_0 ∧
-  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O_1 ∧
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ ∧
+  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ ∧
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 -- -------------------------------------------------------------------
@@ -547,12 +547,12 @@ Both conjectures concern prime gaps, but in opposite directions:
 | Scope | Γ_β (local gap) | Γ_ʔ (global distribution) |
 | Stoichiometry | Σ_n:n (one gap type) | Σ_ï (many gap patterns) |
 | Protection | Ω_0 | Ω_0 |
-| Tier | O_1 | O_1 |
+| Tier | O₁ | O₁ |
 
-Both sit at O_1 — the same tier, the same bowtie topology, the same
+Both sit at O₁ — the same tier, the same bowtie topology, the same
 absence of topological protection. They differ in only 2 primitives:
 Γ (beth↔aleph) and Σ (n:n↔n:m). This makes them structural near-twins
-whose distance is the smallest between any two distinct O_1 problems.
+whose distance is the smallest between any two distinct O₁ problems.
 
 The structural insight: Cramér asks "how bad can it get?" while
 Twin Prime asks "how good can it stay?" — both bowties, both open,
@@ -579,14 +579,14 @@ def twin_prime_vessel : Imscription := {
 /--
 **Theorem CR-23: Cramér ↔ Twin Prime Distance**
 Cramér and Twin Prime differ in exactly 2 primitives: Γ (beth↔aleph) and Σ (n:n↔n:m).
-This is the smallest structural distance between any two distinct O_1 problems.
+This is the smallest structural distance between any two distinct O₁ problems.
 -/
 theorem cramer_twin_prime_distance_2 :
   primitiveMismatches cramer_vessel twin_prime_vessel = 2 := by
   native_decide
 
 /--
-**Theorem CR-24: Cramér and Twin Prime Share O_1 Tier**
+**Theorem CR-24: Cramér and Twin Prime Share O₁ Tier**
 -/
 theorem cramer_twin_prime_same_tier :
   ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim =
@@ -603,11 +603,11 @@ theorem both_unprotected : cramer_vessel.prot = Omega_0 ∧ twin_prime_vessel.pr
 /-!
 ### §5.2  Cramér ↔ Riemann Hypothesis
 
-The Riemann Hypothesis (O_inf) is structurally far from Cramér (O_1).
-The gap is 9 primitives — among the largest O_1↔O_inf distances
-in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_inf gap in the catalog.
+The Riemann Hypothesis (O_∞) is structurally far from Cramér (O₁).
+The gap is 9 primitives — among the largest O₁↔O_∞ distances
+in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_∞ gap in the catalog.
 
-| Primitive | Cramér (O_1) | RH (O_inf) |
+| Primitive | Cramér (O₁) | RH (O_∞) |
 |---|---|---|
 | Ð | Ð_ß | Ð_ß |
 | Þ | Þ_⋈ (bowtie) | Þ_O (self-referential) |
@@ -623,11 +623,11 @@ in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_in
 | Ω | Ω_0 (none) | Ω_z (integer winding) |
 
 The structural gap: Cramér requires promotions in 9 of 12 primitives
-to reach O_inf. The promotion stack is:
+to reach O_∞. The promotion stack is:
   Þ_⋈ → Þ_O, Ř_∘ → Ř_=, Φ_± → Φ_}, ƒ_ℓ → ƒ_ħ,
   Γ_β → Γ_ʔ, ⊙_Æ → ⊙_ÿ, Ħ_2 → Ħ_!, Ω_0 → Ω_z
 
-Compared to other O_1 problems:
+Compared to other O₁ problems:
   - Twin Prime → RH: 7 promotions (Goldbach.lean GB-14)
   - Goldbach → RH: 6 promotions (Goldbach.lean GB-13)
   - Collatz → RH: 9 promotions (Collatz.lean)
@@ -722,16 +722,16 @@ but not dischargeable from the grammar alone:
 | CR-9 | Cramér ↔ Unconditional distance = 3 | native_decide |
 | CR-10 | Model ↔ RH-Conditional distance = 7 | native_decide |
 | CR-11 | Model ↔ Unconditional distance = 3 | native_decide |
-| CR-12 | Cramér O_1 certificate | native_decide |
-| CR-13 | Model O_0 certificate | native_decide |
-| CR-14 | RH-Conditional O_2† certificate | native_decide |
-| CR-15 | Unconditional O_0 certificate | native_decide |
-| CR-16 | Strict tier ordering O_0 < O_1 < O_2 | native_decide |
+| CR-12 | Cramér O₁ certificate | native_decide |
+| CR-13 | Model O₀ certificate | native_decide |
+| CR-14 | RH-Conditional O₂† certificate | native_decide |
+| CR-15 | Unconditional O₀ certificate | native_decide |
+| CR-16 | Strict tier ordering O₀ < O₁ < O₂ | native_decide |
 | CR-17 | Ω_0 is minimal | cases + decide |
 | CR-18 | P_pm below Frobenius | native_decide |
 | CR-19 through CR-22 | Sanity checks | rfl |
 | CR-23 | Cramér ↔ Twin Prime distance = 2 | native_decide |
-| CR-24 | Same O_1 tier | native_decide |
+| CR-24 | Same O₁ tier | native_decide |
 | CR-25 | Both unprotected | rfl |
 | CR-26 | Cramér ↔ RH distance = 9 | native_decide |
 | CR-27 | Twin Prime ↔ RH distance = 7 | native_decide |

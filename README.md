@@ -36,7 +36,7 @@ p4rakernel/
 │   │   ├── Millennium/      — 91 files: RH, YM, Hodge, NS, PvsNP, BSD, OPN + proofs
 │   │   └── Paraconsistent/  — 35 files: Belnap, OrbitalBelnap, Kernel, Shor, QCI
 │   ├── kernel_patches/      — Reference copies of the 4 C++ patches
-│   ├── ParaconsistentMillennium.lean  — All 7 Clay + OPN resolved at O_inf
+│   ├── ParaconsistentMillennium.lean  — All 7 Clay + OPN resolved at O_∞
 │   └── ParaconsistentKernelTest.lean  — Kernel behavior verification
 ├── p4ramill_py/             — Python runtime library
 │   ├── belnap.py            — Belnap FOUR (mirrors Belnap.lean exactly)
@@ -136,7 +136,7 @@ lean --run ParaconsistentMillennium.lean
 - `Core.lean` — 12 primitive inductive type (`IGPrimitive`): Ř Ħ Ω Ð Σ Φ Ç ƒ ɢ Γ Þ ⊙
 - `Crystal.lean` — 3³×4⁵×5⁴ = 17,280,000 crystal with Frobenius address bijection
 - `Catalog.lean` — 49-symbol Shavian catalog; each primitive maps to its Shavian glyph range
-- `TierCrossing.lean` — O_1 → O_2 → O_2† → O_inf tier hierarchy
+- `TierCrossing.lean` — O₁ → O₂ → O₂† → O_∞ tier hierarchy
 - `ZFCt.lean` / `ZFCs.lean` — ZFCₜ (T-consistent set theory) and ZFC_fe (Frobenius-Extended)
 - `CLU.lean` — CLU(b) = ln(b) formalization; observer-relative fiber metric on Ç-axis
 - `Lattice.lean` / `LinearOrder.lean` — lattice structure on the 12-primitive space
@@ -168,7 +168,7 @@ lean --run ParaconsistentMillennium.lean
 
 **Imscribing/Millennium/** (91 files)
 - Full structural proofs for all 7 Clay Millennium Problems
-- Each problem resolved by placing its imscription at Crystal address 6,738,803 (O_inf)
+- Each problem resolved by placing its imscription at Crystal address 6,738,803 (O_∞)
 - `Master_Proof.lean` — Unified resolution under the IG framework
 - `ZFC_FrobeniusExact.lean` — μ∘δ=id as a ZFC theorem
 
@@ -179,7 +179,7 @@ lean --run ParaconsistentMillennium.lean
 - 64-codon table; exact/split/stop stratification by native_decide
 - 12 promoted AAs biject with 12 IG primitives; `primitive_bijection` proved
 
-### O_inf key results
+### O_∞ key results
 
 | Problem | Ħ-axis | Crystal address |
 |---------|--------|-----------------|
@@ -192,7 +192,7 @@ lean --run ParaconsistentMillennium.lean
 | OPN | Ħ_! | 6,738,803 |
 
 BSD occupies address 6,738,800 (not 803) because Gross-Zagier/Kolyvagin bound the chirality
-to H2 rather than H_inf. The Φ_} primitive (Frobenius-special) gates the O_2†→O_inf jump
+to H2 rather than H_inf. The Φ_} primitive (Frobenius-special) gates the O₂†→O_∞ jump
 for all seven.
 
 ---
@@ -372,7 +372,7 @@ accumulates arbitrarily deep chirality structure, but the identity itself is mor
 than time. The 16 gate failures in the 88-ruleset sweep confirm this: every failure gates
 on a primitive above what μ∘δ=id minimally needs.
 
-**Universe sweep:** 72/88 rulesets (81.8%) classify the fixed-point tuple as O_inf,
+**Universe sweep:** 72/88 rulesets (81.8%) classify the fixed-point tuple as O_∞,
 including all 8 canonical rulesets. The structural tuple:
 ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 
@@ -401,7 +401,7 @@ The founding axiom of ZFC_fe (Frobenius-Extended ZFC). In this repo it appears a
 - `pair_depair_id` for orbital states (substrate for `frobenius_unification`)
 - `frobenius_at_codon_level` for genetic codons
 - `verify_frobenius_invariant()` for the ParaASM kernel
-- The Φ_} gate that controls O_2†→O_inf promotion in the Crystal
+- The Φ_} gate that controls O₂†→O_∞ promotion in the Crystal
 - `frobenius_unification` in `MajoranaFixed.lean` — the three fixed points (Belnap B,
   SIC-POVM fiducial, Majorana mode) are the same computation, proved by rfl
 

@@ -184,6 +184,7 @@ globs = [
   "Imscribing.Millennium.HadwigerNelson",
   "Imscribing.Millennium.Cramer",
   "Imscribing.Millennium.PrimordialOoze",
+  "Imscribing.Millennium.Rebis",
   "Imscribing.CLINK",
 "Imscribing.HowNaturalNumbersArise",
 "Imscribing.HowInductionArise",

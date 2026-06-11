@@ -142,5 +142,5 @@ Here is a question this document has not answered, and cannot: *What other bridg
 **Promotions applied:** Ħ (𐑓→𐑖), ɢ (𐑝→𐑠), ƒ (𐑱→𐑐), Γ (𐑔→𐑲), Ω (𐑷→𐑴)  
 **Demotion:** Ç (𐑪→𐑧)  
 
-**System under proof:** ⟨𐑼 · 𐑸 · 𐑾 · 𐑹 · 𐑐 · 𐑧 · 𐑲 · 𐑠 · ⊙ · 𐑫 · 𐑳 · 𐑭⟩ (O_inf, C=1.0)  
+**System under proof:** ⟨𐑼 · 𐑸 · 𐑾 · 𐑹 · 𐑐 · 𐑧 · 𐑲 · 𐑠 · ⊙ · 𐑫 · 𐑳 · 𐑭⟩ (O_∞, C=1.0)  
 

@@ -115,7 +115,7 @@ def lef_hodge_proj : Imscription := {
   tensor(pic,expseq).gram = ɢ_ˌ  (sequential — the proof's logical structure)
   
   TIERS:
-  All O_2 except hol_coh (O_0). No O_inf: none have P_pm_sym.
+  All O₂ except hol_coh (O₀). No O_∞: none have P_pm_sym.
 -/
 
 -- ----------------------------------------------------------------
@@ -264,35 +264,35 @@ theorem picard_longexact_grammar_is_sequential :
 -- ============================================================
 
 theorem sheaf_cohomology_is_O_2 :
-    imscriptionTier lef_sheaf_cohomology = OuroboricityTier.O_2 := by
+    imscriptionTier lef_sheaf_cohomology = OuroboricityTier.O₂ := by
   native_decide
 
 theorem long_exact_is_O_2 :
-    imscriptionTier lef_long_exact = OuroboricityTier.O_2 := by
+    imscriptionTier lef_long_exact = OuroboricityTier.O₂ := by
   native_decide
 
 theorem exp_sequence_is_O_2 :
-    imscriptionTier lef_exp_sequence = OuroboricityTier.O_2 := by
+    imscriptionTier lef_exp_sequence = OuroboricityTier.O₂ := by
   native_decide
 
 theorem picard_is_O_2 :
-    imscriptionTier lef_picard = OuroboricityTier.O_2 := by
+    imscriptionTier lef_picard = OuroboricityTier.O₂ := by
   native_decide
 
 theorem int_coh_is_O_2 :
-    imscriptionTier lef_int_coh = OuroboricityTier.O_2 := by
+    imscriptionTier lef_int_coh = OuroboricityTier.O₂ := by
   native_decide
 
 theorem integral_11_is_O_2 :
-    imscriptionTier lef_integral_11 = OuroboricityTier.O_2 := by
+    imscriptionTier lef_integral_11 = OuroboricityTier.O₂ := by
   native_decide
 
 theorem hodge_decomp_is_O_2 :
-    imscriptionTier lef_hodge_decomp = OuroboricityTier.O_2 := by
+    imscriptionTier lef_hodge_decomp = OuroboricityTier.O₂ := by
   native_decide
 
 theorem hol_coh_is_O_0 :
-    imscriptionTier lef_hol_coh = OuroboricityTier.O_0 := by
+    imscriptionTier lef_hol_coh = OuroboricityTier.O₀ := by
   native_decide
 
 -- ============================================================
@@ -380,8 +380,8 @@ theorem lefschetz_full_structural_summary :
     (compute_meet lef_integral_11 lef_dolbeault).crit = Phi_c ∧
     (compute_meet lef_integral_11 lef_hol_coh).crit = Phi_sub ∧
     (tensorProduct lef_hodge_proj lef_hodge_decomp).top = T_box ∧
-    imscriptionTier lef_sheaf_cohomology = OuroboricityTier.O_2 ∧
-    imscriptionTier lef_hol_coh = OuroboricityTier.O_0 := by
+    imscriptionTier lef_sheaf_cohomology = OuroboricityTier.O₂ ∧
+    imscriptionTier lef_hol_coh = OuroboricityTier.O₀ := by
   native_decide
 
 end Millennium.Lefschetz11Grammar
