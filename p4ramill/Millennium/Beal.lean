@@ -7,7 +7,7 @@ import Mathlib
 Structural type:
   ⟨D_infty; T_bowtie; R_lr; P_pm; F_ell; K_slow;
    G_aleph; Γ_seq; Φ_c; H2; n_m; Ω_0⟩
-Crystal address: 4948976  |  Ouroboricity: O_1  |  C-score: 0.498
+Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
 
 ## ZFC_t Formula (via zfct_navigator):
 ##   ∀a∃b(a⊂b ∧ rank x=b) ∧
@@ -400,7 +400,7 @@ axiom beal_prime_mixed_exponents (p q r : Nat)
     A ^ p + B ^ q = C ^ r →
     Nat.gcd (Nat.gcd A B) C > 1
 
-/-! ## 9. Resolved Vessel — The O_inf Structural Type -/
+/-! ## 9. Resolved Vessel — The O_∞ Structural Type -/
 
 def beal_resolved_type : StructuralType :=
   { D := Primitive_D.odot, T := Primitive_T.odot, R := Primitive_R.lr

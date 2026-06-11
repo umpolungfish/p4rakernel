@@ -33,8 +33,8 @@ def quantum_mechanics : Imscription := {
   prot := Omega_Z
 }
 
--- QM is O_2dag: Phi_c_complex + P_psi (not P_pm_sym) + Omega_Z + D_infty.
-theorem qm_tier : imscriptionTier quantum_mechanics = .O_2dag := by
+-- QM is O₂†: Phi_c_complex + P_psi (not P_pm_sym) + Omega_Z + D_infty.
+theorem qm_tier : imscriptionTier quantum_mechanics = .O₂† := by
   unfold imscriptionTier quantum_mechanics ouroboricityTier
   decide
 
@@ -101,8 +101,8 @@ def quantum_field_theory : Imscription := {
   prot := Omega_Z
 }
 
--- QFT is O_inf: P_pm_sym at Phi_c opens the Frobenius gate.
-theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
+-- QFT is O_∞: P_pm_sym at Phi_c opens the Frobenius gate.
+theorem qft_tier : imscriptionTier quantum_field_theory = .O_∞ := by
   decide
 
 -- QM -> QFT: dim (D_infty->D_odot), pol (P_psi->P_pm_sym), crit (Phi_c_complex->Phi_c) = 3 diffs.
@@ -130,8 +130,8 @@ def classical_mechanics : Imscription := {
   prot := Omega_0
 }
 
--- Classical is O_0: Phi_sub -> non-critical.
-theorem classical_tier : imscriptionTier classical_mechanics = .O_0 := by
+-- Classical is O₀: Phi_sub -> non-critical.
+theorem classical_tier : imscriptionTier classical_mechanics = .O₀ := by
   decide
 
 -- Classical -> QM: 10 primitives differ (top, rel, pol, fid, kin, gran, gram, crit, chir, prot).

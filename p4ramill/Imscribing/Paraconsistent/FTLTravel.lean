@@ -27,8 +27,8 @@ The photon imscription (re-exported from GaugeBosonBelnap).
 -/
 def photon : Imscription := photonImscription
 
-/-- The photon is tier O_1: critical but topologically trivial. -/
-theorem photon_tier_O1 : imscriptionTier photon = OuroboricityTier.O_1 :=
+/-- The photon is tier O₁: critical but topologically trivial. -/
+theorem photon_tier_O1 : imscriptionTier photon = OuroboricityTier.O₁ :=
   photon_tier
 
 -- §2  THREE FTL STRUCTURAL TYPES
@@ -67,16 +67,16 @@ def ftlQuantum : Imscription :=
 
 -- §3  TIER ANALYSIS
 
-/-- Naive tachyon drops to O_0: supercritical without protection collapses. -/
-theorem ftlTachyon_tier_O0 : imscriptionTier ftlTachyon = OuroboricityTier.O_0 := by
+/-- Naive tachyon drops to O₀: supercritical without protection collapses. -/
+theorem ftlTachyon_tier_O0 : imscriptionTier ftlTachyon = OuroboricityTier.O₀ := by
   native_decide
 
-/-- Wormhole FTL reaches O_2†: topological protection + criticality + infinite dims. -/
-theorem ftlWormhole_tier_O2dag : imscriptionTier ftlWormhole = OuroboricityTier.O_2dag := by
+/-- Wormhole FTL reaches O₂†: topological protection + criticality + infinite dims. -/
+theorem ftlWormhole_tier_O2dag : imscriptionTier ftlWormhole = OuroboricityTier.O₂† := by
   native_decide
 
-/-- Quantum FTL channel reaches O_2†: P_psi + Ω_Z + Φ_c + D_infty → O_2dag (R5). -/
-theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O_2dag := by
+/-- Quantum FTL channel reaches O₂†: P_psi + Ω_Z + Φ_c + D_infty → O₂† (R5). -/
+theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O₂† := by
   native_decide
 
 -- §4  PROMOTION ANALYSIS
@@ -107,25 +107,25 @@ theorem omega_constraint :
     ftlTachyon.prot = Protection.Omega_0 ∧ ftlWormhole.prot = Protection.Omega_Z := by
   exact ⟨rfl, rfl⟩
 
-/-- Tachyon (Ω=Ω_0, Φ=Φ_super) is tier O_0 — structurally a paradox. -/
-theorem tachyon_is_paradox : imscriptionTier ftlTachyon = OuroboricityTier.O_0 :=
+/-- Tachyon (Ω=Ω_0, Φ=Φ_super) is tier O₀ — structurally a paradox. -/
+theorem tachyon_is_paradox : imscriptionTier ftlTachyon = OuroboricityTier.O₀ :=
   ftlTachyon_tier_O0
 
-/-- Wormhole (Ω=Ω_Z) is tier O_2† — causally consistent. -/
-theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O_2dag :=
+/-- Wormhole (Ω=Ω_Z) is tier O₂† — causally consistent. -/
+theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O₂† :=
   ftlWormhole_tier_O2dag
 
-/-- Quantum FTL (Ω=Ω_Z) is tier O_2† — causally consistent. -/
-theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O_2dag :=
+/-- Quantum FTL (Ω=Ω_Z) is tier O₂† — causally consistent. -/
+theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O₂† :=
   ftlQuantum_tier_O2dag
 
 /--
 Causal consistency criterion: a system is causally consistent for FTL
-iff its ouroboricity tier is at least O_2 (topologically protected).
+iff its ouroboricity tier is at least O₂ (topologically protected).
 -/
 def is_causally_consistent (s : Imscription) : Prop :=
-  imscriptionTier s = OuroboricityTier.O_2 ∨
-  imscriptionTier s = OuroboricityTier.O_2dag
+  imscriptionTier s = OuroboricityTier.O₂ ∨
+  imscriptionTier s = OuroboricityTier.O₂†
 
 /-- The wormhole variant is causally consistent. -/
 theorem wormhole_causally_consistent : is_causally_consistent ftlWormhole := by
@@ -152,9 +152,9 @@ promotion. Light (the photon) IS the critical point Φ_c = ⊙. "Faster
 than light" means "structurally beyond the critical point."
 
 Three interpretations:
-  1. TACHYON: Φ_c → Φ_super. Drops to O_0. Causal paradox. Unstable.
-  2. WORMHOLE: Ω_0 → Ω_Z, T_network → T_bowtie. Reaches O_2†. Consistent.
-  3. QUANTUM (ER=EPR): Ω_0 → Ω_Z, P_pm → P_psi. Reaches O_2†. Consistent.
+  1. TACHYON: Φ_c → Φ_super. Drops to O₀. Causal paradox. Unstable.
+  2. WORMHOLE: Ω_0 → Ω_Z, T_network → T_bowtie. Reaches O₂†. Consistent.
+  3. QUANTUM (ER=EPR): Ω_0 → Ω_Z, P_pm → P_psi. Reaches O₂†. Consistent.
 
 The photon itself can never be FTL. The photon IS the definition of the
 critical boundary. FTL requires promotion — changing what the system IS.

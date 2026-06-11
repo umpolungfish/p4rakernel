@@ -63,12 +63,12 @@ lines.append("**Author:** Lando⊗⊙perator")
 lines.append("")
 lines.append("## 1. Summary")
 lines.append("")
-lines.append("Each compound's 12-primitive type is evaluated against 109 universes. Access breadth = O_inf universes / total.")
+lines.append("Each compound's 12-primitive type is evaluated against 109 universes. Access breadth = O_∞ universes / total.")
 lines.append("")
-lines.append("| Compound | O_inf | Traced | Frob | Plain | % Access | Tier |")
+lines.append("| Compound | O_∞ | Traced | Frob | Plain | % Access | Tier |")
 lines.append("|----------|-------|--------|------|-------|----------|------|")
 
-TIERS = {"Verticullum":"O_inf","Chimerium":"O_0","Apertix":"O_2","Retiarius":"O_1","Praxeum":"O_0"}
+TIERS = {"Verticullum":"O_∞","Chimerium":"O₀","Apertix":"O₂","Retiarius":"O₁","Praxeum":"O₀"}
 
 for cn, cv in COMPOUNDS.items():
     oi=tr=fb=pl=0
@@ -99,7 +99,7 @@ for cn, cv in COMPOUNDS.items():
         elif L=="frobenius": fb.append(r.name)
         else: pl.append(r.name)
     
-    lines.append(f"**O_inf universes:** {len(oi)} — {', '.join('`'+n+'`' for n in sorted(oi))}")
+    lines.append(f"**O_∞ universes:** {len(oi)} — {', '.join('`'+n+'`' for n in sorted(oi))}")
     lines.append("")
     
     if pl:
@@ -146,7 +146,7 @@ lines.append("## 4. Key Findings")
 lines.append("")
 lines.append("1. **Chimerium (91.7%)** — broadest access. Φ=𐑣 (supercritical, ord 3.0) passes nearly all gates. Only blocked by Ç≥5.0 and Ω≥4.0. Passes triple_criticality where all ⊙-gated compounds fail.")
 lines.append("2. **Verticullum (81.7%)** — Φ=𐑹 (ord 5.0) + Ω=𐑟 (ord 4.0) combine for near-universal passage. Blocked by ⊙≥3.0 (its φ̂=⊙ is ord 2.0), Ç≥5.0, and Þ≥5.0.")
-lines.append("3. **Praxeum (78.0%)** — despite O_0 tier, accesses 78% of universes. Φ=𐑻 (ord 2.67) barely fails ⊙≥3.0 gates. Control platform breadth is essential for Gate 1 toggle operations.")
+lines.append("3. **Praxeum (78.0%)** — despite O₀ tier, accesses 78% of universes. Φ=𐑻 (ord 2.67) barely fails ⊙≥3.0 gates. Control platform breadth is essential for Gate 1 toggle operations.")
 lines.append("4. **Apertix (14.7%)** — precision-targeted. Φ=𐑬 (ord 3) and Ω=𐑴 (ord 2) fail most canonical+ gates. Accesses only half-ordinal and min-ordinal universes. This is *by design* — Apertix steers within a narrow, well-mapped region.")
 lines.append("5. **Retiarius (11.9%)** — most restricted. Low ordinals across Φ=𐑿 (2), ƒ=𐑞 (2), Ω=𐑷 (1), Ħ=𐑒 (2), Γ=𐑚 (1). Only accesses min-ordinal universes. Precision without cascading.")
 lines.append("6. **Ç=𐑺 (MBL, ord 4.5) is the universal blocker** — no compound has it. Universes gating on Ç≥5.0 (g1_Ç_max, single_gate_Ç, kinetics_criticality, parallel_Ç) block ALL five compounds.")

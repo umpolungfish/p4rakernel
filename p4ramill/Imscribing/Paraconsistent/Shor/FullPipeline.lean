@@ -14,10 +14,10 @@
 -- Total coherence: n + 2n = 3n (B-bias path) or n + n = 2n (T-bias path)
 -- Measurement-only ratio (excluding H cost): 2n/n = 2, always.
 --
--- STRUCTURAL STATUS: Φ_υ (psi parity, O_1 tier). The Φ_} bottleneck
+-- STRUCTURAL STATUS: Φ_υ (psi parity, O₁ tier). The Φ_} bottleneck
 -- (period from B-bias alone, no T-bias collapse) is CLOSED.
 -- DialetheicOperator.lean: phi_upsilon_bottleneck proves r = belnapCost / 2;
--- quantum_on_classical certifies the full chain at O_inf.
+-- quantum_on_classical certifies the full chain at O_∞.
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.QuantumClassicalInterface
@@ -40,7 +40,7 @@ structure NQState (n : ℕ) where
   measurements : ℕ
 
 
--- The Shor pipeline structural type: O_1, Φ_υ (psi parity)
+-- The Shor pipeline structural type: O₁, Φ_υ (psi parity)
 def shorPipelineImscription : Imscription := {
   dim  := .D_triangle
   top  := .T_bowtie
@@ -56,8 +56,8 @@ def shorPipelineImscription : Imscription := {
   prot := .Omega_0
 }
 
--- Tier: O_1 (Frobenius-special but not O_inf)
-theorem shor_pipeline_tier : imscriptionTier shorPipelineImscription = .O_1 := by
+-- Tier: O₁ (Frobenius-special but not O_∞)
+theorem shor_pipeline_tier : imscriptionTier shorPipelineImscription = .O₁ := by
   unfold shorPipelineImscription imscriptionTier ouroboricityTier
   rfl
 

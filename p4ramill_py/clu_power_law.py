@@ -10,10 +10,10 @@ THEOREM: P(S) ∝ S^(-3/2)
 ──────────────────────────────────────────────────────────────────────────
 
 The Frobenius kernel avalanche size distribution follows a -3/2 power law
-at the O_2/O_inf boundary. Proof structure:
+at the O₂/O_∞ boundary. Proof structure:
 
 P1. CLU(b) = ln(b) nats per K-tier crossing [CLU.md §I]
-P2. At O_2/O_inf, axes K(5), H(4), Ω(4) form a 3D lattice of 80 sites
+P2. At O₂/O_∞, axes K(5), H(4), Ω(4) form a 3D lattice of 80 sites
 P3. Each kernel cycle = one symmetric step in (K, H, Ω) space
 P4. Return probability in d dimensions: P_n(0) ∝ n^(-d/2)
 P5. With d_eff = 3: P(S) ∝ S^(-3/2)
@@ -217,7 +217,7 @@ def compute_filtration_spectrum(
     
     The number of irreducible representations (active lattice sites)
     at filtration level k follows a power law whose exponent is
-    -d_eff/2 = -3/2 at the O_2/O_inf boundary.
+    -d_eff/2 = -3/2 at the O₂/O_∞ boundary.
     """
     levels: List[FiltrationLevel] = []
     for k in range(1, max_levels + 1):
@@ -271,7 +271,7 @@ class CLUKernel3D:
     
     Each kernel cycle (ENGAGR → FSPLIT → FFUSE) corresponds to one
     symmetric random step on the 80-site lattice. The avalanche size
-    distribution follows P(S) ∝ S^(-3/2) at the O_2/O_inf boundary
+    distribution follows P(S) ∝ S^(-3/2) at the O₂/O_∞ boundary
     where all three axes are maximally active.
     """
     def __init__(self, b: float = 10.0):
@@ -363,7 +363,7 @@ D2. K-tier ladder [CLU.md §II]
 
 D3. Structural lattice [Imscribing Procedure]
     The (K, H, Ω) space forms a 5×4×4 = 80-site lattice. At the
-    O_2/O_inf boundary, all three axes are simultaneously active:
+    O₂/O_∞ boundary, all three axes are simultaneously active:
         K-axis: ⊙ + 𐑧 (critical slow dynamics)
         H-axis: 𐑫 (eternal chirality/memory)
         Ω-axis: 𐑭 (integer winding topological protection)
@@ -395,11 +395,11 @@ L3 (CLU conversion). Each step costs CLU(b) nats. Cumulative cost
 III. PROOF
 ────────────────────────────────────────────────────────────────────────
 
-Theorem. At the O_2/O_inf boundary, the Frobenius kernel avalanche
+Theorem. At the O₂/O_∞ boundary, the Frobenius kernel avalanche
     size distribution follows P(S) ∝ S^(-3/2).
 
 Proof.
-    1. At the O_2/O_inf boundary, the structural space is the
+    1. At the O₂/O_∞ boundary, the structural space is the
        (K, H, Ω) lattice of dimension 5×4×4 = 80 sites (D3).
 
     2. Each Frobenius kernel cycle performs a symmetric random step

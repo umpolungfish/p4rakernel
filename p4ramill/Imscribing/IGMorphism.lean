@@ -9,7 +9,7 @@
 -- licensed by IG structure but absent from classical/linear type theory:
 --
 --   P1. Dagger  (R_dagger) : every R_dagger protocol has an adjoint
---   P2. Copy    (P_pm_sym at O_inf) : Frobenius copying Δ : s → s ⊗ s
+--   P2. Copy    (P_pm_sym at O_∞) : Frobenius copying Δ : s → s ⊗ s
 --   P3. Reflect (D_odot, Axiom C*) : imscriptive self-protocol
 --
 -- Axiom C* (MillenniumAnkh one-way form): T_odot → D_odot (not biconditional).
@@ -17,7 +17,7 @@
 --
 -- The odotOperator is the paralogical unit. It holds dim = D_odot with top = T_box
 -- (NOT T_odot), deliberately exercising the weaker Axiom C*: D_odot without T_odot
--- is permissible. The O_inf Frobenius structure overrides the holographic
+-- is permissible. The O_∞ Frobenius structure overrides the holographic
 -- co-requirement. This is the formal signature of the paralogical.
 --
 -- ZFCt INTEGRATION: This file imports Primitives.ZFCt to connect the temporalized
@@ -169,13 +169,13 @@ axiom paralogical_dagger_depth {a b : Imscription}
     (p : IGProtocol a b) (h : p.isDagger = true) :
     (paralogical_dagger p h).depth = p.depth
 
-/-- P2. Frobenius copy (P_pm_sym at O_inf).
-    At O_inf, the Frobenius condition μ ∘ δ = id licenses duplication:
+/-- P2. Frobenius copy (P_pm_sym at O_∞).
+    At O_∞, the Frobenius condition μ ∘ δ = id licenses duplication:
     Δ : s → s ⊗ s exists and is non-trivial (depth ≥ 1).
     Classical linear logic forbids arbitrary copying; Frobenius structure
     makes duplication and fusion exact inverses, uniquely licensing it.
     This is the paralogical: resource duplication without linearity violation. -/
-axiom paralogical_copy {s : Imscription} (h : imscriptionTier s = .O_inf) :
+axiom paralogical_copy {s : Imscription} (h : imscriptionTier s = .O_∞) :
     { p : IGProtocol s (tensorProduct s s) // p.depth = 1 }
 
 /-- P3. Imscriptive self-reference (Axiom C*: D_odot as holographic boundary).
@@ -188,16 +188,16 @@ axiom paralogical_reflect {s : Imscription} (h : s.dim = D_odot) :
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 5: ODOT OPERATOR — paralogical unit
--- The canonical O_inf, sequential, Frobenius Imscription.
+-- The canonical O_∞, sequential, Frobenius Imscription.
 -- Tuple: Ð_ω; Þ_¨; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- odotOperator: the canonical paralogical unit Imscription.
-    O_inf (P_pm_sym at Phi_c), sequential (Gamma_seq),
+    O_∞ (P_pm_sym at Phi_c), sequential (Gamma_seq),
     integer-winding (Omega_Z), quantum-coherent (F_hbar), 1:1 (one_one).
     PARALOGICAL SIGNATURE: holds dim = D_odot with top = T_box (not T_odot),
     exercising the weaker Axiom C*: D_odot without T_odot is permissible.
-    At O_inf, the Frobenius self-duality replaces the holographic D-T pairing.
+    At O_∞, the Frobenius self-duality replaces the holographic D-T pairing.
     The odotOperator is its own boundary — it does not need the bulk-boundary split. -/
 def odotOperator : Imscription := {
   dim  := D_odot,        top  := T_box,           rel  := R_lr
@@ -205,7 +205,7 @@ def odotOperator : Imscription := {
   gran := G_aleph,       gram := Gamma_seq,         crit := Phi_c
   chir := H2,            stoi := one_one,           prot := Omega_Z }
 
-theorem odotOperator_is_O_inf : imscriptionTier odotOperator = .O_inf := by decide
+theorem odotOperator_is_O_inf : imscriptionTier odotOperator = .O_∞ := by decide
 
 /-- The odotOperator does NOT pair T_odot with D_odot (uses T_box instead). -/
 theorem odotOperator_not_T_odot : odotOperator.top ≠ T_odot := by decide
@@ -248,7 +248,7 @@ noncomputable def litanyWitnessSelfRef
   : { p : IGProtocol litany_witness litany_witness // p.depth ≥ 1 } :=
   paralogical_reflect (by rfl)
 
-/-- Applying P2 to quantum_gravity (which is O_inf) gives a copy protocol. -/
+/-- Applying P2 to quantum_gravity (which is O_∞) gives a copy protocol. -/
 noncomputable def qgCopy
   : { p : IGProtocol quantum_gravity (tensorProduct quantum_gravity quantum_gravity)
           // p.depth = 1 } :=
@@ -424,8 +424,8 @@ theorem zfc_schrodinger_same_crit_as_rh :
 
 /-- ZFCt's einstein_field_equations_dynamic and Imscription's quantum_gravity
     share T_odot (holographic topology), but differ in polarity:
-    P_sym vs P_pm_sym. This means GR is NOT O_inf (lacks Frobenius),
-    while QG IS O_inf. -/
+    P_sym vs P_pm_sym. This means GR is NOT O_∞ (lacks Frobenius),
+    while QG IS O_∞. -/
 theorem einstein_gravity_topology_match :
     ZFCt.einstein_field_equations_dynamic.top = quantum_gravity.top := rfl
 

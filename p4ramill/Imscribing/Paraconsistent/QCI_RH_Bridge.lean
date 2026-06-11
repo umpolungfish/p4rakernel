@@ -143,7 +143,7 @@ theorem millennium_thresholds_share_b_gate :
 -- ============================================================
 
 /-- The structural type of the RH-Belnap bridge: the critical line viewed
-    through the dialetheic kernel's B-state. The tuple is O_inf because
+    through the dialetheic kernel's B-state. The tuple is O_∞ because
     the bridge inherits φ̂_ÿ from the kernel and Φ_} from the Frobenius condition. -/
 def rhBelnapBridgeImscription : Imscription := {
   dim  := D_odot
@@ -160,15 +160,15 @@ def rhBelnapBridgeImscription : Imscription := {
   prot := Omega_Z
 }
 
-/-- The RH-Belnap bridge is at O_inf tier. -/
-theorem rh_bridge_is_O_inf : imscriptionTier rhBelnapBridgeImscription = .O_inf := by
+/-- The RH-Belnap bridge is at O_∞ tier. -/
+theorem rh_bridge_is_O_inf : imscriptionTier rhBelnapBridgeImscription = .O_∞ := by
   decide
 
-/-- The three Millennium-Belnap bridges share the same O_inf tuple (up to stoichiometry).
+/-- The three Millennium-Belnap bridges share the same O_∞ tuple (up to stoichiometry).
     PvsNP_Bridge: Σ_S (1:1); SICPOVM_Bridge: Σ_S (1:1); RH_Bridge: Σ_ï (n:m,
     heterogeneous because ζ zeros are infinite and their distribution is irregular). -/
 theorem three_bridges_share_o_inf :
-    imscriptionTier rhBelnapBridgeImscription = .O_inf :=
+    imscriptionTier rhBelnapBridgeImscription = .O_∞ :=
   rh_bridge_is_O_inf
 
 end Imscribing.Paraconsistent.RH_Bridge

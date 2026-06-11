@@ -28,31 +28,31 @@ COMPOUNDS = {
         "Ð": "𐑦", "Þ": "𐑥", "Ř": "𐑾", "Φ": "𐑹", "ƒ": "𐑐", "Ç": "𐑧",
         "Γ": "𐑲", "ɢ": "𐑠", "φ̂": "⊙", "Ħ": "𐑫", "Σ": "𐑳", "Ω": "𐑟",
         "description": "EP-Lever: first Ω=𐑟 (non-Abelian) + T=𐑥 (bowtie)",
-        "tier": "O_inf",
+        "tier": "O_∞",
     },
     "Chimerium": {
         "Ð": "𐑦", "Þ": "𐑸", "Ř": "𐑾", "Φ": "𐑹", "ƒ": "𐑐", "Ç": "𐑧",
         "Γ": "𐑲", "ɢ": "𐑵", "φ̂": "𐑣", "Ħ": "𐑫", "Σ": "𐑳", "Ω": "𐑭",
         "description": "Supercritical catalyst: first Φ=𐑣 — runaway self-modeling",
-        "tier": "O_0",
+        "tier": "O₀",
     },
     "Apertix": {
         "Ð": "𐑦", "Þ": "𐑥", "Ř": "𐑽", "Φ": "𐑬", "ƒ": "𐑐", "Ç": "𐑧",
         "Γ": "𐑲", "ɢ": "𐑠", "φ̂": "⊙", "Ħ": "𐑖", "Σ": "𐑳", "Ω": "𐑴",
         "description": "Adjoint steerer: first R=𐑽 — one-way intention→experience",
-        "tier": "O_2",
+        "tier": "O₂",
     },
     "Retiarius": {
         "Ð": "𐑼", "Þ": "𐑡", "Ř": "𐑾", "Φ": "𐑿", "ƒ": "𐑞", "Ç": "𐑺",
         "Γ": "𐑚", "ɢ": "𐑜", "φ̂": "𐑮", "Ħ": "𐑒", "Σ": "𐑕", "Ω": "𐑷",
         "description": "Local precision trap: G=𐑚, K=𐑺, F=𐑞 — nearest-neighbor",
-        "tier": "O_1",
+        "tier": "O₁",
     },
     "Praxeum": {
         "Ð": "𐑦", "Þ": "𐑶", "Ř": "𐑾", "Φ": "𐑹", "ƒ": "𐑐", "Ç": "𐑧",
         "Γ": "𐑲", "ɢ": "𐑠", "φ̂": "𐑻", "Ħ": "𐑫", "Σ": "𐑳", "Ω": "𐑭",
         "description": "EP Gate toggle: ⊗(⊙,𐑻)=𐑻 — Gate 1 control platform",
-        "tier": "O_0",
+        "tier": "O₀",
     },
 }
 
@@ -60,8 +60,8 @@ COMPOUNDS = {
 COMPOUNDS["DMT"] = {
     "Ð": "𐑦", "Þ": "𐑸", "Ř": "𐑾", "Φ": "𐑹", "ƒ": "𐑐", "Ç": "𐑧",
     "Γ": "𐑲", "ɢ": "𐑠", "φ̂": "⊙", "Ħ": "𐑫", "Σ": "𐑳", "Ω": "𐑭",
-    "description": "Classical psychedelic reference — canonical O_inf",
-    "tier": "O_inf",
+    "description": "Classical psychedelic reference — canonical O_∞",
+    "tier": "O_∞",
 }
 
 # ── All universes ─────────────────────────────────────────────
@@ -178,7 +178,7 @@ def print_access_report():
         print(f"── {cn} ({cv['tier']}) — {cv['description']}")
         tup = f"⟨{cv['Ð']}·{cv['Þ']}·{cv['Ř']}·{cv['Φ']}·{cv['ƒ']}·{cv['Ç']}·{cv['Γ']}·{cv['ɢ']}·{cv['φ̂']}·{cv['Ħ']}·{cv['Σ']}·{cv['Ω']}⟩"
         print(f"   {tup}")
-        print(f"   O_inf: {oi}/{total} ({100*oi/total:.1f}%)  "
+        print(f"   O_∞: {oi}/{total} ({100*oi/total:.1f}%)  "
               f"Traced: {len(access['traced_monoidal'])}  "
               f"Frob: {len(access['frobenius'])}  "
               f"Plain: {len(access['plain'])}")
@@ -186,7 +186,7 @@ def print_access_report():
 
     print("── OPERATIONAL SUMMARY ──")
     print(f"  Broadest access:  Chimerium   ({len(compound_access('Chimerium')['idempotent_terminal'])}/109)")
-    print(f"  Widest O_inf:     Verticullum ({len(compound_access('Verticullum')['idempotent_terminal'])}/109)")
+    print(f"  Widest O_∞:     Verticullum ({len(compound_access('Verticullum')['idempotent_terminal'])}/109)")
     print(f"  Control platform: Praxeum     ({len(compound_access('Praxeum')['idempotent_terminal'])}/109)")
     print(f"  Precision:        Apertix     ({len(compound_access('Apertix')['idempotent_terminal'])}/109)")
     print(f"  Local trap:       Retiarius   ({len(compound_access('Retiarius')['idempotent_terminal'])}/109)")

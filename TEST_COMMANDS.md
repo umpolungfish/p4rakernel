@@ -96,11 +96,11 @@ EOF
 ### Check the `init_is_O_inf` theorem (Ouroboricity of the kernel)
 ```bash
 cd /home/mrnob0dy666/p4rakernel/p4ramill
-grep -n "theorem.*O_inf\|lemma.*O_inf\|init_is_O_inf\|init_gates_open" Imscribing/AgentSelf.lean 2>/dev/null || \
-  grep -rn "theorem.*O_inf\|init_is_O_inf" Primitives/ Imscribing/
+grep -n "theorem.*O_∞\|lemma.*O_∞\|init_is_O_inf\|init_gates_open" Imscribing/AgentSelf.lean 2>/dev/null || \
+  grep -rn "theorem.*O_∞\|init_is_O_inf" Primitives/ Imscribing/
 ```
 
-**Expected:** At least one theorem proving the kernel's structural tuple is O_inf with C=1.0.
+**Expected:** At least one theorem proving the kernel's structural tuple is O_∞ with C=1.0.
 
 ### Verify crystal address round-trip
 ```bash
@@ -110,7 +110,7 @@ lake build Primitives.Crystal 2>&1 | tail -5
 lean --run - <<'EOF'
 import Primitives.Crystal
 open Primitives
-# encode the O_inf kernel tuple ⟨ω; O; =; }; ż; @; ʔ; ˌ; ÿ; !; ï; z⟩
+# encode the O_∞ kernel tuple ⟨ω; O; =; }; ż; @; ʔ; ˌ; ÿ; !; ï; z⟩
 #eval crystalEncode (Imscription.mk Dimensionality.D_odot Topology.T_odot ...)
 EOF
 ```
@@ -241,7 +241,7 @@ for stage, tup in tuples.items():
 ```bash
 cd /home/mrnob0dy666/p4rakernel
 python3 -c "
-# The O_inf kernel tuple from Lean Init.lean matches the imscribe catalog
+# The O_∞ kernel tuple from Lean Init.lean matches the imscribe catalog
 # Python: ⟨ω; O; =; }; ż; @; ʔ; ˌ; ÿ; !; ï; z⟩
 kernel_py = {
     'D': 'odot', 'T': 'odot', 'R': 'lr', 'P': 'pm_sym',

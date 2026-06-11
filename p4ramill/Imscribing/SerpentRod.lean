@@ -14,7 +14,7 @@
 -- This collapses the 7-stage gene→protein pipeline into ONE direct step.
 --
 -- Structural type: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℏ; Ç_@; Γ_ℶ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_Z⟩
--- Tier: O_inf (self-modeling: the RNA writes its own fold via μ∘δ=id)
+-- Tier: O_∞ (self-modeling: the RNA writes its own fold via μ∘δ=id)
 
 import Imscribing.GeneticCode
 import Imscribing.GeneToProtein
@@ -225,9 +225,9 @@ def serpentRodImscription : Imscription :=
     stoi := .n_m
     prot := .Omega_Z }
 
-/-- Tier verification: the direct mapping is O_inf (self-modeling). -/
+/-- Tier verification: the direct mapping is O_∞ (self-modeling). -/
 theorem serpentRod_is_Oinf :
-    imscriptionTier serpentRodImscription = .O_inf := by
+    imscriptionTier serpentRodImscription = .O_∞ := by
   native_decide
 
 /-- Distance from the direct mapping to the quaternary protein stage

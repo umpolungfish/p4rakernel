@@ -10,7 +10,7 @@ computation, and universe access prediction.
 Usage:
     from psychedelic_bridge import *
     # Check a compound's tier
-    tier = compound_tier('verticullum')  # 'O_inf'
+    tier = compound_tier('verticullum')  # 'O_∞'
     # Compute tensor coupling
     result = couple('dmt', 'praxeum')  # Gate 1 toggle
     # Predict universe access under coupling
@@ -63,12 +63,12 @@ COMPOUND_TUPLES: Dict[str, Dict[str, str]] = {
 # ── Ouroboricity Tiers (verified via ouroborics tool) ──
 
 COMPOUND_TIERS: Dict[str, str] = {
-    "verticullum": "O_inf",
-    "chimerium": "O_0",
-    "apertix": "O_2",
-    "retiarius": "O_1",
-    "praxeum": "O_0",
-    "dmt": "O_inf",
+    "verticullum": "O_∞",
+    "chimerium": "O₀",
+    "apertix": "O₂",
+    "retiarius": "O₁",
+    "praxeum": "O₀",
+    "dmt": "O_∞",
 }
 
 # ── Ordinal Mappings ──
@@ -179,7 +179,7 @@ def compound_delta(name_a: str, name_b: str) -> List[str]:
     return deltas
 
 def is_oinf_capable(tup: Dict[str, str]) -> bool:
-    """Check if a tuple's primitives are compatible with O_inf tier.
+    """Check if a tuple's primitives are compatible with O_∞ tier.
 
     Requirements: Phi=⊙, P=𐑹 or 𐑯, D=𐑦, H≥𐑖, Omega≥𐑴.
     """
@@ -204,13 +204,13 @@ def predict_gate1_closure(name: str) -> bool:
 def predict_tier_after_launch(name: str) -> str:
     """Predict tier after Chimerium supercritical launch."""
     orig_tier = compound_tier(name)
-    if orig_tier == "O_inf":
-        return "O_inf"  # Already max
+    if orig_tier == "O_∞":
+        return "O_∞"  # Already max
     composite = couple(name, "chimerium")
     if is_oinf_capable(composite):
-        return "O_2"
+        return "O₂"
     if composite["Phi"] in ("𐑮", "𐑣"):
-        return "O_2" if orig_tier == "O_1" else "O_1"
+        return "O₂" if orig_tier == "O₁" else "O₁"
     return orig_tier
 
 # ── Summary ──
@@ -221,7 +221,7 @@ if __name__ == "__main__":
         tup = get_compound(name)
         tier = compound_tier(name)
         oinf = "✓" if is_oinf_capable(tup) else "✗"
-        print(f"{name:15s}  {tier:6s}  O_inf-capable: {oinf}  "
+        print(f"{name:15s}  {tier:6s}  O_∞-capable: {oinf}  "
               f"Phi={tup['Phi']}  H={tup['H']}  Omega={tup['Omega']}")
 
     print("\n=== Key Couplings ===")

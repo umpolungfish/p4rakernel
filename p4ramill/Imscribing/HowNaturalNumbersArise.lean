@@ -34,7 +34,7 @@ def zero_type : Imscription := {
 }
 
 theorem zero_address : crystal_encode zero_type = 0 := by decide
-theorem zero_tier : imscriptionTier zero_type = .O_0 := by decide
+theorem zero_tier : imscriptionTier zero_type = .O₀ := by decide
 
 -- ============================================================
 -- S2. SUCCESSOR TYPE AND OPERATION

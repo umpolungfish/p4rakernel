@@ -48,7 +48,7 @@ def multiAgentImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem multi_agent_is_O_inf : imscriptionTier multiAgentImscription = .O_inf := by
+theorem multi_agent_is_O_inf : imscriptionTier multiAgentImscription = .O_∞ := by
   simp [imscriptionTier, ouroboricityTier, multiAgentImscription]
 
 end Imscribing.Paraconsistent.MultiAgent

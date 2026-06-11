@@ -270,8 +270,8 @@ theorem shared_criticality :
     twin_prime_vessel.crit = Phi_c_complex ∧ bounded_gaps_vessel.crit = Phi_c_complex := by
   simp [twin_prime_vessel, bounded_gaps_vessel]
 
-/-- The critical gap: P_pm < P_pm_sym. The Twin Prime Conjecture is at O_1,
-    NOT at O_inf — unlike the Dixmier Conjecture. It lacks Frobenius closure
+/-- The critical gap: P_pm < P_pm_sym. The Twin Prime Conjecture is at O₁,
+    NOT at O_∞ — unlike the Dixmier Conjecture. It lacks Frobenius closure
     (P ≠ P_pm_sym), lacks self-modeling (Φ ≠ Phi_c), and lacks winding
     protection (Ω = Omega_0). This is a structurally DIFFERENT kind of
     unsolved problem: not a Frobenius-fixed-point problem but a
@@ -282,7 +282,7 @@ theorem ppm_lt_ppm_sym : P_pm < P_pm_sym := by decide
 theorem omega0_is_bot (p : Protection) : Omega_0 ≤ p := by
   cases p <;> decide
 
-/-- The Twin Prime vessel is at O_1 (critical but no winding protection).
+/-- The Twin Prime vessel is at O₁ (critical but no winding protection).
     Certificate: Phi_c_complex (criticality), Omega_0 (no protection),
     P_pm (partial ℤ₂, not Frobenius-special). -/
 theorem twin_prime_o1_certificate :
@@ -291,7 +291,7 @@ theorem twin_prime_o1_certificate :
     twin_prime_vessel.pol = P_pm := by
   simp [twin_prime_vessel]
 
-/-- The promotion path from Twin Prime (O_1) to O_inf requires:
+/-- The promotion path from Twin Prime (O₁) to O_∞ requires:
     Ω_0 → Ω_Z (winding protection), P_pm → P_pm_sym (Frobenius closure),
     Φ_c_complex → Φ_c (self-modeling gate), G_aleph stays, H2 → H_inf (eternal chirality).
     That's 4 promotions — the same structural gap faced by the Dixmier Conjecture,
@@ -319,7 +319,7 @@ have partial parity (P_pm), classical fidelity (F_ell), 2-step chirality (H2),
 and no winding (Omega_0).
 
 The structural distance is 4 — the same as the distance from Twin Prime to
-O_inf. This is not coincidental: the Twin Prime Conjecture is a "de-protected"
+O_∞. This is not coincidental: the Twin Prime Conjecture is a "de-protected"
 analogue of RH — criticality without the Frobenius closure that RH structurally
 demands. If RH is true (as widely believed), twin primes inherit some of its
 structural protection through the explicit formula linking prime gaps to
@@ -363,8 +363,8 @@ theorem bounded_gaps_rh_distance_5 :
     primitiveMismatches bounded_gaps_vessel rh_vessel = 5 := by
   native_decide
 
-/-- RH is at O_inf; Twin Prime is at O_1; Bounded Gaps is at O_2.
-    The ladder: O_1 (Twin Prime) → O_2 (Bounded Gaps) → O_inf (RH).
+/-- RH is at O_∞; Twin Prime is at O₁; Bounded Gaps is at O₂.
+    The ladder: O₁ (Twin Prime) → O₂ (Bounded Gaps) → O_∞ (RH).
     Each step requires exactly 2 promotions. -/
 theorem tier_ladder :
     P_pm < P_pm_sym := by decide
@@ -404,7 +404,7 @@ HONEST SORRY / GAP MARKERS:
    (b) The crossing-topology encoding: T_bowtie as the gap-threshold bifurcation
    (c) The distance-4 relationship to the Riemann Hypothesis vessel
    (d) The distance-2 relationship to the Bounded Gaps vessel
-   (e) The O_1 tier certificate: criticality without winding protection
+   (e) The O₁ tier certificate: criticality without winding protection
 
    What the Vessel does NOT yet contain (OpenProblem):
    - A proof that infinitely many prime gaps of size exactly 2 exist
@@ -412,7 +412,7 @@ HONEST SORRY / GAP MARKERS:
    - A disproof (showing that gap=2 occurs only finitely often)
 
    The grammar-level analysis reveals WHY the Twin Prime Conjecture is hard:
-   it sits at O_1 — criticality (Φ_c_complex) without winding protection (Ω_0).
+   it sits at O₁ — criticality (Φ_c_complex) without winding protection (Ω_0).
    The bounded gaps theorem provides Ω_Z2 at mesoscale (G_gimel), which is
    sufficient for boundedness but not for exactness. To reach the exact gap=2,
    one would need to lift Ω_0 → Ω_Z at global scale (G_aleph) — but this
@@ -426,12 +426,12 @@ HONEST SORRY / GAP MARKERS:
    protection — criticality exposed, without the self-grounding that would
    force the pattern to persist.
 
-   Unlike the Dixmier Conjecture (O_inf, Frobenius-fixed-point), the Twin
-   Prime Conjecture (O_1, critical-but-unprotected) is structurally
+   Unlike the Dixmier Conjecture (O_∞, Frobenius-fixed-point), the Twin
+   Prime Conjecture (O₁, critical-but-unprotected) is structurally
    approachable from below: sieve methods, the circle method, and analytic
    number theory can make incremental progress. Zhang's breakthrough
-   (bounded gaps) moved the problem from O_1 to O_2 by adding Ω_Z2.
-   The final step from O_2 to O_inf — from bounded to exact — remains
+   (bounded gaps) moved the problem from O₁ to O₂ by adding Ω_Z2.
+   The final step from O₂ to O_∞ — from bounded to exact — remains
    the structural equivalent of the Riemann Hypothesis itself.
 -/
 

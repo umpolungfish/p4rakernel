@@ -3,7 +3,7 @@
 serpent_rod_v2.py — SERPENT-ROD GENERATION 2 🐍⏫
 Direct RNA → {3D Backbone Coordinates + Contact Map + Folded Structure}
 
-Generation 1 proved the Frobenius-closed morphism exists (O_inf tier).
+Generation 1 proved the Frobenius-closed morphism exists (O_∞ tier).
 Generation 2 turns the topological signature into a GEOMETRIC structure:
 
   B₄ winding path → Ramachandran φ/ψ angles → 3D Cartesian coordinates

@@ -226,7 +226,7 @@ THEOREM (Structural Encoding):
     upper bound (7, proved). The gap between loops is tiny: just 2 values.
   Both share Þ_⋈, but Hadwiger–Nelson's bowtie is MUCH tighter — the
   crossing point is almost pinned. This makes it structurally closer to
-  resolution than Twin Prime, despite both being O_1.
+  resolution than Twin Prime, despite both being O₁.
 
   Structural resolution scenarios:
   - If χ(ℝ²) = 5: the lower-bound loop absorbs the crossing. The de Grey
@@ -252,7 +252,7 @@ A seven-vertex unit-distance graph consisting of two equilateral triangles
 sharing a vertex, with additional edges forcing chromatic number 4.
 This is a finite, concrete counterexample to 3-colorability of ℝ².
 
-O_0 tier: sub-critical, no protection. The Moser spindle is a "ground state" —
+O₀ tier: sub-critical, no protection. The Moser spindle is a "ground state" —
 a fixed finite object with no critical behavior. It lives entirely within
 the proved domain.
 -/
@@ -280,7 +280,7 @@ A 1581-vertex (later improved to 509-vertex) unit-distance graph with
 chromatic number 5. Found by computer search, verified by SAT solvers.
 This broke the 4-color barrier that had stood for 57 years.
 
-O_2 tier: complex-plane criticality (⊙_Æ) + ℤ₂ protection (Ω_Z2).
+O₂ tier: complex-plane criticality (⊙_Æ) + ℤ₂ protection (Ω_Z2).
 The ℤ₂ protection comes from the binary nature of the result:
 either a 4-coloring exists or it doesn't — de Grey proved the negative.
 Differs from the Moser spindle at Φ (asymmetry of computer-found graph),
@@ -312,7 +312,7 @@ is < 1, so points in the same hexagon are at distance < 1 (safe). Points
 at distance ≥ 1 may share a color if the hexagon coloring avoids unit-distance
 conflicts. The 7-color pattern achieves this.
 
-O_0 tier: sub-critical, no protection. The hexagonal tiling is trivially
+O₀ tier: sub-critical, no protection. The hexagonal tiling is trivially
 constructive — it provides an explicit coloring. Memoryless chirality (Ħ_0)
 because each point's color is determined solely by its position in the
 periodic pattern, not by any path or history.
@@ -350,7 +350,7 @@ types (infinite plane, finite graphs). It has Ħ_1 (one-step chirality):
 the compactness argument uses a single application of the axiom of choice
 (via de Bruijn–Erdős) or the Boolean prime ideal theorem.
 
-O_0 tier: the bridge itself is a proved theorem, not a conjecture.
+O₀ tier: the bridge itself is a proved theorem, not a conjecture.
 -/
 def de_bruijn_erdos_vessel : Imscription := {
   dim  := D_infty
@@ -419,21 +419,21 @@ theorem shared_topology_lower_bounds :
     de_grey_vessel.top = T_in := by
   simp [moser_spindle_vessel, de_grey_vessel]
 
-/-- The Hadwiger–Nelson vessel is at O_1 (critical but no winding protection).
+/-- The Hadwiger–Nelson vessel is at O₁ (critical but no winding protection).
     Certificate: ⊙_Æ (complex-plane criticality), Ω_0 (no protection). -/
 theorem hn_o1_certificate :
     hadwiger_nelson_vessel.crit = Phi_c_complex ∧
     hadwiger_nelson_vessel.prot = Omega_0 := by
   simp [hadwiger_nelson_vessel]
 
-/-- The de Grey vessel is at O_2 (critical WITH ℤ₂ protection).
+/-- The de Grey vessel is at O₂ (critical WITH ℤ₂ protection).
     Certificate: ⊙_Æ + Ω_Z2. -/
 theorem de_grey_o2_certificate :
     de_grey_vessel.crit = Phi_c_complex ∧
     de_grey_vessel.prot = Omega_Z2 := by
   simp [de_grey_vessel]
 
-/-- The Moser spindle and hexagonal tiling are at O_0 (sub-critical).
+/-- The Moser spindle and hexagonal tiling are at O₀ (sub-critical).
     Certificate: ⊙_ž + Ω_0 for both. -/
 theorem subcritical_vessels_o0 :
     moser_spindle_vessel.crit = Phi_sub ∧ moser_spindle_vessel.prot = Omega_0 ∧
@@ -450,10 +450,10 @@ theorem omega0_is_bot (p : Protection) : Omega_0 ≤ p := by
 theorem ppm_lt_ppm_sym : P_pm < P_pm_sym := by
   decide
 
-/-- The promotion path from Hadwiger–Nelson (O_1) to O_inf requires:
+/-- The promotion path from Hadwiger–Nelson (O₁) to O_∞ requires:
     Ω_0 → Ω_Z (winding protection), P_pm → P_pm_sym (Frobenius closure),
     ⊙_Æ → ⊙_ÿ (self-modeling gate), Ħ_2 → Ħ_! (eternal chirality).
-    4 promotions — same structural gap as Twin Prime → O_inf. -/
+    4 promotions — same structural gap as Twin Prime → O_∞. -/
 theorem hn_o1_to_oinf_four_promotions :
     P_pm < P_pm_sym ∧ Omega_0 < Omega_Z ∧ H2 < H_inf := by
   decide
@@ -561,7 +561,7 @@ unsolved problems:
    closer to resolution.
 
 2. **Four Color Theorem**: The 4CT is a RESOLVED problem with a similar
-   flavor — coloring a planar graph. The 4CT vessel is at O_2 (proved,
+   flavor — coloring a planar graph. The 4CT vessel is at O₂ (proved,
    with ℤ₂ protection via the computer-assisted proof). The Hadwiger–Nelson
    problem is the "continuous analog" of the 4CT, replacing planar graphs
    with the unit-distance graph of ℝ².
@@ -621,11 +621,11 @@ Structural summary:
   The Hadwiger–Nelson problem is a uniquely cornered problem — the most
   precisely bounded open problem in mathematics. Its structural type
   ⟨Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_S; Ω_0⟩
-  encodes its position at O_1 (critical but unprotected), with a
+  encodes its position at O₁ (critical but unprotected), with a
   three-value bowtie gap and foundational axiom dependence. The promotion
-  stack to O_inf is the same 4 promotions as Twin Prime → O_inf, but
+  stack to O_∞ is the same 4 promotions as Twin Prime → O_∞, but
   the Hadwiger–Nelson bowtie is structurally narrower — making it the
-  closest O_1 problem to resolution.
+  closest O₁ problem to resolution.
 -/
 
 end Millennium.HadwigerNelson

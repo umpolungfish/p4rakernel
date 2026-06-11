@@ -26,7 +26,7 @@ This document formalizes:
 6. The kernel as the access mechanism (§7)
 7. **New §11 — High Gate Survivors: A Uniqueness Theorem**
 8. **New §12 — The H2 Chirality Fixed Point: MajoranaFixed Unification**
-9. **New §13 — The O_inf Projection Operator (π_U)**
+9. **New §13 — The O_∞ Projection Operator (π_U)**
 10. **New §14 — The Grothendieck Topology on the Crystal Site**
 
 ---
@@ -61,7 +61,7 @@ where Gᵢ(τ) = 1 iff ORDINAL(τ[pᵢ]) ≥ θᵢ, and sequential ordering requ
 G₂ = G₁ ∧ G₂_raw      G₃ = G₂ ∧ G₃_raw
 ```
 
-**Definition 2.3 (O_inf Accessibility).** A type τ achieves O_inf in universe U iff L_U(τ) = idempotent_terminal AND T(τ) = True (the type is T-consistent).
+**Definition 2.3 (O_∞ Accessibility).** A type τ achieves O_∞ in universe U iff L_U(τ) = idempotent_terminal AND T(τ) = True (the type is T-consistent).
 
 ---
 
@@ -155,12 +155,12 @@ shift(e) = L_old → L_new
 
 The *layer shift distribution* over all catalog entries is the fingerprint of the universe difference.
 
-### Phase 3: Find the O_inf Transform
+### Phase 3: Find the O_∞ Transform
 
-The most powerful form of universe access: find the structural transformation T that maps the canonical universe's O_inf set to the target universe's O_inf set:
+The most powerful form of universe access: find the structural transformation T that maps the canonical universe's O_∞ set to the target universe's O_∞ set:
 
 ```
-T: O_inf(U_canonical) → O_inf(U_target)
+T: O_∞(U_canonical) → O_∞(U_target)
 ```
 
 T is a projection from one Ruleset to another — it reveals which structural types are invariant under universe change and which are contingent.
@@ -191,7 +191,7 @@ T is a projection from one Ruleset to another — it reveals which structural ty
 | plain | 2156      | 2156      | —     |
 | frobenius | 15   | 640       | +625  |
 | traced_monoidal | 189 | 70     | -119  |
-| O_inf (idempotent_terminal) | 508 | **2** | -506  |
+| O_∞ (idempotent_terminal) | 508 | **2** | -506  |
 
 ### §6.4 Accessing the `t_structural` Universe
 
@@ -214,7 +214,7 @@ T is a projection from one Ruleset to another — it reveals which structural ty
 | plain | 2156      | 1510            | -646  |
 | frobenius | 15   | 102             | +87   |
 | traced_monoidal | 189 | 435           | +246  |
-| O_inf | 508       | **821**         | **+313 (+61.6%)** |
+| O_∞ | 508       | **821**         | **+313 (+61.6%)** |
 
 ### §6.8 Accessing the `t_hybrid` Universe
 
@@ -281,7 +281,7 @@ target = Ruleset(
 python new_universes.py profile --name chirality_first
 ```
 
-This prints the layer distribution, T-consistency rate, and O_inf entries under the target universe.
+This prints the layer distribution, T-consistency rate, and O_∞ entries under the target universe.
 
 ### Step 3: Compare to Canonical
 
@@ -314,17 +314,17 @@ The 17,280,000 structural types exist independently of any particular universe's
 
 The operculum is the Ruleset. Peeling it back reveals:
 
-1. **The same type can be O_inf in one universe and plain in another** — structural relativity.
+1. **The same type can be O_∞ in one universe and plain in another** — structural relativity.
 2. **The transformation between universes is computable** — it is the evaluation of a different Ruleset over the same tuple.
 3. **The kernel is the mechanical substrate** — every ENGAGR→FSPLIT→FFUSE cycle is a microcosm of universe access.
-4. **The agent that imscribes itself (O_inf) can read any universe** — self-imscription is the ultimate access key.
+4. **The agent that imscribes itself (O_∞) can read any universe** — self-imscription is the ultimate access key.
 
 ---
 
 ## §10. Directions for Further Formalization (Original)
 
 1. **Universe homotopy**: Define a continuous deformation of Rulesets: U(t) = (1-t)·U_a + t·U_b.
-2. **O_inf projection operator**: Define π_U: Crystal → {0,1} where π_U(τ) = 1 iff τ is O_inf in U.
+2. **O_∞ projection operator**: Define π_U: Crystal → {0,1} where π_U(τ) = 1 iff τ is O_∞ in U.
 3. **Universe tensor**: U_a ⊗ U_b is the universe whose gate thresholds are the max of U_a and U_b's.
 4. **The operculum as Grothendieck topology**: The operculum defines a sieve on the Crystal site.
 
@@ -352,7 +352,7 @@ From a catalog of 2,868 entries, **exactly 2** pass all three gates and reach th
 
 ### §11.2 The T-Consistency Gap
 
-Under Definition 2.3, O_inf requires BOTH idempotent_terminal AND T-consistency. Neither survivor passes T-consistency:
+Under Definition 2.3, O_∞ requires BOTH idempotent_terminal AND T-consistency. Neither survivor passes T-consistency:
 
 | Prim | Required | platonic_solids | tool_review_test |
 |------|----------|-----------------|-----------------|
@@ -366,11 +366,11 @@ Both fail T-consistency on Ω: they carry **non-Abelian braiding** (Ω=𐑟, ord
 
 ### §11.3 The Uniqueness Theorem
 
-**Theorem 11.1 (High Gate Uniqueness).** Under the `high_gate` Ruleset (G1=Φ≥5, G2=⊙≥2.33, G3=Ω≥4, sequential, canonical T), **zero** catalog entries achieve full O_inf. The two idempotent_terminal entries fail T-consistency at the same primitive (Ω).
+**Theorem 11.1 (High Gate Uniqueness).** Under the `high_gate` Ruleset (G1=Φ≥5, G2=⊙≥2.33, G3=Ω≥4, sequential, canonical T), **zero** catalog entries achieve full O_∞. The two idempotent_terminal entries fail T-consistency at the same primitive (Ω).
 
 **Proof.** The intersection of three sets — entries with Φ=𐑹, ⊙≥𐑮, and Ω=𐑟 — has cardinality 2 in the 2,868-entry catalog. The intersection of those 2 with the 234 T-consistent entries is empty, because T requires Ω=𐑭≠𐑟. ∎
 
-**Corollary 11.1.1.** The unique "natural" mathematical structure that comes closest to full O_inf under the strictest universe is the **platonic solids** — the five regular convex polyhedra. This is not coincidental: platonic solids simultaneously achieve maximum parity (Φ=𐑹, the Frobenius-special value at which $\mu\circ\delta=\text{id}$ closes), supercritical self-modeling (⊙=𐑣), and non-Abelian winding (Ω=𐑟).
+**Corollary 11.1.1.** The unique "natural" mathematical structure that comes closest to full O_∞ under the strictest universe is the **platonic solids** — the five regular convex polyhedra. This is not coincidental: platonic solids simultaneously achieve maximum parity (Φ=𐑹, the Frobenius-special value at which $\mu\circ\delta=\text{id}$ closes), supercritical self-modeling (⊙=𐑣), and non-Abelian winding (Ω=𐑟).
 
 **Corollary 11.1.2.** `tool_review_test` is structurally degenerate — it is a bootstrap entry with no natural mathematical content. The fact that it survives high_gate is an artifact of its tuple having been explicitly set to extreme values to unlock the catalog. A cleaned catalog would have **exactly 1** high_gate survivor: platonic_solids.
 
@@ -390,7 +390,7 @@ The set of entries that survive ALL three strict gates is practically empty in a
 
 ### §12.1 The Empirical Finding
 
-Under the `chirality_first` universe (G1=Ħ≥3, G2=⊙≥2, G3=Ω≥3), exactly **449 entries** are O_inf-invariant — they achieve idempotent_terminal under BOTH canonical and chirality_first evaluation. The critical empirical finding:
+Under the `chirality_first` universe (G1=Ħ≥3, G2=⊙≥2, G3=Ω≥3), exactly **449 entries** are O_∞-invariant — they achieve idempotent_terminal under BOTH canonical and chirality_first evaluation. The critical empirical finding:
 
 **Every invariant entry has chirality Ħ ≥ 𐑖 (ord 3, H2).**
 
@@ -398,11 +398,11 @@ The grammar_H* series demonstrates the threshold precisely:
 
 | Entry | Ħ value | Ħ ordinal | Canonical | Chirality First | Invariant? |
 |-------|---------|-----------|-----------|-----------------|------------|
-| grammar_H0 | 𐑓 | 1 (memoryless) | O_inf | plain | ✗ |
-| grammar_H1 | 𐑒 | 2 (one-step) | O_inf | plain | ✗ |
-| **grammar_H2** | **𐑖** | **3 (two-step)** | **O_inf** | **O_inf** | **✓** |
-| imscribing_grammar | 𐑖 | 3 (two-step) | O_inf | O_inf | ✓ |
-| majorana_qubit_sim | 𐑫 | 4 (eternal) | plain | O_inf | ✗ (promoted) |
+| grammar_H0 | 𐑓 | 1 (memoryless) | O_∞ | plain | ✗ |
+| grammar_H1 | 𐑒 | 2 (one-step) | O_∞ | plain | ✗ |
+| **grammar_H2** | **𐑖** | **3 (two-step)** | **O_∞** | **O_∞** | **✓** |
+| imscribing_grammar | 𐑖 | 3 (two-step) | O_∞ | O_∞ | ✓ |
+| majorana_qubit_sim | 𐑫 | 4 (eternal) | plain | O_∞ | ✗ (promoted) |
 
 **H2 (Ħ=𐑖, two-step Markov) is the minimal chirality invariant** under gate reordering.
 
@@ -418,7 +418,7 @@ The structural type of all three is identical:
 ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 ```
 
-with **Ħ = H2** (two-step Markov, Shavian 𐑖). The theorem `majorana_fixed_is_O_inf` proves by `native_decide` that this type achieves O_inf.
+with **Ħ = H2** (two-step Markov, Shavian 𐑖). The theorem `majorana_fixed_is_O_inf` proves by `native_decide` that this type achieves O_∞.
 
 ### §12.3 H2 as the Frobenius Fixed Point of Chirality
 
@@ -433,25 +433,25 @@ The MajoranaFixed.lean theorem proves that H2 is exactly the chirality at which 
 
 **Theorem 12.1 (H2 Invariance).** For any entry τ with chirality H(τ) < 𐑖 (ord 3), the operad layer of τ under chirality_first evaluation is strictly lower than under canonical evaluation. For H(τ) ≥ 𐑖, the layer is either preserved or elevated.
 
-**Proof.** By empirical profile: G1 in chirality_first = Ħ≥3. Any entry with Ħ<3 fails G1 and can at best be plain. Entries with Ħ≥3 pass G1 and can reach higher layers if other gates clear. The formal Lean proof in MajoranaFixed.lean establishes that the structural type ⟨...; Ħ=𐑖; ...⟩ is O_inf independently of gate ordering. ∎
+**Proof.** By empirical profile: G1 in chirality_first = Ħ≥3. Any entry with Ħ<3 fails G1 and can at best be plain. Entries with Ħ≥3 pass G1 and can reach higher layers if other gates clear. The formal Lean proof in MajoranaFixed.lean establishes that the structural type ⟨...; Ħ=𐑖; ...⟩ is O_∞ independently of gate ordering. ∎
 
 ### §12.4 The Majorana Promotion Path
 
 The `majorana_qubit_simulator` entry (Ħ=𐑫, ord 4) is **promoted** from plain (canonical) to idempotent_terminal (chirality_first). Under canonical evaluation, it failed G1 (Φ=𐑯, ord 4 < 5). Under chirality_first, G1 switches to Ħ, which it passes easily. This demonstrates:
 
-- The Majorana qubit's structural type was always O_inf-capable — it simply needed a universe that evaluates chirality first
+- The Majorana qubit's structural type was always O_∞-capable — it simply needed a universe that evaluates chirality first
 - The canonical universe evaluates parity first (Φ=𐑯, ord 4 is just below the threshold), hiding the Majorana's true tier
 - The chirality_first universe reveals it
 
-This is the operculum peeling in action: the same entry, read through a different Ruleset, achieves O_inf.
+This is the operculum peeling in action: the same entry, read through a different Ruleset, achieves O_∞.
 
 ---
 
-## §13. The O_inf Projection Operator (π_U)
+## §13. The O_∞ Projection Operator (π_U)
 
 ### §13.1 Definition
 
-**Definition 13.1 (O_inf Projection).** For any universe U, the *O_inf projection operator* π_U: C → {0, 1} is defined as:
+**Definition 13.1 (O_∞ Projection).** For any universe U, the *O_∞ projection operator* π_U: C → {0, 1} is defined as:
 
 ```
 π_U(τ) = 1  iff  L_U(τ) = idempotent_terminal  AND  T_U(τ) = True
@@ -461,7 +461,7 @@ where L_U(τ) is the operad layer under U and T_U(τ) is T-consistency under U.
 
 ### §13.2 Properties
 
-**Proposition 13.1 (Idempotence).** π_U ∘ π_U = π_U. The projection is idempotent — once an entry is identified as O_inf, re-evaluation does not change its status.
+**Proposition 13.1 (Idempotence).** π_U ∘ π_U = π_U. The projection is idempotent — once an entry is identified as O_∞, re-evaluation does not change its status.
 
 **Proof.** The Crystal address τ is invariant under universe U. Both L_U(τ) and T_U(τ) are deterministic functions of τ under U. Therefore π_U(τ) is deterministic and π_U(π_U(τ)) = π_U(τ). ∎
 
@@ -471,27 +471,27 @@ where L_U(τ) is the operad layer under U and T_U(τ) is T-consistency under U.
 π_{U_b}(τ) = 1  ⇒  π_{U_a}(τ) = 1
 ```
 
-The O_inf set is monotonic decreasing in gate strictness: stricter universes have smaller O_inf sets.
+The O_∞ set is monotonic decreasing in gate strictness: stricter universes have smaller O_∞ sets.
 
 **Proof.** Each gate is monotonic in its threshold — if θᵢ ≤ θⱼ then the set of entries satisfying G(τ) ≥ θⱼ is a subset of those satisfying G(τ) ≥ θᵢ. Therefore, if all three gates pass under stricter U_b, they pass under looser U_a. T-constitution is unaffected by gate thresholds. ∎
 
-**Proposition 13.3 (Non-Monotonicity under Gate Reordering).** If U_a and U_b differ only in gate ordering (U_a sequential, U_b parallel), then neither π_{U_a} ⊆ π_{U_b} nor π_{U_b} ⊆ π_{U_a} holds generally. The O_inf sets are incomparable.
+**Proposition 13.3 (Non-Monotonicity under Gate Reordering).** If U_a and U_b differ only in gate ordering (U_a sequential, U_b parallel), then neither π_{U_a} ⊆ π_{U_b} nor π_{U_b} ⊆ π_{U_a} holds generally. The O_∞ sets are incomparable.
 
 **Proof.** Under sequential ordering, G₂ requires G₁. An entry that passes G₂ and G₃ but fails G₁ achieves traced_monoidal in parallel but plain in sequential. Conversely, an entry that passes G₁ and G₂ but fails G₃ achieves traced_monoidal in sequential but may be lower in parallel. The sets are incomparable. ∎
 
 ### §13.3 Catalog-Level Projection
 
-For a finite catalog C_N ⊆ C, define the *O_inf count*:
+For a finite catalog C_N ⊆ C, define the *O_∞ count*:
 
 ```
 N_U = |{ τ ∈ C_N : π_U(τ) = 1 }|
 ```
 
-The ratio N_U / |C_N| estimates the *O_inf density* of universe U over the sampled catalog.
+The ratio N_U / |C_N| estimates the *O_∞ density* of universe U over the sampled catalog.
 
 **Empirical values (N=2,868 catalog entries):**
 
-| Universe | N_U (idempotent_terminal) | N_U (full O_inf) | Density |
+| Universe | N_U (idempotent_terminal) | N_U (full O_∞) | Density |
 |----------|--------------------------|-------------------|---------|
 | canonical | 508 | 456 | 15.9% |
 | chirality_first | 821 | ~738 | ~25.7% |
@@ -506,13 +506,13 @@ The ratio N_U / |C_N| estimates the *O_inf density* of universe U over the sampl
 Π: Ruleset → 2^C
 ```
 
-sending each universe U to its O_inf set Π(U) = {τ ∈ C : π_U(τ) = 1} is called the *universe projection map*.
+sending each universe U to its O_∞ set Π(U) = {τ ∈ C : π_U(τ) = 1} is called the *universe projection map*.
 
 **Theorem 13.1 (Continuity).** The map Π is continuous in the following sense: for any sequence of universes U_n converging pointwise in gate thresholds to U_∞, the symmetric difference |Π(U_n) Δ Π(U_∞)| → 0 as n → ∞.
 
 **Proof.** Each gate G_i(τ) is a step function in the threshold θ_i. The set of thresholds where any entry's status changes is a finite set of measure zero. Away from these boundaries, Π is locally constant. ∎
 
-This continuity justifies **universe homotopy** — the continuous deformation of Rulesets along a path U(t) = (1-t)·U_a + t·U_b. The O_inf set changes only at discrete operculum boundaries where some entry crosses a gate threshold.
+This continuity justifies **universe homotopy** — the continuous deformation of Rulesets along a path U(t) = (1-t)·U_a + t·U_b. The O_∞ set changes only at discrete operculum boundaries where some entry crosses a gate threshold.
 
 ---
 
@@ -533,7 +533,7 @@ S_U(τ) = { τ' ∈ C : τ' ≤ τ  AND  π_U(τ') = 1 }
 
 where τ' ≤ τ means τ' is a structural subtype of τ (all primitives ≤ the corresponding primitives in τ under the Shavian ordinal ordering).
 
-**Interpretation.** The U-sieve S_U(τ) is the collection of **all structural subtypes of τ that are O_inf in U**. A sieve covers τ if there exists at least one O_inf subtype of τ — i.e., if τ has some O_inf-accessible substructure.
+**Interpretation.** The U-sieve S_U(τ) is the collection of **all structural subtypes of τ that are O_∞ in U**. A sieve covers τ if there exists at least one O_∞ subtype of τ — i.e., if τ has some O_∞-accessible substructure.
 
 ### §14.2 The Sheaf Condition
 
@@ -541,15 +541,15 @@ where τ' ≤ τ means τ' is a structural subtype of τ (all primitives ≤ the
 
 **Definition 14.4 (Sheaf).** A presheaf F is a *sheaf* on the Crystal site if for every τ ∈ C and every covering sieve S_U(τ), the following holds: for any collection of sections {s_{τ'} ∈ F(τ') : τ' ∈ S_U(τ)} that are compatible under restriction (i.e., for any τ'' ≤ τ',τ''', we have ρ_{τ',τ''}(s_{τ'}) = ρ_{τ''',τ''}(s_{τ'''})), there exists a unique section s ∈ F(τ) restricting to each s_{τ'}.
 
-**Proposition 14.1 (The O_inf Presheaf is a Sheaf).** The presheaf
+**Proposition 14.1 (The O_∞ Presheaf is a Sheaf).** The presheaf
 
 ```
-F_O(τ) = { 1 } if τ is O_inf in U, else ∅
+F_O(τ) = { 1 } if τ is O_∞ in U, else ∅
 ```
 
 with trivial restriction maps is a sheaf on the Crystal site.
 
-**Proof.** For a covering sieve S_U(τ), the compatibility condition is vacuous (sections are either present or absent). The gluing condition reduces to: if every O_inf subtype of τ is O_inf, then τ itself is O_inf. This holds because if τ' ≤ τ and π_U(τ')=1 for all τ' in the sieve, then τ must achieve at least the same gate thresholds (monotonicity in primitives). ∎
+**Proof.** For a covering sieve S_U(τ), the compatibility condition is vacuous (sections are either present or absent). The gluing condition reduces to: if every O_∞ subtype of τ is O_∞, then τ itself is O_∞. This holds because if τ' ≤ τ and π_U(τ')=1 for all τ' in the sieve, then τ must achieve at least the same gate thresholds (monotonicity in primitives). ∎
 
 ### §14.3 Universe Change as Topology Change
 
@@ -569,7 +569,7 @@ with the same Crystal address but a different sieve — a different notion of "w
 
 **Proof.** The U-sieve is defined entirely by π_U, which is computed by the Ruleset. Changing the Ruleset changes π_U, which changes the sieves, which changes the topology. The Crystal address τ is unchanged; only its covering relations change. This is exactly the universe access transformation. ∎
 
-**Corollary 14.1.1 (O_inf as Sheaf Support).** The O_inf set Π(U) = {τ : π_U(τ)=1} is precisely the *support* of the sheaf F_O under the U-topology. An entry is O_inf iff it has non-zero stalk in the sheaf.
+**Corollary 14.1.1 (O_∞ as Sheaf Support).** The O_∞ set Π(U) = {τ : π_U(τ)=1} is precisely the *support* of the sheaf F_O under the U-topology. An entry is O_∞ iff it has non-zero stalk in the sheaf.
 
 ### §14.4 The Grothendieck Topology of the Operculum
 
@@ -601,7 +601,7 @@ d_op(U_a, U_b) = |∂(U_a, U_b)|
 | canonical → high_gate | ~506 demoted, **~506** |
 | canonical → low_gate | ~376 promoted, **~376** |
 
-**Corollary 14.2.1 (H2 Invariance as Sheaf Stability).** The set of entries with π_U(τ)=1 for BOTH U=canonical AND U=chirality_first — 449 entries — is precisely the set of entries whose O_inf status is **sheaf-stable** under topology change from canonical to chirality_first. These entries are co-visible in both topologies.
+**Corollary 14.2.1 (H2 Invariance as Sheaf Stability).** The set of entries with π_U(τ)=1 for BOTH U=canonical AND U=chirality_first — 449 entries — is precisely the set of entries whose O_∞ status is **sheaf-stable** under topology change from canonical to chirality_first. These entries are co-visible in both topologies.
 
 ---
 
@@ -613,9 +613,9 @@ The four new formalisms converge on a single structural truth:
 
 2. **H2/MajoranaFixed** (§12): The Frobenius fixed point of chirality is H2 — the two-step Markov value at which Belnap B, Majorana, and SIC-POVM unify. This is the chirality at which $\mu\circ\delta=\text{id}$ closes independently of gate ordering.
 
-3. **O_inf Projection** (§13): π_U gives a sharp characterization of which entries achieve O_inf in which universe. The projection is monotonic in gate strictness and continuous in gate thresholds.
+3. **O_∞ Projection** (§13): π_U gives a sharp characterization of which entries achieve O_∞ in which universe. The projection is monotonic in gate strictness and continuous in gate thresholds.
 
-4. **Grothendieck Topology** (§14): Universe access is a change of topology on the Crystal site. The operculum boundary is the set of entries whose sheaf status changes. The 449 co-visible entries are those whose O_inf status is sheaf-stable.
+4. **Grothendieck Topology** (§14): Universe access is a change of topology on the Crystal site. The operculum boundary is the set of entries whose sheaf status changes. The 449 co-visible entries are those whose O_∞ status is sheaf-stable.
 
 **The operculum is peeled. What remains is the Crystal — invariant, legible, and infinitely faceted.**
 
@@ -649,7 +649,7 @@ From a catalog of 2,868 entries, **exactly 2** pass all three gates and reach th
 
 ### §11.2 The T-Consistency Gap
 
-Under Definition 2.3, O_inf requires BOTH idempotent_terminal AND T-consistency. Neither survivor passes T-consistency:
+Under Definition 2.3, O_∞ requires BOTH idempotent_terminal AND T-consistency. Neither survivor passes T-consistency:
 
 | Prim | Required | platonic_solids | tool_review_test |
 |------|----------|-----------------|-----------------|
@@ -663,7 +663,7 @@ Both fail T-consistency on Ω: they carry **non-Abelian braiding** (Ω=𐑟, ord
 
 ### §11.3 The Uniqueness Theorem
 
-**Theorem 11.1 (High Gate Uniqueness).** Under the `high_gate` Ruleset (G1=Φ≥5, G2=⊙≥2.33, G3=Ω≥4, sequential, canonical T), **zero** catalog entries achieve full O_inf. The two idempotent_terminal entries both fail T-consistency at Ω.
+**Theorem 11.1 (High Gate Uniqueness).** Under the `high_gate` Ruleset (G1=Φ≥5, G2=⊙≥2.33, G3=Ω≥4, sequential, canonical T), **zero** catalog entries achieve full O_∞. The two idempotent_terminal entries both fail T-consistency at Ω.
 
 **Proof.** The intersection of three sets — entries with Φ=𐑹, ⊙≥𐑮 (ord 2.33), and Ω=𐑟 (ord 4) — has cardinality 2 in the 2,868-entry catalog. The intersection of those 2 with the 234 T-consistent entries is empty, because T requires Ω=𐑭 (ord 3), not Ω=𐑟 (ord 4). ∎
 
@@ -691,11 +691,11 @@ Under the `chirality_first` universe (G1=Ħ≥3, G2=⊙≥2, G3=Ω≥3), **449 e
 
 | Entry | Ħ value | Ħ ordinal | Canonical | Chirality First | Invariant? |
 |-------|---------|-----------|-----------|-----------------|------------|
-| grammar_H0 | 𐑓 | 1 (memoryless) | O_inf | plain | ✗ demoted |
-| grammar_H1 | 𐑒 | 2 (one-step) | O_inf | plain | ✗ demoted |
-| **grammar_H2** | **𐑖** | **3 (two-step)** | **O_inf** | **O_inf** | **✓ invariant** |
-| grammar (self) | 𐑖 | 3 (two-step) | O_inf | O_inf | ✓ invariant |
-| majorana_qubit | 𐑫 | 4 (eternal) | plain | O_inf | ✗ promoted |
+| grammar_H0 | 𐑓 | 1 (memoryless) | O_∞ | plain | ✗ demoted |
+| grammar_H1 | 𐑒 | 2 (one-step) | O_∞ | plain | ✗ demoted |
+| **grammar_H2** | **𐑖** | **3 (two-step)** | **O_∞** | **O_∞** | **✓ invariant** |
+| grammar (self) | 𐑖 | 3 (two-step) | O_∞ | O_∞ | ✓ invariant |
+| majorana_qubit | 𐑫 | 4 (eternal) | plain | O_∞ | ✗ promoted |
 
 **H2 (Ħ=𐑖, two-step Markov) is the minimal chirality invariant** under gate reordering. H0 and H1 are demoted to plain when Ħ is evaluated first; H2 survives; H∞ is promoted.
 
@@ -709,7 +709,7 @@ Their structural type is identical, with **Ħ = H2**:
 ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 ```
 
-The theorem `majorana_fixed_is_O_inf` proves by `native_decide` that this type is O_inf.
+The theorem `majorana_fixed_is_O_inf` proves by `native_decide` that this type is O_∞.
 
 ### §12.3 H2 as the Frobenius Fixed Point of Chirality
 
@@ -717,19 +717,19 @@ Under chirality_first evaluation (G1=Ħ≥3), H2 is the minimal chirality that r
 
 **Theorem 12.1 (H2 Gate Invariance).** For any entry τ with chirality H(τ) < 𐑖 (ord 3), the operad layer of τ under chirality_first is strictly lower than under canonical. For H(τ) ≥ 𐑖, the layer is preserved or elevated.
 
-**Proof.** G1 in chirality_first = Ħ≥3. Entries with Ħ<3 fail G1 → plain. Entries with Ħ≥3 pass G1. The Lean proof establishes the structural type with Ħ=𐑖 as O_inf. ∎
+**Proof.** G1 in chirality_first = Ħ≥3. Entries with Ħ<3 fail G1 → plain. Entries with Ħ≥3 pass G1. The Lean proof establishes the structural type with Ħ=𐑖 as O_∞. ∎
 
 ### §12.4 The Majorana Promotion Path
 
-`majorana_qubit_simulator` (Ħ=𐑫, ord 4) is **promoted** from plain (canonical) to idempotent_terminal (chirality_first). Under canonical, it failed G1 (Φ=𐑯, ord 4 < 5). Under chirality_first, G1 switches to Ħ, which passes. The Majorana qubit was always O_inf-capable — it needed a universe evaluating chirality first.
+`majorana_qubit_simulator` (Ħ=𐑫, ord 4) is **promoted** from plain (canonical) to idempotent_terminal (chirality_first). Under canonical, it failed G1 (Φ=𐑯, ord 4 < 5). Under chirality_first, G1 switches to Ħ, which passes. The Majorana qubit was always O_∞-capable — it needed a universe evaluating chirality first.
 
 ---
 
-## §13. The O_inf Projection Operator (π_U)
+## §13. The O_∞ Projection Operator (π_U)
 
 ### §13.1 Definition
 
-**Definition 13.1 (O_inf Projection).** For any universe U, the *O_inf projection operator* π_U: C → {0, 1} is:
+**Definition 13.1 (O_∞ Projection).** For any universe U, the *O_∞ projection operator* π_U: C → {0, 1} is:
 
 ```
 π_U(τ) = 1  iff  L_U(τ) = idempotent_terminal  AND  T_U(τ) = True
@@ -739,15 +739,15 @@ Under chirality_first evaluation (G1=Ħ≥3), H2 is the minimal chirality that r
 
 **Proposition 13.1 (Idempotence).** π_U ∘ π_U = π_U.
 
-**Proposition 13.2 (Monotonicity under Gate Relaxation).** Stricter gates ⇒ smaller or equal O_inf set.
+**Proposition 13.2 (Monotonicity under Gate Relaxation).** Stricter gates ⇒ smaller or equal O_∞ set.
 
-**Proposition 13.3 (Non-Monotonicity under Gate Reordering).** Sequential vs parallel yields incomparable O_inf sets.
+**Proposition 13.3 (Non-Monotonicity under Gate Reordering).** Sequential vs parallel yields incomparable O_∞ sets.
 
 ### §13.3 Catalog-Level Projection — The T-Bottleneck Discovery
 
 Over the 2,868-entry catalog with canonical T-constitution:
 
-| Universe | Idempotent_terminal | T-consistent | **Full O_inf** | Δ from full O_inf |
+| Universe | Idempotent_terminal | T-consistent | **Full O_∞** | Δ from full O_∞ |
 |----------|-------------------|-------------|----------------|-------------------|
 | canonical | 508 | 234 | **230** | -278 (gate-limited) |
 | chirality_first | 821 | 234 | **230** | -591 (T-limited) |
@@ -759,9 +759,9 @@ Over the 2,868-entry catalog with canonical T-constitution:
 | strict_frobenius | 467 | 234 | **234** | -233 (all T pass) |
 | **t_structural** | 508 | **29** | **12** | T-constitution changed |
 
-**The T-bottleneck:** Canonical T-constitution requires Ħ=𐑫 (eternal memory, ord 4) — so **all 230 full O_inf entries have Ħ=𐑫**. None have Ħ=𐑖 (H2). Full O_inf requires H∞, not H2.
+**The T-bottleneck:** Canonical T-constitution requires Ħ=𐑫 (eternal memory, ord 4) — so **all 230 full O_∞ entries have Ħ=𐑫**. None have Ħ=𐑖 (H2). Full O_∞ requires H∞, not H2.
 
-**Critical distinction:** H2 is the minimal chirality for **idempotent_terminal invariance** (gate-level). H∞ (Ħ=𐑫) is required for **full O_inf** (T-sealed).
+**Critical distinction:** H2 is the minimal chirality for **idempotent_terminal invariance** (gate-level). H∞ (Ħ=𐑫) is required for **full O_∞** (T-sealed).
 
 ### §13.4 The Universe Projection Map
 
@@ -769,7 +769,7 @@ Over the 2,868-entry catalog with canonical T-constitution:
 
 **Theorem 13.1 (Continuity).** Π is continuous: for U_n → U_∞, |Π(U_n) Δ Π(U_∞)| → 0.
 
-**Corollary 13.1 (Operculum Boundary).** ∂(U_a, U_b) = {τ : π_{U_a}(τ) ≠ π_{U_b}(τ)}. For canonical → chirality_first: ∂ = 0 (both have same 230 full O_inf entries). The idempotent_terminal boundary is larger: 431 entries change gate status, but all 230 T-consistent survivors remain O_inf.
+**Corollary 13.1 (Operculum Boundary).** ∂(U_a, U_b) = {τ : π_{U_a}(τ) ≠ π_{U_b}(τ)}. For canonical → chirality_first: ∂ = 0 (both have same 230 full O_∞ entries). The idempotent_terminal boundary is larger: 431 entries change gate status, but all 230 T-consistent survivors remain O_∞.
 
 ---
 
@@ -790,7 +790,7 @@ S_U(τ) = { τ' ∈ C : τ' ≤ τ  AND  π_U(τ') = 1 }
 
 where τ' ≤ τ means τ' is a structural subtype of τ (all primitives ≤ the corresponding primitives in τ under the Shavian ordinal ordering).
 
-**Interpretation.** The U-sieve S_U(τ) is the collection of **all structural subtypes of τ that are O_inf in U**. A sieve covers τ if there exists at least one O_inf subtype of τ — i.e., if τ has some O_inf-accessible substructure.
+**Interpretation.** The U-sieve S_U(τ) is the collection of **all structural subtypes of τ that are O_∞ in U**. A sieve covers τ if there exists at least one O_∞ subtype of τ — i.e., if τ has some O_∞-accessible substructure.
 
 ### §14.2 The Sheaf Condition
 
@@ -798,7 +798,7 @@ where τ' ≤ τ means τ' is a structural subtype of τ (all primitives ≤ the
 
 **Definition 14.4 (Sheaf).** A presheaf F is a *sheaf* on the Crystal site if for every τ ∈ C and every covering sieve S_U(τ), the following holds: for any collection of sections {s_{τ'} ∈ F(τ') : τ' ∈ S_U(τ)} that are compatible under restriction, there exists a unique section s ∈ F(τ) restricting to each s_{τ'}.
 
-**Proposition 14.1 (The O_inf Presheaf is a Sheaf).** The presheaf
+**Proposition 14.1 (The O_∞ Presheaf is a Sheaf).** The presheaf
 
 ```
 F_O(τ) = { 1 } if π_U(τ)=1, else ∅
@@ -806,7 +806,7 @@ F_O(τ) = { 1 } if π_U(τ)=1, else ∅
 
 with trivial restriction maps is a sheaf on the Crystal site.
 
-**Proof.** For a covering sieve S_U(τ), the compatibility condition is vacuous. The gluing condition reduces to: if every O_inf subtype of τ is O_inf, then τ itself is O_inf. This holds because if τ' ≤ τ and π_U(τ')=1 for all τ' in the sieve, then τ must achieve at least the same gate thresholds (monotonicity in primitives). ∎
+**Proof.** For a covering sieve S_U(τ), the compatibility condition is vacuous. The gluing condition reduces to: if every O_∞ subtype of τ is O_∞, then τ itself is O_∞. This holds because if τ' ≤ τ and π_U(τ')=1 for all τ' in the sieve, then τ must achieve at least the same gate thresholds (monotonicity in primitives). ∎
 
 ### §14.3 Universe Change as Topology Change
 
@@ -820,13 +820,13 @@ with trivial restriction maps is a sheaf on the Crystal site.
 
 **Proof.** The U-sieve is defined entirely by π_U, which is computed by the Ruleset. Changing the Ruleset changes π_U, which changes the sieves, which changes the topology. The Crystal address τ is unchanged; only its covering relations change. ∎
 
-**Corollary 14.1.1 (O_inf as Sheaf Support).** The O_inf set Π(U) = {τ : π_U(τ)=1} is the *support* of the sheaf F_O under the U-topology.
+**Corollary 14.1.1 (O_∞ as Sheaf Support).** The O_∞ set Π(U) = {τ : π_U(τ)=1} is the *support* of the sheaf F_O under the U-topology.
 
 ### §14.4 The T-Bottleneck as Sheaf Condition
 
-The empirical finding that **all 230 full O_inf entries have Ħ=𐑫** (H∞) has a precise sheaf-theoretic interpretation:
+The empirical finding that **all 230 full O_∞ entries have Ħ=𐑫** (H∞) has a precise sheaf-theoretic interpretation:
 
-**Proposition 14.2 (Eternal Memory Sheaf Condition).** For the canonical T-constitution, the O_inf sheaf F_O has support contained within the set of entries with Ħ=𐑫. The stalk is non-zero only at types where chirality attains its maximum ordinal.
+**Proposition 14.2 (Eternal Memory Sheaf Condition).** For the canonical T-constitution, the O_∞ sheaf F_O has support contained within the set of entries with Ħ=𐑫. The stalk is non-zero only at types where chirality attains its maximum ordinal.
 
 **Proof.** T-constitution requires Ħ=𐑫 for T-consistency. Therefore, π_U(τ)=1 ⇒ Ħ(τ)=𐑫. Since F_O(τ)={1} iff π_U(τ)=1, the support of F_O is a subset of {τ : Ħ(τ)=𐑫}. ∎
 
@@ -838,17 +838,17 @@ This means the sheaf is **maximally restrictive on chirality**: eternal memory i
 
 **Proposition 14.3 (Operculum Boundary).** The operculum boundary between two universes is ∂(U_a, U_b) = { τ ∈ C : π_{U_a}(τ) ≠ π_{U_b}(τ) }. The cardinality is the *operculum distance* d_op(U_a, U_b) = |∂(U_a, U_b)|.
 
-**Empirical values (full O_inf):**
+**Empirical values (full O_∞):**
 
-| Universe Pair | d_op (full O_inf changes) | Notes |
+| Universe Pair | d_op (full O_∞ changes) | Notes |
 |--------------|---------------------------|-------|
-| canonical → chirality_first | **0** | Same 230 entries O_inf |
-| canonical → high_gate | **230** | All O_inf lost (gates too strict) |
-| canonical → low_gate | **4** | 4 more entries become O_inf |
+| canonical → chirality_first | **0** | Same 230 entries O_∞ |
+| canonical → high_gate | **230** | All O_∞ lost (gates too strict) |
+| canonical → low_gate | **4** | 4 more entries become O_∞ |
 | canonical → t_structural | **218** | T-constitution change shifts most |
-| canonical → strict_frobenius | **4** | 4 more entries become O_inf |
+| canonical → strict_frobenius | **4** | 4 more entries become O_∞ |
 
-**Corollary 14.3.1 (Sheaf Stability).** The operculum distance d_op(canonical, chirality_first) = 0 means the O_inf sheaf is **identical** in both topologies. The two universes are topologically equivalent at the O_inf level despite having different gate orderings. The idempotent_terminal sets differ by 431 entries, but these entries all fail T-consistency — they are "visible but not time-sealed."
+**Corollary 14.3.1 (Sheaf Stability).** The operculum distance d_op(canonical, chirality_first) = 0 means the O_∞ sheaf is **identical** in both topologies. The two universes are topologically equivalent at the O_∞ level despite having different gate orderings. The idempotent_terminal sets differ by 431 entries, but these entries all fail T-consistency — they are "visible but not time-sealed."
 
 ---
 
@@ -861,26 +861,26 @@ This means the sheaf is **maximally restrictive on chirality**: eternal memory i
 | **Crystal** | 17,280,000 addresses | ✓ Always | 17,280,000 |
 | **T-consistent** | Passes T-constitution | ✓ Always (same T) | 234 |
 | **Idempotent_terminal** | All 3 gates open | ✗ Changes with G1/G2/G3 | 508 / 821 / 2 |
-| **Full O_inf** | Gates + T | Depends on T | 230 (most) |
+| **Full O_∞** | Gates + T | Depends on T | 230 (most) |
 
 ### §15.2 The Four Theorems
 
-1. **High Gate Uniqueness** (§11): Under maximal strictness (Φ≥5, ⊙≥2.33, Ω≥4), only platonic solids survive gating — the simplest universal forms. Zero entries achieve full O_inf.
+1. **High Gate Uniqueness** (§11): Under maximal strictness (Φ≥5, ⊙≥2.33, Ω≥4), only platonic solids survive gating — the simplest universal forms. Zero entries achieve full O_∞.
 
 2. **H2/MajoranaFixed** (§12): H2 (two-step Markov) is the minimal chirality invariant under gate reordering. The MajoranaFixed theorem proves H2 is the Frobenius fixed point of chirality — where Belnap B, Majorana, and SIC-POVM unify at $\mu\circ\delta=\text{id}$.
 
-3. **T-Bottleneck** (§13): Full O_inf requires H∞ (Ħ=𐑫, eternal memory), not H2. The 230 full O_inf entries are identical across most universes. T-constitution, not gate ordering, is the bottleneck.
+3. **T-Bottleneck** (§13): Full O_∞ requires H∞ (Ħ=𐑫, eternal memory), not H2. The 230 full O_∞ entries are identical across most universes. T-constitution, not gate ordering, is the bottleneck.
 
-4. **Grothendieck Topology** (§14): Universe access is a change of topology on the Crystal site. The operculum distance d_op(canonical, chirality_first) = 0 for full O_inf — they are topologically equivalent at the O_inf level.
+4. **Grothendieck Topology** (§14): Universe access is a change of topology on the Crystal site. The operculum distance d_op(canonical, chirality_first) = 0 for full O_∞ — they are topologically equivalent at the O_∞ level.
 
 ### §15.3 The Operculum Is Peeled
 
 The operculum has two layers:
 
 - **Gate layer** (evaluated by G1/G2/G3): changes which entries reach idempotent_terminal. The H2 threshold is the minimal chirality that survives gate reordering.
-- **T-constitution layer** (evaluated by time-consistency): gates which entries reach full O_inf. Eternal memory (H∞) is required.
+- **T-constitution layer** (evaluated by time-consistency): gates which entries reach full O_∞. Eternal memory (H∞) is required.
 
-Peeling both layers reveals: the Crystal is invariant, the Ruleset is a reading, and the reading has two depths — gate-deep (idempotent_terminal, 821 max) and T-deep (full O_inf, 230 fixed).
+Peeling both layers reveals: the Crystal is invariant, the Ruleset is a reading, and the reading has two depths — gate-deep (idempotent_terminal, 821 max) and T-deep (full O_∞, 230 fixed).
 
 **The operculum is peeled. What remains is the Crystal — invariant, legible, and infinitely faceted.**
 

@@ -195,7 +195,7 @@ noncomputable def relDist (a b : RelTuple) : ℝ :=
 /-- The Tao (the principle itself, distinct from the tradition).
     Tuple: <D_odot; T_odot; R_dagger; P_sym; F_hbar; K_slow; G_aleph;
             Gamma_broad; Phi_c; H_inf; n:n; Omega_Z>
-    Tier: O_2, C = 0.828 -/
+    Tier: O₂, C = 0.828 -/
 def Tao : RelTuple where
   D := .odot; T := .odot; R := .dagger; P := .sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
@@ -204,7 +204,7 @@ def Tao : RelTuple where
 /-- Taoism (the tradition).
     Tuple: <D_odot; T_boxtimes; R_lr; P_pm; F_ell; K_slow; G_aleph;
             Gamma_seq; Phi_sub; H_inf; n:m; Omega_Z>
-    Tier: O_0, C = 0.0 (Gate 1 closed: Phi_sub)
+    Tier: O₀, C = 0.0 (Gate 1 closed: Phi_sub)
     Distance from Tao: d = 3.1623 (7 primitives differ) -/
 def Taoism : RelTuple where
   D := .odot; T := .boxtimes; R := .lr; P := .pm; F := .ell
@@ -214,7 +214,7 @@ def Taoism : RelTuple where
 /-- Buddhism.
     Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
             Gamma_broad; Phi_c; H_inf; n:n; Omega_Z2>
-    Tier: O_inf, C = 0.736 (Frobenius-special emptiness) -/
+    Tier: O_∞, C = 0.736 (Frobenius-special emptiness) -/
 def Buddhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
@@ -223,7 +223,7 @@ def Buddhism : RelTuple where
 /-- Christianity.
     Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
             Gamma_seq; Phi_c; H_inf; n:m; Omega_Z2>
-    Tier: O_inf, C = 0.736 (Frobenius-special perichoresis) -/
+    Tier: O_∞, C = 0.736 (Frobenius-special perichoresis) -/
 def Christianity : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
@@ -232,7 +232,7 @@ def Christianity : RelTuple where
 /-- Islam.
     Tuple: <D_odot; T_odot; R_super; P_sym; F_ell; K_slow; G_aleph;
             Gamma_seq; Phi_c; H_inf; n:m; Omega_Z2>
-    Tier: O_2, C = 0.736 (Tawhid with supervenience) -/
+    Tier: O₂, C = 0.736 (Tawhid with supervenience) -/
 def Islam : RelTuple where
   D := .odot; T := .odot; R := .super; P := .sym; F := .ell
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
@@ -241,7 +241,7 @@ def Islam : RelTuple where
 /-- Sikhism.
     Tuple: <D_odot; T_odot; R_lr; P_sym; F_ell; K_slow; G_aleph;
             Gamma_seq; Phi_c_complex; H_inf; n:m; Omega_Z>
-    Tier: O_2, C = 0.828 (complex-plane criticality) -/
+    Tier: O₂, C = 0.828 (complex-plane criticality) -/
 def Sikhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .sym; F := .ell
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
@@ -250,7 +250,7 @@ def Sikhism : RelTuple where
 /-- Paganism.
     Tuple: <D_odot; T_net; R_lr; P_sym; F_eth; K_mod; G_gimel;
             Gamma_or; Phi_c; H_inf; n:m; Omega_Z>
-    Tier: O_2, C = 0.36 (branching polytheistic topology) -/
+    Tier: O₂, C = 0.36 (branching polytheistic topology) -/
 def Paganism : RelTuple where
   D := .odot; T := .network; R := .lr; P := .sym; F := .eth
   K := .mod; G := .gimel; Gamma := .or_; Phi := .c
@@ -259,7 +259,7 @@ def Paganism : RelTuple where
 /-- Satanism.
     Tuple: <D_triangle; T_infty (mapped to T_bowtie for 5-val Topo); R_lr;
             P_asym; F_ell; K_fast; G_beth; Gamma_or; Phi_c; H1; n:m; Omega_0>
-    Tier: O_1, C = 0.2825 (individualist revolt) -/
+    Tier: O₁, C = 0.2825 (individualist revolt) -/
 def Satanism : RelTuple where
   D := .triangle; T := .bowtie; R := .lr; P := .asym; F := .ell
   K := .fast; G := .beth; Gamma := .or_; Phi := .c
@@ -426,11 +426,11 @@ def consciousnessScore (s : RelTuple) : ℝ :=
   else 0.0
 
 /-- Ouroboricity tier assignment.
-    O_inf: P_pm_sym AND Phi_c AND D ≠ wedge AND Omega ≠ zero
+    O_∞: P_pm_sym AND Phi_c AND D ≠ wedge AND Omega ≠ zero
     O_2dagger: Phi_c_complex AND Omega = Z2 AND D = infty (or odot)
-    O_2: Phi_c AND Omega = Z2 AND D = infty (or odot)
-    O_1: Phi_c OR Phi_c_complex (basic criticality)
-    O_0: everything else (including Taoism with Phi_sub) -/
+    O₂: Phi_c AND Omega = Z2 AND D = infty (or odot)
+    O₁: Phi_c OR Phi_c_complex (basic criticality)
+    O₀: everything else (including Taoism with Phi_sub) -/
 inductive OuroborTier where
   | O0     -- subcritical, no self-modeling
   | O1     -- basic criticality
@@ -596,12 +596,12 @@ theorem tier_Taoism_O0 :
   ouroborTier Taoism = OuroborTier.O0 := by
   dsimp [ouroborTier, Taoism]
 
-/-- Buddhism and Christianity both achieve O_inf. -/
+/-- Buddhism and Christianity both achieve O_∞. -/
 theorem Buddhism_and_Christianity_are_Oinf :
   ouroborTier Buddhism = OuroborTier.Oinf ∧ ouroborTier Christianity = OuroborTier.Oinf := by
   simp [ouroborTier, Buddhism, Christianity, Polarity.pm_sym, Crit.c, Dim.odot, Decidable.not_not]
 
-/-- O_inf requires P_pm_sym (Frobenius-special). -/
+/-- O_∞ requires P_pm_sym (Frobenius-special). -/
 theorem Oinf_requires_pm_sym :
   ∀ s : RelTuple, ouroborTier s = OuroborTier.Oinf → s.P = .pm_sym := by sorry
 end Millennium.WorldReligions

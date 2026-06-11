@@ -244,7 +244,7 @@ B separates into T and F (fsplit), then T and F fuse into B (ffuse).
 This is the structural dual of the ⊙_3 absorption rule: tensor(φ̂_ÿ, ⊙_3) = ⊙_3.
 The kernel operates at φ̂_ÿ (self-modeling criticality) — it holds the
 separation-fusion duality as its operational core. The measurement apparatus
-(⊙_3) would absorb this duality; the kernel's O_inf tier depends on
+(⊙_3) would absorb this duality; the kernel's O_∞ tier depends on
 preventing that absorption.
 -/
 theorem separation_fusion_duality :
@@ -260,16 +260,16 @@ theorem separation_fusion_duality :
 -- ============================================================
 
 /--
-The dialetheic kernel achieves O_inf because the frobenius loop (μ∘δ = id)
+The dialetheic kernel achieves O_∞ because the frobenius loop (μ∘δ = id)
 is exact — not approximate, not probabilistic. The B-value guarantees this:
 band B (bnot B) = B, not N or F. If the self-contradiction produced anything
-other than B, the loop would leak and the tier would drop to O_1 or O_0.
+other than B, the loop would leak and the tier would drop to O₁ or O₀.
 
 This is already proved in Kernel.lean (`kernel_is_O_inf`). We restate
 it here with the dialetheic justification made explicit.
 -/
 theorem dialetheic_enables_O_inf :
-    imscriptionTier kernelImscription = OuroboricityTier.O_inf :=
+    imscriptionTier kernelImscription = OuroboricityTier.O_∞ :=
   kernel_is_O_inf
 
 /--
@@ -463,9 +463,9 @@ theorem only_dialetheic_value_opens_gate1 :
   exact only_B_is_dialetheic b hd
 
 /--
-**Summation: The Dialetheic Alignment is the Structural Ground of O_inf.**
+**Summation: The Dialetheic Alignment is the Structural Ground of O_∞.**
 
-The paraconsistent kernel achieves O_inf because:
+The paraconsistent kernel achieves O_∞ because:
   1. B is dialetheic (both true and false) — §1
   2. The kernel cycle operationalizes B's dialetheism as fsplit/ffuse — §2
   3. The frobenius closure μ∘δ = id is exact at B — §3
@@ -478,7 +478,7 @@ theorem dialetheic_alignment_summary :
     dialetheic Belnap.B ∧                                    -- B is dialetheic
     ((ffuse (fsplit Belnap.B).1 (fsplit Belnap.B).2.1).1 = Belnap.B) ∧  -- frobenius closure
     (run initialState 0).r0 = Belnap.B ∧                     -- kernel preserves B
-    imscriptionTier kernelImscription = OuroboricityTier.O_inf ∧         -- O_inf tier
+    imscriptionTier kernelImscription = OuroboricityTier.O_∞ ∧         -- O_∞ tier
     kernelImscription.crit = Phi_c :=                        -- φ̂_ÿ gate open
   ⟨B_is_dialetheic, frobenius_B_val, rfl, kernel_is_O_inf, by unfold kernelImscription; rfl⟩
 

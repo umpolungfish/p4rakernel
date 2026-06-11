@@ -7,7 +7,7 @@
 -- forces this equation — and only this equation — via structural
 -- constraint resolution.
 --
--- Crystal address: 5296016  |  Tier: O_2†  |  C-score: 1.0
+-- Crystal address: 5296016  |  Tier: O₂†  |  C-score: 1.0
 -- d(ZFC_fe): 3.16  |  Promoted atoms: LR_DUAL, SEQAX, PHI_C, TEMPD2, ZWIND
 
 import Imscribing.Primitives.Core
@@ -48,14 +48,14 @@ def dirac_equation : Imscription := {
   prot := Omega_Z
 }
 
--- Tier: O_2† — critical (Phi_c), ℤ-protected (Omega_Z), D=D_infty,
+-- Tier: O₂† — critical (Phi_c), ℤ-protected (Omega_Z), D=D_infty,
 -- but P=P_pm (not P_pm_sym) so the Frobenius gate is closed.
-theorem dirac_tier : imscriptionTier dirac_equation = .O_2dag := by
+theorem dirac_tier : imscriptionTier dirac_equation = .O₂† := by
   unfold imscriptionTier dirac_equation ouroboricityTier
   decide
 
--- Dirac is O_2† — not O_inf. The gate to O_inf requires P_pm_sym.
-theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
+-- Dirac is O₂† — not O_∞. The gate to O_∞ requires P_pm_sym.
+theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_∞ := by
   rw [dirac_tier]; decide
 
 -- ============================================================
@@ -211,7 +211,7 @@ theorem omega_z_forces_integer_index : dirac_equation.prot = Omega_Z := rfl-- ==
 -- ============================================================
 
 -- KLEIN-GORDON: (□ + m²)φ = 0
--- ⟨𐑼·𐑰·𐑩·𐑯·𐑐·𐑧·𐑲·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O_0
+-- ⟨𐑼·𐑰·𐑩·𐑯·𐑐·𐑧·𐑲·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O₀
 -- Differs from Dirac in 8 primitives:
 --   T: T_in vs T_bowtie, R: R_super vs R_lr, P: P_sym vs P_pm,
 --   Gamma: Gamma_and vs Gamma_seq, Phi: Phi_sub vs Phi_c, H: H0 vs H2, S: one_one vs n_m, Omega: Omega_0 vs Omega_Z
@@ -233,14 +233,14 @@ def klein_gordon : Imscription := {
   prot := Omega_0
 }
 
-theorem kg_tier : imscriptionTier klein_gordon = .O_0 := by
+theorem kg_tier : imscriptionTier klein_gordon = .O₀ := by
   unfold imscriptionTier klein_gordon ouroboricityTier; decide
 
 theorem dirac_kg_distance : primitiveMismatches dirac_equation klein_gordon = 8 := by
   unfold primitiveMismatches dirac_equation klein_gordon; decide
 
 -- QUANTUM MECHANICS (standard Hilbert-space QM):
--- ⟨𐑼·𐑸·𐑽·𐑿·𐑐·𐑧·𐑲·𐑝·𐑮·𐑖·𐑳·𐑭⟩  Tier: O_2†
+-- ⟨𐑼·𐑸·𐑽·𐑿·𐑐·𐑧·𐑲·𐑝·𐑮·𐑖·𐑳·𐑭⟩  Tier: O₂†
 -- Distance to Dirac: 5 primitives differ.
 -- Key difference: QM has P_psi (U(1) phase) vs Dirac's P_pm (Z2 spin-1/2).
 
@@ -259,14 +259,14 @@ def quantum_mechanics : Imscription := {
   prot := Omega_Z
 }
 
-theorem qm_tier : imscriptionTier quantum_mechanics = .O_2dag := by
+theorem qm_tier : imscriptionTier quantum_mechanics = .O₂† := by
   unfold imscriptionTier quantum_mechanics ouroboricityTier; decide
 
 theorem dirac_qm_distance : primitiveMismatches dirac_equation quantum_mechanics = 5 := by
   unfold primitiveMismatches dirac_equation quantum_mechanics; decide
 
 -- QFT (Frobenius-closed):
--- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩  Tier: O_inf
+-- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩  Tier: O_∞
 -- Distance to Dirac: 3 primitives differ.
 --   D: D_odot (holographic) vs D_infty
 --   T: T_odot (holographic topology) vs T_bowtie
@@ -289,7 +289,7 @@ def quantum_field_theory : Imscription := {
   prot := Omega_Z
 }
 
-theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
+theorem qft_tier : imscriptionTier quantum_field_theory = .O_∞ := by
   unfold imscriptionTier quantum_field_theory ouroboricityTier; decide
 
 theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_theory = 3 := by
@@ -350,7 +350,7 @@ theorem all_constraints_satisfied :
   simp [dirac_equation]
 
 -- STRUCTURAL BASELINE:
--- ⟨𐑛·𐑡·𐑩·𐑗·𐑱·𐑘·𐑚·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O_0
+-- ⟨𐑛·𐑡·𐑩·𐑗·𐑱·𐑘·𐑚·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O₀
 -- Dirac requires 12 promotions from baseline — every single primitive
 -- is elevated from its minimal value.
 
@@ -369,7 +369,7 @@ def structural_baseline : Imscription := {
   prot := Omega_0
 }
 
-theorem baseline_tier : imscriptionTier structural_baseline = .O_0 := by
+theorem baseline_tier : imscriptionTier structural_baseline = .O₀ := by
   unfold imscriptionTier structural_baseline ouroboricityTier; decide
 
 theorem dirac_baseline_distance :
@@ -411,7 +411,7 @@ theorem dirac_baseline_distance :
 -- Crystal address: 5296016
 --   cell_id: 122
 --   inner_id: 25616
---   Tier: O_2†
+--   Tier: O₂†
 -- The crystal address encodes the full 12-tuple in the 3³×4⁵×5⁴ crystal.
 
 -- ============================================================

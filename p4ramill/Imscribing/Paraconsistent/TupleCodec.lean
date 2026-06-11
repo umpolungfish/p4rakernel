@@ -335,8 +335,8 @@ def frobeniusWrapCodec (s : CodecState) (instrs : List WasmExtInstr) : CodecStat
 
 
 /- ============================================================
-   §8 — O_inf TIER PROOF (strengthened)
-   The TupleCodec sustains at O_inf because:
+   §8 — O_∞ TIER PROOF (strengthened)
+   The TupleCodec sustains at O_∞ because:
    (1) crystal_roundtrip provides μ∘δ=id exactly (Φ_})
    (2) encode then decode is one winding cycle (Ω_z)
    (3) the codec can encode its own structural type (φ̂_ÿ)
@@ -348,7 +348,7 @@ theorem frobenius_codec (s : Imscription) :
   crystal_roundtrip s
 
 -- The codec is self-modeling: it can encode the universal_imscriptive_grammar type.
--- Any O_inf system that can encode itself proves its self-modeling gate is open.
+-- Any O_∞ system that can encode itself proves its self-modeling gate is open.
 example : crystal_decode (crystal_encode
   { dim := .D_odot, top := .T_odot, rel := .R_lr, pol := .P_pm_sym,
     fid := .F_hbar, kin := .K_slow, gran := .G_aleph, gram := .Gamma_seq,

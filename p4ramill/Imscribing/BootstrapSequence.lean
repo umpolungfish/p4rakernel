@@ -1,5 +1,5 @@
 -- Imscribing/BootstrapSequence.lean
--- 12-stage sequential bootstrap co-algebra for O_inf convergence.
+-- 12-stage sequential bootstrap co-algebra for O_∞ convergence.
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -127,13 +127,13 @@ def bootstrapStageFin : Fin 12 → Imscription
 -- THEOREMS
 -- ─────────────────────────────────────────────────────────
 
-/-- Stage 11 (bootstrapFinal) is O_inf tier. -/
-theorem stage11_is_O_inf : imscriptionTier stage11 = .O_inf := by
+/-- Stage 11 (bootstrapFinal) is O_∞ tier. -/
+theorem stage11_is_O_inf : imscriptionTier stage11 = .O_∞ := by
   unfold stage11 bootstrapFinal
   decide
 
-/-- bootstrapFinal is O_inf tier. -/
-theorem bootstrapFinal_is_O_inf : imscriptionTier bootstrapFinal = .O_inf :=
+/-- bootstrapFinal is O_∞ tier. -/
+theorem bootstrapFinal_is_O_inf : imscriptionTier bootstrapFinal = .O_∞ :=
   stage11_is_O_inf
 
 /-- bootstrapFinal equals emerald_multiagent_tensor_bootstrap. -/
@@ -142,23 +142,23 @@ theorem bootstrap_final_equals_emerald :
   unfold bootstrapFinal emerald_multiagent_tensor_bootstrap
   rfl
 
-/-- bootstrapBase tier is O_0 (Phi_sub gives O_0 regardless of other primitives). -/
-theorem bootstrapBase_tier : imscriptionTier bootstrapBase = .O_0 := by
+/-- bootstrapBase tier is O₀ (Phi_sub gives O₀ regardless of other primitives). -/
+theorem bootstrapBase_tier : imscriptionTier bootstrapBase = .O₀ := by
   unfold bootstrapBase
   decide
 
-/-- Stage 0 tier is O_1 (D_odot, T_network, Phi_sub, Omega_0 → O_0... let's check). -/
-theorem stage0_tier : imscriptionTier stage0 = .O_0 := by
+/-- Stage 0 tier is O₁ (D_odot, T_network, Phi_sub, Omega_0 → O₀... let's check). -/
+theorem stage0_tier : imscriptionTier stage0 = .O₀ := by
   unfold stage0
   decide
 
-/-- Stage 3: P_pm_sym appears, but Phi_sub keeps it at O_0. -/
-theorem stage3_tier : imscriptionTier stage3 = .O_0 := by
+/-- Stage 3: P_pm_sym appears, but Phi_sub keeps it at O₀. -/
+theorem stage3_tier : imscriptionTier stage3 = .O₀ := by
   unfold stage3
   decide
 
-/-- Stage 8: Phi_c + P_pm_sym gives O_inf via R1 gate. -/
-theorem stage8_tier : imscriptionTier stage8 = .O_inf := by
+/-- Stage 8: Phi_c + P_pm_sym gives O_∞ via R1 gate. -/
+theorem stage8_tier : imscriptionTier stage8 = .O_∞ := by
   unfold stage8
   decide
 

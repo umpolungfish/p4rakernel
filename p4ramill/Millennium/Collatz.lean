@@ -19,8 +19,8 @@
 -- local dynamics + subcritical global average = unresolved.
 --
 -- §1  Mathematical Statement — Collatz map, orbits, terminal cycle
--- §2  The Vessels — conjecture (O_1), terminal cycle (O_0),
---     drift theorem (O_0), no-short-cycles (O_2), boundedness (O_1)
+-- §2  The Vessels — conjecture (O₁), terminal cycle (O₀),
+--     drift theorem (O₀), no-short-cycles (O₂), boundedness (O₁)
 -- §3  Structural Theorems — distances, tiers, tensor analysis
 -- §4  The Supercritical Paradox — φ̂_Æ and the drift gap
 -- §5  Catalog Comparison — Goldbach, Twin Prime, RH, Hadwiger-Nelson,
@@ -109,7 +109,7 @@ theorem collatz_equiv : CollatzConjecture ↔ CollatzConjecture' := collatz_equi
 
 ⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_Æ; Ħ_1; Σ_n:n; Ω_0 ⟩
 
-Ouroboricity tier: O_1 (critical but unprotected).  C-score: 0 (Gate 1 closed).
+Ouroboricity tier: O₁ (critical but unprotected).  C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
@@ -145,13 +145,13 @@ Primitive justifications:
 
 [9]  φ̂_Æ — Complex-plane critical. The Collatz conjecture sits at
      Collatz conjecture. The 3/2 growth factor on odd inputs means
-     local dynamics are expansive. No other O_1 problem in the catalog
+     local dynamics are expansive. No other O₁ problem in the catalog
      has supercritical criticality. The paradox: supercritical local
      dynamics + negative average drift = unresolved.
 
 [10] Ħ_1 — Markov order 1. T_iter(k+1, n) depends only on T_iter(k, n),
-     not on earlier history. All other O_1 problems in the catalog have
-     Ħ_2; Collatz is the only Ħ_1 O_1 problem — its memory is shorter but
+     not on earlier history. All other O₁ problems in the catalog have
+     Ħ_2; Collatz is the only Ħ_1 O₁ problem — its memory is shorter but
      its dynamics are wilder.
 
 [11] Σ_n:n — Many identical components. The same Collatz function T
@@ -183,7 +183,7 @@ def collatz_vessel : Imscription := {
 
 ⟨ Ð_; Þ_⊂; Ř_∘; Φ_sym; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_2; Σ_1:1; Ω_0 ⟩
 
-Ouroboricity tier: O_0 (subcritical, proved).
+Ouroboricity tier: O₀ (subcritical, proved).
 
 The terminal cycle 1→4→2→1 is a finite, fully determined dynamical system.
 It is the ONLY known attractor of the Collatz map. The cycle has period 3
@@ -243,7 +243,7 @@ def collatz_cycle_vessel : Imscription := {
 
 ⟨ Ð_△; Þ_⊂; Ř_↑; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_0; Σ_1:1; Ω_0 ⟩
 
-Ouroboricity tier: O_0 (subcritical, proved).
+Ouroboricity tier: O₀ (subcritical, proved).
 
 The log-mean drift theorem: E[log(C(n)/n)] = (1/2)log(1/2)+(1/2)log(3/2) < 0.
 This is a PROVED statement about the AVERAGE behavior of the compressed
@@ -297,11 +297,11 @@ def collatz_drift_vessel : Imscription := {
 }
 
 /-!
-### No-Short-Cycles Vessel (Computationally Verified — O_2)
+### No-Short-Cycles Vessel (Computationally Verified — O₂)
 
 ⟨ Ð_ß; Þ_⊂; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_1; Σ_n:n; Ω_Z2 ⟩
 
-Ouroboricity tier: O_2† (Z₂-protected, complex-critical).
+Ouroboricity tier: O₂† (Z₂-protected, complex-critical).
 
 It is known that there are no nontrivial cycles of length ≤ 69 in the
 Collatz map (by exhaustive computation for all starting values up to 2^68,
@@ -333,7 +333,7 @@ def collatz_nosc_vessel : Imscription := {
 
 ⟨ Ð_ß; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_Æ; Ħ_1; Σ_n:n; Ω_0 ⟩
 
-Ouroboricity tier: O_1.
+Ouroboricity tier: O₁.
 
 Tao (2019) proved: for almost all n, the Collatz orbit stays bounded
 proportionally to any function f(n) → ∞. This is a major advance but
@@ -360,11 +360,11 @@ def collatz_boundedness_vessel : Imscription := {
 }
 
 /-!
-### Tao Log-Density Vessel (2019 — O_2)
+### Tao Log-Density Vessel (2019 — O₂)
 
 ⟨ Ð_ß; Þ_⊂; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_Æ; Ħ_2; Σ_n:n; Ω_Z2 ⟩
 
-Ouroboricity tier: O_2 (Z₂-protected, complex-critical).
+Ouroboricity tier: O₂ (Z₂-protected, complex-critical).
 
 Tao's 2019 theorem: almost all orbits are almost bounded. The proof uses
 logarithmic density arguments and avoids the full difficulty of the
@@ -487,51 +487,51 @@ determinate and machine-verified.
 -- ----------------------------------------------------------
 
 /--
-**Theorem CL-1: Collatz Conjecture at O_1.**
-Complex-critical (Phi_c_complex) + unprotected (Omega_0) = O_1.
+**Theorem CL-1: Collatz Conjecture at O₁.**
+Complex-critical (Phi_c_complex) + unprotected (Omega_0) = O₁.
 -/
 theorem collatz_o1_certificate :
-  ouroboricityTier collatz_vessel.crit collatz_vessel.pol collatz_vessel.prot collatz_vessel.dim = OuroboricityTier.O_1 := by
+  ouroboricityTier collatz_vessel.crit collatz_vessel.pol collatz_vessel.prot collatz_vessel.dim = OuroboricityTier.O₁ := by
   native_decide
 
 /--
-**Theorem CL-2: Terminal cycle at O_0.**
-Subcritical + unprotected = O_0. The cycle is proved and finite.
+**Theorem CL-2: Terminal cycle at O₀.**
+Subcritical + unprotected = O₀. The cycle is proved and finite.
 -/
 theorem collatz_cycle_o0_certificate :
-  ouroboricityTier collatz_cycle_vessel.crit collatz_cycle_vessel.pol collatz_cycle_vessel.prot collatz_cycle_vessel.dim = OuroboricityTier.O_0 := by
+  ouroboricityTier collatz_cycle_vessel.crit collatz_cycle_vessel.pol collatz_cycle_vessel.prot collatz_cycle_vessel.dim = OuroboricityTier.O₀ := by
   native_decide
 
 /--
-**Theorem CL-3: Drift theorem at O_0.**
+**Theorem CL-3: Drift theorem at O₀.**
 The Terras log-mean drift is a proved subcritical result.
 -/
 theorem collatz_drift_o0_certificate :
-  ouroboricityTier collatz_drift_vessel.crit collatz_drift_vessel.pol collatz_drift_vessel.prot collatz_drift_vessel.dim = OuroboricityTier.O_0 := by
+  ouroboricityTier collatz_drift_vessel.crit collatz_drift_vessel.pol collatz_drift_vessel.prot collatz_drift_vessel.dim = OuroboricityTier.O₀ := by
   native_decide
 
 /--
-**Theorem CL-4: No-short-cycles at O_2†.**
+**Theorem CL-4: No-short-cycles at O₂†.**
 Z₂-protected partial result.
 -/
 theorem collatz_nosc_o2_certificate :
-  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 /--
-**Theorem CL-5: Tao log-density at O_2†.**
+**Theorem CL-5: Tao log-density at O₂†.**
 Tao's 2019 theorem is Z₂-protected.
 -/
 theorem collatz_tao_o2_certificate :
-  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim = OuroboricityTier.O_2dag := by
+  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim = OuroboricityTier.O₂† := by
   native_decide
 
 /--
-**Theorem CL-6: Boundedness conjecture at O_1.**
+**Theorem CL-6: Boundedness conjecture at O₁.**
 Same tier as the full conjecture but with mesoscale scope.
 -/
 theorem collatz_boundedness_o1_certificate :
-  ouroboricityTier collatz_boundedness_vessel.crit collatz_boundedness_vessel.pol collatz_boundedness_vessel.prot collatz_boundedness_vessel.dim = OuroboricityTier.O_1 := by
+  ouroboricityTier collatz_boundedness_vessel.crit collatz_boundedness_vessel.pol collatz_boundedness_vessel.prot collatz_boundedness_vessel.dim = OuroboricityTier.O₁ := by
   native_decide-- ----------------------------------------------------------
 -- Distance: Collatz ↔ Sub-Vessels
 -- ----------------------------------------------------------
@@ -583,14 +583,14 @@ theorem collatz_boundedness_distance_2 :
 
 /--
 **Theorem CL-11b: Tao ↔ No-Short-Cycles: 3 primitives differ.**
-Two different O_2 partial results — same tier, different path.
+Two different O₂ partial results — same tier, different path.
 -/
 theorem collatz_tao_nosc_distance_3 :
   primitiveMismatches collatz_tao_vessel collatz_nosc_vessel = 3 := by
   native_decide
 
 -- ----------------------------------------------------------
--- Distance: Collatz ↔ Other O_1 Problems (Catalog Comparison)
+-- Distance: Collatz ↔ Other O₁ Problems (Catalog Comparison)
 -- ----------------------------------------------------------
 
 /--
@@ -627,8 +627,8 @@ theorem collatz_lonely_runner_distance_4 :
 
 /--
 **Theorem CL-16: Collatz ↔ RH: 9 primitives differ.**
-The structural distance from Collatz to O_inf is the largest among
-O_1→O_inf gaps — supercritical dynamics requires one extra promotion
+The structural distance from Collatz to O_∞ is the largest among
+O₁→O_∞ gaps — supercritical dynamics requires one extra promotion
 beyond what Twin Prime or Goldbach need.
 -/
 theorem collatz_rh_distance_7 :
@@ -636,14 +636,14 @@ theorem collatz_rh_distance_7 :
   native_decide
 
 -- ----------------------------------------------------------
--- Promotion Counts to O_inf
+-- Promotion Counts to O_∞
 -- ----------------------------------------------------------
 
 /--
-**Theorem CL-17: Collatz O_1 → O_inf promotion count.**
-Collatz needs 9 promotions to reach O_inf (the widest O_1→O_inf gap in the catalog). Compare: Twin Prime needs 6,
+**Theorem CL-17: Collatz O₁ → O_∞ promotion count.**
+Collatz needs 9 promotions to reach O_∞ (the widest O₁→O_∞ gap in the catalog). Compare: Twin Prime needs 6,
 Goldbach needs 6, Lonely Runner needs 4. Collatz is structurally the
-furthest O_1 problem from resolution.
+furthest O₁ problem from resolution.
 -/
 theorem collatz_o1_oinf_promotion_count :
   collatz_vessel.prot = Omega_0 ∧ rh_vessel.prot = Omega_Z := by
@@ -667,7 +667,7 @@ theorem collatz_phi_super_below_frobenius :
 
 /--
 **Theorem CL-20: Collatz ↔ Twin Prime share bowtie topology.**
-Both are O_1 problems with T_bowtie — the only two O_1 problems
+Both are O₁ problems with T_bowtie — the only two O₁ problems
 sharing this topology. Goldbach uses T_network.
 -/
 theorem collatz_twin_prime_share_bowtie :
@@ -675,8 +675,8 @@ theorem collatz_twin_prime_share_bowtie :
   dsimp [collatz_vessel, twin_prime_vessel]; exact ⟨rfl, rfl⟩
 
 /--
-**Theorem CL-21: Collatz is the only O_1 problem with H1.**
-All other O_1 problems (Goldbach, Twin Prime, Hadwiger-Nelson, Lonely Runner)
+**Theorem CL-21: Collatz is the only O₁ problem with H1.**
+All other O₁ problems (Goldbach, Twin Prime, Hadwiger-Nelson, Lonely Runner)
 have H2. Collatz is uniquely H1 — shorter memory, wilder dynamics.
 -/
 theorem collatz_h1_unique :
@@ -716,14 +716,14 @@ theorem tao_drift_distance_7 :
 /-!
 ### Why φ̂_Æ?
 
-The Collatz conjecture is structurally unique among O_1 problems because
+The Collatz conjecture is structurally unique among O₁ problems because
 the LOCAL dynamics are expansive (3/2 growth factor on odd inputs) while
 the GLOBAL conjecture asserts convergence. This is a dynamical paradox:
 
   LOCAL (one step):   3/2 growth on odd inputs → expansive tendency
   GLOBAL (average):   E[log(C(n)/n)] = (1/2)log(3/4) < 0 → contractive
 
-No other O_1 problem has this tension. Twin Prime, Goldbach, Hadwiger-Nelson,
+No other O₁ problem has this tension. Twin Prime, Goldbach, Hadwiger-Nelson,
 and Lonely Runner are all at φ̂_Æ (complex critical) — their difficulty is
 analytic continuation into an unknown regime. Collatz's difficulty is
 RECONCILING locally expansive dynamics with the conjectured global convergence.
@@ -747,7 +747,7 @@ The Terras (1976) drift theorem proves: on average, the COMPRESSED map C
 contracts. But C(n) = T(T(n)) for odd n, and C(n) = T(n) for even n. So the
 theorem proves average contraction of a two-step process, NOT of T itself.
 
-The gap from the drift theorem (O_0) to the full conjecture (O_1) is the gap
+The gap from the drift theorem (O₀) to the full conjecture (O₁) is the gap
 from AVERAGE to POINTWISE. This is structurally encoded in:
   - Ħ: H0 (drift, memoryless) → H1 (Collatz, Markov-1)
   - Ð: D_triangle (one number) → D_infty (all numbers)
@@ -762,9 +762,9 @@ CL-8) quantifies how far average behavior is from pointwise behavior.
 If the Collatz conjecture is true, the structural type of the COLLATZ MAP
 (as a dynamical system, not as a conjecture) would be:
   ⟨ Ð_ß; Þ_⊂; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_ž; Ħ_1; Σ_n:n; Ω_Z ⟩
-  Ouroboricity tier: O_2 (proved, Z-protected, subcritical).
+  Ouroboricity tier: O₂ (proved, Z-protected, subcritical).
 
-The promotion from conjecture (O_1) to proved (O_2) would transform:
+The promotion from conjecture (O₁) to proved (O₂) would transform:
   φ̂_Æ → φ̂_ž (supercritical → subcritical: the dynamics ARE convergent)
   Ω_0 → Ω_Z  (no protection → integer winding around the terminal cycle)
   Þ_⋈ → Þ_⊂ (bowtie → inclusion: the crossing is resolved)
@@ -772,7 +772,7 @@ The promotion from conjecture (O_1) to proved (O_2) would transform:
 This is a 3-promotion resolution — fewer than Twin Prime → RH (4) or
 Goldbach → RH (6), but structurally harder because φ̂_Æ → φ̂_ž is a
 criticality demotion (from runaway to stable), not a promotion.
-Most O_1 → O_inf paths promote criticality; Collatz must DEMOTE it.
+Most O₁ → O_∞ paths promote criticality; Collatz must DEMOTE it.
 
 ### Comparison: Tao (2019) Log-Density
 
@@ -795,34 +795,34 @@ enough to gain protection, then prove the modified statement.
 -- ============================================================
 
 /-!
-### Proved Results (O_0 and O_2 vessels)
+### Proved Results (O₀ and O₂ vessels)
 
-1. **Terminal cycle (1→4→2→1)** — O_0. Trivial computation.
+1. **Terminal cycle (1→4→2→1)** — O₀. Trivial computation.
    The cycle exists and is the only known attractor.
 
-2. **Log-mean drift < 0 (Terras 1976)** — O_0. Proved.
+2. **Log-mean drift < 0 (Terras 1976)** — O₀. Proved.
    E[log(C(n)/n)] = (1/2)log(3/4) < 0. The compressed map
    contracts on average.
 
-3. **No cycles of length ≤ 69** — O_2. Computationally verified
+3. **No cycles of length ≤ 69** — O₂. Computationally verified
    + number-theoretic constraints. Proved that any nontrivial cycle
    must have length ≥ 70 and minimum element > 2^68.
 
-4. **Tao log-density (2019)** — O_2. Proved.
+4. **Tao log-density (2019)** — O₂. Proved.
    For any function f : ℕ → ℝ with f(n) → ∞, almost all n have
    min_{k ≤ N} T^k(n) ≤ f(n) for suitable N depending on f.
    "Almost all orbits are almost bounded."
 
-5. **No nontrivial cycles with period ≤ 68** — O_0.
+5. **No nontrivial cycles with period ≤ 68** — O₀.
    Known by exhaustive search + Simons & de Weger (2005) constraints.
 
-### Open Problems (O_1 vessel)
+### Open Problems (O₁ vessel)
 
-1. **Collatz Conjecture** — O_1. OPEN since 1937.
+1. **Collatz Conjecture** — O₁. OPEN since 1937.
    ∀ n > 0, ∃ k, T^k(n) = 1.
    Verified for all n ≤ 2^68 ≈ 2.95×10^20.
 
-2. **Boundedness Conjecture** — O_1. OPEN.
+2. **Boundedness Conjecture** — O₁. OPEN.
    ∀ n > 0, the Collatz orbit of n is bounded.
    Tao (2019) proved this for ALMOST ALL n, but "almost all" ≠ "all."
 
@@ -834,13 +834,13 @@ enough to gain protection, then prove the modified statement.
    demotes criticality from supercritical to subcritical.
 
 4. **The average → pointwise gap.** The drift theorem proves average
-   contraction (O_0, distance 7 from the conjecture). Closing this gap
+   contraction (O₀, distance 7 from the conjecture). Closing this gap
    requires bounding the fluctuations of the Collatz map — a problem
    equivalent to the conjecture itself.
 
-5. **The O_1 → O_2 → O_inf tension.** Both Tao (O_2) and no-short-cycles
-   (O_2) achieve Z₂ protection by weakening the statement. Can O_1 be
-   promoted directly to O_inf without the intermediate O_2 step?
+5. **The O₁ → O₂ → O_∞ tension.** Both Tao (O₂) and no-short-cycles
+   (O₂) achieve Z₂ protection by weakening the statement. Can O₁ be
+   promoted directly to O_∞ without the intermediate O₂ step?
    The grammar says: yes, if φ̂_Æ → φ̂_ž and Ω_0 → Ω_Z are achieved
    simultaneously. But the mathematical path is unknown.
 
@@ -864,12 +864,12 @@ enough to gain protection, then prove the modified statement.
 
 | Vessel | Tier | Protection | Criticality | Scope | Status |
 |---|---|---|---|---|---|
-| Collatz Conjecture | O_1 | Ω_0 | φ̂_Æ | G_aleph | OPEN (1937) |
-| Terminal Cycle | O_0 | Ω_0 | φ̂_ž | G_beth | PROVED (trivial) |
-| Drift Theorem | O_0 | Ω_0 | φ̂_ž | G_beth | PROVED (1976) |
-| No Short Cycles | O_2 | Ω_Z2 | φ̂_ž | G_beth | PROVED (2010) |
-| Tao Log-Density | O_2 | Ω_Z2 | φ̂_Æ | G_gimel | PROVED (2019) |
-| Boundedness | O_1 | Ω_0 | φ̂_Æ | G_gimel | OPEN |
+| Collatz Conjecture | O₁ | Ω_0 | φ̂_Æ | G_aleph | OPEN (1937) |
+| Terminal Cycle | O₀ | Ω_0 | φ̂_ž | G_beth | PROVED (trivial) |
+| Drift Theorem | O₀ | Ω_0 | φ̂_ž | G_beth | PROVED (1976) |
+| No Short Cycles | O₂ | Ω_Z2 | φ̂_ž | G_beth | PROVED (2010) |
+| Tao Log-Density | O₂ | Ω_Z2 | φ̂_Æ | G_gimel | PROVED (2019) |
+| Boundedness | O₁ | Ω_0 | φ̂_Æ | G_gimel | OPEN |
 
 ### What Makes Collatz Structurally Novel in the Catalog
 
@@ -877,13 +877,13 @@ enough to gain protection, then prove the modified statement.
    criticality. All others are φ̂_Æ (complex critical). This reflects the
    unique dynamical nature: local expansion vs. global convergence.
 
-2. **Ħ_1 (Markov-1)** — The ONLY O_1 problem with H1. All others have H2.
+2. **Ħ_1 (Markov-1)** — The ONLY O₁ problem with H1. All others have H2.
    Shorter memory, wilder dynamics — the paradox of a simple rule producing
    unpredictable behavior.
 
 3. **The φ̂_Æ → φ̂_ž demotion** — Collatz requires a criticality DEMOTION
    (supercritical → subcritical) rather than promotion. This is structurally
-   unprecedented: most O_1 problems promote to O_inf by RAISING criticality
+   unprecedented: most O₁ problems promote to O_∞ by RAISING criticality
    or protection. Collatz must LOWER criticality to resolve.
 
 4. **Discrete dynamical system** — Collatz is the ONLY unsolved problem in
@@ -892,16 +892,16 @@ enough to gain protection, then prove the modified statement.
    dynamical (ergodic theory, invariant measures) rather than analytic
    (complex analysis, exponential sums).
 
-5. **The drift gap** — The proved average behavior (O_0) is structurally
+5. **The drift gap** — The proved average behavior (O₀) is structurally
    distance 7 from the conjecture. No other problem has such a wide gap
    between "what we can prove on average" and "what we need to prove
    pointwise." The grammar quantifies this: 7 primitive mismatches is the
    widest sub-vessel gap in the catalog.
 
-6. **Collatz ↔ RH distance = 7** — The widest O_1 → O_inf gap in the catalog.
+6. **Collatz ↔ RH distance = 7** — The widest O₁ → O_∞ gap in the catalog.
    Twin Prime → RH = 6, Goldbach → RH = 6, Collatz → RH = 7. The extra
    primitive comes from Ħ (H1 vs H_inf) — Collatz needs an additional
-   chirality promotion beyond what any other O_1 problem requires.
+   chirality promotion beyond what any other O₁ problem requires.
 -/
 
 -- ============================================================
@@ -940,7 +940,7 @@ axiom tao_log_density_axiom : True
 -- ============================================================
 
 /-!
-The Collatz conjecture is structurally the most isolated O_1 problem
+The Collatz conjecture is structurally the most isolated O₁ problem
 in the catalog. Its complex criticality (φ̂_Æ), Markov-1 chirality
 (Ħ_1), and 7-primitive distance to RH make it uniquely resistant to
 existing mathematical methods.
@@ -949,7 +949,7 @@ The grammar reveals the exact structural content of the difficulty:
   (1) φ̂_Æ must be DEMOTED to φ̂_ž (prove convergence despite expansion).
   (2) Ω_0 must be PROMOTED to Ω_Z (establish a topological winding number).
   (3) Þ_⋈ must resolve to Þ_⊂ (the bowtie crossing closes).
-  (4) Ħ_1 → Ħ_2 → Ħ_! (two chirality promotions to O_inf).
+  (4) Ħ_1 → Ħ_2 → Ħ_! (two chirality promotions to O_∞).
 
 These are not mathematical proofs — they are structural preconditions
 for ANY proof. A proof of the Collatz conjecture MUST somehow achieve
@@ -960,7 +960,7 @@ The Collatz conjecture is the purest structural expression of a
 dynamical paradox: a deterministic system with locally expansive
 tendencies yet (conjecturally) globally convergent. Mathematics has
 no general theory for such systems. The φ̂_Æ vessel will remain at
-O_1 until one is found.
+O₁ until one is found.
 -/
 
 end Millennium.Collatz

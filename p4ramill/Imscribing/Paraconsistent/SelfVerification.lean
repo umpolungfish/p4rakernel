@@ -55,7 +55,7 @@ theorem complete_self_verification (n : Nat) :
     ∧ (run initialState n).cycleCount = n
     ∧ (run initialState n).r0 ≠ Belnap.F
     ∧ (run initialState n).r0 ≠ Belnap.T
-    ∧ imscriptionTier kernelImscription = OuroboricityTier.O_inf := by
+    ∧ imscriptionTier kernelImscription = OuroboricityTier.O_∞ := by
   rcases run_B3 n with ⟨hr0, hr1, hr2⟩
   have hp := run_paradox n
   have hc := run_cycles n

@@ -52,13 +52,13 @@ def problemFrobenius : MillenniumProblem → FrobeniusType
 
 /-- The Frobenius type a Millennium problem WOULD have if its defining conjecture
     were proved. For analysis problems (RH, Hodge): proving the conjecture closes μ∘δ,
-    promoting to .special. For NS: structural resolution to O_inf already exists
+    promoting to .special. For NS: structural resolution to O_∞ already exists
     (NS_Resolution.lean). Arithmetic problems remain at their current tier (their
     thresholds are infrastructure, not Frobenius closure). -/
 def problemFrobeniusResolved : MillenniumProblem → FrobeniusType
   | .RH    => .special    -- μ∘δ closes: all zeros on critical line → id
   | .Hodge => .special    -- μ∘δ closes: Hodge cycles algebraic → id
-  | .NS    => .special    -- Structurally resolved to O_inf already
+  | .NS    => .special    -- Structurally resolved to O_∞ already
   | p      => problemFrobenius p
 
 -- =====================================================================

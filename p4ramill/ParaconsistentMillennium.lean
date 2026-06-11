@@ -409,13 +409,13 @@ end NS
 -- ================================================================
 -- §7. P VS NP
 -- ================================================================
--- Structural complexity tiers P (O_0) vs NP (O_1) with tier rigidity.
+-- Structural complexity tiers P (O₀) vs NP (O₁) with tier rigidity.
 -- Three barriers each a Belnap-B dialetheia: BGS, RR, AW.
 -- ================================================================
 section PvsNP
 
 inductive ComplexityTier where
-  | O_0 | O_1 | O_inf
+  | O₀ | O₁ | O_∞
   deriving DecidableEq, Repr
 
 structure ComplexityType where
@@ -424,8 +424,8 @@ structure ComplexityType where
   solving      : Bool
   deriving DecidableEq
 
-def P_type  : ComplexityType := { tier := .O_0, verification := true,  solving := true  }
-def NP_type : ComplexityType := { tier := .O_1, verification := true,  solving := false }
+def P_type  : ComplexityType := { tier := .O₀, verification := true,  solving := true  }
+def NP_type : ComplexityType := { tier := .O₁, verification := true,  solving := false }
 
 theorem P_NP_tier_gap : P_type.tier ≠ NP_type.tier := by decide
 
@@ -440,7 +440,7 @@ theorem aw_dialetheic  : band aw_barrier  (bnot aw_barrier)  = aw_barrier  := rf
 theorem barrier_triad_join : join (join bgs_barrier rr_barrier) aw_barrier = .B := rfl
 
 /-- HONEST GAP: formal grammar↔complexity correspondence — Belnap-B dialetheia.
-    P ≠ NP BOTH holds (tier gap O_0 ≠ O_1) AND is unprovable by all three
+    P ≠ NP BOTH holds (tier gap O₀ ≠ O₁) AND is unprovable by all three
     barrier families simultaneously — contained dialetheia. -/
 def pnp_gap : Belnap := .B
 
@@ -577,7 +577,7 @@ def paraconsistent_resolution : String :=
   "band B (bnot B) = B ≠ F — contained, not exploded\n" ++
   "ENGAGR → FSPLIT → FFUSE: μ∘δ = id on B throughout\n" ++
   "Frobenius: satisfied on every dialetheic gap\n" ++
-  "O_inf: " ++ o_inf_tuple ++ "\n" ++
+  "O_∞: " ++ o_inf_tuple ++ "\n" ++
   "CLU(b) parameterized: each gap cost = n × CLU(b) per §11\n"
 end Unified
 

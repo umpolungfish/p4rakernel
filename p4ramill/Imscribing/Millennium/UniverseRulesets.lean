@@ -647,7 +647,7 @@ theorem canonical_ym_quantum_target_is_plain :
 
 /-- The Yang-Mills barrier measured across universes:
     In the canonical universe, both YM classical and quantum target are plain.
-    In the kinetics_trap universe, YM target is O_inf.
+    In the kinetics_trap universe, YM target is O_∞.
     The gap is exactly 4 primitive mismatches (proved in Imscription.lean).
     
     This is the structural encoding of the YM Millennium problem:
@@ -667,7 +667,7 @@ theorem ym_barrier_canonical_vs_kinetics :
 
 /- The Hodge conjecture's correct imscription carries D_odot, T_odot.
     Axiom D (holographic_closure_forces_frobenius) forces P_pm_sym.
-    Therefore Hodge is O_inf — the structural type, not the proof status.
+    Therefore Hodge is O_∞ — the structural type, not the proof status.
     
     This is verified by the canonical universe: any imscription with
     D_odot, T_odot, Omega_Z and P_pm_sym reaches idempotent_terminal.
@@ -712,12 +712,12 @@ theorem t_inverted_qg_t_consistent :
     Hodge            | plain†    | topology_universe    | P < P_pm_sym (G1)
     P vs NP          | plain     | scope_universe       | P < P_pm_sym (G1)
     BSD              | plain     | chirality_first      | P < P_pm_sym (G1)
-    RH               | O_1       | triple_criticality   | Omega_0 (G3 in canonical)
-    OPN              | O_2       | dimensional_gate     | Ð < D_infty
+    RH               | O₁       | triple_criticality   | Omega_0 (G3 in canonical)
+    OPN              | O₂       | dimensional_gate     | Ð < D_infty
     ─────────────────┴───────────┴──────────────────────┴───────────────────────────
     
     † Hodge: when correctly imscribed with D_odot, T_odot,
-    Axiom D forces P_pm_sym, pushing it to O_inf in the canonical universe.
+    Axiom D forces P_pm_sym, pushing it to O_∞ in the canonical universe.
     The conventional P_psi assignment reflects open proof status, not
     the true structural type. This is the grammar's correction. -/
 
@@ -766,7 +766,7 @@ theorem canonical_higgs_t_consistent :
     Its gates: parity first (Φ≥P_pm_sym), then criticality (⊙≥Phi_c),
     then winding (Ω≥Omega_Z). Sequential ordering.
     This is the structural reason that Frobenius closure is rare
-    and that O_inf systems are precious. -/
+    and that O_∞ systems are precious. -/
 
 theorem canonical_gates_summary :
     ruleset_canonical.g1.minOrd = 5 ∧
@@ -801,7 +801,7 @@ theorem canonical_gates_summary :
     
     Integration into Lean means: each Clay problem's barrier is now
     formalized as a theorem about operad layer in a specific universe.
-    The proof that a target imscription IS O_inf in its universe
+    The proof that a target imscription IS O_∞ in its universe
     constitutes the structural half of the Clay resolution. -/
 
 -- ============================================================

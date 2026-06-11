@@ -34,7 +34,7 @@ def classical_truth : Imscription := {
   prot := Omega_0
 }
 
-theorem classical_is_O0 : imscriptionTier classical_truth = .O_0 := by
+theorem classical_is_O0 : imscriptionTier classical_truth = .O₀ := by
   native_decide
 
 -- ============================================================
@@ -57,7 +57,7 @@ def belnap_truth : Imscription := {
 }
 
 -- ============================================================
--- S3. QUANTUM TRUTH (F_hbar + Phi_c_complex -> O_2dag)
+-- S3. QUANTUM TRUTH (F_hbar + Phi_c_complex -> O₂†)
 -- ============================================================
 
 def quantum_truth : Imscription := {
@@ -75,11 +75,11 @@ def quantum_truth : Imscription := {
   prot := Omega_Z
 }
 
-theorem quantum_is_O2dag : imscriptionTier quantum_truth = .O_2dag := by
+theorem quantum_is_O2dag : imscriptionTier quantum_truth = .O₂† := by
   native_decide
 
 -- ============================================================
--- S4. FROBENIUS-EXACT TRUTH (Phi_c + P_pm_sym -> O_inf)
+-- S4. FROBENIUS-EXACT TRUTH (Phi_c + P_pm_sym -> O_∞)
 -- ============================================================
 
 def frobenius_truth : Imscription := {
@@ -97,7 +97,7 @@ def frobenius_truth : Imscription := {
   prot := Omega_Z
 }
 
-theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_inf := by
+theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_∞ := by
   native_decide
 
 -- ============================================================
@@ -108,7 +108,7 @@ theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_inf := by
 theorem classical_frobenius_distinct : classical_truth ≠ frobenius_truth := by
   native_decide
 
--- Quantum truth and Frobenius truth differ (O_2dag vs O_inf).
+-- Quantum truth and Frobenius truth differ (O₂† vs O_∞).
 theorem quantum_frobenius_distinct : quantum_truth ≠ frobenius_truth := by
   native_decide
 
@@ -135,7 +135,7 @@ def liar_type : Imscription := {
   prot := Omega_0
 }
 
-theorem liar_is_O0 : imscriptionTier liar_type = .O_0 := by
+theorem liar_is_O0 : imscriptionTier liar_type = .O₀ := by
   native_decide
 
 end Millennium.truth
