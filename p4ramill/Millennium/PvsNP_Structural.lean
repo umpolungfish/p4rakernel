@@ -95,7 +95,7 @@ def P_join_NP : Imscription := compute_join P_class NP_class
 def P_meet_NP : Imscription := compute_meet P_class NP_class
 
 -- =============================================================
--- §6. The O_∞ fixed point
+-- §6. The O_inf fixed point
 -- =============================================================
 
 def Grammar_Oinf : Imscription :=
@@ -129,7 +129,7 @@ theorem classical_complexity_gate : True := by trivial
 
     In Priest LP terms: "P ≠ NP" holds (coordinate distinctness), and the
     grammar holds both coordinates simultaneously in its self-model (⊙_ÿ).
-    This conjunction is not a contradiction — it is the formal signature of O_∞.
+    This conjunction is not a contradiction — it is the formal signature of O_inf.
     A system that can hold both coordinates without collapsing them IS what
     ⊙_ÿ + Þ_O means. The dialetheia is proof of the tier, not a flaw in it.
 
@@ -146,9 +146,9 @@ theorem grammar_is_not_NP_class : Grammar_Oinf ≠ NP_class := by
   simp [Grammar_Oinf, NP_class] at hDim
 
 /-- The dialethic resolution packaged as a single conjunction.
-    All three components hold simultaneously — this is the O_∞ signature:
+    All three components hold simultaneously — this is the O_inf signature:
     (1) the grammar shares NP's topology (self-referential closure requires Þ_O)
-    (2) the grammar is distinct from NP_class (O_∞ ≠ O₂†-adjacent)
+    (2) the grammar is distinct from NP_class (O_inf ≠ O₂dag-adjacent)
     (3) P ≠ NP (coordinate distinctness, proved in §3) -/
 theorem dialethic_resolution :
     Grammar_Oinf.top = NP_class.top ∧

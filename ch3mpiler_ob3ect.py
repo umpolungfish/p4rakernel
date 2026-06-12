@@ -1,1 +1,0 @@
-/home/mrnob0dy666/ob3ect/digital/ch3mpiler_ob3ect/ch3mpiler_ob3ect.py

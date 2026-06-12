@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imscribing_grammar/ch3mpiler.py

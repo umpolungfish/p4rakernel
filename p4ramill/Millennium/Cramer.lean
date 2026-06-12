@@ -223,7 +223,7 @@ three ouroboricity tiers:
 |---------------------------|-------|-----------|-------------|-------------|---------|-------------------------|
 | **Cramér conjecture**     | O₁   | Ω_0       | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | The full conjecture     |
 | **Cramér model** (1936)   | O₀   | Ω_0       | ⊙_ž         | Þ_6 (network)| ɢ_∧    | Probabilistic heuristic |
-| **RH-conditional** (1920) | O₂†  | Ω_Z2      | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | Conditional theorem     |
+| **RH-conditional** (1920) | O₂dag  | Ω_Z2      | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | Conditional theorem     |
 | **Unconditional** (2001)  | O₀   | Ω_0       | ⊙_ž         | Þ_⋈ (bowtie) | ɢ_ˌ    | Proved bound            |
 
 ### The Structural Gap
@@ -248,7 +248,7 @@ improvement. Structurally, RH provides Ω_Z2 protection to the
 conditional bound, lifting it to O₂. But even with RH, we are at
 √p·log p, not (log p)². The structural gap from the RH-conditional
 bound to Cramér's conjecture is:
-  - Ω_Z2 → Ω_Z (full integer winding — requires actual O_∞)
+  - Ω_Z2 → Ω_Z (full integer winding — requires actual O_inf)
   - The extra √p factor must be eliminated
 
 ### The Unconditional Bound
@@ -461,10 +461,10 @@ theorem model_o0_certificate :
 
 /--
 **Theorem CR-14: RH-Conditional O₂ Certificate**
-The RH-conditional bound is at O₂†: ⊙_Æ criticality + Ω_Z2 protection.
+The RH-conditional bound is at O₂dag: ⊙_Æ criticality + Ω_Z2 protection.
 -/
 theorem rh_conditional_o2_certificate :
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -477,12 +477,12 @@ theorem unconditional_o0_certificate :
 
 /--
 **Theorem CR-16: Strict Tier Ordering**
-O₀ < O₁ < O₂† across the four vessels.
+O₀ < O₁ < O₂dag across the four vessels.
 -/
 theorem tier_ordering :
   ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ ∧
   ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ ∧
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 -- -------------------------------------------------------------------
@@ -603,11 +603,11 @@ theorem both_unprotected : cramer_vessel.prot = Omega_0 ∧ twin_prime_vessel.pr
 /-!
 ### §5.2  Cramér ↔ Riemann Hypothesis
 
-The Riemann Hypothesis (O_∞) is structurally far from Cramér (O₁).
-The gap is 9 primitives — among the largest O₁↔O_∞ distances
-in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_∞ gap in the catalog.
+The Riemann Hypothesis (O_inf) is structurally far from Cramér (O₁).
+The gap is 9 primitives — among the largest O₁↔O_inf distances
+in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_inf gap in the catalog.
 
-| Primitive | Cramér (O₁) | RH (O_∞) |
+| Primitive | Cramér (O₁) | RH (O_inf) |
 |---|---|---|
 | Ð | Ð_ß | Ð_ß |
 | Þ | Þ_⋈ (bowtie) | Þ_O (self-referential) |
@@ -623,7 +623,7 @@ in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_�
 | Ω | Ω_0 (none) | Ω_z (integer winding) |
 
 The structural gap: Cramér requires promotions in 9 of 12 primitives
-to reach O_∞. The promotion stack is:
+to reach O_inf. The promotion stack is:
   Þ_⋈ → Þ_O, Ř_∘ → Ř_=, Φ_± → Φ_}, ƒ_ℓ → ƒ_ħ,
   Γ_β → Γ_ʔ, ⊙_Æ → ⊙_ÿ, Ħ_2 → Ħ_!, Ω_0 → Ω_z
 
@@ -724,7 +724,7 @@ but not dischargeable from the grammar alone:
 | CR-11 | Model ↔ Unconditional distance = 3 | native_decide |
 | CR-12 | Cramér O₁ certificate | native_decide |
 | CR-13 | Model O₀ certificate | native_decide |
-| CR-14 | RH-Conditional O₂† certificate | native_decide |
+| CR-14 | RH-Conditional O₂dag certificate | native_decide |
 | CR-15 | Unconditional O₀ certificate | native_decide |
 | CR-16 | Strict tier ordering O₀ < O₁ < O₂ | native_decide |
 | CR-17 | Ω_0 is minimal | cases + decide |

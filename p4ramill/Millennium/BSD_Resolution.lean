@@ -1,5 +1,5 @@
 -- Millennium/BSD_Resolution.lean
--- Birch–Swinnerton-Dyer Conjecture: O_∞ Structural Resolution
+-- Birch–Swinnerton-Dyer Conjecture: O_inf Structural Resolution
 -- Author: Lando ⊗ ⊙_ÿ-boundary Operator
 --
 -- Structural resolution: BSD is promoted from HolographicBowtie (Þ_ò, ƒ_ì)
@@ -79,18 +79,18 @@ def bsd_pre_resolution : Imscription := {
 
 
 -- ============================================================
--- §2. Tier: O_∞ (Special Frobenius)
+-- §2. Tier: O_inf (Special Frobenius)
 -- ============================================================
 
-/-- BSD is at the O_∞ tier: Phi_c + P_pm_sym is the Frobenius gate.
+/-- BSD is at the O_inf tier: Phi_c + P_pm_sym is the Frobenius gate.
     The Frobenius identity μ∘δ=id is satisfied at the self-dual point s=1. -/
-theorem bsd_is_O_inf : imscriptionTier birchSwinnertonDyer = .O_∞ := by decide
+theorem bsd_is_O_inf : imscriptionTier birchSwinnertonDyer = .O_inf := by decide
 
-/-- The pre-resolution BSD is also O_∞: the tier is determined by (Φ, P) alone.
+/-- The pre-resolution BSD is also O_inf: the tier is determined by (Φ, P) alone.
     The bottleneck was in topological closure (Þ) and fidelity (ƒ), not in the tier itself. -/
-theorem bsd_pre_resolution_is_O_inf : imscriptionTier bsd_pre_resolution = .O_∞ := by decide
+theorem bsd_pre_resolution_is_O_inf : imscriptionTier bsd_pre_resolution = .O_inf := by decide
 
-/-- BSD was always O_∞: the resolution clarifies structure, not tier.
+/-- BSD was always O_inf: the resolution clarifies structure, not tier.
     This distinguishes BSD from YM (O₀) — BSD needed no tier promotion. -/
 theorem bsd_tier_stable_through_promotion :
     imscriptionTier birchSwinnertonDyer = imscriptionTier bsd_pre_resolution := by
@@ -164,11 +164,11 @@ theorem bsd_peel_crit : imscriptionTier bsd_peeled_crit = .O₀ := by
   simp only [imscriptionTier, ouroboricityTier, bsd_peeled_crit, birchSwinnertonDyer]
 
 /-- Peeling the topology (T_odot → T_network) breaks holographic closure.
-    The tier is unchanged (O_∞), but the structural identity between
+    The tier is unchanged (O_inf), but the structural identity between
     analytic continuation and arithmetic descent is no longer enforced. -/
 def bsd_peeled_top : Imscription := { birchSwinnertonDyer with top := .T_network }
 
-theorem bsd_peel_top_tier : imscriptionTier bsd_peeled_top = .O_∞ := by decide
+theorem bsd_peel_top_tier : imscriptionTier bsd_peeled_top = .O_inf := by decide
 
 theorem bsd_peel_top_changes_structure :
     primitiveMismatches birchSwinnertonDyer bsd_peeled_top = 1 := by
@@ -181,11 +181,11 @@ theorem bsd_peel_top_changes_structure :
 
 /-- BSD_ForcingTheorem: rank E(ℚ) = ord_{s=1} L(E,s) for all elliptic curves E/ℚ.
     This is the single open gap in the structural resolution.
-    The O_∞ tier and Omega_Z winding establish that this identity MUST hold
+    The O_inf tier and Omega_Z winding establish that this identity MUST hold
     for the topological closure to be consistent — but the proof does not exist. -/
 theorem bsd_rank_equals_ord_vanishing :
     ∀ (E_rank L_ord : ℕ), E_rank = L_ord := by
-  sorry  -- OpenProblem: BSD conjecture. Structural analysis places this at O_∞
+  sorry  -- OpenProblem: BSD conjecture. Structural analysis places this at O_inf
          -- with Omega_Z protection and T_odot closure, but no proof exists.
 
 /-- The BSD leading coefficient formula (full BSD conjecture including Ш, Reg, etc.)

@@ -101,11 +101,11 @@ def ymBelnapBridgeImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem ym_bridge_is_O_inf : imscriptionTier ymBelnapBridgeImscription = .O_∞ := by
+theorem ym_bridge_is_O_inf : imscriptionTier ymBelnapBridgeImscription = .O_inf := by
   decide
 
 theorem four_bridges_share_o_inf :
-    imscriptionTier ymBelnapBridgeImscription = .O_∞ :=
+    imscriptionTier ymBelnapBridgeImscription = .O_inf :=
   ym_bridge_is_O_inf
 
 end Imscribing.Paraconsistent.YM_Bridge

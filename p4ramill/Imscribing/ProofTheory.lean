@@ -113,11 +113,11 @@ theorem ns_gap :
 
 -- §8. P vs NP
 theorem P_never_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .Phi_c .P_sym p d ≠ .O_∞ := by
+    ouroboricityTier .Phi_c .P_sym p d ≠ .O_inf := by
   intro p d; cases p <;> cases d <;> native_decide
 
 theorem NP_always_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .Phi_c .P_pm_sym p d = .O_∞ := by
+    ouroboricityTier .Phi_c .P_pm_sym p d = .O_inf := by
   intro p d; simp [ouroboricityTier]
 
 theorem P_not_eq_NP : Polarity.P_sym ≠ Polarity.P_pm_sym := by decide

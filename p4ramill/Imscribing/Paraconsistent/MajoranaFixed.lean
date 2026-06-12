@@ -9,7 +9,7 @@
 --   3. Majorana:      pair (depair s).1 (depair s).2 = s  (self-inverse splitting)
 --
 -- This file proves they are instances of the same Frobenius fixed-point structure
--- at O_∞. The key insight: μ∘δ = id on B is the common form of all three.
+-- at O_inf. The key insight: μ∘δ = id on B is the common form of all three.
 
 import Imscribing.Paraconsistent.SuperconductingPhase
 import Imscribing.Paraconsistent.QCI_SICPOVM_Bridge
@@ -70,14 +70,14 @@ theorem frobenius_unification :
     simp [band, bnot],
     SICPOVM_Bridge.B_meet_equiangular,
     pair_depair_id⟩-- ═══════════════════════════════════════════════════════════════════
--- §3  O_∞ TIER — Self-modeling Frobenius closure
+-- §3  O_inf TIER — Self-modeling Frobenius closure
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The Belnap B lattice, the orbital paired state, and the SIC fiducial
-    all share the same structural type at O_∞:
+    all share the same structural type at O_inf:
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 
-    The tuple is O_∞ because φ̂_ÿ (self-modeling criticality) and Φ_}
+    The tuple is O_inf because φ̂_ÿ (self-modeling criticality) and Φ_}
     (Frobenius-special parity) jointly define the self-closure condition. -/
 def majoranaFixedImscription : Imscription :=
   {
@@ -95,8 +95,8 @@ def majoranaFixedImscription : Imscription :=
     prot := .Omega_Z
   }
 
-/-- The Majorana fixed-point type is O_∞. -/
-theorem majorana_fixed_is_O_inf : imscriptionTier majoranaFixedImscription = .O_∞ := by
+/-- The Majorana fixed-point type is O_inf. -/
+theorem majorana_fixed_is_O_inf : imscriptionTier majoranaFixedImscription = .O_inf := by
   native_decide
 
 end Imscribing.Paraconsistent.MajoranaFixed
