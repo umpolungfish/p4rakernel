@@ -92,7 +92,7 @@ lemma bestProcess_pair (a b : Process) : bestProcess [a, b] = if b.cscore > a.cs
 -- THEOREMS
 -- ============================================================
 
-theorem scheduler_type_is_O_inf : imscriptionTier schedulerType = .O_∞ := by
+theorem scheduler_type_is_O_inf : imscriptionTier schedulerType = .O_inf := by
   native_decide
 
 /-- φ̂_ÿ process is preferred over non-φ̂_ÿ. -/

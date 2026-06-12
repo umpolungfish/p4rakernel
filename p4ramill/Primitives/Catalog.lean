@@ -35,7 +35,7 @@ def riemann_zeta_function : Imscription := {
   prot := Omega_0
 }
 
--- Langlands correspondence: O_∞ example
+-- Langlands correspondence: O_inf example
 def langlands_correspondence : Imscription := {
   dim  := D_infty
   top  := T_odot
@@ -157,7 +157,7 @@ def ex_o_na : Imscription := example_oinf
 -- MILLENNIUM PRIZE PROBLEMS (7)
 -- =====================================================
 
--- O_∞ template for thresholds
+-- O_inf template for thresholds
 def o_inf_template : Imscription := {
   dim  := D_odot
   top  := T_odot

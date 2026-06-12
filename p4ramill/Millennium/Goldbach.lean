@@ -44,7 +44,7 @@ Verified for all n ≤ 4×10^18 (Oliveira e Silva, Herzog, Pardi 2014).
 PROVED by Harald Helfgott (2013). The proof uses the circle method and
 establishes the ternary case unconditionally for all odd n ≥ 7.
 
-The structural insight: ternary Goldbach is at O₂† (proved, Z₂-protected, infinite-dimensional),
+The structural insight: ternary Goldbach is at O₂dag (proved, Z₂-protected, infinite-dimensional),
 binary Goldbach is at O₁ (open, unprotected). The gap from ternary to binary
 is the structural content of the conjecture — removing one prime variable
 costs the topological protection.
@@ -155,7 +155,7 @@ def goldbach_binary_vessel : Imscription := {
 
 ⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
 
-Ouroboricity tier: O₂† (Z₂-protected, infinite-dimensional).
+Ouroboricity tier: O₂dag (Z₂-protected, infinite-dimensional).
 
 The key differences from the binary vessel:
   Γ: G_gimel (mesoscale) — the circle method works on major/minor arcs partitioning
@@ -256,7 +256,7 @@ theorem binary_vessel_o1_certificate :
 The ternary Goldbach vessel is at O₂: it has ⊙_Æ criticality + Ω_Z2 protection.
 -/
 theorem ternary_vessel_o2_certificate :
-  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -319,7 +319,7 @@ Both conjectures are about the prime distribution, but in different directions:
 
 Both sit at O₁ — critical but unprotected. Both have partial results
 at O₂: ternary Goldbach (proved) ↔ bounded gaps (proved, Zhang 2013).
-Both require the same promotion stack to reach O_∞.
+Both require the same promotion stack to reach O_inf.
 -/
 
 /--
@@ -374,7 +374,7 @@ theorem both_unprotected :
 ### §5.2  Goldbach ↔ Riemann Hypothesis
 
 The Riemann Hypothesis is structurally adjacent to both Goldbach and
-Twin Prime — all three share ⊙_Æ criticality. But RH is at O_∞
+Twin Prime — all three share ⊙_Æ criticality. But RH is at O_inf
 because it adds Ω_z (integer winding) and Φ_} (Frobenius closure).
 
 The Goldbach↔RH distance is larger than Twin Prime↔RH because:
@@ -420,8 +420,8 @@ theorem twin_prime_rh_distance_4 :
   native_decide
 
 /--
-**Theorem GB-15: O₁ → O_∞ Promotion Gap**
-Goldbach needs 6 promotions to reach O_∞ (vs 4 for Twin Prime).
+**Theorem GB-15: O₁ → O_inf Promotion Gap**
+Goldbach needs 6 promotions to reach O_inf (vs 4 for Twin Prime).
 The extra 2 come from T (network→odot) and F (classical→quantum).
 -/
 theorem goldbach_o1_to_oinf_promotion_count :
@@ -438,7 +438,7 @@ a prime and a semiprime (product of at most two primes).
 
 ⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
 
-Ouroboricity tier: O₂†.
+Ouroboricity tier: O₂dag.
 
 Chen's vessel is structurally IDENTICAL to the ternary Goldbach vessel —
 both have G_gimel (mesoscale) and Omega_Z2 (Z₂ protection). This reveals
@@ -446,9 +446,9 @@ the structural equivalence: relaxing the second prime to a semiprime
 provides the same structural protection as adding a third prime variable.
 
 This is the structural content of "1+2" (Chen) vs "1+1+1" (Helfgott) —
-both achieve O₂† by the same mechanism: mesoscale scope + Z₂ protection.
+both achieve O₂dag by the same mechanism: mesoscale scope + Z₂ protection.
 The unsolved step "1+1" (binary Goldbach) requires operating at O₁
-or a direct jump to O_∞.
+or a direct jump to O_inf.
 
 The structural equivalence between Chen and Helfgott's vessels (distance = 0)
 is a theorem of the grammar — not obvious from the mathematical statements
@@ -483,10 +483,10 @@ theorem chen_equals_ternary :
 
 /--
 **Theorem GB-17: Chen at O₂**
-Chen's Theorem sits at O₂† — the same tier as the proved ternary case.
+Chen's Theorem sits at O₂dag — the same tier as the proved ternary case.
 -/
 theorem chen_o2_certificate :
-  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -539,16 +539,16 @@ The following are honest gaps — not disguised as theorems:
 | Vessel | Tier | Protection | Scope | Status |
 |---|---|---|---|---|
 | Binary Goldbach | O₁ | Ω_0 | G_aleph | OPEN (1742) |
-| Chen (1+2) | O₂† | Ω_Z2 | G_gimel | PROVED (1966) |
-| Ternary Goldbach | O₂† | Ω_Z2 | G_gimel | PROVED (2013) |
+| Chen (1+2) | O₂dag | Ω_Z2 | G_gimel | PROVED (1966) |
+| Ternary Goldbach | O₂dag | Ω_Z2 | G_gimel | PROVED (2013) |
 | Twin Prime | O₁ | Ω_0 | G_aleph | OPEN |
-| Riemann Hypothesis | O_∞ | Ω_Z | G_aleph | OPEN (1859) |
+| Riemann Hypothesis | O_inf | Ω_Z | G_aleph | OPEN (1859) |
 
 The binary Goldbach conjecture is the structural "floor" of additive
 prime number theory — the minimal statement (two primes, global scope,
 no protection) that remains open. Every relaxation (third prime, semiprime,
 mesoscale scope) succeeds. The structural question is whether O₁ can
-be directly promoted to O_∞ without the intermediate O₂ step that
+be directly promoted to O_inf without the intermediate O₂ step that
 Chen and Helfgott achieved by relaxing the statement.
 
 ### What Makes Goldbach Structurally Novel in the Catalog

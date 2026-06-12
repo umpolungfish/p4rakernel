@@ -252,9 +252,9 @@ theorem fiducial_B_bias_all_regs_B {n : ℕ} (i j : Fin n) :
 -- §9. Connection to DialetheicOperator
 -- ============================================================
 
-/-- The n-register imscription is O_∞ for all n (from QCI_nRegister). -/
+/-- The n-register imscription is O_inf for all n (from QCI_nRegister). -/
 theorem n_register_imscription_O_inf :
-    imscriptionTier nRegisterImscription = .O_∞ :=
+    imscriptionTier nRegisterImscription = .O_inf :=
   tier_is_O_inf
 
 /-- Main theorem: B⊗n is the complete n-qubit fiducial for the
@@ -273,8 +273,8 @@ theorem n_qubit_fiducial_complete (n : ℕ) :
     totalMeasureCost (fun _ : Fin n => Belnap.T) = n ∧
     -- SIC axiom 2: classical equidistance
     (∀ v : Fin n → Belnap, (∀ i, v i = .T ∨ v i = .F) → totalMeasureCost v = n) ∧
-    -- O_∞ structural certification
-    imscriptionTier nRegisterImscription = .O_∞ :=
+    -- O_inf structural certification
+    imscriptionTier nRegisterImscription = .O_inf :=
   ⟨allBWord_meet_identity,
    allBWord_join_absorb,
    allBWord_self_adjoint n,

@@ -301,7 +301,7 @@ def collatz_drift_vessel : Imscription := {
 
 ⟨ Ð_ß; Þ_⊂; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_1; Σ_n:n; Ω_Z2 ⟩
 
-Ouroboricity tier: O₂† (Z₂-protected, complex-critical).
+Ouroboricity tier: O₂dag (Z₂-protected, complex-critical).
 
 It is known that there are no nontrivial cycles of length ≤ 69 in the
 Collatz map (by exhaustive computation for all starting values up to 2^68,
@@ -511,19 +511,19 @@ theorem collatz_drift_o0_certificate :
   native_decide
 
 /--
-**Theorem CL-4: No-short-cycles at O₂†.**
+**Theorem CL-4: No-short-cycles at O₂dag.**
 Z₂-protected partial result.
 -/
 theorem collatz_nosc_o2_certificate :
-  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
-**Theorem CL-5: Tao log-density at O₂†.**
+**Theorem CL-5: Tao log-density at O₂dag.**
 Tao's 2019 theorem is Z₂-protected.
 -/
 theorem collatz_tao_o2_certificate :
-  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim = OuroboricityTier.O₂† := by
+  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -627,8 +627,8 @@ theorem collatz_lonely_runner_distance_4 :
 
 /--
 **Theorem CL-16: Collatz ↔ RH: 9 primitives differ.**
-The structural distance from Collatz to O_∞ is the largest among
-O₁→O_∞ gaps — supercritical dynamics requires one extra promotion
+The structural distance from Collatz to O_inf is the largest among
+O₁→O_inf gaps — supercritical dynamics requires one extra promotion
 beyond what Twin Prime or Goldbach need.
 -/
 theorem collatz_rh_distance_7 :
@@ -636,12 +636,12 @@ theorem collatz_rh_distance_7 :
   native_decide
 
 -- ----------------------------------------------------------
--- Promotion Counts to O_∞
+-- Promotion Counts to O_inf
 -- ----------------------------------------------------------
 
 /--
-**Theorem CL-17: Collatz O₁ → O_∞ promotion count.**
-Collatz needs 9 promotions to reach O_∞ (the widest O₁→O_∞ gap in the catalog). Compare: Twin Prime needs 6,
+**Theorem CL-17: Collatz O₁ → O_inf promotion count.**
+Collatz needs 9 promotions to reach O_inf (the widest O₁→O_inf gap in the catalog). Compare: Twin Prime needs 6,
 Goldbach needs 6, Lonely Runner needs 4. Collatz is structurally the
 furthest O₁ problem from resolution.
 -/
@@ -772,7 +772,7 @@ The promotion from conjecture (O₁) to proved (O₂) would transform:
 This is a 3-promotion resolution — fewer than Twin Prime → RH (4) or
 Goldbach → RH (6), but structurally harder because φ̂_Æ → φ̂_ž is a
 criticality demotion (from runaway to stable), not a promotion.
-Most O₁ → O_∞ paths promote criticality; Collatz must DEMOTE it.
+Most O₁ → O_inf paths promote criticality; Collatz must DEMOTE it.
 
 ### Comparison: Tao (2019) Log-Density
 
@@ -838,9 +838,9 @@ enough to gain protection, then prove the modified statement.
    requires bounding the fluctuations of the Collatz map — a problem
    equivalent to the conjecture itself.
 
-5. **The O₁ → O₂ → O_∞ tension.** Both Tao (O₂) and no-short-cycles
+5. **The O₁ → O₂ → O_inf tension.** Both Tao (O₂) and no-short-cycles
    (O₂) achieve Z₂ protection by weakening the statement. Can O₁ be
-   promoted directly to O_∞ without the intermediate O₂ step?
+   promoted directly to O_inf without the intermediate O₂ step?
    The grammar says: yes, if φ̂_Æ → φ̂_ž and Ω_0 → Ω_Z are achieved
    simultaneously. But the mathematical path is unknown.
 
@@ -883,7 +883,7 @@ enough to gain protection, then prove the modified statement.
 
 3. **The φ̂_Æ → φ̂_ž demotion** — Collatz requires a criticality DEMOTION
    (supercritical → subcritical) rather than promotion. This is structurally
-   unprecedented: most O₁ problems promote to O_∞ by RAISING criticality
+   unprecedented: most O₁ problems promote to O_inf by RAISING criticality
    or protection. Collatz must LOWER criticality to resolve.
 
 4. **Discrete dynamical system** — Collatz is the ONLY unsolved problem in
@@ -898,7 +898,7 @@ enough to gain protection, then prove the modified statement.
    pointwise." The grammar quantifies this: 7 primitive mismatches is the
    widest sub-vessel gap in the catalog.
 
-6. **Collatz ↔ RH distance = 7** — The widest O₁ → O_∞ gap in the catalog.
+6. **Collatz ↔ RH distance = 7** — The widest O₁ → O_inf gap in the catalog.
    Twin Prime → RH = 6, Goldbach → RH = 6, Collatz → RH = 7. The extra
    primitive comes from Ħ (H1 vs H_inf) — Collatz needs an additional
    chirality promotion beyond what any other O₁ problem requires.
@@ -949,7 +949,7 @@ The grammar reveals the exact structural content of the difficulty:
   (1) φ̂_Æ must be DEMOTED to φ̂_ž (prove convergence despite expansion).
   (2) Ω_0 must be PROMOTED to Ω_Z (establish a topological winding number).
   (3) Þ_⋈ must resolve to Þ_⊂ (the bowtie crossing closes).
-  (4) Ħ_1 → Ħ_2 → Ħ_! (two chirality promotions to O_∞).
+  (4) Ħ_1 → Ħ_2 → Ħ_! (two chirality promotions to O_inf).
 
 These are not mathematical proofs — they are structural preconditions
 for ANY proof. A proof of the Collatz conjecture MUST somehow achieve

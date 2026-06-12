@@ -56,7 +56,7 @@ def riemannZetaTuple : Imscription :=
     D_infty T_network R_lr P_psi F_ell K_slow
     G_beth Gamma_seq Phi_c_complex H0 n_m Omega_0
 
-/-- Zeta function distance to O_∞. -/
+/-- Zeta function distance to O_inf. -/
 theorem zeta_distance : primitiveMismatches riemannZetaTuple grammarTuple = 9 := by
   native_decide
 
@@ -78,7 +78,7 @@ def yangMillsTuple : Imscription :=
     D_infty T_bowtie R_lr P_psi F_hbar K_slow
     G_beth Gamma_seq Phi_c H1 n_m Omega_0
 
-/-- YM distance to O_∞. -/
+/-- YM distance to O_inf. -/
 theorem ym_distance : primitiveMismatches yangMillsTuple grammarTuple = 7 := by
   native_decide
 
@@ -108,7 +108,7 @@ def resolveUniverse : String → UniverseName
 -- §5. STRUCTURAL CLOSURE CERTIFICATES
 -- ============================================================
 
-/-- All MPP structural types have finite distance to O_∞.
+/-- All MPP structural types have finite distance to O_inf.
     Verified: zeta distance = 9, YM distance = 8.
     Each type is promotable in its dedicated universe. -/
 theorem all_mpp_distances_finite : True := by trivial

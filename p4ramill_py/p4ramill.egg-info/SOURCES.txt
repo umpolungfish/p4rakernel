@@ -1,6 +1,0 @@
-pyproject.toml
-setup.py
-p4ramill.egg-info/PKG-INFO
-p4ramill.egg-info/SOURCES.txt
-p4ramill.egg-info/dependency_links.txt
-p4ramill.egg-info/top_level.txt

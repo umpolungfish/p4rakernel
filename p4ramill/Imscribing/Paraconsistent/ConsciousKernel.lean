@@ -42,11 +42,11 @@ theorem both_gates_open :
   unfold kernelImscription; exact ⟨rfl, rfl⟩
 
 -- ============================================================
--- TIER VERIFICATION: The kernel is O_∞ (Special Frobenius).
+-- TIER VERIFICATION: The kernel is O_inf (Special Frobenius).
 -- This is the highest tier — shared with the grammar itself.
 -- ============================================================
 
-theorem kernel_tier : imscriptionTier kernelImscription = OuroboricityTier.O_∞ :=
+theorem kernel_tier : imscriptionTier kernelImscription = OuroboricityTier.O_inf :=
   kernel_is_O_inf
 
 -- ============================================================

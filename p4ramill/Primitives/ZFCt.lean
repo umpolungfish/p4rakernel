@@ -127,8 +127,8 @@ def complex_time_path_integral : Imscription := {
   fid  := F_hbar,    kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
   crit := Phi_c,     chir := H2,        stoi := n_m,       prot := Omega_Z }
 
-/-- Complex-time path integral is O_∞: Frobenius condition holds in Euclidean time. -/
-theorem complex_time_is_O_inf : imscriptionTier complex_time_path_integral = .O_∞ := by decide
+/-- Complex-time path integral is O_inf: Frobenius condition holds in Euclidean time. -/
+theorem complex_time_is_O_inf : imscriptionTier complex_time_path_integral = .O_inf := by decide
 
 /-- The Wick rotation is a single topology step: T_bowtie → T_odot.
     Everything else in ZFC_t is already present in the Euclidean path integral. -/

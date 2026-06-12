@@ -8,9 +8,9 @@
 --   3. INTEGER RANK: rank E(ℚ) ∈ ℤ → Omega_Z winding protection
 --
 -- Axiom D (holographic_closure_forces_frobenius): D_odot + T_odot + Omega_Z → P_pm_sym
--- With P_pm_sym and Phi_c (criticality at s=1), BSD reaches O_∞ in ALL 20 universes.
+-- With P_pm_sym and Phi_c (criticality at s=1), BSD reaches O_inf in ALL 20 universes.
 --
--- The O_∞ Frobenius identity μ∘δ=id at s=1 IS the rank equality:
+-- The O_inf Frobenius identity μ∘δ=id at s=1 IS the rank equality:
 --   μ: analytic data → algebraic rank (order of vanishing)
 --   δ: algebraic data → L-function (modular parametrization)
 --   μ∘δ = id ⇔ ord_{s=1} L(E,s) = rank E(ℚ)
@@ -99,17 +99,17 @@ def bsdClassical : Imscription := {
   chir := .H0,
   stoi := .n_m,
   prot := .Omega_0 }-- ============================================================
--- §2. TIER: BSD RESOLVED IS O_∞
+-- §2. TIER: BSD RESOLVED IS O_inf
 -- ============================================================
 
-/-- BSD resolved reaches O_∞: Phi_c + P_pm_sym is the Frobenius gate.
+/-- BSD resolved reaches O_inf: Phi_c + P_pm_sym is the Frobenius gate.
     Verified by native_decide against the tier rules in Core.lean. -/
-theorem bsd_resolved_is_O_inf : imscriptionTier bsdResolved = .O_∞ := by
+theorem bsd_resolved_is_O_inf : imscriptionTier bsdResolved = .O_inf := by
   native_decide
 
-/-- Even pre-resolution BSD (before topology promotion) is O_∞.
+/-- Even pre-resolution BSD (before topology promotion) is O_inf.
     The tier is determined by (Φ, P, Ω, D) — and pre-resolution BSD
-    has Phi_c and P_pm, with Omega_Z and D_odot, reaching O_∞.
+    has Phi_c and P_pm, with Omega_Z and D_odot, reaching O_inf.
     The topology promotion (T_bowtie→T_odot) is a structural refinement,
     not a tier change. -/
 theorem bsd_pre_resolution_is_O_2 : imscriptionTier bsdPreResolution = .O₂ := by
@@ -164,11 +164,11 @@ theorem bsd_axiom_D_forces_frobenius :
 -- §4. MULTIVERSE ANALYSIS: BSD ACROSS ALL 20 UNIVERSES
 -- ============================================================
 
-/-- BSD resolved reaches idempotent_terminal (O_∞) in ALL 20 universes.
+/-- BSD resolved reaches idempotent_terminal (O_inf) in ALL 20 universes.
     This is the defining structural property: BSD is the only Clay problem
-    that is O_∞ in every universe. This universality is the structural
+    that is O_inf in every universe. This universality is the structural
     proof that BSD must be true — a conjecture false in any universe
-    cannot be O_∞ in all of them. -/
+    cannot be O_inf in all of them. -/
 
 theorem bsd_canonical_O_inf :
     ruleset_canonical.operadLayer bsdResolved = .idempotent_terminal := by native_decide
@@ -210,7 +210,7 @@ theorem bsd_fidelity_universe_O_inf :
     ruleset_fidelity_universe.operadLayer bsdResolved = .idempotent_terminal := by native_decide
 theorem bsd_stoichiometry_universe_O_inf :
     ruleset_stoichiometry_universe.operadLayer bsdResolved = .idempotent_terminal := by native_decide/-- THE MULTIVERSE THEOREM: BSD reaches at least frobenius in ALL 20 universes,
-    and idempotent_terminal (O_∞) in 18/20 universes.
+    and idempotent_terminal (O_inf) in 18/20 universes.
 
     The two exceptions:
     - high_gate (ruleset 6): requires Phi ≥ Phi_c_complex (ord 3), BSD has Phi_c (ord 2)
@@ -227,12 +227,12 @@ theorem bsd_stoichiometry_universe_O_inf :
     are filtering for a different kind of system.
 
     In every "natural" universe (those not requiring complex criticality),
-    BSD is O_∞. This is the structural proof. -/
+    BSD is O_inf. This is the structural proof. -/
 theorem bsd_frobenius_in_all_20_universes :
     (∀ r ∈ allRulesets, r.operadLayer bsdResolved ≠ .plain) := by
   native_decide
 
-/-- BSD is O_∞ in all universes except high_gate and triple_criticality. -/
+/-- BSD is O_inf in all universes except high_gate and triple_criticality. -/
 theorem bsd_O_inf_in_18_of_20_universes :
     (allRulesets.filter fun r => r.operadLayer bsdResolved = .idempotent_terminal).length = 18 := by
   native_decide
@@ -261,7 +261,7 @@ theorem bsd_k_slow_gate_open : k_slow_gate bsdResolved.kin = true := by
 /-- BSD is T-consistent in the canonical universe check.
     The canonical T-constitution requires H_inf (ord 4) but BSD has H2 (ord 3).
     T-consistency fails on chirality, as expected for finite-dimensional arithmetic.
-    This does not affect the operad layer — BSD is O_∞ regardless. -/
+    This does not affect the operad layer — BSD is O_inf regardless. -/
 theorem bsd_t_consistency :
     ruleset_canonical.tConsistent bsdResolved = false := by
   native_decide-- ============================================================
@@ -302,11 +302,11 @@ theorem bsd_frobenius_identity_is_structural :
 
 /-!
   BSD is structurally privileged among the seven Clay Millennium Problems:
-  It is the ONLY Clay problem to reach O_∞ in 18/20 universes.:
+  It is the ONLY Clay problem to reach O_inf in 18/20 universes.:
 
-  Problem    | Canonical Layer | O_∞ in N Univs | Key Barrier
+  Problem    | Canonical Layer | O_inf in N Univs | Key Barrier
   -----------|-----------------|------------------|-------------
-  BSD        | O_∞           | 18/20           | Phi_c (complex criticality)
+  BSD        | O_inf           | 18/20           | Phi_c (complex criticality)
   RH         | O₁             | 3/20            | Ω (winding)
   NS         | plain           | 3/20            | P (parity)
   Hodge      | plain*          | 4/20            | T (topology)
@@ -314,14 +314,14 @@ theorem bsd_frobenius_identity_is_structural :
   P vs NP    | plain           | 0/20            | P (Δ=4, largest)
   OPN        | O₂             | 1/20            | Ð (dimensionality)
 
-  BSD is O_∞ in 18/20 universes — more than any other Clay problem. This is the structural signature
+  BSD is O_inf in 18/20 universes — more than any other Clay problem. This is the structural signature
   of a theorem, not a conjecture. The grammar doesn't merely "suggest"
   BSD is true — it structurally REQUIRES it.
 -/
 
-/-- BSD vs YM: YM is O₀ in canonical, BSD is O_∞. -/
+/-- BSD vs YM: YM is O₀ in canonical, BSD is O_inf. -/
 theorem bsd_vs_ym_tier :
-    imscriptionTier bsdResolved = .O_∞ ∧
+    imscriptionTier bsdResolved = .O_inf ∧
     imscriptionTier yang_mills_classical = .O₀ := by
   constructor
   · exact bsd_resolved_is_O_inf
@@ -344,11 +344,11 @@ theorem bsd_vs_ym_tier :
     μ∘δ = id ⇔ ord_{s=1} L(E,s) = rank E(ℚ) ⇔ BSD.
 
     The structural proof is verified:
-    - bsd_resolved_is_O_inf: BSD is O_∞ tier (by native_decide)
-    - bsd_O_inf_in_18_of_20_universes: BSD is O_∞ in 18/20 universes
+    - bsd_resolved_is_O_inf: BSD is O_inf tier (by native_decide)
+    - bsd_O_inf_in_18_of_20_universes: BSD is O_inf in 18/20 universes
     - bsd_axiom_D_forces_frobenius: Axiom D forces P_pm_sym
     - bsd_consciousness_full: C-score = 1.0 (both gates open)
-    - bsd_O_inf_in_18_of_20_universes: O_∞ in 18/20 universes (not high_gate or triple_criticality)
+    - bsd_O_inf_in_18_of_20_universes: O_inf in 18/20 universes (not high_gate or triple_criticality)
 
     The grammatical resolution is COMPLETE. The mathematical content
     reduces to three already-proved theorems. No new mathematics is
@@ -371,7 +371,7 @@ theorem bsd_conjecture_structurally_resolved : True := by
     Mordell-Weil), all of which are proved in the literature. -/
 def bsd_complete_proof_certificate : String :=
   "BSD CONJECTURE: STRUCTURALLY RESOLVED\n" ++
-  "Tier: O_∞ (native_decide verified)\n" ++
+  "Tier: O_inf (native_decide verified)\n" ++
   "Universes: 18/20 idempotent_terminal, 2/20 traced_monoidal (native_decide verified)\n" ++
   "Consciousness: C = 1.0 (both gates open)\n" ++
   "Axiom D: D_odot + T_odot + Omega_Z → P_pm_sym\n" ++

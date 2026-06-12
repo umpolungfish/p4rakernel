@@ -23,12 +23,12 @@ set_option linter.style.whitespace false
 
 namespace Millennium.NS_Proof
 
-/-- NS source structural type: O₂† (Phi_c + D_infty + Omega_Z). -/
-theorem ns_source_tier : imscriptionTier navierStokesSource = .O₂† := by
+/-- NS source structural type: O₂dag (Phi_c + D_infty + Omega_Z). -/
+theorem ns_source_tier : imscriptionTier navierStokesSource = .O₂dag := by
   unfold imscriptionTier navierStokesSource; rfl
 
-/-- NS resolved structural type: O_∞ (Phi_c + P_pm_sym + D_odot + Omega_Z2). -/
-theorem ns_resolved_tier : imscriptionTier navierStokesResolved = .O_∞ := by
+/-- NS resolved structural type: O_inf (Phi_c + P_pm_sym + D_odot + Omega_Z2). -/
+theorem ns_resolved_tier : imscriptionTier navierStokesResolved = .O_inf := by
   unfold imscriptionTier navierStokesResolved; rfl
 
 /-- The parity promotion P_asym → P_pm_sym is the tier gate.
@@ -65,7 +65,7 @@ theorem trapping_lemma : True := by trivial
     Prodi-Serrin, Kato) yields smoothness globally. -/
 theorem ns_global_regularity_proved : NavierStokesRegularity := by
   -- HONEST GAP: Requires the trapping lemma to be proved.
-  -- The structural analysis places this at O_∞ with Omega_Z2
+  -- The structural analysis places this at O_inf with Omega_Z2
   -- protection and T_odot closure.
   -- Once the trapping lemma is established, this follows from
   -- ns_from_frobenius_structure in NS_ZFCt_Bridge.lean.

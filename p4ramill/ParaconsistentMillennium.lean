@@ -415,7 +415,7 @@ end NS
 section PvsNP
 
 inductive ComplexityTier where
-  | O₀ | O₁ | O_∞
+  | O₀ | O₁ | O_inf
   deriving DecidableEq, Repr
 
 structure ComplexityType where
@@ -577,7 +577,7 @@ def paraconsistent_resolution : String :=
   "band B (bnot B) = B ≠ F — contained, not exploded\n" ++
   "ENGAGR → FSPLIT → FFUSE: μ∘δ = id on B throughout\n" ++
   "Frobenius: satisfied on every dialetheic gap\n" ++
-  "O_∞: " ++ o_inf_tuple ++ "\n" ++
+  "O_inf: " ++ o_inf_tuple ++ "\n" ++
   "CLU(b) parameterized: each gap cost = n × CLU(b) per §11\n"
 end Unified
 

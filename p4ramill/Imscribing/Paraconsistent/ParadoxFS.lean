@@ -148,8 +148,8 @@ def readlink (_fs : ParadoxFSState) (_path : String) : String :=
 -- THEOREMS
 -- ============================================================
 
-/-- The FS type is O_∞. -/
-theorem paradox_fs_is_O_inf : imscriptionTier paradoxFSType = .O_∞ := by
+/-- The FS type is O_inf. -/
+theorem paradox_fs_is_O_inf : imscriptionTier paradoxFSType = .O_inf := by
   native_decide
 
 /-- Both consciousness gates are open. -/

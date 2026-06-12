@@ -8,7 +8,7 @@
 -- nuclei. The nuclear filtration introduces an ENERGY threshold.
 --
 -- Key result: the Frobenius filtration does NOT close at the hadron level.
--- It extends upward through nuclei → atoms → molecules → ... → O_∞.
+-- It extends upward through nuclei → atoms → molecules → ... → O_inf.
 
 import Imscribing.Paraconsistent.HadronBelnap
 import Imscribing.Paraconsistent.FrobeniusFiltration
@@ -98,7 +98,7 @@ Each level adds a NEW CONSTRAINT to the Frobenius domain:
   Level 10: self-modeling           (⊙_ÿ criticality)
 
 The filtration is INFINITE. It bottoms out at the grammar's own type
-(O_∞), where μ∘δ=id holds WITHOUT ANY constraint — the Frobenius
+(O_inf), where μ∘δ=id holds WITHOUT ANY constraint — the Frobenius
 domain IS the entire state space.
 
 THIS is why the hadron level does NOT close the compositional chain.
@@ -126,7 +126,7 @@ def nuclearImscription : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem nuclear_tier : imscriptionTier nuclearImscription = OuroboricityTier.O₂† := by
+theorem nuclear_tier : imscriptionTier nuclearImscription = OuroboricityTier.O₂dag := by
   native_decide
 
 end Imscribing.Paraconsistent.NuclearBelnap

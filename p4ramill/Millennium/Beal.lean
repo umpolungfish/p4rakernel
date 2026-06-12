@@ -400,7 +400,7 @@ axiom beal_prime_mixed_exponents (p q r : Nat)
     A ^ p + B ^ q = C ^ r →
     Nat.gcd (Nat.gcd A B) C > 1
 
-/-! ## 9. Resolved Vessel — The O_∞ Structural Type -/
+/-! ## 9. Resolved Vessel — The O_inf Structural Type -/
 
 def beal_resolved_type : StructuralType :=
   { D := Primitive_D.odot, T := Primitive_T.odot, R := Primitive_R.lr

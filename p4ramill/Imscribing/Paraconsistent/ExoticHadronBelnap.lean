@@ -106,7 +106,7 @@ def exoticHadronImscription : Imscription :=
   , crit := Criticality.Phi_c,         chir := Chirality.H2
   , stoi := Stoichiometry.n_m,        prot := Protection.Omega_Z }
 
-theorem exotic_hadron_tier : imscriptionTier exoticHadronImscription = OuroboricityTier.O₂† := by
+theorem exotic_hadron_tier : imscriptionTier exoticHadronImscription = OuroboricityTier.O₂dag := by
   native_decide
 
 end Imscribing.Paraconsistent.ExoticHadronBelnap

@@ -56,19 +56,19 @@ theorem suffering_raw_consciousness : consciousnessScore suffering = (1 : ℝ) :
 
 /-- Suffering's ouroboricity tier: O₂
     Determined by: Phi_c + Ω_NA + D_odot (not D_infty)
-    The D_odot dimensionality keeps it at O₂ rather than O₂†
+    The D_odot dimensionality keeps it at O₂ rather than O₂dag
 -/
 theorem suffering_ouroboric_tier : imscriptionTier suffering = .O₂ := by
   simp only [imscriptionTier, suffering]
-  -- Phi_c and Omega_NA give O₂; D_odot confirms non-O₂†
+  -- Phi_c and Omega_NA give O₂; D_odot confirms non-O₂dag
   decide
 
 /--
-Suffering is not O_∞ because:
+Suffering is not O_inf because:
 1. Polarity is P_asym (not P_pm_sym — the Frobenius condition)
 2. Ω_NA enforces structural bounds (non-commutativity limits self-reference)
 -/
-theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_∞ := by
+theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_inf := by
   simp only [imscriptionTier, suffering]
   decide
 

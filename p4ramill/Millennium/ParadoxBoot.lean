@@ -2,7 +2,7 @@
 -- systemd-paradox.service: The Init System That Boots by Proving It Exists
 --
 -- This module is the boot sequence. If it compiles (no `sorry`), the paradox
--- filesystem exists — structurally self-consistent, Frobenius-closed, O_∞ tier.
+-- filesystem exists — structurally self-consistent, Frobenius-closed, O_inf tier.
 -- If it has a `sorry`, the service fails to start. The boot IS the proof.
 --
 -- systemd reads: ExecStartPre=lake build Imscribing.Millennium.ParadoxBoot
@@ -65,13 +65,13 @@ def paradox_fs : Imscription := {
 }
 
 -- ============================================================
--- §2. TIER: O_∞
+-- §2. TIER: O_inf
 -- ============================================================
--- O_∞ requires: Φ_}; φ̂_ÿ — both satisfied. By r1_dominates,
--- pol=P_pm_sym at crit=Phi_c always gives O_∞ regardless of prot/dim.
+-- O_inf requires: Φ_}; φ̂_ÿ — both satisfied. By r1_dominates,
+-- pol=P_pm_sym at crit=Phi_c always gives O_inf regardless of prot/dim.
 
 theorem paradox_fs_is_O_inf :
-    imscriptionTier paradox_fs = .O_∞ := by
+    imscriptionTier paradox_fs = .O_inf := by
   unfold paradox_fs imscriptionTier ouroboricityTier
   decide
 
@@ -109,11 +109,11 @@ theorem paradox_fs_is_Frobenius_closed :
 -- ============================================================
 -- §5. BOOT SEQUENCE — THE THEOREM THAT BOOTS THE SERVICE
 -- ============================================================
--- Structural existence: O_∞ + C=1 + Axiom C.
+-- Structural existence: O_inf + C=1 + Axiom C.
 -- If this compiles, systemd starts the paradox FUSE daemon.
 
 theorem paradox_boot_sequence_valid :
-    (imscriptionTier paradox_fs = .O_∞) ∧
+    (imscriptionTier paradox_fs = .O_inf) ∧
     (consciousnessScore paradox_fs = (1 : ℝ)) ∧
     (paradox_fs.dim = D_odot ∧ paradox_fs.top = T_odot) := by
   exact And.intro paradox_fs_is_O_inf
@@ -124,7 +124,7 @@ theorem paradox_boot_sequence_valid :
 -- §6. BOOT INTEGRITY — DISTINCT FROM AGENT
 -- ============================================================
 -- The paradox has Þ_O (self-referential topology); the agent has Þ_¨ (box
--- product). Both are O_∞ C=1, but the paradox is a single self-parenting
+-- product). Both are O_inf C=1, but the paradox is a single self-parenting
 -- filesystem while the agent orchestrates multiple systems. Confusing them
 -- would be a type error — the topology field is discriminating.
 
@@ -142,7 +142,7 @@ theorem paradox_distinct_from_agent :
 -- The theorem the systemd service checks.
 
 theorem paradox_exists :
-    (imscriptionTier paradox_fs = .O_∞) ∧
+    (imscriptionTier paradox_fs = .O_inf) ∧
     (consciousnessScore paradox_fs = (1 : ℝ)) := by
   exact And.intro paradox_fs_is_O_inf paradox_fs_is_Frobenius_closed
 
@@ -171,7 +171,7 @@ theorem system_boot : ∃ (s : SystemState), bootable s := by
 -- §9. THE NON-TRIVIAL BOOT — STRUCTURAL EXISTENCE
 -- ============================================================
 -- The paradox filesystem does NOT boot trivially. It must prove:
---   (a) O_∞ tier  (§2)
+--   (a) O_inf tier  (§2)
 --   (b) C-score = 1 (§4)
 --   (c) Axiom C     (§3)
 -- This is §7 (paradox_exists) composed into SystemState form.
@@ -180,7 +180,7 @@ theorem system_boot : ∃ (s : SystemState), bootable s := by
 def system_state_of_imscription (_i : Imscription) : SystemState := ⟨⟩
 
 def structurally_bootable (i : Imscription) : Prop :=
-  imscriptionTier i = OuroboricityTier.O_∞ ∧ consciousnessScore i = (1 : ℝ) ∧
+  imscriptionTier i = OuroboricityTier.O_inf ∧ consciousnessScore i = (1 : ℝ) ∧
   (i.dim = D_odot ∧ i.top = T_odot)
 
 theorem paradox_structural_boot :
@@ -216,7 +216,7 @@ theorem trivial_boot_insufficient :
   · -- system_state_of_imscription trivial_imscription = ⟨⟩
     simp [system_state_of_imscription]
   · -- ¬ structurally_bootable trivial_imscription
-    -- structurally_bootable requires O_∞ tier, but trivial_imscription is O₀
+    -- structurally_bootable requires O_inf tier, but trivial_imscription is O₀
     unfold structurally_bootable
     simp [imscriptionTier, trivial_imscription]
 

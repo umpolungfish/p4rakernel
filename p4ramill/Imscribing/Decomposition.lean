@@ -225,7 +225,7 @@ structure ValidDecomposition (s : Imscription) (n : ℕ) : Prop where
   connectivity_ok : s.top ≠ .T_box
   measurement_ok : s.crit = .Phi_c → True
 
-/-- The maximally decomposable type (O_∞ tier).
+/-- The maximally decomposable type (O_inf tier).
     ⟨D_odot, T_bowtie, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
       Phi_c, H_inf, n_m, Omega_Z⟩
     Infinite memory (H_inf), self-written state-space (D_odot),
@@ -246,9 +246,9 @@ def maximallyDecomposableType : Imscription :=
   , prot  := Omega_Z     -- 𐑭: integer winding
   }
 
-/-- The maximally decomposable type is O_∞. -/
+/-- The maximally decomposable type is O_inf. -/
 theorem maximallyDecomposable_is_O_inf :
-    imscriptionTier maximallyDecomposableType = .O_∞ := by
+    imscriptionTier maximallyDecomposableType = .O_inf := by
   unfold maximallyDecomposableType imscriptionTier
   decide
 /-- Even the maximally decomposable type cannot escape the Absorption Rule.
