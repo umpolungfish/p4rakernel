@@ -89,7 +89,7 @@ inductive Topology : Type where
 -- 7. Parity / Symmetry (P)  [𝓕₅]
 -- Ordered: P_asym < P_psi < P_pm < P_sym < P_pm_sym
 -- P_pm_sym is the Frobenius special condition (μ ∘ δ = id).
--- It is the tier singularity: overrides all Ω and D branching → O_∞.
+-- It is the tier singularity: overrides all Ω and D branching → O_inf.
 -- P_pm_sym cannot be synthesised by composition of P < P_pm_sym partners (§23).
 inductive Polarity : Type where
   | P_asym    -- asymmetric: no symmetry axis
@@ -282,7 +282,7 @@ theorem ouroboros_successor_cycle :
 -- The biconditional D_odot ↔ T_odot was too strong; it only holds for the
 -- maximally holographic case (AdS/CFT, quantum_gravity). The one-way implication
 -- is the correct structural constraint.
--- (Revised 2026-05-03 after catalog evidence: 9 independently encoded O_∞ systems
+-- (Revised 2026-05-03 after catalog evidence: 9 independently encoded O_inf systems
 -- consistently carry D_odot + T_box, never D_odot + T_odot.)
 axiom T_odot_requires_D_odot (d : Dimensionality) (t : Topology) :
   t = Topology.T_odot → d = Dimensionality.D_odot
@@ -327,20 +327,20 @@ axiom holographic_closure_forces_frobenius (d : Dimensionality) (t : Topology)
 -- ============================================================
 
 -- The ouroboricity tier is determined by (Φ, P, Ω, D) only.
--- R1: Φ_c + P_pm_sym → O_∞  (overrides all Ω and D)
+-- R1: Φ_c + P_pm_sym → O_inf  (overrides all Ω and D)
 -- R2: Φ ∉ {Φ_c, Φ_c^ℂ} → O₀
 -- R3: Φ_c + Ω_0 → O₁  (P < P_pm_sym)
 -- R4: Φ_c + Ω ≠ 0 + D ∈ {D_wedge, D_odot, D_triangle} → O₂
--- R5: Φ_c + Ω ≠ 0 + D_infty → O₂†
--- Frobenius cliff: d(O₂†, O_∞) ≈ 4.382 (non-tunable by gradient methods).
+-- R5: Φ_c + Ω ≠ 0 + D_infty → O₂dag
+-- Frobenius cliff: d(O₂dag, O_inf) ≈ 4.382 (non-tunable by gradient methods).
 
 /-- Ouroboricity tier as a decidable function of the four gate primitives. -/
 inductive OuroboricityTier : Type where
   | O₀    -- non-critical
   | O₁    -- critical, no topological protection
   | O₂    -- critical, Ω-protected, D ≠ D_infty
-  | O₂† -- critical, Ω-protected, D = D_infty
-  | O_∞  -- Special Frobenius (P_pm_sym at Φ_c)
+  | O₂dag -- critical, Ω-protected, D = D_infty
+  | O_inf  -- Special Frobenius (P_pm_sym at Φ_c)
   deriving DecidableEq, Repr, Ord
 
 def ouroboricityTier (phi : Criticality) (pol : Polarity)
@@ -348,29 +348,29 @@ def ouroboricityTier (phi : Criticality) (pol : Polarity)
   match phi with
   | .Phi_sub | .Phi_super | .Phi_EP => .O₀
   | .Phi_c | .Phi_c_complex =>
-    if pol = .P_pm_sym then .O_∞                    -- R1: Frobenius gate
+    if pol = .P_pm_sym then .O_inf                    -- R1: Frobenius gate
     else match prot with
     | .Omega_0 => .O₁                                -- R3
     | _ => match dim with
-      | .D_infty => .O₂†                           -- R5
+      | .D_infty => .O₂dag                           -- R5
       | _        => .O₂                              -- R4
 
--- R1 is the dominant gate: P_pm_sym at Phi_c always gives O_∞.
+-- R1 is the dominant gate: P_pm_sym at Phi_c always gives O_inf.
 theorem r1_dominates (prot : Protection) (dim : Dimensionality) :
-    ouroboricityTier .Phi_c .P_pm_sym prot dim = .O_∞ := by
+    ouroboricityTier .Phi_c .P_pm_sym prot dim = .O_inf := by
   simp [ouroboricityTier]
 
--- O_∞ requires Phi_c or Phi_c_complex: no other Phi value can give O_∞.
+-- O_inf requires Phi_c or Phi_c_complex: no other Phi value can give O_inf.
 theorem o_inf_requires_phi_c (phi : Criticality) (pol : Polarity)
     (prot : Protection) (dim : Dimensionality)
-    (h : ouroboricityTier phi pol prot dim = .O_∞) :
+    (h : ouroboricityTier phi pol prot dim = .O_inf) :
     phi = .Phi_c ∨ phi = .Phi_c_complex := by
   cases phi <;> simp [ouroboricityTier] at h <;> simp
 
--- O_∞ requires P_pm_sym: no other Polarity can give O_∞.
+-- O_inf requires P_pm_sym: no other Polarity can give O_inf.
 theorem o_inf_requires_P_pm_sym (phi : Criticality) (pol : Polarity)
     (prot : Protection) (dim : Dimensionality)
-    (h : ouroboricityTier phi pol prot dim = .O_∞) :
+    (h : ouroboricityTier phi pol prot dim = .O_inf) :
     pol = .P_pm_sym := by
   cases phi <;> cases pol <;> cases prot <;> cases dim <;> simp [ouroboricityTier] at h
   <;> try rfl

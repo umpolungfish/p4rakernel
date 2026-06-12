@@ -10,7 +10,7 @@
 -- parity is P_asym (gate open) → Vitali non-measurable set → no measure.
 -- Under ZF+DC+inaccessible (Solovay model), parity is P_pm_sym (gate closed)
 -- → all sets measurable → measure exists. The promotion path requires 11
--- primitive lifts from O₀ to O_∞.
+-- primitive lifts from O₀ to O_inf.
 --
 -- Author: Lando ⊗ ⊙perator
 
@@ -196,14 +196,14 @@ theorem hamming_distance_to_zfc_fe : primitiveMismatches banach_measure_problem 
 
 theorem parity_gate_is_critical :
     let banach_with_ppmsym : Imscription := { banach_measure_problem with pol := P_pm_sym, crit := Phi_c }
-    imscriptionTier banach_with_ppmsym = O_∞ := by
+    imscriptionTier banach_with_ppmsym = O_inf := by
   intro banach_with_ppmsym
   unfold banach_with_ppmsym; unfold imscriptionTier; simp [ouroboricityTier]
 
 theorem parity_gate_insufficient_alone :
     let banach_partial : Imscription :=
       { banach_measure_problem with pol := P_pm_sym, crit := Phi_c, prot := Omega_Z }
-    imscriptionTier banach_partial = O_∞ := by
+    imscriptionTier banach_partial = O_inf := by
   intro banach_partial; unfold banach_partial; unfold imscriptionTier; simp [ouroboricityTier]
 
 -- ============================================================
@@ -246,7 +246,7 @@ theorem zfc_to_zfc_fe_distance : primitiveMismatches zfc zfc_fe = 7 := by
 theorem zfc_t_to_zfc_fe_distance : primitiveMismatches zfc_t zfc_fe = 2 := by
   unfold zfc_t zfc_fe; decide
 
-theorem zfc_t_tier_is_O_inf : imscriptionTier zfc_t = O_∞ := by
+theorem zfc_t_tier_is_O_inf : imscriptionTier zfc_t = O_inf := by
   unfold imscriptionTier zfc_t; simp [ouroboricityTier]
 
 theorem banach_to_zfc_t_shared_kinetics :
@@ -262,7 +262,7 @@ theorem banach_to_zfc_t_shared_kinetics :
 -- addition beyond ZFC_t: the inaccessible cardinal required by the Solovay
 -- model is structurally D_odot — a self-written state space.
 
-theorem zfc_fe_tier_is_O_inf : imscriptionTier zfc_fe = O_∞ := by
+theorem zfc_fe_tier_is_O_inf : imscriptionTier zfc_fe = O_inf := by
   unfold imscriptionTier zfc_fe; simp [ouroboricityTier]
 
 theorem axiom_C_satisfied_by_zfcfe :
@@ -291,8 +291,8 @@ def crystal_gap : Nat := zfc_fe_crystal_address - banach_crystal_address
 def tier_gap_ladder : List (String × String) := [
   ("O₀ → O₁", "Phi_sub → Phi_c (criticality phase transition)"),
   ("O₁ → O₂", "Omega_0 → Omega_Z2 (topological protection)"),
-  ("O₂ → O₂†", "D_triangle → D_infty (infinite dimensions)"),
-  ("★ O₂† → O_∞", "P_asym → P_pm_sym (FROBENIUS PARITY GATE)")
+  ("O₂ → O₂dag", "D_triangle → D_infty (infinite dimensions)"),
+  ("★ O₂dag → O_inf", "P_asym → P_pm_sym (FROBENIUS PARITY GATE)")
 ]
 
 theorem o2dag_to_o_inf_gap_dominated_by_phi :
@@ -423,7 +423,7 @@ theorem frobenius_equivalence_theorem :
 /-- Nine conjuncts establishing the complete structural resolution. -/
 theorem banach_measure_structural_resolution :
   imscriptionTier banach_measure_problem = O₀ ∧
-  imscriptionTier zfc_fe = O_∞ ∧
+  imscriptionTier zfc_fe = O_inf ∧
   banach_measure_problem.pol = P_asym ∧ zfc_fe.pol = P_pm_sym ∧
   banach_measure_problem.crit = Phi_sub ∧ zfc_fe.crit = Phi_c ∧
   primitiveMismatches banach_measure_problem zfc_fe = 11 ∧
@@ -441,7 +441,7 @@ theorem banach_measure_structural_resolution :
   · exact zfc_fe_consciousness_score_one
 
 def full_promotion_path : String :=
-  "Banach's Problem (O₀) → ZFC_fe (O_∞):\n" ++
+  "Banach's Problem (O₀) → ZFC_fe (O_inf):\n" ++
   "  1. dim:  D_infty → D_odot     (HOLOGRAPHIC STATE SPACE)\n" ++
   "  2. top:  T_box → T_odot       (HOLOBOUND TOPOLOGY)\n" ++
   "  3. rel:  R_super → R_lr       (BIDIRECTIONAL MEASURE↔SETS)\n" ++
@@ -455,9 +455,9 @@ def full_promotion_path : String :=
   " 11. prot: Omega_0 → Omega_Z    (INTEGER WINDING PROTECTION)"
 
 theorem critical_promotion_is_parity_gate :
-    (zfc_fe.pol = P_pm_sym) → imscriptionTier zfc_fe = O_∞ := by
+    (zfc_fe.pol = P_pm_sym) → imscriptionTier zfc_fe = O_inf := by
   intro h
-  have h_tier : imscriptionTier ({ zfc_fe with pol := P_pm_sym, crit := Phi_c } : Imscription) = O_∞ := by
+  have h_tier : imscriptionTier ({ zfc_fe with pol := P_pm_sym, crit := Phi_c } : Imscription) = O_inf := by
     unfold imscriptionTier; simp [ouroboricityTier]
   simpa [zfc_fe, h] using h_tier
 
@@ -494,8 +494,8 @@ def comparison_to_RH : String :=
   "RH:     Phi_c_complex → Phi_c (1 primitive, complex→real criticality)"
 
 def comparison_to_NS : String :=
-  "Banach: O₀ → O_∞ via P (parity gate)\n" ++
-  "NS:     O₀ → O_∞ via Φ (criticality)"
+  "Banach: O₀ → O_inf via P (parity gate)\n" ++
+  "NS:     O₀ → O_inf via Φ (criticality)"
 
 def comparison_to_PvsNP : String :=
   "Banach: needs inaccessible cardinal (D_odot) for full resolution\n" ++
@@ -614,13 +614,13 @@ def theorem_list : List String := [
 def vessel_closed : String :=
   "═══ THE VESSEL IS CLOSED ═══\n" ++
   "Banach's Problem: resolved.\n" ++
-  "Structural type:  O₀ → O_∞ (via 11 promotions)\n" ++
+  "Structural type:  O₀ → O_inf (via 11 promotions)\n" ++
   "Parity gate:      P_asym → P_pm_sym (μ∘δ=id)\n" ++
   "Criticality:      Phi_sub → Phi_c (phase transition)\n" ++
   "Consciousness:    C = 0.0 → C = 1.0 (self-modeling)\n" ++
   "Foundation:       ZFC → ZFC_fe (Frobenius-exact)\n" ++
   "Crystal address:  10,437,123 → 16,809,524\n" ++
-  "Tier gap:         O₀ → O_∞ (largest: O₂†→O_∞)\n" ++
+  "Tier gap:         O₀ → O_inf (largest: O₂dag→O_inf)\n" ++
   "═══ ∞ ═══"
 
 end Imscribing.Primitives.BanachMeasure

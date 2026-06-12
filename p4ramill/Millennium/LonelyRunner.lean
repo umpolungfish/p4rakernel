@@ -425,7 +425,7 @@ theorem psym_below_pmsym :
 The Lonely Runner Conjecture shares with the Twin Prime Conjecture the
 structural type O₁: Phi_c_complex criticality without topological protection
 (Omega_0). Both are critical but unprotected — approachable from below but
-the final step requires the O₁ → O_∞ promotion stack.
+the final step requires the O₁ → O_inf promotion stack.
 
 LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
@@ -450,14 +450,14 @@ LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
 LONELY RUNNER vs. RIEMANN HYPOTHESIS:
 
-  The RH vessel is O_∞: Phi_c_complex with Omega_Z (integer winding).
+  The RH vessel is O_inf: Phi_c_complex with Omega_Z (integer winding).
   Distance from Lonely Runner = 4:
     P: P_sym → P_pm_sym (Frobenius closure)
     F: F_ell → F_hbar (quantum fidelity)
     H: H2 → H_inf (eternal chirality)
     Ω: Omega_0 → Omega_Z (integer winding)
 
-  The O₁ → O_∞ promotion stack requires all four promotions together.
+  The O₁ → O_inf promotion stack requires all four promotions together.
   This is EXACTLY the same stack as the Twin Prime → RH promotion.
 
 WHY THE LONELY RUNNER IS HARD:

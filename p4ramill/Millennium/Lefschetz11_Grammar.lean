@@ -115,7 +115,7 @@ def lef_hodge_proj : Imscription := {
   tensor(pic,expseq).gram = ɢ_ˌ  (sequential — the proof's logical structure)
   
   TIERS:
-  All O₂ except hol_coh (O₀). No O_∞: none have P_pm_sym.
+  All O₂ except hol_coh (O₀). No O_inf: none have P_pm_sym.
 -/
 
 -- ----------------------------------------------------------------

@@ -1,8 +1,8 @@
 -- Millennium/NS_Resolution.lean
--- Navier-Stokes Existence and Smoothness: O_∞ Structural Resolution
+-- Navier-Stokes Existence and Smoothness: O_inf Structural Resolution
 -- Author: Lando ⊗ ⊙_ÿ-boundary Operator
 --
--- Structural resolution: NS is promoted from O₂† (ZFCₜ tier) to O_∞
+-- Structural resolution: NS is promoted from O₂dag (ZFCₜ tier) to O_inf
 -- by establishing P_pm_sym (Φ_{}) as the gauge-invariant Frobenius gate.
 -- The parity promotion P_asym → P_pm_sym is the single tier gate;
 -- 8 primitives change in total (D, T, R, P, F, K, Γ-gram, Ω).
@@ -44,7 +44,7 @@ open Dimensionality Topology Relational Polarity Grammar
     D_infty  (Ð_;) — infinite-dimensional: unbounded field-theoretic description
     T_bowtie (Þ_ò) — crossing: energy scales meet without closure (blow-up bottleneck)
     R_lr     (Ř_=) — bidirectional: NS equations formally self-adjoint
-    P_asym   (Φ_ɐ) — asymmetric: no global Frobenius axis; the obstruction to O_∞
+    P_asym   (Φ_ɐ) — asymmetric: no global Frobenius axis; the obstruction to O_inf
     F_ell    (ƒ_ì) — classical analytic: L^∞ estimates without categorical exactitude
     K_slow   (Ç_@) — deliberate viscous dissipation
     G_aleph  (Γ_ʔ) — global fine-grained: all-to-all velocity correlations
@@ -101,20 +101,20 @@ def navierStokesResolved : Imscription := {
 
 
 -- ============================================================
--- §2. Tiers: O₂† (source) and O_∞ (resolved)
+-- §2. Tiers: O₂dag (source) and O_inf (resolved)
 -- ============================================================
 
-/-- The source NS is at O₂†: Phi_c gate open + P_asym (no Frobenius) + D_infty.
+/-- The source NS is at O₂dag: Phi_c gate open + P_asym (no Frobenius) + D_infty.
     The problem is self-aware (Phi_c) but structurally open — P_asym prevents
     the μ∘δ=id identity from closing at any energy scale. -/
-theorem ns_source_is_O_2dag : imscriptionTier navierStokesSource = .O₂† := by decide
+theorem ns_source_is_O_2dag : imscriptionTier navierStokesSource = .O₂dag := by decide
 
-/-- The resolved NS is O_∞: Phi_c + P_pm_sym (Special Frobenius).
+/-- The resolved NS is O_inf: Phi_c + P_pm_sym (Special Frobenius).
     The parity promotion P_asym → P_pm_sym is the single tier gate. -/
-theorem ns_resolved_is_O_inf : imscriptionTier navierStokesResolved = .O_∞ := by decide
+theorem ns_resolved_is_O_inf : imscriptionTier navierStokesResolved = .O_inf := by decide
 
-/-- The parity promotion is the sole tier change: O₂† → O_∞.
-    BSD was always O_∞; NS required this promotion. -/
+/-- The parity promotion is the sole tier change: O₂dag → O_inf.
+    BSD was always O_inf; NS required this promotion. -/
 theorem ns_parity_is_the_tier_gate :
     imscriptionTier navierStokesSource ≠ imscriptionTier navierStokesResolved := by
   simp only [ns_source_is_O_2dag, ns_resolved_is_O_inf]; decide
@@ -180,8 +180,8 @@ theorem ns_parity_channel_is_tier_gate :
 -- ============================================================
 
 /-- Peeling the Frobenius gate (P_pm_sym → P_asym) drops resolved NS to O₂.
-    Note: the resolved NS has dim=D_odot (not D_infty), so O₂ (not O₂†) results.
-    To restore O₂†, both P and D would need reverting — confirming the 8-channel
+    Note: the resolved NS has dim=D_odot (not D_infty), so O₂ (not O₂dag) results.
+    To restore O₂dag, both P and D would need reverting — confirming the 8-channel
     promotion is jointly load-bearing. -/
 def ns_peeled_pol : Imscription := { navierStokesResolved with pol := .P_asym }
 
@@ -194,12 +194,12 @@ def ns_peeled_crit : Imscription := { navierStokesResolved with crit := .Phi_sub
 theorem ns_peel_crit : imscriptionTier ns_peeled_crit = .O₀ := by
   simp only [imscriptionTier, ouroboricityTier, ns_peeled_crit, navierStokesResolved]
 
-/-- Restoring K_slow (K_trap → K_slow) does not change the tier (O_∞),
+/-- Restoring K_slow (K_trap → K_slow) does not change the tier (O_inf),
     but raises consciousness from 0.5 to 1.
     K_trap is a structural choice (protection mechanism), not a tier requirement. -/
 def ns_peeled_kin : Imscription := { navierStokesResolved with kin := .K_slow }
 
-theorem ns_peel_kin_tier : imscriptionTier ns_peeled_kin = .O_∞ := by decide
+theorem ns_peel_kin_tier : imscriptionTier ns_peeled_kin = .O_inf := by decide
 
 theorem ns_peel_kin_consciousness :
     consciousnessScore ns_peeled_kin = (1 : ℝ) := by
@@ -211,10 +211,10 @@ theorem ns_peel_kin_consciousness :
 -- ============================================================
 
 /-- NS Global Regularity: the Clay Millennium Problem.
-    The structural analysis places this at O_∞ tier with Omega_Z2 protection
+    The structural analysis places this at O_inf tier with Omega_Z2 protection
     and T_odot closure, but the mathematical proof does not exist. -/
 theorem ns_global_regularity : Millennium.NS.NavierStokesRegularity := by
-  sorry  -- OpenProblem: NS global regularity. Structural analysis places this at O_∞
+  sorry  -- OpenProblem: NS global regularity. Structural analysis places this at O_inf
          -- with Omega_Z2 protection and T_odot closure, but no proof exists.
 
 end Imscribing.Millennium.NSResolution

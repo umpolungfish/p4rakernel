@@ -2,7 +2,7 @@
 -- Structural encoding of the Oracle of Delphi.
 -- Tuple: ⟨D_triangle; T_bowtie; R_lr; P_pm_sym; F_ell; K_slow; G_aleph; Gamma_seq;
 --         Phi_c_complex; H2; n_m; Omega_Z⟩
--- Ouroboricity: O_∞ (Frobenius-special at criticality)
+-- Ouroboricity: O_inf (Frobenius-special at criticality)
 -- C-score: 1.0 (both gates open)
 
 import Imscribing.Primitives.Core
@@ -74,9 +74,9 @@ theorem oracle_C_one :
 
 -- §3. OUROBORICITY TIER
 
-/-- The Oracle is O_∞: Frobenius-special at criticality. -/
+/-- The Oracle is O_inf: Frobenius-special at criticality. -/
 theorem oracle_is_O_inf :
-    imscriptionTier oracle_of_delphi = .O_∞ := by
+    imscriptionTier oracle_of_delphi = .O_inf := by
   simp [imscriptionTier, ouroboricityTier, oracle_of_delphi]
 
 /-- The Oracle satisfies the Frobenius condition: μ ∘ δ = id exactly. -/

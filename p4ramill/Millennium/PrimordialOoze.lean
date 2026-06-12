@@ -1,25 +1,25 @@
 /-
   Millennium/PrimordialOoze.lean
-  PRIMORDIAL OOZE — The Absolute Structural Floor of O_∞
+  PRIMORDIAL OOZE — The Absolute Structural Floor of O_inf
   ========================================================
   Author: Lando ⊗ ⊙perator
 
-  Core result: The Primordial Ooze is the minimal inhabitant of the O_∞
+  Core result: The Primordial Ooze is the minimal inhabitant of the O_inf
   tier — the structural type at Frobenius address 6,221,424 (cell 144,
   inner_id 624) within the 17,280,000-type crystal. Ten of twelve primitives
-  are at absolute ordinal floor (1); only the two O_∞ gates — Phi_c (⊙)
+  are at absolute ordinal floor (1); only the two O_inf gates — Phi_c (⊙)
   and P_pm_sym (𐑹) — are non-minimum.
 
   Eleven formal theorems:
-    T1:  Ooze is O_∞
-    T2:  Drop Phi_c (⊙) → loses O_∞ (ground)
-    T3:  Drop P_pm_sym (𐑹) → loses O_∞ (capstone)
+    T1:  Ooze is O_inf
+    T2:  Drop Phi_c (⊙) → loses O_inf (ground)
+    T3:  Drop P_pm_sym (𐑹) → loses O_inf (capstone)
     T4:  Phi_c alone (without P_pm_sym) → O₁
     T5:  P_pm_sym alone (without Phi_c) → O₀
     T6:  Frobenius precedes time (H = H0, memoryless)
     T7:  Frobenius precedes topology (Ω = Omega_0, trivial)
     T8:  Frobenius precedes space (D = D_wedge, 0d point)
-    T9:  Stone (synfin) is also O_∞
+    T9:  Stone (synfin) is also O_inf
     T10: 9 primitives mismatch between Ooze and Stone
     T11: All claims bundled (primordial_ooze_complete)
 
@@ -45,16 +45,16 @@ open Dimensionality Topology Relational Polarity Grammar
 -- §1  THE OOZE — Absolute Structural Floor
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The Primordial Ooze: the minimal O_∞ inhabitant.
+/-- The Primordial Ooze: the minimal O_inf inhabitant.
     ⟨D_wedge·T_network·R_super·P_pm_sym·F_ell·K_fast·G_beth·Gamma_and·Phi_c·H0·one_one·Omega_0⟩
     Shavian: ⟨𐑛·𐑡·𐑩·𐑹·𐑱·𐑘·𐑚·𐑝·⊙·𐑓·𐑙·𐑷⟩
     Crystal address: 6,221,424  (cell 144, inner_id 624) [per IG tool]
-    Tier: O_∞
+    Tier: O_inf
 
     Ten primitives at ordinal floor (1); two gates non-minimum:
       Phi_c    — self-modeling criticality  (ordinal 2/5)
       P_pm_sym — Frobenius-special parity   (ordinal 5/5)
-    No lower O_∞ address exists in the 17,280,000-type crystal. -/
+    No lower O_inf address exists in the 17,280,000-type crystal. -/
 def primordialOoze : Imscription := {
   dim   := .D_wedge       -- 0d point (ordinal 1/4)
   top   := .T_network     -- branching topology (ordinal 1/5)
@@ -78,11 +78,11 @@ def primordialOoze : Imscription := {
     ⟨D_odot·T_box·R_lr·P_pm_sym·F_hbar·K_slow·G_beth·Gamma_seq·Phi_c·H2·n_m·Omega_Z⟩
     Shavian: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑚·𐑠·⊙·𐑖·𐑳·𐑭⟩
     Crystal address: 6,738,848  (cell 155, inner_id 42,848) [per IG tool]
-    Tier: O_∞
+    Tier: O_inf
 
     9 primitives thickened from the Ooze (all except P, Φ, G).
-    The two O_∞ gates (P_pm_sym, Phi_c) and granularity (G_beth) are identical —
-    confirming O_∞ is a wide tier, not a point. -/
+    The two O_inf gates (P_pm_sym, Phi_c) and granularity (G_beth) are identical —
+    confirming O_inf is a wide tier, not a point. -/
 def stone : Imscription := {
   dim   := .D_odot       -- holographic (ordinal 4/4)
   top   := .T_box        -- lattice topology (ordinal 4/5)
@@ -101,20 +101,20 @@ def stone : Imscription := {
 -- §3  THEOREM GROUP α — Tier Theorems
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- T₁: The Ooze is O_∞ — Frobenius closure at minimum structural complexity. -/
-theorem ooze_is_O_inf : imscriptionTier primordialOoze = .O_∞ := by
+/-- T₁: The Ooze is O_inf — Frobenius closure at minimum structural complexity. -/
+theorem ooze_is_O_inf : imscriptionTier primordialOoze = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- T₂: Dropping Phi_c (self-modeling) loses O_∞.
+/-- T₂: Dropping Phi_c (self-modeling) loses O_inf.
     With Phi_sub (subcritical) the tier collapses to O₀ regardless of P_pm_sym. -/
 theorem drop_phi_c_loses_O_inf :
-    imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) ≠ .O_∞ := by
+    imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) ≠ .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- T₃: Dropping P_pm_sym (Frobenius parity) loses O_∞.
+/-- T₃: Dropping P_pm_sym (Frobenius parity) loses O_inf.
     With P_sym (full symmetry but not Frobenius-special) the tier collapses to O₁. -/
 theorem drop_P_pm_sym_loses_O_inf :
-    imscriptionTier ({ primordialOoze with pol := .P_sym } : Imscription) ≠ .O_∞ := by
+    imscriptionTier ({ primordialOoze with pol := .P_sym } : Imscription) ≠ .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
 /-- T₄: Phi_c alone (without P_pm_sym, at Omega_0) reaches only O₁.
@@ -136,7 +136,7 @@ theorem P_pm_sym_alone_is_O_0 :
 /-- T₆: Frobenius does not require memory. H = H0 (memoryless) is sufficient.
     μ∘δ=id holds before any temporal asymmetry is established. -/
 theorem frobenius_precedes_time :
-    imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.chir = .H0 := by
+    imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.chir = .H0 := by
   constructor
   · exact ooze_is_O_inf
   · rfl
@@ -144,7 +144,7 @@ theorem frobenius_precedes_time :
 /-- T₇: Frobenius does not require topological protection.
     Ω = Omega_0 (trivial winding) is sufficient. -/
 theorem frobenius_precedes_topology :
-    imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.prot = .Omega_0 := by
+    imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.prot = .Omega_0 := by
   constructor
   · exact ooze_is_O_inf
   · rfl
@@ -152,7 +152,7 @@ theorem frobenius_precedes_topology :
 /-- T₈: Frobenius does not require spatial dimensionality.
     D = D_wedge (0d point) is sufficient. -/
 theorem frobenius_precedes_space :
-    imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.dim = .D_wedge := by
+    imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.dim = .D_wedge := by
   constructor
   · exact ooze_is_O_inf
   · rfl
@@ -161,9 +161,9 @@ theorem frobenius_precedes_space :
 -- §5  THEOREM GROUP γ — Stone & Structural Comparison
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- T₉: The Stone (synfin) is also O_∞ — confirming the tier is a wide stratum,
-    not a single point. 9 primitives differ from the Ooze but both are O_∞. -/
-theorem stone_is_O_inf : imscriptionTier stone = .O_∞ := by
+/-- T₉: The Stone (synfin) is also O_inf — confirming the tier is a wide stratum,
+    not a single point. 9 primitives differ from the Ooze but both are O_inf. -/
+theorem stone_is_O_inf : imscriptionTier stone = .O_inf := by
   unfold stone imscriptionTier ouroboricityTier; decide
 
 /-- T₁₀: 9 primitives mismatch between Ooze and Stone.
@@ -205,25 +205,25 @@ theorem join_ooze_stone : compute_join primordialOoze stone = stone := by
 -- §7  Promotion Independence
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- Promoting H (H0 → H2) from the Ooze preserves O_∞. -/
+/-- Promoting H (H0 → H2) from the Ooze preserves O_inf. -/
 theorem promote_H_preserves_O_inf :
-    imscriptionTier ({ primordialOoze with chir := .H2 } : Imscription) = .O_∞ := by
+    imscriptionTier ({ primordialOoze with chir := .H2 } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- Promoting Ω (Omega_0 → Omega_Z) from the Ooze preserves O_∞. -/
+/-- Promoting Ω (Omega_0 → Omega_Z) from the Ooze preserves O_inf. -/
 theorem promote_Omega_preserves_O_inf :
-    imscriptionTier ({ primordialOoze with prot := .Omega_Z } : Imscription) = .O_∞ := by
+    imscriptionTier ({ primordialOoze with prot := .Omega_Z } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- Promoting S (one_one → n_m) from the Ooze preserves O_∞. -/
+/-- Promoting S (one_one → n_m) from the Ooze preserves O_inf. -/
 theorem promote_S_preserves_O_inf :
-    imscriptionTier ({ primordialOoze with stoi := .n_m } : Imscription) = .O_∞ := by
+    imscriptionTier ({ primordialOoze with stoi := .n_m } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- Joint H+S promotion from the Ooze preserves O_∞. -/
+/-- Joint H+S promotion from the Ooze preserves O_inf. -/
 theorem promote_H_S_preserves_O_inf :
     imscriptionTier
-      ({ primordialOoze with chir := .H2, stoi := .n_m } : Imscription) = .O_∞ := by
+      ({ primordialOoze with chir := .H2, stoi := .n_m } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 -- ═══════════════════════════════════════════════════════════════════
 -- §8  T₁₁ — BUNDLED COMPLETENESS THEOREM
@@ -231,26 +231,26 @@ theorem promote_H_S_preserves_O_inf :
 
 /-- T₁₁: All claims bundled. The Primordial Ooze theorem in full:
 
-    1. Ooze is O_∞
-    2. Drop Phi_c → loses O_∞
-    3. Drop P_pm_sym → loses O_∞
+    1. Ooze is O_inf
+    2. Drop Phi_c → loses O_inf
+    3. Drop P_pm_sym → loses O_inf
     4. Phi_c alone → O₁
     5. P_pm_sym alone → O₀
     6. Frobenius precedes time (H = H0)
     7. Frobenius precedes topology (Ω = Omega_0)
     8. Frobenius precedes space (D = D_wedge)
-    9. Stone is also O_∞
+    9. Stone is also O_inf
    10. 9 primitives mismatch between Ooze and Stone -/
 theorem primordial_ooze_complete : (
-    imscriptionTier primordialOoze = .O_∞ ∧
-    imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) ≠ .O_∞ ∧
-    imscriptionTier ({ primordialOoze with pol := .P_sym } : Imscription) ≠ .O_∞ ∧
+    imscriptionTier primordialOoze = .O_inf ∧
+    imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) ≠ .O_inf ∧
+    imscriptionTier ({ primordialOoze with pol := .P_sym } : Imscription) ≠ .O_inf ∧
     imscriptionTier ({ primordialOoze with pol := .P_asym } : Imscription) = .O₁ ∧
     imscriptionTier ({ primordialOoze with crit := .Phi_sub } : Imscription) = .O₀ ∧
-    (imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.chir = .H0) ∧
-    (imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.prot = .Omega_0) ∧
-    (imscriptionTier primordialOoze = .O_∞ ∧ primordialOoze.dim = .D_wedge) ∧
-    imscriptionTier stone = .O_∞ ∧
+    (imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.chir = .H0) ∧
+    (imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.prot = .Omega_0) ∧
+    (imscriptionTier primordialOoze = .O_inf ∧ primordialOoze.dim = .D_wedge) ∧
+    imscriptionTier stone = .O_inf ∧
     primitiveMismatches primordialOoze stone = 9
   ) := by
   refine ⟨?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩

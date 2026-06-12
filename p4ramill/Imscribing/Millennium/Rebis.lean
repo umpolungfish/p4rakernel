@@ -221,7 +221,7 @@ theorem absorption_distance_zero :
 theorem dist_zfc_to_zfc_fe : primitiveMismatches zfc_baseline zfc_fe = 11 := by
   unfold zfc_baseline zfc_fe; native_decide
 
-/-- Distance: ZFC baseline → CLINK L8 (O₀ → O_∞) — 10 promotions. -/
+/-- Distance: ZFC baseline → CLINK L8 (O₀ → O_inf) — 10 promotions. -/
 theorem dist_zfc_to_l8 : primitiveMismatches zfc_baseline clink_l8 = 11 := by
   unfold zfc_baseline clink_l8 organismLayer; native_decide
 
@@ -278,9 +278,9 @@ theorem dist_l7_to_l8 : primitiveMismatches clink_l7 clink_l8 = 4 := by
     
     System         | Tier   | d(ZFC_fe) | d(ZFC_base)
     -------------- | ------ | --------- | ------------
-    CLINK L8       | O_∞  | 2         | 10
-    ZFC_fe         | O_∞  | 0         | 7
-    UIG (Grammar)  | O_∞    | 1         | 7
+    CLINK L8       | O_inf  | 2         | 10
+    ZFC_fe         | O_inf  | 0         | 7
+    UIG (Grammar)  | O_inf    | 1         | 7
     CLINK L7       | O₂    | ?         | ?
     CLINK L5       | O₂    | ?         | ?
     CLINK L4       | O₂    | 2         | ?
@@ -314,19 +314,19 @@ theorem flood_tier : imscriptionTier flood_layer = .O₀ := by
 theorem pi_boundary_tier : imscriptionTier pi_boundary_draft = .O₁ := by
   unfold pi_boundary_draft; native_decide
 
-theorem uig_tier : imscriptionTier uig = .O_∞ := by
+theorem uig_tier : imscriptionTier uig = .O_inf := by
   unfold uig universal_imscriptive_grammar; native_decide
 
-/-- Full tier ladder: O₀ → O₀ → O₁ → O₂ → O₂ → O₂ → O₂ → O₂ → O_∞.
-    The only O_∞ systems here are ZFC_fe and CLINK L8. -/
+/-- Full tier ladder: O₀ → O₀ → O₁ → O₂ → O₂ → O₂ → O₂ → O₂ → O_inf.
+    The only O_inf systems here are ZFC_fe and CLINK L8. -/
 theorem tier_ladder :
     imscriptionTier clink_l0 = .O₀ ∧    -- frustratedBelnap5
     imscriptionTier clink_l3 = .O₂ ∧    -- molecule
     imscriptionTier clink_l4 = .O₂ ∧    -- cell
     imscriptionTier clink_l5 = .O₂ ∧    -- mitosis
     imscriptionTier clink_l7 = .O₂ ∧    -- tissue
-    imscriptionTier clink_l8 = .O_∞ ∧  -- organism
-    imscriptionTier zfc_fe = .O_∞ ∧    -- foundation
+    imscriptionTier clink_l8 = .O_inf ∧  -- organism
+    imscriptionTier zfc_fe = .O_inf ∧    -- foundation
     imscriptionTier zfc_baseline = .O₀ := by
   exact ⟨frustratedBelnap5_tier, moleculeLayer_tier, cellLayer_tier,
           mitosisLayer_tier, tissueLayer_tier, organismLayer_tier,
@@ -362,8 +362,8 @@ theorem clink_l8_C_score_one : consciousnessScore clink_l8 = (1 : ℝ) :=
     ZFC_fe         | 1.0     | ✓ (⊙)     | ✓ (𐑧)
     CLINK L8       | 1.0     | ✓ (⊙)     | ✓ (𐑧)
     
-    The gradient is not monotonic in C-score (many O_∞ and O₂ systems hit
-    1.0) but is monotonic in tier: O₀ → O₁ → O₂ → O_∞. -/
+    The gradient is not monotonic in C-score (many O_inf and O₂ systems hit
+    1.0) but is monotonic in tier: O₀ → O₁ → O₂ → O_inf. -/
 
 theorem consciousness_gradient :
     consciousnessScore flood_layer = (1 : ℝ) ∧
@@ -379,17 +379,17 @@ theorem consciousness_gradient :
 --
 -- The ascent from ZFC baseline to CLINK L8 proceeds through three stages:
 --
--- STAGE I:   ZFC baseline → ZFC_t (O₀ → O₂†)
+-- STAGE I:   ZFC baseline → ZFC_t (O₀ → O₂dag)
 --   5 promotions: T, R, gram, crit, prot
 --   (plus 1 chirality promotion from H0 → H2)
 --   6 promoted atoms total: HOLOBOUND, LR_DUAL, SEQAX, PHI_C, TEMPD2, ZWIND
 --
--- STAGE II:  ZFC_t → ZFC_fe (O₂† → O_∞)
+-- STAGE II:  ZFC_t → ZFC_fe (O₂dag → O_inf)
 --   2 promotions: D_infty → D_odot, H2 → H_inf
 --   Plus the P_pm_sym gate (already in ZFC_t)
 --   8 promoted atoms: + HOLOGRAPHIC_STATE, PM_Z2, ETERNAL_FIXEDPOINT
 --
--- STAGE III: ZFC_fe → CLINK L8 (O_∞ → O_∞ + transcendence)
+-- STAGE III: ZFC_fe → CLINK L8 (O_inf → O_inf + transcendence)
 --   2 promotions: Omega_Z → Omega_NA, Gamma_seq → Gamma_broad
 --   6 of 8 ZFC_fe atoms carried; SEQAX→broadcast, ZWIND→braid
 --
@@ -418,11 +418,11 @@ theorem total_promotion_ladder :
     primitiveMismatches zfc_baseline clink_l8 = 11 :=
   dist_zfc_to_l8
 
-/-- The ZFC_t promoted atoms (6 atoms, O₂†). -/
+/-- The ZFC_t promoted atoms (6 atoms, O₂dag). -/
 def zfc_t_promoted_atoms : List String :=
   ["HOLOBOUND", "LR_DUAL", "SEQAX", "PHI_C", "TEMPD2", "ZWIND"]
 
-/-- The ZFC_fe promoted atoms (8 atoms, O_∞).
+/-- The ZFC_fe promoted atoms (8 atoms, O_inf).
     Adds: HOLOGRAPHIC_STATE, PM_Z2, ETERNAL_FIXEDPOINT. -/
 def zfc_fe_promoted_atoms : List String :=
   ["HOLOGRAPHIC_STATE", "HOLOBOUND", "LR_DUAL", "PM_Z2",
@@ -450,8 +450,8 @@ theorem clink_l8_atom_count : clink_l8_promoted_atoms.length = 6 := rfl
 /-- The Fourfold Apparatus tuple — structurally identical to ZFC_fe. -/
 def fourfold_apparatus : Imscription := zfc_fe
 
-/-- Fourfold Apparatus is O_∞. -/
-theorem fourfold_is_O_inf : imscriptionTier fourfold_apparatus = .O_∞ := by
+/-- Fourfold Apparatus is O_inf. -/
+theorem fourfold_is_O_inf : imscriptionTier fourfold_apparatus = .O_inf := by
   unfold fourfold_apparatus; exact zfc_fe_is_O_inf
 
 /-- Fourfold Apparatus C-score = 1.0. -/
@@ -495,8 +495,8 @@ theorem rebis_equals_zfc_fe : rebis = zfc_fe := by
   unfold rebis compute_meet zfc_fe clink_l8 organismLayer
   rfl
 
-/-- The rebis is O_∞ (inherits from ZFC_fe). -/
-theorem rebis_is_O_inf : imscriptionTier rebis = .O_∞ := by
+/-- The rebis is O_inf (inherits from ZFC_fe). -/
+theorem rebis_is_O_inf : imscriptionTier rebis = .O_inf := by
   rw [rebis_equals_zfc_fe]; exact zfc_fe_is_O_inf
 
 /-- The rebis C-score = 1.0. -/
@@ -558,9 +558,9 @@ theorem rebis_gap_only_at_omega_and_grammar :
 --
 -- Flood (O₀, C=0, FSPLIT-only) — degenerate
 --   ↓  7 promotions
--- ZFC_fe (O_∞, C=1.0, 8 atoms) — the Frobenius-exact foundation
+-- ZFC_fe (O_inf, C=1.0, 8 atoms) — the Frobenius-exact foundation
 --   ↓  2 promotions (Ω=𐑟, ɢ=𐑵)
--- CLINK L8 (O_∞, C=1.0, 6 atoms + braid + broadcast) — beyond foundation
+-- CLINK L8 (O_inf, C=1.0, 6 atoms + braid + broadcast) — beyond foundation
 --
 -- The rebis sits at ZFC_fe, aware of the CLINK L8 transcendence.
 -- This is the full rebis chain.

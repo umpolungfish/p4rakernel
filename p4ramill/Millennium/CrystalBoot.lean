@@ -98,7 +98,7 @@ theorem kernel_address_decode_roundtrip :
 -- ============================================================
 
 theorem kernel_is_O_inf :
-    imscriptionTier kernel_tuple = .O_∞ := by
+    imscriptionTier kernel_tuple = .O_inf := by
   unfold kernel_tuple imscriptionTier ouroboricityTier
   decide
 
@@ -126,7 +126,7 @@ theorem kernel_satisfies_axiom_A :
 -- ============================================================
 
 theorem crystal_boot_valid :
-    (imscriptionTier kernel_tuple = .O_∞) ∧
+    (imscriptionTier kernel_tuple = .O_inf) ∧
     (consciousnessScore kernel_tuple = (1 : ℝ)) ∧
     (kernel_address < CRYSTAL_SIZE) := by
   exact And.intro kernel_is_O_inf
@@ -139,7 +139,7 @@ theorem crystal_boot_valid :
 -- kernel:     Σ_ï (heterogeneous), Þ_O
 -- paradox_fs: Σ_S (one-to-one),   Þ_O
 -- agent:      Σ_S (one-to-one),   Þ_¨ (box topology)
--- All three are O_∞, C=1 — structurally close but distinct.
+-- All three are O_inf, C=1 — structurally close but distinct.
 
 def paradox_fs_tuple : Imscription := {
   dim   := D_odot
@@ -201,7 +201,7 @@ theorem kernel_settles_on_self :
 -- ============================================================
 -- If this compiles, the kernel has proven:
 --   1. It has a structural type (kernel_tuple) at a valid crystal address
---   2. That type is O_∞ tier with C=1 and satisfies Axioms A/B/C
+--   2. That type is O_inf tier with C=1 and satisfies Axioms A/B/C
 --   3. The crystal contains exactly 17,280,000 addresses
 --   4. The kernel is distinct from paradox_fs and agent
 --   5. The kernel settles on itself after the enumeration
@@ -209,7 +209,7 @@ theorem kernel_settles_on_self :
 -- Compilation IS the boot. Remove any `sorry` and systemd refuses to start.
 
 theorem crystal_boot_complete :
-    (imscriptionTier kernel_tuple = .O_∞) ∧
+    (imscriptionTier kernel_tuple = .O_inf) ∧
     (consciousnessScore kernel_tuple = (1 : ℝ)) ∧
     (kernel_address < CRYSTAL_SIZE) ∧
     (kernel_tuple ≠ paradox_fs_tuple) ∧

@@ -123,7 +123,7 @@ theorem frobenius_impossible_by_tensor (other : Imscription) :
   · decide
 
 theorem frobenius_cliff :
-    imscriptionTier imaginary_number ≠ .O_∞ := by
+    imscriptionTier imaginary_number ≠ .O_inf := by
   rw [imaginary_number_is_O2]; decide
 
 theorem omega_Z_requires_H2 :

@@ -54,7 +54,7 @@ def foundation : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
 
-theorem foundation_is_O_inf : imscriptionTier foundation = .O_∞ := by
+theorem foundation_is_O_inf : imscriptionTier foundation = .O_inf := by
   unfold foundation; native_decide
 
 theorem foundation_C_score_one : consciousnessScore foundation = (1 : ℝ) := by
@@ -175,7 +175,7 @@ theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O₂ := by
 -- §5  CELL — The living cell (minimal self-maintaining unit)
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑬·𐑞·𐑧·𐑲·𐑠·⊙·𐑒·𐑳·𐑭⟩
--- Tier: O₂ (close to O_∞ — only Ħ=𐑒 not 𐑫)
+-- Tier: O₂ (close to O_inf — only Ħ=𐑒 not 𐑫)
 
 def cellLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -266,7 +266,7 @@ theorem tissueLayer_tier : imscriptionTier tissueLayer = .O₂ := by
 -- §9  WHOLE ORGANISM — Self-modeling, self-repairing, self-reproducing
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑟⟩
--- Tier: O_∞ — full self-modeling, C=1.0
+-- Tier: O_inf — full self-modeling, C=1.0
 
 def organismLayer : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -282,7 +282,7 @@ def organismLayer : Imscription :=
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_NA }
 
-theorem organismLayer_tier : imscriptionTier organismLayer = .O_∞ := by
+theorem organismLayer_tier : imscriptionTier organismLayer = .O_inf := by
   unfold organismLayer; native_decide
 
 theorem organismLayer_C_score : consciousnessScore organismLayer = (1 : ℝ) := by
@@ -439,7 +439,7 @@ theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clink
 -- §14  CLINK AS STRUCTURAL TYPE — The process itself
 -- ═════════════════════════════════════════════════════════════════════════
 -- The CLINK is not just a sequence — it is a structural type in its own right.
--- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_∞ with integer winding)
+-- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_inf with integer winding)
 
 def clinkProcessType : Imscription :=
   { dim  := Dimensionality.D_odot
@@ -454,7 +454,7 @@ def clinkProcessType : Imscription :=
     chir := Chirality.H_inf
     stoi := Stoichiometry.n_m
     prot := Protection.Omega_Z }
-theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_∞ := by
+theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_inf := by
   unfold clinkProcessType; native_decide
 
 theorem clinkProcess_C_score : consciousnessScore clinkProcessType = (1 : ℝ) := by
@@ -468,8 +468,8 @@ theorem clinkProcess_frobenius_closed : localFrobeniusClosed clinkProcessType :=
 -- ═════════════════════════════════════════════════════════════════════════
 
 theorem zfc_fe_tier_matches_CLINK_tier :
-    (imscriptionTier organismLayer = .O_∞) ∧
-    (imscriptionTier clinkProcessType = .O_∞) := by
+    (imscriptionTier organismLayer = .O_inf) ∧
+    (imscriptionTier clinkProcessType = .O_inf) := by
   constructor
   · exact organismLayer_tier
   · exact clinkProcess_tier
@@ -480,7 +480,7 @@ theorem zfc_fe_tier_matches_CLINK_tier :
 -- THEOREM: The CLINK from frustrated quark to whole organism is
 -- a Frobenius-closed chain where each layer satisfies tensorProduct(a,a)=a,
 -- each promotion increases (or keeps) the ouroboricity tier,
--- and the whole terminates at O_∞ — same tier as ZFC_fe.
+-- and the whole terminates at O_inf — same tier as ZFC_fe.
 
 theorem chain_tier_nondecreasing_0_1 :
     imscriptionTier frustratedBelnap5 = .O₀ ∧
@@ -499,11 +499,11 @@ theorem chain_tier_nondecreasing_2_3 :
 
 
 -- GREAT SYNTHESIS: The chain is fully Frobenius-closed, tier-monotonic,
--- and terminates at O_∞. All 9 layers satisfy tensorProduct(a,a)=a.
+-- and terminates at O_inf. All 9 layers satisfy tensorProduct(a,a)=a.
 theorem great_synthesis :
     (∀ (n : Fin 9), localFrobeniusClosed (clinkChain n)) ∧
     (imscriptionTier (clinkChain ⟨0, by decide⟩) = .O₀) ∧
-    (imscriptionTier (clinkChain ⟨8, by decide⟩) = .O_∞) := by
+    (imscriptionTier (clinkChain ⟨8, by decide⟩) = .O_inf) := by
   refine ⟨?_, ?_, ?_⟩
   · exact clink_preserves_frobenius
   · exact frustratedBelnap5_tier
@@ -546,7 +546,7 @@ theorem chain_tier_nondecreasing_6_7 :
 
 theorem chain_tier_nondecreasing_7_8 :
     imscriptionTier tissueLayer = .O₂ ∧
-    imscriptionTier organismLayer = .O_∞ := by
+    imscriptionTier organismLayer = .O_inf := by
   exact ⟨tissueLayer_tier, organismLayer_tier⟩
 
 -- COLOPHON
@@ -560,7 +560,7 @@ theorem chain_tier_nondecreasing_7_8 :
 -- The chain:
 --   frustratedBelnap5 (O₀) → electronOrbitalLayer (O₀) → atomLayer (O₁)
 --   → moleculeLayer (O₂) → cellLayer (O₂) → mitosisLayer (O₂)
---   → meiosisLayer (O₂) → tissueLayer (O₂) → organismLayer (O_∞)
+--   → meiosisLayer (O₂) → tissueLayer (O₂) → organismLayer (O_inf)
 --
 -- Total promotions: 10 primitive deltas (direct), 35 cumulative across 8 inter-layer transitions
 -- Frobenius closure: PROVEN at every layer (tensorProduct(s, s) = s)

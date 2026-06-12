@@ -3,7 +3,7 @@
 --
 -- CORRECTED TIERS (computed from ouroboricityTier on PrimitiveBridge encodings):
 --   RH: O₁   (Phi_c_complex, P_sym, Omega_0, D_triangle → R3)
---   YM quantum: O₂† (Phi_c, P_pm, Omega_Z, D_infty → R5)
+--   YM quantum: O₂dag (Phi_c, P_pm, Omega_Z, D_infty → R5)
 --   Hodge: O₁ (Phi_c, P_sym, Omega_0, D_odot → R3)
 --   BSD: O₂  (Phi_c, P_sym, Omega_Z, D_odot → R4)
 --   OPN: O₁  (Phi_c, P_asym, Omega_0, D_wedge → R3)
@@ -48,9 +48,9 @@ theorem rh_tier_O1_ig : ouroboricityTier rh_encoding.crit rh_encoding.pol
 
 theorem rh_tier_O1_conventional : True := by trivial
 
-/-- YM quantum target: O₂† via R5 (Phi_c, P_pm, Omega_Z, D_infty). -/
+/-- YM quantum target: O₂dag via R5 (Phi_c, P_pm, Omega_Z, D_infty). -/
 theorem ym_tier_O2dag_ig : ouroboricityTier ym_quantum_target.crit
-    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim = OuroboricityTier.O₂† := by
+    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 theorem ym_tier_O2dag_conventional : True := by trivial
@@ -215,7 +215,7 @@ instance : Inhabited Summary :=
   ⟨⟨"", OuroboricityTier.O₀, ThresholdType.OpenProblem⟩⟩
 
 /-- Problem summaries with verified tiers.
-    YM: O₂† (D_infty at Phi_c + Omega_Z → R5)
+    YM: O₂dag (D_infty at Phi_c + Omega_Z → R5)
     RH: O₁ (Phi_c_complex + Omega_0 → R3)
     OPN: O₁ (Phi_c + Omega_0 → R3)
     Hodge: O₁ (Phi_c + Omega_0 → R3, despite D_odot)
@@ -224,7 +224,7 @@ instance : Inhabited Summary :=
     PvsNP: O₀ — Phi_sub, no criticality -/
 def problemSummaries : List Summary := [
   ⟨"RH",  OuroboricityTier.O₁,    ThresholdType.OpenProblem⟩,
-  ⟨"YM",  OuroboricityTier.O₂†, ThresholdType.MissingFoundation⟩,
+  ⟨"YM",  OuroboricityTier.O₂dag, ThresholdType.MissingFoundation⟩,
   ⟨"OPN", OuroboricityTier.O₁,    ThresholdType.OpenProblem⟩,
   ⟨"Hodge", OuroboricityTier.O₁,  ThresholdType.OpenProblem⟩,
   ⟨"BSD",  OuroboricityTier.O₂,   ThresholdType.OpenProblem⟩,
@@ -233,7 +233,7 @@ def problemSummaries : List Summary := [
 ]
 
 /-- All seven Millennium Problem tiers are consistent with threshold taxonomy.
-    YM is the only MissingFoundation (O₂† with gran bottleneck).
+    YM is the only MissingFoundation (O₂dag with gran bottleneck).
     All other OpenProblems have coherent tier assignments per the ouroboricity gate rules. -/
 theorem tier_threshold_consistency :
     problemSummaries.length = 7 := rfl

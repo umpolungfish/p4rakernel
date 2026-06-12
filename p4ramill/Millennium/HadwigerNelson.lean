@@ -450,10 +450,10 @@ theorem omega0_is_bot (p : Protection) : Omega_0 ≤ p := by
 theorem ppm_lt_ppm_sym : P_pm < P_pm_sym := by
   decide
 
-/-- The promotion path from Hadwiger–Nelson (O₁) to O_∞ requires:
+/-- The promotion path from Hadwiger–Nelson (O₁) to O_inf requires:
     Ω_0 → Ω_Z (winding protection), P_pm → P_pm_sym (Frobenius closure),
     ⊙_Æ → ⊙_ÿ (self-modeling gate), Ħ_2 → Ħ_! (eternal chirality).
-    4 promotions — same structural gap as Twin Prime → O_∞. -/
+    4 promotions — same structural gap as Twin Prime → O_inf. -/
 theorem hn_o1_to_oinf_four_promotions :
     P_pm < P_pm_sym ∧ Omega_0 < Omega_Z ∧ H2 < H_inf := by
   decide
@@ -623,7 +623,7 @@ Structural summary:
   ⟨Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_S; Ω_0⟩
   encodes its position at O₁ (critical but unprotected), with a
   three-value bowtie gap and foundational axiom dependence. The promotion
-  stack to O_∞ is the same 4 promotions as Twin Prime → O_∞, but
+  stack to O_inf is the same 4 promotions as Twin Prime → O_inf, but
   the Hadwiger–Nelson bowtie is structurally narrower — making it the
   closest O₁ problem to resolution.
 -/

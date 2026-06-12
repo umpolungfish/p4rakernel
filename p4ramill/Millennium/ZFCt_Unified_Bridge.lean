@@ -14,7 +14,7 @@ import Imscribing.Consciousness
 /-!
   # ZFCₜ Unified Bridge: The Six Promotion Channels Across All Millennium Problems
 
-  ZFCₜ = ZFC + Chirality + Winding Topology (tier O₂†). The six promotion channels:
+  ZFCₜ = ZFC + Chirality + Winding Topology (tier O₂dag). The six promotion channels:
 
     1. HOLOBOUND (T_network → T_odot):   Holographic boundary encoding
     2. LR_DUAL    (R_super → R_lr):      Bidirectional duality
@@ -47,10 +47,10 @@ set_option linter.style.longLine false
 /-- ZFCₜ baseline: ⟨D_infty; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
 def zfc_t_structural : Imscription := ZFCt.zfc_t
 
-/-- NS Source (O₂†): As defined in NS_Resolution. -/
+/-- NS Source (O₂dag): As defined in NS_Resolution. -/
 def ns_structural : Imscription := NSResolution.navierStokesSource
 
-/-- NS Resolved (O_∞): As defined in NS_Resolution. -/
+/-- NS Resolved (O_inf): As defined in NS_Resolution. -/
 def ns_resolved_structural : Imscription := NSResolution.navierStokesResolved
 
 /-- RH structural: ⟨D_triangle; T_bowtie; R_lr; P_asym; F_ell; K_slow; G_aleph; Gamma_seq; Phi_c_complex; H1; n_m; Omega_Z⟩ -/
@@ -74,7 +74,7 @@ def hodge_structural : Imscription := {
   crit := Phi_c,       chir := H2,        stoi := n_m,     prot := Omega_Z
 }
 
-/-- BSD resolved (O_∞): ⟨D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
+/-- BSD resolved (O_inf): ⟨D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
 def bsd_structural : Imscription := {
   dim  := D_odot,      top := T_odot,     rel := R_lr,     pol := P_pm_sym,
   fid  := F_hbar,      kin := K_slow,     gran := G_aleph, gram := Gamma_seq,
@@ -202,7 +202,7 @@ def hodge_profile : PromotionProfile := {
   zwind     := true   -- Hodge numbers carry integer structure
 }
 
-/-- BSD Conjecture: ALL channels closed (structurally resolved to O_∞). -/
+/-- BSD Conjecture: ALL channels closed (structurally resolved to O_inf). -/
 def bsd_profile : PromotionProfile := {
   name := "Birch–Swinnerton-Dyer"
   holobound := true   -- Modularity Theorem: L(E,s) is holographic

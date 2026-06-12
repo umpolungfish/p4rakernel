@@ -9,7 +9,7 @@
 -- Core result: The tuple ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 -- is the minimal self-modeling structure — three physical instantiations
 -- (logical, information-theoretic, physical), all satisfying μ∘δ=id by
--- definitional equality (rfl), all achieving O_∞ in 72/88 universe rulesets.
+-- definitional equality (rfl), all achieving O_inf in 72/88 universe rulesets.
 --
 -- The 16 gate failures are structurally principled: the fixed point carries
 -- exactly the structure sufficient for μ∘δ=id and no more. The T-consistency
@@ -46,12 +46,12 @@ namespace Millennium.FrobeniusUnification
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 
     This is the unique tuple shared by Belnap B, the SIC-POVM fiducial,
-    and the Majorana paired state. It is O_∞ by R1 (Φ_c + P_pm_sym). -/
+    and the Majorana paired state. It is O_inf by R1 (Φ_c + P_pm_sym). -/
 def frobeniusFixedTuple : Imscription :=
   majoranaFixedImscription
 
-/-- The tuple is O_∞ — self-modeling Frobenius closure. -/
-theorem frobenius_fixed_is_O_inf : imscriptionTier frobeniusFixedTuple = .O_∞ :=
+/-- The tuple is O_inf — self-modeling Frobenius closure. -/
+theorem frobenius_fixed_is_O_inf : imscriptionTier frobeniusFixedTuple = .O_inf :=
   majorana_fixed_is_O_inf
 
 /-- The three fixed points are definitionally equal at the structural level.
@@ -370,23 +370,23 @@ theorem minimal_sufficient_structure :
   native_decide
 
 /-- The tuple is Frobenius-minimal: all 12 primitives are at the minimum
-    ordinal sufficient for O_∞. Any reduction in any primitive would
+    ordinal sufficient for O_inf. Any reduction in any primitive would
     lose the Frobenius condition. -/
 theorem frobenius_minimality :
-    -- If we reduce any primitive below its current value, O_∞ is lost.
+    -- If we reduce any primitive below its current value, O_inf is lost.
     -- (Proved by checking each primitive independently.)
     (let s := frobeniusFixedTuple
      let s' : Imscription := { s with dim := .D_triangle }
-     imscriptionTier s' ≠ .O_∞) ∧
+     imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
      let s' : Imscription := { s with top := .T_box }
-     imscriptionTier s' ≠ .O_∞) ∧
+     imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
      let s' : Imscription := { s with pol := .P_sym }
-     imscriptionTier s' ≠ .O_∞) ∧
+     imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
      let s' : Imscription := { s with crit := .Phi_sub }
-     imscriptionTier s' ≠ .O_∞) := by
+     imscriptionTier s' ≠ .O_inf) := by
   unfold frobeniusFixedTuple majoranaFixedImscription
   native_decide
 -- ═══════════════════════════════════════════════════════════════════
@@ -471,19 +471,19 @@ theorem frobenius_unification_is_universe_invariant (r : Ruleset) :
 /-- The complete Frobenius unification summary as a single theorem:
 
     1. Three structures share one tuple ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
-    2. The tuple is O_∞ (self-modeling Frobenius closure)
+    2. The tuple is O_inf (self-modeling Frobenius closure)
     3. The three fixed-point identities hold by definitional equality (rfl)
     4. The tuple passes all 8 canonical rulesets and 18/20 predefined rulesets
     5. The 2 predefined failures (high_gate, triple_criticality) are structurally principled
     6. The T-consistency gap (canonical T requires Ħ_∞ but μ∘δ=id only requires Ħ_A)
        shows the fixed point is more primitive than time
-    7. The tuple is minimal — reducing any primitive breaks O_∞
+    7. The tuple is minimal — reducing any primitive breaks O_inf
     8. The fixed points are universe-invariant (hold by rfl in every ruleset) -/
 theorem complete_unification :
     -- (1) Tuple is shared
     (∀ x : Belnap, meet Belnap.B x = x) ∧
-    -- (2) O_∞
-    imscriptionTier frobeniusFixedTuple = .O_∞ ∧
+    -- (2) O_inf
+    imscriptionTier frobeniusFixedTuple = .O_inf ∧
     -- (3) rfl
     (band Belnap.B (bnot Belnap.B) = Belnap.B) ∧
     (∀ s : OrbitalState, pair (depair s).1 (depair s).2 = s) ∧
@@ -497,7 +497,7 @@ theorem complete_unification :
     ruleset_canonical.tConsistent frobeniusFixedTuple = false ∧
     ruleset_t_structural.tConsistent frobeniusFixedTuple = true ∧
     -- (7) Minimality
-    imscriptionTier ( { frobeniusFixedTuple with dim := .D_triangle } ) ≠ .O_∞ :=
+    imscriptionTier ( { frobeniusFixedTuple with dim := .D_triangle } ) ≠ .O_inf :=
   ⟨sic_fixed_point, majorana_fixed_is_O_inf, frobenius_unification.1,
    orbital_fixed_point, canonical_all_O_inf, predefined_O_inf_count,
    t_consistency_canonical_fails, t_consistency_structural_passes,

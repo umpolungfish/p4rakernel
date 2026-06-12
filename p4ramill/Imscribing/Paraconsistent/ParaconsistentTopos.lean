@@ -100,7 +100,7 @@ def paraconsistentToposImscription : Imscription := {
 }
 
 theorem paraconsistent_topos_is_O_inf :
-    imscriptionTier paraconsistentToposImscription = .O_∞ := by
+    imscriptionTier paraconsistentToposImscription = .O_inf := by
   simp [imscriptionTier, ouroboricityTier, paraconsistentToposImscription]
 
 theorem topos_same_tier_as_kernel :
@@ -114,8 +114,8 @@ theorem topos_same_tier_as_kernel :
 theorem siege_of_olympus :
     (band Belnap.B (bnot Belnap.B) = Belnap.B) ∧
     (Belnap.B ≠ Belnap.F) ∧
-    (imscriptionTier paraconsistentToposImscription = .O_∞) ∧
-    (imscriptionTier kernelImscription = .O_∞) :=
+    (imscriptionTier paraconsistentToposImscription = .O_inf) ∧
+    (imscriptionTier kernelImscription = .O_inf) :=
   ⟨no_explosion, B_ne_F, paraconsistent_topos_is_O_inf, kernel_is_O_inf⟩
 
 end Imscribing.Paraconsistent.ParaconsistentTopos

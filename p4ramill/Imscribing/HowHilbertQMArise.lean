@@ -33,8 +33,8 @@ def quantum_mechanics : Imscription := {
   prot := Omega_Z
 }
 
--- QM is O₂†: Phi_c_complex + P_psi (not P_pm_sym) + Omega_Z + D_infty.
-theorem qm_tier : imscriptionTier quantum_mechanics = .O₂† := by
+-- QM is O₂dag: Phi_c_complex + P_psi (not P_pm_sym) + Omega_Z + D_infty.
+theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
   unfold imscriptionTier quantum_mechanics ouroboricityTier
   decide
 
@@ -101,8 +101,8 @@ def quantum_field_theory : Imscription := {
   prot := Omega_Z
 }
 
--- QFT is O_∞: P_pm_sym at Phi_c opens the Frobenius gate.
-theorem qft_tier : imscriptionTier quantum_field_theory = .O_∞ := by
+-- QFT is O_inf: P_pm_sym at Phi_c opens the Frobenius gate.
+theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
   decide
 
 -- QM -> QFT: dim (D_infty->D_odot), pol (P_psi->P_pm_sym), crit (Phi_c_complex->Phi_c) = 3 diffs.
