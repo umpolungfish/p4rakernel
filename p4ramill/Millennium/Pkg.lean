@@ -72,7 +72,7 @@ def libbar : Imscription :=
     stoi := Stoichiometry.one_one
     prot := Protection.Omega_0 }
 
-/-- libbaz: O_∞ tier. -/
+/-- libbaz: O_inf tier. -/
 def libbaz : Imscription :=
   { dim  := Dimensionality.D_odot
     top  := Topology.T_odot
@@ -190,8 +190,8 @@ lemma cj_prot (a b : Imscription) : (compute_join a b).prot = maxField a.prot b.
 -- THEOREMS
 -- ─────────────────────────────────────────────────────────
 
-/-- T1: pkg is O_∞ tier. -/
-theorem pkg_is_O_inf : imscriptionTier pkg = .O_∞ := by
+/-- T1: pkg is O_inf tier. -/
+theorem pkg_is_O_inf : imscriptionTier pkg = .O_inf := by
   unfold pkg; decide
 
 /-- T2: pkg ≠ agent (T_bowtie ≠ T_boxtimes). -/
@@ -286,8 +286,8 @@ theorem libfoo_tier : imscriptionTier libfoo = .O₀ := by
 theorem libbar_tier : imscriptionTier libbar = .O₀ := by
   unfold libbar; decide
 
-/-- T10: libbaz is O_∞. -/
-theorem libbaz_tier : imscriptionTier libbaz = .O_∞ := by
+/-- T10: libbaz is O_inf. -/
+theorem libbaz_tier : imscriptionTier libbaz = .O_inf := by
   unfold libbaz; decide
 
 /-- T11: Resolution foo+bar stays at O₀ (both libfoo and libbar are Phi_sub). -/
@@ -295,8 +295,8 @@ theorem resolution_foo_bar_tier : imscriptionTier resolution_foo_bar = .O₀ := 
   unfold resolution_foo_bar pkg_resolve libfoo libbar
   decide
 
-/-- T12: O_∞ absorbs O₀. Join(libbaz, libfoo) = libbaz.
-    Installing an O_∞ package alongside anything preserves O_∞. -/
+/-- T12: O_inf absorbs O₀. Join(libbaz, libfoo) = libbaz.
+    Installing an O_inf package alongside anything preserves O_inf. -/
 theorem resolution_foo_baz_is_baz : resolution_foo_baz = libbaz := by
   unfold resolution_foo_baz pkg_resolve
   apply Imscription.ext
@@ -313,9 +313,9 @@ theorem resolution_foo_baz_is_baz : resolution_foo_baz = libbaz := by
   · unfold compute_join libfoo libbaz; rfl
   · unfold compute_join libfoo libbaz; rfl
 
-/-- T13: Join with O_∞ preserves O_∞. -/
+/-- T13: Join with O_inf preserves O_inf. -/
 theorem resolution_with_O_inf_preserves_O_inf :
-    imscriptionTier (pkg_resolve libbaz libfoo) = .O_∞ := by
+    imscriptionTier (pkg_resolve libbaz libfoo) = .O_inf := by
   unfold pkg_resolve libbaz libfoo
   decide
 

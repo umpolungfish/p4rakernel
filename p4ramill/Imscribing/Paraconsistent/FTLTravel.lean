@@ -71,12 +71,12 @@ def ftlQuantum : Imscription :=
 theorem ftlTachyon_tier_O0 : imscriptionTier ftlTachyon = OuroboricityTier.O₀ := by
   native_decide
 
-/-- Wormhole FTL reaches O₂†: topological protection + criticality + infinite dims. -/
-theorem ftlWormhole_tier_O2dag : imscriptionTier ftlWormhole = OuroboricityTier.O₂† := by
+/-- Wormhole FTL reaches O₂dag: topological protection + criticality + infinite dims. -/
+theorem ftlWormhole_tier_O2dag : imscriptionTier ftlWormhole = OuroboricityTier.O₂dag := by
   native_decide
 
-/-- Quantum FTL channel reaches O₂†: P_psi + Ω_Z + Φ_c + D_infty → O₂† (R5). -/
-theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O₂† := by
+/-- Quantum FTL channel reaches O₂dag: P_psi + Ω_Z + Φ_c + D_infty → O₂dag (R5). -/
+theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O₂dag := by
   native_decide
 
 -- §4  PROMOTION ANALYSIS
@@ -111,12 +111,12 @@ theorem omega_constraint :
 theorem tachyon_is_paradox : imscriptionTier ftlTachyon = OuroboricityTier.O₀ :=
   ftlTachyon_tier_O0
 
-/-- Wormhole (Ω=Ω_Z) is tier O₂† — causally consistent. -/
-theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O₂† :=
+/-- Wormhole (Ω=Ω_Z) is tier O₂dag — causally consistent. -/
+theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O₂dag :=
   ftlWormhole_tier_O2dag
 
-/-- Quantum FTL (Ω=Ω_Z) is tier O₂† — causally consistent. -/
-theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O₂† :=
+/-- Quantum FTL (Ω=Ω_Z) is tier O₂dag — causally consistent. -/
+theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O₂dag :=
   ftlQuantum_tier_O2dag
 
 /--
@@ -125,7 +125,7 @@ iff its ouroboricity tier is at least O₂ (topologically protected).
 -/
 def is_causally_consistent (s : Imscription) : Prop :=
   imscriptionTier s = OuroboricityTier.O₂ ∨
-  imscriptionTier s = OuroboricityTier.O₂†
+  imscriptionTier s = OuroboricityTier.O₂dag
 
 /-- The wormhole variant is causally consistent. -/
 theorem wormhole_causally_consistent : is_causally_consistent ftlWormhole := by
@@ -153,8 +153,8 @@ than light" means "structurally beyond the critical point."
 
 Three interpretations:
   1. TACHYON: Φ_c → Φ_super. Drops to O₀. Causal paradox. Unstable.
-  2. WORMHOLE: Ω_0 → Ω_Z, T_network → T_bowtie. Reaches O₂†. Consistent.
-  3. QUANTUM (ER=EPR): Ω_0 → Ω_Z, P_pm → P_psi. Reaches O₂†. Consistent.
+  2. WORMHOLE: Ω_0 → Ω_Z, T_network → T_bowtie. Reaches O₂dag. Consistent.
+  3. QUANTUM (ER=EPR): Ω_0 → Ω_Z, P_pm → P_psi. Reaches O₂dag. Consistent.
 
 The photon itself can never be FTL. The photon IS the definition of the
 critical boundary. FTL requires promotion — changing what the system IS.

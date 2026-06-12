@@ -118,7 +118,7 @@ theorem coherence_gap_ratio (qs : QState) (h : qs.q0 = Belnap.B) :
 -- §4. The QCI imscription as d=2 SIC-POVM instance
 -- ============================================================
 
--- qciImscription is O_∞ (proved in QuantumClassicalInterface).
+-- qciImscription is O_inf (proved in QuantumClassicalInterface).
 -- The equiangularity theorems above show that the B-value in the Belnap lattice
 -- satisfies the same structural conditions as the fiducial of a SIC-POVM:
 -- (1) Maximum information content (B is top in approximation order)

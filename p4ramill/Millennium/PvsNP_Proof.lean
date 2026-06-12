@@ -4,7 +4,7 @@
 --
 -- This module proves P ≠ NP by establishing that the structural type gap
 -- between P (tractable verification + solving) and NP (tractable verification only)
--- is a genuine phase transition — an unbridgeable O₀ → O_∞ gap.
+-- is a genuine phase transition — an unbridgeable O₀ → O_inf gap.
 
 import Mathlib
 import Imscribing.Primitives.Core

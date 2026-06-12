@@ -9,7 +9,7 @@ import Imscribing.Algebra
   Objective: Advance ym_theory_exists from a MissingFoundation axiom to a constructible
   type by systematically applying the six ZFCt promotion channels.
 
-  The six ZFCt promotion channels required to lift YM from O₂† to O_∞:
+  The six ZFCt promotion channels required to lift YM from O₂dag to O_inf:
   1. HOLOBOUND (T_6 -> T_odot): Holographic boundary condition on M_inf -> Bdry
   2. LR_DUAL (R_bar -> R_=): Exact electric-magnetic duality taming SU(N) singularities
   3. PM_Z2 (P_asym -> Phi_c): Z_2 Frobenius symmetry encoding OS reflection positivity
@@ -17,7 +17,7 @@ import Imscribing.Algebra
   5. TEMPD2 (H0 -> H2): 2-step temporal chirality for OS <-> Wightman spectral flow
   6. ZWIND (Omega_0 -> Omega_Z): Integer winding sectors for instanton topology
 
-  The universal tier gap crystal_tier_gap_ladder proves O₂† -> O_∞ is driven
+  The universal tier gap crystal_tier_gap_ladder proves O₂dag -> O_inf is driven
   100% by the Phi primitive. Discharging the YM foundation is achieved when the
   Frobenius gate (PM_Z2) is inhabited for the measure space.
 -/

@@ -52,13 +52,13 @@ def problemFrobenius : MillenniumProblem → FrobeniusType
 
 /-- The Frobenius type a Millennium problem WOULD have if its defining conjecture
     were proved. For analysis problems (RH, Hodge): proving the conjecture closes μ∘δ,
-    promoting to .special. For NS: structural resolution to O_∞ already exists
+    promoting to .special. For NS: structural resolution to O_inf already exists
     (NS_Resolution.lean). Arithmetic problems remain at their current tier (their
     thresholds are infrastructure, not Frobenius closure). -/
 def problemFrobeniusResolved : MillenniumProblem → FrobeniusType
   | .RH    => .special    -- μ∘δ closes: all zeros on critical line → id
   | .Hodge => .special    -- μ∘δ closes: Hodge cycles algebraic → id
-  | .NS    => .special    -- Structurally resolved to O_∞ already
+  | .NS    => .special    -- Structurally resolved to O_inf already
   | p      => problemFrobenius p
 
 -- =====================================================================
@@ -82,7 +82,7 @@ theorem layered_problems_algebraOnly :
     problemFrobenius .OPN = .algebraOnly := by
   simp [problemFrobenius]
 
-/-- No Millennium problem reaches the special (O_∞) tier.
+/-- No Millennium problem reaches the special (O_inf) tier.
     Lee-Yang is the unique .special system. This is the structural
     content of the C₁₃ gap: every MPP sits at most at .full. -/
 theorem no_mpp_is_special :

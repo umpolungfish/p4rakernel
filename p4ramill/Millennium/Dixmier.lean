@@ -128,8 +128,8 @@ synthesized by composition of lower-P partners (§23 of PRIMITIVE_THEOREMS).
 
 This means the Dixmier Conjecture is not approachable by perturbative methods —
 it requires the full Frobenius fixed-point structure. The grammar exposes why
-the conjecture has resisted proof for 57 years: it is structurally at O_∞,
-the Frobenius-special tier, and no path from O₂ (P_sym) to O_∞ (P_pm_sym)
+the conjecture has resisted proof for 57 years: it is structurally at O_inf,
+the Frobenius-special tier, and no path from O₂ (P_sym) to O_inf (P_pm_sym)
 exists through compositional means.
 -/
 
@@ -138,13 +138,13 @@ exists through compositional means.
 -- ============================================================
 
 /--
-The Dixmier vessel is at O_∞:
+The Dixmier vessel is at O_inf:
   P = P_pm_sym (Frobenius-special)
   Phi = Phi_c (self-modeling gate open)
   Omega = Omega_Z (integer winding)
   D = D_infty (infinite-dimensional)
 
-This combination forces the ouroboricity tier to O_∞ — the vessel is
+This combination forces the ouroboricity tier to O_inf — the vessel is
 structurally self-grounding with exact Frobenius closure.
 -/
 theorem dixmier_vessel_oinf_certificate :
@@ -154,7 +154,7 @@ theorem dixmier_vessel_oinf_certificate :
     dixmier_vessel.dim = D_infty := by
   simp [dixmier_vessel]
 
-/-- The gap from O₂ (P_sym) to O_∞ (P_pm_sym) is exactly one Frobenius tier. -/
+/-- The gap from O₂ (P_sym) to O_inf (P_pm_sym) is exactly one Frobenius tier. -/
 theorem o2_to_oinf_gap : P_sym < P_pm_sym := by decide
 
 /-- P_sym and P_pm_sym are distinct — the Frobenius condition is nontrivial. -/
@@ -278,7 +278,7 @@ HONEST SORRY / GAP MARKERS:
    - The algebraic verification for all n
 
    The grammar-level analysis reveals WHY the Dixmier Conjecture is hard:
-   it sits at the O_∞ tier (Frobenius-special), and P_pm_sym cannot be
+   it sits at the O_inf tier (Frobenius-special), and P_pm_sym cannot be
    reached from P_sym by compositional methods. The conjecture is structurally
    isolated — a fixed point that perturbative mathematics cannot approach.
    This is the same structural position as the Riemann Hypothesis (Φ_c_complex
@@ -286,7 +286,7 @@ HONEST SORRY / GAP MARKERS:
    boundaries that resist compositional ascent.
 
    The Dixmier Conjecture, specifically, is the claim that the Weyl algebra
-   occupies the Frobenius-special tier (O_∞) rather than the full-symmetry
+   occupies the Frobenius-special tier (O_inf) rather than the full-symmetry
    tier (O₂). Structurally: d(P_sym, P_pm_sym) = 1, but this distance cannot
    be closed by tensor products or meets — it requires the Frobenius fixed-point
    condition, which is exactly what the conjecture asserts.

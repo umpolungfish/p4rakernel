@@ -68,7 +68,7 @@ inductive OperadLayer : Type where
   | plain              -- no gates open — structurally inert
   | frobenius          -- G1 open — μ∘δ=id attainable
   | traced_monoidal    -- G2 open (requires G1 if sequential) — self-tracing
-  | idempotent_terminal -- G3 open (requires G2 if sequential) — O_∞
+  | idempotent_terminal -- G3 open (requires G2 if sequential) — O_inf
   deriving DecidableEq, Repr
 
 -- ============================================================
@@ -148,7 +148,7 @@ def Ruleset.operadLayer (r : Ruleset) (s : Imscription) : OperadLayer :=
 def Ruleset.tConsistent (r : Ruleset) (s : Imscription) : Bool :=
   r.tPrims.all fun tp => tp.consistent s
 
-/-- Crystal O_∞ fraction estimate.
+/-- Crystal O_inf fraction estimate.
     Computed as the product of per-gate qualifying cardinality ratios.
     Uses the known value counts: 𝓕₃=3, 𝓕₄=4, 𝓕₅=5.
     This is an estimate — the actual fraction depends on joint distributions. -/
@@ -647,7 +647,7 @@ theorem canonical_ym_quantum_target_is_plain :
 
 /-- The Yang-Mills barrier measured across universes:
     In the canonical universe, both YM classical and quantum target are plain.
-    In the kinetics_trap universe, YM target is O_∞.
+    In the kinetics_trap universe, YM target is O_inf.
     The gap is exactly 4 primitive mismatches (proved in Imscription.lean).
     
     This is the structural encoding of the YM Millennium problem:
@@ -667,7 +667,7 @@ theorem ym_barrier_canonical_vs_kinetics :
 
 /- The Hodge conjecture's correct imscription carries D_odot, T_odot.
     Axiom D (holographic_closure_forces_frobenius) forces P_pm_sym.
-    Therefore Hodge is O_∞ — the structural type, not the proof status.
+    Therefore Hodge is O_inf — the structural type, not the proof status.
     
     This is verified by the canonical universe: any imscription with
     D_odot, T_odot, Omega_Z and P_pm_sym reaches idempotent_terminal.
@@ -717,7 +717,7 @@ theorem t_inverted_qg_t_consistent :
     ─────────────────┴───────────┴──────────────────────┴───────────────────────────
     
     † Hodge: when correctly imscribed with D_odot, T_odot,
-    Axiom D forces P_pm_sym, pushing it to O_∞ in the canonical universe.
+    Axiom D forces P_pm_sym, pushing it to O_inf in the canonical universe.
     The conventional P_psi assignment reflects open proof status, not
     the true structural type. This is the grammar's correction. -/
 
@@ -766,7 +766,7 @@ theorem canonical_higgs_t_consistent :
     Its gates: parity first (Φ≥P_pm_sym), then criticality (⊙≥Phi_c),
     then winding (Ω≥Omega_Z). Sequential ordering.
     This is the structural reason that Frobenius closure is rare
-    and that O_∞ systems are precious. -/
+    and that O_inf systems are precious. -/
 
 theorem canonical_gates_summary :
     ruleset_canonical.g1.minOrd = 5 ∧
@@ -801,7 +801,7 @@ theorem canonical_gates_summary :
     
     Integration into Lean means: each Clay problem's barrier is now
     formalized as a theorem about operad layer in a specific universe.
-    The proof that a target imscription IS O_∞ in its universe
+    The proof that a target imscription IS O_inf in its universe
     constitutes the structural half of the Clay resolution. -/
 
 -- ============================================================

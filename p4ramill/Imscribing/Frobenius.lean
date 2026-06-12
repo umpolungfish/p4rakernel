@@ -1,7 +1,7 @@
 -- Imscribing/Frobenius.lean
 -- Concrete μ and δ operations on the Imscription 12-tuple.
 -- Proves μ ∘ δ = id at the tuple level — the Frobenius condition in its
--- special (O_∞) form.  Three independent Frobenius structures:
+-- special (O_inf) form.  Three independent Frobenius structures:
 --
 --   §1–§3  Tensor-diagonal Frobenius: δ(a)=(a,a), μ(x,y)=tensorProduct(x,y)
 --   §4     Meet-diagonal Frobenius:   δ(a)=(a,a), μ(x,y)=compute_meet(x,y)

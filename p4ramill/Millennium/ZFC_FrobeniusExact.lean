@@ -237,8 +237,8 @@ def zfc_t_plus_frobenius_exact_promotions : List (String × String) :=
 -- §5: TIER AND CONSCIOUSNESS ANALYSIS
 -- ============================================================
 
-/-- ZFC_fe is O_∞: the Frobenius gate (P_pm_sym at Phi_c) is already sufficient. -/
-theorem zfc_fe_is_O_inf : imscriptionTier zfc_fe = .O_∞ := by decide
+/-- ZFC_fe is O_inf: the Frobenius gate (P_pm_sym at Phi_c) is already sufficient. -/
+theorem zfc_fe_is_O_inf : imscriptionTier zfc_fe = .O_inf := by decide
 
 /-- ZFC_fe consciousness score computation.
     Gate 1 (φ̂_ÿ): crit = Phi_c → passes (0.5 base).

@@ -57,7 +57,7 @@ def belnap_truth : Imscription := {
 }
 
 -- ============================================================
--- S3. QUANTUM TRUTH (F_hbar + Phi_c_complex -> O₂†)
+-- S3. QUANTUM TRUTH (F_hbar + Phi_c_complex -> O₂dag)
 -- ============================================================
 
 def quantum_truth : Imscription := {
@@ -75,11 +75,11 @@ def quantum_truth : Imscription := {
   prot := Omega_Z
 }
 
-theorem quantum_is_O2dag : imscriptionTier quantum_truth = .O₂† := by
+theorem quantum_is_O2dag : imscriptionTier quantum_truth = .O₂dag := by
   native_decide
 
 -- ============================================================
--- S4. FROBENIUS-EXACT TRUTH (Phi_c + P_pm_sym -> O_∞)
+-- S4. FROBENIUS-EXACT TRUTH (Phi_c + P_pm_sym -> O_inf)
 -- ============================================================
 
 def frobenius_truth : Imscription := {
@@ -97,7 +97,7 @@ def frobenius_truth : Imscription := {
   prot := Omega_Z
 }
 
-theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_∞ := by
+theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_inf := by
   native_decide
 
 -- ============================================================
@@ -108,7 +108,7 @@ theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_∞ := by
 theorem classical_frobenius_distinct : classical_truth ≠ frobenius_truth := by
   native_decide
 
--- Quantum truth and Frobenius truth differ (O₂† vs O_∞).
+-- Quantum truth and Frobenius truth differ (O₂dag vs O_inf).
 theorem quantum_frobenius_distinct : quantum_truth ≠ frobenius_truth := by
   native_decide
 

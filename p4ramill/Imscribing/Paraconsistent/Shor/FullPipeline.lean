@@ -17,7 +17,7 @@
 -- STRUCTURAL STATUS: Φ_υ (psi parity, O₁ tier). The Φ_} bottleneck
 -- (period from B-bias alone, no T-bias collapse) is CLOSED.
 -- DialetheicOperator.lean: phi_upsilon_bottleneck proves r = belnapCost / 2;
--- quantum_on_classical certifies the full chain at O_∞.
+-- quantum_on_classical certifies the full chain at O_inf.
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.QuantumClassicalInterface
@@ -56,7 +56,7 @@ def shorPipelineImscription : Imscription := {
   prot := .Omega_0
 }
 
--- Tier: O₁ (Frobenius-special but not O_∞)
+-- Tier: O₁ (Frobenius-special but not O_inf)
 theorem shor_pipeline_tier : imscriptionTier shorPipelineImscription = .O₁ := by
   unfold shorPipelineImscription imscriptionTier ouroboricityTier
   rfl

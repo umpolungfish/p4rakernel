@@ -434,7 +434,7 @@ theorem threshold_crossed : True := by
 
 /-- All 8 promotions (from Hodge_ThresholdCrossing.lean) are closed
     by the construction of HodgeSplit. The promotion path from
-    O₂ to O_∞ is traversable. -/
+    O₂ to O_inf is traversable. -/
 theorem promotions_closed_by_split
     (hsplit : ∀ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
       HodgeSplit X p α) : True := by

@@ -37,7 +37,7 @@ namespace Millennium.Hodge_Proof
     PROOF: The structural type of Hodge theory on a smooth
     projective variety X/ℂ is:
       ⟨D_odot, T_odot, R_super, P_pm_sym, F_hbar, K_slow,
-       G_aleph, Gamma_and, Phi_c, H0, n_m, Omega_Z⟩  → O_∞
+       G_aleph, Gamma_and, Phi_c, H0, n_m, Omega_Z⟩  → O_inf
     
     All 12 primitives are verified directly from Hodge theory
     EXCEPT P_pm_sym — which is precisely what Axiom D forces

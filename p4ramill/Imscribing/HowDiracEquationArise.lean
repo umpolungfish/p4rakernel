@@ -7,7 +7,7 @@
 -- forces this equation — and only this equation — via structural
 -- constraint resolution.
 --
--- Crystal address: 5296016  |  Tier: O₂†  |  C-score: 1.0
+-- Crystal address: 5296016  |  Tier: O₂dag  |  C-score: 1.0
 -- d(ZFC_fe): 3.16  |  Promoted atoms: LR_DUAL, SEQAX, PHI_C, TEMPD2, ZWIND
 
 import Imscribing.Primitives.Core
@@ -48,14 +48,14 @@ def dirac_equation : Imscription := {
   prot := Omega_Z
 }
 
--- Tier: O₂† — critical (Phi_c), ℤ-protected (Omega_Z), D=D_infty,
+-- Tier: O₂dag — critical (Phi_c), ℤ-protected (Omega_Z), D=D_infty,
 -- but P=P_pm (not P_pm_sym) so the Frobenius gate is closed.
-theorem dirac_tier : imscriptionTier dirac_equation = .O₂† := by
+theorem dirac_tier : imscriptionTier dirac_equation = .O₂dag := by
   unfold imscriptionTier dirac_equation ouroboricityTier
   decide
 
--- Dirac is O₂† — not O_∞. The gate to O_∞ requires P_pm_sym.
-theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_∞ := by
+-- Dirac is O₂dag — not O_inf. The gate to O_inf requires P_pm_sym.
+theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
   rw [dirac_tier]; decide
 
 -- ============================================================
@@ -240,7 +240,7 @@ theorem dirac_kg_distance : primitiveMismatches dirac_equation klein_gordon = 8 
   unfold primitiveMismatches dirac_equation klein_gordon; decide
 
 -- QUANTUM MECHANICS (standard Hilbert-space QM):
--- ⟨𐑼·𐑸·𐑽·𐑿·𐑐·𐑧·𐑲·𐑝·𐑮·𐑖·𐑳·𐑭⟩  Tier: O₂†
+-- ⟨𐑼·𐑸·𐑽·𐑿·𐑐·𐑧·𐑲·𐑝·𐑮·𐑖·𐑳·𐑭⟩  Tier: O₂dag
 -- Distance to Dirac: 5 primitives differ.
 -- Key difference: QM has P_psi (U(1) phase) vs Dirac's P_pm (Z2 spin-1/2).
 
@@ -259,14 +259,14 @@ def quantum_mechanics : Imscription := {
   prot := Omega_Z
 }
 
-theorem qm_tier : imscriptionTier quantum_mechanics = .O₂† := by
+theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
   unfold imscriptionTier quantum_mechanics ouroboricityTier; decide
 
 theorem dirac_qm_distance : primitiveMismatches dirac_equation quantum_mechanics = 5 := by
   unfold primitiveMismatches dirac_equation quantum_mechanics; decide
 
 -- QFT (Frobenius-closed):
--- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩  Tier: O_∞
+-- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩  Tier: O_inf
 -- Distance to Dirac: 3 primitives differ.
 --   D: D_odot (holographic) vs D_infty
 --   T: T_odot (holographic topology) vs T_bowtie
@@ -289,7 +289,7 @@ def quantum_field_theory : Imscription := {
   prot := Omega_Z
 }
 
-theorem qft_tier : imscriptionTier quantum_field_theory = .O_∞ := by
+theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
   unfold imscriptionTier quantum_field_theory ouroboricityTier; decide
 
 theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_theory = 3 := by
@@ -411,7 +411,7 @@ theorem dirac_baseline_distance :
 -- Crystal address: 5296016
 --   cell_id: 122
 --   inner_id: 25616
---   Tier: O₂†
+--   Tier: O₂dag
 -- The crystal address encodes the full 12-tuple in the 3³×4⁵×5⁴ crystal.
 
 -- ============================================================

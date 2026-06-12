@@ -114,7 +114,7 @@ def tensorProduct (a b : Imscription) : Imscription := {
   prot := if compare a.prot b.prot = .lt then b.prot else a.prot   -- max
 }
 
--- P-bottleneck: O_∞ ⊗ O₂ → P_pm_sym ⊗ P_sym = P_sym (Frobenius destroyed).
+-- P-bottleneck: O_inf ⊗ O₂ → P_pm_sym ⊗ P_sym = P_sym (Frobenius destroyed).
 theorem tensor_P_bottleneck (a b : Imscription) :
     (tensorProduct a b).pol =
       if compare a.pol b.pol = .lt then a.pol else b.pol := rfl
@@ -164,8 +164,8 @@ theorem P70_three_scale_Kslow :
     higgs = axion ∧ axion = inflaton ∧ higgs = inflaton :=
   ⟨rfl, rfl, rfl⟩
 
-/-- All three scalar K_slow fields are O_∞. -/
-theorem scalar_Kslow_is_O_inf : imscriptionTier scalarField_Kslow = .O_∞ := by decide
+/-- All three scalar K_slow fields are O_inf. -/
+theorem scalar_Kslow_is_O_inf : imscriptionTier scalarField_Kslow = .O_inf := by decide
 
 -- ── Standard Model ──────────────────────────────────────────
 def standard_model : Imscription := {
@@ -200,8 +200,8 @@ def quantum_gravity : Imscription := {
   prot := Omega_NA     -- non-Abelian topological protection
 }
 
-/-- Quantum gravity is O_∞ (holographic Frobenius). -/
-theorem qg_is_O_inf : imscriptionTier quantum_gravity = .O_∞ := by decide
+/-- Quantum gravity is O_inf (holographic Frobenius). -/
+theorem qg_is_O_inf : imscriptionTier quantum_gravity = .O_inf := by decide
 
 -- ── General Relativity ──────────────────────────────────────
 def general_relativity : Imscription := {
@@ -276,10 +276,10 @@ theorem gr_as_morphism_cost :
 -- STRUCTURAL THEOREMS
 -- ============================================================
 
-/-- Frobenius cliff: O_∞ requires P_pm_sym. No other Polarity gives O_∞
+/-- Frobenius cliff: O_inf requires P_pm_sym. No other Polarity gives O_inf
     regardless of Φ, Ω, D. (Lean-verified statement of §23 / §69.) -/
 theorem o_inf_iff_P_pm_sym_at_phi_c (s : Imscription) :
-    imscriptionTier s = .O_∞ ↔
+    imscriptionTier s = .O_inf ↔
     (s.crit = .Phi_c ∨ s.crit = .Phi_c_complex) ∧ s.pol = .P_pm_sym := by
   constructor
   · intro h
@@ -291,10 +291,10 @@ theorem o_inf_iff_P_pm_sym_at_phi_c (s : Imscription) :
     | inl h => simp [imscriptionTier, ouroboricityTier, h, hpol]
     | inr h => simp [imscriptionTier, ouroboricityTier, h, hpol]
 
-/-- Higgs is O_∞ (P-70 structural claim). -/
-theorem higgs_is_O_inf : imscriptionTier higgs = .O_∞ := by decide
+/-- Higgs is O_inf (P-70 structural claim). -/
+theorem higgs_is_O_inf : imscriptionTier higgs = .O_inf := by decide
 
-/-- Tensor of O_∞ with any O₂ system (P_sym) gives P_sym — Frobenius destroyed. -/
+/-- Tensor of O_inf with any O₂ system (P_sym) gives P_sym — Frobenius destroyed. -/
 theorem tensor_O_inf_O2_destroys_frobenius (s_inf s_two : Imscription)
     (h_inf : s_inf.pol = .P_pm_sym) (h_two : s_two.pol = .P_sym) :
     (tensorProduct s_inf s_two).pol = .P_sym := by

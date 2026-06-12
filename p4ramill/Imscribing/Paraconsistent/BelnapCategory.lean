@@ -37,7 +37,7 @@ def belnapCategoryImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem category_is_O_inf : imscriptionTier belnapCategoryImscription = .O_∞ := by
+theorem category_is_O_inf : imscriptionTier belnapCategoryImscription = .O_inf := by
   simp [imscriptionTier, ouroboricityTier, belnapCategoryImscription]
 
 end Imscribing.Paraconsistent.BelnapCategory

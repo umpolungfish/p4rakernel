@@ -60,7 +60,7 @@ def belnapTemporalImscription : Imscription := {
   prot := Omega_Z
 }
 
-theorem temporal_is_O_inf : imscriptionTier belnapTemporalImscription = .O_∞ := by
+theorem temporal_is_O_inf : imscriptionTier belnapTemporalImscription = .O_inf := by
   decide
 
 end Imscribing.Paraconsistent.Temporal

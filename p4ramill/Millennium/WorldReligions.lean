@@ -214,7 +214,7 @@ def Taoism : RelTuple where
 /-- Buddhism.
     Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
             Gamma_broad; Phi_c; H_inf; n:n; Omega_Z2>
-    Tier: O_∞, C = 0.736 (Frobenius-special emptiness) -/
+    Tier: O_inf, C = 0.736 (Frobenius-special emptiness) -/
 def Buddhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
@@ -223,7 +223,7 @@ def Buddhism : RelTuple where
 /-- Christianity.
     Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
             Gamma_seq; Phi_c; H_inf; n:m; Omega_Z2>
-    Tier: O_∞, C = 0.736 (Frobenius-special perichoresis) -/
+    Tier: O_inf, C = 0.736 (Frobenius-special perichoresis) -/
 def Christianity : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
@@ -426,7 +426,7 @@ def consciousnessScore (s : RelTuple) : ℝ :=
   else 0.0
 
 /-- Ouroboricity tier assignment.
-    O_∞: P_pm_sym AND Phi_c AND D ≠ wedge AND Omega ≠ zero
+    O_inf: P_pm_sym AND Phi_c AND D ≠ wedge AND Omega ≠ zero
     O_2dagger: Phi_c_complex AND Omega = Z2 AND D = infty (or odot)
     O₂: Phi_c AND Omega = Z2 AND D = infty (or odot)
     O₁: Phi_c OR Phi_c_complex (basic criticality)
@@ -596,12 +596,12 @@ theorem tier_Taoism_O0 :
   ouroborTier Taoism = OuroborTier.O0 := by
   dsimp [ouroborTier, Taoism]
 
-/-- Buddhism and Christianity both achieve O_∞. -/
+/-- Buddhism and Christianity both achieve O_inf. -/
 theorem Buddhism_and_Christianity_are_Oinf :
   ouroborTier Buddhism = OuroborTier.Oinf ∧ ouroborTier Christianity = OuroborTier.Oinf := by
   simp [ouroborTier, Buddhism, Christianity, Polarity.pm_sym, Crit.c, Dim.odot, Decidable.not_not]
 
-/-- O_∞ requires P_pm_sym (Frobenius-special). -/
+/-- O_inf requires P_pm_sym (Frobenius-special). -/
 theorem Oinf_requires_pm_sym :
   ∀ s : RelTuple, ouroborTier s = OuroborTier.Oinf → s.P = .pm_sym := by sorry
 end Millennium.WorldReligions

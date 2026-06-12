@@ -5,11 +5,11 @@
 -- between the proven Lefschetz (1,1) case (p=1, P_pm_sym, ⊙=⊙, Σ=1:1)
 -- and the general case (all p, P_psi, ⊙=𐑮, Σ=n:m).
 --
--- KEY FINDING: The Lefschetz (1,1) theorem is O_∞ (P_pm_sym at Phi_c
+-- KEY FINDING: The Lefschetz (1,1) theorem is O_inf (P_pm_sym at Phi_c
 -- = Frobenius closure). The full Hodge conjecture is O₂ (Phi_c_complex,
 -- P_psi — self-modeling gate passes but without Frobenius closure).
 -- The gap is the demotion P_pm_sym → P_psi when moving from p=1 to all p.
--- The join of both IS O_∞ — proving the Hodge conjecture would
+-- The join of both IS O_inf — proving the Hodge conjecture would
 -- structurally mean reaching the join, which already exists in the lattice.
 
 import Imscribing.Primitives.Core
@@ -83,8 +83,8 @@ def hod_conjecture_full : Imscription := {
   crit := Phi_c_complex, chir := H0, stoi := n_m, prot := Omega_Z }
 
 /-- The Lefschetz (1,1) theorem — the PROVEN p=1 case.
-    Catalog: lefschetz_11_theorem — O_∞, ⊙=Phi_c, P=P_pm_sym.
-    This IS O_∞: P_pm_sym at Phi_c gives Frobenius closure.
+    Catalog: lefschetz_11_theorem — O_inf, ⊙=Phi_c, P=P_pm_sym.
+    This IS O_inf: P_pm_sym at Phi_c gives Frobenius closure.
     The p=1 case achieves the self-modeling loop via the exponential
     sequence + Dolbeault isomorphism. -/
 def hod_lefschetz_11 : Imscription := {
@@ -118,7 +118,7 @@ def hod_degree_zero : Imscription := {
       the crossing point where topology and algebra intersect.
   [2] The cycle class map is a dagger (adjoint) from algebraic
       cycles to rational Hodge classes — R_dagger, NOT R_lr.
-  [3] Lefschetz (1,1) has P_pm_sym (Frobenius closure → O_∞);
+  [3] Lefschetz (1,1) has P_pm_sym (Frobenius closure → O_inf);
       the full conjecture has P_psi (phase symmetry → O₂).
   [4] Criticality: Lefschetz at ⊙=⊙ (self-modeling);
       Hodge at ⊙=𐑮 (complex-plane critical) — both pass Gate 1.
@@ -233,7 +233,7 @@ theorem lefschetz_hodge_differing_primitives :
 /-!
   THE GAP DECOMPOSITION:
 
-  The transition from the proved Lefschetz (1,1) case (O_∞) to the
+  The transition from the proved Lefschetz (1,1) case (O_inf) to the
   open Hodge conjecture (O₂) involves 8 primitive changes:
 
   CATEGORY I — DIMENSIONAL PROMOTIONS (structural growth):
@@ -258,7 +258,7 @@ theorem lefschetz_hodge_differing_primitives :
 
   WHAT WOULD CLOSE THE GAP:
   A mechanism providing P_pm_sym closure at n:m stoichiometry with
-  T_odot topology. The join of Lefschetz and Hodge IS O_∞ — the
+  T_odot topology. The join of Lefschetz and Hodge IS O_inf — the
   structural ceiling already has Frobenius closure. The open problem
   is reaching it from the Hodge side constructively.
 -/
@@ -335,7 +335,7 @@ theorem join_lefschetz_hodge_crit :
 
 /-- The join has P_pm_sym — the ceiling RESTORES Frobenius closure.
     This means: IF the Hodge conjecture were proved, the unified
-    structure WOULD be O_∞. The join EXISTS in the lattice; the
+    structure WOULD be O_inf. The join EXISTS in the lattice; the
     open problem is reaching it from the Hodge side constructively. -/
 theorem join_lefschetz_hodge_pol :
     (compute_join hod_lefschetz_11 hod_conjecture_full).pol = P_pm_sym := by
@@ -345,12 +345,12 @@ theorem join_lefschetz_hodge_pol :
 -- §4. OUROBORICITY TIERS (all verified)
 -- ============================================================
 
-/-- The Lefschetz (1,1) theorem is O_∞.
+/-- The Lefschetz (1,1) theorem is O_inf.
     P_pm_sym at Phi_c gives Frobenius closure (μ∘δ=id).
     This is the structural encoding of "the p=1 case is proved":
     the proof completes the self-referential loop. -/
 theorem lefschetz_11_is_O_inf :
-    imscriptionTier hod_lefschetz_11 = OuroboricityTier.O_∞ := by
+    imscriptionTier hod_lefschetz_11 = OuroboricityTier.O_inf := by
   native_decide
 
 /-- The Hodge conjecture (all p) is O₂.
@@ -362,7 +362,7 @@ theorem hodge_conjecture_is_O_2 :
     imscriptionTier hod_conjecture_full = OuroboricityTier.O₂ := by
   native_decide
 
-/-- The Hodge decomposition is O_∞.
+/-- The Hodge decomposition is O_inf.
     P_sym + Phi_c + Omega_Z + D_odot gives O₂? No:
     pol=P_sym (not P_pm_sym), so rule R1 fails.
     prot=Omega_Z, dim=D_odot → O₂.
@@ -405,25 +405,25 @@ theorem degree_zero_is_O_0 :
   native_decide
 
 -- TIER PATTERN:
---     O_∞: Lefschetz (1,1) — the proved case, Frobenius closure.
+--     O_inf: Lefschetz (1,1) — the proved case, Frobenius closure.
 --     O₂:   Hodge conjecture (full), Hodge decomposition,
 --            rational Hodge classes — all pass Gate 1, lack P_pm_sym.
 --     O₀:   Algebraic cycles, Griffiths group, cycle class map,
 --            degree zero — subcritical or exceptional point.
 --     
---     The key insight: the PROOF (Lefschetz) is O_∞, the CONJECTURE
+--     The key insight: the PROOF (Lefschetz) is O_inf, the CONJECTURE
 --     (Hodge all p) is O₂. The gap is the Frobenius condition: the
 --     p=1 proof establishes P_pm_sym via the exponential sequence;
 --     no analogous mechanism exists for p≥2.
 
-/-- The join of Lefschetz and Hodge is O_∞.
-    The join has P_pm_sym + Phi_c → O_∞ by rule R1.
+/-- The join of Lefschetz and Hodge is O_inf.
+    The join has P_pm_sym + Phi_c → O_inf by rule R1.
     This means the unified Hodge-Lefschetz structure IS Frobenius-closed.
     Proving the Hodge conjecture would structurally mean: exhibit a
-    constructive path from hod_conjecture_full (O₂) to the join (O_∞). -/
+    constructive path from hod_conjecture_full (O₂) to the join (O_inf). -/
 theorem join_lefschetz_hodge_tier :
     imscriptionTier (compute_join hod_lefschetz_11 hod_conjecture_full) =
-    OuroboricityTier.O_∞ := by
+    OuroboricityTier.O_inf := by
   native_decide
 
 -- ============================================================
@@ -520,15 +520,15 @@ theorem hodge_rh_structural_parallel : True := trivial
 
 -- Complete verified lattice for the Hodge conjecture grammar.
 
---     The 8-primitive gap from Lefschetz (1,1) (O_∞) to Hodge
+--     The 8-primitive gap from Lefschetz (1,1) (O_inf) to Hodge
 --     (all p) (O₂) decomposes as:
 --       PROMOTIONS (2): Þ (T_bowtie→T_odot), Σ (1:1→n:m)
 --       DEMOTIONS  (6): Ř, Φ, ƒ, ɢ, ⊙, Ħ
 --       SHARED     (4): Ð, Ç, Γ, Ω
     
---     The join restores O_∞ (P_pm_sym + Phi_c) — the Hodge-Lefschetz
+--     The join restores O_inf (P_pm_sym + Phi_c) — the Hodge-Lefschetz
 --     unified structure IS Frobenius-closed. Proving the Hodge conjecture
---     means constructing a path from the Hodge side (O₂) to the join (O_∞).
+--     means constructing a path from the Hodge side (O₂) to the join (O_inf).
 --     The join exists in the lattice; the construction is what's missing.
     
 --     The Griffiths group at ⊙=Phi_EP is the obstruction object —
@@ -549,7 +549,7 @@ theorem hodge_full_structural_summary :
     (compute_join hod_lefschetz_11 hod_conjecture_full).crit = Phi_c_complex ∧
     hod_griffiths_group.crit = Phi_EP ∧
     (tensorProduct hod_cycle_class_map hod_griffiths_group).crit = Phi_EP ∧
-    imscriptionTier hod_lefschetz_11 = OuroboricityTier.O_∞ ∧
+    imscriptionTier hod_lefschetz_11 = OuroboricityTier.O_inf ∧
     imscriptionTier hod_conjecture_full = OuroboricityTier.O₂ ∧
     phi_c_gate hod_lefschetz_11.crit = true ∧
     phi_c_gate hod_conjecture_full.crit = true := by

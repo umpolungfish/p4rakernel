@@ -22,7 +22,7 @@ namespace Millennium.Frobenius
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- The four qualitatively distinct classes of Frobenius algebra completeness,
-    corresponding to ouroboricity tiers O₀ / O₁ / O₂ / O_∞. -/
+    corresponding to ouroboricity tiers O₀ / O₁ / O₂ / O_inf. -/
 inductive FrobeniusType : Type where
   /-- O₀ — unit η only; no fixed-point structure -/
   | trivial      : FrobeniusType
@@ -30,7 +30,7 @@ inductive FrobeniusType : Type where
   | algebraOnly  : FrobeniusType
   /-- O₂ — (μ, η, δ, ε) + Frobenius condition; self-grounding -/
   | full         : FrobeniusType
-  /-- O_∞ — full + μ ∘ δ = id; symmetry exactly characterises fixed point -/
+  /-- O_inf — full + μ ∘ δ = id; symmetry exactly characterises fixed point -/
   | special      : FrobeniusType
   deriving DecidableEq, Repr
 
@@ -61,7 +61,7 @@ instance (a b : FrobeniusType) : Decidable (a < b) :=
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- Map Frobenius type to ouroboricity tier.
-    O_∞ is represented as 3 for decidable arithmetic. -/
+    O_inf is represented as 3 for decidable arithmetic. -/
 def frobeniusToOuroboricity : FrobeniusType → Nat
   | .trivial     => 0
   | .algebraOnly => 1
@@ -117,7 +117,7 @@ theorem special_is_top (t : FrobeniusType) : t ≤ FrobeniusType.special := by
 -- §4  Lee-Yang and RH assignments
 -- ─────────────────────────────────────────────────────────────────────────────
 
-/-- Lee-Yang is O_∞ (special Frobenius).
+/-- Lee-Yang is O_inf (special Frobenius).
     P_pm_sym acts explicitly — μ ∘ δ = id is the Lee-Yang theorem in Frobenius
     language (PRIMITIVE_THEOREMS §23.5, Theorem 23.1). -/
 def leeYangFrobeniusType : FrobeniusType := .special
@@ -172,7 +172,7 @@ instance (t : FrobeniusType) : Decidable (IsSelfGrounding t) :=
 theorem algebraOnly_not_selfGrounding :
     ¬ IsSelfGrounding FrobeniusType.algebraOnly := by decide
 
-/-- O₂ and O_∞ are self-grounding. -/
+/-- O₂ and O_inf are self-grounding. -/
 theorem full_selfGrounding : IsSelfGrounding FrobeniusType.full := by decide
 theorem special_selfGrounding : IsSelfGrounding FrobeniusType.special := by decide
 

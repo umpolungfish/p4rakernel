@@ -1,7 +1,7 @@
 -- Imscribing/Primitives/ZFCs.lean
 -- ZFC$_s$: ZFC extended with Spatiality, Isotropy, and Homotopy Winding.
 -- Spatial extension analogous to ZFCt's temporal extension.
--- Key asymmetry: ZFC_s is O_∞ (P_pm_sym); ZFC_t is O₂† (P_pm).
+-- Key asymmetry: ZFC_s is O_inf (P_pm_sym); ZFC_t is O₂dag (P_pm).
 -- Fundamental collapse: ZFC_st = ZFC_s ⊗ ZFC_t = ZFC_t.
 
 import Imscribing.Primitives.Core
@@ -59,18 +59,18 @@ def zfc_to_zfc_s_promotions : List (String × String) := [
 -- TIER ANALYSIS
 -- ============================================================
 
-/-- ZFC_s attains O_∞: spatial isotropy (P_pm_sym) at Phi_c satisfies the
+/-- ZFC_s attains O_inf: spatial isotropy (P_pm_sym) at Phi_c satisfies the
     Frobenius condition — the same gate as quantum gravity and the Higgs field. -/
-theorem zfc_s_is_O_inf : imscriptionTier zfc_s = .O_∞ := by decide
+theorem zfc_s_is_O_inf : imscriptionTier zfc_s = .O_inf := by decide
 
-/-- ZFC_t is O_∞: temporal Frobenius symmetry (P_pm_sym) at Phi_c.
+/-- ZFC_t is O_inf: temporal Frobenius symmetry (P_pm_sym) at Phi_c.
     Space and time are structurally symmetric at the tier level — both Frobenius-open. -/
-theorem zfc_t_is_O_inf : imscriptionTier zfc_t = .O_∞ := by decide
+theorem zfc_t_is_O_inf : imscriptionTier zfc_t = .O_inf := by decide
 
-/-- Both ZFC_s and ZFC_t are O_∞: the Frobenius condition holds in both extensions.
+/-- Both ZFC_s and ZFC_t are O_inf: the Frobenius condition holds in both extensions.
     They differ in HOW they attain it: isotropy (space) vs bidirectional chirality (time). -/
 theorem both_extensions_O_inf :
-    imscriptionTier zfc_s = .O_∞ ∧ imscriptionTier zfc_t = .O_∞ := by decide
+    imscriptionTier zfc_s = .O_inf ∧ imscriptionTier zfc_t = .O_inf := by decide
 
 -- ============================================================
 -- SPACETIME TENSOR: ZFC_st = ZFC_s ⊗ ZFC_t
@@ -108,8 +108,8 @@ theorem zfc_st_is_tensor : zfc_st = tensorProduct zfc_s zfc_t := by decide
     ZFC_s and ZFC_t already carry P_pm_sym. -/
 theorem zfc_st_eq_zfc_t : zfc_st = zfc_t := by decide
 
-/-- ZFC_st is O_∞: the Frobenius gate is open at the spacetime level. -/
-theorem zfc_st_is_O_inf : imscriptionTier zfc_st = .O_∞ := by decide
+/-- ZFC_st is O_inf: the Frobenius gate is open at the spacetime level. -/
+theorem zfc_st_is_O_inf : imscriptionTier zfc_st = .O_inf := by decide
 
 -- ============================================================
 -- MEET AND JOIN OPERATIONS
@@ -166,12 +166,12 @@ theorem join_zfc_zfc_t : joinProduct zfc zfc_t = zfc_t := by decide
     Polarity: both P_pm_sym → P_pm_sym. -/
 def zfc_s_meet_zfc_t : Imscription := meetProduct zfc_s zfc_t
 
-/-- ZFC_s ∨ ZFC_t: the spatial-temporal join — O_∞.
+/-- ZFC_s ∨ ZFC_t: the spatial-temporal join — O_inf.
     Takes T_odot, R_lr, Gamma_seq from ZFC_t; P_pm_sym from both; H2 from ZFC_t.
-    The join of two O_∞ systems is O_∞. -/
+    The join of two O_inf systems is O_inf. -/
 def zfc_s_join_zfc_t : Imscription := joinProduct zfc_s zfc_t
 
-theorem zfc_s_join_zfc_t_is_O_inf : imscriptionTier zfc_s_join_zfc_t = .O_∞ := by decide
+theorem zfc_s_join_zfc_t_is_O_inf : imscriptionTier zfc_s_join_zfc_t = .O_inf := by decide
 
 /-- The join ZFC_s ∨ ZFC_t equals the tensor ZFC_s ⊗ ZFC_t (= ZFC_t) here,
     because both carry the same polarity (P_pm_sym) so max=min on that slot. -/
@@ -260,20 +260,20 @@ def hodge_decomposition : Imscription := {
 -- TIER THEOREMS FOR SPATIAL MATHEMATICS
 -- ============================================================
 
-/-- Fundamental group is O_∞: loop concatenation satisfies the Frobenius condition. -/
-theorem fundamental_group_is_O_inf : imscriptionTier fundamental_group = .O_∞ := by decide
+/-- Fundamental group is O_inf: loop concatenation satisfies the Frobenius condition. -/
+theorem fundamental_group_is_O_inf : imscriptionTier fundamental_group = .O_inf := by decide
 
-/-- de Rham cohomology is O_∞: the exterior algebra is a Frobenius algebra. -/
-theorem de_rham_is_O_inf : imscriptionTier de_rham_cohomology = .O_∞ := by decide
+/-- de Rham cohomology is O_inf: the exterior algebra is a Frobenius algebra. -/
+theorem de_rham_is_O_inf : imscriptionTier de_rham_cohomology = .O_inf := by decide
 
-/-- Poincaré duality is O_∞: the cap product is a Frobenius pairing. -/
-theorem poincare_duality_is_O_inf : imscriptionTier poincare_duality = .O_∞ := by decide
+/-- Poincaré duality is O_inf: the cap product is a Frobenius pairing. -/
+theorem poincare_duality_is_O_inf : imscriptionTier poincare_duality = .O_inf := by decide
 
-/-- Covering space is O_∞: deck group action satisfies the Frobenius condition. -/
-theorem covering_space_is_O_inf : imscriptionTier covering_space = .O_∞ := by decide
+/-- Covering space is O_inf: deck group action satisfies the Frobenius condition. -/
+theorem covering_space_is_O_inf : imscriptionTier covering_space = .O_inf := by decide
 
-/-- Hodge decomposition is O_∞: L² adjointness is the Frobenius pairing. -/
-theorem hodge_is_O_inf : imscriptionTier hodge_decomposition = .O_∞ := by decide
+/-- Hodge decomposition is O_inf: L² adjointness is the Frobenius pairing. -/
+theorem hodge_is_O_inf : imscriptionTier hodge_decomposition = .O_inf := by decide
 
 /-- Riemannian metric is O₀: subcritical — classical smooth geometry, no topological gate. -/
 theorem riemannian_is_O_0 : imscriptionTier riemannian_metric = .O₀ := by decide
@@ -391,7 +391,7 @@ def zfc_s_vs_zfc_t_comparison : List (String × String × String) := [
   ("pol",  "P_pm_sym  (both: Frobenius condition)",  "P_pm_sym  (both: Frobenius condition)"),
   ("gram", "Gamma_or  (spatial: concurrent)",         "Gamma_seq (temporal: sequential)"),
   ("chir", "H0        (spatial: isotropic)",          "H2        (temporal: arrow of time)"),
-  ("tier", "O_∞     (Frobenius gate: open)",        "O_∞     (Frobenius gate: open)") ]
+  ("tier", "O_inf     (Frobenius gate: open)",        "O_inf     (Frobenius gate: open)") ]
 
 end ZFCs
 end Imscribing.Primitives

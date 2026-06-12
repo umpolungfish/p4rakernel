@@ -118,7 +118,7 @@ namespace Voynich
 
   theorem type5_broad_tier : imscriptionTier type5_broad = .O₂ := by native_decide
 
-  /-- 6 entries (e.g. f103r, f103v), tier .O_∞ -/
+  /-- 6 entries (e.g. f103r, f103v), tier .O_inf -/
   def type6_sym_cl_cross : Imscription :=
     { dim := D_odot, top := T_box, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_seq, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
 
@@ -136,7 +136,7 @@ namespace Voynich
       bij f x x  ∧\n    \
       ℤwind f x ∧ wind f x"
 
-  theorem type6_sym_cl_cross_tier : imscriptionTier type6_sym_cl_cross = .O_∞ := by native_decide
+  theorem type6_sym_cl_cross_tier : imscriptionTier type6_sym_cl_cross = .O_inf := by native_decide
 
   /-- 4 entries (e.g. f66r, f84r), tier .O₂ -/
   def type7_sym_all_cross : Imscription :=
@@ -158,7 +158,7 @@ namespace Voynich
 
   theorem type7_sym_all_cross_tier : imscriptionTier type7_sym_all_cross = .O₂ := by native_decide
 
-  /-- 3 entries (e.g. f75r, f79v), tier .O_∞ -/
+  /-- 3 entries (e.g. f75r, f79v), tier .O_inf -/
   def type8_sym_cl : Imscription :=
     { dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_seq, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
 
@@ -176,7 +176,7 @@ namespace Voynich
       bij f x x  ∧\n    \
       ℤwind f x ∧ wind f x"
 
-  theorem type8_sym_cl_tier : imscriptionTier type8_sym_cl = .O_∞ := by native_decide
+  theorem type8_sym_cl_tier : imscriptionTier type8_sym_cl = .O_inf := by native_decide
 
   /-- 1 entries (e.g. f116v), tier .O₂ -/
   def type9_broad_memless : Imscription :=
@@ -198,7 +198,7 @@ namespace Voynich
 
   theorem type9_broad_memless_tier : imscriptionTier type9_broad_memless = .O₂ := by native_decide
 
-  /-- 1 entries (e.g. f46r), tier .O_∞ -/
+  /-- 1 entries (e.g. f46r), tier .O_inf -/
   def type10_sym_cl_broad_cross : Imscription :=
     { dim := D_odot, top := T_box, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_broad, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
 
@@ -216,7 +216,7 @@ namespace Voynich
       bij f x x  ∧\n    \
       ℤwind f x ∧ wind f x"
 
-  theorem type10_sym_cl_broad_cross_tier : imscriptionTier type10_sym_cl_broad_cross = .O_∞ := by native_decide
+  theorem type10_sym_cl_broad_cross_tier : imscriptionTier type10_sym_cl_broad_cross = .O_inf := by native_decide
 
   /-- 1 entries (e.g. f65r), tier .O₂ -/
   def type11_memless : Imscription :=
@@ -460,15 +460,15 @@ namespace CorpusComparison
 
   def voynich_frob_cross_seq : Imscription :=
     { dim := D_odot, top := T_box, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_seq, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
-  theorem voynich_frob_cross_seq_tier : imscriptionTier voynich_frob_cross_seq = .O_∞ := by native_decide
+  theorem voynich_frob_cross_seq_tier : imscriptionTier voynich_frob_cross_seq = .O_inf := by native_decide
 
   def voynich_frob_cross_broad : Imscription :=
     { dim := D_odot, top := T_box, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_broad, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
-  theorem voynich_frob_cross_broad_tier : imscriptionTier voynich_frob_cross_broad = .O_∞ := by native_decide
+  theorem voynich_frob_cross_broad_tier : imscriptionTier voynich_frob_cross_broad = .O_inf := by native_decide
 
   def voynich_frob_open_seq : Imscription :=
     { dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm_sym, fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_seq, crit := Phi_c, chir := H_inf, stoi := one_one, prot := Omega_Z }
-  theorem voynich_frob_open_seq_tier : imscriptionTier voynich_frob_open_seq = .O_∞ := by native_decide
+  theorem voynich_frob_open_seq_tier : imscriptionTier voynich_frob_open_seq = .O_inf := by native_decide
 
   -- ── Vinča cross-corpus distances ────────────────────────────────────────────
   -- Hamming distances. Weighted IG distances differ (use ZFCt navigator for those).

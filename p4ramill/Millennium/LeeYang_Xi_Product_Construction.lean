@@ -9,7 +9,7 @@
         Imscribing Grammar polarity promotion P_sym → P_pm_sym
 
   The C₁₃ gap (FrobeniusStructure.lean):
-    Lee-Yang: FrobeniusType.special (O_∞, P_pm_sym)
+    Lee-Yang: FrobeniusType.special (O_inf, P_pm_sym)
     RH:       FrobeniusType.full    (O₂,  P_sym)
     Gap = 1 Frobenius tier = 1 Polarity primitive
 
@@ -52,7 +52,7 @@ namespace Millennium.LeeYang_Xi_Product
   This is the one-primitive Frobenius tier gap.
 -/
 
-/-- The Frobenius tier gap: Lee-Yang is special (O_∞), RH is full (O₂). -/
+/-- The Frobenius tier gap: Lee-Yang is special (O_inf), RH is full (O₂). -/
 theorem gap_is_one_frobenius_tier :
     ¬ IsSpecial rhFrobeniusType ∧ IsSpecial leeYangFrobeniusType :=
   ⟨rh_is_not_special, leeYang_is_special⟩

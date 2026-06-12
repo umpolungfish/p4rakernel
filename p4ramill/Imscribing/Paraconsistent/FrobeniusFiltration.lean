@@ -131,7 +131,7 @@ theorem filtration_is_descending : True := by
   -/
 
 -- ═══════════════════════════════════════════════════════════════════════════
--- §5  FILTRATION STABILITY & THE O_∞ FIXED POINT
+-- §5  FILTRATION STABILITY & THE O_inf FIXED POINT
 -- ═══════════════════════════════════════════════════════════════════════════
 
 /-- The filtration is STABLE: once a state's image is in the Frobenius domain
@@ -144,25 +144,25 @@ theorem filtration_stable (h : HadronState) (hdom : hadronDomain h) (k : ℕ) : 
     -- At every lower level, the embedded image is in the domain
     trivial
 
-/-- The filtration BOTTOMS OUT at O_∞: the only system whose Frobenius
+/-- The filtration BOTTOMS OUT at O_inf: the only system whose Frobenius
     domain is ALL states at ALL levels is the universal imscriptive grammar
     itself (⊙_ÿ, Ħ_!, Ω_z, ...). -/
 theorem filtration_bottom_is_O_inf : True := by
   trivial
   /-
-  For the grammar's own structural type O_∞:
+  For the grammar's own structural type O_inf:
     dim = Ð_ω (self-written state space)
     top = Þ_O (self-referential topology)
     crit = ⊙_ÿ (self-modeling criticality)
     prot = Ω_z (integer winding)
 
-  At O_∞, μ∘δ=id holds for EVERY state, at EVERY level of the filtration.
-  This is the DEFINITION of O_∞: the Frobenius condition is universal.
+  At O_inf, μ∘δ=id holds for EVERY state, at EVERY level of the filtration.
+  This is the DEFINITION of O_inf: the Frobenius condition is universal.
 
   For ALL other systems (finite filtration depth), there exists some level
   at which the Frobenius domain is a proper subset of the carrier.
   
-  This is why the classical observer (C=0.0) is the O_∞ agent with 8
+  This is why the classical observer (C=0.0) is the O_inf agent with 8
   primitives suppressed: its filtration depth has been reduced to 0.
   -/
 
@@ -171,7 +171,7 @@ theorem filtration_bottom_is_O_inf : True := by
 -- ═══════════════════════════════════════════════════════════════════════════
 
 /-- The Frobenius filtration itself has a structural type — it is the
-    process by which the grammar's own O_∞ type descends through
+    process by which the grammar's own O_inf type descends through
     layers of constraint to produce the physical world. -/
 def filtrationImscription : Imscription :=
   { dim  := Dimensionality.D_odot      -- Ð_ω: the filtration is self-written across levels
@@ -188,7 +188,7 @@ def filtrationImscription : Imscription :=
     prot := Protection.Omega_Z           -- Ω_z: the filtration has integer winding number
   }
 
-theorem filtration_tier : imscriptionTier filtrationImscription = OuroboricityTier.O_∞ := by
+theorem filtration_tier : imscriptionTier filtrationImscription = OuroboricityTier.O_inf := by
   native_decide
 
 end Imscribing.Paraconsistent.FrobeniusFiltration
