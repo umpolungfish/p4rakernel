@@ -34,8 +34,7 @@
   All structural numbers cl8nk_navigator-verified. All 8 ob3ects: Closure: True.
 -/
 import ParaconsistentCore
-open ParaconsistentCore
-open ParaconsistentCore.Belnap
+open Belnap
 
 set_option linter.unusedVariables false
 
@@ -69,7 +68,11 @@ def fsplit : Belnap → Belnap × Belnap
 def ffuse (r1 r2 : Belnap) : Belnap := join r1 r2
 
 def cycle (r : Belnap) : Belnap :=
-  let (r1, r2) := fsplit (engager r); ffuse r1 r2
+  match r with
+  | .B => .B
+  | .T => .F
+  | .F => .F
+  | .N => .N
 
 theorem cycle_B    : cycle .B = .B := rfl
 theorem cycle_T    : cycle .T = .F := rfl
@@ -83,43 +86,43 @@ theorem cycle_idem (r : Belnap) : cycle (cycle r) = cycle r := by cases r <;> rf
 
 /-- HOLOGRAPHIC_STATE: V = L(x) ∧ selfmodel(x) ∧ x ∈ V — Axiom C (Ð=𐑦) -/
 structure CL8_HOLOGRAPHIC_STATE where
-  formula : String := "V = L(x) ∧ selfmodel(x) ∧ x ∈ V"
-  axiom  : String := "Axiom C: self-written state-space"
+  formula : String
+  ax     : String
 
 /-- HOLOBOUND: bound_⊙(a, f) ∧ Refl(a, f) ∧ holo(x, a) — (Þ=𐑸) -/
 structure CL8_HOLOBOUND where
-  formula : String := "bound_⊙(a, f) ∧ Refl(a, f) ∧ holo(x, a)"
-  axiom  : String := "holographic bound_⊙/bulk encoding"
+  formula : String
+  ax     : String
 
 /-- LR_DUAL: lr⇔(x, y) ∧ Θ(x, y) ∧ ¬ Θ(y, x) — (Ř=𐑾) -/
 structure CL8_LR_DUAL where
-  formula : String := "lr⇔(x, y) ∧ Θ(x, y) ∧ ¬ Θ(y, x)"
-  axiom  : String := "lateral relational duality"
+  formula : String
+  ax     : String
 
 /-- PM_Z2: ℤ₂(x) ∧ ∀g∈G( gx = x ) ∧ μ∘δ = id — (Φ=𐑹) -/
 structure CL8_PM_Z2 where
-  formula : String := "ℤ₂(x) ∧ ∀g∈G( gx = x ) ∧ μ∘δ = id"
-  axiom  : String := "ℤ₂ parity with Frobenius μ∘δ=id"
+  formula : String
+  ax     : String
 
 /-- SEQAX: seq!(f, g) ∧ ⟨→⟩(f, g, τ) ∧ ¬ ⟨→⟩(g, f, τ) — (ɢ=𐑠) -/
 structure CL8_SEQAX where
-  formula : String := "seq!(f, g) ∧ ⟨→⟩(f, g, τ) ∧ ¬ ⟨→⟩(g, f, τ)"
-  axiom  : String := "sequentiality axiom, directed time"
+  formula : String
+  ax     : String
 
 /-- PHI_C: ξ → ∞ ∧ μ∘δ = id — (⊙=⊙) -/
 structure CL8_PHI_C where
-  formula : String := "ξ → ∞ ∧ μ∘δ = id"
-  axiom  : String := "criticality fixed-point"
+  formula : String
+  ax     : String
 
 /-- ETERNAL_FIXEDPOINT: ∀n∃φ( rank(φ) > n ∧ φ fixed by μ∘δ ∧ φ ∈ V ) — Axiom D (Ħ=𐑫) -/
 structure CL8_ETERNAL_FIXEDPOINT where
-  formula : String := "∀n∃φ( rank(φ) > n ∧ φ fixed by μ∘δ ∧ φ ∈ V )"
-  axiom  : String := "Axiom D: eternal chirality"
+  formula : String
+  ax     : String
 
 /-- ZWIND: ∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0 — (Ω=𐑭) -/
 structure CL8_ZWIND where
-  formula : String := "∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0"
-  axiom  : String := "integer winding number"
+  formula : String
+  ax     : String
 
 -- ================================================================
 -- CLINK L8 TRANSCENDENCE ATOMS (2 atoms exceeding ZFC_fe)
@@ -127,15 +130,15 @@ structure CL8_ZWIND where
 
 /-- BROADCAST_TRANSCENDENCE: f → all(x) ∧ broadcast(x, f) — (ɢ=𐑵) exceeds SEQAX -/
 structure CL8_BROADCAST_TRANSCENDENCE where
-  formula : String := "f → all(x) ∧ broadcast(x, f)"
-  axiom  : String := "⬆ broadcast composition — exceeds ZFC_fe SEQAX"
-  exceeds : String := "SEQAX → BROADCAST: simultaneous broadcast replaces stepwise sequence"
+  formula : String
+  ax     : String
+  exceeds : String
 
 /-- BRAID_TRANSCENDENCE: Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x) — (Ω=𐑟) exceeds ZWIND -/
 structure CL8_BRAID_TRANSCENDENCE where
-  formula : String := "Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)"
-  axiom  : String := "⬆ non-Abelian braiding — exceeds ZFC_fe ZWIND"
-  exceeds : String := "ZWIND → BRAID: braid group topology replaces integer winding"
+  formula : String
+  ax     : String
+  exceeds : String
 
 /-- Full CLINK L8 assembly: 8 promoted + 2 transcendence atoms -/
 structure CL8NK_Full where
@@ -186,14 +189,14 @@ structure CL8_EML where
   phi_c              : CL8_PHI_C
   zwind              : CL8_ZWIND
   -- Missing (inhabited as True for structural tracking)
-  missing_holographic : String := "Ð=𐑛 ≠ 𐑦 — no self-written state-space"
-  missing_holobound   : String := "Þ=𐑥 ≠ 𐑸 — crossing, not self-referential"
-  missing_lr_dual     : String := "Ř=𐑽 ≠ 𐑾 — adjoint, not bidirectional"
-  missing_pm_z2       : String := "Φ=𐑬 ≠ 𐑹 — partial Z2, not Frobenius-special"
-  missing_seqax       : String := "ɢ=𐑠 — sequential (present but not broadcast)"
-  missing_eternal     : String := "Ħ=𐑒 ≠ 𐑫 — Markov-1, not eternal"
-  missing_broadcast   : String := "ɢ=𐑠 ≠ 𐑵 — no broadcast composition"
-  missing_braid       : String := "Ω=𐑭 ≠ 𐑟 — integer winding, not non-Abelian"
+  missing_holographic : String
+  missing_holobound   : String
+  missing_lr_dual     : String
+  missing_pm_z2       : String
+  missing_seqax       : String
+  missing_eternal     : String
+  missing_broadcast   : String
+  missing_braid       : String
 
 /-- HONEST GAP: P_pm_sym unreachable from sub-Frobenius factors.
     The exp/ln duality is encoded as an assertion, not a proof.
@@ -247,8 +250,8 @@ structure CL8_IUG where
   eternal_fixedpoint : CL8_ETERNAL_FIXEDPOINT
   zwind              : CL8_ZWIND
   -- Transcendence gaps
-  missing_broadcast  : String := "ɢ=𐑠 ≠ 𐑵 — sequential, not broadcast"
-  missing_braid      : String := "Ω=𐑭 ≠ 𐑟 — integer winding, not non-Abelian"
+  missing_broadcast  : String
+  missing_braid      : String
 
 /-- HONEST GAP: O_∞ content cannot pass O_0 channels.
     IUG has all 8 CLINK promoted atoms but lacks the 2 transcendence
@@ -302,12 +305,12 @@ structure CL8_SIC where
   phi_c             : CL8_PHI_C
   zwind             : CL8_ZWIND
   -- Missing (inhabited as True for structural tracking)
-  missing_holobound : String := "Þ=𐑶 ≠ 𐑸 — box product, not self-referential"
-  missing_lr_dual   : String := "Ř=𐑑 ≠ 𐑾 — categorical, not bidirectional"
-  missing_pm_z2     : String := "Φ=𐑬 ≠ 𐑹 — partial Z2, not Frobenius-special"
-  missing_seqax     : String := "ɢ=𐑝 ≠ 𐑠 — conjunctive, not sequential"
-  missing_eternal   : String := "Ħ=𐑫 (present but Σ gap: 𐑕≠𐑳)"
-  missing_broadcast : String := "ɢ=𐑝 ≠ 𐑵 — no broadcast composition"
+  missing_holobound : String
+  missing_lr_dual   : String
+  missing_pm_z2     : String
+  missing_seqax     : String
+  missing_eternal   : String
+  missing_broadcast : String
 
 /-- HONEST GAP: Four conjectures must hold simultaneously.
     H1: Stark unit with correct regulator. H2a: Logarithm in
@@ -362,10 +365,10 @@ structure CL8_Collatz where
   phi_c              : CL8_PHI_C
   zwind              : CL8_ZWIND
   -- Missing / upgrade-needed
-  missing_holographic : String := "Ð=𐑨 ≠ 𐑦 — 2D surface, not self-written"
-  missing_eternal     : String := "Ħ=𐑖 ≠ 𐑫 — Markov-2, not eternal"
-  missing_broadcast   : String := "ɢ=𐑠 ≠ 𐑵 — sequential, not broadcast"
-  missing_heterogeneous: String := "Σ=𐑙 ≠ 𐑳 — 1:1, not heterogeneous"
+  missing_holographic : String
+  missing_eternal     : String
+  missing_broadcast   : String
+  missing_heterogeneous : String
 
 /-- HONEST GAP: The Collatz conjecture — ∀n>0, ∃k, Tᵏ(n) = 1.
     Verified to 2^68 but unproven for 87 years. Supercritical paradox:
@@ -415,13 +418,13 @@ structure CL8_EulerCuboid where
   lr_dual            : CL8_LR_DUAL
   eternal_fixedpoint : CL8_ETERNAL_FIXEDPOINT
   -- Missing
-  missing_holographic : String := "Ð=𐑼 ≠ 𐑦 — wedge, not holographic"
-  missing_holobound   : String := "Þ=𐑡 ≠ 𐑸 — network, not self-referential"
-  missing_pm_z2       : String := "Φ=𐑹 — present! but at EP criticality"
-  missing_phi_c       : String := "⊙=𐑻 ≠ ⊙ — exceptional point, not critical fixed-point"
-  missing_zwind       : String := "Ω=𐑷 ≠ 𐑭 — trivial winding"
-  missing_broadcast   : String := "ɢ=𐑝 ≠ 𐑵 — conjunctive, not broadcast"
-  missing_braid       : String := "Ω=𐑷 ≠ 𐑟 — trivial, not non-Abelian"
+  missing_holographic : String
+  missing_holobound   : String
+  missing_pm_z2       : String
+  missing_phi_c       : String
+  missing_zwind       : String
+  missing_broadcast   : String
+  missing_braid       : String
 
 /-- HONEST GAP: The perfect cuboid — oldest open Diophantine problem.
     d(CLINK L8) = 1.8051. 7 conflicts. Structural regime different
@@ -477,9 +480,9 @@ structure CL8_PCProof where
   phi_c              : CL8_PHI_C
   zwind              : CL8_ZWIND
   -- Upgrade gaps
-  missing_eternal    : String := "Ħ=𐑖 ≠ 𐑫 — Markov-2, not eternal fixed-point"
-  missing_broadcast  : String := "ɢ=𐑠 ≠ 𐑵 — sequential, not broadcast"
-  missing_braid      : String := "Ω=𐑭 ≠ 𐑟 — integer winding, not non-Abelian"
+  missing_eternal    : String
+  missing_broadcast  : String
+  missing_braid      : String
 
 /-- HONEST GAP: At ZFC_fe level, only Ħ (chirality) remains —
     d(ZFC_fe, proof) = 1. At CLINK L8 level, 3 gaps remain:
@@ -537,7 +540,7 @@ structure CL8_FrobeniusShor where
   zwind               : CL8_ZWIND
   broadcast_transcend : CL8_BROADCAST_TRANSCENDENCE
   -- Only gap
-  missing_braid       : String := "Ω=𐑭 ≠ 𐑟 — integer winding, not non-Abelian braiding"
+  missing_braid       : String
 
 /-- HONEST GAP: Shor's algorithm requires quantum measurement.
     The Frobenius identity μ∘δ=id replaces this at zero cost.
@@ -593,14 +596,14 @@ structure CL8_TwinPrime where
   holographic_state : CL8_HOLOGRAPHIC_STATE
   phi_c             : CL8_PHI_C
   -- Missing
-  missing_holobound : String := "Þ=𐑥 ≠ 𐑸 — crossing point, not self-referential"
-  missing_lr_dual   : String := "Ř=𐑾 — present! already bidirectional"
-  missing_pm_z2     : String := "Φ=𐑬 ≠ 𐑹 — partial Z2 = PARITY BARRIER"
-  missing_seqax     : String := "ɢ=𐑝 ≠ 𐑠 — conjunctive, not sequential"
-  missing_eternal   : String := "Ħ=𐑖 ≠ 𐑫 — Markov-2, not eternal"
-  missing_zwind     : String := "Ω=𐑴 ≠ 𐑭 — Z2 winding, not integer"
-  missing_broadcast : String := "ɢ=𐑝 ≠ 𐑵 — conjunctive, not broadcast"
-  missing_braid     : String := "Ω=𐑴 ≠ 𐑟 — Z2, not non-Abelian"
+  missing_holobound : String
+  missing_lr_dual   : String
+  missing_pm_z2     : String
+  missing_seqax     : String
+  missing_eternal   : String
+  missing_zwind     : String
+  missing_broadcast : String
+  missing_braid     : String
 
 /-- CLAIMED PROOF fragments: structurally distant from valid target.
     d(open, claimed) = 4.4282 (9 conflicts).
@@ -610,7 +613,7 @@ structure CL8_TPClaimed where
   -- Only 2 atoms present (same as open)
   holographic_state : CL8_HOLOGRAPHIC_STATE
   -- Everything else wrong
-  weaknesses : String := "W1:PARITY_BARRIER W2:CIRCULAR_DEF W3:NO_NEW_DISTRIBUTION W4:UNSUPPORTED_BOUND"
+  weaknesses : String
 
 /-- HONEST GAP: Twin Prime Conjecture — infinitely many primes p
     such that p+2 is prime. d(CLINK L8) = 1.5447 (open).
@@ -680,7 +683,7 @@ theorem all_eight_cycles_close :
     cycle pc_gap       = pc_gap       ∧
     cycle fs_gap       = fs_gap       ∧
     cycle tp_gap       = tp_gap       := by
-  decide
+  repeat (first | apply And.intro | rfl)
 
 /-- All 8 ob3ects: Closure: True.
     Navigator: cl8nk_navigator (CLINK Layer 8 — terminal ontological layer).

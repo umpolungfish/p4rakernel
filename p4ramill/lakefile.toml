@@ -191,5 +191,8 @@ globs = [
 "Imscribing.HowProbabilityArise",
 "Imscribing.HowHilbertQMArise",
 "Imscribing.HowDiracEquationArise",
+  "Imscribing.Tier2.CLU_GPM",
 
+  "Imscribing.Paraconsistent.FDEAsymptotic",
+  "Imscribing.Paraconsistent.QCDColorFrustration",
 ]
