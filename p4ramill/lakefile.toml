@@ -195,4 +195,18 @@ globs = [
 
   "Imscribing.Paraconsistent.FDEAsymptotic",
   "Imscribing.Paraconsistent.QCDColorFrustration",
+  "Imscribing.Paraconsistent.LeptonBelnap",
+  "Imscribing.Paraconsistent.ElectroweakBelnap",
+  "Imscribing.Paraconsistent.QuarkFlavor",
+  "Imscribing.Paraconsistent.FlavorMixing",
+  "Imscribing.Paraconsistent.NeutrinoOscillation",
+  "Imscribing.Paraconsistent.HiggsMechanism",
+  "Imscribing.Paraconsistent.StandardModelBelnap",
+
+  "Imscribing.Paraconsistent.GeneralRelativity",
+  "Imscribing.Paraconsistent.GravitationalWaves",
+  "Imscribing.Paraconsistent.BlackHoleBelnap",
+  "Imscribing.Paraconsistent.CosmologyBelnap",
+  "Imscribing.Paraconsistent.QuantumGravityBelnap",
+  "Imscribing.Paraconsistent.GravityStandardModel",
 ]
