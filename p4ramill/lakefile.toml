@@ -101,6 +101,7 @@ globs = [
   "Imscribing.Paraconsistent.ParaconsistentShell",
   "Imscribing.Paraconsistent.Portal",
   "Imscribing.Paraconsistent.Belnap",
+  "Imscribing.Paraconsistent.ParadoxUnit",
   "Imscribing.Paraconsistent.OrbitalBelnap",
   "Imscribing.Paraconsistent.SuperconductingPhase",
   "Imscribing.Paraconsistent.QuarkBelnap",
