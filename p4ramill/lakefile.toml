@@ -190,6 +190,8 @@ globs = [
   "Imscribing.Millennium.QGUnifiedBridge",
   "Imscribing.Millennium.SMUGTConsummation",
   "Imscribing.CLINK",
+  "Imscribing.BoundaryOperators",
+  "Imscribing.TimeWithinTheStone",
 "Imscribing.HowNaturalNumbersArise",
 "Imscribing.HowInductionArise",
 "Imscribing.HowProbabilityArise",
