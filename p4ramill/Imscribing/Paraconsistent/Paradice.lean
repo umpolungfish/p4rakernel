@@ -1,16 +1,16 @@
--- Imscribing/Paraconsistent/ParadoxUnit.lean
--- FORMALIZATION: The Paradox-Unit as the Fundamental Unit of Non-Dissipative Work
+-- Imscribing/Paraconsistent/Paradice.lean
+-- FORMALIZATION: The Paradice as the Fundamental Unit of Non-Dissipative Work
 -- Author: Lando ⊗ ⊙perator
--- Date: 2026-06-13
+-- Date: 2026-06-13  (renamed from ParadoxUnit.lean 2026-06-19)
 --
--- Formalizes: paradox-unit = depth × Frobenius-verified windings
+-- Formalizes: paradice = depth × Frobenius-verified windings
 -- Engine: Frobenius identity μ∘δ = id over Belnap-Dunn FOUR-valued logic.
 
 import Imscribing.Paraconsistent.Belnap
 import Mathlib.Data.Nat.Basic
 import Mathlib.Tactic
 
-namespace Imscribing.Paraconsistent.ParadoxUnit
+namespace Imscribing.Paraconsistent.Paradice
 
 open Belnap
 
@@ -147,36 +147,37 @@ theorem windings_strict (ws : WindingState) (h : μ (δ ws.value) = ws.value) :
   unfold step; simp [h]
 
 -- ============================================================
--- §4  THE PARADOX-UNIT — DEPTH × FROBENIUS-VERIFIED WINDINGS
+-- §4  THE PARADICE — DEPTH × FROBENIUS-VERIFIED WINDINGS
 -- ============================================================
 
-/-- A paradox-unit = depth (intensive) × windings (extensive).
-    Structure mirrors the joule: force × distance vs depth × windings. -/
-structure ParadoxUnit where
+/-- A paradice = depth (intensive) × windings (extensive).
+    Structure mirrors the joule: force × distance vs depth × windings.
+    The fundamental unit of non-dissipative work. -/
+structure Paradice where
   depth    : Nat
   windings : Nat
   verified : Bool
   total    : Nat
   deriving Repr, DecidableEq
 
-/-- Construct a paradox-unit from a winding state and depth. -/
-def paradoxUnitOf (depth : Nat) (ws : WindingState) : ParadoxUnit :=
+/-- Construct a paradice from a winding state and depth. -/
+def paradiceOf (depth : Nat) (ws : WindingState) : Paradice :=
   { depth := depth
     windings := ws.windings
     verified := ws.closed
     total := depth * ws.windings
   }
 
-/-- n paradox-units from n cycles at depth 1. -/
-def ofNCycles (n : Nat) : ParadoxUnit :=
+/-- n paradice from n cycles at depth 1. -/
+def ofNCycles (n : Nat) : Paradice :=
   let ws := after n
   { depth := 1, windings := ws.windings, verified := true, total := ws.windings }
 
-/-- The paradox-unit is measurable: n cycles at depth 1 yield exactly n. -/
+/-- The paradice is measurable: n cycles at depth 1 yield exactly n. -/
 theorem measurable (n : Nat) : (ofNCycles n).total = n := by
   simp [ofNCycles, after_count]
 
-/-- Conservation of paradox-units under sequential composition. -/
+/-- Conservation of paradice under sequential composition. -/
 theorem additive (n₁ n₂ : Nat) : (ofNCycles (n₁ + n₂)).total = n₁ + n₂ := by
   simp [ofNCycles, after_count]
 
@@ -184,9 +185,9 @@ theorem additive (n₁ n₂ : Nat) : (ofNCycles (n₁ + n₂)).total = n₁ + n�
 theorem nonzero (n : Nat) (h : n ≥ 1) : (ofNCycles n).total ≥ 1 := by
   simp [ofNCycles, after_count, h]
 
-/-- The paradox-unit has the intensive × extensive product structure. -/
+/-- The paradice has the intensive × extensive product structure. -/
 theorem product_structure (depth : Nat) (ws : WindingState) :
-    (paradoxUnitOf depth ws).total = depth * ws.windings := rfl
+    (paradiceOf depth ws).total = depth * ws.windings := rfl
 
 -- ============================================================
 -- §5  THE THREE RUNGS — FORMALIZED
@@ -240,7 +241,7 @@ theorem classical_zero : classical_heat_death.windings = 0 := rfl
 
 /-- Paraconsistent heat death: maximal dialetheic density.
     B (both, everything held), windings unbounded, fully saturated.
-    The Bekenstein limit — horizon formation at maximal information density. -/
+    The Bekenstein limit — horizon formation at maximal paradice density. -/
 structure ParaconsistentHeatDeath where
   value : Belnap
   unbounded : ∀ n : Nat, ∃ ws : WindingState, ws.windings ≥ n ∧ ws.value = B
@@ -269,13 +270,13 @@ theorem heat_death_inverses :
 
 /-- THE COMMITMENT:
     (a) Frobenius identity μ∘δ = id holds universally.
-    (b) n cycles accumulate exactly n paradox-units at depth 1.
+    (b) n cycles accumulate exactly n paradice at depth 1.
     (c) Windings are monotonic.
     (d) The B-state is preserved under every cycle.
-    (e) Paradox-units are measurable.
-    
+    (e) Paradice are measurable.
+
     The perpetual motion machine is real, running, fueled by paradox.
-    The joule and the paradox-unit are the same coin, different economies. -/
+    The joule and the paradice are the same coin, different economies. -/
 theorem commitment :
     (∀ s, μ (δ s) = s) ∧
     (∀ n, (after n).windings = n) ∧
@@ -298,12 +299,12 @@ theorem frobenius_is_verification :
     (step init).closed = true := by
   simp [frobenius_closure, step_from_B]
 
-/-- The paradox-unit = paradox-units: the fundamental unit of non-dissipative work.
+/-- The paradice: the fundamental unit of non-dissipative work.
     Dual to the joule. Both conserved. Both measurable as intensive × extensive. -/
-theorem paradox_unit_defined :
+theorem paradice_defined :
     (∃ n, (ofNCycles n).total = n) ∧
-    (∀ depth ws, (paradoxUnitOf depth ws).total = depth * ws.windings) := by
+    (∀ depth ws, (paradiceOf depth ws).total = depth * ws.windings) := by
   refine ⟨⟨1, by simp [ofNCycles, after_count]⟩, ?_⟩
   intro depth ws; rfl
 
-end Imscribing.Paraconsistent.ParadoxUnit
+end Imscribing.Paraconsistent.Paradice
