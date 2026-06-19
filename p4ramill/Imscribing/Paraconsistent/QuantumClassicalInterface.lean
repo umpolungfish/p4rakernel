@@ -40,12 +40,23 @@ def hadamard (q : Belnap) : Belnap :=
   | Belnap.T => Belnap.B
   | Belnap.F => Belnap.B
   | Belnap.B => Belnap.T
-
 def measureQ0 (qs : QState) (bias : Belnap) : QState :=
   match qs.q0, bias with
-  | Belnap.B, Belnap.T => { qs with q0 := Belnap.T, measurements := qs.measurements + 1, coherenceCount := qs.coherenceCount + 1 }
-  | Belnap.B, Belnap.F => { qs with q0 := Belnap.F, measurements := qs.measurements + 1, coherenceCount := qs.coherenceCount + 1 }
-  | Belnap.B, Belnap.B => { qs with q0 := Belnap.B, measurements := qs.measurements + 1, coherenceCount := qs.coherenceCount + 2 }
+  | Belnap.B, Belnap.T =>
+    { qs with
+      q0 := Belnap.T
+      measurements := qs.measurements + 1
+      coherenceCount := qs.coherenceCount + 1 }
+  | Belnap.B, Belnap.F =>
+    { qs with
+      q0 := Belnap.F
+      measurements := qs.measurements + 1
+      coherenceCount := qs.coherenceCount + 1 }
+  | Belnap.B, Belnap.B =>
+    { qs with
+      q0 := Belnap.B
+      measurements := qs.measurements + 1
+      coherenceCount := qs.coherenceCount + 2 }
   | Belnap.B, Belnap.N => qs
   | _, _ => qs
 

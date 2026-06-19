@@ -47,7 +47,7 @@ def totalCount (sys : OrbitalSystem) : ℕ :=
 /-- Order parameter: the density of paired orbitals, as a rational.
     The superconducting phase transition occurs when this density reaches 1. -/
 def orderParameter (sys : OrbitalSystem) : ℚ :=
-  if h : totalCount sys > 0 then
+  if _ : totalCount sys > 0 then
     (pairedCount sys : ℚ) / (totalCount sys : ℚ)
   else
     0
@@ -122,7 +122,8 @@ theorem winding_quantization (sys : OrbitalSystem) (h : AllPaired sys) :
   unfold windingNumber
   have hp : pairedCount sys = totalCount sys :=
     (global_Frobenius_iff_all_paired sys).mpr h
-  exact congrArg (fun n : ℕ => (n : ℤ)) hp-- ═══════════════════════════════════════════════════════════════════
+  exact congrArg (fun n : ℕ => (n : ℤ)) hp
+-- ════════════════════════════════════════════════════════════
 -- §3  MEISSNER EFFECT — TOPOLOGICAL PROTECTION
 -- ═══════════════════════════════════════════════════════════════════
 
@@ -162,7 +163,8 @@ theorem topological_Meissner (sys : OrbitalSystem) (h : ¬ AllPaired sys) :
     the Meissner effect follows from topological uniqueness. -/
 theorem Meissner_uniqueness (sys : OrbitalSystem) (h : windingNumber sys = (totalCount sys : ℤ)) :
     AllPaired sys :=
-  (winding_maximal_iff_superconducting sys).mp h-- ═══════════════════════════════════════════════════════════════════
+  (winding_maximal_iff_superconducting sys).mp h
+-- ════════════════════════════════════════════════════════════
 -- §4  PHASE TRANSITION AS THRESHOLD CROSSING
 -- ═══════════════════════════════════════════════════════════════════
 

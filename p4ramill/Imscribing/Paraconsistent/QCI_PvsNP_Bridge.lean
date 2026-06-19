@@ -76,7 +76,7 @@ theorem join_circuit_B_dominant (n : ℕ) (v : Fin n → Belnap) (i : Fin n) (h 
   unfold joinCircuit
   have hi_mem : i ∈ List.finRange n := by
     have hi_val : (i : ℕ) < n := i.2
-    simp [List.mem_finRange, hi_val]
+    simp [List.mem_finRange]
   apply foldl_join_eq_B_of_B_mem v (List.finRange n) Belnap.N
   exact ⟨i, hi_mem, h⟩
 
