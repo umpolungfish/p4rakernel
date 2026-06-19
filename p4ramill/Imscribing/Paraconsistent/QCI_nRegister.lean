@@ -20,11 +20,14 @@ structure NQState (n : ℕ) where
   coh   : ℕ
 
 abbrev allB {n : ℕ} (qs : NQState n) : Prop := ∀ i : Fin n, qs.regs i = Belnap.B
-
 def measureReg {n : ℕ} (qs : NQState n) (i : Fin n) (bias : Belnap) : NQState n :=
   match qs.regs i, bias with
-  | Belnap.B, Belnap.T => { regs := fun j => if j = i then Belnap.T else qs.regs j, coh := qs.coh + 1 }
-  | Belnap.B, Belnap.F => { regs := fun j => if j = i then Belnap.F else qs.regs j, coh := qs.coh + 1 }
+  | Belnap.B, Belnap.T =>
+    { regs := fun j => if j = i then Belnap.T else qs.regs j
+      coh := qs.coh + 1 }
+  | Belnap.B, Belnap.F =>
+    { regs := fun j => if j = i then Belnap.F else qs.regs j
+      coh := qs.coh + 1 }
   | Belnap.B, Belnap.B => { qs with coh := qs.coh + 2 }
   | _, _ => qs
 

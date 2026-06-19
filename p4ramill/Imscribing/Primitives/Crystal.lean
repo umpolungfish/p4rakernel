@@ -177,15 +177,16 @@ theorem crystal_roundtrip (s : Imscription) : crystal_decode (crystal_encode s) 
   have h_pol  : pol_of_nat  (idx_P s.pol)  = s.pol  := by cases s.pol  <;> simp [idx_P,  pol_of_nat]
   have h_fid  : fid_of_nat  (idx_F s.fid)  = s.fid  := by cases s.fid  <;> simp [idx_F,  fid_of_nat]
   have h_kin  : kin_of_nat  (idx_K s.kin)  = s.kin  := by cases s.kin  <;> simp [idx_K,  kin_of_nat]
-  have h_gran : gran_of_nat (idx_G s.gran) = s.gran := by cases s.gran <;> simp [idx_G,  gran_of_nat]
-  have h_gram : gram_of_nat (idx_Γ s.gram) = s.gram := by cases s.gram <;> simp [idx_Γ,  gram_of_nat]
-  have h_crit : crit_of_nat (idx_Φ s.crit) = s.crit := by cases s.crit <;> simp [idx_Φ,  crit_of_nat]
-  have h_chir : chir_of_nat (idx_H s.chir) = s.chir := by cases s.chir <;> simp [idx_H,  chir_of_nat]
-  have h_stoi : stoi_of_nat (idx_S s.stoi) = s.stoi := by cases s.stoi <;> simp [idx_S,  stoi_of_nat]
-  have h_prot : prot_of_nat (idx_Ω s.prot) = s.prot := by cases s.prot <;> simp [idx_Ω,  prot_of_nat]
+  have h_gran : gran_of_nat (idx_G s.gran) = s.gran := by cases s.gran <;> simp [idx_G, gran_of_nat]
+  have h_gram : gram_of_nat (idx_Γ s.gram) = s.gram := by cases s.gram <;> simp [idx_Γ, gram_of_nat]
+  have h_crit : crit_of_nat (idx_Φ s.crit) = s.crit := by cases s.crit <;> simp [idx_Φ, crit_of_nat]
+  have h_chir : chir_of_nat (idx_H s.chir) = s.chir := by cases s.chir <;> simp [idx_H, chir_of_nat]
+  have h_stoi : stoi_of_nat (idx_S s.stoi) = s.stoi := by cases s.stoi <;> simp [idx_S, stoi_of_nat]
+  have h_prot : prot_of_nat (idx_Ω s.prot) = s.prot := by cases s.prot <;> simp [idx_Ω, prot_of_nat]
   -- Introduce block variables; set gives unfoldable defs for omega.
   set f3 := idx_F s.fid * 9 + idx_G s.gran * 3 + idx_S s.stoi
-  set f4 := idx_D s.dim * 256 + idx_R s.rel * 64 + idx_Γ s.gram * 16 + idx_H s.chir * 4 + idx_Ω s.prot
+  set f4 := idx_D s.dim * 256 + idx_R s.rel * 64 + idx_Γ s.gram * 16
+    + idx_H s.chir * 4 + idx_Ω s.prot
   set f5 := idx_T s.top * 125 + idx_P s.pol * 25 + idx_Φ s.crit * 5 + idx_K s.kin
   -- Block bounds (omega derives from individual bounds)
   have hf3 : f3 < 27   := by omega
