@@ -1,3 +1,15 @@
+Rename paradox-unit -> paradice (2026-06-19)
+
+ParadoxUnit.lean -> Paradice.lean in Imscribing/Paraconsistent/:
+  namespace Imscribing.Paraconsistent.Paradice
+  structure Paradice (was ParadoxUnit)
+  paradiceOf (was paradoxUnitOf)
+  theorem paradice_defined (was paradox_unit_defined)
+  All doc comments, commitment docstring, Bekenstein note updated.
+  25 theorems, 0 sorrys — all preserved unchanged.
+
+---
+
 SNS_PRIME.md notation migration: O_inf→O_∞, O_0→O₀, O_1→O₁, O_2→O₂ (133 files)
 
 ---
