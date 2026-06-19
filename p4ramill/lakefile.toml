@@ -71,6 +71,7 @@ globs = [
   "Imscribing.Millennium.Collatz",
   "Imscribing.Millennium.ImaginaryNumbers",
   "Imscribing.IGMorphism",
+  "Imscribing.IGFunctor",
   "Imscribing.Millennium.Lefschetz11",
   "Imscribing.Millennium.Manuscript_ZFCt",
   "Imscribing.Millennium.CompositionRules",
