@@ -40,7 +40,9 @@ theorem belnap_fixed_point : bnot Belnap.B = Belnap.B :=
     This is the physical fixed point. -/
 theorem orbital_fixed_point (s : OrbitalState) :
     pair (depair s).1 (depair s).2 = s :=
-  pair_depair_id s/-- Fixed Point 3 (SIC-POVM): B satisfies equiangular projection.
+  pair_depair_id s
+
+/-- Fixed Point 3 (SIC-POVM): B satisfies equiangular projection.
     meet B x = x for all x — B projects equally onto all Belnap values.
     This is the information-theoretic fixed point (maximal information). -/
 theorem sic_fixed_point (x : Belnap) :
@@ -97,6 +99,6 @@ def majoranaFixedImscription : Imscription :=
 
 /-- The Majorana fixed-point type is O_inf. -/
 theorem majorana_fixed_is_O_inf : imscriptionTier majoranaFixedImscription = .O_inf := by
-  native_decide
+  decide
 
 end Imscribing.Paraconsistent.MajoranaFixed

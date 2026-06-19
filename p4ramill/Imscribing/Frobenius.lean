@@ -155,51 +155,51 @@ theorem mu_delta_D_id (a : Imscription) : μ_D (δ_D a).1 (δ_D a).2 = a := by
   · -- dim
     by_cases h : compare D_wedge a.dim = .lt
     · simp [h]
-    · simp [h, D_bottom_eq a.dim h]
+    · simp [D_bottom_eq a.dim h]
   · -- top
     by_cases h : compare T_network a.top = .lt
     · simp [h]
-    · simp [h, T_bottom_eq a.top h]
+    · simp [T_bottom_eq a.top h]
   · -- rel
     by_cases h : compare R_super a.rel = .lt
     · simp [h]
-    · simp [h, R_bottom_eq a.rel h]
+    · simp [R_bottom_eq a.rel h]
   · -- pol
     by_cases h : compare P_asym a.pol = .lt
     · simp [h]
-    · simp [h, P_bottom_eq a.pol h]
+    · simp [P_bottom_eq a.pol h]
   · -- fid
     by_cases h : compare F_ell a.fid = .lt
     · simp [h]
-    · simp [h, F_bottom_eq a.fid h]
+    · simp [F_bottom_eq a.fid h]
   · -- kin
     by_cases h : compare K_fast a.kin = .lt
     · simp [h]
-    · simp [h, K_bottom_eq a.kin h]
+    · simp [K_bottom_eq a.kin h]
   · -- gran
     by_cases h : compare G_beth a.gran = .lt
     · simp [h]
-    · simp [h, G_bottom_eq a.gran h]
+    · simp [G_bottom_eq a.gran h]
   · -- gram
     by_cases h : compare Gamma_and a.gram = .lt
     · simp [h]
-    · simp [h, Γ_bottom_eq a.gram h]
+    · simp [Γ_bottom_eq a.gram h]
   · -- crit
     by_cases h : compare Phi_sub a.crit = .lt
     · simp [h]
-    · simp [h, Φ_bottom_eq a.crit h]
+    · simp [Φ_bottom_eq a.crit h]
   · -- chir
     by_cases h : compare H0 a.chir = .lt
     · simp [h]
-    · simp [h, H_bottom_eq a.chir h]
+    · simp [H_bottom_eq a.chir h]
   · -- stoi
     by_cases h : compare one_one a.stoi = .lt
     · simp [h]
-    · simp [h, S_bottom_eq a.stoi h]
+    · simp [S_bottom_eq a.stoi h]
   · -- prot
     by_cases h : compare Omega_0 a.prot = .lt
     · simp [h]
-    · simp [h, Ω_bottom_eq a.prot h]
+    · simp [Ω_bottom_eq a.prot h]
 
 -- ============================================================
 -- §6  Polarization Frobenius (Structure C)

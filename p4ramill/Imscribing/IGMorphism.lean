@@ -104,7 +104,7 @@ private def litanyBase : Imscription := {
   chir := H0,            stoi := one_one,           prot := Omega_0 }
 
 /-- Fear: supercritical input — the mind-killer, total obliteration. -/
-def litany_fear  : Imscription := { litanyBase with crit := Phi_super }
+def litany_fear : Imscription := { litanyBase with crit := Phi_super }
 /-- Cross: traversal state — pass over and through (T_bowtie crossing topology). -/
 def litany_cross : Imscription := { litanyBase with top  := T_bowtie }
 /-- Witness: imscriptive state — inner eye (D_odot, satisfies Axiom C*: T_odot forces D_odot,
@@ -113,10 +113,10 @@ def litany_witness : Imscription := { litanyBase with dim  := D_odot, top := T_o
 /-- Nothing: the null state — where fear has gone (Omega_0, Phi_sub). -/
 def litany_nothing : Imscription := litanyBase
 /-- Self: full-symmetry persistent state — only I will remain. -/
-def litany_self  : Imscription := { litanyBase with pol := P_sym, chir := H_inf }
+def litany_self : Imscription := { litanyBase with pol := P_sym, chir := H_inf }
 
 -- Transition labels (dominant dimension annotates the arrow character):
-private def lbl_face  : Imscription := { litanyBase with rel := R_lr }
+private def lbl_face : Imscription := { litanyBase with rel := R_lr }
   -- R_lr label: bidirectional confrontation — I will face my fear
 private def lbl_witness : Imscription := { litanyBase with dim := D_odot, top := T_odot }
   -- D_odot label: holographic witnessing — inner eye to see its path
@@ -309,7 +309,7 @@ def zfc_to_zfc_t_arrow : Imscription := {
     (P, Γ, H, Ω, T, R all change from `zfc` baseline). -/
 theorem zfc_to_zfc_t_cost :
     primitiveMismatches zfc zfc_t = 6 := by
-  simp only [ZFCt.zfc, ZFCt.zfc_t, primitiveMismatches, compare]; decide
+  simp only [ZFCt.zfc, ZFCt.zfc_t, primitiveMismatches]; decide
 
 /-- ZFCt (zfc_t) has the same polarity as the odotOperator's target: P_pm.
     This makes the tensor product's polarity P_pm_sym (min bottleneck preserved). -/
@@ -342,7 +342,7 @@ theorem zfc_H0_achiral : zfc_H0.chir = H0     := rfl
 /-- The chirality of zfc_H2 is H2: persistent temporal asymmetry. -/
 theorem zfc_H2_persistent : zfc_H2.chir = H2     := rfl
 /-- The chirality of zfc_Hinf is H_inf: topologically protected. -/
-theorem zfc_Hinf_topo  : zfc_Hinf.chir = H_inf := rfl
+theorem zfc_Hinf_topo : zfc_Hinf.chir = H_inf := rfl
 
 /-- Full temporal ladder protocol: zfc —(H0→H1)→ zfc_H1 —(H1→H2)→ zfc_H2 —(H2→H_inf)→ zfc_Hinf.
     This encodes the full sequential path from achiral set theory to topological memory. -/

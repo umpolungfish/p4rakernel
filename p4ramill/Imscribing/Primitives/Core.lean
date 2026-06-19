@@ -187,7 +187,8 @@ instance instLEGranularity : LE Granularity    := ⟨fun a b => compare a b ≠ 
 instance instLEStoichiometry : LE Stoichiometry  := ⟨fun a b => compare a b ≠ .gt⟩
 
 -- Decidable ≤: enables decide/native_decide on ≤ and ≥ for all primitive types.
--- a ≤ b unfolds to (compare a b = .gt) → False, so ¬(a ≤ b) = ((compare a b = .gt) → False) → False.
+-- a ≤ b unfolds to (compare a b = .gt) → False,
+-- so ¬(a ≤ b) = ((compare a b = .gt) → False) → False.
 -- In then-branch: h : compare a b = .gt; (fun hle => hle h) : ¬(a ≤ b). In else-branch: h : a ≤ b.
 instance instDecidableLEDimensionality
     (a b : Dimensionality) : Decidable (a ≤ b) :=
@@ -230,16 +231,16 @@ instance instDecidableLEStoichiometry
 -- LT explicitly. a < b = compare a b = .lt matches the instLTOfOrd semantics.
 -- Decidable (a < b) then follows from DecidableEq Ordering (used by decide on ground terms).
 instance instLTDimensionality : LT Dimensionality  := ⟨fun a b => compare a b = .lt⟩
-instance instLTRelational   : LT Relational      := ⟨fun a b => compare a b = .lt⟩
-instance instLTGrammar      : LT Grammar         := ⟨fun a b => compare a b = .lt⟩
-instance instLTChirality    : LT Chirality       := ⟨fun a b => compare a b = .lt⟩
-instance instLTProtection   : LT Protection      := ⟨fun a b => compare a b = .lt⟩
-instance instLTTopology     : LT Topology        := ⟨fun a b => compare a b = .lt⟩
-instance instLTPolarity     : LT Polarity        := ⟨fun a b => compare a b = .lt⟩
-instance instLTCriticality  : LT Criticality     := ⟨fun a b => compare a b = .lt⟩
-instance instLTKineticChar  : LT KineticChar     := ⟨fun a b => compare a b = .lt⟩
-instance instLTFidelity     : LT Fidelity        := ⟨fun a b => compare a b = .lt⟩
-instance instLTGranularity  : LT Granularity     := ⟨fun a b => compare a b = .lt⟩
+instance instLTRelational : LT Relational := ⟨fun a b => compare a b = .lt⟩
+instance instLTGrammar : LT Grammar := ⟨fun a b => compare a b = .lt⟩
+instance instLTChirality : LT Chirality := ⟨fun a b => compare a b = .lt⟩
+instance instLTProtection : LT Protection := ⟨fun a b => compare a b = .lt⟩
+instance instLTTopology : LT Topology := ⟨fun a b => compare a b = .lt⟩
+instance instLTPolarity : LT Polarity := ⟨fun a b => compare a b = .lt⟩
+instance instLTCriticality : LT Criticality := ⟨fun a b => compare a b = .lt⟩
+instance instLTKineticChar : LT KineticChar := ⟨fun a b => compare a b = .lt⟩
+instance instLTFidelity : LT Fidelity := ⟨fun a b => compare a b = .lt⟩
+instance instLTGranularity : LT Granularity := ⟨fun a b => compare a b = .lt⟩
 instance instLTStoichiometry : LT Stoichiometry   := ⟨fun a b => compare a b = .lt⟩
 
 -- ============================================================
