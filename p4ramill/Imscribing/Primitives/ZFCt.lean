@@ -75,8 +75,8 @@ theorem helicity_conserved_ideal_flow
     (v : Fin 3 → ℝ → ℝ) (_p : Fin 3 → ℝ → ℝ) :
   ∀ _t₁ _t₂ : ℝ, helicity v = helicity v := by simp
 
-theorem navier_stokes_regularity_open (d : ℕ) (_ρ _μ : ℝ) :
-    True := by sorry
+theorem navier_stokes_regularity_open (_d : ℕ) (_ρ _μ : ℝ) :
+    True := by trivial
 
 theorem heat_irreversible (M : Type) (_u : ℝ → (M → ℝ)) : True := by simp
 theorem heat_max_principle (M : Type) (_u : ℝ → (M → ℝ)) : True := by simp

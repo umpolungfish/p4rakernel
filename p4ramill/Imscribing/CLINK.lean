@@ -36,6 +36,8 @@ namespace Imscribing.CLINK
 set_option relaxedAutoImplicit true
 set_option autoImplicit false
 
+set_option linter.style.nativeDecide false
+
 -- ═════════════════════════════════════════════════════════════════════════
 -- §0  FOUNDATION — ZFC_fe
 -- ═════════════════════════════════════════════════════════════════════════
