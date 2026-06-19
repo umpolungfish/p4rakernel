@@ -67,22 +67,22 @@ def einstein_field_equations_dynamic : Imscription := {
 
 /-- Navier-Stokes equation placeholder. -/
 def navier_stokes_equation
-    (d : ℕ) (ρ μ : ℝ) (v : Fin d → ℝ → ℝ) (p : Fin d → ℝ → ℝ) (f : Fin d → ℝ → ℝ) : Prop := True
+    (_d : ℕ) (_ρ _μ : ℝ) (_v : Fin _d → ℝ → ℝ) (_p : Fin _d → ℝ → ℝ) (_f : Fin _d → ℝ → ℝ) : Prop := True
 
-def helicity (v : Fin 3 → ℝ → ℝ) : ℝ := 0
+def helicity (_v : Fin 3 → ℝ → ℝ) : ℝ := 0
 
 theorem helicity_conserved_ideal_flow
-    (v : Fin 3 → ℝ → ℝ) (p : Fin 3 → ℝ → ℝ) :
-  ∀ t₁ t₂ : ℝ, helicity v = helicity v := by simp
+    (v : Fin 3 → ℝ → ℝ) (_p : Fin 3 → ℝ → ℝ) :
+  ∀ _t₁ _t₂ : ℝ, helicity v = helicity v := by simp
 
-theorem navier_stokes_regularity_open (d : ℕ) (ρ μ : ℝ) :
+theorem navier_stokes_regularity_open (d : ℕ) (_ρ _μ : ℝ) :
     True := by sorry
 
-theorem heat_irreversible (M : Type) (u : ℝ → (M → ℝ)) : True := by simp
-theorem heat_max_principle (M : Type) (u : ℝ → (M → ℝ)) : True := by simp
+theorem heat_irreversible (M : Type) (_u : ℝ → (M → ℝ)) : True := by simp
+theorem heat_max_principle (M : Type) (_u : ℝ → (M → ℝ)) : True := by simp
 
-def wave_evolution (E : Type) (u : ℝ → (E → ℝ)) (c : ℝ) : Prop := True
-def dAlembertian (E : Type) (u : ℝ → (E → ℝ)) (c : ℝ) : Prop := True
+def wave_evolution (_E : Type) (_u : ℝ → (_E → ℝ)) (_c : ℝ) : Prop := True
+def dAlembertian (_E : Type) (_u : ℝ → (_E → ℝ)) (_c : ℝ) : Prop := True
 
 structure LorentzianMetric (M : Type) where g : M → M → ℝ
 structure EinsteinTensor (M : Type) (g : LorentzianMetric M) where tensor : M → M → ℝ
@@ -154,7 +154,7 @@ theorem imaginary_unit_is_O_2 : imscriptionTier imaginary_unit = .O₂ := by dec
 theorem imaginary_unit_frobenius_cliff :
     ∀ other : Imscription, (tensorProduct imaginary_unit other).pol ≠ P_pm_sym := by
   intro other
-  simp [tensorProduct, imaginary_unit]
+  simp only [tensorProduct, imaginary_unit]
   cases other.pol <;> decide
 
 /-- Distance from imaginary unit to ZFC_t: five primitive promotions needed
