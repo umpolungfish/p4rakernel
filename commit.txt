@@ -79,3 +79,39 @@ NC_012920.1_mito_structural_report.md (new)
 
   These invariants holding across the full mitochondrial proteome indicate the
   13-gene set is a single coherent structural object, not 13 independent proteins.
+
+---
+
+p4ramill: IGFunctor.lean — formal functor from IG category to mathematical structures
+
+New file: Imscribing/IGFunctor.lean
+Updated: lakefile.toml (added Imscribing.IGFunctor to globs)
+lake build Imscribing.IGFunctor — BUILD SUCCESSFUL, 0 sorrys, 0 errors
+
+Main results (all fully proved, one structural axiom: igProtoCopy_isDagger):
+
+  TierFunctor : Imscription ⥤ OuroboricityTier
+    CategoryTheory.Functor between the tier-preorder small category on Imscription
+    and the 5-level OuroboricityTier poset. Built via OrderHom.toFunctor.
+    Functoriality free (thin category subsingletons).
+    Proved: TierFunctor_map_id, TierFunctor_map_comp, TierFunctor_O_inf_fiber.
+
+  igFrobeniusAlg : FrobeniusAlg Imscription
+    Diagonal Frobenius algebra: delta(a)=(a,a), mu=tensorProduct, unit=odotOperator.
+    frob field closed by mu_delta_A_id from Frobenius.lean (0 sorrys there).
+    Proved: igFrobAlg_self_fusion, igFrobAlg_unit_is_O_inf, igFrobAlg_unit_at_top.
+
+  TierFunctor_Frobenius_cliff
+    Tensor product with sub-Frobenius factor (pol ≠ P_pm_sym) cannot reach O_inf.
+
+  O_inf_tensor_closed
+    O_inf is closed under tensor product.
+    Proof: struct-field rfl extraction + split_ifs dispatching to ha_crit/hb_crit.
+
+  TierFunctor_surjective
+    Every tier is inhabited. Witnesses (all by decide):
+      O₀=frobenius_bottom, O₁={frobenius_bottom, crit:=Phi_c},
+      O₂={..., prot:=Omega_Z}, O₂dag={..., dim:=D_infty}, O_inf=quantum_gravity.
+
+  IGProtocol-level witnesses (Section 6)
+    igProtoDelta/igProtoMu: delta/mu at every O_inf object, depth=1.
