@@ -12,7 +12,7 @@ import Imscribing.Millennium.NS
 import Imscribing.Millennium.NS_ZFCt_Bridge
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 open Millennium.NS
 open Millennium.NS_ZFCt

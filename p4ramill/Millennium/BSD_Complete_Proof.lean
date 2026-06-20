@@ -23,14 +23,14 @@
 import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Consciousness
 import Imscribing.Millennium.BSD
 import Imscribing.Millennium.UniverseRulesets
 import Imscribing.Algebra
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Millennium.BSD
 open Millennium.UniverseRulesets

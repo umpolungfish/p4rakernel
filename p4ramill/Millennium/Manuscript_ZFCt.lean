@@ -1,5 +1,5 @@
 /-
-  Imscribing/Millennium/Manuscript_ZFCt.lean
+  Imscribing/Millennium/Manuscript_CLINK.lean
   ZFCt formalization of three undeciphered writing systems.
   Translated from manuscript_zfct.json (Voynich 227, Rohonc 33, Linear A 53).
 -/

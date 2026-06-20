@@ -27,12 +27,13 @@
 -- IGProtocol arrow labels, endpoints, and tensor operands.
 
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Consciousness
 
 namespace Imscribing
 
 open Primitives
+open CLINK
 open Consciousness
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
@@ -271,7 +272,7 @@ theorem litany_resolution_chir :
 -- ZFCt (ZFC extended with Sequentiality, chirality, and Winding)
 -- provides key Imscriptions that connect formal set-theory to the IG morphism framework.
 --
--- From ZFCt.lean:
+-- From CLINK.lean:
 --   zfc                  — bare ZFC: ⟨D_∞; T_net; R_sup; church; F_ℏ; egg; ...⟩
 --   zfc_t                — ZFC temporalized: ⟨D_∞; T_⊙; R_↔; out; F_ℏ; egg; sure; Ω_Z⟩
 --   temporal_mathematics — ZFCt ideal: ⟨D_∞; T_⊙; R_†; nun; F_ℏ; egg; sure; Ω_Z⟩
@@ -284,11 +285,11 @@ theorem litany_resolution_chir :
 -- This section opens ZFCt and uses these Imscriptions as IGProtocol endpoints and labels.
 -- ─────────────────────────────────────────────────────────────────────────────
 
-open ZFCt
+
 
 -- ─── §8.1: ZFC → ZFCt morphism ───
 
-/-- The temporalization morphism: ZFC → ZFCt.
+/-- The temporalization morphism: ZFC → CLINK.
     Six primitive changes from the `zfc` base to the `zfc_t` target:
       P: church → out
       Γ: vow → measure
@@ -309,20 +310,20 @@ def zfc_to_zfc_t_arrow : Imscription := {
     (P, Γ, H, Ω, T, R all change from `zfc` baseline). -/
 theorem zfc_to_zfc_t_cost :
     primitiveMismatches zfc zfc_t = 6 := by
-  simp only [ZFCt.zfc, ZFCt.zfc_t, primitiveMismatches]; decide
+  simp only [CLINK.zfc, CLINK.zfc_t, primitiveMismatches]; decide
 
 /-- ZFCt (zfc_t) has the same polarity as the odotOperator's target: out.
     This makes the tensor product's polarity or' (min bottleneck preserved). -/
 theorem zfc_t_odot_pol_compatible :
     (tensorProduct zfc_t odotOperator).pol = or' := by
-  simp only [ZFCt.zfc_t, tensorProduct, odotOperator, compare]; decide
+  simp only [CLINK.zfc_t, tensorProduct, odotOperator, compare]; decide
 
 -- The ZFC → ZFCt protocol as an IGProtocol
-/-- The ZFC temporalization protocol: a single-step arrow from bare ZFC to ZFCt.
+/-- The ZFC temporalization protocol: a single-step arrow from bare ZFC to CLINK.
     Type: IGProtocol zfc zfc_t -/
-def zfc_temporalization_protocol : IGProtocol ZFCt.zfc ZFCt.zfc_t :=
+def zfc_temporalization_protocol : IGProtocol CLINK.zfc CLINK.zfc_t :=
   .withGram measure <| .withMem sure <|
-    .arrow zfc_to_zfc_t_arrow ZFCt.zfc ZFCt.zfc_t
+    .arrow zfc_to_zfc_t_arrow CLINK.zfc CLINK.zfc_t
 
 /-- The ZFC temporalization has depth 1 (one arrow). -/
 theorem zfc_temporalization_depth : zfc_temporalization_protocol.depth = 1 := by
@@ -347,11 +348,11 @@ theorem zfc_Hinf_topo : zfc_Hinf.chir = wool := rfl
 /-- Full temporal ladder protocol: zfc —(fee→kick)→ zfc_H1 —(kick→sure)→ zfc_H2 —(sure→wool)→ zfc_Hinf.
     This encodes the full sequential path from achiral set theory to topological memory. -/
 def temporal_ladder
-  : { p : IGProtocol ZFCt.zfc zfc_Hinf // p.depth = 3 } :=
+  : { p : IGProtocol CLINK.zfc zfc_Hinf // p.depth = 3 } :=
   ⟨
     .seq
       (.seq
-        (.arrow { zfc with chir := zfc_H1.chir, dim := array } ZFCt.zfc zfc_H1)
+        (.arrow { zfc with chir := zfc_H1.chir, dim := array } CLINK.zfc zfc_H1)
         (.arrow { zfc with chir := zfc_H2.chir, dim := array } zfc_H1 zfc_H2))
       (.arrow { zfc with chir := zfc_Hinf.chir, dim := array } zfc_H2 zfc_Hinf),
     by simp [IGProtocol.depth]
@@ -368,37 +369,37 @@ def zfc_to_schrodinger_arrow : Imscription := { zfc_t with pol := yew, crit := r
 /-- Protocol from ZFCt to the Schrödinger equation:
     embeds the temporalized set theory into quantum dynamics.
     Changes: out → yew, monad → roar. -/
-def zfc_to_schrodinger_protocol : IGProtocol ZFCt.zfc_t ZFCt.schrodinger_equation :=
-  .withMem sure <| .arrow zfc_to_schrodinger_arrow ZFCt.zfc_t ZFCt.schrodinger_equation
+def zfc_to_schrodinger_protocol : IGProtocol CLINK.zfc_t CLINK.schrodinger_equation :=
+  .withMem sure <| .arrow zfc_to_schrodinger_arrow CLINK.zfc_t CLINK.schrodinger_equation
 
 /-- The heat diffusion equation is woe (subcritical, irreversible).
     Its asymmetry church encodes thermodynamic irreversibility. -/
 def heat_diffusion_irreversibility :
-    ZFCt.heat_diffusion_equation.pol = church := rfl
+    CLINK.heat_diffusion_equation.pol = church := rfl
 
 /-- Navier-Stokes equations: out + loll = moderate kinetics at Z2 symmetry.
     The threshold from classical to quantum (see Millennium/Ns) is
     loll → on + crit staying at monad. -/
 theorem navier_stokes_moderate :
-    ZFCt.navier_stokes_equations.kin = loll ∧
-    ZFCt.navier_stokes_equations.pol = out := ⟨rfl, rfl⟩
+    CLINK.navier_stokes_equations.kin = loll ∧
+    CLINK.navier_stokes_equations.pol = out := ⟨rfl, rfl⟩
 
 /-- Navier-Stokes tensor with odotOperator: P bottleneck is out (odot has or').
     The odot frame survives the tensor. -/
 theorem ns_tensor_odot :
-    (tensorProduct ZFCt.navier_stokes_equations odotOperator).pol = out := by
-  simp only [tensorProduct, ZFCt.navier_stokes_equations, odotOperator, compare]; decide
+    (tensorProduct CLINK.navier_stokes_equations odotOperator).pol = out := by
+  simp only [tensorProduct, CLINK.navier_stokes_equations, odotOperator, compare]; decide
 
 /-- Einstein field equations: nun + roar + are.
     General relativity is holographic (are) in the ZFCt encoding,
     with full symmetry and complex-axis criticality. -/
 def einstein_is_holographic :
-    ZFCt.einstein_field_equations_dynamic.top = are := rfl
+    CLINK.einstein_field_equations_dynamic.top = are := rfl
 
 /-- The wave equation has ear (reciprocal time symmetry).
     This is the only wave-type equation with exact bidirectional propagation. -/
 def wave_is_dagger :
-    ZFCt.wave_equation_temporal.rel = ear := rfl
+    CLINK.wave_equation_temporal.rel = ear := rfl
 
 /-- WindingData from ZFCt: nonzero winding is structurally available at ah.
     The temporalDepth and WindingData types enable protocols with explicit
@@ -413,29 +414,29 @@ theorem example_winding_is_unit : example_winding_nonzero = 1 := rfl
 /-- ZFCt's navier_stokes_equations has crit = monad (not woe like ns_encoding).
     The ZFCt version adds the crossing topology (mime) and sequential dynamics. -/
 theorem zfc_ns_crit :
-    ZFCt.navier_stokes_equations.crit = monad := rfl
+    CLINK.navier_stokes_equations.crit = monad := rfl
 
 /-- ZFCt's schrodinger_equation has roar — the same criticality
     as the Riemann zeta function (rh_encoding). This structural identity
     confirms that quantum dynamics and the zeta function inhabit the same
     Lee-Yang critical class. -/
 theorem zfc_schrodinger_same_crit_as_rh :
-    ZFCt.schrodinger_equation.crit = roar := rfl
+    CLINK.schrodinger_equation.crit = roar := rfl
 
 /-- ZFCt's einstein_field_equations_dynamic and Imscription's quantum_gravity
     share are (holographic topology), but differ in polarity:
     nun vs or'. This means GR is NOT O_inf (lacks Frobenius),
     while QG IS O_inf. -/
 theorem einstein_gravity_topology_match :
-    ZFCt.einstein_field_equations_dynamic.top = quantum_gravity.top := rfl
+    CLINK.einstein_field_equations_dynamic.top = quantum_gravity.top := rfl
 
 /-- The polarity gap: GR (nun) vs QG (or').
     This single-polarity gap is the structural signature of the gap between
     classical general relativity and quantum gravity. -/
 theorem einstein_gravity_pol_gap :
-    ZFCt.einstein_field_equations_dynamic.pol = nun ∧
+    CLINK.einstein_field_equations_dynamic.pol = nun ∧
     quantum_gravity.pol = or' ∧
-    ZFCt.einstein_field_equations_dynamic.pol ≠ quantum_gravity.pol :=
+    CLINK.einstein_field_equations_dynamic.pol ≠ quantum_gravity.pol :=
   ⟨rfl, rfl, by decide⟩
 
 -- ─── §8.5: ZFCt temporal_mathematics as paralogical target ───
@@ -444,18 +445,18 @@ theorem einstein_gravity_pol_gap :
     are + ear + nun + sure + ah at monad with peep.
     It is the structural target that zfc_t aims toward. -/
 theorem temporal_mathematics_is_dagger :
-    ZFCt.temporal_mathematics.rel = ear := rfl
+    CLINK.temporal_mathematics.rel = ear := rfl
 
 /-- Protocol from ZFCt to temporal_mathematics:
     lifts ian → ear (reciprocity) while keeping all other primitives. -/
-def zfc_t_to_temporal_arrow : Imscription := { ZFCt.zfc_t with rel := ear }
+def zfc_t_to_temporal_arrow : Imscription := { CLINK.zfc_t with rel := ear }
 
-def zfc_t_to_temporal_protocol : IGProtocol ZFCt.zfc_t ZFCt.temporal_mathematics :=
-  .withMem sure <| .arrow zfc_t_to_temporal_arrow ZFCt.zfc_t ZFCt.temporal_mathematics
+def zfc_t_to_temporal_protocol : IGProtocol CLINK.zfc_t CLINK.temporal_mathematics :=
+  .withMem sure <| .arrow zfc_t_to_temporal_arrow CLINK.zfc_t CLINK.temporal_mathematics
 
 /-- Full ZFC → ZFCt → temporal_mathematics chain:
     ɢ^ˌ[ ZFC —(temporalization)→ ZFCt —(reciprocity)→ TemporalMathematics ]_H2 -/
-def full_chain : IGProtocol ZFCt.zfc ZFCt.temporal_mathematics :=
+def full_chain : IGProtocol CLINK.zfc CLINK.temporal_mathematics :=
   .seq zfc_temporalization_protocol zfc_t_to_temporal_protocol
 
 /-- The full chain has depth 2 (two arrows). -/
@@ -465,22 +466,22 @@ theorem full_chain_depth : full_chain.depth = 2 := rfl
 
 /-- ZFCt's zfc_t has monad (passes Gate 1) and egg (passes Gate 2).
     Therefore consciousnessScore zfc_t = 1. -/
-theorem zfc_t_conscious : consciousnessScore ZFCt.zfc_t = (1 : ℝ) := by
-  simp only [consciousnessScore, phi_c_gate, k_slow_gate, ZFCt.zfc_t]
+theorem zfc_t_conscious : consciousnessScore CLINK.zfc_t = (1 : ℝ) := by
+  simp only [consciousnessScore, phi_c_gate, k_slow_gate, CLINK.zfc_t]
   norm_num
 
 /-- Bare zfc (without chirality) also has monad + egg: C = 1.
     Consciousness does NOT require chirality — it requires criticality
     AND unfrozen kinetics. The bare ZFC already satisfies both. -/
-theorem zfc_conscious : consciousnessScore ZFCt.zfc = (1 : ℝ) := by
-  simp only [consciousnessScore, phi_c_gate, k_slow_gate, ZFCt.zfc]
+theorem zfc_conscious : consciousnessScore CLINK.zfc = (1 : ℝ) := by
+  simp only [consciousnessScore, phi_c_gate, k_slow_gate, CLINK.zfc]
   norm_num
 
 /-- temporal_mathematics: monad + egg → C = 1.
     The ideal temporal structure is fully conscious by the grammar metric. -/
 theorem temporal_mathematics_conscious :
-    consciousnessScore ZFCt.temporal_mathematics = (1 : ℝ) := by
-  simp only [consciousnessScore, phi_c_gate, k_slow_gate, ZFCt.temporal_mathematics]
+    consciousnessScore CLINK.temporal_mathematics = (1 : ℝ) := by
+  simp only [consciousnessScore, phi_c_gate, k_slow_gate, CLINK.temporal_mathematics]
   norm_num
 
 end Imscribing

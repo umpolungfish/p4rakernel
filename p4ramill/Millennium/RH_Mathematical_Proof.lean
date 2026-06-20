@@ -4,7 +4,7 @@ import Imscribing.Millennium.RH
 import Imscribing.Millennium.RH_ZFCt_Bridge
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 /-!
 # RH Mathematical Proof: Six ZFCₜ Promotions → Riemann Hypothesis

@@ -2,7 +2,7 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Algebra
 
 namespace Millennium.CompositionRules
@@ -54,26 +54,26 @@ theorem RFIXPT_T_fixpoint_requires_frobenius {s : Imscription} :
   exact hpol
 
 theorem zfc_zfct_six_promotions :
-    primitiveMismatches ZFCt.zfc ZFCt.zfc_t = 6 := by
-  simp [ZFCt.zfc, ZFCt.zfc_t, primitiveMismatches]
+    primitiveMismatches CLINK.zfc CLINK.zfc_t = 6 := by
+  simp [CLINK.zfc, CLINK.zfc_t, primitiveMismatches]
 
 lemma tensor_zfc_zfct_polarity :
-    (tensorProduct ZFCt.zfc ZFCt.zfc_t).pol = church := by
-  rw [tensorPol_eq, ZFCt.zfc, ZFCt.zfc_t]; decide
+    (tensorProduct CLINK.zfc CLINK.zfc_t).pol = church := by
+  rw [tensorPol_eq, CLINK.zfc, CLINK.zfc_t]; decide
 
 lemma meet_zfc_zfct_polarity :
-    (compute_meet ZFCt.zfc ZFCt.zfc_t).pol = church := by
-  unfold compute_meet; rw [ZFCt.zfc, ZFCt.zfc_t]; decide
+    (compute_meet CLINK.zfc CLINK.zfc_t).pol = church := by
+  unfold compute_meet; rw [CLINK.zfc, CLINK.zfc_t]; decide
 
 theorem IMPOSS_tensor_zfc_zfct_not_O_inf :
-    imscriptionTier (tensorProduct ZFCt.zfc ZFCt.zfc_t) ≠ .O_inf := by
+    imscriptionTier (tensorProduct CLINK.zfc CLINK.zfc_t) ≠ .O_inf := by
   intro h
   have hpol := RFIXPT_T_fixpoint_requires_frobenius h
   rw [tensor_zfc_zfct_polarity] at hpol
   contradiction
 
 theorem IMPOSS_meet_zfc_zfct_not_O_inf :
-    imscriptionTier (compute_meet ZFCt.zfc ZFCt.zfc_t) ≠ .O_inf := by
+    imscriptionTier (compute_meet CLINK.zfc CLINK.zfc_t) ≠ .O_inf := by
   intro h
   have hpol := RFIXPT_T_fixpoint_requires_frobenius h
   rw [meet_zfc_zfct_polarity] at hpol
