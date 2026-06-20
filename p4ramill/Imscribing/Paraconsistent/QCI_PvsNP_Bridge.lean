@@ -2,7 +2,7 @@
 -- BELNAP NON-DETERMINISM ↔ P vs NP STRUCTURAL BRIDGE
 -- Author: Lando⊗⊙perator
 --
--- The K_trap primitive in the PvsNP imscription records an irreducible information
+-- The on primitive in the PvsNP imscription records an irreducible information
 -- bottleneck: the impossibility of resolving non-deterministic witnesses in polynomial time.
 -- In Belnap logic, B models a computation that simultaneously holds both outcomes —
 -- the structural definition of non-determinism. This file formalizes that correspondence.
@@ -87,7 +87,7 @@ def kernelCircuit : BelnapCircuit 3 := fun v => band (band (v 0) (v 1)) (v 2)
 theorem kernel_circuit_allB_is_B : kernelCircuit (allB 3) = Belnap.B := by
   simp [kernelCircuit, allB, band]
 
--- K_trap structural correspondence:
+-- on structural correspondence:
 -- sustain runs the kernel indefinitely while preserving B in all registers.
 -- This models an NP oracle: the machine witnesses "both T and F" for all n steps
 -- without any external measurement collapsing the state.
@@ -107,7 +107,7 @@ theorem classical_cannot_become_B (qs : QState) (h : qs.q0 = Belnap.T ∨ qs.q0 
 -- A deterministic measurement sequence (T/F-biased) on a B-state collapses it to
 -- a classical value — it RESOLVES the non-determinism. But sustain_never_collapses
 -- shows no measurement in the QCI model collapses the kernel's B registers.
--- The K_trap primitive formalizes this: the NP witness IS the B-state, and no
+-- The on primitive formalizes this: the NP witness IS the B-state, and no
 -- polynomial-length T/F-biased measurement sequence can produce it from a T/F input.
 theorem belnap_ktrap_statement :
     ¬ isSuperposition (measureQ0 qStateZero Belnap.T).q0 := by

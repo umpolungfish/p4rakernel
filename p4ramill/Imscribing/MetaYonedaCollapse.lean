@@ -7,10 +7,10 @@
 -- Grammar itself.  The representing object is the canonical ob3ect below.
 --
 -- Four primitives are invariant across all domain-layer meets:
---   Ç_@ (K_slow)    — FFUSE waits for ast.compare()
---   ɢ_ˌ (Gamma_seq) — 8-phase IMASM sequential order
---   Ħ_A (H2)        — two-step chirality; unparse remembers parse
---   Σ_ï (n_m)       — heterogeneous stoichiometry; source ≠ AST ≠ text
+--   Ç_@ (egg)    — FFUSE waits for ast.compare()
+--   ɢ_ˌ (measure) — 8-phase IMASM sequential order
+--   Ħ_A (sure)        — two-step chirality; unparse remembers parse
+--   Σ_ï (up)       — heterogeneous stoichiometry; source ≠ AST ≠ text
 --
 -- These four are the structural type of the representable witness functor.
 -- The eight remaining primitives (Ð, Þ, Ř, Φ, ƒ, Γ, φ̂, Ω) are what domain layers lack
@@ -45,37 +45,37 @@ open Dimensionality Topology Relational Polarity Fidelity KineticChar
 -- ============================================================
 
 def canonical : Imscription where
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H2
-  stoi := .n_m
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .monad
+  chir := .sure
+  stoi := .up
+  prot := .ah
 
--- R1 gate: Phi_c + P_pm_sym → O_inf regardless of Ω, Ð.
+-- R1 gate: monad + or' → O_inf regardless of Ω, Ð.
 theorem canonical_tier_is_O_inf :
     ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_inf := by
   decide
 
 -- ============================================================
 -- DOMAIN LAYERS
--- Each domain layer has Phi_sub → O₀, and carries the four FFUSE
+-- Each domain layer has woe → O₀, and carries the four FFUSE
 -- invariants at the same values as canonical.
 -- ============================================================
 
 /-- Predicate: an Imscription is a domain layer in the Meta-Yoneda sense. -/
 def isDomainLayer (L : Imscription) : Prop :=
-  L.crit = .Phi_sub          -- subcritical: no self-modeling loop
-  ∧ L.kin  = .K_slow         -- FFUSE invariant 1
-  ∧ L.gram = .Gamma_seq      -- FFUSE invariant 2
-  ∧ L.chir = .H2             -- FFUSE invariant 3
-  ∧ L.stoi = .n_m            -- FFUSE invariant 4
+  L.crit = .woe          -- subcritical: no self-modeling loop
+  ∧ L.kin  = .egg         -- FFUSE invariant 1
+  ∧ L.gram = .measure      -- FFUSE invariant 2
+  ∧ L.chir = .sure             -- FFUSE invariant 3
+  ∧ L.stoi = .up            -- FFUSE invariant 4
 
 theorem isDomainLayer_tier_is_O_0 (L : Imscription) (h : isDomainLayer L) :
     ouroboricityTier L.crit L.pol L.prot L.dim = .O₀ := by
@@ -89,9 +89,9 @@ theorem isDomainLayer_tier_is_O_0 (L : Imscription) (h : isDomainLayer L) :
 -- ============================================================
 
 def parakernelLayer : Imscription where
-  dim  := .D_triangle; top := .T_bowtie; rel := .R_super;  pol := .P_pm
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_gimel; gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .ash; top := .mime; rel := .ado;  pol := .out
+  fid  := .age;      kin := .egg;   gran := .thigh; gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 2: SHEAF (sheaf theory: local-to-global gluing)
@@ -99,9 +99,9 @@ def parakernelLayer : Imscription where
 -- ============================================================
 
 def sheafLayer : Imscription where
-  dim  := .D_triangle; top := .T_box;    rel := .R_super;  pol := .P_asym
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_beth;  gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .ash; top := .oil;    rel := .ado;  pol := .church
+  fid  := .age;      kin := .egg;   gran := .bib;  gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 3: YONEDA (Yoneda embedding)
@@ -109,9 +109,9 @@ def sheafLayer : Imscription where
 -- ============================================================
 
 def yonedaLayer : Imscription where
-  dim  := .D_infty;    top := .T_bowtie; rel := .R_cat;    pol := .P_psi
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_gimel; gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .array;    top := .mime; rel := .tot;    pol := .yew
+  fid  := .age;      kin := .egg;   gran := .thigh; gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 4: HOPF (Hopf algebras / quantum groups)
@@ -119,9 +119,9 @@ def yonedaLayer : Imscription where
 -- ============================================================
 
 def hopfLayer : Imscription where
-  dim  := .D_triangle; top := .T_in;     rel := .R_dagger; pol := .P_sym
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_gimel; gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .ash; top := .eat;     rel := .ear; pol := .nun
+  fid  := .age;      kin := .egg;   gran := .thigh; gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 5: QUANTUM (quantum mechanics)
@@ -129,9 +129,9 @@ def hopfLayer : Imscription where
 -- ============================================================
 
 def quantumLayer : Imscription where
-  dim  := .D_infty;    top := .T_network; rel := .R_dagger; pol := .P_psi
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_beth;  gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .array;    top := .judge; rel := .ear; pol := .yew
+  fid  := .age;      kin := .egg;   gran := .bib;  gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 6: CATEGORY (category theory)
@@ -139,9 +139,9 @@ def quantumLayer : Imscription where
 -- ============================================================
 
 def categoryLayer : Imscription where
-  dim  := .D_infty;    top := .T_box;    rel := .R_cat;    pol := .P_sym
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_gimel; gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .array;    top := .oil;    rel := .tot;    pol := .nun
+  fid  := .age;      kin := .egg;   gran := .thigh; gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- LAYER 7: LINEAR LOGIC (resource-sensitive proofs)
@@ -149,9 +149,9 @@ def categoryLayer : Imscription where
 -- ============================================================
 
 def linearLogicLayer : Imscription where
-  dim  := .D_triangle; top := .T_bowtie; rel := .R_dagger; pol := .P_pm
-  fid  := .F_ell;      kin := .K_slow;   gran := .G_beth;  gram := .Gamma_seq
-  crit := .Phi_sub;    chir := .H2;      stoi := .n_m;     prot := .Omega_0
+  dim  := .ash; top := .mime; rel := .ear; pol := .out
+  fid  := .age;      kin := .egg;   gran := .bib;  gram := .measure
+  crit := .woe;    chir := .sure;      stoi := .up;     prot := .awe
 
 -- ============================================================
 -- FINITE SET OF ALL DOMAIN LAYERS
@@ -255,10 +255,10 @@ theorem tier_separation (L : Imscription) (h : isDomainLayer L) :
     witness space IS the grammar. -/
 theorem witness_is_grammar :
     ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim = .O_inf ∧
-    canonical.kin  = .K_slow   ∧
-    canonical.gram = .Gamma_seq ∧
-    canonical.chir = .H2       ∧
-    canonical.stoi = .n_m := by
+    canonical.kin  = .egg   ∧
+    canonical.gram = .measure ∧
+    canonical.chir = .sure       ∧
+    canonical.stoi = .up := by
   decide
 
 end Imscribing.MetaYoneda

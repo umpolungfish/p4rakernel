@@ -6,7 +6,7 @@
 -- This module formalizes the mismatch as a rotation in flavor space,
 -- with the CKM matrix for quarks and PMNS matrix for neutrinos.
 --
--- Structural insight: flavor mixing is a T_bowtie (crossing point)
+-- Structural insight: flavor mixing is a mime (crossing point)
 -- between two distinct classification schemes: weak-interaction basis
 -- (flavor eigenstates) and propagation basis (mass eigenstates).
 -- The irreducible complex phase in the CKM matrix (δ_KM) is the
@@ -109,9 +109,9 @@ CP violation emerges from the irreducible complex phase in the CKM matrix.
 In the Standard Model with 3 generations, the CKM matrix has exactly one
 complex phase that cannot be removed by quark field redefinitions.
 
-This is structurally encoded as P_asym (parity violation) in the quark
+This is structurally encoded as church (parity violation) in the quark
 flavor imscription, with the additional feature that CP violation requires
-not just P_asym but also the presence of at least 3 generations.
+not just church but also the presence of at least 3 generations.
 -/
 
 def cpViolatingPhase : Prop := True  -- The complex phase δ_KM ≠ 0, π
@@ -204,18 +204,18 @@ def pmnsMatrix : MixingMatrix 3 :=
 -- =====================================================================
 
 def flavorMixingImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_bowtie   -- crossing: flavor basis ⇄ mass basis
-  rel := Relational.R_lr     -- bidirectional: charged current couples both ways
-  pol := Polarity.P_asym     -- CP violation = parity asymmetry
-  fid := Fidelity.F_hbar     -- quantum: mixing is a quantum superposition
-  kin := KineticChar.K_mod   -- moderate: mixing is energy-independent (to first order)
-  gran := Granularity.G_aleph -- all-scale: mixing affects all processes
-  gram := Grammar.Gamma_seq  -- sequential: mixing propagates through the weak interaction chain
-  crit := Criticality.Phi_c  -- self-modeling: the mixing encodes its own structure
-  chir := Chirality.H2       -- Markov-2: mixing depends on generation adjacency
-  stoi := Stoichiometry.n_m  -- 3×3 matrix = 9 complex entries, reduced by unitarity
-  prot := Protection.Omega_Z -- integer winding: Jarlskog invariant
+  dim := Dimensionality.array
+  top := Topology.mime   -- crossing: flavor basis ⇄ mass basis
+  rel := Relational.ian     -- bidirectional: charged current couples both ways
+  pol := Polarity.church     -- CP violation = parity asymmetry
+  fid := Fidelity.peep     -- quantum: mixing is a quantum superposition
+  kin := KineticChar.loll   -- moderate: mixing is energy-independent (to first order)
+  gran := Granularity.ice -- all-scale: mixing affects all processes
+  gram := Grammar.measure  -- sequential: mixing propagates through the weak interaction chain
+  crit := Criticality.monad  -- self-modeling: the mixing encodes its own structure
+  chir := Chirality.sure       -- Markov-2: mixing depends on generation adjacency
+  stoi := Stoichiometry.up  -- 3×3 matrix = 9 complex entries, reduced by unitarity
+  prot := Protection.ah -- integer winding: Jarlskog invariant
 }
 
 theorem flavor_mixing_tier : imscriptionTier flavorMixingImscription = OuroboricityTier.O₂dag := by
@@ -252,7 +252,7 @@ theorem cp_violation_requires_jarlskog : True := trivial
 -- =====================================================================
 
 /--
-Flavor mixing is the crossing point (T_bowtie) between two distinct
+Flavor mixing is the crossing point (mime) between two distinct
 classification schemes:
 
     | System     | Matrix | Size | Angles | Phases | CPV Source  |
@@ -260,18 +260,18 @@ classification schemes:
     | Quarks     | CKM    | 3×3  | 3      | 1      | δ_KM        |
     | Leptons    | PMNS   | 3×3  | 3      | 1-3    | δ_CP + α_i  |
 
-The structural type T_bowtie encodes the crossing: the weak interaction
+The structural type mime encodes the crossing: the weak interaction
 "sees" flavor eigenstates, but free propagation uses mass eigenstates.
 The crossing is irreducible — it cannot be diagonalized away without
 changing the gauge structure.
 
-Key result: CP violation is P_asym + complex phase in mixing matrix.
+Key result: CP violation is church + complex phase in mixing matrix.
 With only 2 generations, all phases can be rotated away; 3 generations
 are structurally necessary for observable CP violation in the SM.
 -/
 
-theorem mixing_is_bowtie : flavorMixingImscription.top = Topology.T_bowtie := rfl
+theorem mixing_is_bowtie : flavorMixingImscription.top = Topology.mime := rfl
 
-theorem mixing_is_P_asym : flavorMixingImscription.pol = Polarity.P_asym := rfl
+theorem mixing_is_P_asym : flavorMixingImscription.pol = Polarity.church := rfl
 
 end Imscribing.Paraconsistent.FlavorMixing

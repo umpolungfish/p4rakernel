@@ -257,9 +257,9 @@ inductive DiscreteQuantumGravity where
 The structural barrier to quantum gravity can be expressed in the
 12-primitive grammar. Take GR (classical) → Quantum Gravity (target):
 
-  T: T_odot(𐑸) → T_odot(𐑸)    — must preserve self-referential topology
-  P: P_sym(𐑯) → P_psi(𐑿)      — diffeomorphism invariance ↔ superpositions
-  F: F_ell(𐑱) → F_hbar(𐑐)     — classical geometry → quantum amplitudes
+  T: are(𐑸) → are(𐑸)    — must preserve self-referential topology
+  P: nun(𐑯) → yew(𐑿)      — diffeomorphism invariance ↔ superpositions
+  F: age(𐑱) → peep(𐑐)     — classical geometry → quantum amplitudes
 
 The tension is at the T-P-F triangle:
   (T) Background independence: no fixed metric
@@ -302,64 +302,64 @@ inductive QGApproachTradeoff where
 /--
 Quantum Gravity as a structural type:
 
-  D = D_infty (𐑼): Infinite-dimensional. The space of all geometries
+  D = array (𐑼): Infinite-dimensional. The space of all geometries
       (superspace) is infinite-dimensional. Even after quantization,
       the Hilbert space is non-separable in some approaches.
       
-  T = T_odot (𐑸): Self-referential. Quantum gravity MUST be
+  T = are (𐑸): Self-referential. Quantum gravity MUST be
       background-independent — the quantum theory cannot rely
       on a fixed metric. The geometry must quantize itself.
       
-  R = R_dagger (𐑽): Adjoint. δ: classical limit (ℏ → 0) of the
+  R = ear (𐑽): Adjoint. δ: classical limit (ℏ → 0) of the
       quantum theory; μ: quantization (ℏ → finite). The two form
       an adjoint pair through the path integral.
       
-  P = P_psi (𐑿): Quantum superposition. States are superpositions
+  P = yew (𐑿): Quantum superposition. States are superpositions
       of geometries. The "wavefunction of the universe" Ψ[g_μν].
       
-  F = F_hbar (𐑐): Quantum. This is the DEFINITION — quantum
+  F = peep (𐑐): Quantum. This is the DEFINITION — quantum
       gravity requires quantum coherence.
       
-  K = K_slow (𐑧): Near-equilibrium. Even in quantum gravity,
+  K = egg (𐑧): Near-equilibrium. Even in quantum gravity,
       the semiclassical regime (large distances) must be recovered
       via decoherence / coarse-graining.
       
-  G = G_aleph (𐑲): Universal. Quantum gravity, if correct, applies
+  G = ice (𐑲): Universal. Quantum gravity, if correct, applies
       at ALL scales — from the Planck scale to cosmology.
       
-  Gm = Gamma_seq (𐑠): Sequential. The RG flow: UV fixed point →
+  Gm = measure (𐑠): Sequential. The RG flow: UV fixed point →
       intermediate scales → IR (GR + SM). Sequential emergence.
       
-  Phi = Phi_c_complex (𐑮): Complex-plane critical. Quantum gravity
+  Phi = roar (𐑮): Complex-plane critical. Quantum gravity
       is at a critical point — the transition from discrete (Planck
       scale) to continuous (large scale) spacetime.
       
-  H = H_inf (𐑫): Eternal chirality. Quantum gravity must resolve
+  H = wool (𐑫): Eternal chirality. Quantum gravity must resolve
       the black hole information paradox — infinite memory for
-      quantum information. Unitarity demands H_inf.
+      quantum information. Unitarity demands wool.
       
-  S = n_m (𐑳): Heterogeneous. Quantum gravity must couple to
+  S = up (𐑳): Heterogeneous. Quantum gravity must couple to
       ALL forms of matter and energy — the full Standard Model +
       dark sectors.
       
-  Omega = Omega_Z (𐑭): Integer winding. Gravitational instantons,
+  Omega = ah (𐑭): Integer winding. Gravitational instantons,
       topological terms (Holst term, θ-term), and the framing
       anomaly produce non-trivial topological sectors.
 -/
 
 def quantumGravityImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_dagger
-  pol := Polarity.P_psi
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c_complex
-  chir := Chirality.H_inf
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ear
+  pol := Polarity.yew
+  fid := Fidelity.peep
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.roar
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem quantum_gravity_tier : imscriptionTier quantumGravityImscription = OuroboricityTier.O₂dag := by

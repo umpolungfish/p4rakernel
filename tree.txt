@@ -44316,7 +44316,7 @@
 │   │   ├── PerfectCuboid
 │   │   │   ├── Bootstrap.lean
 │   │   │   ├── FactorizationLemma.lean
-│   │   │   └── StructuralProof.lean
+│   │   │   └── PerfectCuboidWitness.lean
 │   │   ├── PerfectCuboid.lean
 │   │   ├── Pkg.lean
 │   │   ├── PrimitiveBridge.lean

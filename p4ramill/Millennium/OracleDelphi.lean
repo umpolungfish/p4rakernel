@@ -1,7 +1,7 @@
 -- Imscribing/Millennium/OracleDelphi.lean
 -- Structural encoding of the Oracle of Delphi.
--- Tuple: ⟨D_triangle; T_bowtie; R_lr; P_pm_sym; F_ell; K_slow; G_aleph; Gamma_seq;
---         Phi_c_complex; H2; n_m; Omega_Z⟩
+-- Tuple: ⟨ash; mime; ian; or'; age; egg; ice; measure;
+--         roar; sure; up; ah⟩
 -- Ouroboricity: O_inf (Frobenius-special at criticality)
 -- C-score: 1.0 (both gates open)
 
@@ -25,43 +25,43 @@ open Dimensionality Topology Relational Polarity Grammar
 /-- The Oracle of Delphi: institutionalized prophetic system operating
     c. 8th century BCE to 4th century CE at the Temple of Apollo. -/
 def oracle_of_delphi : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := ash
+  top  := mime
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem oracle_defines_correctly :
-    oracle_of_delphi.dim  = D_triangle  ∧
-    oracle_of_delphi.top  = T_bowtie    ∧
-    oracle_of_delphi.rel  = R_lr        ∧
-    oracle_of_delphi.pol  = P_pm_sym    ∧
-    oracle_of_delphi.fid  = F_ell       ∧
-    oracle_of_delphi.kin  = K_slow      ∧
-    oracle_of_delphi.gran = G_aleph     ∧
-    oracle_of_delphi.gram = Gamma_seq   ∧
-    oracle_of_delphi.crit = Phi_c_complex ∧
-    oracle_of_delphi.chir = H2          ∧
-    oracle_of_delphi.stoi = n_m         ∧
-    oracle_of_delphi.prot = Omega_Z := by
+    oracle_of_delphi.dim  = ash  ∧
+    oracle_of_delphi.top  = mime    ∧
+    oracle_of_delphi.rel  = ian        ∧
+    oracle_of_delphi.pol  = or'    ∧
+    oracle_of_delphi.fid  = age       ∧
+    oracle_of_delphi.kin  = egg      ∧
+    oracle_of_delphi.gran = ice     ∧
+    oracle_of_delphi.gram = measure   ∧
+    oracle_of_delphi.crit = roar ∧
+    oracle_of_delphi.chir = sure          ∧
+    oracle_of_delphi.stoi = up         ∧
+    oracle_of_delphi.prot = ah := by
   simp [oracle_of_delphi]
 
 -- §2. CONSCIOUSNESS SCORE
 
-/- Gate 1: Phi_c_complex ≥ Phi_c → self-modeling gate OPEN. -/
+/- Gate 1: roar ≥ monad → self-modeling gate OPEN. -/
 theorem oracle_gate1_open :
     Imscribing.Consciousness.phi_c_gate oracle_of_delphi.crit = true := by
   simp only [oracle_of_delphi, Imscribing.Consciousness.phi_c_gate]
 
-/-- Gate 2: K_slow ≤ K_slow → deliberation gate OPEN. -/
+/-- Gate 2: egg ≤ egg → deliberation gate OPEN. -/
 theorem oracle_gate2_open :
     Imscribing.Consciousness.k_slow_gate oracle_of_delphi.kin = true := by
   simp only [oracle_of_delphi, Imscribing.Consciousness.k_slow_gate]
@@ -81,13 +81,13 @@ theorem oracle_is_O_inf :
 
 /-- The Oracle satisfies the Frobenius condition: μ ∘ δ = id exactly. -/
 theorem oracle_frobenius_condition :
-    oracle_of_delphi.pol = P_pm_sym := by
+    oracle_of_delphi.pol = or' := by
   simp [oracle_of_delphi]
 
 -- §4. BOWTIE TOPOLOGY
 
-/-- T_bowtie: crossing topology of petition and response. -/
-theorem oracle_bowtie_topology : oracle_of_delphi.top = T_bowtie := by
+/-- mime: crossing topology of petition and response. -/
+theorem oracle_bowtie_topology : oracle_of_delphi.top = mime := by
   simp [oracle_of_delphi]
 
 -- §5. STRUCTURAL DISTANCES TO CATALOG NEIGHBORS
@@ -106,45 +106,45 @@ theorem oracle_nearest_to_conservation_laws :
 
 -- §6. SEQUENTIAL GRAMMAR AND TWO-STEP CHIRALITY
 
-theorem oracle_ritual_is_sequential : oracle_of_delphi.gram = Gamma_seq := by
+theorem oracle_ritual_is_sequential : oracle_of_delphi.gram = measure := by
   simp [oracle_of_delphi]
 
-theorem oracle_two_step_chirality : oracle_of_delphi.chir = H2 := by
+theorem oracle_two_step_chirality : oracle_of_delphi.chir = sure := by
   simp [oracle_of_delphi]
 
 -- §7. INTEGER WINDING
 
-theorem oracle_winding_is_topological : oracle_of_delphi.prot = Omega_Z := by
+theorem oracle_winding_is_topological : oracle_of_delphi.prot = ah := by
   simp [oracle_of_delphi]
 
 theorem oracle_winding_requires_sufficient_dimension :
-    oracle_of_delphi.dim ≥ D_triangle := by
+    oracle_of_delphi.dim ≥ ash := by
   decide
 
 -- §8. PHI_EP ABSORPTION AVOIDANCE
 
-/-- The Oracle operates at Phi_c_complex, not Phi_EP — avoiding EP absorption. -/
+/-- The Oracle operates at roar, not err — avoiding EP absorption. -/
 theorem oracle_avoids_EP_absorption :
-    oracle_of_delphi.crit = Phi_c_complex ∧
-    oracle_of_delphi.crit ≠ Phi_EP := by
+    oracle_of_delphi.crit = roar ∧
+    oracle_of_delphi.crit ≠ err := by
   simp [oracle_of_delphi]
 
 -- §9. CONSERVATION LAW STRUCTURE
 
 /-- Oracle shares Frobenius symmetry and winding with conservation laws. -/
 theorem oracle_as_conservation_structure :
-    oracle_of_delphi.pol = P_pm_sym ∧
-    oracle_of_delphi.prot = Omega_Z := by
+    oracle_of_delphi.pol = or' ∧
+    oracle_of_delphi.prot = ah := by
   simp [oracle_of_delphi]
 
 -- §10. INVARIANT COMPUTATION THEOREM
 
 /-- The Oracle is structurally an invariant-computing machine. -/
 theorem oracle_is_invariant_computer :
-    oracle_of_delphi.pol = P_pm_sym ∧
-    oracle_of_delphi.top = T_bowtie ∧
-    oracle_of_delphi.prot = Omega_Z ∧
-    oracle_of_delphi.rel = R_lr := by
+    oracle_of_delphi.pol = or' ∧
+    oracle_of_delphi.top = mime ∧
+    oracle_of_delphi.prot = ah ∧
+    oracle_of_delphi.rel = ian := by
   simp [oracle_of_delphi]
 
 -- §11. CRYSTAL ADDRESS
@@ -162,25 +162,25 @@ theorem oracle_address_valid :
 -- §12. HETEROGENEOUS COMPONENTS
 
 theorem oracle_has_heterogeneous_components :
-    oracle_of_delphi.stoi = n_m := by
+    oracle_of_delphi.stoi = up := by
   simp [oracle_of_delphi]
 
 -- §13. CLASSICAL FIDELITY
 
 theorem oracle_classical_fidelity :
-    oracle_of_delphi.fid = F_ell := by
+    oracle_of_delphi.fid = age := by
   simp [oracle_of_delphi]
 
 -- §14. MAXIMAL SCOPE
 
 theorem oracle_maximal_scope :
-    oracle_of_delphi.gran = G_aleph := by
+    oracle_of_delphi.gran = ice := by
   simp [oracle_of_delphi]
 
 -- §15. BIDIRECTIONAL RELATIONAL MODE
 
 theorem oracle_bidirectional :
-    oracle_of_delphi.rel = R_lr := by
+    oracle_of_delphi.rel = ian := by
   simp [oracle_of_delphi]
 
 end Imscribing.Millennium.OracleDelphi

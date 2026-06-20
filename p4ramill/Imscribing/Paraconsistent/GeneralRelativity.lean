@@ -445,26 +445,26 @@ theorem no_hair_theorem : True := by trivial
 /--
 General Relativity as a structural type:
 
-  D = D_infty (𐑼): Infinite-dimensional — field theory on a 4D manifold.
+  D = array (𐑼): Infinite-dimensional — field theory on a 4D manifold.
       The metric g_μν(x) has 10 independent functions of spacetime.
       The configuration space is the space of Lorentzian metrics modulo
       diffeomorphisms (superspace), which is infinite-dimensional.
 
-  T = T_odot (𐑸): Self-referential topology. Gravity is the unique
+  T = are (𐑸): Self-referential topology. Gravity is the unique
       interaction where the field (metric) IS the stage on which all
       other physics occurs. Spacetime geometry references itself:
       curvature sources curvature through nonlinearity.
 
-  R = R_dagger (𐑽): Adjoint coupling. Geometry (g_μν) and matter (T_μν)
+  R = ear (𐑽): Adjoint coupling. Geometry (g_μν) and matter (T_μν)
       form an adjoint pair: δ: metric → curvature, μ: energy → geometry.
       ∇_μ G^μν = 0 ↔ ∇_μ T^μν = 0 is the adjunction condition.
 
-  P = P_sym (𐑯): Full symmetry. GR has full diffeomorphism invariance
+  P = nun (𐑯): Full symmetry. GR has full diffeomorphism invariance
       (general covariance). All coordinate systems are equally valid.
       No preferred frame. Additionally, the Einstein-Hilbert action
       has the full symmetry of the diffeomorphism group Diff(M).
 
-  F = F_ell (𐑱): Classical. GR is a classical field theory.
+  F = age (𐑱): Classical. GR is a classical field theory.
       No quantum effects. The Planck scale ℓ_P = √(ℏG/c³) ≈ 1.6×10^-35 m
       marks the threshold where quantum gravity becomes essential.
 
@@ -472,48 +472,48 @@ General Relativity as a structural type:
       Gravitational waves carry energy away slowly. The theory is
       perturbatively stable around Minkowski (Christodoulou-Klainerman).
 
-  G = G_aleph (𐑲): Universal range. Gravity is the only force that
+  G = ice (𐑲): Universal range. Gravity is the only force that
       cannot be screened. It couples to everything with energy-momentum.
       Range is infinite; cosmological scales.
 
-  Gm = Gamma_seq (𐑠): Sequential composition. The Einstein equations
+  Gm = measure (𐑠): Sequential composition. The Einstein equations
       are solved stepwise: initial data → evolution → final state.
       The 3+1 ADM decomposition makes this sequential structure explicit.
 
-  Phi = Phi_c_complex (𐑮): Complex-plane criticality. GR sits at a
+  Phi = roar (𐑮): Complex-plane criticality. GR sits at a
       critical threshold: the dimensionless coupling G E / (ℏ c^5) 
       marks the transition to strong gravity. Black holes and the
       Big Bang are critical phenomena. The theory is renormalizable
       only in the effective field theory sense (not UV complete).
 
-  H = H2 (𐑖): Markov-2 chirality. The Einstein equations are second-order
+  H = sure (𐑖): Markov-2 chirality. The Einstein equations are second-order
       in time derivatives. Initial data requires g_μν and ∂_t g_μν
       on a Cauchy surface — two steps of memory. The ADM formulation
       makes this explicit: (γ_ij, K_ij) as canonical data.
 
-  S = n_m (𐑳): Heterogeneous components. Spacetime + matter fields
+  S = up (𐑳): Heterogeneous components. Spacetime + matter fields
       of many types: perfect fluids, electromagnetic fields, scalar
       fields, and the metric itself are all distinct structural
       components interacting through the field equations.
 
-  Omega = Omega_Z (𐑭): Integer winding. Gravitational instantons,
+  Omega = ah (𐑭): Integer winding. Gravitational instantons,
       the Gauss-Bonnet theorem: χ(M) = (1/32π²)∫ ε^μνρσ R_αβμν R^αβ_ρσ,
       the Pontryagin class, and the framing anomaly all involve
       integer-valued topological invariants of spacetime.
 -/
 def generalRelativityImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_dagger
-  pol := Polarity.P_sym
-  fid := Fidelity.F_ell
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c_complex
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ear
+  pol := Polarity.nun
+  fid := Fidelity.age
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.roar
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem general_relativity_tier : imscriptionTier generalRelativityImscription = OuroboricityTier.O₂dag := by
@@ -560,9 +560,9 @@ theorem frobenius_duality_gr : True := by
 
 /--
 d(GR, SM) = 5.0 — structually remote. Key gaps:
-  T: T_odot(𐑸) vs T_net(𐑡) — self-referential vs network topology (δ=4)
-  P: P_sym(𐑯) vs P_psi(𐑿) — full symmetry vs quantum superposition (δ=2)
-  F: F_ell(𐑱) vs F_hbar(𐑐) — classical vs quantum (δ=2)
+  T: are(𐑸) vs T_net(𐑡) — self-referential vs network topology (δ=4)
+  P: nun(𐑯) vs yew(𐑿) — full symmetry vs quantum superposition (δ=2)
+  F: age(𐑱) vs peep(𐑐) — classical vs quantum (δ=2)
 
 These three gaps capture the entire problem of quantum gravity:
   1. How to quantize a theory where the field IS the background (T gap)

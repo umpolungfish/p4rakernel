@@ -42,18 +42,18 @@ structure NQState (n : ℕ) where
 
 -- The Shor pipeline structural type: O₁, Φ_υ (psi parity)
 def shorPipelineImscription : Imscription := {
-  dim  := .D_triangle
-  top  := .T_bowtie
-  rel  := .R_dagger
-  pol  := .P_psi         -- Φ_υ: quantum superposition (bottleneck)
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c_complex  -- φ̂_Æ: QFT phase coupling
-  chir := .H0
-  stoi := .n_m
-  prot := .Omega_0
+  dim  := .ash
+  top  := .mime
+  rel  := .ear
+  pol  := .yew         -- Φ_υ: quantum superposition (bottleneck)
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .roar  -- φ̂_Æ: QFT phase coupling
+  chir := .fee
+  stoi := .up
+  prot := .awe
 }
 
 -- Tier: O₁ (Frobenius-special but not O_inf)

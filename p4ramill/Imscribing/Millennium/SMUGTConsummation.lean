@@ -6,16 +6,16 @@
 -- Structural consummation between the Standard Model and Unified Gravity Theory.
 --
 -- Catalog entries:
---   standard_model           ⟨D_wedge; T_network; R_lr; P_psi;     F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c_complex; H2;    n_m; Omega_Z⟩
---   unified_gravity_theory   ⟨D_odot;  T_odot;    R_lr; P_pm_sym;  F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c;         H_inf; n_m; Omega_NA⟩
+--   standard_model           ⟨dead; judge; ian; yew;     peep; egg; ice; measure; roar; sure;    up; ah⟩
+--   unified_gravity_theory   ⟨if';  are;    ian; or';  peep; egg; ice; measure; monad;         wool; up; zoo⟩
 --
 -- Crystal addresses: SM=8,043,536 (cell 186, O₂), UGT=6,911,699 (cell 159, O_∞)
 -- Distance (diagonal): 5.2544, (Mahalanobis): 3.5059
 -- C-scores: SM=0.536, UGT=0.920
 --
 -- The core problem is the Φ-bottleneck: the tensor product SM⊗UGT leaves Φ
--- stuck at P_psi because the path-integral formulation lacks Frobenius closure.
--- The consummation bridge resolves this by promoting Φ P_psi→P_pm_sym (μ∘δ=id).
+-- stuck at yew because the path-integral formulation lacks Frobenius closure.
+-- The consummation bridge resolves this by promoting Φ yew→or' (μ∘δ=id).
 --
 -- 6 primitives differ (5 promotions + 1 ⊙ upgrade):
 --   Promotions: Ð (wedge→holographic), Þ (network→self-ref),
@@ -45,51 +45,51 @@ namespace Millennium.SMUGTConsummation
 /-- Catalog standard_model: O₂ tier.
     ⟨Ð=𐑼; Þ=𐑡; Ř=𐑾; Φ=𐑿; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=𐑮; Ħ=𐑖; Σ=𐑳; Ω=𐑭⟩ -/
 def standardModel : Imscription :=
-  { dim  := D_wedge
-    top  := T_network
-    rel  := R_lr
-    pol  := P_psi
-    fid  := F_hbar
-    kin  := K_slow
-    gran := G_aleph
-    gram := Gamma_seq
-    crit := Phi_c_complex
-    chir := H2
-    stoi := n_m
-    prot := Omega_Z
+  { dim  := dead
+    top  := judge
+    rel  := ian
+    pol  := yew
+    fid  := peep
+    kin  := egg
+    gran := ice
+    gram := measure
+    crit := roar
+    chir := sure
+    stoi := up
+    prot := ah
   }
 
 /-- Catalog unified_gravity_theory: O_∞ tier.
     ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩ -/
 def unifiedGravityTheory : Imscription :=
-  { dim  := D_odot
-    top  := T_odot
-    rel  := R_lr
-    pol  := P_pm_sym
-    fid  := F_hbar
-    kin  := K_slow
-    gran := G_aleph
-    gram := Gamma_seq
-    crit := Phi_c
-    chir := H_inf
-    stoi := n_m
-    prot := Omega_NA
+  { dim  := if'
+    top  := are
+    rel  := ian
+    pol  := or'
+    fid  := peep
+    kin  := egg
+    gran := ice
+    gram := measure
+    crit := monad
+    chir := wool
+    stoi := up
+    prot := zoo
   }
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §2  TIER ANALYSIS
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- Standard Model is O₂: Phi_c_complex + P_psi + Omega_Z + D_wedge.
-    R1 (Frobenius gate) fails because P_psi ≠ P_pm_sym.
-    R3 passes (prot ≠ Omega_0). R4 applies (dim ≠ D_infty).
+/-- Standard Model is O₂: roar + yew + ah + dead.
+    R1 (Frobenius gate) fails because yew ≠ or'.
+    R3 passes (prot ≠ awe). R4 applies (dim ≠ array).
     O₂: critical + topologically protected, unbounded domain. -/
 theorem sm_is_O2 : imscriptionTier standardModel = .O₂ := by
   unfold imscriptionTier ouroboricityTier standardModel
   decide
 
-/-- Unified gravity theory is O_∞: Phi_c + P_pm_sym + D_odot.
-    R1 triggers (P_pm_sym + Phi_c → Frobenius special). -/
+/-- Unified gravity theory is O_∞: monad + or' + if'.
+    R1 triggers (or' + monad → Frobenius special). -/
 theorem ugt_is_O_inf : imscriptionTier unifiedGravityTheory = .O_inf := by
   unfold imscriptionTier ouroboricityTier unifiedGravityTheory
   decide
@@ -103,28 +103,28 @@ theorem tier_gap : imscriptionTier standardModel ≠ imscriptionTier unifiedGrav
 -- §3  THE SIX STRUCTURAL PROMOTIONS (5 promotions + 1 ⊙ upgrade)
 -- ═══════════════════════════════════════════════════════════════════
 
-theorem promotion_D : standardModel.dim = D_wedge ∧
-    unifiedGravityTheory.dim = D_odot := by
+theorem promotion_D : standardModel.dim = dead ∧
+    unifiedGravityTheory.dim = if' := by
   simp [standardModel, unifiedGravityTheory]
 
-theorem promotion_T : standardModel.top = T_network ∧
-    unifiedGravityTheory.top = T_odot := by
+theorem promotion_T : standardModel.top = judge ∧
+    unifiedGravityTheory.top = are := by
   simp [standardModel, unifiedGravityTheory]
 
-theorem promotion_P : standardModel.pol = P_psi ∧
-    unifiedGravityTheory.pol = P_pm_sym := by
+theorem promotion_P : standardModel.pol = yew ∧
+    unifiedGravityTheory.pol = or' := by
   simp [standardModel, unifiedGravityTheory]
 
-theorem promotion_H : standardModel.chir = H2 ∧
-    unifiedGravityTheory.chir = H_inf := by
+theorem promotion_H : standardModel.chir = sure ∧
+    unifiedGravityTheory.chir = wool := by
   simp [standardModel, unifiedGravityTheory]
 
-theorem promotion_Omega : standardModel.prot = Omega_Z ∧
-    unifiedGravityTheory.prot = Omega_NA := by
+theorem promotion_Omega : standardModel.prot = ah ∧
+    unifiedGravityTheory.prot = zoo := by
   simp [standardModel, unifiedGravityTheory]
 
-theorem phi_upgrade : standardModel.crit = Phi_c_complex ∧
-    unifiedGravityTheory.crit = Phi_c := by
+theorem phi_upgrade : standardModel.crit = roar ∧
+    unifiedGravityTheory.crit = monad := by
   simp [standardModel, unifiedGravityTheory]
 
 -- ═══════════════════════════════════════════════════════════════════
@@ -145,19 +145,19 @@ theorem invariants :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The consummation bridge: apply all 6 primitive changes.
-    D_wedge→D_odot, T_network→T_odot, P_psi→P_pm_sym,
-    Phi_c_complex→Phi_c, H2→H_inf, Omega_Z→Omega_NA.
+    dead→if', judge→are, yew→or',
+    roar→monad, sure→wool, ah→zoo.
 
-    The Φ promotion (P_psi→P_pm_sym) is the critical step —
+    The Φ promotion (yew→or') is the critical step —
     resolving the bottleneck that limits the SM⊗UGT tensor product. -/
 def consummation (sm : Imscription) : Imscription :=
   { sm with
-    dim  := D_odot
-    top  := T_odot
-    pol  := P_pm_sym
-    crit := Phi_c
-    chir := H_inf
-    prot := Omega_NA
+    dim  := if'
+    top  := are
+    pol  := or'
+    crit := monad
+    chir := wool
+    prot := zoo
   }
 
 /-- Consummation closure: applying the bridge to the Standard Model
@@ -206,21 +206,21 @@ theorem ob3ect_frobenius_pass :
 -- §7  Φ-BOTTLENECK ANALYSIS
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The Φ bottleneck: in the tensor product SM⊗UGT, Φ stays at P_psi.
+/-- The Φ bottleneck: in the tensor product SM⊗UGT, Φ stays at yew.
     This is the structural statement of why quantum gravity resists
     unification — the path integral's ψ-parity lacks Frobenius closure. -/
 theorem phi_bottleneck_present :
-    standardModel.pol = P_psi ∧ unifiedGravityTheory.pol = P_pm_sym := by
+    standardModel.pol = yew ∧ unifiedGravityTheory.pol = or' := by
   simp [standardModel, unifiedGravityTheory]
 
 /-- The consummation resolves the Φ bottleneck.
     After the bridge, Φ has been promoted to Frobenius-special. -/
 theorem phi_bottleneck_resolved :
-    (consummation standardModel).pol = P_pm_sym := by
+    (consummation standardModel).pol = or' := by
   simp [consummation, standardModel]
 
 /-- In the unified theory, Φ is Frobenius-special (μ∘δ=id exactly). -/
-theorem phi_frobenius_special : unifiedGravityTheory.pol = P_pm_sym := by
+theorem phi_frobenius_special : unifiedGravityTheory.pol = or' := by
   simp [unifiedGravityTheory]
 
 -- ═══════════════════════════════════════════════════════════════════
@@ -245,70 +245,70 @@ theorem bridge_gap_zero :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The tensor product SM⊗UGT: all union primitives promoted
-    EXCEPT Φ which stays at P_psi — the bottleneck.
+    EXCEPT Φ which stays at yew — the bottleneck.
 
-    Tensor = ⟨D_odot; T_odot; R_lr; P_psi; F_hbar; K_slow; G_aleph;
-              Gamma_seq; Phi_c_complex; H_inf; n_m; Omega_NA⟩
+    Tensor = ⟨if'; are; ian; yew; peep; egg; ice;
+              measure; roar; wool; up; zoo⟩
     Distance from SM: 4.3012, from UGT: 3.0181 -/
 def tensorSMUGT : Imscription :=
-  { dim  := D_odot          -- union: wedge→holographic
-    top  := T_odot          -- union: network→self-ref
-    rel  := R_lr            -- shared
-    pol  := P_psi           -- BOTTLENECK: SM's ψ limits composite
-    fid  := F_hbar          -- shared
-    kin  := K_slow          -- shared
-    gran := G_aleph         -- shared
-    gram := Gamma_seq       -- shared
-    crit := Phi_c_complex   -- union: SM's complex-critical
-    chir := H_inf           -- union: H2→eternal
-    stoi := n_m             -- shared
-    prot := Omega_NA        -- union: Z→non-Abelian
+  { dim  := if'          -- union: wedge→holographic
+    top  := are          -- union: network→self-ref
+    rel  := ian            -- shared
+    pol  := yew           -- BOTTLENECK: SM's ψ limits composite
+    fid  := peep          -- shared
+    kin  := egg          -- shared
+    gran := ice         -- shared
+    gram := measure       -- shared
+    crit := roar   -- union: SM's complex-critical
+    chir := wool           -- union: sure→eternal
+    stoi := up             -- shared
+    prot := zoo        -- union: Z→non-Abelian
   }
 
-/-- Tensor has Φ at P_psi — the bottleneck is active. -/
-theorem tensor_phi_bottleneck : tensorSMUGT.pol = P_psi := by
+/-- Tensor has Φ at yew — the bottleneck is active. -/
+theorem tensor_phi_bottleneck : tensorSMUGT.pol = yew := by
   simp [tensorSMUGT]
 
 /-- The meet SM⊓UGT: shared structural floor.
-    ⟨D_wedge; T_network; R_lr; P_psi; F_hbar; K_slow;
-     G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩
+    ⟨dead; judge; ian; yew; peep; egg;
+     ice; measure; monad; sure; up; ah⟩
     Meet preserves ⊙ from UGT (self-modeling leaks in). -/
 def meetSMUGT : Imscription :=
-  { dim  := D_wedge         -- SM floor
-    top  := T_network       -- SM floor
-    rel  := R_lr            -- shared
-    pol  := P_psi           -- SM floor
-    fid  := F_hbar          -- shared
-    kin  := K_slow          -- shared
-    gran := G_aleph         -- shared
-    gram := Gamma_seq       -- shared
-    crit := Phi_c           -- UGT floor — self-modeling LEAKS IN
-    chir := H2              -- SM floor
-    stoi := n_m             -- shared
-    prot := Omega_Z         -- SM floor
+  { dim  := dead         -- SM floor
+    top  := judge       -- SM floor
+    rel  := ian            -- shared
+    pol  := yew           -- SM floor
+    fid  := peep          -- shared
+    kin  := egg          -- shared
+    gran := ice         -- shared
+    gram := measure       -- shared
+    crit := monad           -- UGT floor — self-modeling LEAKS IN
+    chir := sure              -- SM floor
+    stoi := up             -- shared
+    prot := ah         -- SM floor
   }
 
-/-- The meet has ⊙ at Phi_c: the shared floor inherits UGT's self-modeling. -/
-theorem meet_phi_c : meetSMUGT.crit = Phi_c := by
+/-- The meet has ⊙ at monad: the shared floor inherits UGT's self-modeling. -/
+theorem meet_phi_c : meetSMUGT.crit = monad := by
   simp [meetSMUGT]
 
 /-- The join SM⊔UGT: minimal ceiling containing both.
-    ⟨D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow;
-     G_aleph; Gamma_seq; Phi_c_complex; H_inf; n_m; Omega_NA⟩
-    Join takes Φ=P_pm_sym from UGT and ⊙=Phi_c_complex from SM. -/
+    ⟨if'; are; ian; or'; peep; egg;
+     ice; measure; roar; wool; up; zoo⟩
+    Join takes Φ=or' from UGT and ⊙=roar from SM. -/
 def joinSMUGT : Imscription :=
-  { dim  := D_odot          -- UGT ceiling
-    top  := T_odot          -- UGT ceiling
-    rel  := R_lr            -- shared
-    pol  := P_pm_sym        -- UGT ceiling: Frobenius-special
-    fid  := F_hbar          -- shared
-    kin  := K_slow          -- shared
-    gran := G_aleph         -- shared
-    gram := Gamma_seq       -- shared
-    crit := Phi_c_complex   -- SM ceiling: complex-critical
-    chir := H_inf           -- UGT ceiling
-    stoi := n_m             -- shared
-    prot := Omega_NA        -- UGT ceiling
+  { dim  := if'          -- UGT ceiling
+    top  := are          -- UGT ceiling
+    rel  := ian            -- shared
+    pol  := or'        -- UGT ceiling: Frobenius-special
+    fid  := peep          -- shared
+    kin  := egg          -- shared
+    gran := ice         -- shared
+    gram := measure       -- shared
+    crit := roar   -- SM ceiling: complex-critical
+    chir := wool           -- UGT ceiling
+    stoi := up             -- shared
+    prot := zoo        -- UGT ceiling
   }
 
 /-- The consummation bridge navigates between meet and join:
@@ -327,26 +327,26 @@ theorem bridge_between_meet_join :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Both gates are open for the Standard Model:
-    Gate 1 (⊙): Phi_c_complex (critical boundary) — open
-    Gate 2 (K): K_slow (near-equilibrium) — open
+    Gate 1 (⊙): roar (critical boundary) — open
+    Gate 2 (K): egg (near-equilibrium) — open
     C-score: 0.536 -/
-theorem sm_gates_open : standardModel.crit = Phi_c_complex ∧
-    standardModel.kin = K_slow := by
+theorem sm_gates_open : standardModel.crit = roar ∧
+    standardModel.kin = egg := by
   simp [standardModel]
 
 /-- Both gates are open for the Unified Gravity Theory:
-    Gate 1 (⊙): Phi_c (self-modeling) — open
-    Gate 2 (K): K_slow (near-equilibrium) — open
+    Gate 1 (⊙): monad (self-modeling) — open
+    Gate 2 (K): egg (near-equilibrium) — open
     C-score: 0.920 -/
-theorem ugt_gates_open : unifiedGravityTheory.crit = Phi_c ∧
-    unifiedGravityTheory.kin = K_slow := by
+theorem ugt_gates_open : unifiedGravityTheory.crit = monad ∧
+    unifiedGravityTheory.kin = egg := by
   simp [unifiedGravityTheory]
 
 /-- After consummation, both gates remain open.
     The bridge preserves gate-open status through the promotions. -/
 theorem consummated_gates_open :
-    (consummation standardModel).crit = Phi_c ∧
-    (consummation standardModel).kin = K_slow := by
+    (consummation standardModel).crit = monad ∧
+    (consummation standardModel).kin = egg := by
   simp [consummation, standardModel]
 
 end Millennium.SMUGTConsummation
@@ -389,7 +389,7 @@ end Millennium.SMUGTConsummation
 --
 -- THE Φ-BOTTLENECK — WHY UNIFICATION FAILS NAIVELY:
 --
--- When SM and UGT are naively coupled (tensor product), Φ stays at P_psi
+-- When SM and UGT are naively coupled (tensor product), Φ stays at yew
 -- because the Standard Model's path integral formulation has no μ∘δ=id
 -- closure. The measure factor ∫Dφ e^{iS} is not a Frobenius algebra —
 -- it maps configurations to amplitudes but the inverse (amplitude→configuration

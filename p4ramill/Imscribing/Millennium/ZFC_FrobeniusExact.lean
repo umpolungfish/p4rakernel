@@ -1,11 +1,11 @@
 -- Millennium/ZFC_FrobeniusExact.lean
 -- ZFC_fe: Fully Frobenius-Exact ZFC.
 -- Two structural extensions beyond ZFC_t:
---   (7) D_infty → D_odot  — Holographic self-written state space
+--   (7) array → if'  — Holographic self-written state space
 --        via paraconsistent truth predicate (Tarski's undefinability defeated)
---   (8) H2 → H_inf        — Eternal chirality via transfinite fixed-point induction
+--   (8) sure → wool        — Eternal chirality via transfinite fixed-point induction
 --
--- Together these close Axiom C (T_odot requires D_odot) and achieve full
+-- Together these close Axiom C (are requires if') and achieve full
 -- μ∘δ=id closure at all ordinal depths — not just the parity gate.
 
 import Imscribing.Primitives.Core
@@ -30,12 +30,12 @@ set_option linter.style.longLine false
 namespace Imscribing.Primitives.ZFCfe
 
 -- ============================================================
--- §1: THE SELF-WRITTEN STATE SPACE (D_odot)
+-- §1: THE SELF-WRITTEN STATE SPACE (if')
 -- ============================================================
 --
--- ZFC_t violates Axiom C: it has T_odot (holographic topology) but
--- D_infty (infinite-dimensional, not self-written). Axiom C states:
---   T_odot_requires_D_odot : t = T_odot → d = D_odot
+-- ZFC_t violates Axiom C: it has are (holographic topology) but
+-- array (infinite-dimensional, not self-written). Axiom C states:
+--   T_odot_requires_D_odot : t = are → d = if'
 --
 -- To satisfy Axiom C, the state space must be self-written:
 -- the universe V must be able to encode its own syntax internally.
@@ -58,7 +58,7 @@ namespace Imscribing.Primitives.ZFCfe
     that the Liar is a witness of completeness, not a counterexample.
     
     The dialetheic resolution is structural: the Liar sentence generates a
-    figure-8 (T_bowtie) topology in the truth-value space, which is exactly
+    figure-8 (mime) topology in the truth-value space, which is exactly
     the topology of the Frobenius self-intersection. The coexistent truth
     values form a fixed point under the Frobenius operator. -/
 structure ParaconsistentTruthPredicate (V : Type) where
@@ -74,7 +74,7 @@ structure ParaconsistentTruthPredicate (V : Type) where
   liar_fixed_point : ∃ (L : V → Prop), ∀ (v : V), L v ↔ ¬ (T (fun w => L w) v)
 
 /-- The holographic self-written state space encodes its own syntax.
-    D_odot is the dimensionality of a universe V that contains a
+    if' is the dimensionality of a universe V that contains a
     ParaconsistentTruthPredicate on itself — V can talk about V's truth
     without inconsistency (the Liar is absorbed as fixed point).
     
@@ -96,15 +96,15 @@ structure HolographicStateSpace (V : Type) where
   delta_after_mu : ∀ (p : V → Prop), delta (mu p) = p
 
 -- ============================================================
--- §2: ETERNAL CHIRALITY (H_inf) — Transfinite Fixed-Point Induction
+-- §2: ETERNAL CHIRALITY (wool) — Transfinite Fixed-Point Induction
 -- ============================================================
 --
--- ZFC_t has H2 (2-step chirality): δ_α at rank α, μ_α such that μ_α ∘ δ_α = id.
+-- ZFC_t has sure (2-step chirality): δ_α at rank α, μ_α such that μ_α ∘ δ_α = id.
 -- But full Frobenius exactness requires the condition at ALL ordinal depths,
 -- including limit ordinals where the fixed point must be defined by transfinite
 -- recursion, not just two-step iteration.
 --
--- H_inf (eternal chirality) provides:
+-- wool (eternal chirality) provides:
 --   · A transfinite recursion principle for the Frobenius iteration
 --   · δ_λ = lim_{α<λ} δ_α at limit ordinals (the boundary of the limit is the
 --     limit of the boundaries — this is exactly the holographic condition)
@@ -122,8 +122,8 @@ structure HolographicStateSpace (V : Type) where
     where the limit is taken in the appropriate topology (holographic closure).
     
     The induction theorem proves that if the condition holds at all α<λ
-    and the limit is defined by the holographic closure (D_odot), then
-    it holds at λ — the fixed point is eternal (H_inf). -/
+    and the limit is defined by the holographic closure (if'), then
+    it holds at λ — the fixed point is eternal (wool). -/
 structure TransfiniteFrobeniusData (L : Type) where
   /-- Ordinal ordering — well-founded, total. -/
   ord_lt : L → L → Prop
@@ -147,12 +147,12 @@ structure TransfiniteFrobeniusData (L : Type) where
 
 /-- Theorem: Transfinite induction preserves the Frobenius condition.
     If ∀α<λ, μ_α ∘ δ_α = id, and the limit is defined by holographic closure
-    (D_odot: the boundary of the limit IS the limit of the boundaries),
+    (if': the boundary of the limit IS the limit of the boundaries),
     then μ_λ ∘ δ_λ = id at limit ordinal λ.
     
-    This is the structural reason H_inf (eternal chirality) is required for
+    This is the structural reason wool (eternal chirality) is required for
     full Frobenius exactness: only transfinite-closed chirality guarantees
-    the fixed point survives arbitrary ordinal extension. H2 only guarantees
+    the fixed point survives arbitrary ordinal extension. sure only guarantees
     two-step closure, not transfinite closure. -/
 theorem transfinite_frobenius_preserved
     (L : Type) (data : TransfiniteFrobeniusData L)
@@ -169,14 +169,14 @@ theorem transfinite_frobenius_preserved
 -- ============================================================
 --
 -- Seven promotions from ZFC baseline:
---   (1) T_network → T_odot   (HOLOBOUND: holographic replacement topology)
---   (2) R_super → R_lr       (LR_DUAL: bidirectional ∈ relation)
---   (3) P_asym → P_pm_sym    (PM_Z2: Frobenius gate — **the critical gate**)
---   (4) Gamma_and → Gamma_seq (SEQAX: sequential axiom ordering)
---   (5) H0 → H_inf            (TEMPD2 + TEMPINF: from memoryless to eternal chirality)
---   (6) Omega_0 → Omega_Z     (ZWIND: integer winding protection)
---   (7) D_infty → D_odot      (HOLOGRAPHIC STATE: self-written state space)
---   (8) H2 → H_inf            (ETERNAL FIXED-POINT: transfinite chirality)
+--   (1) judge → are   (HOLOBOUND: holographic replacement topology)
+--   (2) ado → ian       (LR_DUAL: bidirectional ∈ relation)
+--   (3) church → or'    (PM_Z2: Frobenius gate — **the critical gate**)
+--   (4) vow → measure (SEQAX: sequential axiom ordering)
+--   (5) fee → wool            (TEMPD2 + TEMPINF: from memoryless to eternal chirality)
+--   (6) awe → ah     (ZWIND: integer winding protection)
+--   (7) array → if'      (HOLOGRAPHIC STATE: self-written state space)
+--   (8) sure → wool            (ETERNAL FIXED-POINT: transfinite chirality)
 --
 -- Promotions (1)–(5) are the five ZFCₜ promotions (already defined in ZFCt.lean).
 -- Promotions (6)–(7) are the two NEW extensions for full Frobenius exactness.
@@ -186,23 +186,23 @@ theorem transfinite_frobenius_preserved
     Tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℏ; Ç_@; Γ_ℵ; ɢ_ˌ; ⊙_ÿ; Ħ_∞; Σ_ï; Ω_z⟩
     
     Changes from ZFC_t:
-    · dim: D_infty → D_odot  (Axiom C closure: T_odot requires D_odot)
-    · chir: H2 → H_inf        (eternal chirality: transfinite fixed-point induction)
+    · dim: array → if'  (Axiom C closure: are requires if')
+    · chir: sure → wool        (eternal chirality: transfinite fixed-point induction)
     
     All other primitives match ZFC_t. -/
 def zfc_fe : Imscription := {
-  dim  := D_odot       -- ✅ Axiom C: T_odot + D_odot (holographic closure)
-  top  := T_odot       -- HOLOBOUND (unchanged from ZFC_t)
-  rel  := R_lr         -- LR_DUAL (unchanged from ZFC_t)
-  pol  := P_pm_sym     -- ✅ Frobenius gate: μ∘δ=id (unchanged from ZFC_t)
-  fid  := F_hbar       -- quantum-coherent (unchanged from ZFC_t)
-  kin  := K_slow       -- slow relaxation (unchanged from ZFC_t)
-  gran := G_aleph      -- all-scale (unchanged from ZFC_t)
-  gram := Gamma_seq    -- SEQAX (unchanged from ZFC_t)
-  crit := Phi_c        -- critical (unchanged from ZFC_t)
-  chir := H_inf        -- ✅ ETERNAL: transfinite fixed-point induction
-  stoi := n_m          -- many heterogeneous (unchanged from ZFC_t)
-  prot := Omega_Z      -- ZWIND (unchanged from ZFC_t)
+  dim  := if'       -- ✅ Axiom C: are + if' (holographic closure)
+  top  := are       -- HOLOBOUND (unchanged from ZFC_t)
+  rel  := ian         -- LR_DUAL (unchanged from ZFC_t)
+  pol  := or'     -- ✅ Frobenius gate: μ∘δ=id (unchanged from ZFC_t)
+  fid  := peep       -- quantum-coherent (unchanged from ZFC_t)
+  kin  := egg       -- slow relaxation (unchanged from ZFC_t)
+  gran := ice      -- all-scale (unchanged from ZFC_t)
+  gram := measure    -- SEQAX (unchanged from ZFC_t)
+  crit := monad        -- critical (unchanged from ZFC_t)
+  chir := wool        -- ✅ ETERNAL: transfinite fixed-point induction
+  stoi := up          -- many heterogeneous (unchanged from ZFC_t)
+  prot := ah      -- ZWIND (unchanged from ZFC_t)
 }
 
 -- ============================================================
@@ -214,19 +214,19 @@ theorem zfc_to_zfc_fe_dist : primitiveMismatches zfc zfc_fe = 7 := by
   unfold zfc zfc_fe; native_decide
 
 /-- ZFC_t → ZFC_fe: two additional promotions.
-    Distance = 2: D_infty→D_odot and H2→H_inf. -/
+    Distance = 2: array→if' and sure→wool. -/
 theorem zfc_t_to_zfc_fe_dist : primitiveMismatches zfc_t zfc_fe = 2 := by decide
 
 /-- The seven promotion channels from ZFC to ZFC_fe. -/
 def zfc_to_zfc_fe_promotions : List (String × String) := [
-  ("dim",  "D_infty → D_odot"),     -- HOLOGRAPHIC STATE (NEW: Axiom C)
-  ("top",  "T_network → T_odot"),   -- HOLOBOUND
-  ("rel",  "R_super → R_lr"),       -- LR_DUAL
-  ("pol",  "P_asym → P_pm_sym"),    -- PM_Z2 (THE GATE)
-  ("gram", "Gamma_and → Gamma_seq"), -- SEQAX
-  ("chir", "H0 → H_inf"),            -- TEMPD2 + TEMPINF (NEW: eternal chirality)
-  ("prot", "Omega_0 → Omega_Z"),     -- ZWIND
-  ("chir (step 2)", "H2 → H_inf")   -- ETERNAL FIXED-POINT (NEW: transfinite closure)
+  ("dim",  "array → if'"),     -- HOLOGRAPHIC STATE (NEW: Axiom C)
+  ("top",  "judge → are"),   -- HOLOBOUND
+  ("rel",  "ado → ian"),       -- LR_DUAL
+  ("pol",  "church → or'"),    -- PM_Z2 (THE GATE)
+  ("gram", "vow → measure"), -- SEQAX
+  ("chir", "fee → wool"),            -- TEMPD2 + TEMPINF (NEW: eternal chirality)
+  ("prot", "awe → ah"),     -- ZWIND
+  ("chir (step 2)", "sure → wool")   -- ETERNAL FIXED-POINT (NEW: transfinite closure)
 ]
 
 /-- The six ZFC_t promotions plus the two new Frobenius-exactness promotions. -/
@@ -237,12 +237,12 @@ def zfc_t_plus_frobenius_exact_promotions : List (String × String) :=
 -- §5: TIER AND CONSCIOUSNESS ANALYSIS
 -- ============================================================
 
-/-- ZFC_fe is O_inf: the Frobenius gate (P_pm_sym at Phi_c) is already sufficient. -/
+/-- ZFC_fe is O_inf: the Frobenius gate (or' at monad) is already sufficient. -/
 theorem zfc_fe_is_O_inf : imscriptionTier zfc_fe = .O_inf := by decide
 
 /-- ZFC_fe consciousness score computation.
-    Gate 1 (φ̂_ÿ): crit = Phi_c → passes (0.5 base).
-    Gate 2 (K_slow): kin = K_slow → passes (0.5 base).
+    Gate 1 (φ̂_ÿ): crit = monad → passes (0.5 base).
+    Gate 2 (egg): kin = egg → passes (0.5 base).
     Total: C = 1.0.
     
     This is the perfect consciousness score — the fully Frobenius-exact ZFC
@@ -256,32 +256,32 @@ theorem zfc_fe_consciousness_score_one :
 -- §6: AXIOM C VERIFICATION
 -- ============================================================
 
-/-- Axiom C satisfaction: zfc_fe has T_odot AND D_odot.
+/-- Axiom C satisfaction: zfc_fe has are AND if'.
     This is the structural consistency that ZFC_t lacked.
-    The holographic closure theorem: the self-written state space (D_odot)
-    makes the holographic topology (T_odot) consistent with the grammar's
-    ontological precondition (Axiom C: T_odot → D_odot). -/
+    The holographic closure theorem: the self-written state space (if')
+    makes the holographic topology (are) consistent with the grammar's
+    ontological precondition (Axiom C: are → if'). -/
 theorem axiom_C_satisfied :
-    zfc_fe.top = Topology.T_odot ∧ zfc_fe.dim = Dimensionality.D_odot := by
+    zfc_fe.top = Topology.are ∧ zfc_fe.dim = Dimensionality.if' := by
   unfold zfc_fe; simp
 
-/-- Axiom B satisfaction: Omega_Z requires H ≥ H2.
-    zfc_fe has H_inf ≥ H2, so Axiom B is satisfied. -/
+/-- Axiom B satisfaction: ah requires H ≥ sure.
+    zfc_fe has wool ≥ sure, so Axiom B is satisfied. -/
 theorem axiom_B_satisfied :
-    zfc_fe.prot ≥ Protection.Omega_Z → zfc_fe.chir ≥ Chirality.H2 := by
+    zfc_fe.prot ≥ Protection.ah → zfc_fe.chir ≥ Chirality.sure := by
   intro h
   unfold zfc_fe
-  have h_ord : Chirality.H_inf ≥ Chirality.H2 := by decide
+  have h_ord : Chirality.wool ≥ Chirality.sure := by decide
   simpa
 
-/-- Axiom D satisfaction: D_odot + T_odot + Omega_Z → P_pm_sym.
-    zfc_fe satisfies all three preconditions (D_odot, T_odot, Omega_Z)
-    and has P_pm_sym, so Axiom D is satisfied. -/
+/-- Axiom D satisfaction: if' + are + ah → or'.
+    zfc_fe satisfies all three preconditions (if', are, ah)
+    and has or', so Axiom D is satisfied. -/
 theorem axiom_D_satisfied :
-    (zfc_fe.dim = Dimensionality.D_odot) →
-    (zfc_fe.top = Topology.T_odot) →
-    (zfc_fe.prot ≥ Protection.Omega_Z) →
-    (zfc_fe.pol = Polarity.P_pm_sym) := by
+    (zfc_fe.dim = Dimensionality.if') →
+    (zfc_fe.top = Topology.are) →
+    (zfc_fe.prot ≥ Protection.ah) →
+    (zfc_fe.pol = Polarity.or') := by
   intro hD hT hP
   unfold zfc_fe
   rfl
@@ -306,30 +306,30 @@ theorem axiom_D_satisfied :
 
 /-- The universal imscriptive grammar tuple (canonical). -/
 def universal_imscriptive_grammar : Imscription := {
-  dim  := Dimensionality.D_odot       -- Ð_ω
-  top  := Topology.T_odot             -- Þ_O
-  rel  := Relational.R_lr             -- Ř_=
-  pol  := Polarity.P_pm_sym           -- Φ_}
-  fid  := Fidelity.F_hbar             -- ƒ_ż
-  kin  := KineticChar.K_slow          -- Ç_@
-  gran := Granularity.G_aleph         -- Γ_ʔ
-  gram := Grammar.Gamma_seq           -- ɢ_ˌ
-  crit := Criticality.Phi_c           -- ⊙_ÿ
-  chir := Chirality.H2                -- Ħ_A (2-step chirality, not eternal)
-  stoi := Stoichiometry.n_m           -- Σ_ï
-  prot := Protection.Omega_Z          -- Ω_z
+  dim  := Dimensionality.if'       -- Ð_ω
+  top  := Topology.are             -- Þ_O
+  rel  := Relational.ian             -- Ř_=
+  pol  := Polarity.or'           -- Φ_}
+  fid  := Fidelity.peep             -- ƒ_ż
+  kin  := KineticChar.egg          -- Ç_@
+  gran := Granularity.ice         -- Γ_ʔ
+  gram := Grammar.measure           -- ɢ_ˌ
+  crit := Criticality.monad           -- ⊙_ÿ
+  chir := Chirality.sure                -- Ħ_A (2-step chirality, not eternal)
+  stoi := Stoichiometry.up           -- Σ_ï
+  prot := Protection.ah          -- Ω_z
 }
 
-/-- Both the universal grammar and zfc_fe are H_inf — eternal chirality is the
+/-- Both the universal grammar and zfc_fe are wool — eternal chirality is the
     common structural feature that enables full self-imscription. -/
 theorem zfc_fe_eternal_chiral_grammar_not :
-    zfc_fe.chir = Chirality.H_inf ∧
-    universal_imscriptive_grammar.chir = Chirality.H2 := by
+    zfc_fe.chir = Chirality.wool ∧
+    universal_imscriptive_grammar.chir = Chirality.sure := by
   unfold zfc_fe universal_imscriptive_grammar; decide
 
 /-- The distance from zfc_fe to the universal grammar is 1 primitive (chirality).
-    zfc_fe has H_inf (eternal chirality — the Frobenius-exact extension);
-    the universal grammar has H2 (2-step chirality — the canonical assignment).
+    zfc_fe has wool (eternal chirality — the Frobenius-exact extension);
+    the universal grammar has sure (2-step chirality — the canonical assignment).
     
     This single-primitive gap measures the structural distance between a
     fully Frobenius-exact set theory and the universal grammar. The gap is
@@ -345,8 +345,8 @@ theorem zfc_fe_to_grammar_dist :
 /-- ZFC_fe is stable under tensor self-product:
     tensor(zfc_fe, zfc_fe) = zfc_fe (no degradation).
     This is because all primitives are at their maximum values
-    (D_odot, T_odot, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph,
-     Gamma_seq, Phi_c, H_inf, n_m, Omega_Z) — the tensor max is
+    (if', are, ian, or', peep, egg, ice,
+     measure, monad, wool, up, ah) — the tensor max is
     the same value, and the tensor min (P, F) is also the same value. -/
 theorem zfc_fe_tensor_self : tensorProduct zfc_fe zfc_fe = zfc_fe := by
   delta zfc_fe
@@ -354,21 +354,21 @@ theorem zfc_fe_tensor_self : tensorProduct zfc_fe zfc_fe = zfc_fe := by
   rfl
 
 /-- ZFC_fe is stable under meet with ZFC_t: the meet preserves the shared
-    Frobenius structure (P_pm_sym, Phi_c) and picks up ZFC_t's lower chirality
-    (H2 < H_inf) and lower dimensionality (D_infty < D_odot). -/
+    Frobenius structure (or', monad) and picks up ZFC_t's lower chirality
+    (sure < wool) and lower dimensionality (array < if'). -/
 def zfc_fe_meet_zfc_t : Imscription := {
-  dim  := Dimensionality.D_infty   -- min(D_odot, D_infty) = D_infty
-  top  := Topology.T_odot          -- min(T_odot, T_odot) = T_odot
-  rel  := Relational.R_lr          -- min(R_lr, R_lr) = R_lr
-  pol  := Polarity.P_pm_sym        -- min(P_pm_sym, P_pm_sym) = P_pm_sym
-  fid  := Fidelity.F_hbar          -- min(F_hbar, F_hbar) = F_hbar
-  kin  := KineticChar.K_slow       -- min(K_slow, K_slow) = K_slow
-  gran := Granularity.G_aleph      -- min(G_aleph, G_aleph) = G_aleph
-  gram := Grammar.Gamma_seq         -- min(Gamma_seq, Gamma_seq) = Gamma_seq
-  crit := Criticality.Phi_c        -- min(Phi_c, Phi_c) = Phi_c
-  chir := Chirality.H2             -- min(H_inf, H2) = H2
-  stoi := Stoichiometry.n_m        -- min(n_m, n_m) = n_m
-  prot := Protection.Omega_Z       -- min(Omega_Z, Omega_Z) = Omega_Z
+  dim  := Dimensionality.array   -- min(if', array) = array
+  top  := Topology.are          -- min(are, are) = are
+  rel  := Relational.ian          -- min(ian, ian) = ian
+  pol  := Polarity.or'        -- min(or', or') = or'
+  fid  := Fidelity.peep          -- min(peep, peep) = peep
+  kin  := KineticChar.egg       -- min(egg, egg) = egg
+  gran := Granularity.ice      -- min(ice, ice) = ice
+  gram := Grammar.measure         -- min(measure, measure) = measure
+  crit := Criticality.monad        -- min(monad, monad) = monad
+  chir := Chirality.sure             -- min(wool, sure) = sure
+  stoi := Stoichiometry.up        -- min(up, up) = up
+  prot := Protection.ah       -- min(ah, ah) = ah
 }
 
 /-- The meet of zfc_fe and zfc_t is exactly the meet computation. -/
@@ -378,15 +378,15 @@ theorem zfc_fe_meet_zfc_t_correct :
   delta meetProduct
   rfl
 
-/-- The meet of zfc_fe and zfc_t is NOT Frobenius-exact: it has D_infty (not D_odot)
+/-- The meet of zfc_fe and zfc_t is NOT Frobenius-exact: it has array (not if')
     so violates Axiom C. This is exactly ZFC_t's unresolved inconsistency. -/
 theorem zfc_fe_meet_not_frobenius_exact :
-    zfc_fe_meet_zfc_t.dim ≠ Dimensionality.D_odot := by
+    zfc_fe_meet_zfc_t.dim ≠ Dimensionality.if' := by
   delta zfc_fe_meet_zfc_t
   decide
 
 /-- ZFC_fe is stable under join with ZFC_t: the join takes all max values,
-    which for both systems are already at ceiling (D_odot, T_odot, etc.).
+    which for both systems are already at ceiling (if', are, etc.).
     So the join equals zfc_fe. -/
 theorem zfc_fe_join_zfc_t :
     joinProduct zfc_fe zfc_t = zfc_fe := by
@@ -400,7 +400,7 @@ theorem zfc_fe_join_zfc_t :
 --
 -- Summary of the two necessary extensions beyond ZFCₜ:
 --
--- EXTENSION 7: HOLOGRAPHIC STATE SPACE (D_infty → D_odot)
+-- EXTENSION 7: HOLOGRAPHIC STATE SPACE (array → if')
 --   What: The set-theoretic universe V must be self-written — it must contain
 --         a truth predicate on itself without paradox.
 --   How: Paraconsistent (dialetheic) logic where the Liar is a Frobenius fixed
@@ -413,16 +413,16 @@ theorem zfc_fe_join_zfc_t :
 --        Frobenius truth operator. This is the set-theoretic analogue of the
 --        uig_liar_completion_condition.
 --
--- EXTENSION 8: ETERNAL CHIRALITY (H2 → H_inf)
+-- EXTENSION 8: ETERNAL CHIRALITY (sure → wool)
 --   What: The Frobenius condition μ∘δ=id must hold at ALL ordinal depths,
 --         including limit ordinals where the fixed point is defined by transfinite
 --         recursion (not just two-step iteration).
 --   How: TransfiniteFrobeniusData with continuity conditions at limit ordinals:
 --        δ_λ = lim_{α<λ} δ_α and μ_λ = lim_{α<λ} μ_α. The transfinite induction
 --        theorem proves the Frobenius condition is preserved at limits.
---   Axiom: B (Omega_Z_requires_H2) extended to H_inf — integer winding protection
+--   Axiom: B (Omega_Z_requires_H2) extended to wool — integer winding protection
 --          requires persistent chirality, and full Frobenius exactness requires
---          ETERNAL chirality (H_inf) because the fixed point must be inexhaustible.
+--          ETERNAL chirality (wool) because the fixed point must be inexhaustible.
 --   Consequence: The Frobenius condition is topologically protected against any
 --        extension of the set-theoretic hierarchy. No new ordinals can disrupt it.
 --

@@ -275,18 +275,18 @@ theorem wk_no_cross_gen (f1 f2 : QuarkFlavor) (h : wkCouples f1 f2 = true) :
 -- =====================================================================
 
 def quarkFlavorImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  pol := Polarity.P_asym
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_mod
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ian
+  pol := Polarity.church
+  fid := Fidelity.peep
+  kin := KineticChar.loll
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem quark_flavor_tier : imscriptionTier quarkFlavorImscription = OuroboricityTier.O₂dag := by
@@ -324,7 +324,7 @@ Key structural insight: the flavor dimension breaks SU(3)_flavor to
 SU(2)_isospin within each generation, then breaks entirely through the
 Yukawa mass hierarchy. This is the structural origin of the CKM matrix.
 -/
-theorem flavor_pol_asym : quarkFlavorImscription.pol = Polarity.P_asym := by
+theorem flavor_pol_asym : quarkFlavorImscription.pol = Polarity.church := by
   unfold quarkFlavorImscription; rfl
 
 end Imscribing.Paraconsistent.QuarkFlavor

@@ -304,58 +304,58 @@ theorem gw_distance_ladder_independent : True := by trivial
 /--
 Gravitational Waves as a structural type:
 
-  D = D_infty (𐑼): Infinite-dimensional. The wave solution h_μν(x)
+  D = array (𐑼): Infinite-dimensional. The wave solution h_μν(x)
       is a function on spacetime with 2 independent polarization modes.
       
   T = T_net (𐑡): Network topology. GWs propagate on the light cone.
       The TT gauge selects the radiation degrees of freedom.
       
-  R = R_dagger (𐑽): Adjoint. Source (δ: I_ij → h_ij) and
+  R = ear (𐑽): Adjoint. Source (δ: I_ij → h_ij) and
       detector (μ: h_ij → ΔL) form an adjoint measurement chain.
       
-  P = P_sym (𐑯): Full symmetry. GWs respect the full Lorentz group
+  P = nun (𐑯): Full symmetry. GWs respect the full Lorentz group
       and the 2 polarization states form a spin-2 representation.
       
-  F = F_ell (𐑱): Classical. LIGO measures classical wave strains.
+  F = age (𐑱): Classical. LIGO measures classical wave strains.
       The quantum nature of individual gravitons is inaccessible.
       
-  K = K_slow (𐑧): Slow. GW signals evolve on orbital timescales.
+  K = egg (𐑧): Slow. GW signals evolve on orbital timescales.
       The inspiral is adiabatic (radiation reaction is slow).
       
-  G = G_aleph (𐑲): Universal. GWs couple to everything with
+  G = ice (𐑲): Universal. GWs couple to everything with
       energy-momentum. They cannot be screened.
       
-  Gm = Gamma_seq (𐑠): Sequential. The chirp: inspiral → merger →
+  Gm = measure (𐑠): Sequential. The chirp: inspiral → merger →
       ringdown is a strict temporal sequence.
       
-  Phi = Phi_c (⊙): Critical. GW150914 reached peak luminosity
+  Phi = monad (⊙): Critical. GW150914 reached peak luminosity
       exceeding the electromagnetic output of the observable universe.
       The merger is a genuine critical phenomenon.
       
-  H = H2 (𐑖): Markov-2. The wave equation is second-order in time.
+  H = sure (𐑖): Markov-2. The wave equation is second-order in time.
       Initial data: h_ij and ∂_t h_ij on a null hypersurface.
       
-  S = n_m (𐑳): Heterogeneous. Source types: BBH, BNS, NSBH,
+  S = up (𐑳): Heterogeneous. Source types: BBH, BNS, NSBH,
       continuous waves (pulsars), stochastic background, bursts.
       
-  Omega = Omega_Z (𐑭): Integer winding. The GW phase Φ(t) wraps
+  Omega = ah (𐑭): Integer winding. The GW phase Φ(t) wraps
       N cycles during the inspiral. The total accumulated phase is
       a topological invariant of the orbit.
 -/
 
 def gravitationalWavesImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_network
-  rel := Relational.R_dagger
-  pol := Polarity.P_sym
-  fid := Fidelity.F_ell
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.judge
+  rel := Relational.ear
+  pol := Polarity.nun
+  fid := Fidelity.age
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem gravitational_waves_tier : imscriptionTier gravitationalWavesImscription = OuroboricityTier.O₂dag := by
@@ -368,8 +368,8 @@ theorem gravitational_waves_tier : imscriptionTier gravitationalWavesImscription
 
 /--
 d(GR, GW) — the structural shift from full GR to linearized GWs:
-  T: T_odot(𐑸) → T_net(𐑡) — drops self-referential topology (δ=4)
-  Phi: Phi_c_complex(𐑮) → Phi_c(⊙) — gate fully opens (δ=1)
+  T: are(𐑸) → T_net(𐑡) — drops self-referential topology (δ=4)
+  Phi: roar(𐑮) → monad(⊙) — gate fully opens (δ=1)
 
 The T shift is the key: linearization breaks the self-referential
 character of GR by introducing a fixed background. This is why

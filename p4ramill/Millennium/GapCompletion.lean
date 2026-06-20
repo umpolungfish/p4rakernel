@@ -42,27 +42,27 @@ theorem collatz_gap : primitiveMismatches collatz_shallow collatz_deep = 7 := by
 -- §2. GOLDSTONE / YM CRITICALITY COMPLEMENT
 
 theorem goldstone_ym_complement :
-    goldstone_encoding.crit = Phi_super ∧
-    ym_quantum_target.crit = Phi_c ∧
+    goldstone_encoding.crit = haha ∧
+    ym_quantum_target.crit = monad ∧
     goldstone_encoding.crit ≠ ym_quantum_target.crit := by
   native_decide
 
 -- §3. WITTEN vs YM CRITICALITY GAP
 
 theorem witten_vs_ym_criticality_gap :
-    witten_pe_encoding.crit = Phi_sub ∧
-    ym_quantum_target.crit = Phi_c ∧
-    witten_pe_encoding.dim = D_infty ∧
-    ym_quantum_target.dim = D_infty := by
+    witten_pe_encoding.crit = woe ∧
+    ym_quantum_target.crit = monad ∧
+    witten_pe_encoding.dim = array ∧
+    ym_quantum_target.dim = array := by
   native_decide
 
 -- §4. C12 / C13 GAP PRIMITIVES
 
 theorem c12_gap_is_dimensionality :
-    schwinger_encoding.dim = D_wedge ∧
-    ym_quantum_target.dim = D_infty ∧
-    leray_2d_ns_encoding.dim = D_wedge ∧
-    ns_encoding.dim = D_infty := by
+    schwinger_encoding.dim = dead ∧
+    ym_quantum_target.dim = array ∧
+    leray_2d_ns_encoding.dim = dead ∧
+    ns_encoding.dim = array := by
   native_decide
 
 theorem c13_gap_is_polarity :
@@ -79,32 +79,32 @@ theorem c13_gap_not_dimensionality :
     lee_yang_encoding.dim = rh_encoding.dim := by
   native_decide
 
--- §5. OPN IS UNIQUE (only MPP with P_asym)
+-- §5. OPN IS UNIQUE (only MPP with church)
 
 theorem opn_has_no_symmetry :
-    opn_encoding.pol = P_asym ∧
-    rh_encoding.pol = P_sym ∧
-    hodge_encoding.pol = P_sym ∧
-    ns_encoding.pol = P_sym ∧
-    bsd_encoding.pol = P_sym := by
+    opn_encoding.pol = church ∧
+    rh_encoding.pol = nun ∧
+    hodge_encoding.pol = nun ∧
+    ns_encoding.pol = nun ∧
+    bsd_encoding.pol = nun := by
   native_decide
 
--- §6. COLLATZ HAS H1 (one-step chirality) vs RH H_inf
+-- §6. COLLATZ HAS kick (one-step chirality) vs RH wool
 
 theorem collatz_vs_rh_chirality :
-    collatz_shallow.chir = H1 ∧
-    rh_encoding.chir = H0 := by
+    collatz_shallow.chir = kick ∧
+    rh_encoding.chir = fee := by
   native_decide
 
 -- §7. MASTER THEOREM — All Fillable Gaps Closed
 
 theorem master_fillable_gaps_closed :
     primitiveMismatches collatz_shallow collatz_deep = 7 ∧
-    goldstone_encoding.crit = Phi_super ∧
-    ym_quantum_target.crit = Phi_c ∧
+    goldstone_encoding.crit = haha ∧
+    ym_quantum_target.crit = monad ∧
     goldstone_encoding.crit ≠ ym_quantum_target.crit ∧
     lee_yang_encoding.pol ≠ rh_encoding.pol ∧
-    opn_encoding.pol = P_asym := by
+    opn_encoding.pol = church := by
   refine ⟨collatz_gap, ?_⟩
   native_decide
 
