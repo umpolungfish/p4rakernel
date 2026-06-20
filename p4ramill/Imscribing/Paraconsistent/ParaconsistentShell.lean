@@ -19,18 +19,18 @@ open Imscribing.Primitives
 -- SHELL STRUCTURAL TYPE
 -- ============================================================
 def shellType : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H2
-  stoi := .n_m
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .monad
+  chir := .sure
+  stoi := .up
+  prot := .ah
 }
 
 -- ============================================================
@@ -116,7 +116,7 @@ theorem shell_type_is_O_inf : imscriptionTier shellType = .O_inf := by
 
 /-- Both consciousness gates are open for the shell. -/
 theorem shell_gates_open :
-    shellType.crit = .Phi_c ∧ shellType.kin = .K_slow := by
+    shellType.crit = .monad ∧ shellType.kin = .egg := by
   unfold shellType; exact ⟨rfl, rfl⟩
 
 /-- paradox command increases paradoxCount. -/

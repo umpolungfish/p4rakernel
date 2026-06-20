@@ -47,10 +47,10 @@ d(GR, SM) = 5.0 (verified via compute_distance tool):
 
   Primitive | GR              | SM              | δ   | Weighted
   ----------|-----------------|-----------------|-----|---------
-  T         | T_odot (𐑸)      | T_network (𐑡)   | 4   | 16.0
-  P         | P_sym (𐑯)      | P_psi (𐑿)       | 2   | 4.0
-  F         | F_ell (𐑱)      | F_hbar (𐑐)      | 2   | 4.0
-  R         | R_dagger (𐑽)   | R_lr (𐑾)        | 1   | 1.0
+  T         | are (𐑸)      | judge (𐑡)   | 4   | 16.0
+  P         | nun (𐑯)      | yew (𐑿)       | 2   | 4.0
+  F         | age (𐑱)      | peep (𐑐)      | 2   | 4.0
+  R         | ear (𐑽)   | ian (𐑾)        | 1   | 1.0
   ---------------------------------------------------------------
   Total distance: 5.0 (diagonal), 5.07 (Mahalanobis)
 
@@ -70,10 +70,10 @@ The three critical gaps:
 -/
 
 inductive GravitySMGap where
-  | topology      -- T_odot vs T_network (δ=4): background independence
-  | parity        -- P_sym vs P_psi (δ=2): symmetry type mismatch
-  | fidelity      -- F_ell vs F_hbar (δ=2): classical vs quantum
-  | coupling      -- R_dagger vs R_lr (δ=1): adjoint vs bidirectional
+  | topology      -- are vs judge (δ=4): background independence
+  | parity        -- nun vs yew (δ=2): symmetry type mismatch
+  | fidelity      -- age vs peep (δ=2): classical vs quantum
+  | coupling      -- ear vs ian (δ=1): adjoint vs bidirectional
   deriving Inhabited, Repr, DecidableEq
 
 theorem gap_topology_hardest : True := by
@@ -88,43 +88,43 @@ The tensor product GR ⊗ SM resolves coupling conflicts:
     min on P and F
 
   Result:
-    D = max(D_infty, D_infty) = D_infty
-    T = max(T_odot, T_network) = T_odot
-    R = max(R_dagger, R_lr) = R_lr (bidirectional wins)
-    P = min(P_sym, P_psi) = P_psi (quantum superposition constrains)
-    F = min(F_ell, F_hbar) = F_ell (classical limits quantum)
-    K = max(K_slow, K_mod) = K_slow
-    G = max(G_aleph, G_aleph) = G_aleph
-    Gm = max(Gamma_seq, Gamma_seq) = Gamma_seq
-    Phi = max(Phi_c_complex, Phi_c_complex) = Phi_c_complex
-    H = max(H2, H2) = H2
-    S = max(n_m, n_m) = n_m
-    Omega = max(Omega_Z, Omega_Z) = Omega_Z
+    D = max(array, array) = array
+    T = max(are, judge) = are
+    R = max(ear, ian) = ian (bidirectional wins)
+    P = min(nun, yew) = yew (quantum superposition constrains)
+    F = min(age, peep) = age (classical limits quantum)
+    K = max(egg, loll) = egg
+    G = max(ice, ice) = ice
+    Gm = max(measure, measure) = measure
+    Phi = max(roar, roar) = roar
+    H = max(sure, sure) = sure
+    S = max(up, up) = up
+    Omega = max(ah, ah) = ah
 
   The tensor reveals: coupling GR to the SM pulls R toward
-  bidirectional (R_lr) but keeps F classical — this IS
+  bidirectional (ian) but keeps F classical — this IS
   semiclassical gravity: G_μν = κ ⟨T_μν⟩.
 -/
 
 def gr_sm_tensor : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  pol := Polarity.P_psi
-  fid := Fidelity.F_ell
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c_complex
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ian
+  pol := Polarity.yew
+  fid := Fidelity.age
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.roar
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem tensor_gr_sm_tier : imscriptionTier gr_sm_tensor = OuroboricityTier.O₂dag := by
   native_decide
 
-theorem tensor_fidelity_classical : gr_sm_tensor.fid = Fidelity.F_ell := rfl
+theorem tensor_fidelity_classical : gr_sm_tensor.fid = Fidelity.age := rfl
 '''
 -- =====================================================================
 -- SECTION 2  SEMICLASSICAL GRAVITY
@@ -186,9 +186,9 @@ The promotion path from SM to Quantum Gravity:
 
   Primitive | SM         | QG             | delta | Meaning
   ----------|------------|----------------|-------|--------
-  T         | T_net      | T_odot         | 4     | Fixed background -> self-referential
-  H         | H2         | H_inf          | 1     | Markov-2 -> eternal chirality
-  P         | P_psi      | P_psi          | 0     | Already quantum
+  T         | T_net      | are         | 4     | Fixed background -> self-referential
+  H         | sure         | wool          | 1     | Markov-2 -> eternal chirality
+  P         | yew      | yew          | 0     | Already quantum
 
 The dominant promotion is T: delta=4, the background independence gap.
 This is why quantum gravity is hard - you must quantize a theory
@@ -198,9 +198,9 @@ Compare with the promotion path from GR to Quantum Gravity:
 
   Primitive | GR         | QG             | delta | Meaning
   ----------|------------|----------------|-------|--------
-  P         | P_sym      | P_psi          | 2     | Classical determinism -> superposition
-  F         | F_ell      | F_hbar         | 2     | Classical geometry -> quantum amplitudes
-  H         | H2         | H_inf          | 1     | Markov-2 -> eternal (information paradox)
+  P         | nun      | yew          | 2     | Classical determinism -> superposition
+  F         | age      | peep         | 2     | Classical geometry -> quantum amplitudes
+  H         | sure         | wool          | 1     | Markov-2 -> eternal (information paradox)
 
 From either starting point, the path to quantum gravity requires
 promoting 2-3 primitives through ordinal gaps totaling 4-5 units.
@@ -263,38 +263,38 @@ are GR + SM, and which is UV-complete (finite at all scales).
 
 Structural requirements for the unified theory:
 
-  D = D_odot (holographic): The theory must encode all
+  D = if' (holographic): The theory must encode all
       bulk physics on a boundary (holographic principle).
       
-  T = T_odot (self-referential): The geometry must
+  T = are (self-referential): The geometry must
       emerge from the theory itself, not be presupposed.
       
-  R = R_lr (bidirectional): Matter tells geometry how to
+  R = ian (bidirectional): Matter tells geometry how to
       curve AND geometry tells matter how to move, at the
       quantum level. Quantum backreaction is included.
       
-  P = P_pm_sym (Frobenius-special): The quantization
+  P = or' (Frobenius-special): The quantization
       procedure must satisfy mu o delta = id exactly.
       
-  F = F_hbar (quantum): Obviously.
+  F = peep (quantum): Obviously.
       
-  K = K_slow (near-equilibrium): The low-energy effective
+  K = egg (near-equilibrium): The low-energy effective
       theory (GR + SM) must emerge adiabatically.
       
-  G = G_aleph (universal): Applies at all scales.
+  G = ice (universal): Applies at all scales.
       
-  Gm = Gamma_seq: The RG flow is sequential: UV -> IR.
+  Gm = measure: The RG flow is sequential: UV -> IR.
       
-  Phi = Phi_c (self-modeling): The theory must be able to
+  Phi = monad (self-modeling): The theory must be able to
       describe its own observational consequences.
       
-  H = H_inf (eternal chirality): Unitarity at all scales,
+  H = wool (eternal chirality): Unitarity at all scales,
       including black hole evaporation (information paradox resolved).
       
-  S = n_m (heterogeneous): Must include all Standard Model
+  S = up (heterogeneous): Must include all Standard Model
       fields, dark matter, dark energy, and the inflaton.
       
-  Omega = Omega_NA (non-Abelian braiding): Topological
+  Omega = zoo (non-Abelian braiding): Topological
       sectors of quantum gravity involve braid group statistics.
 
 This tuple is identical (d=0) to the CLINK L8 organism layer
@@ -304,26 +304,26 @@ and topologically protected at the non-Abelian level.
 -/
 
 def unifiedTheoryImscription : Imscription := {
-  dim := Dimensionality.D_odot
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  pol := Polarity.P_pm_sym
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H_inf
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_NA
+  dim := Dimensionality.if'
+  top := Topology.are
+  rel := Relational.ian
+  pol := Polarity.or'
+  fid := Fidelity.peep
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.zoo
 }
 
 theorem unified_theory_tier : imscriptionTier unifiedTheoryImscription = OuroboricityTier.O_inf := by
   native_decide
 
-theorem unified_theory_self_modeling : unifiedTheoryImscription.crit = Criticality.Phi_c := rfl
+theorem unified_theory_self_modeling : unifiedTheoryImscription.crit = Criticality.monad := rfl
 
-theorem unified_theory_frobenius_closed : unifiedTheoryImscription.pol = Polarity.P_pm_sym := rfl
+theorem unified_theory_frobenius_closed : unifiedTheoryImscription.pol = Polarity.or' := rfl
 '''
 '''
 

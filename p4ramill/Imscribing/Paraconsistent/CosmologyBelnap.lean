@@ -299,62 +299,62 @@ theorem hubble_tension_magnitude : True := by
 /--
 ΛCDM Cosmology as a structural type:
 
-  D = D_infty (𐑼): Infinite-dimensional. The FLRW metric depends
+  D = array (𐑼): Infinite-dimensional. The FLRW metric depends
       on a(t) and the spatial curvature k. Perturbations add infinite
       degrees of freedom (Fourier modes δ_k).
       
   T = T_net (𐑡): Network. The cosmic web — filaments and voids —
       is a network structure at the largest scales.
       
-  R = R_dagger (𐑽): Adjoint. δ: initial conditions (inflation) →
+  R = ear (𐑽): Adjoint. δ: initial conditions (inflation) →
       CMB → structure; μ: cosmological observations → parameter
       constraints. The cosmic inverse problem is the adjoint.
       
-  P = P_asym (𐑗): Asymmetric. Time-irreversible: expansion,
+  P = church (𐑗): Asymmetric. Time-irreversible: expansion,
       entropy increase, arrow of time.
       
-  F = F_ell (𐑱): Classical. ΛCDM is a classical cosmology.
+  F = age (𐑱): Classical. ΛCDM is a classical cosmology.
       Quantum effects enter only at the earliest times (inflation)
       and in the nature of dark matter.
       
-  K = K_slow (𐑧): Near-equilibrium. Cosmic evolution is slow
+  K = egg (𐑧): Near-equilibrium. Cosmic evolution is slow
       and adiabatic. The universe is near thermal equilibrium
       at most epochs.
       
-  G = G_aleph (𐑲): Universal. Cosmology is the study of
+  G = ice (𐑲): Universal. Cosmology is the study of
       everything. The observable universe is ~46.5 Gly in radius.
       
-  Gm = Gamma_seq (𐑠): Sequential. The cosmic timeline: inflation →
+  Gm = measure (𐑠): Sequential. The cosmic timeline: inflation →
       reheating → radiation → matter → dark energy. Strict sequence.
       
-  Phi = Phi_c_complex (𐑮): Complex-plane criticality. The universe
+  Phi = roar (𐑮): Complex-plane criticality. The universe
       has undergone several phase transitions. ΛCDM itself is poised
       at a critical density Ω_total ≈ 1 (flatness).
       
-  H = H2 (𐑖): Markov-2. The Friedmann equations are second-order
+  H = sure (𐑖): Markov-2. The Friedmann equations are second-order
       in time. a(t) depends on ä and ȧ.
       
-  S = n_m (𐑳): Heterogeneous. Multiple cosmic components: baryons,
+  S = up (𐑳): Heterogeneous. Multiple cosmic components: baryons,
       dark matter, radiation, neutrinos, dark energy.
       
-  Omega = Omega_Z (𐑭): Integer winding. The total density
+  Omega = ah (𐑭): Integer winding. The total density
       Ω_total = 1 is a topological sum rule. The number of e-folds
       N = ∫ H dt during inflation.
 -/
 
 def cosmologyImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_network
-  rel := Relational.R_dagger
-  pol := Polarity.P_asym
-  fid := Fidelity.F_ell
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c_complex
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.judge
+  rel := Relational.ear
+  pol := Polarity.church
+  fid := Fidelity.age
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.roar
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem cosmology_tier : imscriptionTier cosmologyImscription = OuroboricityTier.O₂dag := by

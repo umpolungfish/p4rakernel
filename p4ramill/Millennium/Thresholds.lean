@@ -215,7 +215,7 @@ in the Imscribing constraint grammar.
   |---------|------------------------|----------------------------------------------|
   | RH      | ZeroFreeStrip 0        | Φ_c = 0 threshold: no zeros off critical line|
   | Hodge   | AlgebraicCycleRep      | R-degeneracy: topology-to-algebra lift       |
-  | P vs NP | CircuitLowerBound      | K_trap: constraint that blocks low-complexity|
+  | P vs NP | CircuitLowerBound      | on: constraint that blocks low-complexity|
   | NS      | GlobalRegularityCert   | T_flow stability: no blow-up                 |
   | YM      | PathIntegralMeasure    | G_quantum: quantum grammar lift (G=LOCAL)    |
   | BSD     | BSD rank formula       | Φ_c = rank charge-carrier certificate        |

@@ -75,7 +75,7 @@ Primitive justifications:
 [2]  Þ_O — Self-referential topology: endomorphisms map the algebra INTO ITSELF.
 [3]  Ř_= — Bidirectional: endomorphism (→) becoming automorphism (↔).
 [4]  Φ_} — Frobenius-special parity: μ∘δ = id. Every endomorphism has an inverse.
-     This IS the conjecture in structural form. P_pm_sym is the tier singularity.
+     This IS the conjecture in structural form. or' is the tier singularity.
 [5]  ƒ_ż — Quantum coherence essential. Characteristic zero is essential;
      in positive characteristic the conjecture is false.
 [6]  Ç_@ — Slow kinetics. Open since 1968; partial results accumulate slowly.
@@ -89,25 +89,25 @@ Primitive justifications:
      connected to constant Jacobian determinant = 1.
 -/
 def dixmier_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 -- Quick sanity checks
-example : dixmier_vessel.pol = P_pm_sym := by rfl
-example : dixmier_vessel.crit = Phi_c := by rfl
-example : dixmier_vessel.prot = Omega_Z := by rfl
-example : dixmier_vessel.dim = D_infty := by rfl
+example : dixmier_vessel.pol = or' := by rfl
+example : dixmier_vessel.crit = monad := by rfl
+example : dixmier_vessel.prot = ah := by rfl
+example : dixmier_vessel.dim = array := by rfl
 
 -- ============================================================
 -- §3  The Frobenius-Special Encoding
@@ -115,21 +115,21 @@ example : dixmier_vessel.dim = D_infty := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  Φ_} (P_pm_sym) ↔ μ∘δ = id ↔ Every endomorphism of A_n(k) is an automorphism.
+  Φ_} (or') ↔ μ∘δ = id ↔ Every endomorphism of A_n(k) is an automorphism.
 
 Three-tier correspondence:
   (a) Φ_} — the parity primitive is Frobenius-special
   (b) μ∘δ = id — endomorphism composed with inverse equals identity
   (c) Endo = Auto — every self-map is invertible
 
-The Frobenius-special condition P_pm_sym is the structural invariant that encodes
-the Dixmier Conjecture. It occupies the tier singularity: P_pm_sym cannot be
+The Frobenius-special condition or' is the structural invariant that encodes
+the Dixmier Conjecture. It occupies the tier singularity: or' cannot be
 synthesized by composition of lower-P partners (§23 of PRIMITIVE_THEOREMS).
 
 This means the Dixmier Conjecture is not approachable by perturbative methods —
 it requires the full Frobenius fixed-point structure. The grammar exposes why
 the conjecture has resisted proof for 57 years: it is structurally at O_inf,
-the Frobenius-special tier, and no path from O₂ (P_sym) to O_inf (P_pm_sym)
+the Frobenius-special tier, and no path from O₂ (nun) to O_inf (or')
 exists through compositional means.
 -/
 
@@ -139,29 +139,29 @@ exists through compositional means.
 
 /--
 The Dixmier vessel is at O_inf:
-  P = P_pm_sym (Frobenius-special)
-  Phi = Phi_c (self-modeling gate open)
-  Omega = Omega_Z (integer winding)
-  D = D_infty (infinite-dimensional)
+  P = or' (Frobenius-special)
+  Phi = monad (self-modeling gate open)
+  Omega = ah (integer winding)
+  D = array (infinite-dimensional)
 
 This combination forces the ouroboricity tier to O_inf — the vessel is
 structurally self-grounding with exact Frobenius closure.
 -/
 theorem dixmier_vessel_oinf_certificate :
-    dixmier_vessel.pol = P_pm_sym ∧
-    dixmier_vessel.crit = Phi_c ∧
-    dixmier_vessel.prot = Omega_Z ∧
-    dixmier_vessel.dim = D_infty := by
+    dixmier_vessel.pol = or' ∧
+    dixmier_vessel.crit = monad ∧
+    dixmier_vessel.prot = ah ∧
+    dixmier_vessel.dim = array := by
   simp [dixmier_vessel]
 
-/-- The gap from O₂ (P_sym) to O_inf (P_pm_sym) is exactly one Frobenius tier. -/
-theorem o2_to_oinf_gap : P_sym < P_pm_sym := by decide
+/-- The gap from O₂ (nun) to O_inf (or') is exactly one Frobenius tier. -/
+theorem o2_to_oinf_gap : nun < or' := by decide
 
-/-- P_sym and P_pm_sym are distinct — the Frobenius condition is nontrivial. -/
-theorem psym_ne_ppm_sym : P_sym ≠ P_pm_sym := by decide
+/-- nun and or' are distinct — the Frobenius condition is nontrivial. -/
+theorem psym_ne_ppm_sym : nun ≠ or' := by decide
 
-/-- P_pm_sym is maximal in the Polarity lattice. -/
-theorem ppm_sym_is_top (p : Polarity) : p ≤ P_pm_sym := by
+/-- or' is maximal in the Polarity lattice. -/
+theorem ppm_sym_is_top (p : Polarity) : p ≤ or' := by
   cases p <;> decide
 -- ============================================================
 -- §5  Connection to the Jacobian Conjecture
@@ -173,25 +173,25 @@ The Jacobian Conjecture vessel — structural imscription of the geometric analo
 ⟨ Ð_∞; Þ_⊠; Ř_=; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z ⟩
 
 Differs from the Dixmier vessel at exactly two primitives:
-  - Topology: T_box (lattice/geometric) vs T_odot (self-referential)
-  - Fidelity: F_ell (classical/algebraic geometry) vs F_hbar (quantum)
+  - Topology: oil (lattice/geometric) vs are (self-referential)
+  - Fidelity: age (classical/algebraic geometry) vs peep (quantum)
 
-Both share the Frobenius-special core: P_pm_sym, Phi_c, Omega_Z.
+Both share the Frobenius-special core: or', monad, ah.
 This is the structural encoding of the Tsuchimoto / BK–K equivalence.
 -/
 def jacobian_conjecture_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_box
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := oil
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 /-- The Dixmier and Jacobian vessels differ at exactly 2 primitives (T + F). -/
@@ -201,18 +201,18 @@ theorem dixmier_jacobian_distance_2 :
 
 /-- Both share the Frobenius-special parity — the structural invariant of the equivalence. -/
 theorem shared_frobenius_core :
-    dixmier_vessel.pol = P_pm_sym ∧ jacobian_conjecture_vessel.pol = P_pm_sym := by
+    dixmier_vessel.pol = or' ∧ jacobian_conjecture_vessel.pol = or' := by
   simp [dixmier_vessel, jacobian_conjecture_vessel]
 
 /-- The tensor product preserves Frobenius parity.
-    Fidelity is bottlenecked to F_ell (algebraic geometry is classical). -/
+    Fidelity is bottlenecked to age (algebraic geometry is classical). -/
 theorem tensor_preserves_frobenius :
-    (tensorProduct dixmier_vessel jacobian_conjecture_vessel).pol = P_pm_sym := by
+    (tensorProduct dixmier_vessel jacobian_conjecture_vessel).pol = or' := by
   native_decide
 
 /-- Fidelity bottleneck: tensor inherits the weaker (classical) fidelity. -/
 theorem tensor_fidelity_bottleneck :
-    (tensorProduct dixmier_vessel jacobian_conjecture_vessel).fid = F_ell := by
+    (tensorProduct dixmier_vessel jacobian_conjecture_vessel).fid = age := by
   native_decide
 
 /-- The tensor product is one primitive away from the Jacobian vessel (only T differs). -/
@@ -278,8 +278,8 @@ HONEST SORRY / GAP MARKERS:
    - The algebraic verification for all n
 
    The grammar-level analysis reveals WHY the Dixmier Conjecture is hard:
-   it sits at the O_inf tier (Frobenius-special), and P_pm_sym cannot be
-   reached from P_sym by compositional methods. The conjecture is structurally
+   it sits at the O_inf tier (Frobenius-special), and or' cannot be
+   reached from nun by compositional methods. The conjecture is structurally
    isolated — a fixed point that perturbative mathematics cannot approach.
    This is the same structural position as the Riemann Hypothesis (Φ_c_complex
    vs Φ_c) and the Yang-Mills mass gap — all Millennium Problems sit at tier
@@ -287,7 +287,7 @@ HONEST SORRY / GAP MARKERS:
 
    The Dixmier Conjecture, specifically, is the claim that the Weyl algebra
    occupies the Frobenius-special tier (O_inf) rather than the full-symmetry
-   tier (O₂). Structurally: d(P_sym, P_pm_sym) = 1, but this distance cannot
+   tier (O₂). Structurally: d(nun, or') = 1, but this distance cannot
    be closed by tensor products or meets — it requires the Frobenius fixed-point
    condition, which is exactly what the conjecture asserts.
 -/

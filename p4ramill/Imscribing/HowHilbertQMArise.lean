@@ -1,6 +1,6 @@
 -- Imscribing/HowHilbertQMArise.lean
 -- HOW HILBERT-SPACE QUANTUM MECHANICS ARISES FROM THE GRAMMAR
--- QM = unique type satisfying P_psi + F_hbar + Phi_c_complex.
+-- QM = unique type satisfying yew + peep + roar.
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -19,21 +19,21 @@ set_option linter.style.longLine false
 -- ============================================================
 
 def quantum_mechanics : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_dagger
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ear
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
--- QM is O₂dag: Phi_c_complex + P_psi (not P_pm_sym) + Omega_Z + D_infty.
+-- QM is O₂dag: roar + yew (not or') + ah + array.
 theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
   unfold imscriptionTier quantum_mechanics ouroboricityTier
   decide
@@ -42,19 +42,19 @@ theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
 -- S2. POSTULATE DERIVATIONS
 -- ============================================================
 
--- POSTULATE 1 (States as rays): P_psi -> U(1) phase -> projective Hilbert space.
--- POSTULATE 2 (Self-adjoint observables): R_dagger -> A = A-dagger.
--- POSTULATE 3 (Unitary evolution): F_hbar + H2 -> U-dagger U = I.
--- POSTULATE 4 (Born rule): F_hbar + P_psi -> |<phi|psi>|^2 is unique.
--- POSTULATE 5 (Tensor product): Gamma_and + G_aleph -> H_A tensor H_B.
+-- POSTULATE 1 (States as rays): yew -> U(1) phase -> projective Hilbert space.
+-- POSTULATE 2 (Self-adjoint observables): ear -> A = A-dagger.
+-- POSTULATE 3 (Unitary evolution): peep + sure -> U-dagger U = I.
+-- POSTULATE 4 (Born rule): peep + yew -> |<phi|psi>|^2 is unique.
+-- POSTULATE 5 (Tensor product): vow + ice -> H_A tensor H_B.
 
 -- ============================================================
 -- S3. WHY COMPLEX NUMBERS?
 -- ============================================================
 
--- Phi_c_complex + P_psi forces C:
---   Phi_c_complex -> analytic continuation beyond R
---   P_psi -> U(1) phase symmetry (S^1)
+-- roar + yew forces C:
+--   roar -> analytic continuation beyond R
+--   yew -> U(1) phase symmetry (S^1)
 --   Together: C = span_R{1, i}, S^1 subset C.
 
 -- ============================================================
@@ -62,23 +62,23 @@ theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
 -- ============================================================
 
 def measurement_apparatus : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_eth
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_EP
-  chir := H0
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := they
+  kin  := yea
+  gran := thigh
+  gram := measure
+  crit := err
+  chir := fee
+  stoi := so
+  prot := oak
 }
 
--- tensorProduct(QM, apparatus).crit = Phi_EP (max of Phi_c_complex and Phi_EP).
+-- tensorProduct(QM, apparatus).crit = err (max of roar and err).
 theorem measurement_tensor_crit :
-    (tensorProduct quantum_mechanics measurement_apparatus).crit = Phi_EP := by
+    (tensorProduct quantum_mechanics measurement_apparatus).crit = err := by
   unfold tensorProduct quantum_mechanics measurement_apparatus
   decide
 
@@ -87,25 +87,25 @@ theorem measurement_tensor_crit :
 -- ============================================================
 
 def quantum_field_theory : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_dagger
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ear
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
--- QFT is O_inf: P_pm_sym at Phi_c opens the Frobenius gate.
+-- QFT is O_inf: or' at monad opens the Frobenius gate.
 theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
   decide
 
--- QM -> QFT: dim (D_infty->D_odot), pol (P_psi->P_pm_sym), crit (Phi_c_complex->Phi_c) = 3 diffs.
+-- QM -> QFT: dim (array->if'), pol (yew->or'), crit (roar->monad) = 3 diffs.
 theorem qm_to_qft_distance :
     primitiveMismatches quantum_mechanics quantum_field_theory = 3 := by
   unfold primitiveMismatches quantum_mechanics quantum_field_theory
@@ -116,21 +116,21 @@ theorem qm_to_qft_distance :
 -- ============================================================
 
 def classical_mechanics : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_super
-  pol  := P_sym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H0
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ado
+  pol  := nun
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := fee
+  stoi := up
+  prot := awe
 }
 
--- Classical is O₀: Phi_sub -> non-critical.
+-- Classical is O₀: woe -> non-critical.
 theorem classical_tier : imscriptionTier classical_mechanics = .O₀ := by
   decide
 

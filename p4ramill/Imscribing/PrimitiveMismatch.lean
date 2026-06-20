@@ -1,7 +1,7 @@
 -- Imscribing/PrimitiveMismatch.lean
 -- Formalizes the five temporal primitive diagnostics from the task:
---   1. Measurement problem as P_psi vs P_asym mismatch
---   2. Wick rotation as Γ_seq → K_slow primitive substitution
+--   1. Measurement problem as yew vs church mismatch
+--   2. Wick rotation as Γ_seq → egg primitive substitution
 --   3. Berry phase as Ω_ℤ emergent vs constitutive
 --   4. H_∞ line: genuine memory vs Markovian approximation
 --   5. Temporal primitive sorting of physics problems
@@ -23,146 +23,146 @@ open Dimensionality Topology Relational Polarity Grammar
 -- Catalog entries (verified via encode_system)
 -- ============================================================
 
-/-- ⟨D_△; T_in; R_cat; P_ψ; F_ℏ; K_slow; G_aleph; Γ_seq; Φ_sub; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_sub; H₁; 1:1; Ω₀⟩ -/
 def schrodingerDynamics : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := one_one
-  prot := Omega_0
+  dim  := ash
+  top  := eat
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := hung
+  prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_†; P_asym; F_ℓ; K_fast; G_beth; Γ_seq; Φ_c; H₀; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_†; church; F_ℓ; yea; bib; Γ_seq; Φ_c; H₀; 1:1; Ω₀⟩ -/
 def measurementOutcome : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_dagger
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := ash
+  top  := mime
+  rel  := ear
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := measure
+  crit := monad
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; K_slow; G_aleph; Γ_seq; Φ_c; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; egg; ice; Γ_seq; Φ_c; H₁; 1:1; Ω₀⟩ -/
 def wickRotation : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_eth
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H1
-  stoi := one_one
-  prot := Omega_0
+  dim  := ash
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := they
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := kick
+  stoi := hung
+  prot := awe
 }
 
-/-- ⟨D_△; T_in; R_cat; P_ψ; F_ℏ; K_slow; G_aleph; Γ_seq; Φ_sub; H₁; 1:1; Ω_ℤ⟩ -/
+/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_sub; H₁; 1:1; Ω_ℤ⟩ -/
 def berryPhase : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := one_one
-  prot := Omega_Z
+  dim  := ash
+  top  := eat
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := hung
+  prot := ah
 }
 
-/-- ⟨D_∞; T_⊙; R_cat; P_ψ; F_ℏ; K_slow; G_aleph; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
+/-- ⟨D_∞; T_⊙; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
 def tqft : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
-/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; K_mod; G_gimel; Γ_seq; Φ_c; H_∞; n:m; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; loll; thigh; Γ_seq; Φ_c; H_∞; n:m; Ω₀⟩ -/
 def nonmarkovianOpenSystems : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_psi
-  fid  := F_eth
-  kin  := K_mod
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := yew
+  fid  := they
+  kin  := loll
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := awe
 }
 
-/-- ⟨D_∞; T_net; R_sup; P_asym; F_ϑ; K_slow; G_aleph; Γ_∧; Φ_c; H₁; n:n; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_sup; church; F_ϑ; egg; ice; Γ_∧; Φ_c; H₁; n:n; Ω₀⟩ -/
 def statisticalMechanics : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_eth
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_c
-  chir := H1
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := ado
+  pol  := church
+  fid  := they
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := monad
+  chir := kick
+  stoi := so
+  prot := awe
 }
 
-/-- ⟨D_∞; T_⊙; R_↔; P_asym; F_ℏ; K_slow; G_aleph; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
+/-- ⟨D_∞; T_⊙; R_↔; church; F_ℏ; egg; ice; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
 def quantumGravityCandidate : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_asym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ian
+  pol  := church
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 -- ============================================================
--- 1. The Measurement Problem: P_psi vs P_asym mismatch
+-- 1. The Measurement Problem: yew vs church mismatch
 -- ============================================================
 
 /-- The measurement problem as primitive mismatch: Schrödinger dynamics carries
-P_psi (reversible superposition) while measurement outcomes require P_asym
-(irreversible collapse). No mechanism within Γ_seq + K_slow + P_psi can
-produce P_asym. -/
+yew (reversible superposition) while measurement outcomes require church
+(irreversible collapse). No mechanism within Γ_seq + egg + yew can
+produce church. -/
 theorem measurement_p_mismatch :
-  schrodingerDynamics.pol = P_psi ∧
-  measurementOutcome.pol = P_asym ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).pol = P_asym := by
+  schrodingerDynamics.pol = yew ∧
+  measurementOutcome.pol = church ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).pol = church := by
   simp only [schrodingerDynamics, measurementOutcome, tensorProduct]
   simp (config := {decide := true}) [compare]
 /-- Distance between Schrödinger dynamics and measurement outcome = 4.0988.
@@ -172,28 +172,28 @@ theorem schrodinger_measurement_hamming_8 :
   primitiveMismatches schrodingerDynamics measurementOutcome = 8 := by
   simp [primitiveMismatches, schrodingerDynamics, measurementOutcome]
 
-/-- The tensor product's P component is the bottleneck: P_asym wins over P_psi.
+/-- The tensor product's P component is the bottleneck: church wins over yew.
 This proves the measurement problem is structural — the composite inherits
 asymmetry from the measurement side, but schrodingerDynamics alone
 cannot generate it. -/
 theorem measurement_problem_is_structural :
-  (tensorProduct schrodingerDynamics measurementOutcome).pol = P_asym ∧
-  schrodingerDynamics.pol ≠ P_asym := by
+  (tensorProduct schrodingerDynamics measurementOutcome).pol = church ∧
+  schrodingerDynamics.pol ≠ church := by
   constructor
   · simp only [tensorProduct, schrodingerDynamics, measurementOutcome, compare]; decide
   · simp only [schrodingerDynamics]; intro h; cases h
 /-- The Wick rotation t → -iτ converts Γ_seq (directed sequential evolution)
-into K_slow (relaxation/equilibration). In primitive terms: it converts
-F_hbar → F_eth (quantum coherence → thermal weight). -/
+into egg (relaxation/equilibration). In primitive terms: it converts
+peep → they (quantum coherence → thermal weight). -/
 def wickRotate (st : Imscription) : Imscription :=
-  { st with fid := F_eth }
+  { st with fid := they }
 
 /-- The Wick rotation on schrodingerDynamics changes fidelity to thermal. -/
 theorem wick_rotation_changes_fidelity :
-  (wickRotate schrodingerDynamics).fid = F_eth := by
+  (wickRotate schrodingerDynamics).fid = they := by
   simp [wickRotate, schrodingerDynamics]
 
-/-- Wick rotation preserves K_slow but shifts the physical regime.
+/-- Wick rotation preserves egg but shifts the physical regime.
 The structural delta is only F: hbar → eth (one primitive change). -/
 theorem wick_rotation_single_primitive_change :
   primitiveMismatches schrodingerDynamics (wickRotate schrodingerDynamics) = 1 := by
@@ -203,13 +203,13 @@ theorem wick_rotation_single_primitive_change :
 -- 3. Berry Phase as Ω_ℤ: Emergent vs Constitutive
 -- ============================================================
 
-/-- Berry phase carries Ω_ℤ as a byproduct of adiabaticity (K_slow).
-TQFT promotes Ω_ℤ to a constitutive primitive (paired with T_odot, H_inf). -/
+/-- Berry phase carries Ω_ℤ as a byproduct of adiabaticity (egg).
+TQFT promotes Ω_ℤ to a constitutive primitive (paired with are, wool). -/
 def omegaIsConstitutive (st : Imscription) : Prop :=
-  st.prot = Omega_Z ∧ st.top = T_odot
+  st.prot = ah ∧ st.top = are
 
 def omegaIsEmergent (st : Imscription) : Prop :=
-  st.prot = Omega_Z ∧ st.top ≠ T_odot
+  st.prot = ah ∧ st.top ≠ are
 
 theorem berry_omega_emergent : omegaIsEmergent berryPhase := by
   simp [omegaIsEmergent, berryPhase]
@@ -218,15 +218,15 @@ theorem tqft_omega_constitutive : omegaIsConstitutive tqft := by
   simp [omegaIsConstitutive, tqft]
 
 /-- The key structural differences between Berry phase and TQFT:
-T differs (T_in vs T_odot), H differs (H1 vs H_inf), D differs (D_triangle vs D_infty),
-S differs (one_one vs n_m). Omega is shared (both Ω_ℤ). -/
+T differs (eat vs are), H differs (kick vs wool), D differs (ash vs array),
+S differs (hung vs up). Omega is shared (both Ω_ℤ). -/
 theorem berry_vs_tqft_key_deltas :
-  berryPhase.top = T_in ∧
-  tqft.top = T_odot ∧
-  berryPhase.chir = H1 ∧
-  tqft.chir = H_inf ∧
-  berryPhase.prot = Omega_Z ∧
-  tqft.prot = Omega_Z := by
+  berryPhase.top = eat ∧
+  tqft.top = are ∧
+  berryPhase.chir = kick ∧
+  tqft.chir = wool ∧
+  berryPhase.prot = ah ∧
+  tqft.prot = ah := by
   simp [berryPhase, tqft]
 
 /-- Hamming distance between Berry phase and TQFT = 5 (D, T, H, S, Phi differ). -/
@@ -238,13 +238,13 @@ theorem berry_tqft_hamming_5 :
 -- 4. The H_∞ Line: Genuine Memory vs Markovian Approximation
 -- ============================================================
 
-/-- A system has genuine memory iff H = H_inf. -/
+/-- A system has genuine memory iff H = wool. -/
 def hasGenuineMemory (st : Imscription) : Prop :=
-  st.chir = H_inf
+  st.chir = wool
 
 /-- Markovian systems forget their past (H₀). -/
 def isMarkovian (st : Imscription) : Prop :=
-  st.chir = H0
+  st.chir = fee
 
 theorem nonmarkovian_has_memory : hasGenuineMemory nonmarkovianOpenSystems := by
   simp [hasGenuineMemory, nonmarkovianOpenSystems]
@@ -266,19 +266,19 @@ theorem memory_is_distinct_regime :
 
 inductive TemporalPrimitive where
   | gammaSeq  -- Γ_seq: sequential composition
-  | kSlow     -- K_slow: relaxation/adiabatic timescale
-  | pAsym     -- P_asym: irreversibility/parity breaking
+  | kSlow     -- egg: relaxation/adiabatic timescale
+  | pAsym     -- church: irreversibility/parity breaking
   | omegaZ    -- Ω_ℤ: integer winding/topological protection
   | hInf      -- H_∞: genuine memory/history dependence
   deriving DecidableEq, Repr
 
 def activateTemporalPrimitive (tp : TemporalPrimitive) (st : Imscription) : Bool :=
   match tp with
-  | .gammaSeq => st.gram = Gamma_seq
-  | .kSlow    => st.kin = K_slow
-  | .pAsym    => st.pol = P_asym
-  | .omegaZ   => st.prot = Omega_Z
-  | .hInf     => st.chir = H_inf
+  | .gammaSeq => st.gram = measure
+  | .kSlow    => st.kin = egg
+  | .pAsym    => st.pol = church
+  | .omegaZ   => st.prot = ah
+  | .hInf     => st.chir = wool
 
 def activatedTemporalPrimitives (st : Imscription) : List TemporalPrimitive :=
   List.filter (activateTemporalPrimitive · st)
@@ -303,20 +303,20 @@ theorem schrodinger_complexity_2 : temporalComplexity schrodingerDynamics = 2 :=
 theorem quantum_gravity_complexity_5 : temporalComplexity quantumGravityCandidate = 5 := by
   simp [temporalComplexity, activatedTemporalPrimitives, activateTemporalPrimitive, quantumGravityCandidate]
 
-/-- Statistical mechanics activates: Γ_seq, K_slow, P_asym. -/
+/-- Statistical mechanics activates: Γ_seq, egg, church. -/
 theorem stat_mech_complexity_3 :
   activatedTemporalPrimitives statisticalMechanics = [.kSlow, .pAsym] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, statisticalMechanics]
   decide
 
-/-- TQFT activates: Γ_seq, K_slow, Ω_ℤ. -/
+/-- TQFT activates: Γ_seq, egg, Ω_ℤ. -/
 theorem tqft_temporal_set :
   activatedTemporalPrimitives tqft = [.gammaSeq, .kSlow, .omegaZ, .hInf] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, tqft]
   decide
 
-/-- Non-Markovian open systems activate: Γ_seq, K_slow (via K_mod? no), H_∞.
-K_mod ≠ K_slow so only Γ_seq and H_∞. -/
+/-- Non-Markovian open systems activate: Γ_seq, egg (via loll? no), H_∞.
+loll ≠ egg so only Γ_seq and H_∞. -/
 theorem nonmarkovian_temporal_set :
   activatedTemporalPrimitives nonmarkovianOpenSystems = [.gammaSeq, .hInf] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, nonmarkovianOpenSystems]
@@ -336,46 +336,46 @@ theorem quantum_gravity_max_complexity :
 /-- Promotion from Schrödinger dynamics to quantum gravity requires
 7 promotions and 1 demotion (verified: imscription_tool compute_promotions).
 Promoted: D, T, R, Phi, H, S, Omega
-Demoted: P (P_psi → P_asym) -/
+Demoted: P (yew → church) -/
 theorem schrodinger_to_qg_summary :
   let sd := schrodingerDynamics
   let qg := quantumGravityCandidate
   -- Promotions (7):
-  compare sd.dim qg.dim = .lt ∧               -- D_triangle → D_infty
-  compare sd.top qg.top = .lt ∧               -- T_in → T_odot
-  compare sd.rel qg.rel = .lt ∧               -- R_cat → R_lr
-  compare sd.crit qg.crit = .lt ∧             -- Phi_sub → Phi_c
-  compare sd.chir qg.chir = .lt ∧             -- H1 → H_inf
-  compare sd.stoi qg.stoi = .lt ∧             -- one_one → n_m
-  compare sd.prot qg.prot = .lt ∧             -- Omega_0 → Omega_Z
+  compare sd.dim qg.dim = .lt ∧               -- ash → array
+  compare sd.top qg.top = .lt ∧               -- eat → are
+  compare sd.rel qg.rel = .lt ∧               -- tot → ian
+  compare sd.crit qg.crit = .lt ∧             -- woe → monad
+  compare sd.chir qg.chir = .lt ∧             -- kick → wool
+  compare sd.stoi qg.stoi = .lt ∧             -- hung → up
+  compare sd.prot qg.prot = .lt ∧             -- awe → ah
   -- Demotion (1):
-  compare qg.pol sd.pol = .lt                 -- P_asym < P_psi (irreversibility replaces superposition)
+  compare qg.pol sd.pol = .lt                 -- church < yew (irreversibility replaces superposition)
   := by
   simp only [schrodingerDynamics, quantumGravityCandidate]
   simp (config := {decide := true})
 
 /-- The tensor product schrodingerDynamics ⊗ measurementOutcome:
-Bottlenecks: P (P_asym), F (F_ell)
-Unions: T (T_bowtie), R (R_dagger), K (K_slow), G (G_aleph), Phi (Phi_c), H (H1) -/
+Bottlenecks: P (church), F (age)
+Unions: T (mime), R (ear), K (egg), G (ice), Phi (monad), H (kick) -/
 theorem measurement_tensor_result :
-  (tensorProduct schrodingerDynamics measurementOutcome).pol = P_asym ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).fid = F_ell ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).top = T_bowtie ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).rel = R_dagger ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).kin = K_slow ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).gran = G_aleph ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).crit = Phi_c ∧
-  (tensorProduct schrodingerDynamics measurementOutcome).chir = H1 := by
+  (tensorProduct schrodingerDynamics measurementOutcome).pol = church ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).fid = age ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).top = mime ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).rel = ear ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).kin = egg ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).gran = ice ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).crit = monad ∧
+  (tensorProduct schrodingerDynamics measurementOutcome).chir = kick := by
   simp only [tensorProduct, schrodingerDynamics, measurementOutcome]
   simp only [tensorProduct, schrodingerDynamics, measurementOutcome, compare]; decide
-/-- No mechanism operating purely within Γ_seq + K_slow with P_psi
-can produce P_asym — the measurement problem diagnosis. -/
+/-- No mechanism operating purely within Γ_seq + egg with yew
+can produce church — the measurement problem diagnosis. -/
 theorem no_asym_from_psi :
   ∀ (mech : Imscribing.Primitives.Imscription),
-    mech.gram = Gamma_seq →
-    mech.kin = K_slow →
-    mech.pol = P_psi →
-    mech.pol ≠ P_asym := by
+    mech.gram = measure →
+    mech.kin = egg →
+    mech.pol = yew →
+    mech.pol ≠ church := by
   intro mech h_gamma h_k h_p
   rw [h_p]
   intro h; cases h

@@ -192,18 +192,18 @@ theorem B_lolli_N_is_designated : designated (lolli Belnap.B Belnap.N) = true :=
 -- ============================================================
 
 def belnapLLImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem belnap_LL_is_O_inf : imscriptionTier belnapLLImscription = .O_inf := by

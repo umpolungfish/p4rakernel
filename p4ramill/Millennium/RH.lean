@@ -18,7 +18,7 @@ All nontrivial zeros of the Riemann zeta function ζ(s) satisfy Re(s) = 1/2.
 **Proof chain** (see PrimitiveBridge.lean §12 for the complete derivation):
 
   STEP 1 — AXIOM D (Primitives/Core.lean):
-    holographic_closure_forces_frobenius: D_odot + T_odot + Omega_Z → P_pm_sym.
+    holographic_closure_forces_frobenius: if' + are + ah → or'.
     A grammar-level axiom: the complete double-holomorphic encoding forces Frobenius.
 
   STEP 2 — PRIMITIVE CONSEQUENCE (PrimitiveBridge.lean §12):
@@ -214,7 +214,7 @@ theorem partial_zero_free_does_not_suffice (δ : ℝ) (_ : 0 < δ) :
   fun _ h => h  -- The ZeroFreeStrip δ hypothesis gives no help toward ZeroFreeStrip 0.
 
 -- ============================================================-- §6. PRIMITIVE-ALGEBRAIC INTERPRETATION
--- The grammar reveals why RH is at Φ_c^ℂ, not Φ_c; at P_sym, not P_pm_sym.
+-- The grammar reveals why RH is at Φ_c^ℂ, not Φ_c; at nun, not or'.
 -- ============================================================
 
 open Imscribing.Primitives
@@ -229,17 +229,17 @@ open Dimensionality Topology Relational Polarity Grammar
     The complex-axis criticality Φ_c^ℂ governs analytic continuation phenomena.
     ζ sits at Φ_c^ℂ because its nontrivial zeros require complex s. -/
 theorem rh_criticality_is_complex :
-    Criticality.Phi_c_complex ≠ Criticality.Phi_c := by
+    Criticality.roar ≠ Criticality.monad := by
   decide
 
-/-- **RH requires P_sym, not P_pm_sym.**
+/-- **RH requires nun, not or'.**
     The functional equation gives ζ(s) = χ(s)·ζ(1-s) where χ is a unitary factor.
-    This is a continuous symmetry (U(1) phase in χ), hence P_sym.
-    It is NOT the Special Frobenius P_pm_sym because μ∘δ ≠ id for ζ:
+    This is a continuous symmetry (U(1) phase in χ), hence nun.
+    It is NOT the Special Frobenius or' because μ∘δ ≠ id for ζ:
     the explicit formula does not give a Frobenius self-duality of ζ itself. -/
 theorem rh_polarity_is_sym_not_pm_sym :
-    Polarity.P_sym ≠ Polarity.P_pm_sym ∧
-    Polarity.P_sym ≤ Polarity.P_pm_sym := by
+    Polarity.nun ≠ Polarity.or' ∧
+    Polarity.nun ≤ Polarity.or' := by
   refine ⟨?_, ?_⟩
   · decide
   · decide
@@ -250,12 +250,12 @@ theorem rh_polarity_is_sym_not_pm_sym :
     conjectured zero-location. -/
 theorem c13_gap_is_one_primitive :
     (primitiveMismatches
-      { dim := D_triangle, top := T_bowtie, rel := R_dagger, pol := P_pm_sym,
-        fid := F_hbar, kin := K_slow, gran := G_beth, gram := Gamma_and,
-        crit := Phi_c, chir := H1, stoi := n_n, prot := Omega_0 }
-      { dim := D_triangle, top := T_bowtie, rel := R_dagger, pol := P_sym,
-        fid := F_hbar, kin := K_slow, gran := G_beth, gram := Gamma_and,
-        crit := Phi_c, chir := H1, stoi := n_n, prot := Omega_0 }) = 1 := by
+      { dim := ash, top := mime, rel := ear, pol := or',
+        fid := peep, kin := egg, gran := bib, gram := vow,
+        crit := monad, chir := kick, stoi := so, prot := awe }
+      { dim := ash, top := mime, rel := ear, pol := nun,
+        fid := peep, kin := egg, gran := bib, gram := vow,
+        crit := monad, chir := kick, stoi := so, prot := awe }) = 1 := by
   decide
 
 /-- **ZeroFreeStrip monotonicity**: smaller δ is strictly stronger.

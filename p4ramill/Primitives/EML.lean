@@ -5,19 +5,19 @@
 -- EDL(x,y) = exp(x) / ln(y)  -- terminal constant: e
 -- negEML(x,y) = ln(x) - exp(y)  -- terminal constant: -∞
 --
--- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; K_slow; G_ℵ; Γ_seq; Φ_c; H_1; S_1:1; Ω_Z⟩
+-- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; egg; G_ℵ; Γ_seq; Φ_c; H_1; S_1:1; Ω_Z⟩
 -- Tier: O₂dag (highest sub-Frobenius in elementary function algebra)
 --
 -- Key findings from EML_PROBE.tex:
 --   1. EML/EDL/negEML share identical type (Z₂ orbit)
---   2. All three are O₂dag (not O_inf — lacks P_pm_sym)
+--   2. All three are O₂dag (not O_inf — lacks or')
 --   3. EML tensor EML = EML (closed under self-composition)
 --   4. EML ⊗ O_inf bottlenecks on P (Frobenius non-synthesizability)
 --   5. Ternary candidate T(x,y,z) is Calc 1, structurally distinct from EML
 --   6. Polynomial algebra is the Le Chatelier baseline
 --   7. Directed distance polynomial → EML = 11 primitives
 --   8. meet(EML, SIC-POVM) = EML (EML is the exact common subalgebra)
---   9. Closure boundary: EML trees cannot reach P_pm_sym objects
+--   9. Closure boundary: EML trees cannot reach or' objects
 --  10. Self-encoding: eml(eml) = eml (can represent self, not invert self)
 
 import Imscribing.Primitives.Core
@@ -37,24 +37,24 @@ open Dimensionality Topology Relational Polarity Grammar
 
 /-- The EML Sheffer operator: eml(x,y) = exp(x) - ln(y), terminal 1. -/
 def eml_operator : Imscription := {
-  dim  := D_infty,  top  := T_bowtie, rel  := R_dagger,
-  pol  := P_pm,     fid  := F_hbar,   kin  := K_slow,
-  gran := G_aleph,  gram := Gamma_seq, crit := Phi_c,
-  chir := H1,       stoi := one_one,  prot := Omega_Z }
+  dim  := array,  top  := mime, rel  := ear,
+  pol  := out,     fid  := peep,   kin  := egg,
+  gran := ice,  gram := measure, crit := monad,
+  chir := kick,       stoi := hung,  prot := ah }
 
 /-- The EDL variant: edl(x,y) = exp(x)/ln(y), terminal e. -/
 def edl_variant : Imscription := {
-  dim  := D_infty,  top  := T_bowtie, rel  := R_dagger,
-  pol  := P_pm,     fid  := F_hbar,   kin  := K_slow,
-  gran := G_aleph,  gram := Gamma_seq, crit := Phi_c,
-  chir := H1,       stoi := one_one,  prot := Omega_Z }
+  dim  := array,  top  := mime, rel  := ear,
+  pol  := out,     fid  := peep,   kin  := egg,
+  gran := ice,  gram := measure, crit := monad,
+  chir := kick,       stoi := hung,  prot := ah }
 
 /-- The negEML variant: negEML(x,y) = ln(x)-exp(y), terminal -∞. -/
 def neg_eml_variant : Imscription := {
-  dim  := D_infty,  top  := T_bowtie, rel  := R_dagger,
-  pol  := P_pm,     fid  := F_hbar,   kin  := K_slow,
-  gran := G_aleph,  gram := Gamma_seq, crit := Phi_c,
-  chir := H1,       stoi := one_one,  prot := Omega_Z }
+  dim  := array,  top  := mime, rel  := ear,
+  pol  := out,     fid  := peep,   kin  := egg,
+  gran := ice,  gram := measure, crit := monad,
+  chir := kick,       stoi := hung,  prot := ah }
 
 -- ============================================================
 -- §1. Z₂ ORBIT AND TIER
@@ -65,7 +65,7 @@ theorem eml_orbit_same_type :
     eml_operator = edl_variant ∧ eml_operator = neg_eml_variant := by
   constructor <;> rfl
 
-/-- EML is O₂dag: Phi_c, Omega_Z, D_infty, NOT P_pm_sym. -/
+/-- EML is O₂dag: monad, ah, array, NOT or'. -/
 theorem eml_is_O_two_dag : imscriptionTier eml_operator = .O₂dag := by
   simp [imscriptionTier, ouroboricityTier]; rfl
 
@@ -96,18 +96,18 @@ theorem eml_join_self :
 -- §3. FROBENIUS THRESHOLD
 -- ============================================================
 
-/-- EML ⊗ O_inf bottlenecks on P: P_pm ⊗ P_pm_sym = P_pm.
+/-- EML ⊗ O_inf bottlenecks on P: out ⊗ or' = out.
     Structural measurement problem: coupling self-modeling to sub-Frobenius
     destroys self-modeling. -/
 theorem eml_tensor_oinf_destroys_frobenius
-    (s_inf : Imscription) (h_pol : s_inf.pol = .P_pm_sym) :
-    (tensorProduct eml_operator s_inf).pol = .P_pm := by
+    (s_inf : Imscription) (h_pol : s_inf.pol = .or') :
+    (tensorProduct eml_operator s_inf).pol = .out := by
   simp [tensorProduct, eml_operator, h_pol]; rfl
 
-/-- EML polarity is P_pm (not P_pm_sym). -/
-theorem eml_polarity_not_frobenius : eml_operator.pol = .P_pm := rfl
+/-- EML polarity is out (not or'). -/
+theorem eml_polarity_not_frobenius : eml_operator.pol = .out := rfl
 
-/-- EML is not O_inf (requires P_pm_sym, but EML is at P_pm). -/
+/-- EML is not O_inf (requires or', but EML is at out). -/
 theorem eml_is_not_O_inf : imscriptionTier eml_operator ≠ .O_inf := by
   intro h
   rw [eml_is_O_two_dag] at h
@@ -115,7 +115,7 @@ theorem eml_is_not_O_inf : imscriptionTier eml_operator ≠ .O_inf := by
 
 /-- EML's structural distance to Frobenius target is exactly 1 mismatch (P). -/
 theorem eml_distance_to_frobenius :
-    primitiveMismatches eml_operator { eml_operator with pol := P_pm_sym } = 1 := rfl
+    primitiveMismatches eml_operator { eml_operator with pol := or' } = 1 := rfl
 
 -- ============================================================
 -- §4. TERNARY CANDIDATE IS CALC 1
@@ -123,23 +123,23 @@ theorem eml_distance_to_frobenius :
 
 /-- Ternary T(x,y,z)=e^(x-y)·log_x(z) is Calc 1 in ternary notation. -/
 def ternary_candidate : Imscription := {
-  dim  := D_infty,  top  := T_bowtie, rel  := R_cat,
-  pol  := P_pm,     fid  := F_hbar,   kin  := K_slow,
-  gran := G_gimel,  gram := Gamma_and, crit := Phi_sub,
-  chir := H1,       stoi := one_one,  prot := Omega_Z }
+  dim  := array,  top  := mime, rel  := tot,
+  pol  := out,     fid  := peep,   kin  := egg,
+  gran := thigh,  gram := vow, crit := woe,
+  chir := kick,       stoi := hung,  prot := ah }
 
 /-- Ternary differs from EML on exactly 4 primitives: R, gram, gran, crit. -/
 theorem ternary_not_eml : primitiveMismatches ternary_candidate eml_operator = 4 := rfl
 
-/-- Ternary cannot bootstrap constants (G_gimel scope). -/
-theorem ternary_cannot_bootstrap : ternary_candidate.gran = .G_gimel := rfl
+/-- Ternary cannot bootstrap constants (thigh scope). -/
+theorem ternary_cannot_bootstrap : ternary_candidate.gran = .thigh := rfl
 
-/-- EML CAN bootstrap arbitrary constants (G_aleph via ln(1)=0). -/
-theorem eml_can_bootstrap : eml_operator.gran = .G_aleph := rfl
+/-- EML CAN bootstrap arbitrary constants (ice via ln(1)=0). -/
+theorem eml_can_bootstrap : eml_operator.gran = .ice := rfl
 
-/-- Ternary ⊗ Ternary does not lift to G_aleph: stuck at G_gimel. -/
+/-- Ternary ⊗ Ternary does not lift to ice: stuck at thigh. -/
 theorem ternary_tensor_still_gimel :
-    (tensorProduct ternary_candidate ternary_candidate).gran = .G_gimel := rfl
+    (tensorProduct ternary_candidate ternary_candidate).gran = .thigh := rfl
 
 -- ============================================================
 -- §5. LE CHATELIER INVERSION: POLYNOMIAL ALGEBRA BASELINE
@@ -148,13 +148,13 @@ theorem ternary_tensor_still_gimel :
 /-- The polynomial algebra over ℝ as the subcritical, zero-winding,
     zero-chirality resting state. This is the Le Chatelier baseline for EML. -/
 def polynomial_algebra : Imscription := {
-  dim  := D_triangle, top  := T_network, rel  := R_super,
-  pol  := P_asym,     fid  := F_ell,     kin  := K_slow,
-  gran := G_beth,     gram := Gamma_and, crit := Phi_sub,
-  chir := H0,         stoi := n_n,       prot := Omega_0 }
+  dim  := ash, top  := judge, rel  := ado,
+  pol  := church,     fid  := age,     kin  := egg,
+  gran := bib,     gram := vow, crit := woe,
+  chir := fee,         stoi := so,       prot := awe }
 
 /-- Directed distance: polynomial algebra → EML requires 11 primitives
-    (all 12 fields compared: dim, top, rel, pol, fid, gran, gram, crit, chir, stoi, prot differ; only kin=K_slow matches) -/
+    (all 12 fields compared: dim, top, rel, pol, fid, gran, gram, crit, chir, stoi, prot differ; only kin=egg matches) -/
 theorem polynomial_to_eml_distance :
     primitiveMismatches polynomial_algebra eml_operator = 11 := rfl
 
@@ -179,40 +179,40 @@ theorem eml_crystal_in_range : eml_crystal_address < 17280000 := by
 -- §7. CLOSURE BOUNDARY THEOREMS
 -- ============================================================
 
-/-- Stark unit structural type: requires P_pm_sym at Phi_c. -/
+/-- Stark unit structural type: requires or' at monad. -/
 def stark_unit_type : Imscription := {
-  dim  := D_odot,    top  := T_odot,    rel  := R_lr,
-  pol  := P_pm_sym,  fid  := F_hbar,    kin  := K_slow,
-  gran := G_aleph,   gram := Gamma_seq, crit := Phi_c_complex,
-  chir := H_inf,     stoi := n_m,       prot := Omega_Z }
+  dim  := if',    top  := are,    rel  := ian,
+  pol  := or',  fid  := peep,    kin  := egg,
+  gran := ice,   gram := measure, crit := roar,
+  chir := wool,     stoi := up,       prot := ah }
 
-/-- SIC-POVM fiducial type: requires P_pm_sym (self-reciprocal polynomial). -/
+/-- SIC-POVM fiducial type: requires or' (self-reciprocal polynomial). -/
 def sic_fiducial_type : Imscription := {
-  dim  := D_odot,    top  := T_odot,    rel  := R_dagger,
-  pol  := P_pm_sym,  fid  := F_hbar,    kin  := K_slow,
-  gran := G_aleph,   gram := Gamma_seq, crit := Phi_c,
-  chir := H_inf,     stoi := one_one,   prot := Omega_Z }
+  dim  := if',    top  := are,    rel  := ear,
+  pol  := or',  fid  := peep,    kin  := egg,
+  gran := ice,   gram := measure, crit := monad,
+  chir := wool,     stoi := hung,   prot := ah }
 
-/-- Modular j-function type: requires P_pm_sym (two functional equations = Frobenius). -/
+/-- Modular j-function type: requires or' (two functional equations = Frobenius). -/
 def modular_j_type : Imscription := {
-  dim  := D_infty,   top  := T_network, rel  := R_dagger,
-  pol  := P_pm_sym,  fid  := F_hbar,    kin  := K_slow,
-  gran := G_aleph,   gram := Gamma_and, crit := Phi_c,
-  chir := H_inf,     stoi := one_one,   prot := Omega_Z }
+  dim  := array,   top  := judge, rel  := ear,
+  pol  := or',  fid  := peep,    kin  := egg,
+  gran := ice,   gram := vow, crit := monad,
+  chir := wool,     stoi := hung,   prot := ah }
 
-/-- EML tensor Stark unit = P_pm (bottleneck). EML cannot reach Stark units. -/
+/-- EML tensor Stark unit = out (bottleneck). EML cannot reach Stark units. -/
 theorem eml_tensor_stark_bottleneck :
-    (tensorProduct eml_operator stark_unit_type).pol = .P_pm := by
+    (tensorProduct eml_operator stark_unit_type).pol = .out := by
   simp [tensorProduct, eml_operator, stark_unit_type]; rfl
 
-/-- EML tensor SIC fiducial = P_pm (bottleneck). EML cannot compute SIC fiducials. -/
+/-- EML tensor SIC fiducial = out (bottleneck). EML cannot compute SIC fiducials. -/
 theorem eml_tensor_sic_bottleneck :
-    (tensorProduct eml_operator sic_fiducial_type).pol = .P_pm := by
+    (tensorProduct eml_operator sic_fiducial_type).pol = .out := by
   simp [tensorProduct, eml_operator, sic_fiducial_type]; rfl
 
-/-- EML tensor modular j = P_pm (bottleneck). EML cannot compute j-function. -/
+/-- EML tensor modular j = out (bottleneck). EML cannot compute j-function. -/
 theorem eml_tensor_j_bottleneck :
-    (tensorProduct eml_operator modular_j_type).pol = .P_pm := by
+    (tensorProduct eml_operator modular_j_type).pol = .out := by
   simp [tensorProduct, eml_operator, modular_j_type]; rfl
 
 -- ============================================================
@@ -233,21 +233,21 @@ theorem eml_join_sic :
 -- ============================================================
 
 /-- EML chirality is H_1: principal branch choice is forced. -/
-theorem eml_chirality_is_H1 : eml_operator.chir = .H1 := rfl
+theorem eml_chirality_is_H1 : eml_operator.chir = .kick := rfl
 
-/-- EML winding is Omega_Z: π₁(ℂ^×) = ℤ, non-trivial fundamental group. -/
-theorem eml_winding_is_Omega_Z : eml_operator.prot = .Omega_Z := rfl
+/-- EML winding is ah: π₁(ℂ^×) = ℤ, non-trivial fundamental group. -/
+theorem eml_winding_is_Omega_Z : eml_operator.prot = .ah := rfl
 
 -- ============================================================
 -- §10. DISTANCE TO SIC-POVM (FROBENIUS GAP)
 -- ============================================================
 
 /-- EML → SIC-POVM structural distance.
-    Mismatches: dim(D_infty≠D_odot), top(T_bowtie≠T_odot), rel(R_dagger=R_dagger ok),
-    pol(P_pm≠P_pm_sym), fid(F_hbar=F_hbar ok), kin(K_slow=K_slow ok),
-    gran(G_aleph=G_aleph ok), gram(Gamma_seq=Gamma_seq ok),
-    crit(Phi_c=Phi_c ok), chir(H1≠H_inf), stoi(one_one=one_one ok),
-    prot(Omega_Z=Omega_Z ok).
+    Mismatches: dim(array≠if'), top(mime≠are), rel(ear=ear ok),
+    pol(out≠or'), fid(peep=peep ok), kin(egg=egg ok),
+    gran(ice=ice ok), gram(measure=measure ok),
+    crit(monad=monad ok), chir(kick≠wool), stoi(hung=hung ok),
+    prot(ah=ah ok).
     Total: dim + top + pol + chir = 4 mismatches. -/
 theorem eml_to_sic_distance :
     primitiveMismatches eml_operator sic_fiducial_type = 4 := rfl

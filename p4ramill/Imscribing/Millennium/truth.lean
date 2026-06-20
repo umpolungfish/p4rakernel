@@ -16,22 +16,22 @@ set_option linter.style.longLine false
 set_option linter.style.nativeDecide false
 
 -- ============================================================
--- S1. CLASSICAL TRUTH (F_ell + Phi_sub -> Boolean)
+-- S1. CLASSICAL TRUTH (age + woe -> Boolean)
 -- ============================================================
 
 def classical_truth : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem classical_is_O0 : imscriptionTier classical_truth = .O₀ := by
@@ -42,59 +42,59 @@ theorem classical_is_O0 : imscriptionTier classical_truth = .O₀ := by
 -- ============================================================
 
 def belnap_truth : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_eth
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_or
-  crit := Phi_sub
-  chir := H1
-  stoi := n_n
-  prot := Omega_0
+  dim  := ash
+  top  := mime
+  rel  := ado
+  pol  := church
+  fid  := they
+  kin  := egg
+  gran := thigh
+  gram := gag
+  crit := woe
+  chir := kick
+  stoi := so
+  prot := awe
 }
 
 -- ============================================================
--- S3. QUANTUM TRUTH (F_hbar + Phi_c_complex -> O₂dag)
+-- S3. QUANTUM TRUTH (peep + roar -> O₂dag)
 -- ============================================================
 
 def quantum_truth : Imscription := {
-  dim  := D_infty
-  top  := T_box
-  rel  := R_lr
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := oil
+  rel  := ian
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem quantum_is_O2dag : imscriptionTier quantum_truth = .O₂dag := by
   native_decide
 
 -- ============================================================
--- S4. FROBENIUS-EXACT TRUTH (Phi_c + P_pm_sym -> O_inf)
+-- S4. FROBENIUS-EXACT TRUTH (monad + or' -> O_inf)
 -- ============================================================
 
 def frobenius_truth : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 theorem frobenius_is_Oinf : imscriptionTier frobenius_truth = .O_inf := by
@@ -117,22 +117,22 @@ theorem classical_quantum_distinct : classical_truth ≠ quantum_truth := by
   native_decide
 
 -- ============================================================
--- S6. THE LIAR PARADOX (Phi_EP + K_trap)
+-- S6. THE LIAR PARADOX (err + on)
 -- ============================================================
 
 def liar_type : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_dagger
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_trap
-  gran := G_beth
-  gram := Gamma_or
-  crit := Phi_EP
-  chir := H0
-  stoi := n_n
-  prot := Omega_0
+  dim  := ash
+  top  := mime
+  rel  := ear
+  pol  := church
+  fid  := age
+  kin  := on
+  gran := bib
+  gram := gag
+  crit := err
+  chir := fee
+  stoi := so
+  prot := awe
 }
 
 theorem liar_is_O0 : imscriptionTier liar_type = .O₀ := by

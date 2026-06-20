@@ -99,12 +99,12 @@ inductive AnyHadron : Type where
 
 -- §5  STRUCTURAL IMSCRIPTION
 def exoticHadronImscription : Imscription :=
-  { dim  := Dimensionality.D_infty,    top  := Topology.T_bowtie
-  , rel  := Relational.R_dagger,      pol  := Polarity.P_pm
-  , fid  := Fidelity.F_hbar,          kin  := KineticChar.K_slow
-  , gran := Granularity.G_aleph,      gram := Grammar.Gamma_and
-  , crit := Criticality.Phi_c,         chir := Chirality.H2
-  , stoi := Stoichiometry.n_m,        prot := Protection.Omega_Z }
+  { dim  := Dimensionality.array,    top  := Topology.mime
+  , rel  := Relational.ear,      pol  := Polarity.out
+  , fid  := Fidelity.peep,          kin  := KineticChar.egg
+  , gran := Granularity.ice,      gram := Grammar.vow
+  , crit := Criticality.monad,         chir := Chirality.sure
+  , stoi := Stoichiometry.up,        prot := Protection.ah }
 
 theorem exotic_hadron_tier : imscriptionTier exoticHadronImscription = OuroboricityTier.O₂dag := by
   native_decide

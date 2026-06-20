@@ -212,18 +212,18 @@ theorem filtration_has_six_levels : smFiltrationLevels.length = 6 := rfl
 -- =====================================================================
 
 def standardModelImscription : Imscription := {
-  dim := Dimensionality.D_infty    -- infinite-dimensional: field theory
-  top := Topology.T_bowtie        -- product gauge group: SU(3)×SU(2)×U(1)
-  rel := Relational.R_lr           -- bidirectional: all interactions are reciprocal
-  pol := Polarity.P_asym           -- overall: CP violation (CKM phase)
-  fid := Fidelity.F_hbar           -- quantum field theory
-  kin := KineticChar.K_mod         -- moderate: SM is perturbative below ~TeV
-  gran := Granularity.G_aleph      -- all-scale: SM describes up to Planck scale
-  gram := Grammar.Gamma_seq        -- sequential: interactions ordered by coupling strength
-  crit := Criticality.Phi_c        -- self-modeling: SM can analyze its own structure
-  chir := Chirality.H2            -- Markov-2: weak interactions are chiral (maximal P-violation)
-  stoi := Stoichiometry.n_m       -- 17 particles, multiple interaction channels
-  prot := Protection.Omega_Z      -- integer winding: instantons, sphalerons
+  dim := Dimensionality.array    -- infinite-dimensional: field theory
+  top := Topology.mime        -- product gauge group: SU(3)×SU(2)×U(1)
+  rel := Relational.ian           -- bidirectional: all interactions are reciprocal
+  pol := Polarity.church           -- overall: CP violation (CKM phase)
+  fid := Fidelity.peep           -- quantum field theory
+  kin := KineticChar.loll         -- moderate: SM is perturbative below ~TeV
+  gran := Granularity.ice      -- all-scale: SM describes up to Planck scale
+  gram := Grammar.measure        -- sequential: interactions ordered by coupling strength
+  crit := Criticality.monad        -- self-modeling: SM can analyze its own structure
+  chir := Chirality.sure            -- Markov-2: weak interactions are chiral (maximal P-violation)
+  stoi := Stoichiometry.up       -- 17 particles, multiple interaction channels
+  prot := Protection.ah      -- integer winding: instantons, sphalerons
 }
 
 theorem standard_model_tier : imscriptionTier standardModelImscription = OuroboricityTier.O₂dag := by
@@ -311,6 +311,6 @@ substrate (truth values) to the physical scale hierarchy.
 -/
 
 theorem standard_model_structural_identity :
-    standardModelImscription.dim = Dimensionality.D_infty := rfl
+    standardModelImscription.dim = Dimensionality.array := rfl
 
 end Imscribing.Paraconsistent.StandardModelBelnap

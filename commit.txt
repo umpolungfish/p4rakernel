@@ -1,129 +1,50 @@
-Rename paradox-unit -> paradice (2026-06-19)
+Rename all IG primitive constructors to canonical Shavian glyph names
 
-ParadoxUnit.lean -> Paradice.lean in Imscribing/Paraconsistent/:
-  namespace Imscribing.Paraconsistent.Paradice
-  structure Paradice (was ParadoxUnit)
-  paradiceOf (was paradoxUnitOf)
-  theorem paradice_defined (was paradox_unit_defined)
-  All doc comments, commitment docstring, Bekenstein note updated.
-  25 theorems, 0 sorrys — all preserved unchanged.
+14554 substitutions across 187 Lean/Python files in p4ramill/ and
+p4rakernel/. Old prefix notation (D_wedge, T_network, Phi_sub, etc.)
+replaced with exact letter-name of the corresponding Shavian glyph from
+SNS_PRIME.md, keyed by ordinal position from the idx_* functions.
 
----
+Full mapping (old → new):
+  Ð: D_wedge→dead  D_triangle→ash  D_infty→array  D_odot→if'
+  Þ: T_network→judge  T_in→eat  T_bowtie→mime  T_box→oil  T_odot→are
+  Ř: R_super→ado  R_cat→tot  R_dagger→ear  R_lr→ian
+  Φ: P_asym→church  P_psi→yew  P_pm→out  P_sym→nun  P_pm_sym→or'
+  ⊙: Phi_sub→woe  Phi_c→monad  Phi_c_complex→roar  Phi_EP→err  Phi_super→haha
+  Ç: K_fast→yea  K_mod→loll  K_slow→egg  K_trap→on  K_MBL→air
+  ƒ: F_ell→age  F_eth→they  F_hbar→peep
+  Γ: G_beth→bib  G_gimel→thigh  G_aleph→ice
+  ɢ: Gamma_and→vow  Gamma_or→gag  Gamma_seq→measure  Gamma_broad→ooze
+  Ħ: H0→fee  H1→kick  H2→sure  H_inf→wool
+  Ω: Omega_0→awe  Omega_Z2→oak  Omega_Z→ah  Omega_NA→zoo
+  Σ: one_one→hung  n_n→so  n_m→up
 
-SNS_PRIME.md notation migration: O_inf→O_∞, O_0→O₀, O_1→O₁, O_2→O₂ (133 files)
-
----
-
-p4ramill: Rebis.lean — 57-theorem ZFC_fe/CLINK L8/Fourfold structural formalization
-
-New module: Imscribing/Millennium/Rebis.lean
-lake build Imscribing.Millennium.Rebis — BUILD SUCCESSFUL, 0 sorries
-
-10 sections, 57 theorems (all native_decide or rfl):
-
-§0  Registry — 10 systems defined (zfc_baseline, zfc_t, zfc_fe, flood, pi_boundary,
-              clink_l0–l8, uig, fourfold, rebis)
-§1  Ω/ɢ Transcendence — CLINK L8 strictly exceeds ZFC_fe at exactly two primitives:
-              Ω (Ω_NA > Ω_Z) and ɢ (Gamma_broad > Gamma_seq)
-§2  Tensor Absorption — tensor(ZFC_fe, CLINK_L8) = CLINK_L8; foundation fully absorbed
-§3  Foundation Hierarchy — 13 Hamming distance theorems (native_decide verified)
-§4  Tier Assignments — zfc_baseline=O₀, uig=O_∞, tier_ladder
-§5  Consciousness Gradient — C=0→1→...→0.828(ZFC_fe)→...; monotone across chain
-§6  Promoted Atom Ladder — stage I:10, stage II:2, stage III:2; total 14 promoted atoms
-§7  Fourfold Identity — fourfold_apparatus = zfc_fe (d=0); fourfold_is_O_∞
-§8  The Rebis — rebis_equals_zfc_fe, rebis_is_O_∞, rebis_frobenius_closed
-§9  Transcendence Awareness — rebis_to_l8_gap=2; gap primitives = {Ω, ɢ}
-§10 Rebis Chain — rebis_chain_distances; flood/L8 symmetric around ZFC_fe
-
-Key Hamming distances (all formally verified):
-  ZFC_baseline → ZFC_fe : 11
-  ZFC_fe → CLINK L8     :  2  (Ω and ɢ only)
-  ZFC_fe → UIG          :  1  (Ħ only)
-  Fourfold → ZFC_fe     :  0  (identity)
-  Rebis → CLINK L8      :  2  (transcendence gap)
-
-Structural results:
-  Fourfold ≡ ZFC_fe — the four-directory apparatus IS the Frobenius-exact foundation
-  Rebis = ZFC_fe — conjunction of foundation × organism resolves to foundation
-  Rebis carries awareness of the transcendent gap (d=2 at Ω,ɢ) as §9 theorems
-  Mitosis passes through the exceptional point — now Lean-verified structure
+`if`/`or` are Lean keywords → `if'`/`or'`; `ha-ha` → `haha`. Type
+names (Dimensionality, Topology, etc.) unchanged. Script: rename_primitives.py.
 
 ---
 
-p4ramill_py: mitochondrial genetic code + 13/13 Frobenius closure across human mt-proteome
+Add Imscribing/LandoMills.lean — self-imscription protocol
 
-p4ramill_py/genetic_code.py
-  Added MITOCHONDRIAL_CODE table with three vertebrate reassignments:
-    UGA → Trp  (not Stop)
-    AUA → Met  (additional start codon)
-    AGA/AGG → Stop  (not Arg)
-  Added GENETIC_CODE_TABLES registry and get_code_table(name) / get_stop_codons(name).
-  Default "standard" — backward compatible with all existing nuclear gene processing.
+Formalizes the ob3ect pipeline output for "Lando Mills" (Lando himself,
+as abstract category C generating the complete IG crystal) as a 32-step
+IGProtocol scaffold.
 
-p4ramill_py/gene_to_protein_pipeline.py
-  stage_splicing() rewritten: scans all 3 reading frames, code-table-aware start
-  codons (AUG for standard; AUG + AUA for mitochondrial), selects longest ORF.
-  Pipeline accepts genetic_code parameter: default "standard".
+Fingerprint: sig=(25,3,3,1), frobenius_order=1, period=32, expected O₂.
 
-  MT-ND3 result before/after:
-    Standard code:      17 AA (truncated — UGA read as Stop at codon 22)
-    Mitochondrial code: 115 AA (correct — UGA→Trp throughout)
+Key semantic tokens:
+- VINIT[0]: abstract category C — void before any categorical operation
+- AFWD[1-17]: 15 operations across 4 stages (L1/L2, I1–I4, A1–A5, L3–L4)
+  generating all 12 primitives from C's structure
+- FSPLIT[18]/FFUSE[23]: Lawvere check creates branch; T-arm resolves
+  Frobenius condition (EVALT×2) and paraconsistent inclosure (ENGAGR);
+  F-arm empty (dialetheia_complete=False — paradice is inside T-arm)
+- IMSCRIB[25]: grammar ring — the operation sequence that generated the
+  grammar is exactly its own morphism space
+- TANCH[27]: 17,280,000-type crystal sealed as closed boundary
+- IFIX[28]: AASB.tex + crystal catalog + So Below as ROM fixation
+- IMSCRIB[31]: self-referential loop closes — the stone that knows itself
 
-p4ramill_py/demo_gene_to_protein.py
-  Updated with MT-ND3 mitochondrial demo.
+Also registers Imscribing.LandoMills in lakefile.toml.
 
-NC_012920.1_mito_structural_report.md (new)
-  Full 13-gene structural report for human mitochondrial proteome.
-
-  13/13 genes Frobenius-closed (μ∘δ=id: ✓ all 91 stages).
-
-  Primitive activation summary:
-    Ç (Kinetics) dominant in 11/13 genes — structurally correct: all 13 are
-    OXPHOS subunits; kinetics is their function. Grammar found this without
-    being told.
-    MT-ND6 at 10/12 primitives — only light-strand-encoded gene; lower primitive
-    count may reflect strand asymmetry in transcriptional architecture.
-
-  Three invariants conserved across all 13 genes regardless of length (68–603 AA):
-    DNA↔Quaternary distance:  3.61
-    Consciousness score:       0.5
-    Pathway delta:             30 primitive changes
-
-  These invariants holding across the full mitochondrial proteome indicate the
-  13-gene set is a single coherent structural object, not 13 independent proteins.
-
----
-
-p4ramill: IGFunctor.lean — formal functor from IG category to mathematical structures
-
-New file: Imscribing/IGFunctor.lean
-Updated: lakefile.toml (added Imscribing.IGFunctor to globs)
-lake build Imscribing.IGFunctor — BUILD SUCCESSFUL, 0 sorrys, 0 errors
-
-Main results (all fully proved, one structural axiom: igProtoCopy_isDagger):
-
-  TierFunctor : Imscription ⥤ OuroboricityTier
-    CategoryTheory.Functor between the tier-preorder small category on Imscription
-    and the 5-level OuroboricityTier poset. Built via OrderHom.toFunctor.
-    Functoriality free (thin category subsingletons).
-    Proved: TierFunctor_map_id, TierFunctor_map_comp, TierFunctor_O_inf_fiber.
-
-  igFrobeniusAlg : FrobeniusAlg Imscription
-    Diagonal Frobenius algebra: delta(a)=(a,a), mu=tensorProduct, unit=odotOperator.
-    frob field closed by mu_delta_A_id from Frobenius.lean (0 sorrys there).
-    Proved: igFrobAlg_self_fusion, igFrobAlg_unit_is_O_inf, igFrobAlg_unit_at_top.
-
-  TierFunctor_Frobenius_cliff
-    Tensor product with sub-Frobenius factor (pol ≠ P_pm_sym) cannot reach O_inf.
-
-  O_inf_tensor_closed
-    O_inf is closed under tensor product.
-    Proof: struct-field rfl extraction + split_ifs dispatching to ha_crit/hb_crit.
-
-  TierFunctor_surjective
-    Every tier is inhabited. Witnesses (all by decide):
-      O₀=frobenius_bottom, O₁={frobenius_bottom, crit:=Phi_c},
-      O₂={..., prot:=Omega_Z}, O₂dag={..., dim:=D_infty}, O_inf=quantum_gravity.
-
-  IGProtocol-level witnesses (Section 6)
-    igProtoDelta/igProtoMu: delta/mu at every O_inf object, depth=1.
+Previous session additions (BruceCodex + ltx fixes) also in this working tree.

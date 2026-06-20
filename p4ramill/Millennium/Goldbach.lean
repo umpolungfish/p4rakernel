@@ -132,18 +132,18 @@ Primitive justifications:
 -/
 
 def goldbach_binary_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 -- -------------------------------------------------------------------
@@ -158,9 +158,9 @@ def goldbach_binary_vessel : Imscription := {
 Ouroboricity tier: O₂dag (Z₂-protected, infinite-dimensional).
 
 The key differences from the binary vessel:
-  Γ: G_gimel (mesoscale) — the circle method works on major/minor arcs partitioning
+  Γ: thigh (mesoscale) — the circle method works on major/minor arcs partitioning
      the unit circle; this is a mesoscale decomposition, not global.
-  Ω: Omega_Z2 (Z₂ parity protection) — the third prime variable provides a
+  Ω: oak (Z₂ parity protection) — the third prime variable provides a
      parity buffer that creates Z₂ topological protection.
 
 The ternary vessel sits at O₂ because it has both ⊙_Æ criticality AND
@@ -169,30 +169,30 @@ criticality but Ω_0 (no protection).
 -/
 
 def goldbach_ternary_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- -------------------------------------------------------------------
 -- Vessel sanity checks
 -- -------------------------------------------------------------------
 
-example : goldbach_binary_vessel.crit = Phi_c_complex := by rfl
-example : goldbach_binary_vessel.prot = Omega_0 := by rfl
-example : goldbach_binary_vessel.pol = P_pm := by rfl
-example : goldbach_ternary_vessel.crit = Phi_c_complex := by rfl
-example : goldbach_ternary_vessel.prot = Omega_Z2 := by rfl
-example : goldbach_ternary_vessel.gran = G_gimel := by rfl-- ============================================================
+example : goldbach_binary_vessel.crit = roar := by rfl
+example : goldbach_binary_vessel.prot = awe := by rfl
+example : goldbach_binary_vessel.pol = out := by rfl
+example : goldbach_ternary_vessel.crit = roar := by rfl
+example : goldbach_ternary_vessel.prot = oak := by rfl
+example : goldbach_ternary_vessel.gran = thigh := by rfl-- ============================================================
 -- §3  The Ternary→Binary Gap — Structural Content
 -- ============================================================
 
@@ -200,25 +200,25 @@ example : goldbach_ternary_vessel.gran = G_gimel := by rfl-- ===================
 ### Why Removing One Prime Variable Breaks Everything
 
 The structural distance between the binary and ternary Goldbach vessels is
-exactly 2 primitives: Γ (G_aleph ↔ G_gimel) and Ω (Omega_0 ↔ Omega_Z2).
+exactly 2 primitives: Γ (ice ↔ thigh) and Ω (awe ↔ oak).
 
 This is NOT a small gap. The two differing primitives are structurally linked:
 
-  Γ (scope):    G_gimel → G_aleph   (mesoscale → global)
-  Ω (protection): Omega_Z2 → Omega_0  (Z₂ → none)
+  Γ (scope):    thigh → ice   (mesoscale → global)
+  Ω (protection): oak → awe  (Z₂ → none)
 
 The ternary case succeeds because:
   (a) The circle method partitions the unit circle into major/minor arcs
-      (mesoscale scope G_gimel) — this decomposition is essential.
+      (mesoscale scope thigh) — this decomposition is essential.
   (b) The third prime provides a parity degree of freedom — giving Z₂ protection.
 
 The binary case fails because:
   (a) Without the third prime, the major/minor arc decomposition is not sufficient
-      to handle the global scope G_aleph.
-  (b) With only two primes, there is no parity buffer — Omega_0.
+      to handle the global scope ice.
+  (b) With only two primes, there is no parity buffer — awe.
 
 The structural content of the unsolved step is: PROMOTE Ω_0 → Ω_Z2 and
-RESTRICT Γ from G_aleph → G_gimel, while maintaining the same conclusion.
+RESTRICT Γ from ice → thigh, while maintaining the same conclusion.
 This is the structural analog of the Hardy-Littlewood circle method
 requirement: the minor arcs estimate must be sharp enough to handle
 all n (global scope) without the extra prime variable.
@@ -261,28 +261,28 @@ theorem ternary_vessel_o2_certificate :
 
 /--
 **Theorem GB-4: Ω_0 is Minimal**
-No protection value is below Omega_0.
+No protection value is below awe.
 -/
-theorem omega_0_minimal : ∀ p : Protection, Omega_0 ≤ p := by
+theorem omega_0_minimal : ∀ p : Protection, awe ≤ p := by
   intro p; cases p <;> decide
 
 /--
-**Theorem GB-5: P_pm Below Frobenius**
+**Theorem GB-5: out Below Frobenius**
 Partial Z₂ symmetry is strictly below Frobenius-special.
 -/
-theorem pm_below_pm_sym : P_pm < P_pm_sym := by
+theorem pm_below_pm_sym : out < or' := by
   native_decide
 
 /--
 **Theorem GB-6: Binary Does Not Have Z₂ Protection**
 -/
-theorem binary_no_z2 : goldbach_binary_vessel.prot ≠ Omega_Z2 := by
+theorem binary_no_z2 : goldbach_binary_vessel.prot ≠ oak := by
   native_decide
 
 /--
 **Theorem GB-7: Ternary Has Z₂ Protection**
 -/
-theorem ternary_has_z2 : goldbach_ternary_vessel.prot = Omega_Z2 := by
+theorem ternary_has_z2 : goldbach_ternary_vessel.prot = oak := by
   native_decide
 
 /--
@@ -298,7 +298,7 @@ theorem binary_below_ternary_tier :
 To lift binary Goldbach to O₂, promote Ω_0 → Ω_Z2.
 -/
 theorem promotion_to_o2 :
-  goldbach_binary_vessel.prot = Omega_0 ∧ goldbach_ternary_vessel.prot = Omega_Z2 := by
+  goldbach_binary_vessel.prot = awe ∧ goldbach_ternary_vessel.prot = oak := by
   constructor <;> rfl-- ============================================================
 -- §5  Structural Connections
 -- ============================================================
@@ -330,18 +330,18 @@ The Twin Prime vessel (for cross-reference):
 Differs from Goldbach only in topology (Þ_⋈ vs Þ_6).
 -/
 def twin_prime_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 /--
@@ -367,7 +367,7 @@ theorem goldbach_twin_prime_same_tier :
 Neither has topological protection.
 -/
 theorem both_unprotected :
-  goldbach_binary_vessel.prot = Omega_0 ∧ twin_prime_vessel.prot = Omega_0 := by
+  goldbach_binary_vessel.prot = awe ∧ twin_prime_vessel.prot = awe := by
   constructor <;> rfl
 
 /-!
@@ -388,18 +388,18 @@ The Riemann Hypothesis vessel (for cross-reference):
 ⟨ Ð_∞; Þ_O; Ř_=; Φ_}; ƒ_ħ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z ⟩
 -/
 def rh_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 /--
@@ -425,7 +425,7 @@ Goldbach needs 6 promotions to reach O_inf (vs 4 for Twin Prime).
 The extra 2 come from T (network→odot) and F (classical→quantum).
 -/
 theorem goldbach_o1_to_oinf_promotion_count :
-  goldbach_binary_vessel.prot = Omega_0 ∧ rh_vessel.prot = Omega_Z := by
+  goldbach_binary_vessel.prot = awe ∧ rh_vessel.prot = ah := by
   constructor <;> rfl-- ============================================================
 -- §6  Chen's Theorem — The Partial Bridge
 -- ============================================================
@@ -441,7 +441,7 @@ a prime and a semiprime (product of at most two primes).
 Ouroboricity tier: O₂dag.
 
 Chen's vessel is structurally IDENTICAL to the ternary Goldbach vessel —
-both have G_gimel (mesoscale) and Omega_Z2 (Z₂ protection). This reveals
+both have thigh (mesoscale) and oak (Z₂ protection). This reveals
 the structural equivalence: relaxing the second prime to a semiprime
 provides the same structural protection as adding a third prime variable.
 
@@ -456,18 +456,18 @@ but confirmed by the primitive assignment.
 -/
 
 def chen_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 /--
@@ -475,7 +475,7 @@ def chen_vessel : Imscription := {
 Chen's vessel and Helfgott's ternary vessel are structurally identical
 (distance = 0). This confirms: relaxing one prime to semiprime (Chen, "1+2")
 and adding a third prime variable (Helfgott, "1+1+1") achieve the same
-structural protection (O₂, Omega_Z2, G_gimel).
+structural protection (O₂, oak, thigh).
 -/
 theorem chen_equals_ternary :
   primitiveMismatches chen_vessel goldbach_ternary_vessel = 0 := by
@@ -538,11 +538,11 @@ The following are honest gaps — not disguised as theorems:
 
 | Vessel | Tier | Protection | Scope | Status |
 |---|---|---|---|---|
-| Binary Goldbach | O₁ | Ω_0 | G_aleph | OPEN (1742) |
-| Chen (1+2) | O₂dag | Ω_Z2 | G_gimel | PROVED (1966) |
-| Ternary Goldbach | O₂dag | Ω_Z2 | G_gimel | PROVED (2013) |
-| Twin Prime | O₁ | Ω_0 | G_aleph | OPEN |
-| Riemann Hypothesis | O_inf | Ω_Z | G_aleph | OPEN (1859) |
+| Binary Goldbach | O₁ | Ω_0 | ice | OPEN (1742) |
+| Chen (1+2) | O₂dag | Ω_Z2 | thigh | PROVED (1966) |
+| Ternary Goldbach | O₂dag | Ω_Z2 | thigh | PROVED (2013) |
+| Twin Prime | O₁ | Ω_0 | ice | OPEN |
+| Riemann Hypothesis | O_inf | Ω_Z | ice | OPEN (1859) |
 
 The binary Goldbach conjecture is the structural "floor" of additive
 prime number theory — the minimal statement (two primes, global scope,

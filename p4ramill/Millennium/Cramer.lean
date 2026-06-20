@@ -186,31 +186,31 @@ Primitive justifications:
 -/
 
 def cramer_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := tot
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := awe
 }
 
 -- -------------------------------------------------------------------
 -- Vessel sanity checks
 -- -------------------------------------------------------------------
 
-example : cramer_vessel.crit = Phi_c_complex := by rfl
-example : cramer_vessel.prot = Omega_0 := by rfl
-example : cramer_vessel.top = T_bowtie := by rfl
-example : cramer_vessel.pol = P_pm := by rfl
-example : cramer_vessel.gran = G_beth := by rfl
-example : cramer_vessel.chir = H2 := by rfl
-example : cramer_vessel.stoi = n_n := by rfl
+example : cramer_vessel.crit = roar := by rfl
+example : cramer_vessel.prot = awe := by rfl
+example : cramer_vessel.top = mime := by rfl
+example : cramer_vessel.pol = out := by rfl
+example : cramer_vessel.gran = bib := by rfl
+example : cramer_vessel.chir = sure := by rfl
+example : cramer_vessel.stoi = so := by rfl
 -- ============================================================
 -- §3  Multi-Vessel Architecture
 -- ============================================================
@@ -272,18 +272,18 @@ the model makes a definite prediction — there is no critical threshold.
 -/
 
 def cramer_model_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_cat
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := tot
+  pol  := church
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := so
+  prot := awe
 }
 
 /-!
@@ -298,18 +298,18 @@ zeta zeros. The result sits at O₂ — critical with Z₂ protection.
 -/
 
 def rh_conditional_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := tot
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := oak
 }
 
 /-!
@@ -324,18 +324,18 @@ requires adjacent-prime information. No symmetry is exploited (Φ_∅).
 -/
 
 def unconditional_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_cat
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := tot
+  pol  := church
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := so
+  prot := awe
 }
 -- ============================================================
 -- §4  Structural Theorems
@@ -400,7 +400,7 @@ theorem rh_conditional_ne_unconditional :
 /--
 **Theorem CR-7: Cramér ↔ Model Distance**
 The conjecture and the Cramér model differ in 5 primitives:
-  T (bowtie↔network), P (pm↔asym), G (seq↔and), crit (complex↔sub), chir (H2↔H0).
+  T (bowtie↔network), P (pm↔asym), G (seq↔and), crit (complex↔sub), chir (sure↔fee).
 -/
 theorem cramer_model_distance_5 :
   primitiveMismatches cramer_vessel cramer_model_vessel = 5 := by
@@ -418,7 +418,7 @@ theorem cramer_rh_conditional_distance_2 :
 /--
 **Theorem CR-9: Cramér ↔ Unconditional Distance**
 The conjecture and the unconditional bound differ in 3 primitives:
-  P (pm↔asym), crit (complex↔sub), chir (H2↔H1).
+  P (pm↔asym), crit (complex↔sub), chir (sure↔kick).
 -/
 theorem cramer_unconditional_distance_3 :
   primitiveMismatches cramer_vessel unconditional_vessel = 3 := by
@@ -491,44 +491,44 @@ theorem tier_ordering :
 
 /--
 **Theorem CR-17: Ω_0 is Minimal**
-No protection value is below Omega_0.
+No protection value is below awe.
 -/
-theorem omega_0_minimal : ∀ p : Protection, Omega_0 ≤ p := by
+theorem omega_0_minimal : ∀ p : Protection, awe ≤ p := by
   intro p; cases p <;> decide
 
 /--
-**Theorem CR-18: P_pm Below Frobenius**
+**Theorem CR-18: out Below Frobenius**
 Partial Z₂ symmetry is strictly below Frobenius-special.
 -/
-theorem pm_below_pm_sym : P_pm < P_pm_sym := by
+theorem pm_below_pm_sym : out < or' := by
   native_decide
 
 /--
 **Theorem CR-19: Cramér Has No Protection**
-The conjecture vessel's protection is Omega_0.
+The conjecture vessel's protection is awe.
 -/
-theorem cramer_no_protection : cramer_vessel.prot = Omega_0 := by
+theorem cramer_no_protection : cramer_vessel.prot = awe := by
   rfl
 
 /--
 **Theorem CR-20: RH-Conditional Has Z₂ Protection**
 The RH-conditional bound inherits Z₂ protection from RH.
 -/
-theorem rh_conditional_has_z2 : rh_conditional_vessel.prot = Omega_Z2 := by
+theorem rh_conditional_has_z2 : rh_conditional_vessel.prot = oak := by
   rfl
 
 /--
 **Theorem CR-21: Model Has No Symmetry**
-The Cramér model assumes no parity structure (P_asym).
+The Cramér model assumes no parity structure (church).
 -/
-theorem model_no_symmetry : cramer_model_vessel.pol = P_asym := by
+theorem model_no_symmetry : cramer_model_vessel.pol = church := by
   rfl
 
 /--
 **Theorem CR-22: Model Uses Independent Conjunction**
 The Cramér model's grammar is conjunctive (independent trials).
 -/
-theorem model_independent_grammar : cramer_model_vessel.gram = Gamma_and := by
+theorem model_independent_grammar : cramer_model_vessel.gram = vow := by
   rfl
 -- ============================================================
 -- §5  Connection to Riemann Hypothesis and Twin Prime
@@ -562,18 +562,18 @@ both unprotected. The same promotions (Ω_0→Ω_z, Φ_±→Φ_},
 
 /-- Twin Prime vessel (inline for distance computation) -/
 def twin_prime_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := tot
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 /--
@@ -597,7 +597,7 @@ theorem cramer_twin_prime_same_tier :
 **Theorem CR-25: Both Unprotected**
 Neither Cramér nor Twin Prime has topological protection.
 -/
-theorem both_unprotected : cramer_vessel.prot = Omega_0 ∧ twin_prime_vessel.prot = Omega_0 := by
+theorem both_unprotected : cramer_vessel.prot = awe ∧ twin_prime_vessel.prot = awe := by
   constructor <;> rfl
 
 /-!
@@ -634,23 +634,23 @@ Compared to other O₁ problems:
   - Cramér → RH: 9 promotions
 
 Cramér sits at the far end — distance 9 matches Collatz.  (distance 6) and Collatz (distance 9).
-The two extra promotions vs Twin Prime are Ř (R_cat→R_lr) and Σ (n_n→n_m), (R_cat→R_lr) and Σ (n_n→n_m).
+The two extra promotions vs Twin Prime are Ř (tot→ian) and Σ (so→up), (tot→ian) and Σ (so→up).
 -/
 
 /-- RH vessel (inline for distance computation) -/
 def rh_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 /--
@@ -728,7 +728,7 @@ but not dischargeable from the grammar alone:
 | CR-15 | Unconditional O₀ certificate | native_decide |
 | CR-16 | Strict tier ordering O₀ < O₁ < O₂ | native_decide |
 | CR-17 | Ω_0 is minimal | cases + decide |
-| CR-18 | P_pm below Frobenius | native_decide |
+| CR-18 | out below Frobenius | native_decide |
 | CR-19 through CR-22 | Sanity checks | rfl |
 | CR-23 | Cramér ↔ Twin Prime distance = 2 | native_decide |
 | CR-24 | Same O₁ tier | native_decide |

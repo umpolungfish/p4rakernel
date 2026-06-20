@@ -74,8 +74,8 @@ is surjective for every p.
 
 **Imscribing structural note:**
 
-  Hodge is the ONLY Millennium Problem with both D_odot and T_odot simultaneously.
-  All other MPPs with D_odot (RH, BSD, OPN) have T_network or T_bowtie, not T_odot.
+  Hodge is the ONLY Millennium Problem with both if' and are simultaneously.
+  All other MPPs with if' (RH, BSD, OPN) have judge or mime, not are.
   The double-holomorphic structure (complex variety + Hodge decomposition) is the
   primitive signature of the problem.
 

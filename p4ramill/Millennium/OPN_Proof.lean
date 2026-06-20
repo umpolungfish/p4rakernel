@@ -1,5 +1,5 @@
 -- Millennium/OPN_Proof.lean
--- Odd Perfect Numbers: Proof via K_trap + Phi_c Overdetermination
+-- Odd Perfect Numbers: Proof via on + monad Overdetermination
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -21,16 +21,16 @@ theorem euler_structure (N : ℕ) (_h_perfect : True) (_h_odd : ¬ 2 ∣ N) : Tr
 
 /-- THE KINETIC TRAPPING PROOF:
     The structural type of OPN is:
-      ⟨D_wedge, T_in, R_super, P_asym, F_ell, K_trap,
-       G_aleph, Gamma_and, Phi_c, H0, one_one, Omega_0⟩ → O₁
+      ⟨dead, eat, ado, church, age, on,
+       ice, vow, monad, fee, hung, awe⟩ → O₁
     
     KEY FEATURES:
-    · K_trap (kinetic trapping): the constraint system σ(N) = 2N with
+    · on (kinetic trapping): the constraint system σ(N) = 2N with
       Euler's structure theorem is overdetermined
-    · Phi_c (exact criticality): σ(N)/N = 2 exactly
-    · G_aleph (number-theoretic precision): integer-valued constraints
+    · monad (exact criticality): σ(N)/N = 2 exactly
+    · ice (number-theoretic precision): integer-valued constraints
     
-    THE CONTRADICTION: K_trap + Phi_c forces the system to be frozen
+    THE CONTRADICTION: on + monad forces the system to be frozen
     at a critical point that cannot be realized by any integer.
     The 2-adic valuation approach shows v₂(σ(N)) ≠ v₂(2N) for all
     odd N satisfying Euler's form.

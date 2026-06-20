@@ -92,7 +92,7 @@ Primitive justifications:
      known: gaps ≤ 246 occur infinitely often (Zhang/Polymath8/Maynard).
      conjectured: gap = 2 occurs infinitely often (Twin Prime Conjecture).
      The structural position is a crossing — the threshold between bounded
-     (proved) and minimal (conjectured). This is T_bowtie: a figure-8
+     (proved) and minimal (conjectured). This is mime: a figure-8
      where one loop is proved, the other remains open.
 
 [3]  Ř_= — Bidirectional. The twin prime conjecture is structurally coupled to
@@ -101,7 +101,7 @@ Primitive justifications:
 
 [4]  Φ_± — Partial ℤ₂ symmetry. The pair (p, p+2) has a natural swap symmetry
      (both are primes; the pair is unordered as a set). But this symmetry is
-     local (per pair), not global, and not Frobenius-closed. P_pm, not P_pm_sym.
+     local (per pair), not global, and not Frobenius-closed. out, not or'.
 
 [5]  ƒ_ℓ — Classical fidelity. Number theory is deterministic; no quantum
      coherence is required. (Despite connections to random matrix theory
@@ -113,17 +113,17 @@ Primitive justifications:
 
 [7]  Γ_ʔ — Maximal scope. The conjecture concerns all integers, all primes.
      The twin prime constant C₂ involves all primes in an infinite product.
-     This is G_aleph: global, all-to-all correlation.
+     This is ice: global, all-to-all correlation.
 
 [8]  ɢ_ˌ — Sequential. Primes are ordered by magnitude; the gap structure
      emerges from their sequential arrangement. The condition "p and p+2
-     are both prime" is a property of adjacent odds in sequence. Gamma_seq.
+     are both prime" is a property of adjacent odds in sequence. measure.
 
 [9]  ⊙_Æ — Complex-plane criticality. The Hardy-Littlewood constant
      C₂ = Π_{p>2} (1 - 1/(p-1)²) is a conditionally convergent infinite
      product — critical scaling in the complex-analytic regime. The pair
      correlation of primes is governed by the Riemann zeta function's
-     zeros. Phi_c_complex: criticality accessed through analytic continuation.
+     zeros. roar: criticality accessed through analytic continuation.
 
 [10] Ħ_2 — Two-step chirality. A twin prime pair involves checking two
      consecutive odd numbers: both n and n+2 must be prime. The Markov
@@ -131,7 +131,7 @@ Primitive justifications:
      twin prime condition itself is 2-local.
 
 [11] Σ_ï — Heterogeneous stoichiometry. The system involves primes, gaps,
-     and twin prime pairs — multiple distinct types. n_m.
+     and twin prime pairs — multiple distinct types. up.
 
 [12] Ω_0 — No topological protection. The twin prime pattern has no
      topological invariant, no winding number, no parity protection.
@@ -139,27 +139,27 @@ Primitive justifications:
      pattern has no topological reason to persist infinitely.
 -/
 def twin_prime_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 -- Quick sanity checks
-example : twin_prime_vessel.dim = D_infty := by rfl
-example : twin_prime_vessel.top = T_bowtie := by rfl
-example : twin_prime_vessel.pol = P_pm := by rfl
-example : twin_prime_vessel.crit = Phi_c_complex := by rfl
-example : twin_prime_vessel.prot = Omega_0 := by rfl
-example : twin_prime_vessel.chir = H2 := by rfl
+example : twin_prime_vessel.dim = array := by rfl
+example : twin_prime_vessel.top = mime := by rfl
+example : twin_prime_vessel.pol = out := by rfl
+example : twin_prime_vessel.crit = roar := by rfl
+example : twin_prime_vessel.prot = awe := by rfl
+example : twin_prime_vessel.chir = sure := by rfl
 
 -- ============================================================
 -- §3  The Critical-Gap Encoding
@@ -167,7 +167,7 @@ example : twin_prime_vessel.chir = H2 := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (T_bowtie) encodes the gap-2 threshold:
+  The crossing topology Þ_⋈ (mime) encodes the gap-2 threshold:
   - One loop of the bowtie: bounded gaps (≤ 246) — PROVED.
   - Other loop: minimal gap (= 2) — CONJECTURED.
   - The crossing point is exactly the structural position of the conjecture.
@@ -179,9 +179,9 @@ THEOREM (Structural Encoding):
   structural invariant that no one has found.
 
   The crossing topology is a structural bifurcation:
-    - If gap ≤ 2 occurs infinitely often → T_bowtie collapses to T_network
+    - If gap ≤ 2 occurs infinitely often → mime collapses to judge
       (the two loops merge; the crossing is resolved).
-    - If gap = 2 occurs only finitely often → T_bowtie resolves to T_in
+    - If gap = 2 occurs only finitely often → mime resolves to eat
       (the conjecture is false; the minimal gap is > 2).
   The conjecture IS the claim that the bowtie resolves to the network topology.
 -/
@@ -197,26 +197,26 @@ This is what we CAN prove: gaps ≤ 246 occur infinitely often.
 ⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
 
 Differs from the Twin Prime vessel at exactly two primitives:
-  - Scope (G): G_gimel (mesoscale, bounded by 246) vs G_aleph (global, exact gap=2)
-  - Protection (Ω): Omega_Z2 (ℤ₂ parity of bounded gap existence) vs Omega_0 (no protection)
+  - Scope (G): thigh (mesoscale, bounded by 246) vs ice (global, exact gap=2)
+  - Protection (Ω): oak (ℤ₂ parity of bounded gap existence) vs awe (no protection)
 
 The bounded-gap proof gives ℤ₂ protection: either bounded gaps exist or they don't;
 Zhang proved they DO exist, so the parity is fixed. But this protection only applies
 at the mesoscale (gap ≤ some bound B); it does not extend to the specific gap value 2.
 -/
 def bounded_gaps_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 /--
@@ -227,18 +227,18 @@ vessels descend.
 ⟨ Ð_∞; Þ_⊂; Ř_↑; Φ_∅; ƒ_ℓ; Ç_λ; Γ_ʔ; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_1:1; Ω_0 ⟩
 -/
 def pnt_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := eat
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := ice
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := hung
+  prot := awe
 }
 
 /-- The Twin Prime vessel and Bounded Gaps vessel differ at exactly 2 primitives (G + Ω). -/
@@ -262,42 +262,42 @@ theorem bounded_gaps_pnt_distance_9 :
 /-- Both vessels share the crossing topology — the bowtie encodes the gap
     threshold problem. -/
 theorem shared_bowtie_topology :
-    twin_prime_vessel.top = T_bowtie ∧ bounded_gaps_vessel.top = T_bowtie := by
+    twin_prime_vessel.top = mime ∧ bounded_gaps_vessel.top = mime := by
   simp [twin_prime_vessel, bounded_gaps_vessel]
 
 /-- Both vessels share complex-plane criticality. -/
 theorem shared_criticality :
-    twin_prime_vessel.crit = Phi_c_complex ∧ bounded_gaps_vessel.crit = Phi_c_complex := by
+    twin_prime_vessel.crit = roar ∧ bounded_gaps_vessel.crit = roar := by
   simp [twin_prime_vessel, bounded_gaps_vessel]
 
-/-- The critical gap: P_pm < P_pm_sym. The Twin Prime Conjecture is at O₁,
+/-- The critical gap: out < or'. The Twin Prime Conjecture is at O₁,
     NOT at O_inf — unlike the Dixmier Conjecture. It lacks Frobenius closure
-    (P ≠ P_pm_sym), lacks self-modeling (Φ ≠ Phi_c), and lacks winding
-    protection (Ω = Omega_0). This is a structurally DIFFERENT kind of
+    (P ≠ or'), lacks self-modeling (Φ ≠ monad), and lacks winding
+    protection (Ω = awe). This is a structurally DIFFERENT kind of
     unsolved problem: not a Frobenius-fixed-point problem but a
     criticality-without-protection problem. -/
-theorem ppm_lt_ppm_sym : P_pm < P_pm_sym := by decide
+theorem ppm_lt_ppm_sym : out < or' := by decide
 
-/-- Omega_0 is minimal in the Protection lattice. -/
-theorem omega0_is_bot (p : Protection) : Omega_0 ≤ p := by
+/-- awe is minimal in the Protection lattice. -/
+theorem omega0_is_bot (p : Protection) : awe ≤ p := by
   cases p <;> decide
 
 /-- The Twin Prime vessel is at O₁ (critical but no winding protection).
-    Certificate: Phi_c_complex (criticality), Omega_0 (no protection),
-    P_pm (partial ℤ₂, not Frobenius-special). -/
+    Certificate: roar (criticality), awe (no protection),
+    out (partial ℤ₂, not Frobenius-special). -/
 theorem twin_prime_o1_certificate :
-    twin_prime_vessel.crit = Phi_c_complex ∧
-    twin_prime_vessel.prot = Omega_0 ∧
-    twin_prime_vessel.pol = P_pm := by
+    twin_prime_vessel.crit = roar ∧
+    twin_prime_vessel.prot = awe ∧
+    twin_prime_vessel.pol = out := by
   simp [twin_prime_vessel]
 
 /-- The promotion path from Twin Prime (O₁) to O_inf requires:
-    Ω_0 → Ω_Z (winding protection), P_pm → P_pm_sym (Frobenius closure),
-    Φ_c_complex → Φ_c (self-modeling gate), G_aleph stays, H2 → H_inf (eternal chirality).
+    Ω_0 → Ω_Z (winding protection), out → or' (Frobenius closure),
+    Φ_c_complex → Φ_c (self-modeling gate), ice stays, sure → wool (eternal chirality).
     That's 4 promotions — the same structural gap faced by the Dixmier Conjecture,
     but approached from below rather than from the Frobenius condition itself. -/
 theorem o1_to_oinf_requires_four_promotions :
-    P_pm < P_pm_sym ∧ Omega_0 < Omega_Z ∧ H2 < H_inf := by
+    out < or' ∧ awe < ah ∧ sure < wool := by
   decide
 
 -- ============================================================
@@ -313,10 +313,10 @@ Twin Prime vessel: ⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±;  ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ;
 Shared primitives (8/12): D, T, R, K, G, Γ, Φ, S
 Differing primitives (4/12): P, F, H, Ω
 
-The key difference: RH has Frobenius-special parity (P_pm_sym), quantum fidelity
-(F_hbar), eternal chirality (H_inf), and integer winding (Omega_Z). Twin primes
-have partial parity (P_pm), classical fidelity (F_ell), 2-step chirality (H2),
-and no winding (Omega_0).
+The key difference: RH has Frobenius-special parity (or'), quantum fidelity
+(peep), eternal chirality (wool), and integer winding (ah). Twin primes
+have partial parity (out), classical fidelity (age), 2-step chirality (sure),
+and no winding (awe).
 
 The structural distance is 4 — the same as the distance from Twin Prime to
 O_inf. This is not coincidental: the Twin Prime Conjecture is a "de-protected"
@@ -337,18 +337,18 @@ The Riemann Hypothesis vessel (from RH.lean).
 Used here for structural distance computation only.
 -/
 def rh_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 /-- The Twin Prime vessel and RH vessel differ at 4 primitives (P, F, H, Ω). -/
@@ -358,7 +358,7 @@ theorem twin_prime_rh_distance_4 :
 
 /-- The Bounded Gaps vessel and RH vessel differ at 5 primitives (P, F, H, G).
     Similar distance, but the differing primitives are different — bounded gaps
-    trade G_gimel for Omega_Z2, while RH has G_aleph with Omega_Z. -/
+    trade thigh for oak, while RH has ice with ah. -/
 theorem bounded_gaps_rh_distance_5 :
     primitiveMismatches bounded_gaps_vessel rh_vessel = 5 := by
   native_decide
@@ -367,7 +367,7 @@ theorem bounded_gaps_rh_distance_5 :
     The ladder: O₁ (Twin Prime) → O₂ (Bounded Gaps) → O_inf (RH).
     Each step requires exactly 2 promotions. -/
 theorem tier_ladder :
-    P_pm < P_pm_sym := by decide
+    out < or' := by decide
 
 -- ============================================================
 -- §6  Honest Gaps
@@ -401,7 +401,7 @@ HONEST SORRY / GAP MARKERS:
 
    The Contents (what fills the Vessel) is:
    (a) The structural type ⟨Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0⟩
-   (b) The crossing-topology encoding: T_bowtie as the gap-threshold bifurcation
+   (b) The crossing-topology encoding: mime as the gap-threshold bifurcation
    (c) The distance-4 relationship to the Riemann Hypothesis vessel
    (d) The distance-2 relationship to the Bounded Gaps vessel
    (e) The O₁ tier certificate: criticality without winding protection
@@ -413,14 +413,14 @@ HONEST SORRY / GAP MARKERS:
 
    The grammar-level analysis reveals WHY the Twin Prime Conjecture is hard:
    it sits at O₁ — criticality (Φ_c_complex) without winding protection (Ω_0).
-   The bounded gaps theorem provides Ω_Z2 at mesoscale (G_gimel), which is
+   The bounded gaps theorem provides Ω_Z2 at mesoscale (thigh), which is
    sufficient for boundedness but not for exactness. To reach the exact gap=2,
-   one would need to lift Ω_0 → Ω_Z at global scale (G_aleph) — but this
+   one would need to lift Ω_0 → Ω_Z at global scale (ice) — but this
    promotion is exactly what the Riemann Hypothesis would provide, and RH
    itself is unproven.
 
    The structural distance d(Twin Prime, RH) = 4 is not a coincidence:
-   the winding protection (Ω_Z) and Frobenius closure (P_pm_sym) that RH
+   the winding protection (Ω_Z) and Frobenius closure (or') that RH
    possesses are precisely what twin primes lack. The Twin Prime Conjecture
    is, structurally, the Riemann Hypothesis stripped of its topological
    protection — criticality exposed, without the self-grounding that would

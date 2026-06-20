@@ -20,20 +20,20 @@ open Millennium.Thresholds
 /-- The primitive signature of each Millennium Problem's threshold.
     Each problem requires a primitive configuration not achievable from current mathematics. -/
 def thresholdPrimitiveSignature : MillenniumProblem → List Criticality × List Polarity
-  | .RH    => ([.Phi_c_complex], [.P_sym, .P_pm_sym])   -- ζ zeros: complex criticality, symmetry lift
-  | .Hodge => ([.Phi_c], [.P_sym])                      -- algebraic cycles: real critical, full symmetry
-  | .PvsNP => ([.Phi_sub], [.P_asym, .P_pm])            -- circuit bounds: subcritical obstruction
-  | .NS    => ([.Phi_c], [.P_sym])                      -- regularity: critical, symmetric tensor
-  | .YM    => ([.Phi_c], [.P_pm_sym])                   -- path integral: Special Frobenius (μ∘δ=id)
-  | .BSD   => ([.Phi_c], [.P_pm])                       -- rank formula: critical, ℤ₂ charge
-  | .OPN   => ([.Phi_sub], [.P_asym])                   -- nonexistence: subcritical, asymmetric
+  | .RH    => ([.roar], [.nun, .or'])   -- ζ zeros: complex criticality, symmetry lift
+  | .Hodge => ([.monad], [.nun])                      -- algebraic cycles: real critical, full symmetry
+  | .PvsNP => ([.woe], [.church, .out])            -- circuit bounds: subcritical obstruction
+  | .NS    => ([.monad], [.nun])                      -- regularity: critical, symmetric tensor
+  | .YM    => ([.monad], [.or'])                   -- path integral: Special Frobenius (μ∘δ=id)
+  | .BSD   => ([.monad], [.out])                       -- rank formula: critical, ℤ₂ charge
+  | .OPN   => ([.woe], [.church])                   -- nonexistence: subcritical, asymmetric
 
 /-- RH requires complex criticality, not real criticality.
     The zeros of ζ(s) lie in ℂ, not ℝ; the threshold is at Φ_c^ℂ, not Φ_c.
     This is why RH is qualitatively different from the other critical problems. -/
 theorem rh_threshold_is_complex_not_real :
-    thresholdPrimitiveSignature .RH = ([.Phi_c_complex], [.P_sym, .P_pm_sym]) ∧
-    Phi_c ∉ (thresholdPrimitiveSignature .RH).1 := by
+    thresholdPrimitiveSignature .RH = ([.roar], [.nun, .or']) ∧
+    monad ∉ (thresholdPrimitiveSignature .RH).1 := by
   simp [thresholdPrimitiveSignature]
   decide
 
@@ -41,18 +41,18 @@ theorem rh_threshold_is_complex_not_real :
     The path integral measure ∫𝒟A is a μ∘δ=id structure; without it, the theory doesn't exist.
     This is not a theorem to prove (OpenProblem) but infrastructure to build (MissingFoundation). -/
 theorem ym_requires_special_frobenius :
-    thresholdPrimitiveSignature .YM = ([.Phi_c], [.P_pm_sym]) ∧
-    P_pm_sym ∈ (thresholdPrimitiveSignature .YM).2 := by
+    thresholdPrimitiveSignature .YM = ([.monad], [.or']) ∧
+    or' ∈ (thresholdPrimitiveSignature .YM).2 := by
   simp [thresholdPrimitiveSignature]
   decide
 
 /-- The structural gap between RH (OpenProblem) and YM (MissingFoundation) is in Polarity:
-    RH requires P_sym (full symmetry), YM requires P_pm_sym (Special Frobenius).
+    RH requires nun (full symmetry), YM requires or' (Special Frobenius).
     Special Frobenius is not achievable by tensor composition (frobenius_not_synthesizable).
     This is why YM cannot be reduced to a "harder version" of RH. -/
 theorem rh_ym_structural_gap_is_frobenius :
     (thresholdPrimitiveSignature .RH).2 ≠ (thresholdPrimitiveSignature .YM).2 ∧
-    P_pm_sym ∉ (thresholdPrimitiveSignature .RH).2 := by
+    or' ∉ (thresholdPrimitiveSignature .RH).2 := by
   simp [thresholdPrimitiveSignature]
   decide
 
@@ -65,7 +65,7 @@ theorem rh_ym_structural_gap_is_frobenius :
     Higher distance = qualitatively harder obstruction. -/
 def thresholdDistance (p : MillenniumProblem) : ℕ :=
   match p with
-  | .RH    => 2   -- Phi_c^ℂ vs Phi_c; P_pm_sym vs P_sym
+  | .RH    => 2   -- monad^ℂ vs monad; or' vs nun
   | .Hodge => 1   -- algebraic cycle: real critical, full symmetry
   | .PvsNP => 2   -- subcritical Phi; asymmetric/no symmetry
   | .NS    => 1   -- critical, symmetric (similar to Hodge)
@@ -75,7 +75,7 @@ def thresholdDistance (p : MillenniumProblem) : ℕ :=
 
 /-- YM and BSD have the same threshold distance (1), but YM is MissingFoundation
     because Special Frobenius is not a degree of freedom — it's a structural type.
-    BSD's P_pm is achievable by tensor composition; YM's P_pm_sym is not. -/
+    BSD's out is achievable by tensor composition; YM's or' is not. -/
 theorem ym_vs_bsd_distance_vs_foundation :
     thresholdDistance .YM = thresholdDistance .BSD ∧
     millenniumThreshold .YM = .MissingFoundation ∧

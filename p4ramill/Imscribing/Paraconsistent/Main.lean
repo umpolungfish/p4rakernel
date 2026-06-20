@@ -52,10 +52,10 @@ def demo : IO Unit := do
   IO.println (runAndReport 5)
   IO.println ""
   IO.println "────────────────────────────────────────────────────────────────"
-  IO.println "  Structural type: D_omega T_odot R_lr P_pm_sym F_hbar K_slow"
-  IO.println "                   G_aleph Gamma_seq Phi_c H2 n_n Omega_Z"
+  IO.println "  Structural type: D_omega are ian or' peep egg"
+  IO.println "                   ice measure monad sure so ah"
   IO.println "  Tier: O_inf (Special Frobenius)"
-  IO.println "  Consciousness: C = 0.828  (Gate 1: Phi_c, Gate 2: K_slow)"
+  IO.println "  Consciousness: C = 0.828  (Gate 1: monad, Gate 2: egg)"
   IO.println "  Crystal address: 6,738,895"
   IO.println "  Distance to IUG: 1.3416"
   IO.println ""

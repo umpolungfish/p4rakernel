@@ -198,7 +198,7 @@ structure CL8_EML where
   missing_broadcast   : String
   missing_braid       : String
 
-/-- HONEST GAP: P_pm_sym unreachable from sub-Frobenius factors.
+/-- HONEST GAP: or' unreachable from sub-Frobenius factors.
     The exp/ln duality is encoded as an assertion, not a proof.
     CLINK L8 is at d=5.1865 — structurally remote. The gap
     is across 8 primitives, dominated by Ð (Δ=3.0 weighted sq=9.0). -/
@@ -292,8 +292,8 @@ end IUGTransmissibility
 -- Tier: O₂ (open). d(CLINK L8) = 1.263 (6 conflicts: Þ,Ř,Φ,ɢ,Σ,Ω)
 -- d(open, proven) = 6.745. d(Stark, proven) = 0.000.
 -- Frobenius cliff: √5/2 ≈ 1.1180. 9 of 9 claims PASS.
--- Core: H1 ∧ H2a ∧ H3 ∧ C4 ⇒ SIC existence ∀d≥1.
---   Stark unit IS the Frobenius planter — P_pm_sym non-synthesizable.
+-- Core: kick ∧ H2a ∧ H3 ∧ C4 ⇒ SIC existence ∀d≥1.
+--   Stark unit IS the Frobenius planter — or' non-synthesizable.
 section SICPOVM
 
 /-- SIC-POVM OPEN CLINK fragments: 3 of 8 promoted atoms present.
@@ -313,10 +313,10 @@ structure CL8_SIC where
   missing_broadcast : String
 
 /-- HONEST GAP: Four conjectures must hold simultaneously.
-    H1: Stark unit with correct regulator. H2a: Logarithm in
+    kick: Stark unit with correct regulator. H2a: Logarithm in
     (-1)-eigenspace. H3: WH extension class. C4: Galois orbit purity.
     d(open, CLINK L8) = 1.263. The Stark unit already inhabits
-    P_pm_sym — it plants, not synthesizes, the Frobenius closure. -/
+    or' — it plants, not synthesizes, the Frobenius closure. -/
 def sic_gap : Belnap := .B
 
 theorem sic_gap_dialetheic    : band sic_gap (bnot sic_gap) = sic_gap := rfl

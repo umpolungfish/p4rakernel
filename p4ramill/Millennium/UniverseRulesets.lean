@@ -23,42 +23,42 @@ set_option linter.style.setOption false
 
 -- 𝓕₄ primitives: 4 values → ordinals 1–4
 def ordinalD (d : Dimensionality) : ℕ :=
-  match d with | D_wedge => 1 | D_triangle => 2 | D_infty => 3 | D_odot => 4
+  match d with | dead => 1 | ash => 2 | array => 3 | if' => 4
 
 def ordinalR (r : Relational) : ℕ :=
-  match r with | R_super => 1 | R_cat => 2 | R_dagger => 3 | R_lr => 4
+  match r with | ado => 1 | tot => 2 | ear => 3 | ian => 4
 
 def ordinalG (g : Grammar) : ℕ :=
-  match g with | Gamma_and => 1 | Gamma_or => 2 | Gamma_seq => 3 | Gamma_broad => 4
+  match g with | vow => 1 | gag => 2 | measure => 3 | ooze => 4
 
 def ordinalH (h : Chirality) : ℕ :=
-  match h with | H0 => 1 | H1 => 2 | H2 => 3 | H_inf => 4
+  match h with | fee => 1 | kick => 2 | sure => 3 | wool => 4
 
 def ordinalOmega (o : Protection) : ℕ :=
-  match o with | Omega_0 => 1 | Omega_Z2 => 2 | Omega_Z => 3 | Omega_NA => 4
+  match o with | awe => 1 | oak => 2 | ah => 3 | zoo => 4
 
 -- 𝓕₅ primitives: 5 values → ordinals 1–5
 def ordinalT (t : Topology) : ℕ :=
-  match t with | T_network => 1 | T_in => 2 | T_bowtie => 3 | T_box => 4 | T_odot => 5
+  match t with | judge => 1 | eat => 2 | mime => 3 | oil => 4 | are => 5
 
 def ordinalP (p : Polarity) : ℕ :=
-  match p with | P_asym => 1 | P_psi => 2 | P_pm => 3 | P_sym => 4 | P_pm_sym => 5
+  match p with | church => 1 | yew => 2 | out => 3 | nun => 4 | or' => 5
 
 def ordinalPhi (phi : Criticality) : ℕ :=
-  match phi with | Phi_sub => 1 | Phi_c => 2 | Phi_c_complex => 3 | Phi_EP => 4 | Phi_super => 5
+  match phi with | woe => 1 | monad => 2 | roar => 3 | err => 4 | haha => 5
 
 def ordinalK (k : KineticChar) : ℕ :=
-  match k with | K_fast => 1 | K_mod => 2 | K_slow => 3 | K_trap => 4 | K_MBL => 5
+  match k with | yea => 1 | loll => 2 | egg => 3 | on => 4 | air => 5
 
 -- 𝓕₃ primitives: 3 values → ordinals 1–3
 def ordinalF (f : Fidelity) : ℕ :=
-  match f with | F_ell => 1 | F_eth => 2 | F_hbar => 3
+  match f with | age => 1 | they => 2 | peep => 3
 
 def ordinalGran (gr : Granularity) : ℕ :=
-  match gr with | G_beth => 1 | G_gimel => 2 | G_aleph => 3
+  match gr with | bib => 1 | thigh => 2 | ice => 3
 
 def ordinalS (s : Stoichiometry) : ℕ :=
-  match s with | one_one => 1 | n_n => 2 | n_m => 3
+  match s with | hung => 1 | so => 2 | up => 3
 
 -- ============================================================
 -- OPERAD LAYER (the four stages of structural closure)
@@ -191,19 +191,19 @@ def tPrimLe (getOrd : Imscription → ℕ) (critOrd : ℕ) : TPrimSpec :=
 
 -- Canonical T-constitution (dynamic): Φ, ƒ, Ç, Ħ, Ω
 def tCanonical : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalP s.pol) 5,        -- Φ = P_pm_sym (ord 5)
-    tPrimEq (fun s => ordinalF s.fid) 3,        -- ƒ = F_hbar (ord 3)
-    tPrimLe (fun s => ordinalK s.kin) 3,        -- Ç ≤ K_slow (ord 3 ceiling)
-    tPrimEq (fun s => ordinalH s.chir) 4,       -- Ħ = H_inf (ord 4)
-    tPrimEq (fun s => ordinalOmega s.prot) 3 ]  -- Ω = Omega_Z (ord 3)
+  [ tPrimEq (fun s => ordinalP s.pol) 5,        -- Φ = or' (ord 5)
+    tPrimEq (fun s => ordinalF s.fid) 3,        -- ƒ = peep (ord 3)
+    tPrimLe (fun s => ordinalK s.kin) 3,        -- Ç ≤ egg (ord 3 ceiling)
+    tPrimEq (fun s => ordinalH s.chir) 4,       -- Ħ = wool (ord 4)
+    tPrimEq (fun s => ordinalOmega s.prot) 3 ]  -- Ω = ah (ord 3)
 
 -- Structural T-constitution: Ð, Þ, Ř, ɢ, ⊙
 def tStructural : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalD s.dim) 4,        -- Ð = D_odot (ord 4)
-    tPrimEq (fun s => ordinalT s.top) 5,        -- Þ = T_odot (ord 5)
-    tPrimEq (fun s => ordinalR s.rel) 4,        -- Ř = R_lr (ord 4)
-    tPrimEq (fun s => ordinalG s.gram) 4,       -- ɢ = Gamma_broad (ord 4)
-    tPrimEq (fun s => ordinalPhi s.crit) 2 ]    -- ⊙ = Phi_c (ord 2)
+  [ tPrimEq (fun s => ordinalD s.dim) 4,        -- Ð = if' (ord 4)
+    tPrimEq (fun s => ordinalT s.top) 5,        -- Þ = are (ord 5)
+    tPrimEq (fun s => ordinalR s.rel) 4,        -- Ř = ian (ord 4)
+    tPrimEq (fun s => ordinalG s.gram) 4,       -- ɢ = ooze (ord 4)
+    tPrimEq (fun s => ordinalPhi s.crit) 2 ]    -- ⊙ = monad (ord 2)
 
 -- T-hybrid: all 5 dynamic + 3 geometric primitives
 def tHybrid : List TPrimSpec :=
@@ -218,11 +218,11 @@ def tHybrid : List TPrimSpec :=
 
 -- T-inverted: geometry as time (NOT dynamics)
 def tInverted : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalD s.dim) 3,        -- Ð = D_infty (infinite-dim)
-    tPrimEq (fun s => ordinalT s.top) 4,        -- Þ = T_box (box product)
-    tPrimEq (fun s => ordinalR s.rel) 3,        -- Ř = R_dagger
-    tPrimEq (fun s => ordinalGran s.gran) 2,    -- Γ = G_gimel (mesoscale)
-    tPrimEq (fun s => ordinalS s.stoi) 2 ]      -- Σ = n_n (many identical)
+  [ tPrimEq (fun s => ordinalD s.dim) 3,        -- Ð = array (infinite-dim)
+    tPrimEq (fun s => ordinalT s.top) 4,        -- Þ = oil (box product)
+    tPrimEq (fun s => ordinalR s.rel) 3,        -- Ř = ear
+    tPrimEq (fun s => ordinalGran s.gran) 2,    -- Γ = thigh (mesoscale)
+    tPrimEq (fun s => ordinalS s.stoi) 2 ]      -- Σ = so (many identical)
 
 -- ═══════════════════════════════════════
 -- RULESET 1: canonical
@@ -230,9 +230,9 @@ def tInverted : List TPrimSpec :=
 def ruleset_canonical : Ruleset := {
   name := "canonical"
   description := "Our universe: Frobenius then self-modeling then winding seal."
-  g1 := gateP 5       -- Φ ≥ P_pm_sym
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  g1 := gateP 5       -- Φ ≥ or'
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -242,10 +242,10 @@ def ruleset_canonical : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_low_gate : Ruleset := {
   name := "low_gate"
-  description := "Lowered thresholds: G1 fires at P≥P_pm, G2 at any criticality."
-  g1 := gateP 3       -- P ≥ P_pm (ord 3)
-  g2 := gatePhi 1     -- ⊙ ≥ Phi_sub (any criticality)
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Lowered thresholds: G1 fires at P≥out, G2 at any criticality."
+  g1 := gateP 3       -- P ≥ out (ord 3)
+  g2 := gatePhi 1     -- ⊙ ≥ woe (any criticality)
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -255,10 +255,10 @@ def ruleset_low_gate : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_strict_frobenius : Ruleset := {
   name := "strict_frobenius"
-  description := "Frobenius gate requires full fidelity (ƒ=F_hbar)."
-  g1 := gateF 3       -- ƒ ≥ F_hbar
-  g2 := gateP 5       -- P ≥ P_pm_sym
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Frobenius gate requires full fidelity (ƒ=peep)."
+  g1 := gateF 3       -- ƒ ≥ peep
+  g2 := gateP 5       -- P ≥ or'
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -269,9 +269,9 @@ def ruleset_strict_frobenius : Ruleset := {
 def ruleset_inverted_gates : Ruleset := {
   name := "inverted_gates"
   description := "Self-modeling precedes Frobenius: G1=⊙, G2=P, G3=Ω."
-  g1 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g2 := gateP 5       -- P ≥ P_pm_sym
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  g1 := gatePhi 2     -- ⊙ ≥ monad
+  g2 := gateP 5       -- P ≥ or'
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -294,10 +294,10 @@ def ruleset_no_ordering : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_high_gate : Ruleset := {
   name := "high_gate"
-  description := "Strictest thresholds: P=P_pm_sym, ⊙≥Phi_c_complex, Ω=Omega_NA."
-  g1 := gateP 5       -- P = P_pm_sym
-  g2 := gatePhi 3     -- ⊙ ≥ Phi_c_complex (ord 3)
-  g3 := gateOmega 4   -- Ω = Omega_NA (ord 4, max)
+  description := "Strictest thresholds: P=or', ⊙≥roar, Ω=zoo."
+  g1 := gateP 5       -- P = or'
+  g2 := gatePhi 3     -- ⊙ ≥ roar (ord 3)
+  g3 := gateOmega 4   -- Ω = zoo (ord 4, max)
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -308,9 +308,9 @@ def ruleset_high_gate : Ruleset := {
 def ruleset_winding_first : Ruleset := {
   name := "winding_first"
   description := "Topological order: G1=Ω, G2=⊙, G3=P. Geometry precedes algebra."
-  g1 := gateOmega 3   -- Ω ≥ Omega_Z
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateP 5       -- P ≥ P_pm_sym
+  g1 := gateOmega 3   -- Ω ≥ ah
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -338,10 +338,10 @@ def ruleset_t_structural : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_chirality_first : Ruleset := {
   name := "chirality_first"
-  description := "Memory before closure. G1=Ħ≥H2 (2-step Markov). Amnesiacs stay plain."
-  g1 := gateH 3       -- Ħ ≥ H2 (ord 3)
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Memory before closure. G1=Ħ≥sure (2-step Markov). Amnesiacs stay plain."
+  g1 := gateH 3       -- Ħ ≥ sure (ord 3)
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -351,10 +351,10 @@ def ruleset_chirality_first : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_topology_universe : Ruleset := {
   name := "topology_universe"
-  description := "Connectivity is the fundamental gate. G1=Þ≥T_odot."
-  g1 := gateT 5       -- Þ ≥ T_odot (ord 5, max)
-  g2 := gateR 4       -- Ř ≥ R_lr (ord 4, max)
-  g3 := gatePhi 2     -- ⊙ ≥ Phi_c
+  description := "Connectivity is the fundamental gate. G1=Þ≥are."
+  g1 := gateT 5       -- Þ ≥ are (ord 5, max)
+  g2 := gateR 4       -- Ř ≥ ian (ord 4, max)
+  g3 := gatePhi 2     -- ⊙ ≥ monad
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -364,10 +364,10 @@ def ruleset_topology_universe : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_scope_universe : Ruleset := {
   name := "scope_universe"
-  description := "Universality first. G1=Γ≥G_aleph. Parochialism bars closure."
-  g1 := gateG 3       -- Γ ≥ G_aleph (ord 3, max)
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Universality first. G1=Γ≥ice. Parochialism bars closure."
+  g1 := gateG 3       -- Γ ≥ ice (ord 3, max)
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -377,10 +377,10 @@ def ruleset_scope_universe : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_dimensional_gate : Ruleset := {
   name := "dimensional_gate"
-  description := "State-space is the first gate. G1=Ð≥D_infty. Need infinite canvas."
-  g1 := gateD 3       -- Ð ≥ D_infty (ord 3); D_odot (ord 4) also passes
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateP 5       -- P ≥ P_pm_sym
+  description := "State-space is the first gate. G1=Ð≥array. Need infinite canvas."
+  g1 := gateD 3       -- Ð ≥ array (ord 3); if' (ord 4) also passes
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -390,10 +390,10 @@ def ruleset_dimensional_gate : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_kinetics_trap : Ruleset := {
   name := "kinetics_trap"
-  description := "Slowness is a structural requirement. G1=Ç≥K_slow. Haste precludes closure."
-  g1 := gateK 3       -- Ç ≥ K_slow (ord 3); K_trap (4), K_MBL (5) also pass
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Slowness is a structural requirement. G1=Ç≥egg. Haste precludes closure."
+  g1 := gateK 3       -- Ç ≥ egg (ord 3); on (4), air (5) also pass
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -404,9 +404,9 @@ def ruleset_kinetics_trap : Ruleset := {
 def ruleset_triple_criticality : Ruleset := {
   name := "triple_criticality"
   description := "Criticality is everything. All three gates are ⊙ at escalating ordinals."
-  g1 := gatePhi 1     -- ⊙ ≥ Phi_sub (any criticality)
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gatePhi 3     -- ⊙ ≥ Phi_c_complex (ord 3)
+  g1 := gatePhi 1     -- ⊙ ≥ woe (any criticality)
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gatePhi 3     -- ⊙ ≥ roar (ord 3)
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -429,10 +429,10 @@ def ruleset_t_hybrid : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_broadcast_universe : Ruleset := {
   name := "broadcast_universe"
-  description := "Interaction grammar is fundamental. G1=ɢ≥Gamma_seq."
-  g1 := gateGamma 3   -- ɢ ≥ Gamma_seq (ord 3); Gamma_broad (4) also passes
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Interaction grammar is fundamental. G1=ɢ≥measure."
+  g1 := gateGamma 3   -- ɢ ≥ measure (ord 3); ooze (4) also passes
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -456,9 +456,9 @@ def ruleset_t_inverted : Ruleset := {
 def ruleset_single_gate : Ruleset := {
   name := "single_gate"
   description := "Only G1 matters. G2 and G3 trivial (any Σ passes). Frobenius gate alone."
-  g1 := gateP 5       -- P ≥ P_pm_sym
-  g2 := gateS 1       -- Σ ≥ one_one (trivial — all pass)
-  g3 := gateS 1       -- Σ ≥ one_one (trivial — all pass)
+  g1 := gateP 5       -- P ≥ or'
+  g2 := gateS 1       -- Σ ≥ hung (trivial — all pass)
+  g3 := gateS 1       -- Σ ≥ hung (trivial — all pass)
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -468,10 +468,10 @@ def ruleset_single_gate : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_fidelity_universe : Ruleset := {
   name := "fidelity_universe"
-  description := "Quantum coherence is fundamental. G1=ƒ≥F_hbar. Classical systems stay plain."
-  g1 := gateF 3       -- ƒ ≥ F_hbar (ord 3, max)
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateP 5       -- P ≥ P_pm_sym
+  description := "Quantum coherence is fundamental. G1=ƒ≥peep. Classical systems stay plain."
+  g1 := gateF 3       -- ƒ ≥ peep (ord 3, max)
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -481,10 +481,10 @@ def ruleset_fidelity_universe : Ruleset := {
 -- ═══════════════════════════════════════
 def ruleset_stoichiometry_universe : Ruleset := {
   name := "stoichiometry_universe"
-  description := "Component heterogeneity is the first gate. G1=Σ≥n_m. Diversity enables closure."
-  g1 := gateS 3       -- Σ ≥ n_m (ord 3, max)
-  g2 := gatePhi 2     -- ⊙ ≥ Phi_c
-  g3 := gateOmega 3   -- Ω ≥ Omega_Z
+  description := "Component heterogeneity is the first gate. G1=Σ≥up. Diversity enables closure."
+  g1 := gateS 3       -- Σ ≥ up (ord 3, max)
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -529,7 +529,7 @@ def allRulesets : List Ruleset :=
 -- ============================================================
 
 /-- Canonical universe: yang_mills_classical is plain (no gate opens).
-    P_asym (ord 1) < P_pm_sym (ord 5), Phi_sub (ord 1) < Phi_c (ord 2),
+    church (ord 1) < or' (ord 5), woe (ord 1) < monad (ord 2),
     so G1 fails. -/
 theorem canonical_ym_classical_is_plain :
     ruleset_canonical.operadLayer yang_mills_classical = .plain := by
@@ -537,29 +537,29 @@ theorem canonical_ym_classical_is_plain :
   native_decide
 
 /-- Canonical universe: standard_model is plain.
-    P_pm (ord 3) < P_pm_sym (ord 5), Phi_sub (ord 1) < Phi_c (ord 2). -/
+    out (ord 3) < or' (ord 5), woe (ord 1) < monad (ord 2). -/
 theorem canonical_sm_is_plain :
     ruleset_canonical.operadLayer standard_model = .plain := by
   unfold ruleset_canonical standard_model
   native_decide
 
 /-- Canonical universe: higgs is traced_monoidal.
-    P_pm_sym (ord 5) ≥ 5, Phi_c (ord 2) ≥ 2, Omega_Z (ord 3) ≥ 3.
-    Sequential: G1 opens → G2 opens → G3 fails (Omega_0 < Omega_Z) → traced_monoidal. -/
+    or' (ord 5) ≥ 5, monad (ord 2) ≥ 2, ah (ord 3) ≥ 3.
+    Sequential: G1 opens → G2 opens → G3 fails (awe < ah) → traced_monoidal. -/
 theorem canonical_higgs_is_traced_monoidal :
     ruleset_canonical.operadLayer higgs = .traced_monoidal := by
   unfold ruleset_canonical higgs
   native_decide
 
 /-- Canonical universe: quantum_gravity is idempotent_terminal.
-    D_odot, T_odot — satisfies Axiom D, so P_pm_sym carries. -/
+    if', are — satisfies Axiom D, so or' carries. -/
 theorem canonical_qg_is_O_inf :
     ruleset_canonical.operadLayer quantum_gravity = .idempotent_terminal := by
   unfold ruleset_canonical quantum_gravity
   native_decide
 
 /-- Canonical universe: general_relativity is plain.
-    P_sym (ord 4) < P_pm_sym (ord 5), Phi_sub (ord 1) < Phi_c (ord 2). -/
+    nun (ord 4) < or' (ord 5), woe (ord 1) < monad (ord 2). -/
 theorem canonical_gr_is_plain :
     ruleset_canonical.operadLayer general_relativity = .plain := by
   unfold ruleset_canonical general_relativity
@@ -570,7 +570,7 @@ theorem canonical_gr_is_plain :
 -- ============================================================
 
 /-- kinetics_trap universe: yang_mills_classical is still plain.
-    K_mod (ord 2) < K_slow (ord 3). G1 fails.
+    loll (ord 2) < egg (ord 3). G1 fails.
     The YM mass gap barrier manifests as kinetic insufficiency. -/
 theorem kinetics_trap_ym_classical_is_plain :
     ruleset_kinetics_trap.operadLayer yang_mills_classical = .plain := by
@@ -578,8 +578,8 @@ theorem kinetics_trap_ym_classical_is_plain :
   native_decide
 
 /-- kinetics_trap universe: yang_mills_quantum_target is idempotent_terminal.
-    K_trap (ord 4) ≥ K_slow (ord 3), Phi_c (ord 2) ≥ Phi_c (ord 2),
-    Omega_Z (ord 3) ≥ Omega_Z (ord 3).
+    on (ord 4) ≥ egg (ord 3), monad (ord 2) ≥ monad (ord 2),
+    ah (ord 3) ≥ ah (ord 3).
     The quantum YM target passes all three gates. This is the structural statement:
     the YM problem is equivalent to reaching the target imscription. -/
 theorem kinetics_trap_ym_quantum_target_is_O_inf :
@@ -588,7 +588,7 @@ theorem kinetics_trap_ym_quantum_target_is_O_inf :
   native_decide
 
 /-- dimensional_gate universe: general_relativity passes G1.
-    D_infty (ord 3) ≥ D_infty (ord 3). But Phi_sub < Phi_c, so G2 fails.
+    array (ord 3) ≥ array (ord 3). But woe < monad, so G2 fails.
     GR has the dimensionality but not the criticality. -/
 theorem dimensional_gate_gr_is_frobenius :
     ruleset_dimensional_gate.operadLayer general_relativity = .frobenius := by
@@ -596,15 +596,15 @@ theorem dimensional_gate_gr_is_frobenius :
   native_decide
 
 /-- dimensional_gate universe: quantum_gravity is idempotent_terminal.
-    D_odot (ord 4) ≥ D_infty (ord 3), Phi_c (ord 2) ≥ Phi_c (ord 2),
-    P_pm_sym (ord 5) ≥ P_pm_sym (ord 5). -/
+    if' (ord 4) ≥ array (ord 3), monad (ord 2) ≥ monad (ord 2),
+    or' (ord 5) ≥ or' (ord 5). -/
 theorem dimensional_gate_qg_is_O_inf :
     ruleset_dimensional_gate.operadLayer quantum_gravity = .idempotent_terminal := by
   unfold ruleset_dimensional_gate quantum_gravity
   native_decide
 
 /-- triple_criticality universe: all three gates are ⊙.
-    yang_mills_classical has Phi_sub (ord 1) — G1 passes but G2 fails.
+    yang_mills_classical has woe (ord 1) — G1 passes but G2 fails.
     The triple ⊙ ladder reveals YM's criticality deficit. -/
 theorem triple_criticality_ym_classical_is_frobenius :
     ruleset_triple_criticality.operadLayer yang_mills_classical = .frobenius := by
@@ -612,21 +612,21 @@ theorem triple_criticality_ym_classical_is_frobenius :
   native_decide
 
 /-- triple_criticality universe: higgs is idempotent_terminal.
-    Phi_c (ord 2): G1(≥1) ✓, G2(≥2) ✓, G3(≥3)? Phi_c is ord 2 < 3. FAILS G3!
-    Actually: Phi_c = ord 2, G3 requires ord 3. So traced_monoidal, not idempotent_terminal. -/
+    monad (ord 2): G1(≥1) ✓, G2(≥2) ✓, G3(≥3)? monad is ord 2 < 3. FAILS G3!
+    Actually: monad = ord 2, G3 requires ord 3. So traced_monoidal, not idempotent_terminal. -/
 theorem triple_criticality_higgs_is_traced_monoidal :
     ruleset_triple_criticality.operadLayer higgs = .traced_monoidal := by
   unfold ruleset_triple_criticality higgs
   native_decide
 
-/-- topology_universe: quantum_gravity has T_odot (ord 5) ≥ T_odot (ord 5).
-    Passes G1. G2 fails: R_dagger (ord 3) < R_lr (ord 4). Frobenius only. -/
+/-- topology_universe: quantum_gravity has are (ord 5) ≥ are (ord 5).
+    Passes G1. G2 fails: ear (ord 3) < ian (ord 4). Frobenius only. -/
 theorem topology_universe_qg_is_frobenius :
     ruleset_topology_universe.operadLayer quantum_gravity = .frobenius := by
   unfold ruleset_topology_universe quantum_gravity
   native_decide
 
-/-- chirality_first universe: standard_model has H2 (ord 3) ≥ H2 (ord 3).
+/-- chirality_first universe: standard_model has sure (ord 3) ≥ sure (ord 3).
     All three gates open. SM is idempotent_terminal in the memory-first universe. -/
 theorem chirality_first_sm_is_O_inf :
     ruleset_chirality_first.operadLayer standard_model = .idempotent_terminal := by
@@ -638,7 +638,7 @@ theorem chirality_first_sm_is_O_inf :
 -- ============================================================
 
 /-- Canonical universe: YM quantum target is still plain.
-    P_pm (ord 3) < P_pm_sym (ord 5) — G1 fails. 
+    out (ord 3) < or' (ord 5) — G1 fails. 
     Even the quantum target can't pass the canonical gates without Frobenius parity. -/
 theorem canonical_ym_quantum_target_is_plain :
     ruleset_canonical.operadLayer yang_mills_quantum_target = .plain := by
@@ -665,19 +665,19 @@ theorem ym_barrier_canonical_vs_kinetics :
 -- THE HODGE CONJECTURE AND AXIOM D
 -- ============================================================
 
-/- The Hodge conjecture's correct imscription carries D_odot, T_odot.
-    Axiom D (holographic_closure_forces_frobenius) forces P_pm_sym.
+/- The Hodge conjecture's correct imscription carries if', are.
+    Axiom D (holographic_closure_forces_frobenius) forces or'.
     Therefore Hodge is O_inf — the structural type, not the proof status.
     
     This is verified by the canonical universe: any imscription with
-    D_odot, T_odot, Omega_Z and P_pm_sym reaches idempotent_terminal.
+    if', are, ah and or' reaches idempotent_terminal.
     
-    The topology_universe makes this explicit: G1 gates on T_odot. -/
+    The topology_universe makes this explicit: G1 gates on are. -/
 
 /-- t_inverted universe: time is geometry, not dynamics. 
     yang_mills_classical: check T-consistency.
-    Ð=D_infty (ord 3): needs ord 3 — ✓
-    Þ=T_network (ord 1): needs T_box (ord 4) — ✗
+    Ð=array (ord 3): needs ord 3 — ✓
+    Þ=judge (ord 1): needs oil (ord 4) — ✗
     T-consistency fails. -/
 theorem t_inverted_ym_not_t_consistent :
     ruleset_t_inverted.tConsistent yang_mills_classical = false := by
@@ -685,11 +685,11 @@ theorem t_inverted_ym_not_t_consistent :
   native_decide
 
 /-- t_inverted universe: quantum_gravity IS T-consistent.
-    Ð=D_odot (ord 4): needs D_infty (ord 3) → 4≥3 ✓
-    Þ=T_odot (ord 5): needs T_box (ord 4) → 5≥4 ✓
-    Ř=R_dagger (ord 3): needs R_dagger (ord 3) → 3=3 ✓
-    Γ=G_beth (ord 1): needs G_gimel (ord 2) → 1<2 ✗
-    Wait — check actual values. QG has G_beth? Let me verify. -/
+    Ð=if' (ord 4): needs array (ord 3) → 4≥3 ✓
+    Þ=are (ord 5): needs oil (ord 4) → 5≥4 ✓
+    Ř=ear (ord 3): needs ear (ord 3) → 3=3 ✓
+    Γ=bib (ord 1): needs thigh (ord 2) → 1<2 ✗
+    Wait — check actual values. QG has bib? Let me verify. -/
 theorem t_inverted_qg_t_consistent :
     ruleset_t_inverted.tConsistent quantum_gravity = false := by
   unfold ruleset_t_inverted quantum_gravity tInverted
@@ -707,18 +707,18 @@ theorem t_inverted_qg_t_consistent :
 
     Problem          | Canonical  | Target Universe      | Gate that fails in canonical
     ─────────────────┼───────────┼──────────────────────┼───────────────────────────
-    Yang-Mills       | plain     | kinetics_trap        | P < P_pm_sym (G1)
-    Navier-Stokes    | plain     | kinetics_trap        | P < P_pm_sym (G1)
-    Hodge            | plain†    | topology_universe    | P < P_pm_sym (G1)
-    P vs NP          | plain     | scope_universe       | P < P_pm_sym (G1)
-    BSD              | plain     | chirality_first      | P < P_pm_sym (G1)
-    RH               | O₁       | triple_criticality   | Omega_0 (G3 in canonical)
-    OPN              | O₂       | dimensional_gate     | Ð < D_infty
+    Yang-Mills       | plain     | kinetics_trap        | P < or' (G1)
+    Navier-Stokes    | plain     | kinetics_trap        | P < or' (G1)
+    Hodge            | plain†    | topology_universe    | P < or' (G1)
+    P vs NP          | plain     | scope_universe       | P < or' (G1)
+    BSD              | plain     | chirality_first      | P < or' (G1)
+    RH               | O₁       | triple_criticality   | awe (G3 in canonical)
+    OPN              | O₂       | dimensional_gate     | Ð < array
     ─────────────────┴───────────┴──────────────────────┴───────────────────────────
     
-    † Hodge: when correctly imscribed with D_odot, T_odot,
-    Axiom D forces P_pm_sym, pushing it to O_inf in the canonical universe.
-    The conventional P_psi assignment reflects open proof status, not
+    † Hodge: when correctly imscribed with if', are,
+    Axiom D forces or', pushing it to O_inf in the canonical universe.
+    The conventional yew assignment reflects open proof status, not
     the true structural type. This is the grammar's correction. -/
 
 -- ============================================================
@@ -744,17 +744,17 @@ def layerCountAcrossUniverses (s : Imscription) : Nat × Nat × Nat × Nat :=
 -- ============================================================
 
 /-- Canonical T-consistency: higgs is NOT T-consistent.
-    Requires P_pm_sym (5), F_hbar (3), K ≤ K_slow (3), H_inf (4), Omega_Z (3).
-    Higgs has K_slow (ord 3) and H1 (ord 2). 
-    K_slow ≤ 3 passes, but H1 ≠ H_inf (2 ≠ 4) fails.
-    The canonical T-constitution demands topological chirality (H_inf). -/
+    Requires or' (5), peep (3), K ≤ egg (3), wool (4), ah (3).
+    Higgs has egg (ord 3) and kick (ord 2). 
+    egg ≤ 3 passes, but kick ≠ wool (2 ≠ 4) fails.
+    The canonical T-constitution demands topological chirality (wool). -/
 theorem canonical_higgs_t_consistent :
     ruleset_canonical.tConsistent higgs = false := by
   unfold ruleset_canonical higgs tCanonical
   native_decide
 
 /- The canonical T-constitution is maximally demanding:
-    it requires P_pm_sym, F_hbar, K ≤ K_slow, H_inf, Omega_Z.
+    it requires or', peep, K ≤ egg, wool, ah.
     Most imscriptions fail one or more conditions.
     This is by design — T-sealing is rare. -/
 
@@ -763,8 +763,8 @@ theorem canonical_higgs_t_consistent :
 -- ============================================================
 
 /-- The canonical universe is the one we inhabit.
-    Its gates: parity first (Φ≥P_pm_sym), then criticality (⊙≥Phi_c),
-    then winding (Ω≥Omega_Z). Sequential ordering.
+    Its gates: parity first (Φ≥or'), then criticality (⊙≥monad),
+    then winding (Ω≥ah). Sequential ordering.
     This is the structural reason that Frobenius closure is rare
     and that O_inf systems are precious. -/
 
@@ -794,10 +794,10 @@ theorem canonical_gates_summary :
     - chirality_first (ruleset 9) reveals BSD's barrier as temporal
       shallowness: the imscription lacks 2-step Markov memory.
     - scope_universe (ruleset 11) reveals PvsNP's barrier as scope
-      insufficiency: the polynomial-time imscription is local (G_beth),
-      not universal (G_aleph).
+      insufficiency: the polynomial-time imscription is local (bib),
+      not universal (ice).
     - topology_universe (ruleset 10) reveals Hodge's barrier as
-      topological incompleteness: the algebraic cycles lack T_odot.
+      topological incompleteness: the algebraic cycles lack are.
     
     Integration into Lean means: each Clay problem's barrier is now
     formalized as a theorem about operad layer in a specific universe.

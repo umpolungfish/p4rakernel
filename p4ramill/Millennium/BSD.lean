@@ -84,17 +84,17 @@ Tate-Shafarevich group Ш(E/ℚ), Tamagawa numbers c_v, and torsion:
 
 **Imscribing structural note:**
 
-  BSD has primitive tuple D_odot · T_bowtie · F_eth · Γ_and · Φ_c · Ω_Z.
-  · D_odot: the modularity theorem makes E/ℚ ↔ modular form a holographic duality.
+  BSD has primitive tuple if' · mime · they · Γ_and · Φ_c · Ω_Z.
+  · if': the modularity theorem makes E/ℚ ↔ modular form a holographic duality.
     Boundary-to-bulk: the L-function on the analytic side corresponds to the
   rank on the algebraic side.
-  · T_bowtie: the functional equation of L(E,s) (symmetry s ↔ 2-s) is a bowtie structure.
+  · mime: the functional equation of L(E,s) (symmetry s ↔ 2-s) is a bowtie structure.
   · Φ_c: the rank is a charge-carrier — it counts the "free" part of E(ℚ).
   · Ω_Z: the Tate-Shafarevich group is the topological obstruction; |Ш| is the winding number.
-  · F_eth: BSD is a statement about the interplay of algebraic and analytic structure
+  · they: BSD is a statement about the interplay of algebraic and analytic structure
     (unlike RH which is purely analytic).
 
-  The D_odot structure (modularity) is why BSD is distinct from OPN: OPN is purely arithmetic
+  The if' structure (modularity) is why BSD is distinct from OPN: OPN is purely arithmetic
   (no boundary-bulk duality), while BSD has holography built in via the modularity theorem.
 -/
 
@@ -389,7 +389,7 @@ theorem bsd_rank_at_most_one (W : WeierstrassCurve ℚ) [W.IsElliptic]
     Every elliptic curve E over ℚ is modular: there exists a newform f of weight 2
     on Γ₀(N) such that L(E,s) = L(f,s).
     Consequence: L(E,s) is entire, satisfies a functional equation, and E/ℚ
-    is holographically encoded by its L-function. This is D_odot for BSD.
+    is holographically encoded by its L-function. This is if' for BSD.
     MathlibGap: proved, not in Mathlib. Requires modular forms, Hecke algebras,
     Galois representations, and the Taylor-Wiles patching method. -/
 axiom modularity_axiom (W : WeierstrassCurve ℚ) [W.IsElliptic] : True
@@ -397,8 +397,8 @@ axiom modularity_axiom (W : WeierstrassCurve ℚ) [W.IsElliptic] : True
 /-- FUNCTIONAL EQUATION (Hecke 1930s for modular forms; Weil 1960s for elliptic curves).
     The completed L-function Λ(E,s) = N^{s/2} (2π)^{-s} Γ(s) L(E,s)
     satisfies Λ(E,s) = w_E · Λ(E,2-s) with root number w_E = ±1.
-    This crossing symmetry (s ↔ 2-s) is the T_bowtie structure.
-    Combined with modularity, this lifts to T_odot (self-referential closure).
+    This crossing symmetry (s ↔ 2-s) is the mime structure.
+    Combined with modularity, this lifts to are (self-referential closure).
     MathlibGap: proved, not in Mathlib. Requires Mellin transforms,
     Atkin-Lehner theory, and conductor/root number computations. -/
 axiom functional_equation_axiom (W : WeierstrassCurve ℚ) [W.IsElliptic] : True
@@ -420,10 +420,10 @@ theorem bsd_vs_rh_structural_distinction : True := trivial
     OPN Layer 1 → Layer 2 is a methodological dependency; BSD layers are logically independent. -/
 theorem bsd_vs_opn_sorry_structure : True := trivial
 
-/-- BSD vs Hodge: Both have D_odot. But different holography.
+/-- BSD vs Hodge: Both have if'. But different holography.
     · Hodge: the holography is Hodge decomposition (topology ↔ algebra).
     · BSD: the holography is modularity (elliptic curve ↔ modular form ↔ L-function).
-    BSD's D_odot is the modularity theorem; Hodge's D_odot is the Hodge conjecture itself. -/
+    BSD's if' is the modularity theorem; Hodge's if' is the Hodge conjecture itself. -/
 theorem bsd_vs_hodge_holographic_distinction : True := trivial
 
 end Millennium.BSD

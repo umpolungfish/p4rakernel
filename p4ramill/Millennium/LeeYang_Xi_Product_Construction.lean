@@ -6,23 +6,23 @@
     (1) de Branges' Hilbert space of entire functions
     (2) Connes' noncommutative geometry (adele class space)
     (3) A new ℤ₂-graded product construction guided by the
-        Imscribing Grammar polarity promotion P_sym → P_pm_sym
+        Imscribing Grammar polarity promotion nun → or'
 
   The C₁₃ gap (FrobeniusStructure.lean):
-    Lee-Yang: FrobeniusType.special (O_inf, P_pm_sym)
-    RH:       FrobeniusType.full    (O₂,  P_sym)
+    Lee-Yang: FrobeniusType.special (O_inf, or')
+    RH:       FrobeniusType.full    (O₂,  nun)
     Gap = 1 Frobenius tier = 1 Polarity primitive
 
   The C₁₃ constraint map (RH_LeeYang_Bridge.lean):
-    C₁₃(Φ_c^ℂ, P_pm_sym) = |z|=1   (Lee-Yang, proved)
-    C₁₃(Φ_c^ℂ, P_sym)    ⊆ Re(s)=1/2  (RH, open)
+    C₁₃(Φ_c^ℂ, or') = |z|=1   (Lee-Yang, proved)
+    C₁₃(Φ_c^ℂ, nun)    ⊆ Re(s)=1/2  (RH, open)
 
   The ZFCt bridge (RH_ZFCt_Bridge.lean):
     theta_combined(s) = 1 - conj(s) is the PM_Z2 involution
     zeta_zeros_frobenius_fixed: all nontrivial zeros are PM_Z2 fixed points
 
   This module constructs the ℤ₂-graded product that promotes
-  P_sym → P_pm_sym, closing the C₁₃ gap.
+  nun → or', closing the C₁₃ gap.
 -/
 
 import Mathlib
@@ -48,7 +48,7 @@ namespace Millennium.LeeYang_Xi_Product
   The Imscribing Grammar distance computation:
     d(riemann_xi_function, lee_yang_theorem) = 2.6077
 
-  Critical promotion: Polarity P_sym → P_pm_sym.
+  Critical promotion: Polarity nun → or'.
   This is the one-primitive Frobenius tier gap.
 -/
 
@@ -70,7 +70,7 @@ theorem gap_is_one_frobenius_tier :
   linear factor (z - z_j) of the product representation, forcing each
   zero z_j to satisfy |z_j| = 1.
 
-  In the grammar: this is P_pm_sym (Frobenius special) polarity.
+  In the grammar: this is or' (Frobenius special) polarity.
 -/
 
 /-!
@@ -101,7 +101,7 @@ theorem factor_z2_invariant (t γ : ℝ) :
   # §4. The ℤ₂-Graded Product Construction
 
   The grading operator Γ provides the Frobenius product structure
-  μ ∘ δ = id, promoting P_sym → P_pm_sym.
+  μ ∘ δ = id, promoting nun → or'.
 -/
 
 /-- The ℤ₂ grading operator: acts as +1 on the even subspace, -1 on odd. -/
@@ -134,16 +134,16 @@ theorem theta_fixed_iff_critical_line (s : ℂ) :
   # §5. Polarity Promotion Theorem
 
   The ℤ₂ grading Γ provides the coercive Z₂ product structure
-  that promotes P_sym → P_pm_sym. This is the exact structural
+  that promotes nun → or'. This is the exact structural
   analogue of the Lee-Yang factorwise Z₂ invariance:
 
     Lee-Yang:  partition function Z(z) = ∏ (z - z_j)
                each factor satisfies z_j → 1/z̄_j → |z_j| = 1
-               Polarity: P_pm_sym (Z₂ product structure)
+               Polarity: or' (Z₂ product structure)
 
     RH:        ξ(1/2 + it) = ∏ (1 - t²/γ_n²)
                each factor satisfies γ_n → -γ_n (real)
-               Polarity: P_sym → P_pm_sym (via Γ grading)
+               Polarity: nun → or' (via Γ grading)
 
   The PROMOTION is achieved by recognizing theta_combined(s) = 1 - conj(s)
   as the grading operator on a ℤ₂-graded Hilbert space, making the
@@ -181,7 +181,7 @@ theorem polarity_promotion_closes_c13_gap :
         each Hadamard product factor (1 - t²/γ_n²), exactly as the
         Lee-Yang partition function factors through |z - z_j|.
 
-    The single primitive promotion P_sym → P_pm_sym closes the
+    The single primitive promotion nun → or' closes the
     C₁₃ gap — one Frobenius tier between proved and conjectured.
 -/
 

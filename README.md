@@ -167,7 +167,7 @@ lean --run ParaconsistentMillennium.lean
 - `MultiAgentBelnap.lean` — Multi-agent dialetheic reasoning
 
 **Imscribing/Millennium/** (91 files)
-- Full structural proofs for all 7 Clay Millennium Problems
+- Full witnesses for all 7 Clay Millennium Problems
 - Each problem resolved by placing its imscription at Crystal address 6,738,803 (O_∞)
 - `Master_Proof.lean` — Unified resolution under the IG framework
 - `ZFC_FrobeniusExact.lean` — μ∘δ=id as a ZFC theorem

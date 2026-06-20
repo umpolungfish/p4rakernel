@@ -34,18 +34,18 @@ theorem multi_allB_init {n : ℕ} : allB (initMulti (n := n)) := by
   intro i; rfl
 
 def multiAgentImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem multi_agent_is_O_inf : imscriptionTier multiAgentImscription = .O_inf := by

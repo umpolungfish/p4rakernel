@@ -15,88 +15,88 @@ namespace Millennium.WorldReligions
 -- These mirror Imscribing.Primitives but are self-contained for this module.
 
 inductive Dim where
-  | wedge    -- D_wedge: 0D local point
-  | triangle -- D_triangle: 2D triangulated
-  | infty    -- D_infty: infinite-dimensional
-  | odot     -- D_odot: holographic/self-writing
+  | wedge    -- dead: 0D local point
+  | triangle -- ash: 2D triangulated
+  | infty    -- array: infinite-dimensional
+  | odot     -- if': holographic/self-writing
   deriving DecidableEq, Repr
 
 inductive Topo where
   | network  -- T_net: general graph
-  | in_      -- T_in: nested inclusion
-  | bowtie   -- T_bowtie: two-cycle closure
-  | boxtimes -- T_box: box/lattice product
-  | odot     -- T_odot: self-referential holographic closure
+  | in_      -- eat: nested inclusion
+  | bowtie   -- mime: two-cycle closure
+  | boxtimes -- oil: box/lattice product
+  | odot     -- are: self-referential holographic closure
   deriving DecidableEq, Repr
 
 inductive Rel where
   | super   -- R_sup: supervenience (one-way dependence)
-  | cat     -- R_cat: categorical (functorial)
-  | dagger  -- R_dagger: adjoint pair (one-way bidirectional)
-  | lr      -- R_lr: bidirectional feedback / lateral
+  | cat     -- tot: categorical (functorial)
+  | dagger  -- ear: adjoint pair (one-way bidirectional)
+  | lr      -- ian: bidirectional feedback / lateral
   deriving DecidableEq, Repr
 
 inductive Polarity where
-  | asym    -- P_asym: no symmetry
-  | psi     -- P_psi: quantum superposition
-  | pm      -- P_pm: Z2 discrete symmetry
-  | sym     -- P_sym: full continuous symmetry
-  | pm_sym  -- P_pm_sym: Frobenius special (mu o delta = id)
+  | asym    -- church: no symmetry
+  | psi     -- yew: quantum superposition
+  | pm      -- out: Z2 discrete symmetry
+  | sym     -- nun: full continuous symmetry
+  | pm_sym  -- or': Frobenius special (mu o delta = id)
   deriving DecidableEq, Repr
 
 inductive Fid where
-  | ell     -- F_ell: classical lossy
-  | eth     -- F_eth: thermal / HotSwap threshold
-  | hbar    -- F_hbar: quantum / lossless
+  | ell     -- age: classical lossy
+  | eth     -- they: thermal / HotSwap threshold
+  | hbar    -- peep: quantum / lossless
   deriving DecidableEq, Repr
 
 inductive Kin where
-  | fast    -- K_fast: driven / diffusion-limited
-  | mod     -- K_mod: moderate threshold
-  | slow    -- K_slow: near-equilibrium (Gate 2)
-  | trap    -- K_trap: frozen by order
-  | MBL     -- K_MBL: many-body localized
+  | fast    -- yea: driven / diffusion-limited
+  | mod     -- loll: moderate threshold
+  | slow    -- egg: near-equilibrium (Gate 2)
+  | trap    -- on: frozen by order
+  | MBL     -- air: many-body localized
   deriving DecidableEq, Repr
 
 inductive Scope where
-  | beth    -- G_beth: local/mesoscale
-  | gimel   -- G_gimel: intermediate collective
-  | aleph   -- G_aleph: global/fine-grained
+  | beth    -- bib: local/mesoscale
+  | gimel   -- thigh: intermediate collective
+  | aleph   -- ice: global/fine-grained
   deriving DecidableEq, Repr
 
 inductive IxGrammar where
-  | and_    -- Gamma_and: conjunctive simultaneous
-  | or_     -- Gamma_or: disjunctive alternative
-  | seq     -- Gamma_seq: sequential ordered
-  | broad   -- Gamma_broad: broadcast universal
+  | and_    -- vow: conjunctive simultaneous
+  | or_     -- gag: disjunctive alternative
+  | seq     -- measure: sequential ordered
+  | broad   -- ooze: broadcast universal
   deriving DecidableEq, Repr
 
 inductive Crit where
-  | sub      -- Phi_sub: subcritical
-  | c        -- Phi_c: real-axis critical
-  | c_complex -- Phi_c_complex: complex-plane critical
-  | EP       -- Phi_EP: exceptional point
-  | super    -- Phi_super: supercritical
+  | sub      -- woe: subcritical
+  | c        -- monad: real-axis critical
+  | c_complex -- roar: complex-plane critical
+  | EP       -- err: exceptional point
+  | super    -- haha: supercritical
   deriving DecidableEq, Repr
 
 inductive Temp where
-  | H0      -- H_0: memoryless
-  | H1      -- H_1: one-step memory
-  | H2      -- H_2: two-step memory
-  | Hinf    -- H_inf: eternal chirality
+  | fee      -- H_0: memoryless
+  | kick      -- H_1: one-step memory
+  | sure      -- H_2: two-step memory
+  | Hinf    -- wool: eternal chirality
   deriving DecidableEq, Repr
 
 inductive Stoich where
-  | one_one -- 1:1
-  | n_n     -- n:n matched
-  | n_m     -- n:m heterogeneous
+  | hung -- 1:1
+  | so     -- n:n matched
+  | up     -- n:m heterogeneous
   deriving DecidableEq, Repr
 
 inductive Wind where
-  | zero    -- Omega_0: trivial
-  | Z2      -- Omega_Z2: binary Z2 protection
-  | Z       -- Omega_Z: integer winding
-  | NA      -- Omega_NA: non-Abelian
+  | zero    -- awe: trivial
+  | Z2      -- oak: binary Z2 protection
+  | Z       -- ah: integer winding
+  | NA      -- zoo: non-Abelian
   deriving DecidableEq, Repr
 
 -- ============================================================================
@@ -148,10 +148,10 @@ def critVal : Crit → ℕ
   | .sub => 0 | .c => 1 | .c_complex => 2 | .EP => 3 | .super => 4
 
 def tempVal : Temp → ℕ
-  | .H0 => 0 | .H1 => 1 | .H2 => 2 | .Hinf => 3
+  | .fee => 0 | .kick => 1 | .sure => 2 | .Hinf => 3
 
 def stoichVal : Stoich → ℕ
-  | .one_one => 0 | .n_n => 1 | .n_m => 2
+  | .hung => 0 | .so => 1 | .up => 2
 
 def windVal : Wind → ℕ
   | .zero => 0 | .Z2 => 1 | .Z => 2 | .NA => 3
@@ -193,112 +193,112 @@ noncomputable def relDist (a b : RelTuple) : ℝ :=
 -- ============================================================================
 
 /-- The Tao (the principle itself, distinct from the tradition).
-    Tuple: <D_odot; T_odot; R_dagger; P_sym; F_hbar; K_slow; G_aleph;
-            Gamma_broad; Phi_c; H_inf; n:n; Omega_Z>
+    Tuple: <if'; are; ear; nun; peep; egg; ice;
+            ooze; monad; wool; n:n; ah>
     Tier: O₂, C = 0.828 -/
 def Tao : RelTuple where
   D := .odot; T := .odot; R := .dagger; P := .sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
-  H := .Hinf; S := .n_n; Omega := .Z
+  H := .Hinf; S := .so; Omega := .Z
 
 /-- Taoism (the tradition).
-    Tuple: <D_odot; T_boxtimes; R_lr; P_pm; F_ell; K_slow; G_aleph;
-            Gamma_seq; Phi_sub; H_inf; n:m; Omega_Z>
-    Tier: O₀, C = 0.0 (Gate 1 closed: Phi_sub)
+    Tuple: <if'; T_boxtimes; ian; out; age; egg; ice;
+            measure; woe; wool; n:m; ah>
+    Tier: O₀, C = 0.0 (Gate 1 closed: woe)
     Distance from Tao: d = 3.1623 (7 primitives differ) -/
 def Taoism : RelTuple where
   D := .odot; T := .boxtimes; R := .lr; P := .pm; F := .ell
   K := .slow; G := .aleph; Gamma := .seq; Phi := .sub
-  H := .Hinf; S := .n_m; Omega := .Z
+  H := .Hinf; S := .up; Omega := .Z
 
 /-- Buddhism.
-    Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
-            Gamma_broad; Phi_c; H_inf; n:n; Omega_Z2>
+    Tuple: <if'; are; ian; or'; peep; egg; ice;
+            ooze; monad; wool; n:n; oak>
     Tier: O_inf, C = 0.736 (Frobenius-special emptiness) -/
 def Buddhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
-  H := .Hinf; S := .n_n; Omega := .Z2
+  H := .Hinf; S := .so; Omega := .Z2
 
 /-- Christianity.
-    Tuple: <D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph;
-            Gamma_seq; Phi_c; H_inf; n:m; Omega_Z2>
+    Tuple: <if'; are; ian; or'; peep; egg; ice;
+            measure; monad; wool; n:m; oak>
     Tier: O_inf, C = 0.736 (Frobenius-special perichoresis) -/
 def Christianity : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
-  H := .Hinf; S := .n_m; Omega := .Z2
+  H := .Hinf; S := .up; Omega := .Z2
 
 /-- Islam.
-    Tuple: <D_odot; T_odot; R_super; P_sym; F_ell; K_slow; G_aleph;
-            Gamma_seq; Phi_c; H_inf; n:m; Omega_Z2>
+    Tuple: <if'; are; ado; nun; age; egg; ice;
+            measure; monad; wool; n:m; oak>
     Tier: O₂, C = 0.736 (Tawhid with supervenience) -/
 def Islam : RelTuple where
   D := .odot; T := .odot; R := .super; P := .sym; F := .ell
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
-  H := .Hinf; S := .n_m; Omega := .Z2
+  H := .Hinf; S := .up; Omega := .Z2
 
 /-- Sikhism.
-    Tuple: <D_odot; T_odot; R_lr; P_sym; F_ell; K_slow; G_aleph;
-            Gamma_seq; Phi_c_complex; H_inf; n:m; Omega_Z>
+    Tuple: <if'; are; ian; nun; age; egg; ice;
+            measure; roar; wool; n:m; ah>
     Tier: O₂, C = 0.828 (complex-plane criticality) -/
 def Sikhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .sym; F := .ell
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
-  H := .Hinf; S := .n_m; Omega := .Z
+  H := .Hinf; S := .up; Omega := .Z
 
 /-- Paganism.
-    Tuple: <D_odot; T_net; R_lr; P_sym; F_eth; K_mod; G_gimel;
-            Gamma_or; Phi_c; H_inf; n:m; Omega_Z>
+    Tuple: <if'; T_net; ian; nun; they; loll; thigh;
+            gag; monad; wool; n:m; ah>
     Tier: O₂, C = 0.36 (branching polytheistic topology) -/
 def Paganism : RelTuple where
   D := .odot; T := .network; R := .lr; P := .sym; F := .eth
   K := .mod; G := .gimel; Gamma := .or_; Phi := .c
-  H := .Hinf; S := .n_m; Omega := .Z
+  H := .Hinf; S := .up; Omega := .Z
 
 /-- Satanism.
-    Tuple: <D_triangle; T_infty (mapped to T_bowtie for 5-val Topo); R_lr;
-            P_asym; F_ell; K_fast; G_beth; Gamma_or; Phi_c; H1; n:m; Omega_0>
+    Tuple: <ash; T_infty (mapped to mime for 5-val Topo); ian;
+            church; age; yea; bib; gag; monad; kick; n:m; awe>
     Tier: O₁, C = 0.2825 (individualist revolt) -/
 def Satanism : RelTuple where
   D := .triangle; T := .bowtie; R := .lr; P := .asym; F := .ell
   K := .fast; G := .beth; Gamma := .or_; Phi := .c
-  H := .H1; S := .n_m; Omega := .zero/-- Sufi fana-baqa (annihilation-in-God / subsistence-through-God).
-    Tuple: <D_odot; T_odot; R_dagger; P_pm_sym; F_hbar; K_slow; G_aleph;
-            Gamma_broad; Phi_c; H_inf; n:n; Omega_Z2>
-    Near-identity with Buddhism: d = 1.0, differing only on R (R_dagger vs R_lr). -/
+  H := .kick; S := .up; Omega := .zero/-- Sufi fana-baqa (annihilation-in-God / subsistence-through-God).
+    Tuple: <if'; are; ear; or'; peep; egg; ice;
+            ooze; monad; wool; n:n; oak>
+    Near-identity with Buddhism: d = 1.0, differing only on R (ear vs ian). -/
 def Sufi_fana_baqa : RelTuple where
   D := .odot; T := .odot; R := .dagger; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .broad; Phi := .c
-  H := .Hinf; S := .n_n; Omega := .Z2
+  H := .Hinf; S := .so; Omega := .Z2
 
 /-- Gnostic Christianity.
-    Tuple: <D_odot; T_in; R_dagger; P_asym; F_hbar; K_slow; G_aleph;
-            Gamma_or; Phi_c; H_inf; n:m; Omega_0>
+    Tuple: <if'; eat; ear; church; peep; egg; ice;
+            gag; monad; wool; n:m; awe>
     Distance from mainstream Christianity: d = 4.4385.
     Closer to Merkavah than to orthodox Christianity. -/
 def Gnostic_Christianity : RelTuple where
   D := .odot; T := .in_; R := .dagger; P := .asym; F := .hbar
   K := .slow; G := .aleph; Gamma := .or_; Phi := .c
-  H := .Hinf; S := .n_m; Omega := .zero
+  H := .Hinf; S := .up; Omega := .zero
 
 /-- Contemporary (institutional) Christianity.
-    Tuple: <D_triangle; T_network; R_cat; P_pm; F_ell; K_mod; G_aleph;
-            Gamma_broad; Phi_sub; H1; n:m; Omega_0>
+    Tuple: <ash; judge; tot; out; age; loll; ice;
+            ooze; woe; kick; n:m; awe>
     Distance from mainstream Christianity: d = 5.9917 (10 of 12 primitives differ). -/
 def Contemporary_Christianity : RelTuple where
   D := .triangle; T := .network; R := .cat; P := .pm; F := .ell
   K := .mod; G := .aleph; Gamma := .broad; Phi := .sub
-  H := .H1; S := .n_m; Omega := .zero
+  H := .kick; S := .up; Omega := .zero
 
 /-- I AM THAT I AM (the divine self-declaration).
-    Tuple: <D_odot; T_odot; R_lr; P_sym; F_hbar; K_slow; G_aleph;
-            Gamma_seq; Phi_c; H_inf; one_one; Omega_Z>
+    Tuple: <if'; are; ian; nun; peep; egg; ice;
+            measure; monad; wool; hung; ah>
     Distance from Christianity: d = 2.1679. -/
 def I_AM_that_I_AM : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
-  H := .Hinf; S := .one_one; Omega := .Z
+  H := .Hinf; S := .hung; Omega := .Z
 
 -- ============================================================================
 -- §3. ALGEBRAIC OPERATIONS: TENSOR, MEET, JOIN
@@ -306,7 +306,7 @@ def I_AM_that_I_AM : RelTuple where
 
 /-- Tensor product: max on union primitives (D, T, R, G, Gamma, H, S, Omega),
     min on P and F bottlenecks.
-    EP absorption: tensor(Phi_c, Phi_EP) = Phi_EP. -/
+    EP absorption: tensor(monad, err) = err. -/
 def relTensor (a b : RelTuple) : RelTuple where
   D := if dimVal a.D ≥ dimVal b.D then a.D else b.D
   T := if topVal a.T ≥ topVal b.T then a.T else b.T
@@ -328,7 +328,7 @@ def relTensor (a b : RelTuple) : RelTuple where
   Omega := if windVal a.Omega ≥ windVal b.Omega then a.Omega else b.Omega
 
 /-- Meet: minimum on all primitives.
-    Phi_c absorption: meet(Phi_c, x) = Phi_c for all x (non-standard). -/
+    monad absorption: meet(monad, x) = monad for all x (non-standard). -/
 def relMeet (a b : RelTuple) : RelTuple where
   D := if dimVal a.D ≤ dimVal b.D then a.D else b.D
   T := if topVal a.T ≤ topVal b.T then a.T else b.T
@@ -364,7 +364,7 @@ def relJoin (a b : RelTuple) : RelTuple where
   S := if stoichVal a.S ≥ stoichVal b.S then a.S else b.S
   Omega := if windVal a.Omega ≥ windVal b.Omega then a.Omega else b.Omega
 
--- EP Absorption Theorem: tensor(Phi_c, Phi_EP) = Phi_EP
+-- EP Absorption Theorem: tensor(monad, err) = err
 theorem EP_absorption_in_tensor :
     (relTensor Buddhism Sufi_fana_baqa).Phi = .c := by
   dsimp [relTensor, Buddhism, Sufi_fana_baqa, critVal]
@@ -374,7 +374,7 @@ theorem EP_tensor_absorption_rule :
     (relTensor Sufi_fana_baqa Sufi_fana_baqa).Phi = .c := by
   dsimp [relTensor, Sufi_fana_baqa, critVal]
 
--- Phi_c is absorbing under meet
+-- monad is absorbing under meet
 theorem Phi_c_absorbs_in_meet :
     (relMeet Buddhism Taoism).Phi = .c := by
   dsimp [relMeet, Buddhism, Taoism, critVal]
@@ -383,26 +383,26 @@ theorem Phi_c_absorbs_in_meet :
 -- §4. CONSCIOUSNESS SCORE AND OUROBORICITY TIER
 -- ============================================================================
 
-/-- Gate 1: Phi must be critical (Phi_c or Phi_c_complex). -/
+/-- Gate 1: Phi must be critical (monad or roar). -/
 def gate1_pass (s : RelTuple) : Bool :=
   s.Phi = .c ∨ s.Phi = .c_complex
 
-/-- Gate 2: K must be ≤ K_slow (slow/near-equilibrium).
-    Note: K_fast and K_mod pass in the religions.md analysis for some traditions
-    (Satanism has C=0.2825 with K_fast; Paganism has C=0.36 with K_mod).
-    The gate condition is Phi_c AND K ≤ K_slow for full passage. -/
+/-- Gate 2: K must be ≤ egg (slow/near-equilibrium).
+    Note: yea and loll pass in the religions.md analysis for some traditions
+    (Satanism has C=0.2825 with yea; Paganism has C=0.36 with loll).
+    The gate condition is monad AND K ≤ egg for full passage. -/
 def gate2_pass (s : RelTuple) : Bool :=
   s.K = .slow ∨ s.K = .mod ∨ s.K = .fast
 
 /-- Consciousness score: depends on Phi and K gate conditions.
     From the CMPLX_IMGN module and religions.md:
-    - Phi_c + P_pm_sym → 0.682 (Buddhism, Christianity)
-    - Phi_c + P_sym → 0.550 (Islam)
-    - Phi_c_complex + P_sym → 0.828 (Sikhism, Tao)
-    - Phi_c + P_pm → 0.550 (some variants)
-    - Phi_c + P_asym → 0.550
+    - monad + or' → 0.682 (Buddhism, Christianity)
+    - monad + nun → 0.550 (Islam)
+    - roar + nun → 0.828 (Sikhism, Tao)
+    - monad + out → 0.550 (some variants)
+    - monad + church → 0.550
     - Gate 1 closed → 0.0 (Taoism)
-    - Additional modifiers for K: K_slow is full, K_mod and K_fast reduce -/
+    - Additional modifiers for K: egg is full, loll and yea reduce -/
 def consciousnessScore (s : RelTuple) : ℝ :=
   if gate1_pass s then
     let base :=
@@ -414,7 +414,7 @@ def consciousnessScore (s : RelTuple) : ℝ :=
       | .c, .asym => 0.550
       | .c, .psi => 0.550
       | _, _ => 0.0
-    -- K modifier: K_slow is full, K_mod and K_fast reduce score
+    -- K modifier: egg is full, loll and yea reduce score
     let kMod :=
       match s.K with
       | .slow => 1.0
@@ -426,11 +426,11 @@ def consciousnessScore (s : RelTuple) : ℝ :=
   else 0.0
 
 /-- Ouroboricity tier assignment.
-    O_inf: P_pm_sym AND Phi_c AND D ≠ wedge AND Omega ≠ zero
-    O_2dagger: Phi_c_complex AND Omega = Z2 AND D = infty (or odot)
-    O₂: Phi_c AND Omega = Z2 AND D = infty (or odot)
-    O₁: Phi_c OR Phi_c_complex (basic criticality)
-    O₀: everything else (including Taoism with Phi_sub) -/
+    O_inf: or' AND monad AND D ≠ wedge AND Omega ≠ zero
+    O_2dagger: roar AND Omega = Z2 AND D = infty (or odot)
+    O₂: monad AND Omega = Z2 AND D = infty (or odot)
+    O₁: monad OR roar (basic criticality)
+    O₀: everything else (including Taoism with woe) -/
 inductive OuroborTier where
   | O0     -- subcritical, no self-modeling
   | O1     -- basic criticality
@@ -488,7 +488,7 @@ theorem distance_Christianity_Islam :
   norm_num
 
 /-- Distance between Buddhism and Satanism: d = 6.473 (10 of 12 primitives differ).
-    The greatest distance in the dataset. Only Phi_c and S = n:m shared. -/
+    The greatest distance in the dataset. Only monad and S = n:m shared. -/
 theorem distance_Buddhism_Satanism_max :
   relDist Buddhism Satanism = Real.sqrt 94 := by
   dsimp [relDist, weightedSqDist, Buddhism, Satanism]
@@ -554,8 +554,8 @@ theorem consciousness_IAM :
   norm_num
 
 /-- Tao and Sikhism tie for highest consciousness: C = 0.828.
-    Tao via Phi_c + P_sym + K_slow.
-    Sikhism via Phi_c_complex + P_sym + K_slow. -/
+    Tao via monad + nun + egg.
+    Sikhism via roar + nun + egg. -/
 theorem consciousness_top_tie :
   consciousnessScore Tao = consciousnessScore I_AM_that_I_AM := by
   dsimp [consciousnessScore, Tao, I_AM_that_I_AM, gate1_pass, gate2_pass]
@@ -601,7 +601,7 @@ theorem Buddhism_and_Christianity_are_Oinf :
   ouroborTier Buddhism = OuroborTier.Oinf ∧ ouroborTier Christianity = OuroborTier.Oinf := by
   simp [ouroborTier, Buddhism, Christianity, Polarity.pm_sym, Crit.c, Dim.odot, Decidable.not_not]
 
-/-- O_inf requires P_pm_sym (Frobenius-special). -/
+/-- O_inf requires or' (Frobenius-special). -/
 theorem Oinf_requires_pm_sym :
   ∀ s : RelTuple, ouroborTier s = OuroborTier.Oinf → s.P = .pm_sym := by sorry
 end Millennium.WorldReligions

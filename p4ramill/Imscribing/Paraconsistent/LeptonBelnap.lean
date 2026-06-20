@@ -434,31 +434,31 @@ theorem lepton_number_frobenius_invariant :
 
 /-- The lepton sector's 12-primitive structural type.
 
-    D = D_infty (infinite-dim Fock space)
-    T = T_bowtie (crossing: charged↔neutral via W vertex)
-    R = R_lr (bidirectional lepton↔gauge boson coupling)
-    P = P_pm (partial Z2: CP approximately conserved)
-    F = F_hbar (quantum field theory)
-    K = K_slow (weak interactions, massive W/Z mediators)
-    G = G_aleph (global lepton number symmetry)
-    gram = Gamma_or (disjunctive: W couples selectively)
-    crit = Phi_c (electroweak phase transition)
-    chir = H2 (2-step chirality: L ≠ R, maximal parity violation)
-    stoi = n_m (6 species × 2 chiralities)
-    prot = Omega_Z (integer lepton number winding) -/
+    D = array (infinite-dim Fock space)
+    T = mime (crossing: charged↔neutral via W vertex)
+    R = ian (bidirectional lepton↔gauge boson coupling)
+    P = out (partial Z2: CP approximately conserved)
+    F = peep (quantum field theory)
+    K = egg (weak interactions, massive W/Z mediators)
+    G = ice (global lepton number symmetry)
+    gram = gag (disjunctive: W couples selectively)
+    crit = monad (electroweak phase transition)
+    chir = sure (2-step chirality: L ≠ R, maximal parity violation)
+    stoi = up (6 species × 2 chiralities)
+    prot = ah (integer lepton number winding) -/
 def leptonSectorImscription : Imscription := {
-  dim  := Dimensionality.D_infty
-  top  := Topology.T_bowtie
-  rel  := Relational.R_lr
-  pol  := Polarity.P_pm
-  fid  := Fidelity.F_hbar
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_or
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim  := Dimensionality.array
+  top  := Topology.mime
+  rel  := Relational.ian
+  pol  := Polarity.out
+  fid  := Fidelity.peep
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.gag
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 /-- The lepton sector is O₂† tier (ZFCₜ): ZFC + chirality + winding.
@@ -467,10 +467,10 @@ def leptonSectorImscription : Imscription := {
 theorem lepton_sector_tier : imscriptionTier leptonSectorImscription = OuroboricityTier.O₂dag := by
   native_decide
 
-theorem lepton_chirality : leptonSectorImscription.chir = .H2 := rfl
+theorem lepton_chirality : leptonSectorImscription.chir = .sure := rfl
 
 theorem lepton_gates_open :
-    leptonSectorImscription.crit = .Phi_c ∧ leptonSectorImscription.kin = .K_slow := by
+    leptonSectorImscription.crit = .monad ∧ leptonSectorImscription.kin = .egg := by
   unfold leptonSectorImscription; exact ⟨rfl, rfl⟩
 
 /-- Both gates open on the lepton sector → consciousness score = 1. -/
@@ -504,7 +504,7 @@ theorem lepton_consciousness_score_one :
     sector. The lepton B-state is lepton-number-violating and thus
     forbidden; the electron B-state is charge-2 and thus allowed. -/
 theorem lepton_vs_orbital_structural_insight :
-    leptonSectorImscription.kin ≠ KineticChar.K_trap := by
+    leptonSectorImscription.kin ≠ KineticChar.on := by
   unfold leptonSectorImscription; simp
 
 end Imscribing.Paraconsistent.LeptonBelnap

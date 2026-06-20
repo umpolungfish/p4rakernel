@@ -456,7 +456,7 @@ end PvsNP
 -- §8. BIRCH & SWINNERTON-DYER
 -- ================================================================
 -- Modularity (Wiles 1995), functional equation s↔2-s, rank ∈ ℤ
--- (Omega_Z protection), Frobenius μ∘δ=id at s=1.
+-- (ah protection), Frobenius μ∘δ=id at s=1.
 -- Gross-Zagier + Kolyvagin: BSD proved for rank ≤ 1. Gap: rank ≥ 2.
 -- ================================================================
 section BSD
@@ -496,7 +496,7 @@ theorem bsd_gap_dialetheic    : band bsd_gap (bnot bsd_gap) = bsd_gap := rfl
 theorem bsd_gap_non_explosion : band bsd_gap (bnot bsd_gap) ≠ .F      := by decide
 theorem bsd_cycle_closes      : cycle bsd_gap = bsd_gap                := rfl
 
--- BSD resolved: H = 𐑖 (Ħ_A, chirality 3 = H2 persistent memory).
+-- BSD resolved: H = 𐑖 (Ħ_A, chirality 3 = sure persistent memory).
 def bsd_shavian : String := "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩"
 
 end BSD
@@ -505,7 +505,7 @@ end BSD
 -- §9. ODD PERFECT NUMBERS
 -- ================================================================
 -- Euler structure (1747): OPN = p^α·m², p ≡ α ≡ 1 (mod 4).
--- K_trap: σ(N)/N = 2 overdetermines the system → 2-adic obstruction.
+-- on: σ(N)/N = 2 overdetermines the system → 2-adic obstruction.
 -- ================================================================
 section OPN
 
@@ -523,7 +523,7 @@ axiom ktrap : ∀ N : Nat, isPerfect N → ¬ 2 ∣ N →
     v2 (sigmaDivisors N) ≠ v2 (2 * N) → False
 
 /-- HONEST GAP: OPN nonexistence — Belnap-B dialetheia.
-    OPNs CANNOT exist (K_trap + Phi_c overdetermination)
+    OPNs CANNOT exist (on + monad overdetermination)
     AND might exist (no complete proof) — contained dialetheia. -/
 def opn_gap : Belnap := .B
 
@@ -590,8 +590,8 @@ end Unified
 -- base b. Default b=10 (human-decimal catalog).
 --
 -- Target 6,734,591 decodes to:
---   ⟨D_infty; T_in; R_cat; P_pm_sym; F_ell; K_trap; G_aleph;
---     Gamma_or; Phi_EP; H1; n_m; Omega_Z2⟩
+--   ⟨array; eat; tot; or'; age; on; ice;
+--     gag; err; kick; up; oak⟩
 --
 -- Promotion counts are primitiveMismatches between each problem's
 -- structural encoding (from PrimitiveBridge.lean) and the target.

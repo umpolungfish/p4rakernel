@@ -365,9 +365,9 @@ theorem multilattice_frobenius_closed (n : ℕ) :
 theorem multilattice_polarization_frobenius (n : ℕ) :
     μ_C (δ_C (multilatticeImscription n)).1 (δ_C (multilatticeImscription n)).2 =
     multilatticeImscription n := by
-  have hp : (multilatticeImscription n).pol = P_pm_sym := by
+  have hp : (multilatticeImscription n).pol = or' := by
     simp [multilatticeImscription, majoranaFixedImscription]
-  have hc : (multilatticeImscription n).crit = Phi_c := by
+  have hc : (multilatticeImscription n).crit = monad := by
     simp [multilatticeImscription, majoranaFixedImscription]
   exact mu_delta_C_id_on_special (multilatticeImscription n) hp hc
 
@@ -461,7 +461,7 @@ theorem multilattice_polarization_frobenius (n : ℕ) :
 --
 -- FOR d=4 (n=2): WH(4) ≅ Z₄×Z₄ ≠ WH(2)² ≅ (Z₂)⁴ as groups.
 --   The SIC-POVM fiducial in d=4 is known numerically and algebraically.
---   A structural proof would require lifting WH(2)² to WH(4) on the
+--   A witness would require lifting WH(2)² to WH(4) on the
 --   Belnap multilattice.
 --
 -- CONDITIONAL STATUS: The remaining condition (Ax-EQUI) is the

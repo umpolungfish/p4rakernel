@@ -46,18 +46,18 @@ theorem winding_invariant (n : ℕ) : bnot (r0Trajectory n) = r0Trajectory n := 
   rw [(sustain_preserves_B n).1, B_fixed_point_negation]
 
 def belnapTemporalImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem temporal_is_O_inf : imscriptionTier belnapTemporalImscription = .O_inf := by

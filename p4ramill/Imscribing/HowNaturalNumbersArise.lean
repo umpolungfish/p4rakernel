@@ -19,18 +19,18 @@ set_option linter.style.longLine false
 -- ============================================================
 
 def zero_type : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem zero_address : crystal_encode zero_type = 0 := by decide
@@ -42,8 +42,8 @@ theorem zero_tier : imscriptionTier zero_type = .O₀ := by decide
 
 def succ_type : Imscription := {
   zero_type with
-  fid  := F_hbar
-  gran := G_aleph
+  fid  := peep
+  gran := ice
 }
 
 def succ (n : Imscription) : Imscription := tensorProduct n succ_type
@@ -70,29 +70,29 @@ theorem crystal_total : 27 * 1024 * 625 = 17280000 := by decide
 def counting_step (t : Imscription) : Imscription :=
   { t with gran :=
     match t.gran with
-    | G_beth  => G_gimel
-    | G_gimel => G_aleph
-    | G_aleph => G_aleph
+    | bib  => thigh
+    | thigh => ice
+    | ice => ice
   }
 
 theorem three_steps_to_aleph :
-    (counting_step (counting_step (counting_step zero_type))).gran = G_aleph := by
+    (counting_step (counting_step (counting_step zero_type))).gran = ice := by
   decide
 
 -- ============================================================
 -- S5. PEANO AXIOMS
 -- ============================================================
 
-lemma succ_gran_eq_aleph (n : Imscription) : (tensorProduct n succ_type).gran = G_aleph := by
+lemma succ_gran_eq_aleph (n : Imscription) : (tensorProduct n succ_type).gran = ice := by
   unfold tensorProduct succ_type
   cases h : n.gran with
-  | G_beth =>
+  | bib =>
     simp [h]
     decide
-  | G_gimel =>
+  | thigh =>
     simp [h]
     decide
-  | G_aleph =>
+  | ice =>
     simp [h]
 
 theorem zero_not_succ (n : Imscription) : succ n ≠ zero_type := by
@@ -100,13 +100,13 @@ theorem zero_not_succ (n : Imscription) : succ n ≠ zero_type := by
   intro h
   have hgran := congrArg (fun s : Imscription => s.gran) h
   have hsucc_gran := succ_gran_eq_aleph n
-  have hzero_gran : zero_type.gran = G_beth := rfl
-  have : G_aleph ≠ G_beth := by decide
+  have hzero_gran : zero_type.gran = bib := rfl
+  have : ice ≠ bib := by decide
   apply this
   calc
-    G_aleph = (tensorProduct n succ_type).gran := by symm; exact hsucc_gran
+    ice = (tensorProduct n succ_type).gran := by symm; exact hsucc_gran
     _ = zero_type.gran := hgran
-    _ = G_beth := hzero_gran
+    _ = bib := hzero_gran
 
 theorem succ_zero_not_zero : succ zero_type ≠ zero_type := by
   exact zero_not_succ zero_type
@@ -116,18 +116,18 @@ theorem succ_zero_not_zero : succ zero_type ≠ zero_type := by
 -- ============================================================
 
 def neutral_type : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := or'
+  fid  := peep
+  kin  := yea
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem tensor_left_id (n : Imscription) : tensorProduct neutral_type n = n := by

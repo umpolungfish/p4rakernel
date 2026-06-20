@@ -212,18 +212,18 @@ theorem frobenius_serpent_rod (rna : RNASequence) :
     Σ_ï: many heterogeneous residue types (20 AAs)
     Ω_z: integer winding (serpent loops around rod) -/
 def serpentRodImscription : Imscription :=
-  { dim  := .D_odot
-    top  := .T_odot
-    rel  := .R_lr
-    pol  := .P_pm_sym
-    fid  := .F_hbar
-    kin  := .K_slow
-    gran := .G_beth
-    gram := .Gamma_or
-    crit := .Phi_c
-    chir := .H2
-    stoi := .n_m
-    prot := .Omega_Z }
+  { dim  := .if'
+    top  := .are
+    rel  := .ian
+    pol  := .or'
+    fid  := .peep
+    kin  := .egg
+    gran := .bib
+    gram := .gag
+    crit := .monad
+    chir := .sure
+    stoi := .up
+    prot := .ah }
 
 /-- Tier verification: the direct mapping is O_inf (self-modeling). -/
 theorem serpentRod_is_Oinf :

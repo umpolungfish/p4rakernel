@@ -183,18 +183,18 @@ def higgsVeV : Nat := electroweakScale
 -- =====================================================================
 
 def higgsMechanismImscription : Imscription := {
-  dim := Dimensionality.D_infty    -- field-theoretic: infinite d.o.f.
-  top := Topology.T_bowtie         -- crossing: symmetric ↔ broken phase
-  rel := Relational.R_lr           -- bidirectional: Higgs couples to everything massive
-  pol := Polarity.P_pm_sym          -- Frobenius-special: μ∘δ=id (Goldstone ↔ gauge)
-  fid := Fidelity.F_hbar           -- quantum: Higgs is a quantum field
-  kin := KineticChar.K_mod         -- moderate: Higgs width ~ 4 MeV (narrow)
-  gran := Granularity.G_aleph      -- all-scale: couples to all massive particles
-  gram := Grammar.Gamma_seq        -- sequential: SSB is an ordered phase transition
-  crit := Criticality.Phi_c        -- self-modeling: the Higgs mechanism explains itself
-  chir := Chirality.H2            -- Markov-2: SSB depends on two-point correlator
-  stoi := Stoichiometry.n_m       -- 4 d.o.f. (complex doublet) → 1 physical + 3 Goldstone
-  prot := Protection.Omega_Z      -- integer winding: topological defects (monopoles)
+  dim := Dimensionality.array    -- field-theoretic: infinite d.o.f.
+  top := Topology.mime         -- crossing: symmetric ↔ broken phase
+  rel := Relational.ian           -- bidirectional: Higgs couples to everything massive
+  pol := Polarity.or'          -- Frobenius-special: μ∘δ=id (Goldstone ↔ gauge)
+  fid := Fidelity.peep           -- quantum: Higgs is a quantum field
+  kin := KineticChar.loll         -- moderate: Higgs width ~ 4 MeV (narrow)
+  gran := Granularity.ice      -- all-scale: couples to all massive particles
+  gram := Grammar.measure        -- sequential: SSB is an ordered phase transition
+  crit := Criticality.monad        -- self-modeling: the Higgs mechanism explains itself
+  chir := Chirality.sure            -- Markov-2: SSB depends on two-point correlator
+  stoi := Stoichiometry.up       -- 4 d.o.f. (complex doublet) → 1 physical + 3 Goldstone
+  prot := Protection.ah      -- integer winding: topological defects (monopoles)
 }
 
 theorem higgs_mechanism_tier : imscriptionTier higgsMechanismImscription = OuroboricityTier.O_inf := by
@@ -208,7 +208,7 @@ theorem higgs_mechanism_gate2_open :
   unfold Imscribing.Consciousness.k_slow_gate higgsMechanismImscription; rfl
 
 theorem higgs_is_frobenius_special :
-    higgsMechanismImscription.pol = Polarity.P_pm_sym := rfl
+    higgsMechanismImscription.pol = Polarity.or' := rfl
 
 
 -- =====================================================================
@@ -228,7 +228,7 @@ The Higgs mechanism completes the electroweak sector of the Standard Model:
     | Higgs             | complex doublet (4)| real scalar h (1)     |
     | Goldstones        | 0                  | 3 (eaten)             |
 
-The structural type P_pm_sym (Frobenius-special) is the key: the Higgs
+The structural type or' (Frobenius-special) is the key: the Higgs
 mechanism is not just any symmetry breaking — it is the μ∘δ=id closure
 between gauge boson degrees of freedom and Goldstone modes. The 3
 Goldstone bosons are the "δ" that provides the longitudinal polarization
@@ -239,6 +239,6 @@ infinite-range weak force, and massless fermions. The universe would be
 structurally unrecognizable.
 -/
 
-theorem higgs_is_bowtie : higgsMechanismImscription.top = Topology.T_bowtie := rfl
+theorem higgs_is_bowtie : higgsMechanismImscription.top = Topology.mime := rfl
 
 end Imscribing.Paraconsistent.HiggsMechanism

@@ -148,18 +148,18 @@ def majoranaPhases : Nat := 2
 -- =====================================================================
 
 def neutrinoOscillationImscription : Imscription := {
-  dim := Dimensionality.D_infty    -- infinite Hilbert space for propagation
-  top := Topology.T_bowtie         -- crossing: flavor ⟷ mass basis
-  rel := Relational.R_lr          -- bidirectional: oscillation both ways
-  pol := Polarity.P_asym          -- CP violation possible (δ_CP phase)
-  fid := Fidelity.F_hbar          -- quantum: oscillation is quantum beat
-  kin := KineticChar.K_slow       -- slow: oscillation length ~ km/GeV
-  gran := Granularity.G_aleph     -- all-scale: solar to accelerator
-  gram := Grammar.Gamma_seq       -- sequential: mass eigenstates evolve independently
-  crit := Criticality.Phi_c       -- self-modeling: deficit encodes detector physics
-  chir := Chirality.H2           -- Markov-2: two mass-squared differences drive oscillation
-  stoi := Stoichiometry.n_m      -- 3 flavors ⟷ 3 mass states
-  prot := Protection.Omega_Z     -- integer winding: oscillation phase
+  dim := Dimensionality.array    -- infinite Hilbert space for propagation
+  top := Topology.mime         -- crossing: flavor ⟷ mass basis
+  rel := Relational.ian          -- bidirectional: oscillation both ways
+  pol := Polarity.church          -- CP violation possible (δ_CP phase)
+  fid := Fidelity.peep          -- quantum: oscillation is quantum beat
+  kin := KineticChar.egg       -- slow: oscillation length ~ km/GeV
+  gran := Granularity.ice     -- all-scale: solar to accelerator
+  gram := Grammar.measure       -- sequential: mass eigenstates evolve independently
+  crit := Criticality.monad       -- self-modeling: deficit encodes detector physics
+  chir := Chirality.sure           -- Markov-2: two mass-squared differences drive oscillation
+  stoi := Stoichiometry.up      -- 3 flavors ⟷ 3 mass states
+  prot := Protection.ah     -- integer winding: oscillation phase
 }
 
 theorem neutrino_oscillation_tier : imscriptionTier neutrinoOscillationImscription = OuroboricityTier.O₂dag := by
@@ -211,14 +211,14 @@ neutrino masses and non-trivial PMNS mixing. Key structural facts:
   4. CP violation in the lepton sector is possible (δ_CP ≠ 0, π)
   5. The Dirac/Majorana nature is undetermined
 
-The structural type T_bowtie (crossing point) captures the essential
+The structural type mime (crossing point) captures the essential
 feature: neutrino propagation is a continuous oscillation between
 two distinct classification schemes (flavor basis and mass basis),
 connected by a fixed unitary rotation.
 -/
 
-theorem oscillation_is_bowtie : neutrinoOscillationImscription.top = Topology.T_bowtie := rfl
+theorem oscillation_is_bowtie : neutrinoOscillationImscription.top = Topology.mime := rfl
 
-theorem oscillation_is_P_asym : neutrinoOscillationImscription.pol = Polarity.P_asym := rfl
+theorem oscillation_is_P_asym : neutrinoOscillationImscription.pol = Polarity.church := rfl
 
 end Imscribing.Paraconsistent.NeutrinoOscillation

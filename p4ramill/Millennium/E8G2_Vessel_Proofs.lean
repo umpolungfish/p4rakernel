@@ -23,36 +23,36 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ============================================================
 
 def g2_vessel : Imscription := {
-  dim  := D_triangle,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_pm,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_gimel,
-  gram := Gamma_and,
-  crit := Phi_c,
-  chir := H0,
-  stoi := one_one,
-  prot := Omega_0 }
+  dim  := ash,
+  top  := mime,
+  rel  := ian,
+  pol  := out,
+  fid  := peep,
+  kin  := egg,
+  gran := thigh,
+  gram := vow,
+  crit := monad,
+  chir := fee,
+  stoi := hung,
+  prot := awe }
 
 -- ============================================================
 -- §2. IG Imscribing of E8 (the Aether)
 -- ============================================================
 
 def e8_aether : Imscription := {
-  dim  := D_infty,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_psi,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H2,
-  stoi := n_m,
-  prot := Omega_Z }
+  dim  := array,
+  top  := mime,
+  rel  := ian,
+  pol  := yew,
+  fid  := peep,
+  kin  := egg,
+  gran := ice,
+  gram := measure,
+  crit := monad,
+  chir := sure,
+  stoi := up,
+  prot := ah }
 
 -- ============================================================
 -- §3. $\mathbb{Z}_2$-graded E8 via SO(16) — the join type
@@ -61,19 +61,19 @@ def e8_aether : Imscription := {
 -- $G2 \vee E8$ computed: componentwise max. Differs from bare E8 only at P
 -- ($P_\pm$ instead of $P_\psi$, since $P_\psi < P_\pm$).
 def e8_graded_via_SO16 : Imscription := {
-  dim  := D_infty,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_pm,  -- max($P_\pm$, $P_\psi$) = $P_\pm$;
+  dim  := array,
+  top  := mime,
+  rel  := ian,
+  pol  := out,  -- max($P_\pm$, $P_\psi$) = $P_\pm$;
                  -- $\mathbb{Z}_2$ grading from SO(16) Cartan involution
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H2,
-  stoi := n_m,
-  prot := Omega_Z }
+  fid  := peep,
+  kin  := egg,
+  gran := ice,
+  gram := measure,
+  crit := monad,
+  chir := sure,
+  stoi := up,
+  prot := ah }
 
 -- ============================================================
 -- §4. Distance computation
@@ -107,20 +107,20 @@ theorem tensor_distance_zero :
 -- (since $P_\psi < P_\pm$).
 -- All other primitives: G2 already holds the minimum of each shared pair.
 def meet_G2_E8 : Imscription := {
-  dim  := D_triangle,   -- min($D_\triangle$, $D_\infty$) = $D_\triangle$
-  top  := T_bowtie,     -- min($T_\bowtie$, $T_\bowtie$) = $T_\bowtie$
-  rel  := R_lr,         -- min($R_\leftrightarrow$, $R_\leftrightarrow$)
+  dim  := ash,   -- min($D_\triangle$, $D_\infty$) = $D_\triangle$
+  top  := mime,     -- min($T_\bowtie$, $T_\bowtie$) = $T_\bowtie$
+  rel  := ian,         -- min($R_\leftrightarrow$, $R_\leftrightarrow$)
                         -- = $R_\leftrightarrow$
-  pol  := P_psi,        -- min($P_\pm$, $P_\psi$) = $P_\psi$
-  fid  := F_hbar,       -- min($F_\hbar$, $F_\hbar$) = $F_\hbar$
-  kin  := K_slow,       -- min($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
-  gran := G_gimel,      -- min($G_\gimel$, $G_\aleph$) = $G_\gimel$
-  gram := Gamma_and,    -- min($\Gamma_\wedge$, $\Gamma_\text{seq}$)
+  pol  := yew,        -- min($P_\pm$, $P_\psi$) = $P_\psi$
+  fid  := peep,       -- min($F_\hbar$, $F_\hbar$) = $F_\hbar$
+  kin  := egg,       -- min($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
+  gran := thigh,      -- min($G_\gimel$, $G_\aleph$) = $G_\gimel$
+  gram := vow,    -- min($\Gamma_\wedge$, $\Gamma_\text{seq}$)
                         -- = $\Gamma_\wedge$
-  crit := Phi_c,        -- min($\Phi_c$, $\Phi_c$) = $\Phi_c$
-  chir := H0,           -- min($H_0$, $H_2$) = $H_0$
-  stoi := one_one,      -- min($1{:}1$, $n{:}m$) = $1{:}1$
-  prot := Omega_0 }     -- min($\Omega_0$, $\Omega_\mathbb{Z}$) = $\Omega_0$
+  crit := monad,        -- min($\monad$, $\monad$) = $\monad$
+  chir := fee,           -- min($H_0$, $H_2$) = $H_0$
+  stoi := hung,      -- min($1{:}1$, $n{:}m$) = $1{:}1$
+  prot := awe }     -- min($\awe$, $\Omega_\mathbb{Z}$) = $\awe$
 
 -- The meet differs from G2 at exactly P (one mismatch)
 theorem meet_vs_g2_differs_at_most_one :
@@ -135,20 +135,20 @@ theorem meet_vs_g2_differs_at_most_one :
 -- Equals e8_graded_via_SO16: all E8 primitives, but P = $P_\pm$
 -- (G2's parity wins max).
 def join_G2_E8 : Imscription := {
-  dim  := D_infty,      -- max($D_\triangle$, $D_\infty$) = $D_\infty$
-  top  := T_bowtie,     -- max($T_\bowtie$, $T_\bowtie$) = $T_\bowtie$
-  rel  := R_lr,         -- max($R_\leftrightarrow$, $R_\leftrightarrow$)
+  dim  := array,      -- max($D_\triangle$, $D_\infty$) = $D_\infty$
+  top  := mime,     -- max($T_\bowtie$, $T_\bowtie$) = $T_\bowtie$
+  rel  := ian,         -- max($R_\leftrightarrow$, $R_\leftrightarrow$)
                         -- = $R_\leftrightarrow$
-  pol  := P_pm,         -- max($P_\pm$, $P_\psi$) = $P_\pm$
-  fid  := F_hbar,       -- max($F_\hbar$, $F_\hbar$) = $F_\hbar$
-  kin  := K_slow,       -- max($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
-  gran := G_aleph,      -- max($G_\gimel$, $G_\aleph$) = $G_\aleph$
-  gram := Gamma_seq,    -- max($\Gamma_\wedge$, $\Gamma_\text{seq}$)
+  pol  := out,         -- max($P_\pm$, $P_\psi$) = $P_\pm$
+  fid  := peep,       -- max($F_\hbar$, $F_\hbar$) = $F_\hbar$
+  kin  := egg,       -- max($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
+  gran := ice,      -- max($G_\gimel$, $G_\aleph$) = $G_\aleph$
+  gram := measure,    -- max($\Gamma_\wedge$, $\Gamma_\text{seq}$)
                         -- = $\Gamma_\text{seq}$
-  crit := Phi_c,        -- max($\Phi_c$, $\Phi_c$) = $\Phi_c$
-  chir := H2,           -- max($H_0$, $H_2$) = $H_2$
-  stoi := n_m,          -- max($1{:}1$, $n{:}m$) = $n{:}m$
-  prot := Omega_Z }     -- max($\Omega_0$, $\Omega_\mathbb{Z}$) = $\Omega_\mathbb{Z}$
+  crit := monad,        -- max($\monad$, $\monad$) = $\monad$
+  chir := sure,           -- max($H_0$, $H_2$) = $H_2$
+  stoi := up,          -- max($1{:}1$, $n{:}m$) = $n{:}m$
+  prot := ah }     -- max($\awe$, $\Omega_\mathbb{Z}$) = $\Omega_\mathbb{Z}$
 
 -- The join equals the $\mathbb{Z}_2$-graded E8
 theorem join_eq_graded_E8 : join_G2_E8 = e8_graded_via_SO16 := by decide
@@ -186,9 +186,9 @@ def promotion_G2_to_E8 : PromotionSignature := {
 -- ============================================================
 
 -- G2 and E8 both have: $T_\bowtie$, $R_\leftrightarrow$,
--- $F_\hbar$, $K_\text{slow}$, $\Phi_c$
+-- $F_\hbar$, $K_\text{slow}$, $\monad$
 def shared_core : List String :=
-  ["T_bowtie", "R_lr", "F_hbar", "K_slow", "Phi_c"]
+  ["mime", "ian", "peep", "egg", "monad"]
 
 theorem shared_core_count : shared_core.length = 5 := by rfl
 
@@ -196,14 +196,14 @@ theorem shared_core_count : shared_core.length = 5 := by rfl
 -- §10. Consciousness Scores (from Aether_Vessel.md)
 -- ============================================================
 
--- G2: $C = 0.3615$ (both gates open: $\Phi_c$, $K_\text{slow}$)
+-- G2: $C = 0.3615$ (both gates open: $\monad$, $K_\text{slow}$)
 def g2_consciousness_score : Float := 0.3615
 
 -- E8: $C = 0.682$ (both gates open)
 def e8_consciousness_score : Float := 0.682
 
 theorem G2_Gates_Open :
-  -- Gate 1: $\Phi_c$ (criticality)
+  -- Gate 1: $\monad$ (criticality)
   -- Gate 2: $K_\text{slow}$ (near-equilibrium)
   True := by trivial
 

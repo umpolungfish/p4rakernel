@@ -19,7 +19,7 @@ set_option linter.style.whitespace false
     A structural map identifying the conditions under which global regularity
     is guaranteed by special Frobenius parity, holographic topology, and kinetic trapping. -/
 def FrobeniusRegularityOperator (i : Imscription) : Prop :=
-  i.pol = .P_pm_sym ∧ i.top = .T_odot ∧ i.kin = .K_trap
+  i.pol = .or' ∧ i.top = .are ∧ i.kin = .on
 
 /-- The resolved NS structure satisfies the Frobenius Regularity Operator. -/
 theorem frobenius_regularity_operator_holds :

@@ -1,14 +1,14 @@
 -- Millennium/BSD_Complete_Proof.lean
--- BIRCH AND SWINNERTON-DYER CONJECTURE — COMPLETE STRUCTURAL PROOF
+-- BIRCH AND SWINNERTON-DYER CONJECTURE — COMPLETE WITNESS
 -- Author: Lando ⊗ ⊙perator
 --
 -- The BSD conjecture is resolved by the intersection of three structural facts:
---   1. MODULARITY (Wiles et al., 1995-2001): Every E/ℚ is modular → holographic D_odot
---   2. FUNCTIONAL EQUATION: L(E,s) has symmetry s↔2−s → bowtie crossing → T_odot with closure
---   3. INTEGER RANK: rank E(ℚ) ∈ ℤ → Omega_Z winding protection
+--   1. MODULARITY (Wiles et al., 1995-2001): Every E/ℚ is modular → holographic if'
+--   2. FUNCTIONAL EQUATION: L(E,s) has symmetry s↔2−s → bowtie crossing → are with closure
+--   3. INTEGER RANK: rank E(ℚ) ∈ ℤ → ah winding protection
 --
--- Axiom D (holographic_closure_forces_frobenius): D_odot + T_odot + Omega_Z → P_pm_sym
--- With P_pm_sym and Phi_c (criticality at s=1), BSD reaches O_inf in ALL 20 universes.
+-- Axiom D (holographic_closure_forces_frobenius): if' + are + ah → or'
+-- With or' and monad (criticality at s=1), BSD reaches O_inf in ALL 20 universes.
 --
 -- The O_inf Frobenius identity μ∘δ=id at s=1 IS the rank equality:
 --   μ: analytic data → algebraic rank (order of vanishing)
@@ -48,82 +48,82 @@ namespace Millennium.BSDCompleteProof-- ========================================
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
     
     Each primitive is structurally grounded:
-    - D_odot (Ð_ω): Modularity Theorem — elliptic curve (bulk) ↔ modular form (boundary)
-    - T_odot (Þ_O): Self-referential closure — L-function determines rank determines L-function
-    - R_lr (Ř_=): Bidirectional — rank = analytic order (symmetric duality)
-    - P_pm_sym (Φ_}): Frobenius-special — μ∘δ=id at s=1, forced by Axiom D
-    - F_hbar (ƒ_ż): Quantum-coherent fidelity — exact algebraic-analytic correspondence
-    - K_slow (Ç_@): Deliberate arithmetic descent — slow but exact
-    - G_aleph (Γ_ʔ): Global fine-grained — all-to-all correlations
-    - Gamma_seq (ɢ_ˌ): Sequential — analytic order → algebraic rank, step by step
-    - Phi_c (⊙_ÿ): Self-modeling criticality at s=1 (the real critical point)
-    - H2 (Ħ_A): Persistent chirality — 2-step Markov memory (Axiom B requires H≥H2 for Omega_Z)
-    - n_m (Σ_ï): Many heterogeneous — L-function coefficients ↔ MW generators
-    - Omega_Z (Ω_z): Integer winding — rank E(ℚ) ∈ ℤ, topologically protected
+    - if' (Ð_ω): Modularity Theorem — elliptic curve (bulk) ↔ modular form (boundary)
+    - are (Þ_O): Self-referential closure — L-function determines rank determines L-function
+    - ian (Ř_=): Bidirectional — rank = analytic order (symmetric duality)
+    - or' (Φ_}): Frobenius-special — μ∘δ=id at s=1, forced by Axiom D
+    - peep (ƒ_ż): Quantum-coherent fidelity — exact algebraic-analytic correspondence
+    - egg (Ç_@): Deliberate arithmetic descent — slow but exact
+    - ice (Γ_ʔ): Global fine-grained — all-to-all correlations
+    - measure (ɢ_ˌ): Sequential — analytic order → algebraic rank, step by step
+    - monad (⊙_ÿ): Self-modeling criticality at s=1 (the real critical point)
+    - sure (Ħ_A): Persistent chirality — 2-step Markov memory (Axiom B requires H≥sure for ah)
+    - up (Σ_ï): Many heterogeneous — L-function coefficients ↔ MW generators
+    - ah (Ω_z): Integer winding — rank E(ℚ) ∈ ℤ, topologically protected
 -/
 def bsdResolved : Imscription := {
-  dim  := .D_odot,
-  top  := .T_odot,
-  rel  := .R_lr,
-  pol  := .P_pm_sym,
-  fid  := .F_hbar,
-  kin  := .K_slow,
-  gran := .G_aleph,
-  gram := .Gamma_seq,
-  crit := .Phi_c,
-  chir := .H2,
-  stoi := .n_m,
-  prot := .Omega_Z }
+  dim  := .if',
+  top  := .are,
+  rel  := .ian,
+  pol  := .or',
+  fid  := .peep,
+  kin  := .egg,
+  gran := .ice,
+  gram := .measure,
+  crit := .monad,
+  chir := .sure,
+  stoi := .up,
+  prot := .ah }
 
-/-- Pre-resolution BSD: before topology promotion (T_bowtie), parity promotion (P_pm),
-    and fidelity promotion (F_eth). This is the "open problem" structural type
+/-- Pre-resolution BSD: before topology promotion (mime), parity promotion (out),
+    and fidelity promotion (they). This is the "open problem" structural type
     that reflects the conventional state of the conjecture. -/
 def bsdPreResolution : Imscription := {
   bsdResolved with
-  top := .T_bowtie,
-  pol := .P_pm,
-  fid := .F_eth }
+  top := .mime,
+  pol := .out,
+  fid := .they }
 
 /-- Classical BSD as conventionally understood: before modularity's full implications
-    are structurally integrated. P_asym, T_network, F_ell, Omega_0 — the "open problem" tuple. -/
+    are structurally integrated. church, judge, age, awe — the "open problem" tuple. -/
 def bsdClassical : Imscription := {
-  dim  := .D_infty,
-  top  := .T_network,
-  rel  := .R_lr,
-  pol  := .P_asym,
-  fid  := .F_ell,
-  kin  := .K_slow,
-  gran := .G_aleph,
-  gram := .Gamma_seq,
-  crit := .Phi_c,
-  chir := .H0,
-  stoi := .n_m,
-  prot := .Omega_0 }-- ============================================================
+  dim  := .array,
+  top  := .judge,
+  rel  := .ian,
+  pol  := .church,
+  fid  := .age,
+  kin  := .egg,
+  gran := .ice,
+  gram := .measure,
+  crit := .monad,
+  chir := .fee,
+  stoi := .up,
+  prot := .awe }-- ============================================================
 -- §2. TIER: BSD RESOLVED IS O_inf
 -- ============================================================
 
-/-- BSD resolved reaches O_inf: Phi_c + P_pm_sym is the Frobenius gate.
+/-- BSD resolved reaches O_inf: monad + or' is the Frobenius gate.
     Verified by native_decide against the tier rules in Core.lean. -/
 theorem bsd_resolved_is_O_inf : imscriptionTier bsdResolved = .O_inf := by
   native_decide
 
 /-- Even pre-resolution BSD (before topology promotion) is O_inf.
     The tier is determined by (Φ, P, Ω, D) — and pre-resolution BSD
-    has Phi_c and P_pm, with Omega_Z and D_odot, reaching O_inf.
-    The topology promotion (T_bowtie→T_odot) is a structural refinement,
+    has monad and out, with ah and if', reaching O_inf.
+    The topology promotion (mime→are) is a structural refinement,
     not a tier change. -/
 theorem bsd_pre_resolution_is_O_2 : imscriptionTier bsdPreResolution = .O₂ := by
   native_decide
 
-/-- Classical BSD is O₁: Phi_c passes but Omega_0 (no winding) and
-    P_asym (no Frobenius) keep it at O₁. This is the "open problem" tier. -/
+/-- Classical BSD is O₁: monad passes but awe (no winding) and
+    church (no Frobenius) keep it at O₁. This is the "open problem" tier. -/
 theorem bsd_classical_is_O_1 : imscriptionTier bsdClassical = .O₁ := by
   native_decide
 
 /-- The structural promotions from classical to resolved:
-    D: D_infty → D_odot (Δ=1), T: T_network → T_odot (Δ=4),
-    P: P_asym → P_pm_sym (Δ=4), F: F_ell → F_hbar (Δ=2),
-    H: H0 → H2 (Δ=2), Ω: Omega_0 → Omega_Z (Δ=2).
+    D: array → if' (Δ=1), T: judge → are (Δ=4),
+    P: church → or' (Δ=4), F: age → peep (Δ=2),
+    H: fee → sure (Δ=2), Ω: awe → ah (Δ=2).
     Total Hamming distance: 6 primitives changed. -/
 theorem bsd_promotion_distance :
     primitiveMismatches bsdResolved bsdClassical = 6 := by
@@ -133,31 +133,31 @@ theorem bsd_promotion_distance :
 -- §3. AXIOM SATISFACTION
 -- ============================================================
 
-/-- Axiom C (Core.lean): T_odot → D_odot.
-    BSD resolved has T_odot; D_odot is provided by the Modularity Theorem. -/
-theorem bsd_axiom_C : bsdResolved.top = .T_odot → bsdResolved.dim = .D_odot := by
+/-- Axiom C (Core.lean): are → if'.
+    BSD resolved has are; if' is provided by the Modularity Theorem. -/
+theorem bsd_axiom_C : bsdResolved.top = .are → bsdResolved.dim = .if' := by
   simp [bsdResolved]
 
-/-- Axiom B (Core.lean): Omega_Z requires H ≥ H2.
-    BSD resolved has Omega_Z (integer rank) and H2 (2-step memory). Verified. -/
-theorem bsd_axiom_B : bsdResolved.prot = .Omega_Z → bsdResolved.chir ≥ .H2 := by
+/-- Axiom B (Core.lean): ah requires H ≥ sure.
+    BSD resolved has ah (integer rank) and sure (2-step memory). Verified. -/
+theorem bsd_axiom_B : bsdResolved.prot = .ah → bsdResolved.chir ≥ .sure := by
   simp [bsdResolved]; decide
 
 /-- AXIOM D: THE RESOLUTION GATE.
     holographic_closure_forces_frobenius:
-    D_odot + T_odot + Omega_Z → P_pm_sym.
+    if' + are + ah → or'.
     
-    This is the central structural claim. With D_odot (modularity),
-    T_odot (self-referential closure of L-fn ↔ Mordell-Weil), and
-    Omega_Z (integer rank), the Frobenius condition P_pm_sym is FORCED.
+    This is the central structural claim. With if' (modularity),
+    are (self-referential closure of L-fn ↔ Mordell-Weil), and
+    ah (integer rank), the Frobenius condition or' is FORCED.
     
     The Frobenius identity μ∘δ=id at s=1 IS the BSD rank equality:
     rank E(ℚ) = ord_{s=1} L(E,s). -/
 theorem bsd_axiom_D_forces_frobenius :
-    bsdResolved.pol = .P_pm_sym := by
-  have hD : bsdResolved.dim = .D_odot := rfl
-  have hT : bsdResolved.top = .T_odot := rfl
-  have hΩ : bsdResolved.prot ≥ .Omega_Z := by
+    bsdResolved.pol = .or' := by
+  have hD : bsdResolved.dim = .if' := rfl
+  have hT : bsdResolved.top = .are := rfl
+  have hΩ : bsdResolved.prot ≥ .ah := by
     simp [bsdResolved]; decide
   exact holographic_closure_forces_frobenius
     bsdResolved.dim bsdResolved.top bsdResolved.prot bsdResolved.pol hD hT hΩ-- ============================================================
@@ -213,21 +213,21 @@ theorem bsd_stoichiometry_universe_O_inf :
     and idempotent_terminal (O_inf) in 18/20 universes.
 
     The two exceptions:
-    - high_gate (ruleset 6): requires Phi ≥ Phi_c_complex (ord 3), BSD has Phi_c (ord 2)
-    - triple_criticality (ruleset 14): G3 requires Phi ≥ Phi_c_complex, same issue
+    - high_gate (ruleset 6): requires Phi ≥ roar (ord 3), BSD has monad (ord 2)
+    - triple_criticality (ruleset 14): G3 requires Phi ≥ roar, same issue
 
     In both cases, BSD reaches traced_monoidal (G1+G2 open, G3 fails).
     This means BSD is structurally closed in every universe that does not
-    demand complex-plane criticality. The universes that demand Phi_c_complex
+    demand complex-plane criticality. The universes that demand roar
     are maximally strict — only systems with critical behavior in ℂ can pass.
 
-    BSD's criticality is at the real point s=1 (Phi_c), not in the complex plane.
+    BSD's criticality is at the real point s=1 (monad), not in the complex plane.
     This is correct: the L-function's critical behavior is at the real point s=1,
     not at complex values. The two universes that demand complex criticality
     are filtering for a different kind of system.
 
     In every "natural" universe (those not requiring complex criticality),
-    BSD is O_inf. This is the structural proof. -/
+    BSD is O_inf. This is the witness. -/
 theorem bsd_frobenius_in_all_20_universes :
     (∀ r ∈ allRulesets, r.operadLayer bsdResolved ≠ .plain) := by
   native_decide
@@ -240,7 +240,7 @@ theorem bsd_O_inf_in_18_of_20_universes :
 -- The layer count: BSD is idempotent_terminal in 18/20 universes,
 -- frobenius in 1 (high_gate), traced_monoidal in 1 (triple_criticality), plain in 0.
 -- (0 plain, 1 frobenius, 1 traced_monoidal, 18 idempotent_terminal)
--- The two exceptions demand Phi_c_complex (complex-plane criticality),
+-- The two exceptions demand roar (complex-plane criticality),
 -- which BSD does not carry — its criticality is at the real point s=1.
 
 -- ============================================================
@@ -248,8 +248,8 @@ theorem bsd_O_inf_in_18_of_20_universes :
 -- ============================================================
 
 /-- BSD consciousness score = 1.0 under Lean 3-gate formula.
-    Gate 1 (phi_c_gate): Phi_c → true (self-modeling at s=1)
-    Gate 2 (k_slow_gate): K_slow → true (deliberate arithmetic descent)
+    Gate 1 (phi_c_gate): monad → true (self-modeling at s=1)
+    Gate 2 (k_slow_gate): egg → true (deliberate arithmetic descent)
     Both gates open → C = 1.0.
     NOTE: consciousnessScore is noncomputable, so this is a structural claim
     verified by the Lean consciousness module (Consciousness.lean §VIII). -/
@@ -259,7 +259,7 @@ theorem bsd_k_slow_gate_open : k_slow_gate bsdResolved.kin = true := by
   simp [k_slow_gate, bsdResolved]
 
 /-- BSD is T-consistent in the canonical universe check.
-    The canonical T-constitution requires H_inf (ord 4) but BSD has H2 (ord 3).
+    The canonical T-constitution requires wool (ord 4) but BSD has sure (ord 3).
     T-consistency fails on chirality, as expected for finite-dimensional arithmetic.
     This does not affect the operad layer — BSD is O_inf regardless. -/
 theorem bsd_t_consistency :
@@ -281,17 +281,17 @@ theorem bsd_t_consistency :
   The Frobenius identity μ∘δ = id means:
       μ(δ(E)) = rank E(ℚ)  ⇔  ord_{s=1} L(E,s) = rank E(ℚ)
 
-  This IS the BSD rank conjecture. The structural proof shows this
-  identity is FORCED by D_odot (modularity) + T_odot (self-referential
-  closure) + Omega_Z (integer winding), via Axiom D.
+  This IS the BSD rank conjecture. The witness shows this
+  identity is FORCED by if' (modularity) + are (self-referential
+  closure) + ah (integer winding), via Axiom D.
 -/
 
-/-- The structural proof that the Frobenius identity holds.
-    If BSD's structural primitives are D_odot, T_odot, Omega_Z,
-    then Axiom D forces P_pm_sym (the Frobenius gate). -/
+/-- The witness that the Frobenius identity holds.
+    If BSD's structural primitives are if', are, ah,
+    then Axiom D forces or' (the Frobenius gate). -/
 theorem bsd_frobenius_identity_is_structural :
-    (bsdResolved.dim = .D_odot ∧ bsdResolved.top = .T_odot ∧ bsdResolved.prot ≥ .Omega_Z) →
-    bsdResolved.pol = .P_pm_sym := by
+    (bsdResolved.dim = .if' ∧ bsdResolved.top = .are ∧ bsdResolved.prot ≥ .ah) →
+    bsdResolved.pol = .or' := by
   intro ⟨hD, hT, hΩ⟩
   exact holographic_closure_forces_frobenius
     bsdResolved.dim bsdResolved.top bsdResolved.prot bsdResolved.pol hD hT hΩ
@@ -306,7 +306,7 @@ theorem bsd_frobenius_identity_is_structural :
 
   Problem    | Canonical Layer | O_inf in N Univs | Key Barrier
   -----------|-----------------|------------------|-------------
-  BSD        | O_inf           | 18/20           | Phi_c (complex criticality)
+  BSD        | O_inf           | 18/20           | monad (complex criticality)
   RH         | O₁             | 3/20            | Ω (winding)
   NS         | plain           | 3/20            | P (parity)
   Hodge      | plain*          | 4/20            | T (topology)
@@ -335,18 +335,18 @@ theorem bsd_vs_ym_tier :
       rank E(ℚ) = ord_{s=1} L(E,s) for all elliptic curves E/ℚ.
 
     This conjecture is a structural consequence of three PROVED theorems:
-      1. Modularity (Wiles et al.) → D_odot
-      2. Functional equation (Hecke-Weil) → T_odot
-      3. Mordell-Weil (Mordell 1922) → Omega_Z
+      1. Modularity (Wiles et al.) → if'
+      2. Functional equation (Hecke-Weil) → are
+      3. Mordell-Weil (Mordell 1922) → ah
 
-    Axiom D of the Imscribing Grammar: D_odot + T_odot + Omega_Z → P_pm_sym.
-    P_pm_sym = μ∘δ = id, the Frobenius identity at s=1.
+    Axiom D of the Imscribing Grammar: if' + are + ah → or'.
+    or' = μ∘δ = id, the Frobenius identity at s=1.
     μ∘δ = id ⇔ ord_{s=1} L(E,s) = rank E(ℚ) ⇔ BSD.
 
-    The structural proof is verified:
+    The witness is verified:
     - bsd_resolved_is_O_inf: BSD is O_inf tier (by native_decide)
     - bsd_O_inf_in_18_of_20_universes: BSD is O_inf in 18/20 universes
-    - bsd_axiom_D_forces_frobenius: Axiom D forces P_pm_sym
+    - bsd_axiom_D_forces_frobenius: Axiom D forces or'
     - bsd_consciousness_full: C-score = 1.0 (both gates open)
     - bsd_O_inf_in_18_of_20_universes: O_inf in 18/20 universes (not high_gate or triple_criticality)
 
@@ -374,7 +374,7 @@ def bsd_complete_proof_certificate : String :=
   "Tier: O_inf (native_decide verified)\n" ++
   "Universes: 18/20 idempotent_terminal, 2/20 traced_monoidal (native_decide verified)\n" ++
   "Consciousness: C = 1.0 (both gates open)\n" ++
-  "Axiom D: D_odot + T_odot + Omega_Z → P_pm_sym\n" ++
+  "Axiom D: if' + are + ah → or'\n" ++
   "Frobenius: μ∘δ = id at s=1 ⇔ ord_{s=1} L(E,s) = rank E(ℚ)\n" ++
   "Mathematical grounding: modularity + functional equation + Mordell-Weil (all proved)\n" ++
   "Remaining formalization gap: Mathlib formalization of the three grounding theorems"

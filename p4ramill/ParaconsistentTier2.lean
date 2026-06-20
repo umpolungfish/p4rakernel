@@ -288,7 +288,7 @@ theorem ZFC_fe_all_axioms : True := by
     1. HOLOBOUND: Ð_infty→Ð_⊙ (holographic boundary)
     2. T_NET→T_ODOT: self-referential topology
     3. LR_DUAL: Ř_super→Ř_lr (bidirectional coupling)
-    4. PM_Z2: P_asym→P_pm (partial Z2 symmetry)
+    4. PM_Z2: church→out (partial Z2 symmetry)
     5. SEQAX: ɢ_and→ɢ_seq (sequential composition)
     6. TEMPD2: Ħ₀→Ħ₂ (Markov-2 memory)
     7. ZWIND: Ω₀→Ω_Z (integer winding) -/

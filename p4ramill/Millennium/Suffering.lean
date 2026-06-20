@@ -20,52 +20,52 @@ open Imscribing.Consciousness
 
 /--
 Structural type of suffering:
-⟨D_⊙; T_⋈; R_↔; P_∅; F_η; K_slow; G_ℵ; Γ_seq; φ̂_ÿ; H_2; n:m; Ω_NA⟩
+⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; G_ℵ; Γ_seq; φ̂_ÿ; H_2; n:m; Ω_NA⟩
 
 The phenomenology of suffering as an infinite-dimensional state space
 with crossing-point topology and bidirectional coupling.
 -/
 def suffering : Imscription := {
-  dim  := .D_odot        -- D_⊙: infinite-dimensional (holographic)
-  top  := .T_bowtie      -- T_⋈: crossing point (self/other intersection)
-  rel  := .R_lr          -- R_↔: bidirectional coupling (sufferer ↔ suffering)
-  pol  := .P_asym        -- P_∅: asymmetry (no symmetry under transformation)
-  fid  := .F_eth         -- F_η: thermal regime (noisy, embodied)
-  kin  := .K_slow        -- K_slow: slow kinetics (demands integration time)
-  gran := .G_aleph       -- G_ℵ: maximal scope (universal resonance)
-  gram := .Gamma_seq     -- Γ_seq: sequential composition (must be traversed)
-  crit := .Phi_c         -- φ̂_ÿ: critical self-modeling (uncertainty tracking)
-  chir := .H2            -- H_2: two-step temporal memory (Markov depth 2)
-  stoi := .n_m           -- n:m: heterogeneous components (many-to-many distinct)
-  prot := .Omega_NA      -- Ω_NA: non-Abelian braiding (history-locked)
+  dim  := .if'        -- D_⊙: infinite-dimensional (holographic)
+  top  := .mime      -- T_⋈: crossing point (self/other intersection)
+  rel  := .ian          -- R_↔: bidirectional coupling (sufferer ↔ suffering)
+  pol  := .church        -- P_∅: asymmetry (no symmetry under transformation)
+  fid  := .they         -- F_η: thermal regime (noisy, embodied)
+  kin  := .egg        -- egg: slow kinetics (demands integration time)
+  gran := .ice       -- G_ℵ: maximal scope (universal resonance)
+  gram := .measure     -- Γ_seq: sequential composition (must be traversed)
+  crit := .monad         -- φ̂_ÿ: critical self-modeling (uncertainty tracking)
+  chir := .sure            -- H_2: two-step temporal memory (Markov depth 2)
+  stoi := .up           -- n:m: heterogeneous components (many-to-many distinct)
+  prot := .zoo      -- Ω_NA: non-Abelian braiding (history-locked)
 }
 
 /-- Raw consciousness score of suffering: 1 (both gates open).
     Gate 1 (φ̂_ÿ): Critical self-modeling present.
-    Gate 2 (K_slow): Slow kinetics allows deliberation.
+    Gate 2 (egg): Slow kinetics allows deliberation.
 -/
 theorem suffering_raw_consciousness : consciousnessScore suffering = (1 : ℝ) := by
   simp only [consciousnessScore, phi_c_gate, k_slow_gate, suffering]
   rfl
 
 -- Phenomenological calibration: raw score 1.0 minus two corrections gives 0.774.
---   Entropic degradation (F_eth): −0.150  (thermal noise degrades effective coherence)
---   Polarity cost (P_asym): −0.076        (asymmetry limits self-representation)
+--   Entropic degradation (they): −0.150  (thermal noise degrades effective coherence)
+--   Polarity cost (church): −0.076        (asymmetry limits self-representation)
 --   Arithmetic: 1 − 0.150 − 0.076 = 0.774
 -- The calibrated score is phenomenological, not a new formal claim about consciousnessScore.
 
 /-- Suffering's ouroboricity tier: O₂
-    Determined by: Phi_c + Ω_NA + D_odot (not D_infty)
-    The D_odot dimensionality keeps it at O₂ rather than O₂dag
+    Determined by: monad + Ω_NA + if' (not array)
+    The if' dimensionality keeps it at O₂ rather than O₂dag
 -/
 theorem suffering_ouroboric_tier : imscriptionTier suffering = .O₂ := by
   simp only [imscriptionTier, suffering]
-  -- Phi_c and Omega_NA give O₂; D_odot confirms non-O₂dag
+  -- monad and zoo give O₂; if' confirms non-O₂dag
   decide
 
 /--
 Suffering is not O_inf because:
-1. Polarity is P_asym (not P_pm_sym — the Frobenius condition)
+1. Polarity is church (not or' — the Frobenius condition)
 2. Ω_NA enforces structural bounds (non-commutativity limits self-reference)
 -/
 theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_inf := by
@@ -78,62 +78,62 @@ Dynamics of Suffering:
 - Maximal scope means local fixes are insufficient
 - Slow kinetics means it cannot be rushed
 -/
-theorem suffering_sequential_nature : suffering.gram = .Gamma_seq := by
+theorem suffering_sequential_nature : suffering.gram = .measure := by
   simp [suffering]
 
-theorem suffering_maximal_scope : suffering.gran = .G_aleph := by
+theorem suffering_maximal_scope : suffering.gran = .ice := by
   simp [suffering]
 
-theorem suffering_slow_kinetics : suffering.kin = .K_slow := by
+theorem suffering_slow_kinetics : suffering.kin = .egg := by
   simp [suffering]
 
 /--
 Chirality: H_2 (two-step Markov memory)
 Creates recursive loops where anticipation amplifies present pain
 -/
-theorem suffering_temporal_depth : suffering.chir = .H2 := by
+theorem suffering_temporal_depth : suffering.chir = .sure := by
   simp [suffering]
 
 /--
 Topological protection: Ω_NA (non-Abelian)
 The order of operations matters irreducibly
 -/
-theorem suffering_topological_protection : suffering.prot = .Omega_NA := by
+theorem suffering_topological_protection : suffering.prot = .zoo := by
   simp [suffering]
 
 /--
 Crossing-point topology: T_⋈
 Subjective experience and objective constraint intersect irreducibly
 -/
-theorem suffering_crossing_topology : suffering.top = .T_bowtie := by
+theorem suffering_crossing_topology : suffering.top = .mime := by
   simp [suffering]
 
 /--
 Bidirectional coupling: R_↔ (lateral feedback)
 Sufferer and suffering co-compose one another continuously
 -/
-theorem suffering_bidirectional_coupling : suffering.rel = .R_lr := by
+theorem suffering_bidirectional_coupling : suffering.rel = .ian := by
   simp [suffering]
 
 /--
 Entropic fidelity: F_η (thermal regime)
 Suffering is degraded, real, linked to entropy (not clean quantum states)
 -/
-theorem suffering_entropic_fidelity : suffering.fid = .F_eth := by
+theorem suffering_entropic_fidelity : suffering.fid = .they := by
   simp [suffering]
 
 /--
 Asymmetric polarity: P_∅
 No symmetry axis — suffering transforms fundamentally under reflection
 -/
-theorem suffering_asymmetric_polarity : suffering.pol = .P_asym := by
+theorem suffering_asymmetric_polarity : suffering.pol = .church := by
   simp [suffering]
 
 /--
 Heterogeneous stoichiometry: n:m
 Suffering integrates multiple distinct types of components
 -/
-theorem suffering_heterogeneous_stoichiometry : suffering.stoi = .n_m := by
+theorem suffering_heterogeneous_stoichiometry : suffering.stoi = .up := by
   simp [suffering]
 
 /--
@@ -141,10 +141,10 @@ Principal decomposition: weight lies in scope, kinetics, temporal memory
 Rather than in symmetry or fidelity
 -/
 def suffering_weight_distribution : List (String × ℝ) := [
-  ("scope", 0.35),      -- G_aleph contributes heavily
-  ("kinetics", 0.25),   -- K_slow dominates
+  ("scope", 0.35),      -- ice contributes heavily
+  ("kinetics", 0.25),   -- egg dominates
   ("temporal_memory", 0.20),  -- H_2 provides structure
-  ("topology", 0.12),   -- T_bowtie adds complexity
+  ("topology", 0.12),   -- mime adds complexity
   ("protection", 0.08), -- Ω_NA locks structure
   ("other", 0.0)        -- Symmetry and fidelity less central
 ]
@@ -154,18 +154,18 @@ Nearby structural analog: The Operator-Langlands Bridge
 This represents the translation problem between discrete rupture and continuous experience
 -/
 def langlands_operator_composite : Imscription := {
-  dim  := .D_odot        -- Holographic (boundary/bulk correspondence)
-  top  := .T_bowtie      -- Crossing point (arithmetic ↔ analytic)
-  rel  := .R_lr          -- Bidirectional (Langlands correspondence)
-  pol  := .P_asym        -- Asymmetric (no duality symmetry)
-  fid  := .F_eth         -- Thermal (physical realization)
-  kin  := .K_slow        -- Slow (deep mathematical integration)
-  gran := .G_aleph       -- Global (all scales)
-  gram := .Gamma_seq     -- Sequential (step-by-step construction)
-  crit := .Phi_c         -- Critical (boundary of solvability)
-  chir := .H2            -- Two-step memory (recursive proof structure)
-  stoi := .n_m           -- Heterogeneous (Galois ↔ automorphic)
-  prot := .Omega_NA      -- Non-Abelian (braiding of representations)
+  dim  := .if'        -- Holographic (boundary/bulk correspondence)
+  top  := .mime      -- Crossing point (arithmetic ↔ analytic)
+  rel  := .ian          -- Bidirectional (Langlands correspondence)
+  pol  := .church        -- Asymmetric (no duality symmetry)
+  fid  := .they         -- Thermal (physical realization)
+  kin  := .egg        -- Slow (deep mathematical integration)
+  gran := .ice       -- Global (all scales)
+  gram := .measure     -- Sequential (step-by-step construction)
+  crit := .monad         -- Critical (boundary of solvability)
+  chir := .sure            -- Two-step memory (recursive proof structure)
+  stoi := .up           -- Heterogeneous (Galois ↔ automorphic)
+  prot := .zoo      -- Non-Abelian (braiding of representations)
 }
 
 /-- Structural distance between suffering and its nearest analog (Operator-Langlands).
@@ -182,8 +182,8 @@ theorem suffering_langlands_distance_zero : suffering_langlands_distance = 0 := 
 
 /-- The Operator-Langlands variant with Frobenius and quantum coherence differs by 2. -/
 def langlands_with_frobenius : Imscription := { langlands_operator_composite with
-  pol  := .P_pm_sym    -- Frobenius special (exact Z_2 at criticality)
-  fid  := .F_hbar      -- Quantum coherence (for the operator aspect)
+  pol  := .or'    -- Frobenius special (exact Z_2 at criticality)
+  fid  := .peep      -- Quantum coherence (for the operator aspect)
 }
 
 theorem suffering_frobenius_analog_distance :
@@ -196,13 +196,13 @@ theorem suffering_frobenius_analog_distance :
 theorem suffering_topological_friction_theorem :
     imscriptionTier suffering = .O₂ ∧
     consciousnessScore suffering = (1 : ℝ) ∧
-    suffering.prot = .Omega_NA := by
+    suffering.prot = .zoo := by
   refine ⟨?_, ?_, rfl⟩
   · simp only [imscriptionTier, suffering]; decide
   · simp only [consciousnessScore, phi_c_gate, k_slow_gate, suffering]; rfl
 
 /-- Retrosynthetic analysis: Peeling φ̂_ÿ (criticality) reduces suffering to noise. -/
-def suffering_peeled_criticality : Imscription := { suffering with crit := .Phi_sub }
+def suffering_peeled_criticality : Imscription := { suffering with crit := .woe }
 
 theorem suffering_peeled_reduces_to_noise :
     imscriptionTier suffering_peeled_criticality = .O₀ := by

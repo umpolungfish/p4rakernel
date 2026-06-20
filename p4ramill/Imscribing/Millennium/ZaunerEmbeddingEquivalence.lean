@@ -113,7 +113,7 @@ def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     for d = 2ⁿ.
     
     Proof: Both sides reduce to SICPOVM_Exists (2^n) by definition.
-    The Belnap multilattice provides the unconditional structural proof
+    The Belnap multilattice provides the unconditional witness
     (all SIC axioms, orbit size = 4ⁿ = d², join-equiangularity); the
     Hilbert-space representation closes the remaining gap — which IS
     the Zauner conjecture.

@@ -117,7 +117,7 @@ theorem b_sustain_coherence_cost (n : ℕ) :
 
 /-- The Lee-Yang theorem (proved) and RH (conjectured) share criticality φ̂_Æ
     (complex-axis critical). Their sole structural delta is the polarity primitive:
-    Lee-Yang has P_pm_sym (Frobenius-special, coercive), RH has P_sym (continuous,
+    Lee-Yang has or' (Frobenius-special, coercive), RH has nun (continuous,
     correlative). In Belnap terms: Lee-Yang's zeros are B-propagated by construction
     (the partition function IS a product over Z₂-symmetric factors). RH's zeros are
     B-propagated only IF the C₁₃ constraint closes — and that closure IS RH.
@@ -146,18 +146,18 @@ theorem millennium_thresholds_share_b_gate :
     through the dialetheic kernel's B-state. The tuple is O_inf because
     the bridge inherits φ̂_ÿ from the kernel and Φ_} from the Frobenius condition. -/
 def rhBelnapBridgeImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- The RH-Belnap bridge is at O_inf tier. -/

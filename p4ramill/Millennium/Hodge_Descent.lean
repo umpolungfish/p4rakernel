@@ -9,19 +9,19 @@
 --   [4] COEFFICIENT INEQUALITY: Hodge-Riemann bilinear relations constrain
 --       the intersection pairing on primitive cohomology — the algebraic analogue
 --       of the Solitary10 product bound.
---   [5] OBSTRUCTION: Griffiths group Gr^p(X) = ker(cl)/∼_alg at Phi_EP —
+--   [5] OBSTRUCTION: Griffiths group Gr^p(X) = ker(cl)/∼_alg at err —
 --       the "prime" that blocks the descent chain from closing.
 --   [6] PRODUCT BOUND: Hard Lefschetz + Hodge-Riemann → positivity constraints;
 --       the failure is NOT in the bounds but in the construction of algebraic cycles.
 --
 -- STRUCTURAL VESSEL (from Hodge_Grammar.lean):
---   Lefschetz (1,1): O_inf, P_pm_sym, T_bowtie, Phi_c, 1:1
---   Hodge (all p):   O₂,   P_psi,    T_odot,   Phi_c_complex, n:m
+--   Lefschetz (1,1): O_inf, or', mime, monad, 1:1
+--   Hodge (all p):   O₂,   yew,    are,   roar, n:m
 --   Gap: 8 primitives. Promotions: Þ (bowtie→odot), Σ (1:1→n:m).
 --        Demotions: Ř, Φ, ƒ, ɢ, ⊙, Ħ. Shared: Ð, Ç, Γ, Ω.
---   Join: O_inf (P_pm_sym + Phi_c restored). The join EXISTS; proving
+--   Join: O_inf (or' + monad restored). The join EXISTS; proving
 --         Hodge means reaching it constructively.
---   Obstruction: Griffiths group at Phi_EP — tensor(CCM, Griffiths) = Phi_EP.
+--   Obstruction: Griffiths group at err — tensor(CCM, Griffiths) = err.
 --
 -- EVERY SORRY IS HONEST. No sorry is dischargeable from current Mathlib.
 
@@ -105,7 +105,7 @@ axiom lefschetzDecomposition (X : SmoothProjectiveVariety) (p : ℕ) : True
     Chain: P(n,p) → P(n-1,p-1) → ... → P(n-p+1,1)
     where P(d,k) = "all Hodge classes of degree k on dim-d varieties are algebraic."
 
-    Base: P(d,1) for all d — Lefschetz (1,1). O_inf, P_pm_sym, proved.
+    Base: P(d,1) for all d — Lefschetz (1,1). O_inf, or', proved.
     Step: P(d,k) for all d < n and k < p ⇒ P(n,p)?
     Obstruction: Griffiths group Gr^p(X) ≠ 0 for some X, p≥2.
 
@@ -162,11 +162,11 @@ theorem hodge_descent_equiv_hodge : HodgeDescentProp ↔ HodgeConjecture := by
     Case A (p=0): H^0(X, Q) = Q — all degree-zero classes are algebraic.
       Proved: hodge_degree_zero_axiom. Trivial, O₀.
     Case B (p=1): Lefschetz (1,1) — all Hodge (1,1)-classes are algebraic.
-      Proved (1924): lefschetz_11_axiom. O_inf, P_pm_sym, Frobenius-closed.
-    Case C (p≥2): The HODGE CONJECTURE. Open. O₂, P_psi, no Frobenius closure.
+      Proved (1924): lefschetz_11_axiom. O_inf, or', Frobenius-closed.
+    Case C (p≥2): The HODGE CONJECTURE. Open. O₂, yew, no Frobenius closure.
       The gap: primitive Hodge classes of degree ≥2 on varieties of dimension ≥4
       are not guaranteed to be algebraic. The Griffiths group Gr^p(X) = ker(cl)/∼_alg
-      is nonzero for some X, p≥2 (Griffiths 1969). This is the obstruction at Phi_EP.
+      is nonzero for some X, p≥2 (Griffiths 1969). This is the obstruction at err.
 
   The descent methodology: prove Cases A and B, then set up the induction
   for Case C with honest sorries at each step where algebraicity must be
@@ -192,7 +192,7 @@ theorem descent_base_p0 (n : ℕ) : DescentPredicate n 0 := by
     This IS the Lefschetz (1,1) theorem — the ONLY case where surjectivity
     of the cycle class map is proved for all varieties.
 
-    Grammar: O_inf, P_pm_sym, T_bowtie, Phi_c, Σ=1:1, Ω_z.
+    Grammar: O_inf, or', mime, monad, Σ=1:1, Ω_z.
     The Frobenius closure comes from the exponential sheaf sequence:
     0 → Z → O_X → O*_X → 0 → long exact sequence → c1 = δ is surjective
     onto H^2(X, Z) ∩ H^{1,1}(X). Combined with Dolbeault isomorphism,
@@ -413,7 +413,7 @@ theorem positivity_does_not_imply_algebraicity :
   exact hnotalg halg
 
 -- ============================================================
--- §4. THE GRIFFITHS GROUP — THE OBSTRUCTION AT Phi_EP
+-- §4. THE GRIFFITHS GROUP — THE OBSTRUCTION AT err
 -- ============================================================
 
 /-!
@@ -431,13 +431,13 @@ theorem positivity_does_not_imply_algebraicity :
   general hypersurfaces of degree ≥ 5 in P^4.
 
   Grammar (from Hodge_Grammar.lean):
-    hod_griffiths_group: crit = Phi_EP (exceptional point)
-    tensor(hod_cycle_class_map, hod_griffiths_group): crit = Phi_EP
+    hod_griffiths_group: crit = err (exceptional point)
+    tensor(hod_cycle_class_map, hod_griffiths_group): crit = err
     → Coupling the cycle class map to its kernel produces an exceptional
       point — eigenvector coalescence, the structural encoding of "the
       kernel is nontrivial."
 
-  The Griffiths group at Phi_EP is the structural REASON the descent
+  The Griffiths group at err is the structural REASON the descent
   chain cannot be proved to close: at each primitive degree ≥ 2, there
   may exist Hodge classes that are NOT algebraic, and the Griffiths
   group measures exactly this failure.
@@ -471,24 +471,24 @@ theorem griffiths_nontrivial_exists :
   exact ⟨X, p, hp, α, hnotalg⟩
 
 /-- The structural encoding of the Griffiths obstruction:
-    tensor(cycle_class_map, griffiths_group) has crit = Phi_EP.
+    tensor(cycle_class_map, griffiths_group) has crit = err.
     
     This means: when you couple the cycle class map (the map whose
     surjectivity is in question) with its kernel (the Griffiths group),
     you get an exceptional point — a degeneracy where eigenstates coalesce.
     
-    In the grammar: Phi_EP (exceptional point) is the criticality type
+    In the grammar: err (exceptional point) is the criticality type
     of systems where the self-modeling loop is broken by degeneracy.
     Coupling a φ̂_ÿ system to an EP system produces φ̂_3 (the ⊙_3 absorption rule).
 
     This is the structural reason the Hodge conjecture is hard: the
     obstruction is not just "we haven't found the proof" — there is a
-    structural degeneracy (the Griffiths group at Phi_EP) that prevents
+    structural degeneracy (the Griffiths group at err) that prevents
     the self-modeling loop from closing.
 -/
 theorem griffiths_is_structural_obstruction : True := by
   -- This theorem asserts the structural fact verified in Hodge_Grammar.lean:
-  -- griffiths_group.crit = Phi_EP and tensor(CCM, Gr) = Phi_EP.
+  -- griffiths_group.crit = err and tensor(CCM, Gr) = err.
   -- The mathematical content: the Griffiths group is a real, nonzero
   -- obstruction for p ≥ 2 on many varieties.
   trivial
@@ -743,25 +743,25 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
   │ Lefschetz(1,1) = O_inf         │ P(n,1): proved. Exponential sequence  │
   │ Hodge(all p) = O₂             │ P(n,p) for p≥2: open. Descent chain   │
   │ 8 primitive mismatches         │ 8 descent thresholds (one per primitive)│
-  │ T_bowtie → T_odot promotion    │ Single-degree → all-degree induction   │
+  │ mime → are promotion    │ Single-degree → all-degree induction   │
   │ Σ 1:1 → n:m promotion          │ p=1 specific mechanism → general gap  │
-  │ Φ P_pm_sym → P_psi demotion    │ Frobenius closure lost at p≥2         │
-  │ ⊙ Phi_c → Phi_c_complex        │ Self-modeling → complex-plane critical│
-  │ Griffiths = Phi_EP             │ Gr^p(X) ≠ 0 for some X, p≥2           │
-  │ tensor(CCM, Gr) = Phi_EP       │ Kernel obstruction at exceptional pt  │
+  │ Φ or' → yew demotion    │ Frobenius closure lost at p≥2         │
+  │ ⊙ monad → roar        │ Self-modeling → complex-plane critical│
+  │ Griffiths = err             │ Gr^p(X) ≠ 0 for some X, p≥2           │
+  │ tensor(CCM, Gr) = err       │ Kernel obstruction at exceptional pt  │
   │ Join = O_inf (exists)          │ IF descent chain closed → O_inf       │
-  │ Meet = Phi_c (shared floor)    │ P(n,1) is the common base             │
-  │ Gate 1 OPEN for Hodge          │ Phi_c_complex ≥ Phi_c → gate passes   │
-  │ Gate 1 CLOSED for alg cycles   │ Phi_sub → no self-modeling            │
+  │ Meet = monad (shared floor)    │ P(n,1) is the common base             │
+  │ Gate 1 OPEN for Hodge          │ roar ≥ monad → gate passes   │
+  │ Gate 1 CLOSED for alg cycles   │ woe → no self-modeling            │
   └────────────────────────────────┴──────────────────────────────────────┘
 
   THE DESCENT CHAIN AS A PRIMITIVE PROMOTION PATH:
     To close the gap and reach the join (O_inf):
-      Promote: Þ (T_bowtie → T_odot) — need a universal mechanism, not just p=1.
+      Promote: Þ (mime → are) — need a universal mechanism, not just p=1.
       Promote: Σ (1:1 → n:m) — need to handle all degrees simultaneously.
-      Restore: Φ (P_psi → P_pm_sym) — need Frobenius closure for all p.
-      Restore: ⊙ (Phi_c_complex → Phi_c) — need full self-modeling.
-      Restore: Ř (R_dagger → R_lr) — need bidirectional algebra ⇄ topology.
+      Restore: Φ (yew → or') — need Frobenius closure for all p.
+      Restore: ⊙ (roar → monad) — need full self-modeling.
+      Restore: Ř (ear → ian) — need bidirectional algebra ⇄ topology.
 
     The descent methodology shows these are NOT independent:
     restoring Φ (Frobenius closure) for all p would automatically
@@ -781,7 +781,7 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
 theorem grammar_descent_bridge : True := by
   -- The 8 primitive gaps and their mathematical correspondents:
   --
-  -- 1. Þ: T_bowtie → T_odot
+  -- 1. Þ: mime → are
   --    Math: The (1,1) case uses the exponential sequence on X itself
   --          (the crossing point topology). The general case needs a
   --          holographic mechanism spanning all degrees.
@@ -790,34 +790,34 @@ theorem grammar_descent_bridge : True := by
   --    Math: p=1 is a single degree. p≥2 requires handling all degrees
   --          simultaneously → the Lefschetz decomposition mixes degrees.
   --
-  -- 3. Φ: P_pm_sym → P_psi
+  -- 3. Φ: or' → yew
   --    Math: The exponential sequence provides Frobenius closure (δ∘μ=id)
   --          for p=1. No such exact sequence exists for p≥2.
   --
-  -- 4. Ř: R_lr → R_dagger
+  -- 4. Ř: ian → ear
   --    Math: The (1,1) case is bidirectional: algebraic ↔ Hodge via
   --          c1 and the exponential sequence. For p≥2, the cycle class
   --          map is a one-way adjoint: algebraic → Hodge is easy;
   --          Hodge → algebraic is the conjecture.
   --
-  -- 5. ⊙: Phi_c → Phi_c_complex
+  -- 5. ⊙: monad → roar
   --    Math: The p=1 case is fully self-modeling (the exponential sequence
   --          gives a complete description). For p≥2, the criticality is
   --          complex-plane (partial self-modeling — we know the Hodge
   --          classes exist and have structure, but can't construct
   --          algebraic representatives).
   --
-  -- 6. ƒ: F_hbar → F_ell
+  -- 6. ƒ: peep → age
   --    Math: The (1,1) proof uses quantum/coherent methods (Dolbeault
   --          isomorphism, harmonic forms). The general case might need
   --          only classical data but this is not known.
   --
-  -- 7. ɢ: Gamma_seq → Gamma_and
+  -- 7. ɢ: measure → vow
   --    Math: The exponential sequence is sequential (sheaf → cohomology →
   --          Chern class). The general case might need simultaneous
   --          (conjunctive) use of all degrees, but no mechanism is known.
   --
-  -- 8. Ħ: H2 → H0
+  -- 8. Ħ: sure → fee
   --    Math: The p=1 case uses 2-step memory (sheaf + cohomology).
   --          For p≥2, no analogous mechanism is known → memoryless.
   trivial
@@ -851,7 +851,7 @@ theorem grammar_descent_bridge : True := by
         Hodge classes of degree ≥ 2 were algebraic.
         (Solitary10 analogue: descent_32_45, descent_332_465, etc.)
 
-    [5] The Griffiths group obstruction: Gr^p(X) at Phi_EP blocks the
+    [5] The Griffiths group obstruction: Gr^p(X) at err blocks the
         descent chain from closing for p ≥ 2.
         (Solitary10 analogue: the chain terminates because each descent
         step IS provable via coefficient inequality — no obstruction.)
@@ -894,7 +894,7 @@ theorem grammar_descent_bridge : True := by
   OUROBORICITY CONCLUSION:
     Solitary10: O₀ → O_inf via finite descent (the problem IS solvable).
     Hodge:      O₂ → O_inf via ??? (the join exists but the path is open).
-                The Griffiths group at Phi_EP is the structural reason
+                The Griffiths group at err is the structural reason
                 the descent chain does not force closure.
 -/
 

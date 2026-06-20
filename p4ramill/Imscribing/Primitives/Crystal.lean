@@ -15,116 +15,116 @@ open Dimensionality Topology Relational Polarity Grammar Fidelity KineticChar
 -- Order-respecting indices (0 = minimal Ord, increasing)
 def idx_D (d : Dimensionality) : Nat :=
   match d with
-  | .D_wedge   => 0
-  | .D_triangle => 1
-  | .D_infty   => 2
-  | .D_odot    => 3
+  | .dead   => 0
+  | .ash => 1
+  | .array   => 2
+  | .if'    => 3
 
 def idx_R (r : Relational) : Nat :=
   match r with
-  | .R_super  => 0
-  | .R_cat    => 1
-  | .R_dagger => 2
-  | .R_lr     => 3
+  | .ado  => 0
+  | .tot    => 1
+  | .ear => 2
+  | .ian     => 3
 
 def idx_Γ (g : Grammar) : Nat :=
   match g with
-  | .Gamma_and   => 0
-  | .Gamma_or    => 1
-  | .Gamma_seq   => 2
-  | .Gamma_broad => 3
+  | .vow   => 0
+  | .gag    => 1
+  | .measure   => 2
+  | .ooze => 3
 
 def idx_H (h : Chirality) : Nat :=
   match h with
-  | .H0    => 0
-  | .H1    => 1
-  | .H2    => 2
-  | .H_inf => 3
+  | .fee    => 0
+  | .kick    => 1
+  | .sure    => 2
+  | .wool => 3
 
 def idx_Ω (o : Protection) : Nat :=
   match o with
-  | .Omega_0  => 0
-  | .Omega_Z2 => 1
-  | .Omega_Z  => 2
-  | .Omega_NA => 3
+  | .awe  => 0
+  | .oak => 1
+  | .ah  => 2
+  | .zoo => 3
 
 def idx_T (t : Topology) : Nat :=
   match t with
-  | .T_network => 0
-  | .T_in      => 1
-  | .T_bowtie  => 2
-  | .T_box     => 3
-  | .T_odot    => 4
+  | .judge => 0
+  | .eat      => 1
+  | .mime  => 2
+  | .oil     => 3
+  | .are    => 4
 
 def idx_P (p : Polarity) : Nat :=
   match p with
-  | .P_asym    => 0
-  | .P_psi     => 1
-  | .P_pm      => 2
-  | .P_sym     => 3
-  | .P_pm_sym  => 4
+  | .church    => 0
+  | .yew     => 1
+  | .out      => 2
+  | .nun     => 3
+  | .or'  => 4
 
 def idx_Φ (c : Criticality) : Nat :=
   match c with
-  | .Phi_sub        => 0
-  | .Phi_c          => 1
-  | .Phi_c_complex  => 2
-  | .Phi_EP         => 3
-  | .Phi_super      => 4
+  | .woe        => 0
+  | .monad          => 1
+  | .roar  => 2
+  | .err         => 3
+  | .haha      => 4
 
 def idx_K (k : KineticChar) : Nat :=
   match k with
-  | .K_fast => 0
-  | .K_mod  => 1
-  | .K_slow => 2
-  | .K_trap => 3
-  | .K_MBL  => 4
+  | .yea => 0
+  | .loll  => 1
+  | .egg => 2
+  | .on => 3
+  | .air  => 4
 
 def idx_F (f : Fidelity) : Nat :=
   match f with
-  | .F_ell => 0
-  | .F_eth => 1
-  | .F_hbar => 2
+  | .age => 0
+  | .they => 1
+  | .peep => 2
 
 def idx_G (g : Granularity) : Nat :=
   match g with
-  | .G_beth  => 0
-  | .G_gimel => 1
-  | .G_aleph => 2
+  | .bib  => 0
+  | .thigh => 1
+  | .ice => 2
 
 def idx_S (s : Stoichiometry) : Nat :=
   match s with
-  | .one_one => 0
-  | .n_n     => 1
-  | .n_m     => 2
+  | .hung => 0
+  | .so     => 1
+  | .up     => 2
 
 -- Inverse: Nat index → primitive value (already correct)
 def dim_of_nat : Nat → Dimensionality
-  | 0 => D_wedge | 1 => D_triangle | 2 => D_infty | 3 => D_odot | _ => D_wedge
+  | 0 => dead | 1 => ash | 2 => array | 3 => if' | _ => dead
 def rel_of_nat : Nat → Relational
-  | 0 => R_super | 1 => R_cat | 2 => R_dagger | 3 => R_lr | _ => R_super
+  | 0 => ado | 1 => tot | 2 => ear | 3 => ian | _ => ado
 def gram_of_nat : Nat → Grammar
-  | 0 => Gamma_and | 1 => Gamma_or | 2 => Gamma_seq | 3 => Gamma_broad | _ => Gamma_and
+  | 0 => vow | 1 => gag | 2 => measure | 3 => ooze | _ => vow
 def chir_of_nat : Nat → Chirality
-  | 0 => H0 | 1 => H1 | 2 => H2 | 3 => H_inf | _ => H0
+  | 0 => fee | 1 => kick | 2 => sure | 3 => wool | _ => fee
 def prot_of_nat : Nat → Protection
-  | 0 => Omega_0 | 1 => Omega_Z2 | 2 => Omega_Z | 3 => Omega_NA | _ => Omega_0
+  | 0 => awe | 1 => oak | 2 => ah | 3 => zoo | _ => awe
 
 def top_of_nat : Nat → Topology
-  | 0 => T_network | 1 => T_in | 2 => T_bowtie | 3 => T_box | 4 => T_odot | _ => T_network
+  | 0 => judge | 1 => eat | 2 => mime | 3 => oil | 4 => are | _ => judge
 def pol_of_nat : Nat → Polarity
-  | 0 => P_asym | 1 => P_psi | 2 => P_pm | 3 => P_sym | 4 => P_pm_sym | _ => P_asym
+  | 0 => church | 1 => yew | 2 => out | 3 => nun | 4 => or' | _ => church
 def crit_of_nat : Nat → Criticality
-  | 0 => Phi_sub | 1 => Phi_c | 2 => Phi_c_complex | 3 => Phi_EP | 4 => Phi_super | _ => Phi_sub
+  | 0 => woe | 1 => monad | 2 => roar | 3 => err | 4 => haha | _ => woe
 def kin_of_nat : Nat → KineticChar
-  | 0 => K_fast | 1 => K_mod | 2 => K_slow | 3 => K_trap | 4 => K_MBL | _ => K_fast
+  | 0 => yea | 1 => loll | 2 => egg | 3 => on | 4 => air | _ => yea
 
 def fid_of_nat : Nat → Fidelity
-  | 0 => F_ell | 1 => F_eth | 2 => F_hbar | _ => F_ell
+  | 0 => age | 1 => they | 2 => peep | _ => age
 def gran_of_nat : Nat → Granularity
-  | 0 => G_beth | 1 => G_gimel | 2 => G_aleph | _ => G_beth
+  | 0 => bib | 1 => thigh | 2 => ice | _ => bib
 def stoi_of_nat : Nat → Stoichiometry
-  | 0 => one_one | 1 => n_n | 2 => n_m | _ => one_one
+  | 0 => hung | 1 => so | 2 => up | _ => hung
 
 -- Crystal address
 def crystal_encode (s : Imscription) : Nat :=

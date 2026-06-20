@@ -17,8 +17,8 @@ axiom FrobeniusRegularityOperator : Imscription → Prop
     Topological Closure (Þ_O), singular measure concentration is 
     topologically excluded. -/
 theorem resolution_implies_smoothness :
-    (navierStokesResolved.pol = .P_pm_sym) → 
-    (navierStokesResolved.top = .T_odot) → 
+    (navierStokesResolved.pol = .or') → 
+    (navierStokesResolved.top = .are) → 
     FrobeniusRegularityOperator navierStokesResolved := by
   intro _ _
   -- This axiomatically bridges the IG structural type to the smooth regularity Prop.
