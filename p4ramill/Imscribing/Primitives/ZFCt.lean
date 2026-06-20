@@ -20,50 +20,50 @@ set_option linter.style.longLine false
 
 /- ZFC -/
 def zfc : Imscription := {
-  dim := D_infty,  top := T_network, rel := R_super,
-  pol := P_asym,   fid := F_hbar,    kin := K_slow,
-  gran := G_aleph, gram := Gamma_and, crit := Phi_c,
-  chir := H0,      stoi := n_m,      prot := Omega_0 }
+  dim := array,  top := judge, rel := ado,
+  pol := church,   fid := peep,    kin := egg,
+  gran := ice, gram := vow, crit := monad,
+  chir := fee,      stoi := up,      prot := awe }
 
 def temporal_mathematics : Imscription := {
-  dim := D_infty, top := T_odot, rel := R_dagger, pol := P_sym,
-  fid := F_hbar,  kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,  chir := H2,    stoi := n_m,     prot := Omega_Z }
+  dim := array, top := are, rel := ear, pol := nun,
+  fid := peep,  kin := egg, gran := ice, gram := measure,
+  crit := monad,  chir := sure,    stoi := up,     prot := ah }
 
 def zfc_t : Imscription := {
-  dim := D_infty, top := T_odot,  rel := R_lr,     pol := P_pm_sym,
-  fid := F_hbar,  kin := K_slow,  gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,  chir := H2,     stoi := n_m,     prot := Omega_Z }
+  dim := array, top := are,  rel := ian,     pol := or',
+  fid := peep,  kin := egg,  gran := ice, gram := measure,
+  crit := monad,  chir := sure,     stoi := up,     prot := ah }
 
 /-- Schr\xF6dinger equation imscription. -/
 def schrodinger_equation : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_lr,    pol := P_psi,
-  fid := F_hbar,  kin := K_slow,  gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := mime, rel := ian,    pol := yew,
+  fid := peep,  kin := egg,  gran := ice, gram := measure,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 /-- Heat diffusion equation imscription. -/
 def heat_diffusion_equation : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_dagger, pol := P_asym,
-  fid := F_eth,   kin := K_slow,  gran := G_aleph,  gram := Gamma_seq,
-  crit := Phi_sub, chir := H1,    stoi := n_m,      prot := Omega_0 }
+  dim := array, top := mime, rel := ear, pol := church,
+  fid := they,   kin := egg,  gran := ice,  gram := measure,
+  crit := woe, chir := kick,    stoi := up,      prot := awe }
 
 /-- Navier-Stokes equation imscription. -/
 def navier_stokes_equations : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_lr,    pol := P_pm,
-  fid := F_ell,   kin := K_mod,   gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,  chir := H2,     stoi := n_m,     prot := Omega_Z }
+  dim := array, top := mime, rel := ian,    pol := out,
+  fid := age,   kin := loll,   gran := ice, gram := measure,
+  crit := monad,  chir := sure,     stoi := up,     prot := ah }
 
 /-- Wave equation imscription. -/
 def wave_equation_temporal : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_dagger, pol := P_sym,
-  fid := F_ell,   kin := K_mod,   gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_sub, chir := H2,    stoi := n_m,     prot := Omega_0 }
+  dim := array, top := mime, rel := ear, pol := nun,
+  fid := age,   kin := loll,   gran := ice, gram := measure,
+  crit := woe, chir := sure,    stoi := up,     prot := awe }
 
 /-- Einstein field equations imscription. -/
 def einstein_field_equations_dynamic : Imscription := {
-  dim := D_infty, top := T_odot,  rel := R_dagger, pol := P_sym,
-  fid := F_ell,   kin := K_slow,  gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := are,  rel := ear, pol := nun,
+  fid := age,   kin := egg,  gran := ice, gram := measure,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 /-- Navier-Stokes equation placeholder. -/
 def navier_stokes_equation
@@ -97,7 +97,7 @@ inductive FormulaSeqRel where | precedes | precedes_rev | conj deriving Decidabl
 
 def temporalDepth (n : ℕ) (s : Imscription) : Imscription :=
   { s with chir :=
-    if n = 0 then H0 else if n = 1 then H1 else if n = 2 then H2 else H_inf }
+    if n = 0 then fee else if n = 1 then kick else if n = 2 then sure else wool }
 
 structure WindingData where
   path : Type
@@ -110,9 +110,9 @@ def example_winding : WindingData := {
   exists_nonzero := ⟨(), by simp⟩ }
 
 def zfc_to_zfc_t_promotions : List (String × String) := [
-  ("P", "P_asym → P_pm_sym"), ("Gamma", "Gamma_and → Gamma_seq"),
-  ("chir", "H0 → H2"), ("prot", "Omega_0 → Omega_Z"),
-  ("top", "T_network → T_odot"), ("rel", "R_super → R_lr") ]
+  ("P", "church → or'"), ("Gamma", "vow → measure"),
+  ("chir", "fee → sure"), ("prot", "awe → ah"),
+  ("top", "judge → are"), ("rel", "ado → ian") ]
 
 -- ============================================================
 -- IMAGINARY NUMBERS CONNECTION
@@ -120,46 +120,46 @@ def zfc_to_zfc_t_promotions : List (String × String) := [
 
 /-- Complex-time path integral (Wick-rotated: t → iτ, Euclidean field theory).
     Identical to ZFC_t in all 12 primitives except topology:
-    T_bowtie (figure-8 closure) vs T_odot (holographic boundary encoding).
+    mime (figure-8 closure) vs are (holographic boundary encoding).
     The Wick rotation is a one-step topology promotion. -/
 def complex_time_path_integral : Imscription := {
-  dim  := D_infty,   top  := T_bowtie,  rel  := R_lr,      pol  := P_pm_sym
-  fid  := F_hbar,    kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
-  crit := Phi_c,     chir := H2,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,   top  := mime,  rel  := ian,      pol  := or'
+  fid  := peep,    kin  := egg,    gran := ice,   gram := measure
+  crit := monad,     chir := sure,        stoi := up,       prot := ah }
 
 /-- Complex-time path integral is O_inf: Frobenius condition holds in Euclidean time. -/
 theorem complex_time_is_O_inf : imscriptionTier complex_time_path_integral = .O_inf := by decide
 
-/-- The Wick rotation is a single topology step: T_bowtie → T_odot.
+/-- The Wick rotation is a single topology step: mime → are.
     Everything else in ZFC_t is already present in the Euclidean path integral. -/
 theorem wick_rotation_is_one_step :
     primitiveMismatches complex_time_path_integral zfc_t = 1 := by decide
 
 /-- The imaginary unit i, in canonical Imscription form.
-    P_psi (phase/U(1) symmetry): rotation in the complex plane, not Frobenius.
-    F_ell (classical lossy): i is a classical construct, not quantum-coherent.
-    D_triangle (triangulated): finite depth, no recursive holographic structure.
-    C = 1.0: both gates pass (Phi_c, K_slow). -/
+    yew (phase/U(1) symmetry): rotation in the complex plane, not Frobenius.
+    age (classical lossy): i is a classical construct, not quantum-coherent.
+    ash (triangulated): finite depth, no recursive holographic structure.
+    C = 1.0: both gates pass (monad, egg). -/
 def imaginary_unit : Imscription := {
-  dim  := D_triangle, top  := T_bowtie,  rel  := R_lr,     pol  := P_psi
-  fid  := F_ell,      kin  := K_slow,    gran := G_aleph,  gram := Gamma_seq
-  crit := Phi_c,      chir := H2,        stoi := one_one,  prot := Omega_Z }
+  dim  := ash, top  := mime,  rel  := ian,     pol  := yew
+  fid  := age,      kin  := egg,    gran := ice,  gram := measure
+  crit := monad,      chir := sure,        stoi := hung,  prot := ah }
 
-/-- Imaginary unit is O₂: Omega_Z protection but no Frobenius symmetry. -/
+/-- Imaginary unit is O₂: ah protection but no Frobenius symmetry. -/
 theorem imaginary_unit_is_O_2 : imscriptionTier imaginary_unit = .O₂ := by decide
 
 /-- Frobenius cliff: imaginary unit cannot tensor-compose its way to ZFC_t.
-    P_psi (U(1)) cannot reach P_pm_sym by any tensor — the Frobenius gate
+    yew (U(1)) cannot reach or' by any tensor — the Frobenius gate
     must be opened independently (the Wick rotation is a promotion, not a product). -/
 theorem imaginary_unit_frobenius_cliff :
-    ∀ other : Imscription, (tensorProduct imaginary_unit other).pol ≠ P_pm_sym := by
+    ∀ other : Imscription, (tensorProduct imaginary_unit other).pol ≠ or' := by
   intro other
   simp only [tensorProduct, imaginary_unit]
   cases other.pol <;> decide
 
 /-- Distance from imaginary unit to ZFC_t: five primitive promotions needed
-    (dim: D_triangle→D_infty, top: T_bowtie→T_odot, pol: P_psi→P_pm_sym,
-     fid: F_ell→F_hbar, stoi: one_one→n_m). -/
+    (dim: ash→array, top: mime→are, pol: yew→or',
+     fid: age→peep, stoi: hung→up). -/
 theorem imaginary_unit_to_zfc_t_dist :
     primitiveMismatches imaginary_unit zfc_t = 5 := by decide
 

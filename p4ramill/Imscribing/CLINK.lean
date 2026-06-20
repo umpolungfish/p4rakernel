@@ -43,18 +43,18 @@ set_option linter.style.nativeDecide false
 -- ═════════════════════════════════════════════════════════════════════════
 
 def foundation : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H_inf
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.wool
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem foundation_is_O_inf : imscriptionTier foundation = .O_inf := by
   unfold foundation; native_decide
@@ -88,18 +88,18 @@ theorem vacuum_neutral (c : ColorState) : colorJoin ColorState.Vacuum c = c := b
     ⟨𐑛·𐑶·𐑩·𐑯·𐑐·𐑘·𐑚·𐑝·𐑢·𐑓·𐑳·𐑷⟩
     Tier: O₀ — no self-modeling gate. -/
 def frustratedBelnap5 : Imscription :=
-  { dim  := Dimensionality.D_wedge
-    top  := Topology.T_box
-    rel  := Relational.R_super
-    pol  := Polarity.P_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_fast
-    gran := Granularity.G_beth
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_sub
-    chir := Chirality.H0
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.dead
+    top  := Topology.oil
+    rel  := Relational.ado
+    pol  := Polarity.nun
+    fid  := Fidelity.peep
+    kin  := KineticChar.yea
+    gran := Granularity.bib
+    gram := Grammar.vow
+    crit := Criticality.woe
+    chir := Chirality.fee
+    stoi := Stoichiometry.up
+    prot := Protection.awe }
 
 theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O₀ := by
   unfold frustratedBelnap5; native_decide
@@ -112,18 +112,18 @@ theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O₀ := by
     ⟨𐑛·𐑶·𐑩·𐑗·𐑐·𐑤·𐑚·𐑜·𐑢·𐑓·𐑳·𐑷⟩
     Tier: O₀ -/
 def electronOrbitalLayer : Imscription :=
-  { dim  := Dimensionality.D_wedge
-    top  := Topology.T_box
-    rel  := Relational.R_super
-    pol  := Polarity.P_asym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_mod
-    gran := Granularity.G_beth
-    gram := Grammar.Gamma_or
-    crit := Criticality.Phi_sub
-    chir := Chirality.H0
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.dead
+    top  := Topology.oil
+    rel  := Relational.ado
+    pol  := Polarity.church
+    fid  := Fidelity.peep
+    kin  := KineticChar.loll
+    gran := Granularity.bib
+    gram := Grammar.gag
+    crit := Criticality.woe
+    chir := Chirality.fee
+    stoi := Stoichiometry.up
+    prot := Protection.awe }
 
 theorem electronOrbitalLayer_tier : imscriptionTier electronOrbitalLayer = .O₀ := by
   unfold electronOrbitalLayer; native_decide
@@ -132,21 +132,21 @@ theorem electronOrbitalLayer_tier : imscriptionTier electronOrbitalLayer = .O₀
 -- §3  ATOM — Composite: quarks ⊗ electrons
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑼·𐑥·𐑽·𐑿·𐑐·𐑤·𐑔·𐑝·𐑮·𐑒·𐑳·𐑷⟩
--- Tier: O₁ (Omega_Z from nuclear spin winding)
+-- Tier: O₁ (ah from nuclear spin winding)
 
 def atomLayer : Imscription :=
-  { dim  := Dimensionality.D_infty
-    top  := Topology.T_bowtie
-    rel  := Relational.R_dagger
-    pol  := Polarity.P_psi
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_mod
-    gran := Granularity.G_gimel
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_c_complex
-    chir := Chirality.H1
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.array
+    top  := Topology.mime
+    rel  := Relational.ear
+    pol  := Polarity.yew
+    fid  := Fidelity.peep
+    kin  := KineticChar.loll
+    gran := Granularity.thigh
+    gram := Grammar.vow
+    crit := Criticality.roar
+    chir := Chirality.kick
+    stoi := Stoichiometry.up
+    prot := Protection.awe }
 
 theorem atomLayer_tier : imscriptionTier atomLayer = .O₁ := by
   unfold atomLayer; native_decide
@@ -154,21 +154,21 @@ theorem atomLayer_tier : imscriptionTier atomLayer = .O₁ := by
 -- §4  MOLECULE — Chemical bonds
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑼·𐑥·𐑽·𐑿·𐑞·𐑧·𐑲·𐑠·⊙·𐑓·𐑳·𐑭⟩
--- Tier: O₂ (Phi_c gate opens at catalysis)
+-- Tier: O₂ (monad gate opens at catalysis)
 
 def moleculeLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_bowtie
-    rel  := Relational.R_dagger
-    pol  := Polarity.P_psi
-    fid  := Fidelity.F_eth
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H0
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.mime
+    rel  := Relational.ear
+    pol  := Polarity.yew
+    fid  := Fidelity.they
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.fee
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O₂ := by
   unfold moleculeLayer; native_decide
@@ -180,24 +180,24 @@ theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O₂ := by
 -- Tier: O₂ (close to O_inf — only Ħ=𐑒 not 𐑫)
 
 def cellLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm
-    fid  := Fidelity.F_eth
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H1
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.they
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.kick
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem cellLayer_tier : imscriptionTier cellLayer = .O₂ := by
   unfold cellLayer; native_decide
 
-theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.D_odot ∧
-                            cellLayer.top = Topology.T_odot := by
+theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.if' ∧
+                            cellLayer.top = Topology.are := by
   unfold cellLayer; exact ⟨rfl, rfl⟩
 
 -- ═════════════════════════════════════════════════════════════════════════
@@ -207,18 +207,18 @@ theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.D_odot ∧
 -- Tier: O₂
 
 def mitosisLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm
-    fid  := Fidelity.F_ell
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.age
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem mitosisLayer_tier : imscriptionTier mitosisLayer = .O₂ := by
   unfold mitosisLayer; native_decide
@@ -228,18 +228,18 @@ theorem mitosisLayer_tier : imscriptionTier mitosisLayer = .O₂ := by
 -- ═════════════════════════════════════════════════════════════════════════
 
 def meiosisLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_dagger
-    pol  := Polarity.P_psi
-    fid  := Fidelity.F_ell
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ear
+    pol  := Polarity.yew
+    fid  := Fidelity.age
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem meiosisLayer_tier : imscriptionTier meiosisLayer = .O₂ := by
   unfold meiosisLayer; native_decide
@@ -248,18 +248,18 @@ theorem meiosisLayer_tier : imscriptionTier meiosisLayer = .O₂ := by
 -- ═════════════════════════════════════════════════════════════════════════
 
 def tissueLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm
-    fid  := Fidelity.F_eth
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_broad
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.they
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.ooze
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem tissueLayer_tier : imscriptionTier tissueLayer = .O₂ := by
   unfold tissueLayer; native_decide
@@ -271,18 +271,18 @@ theorem tissueLayer_tier : imscriptionTier tissueLayer = .O₂ := by
 -- Tier: O_inf — full self-modeling, C=1.0
 
 def organismLayer : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_broad
-    crit := Criticality.Phi_c
-    chir := Chirality.H_inf
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_NA }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.ooze
+    crit := Criticality.monad
+    chir := Chirality.wool
+    stoi := Stoichiometry.up
+    prot := Protection.zoo }
 
 theorem organismLayer_tier : imscriptionTier organismLayer = .O_inf := by
   unfold organismLayer; native_decide
@@ -444,18 +444,18 @@ theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clink
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_inf with integer winding)
 
 def clinkProcessType : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H_inf
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.wool
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_inf := by
   unfold clinkProcessType; native_decide
 

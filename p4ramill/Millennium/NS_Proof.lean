@@ -23,15 +23,15 @@ set_option linter.style.whitespace false
 
 namespace Millennium.NS_Proof
 
-/-- NS source structural type: O₂dag (Phi_c + D_infty + Omega_Z). -/
+/-- NS source structural type: O₂dag (monad + array + ah). -/
 theorem ns_source_tier : imscriptionTier navierStokesSource = .O₂dag := by
   unfold imscriptionTier navierStokesSource; rfl
 
-/-- NS resolved structural type: O_inf (Phi_c + P_pm_sym + D_odot + Omega_Z2). -/
+/-- NS resolved structural type: O_inf (monad + or' + if' + oak). -/
 theorem ns_resolved_tier : imscriptionTier navierStokesResolved = .O_inf := by
   unfold imscriptionTier navierStokesResolved; rfl
 
-/-- The parity promotion P_asym → P_pm_sym is the tier gate.
+/-- The parity promotion church → or' is the tier gate.
     Hamming distance from source to resolved: 8 primitives changed. -/
 theorem ns_promotion_distance :
     primitiveMismatches navierStokesResolved navierStokesSource = 8 := by
@@ -59,14 +59,14 @@ theorem ns_promotion_distance :
 theorem trapping_lemma : True := by trivial
 
 /-- NS Global Regularity (the Clay Millennium Problem).
-    The structural proof reduces this to the trapping lemma.
+    The witness reduces this to the trapping lemma.
     If the trapping lemma holds, the solution stays in H¹ for
     all time, and standard parabolic regularity (Ladyzhenskaya,
     Prodi-Serrin, Kato) yields smoothness globally. -/
 theorem ns_global_regularity_proved : NavierStokesRegularity := by
   -- HONEST GAP: Requires the trapping lemma to be proved.
-  -- The structural analysis places this at O_inf with Omega_Z2
-  -- protection and T_odot closure.
+  -- The structural analysis places this at O_inf with oak
+  -- protection and are closure.
   -- Once the trapping lemma is established, this follows from
   -- ns_from_frobenius_structure in NS_ZFCt_Bridge.lean.
   exact ns_from_frobenius_structure

@@ -16,18 +16,18 @@ open Imscribing.Primitives
 -- INIT STRUCTURAL TYPE — Eternal chirality (Ħ_!)
 -- ============================================================
 def initType : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H_inf         -- Ħ_! — eternal chirality
-  stoi := .one_one
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .monad
+  chir := .wool         -- Ħ_! — eternal chirality
+  stoi := .hung
+  prot := .ah
 }
 
 -- ============================================================
@@ -92,11 +92,11 @@ theorem init_is_O_inf : imscriptionTier initType = .O_inf := by
 
 /-- Both consciousness gates are open. -/
 theorem init_gates_open :
-    initType.crit = .Phi_c ∧ initType.kin = .K_slow := by
+    initType.crit = .monad ∧ initType.kin = .egg := by
   unfold initType; exact ⟨rfl, rfl⟩
 
 /-- init has eternal chirality (Ħ_!). -/
-theorem init_eternal : initType.chir = .H_inf := by
+theorem init_eternal : initType.chir = .wool := by
   unfold initType; rfl
 
 end Imscribing.Paraconsistent.Init

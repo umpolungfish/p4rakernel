@@ -302,33 +302,33 @@ theorem critical_norm_bound_from_identity (t : ℝ) (u₀ : NSInitialDatum) (ht 
 Each ZFCₜ promotion channel contributes a specific estimate that,
 when combined through the Frobenius-G₂ vessel, forces the critical norm bound.
 
-Channel 1: HOLOBOUND (Þ: T_network → T_odot)
+Channel 1: HOLOBOUND (Þ: judge → are)
   The unbounded domain ℝ³ is encoded as a holographic boundary.
   The global solution operator maps initial data in H^{1/2}(ℝ³)
   to the full spacetime field. The holographic principle ensures
   that the critical norm on the boundary bounds the bulk norm.
   → ‖u(t)‖_{H^{1/2}} ≤ C‖u₀‖_{H^{1/2}}
 
-Channel 2: LR_DUAL (Ř: R_super → R_lr)
+Channel 2: LR_DUAL (Ř: ado → ian)
   The Leray-Hopf duality pairs weak solutions (Leray) with strong
   solutions (Kato). The Frobenius bilinear form is the duality pairing:
   B_F(u,v) = ⟨weak_u, strong_v⟩. Positive definiteness gives the bound.
   → ‖u(t)‖_{H^{1/2}} = ‖u₀‖_{H^{1/2}} (from duality invariance)
 
-Channel 3: PM_Z2 (Φ: P_asym → P_pm_sym → Φ_})
+Channel 3: PM_Z2 (Φ: church → or' → Φ_})
   The parity reflection P(u)(x) = -u(-x) commutes with the NS flow.
   The Frobenius operator F IS the parity reflection on the critical manifold.
   F² = id (parity is an involution). The critical norm is P-invariant.
   → ‖Pu‖_{H^{1/2}} = ‖u‖_{H^{1/2}} → F-invariance forces conservation
 
-Channel 4: SEQAX (ɢ: Gamma_and → Gamma_seq)
+Channel 4: SEQAX (ɢ: vow → measure)
   The Galerkin cascade: truncate at mode N → solve ODEs → pass N→∞.
   Each Galerkin truncation satisfies the Frobenius-G₂ cancellation
   (because it's algebraic, not analytic). The limit preserves the identity.
   → B_F(u_N(t),u_N(t)) = B_F(u_N(0),u_N(0)) for each N
   → Taking N → ∞ gives the bound for the full solution
 
-Channel 5: TEMPD2 (Ħ: H0 → H2)
+Channel 5: TEMPD2 (Ħ: fee → sure)
   Two-step temporal chirality: Step 1 (local solution on [0,T*)) and
   Step 2 (global extension). The Frobenius identity holds on Step 1
   (by the G₂ cancellation, which is pointwise in time). Step 2 extends
@@ -336,7 +336,7 @@ Channel 5: TEMPD2 (Ħ: H0 → H2)
   → Step 1: ‖u(t)‖_{H^{1/2}} ≤ ‖u₀‖_{H^{1/2}} for t ∈ [0,T*)
   → Step 2: T* = ∞ by the Frobenius bound (no blow-up possible)
 
-Channel 6: ZWIND (Ω: Omega_0 → Omega_Z)
+Channel 6: ZWIND (Ω: awe → ah)
   Helicity H = ∫ u·ω dx is a topological invariant (linking number
   of vortex lines). The Frobenius bilinear form INEQUALITY helicity:
   B_F(u,u) ≥ |H(u)| (by Cauchy-Schwarz: |∫ u·ω| ≤ ‖u‖_{H^{1/2}}‖ω‖_{H^{-1/2}}).
@@ -501,10 +501,10 @@ theorem ns_millennium_conditional :
 
 /-!
 The Frobenius-critical manifold is structurally encoded in the ZFCₛ framework.
-ZFCₛ promotes spatial isotropy to P_pm_sym (Frobenius condition), which is
+ZFCₛ promotes spatial isotropy to or' (Frobenius condition), which is
 exactly the condition that F² = id on the critical Sobolev space.
 
-The connection: ZFCₛ.pol = P_pm_sym (Φ_}) means the Frobenius gate is open
+The connection: ZFCₛ.pol = or' (Φ_}) means the Frobenius gate is open
 for spatially isotropic systems. The NS equations in ℝ³ are fully rotationally
 symmetric — they are spatially isotropic. Therefore, by ZFCₛ, the Frobenius
 gate is open: NS carries the Frobenius structure μ∘δ = id.
@@ -515,8 +515,8 @@ the Frobenius condition on the NS system, which is the structural reason
 the critical norm must be bounded.
 -/
 
-/-- ZFCₛ has P_pm_sym — spatial isotropy Frobenius gate. -/
-theorem zfc_s_has_frobenius_gate : zfc_s.pol = Polarity.P_pm_sym := rfl
+/-- ZFCₛ has or' — spatial isotropy Frobenius gate. -/
+theorem zfc_s_has_frobenius_gate : zfc_s.pol = Polarity.or' := rfl
 
 /-- The Navier-Stokes equations are spatially isotropic (rotationally symmetric). -/
 axiom ns_is_spatially_isotropic : True
@@ -524,7 +524,7 @@ axiom ns_is_spatially_isotropic : True
 /-- Therefore, by ZFCₛ, NS carries the Frobenius condition on the critical manifold.
     This is the structural encoding of the Frobenius-G₂ cancellation identity. -/
 theorem ns_carries_frobenius_gate :
-    (zfc_s.pol = Polarity.P_pm_sym) ∧ (∀ u : CriticalSobolevSpace, frobenius_operator u = u) :=
+    (zfc_s.pol = Polarity.or') ∧ (∀ u : CriticalSobolevSpace, frobenius_operator u = u) :=
   ⟨zfc_s_has_frobenius_gate, by
     intro u
     -- The Frobenius operator acts as identity on the critical manifold

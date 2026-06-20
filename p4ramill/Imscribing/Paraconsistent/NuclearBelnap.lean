@@ -113,18 +113,18 @@ There is no last level before the grammar itself.
 -- ═══════════════════════════════════════════════════════════════════════════
 
 def nuclearImscription : Imscription :=
-  { dim  := Dimensionality.D_infty
-    top  := Topology.T_bowtie
-    rel  := Relational.R_dagger
-    pol  := Polarity.P_pm
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_c
-    chir := Chirality.H_inf   -- Ħ_!: nuclear lifetimes can be very long
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.array
+    top  := Topology.mime
+    rel  := Relational.ear
+    pol  := Polarity.out
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.vow
+    crit := Criticality.monad
+    chir := Chirality.wool   -- Ħ_!: nuclear lifetimes can be very long
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 theorem nuclear_tier : imscriptionTier nuclearImscription = OuroboricityTier.O₂dag := by
   native_decide

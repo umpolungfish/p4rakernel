@@ -10,8 +10,8 @@ import Imscribing.Primitives.ZFCt
   OpenProblem (ZFCt-promoted) — the three missing gates are now well-defined.
 
   Key results:
-    (1) BSDModularityGate inhabited: modularity of E/ℚ (Wiles 1995) closes D_odot.
-    (2) BSDFunctionalEqGate inhabited: L(E,s) ↔ L(E,2−s) functional equation closes T_bowtie.
+    (1) BSDModularityGate inhabited: modularity of E/ℚ (Wiles 1995) closes if'.
+    (2) BSDFunctionalEqGate inhabited: L(E,s) ↔ L(E,2−s) functional equation closes mime.
     (3) BSDTateShaGate inhabited: Ш(E/ℚ) finiteness conjecture — partial results exist.
     (4) BSD_ForcingTheorem: ellipticRank = analyticRank for all E/ℚ — the single open gap.
     (5) bsd_forcing_equiv_bsd: BSD_ForcingTheorem ↔ BSDRankConjecture — proved by Iff.rfl.
@@ -42,16 +42,16 @@ open Millennium.BSD
 -- Gate structures (local — these are the ZFCt promotion targets)
 -- ============================================================
 
-/-- D_odot gate: holographic boundary duality E/ℚ ↔ modular form.
+/-- if' gate: holographic boundary duality E/ℚ ↔ modular form.
 
     Modularity theorem (Wiles 1995): every elliptic curve over ℚ is modular.
-    This is the D_odot promotion: bulk (E/ℚ) ↔ boundary (modular form).
+    This is the if' promotion: bulk (E/ℚ) ↔ boundary (modular form).
     The modularity theorem makes L(E,s) well-defined and analytically continued —
     it is the prerequisite for even stating BSD. -/
 structure BSDModularityGate where
   modular_witness : True  -- E/ℚ is modular; Wiles proved this; MathlibGap for now
 
-/-- T_bowtie gate: functional equation L(E, s) ↔ L(E, 2−s).
+/-- mime gate: functional equation L(E, s) ↔ L(E, 2−s).
 
     The L-function satisfies a functional equation under s ↦ 2−s (bowtie symmetry).
     This is the analytic continuation structure, known from modularity.
@@ -98,7 +98,7 @@ def BSDModularityGate_inhabitant : BSDModularityGate where
 
     The functional equation L(E,s) ↔ L(E,2−s) follows from modularity:
     the completed L-function Λ(E,s) is invariant under s ↦ 2−s up to sign.
-    This is the T_bowtie promotion — the analytic continuation structure
+    This is the mime promotion — the analytic continuation structure
     that makes the central point s=1 the symmetry center.
 
     The gate is inhabited; the functional equation is a theorem, not an
@@ -167,7 +167,7 @@ theorem bsd_forcing_equiv_bsd : BSD_ForcingTheorem ↔ BSDRankConjecture :=
                 Fixed locus = H^{p,p}(X) ∩ H^{2p}(X, ℝ).
                 Forcing = all rational Hodge classes in fixed locus are algebraic.
 
-    BSD gate:   modularity (D_odot) + functional equation (T_bowtie) + Ш finiteness.
+    BSD gate:   modularity (if') + functional equation (mime) + Ш finiteness.
                 Central point = s = 1.
                 Forcing = algebraic rank equals analytic rank at the central point.
 

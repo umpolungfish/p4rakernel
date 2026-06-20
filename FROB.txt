@@ -225,9 +225,9 @@
 ./p4ramill/Millennium/Dixmier_sections_67.lean:    not P_pm_sym (O_inf). The gap is exactly one Frobenius tier. -/
 ./p4ramill/Millennium/Dixmier_sections_67.lean:   that the Weyl algebra occupies the Frobenius-special tier (O_inf), not merely
 ./p4ramill/Millennium/Dixmier_sections_67.lean:   exactly one Frobenius tier — the μ∘δ=id condition.
-./p4ramill/Millennium/PerfectCuboid/StructuralProof.lean:-- into ZFC_fe (Frobenius-Exact ZFC). The sole structural gap H_A → H_!
-./p4ramill/Millennium/PerfectCuboid/StructuralProof.lean:/-- ZFC_fe (Frobenius-Exact ZFC) structural type.
-./p4ramill/Millennium/PerfectCuboid/StructuralProof.lean:--   4. The Frobenius condition μ∘δ = id is already proved
+./p4ramill/Millennium/PerfectCuboid/PerfectCuboidWitness.lean:-- into ZFC_fe (Frobenius-Exact ZFC). The sole structural gap H_A → H_!
+./p4ramill/Millennium/PerfectCuboid/PerfectCuboidWitness.lean:/-- ZFC_fe (Frobenius-Exact ZFC) structural type.
+./p4ramill/Millennium/PerfectCuboid/PerfectCuboidWitness.lean:--   4. The Frobenius condition μ∘δ = id is already proved
 ./p4ramill/Millennium/RH_LeeYang_Bridge.lean:Both are **Frobenius fixed loci** — the fixed-point sets of the Z₂ involution each
 ./p4ramill/Millennium/RH_LeeYang_Bridge.lean:/-- RiemannHypothesis_as_C13 derived from the ZFCt Frobenius structure.
 ./p4ramill/Millennium/PrimitiveConventionalBridge.lean:/-- The critical structural gap: LY has P_pm_sym (Frobenius), RH has P_sym only.
@@ -259,7 +259,7 @@
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:    The Frobenius identity μ∘δ=id at s=1 IS the BSD rank equality:
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:  The structural resolution of BSD centers on the Frobenius identity
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:  The Frobenius identity μ∘δ = id means:
-./p4ramill/Millennium/BSD_Complete_Proof.lean:/-- The structural proof that the Frobenius identity holds.
+./p4ramill/Millennium/BSD_Complete_Proof.lean:/-- The witness that the Frobenius identity holds.
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:    then Axiom D forces P_pm_sym (the Frobenius gate). -/
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:    P_pm_sym = μ∘δ = id, the Frobenius identity at s=1.
 ./p4ramill/Millennium/BSD_Complete_Proof.lean:  "Frobenius: μ∘δ = id at s=1 ⇔ ord_{s=1} L(E,s) = rank E(ℚ)\n" ++

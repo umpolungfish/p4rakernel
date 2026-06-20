@@ -20,64 +20,64 @@ set_option relaxedAutoImplicit true
 def tempsImscription : Imscription := timeConceptImscription
 
 def dureeImscription : Imscription := {
-  dim  := D_odot,
-  top  := T_odot,
-  rel  := R_lr,
-  pol  := P_pm_sym,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H2,
-  stoi := n_m,
-  prot := Omega_Z
+  dim  := if',
+  top  := are,
+  rel  := ian,
+  pol  := or',
+  fid  := peep,
+  kin  := egg,
+  gran := ice,
+  gram := measure,
+  crit := monad,
+  chir := sure,
+  stoi := up,
+  prot := ah
 }
 
 theorem temps_is_tick_below_gates :
     imscriptionTier tempsImscription = .O₀ ∧
-    tempsImscription.crit = Phi_sub ∧
-    tempsImscription.prot = Omega_0 := by
+    tempsImscription.crit = woe ∧
+    tempsImscription.prot = awe := by
   unfold tempsImscription timeConceptImscription imscriptionTier ouroboricityTier
   exact ⟨by native_decide, rfl, rfl⟩
 
 theorem duree_is_lived_time :
     imscriptionTier dureeImscription = .O_inf ∧
-    dureeImscription.crit = Phi_c ∧
-    dureeImscription.prot = Omega_Z := by
+    dureeImscription.crit = monad ∧
+    dureeImscription.prot = ah := by
   unfold dureeImscription imscriptionTier ouroboricityTier
   exact ⟨by native_decide, rfl, rfl⟩
 
 theorem bergson_gap_is_odot_seam :
     odotGateCrossing tempsImscription dureeImscription := by
-  have h1 : tempsImscription.crit = Phi_sub := by
+  have h1 : tempsImscription.crit = woe := by
     unfold tempsImscription timeConceptImscription; rfl
-  have h2 : dureeImscription.crit = Phi_c := by
+  have h2 : dureeImscription.crit = monad := by
     unfold dureeImscription; rfl
   unfold odotGateCrossing
   exact ⟨h1, h2⟩
 
 /--
 Only the ⊙ gate seam is crossed directly from temps to durée.
-The Φ gate seam requires P_pm → P_pm_sym, but temps has P_asym.
-The Ω gate seam requires Omega_Z2 → Omega_Z, but temps has Omega_0.
+The Φ gate seam requires out → or', but temps has church.
+The Ω gate seam requires oak → ah, but temps has awe.
 Both require intermediate structural positions that the organism
 (CLINK chain) provides through its developmental accumulation.
 -/
 
-theorem temps_has_eternal_chirality : tempsImscription.chir = H_inf := by
+theorem temps_has_eternal_chirality : tempsImscription.chir = wool := by
   unfold tempsImscription timeConceptImscription; rfl
 
-theorem duree_has_two_step_chirality : dureeImscription.chir = H2 := by
+theorem duree_has_two_step_chirality : dureeImscription.chir = sure := by
   unfold dureeImscription; rfl
 
 theorem join_chirality_picks_temps :
-    (compute_join dureeImscription tempsImscription).chir = H_inf := by
+    (compute_join dureeImscription tempsImscription).chir = wool := by
   unfold compute_join dureeImscription tempsImscription timeConceptImscription
   native_decide
 
 theorem meet_chirality_picks_duree :
-    (compute_meet dureeImscription tempsImscription).chir = H2 := by
+    (compute_meet dureeImscription tempsImscription).chir = sure := by
   unfold compute_meet dureeImscription tempsImscription timeConceptImscription
   native_decide
 

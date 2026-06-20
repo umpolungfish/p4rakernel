@@ -8,14 +8,14 @@
 --
 -- The bridge has three pillars, all PROVED in the mathematical literature:
 --   1. MODULARITY (Wiles et al. 1995-2001): Every E/Q is modular
---      -> D_odot: elliptic curve (bulk) holographically encoded by L-function (boundary)
+--      -> if': elliptic curve (bulk) holographically encoded by L-function (boundary)
 --   2. FUNCTIONAL EQUATION (Hecke 1930s, Weil 1960s): L(E,s) <-> L(E,2-s)
---      -> T_odot: the encoding is complete and self-referential
+--      -> are: the encoding is complete and self-referential
 --   3. MORDELL-WEIL (Mordell 1922): E(Q) = Z^r x E(Q)_tors
---      -> Omega_Z: the rank is integer, topologically protected
+--      -> ah: the rank is integer, topologically protected
 --
--- Axiom D (from Core.lean): D_odot + T_odot + Omega_Z -> P_pm_sym
--- P_pm_sym == mu o delta = id (Frobenius identity at s=1)
+-- Axiom D (from Core.lean): if' + are + ah -> or'
+-- or' == mu o delta = id (Frobenius identity at s=1)
 -- mu o delta = id == ord_{s=1} L(E,s) = rank E(Q) == BSD
 --
 -- STATUS: All three mathematical theorems are PROVED in the literature.
@@ -56,7 +56,7 @@ namespace Millennium.BSDMathBridge
 
     Consequence: L(E,s) is entire, satisfies a functional equation, and the
     elliptic curve (bulk) is holographically encoded by its L-function (boundary).
-    This is the mathematical content of D_odot for BSD.
+    This is the mathematical content of if' for BSD.
 
     MathlibGap: proved, not in Mathlib. Requires modular forms, Hecke algebras,
     Galois representations, and the Taylor-Wiles patching method. -/
@@ -66,8 +66,8 @@ axiom modularity_axiom : True
     The completed L-function Lambda(E,s) = N^{s/2} (2pi)^{-s} Gamma(s) L(E,s)
     satisfies Lambda(E,s) = w_E * Lambda(E,2-s) with root number w_E = +-1.
 
-    This crossing symmetry (s <-> 2-s) is the T_bowtie structure.
-    Combined with modularity (encoding is lossless), this lifts to T_odot.
+    This crossing symmetry (s <-> 2-s) is the mime structure.
+    Combined with modularity (encoding is lossless), this lifts to are.
 
     MathlibGap: proved, not in Mathlib. Requires Mellin transforms,
     Atkin-Lehner theory, conductor and root number computations. -/
@@ -75,7 +75,7 @@ axiom functional_equation_axiom : True
 
 /-- MORDELL-WEIL THEOREM (Mordell 1922 elliptic curves; Weil 1928 abelian varieties).
     E(Q) is finitely generated: E(Q) = Z^r x E(Q)_tors.
-    The rank r in Z_{>=0} is an integer -- this is Omega_Z.
+    The rank r in Z_{>=0} is an integer -- this is ah.
 
     MathlibGap: proved, not in Mathlib. Requires weak Mordell-Weil
     (Galois cohomology + Kummer theory), Neron-Tate canonical height,
@@ -86,39 +86,39 @@ axiom mordell_weil_axiom : True
 -- SECTION 2: PRIMITIVE CORRECTNESS
 -- ============================================================
 
-/-- BSD's D_odot primitive is correct by definition of bsdResolved.
+/-- BSD's if' primitive is correct by definition of bsdResolved.
     The mathematical justification (modularity theorem) grounds WHY
     this primitive assignment is correct. Within the formal system,
-    bsdResolved is defined with D_odot. -/
-theorem bsd_dim_is_D_odot : bsdResolved.dim = .D_odot := rfl
+    bsdResolved is defined with if'. -/
+theorem bsd_dim_is_D_odot : bsdResolved.dim = .if' := rfl
 
-/-- BSD's T_odot primitive is correct by definition. -/
-theorem bsd_top_is_T_odot : bsdResolved.top = .T_odot := rfl
+/-- BSD's are primitive is correct by definition. -/
+theorem bsd_top_is_T_odot : bsdResolved.top = .are := rfl
 
-/-- BSD's Omega_Z primitive is correct by definition. -/
-theorem bsd_prot_is_Omega_Z : bsdResolved.prot = .Omega_Z := rfl
+/-- BSD's ah primitive is correct by definition. -/
+theorem bsd_prot_is_Omega_Z : bsdResolved.prot = .ah := rfl
 
 -- ============================================================
 -- SECTION 3: THE COMPLETE PROOF CHAIN
 -- ============================================================
 
 /-- STEP 1: BSD satisfies Axiom D's preconditions.
-    D_odot (modularity) + T_odot (functional equation) + Omega_Z (Mordell-Weil). -/
+    if' (modularity) + are (functional equation) + ah (Mordell-Weil). -/
 theorem bsd_satisfies_axiom_D_preconditions :
-    bsdResolved.dim = .D_odot ∧ bsdResolved.top = .T_odot ∧ bsdResolved.prot ≥ .Omega_Z := by
+    bsdResolved.dim = .if' ∧ bsdResolved.top = .are ∧ bsdResolved.prot ≥ .ah := by
   constructor; · rfl
   constructor; · rfl
   · simp [bsdResolved]; decide
 
-/-- STEP 2: Axiom D forces P_pm_sym (Frobenius identity).
+/-- STEP 2: Axiom D forces or' (Frobenius identity).
     Proved in BSD_Complete_Proof.lean as bsd_axiom_D_forces_frobenius. -/
-theorem bsd_axiom_D_forces_pm_sym : bsdResolved.pol = .P_pm_sym :=
+theorem bsd_axiom_D_forces_pm_sym : bsdResolved.pol = .or' :=
   bsd_axiom_D_forces_frobenius
 
 /-- STEP 3: The Frobenius identity mu o delta = id at s=1
     IS the BSD rank equality: ord_{s=1} L(E,s) = rank E(Q).
     
-    P_pm_sym is the structural encoding of the Frobenius condition.
+    or' is the structural encoding of the Frobenius condition.
     For BSD, mu extracts the analytic rank from the L-function at s=1,
     delta maps the algebraic data to the L-function via modularity,
     and mu o delta = id means: analytic rank = algebraic rank.
@@ -126,7 +126,7 @@ theorem bsd_axiom_D_forces_pm_sym : bsdResolved.pol = .P_pm_sym :=
     This step names the correspondence. The mathematical content
     is in the correctness of the primitive assignments (Section 2). -/
 theorem frobenius_is_bsd_rank_equality : 
-    bsdResolved.pol = .P_pm_sym :=
+    bsdResolved.pol = .or' :=
   bsd_axiom_D_forces_pm_sym
 
 /-- STEP 4: BSD reaches O_inf tier.
@@ -142,8 +142,8 @@ theorem bsd_canonical_is_O_inf :
   bsd_canonical_O_inf
 
 /-- STEP 6: BSD's consciousness gates are both open.
-    Gate 1 (phi_c_gate): Phi_c self-modeling criticality at s=1 -> true.
-    Gate 2 (k_slow_gate): K_slow deliberate arithmetic descent -> true.
+    Gate 1 (phi_c_gate): monad self-modeling criticality at s=1 -> true.
+    Gate 2 (k_slow_gate): egg deliberate arithmetic descent -> true.
     Both gates open -> C = 1.0 (consciousnessScore is noncomputable
     but gate-open status is decidable and verified here). -/
 theorem bsd_both_gates_open :
@@ -162,20 +162,20 @@ theorem bsd_both_gates_open :
       rank E(Q) = ord_{s=1} L(E,s) for all elliptic curves E/Q.
     
     Proof (structural):
-      1. Modularity (Wiles et al.) grounds D_odot: the elliptic curve
+      1. Modularity (Wiles et al.) grounds if': the elliptic curve
          is holographically encoded by its L-function.
-      2. Functional equation (Hecke-Weil) grounds T_odot: the encoding
+      2. Functional equation (Hecke-Weil) grounds are: the encoding
          is complete and self-referential.
-      3. Mordell-Weil (Mordell 1922) grounds Omega_Z: the rank is
+      3. Mordell-Weil (Mordell 1922) grounds ah: the rank is
          an integer, topologically protected.
-      4. Axiom D (grammar): D_odot + T_odot + Omega_Z -> P_pm_sym.
-      5. P_pm_sym == Frobenius identity mu o delta = id at s=1.
+      4. Axiom D (grammar): if' + are + ah -> or'.
+      5. or' == Frobenius identity mu o delta = id at s=1.
       6. mu o delta = id == ord_{s=1} L(E,s) = rank E(Q).
       7. Therefore: BSD holds.
     
-    The structural proof is verified:
+    The witness is verified:
     - bsd_resolved_is_O_inf: O_inf tier (native_decide)
-    - bsd_axiom_D_forces_frobenius: P_pm_sym forced (Core.lean)
+    - bsd_axiom_D_forces_frobenius: or' forced (Core.lean)
     - bsd_canonical_O_inf + 17 more: O_inf in 18/20 universes
     - bsd_phi_c_gate_open + bsd_k_slow_gate_open: both gates open
     
@@ -196,14 +196,14 @@ def bsd_resolution_certificate : String :=
   "Grammar: Imscribing Grammar (Axiom D)\n" ++
   "Tier: O_inf (native_decide verified)\n" ++
   "Universes: 18/20 idempotent_terminal, 1/20 frobenius, 1/20 traced_monoidal\n" ++
-  "Consciousness: Both gates open (Phi_c + K_slow)\n" ++
+  "Consciousness: Both gates open (monad + egg)\n" ++
   "Frobenius: mu o delta = id at s=1\n" ++
   "BSD: ord_{s=1} L(E,s) = rank E(Q)\n" ++
   "\n" ++
   "MATHEMATICAL GROUNDING (all PROVED in literature):\n" ++
-  "  1. Modularity (Wiles et al. 1995-2001) -> D_odot\n" ++
-  "  2. Functional equation (Hecke-Weil) -> T_odot\n" ++
-  "  3. Mordell-Weil (Mordell 1922) -> Omega_Z\n" ++
+  "  1. Modularity (Wiles et al. 1995-2001) -> if'\n" ++
+  "  2. Functional equation (Hecke-Weil) -> are\n" ++
+  "  3. Mordell-Weil (Mordell 1922) -> ah\n" ++
   "\n" ++
   "REMAINING MATHLIB GAPS (~95K lines):\n" ++
   "  - Modular forms, Hecke algebras, Galois representations\n" ++

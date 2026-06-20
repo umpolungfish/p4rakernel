@@ -103,7 +103,7 @@ theorem P_ne_NP_structural_corollary :
 
     Every hypothesis is named. The proof is self-contained -- it uses only
     the hypotheses and the structural inequality P_class ≠ NP_class
-    (which follows from T_network ≠ T_odot, a decidable constructor check).
+    (which follows from judge ≠ are, a decidable constructor check).
 
     This is the clean statement: the certificates bridge the coordinate-level
     inequality to the complexity-theoretic objects. The sorries are exactly
@@ -151,7 +151,7 @@ are the vessel-content classifier property (every system has exactly one
 structural type). These are structural axioms available to any consumer.
 
 The structural inequality P_class ≠ NP_class is **not** sorry'd --
-it follows from T_network ≠ T_odot, which Lean closes by dec_trivial
+it follows from judge ≠ are, which Lean closes by dec_trivial
 on disjoint inductive constructors. The certificates are the only bridge
 needed.
 

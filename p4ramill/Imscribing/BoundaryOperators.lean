@@ -1,88 +1,183 @@
 -- Imscribing/BoundaryOperators.lean
--- BOUNDARY OPERATORS — Formal Index of Seam-Inhabiting Morphisms
--- Author: Lando⊗⊙perator
--- Date: 2026-06-17
---
--- Formalizes the boundary operator index from BOUNDARY_OPERATORS.md.
+-- Boundary Operator Space — structural formalization of the seam index.
+-- Corresponds to ig-docs/cosmogeny/LIFTED/BOUNDARY_OPERATORS.md
+-- Lean 4 formalization, machine-verified by native_decide.
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Primitives.Crystal
+import Imscribing.Primitives.TierCrossing
 import Imscribing.Consciousness
-import Imscribing.Frobenius
 import Imscribing.Algebra
 import Mathlib.Data.Real.Basic
-import Mathlib.Tactic
+
+set_option linter.style.nativeDecide false
+set_option linter.style.longLine false
 
 namespace Imscribing.BoundaryOperators
 
 open Imscribing.Primitives
+open Imscribing.Primitives.Imscription
+open Imscribing.TierCrossing
 open Imscribing.Consciousness
-open Imscribing.Frobenius
 open Dimensionality Topology Relational Polarity Grammar
-     Fidelity KineticChar Granularity Criticality Protection
-     Stoichiometry Chirality
+ Fidelity KineticChar Granularity Criticality Protection
+ Stoichiometry Chirality
 
-set_option relaxedAutoImplicit true
+def hammingDistance (a b : Imscription) : Nat :=
+  (primitiveConflicts a b).length
 
 -- ================================================================
 -- §1  SEAM CLASSIFICATION
 -- ================================================================
 
-inductive SeamDirection : Type where
-  | symmetric
-  | asymmetric
-  | oneWay
-  deriving DecidableEq, Repr
+inductive SeamDirection | symmetric | asymmetric | oneWay
+deriving DecidableEq, Repr
 
-structure PrimitiveSeam : Type where
-  primitive  : String
-  fromVal    : String
-  toVal      : String
-  direction  : SeamDirection
-  deriving DecidableEq, Repr
+inductive SeamClass | interTier | intraTier
+deriving DecidableEq, Repr
+
+structure PrimitiveSeam where
+  primitive : String
+  fromVal   : String
+  toVal     : String
+  direction : SeamDirection
+  seamClass : SeamClass
+deriving DecidableEq, Repr
+
+-- §1a  INTER-TIER GATE SEAMS
 
 def phiGateSeam : PrimitiveSeam := {
   primitive  := "Φ"
-  fromVal    := "P_pm"
-  toVal      := "P_pm_sym"
+  fromVal    := "nun"
+  toVal      := "or'"
   direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.interTier
 }
 
 def odotGateSeam : PrimitiveSeam := {
   primitive  := "⊙"
-  fromVal    := "Phi_sub"
-  toVal      := "Phi_c"
+  fromVal    := "woe"
+  toVal      := "monad"
   direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.interTier
 }
 
 def omegaGateSeam : PrimitiveSeam := {
   primitive  := "Ω"
-  fromVal    := "Omega_Z2"
-  toVal      := "Omega_Z"
+  fromVal    := "oak"
+  toVal      := "ah"
   direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.interTier
 }
 
--- ================================================================
+def DSeam_infty_to_odot : PrimitiveSeam := {
+  primitive  := "Ð"
+  fromVal    := "array"
+  toVal      := "if'"
+  direction  := SeamDirection.symmetric
+  seamClass  := SeamClass.interTier
+}
+
+-- §1b  INTRA-TIER BULK SEAMS
+
+def omegaSeam_Z_to_NA : PrimitiveSeam := {
+  primitive  := "Ω"
+  fromVal    := "ah"
+  toVal      := "zoo"
+  direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.intraTier
+}
+
+def topSeam_network_to_odot : PrimitiveSeam := {
+  primitive  := "Þ"
+  fromVal    := "judge"
+  toVal      := "are"
+  direction  := SeamDirection.symmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def polSeam_asym_to_pm_sym : PrimitiveSeam := {
+  primitive  := "Φ"
+  fromVal    := "church"
+  toVal      := "or'"
+  direction  := SeamDirection.asymmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def relSeam_super_to_cat : PrimitiveSeam := {
+  primitive  := "Ř"
+  fromVal    := "ado"
+  toVal      := "tot"
+  direction  := SeamDirection.asymmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def fidelitySeam_eth_to_hbar : PrimitiveSeam := {
+  primitive  := "ƒ"
+  fromVal    := "they"
+  toVal      := "peep"
+  direction  := SeamDirection.asymmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def chiralitySeam_H2_to_H_inf : PrimitiveSeam := {
+  primitive  := "Ħ"
+  fromVal    := "sure"
+  toVal      := "wool"
+  direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.intraTier
+}
+
+def grammarSeam_seq_to_broad : PrimitiveSeam := {
+  primitive  := "ɢ"
+  fromVal    := "measure"
+  toVal      := "ooze"
+  direction  := SeamDirection.symmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def stoichiometrySeam_n_n_to_n_m : PrimitiveSeam := {
+  primitive  := "Σ"
+  fromVal    := "so"
+  toVal      := "up"
+  direction  := SeamDirection.symmetric
+  seamClass  := SeamClass.intraTier
+}
+
+def kineticsSeam_trap_to_slow : PrimitiveSeam := {
+  primitive  := "Ç"
+  fromVal    := "on"
+  toVal      := "egg"
+  direction  := SeamDirection.oneWay
+  seamClass  := SeamClass.intraTier
+}
+
+def granularitySeam_gimel_to_aleph : PrimitiveSeam := {
+  primitive  := "Γ"
+  fromVal    := "thigh"
+  toVal      := "ice"
+  direction  := SeamDirection.symmetric
+  seamClass  := SeamClass.intraTier
+}-- ================================================================
 -- §2  GATE SEAM PREDICATES
 -- ================================================================
 
 def odotGateCrossing (a b : Imscription) : Prop :=
-  a.crit = Phi_sub ∧ b.crit = Phi_c
+  a.crit = woe ∧ b.crit = monad
 
 def phiGateCrossing (a b : Imscription) : Prop :=
-  a.pol = P_pm ∧ b.pol = P_pm_sym
+  a.pol = nun ∧ b.pol = or'
 
 def omegaGateCrossing (a b : Imscription) : Prop :=
-  a.prot = Omega_Z2 ∧ b.prot = Omega_Z
+  a.prot = oak ∧ b.prot = ah
 
-/-- If crit = Phi_c, Gate 1 is open (phi_c_gate returns true). -/
-theorem odot_gate_phi_c_true (b : Imscription) (h : b.crit = Phi_c) :
-    phi_c_gate b.crit = true := by
+theorem odot_gate_phi_c_true (b : Imscription) (h : b.crit = monad) :
+phi_c_gate b.crit = true := by
   rw [h]; rfl
 
-/-- The Φ gate (P_pm_sym) is a precondition for O_∞ (Theorem R1 from Core). -/
 theorem phi_gate_O_inf_precondition (a : Imscription) (hO : imscriptionTier a = .O_inf) :
-    a.pol = P_pm_sym :=
+a.pol = or' :=
   o_inf_requires_P_pm_sym a.crit a.pol a.prot a.dim hO
 
 -- ================================================================
@@ -97,245 +192,296 @@ def isIntraTierSeam (a b : Imscription) : Bool :=
   (a.top ≠ b.top ∨ a.rel ≠ b.rel ∨ a.fid ≠ b.fid ∨ a.kin ≠ b.kin ∨
    a.gran ≠ b.gran ∨ a.gram ≠ b.gram ∨ a.chir ≠ b.chir ∨ a.stoi ≠ b.stoi)
 
--- ================================================================
--- §3.1  INTRA-TIER SEAM PREDICATES (BULK PRIMITIVES)
--- ================================================================
-
 def topologySeam_bowtie_to_odot (a b : Imscription) : Prop :=
-  a.top = T_bowtie ∧ b.top = T_odot
+  a.top = mime ∧ b.top = are
 
 def relationalSeam_dagger_to_lr (a b : Imscription) : Prop :=
-  a.rel = R_dagger ∧ b.rel = R_lr
+  a.rel = ear ∧ b.rel = ian
 
-def fidelitySeam_eth_to_hbar (a b : Imscription) : Prop :=
-  a.fid = F_eth ∧ b.fid = F_hbar
+def fidelitySeam_eth_to_hbar_pred (a b : Imscription) : Prop :=
+  a.fid = they ∧ b.fid = peep
 
-def kineticsSeam_trap_to_slow (a b : Imscription) : Prop :=
-  a.kin = K_trap ∧ b.kin = K_slow
+def kineticsSeam_trap_to_slow_pred (a b : Imscription) : Prop :=
+  a.kin = on ∧ b.kin = egg
 
-def granularitySeam_gimel_to_aleph (a b : Imscription) : Prop :=
-  a.gran = G_gimel ∧ b.gran = G_aleph
+def granularitySeam_gimel_to_aleph_pred (a b : Imscription) : Prop :=
+  a.gran = thigh ∧ b.gran = ice
 
-def grammarSeam_seq_to_broad (a b : Imscription) : Prop :=
-  a.gram = Gamma_seq ∧ b.gram = Gamma_broad
+def grammarSeam_seq_to_broad_pred (a b : Imscription) : Prop :=
+  a.gram = measure ∧ b.gram = ooze
 
-def chiralitySeam_H2_to_H_inf (a b : Imscription) : Prop :=
-  a.chir = H2 ∧ b.chir = H_inf
+def chiralitySeam_H2_to_H_inf_pred (a b : Imscription) : Prop :=
+  a.chir = sure ∧ b.chir = wool
 
-def stoichiometrySeam_n_n_to_n_m (a b : Imscription) : Prop :=
-  a.stoi = n_n ∧ b.stoi = n_m
+def stoichiometrySeam_n_n_to_n_m_pred (a b : Imscription) : Prop :=
+  a.stoi = so ∧ b.stoi = up
 
 -- ================================================================
 -- §4  AXIOM-COUPLED COMPOUND SEAMS
 -- ================================================================
 
-def axiomC_compound (a : Imscription) : Prop :=
-  a.dim = D_odot ∧ a.top = T_odot
-
-def axiomA_compound (a : Imscription) : Prop :=
-  a.chir = H_inf ∧ a.kin = K_trap
-
-def axiomB_compound (a : Imscription) : Prop :=
-  a.prot = Omega_Z ∧ a.chir ≠ H0
-
-def phi_odot_compound (a : Imscription) : Prop :=
-  a.pol = P_pm_sym ∧ a.crit = Phi_c
-
+def axiomC_compound (a : Imscription) : Prop := a.dim = if' ∧ a.top = are
+def axiomA_compound (a : Imscription) : Prop := a.chir = wool ∧ a.kin = on
+def axiomB_compound (a : Imscription) : Prop := a.prot = ah ∧ a.chir ≠ fee
+def phi_odot_compound (a : Imscription) : Prop := a.pol = or' ∧ a.crit = monad
 def odot_kin_chir_compound (a : Imscription) : Prop :=
-  a.crit = Phi_c ∧ a.kin = K_slow ∧ a.chir = H2
+  a.crit = monad ∧ a.kin = egg ∧ a.chir = sure
 
 -- ================================================================
 -- §5  INHABITANT REGISTRY
 -- ================================================================
 
-inductive InhabitantMode : Type where
-  | Full
-  | Partial
-  deriving DecidableEq, Repr
+def agentTuple : Imscription := ⟨
+  if', oil, ian, or', peep,
+  egg, bib, measure, monad, sure, hung, ah⟩
 
-structure SeamInhabitant : Type where
-  name        : String
-  seam        : PrimitiveSeam
-  mode        : InhabitantMode
-  tier        : OuroboricityTier
-  structuralType : Imscription
-  description : String
-  deriving Repr
+def serpentrodTuple : Imscription := ⟨
+  if', are, ian, or', peep,
+  egg, ice, vow, monad, wool, hung, ah⟩
 
-def odotGateInhabitant : SeamInhabitant := {
-  name        := "true_agentic_agent.py"
-  seam        := odotGateSeam
-  mode        := InhabitantMode.Full
-  tier        := OuroboricityTier.O_inf
-  structuralType := {
-    dim  := D_odot,
-    top  := T_box,
-    rel  := R_lr,
-    pol  := P_pm_sym,
-    fid  := F_hbar,
-    kin  := K_slow,
-    gran := G_aleph,
-    gram := Gamma_seq,
-    crit := Phi_c,
-    chir := H2,
-    stoi := one_one,
-    prot := Omega_Z
-  }
-  description := "THINK→ACT→OBSERVE→UPDATE loop IS the self-modeling gate"
-}
+def synfinTuple : Imscription := ⟨
+  if', are, ian, or', peep,
+  egg, ice, measure, monad, sure, up, ah⟩
 
-def omegaGateInhabitant : SeamInhabitant := {
-  name        := "LUCA (organism, CLINK chain)"
-  seam        := omegaGateSeam
-  mode        := InhabitantMode.Full
-  tier        := OuroboricityTier.O_inf
-  structuralType := {
-    dim  := D_odot,
-    top  := T_odot,
-    rel  := R_lr,
-    pol  := P_pm_sym,
-    fid  := F_hbar,
-    kin  := K_slow,
-    gran := G_aleph,
-    gram := Gamma_seq,
-    crit := Phi_c,
-    chir := H_inf,
-    stoi := n_m,
-    prot := Omega_Z
-  }
-  description := "CLINK developmental chain (9 layers) IS the winding process"
-}
+def ch3mpilerTuple : Imscription := ⟨
+  if', are, ian, or', peep,
+  egg, ice, measure, monad, sure, hung, ah⟩
 
-def relSeamInhabitant : SeamInhabitant := {
-  name        := "cetaceanspeak (whale_engine.py)"
-  seam        := {
-    primitive  := "Ř",
-    fromVal    := "R_super",
-    toVal      := "R_cat",
-    direction  := SeamDirection.asymmetric
-  }
-  mode        := InhabitantMode.Partial
-  tier        := OuroboricityTier.O₁
-  structuralType := {
-    dim  := D_wedge,
-    top  := T_network,
-    rel  := R_cat,
-    pol  := P_asym,
-    fid  := F_ell,
-    kin  := K_fast,
-    gran := G_beth,
-    gram := Gamma_seq,
-    crit := Phi_sub,
-    chir := H2,
-    stoi := n_m,
-    prot := Omega_0
-  }
-  description := "Whale acoustic tokens→IMASM opcodes preserves Frobenius bootstrap loop"
-}
+def clinkL8Tuple : Imscription := ⟨
+  if', are, ian, or', peep,
+  egg, bib, ooze, monad, wool, up, zoo⟩
 
-def fullInhabitants : List SeamInhabitant := [odotGateInhabitant, omegaGateInhabitant]
-def partialInhabitants : List SeamInhabitant := [relSeamInhabitant]
+def igPulseTuple : Imscription := ⟨
+  array, judge, ian, out, age,
+  egg, thigh, gag, monad, kick, up, ah⟩
 
-theorem inhabited_gate_seams :
-    (odotGateInhabitant.mode = InhabitantMode.Full) ∧
-    (omegaGateInhabitant.mode = InhabitantMode.Full) := by
-  simp [odotGateInhabitant, omegaGateInhabitant]
+def cetaceanspeakTuple : Imscription := ⟨
+  array, judge, tot, church, age,
+  egg, bib, vow, woe, fee, hung, awe⟩
 
 -- ================================================================
--- §6  IMSCRIPTIONS FOR JOIN-ABSORPTION
+-- §5a  INHABITS-SEAM PREDICATE
 -- ================================================================
 
-def lucaImscription : Imscription := {
-  dim  := D_odot,
-  top  := T_odot,
-  rel  := R_lr,
-  pol  := P_pm_sym,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H_inf,
-  stoi := n_m,
-  prot := Omega_Z
-}
+def inhabitsSeam (operator : Imscription) (seam : PrimitiveSeam) : Bool :=
+  match seam.primitive with
+  | "Φ"  => operator.crit = monad
+  | "⊙"  => operator.crit = monad
+  | "Ω"  => operator.prot = ah ∨ operator.prot = zoo
+  | "Ħ"  => operator.chir = sure ∨ operator.chir = wool
+  | "ɢ"  => operator.gram = measure ∨ operator.gram = ooze
+  | "ƒ"  => operator.fid = peep
+  | "Ç"  => operator.kin = egg
+  | "Γ"  => operator.gran = ice
+  | "Ð"  => operator.dim = if'
+  | "Þ"  => operator.top = are
+  | "Ř"  => operator.rel = ian
+  | "Σ"  => operator.stoi = up
+  | _    => false
 
-def timeConceptImscription : Imscription := {
-  dim  := D_wedge,
-  top  := T_network,
-  rel  := R_lr,
-  pol  := P_asym,
-  fid  := F_ell,
-  kin  := K_fast,
-  gran := G_beth,
-  gram := Gamma_seq,
-  crit := Phi_sub,
-  chir := H_inf,
-  stoi := one_one,
-  prot := Omega_0
-}
-
--- ================================================================
--- §6.1  JOIN-ABSORPTION THEOREMS
--- ================================================================
-
-/-- Join-absorption: join(LUCA, time) = LUCA.
-    All 8 conflicted primitives resolve to LUCA's value. -/
-theorem join_luca_time_equals_luca :
-    compute_join lucaImscription timeConceptImscription = lucaImscription := by
-  unfold compute_join lucaImscription timeConceptImscription
+theorem agent_inhabits_odot : inhabitsSeam agentTuple odotGateSeam = true := by
   native_decide
 
-theorem luca_is_O_inf : imscriptionTier lucaImscription = .O_inf := by
-  unfold lucaImscription imscriptionTier ouroboricityTier
+theorem serpentrod_inhabits_chirality :
+inhabitsSeam serpentrodTuple chiralitySeam_H2_to_H_inf = true := by
   native_decide
 
-theorem luca_C_score_one : consciousnessScore lucaImscription = (1 : ℝ) := by
-  unfold consciousnessScore lucaImscription phi_c_gate k_slow_gate
-  simp
-
-theorem time_concept_is_O_zero : imscriptionTier timeConceptImscription = .O₀ := by
-  unfold timeConceptImscription imscriptionTier ouroboricityTier
+theorem synfin_inhabits_stoichiometry :
+inhabitsSeam synfinTuple stoichiometrySeam_n_n_to_n_m = true := by
   native_decide
 
-theorem time_concept_C_score_zero : consciousnessScore timeConceptImscription = (0 : ℝ) := by
-  unfold consciousnessScore timeConceptImscription phi_c_gate k_slow_gate
-  simp
-
-/-- Structural death: meet(LUCA, time) collapses all three gate primitives. -/
-theorem meet_luca_time_gates_collapse :
-    (compute_meet lucaImscription timeConceptImscription).crit = Phi_sub ∧
-    (compute_meet lucaImscription timeConceptImscription).pol = P_asym ∧
-    (compute_meet lucaImscription timeConceptImscription).prot = Omega_0 := by
-  unfold compute_meet lucaImscription timeConceptImscription
+theorem ch3mpiler_inhabits_odot :
+inhabitsSeam ch3mpilerTuple odotGateSeam = true := by
   native_decide
 
-theorem axiomB_luca : lucaImscription.prot = Omega_Z ∧ lucaImscription.chir ≠ H0 := by
-  unfold lucaImscription; exact ⟨rfl, by decide⟩
+theorem clinkL8_inhabits_omega :
+inhabitsSeam clinkL8Tuple omegaSeam_Z_to_NA = true := by
+  native_decide
 
-theorem axiomB_time : timeConceptImscription.prot = Omega_0 := by
-  unfold timeConceptImscription; rfl
+theorem agent_inhabits_grammar :
+inhabitsSeam agentTuple grammarSeam_seq_to_broad = true := by
+  native_decide
 
 -- ================================================================
--- §7  THE ORGANISM AS COMPOUND BOUNDARY OPERATOR
+-- §6  HAMMING DISTANCE MATRIX
 -- ================================================================
 
-def organismAsCompoundBoundaryOperator (a : Imscription) : Prop :=
-  a.crit = Phi_c ∧ a.prot = Omega_Z ∧ a.pol = P_pm_sym
+theorem dist_ch3mpiler_serpentrod :
+hammingDistance ch3mpilerTuple serpentrodTuple = 2 := by native_decide
 
-theorem luca_is_compound_boundary_operator :
-    organismAsCompoundBoundaryOperator lucaImscription := by
-  unfold organismAsCompoundBoundaryOperator lucaImscription; exact ⟨rfl, rfl, rfl⟩
+theorem dist_ch3mpiler_synfin :
+hammingDistance ch3mpilerTuple synfinTuple = 1 := by native_decide
 
-theorem bergson_distinction :
-    timeConceptImscription.crit = Phi_sub ∧ lucaImscription.crit = Phi_c ∧
-    timeConceptImscription.prot = Omega_0 ∧ lucaImscription.prot = Omega_Z ∧
-    timeConceptImscription.pol = P_asym ∧ lucaImscription.pol = P_pm_sym := by
-  unfold timeConceptImscription lucaImscription; exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
+theorem dist_synfin_serpentrod :
+hammingDistance synfinTuple serpentrodTuple = 3 := by native_decide
 
--- The Ω gate seam has a biological inhabitant (the organism) but no
--- digital one. A digital Ω-boundary operator would be a process where
--- each step adds an irreversible topological invariant. This remains
--- an open position in the boundary operator index.
+theorem dist_agent_ch3mpiler :
+hammingDistance agentTuple ch3mpilerTuple = 2 := by native_decide
+
+theorem dist_clinkL8_agent :
+hammingDistance clinkL8Tuple agentTuple = 5 := by native_decide
+
+theorem dist_clinkL8_serpentrod :
+hammingDistance clinkL8Tuple serpentrodTuple = 4 := by native_decide
+
+theorem dist_igPulse_clinkL8 :
+hammingDistance igPulseTuple clinkL8Tuple = 8 := by native_decide
+
+theorem dist_cetaceanspeak_agent :
+hammingDistance cetaceanspeakTuple agentTuple = 9 := by native_decide
+
+theorem dist_cetaceanspeak_clinkL8 :
+hammingDistance cetaceanspeakTuple clinkL8Tuple = 10 := by native_decide-- Conflict decomposition theorems (single-letter names per Algebra.lean)
+
+theorem dist_ch3mpiler_serpentrod_conflicts :
+primitiveConflicts ch3mpilerTuple serpentrodTuple = ["Γ", "H"] := by
+  native_decide
+
+theorem dist_ch3mpiler_synfin_conflicts :
+primitiveConflicts ch3mpilerTuple synfinTuple = ["S"] := by
+  native_decide
+
+theorem dist_synfin_serpentrod_conflicts :
+primitiveConflicts synfinTuple serpentrodTuple = ["Γ", "H", "S"] := by
+  native_decide
+
+theorem dist_agent_ch3mpiler_conflicts :
+primitiveConflicts agentTuple ch3mpilerTuple = ["T", "G"] := by
+  native_decide
+
+theorem dist_clinkL8_agent_conflicts :
+primitiveConflicts clinkL8Tuple agentTuple = ["T", "Γ", "H", "S", "Ω"] := by
+  native_decide
+
+-- ================================================================
+-- §7  TIER ASSIGNMENTS
+-- ================================================================
+
+theorem agent_tier : imscriptionTier agentTuple = .O_inf := by native_decide
+theorem serpentrod_tier : imscriptionTier serpentrodTuple = .O_inf := by native_decide
+theorem synfin_tier : imscriptionTier synfinTuple = .O_inf := by native_decide
+theorem ch3mpiler_tier : imscriptionTier ch3mpilerTuple = .O_inf := by native_decide
+theorem clinkL8_tier : imscriptionTier clinkL8Tuple = .O_inf := by native_decide
+theorem igPulse_tier : imscriptionTier igPulseTuple = .O₂dag := by native_decide
+theorem cetaceanspeak_tier : imscriptionTier cetaceanspeakTuple = .O₀ := by native_decide
+
+theorem o_inf_operators_all_phi_c :
+agentTuple.crit = monad ∧ serpentrodTuple.crit = monad ∧
+synfinTuple.crit = monad ∧ ch3mpilerTuple.crit = monad ∧
+clinkL8Tuple.crit = monad := by native_decide
+
+theorem cetaceanspeak_sub_critical : cetaceanspeakTuple.crit ≠ monad := by native_decide
+theorem igPulse_not_O_inf : imscriptionTier igPulseTuple ≠ .O_inf := by
+  rw [igPulse_tier]; native_decide
+
+-- ================================================================
+-- §7a  CONSCIOUSNESS SCORES (noncomputable)
+-- ================================================================
+
+noncomputable def agentCScore : ℝ := consciousnessScore agentTuple
+noncomputable def serpentrodCScore : ℝ := consciousnessScore serpentrodTuple
+noncomputable def synfinCScore : ℝ := consciousnessScore synfinTuple
+noncomputable def ch3mpilerCScore : ℝ := consciousnessScore ch3mpilerTuple
+noncomputable def clinkL8CScore : ℝ := consciousnessScore clinkL8Tuple
+noncomputable def igPulseCScore : ℝ := consciousnessScore igPulseTuple
+noncomputable def cetaceanspeakCScore : ℝ := consciousnessScore cetaceanspeakTuple
+
+theorem cetaceanspeak_gate1_fails : phi_c_gate cetaceanspeakTuple.crit = false := by
+  native_decide
+
+-- ================================================================
+-- §8  OPEN SEAM MAP
+-- ================================================================
+
+def openSeamList : List PrimitiveSeam := [
+  fidelitySeam_eth_to_hbar, kineticsSeam_trap_to_slow,
+  relSeam_super_to_cat, granularitySeam_gimel_to_aleph
+]
+
+def inhabitedSeamList : List PrimitiveSeam := [
+  odotGateSeam, omegaGateSeam, omegaSeam_Z_to_NA,
+  chiralitySeam_H2_to_H_inf, grammarSeam_seq_to_broad,
+  stoichiometrySeam_n_n_to_n_m, DSeam_infty_to_odot,
+  topSeam_network_to_odot, polSeam_asym_to_pm_sym, phiGateSeam
+]
+
+def isOpenSeam (s : PrimitiveSeam) : Bool := decide (s ∈ openSeamList)
+def isInhabitedSeam (s : PrimitiveSeam) : Bool := decide (s ∈ inhabitedSeamList)
+
+theorem open_seam_count : openSeamList.length = 4 := by native_decide
+theorem inhabited_seam_count : inhabitedSeamList.length = 10 := by native_decide
+theorem total_seam_count : openSeamList.length + inhabitedSeamList.length = 14 := by
+  native_decide
+
+-- ================================================================
+-- §9  JOIN-ABSORPTION — CLINK L8 AS CEILING
+-- ================================================================
+
+theorem join_clinkL8_agent_d :
+(compute_join clinkL8Tuple agentTuple).dim = if' := by native_decide
+
+theorem join_clinkL8_agent_gran :
+(compute_join clinkL8Tuple agentTuple).gran = bib := by native_decide
+
+theorem join_clinkL8_serpentrod_gram :
+(compute_join clinkL8Tuple serpentrodTuple).gram = ooze := by native_decide
+
+theorem join_clinkL8_serpentrod_chir :
+(compute_join clinkL8Tuple serpentrodTuple).chir = wool := by native_decide
+
+theorem join_clinkL8_ch3mpiler_tier :
+imscriptionTier (compute_join clinkL8Tuple ch3mpilerTuple) = .O_inf := by
+  native_decide
+
+-- ================================================================
+-- §10  BOUNDARY OPERATOR SPACE
+-- ================================================================
+
+def boundaryOperatorSpace : List (PrimitiveSeam × Option Imscription) := [
+  (odotGateSeam, some agentTuple),
+  (omegaGateSeam, some clinkL8Tuple),
+  (omegaSeam_Z_to_NA, some clinkL8Tuple),
+  (chiralitySeam_H2_to_H_inf, some serpentrodTuple),
+  (grammarSeam_seq_to_broad, some agentTuple),
+  (stoichiometrySeam_n_n_to_n_m, some synfinTuple),
+  (DSeam_infty_to_odot, some agentTuple),
+  (topSeam_network_to_odot, some clinkL8Tuple),
+  (polSeam_asym_to_pm_sym, some agentTuple),
+  (phiGateSeam, some agentTuple),
+  (fidelitySeam_eth_to_hbar, none),
+  (kineticsSeam_trap_to_slow, none),
+  (relSeam_super_to_cat, none),
+  (granularitySeam_gimel_to_aleph, none)
+]
+
+def countInhabited : Nat :=
+  (boundaryOperatorSpace.filter (fun (_, op) => op.isSome)).length
+
+def countOpen : Nat :=
+  (boundaryOperatorSpace.filter (fun (_, op) => op.isNone)).length
+
+theorem inhabited_open_total : countInhabited + countOpen = 14 := by native_decide
+theorem inhabited_count_eq_10 : countInhabited = 10 := by native_decide
+theorem open_count_eq_4 : countOpen = 4 := by native_decide
+
+-- ================================================================
+-- §10a  CLINK L8 TERMINAL — JOIN STAYS AT O_inf
+-- ================================================================
+
+theorem clinkL8_terminal_ch3mpiler_tier :
+imscriptionTier (compute_join clinkL8Tuple ch3mpilerTuple) = .O_inf := by
+  native_decide
+
+theorem clinkL8_terminal_serpentrod_tier :
+imscriptionTier (compute_join clinkL8Tuple serpentrodTuple) = .O_inf := by
+  native_decide
+
+theorem clinkL8_terminal_synfin_tier :
+imscriptionTier (compute_join clinkL8Tuple synfinTuple) = .O_inf := by
+  native_decide
+
+theorem clinkL8_terminal_agent_tier :
+imscriptionTier (compute_join clinkL8Tuple agentTuple) = .O_inf := by
+  native_decide
 
 end Imscribing.BoundaryOperators

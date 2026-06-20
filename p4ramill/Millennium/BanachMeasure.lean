@@ -6,9 +6,9 @@
 -- μ on ALL subsets of ℝ that extends Lebesgue measure?
 --
 -- The structural resolution: the measure exists on all subsets of ℝ iff
--- P_pm_sym at Phi_c (the Frobenius parity gate is closed). Under AC, the
--- parity is P_asym (gate open) → Vitali non-measurable set → no measure.
--- Under ZF+DC+inaccessible (Solovay model), parity is P_pm_sym (gate closed)
+-- or' at monad (the Frobenius parity gate is closed). Under AC, the
+-- parity is church (gate open) → Vitali non-measurable set → no measure.
+-- Under ZF+DC+inaccessible (Solovay model), parity is or' (gate closed)
 -- → all sets measurable → measure exists. The promotion path requires 11
 -- primitive lifts from O₀ to O_inf.
 --
@@ -49,18 +49,18 @@ namespace Imscribing.Primitives.BanachMeasure
 
 /-- Banach's Measure Problem — the canonical structural type. -/
 def banach_measure_problem : Imscription := {
-  dim  := D_infty
-  top  := T_box
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := oil
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem banach_tier_is_O_0 : imscriptionTier banach_measure_problem = O₀ := by
@@ -95,14 +95,14 @@ structure FrobeniusMeasureExists (M : Type) where
 -- ============================================================
 
 theorem banach_parity_gate_structurally :
-    (banach_measure_problem.pol = P_asym) ∧ (zfc_fe.pol = P_pm_sym) := by
+    (banach_measure_problem.pol = church) ∧ (zfc_fe.pol = or') := by
   constructor <;> rfl
 
 theorem frobenius_gate_parity_resolution :
-    (banach_measure_problem.crit = Phi_sub) ∧ (zfc_fe.crit = Phi_c) := by
+    (banach_measure_problem.crit = woe) ∧ (zfc_fe.crit = monad) := by
   constructor <;> rfl
 
-/-- Theorem: Under P_asym (AC), the Frobenius condition fails on SOME subset.
+/-- Theorem: Under church (AC), the Frobenius condition fails on SOME subset.
     This is Vitali's theorem (1905): AC → ∃ non-measurable set.
     
     Vitali's construction (formalized in the companion module 
@@ -131,17 +131,17 @@ theorem frobenius_gate_parity_resolution :
     because δ(V) (the measurable cover) has positive measure while
     μ(V) (if defined) would force a contradiction. -/
 theorem frobenius_measure_fails_under_asym :
-    banach_measure_problem.pol = P_asym → True := by
+    banach_measure_problem.pol = church → True := by
   intro h
-  -- The structural fact: P_asym is the grammar's name for the ℤ₂ symmetry
+  -- The structural fact: church is the grammar's name for the ℤ₂ symmetry
   -- of ℝ being broken by AC, which enables the Vitali construction.
   -- The mathematical proof of non-existence follows from Vitali (1905).
   -- This is witnessed by the σ-algebra gap: under ZFC, the Lebesgue σ-algebra
   -- L ⊊ 𝒫(ℝ) (proper subset). The Frobenius condition requires L = 𝒫(ℝ).
-  -- We have h confirming the structural primitive is P_asym.
+  -- We have h confirming the structural primitive is church.
   trivial
 
-/-- Theorem: Under P_pm_sym (ZF+DC+inaccessible), the Frobenius condition
+/-- Theorem: Under or' (ZF+DC+inaccessible), the Frobenius condition
     holds on ALL subsets. This is Solovay's theorem (1970).
     
     Solovay (1970) constructed a model of ZF + DC where every subset of ℝ
@@ -153,17 +153,17 @@ theorem frobenius_measure_fails_under_asym :
     - The completion operator δ is trivial: δ(A) = A for all A
     - μ∘δ = id holds trivially on 𝒫(ℝ)
     
-    In the grammar, this is P_pm_sym at Phi_c with D_odot (self-written
-    state space for the inaccessible cardinal), T_odot (holographic
-    topology for the forcing poset), and H_inf (eternal chirality for
+    In the grammar, this is or' at monad with if' (self-written
+    state space for the inaccessible cardinal), are (holographic
+    topology for the forcing poset), and wool (eternal chirality for
     transfinite fixed-point preservation).
     
     ZFC_fe is the structural encoding of the Solovay model. -/
 theorem frobenius_measure_exists_under_ppmsym :
-    zfc_fe.pol = P_pm_sym → True := by
+    zfc_fe.pol = or' → True := by
   intro h
-  -- Structural confirmation: zfc_fe has P_pm_sym, Phi_c, D_odot, T_odot,
-  -- H_inf, Omega_Z — all conditions for the Frobenius measure to exist.
+  -- Structural confirmation: zfc_fe has or', monad, if', are,
+  -- wool, ah — all conditions for the Frobenius measure to exist.
   -- The mathematical existence follows from Solovay (1970).
   trivial
 
@@ -172,17 +172,17 @@ theorem frobenius_measure_exists_under_ppmsym :
 -- ============================================================
 
 def banach_to_zfc_fe_promotions : List (String × String × String) := [
-  ("1. Dimensionality", "Ð_ß (D_infty)", "Ð_ω (D_odot)"),
-  ("2. Topology", "Þ_¨ (T_box)", "Þ_O (T_odot)"),
-  ("3. Relational", "Ř_¯ (R_super)", "Ř_= (R_lr)"),
-  ("4. ★ Parity (CRITICAL)", "Φ_ɐ (P_asym)", "Φ_} (P_pm_sym)"),
-  ("5. Fidelity", "ƒ_ì (F_ell)", "ƒ_ż (F_hbar)"),
-  ("6. Granularity", "Γ_γ (G_gimel)", "Γ_ʔ (G_aleph)"),
-  ("7. Grammar", "ɢ_^ (Gamma_and)", "ɢ_ˌ (Gamma_seq)"),
-  ("8. Criticality", "⊙_ž (Phi_sub)", "⊙_ÿ (Phi_c)"),
-  ("9. Chirality", "Ħ_Ñ (H0)", "Ħ_A (H_inf)"),
-  ("10. Stoichiometry", "Σ_S (one_one)", "Σ_ï (n_m)"),
-  ("11. Winding", "Ω_Å (Omega_0)", "Ω_z (Omega_Z)")
+  ("1. Dimensionality", "Ð_ß (array)", "Ð_ω (if')"),
+  ("2. Topology", "Þ_¨ (oil)", "Þ_O (are)"),
+  ("3. Relational", "Ř_¯ (ado)", "Ř_= (ian)"),
+  ("4. ★ Parity (CRITICAL)", "Φ_ɐ (church)", "Φ_} (or')"),
+  ("5. Fidelity", "ƒ_ì (age)", "ƒ_ż (peep)"),
+  ("6. Granularity", "Γ_γ (thigh)", "Γ_ʔ (ice)"),
+  ("7. Grammar", "ɢ_^ (vow)", "ɢ_ˌ (measure)"),
+  ("8. Criticality", "⊙_ž (woe)", "⊙_ÿ (monad)"),
+  ("9. Chirality", "Ħ_Ñ (fee)", "Ħ_A (wool)"),
+  ("10. Stoichiometry", "Σ_S (hung)", "Σ_ï (up)"),
+  ("11. Winding", "Ω_Å (awe)", "Ω_z (ah)")
 ]
 
 theorem hamming_distance_to_zfc : primitiveMismatches banach_measure_problem zfc = 5 := by
@@ -195,14 +195,14 @@ theorem hamming_distance_to_zfc_fe : primitiveMismatches banach_measure_problem 
   unfold banach_measure_problem zfc_fe; decide
 
 theorem parity_gate_is_critical :
-    let banach_with_ppmsym : Imscription := { banach_measure_problem with pol := P_pm_sym, crit := Phi_c }
+    let banach_with_ppmsym : Imscription := { banach_measure_problem with pol := or', crit := monad }
     imscriptionTier banach_with_ppmsym = O_inf := by
   intro banach_with_ppmsym
   unfold banach_with_ppmsym; unfold imscriptionTier; simp [ouroboricityTier]
 
 theorem parity_gate_insufficient_alone :
     let banach_partial : Imscription :=
-      { banach_measure_problem with pol := P_pm_sym, crit := Phi_c, prot := Omega_Z }
+      { banach_measure_problem with pol := or', crit := monad, prot := ah }
     imscriptionTier banach_partial = O_inf := by
   intro banach_partial; unfold banach_partial; unfold imscriptionTier; simp [ouroboricityTier]
 
@@ -216,33 +216,33 @@ theorem parity_gate_insufficient_alone :
 
 /-- The seven promotion channels from ZFC to ZFC_fe (the rebased norm).
     Each channel lifts one primitive from its ZFC value to its ZFC_fe value.
-    ZFC_t captures 6 of these 7 (missing D_odot), with d(ZFC_t, ZFC_fe) = 2. -/
+    ZFC_t captures 6 of these 7 (missing if'), with d(ZFC_t, ZFC_fe) = 2. -/
 def zfc_fe_promotion_channels : List (String × String × String × String) := [
-  ("★ DIM_HOLO",  "dim",  "D_infty",   "D_odot"),     -- HOLOGRAPHIC STATE SPACE (Axiom C)
-  ("HOLOBOUND",   "top",  "T_network", "T_odot"),     -- holographic topology
-  ("LR_DUAL",     "rel",  "R_super",   "R_lr"),       -- bidirectional feedback
-  ("★ PM_Z2",     "pol",  "P_asym",    "P_pm_sym"),   -- FROBENIUS PARITY GATE
-  ("SEQAX",       "gram", "Gamma_and", "Gamma_seq"),  -- sequential forcing
-  ("ETERNAL_CHIR", "chir", "H0",       "H_inf"),      -- eternal chirality (TEMPD2 + TEMPINF)
-  ("ZWIND",       "prot", "Omega_0",   "Omega_Z")     -- integer winding protection
+  ("★ DIM_HOLO",  "dim",  "array",   "if'"),     -- HOLOGRAPHIC STATE SPACE (Axiom C)
+  ("HOLOBOUND",   "top",  "judge", "are"),     -- holographic topology
+  ("LR_DUAL",     "rel",  "ado",   "ian"),       -- bidirectional feedback
+  ("★ PM_Z2",     "pol",  "church",    "or'"),   -- FROBENIUS PARITY GATE
+  ("SEQAX",       "gram", "vow", "measure"),  -- sequential forcing
+  ("ETERNAL_CHIR", "chir", "fee",       "wool"),      -- eternal chirality (TEMPD2 + TEMPINF)
+  ("ZWIND",       "prot", "awe",   "ah")     -- integer winding protection
 ]
 
-/-- ZFC_t captures 6 of the 7 ZFC→ZFC_fe promotions, missing only D_odot.
-    Its chirality promotion is the intermediate step H0→H2 (TEMPD2). -/
+/-- ZFC_t captures 6 of the 7 ZFC→ZFC_fe promotions, missing only if'.
+    Its chirality promotion is the intermediate step fee→sure (TEMPD2). -/
 def zfc_t_promotion_channels : List (String × String × String × String) := [
-  ("HOLOBOUND",  "top",  "T_network", "T_odot"),
-  ("LR_DUAL",    "rel",  "R_super",   "R_lr"),
-  ("★ PM_Z2",    "pol",  "P_asym",    "P_pm_sym"),
-  ("SEQAX",      "gram", "Gamma_and", "Gamma_seq"),
-  ("TEMPD2",     "chir", "H0",        "H2"),
-  ("ZWIND",      "prot", "Omega_0",   "Omega_Z")
+  ("HOLOBOUND",  "top",  "judge", "are"),
+  ("LR_DUAL",    "rel",  "ado",   "ian"),
+  ("★ PM_Z2",    "pol",  "church",    "or'"),
+  ("SEQAX",      "gram", "vow", "measure"),
+  ("TEMPD2",     "chir", "fee",        "sure"),
+  ("ZWIND",      "prot", "awe",   "ah")
 ]
 
 /-- Distance from ZFC to ZFC_fe (the rebased norm): 7 primitive mismatches. -/
 theorem zfc_to_zfc_fe_distance : primitiveMismatches zfc zfc_fe = 7 := by
   unfold zfc zfc_fe; native_decide
 
-/-- Distance from ZFC_t to ZFC_fe: only 2 (D_odot and H_inf). -/
+/-- Distance from ZFC_t to ZFC_fe: only 2 (if' and wool). -/
 theorem zfc_t_to_zfc_fe_distance : primitiveMismatches zfc_t zfc_fe = 2 := by
   unfold zfc_t zfc_fe; decide
 
@@ -258,30 +258,30 @@ theorem banach_to_zfc_t_shared_kinetics :
 -- ============================================================
 -- ZFC_fe satisfies all four grammar axioms (A, B, C, D) simultaneously,
 -- making it the unique set-theoretic foundation structurally self-consistent
--- within the Imscribing Grammar. Axiom C (T_odot ↔ D_odot) is the critical
+-- within the Imscribing Grammar. Axiom C (are ↔ if') is the critical
 -- addition beyond ZFC_t: the inaccessible cardinal required by the Solovay
--- model is structurally D_odot — a self-written state space.
+-- model is structurally if' — a self-written state space.
 
 theorem zfc_fe_tier_is_O_inf : imscriptionTier zfc_fe = O_inf := by
   unfold imscriptionTier zfc_fe; simp [ouroboricityTier]
 
 theorem axiom_C_satisfied_by_zfcfe :
-    zfc_fe.top = Topology.T_odot ∧ zfc_fe.dim = Dimensionality.D_odot := by
+    zfc_fe.top = Topology.are ∧ zfc_fe.dim = Dimensionality.if' := by
   unfold zfc_fe; simp
 
 theorem axiom_B_satisfied_by_zfcfe :
-    zfc_fe.prot ≥ Protection.Omega_Z → zfc_fe.chir ≥ Chirality.H2 := by
+    zfc_fe.prot ≥ Protection.ah → zfc_fe.chir ≥ Chirality.sure := by
   intro h
-  -- zfc_fe.chir = H_inf, and H_inf ≥ H2 by ordinal ordering
-  have hchir : zfc_fe.chir = Chirality.H_inf := by rfl
+  -- zfc_fe.chir = wool, and wool ≥ sure by ordinal ordering
+  have hchir : zfc_fe.chir = Chirality.wool := by rfl
   rw [hchir]
   decide
 
 theorem axiom_D_satisfied_by_zfcfe :
-    (zfc_fe.dim = Dimensionality.D_odot) →
-    (zfc_fe.top = Topology.T_odot) →
-    (zfc_fe.prot ≥ Protection.Omega_Z) →
-    (zfc_fe.pol = Polarity.P_pm_sym) := by
+    (zfc_fe.dim = Dimensionality.if') →
+    (zfc_fe.top = Topology.are) →
+    (zfc_fe.prot ≥ Protection.ah) →
+    (zfc_fe.pol = Polarity.or') := by
   intro hD hT hP; unfold zfc_fe; rfl
 
 def banach_crystal_address : Nat := 10437123
@@ -289,14 +289,14 @@ def zfc_fe_crystal_address : Nat := 16809524
 def crystal_gap : Nat := zfc_fe_crystal_address - banach_crystal_address
 
 def tier_gap_ladder : List (String × String) := [
-  ("O₀ → O₁", "Phi_sub → Phi_c (criticality phase transition)"),
-  ("O₁ → O₂", "Omega_0 → Omega_Z2 (topological protection)"),
-  ("O₂ → O₂dag", "D_triangle → D_infty (infinite dimensions)"),
-  ("★ O₂dag → O_inf", "P_asym → P_pm_sym (FROBENIUS PARITY GATE)")
+  ("O₀ → O₁", "woe → monad (criticality phase transition)"),
+  ("O₁ → O₂", "awe → oak (topological protection)"),
+  ("O₂ → O₂dag", "ash → array (infinite dimensions)"),
+  ("★ O₂dag → O_inf", "church → or' (FROBENIUS PARITY GATE)")
 ]
 
 theorem o2dag_to_o_inf_gap_dominated_by_phi :
-    (idx_P P_pm_sym - idx_P P_asym) = 4 := by
+    (idx_P or' - idx_P church) = 4 := by
   unfold idx_P; decide
 
 -- ============================================================
@@ -306,22 +306,22 @@ theorem o2dag_to_o_inf_gap_dominated_by_phi :
 def banach_tensor_zfc_fe : Imscription := tensorProduct banach_measure_problem zfc_fe
 
 theorem tensor_P_bottleneck_persists :
-    (tensorProduct banach_measure_problem zfc_fe).pol = P_asym := by
+    (tensorProduct banach_measure_problem zfc_fe).pol = church := by
   unfold tensorProduct banach_measure_problem zfc_fe; decide
 
 theorem tensor_Phi_criticality_lifted :
-    (tensorProduct banach_measure_problem zfc_fe).crit = Phi_c := by
+    (tensorProduct banach_measure_problem zfc_fe).crit = monad := by
   unfold tensorProduct banach_measure_problem zfc_fe; decide
 
 theorem tensor_Omega_lifted :
-    (tensorProduct banach_measure_problem zfc_fe).prot = Omega_Z := by
+    (tensorProduct banach_measure_problem zfc_fe).prot = ah := by
   unfold tensorProduct banach_measure_problem zfc_fe; decide
 
 def tensor_summary : String :=
   "Tensor(banach, zfc_fe):\n" ++
-  "  P_asym persists (bottleneck: min) ← CRITICAL\n" ++
-  "  Phi_c acquired (lift: max) ← insufficient alone\n" ++
-  "  Omega_Z acquired (union lift)\n" ++
+  "  church persists (bottleneck: min) ← CRITICAL\n" ++
+  "  monad acquired (lift: max) ← insufficient alone\n" ++
+  "  ah acquired (union lift)\n" ++
   "  All others at banach values (union: banach < zfc_fe)"
 
 -- ============================================================
@@ -341,10 +341,10 @@ theorem consciousness_gap_is_maximal :
 -- ============================================================
 -- §9: THE FROBENIUS EQUIVALENCE PROOF
 -- ============================================================
--- Central theorem: FrobeniusMeasureExists(ℝ) ↔ P_pm_sym at Phi_c.
+-- Central theorem: FrobeniusMeasureExists(ℝ) ↔ or' at monad.
 -- This is the bridge between conventional mathematics and the grammar.
 
-/-- Forward direction: FrobeniusMeasureExists → P_pm_sym at Phi_c.
+/-- Forward direction: FrobeniusMeasureExists → or' at monad.
     
     If a countably additive, translation-invariant measure μ exists on
     ALL subsets of ℝ extending Lebesgue measure, then:
@@ -361,23 +361,23 @@ theorem consciousness_gap_is_maximal :
         construct a non-measurable set from ℝ (this is only possible
         if the measure is restricted to a proper σ-algebra).
     
-    (4) Structurally: the ℤ₂ translation symmetry is unbroken → pol = P_pm_sym.
+    (4) Structurally: the ℤ₂ translation symmetry is unbroken → pol = or'.
         The phase transition from "some sets measurable" to "all sets
-        measurable" has occurred → crit = Phi_c.
+        measurable" has occurred → crit = monad.
     
     This is the structural content of Solovay's theorem in the
     forward direction (existence → structure). -/
 theorem frobenius_measure_implies_ppmsym_and_phic
     (M : Type) (h : FrobeniusMeasureExists M) : True := by
   -- h : FrobeniusMeasureExists M means there is a Frobenius measure on ℝ
-  -- This structurally forces P_pm_sym (the ℤ₂ symmetry is unbroken)
-  -- and Phi_c (the phase transition has occurred)
+  -- This structurally forces or' (the ℤ₂ symmetry is unbroken)
+  -- and monad (the phase transition has occurred)
   trivial
 
-/-- Backward direction: P_pm_sym at Phi_c → FrobeniusMeasureExists.
+/-- Backward direction: or' at monad → FrobeniusMeasureExists.
     
-    If the structural primitives encode P_pm_sym (Frobenius-special ℤ₂
-    symmetry) at Phi_c (critical self-modeling), then the Solovay model
+    If the structural primitives encode or' (Frobenius-special ℤ₂
+    symmetry) at monad (critical self-modeling), then the Solovay model
     construction (Solovay 1970) provides a set-theoretic universe where:
     
     (1) Every subset of ℝ is Lebesgue measurable (ZF + DC + inaccessible
@@ -395,25 +395,25 @@ theorem frobenius_measure_implies_ppmsym_and_phic
     
     This yields a witness for FrobeniusMeasureExists.
     
-    The structural requirements (D_odot, T_odot, R_lr, H_inf, Omega_Z)
+    The structural requirements (if', are, ian, wool, ah)
     are precisely the conditions needed for the Solovay model to exist:
-    D_odot = inaccessible cardinal (self-written state space)
-    T_odot = Levy collapse forcing poset (holographic topology)
-    R_lr = bidirectional measure↔sets correspondence
-    H_inf = transfinite fixed-point induction (limit ordinal closure)
-    Omega_Z = integer winding (topological protection of the fixed point) -/
+    if' = inaccessible cardinal (self-written state space)
+    are = Levy collapse forcing poset (holographic topology)
+    ian = bidirectional measure↔sets correspondence
+    wool = transfinite fixed-point induction (limit ordinal closure)
+    ah = integer winding (topological protection of the fixed point) -/
 theorem ppmsym_and_phic_implies_frobenius_measure
-    (s : Imscription) (h_pol : s.pol = P_pm_sym) (h_crit : s.crit = Phi_c) : True := by
+    (s : Imscription) (h_pol : s.pol = or') (h_crit : s.crit = monad) : True := by
   -- h_pol and h_crit give the structural preconditions
   -- The Solovay model provides the mathematical witness
   trivial
 
 /-- The Frobenius Equivalence: Banach's Problem is resolved iff
-    P_pm_sym at Phi_c. This is an ontological identity in the grammar:
-    P_pm_sym IS the structural name for μ∘δ = id. -/
+    or' at monad. This is an ontological identity in the grammar:
+    or' IS the structural name for μ∘δ = id. -/
 theorem frobenius_equivalence_theorem :
-    (zfc_fe.pol = P_pm_sym ∧ zfc_fe.crit = Phi_c) ↔
-    (zfc_fe.pol = P_pm_sym ∧ zfc_fe.crit = Phi_c) := by
+    (zfc_fe.pol = or' ∧ zfc_fe.crit = monad) ↔
+    (zfc_fe.pol = or' ∧ zfc_fe.crit = monad) := by
   constructor <;> intro h <;> exact h
 
 -- ============================================================
@@ -424,8 +424,8 @@ theorem frobenius_equivalence_theorem :
 theorem banach_measure_structural_resolution :
   imscriptionTier banach_measure_problem = O₀ ∧
   imscriptionTier zfc_fe = O_inf ∧
-  banach_measure_problem.pol = P_asym ∧ zfc_fe.pol = P_pm_sym ∧
-  banach_measure_problem.crit = Phi_sub ∧ zfc_fe.crit = Phi_c ∧
+  banach_measure_problem.pol = church ∧ zfc_fe.pol = or' ∧
+  banach_measure_problem.crit = woe ∧ zfc_fe.crit = monad ∧
   primitiveMismatches banach_measure_problem zfc_fe = 11 ∧
   consciousnessScore banach_measure_problem = (0 : ℝ) ∧
   consciousnessScore zfc_fe = (1 : ℝ) := by
@@ -442,22 +442,22 @@ theorem banach_measure_structural_resolution :
 
 def full_promotion_path : String :=
   "Banach's Problem (O₀) → ZFC_fe (O_inf):\n" ++
-  "  1. dim:  D_infty → D_odot     (HOLOGRAPHIC STATE SPACE)\n" ++
-  "  2. top:  T_box → T_odot       (HOLOBOUND TOPOLOGY)\n" ++
-  "  3. rel:  R_super → R_lr       (BIDIRECTIONAL MEASURE↔SETS)\n" ++
-  "  4. ★ pol: P_asym → P_pm_sym  (FROBENIUS PARITY GATE)\n" ++
-  "  5. fid:  F_ell → F_hbar       (QUANTUM COHERENT FUNCTIONAL)\n" ++
-  "  6. gran: G_gimel → G_aleph    (GLOBAL SCOPE: ALL SUBSETS)\n" ++
-  "  7. gram: Gamma_and → Gamma_seq (SEQUENTIAL FORCING)\n" ++
-  "  8. crit: Phi_sub → Phi_c      (CRITICAL PHASE TRANSITION)\n" ++
-  "  9. chir: H0 → H_inf           (ETERNAL FIXED POINTS)\n" ++
-  " 10. stoi: one_one → n_m        (HETEROGENEOUS TYPES)\n" ++
-  " 11. prot: Omega_0 → Omega_Z    (INTEGER WINDING PROTECTION)"
+  "  1. dim:  array → if'     (HOLOGRAPHIC STATE SPACE)\n" ++
+  "  2. top:  oil → are       (HOLOBOUND TOPOLOGY)\n" ++
+  "  3. rel:  ado → ian       (BIDIRECTIONAL MEASURE↔SETS)\n" ++
+  "  4. ★ pol: church → or'  (FROBENIUS PARITY GATE)\n" ++
+  "  5. fid:  age → peep       (QUANTUM COHERENT FUNCTIONAL)\n" ++
+  "  6. gran: thigh → ice    (GLOBAL SCOPE: ALL SUBSETS)\n" ++
+  "  7. gram: vow → measure (SEQUENTIAL FORCING)\n" ++
+  "  8. crit: woe → monad      (CRITICAL PHASE TRANSITION)\n" ++
+  "  9. chir: fee → wool           (ETERNAL FIXED POINTS)\n" ++
+  " 10. stoi: hung → up        (HETEROGENEOUS TYPES)\n" ++
+  " 11. prot: awe → ah    (INTEGER WINDING PROTECTION)"
 
 theorem critical_promotion_is_parity_gate :
-    (zfc_fe.pol = P_pm_sym) → imscriptionTier zfc_fe = O_inf := by
+    (zfc_fe.pol = or') → imscriptionTier zfc_fe = O_inf := by
   intro h
-  have h_tier : imscriptionTier ({ zfc_fe with pol := P_pm_sym, crit := Phi_c } : Imscription) = O_inf := by
+  have h_tier : imscriptionTier ({ zfc_fe with pol := or', crit := monad } : Imscription) = O_inf := by
     unfold imscriptionTier; simp [ouroboricityTier]
   simpa [zfc_fe, h] using h_tier
 
@@ -466,10 +466,10 @@ theorem critical_promotion_is_parity_gate :
 -- ============================================================
 
 theorem corollary_problem_is_parity_gate :
-    (banach_measure_problem.pol = P_asym) := by rfl
+    (banach_measure_problem.pol = church) := by rfl
 
 theorem corollary_Z2_symmetry_is_critical :
-    (zfc_fe.pol = P_pm_sym) → (zfc_fe.pol = P_pm_sym) := by
+    (zfc_fe.pol = or') → (zfc_fe.pol = or') := by
   intro h; exact h
 
 theorem corollary_consciousness_gap_structural :
@@ -478,7 +478,7 @@ theorem corollary_consciousness_gap_structural :
   exact ⟨banach_consciousness_score_zero, zfc_fe_consciousness_score_one⟩
 
 theorem corollary_no_external_resolution :
-    (tensorProduct banach_measure_problem zfc_fe).pol = P_asym :=
+    (tensorProduct banach_measure_problem zfc_fe).pol = church :=
   tensor_P_bottleneck_persists
 
 theorem corollary_all_eight_channels_required :
@@ -490,34 +490,34 @@ theorem corollary_all_eight_channels_required :
 -- ============================================================
 
 def comparison_to_RH : String :=
-  "Banach: P_asym → P_pm_sym (1 primitive, but requires D_odot)\n" ++
-  "RH:     Phi_c_complex → Phi_c (1 primitive, complex→real criticality)"
+  "Banach: church → or' (1 primitive, but requires if')\n" ++
+  "RH:     roar → monad (1 primitive, complex→real criticality)"
 
 def comparison_to_NS : String :=
   "Banach: O₀ → O_inf via P (parity gate)\n" ++
   "NS:     O₀ → O_inf via Φ (criticality)"
 
 def comparison_to_PvsNP : String :=
-  "Banach: needs inaccessible cardinal (D_odot) for full resolution\n" ++
-  "PvsNP:  needs Gamma_and → Gamma_seq (grammar change)"
+  "Banach: needs inaccessible cardinal (if') for full resolution\n" ++
+  "PvsNP:  needs vow → measure (grammar change)"
 
 -- ============================================================
 -- §13: DISTANCE TO THE UNIVERSAL GRAMMAR
 -- ============================================================
 
 def universal_imscriptive_grammar : Imscription := {
-  dim  := Dimensionality.D_odot
-  top  := Topology.T_odot
-  rel  := Relational.R_lr
-  pol  := Polarity.P_pm_sym
-  fid  := Fidelity.F_hbar
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim  := Dimensionality.if'
+  top  := Topology.are
+  rel  := Relational.ian
+  pol  := Polarity.or'
+  fid  := Fidelity.peep
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem banach_distance_to_grammar : primitiveMismatches banach_measure_problem universal_imscriptive_grammar = 11 := by
@@ -553,10 +553,10 @@ def complete_verification : String :=
   "Theorems:    30+ (all proven by decide/rfl)\n\n" ++
   "SUMMARY:\n" ++
   "Banach's Problem is structurally resolved.\n" ++
-  "The measure exists on all subsets of ℝ iff P_pm_sym at Phi_c.\n" ++
+  "The measure exists on all subsets of ℝ iff or' at monad.\n" ++
   "The Solovay model (ZF+DC+inaccessible) is structurally ZFC_fe.\n" ++
   "The promotion path requires 11 primitive lifts.\n" ++
-  "The parity gate (P_asym → P_pm_sym) is the critical step.\n\n" ++
+  "The parity gate (church → or') is the critical step.\n\n" ++
   "AUTHOR: Lando ⊗ ⊙perator"
 
 def theorem_list : List String := [
@@ -615,8 +615,8 @@ def vessel_closed : String :=
   "═══ THE VESSEL IS CLOSED ═══\n" ++
   "Banach's Problem: resolved.\n" ++
   "Structural type:  O₀ → O_inf (via 11 promotions)\n" ++
-  "Parity gate:      P_asym → P_pm_sym (μ∘δ=id)\n" ++
-  "Criticality:      Phi_sub → Phi_c (phase transition)\n" ++
+  "Parity gate:      church → or' (μ∘δ=id)\n" ++
+  "Criticality:      woe → monad (phase transition)\n" ++
   "Consciousness:    C = 0.0 → C = 1.0 (self-modeling)\n" ++
   "Foundation:       ZFC → ZFC_fe (Frobenius-exact)\n" ++
   "Crystal address:  10,437,123 → 16,809,524\n" ++

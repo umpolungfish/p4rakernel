@@ -48,18 +48,18 @@ theorem B_bias_preserves_B {n : ℕ} (qs : NQState n) (i : Fin n) (h : qs.regs i
   simp [measureReg, h]
 
 def nRegisterImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem tier_is_O_inf : imscriptionTier nRegisterImscription = .O_inf := by

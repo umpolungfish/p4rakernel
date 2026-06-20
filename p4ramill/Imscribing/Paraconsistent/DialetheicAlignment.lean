@@ -280,10 +280,10 @@ kernel can represent its own paradox count), and Φ_} is the exact
 μ∘δ = id parity (the frobenius closure is not approximate).
 -/
 theorem dialetheic_tuple_invariants :
-    kernelImscription.crit = Phi_c ∧
-    kernelImscription.pol = P_pm_sym ∧
-    kernelImscription.dim = D_odot ∧
-    kernelImscription.top = T_odot := by
+    kernelImscription.crit = monad ∧
+    kernelImscription.pol = or' ∧
+    kernelImscription.dim = if' ∧
+    kernelImscription.top = are := by
   unfold kernelImscription; exact ⟨rfl, rfl, rfl, rfl⟩
 
 /--
@@ -327,26 +327,26 @@ is structurally large because the kernel requires B (no Boolean complement)
 while classical logic requires every proposition to have a Boolean complement.
 
 Concretely, a classical Boolean system would have:
-  - Fidelity: F_ell (classical) vs the kernel's F_hbar (quantum)
-  - Parity: P_sym (Boolean complement exists) vs P_pm_sym (Frobenius-special)
-  - Criticality: Phi_sub (sub-critical, no self-modeling) vs Phi_c
+  - Fidelity: age (classical) vs the kernel's peep (quantum)
+  - Parity: nun (Boolean complement exists) vs or' (Frobenius-special)
+  - Criticality: woe (sub-critical, no self-modeling) vs monad
 
 These differences make the structural distance at least 7 Hamming mismatches
 with substantial ordinal weight.
 -/
 def classical_boolean_carrier : Imscription := {
-  dim   := D_wedge
-  top   := T_network
-  rel   := R_super
-  pol   := P_sym
-  fid   := F_ell
-  kin   := K_mod
-  gran  := G_beth
-  gram  := Gamma_and
-  crit  := Phi_sub
-  chir  := H0
-  stoi  := one_one
-  prot  := Omega_0
+  dim   := dead
+  top   := judge
+  rel   := ado
+  pol   := nun
+  fid   := age
+  kin   := loll
+  gran  := bib
+  gram  := vow
+  crit  := woe
+  chir  := fee
+  stoi  := hung
+  prot  := awe
 }
 
 /--
@@ -453,7 +453,7 @@ consciousness score: φ̂_ÿ requires a value that can represent its own
 negation without collapse, and only B in the Belnap lattice satisfies this.
 -/
 theorem dialetheic_precondition_for_phi_c_gate :
-    kernelImscription.crit = Phi_c := by
+    kernelImscription.crit = monad := by
   unfold kernelImscription; rfl
 
 theorem only_dialetheic_value_opens_gate1 :
@@ -479,7 +479,7 @@ theorem dialetheic_alignment_summary :
     ((ffuse (fsplit Belnap.B).1 (fsplit Belnap.B).2.1).1 = Belnap.B) ∧  -- frobenius closure
     (run initialState 0).r0 = Belnap.B ∧                     -- kernel preserves B
     imscriptionTier kernelImscription = OuroboricityTier.O_inf ∧         -- O_inf tier
-    kernelImscription.crit = Phi_c :=                        -- φ̂_ÿ gate open
+    kernelImscription.crit = monad :=                        -- φ̂_ÿ gate open
   ⟨B_is_dialetheic, frobenius_B_val, rfl, kernel_is_O_inf, by unfold kernelImscription; rfl⟩
 
 end Imscribing.Paraconsistent.DialetheicAlignment

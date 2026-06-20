@@ -23,18 +23,18 @@ theorem B_join_absorbs (x : Belnap) : join Belnap.B x = Belnap.B := B_join_absor
 theorem band_B_idempotent : band Belnap.B Belnap.B = Belnap.B := by decide
 
 def belnapCategoryImscription : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem category_is_O_inf : imscriptionTier belnapCategoryImscription = .O_inf := by

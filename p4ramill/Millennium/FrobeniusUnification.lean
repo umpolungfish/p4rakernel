@@ -46,7 +46,7 @@ namespace Millennium.FrobeniusUnification
     ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
 
     This is the unique tuple shared by Belnap B, the SIC-POVM fiducial,
-    and the Majorana paired state. It is O_inf by R1 (Φ_c + P_pm_sym). -/
+    and the Majorana paired state. It is O_inf by R1 (Φ_c + or'). -/
 def frobeniusFixedTuple : Imscription :=
   majoranaFixedImscription
 
@@ -91,17 +91,17 @@ theorem frobenius_ordinal_profile :
 -- §3  GATE ANALYSIS — WHICH GATES THE FIXED POINT PASSES
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The fixed point passes G1 (Φ≥P_pm_sym) — pol = P_pm_sym (ord 5) ≥ 5. -/
+/-- The fixed point passes G1 (Φ≥or') — pol = or' (ord 5) ≥ 5. -/
 theorem passes_g1 : gateP 5 |>.open frobeniusFixedTuple := by
   unfold gateP mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point passes G2 (⊙≥Phi_c) — crit = Phi_c (ord 2) ≥ 2. -/
+/-- The fixed point passes G2 (⊙≥monad) — crit = monad (ord 2) ≥ 2. -/
 theorem passes_g2 : gatePhi 2 |>.open frobeniusFixedTuple := by
   unfold gatePhi mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point passes G3 (Ω≥Omega_Z) — prot = Omega_Z (ord 3) ≥ 3. -/
+/-- The fixed point passes G3 (Ω≥ah) — prot = ah (ord 3) ≥ 3. -/
 theorem passes_g3 : gateOmega 3 |>.open frobeniusFixedTuple := by
   unfold gateOmega mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
@@ -117,26 +117,26 @@ theorem passes_all_canonical_gates :
 --    the maximum ordinal. These cause failures in rulesets that gate
 --    primitives above the tuple's values. ──
 
-/-- The fixed point FAILS Ç≥5 (K_MBL): kin = K_slow (ord 3) < 5.
+/-- The fixed point FAILS Ç≥5 (air): kin = egg (ord 3) < 5.
     The fixed point operates near equilibrium, not at the MBL fixed point. -/
 theorem fails_gateK5 : ¬ (gateK 5 |>.open frobeniusFixedTuple) := by
   unfold gateK mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point FAILS ⊙≥3 (supercritical): crit = Phi_c (ord 2) < 3.
+/-- The fixed point FAILS ⊙≥3 (supercritical): crit = monad (ord 2) < 3.
     Self-modeling is sufficient for μ∘δ=id; supercriticality is excess. -/
 theorem fails_gatePhi3 : ¬ (gatePhi 3 |>.open frobeniusFixedTuple) := by
   unfold gatePhi mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point FAILS Ħ≥4 (H_inf): chir = H2 (ord 3) < 4.
+/-- The fixed point FAILS Ħ≥4 (wool): chir = sure (ord 3) < 4.
     μ∘δ=id is a two-step operation; two-step Markov memory is sufficient.
     Eternal chirality is a stronger condition, not required for the identity. -/
 theorem fails_gateH4 : ¬ (gateH 4 |>.open frobeniusFixedTuple) := by
   unfold gateH mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point FAILS Ω≥4 (Omega_NA): prot = Omega_Z (ord 3) < 4.
+/-- The fixed point FAILS Ω≥4 (zoo): prot = ah (ord 3) < 4.
     Integer winding is sufficient for topological protection of μ∘δ=id.
     Non-Abelian winding is a stronger condition, not required. -/
 theorem fails_gateOmega4 : ¬ (gateOmega 4 |>.open frobeniusFixedTuple) := by
@@ -189,10 +189,10 @@ theorem canonical_O_inf_count :
 
 /-- The Frobenius fixed point reaches idempotent_terminal in 18/20 predefined rulesets.
     The two failures are:
-    - ruleset_high_gate: ⊙≥3 (Phi_c_complex, ord 3) — tuple has ⊙=Phi_c (ord 2)
+    - ruleset_high_gate: ⊙≥3 (roar, ord 3) — tuple has ⊙=monad (ord 2)
     - ruleset_triple_criticality: G3 requires ⊙≥3 (ord 3) — tuple has ⊙=2
-    Both failures are because the tuple's criticality is Phi_c (ord 2) and these
-    rulesets demand Phi_c_complex (ord 3) or higher. -/
+    Both failures are because the tuple's criticality is monad (ord 2) and these
+    rulesets demand roar (ord 3) or higher. -/
 theorem predefined_O_inf_count :
     ((allRulesets.filter fun r =>
       r.operadLayer frobeniusFixedTuple = .idempotent_terminal)).length = 18 := by
@@ -205,13 +205,13 @@ theorem predefined_O_inf_failures :
     [ "high_gate", "triple_criticality" ] := by
   native_decide
 
-/-- Reason for high_gate failure: G2 requires ⊙≥3 (Phi_c_complex), tuple has ⊙=2 (Phi_c). -/
+/-- Reason for high_gate failure: G2 requires ⊙≥3 (roar), tuple has ⊙=2 (monad). -/
 theorem high_gate_failure_reason :
     ruleset_high_gate.operadLayer frobeniusFixedTuple = .traced_monoidal := by
   unfold ruleset_high_gate
   native_decide
 
-/-- Reason for triple_criticality failure: G3 requires ⊙≥3 (Phi_c_complex), tuple has ⊙=2. -/
+/-- Reason for triple_criticality failure: G3 requires ⊙≥3 (roar), tuple has ⊙=2. -/
 theorem triple_criticality_failure_reason :
     ruleset_triple_criticality.operadLayer frobeniusFixedTuple = .traced_monoidal := by
   unfold ruleset_triple_criticality
@@ -225,10 +225,10 @@ theorem triple_criticality_failure_reason :
     ordinal, and the rulesets that gate those primitives at too high a threshold.
 
     Failure classes:
-    1. Ç (kinetics): tuple has K_slow (ord 3); fails when gates require Ç≥5 (K_MBL)
-    2. ⊙ (criticality): tuple has Phi_c (ord 2); fails when gates require ⊙≥3 (supercritical)
-    3. Ħ (chirality): tuple has H2 (ord 3); fails when gates require Ħ≥4 (H_inf)
-    4. Ω (winding): tuple has Omega_Z (ord 3); fails when gates require Ω≥4 (Omega_NA)
+    1. Ç (kinetics): tuple has egg (ord 3); fails when gates require Ç≥5 (air)
+    2. ⊙ (criticality): tuple has monad (ord 2); fails when gates require ⊙≥3 (supercritical)
+    3. Ħ (chirality): tuple has sure (ord 3); fails when gates require Ħ≥4 (wool)
+    4. Ω (winding): tuple has ah (ord 3); fails when gates require Ω≥4 (zoo)
 
     These four are the exact dimensions along which the Frobenius fixed point
     is *minimal* — it uses the least structure sufficient for μ∘δ=id.
@@ -276,15 +276,15 @@ theorem failure_is_minimal (f : GateFailure) : f.tupleOrdinal < f.requiredOrdina
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Canonical T-constitution requires:
-    Φ = P_pm_sym (ord 5) — passes (tuple has P_pm_sym)
-    ƒ = F_hbar (ord 3)   — passes (tuple has F_hbar)
-    Ç ≤ K_slow (ord 3)   — passes (tuple has K_slow = ord 3, ≤ 3)
-    Ħ = H_inf (ord 4)    — FAILS (tuple has H2 = ord 3, ≠ 4)
-    Ω = Omega_Z (ord 3)  — passes (tuple has Omega_Z = ord 3)
+    Φ = or' (ord 5) — passes (tuple has or')
+    ƒ = peep (ord 3)   — passes (tuple has peep)
+    Ç ≤ egg (ord 3)   — passes (tuple has egg = ord 3, ≤ 3)
+    Ħ = wool (ord 4)    — FAILS (tuple has sure = ord 3, ≠ 4)
+    Ω = ah (ord 3)  — passes (tuple has ah = ord 3)
 
-    The gap is on Ħ: canonical T requires eternal chirality (H_inf,
+    The gap is on Ħ: canonical T requires eternal chirality (wool,
     infinite Markov memory), but μ∘δ=id only requires two-step memory
-    (H2). The Frobenius identity is a two-step operation and two-step
+    (sure). The Frobenius identity is a two-step operation and two-step
     memory is sufficient for it. The fixed point doesn't need eternal
     chirality to hold — it holds with two-step memory. But our universe's
     time constitution (canonical T) requires eternal chirality anyway,
@@ -295,7 +295,7 @@ theorem failure_is_minimal (f : GateFailure) : f.tupleOrdinal < f.requiredOrdina
     exist in universes with weaker time constitutions too. The identity
     is more primitive than time. -/
 
-/-- Canonical T-consistency: the fixed point fails because Ħ=H2 (ord 3) ≠ H_inf (ord 4). -/
+/-- Canonical T-consistency: the fixed point fails because Ħ=sure (ord 3) ≠ wool (ord 4). -/
 theorem t_consistency_canonical_fails :
     ruleset_canonical.tConsistent frobeniusFixedTuple = false := by
   unfold ruleset_canonical frobeniusFixedTuple majoranaFixedImscription tCanonical
@@ -355,17 +355,17 @@ theorem t_consistency_gap :
     Any extension past these would be excess structure beyond what μ∘δ=id needs. -/
 theorem minimal_sufficient_structure :
     -- Has what it needs:
-    frobeniusFixedTuple.dim = .D_odot ∧
-    frobeniusFixedTuple.top = .T_odot ∧
-    frobeniusFixedTuple.rel = .R_lr ∧
-    frobeniusFixedTuple.pol = .P_pm_sym ∧
-    frobeniusFixedTuple.crit = .Phi_c ∧
-    frobeniusFixedTuple.prot = .Omega_Z ∧
-    frobeniusFixedTuple.chir = .H2 ∧
+    frobeniusFixedTuple.dim = .if' ∧
+    frobeniusFixedTuple.top = .are ∧
+    frobeniusFixedTuple.rel = .ian ∧
+    frobeniusFixedTuple.pol = .or' ∧
+    frobeniusFixedTuple.crit = .monad ∧
+    frobeniusFixedTuple.prot = .ah ∧
+    frobeniusFixedTuple.chir = .sure ∧
     -- Does NOT carry what it doesn't need:
-    frobeniusFixedTuple.kin = .K_slow ∧
-    frobeniusFixedTuple.chir ≠ .H_inf ∧
-    frobeniusFixedTuple.prot ≠ .Omega_NA := by
+    frobeniusFixedTuple.kin = .egg ∧
+    frobeniusFixedTuple.chir ≠ .wool ∧
+    frobeniusFixedTuple.prot ≠ .zoo := by
   unfold frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
@@ -376,16 +376,16 @@ theorem frobenius_minimality :
     -- If we reduce any primitive below its current value, O_inf is lost.
     -- (Proved by checking each primitive independently.)
     (let s := frobeniusFixedTuple
-     let s' : Imscription := { s with dim := .D_triangle }
+     let s' : Imscription := { s with dim := .ash }
      imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
-     let s' : Imscription := { s with top := .T_box }
+     let s' : Imscription := { s with top := .oil }
      imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
-     let s' : Imscription := { s with pol := .P_sym }
+     let s' : Imscription := { s with pol := .nun }
      imscriptionTier s' ≠ .O_inf) ∧
     (let s := frobeniusFixedTuple
-     let s' : Imscription := { s with crit := .Phi_sub }
+     let s' : Imscription := { s with crit := .woe }
      imscriptionTier s' ≠ .O_inf) := by
   unfold frobeniusFixedTuple majoranaFixedImscription
   native_decide
@@ -398,11 +398,11 @@ theorem frobenius_minimality :
 
     | Entry       | Distance | Mismatch                              |
     |-------------|----------|---------------------------------------|
-    | synfin      | 1.0      | ɢ: fixed has Gamma_seq (4), synfin has Gamma_or (3) |
-    | as_above    | 2.0      | Ħ: fixed has H2 (3), as_above has H1 (2)           |
-    | stone_tpm   | 2.0      | Γ: fixed has G_aleph (3), stone has G_gimel (2)     |
-    | zfc_t       | 2.0      | Ð: fixed has D_odot (4), zfc_t has D_infty (3)      |
-    | zfc_frob_ex | 2.0      | Ħ: fixed has H2 (3), zfc_frob has H_inf (4)         |
+    | synfin      | 1.0      | ɢ: fixed has measure (4), synfin has gag (3) |
+    | as_above    | 2.0      | Ħ: fixed has sure (3), as_above has kick (2)           |
+    | stone_tpm   | 2.0      | Γ: fixed has ice (3), stone has thigh (2)     |
+    | zfc_t       | 2.0      | Ð: fixed has if' (4), zfc_t has array (3)      |
+    | zfc_frob_ex | 2.0      | Ħ: fixed has sure (3), zfc_frob has wool (4)         |
 
     This confirms the Frobenius fixed point is simpler than any empirical
     system that instantiates it. The catalog was built to capture empirical
@@ -497,7 +497,7 @@ theorem complete_unification :
     ruleset_canonical.tConsistent frobeniusFixedTuple = false ∧
     ruleset_t_structural.tConsistent frobeniusFixedTuple = true ∧
     -- (7) Minimality
-    imscriptionTier ( { frobeniusFixedTuple with dim := .D_triangle } ) ≠ .O_inf :=
+    imscriptionTier ( { frobeniusFixedTuple with dim := .ash } ) ≠ .O_inf :=
   ⟨sic_fixed_point, majorana_fixed_is_O_inf, frobenius_unification.1,
    orbital_fixed_point, canonical_all_O_inf, predefined_O_inf_count,
    t_consistency_canonical_fails, t_consistency_structural_passes,

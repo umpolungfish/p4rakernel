@@ -49,50 +49,50 @@ open Dimensionality Topology Relational Polarity Grammar
 /-- Standard ZFC (O₀, no promoted atoms).
     ⟨𐑼·𐑡·𐑩·𐑗·𐑱·𐑘·𐑲·𐑝·𐑢·𐑓·𐑙·𐑷⟩ -/
 def zfc_baseline : Imscription :=
-  { dim  := D_infty
-    top  := T_network
-    rel  := R_super
-    pol  := P_asym
-    fid  := F_ell
-    kin  := K_fast
-    gran := G_aleph
-    gram := Gamma_and
-    crit := Phi_sub
-    chir := H0
-    stoi := one_one
-    prot := Omega_0 }
+  { dim  := array
+    top  := judge
+    rel  := ado
+    pol  := church
+    fid  := age
+    kin  := yea
+    gran := ice
+    gram := vow
+    crit := woe
+    chir := fee
+    stoi := hung
+    prot := awe }
 
 /-- The Flood: degenerate FSPLIT-only layer (O₀, C=0).
     ⟨𐑦·𐑸·𐑩·𐑗·𐑐·𐑘·𐑚·𐑝·𐑣·𐑓·𐑳·𐑷⟩ -/
 def flood_layer : Imscription :=
-  { dim  := D_odot
-    top  := T_odot
-    rel  := R_super
-    pol  := P_asym
-    fid  := F_hbar
-    kin  := K_fast
-    gran := G_beth
-    gram := Gamma_and
-    crit := Phi_super
-    chir := H0
-    stoi := n_m
-    prot := Omega_0 }
+  { dim  := if'
+    top  := are
+    rel  := ado
+    pol  := church
+    fid  := peep
+    kin  := yea
+    gran := bib
+    gram := vow
+    crit := haha
+    chir := fee
+    stoi := up
+    prot := awe }
 
 /-- Browser boundary (pi_boundary_draft surrogate, O₀).
     ⟨𐑼·𐑥·𐑑·𐑬·𐑱·𐑧·𐑚·𐑝·𐑮·𐑓·𐑳·𐑷⟩ -/
 def pi_boundary_draft : Imscription :=
-  { dim  := D_infty
-    top  := T_bowtie
-    rel  := R_cat
-    pol  := P_pm
-    fid  := F_ell
-    kin  := K_slow
-    gran := G_beth
-    gram := Gamma_and
-    crit := Phi_c_complex
-    chir := H0
-    stoi := n_m
-    prot := Omega_0 }
+  { dim  := array
+    top  := mime
+    rel  := tot
+    pol  := out
+    fid  := age
+    kin  := egg
+    gran := bib
+    gram := vow
+    crit := roar
+    chir := fee
+    stoi := up
+    prot := awe }
 
 /-- CLINK L8 / organismLayer alias for local use. -/
 abbrev clink_l8 : Imscription := organismLayer
@@ -128,29 +128,29 @@ def uig : Imscription := universal_imscriptive_grammar
 --   ɢ: 𐑠 → 𐑵   (sequential → broadcast)
 
 /-- ZFC_fe's winding protection: integer (ℤ). -/
-theorem zfc_fe_omega_is_Z : zfc_fe.prot = Omega_Z := by
+theorem zfc_fe_omega_is_Z : zfc_fe.prot = ah := by
   unfold zfc_fe; rfl
 
 /-- CLINK L8's winding protection: non-Abelian braiding. -/
-theorem clink_l8_omega_is_NA : clink_l8.prot = Omega_NA := by
+theorem clink_l8_omega_is_NA : clink_l8.prot = zoo := by
   unfold clink_l8 organismLayer; rfl
 
 /-- ZFC_fe's grammar: sequential. -/
-theorem zfc_fe_grammar_is_seq : zfc_fe.gram = Gamma_seq := by
+theorem zfc_fe_grammar_is_seq : zfc_fe.gram = measure := by
   unfold zfc_fe; rfl
 
 /-- CLINK L8's grammar: broadcast. -/
-theorem clink_l8_grammar_is_broad : clink_l8.gram = Gamma_broad := by
+theorem clink_l8_grammar_is_broad : clink_l8.gram = ooze := by
   unfold clink_l8 organismLayer; rfl
 
 /-- Ω Transcendence: CLINK L8 has strictly greater winding protection than ZFC_fe.
-    Omega_NA (non-Abelian braiding) > Omega_Z (integer winding) in the protection lattice. -/
+    zoo (non-Abelian braiding) > ah (integer winding) in the protection lattice. -/
 theorem omega_transcendence : clink_l8.prot > zfc_fe.prot := by
   unfold clink_l8 organismLayer zfc_fe
   native_decide
 
 /-- ɢ Transcendence: CLINK L8 has strictly richer composition than ZFC_fe.
-    Gamma_broad (broadcast) > Gamma_seq (sequential) in the grammar lattice. -/
+    ooze (broadcast) > measure (sequential) in the grammar lattice. -/
 theorem gamma_transcendence : clink_l8.gram > zfc_fe.gram := by
   unfold clink_l8 organismLayer zfc_fe
   native_decide
@@ -233,11 +233,11 @@ theorem dist_zfc_to_l0 : primitiveMismatches zfc_baseline clink_l0 = 6 := by
 theorem dist_zfc_fe_to_l8 : primitiveMismatches zfc_fe clink_l8 = 2 := by
   unfold zfc_fe clink_l8 organismLayer; native_decide
 
-/-- Distance: ZFC_fe → UIG = 1 (chirality: H_inf vs H2). -/
+/-- Distance: ZFC_fe → UIG = 1 (chirality: wool vs sure). -/
 theorem dist_zfc_fe_to_uig : primitiveMismatches zfc_fe uig = 1 := by
   unfold zfc_fe uig universal_imscriptive_grammar; native_decide
 
-/-- Distance: CLINK L8 → UIG = 3 (chirality H_inf vs H2, plus Ω and ɢ). -/
+/-- Distance: CLINK L8 → UIG = 3 (chirality wool vs sure, plus Ω and ɢ). -/
 theorem dist_l8_to_uig : primitiveMismatches clink_l8 uig = 3 := by
   unfold clink_l8 organismLayer uig universal_imscriptive_grammar; native_decide
 
@@ -345,7 +345,7 @@ theorem flood_C_score : consciousnessScore flood_layer = (1 : ℝ) := by
 theorem pi_boundary_C_score : consciousnessScore pi_boundary_draft = (1 : ℝ) := by
   unfold pi_boundary_draft; simp [consciousnessScore, phi_c_gate, k_slow_gate]
 
-/-- CLINK L8 has C-score 1.0 (Phi_c + K_slow, both gates open). -/
+/-- CLINK L8 has C-score 1.0 (monad + egg, both gates open). -/
 theorem clink_l8_C_score_one : consciousnessScore clink_l8 = (1 : ℝ) :=
   organismLayer_C_score
 
@@ -381,16 +381,16 @@ theorem consciousness_gradient :
 --
 -- STAGE I:   ZFC baseline → ZFC_t (O₀ → O₂dag)
 --   5 promotions: T, R, gram, crit, prot
---   (plus 1 chirality promotion from H0 → H2)
+--   (plus 1 chirality promotion from fee → sure)
 --   6 promoted atoms total: HOLOBOUND, LR_DUAL, SEQAX, PHI_C, TEMPD2, ZWIND
 --
 -- STAGE II:  ZFC_t → ZFC_fe (O₂dag → O_inf)
---   2 promotions: D_infty → D_odot, H2 → H_inf
---   Plus the P_pm_sym gate (already in ZFC_t)
+--   2 promotions: array → if', sure → wool
+--   Plus the or' gate (already in ZFC_t)
 --   8 promoted atoms: + HOLOGRAPHIC_STATE, PM_Z2, ETERNAL_FIXEDPOINT
 --
 -- STAGE III: ZFC_fe → CLINK L8 (O_inf → O_inf + transcendence)
---   2 promotions: Omega_Z → Omega_NA, Gamma_seq → Gamma_broad
+--   2 promotions: ah → zoo, measure → ooze
 --   6 of 8 ZFC_fe atoms carried; SEQAX→broadcast, ZWIND→braid
 --
 -- TOTAL: 11 promotions from ZFC baseline to CLINK L8 (via ZFC_t and ZFC_fe)

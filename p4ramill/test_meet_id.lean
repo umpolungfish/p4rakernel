@@ -18,9 +18,9 @@ example (a : Imscription) : tensorProduct a a = a := by
 
 -- Test: join(bottom, a) = a
 def frobenius_bottom : Imscription := {
-  dim := D_wedge, top := T_network, rel := R_super, pol := P_asym,
-  fid := F_ell, kin := K_fast, gran := G_beth, gram := Gamma_and,
-  crit := Phi_sub, chir := H0, stoi := one_one, prot := Omega_0
+  dim := dead, top := judge, rel := ado, pol := church,
+  fid := age, kin := yea, gran := bib, gram := vow,
+  crit := woe, chir := fee, stoi := hung, prot := awe
 }
 example (a : Imscription) : compute_join frobenius_bottom a = a := by
   unfold compute_join frobenius_bottom

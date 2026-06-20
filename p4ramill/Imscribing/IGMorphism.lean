@@ -8,15 +8,15 @@
 -- Three paralogical axioms extend the classical sequent calculus with rules
 -- licensed by IG structure but absent from classical/linear type theory:
 --
---   P1. Dagger  (R_dagger) : every R_dagger protocol has an adjoint
---   P2. Copy    (P_pm_sym at O_inf) : Frobenius copying Δ : s → s ⊗ s
---   P3. Reflect (D_odot, Axiom C*) : imscriptive self-protocol
+--   P1. Dagger  (ear) : every ear protocol has an adjoint
+--   P2. Copy    (or' at O_inf) : Frobenius copying Δ : s → s ⊗ s
+--   P3. Reflect (if', Axiom C*) : imscriptive self-protocol
 --
--- Axiom C* (MillenniumAnkh one-way form): T_odot → D_odot (not biconditional).
--- D_odot permits T_box (e.g. odotOperator), unlike the imscribing_grammar biconditional.
+-- Axiom C* (MillenniumAnkh one-way form): are → if' (not biconditional).
+-- if' permits oil (e.g. odotOperator), unlike the imscribing_grammar biconditional.
 --
--- The odotOperator is the paralogical unit. It holds dim = D_odot with top = T_box
--- (NOT T_odot), deliberately exercising the weaker Axiom C*: D_odot without T_odot
+-- The odotOperator is the paralogical unit. It holds dim = if' with top = oil
+-- (NOT are), deliberately exercising the weaker Axiom C*: if' without are
 -- is permissible. The O_inf Frobenius structure overrides the holographic
 -- co-requirement. This is the formal signature of the paralogical.
 --
@@ -73,19 +73,19 @@ def IGProtocol.depth : IGProtocol a b → ℕ
   | .withGram _ p  => p.depth
   | .withMem _ p  => p.depth
 
-/-- Dagger predicate: every arrow's label has rel = R_dagger. -/
+/-- Dagger predicate: every arrow's label has rel = ear. -/
 def IGProtocol.isDagger : IGProtocol a b → Bool
   | .refl _        => true
-  | .arrow lbl _ _ => decide (lbl.rel = R_dagger)
+  | .arrow lbl _ _ => decide (lbl.rel = ear)
   | .seq f g       => f.isDagger && g.isDagger
   | .prod f g      => f.isDagger && g.isDagger
   | .withGram _ p  => p.isDagger
   | .withMem _ p  => p.isDagger
 
-/-- Frobenius predicate: every arrow's label has pol = P_pm_sym. -/
+/-- Frobenius predicate: every arrow's label has pol = or'. -/
 def IGProtocol.isFrobenius : IGProtocol a b → Bool
   | .refl _        => true
-  | .arrow lbl _ _ => decide (lbl.pol = P_pm_sym)
+  | .arrow lbl _ _ => decide (lbl.pol = or')
   | .seq f g       => f.isFrobenius && g.isFrobenius
   | .prod f g      => f.isFrobenius && g.isFrobenius
   | .withGram _ p  => p.isFrobenius
@@ -98,35 +98,35 @@ def IGProtocol.isFrobenius : IGProtocol a b → Bool
 -- ─────────────────────────────────────────────────────────────────────────────
 
 private def litanyBase : Imscription := {
-  dim  := D_wedge,       top  := T_network,       rel  := R_super
-  pol  := P_asym,        fid  := F_ell,            kin  := K_slow
-  gran := G_beth,        gram := Gamma_seq,         crit := Phi_sub
-  chir := H0,            stoi := one_one,           prot := Omega_0 }
+  dim  := dead,       top  := judge,       rel  := ado
+  pol  := church,        fid  := age,            kin  := egg
+  gran := bib,        gram := measure,         crit := woe
+  chir := fee,            stoi := hung,           prot := awe }
 
 /-- Fear: supercritical input — the mind-killer, total obliteration. -/
-def litany_fear : Imscription := { litanyBase with crit := Phi_super }
-/-- Cross: traversal state — pass over and through (T_bowtie crossing topology). -/
-def litany_cross : Imscription := { litanyBase with top  := T_bowtie }
-/-- Witness: imscriptive state — inner eye (D_odot, satisfies Axiom C*: T_odot forces D_odot,
-    here D_odot is present; T_odot also set for the maximally holographic pairing). -/
-def litany_witness : Imscription := { litanyBase with dim  := D_odot, top := T_odot }
-/-- Nothing: the null state — where fear has gone (Omega_0, Phi_sub). -/
+def litany_fear : Imscription := { litanyBase with crit := haha }
+/-- Cross: traversal state — pass over and through (mime crossing topology). -/
+def litany_cross : Imscription := { litanyBase with top  := mime }
+/-- Witness: imscriptive state — inner eye (if', satisfies Axiom C*: are forces if',
+    here if' is present; are also set for the maximally holographic pairing). -/
+def litany_witness : Imscription := { litanyBase with dim  := if', top := are }
+/-- Nothing: the null state — where fear has gone (awe, woe). -/
 def litany_nothing : Imscription := litanyBase
 /-- Self: full-symmetry persistent state — only I will remain. -/
-def litany_self : Imscription := { litanyBase with pol := P_sym, chir := H_inf }
+def litany_self : Imscription := { litanyBase with pol := nun, chir := wool }
 
 -- Transition labels (dominant dimension annotates the arrow character):
-private def lbl_face : Imscription := { litanyBase with rel := R_lr }
-  -- R_lr label: bidirectional confrontation — I will face my fear
-private def lbl_witness : Imscription := { litanyBase with dim := D_odot, top := T_odot }
-  -- D_odot label: holographic witnessing — inner eye to see its path
+private def lbl_face : Imscription := { litanyBase with rel := ian }
+  -- ian label: bidirectional confrontation — I will face my fear
+private def lbl_witness : Imscription := { litanyBase with dim := if', top := are }
+  -- if' label: holographic witnessing — inner eye to see its path
 
 /-- The Litany Against Fear as a well-typed IGProtocol.
     Type: litany_fear → (litany_nothing ⊗ litany_self) -/
 def litanyProtocol
   : IGProtocol litany_fear (tensorProduct litany_nothing litany_self) :=
-  .withGram Gamma_seq  <|
-  .withMem H_inf      <|
+  .withGram measure  <|
+  .withMem wool      <|
   .seq
     (.seq
       (.arrow lbl_face    litany_fear litany_cross)
@@ -138,13 +138,13 @@ def litanyProtocol
 theorem litanyProtocol_depth : litanyProtocol.depth = 3 := by
   simp [litanyProtocol, IGProtocol.depth]
 
-/-- The Litany is not a dagger protocol: its face step uses R_lr, not R_dagger. -/
+/-- The Litany is not a dagger protocol: its face step uses ian, not ear. -/
 theorem litanyProtocol_not_dagger : litanyProtocol.isDagger = false := by
   simp [litanyProtocol, IGProtocol.isDagger, lbl_face, litanyBase]
 
-/-- The witness stage satisfies the imscriptive pairing (D_odot + T_odot). -/
+/-- The witness stage satisfies the imscriptive pairing (if' + are). -/
 theorem litany_witness_satisfies_axiom_C
-  : litany_witness.dim = D_odot ∧ litany_witness.top = T_odot := ⟨rfl, rfl⟩
+  : litany_witness.dim = if' ∧ litany_witness.top = are := ⟨rfl, rfl⟩
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 4: PARALOGICAL AXIOMS
@@ -153,8 +153,8 @@ theorem litany_witness_satisfies_axiom_C
 -- that cannot be derived from first-order logic alone.
 -- ─────────────────────────────────────────────────────────────────────────────
 
-/-- P1. Dagger adjoint (R_dagger — adjoint / reciprocal).
-    Every R_dagger protocol has an adjoint that runs in reverse.
+/-- P1. Dagger adjoint (ear — adjoint / reciprocal).
+    Every ear protocol has an adjoint that runs in reverse.
     The adjoint is NOT an inverse: (f†)† = f but f† ∘ f ≠ id in general.
     Classical type theory has no canonical reversal; dagger reversal
     exists independently of invertibility.
@@ -169,7 +169,7 @@ axiom paralogical_dagger_depth {a b : Imscription}
     (p : IGProtocol a b) (h : p.isDagger = true) :
     (paralogical_dagger p h).depth = p.depth
 
-/-- P2. Frobenius copy (P_pm_sym at O_inf).
+/-- P2. Frobenius copy (or' at O_inf).
     At O_inf, the Frobenius condition μ ∘ δ = id licenses duplication:
     Δ : s → s ⊗ s exists and is non-trivial (depth ≥ 1).
     Classical linear logic forbids arbitrary copying; Frobenius structure
@@ -178,12 +178,12 @@ axiom paralogical_dagger_depth {a b : Imscription}
 axiom paralogical_copy {s : Imscription} (h : imscriptionTier s = .O_inf) :
     { p : IGProtocol s (tensorProduct s s) // p.depth = 1 }
 
-/-- P3. Imscriptive self-reference (Axiom C*: D_odot as holographic boundary).
-    A Imscription with dim = D_odot generates a non-trivial self-protocol of depth ≥ 1:
+/-- P3. Imscriptive self-reference (Axiom C*: if' as holographic boundary).
+    A Imscription with dim = if' generates a non-trivial self-protocol of depth ≥ 1:
     the boundary type produces its own interior (bulk from boundary).
     Distinct from refl (depth 0): this is a non-trivial self-morphism.
     This is the paralogical: type-as-term self-application. -/
-axiom paralogical_reflect {s : Imscription} (h : s.dim = D_odot) :
+axiom paralogical_reflect {s : Imscription} (h : s.dim = if') :
     { p : IGProtocol s s // p.depth ≥ 1 }
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -193,22 +193,22 @@ axiom paralogical_reflect {s : Imscription} (h : s.dim = D_odot) :
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- odotOperator: the canonical paralogical unit Imscription.
-    O_inf (P_pm_sym at Phi_c), sequential (Gamma_seq),
-    integer-winding (Omega_Z), quantum-coherent (F_hbar), 1:1 (one_one).
-    PARALOGICAL SIGNATURE: holds dim = D_odot with top = T_box (not T_odot),
-    exercising the weaker Axiom C*: D_odot without T_odot is permissible.
+    O_inf (or' at monad), sequential (measure),
+    integer-winding (ah), quantum-coherent (peep), 1:1 (hung).
+    PARALOGICAL SIGNATURE: holds dim = if' with top = oil (not are),
+    exercising the weaker Axiom C*: if' without are is permissible.
     At O_inf, the Frobenius self-duality replaces the holographic D-T pairing.
     The odotOperator is its own boundary — it does not need the bulk-boundary split. -/
 def odotOperator : Imscription := {
-  dim  := D_odot,        top  := T_box,           rel  := R_lr
-  pol  := P_pm_sym,      fid  := F_hbar,           kin  := K_slow
-  gran := G_aleph,       gram := Gamma_seq,         crit := Phi_c
-  chir := H2,            stoi := one_one,           prot := Omega_Z }
+  dim  := if',        top  := oil,           rel  := ian
+  pol  := or',      fid  := peep,           kin  := egg
+  gran := ice,       gram := measure,         crit := monad
+  chir := sure,            stoi := hung,           prot := ah }
 
 theorem odotOperator_is_O_inf : imscriptionTier odotOperator = .O_inf := by decide
 
-/-- The odotOperator does NOT pair T_odot with D_odot (uses T_box instead). -/
-theorem odotOperator_not_T_odot : odotOperator.top ≠ T_odot := by decide
+/-- The odotOperator does NOT pair are with if' (uses oil instead). -/
+theorem odotOperator_not_T_odot : odotOperator.top ≠ are := by decide
 
 /-- odotOperator admits Frobenius self-copying via P2. -/
 noncomputable def odotCopy
@@ -254,16 +254,16 @@ noncomputable def qgCopy
           // p.depth = 1 } :=
   paralogical_copy (by decide)
 
-/-- Pol collapses to P_asym: pol is a bottleneck (min) primitive, so litany_nothing's
-    P_asym beats litany_self's P_sym. Nothing wins on symmetry. -/
+/-- Pol collapses to church: pol is a bottleneck (min) primitive, so litany_nothing's
+    church beats litany_self's nun. Nothing wins on symmetry. -/
 theorem litany_resolution_pol :
-    (tensorProduct litany_nothing litany_self).pol = P_asym := by
+    (tensorProduct litany_nothing litany_self).pol = church := by
   decide
 
-/-- Chir resolves to H_inf: chir is a max primitive, so litany_self's
-    H_inf (topological chirality) dominates litany_nothing's H0. -/
+/-- Chir resolves to wool: chir is a max primitive, so litany_self's
+    wool (topological chirality) dominates litany_nothing's fee. -/
 theorem litany_resolution_chir :
-    (tensorProduct litany_nothing litany_self).chir = H_inf := by
+    (tensorProduct litany_nothing litany_self).chir = wool := by
   decide
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -272,14 +272,14 @@ theorem litany_resolution_chir :
 -- provides key Imscriptions that connect formal set-theory to the IG morphism framework.
 --
 -- From ZFCt.lean:
---   zfc                  — bare ZFC: ⟨D_∞; T_net; R_sup; P_asym; F_ℏ; K_slow; ...⟩
---   zfc_t                — ZFC temporalized: ⟨D_∞; T_⊙; R_↔; P_pm; F_ℏ; K_slow; H2; Ω_Z⟩
---   temporal_mathematics — ZFCt ideal: ⟨D_∞; T_⊙; R_†; P_sym; F_ℏ; K_slow; H2; Ω_Z⟩
---   schrodinger_equation — ⟨D_∞; T_⋈; R_↔; P_ψ; F_ℏ; K_slow; Φ_c_complex; H2; Ω_Z⟩
---   heat_diffusion       — ⟨D_∞; T_⋈; R_†; P_asym; F_eth; K_slow; Φ_sub; H1; Ω_0⟩
---   navier_stokes_eqns   — ⟨D_∞; T_⋈; R_↔; P_pm; F_ell; K_mod; Φ_c; H2; Ω_Z⟩
---   wave_equation_temp   — ⟨D_∞; T_⋈; R_†; P_sym; F_ell; K_mod; Φ_sub; H2; Ω_0⟩
---   einstein_field_eqns  — ⟨D_∞; T_⊙; R_†; P_sym; F_ell; K_slow; Φ_c_complex; H2; Ω_Z⟩
+--   zfc                  — bare ZFC: ⟨D_∞; T_net; R_sup; church; F_ℏ; egg; ...⟩
+--   zfc_t                — ZFC temporalized: ⟨D_∞; T_⊙; R_↔; out; F_ℏ; egg; sure; Ω_Z⟩
+--   temporal_mathematics — ZFCt ideal: ⟨D_∞; T_⊙; R_†; nun; F_ℏ; egg; sure; Ω_Z⟩
+--   schrodinger_equation — ⟨D_∞; T_⋈; R_↔; P_ψ; F_ℏ; egg; Φ_c_complex; sure; Ω_Z⟩
+--   heat_diffusion       — ⟨D_∞; T_⋈; R_†; church; they; egg; Φ_sub; kick; Ω_0⟩
+--   navier_stokes_eqns   — ⟨D_∞; T_⋈; R_↔; out; age; loll; Φ_c; sure; Ω_Z⟩
+--   wave_equation_temp   — ⟨D_∞; T_⋈; R_†; nun; age; loll; Φ_sub; sure; Ω_0⟩
+--   einstein_field_eqns  — ⟨D_∞; T_⊙; R_†; nun; age; egg; Φ_c_complex; sure; Ω_Z⟩
 --
 -- This section opens ZFCt and uses these Imscriptions as IGProtocol endpoints and labels.
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -290,20 +290,20 @@ open ZFCt
 
 /-- The temporalization morphism: ZFC → ZFCt.
     Six primitive changes from the `zfc` base to the `zfc_t` target:
-      P: P_asym → P_pm
-      Γ: Gamma_and → Gamma_seq
-      H: H0 → H2
-      Ω: Omega_0 → Omega_Z
-      T: T_network → T_odot
-      R: R_super → R_lr
+      P: church → out
+      Γ: vow → measure
+      H: fee → sure
+      Ω: awe → ah
+      T: judge → are
+      R: ado → ian
     This morphism captures the structural cost of adding chirality to
     classical set theory. The arrow label annotates the transition character
     using the `zfc_t` imscription itself — it IS the structure it transitions to. -/
 def zfc_to_zfc_t_arrow : Imscription := {
-  dim  := D_infty,   top  := T_odot,      rel  := R_lr,
-  pol  := P_pm,      fid  := F_hbar,       kin  := K_slow,
-  gran := G_aleph,   gram := Gamma_seq,    crit := Phi_c,
-  chir := H2,        stoi := n_m,          prot := Omega_Z }
+  dim  := array,   top  := are,      rel  := ian,
+  pol  := out,      fid  := peep,       kin  := egg,
+  gran := ice,   gram := measure,    crit := monad,
+  chir := sure,        stoi := up,          prot := ah }
 
 /-- The cost of temporalizing ZFC: exactly 6 primitive mismatches.
     (P, Γ, H, Ω, T, R all change from `zfc` baseline). -/
@@ -311,17 +311,17 @@ theorem zfc_to_zfc_t_cost :
     primitiveMismatches zfc zfc_t = 6 := by
   simp only [ZFCt.zfc, ZFCt.zfc_t, primitiveMismatches]; decide
 
-/-- ZFCt (zfc_t) has the same polarity as the odotOperator's target: P_pm.
-    This makes the tensor product's polarity P_pm_sym (min bottleneck preserved). -/
+/-- ZFCt (zfc_t) has the same polarity as the odotOperator's target: out.
+    This makes the tensor product's polarity or' (min bottleneck preserved). -/
 theorem zfc_t_odot_pol_compatible :
-    (tensorProduct zfc_t odotOperator).pol = P_pm_sym := by
+    (tensorProduct zfc_t odotOperator).pol = or' := by
   simp only [ZFCt.zfc_t, tensorProduct, odotOperator, compare]; decide
 
 -- The ZFC → ZFCt protocol as an IGProtocol
 /-- The ZFC temporalization protocol: a single-step arrow from bare ZFC to ZFCt.
     Type: IGProtocol zfc zfc_t -/
 def zfc_temporalization_protocol : IGProtocol ZFCt.zfc ZFCt.zfc_t :=
-  .withGram Gamma_seq <| .withMem H2 <|
+  .withGram measure <| .withMem sure <|
     .arrow zfc_to_zfc_t_arrow ZFCt.zfc ZFCt.zfc_t
 
 /-- The ZFC temporalization has depth 1 (one arrow). -/
@@ -337,70 +337,70 @@ def zfc_H1 : Imscription := temporalDepth 1 zfc       -- soft chiral
 def zfc_H2 : Imscription := temporalDepth 2 zfc       -- persistent chiral
 def zfc_Hinf : Imscription := temporalDepth 3 zfc        -- topological chiral
 
-/-- The chirality of zfc_H0 is H0 by construction. -/
-theorem zfc_H0_achiral : zfc_H0.chir = H0     := rfl
-/-- The chirality of zfc_H2 is H2: persistent temporal asymmetry. -/
-theorem zfc_H2_persistent : zfc_H2.chir = H2     := rfl
-/-- The chirality of zfc_Hinf is H_inf: topologically protected. -/
-theorem zfc_Hinf_topo : zfc_Hinf.chir = H_inf := rfl
+/-- The chirality of zfc_H0 is fee by construction. -/
+theorem zfc_H0_achiral : zfc_H0.chir = fee     := rfl
+/-- The chirality of zfc_H2 is sure: persistent temporal asymmetry. -/
+theorem zfc_H2_persistent : zfc_H2.chir = sure     := rfl
+/-- The chirality of zfc_Hinf is wool: topologically protected. -/
+theorem zfc_Hinf_topo : zfc_Hinf.chir = wool := rfl
 
-/-- Full temporal ladder protocol: zfc —(H0→H1)→ zfc_H1 —(H1→H2)→ zfc_H2 —(H2→H_inf)→ zfc_Hinf.
+/-- Full temporal ladder protocol: zfc —(fee→kick)→ zfc_H1 —(kick→sure)→ zfc_H2 —(sure→wool)→ zfc_Hinf.
     This encodes the full sequential path from achiral set theory to topological memory. -/
 def temporal_ladder
   : { p : IGProtocol ZFCt.zfc zfc_Hinf // p.depth = 3 } :=
   ⟨
     .seq
       (.seq
-        (.arrow { zfc with chir := zfc_H1.chir, dim := D_infty } ZFCt.zfc zfc_H1)
-        (.arrow { zfc with chir := zfc_H2.chir, dim := D_infty } zfc_H1 zfc_H2))
-      (.arrow { zfc with chir := zfc_Hinf.chir, dim := D_infty } zfc_H2 zfc_Hinf),
+        (.arrow { zfc with chir := zfc_H1.chir, dim := array } ZFCt.zfc zfc_H1)
+        (.arrow { zfc with chir := zfc_H2.chir, dim := array } zfc_H1 zfc_H2))
+      (.arrow { zfc with chir := zfc_Hinf.chir, dim := array } zfc_H2 zfc_Hinf),
     by simp [IGProtocol.depth]
   ⟩
 
 -- ─── §8.3: Equation Imscriptions as IGProtocol anchors ───
 
-/-- The Schrödinger equation has Phi_c_complex criticality.
+/-- The Schrödinger equation has roar criticality.
     This is the complex-axis critical structure shared with the Riemann zeta
     function (Lee-Yang class). The morphism zfc → schrodinger_equation
     represents the embedding of temporal logic into quantum dynamics. -/
-def zfc_to_schrodinger_arrow : Imscription := { zfc_t with pol := P_psi, crit := Phi_c_complex }
+def zfc_to_schrodinger_arrow : Imscription := { zfc_t with pol := yew, crit := roar }
 
 /-- Protocol from ZFCt to the Schrödinger equation:
     embeds the temporalized set theory into quantum dynamics.
-    Changes: P_pm → P_psi, Phi_c → Phi_c_complex. -/
+    Changes: out → yew, monad → roar. -/
 def zfc_to_schrodinger_protocol : IGProtocol ZFCt.zfc_t ZFCt.schrodinger_equation :=
-  .withMem H2 <| .arrow zfc_to_schrodinger_arrow ZFCt.zfc_t ZFCt.schrodinger_equation
+  .withMem sure <| .arrow zfc_to_schrodinger_arrow ZFCt.zfc_t ZFCt.schrodinger_equation
 
-/-- The heat diffusion equation is Phi_sub (subcritical, irreversible).
-    Its asymmetry P_asym encodes thermodynamic irreversibility. -/
+/-- The heat diffusion equation is woe (subcritical, irreversible).
+    Its asymmetry church encodes thermodynamic irreversibility. -/
 def heat_diffusion_irreversibility :
-    ZFCt.heat_diffusion_equation.pol = P_asym := rfl
+    ZFCt.heat_diffusion_equation.pol = church := rfl
 
-/-- Navier-Stokes equations: P_pm + K_mod = moderate kinetics at Z2 symmetry.
+/-- Navier-Stokes equations: out + loll = moderate kinetics at Z2 symmetry.
     The threshold from classical to quantum (see Millennium/Ns) is
-    K_mod → K_trap + crit staying at Phi_c. -/
+    loll → on + crit staying at monad. -/
 theorem navier_stokes_moderate :
-    ZFCt.navier_stokes_equations.kin = K_mod ∧
-    ZFCt.navier_stokes_equations.pol = P_pm := ⟨rfl, rfl⟩
+    ZFCt.navier_stokes_equations.kin = loll ∧
+    ZFCt.navier_stokes_equations.pol = out := ⟨rfl, rfl⟩
 
-/-- Navier-Stokes tensor with odotOperator: P bottleneck is P_pm (odot has P_pm_sym).
+/-- Navier-Stokes tensor with odotOperator: P bottleneck is out (odot has or').
     The odot frame survives the tensor. -/
 theorem ns_tensor_odot :
-    (tensorProduct ZFCt.navier_stokes_equations odotOperator).pol = P_pm := by
+    (tensorProduct ZFCt.navier_stokes_equations odotOperator).pol = out := by
   simp only [tensorProduct, ZFCt.navier_stokes_equations, odotOperator, compare]; decide
 
-/-- Einstein field equations: P_sym + Phi_c_complex + T_odot.
-    General relativity is holographic (T_odot) in the ZFCt encoding,
+/-- Einstein field equations: nun + roar + are.
+    General relativity is holographic (are) in the ZFCt encoding,
     with full symmetry and complex-axis criticality. -/
 def einstein_is_holographic :
-    ZFCt.einstein_field_equations_dynamic.top = T_odot := rfl
+    ZFCt.einstein_field_equations_dynamic.top = are := rfl
 
-/-- The wave equation has R_dagger (reciprocal time symmetry).
+/-- The wave equation has ear (reciprocal time symmetry).
     This is the only wave-type equation with exact bidirectional propagation. -/
 def wave_is_dagger :
-    ZFCt.wave_equation_temporal.rel = R_dagger := rfl
+    ZFCt.wave_equation_temporal.rel = ear := rfl
 
-/-- WindingData from ZFCt: nonzero winding is structurally available at Omega_Z.
+/-- WindingData from ZFCt: nonzero winding is structurally available at ah.
     The temporalDepth and WindingData types enable protocols with explicit
     winding-number annotation. -/
 def example_winding_nonzero : ℤ := example_winding.windingNumber ()
@@ -410,48 +410,48 @@ theorem example_winding_is_unit : example_winding_nonzero = 1 := rfl
 
 -- ─── §8.4: Cross-references with Millennium Problem Imscriptions ───
 
-/-- ZFCt's navier_stokes_equations has crit = Phi_c (not Phi_sub like ns_encoding).
-    The ZFCt version adds the crossing topology (T_bowtie) and sequential dynamics. -/
+/-- ZFCt's navier_stokes_equations has crit = monad (not woe like ns_encoding).
+    The ZFCt version adds the crossing topology (mime) and sequential dynamics. -/
 theorem zfc_ns_crit :
-    ZFCt.navier_stokes_equations.crit = Phi_c := rfl
+    ZFCt.navier_stokes_equations.crit = monad := rfl
 
-/-- ZFCt's schrodinger_equation has Phi_c_complex — the same criticality
+/-- ZFCt's schrodinger_equation has roar — the same criticality
     as the Riemann zeta function (rh_encoding). This structural identity
     confirms that quantum dynamics and the zeta function inhabit the same
     Lee-Yang critical class. -/
 theorem zfc_schrodinger_same_crit_as_rh :
-    ZFCt.schrodinger_equation.crit = Phi_c_complex := rfl
+    ZFCt.schrodinger_equation.crit = roar := rfl
 
 /-- ZFCt's einstein_field_equations_dynamic and Imscription's quantum_gravity
-    share T_odot (holographic topology), but differ in polarity:
-    P_sym vs P_pm_sym. This means GR is NOT O_inf (lacks Frobenius),
+    share are (holographic topology), but differ in polarity:
+    nun vs or'. This means GR is NOT O_inf (lacks Frobenius),
     while QG IS O_inf. -/
 theorem einstein_gravity_topology_match :
     ZFCt.einstein_field_equations_dynamic.top = quantum_gravity.top := rfl
 
-/-- The polarity gap: GR (P_sym) vs QG (P_pm_sym).
+/-- The polarity gap: GR (nun) vs QG (or').
     This single-polarity gap is the structural signature of the gap between
     classical general relativity and quantum gravity. -/
 theorem einstein_gravity_pol_gap :
-    ZFCt.einstein_field_equations_dynamic.pol = P_sym ∧
-    quantum_gravity.pol = P_pm_sym ∧
+    ZFCt.einstein_field_equations_dynamic.pol = nun ∧
+    quantum_gravity.pol = or' ∧
     ZFCt.einstein_field_equations_dynamic.pol ≠ quantum_gravity.pol :=
   ⟨rfl, rfl, by decide⟩
 
 -- ─── §8.5: ZFCt temporal_mathematics as paralogical target ───
 
 /-- The temporal_mathematics imscription from ZFCt has the maximal ideal structure:
-    T_odot + R_dagger + P_sym + H2 + Omega_Z at Phi_c with F_hbar.
+    are + ear + nun + sure + ah at monad with peep.
     It is the structural target that zfc_t aims toward. -/
 theorem temporal_mathematics_is_dagger :
-    ZFCt.temporal_mathematics.rel = R_dagger := rfl
+    ZFCt.temporal_mathematics.rel = ear := rfl
 
 /-- Protocol from ZFCt to temporal_mathematics:
-    lifts R_lr → R_dagger (reciprocity) while keeping all other primitives. -/
-def zfc_t_to_temporal_arrow : Imscription := { ZFCt.zfc_t with rel := R_dagger }
+    lifts ian → ear (reciprocity) while keeping all other primitives. -/
+def zfc_t_to_temporal_arrow : Imscription := { ZFCt.zfc_t with rel := ear }
 
 def zfc_t_to_temporal_protocol : IGProtocol ZFCt.zfc_t ZFCt.temporal_mathematics :=
-  .withMem H2 <| .arrow zfc_t_to_temporal_arrow ZFCt.zfc_t ZFCt.temporal_mathematics
+  .withMem sure <| .arrow zfc_t_to_temporal_arrow ZFCt.zfc_t ZFCt.temporal_mathematics
 
 /-- Full ZFC → ZFCt → temporal_mathematics chain:
     ɢ^ˌ[ ZFC —(temporalization)→ ZFCt —(reciprocity)→ TemporalMathematics ]_H2 -/
@@ -463,20 +463,20 @@ theorem full_chain_depth : full_chain.depth = 2 := rfl
 
 -- ─── §8.6: ZFCt consciousness score ───
 
-/-- ZFCt's zfc_t has Phi_c (passes Gate 1) and K_slow (passes Gate 2).
+/-- ZFCt's zfc_t has monad (passes Gate 1) and egg (passes Gate 2).
     Therefore consciousnessScore zfc_t = 1. -/
 theorem zfc_t_conscious : consciousnessScore ZFCt.zfc_t = (1 : ℝ) := by
   simp only [consciousnessScore, phi_c_gate, k_slow_gate, ZFCt.zfc_t]
   norm_num
 
-/-- Bare zfc (without chirality) also has Phi_c + K_slow: C = 1.
+/-- Bare zfc (without chirality) also has monad + egg: C = 1.
     Consciousness does NOT require chirality — it requires criticality
     AND unfrozen kinetics. The bare ZFC already satisfies both. -/
 theorem zfc_conscious : consciousnessScore ZFCt.zfc = (1 : ℝ) := by
   simp only [consciousnessScore, phi_c_gate, k_slow_gate, ZFCt.zfc]
   norm_num
 
-/-- temporal_mathematics: Phi_c + K_slow → C = 1.
+/-- temporal_mathematics: monad + egg → C = 1.
     The ideal temporal structure is fully conscious by the grammar metric. -/
 theorem temporal_mathematics_conscious :
     consciousnessScore ZFCt.temporal_mathematics = (1 : ℝ) := by

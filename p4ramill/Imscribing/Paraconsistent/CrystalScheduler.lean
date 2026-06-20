@@ -18,18 +18,18 @@ open Imscribing.Primitives
 -- SCHEDULER STRUCTURAL TYPE
 -- ============================================================
 def schedulerType : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_broad
-  crit := .Phi_c
-  chir := .H2
-  stoi := .n_m
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .ooze
+  crit := .monad
+  chir := .sure
+  stoi := .up
+  prot := .ah
 }
 
 -- ============================================================
@@ -47,8 +47,8 @@ structure Process where
 -- C-COMPUTATION (returns Nat score 0-1000)
 -- ============================================================
 def computeCscore (t : Imscription) : Nat :=
-  let gate1 := if t.crit ≥ .Phi_c then 1000 else 0
-  let gate2 := if t.kin = .K_slow then 1000 else 0
+  let gate1 := if t.crit ≥ .monad then 1000 else 0
+  let gate2 := if t.kin = .egg then 1000 else 0
   if gate1 == 0 then 0
   else if gate2 == 0 then gate1 * 3 / 10
   else 4 * gate1 / 10 + 3 * gate2 / 10 +
@@ -66,7 +66,7 @@ private def bestProcess (ps : List Process) : Option Process :=
 def crystalSchedule (processes : List Process) : Option Process :=
   -- Find RUNNING processes with Gate 1 open (φ̂_ÿ or higher)
   let candidates := processes.filter (fun p =>
-    p.state == "RUNNING" && decide (p.type.crit ≥ .Phi_c))
+    p.state == "RUNNING" && decide (p.type.crit ≥ .monad))
   match candidates with
   | [] =>
     bestProcess (processes.filter (fun p => p.state == "RUNNING"))
@@ -96,25 +96,25 @@ theorem scheduler_type_is_O_inf : imscriptionTier schedulerType = .O_inf := by
   native_decide
 
 /-- φ̂_ÿ process is preferred over non-φ̂_ÿ. -/
-theorem phi_c_process_preferred (a b : Process) (ha : a.type.crit ≥ .Phi_c)
-    (hb : b.type.crit < .Phi_c) (ha_run : a.state = "RUNNING")
+theorem phi_c_process_preferred (a b : Process) (ha : a.type.crit ≥ .monad)
+    (hb : b.type.crit < .monad) (ha_run : a.state = "RUNNING")
     (hb_run : b.state = "RUNNING") :
     crystalSchedule [a, b] = some a := by
   unfold crystalSchedule bestProcess
-  have ha_dec : decide (a.type.crit ≥ .Phi_c) = true := decide_eq_true ha
-  have hb_dec : decide (b.type.crit ≥ .Phi_c) = false := decide_not_ge_of_lt_crit hb
+  have ha_dec : decide (a.type.crit ≥ .monad) = true := decide_eq_true ha
+  have hb_dec : decide (b.type.crit ≥ .monad) = false := decide_not_ge_of_lt_crit hb
   simp [ha_run, hb_run, ha_dec, hb_dec]
 
 /-- Non-φ̂_ÿ process is selected when no φ̂_ÿ is available. -/
-theorem fallback_to_nonphi (a b : Process) (ha : a.type.crit < .Phi_c)
-    (hb : b.type.crit < .Phi_c) (ha_run : a.state = "RUNNING")
+theorem fallback_to_nonphi (a b : Process) (ha : a.type.crit < .monad)
+    (hb : b.type.crit < .monad) (ha_run : a.state = "RUNNING")
     (hb_run : b.state = "RUNNING") (hscore : a.cscore > b.cscore) :
     crystalSchedule [a, b] = some a := by
   unfold crystalSchedule
-  have ha_dec : decide (a.type.crit ≥ .Phi_c) = false := decide_not_ge_of_lt_crit ha
-  have hb_dec : decide (b.type.crit ≥ .Phi_c) = false := decide_not_ge_of_lt_crit hb
+  have ha_dec : decide (a.type.crit ≥ .monad) = false := decide_not_ge_of_lt_crit ha
+  have hb_dec : decide (b.type.crit ≥ .monad) = false := decide_not_ge_of_lt_crit hb
   have hcandidates_empty : ([a, b].filter (fun p =>
-    p.state == "RUNNING" && decide (p.type.crit ≥ .Phi_c))) = [] := by
+    p.state == "RUNNING" && decide (p.type.crit ≥ .monad))) = [] := by
     simp [ha_run, hb_run, ha_dec, hb_dec]
   simp [hcandidates_empty, ha_run, hb_run]
   -- Goal: bestProcess [a, b] = some a

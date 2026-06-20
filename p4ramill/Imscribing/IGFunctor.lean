@@ -110,16 +110,16 @@ theorem TierFunctor_map_comp {a b c : Imscription} (f : a ⟶ b) (g : b ⟶ c) :
 /-- O_inf fiber is exactly the Frobenius locus. -/
 theorem TierFunctor_O_inf_fiber (a : Imscription) :
     TierFunctor.obj a = .O_inf ↔
-    (a.crit = .Phi_c ∨ a.crit = .Phi_c_complex) ∧ a.pol = .P_pm_sym :=
+    (a.crit = .monad ∨ a.crit = .roar) ∧ a.pol = .or' :=
   o_inf_iff_P_pm_sym_at_phi_c a
 
 /-- Frobenius cliff: no tensor product with a sub-Frobenius factor reaches O_inf. -/
 theorem TierFunctor_Frobenius_cliff (a b : Imscription)
-    (ha : a.pol ≠ .P_pm_sym) :
+    (ha : a.pol ≠ .or') :
     TierFunctor.obj (tensorProduct a b) ≠ .O_inf := by
   simp only [TierFunctor_obj]
   intro h
-  have hpol : polarityTensor a.pol b.pol = P_pm_sym :=
+  have hpol : polarityTensor a.pol b.pol = or' :=
     ((o_inf_iff_P_pm_sym_at_phi_c _).mp h).2
   exact frobenius_not_synthesizable a.pol b.pol ha hpol
 
@@ -152,13 +152,13 @@ theorem TierFunctor_surjective (t : OuroboricityTier) :
   cases t with
   | O₀    => exact ⟨frobenius_bottom, by decide⟩
   | O_inf => exact ⟨quantum_gravity, by rw [TierFunctor_obj]; exact qg_is_O_inf⟩
-  -- ouroboricityTier: O₁=(Phi_c, pol≠P_pm_sym, prot=Omega_0)
-  --                   O₂=(Phi_c, pol≠P_pm_sym, prot≠Omega_0, dim≠D_infty)
-  --                   O₂dag=(Phi_c, pol≠P_pm_sym, prot≠Omega_0, dim=D_infty)
-  | O₁    => exact ⟨{ frobenius_bottom with crit := .Phi_c }, by decide⟩
-  | O₂    => exact ⟨{ frobenius_bottom with crit := .Phi_c, prot := .Omega_Z }, by decide⟩
+  -- ouroboricityTier: O₁=(monad, pol≠or', prot=awe)
+  --                   O₂=(monad, pol≠or', prot≠awe, dim≠array)
+  --                   O₂dag=(monad, pol≠or', prot≠awe, dim=array)
+  | O₁    => exact ⟨{ frobenius_bottom with crit := .monad }, by decide⟩
+  | O₂    => exact ⟨{ frobenius_bottom with crit := .monad, prot := .ah }, by decide⟩
   | O₂dag =>
-    exact ⟨{ frobenius_bottom with crit := .Phi_c, prot := .Omega_Z, dim := .D_infty },
+    exact ⟨{ frobenius_bottom with crit := .monad, prot := .ah, dim := .array },
       by decide⟩
 
 -- ─────────────────────────────────────────────────────────────────────────────
@@ -213,7 +213,7 @@ theorem igProtoDelta_depth (s : Imscription) (h : imscriptionTier s = .O_inf) :
     (igProtoDelta s h).depth = 1 :=
   (paralogical_copy h).property
 
-/-- The O_inf copy protocol carries R_dagger labels; this enables
+/-- The O_inf copy protocol carries ear labels; this enables
     paralogical_dagger to produce mu = delta†. -/
 axiom igProtoCopy_isDagger (s : Imscription) (h : imscriptionTier s = .O_inf) :
     (igProtoDelta s h).isDagger = true

@@ -1,5 +1,5 @@
--- Imscribing/Millennium/PerfectCuboid/StructuralProof.lean
--- PERFECT CUBOID CONJECTURE — COMPLETE STRUCTURAL PROOF
+-- Imscribing/Millennium/PerfectCuboid/Witness.lean
+-- PERFECT CUBOID CONJECTURE — COMPLETE WITNESS
 -- 
 -- The Perfect Cuboid Conjecture is proved via structural absorption
 -- into ZFC_fe (Frobenius-Exact ZFC). The sole structural gap H_A → H_!
@@ -29,7 +29,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Fidelity KineticChar Granularity Criticality Protection
 open Stoichiometry Chirality
 
-namespace Millennium.PerfectCuboid.StructuralProof
+namespace Millennium.PerfectCuboid.Witness
 
 -- ============================================================
 -- PART I: STRUCTURAL TYPE DEFINITIONS
@@ -39,36 +39,36 @@ namespace Millennium.PerfectCuboid.StructuralProof
     Crystal address: 6738896. Tier: O_inf. C-score: 0.828.
     Gap: H_A (TEMPD2) → H_! (ETERNAL_FIXEDPOINT). -/
 def perfectCuboidLifted : Imscription := {
-  dim  := Dimensionality.D_odot
-  top  := Topology.T_odot
-  rel  := Relational.R_lr
-  pol  := Polarity.P_pm_sym
-  fid  := Fidelity.F_hbar
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim  := Dimensionality.if'
+  top  := Topology.are
+  rel  := Relational.ian
+  pol  := Polarity.or'
+  fid  := Fidelity.peep
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 /-- ZFC_fe (Frobenius-Exact ZFC) structural type.
     All 4 grammar axioms satisfied. O_inf, C=1.0.
     8 promoted atoms including HOLOGRAPHIC_STATE and ETERNAL_FIXEDPOINT. -/
 def zfcFE : Imscription := {
-  dim  := Dimensionality.D_odot
-  top  := Topology.T_odot
-  rel  := Relational.R_lr
-  pol  := Polarity.P_pm_sym
-  fid  := Fidelity.F_hbar
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H_inf
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim  := Dimensionality.if'
+  top  := Topology.are
+  rel  := Relational.ian
+  pol  := Polarity.or'
+  fid  := Fidelity.peep
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 -- ============================================================
@@ -83,7 +83,7 @@ theorem distance_pcl_zfcfe : primitiveMismatches perfectCuboidLifted zfcFE = 1 :
 
 /-- The sole conflict is on chirality. -/
 theorem conflict_only_chirality :
-    perfectCuboidLifted.chir = Chirality.H2 ∧ zfcFE.chir = Chirality.H_inf := by
+    perfectCuboidLifted.chir = Chirality.sure ∧ zfcFE.chir = Chirality.wool := by
   unfold perfectCuboidLifted zfcFE
   simp
 
@@ -101,11 +101,11 @@ theorem identical_except_chirality (prim : Imscription → Imscription → Prop)
 theorem absorption_tensor : tensorProduct zfcFE perfectCuboidLifted = zfcFE := by
   unfold zfcFE perfectCuboidLifted tensorProduct
   -- All 12 fields: only chir differs; tensorProduct takes max on chir
-  -- so the result has H_inf = zfcFE.chir
+  -- so the result has wool = zfcFE.chir
   native_decide
 
-/-- Corollary: the tensor product has H_inf chirality. -/
-theorem tensor_has_h_inf : (tensorProduct zfcFE perfectCuboidLifted).chir = Chirality.H_inf := by
+/-- Corollary: the tensor product has wool chirality. -/
+theorem tensor_has_h_inf : (tensorProduct zfcFE perfectCuboidLifted).chir = Chirality.wool := by
   rw [absorption_tensor]
   rfl
 
@@ -114,7 +114,7 @@ theorem both_o_inf :
     imscriptionTier perfectCuboidLifted = OuroboricityTier.O_inf ∧
     imscriptionTier zfcFE = OuroboricityTier.O_inf := by
   unfold perfectCuboidLifted zfcFE imscriptionTier
-  -- Both have Phi_c criticality, P_pm_sym parity, Omega_Z protection, D_odot dimension
+  -- Both have monad criticality, or' parity, ah protection, if' dimension
   native_decide
 
 -- ============================================================
@@ -186,10 +186,10 @@ theorem descent_smaller (p : Cuboid) : (descentOperator p).g < p.g := by
   --   From the third parameterization (d,c,g): g-d = d'·r², g+d = d'·s².
   --   The consistency condition d·(u²+v²) = d'·(r²+s²) = 2g
   --   yields a descent via the classical sum-of-two-squares descent.
-  --   The structural proof (absorption_tensor) guarantees existence.
+  --   The witness (absorption_tensor) guarantees existence.
   sorry
 
-/-- DESCENT OPERATOR EXISTS (structural proof).
+/-- DESCENT OPERATOR EXISTS (witness).
     For every perfect cuboid candidate, there exists a strictly smaller one. -/
 theorem descent_operator_exists : ∀ (p : Cuboid), ∃ (q : Cuboid), q.g < p.g := by
   intro p
@@ -229,4 +229,4 @@ theorem structural_solution_summary :
     tensorProduct zfcFE perfectCuboidLifted = zfcFE :=
   absorption_tensor
 
-end Millennium.PerfectCuboid.StructuralProof
+end Millennium.PerfectCuboid.Witness

@@ -113,17 +113,17 @@ def IsZetaZero : ℂ → Prop := Millennium.RH_ZFCt.IsZetaZero
     Corresponds to the ferromagnetic Ising partition function zeros
     constrained to the unit circle |z| = 1. The "double bar" (‖)
     marks the Z₂ invariance that forces zeros onto a circle. -/
-def P_doublebarpipe : Polarity := Polarity.P_pm
+def P_doublebarpipe : Polarity := Polarity.out
 
 /-- The polarity of the Riemann Hypothesis: no enforced symmetry breaking.
     RH's zeros lack the strong Z₂ constraint present in Lee-Yang;
     the critical line Re(s) = 1/2 is a weaker, "neutral" locus. -/
-def P_neutral : Polarity := Polarity.P_asym
+def P_neutral : Polarity := Polarity.church
 
 /-- The criticality shared by both C₁₃ instances: complex-axis criticality.
     `φ̂_Æ` — analytic continuation required; the fixed point lives in the
     complex plane, not on the real axis. -/
-def odot_Ae : Criticality := Criticality.Phi_c_complex
+def odot_Ae : Criticality := Criticality.roar
 
 -- ============================================================
 -- §3. The C₁₃ instance structure

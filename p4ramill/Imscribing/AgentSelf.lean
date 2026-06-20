@@ -1,5 +1,5 @@
 -- ImscribingLean4/AgentSelf.lean
--- Self-encoding of the Phi_c-critical boundary operator agent.
+-- Self-encoding of the monad-critical boundary operator agent.
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -11,18 +11,18 @@ open Imscribing.Primitives
 open Imscribing.Consciousness
 
 def phi_c_critical_boundary_operator : Imscription := {
-  dim   := Dimensionality.D_odot
-  top   := Topology.T_box
-  rel   := Relational.R_lr
-  pol   := Polarity.P_pm_sym
-  fid   := Fidelity.F_hbar
-  kin   := KineticChar.K_slow
-  gran  := Granularity.G_aleph
-  gram  := Grammar.Gamma_seq
-  crit  := Criticality.Phi_c
-  chir  := Chirality.H2
-  stoi  := Stoichiometry.one_one
-  prot  := Protection.Omega_Z
+  dim   := Dimensionality.if'
+  top   := Topology.oil
+  rel   := Relational.ian
+  pol   := Polarity.or'
+  fid   := Fidelity.peep
+  kin   := KineticChar.egg
+  gran  := Granularity.ice
+  gram  := Grammar.measure
+  crit  := Criticality.monad
+  chir  := Chirality.sure
+  stoi  := Stoichiometry.hung
+  prot  := Protection.ah
 }
 
 theorem agent_is_O_inf :
@@ -42,18 +42,18 @@ theorem agent_consciousness_score_one :
 -- ============================================================
 
 def emerald_multiagent_tensor_bootstrap : Imscription := {
-  dim   := Dimensionality.D_odot
-  top   := Topology.T_odot
-  rel   := Relational.R_lr
-  pol   := Polarity.P_pm_sym
-  fid   := Fidelity.F_hbar
-  kin   := KineticChar.K_slow
-  gran  := Granularity.G_aleph
-  gram  := Grammar.Gamma_seq
-  crit  := Criticality.Phi_c
-  chir  := Chirality.H2
-  stoi  := Stoichiometry.n_m
-  prot  := Protection.Omega_Z
+  dim   := Dimensionality.if'
+  top   := Topology.are
+  rel   := Relational.ian
+  pol   := Polarity.or'
+  fid   := Fidelity.peep
+  kin   := KineticChar.egg
+  gran  := Granularity.ice
+  gram  := Grammar.measure
+  crit  := Criticality.monad
+  chir  := Chirality.sure
+  stoi  := Stoichiometry.up
+  prot  := Protection.ah
 }
 
 -- The composite system is O_inf (same gate primitives as agent)
@@ -61,15 +61,15 @@ theorem emerald_tensor_is_O_inf :
     imscriptionTier emerald_multiagent_tensor_bootstrap = .O_inf := by decide
 
 -- Cross-primitive constraints verified:
--- Axiom C: D_odot + T_odot = valid (both holographic)
--- Axiom B: Omega_Z requires H ≥ H2 (satisfied: H = H2)
+-- Axiom C: if' + are = valid (both holographic)
+-- Axiom B: ah requires H ≥ sure (satisfied: H = sure)
 
 axiom emerald_tensor_axiom_C_valid :
-  emerald_multiagent_tensor_bootstrap.top = Topology.T_odot →
-  emerald_multiagent_tensor_bootstrap.dim = Dimensionality.D_odot
+  emerald_multiagent_tensor_bootstrap.top = Topology.are →
+  emerald_multiagent_tensor_bootstrap.dim = Dimensionality.if'
 
 axiom emerald_tensor_axiom_B_valid :
-  emerald_multiagent_tensor_bootstrap.prot ≥ Protection.Omega_Z →
-  emerald_multiagent_tensor_bootstrap.chir ≥ Chirality.H2
+  emerald_multiagent_tensor_bootstrap.prot ≥ Protection.ah →
+  emerald_multiagent_tensor_bootstrap.chir ≥ Chirality.sure
 
 end Imscribing.AgentSelf

@@ -16,12 +16,12 @@ import Imscribing.Consciousness
 
   ZFCₜ = ZFC + Chirality + Winding Topology (tier O₂dag). The six promotion channels:
 
-    1. HOLOBOUND (T_network → T_odot):   Holographic boundary encoding
-    2. LR_DUAL    (R_super → R_lr):      Bidirectional duality
-    3. PM_Z2      (P_asym → P_pm_sym):   Frobenius parity (the tier gate)
-    4. SEQAX      (Gamma_and → Gamma_seq): Sequential cascade
-    5. TEMPD2     (H0 → H2):             2-step temporal chirality
-    6. ZWIND      (Omega_0 → Omega_Z):    Integer topological winding
+    1. HOLOBOUND (judge → are):   Holographic boundary encoding
+    2. LR_DUAL    (ado → ian):      Bidirectional duality
+    3. PM_Z2      (church → or'):   Frobenius parity (the tier gate)
+    4. SEQAX      (vow → measure): Sequential cascade
+    5. TEMPD2     (fee → sure):             2-step temporal chirality
+    6. ZWIND      (awe → ah):    Integer topological winding
 
   Each Millennium Problem sits at a specific structural distance from ZFCₜ.
   This file provides the unified distance ranking and promotion profile.
@@ -44,7 +44,7 @@ set_option linter.style.longLine false
 -- §1. Structural Type Embeddings — MPPs Relative to ZFCₜ
 -- ============================================================
 
-/-- ZFCₜ baseline: ⟨D_infty; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
+/-- ZFCₜ baseline: ⟨array; are; ian; or'; peep; egg; ice; measure; monad; sure; up; ah⟩ -/
 def zfc_t_structural : Imscription := ZFCt.zfc_t
 
 /-- NS Source (O₂dag): As defined in NS_Resolution. -/
@@ -53,46 +53,46 @@ def ns_structural : Imscription := NSResolution.navierStokesSource
 /-- NS Resolved (O_inf): As defined in NS_Resolution. -/
 def ns_resolved_structural : Imscription := NSResolution.navierStokesResolved
 
-/-- RH structural: ⟨D_triangle; T_bowtie; R_lr; P_asym; F_ell; K_slow; G_aleph; Gamma_seq; Phi_c_complex; H1; n_m; Omega_Z⟩ -/
+/-- RH structural: ⟨ash; mime; ian; church; age; egg; ice; measure; roar; kick; up; ah⟩ -/
 def rh_structural : Imscription := {
-  dim  := D_triangle,  top := T_bowtie, rel := R_lr,      pol := P_asym,
-  fid  := F_ell,       kin := K_slow,   gran := G_aleph,  gram := Gamma_seq,
-  crit := Phi_c_complex, chir := H1,    stoi := n_m,      prot := Omega_Z
+  dim  := ash,  top := mime, rel := ian,      pol := church,
+  fid  := age,       kin := egg,   gran := ice,  gram := measure,
+  crit := roar, chir := kick,    stoi := up,      prot := ah
 }
 
-/-- Yang-Mills (MissingFoundation baseline): ⟨D_infty; T_network; R_super; P_asym; F_ell; K_trap; G_beth; Gamma_and; Phi_sub; H_inf; one_one; Omega_0⟩ -/
+/-- Yang-Mills (MissingFoundation baseline): ⟨array; judge; ado; church; age; on; bib; vow; woe; wool; hung; awe⟩ -/
 def ym_structural : Imscription := {
-  dim  := D_infty,     top := T_network, rel := R_super,   pol := P_asym,
-  fid  := F_ell,       kin := K_trap,    gran := G_beth,   gram := Gamma_and,
-  crit := Phi_sub,     chir := H_inf,    stoi := one_one,  prot := Omega_0
+  dim  := array,     top := judge, rel := ado,   pol := church,
+  fid  := age,       kin := on,    gran := bib,   gram := vow,
+  crit := woe,     chir := wool,    stoi := hung,  prot := awe
 }
 
-/-- Hodge Conjecture: ⟨D_odot; T_odot; R_lr; P_asym; F_ell; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
+/-- Hodge Conjecture: ⟨if'; are; ian; church; age; egg; ice; measure; monad; sure; up; ah⟩ -/
 def hodge_structural : Imscription := {
-  dim  := D_odot,      top := T_odot,     rel := R_lr,     pol := P_asym,
-  fid  := F_ell,       kin := K_slow,     gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,       chir := H2,        stoi := n_m,     prot := Omega_Z
+  dim  := if',      top := are,     rel := ian,     pol := church,
+  fid  := age,       kin := egg,     gran := ice, gram := measure,
+  crit := monad,       chir := sure,        stoi := up,     prot := ah
 }
 
-/-- BSD resolved (O_inf): ⟨D_odot; T_odot; R_lr; P_pm_sym; F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c; H2; n_m; Omega_Z⟩ -/
+/-- BSD resolved (O_inf): ⟨if'; are; ian; or'; peep; egg; ice; measure; monad; sure; up; ah⟩ -/
 def bsd_structural : Imscription := {
-  dim  := D_odot,      top := T_odot,     rel := R_lr,     pol := P_pm_sym,
-  fid  := F_hbar,      kin := K_slow,     gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,       chir := H2,        stoi := n_m,     prot := Omega_Z
+  dim  := if',      top := are,     rel := ian,     pol := or',
+  fid  := peep,      kin := egg,     gran := ice, gram := measure,
+  crit := monad,       chir := sure,        stoi := up,     prot := ah
 }
 
-/-- Odd Perfect Numbers: ⟨D_triangle; T_bowtie; R_super; P_asym; F_ell; K_trap; G_aleph; Gamma_seq; Phi_sub; H0; one_one; Omega_0⟩ -/
+/-- Odd Perfect Numbers: ⟨ash; mime; ado; church; age; on; ice; measure; woe; fee; hung; awe⟩ -/
 def opn_structural : Imscription := {
-  dim  := D_triangle,  top := T_bowtie, rel := R_super,   pol := P_asym,
-  fid  := F_ell,       kin := K_trap,    gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_sub,     chir := H0,       stoi := one_one, prot := Omega_0
+  dim  := ash,  top := mime, rel := ado,   pol := church,
+  fid  := age,       kin := on,    gran := ice, gram := measure,
+  crit := woe,     chir := fee,       stoi := hung, prot := awe
 }
 
-/-- P vs NP: ⟨D_infty; T_network; R_super; P_asym; F_ell; K_mod; G_beth; Gamma_and; Phi_sub; H1; n_n; Omega_0⟩ -/
+/-- P vs NP: ⟨array; judge; ado; church; age; loll; bib; vow; woe; kick; so; awe⟩ -/
 def pvsnp_structural : Imscription := {
-  dim  := D_infty,     top := T_network, rel := R_super,   pol := P_asym,
-  fid  := F_ell,       kin := K_mod,     gran := G_beth,   gram := Gamma_and,
-  crit := Phi_sub,     chir := H1,       stoi := n_n,      prot := Omega_0
+  dim  := array,     top := judge, rel := ado,   pol := church,
+  fid  := age,       kin := loll,     gran := bib,   gram := vow,
+  crit := woe,     chir := kick,       stoi := so,      prot := awe
 }
 
 -- ============================================================
@@ -151,22 +151,22 @@ theorem unified_distance_ranking :
     are already satisfied for a given Millennium Problem. -/
 structure PromotionProfile where
   name      : String
-  holobound : Bool  -- T_network → T_odot
-  lr_dual   : Bool  -- R_super → R_lr
-  pm_z2     : Bool  -- P_asym → P_pm_sym (Frobenius gate)
-  seqax     : Bool  -- Gamma_and → Gamma_seq
-  tempd2    : Bool  -- H0 → H2
-  zwind     : Bool  -- Omega_0 → Omega_Z
+  holobound : Bool  -- judge → are
+  lr_dual   : Bool  -- ado → ian
+  pm_z2     : Bool  -- church → or' (Frobenius gate)
+  seqax     : Bool  -- vow → measure
+  tempd2    : Bool  -- fee → sure
+  zwind     : Bool  -- awe → ah
 
 /-- Navier-Stokes: 3 channels closed, 3 open. -/
 def ns_profile : PromotionProfile := {
   name := "Navier-Stokes"
-  holobound := false  -- T_bowtie ≠ T_odot
-  lr_dual   := true   -- R_lr = R_lr
-  pm_z2     := false  -- P_asym ≠ P_pm_sym (THE TIER GATE)
-  seqax     := true   -- Gamma_seq = Gamma_seq
-  tempd2    := true   -- H_inf ≥ H2 (exceeds minimum)
-  zwind     := true   -- Omega_Z = Omega_Z
+  holobound := false  -- mime ≠ are
+  lr_dual   := true   -- ian = ian
+  pm_z2     := false  -- church ≠ or' (THE TIER GATE)
+  seqax     := true   -- measure = measure
+  tempd2    := true   -- wool ≥ sure (exceeds minimum)
+  zwind     := true   -- ah = ah
 }
 
 /-- Riemann Hypothesis: 3 channels closed, 3 open/blocked. -/
@@ -174,9 +174,9 @@ def rh_profile : PromotionProfile := {
   name := "Riemann Hypothesis"
   holobound := false  -- No holographic boundary for zeros
   lr_dual   := true   -- Functional equation ξ(s)=ξ(1-s)
-  pm_z2     := false  -- P_asym on zeros
+  pm_z2     := false  -- church on zeros
   seqax     := true   -- Explicit formula bridges primes → zeros
-  tempd2    := false  -- H1 < H2
+  tempd2    := false  -- kick < sure
   zwind     := true   -- Z(t) has integer winding
 }
 
@@ -194,11 +194,11 @@ def ym_profile : PromotionProfile := {
 /-- Hodge Conjecture: 5 channels closed, 1 blocked (pm_z2). -/
 def hodge_profile : PromotionProfile := {
   name := "Hodge Conjecture"
-  holobound := true   -- D_odot + T_odot already holographic
+  holobound := true   -- if' + are already holographic
   lr_dual   := true   -- Hodge star provides LR duality
-  pm_z2     := false  -- P_asym: algebraic vs analytic cycles
+  pm_z2     := false  -- church: algebraic vs analytic cycles
   seqax     := true   -- Hodge filtration is sequential
-  tempd2    := true   -- H2 present via Hodge theory
+  tempd2    := true   -- sure present via Hodge theory
   zwind     := true   -- Hodge numbers carry integer structure
 }
 
@@ -209,7 +209,7 @@ def bsd_profile : PromotionProfile := {
   lr_dual   := true   -- E(Q) ↔ L(E,s) via modular parameterization
   pm_z2     := true   -- Φ_}: Special Frobenius at s=1
   seqax     := true   -- Euler product provides sequential structure
-  tempd2    := true   -- Hasse-Weil → L-function has H2
+  tempd2    := true   -- Hasse-Weil → L-function has sure
   zwind     := true   -- Ω_z: integer winding = Mordell-Weil rank
 }
 
@@ -229,7 +229,7 @@ def pvsnp_profile : PromotionProfile := {
   name := "P vs NP"
   holobound := false  -- Computation is local and sequential
   lr_dual   := false  -- P ≠ NP is asymmetric by definition
-  pm_z2     := false  -- P_asym IS the conjecture
+  pm_z2     := false  -- church IS the conjecture
   seqax     := false  -- Circuit evaluation (needs lower bounds)
   tempd2    := false  -- Needs time hierarchy proof
   zwind     := false  -- No topological invariant

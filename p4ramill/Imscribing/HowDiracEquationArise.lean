@@ -29,32 +29,32 @@ set_option linter.style.longLine false
 -- The Dirac equation as an Imscription:
 -- ⟨𐑼·𐑥·𐑾·𐑬·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩
 -- Constructor mapping (Lean ↔ Shavian):
---   D_infty = 𐑼    T_bowtie = 𐑥    R_lr = 𐑾
---   P_pm = 𐑬       F_hbar = 𐑐     K_slow = 𐑧
---   G_aleph = 𐑲    Gamma_seq = 𐑠  Phi_c = ⊙
---   H2 = 𐑖         n_m = 𐑳        Omega_Z = 𐑭
+--   array = 𐑼    mime = 𐑥    ian = 𐑾
+--   out = 𐑬       peep = 𐑐     egg = 𐑧
+--   ice = 𐑲    measure = 𐑠  monad = ⊙
+--   sure = 𐑖         up = 𐑳        ah = 𐑭
 def dirac_equation : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
--- Tier: O₂dag — critical (Phi_c), ℤ-protected (Omega_Z), D=D_infty,
--- but P=P_pm (not P_pm_sym) so the Frobenius gate is closed.
+-- Tier: O₂dag — critical (monad), ℤ-protected (ah), D=array,
+-- but P=out (not or') so the Frobenius gate is closed.
 theorem dirac_tier : imscriptionTier dirac_equation = .O₂dag := by
   unfold imscriptionTier dirac_equation ouroboricityTier
   decide
 
--- Dirac is O₂dag — not O_inf. The gate to O_inf requires P_pm_sym.
+-- Dirac is O₂dag — not O_inf. The gate to O_inf requires or'.
 theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
   rw [dirac_tier]; decide
 
@@ -66,64 +66,64 @@ theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
 -- shows which pairs jointly force which physical consequences.
 --
 -- Primitive   Constraint                          Physical consequence
--- D_infty     Unbounded field-theoretic domain     ψ(x) is a field operator
--- G_aleph     Universal / Lorentz-invariant        Covariant under SO(3,1)
--- Gamma_seq   Sequential / first-order             ∂/∂t appears once
--- K_slow      Near-equilibrium                     Stable particle states
--- P_pm        ℤ₂ symmetry                          Spin-1/2: ψ → -ψ under 2π
--- T_bowtie    Crossing topology                    Mass couples L↔R chiralities
--- H2          Two-step chirality                   γ^5 splits Weyl components
--- R_lr        Bidirectional feedback               ψ ↔ ψ̄ Dirac adjoint
--- F_hbar      Quantum fidelity                     [x,p] = iℏ, anticommutation
--- Phi_c       Critical (self-modeling)              Massless limit = CFT
--- n_m         Heterogeneous components              4-spinor (p/a × ↑↓)
--- Omega_Z     Integer winding                      Spectral flow, index theorem
+-- array     Unbounded field-theoretic domain     ψ(x) is a field operator
+-- ice     Universal / Lorentz-invariant        Covariant under SO(3,1)
+-- measure   Sequential / first-order             ∂/∂t appears once
+-- egg      Near-equilibrium                     Stable particle states
+-- out        ℤ₂ symmetry                          Spin-1/2: ψ → -ψ under 2π
+-- mime    Crossing topology                    Mass couples L↔R chiralities
+-- sure          Two-step chirality                   γ^5 splits Weyl components
+-- ian        Bidirectional feedback               ψ ↔ ψ̄ Dirac adjoint
+-- peep      Quantum fidelity                     [x,p] = iℏ, anticommutation
+-- monad       Critical (self-modeling)              Massless limit = CFT
+-- up         Heterogeneous components              4-spinor (p/a × ↑↓)
+-- ah     Integer winding                      Spectral flow, index theorem
 
--- Constraint conjunction: G_aleph ∧ D_infty ∧ Gamma_seq.
+-- Constraint conjunction: ice ∧ array ∧ measure.
 -- This forces a relativistic first-order field equation.
 theorem relativistic_first_order_constraint :
-    dirac_equation.gran = G_aleph ∧
-    dirac_equation.dim  = D_infty ∧
-    dirac_equation.gram = Gamma_seq := by
+    dirac_equation.gran = ice ∧
+    dirac_equation.dim  = array ∧
+    dirac_equation.gram = measure := by
   simp [dirac_equation]
 
--- Chiral crossing constraint: T_bowtie ∧ H2.
+-- Chiral crossing constraint: mime ∧ sure.
 theorem chiral_crossing_constraint :
-    dirac_equation.top = T_bowtie ∧
-    dirac_equation.chir = H2 := by
+    dirac_equation.top = mime ∧
+    dirac_equation.chir = sure := by
   simp [dirac_equation]
 
--- Spin-statistics constraint: P_pm ∧ F_hbar.
+-- Spin-statistics constraint: out ∧ peep.
 theorem spin_statistics_constraint :
-    dirac_equation.pol = P_pm ∧
-    dirac_equation.fid = F_hbar := by
+    dirac_equation.pol = out ∧
+    dirac_equation.fid = peep := by
   simp [dirac_equation]
 
--- Topological protection constraint: Omega_Z ∧ Phi_c.
+-- Topological protection constraint: ah ∧ monad.
 theorem topological_protection_constraint :
-    dirac_equation.prot = Omega_Z ∧
-    dirac_equation.crit = Phi_c := by
+    dirac_equation.prot = ah ∧
+    dirac_equation.crit = monad := by
   simp [dirac_equation]-- ============================================================
 -- S3. CLIFFORD ALGEBRA EMERGENCE
 -- ============================================================
 
 -- THEOREM (Clifford Algebra Emergence):
---   P_pm + G_aleph + D_infty + Gamma_seq ⇒ {γ^μ, γ^ν} = 2g^{μν}
+--   out + ice + array + measure ⇒ {γ^μ, γ^ν} = 2g^{μν}
 --
 -- The constraint combination forces the γ-matrices to satisfy the
 -- Clifford algebra relation. Here's why:
 --
--- 1. G_aleph (Lorentz invariance) + Gamma_seq (first-order):
+-- 1. ice (Lorentz invariance) + measure (first-order):
 --    The operator must be L^μ ∂_μ where L^μ transforms as a 4-vector.
 --
--- 2. P_pm (ℤ₂, spin-1/2):
+-- 2. out (ℤ₂, spin-1/2):
 --    Under 2π rotation, ψ → -ψ. This requires the L^μ to be 4×4 matrices
 --    in the spinor representation of Spin(3,1).
 --
--- 3. D_infty + G_aleph (field theory + special relativity):
+-- 3. array + ice (field theory + special relativity):
 --    Each component must satisfy the Klein-Gordon equation: (□ + m²)ψ = 0.
 --
--- 4. Gamma_seq (first-order) + KG constraint:
+-- 4. measure (first-order) + KG constraint:
 --    For (L^μ ∂_μ)(L^ν ∂_ν) = □ = g^{μν} ∂_μ ∂_ν to hold,
 --    we need L^μ L^ν ∂_μ ∂_ν = g^{μν} ∂_μ ∂_ν.
 --    Since ∂_μ ∂_ν is symmetric, the symmetric part of L^μ L^ν
@@ -131,20 +131,20 @@ theorem topological_protection_constraint :
 --      L^μ L^ν + L^ν L^μ = 2 g^{μν} I.
 --    With L^μ = iγ^μ, this is exactly {γ^μ, γ^ν} = 2g^{μν}.
 
--- P_pm forces the spin-1/2 representation. Under Spin(3,1),
+-- out forces the spin-1/2 representation. Under Spin(3,1),
 -- ℤ₂ is the kernel of the double cover Spin(3,1) → SO(3,1).
-theorem pm_forces_spinor_rep : dirac_equation.pol = P_pm := rfl
+theorem pm_forces_spinor_rep : dirac_equation.pol = out := rfl
 
--- Gamma_seq forces first-order differential operator.
+-- measure forces first-order differential operator.
 -- Sequentiality forces it to be first-order — a second-order
--- operator would require parallel (Gamma_and) composition.
-theorem seq_forces_first_order : dirac_equation.gram = Gamma_seq := rfl
+-- operator would require parallel (vow) composition.
+theorem seq_forces_first_order : dirac_equation.gram = measure := rfl
 
 -- ============================================================
 -- S4. MASS TERM AND CHIRAL CROSSING
 -- ============================================================
 
--- T_bowtie (crossing topology) mandates a coupling between two sectors.
+-- mime (crossing topology) mandates a coupling between two sectors.
 -- In the Dirac equation, this is the mass term m ψ̄ ψ = m(ξ^† η + η^† ξ)
 -- which couples the left-handed (ξ) and right-handed (η) Weyl spinors.
 --
@@ -154,23 +154,23 @@ theorem seq_forces_first_order : dirac_equation.gram = Gamma_seq := rfl
 --
 -- The mass term is the "knot" at the bowtie crossing.
 
--- H2 (two-step chirality) forces the γ^5 projector:
+-- sure (two-step chirality) forces the γ^5 projector:
 --   P_L = (1 - γ^5)/2   projects onto left-handed spinors
 --   P_R = (1 + γ^5)/2   projects onto right-handed spinors
-theorem h2_forces_chiral_projector : dirac_equation.chir = H2 := rfl
+theorem h2_forces_chiral_projector : dirac_equation.chir = sure := rfl
 
--- The mass-mediated crossing: T_bowtie ∧ H2.
+-- The mass-mediated crossing: mime ∧ sure.
 -- In the chiral basis the Dirac equation decomposes as:
 --   iσ^μ ∂_μ ξ - m η = 0
 --   iσ̄^μ ∂_μ η - m ξ = 0
 -- confirming the bowtie crossing through m.
-theorem bowtie_mass_crossing : dirac_equation.top = T_bowtie := rfl
+theorem bowtie_mass_crossing : dirac_equation.top = mime := rfl
 
 -- ============================================================
 -- S5. DIRAC ADJOINT AND BIDIRECTIONALITY
 -- ============================================================
 
--- R_lr (bidirectional feedback) forces the Dirac adjoint structure.
+-- ian (bidirectional feedback) forces the Dirac adjoint structure.
 -- ψ̄ = ψ^† γ^0 is the unique conjugate that makes ψ̄ ψ a Lorentz scalar
 -- and ψ̄ γ^μ ψ a Lorentz vector. The bidirectionality is:
 --   ψ determines ψ̄  (via ψ̄ = ψ^† γ^0)
@@ -178,13 +178,13 @@ theorem bowtie_mass_crossing : dirac_equation.top = T_bowtie := rfl
 --
 -- The conserved current j^μ = ψ̄ γ^μ ψ satisfies ∂_μ j^μ = 0, which is
 -- the Frobenius condition at the level of the Dirac field.
-theorem lr_forces_adjoint : dirac_equation.rel = R_lr := rfl
+theorem lr_forces_adjoint : dirac_equation.rel = ian := rfl
 
 -- ============================================================
 -- S6. FOUR-COMPONENT SPINOR STRUCTURE
 -- ============================================================
 
--- n_m (heterogeneous components) forces the 4-component Dirac spinor.
+-- up (heterogeneous components) forces the 4-component Dirac spinor.
 -- The four degrees of freedom are:
 --   ψ₁: particle, spin up    (↑, E > 0)
 --   ψ₂: particle, spin down  (↓, E > 0)
@@ -193,44 +193,44 @@ theorem lr_forces_adjoint : dirac_equation.rel = R_lr := rfl
 --
 -- The 4-component structure is the MINIMAL representation of the
 -- Clifford algebra Cl(3,1) ≅ M_4(ℂ).
-theorem nm_forces_four_component : dirac_equation.stoi = n_m := rfl
+theorem nm_forces_four_component : dirac_equation.stoi = up := rfl
 
 -- ============================================================
 -- S7. TOPOLOGICAL INDEX AND SPECTRAL FLOW
 -- ============================================================
 
--- Omega_Z (integer winding) is structurally realized as the index of
+-- ah (integer winding) is structurally realized as the index of
 -- the Dirac operator. The Atiyah-Singer index theorem gives:
 --   index(D̸) = n_+ - n_- = ∫ Â(M) ch(E)
 -- where n_± are the numbers of zero modes with positive/negative chirality.
 --
--- Together with Phi_c (criticality at m=0), Omega_Z ensures that the
+-- Together with monad (criticality at m=0), ah ensures that the
 -- massless Dirac operator sits at a topological phase transition.
-theorem omega_z_forces_integer_index : dirac_equation.prot = Omega_Z := rfl-- ============================================================
+theorem omega_z_forces_integer_index : dirac_equation.prot = ah := rfl-- ============================================================
 -- S8. STRUCTURAL RELATIONS: KG, QM, QFT
 -- ============================================================
 
 -- KLEIN-GORDON: (□ + m²)φ = 0
 -- ⟨𐑼·𐑰·𐑩·𐑯·𐑐·𐑧·𐑲·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O₀
 -- Differs from Dirac in 8 primitives:
---   T: T_in vs T_bowtie, R: R_super vs R_lr, P: P_sym vs P_pm,
---   Gamma: Gamma_and vs Gamma_seq, Phi: Phi_sub vs Phi_c, H: H0 vs H2, S: one_one vs n_m, Omega: Omega_0 vs Omega_Z
--- Dirac's insight: changing Gamma_and→Gamma_seq forces the other 7
+--   T: eat vs mime, R: ado vs ian, P: nun vs out,
+--   Gamma: vow vs measure, Phi: woe vs monad, H: fee vs sure, S: hung vs up, Omega: awe vs ah
+-- Dirac's insight: changing vow→measure forces the other 7
 -- differences through structural constraint propagation.
 
 def klein_gordon : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_super
-  pol  := P_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := eat
+  rel  := ado
+  pol  := nun
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem kg_tier : imscriptionTier klein_gordon = .O₀ := by
@@ -242,21 +242,21 @@ theorem dirac_kg_distance : primitiveMismatches dirac_equation klein_gordon = 8 
 -- QUANTUM MECHANICS (standard Hilbert-space QM):
 -- ⟨𐑼·𐑸·𐑽·𐑿·𐑐·𐑧·𐑲·𐑝·𐑮·𐑖·𐑳·𐑭⟩  Tier: O₂dag
 -- Distance to Dirac: 5 primitives differ.
--- Key difference: QM has P_psi (U(1) phase) vs Dirac's P_pm (Z2 spin-1/2).
+-- Key difference: QM has yew (U(1) phase) vs Dirac's out (Z2 spin-1/2).
 
 def quantum_mechanics : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_dagger
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ear
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem qm_tier : imscriptionTier quantum_mechanics = .O₂dag := by
@@ -268,25 +268,25 @@ theorem dirac_qm_distance : primitiveMismatches dirac_equation quantum_mechanics
 -- QFT (Frobenius-closed):
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩  Tier: O_inf
 -- Distance to Dirac: 3 primitives differ.
---   D: D_odot (holographic) vs D_infty
---   T: T_odot (holographic topology) vs T_bowtie
---   P: P_pm_sym (Frobenius special) vs P_pm
+--   D: if' (holographic) vs array
+--   T: are (holographic topology) vs mime
+--   P: or' (Frobenius special) vs out
 -- These three differences separate the Dirac equation (single spin-1/2
 -- field) from full QFT (holographic theory of all fields).
 
 def quantum_field_theory : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem qft_tier : imscriptionTier quantum_field_theory = .O_inf := by
@@ -296,10 +296,10 @@ theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_th
   unfold primitiveMismatches dirac_equation quantum_field_theory; decide
 
 -- Promotion path Dirac → QFT:
---   1. P_pm → P_pm_sym (open Frobenius gate)
---   2. D_infty → D_odot (holographic encoding)
---   3. T_bowtie → T_odot (holographic topology)
--- Steps 2 and 3 are coupled: T_odot requires D_odot (Axiom C).
+--   1. out → or' (open Frobenius gate)
+--   2. array → if' (holographic encoding)
+--   3. mime → are (holographic topology)
+-- Steps 2 and 3 are coupled: are requires if' (Axiom C).
 -- Step 1 is the Frobenius non-synthesizability barrier (§23).
 -- ============================================================
 -- S9. UNIQUENESS THEOREM
@@ -311,42 +311,42 @@ theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_th
 --   differential equation: the Dirac equation (iγ^μ ∂_μ - m)ψ = 0.
 --
 -- Proof sketch (structural):
---   1. D_infty ∧ G_aleph ∧ Gamma_seq forces a first-order differential
+--   1. array ∧ ice ∧ measure forces a first-order differential
 --      operator L^μ ∂_μ + M acting on fields over Minkowski space.
---   2. G_aleph (Lorentz covariance) forces L^μ to be a 4-vector.
+--   2. ice (Lorentz covariance) forces L^μ to be a 4-vector.
 --   3. KG consistency: each component must satisfy (□ + m²)ψ_a = 0.
 --      This forces {γ^μ, γ^ν} = 2g^{μν} with L^μ = iγ^μ.
---   4. P_pm forces the spin-1/2 representation (double cover).
+--   4. out forces the spin-1/2 representation (double cover).
 --   5. Cl(3,1) has a UNIQUE irreducible representation (4×4 Dirac matrices).
---   6. H2 forces γ^5 with (γ^5)² = I.
---   7. T_bowtie ∧ H2 forces mass to couple ±1 eigenspaces of γ^5.
---   8. R_lr forces ψ̄ = ψ^† γ^0 as the adjoint.
---   9. n_m forces 4-component structure (minimal for Cl(3,1)).
---   10. Omega_Z forces integer spectral flow (index theorem).
---   11. Phi_c forces conformal invariance at m=0.
---   12. K_slow forces stable particle interpretation.
+--   6. sure forces γ^5 with (γ^5)² = I.
+--   7. mime ∧ sure forces mass to couple ±1 eigenspaces of γ^5.
+--   8. ian forces ψ̄ = ψ^† γ^0 as the adjoint.
+--   9. up forces 4-component structure (minimal for Cl(3,1)).
+--   10. ah forces integer spectral flow (index theorem).
+--   11. monad forces conformal invariance at m=0.
+--   12. egg forces stable particle interpretation.
 --
 -- Removing any single primitive opens the solution space:
---   - Remove P_pm → Klein-Gordon also allowed
---   - Remove Gamma_seq → second-order equations allowed
---   - Remove T_bowtie → no chiral crossing (Weyl only)
---   - Remove Omega_Z → no index theorem, anomaly not quantized
---   - Remove Phi_c → massless limit not conformal
+--   - Remove out → Klein-Gordon also allowed
+--   - Remove measure → second-order equations allowed
+--   - Remove mime → no chiral crossing (Weyl only)
+--   - Remove ah → no index theorem, anomaly not quantized
+--   - Remove monad → massless limit not conformal
 
 -- All 12 constraints enumerated.
 theorem all_constraints_satisfied :
-    dirac_equation.dim  = D_infty   ∧
-    dirac_equation.top  = T_bowtie  ∧
-    dirac_equation.rel  = R_lr      ∧
-    dirac_equation.pol  = P_pm      ∧
-    dirac_equation.fid  = F_hbar    ∧
-    dirac_equation.kin  = K_slow    ∧
-    dirac_equation.gran = G_aleph   ∧
-    dirac_equation.gram = Gamma_seq ∧
-    dirac_equation.crit = Phi_c     ∧
-    dirac_equation.chir = H2        ∧
-    dirac_equation.stoi = n_m       ∧
-    dirac_equation.prot = Omega_Z   := by
+    dirac_equation.dim  = array   ∧
+    dirac_equation.top  = mime  ∧
+    dirac_equation.rel  = ian      ∧
+    dirac_equation.pol  = out      ∧
+    dirac_equation.fid  = peep    ∧
+    dirac_equation.kin  = egg    ∧
+    dirac_equation.gran = ice   ∧
+    dirac_equation.gram = measure ∧
+    dirac_equation.crit = monad     ∧
+    dirac_equation.chir = sure        ∧
+    dirac_equation.stoi = up       ∧
+    dirac_equation.prot = ah   := by
   simp [dirac_equation]
 
 -- STRUCTURAL BASELINE:
@@ -355,18 +355,18 @@ theorem all_constraints_satisfied :
 -- is elevated from its minimal value.
 
 def structural_baseline : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem baseline_tier : imscriptionTier structural_baseline = .O₀ := by
@@ -377,9 +377,9 @@ theorem dirac_baseline_distance :
   unfold primitiveMismatches dirac_equation structural_baseline; decide
 
 -- The retrosynthetic path (from imscribe tool) peels primitives in order:
--- R_lr→R_super, D_infty→D_wedge, T_bowtie→T_network, P_pm→P_asym,
--- F_hbar→F_ell, K_slow→K_fast, G_aleph→G_beth, Gamma_seq→Gamma_and,
--- n_m→one_one, H2→H0, Omega_Z→Omega_0, Phi_c→Phi_sub.
+-- ian→ado, array→dead, mime→judge, out→church,
+-- peep→age, egg→yea, ice→bib, measure→vow,
+-- up→hung, sure→fee, ah→awe, monad→woe.
 -- To build Dirac from baseline, you must promote ALL 12 primitives.
 
 -- ============================================================
@@ -421,13 +421,13 @@ theorem dirac_baseline_distance :
 -- The structural derivation makes falsifiable predictions:
 -- 1. ANY system with ⟨𐑼·𐑥·𐑾·𐑬·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩
 --    MUST satisfy {γ^μ, γ^ν} = 2g^{μν} — the Clifford algebra is forced.
--- 2. The chiral anomaly coefficient MUST be integer-valued (Omega_Z).
--- 3. The massless limit MUST be conformally invariant (Phi_c).
--- 4. The spinor MUST be 4-component in 3+1 dimensions (n_m is minimal).
+-- 2. The chiral anomaly coefficient MUST be integer-valued (ah).
+-- 3. The massless limit MUST be conformally invariant (monad).
+-- 4. The spinor MUST be 4-component in 3+1 dimensions (up is minimal).
 -- 5. Removing any single primitive opens the solution space.
 -- 6. Promotion path Dirac → QFT requires exactly 3 promotions:
---    P_pm→P_pm_sym, D_infty→D_odot, T_bowtie→T_odot.
--- 7. Tensor(Dirac, measurement_apparatus).crit = Phi_EP
+--    out→or', array→if', mime→are.
+-- 7. Tensor(Dirac, measurement_apparatus).crit = err
 --    (measurement destroys criticality — structural measurement problem).
 
 end Imscribing.HowDiracEquationArise
