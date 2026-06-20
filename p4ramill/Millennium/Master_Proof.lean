@@ -8,12 +8,12 @@
 import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Consciousness
 import Imscribing.Algebra
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection

@@ -17,9 +17,9 @@
 -- Kernel: p4rakernel (paraconsistent Lean 4)
 
 import Imscribing.Primitives.Core
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Primitives.Imscription
-import Imscribing.Millennium.ZFC_FrobeniusExact
+import Imscribing.CLINK
 import Imscribing.CLINK
 import Imscribing.Algebra
 import Imscribing.Consciousness
@@ -32,11 +32,11 @@ set_option linter.all false
 set_option autoImplicit false
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCfe
+open Imscribing.CLINK
 open Imscribing.CLINK
 open Imscribing.Consciousness
 
-open Imscribing.Primitives.ZFCt (zfc zfc_t temporal_mathematics)
+open Imscribing.CLINK (zfc zfc_t temporal_mathematics)
 
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
@@ -136,7 +136,7 @@ theorem clink_l8_omega_is_NA : clink_l8.prot = zoo := by
   unfold clink_l8 organismLayer; rfl
 
 /-- ZFC_fe's grammar: sequential. -/
-theorem zfc_fe_grammar_is_seq : zfc_fe.gram = measure := by
+theorem zfc_fe_grammar_is_seq : zfc_fe.gram = Grammar.measure := by
   unfold zfc_fe; rfl
 
 /-- CLINK L8's grammar: broadcast. -/

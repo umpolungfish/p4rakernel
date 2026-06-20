@@ -28,13 +28,13 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCs
+import Imscribing.CLINK
 import Mathlib.Data.Finset.Basic
 
 namespace Imscribing.MetaYoneda
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCs
+open Imscribing.CLINK
 open Dimensionality Topology Relational Polarity Fidelity KineticChar
      Granularity Grammar Criticality Chirality Stoichiometry Protection
 

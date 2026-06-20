@@ -16,20 +16,20 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
-import Imscribing.Primitives.ZFCs
+import Imscribing.CLINK
+import Imscribing.CLINK
 import Imscribing.Primitives.Crystal
 import Imscribing.Algebra
 import Imscribing.Consciousness
-import Imscribing.Millennium.ZFC_FrobeniusExact
+import Imscribing.CLINK
 
 open Imscribing.Primitives
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality
-open Imscribing.Primitives.ZFCt (zfc zfc_t temporal_mathematics)
-open Imscribing.Primitives.ZFCs
-open Imscribing.Primitives.ZFCfe (zfc_fe)
+open Imscribing.CLINK (zfc zfc_t temporal_mathematics)
+open Imscribing.CLINK
+open Imscribing.CLINK (zfc_fe)
 open Imscribing.Consciousness
 open Imscribing.Primitives
 open OuroboricityTier

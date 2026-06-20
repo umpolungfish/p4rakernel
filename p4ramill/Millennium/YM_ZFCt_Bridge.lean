@@ -1,6 +1,6 @@
 import Imscribing.Millennium.YM
 import Imscribing.Millennium.YM_GateInhabitants
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Algebra
 
 /-!
@@ -25,7 +25,7 @@ import Imscribing.Algebra
 namespace Imscribing.Millennium.YM_ZFCt
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Millennium.YM
 open Millennium.YM_GateInhabitants
 open Dimensionality Topology Relational Polarity Grammar

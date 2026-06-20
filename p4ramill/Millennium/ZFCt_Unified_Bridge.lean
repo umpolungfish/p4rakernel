@@ -6,7 +6,7 @@ import Imscribing.Millennium.NS_Resolution
 import Imscribing.Millennium.BSD
 import Imscribing.Millennium.OPN
 import Imscribing.Millennium.PvsNP
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Primitives.Imscription
 import Imscribing.Algebra
 import Imscribing.Consciousness
@@ -30,7 +30,7 @@ import Imscribing.Consciousness
 namespace Imscribing.Millennium.ZFCt_Unified
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
@@ -45,7 +45,7 @@ set_option linter.style.longLine false
 -- ============================================================
 
 /-- ZFCₜ baseline: ⟨array; are; ian; or'; peep; egg; ice; measure; monad; sure; up; ah⟩ -/
-def zfc_t_structural : Imscription := ZFCt.zfc_t
+def zfc_t_structural : Imscription := CLINK.zfc_t
 
 /-- NS Source (O₂dag): As defined in NS_Resolution. -/
 def ns_structural : Imscription := NSResolution.navierStokesSource

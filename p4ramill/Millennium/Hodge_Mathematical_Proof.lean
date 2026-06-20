@@ -11,7 +11,7 @@ import Mathlib
 import Imscribing.Millennium.Hodge
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 open Millennium.Hodge
 open Imscribing.Primitives

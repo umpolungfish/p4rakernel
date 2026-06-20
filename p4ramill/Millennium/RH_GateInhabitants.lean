@@ -1,7 +1,7 @@
 import Mathlib.Analysis.Complex.Basic
 import Imscribing.Millennium.RH
 import Imscribing.Millennium.RH_ZFCt_Bridge
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 /-!
   # RH Gate Inhabitants: Constructed ZFCt Promotions for the Riemann Hypothesis

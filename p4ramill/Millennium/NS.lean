@@ -4,11 +4,11 @@
 
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Tactic
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 open scoped NNReal
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Dimensionality Topology Relational Polarity Fidelity KineticChar Granularity
 open Criticality Protection Grammar Stoichiometry Chirality
 

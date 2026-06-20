@@ -23,8 +23,8 @@ import Imscribing.Millennium.NS
 import Imscribing.Millennium.E8G2_Vessel
 -- import Imscribing.Millennium.E8G2_Vessel_Proofs (duplicate, content from E8G2_Vessel)
 import Imscribing.Millennium.NS_ZFCt_Bridge
-import Imscribing.Primitives.ZFCt
-import Imscribing.Primitives.ZFCs
+import Imscribing.CLINK
+import Imscribing.CLINK
 
 open Set
 open Real

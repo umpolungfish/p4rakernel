@@ -5,7 +5,7 @@
 import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Consciousness
 import Imscribing.Millennium.NS
 import Imscribing.Millennium.NS_ZFCt_Bridge
@@ -13,7 +13,7 @@ import Imscribing.Millennium.NS_Resolution
 import Imscribing.Algebra
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Millennium.NS
 open Millennium.NS_ZFCt

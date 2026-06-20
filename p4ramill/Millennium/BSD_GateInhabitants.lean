@@ -1,6 +1,6 @@
 import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
 import Imscribing.Millennium.BSD
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 /-!
   # BSD Gate Inhabitants: Constructed ZFCt Promotions for Birch–Swinnerton-Dyer
