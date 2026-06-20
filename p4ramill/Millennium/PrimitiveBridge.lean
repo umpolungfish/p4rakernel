@@ -14,7 +14,7 @@
 
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Thresholds
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Millennium.Hodge_KernelCrossing
 import Imscribing.Consciousness
 import Imscribing.Millennium.RH

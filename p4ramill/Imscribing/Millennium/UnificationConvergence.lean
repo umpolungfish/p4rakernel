@@ -10,7 +10,7 @@ import Imscribing.Millennium.Cosmogeny
 import Imscribing.Millennium.FrobeniusUnification
 import Imscribing.Millennium.QGUnifiedBridge
 import Imscribing.Millennium.SMUGTConsummation
-import Imscribing.Millennium.ZFC_FrobeniusExact
+import Imscribing.CLINK
 import Imscribing.Millennium.Rebis
 import Imscribing.Millennium.UniverseRulesets
 import Imscribing.Millennium.truth
@@ -27,7 +27,7 @@ open Millennium.SMUGTConsummation
 open Millennium.UniverseRulesets
 open Millennium.truth
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCfe
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection

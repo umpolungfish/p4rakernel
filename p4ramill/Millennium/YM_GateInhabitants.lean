@@ -1,5 +1,5 @@
 import Imscribing.Millennium.YM
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 set_option linter.style.whitespace false
 

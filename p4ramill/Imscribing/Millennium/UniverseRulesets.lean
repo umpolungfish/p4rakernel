@@ -29,7 +29,7 @@ def ordinalR (r : Relational) : ℕ :=
   match r with | ado => 1 | tot => 2 | ear => 3 | ian => 4
 
 def ordinalG (g : Grammar) : ℕ :=
-  match g with | vow => 1 | gag => 2 | measure => 3 | ooze => 4
+  match g with | vow => 1 | gag => 2 | Grammar.measure => 3 | ooze => 4
 
 def ordinalH (h : Chirality) : ℕ :=
   match h with | fee => 1 | kick => 2 | sure => 3 | wool => 4
