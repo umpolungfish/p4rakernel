@@ -50,10 +50,10 @@ inductive IxGrammar where | and_ | or_ | seq | broad
 inductive Crit where | sub | c | c_complex | EP | super
   deriving Repr, DecidableEq
 
-inductive Temp where | H0 | H1 | H2 | Hinf
+inductive Temp where | fee | kick | sure | Hinf
   deriving Repr, DecidableEq
 
-inductive Stoich where | one_one | n_n | n_m
+inductive Stoich where | hung | so | up
   deriving Repr, DecidableEq
 
 inductive Wind where | zero | Z2 | Z | NA
@@ -105,10 +105,10 @@ def critVal : Crit → Nat
   | .sub => 0 | .c => 1 | .c_complex => 2 | .EP => 3 | .super => 4
 
 def tempVal : Temp → Nat
-  | .H0 => 0 | .H1 => 1 | .H2 => 2 | .Hinf => 3
+  | .fee => 0 | .kick => 1 | .sure => 2 | .Hinf => 3
 
 def stoichVal : Stoich → Nat
-  | .one_one => 0 | .n_n => 1 | .n_m => 2
+  | .hung => 0 | .so => 1 | .up => 2
 
 def windVal : Wind → Nat
   | .zero => 0 | .Z2 => 1 | .Z => 2 | .NA => 3
@@ -150,27 +150,27 @@ noncomputable def structDist (a b : StructType) : ℝ :=
 def complex_time_path_integral : StructType where
   D := .infty; T := .bowtie; R := .lr; P := .pm_sym; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
-  H := .H2; S := .n_m; Omega := .Z
+  H := .sure; S := .up; Omega := .Z
 
 def planck_imaginary_time : StructType where
   D := .infty; T := .in_; R := .dagger; P := .psi; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
-  H := .Hinf; S := .n_m; Omega := .Z2
+  H := .Hinf; S := .up; Omega := .Z2
 
 def wick_rotation_EP : StructType where
   D := .infty; T := .network; R := .super; P := .asym; F := .hbar
   K := .fast; G := .aleph; Gamma := .and_; Phi := .EP
-  H := .Hinf; S := .one_one; Omega := .Z
+  H := .Hinf; S := .hung; Omega := .Z
 
 def planck_scale_regime : StructType where
   D := .infty; T := .in_; R := .lr; P := .psi; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c
-  H := .Hinf; S := .n_m; Omega := .Z2
+  H := .Hinf; S := .up; Omega := .Z2
 
 def hartle_hawking_no_boundary : StructType where
   D := .infty; T := .boxtimes; R := .lr; P := .psi; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
-  H := .Hinf; S := .n_m; Omega := .Z
+  H := .Hinf; S := .up; Omega := .Z
 -- ============================================================================
 -- 4. ALGEBRAIC OPERATIONS: TENSOR, MEET, JOIN
 -- ============================================================================
@@ -345,14 +345,14 @@ theorem promotion_P_dominates :
 def black_hole_information : StructType where
   D := .infty; T := .boxtimes; R := .lr; P := .psi; F := .hbar
   K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
-  H := .Hinf; S := .n_m; Omega := .Z
+  H := .Hinf; S := .up; Omega := .Z
 
 theorem hartle_hawking_eq_black_hole_info :
     hartle_hawking_no_boundary = black_hole_information := by rfl
 
 theorem complex_time_tensor_imag_time :
     tensor complex_time_path_integral planck_imaginary_time =
-    ⟨.infty, .bowtie, .lr, .psi, .hbar, .slow, .aleph, .seq, .c_complex, .Hinf, .n_m, .Z⟩ := by rfl
+    ⟨.infty, .bowtie, .lr, .psi, .hbar, .slow, .aleph, .seq, .c_complex, .Hinf, .up, .Z⟩ := by rfl
 
 theorem hartle_hawking_is_O2dagger :
     ouroboricity hartle_hawking_no_boundary = Ouroboricity.O1 := by rfl
@@ -370,7 +370,7 @@ theorem upward_cost :
     1 + 1 + 3 + 1 = (6 : ℕ) := by norm_num
 theorem complex_time_meet_wick_EP :
     meet complex_time_path_integral wick_rotation_EP =
-    ⟨.infty, .network, .super, .asym, .hbar, .fast, .aleph, .and_, .c, .H2, .one_one, .Z⟩ := by rfl
+    ⟨.infty, .network, .super, .asym, .hbar, .fast, .aleph, .and_, .c, .sure, .hung, .Z⟩ := by rfl
 
 theorem planck_meet_imag_time_shares_10 :
     let m := meet planck_scale_regime planck_imaginary_time

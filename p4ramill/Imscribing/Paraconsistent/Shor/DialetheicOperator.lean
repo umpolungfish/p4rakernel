@@ -76,27 +76,27 @@ theorem canonical_ratio_is_two : shor15_7.ratio = 2 := rfl
     Compare with shorPipelineImscription in FullPipeline.lean:
     - pol: Φ_υ → Φ_} (psi → Frobenius-special)
     - prot: Ω_0 → Ω_z (no winding → integer winding, topological protection)
-    - chir: H0 → H_2 (memoryless → two-step chirality, engager→fsplit→ffuse)
+    - chir: fee → H_2 (memoryless → two-step chirality, engager→fsplit→ffuse)
     - dim: △ → ω (finite-dim → imscriptive/self-written)
     - top: ⋈ → O (bowtie → self-referential topology)
     - rel: † → = (adjoint/dagger → bidirectional/lateral) -/
 def dialetheicShorImscription : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H2
-  stoi := .one_one
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .monad
+  chir := .sure
+  stoi := .hung
+  prot := .ah
 }
 
 /-- The dialetheic Shor is at O_inf tier.
-    R1 gate: Phi_c + P_pm_sym always gives O_inf regardless of Ω and D. -/
+    R1 gate: monad + or' always gives O_inf regardless of Ω and D. -/
 theorem dialetheicShor_tier : imscriptionTier dialetheicShorImscription = .O_inf := by
   simp [imscriptionTier, ouroboricityTier, dialetheicShorImscription]
 
@@ -110,15 +110,15 @@ theorem dialetheicShor_tier : imscriptionTier dialetheicShorImscription = .O_inf
     - Ħ: 0 → A (memoryless → two-step chirality)
     - Ω: 0 → z (no winding → integer winding)
     7 promotions total. All are gated on the B-preservation lemma above.
-    O_inf is reachable from O₁ via the R1 gate: P=P_pm_sym + crit=Phi_c. -/
+    O_inf is reachable from O₁ via the R1 gate: P=or' + crit=monad. -/
 theorem dialetheicShor_is_O_inf : imscriptionTier dialetheicShorImscription = .O_inf :=
   dialetheicShor_tier
 
 -- ── Verification: the dialetheicShorImscription satisfies the O_inf conditions ──
-theorem dialetheicShor_has_P_pm_sym : dialetheicShorImscription.pol = .P_pm_sym := rfl
-theorem dialetheicShor_has_Phi_c : dialetheicShorImscription.crit = .Phi_c := rfl
-theorem dialetheicShor_has_Omega_Z : dialetheicShorImscription.prot = .Omega_Z := rfl
-theorem dialetheicShor_has_H2 : dialetheicShorImscription.chir = .H2 := rfl
+theorem dialetheicShor_has_P_pm_sym : dialetheicShorImscription.pol = .or' := rfl
+theorem dialetheicShor_has_Phi_c : dialetheicShorImscription.crit = .monad := rfl
+theorem dialetheicShor_has_Omega_Z : dialetheicShorImscription.prot = .ah := rfl
+theorem dialetheicShor_has_H2 : dialetheicShorImscription.chir = .sure := rfl
 
 -- ── Closing the Φ_υ bottleneck ─────────────────────────────────────────────
 -- The canonical Shor case satisfies the B-cost precondition by construction.

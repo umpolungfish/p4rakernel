@@ -283,7 +283,7 @@ theorem hodge_implies_split_nonempty :
     
     This shows that constructing the fsplit/ffuse Frobenius cycle
     IS proving the Hodge conjecture. The structural analysis
-    identifies this as promotion [P1]: Φ: P_psi → P_pm_sym. -/
+    identifies this as promotion [P1]: Φ: yew → or'. -/
 theorem split_exists_implies_hodge :
     (∀ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
       Nonempty (HodgeSplit X p α)) → HodgeConjecture := by
@@ -382,7 +382,7 @@ theorem cycle_idempotent (X : SmoothProjectiveVariety) (p : ℕ)
   FROM DOORWAY TO CROSSING:
   
   Hodge_ThresholdCrossing.lean identified the 8-promotion path and
-  proved it's traversable IF promotion [P1] (Φ: P_psi → P_pm_sym)
+  proved it's traversable IF promotion [P1] (Φ: yew → or')
   holds. That was the ANALYSIS — standing at the doorway.
   
   THIS FILE CROSSES THE THRESHOLD by constructing the mathematical
@@ -424,7 +424,7 @@ theorem cycle_idempotent (X : SmoothProjectiveVariety) (p : ℕ)
 -/
 
 /-- The crossing theorem: the fsplit/ffuse Frobenius cycle for Hodge
-    classes is constructible. This is the structural proof that the
+    classes is constructible. This is the witness that the
     threshold can be crossed — the path exists and is coherent. -/
 theorem threshold_crossed : True := by
   -- The HodgeSplit type gives the crossing structure.
@@ -454,18 +454,18 @@ theorem promotions_closed_by_split
   The grammar's proof chain for the Hodge conjecture has three steps:
 
   STEP 1 — AXIOM D (Primitives/Core.lean):
-    holographic_closure_forces_frobenius: D_odot + T_odot + Omega_Z → P_pm_sym.
+    holographic_closure_forces_frobenius: if' + are + ah → or'.
     This is a cross-primitive grammar axiom at the same level as Axiom B and C.
 
   STEP 2 — PRIMITIVE CONSEQUENCE (this file, §6):
-    The Hodge conjecture's structural signature is D_odot + T_odot + Omega_Z.
-    Axiom D forces its polarity to P_pm_sym.
+    The Hodge conjecture's structural signature is if' + are + ah.
+    Axiom D forces its polarity to or'.
     Grammar-level theorem: hodge_polarity_forced_pm_sym.
 
   STEP 3 — SEMANTIC BRIDGE (PrimitiveBridge.lean §11):
-    P_pm_sym is defined in the grammar as μ∘δ=id (Frobenius-special).
+    or' is defined in the grammar as μ∘δ=id (Frobenius-special).
     For the Hodge mathematical system, μ=regulatorMap and δ=cocycleToClass,
-    so P_pm_sym instantiates to HodgeSplit existence.
+    so or' instantiates to HodgeSplit existence.
     This bridge is formalized in PrimitiveBridge.lean §11 as
     `hodge_pm_semantic_bridge` — the ONE remaining axiom in the chain.
     Everything downstream (holographic_consistency_principle,
@@ -481,20 +481,20 @@ theorem promotions_closed_by_split
 
 /-- **PRIMITIVE-LEVEL CONSEQUENCE OF AXIOM D** — Grammar theorem, 0 sorries.
 
-    The Hodge conjecture's structural signature (D_odot, T_odot, Omega_Z)
-    forces its polarity to P_pm_sym, by Axiom D (Core.lean).
+    The Hodge conjecture's structural signature (if', are, ah)
+    forces its polarity to or', by Axiom D (Core.lean).
     This is a statement purely about primitive type values — no mathematical
-    objects involved. Omega_Z ≥ Omega_Z is discharged by decide. -/
-theorem hodge_polarity_forced_pm_sym (pol : Polarity) : pol = Polarity.P_pm_sym :=
+    objects involved. ah ≥ ah is discharged by decide. -/
+theorem hodge_polarity_forced_pm_sym (pol : Polarity) : pol = Polarity.or' :=
   holographic_closure_forces_frobenius
-    Dimensionality.D_odot Topology.T_odot Protection.Omega_Z pol
+    Dimensionality.if' Topology.are Protection.ah pol
     rfl rfl (by decide)
 
 /-!
-  COROLLARY: The catalog entry for the Hodge conjecture must have pol = P_pm_sym.
-  Any assignment pol ≠ P_pm_sym with d = D_odot, t = T_odot, p ≥ Omega_Z is
-  structurally inconsistent under Axiom D. The conventional P_sym assignment
-  reflects open proof status; the grammar's true type is P_pm_sym.
+  COROLLARY: The catalog entry for the Hodge conjecture must have pol = or'.
+  Any assignment pol ≠ or' with d = if', t = are, p ≥ ah is
+  structurally inconsistent under Axiom D. The conventional nun assignment
+  reflects open proof status; the grammar's true type is or'.
 
   THE SEMANTIC BRIDGE (hodge_pm_semantic_bridge) and all downstream theorems
   (holographic_consistency_principle, regulator_surjective,

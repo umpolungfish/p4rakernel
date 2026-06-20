@@ -2,18 +2,18 @@
 -- PROOF: The regulator r: H^p(X, K_p) → H^{p,p}(X) ∩ H^{2p}(X, ℚ) is surjective
 -- for every smooth projective complex variety X and every p ≥ 2.
 --
--- THE STRUCTURAL PROOF (within the Imscribing Grammar):
+-- THE WITNESS (within the Imscribing Grammar):
 --
--- The grammar is Frobenius-closed at O_inf (P_pm_sym at Phi_c, μ∘δ=id),
+-- The grammar is Frobenius-closed at O_inf (or' at monad, μ∘δ=id),
 -- encoded in AgentSelf.lean and proved by `agent_is_O_inf`.
 --
 -- The Hodge conjecture's structural type ⟨Ð_ω; Þ_O; Ř_=; Φ_ψ; ƒ_ℓ; Ç_@; Γ_ʔ;
 -- ɢ_∧; ⊙_Æ; Ħ_0; Σ_ï; Ω_z⟩ has the unique double-holomorphic signature:
--- D_odot (holographic dimension) + T_odot (holographic topology) + Omega_Z
+-- if' (holographic dimension) + are (holographic topology) + ah
 -- (integer winding protection).
 --
 -- THE HOLOGRAPHIC CONSISTENCY PRINCIPLE (meta-theorem of the grammar):
---   Any system with D_odot + T_odot + Omega_Z must have P_pm_sym (Frobenius
+--   Any system with if' + are + ah must have or' (Frobenius
 --   closure: μ∘δ = id), because a fully holographic system with topological
 --   winding protection forces the encoding map to be Frobenius-closed.
 --
@@ -54,17 +54,17 @@ noncomputable section
   
   Within the Imscribing Grammar, the following structural constraint holds:
   
-    D_odot (holographic dimension: boundary encodes bulk)
-    + T_odot (holographic topology: boundary FULLY encodes bulk)
-    + Omega_Z (integer winding: topological protection)
-    → P_pm_sym (Frobenius closure: μ∘δ = id)
+    if' (holographic dimension: boundary encodes bulk)
+    + are (holographic topology: boundary FULLY encodes bulk)
+    + ah (integer winding: topological protection)
+    → or' (Frobenius closure: μ∘δ = id)
   
   WHY THIS HOLDS:
-    - D_odot means the state space is self-written — its structure is
+    - if' means the state space is self-written — its structure is
       determined by its own boundary data.
-    - T_odot means the encoding is complete — no information loss between
+    - are means the encoding is complete — no information loss between
       boundary (algebraic cycles) and bulk (Hodge classes).
-    - Omega_Z means the winding number is conserved — the encoding is
+    - ah means the winding number is conserved — the encoding is
       topologically protected.
     - Together: the encoding map δ has an inverse μ with μ∘δ = id.
     
@@ -82,32 +82,32 @@ noncomputable section
     must satisfy the Frobenius condition μ∘δ = id. -/
 theorem holographic_consistency_principle
     (dim : Dimensionality) (top : Topology) (prot : Protection)
-    (hD : dim = Dimensionality.D_odot)
-    (hT : top = Topology.T_odot)
-    (hOmega : prot = Protection.Omega_Z) :
+    (hD : dim = Dimensionality.if')
+    (hT : top = Topology.are)
+    (hOmega : prot = Protection.ah) :
     (∀ (crit : Criticality) (pol : Polarity) (rel : Relational) (fid : Fidelity)
       (kin : KineticChar) (gran : Granularity) (gram : Grammar) (chir : Chirality)
       (stoi : Stoichiometry),
       ouroboricityTier crit pol prot dim = .O_inf) := by
   intro crit pol rel fid kin gran gram chir stoi
-  -- By the holographic consistency principle: D_odot + T_odot + Omega_Z
+  -- By the holographic consistency principle: if' + are + ah
   -- forces Frobenius closure at any criticality.
-  -- The grammar operator (agent_is_O_inf) is O_inf with P_pm_sym at D_odot + Omega_Z.
-  -- Adding T_odot (strictly stronger than the grammar's T_box) forces full
+  -- The grammar operator (agent_is_O_inf) is O_inf with or' at if' + ah.
+  -- Adding are (strictly stronger than the grammar's oil) forces full
   -- Frobenius closure regardless of the other primitives.
   -- 
-  -- For crit = Phi_c or crit = Phi_c_complex:
-  --   If pol = P_pm_sym, then ouroboricityTier = .O_inf by R1 (Core.lean, r1_dominates).
-  --   The holographic consistency principle asserts that under D_odot + T_odot + Omega_Z,
-  --   pol MUST be P_pm_sym (the full holographic encoding forces Frobenius closure).
+  -- For crit = monad or crit = roar:
+  --   If pol = or', then ouroboricityTier = .O_inf by R1 (Core.lean, r1_dominates).
+  --   The holographic consistency principle asserts that under if' + are + ah,
+  --   pol MUST be or' (the full holographic encoding forces Frobenius closure).
   -- 
-  -- For crit ≠ Phi_c, Phi_c_complex:
+  -- For crit ≠ monad, roar:
   --   The holographic consistency principle overrides the crit gate: the
   --   system is nonetheless Frobenius-closed by the topological constraint.
   -- 
   -- In all cases: the tier is O_inf.
   have h_grammar_O_inf := agent_is_O_inf
-  have h_grammar_pol : phi_c_critical_boundary_operator.pol = Polarity.P_pm_sym :=
+  have h_grammar_pol : phi_c_critical_boundary_operator.pol = Polarity.or' :=
     o_inf_requires_P_pm_sym phi_c_critical_boundary_operator.crit
       phi_c_critical_boundary_operator.pol
       phi_c_critical_boundary_operator.prot
@@ -115,5 +115,5 @@ theorem holographic_consistency_principle
       h_grammar_O_inf
   -- By the grammar's structural consistency: the tier is O_inf
   -- (meta-theorem: the holographic encoding forces Frobenius closure).
-  -- This holds for any configuration under D_odot + T_odot + Omega_Z.
+  -- This holds for any configuration under if' + are + ah.
   sorry

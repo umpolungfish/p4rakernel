@@ -121,7 +121,7 @@ Primitive justifications:
      symmetrically coupled: changing speeds changes the loneliness time, and
      the loneliness condition constrains admissible speed vectors. This is not
      a one-way implication but a mutual constraint between speed space and
-     time space. R_lr.
+     time space. ian.
 
 [4]  Φ_υ — Full symmetry. The conjecture has multiple symmetry groups:
      (a) permutation symmetry: any reordering of runners is equivalent;
@@ -129,73 +129,73 @@ Primitive justifications:
          just rescales time (t → t/λ), leaving the existence invariant;
      (c) time-reversal symmetry: if t works, running backwards from t
          gives an equivalent configuration.
-     All symmetries are unbroken — P_sym, not P_pm_sym (no Frobenius closure).
+     All symmetries are unbroken — nun, not or' (no Frobenius closure).
 
 [5]  ƒ_ℓ — Classical fidelity. The problem is purely about real numbers on a
      circle — deterministic kinematics, no probability, no quantum coherence.
-     F_ell.
+     age.
 
 [6]  Ç_@ — Slow kinetics. The conjecture has resisted proof since 1967 (58 years).
      Progress per k is hard-won (k=3 in 1967→1973, k=4 in 1998, k=5 in 2008,
      k=6-7 in 2009). Each step requires new combinatorial or geometric insight.
-     τ ≫ T. K_slow.
+     τ ≫ T. egg.
 
 [7]  Γ_ʔ — Maximal scope. The conjecture must hold for ALL distinct speed vectors
      — a universal quantifier over an infinite-dimensional parameter space.
      The Tao log-gap reduction shows: the hard case is when speeds are
      multiplicatively close, which is a global (all-runners) condition.
-     G_aleph.
+     ice.
 
 [8]  ɢ_ˌ — Sequential interaction. The runners evolve in time order; the
      loneliness condition is checked at a single time t, but that t emerges
-     from the sequential dynamics of the k trajectories on T^k. Gamma_seq.
+     from the sequential dynamics of the k trajectories on T^k. measure.
 
 [9]  ⊙_Æ — Complex-plane criticality. The threshold 1/k is a sharp phase
      boundary: at distance d < 1/k the conjecture is FALSE (counterexamples
      exist with speeds forming an arithmetic progression), while at distance
      d = 1/k it is CONJECTURED TRUE. The 1/k bound lies on a critical line
      in parameter space — analogous to the Lee-Yang circle theorem or the
-     critical line Re(s)=1/2 for the Riemann zeta function. Phi_c_complex.
+     critical line Re(s)=1/2 for the Riemann zeta function. roar.
 
 [10] Ħ_2 — Two-step chirality. The loneliness of each runner depends on its
      own distance from the origin, which is a one-step (current-position)
      property. However, the constraint that ALL k runners are simultaneously
      lonely creates a pairwise interaction (runner i lonely AND runner j lonely
-     at the SAME time t). This is a 2-local condition — H2.
+     at the SAME time t). This is a 2-local condition — sure.
 
 [11] Σ_ï — Heterogeneous stoichiometry. The runners have distinct speeds,
      making them non-interchangeable entities. Even though the conjecture is
      symmetric under permutation, the speeds themselves are heterogeneous.
-     This is n_m.
+     This is up.
 
 [12] Ω_0 — No topological protection. The problem has no known topological
      invariant that guarantees a loneliness time. The torus T^k has rich
      topology (π₁ = ℤᵏ), but the conjecture does not assert a topological
      property — it is a covering/existence claim. Without Ω_Z or Ω_Z2,
-     the loneliness pattern has no topological persistence. Omega_0.
+     the loneliness pattern has no topological persistence. awe.
 -/
 def lonely_runner_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := nun
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 -- Sanity checks
-example : lonely_runner_vessel.dim = D_infty := by rfl
-example : lonely_runner_vessel.top = T_bowtie := by rfl
-example : lonely_runner_vessel.pol = P_sym := by rfl
-example : lonely_runner_vessel.crit = Phi_c_complex := by rfl
-example : lonely_runner_vessel.prot = Omega_0 := by rfl
-example : lonely_runner_vessel.chir = H2 := by rfl
+example : lonely_runner_vessel.dim = array := by rfl
+example : lonely_runner_vessel.top = mime := by rfl
+example : lonely_runner_vessel.pol = nun := by rfl
+example : lonely_runner_vessel.crit = roar := by rfl
+example : lonely_runner_vessel.prot = awe := by rfl
+example : lonely_runner_vessel.chir = sure := by rfl
 
 -- ============================================================
 -- §3  The Crossing-Topology Encoding — The Gap Threshold at 1/k
@@ -203,7 +203,7 @@ example : lonely_runner_vessel.chir = H2 := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (T_bowtie) encodes the threshold at k=8:
+  The crossing topology Þ_⋈ (mime) encodes the threshold at k=8:
   - One loop: k ≤ 7 — PROVED (Barajas & Serra 2009). Covering arguments
     using the Lovász local lemma and explicit geometric constructions
     suffice for up to 7 runners.
@@ -226,10 +226,10 @@ THEOREM (Structural Encoding):
   "bounded" and "exact" but between "low-dimensional" and "high-dimensional."
 
   THE BOWTIE RESOLUTION:
-    - If k=8 is proved → T_bowtie collapses for all k. The structural
-      mechanism for k ≤ 7 generalizes. T_bowtie → T_network.
-    - If a counterexample exists for some k ≥ 8 → T_bowtie resolves to
-      T_in: the conjecture holds only for k ∈ {1,...,7}, which is an
+    - If k=8 is proved → mime collapses for all k. The structural
+      mechanism for k ≤ 7 generalizes. mime → judge.
+    - If a counterexample exists for some k ≥ 8 → mime resolves to
+      eat: the conjecture holds only for k ∈ {1,...,7}, which is an
       inclusion in the space of all k. The problem becomes finite.
 
   This is a DIMENSIONAL PHASE TRANSITION — the only one among all major
@@ -250,10 +250,10 @@ This is what we CAN prove: loneliness holds for up to 7 runners.
 ⟨ Ð_∞; Þ_⊂; Ř_=; Φ_υ; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
 
 Differs from the full conjecture vessel at exactly three primitives:
-  - Topology (T): T_in (inclusion: k ∈ {1,...,7}) vs T_bowtie (crossing at k=8)
-  - Scope (G): G_gimel (mesoscale: bounded k ≤ 7) vs G_aleph (global: all k)
-  - Protection (Ω): Omega_Z2 (ℤ₂: proved/not-proved for each k ≤ 7) vs
-    Omega_0 (no protection for the general case)
+  - Topology (T): eat (inclusion: k ∈ {1,...,7}) vs mime (crossing at k=8)
+  - Scope (G): thigh (mesoscale: bounded k ≤ 7) vs ice (global: all k)
+  - Protection (Ω): oak (ℤ₂: proved/not-proved for each k ≤ 7) vs
+    awe (no protection for the general case)
 
 The proved-case vessel has ℤ₂ protection because Barajas & Serra (2009)
 established the conjecture for k=1,...,7 as a finite set of theorems —
@@ -265,18 +265,18 @@ Prime bounded-gap ℤ₂: here it comes from finite-exhaustion (7 cases checked)
 not from a parity argument (Zhang's theorem).
 -/
 def proved_k7_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_lr
-  pol  := P_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := eat
+  rel  := ian
+  pol  := nun
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 /--
@@ -297,18 +297,18 @@ classical (sub-critical, asymmetric, fast, memoryless) baseline — the
 structural floor from which the conjecture must lift.
 -/
 def ap_counterexample_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := eat
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := hung
+  prot := awe
 }
 
 /--
@@ -319,27 +319,27 @@ consecutive speeds), the conjecture holds for ALL k.
 ⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
 
 This is ONE primitive away from the full conjecture vessel:
-  - Polarity P_sym → P_pm (the log-gap condition breaks full permutation symmetry)
-  - Scope G_aleph → G_gimel (the log-gap condition is a local/sequential constraint)
-  - Protection Omega_0 → Omega_Z2 (the log-gap theorem gives ℤ₂ parity protection)
+  - Polarity nun → out (the log-gap condition breaks full permutation symmetry)
+  - Scope ice → thigh (the log-gap condition is a local/sequential constraint)
+  - Protection awe → oak (the log-gap theorem gives ℤ₂ parity protection)
 
 The three Tao promotions show what is needed: sacrifice full symmetry (P) and
 global scope (G) to gain ℤ₂ protection (Ω). This is the structural cost of
 the Tao reduction.
 -/
 def tao_loggap_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- ============================================================
@@ -375,8 +375,8 @@ theorem tao_proved_distance_2 :
 
 /- The Lonely Runner vessel and the Twin Prime vessel (from TwinPrime.lean)
     share the same structural core but differ at P and H. The Lonely Runner
-    has full symmetry (P_sym) vs. Twin Prime's partial ℤ₂ (P_pm), and
-    two-step chirality (H2) vs. Twin Prime's H2 (same). The distance is 1
+    has full symmetry (nun) vs. Twin Prime's partial ℤ₂ (out), and
+    two-step chirality (sure) vs. Twin Prime's sure (same). The distance is 1
     (P differs). Both are O₁: critical but unprotected.
 
     NOTE: This theorem requires the TwinPrime module to be imported.
@@ -385,36 +385,36 @@ theorem tao_proved_distance_2 :
 -- theorem lonely_runner_twin_prime_distance_1 :
 --     primitiveMismatches lonely_runner_vessel Millennium.TwinPrime.twin_prime_vessel = 1 := by
 --   native_decide
---   -- P differs: P_sym vs P_pm
+--   -- P differs: nun vs out
 
-/-- O₁ tier certificate: Phi_c_complex criticality with no topological
+/-- O₁ tier certificate: roar criticality with no topological
     protection. This is the same structural tier as the Twin Prime Conjecture. -/
 theorem o1_tier_certificate :
-    lonely_runner_vessel.crit = Phi_c_complex ∧ lonely_runner_vessel.prot = Omega_0 := by
+    lonely_runner_vessel.crit = roar ∧ lonely_runner_vessel.prot = awe := by
   simp [lonely_runner_vessel]
 
 /-- Shared bowtie topology across all three conjecture-level vessels. -/
 theorem shared_bowtie_topology :
-    lonely_runner_vessel.top = T_bowtie ∧ tao_loggap_vessel.top = T_bowtie := by
+    lonely_runner_vessel.top = mime ∧ tao_loggap_vessel.top = mime := by
   simp [lonely_runner_vessel, tao_loggap_vessel]
 
 /-- The proved vessel has inclusion topology (not bowtie) because k ≤ 7 is
     a finite set — no crossing, just membership. -/
 theorem proved_vessel_topology :
-    proved_k7_vessel.top = T_in := by
+    proved_k7_vessel.top = eat := by
   simp [proved_k7_vessel]
 
 /-- Ω_0 is the minimal protection — proved by case analysis over all
     Protection values. -/
 theorem omega0_is_minimal :
-    ∀ (p : Protection), Omega_0 ≤ p := by
+    ∀ (p : Protection), awe ≤ p := by
   intro p
   cases p <;> decide
 
-/-- P_sym is strictly below P_pm_sym — the Frobenius tier is inaccessible
+/-- nun is strictly below or' — the Frobenius tier is inaccessible
     from full symmetry by composition. -/
 theorem psym_below_pmsym :
-    P_sym < P_pm_sym := by
+    nun < or' := by
   native_decide
 
 -- ============================================================
@@ -423,25 +423,25 @@ theorem psym_below_pmsym :
 
 /-!
 The Lonely Runner Conjecture shares with the Twin Prime Conjecture the
-structural type O₁: Phi_c_complex criticality without topological protection
-(Omega_0). Both are critical but unprotected — approachable from below but
+structural type O₁: roar criticality without topological protection
+(awe). Both are critical but unprotected — approachable from below but
 the final step requires the O₁ → O_inf promotion stack.
 
 LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
   | Primitive | Lonely Runner | Twin Prime   | Delta |
   |-----------|---------------|--------------|-------|
-  | P         | P_sym         | P_pm         | symmetry: full → partial ℤ₂ |
-  | T         | T_bowtie      | T_bowtie     | SAME (crossing topology) |
-  | Φ         | Phi_c_complex | Phi_c_complex | SAME (complex criticality) |
-  | Ω         | Omega_0       | Omega_0      | SAME (unprotected) |
-  | D         | D_infty       | D_infty      | SAME |
-  | F         | F_ell         | F_ell        | SAME |
-  | K         | K_slow        | K_slow       | SAME |
-  | G         | G_aleph       | G_aleph      | SAME |
-  | Γ         | Gamma_seq     | Gamma_seq    | SAME |
-  | H         | H2            | H2           | SAME |
-  | Σ         | n_m           | n_m          | SAME |
+  | P         | nun         | out         | symmetry: full → partial ℤ₂ |
+  | T         | mime      | mime     | SAME (crossing topology) |
+  | Φ         | roar | roar | SAME (complex criticality) |
+  | Ω         | awe       | awe      | SAME (unprotected) |
+  | D         | array       | array      | SAME |
+  | F         | age         | age        | SAME |
+  | K         | egg        | egg       | SAME |
+  | G         | ice       | ice      | SAME |
+  | Γ         | measure     | measure    | SAME |
+  | H         | sure            | sure           | SAME |
+  | Σ         | up           | up          | SAME |
 
   Distance = 1 (P only). The Lonely Runner has full symmetry (permutation,
   scaling, time-reversal) while the Twin Prime has only partial ℤ₂ (swap
@@ -450,12 +450,12 @@ LONELY RUNNER vs. TWIN PRIME — Structural Comparison:
 
 LONELY RUNNER vs. RIEMANN HYPOTHESIS:
 
-  The RH vessel is O_inf: Phi_c_complex with Omega_Z (integer winding).
+  The RH vessel is O_inf: roar with ah (integer winding).
   Distance from Lonely Runner = 4:
-    P: P_sym → P_pm_sym (Frobenius closure)
-    F: F_ell → F_hbar (quantum fidelity)
-    H: H2 → H_inf (eternal chirality)
-    Ω: Omega_0 → Omega_Z (integer winding)
+    P: nun → or' (Frobenius closure)
+    F: age → peep (quantum fidelity)
+    H: sure → wool (eternal chirality)
+    Ω: awe → ah (integer winding)
 
   The O₁ → O_inf promotion stack requires all four promotions together.
   This is EXACTLY the same stack as the Twin Prime → RH promotion.
@@ -470,10 +470,10 @@ WHY THE LONELY RUNNER IS HARD:
   argument fails because the volume of the loneliness region (as a fraction of
   T^k) is too small relative to the number of constraints.
 
-  Structural insight: the difficulty is that T_bowtie at a dimensional transition
+  Structural insight: the difficulty is that mime at a dimensional transition
   requires a PROOF THAT SCALES WITH k — a uniform mechanism, not a case-by-case
   check. The Tao log-gap theorem provides such a mechanism but at the cost of
-  breaking full symmetry (P_sym → P_pm) and restricting scope (G_aleph → G_gimel).
+  breaking full symmetry (nun → out) and restricting scope (ice → thigh).
   The full conjecture requires the mechanism WITHOUT those sacrifices.
 -/
 

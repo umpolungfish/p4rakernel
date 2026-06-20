@@ -86,10 +86,10 @@ def compute_tensor (a b : Imscription) : Imscription := tensorProduct a b
 
 -- Probes
 def phi_c_probe (s : Imscription) : Bool :=
-  phi_c_gate s.crit && decide (s.pol = P_pm_sym ∨ s.dim = D_odot)
+  phi_c_gate s.crit && decide (s.pol = or' ∨ s.dim = if')
 
 def topo_protection_probe (s : Imscription) : Bool :=
-  decide (s.prot = Omega_0 ∨ s.dim = D_infty)
+  decide (s.prot = awe ∨ s.dim = array)
 
 -- Consciousness (gate-based, reuses gates from Consciousness.lean)
 def consciousness_score_gate1 (s : Imscription) : Bool := phi_c_gate s.crit

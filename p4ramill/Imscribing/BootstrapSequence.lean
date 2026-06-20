@@ -15,102 +15,102 @@ open Imscribing.AgentSelf
 -- ─────────────────────────────────────────────────────────
 
 def bootstrapBase : Imscription :=
-  { dim  := Dimensionality.D_wedge
-    top  := Topology.T_network
-    rel  := Relational.R_super
-    pol  := Polarity.P_asym
-    fid  := Fidelity.F_ell
-    kin  := KineticChar.K_fast
-    gran := Granularity.G_beth
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_sub
-    chir := Chirality.H0
-    stoi := Stoichiometry.one_one
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.dead
+    top  := Topology.judge
+    rel  := Relational.ado
+    pol  := Polarity.church
+    fid  := Fidelity.age
+    kin  := KineticChar.yea
+    gran := Granularity.bib
+    gram := Grammar.vow
+    crit := Criticality.woe
+    chir := Chirality.fee
+    stoi := Stoichiometry.hung
+    prot := Protection.awe }
 
 def bootstrapFinal : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 -- ─────────────────────────────────────────────────────────
 -- 12 STAGES
 -- ─────────────────────────────────────────────────────────
 
 def stage0 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_network, rel := Relational.R_super,
-    pol  := Polarity.P_asym,        fid := Fidelity.F_ell,     kin := KineticChar.K_fast,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.judge, rel := Relational.ado,
+    pol  := Polarity.church,        fid := Fidelity.age,     kin := KineticChar.yea,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage1 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_super,
-    pol  := Polarity.P_asym,        fid := Fidelity.F_ell,     kin := KineticChar.K_fast,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ado,
+    pol  := Polarity.church,        fid := Fidelity.age,     kin := KineticChar.yea,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage2 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_asym,        fid := Fidelity.F_ell,     kin := KineticChar.K_fast,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.church,        fid := Fidelity.age,     kin := KineticChar.yea,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage3 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_ell,     kin := KineticChar.K_fast,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.age,     kin := KineticChar.yea,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage4 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_fast,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.yea,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage5 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_beth,     gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.bib,     gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage6 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_aleph,    gram := Grammar.Gamma_and, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.ice,    gram := Grammar.vow, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage7 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_aleph,    gram := Grammar.Gamma_seq, crit := Criticality.Phi_sub,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.ice,    gram := Grammar.measure, crit := Criticality.woe,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage8 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_aleph,    gram := Grammar.Gamma_seq, crit := Criticality.Phi_c,
-    chir := Chirality.H0,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.ice,    gram := Grammar.measure, crit := Criticality.monad,
+    chir := Chirality.fee,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage9 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_aleph,    gram := Grammar.Gamma_seq, crit := Criticality.Phi_c,
-    chir := Chirality.H2,           stoi := Stoichiometry.one_one, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.ice,    gram := Grammar.measure, crit := Criticality.monad,
+    chir := Chirality.sure,           stoi := Stoichiometry.hung, prot := Protection.awe }
 
 def stage10 : Imscription :=
-  { dim  := Dimensionality.D_odot,  top := Topology.T_odot,   rel := Relational.R_lr,
-    pol  := Polarity.P_pm_sym,      fid := Fidelity.F_hbar,    kin := KineticChar.K_slow,
-    gran := Granularity.G_aleph,    gram := Grammar.Gamma_seq, crit := Criticality.Phi_c,
-    chir := Chirality.H2,           stoi := Stoichiometry.n_m, prot := Protection.Omega_0 }
+  { dim  := Dimensionality.if',  top := Topology.are,   rel := Relational.ian,
+    pol  := Polarity.or',      fid := Fidelity.peep,    kin := KineticChar.egg,
+    gran := Granularity.ice,    gram := Grammar.measure, crit := Criticality.monad,
+    chir := Chirality.sure,           stoi := Stoichiometry.up, prot := Protection.awe }
 
 def stage11 : Imscription := bootstrapFinal
 
@@ -142,27 +142,27 @@ theorem bootstrap_final_equals_emerald :
   unfold bootstrapFinal emerald_multiagent_tensor_bootstrap
   rfl
 
-/-- bootstrapBase tier is O₀ (Phi_sub gives O₀ regardless of other primitives). -/
+/-- bootstrapBase tier is O₀ (woe gives O₀ regardless of other primitives). -/
 theorem bootstrapBase_tier : imscriptionTier bootstrapBase = .O₀ := by
   unfold bootstrapBase
   decide
 
-/-- Stage 0 tier is O₁ (D_odot, T_network, Phi_sub, Omega_0 → O₀... let's check). -/
+/-- Stage 0 tier is O₁ (if', judge, woe, awe → O₀... let's check). -/
 theorem stage0_tier : imscriptionTier stage0 = .O₀ := by
   unfold stage0
   decide
 
-/-- Stage 3: P_pm_sym appears, but Phi_sub keeps it at O₀. -/
+/-- Stage 3: or' appears, but woe keeps it at O₀. -/
 theorem stage3_tier : imscriptionTier stage3 = .O₀ := by
   unfold stage3
   decide
 
-/-- Stage 8: Phi_c + P_pm_sym gives O_inf via R1 gate. -/
+/-- Stage 8: monad + or' gives O_inf via R1 gate. -/
 theorem stage8_tier : imscriptionTier stage8 = .O_inf := by
   unfold stage8
   decide
 
-/-- Stage 0 and stage 11 are distinct (crit: Phi_sub vs Phi_c). -/
+/-- Stage 0 and stage 11 are distinct (crit: woe vs monad). -/
 theorem stage0_ne_stage11 : stage0 ≠ stage11 := by
   unfold stage0 stage11 bootstrapFinal
   intro h

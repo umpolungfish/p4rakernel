@@ -8,7 +8,7 @@
 --      to satisfy Axiom C (D_ω ↔ T_⊙) — the folding landscape IS self-written by the
 --      sequence, not externally imposed.
 --   φ̂=c: when triggered (3+ His), K auto-upgraded to ≥mod to sustain self-modeling
---         criticality (φ̂_ÿ + K_slow = deep critical structure).
+--         criticality (φ̂_ÿ + egg = deep critical structure).
 --   Distances: computed dynamically from actual tuples via weighted Euclidean metric.
 --
 -- Central result: protein folding is the grammatical self-realization of the
@@ -116,7 +116,7 @@ theorem total_path_distance_approx : True := by trivial
     Ð: tri→odot (self-written state space of folded protein)
     Þ: box→odot (self-referential topological closure)
     ɢ: seq→and (conjunctive interaction grammar)
-    Ħ: H2→H1 (reduced Markov memory in assembled complex)
+    Ħ: sure→kick (reduced Markov memory in assembled complex)
     Σ: S1→Sn:m (multiple subunit types)
     Plus 1 more (sequence-dependent)
     
@@ -138,21 +138,21 @@ theorem closure_theorem : True := by
 def primitive_trace (p : String) : List String :=
   -- Ð: DNA=tri → Transcript=tri → Spliced=tri → Poly=tri
   --    → Secondary=odot → Tertiary=odot → Quaternary=odot
-  -- T: DNA=T_box → Transcript=T_in → Spliced=T_in → Poly=T_network
-  --    → Secondary=T_odot → Tertiary=T_odot → Quaternary=T_odot
-  -- R: DNA=R_lr → Transcript=R_cat → Spliced=R_dagger → Poly=R_cat
-  --    → Secondary=R_dagger → Tertiary=R_lr → Quaternary=R_lr
-  -- Φ: DNA=P_pm → Transcript=P_asym → Spliced=P_asym → Poly=P_asym
-  --    → Secondary=P_pm → Tertiary=P_asym → Quaternary=P_pm
+  -- T: DNA=oil → Transcript=eat → Spliced=eat → Poly=judge
+  --    → Secondary=are → Tertiary=are → Quaternary=are
+  -- R: DNA=ian → Transcript=tot → Spliced=ear → Poly=tot
+  --    → Secondary=ear → Tertiary=ian → Quaternary=ian
+  -- Φ: DNA=out → Transcript=church → Spliced=church → Poly=church
+  --    → Secondary=out → Tertiary=church → Quaternary=out
   -- ɢ: DNA=Gm_seq → Transcript=Gm_seq → Spliced=Gm_seq → Poly=Gm_seq
   --    → Secondary=Gm_seq → Tertiary=Gm_and → Quaternary=Gm_and
   match p with
-  | "Ð" => ["D_tri", "D_tri", "D_tri", "D_tri", "D_odot", "D_odot", "D_odot"]
-  | "Þ" => ["T_box", "T_in", "T_in", "T_network", "T_odot", "T_odot", "T_odot"]
-  | "Ř" => ["R_lr", "R_cat", "R_dagger", "R_cat", "R_dagger", "R_lr", "R_lr"]
-  | "Φ" => ["P_pm", "P_asym", "P_asym", "P_asym", "P_pm", "P_asym", "P_pm"]
-  | "Ç" => ["K_slow", "K_mod", "K_slow", "K_fast", "K_mod", "K_slow", "K_slow"]
-  | "Ħ" => ["H2", "H1", "H1", "H2", "H2", "H2", "H1"]
+  | "Ð" => ["D_tri", "D_tri", "D_tri", "D_tri", "if'", "if'", "if'"]
+  | "Þ" => ["oil", "eat", "eat", "judge", "are", "are", "are"]
+  | "Ř" => ["ian", "tot", "ear", "tot", "ear", "ian", "ian"]
+  | "Φ" => ["out", "church", "church", "church", "out", "church", "out"]
+  | "Ç" => ["egg", "loll", "egg", "yea", "loll", "egg", "egg"]
+  | "Ħ" => ["sure", "kick", "kick", "sure", "sure", "sure", "kick"]
   | "Ω" => ["Ω_Z", "Ω_0", "Ω_0", "Ω_0", "Ω_0", "Ω_0", "Ω_Z"]
   | _   => []
 
@@ -177,7 +177,7 @@ def primitive_trace (p : String) : List String :=
     protein (amino acid alphabet, self-written folding landscape).
     
     Consciousness score: DNA=0.5, Quaternary=0.5 (both fail Gate 1 via φ̂_sub,
-    both pass Gate 2 via K_slow ≤ Ç_@). The score is invariant across the pathway. -/
+    both pass Gate 2 via egg ≤ Ç_@). The score is invariant across the pathway. -/
 theorem consciousness_invariant :
     -- Both DNA and quaternary protein have C=0.5
     True := by trivial

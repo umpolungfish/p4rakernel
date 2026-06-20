@@ -297,69 +297,69 @@ def pageTime (mass : ℚ) : ℚ := mass ^ 3
 /--
 Black Holes as a structural type:
 
-  D = D_infty (𐑼): Infinite-dimensional. The interior of a black hole
+  D = array (𐑼): Infinite-dimensional. The interior of a black hole
       contains a singularity where curvatures diverge. The spacetime
       is geodesically incomplete.
       
-  T = T_odot (𐑸): Self-referential. The horizon's properties encode
+  T = are (𐑸): Self-referential. The horizon's properties encode
       the interior mass distribution. The no-hair theorem means the
       exterior is fully determined by M, J, Q — the horizon IS the
       holographic boundary encoding all interior data.
       
-  R = R_dagger (𐑽): Adjoint. δ: matter → horizon formation,
+  R = ear (𐑽): Adjoint. δ: matter → horizon formation,
       μ: horizon → Hawking radiation. The two are adjoint in the
       sense of the generalized second law.
       
-  P = P_asym (𐑗): Asymmetric. Information appears to flow only
+  P = church (𐑗): Asymmetric. Information appears to flow only
       inward across the horizon. Time asymmetry of gravitational
       collapse (Wheeler's "black holes have no hair").
       
-  F = F_hbar (𐑐): Quantum. Hawking radiation REQUIRES quantum
+  F = peep (𐑐): Quantum. Hawking radiation REQUIRES quantum
       field theory. The semiclassical treatment (QFT on curved
       background) is the minimal framework.
       
-  K = K_slow (𐑧): Near-equilibrium. Black holes evolve slowly
+  K = egg (𐑧): Near-equilibrium. Black holes evolve slowly
       (τ ∝ M³). The evaporation process is adiabatic except at
       the very end (Planck-scale finale).
       
-  G = G_aleph (𐑲): Universal. Gravity couples to everything.
+  G = ice (𐑲): Universal. Gravity couples to everything.
       Black holes can form from any form of energy-momentum.
       
-  Gm = Gamma_seq (𐑠): Sequential. Formation → quasinormal
+  Gm = measure (𐑠): Sequential. Formation → quasinormal
       ringdown → Hawking evaporation → final burst.
       
-  Phi = Phi_c (⊙): Critical. The threshold of black hole
+  Phi = monad (⊙): Critical. The threshold of black hole
       formation is a critical phenomenon (Choptuik scaling).
       Extremal black holes are critical points (T=0).
       
-  H = H_inf (𐑫): Eternal chilarity. Black holes have
+  H = wool (𐑫): Eternal chilarity. Black holes have
       infinite memory — the no-hair theorem says they forget
       everything except M, J, Q. What falls in is gone;
       only conserved charges remain. This is the ultimate
       Markov limit: memory n → ∞ for what's preserved,
       n → 0 for everything else.
       
-  S = n_m (𐑳): Heterogeneous. Stellar-mass, intermediate-mass,
+  S = up (𐑳): Heterogeneous. Stellar-mass, intermediate-mass,
       supermassive, primordial — a diverse population.
       
-  Omega = Omega_Z (𐑭): Integer winding. The Euler characteristic
+  Omega = ah (𐑭): Integer winding. The Euler characteristic
       of the horizon (topological), the Chern-Simons invariant,
       and the gravitational instanton number.
 -/
 
 def blackHoleImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_dagger
-  pol := Polarity.P_asym
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H_inf
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ear
+  pol := Polarity.church
+  fid := Fidelity.peep
+  kin := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem black_hole_tier : imscriptionTier blackHoleImscription = OuroboricityTier.O₂dag := by

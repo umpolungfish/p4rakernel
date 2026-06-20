@@ -330,18 +330,18 @@ in the FDE bilattice. The direct limit is FDE(∞) with ℵ₀ truth values.
 -- ============================================================================
 
 def fdeTowerImscription : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H_inf
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.wool
+    stoi := Stoichiometry.up
+    prot := Protection.ah
   }
 
 theorem fdeTower_tier : imscriptionTier fdeTowerImscription = OuroboricityTier.O_inf := by

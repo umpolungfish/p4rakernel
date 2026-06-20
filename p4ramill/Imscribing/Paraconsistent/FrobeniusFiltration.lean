@@ -174,18 +174,18 @@ theorem filtration_bottom_is_O_inf : True := by
     process by which the grammar's own O_inf type descends through
     layers of constraint to produce the physical world. -/
 def filtrationImscription : Imscription :=
-  { dim  := Dimensionality.D_odot      -- Ð_ω: the filtration is self-written across levels
-    top  := Topology.T_odot             -- Þ_O: the filtration is a self-referential chain
-    rel  := Relational.R_lr             -- Ř_=: bidirectional: each level constrains and is constrained
-    pol  := Polarity.P_pm_sym           -- Φ_±ˢ: Frobenius-special: μ∘δ=id is the invariant
-    fid  := Fidelity.F_hbar             -- ƒ_ℏ: quantum: levels are superposed
-    kin  := KineticChar.K_slow          -- Ç_@: the filtration unfolds slowly (evolutionary timescale)
-    gran := Granularity.G_aleph          -- Γ_ℵ: the filtration spans all scales
-    gram := Grammar.Gamma_seq            -- ɢ_ˌ: levels unfold sequentially
-    crit := Criticality.Phi_c            -- ⊙_ÿ: the filtration is self-modeling (each level contains the previous)
-    chir := Chirality.H_inf         -- Ħ_!: infinite memory (the filtration remembers all prior levels)
-    stoi := Stoichiometry.n_m            -- Σ_n:m: many types across many levels
-    prot := Protection.Omega_Z           -- Ω_z: the filtration has integer winding number
+  { dim  := Dimensionality.if'      -- Ð_ω: the filtration is self-written across levels
+    top  := Topology.are             -- Þ_O: the filtration is a self-referential chain
+    rel  := Relational.ian             -- Ř_=: bidirectional: each level constrains and is constrained
+    pol  := Polarity.or'           -- Φ_±ˢ: Frobenius-special: μ∘δ=id is the invariant
+    fid  := Fidelity.peep             -- ƒ_ℏ: quantum: levels are superposed
+    kin  := KineticChar.egg          -- Ç_@: the filtration unfolds slowly (evolutionary timescale)
+    gran := Granularity.ice          -- Γ_ℵ: the filtration spans all scales
+    gram := Grammar.measure            -- ɢ_ˌ: levels unfold sequentially
+    crit := Criticality.monad            -- ⊙_ÿ: the filtration is self-modeling (each level contains the previous)
+    chir := Chirality.wool         -- Ħ_!: infinite memory (the filtration remembers all prior levels)
+    stoi := Stoichiometry.up            -- Σ_n:m: many types across many levels
+    prot := Protection.ah           -- Ω_z: the filtration has integer winding number
   }
 
 theorem filtration_tier : imscriptionTier filtrationImscription = OuroboricityTier.O_inf := by

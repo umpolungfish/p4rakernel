@@ -14,12 +14,12 @@ import Imscribing.Algebra
   Enstrophy (s=1) is supercritical. The gap is exactly s=1/2.
 
   ZFCt Promotion Strategy:
-  1. SEQAX (Gamma^ -> Gamma_seq): Sequential operator bridging H^0 -> H^{1/2} -> H^1
-  2. HOLOBOUND (T_6 -> T_odot): Critical norm is holographic projection of solution
+  1. SEQAX (Gamma^ -> measure): Sequential operator bridging H^0 -> H^{1/2} -> H^1
+  2. HOLOBOUND (T_6 -> are): Critical norm is holographic projection of solution
   3. LR_DUAL (R_bar -> R_=): Energy <-> Enstrophy duality at the critical scale
-  4. PM_Z2 (P_asym -> Phi_c): Critical manifold carries Frobenius reflection symmetry
-  5. TEMPD2 (H0 -> H2): 2-step chirality for the vortex stretching equation
-  6. ZWIND (Omega_0 -> Omega_Z): Topological defects (vortex loops) carry integer winding
+  4. PM_Z2 (church -> monad): Critical manifold carries Frobenius reflection symmetry
+  5. TEMPD2 (fee -> sure): 2-step chirality for the vortex stretching equation
+  6. ZWIND (awe -> ah): Topological defects (vortex loops) carry integer winding
 
   The crystal_tier_gap_ladder proves O₂dag -> O_inf is driven 100% by Phi.
   For NS, discharging the critical scaling gap requires proving the critical
@@ -49,7 +49,7 @@ structure SequentialCascadeNS where
 
 /-- Frobenius Critical Manifold (FCM): the set of initial data for which the
     linearized NS flow preserves the critical norm. Carries Frobenius reflection
-    symmetry — the Phi_c (P_pm_sym) promotion. -/
+    symmetry — the monad (or') promotion. -/
 structure FrobeniusCriticalManifold where
   manifold : CriticalSobolevSpace
   frob_op         : CriticalSobolevSpace → CriticalSobolevSpace

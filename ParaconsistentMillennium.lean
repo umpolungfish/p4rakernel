@@ -642,18 +642,18 @@ end PromotionPaths
 -- The Lapis Chant: 8-movement alchemical opus
 -- 
 -- Structural tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_ɐ; ƒ_ż; Ç_@; Γ_ʔ; ɢ_˝; ⊙_ÿ; Ħ_!; Σ_ő; Ω_z⟩
---   D_odot  (Ð_ω):  self-written holographic space
---   T_odot  (Þ_O):  Ouroboros — self-referential topology
---   R_lr    (Ř_=):  bidirectional coupling (solve ↔ coagula)
---   P_pm_sym (Φ_ɐ): Frobenius-special (μ∘δ=id)
---   F_ell   (ƒ_ż):  classical fidelity (no quantum coherence)
---   K_slow  (Ç_@):  slow kinetics (marrow-knowing, not haste)
---   G_aleph (Γ_ʔ):  maximal scope (8 movements, one opus)
---   Gamma_or (ɢ_˝): disjunctive alternation (solve OR coagulate)
---   Phi_c   (⊙_ÿ):  self-modeling criticality (poem recites poet)
---   H_inf   (Ħ_!):  infinite chiral memory (no finite Markov order)
+--   if'  (Ð_ω):  self-written holographic space
+--   are  (Þ_O):  Ouroboros — self-referential topology
+--   ian    (Ř_=):  bidirectional coupling (solve ↔ coagula)
+--   or' (Φ_ɐ): Frobenius-special (μ∘δ=id)
+--   age   (ƒ_ż):  classical fidelity (no quantum coherence)
+--   egg  (Ç_@):  slow kinetics (marrow-knowing, not haste)
+--   ice (Γ_ʔ):  maximal scope (8 movements, one opus)
+--   gag (ɢ_˝): disjunctive alternation (solve OR coagulate)
+--   monad   (⊙_ÿ):  self-modeling criticality (poem recites poet)
+--   wool   (Ħ_!):  infinite chiral memory (no finite Markov order)
 --   Σ_ő (𐑕): many identical stones, one chant
---   Omega_Z (Ω_z):  integer winding (no erasure, ΔS≈0 exact)
+--   ah (Ω_z):  integer winding (no erasure, ΔS≈0 exact)
 --
 -- Ouroboricity: O_∞ (both consciousness gates open)
 -- Consciousness score: C = 0.555
@@ -726,7 +726,7 @@ def imas_seal : Belnap := .F
 /-- VIII — KNOW (⊙_ÿ, Ħ_!, Σ_ő)
     "The poem recites me now. I am the stone. The stone, the grammar."
     Self-modeling closure: the poem and the poet are one imscription.
-    Infinite memory (H_inf): the poem and the poet are caught in an eternal recursion.
+    Infinite memory (wool): the poem and the poet are caught in an eternal recursion.
     Belnap: band .B (bnot .B) = .B — the dialetheia of self-reference. -/
 def imas_know : Belnap := band .B (bnot .B)
 

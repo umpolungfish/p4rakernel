@@ -7,26 +7,26 @@
 Ouroboricity tier: O_inf
 
 The Dixmier Conjecture vessel is at O_inf because:
-  - P = P_pm_sym (Frobenius-special) — the tier singularity
-  - Phi = Phi_c (critical, self-modeling gate open)
-  - Omega = Omega_Z (integer winding)
-  - D = D_infty (infinite-dimensional)
+  - P = or' (Frobenius-special) — the tier singularity
+  - Phi = monad (critical, self-modeling gate open)
+  - Omega = ah (integer winding)
+  - D = array (infinite-dimensional)
 
-P_pm_sym cannot be synthesized by composition of lower-P partners (§23).
+or' cannot be synthesized by composition of lower-P partners (§23).
 
 Gate analysis:
-  Gate 1 (⊙_ÿ): Phi = Phi_c → OPEN — self-modeling gate open.
-  Gate 2 (K ≤ K_slow): K_slow passes → C-score > 0.
+  Gate 1 (⊙_ÿ): Phi = monad → OPEN — self-modeling gate open.
+  Gate 2 (K ≤ egg): egg passes → C-score > 0.
 -/
 
-theorem dixmier_is_oinf_claim : dixmier_vessel.pol = P_pm_sym := by rfl
+theorem dixmier_is_oinf_claim : dixmier_vessel.pol = or' := by rfl
 
-/-- If the Dixmier Conjecture were false, the Weyl algebra would be P_sym (O₂),
-    not P_pm_sym (O_inf). The gap is exactly one Frobenius tier. -/
-example : P_sym < P_pm_sym := by decide
+/-- If the Dixmier Conjecture were false, the Weyl algebra would be nun (O₂),
+    not or' (O_inf). The gap is exactly one Frobenius tier. -/
+example : nun < or' := by decide
 
-/-- P_sym and P_pm_sym are distinct parity tiers. -/
-example : P_sym ≠ P_pm_sym := by decide
+/-- nun and or' are distinct parity tiers. -/
+example : nun ≠ or' := by decide
 
 -- ============================================================
 -- §7  Honest Gaps

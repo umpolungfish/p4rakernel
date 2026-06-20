@@ -144,19 +144,19 @@ theorem fiber_metric_rescaling (b₁ b₂ : ℝ) (hb₁_pos : b₁ > 0) (hb₂_p
 
 /--
 K-tier ordinal positions:
-  K_fast  → ordinal index 1
-  K_mod   → ordinal index 2
-  K_slow  → ordinal index 3
-  K_trap  → ordinal index 4
-  K_MBL   → ordinal index 5 (with ordinal spacing 0.5 from K_trap)
+  yea  → ordinal index 1
+  loll   → ordinal index 2
+  egg  → ordinal index 3
+  on  → ordinal index 4
+  air   → ordinal index 5 (with ordinal spacing 0.5 from on)
 -/
 noncomputable def kOrdinal (k : KineticChar) : ℝ :=
   match k with
-  | KineticChar.K_fast => 1
-  | KineticChar.K_mod  => 2
-  | KineticChar.K_slow => 3
-  | KineticChar.K_trap => 4
-  | KineticChar.K_MBL  => 4.5
+  | KineticChar.yea => 1
+  | KineticChar.loll  => 2
+  | KineticChar.egg => 3
+  | KineticChar.on => 4
+  | KineticChar.air  => 4.5
 
 /--
 The crystal K-distance between two K-values.
@@ -166,27 +166,27 @@ noncomputable def kCrystalDist (a b : KineticChar) : ℝ :=
   |kOrdinal a - kOrdinal b|
 
 /--
-Uniform steps (K_fast→K_mod, K_mod→K_slow, K_slow→K_trap):
+Uniform steps (yea→loll, loll→egg, egg→on):
   d_K = 1.0 (each)
   CLU(b) = ln(b) nats
 
-Non-uniform step (K_trap→K_MBL):
+Non-uniform step (on→air):
   d_K = 0.5 (ordinal spacing)
   CLU(b) = ln(b) nats (same! — invariance)
 
 This is THE structural signature: the geometric metric varies but the
 information-theoretic cost per tier boundary is invariant at ln(b).
 -/
-theorem uniform_step_dist : kCrystalDist KineticChar.K_fast KineticChar.K_mod = 1 := by
+theorem uniform_step_dist : kCrystalDist KineticChar.yea KineticChar.loll = 1 := by
   unfold kCrystalDist kOrdinal; norm_num
 
-theorem uniform_step_dist_slow : kCrystalDist KineticChar.K_mod KineticChar.K_slow = 1 := by
+theorem uniform_step_dist_slow : kCrystalDist KineticChar.loll KineticChar.egg = 1 := by
   unfold kCrystalDist kOrdinal; norm_num
 
-theorem uniform_step_dist_trap : kCrystalDist KineticChar.K_slow KineticChar.K_trap = 1 := by
+theorem uniform_step_dist_trap : kCrystalDist KineticChar.egg KineticChar.on = 1 := by
   unfold kCrystalDist kOrdinal; norm_num
 
-theorem nonuniform_step_dist : kCrystalDist KineticChar.K_trap KineticChar.K_MBL = 0.5 := by
+theorem nonuniform_step_dist : kCrystalDist KineticChar.on KineticChar.air = 0.5 := by
   unfold kCrystalDist kOrdinal; norm_num
 
 /--
@@ -213,7 +213,7 @@ is NOT a failed conjecture — it is the unit conversion factor between the
 geometric crystal metric and the decimal perceiver's fiber metric.
 -/
 theorem uniform_ratio_base10 : geometricToFiberRatio 10 (by norm_num) (by norm_num)
-    KineticChar.K_fast KineticChar.K_mod = 1 / Real.log 10 := by
+    KineticChar.yea KineticChar.loll = 1 / Real.log 10 := by
   unfold geometricToFiberRatio kCrystalDist kOrdinal CLU_of_base
   norm_num
 
@@ -222,7 +222,7 @@ For b = 2 (binary perceiver):
   uniform ratio = 1.0 / ln(2) ≈ 1.4427
 -/
 theorem uniform_ratio_base2 : geometricToFiberRatio 2 (by norm_num) (by norm_num)
-    KineticChar.K_fast KineticChar.K_mod = 1 / Real.log 2 := by
+    KineticChar.yea KineticChar.loll = 1 / Real.log 2 := by
   unfold geometricToFiberRatio kCrystalDist kOrdinal CLU_of_base
   norm_num
 
@@ -237,7 +237,7 @@ theorem uniform_ratio_base_e : geometricToFiberRatio (Real.exp 1) (Real.exp_pos 
     intro h; have : Real.log 1 = 1 := by simpa [h] using this
     have : Real.log 1 = 0 := Real.log_one
     linarith)
-    KineticChar.K_fast KineticChar.K_mod = 1 := by
+    KineticChar.yea KineticChar.loll = 1 := by
   unfold geometricToFiberRatio kCrystalDist kOrdinal CLU_of_base
   rw [Real.log_exp]; norm_num
 
@@ -365,30 +365,30 @@ section Imscription
 
 open Imscribing.Primitives
 
-/-- The kTier index maps to K_slow as the relaxation class for CLU-bounded systems. -/
+/-- The kTier index maps to egg as the relaxation class for CLU-bounded systems. -/
 def kTierToChar (_n : ℕ) : KineticChar :=
-  KineticChar.K_slow
+  KineticChar.egg
 
-/-- CLU's structural polarity assignment: P_asym — no intrinsic symmetry breaking. -/
+/-- CLU's structural polarity assignment: church — no intrinsic symmetry breaking. -/
 def CLU_polarity : Polarity :=
-  Polarity.P_asym
+  Polarity.church
 
 /--
 The CLU fiber metric as an Imscription: the structural type of the Ç-axis fiber.
 -/
 def CLU_fiber_imscription : Imscription := {
-  dim  := Dimensionality.D_triangle
-  top  := Topology.T_network
-  rel  := Relational.R_dagger
-  pol  := Polarity.P_asym
-  fid  := Fidelity.F_ell
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_beth
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_sub
-  chir := Chirality.H1
-  stoi := Stoichiometry.one_one
-  prot := Protection.Omega_0
+  dim  := Dimensionality.ash
+  top  := Topology.judge
+  rel  := Relational.ear
+  pol  := Polarity.church
+  fid  := Fidelity.age
+  kin  := KineticChar.egg
+  gran := Granularity.bib
+  gram := Grammar.measure
+  crit := Criticality.woe
+  chir := Chirality.kick
+  stoi := Stoichiometry.hung
+  prot := Protection.awe
 }
 
 /--
@@ -396,18 +396,18 @@ The geometric crystal K-distance metric as an Imscription.
 This is the observer-independent dual to the CLU fiber metric.
 -/
 def geometric_K_metric_imscription : Imscription := {
-  dim  := Dimensionality.D_infty
-  top  := Topology.T_box
-  rel  := Relational.R_cat
-  pol  := Polarity.P_sym
-  fid  := Fidelity.F_hbar
-  kin  := KineticChar.K_slow
-  gran := Granularity.G_aleph
-  gram := Grammar.Gamma_and
-  crit := Criticality.Phi_sub
-  chir := Chirality.H0
-  stoi := Stoichiometry.n_n
-  prot := Protection.Omega_0
+  dim  := Dimensionality.array
+  top  := Topology.oil
+  rel  := Relational.tot
+  pol  := Polarity.nun
+  fid  := Fidelity.peep
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.vow
+  crit := Criticality.woe
+  chir := Chirality.fee
+  stoi := Stoichiometry.so
+  prot := Protection.awe
 }
 
 /--
@@ -520,7 +520,7 @@ Three components:
      Default b = 10 (human decimal catalog). For a binary perceiver, b = 2.
 
   2. CLU is INVARIANT per TIER BOUNDARY: each of the 4 K-tier boundaries
-     (K_fast→K_mod, K_mod→K_slow, K_slow→K_trap, K_trap→K_MBL) costs exactly
+     (yea→loll, loll→egg, egg→on, on→air) costs exactly
      ln(b) nats to cross, regardless of non-uniform ordinal spacing.
 
   3. CLU and the crystal K-distance are DUAL METRICS:

@@ -259,26 +259,26 @@ theorem dof_count_conservation : 4 * 2 + 4 = 3 * 3 + 1 * 2 + 1 := rfl
 -- =====================================================================
 
 def electroweakImscription : Imscription := {
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  pol := Polarity.P_asym
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_mod
-  gran := Granularity.G_gimel
-  gram := Grammar.Gamma_seq
-  crit := Criticality.Phi_c
-  chir := Chirality.H2
-  stoi := Stoichiometry.n_m
-  prot := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ian
+  pol := Polarity.church
+  fid := Fidelity.peep
+  kin := KineticChar.loll
+  gran := Granularity.thigh
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 }
 
 theorem electroweak_tier : imscriptionTier electroweakImscription = OuroboricityTier.O₂dag := by
   native_decide
 
-theorem electroweak_parity_violation : electroweakImscription.pol = .P_asym := rfl
+theorem electroweak_parity_violation : electroweakImscription.pol = .church := rfl
 
-theorem electroweak_infinite_dim : electroweakImscription.dim = .D_infty := rfl
+theorem electroweak_infinite_dim : electroweakImscription.dim = .array := rfl
 
 theorem electroweak_gate1_open :
     Imscribing.Consciousness.phi_c_gate electroweakImscription.crit = true := rfl
@@ -312,11 +312,11 @@ The FDE tower across physics, now with the electroweak sector:
     | Planck/gravity   | Diff(M)/E8       | FDE(inf) | aleph0      | inf-White    |
 
 Key result: the electroweak sector is FDE(2) x U(1)_Y -- a Belnap FOUR
-for weak isospin tensored with discrete hypercharge. P_asym (parity
-violation) makes it structurally distinct from electron spin (P_sym).
+for weak isospin tensored with discrete hypercharge. church (parity
+violation) makes it structurally distinct from electron spin (nun).
 -/
 theorem electroweak_structural_position :
-    electroweakImscription.pol ≠ Polarity.P_sym := by
+    electroweakImscription.pol ≠ Polarity.nun := by
   unfold electroweakImscription; native_decide
 
 end Imscribing.Paraconsistent.ElectroweakBelnap

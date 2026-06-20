@@ -36,19 +36,19 @@ theorem tier_exhaustive (s : Imscription) :
 -- ============================================================
 
 def dim_induction (P : Dimensionality → Prop)
-    (hw : P D_wedge) (ht : P D_triangle) (hi : P D_infty) (ho : P D_odot) :
+    (hw : P dead) (ht : P ash) (hi : P array) (ho : P if') :
     ∀ d, P d := by
   intro d; cases d <;> assumption
 
 def crit_induction (P : Criticality → Prop)
-    (hsub : P Phi_sub) (hc : P Phi_c) (hcc : P Phi_c_complex)
-    (hep : P Phi_EP) (hsup : P Phi_super) :
+    (hsub : P woe) (hc : P monad) (hcc : P roar)
+    (hep : P err) (hsup : P haha) :
     ∀ c, P c := by
   intro c; cases c <;> assumption
 
 def pol_induction (P : Polarity → Prop)
-    (ha : P P_asym) (hp : P P_psi) (hpm : P P_pm)
-    (hs : P P_sym) (hf : P P_pm_sym) :
+    (ha : P church) (hp : P yew) (hpm : P out)
+    (hs : P nun) (hf : P or') :
     ∀ p, P p := by
   intro p; cases p <;> assumption
 

@@ -21,98 +21,98 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- Riemann zeta function: O₁
 def riemann_zeta_function : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := hung
+  prot := awe
 }
 
 -- Langlands correspondence: O_inf example
 def langlands_correspondence : Imscription := {
-  dim  := D_infty
-  top  := T_odot
-  rel  := R_dagger
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_c_complex
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := are
+  rel  := ear
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := ooze
+  crit := roar
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 -- Magnetar
 def magnetar : Imscription := {
-  dim  := D_triangle
-  top  := T_box
-  rel  := R_super
-  pol  := P_pm
-  fid  := F_eth
-  kin  := K_trap
-  gran := G_gimel
-  gram := Gamma_and
-  crit := Phi_EP
-  chir := H2
-  stoi := n_n
-  prot := Omega_Z
+  dim  := ash
+  top  := oil
+  rel  := ado
+  pol  := out
+  fid  := they
+  kin  := on
+  gran := thigh
+  gram := vow
+  crit := err
+  chir := sure
+  stoi := so
+  prot := ah
 }
 
 -- BEC
 def bec : Imscription := {
-  dim  := D_triangle
-  top  := T_box
-  rel  := R_dagger
-  pol  := P_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_and
-  crit := Phi_c
-  chir := H1
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := ash
+  top  := oil
+  rel  := ear
+  pol  := nun
+  fid  := peep
+  kin  := egg
+  gran := thigh
+  gram := vow
+  crit := monad
+  chir := kick
+  stoi := so
+  prot := oak
 }
 
 -- Laser field
 def laser_field : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_broad
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := yea
+  gran := bib
+  gram := ooze
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 -- White dwarf
 def white_dwarf : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_super
-  pol  := P_pm
-  fid  := F_eth
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := n_m
-  prot := Omega_0
+  dim  := ash
+  top  := eat
+  rel  := ado
+  pol  := out
+  fid  := they
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := up
+  prot := awe
 }
 
 -- Fontaine-Mazur (analogy to Langlands)
@@ -121,35 +121,35 @@ def fontaine_mazur_conjecture : Imscription := langlands_correspondence
 
 -- Additional examples to exceed 20
 def example_o0 : Imscription := {
-  dim := D_wedge, top := T_network, rel := R_super, pol := P_asym,
-  fid := F_ell, kin := K_fast, gran := G_beth, gram := Gamma_and,
-  crit := Phi_sub, chir := H0, stoi := one_one, prot := Omega_0
+  dim := dead, top := judge, rel := ado, pol := church,
+  fid := age, kin := yea, gran := bib, gram := vow,
+  crit := woe, chir := fee, stoi := hung, prot := awe
 }
 def example_o1 : Imscription := {
-  dim := D_triangle, top := T_in, rel := R_cat, pol := P_psi, fid := F_eth,
-  kin := K_mod, gran := G_gimel, gram := Gamma_or, crit := Phi_c, chir := H1,
-  stoi := n_n, prot := Omega_Z2
+  dim := ash, top := eat, rel := tot, pol := yew, fid := they,
+  kin := loll, gran := thigh, gram := gag, crit := monad, chir := kick,
+  stoi := so, prot := oak
 }
 def example_o2 : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_dagger, pol := P_pm, fid := F_hbar,
-  kin := K_slow, gran := G_aleph, gram := Gamma_seq, crit := Phi_c_complex,
-  chir := H2, stoi := n_m, prot := Omega_Z
+  dim := array, top := mime, rel := ear, pol := out, fid := peep,
+  kin := egg, gran := ice, gram := measure, crit := roar,
+  chir := sure, stoi := up, prot := ah
 }
 def example_oinf : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm_sym, fid := F_hbar,
-  kin := K_trap, gran := G_aleph, gram := Gamma_broad, crit := Phi_EP, chir := H_inf,
-  stoi := n_m, prot := Omega_NA
+  dim := if', top := are, rel := ian, pol := or', fid := peep,
+  kin := on, gran := ice, gram := ooze, crit := err, chir := wool,
+  stoi := up, prot := zoo
 }
 def ex_phi_super : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm_sym, fid := F_hbar,
-  kin := K_MBL, gran := G_aleph, gram := Gamma_broad, crit := Phi_super,
-  chir := H_inf, stoi := n_m, prot := Omega_NA
+  dim := if', top := are, rel := ian, pol := or', fid := peep,
+  kin := air, gran := ice, gram := ooze, crit := haha,
+  chir := wool, stoi := up, prot := zoo
 }
 def ex_k_trap : Imscription := example_o2
 def ex_k_mbl : Imscription := {
-  dim := D_infty, top := T_network, rel := R_super, pol := P_sym,
-  fid := F_eth, kin := K_MBL, gran := G_gimel, gram := Gamma_and, crit := Phi_EP,
-  chir := H2, stoi := n_n, prot := Omega_Z2
+  dim := array, top := judge, rel := ado, pol := nun,
+  fid := they, kin := air, gran := thigh, gram := vow, crit := err,
+  chir := sure, stoi := so, prot := oak
 }
 def ex_o_na : Imscription := example_oinf
 
@@ -159,198 +159,198 @@ def ex_o_na : Imscription := example_oinf
 
 -- O_inf template for thresholds
 def o_inf_template : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := ooze
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
--- 1. Riemann Hypothesis (RH): ⟨D_infty; T_network; ... Phi_c_complex; Omega_Z⟩ O₁
+-- 1. Riemann Hypothesis (RH): ⟨array; judge; ... roar; ah⟩ O₁
 def riemann_hypothesis : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_cat
-  pol  := P_psi
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := one_one
-  prot := Omega_Z
+  dim  := array
+  top  := judge
+  rel  := tot
+  pol  := yew
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := hung
+  prot := ah
 }
 
 -- 2. Birch and Swinnerton-Dyer (BSD)
 def birch_swinnerton_dyer : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_dagger
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_c_complex
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := mime
+  rel  := ear
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := ooze
+  crit := roar
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 -- 3. Navier-Stokes (NS)
 def navier_stokes : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_sym
-  fid  := F_eth
-  kin  := K_mod
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_EP
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := nun
+  fid  := they
+  kin  := loll
+  gran := ice
+  gram := measure
+  crit := err
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 -- 4. Yang-Mills (YM)
 def yang_mills : Imscription := {
-  dim  := D_infty
-  top  := T_box
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_and
-  crit := Phi_c
-  chir := H1
-  stoi := n_n
-  prot := Omega_Z
+  dim  := array
+  top  := oil
+  rel  := tot
+  pol  := out
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := vow
+  crit := monad
+  chir := kick
+  stoi := so
+  prot := ah
 }
 
 -- 5. Hodge Conjecture
 def hodge_conjecture : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_dagger
-  pol  := P_sym
-  fid  := F_hbar
-  kin  := K_trap
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_c_complex
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_NA
+  dim  := if'
+  top  := are
+  rel  := ear
+  pol  := nun
+  fid  := peep
+  kin  := on
+  gran := ice
+  gram := ooze
+  crit := roar
+  chir := wool
+  stoi := up
+  prot := zoo
 }
 
 -- 6. P vs NP
 def p_vs_np : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_or
-  crit := Phi_sub
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := thigh
+  gram := gag
+  crit := woe
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- 7. Poincaré (solved, but encoded)
 def poincare_conjecture : Imscription := {
-  dim  := D_triangle
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_trap
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_c
-  chir := H_inf
-  stoi := one_one
-  prot := Omega_Z
+  dim  := ash
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := on
+  gran := ice
+  gram := ooze
+  crit := monad
+  chir := wool
+  stoi := hung
+  prot := ah
 }
 
 -- CLASSICAL NUMBER THEORY RESULTS (Integrated)
 -- =====================================================
 
 -- Proof that 10 is solitary: σ(10)/10 = 9/5 has unique solution.
--- D_infty (number-theoretic fields), T_bowtie (crossing argument),
--- R_lr (bidirectional cascade), P_pm (partial symmetry),
--- F_hbar (quantum-coherent formal verification), K_slow (slow cascade),
--- G_aleph (universal scope), Gamma_seq (sequential elimination),
--- Phi_c (criticality at uniqueness), H2 (two-step depth),
--- S=n_m (multiple candidate types), Omega_Z2 (Z2 parity).
+-- array (number-theoretic fields), mime (crossing argument),
+-- ian (bidirectional cascade), out (partial symmetry),
+-- peep (quantum-coherent formal verification), egg (slow cascade),
+-- ice (universal scope), measure (sequential elimination),
+-- monad (criticality at uniqueness), sure (two-step depth),
+-- S=up (multiple candidate types), oak (Z2 parity).
 def solitary_10_proof : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- Hecke-Landau proof: equidistribution of Hecke character angles.
--- D_infty (analytic number theory), T_bowtie (functional equation symmetry),
--- R_lr (bidirectional L-function ↔ prime sum), P_pm (conjugation symmetry),
--- F_hbar (analytic continuation), K_slow (contour shifting), G_aleph (universal),
--- Gamma_seq (sequential: continuation → nonvanishing → contour → Weyl),
--- Phi_c (critical line), H2 (two-step chirality),
--- S=n_m (multiple character values), Omega_Z2 (Z2 conjugation symmetry).
+-- array (analytic number theory), mime (functional equation symmetry),
+-- ian (bidirectional L-function ↔ prime sum), out (conjugation symmetry),
+-- peep (analytic continuation), egg (contour shifting), ice (universal),
+-- measure (sequential: continuation → nonvanishing → contour → Weyl),
+-- monad (critical line), sure (two-step chirality),
+-- S=up (multiple character values), oak (Z2 conjugation symmetry).
 def hecke_landau_formal_proof : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- Euler-Touchard formalization: OPN structure theorem in Lean.
--- D_odot (self-referential formalization), T_bowtie (2-adic × 3-adic crossing),
--- R_lr (formal ↔ informal feedback), P_pm (partial symmetry),
--- F_hbar (formal verification), K_slow (layered proof), G_aleph (universal),
--- Gamma_seq (sequential lemmas), Phi_c (critical constraint), H2 (two-step),
--- S=one_one (single OPN type), Omega_Z2 (Z2 parity of valuations).
+-- if' (self-referential formalization), mime (2-adic × 3-adic crossing),
+-- ian (formal ↔ informal feedback), out (partial symmetry),
+-- peep (formal verification), egg (layered proof), ice (universal),
+-- measure (sequential lemmas), monad (critical constraint), sure (two-step),
+-- S=hung (single OPN type), oak (Z2 parity of valuations).
 def euler_touchard_opn : Imscription := {
-  dim  := D_odot
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := one_one
-  prot := Omega_Z2
+  dim  := if'
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := hung
+  prot := oak
 }
 
 end Imscribing.Primitives

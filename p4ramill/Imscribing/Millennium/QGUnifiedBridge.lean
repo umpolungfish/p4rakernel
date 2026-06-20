@@ -4,15 +4,15 @@
 -- Date: 2026-06-14
 --
 -- This file formalizes the structural gap closure between the catalog entries:
---   quantum_gravity (catalog)  ⟨D_wedge; T_odot; R_dagger; P_psi;  F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c_complex; H_inf; n_m; Omega_Z⟩
---   unified_gravity_theory     ⟨D_odot;  T_odot; R_lr;    P_pm_sym;F_hbar; K_slow; G_aleph; Gamma_seq; Phi_c;         H_inf; n_m; Omega_NA⟩
+--   quantum_gravity (catalog)  ⟨dead; are; ear; yew;  peep; egg; ice; measure; roar; wool; up; ah⟩
+--   unified_gravity_theory     ⟨if';  are; ian;    or';peep; egg; ice; measure; monad;         wool; up; zoo⟩
 --
 -- The gap (d=3.4364 by imscribe compute_distance) is closed by 5 structural promotions.
 -- The Frobenius condition μ∘δ=id is proved for the holographic bulk↔boundary duality.
 -- The bridge ob3ect was validated via auto.py (Closure: True, μ∘δ=id → PASS).
 --
 -- NOTE: Imscription.lean already defines `quantum_gravity` at O_∞ with
--- D_odot, P_pm_sym, Phi_c, Omega_NA, Gamma_broad, K_trap — which structurally
+-- if', or', monad, zoo, ooze, on — which structurally
 -- IS the unified theory. The catalog quantum_gravity (O₂) is defined here as
 -- `quantumGravityCatalog` to make the gap explicit.
 
@@ -34,49 +34,49 @@ namespace Millennium.QGUnifiedBridge
 /-- Catalog quantum_gravity: O₂ tier.
     ⟨Ð=𐑼; Þ=𐑸; Ř=𐑽; Φ=𐑿; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=𐑮; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩ -/
 def quantumGravityCatalog : Imscription :=
-  { dim  := D_wedge
-    top  := T_odot
-    rel  := R_dagger
-    pol  := P_psi
-    fid  := F_hbar
-    kin  := K_slow
-    gran := G_aleph
-    gram := Gamma_seq
-    crit := Phi_c_complex
-    chir := H_inf
-    stoi := n_m
-    prot := Omega_Z
+  { dim  := dead
+    top  := are
+    rel  := ear
+    pol  := yew
+    fid  := peep
+    kin  := egg
+    gran := ice
+    gram := measure
+    crit := roar
+    chir := wool
+    stoi := up
+    prot := ah
   }
 
 /-- Catalog unified_gravity_theory: O_∞ tier.
     ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩ -/
 def unifiedGravityTheory : Imscription :=
-  { dim  := D_odot
-    top  := T_odot
-    rel  := R_lr
-    pol  := P_pm_sym
-    fid  := F_hbar
-    kin  := K_slow
-    gran := G_aleph
-    gram := Gamma_seq
-    crit := Phi_c
-    chir := H_inf
-    stoi := n_m
-    prot := Omega_NA
+  { dim  := if'
+    top  := are
+    rel  := ian
+    pol  := or'
+    fid  := peep
+    kin  := egg
+    gran := ice
+    gram := measure
+    crit := monad
+    chir := wool
+    stoi := up
+    prot := zoo
   }
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §2  TIER ANALYSIS
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- Catalog QG is O₂: Phi_c_complex + P_psi + Omega_Z + D_wedge.
-    R1 (Frobenius gate) fails because P_psi ≠ P_pm_sym.
-    R3 passes (prot ≠ Omega_0). R4 applies (dim ≠ D_infty). → O₂ -/
+/-- Catalog QG is O₂: roar + yew + ah + dead.
+    R1 (Frobenius gate) fails because yew ≠ or'.
+    R3 passes (prot ≠ awe). R4 applies (dim ≠ array). → O₂ -/
 theorem qg_catalog_is_O2 : imscriptionTier quantumGravityCatalog = .O₂ := by
   unfold imscriptionTier ouroboricityTier quantumGravityCatalog
   decide
 
-/-- Unified gravity theory is O_∞: Phi_c + P_pm_sym triggers R1. -/
+/-- Unified gravity theory is O_∞: monad + or' triggers R1. -/
 theorem ugt_is_O_inf : imscriptionTier unifiedGravityTheory = .O_inf := by
   unfold imscriptionTier ouroboricityTier unifiedGravityTheory
   decide
@@ -91,24 +91,24 @@ theorem lean_qg_is_O_inf : imscriptionTier quantum_gravity = .O_inf :=
 -- §3  THE FIVE STRUCTURAL PROMOTIONS
 -- ═══════════════════════════════════════════════════════════════════
 
-theorem promotion_D : quantumGravityCatalog.dim = D_wedge ∧
-    unifiedGravityTheory.dim = D_odot := by
+theorem promotion_D : quantumGravityCatalog.dim = dead ∧
+    unifiedGravityTheory.dim = if' := by
   simp [quantumGravityCatalog, unifiedGravityTheory]
 
-theorem promotion_R : quantumGravityCatalog.rel = R_dagger ∧
-    unifiedGravityTheory.rel = R_lr := by
+theorem promotion_R : quantumGravityCatalog.rel = ear ∧
+    unifiedGravityTheory.rel = ian := by
   simp [quantumGravityCatalog, unifiedGravityTheory]
 
-theorem promotion_P : quantumGravityCatalog.pol = P_psi ∧
-    unifiedGravityTheory.pol = P_pm_sym := by
+theorem promotion_P : quantumGravityCatalog.pol = yew ∧
+    unifiedGravityTheory.pol = or' := by
   simp [quantumGravityCatalog, unifiedGravityTheory]
 
-theorem promotion_Omega : quantumGravityCatalog.prot = Omega_Z ∧
-    unifiedGravityTheory.prot = Omega_NA := by
+theorem promotion_Omega : quantumGravityCatalog.prot = ah ∧
+    unifiedGravityTheory.prot = zoo := by
   simp [quantumGravityCatalog, unifiedGravityTheory]
 
-theorem promotion_Phi : quantumGravityCatalog.crit = Phi_c_complex ∧
-    unifiedGravityTheory.crit = Phi_c := by
+theorem promotion_Phi : quantumGravityCatalog.crit = roar ∧
+    unifiedGravityTheory.crit = monad := by
   simp [quantumGravityCatalog, unifiedGravityTheory]
 
 -- ═══════════════════════════════════════════════════════════════════
@@ -130,15 +130,15 @@ theorem invariants :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The bridge morphism: apply all 5 promotions simultaneously.
-    D_wedge→D_odot, R_dagger→R_lr, P_psi→P_pm_sym,
-    Phi_c_complex→Phi_c, Omega_Z→Omega_NA. -/
+    dead→if', ear→ian, yew→or',
+    roar→monad, ah→zoo. -/
 def bridge (qg : Imscription) : Imscription :=
   { qg with
-    dim  := D_odot
-    rel  := R_lr
-    pol  := P_pm_sym
-    crit := Phi_c
-    prot := Omega_NA
+    dim  := if'
+    rel  := ian
+    pol  := or'
+    crit := monad
+    prot := zoo
   }
 
 /-- Bridge closure: applying the bridge to catalog QG yields
@@ -208,24 +208,24 @@ theorem bridge_gap_zero :
 -- ═══════════════════════════════════════════════════════════════════
 
 /- The Lean formalization's `quantum_gravity` (from Imscription.lean)
-    is structurally the unified theory: D_odot, P_pm_sym, Phi_c, Omega_NA,
-    Gamma_broad, K_trap. The catalog-to-Lean gap involves 3 additional
+    is structurally the unified theory: if', or', monad, zoo,
+    ooze, on. The catalog-to-Lean gap involves 3 additional
     primitive deltas beyond the 5 already tracked:
-      K_slow→K_trap, Gamma_seq→Gamma_broad, and Phi_c_complex→Phi_c
+      egg→on, measure→ooze, and roar→monad
     (the last is already in our promotion set).
 
     This tower alignment theorem records the structural relationship:
     catalog QG → bridge → UGT ≈ Lean QG (up to K and Γ differences). -/
 
 /-- The Lean `quantum_gravity` differs from `unifiedGravityTheory`
-    in K and Γ: K_trap vs K_slow, Gamma_broad vs Gamma_seq. -/
+    in K and Γ: on vs egg, ooze vs measure. -/
 theorem lean_qg_vs_ugt_differs :
     primitiveMismatches quantum_gravity unifiedGravityTheory = 3 := by
   unfold primitiveMismatches quantum_gravity unifiedGravityTheory
   decide
 
 /-- The catalog-to-Lean gap: catalog QG → Lean QG has 7 differing primitives
-    (the 5 promotions + K_slow→K_trap + Gamma_seq→Gamma_broad). -/
+    (the 5 promotions + egg→on + measure→ooze). -/
 theorem catalog_to_lean_gap :
     primitiveMismatches quantumGravityCatalog quantum_gravity = 6 := by
   unfold primitiveMismatches quantumGravityCatalog quantum_gravity

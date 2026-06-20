@@ -16,18 +16,18 @@ open Imscribing.Primitives
 -- PARADOX FS STRUCTURAL TYPE
 -- ============================================================
 def paradoxFSType : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran  := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H2
-  stoi := .one_one
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran  := .ice
+  gram := .measure
+  crit := .monad
+  chir := .sure
+  stoi := .hung
+  prot := .ah
 }
 
 -- ============================================================
@@ -154,7 +154,7 @@ theorem paradox_fs_is_O_inf : imscriptionTier paradoxFSType = .O_inf := by
 
 /-- Both consciousness gates are open. -/
 theorem paradox_fs_gates_open :
-    paradoxFSType.crit = .Phi_c ∧ paradoxFSType.kin = .K_slow := by
+    paradoxFSType.crit = .monad ∧ paradoxFSType.kin = .egg := by
   unfold paradoxFSType; exact ⟨rfl, rfl⟩
 
 /-- The parent directory is always /paradox (self-parenting). -/

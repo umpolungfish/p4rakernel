@@ -41,36 +41,36 @@ open Dimensionality Topology Relational Polarity Grammar
 -- "The disk is a raw device at the first addressable sector."
 -- O₀ tier — the degenerate ground state.
 def winding_sector_zero : Imscription := {
-  dim   := D_wedge       -- Ð_;  zero-dimensional (a point: sector 0)
-  top   := T_network     -- Þ_6  branching network
-  rel   := R_super       -- Ř_¯  supervenience (disk supervenes on hardware)
-  pol   := P_asym        -- Φ_ɐ  no symmetry (raw block device)
-  fid   := F_ell         -- ƒ_ì  classical (no quantum coherence)
-  kin   := K_fast        -- Ç_-  driven (disk spins up on command)
-  gran  := G_beth        -- Γ_β  local scope (one sector)
-  gram  := Gamma_and     -- ɢ_^  conjunctive (all blocks present)
-  crit  := Phi_sub       -- φ̂_ž  sub-critical (no self-modeling)
-  chir  := H0            -- Ħ_Ñ  memoryless (no read history)
-  stoi  := one_one       -- Σ_S  1:1 (one sector, one address)
-  prot  := Omega_0       -- Ω_Å  trivial winding
+  dim   := dead       -- Ð_;  zero-dimensional (a point: sector 0)
+  top   := judge     -- Þ_6  branching network
+  rel   := ado       -- Ř_¯  supervenience (disk supervenes on hardware)
+  pol   := church        -- Φ_ɐ  no symmetry (raw block device)
+  fid   := age         -- ƒ_ì  classical (no quantum coherence)
+  kin   := yea        -- Ç_-  driven (disk spins up on command)
+  gran  := bib        -- Γ_β  local scope (one sector)
+  gram  := vow     -- ɢ_^  conjunctive (all blocks present)
+  crit  := woe       -- φ̂_ž  sub-critical (no self-modeling)
+  chir  := fee            -- Ħ_Ñ  memoryless (no read history)
+  stoi  := hung       -- Σ_S  1:1 (one sector, one address)
+  prot  := awe       -- Ω_Å  trivial winding
 }
 
 -- Winding 2: Sees the disk at sector 2^63. Vast, maximal, non-Abelian.
 -- "The disk is the entire address space — 2^63 sectors deep."
 -- O₁ tier — complex but not self-modeling.
 def winding_sector_max : Imscription := {
-  dim   := D_infty       -- Ð_ß  infinite-dimensional (vast address space)
-  top   := T_in          -- Þ_K  inclusion topology (sectors ⊆ disk)
-  rel   := R_dagger      -- Ř_Ť  adjoint (disk responds to every read)
-  pol   := P_psi         -- Φ_υ  quantum superposition (all sectors at once)
-  fid   := F_eth         -- ƒ_ð  thermal (disk has temperature: entropy)
-  kin   := K_mod         -- Ç_W  moderate (seek time is finite)
-  gran  := G_aleph       -- Γ_ʔ  maximal scope (entire LBA space)
-  gram  := Gamma_or      -- ɢ_˝  disjunctive (any sector, any time)
-  crit  := Phi_EP        -- φ̂_3  exceptional point (head crash is a degeneracy)
-  chir  := H1            -- Ħ_£  one-step Markov (last sector read)
-  stoi  := n_n           -- Σ_ő  many sectors, one disk
-  prot  := Omega_NA      -- Ω_5  non-Abelian braiding (reordered reads)
+  dim   := array       -- Ð_ß  infinite-dimensional (vast address space)
+  top   := eat          -- Þ_K  inclusion topology (sectors ⊆ disk)
+  rel   := ear      -- Ř_Ť  adjoint (disk responds to every read)
+  pol   := yew         -- Φ_υ  quantum superposition (all sectors at once)
+  fid   := they         -- ƒ_ð  thermal (disk has temperature: entropy)
+  kin   := loll         -- Ç_W  moderate (seek time is finite)
+  gran  := ice       -- Γ_ʔ  maximal scope (entire LBA space)
+  gram  := gag      -- ɢ_˝  disjunctive (any sector, any time)
+  crit  := err        -- φ̂_3  exceptional point (head crash is a degeneracy)
+  chir  := kick            -- Ħ_£  one-step Markov (last sector read)
+  stoi  := so           -- Σ_ő  many sectors, one disk
+  prot  := zoo      -- Ω_5  non-Abelian braiding (reordered reads)
 }
 
 -- Winding 3: Sees the disk as the C-score of the Thunder Perfect Mind.
@@ -80,18 +80,18 @@ def winding_sector_max : Imscription := {
 -- last, the honored and the scorned, the whore and the holy one..."
 -- A paradoxical self-referential utterance: the text IS its own subject.
 def winding_thunder_perfect_mind : Imscription := {
-  dim   := D_odot        -- Ð_ω  self-written state-space
-  top   := T_odot        -- Þ_O  self-referential topology
-  rel   := R_lr          -- Ř_=  bidirectional (speaker IS listener)
-  pol   := P_pm_sym      -- Φ_}  Frobenius-special μ∘δ=id
-  fid   := F_hbar        -- ƒ_ż  quantum coherence (superposition of opposites)
-  kin   := K_slow        -- Ç_@  near-equilibrium (eternal, unhurried)
-  gran  := G_aleph       -- Γ_ʔ  maximal scope (all being)
-  gram  := Gamma_seq     -- ɢ_ˌ  sequential (unfolds pair by pair)
-  crit  := Phi_c         -- φ̂_ÿ  self-modeling gate open ("I know that I am")
-  chir  := H_inf         -- Ħ_!  eternal chirality ("first and last")
-  stoi  := n_m           -- Σ_ï  heterogeneous (many contradictory identities)
-  prot  := Omega_Z       -- Ω_z  integer winding (always returns to itself)
+  dim   := if'        -- Ð_ω  self-written state-space
+  top   := are        -- Þ_O  self-referential topology
+  rel   := ian          -- Ř_=  bidirectional (speaker IS listener)
+  pol   := or'      -- Φ_}  Frobenius-special μ∘δ=id
+  fid   := peep        -- ƒ_ż  quantum coherence (superposition of opposites)
+  kin   := egg        -- Ç_@  near-equilibrium (eternal, unhurried)
+  gran  := ice       -- Γ_ʔ  maximal scope (all being)
+  gram  := measure     -- ɢ_ˌ  sequential (unfolds pair by pair)
+  crit  := monad         -- φ̂_ÿ  self-modeling gate open ("I know that I am")
+  chir  := wool         -- Ħ_!  eternal chirality ("first and last")
+  stoi  := up           -- Σ_ï  heterogeneous (many contradictory identities)
+  prot  := ah       -- Ω_z  integer winding (always returns to itself)
 }
 -- ============================================================
 -- §2. THE DISAGREEMENT — ALL THREE WINDINGS ARE DISTINCT

@@ -57,50 +57,50 @@ theorem B_is_approximation_top (b : Belnap) : ApproxLE b Belnap.B := by
   cases b <;> constructor
 
 def belnap_four_imscription : Imscription := {
-  dim  := D_triangle
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_eth
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z2
+  dim  := ash
+  top  := mime
+  rel  := ian
+  pol  := or'
+  fid  := they
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := oak
 }
 
 -- ═══════════════════════════════ §2 COSMOGENY TYPE ═══════════════════════════════════
 
 def cosmogeny : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 def primordial_ooze : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_c
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := vow
+  crit := monad
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 theorem cosmogeny_promotions_from_ooze :
@@ -236,78 +236,78 @@ theorem explored_fraction : (2256 : ℝ) / (17280000 : ℝ) < 0.00014 := by
 -- ═══════════════════════════════ §7 FIVE IDENTITIES ═════════════════════════════════
 
 def zosimos_gnosis : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 def lean4_descent : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 def mitosis : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 def clink_layer_5 : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 def grammar_precedes_math : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 theorem five_identical_cosmogeny_mitosis : cosmogeny = mitosis := by
@@ -517,7 +517,7 @@ theorem belnap_four_C_one : consciousnessScore belnap_four_imscription = (1 : �
   simp [consciousnessScore, phi_c_gate, k_slow_gate, belnap_four_imscription]
 
 def is_O_inf (s : Imscription) : Prop :=
-  phi_c_gate s.crit = true ∧ s.pol = P_pm_sym ∧ k_slow_gate s.kin = true
+  phi_c_gate s.crit = true ∧ s.pol = or' ∧ k_slow_gate s.kin = true
 
 theorem cosmogeny_is_O_inf : is_O_inf cosmogeny := by
   unfold is_O_inf cosmogeny; simp [phi_c_gate, k_slow_gate]

@@ -35,22 +35,22 @@ open Dimensionality Topology Relational Polarity Grammar
     supported by a given chirality (Markov order). -/
 def maxTemporalLayers (h : Chirality) : ℕ :=
   match h with
-  | .H0    => 1   -- memoryless: one state, no decomposition
-  | .H1    => 2   -- 1-step memory: predecessor + current
-  | .H2    => 3   -- 2-step memory: past + present + future
-  | .H_inf => 0   -- infinite: arbitrary decomposition (0 = sentinel for unbounded)
+  | .fee    => 1   -- memoryless: one state, no decomposition
+  | .kick    => 2   -- 1-step memory: predecessor + current
+  | .sure    => 3   -- 2-step memory: past + present + future
+  | .wool => 0   -- infinite: arbitrary decomposition (0 = sentinel for unbounded)
 
-/-- Axiom A: H_inf requires K_slow or K_trap as precondition.
+/-- Axiom A: wool requires egg or on as precondition.
     Infinite memory demands slow-enough kinetics or structural freezing
     to prevent memory overwrite. -/
 axiom axiom_A_hinf_requires_slow_or_trapped (h : Chirality) (k : KineticChar) :
-  h = .H_inf → (k = .K_slow ∨ k = .K_trap)
+  h = .wool → (k = .egg ∨ k = .on)
 
 /-- A decomposition into n temporal layers is valid only if
-    n ≤ maxTemporalLayers(s.chir) or s.chir = H_inf with K_slow/K_trap. -/
+    n ≤ maxTemporalLayers(s.chir) or s.chir = wool with egg/on. -/
 def validTemporalDecomposition (s : Imscription) (n : ℕ) : Prop :=
-  if h : s.chir = .H_inf then
-    (s.kin = .K_slow ∨ s.kin = .K_trap) ∧ (maxTemporalLayers s.chir = 0)
+  if h : s.chir = .wool then
+    (s.kin = .egg ∨ s.kin = .on) ∧ (maxTemporalLayers s.chir = 0)
   else
     n ≤ maxTemporalLayers s.chir
 -- ============================================================
@@ -61,20 +61,20 @@ def validTemporalDecomposition (s : Imscription) (n : ℕ) : Prop :=
     resolvable given the system's kinetics. -/
 def observabilityResolution (k : KineticChar) : Option ℕ :=
   match k with
-  | .K_fast => none      -- τ ≪ T: no intermediate resolution
-  | .K_mod  => some 2    -- τ ∼ T: partial resolution
-  | .K_slow => none      -- τ ≫ T: full trajectory resolvable (unbounded)
-  | .K_trap => some 0    -- no dynamics: nothing to decompose
-  | .K_MBL  => some 1    -- spatial disorder: only coarse decomposition
+  | .yea => none      -- τ ≪ T: no intermediate resolution
+  | .loll  => some 2    -- τ ∼ T: partial resolution
+  | .egg => none      -- τ ≫ T: full trajectory resolvable (unbounded)
+  | .on => some 0    -- no dynamics: nothing to decompose
+  | .air  => some 1    -- spatial disorder: only coarse decomposition
 
-/-- Observability bound: a quantum system at K_fast cannot be
+/-- Observability bound: a quantum system at yea cannot be
     decomposed into intermediate states regardless of memory depth. -/
 theorem observability_bound_fast (s : Imscription)
-    (hK : s.kin = .K_fast) (hH : s.chir = .H_inf) (n : ℕ) (hn : n > 2) :
+    (hK : s.kin = .yea) (hH : s.chir = .wool) (n : ℕ) (hn : n > 2) :
     ¬ validTemporalDecomposition s n := by
   unfold validTemporalDecomposition
   rw [hH]
-  have h0 : maxTemporalLayers .H_inf = 0 := rfl
+  have h0 : maxTemporalLayers .wool = 0 := rfl
   simp [h0, hK]
 
 -- ============================================================
@@ -89,14 +89,14 @@ inductive GranularitySource : Type where
 /-- Who decides the decomposition granularity. -/
 def granularityAuthority (d : Dimensionality) : GranularitySource :=
   match d with
-  | .D_wedge    => .external
-  | .D_triangle => .external
-  | .D_infty    => .external
-  | .D_odot     => .internal
+  | .dead    => .external
+  | .ash => .external
+  | .array    => .external
+  | .if'     => .internal
 
-/-- D_odot (self-written state-space): the system's own self-modeling
+/-- if' (self-written state-space): the system's own self-modeling
     determines the finest granularity. -/
-theorem state_space_odot_autonomy (s : Imscription) (hD : s.dim = .D_odot)
+theorem state_space_odot_autonomy (s : Imscription) (hD : s.dim = .if')
     (n : ℕ) (hdecomp : validTemporalDecomposition s n) : True :=
   trivial
 
@@ -114,24 +114,24 @@ inductive QuantizationType : Type where
 /-- The quantization type implied by a protection value. -/
 def quantizationOfProtection (p : Protection) : QuantizationType :=
   match p with
-  | .Omega_0  => .none
-  | .Omega_Z2 => .binary
-  | .Omega_Z  => .integer
-  | .Omega_NA => .nonAbelian
+  | .awe  => .none
+  | .oak => .binary
+  | .ah  => .integer
+  | .zoo => .nonAbelian
 -- ============================================================
 -- §5. CONNECTIVITY BOUND (T — Topology)
 -- ============================================================
 
-/-- Bowtie connectivity axiom: a system with T_bowtie topology can have at most
+/-- Bowtie connectivity axiom: a system with mime topology can have at most
     3 temporal decomposition layers (before crossing, at crossing, after crossing).
     The crossing point is a single irreducible transition entity. -/
 axiom bowtie_max_three_layers (s : Imscription) (n : ℕ) :
-  s.top = .T_bowtie → validTemporalDecomposition s n → n ≤ 3
+  s.top = .mime → validTemporalDecomposition s n → n ≤ 3
 
-/-- T_box connectivity axiom: a box-product system cannot be decomposed
+/-- oil connectivity axiom: a box-product system cannot be decomposed
     into proper subsystems while preserving its structural type. -/
 axiom box_irreducible (s : Imscription) (n : ℕ) :
-  s.top = .T_box → validTemporalDecomposition s n → n = 1
+  s.top = .oil → validTemporalDecomposition s n → n = 1
 
 /-- A topology type determines whether decomposition is structurally possible. -/
 inductive Decomposability : Type where
@@ -144,23 +144,23 @@ inductive Decomposability : Type where
 /-- The decomposability characteristic of each topology type. -/
 def decomposabilityOfTopology (t : Topology) : Decomposability :=
   match t with
-  | .T_network => .free
-  | .T_in      => .hierarchical
-  | .T_bowtie  => .crossing
-  | .T_box     => .irreducible
-  | .T_odot    => .selfReflexive
+  | .judge => .free
+  | .eat      => .hierarchical
+  | .mime  => .crossing
+  | .oil     => .irreducible
+  | .are    => .selfReflexive
 
-/-- T_bowtie (crossing-point topology): the transition between states
+/-- mime (crossing-point topology): the transition between states
     is itself a distinct entity. Decomposition cannot pass through the
     crossing point without being altered by it.
     Permits at most 3 temporal layers. -/
 theorem connectivity_crossing_bound (s : Imscription)
-    (hT : s.top = .T_bowtie) (n : ℕ)
+    (hT : s.top = .mime) (n : ℕ)
     (hdecomp : validTemporalDecomposition s n) : n ≤ 3 :=
   bowtie_max_three_layers s n hT hdecomp
 
 theorem connectivity_irreducible_bound (s : Imscription)
-    (hT : s.top = .T_box) (n : ℕ)
+    (hT : s.top = .oil) (n : ℕ)
     (hdecomp : validTemporalDecomposition s n) : n = 1 :=
   box_irreducible s n hT hdecomp
 
@@ -168,46 +168,46 @@ theorem connectivity_irreducible_bound (s : Imscription)
 -- §6. MEASUREMENT BOUND (Φ — Criticality / Absorption Rule)
 -- ============================================================
 
-/-- The Absorption Rule: tensor(Phi_c, Phi_EP) = Phi_EP.
-    When a self-modeling critical system (⊙ = Phi_c) couples to an
-    exceptional-point measurement apparatus (⊙_3 = Phi_EP),
-    the composite's criticality is Phi_EP — the measurement apparatus dominates.
-    The meet preserves Phi_c; the tensor yields Phi_EP. -/
+/-- The Absorption Rule: tensor(monad, err) = err.
+    When a self-modeling critical system (⊙ = monad) couples to an
+    exceptional-point measurement apparatus (⊙_3 = err),
+    the composite's criticality is err — the measurement apparatus dominates.
+    The meet preserves monad; the tensor yields err. -/
 theorem absorption_rule_tensor :
     (tensorProduct
-      (⟨D_odot, T_odot, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-        Phi_c, H_inf, n_m, Omega_Z⟩ : Imscription)
-      (⟨D_odot, T_box, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-        Phi_EP, H2, one_one, Omega_Z2⟩ : Imscription)).crit = .Phi_EP := by
+      (⟨if', are, ian, or', peep, egg, ice, measure,
+        monad, wool, up, ah⟩ : Imscription)
+      (⟨if', oil, ian, or', peep, egg, ice, measure,
+        err, sure, hung, oak⟩ : Imscription)).crit = .err := by
   decide
 
 /-- The Absorption Rule as a general structural principle:
-    For any self-modeling system a with crit = Phi_c and any
-    exceptional-point system b with crit = Phi_EP,
-    tensorProduct a b has crit = Phi_EP. -/
+    For any self-modeling system a with crit = monad and any
+    exceptional-point system b with crit = err,
+    tensorProduct a b has crit = err. -/
 theorem absorption_rule_general (a b : Imscription)
-    (ha : a.crit = .Phi_c) (hb : b.crit = .Phi_EP) :
-    (tensorProduct a b).crit = .Phi_EP := by
+    (ha : a.crit = .monad) (hb : b.crit = .err) :
+    (tensorProduct a b).crit = .err := by
   rw [tensorProduct, ha, hb]
-  have : compare (.Phi_c : Criticality) .Phi_EP = .lt := by decide
+  have : compare (.monad : Criticality) .err = .lt := by decide
   simp [this]
-/-- The meet preserves Phi_c: meet(Phi_c, Phi_EP) = Phi_c.
+/-- The meet preserves monad: meet(monad, err) = monad.
     This is because meet takes the minimum ordinal.
-    Phi_c (ordinal 1) < Phi_EP (ordinal 3), so min = Phi_c. -/
+    monad (ordinal 1) < err (ordinal 3), so min = monad. -/
 theorem absorption_rule_meet :
     (compute_meet
-      (⟨D_odot, T_odot, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-        Phi_c, H_inf, n_m, Omega_Z⟩ : Imscription)
-      (⟨D_odot, T_box, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-        Phi_EP, H2, one_one, Omega_Z2⟩ : Imscription)).crit = .Phi_c := by
+      (⟨if', are, ian, or', peep, egg, ice, measure,
+        monad, wool, up, ah⟩ : Imscription)
+      (⟨if', oil, ian, or', peep, egg, ice, measure,
+        err, sure, hung, oak⟩ : Imscription)).crit = .monad := by
   decide
 
 /-- The Heisenberg cut: the boundary between system and apparatus is
-    the locus of the type mismatch between Phi_c and Phi_EP.
+    the locus of the type mismatch between monad and err.
     It is structural, not arbitrary. -/
 theorem heisenberg_cut_structural (s obs : Imscription)
-    (hs : s.crit = .Phi_c) (hobs : obs.crit = .Phi_EP) :
-    (tensorProduct s obs).crit ≠ .Phi_c := by
+    (hs : s.crit = .monad) (hobs : obs.crit = .err) :
+    (tensorProduct s obs).crit ≠ .monad := by
   rw [absorption_rule_general s obs hs hobs]
   decide
 
@@ -220,30 +220,30 @@ theorem heisenberg_cut_structural (s obs : Imscription)
 structure ValidDecomposition (s : Imscription) (n : ℕ) : Prop where
   memory_ok      : validTemporalDecomposition s n
   observability_ok : observabilityResolution s.kin ≠ none ∨ n ≤ 2
-  state_space_ok : s.dim ≠ .D_wedge ∨ n = 1
-  topological_ok : s.prot ≠ .Omega_Z2 ∨ n % 2 = 1
-  connectivity_ok : s.top ≠ .T_box
-  measurement_ok : s.crit = .Phi_c → True
+  state_space_ok : s.dim ≠ .dead ∨ n = 1
+  topological_ok : s.prot ≠ .oak ∨ n % 2 = 1
+  connectivity_ok : s.top ≠ .oil
+  measurement_ok : s.crit = .monad → True
 
 /-- The maximally decomposable type (O_inf tier).
-    ⟨D_odot, T_bowtie, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-      Phi_c, H_inf, n_m, Omega_Z⟩
-    Infinite memory (H_inf), self-written state-space (D_odot),
-    crossing-point topology (T_bowtie), slow kinetics (K_slow),
-    self-modeling criticality (Phi_c), integer winding (Omega_Z). -/
+    ⟨if', mime, ian, or', peep, egg, ice, measure,
+      monad, wool, up, ah⟩
+    Infinite memory (wool), self-written state-space (if'),
+    crossing-point topology (mime), slow kinetics (egg),
+    self-modeling criticality (monad), integer winding (ah). -/
 def maximallyDecomposableType : Imscription :=
-  { dim   := D_odot      -- 𐑦: self-written state-space
-  , top   := T_bowtie    -- 𐑥: crossing-point topology
-  , rel   := R_lr        -- 𐑾: bidirectional
-  , pol   := P_pm_sym    -- 𐑹: Frobenius-special
-  , fid   := F_hbar      -- 𐑐: quantum fidelity
-  , kin   := K_slow      -- 𐑧: slow kinetics
-  , gran  := G_aleph     -- 𐑲: all-scale correlations
-  , gram  := Gamma_seq   -- 𐑠: sequential grammar
-  , crit  := Phi_c       -- ⊙: self-modeling criticality
-  , chir  := H_inf       -- 𐑫: eternal memory
-  , stoi  := n_m         -- 𐑳: heterogeneous types
-  , prot  := Omega_Z     -- 𐑭: integer winding
+  { dim   := if'      -- 𐑦: self-written state-space
+  , top   := mime    -- 𐑥: crossing-point topology
+  , rel   := ian        -- 𐑾: bidirectional
+  , pol   := or'    -- 𐑹: Frobenius-special
+  , fid   := peep      -- 𐑐: quantum fidelity
+  , kin   := egg      -- 𐑧: slow kinetics
+  , gran  := ice     -- 𐑲: all-scale correlations
+  , gram  := measure   -- 𐑠: sequential grammar
+  , crit  := monad       -- ⊙: self-modeling criticality
+  , chir  := wool       -- 𐑫: eternal memory
+  , stoi  := up         -- 𐑳: heterogeneous types
+  , prot  := ah     -- 𐑭: integer winding
   }
 
 /-- The maximally decomposable type is O_inf. -/
@@ -255,8 +255,8 @@ theorem maximallyDecomposable_is_O_inf :
     tensor(⊙, ⊙_3) = ⊙_3 — the measurement bound is absolute. -/
 theorem measurement_bound_is_absolute :
     (tensorProduct maximallyDecomposableType
-      (⟨D_odot, T_box, R_lr, P_pm_sym, F_hbar, K_slow, G_aleph, Gamma_seq,
-        Phi_EP, H2, one_one, Omega_Z2⟩ : Imscription)).crit = .Phi_EP := by
+      (⟨if', oil, ian, or', peep, egg, ice, measure,
+        err, sure, hung, oak⟩ : Imscription)).crit = .err := by
   exact absorption_rule_tensor
 
 -- ============================================================
@@ -275,13 +275,13 @@ inductive DecompositionLevel : Type where
 def minimumPrimitivesForLevel (level : DecompositionLevel) (s : Imscription) : Prop :=
   match level with
   | .whole_system => True
-  | .two_state    => s.chir ≥ .H1
-  | .three_state  => s.chir ≥ .H2 ∧ s.kin ≥ .K_slow
-  | .n_step       => s.chir = .H_inf ∧ (s.kin = .K_slow ∨ s.kin = .K_trap)
-  | .continuous   => (s.dim = .D_odot ∨ s.dim = .D_infty) ∧
-                      s.chir = .H_inf ∧
-                      s.kin = .K_slow ∧
-                      s.prot ≥ .Omega_Z
+  | .two_state    => s.chir ≥ .kick
+  | .three_state  => s.chir ≥ .sure ∧ s.kin ≥ .egg
+  | .n_step       => s.chir = .wool ∧ (s.kin = .egg ∨ s.kin = .on)
+  | .continuous   => (s.dim = .if' ∨ s.dim = .array) ∧
+                      s.chir = .wool ∧
+                      s.kin = .egg ∧
+                      s.prot ≥ .ah
 
 -- ============================================================
 -- §9. THE MEET OF BOUNDS
@@ -292,29 +292,29 @@ def minimumPrimitivesForLevel (level : DecompositionLevel) (s : Imscription) : P
 def meetOfBounds (s : Imscription) : Imscription :=
   { dim   := s.dim
   , top   := match s.top with
-    | .T_box   => .T_box     -- irreducible
-    | .T_odot  => .T_odot    -- self-referential
+    | .oil   => .oil     -- irreducible
+    | .are  => .are    -- self-referential
     | t        => t
   , rel   := s.rel
   , pol   := s.pol
   , fid   := s.fid
   , kin   := match s.kin with
-    | .K_fast => .K_fast     -- no intermediate resolution
-    | .K_trap => .K_trap     -- frozen
-    | .K_MBL  => .K_MBL      -- localized
+    | .yea => .yea     -- no intermediate resolution
+    | .on => .on     -- frozen
+    | .air  => .air      -- localized
     | k       => k            -- resolvable
   , gran  := s.gran
   , gram  := s.gram
   , crit  := s.crit          -- Absorption Rule is a tensor property, not meet
   , chir  := match s.chir with
-    | .H0    => .H0          -- no temporal decomposition
-    | .H1    => .H1          -- at most 2 layers
-    | .H2    => .H2          -- at most 3 layers
-    | .H_inf => .H_inf       -- unbounded (with K_slow or K_trap)
+    | .fee    => .fee          -- no temporal decomposition
+    | .kick    => .kick          -- at most 2 layers
+    | .sure    => .sure          -- at most 3 layers
+    | .wool => .wool       -- unbounded (with egg or on)
   , stoi  := s.stoi
   , prot  := match s.prot with
-    | .Omega_Z2 => .Omega_Z2 -- parity protected
-    | .Omega_NA => .Omega_NA -- order matters
+    | .oak => .oak -- parity protected
+    | .zoo => .zoo -- order matters
     | p         => p
   }
 

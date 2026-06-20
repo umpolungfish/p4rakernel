@@ -21,14 +21,14 @@ def with_fidelity (s : Imscription) (f : Fidelity) : Imscription :=
   { s with fid := f }
 
 def information_loss (s : Imscription) : Nat :=
-  primitiveMismatches s (with_fidelity s F_hbar)
+  primitiveMismatches s (with_fidelity s peep)
 
-theorem ell_has_loss (s : Imscription) (h : s.fid = F_ell) :
+theorem ell_has_loss (s : Imscription) (h : s.fid = age) :
     information_loss s = 1 := by
   unfold information_loss with_fidelity primitiveMismatches
   simp [h]
 
-theorem hbar_no_loss (s : Imscription) (h : s.fid = F_hbar) :
+theorem hbar_no_loss (s : Imscription) (h : s.fid = peep) :
     information_loss s = 0 := by
   unfold information_loss with_fidelity primitiveMismatches
   simp [h]
@@ -38,33 +38,33 @@ theorem hbar_no_loss (s : Imscription) (h : s.fid = F_hbar) :
 -- ============================================================
 
 def bottom_type : Imscription := {
-  dim  := D_wedge
-  top  := T_network
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_beth
-  gram := Gamma_and
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := judge
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := bib
+  gram := vow
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 def top_type : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_MBL
-  gran := G_aleph
-  gram := Gamma_broad
-  crit := Phi_super
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_NA
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := air
+  gran := ice
+  gram := ooze
+  crit := haha
+  chir := wool
+  stoi := up
+  prot := zoo
 }
 
 theorem max_distance_is_12 :

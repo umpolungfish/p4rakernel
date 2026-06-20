@@ -32,69 +32,69 @@ set_option linter.style.nativeDecide false
 -- ============================================================
 
 def lef_manifold : Imscription := {
-  dim := D_odot, top := T_box, rel := R_lr, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := oil, rel := ian, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 def lef_sheaf_cohomology : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_picard : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ian, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 def lef_int_coh : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ian, pol := out,
+  fid := age, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 def lef_hol_coh : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_sub, chir := H2, stoi := n_m, prot := Omega_0 }
+  dim := if', top := are, rel := ian, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := woe, chir := sure, stoi := up, prot := awe }
 
 def lef_exp_sequence : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_dagger, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ear, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_long_exact : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_hodge_decomp : Imscription := {
-  dim := D_odot, top := T_box, rel := R_lr, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c, chir := H2, stoi := n_n, prot := Omega_Z }
+  dim := if', top := oil, rel := ian, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := monad, chir := sure, stoi := so, prot := ah }
 
 def lef_dolbeault : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_lr, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ian, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 def lef_chern_class : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_pm,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := out,
+  fid := age, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 def lef_integral_11 : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_lr, pol := P_pm,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ian, pol := out,
+  fid := age, kin := egg, gran := ice, gram := vow,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 def lef_int_to_complex : Imscription := {
-  dim := D_odot, top := T_in, rel := R_super, pol := P_asym,
-  fid := F_ell, kin := K_fast, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_sub, chir := H0, stoi := n_m, prot := Omega_0 }
+  dim := if', top := eat, rel := ado, pol := church,
+  fid := age, kin := yea, gran := ice, gram := vow,
+  crit := woe, chir := fee, stoi := up, prot := awe }
 
 def lef_hodge_proj : Imscription := {
-  dim := D_odot, top := T_in, rel := R_super, pol := P_asym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_sub, chir := H0, stoi := n_m, prot := Omega_0 }
+  dim := if', top := eat, rel := ado, pol := church,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := woe, chir := fee, stoi := up, prot := awe }
 
 
 -- ============================================================
@@ -103,9 +103,9 @@ def lef_hodge_proj : Imscription := {
 
 /-!
   VERIFIED LATTICE:
-  mm(pic,intc)=1 (F_hbar vs F_ell — the Chern class promotion)
+  mm(pic,intc)=1 (peep vs age — the Chern class promotion)
   mm(dolb,sc)=4  (T, R, Γ, H — the Dolbeault bridge cost)
-  mm(expseq,longex)=1 (T_bowtie vs T_odot — they are almost identical)
+  mm(expseq,longex)=1 (mime vs are — they are almost identical)
   tensor(pic,chern).prot = int11.prot  (Ω_z = Ω_z — surjectivity tight)
   tensor(pic,chern).crit = φ̂_Æ ≠ int11.crit = φ̂_ÿ  (criticality gap)
   meet(int11,dolb).crit = φ̂_ÿ ≠ meet(int11,hol).crit = φ̂_ž (Dolbeault lift)
@@ -115,7 +115,7 @@ def lef_hodge_proj : Imscription := {
   tensor(pic,expseq).gram = ɢ_ˌ  (sequential — the proof's logical structure)
   
   TIERS:
-  All O₂ except hol_coh (O₀). No O_inf: none have P_pm_sym.
+  All O₂ except hol_coh (O₀). No O_inf: none have or'.
 -/
 
 -- ----------------------------------------------------------------
@@ -127,7 +127,7 @@ theorem picard_int_coh_distance_one :
   native_decide
 
 theorem picard_int_coh_fidelity_differs_only :
-    lef_picard.fid = F_hbar ∧ lef_int_coh.fid = F_ell ∧
+    lef_picard.fid = peep ∧ lef_int_coh.fid = age ∧
     lef_picard.fid ≠ lef_int_coh.fid := by
   native_decide
 
@@ -155,7 +155,7 @@ theorem exp_longex_distance_one :
   native_decide
 
 theorem exp_longex_topology_differs_only :
-    lef_exp_sequence.top = T_bowtie ∧ lef_long_exact.top = T_odot ∧
+    lef_exp_sequence.top = mime ∧ lef_long_exact.top = are ∧
     lef_exp_sequence.top ≠ lef_long_exact.top := by
   native_decide
 
@@ -176,8 +176,8 @@ theorem surjectivity_granularity_matches :
 -- ----------------------------------------------------------------
 
 theorem lefschetz_criticality_gap :
-    (tensorProduct lef_picard lef_chern_class).crit = Phi_c_complex ∧
-    lef_integral_11.crit = Phi_c ∧
+    (tensorProduct lef_picard lef_chern_class).crit = roar ∧
+    lef_integral_11.crit = monad ∧
     (tensorProduct lef_picard lef_chern_class).crit ≠ lef_integral_11.crit := by
   native_decide
 
@@ -196,12 +196,12 @@ theorem lefschetz_three_gaps :
   native_decide
 
 theorem lefschetz_gap_values :
-    (tensorProduct lef_picard lef_chern_class).top = T_odot ∧
-    lef_integral_11.top = T_bowtie ∧
-    (tensorProduct lef_picard lef_chern_class).gram = Gamma_seq ∧
-    lef_integral_11.gram = Gamma_and ∧
-    (tensorProduct lef_picard lef_chern_class).crit = Phi_c_complex ∧
-    lef_integral_11.crit = Phi_c := by
+    (tensorProduct lef_picard lef_chern_class).top = are ∧
+    lef_integral_11.top = mime ∧
+    (tensorProduct lef_picard lef_chern_class).gram = measure ∧
+    lef_integral_11.gram = vow ∧
+    (tensorProduct lef_picard lef_chern_class).crit = roar ∧
+    lef_integral_11.crit = monad := by
   native_decide
 
 -- ----------------------------------------------------------------
@@ -214,11 +214,11 @@ theorem lefschetz_gap_values :
     This is WHY the proof goes through Dolbeault:
     the condition can only be verified at the self-modeling level. -/
 theorem dolbeault_condition_is_phi_c :
-    (compute_meet lef_integral_11 lef_dolbeault).crit = Phi_c := by
+    (compute_meet lef_integral_11 lef_dolbeault).crit = monad := by
   native_decide
 
 theorem hol_condition_is_phi_sub :
-    (compute_meet lef_integral_11 lef_hol_coh).crit = Phi_sub := by
+    (compute_meet lef_integral_11 lef_hol_coh).crit = woe := by
   native_decide
 
 theorem dolbeault_lifts_criticality :
@@ -231,11 +231,11 @@ theorem dolbeault_lifts_criticality :
 -- ----------------------------------------------------------------
 
 theorem integral_11_bowtie_from_hodge :
-    (compute_meet lef_hodge_decomp lef_integral_11).top = T_bowtie := by
+    (compute_meet lef_hodge_decomp lef_integral_11).top = mime := by
   native_decide
 
 theorem integral_11_bowtie_from_dolbeault :
-    (compute_meet lef_int_coh lef_dolbeault).top = T_bowtie := by
+    (compute_meet lef_int_coh lef_dolbeault).top = mime := by
   native_decide
 
 -- ----------------------------------------------------------------
@@ -243,7 +243,7 @@ theorem integral_11_bowtie_from_dolbeault :
 -- ----------------------------------------------------------------
 
 theorem hodge_proj_tensor_decomp_is_box :
-    (tensorProduct lef_hodge_proj lef_hodge_decomp).top = T_box := by
+    (tensorProduct lef_hodge_proj lef_hodge_decomp).top = oil := by
   native_decide
 
 -- ----------------------------------------------------------------
@@ -251,11 +251,11 @@ theorem hodge_proj_tensor_decomp_is_box :
 -- ----------------------------------------------------------------
 
 theorem picard_exp_grammar_is_sequential :
-    (tensorProduct lef_picard lef_exp_sequence).gram = Gamma_seq := by
+    (tensorProduct lef_picard lef_exp_sequence).gram = measure := by
   native_decide
 
 theorem picard_longexact_grammar_is_sequential :
-    (tensorProduct lef_picard lef_long_exact).gram = Gamma_seq := by
+    (tensorProduct lef_picard lef_long_exact).gram = measure := by
   native_decide
 
 
@@ -344,8 +344,8 @@ native_decide verifies every relation.
 
 WHAT THE GRAMMAR PROVES (above):
   [1] mismatches(picard, int_coh) = 1 → the Chern class is a single
-      promotion from quantum (F_hbar line bundles) to classical
-      (F_ell integer lattice)
+      promotion from quantum (peep line bundles) to classical
+      (age integer lattice)
   [2] mismatches(dolbeault, sheaf_coh) = 4 → the Dolbeault isomorphism
       has a structural cost of 4 promotions (T, R, Γ, H)
   [3] mismatches(exp_seq, long_exact) = 1 → they differ only in
@@ -377,9 +377,9 @@ theorem lefschetz_full_structural_summary :
     primitiveMismatches (tensorProduct lef_picard lef_chern_class) lef_integral_11 = 3 ∧
     (tensorProduct lef_picard lef_chern_class).prot = lef_integral_11.prot ∧
     (tensorProduct lef_picard lef_chern_class).crit ≠ lef_integral_11.crit ∧
-    (compute_meet lef_integral_11 lef_dolbeault).crit = Phi_c ∧
-    (compute_meet lef_integral_11 lef_hol_coh).crit = Phi_sub ∧
-    (tensorProduct lef_hodge_proj lef_hodge_decomp).top = T_box ∧
+    (compute_meet lef_integral_11 lef_dolbeault).crit = monad ∧
+    (compute_meet lef_integral_11 lef_hol_coh).crit = woe ∧
+    (tensorProduct lef_hodge_proj lef_hodge_decomp).top = oil ∧
     imscriptionTier lef_sheaf_cohomology = OuroboricityTier.O₂ ∧
     imscriptionTier lef_hol_coh = OuroboricityTier.O₀ := by
   native_decide

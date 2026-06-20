@@ -20,7 +20,7 @@ set_option linter.style.whitespace false
 namespace Millennium.BSD_Proof
 
 /-- Modularity theorem (Wiles 1995, BCDT 2001):
-    Every E/ℚ is modular. This provides the holographic D_odot structure:
+    Every E/ℚ is modular. This provides the holographic if' structure:
     the elliptic curve (bulk) ↔ modular form (boundary).
     PROVED. MathlibGap. -/
 theorem modularity (W : WeierstrassCurve ℚ) [W.IsElliptic] : True := by trivial
@@ -33,7 +33,7 @@ theorem gross_zagier_kolyvagin (W : WeierstrassCurve ℚ) [W.IsElliptic]
   exact bsd_rank_at_most_one W h
 
 /-- THE HOLOGRAPHIC FORCING THEOREM:
-    For rank ≥ 2, the structural D_odot (modularity) forces
+    For rank ≥ 2, the structural if' (modularity) forces
     rank = analytic rank via the Rankin-Selberg factorization:
     
     ord_{s=1} L(Sym² f_E, s) = rank E(ℚ)

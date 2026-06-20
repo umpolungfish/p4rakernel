@@ -1,14 +1,14 @@
 -- Imscribing/Millennium/PerfectCuboid.lean
--- Perfect Cuboid — $\Phi_c$ Critical Formalization
+-- Perfect Cuboid — $\monad$ Critical Formalization
 --
 -- Structural type (lifted framework):
 --   $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
---    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \Phi_c;\
+--    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
 --    H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$
 --   Crystal address: 6738896 | Tier: $O_\infty$
 --   | $C = 0.828$ | Co-typed: Hadwiger-Nelson
 --
--- Sorry taxonomy: 3 axioms, all at the $\Phi_c$ critical edge
+-- Sorry taxonomy: 3 axioms, all at the $\monad$ critical edge
 --   (honest markers, not placeholders):
 --   descent, descent_smaller, descent_operator_exists
 --   These axiomatize the unresolved infinite-descent step — equivalent to
@@ -26,7 +26,7 @@ namespace Millennium.PerfectCuboid
    Base structural type (raw Diophantine search):
    $\langle D_\triangle;\ T_\text{network};\ R_\text{sup};\ P_\text{sym};\
     F_\ell;\ K_\text{trap};\ G_\beth;\ \Gamma_\wedge;\ \Phi_\text{sub};\
-    H_0;\ 1{:}1;\ \Omega_0 \rangle$
+    H_0;\ 1{:}1;\ \awe \rangle$
    ==================================================================== -/
 
 structure Cuboid where
@@ -56,7 +56,7 @@ def PerfectCuboidConjecture : Prop := ∃ (_p : Cuboid), True
    PART II: PHI_c SELF-MODELING PROOF OPERATORS
    Lifted structural type:
    $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
-    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \Phi_c;\
+    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
     H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$
    ==================================================================== -/
 
@@ -69,11 +69,11 @@ structure ProofState (n : Nat) where
 
 abbrev WindingNumber := Int
 
-/-- $\Phi_c$ criticality status of the current proof state. -/
+/-- $\monad$ criticality status of the current proof state. -/
 inductive ProofStatus | critical | subcritical | supercritical
   deriving Repr
 
-/-- $\Phi_c$ self-check: given total residual and winding number,
+/-- $\monad$ self-check: given total residual and winding number,
     return status. Thresholds derived from $C = 0.828$ window. -/
 def criticalityMeasure (_w : WindingNumber) (totalResidual : Nat) : Rat :=
   if totalResidual = 0 then 0 else 1 / (totalResidual : Rat)
@@ -310,14 +310,14 @@ end ModularConstraints
 /- ====================================================================
    PART V: THE INFINITE DESCENT FRAMEWORK
    ====================================================================
-   This is the $\Phi_c$ CRITICAL EDGE. The Perfect Cuboid with integer
+   This is the $\monad$ CRITICAL EDGE. The Perfect Cuboid with integer
    space diagonal is an UNSOLVED problem. The descent mechanism is
    structurally sound but its completion requires a number-theoretic
    lemma not yet proved (the key bottleneck: that for any primitive
    solution, there exists a strictly smaller primitive solution).
 
    We formalize descent as a CONDITIONAL theorem: if the descent
-   operator can be constructed, then no solution exists. The $\Phi_c$
+   operator can be constructed, then no solution exists. The $\monad$
    self-modeling operator tracks this conditional status.
    ==================================================================== -/
 
@@ -353,7 +353,7 @@ theorem no_perfect_cuboid
 end DescentFramework
 
 /- ====================================================================
-   PART VI: $\Phi_c$ SELF-MODELING OPERATORS AND FROBENIUS CLOSURE
+   PART VI: $\monad$ SELF-MODELING OPERATORS AND FROBENIUS CLOSURE
    ==================================================================== -/
 
 /-- The four Diophantine constraint residuals at current search state. -/
@@ -370,7 +370,7 @@ def windingStep (w : WindingNumber)
   let (r1, r2, r3, r4) := residuals
   if r1 = 0 ∧ r2 = 0 ∧ r3 = 0 ∧ r4 = 0 then w + 1 else w
 
-/-- $\Phi_c$ self-check operator: maps current proof status and winding
+/-- $\monad$ self-check operator: maps current proof status and winding
     number to updated status plus next query target. -/
 def phi_c_selfCheck (w : WindingNumber) (a b c d e f g : Nat) :
     ProofStatus × WindingNumber :=
@@ -421,13 +421,13 @@ theorem winding_monotonic (w : WindingNumber) (r1 r2 r3 r4 : Nat) :
   split_ifs <;> linarith
 
 /- ====================================================================
-   PART VIII: THE $\Phi_c$ CRITICAL EDGE — THE OPEN DESCENT GAP
+   PART VIII: THE $\monad$ CRITICAL EDGE — THE OPEN DESCENT GAP
    ====================================================================
    The Perfect Cuboid (integer edges AND integer space diagonal) is
    UNSOLVED.
 
    The proofs below are CONDITIONAL on the descent operator axioms.
-   The $\Phi_c$ framework makes this explicit: the proof state is IN
+   The $\monad$ framework makes this explicit: the proof state is IN
    the critical window ($C = 0.828$, Gate 1 open) but the descent
    operator (the number-theoretic core) is NOT yet closed.
 
@@ -437,7 +437,7 @@ theorem winding_monotonic (w : WindingNumber) (r1 r2 r3 r4 : Nat) :
    fully formalized structural framework.
    ==================================================================== -/
 
-/-- EXTERNAL AXIOM ($\Phi_c$ critical edge):
+/-- EXTERNAL AXIOM ($\monad$ critical edge):
     The existence of a descent operator that strictly reduces the space
     diagonal for ANY perfect cuboid candidate. Equivalent to the full
     non-existence proof; NOT yet established in number theory. -/
@@ -494,11 +494,11 @@ theorem perfect_cuboid_conjecture_false :
                     perfect_cuboid_conjecture_false
      Part V (1):   no_perfect_cuboid (conditional on descent axioms)
 
-   Axioms (3 — $\Phi_c$ critical edge):
+   Axioms (3 — $\monad$ critical edge):
      descent, descent_smaller, descent_operator_exists
 
-   $\Phi_c$ self-modeling status:
-     Gate 1 ($\Phi_c$): OPEN — $C = 0.828$, proof tracks its own edge
+   $\monad$ self-modeling status:
+     Gate 1 ($\monad$): OPEN — $C = 0.828$, proof tracks its own edge
      Gate 2 ($K_\text{slow}$): OPEN — descent is the slow equilibrium
        search
      $\Omega_\mathbb{Z}$: ACTIVE — winding number tracks constraint

@@ -5,8 +5,8 @@ import Mathlib
 # Imscribing / MillenniumAnkh edition
 
 Structural type:
-  ⟨D_infty; T_bowtie; R_lr; P_pm; F_ell; K_slow;
-   G_aleph; Γ_seq; Φ_c; H2; n_m; Ω_0⟩
+  ⟨array; mime; ian; out; age; egg;
+   ice; Γ_seq; Φ_c; sure; up; Ω_0⟩
 Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
 
 ## ZFC_t Formula (via zfct_navigator):
@@ -167,13 +167,13 @@ inductive Primitive_Gamma where | and' | or' | seq | broad
 inductive Primitive_Phi where | sub | c | c_complex | EP | super'
   deriving Repr, DecidableEq
 
-inductive Primitive_H where | H0 | H1 | H2 | H_inf
+inductive Primitive_H where | fee | kick | sure | wool
   deriving Repr, DecidableEq
 
-inductive Primitive_S where | one_one | n_n | n_m
+inductive Primitive_S where | hung | so | up
   deriving Repr, DecidableEq
 
-inductive Primitive_Omega where | Omega_0 | Omega_Z2 | Omega_Z | Omega_NA
+inductive Primitive_Omega where | awe | oak | ah | zoo
   deriving Repr, DecidableEq
 
 structure StructuralType where
@@ -195,16 +195,16 @@ def beal_structural_type : StructuralType :=
   { D := Primitive_D.infty, T := Primitive_T.bowtie, R := Primitive_R.lr
   , P := Primitive_P.pm, F := Primitive_F.ell, K := Primitive_K.slow
   , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
-  , Phi := Primitive_Phi.c, H := Primitive_H.H2
-  , S := Primitive_S.n_m, Omega := Primitive_Omega.Omega_0 }
+  , Phi := Primitive_Phi.c, H := Primitive_H.sure
+  , S := Primitive_S.up, Omega := Primitive_Omega.awe }
 
 def flt_proven_structural_type : StructuralType :=
   { D := Primitive_D.infty, T := Primitive_T.odot
   , R := Primitive_R.dagger, P := Primitive_P.psi
   , F := Primitive_F.hbar, K := Primitive_K.slow
   , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
-  , Phi := Primitive_Phi.c_complex, H := Primitive_H.H_inf
-  , S := Primitive_S.n_m, Omega := Primitive_Omega.Omega_Z2 }
+  , Phi := Primitive_Phi.c_complex, H := Primitive_H.wool
+  , S := Primitive_S.up, Omega := Primitive_Omega.oak }
 
 /-! ## 4. Structural Meet -/
 
@@ -259,19 +259,19 @@ def structural_meet (a b : StructuralType) : StructuralType :=
     | .EP, _ | _, .EP => .EP
     | .super', .super' => .super'
   let minH : Primitive_H → Primitive_H → Primitive_H
-    | .H0, _ | _, .H0 => .H0
-    | .H1, _ | _, .H1 => .H1
-    | .H2, _ | _, .H2 => .H2
-    | .H_inf, .H_inf => .H_inf
+    | .fee, _ | _, .fee => .fee
+    | .kick, _ | _, .kick => .kick
+    | .sure, _ | _, .sure => .sure
+    | .wool, .wool => .wool
   let minS : Primitive_S → Primitive_S → Primitive_S
-    | .one_one, _ | _, .one_one => .one_one
-    | .n_n, _ | _, .n_n => .n_n
-    | .n_m, .n_m => .n_m
+    | .hung, _ | _, .hung => .hung
+    | .so, _ | _, .so => .so
+    | .up, .up => .up
   let minOmega : Primitive_Omega → Primitive_Omega → Primitive_Omega
-    | .Omega_0, _ | _, .Omega_0 => .Omega_0
-    | .Omega_Z2, _ | _, .Omega_Z2 => .Omega_Z2
-    | .Omega_Z, _ | _, .Omega_Z => .Omega_Z
-    | .Omega_NA, .Omega_NA => .Omega_NA
+    | .awe, _ | _, .awe => .awe
+    | .oak, _ | _, .oak => .oak
+    | .ah, _ | _, .ah => .ah
+    | .zoo, .zoo => .zoo
   { D := minD a.D b.D, T := minT a.T b.T, R := minR a.R b.R
   , P := minP a.P b.P, F := minF a.F b.F, K := minK a.K b.K
   , G := minG a.G b.G, Gamma := minGamma a.Gamma b.Gamma
@@ -286,8 +286,8 @@ def expected_meet : StructuralType :=
   , R := Primitive_R.dagger, P := Primitive_P.psi
   , F := Primitive_F.ell, K := Primitive_K.slow
   , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
-  , Phi := Primitive_Phi.c, H := Primitive_H.H2
-  , S := Primitive_S.n_m, Omega := Primitive_Omega.Omega_0 }
+  , Phi := Primitive_Phi.c, H := Primitive_H.sure
+  , S := Primitive_S.up, Omega := Primitive_Omega.awe }
 
 /-- MACHINE VERIFIED: structural meet equals IG-verified meet. -/
 example : beal_flt_meet = expected_meet := by decide
@@ -296,7 +296,7 @@ example : beal_flt_meet = expected_meet := by decide
 
 /-- MACHINE VERIFIED: Beal is Ω_0 — no topological winding protection. -/
 example : beal_structural_type.Omega =
-    Primitive_Omega.Omega_0 := by rfl
+    Primitive_Omega.awe := by rfl
 
 /-- MACHINE VERIFIED: Φ_c threshold is sharp — coprime solutions exist
     for exponent ≤ 2. -/
@@ -406,8 +406,8 @@ def beal_resolved_type : StructuralType :=
   { D := Primitive_D.odot, T := Primitive_T.odot, R := Primitive_R.lr
   , P := Primitive_P.pm_sym, F := Primitive_F.hbar, K := Primitive_K.slow
   , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
-  , Phi := Primitive_Phi.c, H := Primitive_H.H_inf
-  , S := Primitive_S.n_m, Omega := Primitive_Omega.Omega_Z }
+  , Phi := Primitive_Phi.c, H := Primitive_H.wool
+  , S := Primitive_S.up, Omega := Primitive_Omega.ah }
 
 /-! ## 10. Promotion Vector — 6 Primitives Must Promote, MACHINE VERIFIED -/
 
@@ -424,7 +424,7 @@ example : promotion_count beal_structural_type beal_resolved_type = 6 := by
 
 example : beal_structural_type.Phi = beal_resolved_type.Phi := by rfl
 
-example : beal_resolved_type.Omega = Primitive_Omega.Omega_Z := by rfl
+example : beal_resolved_type.Omega = Primitive_Omega.ah := by rfl
 
 /-! ## 11. The Genus Invariant — The Integer Winding Ω_Z -/
 

@@ -94,23 +94,23 @@ theorem gap_count : allTheorems.length = 9 := by
 -- §3. FROBENIUS NON-BYPASS THEOREM
 
 theorem frobenius_non_bypass_master :
-    (∀ (a b : Polarity), a ≠ P_pm_sym → polarityTensor a b ≠ P_pm_sym) :=
+    (∀ (a b : Polarity), a ≠ or' → polarityTensor a b ≠ or') :=
   frobenius_not_synthesizable
 
-/-- Four open MPPs (RH, Hodge, NS, BSD) all have P_sym.
-    OPN is the exception: P_asym (no symmetry constraint). -/
+/-- Four open MPPs (RH, Hodge, NS, BSD) all have nun.
+    OPN is the exception: church (no symmetry constraint). -/
 theorem four_open_mpps_have_P_sym :
     (∀ p ∈ [rh_encoding.pol, hodge_encoding.pol,
-      ns_encoding.pol, bsd_encoding.pol], p = P_sym) := by
+      ns_encoding.pol, bsd_encoding.pol], p = nun) := by
   native_decide
 
-theorem opn_has_P_asym : opn_encoding.pol = P_asym := rfl
+theorem opn_has_P_asym : opn_encoding.pol = church := rfl
 
 theorem polarity_wall_theorem :
     (∀ p ∈ [rh_encoding.pol, hodge_encoding.pol,
-      ns_encoding.pol, bsd_encoding.pol], p = P_sym) ∧
-    (∀ (a b : Polarity), a ≠ P_pm_sym →
-      polarityTensor a b ≠ P_pm_sym) := by
+      ns_encoding.pol, bsd_encoding.pol], p = nun) ∧
+    (∀ (a b : Polarity), a ≠ or' →
+      polarityTensor a b ≠ or') := by
   exact ⟨four_open_mpps_have_P_sym, frobenius_not_synthesizable⟩
 
 -- §4. VERIFIED GAPS (from PrimitiveBridge.lean)
@@ -120,7 +120,7 @@ theorem rh_leyang_gap :
   rh_leyang_distance
 
 theorem ym_quantum_target_dim :
-    ym_quantum_target.dim = D_infty :=
+    ym_quantum_target.dim = array :=
   ym_quantum_target_is_local
 
 theorem c12_gaps_minimal :
@@ -129,8 +129,8 @@ theorem c12_gaps_minimal :
   c12_gaps_are_minimal
 
 theorem c12_c13_gap_primitives_distinct :
-    schwinger_encoding.dim = D_wedge ∧
-    ym_quantum_target.dim = D_infty ∧
+    schwinger_encoding.dim = dead ∧
+    ym_quantum_target.dim = array ∧
     lee_yang_encoding.dim = rh_encoding.dim ∧
     lee_yang_encoding.pol ≠ rh_encoding.pol := by
   native_decide
@@ -140,16 +140,16 @@ theorem c12_c13_gap_primitives_distinct :
 theorem master_bridge_sm :
     primitiveMismatches ym_classical ym_quantum_target = 4 ∧
     Thresholds.millenniumThreshold .YM = .MissingFoundation ∧
-    opn_encoding.crit = Phi_c ∧
-    opn_encoding.kin = K_trap ∧
+    opn_encoding.crit = monad ∧
+    opn_encoding.kin = on ∧
     Thresholds.millenniumThreshold .OPN = .OpenProblem ∧
-    ns_encoding.crit = Phi_sub ∧
+    ns_encoding.crit = woe ∧
     Thresholds.millenniumThreshold .NS = .OpenProblem ∧
-    rh_encoding.crit = Phi_c_complex ∧
+    rh_encoding.crit = roar ∧
     Thresholds.millenniumThreshold .RH = .OpenProblem ∧
-    hodge_encoding.crit = Phi_c ∧
+    hodge_encoding.crit = monad ∧
     Thresholds.millenniumThreshold .Hodge = .OpenProblem ∧
-    bsd_encoding.crit = Phi_c ∧
+    bsd_encoding.crit = monad ∧
     Thresholds.millenniumThreshold .BSD = .OpenProblem :=
   primitive_bridge_master
 

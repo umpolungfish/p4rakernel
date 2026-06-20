@@ -1,7 +1,7 @@
 -- Imscribing/Primitives/ZFCs.lean
 -- ZFC$_s$: ZFC extended with Spatiality, Isotropy, and Homotopy Winding.
 -- Spatial extension analogous to ZFCt's temporal extension.
--- Key asymmetry: ZFC_s is O_inf (P_pm_sym); ZFC_t is O₂dag (P_pm).
+-- Key asymmetry: ZFC_s is O_inf (or'); ZFC_t is O₂dag (out).
 -- Fundamental collapse: ZFC_st = ZFC_s ⊗ ZFC_t = ZFC_t.
 
 import Imscribing.Primitives.Core
@@ -21,49 +21,49 @@ set_option autoImplicit false
 set_option linter.style.longLine false
 
 /- ZFC baseline (spatial reference):
-   zfc = { dim:=D_infty, top:=T_network, rel:=R_super, pol:=P_asym,
-           fid:=F_hbar, kin:=K_slow, gran:=G_aleph, gram:=Gamma_and,
-           crit:=Phi_c, chir:=H0, stoi:=n_m, prot:=Omega_0 } -/
+   zfc = { dim:=array, top:=judge, rel:=ado, pol:=church,
+           fid:=peep, kin:=egg, gran:=ice, gram:=vow,
+           crit:=monad, chir:=fee, stoi:=up, prot:=awe } -/
 
 /-- ZFC_s: ZFC with five spatial promotions.
-    Space is isotropic (P_pm_sym = SO(n) invariance = Frobenius condition),
-    concurrent (Gamma_or: spatial operations run in parallel),
-    nested-domain (T_in: spaces have interiors and boundaries),
-    metrically symmetric (R_dagger: d(x,y) = d(y,x)),
-    and homotopy-protected (Omega_Z: π_n carry ℤ-valued winding invariants).
+    Space is isotropic (or' = SO(n) invariance = Frobenius condition),
+    concurrent (gag: spatial operations run in parallel),
+    nested-domain (eat: spaces have interiors and boundaries),
+    metrically symmetric (ear: d(x,y) = d(y,x)),
+    and homotopy-protected (ah: π_n carry ℤ-valued winding invariants).
     Chirality does NOT promote: isotropic space has no preferred handedness. -/
 def zfc_s : Imscription := {
-  dim  := D_infty    -- infinite-dimensional: abstract spatial unfolding (unchanged)
-  top  := T_in       -- inclusion/nested: spaces have bounded domains and interiors
-  rel  := R_dagger   -- dagger/reciprocal: metric symmetry d(x,y) = d(y,x)
-  pol  := P_pm_sym   -- Special Frobenius: spatial isotropy SO(n), μ ∘ δ = id
-  fid  := F_hbar     -- quantum-coherent (unchanged)
-  kin  := K_slow     -- thermally activated (unchanged)
-  gran := G_aleph    -- global/fine-grained: all-to-all spatial correlations (unchanged)
-  gram := Gamma_or   -- concurrent: spatial operations are parallel, not sequential
-  crit := Phi_c      -- real-axis criticality (unchanged)
-  chir := H0         -- achiral: isotropic space has no preferred handedness (unchanged)
-  stoi := n_m        -- many-to-many spatial correspondences (unchanged)
-  prot := Omega_Z }  -- integer winding: homotopy groups π_n carry ℤ-valued invariants
+  dim  := array    -- infinite-dimensional: abstract spatial unfolding (unchanged)
+  top  := eat       -- inclusion/nested: spaces have bounded domains and interiors
+  rel  := ear   -- dagger/reciprocal: metric symmetry d(x,y) = d(y,x)
+  pol  := or'   -- Special Frobenius: spatial isotropy SO(n), μ ∘ δ = id
+  fid  := peep     -- quantum-coherent (unchanged)
+  kin  := egg     -- thermally activated (unchanged)
+  gran := ice    -- global/fine-grained: all-to-all spatial correlations (unchanged)
+  gram := gag   -- concurrent: spatial operations are parallel, not sequential
+  crit := monad      -- real-axis criticality (unchanged)
+  chir := fee         -- achiral: isotropic space has no preferred handedness (unchanged)
+  stoi := up        -- many-to-many spatial correspondences (unchanged)
+  prot := ah }  -- integer winding: homotopy groups π_n carry ℤ-valued invariants
 
 /-- The five promotion channels from ZFC to ZFC_s.
     (Chirality does not promote — compare with ZFCt's six promotions.) -/
 def zfc_to_zfc_s_promotions : List (String × String) := [
-  ("top",  "T_network → T_in"),
-  ("rel",  "R_super → R_dagger"),
-  ("pol",  "P_asym → P_pm_sym"),
-  ("gram", "Gamma_and → Gamma_or"),
-  ("prot", "Omega_0 → Omega_Z") ]
+  ("top",  "judge → eat"),
+  ("rel",  "ado → ear"),
+  ("pol",  "church → or'"),
+  ("gram", "vow → gag"),
+  ("prot", "awe → ah") ]
 
 -- ============================================================
 -- TIER ANALYSIS
 -- ============================================================
 
-/-- ZFC_s attains O_inf: spatial isotropy (P_pm_sym) at Phi_c satisfies the
+/-- ZFC_s attains O_inf: spatial isotropy (or') at monad satisfies the
     Frobenius condition — the same gate as quantum gravity and the Higgs field. -/
 theorem zfc_s_is_O_inf : imscriptionTier zfc_s = .O_inf := by decide
 
-/-- ZFC_t is O_inf: temporal Frobenius symmetry (P_pm_sym) at Phi_c.
+/-- ZFC_t is O_inf: temporal Frobenius symmetry (or') at monad.
     Space and time are structurally symmetric at the tier level — both Frobenius-open. -/
 theorem zfc_t_is_O_inf : imscriptionTier zfc_t = .O_inf := by decide
 
@@ -78,34 +78,34 @@ theorem both_extensions_O_inf :
 
 /-- ZFC_st: the spacetime imscription, computed as tensorProduct zfc_s zfc_t.
     Tensor rules (from Imscription.lean): P and F use min (bottleneck); all others max.
-    · pol:  min(P_pm_sym, P_pm_sym) = P_pm_sym — no bottleneck: both extensions Frobenius
-    · top:  max(T_in, T_odot)       = T_odot   — holographic topology dominates inclusion
-    · rel:  max(R_dagger, R_lr)     = R_lr     — lateral exchange dominates metric symmetry
-    · gram: max(Gamma_or, Gamma_seq) = Gamma_seq — sequentiality dominates concurrency
-    · chir: max(H0, H2)             = H2       — temporal chirality dominates spatial isotropy
-    · prot: max(Omega_Z, Omega_Z)   = Omega_Z
+    · pol:  min(or', or') = or' — no bottleneck: both extensions Frobenius
+    · top:  max(eat, are)       = are   — holographic topology dominates inclusion
+    · rel:  max(ear, ian)     = ian     — lateral exchange dominates metric symmetry
+    · gram: max(gag, measure) = measure — sequentiality dominates concurrency
+    · chir: max(fee, sure)             = sure       — temporal chirality dominates spatial isotropy
+    · prot: max(ah, ah)   = ah
     Result: ZFC_st = ZFC_t. Temporal structure dominates all max-primitives;
     the Frobenius gate stays open because both partners already hold it. -/
 def zfc_st : Imscription := {
-  dim  := D_infty    -- max(D_infty, D_infty)
-  top  := T_odot     -- max(T_in, T_odot)        = T_odot
-  rel  := R_lr       -- max(R_dagger, R_lr)      = R_lr
-  pol  := P_pm_sym   -- min(P_pm_sym, P_pm_sym)  = P_pm_sym  [no bottleneck]
-  fid  := F_hbar     -- min(F_hbar, F_hbar)
-  kin  := K_slow     -- max(K_slow, K_slow)
-  gran := G_aleph    -- max(G_aleph, G_aleph)
-  gram := Gamma_seq  -- max(Gamma_or, Gamma_seq) = Gamma_seq
-  crit := Phi_c      -- max(Phi_c, Phi_c)
-  chir := H2         -- max(H0, H2)              = H2
-  stoi := n_m        -- max(n_m, n_m)
-  prot := Omega_Z }  -- max(Omega_Z, Omega_Z)
+  dim  := array    -- max(array, array)
+  top  := are     -- max(eat, are)        = are
+  rel  := ian       -- max(ear, ian)      = ian
+  pol  := or'   -- min(or', or')  = or'  [no bottleneck]
+  fid  := peep     -- min(peep, peep)
+  kin  := egg     -- max(egg, egg)
+  gran := ice    -- max(ice, ice)
+  gram := measure  -- max(gag, measure) = measure
+  crit := monad      -- max(monad, monad)
+  chir := sure         -- max(fee, sure)              = sure
+  stoi := up        -- max(up, up)
+  prot := ah }  -- max(ah, ah)
 
 /-- ZFC_st equals the tensor product of ZFC_s and ZFC_t. -/
 theorem zfc_st_is_tensor : zfc_st = tensorProduct zfc_s zfc_t := by decide
 
 /-- ZFC_st = ZFC_t: temporal structure dominates all max-primitives.
     The Frobenius gate stays open (no polarity bottleneck) because both
-    ZFC_s and ZFC_t already carry P_pm_sym. -/
+    ZFC_s and ZFC_t already carry or'. -/
 theorem zfc_st_eq_zfc_t : zfc_st = zfc_t := by decide
 
 /-- ZFC_st is O_inf: the Frobenius gate is open at the spacetime level. -/
@@ -163,18 +163,18 @@ theorem join_zfc_zfc_t : joinProduct zfc zfc_t = zfc_t := by decide
 
 /-- ZFC_s ∧ ZFC_t: the spatial-temporal meet.
     Resolves to ZFC_s on top/rel/gram, to ZFC_t on chir, to shared prot.
-    Polarity: both P_pm_sym → P_pm_sym. -/
+    Polarity: both or' → or'. -/
 def zfc_s_meet_zfc_t : Imscription := meetProduct zfc_s zfc_t
 
 /-- ZFC_s ∨ ZFC_t: the spatial-temporal join — O_inf.
-    Takes T_odot, R_lr, Gamma_seq from ZFC_t; P_pm_sym from both; H2 from ZFC_t.
+    Takes are, ian, measure from ZFC_t; or' from both; sure from ZFC_t.
     The join of two O_inf systems is O_inf. -/
 def zfc_s_join_zfc_t : Imscription := joinProduct zfc_s zfc_t
 
 theorem zfc_s_join_zfc_t_is_O_inf : imscriptionTier zfc_s_join_zfc_t = .O_inf := by decide
 
 /-- The join ZFC_s ∨ ZFC_t equals the tensor ZFC_s ⊗ ZFC_t (= ZFC_t) here,
-    because both carry the same polarity (P_pm_sym) so max=min on that slot. -/
+    because both carry the same polarity (or') so max=min on that slot. -/
 theorem join_eq_tensor_eq_zfc_t : zfc_s_join_zfc_t = zfc_st := by decide
 
 -- ============================================================
@@ -188,8 +188,8 @@ theorem zfc_to_zfc_s_dist : primitiveMismatches zfc zfc_s = 5 := by decide
 theorem zfc_to_zfc_t_dist : primitiveMismatches zfc zfc_t = 6 := by decide
 
 /-- ZFC_s ↔ ZFC_t: four primitive mismatches.
-    top(T_in≠T_odot), rel(R_dagger≠R_lr), gram(Gamma_or≠Gamma_seq), chir(H0≠H2).
-    Polarity no longer separates them: both carry P_pm_sym. -/
+    top(eat≠are), rel(ear≠ian), gram(gag≠measure), chir(fee≠sure).
+    Polarity no longer separates them: both carry or'. -/
 theorem zfc_s_zfc_t_dist : primitiveMismatches zfc_s zfc_t = 4 := by decide
 
 /-- ZFC_st ↔ ZFC_t: zero distance — tensor collapses to ZFC_t exactly. -/
@@ -204,57 +204,57 @@ theorem zfc_s_zfc_st_dist : primitiveMismatches zfc_s zfc_st = 4 := by decide
 
 /-- Riemannian metric.
     Symmetric positive-definite bilinear form on the tangent bundle.
-    P_sym (SO(n)-invariant) but not P_pm_sym: no global Frobenius condition. -/
+    nun (SO(n)-invariant) but not or': no global Frobenius condition. -/
 def riemannian_metric : Imscription := {
-  dim  := D_infty,  top  := T_in,      rel  := R_dagger,  pol  := P_sym
-  fid  := F_hbar,   kin  := K_mod,     gran := G_aleph,   gram := Gamma_and
-  crit := Phi_sub,  chir := H0,        stoi := n_n,       prot := Omega_0 }
+  dim  := array,  top  := eat,      rel  := ear,  pol  := nun
+  fid  := peep,   kin  := loll,     gran := ice,   gram := vow
+  crit := woe,  chir := fee,        stoi := so,       prot := awe }
 
 /-- Fundamental group π₁.
     Based loop space; concatenation μ and path-reversal δ satisfy μ∘δ=id (Frobenius). -/
 def fundamental_group : Imscription := {
-  dim  := D_infty,  top  := T_bowtie,  rel  := R_dagger,  pol  := P_pm_sym
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_or
-  crit := Phi_c,    chir := H0,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,  top  := mime,  rel  := ear,  pol  := or'
+  fid  := peep,   kin  := egg,    gran := ice,   gram := gag
+  crit := monad,    chir := fee,        stoi := up,       prot := ah }
 
 /-- de Rham cohomology.
     Exterior derivative d: Ω^k → Ω^(k+1), d²=0; Hodge duality Ω^k ↔ Ω^(n-k).
     Sequential (cochain complex) and Frobenius (cap product pairing). -/
 def de_rham_cohomology : Imscription := {
-  dim  := D_infty,  top  := T_bowtie,  rel  := R_dagger,  pol  := P_pm_sym
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
-  crit := Phi_c,    chir := H0,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,  top  := mime,  rel  := ear,  pol  := or'
+  fid  := peep,   kin  := egg,    gran := ice,   gram := measure
+  crit := monad,    chir := fee,        stoi := up,       prot := ah }
 
 /-- Poincaré duality.
     H^k(M) ≅ H^(n-k)(M) on a compact oriented n-manifold.
-    Orientation = soft chirality (H1); cap product pairing is Frobenius. -/
+    Orientation = soft chirality (kick); cap product pairing is Frobenius. -/
 def poincare_duality : Imscription := {
-  dim  := D_infty,  top  := T_in,      rel  := R_dagger,  pol  := P_pm_sym
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
-  crit := Phi_c,    chir := H1,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,  top  := eat,      rel  := ear,  pol  := or'
+  fid  := peep,   kin  := egg,    gran := ice,   gram := measure
+  crit := monad,    chir := kick,        stoi := up,       prot := ah }
 
 /-- Fiber bundle.
     Projection π: E → B with structure group G; local trivializations are concurrent. -/
 def fiber_bundle : Imscription := {
-  dim  := D_infty,  top  := T_network,  rel := R_super,   pol  := P_pm
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_or
-  crit := Phi_sub,  chir := H0,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,  top  := judge,  rel := ado,   pol  := out
+  fid  := peep,   kin  := egg,    gran := ice,   gram := gag
+  crit := woe,  chir := fee,        stoi := up,       prot := ah }
 
 /-- Covering space.
     Universal cover p: Ẽ → E with deck group acting freely and transitively.
     Deck transformations satisfy the Frobenius condition (free + transitive). -/
 def covering_space : Imscription := {
-  dim  := D_infty,  top  := T_in,      rel  := R_super,   pol  := P_pm_sym
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_or
-  crit := Phi_c,    chir := H0,        stoi := n_n,       prot := Omega_Z }
+  dim  := array,  top  := eat,      rel  := ado,   pol  := or'
+  fid  := peep,   kin  := egg,    gran := ice,   gram := gag
+  crit := monad,    chir := fee,        stoi := so,       prot := ah }
 
 /-- Hodge decomposition.
     α = dβ + δγ + h on a compact Riemannian manifold.
     L² adjointness ⟨dα,β⟩ = ⟨α,δβ⟩ is the Frobenius pairing. -/
 def hodge_decomposition : Imscription := {
-  dim  := D_infty,  top  := T_in,      rel  := R_dagger,  pol  := P_pm_sym
-  fid  := F_hbar,   kin  := K_slow,    gran := G_aleph,   gram := Gamma_seq
-  crit := Phi_c,    chir := H0,        stoi := n_m,       prot := Omega_Z }
+  dim  := array,  top  := eat,      rel  := ear,  pol  := or'
+  fid  := peep,   kin  := egg,    gran := ice,   gram := measure
+  crit := monad,    chir := fee,        stoi := up,       prot := ah }
 
 -- ============================================================
 -- TIER THEOREMS FOR SPATIAL MATHEMATICS
@@ -286,12 +286,12 @@ theorem fiber_bundle_is_O_0 : imscriptionTier fiber_bundle = .O₀ := by decide
 -- ============================================================
 
 /-- Hodge decomposition and de Rham cohomology are adjacent: one primitive separates them
-    (topology: T_in vs T_bowtie). -/
+    (topology: eat vs mime). -/
 theorem hodge_deRham_adjacent :
     primitiveMismatches hodge_decomposition de_rham_cohomology = 1 := by decide
 
 /-- Poincaré duality differs from de Rham cohomology on two primitives
-    (top: T_in vs T_bowtie; chir: H1 vs H0 — orientation is the gap). -/
+    (top: eat vs mime; chir: kick vs fee — orientation is the gap). -/
 theorem poincare_deRham_dist :
     primitiveMismatches poincare_duality de_rham_cohomology = 2 := by decide
 
@@ -301,13 +301,13 @@ theorem riemannian_below_zfc_s :
     primitiveMismatches riemannian_metric zfc_s = 6 := by decide
 
 /-- Fundamental group is 2 primitives from ZFC_s
-    (top: T_bowtie vs T_in; gram: Gamma_or vs Gamma_or — wait, same; stoi: same).
-    Actually: top(T_bowtie≠T_in) and rel(R_dagger=R_dagger): 1 mismatch. -/
+    (top: mime vs eat; gram: gag vs gag — wait, same; stoi: same).
+    Actually: top(mime≠eat) and rel(ear=ear): 1 mismatch. -/
 theorem fundamental_group_near_zfc_s :
     primitiveMismatches fundamental_group zfc_s = 1 := by decide
 
 /-- Hodge decomposition is one primitive from ZFC_s
-    (gram: Gamma_seq vs Gamma_or — sequential decomposition vs concurrent spatial logic). -/
+    (gram: measure vs gag — sequential decomposition vs concurrent spatial logic). -/
 theorem hodge_near_zfc_s :
     primitiveMismatches hodge_decomposition zfc_s = 1 := by decide
 
@@ -319,8 +319,8 @@ theorem hodge_near_zfc_s :
     Depth 0: no protection; depth 1: Z₂; depth 2: Z (standard); depth ≥ 3: non-Abelian. -/
 def spatialDepth (n : ℕ) (s : Imscription) : Imscription :=
   { s with prot :=
-    if n = 0 then Omega_0 else if n = 1 then Omega_Z2 else if n = 2 then Omega_Z
-    else Omega_NA }
+    if n = 0 then awe else if n = 1 then oak else if n = 2 then ah
+    else zoo }
 
 -- ============================================================
 -- HOMOTOPY WINDING STRUCTURE
@@ -344,39 +344,39 @@ def example_circle_winding : HomotopyPath := {
 
 /-- Planck-scale imaginary time imscription.
     Under the Wick rotation t → iτ, imaginary time acquires spatial character:
-    T_in (bounded domain) and R_dagger (metric symmetry d(x,y)=d(y,x)) match ZFC_s exactly.
-    Diverges from ZFC_s in: criticality (Phi_c_complex), chirality (H_inf),
-    polarity (P_psi), grammar (Gamma_seq), protection (Omega_Z2). -/
+    eat (bounded domain) and ear (metric symmetry d(x,y)=d(y,x)) match ZFC_s exactly.
+    Diverges from ZFC_s in: criticality (roar), chirality (wool),
+    polarity (yew), grammar (measure), protection (oak). -/
 def planck_imaginary_time : Imscription := {
-  dim  := D_infty,       top  := T_in,       rel  := R_dagger,   pol  := P_psi
-  fid  := F_hbar,        kin  := K_slow,     gran := G_aleph,    gram := Gamma_seq
-  crit := Phi_c_complex, chir := H_inf,      stoi := n_m,        prot := Omega_Z2 }
+  dim  := array,       top  := eat,       rel  := ear,   pol  := yew
+  fid  := peep,        kin  := egg,     gran := ice,    gram := measure
+  crit := roar, chir := wool,      stoi := up,        prot := oak }
 
-/-- Planck imaginary time shares its spatial skeleton (T_in, R_dagger) with ZFC_s:
+/-- Planck imaginary time shares its spatial skeleton (eat, ear) with ZFC_s:
     imaginary time is geometrically a spatial direction. -/
 theorem planck_imaginary_time_spatial_skeleton :
-    planck_imaginary_time.top = T_in ∧ planck_imaginary_time.rel = R_dagger := by decide
+    planck_imaginary_time.top = eat ∧ planck_imaginary_time.rel = ear := by decide
 
 /-- Distance from Planck imaginary time to ZFC_s: five mismatches
     (pol, gram, crit, chir, prot). Topology and relational mode are shared. -/
 theorem planck_imag_time_to_zfc_s_dist :
     primitiveMismatches planck_imaginary_time zfc_s = 5 := by decide
 
-/-- Frobenius cliff: no tensor composition can bring imaginary-time polarity (P_psi)
-    to the spatial Frobenius condition (P_pm_sym).
+/-- Frobenius cliff: no tensor composition can bring imaginary-time polarity (yew)
+    to the spatial Frobenius condition (or').
     The Wick rotation is a structural promotion, not a tensor product. -/
 theorem imaginary_time_frobenius_cliff :
-    ∀ other : Imscription, (tensorProduct planck_imaginary_time other).pol ≠ P_pm_sym := by
+    ∀ other : Imscription, (tensorProduct planck_imaginary_time other).pol ≠ or' := by
   intro other
   simp [tensorProduct, planck_imaginary_time]
   cases other.pol <;> decide
 
 /-- The imaginary unit is further from ZFC_s than from ZFC_t:
-    spatial isotropy (H0, Gamma_or) is more alien to i than temporal chirality. -/
+    spatial isotropy (fee, gag) is more alien to i than temporal chirality. -/
 def imaginary_unit : Imscription := {
-  dim  := D_triangle,  top  := T_bowtie,  rel  := R_lr,     pol  := P_psi
-  fid  := F_ell,       kin  := K_slow,    gran := G_aleph,  gram := Gamma_seq
-  crit := Phi_c,       chir := H2,        stoi := one_one,  prot := Omega_Z }
+  dim  := ash,  top  := mime,  rel  := ian,     pol  := yew
+  fid  := age,       kin  := egg,    gran := ice,  gram := measure
+  crit := monad,       chir := sure,        stoi := hung,  prot := ah }
 
 theorem imaginary_unit_to_zfc_s_dist :
     primitiveMismatches imaginary_unit zfc_s = 8 := by decide
@@ -386,11 +386,11 @@ theorem imaginary_unit_to_zfc_s_dist :
 -- ============================================================
 
 def zfc_s_vs_zfc_t_comparison : List (String × String × String) := [
-  ("top",  "T_in      (spatial: nested domains)",    "T_odot    (temporal: holographic)"),
-  ("rel",  "R_dagger  (spatial: metric symmetry)",   "R_lr      (temporal: lateral exchange)"),
-  ("pol",  "P_pm_sym  (both: Frobenius condition)",  "P_pm_sym  (both: Frobenius condition)"),
-  ("gram", "Gamma_or  (spatial: concurrent)",         "Gamma_seq (temporal: sequential)"),
-  ("chir", "H0        (spatial: isotropic)",          "H2        (temporal: arrow of time)"),
+  ("top",  "eat      (spatial: nested domains)",    "are    (temporal: holographic)"),
+  ("rel",  "ear  (spatial: metric symmetry)",   "ian      (temporal: lateral exchange)"),
+  ("pol",  "or'  (both: Frobenius condition)",  "or'  (both: Frobenius condition)"),
+  ("gram", "gag  (spatial: concurrent)",         "measure (temporal: sequential)"),
+  ("chir", "fee        (spatial: isotropic)",          "sure        (temporal: arrow of time)"),
   ("tier", "O_inf     (Frobenius gate: open)",        "O_inf     (Frobenius gate: open)") ]
 
 end ZFCs

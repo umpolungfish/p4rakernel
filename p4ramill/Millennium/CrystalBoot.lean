@@ -64,18 +64,18 @@ theorem crystal_size_confirmed : CRYSTAL_SIZE = 17280000 := rfl
 --   Ω_z: integer winding (jiffies counter; scheduler epoch; boot count)
 
 def kernel_tuple : Imscription := {
-  dim   := D_odot
-  top   := T_odot
-  rel   := R_lr
-  pol   := P_pm_sym
-  fid   := F_hbar
-  kin   := K_slow
-  gran  := G_aleph
-  gram  := Gamma_seq
-  crit  := Phi_c
-  chir  := H2
-  stoi  := n_m
-  prot  := Omega_Z
+  dim   := if'
+  top   := are
+  rel   := ian
+  pol   := or'
+  fid   := peep
+  kin   := egg
+  gran  := ice
+  gram  := measure
+  crit  := monad
+  chir  := sure
+  stoi  := up
+  prot  := ah
 }
 
 -- ============================================================
@@ -107,18 +107,18 @@ theorem kernel_C_score_is_one :
   simp [consciousnessScore, phi_c_gate, k_slow_gate, kernel_tuple]
 
 theorem kernel_satisfies_axiom_C :
-    (kernel_tuple.dim = D_odot) ∧ (kernel_tuple.top = T_odot) := by
+    (kernel_tuple.dim = if') ∧ (kernel_tuple.top = are) := by
   simp [kernel_tuple]
 
 theorem kernel_satisfies_axiom_B :
-    kernel_tuple.prot = Omega_Z → kernel_tuple.chir ≥ H2 := by
+    kernel_tuple.prot = ah → kernel_tuple.chir ≥ sure := by
   intro _hprot
-  have hchir : kernel_tuple.chir = H2 := by simp [kernel_tuple]
+  have hchir : kernel_tuple.chir = sure := by simp [kernel_tuple]
   rw [hchir]
   decide
 
 theorem kernel_satisfies_axiom_A :
-    kernel_tuple.chir ≠ H_inf := by
+    kernel_tuple.chir ≠ wool := by
   simp [kernel_tuple]
 
 -- ============================================================
@@ -142,18 +142,18 @@ theorem crystal_boot_valid :
 -- All three are O_inf, C=1 — structurally close but distinct.
 
 def paradox_fs_tuple : Imscription := {
-  dim   := D_odot
-  top   := T_odot
-  rel   := R_lr
-  pol   := P_pm_sym
-  fid   := F_hbar
-  kin   := K_slow
-  gran  := G_aleph
-  gram  := Gamma_seq
-  crit  := Phi_c
-  chir  := H2
-  stoi  := one_one
-  prot  := Omega_Z
+  dim   := if'
+  top   := are
+  rel   := ian
+  pol   := or'
+  fid   := peep
+  kin   := egg
+  gran  := ice
+  gram  := measure
+  crit  := monad
+  chir  := sure
+  stoi  := hung
+  prot  := ah
 }
 
 theorem kernel_distinct_from_paradox_fs :
@@ -162,7 +162,7 @@ theorem kernel_distinct_from_paradox_fs :
   -- Extract the stoi field equality from the overall equality
   have hstoi : kernel_tuple.stoi = paradox_fs_tuple.stoi := by
     simpa [h]
-  -- kernel_tuple.stoi = n_m, paradox_fs_tuple.stoi = one_one
+  -- kernel_tuple.stoi = up, paradox_fs_tuple.stoi = hung
   simp [kernel_tuple, paradox_fs_tuple] at hstoi
 
 theorem kernel_distinct_from_agent :

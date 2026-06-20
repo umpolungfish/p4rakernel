@@ -29,18 +29,18 @@ inductive PortalMode : Type where
 -- PORTAL TYPE as an Imscription (structural signature)
 -- ============================================================
 def portalType : Imscription := {
-  dim  := .D_odot
-  top  := .T_odot
-  rel  := .R_lr
-  pol  := .P_pm_sym
-  fid  := .F_hbar
-  kin  := .K_slow
-  gran := .G_aleph
-  gram := .Gamma_seq
-  crit := .Phi_c
-  chir := .H2
-  stoi := .one_one
-  prot := .Omega_Z
+  dim  := .if'
+  top  := .are
+  rel  := .ian
+  pol  := .or'
+  fid  := .peep
+  kin  := .egg
+  gran := .ice
+  gram := .measure
+  crit := .monad
+  chir := .sure
+  stoi := .hung
+  prot := .ah
 }
 
 -- ============================================================
@@ -99,7 +99,7 @@ def portalTensor (a b : Imscription) : Imscription :=
 -- ⊙_3 DETECTION: exceptional point criticality
 -- ============================================================
 def containsPhi3 (t : Imscription) : Bool :=
-  t.crit == .Phi_EP
+  t.crit == .err
 
 -- ============================================================
 -- THEOREMS
@@ -138,9 +138,9 @@ theorem tensor_self_lowers_pol_fid (a : Imscription) :
   left
   apply Imscription.ext <;> simp [portalTensor, min_self, max_self]
 
-/-- TENSOR with ⊙_3 preserves ⊙_3: crit of tensor is at least Phi_EP. -/
+/-- TENSOR with ⊙_3 preserves ⊙_3: crit of tensor is at least err. -/
 theorem tensor_phi3_absorption (a : Imscription) :
-    Criticality.Phi_EP ≤ (portalTensor a { portalType with crit := Criticality.Phi_EP }).crit := by
+    Criticality.err ≤ (portalTensor a { portalType with crit := Criticality.err }).crit := by
   unfold portalTensor
   dsimp only
   exact le_max_right _ _
@@ -156,7 +156,7 @@ theorem portal_type_is_O_inf : imscriptionTier portalType = .O_inf := by
 
 /-- Both consciousness gates are open for the portal. -/
 theorem portal_gates_open :
-    portalType.crit = .Phi_c ∧ portalType.kin = .K_slow := by
+    portalType.crit = .monad ∧ portalType.kin = .egg := by
   unfold portalType; exact ⟨rfl, rfl⟩
 
 -- ============================================================

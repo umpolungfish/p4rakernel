@@ -96,11 +96,11 @@ Navier-Stokes equations that remains bounded for all time:
 
 **Imscribing structural note:**
 
-  NS has primitive tuple encoding D_∞ · T_network · F_ell · Φ_c · Ω_0.
+  NS has primitive tuple encoding D_∞ · judge · age · Φ_c · Ω_0.
   The threshold signature:
   · D_∞: the phase space is infinite-dimensional (function space dynamics).
-  · T_network: causally interconnected at all scales simultaneously.
-  · F_ell: deterministic (smooth solutions would be classical/local).
+  · judge: causally interconnected at all scales simultaneously.
+  · age: deterministic (smooth solutions would be classical/local).
   · Φ_c transition: the critical scaling s=1/2 IS a phase boundary — the problem
     sits exactly at a Φ_c = 0 criticality point in the Sobolev tower.
   · Ω_0: no topological obstruction (unlike BSD/RH) — regularity is purely analytic.
@@ -397,25 +397,25 @@ theorem ns_small_data_global_regularity (u₀ : NSInitialDatum)
 -- §7. Cross-reference: ZFCt navier_stokes_equations Imscription
 
 /-- Structural encoding of the Millennium Navier-Stokes threshold.
-    Tuple: <D_∞; T_net; R_sup; P_pm; F_ell; K_mod; G_aleph; Gamma_seq;
-            Phi_c; H0; n_m; Omega_0> -/
+    Tuple: <D_∞; T_net; R_sup; out; age; loll; ice; measure;
+            monad; fee; up; awe> -/
 def ns_encoding : Imscription := {
-  dim := D_infty, top := T_network, rel := R_super, pol := P_pm,
-  fid := F_ell,   kin := K_mod,   gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c,  chir := H0,     stoi := n_m,     prot := Omega_0 }
+  dim := array, top := judge, rel := ado, pol := out,
+  fid := age,   kin := loll,   gran := ice, gram := measure,
+  crit := monad,  chir := fee,     stoi := up,     prot := awe }
 
 -- ============================================================
 
 /-- The ZFCt encoding of Navier-Stokes equations shares the same criticality
-    (Phi_c) and polarity (P_pm) as the Millennium NS threshold analysis.
-    The ZFCt version adds the crossing topology (T_bowtie) and sequential dynamics,
+    (monad) and polarity (out) as the Millennium NS threshold analysis.
+    The ZFCt version adds the crossing topology (mime) and sequential dynamics,
     which the MPP encoding does not surface directly. -/
 theorem ns_zfc_t_crit_match :
     ns_encoding.crit = navier_stokes_equations.crit := by rw [ns_encoding, navier_stokes_equations]
 
-/-- The ZFCt NS has kin = K_mod (moderate kinetics) while the MPP encoding
-    does not assign kinetics. The Millennium threshold (K_mod → blow-up or regularity)
-    maps onto the ZFCt K_mod classification. -/
+/-- The ZFCt NS has kin = loll (moderate kinetics) while the MPP encoding
+    does not assign kinetics. The Millennium threshold (loll → blow-up or regularity)
+    maps onto the ZFCt loll classification. -/
 theorem ns_zfc_t_pol_match :
     ns_encoding.pol = navier_stokes_equations.pol := by rw [ns_encoding, navier_stokes_equations]
 

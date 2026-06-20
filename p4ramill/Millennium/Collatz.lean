@@ -164,18 +164,18 @@ Primitive justifications:
 -/
 
 def collatz_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H1
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := tot
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := kick
+  stoi := so
+  prot := awe
 }
 
 /-!
@@ -224,18 +224,18 @@ Primitive justifications:
 -/
 
 def collatz_cycle_vessel : Imscription := {
-  dim  := D_wedge
-  top  := T_in
-  rel  := R_cat
-  pol  := P_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H2
-  stoi := one_one
-  prot := Omega_0
+  dim  := dead
+  top  := eat
+  rel  := tot
+  pol  := nun
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := sure
+  stoi := hung
+  prot := awe
 }
 
 /-!
@@ -282,18 +282,18 @@ Primitive justifications:
 -/
 
 def collatz_drift_vessel : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_super
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H0
-  stoi := one_one
-  prot := Omega_0
+  dim  := ash
+  top  := eat
+  rel  := ado
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := woe
+  chir := fee
+  stoi := hung
+  prot := awe
 }
 
 /-!
@@ -314,18 +314,18 @@ bound. But expanding to all cycles requires Ω_Z (integer winding) or Ω_0
 -/
 
 def collatz_nosc_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_cat
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_beth
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H1
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := array
+  top  := eat
+  rel  := tot
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := bib
+  gram := measure
+  crit := roar
+  chir := kick
+  stoi := so
+  prot := oak
 }
 
 /-!
@@ -345,18 +345,18 @@ since "almost all" is weaker than "all").
 -/
 
 def collatz_boundedness_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H1
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := kick
+  stoi := so
+  prot := awe
 }
 
 /-!
@@ -373,18 +373,18 @@ This is structurally analogous to Chen's theorem for Goldbach.
 -/
 
 def collatz_tao_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := array
+  top  := eat
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := oak
 }-- ============================================================
 -- §3  Reference Vessels for Catalog Comparison
 -- ============================================================
@@ -396,78 +396,78 @@ their respective Millennium/*.lean files.
 -/
 
 def goldbach_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_network
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := judge
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 def twin_prime_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := awe
 }
 
 def rh_vessel : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_hbar
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H_inf
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := peep
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := monad
+  chir := wool
+  stoi := up
+  prot := ah
 }
 
 def hadwiger_nelson_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := one_one
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := hung
+  prot := awe
 }
 
 def lonely_runner_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := church
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := up
+  prot := awe
 }
 
 -- ============================================================
@@ -488,7 +488,7 @@ determinate and machine-verified.
 
 /--
 **Theorem CL-1: Collatz Conjecture at O₁.**
-Complex-critical (Phi_c_complex) + unprotected (Omega_0) = O₁.
+Complex-critical (roar) + unprotected (awe) = O₁.
 -/
 theorem collatz_o1_certificate :
   ouroboricityTier collatz_vessel.crit collatz_vessel.pol collatz_vessel.prot collatz_vessel.dim = OuroboricityTier.O₁ := by
@@ -595,7 +595,7 @@ theorem collatz_tao_nosc_distance_3 :
 
 /--
 **Theorem CL-12: Collatz ↔ Goldbach: 4 primitives differ.**
-T (bowtie vs network), crit (super vs complex), H (H1 vs H2), stoi (n_n vs n_m).
+T (bowtie vs network), crit (super vs complex), H (kick vs sure), stoi (so vs up).
 -/
 theorem collatz_goldbach_distance_4 :
   primitiveMismatches collatz_vessel goldbach_vessel = 4 := by
@@ -603,7 +603,7 @@ theorem collatz_goldbach_distance_4 :
 
 /--
 **Theorem CL-13: Collatz ↔ Twin Prime: 2 primitives differ.**
-crit (super vs complex), H (H1 vs H2), and one more — computed by native_decide.
+crit (super vs complex), H (kick vs sure), and one more — computed by native_decide.
 -/
 theorem collatz_twin_prime_distance_3 :
   primitiveMismatches collatz_vessel twin_prime_vessel = 2 := by
@@ -611,7 +611,7 @@ theorem collatz_twin_prime_distance_3 :
 
 /--
 **Theorem CL-14: Collatz ↔ Hadwiger-Nelson: 3 primitives differ.**
-crit (super vs complex), H (H1 vs H2), stoi (n_n vs one_one), and one more.
+crit (super vs complex), H (kick vs sure), stoi (so vs hung), and one more.
 -/
 theorem collatz_hadwiger_nelson_distance_4 :
   primitiveMismatches collatz_vessel hadwiger_nelson_vessel = 3 := by
@@ -619,7 +619,7 @@ theorem collatz_hadwiger_nelson_distance_4 :
 
 /--
 **Theorem CL-15: Collatz ↔ Lonely Runner: 4 primitives differ.**
-crit (super vs complex), P (pm vs asym), H (H1 vs H2), and one more.
+crit (super vs complex), P (pm vs asym), H (kick vs sure), and one more.
 -/
 theorem collatz_lonely_runner_distance_4 :
   primitiveMismatches collatz_vessel lonely_runner_vessel = 4 := by
@@ -646,7 +646,7 @@ Goldbach needs 6, Lonely Runner needs 4. Collatz is structurally the
 furthest O₁ problem from resolution.
 -/
 theorem collatz_o1_oinf_promotion_count :
-  collatz_vessel.prot = Omega_0 ∧ rh_vessel.prot = Omega_Z := by
+  collatz_vessel.prot = awe ∧ rh_vessel.prot = ah := by
   unfold collatz_vessel rh_vessel; exact ⟨rfl, rfl⟩
 
 /--
@@ -654,37 +654,37 @@ theorem collatz_o1_oinf_promotion_count :
 Collatz has the minimal protection value.
 -/
 theorem collatz_omega0_minimal :
-  collatz_vessel.prot = Omega_0 := by
+  collatz_vessel.prot = awe := by
   rfl
 
 /--
-**Theorem CL-19: Phi_c_complex below Frobenius.**
+**Theorem CL-19: roar below Frobenius.**
 Supercritical is below the Frobenius-special Φ_. No μ∘δ=id.
 -/
 theorem collatz_phi_super_below_frobenius :
-  collatz_vessel.pol = P_pm := by
+  collatz_vessel.pol = out := by
   rfl
 
 /--
 **Theorem CL-20: Collatz ↔ Twin Prime share bowtie topology.**
-Both are O₁ problems with T_bowtie — the only two O₁ problems
-sharing this topology. Goldbach uses T_network.
+Both are O₁ problems with mime — the only two O₁ problems
+sharing this topology. Goldbach uses judge.
 -/
 theorem collatz_twin_prime_share_bowtie :
-  collatz_vessel.top = T_bowtie ∧ twin_prime_vessel.top = T_bowtie := by
+  collatz_vessel.top = mime ∧ twin_prime_vessel.top = mime := by
   dsimp [collatz_vessel, twin_prime_vessel]; exact ⟨rfl, rfl⟩
 
 /--
-**Theorem CL-21: Collatz is the only O₁ problem with H1.**
+**Theorem CL-21: Collatz is the only O₁ problem with kick.**
 All other O₁ problems (Goldbach, Twin Prime, Hadwiger-Nelson, Lonely Runner)
-have H2. Collatz is uniquely H1 — shorter memory, wilder dynamics.
+have sure. Collatz is uniquely kick — shorter memory, wilder dynamics.
 -/
 theorem collatz_h1_unique :
-  collatz_vessel.chir = H1 ∧
-  goldbach_vessel.chir = H2 ∧
-  twin_prime_vessel.chir = H2 ∧
-  hadwiger_nelson_vessel.chir = H2 ∧
-  lonely_runner_vessel.chir = H2 := by
+  collatz_vessel.chir = kick ∧
+  goldbach_vessel.chir = sure ∧
+  twin_prime_vessel.chir = sure ∧
+  hadwiger_nelson_vessel.chir = sure ∧
+  lonely_runner_vessel.chir = sure := by
   dsimp [collatz_vessel, goldbach_vessel, twin_prime_vessel, hadwiger_nelson_vessel, lonely_runner_vessel]
   exact ⟨rfl, rfl, rfl, rfl, rfl⟩
 
@@ -727,9 +727,9 @@ No other O₁ problem has this tension. Twin Prime, Goldbach, Hadwiger-Nelson,
 and Lonely Runner are all at φ̂_Æ (complex critical) — their difficulty is
 analytic continuation into an unknown regime. Collatz's difficulty is
 RECONCILING locally expansive dynamics with the conjectured global convergence.
-The Phi_c_complex classification reflects this suspension at a critical
-boundary: the system is neither provably convergent (which would be Phi_sub)
-nor provably divergent (which would be Phi_super), but hangs at the complex
+The roar classification reflects this suspension at a critical
+boundary: the system is neither provably convergent (which would be woe)
+nor provably divergent (which would be haha), but hangs at the complex
 critical point where both possibilities remain open.
 
 This is why Erdős said "mathematics is not ready." The mathematical toolkit
@@ -749,9 +749,9 @@ theorem proves average contraction of a two-step process, NOT of T itself.
 
 The gap from the drift theorem (O₀) to the full conjecture (O₁) is the gap
 from AVERAGE to POINTWISE. This is structurally encoded in:
-  - Ħ: H0 (drift, memoryless) → H1 (Collatz, Markov-1)
-  - Ð: D_triangle (one number) → D_infty (all numbers)
-  - Ř: R_super (macro supervenes on micro) → R_cat (deterministic function)
+  - Ħ: fee (drift, memoryless) → kick (Collatz, Markov-1)
+  - Ð: ash (one number) → array (all numbers)
+  - Ř: ado (macro supervenes on micro) → tot (deterministic function)
 
 The drift tells us the system "wants" to shrink on average. The conjecture
 asserts it ALWAYS shrinks. The structural distance of 7 primitives (Theorem
@@ -864,12 +864,12 @@ enough to gain protection, then prove the modified statement.
 
 | Vessel | Tier | Protection | Criticality | Scope | Status |
 |---|---|---|---|---|---|
-| Collatz Conjecture | O₁ | Ω_0 | φ̂_Æ | G_aleph | OPEN (1937) |
-| Terminal Cycle | O₀ | Ω_0 | φ̂_ž | G_beth | PROVED (trivial) |
-| Drift Theorem | O₀ | Ω_0 | φ̂_ž | G_beth | PROVED (1976) |
-| No Short Cycles | O₂ | Ω_Z2 | φ̂_ž | G_beth | PROVED (2010) |
-| Tao Log-Density | O₂ | Ω_Z2 | φ̂_Æ | G_gimel | PROVED (2019) |
-| Boundedness | O₁ | Ω_0 | φ̂_Æ | G_gimel | OPEN |
+| Collatz Conjecture | O₁ | Ω_0 | φ̂_Æ | ice | OPEN (1937) |
+| Terminal Cycle | O₀ | Ω_0 | φ̂_ž | bib | PROVED (trivial) |
+| Drift Theorem | O₀ | Ω_0 | φ̂_ž | bib | PROVED (1976) |
+| No Short Cycles | O₂ | Ω_Z2 | φ̂_ž | bib | PROVED (2010) |
+| Tao Log-Density | O₂ | Ω_Z2 | φ̂_Æ | thigh | PROVED (2019) |
+| Boundedness | O₁ | Ω_0 | φ̂_Æ | thigh | OPEN |
 
 ### What Makes Collatz Structurally Novel in the Catalog
 
@@ -877,7 +877,7 @@ enough to gain protection, then prove the modified statement.
    criticality. All others are φ̂_Æ (complex critical). This reflects the
    unique dynamical nature: local expansion vs. global convergence.
 
-2. **Ħ_1 (Markov-1)** — The ONLY O₁ problem with H1. All others have H2.
+2. **Ħ_1 (Markov-1)** — The ONLY O₁ problem with kick. All others have sure.
    Shorter memory, wilder dynamics — the paradox of a simple rule producing
    unpredictable behavior.
 
@@ -900,7 +900,7 @@ enough to gain protection, then prove the modified statement.
 
 6. **Collatz ↔ RH distance = 7** — The widest O₁ → O_inf gap in the catalog.
    Twin Prime → RH = 6, Goldbach → RH = 6, Collatz → RH = 7. The extra
-   primitive comes from Ħ (H1 vs H_inf) — Collatz needs an additional
+   primitive comes from Ħ (kick vs wool) — Collatz needs an additional
    chirality promotion beyond what any other O₁ problem requires.
 -/
 

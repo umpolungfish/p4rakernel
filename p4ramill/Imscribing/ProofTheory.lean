@@ -18,9 +18,9 @@ set_option linter.style.nativeDecide false
 
 -- §1. UNIT THEOREM (tautology)
 def unit_premise : Imscription := {
-  dim := D_wedge, top := T_network, rel := R_super, pol := P_asym,
-  fid := F_ell, kin := K_slow, gran := G_beth, gram := Gamma_and,
-  crit := Phi_sub, chir := H0, stoi := n_m, prot := Omega_0 }
+  dim := dead, top := judge, rel := ado, pol := church,
+  fid := age, kin := egg, gran := bib, gram := vow,
+  crit := woe, chir := fee, stoi := up, prot := awe }
 
 def unit_conclusion : Imscription := unit_premise
 
@@ -29,101 +29,101 @@ theorem unit_is_tautology :
 
 -- §2. EUCLID (gap = 5)
 def euclid_premise : Imscription := {
-  dim := D_infty, top := T_network, rel := R_cat, pol := P_sym,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := judge, rel := tot, pol := nun,
+  fid := age, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 def euclid_conclusion : Imscription := {
-  dim := D_infty, top := T_odot, rel := R_dagger, pol := P_pm,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := are, rel := ear, pol := out,
+  fid := age, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 theorem euclid_gap :
     primitiveMismatches euclid_premise euclid_conclusion = 5 := by native_decide
 
 -- §3. PYTHAGORAS √2 (gap = 8)
 def pythagoras_premise : Imscription := {
-  dim := D_infty, top := T_network, rel := R_cat, pol := P_sym,
-  fid := F_ell, kin := K_slow, gran := G_beth, gram := Gamma_and,
-  crit := Phi_sub, chir := H1, stoi := n_m, prot := Omega_0 }
+  dim := array, top := judge, rel := tot, pol := nun,
+  fid := age, kin := egg, gran := bib, gram := vow,
+  crit := woe, chir := kick, stoi := up, prot := awe }
 
 def pythagoras_conclusion : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_dagger, pol := P_pm,
-  fid := F_ell, kin := K_slow, gran := G_gimel, gram := Gamma_seq,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := mime, rel := ear, pol := out,
+  fid := age, kin := egg, gran := thigh, gram := measure,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 theorem pythagoras_gap :
     primitiveMismatches pythagoras_premise pythagoras_conclusion = 8 := by native_decide
 
 -- §4. FERMAT n=3 (gap = 9)
 def fermat_premise : Imscription := {
-  dim := D_infty, top := T_network, rel := R_cat, pol := P_sym,
-  fid := F_ell, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_sub, chir := H1, stoi := n_m, prot := Omega_0 }
+  dim := array, top := judge, rel := tot, pol := nun,
+  fid := age, kin := egg, gran := ice, gram := vow,
+  crit := woe, chir := kick, stoi := up, prot := awe }
 
 def fermat_n3 : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_lr, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ian, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 theorem fermat_gap :
     primitiveMismatches fermat_premise fermat_n3 = 9 := by native_decide
 
 -- §5. RIEMANN (gap = 5)
 def rh_premise : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c_complex, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := roar, chir := wool, stoi := up, prot := ah }
 
 def rh_conclusion : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_lr, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ian, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 theorem rh_gap :
     primitiveMismatches rh_premise rh_conclusion = 5 := by native_decide
 
 -- §6. BSD (gap = 6)
 def bsd_premise : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := sure, stoi := up, prot := ah }
 
 def bsd_conclusion : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_lr, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ian, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 theorem bsd_gap :
     primitiveMismatches bsd_premise bsd_conclusion = 6 := by native_decide
 
 -- §7. NAVIER-STOKES (gap = 9)
 def ns_premise : Imscription := {
-  dim := D_infty, top := T_odot, rel := R_lr, pol := P_asym,
-  fid := F_ell, kin := K_fast, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_super, chir := H0, stoi := n_m, prot := Omega_0 }
+  dim := array, top := are, rel := ian, pol := church,
+  fid := age, kin := yea, gran := ice, gram := measure,
+  crit := haha, chir := fee, stoi := up, prot := awe }
 
 def ns_conclusion : Imscription := {
-  dim := D_infty, top := T_bowtie, rel := R_super, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := array, top := mime, rel := ado, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 theorem ns_gap :
     primitiveMismatches ns_premise ns_conclusion = 9 := by native_decide
 
 -- §8. P vs NP
 theorem P_never_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .Phi_c .P_sym p d ≠ .O_inf := by
+    ouroboricityTier .monad .nun p d ≠ .O_inf := by
   intro p d; cases p <;> cases d <;> native_decide
 
 theorem NP_always_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .Phi_c .P_pm_sym p d = .O_inf := by
+    ouroboricityTier .monad .or' p d = .O_inf := by
   intro p d; simp [ouroboricityTier]
 
-theorem P_not_eq_NP : Polarity.P_sym ≠ Polarity.P_pm_sym := by decide
+theorem P_not_eq_NP : Polarity.nun ≠ Polarity.or' := by decide
 
 theorem P_cannot_become_NP : ∀ (a b : Polarity),
-    a ≠ .P_pm_sym → polarityTensor a b ≠ .P_pm_sym :=
+    a ≠ .or' → polarityTensor a b ≠ .or' :=
   frobenius_not_synthesizable
 
 -- §9. CLASSIFICATION TABLE
@@ -139,18 +139,18 @@ theorem classification :
 
 
 -- §10. HODGE CONJECTURE (gap = 5)
--- Hodge is the unique MPP with both D_odot and T_odot simultaneously.
+-- Hodge is the unique MPP with both if' and are simultaneously.
 -- The premise: Hodge decomposition is well-defined on smooth projective varieties.
 -- The conclusion: every rational Hodge class is algebraic.
 def hodge_premise : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_cat, pol := P_sym,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_c_complex, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := tot, pol := nun,
+  fid := peep, kin := egg, gran := ice, gram := vow,
+  crit := roar, chir := wool, stoi := up, prot := ah }
 
 def hodge_conclusion : Imscription := {
-  dim := D_odot, top := T_bowtie, rel := R_lr, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H_inf, stoi := n_m, prot := Omega_Z }
+  dim := if', top := mime, rel := ian, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := wool, stoi := up, prot := ah }
 
 theorem hodge_gap :
     primitiveMismatches hodge_premise hodge_conclusion = 5 := by native_decide
@@ -161,14 +161,14 @@ theorem hodge_gap :
 -- The premise: classical YM data (Lie algebra, connection, curvature).
 -- The conclusion: quantum YM theory with positive spectral gap.
 def ym_premise : Imscription := {
-  dim := D_infty, top := T_network, rel := R_super, pol := P_asym,
-  fid := F_ell, kin := K_trap, gran := G_aleph, gram := Gamma_and,
-  crit := Phi_super, chir := H0, stoi := n_m, prot := Omega_0 }
+  dim := array, top := judge, rel := ado, pol := church,
+  fid := age, kin := on, gran := ice, gram := vow,
+  crit := haha, chir := fee, stoi := up, prot := awe }
 
 def ym_conclusion : Imscription := {
-  dim := D_odot, top := T_odot, rel := R_dagger, pol := P_pm,
-  fid := F_hbar, kin := K_slow, gran := G_aleph, gram := Gamma_seq,
-  crit := Phi_c, chir := H2, stoi := n_m, prot := Omega_Z }
+  dim := if', top := are, rel := ear, pol := out,
+  fid := peep, kin := egg, gran := ice, gram := measure,
+  crit := monad, chir := sure, stoi := up, prot := ah }
 
 theorem ym_gap :
     primitiveMismatches ym_premise ym_conclusion = 10 := by native_decide

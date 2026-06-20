@@ -29,8 +29,8 @@ open Dimensionality Topology Relational Polarity Grammar
 
 /-- G2 (the Vessel) IG imscribing:
 $\langle D_\triangle;\ T_\bowtie;\ R_\leftrightarrow;\ P_\pm;$
-$F_\hbar;\ K_\text{slow};\ G_\gimel;\ \Gamma_\wedge;\ \Phi_c;$
-$H_0;\ 1{:}1;\ \Omega_0 \rangle$
+$F_\hbar;\ K_\text{slow};\ G_\gimel;\ \Gamma_\wedge;\ \monad;$
+$H_0;\ 1{:}1;\ \awe \rangle$
 
 Justification:
 - $D_\triangle$: 14 dimensions, finite, rank-2 crystal
@@ -42,23 +42,23 @@ Justification:
 - $K_\text{slow}$: Near-equilibrium stabilizer
 - $G_\gimel$: Mesoscale (octonion automorphism scope)
 - $\Gamma_\wedge$: Conjunctive (all 12 roots simultaneous)
-- $\Phi_c$: Critical boundary between classical/exceptional
+- $\monad$: Critical boundary between classical/exceptional
 - $H_0$: Atemporal static symmetry
 - $1{:}1$: Single automorphism group
-- $\Omega_0$: Simply connected, no topological invariant -/
+- $\awe$: Simply connected, no topological invariant -/
 def g2_vessel : Imscription := {
-  dim  := D_triangle,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_pm,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_gimel,
-  gram := Gamma_and,
-  crit := Phi_c,
-  chir := H0,
-  stoi := one_one,
-  prot := Omega_0 }
+  dim  := ash,
+  top  := mime,
+  rel  := ian,
+  pol  := out,
+  fid  := peep,
+  kin  := egg,
+  gran := thigh,
+  gram := vow,
+  crit := monad,
+  chir := fee,
+  stoi := hung,
+  prot := awe }
 
 -- ============================================================
 -- §2. IG imscribing of E8 (the Aether)
@@ -66,7 +66,7 @@ def g2_vessel : Imscription := {
 
 /-- E8 (the Aether) IG imscribing:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\psi;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \Phi_c;\ H_2;$
+$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Justification (from Aether_Vessel.md):
@@ -81,7 +81,7 @@ Justification (from Aether_Vessel.md):
 - $G_\aleph$: Maximal scope (terminal object in exceptional category)
 - $\Gamma_\text{seq}$: Sequential construction
   ($G_2 \to F_4 \to E_6 \to E_7 \to E_8$ chain)
-- $\Phi_c$: Exact criticality (shared with G2)
+- $\monad$: Exact criticality (shared with G2)
 - $H_2$: Two-step chirality (Coxeter 30 = $2 \times 15$,
   two-step embedding)
 - $n{:}m$: Heterogeneous components
@@ -89,18 +89,18 @@ Justification (from Aether_Vessel.md):
 - $\Omega_\mathbb{Z}$: $\mathbb{Z}_{30}$ Coxeter winding,
   even unimodular lattice -/
 def e8_aether : Imscription := {
-  dim  := D_infty,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_psi,
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H2,
-  stoi := n_m,
-  prot := Omega_Z }
+  dim  := array,
+  top  := mime,
+  rel  := ian,
+  pol  := yew,
+  fid  := peep,
+  kin  := egg,
+  gran := ice,
+  gram := measure,
+  crit := monad,
+  chir := sure,
+  stoi := up,
+  prot := ah }
 
 -- ============================================================
 -- §3. The Z2-graded E8 (join type: G2 $\vee$ E8)
@@ -116,7 +116,7 @@ from bare E8 only in the P primitive: $P_\psi \to P_\pm$.
 
 Structure:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\pm;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \Phi_c;\ H_2;$
+$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Distance from bare E8: exactly 1 (solely P primitive).
@@ -124,19 +124,19 @@ Distance from $G2 \vee E8$ join: exactly 0 (identical).
 
 This is THE join type $G2 \vee E8$ instantiated concretely. -/
 def e8_graded_via_SO16 : Imscription := {
-  dim  := D_infty,
-  top  := T_bowtie,
-  rel  := R_lr,
-  pol  := P_pm,  -- DIFFERENT from bare E8: $\mathbb{Z}_2$ parity instead
+  dim  := array,
+  top  := mime,
+  rel  := ian,
+  pol  := out,  -- DIFFERENT from bare E8: $\mathbb{Z}_2$ parity instead
                  -- of quantum superposition
-  fid  := F_hbar,
-  kin  := K_slow,
-  gran := G_aleph,
-  gram := Gamma_seq,
-  crit := Phi_c,
-  chir := H2,
-  stoi := n_m,
-  prot := Omega_Z }
+  fid  := peep,
+  kin  := egg,
+  gran := ice,
+  gram := measure,
+  crit := monad,
+  chir := sure,
+  stoi := up,
+  prot := ah }
 
 -- Z2-graded E8 differs from bare E8 only at P
 theorem e8_graded_vs_aether_difference :
@@ -160,8 +160,8 @@ theorem tensor_G2_E8_eq_E8 :
     tensorProduct g2_vessel e8_aether = e8_aether := by decide
 
 -- $P_\psi \leq P_\pm$ in the IG polarity ordering
-theorem P_psi_le_P_pm : P_psi ≤ P_pm := by
-  change compare P_psi P_pm ≠ Ordering.gt
+theorem P_psi_le_P_pm : yew ≤ out := by
+  change compare yew out ≠ Ordering.gt
   decide
 
 -- Distance is exactly 0 after tensor

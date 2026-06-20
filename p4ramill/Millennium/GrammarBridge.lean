@@ -25,18 +25,18 @@ set_option linter.style.whitespace false
     Crystal address: 16,809,848. All values verified. -/
 def grammarTuple : Imscription :=
   Imscription.mk
-    D_odot      -- Ð_ω: holographic
-    T_odot      -- Þ_¨: imscriptive closure
-    R_lr        -- Ř_=: bidirectional
-    P_pm_sym    -- Φ_}: Frobenius-special
-    F_hbar      -- ƒ_ż: quantum coherence
-    K_slow      -- Ç_@: slow kinetics
-    G_aleph     -- Γ_ʔ: maximal scope
-    Gamma_broad -- ɢ_ˌ: broadcast
-    Phi_c       -- ⊙_ÿ: self-modeling
-    H2          -- Ħ_A: 2-step Markov
-    n_m         -- Σ_S: many heterogeneous
-    Omega_Z     -- Ω_z: integer winding
+    if'      -- Ð_ω: holographic
+    are      -- Þ_¨: imscriptive closure
+    ian        -- Ř_=: bidirectional
+    or'    -- Φ_}: Frobenius-special
+    peep      -- ƒ_ż: quantum coherence
+    egg      -- Ç_@: slow kinetics
+    ice     -- Γ_ʔ: maximal scope
+    ooze -- ɢ_ˌ: broadcast
+    monad       -- ⊙_ÿ: self-modeling
+    sure          -- Ħ_A: 2-step Markov
+    up         -- Σ_S: many heterogeneous
+    ah     -- Ω_z: integer winding
 
 /-- Grammar type crystal address. -/
 theorem grammar_crystal_addr : crystal_encode grammarTuple = 16809848 := by
@@ -53,8 +53,8 @@ theorem grammar_self_distance : primitiveMismatches grammarTuple grammarTuple = 
 /-- Riemann zeta function structural type. -/
 def riemannZetaTuple : Imscription :=
   Imscription.mk
-    D_infty T_network R_lr P_psi F_ell K_slow
-    G_beth Gamma_seq Phi_c_complex H0 n_m Omega_0
+    array judge ian yew age egg
+    bib measure roar fee up awe
 
 /-- Zeta function distance to O_inf. -/
 theorem zeta_distance : primitiveMismatches riemannZetaTuple grammarTuple = 9 := by
@@ -75,8 +75,8 @@ theorem zeta_differs : crystal_encode riemannZetaTuple ≠ crystal_encode gramma
 /-- Yang-Mills 4D quantum gauge theory structural type. -/
 def yangMillsTuple : Imscription :=
   Imscription.mk
-    D_infty T_bowtie R_lr P_psi F_hbar K_slow
-    G_beth Gamma_seq Phi_c H1 n_m Omega_0
+    array mime ian yew peep egg
+    bib measure monad kick up awe
 
 /-- YM distance to O_inf. -/
 theorem ym_distance : primitiveMismatches yangMillsTuple grammarTuple = 7 := by

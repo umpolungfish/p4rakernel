@@ -21,71 +21,71 @@ open Imscribing.Consciousness
 -- THE PKG ITSELF
 -- ─────────────────────────────────────────────────────────
 
-/-- The pkg package manager. T_bowtie distinguishes it from the kernel
-    (T_odot) and agent (T_boxtimes): pkg sits at the crossing point of
+/-- The pkg package manager. mime distinguishes it from the kernel
+    (are) and agent (T_boxtimes): pkg sits at the crossing point of
     conflicting dependency graphs and resolves via lattice join. -/
 def pkg : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_bowtie
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.mime
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 -- ─────────────────────────────────────────────────────────
 -- SAMPLE PACKAGES
 -- ─────────────────────────────────────────────────────────
 
-/-- libfoo: P_asym, F_ell, K_fast. O₀ tier. -/
+/-- libfoo: church, age, yea. O₀ tier. -/
 def libfoo : Imscription :=
-  { dim  := Dimensionality.D_wedge
-    top  := Topology.T_network
-    rel  := Relational.R_super
-    pol  := Polarity.P_asym
-    fid  := Fidelity.F_ell
-    kin  := KineticChar.K_fast
-    gran := Granularity.G_beth
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_sub
-    chir := Chirality.H0
-    stoi := Stoichiometry.one_one
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.dead
+    top  := Topology.judge
+    rel  := Relational.ado
+    pol  := Polarity.church
+    fid  := Fidelity.age
+    kin  := KineticChar.yea
+    gran := Granularity.bib
+    gram := Grammar.vow
+    crit := Criticality.woe
+    chir := Chirality.fee
+    stoi := Stoichiometry.hung
+    prot := Protection.awe }
 
-/-- libbar: P_pm, F_hbar, K_slow. O₁ tier. -/
+/-- libbar: out, peep, egg. O₁ tier. -/
 def libbar : Imscription :=
-  { dim  := Dimensionality.D_wedge
-    top  := Topology.T_network
-    rel  := Relational.R_super
-    pol  := Polarity.P_pm
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_beth
-    gram := Grammar.Gamma_and
-    crit := Criticality.Phi_sub
-    chir := Chirality.H0
-    stoi := Stoichiometry.one_one
-    prot := Protection.Omega_0 }
+  { dim  := Dimensionality.dead
+    top  := Topology.judge
+    rel  := Relational.ado
+    pol  := Polarity.out
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.bib
+    gram := Grammar.vow
+    crit := Criticality.woe
+    chir := Chirality.fee
+    stoi := Stoichiometry.hung
+    prot := Protection.awe }
 
 /-- libbaz: O_inf tier. -/
 def libbaz : Imscription :=
-  { dim  := Dimensionality.D_odot
-    top  := Topology.T_odot
-    rel  := Relational.R_lr
-    pol  := Polarity.P_pm_sym
-    fid  := Fidelity.F_hbar
-    kin  := KineticChar.K_slow
-    gran := Granularity.G_aleph
-    gram := Grammar.Gamma_seq
-    crit := Criticality.Phi_c
-    chir := Chirality.H2
-    stoi := Stoichiometry.n_m
-    prot := Protection.Omega_Z }
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.or'
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.measure
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
 
 -- ─────────────────────────────────────────────────────────
 -- RESOLUTION
@@ -194,12 +194,12 @@ lemma cj_prot (a b : Imscription) : (compute_join a b).prot = maxField a.prot b.
 theorem pkg_is_O_inf : imscriptionTier pkg = .O_inf := by
   unfold pkg; decide
 
-/-- T2: pkg ≠ agent (T_bowtie ≠ T_boxtimes). -/
+/-- T2: pkg ≠ agent (mime ≠ T_boxtimes). -/
 theorem pkg_ne_agent : pkg ≠ emerald_multiagent_tensor_bootstrap := by
   decide
 
-/-- T3: pkg's distinguishing feature is T_bowtie. -/
-theorem pkg_top_is_bowtie : pkg.top = Topology.T_bowtie := by
+/-- T3: pkg's distinguishing feature is mime. -/
+theorem pkg_top_is_bowtie : pkg.top = Topology.mime := by
   unfold pkg; rfl
 
 /-- T4: join is idempotent. Installing the same package twice is a no-op. -/
@@ -264,17 +264,17 @@ theorem join_assoc (a b c : Imscription) :
     exact maxProt_as a.prot b.prot c.prot
 
 /-- T7: libfoo vs libbar conflict resolution — lifts P, F, K.
-    libfoo: P_asym, F_ell, K_fast. libbar: P_pm, F_hbar, K_slow.
-    Resolution picks the max on each: P_pm, F_hbar, K_slow. -/
+    libfoo: church, age, yea. libbar: out, peep, egg.
+    Resolution picks the max on each: out, peep, egg. -/
 theorem resolution_lifts_conflicts :
-    (resolution_foo_bar).pol = Polarity.P_pm ∧
-    (resolution_foo_bar).fid = Fidelity.F_hbar ∧
-    (resolution_foo_bar).kin = KineticChar.K_slow := by
-  have hpol : (resolution_foo_bar).pol = Polarity.P_pm := by
+    (resolution_foo_bar).pol = Polarity.out ∧
+    (resolution_foo_bar).fid = Fidelity.peep ∧
+    (resolution_foo_bar).kin = KineticChar.egg := by
+  have hpol : (resolution_foo_bar).pol = Polarity.out := by
     unfold resolution_foo_bar pkg_resolve compute_join libfoo libbar; rfl
-  have hfid : (resolution_foo_bar).fid = Fidelity.F_hbar := by
+  have hfid : (resolution_foo_bar).fid = Fidelity.peep := by
     unfold resolution_foo_bar pkg_resolve compute_join libfoo libbar; rfl
-  have hkin : (resolution_foo_bar).kin = KineticChar.K_slow := by
+  have hkin : (resolution_foo_bar).kin = KineticChar.egg := by
     unfold resolution_foo_bar pkg_resolve compute_join libfoo libbar; rfl
   exact And.intro hpol (And.intro hfid hkin)
 
@@ -282,7 +282,7 @@ theorem resolution_lifts_conflicts :
 theorem libfoo_tier : imscriptionTier libfoo = .O₀ := by
   unfold libfoo; decide
 
-/-- T9: libbar tier is O₀ (Phi_sub forces O₀ regardless of P_pm). -/
+/-- T9: libbar tier is O₀ (woe forces O₀ regardless of out). -/
 theorem libbar_tier : imscriptionTier libbar = .O₀ := by
   unfold libbar; decide
 
@@ -290,7 +290,7 @@ theorem libbar_tier : imscriptionTier libbar = .O₀ := by
 theorem libbaz_tier : imscriptionTier libbaz = .O_inf := by
   unfold libbaz; decide
 
-/-- T11: Resolution foo+bar stays at O₀ (both libfoo and libbar are Phi_sub). -/
+/-- T11: Resolution foo+bar stays at O₀ (both libfoo and libbar are woe). -/
 theorem resolution_foo_bar_tier : imscriptionTier resolution_foo_bar = .O₀ := by
   unfold resolution_foo_bar pkg_resolve libfoo libbar
   decide
@@ -340,10 +340,10 @@ theorem pkg_diamond_resolution (a b c d : Imscription) :
 
 /-- T17: pkg tuple is correct. -/
 theorem pkg_tuple_correct :
-    pkg.top = Topology.T_bowtie ∧
-    pkg.dim = Dimensionality.D_odot ∧
-    pkg.crit = Criticality.Phi_c ∧
-    pkg.pol = Polarity.P_pm_sym := by
+    pkg.top = Topology.mime ∧
+    pkg.dim = Dimensionality.if' ∧
+    pkg.crit = Criticality.monad ∧
+    pkg.pol = Polarity.or' := by
   unfold pkg; simp
 
 /-- T18: pkg C-score = 1.0 — both gates open. -/

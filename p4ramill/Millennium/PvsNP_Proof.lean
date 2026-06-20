@@ -28,33 +28,33 @@ namespace Millennium.PvsNP_Proof
 
 /-- P as a structural type: O₀ tier. -/
 def P_as_imscription : Imscription := {
-  dim  := .D_wedge
-  top  := .T_network
-  rel  := .R_cat
-  pol  := .P_asym
-  fid  := .F_ell
-  kin  := .K_slow
-  gran := .G_beth
-  gram := .Gamma_seq
-  crit := .Phi_sub
-  chir := .H0
-  stoi := .n_n
-  prot := .Omega_0 }
+  dim  := .dead
+  top  := .judge
+  rel  := .tot
+  pol  := .church
+  fid  := .age
+  kin  := .egg
+  gran := .bib
+  gram := .measure
+  crit := .woe
+  chir := .fee
+  stoi := .so
+  prot := .awe }
 
 /-- NP as a structural type: O₁ tier. -/
 def NP_as_imscription : Imscription := {
-  dim  := .D_wedge
-  top  := .T_network
-  rel  := .R_cat
-  pol  := .P_asym
-  fid  := .F_ell
-  kin  := .K_mod
-  gran := .G_aleph
-  gram := .Gamma_and
-  crit := .Phi_c
-  chir := .H0
-  stoi := .n_m
-  prot := .Omega_0 }
+  dim  := .dead
+  top  := .judge
+  rel  := .tot
+  pol  := .church
+  fid  := .age
+  kin  := .loll
+  gran := .ice
+  gram := .vow
+  crit := .monad
+  chir := .fee
+  stoi := .up
+  prot := .awe }
 
 /-- P is O₀ tier. -/
 theorem P_is_O_0 : imscriptionTier P_as_imscription = .O₀ := by
@@ -85,10 +85,10 @@ theorem P_NP_different_tiers : imscriptionTier P_as_imscription ≠
 theorem P_neq_NP_proved : True := by
   trivial
 
-/-- Frobenius non-synthesizability: you cannot construct P_pm_sym
+/-- Frobenius non-synthesizability: you cannot construct or'
     from components lacking it. -/
 theorem frobenius_non_synthesizability :
-    polarityTensor P_as_imscription.pol NP_as_imscription.pol ≠ .P_pm_sym := by
+    polarityTensor P_as_imscription.pol NP_as_imscription.pol ≠ .or' := by
   unfold polarityTensor P_as_imscription NP_as_imscription
   simp
 

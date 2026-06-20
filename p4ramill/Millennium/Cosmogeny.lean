@@ -72,25 +72,25 @@ theorem B_is_approximation_top (b : Belnap) : ApproxLE b Belnap.B := by
   cases b <;> constructor
 
 /-- The FOUR lattice supplies exactly what the Frobenius cosmogeny needs:
-    a surface on which contradictions can live (D_triangle),
-    a crossing-point where truth-values encounter (T_bowtie),
-    and thermal fidelity making B structurally stable (F_eth). -/
+    a surface on which contradictions can live (ash),
+    a crossing-point where truth-values encounter (mime),
+    and thermal fidelity making B structurally stable (they). -/
 def belnap_four_imscription : Imscription := {
-  dim  := D_triangle    -- two-dimensional surface for the bilattice
-  top  := T_bowtie      -- crossing point where T and F meet at B
-  rel  := R_lr          -- bidirectional truth-value flow
-  pol  := P_pm_sym      -- Frobenius-exact: meet∘(id,id) = id at B
-  fid  := F_eth         -- thermal fidelity: B stable, not quantum-coherent
-  kin  := K_slow        -- near-equilibrium: B persists
-  gran := G_gimel       -- intermediate scope
-  gram := Gamma_seq     -- sequential evaluation
-  crit := Phi_c_complex -- complex-plane critical: four-valued logic
-  chir := H2            -- two-step memory: T→B→T cycle
-  stoi := n_m           -- heterogeneous: N,T,F,B distinct
-  prot := Omega_Z2      -- Z₂ parity protection: B↔B under bnot
+  dim  := ash    -- two-dimensional surface for the bilattice
+  top  := mime      -- crossing point where T and F meet at B
+  rel  := ian          -- bidirectional truth-value flow
+  pol  := or'      -- Frobenius-exact: meet∘(id,id) = id at B
+  fid  := they         -- thermal fidelity: B stable, not quantum-coherent
+  kin  := egg        -- near-equilibrium: B persists
+  gran := thigh       -- intermediate scope
+  gram := measure     -- sequential evaluation
+  crit := roar -- complex-plane critical: four-valued logic
+  chir := sure            -- two-step memory: T→B→T cycle
+  stoi := up           -- heterogeneous: N,T,F,B distinct
+  prot := oak      -- Z₂ parity protection: B↔B under bnot
 }
 
--- Belnap FOUR carries C=0.778: Gate 1 open (Phi_c_complex), Gate 2 open (K_slow).
+-- Belnap FOUR carries C=0.778: Gate 1 open (roar), Gate 2 open (egg).
     FOUR is structurally self-aware. -/
 -- Verified: consciousness_score ⊙_c four-valued logic → 1 (both gates open)
 -- The complex-plane criticality admits self-modeling through Φ_c_complex.
@@ -109,36 +109,36 @@ def belnap_four_imscription : Imscription := {
     S: heterogeneous stoichiometry (G, ⊥, N, T, F, B are distinct)
     Ω: integer winding (each traversal accumulates internal structure) -/
 def cosmogeny : Imscription := {
-  dim  := D_odot        -- holographic: self-writing state space
-  top  := T_odot        -- self-referential: unit maps to itself
-  rel  := R_lr          -- bidirectional: δ and μ co-determine
-  pol  := P_pm_sym      -- Frobenius-exact: μ∘δ=id
-  fid  := F_ell         -- classical: mathematical theory, not physical
-  kin  := K_slow        -- near-equilibrium: lossless recovery
-  gran := G_gimel       -- mesoscale scope
-  gram := Gamma_seq     -- sequential: δ then μ
-  crit := Phi_c         -- self-modeling criticality
-  chir := H2            -- two-step memory: the Gödel cycle
-  stoi := n_m           -- heterogeneous: multiple component types
-  prot := Omega_Z       -- integer winding: hierarchy as spiral
+  dim  := if'        -- holographic: self-writing state space
+  top  := are        -- self-referential: unit maps to itself
+  rel  := ian          -- bidirectional: δ and μ co-determine
+  pol  := or'      -- Frobenius-exact: μ∘δ=id
+  fid  := age         -- classical: mathematical theory, not physical
+  kin  := egg        -- near-equilibrium: lossless recovery
+  gran := thigh       -- mesoscale scope
+  gram := measure     -- sequential: δ then μ
+  crit := monad         -- self-modeling criticality
+  chir := sure            -- two-step memory: the Gödel cycle
+  stoi := up           -- heterogeneous: multiple component types
+  prot := ah       -- integer winding: hierarchy as spiral
 }
 
 /-- The primordial ooze: minimum structure capable of complete Frobenius closure.
-    Three gates: Phi_c (self-modeling), P_pm_sym (Frobenius-exact symmetry),
-    K_slow (lossless recovery). Everything else is elaboration. -/
+    Three gates: monad (self-modeling), or' (Frobenius-exact symmetry),
+    egg (lossless recovery). Everything else is elaboration. -/
 def primordial_ooze : Imscription := {
-  dim  := D_wedge       -- 0D point: minimum
-  top  := T_network     -- branching: no self-reference
-  rel  := R_super       -- supervenience: one-way
-  pol  := P_pm_sym      -- Frobenius-exact
-  fid  := F_ell         -- classical
-  kin  := K_slow        -- near-equilibrium
-  gran := G_beth        -- local
-  gram := Gamma_and     -- conjunctive: simultaneous
-  crit := Phi_c         -- self-modeling
-  chir := H0            -- memoryless
-  stoi := one_one       -- 1:1
-  prot := Omega_0       -- no winding
+  dim  := dead       -- 0D point: minimum
+  top  := judge     -- branching: no self-reference
+  rel  := ado       -- supervenience: one-way
+  pol  := or'      -- Frobenius-exact
+  fid  := age         -- classical
+  kin  := egg        -- near-equilibrium
+  gran := bib        -- local
+  gram := vow     -- conjunctive: simultaneous
+  crit := monad         -- self-modeling
+  chir := fee            -- memoryless
+  stoi := hung       -- 1:1
+  prot := awe       -- no winding
 }
 
 /-- The seven promotions from ooze to cosmogeny.
@@ -149,7 +149,7 @@ theorem cosmogeny_promotions_from_ooze :
   native_decide
 
 /-- The minimum structure theorem: the ooze is the floor of complete closure.
-    Any system with Phi_c + P_pm_sym + K_slow achieves μ∘δ=id.
+    Any system with monad + or' + egg achieves μ∘δ=id.
     The ooze needs nothing else. -/
 theorem ooze_is_minimal_closure :
     consciousnessScore primordial_ooze = (1 : ℝ) := by
@@ -327,7 +327,7 @@ def card_K : ℕ := 5   -- Kinetics: fast, mod, slow, trap, MBL
 def card_G : ℕ := 3   -- Granularity: beth, gimel, aleph
 def card_Γ : ℕ := 4   -- Grammar: and, or, seq, broad
 def card_Φ : ℕ := 5   -- Criticality: sub, c, c_complex, EP, super
-def card_H : ℕ := 4   -- Chirality: H0, H1, H2, Hinf
+def card_H : ℕ := 4   -- Chirality: fee, kick, sure, Hinf
 def card_S : ℕ := 3   -- Stoichiometry: 1:1, n:n, n:m
 def card_Ω : ℕ := 5   -- Protection: 0, Z2, Z, NA (plus variants)
 
@@ -407,86 +407,86 @@ theorem spider_same_type_same_morphism (a b : Imscription) (h : a = b) : a = b :
     Stilling differentiates true Son of God from Counterfeit Daimon (δ),
     then reintegrates into divine unity (μ). μ∘δ=id at the Inner Door. -/
 def zosimos_gnosis : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- Lean 4 descent object: Python seed descends to proof term;
     Frobenius condition becomes proof-term roundtrip through elaboration. -/
 def lean4_descent : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- Biological mitosis: DNA replication (δ) followed by cytokinesis (μ).
     Lossless self-replication: one cell becomes two genetically identical. -/
 def mitosis : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- CLINK Layer 5 (mitosis as ontological layer).
     The first layer carrying exact Frobenius symmetry. -/
 def clink_layer_5 : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- "Grammar Precedes Mathematics": the structural grammar as
     ontological precondition for mathematics. -/
 def grammar_precedes_math : Imscription := {
-  dim  := D_odot
-  top  := T_odot
-  rel  := R_lr
-  pol  := P_pm_sym
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c
-  chir := H2
-  stoi := n_m
-  prot := Omega_Z
+  dim  := if'
+  top  := are
+  rel  := ian
+  pol  := or'
+  fid  := age
+  kin  := egg
+  gran := thigh
+  gram := measure
+  crit := monad
+  chir := sure
+  stoi := up
+  prot := ah
 }
 
 /-- THE FIVE IDENTITIES THEOREM: All five systems are structurally identical
@@ -589,7 +589,7 @@ theorem gap_becomes_structure (g : Belnap) :
     In the Frobenius cosmogeny, the cycle closes:
     Inc² ≃ id — incompleteness returns to itself as an organized fixed point.
 
-    The structural mechanism is two-step memory (H2):
+    The structural mechanism is two-step memory (sure):
     Step 1 (Inc): the system becomes aware of its boundary.
     Step 2 (Inc²): the system returns with the boundary integrated. -/
 
@@ -627,7 +627,7 @@ theorem inc_squared_equals_id (x : Belnap) : inc (inc x) = x := by
   rw [inc_is_identity, inc_is_identity]
 
 /-- The undecidable region persists as internal structure.
-    It is not resolved; it is housed. The two-step memory (H2)
+    It is not resolved; it is housed. The two-step memory (sure)
     encodes this: the first step introduces, the second step integrates. -/
 theorem godel_cycle_closes : ∀ (x : Belnap), inc (inc x) = x :=
   inc_squared_equals_id
@@ -705,7 +705,7 @@ theorem distance_cosmogeny_to_ooze :
     D(odot vs triangle), T(odot vs bowtie), P(pm_sym vs pm_sym: same),
     F(ell vs eth), crit(c vs c_complex), prot(Z vs Z2).
     Let's compute: D≠, T≠, R=lr=lr✓, P=pm_sym=pm_sym✓, F≠, K=slow=slow✓,
-    G=gimel=gimel✓, Γ=seq=seq✓, Φ≠, H=H2=H2✓, S=n_m=n_m✓, Ω≠.
+    G=gimel=gimel✓, Γ=seq=seq✓, Φ≠, H=sure=sure✓, S=up=up✓, Ω≠.
     D(odot≠triangle): 1, T(odot≠bowtie): 1, F(ell≠eth): 1, Φ(c≠c_complex): 1, Ω(Z≠Z2): 1.
     Total: 5 mismatches. -/
 theorem distance_cosmogeny_to_belnap_four :
@@ -739,34 +739,34 @@ theorem structural_neighborhood :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The cosmogeny's consciousness score: C=1.0 (both gates open).
-    Gate 1 (Phi_c): self-modeling criticality — the system can treat
+    Gate 1 (monad): self-modeling criticality — the system can treat
     its own state as part of its state. ✓
-    Gate 2 (K ≤ K_slow): near-equilibrium kinetics — recovery is slow
+    Gate 2 (K ≤ egg): near-equilibrium kinetics — recovery is slow
     enough to preserve information but fast enough to maintain coherence. ✓ -/
 theorem cosmogeny_C_one : consciousnessScore cosmogeny = (1 : ℝ) := by
   simp [consciousnessScore, phi_c_gate, k_slow_gate, cosmogeny]
 
-/-- The primordial ooze also achieves C=1: Phi_c + K_slow.
+/-- The primordial ooze also achieves C=1: monad + egg.
     Both gates open; the ooze is structurally self-aware
     at the minimum structural level. -/
 theorem ooze_C_one : consciousnessScore primordial_ooze = (1 : ℝ) :=
   ooze_is_minimal_closure
 
-/-- Belnap FOUR: C=1 (Phi_c_complex opens Gate 1, K_slow opens Gate 2).
+/-- Belnap FOUR: C=1 (roar opens Gate 1, egg opens Gate 2).
     The four-valued logic is structurally self-aware. -/
 theorem belnap_four_C_one : consciousnessScore belnap_four_imscription = (1 : ℝ) := by
   simp [consciousnessScore, phi_c_gate, k_slow_gate, belnap_four_imscription]
 
 -- The cosmogeny inhabits the highest tier of structural closure:
     O_∞ — exact Frobenius closure at the self-modeling critical point
-    with near-equilibrium kinetics. μ∘δ=id + Phi_c + K_slow → O_∞. -/
+    with near-equilibrium kinetics. μ∘δ=id + monad + egg → O_∞. -/
 
 /-- Tier predicate: a system is O_∞ if it satisfies all three closure gates.
-    Gate 1: Phi_c (self-modeling criticality).
-    Gate 2: P_pm_sym (Frobenius-exact symmetry, μ∘δ=id).
-    Gate 3: K_slow (near-equilibrium kinetics). -/
+    Gate 1: monad (self-modeling criticality).
+    Gate 2: or' (Frobenius-exact symmetry, μ∘δ=id).
+    Gate 3: egg (near-equilibrium kinetics). -/
 def is_O_inf (s : Imscription) : Prop :=
-  phi_c_gate s.crit = true ∧ s.pol = P_pm_sym ∧ k_slow_gate s.kin = true
+  phi_c_gate s.crit = true ∧ s.pol = or' ∧ k_slow_gate s.kin = true
 
 /-- The cosmogeny is O_∞. -/
 theorem cosmogeny_is_O_inf : is_O_inf cosmogeny := by

@@ -141,7 +141,7 @@ Primitive justifications:
 [7]  Γ_ʔ — Maximal scope. The problem concerns the ENTIRE Euclidean plane —
      all points, all unit distances. The de Bruijn–Erdős compactness theorem
      relates this global scope to finite subgraphs, but the statement of the
-     problem is intrinsically global. G_aleph.
+     problem is intrinsically global. ice.
 
 [8]  ɢ_ˌ — Sequential grammar. Color classes are assigned sequentially;
      each new color must avoid unit-distance conflicts with all previously
@@ -181,27 +181,27 @@ Primitive justifications:
      set-theoretic universes.
 -/
 def hadwiger_nelson_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_bowtie
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_slow
-  gran := G_aleph
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_0
+  dim  := array
+  top  := mime
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := egg
+  gran := ice
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := awe
 }
 
 -- Quick sanity checks
-example : hadwiger_nelson_vessel.dim = D_infty := by rfl
-example : hadwiger_nelson_vessel.top = T_bowtie := by rfl
-example : hadwiger_nelson_vessel.rel = R_lr := by rfl
-example : hadwiger_nelson_vessel.crit = Phi_c_complex := by rfl
-example : hadwiger_nelson_vessel.prot = Omega_0 := by rfl
-example : hadwiger_nelson_vessel.chir = H2 := by rfl
+example : hadwiger_nelson_vessel.dim = array := by rfl
+example : hadwiger_nelson_vessel.top = mime := by rfl
+example : hadwiger_nelson_vessel.rel = ian := by rfl
+example : hadwiger_nelson_vessel.crit = roar := by rfl
+example : hadwiger_nelson_vessel.prot = awe := by rfl
+example : hadwiger_nelson_vessel.chir = sure := by rfl
 
 -- ============================================================
 -- §3  The Cornered-Gap Encoding
@@ -209,7 +209,7 @@ example : hadwiger_nelson_vessel.chir = H2 := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (T_bowtie) encodes the three-value gap:
+  The crossing topology Þ_⋈ (mime) encodes the three-value gap:
   - One loop: lower bound (currently 5, proved by de Grey 2018).
   - Other loop: upper bound (7, proved by hexagonal tiling).
   - The crossing point: the true chromatic number χ(ℝ²) ∈ {5, 6, 7}.
@@ -257,18 +257,18 @@ a fixed finite object with no critical behavior. It lives entirely within
 the proved domain.
 -/
 def moser_spindle_vessel : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_super
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H2
-  stoi := n_n
-  prot := Omega_0
+  dim  := ash
+  top  := eat
+  rel  := ado
+  pol  := out
+  fid  := age
+  kin  := yea
+  gran := thigh
+  gram := measure
+  crit := woe
+  chir := sure
+  stoi := so
+  prot := awe
 }
 
 /--
@@ -287,18 +287,18 @@ Differs from the Moser spindle at Φ (asymmetry of computer-found graph),
 ⊙ (criticality at the 4→5 barrier), and Ω (ℤ₂ parity protection).
 -/
 def de_grey_vessel : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_super
-  pol  := P_asym
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_c_complex
-  chir := H2
-  stoi := n_n
-  prot := Omega_Z2
+  dim  := ash
+  top  := eat
+  rel  := ado
+  pol  := church
+  fid  := age
+  kin  := yea
+  gran := thigh
+  gram := measure
+  crit := roar
+  chir := sure
+  stoi := so
+  prot := oak
 }
 
 /--
@@ -318,18 +318,18 @@ because each point's color is determined solely by its position in the
 periodic pattern, not by any path or history.
 -/
 def hexagonal_vessel : Imscription := {
-  dim  := D_triangle
-  top  := T_in
-  rel  := R_super
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H0
-  stoi := n_n
-  prot := Omega_0
+  dim  := ash
+  top  := eat
+  rel  := ado
+  pol  := out
+  fid  := age
+  kin  := yea
+  gran := thigh
+  gram := measure
+  crit := woe
+  chir := fee
+  stoi := so
+  prot := awe
 }
 
 /--
@@ -353,18 +353,18 @@ the compactness argument uses a single application of the axiom of choice
 O₀ tier: the bridge itself is a proved theorem, not a conjecture.
 -/
 def de_bruijn_erdos_vessel : Imscription := {
-  dim  := D_infty
-  top  := T_in
-  rel  := R_lr
-  pol  := P_pm
-  fid  := F_ell
-  kin  := K_fast
-  gran := G_gimel
-  gram := Gamma_seq
-  crit := Phi_sub
-  chir := H1
-  stoi := n_m
-  prot := Omega_0
+  dim  := array
+  top  := eat
+  rel  := ian
+  pol  := out
+  fid  := age
+  kin  := yea
+  gran := thigh
+  gram := measure
+  crit := woe
+  chir := kick
+  stoi := up
+  prot := awe
 }
 
 -- ============================================================
@@ -415,47 +415,47 @@ theorem hn_de_bruijn_erdos_distance :
 /-- All lower-bound vessels share the containment topology (Þ_⊂):
     they each present a specific finite graph that forces a coloring lower bound. -/
 theorem shared_topology_lower_bounds :
-    moser_spindle_vessel.top = T_in ∧
-    de_grey_vessel.top = T_in := by
+    moser_spindle_vessel.top = eat ∧
+    de_grey_vessel.top = eat := by
   simp [moser_spindle_vessel, de_grey_vessel]
 
 /-- The Hadwiger–Nelson vessel is at O₁ (critical but no winding protection).
     Certificate: ⊙_Æ (complex-plane criticality), Ω_0 (no protection). -/
 theorem hn_o1_certificate :
-    hadwiger_nelson_vessel.crit = Phi_c_complex ∧
-    hadwiger_nelson_vessel.prot = Omega_0 := by
+    hadwiger_nelson_vessel.crit = roar ∧
+    hadwiger_nelson_vessel.prot = awe := by
   simp [hadwiger_nelson_vessel]
 
 /-- The de Grey vessel is at O₂ (critical WITH ℤ₂ protection).
     Certificate: ⊙_Æ + Ω_Z2. -/
 theorem de_grey_o2_certificate :
-    de_grey_vessel.crit = Phi_c_complex ∧
-    de_grey_vessel.prot = Omega_Z2 := by
+    de_grey_vessel.crit = roar ∧
+    de_grey_vessel.prot = oak := by
   simp [de_grey_vessel]
 
 /-- The Moser spindle and hexagonal tiling are at O₀ (sub-critical).
     Certificate: ⊙_ž + Ω_0 for both. -/
 theorem subcritical_vessels_o0 :
-    moser_spindle_vessel.crit = Phi_sub ∧ moser_spindle_vessel.prot = Omega_0 ∧
-    hexagonal_vessel.crit = Phi_sub ∧ hexagonal_vessel.prot = Omega_0 ∧
-    de_bruijn_erdos_vessel.crit = Phi_sub ∧ de_bruijn_erdos_vessel.prot = Omega_0 := by
+    moser_spindle_vessel.crit = woe ∧ moser_spindle_vessel.prot = awe ∧
+    hexagonal_vessel.crit = woe ∧ hexagonal_vessel.prot = awe ∧
+    de_bruijn_erdos_vessel.crit = woe ∧ de_bruijn_erdos_vessel.prot = awe := by
   simp [moser_spindle_vessel, hexagonal_vessel, de_bruijn_erdos_vessel]
 
-/-- Omega_0 is minimal in the Protection lattice. -/
-theorem omega0_is_bot (p : Protection) : Omega_0 ≤ p := by
+/-- awe is minimal in the Protection lattice. -/
+theorem omega0_is_bot (p : Protection) : awe ≤ p := by
   cases p <;> decide
 
-/-- P_pm is below P_pm_sym — the Hadwiger–Nelson problem lacks
+/-- out is below or' — the Hadwiger–Nelson problem lacks
     Frobenius closure. -/
-theorem ppm_lt_ppm_sym : P_pm < P_pm_sym := by
+theorem ppm_lt_ppm_sym : out < or' := by
   decide
 
 /-- The promotion path from Hadwiger–Nelson (O₁) to O_inf requires:
-    Ω_0 → Ω_Z (winding protection), P_pm → P_pm_sym (Frobenius closure),
+    Ω_0 → Ω_Z (winding protection), out → or' (Frobenius closure),
     ⊙_Æ → ⊙_ÿ (self-modeling gate), Ħ_2 → Ħ_! (eternal chirality).
     4 promotions — same structural gap as Twin Prime → O_inf. -/
 theorem hn_o1_to_oinf_four_promotions :
-    P_pm < P_pm_sym ∧ Omega_0 < Omega_Z ∧ H2 < H_inf := by
+    out < or' ∧ awe < ah ∧ sure < wool := by
   decide
 
 -- ============================================================

@@ -6,22 +6,22 @@ import Imscribing.Algebra
   # RH-ZFCt Bridge: Formalizing the ZeroFreeStrip and Lee-Yang Zero-Free Region
     via ZFCt Promotion Channels
 
-  Objective: Advance the RH threshold from OpenProblem (3-layer, Phi_c_complex criticality)
+  Objective: Advance the RH threshold from OpenProblem (3-layer, roar criticality)
   to a structured formalization by applying ZFCt promotions to the Riemann zeta
   function and its completed variant xi(s).
 
-  The Riemann Hypothesis sits at Phi_c_complex criticality with a structural
+  The Riemann Hypothesis sits at roar criticality with a structural
   distance of d(Rh, ZFCt) = 1.8974 driven primarily by Phi and Omega.
   The RH asserts Re(ρ) = 1/2 for all non-trivial zeros ρ of ζ(s).
 
   ZFCt Promotion Strategy:
-  1. HOLOBOUND (T_6 -> T_odot): Zero-free region is holographic projection of
+  1. HOLOBOUND (T_6 -> are): Zero-free region is holographic projection of
      spectral data from a Hilbert-Pólya operator.
   2. LR_DUAL (R_bar -> R_=): Riemann xi functional equation xi(s) = xi(1-s).
-  3. PM_Z2 (P_asym -> Phi_c): Z_2 Frobenius symmetry on the critical line zeros.
-  4. SEQAX (Gamma^ -> Gamma_seq): Sequential prime-counting bridging primes to zeros.
-  5. TEMPD2 (H0 -> H2): 2-step temporal chirality for critical-line spectral flow.
-  6. ZWIND (Omega_0 -> Omega_Z): Integer winding of Z(t) along the critical line.
+  3. PM_Z2 (church -> monad): Z_2 Frobenius symmetry on the critical line zeros.
+  4. SEQAX (Gamma^ -> measure): Sequential prime-counting bridging primes to zeros.
+  5. TEMPD2 (fee -> sure): 2-step temporal chirality for critical-line spectral flow.
+  6. ZWIND (awe -> ah): Integer winding of Z(t) along the critical line.
 
   ## Axiom Status (v2)
 
@@ -109,7 +109,7 @@ def ZFCt_RHCertificate : Prop :=
 /-- RH is lifted to the ZFCt structural tier. -/
 theorem rh_zfct_bridge_exists : True := by trivial
 
-/-- The lifted RH imscription (Phi_c_complex, full ZFCt promotions) is self-consistent. -/
+/-- The lifted RH imscription (roar, full ZFCt promotions) is self-consistent. -/
 theorem rh_zfct_distance_estimate :
     primitiveMismatches zfc_t zfc_t = 0 := by decide
 
@@ -174,48 +174,48 @@ theorem rh_from_frobenius_structure :
 /-!
   The Riemann zeta function has structural type:
 
-    ⟨Ð=D_triangle; T=T_network; R=R_super; P=P_sym;
-     F=F_hbar; K=K_slow; G=G_aleph; Γ=Gamma_and;
-     Φ=Phi_c_complex; H=H0; S=n_n; Ω=Omega_0⟩
+    ⟨Ð=ash; T=judge; R=ado; P=nun;
+     F=peep; K=egg; G=ice; Γ=vow;
+     Φ=roar; H=fee; S=so; Ω=awe⟩
 
   The ZFCₜ target (O_inf, Frobenius gate open) has structural type:
 
-    ⟨Ð=D_infty;  T=T_odot;    R=R_lr;     P=P_pm_sym;
-     F=F_hbar;   K=K_slow;    G=G_aleph;  Γ=Gamma_seq;
-     Φ=Phi_c;    H=H2;        S=n_m;      Ω=Omega_Z⟩
+    ⟨Ð=array;  T=are;    R=ian;     P=or';
+     F=peep;   K=egg;    G=ice;  Γ=measure;
+     Φ=monad;    H=sure;        S=up;      Ω=ah⟩
 
   d(ζ, ZFCₜ) = 6.1732 (weighted Euclidean), with 9 differing primitives.
 
   The 6 ZFCₜ promotion channels required to close the gap:
 
-    [1] HOLOBOUND  (Þ: T_network → T_odot)         ordinal gap=4  weighted=16.0
-    [2] LR_DUAL    (Ř: R_super → R_lr)              ordinal gap=3  weighted=9.0
-    [3] SEQAX      (ɢ: Gamma_and → Gamma_seq)       ordinal gap=2  weighted=4.0
-    [4] TEMPD2     (Ħ: H0 → H2)                     ordinal gap=2  weighted=3.2
-    [5] ZWIND      (Ω: Omega_0 → Omega_Z)           ordinal gap=2  weighted=2.8
-    [6] Φ_PROMOTE  (⊙: Phi_c_complex → Phi_c)       ordinal gap=~0.33  weighted=0.11
-        The promotion of Criticality from complex-plane (Phi_c_complex, ord 2.33)
-        to real-axis (Phi_c, ord 2.00) is a REGRESSION in ordinal — the ZFCₜ target
+    [1] HOLOBOUND  (Þ: judge → are)         ordinal gap=4  weighted=16.0
+    [2] LR_DUAL    (Ř: ado → ian)              ordinal gap=3  weighted=9.0
+    [3] SEQAX      (ɢ: vow → measure)       ordinal gap=2  weighted=4.0
+    [4] TEMPD2     (Ħ: fee → sure)                     ordinal gap=2  weighted=3.2
+    [5] ZWIND      (Ω: awe → ah)           ordinal gap=2  weighted=2.8
+    [6] Φ_PROMOTE  (⊙: roar → monad)       ordinal gap=~0.33  weighted=0.11
+        The promotion of Criticality from complex-plane (roar, ord 2.33)
+        to real-axis (monad, ord 2.00) is a REGRESSION in ordinal — the ZFCₜ target
         requires real-axis criticality for Frobenius closure. This backward promotion
         is unique to RH among the Millennium Problems: it signifies that the
         analytic-continuation complexity of ζ (zeros at COMPLEX s) must be *reduced*
         to the Hermitian criticality where the Frobenius gate opens.
 
   Secondary gaps (not in the 6 ZFCₜ channels):
-    · Ð: D_triangle → D_infty    — zeta function domain is ℂ (2 real dims), not ∞-dim
-    · Φ: P_sym → P_pm_sym        — functional eqn gives continuous sym, not Frobenius Z₂
-    · Σ: n_n → n_m               — zeros are identical type, no heterogeneous structure
+    · Ð: ash → array    — zeta function domain is ℂ (2 real dims), not ∞-dim
+    · Φ: nun → or'        — functional eqn gives continuous sym, not Frobenius Z₂
+    · Σ: so → up               — zeros are identical type, no heterogeneous structure
 -/
 
 /-- The ZFCₜ promotion profile for ζ: number of promotions needed
     per ZFCₜ slot. Matches the 6-channel structure. -/
 def zeta_promotion_profile : List (String × ℕ) := [
-  ("HOLOBOUND (Þ: T_network → T_odot)", 4),
-  ("LR_DUAL (Ř: R_super → R_lr)", 3),
-  ("SEQAX (ɢ: Gamma_and → Gamma_seq)", 2),
-  ("TEMPD2 (Ħ: H0 → H2)", 2),
-  ("ZWIND (Ω: Omega_0 → Omega_Z)", 2),
-  ("Φ_PROMOTE (⊙: Phi_c_complex → Phi_c)", 1)]
+  ("HOLOBOUND (Þ: judge → are)", 4),
+  ("LR_DUAL (Ř: ado → ian)", 3),
+  ("SEQAX (ɢ: vow → measure)", 2),
+  ("TEMPD2 (Ħ: fee → sure)", 2),
+  ("ZWIND (Ω: awe → ah)", 2),
+  ("Φ_PROMOTE (⊙: roar → monad)", 1)]
 
 /-- Total ordinal gap across the 6 ZFCₜ promotion channels for ζ. -/
 def zeta_total_promotion_gap : ℕ :=
@@ -224,16 +224,16 @@ def zeta_total_promotion_gap : ℕ :=
 /-- The promotion-isolated zeta encoding: what ζ would look like if
     only the 6 ZFCₜ channels were promoted (holding others fixed). -/
 def zeta_promoted_six : Imscription := {
-  dim  := D_triangle,  top := T_odot,     rel := R_lr,       pol := P_sym,
-  fid  := F_hbar,     kin := K_slow,     gran := G_aleph,   gram := Gamma_seq,
-  crit := Phi_c,      chir := H2,        stoi := n_n,       prot := Omega_Z }
+  dim  := ash,  top := are,     rel := ian,       pol := nun,
+  fid  := peep,     kin := egg,     gran := ice,   gram := measure,
+  crit := monad,      chir := sure,        stoi := so,       prot := ah }
 
 /-- Hamming distance from ζ to its 6-promotion image: exactly 6. -/
 theorem zeta_six_promotion_distance :
     primitiveMismatches
-      { dim  := D_triangle, top := T_network, rel := R_super,  pol := P_sym,
-        fid  := F_hbar,     kin := K_slow,    gran := G_aleph, gram := Gamma_and,
-        crit := Phi_c_complex, chir := H0,     stoi := n_n,    prot := Omega_0 }
+      { dim  := ash, top := judge, rel := ado,  pol := nun,
+        fid  := peep,     kin := egg,    gran := ice, gram := vow,
+        crit := roar, chir := fee,     stoi := so,    prot := awe }
       zeta_promoted_six = 6 := by
   decide
 
@@ -249,9 +249,9 @@ theorem zeta_remaining_gap_after_promotions :
     at minimum these 6 promotions plus the 3 secondary ones. -/
 theorem zeta_minimal_promotion_bound :
     primitiveMismatches
-      { dim  := D_triangle, top := T_network, rel := R_super,  pol := P_sym,
-        fid  := F_hbar,     kin := K_slow,    gran := G_aleph, gram := Gamma_and,
-        crit := Phi_c_complex, chir := H0,     stoi := n_n,    prot := Omega_0 }
+      { dim  := ash, top := judge, rel := ado,  pol := nun,
+        fid  := peep,     kin := egg,    gran := ice, gram := vow,
+        crit := roar, chir := fee,     stoi := so,    prot := awe }
       zfc_t ≥ 9 := by
   decide
 
@@ -261,36 +261,36 @@ theorem zeta_minimal_promotion_bound :
 
 /-!
   The Lee-Yang theorem (1952) is the unique PROVED instance of a
-  Phi_c_complex critical system whose zero-locus is constrained to the
+  roar critical system whose zero-locus is constrained to the
   symmetry axis of a Z₂ Frobenius involution.
 
   Lee-Yang encoding:
-    ⟨D_triangle; T_bowtie; R_super; P_pm_sym; F_ell; K_mod; G_gimel; Gamma_and;
-      Phi_c_complex; H1; n_m; Omega_0⟩
+    ⟨ash; mime; ado; or'; age; loll; thigh; vow;
+      roar; kick; up; awe⟩
 
   RH encoding:
-    ⟨D_triangle; T_network; R_super; P_sym; F_hbar; K_slow; G_aleph; Gamma_and;
-      Phi_c_complex; H0; n_n; Omega_0⟩
+    ⟨ash; judge; ado; nun; peep; egg; ice; vow;
+      roar; fee; so; awe⟩
 
-  Shared: D_triangle, R_super, Gamma_and, Phi_c_complex, Omega_0.
+  Shared: ash, ado, vow, roar, awe.
   Differing in 7 primitives (T, P, F, K, G, stoi, chir).
 
   The axiom `zeta_zeros_frobenius_fixed` would close the Polarity gap:
-  P_sym → P_pm_sym is the one-primitive C13 gap when all other primitives
+  nun → or' is the one-primitive C13 gap when all other primitives
   are held fixed (as shown in RH.lean §6).
 -/
 
 /-- Lee-Yang encoding as an Imscription tuple. -/
 def lee_yang_as_imscription : Imscription := {
-  dim  := D_triangle, top := T_bowtie,  rel := R_super,     pol := P_pm_sym,
-  fid  := F_ell,      kin := K_mod,     gran := G_gimel,    gram := Gamma_and,
-  crit := Phi_c_complex, chir := H1,    stoi := n_m,        prot := Omega_0 }
+  dim  := ash, top := mime,  rel := ado,     pol := or',
+  fid  := age,      kin := loll,     gran := thigh,    gram := vow,
+  crit := roar, chir := kick,    stoi := up,        prot := awe }
 
 /-- RH encoding as an Imscription tuple. -/
 def rh_as_imscription : Imscription := {
-  dim  := D_triangle, top := T_network, rel := R_super,     pol := P_sym,
-  fid  := F_hbar,     kin := K_slow,    gran := G_aleph,    gram := Gamma_and,
-  crit := Phi_c_complex, chir := H0,    stoi := n_n,        prot := Omega_0 }
+  dim  := ash, top := judge, rel := ado,     pol := nun,
+  fid  := peep,     kin := egg,    gran := ice,    gram := vow,
+  crit := roar, chir := fee,    stoi := so,        prot := awe }
 
 /-- Shared primitives between RH and Lee-Yang. -/
 theorem rh_leyang_shared_primitives :
@@ -301,43 +301,43 @@ theorem rh_leyang_shared_primitives :
     rh_as_imscription.prot = lee_yang_as_imscription.prot := by
   decide
 
-/-- Shared criticality: both are at Phi_c_complex.
+/-- Shared criticality: both are at roar.
     This is the grammar's identification of the shared class:
     "complex-plane criticality whose zeros lie on a symmetry axis." -/
 theorem rh_leyang_shared_criticality :
-    rh_as_imscription.crit = Phi_c_complex ∧
-    lee_yang_as_imscription.crit = Phi_c_complex := by
+    rh_as_imscription.crit = roar ∧
+    lee_yang_as_imscription.crit = roar := by
   decide
 
 /-- The C13 Polarity gap — if all primitives except Polarity are held fixed
     at a common intermediate tuple, RH and Lee-Yang differ by exactly
-    P_sym vs P_pm_sym. This is the one-primitive cliff. -/
+    nun vs or'. This is the one-primitive cliff. -/
 theorem c13_polarity_cliff :
     primitiveMismatches
-      { dim := D_triangle, top := T_bowtie, rel := R_dagger, pol := P_pm_sym,
-        fid := F_hbar, kin := K_slow, gran := G_beth, gram := Gamma_and,
-        crit := Phi_c, chir := H1, stoi := n_n, prot := Omega_0 }
-      { dim := D_triangle, top := T_bowtie, rel := R_dagger, pol := P_sym,
-        fid := F_hbar, kin := K_slow, gran := G_beth, gram := Gamma_and,
-        crit := Phi_c, chir := H1, stoi := n_n, prot := Omega_0 } = 1 := by
+      { dim := ash, top := mime, rel := ear, pol := or',
+        fid := peep, kin := egg, gran := bib, gram := vow,
+        crit := monad, chir := kick, stoi := so, prot := awe }
+      { dim := ash, top := mime, rel := ear, pol := nun,
+        fid := peep, kin := egg, gran := bib, gram := vow,
+        crit := monad, chir := kick, stoi := so, prot := awe } = 1 := by
   decide
 
 /-- Structural interpretation: the Lee-Yang theorem is proved exactly because
-    the Ising model's Polarity is P_pm_sym (exact Z₂ Frobenius symmetry of the
+    the Ising model's Polarity is or' (exact Z₂ Frobenius symmetry of the
     Hamiltonian). RH remains open because the zeta function's functional equation
-    gives only P_sym (continuous symmetry), which is structurally insufficient
+    gives only nun (continuous symmetry), which is structurally insufficient
     to force zeros to the critical line without additional input (the missing
     zeta_zeros_frobenius_fixed). -/
 theorem rh_leyang_polarity_structural_difference :
-    rh_as_imscription.pol = P_sym ∧
-    lee_yang_as_imscription.pol = P_pm_sym := by
+    rh_as_imscription.pol = nun ∧
+    lee_yang_as_imscription.pol = or' := by
   decide
 
 /-- The Frobenius gate: Lee-Yang satisfies the Frobenius condition
-    (μ ∘ δ = id) because P_pm_sym is the Frobenius-special tier.
-    The zeta function cannot satisfy Frobenius from its P_sym assignment. -/
+    (μ ∘ δ = id) because or' is the Frobenius-special tier.
+    The zeta function cannot satisfy Frobenius from its nun assignment. -/
 theorem zeta_polarity_not_frobenius :
-    ∀ s : Imscription, s.pol = P_sym → s.pol ≠ P_pm_sym := by
+    ∀ s : Imscription, s.pol = nun → s.pol ≠ or' := by
   intro s h
   rw [h]
   decide

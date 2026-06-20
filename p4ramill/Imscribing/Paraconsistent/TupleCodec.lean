@@ -156,40 +156,40 @@ def execExtSeq (s : CodecState) : List WasmExtInstr → CodecState
    ============================================================ -/
 
 def idxD (d : Dimensionality) : Nat :=
-  match d with | .D_wedge => 0 | .D_triangle => 1 | .D_infty => 2 | .D_odot => 3
+  match d with | .dead => 0 | .ash => 1 | .array => 2 | .if' => 3
 
 def idxT (t : Topology) : Nat :=
-  match t with | .T_network => 0 | .T_in => 1 | .T_bowtie => 2 | .T_box => 3 | .T_odot => 4
+  match t with | .judge => 0 | .eat => 1 | .mime => 2 | .oil => 3 | .are => 4
 
 def idxR (r : Relational) : Nat :=
-  match r with | .R_super => 0 | .R_cat => 1 | .R_dagger => 2 | .R_lr => 3
+  match r with | .ado => 0 | .tot => 1 | .ear => 2 | .ian => 3
 
 def idxP (p : Polarity) : Nat :=
-  match p with | .P_asym => 0 | .P_psi => 1 | .P_pm => 2 | .P_sym => 3 | .P_pm_sym => 4
+  match p with | .church => 0 | .yew => 1 | .out => 2 | .nun => 3 | .or' => 4
 
 def idxPhi (c : Criticality) : Nat :=
-  match c with | .Phi_sub => 0 | .Phi_c => 1 | .Phi_c_complex => 2 | .Phi_EP => 3 | .Phi_super => 4
+  match c with | .woe => 0 | .monad => 1 | .roar => 2 | .err => 3 | .haha => 4
 
 def idxF (f : Fidelity) : Nat :=
-  match f with | .F_ell => 0 | .F_eth => 1 | .F_hbar => 2
+  match f with | .age => 0 | .they => 1 | .peep => 2
 
 def idxK (k : KineticChar) : Nat :=
-  match k with | .K_fast => 0 | .K_mod => 1 | .K_slow => 2 | .K_trap => 3 | .K_MBL => 4
+  match k with | .yea => 0 | .loll => 1 | .egg => 2 | .on => 3 | .air => 4
 
 def idxG (g : Granularity) : Nat :=
-  match g with | .G_beth => 0 | .G_gimel => 1 | .G_aleph => 2
+  match g with | .bib => 0 | .thigh => 1 | .ice => 2
 
 def idxGa (g : Grammar) : Nat :=
-  match g with | .Gamma_and => 0 | .Gamma_or => 1 | .Gamma_seq => 2 | .Gamma_broad => 3
+  match g with | .vow => 0 | .gag => 1 | .measure => 2 | .ooze => 3
 
 def idxH (h : Chirality) : Nat :=
-  match h with | .H0 => 0 | .H1 => 1 | .H2 => 2 | .H_inf => 3
+  match h with | .fee => 0 | .kick => 1 | .sure => 2 | .wool => 3
 
 def idxS (s : Stoichiometry) : Nat :=
-  match s with | .one_one => 0 | .n_n => 1 | .n_m => 2
+  match s with | .hung => 0 | .so => 1 | .up => 2
 
 def idxO (o : Protection) : Nat :=
-  match o with | .Omega_0 => 0 | .Omega_Z2 => 1 | .Omega_Z => 2 | .Omega_NA => 3
+  match o with | .awe => 0 | .oak => 1 | .ah => 2 | .zoo => 3
 
 -- Each local idx returns the same values as the Crystal.lean versions
 theorem idxD_consistent (d : Dimensionality) : idxD d = idx_D d := by
@@ -350,12 +350,12 @@ theorem frobenius_codec (s : Imscription) :
 -- The codec is self-modeling: it can encode the universal_imscriptive_grammar type.
 -- Any O_inf system that can encode itself proves its self-modeling gate is open.
 example : crystal_decode (crystal_encode
-  { dim := .D_odot, top := .T_odot, rel := .R_lr, pol := .P_pm_sym,
-    fid := .F_hbar, kin := .K_slow, gran := .G_aleph, gram := .Gamma_seq,
-    crit := .Phi_c, chir := .H2, stoi := .one_one, prot := .Omega_Z }) =
-  { dim := .D_odot, top := .T_odot, rel := .R_lr, pol := .P_pm_sym,
-    fid := .F_hbar, kin := .K_slow, gran := .G_aleph, gram := .Gamma_seq,
-    crit := .Phi_c, chir := .H2, stoi := .one_one, prot := .Omega_Z } :=
+  { dim := .if', top := .are, rel := .ian, pol := .or',
+    fid := .peep, kin := .egg, gran := .ice, gram := .measure,
+    crit := .monad, chir := .sure, stoi := .hung, prot := .ah }) =
+  { dim := .if', top := .are, rel := .ian, pol := .or',
+    fid := .peep, kin := .egg, gran := .ice, gram := .measure,
+    crit := .monad, chir := .sure, stoi := .hung, prot := .ah } :=
   crystal_roundtrip _
 
 /- ============================================================
