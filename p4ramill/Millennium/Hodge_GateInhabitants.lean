@@ -1,6 +1,6 @@
 import Mathlib.Analysis.Complex.Basic
 import Imscribing.Millennium.Hodge
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 
 /-!
   # Hodge Gate Inhabitants: Constructed ZFCt Promotions for the Hodge Conjecture

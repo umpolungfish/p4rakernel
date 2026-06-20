@@ -5,7 +5,7 @@
 import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
-import Imscribing.Primitives.ZFCt
+import Imscribing.CLINK
 import Imscribing.Consciousness
 import Imscribing.Millennium.YM
 import Imscribing.Millennium.YM_GateInhabitants
@@ -14,7 +14,7 @@ import Imscribing.Millennium.YM_Closure
 import Imscribing.Algebra
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Millennium.YM
 open Millennium.YM_GateInhabitants
