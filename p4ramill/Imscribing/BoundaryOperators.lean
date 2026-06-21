@@ -11,6 +11,7 @@ import Imscribing.Consciousness
 import Imscribing.Algebra
 import Mathlib.Data.Real.Basic
 
+set_option linter.style.whitespace false
 set_option linter.style.nativeDecide false
 set_option linter.style.longLine false
 
@@ -208,7 +209,7 @@ def granularitySeam_gimel_to_aleph_pred (a b : Imscription) : Prop :=
   a.gran = thigh ∧ b.gran = ice
 
 def grammarSeam_seq_to_broad_pred (a b : Imscription) : Prop :=
-  a.gram = measure ∧ b.gram = ooze
+  a.gram = Grammar.measure ∧ b.gram = ooze
 
 def chiralitySeam_H2_to_H_inf_pred (a b : Imscription) : Prop :=
   a.chir = sure ∧ b.chir = wool
@@ -269,7 +270,7 @@ def inhabitsSeam (operator : Imscription) (seam : PrimitiveSeam) : Bool :=
   | "⊙"  => operator.crit = monad
   | "Ω"  => operator.prot = ah ∨ operator.prot = zoo
   | "Ħ"  => operator.chir = sure ∨ operator.chir = wool
-  | "ɢ"  => operator.gram = measure ∨ operator.gram = ooze
+  | "ɢ"  => operator.gram = Grammar.measure ∨ operator.gram = ooze
   | "ƒ"  => operator.fid = peep
   | "Ç"  => operator.kin = egg
   | "Γ"  => operator.gran = ice
