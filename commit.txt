@@ -1,50 +1,8 @@
-Rename all IG primitive constructors to canonical Shavian glyph names
+Copied 9 missing .py files into p4rakernel per README manifest.
 
-14554 substitutions across 187 Lean/Python files in p4ramill/ and
-p4rakernel/. Old prefix notation (D_wedge, T_network, Phi_sub, etc.)
-replaced with exact letter-name of the corresponding Shavian glyph from
-SNS_PRIME.md, keyed by ordinal position from the idx_* functions.
+p4ramill_py/: genetics_b4.py, genetic_code.py, genetic_tuples.py, genetic_asm.py,
+gene_to_protein_pipeline.py, run_gene_pipeline.py, machine.py
+Root: test_genetics.py, compute_promotions.py
 
-Full mapping (old → new):
-  Ð: D_wedge→dead  D_triangle→ash  D_infty→array  D_odot→if'
-  Þ: T_network→judge  T_in→eat  T_bowtie→mime  T_box→oil  T_odot→are
-  Ř: R_super→ado  R_cat→tot  R_dagger→ear  R_lr→ian
-  Φ: P_asym→church  P_psi→yew  P_pm→out  P_sym→nun  P_pm_sym→or'
-  ⊙: Phi_sub→woe  Phi_c→monad  Phi_c_complex→roar  Phi_EP→err  Phi_super→haha
-  Ç: K_fast→yea  K_mod→loll  K_slow→egg  K_trap→on  K_MBL→air
-  ƒ: F_ell→age  F_eth→they  F_hbar→peep
-  Γ: G_beth→bib  G_gimel→thigh  G_aleph→ice
-  ɢ: Gamma_and→vow  Gamma_or→gag  Gamma_seq→measure  Gamma_broad→ooze
-  Ħ: H0→fee  H1→kick  H2→sure  H_inf→wool
-  Ω: Omega_0→awe  Omega_Z2→oak  Omega_Z→ah  Omega_NA→zoo
-  Σ: one_one→hung  n_n→so  n_m→up
-
-`if`/`or` are Lean keywords → `if'`/`or'`; `ha-ha` → `haha`. Type
-names (Dimensionality, Topology, etc.) unchanged. Script: rename_primitives.py.
-
----
-
-Add Imscribing/LandoMills.lean — self-imscription protocol
-
-Formalizes the ob3ect pipeline output for "Lando Mills" (Lando himself,
-as abstract category C generating the complete IG crystal) as a 32-step
-IGProtocol scaffold.
-
-Fingerprint: sig=(25,3,3,1), frobenius_order=1, period=32, expected O₂.
-
-Key semantic tokens:
-- VINIT[0]: abstract category C — void before any categorical operation
-- AFWD[1-17]: 15 operations across 4 stages (L1/L2, I1–I4, A1–A5, L3–L4)
-  generating all 12 primitives from C's structure
-- FSPLIT[18]/FFUSE[23]: Lawvere check creates branch; T-arm resolves
-  Frobenius condition (EVALT×2) and paraconsistent inclosure (ENGAGR);
-  F-arm empty (dialetheia_complete=False — paradice is inside T-arm)
-- IMSCRIB[25]: grammar ring — the operation sequence that generated the
-  grammar is exactly its own morphism space
-- TANCH[27]: 17,280,000-type crystal sealed as closed boundary
-- IFIX[28]: AASB.tex + crystal catalog + So Below as ROM fixation
-- IMSCRIB[31]: self-referential loop closes — the stone that knows itself
-
-Also registers Imscribing.LandoMills in lakefile.toml.
-
-Previous session additions (BruceCodex + ltx fixes) also in this working tree.
+Sources: rhr_p4rky/ (6 files), imscribing_grammar/genetic_engine/ (genetic_tuples.py),
+red-hot_rebis/ (test_genetics.py), red-hot_rebis/scripts/ (compute_promotions.py)
