@@ -36,7 +36,7 @@ p4rakernel/
 │   │   ├── Millennium/      — 91 files: RH, YM, Hodge, NS, PvsNP, BSD, OPN + proofs
 │   │   └── Paraconsistent/  — 35 files: Belnap, OrbitalBelnap, Kernel, Shor, QCI
 │   ├── kernel_patches/      — Reference copies of the 4 C++ patches
-│   ├── ParaconsistentMillennium.lean  — All 7 Clay + OPN resolved at O_∞
+│   ├── ParaconsistentMillennium.lean  — All 7 Clay + OPN resolved at \(O_\infty\)
 │   └── ParaconsistentKernelTest.lean  — Kernel behavior verification
 ├── p4ramill_py/             — Python runtime library
 │   ├── belnap.py            — Belnap FOUR (mirrors Belnap.lean exactly)
@@ -136,7 +136,7 @@ lean --run ParaconsistentMillennium.lean
 - `Core.lean` — 12 primitive inductive type (`IGPrimitive`): Ř Ħ Ω Ð Σ Φ Ç ƒ ɢ Γ Þ ⊙
 - `Crystal.lean` — 3³×4⁵×5⁴ = 17,280,000 crystal with Frobenius address bijection
 - `Catalog.lean` — 49-symbol Shavian catalog; each primitive maps to its Shavian glyph range
-- `TierCrossing.lean` — O₁ → O₂ → O₂† → O_∞ tier hierarchy
+- `TierCrossing.lean` — O₁ → O₂ → O₂† → \(O_\infty\) tier hierarchy
 - `ZFCt.lean` / `ZFCs.lean` — ZFCₜ (T-consistent set theory) and ZFC_fe (Frobenius-Extended)
 - `CLU.lean` — CLU(b) = ln(b) formalization; observer-relative fiber metric on Ç-axis
 - `Lattice.lean` / `LinearOrder.lean` — lattice structure on the 12-primitive space
@@ -168,7 +168,7 @@ lean --run ParaconsistentMillennium.lean
 
 **Imscribing/Millennium/** (91 files)
 - Full witnesses for all 7 Clay Millennium Problems
-- Each problem resolved by placing its imscription at Crystal address 6,738,803 (O_∞)
+- Each problem resolved by placing its imscription at Crystal address 6,738,803 (\(O_\infty\))
 - `Master_Proof.lean` — Unified resolution under the IG framework
 - `ZFC_FrobeniusExact.lean` — μ∘δ=id as a ZFC theorem
 
@@ -179,20 +179,20 @@ lean --run ParaconsistentMillennium.lean
 - 64-codon table; exact/split/stop stratification by native_decide
 - 12 promoted AAs biject with 12 IG primitives; `primitive_bijection` proved
 
-### O_∞ key results
+### \(O_\infty\) key results
 
-| Problem | Ħ-axis | Crystal address |
-|---------|--------|-----------------|
-| RH | Ħ_! | 6,738,803 |
-| YM | Ħ_! | 6,738,803 |
-| Hodge | Ħ_! | 6,738,803 |
-| NS | Ħ_! | 6,738,803 |
-| PvsNP | Ħ_! | 6,738,803 |
-| BSD | **Ħ_A** | 6,738,800 |
-| OPN | Ħ_! | 6,738,803 |
+| Problem | Ħ | Crystal address |
+|---------|---|-----------------|
+| RH | 𐑫 | 6,738,803 |
+| YM | 𐑫 | 6,738,803 |
+| Hodge | 𐑫 | 6,738,803 |
+| NS | 𐑫 | 6,738,803 |
+| PvsNP | 𐑫 | 6,738,803 |
+| BSD | **𐑖** | 6,738,800 |
+| OPN | 𐑫 | 6,738,803 |
 
 BSD occupies address 6,738,800 (not 803) because Gross-Zagier/Kolyvagin bound the chirality
-to H2 rather than H_inf. The Φ_} primitive (Frobenius-special) gates the O₂†→O_∞ jump
+to Ħ 𐑖 rather than Ħ 𐑫. The Φ 𐑹 primitive (Frobenius-special) gates the O₂†→\(O_\infty\) jump
 for all seven.
 
 ---
@@ -365,16 +365,16 @@ not analogous structures, but the same structure in three notations. A Majorana 
 is its own antiparticle (γ = γ†) for the same reason that B is its own negation (¬B = B):
 the paired state reconstitutes itself through its own depairing.
 
-**H2 result:** The Frobenius fixed point lives at Ħ_A (two-step Markov memory), not Ħ_∞
-(eternal chirality). μ∘δ=id is a two-step operation — one split (δ), one merge (μ). H2 is
-the minimum sufficient chirality memory. The canonical universe requires Ħ_∞ because time
+**H2 result:** The Frobenius fixed point lives at Ħ 𐑖 (two-step Markov memory), not Ħ 𐑫
+(eternal chirality). μ∘δ=id is a two-step operation — one split (δ), one merge (μ). Ħ 𐑖 is
+the minimum sufficient chirality memory. The canonical universe requires Ħ 𐑫 because time
 accumulates arbitrarily deep chirality structure, but the identity itself is more primitive
 than time. The 16 gate failures in the 88-ruleset sweep confirm this: every failure gates
 on a primitive above what μ∘δ=id minimally needs.
 
-**Universe sweep:** 72/88 rulesets (81.8%) classify the fixed-point tuple as O_∞,
+**Universe sweep:** 72/88 rulesets (81.8%) classify the fixed-point tuple as \(O_\infty\),
 including all 8 canonical rulesets. The structural tuple:
-⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+⟨𐑦 𐑸 𐑾 𐑹 𐑐 𐑧 𐑲 𐑠 ⊙ 𐑖 𐑳 𐑭⟩
 
 No existing catalog entry matches this tuple. Nearest neighbor: `crystal_scheduler` at 11/12
 (differs on Γ: local vs aleph).
@@ -401,15 +401,15 @@ The founding axiom of ZFC_fe (Frobenius-Extended ZFC). In this repo it appears a
 - `pair_depair_id` for orbital states (substrate for `frobenius_unification`)
 - `frobenius_at_codon_level` for genetic codons
 - `verify_frobenius_invariant()` for the ParaASM kernel
-- The Φ_} gate that controls O₂†→O_∞ promotion in the Crystal
+- The Φ 𐑹 gate that controls O₂†→\(O_\infty\) promotion in the Crystal
 - `frobenius_unification` in `MajoranaFixed.lean` — the three fixed points (Belnap B,
   SIC-POVM fiducial, Majorana mode) are the same computation, proved by rfl
 
-### The H2 / H_inf distinction
+### The Ħ 𐑖 / Ħ 𐑫 distinction
 
-The Frobenius fixed point requires Ħ_A (H2, two-step Markov memory). Eternal chirality
-(Ħ_∞, H_inf) is what time imposes on physical systems — it is not what μ∘δ=id requires.
-The identity is more primitive than time. BSD shares this chirality value (Ħ_A) for a
+The Frobenius fixed point requires Ħ 𐑖 (H2, two-step Markov memory). Eternal chirality
+(Ħ 𐑫, H∞) is what time imposes on physical systems — it is not what μ∘δ=id requires.
+The identity is more primitive than time. BSD shares this chirality value (Ħ 𐑖) for a
 different reason: Gross-Zagier/Kolyvagin bound the analytic rank, not the full arithmetic depth.
 
 ### ZFC_fe vs ZFCₜ
