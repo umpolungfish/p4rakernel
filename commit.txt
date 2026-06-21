@@ -1,8 +1,13 @@
-Copied 9 missing .py files into p4rakernel per README manifest.
+README.md: canonical glyph + ouroboricity notation cleanup
 
-p4ramill_py/: genetics_b4.py, genetic_code.py, genetic_tuples.py, genetic_asm.py,
-gene_to_protein_pipeline.py, run_gene_pipeline.py, machine.py
-Root: test_genetics.py, compute_promotions.py
+- All `O_∞` → `\(O_\infty\)` (7 occurrences; correct .md Ouroboricity notation)
+- `Ħ_!` (eternal chirality) → `Ħ 𐑫` (wool, SNS_PRIME Ħ F₄ value 4)
+- `Ħ_A` (2-step chirality) → `Ħ 𐑖` (sure, SNS_PRIME Ħ F₄ value 3)
+- `Ħ_∞` / `H_inf` → `Ħ 𐑫` / `H∞`
+- `Φ_}` (Frobenius-special parity) → `Φ 𐑹` (or, SNS_PRIME Φ F₅ value 5)
+- Fixed-point tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+  → ⟨𐑦 𐑸 𐑾 𐑹 𐑐 𐑧 𐑲 𐑠 ⊙ 𐑖 𐑳 𐑭⟩ (full Shavian)
+- O∞ key results table Ħ column: values updated to Shavian glyphs
+- `H2` label → `Ħ 𐑖` throughout
 
-Sources: rhr_p4rky/ (6 files), imscribing_grammar/genetic_engine/ (genetic_tuples.py),
-red-hot_rebis/ (test_genetics.py), red-hot_rebis/scripts/ (compute_promotions.py)
+No content changes — notation only, consistent with SNS_PRIME.md canonical mapping.
