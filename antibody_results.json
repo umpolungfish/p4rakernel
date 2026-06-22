@@ -42,8 +42,8 @@
         }
       },
       "prims": [
-        "Coupling",
         "Fidelity",
+        "Coupling",
         "Stoichiometry",
         "Parity"
       ],
@@ -214,43 +214,59 @@
       }
     },
     "cdr": {
-      "seq": "QYCFGGGGGGGG",
-      "rna": "CAAUAUUGUUUUGGUGGUGGUGGUGGUGGUGGUGGU",
+      "seq": "YQCFGGGGGGGG",
+      "rna": "UAUCAAUGUUUUGGUGGUGGUGGUGGUGGUGGUGGU",
       "sr": {
         "name": "cdr",
-        "rna_sequence": "CAAUAUUGUUUUGGUGGUGGUGGUGGUGGUGGUGGU",
+        "rna_sequence": "UAUCAAUGUUUUGGUGGUGGUGGUGGUGGUGGUGGU",
         "rna_length": 36,
-        "aa_sequence": "QYCFGGGGGGGG",
+        "aa_sequence": "YQCFGGGGGGGG",
         "aa_length": 12,
-        "winding_number": 2,
+        "winding_number": 3,
         "secondary_elements": [
           {
             "type": "sheet",
             "start": 0,
-            "end": 6,
-            "length": 6,
-            "confidence": 0.553,
-            "sequence": "QYCFGG"
+            "end": 4,
+            "length": 4,
+            "confidence": 0.642,
+            "sequence": "YQCF"
           },
           {
             "type": "loop",
-            "start": 6,
-            "end": 12,
-            "length": 6,
+            "start": 4,
+            "end": 8,
+            "length": 4,
             "confidence": 0.66,
-            "sequence": "GGGGGG"
+            "sequence": "GGGG"
+          },
+          {
+            "type": "loop",
+            "start": 8,
+            "end": 12,
+            "length": 4,
+            "confidence": 0.66,
+            "sequence": "GGGG"
           }
         ],
-        "contacts": [],
+        "contacts": [
+          {
+            "i": 0,
+            "j": 3,
+            "type": "\u03a6 (Parity)\u2194\u0192 (Fidelity)",
+            "distance": 5.75,
+            "confidence": 0.75
+          }
+        ],
         "subunit_count": 1,
         "activation_pattern": [
           {
-            "aa": "Gln",
-            "primitive": "\u2299 (Criticality)"
-          },
-          {
             "aa": "Tyr",
             "primitive": "\u03a6 (Parity)"
+          },
+          {
+            "aa": "Gln",
+            "primitive": "\u2299 (Criticality)"
           },
           {
             "aa": "Cys",
@@ -303,12 +319,12 @@
         }
       },
       "prims": [
-        "Criticality",
         "Parity",
+        "Topology",
         "Recognition",
-        "Coupling",
         "Fidelity",
-        "Topology"
+        "Coupling",
+        "Criticality"
       ],
       "sr": {
         "name": "ep_SARS2_NTD",
@@ -468,39 +484,39 @@
       }
     },
     "cdr": {
-      "seq": "NFKQYDGGGGGG",
-      "rna": "AAUUUUAAACAAUAUGAUGGUGGUGGUGGUGGUGGU",
+      "seq": "FDKYQNGGGGGG",
+      "rna": "UUUGAUAAAUAUCAAAAUGGUGGUGGUGGUGGUGGU",
       "sr": {
         "name": "cdr",
-        "rna_sequence": "AAUUUUAAACAAUAUGAUGGUGGUGGUGGUGGUGGU",
+        "rna_sequence": "UUUGAUAAAUAUCAAAAUGGUGGUGGUGGUGGUGGU",
         "rna_length": 36,
-        "aa_sequence": "NFKQYDGGGGGG",
+        "aa_sequence": "FDKYQNGGGGGG",
         "aa_length": 12,
-        "winding_number": 5,
+        "winding_number": 6,
         "secondary_elements": [
           {
-            "type": "sheet",
+            "type": "helix",
             "start": 0,
             "end": 2,
             "length": 2,
-            "confidence": 0.568,
-            "sequence": "NF"
-          },
-          {
-            "type": "helix",
-            "start": 2,
-            "end": 4,
-            "length": 2,
-            "confidence": 0.568,
-            "sequence": "KQ"
+            "confidence": 0.535,
+            "sequence": "FD"
           },
           {
             "type": "sheet",
+            "start": 2,
+            "end": 4,
+            "length": 2,
+            "confidence": 0.552,
+            "sequence": "KY"
+          },
+          {
+            "type": "loop",
             "start": 4,
             "end": 6,
             "length": 2,
-            "confidence": 0.502,
-            "sequence": "YD"
+            "confidence": 0.943,
+            "sequence": "QN"
           },
           {
             "type": "loop",
@@ -517,19 +533,20 @@
             "length": 2,
             "confidence": 0.66,
             "sequence": "GG"
+          },
+          {
+            "type": "loop",
+            "start": 10,
+            "end": 12,
+            "length": 2,
+            "confidence": 0.66,
+            "sequence": "GG"
           }
         ],
         "contacts": [
           {
             "i": 0,
             "j": 3,
-            "type": "\u0262 (Coupling)\u2194\u2299 (Criticality)",
-            "distance": 5.75,
-            "confidence": 0.75
-          },
-          {
-            "i": 1,
-            "j": 4,
             "type": "\u0192 (Fidelity)\u2194\u03a6 (Parity)",
             "distance": 5.75,
             "confidence": 0.75
@@ -538,28 +555,28 @@
         "subunit_count": 1,
         "activation_pattern": [
           {
-            "aa": "Asn",
-            "primitive": "\u0262 (Coupling)"
-          },
-          {
             "aa": "Phe",
             "primitive": "\u0192 (Fidelity)"
+          },
+          {
+            "aa": "Asp",
+            "primitive": "\u0126 (Chirality)"
           },
           {
             "aa": "Lys",
             "primitive": "\u03a3 (Stoichiometry)"
           },
           {
-            "aa": "Gln",
-            "primitive": "\u2299 (Criticality)"
-          },
-          {
             "aa": "Tyr",
             "primitive": "\u03a6 (Parity)"
           },
           {
-            "aa": "Asp",
-            "primitive": "\u0126 (Chirality)"
+            "aa": "Gln",
+            "primitive": "\u2299 (Criticality)"
+          },
+          {
+            "aa": "Asn",
+            "primitive": "\u0262 (Coupling)"
           }
         ],
         "activation_coverage": "6/12",
@@ -612,12 +629,12 @@
         }
       },
       "prims": [
-        "Criticality",
-        "Stoichiometry",
+        "Kinetics",
         "Recognition",
-        "Coupling",
         "Fidelity",
-        "Kinetics"
+        "Coupling",
+        "Criticality",
+        "Stoichiometry"
       ],
       "sr": {
         "name": "ep_HIV_V3",
@@ -856,39 +873,39 @@
       }
     },
     "cdr": {
-      "seq": "NCKQYHGGGGGG",
-      "rna": "AAUUGUAAACAAUAUCAUGGUGGUGGUGGUGGUGGU",
+      "seq": "HKYQNCGGGGGG",
+      "rna": "CAUAAAUAUCAAAAUUGUGGUGGUGGUGGUGGUGGU",
       "sr": {
         "name": "cdr",
-        "rna_sequence": "AAUUGUAAACAAUAUCAUGGUGGUGGUGGUGGUGGU",
+        "rna_sequence": "CAUAAAUAUCAAAAUUGUGGUGGUGGUGGUGGUGGU",
         "rna_length": 36,
-        "aa_sequence": "NCKQYHGGGGGG",
+        "aa_sequence": "HKYQNCGGGGGG",
         "aa_length": 12,
         "winding_number": 5,
         "secondary_elements": [
           {
-            "type": "sheet",
+            "type": "helix",
             "start": 0,
             "end": 2,
             "length": 2,
-            "confidence": 0.52,
-            "sequence": "NC"
+            "confidence": 0.54,
+            "sequence": "HK"
           },
           {
-            "type": "helix",
+            "type": "sheet",
             "start": 2,
             "end": 4,
             "length": 2,
-            "confidence": 0.568,
-            "sequence": "KQ"
+            "confidence": 0.643,
+            "sequence": "YQ"
           },
           {
             "type": "sheet",
             "start": 4,
             "end": 6,
             "length": 2,
-            "confidence": 0.585,
-            "sequence": "YH"
+            "confidence": 0.52,
+            "sequence": "NC"
           },
           {
             "type": "loop",
@@ -909,15 +926,31 @@
         ],
         "contacts": [
           {
-            "i": 0,
-            "j": 3,
-            "type": "\u0262 (Coupling)\u2194\u2299 (Criticality)",
-            "distance": 5.75,
-            "confidence": 0.75
+            "i": 1,
+            "j": 5,
+            "type": "\u03a3 (Stoichiometry)\u2194\u0158 (Recognition)",
+            "distance": 6.0,
+            "confidence": 0.667
           }
         ],
         "subunit_count": 1,
         "activation_pattern": [
+          {
+            "aa": "His",
+            "primitive": "\u0393 (Granularity)"
+          },
+          {
+            "aa": "Lys",
+            "primitive": "\u03a3 (Stoichiometry)"
+          },
+          {
+            "aa": "Tyr",
+            "primitive": "\u03a6 (Parity)"
+          },
+          {
+            "aa": "Gln",
+            "primitive": "\u2299 (Criticality)"
+          },
           {
             "aa": "Asn",
             "primitive": "\u0262 (Coupling)"
@@ -925,22 +958,6 @@
           {
             "aa": "Cys",
             "primitive": "\u0158 (Recognition)"
-          },
-          {
-            "aa": "Lys",
-            "primitive": "\u03a3 (Stoichiometry)"
-          },
-          {
-            "aa": "Gln",
-            "primitive": "\u2299 (Criticality)"
-          },
-          {
-            "aa": "Tyr",
-            "primitive": "\u03a6 (Parity)"
-          },
-          {
-            "aa": "His",
-            "primitive": "\u0393 (Granularity)"
           }
         ],
         "activation_coverage": "6/12",
@@ -993,8 +1010,8 @@
         }
       },
       "prims": [
-        "Recognition",
         "Kinetics",
+        "Recognition",
         "Fidelity",
         "Topology"
       ],
@@ -1102,59 +1119,67 @@
       }
     },
     "cdr": {
-      "seq": "KHYDGGGGGGGG",
-      "rna": "AAACAUUAUGAUGGUGGUGGUGGUGGUGGUGGUGGU",
+      "seq": "HKYDGGGGGGGG",
+      "rna": "CAUAAAUAUGAUGGUGGUGGUGGUGGUGGUGGUGGU",
       "sr": {
         "name": "cdr",
-        "rna_sequence": "AAACAUUAUGAUGGUGGUGGUGGUGGUGGUGGUGGU",
+        "rna_sequence": "CAUAAAUAUGAUGGUGGUGGUGGUGGUGGUGGUGGU",
         "rna_length": 36,
-        "aa_sequence": "KHYDGGGGGGGG",
+        "aa_sequence": "HKYDGGGGGGGG",
         "aa_length": 12,
-        "winding_number": 4,
+        "winding_number": 5,
         "secondary_elements": [
           {
-            "type": "sheet",
+            "type": "helix",
             "start": 0,
-            "end": 3,
-            "length": 3,
-            "confidence": 0.513,
-            "sequence": "KHY"
+            "end": 2,
+            "length": 2,
+            "confidence": 0.54,
+            "sequence": "HK"
+          },
+          {
+            "type": "sheet",
+            "start": 2,
+            "end": 4,
+            "length": 2,
+            "confidence": 0.502,
+            "sequence": "YD"
           },
           {
             "type": "loop",
-            "start": 3,
+            "start": 4,
             "end": 6,
-            "length": 3,
-            "confidence": 0.698,
-            "sequence": "DGG"
+            "length": 2,
+            "confidence": 0.66,
+            "sequence": "GG"
           },
           {
             "type": "loop",
             "start": 6,
-            "end": 9,
-            "length": 3,
+            "end": 8,
+            "length": 2,
             "confidence": 0.66,
-            "sequence": "GGG"
+            "sequence": "GG"
           },
           {
             "type": "loop",
-            "start": 9,
-            "end": 12,
-            "length": 3,
+            "start": 8,
+            "end": 10,
+            "length": 2,
             "confidence": 0.66,
-            "sequence": "GGG"
+            "sequence": "GG"
           }
         ],
         "contacts": [],
         "subunit_count": 1,
         "activation_pattern": [
           {
-            "aa": "Lys",
-            "primitive": "\u03a3 (Stoichiometry)"
-          },
-          {
             "aa": "His",
             "primitive": "\u0393 (Granularity)"
+          },
+          {
+            "aa": "Lys",
+            "primitive": "\u03a3 (Stoichiometry)"
           },
           {
             "aa": "Tyr",
@@ -1207,13 +1232,13 @@
         }
       },
       "prims": [
-        "Criticality",
-        "Stoichiometry",
+        "Kinetics",
         "Parity",
         "Fidelity",
+        "Chirality",
         "Granularity",
-        "Kinetics",
-        "Chirality"
+        "Criticality",
+        "Stoichiometry"
       ],
       "sr": {
         "name": "ep_HPV_L1",
@@ -1388,13 +1413,13 @@
       }
     },
     "cdr": {
-      "seq": "NCFYIHWGGGGG",
-      "rna": "AAUUGUUUUUAUAUUCAUUGGGGUGGUGGUGGUGGU",
+      "seq": "HFYWINCGGGGG",
+      "rna": "CAUUUUUAUUGGAUUAAUUGUGGUGGUGGUGGUGGU",
       "sr": {
         "name": "cdr",
-        "rna_sequence": "AAUUGUUUUUAUAUUCAUUGGGGUGGUGGUGGUGGU",
+        "rna_sequence": "CAUUUUUAUUGGAUUAAUUGUGGUGGUGGUGGUGGU",
         "rna_length": 36,
-        "aa_sequence": "NCFYIHWGGGGG",
+        "aa_sequence": "HFYWINCGGGGG",
         "aa_length": 12,
         "winding_number": 5,
         "secondary_elements": [
@@ -1403,32 +1428,32 @@
             "start": 0,
             "end": 2,
             "length": 2,
-            "confidence": 0.52,
-            "sequence": "NC"
+            "confidence": 0.562,
+            "sequence": "HF"
           },
           {
             "type": "sheet",
             "start": 2,
             "end": 4,
             "length": 2,
-            "confidence": 0.712,
-            "sequence": "FY"
+            "confidence": 0.71,
+            "sequence": "YW"
           },
           {
             "type": "sheet",
             "start": 4,
             "end": 6,
             "length": 2,
-            "confidence": 0.618,
-            "sequence": "IH"
+            "confidence": 0.623,
+            "sequence": "IN"
           },
           {
-            "type": "sheet",
+            "type": "loop",
             "start": 6,
             "end": 8,
             "length": 2,
-            "confidence": 0.53,
-            "sequence": "WG"
+            "confidence": 0.802,
+            "sequence": "CG"
           },
           {
             "type": "loop",
@@ -1439,16 +1464,20 @@
             "sequence": "GG"
           }
         ],
-        "contacts": [],
+        "contacts": [
+          {
+            "i": 0,
+            "j": 4,
+            "type": "\u0393 (Granularity)\u2194\u00c7 (Kinetics)",
+            "distance": 6.0,
+            "confidence": 0.667
+          }
+        ],
         "subunit_count": 1,
         "activation_pattern": [
           {
-            "aa": "Asn",
-            "primitive": "\u0262 (Coupling)"
-          },
-          {
-            "aa": "Cys",
-            "primitive": "\u0158 (Recognition)"
+            "aa": "His",
+            "primitive": "\u0393 (Granularity)"
           },
           {
             "aa": "Phe",
@@ -1459,16 +1488,20 @@
             "primitive": "\u03a6 (Parity)"
           },
           {
+            "aa": "Trp",
+            "primitive": "\u00de (Topology)"
+          },
+          {
             "aa": "Ile",
             "primitive": "\u00c7 (Kinetics)"
           },
           {
-            "aa": "His",
-            "primitive": "\u0393 (Granularity)"
+            "aa": "Asn",
+            "primitive": "\u0262 (Coupling)"
           },
           {
-            "aa": "Trp",
-            "primitive": "\u00de (Topology)"
+            "aa": "Cys",
+            "primitive": "\u0158 (Recognition)"
           }
         ],
         "activation_coverage": "7/12",
