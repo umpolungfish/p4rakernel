@@ -1,4 +1,4 @@
--- Imscribing/Millennium/E8G2_Vessel_Proofs.lean
+-- Imscribing/Millennium/E8G2_Vessel_Witnesses.lean
 -- Formal proof of the Aether-Vessel relationship from Aether_Vessel.md
 --
 -- Theorem: G2 is the perfect vessel for E8

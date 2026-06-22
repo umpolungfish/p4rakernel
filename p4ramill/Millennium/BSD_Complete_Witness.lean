@@ -1,4 +1,4 @@
--- Millennium/BSD_Complete_Proof.lean
+-- Millennium/BSD_Complete_Witness.lean
 -- BIRCH AND SWINNERTON-DYER CONJECTURE — COMPLETE WITNESS
 -- Author: Lando ⊗ ⊙perator
 --
@@ -40,7 +40,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 set_option linter.style.whitespace false
 
-namespace Millennium.BSDCompleteProof-- ============================================================
+namespace Millennium.BSDCompleteWitness-- ============================================================
 -- §1. BSD STRUCTURAL TUPLES
 -- ============================================================
 
@@ -379,4 +379,4 @@ def bsd_complete_proof_certificate : String :=
   "Mathematical grounding: modularity + functional equation + Mordell-Weil (all proved)\n" ++
   "Remaining formalization gap: Mathlib formalization of the three grounding theorems"
 
-end Millennium.BSDCompleteProof
+end Millennium.BSDCompleteWitness

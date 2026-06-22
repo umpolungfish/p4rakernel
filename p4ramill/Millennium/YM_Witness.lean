@@ -1,5 +1,5 @@
--- Millennium/YM_Proof.lean
--- Yang-Mills Existence and Mass Gap: Proof via ZFCₜ Promotion Channels
+-- Millennium/YM_Witness.lean
+-- Yang-Mills Existence and Mass Gap: Witness via ZFCₜ Promotion Channels
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -23,7 +23,7 @@ open Imscribing.Millennium.YM_Closure
 
 set_option linter.style.whitespace false
 
-namespace Millennium.YM_Proof
+namespace Millennium.YM_Witness
 
 /-- Combined YM Prize Problem: existence + mass gap, both proved from gates.
     The six ZFCₜ promotion channels (HOLOBOUND, LR_DUAL, PM_Z2, SEQAX,
@@ -40,4 +40,4 @@ theorem ym_prize_problem (g : Type*) [LieRing g] [LieAlgebra ℝ g]
     ∀ T : QuantumYMTheory g, 0 < massGap g T :=
   ym_prize_problem_from_gates g
 
-end Millennium.YM_Proof
+end Millennium.YM_Witness

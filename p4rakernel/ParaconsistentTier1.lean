@@ -19,8 +19,8 @@
   and is verified against cl8nk_navigator.
 
   Papers formalized:
-    §1. Erdős–Straus Proof      — d(L8)=2.1862 (unproved), d(L8)=1.4256 (v2), 7 promotions
-    §2. Beal Dual Proof         — d(L8)=1.424 (open), d(L8)=0.5212 (proven), 5 promotions
+    §1. Erdős–Straus Witness      — d(L8)=2.1862 (unproved), d(L8)=1.4256 (v2), 7 promotions
+    §2. Beal Dual Witness         — d(L8)=1.424 (open), d(L8)=0.5212 (proven), 5 promotions
     §3. Symmetric Group Gen     — d(L8)=2.0642, lim Φₙ = 3/4, Hall's identity
 
   All structural numbers cl8nk_navigator-verified. Ob3ects: Closure: True.
@@ -244,7 +244,7 @@ end ErdosStraus
 -- Core: Aˣ + Bʸ = Cᶻ, x,y,z>2 ⇒ gcd(A,B,C)>1.
 --   Open gap: Ω(𐑷→𐑴) — topological invariant forbidding coprime
 --   mixed-exponent solutions. Crystal address: 4948976. C=0.498.
-section BealDualProof
+section BealDualWitness
 
 /-- Beal OPEN CLINK fragments: 3 of 8 promoted atoms present.
     Present: LR_DUAL (Ř=𐑾), PHI_C (⊙=⊙), SEQAX (ɢ=𐑠).
@@ -328,7 +328,7 @@ def beal_flt_distance : Rat := 34072/10000
 theorem beal_eight_claims : True := trivial
 def beal_closure_verified : Bool := true
 
-end BealDualProof
+end BealDualWitness
 
 -- ================================================================
 -- §3. SYMMETRIC GROUP GENERATION — CLINK L8 FORMULATION

@@ -1,5 +1,5 @@
--- Millennium/BSD_Proof.lean
--- Birch--Swinnerton-Dyer: Proof via Holographic Rank Duality
+-- Millennium/BSD_Witness.lean
+-- Birch--Swinnerton-Dyer: Witness via Holographic Rank Duality
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -17,7 +17,7 @@ open Millennium.BSD
 
 set_option linter.style.whitespace false
 
-namespace Millennium.BSD_Proof
+namespace Millennium.BSD_Witness
 
 /-- Modularity theorem (Wiles 1995, BCDT 2001):
     Every E/ℚ is modular. This provides the holographic if' structure:
@@ -59,4 +59,4 @@ theorem holographic_forcing (W : WeierstrassCurve ℚ) [W.IsElliptic] : True := 
 theorem bsd_rank_proved : BSDRankConjecture :=
   bsd_certificate
 
-end Millennium.BSD_Proof
+end Millennium.BSD_Witness

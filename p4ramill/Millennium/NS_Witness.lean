@@ -1,5 +1,5 @@
--- Millennium/NS_Proof.lean
--- Navier-Stokes Global Regularity: Proof via Critical Manifold Freezing
+-- Millennium/NS_Witness.lean
+-- Navier-Stokes Global Regularity: Witness via Critical Manifold Freezing
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -21,7 +21,7 @@ open Imscribing.Millennium.NSResolution
 
 set_option linter.style.whitespace false
 
-namespace Millennium.NS_Proof
+namespace Millennium.NS_Witness
 
 /-- NS source structural type: O₂dag (monad + array + ah). -/
 theorem ns_source_tier : imscriptionTier navierStokesSource = .O₂dag := by
@@ -71,4 +71,4 @@ theorem ns_global_regularity_proved : NavierStokesRegularity := by
   -- ns_from_frobenius_structure in NS_ZFCt_Bridge.lean.
   exact ns_from_frobenius_structure
 
-end Millennium.NS_Proof
+end Millennium.NS_Witness

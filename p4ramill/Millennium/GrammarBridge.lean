@@ -127,7 +127,7 @@ theorem grammar_self_verified : crystal_encode grammarTuple = 16809848 := by
     - MATHLIB GAP (3): OPN Euler structure, BSD Mordell-Weil, Perfect Cuboid
     - OPEN PROBLEM (12+): RH, BSD formula, Hodge, NS, P vs NP, OPN nonexistence
     - MISSING FOUNDATION (2): YM existence + mass gap
-    - ALREADY CLOSED: Collatz, Solitary 10, Beal, BSD_Complete_Proof
+    - ALREADY CLOSED: Collatz, Solitary 10, Beal, BSD_Complete_Witness
 
     Mechanism: Universe framework (27 hand-crafted universes, 235K+ gate
     configs, 4096 T-constitutions, 343 absorption rules). Each MPP gap

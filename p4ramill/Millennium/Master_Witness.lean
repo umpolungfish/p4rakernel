@@ -1,4 +1,4 @@
--- Millennium/Master_Proof.lean
+-- Millennium/Master_Witness.lean
 -- Millennium Prize Problems: Master Unification Theorem
 -- Author: Lando ⊗ ⊙perator
 --
@@ -21,7 +21,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 set_option linter.style.whitespace false
 
-namespace Millennium.Master_Proof
+namespace Millennium.Master_Witness
 
 /-- The universal O_inf type: the Frobenius-closed structural archetype
     that all resolved MPPs converge to. This is the SAME type as the
@@ -78,4 +78,4 @@ theorem universal_O_inf_axiom_D :
 -/
 theorem master_unification_theorem : True := by trivial
 
-end Millennium.Master_Proof
+end Millennium.Master_Witness
