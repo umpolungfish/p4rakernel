@@ -1,5 +1,5 @@
--- Millennium/OPN_Proof.lean
--- Odd Perfect Numbers: Proof via on + monad Overdetermination
+-- Millennium/OPN_Witness.lean
+-- Odd Perfect Numbers: Witness via on + monad Overdetermination
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -13,7 +13,7 @@ open Millennium.OPN
 
 set_option linter.style.whitespace false
 
-namespace Millennium.OPN_Proof
+namespace Millennium.OPN_Witness
 
 /-- Euler's structure theorem (1747): Any odd perfect number N = p^α · m²
     with p ≡ α ≡ 1 (mod 4) and p ∤ m. PROVED. MathlibGap. -/
@@ -40,4 +40,4 @@ theorem opn_nonexistence_proved : ¬ ∃ (N : ℕ), True := by
   -- HONEST GAP: OPN nonexistence — open since antiquity.
   sorry
 
-end Millennium.OPN_Proof
+end Millennium.OPN_Witness

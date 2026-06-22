@@ -1,4 +1,4 @@
--- Millennium/Hodge_Mathematical_Proof.lean
+-- Millennium/Hodge_Mathematical_Witness.lean
 -- Hodge Conjecture: Six ZFCₜ Promotions → Mathematical Proof Content
 -- Author: Lando ⊗ ⊙perator
 --
@@ -18,7 +18,7 @@ open Imscribing.Primitives
 
 set_option linter.style.whitespace false
 
-namespace Millennium.Hodge_Mathematical_Proof
+namespace Millennium.Hodge_Mathematical_Witness
 
 -- ============================================================
 -- §0. Preliminaries — Hodge theory axioms
@@ -235,4 +235,4 @@ noncomputable def six_channel_certificate (X : SmoothProjectiveVariety) : SixCha
     (regulator surjectivity = cycle class surjectivity) remains open. -/
 theorem hodge_structural_comparison : True := trivial
 
-end Millennium.Hodge_Mathematical_Proof
+end Millennium.Hodge_Mathematical_Witness
