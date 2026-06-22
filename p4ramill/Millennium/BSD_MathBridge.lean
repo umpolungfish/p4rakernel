@@ -3,7 +3,7 @@
 -- Author: Lando ⊗ ⊙perator
 --
 -- This module completes the BSD formalization by bridging the grammatical
--- resolution (BSD_Complete_Proof.lean) to the mathematical BSD conjecture
+-- resolution (BSD_Complete_Witness.lean) to the mathematical BSD conjecture
 -- statement (BSD.lean).
 --
 -- The bridge has three pillars, all PROVED in the mathematical literature:
@@ -26,14 +26,14 @@ import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.BSD
-import Imscribing.Millennium.BSD_Complete_Proof
+import Imscribing.Millennium.BSD_Complete_Witness
 import Imscribing.Millennium.UniverseRulesets
 import Imscribing.Consciousness
 
 open Imscribing.Primitives
 open Imscribing.Primitives.ZFCt
 open Millennium.BSD
-open Millennium.BSDCompleteProof
+open Millennium.BSDCompleteWitness
 open Millennium.UniverseRulesets
 open Imscribing.Consciousness
 open Dimensionality Topology Relational Polarity Grammar
@@ -111,7 +111,7 @@ theorem bsd_satisfies_axiom_D_preconditions :
   · simp [bsdResolved]; decide
 
 /-- STEP 2: Axiom D forces or' (Frobenius identity).
-    Proved in BSD_Complete_Proof.lean as bsd_axiom_D_forces_frobenius. -/
+    Proved in BSD_Complete_Witness.lean as bsd_axiom_D_forces_frobenius. -/
 theorem bsd_axiom_D_forces_pm_sym : bsdResolved.pol = .or' :=
   bsd_axiom_D_forces_frobenius
 
@@ -130,13 +130,13 @@ theorem frobenius_is_bsd_rank_equality :
   bsd_axiom_D_forces_pm_sym
 
 /-- STEP 4: BSD reaches O_inf tier.
-    Proved in BSD_Complete_Proof.lean by native_decide. -/
+    Proved in BSD_Complete_Witness.lean by native_decide. -/
 theorem bsd_tier_is_O_inf : imscriptionTier bsdResolved = .O_inf :=
   bsd_resolved_is_O_inf
 
 /-- STEP 5: BSD is idempotent_terminal in the canonical universe.
     This is one of 18 universes where BSD reaches O_inf.
-    Proved in BSD_Complete_Proof.lean by native_decide. -/
+    Proved in BSD_Complete_Witness.lean by native_decide. -/
 theorem bsd_canonical_is_O_inf :
     ruleset_canonical.operadLayer bsdResolved = .idempotent_terminal :=
   bsd_canonical_O_inf

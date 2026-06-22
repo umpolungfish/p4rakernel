@@ -20,7 +20,7 @@ open Millennium.RH_ZFCt
 
 set_option linter.style.whitespace false
 
-namespace Millennium.RH_Mathematical_Proof
+namespace Millennium.RH_Mathematical_Witness
 
 -- ============================================================
 -- §1. Arithmetic Functions and Explicit Formula
@@ -182,4 +182,4 @@ theorem proof_chain_summary :
   · exact forcing_theorem
   · exact Millennium.RH.rh_threshold.mp
 
-end Millennium.RH_Mathematical_Proof
+end Millennium.RH_Mathematical_Witness

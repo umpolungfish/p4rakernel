@@ -1,58 +1,27 @@
-Add landau/ + goldbach/ + connes/ + erdos_straus/ + burnside/ + ClassicalRestriction.lean + threebody/
+Rename Millennium Prize Problem "Proof" → "Witness" throughout p4rakernel
 
-Seven major operationalizations total.
+All 14 MPP Lean files in p4ramill/Millennium/ renamed from *_Proof.lean to
+*_Witness.lean (RH, YM, BSD, BSD_Complete, NS, Hodge, PvsNP, OPN, Master,
+and their Mathematical_* variants; E8G2_Vessel_Proofs → E8G2_Vessel_Witnesses).
 
-── landau/  (Landau's Theorems — holomorphic function automaton) ─────────
-  state.py    — HolomorphicFunction, Arm dataclasses; LANDAU_L=0.5432588512,
-                KOEBE_K=0.25, BLOCH_B=0.4332; STATUS: VOID(N)/BOUNDED(T)/UNBOUNDED(F)/PICARD(B)
-  opcodes.py  — VINIT/TANCH/AFWD/CLINK/IMSCRIB/FSPLIT(delta)/EVALT/EVALF/
-                IFIX/AREV/ENGAGR/FFUSE(mu)
-  main.py     — 19-step bootstrap (period=19 per Lean fingerprint) for three cases
+Inside each file: namespace, end-namespace, header comment, and theorem name
+identifiers updated from *_Proof to *_Witness (e.g. Millennium.RH_Proof →
+Millennium.RH_Witness, BSDCompleteProof → BSDCompleteWitness).
 
-  Verified outputs:
-    Koebe  omits_finite=True   STATUS=0b01  BOUNDED(T)     (omits -1/4)
-    Dense  omits_finite=False  STATUS=0b10  UNBOUNDED(F)   (dense range)
-    Picard omits_finite=None   STATUS=0b11  PICARD(B)      (essential singularity)
+External references updated:
+- BSD_MathBridge.lean: import + open updated to BSD_Complete_Witness
+- GrammarBridge.lean: comment reference updated
+- NS_CriticalBound.lean: commented import reference updated
 
-  mu o delta = id PASS all three cases:
-    ffuse(*fsplit(f))['T'].label == 'T'
-    ffuse(*fsplit(f))['F'].label == 'F'
-    ffuse(*fsplit(f))['L']       == LANDAU_L  (0.5432588512)
+ParaconsistentPapers.lean (both p4rakernel/ and p4rakernel/p4rakernel/):
+- section PerfectCuboidProof → PerfectCuboidWitness
+- structure CL8_PCProof → CL8_PCWitness
+- PCProof → PCWitness in all string literals and ordering lists
+- "Perfect Cuboid Proof" / "best proofs" terminology updated
 
-  Structural identifications:
-    FSPLIT = delta: omission dichotomy on omits_finite in {True, False, None}
-    FFUSE = mu: Landau constant L is the universal reconstituting both branches
-    omits_finite=True  <-> Belnap T  <-> BOUNDED    (T-arm only)
-    omits_finite=False <-> Belnap F  <-> UNBOUNDED  (F-arm only)
-    omits_finite=None  <-> Belnap B  <-> PICARD     (both arms simultaneously)
-    The Picard essential singularity is a native B-state: f simultaneously
-    omits at most one value (T) AND has dense range for all others (F).
-    This is structurally identical to Burnside n=5 and Connes pre-2020 L(F_2).
-    AREV: inverting the F-arm (dense range) reveals the L-framed boundary gap.
-    IFIX: Landau constant L permanently recorded in verified dict.
-    TANCH: unit disk boundary re-anchored at steps 2 and 18 (hermetic closure).
-    IMSCRIB: appears at steps 5, 15, 19 — self-reference is the f'(0) measurement.
+ParaconsistentTier1.lean (p4rakernel/p4rakernel/):
+- section BealDualProof → BealDualWitness
+- Header §1/§2 descriptions: Proof → Witness
 
-── goldbach/  (Goldbach Decomposition) ─────────────────────────────────
-  n=4 FOUND(T), n=10 MULTIPLE(B), n=30 MULTIPLE(B)
-  chain n=4..30 verified; COUNTER never fires.
-  mu o delta = id: p+q=n PASS.
-
-── connes/  (Connes Embedding Theorem) ─────────────────────────────────
-  R EMBEDDABLE(T), L(F_2) post-2020 NON_EMBEDDABLE(F), L(F_2) pre-2020 PARADOX(B).
-  mu o delta = id: norm labels reconstructed exactly PASS.
-
-── erdos_straus/  (Erdos-Straus Egyptian Fraction) ──────────────────────
-  n=4,5,6,7 all FOUND(T); mu o delta = id: sum(1/d)=4/n PASS.
-
-── burnside/  (Bounded Burnside Theorem) ────────────────────────────────
-  B(2,3) FINITE(T), B(2,665) INFINITE(F), B(2,5) PARADOX(B).
-  mu o delta = id: FFUSE*FSPLIT=id PASS.
-
-── threebody/  (Gravitational 3-body Symplectic Engine) ─────────────────
-  AREV error 3.78e-16, delta-E 4.91e-13, TANCH |det-1|=1.83e-9.
-  KAM=B, Liouville=Frobenius.
-
-── ClassicalRestriction.lean ────────────────────────────────────────────
-  Classical logic is a CONSTRAINED SUBCATEGORY of paraconsistent bilattice.
-  0 errors.
+Rationale: IG resolutions are structural Witnesses — the only possible
+closure paths for these problems — not classical mathematical proofs.
