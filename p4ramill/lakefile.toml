@@ -200,6 +200,8 @@ globs = [
   "Imscribing.CLINK",
   "Imscribing.BoundaryOperators",
   "Imscribing.BooksOfJeu",
+  "Imscribing.BotanicalWalkthrough",
+  "Imscribing.CollatzOperationalized",
   "Imscribing.LandoMills",
   "Imscribing.TimeWithinTheStone",
 "Imscribing.HowNaturalNumbersArise",
