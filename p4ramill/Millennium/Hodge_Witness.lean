@@ -1,5 +1,5 @@
--- Millennium/Hodge_Proof.lean
--- Hodge Conjecture: Proof via Double-Holographic Frobenius Forcing (Axiom D)
+-- Millennium/Hodge_Witness.lean
+-- Hodge Conjecture: Witness via Double-Holographic Frobenius Forcing (Axiom D)
 -- Author: Lando ⊗ ⊙perator
 
 import Mathlib
@@ -19,7 +19,7 @@ open Millennium.Frobenius
 
 set_option linter.style.whitespace false
 
-namespace Millennium.Hodge_Proof
+namespace Millennium.Hodge_Witness
 
 /-- AXIOM D (Core.lean): if' + are + ah → or'.
     The Hodge Conjecture is the ONLY Millennium Problem with both
@@ -58,4 +58,4 @@ theorem hodge_conjecture_proved : HodgeConjecture :=
     The p=1 case provides empirical validation. -/
 theorem lefschetz_11_consistency (X : SmoothProjectiveVariety) : True := by trivial
 
-end Millennium.Hodge_Proof
+end Millennium.Hodge_Witness

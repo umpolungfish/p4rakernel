@@ -1,4 +1,4 @@
--- Millennium/NS_Mathematical_Proof.lean
+-- Millennium/NS_Mathematical_Witness.lean
 -- Navier-Stokes Global Regularity: Six ZFCₜ Promotions → Mathematical Proof Content
 -- Author: Lando ⊗ ⊙perator
 --
@@ -19,7 +19,7 @@ open Millennium.NS_ZFCt
 
 set_option linter.style.whitespace false
 
-namespace Millennium.NS_Mathematical_Proof
+namespace Millennium.NS_Mathematical_Witness
 
 -- ============================================================
 -- §0. Preliminaries
@@ -299,9 +299,9 @@ noncomputable def canonical_ns_certificate : ZFCt_NS_Forcing :=
 
 /-- Summary: six ZFCₜ promotions → NS global regularity (conditional).
     The honest gap is the critical Sobolev scaling gap at s=1/2. -/
-theorem ns_proof_chain_summary :
+theorem ns_witness_chain_summary :
     (∀ (fc : ZFCt_NS_Forcing) (u₀ : NSInitialDatum), NSGlobalRegularity u₀) := by
   intro fc u₀
   exact ns_forcing_theorem fc u₀
 
-end Millennium.NS_Mathematical_Proof
+end Millennium.NS_Mathematical_Witness

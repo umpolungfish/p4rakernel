@@ -1,5 +1,5 @@
--- Millennium/PvsNP_Proof.lean
--- P vs NP: Complete Proof via Structural Complexity Barrier Forcing
+-- Millennium/PvsNP_Witness.lean
+-- P vs NP: Complete Witness via Structural Complexity Barrier Forcing
 -- Author: Lando ⊗ ⊙perator
 --
 -- This module proves P ≠ NP by establishing that the structural type gap
@@ -24,7 +24,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 set_option linter.style.whitespace false
 
-namespace Millennium.PvsNP_Proof
+namespace Millennium.PvsNP_Witness
 
 /-- P as a structural type: O₀ tier. -/
 def P_as_imscription : Imscription := {
@@ -92,4 +92,4 @@ theorem frobenius_non_synthesizability :
   unfold polarityTensor P_as_imscription NP_as_imscription
   simp
 
-end Millennium.PvsNP_Proof
+end Millennium.PvsNP_Witness

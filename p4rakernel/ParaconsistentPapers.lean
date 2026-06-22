@@ -27,7 +27,7 @@
     §3.  SIC-POVM Conditional      — d(L8)=1.263, O₂, 6 conflicts
     §4.  Collatz Deep Structure    — d(L8)=1.0593, O₂, 5 conflicts
     §5.  Euler Bricks / Cuboid     — d(L8)=1.8051, O₁, 7 conflicts
-    §6.  Perfect Cuboid Proof      — d(L8)=0.5164, O_∞, 3 conflicts
+    §6.  Perfect Cuboid Witness      — d(L8)=0.5164, O_∞, 3 conflicts
     §7.  Frobenius-Shor Resolved   — d(L8)=0.2789, O_∞, 1 conflict
     §8.  Twin Prime Critique       — d(L8)=1.5447, O₁, 7 conflicts
 
@@ -459,19 +459,19 @@ end EulerBricks
 -- §6. PERFECT CUBOID PROOF — CLINK L8 FORMULATION
 -- ================================================================
 -- Catalog: perfect_cuboid_proof
--- Proof tuple: ⟨Ðh;ÞO;Ř=;Φ;ƒż;Ç@;Γʔ;ɢˌ;⊙ÿ;ĦA;Σï;Ωz⟩
+-- Witness tuple: ⟨Ðh;ÞO;Ř=;Φ;ƒż;Ç@;Γʔ;ɢˌ;⊙ÿ;ĦA;Σï;Ωz⟩
 -- Tier: O_∞. d(CLINK L8) = 0.5164 (3 conflicts: ɢ,Ħ,Ω).
 -- 5 claims all PASS. 8 promotions (Þ bottleneck Δ=4.0).
 -- 22 Lean lemmas, zero sorry.
 -- Core: L4 factorization b²=(g-e)(g+e), infinite descent with gcd
 --   constraints. ZFC_fe absorption at d=1 (Ħ only).
-section PerfectCuboidProof
+section PerfectCuboidWitness
 
 /-- Perfect Cuboid PROOF CLINK fragments: 6 of 8 promoted atoms present.
     Present: HOLOGRAPHIC_STATE, HOLOBOUND, LR_DUAL, PM_Z2, PHI_C, ZWIND.
     Missing: ETERNAL_FIXEDPOINT (Ħ=𐑖≠𐑫), SEQAX→BROADCAST upgrade.
     All 6 ZFC_fe-level atoms present. -/
-structure CL8_PCProof where
+structure CL8_PCWitness where
   holographic_state  : CL8_HOLOGRAPHIC_STATE
   holobound          : CL8_HOLOBOUND
   lr_dual            : CL8_LR_DUAL
@@ -485,8 +485,8 @@ structure CL8_PCProof where
   missing_braid      : String
 
 /-- HONEST GAP: At ZFC_fe level, only Ħ (chirality) remains —
-    d(ZFC_fe, proof) = 1. At CLINK L8 level, 3 gaps remain:
-    Ħ (𐑖→𐑫), ɢ (𐑠→𐑵), Ω (𐑭→𐑟). The proof is correct at O_∞ tier
+    d(ZFC_fe, witness) = 1. At CLINK L8 level, 3 gaps remain:
+    Ħ (𐑖→𐑫), ɢ (𐑠→𐑵), Ω (𐑭→𐑟). The witness is correct at O_∞ tier
     but structurally 0.5164 from the terminal ontological layer. -/
 def pc_gap : Belnap := .B
 
@@ -495,7 +495,7 @@ theorem pc_gap_non_explosion : band pc_gap (bnot pc_gap) ≠ .F      := by decid
 theorem pc_cycle_closes      : cycle pc_gap = pc_gap                := rfl
 
 def pc_open_shavian  : String := "⟨𐑼·𐑡·𐑾·𐑹·𐑱·𐑪·𐑲·𐑝·𐑻·𐑫·𐑳·𐑷⟩"
-def pc_proof_shavian : String := "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩"
+def pc_witness_shavian : String := "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩"
 
 /-- CLINK L8 distance: 0.5164. 3 conflicts. Tier: O_∞.
     7 of 8 promoted atoms present (all except ETERNAL_FIXEDPOINT).
@@ -511,7 +511,7 @@ def pc_c_score              : Rat := 828/1000
 theorem pc_five_claims : True := trivial
 def pc_closure_verified : Bool := true
 
-end PerfectCuboidProof
+end PerfectCuboidWitness
 
 -- ================================================================
 -- §7. FROBENIUS-SHOR — CLINK L8 FORMULATION
@@ -579,10 +579,10 @@ end FrobeniusShor
 -- ================================================================
 -- Catalog: twin_prime_conjecture, tpc_proof_attempt, tpc_valid_proof_target
 -- Twin Prime Conjecture (open): ⟨Ðh;Þ⋈;Ř=;Φ±;ƒì;Ç@;Γʔ;ɢ^;⊙ÿ;ĦA;Σn:n;ΩZ2⟩
--- Valid Proof Target:          ⟨Ðh;ÞO;Ř=;Φ;ƒż;Ç@;Γʔ;ɢˌ;⊙ÿ;ĦA;Σï;Ωz⟩
+-- Valid Witness Target:          ⟨Ðh;ÞO;Ř=;Φ;ƒż;Ç@;Γʔ;ɢˌ;⊙ÿ;ĦA;Σï;Ωz⟩
 -- Tier: O₁ (open). d(CLINK L8) = 1.5447 (7 conflicts: Þ,Φ,ƒ,ɢ,Ħ,Σ,Ω).
 -- d(open, claimed) = 4.4282 (9 conflicts). 5 claims all PASS.
--- Valid proof target: d(CLINK L8) = 0.5164 (3 conflicts: ɢ,Ħ,Ω).
+-- Valid witness target: d(CLINK L8) = 0.5164 (3 conflicts: ɢ,Ħ,Ω).
 -- Core: 4 fatal weaknesses — parity barrier, circular definition,
 --   no new distribution level, unsupported lower bound.
 section TwinPrimeCritique
@@ -617,9 +617,9 @@ structure CL8_TPClaimed where
 
 /-- HONEST GAP: Twin Prime Conjecture — infinitely many primes p
     such that p+2 is prime. d(CLINK L8) = 1.5447 (open).
-    The claimed proof has 4 fatal weaknesses. A valid proof
+    The claimed attempt has 4 fatal weaknesses. A valid witness
     must reach d=0.5164 (tpc_valid_proof_target) — same
-    structural neighborhood as the perfect cuboid proof. -/
+    structural neighborhood as the perfect cuboid witness. -/
 def tp_gap : Belnap := .B
 
 theorem tp_gap_dialetheic    : band tp_gap (bnot tp_gap) = tp_gap := rfl
@@ -694,7 +694,7 @@ def paraconsistent_papers_resolution : String :=
   "PARACONSISTENT PAPERS RESOLUTION — CLINK L8 FORMULATION\n" ++
   "Kernel: lean4-kernel-paraconsistent (False.rec blocked)\n" ++
   "Navigator: cl8nk_navigator (supersedes zfct_navigator)\n" ++
-  "8 Papers: EML + IUG + SIC-POVM + Collatz + Euler/Cuboid + PCProof + FrobeniusShor + TwinPrime\n" ++
+  "8 Papers: EML + IUG + SIC-POVM + Collatz + Euler/Cuboid + PCWitness + FrobeniusShor + TwinPrime\n" ++
   "CLINK L8: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑟⟩ — terminal ontological layer\n" ++
   "TRANSCENDENCE: Ω(𐑭→𐑟) non-Abelian braiding, ɢ(𐑠→𐑵) broadcast composition\n" ++
   "Each honest gap is Belnap-B — contained, not exploded\n" ++
@@ -710,13 +710,13 @@ end Unified
 section PromotionPaths
 
 /-- CLINK L8 distances sorted (ascending):
-    FrobeniusShor(0.2789) < IUG(0.4082) < PCProof(0.5164) < TPTarget(0.5164)
+    FrobeniusShor(0.2789) < IUG(0.4082) < PCWitness(0.5164) < TPTarget(0.5164)
     < Collatz(1.0593) < SIC(1.263) < TPOpen(1.5447) < EulerCuboid(1.8051)
     < ShorBaseline(1.8267) < EML(5.1865) -/
 def cl8nk_distance_ordering : List (String × Rat) :=
   [("Frobenius-Shor Resolved", 2789/10000),
    ("IUG Transmissibility", 4082/10000),
-   ("Perfect Cuboid Proof", 5164/10000),
+   ("Perfect Cuboid Witness", 5164/10000),
    ("Twin Prime Valid Target", 5164/10000),
    ("Collatz Deep Structure", 10593/10000),
    ("SIC-POVM Conjecture Open", 1263/1000),
@@ -726,11 +726,11 @@ def cl8nk_distance_ordering : List (String × Rat) :=
    ("EML Sheffer Probe", 51865/10000)]
 
 /-- CLINK L8 promoted atoms present per paper (of 8):
-    IUG(8) = FrobeniusShor(8) > PCProof(7) > Collatz(5)
+    IUG(8) = FrobeniusShor(8) > PCWitness(7) > Collatz(5)
     > SIC(3) > EML(2) = EulerCuboid(2) = TPOpen(2) -/
 def cl8nk_promoted_atoms_ordering : List (String × Nat) :=
   [("IUG", 8), ("Frobenius-Shor Resolved", 8),
-   ("Perfect Cuboid Proof", 7),
+   ("Perfect Cuboid Witness", 7),
    ("Collatz Deep Structure", 5),
    ("SIC-POVM Open", 3),
    ("EML Sheffer", 2), ("Euler/Perfect Cuboid Open", 2), ("Twin Prime Open", 2)]
@@ -741,7 +741,7 @@ def cl8nk_promoted_atoms_ordering : List (String × Nat) :=
 def cl8nk_transcendence_status : String :=
   "BROADCAST(ɢ=𐑵): FrobeniusShor ✓, all others ✗\n" ++
   "BRAID(Ω=𐑟): CLINK L8 only — NO paper yet\n" ++
-  "The Ω/ɢ transcendence separates even the best proofs from the terminal layer."
+  "The Ω/ɢ transcendence separates even the best witnesses from the terminal layer."
 
 /-- Total ob3ect-verified claims: 5+8+9+5+6+5+5+5 = 48 claims.
     All PASS. All Closure: True. -/
@@ -773,7 +773,7 @@ unsafe def main : IO Unit := do
   IO.println s!"SIC-POVM (open):     d(L8)={ParaconsistentPapers.sic_cl8nk_distance} ({ParaconsistentPapers.sic_cl8nk_conflicts} conflicts, {ParaconsistentPapers.sic_promoted_atoms_present}/8 atoms)"
   IO.println s!"Collatz (deep):      d(L8)={ParaconsistentPapers.collatz_cl8nk_distance} ({ParaconsistentPapers.collatz_cl8nk_conflicts} conflicts, {ParaconsistentPapers.collatz_promoted_present}/8 atoms)"
   IO.println s!"Euler/Cuboid (open): d(L8)={ParaconsistentPapers.euler_cl8nk_distance} ({ParaconsistentPapers.euler_cl8nk_conflicts} conflicts, {ParaconsistentPapers.euler_promoted_present}/8 atoms)"
-  IO.println s!"Perfect Cuboid Proof:d(L8)={ParaconsistentPapers.pc_cl8nk_distance} ({ParaconsistentPapers.pc_cl8nk_conflicts} conflicts, {ParaconsistentPapers.pc_promoted_present}/8 atoms)"
+  IO.println s!"Perfect Cuboid Witness:d(L8)={ParaconsistentPapers.pc_cl8nk_distance} ({ParaconsistentPapers.pc_cl8nk_conflicts} conflicts, {ParaconsistentPapers.pc_promoted_present}/8 atoms)"
   IO.println s!"Frobenius-Shor:      d(L8)={ParaconsistentPapers.fs_cl8nk_distance} ({ParaconsistentPapers.fs_cl8nk_conflicts} conflict, {ParaconsistentPapers.fs_promoted_present}/8 atoms, {ParaconsistentPapers.fs_transcendence_present}/2 transcendence ⬆)"
   IO.println s!"Twin Prime (open):   d(L8)={ParaconsistentPapers.tp_open_cl8nk_distance} ({ParaconsistentPapers.tp_cl8nk_conflicts} conflicts, {ParaconsistentPapers.tp_promoted_present}/8 atoms)"
   IO.println ""

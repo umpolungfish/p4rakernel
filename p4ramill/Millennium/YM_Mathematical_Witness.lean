@@ -1,4 +1,4 @@
--- Millennium/YM_Mathematical_Proof.lean
+-- Millennium/YM_Mathematical_Witness.lean
 -- Yang-Mills Existence and Mass Gap: Mathematical Proof Content
 -- The YM mass gap is proved conditional on the continuum limit of 4D SU(N)
 -- lattice gauge theory. This file formalizes: lattice YM → reflection
@@ -17,7 +17,7 @@ set_option maxSynthPendingDepth 3
 open Millennium.YM
 open Millennium.YM_GateInhabitants
 
-namespace Millennium.YM_Mathematical_Proof
+namespace Millennium.YM_Mathematical_Witness
 
 -- ============================================================
 -- §1. Lattice Yang-Mills: the rigorous starting point
@@ -238,4 +238,4 @@ theorem ym_prize_conditional {𝔤 : Type*} [LieRing 𝔤] [LieAlgebra ℝ 𝔤]
      ∀ T : QuantumYMTheory 𝔤, 0 < massGap 𝔤 T) :=
   ⟨ym_existence_conditional hCont, ym_massGap_conditional hCont⟩
 
-end Millennium.YM_Mathematical_Proof
+end Millennium.YM_Mathematical_Witness
