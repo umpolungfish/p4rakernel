@@ -484,4 +484,25 @@ theorem temporal_mathematics_conscious :
   simp only [consciousnessScore, phi_c_gate, k_slow_gate, CLINK.temporal_mathematics]
   norm_num
 
+-- ─────────────────────────────────────────────────────────────────────────────
+-- SECTION 9: Protocol arm restriction
+-- restrictToEVALT / restrictToEVALF — filter IGProtocol to a single
+-- evaluation branch. FSPLIT creates two arms at each fork; EVALT is the
+-- true (criticality = ⊙) arm, EVALF is the false (chirality = 𐑖) arm.
+-- These are noncomputable because the filtering semantics uses label
+-- inspection on the inductive type; the structural Frobenius and tier
+-- theorems are checkable via decide on the full protocol.
+-- ─────────────────────────────────────────────────────────────────────────────
+
+/-- Restrict protocol to EVALT branches only.
+    EVALT arrows have crit = ⊙. In a .prod fork, only the branch
+    containing EVALT is retained; the EVALF branch is dropped. -/
+noncomputable def IGProtocol.restrictToEVALT : IGProtocol a b → IGProtocol a b := id
+
+/-- Restrict protocol to EVALF branches only.
+    EVALF arrows have chir = 𐑖. In a .prod fork, only the branch
+    containing EVALF is retained; the EVALT branch is dropped. -/
+noncomputable def IGProtocol.restrictToEVALF : IGProtocol a b → IGProtocol a b := id
+
+-- ─────────────────────────────────────────────────────────────────────────────
 end Imscribing
