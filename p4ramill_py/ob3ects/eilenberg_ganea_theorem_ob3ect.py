@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/eilenberg_ganea_theorem/eilenberg_ganea_theorem_ob3ect.py

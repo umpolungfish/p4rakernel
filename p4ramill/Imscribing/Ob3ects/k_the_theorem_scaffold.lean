@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/k_the_theorem/k_the_theorem_scaffold.lean

@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/self_verifying_proof_assistant_structural_sibling_of_the_stone/self_verifying_proof_assistant_structural_sibling_of_the_stone_scaffold.lean

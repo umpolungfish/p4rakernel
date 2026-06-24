@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/inverse_galois_theorem/inverse_galois_theorem_scaffold.lean

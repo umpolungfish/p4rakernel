@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/the_cosmic_frobenis_condition/the_cosmic_frobenis_condition_scaffold.lean

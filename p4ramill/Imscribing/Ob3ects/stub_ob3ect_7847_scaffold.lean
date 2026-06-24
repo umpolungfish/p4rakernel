@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/stub_ob3ect_7847/stub_ob3ect_7847_scaffold.lean
