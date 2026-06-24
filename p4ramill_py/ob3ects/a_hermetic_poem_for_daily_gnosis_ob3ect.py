@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/a_hermetic_poem_for_daily_gnosis/a_hermetic_poem_for_daily_gnosis_ob3ect.py

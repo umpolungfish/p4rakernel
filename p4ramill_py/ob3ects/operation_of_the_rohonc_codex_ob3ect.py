@@ -1,0 +1,1 @@
+../../../ob3ect/digital/.vault/operation_of_the_rohonc_codex/operation_of_the_rohonc_codex_ob3ect.py

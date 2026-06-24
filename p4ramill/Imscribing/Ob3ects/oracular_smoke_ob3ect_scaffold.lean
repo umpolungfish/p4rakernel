@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/oracular_smoke_ob3ect/oracular_smoke_ob3ect_scaffold.lean
