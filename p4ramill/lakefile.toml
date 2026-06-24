@@ -107,7 +107,8 @@ globs = [
   "Imscribing.Paraconsistent.Portal",
   "Imscribing.Paraconsistent.Belnap",
   "Imscribing.Paraconsistent.BelnapSplitFuse",
-  "Imscribing.Paraconsistent.ParadoxUnit",
+  "Imscribing.Paraconsistent.Paradice",
+  "Imscribing.Paraconsistent.Betting",
   "Imscribing.Paraconsistent.OrbitalBelnap",
   "Imscribing.Paraconsistent.SuperconductingPhase",
   "Imscribing.Paraconsistent.QuarkBelnap",
@@ -272,4 +273,8 @@ globs = [
   "Imscribing.PowerMath.UnionClosedSetsTheorem",
   "Imscribing.PowerMath.WeinsteinTheorem",
   "Imscribing.PowerMath.ZariskiLipmanTheorem",
+  "Imscribing.MomonadOS",
+  "Imscribing.MomonadOS.SheafEnrichedFrobenius",
+  "Imscribing.MomonadOS.AutopoieticConvergence",
+
 ]
