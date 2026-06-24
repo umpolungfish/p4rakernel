@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/alchemical_alembic_ob3ect/alchemical_alembic_ob3ect_scaffold.lean

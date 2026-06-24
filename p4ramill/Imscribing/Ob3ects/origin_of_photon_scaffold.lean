@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/origin_of_photon/origin_of_photon_scaffold.lean

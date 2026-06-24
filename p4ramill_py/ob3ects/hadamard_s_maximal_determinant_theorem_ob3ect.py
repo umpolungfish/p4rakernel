@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/hadamard_s_maximal_determinant_theorem/hadamard_s_maximal_determinant_theorem_ob3ect.py

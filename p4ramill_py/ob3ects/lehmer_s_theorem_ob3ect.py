@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/lehmer_s_theorem/lehmer_s_theorem_ob3ect.py

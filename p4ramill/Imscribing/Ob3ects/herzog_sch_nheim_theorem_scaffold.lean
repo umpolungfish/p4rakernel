@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/herzog_sch_nheim_theorem/herzog_sch_nheim_theorem_scaffold.lean

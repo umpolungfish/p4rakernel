@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/pin_to_a_specific_object_make_compute_the_tu/pin_to_a_specific_object_make_compute_the_tu_ob3ect.py

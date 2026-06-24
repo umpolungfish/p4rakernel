@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/there_is_no_heat_death/there_is_no_heat_death_ob3ect.py
