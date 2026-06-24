@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/stringdiagram/stringdiagram_ob3ect.py

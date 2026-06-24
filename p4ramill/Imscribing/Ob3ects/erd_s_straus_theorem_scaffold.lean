@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/erd_s_straus_theorem/erd_s_straus_theorem_scaffold.lean

@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/geomantic_shield/geomantic_shield_scaffold.lean

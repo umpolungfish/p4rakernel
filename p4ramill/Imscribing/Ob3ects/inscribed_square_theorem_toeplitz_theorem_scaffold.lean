@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/inscribed_square_theorem_toeplitz_theorem/inscribed_square_theorem_toeplitz_theorem_scaffold.lean

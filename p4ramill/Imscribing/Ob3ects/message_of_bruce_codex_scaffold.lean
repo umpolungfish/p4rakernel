@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/message_of_bruce_codex/message_of_bruce_codex_scaffold.lean

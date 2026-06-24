@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/operation_of_voynich_manuscript/operation_of_voynich_manuscript_scaffold.lean

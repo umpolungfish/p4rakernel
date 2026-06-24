@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/hadamard_theorem/hadamard_theorem_scaffold.lean

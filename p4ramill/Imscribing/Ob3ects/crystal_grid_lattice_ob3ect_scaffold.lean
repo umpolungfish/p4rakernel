@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/crystal_grid_lattice_ob3ect/crystal_grid_lattice_ob3ect_scaffold.lean

@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/the_virgin_mary/the_virgin_mary_ob3ect.py

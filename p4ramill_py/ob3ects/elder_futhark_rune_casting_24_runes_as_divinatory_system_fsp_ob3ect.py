@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/elder_futhark_rune_casting_24_runes_as_divinatory_system_fsp/elder_futhark_rune_casting_24_runes_as_divinatory_system_fsp_ob3ect.py

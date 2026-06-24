@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/ceremony_as_closure/ceremony_as_closure_scaffold.lean

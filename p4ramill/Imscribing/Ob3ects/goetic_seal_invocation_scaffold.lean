@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/goetic_seal_invocation/goetic_seal_invocation_scaffold.lean
