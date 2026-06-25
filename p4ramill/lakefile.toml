@@ -277,5 +277,6 @@ globs = [
   "Imscribing.MomonadOS",
   "Imscribing.MomonadOS.SheafEnrichedFrobenius",
   "Imscribing.MomonadOS.AutopoieticConvergence",
+  "Imscribing.VitalNecrosis",
 
 ]
