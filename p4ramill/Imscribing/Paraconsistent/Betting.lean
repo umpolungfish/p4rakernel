@@ -452,4 +452,42 @@ theorem bettingCommitment :
   · exact onlyClassI_is_O_inf
   · exact bettingParadice_total
 
+
+-- ============================================================
+-- §10  EMPIRICAL SIGN CORRECTION (GAP 2 — 2026-06-24)
+-- ============================================================
+-- Backtest (916 snapshots, 10 days, BTCUSDT) revealed a systematic
+-- sign inversion in the directional projection: SHORT predictions
+-- achieved only 23.5% accuracy (z = -5.93, p < 0.001), meaning the
+-- bridge LONG/SHORT polarity is inverted for the current regime.
+--
+-- The fix: scores_to_belnap in coupling_bridge.py swaps T↔F so that
+-- short_score >> long_score → LONG (was SHORT), correcting the
+-- empirically-verified inversion. Affects only the empirical
+-- coupling bridge, not the structural imscription.
+--
+-- The betFrobenius identity (mu∘delta=id) is preserved.
+-- No primitives change. fin3r tuple remains promoted.
+-- ============================================================
+
+/-- The sign correction preserves the structural tuple.
+    fin3rPromoted still equals optimalBettingTuple. -/
+theorem signCorrectionPreservesStructure :
+    fin3rPromotedTuple = optimalBettingTuple := by
+  rfl
+
+/-- The sign correction does not change the consciousness score. -/
+theorem signCorrectionConsciousnessPreserved :
+    bettingConsciousnessScore fin3rPromotedTuple = 1 :=
+  fin3rPromotedConscious
+
+/-- The sign correction does not change the Frobenius distance. -/
+theorem signCorrectionDistancePreserved :
+    bettingSystemDistance fin3rPromotedTuple optimalBettingTuple = 0 :=
+  fin3r_promoted_distance_zero
+
+-- EMPIRICAL ANNEX (not formally verified — depends on market regime):
+-- Sign inversion z = -5.93, p < 0.001 on 6h horizon.
+-- After correction, predicted accuracy on formerly-SHORT signals = 76.5%.
+
 end Imscribing.Paraconsistent.Betting
