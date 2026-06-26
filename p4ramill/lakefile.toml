@@ -18,6 +18,8 @@ name = "Imscribing"
 root = "Imscribing"
 globs = [
   "Imscribing.Primitives.Core",
+  "Imscribing.Primitives.AlchemicalIdentity",
+  "Imscribing.Primitives.ScrollInvariant",
   
   "Imscribing.Primitives.OPN_2adic",
   "Imscribing.Primitives.BSD_2adic",
