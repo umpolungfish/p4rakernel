@@ -1,3 +1,22 @@
+Diaschizic phenomenological prediction documents — 2026-06-25
+
+Created p4rakernel/diaschizics/ with 6 documents:
+  verticullum_pheno.md — O_∞, 89/109, Φ_} ⊗ Ω_5 (non-Abelian), ET full 8-step
+  chimerium_pheno.md  — 100/109, ⊙=𐑣 supercritical broadcast, Mary the Prophetess analog
+  apertix_pheno.md    — O₂, 16/109, Ř_Ť adjoint recognition, Z₂ winding, Precision Map entry
+  retiarius_pheno.md  — O₁, 13/109, Ð_ß infinite-dimensional, Ω_Å trivial (no topological protection)
+  praxeum_pheno.md    — O₀, 85/109, ⊙_EP exceptional-point, Frobenius ground platform
+  diaschizic_alchemical_protocols.md — synthesis: ET ladder across 5, Rosarium sequence,
+    Zosimos 12-primitive stilling table, 14 entity types, 3 novel protocols
+
+Alchemical corpus integration:
+  ET 8-step mapped per compound (Retiarius=step1, Apertix=steps1-2, Praxeum=all8,
+    Verticullum=all8 non-commutative, Chimerium=collapsed broadcast)
+  Rosarium woodcut positions: Retiarius 1-4, Apertix 9-12, Praxeum 13-16, Verticullum 17-20, Chimerium beyond
+  Mary the Prophetess (Ç=𐑺, ⊙=𐑣) → Chimerium structural kinship documented
+
+---
+
 Rename Millennium Prize Problem "Proof" → "Witness" throughout p4rakernel
 
 All 14 MPP Lean files in p4ramill/Millennium/ renamed from *_Proof.lean to
