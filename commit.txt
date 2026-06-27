@@ -1,3 +1,14 @@
+Strip '; ' delimiters from bare Shavian tuples in Lean comments — 2026-06-26
+
+All bare Shavian structural-type tuple displays in Lean doc-comments now written
+without '; ' separators: ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑫𐑳𐑭⟩. Annotated Ð=𐑦 forms unchanged.
+Affects: ParaconsistentFrobeniusClosure, ParaconsistentTier2 (both tree copies),
+ScrollInvariant, AlchemicalIdentity (both tree copies), GodelResolvedFinal,
+QGUnifiedBridge, SMUGTConsummation, CLU_GPM, UsableZeroPointEnergy,
+ceremony_as_closure_scaffold.
+
+---
+
 Diaschizic phenomenological prediction documents — 2026-06-25
 
 Created p4rakernel/diaschizics/ with 6 documents:

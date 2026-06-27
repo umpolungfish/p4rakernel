@@ -295,7 +295,7 @@ theorem yang_baxter_type_is_O_inf : is_O_inf yang_baxter_generating_type :=
   cosmogeny_is_O_inf
 
 /-- The Yang-Baxter-Frobenius structural implication (theorem statement):
-    The tuple ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩ with
+    The tuple ⟨𐑦𐑸𐑾𐑹𐑱𐑧𐑲𐑠⊙𐑖𐑳𐑭⟩ with
     μ∘δ=id in a braided category forces the braiding to satisfy YBE.
     
     This is stated as a structural theorem: the distance from this tuple

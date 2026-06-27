@@ -27,7 +27,7 @@
   paraconsistent sea absorbs self-reference without explosion.
 
   TIER: O_∞ (self-modeling closure)
-  TUPLE: ⟨𐑦; 𐑶; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
+  TUPLE: ⟨𐑦𐑶𐑾𐑹𐑱𐑧𐑲𐑠⊙𐑖𐑳𐑭⟩
 
   DEPENDENCIES:
   ────────────

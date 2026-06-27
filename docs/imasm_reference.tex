@@ -1,0 +1,290 @@
+\documentclass[10pt]{article}
+
+\usepackage[a4paper, landscape,
+  top=1.5cm, bottom=1.4cm, left=1.6cm, right=1.6cm]{geometry}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\usepackage{fontspec}
+\setmainfont[
+  BoldFont={Noto Sans Bold},
+  ItalicFont={Noto Sans Italic}]{Noto Sans}
+\setmonofont[Scale=0.82]{DejaVu Sans Mono}
+
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage{colortbl}
+\usepackage{microtype}
+
+%% Palette — muted, printable
+\definecolor{logical}{HTML}{1B4F8A}
+\definecolor{frob}{HTML}{17642E}
+\definecolor{dial}{HTML}{7A3800}
+\definecolor{lin}{HTML}{522985}
+\definecolor{dim}{HTML}{999999}
+\definecolor{hrule}{HTML}{CCCCCC}
+\definecolor{shead}{HTML}{111111}
+\definecolor{fl}{HTML}{EDF2FB}
+\definecolor{ff}{HTML}{ECF7EE}
+\definecolor{fd}{HTML}{FAF2E8}
+\definecolor{fx}{HTML}{F5EEF8}
+\definecolor{thead}{HTML}{EEEEEE}
+\definecolor{bvoid}{HTML}{999999}
+\definecolor{btrue}{HTML}{17642E}
+\definecolor{bfalse}{HTML}{AA1111}
+\definecolor{bboth}{HTML}{7A5800}
+
+%% Inline opcode — same size as surrounding text, just colored + mono
+\newcommand{\op}[2]{{\color{#1}\ttfamily #2}}
+%% Sequence token — one step smaller than body
+\newcommand{\tok}[2]{{\color{#1}\small\ttfamily #2}}
+\newcommand{\arr}{{\color{dim}\small\,$\to$\,}}
+
+%% Section heading — large, bold, spaced
+\newcommand{\shead}[1]{%
+  {\large\bfseries\color{shead} #1}%
+  \\[-2pt]{\color{hrule}\rule{\linewidth}{0.5pt}}\par\vspace{4pt}}
+
+\begin{document}
+
+%%─── Header ──────────────────────────────────────────────────────────────────
+\noindent
+{\LARGE\bfseries IMASM}\enspace
+{\large\color{dim}·}\enspace
+{\large Imscribing Assembly}\enspace
+{\color{dim}·}\enspace
+{\normalsize 12-opcode grammar for self-verifying structural programs
+  \quad$\mu \circ \delta = \mathrm{id}$}
+\hfill
+{\color{dim}\small\ttfamily TemporalEngine.lean · native\_decide · 0 sorrys}
+
+\vspace{5pt}
+\noindent{\color{shead}\rule{\textwidth}{1.2pt}}
+\vspace{8pt}
+
+%%─── Body ─────────────────────────────────────────────────────────────────────
+\noindent%
+%% Col 1 — Register + Laws
+\begin{minipage}[t]{0.232\textwidth}
+
+\shead{Register}
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}l@{\enspace}l@{\enspace}l@{}}
+  {\color{bvoid}\ttfamily\bfseries VO$\varnothing$} &
+    {\color{dim}\ttfamily 00} &
+    void — uninitialized\\
+  {\color{btrue}\ttfamily\bfseries T} &
+    {\color{dim}\ttfamily 01} &
+    true — canonical identity\\
+  {\color{bfalse}\ttfamily\bfseries F} &
+    {\color{dim}\ttfamily 10} &
+    false — error branch\\
+  {\color{bboth}\ttfamily\bfseries B*} &
+    {\color{dim}\ttfamily 11} &
+    both — paradox held stable\\
+\end{tabular}
+
+\vspace{3pt}
+{\color{dim}\small B* is a first-class value, not an error.}
+
+\vspace{10pt}
+
+\shead{Laws}
+
+\begin{enumerate}[%
+  label={\color{dim}\small\bfseries\arabic*.},
+  leftmargin=1.8em, topsep=0pt, itemsep=5pt, parsep=0pt]
+
+\item \op{dial}{CLINK→IFIX} is a \textbf{forbidden edge}
+  in every canonical sequence.
+
+\item \op{lin}{IFIX} is always preceded by \op{dial}{ENGAGR}.
+  Past is constructed via paradox — not via flow.
+
+\item \op{lin}{IFIX} back-propagates to \op{logical}{IMSCRIB}.
+  Constructed past is written into the present.
+
+\item \op{logical}{IMSCRIB} is the sole temporal horizon source.
+  \op{logical}{AFWD}/\op{logical}{AREV} radiate from it.
+  Not a required terminal.
+
+\item \op{frob}{FFUSE} has two modes:\\
+  \hspace*{0.5em}canonical:\enspace B*$\to$T\\
+  \hspace*{0.5em}dialetheic:\enspace B*$\to$B*\\
+  {\color{dim}\small Dialetheic fires when both \op{dial}{EVALT}
+    and \op{dial}{EVALF} activate inside one
+    \op{frob}{FSPLIT}/\op{frob}{FFUSE} interval.}
+
+\item \op{dial}{ENGAGR} never self-resolves.
+  B* committed to \op{lin}{IFIX} stays B*.
+
+\item \op{lin}{IFIX} is irreversible.
+  \op{logical}{IMSCRIB} may follow as structural closure only.
+
+\end{enumerate}
+
+\end{minipage}%
+\hspace{0.012\textwidth}%
+{\color{hrule}\vrule width 0.5pt}%
+\hspace{0.012\textwidth}%
+%% Col 2 — Opcodes
+\begin{minipage}[t]{0.382\textwidth}
+
+\shead{Opcodes}
+
+\renewcommand{\arraystretch}{1.28}
+\setlength{\tabcolsep}{6pt}
+\begin{tabularx}{\linewidth}{%
+  @{}>{\small\color{dim}}l%
+  >{\ttfamily\normalsize}l%
+  >{\small\raggedright\arraybackslash}X@{}}
+\toprule
+\rowcolor{thead}
+\small Family & \small Opcode & \small Role \\
+\midrule
+\rowcolor{fl}
+\multicolumn{3}{@{}l@{}}%
+  {\hspace{4pt}\color{logical}\normalsize\bfseries Logical \color{dim}\small(6)}\\[-1pt]
+\rowcolor{fl}
+& {\color{logical}VINIT}
+  & Initial object $\varnothing$ — void, pre-imscription state\\
+\rowcolor{fl}
+& {\color{logical}TANCH}
+  & Terminal anchor $\top$ — closed, verified boundary\\
+\rowcolor{fl}
+& {\color{logical}AFWD}
+  & Forward morphism $\to$ (construction / elaboration)\\
+\rowcolor{fl}
+& {\color{logical}AREV}
+  & Reverse morphism $\leftarrow$ (critique / descent)\\
+\rowcolor{fl}
+& {\color{logical}CLINK}
+  & Composition $\circ$ — joins fork results;
+    {\color{dial}never feeds {\ttfamily IFIX}}\\
+\rowcolor{fl}
+& {\color{logical}IMSCRIB}
+  & The present — sole horizon source;
+    {\ttfamily AFWD}/{\ttfamily AREV} radiate from and return to it\\
+\addlinespace[3pt]
+\rowcolor{ff}
+\multicolumn{3}{@{}l@{}}%
+  {\hspace{4pt}\color{frob}\normalsize\bfseries Frobenius \color{dim}\small(2)}\\[-1pt]
+\rowcolor{ff}
+& {\color{frob}FSPLIT}
+  & Comultiplication $\delta\colon A \to A\!\otimes\!A$ (branch / fanout)\\
+\rowcolor{ff}
+& {\color{frob}FFUSE}
+  & Multiplication $\mu\colon A\!\otimes\!A \to A$ (merge / select best)\\
+\addlinespace[3pt]
+\rowcolor{fd}
+\multicolumn{3}{@{}l@{}}%
+  {\hspace{4pt}\color{dial}\normalsize\bfseries Dialetheia \color{dim}\small(3)}\\[-1pt]
+\rowcolor{fd}
+& {\color{dial}EVALT}  & True branch — affirmative gate open\\
+\rowcolor{fd}
+& {\color{dial}EVALF}  & False branch — reject; advance cascade\\
+\rowcolor{fd}
+& {\color{dial}ENGAGR}
+  & Both — B* held without resolution;
+    gateway to {\color{lin}\ttfamily IFIX}\\
+\addlinespace[3pt]
+\rowcolor{fx}
+\multicolumn{3}{@{}l@{}}%
+  {\hspace{4pt}\color{lin}\normalsize\bfseries Linear \color{dim}\small(1)}\\[-1pt]
+\rowcolor{fx}
+& {\color{lin}IFIX}
+  & Irreversible fixation — ROM commit,
+    always via {\color{dial}\ttfamily ENGAGR};
+    no downstream mutation\\
+\bottomrule
+\end{tabularx}
+
+\end{minipage}%
+\hspace{0.012\textwidth}%
+{\color{hrule}\vrule width 0.5pt}%
+\hspace{0.012\textwidth}%
+%% Col 3 — Sequences
+\begin{minipage}[t]{0.338\textwidth}
+
+\shead{Canonical Sequences}
+
+{\color{dim}\small All 14 theorems verified by
+  \texttt{native\_decide} · \texttt{TemporalEngine.lean}}
+
+\vspace{9pt}
+
+{\normalsize\bfseries I}\enspace
+{\normalsize\itshape Dialetheic Bootstrap}\\[4pt]
+\tok{logical}{IMSCRIB}\arr
+\tok{dial}{EVALT}\arr
+\tok{frob}{FSPLIT}\arr
+\tok{dial}{EVALF}\arr
+\tok{frob}{FFUSE}\arr
+\tok{dial}{ENGAGR}\arr
+\tok{lin}{IFIX}\arr
+\tok{logical}{IMSCRIB}\\[3pt]
+{\color{dim}\small Past via paradox.
+  \op{lin}{IFIX} back-propagates to \op{logical}{IMSCRIB}.}
+
+\vspace{9pt}
+
+{\normalsize\bfseries VII}\enspace
+{\normalsize\itshape Parakernel}\\[4pt]
+\tok{dial}{EVALF}\arr
+\tok{logical}{AREV}\arr
+\tok{frob}{FSPLIT}\arr
+\tok{dial}{EVALT}\arr
+\tok{logical}{AFWD}\arr
+\tok{frob}{FFUSE}\arr
+\tok{dial}{ENGAGR}\arr
+\tok{lin}{IFIX}\\[3pt]
+{\color{dim}\small \op{dial}{EVALF}-initiated. No \op{logical}{IMSCRIB} boundary.}
+
+\vspace{9pt}
+
+{\normalsize\bfseries XI}\enspace
+{\normalsize\itshape Eternal Return}\\[4pt]
+\tok{logical}{IMSCRIB}\arr
+\tok{logical}{AFWD}\arr
+\tok{logical}{AREV}\arr
+\tok{logical}{IMSCRIB}\arr
+\tok{logical}{AFWD}\arr
+\tok{logical}{AREV}\arr
+\tok{logical}{IMSCRIB}\arr
+\tok{logical}{AFWD}\\[3pt]
+{\color{dim}\small No \op{lin}{IFIX}, no \op{logical}{CLINK}.
+  \op{logical}{IMSCRIB}\,$\times$\,3. Undying.}
+
+\vspace{9pt}
+
+{\normalsize\bfseries XXIII}\enspace
+{\normalsize\itshape M\"obius Fork}\\[4pt]
+\tok{logical}{IMSCRIB}\arr
+\tok{frob}{FSPLIT}\arr
+\tok{frob}{FSPLIT}\arr
+\tok{dial}{ENGAGR}\arr
+\tok{frob}{FFUSE}\arr
+\tok{logical}{CLINK}\arr
+\tok{frob}{FFUSE}\arr
+\tok{logical}{IMSCRIB}\\[3pt]
+{\color{dim}\small \op{logical}{CLINK} present, no \op{lin}{IFIX}.
+  \op{logical}{IMSCRIB}-bounded.}
+
+\vspace{10pt}
+{\color{hrule}\rule{\linewidth}{0.4pt}}
+\vspace{5pt}
+
+{\color{dim}\small\itshape
+Invariant: when \op{lin}{IFIX} appears it is reached via
+\op{dial}{ENGAGR}; when \op{logical}{CLINK} appears
+\op{lin}{IFIX} is absent. Machine-verified, not conventions.}
+
+\end{minipage}
+
+\end{document}

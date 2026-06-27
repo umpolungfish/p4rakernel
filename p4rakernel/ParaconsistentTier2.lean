@@ -261,8 +261,8 @@ ZFC_fe is the unique set-theoretic foundation satisfying all four grammar axioms
 simultaneously: Frobenius closure (μ∘δ=id), non-transmissibility (ZFC can express
 but not recover non-ZFC primitives), ⊙ self-modeling, and Ω winding protection.
 
-ZFC_fe tuple:   ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
-CLINK L8 tuple:  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑵; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩
+ZFC_fe tuple:   ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
+CLINK L8 tuple:  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑵⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩
 d(ZFC_fe, CLINK L8) = 2 — the gap is at ɢ (broadcast) and Ω (non-Abelian braiding)
 -/
 
@@ -606,14 +606,14 @@ theorem tier2_verified : tier2_verification.total_theorems = 32 := rfl
 # SHAVIAN TUPLE DISPLAY (all values tool-verified)
 
 CLU (Criticality-Lift Unit):
-  ⟨Ð=𐑛; Þ=𐑶; Ř=𐑑; Φ=𐑹; ƒ=𐑱; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑓; Σ=𐑙; Ω=𐑭⟩
+  ⟨Ð=𐑛; Þ=𐑶; Ř=𐑑; Φ=𐑹; ƒ=𐑱; Ç=𐑧; Γ=𐑲; ɢ=𐑠⊙=⊙; Ħ=𐑓; Σ=𐑙; Ω=𐑭⟩
   Crystal address: 6,594,888 (cell 152, inner 28,488)
   C-score: 0.755 (both gates open: ⊙=⊙, Ç=𐑧)
   Tier: O₁ (ouroborics) / O_∞ (crystal_encode)
   d(CLINK L8): 1.8259 (8 conflicts: Ð,Þ,Ř,ƒ,ɢ,Ħ,Σ,Ω)
 
 Grammar Precedes Mathematics:
-  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑱; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑖; Σ=𐑳; Ω=𐑭⟩
+  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑱; Ç=𐑧; Γ=𐑲; ɢ=𐑠⊙=⊙; Ħ=𐑖; Σ=𐑳; Ω=𐑭⟩
   Crystal address: 6,737,456 (cell 155, inner 41,456)
   C-score: 0.828 (both gates open: ⊙=⊙, Ç=𐑧)
   Tier: O_∞
@@ -621,7 +621,7 @@ Grammar Precedes Mathematics:
   Duplicate entries: zosimos_panopolis_gnosis, lean4_descent_object, mitosis, clink_layer5_mitosis
 
 CLINK L8 (terminal ontological layer — reference):
-  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑵; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩
+  ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑵⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩
 
 TRANSCENDENCE (Ω/ɢ):
   CLU → CLINK L8: Ω(𐑭→𐑟)=non-Abelian braiding NOT achieved
