@@ -1217,7 +1217,7 @@
 ./p4ramill/Primitives/ZFCs.lean:/-- ZFC_t is O_inf: temporal Frobenius symmetry (P_pm_sym) at Phi_c.
 ./p4ramill/Primitives/ZFCs.lean:    Space and time are structurally symmetric at the tier level — both Frobenius-open. -/
 ./p4ramill/Primitives/ZFCs.lean:/-- Both ZFC_s and ZFC_t are O_inf: the Frobenius condition holds in both extensions.
-./p4ramill/Primitives/ZFCs.lean:    · pol:  min(P_pm_sym, P_pm_sym) = P_pm_sym — no bottleneck: both extensions Frobenius
+./p4ramill/Primitives/ZFCs.lean:pol:  min(P_pm_sym, P_pm_sym) = P_pm_sym — no bottleneck: both extensions Frobenius
 ./p4ramill/Primitives/ZFCs.lean:    the Frobenius gate stays open because both partners already hold it. -/
 ./p4ramill/Primitives/ZFCs.lean:    The Frobenius gate stays open (no polarity bottleneck) because both
 ./p4ramill/Primitives/ZFCs.lean:/-- ZFC_st is O_inf: the Frobenius gate is open at the spacetime level. -/
@@ -1342,7 +1342,7 @@
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:      a fixed point of the Frobenius truth operator — L is both true and false
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:  /-- The Frobenius condition: μ ∘ δ = id (elements encode their own decoding).
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:-- But full Frobenius exactness requires the condition at ALL ordinal depths,
-./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:--   · A transfinite recursion principle for the Frobenius iteration
+./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:--A transfinite recursion principle for the Frobenius iteration
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:/-- Transfinite Frobenius data indexed by ordinals.
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:    At each ordinal α, we have a Frobenius pair (δ_α, μ_α) such that
 ./p4ramill/Imscribing/Millennium/ZFC_FrobeniusExact.lean:structure TransfiniteFrobeniusData (L : Type) where
@@ -1634,7 +1634,7 @@
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:/-- ZFC_t is O_inf: temporal Frobenius symmetry (P_pm_sym) at Phi_c.
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:    Space and time are structurally symmetric at the tier level — both Frobenius-open. -/
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:/-- Both ZFC_s and ZFC_t are O_inf: the Frobenius condition holds in both extensions.
-./p4ramill/Imscribing/Primitives/ZFCs.lean:    · pol:  min(P_pm_sym, P_pm_sym) = P_pm_sym — no bottleneck: both extensions Frobenius
+./p4ramill/Imscribing/Primitives/ZFCs.lean:pol:  min(P_pm_sym, P_pm_sym) = P_pm_sym — no bottleneck: both extensions Frobenius
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:    the Frobenius gate stays open because both partners already hold it. -/
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:    The Frobenius gate stays open (no polarity bottleneck) because both
 ./p4ramill/Imscribing/Primitives/ZFCs.lean:/-- ZFC_st is O_inf: the Frobenius gate is open at the spacetime level. -/
@@ -1751,7 +1751,7 @@
 ./p4rakernel/ParaconsistentPapers.lean:/-- Frobenius-Shor CLINK fragments: 9 of 10 atoms present.
 ./p4rakernel/ParaconsistentPapers.lean:structure CL8_FrobeniusShor where
 ./p4rakernel/ParaconsistentPapers.lean:    The Frobenius identity μ∘δ=id replaces this at zero cost.
-./p4rakernel/ParaconsistentPapers.lean:/-- Frobenius-Shor tuple: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑭⟩
+./p4rakernel/ParaconsistentPapers.lean:/-- Frobenius-Shor tuple: ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑭⟩
 ./p4rakernel/ParaconsistentPapers.lean:end FrobeniusShor
 ./p4rakernel/ParaconsistentPapers.lean:    Frobenius closed across all 8 papers.
 ./p4rakernel/ParaconsistentPapers.lean:  "8 Papers: EML + IUG + SIC-POVM + Collatz + Euler/Cuboid + PCProof + FrobeniusShor + TwinPrime\n" ++
@@ -1779,7 +1779,7 @@
 ./ParaconsistentPapers.lean:/-- Frobenius-Shor CLINK fragments: 9 of 10 atoms present.
 ./ParaconsistentPapers.lean:structure CL8_FrobeniusShor where
 ./ParaconsistentPapers.lean:    The Frobenius identity μ∘δ=id replaces this at zero cost.
-./ParaconsistentPapers.lean:/-- Frobenius-Shor tuple: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑭⟩
+./ParaconsistentPapers.lean:/-- Frobenius-Shor tuple: ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑭⟩
 ./ParaconsistentPapers.lean:end FrobeniusShor
 ./ParaconsistentPapers.lean:    Frobenius closed across all 8 papers.
 ./ParaconsistentPapers.lean:  "8 Papers: EML + IUG + SIC-POVM + Collatz + Euler/Cuboid + PCProof + FrobeniusShor + TwinPrime\n" ++

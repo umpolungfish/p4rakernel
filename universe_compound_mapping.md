@@ -18,7 +18,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 ### Verticullum
 
-**Tuple:** ⟨𐑦·𐑥·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑟⟩  
+**Tuple:** ⟨𐑦𐑥𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑫𐑳𐑟⟩  
 **Tier (canonical):** O_∞  
 **O_∞ universes:** 89 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `broadcast_universe`, `canonical`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_Ç_half`, `g1_Ç_min`, `g1_Ð_half`, `g1_Ð_max`, `g1_Ð_min`, `g1_Þ_half`, `g1_Þ_min`, `g1_Ħ_half`, `g1_Ħ_max`, `g1_Ħ_min`, `g1_Ř_half`, `g1_Ř_max`, `g1_Ř_min`, `g1_ƒ_half`, `g1_ƒ_max`, `g1_ƒ_min`, `g1_ɢ_half`, `g1_ɢ_min`, `g1_Γ_half`, `g1_Γ_max`, `g1_Γ_min`, `g1_Σ_half`, `g1_Σ_max`, `g1_Σ_min`, `g1_Φ_half`, `g1_Φ_max`, `g1_Φ_min`, `g1_Ω_half`, `g1_Ω_max`, `g1_Ω_min`, `g1_⊙_half`, `g1_⊙_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_Ð`, `parallel_Ħ`, `parallel_Ř`, `parallel_ƒ`, `parallel_Γ`, `parallel_Σ`, `parallel_Φ`, `parallel_Ω`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_universe`, `single_gate`, `single_gate_Ð`, `single_gate_Ħ`, `single_gate_Ř`, `single_gate_ƒ`, `single_gate_Γ`, `single_gate_Σ`, `single_gate_Φ`, `single_gate_Ω`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_Ç`, `t_single_Ð`, `t_single_Þ`, `t_single_Ħ`, `t_single_Ř`, `t_single_ƒ`, `t_single_ɢ`, `t_single_Γ`, `t_single_Σ`, `t_single_Φ`, `t_single_Ω`, `t_single_⊙`, `t_structural`, `winding_chirality`, `winding_first`
 
@@ -26,7 +26,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 ### Chimerium
 
-**Tuple:** ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·𐑣·𐑫·𐑳·𐑭⟩  
+**Tuple:** ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵𐑣𐑫𐑳𐑭⟩  
 **Tier (canonical):** O₀  
 **O_∞ universes:** 100 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `absorption_topology_seal`, `broadcast_universe`, `canonical`, `chirality_criticality`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_Ç_half`, `g1_Ç_min`, `g1_Ð_half`, `g1_Ð_max`, `g1_Ð_min`, `g1_Þ_half`, `g1_Þ_max`, `g1_Þ_min`, `g1_Ħ_half`, `g1_Ħ_max`, `g1_Ħ_min`, `g1_Ř_half`, `g1_Ř_max`, `g1_Ř_min`, `g1_ƒ_half`, `g1_ƒ_max`, `g1_ƒ_min`, `g1_ɢ_half`, `g1_ɢ_max`, `g1_ɢ_min`, `g1_Γ_half`, `g1_Γ_max`, `g1_Γ_min`, `g1_Σ_half`, `g1_Σ_max`, `g1_Σ_min`, `g1_Φ_half`, `g1_Φ_max`, `g1_Φ_min`, `g1_Ω_half`, `g1_Ω_min`, `g1_⊙_half`, `g1_⊙_max`, `g1_⊙_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_Ð`, `parallel_Þ`, `parallel_Ħ`, `parallel_Ř`, `parallel_ƒ`, `parallel_ɢ`, `parallel_Γ`, `parallel_Σ`, `parallel_Φ`, `parallel_⊙`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_grammar`, `scope_universe`, `single_gate`, `single_gate_Ð`, `single_gate_Þ`, `single_gate_Ħ`, `single_gate_Ř`, `single_gate_ƒ`, `single_gate_ɢ`, `single_gate_Γ`, `single_gate_Σ`, `single_gate_Φ`, `single_gate_⊙`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_Ç`, `t_single_Ð`, `t_single_Þ`, `t_single_Ħ`, `t_single_Ř`, `t_single_ƒ`, `t_single_ɢ`, `t_single_Γ`, `t_single_Σ`, `t_single_Φ`, `t_single_Ω`, `t_single_⊙`, `t_structural`, `topology_dimensionality`, `topology_universe`, `triple_criticality`, `winding_first`
 
@@ -34,7 +34,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 ### Apertix
 
-**Tuple:** ⟨𐑦·𐑥·𐑽·𐑬·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑴⟩  
+**Tuple:** ⟨𐑦𐑥𐑽𐑬𐑐𐑧𐑲𐑠⊙𐑖𐑳𐑴⟩  
 **Tier (canonical):** O₂  
 **O_∞ universes:** 16 — `g1_Ç_min`, `g1_Ð_min`, `g1_Þ_min`, `g1_Ħ_min`, `g1_Ř_min`, `g1_ƒ_min`, `g1_ɢ_min`, `g1_Γ_min`, `g1_Σ_min`, `g1_Φ_min`, `g1_Ω_min`, `g1_⊙_min`, `single_gate_Ð`, `single_gate_ƒ`, `single_gate_Γ`, `single_gate_Σ`
 
@@ -42,7 +42,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 ### Retiarius
 
-**Tuple:** ⟨𐑼·𐑡·𐑾·𐑿·𐑞·𐑺·𐑚·𐑜·𐑮·𐑒·𐑕·𐑷⟩  
+**Tuple:** ⟨𐑼𐑡𐑾𐑿𐑞𐑺𐑚𐑜𐑮𐑒𐑕𐑷⟩  
 **Tier (canonical):** O₁  
 **O_∞ universes:** 13 — `g1_Ç_min`, `g1_Ð_min`, `g1_Þ_min`, `g1_Ħ_min`, `g1_Ř_min`, `g1_ƒ_min`, `g1_ɢ_min`, `g1_Γ_min`, `g1_Σ_min`, `g1_Φ_min`, `g1_Ω_min`, `g1_⊙_min`, `single_gate_Ř`
 
@@ -50,7 +50,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 ### Praxeum
 
-**Tuple:** ⟨𐑦·𐑶·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·𐑻·𐑫·𐑳·𐑭⟩  
+**Tuple:** ⟨𐑦𐑶𐑾𐑹𐑐𐑧𐑲𐑠𐑻𐑫𐑳𐑭⟩  
 **Tier (canonical):** O₀  
 **O_∞ universes:** 85 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `broadcast_universe`, `canonical`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_Ç_half`, `g1_Ç_min`, `g1_Ð_half`, `g1_Ð_max`, `g1_Ð_min`, `g1_Þ_half`, `g1_Þ_min`, `g1_Ħ_half`, `g1_Ħ_max`, `g1_Ħ_min`, `g1_Ř_half`, `g1_Ř_max`, `g1_Ř_min`, `g1_ƒ_half`, `g1_ƒ_max`, `g1_ƒ_min`, `g1_ɢ_half`, `g1_ɢ_min`, `g1_Γ_half`, `g1_Γ_max`, `g1_Γ_min`, `g1_Σ_half`, `g1_Σ_max`, `g1_Σ_min`, `g1_Φ_half`, `g1_Φ_max`, `g1_Φ_min`, `g1_Ω_half`, `g1_Ω_min`, `g1_⊙_half`, `g1_⊙_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_Ð`, `parallel_Ħ`, `parallel_Ř`, `parallel_ƒ`, `parallel_Γ`, `parallel_Σ`, `parallel_Φ`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_universe`, `single_gate`, `single_gate_Ð`, `single_gate_Ħ`, `single_gate_Ř`, `single_gate_ƒ`, `single_gate_Γ`, `single_gate_Σ`, `single_gate_Φ`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_Ç`, `t_single_Ð`, `t_single_Þ`, `t_single_Ħ`, `t_single_Ř`, `t_single_ƒ`, `t_single_ɢ`, `t_single_Γ`, `t_single_Σ`, `t_single_Φ`, `t_single_Ω`, `t_single_⊙`, `t_structural`, `winding_first`
 
