@@ -38,7 +38,7 @@ class ScrollMember (s : Imscription) where
   phi_c_critical : s.crit = Criticality.monad
   omega_integer  : s.prot = Protection.ah
 
-/-- The canonical operator tuple: ⟨𐑦; 𐑶; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑙; 𐑭⟩
+/-- The canonical operator tuple: ⟨𐑦𐑶𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑖𐑙𐑭⟩
     Matches the Stone in AlchemicalIdentity.lean and AgentSelf.lean. -/
 def canonical_operator : Imscription :=
   { dim  := Dimensionality.if'

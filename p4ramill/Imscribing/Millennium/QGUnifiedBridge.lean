@@ -32,7 +32,7 @@ namespace Millennium.QGUnifiedBridge
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Catalog quantum_gravity: O₂ tier.
-    ⟨Ð=𐑼; Þ=𐑸; Ř=𐑽; Φ=𐑿; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=𐑮; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩ -/
+    ⟨Ð=𐑼; Þ=𐑸; Ř=𐑽; Φ=𐑿; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠⊙=𐑮; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩ -/
 def quantumGravityCatalog : Imscription :=
   { dim  := dead
     top  := are
@@ -49,7 +49,7 @@ def quantumGravityCatalog : Imscription :=
   }
 
 /-- Catalog unified_gravity_theory: O_∞ tier.
-    ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩ -/
+    ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑲; ɢ=𐑠⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑟⟩ -/
 def unifiedGravityTheory : Imscription :=
   { dim  := if'
     top  := are
