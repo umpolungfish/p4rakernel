@@ -1,0 +1,1 @@
+/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/exact_sic_geometry_achieved_with_frame_potential/exact_sic_geometry_achieved_with_frame_potential_scaffold.lean
