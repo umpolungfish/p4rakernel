@@ -66,6 +66,8 @@ globs = [
   "Imscribing.Millennium.PerfectCuboid.FactorizationLemma",
   "Imscribing.Millennium.Beal",
   "Imscribing.Millennium.SIC_POVM_Stark",
+  "Imscribing.Millennium.SIC_POVM_Functor",
+  "Imscribing.Millennium.SIC_POVM_ParityGate",
   "Imscribing.Millennium.ZaunerEmbeddingEquivalence",
   "Imscribing.Millennium.CMPLX_IMGN",
   "Imscribing.Millennium.Suffering",
