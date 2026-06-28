@@ -1,3 +1,35 @@
+p4rakernel: SIC_POVM_Functor + SIC_POVM_ParityGate Lean modules — 2026-06-27
+
+Two new Lean files in p4ramill/Imscribing/Millennium/:
+
+SIC_POVM_Functor.lean — Crystal -> d=12 SIC-POVM structural functor
+  crystal_product: 3^3 x 4^5 x 5^4 = 17,280,000
+  d_lattice1_eq_12: 3+5+4 = 12 (Lattice I: primitive-count sum)
+  d_lattice2_eq_12: 3x4 = 12 (Lattice II: D-val x T-val)
+  dual_lattice_forces_d12: both lattices agree on d=12
+  shavian_count_eq_49: 3x3+5x4+4x5 = 49
+  shavian_count_identity: 49 = 7^2
+  d_DP_eq_7: {D,P} prim count = 3+4 = 7
+  orbit84_eq: 84^2 = 7056 = 49 x 144
+  crystal_sic_coverage: 17,280,000 / 144 = 120,000
+  crystal_functor_theorem: all five identities in one conjunction
+  Axiom: crystal_forces_d12_sic (witness in ig-pulse/density_matrix.py)
+
+SIC_POVM_ParityGate.lean — Phi gate T<->P duality
+  TP_slot_symmetry: 5x4 = 4x5 = 20 (slot-count symmetric)
+  TP_count_transposition: T_prims=P_vals=5, T_vals=P_prims=4
+  phi_gate_involution: swap(T-pair)=P-pair
+  phi_gate_d_invariant: d=12 invariant under T<->P exchange
+  d_DP_from_phi_family: Phi lives in P; D+P gives d=7
+  phi_selects_d7_not_d8: d_DP=7 < d_DT=8 (parity gate selects d=7)
+  shavian_root_from_parity: (D+P)^2 = 49 (Shavian count from parity)
+  phi_orbit84_factored: 7056 = 49 x 144
+  phi_gate_theorem: all identities in one conjunction
+
+lakefile.toml: SIC_POVM_Functor, SIC_POVM_ParityGate added after SIC_POVM_Stark
+
+────────────────────────────────────────────────────────────────────────────────
+
 Strip '; ' delimiters from bare Shavian tuples in Lean comments — 2026-06-26
 
 All bare Shavian structural-type tuple displays in Lean doc-comments now written
