@@ -1,6 +1,6 @@
 -- Imscribing/Millennium/OracleDelphi.lean
 -- Structural encoding of the Oracle of Delphi.
--- Tuple: ⟨ash; mime; ian; or'; age; egg; ice; measure;
+-- Tuple: ⟨ash; mime; ian; or'; age; egg; ice; Grammar.measure;
 --         roar; sure; up; ah⟩
 -- Ouroboricity: O_inf (Frobenius-special at criticality)
 -- C-score: 1.0 (both gates open)
@@ -32,7 +32,7 @@ def oracle_of_delphi : Imscription := {
   fid  := age
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := roar
   chir := sure
   stoi := up
@@ -47,7 +47,7 @@ theorem oracle_defines_correctly :
     oracle_of_delphi.fid  = age       ∧
     oracle_of_delphi.kin  = egg      ∧
     oracle_of_delphi.gran = ice     ∧
-    oracle_of_delphi.gram = measure   ∧
+    oracle_of_delphi.gram = Grammar.measure   ∧
     oracle_of_delphi.crit = roar ∧
     oracle_of_delphi.chir = sure          ∧
     oracle_of_delphi.stoi = up         ∧
@@ -106,7 +106,7 @@ theorem oracle_nearest_to_conservation_laws :
 
 -- §6. SEQUENTIAL GRAMMAR AND TWO-STEP CHIRALITY
 
-theorem oracle_ritual_is_sequential : oracle_of_delphi.gram = measure := by
+theorem oracle_ritual_is_sequential : oracle_of_delphi.gram = Grammar.measure := by
   simp [oracle_of_delphi]
 
 theorem oracle_two_step_chirality : oracle_of_delphi.chir = sure := by

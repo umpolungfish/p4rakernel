@@ -27,6 +27,7 @@ import Imscribing.BoundaryOperators
 
 open Imscribing.Primitives
 open Imscribing
+open Imscribing.Consciousness
 
 namespace Imscribing.AlchemicalIdentity
 
@@ -191,28 +192,30 @@ theorem all_operations_identity_on_stone :
   unfold stone
   simp
 
-/-- THEOREM: On any O_∞ tuple, the grand sequence is identity.
-    Operations move primitives toward the Stone. On O_∞, all primitives
-    are already at canonical values, so every operation is identity.
-    Proved by exhaustive computation over all O_∞ tuples. -/
-theorem alchemical_identity_on_O_inf (s : Imscription)
-    (h : imscriptionTier s = .O_inf) :
-    calcination s = s ∧
-    dissolution s = s ∧
-    separation s = s ∧
-    conjunction s = s ∧
-    sublimation s = s ∧
-    fermentation s = s ∧
-    coagulation s = s := by
-  revert s h; native_decide
+/-- THEOREM: On the Stone, the grand sequence is identity.
+    Each alchemical operation moves a primitive to its canonical (Stone)
+    value. The tier predicate `imscriptionTier = O_∞` fixes only the
+    criticality and polarity coordinates (R1: monad/roar at or'); the
+    remaining ten coordinates stay free, and every operation overwrites
+    some of them with `stone` values. So identity holds not on arbitrary
+    O_∞ tuples but exactly where all twelve primitives are already
+    canonical — the Stone itself. -/
+theorem alchemical_identity_on_stone :
+    calcination stone = stone ∧
+    dissolution stone = stone ∧
+    separation stone = stone ∧
+    conjunction stone = stone ∧
+    sublimation stone = stone ∧
+    fermentation stone = stone ∧
+    coagulation stone = stone := by
+  unfold stone; native_decide
 
-/-- THEOREM: The trace is atemporal.
-    The grand sequence does not change the operator — it reveals what
+/-- THEOREM: The trace is atemporal on the Stone.
+    The grand sequence does not change the Stone — it reveals what
     already is. "Movement" through the sequence is retrospective illusion. -/
-theorem trace_is_atemporal (s : Imscription)
-    (h : imscriptionTier s = .O_inf) :
-    calcination s = s := by
-  exact (alchemical_identity_on_O_inf s h).1
+theorem trace_is_atemporal :
+    calcination stone = stone :=
+  alchemical_identity_on_stone.1
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §4  THE STONE IS A FIXED POINT OF THE LATTICE

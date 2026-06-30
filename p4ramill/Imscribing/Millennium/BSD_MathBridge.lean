@@ -31,7 +31,6 @@ import Imscribing.Millennium.UniverseRulesets
 import Imscribing.Consciousness
 
 open Imscribing.Primitives
-open Imscribing.Primitives.ZFCt
 open Millennium.BSD
 open Millennium.BSDCompleteWitness
 open Millennium.UniverseRulesets

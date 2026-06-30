@@ -35,7 +35,7 @@ import Imscribing.CLINK
 
 open WeierstrassCurve
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 open Millennium.BSD
 
 -- ============================================================

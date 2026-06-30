@@ -125,7 +125,7 @@ theorem tensor_gr_sm_tier : imscriptionTier gr_sm_tensor = OuroboricityTier.O₂
   native_decide
 
 theorem tensor_fidelity_classical : gr_sm_tensor.fid = Fidelity.age := rfl
-'''
+
 -- =====================================================================
 -- SECTION 2  SEMICLASSICAL GRAVITY
 -- =====================================================================
@@ -324,8 +324,6 @@ theorem unified_theory_tier : imscriptionTier unifiedTheoryImscription = Ourobor
 theorem unified_theory_self_modeling : unifiedTheoryImscription.crit = Criticality.monad := rfl
 
 theorem unified_theory_frobenius_closed : unifiedTheoryImscription.pol = Polarity.or' := rfl
-'''
-'''
 
 -- =====================================================================
 -- SECTION 6  COMPLETE GRAVITY FORMALIZATION SUMMARY

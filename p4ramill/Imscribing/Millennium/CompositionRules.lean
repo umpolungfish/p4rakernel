@@ -10,6 +10,7 @@ namespace Millennium.CompositionRules
 set_option linter.style.setOption false
 
 open Imscribing.Primitives
+open Imscribing
 open Dimensionality Topology Relational Polarity Grammar
   Fidelity KineticChar Granularity Criticality Protection
   Stoichiometry Chirality

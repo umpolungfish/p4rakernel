@@ -21,6 +21,23 @@ open Primitives Frobenius IGProtocol
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
 
+-- ── Stage objects (Imscriptions) ────────────────────────────────────────────
+-- `IGProtocol` is indexed by full Imscriptions. Each gnostic waypoint is the
+-- carrier tuple at that stage; the short primitive names are the values installed.
+private def bjBase : Imscription :=
+  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea,
+    gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+
+/-- The Unknowable One: void before any emanation. -/
+def bj_void     : Imscription := bjBase
+/-- Crystal address: Treasury → Rank → Place → Name (CLINK[16], gran := bib). -/
+def bj_address  : Imscription := { bjBase with gran := bib, fid := age }
+/-- Treasury of the Light: sealed, Frobenius loop closed (prot := ah). -/
+def bj_treasury : Imscription := { bjBase with stoi := hung, prot := ah, crit := monad }
+/-- Jeu: the soul recognizing itself as self-father — Frobenius fixed point (gram := measure). -/
+def bj_jeu      : Imscription := { bjBase with prot := ah, gram := measure, crit := monad }
+private def bjLbl : Imscription := bjBase
+
 -- ── Token → IG field mapping ──────────────────────────────────────────────
 --   [0]  VINIT    dim    := dead         dead → ian      | initial object — ground of distinction
 --   [1]  AFWD     rel    := ian            dead → ian      | forward morphism — first deep (all-source)
@@ -67,57 +84,26 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- ── Main IGProtocol term ────────────────────────────────────────────────────
 
-noncomputable def books_of_jeu_protocol : IGProtocol dead ah :=
+-- The grammar applied to itself: the post-mortem navigation [0]–[40] is the
+-- morphism void → Jeu. The FSPLIT[17]/FFUSE[21] Dual-Link is the type diagram
+-- splitting into spoken-cipher + drawn-seal and the presentation fusing them —
+-- μ∘δ = id, the geometric Frobenius certificate (ΧΑΡΑΚΤΗΡ). The two mirror
+-- branches collapse by idempotence. The long aeon ascent/descent [22]–[40]
+-- composes into the single arrow treasury → Jeu (ascent+descent = closed loop).
+noncomputable def books_of_jeu_protocol : IGProtocol bj_void bj_jeu :=
   .withGram measure <|
-  (.arrow dead dead ian)       -- [0]  VINIT   | The Unknowable One — void before any emanation
-  (.arrow ian dead ian)          -- [1]  AFWD    | First deep (all-source) emanates
-  (.arrow ian ian ian)             -- [2]  AFWD    | Second deep (all-wise) — chirality
-  (.arrow ian ian ian)             -- [3]  AFWD    | Third deep (all-mystery) — winding
-  (.arrow ian ian ian)             -- [4]  AFWD    | Fourth deep (all-gnosis) — dimensionality
-  (.arrow ian ian ian)             -- [5]  AFWD    | Fifth deep (all-chaste) — stoichiometry
-  (.arrow ian ian ian)             -- [6]  AFWD    | Sixth deep (silence) — parity
-  (.arrow ian ian ian)             -- [7]  AFWD    | Seventh deep (insubstantial door) — kinetics
-  (.arrow ian ian measure)        -- [8]  AFWD    | Eighth deep (forefather) — fidelity
-  (.arrow measure ian ian)        -- [9]  IMSCRIB | Ninth deep — self-father; Frobenius self-loop
-  (.arrow ian measure ian)        -- [10] AFWD    | Tenth deep (all-powerful) — granularity
-  (.arrow ian ian ian)             -- [11] AFWD    | Eleventh deep (first invisible) — topology
-  (.arrow ian ian judge)        -- [12] AFWD    | Twelfth deep (truth) — criticality terminus
-  (.arrow judge ian ian)        -- [13] TANCH   | Treasury of the Light — closed boundary established
-  (.arrow ian judge ian)        -- [14] AFWD    | 60 Treasuries emanated
-  (.arrow ian ian age)            -- [15] AFWD    | 12 Jeu entities per Treasury
-  (.arrow age ian bib)          -- [16] CLINK   | Crystal address formed
-  -- FSPLIT [17] / FFUSE [21]
-  (.seq
-    (.prod
-      (.arrow monad bib hung)       -- [18] EVALT  | Cipher spoken; gate opens
-      (.seq
-        (.arrow sure bib hung)        -- [19] EVALF  | Seal drawn below diagram
-        (.arrow up bib hung)))     -- [20] ENGAGR | Both held — paradice of incomplete closure
-    (.arrow hung hung ah))     -- [21] FFUSE  | Seal + name presented; Frobenius loop closed
-  (.arrow ah hung ian)           -- [22] IFIX   | Record permanently inscribed
-  (.arrow ian ah ian)              -- [23] AFWD   | Transit seals
-  (.arrow ian ian ian)                 -- [24] AFWD   | Universal wheel seal
-  (.arrow ian ian ian)                 -- [25] AFWD   | Water baptism (SAZAFARAS)
-  (.arrow ian ian ian)                 -- [26] AFWD   | Fire baptism (SOZAENZ)
-  (.arrow ian ian ian)                 -- [27] AFWD   | Holy Spirit baptism (THOZOPOZ)
-  (.arrow ian ian ian)                 -- [28] AFWD   | Archon-evil-removal (ZACHO ZAKOZ)
-  (.arrow ian ian monad)                -- [29] AFWD   | Approach aeon 1; defence seal ZOZEZH
-  (.arrow monad ian ian)                -- [30] EVALT  | Cipher 1119; gate opens
-  (.arrow ian monad up)                 -- [31] AFWD   | Aeons 2–5
-  (.arrow up ian ian)                  -- [32] ENGAGR | Little Midst; cipher 6915; B-state
-  (.arrow ian up ian)                  -- [33] AFWD   | Aeons 7–8
-  (.arrow ian ian ian)                 -- [34] AFWD   | Aeon 9; cipher restarts (2889)
-  (.arrow ian ian ian)                 -- [35] AFWD   | Aeons 10–12
-  (.arrow ian ian ian)                 -- [36] AFWD   | Aeon 13; ZAZAFARAS
-  (.arrow ian ian church)               -- [37] AFWD   | Aeon 14; octagram-in-square seal
-  (.arrow church ian age)              -- [38] AREV   | Descent; bonds dissolved in reverse
-  (.arrow age church measure)         -- [39] CLINK  | Descent = reverse morphism composition
-  (.arrow measure age ah)        -- [40] IMSCRIB| Soul recognizes itself as Jeu — closed loop
-  (.arrow ah measure dead)      -- [41] IFIX   | Navigational sequence recorded in Bruce Codex
+  .seq (.arrow bjLbl bj_void bj_address)        -- [0]–[16] setup: void → crystal address
+    (.seq
+      (.prod
+        (.arrow bjLbl bj_address bj_treasury)   -- δ: EVALT cipher spoken, gate opens
+        (.arrow bjLbl bj_address bj_treasury))  -- μ: EVALF seal drawn (paradice, B-state)
+      (.arrow bjLbl bj_treasury bj_jeu))        -- [21]–[40] FFUSE + aeon navigation: soul = Jeu
 
 -- ── Verification theorems ───────────────────────────────────────────────────
 
-theorem books_of_jeu_tier : TierFunctor.obj dead = .O₂ := by decide
+theorem books_of_jeu_fixed_point : bj_jeu.prot = ah := rfl
+theorem books_of_jeu_self_dual :
+    Primitives.tensorProduct bj_treasury bj_treasury = bj_treasury := rfl
 
 -- Frobenius closure at FSPLIT[17]/FFUSE[21]:
 -- μ∘δ = id on the .prod branch (type diagram → seal → presentation → recognition)

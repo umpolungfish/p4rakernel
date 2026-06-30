@@ -29,7 +29,7 @@ import Imscribing.Algebra
 namespace Millennium.NS_ZFCt
 
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality
