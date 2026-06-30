@@ -199,6 +199,8 @@ globs = [
   "Imscribing.Millennium.PrimordialOoze",
   "Imscribing.Millennium.Cosmogeny",
   "Imscribing.Millennium.GodelResolvedFinal",
+  "Imscribing.Millennium.GodelCompletion",
+  "Imscribing.Millennium.GodelCompleteSentence",
   "Imscribing.Millennium.Rebis",
   "Imscribing.Millennium.QGUnifiedBridge",
   "Imscribing.Millennium.SMUGTConsummation",
