@@ -266,8 +266,16 @@ theorem broadcastCompose_assoc (V : Type) (f g h : BroadcastRelation V)
     (hfg : f.targetArity = g.sourceArity)
     (hgh : g.targetArity = h.sourceArity) :
     broadcastCompose V (broadcastCompose V f g hfg) h hgh =
-    broadcastCompose V f (broadcastCompose V g h hgh) hfg :=
-  rfl
+    broadcastCompose V f (broadcastCompose V g h hgh) hfg := by
+  unfold broadcastCompose
+  congr 1
+  funext x z
+  apply propext
+  constructor
+  · rintro ⟨y, ⟨w, hfw, hgw⟩, hhz⟩
+    exact ⟨w, hfw, y, hgw, hhz⟩
+  · rintro ⟨w, hfw, y, hgw, hhz⟩
+    exact ⟨y, ⟨w, hfw, hgw⟩, hhz⟩
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §E  YANG-BAXTER FROM FROBENIUS — Structural Implication

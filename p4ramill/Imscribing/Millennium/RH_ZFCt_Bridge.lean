@@ -48,7 +48,7 @@ namespace Millennium.RH_ZFCt
 set_option linter.style.whitespace false
 
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality

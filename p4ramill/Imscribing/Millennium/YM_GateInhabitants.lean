@@ -39,7 +39,7 @@ set_option linter.style.whitespace false
 -/
 
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 open Millennium.YM
 
 set_option relaxedAutoImplicit true

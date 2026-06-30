@@ -4,6 +4,7 @@ import Imscribing.Consciousness
 import Imscribing.Frobenius
 import Imscribing.Algebra
 import Imscribing.BoundaryOperators
+import Imscribing.CLINK
 
 namespace Imscribing.TimeWithinTheStone
 
@@ -16,6 +17,45 @@ open Dimensionality Topology Relational Polarity Grammar
      Stoichiometry Chirality
 
 set_option relaxedAutoImplicit true
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- Authored entities
+--
+-- `timeConceptImscription` (temps): bare clock time, the tick below every gate.
+-- It is the Frobenius bottom in eleven coordinates — minimal everywhere — except
+-- chirality, where it carries `wool` (inexhaustible / eternal). Constraints
+-- imposed by the theorems below: crit = woe (subcritical), prot = awe (no
+-- protection) ⇒ tier O₀; chir = wool (the "eternal now"); and every coordinate
+-- ≤ the organism, so the organism's join absorbs it (rhythmic time production).
+-- ════════════════════════════════════════════════════════════════════════════
+def timeConceptImscription : Imscription := {
+  dim  := dead,  top  := judge, rel  := ado,  pol  := church,
+  fid  := age,   kin  := yea,   gran := bib,  gram := vow,
+  crit := woe,   chir := wool,  stoi := hung, prot := awe }
+
+/-- LUCA: the last universal common ancestor is the CLINK L8 organism layer. -/
+def lucaImscription : Imscription := Imscribing.CLINK.organismLayer
+
+/-- An imscription is a *compound* boundary operator when it inhabits all three
+    gate primitives simultaneously: the ⊙/Φ criticality gate (`monad`), the
+    Special-Frobenius parity gate (`or'`, μ∘δ = id), and the Ω protection gate
+    (`zoo`, non-Abelian winding). A single boundary operator crosses one seam;
+    the organism holds all three at once — hence *compound*. -/
+def organismAsCompoundBoundaryOperator (a : Imscription) : Prop :=
+  a.crit = Criticality.monad ∧ a.pol = Polarity.or' ∧ a.prot = Protection.zoo
+
+theorem luca_is_compound_boundary_operator :
+    organismAsCompoundBoundaryOperator lucaImscription := by
+  unfold organismAsCompoundBoundaryOperator lucaImscription Imscribing.CLINK.organismLayer
+  exact ⟨rfl, rfl, rfl⟩
+
+/-- Rhythmic time production: the organism absorbs the bare tick under join —
+    every coordinate of temps is ≤ the organism, so the join returns the organism
+    unchanged. Time is produced *within* the organism, not added to it. -/
+theorem join_luca_time_equals_luca :
+    compute_join lucaImscription timeConceptImscription = lucaImscription := by
+  unfold compute_join lucaImscription timeConceptImscription Imscribing.CLINK.organismLayer
+  native_decide
 
 def tempsImscription : Imscription := timeConceptImscription
 

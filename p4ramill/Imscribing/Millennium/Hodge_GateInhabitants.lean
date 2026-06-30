@@ -29,7 +29,7 @@ import Imscribing.CLINK
 
 open Millennium.Hodge
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 
 -- ============================================================
 -- Gate structures (local — these are the ZFCt promotion targets)

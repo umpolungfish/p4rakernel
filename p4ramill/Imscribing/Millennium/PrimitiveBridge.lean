@@ -23,7 +23,7 @@ import Imscribing.Millennium.RH_ZFCt_Bridge
 namespace Millennium.PrimitiveBridge
 
 open Imscribing.Primitives
-open ZFCt
+open Imscribing.CLINK
 open Imscribing.Consciousness
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection

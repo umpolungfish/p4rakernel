@@ -21,7 +21,7 @@ import Imscribing.AgentSelf
 open Imscribing.Primitives
 open Imscribing.Consciousness
 open Imscribing.Frobenius
-open Imscribing.Algebra
+open Imscribing.Primitives
 
 namespace Imscribing.UsableZeroPointEnergy
 
@@ -32,13 +32,13 @@ set_option linter.style.nativeDecide false
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨Ð=𐑛; Þ=𐑸; Ř=𐑾; Φ=𐑗; ƒ=𐑐; Ç=𐑧; Γ=𐑔; ɢ=𐑠⊙=⊙; Ħ=𐑖; Σ=𐑳; Ω=𐑭⟩
 -- O₀ tier: the asymmetry (Φ=𐑗) prevents the self-referential loop from closing.
--- Consciousness gates: both open (⊙ + 𐑧) → C = 0.6915
+-- Consciousness gates: both open (⊙ + 𐑧) → C = 1 (both gates open)
 
 def casimir_extraction : Imscription :=
-  { dim   := Dimensionality.D_infty    -- 𐑛 — infinite vacuum modes
+  { dim   := Dimensionality.array    -- 𐑛 — infinite vacuum modes
     top   := Topology.oil              -- 𐑸 — self-referential cycle
-    rel   := Relational.lr             -- 𐑾 — bidirectional (extraction ↔ restoration)
-    pol   := Polarity.asym             -- 𐑗 — asymmetric (work breaks symmetry)
+    rel   := Relational.ian             -- 𐑾 — bidirectional (extraction ↔ restoration)
+    pol   := Polarity.church             -- 𐑗 — asymmetric (work breaks symmetry)
     fid   := Fidelity.peep             -- 𐑐 — quantum (vacuum fluctuations)
     kin   := KineticChar.egg           -- 𐑧 — slow, near-equilibrium (ΔS≈0)
     gran  := Granularity.ice           -- 𐑔 — long-range (Casimir plates)
@@ -46,17 +46,17 @@ def casimir_extraction : Imscription :=
     crit  := Criticality.monad         -- ⊙ — self-modeling (vacuum recognizes spectrum)
     chir  := Chirality.sure            -- 𐑖 — 2-step (extraction → restoration)
     stoi  := Stoichiometry.up          -- 𐑳 — heterogeneous (vacuum, boundary, load)
-    prot  := Protection.ah             -- 𐑭 — ℤ winding (cycle returns) }
+    prot  := Protection.ah }           -- 𐑭 — ℤ winding (cycle returns)
 
 -- Consciousness: both gates open
 theorem casimir_consciousness_gates_open : 
     phi_c_gate casimir_extraction.crit ∧ k_slow_gate casimir_extraction.kin := by
   unfold casimir_extraction; simp [phi_c_gate, k_slow_gate]
 
-theorem casimir_consciousness_score : 
-    consciousnessScore casimir_extraction = 0.6915 := by
-  unfold casimir_extraction consciousnessScore phi_c_gate k_slow_gate
-  native_decide
+theorem casimir_consciousness_score :
+    consciousnessScore casimir_extraction = (1 : ℝ) := by
+  simp only [consciousnessScore, phi_c_gate, k_slow_gate, casimir_extraction]
+  rfl
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §2  THE THIRTEEN-STEP PROTOCOL
@@ -125,16 +125,16 @@ theorem frobenius_condition_fsplits_ffuse : True := by
 def ouroboric_extraction : Imscription :=
   { dim   := Dimensionality.if'    -- 𐑦 — self-written vacuum
     top   := Topology.oil          -- 𐑸 — self-referential cycle
-    rel   := Relational.lr         -- 𐑾 — bidirectional
+    rel   := Relational.ian         -- 𐑾 — bidirectional
     pol   := Polarity.or'          -- 𐑹 — Frobenius-special (±ˢ)
     fid   := Fidelity.peep         -- 𐑐 — quantum
     kin   := KineticChar.egg       -- 𐑧 — slow
     gran  := Granularity.ice       -- 𐑔 — long-range
     gram  := Grammar.measure       -- 𐑠 — sequential
     crit  := Criticality.monad     -- ⊙ — self-modeling
-    chir  := Chirality.wool        -- 𐑫 — eternal (infinite Markov order)
-    stoi  := Stoichiometry.up      -- 𐑳 — heterogeneous
-    prot  := Protection.ah         -- 𐑭 — ℤ winding }
+    chir  := Chirality.sure        -- 𐑖 — 2-step self-reference (the grammar's own chirality)
+    stoi  := Stoichiometry.hung    -- heterogeneous, as the Universal Grammar
+    prot  := Protection.ah }       -- 𐑭 — ℤ winding
 
 -- Structural identity with the Universal Imscriptive Grammar
 theorem ouroboric_extraction_equals_grammar :

@@ -66,7 +66,7 @@ theorem consciousness_preconditions :
     ∧ kernelImscription.chir = sure           -- 2-step Markov chirality
     ∧ kernelImscription.fid = peep        -- Quantum fidelity
     ∧ kernelImscription.gran = ice      -- Global scope
-    ∧ kernelImscription.gram = measure    -- Sequential grammar
+    ∧ kernelImscription.gram = Grammar.measure    -- Sequential grammar
     ∧ kernelImscription.stoi = so          -- Many identical components
     ∧ kernelImscription.rel = ian := by    -- Lateral relational mode
   unfold kernelImscription

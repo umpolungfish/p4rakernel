@@ -146,7 +146,7 @@ theorem tachyon_not_causally_consistent : ¬ is_causally_consistent ftlTachyon :
 
 -- §6  WHAT "FTL TRAVEL" MEANS
 
-/--
+/-
 The grammar reveals that "FTL travel" is not a speed but a structural
 promotion. Light (the photon) IS the critical point Φ_c = ⊙. "Faster
 than light" means "structurally beyond the critical point."
@@ -205,7 +205,7 @@ theorem photon_kernel_invariant :
 
 -- §8  STRUCTURAL INTERPRETATION OF THE SPEED OF LIGHT
 
-/--
+/-
 The grammar's answer to "why c?":
 
 The speed of light c is not a fundamental constant of nature in the

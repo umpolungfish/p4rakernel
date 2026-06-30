@@ -34,7 +34,7 @@ namespace Millennium.NS_CriticalBound
 
 open Imscribing.Primitives
 open Polarity
-open ZFCt ZFCs
+open Imscribing.CLINK
 open Millennium.NS
 open Millennium.NS_ZFCt
 open Millennium.E8G2
