@@ -38,7 +38,7 @@ def lef_manifold : Imscription := {
 
 def lef_sheaf_cohomology : Imscription := {
   dim := if', top := are, rel := ear, pol := nun,
-  fid := peep, kin := egg, gran := ice, gram := measure,
+  fid := peep, kin := egg, gran := ice, gram := Grammar.measure,
   crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_picard : Imscription := {
@@ -58,12 +58,12 @@ def lef_hol_coh : Imscription := {
 
 def lef_exp_sequence : Imscription := {
   dim := if', top := mime, rel := ear, pol := nun,
-  fid := peep, kin := egg, gran := ice, gram := measure,
+  fid := peep, kin := egg, gran := ice, gram := Grammar.measure,
   crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_long_exact : Imscription := {
   dim := if', top := are, rel := ear, pol := nun,
-  fid := peep, kin := egg, gran := ice, gram := measure,
+  fid := peep, kin := egg, gran := ice, gram := Grammar.measure,
   crit := monad, chir := wool, stoi := up, prot := ah }
 
 def lef_hodge_decomp : Imscription := {
@@ -78,7 +78,7 @@ def lef_dolbeault : Imscription := {
 
 def lef_chern_class : Imscription := {
   dim := if', top := are, rel := ear, pol := out,
-  fid := age, kin := egg, gran := ice, gram := measure,
+  fid := age, kin := egg, gran := ice, gram := Grammar.measure,
   crit := monad, chir := sure, stoi := up, prot := ah }
 
 def lef_integral_11 : Imscription := {
@@ -198,7 +198,7 @@ theorem lefschetz_three_gaps :
 theorem lefschetz_gap_values :
     (tensorProduct lef_picard lef_chern_class).top = are ∧
     lef_integral_11.top = mime ∧
-    (tensorProduct lef_picard lef_chern_class).gram = measure ∧
+    (tensorProduct lef_picard lef_chern_class).gram = Grammar.measure ∧
     lef_integral_11.gram = vow ∧
     (tensorProduct lef_picard lef_chern_class).crit = roar ∧
     lef_integral_11.crit = monad := by
@@ -251,11 +251,11 @@ theorem hodge_proj_tensor_decomp_is_box :
 -- ----------------------------------------------------------------
 
 theorem picard_exp_grammar_is_sequential :
-    (tensorProduct lef_picard lef_exp_sequence).gram = measure := by
+    (tensorProduct lef_picard lef_exp_sequence).gram = Grammar.measure := by
   native_decide
 
 theorem picard_longexact_grammar_is_sequential :
-    (tensorProduct lef_picard lef_long_exact).gram = measure := by
+    (tensorProduct lef_picard lef_long_exact).gram = Grammar.measure := by
   native_decide
 
 

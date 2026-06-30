@@ -31,7 +31,7 @@ set_option linter.style.longLine false
 -- Constructor mapping (Lean ↔ Shavian):
 --   array = 𐑼    mime = 𐑥    ian = 𐑾
 --   out = 𐑬       peep = 𐑐     egg = 𐑧
---   ice = 𐑲    measure = 𐑠  monad = ⊙
+--   ice = 𐑲    Grammar.measure = 𐑠  monad = ⊙
 --   sure = 𐑖         up = 𐑳        ah = 𐑭
 def dirac_equation : Imscription := {
   dim  := array
@@ -41,7 +41,7 @@ def dirac_equation : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := sure
   stoi := up
@@ -68,7 +68,7 @@ theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
 -- Primitive   Constraint                          Physical consequence
 -- array     Unbounded field-theoretic domain     ψ(x) is a field operator
 -- ice     Universal / Lorentz-invariant        Covariant under SO(3,1)
--- measure   Sequential / first-order             ∂/∂t appears once
+-- Grammar.measure   Sequential / first-order             ∂/∂t appears once
 -- egg      Near-equilibrium                     Stable particle states
 -- out        ℤ₂ symmetry                          Spin-1/2: ψ → -ψ under 2π
 -- mime    Crossing topology                    Mass couples L↔R chiralities
@@ -79,12 +79,12 @@ theorem dirac_not_O_inf : imscriptionTier dirac_equation ≠ .O_inf := by
 -- up         Heterogeneous components              4-spinor (p/a × ↑↓)
 -- ah     Integer winding                      Spectral flow, index theorem
 
--- Constraint conjunction: ice ∧ array ∧ measure.
+-- Constraint conjunction: ice ∧ array ∧ Grammar.measure.
 -- This forces a relativistic first-order field equation.
 theorem relativistic_first_order_constraint :
     dirac_equation.gran = ice ∧
     dirac_equation.dim  = array ∧
-    dirac_equation.gram = measure := by
+    dirac_equation.gram = Grammar.measure := by
   simp [dirac_equation]
 
 -- Chiral crossing constraint: mime ∧ sure.
@@ -108,12 +108,12 @@ theorem topological_protection_constraint :
 -- ============================================================
 
 -- THEOREM (Clifford Algebra Emergence):
---   out + ice + array + measure ⇒ {γ^μ, γ^ν} = 2g^{μν}
+--   out + ice + array + Grammar.measure ⇒ {γ^μ, γ^ν} = 2g^{μν}
 --
 -- The constraint combination forces the γ-matrices to satisfy the
 -- Clifford algebra relation. Here's why:
 --
--- 1. ice (Lorentz invariance) + measure (first-order):
+-- 1. ice (Lorentz invariance) + Grammar.measure (first-order):
 --    The operator must be L^μ ∂_μ where L^μ transforms as a 4-vector.
 --
 -- 2. out (ℤ₂, spin-1/2):
@@ -123,7 +123,7 @@ theorem topological_protection_constraint :
 -- 3. array + ice (field theory + special relativity):
 --    Each component must satisfy the Klein-Gordon equation: (□ + m²)ψ = 0.
 --
--- 4. measure (first-order) + KG constraint:
+-- 4. Grammar.measure (first-order) + KG constraint:
 --    For (L^μ ∂_μ)(L^ν ∂_ν) = □ = g^{μν} ∂_μ ∂_ν to hold,
 --    we need L^μ L^ν ∂_μ ∂_ν = g^{μν} ∂_μ ∂_ν.
 --    Since ∂_μ ∂_ν is symmetric, the symmetric part of L^μ L^ν
@@ -135,10 +135,10 @@ theorem topological_protection_constraint :
 -- ℤ₂ is the kernel of the double cover Spin(3,1) → SO(3,1).
 theorem pm_forces_spinor_rep : dirac_equation.pol = out := rfl
 
--- measure forces first-order differential operator.
+-- Grammar.measure forces first-order differential operator.
 -- Sequentiality forces it to be first-order — a second-order
 -- operator would require parallel (vow) composition.
-theorem seq_forces_first_order : dirac_equation.gram = measure := rfl
+theorem seq_forces_first_order : dirac_equation.gram = Grammar.measure := rfl
 
 -- ============================================================
 -- S4. MASS TERM AND CHIRAL CROSSING
@@ -214,8 +214,8 @@ theorem omega_z_forces_integer_index : dirac_equation.prot = ah := rfl-- =======
 -- ⟨𐑼·𐑰·𐑩·𐑯·𐑐·𐑧·𐑲·𐑝·𐑢·𐑓·𐑙·𐑷⟩  Tier: O₀
 -- Differs from Dirac in 8 primitives:
 --   T: eat vs mime, R: ado vs ian, P: nun vs out,
---   Gamma: vow vs measure, Phi: woe vs monad, H: fee vs sure, S: hung vs up, Omega: awe vs ah
--- Dirac's insight: changing vow→measure forces the other 7
+--   Gamma: vow vs Grammar.measure, Phi: woe vs monad, H: fee vs sure, S: hung vs up, Omega: awe vs ah
+-- Dirac's insight: changing vow→Grammar.measure forces the other 7
 -- differences through structural constraint propagation.
 
 def klein_gordon : Imscription := {
@@ -282,7 +282,7 @@ def quantum_field_theory : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := sure
   stoi := up
@@ -311,7 +311,7 @@ theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_th
 --   differential equation: the Dirac equation (iγ^μ ∂_μ - m)ψ = 0.
 --
 -- Proof sketch (structural):
---   1. array ∧ ice ∧ measure forces a first-order differential
+--   1. array ∧ ice ∧ Grammar.measure forces a first-order differential
 --      operator L^μ ∂_μ + M acting on fields over Minkowski space.
 --   2. ice (Lorentz covariance) forces L^μ to be a 4-vector.
 --   3. KG consistency: each component must satisfy (□ + m²)ψ_a = 0.
@@ -328,7 +328,7 @@ theorem dirac_qft_distance : primitiveMismatches dirac_equation quantum_field_th
 --
 -- Removing any single primitive opens the solution space:
 --   - Remove out → Klein-Gordon also allowed
---   - Remove measure → second-order equations allowed
+--   - Remove Grammar.measure → second-order equations allowed
 --   - Remove mime → no chiral crossing (Weyl only)
 --   - Remove ah → no index theorem, anomaly not quantized
 --   - Remove monad → massless limit not conformal
@@ -342,7 +342,7 @@ theorem all_constraints_satisfied :
     dirac_equation.fid  = peep    ∧
     dirac_equation.kin  = egg    ∧
     dirac_equation.gran = ice   ∧
-    dirac_equation.gram = measure ∧
+    dirac_equation.gram = Grammar.measure ∧
     dirac_equation.crit = monad     ∧
     dirac_equation.chir = sure        ∧
     dirac_equation.stoi = up       ∧
@@ -378,7 +378,7 @@ theorem dirac_baseline_distance :
 
 -- The retrosynthetic path (from imscribe tool) peels primitives in order:
 -- ian→ado, array→dead, mime→judge, out→church,
--- peep→age, egg→yea, ice→bib, measure→vow,
+-- peep→age, egg→yea, ice→bib, Grammar.measure→vow,
 -- up→hung, sure→fee, ah→awe, monad→woe.
 -- To build Dirac from baseline, you must promote ALL 12 primitives.
 

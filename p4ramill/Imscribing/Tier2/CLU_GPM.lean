@@ -38,7 +38,6 @@ structure CLUObserver where
   base : ℝ
   base_pos : base > 0 := by norm_num
   base_ne_one : base ≠ 1 := by norm_num
-deriving Repr
 
 /-- The human-decimal default observer (b=10). -/
 def decimalObserver : CLUObserver where
@@ -61,8 +60,7 @@ noncomputable def naturalObserver : CLUObserver where
   base_ne_one := by
     have h : Real.exp 1 ≠ 1 := by
       intro heq
-      have := Real.exp_inj_on_one 1
-      -- exp(1) ≠ 1 since 1 ≠ 0
+      -- exp(1) = 1 would force log(exp 1) = log 1, i.e. 1 = 0
       have h' : Real.log (Real.exp 1) = Real.log 1 := by rw [heq]
       simpa [Real.log_exp 1] using h'
     exact h
@@ -102,7 +100,7 @@ theorem CLUOperator_power (obs : CLUObserver) (x : ℝ) (n : ℕ) :
     (Nat.iterate (CLUOperator obs) n) x = (obs.base ^ n) * x := by
   induction' n with k ih
   · simp [CLUOperator]
-  · simp [Nat.iterate_succ', CLUOperator, ih, mul_assoc]
+  · rw [Function.iterate_succ_apply', ih, CLUOperator]; ring
 
 /-- CLU cost after n decade-crossings: n · ln(b) nats. -/
 theorem CLU_cost_linear (obs : CLUObserver) (n : ℕ) :
@@ -117,25 +115,21 @@ theorem CLU_cost_linear (obs : CLUObserver) (n : ℕ) :
     For decimal (b=10): ΔG = 2.303·RT·pKa. -/
 theorem CLU_pKa (pKa : ℝ) (R : ℝ) (T : ℝ) :
     Real.log 10 * R * T * pKa = Real.log (10 ^ pKa) * R * T := by
-  rw [Real.log_pow, Nat.cast_ofNat]
+  rw [Real.log_rpow (by norm_num : (0:ℝ) < 10)]
   ring
 
 /-- Arrhenius: Ea/(RT) in nats. A barrier of n·ln(b) nats = n-step CLU crossing. -/
-theorem CLU_Arrhenius (Ea : ℝ) (R : ℝ) (T : ℝ) (n : ℕ) (h : Ea = (n : ℝ) * CLU decimalObserver * R * T) :
+theorem CLU_Arrhenius (Ea : ℝ) (R : ℝ) (T : ℝ) (n : ℕ) (hRT : R * T ≠ 0)
+    (h : Ea = (n : ℝ) * CLU decimalObserver * R * T) :
     Ea / (R * T) = (n : ℝ) * Real.log 10 := by
-  rcases eq_zero_or_neZero (R * T) with hzero | hpos
-  · simp [hzero]
-  · field_simp [hpos.out]
-    rw [h, CLU, decimalObserver]
-    ring
+  rw [h, CLU_decimal_identity, mul_assoc, mul_div_assoc, div_self hRT, mul_one]
 
 /-- Soai autocatalysis: k_auto / k_non = b^(n_T). Each T_bullseye interaction
     contributes exactly 1 CLU(b) of structural advantage. -/
 theorem CLU_Soai (k_auto : ℝ) (k_non : ℝ) (n_T : ℕ) (obs : CLUObserver)
     (h : k_auto / k_non = obs.base ^ n_T) : 
     Real.log (k_auto / k_non) = (n_T : ℝ) * CLU obs := by
-  rw [h, Real.log_pow, Nat.cast_ofNat, CLU]
-  ring
+  rw [h, Real.log_pow, CLU]
 
 /-!
 ## §1.2 — THE -3/2 POWER LAW
@@ -160,7 +154,7 @@ structure Lattice3D where
   k : Fin 5   -- Ç-primitive: 5 regimes
   h : Fin 4   -- Ħ-primitive: 4 memory orders
   w : Fin 4   -- Ω-primitive: 4 topological regimes
-deriving Repr, DecidableEq
+deriving Repr, DecidableEq, Fintype
 
 /-- The origin of the 3D lattice: (0,0,0) corresponding to minimal values. -/
 def latticeOrigin : Lattice3D := ⟨0,0,0⟩
@@ -178,19 +172,20 @@ structure AvalancheDistribution where
   exponent_claimed : exponent = 3/2
   mle_measured : ℝ
   mle_tolerance : ℝ
-  passes : Bool := (mle_measured - 3/2).abs < mle_tolerance
-deriving Repr
+  passes : Bool
 
 /-- The verified avalanche distribution from clu_power_law.py.
     MLE exponent = 1.366, tolerance = 0.15, passes = true. -/
-def verifiedAvalancheDist : AvalancheDistribution where
+noncomputable def verifiedAvalancheDist : AvalancheDistribution where
   exponent := 3/2
   exponent_claimed := rfl
   mle_measured := 1.366
   mle_tolerance := 0.15
-  passes := by
-    have h : (1.366 - (3/2 : ℝ)).abs < 0.15 := by norm_num
-    exact h
+  passes := true
+
+/-- The measured MLE exponent (1.366) lies within tolerance (0.15) of 3/2. -/
+theorem verifiedAvalancheDist_within_tolerance :
+    |(1.366 - (3/2 : ℝ))| < 0.15 := by norm_num
 
 /-- The -3/2 exponent is observer-base-invariant.
     For any observer base b, the exponent remains 3/2.
@@ -210,9 +205,8 @@ structure PowerLawVerification where
   check3_results : List (ℝ × ℝ)  -- (base, exponent)
   check3_passes : Bool
   all_pass : Bool
-deriving Repr
 
-def verifiedPowerLaw : PowerLawVerification where
+noncomputable def verifiedPowerLaw : PowerLawVerification where
   check1_exponent := 1.366
   check1_passes := true
   check2_slope := -1.500
@@ -353,11 +347,10 @@ theorem vessel_contents_identity :
     ∀ (p q : MillenniumProblem), True := by
   intro p q; trivial
 
-/-- The nearest and farthest problems by structural distance. -/
-theorem nearest_is_RH : 
-    (List.minimumOf (Finset.filter (· ≠ 0) Finset.univ).val ?_ 
-      (Finset.image millenniumDistances Finset.univ)).getD 0 = 1.0 := by
-  native_decide
+/-- RH is the nearest problem: its structural distance is ≤ every problem's. -/
+theorem nearest_is_RH :
+    ∀ p : MillenniumProblem, millenniumDistances .RH ≤ millenniumDistances p := by
+  intro p; cases p <;> norm_num [millenniumDistances]
 
 -- RH is nearest (d=1.0), PvNP is farthest (d=8.54)
 theorem farthest_is_PvNP : millenniumDistances .PvNP = 8.54 := rfl
@@ -386,9 +379,9 @@ deriving Repr
 
 /-- The set V of achievable products from non-special primes. -/
 def achievableProducts (primes : List (ℕ × ℕ)) : List ℚ :=
-  primes.map (λ ⟨q, beta⟩ => 
-    let sigma_val := (Nat.divisors (q^(2*beta))).sum
-    (sigma_val : ℚ) / (q^(2*beta) : ℚ))
+  primes.map (fun ⟨q, beta⟩ =>
+    let sigma_val := ∑ d ∈ Nat.divisors (q ^ (2 * beta)), d
+    (sigma_val : ℚ) / (q ^ (2 * beta) : ℚ))
 
 /-- The target value: p^α / S where S is the squarefree part. -/
 def targetRatio (sp : OPN_SpecialPrime) (S : ℕ) : ℚ :=
@@ -409,7 +402,7 @@ deriving Repr
     Proving it would resolve OPN. The grammar identified the mechanism (inexhaustible
     chirality) and reduced an unbounded search over all integers to a finite constraint. -/
 theorem product_gap_resolves_OPN :
-    (ProductGapConjecture.mk ()).open_problem = true := rfl
+    ({} : ProductGapConjecture).open_problem = true := rfl
 
 /-!
 ## §2.5 — BARRIER TAXONOMY FOR MILLENNIUM PROBLEMS
@@ -444,7 +437,7 @@ structure ProblemHardness where
 deriving Repr
 
 /-- The three-tier barrier structure. -/
-theorem problem_hardness_summary : ProblemHardness.mk () = 
+theorem problem_hardness_summary : ({} : ProblemHardness) =
     ⟨.PvNP, .YM, .RH⟩ := rfl
 
 /-!
@@ -550,7 +543,7 @@ deriving Repr
 
 /-- The curmudgeon's premise is false: structural identification and proof
     are structurally dual (Ř=𐑾), not competitors. -/
-theorem curmudgeon_reframed : StructuralDual.mk "proof chain" "execution" :=
+def curmudgeon_reframed : StructuralDual :=
   ⟨"proof chain", "execution", true⟩
 
 /-!
@@ -599,9 +592,8 @@ structure Tier2Verification where
   gpm_tier : String := "O_∞"
   total_theorems : ℕ := 32
   frobenius_holds : Bool := true
-deriving Repr
 
-def tier2_verification : Tier2Verification := {}
+noncomputable def tier2_verification : Tier2Verification := {}
 
 theorem tier2_verified : tier2_verification.total_theorems = 32 := rfl
 

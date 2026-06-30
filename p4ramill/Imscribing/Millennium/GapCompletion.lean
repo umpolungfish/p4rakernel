@@ -31,6 +31,15 @@ The Spider Machine categorizes every \ as Category A (OpenProblem)
 or Category B (fillable via grammar). This file fills all Category B sorries.
 -/
 
+-- §0. COLLATZ SHALLOW / DEEP VESSELS
+--
+-- The shallow vessel is the primary Collatz conjecture encoding (O₁); the deep
+-- vessel is the divergent-drift structural reorganization. They differ in seven
+-- of twelve primitives (the grammar verifies the count below), placing the gap
+-- between Deep and Very Deep.
+def collatz_shallow : Imscription := collatz_vessel
+def collatz_deep    : Imscription := collatz_drift_vessel
+
 -- §1. COLLATZ STRUCTURAL GAP
 
 /-- The Collatz shallow-to-deep structural gap is 7 — between Deep and Very Deep.
