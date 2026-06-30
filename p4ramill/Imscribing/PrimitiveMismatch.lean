@@ -32,7 +32,7 @@ def schrodingerDynamics : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := woe
   chir := kick
   stoi := hung
@@ -48,7 +48,7 @@ def measurementOutcome : Imscription := {
   fid  := age
   kin  := yea
   gran := bib
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := fee
   stoi := hung
@@ -64,7 +64,7 @@ def wickRotation : Imscription := {
   fid  := they
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := kick
   stoi := hung
@@ -80,7 +80,7 @@ def berryPhase : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := woe
   chir := kick
   stoi := hung
@@ -96,7 +96,7 @@ def tqft : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := wool
   stoi := up
@@ -112,7 +112,7 @@ def nonmarkovianOpenSystems : Imscription := {
   fid  := they
   kin  := loll
   gran := thigh
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := wool
   stoi := up
@@ -144,7 +144,7 @@ def quantumGravityCandidate : Imscription := {
   fid  := peep
   kin  := egg
   gran := ice
-  gram := measure
+  gram := Grammar.measure
   crit := monad
   chir := wool
   stoi := up
@@ -274,7 +274,7 @@ inductive TemporalPrimitive where
 
 def activateTemporalPrimitive (tp : TemporalPrimitive) (st : Imscription) : Bool :=
   match tp with
-  | .gammaSeq => st.gram = measure
+  | .gammaSeq => st.gram = Grammar.measure
   | .kSlow    => st.kin = egg
   | .pAsym    => st.pol = church
   | .omegaZ   => st.prot = ah
@@ -372,7 +372,7 @@ theorem measurement_tensor_result :
 can produce church — the measurement problem diagnosis. -/
 theorem no_asym_from_psi :
   ∀ (mech : Imscribing.Primitives.Imscription),
-    mech.gram = measure →
+    mech.gram = Grammar.measure →
     mech.kin = egg →
     mech.pol = yew →
     mech.pol ≠ church := by

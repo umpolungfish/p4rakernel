@@ -22,6 +22,23 @@ open Primitives Frobenius IGProtocol
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
 
+-- ── Stage objects (Imscriptions) ────────────────────────────────────────────
+-- `IGProtocol` is indexed by full Imscriptions. Each cosmogonic waypoint is the
+-- carrier tuple at that stage; the short primitive names are the values installed.
+private def bcBase : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := nun, fid := age, kin := yea,
+    gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+
+/-- Unutterable silence: unknowable monad before any emanation. -/
+def bc_silence   : Imscription := bcBase
+/-- All-mystery deep: the FSPLIT object (gran := bib). -/
+def bc_split     : Imscription := { bcBase with gran := bib }
+/-- All-mother: the gap-bearing fused emanation (chir := sure, the imperfect copy). -/
+def bc_mother    : Imscription := { bcBase with stoi := hung, crit := monad, chir := sure }
+/-- Cosmic Anthropos: containing boundary; the decad recovered (top := judge, pol := church). -/
+def bc_anthropos : Imscription := { bcBase with top := judge, pol := church, gram := measure }
+private def bcLbl : Imscription := bcBase
+
 -- ── Token → IG field mapping ──────────────────────────────────────────────
 --   [0]  VINIT    dim    := dead         dead → bib    | initial object — unutterable silence
 --   [1]  FSPLIT   gran   := bib          dead → ian      | all-source deep branches: universal type / particular instances
@@ -46,42 +63,27 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- ── Main IGProtocol term ────────────────────────────────────────────────────
 
-noncomputable def untitled_text_protocol : IGProtocol dead church :=
+-- The grammar applied to itself: the cosmogony [0]–[18] is the morphism
+-- silence → Anthropos. The FSPLIT[9]/FFUSE[17] Dual-Link is the all-mystery
+-- deep splitting into universal type + particular mysteries and the all-mother
+-- fusing them back — μ∘δ = id, the decad recovered from the monad. The two
+-- mirror branches collapse by idempotence (tensorProduct bc_mother bc_mother =
+-- bc_mother). AREV[19] (church → silence) is the *reverse* morphism — the soul's
+-- return path — not part of the forward emanation.
+noncomputable def untitled_text_protocol : IGProtocol bc_silence bc_anthropos :=
   .withGram measure <|
-  (.arrow dead dead bib)      -- [0]  VINIT   | Unutterable silence; unknowable monad before any emanation
-  (.arrow bib dead ian)         -- [1]  FSPLIT  | All-source deep branches: T-arm = universal type; F-arm = particular sources
-  (.arrow ian bib monad)           -- [2]  AFWD    | Emanation to 1st Fatherhood: invisible, all-powerful, unutterable aspects
-  (.arrow monad ian age)            -- [3]  EVALT   | Faithful — particular sources truly derive from all-source
-  (.arrow age monad bib)          -- [4]  CLINK   | Chain: all-source → all-wise deep
-  (.arrow bib age ian)           -- [5]  FSPLIT  | All-wise deep branches
-  (.arrow ian bib monad)           -- [6]  AFWD    | Emanation to 2nd Fatherhood: incomprehensible, unmoved, undefiled
-  (.arrow monad ian age)            -- [7]  EVALT   | Faithful — wisdom transmitted without loss
-  (.arrow age monad bib)          -- [8]  CLINK   | Chain: all-wise → all-mystery deep
-  -- FSPLIT [9] / FFUSE [17]: all-mystery deep → all-mother
-  (.seq
-    (.prod
-      -- T-branch: empty (direct to FFUSE.T — the universal type proceeds without instance gap)
-      (.refl hung)
-      -- F-branch: the gap, the paradice, and the chain of remaining fatherhoods
-      (.seq
-        (.arrow ian bib hung)      -- [10] AFWD    | 3rd Fatherhood: unknowable, imperishable, aphredon
-        (.seq
-          (.arrow sure bib hung)      -- [11] EVALF   | Gap: mystery cannot be fully transmitted; copy is imperfect
-          (.seq
-            (.arrow up bib hung)   -- [12] ENGAGR  | 7th Fatherhood: all-mystery + all-wise + all-source — B-state
-            (.seq
-              (.arrow age bib hung)     -- [13] CLINK  | Chain through all-gnosis, all-chaste, silence, ... first-invisible
-              (.seq
-                (.arrow measure bib hung) -- [14] IMSCRIB| 6th Fatherhood: self-father — identity morphism
-                (.arrow ah bib hung)   -- [15] IFIX   | Cross = ennead; decryption fixed
-                ))))))
-    (.arrow hung hung judge))   -- [17] FFUSE  | All-mother fuses split; decad (10) recovered
-  (.arrow judge hung church)       -- [18] TANCH  | Cosmic Anthropos receives the entire hierarchy
-  (.arrow church judge dead)       -- [19] AREV   | Cosmogony complete; return path traversable
+  .seq (.arrow bcLbl bc_silence bc_split)        -- [0]–[9] setup: silence → all-mystery deep
+    (.seq
+      (.prod
+        (.arrow bcLbl bc_split bc_mother)        -- δ: T-arm universal type
+        (.arrow bcLbl bc_split bc_mother))       -- μ: F-arm particular mysteries (gap, B-state)
+      (.arrow bcLbl bc_mother bc_anthropos))     -- [17]–[18] FFUSE+TANCH: decad recovered → Anthropos
 
 -- ── Verification theorems ───────────────────────────────────────────────────
 
-theorem untitled_text_tier : TierFunctor.obj dead = .O₂ := by decide
+theorem untitled_anthropos_boundary : bc_anthropos.top = judge := rfl
+theorem untitled_self_dual :
+    Primitives.tensorProduct bc_mother bc_mother = bc_mother := rfl
 
 -- Frobenius closure at FSPLIT[9]/FFUSE[17]:
 -- μ∘δ = id: the all-mystery deep splits into universal type + particular mysteries;

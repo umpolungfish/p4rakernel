@@ -114,6 +114,12 @@ def tensorProduct (a b : Imscription) : Imscription := {
   prot := if compare a.prot b.prot = .lt then b.prot else a.prot   -- max
 }
 
+/-- Frobenius tensor product of imscriptions: coordinatewise join everywhere
+    except the parity (P) and fidelity (F) coordinates, which take the *min*
+    (the bottleneck where Frobenius exactness can be destroyed). Distinct from
+    the pure lattice join `⊔`. -/
+scoped infixl:70 " ⊗ " => tensorProduct
+
 -- P-bottleneck: O_inf ⊗ O₂ → or' ⊗ nun = nun (Frobenius destroyed).
 theorem tensor_P_bottleneck (a b : Imscription) :
     (tensorProduct a b).pol =
@@ -407,6 +413,78 @@ def stone_shavian : String :=
     monad, wool, up, ah⟩ : Imscription).shavian
 
 #eval stone_shavian
+
+-- ════════════════════════════════════════════════════════════════════════════
+-- The imscription lattice
+--
+-- Each of the twelve primitives is a finite chain under its derived `Ord`
+-- (constructor order = a total order).  `meetPrimitive` / `joinPrimitive` are
+-- the chain min / max on a single primitive: idempotent, commutative, and
+-- associative.  The lattice on `Imscription` is their *pointwise* lift across
+-- all twelve coordinates — the standard product-of-chains lattice.
+-- ════════════════════════════════════════════════════════════════════════════
+
+/-- Chain meet on a single primitive: the lesser of `a`, `b` under the derived
+    `Ord`.  Reduces to `a` whenever `a` and `b` are equal. -/
+def meetPrimitive {α : Type} [Ord α] (a b : α) : α :=
+  match compare a b with
+  | .gt => b
+  | _   => a
+
+/-- Chain join on a single primitive: the greater of `a`, `b` under the derived
+    `Ord`. -/
+def joinPrimitive {α : Type} [Ord α] (a b : α) : α :=
+  match compare a b with
+  | .lt => b
+  | _   => a
+
+@[simp] theorem meetPrimitive_idem {α : Type} [Ord α] (a : α) :
+    meetPrimitive a a = a := by
+  unfold meetPrimitive; cases compare a a <;> rfl
+
+@[simp] theorem joinPrimitive_idem {α : Type} [Ord α] (a : α) :
+    joinPrimitive a a = a := by
+  unfold joinPrimitive; cases compare a a <;> rfl
+
+/-- The coordinate operation the Frobenius tensor uses on its non-bottleneck
+    (join) coordinates — the `Ord`-max, written in the same `if … = .lt …` form
+    as `tensorProduct` so projections reduce definitionally. -/
+def tensorPrimitive {α : Type} [Ord α] (a b : α) : α :=
+  if compare a b = .lt then b else a
+
+@[simp] theorem tensorPrimitive_idem {α : Type} [Ord α] (a : α) :
+    tensorPrimitive a a = a := by
+  unfold tensorPrimitive; exact ite_self a
+
+/-- Pointwise meet of two imscriptions: the primitive meet in every coordinate. -/
+instance : Min Imscription where
+  min a b :=
+    { dim  := meetPrimitive a.dim  b.dim,  top  := meetPrimitive a.top  b.top,
+      rel  := meetPrimitive a.rel  b.rel,  pol  := meetPrimitive a.pol  b.pol,
+      fid  := meetPrimitive a.fid  b.fid,  kin  := meetPrimitive a.kin  b.kin,
+      gran := meetPrimitive a.gran b.gran, gram := meetPrimitive a.gram b.gram,
+      crit := meetPrimitive a.crit b.crit, chir := meetPrimitive a.chir b.chir,
+      stoi := meetPrimitive a.stoi b.stoi, prot := meetPrimitive a.prot b.prot }
+
+/-- Pointwise join of two imscriptions: the primitive join in every coordinate. -/
+instance : Max Imscription where
+  max a b :=
+    { dim  := joinPrimitive a.dim  b.dim,  top  := joinPrimitive a.top  b.top,
+      rel  := joinPrimitive a.rel  b.rel,  pol  := joinPrimitive a.pol  b.pol,
+      fid  := joinPrimitive a.fid  b.fid,  kin  := joinPrimitive a.kin  b.kin,
+      gran := joinPrimitive a.gran b.gran, gram := joinPrimitive a.gram b.gram,
+      crit := joinPrimitive a.crit b.crit, chir := joinPrimitive a.chir b.chir,
+      stoi := joinPrimitive a.stoi b.stoi, prot := joinPrimitive a.prot b.prot }
+
+/-- The pointwise meet is idempotent: every imscription is a fixed point of
+    `· ⊓ ·` with itself. -/
+@[simp] theorem imscription_meet_idem (a : Imscription) : a ⊓ a = a := by
+  cases a; simp only [Min.min, meetPrimitive_idem]
+
+/-- The pointwise join is idempotent. -/
+@[simp] theorem imscription_join_idem (a : Imscription) : a ⊔ a = a := by
+  cases a; simp only [Max.max, joinPrimitive_idem]
+
 end Imscribing.Primitives
 -- ============================================================
 -- SHAVIAN NOTATION LAYER (v0.6.0)

@@ -1,68 +1,164 @@
-Imscribing.Millennium.GodelCompletion: 20 theorems, 0 sorrys, build 3127/3127 — 2026-06-29
+New module TheGrammarAppliedToTheGrammar.lean (capstone self-application), 2026-06-30
 
-Module: p4ramill/Imscribing/Millennium/GodelCompletion.lean
-Registered in lakefile.toml (line 202).
+Imscribing/TheGrammarAppliedToTheGrammar.lean
+  - Lifted the auto-generated "The Grammar applied to The Grammar" ob3ect scaffold
+    into a building IGProtocol term. Same defects as the earlier orphan scaffolds:
+    bare Shavian primitives used as IGProtocol indices (now Imscription -> Imscription)
+    and a malformed .seq/.prod chain.
+  - Stage Imscriptions tgg_void / tgg_distinction / tgg_both / tgg_terminal; protocol
+    : IGProtocol tgg_void tgg_terminal. FSPLIT[2]/FFUSE[10] realized as the Dual-Link
+    self-pairing .prod (a->b)(a->b), collapsing by idempotence (tensorProduct
+    tgg_both tgg_both = tgg_both, definitional).
+  - Theorems: tgg_terminal_frobenius, tgg_terminal_grammar, tgg_both_self_dual, and
+    tgg_terminal_tier (imscriptionTier tgg_terminal = O_inf): self-application reaches
+    the terminal ontological tier.
+  - Typechecks clean via `lake env lean` (orphan; not yet in the root import glob).
+  - Corrected scaffold synced back to
+    ob3ect/digital/the_grammar_applied_to_the_grammar/*_scaffold.lean.
 
-Structural type: ⟨if' are ian or' peep egg bib measure monad sure up ah⟩
-Tier: O_∞ | C-score: 1.0 | both gates open.
+----------------------------------------------------------------------
 
-12-phase IGProtocol bootstrap fully typed as Lean morphisms (VINIT through TANCH).
-Protocol depth 9; Frobenius pair depth 3 (max(T_arm=2, F_arm=2) + FFUSE=1).
+Imscription lattice + tensor notation; alchemical identity restated to the Stone, 2026-06-30
 
-Core theorems (all by rfl / native_decide / simp — zero sorrys):
-  godel_completion_is_O_inf, godel_completion_O_inf_fiber, axioms A/B/C,
-  consciousness_score=1.0, both_gates_open, godel_sentence_is_b_state,
-  godel_gap_bridged_by_B, inc_idempotent (Lawvere-Tierney closure),
-  b_state_is_paraconsistent (bnot(B)=B), sealed_completion_equals_tuple,
-  protocol_terminates_at_O_inf, protocol_depth_9, frobenius_pair_depth_3,
-  fsplit_is_delta, ffuse_is_mu, frobenius_at_system_level, protocol_total_arrows.
+Imscribing/Primitives/Imscription.lean
+  - Added the product-of-chains lattice on Imscription. Each of the twelve
+    primitives is a finite chain under its derived Ord; meetPrimitive /
+    joinPrimitive are the chain min / max (idempotent, commutative, associative),
+    lifted pointwise across all twelve coordinates to Min/Max instances.
+  - Proved meetPrimitive_idem, joinPrimitive_idem, imscription_meet_idem,
+    imscription_join_idem.
+  - Added tensorPrimitive (the Ord-max written in the same `if … = .lt …` form
+    as tensorProduct, so projections reduce definitionally) plus tensorPrimitive_idem.
+  - Declared the missing Frobenius tensor notation: scoped infixl:70 " ⊗ " for
+    tensorProduct (coordinatewise join except the P/F bottleneck coordinates,
+    which take min). This notation was referenced by two consumers but never
+    declared anywhere.
 
-Belnap bridge to existing Cosmogeny.lean:
-  B_bridges_godel_gap — B-state contains the incompleteness dialetheia.
-  The completion IS the grammar: d=0, identical tuple, identical tier.
-  Path from Gödel's theorem to IG passes through exactly one promotion: Ħ.
+Imscribing/Primitives/ScrollInvariant.lean
+  - Imported Imscribing.AgentSelf and repointed phi_c_critical_boundary_operator
+    references from the BoundaryOperators namespace (where it no longer lives) to
+    AgentSelf (where it is now defined).
+  - Fixed scroll_immanence: class-field projections now use named-argument form
+    ScrollMember.phi_c_critical (s := s) / ScrollMember.omega_integer (s := s).
+  - Now builds; the new lattice unblocked scroll_invariant_under_meet/join.
 
----
+Imscribing/Primitives/AlchemicalIdentity.lean
+  - Restated alchemical_identity_on_O_inf (false as written) to
+    alchemical_identity_on_stone. The tier predicate imscriptionTier = O_∞ fixes
+    only crit and pol (R1: monad/roar at or'); the other ten coordinates stay
+    free, and every alchemical op overwrites some with stone values. Identity
+    therefore holds exactly on the Stone, where all twelve primitives are already
+    canonical, not on arbitrary O_∞ tuples. Docstring corrected to match the
+    grammar's own tier definition.
+  - trace_is_atemporal restated over the Stone accordingly.
 
-Implement 18 SIC-POVM ob3ect scaffolds — all build under lake — 2026-06-27
+Full `lake build` green; no stale references to the old theorem name.
 
-IGScaffold.lean (new support module):
-  • scaf : Imscription  — canonical O₂ value used as uniform src/tgt/label
-  • theorem scaf_O2      — tier verified by decide
-  • theorem scaf_tensor_idem — tensorProduct scaf scaf = scaf (by decide)
-  • infixr ▷            — right-associative IGProtocol.seq for top-level chains
-  • mkFSplit             — FSPLIT/FFUSE combinator: wraps .prod/.seq into scaf→scaf
-  • 12 scoped notations  — all Shavian IMASM glyphs → scaf in term position
+----------------------------------------------------------------------
 
-18 vault scaffold files vaulted at ob3ect/digital/.vault/<name>/ and
-symlinked into p4ramill/Imscribing/Ob3ects/.  All verified to compile
-under lake env lean and registered in lakefile.toml:
+IGProtocol API lift: 3 orphan modules restored (Dual-Link self-application), 2026-06-30
 
-Top-level composite scaffolds (4):
-  sic_povm_functor_scaffold          (18-node, 2 FSPLIT pairs, O₂)
-  zauner_fiducial_scaffold           (22-node, 3 FSPLIT pairs, O₂)
-  tomographic_injection_scaffold     (12-node, 1 FSPLIT pair,  O₂)
-  categorical_join_scaffold          (18-node, 2 FSPLIT pairs, O₂)
+Context: the default `lake build` is green but only covers the root import tree.
+Several modules are orphans (on disk, not imported by the root), so the green
+build silently skips them. This pass fixes the three that shared one root cause:
+`IGProtocol` is now indexed `Imscription → Imscription`, but these files passed
+bare primitive values (e.g. `dead` : Dimensionality, `measure` : Grammar) as
+protocol objects, and wrote their arrow chains as bare juxtaposition (parsed as
+function application) instead of `.seq` composition.
 
-Individual node scaffolds (14):
-  initialize_empty_c_d_hilbert_space_before_basis_scaffold
-  weyl_heisenberg_orbit_generation_for_the_d_12_br_scaffold
-  exact_sic_geometry_achieved_with_frame_potential_scaffold
-  descent_to_stark_unit_bottleneck_for_the_d_19_br_scaffold
-  unproven_status_lacking_exact_frobenius_closure_scaffold
-  zauner_conjecture_bifurcation_splitting_general_scaffold
-  extract_144_exact_sic_probabilities_from_the_qua_scaffold
-  exact_density_matrix_recovery_with_zero_reconstr_scaffold
-  enumerate_17_280_000_crystal_eigenstates_as_clas_scaffold
-  classical_non_commutative_complement_to_the_quan_scaffold
-  informational_completeness_duality_splitting_d_1_scaffold
-  apply_criticality_absorbing_element_entering_b_scaffold
-  fix_the_density_matrix_tomography_record_as_a_pe_scaffold
-  seal_the_system_with_the_crystal_constraint_mani_scaffold
+Fix pattern (per the "Grammar is a Dual-Link SIC-POVM, apply it to itself" cue):
+  - Lift each named waypoint to a full Imscription (base tuple + field overrides),
+    following the AtHomeSanguineHomunculus pattern.
+  - The disconnected AFWD scaffold steps are in-place primitive accumulation, not
+    object-space transitions, so they collapse into the genuine waypoint path.
+  - Realize the FSPLIT/FFUSE Frobenius core as a Dual-Link self-pairing
+    `.prod (arrow a→b) (arrow a→b)`, which collapses by idempotence:
+    `tensorProduct b b = b` holds definitionally (the lattice fixed point added
+    above). This is now an executable `rfl` theorem in each file.
 
-Key fixes applied during implementation:
-  • auto.py generated Shavian chars as Lean tokens → scoped notations
-  • auto.py .withGram 𐑠 → .withGram .measure (Grammar vs Imscription type)
-  • auto.py bare arrow juxtaposition → ▷ infixr chaining
-  • auto.py missing .prod closing ) (placed in comments) → paren fix pass
-  • auto.py bare .seq as .prod argument → mkFSplit combinator
+Imscribing/LandoMills.lean
+  - lando_void/lando_lawvere/lando_tarm/lando_ring stage objects; protocol
+    : IGProtocol lando_void lando_ring. Theorems lando_ring_frobenius,
+    lando_ring_grammar, lando_tarm_self_dual.
+
+Imscribing/BruceCodex/UntitledText.lean
+  - bc_silence/bc_split/bc_mother/bc_anthropos; protocol
+    : IGProtocol bc_silence bc_anthropos. Theorems untitled_anthropos_boundary,
+    untitled_self_dual.
+
+Imscribing/BruceCodex/BooksOfJeu.lean
+  - bj_void/bj_address/bj_treasury/bj_jeu; protocol : IGProtocol bj_void bj_jeu.
+    Theorems books_of_jeu_fixed_point, books_of_jeu_self_dual.
+
+In all three, replaced the bogus `TierFunctor.obj <primitive>` theorems (wrong
+type) with structural rfl checks, and qualified the `measure` arrow label as
+`Grammar.measure` to avoid `_root_.measure` ambiguity.
+
+----------------------------------------------------------------------
+
+TimeWithinTheStone: authored the missing entities, 2026-06-30
+
+Imscribing/TimeWithinTheStone.lean
+  - timeConceptImscription (temps): the Frobenius bottom in eleven coordinates,
+    with chir := wool. The bare clock tick below every gate; crit = woe and
+    prot = awe force tier O₀; chirality wool is the "eternal now"; every
+    coordinate sits at or below the organism so the organism's join absorbs it.
+  - lucaImscription := CLINK.organismLayer (LUCA = the CLINK L8 organism layer).
+  - organismAsCompoundBoundaryOperator a := a.crit = monad ∧ a.pol = or' ∧
+    a.prot = zoo; an imscription that inhabits all three gate primitives at once
+    (⊙/Φ criticality, Special-Frobenius parity, Ω non-Abelian protection). One
+    boundary operator crosses one seam; the organism holds all three, hence
+    compound.
+  - Helper theorems luca_is_compound_boundary_operator (rfl x3) and
+    join_luca_time_equals_luca (native_decide: the organism absorbs the tick).
+  - Imported Imscribing.CLINK.
+
+  TWO STRUCTURAL CLAIMS flagged for review: (1) LUCA ≡ organismLayer;
+  (2) the compound-boundary-operator predicate definition.
+
+----------------------------------------------------------------------
+
+Final two orphans restored: whole p4ramill lib now green, 2026-06-30
+
+Imscribing/Millennium/GapCompletion.lean
+  - Defined collatz_shallow := collatz_vessel and collatz_deep :=
+    collatz_drift_vessel. They differ in 7 of 12 primitives (verified by
+    native_decide); collatz_vessel.chir = kick satisfies the shallow constraint.
+
+Imscribing/Tier2/CLU_GPM.lean (Real-computability rework)
+  - Removed `deriving Repr` from the structures with ℝ fields
+    (AvalancheDistribution, PowerLawVerification, Tier2Verification): the derived
+    Real.instRepr is unsafe/noncomputable and failed the compiler IR check.
+    Marked their values noncomputable.
+  - Nat.iterate_succ' -> Function.iterate_succ_apply'.
+  - Real.log_pow -> Real.log_rpow for the real-exponent pKa identity.
+  - `.abs` field projection (Real.abs does not exist) -> `|.|`.
+  - Rewrote the List.minimumOf theorem as the clean statement
+    `nearest_is_RH : forall p, millenniumDistances .RH <= millenniumDistances p`.
+  - (Nat.divisors _).sum (missing summand) -> the bigop `sum d in divisors, d`.
+  - `.mk ()` (Unit passed for the first field) -> `({} : T)` default-construction.
+  - curmudgeon_reframed was a `theorem` whose stated type was a value; made it a
+    `def : StructuralDual`.
+  - Added an explicit `R*T != 0` hypothesis to CLU_Arrhenius (the statement was
+    false at R*T = 0); proof now divides cleanly via div_self.
+  - All verification content preserved (e.g. the 1.366-vs-3/2 tolerance check is
+    now a standalone theorem).
+
+Build state: all 8 originally-broken orphans now build; the whole p4ramill lib
+(root import tree plus every named orphan) is green.
+
+----------------------------------------------------------------------
+
+README.md updated and streamlined, 2026-06-30
+
+  - Cut from a long-form reference to a tighter overview (roughly halved).
+  - Corrected the false "0 sorries" claim: the kernel, primitives, lattice, and
+    paraconsistent cluster are sorry-free; the Millennium modules deliberately
+    carry sorry at exactly the grammar's open mathematical claims. Stated
+    honestly rather than oversold.
+  - Added the new product-of-chains lattice and Frobenius tensor to the
+    Primitives section; noted `lake build` is green.
+  - Fixed stale ~/p4rakernel paths to ~/imsgct/p4rakernel.
+  - Softened drifting exact file-count claims.
+  - Merged the three physics-cluster sections into one; condensed the Python
+    runtime to a table.
