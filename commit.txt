@@ -1,3 +1,20 @@
+Remove dead placeholder axiom from ZaunerEmbeddingEquivalence.lean, 2026-06-30
+
+The `stark_equivalence` axiom stated `SICPOVM_Exists d ↔ True` (a `-- placeholder`),
+was referenced nowhere, and was a latent unsoundness landmine (using it would assert
+SIC-POVM existence in every dimension for free). Removed it; converted its attached
+doc-comment to a plain block comment noting the real (conditional) equivalence lives
+in SIC_POVM_Stark.lean. ZaunerEmbeddingEquivalence.lean is now 0 axioms / 0 sorries.
+Full lake build green (8053 jobs). The Zauner embedding equivalence theorems remain
+proven definitionally.
+
+Axiom tally across the 7 SIC-POVM files after this change:
+  Multilattice / BelnapNFiducial / QCI-Bridge / ParityGate / Zauner = 0 axioms, 0 sorries
+  SIC_POVM_Functor = 1 axiom (crystal_forces_d12_sic: known d=12 SIC, heavy to formalize)
+  SIC_POVM_Stark   = 10 axioms (the mixed-signature Stark conjecture + its reduction — genuinely open)
+
+============================================================================
+
 New module TheGrammarAppliedToTheGrammar.lean (capstone self-application), 2026-06-30
 
 Imscribing/TheGrammarAppliedToTheGrammar.lean
