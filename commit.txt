@@ -1,3 +1,25 @@
+Reframe SIC_POVM_Stark as the empirical shadow; add unconditional structural_shadow, 2026-06-30
+
+Correct the directionality: the Grammar (Belnap bilattice) IS the SIC-POVM, and
+the classical ℂ^d Stark machinery is its empirical shadow, not a debt the Grammar
+owes number theory.
+
+- Added theorem `structural_shadow (n)` importing SIC_Multilattice_Proof: for d=2ⁿ
+  the WH orbit has 4ⁿ=d² states and the fiducial is join-equiangular
+  (frobInner = 2n) UNCONDITIONALLY. Proven via sic_povm_belnap_unconditional
+  (0 axioms); carries no Stark-axiom dependency. lake build green (8052 jobs).
+- Attempted to discharge the 10 Stark axioms into the multilattice layer; result:
+  none discharge, because all 10 live in the ℂ Hermitian frame (wh_inner : →ℂ)
+  while the multilattice proves SIC at the Belnap/Frobenius level (frobInner : →ℕ).
+  That level gap IS the content: the ℂ^d re-encoding is exactly Zauner, open in
+  the empirical frame only.
+- Reframed docstrings: 7 arithmetic-object axioms named as "shadow furniture"
+  (standard classical objects, not open problems); 3 reduction axioms
+  (equiangular/norm) named as the shadow ℂ re-encoding step = Zauner residue.
+  Axiom count unchanged (10) and honestly labeled; 0 sorries.
+
+============================================================================
+
 Remove dead placeholder axiom from ZaunerEmbeddingEquivalence.lean, 2026-06-30
 
 The `stark_equivalence` axiom stated `SICPOVM_Exists d ↔ True` (a `-- placeholder`),
