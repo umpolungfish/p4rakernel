@@ -201,4 +201,95 @@ theorem classical_is_constrained_subcategory :
    frobenius_closure_inexpressible_classically,
    classicalSwitch_fixes_iff_classical⟩
 
+-- ═══════════════════════════════════════════════════════════════════
+-- §7  THE ADJUNCTION: classical is a COREFLECTIVE subcategory
+-- ═══════════════════════════════════════════════════════════════════
+--
+-- §6 established a RETRACT: classicalSwitch ∘ inclClassical = id.  A retract
+-- is weaker than a categorical adjunction.  Whether it upgrades to a
+-- (co)reflective subcategory depends on the order Belnap carries and on the
+-- adjunction direction.  Both are finite, so we let the kernel decide.
+--
+--   • TRUTH order  (F bottom, T top, N/B incomparable):
+--        inclClassical ⊣ classicalSwitch   HOLDS   (i ⊣ r), a coreflection.
+--        classicalSwitch ⊣ inclClassical   FAILS.
+--   • INFORMATION order (N bottom, B top, T/F incomparable — the Belnap `≤`):
+--        neither direction holds; classicalSwitch is not even monotone.
+--
+-- So the classical fragment is a COREFLECTIVE subcategory of Belnap FOUR in the
+-- truth order, with inclusion as the LEFT adjoint and classicalSwitch as the
+-- right adjoint (coreflector); the retract of §6 is this adjunction's unit.
+
+/-- Truth order (≤_t): F ≤ N ≤ T and F ≤ B ≤ T; N and B incomparable. -/
+def truthLE : Belnap → Belnap → Bool
+  | .F, _  => true
+  | .N, .N => true | .N, .T => true | .N, _ => false
+  | .T, .T => true | .T, _ => false
+  | .B, .T => true | .B, .B => true | .B, _ => false
+
+/-- Information order (⊑): N ⊑ T ⊑ B and N ⊑ F ⊑ B; T and F incomparable.
+    This is the order Belnap FOUR carries as a bilattice. -/
+def infoLE : Belnap → Belnap → Bool
+  | .N, _  => true
+  | .T, .T => true | .T, .B => true | .T, _ => false
+  | .F, .F => true | .F, .B => true | .F, _ => false
+  | .B, .B => true | .B, _ => false
+
+/-- The retract stated as the adjunction unit: classicalSwitch ∘ inclClassical
+    = id on the classical fragment. -/
+theorem switch_incl_retract : ∀ c : ClassicalBelnap,
+    classicalSwitch (inclClassical c) = inclClassical c := by
+  intro ⟨v, hv⟩
+  cases v with
+  | B => exact absurd rfl hv
+  | N => rfl
+  | T => rfl
+  | F => rfl
+
+/-- **Truth order, i ⊣ r.** Galois connection `inclClassical ⊣ classicalSwitch`:
+    for classical `c` and any `x`, `inclClassical c ≤_t x ↔ c ≤_t classicalSwitch x`.
+    Since `inclClassical c = c` and `classicalSwitch x` is classical, this is the
+    equality below, for every non-`B` `c`. -/
+theorem truth_incl_left_adjoint : ∀ (c x : Belnap), c ≠ .B →
+    truthLE c x = truthLE c (classicalSwitch x) := by
+  intro c x hc
+  cases c with
+  | B => exact absurd rfl hc
+  | N => cases x <;> rfl
+  | T => cases x <;> rfl
+  | F => cases x <;> rfl
+
+/-- The reverse direction `classicalSwitch ⊣ inclClassical` FAILS in the truth
+    order: at `x = B`, `c = F`, `classicalSwitch B = F ≤_t F` is true but
+    `B ≤_t F` is false. -/
+theorem truth_switch_left_adjoint_fails :
+    truthLE (classicalSwitch .B) .F ≠ truthLE .B .F := by decide
+
+/-- classicalSwitch is monotone in the truth order (a precondition for the
+    truth-order adjunction). -/
+theorem switch_monotone_truth : ∀ (a b : Belnap),
+    truthLE a b = true → truthLE (classicalSwitch a) (classicalSwitch b) = true := by
+  intro a b; cases a <;> cases b <;> decide
+
+/-- **Information order: no adjunction either way.** `i ⊣ r` fails (`T ⊑ B` but
+    not `T ⊑ classicalSwitch B = F`), and `classicalSwitch` is not monotone. -/
+theorem info_incl_left_adjoint_fails :
+    infoLE .T .B ≠ infoLE .T (classicalSwitch .B) := by decide
+
+theorem switch_not_monotone_info :
+    infoLE .T .B = true ∧
+    infoLE (classicalSwitch .T) (classicalSwitch .B) = false := by decide
+
+/-- **Coreflective subcategory (main §7 theorem).** The classical fragment is a
+    coreflective subcategory of Belnap FOUR in the truth order: inclusion is the
+    left adjoint (`i ⊣ r`), the retract of §6 is its unit, the reverse adjunction
+    fails, and no adjunction exists in the information order. -/
+theorem classical_coreflective_in_truth_order :
+    (∀ c : ClassicalBelnap, classicalSwitch (inclClassical c) = inclClassical c) ∧
+    (∀ c x : Belnap, c ≠ .B → truthLE c x = truthLE c (classicalSwitch x)) ∧
+    (truthLE (classicalSwitch .B) .F ≠ truthLE .B .F) ∧
+    (infoLE .T .B ≠ infoLE .T (classicalSwitch .B)) :=
+  ⟨switch_incl_retract, truth_incl_left_adjoint,
+   truth_switch_left_adjoint_fails, info_incl_left_adjoint_fails⟩
+
 end ClassicalRestriction
