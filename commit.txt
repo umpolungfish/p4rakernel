@@ -1,3 +1,16 @@
+New manuscript: belnap_sic_povm_primary.tex (Stage-1 SIC paper, Belnap-first), 2026-07-01
+
+Canonical Stage-1 SIC-POVM paper written to the conversion architecture: Belnap
+structural result FIRST (unconditional, 0 axioms/0 sorries), Zauner recast as the
+Complex-Hilbert representation residue (structural_shadow / thm:shadow-is-zauner),
+Stark demoted to one representation route with named inputs. Balanced frame (thesis
+in intro + conclusion, math-only body), orthodox math/physics register, Lean artifact
+front and center. No em-dashes; "representation" not "encode". Reuses preamble/author/
+Larson-ack/bib from sic_povm_stark_hilbert12.tex (old inverted-order manuscript kept
+as-is). Compiles clean under lualatex (7 pp); PDF copied to pdfs/.
+
+============================================================================
+
 Reframe SIC_POVM_Stark as the empirical shadow; add unconditional structural_shadow, 2026-06-30
 
 Correct the directionality: the Grammar (Belnap bilattice) IS the SIC-POVM, and
