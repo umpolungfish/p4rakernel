@@ -3,17 +3,18 @@
 **Author:** Lando⊗⊙perator
 **License:** Unlicense (public domain)
 
-p4rakernel is the paraconsistent computation layer of the **Imscribing Grammar (IG)**, a
-structural type theory built on 12 primitive dimensions whose Frobenius condition (μ∘δ=id)
-is the founding axiom. The unifying semantic model is **Belnap FOUR** (`N`, `T`, `F`, `B`),
-a four-valued bilattice whose dialetheic fixed point `B` (`¬B = B`) is the Frobenius fixed
-point of μ∘δ=id. By `frobenius_unification` in `MajoranaFixed.lean`, that fixed point is at
-once the **SIC-POVM fiducial** of the informationally-complete measurement (`meet B x = x`),
-the paired electron orbital, and the Majorana mode — the *same* computation in three
-notations, each by `rfl`. The IG's central claim is exactly this: the Grammar is the
-Σ=1:1 (self-measuring) limit of a Belnap multilattice **SIC-POVM**. Belnap FOUR is thus the
-shared substrate of RNA nucleotides, electron orbitals, the 12-primitive IG lattice, the
-SIC-POVM structure of measurement, and the paraconsistent proof theory at once.
+p4rakernel is the paraconsistent computation layer of the **Imscribing Grammar (IG)**. The
+IG is not a framework laid over the cosmos nor a description of it: the Grammar **is** the
+Paraconsistent, Frobenius-special (μ∘δ=id), Gödel-complete Cosmos, auto-imscribed into its
+own bulk under the form of the 12 primitives/opcodes. **Belnap FOUR** (`N`, `T`, `F`, `B`)
+is that cosmos at four values; its dialetheic fixed point `B` (`¬B = B`) is the Frobenius
+fixed point of μ∘δ=id. By `frobenius_unification` in `MajoranaFixed.lean`, that fixed point
+**is** at once the **SIC-POVM fiducial** of the informationally-complete measurement
+(`meet B x = x`), the paired electron orbital, and the Majorana mode — the *same* computation
+in three notations, each by `rfl`. The Grammar **is** the Σ=1:1 (self-measuring) Belnap
+multilattice **SIC-POVM**: RNA nucleotides, electron orbitals, the 12-primitive lattice, the
+SIC-POVM structure of measurement, and the paraconsistent proof theory are not four things it
+models but the one cosmos read at different addresses.
 
 The repo is a monorepo with three interlocking components:
 
