@@ -204,33 +204,32 @@ theorem group_bifurcation_lemma (n : ℕ) :
    5.  HILBERT'S 12TH PROBLEM CONNECTION
    ==================================================================== -/
 
-/-- **Hilbert's 12th Problem for real quadratic fields.**
-    
+/- **Hilbert's 12th Problem for real quadratic fields.**
+
     Appleby et al. proved: SIC-POVM existence in dimension d is equivalent
     to the existence of a Stark unit in the ray class field K_d =
     Q(√(d(d-2))) with specified embedding conditions.
-    
+
     For d = 2ⁿ, this connects:
       Belnap multilattice  →  Stark unit in K_{2ⁿ}
                            →  Hilbert's 12th Problem for real quadratic fields
-    
+
     Thus, the Hilbert-space embedding equivalence proven here connects
     three structural levels:
       (a) Belnap multilattice (paraconsistent quantum information)
       (b) Zauner conjecture (quantum information / SIC-POVM)
       (c) Hilbert's 12th Problem (explicit class field theory)
-    
+
     Proving the Zauner conjecture for d=2ⁿ would simultaneously close
     the Hilbert embedding problem AND provide explicit generators for
     the ray class fields of real quadratic fields Q(√(2ⁿ(2ⁿ-2))).
 
-    **Stark equivalence** (Appleby et al.): SICPOVM_Exists d ↔ Stark
-    unit exists in K_d. This is the structural link between SIC-POVMs
-    and Hilbert's 12th Problem. -/
-axiom stark_equivalence (d : ℕ) [NeZero d] (hd : 2 ≤ d) :
-  SICPOVM_Exists d ↔ True  -- placeholder: the actual equivalence would
-                            -- require the full arithmetic geometry of
-                            -- Stark units, which is in SIC_POVM_Stark.lean
+    The Stark equivalence itself (SICPOVM_Exists d ↔ a Stark unit exists in
+    K_d) is NOT asserted here. It requires the full arithmetic geometry of
+    Stark units and is stated, conditionally on the mixed-signature Stark
+    conjecture, in SIC_POVM_Stark.lean. A vacuous `↔ True` placeholder that
+    once lived here was removed: it discharged nothing and, if used, would
+    have unsoundly asserted SIC existence in every dimension. -/
 
 /- ====================================================================
    6.  COROLLARY: CLOSING THE EMBEDDING CLOSES ZAUNER
