@@ -31,3 +31,7 @@ wdErr.txt
 wdIn.txt
 wdOut.txt
 downstream_releases/
+
+# Loose top-level Lean build artifacts (regenerate with `make lean-oleans`).
+# Committing version-specific oleans caused a stock/4.30 vs fork/4.28 version soup.
+*.olean
