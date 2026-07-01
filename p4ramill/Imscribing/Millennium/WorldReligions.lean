@@ -603,7 +603,13 @@ theorem Buddhism_and_Christianity_are_Oinf :
 
 /-- O_inf requires or' (Frobenius-special). -/
 theorem Oinf_requires_pm_sym :
-  ∀ s : RelTuple, ouroborTier s = OuroborTier.Oinf → s.P = .pm_sym := by sorry
+  ∀ s : RelTuple, ouroborTier s = OuroborTier.Oinf → s.P = .pm_sym := by
+  intro s h
+  unfold ouroborTier at h
+  -- `Oinf` is produced only by the first branch, whose guard requires `P = pm_sym`;
+  -- `split_ifs` discharges every other branch (constructor mismatch) automatically.
+  split_ifs at h with h1
+  exact h1.1
 end Millennium.WorldReligions
 
 

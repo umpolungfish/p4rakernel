@@ -36,8 +36,9 @@ theorem euler_structure (N : ℕ) (_h_perfect : True) (_h_odd : ¬ 2 ∣ N) : Tr
     odd N satisfying Euler's form.
     
     HONEST GAP: The rigorous 2-adic valuation computation. -/
-theorem opn_nonexistence_proved : ¬ ∃ (N : ℕ), True := by
-  -- HONEST GAP: OPN nonexistence — open since antiquity.
+theorem opn_nonexistence_proved : OPNConjecture := by
+  -- OpenProblem: no odd perfect number exists (∀ N, ¬ IsOddPerfect N).
+  -- Open since antiquity; the 2-adic valuation route is not yet rigorous.
   sorry
 
 end Millennium.OPN_Witness
