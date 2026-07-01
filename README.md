@@ -57,6 +57,18 @@ unsafe def main : IO Unit := do
   #check dialetheia    -- B
 ```
 
+### Classical logic is a coreflective subcategory
+
+`ClassicalRestriction.lean` makes the "restriction, not extension" claim exact and
+machine-checks it. The classical fragment is the B-excluding subtype `{ v // v ≠ B }`, and
+`classicalSwitch` collapses `B ↦ F` (ex falso for B). §7 proves that in the **truth order**
+the inclusion of the fragment is *left adjoint* to `classicalSwitch`
+(`inclClassical ⊣ classicalSwitch`): classical logic is a **coreflective subcategory** of the
+bilattice, with the collapse as coreflector and the retract
+`classicalSwitch ∘ inclClassical = id` as the adjunction unit. The reverse adjunction fails,
+and in the information order no adjunction exists at all. So disabling ex falso is literally a
+corestriction to that subcategory — `classical_coreflective_in_truth_order`, all `decide`-checked.
+
 ---
 
 ## 2. p4ramill: Lean 4 Formalization
@@ -236,6 +248,11 @@ cd p4ramill && lake build
 # Paraconsistent kernel verification
 lean --run p4ramill/ParaconsistentKernelTest.lean
 lean --run p4ramill/ParaconsistentMillennium.lean
+
+# Loose top-level Lean files build under the fork (the canonical toolchain).
+# oleans are gitignored; regenerate the shared imports in dependency order:
+make lean-oleans                                  # -> build/stage1/bin/lean
+./build/stage1/bin/lean ClassicalRestriction.lean # classical = coreflective subcategory
 ```
 
 See also `GENETICS_CLI.md` (command reference) and `IG_CROSS_POLLINATION.md` (bridge
