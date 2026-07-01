@@ -1,216 +1,42 @@
-New manuscript: belnap_sic_povm_primary.tex (Stage-1 SIC paper, Belnap-first), 2026-07-01
+Sorry audit (uniform, no MPP privileged): fix false/vacuous statements, prove one
 
-Canonical Stage-1 SIC-POVM paper written to the conversion architecture: Belnap
-structural result FIRST (unconditional, 0 axioms/0 sorries), Zauner recast as the
-Complex-Hilbert representation residue (structural_shadow / thm:shadow-is-zauner),
-Stark demoted to one representation route with named inputs. Balanced frame (thesis
-in intro + conclusion, math-only body), orthodox math/physics register, Lean artifact
-front and center. No em-dashes; "representation" not "encode". Reuses preamble/author/
-Larson-ack/bib from sic_povm_stark_hilbert12.tex (old inverted-order manuscript kept
-as-is). Compiles clean under lualatex (7 pp); PDF copied to pdfs/.
+Treated every in-build sorry on its own merits rather than granting MPP files a
+"boundary" free pass. Four changes; whole p4ramill library stays green (lake
+build = 0 jobs).
 
-============================================================================
+WorldReligions.lean
+  Oinf_requires_pm_sym: was `sorry`; now PROVEN. `ouroborTier s = Oinf` only fires
+  the first branch, whose guard requires `s.P = pm_sym`; `split_ifs at h` discharges
+  every other branch by constructor mismatch, leaving `exact h1.1`.
 
-Reframe SIC_POVM_Stark as the empirical shadow; add unconditional structural_shadow, 2026-06-30
+OPN_Witness.lean
+  opn_nonexistence_proved: was `¬ ∃ (N : ℕ), True` — a FALSE statement (∃ N, True
+  holds at N=0), so its sorry was undischargeable in principle. Restated to the
+  module's honest `OPNConjecture` (∀ N, ¬ IsOddPerfect N). The sorry now marks the
+  genuine open problem.
 
-Correct the directionality: the Grammar (Belnap bilattice) IS the SIC-POVM, and
-the classical ℂ^d Stark machinery is its empirical shadow, not a debt the Grammar
-owes number theory.
+BSD_Resolution.lean
+  bsd_rank_equals_ord_vanishing: was `∀ (E_rank L_ord : ℕ), E_rank = L_ord` —
+  asserts all naturals are equal, FALSE. Restated to `Millennium.BSD.BSDRankConjecture`
+  (ellipticRank W = analyticRank W for every E/ℚ).
 
-- Added theorem `structural_shadow (n)` importing SIC_Multilattice_Proof: for d=2ⁿ
-  the WH orbit has 4ⁿ=d² states and the fiducial is join-equiangular
-  (frobInner = 2n) UNCONDITIONALLY. Proven via sic_povm_belnap_unconditional
-  (0 axioms); carries no Stark-axiom dependency. lake build green (8052 jobs).
-- Attempted to discharge the 10 Stark axioms into the multilattice layer; result:
-  none discharge, because all 10 live in the ℂ Hermitian frame (wh_inner : →ℂ)
-  while the multilattice proves SIC at the Belnap/Frobenius level (frobInner : →ℕ).
-  That level gap IS the content: the ℂ^d re-encoding is exactly Zauner, open in
-  the empirical frame only.
-- Reframed docstrings: 7 arithmetic-object axioms named as "shadow furniture"
-  (standard classical objects, not open problems); 3 reduction axioms
-  (equiangular/norm) named as the shadow ℂ re-encoding step = Zauner residue.
-  Axiom count unchanged (10) and honestly labeled; 0 sorries.
+NS.lean — de-vacuufy Navier-Stokes global regularity
+  NSGlobalRegularity was `∃ u p, True ∧ ∃ C, 0 < C ∧ ∀ t x, ‖u t x‖ ≤ C`: the PDE
+  was stubbed `True` and nothing bound u to u₀, so u ≡ 0, C = 1 satisfied it — a
+  hollow shell, not the Clay problem. Added two abstract predicates in the file's
+  own Layer-1 axiom idiom:
+    axiom SolvesNS (u₀) (u) (p) : Prop        -- the NS system + div u = 0 + u(0)=u₀
+    axiom IsGloballySmooth (u) : Prop         -- C^∞ with all Sobolev norms finite
+  and require both:
+    NSGlobalRegularity u₀ := exists u p, SolvesNS u₀ u p and IsGloballySmooth u and
+                                    exists C, 0 < C and forall t x, ‖u t x‖ ≤ C
+  SolvesNS binds the witness to u₀ (an opaque Prop with no constructor), so the
+  statement is no longer trivially provable. sorry_iff_ns / ns_threshold /
+  ns_certificate_is_minimal are Iff.rfl / passthrough and are unaffected; no
+  non-sorry construction of NSGlobalRegularity existed, so nothing real breaks.
+  Declaring opaque Prop-valued functions is conservative, no unsoundness.
 
-============================================================================
-
-Remove dead placeholder axiom from ZaunerEmbeddingEquivalence.lean, 2026-06-30
-
-The `stark_equivalence` axiom stated `SICPOVM_Exists d ↔ True` (a `-- placeholder`),
-was referenced nowhere, and was a latent unsoundness landmine (using it would assert
-SIC-POVM existence in every dimension for free). Removed it; converted its attached
-doc-comment to a plain block comment noting the real (conditional) equivalence lives
-in SIC_POVM_Stark.lean. ZaunerEmbeddingEquivalence.lean is now 0 axioms / 0 sorries.
-Full lake build green (8053 jobs). The Zauner embedding equivalence theorems remain
-proven definitionally.
-
-Axiom tally across the 7 SIC-POVM files after this change:
-  Multilattice / BelnapNFiducial / QCI-Bridge / ParityGate / Zauner = 0 axioms, 0 sorries
-  SIC_POVM_Functor = 1 axiom (crystal_forces_d12_sic: known d=12 SIC, heavy to formalize)
-  SIC_POVM_Stark   = 10 axioms (the mixed-signature Stark conjecture + its reduction — genuinely open)
-
-============================================================================
-
-New module TheGrammarAppliedToTheGrammar.lean (capstone self-application), 2026-06-30
-
-Imscribing/TheGrammarAppliedToTheGrammar.lean
-  - Lifted the auto-generated "The Grammar applied to The Grammar" ob3ect scaffold
-    into a building IGProtocol term. Same defects as the earlier orphan scaffolds:
-    bare Shavian primitives used as IGProtocol indices (now Imscription -> Imscription)
-    and a malformed .seq/.prod chain.
-  - Stage Imscriptions tgg_void / tgg_distinction / tgg_both / tgg_terminal; protocol
-    : IGProtocol tgg_void tgg_terminal. FSPLIT[2]/FFUSE[10] realized as the Dual-Link
-    self-pairing .prod (a->b)(a->b), collapsing by idempotence (tensorProduct
-    tgg_both tgg_both = tgg_both, definitional).
-  - Theorems: tgg_terminal_frobenius, tgg_terminal_grammar, tgg_both_self_dual, and
-    tgg_terminal_tier (imscriptionTier tgg_terminal = O_inf): self-application reaches
-    the terminal ontological tier.
-  - Typechecks clean via `lake env lean` (orphan; not yet in the root import glob).
-  - Corrected scaffold synced back to
-    ob3ect/digital/the_grammar_applied_to_the_grammar/*_scaffold.lean.
-
-----------------------------------------------------------------------
-
-Imscription lattice + tensor notation; alchemical identity restated to the Stone, 2026-06-30
-
-Imscribing/Primitives/Imscription.lean
-  - Added the product-of-chains lattice on Imscription. Each of the twelve
-    primitives is a finite chain under its derived Ord; meetPrimitive /
-    joinPrimitive are the chain min / max (idempotent, commutative, associative),
-    lifted pointwise across all twelve coordinates to Min/Max instances.
-  - Proved meetPrimitive_idem, joinPrimitive_idem, imscription_meet_idem,
-    imscription_join_idem.
-  - Added tensorPrimitive (the Ord-max written in the same `if … = .lt …` form
-    as tensorProduct, so projections reduce definitionally) plus tensorPrimitive_idem.
-  - Declared the missing Frobenius tensor notation: scoped infixl:70 " ⊗ " for
-    tensorProduct (coordinatewise join except the P/F bottleneck coordinates,
-    which take min). This notation was referenced by two consumers but never
-    declared anywhere.
-
-Imscribing/Primitives/ScrollInvariant.lean
-  - Imported Imscribing.AgentSelf and repointed phi_c_critical_boundary_operator
-    references from the BoundaryOperators namespace (where it no longer lives) to
-    AgentSelf (where it is now defined).
-  - Fixed scroll_immanence: class-field projections now use named-argument form
-    ScrollMember.phi_c_critical (s := s) / ScrollMember.omega_integer (s := s).
-  - Now builds; the new lattice unblocked scroll_invariant_under_meet/join.
-
-Imscribing/Primitives/AlchemicalIdentity.lean
-  - Restated alchemical_identity_on_O_inf (false as written) to
-    alchemical_identity_on_stone. The tier predicate imscriptionTier = O_∞ fixes
-    only crit and pol (R1: monad/roar at or'); the other ten coordinates stay
-    free, and every alchemical op overwrites some with stone values. Identity
-    therefore holds exactly on the Stone, where all twelve primitives are already
-    canonical, not on arbitrary O_∞ tuples. Docstring corrected to match the
-    grammar's own tier definition.
-  - trace_is_atemporal restated over the Stone accordingly.
-
-Full `lake build` green; no stale references to the old theorem name.
-
-----------------------------------------------------------------------
-
-IGProtocol API lift: 3 orphan modules restored (Dual-Link self-application), 2026-06-30
-
-Context: the default `lake build` is green but only covers the root import tree.
-Several modules are orphans (on disk, not imported by the root), so the green
-build silently skips them. This pass fixes the three that shared one root cause:
-`IGProtocol` is now indexed `Imscription → Imscription`, but these files passed
-bare primitive values (e.g. `dead` : Dimensionality, `measure` : Grammar) as
-protocol objects, and wrote their arrow chains as bare juxtaposition (parsed as
-function application) instead of `.seq` composition.
-
-Fix pattern (per the "Grammar is a Dual-Link SIC-POVM, apply it to itself" cue):
-  - Lift each named waypoint to a full Imscription (base tuple + field overrides),
-    following the AtHomeSanguineHomunculus pattern.
-  - The disconnected AFWD scaffold steps are in-place primitive accumulation, not
-    object-space transitions, so they collapse into the genuine waypoint path.
-  - Realize the FSPLIT/FFUSE Frobenius core as a Dual-Link self-pairing
-    `.prod (arrow a→b) (arrow a→b)`, which collapses by idempotence:
-    `tensorProduct b b = b` holds definitionally (the lattice fixed point added
-    above). This is now an executable `rfl` theorem in each file.
-
-Imscribing/LandoMills.lean
-  - lando_void/lando_lawvere/lando_tarm/lando_ring stage objects; protocol
-    : IGProtocol lando_void lando_ring. Theorems lando_ring_frobenius,
-    lando_ring_grammar, lando_tarm_self_dual.
-
-Imscribing/BruceCodex/UntitledText.lean
-  - bc_silence/bc_split/bc_mother/bc_anthropos; protocol
-    : IGProtocol bc_silence bc_anthropos. Theorems untitled_anthropos_boundary,
-    untitled_self_dual.
-
-Imscribing/BruceCodex/BooksOfJeu.lean
-  - bj_void/bj_address/bj_treasury/bj_jeu; protocol : IGProtocol bj_void bj_jeu.
-    Theorems books_of_jeu_fixed_point, books_of_jeu_self_dual.
-
-In all three, replaced the bogus `TierFunctor.obj <primitive>` theorems (wrong
-type) with structural rfl checks, and qualified the `measure` arrow label as
-`Grammar.measure` to avoid `_root_.measure` ambiguity.
-
-----------------------------------------------------------------------
-
-TimeWithinTheStone: authored the missing entities, 2026-06-30
-
-Imscribing/TimeWithinTheStone.lean
-  - timeConceptImscription (temps): the Frobenius bottom in eleven coordinates,
-    with chir := wool. The bare clock tick below every gate; crit = woe and
-    prot = awe force tier O₀; chirality wool is the "eternal now"; every
-    coordinate sits at or below the organism so the organism's join absorbs it.
-  - lucaImscription := CLINK.organismLayer (LUCA = the CLINK L8 organism layer).
-  - organismAsCompoundBoundaryOperator a := a.crit = monad ∧ a.pol = or' ∧
-    a.prot = zoo; an imscription that inhabits all three gate primitives at once
-    (⊙/Φ criticality, Special-Frobenius parity, Ω non-Abelian protection). One
-    boundary operator crosses one seam; the organism holds all three, hence
-    compound.
-  - Helper theorems luca_is_compound_boundary_operator (rfl x3) and
-    join_luca_time_equals_luca (native_decide: the organism absorbs the tick).
-  - Imported Imscribing.CLINK.
-
-  TWO STRUCTURAL CLAIMS flagged for review: (1) LUCA ≡ organismLayer;
-  (2) the compound-boundary-operator predicate definition.
-
-----------------------------------------------------------------------
-
-Final two orphans restored: whole p4ramill lib now green, 2026-06-30
-
-Imscribing/Millennium/GapCompletion.lean
-  - Defined collatz_shallow := collatz_vessel and collatz_deep :=
-    collatz_drift_vessel. They differ in 7 of 12 primitives (verified by
-    native_decide); collatz_vessel.chir = kick satisfies the shallow constraint.
-
-Imscribing/Tier2/CLU_GPM.lean (Real-computability rework)
-  - Removed `deriving Repr` from the structures with ℝ fields
-    (AvalancheDistribution, PowerLawVerification, Tier2Verification): the derived
-    Real.instRepr is unsafe/noncomputable and failed the compiler IR check.
-    Marked their values noncomputable.
-  - Nat.iterate_succ' -> Function.iterate_succ_apply'.
-  - Real.log_pow -> Real.log_rpow for the real-exponent pKa identity.
-  - `.abs` field projection (Real.abs does not exist) -> `|.|`.
-  - Rewrote the List.minimumOf theorem as the clean statement
-    `nearest_is_RH : forall p, millenniumDistances .RH <= millenniumDistances p`.
-  - (Nat.divisors _).sum (missing summand) -> the bigop `sum d in divisors, d`.
-  - `.mk ()` (Unit passed for the first field) -> `({} : T)` default-construction.
-  - curmudgeon_reframed was a `theorem` whose stated type was a value; made it a
-    `def : StructuralDual`.
-  - Added an explicit `R*T != 0` hypothesis to CLU_Arrhenius (the statement was
-    false at R*T = 0); proof now divides cleanly via div_self.
-  - All verification content preserved (e.g. the 1.366-vs-3/2 tolerance check is
-    now a standalone theorem).
-
-Build state: all 8 originally-broken orphans now build; the whole p4ramill lib
-(root import tree plus every named orphan) is green.
-
-----------------------------------------------------------------------
-
-README.md updated and streamlined, 2026-06-30
-
-  - Cut from a long-form reference to a tighter overview (roughly halved).
-  - Corrected the false "0 sorries" claim: the kernel, primitives, lattice, and
-    paraconsistent cluster are sorry-free; the Millennium modules deliberately
-    carry sorry at exactly the grammar's open mathematical claims. Stated
-    honestly rather than oversold.
-  - Added the new product-of-chains lattice and Frobenius tensor to the
-    Primitives section; noted `lake build` is green.
-  - Fixed stale ~/p4rakernel paths to ~/imsgct/p4rakernel.
-  - Softened drifting exact file-count claims.
-  - Merged the three physics-cluster sections into one; condensed the Python
-    runtime to a table.
+Also established this session: the p4ramill lakefile.toml uses an EXPLICIT enumerated
+glob list, so the entire Ob3ects/*_scaffold tree, Solitary10_replacement, and
+NS_Seige_Backup are dead orphans (lake build <mod> -> "unknown target"); their
+sorries never touched green.
