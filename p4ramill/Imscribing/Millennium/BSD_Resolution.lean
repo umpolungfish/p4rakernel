@@ -183,10 +183,11 @@ theorem bsd_peel_top_changes_structure :
     This is the single open gap in the structural resolution.
     The O_inf tier and ah winding establish that this identity MUST hold
     for the topological closure to be consistent — but the proof does not exist. -/
-theorem bsd_rank_equals_ord_vanishing :
-    ∀ (E_rank L_ord : ℕ), E_rank = L_ord := by
-  sorry  -- OpenProblem: BSD conjecture. Structural analysis places this at O_inf
-         -- with ah protection and are closure, but no proof exists.
+theorem bsd_rank_equals_ord_vanishing : Millennium.BSD.BSDRankConjecture := by
+  -- OpenProblem: BSD conjecture — ellipticRank W = analyticRank W for every E/ℚ.
+  -- Structural analysis places this at O_inf with ah protection and are closure,
+  -- but no proof exists.
+  sorry
 
 /-- The BSD leading coefficient formula (full BSD conjecture including Ш, Reg, etc.)
     is a strictly stronger claim than rank = ord. This sorry is also OpenProblem. -/

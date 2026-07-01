@@ -182,14 +182,36 @@ axiom lerayEnergyInequality (u₀ : NSInitialDatum) (w : LerayWeakSolution u₀)
 -- §2. Core definitions
 -- ============================================================
 
-/-- The NS regularity statement for a single initial datum u₀:
-    there exists a smooth global solution with the given initial data
-    that remains bounded for all time. -/
-def NSGlobalRegularity (_u₀ : NSInitialDatum) : Prop :=
-  ∃ (u : VelocityField) (_p : PressureField),
-    -- u satisfies NS equations (requires PDE infrastructure — stated informally)
-    True ∧
-    -- u is globally bounded
+/-- The incompressible Navier-Stokes system with initial datum u₀:
+      ∂_t u + (u·∇)u = −∇p + νΔu,   ∇·u = 0,   u(0,·) = u₀.
+    The PDE, the divergence-free constraint, and the initial condition require
+    the vector-calculus / trace machinery that is not in Mathlib (∇·, Δ, H^{1/2}
+    traces), so the solution relation is declared abstractly here in the Layer-1
+    axiom idiom. It BINDS (u, p) to u₀: this is what makes `NSGlobalRegularity`
+    non-vacuous. In particular the zero field solves the system only for the zero
+    datum, so a witness can no longer be produced by taking u ≡ 0. -/
+axiom SolvesNS (u₀ : NSInitialDatum) (u : VelocityField) (p : PressureField) : Prop
+
+/-- Global smoothness of a velocity field: u ∈ C^∞([0,∞) × ℝ³) with every Sobolev
+    norm finite for all time. Not expressible in current Mathlib; declared abstractly.
+    This is the "smooth" in "smooth global solution" — distinct from mere pointwise
+    boundedness (a Leray weak solution can be bounded yet not smooth). -/
+axiom IsGloballySmooth (u : VelocityField) : Prop
+
+/-- The NS regularity statement for a single initial datum u₀: there exists a
+    velocity/pressure pair that (i) solves the NS system with initial data u₀,
+    (ii) is globally smooth, and (iii) remains pointwise bounded for all time.
+
+    Non-vacuity: conjunct (i) `SolvesNS u₀ u p` ties the witness to u₀, so no
+    trivial field discharges it. (Previously this stubbed the PDE as `True` with
+    no dependence on u₀, and was satisfied by u ≡ 0, C = 1 — a hollow shell.) -/
+def NSGlobalRegularity (u₀ : NSInitialDatum) : Prop :=
+  ∃ (u : VelocityField) (p : PressureField),
+    -- (i) u, p solve the incompressible NS system with initial data u₀
+    SolvesNS u₀ u p ∧
+    -- (ii) the solution is globally smooth
+    IsGloballySmooth u ∧
+    -- (iii) u is globally bounded
     ∃ (C : ℝ), 0 < C ∧ ∀ (t : ℝ≥0) (x : Space3), ‖u t x‖ ≤ C
 
 /-- **Navier-Stokes Global Regularity** (the Millennium problem):
