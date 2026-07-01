@@ -6,8 +6,14 @@
 p4rakernel is the paraconsistent computation layer of the **Imscribing Grammar (IG)**, a
 structural type theory built on 12 primitive dimensions whose Frobenius condition (μ∘δ=id)
 is the founding axiom. The unifying semantic model is **Belnap FOUR** (`N`, `T`, `F`, `B`),
-a four-valued bilattice that turns up as the shared substrate of RNA nucleotides, electron
-orbitals, the 12-primitive IG lattice, and the paraconsistent proof theory at once.
+a four-valued bilattice whose dialetheic fixed point `B` (`¬B = B`) is the Frobenius fixed
+point of μ∘δ=id. By `frobenius_unification` in `MajoranaFixed.lean`, that fixed point is at
+once the **SIC-POVM fiducial** of the informationally-complete measurement (`meet B x = x`),
+the paired electron orbital, and the Majorana mode — the *same* computation in three
+notations, each by `rfl`. The IG's central claim is exactly this: the Grammar is the
+Σ=1:1 (self-measuring) limit of a Belnap multilattice **SIC-POVM**. Belnap FOUR is thus the
+shared substrate of RNA nucleotides, electron orbitals, the 12-primitive IG lattice, the
+SIC-POVM structure of measurement, and the paraconsistent proof theory at once.
 
 The repo is a monorepo with three interlocking components:
 
