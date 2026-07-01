@@ -404,6 +404,18 @@ fork is what lets one and the same environment prove the structural SIC-POVM and
 tolerate the fixed point that SIC-POVM is built upon, without triviality. The
 structural results occupy the explosion-free fragment common to both kernels.
 
+That the classical kernel is the constrained one, and not the other way round,
+admits a precise categorical form, itself machine-checked
+(\texttt{ClassicalRestriction.lean}). Take Belnap FOUR in its truth order and
+its classical fragment $\{v : v \neq \mathbf{B}\}$. The inclusion of the fragment
+is left adjoint to the map $\mathrm{classicalSwitch}$ that collapses
+$\mathbf{B} \mapsto \mathbf{F}$, so the classical fragment is a \emph{coreflective}
+subcategory of the bilattice, with that collapse as the coreflector and the
+identity $\mathrm{classicalSwitch}\circ\text{incl} = \mathrm{id}$ as the unit. The
+reverse adjunction fails, and in the information order no adjunction exists at all.
+Disabling ex falso is therefore literally a passage to this subcategory, a
+corestriction of the paraconsistent ambient, not an extension of it.
+
 %──────────────────────────────────────────────────────────────────────────────
 \section{What is proved and what is not}
 %──────────────────────────────────────────────────────────────────────────────
