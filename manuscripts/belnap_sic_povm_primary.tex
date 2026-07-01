@@ -469,8 +469,9 @@ The \Lean{} development (modules \texttt{SIC\_Multilattice\_Proof},
 \Cref{sec:kernel} (built via \texttt{make}, then \texttt{lake build} against the
 resulting binary). \Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner}
 reside in modules carrying zero axioms and zero \texttt{sorry}s, and use only
-explosion-free tactics, so they check identically under the forked and the
-unmodified kernel.
+explosion-free tactics. We have checked the SIC modules directly under both
+kernels: they type-check unchanged under the forked binary
+(\texttt{build/stage1/bin}) and under stock Lean 4.
 
 %──────────────────────────────────────────────────────────────────────────────
 \section*{Acknowledgements}
