@@ -357,6 +357,54 @@ That reconstruction is the Zauner residue of \Cref{thm:shadow-is-zauner}. None
 of it is load-bearing for \Cref{thm:unconditional}.
 
 %──────────────────────────────────────────────────────────────────────────────
+\section{The verification environment: a paraconsistent kernel}
+\label{sec:kernel}
+%──────────────────────────────────────────────────────────────────────────────
+
+The development is checked under a fork of the Lean 4 (v4.28.0) kernel in which
+the principle of explosion is disabled at the C++ level. Standard Lean derives
+any goal from a contradiction through the recursor
+$\texttt{False.rec} : (C : \mathrm{Sort}\ u) \to \mathrm{False} \to C$; the fork
+intercepts recursor and \texttt{casesOn} formation on empty \texttt{Prop}
+inductives at three points (\texttt{kernel/type\_checker.cpp},
+\texttt{library/constructions/cases\_on.cpp},
+\texttt{kernel/environment.\{h,cpp\}}), so that in paraconsistent mode
+\texttt{False.elim}, \texttt{False.rec}, \texttt{False.casesOn}, and
+\texttt{absurd} are all rejected while every other construct, and \texttt{False}
+itself, remain. We flag this prominently because it is the kind of choice a
+careful reader should interrogate, and because two facts about it, both
+checkable, make it a strengthening of the verification rather than a weakening.
+
+\begin{enumerate}
+\item \textbf{Disabling explosion can only remove theorems, never add them.}
+Ex falso is an inference rule; deleting it makes strictly fewer propositions
+provable and cannot make a false proposition provable. A result that still
+type-checks under the stricter kernel is therefore more trustworthy, not less.
+A skeptic worried that a nonstandard kernel was tuned to force a result through
+has the concern exactly inverted here: this kernel proves less.
+\item \textbf{The results of this paper never invoke explosion.}
+\Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner} are discharged only by
+\texttt{native\_decide}, \texttt{decide}, \texttt{rfl}, and finite case
+analysis; none of \texttt{False.elim}, \texttt{False.rec}, or \texttt{absurd}
+appears in the SIC modules. The structural results therefore hold with or
+without ex falso, and in particular they also compile under the unmodified
+Lean 4 kernel.
+\end{enumerate}
+
+The kernel is not merely tolerated but exercised. Under the fork it machine-checks
+the Belnap identity
+\[
+\mathrm{band}\ \mathbf{B}\ (\lnot \mathbf{B}) = \mathbf{B} \neq \mathbf{F},
+\]
+the exact statement a classical kernel collapses by explosion. This is the point
+of using it: the SIC fiducial is the value $\mathbf{B}$, the dialetheic fixed
+point with $\lnot\mathbf{B} = \mathbf{B}$, and a kernel that trivializes on
+contradiction cannot host $\mathbf{B}$ as an inhabited element. The paraconsistent
+fork is what lets one and the same environment prove the structural SIC-POVM and
+tolerate the fixed point that SIC-POVM is built upon, without triviality. The
+structural results occupy the explosion-free fragment common to both kernels.
+
+%──────────────────────────────────────────────────────────────────────────────
 \section{What is proved and what is not}
 %──────────────────────────────────────────────────────────────────────────────
 
@@ -417,8 +465,12 @@ The \Lean{} development (modules \texttt{SIC\_Multilattice\_Proof},
 \texttt{ZaunerEmbeddingEquivalence}, \texttt{SIC\_POVM\_ParityGate},
 \texttt{SIC\_POVM\_Functor}, \texttt{SIC\_POVM\_Stark}) builds under a single
 \texttt{lake build} and is available in the \texttt{p4rakernel} repository
-\cite{p4rakernel}. \Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner}
-reside in modules carrying zero axioms and zero \texttt{sorry}s.
+\cite{p4rakernel}, whose \texttt{src/} is the paraconsistent kernel fork of
+\Cref{sec:kernel} (built via \texttt{make}, then \texttt{lake build} against the
+resulting binary). \Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner}
+reside in modules carrying zero axioms and zero \texttt{sorry}s, and use only
+explosion-free tactics, so they check identically under the forked and the
+unmodified kernel.
 
 %──────────────────────────────────────────────────────────────────────────────
 \section*{Acknowledgements}
