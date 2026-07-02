@@ -22,4 +22,13 @@ def birchSwinnertonDyer : Imscription := { dim := .if', top := .mime, rel := .ia
 /-- Catalog `hodge_conjecture`, procedurally sourced. -/
 def hodgeConjecture : Imscription := { dim := .if', top := .are, rel := .ear, pol := .yew, fid := .age, kin := .egg, gran := .ice, gram := .vow, crit := .roar, chir := .fee, stoi := .up, prot := .ah }
 
+/-- Catalog `riemann_hypothesis`, procedurally sourced. -/
+def riemannHypothesis : Imscription := { dim := .dead, top := .mime, rel := .ian, pol := .out, fid := .age, kin := .egg, gran := .ice, gram := .vow, crit := .roar, chir := .sure, stoi := .up, prot := .oak }
+
+/-- Catalog `navier_stokes`, procedurally sourced. -/
+def navierStokes : Imscription := { dim := .array, top := .judge, rel := .ear, pol := .church, fid := .age, kin := .loll, gran := .ice, gram := .vow, crit := .monad, chir := .kick, stoi := .up, prot := .awe }
+
+/-- Catalog `p_vs_np`, procedurally sourced. -/
+def pVsNP : Imscription := { dim := .dead, top := .judge, rel := .ado, pol := .church, fid := .age, kin := .on, gran := .ice, gram := .vow, crit := .monad, chir := .fee, stoi := .hung, prot := .awe }
+
 end Imscribing.Millennium.ClayCanonicalTuples
