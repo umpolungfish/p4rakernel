@@ -1,3 +1,27 @@
+SIC_POVM_DualLinkClosure: capstone for the ob3ect dual-link route — 2026-07-02
+
+New in-build module Imscribing/Millennium/SIC_POVM_DualLinkClosure.lean (added to
+the lakefile glob), realizing the ob3ect-pipeline route auto-designed from the
+start→end charter "conditional empirical-shadow SIC in ℂ^d against open
+Stark–Zauner → unconditional axiom-free SIC via the Grammar's Dual-Link
+self-application through the Belnap multilattice".
+
+- Ports the route as an IGProtocol term (VINIT→…→TANCH, FSPLIT/FFUSE pair (1,6))
+  with the Dual-Link self-pairing .prod arms; verifies Frobenius μ∘δ=id
+  (dl_frobenius) and records the tier (dl_tier).
+- Binds the route's register-01 verdict to real content: sic_dual_link_unconditional
+  and sic_no_condition re-export the orbit-card (4ⁿ=d²) and join-equiangularity
+  from sic_povm_belnap_unconditional; sic_dual_link_O_inf gives the O_∞ seal.
+- Honest scope (in the docstring): does NOT prove classical Zauner/Stark and does
+  NOT build a ℂ^d fiducial. The existence results take no Stark hypothesis — the
+  shadow is carried as a paraconsistent B-state (register 10/11), not assumed.
+
+Verified: lake build green (8052 jobs); file has 0 axiom decls / 0 sorries;
+#print axioms on all four capstone theorems shows only [propext, Classical.choice,
+Quot.sound] — no project axiom, no Stark furniture, no hypothesis.
+
+---
+
 Sorry audit (uniform, no MPP privileged): fix false/vacuous statements, prove one
 
 Treated every in-build sorry on its own merits rather than granting MPP files a
