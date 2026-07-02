@@ -323,4 +323,6 @@ globs = [
   "Imscribing.Ob3ects.the_structurally_closed_hodge_conjecture_clay_ty_scaffold",
   "Imscribing.Ob3ects.the_d_12_sic_fiducial_known_only_as_a_complex128_scaffold",
 
+  "Imscribing.Millennium.Clay_WitnessedClosure",
+
 ]
