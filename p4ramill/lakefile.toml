@@ -69,6 +69,7 @@ globs = [
   "Imscribing.Millennium.SIC_POVM_Functor",
   "Imscribing.Millennium.SIC_POVM_ParityGate",
   "Imscribing.Millennium.ZaunerEmbeddingEquivalence",
+  "Imscribing.Millennium.SIC_POVM_DualLinkClosure",
   "Imscribing.Millennium.CMPLX_IMGN",
   "Imscribing.Millennium.Suffering",
   "Imscribing.PrimitiveMismatch",
