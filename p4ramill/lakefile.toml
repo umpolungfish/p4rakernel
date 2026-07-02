@@ -306,4 +306,13 @@ globs = [
   "Imscribing.Ob3ects.categorical_join_scaffold",
   "Imscribing.Ob3ects.sic_povm_functor_scaffold",
 
+  "Imscribing.Ob3ects.the_axiomatized_existence_of_a_d_12_weyl_heisenb_scaffold",
+  "Imscribing.Ob3ects.the_yang_mills_mass_gap_closing_under_u10_with_g_scaffold",
+  "Imscribing.Ob3ects.the_vacuously_satisfied_navier_stokes_criticalit_scaffold",
+  "Imscribing.Ob3ects.the_unclosed_riemann_hypothesis_gate_universe_la_scaffold",
+  "Imscribing.Ob3ects.the_unclosed_p_versus_np_separation_lacking_a_st_scaffold",
+  "Imscribing.Ob3ects.the_voynich_manuscript_as_a_universal_engine_wit_scaffold",
+  "Imscribing.Ob3ects.the_rongorongo_corpus_at_structural_distance_d_1_scaffold",
+  "Imscribing.Ob3ects.the_bruce_codex_tensor_bottleneck_at_parity_its_scaffold",
+
 ]
