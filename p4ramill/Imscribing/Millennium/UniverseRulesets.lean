@@ -490,6 +490,19 @@ def ruleset_stoichiometry_universe : Ruleset := {
 }
 
 -- ═══════════════════════════════════════
+-- RULESET 20b: absorption_chirality_first  (ported from new_universes.py #26)
+-- ═══════════════════════════════════════
+def ruleset_absorption_chirality_first : Ruleset := {
+  name := "absorption_chirality_first"
+  description := "Chirality/memory (Ħ=sure) is absorbing under all operations. G1=Ħ≥3 G2=⊙≥2 G3=Ω≥3."
+  g1 := gateH 3       -- Ħ ≥ sure
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
+  gateOrdering := true
+  tPrims := tCanonical
+}
+
+-- ═══════════════════════════════════════
 -- RULESET 21: absorption_scope_empire  (ported from new_universes.py #27)
 -- ═══════════════════════════════════════
 def ruleset_absorption_scope_empire : Ruleset := {

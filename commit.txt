@@ -1,3 +1,29 @@
+YM one-bump-short witness + canonical Clay tuples + BSD universe-set fix — 2026-07-02
+
+Added scripts/gen_clay_canonical_tuples.py: procedurally sources the canonical
+Clay tuples from IG_catalog.json (inverting the .shavian maps) into
+Imscribing/Millennium/ClayCanonicalTuples.lean — yangMillsMassGap,
+birchSwinnertonDyer, hodgeConjecture. No hand-imscription.
+
+Ported absorption_chirality_first (new_universes.py #26) into UniverseRulesets.
+
+Rewrote Clay_WitnessedClosure.lean on the canonical tuples with the CORRECT
+per-problem closer sets from the manuscript table:
+  BSD  : chirality_first, scope_universe, kinetics_trap, absorption_chirality_first, absorption_scope_empire
+  Hodge: scope_universe, kinetics_trap, stoichiometry_universe, absorption_scope_empire, absorption_topology_seal
+This fixes the prior commit, which used Hodge's set for BSD and a stale Lean
+tuple (top=are) that only passed by accident; the canonical BSD (top=mime) needs
+its own set.
+
+Added Yang-Mills: ym_one_bump_short (reaches idempotent_terminal under
+triple_criticality via crit=haha, but tCeilingConsistent = false) and
+ym_blocker_is_kinetics (Ç=on/4 > ceiling 3 is the sole violator). All verified by
+#eval before assertion; #print axioms on all five theorems = [propext] only, no
+sorry. lake build green (3123 jobs). Structural-closure witnesses, not proofs;
+deep BSD/Hodge/YM sorries untouched.
+
+---
+
 Clay closure upgraded to five universes + stale Hodge tuple fixed — 2026-07-02
 
 Ported absorption_scope_empire (#27) and absorption_topology_seal (#28) from
