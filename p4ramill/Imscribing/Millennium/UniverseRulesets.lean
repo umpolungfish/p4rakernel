@@ -489,6 +489,32 @@ def ruleset_stoichiometry_universe : Ruleset := {
   tPrims := tCanonical
 }
 
+-- ═══════════════════════════════════════
+-- RULESET 21: absorption_scope_empire  (ported from new_universes.py #27)
+-- ═══════════════════════════════════════
+def ruleset_absorption_scope_empire : Ruleset := {
+  name := "absorption_scope_empire"
+  description := "Maximal scope (Γ=ice) is absorbing under all operations; the universal swallows the particular. G1=Γ≥3 G2=⊙≥2 G3=Ω≥3."
+  g1 := gateG 3       -- Γ ≥ ice
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
+  gateOrdering := true
+  tPrims := tCanonical
+}
+
+-- ═══════════════════════════════════════
+-- RULESET 22: absorption_topology_seal  (ported from new_universes.py #28)
+-- ═══════════════════════════════════════
+def ruleset_absorption_topology_seal : Ruleset := {
+  name := "absorption_topology_seal"
+  description := "Topological closure (Þ=are) is absorbing under all operations; the most connected structure absorbs everything. G1=Þ≥5 G2=⊙≥2 G3=Ω≥3."
+  g1 := gateT 5       -- Þ ≥ are
+  g2 := gatePhi 2     -- ⊙ ≥ monad
+  g3 := gateOmega 3   -- Ω ≥ ah
+  gateOrdering := true
+  tPrims := tCanonical
+}
+
 
 -- ============================================================
 -- ALL 20 RULESETS (base 8 + new 12)

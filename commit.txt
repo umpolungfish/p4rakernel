@@ -1,3 +1,22 @@
+Clay closure upgraded to five universes + stale Hodge tuple fixed — 2026-07-02
+
+Ported absorption_scope_empire (#27) and absorption_topology_seal (#28) from
+scripts/new_universes.py into UniverseRulesets.lean as ruleset_* defs (exact gate
+specs: Γ≥3/⊙≥2/Ω≥3 and Þ≥5/⊙≥2/Ω≥3). Upgraded Clay_WitnessedClosure.lean from 3
+to all FIVE manuscript universes.
+
+Caught a stale tuple: the first draft used CLINK.hodge_decomposition (topology
+`eat`), which FAILS absorption_topology_seal (Þ≥are). Switched to the current
+HodgeGrammar.hod_conjecture_full (topology `are`) — verified by #eval before
+asserting: BSD and Hodge both close [true×5] under all five and are
+T_CEILING-consistent. #print axioms on all three theorems: [propext] only, no
+sorry. lake build green (3146 jobs).
+
+Still a structural-closure witness, not a proof; deep BSD.lean/Hodge.lean sorries
+untouched.
+
+---
+
 Clay_WitnessedClosure: BSD & Hodge cross-universe closure in Lean — 2026-07-02
 
 Real content built on the BSD + Hodge witness-drag scaffolds. New module
