@@ -23,14 +23,14 @@ gate. Low winding ⇒ no idempotent-terminal closure.
 
 ## The ⊙-ordinal healing (2026-07-02)
 
-RH earlier appeared to close under `triple_criticality`: the canonical RH tuple has
-⊙=`𐑮` (roar), the source-of-truth table (`imscrbgrmr/canonical_primitives.py`)
-ranks `𐑮` at 2.33 — below super-critical `𐑣` (3) — but the Lean port
-`triple_criticality.g3` gated at `gatePhi 3`, admitting `roar`. Python's original
-`GateSpec("⊙", 3.0)` selects only the max value, so the order-preserving Lean
-threshold is `gatePhi 5` (`haha`/𐑣). The gate was corrected; RH now fails
-`triple_criticality` (roar 3 < 5), matching canonical ordinals and the manuscript,
-and is included here. YM still closes there (⊙=`haha`).
+RH earlier appeared to close under `triple_criticality`. Root cause: the Lean port
+had flattened Criticality to integers (`ordinalPhi roar = 3`), but the
+source-of-truth table (`imscrbgrmr/canonical_primitives.py`) ranks `𐑮` (roar) at
+`7/3` and `𐑻` (err) at `8/3` — strictly below super-critical `𐑣` (3). The fix
+made `ordinalPhi`/`ordinalK` rank-faithful (ℚ-valued: roar=7/3, err=8/3, haha=3;
+air=9/2), so `triple_criticality.g3 = gatePhi 3` now selects only `haha`, matching
+Python's `GateSpec("⊙", 3.0)` exactly. RH (⊙=roar=7/3 < 3) fails it and closes
+nowhere, matching the manuscript; YM (⊙=haha=3) still closes.
 
 ## Honest scope
 
