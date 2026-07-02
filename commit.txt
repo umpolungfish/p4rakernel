@@ -1,3 +1,21 @@
+Port 7 witness-drag ob3ect scaffolds into the build tree — 2026-07-02
+
+Batch `witness-drag` (auto.py, context = dumpdir_clay_closure) produced 7 valid
+routes aimed at clay_cross_universe_closure.md's open items; ported each into
+Imscribing/Ob3ects/<slug>_scaffold.lean and added to the glob. All valid=True,
+tier O₂. YM and RH came back richer (sig (8,4,·), frobenius_order 3, two
+FSPLIT/FFUSE pairs) — the two-stage ceiling-raise / new-gate-universe structure.
+
+Targets: YM (motivated Ç-ceiling raise), RH/NS/PNP (new non-tailored
+gate-universe), BSD + Hodge (harden their existing T_CEILING closures into
+sorry-free Lean), d=12 SIC (exact algebraic fiducial vs the float certificate).
+
+Verified: lake build green; 0 real sorries / 0 axiom decls across all 7 (the two
+"sorry" grep hits are the word inside the BSD/Hodge charter comments). Routes
+only — no underlying conjecture discharged yet.
+
+---
+
 Build d=12 forcing content on its ob3ect scaffold — 2026-07-02
 
 First content layer built ON a ported scaffold. In
