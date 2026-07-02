@@ -5,6 +5,7 @@
 -- Clay Prize problems inhabit specific universes; switching universes makes
 -- different structural barriers visible or surmountable.
 
+import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 
@@ -22,42 +23,45 @@ set_option linter.style.setOption false
 -- ============================================================
 
 -- 𝓕₄ primitives: 4 values → ordinals 1–4
-def ordinalD (d : Dimensionality) : ℕ :=
+def ordinalD (d : Dimensionality) : ℚ :=
   match d with | dead => 1 | ash => 2 | array => 3 | if' => 4
 
-def ordinalR (r : Relational) : ℕ :=
+def ordinalR (r : Relational) : ℚ :=
   match r with | ado => 1 | tot => 2 | ear => 3 | ian => 4
 
-def ordinalG (g : Grammar) : ℕ :=
+def ordinalG (g : Grammar) : ℚ :=
   match g with | vow => 1 | gag => 2 | Grammar.measure => 3 | ooze => 4
 
-def ordinalH (h : Chirality) : ℕ :=
+def ordinalH (h : Chirality) : ℚ :=
   match h with | fee => 1 | kick => 2 | sure => 3 | wool => 4
 
-def ordinalOmega (o : Protection) : ℕ :=
+def ordinalOmega (o : Protection) : ℚ :=
   match o with | awe => 1 | oak => 2 | ah => 3 | zoo => 4
 
 -- 𝓕₅ primitives: 5 values → ordinals 1–5
-def ordinalT (t : Topology) : ℕ :=
+def ordinalT (t : Topology) : ℚ :=
   match t with | judge => 1 | eat => 2 | mime => 3 | oil => 4 | are => 5
 
-def ordinalP (p : Polarity) : ℕ :=
+def ordinalP (p : Polarity) : ℚ :=
   match p with | church => 1 | yew => 2 | out => 3 | nun => 4 | or' => 5
 
-def ordinalPhi (phi : Criticality) : ℕ :=
-  match phi with | woe => 1 | monad => 2 | roar => 3 | err => 4 | haha => 5
+def ordinalPhi (phi : Criticality) : ℚ :=
+  -- Faithful to canonical_primitives.py: 𐑮/𐑻 are transitional ranks 7/3, 8/3
+  -- (≈2.33, 2.67), strictly between ⊙(2) and super-critical 𐑣(3).
+  match phi with | woe => 1 | monad => 2 | roar => 7/3 | err => 8/3 | haha => 3
 
-def ordinalK (k : KineticChar) : ℕ :=
-  match k with | yea => 1 | loll => 2 | egg => 3 | on => 4 | air => 5
+def ordinalK (k : KineticChar) : ℚ :=
+  -- Faithful to canonical_primitives.py: 𐑺 (air) is rank 9/2 (4.5), not 5.
+  match k with | yea => 1 | loll => 2 | egg => 3 | on => 4 | air => 9/2
 
 -- 𝓕₃ primitives: 3 values → ordinals 1–3
-def ordinalF (f : Fidelity) : ℕ :=
+def ordinalF (f : Fidelity) : ℚ :=
   match f with | age => 1 | they => 2 | peep => 3
 
-def ordinalGran (gr : Granularity) : ℕ :=
+def ordinalGran (gr : Granularity) : ℚ :=
   match gr with | bib => 1 | thigh => 2 | ice => 3
 
-def ordinalS (s : Stoichiometry) : ℕ :=
+def ordinalS (s : Stoichiometry) : ℚ :=
   match s with | hung => 1 | so => 2 | up => 3
 
 -- ============================================================
@@ -82,9 +86,9 @@ inductive OperadLayer : Type where
     and what the minimum ordinal threshold is. -/
 structure GateSpec where
   /-- Extract the ordinal from the Imscription. -/
-  getOrd : Imscription → ℕ
+  getOrd : Imscription → ℚ
   /-- Minimum ordinal required for the gate to open. -/
-  minOrd : ℕ
+  minOrd : ℚ
   /-- Description of this gate for display. -/
   desc  : String
 
@@ -101,8 +105,8 @@ def GateSpec.open (gs : GateSpec) (s : Imscription) : Bool :=
 -- ============================================================
 
 structure TPrimSpec where
-  getOrd : Imscription → ℕ
-  critOrd : ℕ
+  getOrd : Imscription → ℚ
+  critOrd : ℚ
   isCeiling : Bool
 
 /-- Check whether an imscription is T-consistent under given T-constitution. -/
@@ -162,27 +166,27 @@ def Ruleset.crystalOInfFraction (r : Ruleset) : Float :=
 -- Gate specs target specific primitive ordinals.
 -- ============================================================
 
-def mkGate (primName : String) (getOrd : Imscription → ℕ) (minOrd : ℕ) : GateSpec :=
+def mkGate (primName : String) (getOrd : Imscription → ℚ) (minOrd : ℚ) : GateSpec :=
   { getOrd := getOrd, minOrd := minOrd, desc := primName ++ "≥ord" ++ toString minOrd }
 
-def gateD (minOrd : ℕ) : GateSpec := mkGate "Ð" (fun s => ordinalD s.dim) minOrd
-def gateT (minOrd : ℕ) : GateSpec := mkGate "Þ" (fun s => ordinalT s.top) minOrd
-def gateR (minOrd : ℕ) : GateSpec := mkGate "Ř" (fun s => ordinalR s.rel) minOrd
-def gateP (minOrd : ℕ) : GateSpec := mkGate "Φ" (fun s => ordinalP s.pol) minOrd
-def gateF (minOrd : ℕ) : GateSpec := mkGate "ƒ" (fun s => ordinalF s.fid) minOrd
-def gateK (minOrd : ℕ) : GateSpec := mkGate "Ç" (fun s => ordinalK s.kin) minOrd
-def gateG (minOrd : ℕ) : GateSpec := mkGate "Γ" (fun s => ordinalGran s.gran) minOrd
-def gateGamma (minOrd : ℕ) : GateSpec := mkGate "ɢ" (fun s => ordinalG s.gram) minOrd
-def gatePhi (minOrd : ℕ) : GateSpec := mkGate "⊙" (fun s => ordinalPhi s.crit) minOrd
-def gateH (minOrd : ℕ) : GateSpec := mkGate "Ħ" (fun s => ordinalH s.chir) minOrd
-def gateS (minOrd : ℕ) : GateSpec := mkGate "Σ" (fun s => ordinalS s.stoi) minOrd
-def gateOmega (minOrd : ℕ) : GateSpec := mkGate "Ω" (fun s => ordinalOmega s.prot) minOrd
+def gateD (minOrd : ℚ) : GateSpec := mkGate "Ð" (fun s => ordinalD s.dim) minOrd
+def gateT (minOrd : ℚ) : GateSpec := mkGate "Þ" (fun s => ordinalT s.top) minOrd
+def gateR (minOrd : ℚ) : GateSpec := mkGate "Ř" (fun s => ordinalR s.rel) minOrd
+def gateP (minOrd : ℚ) : GateSpec := mkGate "Φ" (fun s => ordinalP s.pol) minOrd
+def gateF (minOrd : ℚ) : GateSpec := mkGate "ƒ" (fun s => ordinalF s.fid) minOrd
+def gateK (minOrd : ℚ) : GateSpec := mkGate "Ç" (fun s => ordinalK s.kin) minOrd
+def gateG (minOrd : ℚ) : GateSpec := mkGate "Γ" (fun s => ordinalGran s.gran) minOrd
+def gateGamma (minOrd : ℚ) : GateSpec := mkGate "ɢ" (fun s => ordinalG s.gram) minOrd
+def gatePhi (minOrd : ℚ) : GateSpec := mkGate "⊙" (fun s => ordinalPhi s.crit) minOrd
+def gateH (minOrd : ℚ) : GateSpec := mkGate "Ħ" (fun s => ordinalH s.chir) minOrd
+def gateS (minOrd : ℚ) : GateSpec := mkGate "Σ" (fun s => ordinalS s.stoi) minOrd
+def gateOmega (minOrd : ℚ) : GateSpec := mkGate "Ω" (fun s => ordinalOmega s.prot) minOrd
 
 -- T-primitive spec constructors
-def tPrimEq (getOrd : Imscription → ℕ) (critOrd : ℕ) : TPrimSpec :=
+def tPrimEq (getOrd : Imscription → ℚ) (critOrd : ℚ) : TPrimSpec :=
   { getOrd := getOrd, critOrd := critOrd, isCeiling := false }
 
-def tPrimLe (getOrd : Imscription → ℕ) (critOrd : ℕ) : TPrimSpec :=
+def tPrimLe (getOrd : Imscription → ℚ) (critOrd : ℚ) : TPrimSpec :=
   { getOrd := getOrd, critOrd := critOrd, isCeiling := true }
 
 -- ============================================================
@@ -296,7 +300,7 @@ def ruleset_high_gate : Ruleset := {
   name := "high_gate"
   description := "Strictest thresholds: P=or', ⊙≥roar, Ω=zoo."
   g1 := gateP 5       -- P = or'
-  g2 := gatePhi 3     -- ⊙ ≥ roar (ord 3)
+  g2 := gatePhi (7/3)  -- ⊙ ≥ roar (𐑮 = 7/3)
   g3 := gateOmega 4   -- Ω = zoo (ord 4, max)
   gateOrdering := true
   tPrims := tCanonical
@@ -406,9 +410,8 @@ def ruleset_triple_criticality : Ruleset := {
   description := "Criticality is everything. All three gates are ⊙ at escalating ordinals."
   g1 := gatePhi 1     -- ⊙ ≥ woe (any criticality)
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gatePhi 5     -- ⊙ ≥ haha (super-critical MAX, 𐑣): Python GateSpec("⊙",3.0) selects
-                      -- only the top ⊙ value; canonical ranks 𐑮=2.33, 𐑻=2.67 sit BELOW it,
-                      -- so the order-preserving Lean threshold is the max (5), not roar (3).
+  g3 := gatePhi 3     -- ⊙ ≥ super-critical (𐑣 = 3): with faithful ⊙ ranks this matches
+                      -- Python GateSpec("⊙",3.0) exactly — roar (7/3) and err (8/3) sit below.
   gateOrdering := true
   tPrims := tCanonical
 }

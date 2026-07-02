@@ -75,7 +75,7 @@ theorem frobenius_unification_imported :
 /-- Ordinal values of each primitive in the Frobenius fixed-point tuple.
     Used for gate analysis: the tuple's ordinal for each primitive determines
     which rulesets' gates it passes. -/
-def frobeniusOrdinals : Imscription → List ℕ := fun s =>
+def frobeniusOrdinals : Imscription → List ℚ := fun s =>
   [ ordinalD s.dim, ordinalT s.top, ordinalR s.rel, ordinalP s.pol,
     ordinalF s.fid, ordinalK s.kin, ordinalGran s.gran, ordinalG s.gram,
     ordinalPhi s.crit, ordinalH s.chir, ordinalS s.stoi, ordinalOmega s.prot ]
@@ -116,9 +116,9 @@ theorem passes_all_canonical_gates :
 --    the maximum ordinal. These cause failures in rulesets that gate
 --    primitives above the tuple's values. ──
 
-/-- The fixed point FAILS Ç≥5 (air): kin = egg (ord 3) < 5.
+/-- The fixed point FAILS Ç≥air (𐑺 = 9/2): kin = egg (ord 3) < 9/2.
     The fixed point operates near equilibrium, not at the MBL fixed point. -/
-theorem fails_gateK5 : GateSpec.open (gateK 5) frobeniusFixedTuple = false := by
+theorem fails_gateK_air : GateSpec.open (gateK (9/2)) frobeniusFixedTuple = false := by
   unfold gateK mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
@@ -407,7 +407,7 @@ theorem frobenius_minimality :
 
 /-- Ordinal distance between two imscriptions: sum of absolute differences
     across all 12 primitives (using Nat subtraction with max/min). -/
-def ordinalDistance (a b : Imscription) : ℕ :=
+def ordinalDistance (a b : Imscription) : ℚ :=
   (max (ordinalD a.dim) (ordinalD b.dim) - min (ordinalD a.dim) (ordinalD b.dim)) +
   (max (ordinalT a.top) (ordinalT b.top) - min (ordinalT a.top) (ordinalT b.top)) +
   (max (ordinalR a.rel) (ordinalR b.rel) - min (ordinalR a.rel) (ordinalR b.rel)) +
@@ -426,7 +426,7 @@ def ordinalDistance (a b : Imscription) : ℕ :=
 theorem fixed_point_is_unique :
     ordinalDistance frobeniusFixedTuple frobeniusFixedTuple = 0 := by
   unfold ordinalDistance
-  simp
+  native_decide
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §10  UNIVERSE-INVARIANCE — The fixed point exists in all universes

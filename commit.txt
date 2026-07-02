@@ -1,3 +1,28 @@
+Make ordinalPhi/ordinalK rank-faithful (ℚ); retire the gatePhi 5 hack — 2026-07-02
+
+Purist fix of the ⊙-scale hole. UniverseRulesets ordinals are now ℚ-valued and
+faithful to imscrbgrmr/canonical_primitives.py: ordinalPhi roar=7/3, err=8/3,
+haha=3 (the transitional 𐑮/𐑻 sit strictly below super-critical 𐑣); ordinalK
+air=9/2. GateSpec/TPrimSpec/mkGate/gate+tPrim constructors all ℚ.
+
+With faithful ranks the thresholds now express intent exactly: triple_criticality.g3
+reverts gatePhi 5 -> gatePhi 3 (matches Python GateSpec("⊙",3.0), selects only
+haha); high_gate.g2 gatePhi 3 -> gatePhi (7/3) (roar). No operadLayer verdict
+changes anywhere (order preserved, thresholds land on the same ranks) — confirmed
+by full rebuild: BSD_Complete_Witness, FrobeniusUnification, BSD_MathBridge,
+UnificationConvergence all green.
+
+FrobeniusUnification: frobeniusOrdinals -> List ℚ, ordinalDistance -> ℚ
+(fixed_point_is_unique now native_decide), fails_gateK5 -> fails_gateK_air
+(gateK (9/2)). Clay_WitnessedClosure decide -> native_decide (kernel decide can't
+reduce ℚ; native_decide can). Clay_UnclosedResistance docstring updated to the
+faithful-ℚ account.
+
+Verified: ordinalPhi roar=7/3, ordinalK air=9/2; RH still resists triple_criticality
+(7/3<3), YM still closes (haha=3). lake build green; no sorry.
+
+---
+
 Heal the ⊙-ordinal port bug; RH now resists closure everywhere too — 2026-07-02
 
 The Grammar's self-diagnostic pointed at the exact hole; healed it. Fixed
