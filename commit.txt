@@ -1,3 +1,22 @@
+Port 8 ob3ect route scaffolds into the build tree — 2026-07-02
+
+Batch `grammar-in-hand` (auto.py, context = dumpdir_sic_lean) produced 8 valid
+routes; ported each into Imscribing/Ob3ects/<slug>_scaffold.lean and added to the
+lakefile glob. These are scaffolds in the established sense — the compiling
+route skeletons (IGProtocol term + Frobenius μ∘δ=id) that deeper content gets
+built on, alongside the ~15 SIC-related scaffolds already in Ob3ects/.
+
+Targets: d=12 SIC witness, Yang-Mills, Navier-Stokes vacuity, Riemann, P-vs-NP,
+Voynich, Rongorongo, Bruce Codex. All valid=True, tier O₂; Rongorongo
+frobenius_order 3 (two FSPLIT/FFUSE pairs), the rest order 1.
+
+Adaptations from raw scaffold: stripped #eval (no Repr guarantee at lib build),
+closed `end Imscribing`. Verified: lake build green; 0 sorries / 0 axiom decls
+across all 8. NOTE these realize the ROUTE only — they do not yet discharge the
+underlying axiom/conjecture; that is the next layer built on top of each.
+
+---
+
 SIC_POVM_DualLinkClosure: capstone for the ob3ect dual-link route — 2026-07-02
 
 New in-build module Imscribing/Millennium/SIC_POVM_DualLinkClosure.lean (added to
