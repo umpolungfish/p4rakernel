@@ -1,3 +1,26 @@
+Clay_UnclosedResistance: NS & PNP close nowhere; RH ⊙-scale bug found — 2026-07-02
+
+Furnace batch (RH/NS/PNP new-universe + YM ceiling + d=12 routes). Built the honest
+negative: Clay_UnclosedResistance.lean proves navierStokes and pVsNP reach
+idempotent_terminal under NONE of the 23 Lean universes (allRulesets + 3 absorption),
+by native_decide — the machine-checked form of the manuscript's "fail at the gate
+layer under all 29." Shared blocker proved: both carry Ω < 3 (winding below the
+terminal anchor). #print axioms = [propext, Lean.ofReduceBool], no sorry. lake green.
+
+RH deliberately EXCLUDED — real finding: canonical_primitives.py ranks ⊙ with
+non-integer transitionals (𐑮=2.33, 𐑻=2.67, 𐑣=3), but the Lean port ordinalPhi
+flattens to integers (roar=3) and triple_criticality.g3 = gatePhi 3, so RH (⊙=𐑮)
+spuriously closes triple_criticality in Lean while failing under canonical ordinals
+(matching the manuscript). This is a Lean-port ⊙-scale discrepancy, not a closure;
+documented in-file. FIX TODO: reconcile ordinalPhi/gatePhi thresholds with the
+canonical ⊙ ranks (blast radius: BSD_Complete_Witness, FrobeniusUnification also
+reference triple_criticality). NS/PNP unaffected (they fail on Ω, not ⊙).
+
+Verify-first discipline throughout: computed profiles and closures via #eval before
+asserting; caught that catalog BSD≠Lean BSD and RH's spurious closure.
+
+---
+
 YM one-bump-short witness + canonical Clay tuples + BSD universe-set fix — 2026-07-02
 
 Added scripts/gen_clay_canonical_tuples.py: procedurally sources the canonical
