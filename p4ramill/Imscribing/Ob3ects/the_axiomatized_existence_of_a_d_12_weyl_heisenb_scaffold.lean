@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.Millennium.SIC_POVM_Functor
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -105,5 +106,22 @@ def the_axiomatized_existence_of_a_d_12_8322c8_tier : OuroboricityTier := TierFu
 theorem the_axiomatized_existence_of_a_d_12_8322c8_frobenius :
     igFrobeniusAlg.mul the_axiomatized_existence_of_a_d_12_8322c8_s0 the_axiomatized_existence_of_a_d_12_8322c8_s0 = the_axiomatized_existence_of_a_d_12_8322c8_s0 :=
   igFrobAlg_self_fusion the_axiomatized_existence_of_a_d_12_8322c8_s0
+
+-- ── Content built ON this scaffold ────────────────────────────────────────
+-- The charter has two halves. Register-01 (the STRUCTURAL forcing) is provable
+-- and axiom-free: the Crystal of Types forces the SIC dimension d=12 from two
+-- independent lattices (primitive-count sum 3+5+4 and value-count product 3×4).
+-- That is discharged here by `rfl`, resting only on Lean's standard foundation.
+theorem the_axiomatized_existence_of_a_d_12_8322c8_d12_forced :
+    Imscribing.Millennium.SIC_POVM_Functor.d_lattice1 = 12 ∧
+    Imscribing.Millennium.SIC_POVM_Functor.d_lattice2 = 12 :=
+  ⟨rfl, rfl⟩
+
+-- The ANALYTIC half — an exact ℂ¹² fiducial with machine-checked equiangularity,
+-- which would discharge `crystal_forces_d12_sic` from axiom to theorem — is NOT
+-- built here and is NOT claimed. The known witness (frame potential 143/169, all
+-- 143 WH overlaps 1/13; ig-pulse/data/sic_fiducial_d12.npy) is a complex128
+-- FLOAT certificate; porting it to exact arithmetic over the Zauner number field
+-- is the open obligation (see the witness-drag batch, d=12 charter).
 
 end Imscribing
