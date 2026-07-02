@@ -66,7 +66,7 @@ theorem bsd_witnessed_closure :
     ruleset_kinetics_trap.operadLayer bsd = .idempotent_terminal ∧
     ruleset_absorption_chirality_first.operadLayer bsd = .idempotent_terminal ∧
     ruleset_absorption_scope_empire.operadLayer bsd = .idempotent_terminal ∧
-    tCeilingConsistent bsd = true := by decide
+    tCeilingConsistent bsd = true := by native_decide
 
 -- ── Hodge: full five-universe gate+T witnessed closure ────────
 
@@ -76,7 +76,7 @@ theorem hodge_witnessed_closure :
     ruleset_stoichiometry_universe.operadLayer hodge = .idempotent_terminal ∧
     ruleset_absorption_scope_empire.operadLayer hodge = .idempotent_terminal ∧
     ruleset_absorption_topology_seal.operadLayer hodge = .idempotent_terminal ∧
-    tCeilingConsistent hodge = true := by decide
+    tCeilingConsistent hodge = true := by native_decide
 
 -- ── Yang–Mills: one bump short (gate-layer closed, T_CEILING-blocked) ──
 
@@ -86,20 +86,20 @@ theorem hodge_witnessed_closure :
     manuscript's "one bump short" verdict, stated honestly as the negation. -/
 theorem ym_one_bump_short :
     ruleset_triple_criticality.operadLayer ym = .idempotent_terminal ∧
-    tCeilingConsistent ym = false := by decide
+    tCeilingConsistent ym = false := by native_decide
 
 /-- Precise blocker: it is exactly the Ç (kinetics) ceiling that YM violates —
     every other T_CEILING primitive is satisfied. -/
 theorem ym_blocker_is_kinetics :
     (ordinalK ym.kin ≤ 3) = False ∧
     ordinalP ym.pol ≤ 5 ∧ ordinalF ym.fid ≤ 3 ∧
-    ordinalH ym.chir ≤ 4 ∧ ordinalOmega ym.prot ≤ 3 := by decide
+    ordinalH ym.chir ≤ 4 ∧ ordinalOmega ym.prot ≤ 3 := by native_decide
 
 /-- The paired closed result plus the YM contrast. -/
 theorem clay_status :
     (tCeilingConsistent bsd = true) ∧
     (tCeilingConsistent hodge = true) ∧
     (ruleset_triple_criticality.operadLayer ym = .idempotent_terminal ∧
-     tCeilingConsistent ym = false) := by decide
+     tCeilingConsistent ym = false) := by native_decide
 
 end Imscribing.Millennium.ClayWitnessedClosure
