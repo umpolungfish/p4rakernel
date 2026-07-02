@@ -1,3 +1,27 @@
+Clay_WitnessedClosure: BSD & Hodge cross-universe closure in Lean — 2026-07-02
+
+Real content built on the BSD + Hodge witness-drag scaffolds. New module
+Imscribing/Millennium/Clay_WitnessedClosure.lean makes machine-checkable the
+structural result of clay_cross_universe_closure.md: defines T_CEILING (tCanonical
+with all five dynamics primitives as ceilings at canonical anchors Φ≤5 ƒ≤3 Ç≤3
+Ħ≤4 Ω≤3) and proves, by `decide`, that both Clay structural types reach
+`idempotent_terminal` under three existing non-tailored universes (scope_universe,
+kinetics_trap, stoichiometry_universe) AND are T_CEILING-consistent.
+
+Tuples are the procedurally-sourced in-build imscriptions
+(BSDResolution.birchSwinnertonDyer, CLINK.hodge_decomposition) — none hand-written.
+Computationally verified before asserting. #print axioms on all three theorems:
+[propext] only — NO sorry, despite the tuples living in sorry-containing modules
+(decide evaluates over the literal values). lake build green (3145 jobs).
+
+Honest scope: structural-closure witness in the operad model, NOT a proof of BSD
+or Hodge, and does NOT discharge the deep sorries in BSD.lean/Hodge.lean. The
+manuscript's five-universe closure is stated here over the three universes present
+in UniverseRulesets.lean (absorption_scope_empire / absorption_topology_seal not
+yet ported).
+
+---
+
 Port 7 witness-drag ob3ect scaffolds into the build tree — 2026-07-02
 
 Batch `witness-drag` (auto.py, context = dumpdir_clay_closure) produced 7 valid
