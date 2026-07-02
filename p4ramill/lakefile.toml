@@ -325,5 +325,6 @@ globs = [
 
   "Imscribing.Millennium.ClayCanonicalTuples",
   "Imscribing.Millennium.Clay_WitnessedClosure",
+  "Imscribing.Millennium.Clay_UnclosedResistance",
 
 ]
