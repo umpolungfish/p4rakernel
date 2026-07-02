@@ -406,7 +406,9 @@ def ruleset_triple_criticality : Ruleset := {
   description := "Criticality is everything. All three gates are ⊙ at escalating ordinals."
   g1 := gatePhi 1     -- ⊙ ≥ woe (any criticality)
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gatePhi 3     -- ⊙ ≥ roar (ord 3)
+  g3 := gatePhi 5     -- ⊙ ≥ haha (super-critical MAX, 𐑣): Python GateSpec("⊙",3.0) selects
+                      -- only the top ⊙ value; canonical ranks 𐑮=2.33, 𐑻=2.67 sit BELOW it,
+                      -- so the order-preserving Lean threshold is the max (5), not roar (3).
   gateOrdering := true
   tPrims := tCanonical
 }

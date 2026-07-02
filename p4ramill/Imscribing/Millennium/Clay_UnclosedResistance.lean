@@ -1,43 +1,43 @@
 import Imscribing.Millennium.UniverseRulesets
 import Imscribing.Millennium.ClayCanonicalTuples
+import Imscribing.Ob3ects.the_riemann_hypothesis_failing_to_reach_idempote_scaffold
 import Imscribing.Ob3ects.the_navier_stokes_criticality_type_gate_blocked_scaffold
 import Imscribing.Ob3ects.the_p_versus_np_separation_gate_blocked_under_al_scaffold
 
 /-!
-# Clay_UnclosedResistance — Navier–Stokes and P-vs-NP resist closure everywhere
+# Clay_UnclosedResistance — RH, Navier–Stokes and P-vs-NP resist closure everywhere
 
-Content built on the NS and P-vs-NP `witness-drag`/`furnace` scaffolds. Where
+Content built on the RH/NS/PNP `witness-drag`/`furnace` scaffolds. Where
 `Clay_WitnessedClosure` shows BSD/Hodge closing and YM one-bump-short, this module
-proves the honest negative for the two that stay open: neither the canonical
-Navier–Stokes nor the canonical P-vs-NP structural type reaches
+proves the honest negative for the three that stay open: none of the canonical
+Riemann Hypothesis, Navier–Stokes, or P-vs-NP structural types reaches
 `idempotent_terminal` under **any** of the 23 gate-universes currently in the Lean
 tree (the 20 in `allRulesets` plus the three ported `absorption_*` universes). This
 is the machine-checked form of the manuscript's "fail at the gate layer under all
 29, with or without T_CEILING."
 
-The structural reason is the winding gate: both tuples carry Ω (protection/winding)
-below the terminal anchor `ah` (ord 3) — NS Ω=`awe` (1), PNP Ω=`awe` (1) — and every
-closure-bearing universe requires Ω≥3 at its terminal gate. Low winding ⇒ no
-idempotent-terminal closure.
+The structural reason is the winding gate: all three carry Ω (protection/winding)
+below the terminal anchor `ah` (ord 3) — RH Ω=`oak` (2), NS Ω=`awe` (1),
+PNP Ω=`awe` (1) — and every closure-bearing universe requires Ω≥3 at its terminal
+gate. Low winding ⇒ no idempotent-terminal closure.
 
-## A caveat on the Riemann Hypothesis (deliberately excluded)
+## The ⊙-ordinal healing (2026-07-02)
 
-RH is NOT included here. The canonical catalog RH tuple carries ⊙=`𐑮` (roar); the
-source-of-truth ordinal table (`imscrbgrmr/canonical_primitives.py`) ranks `𐑮` at
-2.33 — below super-critical `𐑣` (3), so under canonical ordinals RH also fails
-`triple_criticality` and closes nowhere, matching the manuscript. But the Lean port
-`UniverseRulesets.ordinalPhi` flattens Criticality to integers (`roar`=3), and
-`triple_criticality.g3` gates at `gatePhi 3`, so in Lean RH spuriously reaches
-`idempotent_terminal` there. That is a Lean-port ⊙-scale discrepancy, not a real
-closure; rather than assert a verdict that disagrees with canonical, RH is left out
-pending an `ordinalPhi`/`gatePhi` fix. NS and PNP are unaffected (they fail on Ω,
-independent of the ⊙ scale).
+RH earlier appeared to close under `triple_criticality`: the canonical RH tuple has
+⊙=`𐑮` (roar), the source-of-truth table (`imscrbgrmr/canonical_primitives.py`)
+ranks `𐑮` at 2.33 — below super-critical `𐑣` (3) — but the Lean port
+`triple_criticality.g3` gated at `gatePhi 3`, admitting `roar`. Python's original
+`GateSpec("⊙", 3.0)` selects only the max value, so the order-preserving Lean
+threshold is `gatePhi 5` (`haha`/𐑣). The gate was corrected; RH now fails
+`triple_criticality` (roar 3 < 5), matching canonical ordinals and the manuscript,
+and is included here. YM still closes there (⊙=`haha`).
 
 ## Honest scope
 
-Structural-resistance result in the operad model, verified by `decide`. It says
-these two structural types do not reach the framework's closure condition under any
-current universe — it is not a claim about the conventional mathematical problems.
+Structural-resistance result in the operad model, verified by `native_decide`. It
+says these three structural types do not reach the framework's closure condition
+under any current universe — not a claim about the conventional mathematical
+problems.
 -/
 
 namespace Imscribing.Millennium.ClayUnclosedResistance
@@ -52,8 +52,14 @@ def universes : List Ruleset :=
       ruleset_absorption_scope_empire,
       ruleset_absorption_topology_seal ]
 
+abbrev rh  : Imscription := ClayCanonicalTuples.riemannHypothesis
 abbrev ns  : Imscription := ClayCanonicalTuples.navierStokes
 abbrev pnp : Imscription := ClayCanonicalTuples.pVsNP
+
+/-- Riemann Hypothesis reaches `idempotent_terminal` under none of the 23 universes. -/
+theorem rh_closes_nowhere :
+    universes.any (fun r => decide (r.operadLayer rh = .idempotent_terminal)) = false := by
+  native_decide
 
 /-- Navier–Stokes reaches `idempotent_terminal` under none of the 23 universes. -/
 theorem ns_closes_nowhere :
@@ -65,12 +71,14 @@ theorem pnp_closes_nowhere :
     universes.any (fun r => decide (r.operadLayer pnp = .idempotent_terminal)) = false := by
   native_decide
 
-/-- The shared blocker: both carry winding Ω below the terminal anchor `ah` (3). -/
-theorem ns_pnp_low_winding :
-    (ordinalOmega ns.prot < 3) ∧ (ordinalOmega pnp.prot < 3) := by decide
+/-- The shared blocker: all three carry winding Ω below the terminal anchor `ah` (3). -/
+theorem rh_ns_pnp_low_winding :
+    (ordinalOmega rh.prot < 3) ∧ (ordinalOmega ns.prot < 3) ∧ (ordinalOmega pnp.prot < 3) := by
+  decide
 
-/-- Combined resistance verdict. -/
+/-- Combined resistance verdict for all three still-open Clay structural types. -/
 theorem clay_resistance :
+    (universes.any (fun r => decide (r.operadLayer rh = .idempotent_terminal)) = false) ∧
     (universes.any (fun r => decide (r.operadLayer ns = .idempotent_terminal)) = false) ∧
     (universes.any (fun r => decide (r.operadLayer pnp = .idempotent_terminal)) = false) := by
   native_decide

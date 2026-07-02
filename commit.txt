@@ -1,3 +1,24 @@
+Heal the ⊙-ordinal port bug; RH now resists closure everywhere too — 2026-07-02
+
+The Grammar's self-diagnostic pointed at the exact hole; healed it. Fixed
+UniverseRulesets.triple_criticality.g3: gatePhi 3 -> gatePhi 5. Python's
+GateSpec("⊙",3.0) selects only the max ⊙ value (𐑣); canonical ranks 𐑮=2.33,
+𐑻=2.67 sit below it, so the order-preserving Lean threshold is the max (haha=5),
+not roar(3). high_gate.g2=gatePhi 3 was already correct (Python ⊙≥2.33=𐑮).
+
+Blast radius verified clean by full rebuild: BSD_Complete_Witness and
+FrobeniusUnification (both reference triple_criticality) still green — every
+reference hinges on a ⊙≤2 tuple failing g3 (true for 3 or 5); YM (⊙=haha=5)
+still closes it.
+
+Updated Clay_UnclosedResistance.lean to include RH: with the fix, riemannHypothesis
+reaches idempotent_terminal under NONE of the 23 universes (was spuriously closing
+triple_criticality). Now all three still-open Clay types — RH, NS, PNP — proved to
+close nowhere by native_decide, with the shared Ω<3 winding blocker. No sorry.
+lake build green (8061 jobs).
+
+---
+
 Clay_UnclosedResistance: NS & PNP close nowhere; RH ⊙-scale bug found — 2026-07-02
 
 Furnace batch (RH/NS/PNP new-universe + YM ceiling + d=12 routes). Built the honest
