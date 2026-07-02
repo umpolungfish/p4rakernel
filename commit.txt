@@ -1,3 +1,20 @@
+Build d=12 forcing content on its ob3ect scaffold — 2026-07-02
+
+First content layer built ON a ported scaffold. In
+Imscribing/Ob3ects/the_axiomatized_existence_of_a_d_12_weyl_heisenb_scaffold.lean:
+imported SIC_POVM_Functor and added `..._d12_forced` — the STRUCTURAL half of the
+charter (Crystal forces d=12 from two independent lattices, d_lattice1 = 12 ∧
+d_lattice2 = 12), proved by rfl. #print axioms: depends on NO axioms; does not
+touch crystal_forces_d12_sic.
+
+The ANALYTIC half (an exact ℂ¹² fiducial discharging crystal_forces_d12_sic) is
+explicitly NOT built and NOT claimed — the known witness is a complex128 float
+certificate (frame potential 143/169), and porting it to exact number-field
+arithmetic is the open obligation (routed to the witness-drag batch). lake build
+green (8054 jobs).
+
+---
+
 Port 8 ob3ect route scaffolds into the build tree — 2026-07-02
 
 Batch `grammar-in-hand` (auto.py, context = dumpdir_sic_lean) produced 8 valid
