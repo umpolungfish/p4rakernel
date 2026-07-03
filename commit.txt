@@ -1,3 +1,40 @@
+Lean m_d reconciled to the standard SIC discriminant (d-3)(d+1) — 2026-07-03
+
+SIC_POVM_Stark.lean:106 `def m_d` changed from d(d-2) to (d-3)(d+1), the
+standard Appleby SIC base-field discriminant. For d=12: (d-3)(d+1)=9*13=117,
+so F_12 = Q(sqrt117) = Q(sqrt13), matching manuscript section 7 and the
+1500-digit fiducial (which gives sqrt13, not the sqrt30 that d(d-2)=120 implied).
+Docstring rewritten; Remark 9.1 field updated to Q(sqrt((d-3)(d+1))).
+
+m_d is used only as the `not IsSquare (m_d d)` hypothesis on the axiomatized
+shadow objects (Fd_exists, Kd_exists, GalKd, StarkUnit, Embeddings,
+MixedSignatureStarkConjecture, fiducial_from_stark, zauner_*). No proof
+depends on its concrete value, so the change is purely definitional and safe.
+Build: lake build Imscribing.Millennium.SIC_POVM_Stark GREEN (26s, warnings only).
+
+STILL OPEN: the manuscript main body (secs 4-6, and the sec-8 remark at ~line
+748) still states the general convention m_d=d(d-2) with justificatory prose;
+only sec 7 carries the (d-3)(d+1) correction. Reconciling the general-d claim
+in the body is a larger editorial fork, deferred.
+
+--- prior ---
+
+SIC/Stark/Hilbert12 manuscript: add explicit d=12 realization + correct the
+base-field discriminant — 2026-07-03
+
+manuscripts/sic_povm_stark_hilbert12.tex gains section 7 "Explicit Realization for
+d=12": the computed ray class field of Q(sqrt13) (conductor 3d=36, degree 288, class
+group [6,6,2,2]), its six-piece cyclic tower, and the computable Lean realization
+(degree-32 moduli subfield green + flat degree-288 native_decide engine reducing
+theta^288). Corrects the base-field discriminant from d(d-2)=Q(sqrt30) to the standard
+Appleby (d-3)(d+1)=Q(sqrt13), confirmed from a 1500-digit fiducial. Compiled, copied
+to pdfs/. NOTE: the d(d-2) convention is used throughout secs 4-6 and the Lean m_d;
+reconciling it fully is a follow-up (flagged in a forward remark, not yet globally
+rewritten). North star: eliminate the "What Is Not Proved" section by discharging the
+gaps -- for d=12 that is now finite computation, not open mathematics.
+
+--- prior ---
+
 d=12 build: coordinate field is the deg-288 ray class field of Q(sqrt13); the
 degree-32 moduli subfield built + verified in Lean — 2026-07-02
 

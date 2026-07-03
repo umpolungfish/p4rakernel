@@ -102,8 +102,14 @@ theorem structural_shadow (n : ℕ) :
    axiomatized here only to avoid importing the full class-field-theory stack.
    ==================================================================== -/
 
-/-- The discriminant  m_d = d(d − 2). -/
-def m_d (d : ℕ) : ℤ := (d : ℤ) * ((d : ℤ) - 2)
+/-- The SIC base-field discriminant  m_d = (d − 3)(d + 1).
+    This is the standard Appleby SIC discriminant (Appleby 2013, 2017): the
+    fiducial coordinates for dimension d live over F_d = Q(√((d−3)(d+1))).
+    For d = 12 this is 9·13 = 117, so F_12 = Q(√117) = Q(√13) — confirmed
+    empirically from a 1500-digit fiducial (ray class field of Q(√13),
+    conductor 36).  The earlier convention  d(d − 2)  gave Q(√30) at d = 12,
+    which the explicit computation refutes. -/
+def m_d (d : ℕ) : ℤ := ((d : ℤ) - 3) * ((d : ℤ) + 1)
 
 -- We use Type 0 for all axiom types to avoid universe metavariables.
 
@@ -246,7 +252,7 @@ theorem sic_povm_exists_via_stark
 
 /-
   `Remark 9.1`  (explicit class field theory for real quadratic fields):
-  The field  F_d = Q(√(d(d−2)))  is real quadratic for d ≥ 3.
+  The field  F_d = Q(√((d−3)(d+1)))  is real quadratic for d ≥ 4.
   The ray class field K_d is an abelian extension of F_d whose explicit generators
   are given by the coordinates of the SIC-POVM fiducial.
 
