@@ -1,3 +1,18 @@
+CanonicalOrdinalFaithfulness: machine-checked ordinal-drift guard — 2026-07-02
+
+Institutionalized the self-diagnostic that caught the ⊙-scale bug. New generator
+scripts/gen_ordinal_faithfulness.py reads the authoritative canonical ORDINALS
+(imscrbgrmr/canonical_primitives.py) and emits
+Imscribing/Millennium/CanonicalOrdinalFaithfulness.lean: 12 native_decide theorems
+pinning each ordinalX to the exact canonical rank of every value (⊙ roar=7/3,
+err=8/3; Ç air=9/2; all others integer). Added to glob; lake build green.
+
+Guard has teeth (verified): `example : ordinalPhi roar = 3 := by native_decide`
+(the old flattened value) is REJECTED. Any future drift of a Lean ordinal from
+canonical breaks the build — the ⊙-scale discrepancy class cannot silently return.
+
+---
+
 Make ordinalPhi/ordinalK rank-faithful (ℚ); retire the gatePhi 5 hack — 2026-07-02
 
 Purist fix of the ⊙-scale hole. UniverseRulesets ordinals are now ℚ-valued and
