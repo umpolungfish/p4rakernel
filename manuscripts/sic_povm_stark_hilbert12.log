@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.3)  19 JUN 2026 13:59
+This is LuaHBTeX, Version 1.14.0 (TeX Live 2022/dev/Debian)  (format=lualatex 2026.2.3)  3 JUL 2026 02:06
  restricted system commands enabled.
 **sic_povm_stark_hilbert12.tex
 (./sic_povm_stark_hilbert12.tex
@@ -1291,10 +1291,6 @@ LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(2)/m/n' will be
 (Font)              scaled to size 5.00053pt on input line 103.
 LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 103.
-
-
-LaTeX Warning: Citation `Larson1961' on page 1 undefined on input line 103.
-
 LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(2)/m/n' will be
 (Font)              scaled to size 10.95116pt on input line 108.
 LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(2)/m/n' will be
@@ -1313,31 +1309,17 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `EversonMono' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-(./sic_povm_stark_hilbert12.toc)
+
+(./sic_povm_stark_hilbert12.toc [1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `TU/EversonMono(1)/m/n' will be
+(Font)              scaled to size 10.20007pt on input line 20.
+)
 \tf@toc=\write4
 
 \openout4 = sic_povm_stark_hilbert12.toc
- [1
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `Zauner1999' on page 2 undefined on input line 137.
-
-
-LaTeX Warning: Citation `Appleby2013' on page 2 undefined on input line 140.
-
-
-LaTeX Warning: Citation `Appleby2017' on page 2 undefined on input line 140.
-
-
-LaTeX Warning: Citation `Lean4' on page 2 undefined on input line 149.
-
-
-LaTeX Warning: Citation `p4rakernel' on page 2 undefined on input line 150.
-
-LaTeX Font Info:    Font shape `TU/EversonMono(1)/m/n' will be
-(Font)              scaled to size 10.20007pt on input line 152.
-
+ [2]
 Overfull \hbox (896.19771pt too wide) detected at line 174
 []  []  \TU/TeXGyrePagellaMath(1)/m/n/12 [ []  ↔  [] ]  []  [] 𝑑  []  []  
 []  []𝐾[]  =  []ℚ([])
@@ -1353,13 +1335,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 LaTeX Font Info:    Font shape `TU/EversonMono(1)/m/n' will be
 (Font)              scaled to size 8.50006pt on input line 199.
-[2]
+[3]
 LaTeX Font Info:    Font shape `TU/EversonMono(1)/b/n' will be
 (Font)              scaled to size 8.50006pt on input line 200.
- [3]
+ [4]
 LaTeX Font Info:    Font shape `TU/EversonMono(1)/m/it' will be
 (Font)              scaled to size 10.20007pt on input line 348.
- [4]
+ [5]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 367.
@@ -1377,9 +1359,6 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 367.
 
 
-LaTeX Warning: Citation `Belnap1977' on page 5 undefined on input line 369.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 377.
 
@@ -1387,45 +1366,37 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 377.
 
-[5]
+[6]
 LaTeX Font Info:    Font shape `TU/EversonMono(1)/b/n' will be
 (Font)              scaled to size 12.24008pt on input line 492.
- [6]
+ [7] [8]
+LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(2)/m/n' will be
+(Font)              scaled to size 17.28183pt on input line 573.
+LaTeX Font Info:    Font shape `TU/TeXGyrePagellaMath(3)/m/n' will be
+(Font)              scaled to size 17.27815pt on input line 573.
+ [9]
+Overfull \hbox (25.30017pt too wide) in paragraph at lines 645--657
+\TU/LinuxLibertineO(0)/m/n/12 We have be-gun re-al-iz-ing $\TU/TeXGyrePagellaMa
+th(1)/m/n/12 𝐾[]$ \TU/LinuxLibertineO(0)/m/n/12 as a com-putable ob-ject whos
+e field iden-ti-ties close by \TU/EversonMono(1)/m/n/12 native_decide
+ []
 
-LaTeX Warning: Citation `Stark1980' on page 7 undefined on input line 547.
-
-[7] [8]
-
-LaTeX Warning: Citation `Larson1961' on page 9 undefined on input line 665.
-
-[9] [10] (./sic_povm_stark_hilbert12.aux)
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `sic_povm_stark_hilbert12.out' has changed
-.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `sic_povm_stark_hilbert12.out':
-(rerunfilecheck)             Before: EA3C53AA73BE3F287D287E030EFD7F5C;4555
-(rerunfilecheck)             After:  26562ACC0457E0C5D3BFAF95FC2FDBC5;5591.
+[10] [11] [12] (./sic_povm_stark_hilbert12.aux)
+Package rerunfilecheck Info: File `sic_povm_stark_hilbert12.out' has not change
+d.
+(rerunfilecheck)             Checksum: 19B32CCDB58F664930BF6A7D3C488DDF;6636.
 )
 
 Here is how much of LuaTeX's memory you used:
- 25171 strings out of 477805
- 477259,1144653 words of node,token memory allocated
- 753 words of node memory still in use:
-   8 hlist, 2 vlist, 2 rule, 1 local_par, 5 glue, 4 kern, 1 penalty, 5 glyph, 53
- attribute, 63 glue_spec, 28 attribute_list, 1 write nodes
-   avail lists: 1:13,2:6248,3:312,4:9972,5:8523,6:73,7:12766,8:85,9:20982,10:51,
-11:1033
- 45051 multiletter control sequences out of 65536+600000
- 143 fonts using 87473975 bytes
+ 25204 strings out of 477805
+ 477232,1144653 words of node,token memory allocated
+ 759 words of node memory still in use:
+   8 hlist, 2 vlist, 2 rule, 1 local_par, 5 glue, 4 kern, 1 penalty, 5 glyph, 55
+ attribute, 63 glue_spec, 29 attribute_list, 1 write nodes
+   avail lists: 1:8,2:6251,3:314,4:9975,5:8524,6:80,7:12774,8:90,9:20983,10:51,1
+1:1033
+ 45075 multiletter control sequences out of 65536+600000
+ 148 fonts using 90005291 bytes
  84i,12n,114p,1212b,856s stack positions out of 5000i,500n,10000p,200000b,80000s
 </home/mrnob0dy666/.local/share/fonts/Everson Mono Oblique.ttf></home/mrnob0dy66
 6/.local/share/fonts/Everson Mono Bold.ttf></usr/share/texlive/texmf-dist/fonts/
@@ -1438,10 +1409,10 @@ e/LinLibertine_RI.otf></usr/share/texmf/fonts/opentype/public/tex-gyre-math/texg
 yrepagella-math.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/liberti
 ne/LinLibertine_R.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/liber
 tine/LinLibertine_RB.otf>
-Output written on sic_povm_stark_hilbert12.pdf (10 pages, 162172 bytes).
+Output written on sic_povm_stark_hilbert12.pdf (12 pages, 177100 bytes).
 
-PDF statistics: 310 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 109 named destinations out of 1000 (max. 131072)
- 169 words of extra memory for PDF output out of 10000 (max. 100000000)
+PDF statistics: 419 PDF objects out of 1000 (max. 8388607)
+ 368 compressed objects within 4 object streams
+ 118 named destinations out of 1000 (max. 131072)
+ 265 words of extra memory for PDF output out of 10000 (max. 100000000)
 
