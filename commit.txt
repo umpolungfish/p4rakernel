@@ -1,3 +1,24 @@
+d=12 build piece 1: computable cyclotomic ring (native_decide works) — 2026-07-02
+
+Committed to the real d=12 axiom-drop. Piece 1 (the make-or-break foundation):
+Imscribing/Millennium/SIC_D12_ComputableCyclotomic.lean — a computable surrogate
+for Mathlib's non-computable CyclotomicField. Models ℚ[ℤ/n] = ℚ[X]/(Xⁿ−1) (holds
+the n-th roots of unity as ζ=X) with computable mulC (cyclic convolution), conjC,
+powC, oneC, zeta.
+
+Representation lesson (recorded in-file): first cut used Fin n → ℚ with Finset.sum;
+native_decide on that did NOT compile within 10 min (timeout, EXIT 124). Switched
+to List ℚ with explicit List/Nat/ℚ ops — builds in ~5s. native_decide fires on the
+foundation identities: ζ·ζ̄=1, ζ¹²=1, ζ⁶≠1 (primitivity). #print axioms =
+[propext, Lean.ofReduceBool], no sorry.
+
+Significance: root-of-unity ring identities are now mechanically checkable, which
+is exactly what the 143 Gram identities (piece 4) require. Foundation validated;
+next pieces: exact d=12 coordinates (needs the real-quadratic radical adjoined to
+the ring), WH operators, the 143 identities, ℂ-embedding transfer.
+
+---
+
 CanonicalOrdinalFaithfulness: machine-checked ordinal-drift guard — 2026-07-02
 
 Institutionalized the self-diagnostic that caught the ⊙-scale bug. New generator
