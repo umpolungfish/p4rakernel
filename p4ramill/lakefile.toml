@@ -329,6 +329,7 @@ globs = [
   "Imscribing.Millennium.SIC_D12_QuadraticTower",
   "Imscribing.Millennium.SIC_D12_NumberField",
   "Imscribing.Millennium.SIC_D12_Field48Test",
+  "Imscribing.Millennium.SIC_D12_Field288Test",
   "Imscribing.Millennium.SIC_D12_RayTower",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
