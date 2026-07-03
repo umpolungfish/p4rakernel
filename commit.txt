@@ -1,3 +1,24 @@
+d=12 build: computable number-field engine + degree-48 field validated — 2026-07-02
+
+SIEGE. PARI (user installed pari-gp) found the SIC coordinate field K = Q(theta)
+has degree EXACTLY 48 (algdep on primitive theta = sum(k+1)z_k, 120 digits, <1s).
+Raw min poly banked (coord_field_minpoly.txt); monic redRule48 derived + verified
+numerically (theta^48 = sum redRule theta^i, |diff|=1e-99).
+
+New Lean:
+- SIC_D12_NumberField.lean (piece 3): computable ℚ[θ]/(m) for monic m of degree n,
+  Array ℚ coeff vectors, reduceFuel/mulNF/powNF; native_decide-validated on the exact
+  monic octic x^8-2x^6-4x^4-8x^2+16 (theta_pow8, theta_is_root, mul consistency).
+- SIC_D12_Field48Test.lean: plugs in the REAL degree-48 redRule48; native_decide
+  proves theta^48 reduces correctly IN 5.4s. => degree-48 native_decide is tractable;
+  the whole build is feasible.
+
+Both green. Remaining: user runs express_coords.gp (coords + conj + zeta12 in theta
+basis), then enter coords as NF, WH operators, 143 |overlap|^2=1/13 native_decide,
+capstone. State banked in ~/imsgct/d12_sic_build/.
+
+---
+
 d=12 build piece 2a: computable quadratic tower ℚ[ζ_n][√m] — 2026-07-02
 
 SIC_D12_QuadraticTower.lean extends piece 1's List-ℚ cyclotomic ring to the real
