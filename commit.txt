@@ -1,3 +1,21 @@
+Manuscript body reconciled to (d-3)(d+1) throughout — 2026-07-03
+
+sic_povm_stark_hilbert12.tex: replaced the general convention m_d=d(d-2) with
+the standard Appleby SIC discriminant (d-3)(d+1) in every main-body location
+(abstract, intro, structural diagram, base-field definition + Lean code quote,
+mixed-signature axiom framing, corollary, Hilbert-12 discriminant remark, and
+the sec-8 "not a coincidence" remark). Fixed the worked examples, which were
+wrong under the old convention: d=4 is Q(sqrt5) (Hesse SIC), d=5 Q(sqrt3),
+d=7 Q(sqrt2); noted d=2,3 are degenerate (m_d <= 0). The base field is real
+quadratic for d>=4. Section 7 no longer frames (d-3)(d+1) as a correction to
+the body (they now agree); its former "Discriminant correction" remark is
+recast as "A discarded alternate" that records the empirical refutation of
+d(d-2) => Q(sqrt30) by the 1500-digit fiducial. The whole document, Lean, and
+the d=12 computation now use one convention. Compiled with ltx and copied to
+pdfs/sic_povm_stark_hilbert12.pdf.
+
+--- prior ---
+
 Lean m_d reconciled to the standard SIC discriminant (d-3)(d+1) — 2026-07-03
 
 SIC_POVM_Stark.lean:106 `def m_d` changed from d(d-2) to (d-3)(d+1), the

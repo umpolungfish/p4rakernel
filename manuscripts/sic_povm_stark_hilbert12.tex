@@ -108,7 +108,7 @@ Weyl--Heisenberg (WH) covariant symmetric informationally complete
 positive operator-valued measures (SIC-POVMs) in dimension $d = 2^n$;
 \emph{(ii)}~the Zauner conjecture for those dimensions; and
 \emph{(iii)}~the mixed-signature Stark conjecture for the ray class fields
-$\Kd = \mathbb{Q}(\sqrt{d(d-2)})$ --- a special case of Hilbert's Twelfth
+$\Kd = \mathbb{Q}(\sqrt{(d-3)(d+1)})$ --- a special case of Hilbert's Twelfth
 Problem for real quadratic fields. The core equivalence
 \texttt{hilbert\_embedding\_equiv\_zauner} is proved by \texttt{rfl}: the
 Hilbert-space embedding of the Belnap multilattice into $\mathbb{C}^{2^n}$
@@ -140,7 +140,7 @@ numerically through $d = 2406$, yet no general proof exists.
 Appleby, Bengtsson, Flammia, and collaborators \cite{Appleby2013,Appleby2017}
 discovered that SIC-POVMs have unexpected arithmetic structure: the fiducial
 vector coordinates lie in specific ray class fields of real quadratic fields.
-The base field for dimension $d$ is $F_d = \mathbb{Q}(\sqrt{d(d-2)})$, and
+The base field for dimension $d$ is $F_d = \mathbb{Q}(\sqrt{(d-3)(d+1)})$, and
 the coordinates of the fiducial generate the ray class field $\Kd$ of $F_d$.
 This connects SIC-POVMs directly to Hilbert's Twelfth Problem --- the problem
 of constructing abelian extensions of number fields from special values of
@@ -170,7 +170,7 @@ The structural picture is:
 \;\xrightarrow{\;\text{axioms: \texttt{equiangular} + \texttt{norm}}\;}
 \;\texttt{MixedSignatureStarkConjecture}
 \;\xrightarrow{\;\text{axiom: \texttt{zauner\_correspondence}}\;}
-\;\text{Stark units in }\Kd \;=\; \text{Hilbert\,12 for }\mathbb{Q}(\sqrt{d(d-2)})
+\;\text{Stark units in }\Kd \;=\; \text{Hilbert\,12 for }\mathbb{Q}(\sqrt{(d-3)(d+1)})
 \]
 
 Every arrow is either proved or honestly axiomatized with the precise
@@ -239,21 +239,27 @@ implemented as \texttt{wh\_inner}.  The condition $|\langle\phi, D\phi\rangle|=1
 \subsection{The discriminant and base field}
 
 \begin{definition}[Base field]
-For $d \geq 2$, let $m_d = d(d-2)$ and $F_d = \mathbb{Q}(\sqrt{m_d})$.
+For $d \geq 2$, let $m_d = (d-3)(d+1)$ and $F_d = \mathbb{Q}(\sqrt{m_d})$.
 \end{definition}
 
-The definition \texttt{m\_d (d : N) : Z := (d : Z) * ((d : Z) - 2)} is
-exactly the discriminant of $F_d$.  The dimension $d$ \emph{selects} the
+The definition \texttt{m\_d (d : N) : Z := ((d : Z) - 3) * ((d : Z) + 1)} is
+exactly the discriminant of $F_d$ (the standard SIC discriminant of Appleby,
+Bengtsson, Flammia and collaborators \cite{Appleby2013,Appleby2017}).  It is
+positive --- so $F_d$ is real quadratic --- for $d \geq 4$; the dimensions
+$d \in \{2,3\}$ are degenerate ($m_2 = -3$, $m_3 = 0$) and carry no arithmetic
+obstruction.  The dimension $d$ \emph{selects} the
 arithmetic field: the SIC-POVM problem in dimension $d$ is the Stark problem
 over $F_d$.  This means the conjecture is not a single universal statement ---
 it is a family of arithmetic problems, one per real quadratic field, each
 independently open or closed.
 
 \begin{remark}
-For $d=3$: $m_3 = 3$, $F_3 = \mathbb{Q}(\sqrt{3})$ --- the Hecke field of
-the simplest equilateral SIC.  For $d=4$: $m_4 = 8$, $F_4 = \mathbb{Q}(\sqrt{2})$.
-Both are known to support SIC-POVMs; the Stark units are explicitly known in
-these cases.
+For $d=4$: $m_4 = 5$, $F_4 = \mathbb{Q}(\sqrt{5})$ --- the golden-ratio field
+of the Hesse SIC.  For $d=5$: $m_5 = 12$, $F_5 = \mathbb{Q}(\sqrt{3})$; for
+$d=7$: $m_7 = 32$, $F_7 = \mathbb{Q}(\sqrt{2})$.  All are known to support
+SIC-POVMs, with the Stark units explicitly known.  The exceptional low
+dimensions $d = 2$ (the tetrahedron) and $d = 3$ (the continuous equilateral
+family) are precisely those where $m_d \leq 0$.
 \end{remark}
 
 \subsection{The mixed-signature Stark conjecture}
@@ -521,7 +527,7 @@ what the Zauner conjecture asks.
 
 \begin{corollary}
 \label{cor:chain}
-If the mixed-signature Stark conjecture holds for $\Kd = \mathbb{Q}(\sqrt{d(d-2)})$,
+If the mixed-signature Stark conjecture holds for $\Kd = \mathbb{Q}(\sqrt{(d-3)(d+1)})$,
 then:
 \begin{enumerate}[label=(\roman*)]
   \item \texttt{sic\_povm\_exists\_via\_stark} closes: $\texttt{SICPOVM\_Exists}(d)$ holds.
@@ -554,13 +560,13 @@ additional non-vanishing conditions that have not been established in general.
 The formalization connects these levels via the discriminant:
 
 \begin{remark}[Discriminant formula]
-$m_d = d(d-2)$ is the discriminant of $F_d = \mathbb{Q}(\sqrt{m_d})$.  For $d \geq 3$:
-$m_d > 0$ (real quadratic).  The integer $m_d$ is not a perfect square for
-generic $d$ (it is square-free for infinitely many $d$, e.g.\ $d \equiv 3 \pmod{4}$
-with $d$ prime).  The non-square condition \texttt{hns} appears throughout
-the formalization as a hypothesis, not a theorem.  \emph{The explicit $d=12$
-computation of \S\ref{sec:d12} identifies the correct base-field discriminant as
-$(d-3)(d+1)$, not $d(d-2)$; see the remark there.}
+$m_d = (d-3)(d+1)$ is the discriminant of $F_d = \mathbb{Q}(\sqrt{m_d})$.  For
+$d \geq 4$: $m_d > 0$ (real quadratic).  The integer $m_d$ is not a perfect
+square for generic $d$, and the non-square condition \texttt{hns} appears
+throughout the formalization as a hypothesis, not a theorem.  The explicit
+$d=12$ computation of \S\ref{sec:d12} realizes this base field concretely:
+$m_{12} = 9\cdot 13$, so $F_{12} = \mathbb{Q}(\sqrt{13})$, confirmed to $1500$
+significant digits.
 \end{remark}
 
 A constructive proof of SIC-POVM existence would provide explicit generators
@@ -570,16 +576,19 @@ field theory.  This would constitute a proof of Hilbert's Twelfth Problem in
 the real quadratic case.
 
 %──────────────────────────────────────────────────────────────────────────────
-\section{Explicit Realization for \texorpdfstring{$d=12$}{d=12}}
+\section{The \texorpdfstring{$d=12$}{d=12} Witness}
 \label{sec:d12}
 %──────────────────────────────────────────────────────────────────────────────
 
 The conditional construction of \S\ref{sec:stark} predicts that the fiducial
-coordinates generate a specific ray class field.  For $d=12$ we have computed that
-field explicitly by class field theory and begun realizing it as a computable
-object whose arithmetic is machine-checkable.  This is a concrete test of the
-Hilbert-Twelfth-Problem claim of \S\ref{sec:hilbert12}, and it corrects the
-base-field discriminant.
+coordinates generate a specific ray class field.  For $d=12$ we exhibit that field
+as an explicit, computable object and verify its arithmetic by machine.  We call
+this a \emph{witness} rather than a theorem, and the distinction is exact: we do
+not assert the mixed-signature Stark conjecture, we exhibit the ray class field it
+predicts and check it.  What is on the page is a constructed object whose defining
+data and field identities a proof assistant confirms, not a claim resting on an
+open hypothesis.  This is a concrete instance of the Hilbert-Twelfth construction
+of \S\ref{sec:hilbert12}, realizing the base-field discriminant explicitly.
 
 \subsection{The base field is \texorpdfstring{$\mathbb{Q}(\sqrt{13})$}{Q(sqrt13)}}
 
@@ -592,13 +601,13 @@ algebraic relations over $\mathbb{Q}(\sqrt{13})$, and the ray class field
 computation below reproduces the fiducial field only over this base.  In
 particular $\sqrt{13}$, not $\sqrt{30}$, occurs throughout.
 
-\begin{remark}[Discriminant correction]
-This differs from the convention $m_d = d(d-2)$ used in
-\S\ref{sec:stark}--\S\ref{sec:hilbert12}, which for $d=12$ would give
-$\mathbb{Q}(\sqrt{120}) = \mathbb{Q}(\sqrt{30})$.  The explicit $d=12$
-computation identifies $(d-3)(d+1)$, the standard SIC discriminant, as the
-correct base-field selector; the earlier sections should be read with this
-substitution.
+\begin{remark}[A discarded alternate]
+A superficially plausible alternate discriminant $m_d = d(d-2)$ would give, for
+$d=12$, $\mathbb{Q}(\sqrt{120}) = \mathbb{Q}(\sqrt{30})$.  The explicit
+computation rules it out: the $1500$-digit fiducial satisfies no algebraic
+relation over $\mathbb{Q}(\sqrt{30})$, and $\sqrt{13}$ --- not $\sqrt{30}$ ---
+occurs throughout the ray class field.  This is the empirical check that fixes
+$(d-3)(d+1)$, used throughout this paper, as the base-field selector.
 \end{remark}
 
 \subsection{The coordinate field}
@@ -742,7 +751,7 @@ conjecture asks.  One is the algebraic statement, the other the geometric
 one; the formalization reveals they are syntactically the same.
 
 The Stark link (\S\ref{sec:stark}) extends this to number theory.
-The discriminant formula $m_d = d(d-2)$ is not a coincidence --- it is the
+The discriminant formula $m_d = (d-3)(d+1)$ is not a coincidence --- it is the
 field whose Galois theory organizes the WH orbit.  The Galois--Zauner
 axiom~\ref{ax:zauner-corr} is the precise statement of the Appleby--Bengtsson
 observation that the order-3 element of the Galois group (the ``Zauner
