@@ -1,3 +1,31 @@
+First exact d=12 SIC moduli in Lean + tighten Stark hd to d>=4 — 2026-07-03
+
+Two pieces of the d=12 axiom-drop build (target crystal_forces_d12_sic):
+
+1. SIC_POVM_Stark.lean: tightened the base-field hypothesis from (hd : 2 <= d)
+   to (hd : 4 <= d) on all shadow axioms + the main theorem. Under the corrected
+   discriminant (d-3)(d+1) the base field is real quadratic exactly for d>=4
+   (m_d>0); d in {2,3} are degenerate (m_d <= 0). Nothing instantiates these at
+   concrete d, so the change is safe; the "real quadratic base field" docstrings
+   are now honest. Header + theorem docstrings updated. lake build green.
+
+2. SIC_D12_SymmetricModuli.lean (NEW, in glob): the first EXACT fiducial data
+   entered from the 1500-digit witness. Models Q(sqrt2,sqrt13) as a flat degree-4
+   Q-algebra {1,sqrt2,sqrt13,sqrt26} and enters the two clean symmetric moduli
+     |z0|^2 = 1/12 - (1/24)sqrt2 + (1/156)sqrt13 - (1/312)sqrt26
+     |z6|^2 = 1/12 + (1/24)sqrt2 + (1/156)sqrt13 + (1/312)sqrt26
+   native_decide-verified (GREEN): they are a Galois-conjugate pair (conj2 z0=z6),
+   z0+z6 = 1/6+(1/78)sqrt13, z0*z6 = 7/1872+(1/1872)sqrt13 (lands in Q(sqrt13)).
+   Honest scope in-file: does NOT discharge the axiom (needs all 12 coords + 143
+   overlaps); it is the flat-field engine verified on genuine d=12 SIC numbers.
+
+Route determined via ob3ect/auto.py (d12_discharge_v2_batch.yaml): 6 valid
+correct-field ob3ects; z1/z5 crux routes through EVALF->AREV->ENGAGR->AFWD
+(Galois re-expression, not brute algdep). Findings + exact data banked in
+~/imsgct/d12_sic_build/ (small_minpolys.txt, symm_moduli.txt, FINDINGS.md).
+
+--- prior ---
+
 Manuscript body reconciled to (d-3)(d+1) throughout — 2026-07-03
 
 sic_povm_stark_hilbert12.tex: replaced the general convention m_d=d(d-2) with
