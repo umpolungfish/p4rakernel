@@ -326,6 +326,7 @@ globs = [
   "Imscribing.Millennium.ClayCanonicalTuples",
   "Imscribing.Millennium.CanonicalOrdinalFaithfulness",
   "Imscribing.Millennium.SIC_D12_ComputableCyclotomic",
+  "Imscribing.Millennium.SIC_D12_QuadraticTower",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
 

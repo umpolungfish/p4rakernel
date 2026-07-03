@@ -1,3 +1,19 @@
+d=12 build piece 2a: computable quadratic tower ℚ[ζ_n][√m] — 2026-07-02
+
+SIC_D12_QuadraticTower.lean extends piece 1's List-ℚ cyclotomic ring to the real
+quadratic tower needed for the d=12 fiducial coordinates (radicand m from
+Q(√120), i.e. √30). Element = Tow ⟨a, b⟩ meaning a + b√m with a,b : Cyc; ops
+addT, mulT ((ac+m·bd)+(ad+bc)√m), conjT (complex conj: ζ↦ζ⁻¹, √m fixed), galT
+(field conj √m↦−√m), ofCyc, radT. All List-based, DecidableEq derived.
+
+native_decide fires (~5s): (√m)²=m, ζ·ζ̄ lifts to 1, √m·gal(√m)=−m, 1·ζ=ζ.
+No sorry. Piece 2a validated; the tower arithmetic the coordinates need is live.
+
+Next: enter the exact d=12 Scott–Grassl coordinates as Tow elements (piece 2b —
+the genuine-content crux), then overlaps/WH/143-identities/ℂ-transfer.
+
+---
+
 d=12 build piece 1: computable cyclotomic ring (native_decide works) — 2026-07-02
 
 Committed to the real d=12 axiom-drop. Piece 1 (the make-or-break foundation):
