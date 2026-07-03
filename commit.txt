@@ -1,3 +1,35 @@
+d=12 build: coordinate field is the deg-288 ray class field of Q(sqrt13); the
+degree-32 moduli subfield built + verified in Lean — 2026-07-02
+
+CORRECTION of the "degree 48" entry below: 48 was a low-precision algdep artifact.
+Re-refined the fiducial to 1500 digits; at that precision no relation of degree <=168
+vanishes. Route 1 (structural, PARI bnrinit/bnrclassfield) settles it exactly: the
+SIC base field is Q(sqrt((d-3)(d+1))) = Q(sqrt13); the coordinate field is its ray
+class field of conductor (36)=(3d), both infinite places ramified: ray class group
+[6,6,2,2], h_m=144, degree 288 over Q. FSPLIT (bnrclassfield) = 6 tiny cyclic pieces,
+all native_decide-trivial (max coefbits 7):
+  x^2+1 -> i ; x^2-(sqrt13+5)/2 ; x^2-(sqrt13-1)/2 ; x^2+(sqrt13+1)/2 ;
+  x^3-3x-1 (zeta9 real cubic) ; x^3+(33 sqrt13 -123)x+(215-59 sqrt13).
+So the feared "large heights" are NOT in the field skeleton -- the Lean build is a
+straight walk, not multi-week.
+
+New: SIC_D12_RayTower.lean. Base Q13 = a+b sqrt13 (concrete ring), plus a GENERIC
+computable quadratic-extension functor Ext2 B = B[t]/(t^2-r) that threads the base
+multiply so layers STACK. Stacked the four quadratic pieces (i, and the three surds)
+over Q13 = the degree-32 MODULI SUBFIELD. 10 native_decide theorems green (14s build):
+sqrt13^2=13; i^2=-1, i^4=1; each surd^2 = its radicand; each surd tied back to sqrt13
+(2 g2^2 -5 = sqrt13, etc.); (sqrt13 * i)^2 = -13. No sorry.
+
+Next: two cubic layers (Ext3, x^3=px+q) take 32 -> 288; then express the 12 fiducial
+coords in this tower (the last feasibility unknown = their height), WH operators, the
+143 |overlap|^2=1/13 identities, capstone dropping crystal_forces_d12_sic.
+
+Approach chosen via ob3ect/auto.py on the meta-problem (Frobenius verdict PASS):
+FSPLIT [done] -> build cheapest pieces first -> hard piece re-represented not brute-
+forced -> CLINK compose -> FFUSE verify 143 Gram -> IMSCRIB vs 1500-digit witness.
+
+--- superseded ---
+
 d=12 build: computable number-field engine + degree-48 field validated — 2026-07-02
 
 SIEGE. PARI (user installed pari-gp) found the SIC coordinate field K = Q(theta)
