@@ -1177,9 +1177,100 @@ theorem norm_sq_eq_one : wh_normSq 12 psi = 1 := by
   rw [hsum, hone]
   simp
 
+/-- Canonicity of every Ō_{a,b} key (feeds phi_rmul/phi_rconj side conditions). -/
+theorem Ocab_canon_all :
+    ((List.range 12).all fun a => (List.range 12).all fun b =>
+      (Ocab a b).all fun p => decide (p.1 < 128)) = true := by
+  native_decide
+
+/-- Extract the per-pair unit identity `O_{a,b}·Ō_{a,b} = 1/13` from `Oab_unit_all`. -/
+lemma unit_at {a b : ℕ} (ha : a < 12) (hb : b < 12) (h : ¬(a = 0 ∧ b = 0)) :
+    rmul (Oab a b) (Ocab a b) = rT13 := by
+  have H := Oab_unit_all
+  rw [List.all_eq_true] at H
+  have Ha := H a (List.mem_range.mpr ha)
+  rw [List.all_eq_true] at Ha
+  have Hb := Ha b (List.mem_range.mpr hb)
+  rw [Bool.or_eq_true] at Hb
+  rcases Hb with hz | he
+  · rw [Bool.and_eq_true, beq_iff_eq, beq_iff_eq] at hz
+    exact absurd ⟨hz.1, hz.2⟩ h
+  · exact eq_of_beq he
+
+/-- `Ō_{a,b}` is the formal conjugate of `O_{a,b}` (per pair, from `Ocab_conj_all`). -/
+lemma conj_at {a b : ℕ} (ha : a < 12) (hb : b < 12) :
+    Ocab a b = rconj (Oab a b) := by
+  have H := Ocab_conj_all
+  rw [List.all_eq_true] at H
+  have Ha := H a (List.mem_range.mpr ha)
+  rw [List.all_eq_true] at Ha
+  exact eq_of_beq (Ha b (List.mem_range.mpr hb))
+
+lemma Oab_canon {a b : ℕ} (ha : a < 12) (hb : b < 12) :
+    ∀ p ∈ Oab a b, p.1 < 128 := by
+  intro p hp
+  have H := Oab_canon_all
+  rw [List.all_eq_true] at H
+  have Ha := H a (List.mem_range.mpr ha)
+  rw [List.all_eq_true] at Ha
+  have Hb := Ha b (List.mem_range.mpr hb)
+  rw [List.all_eq_true] at Hb
+  exact of_decide_eq_true (Hb p hp)
+
+lemma Ocab_canon {a b : ℕ} (ha : a < 12) (hb : b < 12) :
+    ∀ p ∈ Ocab a b, p.1 < 128 := by
+  intro p hp
+  have H := Ocab_canon_all
+  rw [List.all_eq_true] at H
+  have Ha := H a (List.mem_range.mpr ha)
+  rw [List.all_eq_true] at Ha
+  have Hb := Ha b (List.mem_range.mpr hb)
+  rw [List.all_eq_true] at Hb
+  exact of_decide_eq_true (Hb p hp)
+
+lemma phi_rT13 : phi rT13 = (1 / 13 : ℂ) := by
+  rw [rT13, phi_rK]; simp [evalK16]; norm_num
+
+lemma phi_Ocab {a b : ℕ} (ha : a < 12) (hb : b < 12) :
+    phi (Ocab a b) = star (phi (Oab a b)) := by
+  rw [conj_at ha hb, phi_rconj _ (Oab_canon ha hb)]
+
+/-- Ring-transferred equiangularity: every non-identity phi-overlap has squared
+    modulus exactly 1/13. This is the WHOLE equiangular content on the ring side —
+    `O_{a,b}·Ō_{a,b} = 1/13` (native_decide, `Oab_unit_all`) pushed through the
+    star-ring homomorphism phi. -/
+lemma overlap_normSq {a b : ℕ} (ha : a < 12) (hb : b < 12) (h : ¬(a = 0 ∧ b = 0)) :
+    Complex.normSq (phi (Oab a b)) = 1 / 13 := by
+  have h1 := congrArg phi (unit_at ha hb h)
+  rw [phi_rmul (Oab a b) (Ocab a b) (Oab_canon ha hb) (Ocab_canon ha hb),
+    phi_Ocab ha hb, phi_rT13] at h1
+  have hmc := Complex.mul_conj (phi (Oab a b))
+  rw [show (starRingEnd ℂ) (phi (Oab a b)) = star (phi (Oab a b)) from rfl] at hmc
+  rw [hmc] at h1
+  exact_mod_cast h1
+
+/-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
+    fiducial with its displacement equals (the conjugate of) a phi-image overlap
+    `O_{a,b'}` for `b' = (m·b) mod 12`, where `m ∈ {1,5}` is the branch with
+    `phi(zeta) = ω^m` (ω = omega_d 12). Once discharged, equiangularity follows from
+    `overlap_normSq`. Route: `d12_sic_build/d12_boundary_ctx.md §4`
+    (Z = phi zeta ∈ {ω,ω⁵} via |Z|=1 from `zeta_pow12` + Im Z = 1/2; then term-by-term
+    matching of `D_ah` iterates against `Oab` via `phi_zpow`/`phi_rmul`/`phi_rconj`,
+    with Z¹²=1 collapsing the exponents). -/
+lemma equiangular_bridge (a b : Fin 12) (h : (a, b) ≠ (0, 0)) :
+    ∃ b' : ℕ, b' < 12 ∧ ¬(a.val = 0 ∧ b' = 0) ∧
+      wh_inner 12 psi (D_ah 12 a b 0 psi) = star (phi (Oab a.val b')) := by
+  sorry
+
 theorem equiangular : ∀ (a b : Fin 12), (a, b) ≠ (0, 0) →
     ((12 : ℝ) + 1) * ‖wh_inner 12 psi (D_ah 12 a b 0 psi)‖ ^ 2 = 1 := by
-  sorry
+  intro a b h
+  obtain ⟨b', hb', hne, hbr⟩ := equiangular_bridge a b h
+  rw [hbr, norm_star]
+  have hns : ‖phi (Oab a.val b')‖ ^ 2 = Complex.normSq (phi (Oab a.val b')) := by
+    rw [Complex.norm_eq_abs, Complex.sq_abs]
+  rw [hns, overlap_normSq a.isLt hb' hne]
+  norm_num
 
 theorem d12_sic_exists : IsSICPOVM 12 psi :=
   { norm_eq := norm_sq_eq_one
