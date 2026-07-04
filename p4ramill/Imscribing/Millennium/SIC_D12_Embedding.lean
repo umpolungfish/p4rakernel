@@ -509,6 +509,61 @@ lemma evalKey_encKey (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei 
   obtain ⟨h1, h2, h3, h4⟩ := encKey_decode cov ei e5 e1 hcov hei he5 he1
   rw [h1, h2, h3, h4]
 
+/-! ### Reduction soundness: each layer preserves the monomial value under phi -/
+
+/-- c5-layer (red3): sum of the emitted canonical monomials equals the input value. -/
+lemma red3_sum (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei < 2)
+    (he1 : e1 < 2) (he5 : e5 < 3) :
+    ((red3 (cov, ei, e5, e1, c)).map (fun p => evalKey p.1 p.2)).sum
+      = monVal cov ei e5 e1 c := by
+  simp only [red3]
+  split_ifs with h
+  · have he : e5 = 2 := by omega
+    subst he
+    simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, add_zero]
+    rw [evalKey_encKey cov ei 1 e1 _ hcov hei (by norm_num) he1,
+        evalKey_encKey cov ei 0 e1 _ hcov hei (by norm_num) he1]
+    simp only [monVal, evalK16_kscale, evalK16_kmul]
+    push_cast
+    linear_combination
+      (-(evalK16 g0C c * scov cov * iVal ^ ei * u1Val ^ e1)) * c5Val_sq
+  · simp only [List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, add_zero]
+    rw [evalKey_encKey cov ei e5 e1 _ hcov hei (by omega) he1]
+
+/-- i-layer (red2) then c5-layer: preserves value while reducing ei mod 2. -/
+lemma red2_red3_sum (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei < 4)
+    (he5 : e5 < 3) (he1 : e1 < 2) :
+    ((red3 (red2 (cov, ei, e5, e1, c))).map (fun p => evalKey p.1 p.2)).sum
+      = monVal cov ei e5 e1 c := by
+  simp only [red2]
+  split_ifs with h
+  · rw [red3_sum cov (ei - 2) e5 e1 (kscale (-1) c) hcov (by omega) he1 he5]
+    simp only [monVal, evalK16_kscale]
+    have hpow : iVal ^ ei = iVal ^ (ei - 2) * iVal ^ 2 := by
+      rw [← pow_add]; congr 1; omega
+    rw [hpow, iVal_sq]
+    push_cast; ring
+  · rw [red3_sum cov ei e5 e1 c hcov (by omega) he1 he5]
+
+/-- u1-layer (red1) composed with the rest: the whole `contrib` preserves the value. -/
+lemma contrib_sound (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei < 3)
+    (he5 : e5 < 3) (he1 : e1 < 3) :
+    ((contrib cov ei e5 e1 c).map (fun p => evalKey p.1 p.2)).sum = monVal cov ei e5 e1 c := by
+  simp only [contrib, red1]
+  split_ifs with h
+  · have he : e1 = 2 := by omega
+    subst he
+    simp only [List.map_cons, List.map_nil, List.flatMap_cons, List.flatMap_nil,
+      List.append_nil, List.map_append, List.sum_append]
+    rw [red2_red3_sum cov ei e5 0 (kmul c C2H) hcov (by omega) he5 (by norm_num),
+        red2_red3_sum cov (ei + 1) e5 0 (kmul c S2H) hcov (by omega) he5 (by norm_num)]
+    simp only [monVal, evalK16_kmul, pow_succ, pow_zero, mul_one]
+    linear_combination
+      (-(evalK16 g0C c * scov cov * c5Val ^ e5 * iVal ^ ei)) * u1Val_sq
+  · simp only [List.map_cons, List.map_nil, List.flatMap_cons, List.flatMap_nil,
+      List.append_nil]
+    rw [red2_red3_sum cov ei e5 e1 c hcov (by omega) he5 (by omega)]
+
 /-- phi respects multiplication: phi(rmul A B) = phi A * phi B. -/
 theorem phi_rmul (A B : RElt) : phi (rmul A B) = phi A * phi B := by
   sorry
