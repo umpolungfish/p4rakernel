@@ -1438,8 +1438,10 @@ lemma phi_OabTerm (a b' j : ℕ) (hj : j < 12) :
   have he : ((j + 12 - a) % 12 * b') % 12 < 13 := by omega
   have hrzb : phi (rZB j) = star (psi ⟨j, hj⟩) := by
     rw [rZB, phi_rconj (rZ j) (rZ_canon hj)]
+    exact rfl
   rw [phi_rmul _ _ (T_canon hj hidx) (zpow_canon he), phi_zpow_lt _ he,
     phi_rmul _ _ (rZB_canon hj) (rZ_canon hidx), hrzb]
+  exact rfl
 
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
@@ -1475,8 +1477,7 @@ lemma equiangular_bridge (a b : Fin 12) (h : (a, b) ≠ (0, 0)) :
             _ = b.val := one_mul _
       exact (h1.trans h2).symm
     rw [wh_inner, Oab, phi_foldl_radd, phi_nil, zero_add, star_sum,
-      ← Fin.sum_univ_eq_sum_range (fun j => star (phi (rmul (rmul (rZB j)
-        (rZ ((j + 12 - a.val) % 12))) (zpow (((j + 12 - a.val) % 12 * ((m * b.val) % 12)) % 12)))) 12]
+      ← Fin.sum_univ_eq_sum_range _ 12]
     apply Finset.sum_congr rfl
     intro k _
     have hjk : (k.val + a.val * 11) % 12 = (k.val + 12 - a.val) % 12 := by
@@ -1484,7 +1485,7 @@ lemma equiangular_bridge (a b : Fin 12) (h : (a, b) ≠ (0, 0)) :
     have hpsi : psi ⟨(k.val + a.val * 11) % 12, Nat.mod_lt _ (by norm_num)⟩
         = psi ⟨(k.val + 12 - a.val) % 12, Nat.mod_lt _ (by norm_num)⟩ :=
       congrArg psi (Fin.ext hjk)
-    rw [D_ah_closed, hpsi, phi_OabTerm a.val ((m * b.val) % 12) k.val k.isLt]
+    rw [D_ah_closed, hpsi, hjk, phi_OabTerm a.val ((m * b.val) % 12) k.val k.isLt]
     have hphase : star (omega_d 12) ^ (b.val * ((k.val + 12 - a.val) % 12))
         = star (omega_d 12) ^ (m * (((k.val + 12 - a.val) % 12 * ((m * b.val) % 12)) % 12)) := by
       apply cw_congr
