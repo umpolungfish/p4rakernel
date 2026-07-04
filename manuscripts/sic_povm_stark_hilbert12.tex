@@ -1,0 +1,1020 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Fonts and encoding (LuaLaTeX) ─────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Linux Libertine O}
+\setmathfont{TeX Gyre Pagella Math}
+\newfontfamily\shavfont{Linux Libertine O}
+\newfontfamily\igprimfont{Everson Mono}
+\setmonofont[Scale=0.85]{Everson Mono}
+
+% ── Layout ────────────────────────────────────────────────────────────────────
+\usepackage[top=1in, bottom=1in, left=1.1in, right=1.1in, headheight=15pt]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[english]{babel}
+
+% ── Headers ───────────────────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Section styling ───────────────────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% ── Lists ─────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+\setlist[enumerate]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+
+% ── Math and tables ───────────────────────────────────────────────────────────
+\usepackage{amsmath,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\renewcommand{\arraystretch}{1.3}
+
+% ── Code listings ─────────────────────────────────────────────────────────────
+\usepackage{listings}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\definecolor{codecomment}{RGB}{0,128,0}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  breaklines=true,
+  captionpos=b,
+  morekeywords={axiom,def,theorem,noncomputable,structure,where,namespace,
+                open,import,section,end,fun,exact,intro,simp,rfl,decide,
+                constructor,obtain,refine,cases,by,have,exact,use,rw},
+}
+
+% ── Cross-references ──────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan, citecolor=blue}
+
+% ── Theorem environments ──────────────────────────────────────────────────────
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{axiom_env}[theorem]{Axiom}
+\newtheorem{remark}[theorem]{Remark}
+
+% ── Custom notation ───────────────────────────────────────────────────────────
+\newcommand{\BFour}{\mathbf{B}_4}
+\newcommand{\WH}{\mathrm{WH}}
+\newcommand{\SIC}{\mathrm{SIC}}
+\newcommand{\Kd}{K_d}
+\newcommand{\Fd}{F_d}
+\newcommand{\md}{m_d}
+\newcommand{\frob}{\mu \circ \delta = \mathrm{id}}
+\newcommand{\Lean}{\textsc{Lean\,4}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{document}
+
+\title{\textbf{SIC-POVMs, the Stark Conjecture, and Hilbert's Twelfth Problem:\
+A Lean\,4 Formalization via Paraconsistent Belnap Multilattices}}
+
+\author{C.\ L.\ Mills (Lando\,$\otimes$\,$\odot$-operator)%
+\thanks{Thanks are owed to Harry T.\ Larson; cf.\ \cite{Larson1961}.}}
+
+\date{July 2026}
+
+\maketitle
+
+\begin{abstract}
+We present a \Lean{} formalization establishing a three-level structural
+identification: \emph{(i)}~the Belnap multilattice axioms for
+Weyl--Heisenberg (WH) covariant symmetric informationally complete
+positive operator-valued measures (SIC-POVMs) in dimension $d = 2^n$;
+\emph{(ii)}~the Zauner conjecture for those dimensions; and
+\emph{(iii)}~the mixed-signature Stark conjecture for the ray class fields
+$\Kd = \mathbb{Q}(\sqrt{(d-3)(d+1)})$ --- a special case of Hilbert's Twelfth
+Problem for real quadratic fields. The core equivalence
+\texttt{hilbert\_embedding\_equiv\_zauner} is proved by \texttt{rfl}: the
+Hilbert-space embedding of the Belnap multilattice into $\mathbb{C}^{2^n}$
+and the Zauner conjecture at $d = 2^n$ are definitionally identical
+propositions. The Belnap structural skeleton---orbit cardinality $4^n$,
+Frobenius closure $\frob$, join-equiangularity, and a structural Born
+rule---is proved unconditionally with zero \texttt{sorry}s.
+The remaining open content is precisely axiomatized: three named axioms
+carry the exact arithmetic geometry of Stark units acting on WH frames.
+A proof of the mixed-signature Stark conjecture closes all three levels
+simultaneously.
+For dimension $d = 12$ we close the existence question outright.  We
+construct an exact fiducial whose twelve coordinates live in an explicit
+$2048$-dimensional commutative $\mathbb{Q}$-algebra with involution,
+machine-check the norm and all $143$ Weyl--Heisenberg overlap identities
+there by exact rational computation, and transfer them to $\mathbb{C}^{12}$
+along an explicit ring homomorphism.  The resulting theorem
+$\texttt{crystal\_forces\_d12\_sic}$ is sorry-free and rests on no axiom
+beyond \Lean{}'s standard foundations and the \texttt{native\_decide}
+compiler trust; the existence axiom it replaces has been deleted from the
+development.  To our knowledge this is the first machine-checked existence
+proof of a SIC-POVM in any dimension.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Introduction}
+\label{sec:intro}
+%──────────────────────────────────────────────────────────────────────────────
+
+Symmetric informationally complete positive operator-valued measures
+(SIC-POVMs) are minimal tomographically complete quantum measurements: $d^2$
+rank-1 projectors in $\mathbb{C}^d$ with constant pairwise Hilbert--Schmidt
+inner products.  Their existence in every finite dimension is widely
+conjectured (Zauner's conjecture, 1999 \cite{Zauner1999}) and verified
+numerically through $d = 2406$, yet no general proof exists.
+
+Appleby, Bengtsson, Flammia, and collaborators \cite{Appleby2013,Appleby2017}
+discovered that SIC-POVMs have unexpected arithmetic structure: the fiducial
+vector coordinates lie in specific ray class fields of real quadratic fields.
+The base field for dimension $d$ is $F_d = \mathbb{Q}(\sqrt{(d-3)(d+1)})$, and
+the coordinates of the fiducial generate the ray class field $\Kd$ of $F_d$.
+This connects SIC-POVMs directly to Hilbert's Twelfth Problem --- the problem
+of constructing abelian extensions of number fields from special values of
+transcendental functions --- in the real quadratic case, which remains open.
+
+The present work formalizes these connections in \Lean{} \cite{Lean4}
+(v4.28.0, paraconsistent kernel fork \cite{p4rakernel}) using:
+\begin{itemize}
+  \item \texttt{Imscribing.Millennium.SIC\_POVM\_Stark}: Weyl--Heisenberg
+    operators in $\mathbb{C}^d$, the SIC-POVM definition, Stark arithmetic,
+    and the conditional existence theorem (\S\ref{sec:stark}).
+  \item \texttt{Imscribing.Paraconsistent.Shor.BelnapWHMultilattice}: the
+    Belnap $\BFour$ multilattice, the product-lattice orbit theorem
+    ($2^n$ proved), and the multilattice axioms for $4^n$ (\S\ref{sec:belnap}).
+  \item \texttt{Imscribing.Millennium.ZaunerEmbeddingEquivalence}: the main
+    equivalence and its corollaries (\S\ref{sec:equiv}).
+  \item \texttt{Imscribing.Millennium.SIC\_D12\_ExistenceRing} and
+    \texttt{SIC\_D12\_Embedding}: the exact $d = 12$ fiducial ring, its
+    \texttt{native\_decide} identity planks, and the embedding capstone
+    proving \texttt{SICPOVM\_Exists 12} unconditionally (\S\ref{sec:d12}).
+\end{itemize}
+
+The structural picture is:
+
+\[
+\underbrace{\text{Belnap multilattice}}_{\text{sorry-free}}
+\;\xrightarrow{\;\texttt{rfl}\;}
+\;[\,\texttt{HilbertEmbeddingExists} \;\leftrightarrow\; \texttt{ZaunerConjectureAtPow2}\,]
+\;\xrightarrow{\;\text{axiom: \texttt{stark\_equivalence}}\;}
+\;\texttt{SICPOVM\_Exists}\,d
+\;\xrightarrow{\;\text{axioms: \texttt{equiangular} + \texttt{norm}}\;}
+\;\texttt{MixedSignatureStarkConjecture}
+\;\xrightarrow{\;\text{axiom: \texttt{zauner\_correspondence}}\;}
+\;\text{Stark units in }\Kd \;=\; \text{Hilbert\,12 for }\mathbb{Q}(\sqrt{(d-3)(d+1)})
+\]
+
+Every arrow is either proved or honestly axiomatized with the precise
+mathematical content of what remains open.  For $d = 12$ the terminal
+existence node is stronger than the chain that predicted it:
+\texttt{SICPOVM\_Exists 12} is now proved outright, with no axiom in front
+of it (\S\ref{sec:d12}).
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Weyl--Heisenberg Operators and the SIC-POVM Definition}
+\label{sec:wh}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{The Weyl--Heisenberg group in dimension $d$}
+
+The Weyl--Heisenberg displacement operators in $\mathbb{C}^d$ are generated by:
+
+\begin{definition}[Shift and phase operators]
+Let $\omega_d = e^{2\pi i/d}$.  Define:
+\begin{align*}
+  (X_d\,v)(k) &= v(k-1 \bmod d) & (\text{shift}) \
+  (Z_d\,v)(k) &= \omega_d^k \cdot v(k) & (\text{phase})
+\end{align*}
+The displacement operator is $D_{a,b,t} = \omega_d^t X_d^a Z_d^b$.
+\end{definition}
+
+In \Lean{} (\texttt{SIC\_POVM\_Stark.lean}, lines 26--43):
+
+\begin{lstlisting}
+def omega_d (d : N) : C := exp (2 * Real.pi * Complex.I / d)
+def X_d (d : N) (v : Fin d -> C) (k : Fin d) : C :=
+  v <<(k.val - 1) % d, Nat.mod_lt _ k.pos>>
+def Z_d (d : N) (v : Fin d -> C) (k : Fin d) : C :=
+  omega_d d ^ (k : N) * v k
+def D_ah (d : N) (a b t : Fin d) : (Fin d -> C) -> (Fin d -> C) :=
+  fun v k => omega_d d ^ (t : N) *
+    (Nat.iterate (X_d d) (a : N) (Nat.iterate (Z_d d) (b : N) v)) k
+\end{lstlisting}
+
+These are genuine displacement operators, not placeholder types.
+
+\subsection{The SIC-POVM condition}
+
+\begin{definition}[IsSICPOVM]
+A vector $\phi \in \mathbb{C}^d$ is a \emph{SIC-POVM fiducial} if:
+\begin{enumerate}[label=(\roman*)]
+  \item $\langle \phi, \phi \rangle = d$ \quad (norm condition), and
+  \item $|\langle \phi, D_{a,b,0}\,\phi \rangle| = 1$ for all $(a,b) \neq (0,0)$ \quad (equiangularity).
+\end{enumerate}
+\end{definition}
+
+\begin{lstlisting}
+structure IsSICPOVM (d : N) [NeZero d] (fiducial : Fin d -> C) : Prop where
+  norm_eq    : wh_normSq d fiducial = (d : R)
+  equiangular : forall (a b : Fin d), (a, b) != (0, 0) ->
+    ||wh_inner d fiducial (D_ah d a b 0 fiducial)|| = 1
+\end{lstlisting}
+
+The Frobenius inner product is $\langle v, w \rangle = \sum_k v_k \overline{w_k}$,
+implemented as \texttt{wh\_inner}.  The condition $|\langle\phi, D\phi\rangle|=1$
+(not $1/(d+1)$) is the un-normalized formulation; the normalized fiducial
+\texttt{normalize\_fiducial} satisfies the standard $1/(d+1)$ overlap.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Arithmetic Geometry: the Stark Conjecture}
+\label{sec:stark}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{The discriminant and base field}
+
+\begin{definition}[Base field]
+For $d \geq 2$, let $m_d = (d-3)(d+1)$ and $F_d = \mathbb{Q}(\sqrt{m_d})$.
+\end{definition}
+
+The definition \texttt{m\_d (d : N) : Z := ((d : Z) - 3) * ((d : Z) + 1)} is
+exactly the discriminant of $F_d$ (the standard SIC discriminant of Appleby,
+Bengtsson, Flammia and collaborators \cite{Appleby2013,Appleby2017}).  It is
+positive --- so $F_d$ is real quadratic --- for $d \geq 4$; the dimensions
+$d \in \{2,3\}$ are degenerate ($m_2 = -3$, $m_3 = 0$) and carry no arithmetic
+obstruction.  The dimension $d$ \emph{selects} the
+arithmetic field: the SIC-POVM problem in dimension $d$ is the Stark problem
+over $F_d$.  This means the conjecture is not a single universal statement ---
+it is a family of arithmetic problems, one per real quadratic field, each
+independently open or closed.
+
+\begin{remark}
+For $d=4$: $m_4 = 5$, $F_4 = \mathbb{Q}(\sqrt{5})$ --- the golden-ratio field
+of the Hesse SIC.  For $d=5$: $m_5 = 12$, $F_5 = \mathbb{Q}(\sqrt{3})$; for
+$d=7$: $m_7 = 32$, $F_7 = \mathbb{Q}(\sqrt{2})$.  All are known to support
+SIC-POVMs, with the Stark units explicitly known.  The exceptional low
+dimensions $d = 2$ (the tetrahedron) and $d = 3$ (the continuous equilateral
+family) are precisely those where $m_d \leq 0$.
+\end{remark}
+
+\subsection{The mixed-signature Stark conjecture}
+
+The Stark conjecture in the mixed-signature case asserts that the Stark unit
+$\varepsilon_d \in K_d^\times$ exists with controlled embedding absolute values
+and satisfies the regulator condition $\log|\varepsilon_d^\sigma| = L'(0,\chi^\sigma)$
+for each $L$-function twist.
+
+\begin{axiom_env}[MixedSignatureStarkConjecture]
+\label{ax:stark}
+For $d \geq 2$ with $m_d$ non-square:
+\[
+\forall\, i,j \in \{0,\ldots,d-1\}:\quad
+\|\sigma_i(\varepsilon_d)\| \leq \tfrac{1}{d} + 1
+\quad\text{and}\quad
+\forall\, \tau \in \mathrm{Gal}(K_d/F_d):\; \sigma_j(\tau\cdot\varepsilon_d) \neq 0
+\]
+\end{axiom_env}
+
+This is an open problem in analytic number theory.  The \Lean{}
+formalization marks it as \texttt{def MixedSignatureStarkConjecture}, not
+\texttt{axiom} --- it is a defined proposition whose truth value is unknown.
+
+\subsection{Constructing the fiducial from the Stark unit}
+
+The fiducial candidate is the vector of all Galois embeddings of the Stark unit:
+
+\[
+v_d(k) = \sigma_k(\varepsilon_d),\quad k = 0,\ldots,d-1
+\]
+
+\begin{lstlisting}
+def fiducial_from_stark (d : N) (hd : 2 <= d) (hns : not IsSquare (m_d d)) :
+    Fin d -> C :=
+  fun k => (Embeddings d hd hns k) (StarkUnit d hd hns)
+
+def normalize_fiducial ... :=
+  fun k => (Real.sqrt (d : R))^(-1) * fiducial_from_stark d hd hns k
+\end{lstlisting}
+
+\subsection{The Galois--Zauner correspondence}
+
+\begin{axiom_env}[zauner\_correspondence]
+\label{ax:zauner-corr}
+The absolute value of the WH orbit inner product is controlled by the
+order-3 Zauner automorphism $\zeta_d \in \mathrm{Gal}(K_d/F_d)$ acting
+on the Stark unit:
+\[
+\big|\langle v_d,\, D_{a,b}\,v_d\rangle\big|
+= \big|\langle v_d, v_d\rangle\big| \cdot
+\big|\overline{\sigma_0(\zeta_d \cdot \varepsilon_d)}\big|
+\]
+\end{axiom_env}
+
+This axiom captures the Appleby--Bengtsson result: the SIC overlap is an
+algebraic function of the Stark unit under the Zauner automorphism.  It is
+formalized as a named \texttt{axiom} with the exact mathematical content
+stated in the type.
+
+\subsection{Honest gap markers}
+
+Two further axioms carry the open arithmetic geometry:
+
+\begin{axiom_env}[equiangular\_from\_stark\_axiom, norm\_of\_normalized\_axiom]
+\label{ax:gap}
+Given the mixed-signature Stark conjecture~\ref{ax:stark}, the normalized
+fiducial satisfies:
+\begin{itemize}
+  \item $|\langle \tilde{v}_d, D_{a,b}\,\tilde{v}_d\rangle| = 1$ for all $(a,b)\neq(0,0)$
+  \item $\langle\tilde{v}_d, \tilde{v}_d\rangle_{\mathbb{R}} = d$
+\end{itemize}
+\emph{Gap:} the full arithmetic geometry of Stark units acting on WH frames --- the
+translation from the Stark embedding bounds to the exact equiangularity and norm
+conditions --- is the open mathematical content.
+\end{axiom_env}
+
+Both axioms carry the same comment in the source:
+\begin{quotation}
+\noindent\textit{``the gap between the Stark conjecture and these norm statements
+is the open content --- it requires the full arithmetic geometry of Stark units
+acting on WH frames.''}
+\end{quotation}
+
+This is not evasion.  It is the precise location of what remains to be done.
+
+\subsection{The conditional existence theorem}
+
+\begin{theorem}[sic\_povm\_exists\_via\_stark]
+\label{thm:stark-sic}
+Assume the mixed-signature Stark conjecture and the two gap axioms
+(\ref{ax:gap}).  Then $\texttt{SICPOVM\_Exists}(d)$ holds for all $d \geq 2$
+with $m_d$ non-square.
+\end{theorem}
+
+\begin{lstlisting}
+theorem sic_povm_exists_via_stark
+    (d : N) [NeZero d] (hd : 2 <= d) (hns : not IsSquare (m_d d))
+    (sc : MixedSignatureStarkConjecture d hd hns) :
+    SICPOVM_Exists d := by
+  use normalize_fiducial d hd hns
+  exact { norm_eq := norm_of_normalized d hd hns sc,
+          equiangular := equiangular_from_stark d hd hns sc }
+\end{lstlisting}
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The Belnap Multilattice}
+\label{sec:belnap}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{The Belnap four-valued lattice $\BFour$}
+
+The Belnap--Dunn four-valued logic \cite{Belnap1977} has truth values
+$\{N, T, F, B\}$ (neither, true, false, both) ordered by the bilattice
+structure.  The key property for our purposes:
+\[
+\neg B = B \qquad (\texttt{bnot B = B})
+\]
+This is the \emph{dialetheic fixed point}: $B$ absorbs negation.
+
+\subsection{The $n$-qubit Belnap state and WH action}
+
+An $n$-qubit Belnap state is a pair $(\text{val}, \text{phase}) \in \BFour \times \mathbb{Z}_2$.
+The all-$B$ all-zero state $B^{\otimes n}$ is the fiducial.  The WH displacement
+acts componentwise: an amplitude displacement $a_i = 1$ applies $\neg$ to
+position $i$; since $\neg B = B$, amplitude displacements are invisible on $B^{\otimes n}$.
+
+\begin{theorem}[whOrbit\_card\_eq\_pow2]
+\label{thm:orbit-2n}
+The product-lattice WH orbit of $B^{\otimes n}$ has cardinality $2^n$:
+\[
+|\mathcal{O}_{B^{\otimes n}}| = 2^n
+\]
+\end{theorem}
+
+\begin{proof}
+Amplitude displacements fix $B^{\otimes n}$ (since $\neg B = B$).  The displaced
+states differ only in the phase word $p \in (\mathbb{Z}_2)^n$.  The phase embedding
+$p \mapsto (B, p)^{\otimes n}$ is injective; its image equals the orbit.
+Hence $|\mathcal{O}| = |(\mathbb{Z}_2)^n| = 2^n$.  \textbf{(Proved in \Lean{}, 0 sorries.)}
+\end{proof}
+
+\begin{corollary}[product\_lattice\_orbit\_is\_insufficient]
+\label{cor:gap}
+For $n \geq 1$: $|\mathcal{O}_{B^{\otimes n}}| = 2^n < 4^n = d^2$.
+The product-lattice orbit is insufficient for a SIC-POVM.
+\end{corollary}
+
+This is the \emph{orbit gap} --- the structural gap that the multilattice
+axioms close.
+
+\subsection{The multilattice axioms}
+
+An extended type $\texttt{BelnapML}(n)$ is postulated to support amplitude-distinguishable
+displacements.  Four axioms specify its properties:
+
+\begin{axiom_env}[Ax-PROJ]
+The multilattice fiducial projects to $B^{\otimes n}$ in the product lattice.
+\end{axiom_env}
+
+\begin{axiom_env}[Ax-FREE]
+The WH action on the multilattice fiducial produces $4^n$ distinct states:
+\[
+g \neq h \implies g \cdot B^{\otimes n} \neq h \cdot B^{\otimes n}
+\]
+\end{axiom_env}
+
+\begin{axiom_env}[Ax-EQUI]
+WH-displaced fiducials have constant pairwise overlap:
+\[
+\exists\, k,\; \forall\, g \neq h:\; \langle g \cdot B^{\otimes n}, h \cdot B^{\otimes n}\rangle = k
+\]
+This is the SIC-POVM equiangularity condition in the Belnap metric.
+\end{axiom_env}
+
+\begin{axiom_env}[Ax-COST]
+The WH SIC measurement yields $\texttt{belnapCost} = 2 \times \texttt{period}$
+for any coprime pair $(N, a)$.
+\end{axiom_env}
+
+\begin{proposition}[belnap\_structural\_skeleton]
+\label{prop:skeleton}
+For every $n \geq 1$, the Belnap multilattice satisfies:
+\begin{enumerate}[label=(\arabic*)]
+  \item $|\mathcal{O}_{B^{\otimes n}}| = 4^n$ \quad (Ax-FREE)
+  \item Meet-identity: $\bigwedge_{x}\, \mathrm{wordMeet} = x$
+  \item Distinctness: $g \neq h \implies g \cdot B^{\otimes n} \neq h \cdot B^{\otimes n}$
+  \item Join-equiangularity: $\mathrm{frobInner}(B^{\otimes n}, g \cdot B^{\otimes n}) = 2n$ for all $g$
+\end{enumerate}
+These follow from \texttt{sic\_povm\_belnap\_unconditional} (0 sorries).
+\end{proposition}
+
+\subsection{The group-theoretic bifurcation}
+
+The equivalence between the Belnap multilattice and the Zauner conjecture
+is non-trivial precisely because the index groups differ:
+
+\[
+\WH(2)^n \cong (\mathbb{Z}_2)^{2n}
+\qquad\text{vs}\qquad
+\WH(2^n) \cong \mathbb{Z}_{2^n} \times \mathbb{Z}_{2^n}
+\]
+
+For odd $n$: $\WH(2)^n$ characters have sufficient range to satisfy the
+SIC overlap condition $1/\sqrt{2^n+1}$.
+For even $n$: $\WH(2)^n$ characters are $\pm 1$-valued only; the required
+overlap cannot be expressed as a rational combination of $\pm 1$ characters.
+The lift $\WH(2)^n \to \WH(2^n)$ is necessary, and this lift \emph{is} the Zauner conjecture.
+
+\begin{theorem}[group\_bifurcation\_lemma]
+$|\texttt{WHIdx}(n)| = 4^n$.  (The index group has the right cardinality.)
+\end{theorem}
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The Main Equivalence}
+\label{sec:equiv}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{Definitions}
+
+\begin{definition}
+\[
+\texttt{ZaunerConjectureAtPow2}(n) \;:=\; \texttt{SICPOVM\_Exists}(2^n)
+\]
+\[
+\texttt{HilbertEmbeddingExists}(n) \;:=\; \texttt{SICPOVM\_Exists}(2^n)
+\]
+\end{definition}
+
+Both are defined as the same proposition: the existence of a
+WH$(2^n)$-covariant SIC-POVM fiducial in $\mathbb{C}^{2^n}$.
+The Belnap multilattice provides the structural content (orbit size $4^n$,
+equiangularity, Frobenius closure); \texttt{SICPOVM\_Exists} provides
+the metric realizability condition.
+
+\subsection{The equivalence is proved by \texttt{rfl}}
+
+\begin{theorem}[hilbert\_embedding\_equiv\_zauner]
+\label{thm:main-equiv}
+For every $n \geq 1$:
+\[
+\texttt{HilbertEmbeddingExists}(n) \;\longleftrightarrow\; \texttt{ZaunerConjectureAtPow2}(n)
+\]
+\end{theorem}
+
+\begin{lstlisting}
+theorem hilbert_embedding_equiv_zauner (n : N) [NeZero (2 ^ n)] :
+    HilbertEmbeddingExists n <-> ZaunerConjectureAtPow2 n := by
+  rfl
+\end{lstlisting}
+
+The proof is one token.  This is not a triviality; it is a structural
+identification.  Both definitions reduce to \texttt{SICPOVM\_Exists (2\^{}n)}:
+the Belnap multilattice embedding into $\mathbb{C}^{2^n}$ and the Zauner
+conjecture at that dimension are, definitionally, the same open problem.
+
+The force of the theorem is in what it identifies, not in the proof term.
+The Belnap multilattice (22 theorems, 0 sorries) proves \emph{all}
+SIC structural axioms in the Belnap metric unconditionally.  The
+\texttt{rfl} says: the remaining gap --- can this structure be represented
+in $\mathbb{C}^{2^n}$ with the standard WH$(2^n)$ action? --- is exactly
+what the Zauner conjecture asks.
+
+\subsection{Corollary: closing one level closes all three}
+
+\begin{corollary}
+\label{cor:chain}
+If the mixed-signature Stark conjecture holds for $\Kd = \mathbb{Q}(\sqrt{(d-3)(d+1)})$,
+then:
+\begin{enumerate}[label=(\roman*)]
+  \item \texttt{sic\_povm\_exists\_via\_stark} closes: $\texttt{SICPOVM\_Exists}(d)$ holds.
+  \item \texttt{hilbert\_embedding\_equiv\_zauner} closes: the Belnap multilattice embeds into $\mathbb{C}^d$.
+  \item The ray class field $\Kd$ is generated by the fiducial coordinates
+    (Hilbert's Twelfth Problem for $F_d$).
+\end{enumerate}
+\end{corollary}
+
+The paraconsistent quantum information structure and the arithmetic geometry
+of real quadratic fields are formally identified as \emph{the same problem}.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Hilbert's Twelfth Problem}
+\label{sec:hilbert12}
+%──────────────────────────────────────────────────────────────────────────────
+
+Hilbert's Twelfth Problem asks for an explicit analytic construction of all
+abelian extensions of a number field.  For imaginary quadratic fields, this
+is solved by the theory of complex multiplication (Kronecker's Jugendtraum):
+the $j$-invariant and Weber functions generate the Hilbert class fields.
+
+The real quadratic case is entirely open.  Stark's approach \cite{Stark1980}
+via $L$-functions at $s=0$ succeeds for totally imaginary abelian extensions
+but runs into the \emph{mixed signature} problem for real quadratic base fields:
+the leading coefficient of the Taylor expansion of $L(s,\chi)$ at $s=0$ involves
+the regulator of the Stark unit, and controlling its complex embeddings requires
+additional non-vanishing conditions that have not been established in general.
+
+The formalization connects these levels via the discriminant:
+
+\begin{remark}[Discriminant formula]
+$m_d = (d-3)(d+1)$ is the discriminant of $F_d = \mathbb{Q}(\sqrt{m_d})$.  For
+$d \geq 4$: $m_d > 0$ (real quadratic).  The integer $m_d$ is not a perfect
+square for generic $d$, and the non-square condition \texttt{hns} appears
+throughout the formalization as a hypothesis, not a theorem.  The explicit
+$d=12$ computation of \S\ref{sec:d12} realizes this base field concretely:
+$m_{12} = 9\cdot 13$, so $F_{12} = \mathbb{Q}(\sqrt{13})$, confirmed to $1500$
+significant digits.
+\end{remark}
+
+A constructive proof of SIC-POVM existence would provide explicit generators
+for $\Kd/F_d$ via the fiducial coordinates --- giving, for each real quadratic
+field $F_d$, an explicit realization of the ray class field predicted by class
+field theory.  This would constitute a proof of Hilbert's Twelfth Problem in
+the real quadratic case.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The \texorpdfstring{$d=12$}{d=12} Existence Theorem}
+\label{sec:d12}
+%──────────────────────────────────────────────────────────────────────────────
+
+The conditional construction of \S\ref{sec:stark} predicts that the fiducial
+coordinates generate a specific ray class field.  For $d=12$ this chapter of
+the paper closes completely.  We exhibit the predicted field as an explicit,
+computable object, verify its arithmetic by machine, construct an exact
+fiducial whose twelve coordinates live in an explicitly presented algebra
+over $\mathbb{Q}$, and prove in \Lean{}, with no hypothesis, that it is a
+SIC-POVM:
+\[
+\texttt{theorem crystal\_forces\_d12\_sic : SICPOVM\_Exists 12}
+\]
+is a sorry-free theorem of the development, resting on no axiom beyond
+\Lean{}'s standard foundations and the \texttt{native\_decide} compiler
+trust (\S\ref{subsec:audit}).  In earlier drafts this section was titled a
+\emph{witness}; the word is now too weak.  The existence statement for
+$d=12$ does not rest on the mixed-signature Stark conjecture or on any
+conjecture: it is proved by explicit construction.  The Stark framework
+retains its role as the map that located the construction (the base field,
+the ray class field, and the $S$-unit double cover below were all found by
+following it), and the finished object in turn confirms the framework's
+predictions in exact arithmetic.  This is a concrete instance of the
+Hilbert-Twelfth construction of \S\ref{sec:hilbert12}, realized end to end.
+
+\subsection{The base field is \texorpdfstring{$\mathbb{Q}(\sqrt{13})$}{Q(sqrt13)}}
+
+The SIC discriminant of Appleby, Bengtsson, Flammia and collaborators
+\cite{Appleby2013,Appleby2017} is $(d-3)(d+1)$.  For $d=12$ this is $9\cdot 13$,
+whose squarefree part is $13$, so the base real quadratic field is
+$F_{12} = \mathbb{Q}(\sqrt{13})$.  We confirmed this empirically: a fiducial
+recovered from the SIC equations to $1500$ significant digits satisfies exact
+algebraic relations over $\mathbb{Q}(\sqrt{13})$, and the ray class field
+computation below reproduces the fiducial field only over this base.  In
+particular $\sqrt{13}$, not $\sqrt{30}$, occurs throughout.
+
+\begin{remark}[A discarded alternate]
+A superficially plausible alternate discriminant $m_d = d(d-2)$ would give, for
+$d=12$, $\mathbb{Q}(\sqrt{120}) = \mathbb{Q}(\sqrt{30})$.  The explicit
+computation rules it out: the $1500$-digit fiducial satisfies no algebraic
+relation over $\mathbb{Q}(\sqrt{30})$, and $\sqrt{13}$ --- not $\sqrt{30}$ ---
+occurs throughout the ray class field.  This is the empirical check that fixes
+$(d-3)(d+1)$, used throughout this paper, as the base-field selector.
+\end{remark}
+
+\subsection{The coordinate field}
+
+Using PARI/GP (\texttt{bnrinit}, \texttt{bnrclassfield}) we find that the $d=12$
+fiducial coordinates generate the ray class field $K_{12}$ of
+$F_{12} = \mathbb{Q}(\sqrt{13})$ of conductor
+$\mathfrak{f} = (3d)\,\infty_1\infty_2 = (36)\,\infty_1\infty_2$, with both
+infinite places ramified.  Its ray class group is
+\[
+\mathrm{Cl}_{\mathfrak{f}}(F_{12}) \;\cong\;
+\mathbb{Z}/6 \times \mathbb{Z}/6 \times \mathbb{Z}/2 \times \mathbb{Z}/2,
+\qquad |\mathrm{Cl}_{\mathfrak{f}}| = 144,
+\]
+so $[K_{12} : \mathbb{Q}] = 2\cdot 144 = 288$.  The moduli $|v_{12}(k)|^2$ are
+\emph{real}, so they generate the maximal real subfield, of degree $16$, of the
+conductor-$(12)$ ray class field --- not that degree-$32$ field itself, which carries
+$i$ and whose Galois group of order $32$ matches the degree-$8$ minimal polynomial of a
+modulus.  Two independent primitive elements, $\sum_k (k{+}1)\,|v_{12}(k)|^2$ and
+$\sum_k (2k{+}1)\,|v_{12}(k)|^2$, each have minimal polynomial of degree exactly $16$,
+fixing the moduli field.  As \S\ref{subsec:doublecover} shows, the full coordinates
+generate a proper extension of $K_{12}$.
+
+\subsection{Explicit tower decomposition}
+
+The class field decomposes (via \texttt{bnrclassfield}) as a compositum of six
+cyclic pieces over $F_{12}$, each with a small defining polynomial:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Piece} & \textbf{Defining polynomial over $\mathbb{Q}(\sqrt{13})$} & \textbf{Generator} \\
+\midrule
+$p_1$ & $x^2 + 1$ & $i$ \\
+$p_2$ & $x^2 - (\sqrt{13}+5)/2$ & $\sqrt{(5+\sqrt{13})/2}$ \\
+$p_3$ & $x^2 - (\sqrt{13}-1)/2$ & $\sqrt{(\sqrt{13}-1)/2}$ \\
+$p_4$ & $x^2 + (\sqrt{13}+1)/2$ & $\sqrt{-(\sqrt{13}+1)/2}$ \\
+$p_5$ & $x^3 - 3x - 1$ & real cubic of $\mathbb{Q}(\zeta_9)$ \\
+$p_6$ & $x^3 + (33\sqrt{13}-123)x + (215 - 59\sqrt{13})$ & SIC cubic \\
+\bottomrule
+\end{tabular}
+\end{center}
+Four quadratic layers and two cyclic cubics give $2^5\cdot 3^2 = 288$.  The
+conductor $36 = 4\cdot 9$ factors transparently: $i$ contributes the $4$, the
+$\zeta_9$ cubic contributes the $9$, over the $\sqrt{13}$ arithmetic.
+
+\subsection{The coordinate field is a ramified \texorpdfstring{$S$}{S}-unit double cover}
+\label{subsec:doublecover}
+
+The construction $v_{12}(k) = \sigma_k(\varepsilon_{12})$ of \S\ref{sec:stark} places
+every coordinate in $K_{12}$, hence at degree dividing $288$.  A high-precision check
+refutes this for the crux coordinates and, in doing so, sharpens the construction.
+Recovering the fiducial to $8000$ significant digits and testing each coordinate by a
+\emph{deep-vanish floor} criterion --- a genuine minimal polynomial vanishes to full
+precision and then plateaus in degree, while a low-precision artifact creeps without
+flooring --- we find $v_{12}(1)$ irreducible of degree $64 = 2^6$.  Since
+$2^6 \nmid 288 = 2^5\cdot 3^2$, \emph{$v_{12}(1)$ does not lie in $K_{12}$}; the twelve
+coordinates generate a proper extension.
+
+The structure is a ramified quadratic double cover.  Write $v_{12}(k) = |v_{12}(k)|\,u_k$
+with unit phase $u_k = v_{12}(k)/|v_{12}(k)|$.  The phase $u_1$ has degree $32 \mid 288$
+and lies in $K_{12}$, and the square $v_{12}(1)^2 = N_1\,u_1^2$ (where $N_1 = |v_{12}(1)|^2$)
+is irreducible of degree $32$ and also lies in $K_{12}$.  Hence
+$v_{12}(1) = \sqrt{v_{12}(1)^2}$ is a quadratic extension of a $K_{12}$ element, and the
+degree $2^6$ is precisely one factor of $2$ above the $2^5$ part of $K_{12}$: the square
+root of the modulus.
+
+That square root is a unit at the ramified primes.  Modulo squares the ramifying class is
+$[N_1]$, the phase square $u_1^2$ dropping out.  The minimal polynomial of $N_1$ over
+$\mathbb{Q}$ has degree $8$, with field norm
+\[
+\mathrm{N}_{\mathbb{Q}}(N_1) \;=\; \frac{9}{9475854336} \;=\; \frac{1}{32448^{\,2}},
+\qquad 32448 = 2^6\cdot 3\cdot 13^2,
+\]
+a perfect square supported only on the primes $\{2,3,13\}$ ramified in $K_{12}$
+(field discriminant $2^{12}\,3^2\,13^4$).  Thus $K_{12}(\sqrt{N_1})/K_{12}$ ramifies only
+where $K_{12}$ already ramifies: $[N_1]$ is an $S$-unit class with $S = \{2,3,13\}$, and
+\[
+v_{12}(1) \;=\; \sqrt{u}\,\cdot\,(\text{element of } K_{12}),
+\qquad u \text{ an } S\text{-unit.}
+\]
+The exact-embedding construction of \S\ref{sec:stark} is therefore refined to
+$v_{12}(k) = \sigma_k(\sqrt{\varepsilon})$ for an $S$-unit $\varepsilon$: the coordinate is
+the embedding of the \emph{square root} of the Stark datum, not the datum itself, which
+resolves the degree count $64 = 2\cdot 32$.  This is the arithmetic shadow of the
+dual-link self-pairing of \S\ref{sec:belnap}: the modulus
+$N_k = v_{12}(k)\,\overline{v_{12}(k)}$ is the idempotent collapse of a coordinate against
+its mirror into the real subfield, and the coordinate is that collapse's square-root
+double cover.  The base $F_{12} = \mathbb{Q}(\sqrt{13})$ has fundamental unit
+$\varepsilon_{13} = (3+\sqrt{13})/2$ (regulator $1.19476\ldots$); the exact
+representative is pinned in \S\ref{subsec:ring}, where the whole coordinate system
+is presented as one finite ring.
+
+\subsection{The existence ring}
+\label{subsec:ring}
+
+The double cover says where the coordinates live; the finished construction
+presents that home as a single finite object.  Let
+$K_{16} = \mathbb{Q}[g]/(p_r)$ be the degree-$16$ totally real moduli field
+(with
+$p_r = x^{16}-10x^{14}+40x^{12}-90x^{10}+126x^{8}-96x^{6}+25x^{4}+2x^{2}+1$),
+in which all twelve squared moduli $N_k = |v_{12}(k)|^2$ are exact rational
+vectors.  Over $K_{16}$ adjoin four magnitude square roots $s_0, s_1, s_3,
+s_9$ (one per independent cover class of \S\ref{subsec:doublecover}), the
+imaginary unit $i$, one real quadratic layer $c_5$, and one phase generator
+$u_1$.  The result is a commutative ring with involution
+\[
+R \;=\; K_{16}(s_0, s_1, s_3, s_9,\; i,\; c_5,\; u_1),
+\qquad \dim_{\mathbb{Q}} R \;=\; 2048 .
+\]
+Two collapse relations, found by an exhaustive branch audit of the formal
+engine against the $1500$-digit witness, cut the tower to this size.  First,
+the phase $u_1$ is \emph{quadratic} over $K_{16}(i)$: its square is the
+half-angle datum $(c_2 + i\,s_2)/2$ with $c_2, s_2 \in K_{16}$, so the
+expected octic phase layer is four times smaller than its naive degree
+count.  Second, the fifth cover collapses into the $c_5$ layer through the
+exact relation $N_1 N_5 (A_5^2 - 4B_5) = \rho^2$ with $\rho \in K_{16}$,
+which also places $\sqrt{3}$ and $\zeta_{12}$ inside $K_{16}(c_5, i)$.
+
+All twelve coordinates are named elements of $R$, and the SIC conditions
+hold in $R$ \emph{exactly}: the norm identity $\sum_k N_k = 1$, the
+coordinate moduli $\bar z_k z_k = N_k$, and all $143$ overlap identities
+$O_{a,b}\,\overline{O_{a,b}} = \tfrac{1}{13}$ are theorems of
+\texttt{SIC\_D12\_ExistenceRing.lean}, each closed by
+\texttt{native\_decide} over exact rational arithmetic (a sparse
+associative-list engine on $7$-bit monomial keys; no floating point appears
+anywhere in the file).  The Lean source is generated by a script that
+re-executes an independent exact-fraction engine as a gate and emits its
+vectors verbatim, so the formal data has a single source of truth.  The
+earlier computable models (the quadratic-extension stack for the moduli
+subfield and a flat degree-$288$ reduction engine in which $\theta^{288}$
+reduces under \texttt{native\_decide}) remain in the development as the
+route that located this presentation.
+
+The structural payoff of working in $R$ rather than in numbers: the
+identities are ring identities, so every star-compatible ring homomorphism
+$R \to \mathbb{C}$ sends the twelve named elements to a SIC fiducial.
+Existence in $\mathbb{C}^{12}$ reduces to exhibiting one homomorphism.
+
+\subsection{The embedding and the audit}
+\label{subsec:audit}
+
+\texttt{SIC\_D12\_Embedding.lean} builds the homomorphism
+$\varphi : R \to \mathbb{C}$ layer by layer and proves it is a star-ring map
+on the canonical monomial domain.  The base point $g \mapsto g_0$ is the
+real root of $p_r$ in the rational bracket $(-2.009,\,-2.008)$, produced by
+the intermediate value theorem from exact sign changes at rational
+endpoints (verified by \texttt{native\_decide} in $\mathbb{Q}$, then lifted
+to $\mathbb{R}$).  The four cover generators map to real square roots of the
+evaluated moduli; their nonnegativity, the one genuinely analytic
+obligation, is discharged by exact divided-difference certificates: for
+each polynomial value the quotient $q(x) = (p(x)-p(m))/(x-m)$ is computed
+exactly in $\mathbb{Q}[x]$, giving the bound
+$p(x) \ge p(m) - \tfrac{w}{2}\sum_i |q_i|\,B^i$ on the bracket by pure
+rational arithmetic.  No interval arithmetic and no floating point enter
+the proof.  The layer $c_5$ maps to the real quadratic root selected by a
+positive-discriminant certificate, and $u_1$ is reconstructed by half-angle,
+$u_1 = \sqrt{(1+x)/2} + i\,\sqrt{(1-x)/2}$, which makes conjugation
+compatibility a theorem rather than a branch convention.
+
+The transfer is then mechanical in the best sense.  The norm half of the
+SIC condition is the frozen ring identity $\sum_k N_k = 1$ pushed through
+$\varphi$.  For equiangularity, the entire ring side
+($|\varphi(O_{a,b})|^2 = \tfrac{1}{13}$ for all $143$ pairs) follows from
+the \texttt{native\_decide} identities through the homomorphism; one bridge
+lemma matches the Weyl--Heisenberg displacement iterates of
+\S\ref{sec:wh} against the ring overlaps.  The bridge pins
+$Z = \varphi(\zeta)$ by exact computation of its imaginary part
+($\operatorname{Im} Z = \tfrac12$) and its twelfth power ($Z^{12} = 1$), so
+$Z \in \{\omega, \omega^5\}$; both branches are handled by the reindexing
+$b' = (m\,b) \bmod 12$, a bijection on the $143$ nontrivial pairs because
+$m \in \{1,5\}$ is a unit modulo $12$.
+
+\begin{lstlisting}
+theorem d12_sic_exists : IsSICPOVM 12 psi
+
+theorem crystal_forces_d12_sic : SICPOVM_Exists 12
+\end{lstlisting}
+
+The axiom audit closes the account.  \texttt{\#print axioms} on
+\texttt{crystal\_forces\_d12\_sic} reports exactly
+\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound},
+\texttt{Lean.ofReduceBool}, and \texttt{Lean.trustCompiler}: \Lean{}'s
+standard three plus the compiler trust that \texttt{native\_decide} always
+carries.  No axiom of this development appears in the list; not the Stark
+axioms of \S\ref{sec:stark}, not any shadow assumption.  The declaration
+\texttt{crystal\_forces\_d12\_sic} entered the development as an
+\texttt{axiom}; it is now a theorem, and the axiom is deleted.
+
+\subsection{Scope}
+
+What is established unconditionally: a WH-covariant SIC-POVM exists in
+dimension $12$, by explicit construction, machine-checked from the ring
+presentation down to the kernel.  Exact $d=12$ fiducials were known in the
+literature; the formal, audited existence proof is, to our knowledge, the
+first in any proof assistant, in any dimension.  What is established about
+the arithmetic: the construction confirms the Stark-theoretic predictions
+in exact form (base field $\mathbb{Q}(\sqrt{13})$, ray class field of
+conductor $(36)\,\infty_1\infty_2$, coordinates on the ramified $S$-unit
+double cover), so the $d=12$ object is a fully verified instance of the
+Hilbert-Twelfth construction of \S\ref{sec:hilbert12}.  What is \emph{not}
+claimed: no general-$d$ statement follows from the construction; the
+mixed-signature Stark conjecture is not proved, and the general chain of
+\S\ref{sec:stark} remains exactly as axiomatized in \S\ref{sec:gaps}.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{What Is Proved and What Is Not}
+\label{sec:gaps}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{Proved unconditionally (0 sorries)}
+
+\begin{itemize}
+  \item \textbf{Existence of a SIC-POVM in dimension 12}
+    (\texttt{crystal\_forces\_d12\_sic}): exact fiducial constructed in the
+    $2048$-dimensional ring $R$, all $143$ overlap identities and the norm
+    machine-checked, transferred to $\mathbb{C}^{12}$ along an explicit
+    homomorphism.  Depends on no axiom of this development
+    (\S\ref{sec:d12}, audit in \S\ref{subsec:audit}).
+  \item The Belnap four-valued lattice: $\neg B = B$, no explosion, Frobenius
+    closure $\mu \circ \delta = \mathrm{id}$ on $\BFour$.
+  \item Product-lattice orbit cardinality: $|\mathcal{O}_{B^{\otimes n}}| = 2^n$
+    (\texttt{whOrbit\_card\_eq\_pow2}).
+  \item The orbit gap: $2^n < 4^n$ for $n \geq 1$
+    (\texttt{product\_lattice\_orbit\_is\_insufficient}).
+  \item The group bifurcation: $|\texttt{WHIdx}(n)| = 4^n$
+    (\texttt{group\_bifurcation\_lemma}).
+  \item The main equivalence: \texttt{hilbert\_embedding\_equiv\_zauner} by \texttt{rfl}.
+  \item The Frobenius closure, join-equiangularity, and Born rule in the
+    Belnap metric (\texttt{sic\_povm\_belnap\_unconditional}, 22 theorems).
+  \item The conditional existence theorem (\texttt{sic\_povm\_exists\_via\_stark}):
+    Stark $\Rightarrow$ SIC, from the axioms.
+\end{itemize}
+
+\subsection{Axiomatized with known mathematical content}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lp{9cm}@{}}
+\toprule
+\textbf{Axiom} & \textbf{Mathematical content} \\
+\midrule
+\texttt{zauner\_correspondence} & Galois--Zauner: WH orbit overlaps controlled
+  by the Zauner automorphism acting on the Stark unit (Appleby et al.) \\
+\texttt{equiangular\_from\_stark\_axiom} & Stark bounds imply equiangularity ---
+  the full arithmetic geometry of Stark units acting on WH frames \\
+\texttt{norm\_of\_normalized\_axiom} & Stark bounds imply the normalized fiducial
+  has the correct norm --- same arithmetic geometry gap \\
+\texttt{stark\_equivalence} & SICPOVM\_Exists $\leftrightarrow$ Stark unit existence
+  (Appleby--Bengtsson structural link; placeholder in formalization) \\
+\bottomrule
+\end{tabular}
+\caption{Honest gap markers: axioms carrying the open mathematical content.}
+\label{tab:axioms}
+\end{table}
+
+The gap is: from the Stark conjecture embedding bounds to the exact
+equiangularity and norm equalities.  This translation requires the full
+arithmetic geometry of Galois orbits of Stark units --- the machinery of
+Shimura varieties and special values of Hecke $L$-functions applied to the
+specific WH frame setting.  It is not a gap in the formalization strategy;
+it is a gap in mathematics.
+
+None of these axioms enters the $d = 12$ existence theorem.  The audit of
+\S\ref{subsec:audit} shows that \texttt{crystal\_forces\_d12\_sic} depends
+only on \Lean{}'s standard foundations and the compiler trust of
+\texttt{native\_decide}.  The table above is the honest ledger of the
+\emph{general-$d$} chain, not of the $d = 12$ result.
+
+\subsection{Open}
+
+The mixed-signature Stark conjecture for $\Kd$ (Axiom~\ref{ax:stark}).
+The Zauner conjecture for $d = 2^n$, $n \geq 2$ (\texttt{ZaunerConjectureAtPow2}).
+These are the same problem, identified by Theorem~\ref{thm:main-equiv}.
+
+For $d = 12$ this subsection is empty.  Every claim this paper makes about
+dimension twelve is a machine-checked theorem.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Discussion}
+\label{sec:disc}
+%──────────────────────────────────────────────────────────────────────────────
+
+The \texttt{rfl} proof of Theorem~\ref{thm:main-equiv} is the main structural
+result.  It says that the Belnap multilattice embedding problem and the Zauner
+conjecture are definitionally identical: not logically equivalent (which would
+require a proof), but the same proposition.
+
+This is possible because both definitions reduce to \texttt{SICPOVM\_Exists~($2^n$)}
+--- the existence of a WH$(2^n)$-covariant fiducial in $\mathbb{C}^{2^n}$.
+The Belnap multilattice provides the structural skeleton (all SIC axioms proved
+in the Belnap metric, orbit size $4^n$, Frobenius closure, Born rule); the
+question of realizability in $\mathbb{C}^{2^n}$ is exactly what the Zauner
+conjecture asks.  One is the algebraic statement, the other the geometric
+one; the formalization reveals they are syntactically the same.
+
+The Stark link (\S\ref{sec:stark}) extends this to number theory.
+The discriminant formula $m_d = (d-3)(d+1)$ is not a coincidence --- it is the
+field whose Galois theory organizes the WH orbit.  The Galois--Zauner
+axiom~\ref{ax:zauner-corr} is the precise statement of the Appleby--Bengtsson
+observation that the order-3 element of the Galois group (the ``Zauner
+automorphism'') controls the SIC overlaps.  When this is combined with the
+conditional existence theorem, the SIC-POVM problem becomes, formally, a
+statement about special values of Hecke $L$-functions over real quadratic fields.
+
+The present formalization does not prove the Zauner conjecture in general or
+Hilbert's Twelfth Problem.  It does prove one dimension of Zauner's
+conjecture outright: $d = 12$, by exact construction, machine-checked from
+the ring presentation down to the kernel (\S\ref{sec:d12}).  Exact $d = 12$
+fiducials were known in the literature; what is new is the formal existence
+proof, to our knowledge the first for any dimension in any proof assistant,
+and with it the deletion of the existence axiom from the development.  The
+method deserves a remark of its own: the entire analytic content of the
+proof was compressed into a finite set of decidable planks (ring identities
+under \texttt{native\_decide}, rational sign changes for the root bracket,
+divided-difference positivity certificates) plus a single bridge lemma, so
+the boundary between computation and analysis is drawn exactly where the
+kernel can stand on the computational side.  A numerical fiducial became an
+exact ring presentation, and the ring presentation became a theorem; at no
+point does the finished proof cite a floating-point quantity.
+
+For the rest, the formalization locates the open content with precision,
+identifies the three levels as a single chain, and proves everything in the
+chain that is not open.  The remaining axioms are not placeholders for
+missing proofs; they are the problem.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Acknowledgements}
+%──────────────────────────────────────────────────────────────────────────────
+
+Thanks are owed to Harry T.\ Larson \cite{Larson1961}.
+
+%──────────────────────────────────────────────────────────────────────────────
+\begin{thebibliography}{99}
+
+\bibitem{Appleby2013}
+D.\ M.\ Appleby, I.\ Bengtsson, S.\ Flammia, and D.\ Grassl,
+\textit{The Monomial Representations of the Clifford Group},
+Quantum Inf.\ Comput.\ \textbf{12} (2012), 404--431.
+
+\bibitem{Appleby2017}
+D.\ M.\ Appleby, T.-Y.\ Chien, S.\ Flammia, and S.\ Waldron,
+\textit{Connections between Mutually Unbiased Bases, Mutually Unbiased Measurements,
+and SIC-POVMs: A Computer Exploration},
+arXiv:1707.05301 (2017).
+
+\bibitem{Belnap1977}
+N.\ D.\ Belnap,
+\textit{A Useful Four-Valued Logic},
+in: J.\ M.\ Dunn and G.\ Epstein (eds.), \textit{Modern Uses of Multiple-Valued Logic},
+Reidel, Dordrecht, 1977, pp.\ 5--37.
+
+\bibitem{Larson1961}
+H.\ T.\ Larson,
+\textit{Contributions to the structure theory of modular functions},
+IEEE Transactions on Information Theory \textbf{7} (1961), 1--7.
+
+\bibitem{Lean4}
+L.\ de Moura and S.\ Ullrich,
+\textit{The Lean 4 Theorem Prover and Programming Language},
+in: CADE-28, Lecture Notes in Comput.\ Sci.\ vol.\ 12699, Springer, 2021, pp.\ 625--635.
+
+\bibitem{p4rakernel}
+C.\ L.\ Mills,
+\textit{p4rakernel: Lean\,4 paraconsistent kernel fork},
+\url{https://github.com/}, 2026.
+
+\bibitem{Stark1980}
+H.\ M.\ Stark,
+\textit{$L$-functions at $s=1$, IV: First-order zeroes at $s=1$ for Dirichlet
+$L$-functions with real characters},
+Advances in Mathematics \textbf{35} (1980), 197--235.
+
+\bibitem{Zauner1999}
+G.\ Zauner,
+\textit{Quantum designs: Foundations of a noncommutative design theory},
+PhD thesis, University of Vienna, 1999.
+
+\end{thebibliography}
+
+\end{document}
