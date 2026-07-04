@@ -323,6 +323,7 @@ globs = [
   "Imscribing.Ob3ects.the_structurally_closed_birch_swinnerton_dyer_cl_scaffold",
   "Imscribing.Ob3ects.the_structurally_closed_hodge_conjecture_clay_ty_scaffold",
   "Imscribing.Ob3ects.the_d_12_sic_fiducial_known_only_as_a_complex128_scaffold",
+  "Imscribing.Ob3ects.the_witness_vessel_protocol_culminates_in_a_tran_scaffold",
 
   "Imscribing.Millennium.ClayCanonicalTuples",
   "Imscribing.Millennium.CanonicalOrdinalFaithfulness",
@@ -338,6 +339,7 @@ globs = [
   "Imscribing.Millennium.SIC_D12_MagnitudeClasses",
   "Imscribing.Millennium.SIC_D12_ExistenceRing",
   "Imscribing.Millennium.SIC_D12_Embedding",
+  "Imscribing.Millennium.SIC_D12_WitnessVessel",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
 
