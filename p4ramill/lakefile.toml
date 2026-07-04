@@ -1,6 +1,7 @@
 name = "imscribing-lean"
 version = "0.1.0"
 keywords = ["math"]
+defaultTargets = ["Imscribing"]
 
 [leanOptions]
 pp.unicode.fun = true
