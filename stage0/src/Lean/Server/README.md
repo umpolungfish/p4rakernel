@@ -1,4 +1,6 @@
 # Language Server
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This directory contains the implementation of the Lean Language Server, an implementation as well as extension of the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) used for communicating with Lean extensions in editors.
 

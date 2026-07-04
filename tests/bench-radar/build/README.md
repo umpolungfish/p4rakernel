@@ -1,4 +1,6 @@
 # The `build` benchmark
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This benchmark executes a complete build of the stage3 stdlib
 and collects global and per-module metrics.

@@ -1,4 +1,6 @@
 # CMake modules required for building Lean
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 The files `GetGitRevisionDescription.cmake`, `GetGitRevisionDescription.cmake.in` and
 `FindWindowsSDK.cmake` are part of the `cmake-modules` project by Rylie Pavlik. They

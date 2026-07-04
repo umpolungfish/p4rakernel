@@ -1,3 +1,5 @@
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 Small project implemented using Lean and C++.
 The C++ file `myfuns.cpp` wraps a C++ object using an `lean_external_object`.
 The file `myfuns.cpp` exposes pure and effectful primitives.

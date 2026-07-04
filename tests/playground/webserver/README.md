@@ -1,3 +1,5 @@
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 Example of a super-simple web server using custom syntax for registering routes and emitting HTML
 
 Compile with `leanmake bin` to get the `./build/bin/Webserver` executable listening on stdin and
