@@ -301,20 +301,91 @@ theorem evalK16_kmul (v w : K16) :
     _ = evalK16 g0C (pmul v w) := by simp [evalK16Hi]
     _ = evalK16 g0C v * evalK16 g0C w := by rw [evalK16_pmul]
 
-/-! ## 4. Generator values in C -/
+/-! ## 3b. Reality at the real point g0C -/
 
-noncomputable def sVal (k : ℕ) : ℂ :=
-  Complex.sqrt (evalK16 g0C (covK k))
+@[simp] lemma star_g0C : star g0C = g0C := by
+  unfold g0C; exact Complex.conj_ofReal g0
+
+/-- Every K16 vector, evaluated at the real coordinate g0C, is a real number. -/
+lemma star_evalK16 (v : List ℚ) : star (evalK16 g0C v) = evalK16 g0C v := by
+  induction' v with a v' ih
+  · simp [evalK16]
+  · rw [evalK16_cons, star_add, star_mul', star_g0C, ih]
+    simp
+
+lemma evalK16_im_zero (v : List ℚ) : (evalK16 g0C v).im = 0 := by
+  have h := star_evalK16 v
+  rwa [Complex.star_def, Complex.conj_eq_iff_im] at h
+
+/-- The real value of a K16 evaluation. -/
+noncomputable def evalR (v : K16) : ℝ := (evalK16 g0C v).re
+
+@[simp] lemma evalR_ofReal (v : K16) : ((evalR v : ℝ) : ℂ) = evalK16 g0C v := by
+  apply Complex.ext
+  · simp [evalR]
+  · simp [evalR, evalK16_im_zero v]
+
+/-! ## 4. Generator values in C (real where conjugation-reality is required) -/
+
+/-- Magnitude generators: **real** square roots of the (real, positive) cover moduli,
+    so `star (sVal k) = sVal k` holds by construction (a real coercion into ℂ). -/
+noncomputable def sVal (k : ℕ) : ℂ := ((Real.sqrt (evalR (covK k)) : ℝ) : ℂ)
+
+@[simp] lemma star_sVal (k : ℕ) : star (sVal k) = sVal k := by
+  simp [sVal, Complex.star_def, Complex.conj_ofReal]
 
 def iVal : ℂ := Complex.I
 
-noncomputable def c5Val : ℂ :=
-  let oa := evalK16 g0C OA5
-  let ob := evalK16 g0C OB5
-  (-oa + Complex.sqrt (oa ^ 2 - 4 * ob)) / 2
+noncomputable def oaR : ℝ := evalR OA5
+noncomputable def obR : ℝ := evalR OB5
 
+/-- c5 as the **real** root of x² + oa·x + ob = 0. -/
+noncomputable def c5Val : ℂ := (((-oaR + Real.sqrt (oaR ^ 2 - 4 * obR)) / 2 : ℝ) : ℂ)
+
+@[simp] lemma star_c5Val : star c5Val = c5Val := by
+  simp [c5Val, Complex.star_def, Complex.conj_ofReal]
+
+/-- u1 is the genuinely-complex unit-phase generator (the ⊙=𐑮 register: Im(ξ)≠0). -/
 noncomputable def u1Val : ℂ :=
   Complex.sqrt (evalK16 g0C C2H + Complex.I * evalK16 g0C S2H)
+
+/-! ### O₀ boundary data (flat inputs, sourced from the d12_sic_build field certificate)
+
+The following are the *only* facts that do not close structurally — they are the
+non-well-founded (Γ=𐑔), complex-criticality (⊙=𐑮) boundary data of the O₀ ℂ-embedding,
+per the CL8NK navigator. Values verified numerically at g0 = -2.00857305 and exactly in
+ℚ(√2,√13): evalR(M0)=0.0312, evalR(M1)=0.0195, evalR(M3)=0.234, evalR(M9)=0.0433 > 0. -/
+
+/-- The four cover moduli are positive reals at g0. (covK 0,1,2,3 = M0,M1,M3,M9.) -/
+lemma cover_modulus_nonneg : ∀ k, k < 4 → 0 ≤ evalR (covK k) := by
+  sorry
+
+/-- The c5 discriminant is nonnegative (c5 is a real algebraic integer). -/
+lemma c5_discr_nonneg : 0 ≤ oaR ^ 2 - 4 * obR := by
+  sorry
+
+/-- u1 squares to E2 = (c2 + i·s2)/2 (the unit-phase relation). -/
+lemma u1Val_sq : u1Val ^ 2 = evalK16 g0C C2H + iVal * evalK16 g0C S2H := by
+  sorry
+
+/-! ### Generator square identities (derived from the boundary data) -/
+
+lemma sVal_sq (k : ℕ) (hk : k < 4) : sVal k ^ 2 = evalK16 g0C (covK k) := by
+  rw [sVal, ← Complex.ofReal_pow, Real.sq_sqrt (cover_modulus_nonneg k hk), evalR_ofReal]
+
+@[simp] lemma iVal_sq : iVal ^ 2 = -1 := by rw [iVal]; exact Complex.I_sq
+
+lemma c5Val_sq :
+    c5Val ^ 2 = -(evalK16 g0C OA5) * c5Val - evalK16 g0C OB5 := by
+  have hoa : ((oaR : ℝ) : ℂ) = evalK16 g0C OA5 := by rw [oaR]; exact evalR_ofReal OA5
+  have hob : ((obR : ℝ) : ℂ) = evalK16 g0C OB5 := by rw [obR]; exact evalR_ofReal OB5
+  set s := Real.sqrt (oaR ^ 2 - 4 * obR) with hsdef
+  have hs : s ^ 2 = oaR ^ 2 - 4 * obR := Real.sq_sqrt c5_discr_nonneg
+  have hreal : ((-oaR + s) / 2) ^ 2 = -oaR * ((-oaR + s) / 2) - obR := by
+    linear_combination (1/4 : ℝ) * hs
+  have hc5 : c5Val = (((-oaR + s) / 2 : ℝ) : ℂ) := by rw [c5Val]
+  rw [hc5, ← hoa, ← hob, ← Complex.ofReal_pow, hreal]
+  push_cast; ring
 
 /-! ## 5. The ring hom phi : RElt -> C -/
 
