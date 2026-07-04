@@ -1,26 +1,18 @@
-fix: restate IsSICPOVM to the satisfiable unit convention; give lake a default target
+feat: SIC_D12_MagnitudeClasses: the magnitude field is K16(sqrtN0,N1,N3,N5,N9), exact in Lean
 
-Two integrity defects found while pinning the existence-discharge target.
+First tower plank of the d=12 existence construction (route sanctioned by the
+d12-existence ob3ect batch, 7/7 Frobenius PASS; workspace cont.15). The twelve
+fiducial magnitude roots all lie in the five-cover tower
+K16(sqrt N0, sqrt N1, sqrt N3, sqrt N5, sqrt N9), degree 512 over Q, because the
+dependent moduli pair into SINGLETON square classes:
+[N2]=[N4]=[N6]=[N8]=[N10]=[N0], [N7]=[N5], [N11]=[N1].
 
-1. IsSICPOVM (SIC_POVM_Stark.lean) paired `wh_normSq d fiducial = d` with
-`‖wh_inner ...‖ = 1`. That pair is UNSATISFIABLE: the WH displacements form an
-orthogonal operator basis, so sum_{a,b} |<psi|D_{a,b} psi>|^2 = d*‖psi‖^4
-(= 1728 at d=12, ‖psi‖^2=12) while the fields force d^2 + (d^2-1) = 287. So
-crystal_forces_d12_sic asserted a falsehood, and the shadow axiom pair
-(equiangular_from_stark_axiom + norm_of_normalized_axiom), stated about the
-same concrete vector, was jointly inconsistent with a formalizable Mathlib
-fact - a soundness landmine, same Bucket-A family as the OPN/BSD/NS
-restatements from the 2026-07-01 sorry audit. Restated to the standard unit
-convention: norm_eq ‖psi‖^2 = 1, equiangular (d+1)*‖O‖^2 = 1 (rational form).
-This matches the 1500-digit fiducial data, the manuscript, and what
-SIC_D12_Norm / SIC_D12_Equiangularity machine-check. Both shadow axioms and
-their passthrough theorems updated; sic_povm_exists_via_stark unchanged.
-All wh_inner/wh_normSq consumers are inside SIC_POVM_Stark.lean, so the edit
-surface is one file plus the crystal_forces_d12_sic docstring note.
-
-2. lakefile.toml had NO defaultTargets, so a bare `lake build` built NOTHING
-and always reported "Build completed successfully (0 jobs)" - the deepest
-stale-green trap yet: prior sessions' bare-build "green" observations were
-no-ops (module-name builds were real). Added defaultTargets = ["Imscribing"].
-Bare `lake build` now compiles the lib: Build completed successfully
-(8339 jobs), warnings only, whole lib green with the restated convention.
+The module machine-checks the seven exact witnesses C_k in K16 with
+C_k^2 = N_k * N_i (native_decide; K16 multiplication = flat polynomial product
+mod pr, reusing the SIC_D12_Equiangularity Poly engine and the SIC_D12_Norm
+moduli vectors - no data duplication). Hence sqrt(N_k) = C_k*sqrt(N_i)/N_i.
+Witnesses recovered by nfroots in PARI (exact field computation, not a floor),
+re-verified in Python fractions by the generator (gen_lean_magnitude_classes.py
+in ~/imsgct/d12_sic_build; the Lean data block is generated, never hand-entered).
+Coefficient numerators under 18 bits. Registered in lakefile.toml; bare
+`lake build` green (8340 jobs).

@@ -335,6 +335,7 @@ globs = [
   "Imscribing.Millennium.SIC_D12_SymmetricModuli",
   "Imscribing.Millennium.SIC_D12_Norm",
   "Imscribing.Millennium.SIC_D12_Equiangularity",
+  "Imscribing.Millennium.SIC_D12_MagnitudeClasses",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
 
