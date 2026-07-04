@@ -675,9 +675,136 @@ theorem phi_rmul (A B : RElt) (hA : ∀ p ∈ A, p.1 < 128) (hB : ∀ p ∈ B, p
   simp only [phi_nil, zero_add] at h
   exact h
 
-/-- phi respects conjugation: phi(rconj A) = star (phi A). -/
-theorem phi_rconj (A : RElt) : phi (rconj A) = star (phi A) := by
-  sorry
+/-! ### Conjugation transfer: star on the generators -/
+
+@[simp] lemma star_iVal : star iVal = -iVal := by
+  simp [iVal, Complex.star_def, Complex.conj_I]
+
+lemma star_scov (c : ℕ) : star (scov c) = scov c := by
+  unfold scov
+  split_ifs <;> simp [star_mul', star_sVal]
+
+lemma evalK16_one16 : evalK16 g0C one16 = 1 := by
+  simp [one16, evalK16]
+
+lemma phi_rone : phi rone = 1 := by
+  rw [rone, phi_rK, evalK16_one16]
+
+lemma phi_rU1 : phi rU1 = u1Val := by
+  simp only [rU1, phi_cons, phi_nil, add_zero, evalKey]
+  norm_num [evalK16_one16, scov]
+
+lemma phi_rU1i : phi rU1i =
+    (evalK16 g0C C2H - iVal * evalK16 g0C S2H) * u1Val := by
+  simp only [rU1i, phi_cons, phi_nil, add_zero, evalKey]
+  norm_num [evalK16_kscale, scov]
+  push_cast
+  ring
+
+/-- star(u1Val) = conj(E2)·u1Val — derived from the boundary square `u1Val_sq` and
+    the frozen ring unit relation `u1_unit` pushed through the proven `phi_rmul`;
+    no new boundary data. -/
+lemma star_u1Val : star u1Val =
+    (evalK16 g0C C2H - iVal * evalK16 g0C S2H) * u1Val := by
+  set e2c := evalK16 g0C C2H with he2c
+  set e2s := evalK16 g0C S2H with he2s
+  -- the unit relation under phi: u1·((e2c − i·e2s)·u1) = 1
+  have hu : u1Val * ((e2c - iVal * e2s) * u1Val) = 1 := by
+    have h := congrArg phi u1_unit
+    rwa [phi_rmul rU1 rU1i
+        (by intro p hp; simp [rU1] at hp; simp [hp])
+        (by intro p hp; simp [rU1i] at hp; rcases hp with h | h <;> simp [h]),
+      phi_rU1, phi_rU1i, phi_rone] at h
+  -- modulus of E2 is 1 (exact, from u1² = E2)
+  have hmod : e2c ^ 2 + e2s ^ 2 = 1 := by
+    linear_combination hu - (e2c - iVal * e2s) * u1Val_sq + e2s ^ 2 * iVal_sq
+  -- star u1 squared is conj(E2)
+  have hconj_sq : (star u1Val) ^ 2 = e2c - iVal * e2s := by
+    have h := congrArg star u1Val_sq
+    simp only [star_pow, star_add, star_mul', star_evalK16, star_iVal] at h
+    rw [h]; ring
+  -- |u1|² = 1, purely algebraically
+  have hn1 : star u1Val * u1Val = 1 := by
+    have hns : star u1Val * u1Val = (Complex.normSq u1Val : ℂ) := by
+      rw [mul_comm]; exact Complex.mul_conj u1Val
+    have h1 : (star u1Val * u1Val) ^ 2 = 1 := by
+      rw [mul_pow, hconj_sq, u1Val_sq, ← he2c, ← he2s]
+      linear_combination hmod - e2s ^ 2 * iVal_sq
+    have h2 : (Complex.normSq u1Val) ^ 2 = 1 := by
+      rw [hns] at h1; exact_mod_cast h1
+    have h3 : Complex.normSq u1Val = 1 := by
+      nlinarith [Complex.normSq_nonneg u1Val]
+    rw [hns, h3]; norm_num
+  calc star u1Val
+      = star u1Val * (u1Val * ((e2c - iVal * e2s) * u1Val)) := by rw [hu]; ring
+    _ = (star u1Val * u1Val) * ((e2c - iVal * e2s) * u1Val) := by ring
+    _ = (e2c - iVal * e2s) * u1Val := by rw [hn1]; ring
+
+lemma rU1i_canon : ∀ p ∈ rU1i, p.1 < 128 := by
+  intro p hp
+  simp only [rU1i, List.mem_cons, List.not_mem_nil, or_false] at hp
+  rcases hp with h | h <;> simp [h]
+
+/-- Per-monomial conjugation: star of one `evalKey` is phi of its formal conjugate
+    (the zeta-reduced body of `rconj`). Canonical key required: k/64 ∈ {0,1}. -/
+lemma star_evalKey (k : ℕ) (v : K16) (hk : k < 128) :
+    star (evalKey k v)
+      = phi (if k / 64 == 1
+          then rmul [(k % 64, if k / 16 % 2 == 1 then kscale (-1) v else v)] rU1i
+          else [(k % 64, if k / 16 % 2 == 1 then kscale (-1) v else v)]) := by
+  have hcov : k % 64 % 16 = k % 16 := by omega
+  have hei : k % 64 / 16 % 2 = k / 16 % 2 := by omega
+  have he5 : k % 64 / 32 % 2 = k / 32 % 2 := by omega
+  have he1 : k % 64 / 64 = 0 := by omega
+  have hbase : ∀ w : K16, phi [(k % 64, w)]
+      = evalK16 g0C w * scov (k % 16) * iVal ^ (k / 16 % 2) * c5Val ^ (k / 32 % 2) := by
+    intro w
+    have h0 : phi [(k % 64, w)] = evalKey (k % 64) w := by simp
+    rw [h0, evalKey_eq_monVal, hcov, hei, he5, he1]
+    simp only [monVal, pow_zero, mul_one]
+  have hsingle : ∀ w : K16, ∀ p ∈ [(k % 64, w)], p.1 < 128 := by
+    intro w p hp
+    simp only [List.mem_singleton] at hp
+    subst hp
+    show k % 64 < 128
+    omega
+  have hstar : star (evalKey k v)
+      = evalK16 g0C v * scov (k % 16) * (-iVal) ^ (k / 16 % 2) * c5Val ^ (k / 32 % 2)
+        * (star u1Val) ^ (k / 64) := by
+    rw [evalKey_eq_monVal]
+    simp only [monVal, star_mul', star_pow, star_evalK16, star_scov, star_iVal, star_c5Val]
+  have h64 : k / 64 = 0 ∨ k / 64 = 1 := by omega
+  have h16 : k / 16 % 2 = 0 ∨ k / 16 % 2 = 1 := by omega
+  rcases h64 with h64 | h64 <;> rcases h16 with h16 | h16 <;>
+    rw [hstar, h64, h16] <;>
+    simp only [Nat.reduceBEq, Bool.false_eq_true, ite_false, eq_self_iff_true, ite_true]
+  · rw [hbase v, h16]; ring
+  · rw [hbase (kscale (-1) v), evalK16_kscale, h16]; push_cast; ring
+  · rw [phi_rmul _ _ (hsingle v) rU1i_canon, phi_rU1i, hbase v, h16, star_u1Val]; ring
+  · rw [phi_rmul _ _ (hsingle (kscale (-1) v)) rU1i_canon, phi_rU1i,
+      hbase (kscale (-1) v), evalK16_kscale, h16, star_u1Val]
+    push_cast; ring
+
+/-- phi respects conjugation on the canonical-key domain (all keys 7-bit). -/
+theorem phi_rconj (A : RElt) (hA : ∀ p ∈ A, p.1 < 128) :
+    phi (rconj A) = star (phi A) := by
+  suffices h : ∀ (C : RElt), (∀ p ∈ C, p.1 < 128) → ∀ acc : RElt,
+      phi (C.foldl (fun acc p =>
+        radd acc (if p.1 / 64 == 1
+          then rmul [(p.1 % 64, if p.1 / 16 % 2 == 1 then kscale (-1) p.2 else p.2)] rU1i
+          else [(p.1 % 64, if p.1 / 16 % 2 == 1 then kscale (-1) p.2 else p.2)])) acc)
+      = phi acc + star (phi C) by
+    have h0 := h A hA []
+    simp only [phi_nil, zero_add] at h0
+    exact h0
+  intro C
+  induction' C with p C' ih
+  · intro _ acc; simp
+  · intro hC acc
+    simp only [List.foldl_cons, phi_cons, star_add]
+    rw [ih (fun q hq => hC q (List.mem_cons_of_mem _ hq)), phi_radd,
+      ← star_evalKey p.1 p.2 (hC p (by simp))]
+    ring
 
 /-! ## 6. The SIC-POVM fiducial -/
 
