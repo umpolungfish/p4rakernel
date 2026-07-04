@@ -42,33 +42,43 @@ def k16Poly : Polynomial ℝ :=
   Polynomial.monomial 4 (25 : ℝ) + Polynomial.monomial 2 (2 : ℝ) +
   Polynomial.monomial 0 (1 : ℝ)
 
-lemma poly_at_0 : k16Poly.eval (0 : ℝ) = 1 := by
-  simp [k16Poly, Polynomial.eval]
+/-- Explicit polynomial form for numeric evaluation. -/
+lemma k16_eval (x : ℝ) : k16Poly.eval x =
+    x^16 - 10*x^14 + 40*x^12 - 90*x^10 + 126*x^8 - 96*x^6 + 25*x^4 + 2*x^2 + 1 := by
+  simp only [k16Poly, Polynomial.eval_add, Polynomial.eval_monomial]; ring
 
-lemma poly_at_1 : k16Poly.eval (1 : ℝ) = -1 := by
-  simp [k16Poly, Polynomial.eval]; ring
+/-- The SIC embedding root is the one near g0 = -2.00857305, NOT the (0,1) root.
+    `k16Poly` is even (only even powers), so ±(each real root) both occur; the
+    fiducial data (d12_sic_build) pins the *negative* branch near -2.0086, where all
+    twelve moduli evaluate to positive reals summing to 1. Bracket: k16Poly(-2009/1000)
+    > 0, k16Poly(-2008/1000) < 0. -/
+lemma poly_at_lb : k16Poly.eval (-2009/1000 : ℝ) > 0 := by rw [k16_eval]; norm_num
 
-lemma exists_root : ∃ g : ℝ, 0 < g ∧ g < 1 ∧ k16Poly.eval g = 0 := by
-  have h0 : k16Poly.eval (0 : ℝ) > 0 := by rw [poly_at_0]; norm_num
-  have h1 : k16Poly.eval (1 : ℝ) < 0 := by rw [poly_at_1]; norm_num
-  have hab : (0 : ℝ) ≤ 1 := by norm_num
-  have hc : ContinuousOn k16Poly.eval (Set.Icc (0 : ℝ) 1) :=
+lemma poly_at_ub : k16Poly.eval (-2008/1000 : ℝ) < 0 := by rw [k16_eval]; norm_num
+
+lemma exists_root : ∃ g : ℝ, -2009/1000 < g ∧ g < -2008/1000 ∧ k16Poly.eval g = 0 := by
+  have h0 : k16Poly.eval (-2009/1000 : ℝ) > 0 := poly_at_lb
+  have h1 : k16Poly.eval (-2008/1000 : ℝ) < 0 := poly_at_ub
+  have hab : (-2009/1000 : ℝ) ≤ -2008/1000 := by norm_num
+  have hc : ContinuousOn k16Poly.eval (Set.Icc (-2009/1000 : ℝ) (-2008/1000)) :=
     k16Poly.continuous.continuousOn
-  have hs : Set.Icc (k16Poly.eval (1 : ℝ)) (k16Poly.eval (0 : ℝ)) ⊆
-      k16Poly.eval '' Set.Icc (0 : ℝ) 1 := intermediate_value_Icc' hab hc
-  have hm : (0 : ℝ) ∈ Set.Icc (k16Poly.eval (1 : ℝ)) (k16Poly.eval (0 : ℝ)) := by
+  have hs : Set.Icc (k16Poly.eval (-2008/1000 : ℝ)) (k16Poly.eval (-2009/1000 : ℝ)) ⊆
+      k16Poly.eval '' Set.Icc (-2009/1000 : ℝ) (-2008/1000) := intermediate_value_Icc' hab hc
+  have hm : (0 : ℝ) ∈
+      Set.Icc (k16Poly.eval (-2008/1000 : ℝ)) (k16Poly.eval (-2009/1000 : ℝ)) := by
     rw [Set.mem_Icc]; constructor <;> linarith
-  have him : (0 : ℝ) ∈ k16Poly.eval '' Set.Icc (0 : ℝ) 1 := hs hm
+  have him : (0 : ℝ) ∈ k16Poly.eval '' Set.Icc (-2009/1000 : ℝ) (-2008/1000) := hs hm
   rcases him with ⟨g, hg, hgv⟩
-  have hg0 : g ≠ 0 := by rintro rfl; linarith
-  have hg1 : g ≠ 1 := by rintro rfl; linarith
-  obtain ⟨hge0, hle1⟩ := Set.mem_Icc.mp hg
-  refine ⟨g, lt_of_le_of_ne hge0 (fun h => hg0 h.symm),
-    lt_of_le_of_ne hle1 hg1, hgv⟩
+  have hgl : g ≠ -2009/1000 := by rintro rfl; linarith
+  have hgu : g ≠ -2008/1000 := by rintro rfl; linarith
+  obtain ⟨hge, hle⟩ := Set.mem_Icc.mp hg
+  refine ⟨g, lt_of_le_of_ne hge (fun h => hgl h.symm),
+    lt_of_le_of_ne hle hgu, hgv⟩
 
 noncomputable def g0 : ℝ := Classical.choose exists_root
-lemma g0_pos : 0 < g0 := (Classical.choose_spec exists_root).1
-lemma g0_lt_one : g0 < 1 := (Classical.choose_spec exists_root).2.1
+lemma g0_lb : -2009/1000 < g0 := (Classical.choose_spec exists_root).1
+lemma g0_ub : g0 < -2008/1000 := (Classical.choose_spec exists_root).2.1
+lemma g0_neg : g0 < 0 := by have := g0_ub; linarith
 lemma g0_root : k16Poly.eval g0 = 0 := (Classical.choose_spec exists_root).2.2
 
 def g0C : ℂ := (g0 : ℂ)
