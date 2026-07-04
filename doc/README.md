@@ -1,4 +1,6 @@
 # Developer Documentation and Examples
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This directory contains documentation that describes how to work on
 Lean itself, as well as examples that are included in documentation

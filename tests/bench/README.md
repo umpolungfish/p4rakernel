@@ -1,4 +1,6 @@
 # Lean Benchmark Suites
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This folder contains multiple small Lean programs for benchmarking used by two
 separate benchmark suites based on the

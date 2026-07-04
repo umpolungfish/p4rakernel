@@ -1,6 +1,6 @@
 # Paraconsistent Lean Kernel Fork
 
-**Author:** Lando ⊗ ⊙perator
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 
 A fork of Lean 4 (v4.28.0) implementing a **true paraconsistent type-theoretic kernel** —
 the principle of explosion (ex falso quodlibet) is disabled at the kernel level.

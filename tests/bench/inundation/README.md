@@ -1,4 +1,6 @@
 # Stress Test for Lake
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This folder generates a deeply nested import tree of Lean modules
 that can then be used as a stress test of large Lake builds (e.g., Mathlib).
