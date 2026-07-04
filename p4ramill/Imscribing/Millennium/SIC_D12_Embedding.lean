@@ -1295,6 +1295,63 @@ lemma phi_zeta_im : (phi zeta).im = 1 / 2 := by
   simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
     iVal, Complex.I_re, Complex.I_im, mul_zero, mul_one, zero_mul, add_zero, zero_add]
 
+/-- Z = phi ζ is one of the two primitive 12th roots of unity with imaginary part 1/2:
+    ω = omega_d 12 = √3/2 + i/2 (branch m=1) or ω⁵ = −√3/2 + i/2 (branch m=5). -/
+lemma phi_zeta_pin : phi zeta = omega_d 12 ∨ phi zeta = omega_d 12 ^ 5 := by
+  -- |Z| = 1 from Z¹² = 1 (phi_zpow_lt 12 + zeta_pow12).
+  have h12 : (phi zeta) ^ 12 = 1 := by
+    have hz := phi_zpow_lt 12 (by norm_num)
+    rw [zeta_pow12, phi_rone] at hz
+    exact hz.symm
+  have hns : Complex.normSq (phi zeta) = 1 := by
+    have hx12 : Complex.normSq (phi zeta) ^ 12 = 1 := by rw [← map_pow, h12, map_one]
+    exact (pow_eq_one_iff_of_nonneg (Complex.normSq_nonneg _) (by norm_num)).mp hx12
+  -- Re Z = ±√3/2 from |Z|²=1 and Im Z = 1/2.
+  have hre2 : (phi zeta).re ^ 2 = 3 / 4 := by
+    have hna : (phi zeta).re * (phi zeta).re + (phi zeta).im * (phi zeta).im = 1 := by
+      rw [← Complex.normSq_apply]; exact hns
+    rw [phi_zeta_im] at hna; nlinarith [hna]
+  have hsq3 : (Real.sqrt 3 / 2) ^ 2 = 3 / 4 := by
+    rw [div_pow, Real.sq_sqrt (by norm_num : (0:ℝ) ≤ 3)]; norm_num
+  have hcases : (phi zeta).re = Real.sqrt 3 / 2 ∨ (phi zeta).re = -(Real.sqrt 3) / 2 := by
+    have hfac : ((phi zeta).re - Real.sqrt 3 / 2) * ((phi zeta).re + Real.sqrt 3 / 2) = 0 := by
+      nlinarith [hre2, hsq3]
+    rcases mul_eq_zero.mp hfac with h1 | h1
+    · left; linarith
+    · right; linarith
+  -- ω and ω⁵ components.
+  have hom : omega_d 12 = ((Real.sqrt 3 / 2 : ℝ) : ℂ) + ((1/2 : ℝ) : ℂ) * Complex.I := by
+    have h1 : omega_d 12 = Complex.exp (((Real.pi / 6 : ℝ) : ℂ) * Complex.I) := by
+      rw [omega_d]; congr 1; push_cast; ring
+    rw [h1, Complex.exp_mul_I, ← Complex.ofReal_cos, ← Complex.ofReal_sin,
+      Real.cos_pi_div_six, Real.sin_pi_div_six]
+  have hom5 : omega_d 12 ^ 5 = ((-(Real.sqrt 3) / 2 : ℝ) : ℂ) + ((1/2 : ℝ) : ℂ) * Complex.I := by
+    have h1 : omega_d 12 ^ 5 = Complex.exp (((5 * Real.pi / 6 : ℝ) : ℂ) * Complex.I) := by
+      rw [omega_d, ← Complex.exp_nat_mul]; congr 1; push_cast; ring
+    rw [h1, Complex.exp_mul_I, ← Complex.ofReal_cos, ← Complex.ofReal_sin,
+      show (5 * Real.pi / 6 : ℝ) = Real.pi - Real.pi / 6 by ring,
+      Real.cos_pi_sub, Real.sin_pi_sub, Real.cos_pi_div_six, Real.sin_pi_div_six]
+    push_cast; ring
+  have hom_re : (omega_d 12).re = Real.sqrt 3 / 2 := by
+    rw [hom]; simp [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+      Complex.I_re, Complex.I_im]
+  have hom_im : (omega_d 12).im = 1 / 2 := by
+    rw [hom]; simp [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+      Complex.I_re, Complex.I_im]
+  have hom5_re : (omega_d 12 ^ 5).re = -(Real.sqrt 3) / 2 := by
+    rw [hom5]; simp [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+      Complex.I_re, Complex.I_im]
+  have hom5_im : (omega_d 12 ^ 5).im = 1 / 2 := by
+    rw [hom5]; simp [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+      Complex.I_re, Complex.I_im]
+  rcases hcases with hre | hre
+  · left; apply Complex.ext
+    · rw [hre, hom_re]
+    · rw [phi_zeta_im, hom_im]
+  · right; apply Complex.ext
+    · rw [hre, hom5_re]
+    · rw [phi_zeta_im, hom5_im]
+
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
     `O_{a,b'}` for `b' = (m·b) mod 12`, where `m ∈ {1,5}` is the branch with
