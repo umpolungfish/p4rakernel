@@ -616,9 +616,64 @@ lemma monVal_product (ka kb : ℕ) (va vb : K16) :
       c5Val ^ (ka / 32 % 2) * c5Val ^ (kb / 32 % 2) *
       u1Val ^ (ka / 64) * u1Val ^ (kb / 64)) * key
 
-/-- phi respects multiplication: phi(rmul A B) = phi A * phi B. -/
-theorem phi_rmul (A B : RElt) : phi (rmul A B) = phi A * phi B := by
-  sorry
+/-- Inner fold of `rmul`: folding the contrib of every (ka, pb) product monomial
+    over `C` adds `evalKey ka va * phi C` to phi. Canonical keys (< 128) required —
+    the single-step reducers red1/red2/red3 are sound exactly on that domain. -/
+lemma phi_foldl_inner (ka : ℕ) (va : K16) (hka : ka < 128) :
+    ∀ (C : RElt), (∀ p ∈ C, p.1 < 128) → ∀ acc : RElt,
+    phi (C.foldl (fun acc pb =>
+      (contrib ((ka % 16) ^^^ (pb.1 % 16)) (ka / 16 % 2 + pb.1 / 16 % 2)
+        (ka / 32 % 2 + pb.1 / 32 % 2) (ka / 64 + pb.1 / 64)
+        (covCorr ((ka % 16) &&& (pb.1 % 16)) (kmul va pb.2))).foldl
+        (fun a p => insertAdd a p.1 p.2) acc) acc)
+    = phi acc + evalKey ka va * phi C := by
+  intro C
+  induction' C with pb C' ih
+  · intro _ acc; simp
+  · intro hC acc
+    have hpb : pb.1 < 128 := hC pb (by simp)
+    have hcov : (ka % 16) ^^^ (pb.1 % 16) < 16 := by
+      have h := Nat.xor_lt_two_pow (x := ka % 16) (y := pb.1 % 16) (n := 4)
+        (by simp only [Nat.reducePow]; omega) (by simp only [Nat.reducePow]; omega)
+      simpa using h
+    simp only [List.foldl_cons, phi_cons]
+    rw [ih (fun p hp => hC p (List.mem_cons_of_mem _ hp))]
+    rw [phi_foldl_insertAdd,
+      contrib_sound ((ka % 16) ^^^ (pb.1 % 16)) (ka / 16 % 2 + pb.1 / 16 % 2)
+        (ka / 32 % 2 + pb.1 / 32 % 2) (ka / 64 + pb.1 / 64)
+        (covCorr ((ka % 16) &&& (pb.1 % 16)) (kmul va pb.2))
+        hcov (by omega) (by omega) (by omega),
+      monVal_product]
+    ring
+
+/-- Outer fold of `rmul`: distributes phi over the double fold. -/
+lemma phi_foldl_outer (B : RElt) (hB : ∀ p ∈ B, p.1 < 128) :
+    ∀ (A : RElt), (∀ p ∈ A, p.1 < 128) → ∀ acc : RElt,
+    phi (A.foldl (fun acc pa => B.foldl (fun acc pb =>
+      (contrib ((pa.1 % 16) ^^^ (pb.1 % 16)) (pa.1 / 16 % 2 + pb.1 / 16 % 2)
+        (pa.1 / 32 % 2 + pb.1 / 32 % 2) (pa.1 / 64 + pb.1 / 64)
+        (covCorr ((pa.1 % 16) &&& (pb.1 % 16)) (kmul pa.2 pb.2))).foldl
+        (fun a p => insertAdd a p.1 p.2) acc) acc) acc)
+    = phi acc + phi A * phi B := by
+  intro A
+  induction' A with pa A' ih
+  · intro _ acc; simp
+  · intro hA acc
+    have hpa : pa.1 < 128 := hA pa (by simp)
+    simp only [List.foldl_cons, phi_cons]
+    rw [ih (fun p hp => hA p (List.mem_cons_of_mem _ hp))]
+    rw [phi_foldl_inner pa.1 pa.2 hpa B hB acc]
+    ring
+
+/-- phi respects multiplication on the canonical-key domain (all keys 7-bit).
+    The general statement over wild keys is FALSE — red1/red2/red3 reduce one step
+    only — and every frozen data vector and contrib-emitted key satisfies the bound,
+    so the canonical domain is the ring's own granularity, not a restriction. -/
+theorem phi_rmul (A B : RElt) (hA : ∀ p ∈ A, p.1 < 128) (hB : ∀ p ∈ B, p.1 < 128) :
+    phi (rmul A B) = phi A * phi B := by
+  have h := phi_foldl_outer B hB A hA []
+  simp only [phi_nil, zero_add] at h
+  exact h
 
 /-- phi respects conjugation: phi(rconj A) = star (phi A). -/
 theorem phi_rconj (A : RElt) : phi (rconj A) = star (phi A) := by
