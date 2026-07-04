@@ -1276,6 +1276,26 @@ lemma phi_zpow_lt : ∀ n, n < 13 → phi (zpow n) = (phi zeta) ^ n := by
     have hk12 : k < 13 := by omega
     rw [zpow, phi_rmul (zpow k) zeta (zpow_canon hk12) zeta_canon, ih hk12, pow_succ]
 
+/-- Im(phi ζ) = 1/2 exactly: only the key-16 term carries `iVal = Complex.I`
+    (with real coefficient 1/2); the key-0 and key-32 terms are real. -/
+lemma phi_zeta_im : (phi zeta).im = 1 / 2 := by
+  have k0 : evalKey 0 (kscale (1/2) (kmul W3 OA5))
+      = evalK16 g0C (kscale (1/2) (kmul W3 OA5)) := by simp [evalKey]
+  have k16 : evalKey 16 (kscale (1/2) one16)
+      = evalK16 g0C (kscale (1/2) one16) * iVal := by simp [evalKey, iVal]
+  have k32 : evalKey 32 W3 = evalK16 g0C W3 * c5Val := by simp [evalKey]
+  have hzeta : phi zeta = evalK16 g0C (kscale (1/2) (kmul W3 OA5))
+      + evalK16 g0C (kscale (1/2) one16) * iVal + evalK16 g0C W3 * c5Val := by
+    simp only [phi, zeta, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil]
+    rw [k0, k16, k32]; ring
+  have hmid : evalK16 g0C (kscale (1/2) one16) = ((1/2 : ℝ) : ℂ) := by
+    simp [kscale, one16, evalK16]
+  rw [hzeta, hmid, ← evalR_ofReal (kscale (1/2) (kmul W3 OA5)), ← evalR_ofReal W3,
+    show c5Val = (((-oaR + Real.sqrt (oaR ^ 2 - 4 * obR)) / 2 : ℝ) : ℂ) from rfl]
+  simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+    iVal, Complex.I_re, Complex.I_im, mul_zero, mul_one, zero_mul, add_zero, zero_add]
+  norm_num
+
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
     `O_{a,b'}` for `b' = (m·b) mod 12`, where `m ∈ {1,5}` is the branch with
