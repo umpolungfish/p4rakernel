@@ -481,6 +481,34 @@ theorem phi_radd (A B : RElt) : phi (radd A B) = phi A + phi B := by
   rw [phi_foldl_insertAdd]
   rfl
 
+/-! ### The unreduced monomial value and key decoding -/
+
+/-- Cover-phase product for a 4-bit cover mask. -/
+noncomputable def scov (cov : ℕ) : ℂ :=
+  (if cov % 2 = 1 then sVal 0 else 1) * (if (cov / 2) % 2 = 1 then sVal 1 else 1) *
+  (if (cov / 4) % 2 = 1 then sVal 2 else 1) * (if (cov / 8) % 2 = 1 then sVal 3 else 1)
+
+/-- Value of a raw (possibly unreduced) monomial: coefficient · covers · i^ei · c5^e5 · u1^e1. -/
+noncomputable def monVal (cov ei e5 e1 : ℕ) (c : K16) : ℂ :=
+  evalK16 g0C c * scov cov * iVal ^ ei * c5Val ^ e5 * u1Val ^ e1
+
+lemma evalKey_eq_monVal (key : ℕ) (v : K16) :
+    evalKey key v = monVal (key % 16) (key / 16 % 2) (key / 32 % 2) (key / 64) v := by
+  simp only [evalKey, monVal, scov]
+
+lemma encKey_decode (cov ei e5 e1 : ℕ) (hcov : cov < 16) (hei : ei < 2)
+    (he5 : e5 < 2) (he1 : e1 < 2) :
+    encKey cov ei e5 e1 % 16 = cov ∧ encKey cov ei e5 e1 / 16 % 2 = ei ∧
+    encKey cov ei e5 e1 / 32 % 2 = e5 ∧ encKey cov ei e5 e1 / 64 = e1 := by
+  unfold encKey; refine ⟨?_, ?_, ?_, ?_⟩ <;> omega
+
+lemma evalKey_encKey (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei < 2)
+    (he5 : e5 < 2) (he1 : e1 < 2) :
+    evalKey (encKey cov ei e5 e1) c = monVal cov ei e5 e1 c := by
+  rw [evalKey_eq_monVal]
+  obtain ⟨h1, h2, h3, h4⟩ := encKey_decode cov ei e5 e1 hcov hei he5 he1
+  rw [h1, h2, h3, h4]
+
 /-- phi respects multiplication: phi(rmul A B) = phi A * phi B. -/
 theorem phi_rmul (A B : RElt) : phi (rmul A B) = phi A * phi B := by
   sorry
