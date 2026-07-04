@@ -1,6 +1,6 @@
 # p4rakernel: Paraconsistent Computation Layer
 
-**Author:** Lando⊗⊙perator
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 **License:** Unlicense (public domain)
 
 p4rakernel is the paraconsistent computation layer of the **Imscribing Grammar (IG)**. The

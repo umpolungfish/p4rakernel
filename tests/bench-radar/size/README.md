@@ -1,4 +1,6 @@
 # The `size` benchmark
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 This benchmark measures the number and size of a few kinds of files.
 It expects to be executed after the `build` benchmark.

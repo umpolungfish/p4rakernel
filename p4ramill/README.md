@@ -1,6 +1,6 @@
 # p4ramill — Paraconsistent MillenniumAnkh
 
-**Author:** Lando ⊗ ⊙perator
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 
 A complete port of the MillenniumAnkh formalization (Imscribing Grammar + 7 Clay Millennium Problems + OPN) into the paraconsistent Lean 4 kernel fork (`p4rakernel`).
 

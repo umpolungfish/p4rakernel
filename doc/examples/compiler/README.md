@@ -1,3 +1,5 @@
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 In this example, we use the Lean C code generator to construct a simple program.
 
 1- Generate `build/bin/test` program using `leanmake bin` (assuming `bin/` from e.g. the stage 0.5 build directory is in your `PATH`)
