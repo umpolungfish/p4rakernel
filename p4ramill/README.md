@@ -29,7 +29,7 @@ p4ramill/
 The paraconsistent fork must be built first:
 
 ```bash
-cd ~/p4rakernel
+cd imsgct/p4rakernel
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make stage0 -j$(nproc)
@@ -39,15 +39,15 @@ make stage1 -j$(nproc)
 ### Build p4ramill
 
 ```bash
-cd ~/p4rakernel/p4ramill
+cd imsgct/p4rakernel/p4ramill
 ./build_paraconsistent.sh all
 ```
 
 Or manually:
 
 ```bash
-cd ~/p4rakernel/p4ramill
-export PATH=~/p4rakernel/build/stage1/bin:$PATH
+cd imsgct/p4rakernel/p4ramill
+export PATH=imsgct/p4rakernel/build/stage1/bin:$PATH
 lake build                    # Build all modules
 lean --run ParaconsistentMillennium.lean  # Run the resolution
 ```
