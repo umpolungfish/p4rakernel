@@ -564,6 +564,54 @@ lemma contrib_sound (cov ei e5 e1 : ℕ) (c : K16) (hcov : cov < 16) (hei : ei <
       List.append_nil]
     rw [red2_red3_sum cov ei e5 e1 c hcov (by omega) he5 (by omega)]
 
+/-! ### Cover correction and the monomial product identity -/
+
+/-- `covCorr` folds `kmul` by `covK b` over the set bits; under evalK16 that is a product. -/
+lemma evalK16_covCorr (m : ℕ) (c : K16) :
+    evalK16 g0C (covCorr m c) = evalK16 g0C c *
+      ((if (m >>> 0) &&& 1 == 1 then evalK16 g0C (covK 0) else 1) *
+       (if (m >>> 1) &&& 1 == 1 then evalK16 g0C (covK 1) else 1) *
+       (if (m >>> 2) &&& 1 == 1 then evalK16 g0C (covK 2) else 1) *
+       (if (m >>> 3) &&& 1 == 1 then evalK16 g0C (covK 3) else 1)) := by
+  unfold covCorr
+  have hr : List.range 4 = [0, 1, 2, 3] := rfl
+  rw [hr]
+  simp only [List.foldl_cons, List.foldl_nil]
+  split_ifs <;> (try simp only [evalK16_kmul]) <;> ring
+
+/-- The pure cover identity: the XOR cover times the shared-bit (AND) squared covers
+    equals the product of the two individual covers. Proven by exhausting the 4 bits of
+    each 4-bit mask; `ring` only ever sees the four `sVal` atoms, so it stays cheap. -/
+lemma cover_identity (A B : ℕ) (hA : A < 16) (hB : B < 16) :
+    scov (A ^^^ B) *
+      ((if ((A &&& B) >>> 0) &&& 1 == 1 then evalK16 g0C (covK 0) else 1) *
+       (if ((A &&& B) >>> 1) &&& 1 == 1 then evalK16 g0C (covK 1) else 1) *
+       (if ((A &&& B) >>> 2) &&& 1 == 1 then evalK16 g0C (covK 2) else 1) *
+       (if ((A &&& B) >>> 3) &&& 1 == 1 then evalK16 g0C (covK 3) else 1))
+    = scov A * scov B := by
+  have s0 := sVal_sq 0 (by norm_num)
+  have s1 := sVal_sq 1 (by norm_num)
+  have s2 := sVal_sq 2 (by norm_num)
+  have s3 := sVal_sq 3 (by norm_num)
+  interval_cases A <;> interval_cases B <;>
+    simp only [scov, ← s0, ← s1, ← s2, ← s3] <;> norm_num <;> ring
+
+/-- The pointwise product law: the reduced monomial for the product of two ring
+    monomials equals the product of their `evalKey`s. -/
+lemma monVal_product (ka kb : ℕ) (va vb : K16) :
+    monVal ((ka % 16) ^^^ (kb % 16)) (ka / 16 % 2 + kb / 16 % 2)
+      (ka / 32 % 2 + kb / 32 % 2) (ka / 64 + kb / 64)
+      (covCorr ((ka % 16) &&& (kb % 16)) (kmul va vb))
+    = evalKey ka va * evalKey kb vb := by
+  rw [evalKey_eq_monVal ka va, evalKey_eq_monVal kb vb]
+  simp only [monVal, evalK16_covCorr, evalK16_kmul, pow_add]
+  have key := cover_identity (ka % 16) (kb % 16)
+    (Nat.mod_lt _ (by norm_num)) (Nat.mod_lt _ (by norm_num))
+  linear_combination (evalK16 g0C va * evalK16 g0C vb *
+      iVal ^ (ka / 16 % 2) * iVal ^ (kb / 16 % 2) *
+      c5Val ^ (ka / 32 % 2) * c5Val ^ (kb / 32 % 2) *
+      u1Val ^ (ka / 64) * u1Val ^ (kb / 64)) * key
+
 /-- phi respects multiplication: phi(rmul A B) = phi A * phi B. -/
 theorem phi_rmul (A B : RElt) : phi (rmul A B) = phi A * phi B := by
   sorry
