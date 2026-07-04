@@ -1,5 +1,6 @@
 import Mathlib
 import Imscribing.Millennium.SIC_POVM_Stark
+import Imscribing.Millennium.SIC_D12_Embedding
 import Imscribing.Primitives.Crystal
 import Imscribing.IGFunctor
 
@@ -120,17 +121,23 @@ theorem crystal_sic_coverage : 17280000 / (d_lattice1 ^ 2) = 120000 := by norm_n
 -- ============================================================
 
 /-- The Crystal dual-lattice constraint forces a SIC-POVM in dimension 12.
-    Constructive witness: frame-potential minimisation in ig-pulse/density_matrix.py
-    achieves F = (144−1)/169 = 143/169 exactly, all 143 WH overlaps = 1/13.
-    We assert existence as an axiom here pending a formal Lean proof.
+    DISCHARGED (2026-07-04) — this is now a THEOREM, not an axiom. The exact
+    fiducial is constructed in `SIC_D12_Embedding`: coordinates in the
+    existence ring R = K16(s0,s1,s3,s9,i,c5,u1) are transferred to ℂ along the
+    ring hom `phi` (real root g0 of `k16Poly` via an IVT bracket,
+    divided-difference positivity certificates, u1 half-angle reconstruction);
+    the norm and all 143 equiangularity identities transfer from the
+    `native_decide` planks (`norm_sum`, `existence_identities_all`). Audit:
+    depends only on `propext`/`Classical.choice`/`Quot.sound` +
+    `Lean.ofReduceBool`/`Lean.trustCompiler` (native_decide) — no project
+    axioms.
 
     NOTE (2026-07-03): `IsSICPOVM` was restated to the satisfiable unit
-    convention (‖ψ‖² = 1, (d+1)·‖O‖² = 1); the old convention made this axiom
-    assert a falsehood — see the docstring on `IsSICPOVM`. Discharge campaign:
-    `SIC_D12_Norm` + `SIC_D12_Equiangularity` (both halves exact on pinned
-    data), existence construction in progress (d12_sic_build cont.15+). -/
-axiom crystal_forces_d12_sic :
-    ∃ ψ : Fin 12 → ℂ, IsSICPOVM 12 ψ
+    convention (‖ψ‖² = 1, (d+1)·‖O‖² = 1); the old convention made the former
+    axiom assert a falsehood — see the docstring on `IsSICPOVM`. -/
+theorem crystal_forces_d12_sic :
+    ∃ ψ : Fin 12 → ℂ, IsSICPOVM 12 ψ :=
+  SIC.D12.Embedding.crystal_forces_d12_sic
 
 -- ============================================================
 -- §8.  Structural summary theorem
