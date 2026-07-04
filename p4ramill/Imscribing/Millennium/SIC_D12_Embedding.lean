@@ -316,8 +316,8 @@ noncomputable def evalKey (key : ℕ) (v : K16) : ℂ :=
   let base := evalK16 g0C v
   let scov := ((if cov % 2 = 1 then sVal 0 else 1) *
                (if (cov / 2) % 2 = 1 then sVal 1 else 1) *
-               (if (cov / 4) % 2 = 1 then sVal 3 else 1) *
-               (if (cov / 8) % 2 = 1 then sVal 9 else 1))
+               (if (cov / 4) % 2 = 1 then sVal 2 else 1) *
+               (if (cov / 8) % 2 = 1 then sVal 3 else 1))
   base * scov * (iVal ^ ei) * (c5Val ^ e5) * (u1Val ^ e1)
 
 noncomputable def phi (A : RElt) : ℂ :=
@@ -334,12 +334,71 @@ lemma evalKey_kadd_key (k : ℕ) (v w : K16) :
   rw [evalK16_kadd]
   ring
 
-/-- phi respects addition: phi(radd A B) = phi A + phi B.
-    The proof proceeds by induction on the fold structure of radd,
-    using the fact that insertAdd is linear under phi when merged
-    entries have their K16 coefficients added via kadd. -/
+@[simp] lemma phi_cons (p : ℕ × K16) (rest : RElt) :
+    phi (p :: rest) = evalKey p.1 p.2 + phi rest := by
+  simp [phi]
+
+lemma evalK16_of_isZeroK (g : ℂ) :
+    ∀ (v : List ℚ), isZeroK v = true → evalK16 g v = 0 := by
+  intro v
+  induction' v with a v' ih
+  · intro _; simp [evalK16]
+  · intro h
+    simp only [isZeroK, List.all_cons, Bool.and_eq_true, beq_iff_eq] at h
+    obtain ⟨ha, hv'⟩ := h
+    rw [evalK16_cons, ha, ih (by simpa [isZeroK] using hv')]; simp
+
+lemma evalKey_of_isZeroK (k : ℕ) (v : K16) (h : isZeroK v = true) :
+    evalKey k v = 0 := by
+  simp only [evalKey, evalK16_of_isZeroK g0C v h, zero_mul]
+
+/-- The linchpin: inserting one (key, value) into a sorted assoc list adds its
+    `evalKey` to `phi`, regardless of whether it lands fresh, merges, or cancels. -/
+lemma phi_insertAdd (acc : RElt) (k : ℕ) (v : K16) :
+    phi (insertAdd acc k v) = phi acc + evalKey k v := by
+  induction' acc with p rest ih
+  · simp only [insertAdd]
+    split
+    · rename_i hz; rw [evalKey_of_isZeroK k v hz]; simp
+    · simp
+  · obtain ⟨k', v'⟩ := p
+    simp only [insertAdd]
+    split
+    · -- k < k'
+      split
+      · rename_i hz; rw [evalKey_of_isZeroK k v hz]; simp
+      · simp only [phi_cons]; ring
+    · split
+      · -- k == k'
+        rename_i hkk
+        have hk : k = k' := by simpa using hkk
+        split
+        · -- isZeroK (kadd v' v): the merged entry cancels
+          rename_i hw
+          have hz : evalKey k' v' + evalKey k' v = 0 := by
+            rw [← evalKey_kadd_key]; exact evalKey_of_isZeroK k' (kadd v' v) hw
+          simp only [phi_cons]; subst hk; linear_combination -hz
+        · -- merged entry survives
+          rename_i hw
+          simp only [phi_cons]; subst hk
+          rw [evalKey_kadd_key]; ring
+      · -- k ≠ k', recurse into the tail
+        simp only [phi_cons]; rw [ih]; ring
+
+lemma phi_foldl_insertAdd (L : List (ℕ × K16)) (acc : RElt) :
+    phi (L.foldl (fun a p => insertAdd a p.1 p.2) acc)
+      = phi acc + (L.map (fun p => evalKey p.1 p.2)).sum := by
+  induction' L with p L' ih generalizing acc
+  · simp
+  · simp only [List.foldl_cons, List.map_cons, List.sum_cons]
+    rw [ih (insertAdd acc p.1 p.2), phi_insertAdd]
+    ring
+
+/-- phi respects addition: phi(radd A B) = phi A + phi B. -/
 theorem phi_radd (A B : RElt) : phi (radd A B) = phi A + phi B := by
-  sorry
+  unfold radd
+  rw [phi_foldl_insertAdd]
+  rfl
 
 /-- phi respects multiplication: phi(rmul A B) = phi A * phi B. -/
 theorem phi_rmul (A B : RElt) : phi (rmul A B) = phi A * phi B := by
