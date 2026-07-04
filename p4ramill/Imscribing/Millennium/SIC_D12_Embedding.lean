@@ -810,8 +810,59 @@ theorem phi_rconj (A : RElt) (hA : ∀ p ∈ A, p.1 < 128) :
 
 noncomputable def psi : Fin 12 → ℂ := fun k => phi (rZ k.val)
 
+/-- All twelve coordinates and their conjugates have canonical 7-bit keys —
+    checked once in the ring, feeding the side conditions of phi_rmul/phi_rconj. -/
+theorem rZ_keys_canon :
+    ((List.range 12).all fun k =>
+      (rZ k).all (fun p => decide (p.1 < 128)) &&
+      (rZB k).all (fun p => decide (p.1 < 128))) = true := by
+  native_decide
+
+lemma rZ_canon {k : ℕ} (hk : k < 12) : ∀ p ∈ rZ k, p.1 < 128 := by
+  intro p hp
+  have h := rZ_keys_canon
+  rw [List.all_eq_true] at h
+  have h2 := h k (List.mem_range.mpr hk)
+  rw [Bool.and_eq_true, List.all_eq_true, List.all_eq_true] at h2
+  exact of_decide_eq_true (h2.1 p hp)
+
+lemma rZB_canon {k : ℕ} (hk : k < 12) : ∀ p ∈ rZB k, p.1 < 128 := by
+  intro p hp
+  have h := rZ_keys_canon
+  rw [List.all_eq_true] at h
+  have h2 := h k (List.mem_range.mpr hk)
+  rw [Bool.and_eq_true, List.all_eq_true, List.all_eq_true] at h2
+  exact of_decide_eq_true (h2.2 p hp)
+
+/-- The frozen modulus identity, extracted per coordinate. -/
+lemma coord_modulus_eq {k : ℕ} (hk : k < 12) :
+    rmul (rZB k) (rZ k) = rK (modK k) := by
+  have h := coord_moduli
+  rw [List.all_eq_true] at h
+  exact eq_of_beq (h k (List.mem_range.mpr hk))
+
 theorem norm_sq_eq_one : wh_normSq 12 psi = 1 := by
-  sorry
+  have hterm : ∀ k : Fin 12, psi k * star (psi k) = evalK16 g0C (modK k.val) := by
+    intro k
+    have hconj : star (phi (rZ k.val)) = phi (rZB k.val) := by
+      simp only [rZB]
+      exact (phi_rconj (rZ k.val) (rZ_canon k.isLt)).symm
+    show phi (rZ k.val) * star (phi (rZ k.val)) = _
+    rw [hconj, mul_comm,
+      ← phi_rmul (rZB k.val) (rZ k.val) (rZB_canon k.isLt) (rZ_canon k.isLt),
+      coord_modulus_eq k.isLt, phi_rK]
+  have hsum : (∑ k : Fin 12, psi k * star (psi k))
+      = ∑ k : Fin 12, evalK16 g0C (modK k.val) :=
+    Finset.sum_congr rfl (fun k _ => hterm k)
+  have hone : (∑ k : Fin 12, evalK16 g0C (modK k.val)) = 1 := by
+    have h := congrArg (evalK16 g0C) norm_sum
+    simp only [evalK16_kadd, evalK16_one16] at h
+    rw [Fin.sum_univ_eq_sum_range (fun n => evalK16 g0C (modK n)) 12]
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero, modK]
+    linear_combination h
+  unfold wh_normSq wh_inner
+  rw [hsum, hone]
+  simp
 
 theorem equiangular : ∀ (a b : Fin 12), (a, b) ≠ (0, 0) →
     ((12 : ℝ) + 1) * ‖wh_inner 12 psi (D_ah 12 a b 0 psi)‖ ^ 2 = 1 := by
