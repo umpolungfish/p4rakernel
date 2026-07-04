@@ -806,6 +806,51 @@ theorem phi_rconj (A : RElt) (hA : ∀ p ∈ A, p.1 < 128) :
       ← star_evalKey p.1 p.2 (hC p (by simp))]
     ring
 
+/-! ### The WH overlap elements as top-level ring elements
+
+`stratum` in the ExistenceRing computes these inside local lets; the transfer needs
+them as named defs so phi can be pushed through. Shapes mirror `stratum` exactly. -/
+
+/-- O_{a,b} = Σ_j z̄_j · z_{(j−a) mod 12} · ζ^{((j−a)·b) mod 12} in R. -/
+def Oab (a b : ℕ) : RElt :=
+  (List.range 12).foldl (fun acc j =>
+    radd acc (rmul (rmul (rZB j) (rZ ((j + 12 - a) % 12)))
+      (zpow (((j + 12 - a) % 12 * b) % 12)))) []
+
+/-- Ō_{a,b}, with conjugated coordinate pairs and inverted ζ-powers. -/
+def Ocab (a b : ℕ) : RElt :=
+  (List.range 12).foldl (fun acc j =>
+    radd acc (rmul (rconj (rmul (rZB j) (rZ ((j + 12 - a) % 12))))
+      (zpow ((12 - ((j + 12 - a) % 12 * b) % 12) % 12)))) []
+
+/-- The 143 unit-overlap identities, restated over the named elements. -/
+theorem Oab_unit_all :
+    ((List.range 12).all fun a => (List.range 12).all fun b =>
+      (a == 0 && b == 0) || (rmul (Oab a b) (Ocab a b) == rT13)) = true := by
+  native_decide
+
+/-- Ō_{a,b} is literally the formal conjugate of O_{a,b} in R. -/
+theorem Ocab_conj_all :
+    ((List.range 12).all fun a => (List.range 12).all fun b =>
+      Ocab a b == rconj (Oab a b)) = true := by
+  native_decide
+
+/-- Canonicity of every element the transfer pushes phi through. -/
+theorem zpow_canon_all :
+    ((List.range 13).all fun n =>
+      (zpow n).all fun p => decide (p.1 < 128)) = true := by
+  native_decide
+
+theorem T_canon_all :
+    ((List.range 12).all fun j => (List.range 12).all fun j' =>
+      (rmul (rZB j) (rZ j')).all fun p => decide (p.1 < 128)) = true := by
+  native_decide
+
+theorem Oab_canon_all :
+    ((List.range 12).all fun a => (List.range 12).all fun b =>
+      (Oab a b).all fun p => decide (p.1 < 128)) = true := by
+  native_decide
+
 /-! ## 6. The SIC-POVM fiducial -/
 
 noncomputable def psi : Fin 12 → ℂ := fun k => phi (rZ k.val)
