@@ -1294,7 +1294,6 @@ lemma phi_zeta_im : (phi zeta).im = 1 / 2 := by
     show c5Val = (((-oaR + Real.sqrt (oaR ^ 2 - 4 * obR)) / 2 : ℝ) : ℂ) from rfl]
   simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
     iVal, Complex.I_re, Complex.I_im, mul_zero, mul_one, zero_mul, add_zero, zero_add]
-  norm_num
 
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
