@@ -1,32 +1,26 @@
-feat: SIC_D12_Equiangularity: discharge the 143 overlap identities of the d=12 SIC in Lean (native_decide)
+fix: restate IsSICPOVM to the satisfiable unit convention; give lake a default target
 
-This adds p4ramill/Imscribing/Millennium/SIC_D12_Equiangularity.lean, the second Lean
-plank of the crystal_forces_d12_sic axiom-drop, covering the equiangularity half of
-IsSICPOVM 12 psi: for every Weyl-Heisenberg index (a,b) != (0,0), |<psi|D_{a,b}|psi>|^2
-= 1/13.
+Two integrity defects found while pinning the existence-discharge target.
 
-The key dissolve (overlap_deg.gp, banked in ~/imsgct/d12_sic_build): each overlap
-O_{a,b} is individually a LOW-degree algebraic number (max degree 32 over Q; distribution
-deg 2:7, 4:16, 8:32, 16:48, 32:40), even though the twelve coordinates jointly need the
-degree-512 magnitude tower. So no compositum tower is needed: equiangularity splits into
-143 small per-overlap identities.
+1. IsSICPOVM (SIC_POVM_Stark.lean) paired `wh_normSq d fiducial = d` with
+`‖wh_inner ...‖ = 1`. That pair is UNSATISFIABLE: the WH displacements form an
+orthogonal operator basis, so sum_{a,b} |<psi|D_{a,b} psi>|^2 = d*‖psi‖^4
+(= 1728 at d=12, ‖psi‖^2=12) while the fields force d^2 + (d^2-1) = 287. So
+crystal_forces_d12_sic asserted a falsehood, and the shadow axiom pair
+(equiangular_from_stark_axiom + norm_of_normalized_axiom), stated about the
+same concrete vector, was jointly inconsistent with a formalizable Mathlib
+fact - a soundness landmine, same Bucket-A family as the OPN/BSD/NS
+restatements from the 2026-07-01 sorry audit. Restated to the standard unit
+convention: norm_eq ‖psi‖^2 = 1, equiangular (d+1)*‖O‖^2 = 1 (rational form).
+This matches the 1500-digit fiducial data, the manuscript, and what
+SIC_D12_Norm / SIC_D12_Equiangularity machine-check. Both shadow axioms and
+their passthrough theorems updated; sic_povm_exists_via_stark unchanged.
+All wh_inner/wh_normSq consumers are inside SIC_POVM_Stark.lean, so the edit
+surface is one file plus the crystal_forces_d12_sic docstring note.
 
-Per overlap the pinned data (overlap_pin.gp, 1500-digit fiducial, floor gate >4700 bits,
-all 143 PASS / 0 failures) is the monic irreducible min poly p of O_{a,b} plus the
-lindep-recovered q with conj(O) = q(O) in the power basis of Q(O), pinned independently
-of p. The Lean theorem equiangularity_all then checks, in exact rational polynomial
-arithmetic (flat List Q engine, no floats, no square roots), that 13*x*q(x) == 1 mod p
-for all 143 entries, i.e. 13*O*conj(O) = 1, i.e. |O|^2 = 1/13. covers_all_pairs pins
-the index set to exactly the 143 non-identity WH pairs, no gaps, no duplicates. The
-congruence is NOT true by construction: q was recovered from the numerics of conj(O) by
-lindep, not computed as a modular inverse, so p and q are independent pinnings and the
-exact identity closed on its own -- the same closure structure as norm_sum.
-
-Together with SIC_D12_Norm (trace-one half, commit 897e3d5) both defining SIC conditions
-on the pinned d=12 fiducial data are now machine-checked exact in Lean. Coefficient
-heights are small (numerators under 60 bits), native_decide is fast. Data file
-overlap_pin_data.txt and generator gen_lean_equiangularity.py live in
-~/imsgct/d12_sic_build (the Lean data block is generated, never hand-entered).
-
-Whole p4ramill lib remains green: lake build -> Build completed successfully.
-lakefile.toml: register Imscribing.Millennium.SIC_D12_Equiangularity.
+2. lakefile.toml had NO defaultTargets, so a bare `lake build` built NOTHING
+and always reported "Build completed successfully (0 jobs)" - the deepest
+stale-green trap yet: prior sessions' bare-build "green" observations were
+no-ops (module-name builds were real). Added defaultTargets = ["Imscribing"].
+Bare `lake build` now compiles the lib: Build completed successfully
+(8339 jobs), warnings only, whole lib green with the restated convention.
