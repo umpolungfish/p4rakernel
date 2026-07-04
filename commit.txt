@@ -1,24 +1,7 @@
-SIC_D12_Embedding: reduce `equiangular` to ONE analytic bridge lemma; the entire ring-side equiangularity is now PROVEN and green.
+SIC_D12_Embedding: equiangular_bridge healed and green; crystal_forces_d12_sic DROPPED from axiom to theorem.
 
-What landed (all compiling, native_decide + phi-transfer, no new axioms):
-- Ocab_canon_all (native_decide) — canonicity of every Ō_{a,b} key.
-- unit_at / conj_at / Oab_canon / Ocab_canon — per-pair extractors decoding the
-  double-nested `.all` of Oab_unit_all / Ocab_conj_all / Oab_canon_all / Ocab_canon_all.
-- phi_rT13 : phi rT13 = 1/13.
-- phi_Ocab : phi (Ocab a b) = star (phi (Oab a b))  [conj_at + phi_rconj].
-- overlap_normSq : for (a,b) != (0,0), a,b < 12,  Complex.normSq (phi (Oab a b)) = 1/13.
-  This is the WHOLE equiangular content on the ring side: O_{a,b}·Ō_{a,b} = 1/13
-  (native_decide, Oab_unit_all) pushed through the star-ring homomorphism phi
-  (phi_rmul + phi_Ocab + phi_rT13), then z·conj z = normSq z.
+I fixed the four transcription defects in the never-compiled bridge block: two explicit rfl closures where rw's auto-rfl could not unfold psi (psi k is phi (rZ k.val) definitionally); the parenthesis-broken sum-conversion lambda replaced with a unifying placeholder in Fin.sum_univ_eq_sum_range; and hjk inserted into the rewrite chain so the omega-exponent follows the psi-index into (k+12-a) form (hpsi alone left the exponent behind and hphase would never have matched).
 
-`equiangular` now assembles in four lines from the bridge + overlap_normSq via
-Complex.sq_norm (‖z‖² = normSq z) and norm_star (‖star z‖ = ‖z‖).
+With the bridge lemma proven, the capstone closes: d12_sic_exists : IsSICPOVM 12 psi and crystal_forces_d12_sic : SICPOVM_Exists 12 are theorems. Axiom audit is clean: propext, Classical.choice, Quot.sound plus Lean.ofReduceBool/Lean.trustCompiler (native_decide), no project axioms, no Stark shadow.
 
-SOLE remaining sorry: `equiangular_bridge` —
-  wh_inner 12 psi (D_ah 12 a b 0 psi) = star (phi (Oab a.val b')),  b' = (m·b) mod 12,
-where Z = phi zeta = omega_d 12 ^ m, m in {1,5}. Route banked in
-d12_sic_build/d12_boundary_ctx.md §4: |Z| = 1 from zeta_pow12, Im Z = 1/2 pins
-Z in {omega, omega^5}; then term-by-term matching of the D_ah / X_d / Z_d iterates
-against Oab via phi_zpow / phi_rmul / phi_rconj, with Z^12 = 1 collapsing the exponents.
-This is the last plank of the d=12 capstone; discharging it drops crystal_forces_d12_sic
-from axiom to theorem.
+SIC_POVM_Functor now imports the Embedding capstone and restates crystal_forces_d12_sic as a theorem delegating to it. The axiom is gone. Module and full library both build green (lake exit 0, fresh oleans). The d=12 SIC existence is machine-checked end to end: exact fiducial in R = K16(s0,s1,s3,s9,i,c5,u1), transferred to C along phi at the IVT-bracketed root g0, norm and all 143 overlap identities riding the frozen native_decide planks.
