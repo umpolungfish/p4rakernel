@@ -1250,6 +1250,32 @@ lemma overlap_normSq {a b : ℕ} (ha : a < 12) (hb : b < 12) (h : ¬(a = 0 ∧ b
   apply Complex.ofReal_inj.mp
   rw [h1]; norm_num
 
+/-- ζ's own keys (0, 16, 32) are canonical. -/
+lemma zeta_canon : ∀ p ∈ zeta, p.1 < 128 := by
+  intro p hp
+  simp only [zeta, List.mem_cons, List.not_mem_nil, or_false] at hp
+  rcases hp with rfl | rfl | rfl <;> norm_num
+
+/-- Canonicity of `zpow n` for `n ≤ 12` (extracted from `zpow_canon_all`). -/
+lemma zpow_canon {n : ℕ} (hn : n < 13) : ∀ p ∈ zpow n, p.1 < 128 := by
+  intro p hp
+  have H := zpow_canon_all
+  rw [List.all_eq_true] at H
+  have Hn := H n (List.mem_range.mpr hn)
+  rw [List.all_eq_true] at Hn
+  exact of_decide_eq_true (Hn p hp)
+
+/-- phi is multiplicative on ζ-powers up to exponent 12 (Oab uses mod-12 exponents,
+    so `n < 13` suffices and avoids a general `rmul_canon`). -/
+lemma phi_zpow_lt : ∀ n, n < 13 → phi (zpow n) = (phi zeta) ^ n := by
+  intro n
+  induction n with
+  | zero => intro _; simp [zpow, phi_rone]
+  | succ k ih =>
+    intro hk
+    have hk12 : k < 13 := by omega
+    rw [zpow, phi_rmul (zpow k) zeta (zpow_canon hk12) zeta_canon, ih hk12, pow_succ]
+
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
     `O_{a,b'}` for `b' = (m·b) mod 12`, where `m ∈ {1,5}` is the branch with
