@@ -1,1 +1,23 @@
-SIC_D12_Embedding: norm_sq_eq_one PROVEN (trace-one half of IsSICPOVM transferred). rZ_keys_canon (native_decide: all 12 coords + conjugates canonical) feeding rZ_canon/rZB_canon; coord_modulus_eq extracts the frozen coord_moduli per-k; hterm: psi_k star(psi_k) = evalK16(modK k) via phi_rconj/phi_rmul/phi_rK; sum closed by norm_sum under evalK16_kadd. Also FIX X_d: (k+d-1)%d not (k-1)%d - Nat truncated sub fixed index 0 instead of wrapping, so D_ah was not the WH displacement; sole consumer was the sorried equiangular. Remaining: equiangular + 3 O0 boundary sorries.
+SIC_D12_Embedding: heal two boundary-transcription defects — module + full library now GREEN (lake build, 8342 jobs). One real-math sorry remains: equiangular.
+
+Root cause: the prior HEAD (8e369f1) pasted in the divided-difference boundary
+certificate apparatus (certLo/Hi/Mid, exact-rational qM0..qS2H, cert_id_*/cert_margin_*,
+abs_evalQR_le, cert_pos, cover_modulus_nonneg, c5_discr_nonneg, u1Val_sq) but was
+committed WITHOUT compiling — it reused b154261's commit message verbatim and swept in
+~30 unrelated lean/mathlib test files. `lake build` failed with two mechanical defects,
+both confined to the O0 boundary layer (the structural O-infinity spine —
+norm_sq_eq_one / phi_rmul / phi_rconj — typechecked cleanly throughout):
+
+  (1) abs_evalQR_le (line ~492): `abs_add` is Unknown in Mathlib v4.28.0 (the
+      triangle inequality |a+b| <= |a|+|b| is `abs_add_le` here). Fixed:
+      le_trans (abs_add _ _) ... -> le_trans (abs_add_le _ _) ...
+
+  (2) xE2_sq_add (line ~601): forward reference — `evalK16_one16` was USED at 601 but
+      DEFINED at 954. Inlined the trivial fact instead of hoisting:
+      rw [evalK16_one16, Complex.one_re]
+        -> rw [show evalK16 g0C one16 = (1:C) by simp [one16, evalK16], Complex.one_re]
+
+Both fixes are pure transcription heals; no mathematics changed. The certificate
+arithmetic (exact rational divided-difference certs, native_decide list identities)
+was already sound. crystal_forces_d12_sic now stands on a compiling boundary; only
+equiangular (route banked in d12_sic_build/d12_boundary_ctx.md section 4) remains.
