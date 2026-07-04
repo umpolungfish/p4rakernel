@@ -56,10 +56,24 @@ def wh_normSq (d : ℕ) (v : Fin d → ℂ) : ℝ :=
    2.  SIC-POVM definition
    ==================================================================== -/
 
+/-- A unit fiducial vector generating a Weyl–Heisenberg covariant SIC-POVM:
+    ‖ψ‖² = 1 and every non-identity WH overlap has |⟨ψ|D_{a,b}ψ⟩|² = 1/(d+1),
+    stated rationally as (d+1)·‖⟨ψ|D_{a,b}ψ⟩‖² = 1.
+
+    CONVENTION FIX (2026-07-03): the previous statement paired
+    `wh_normSq d fiducial = d` with `‖wh_inner …‖ = 1`, which is UNSATISFIABLE:
+    the WH displacements are an orthogonal operator basis, so
+    ∑_{a,b} |⟨ψ|D_{a,b}ψ⟩|² = d·‖ψ‖⁴ (= 1728 for d = 12, ‖ψ‖² = 12), while the
+    old fields forced the sum d² + (d²−1)·1 = 287. No vector satisfies both, so
+    the old `crystal_forces_d12_sic` asserted a falsehood and the old shadow
+    axioms were jointly inconsistent with a formalizable Mathlib fact. The unit
+    convention below is the standard one, matches the 1500-digit fiducial data,
+    and is what `SIC_D12_Norm` (∑|z_k|² = 1) and `SIC_D12_Equiangularity`
+    (13·|O_{a,b}|² = 1) machine-check. Sanity: 1 + (d²−1)/(d+1) = d = d·‖ψ‖⁴. -/
 structure IsSICPOVM (d : ℕ) [NeZero d] (fiducial : Fin d → ℂ) : Prop where
-  norm_eq    : wh_normSq d fiducial = (d : ℝ)
+  norm_eq    : wh_normSq d fiducial = 1
   equiangular : ∀ (a b : Fin d), (a, b) ≠ (0, 0) →
-    ‖wh_inner d fiducial (D_ah d a b 0 fiducial)‖ = 1
+    ((d : ℝ) + 1) * ‖wh_inner d fiducial (D_ah d a b 0 fiducial)‖ ^ 2 = 1
 
 /-- A Weyl–Heisenberg covariant SIC-POVM exists in dimension d. -/
 def SICPOVM_Exists (d : ℕ) [NeZero d] : Prop :=
@@ -162,7 +176,7 @@ def fiducial_from_stark (d : ℕ) (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d)) :
     Fin d → ℂ :=
   fun k => (Embeddings d hd hns k) (StarkUnit d hd hns)
 
-/-- Normalize to norm √d. -/
+/-- Normalize to unit norm (the scale is characterized by the shadow axioms below). -/
 def normalize_fiducial (d : ℕ) (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d)) : Fin d → ℂ :=
   fun k => (Real.sqrt (d : ℝ))⁻¹ * fiducial_from_stark d hd hns k
 
@@ -202,8 +216,8 @@ axiom equiangular_from_stark_axiom
     (d : ℕ) [NeZero d] (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d))
     (sc : MixedSignatureStarkConjecture d hd hns)
     (a b : Fin d) (hab : (a, b) ≠ (0, 0)) :
-    ‖wh_inner d (normalize_fiducial d hd hns)
-      (D_ah d a b 0 (normalize_fiducial d hd hns))‖ = 1
+    ((d : ℝ) + 1) * ‖wh_inner d (normalize_fiducial d hd hns)
+      (D_ah d a b 0 (normalize_fiducial d hd hns))‖ ^ 2 = 1
 
 /-- (Empirical shadow — the ℂ^d re-encoding step.)
     Given the mixed-signature Stark conjecture, the normalized ℂ fiducial has
@@ -214,21 +228,21 @@ axiom equiangular_from_stark_axiom
 axiom norm_of_normalized_axiom
     (d : ℕ) [NeZero d] (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d))
     (sc : MixedSignatureStarkConjecture d hd hns) :
-    wh_normSq d (normalize_fiducial d hd hns) = (d : ℝ)
+    wh_normSq d (normalize_fiducial d hd hns) = 1
 
 theorem equiangular_from_stark
     (d : ℕ) [NeZero d] (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d))
     (sc : MixedSignatureStarkConjecture d hd hns) :
     ∀ (a b : Fin d), (a, b) ≠ (0, 0) →
-      ‖wh_inner d (normalize_fiducial d hd hns)
-        (D_ah d a b 0 (normalize_fiducial d hd hns))‖ = 1 := by
+      ((d : ℝ) + 1) * ‖wh_inner d (normalize_fiducial d hd hns)
+        (D_ah d a b 0 (normalize_fiducial d hd hns))‖ ^ 2 = 1 := by
   intro a b hab
   exact equiangular_from_stark_axiom d hd hns sc a b hab
 
 theorem norm_of_normalized
     (d : ℕ) [NeZero d] (hd : 4 ≤ d) (hns : ¬ IsSquare (m_d d))
     (sc : MixedSignatureStarkConjecture d hd hns) :
-    wh_normSq d (normalize_fiducial d hd hns) = (d : ℝ) := by
+    wh_normSq d (normalize_fiducial d hd hns) = 1 := by
   exact norm_of_normalized_axiom d hd hns sc
 
 /- ====================================================================

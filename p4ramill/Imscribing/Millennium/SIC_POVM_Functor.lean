@@ -122,7 +122,13 @@ theorem crystal_sic_coverage : 17280000 / (d_lattice1 ^ 2) = 120000 := by norm_n
 /-- The Crystal dual-lattice constraint forces a SIC-POVM in dimension 12.
     Constructive witness: frame-potential minimisation in ig-pulse/density_matrix.py
     achieves F = (144−1)/169 = 143/169 exactly, all 143 WH overlaps = 1/13.
-    We assert existence as an axiom here pending a formal Lean proof. -/
+    We assert existence as an axiom here pending a formal Lean proof.
+
+    NOTE (2026-07-03): `IsSICPOVM` was restated to the satisfiable unit
+    convention (‖ψ‖² = 1, (d+1)·‖O‖² = 1); the old convention made this axiom
+    assert a falsehood — see the docstring on `IsSICPOVM`. Discharge campaign:
+    `SIC_D12_Norm` + `SIC_D12_Equiangularity` (both halves exact on pinned
+    data), existence construction in progress (d12_sic_build cont.15+). -/
 axiom crystal_forces_d12_sic :
     ∃ ψ : Fin 12 → ℂ, IsSICPOVM 12 ψ
 
