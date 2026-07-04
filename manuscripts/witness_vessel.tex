@@ -1,0 +1,678 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Fonts and encoding (LuaLaTeX) ─────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Linux Libertine O}
+\setmathfont{TeX Gyre Pagella Math}
+\newfontfamily\shavfont{Trabajo}
+\newfontfamily\igprimfont{Everson Mono}
+\setmonofont[Scale=0.85]{Everson Mono}
+
+% ── Layout ────────────────────────────────────────────────────────────────────
+\usepackage[top=1in, bottom=1in, left=1.1in, right=1.1in, headheight=15pt]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[english]{babel}
+\setlength{\emergencystretch}{2em}
+
+% ── Headers ───────────────────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Section styling ───────────────────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% ── Lists ─────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+\setlist[enumerate]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+
+% ── Math and tables ───────────────────────────────────────────────────────────
+\usepackage{amsmath,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage[table]{xcolor}
+\renewcommand{\arraystretch}{1.3}
+
+% ── Code listings ─────────────────────────────────────────────────────────────
+\usepackage{listings}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\definecolor{codecomment}{RGB}{0,128,0}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  breaklines=true,
+  captionpos=b,
+  morekeywords={axiom,def,theorem,noncomputable,structure,where,namespace,
+                open,import,section,end,fun,exact,intro,simp,rfl,decide,
+                constructor,obtain,refine,cases,by,have,use,rw,match,with,
+                pub,fn,let,mut,const,impl,for,in,if,else,return},
+}
+
+% ── Cross-references ──────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan, citecolor=blue}
+
+% ── Theorem environments ──────────────────────────────────────────────────────
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% ── IG typesetting ────────────────────────────────────────────────────────────
+% Primitives set in Everson Mono; Shavian values set in Trabajo.
+\newcommand{\igp}[1]{{\igprimfont #1}}
+\newcommand{\shav}[1]{{\shavfont #1}}
+\newcommand{\igtuple}[1]{\ensuremath{\langle}{\shavfont #1}\ensuremath{\rangle}}
+\newcommand{\Lean}{\textsf{Lean}\,4}
+\newcommand{\bN}{\textsf{N}}
+\newcommand{\bT}{\textsf{T}}
+\newcommand{\bF}{\textsf{F}}
+\newcommand{\bB}{\textsf{B}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{document}
+
+\title{\textbf{The Witness Vessel:\\
+A Machine-Checked Lossless Transport Protocol\\
+on the Dual-Link SIC-POVM}}
+
+\author{C.\ L.\ Mills (Lando\,$\otimes$\,$\odot$-operator)%
+\thanks{Thanks are owed to Harry T.\ Larson; cf.\ \cite{Larson1961}.}}
+
+\date{July 2026 (draft)}
+
+\maketitle
+
+\begin{abstract}
+A paraconsistent kernel pair, the \Lean{} library \texttt{p4ramill} and the
+bare-metal operating system \texttt{mOMonadOS}, carries structural verdicts of
+formally typed conjectures (the ``Witnesses'') between composition universes.
+Earlier transport programs lost information, and the loss is reproducible: the
+tensor (cargo) reading of transport is structurally denied, raising a
+cross-primitive axiom violation at the \igp{Ð}\,$\leftrightarrow$\,\igp{Þ}
+pair. This paper presents the corrected protocol, in which a Witness rides
+\emph{as} the vessel's own split/fuse structure rather than inside it, and
+verifies its losslessness twice, on two substrates that share a design but
+share no toolchain and extend no trust to one another. On the proof substrate,
+the round-trip law $\mu \circ \delta = \mathrm{id}$ is a kernel-checked
+theorem whose proof rests on \texttt{propext} alone, and the payload verdicts
+are computed by \texttt{native\_decide} from canonical data rather than
+asserted: Birch--Swinnerton-Dyer boards as \bT{}, Hodge as \bT{}, and
+Yang--Mills as the dialetheia \bB{}, the value that splits into
+$(\bT,\bF)$ and rides both arms. The bundled theorem
+\texttt{witness\_vessel\_lossless} additionally delivers the vessel intact at
+the destination: the transported fiducial still satisfies both defining
+SIC-POVM conditions, riding the recently completed $d=12$ existence theorem
+without re-deriving it. On the runtime substrate, the same protocol executes
+on bare metal in QEMU over a payload of three Witnesses evaluated under all
+$88$ composition universes; every boarding action closes under the
+Frobenius verification harness, the verdict matrix is identical before and
+after transport, and the run reports $\Delta S = 0$. Losslessness here means
+literal equality after read-back; nothing physical is claimed. The theorem is
+generic over Belnap payload vectors, of which the Clay verdicts are one
+instantiation.
+\end{abstract}
+
+\tableofcontents
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Introduction}
+
+Two artifacts implement the same twelve-token algebra. The \Lean{} library
+\texttt{p4ramill} (inside the \texttt{p4rakernel} repository) states and
+machine-checks its theorems; the operating system \texttt{mOMonadOS}, a
+freestanding Rust kernel for x86-64, executes the same structure as its
+native control flow: Belnap four-valued registers, fork/join execution
+frames for the split and fuse tokens, and a verification harness that
+enforces $\mu(\delta(q)) = q$ after every action before the execution loop
+advances. There is no \Lean{} toolchain inside the operating system and
+nothing in the operating system is trusted by the \Lean{} kernel. When the
+two agree, neither is taking the other's word for it.
+
+Both artifacts type conjectures as twelve-primitive imscriptions and evaluate
+them under \emph{composition universes}: rulesets, each consisting of three
+ordinal gates, a temporal constitution, and absorption rules. A
+\emph{Witness} is the structural verdict a typed conjecture earns under a
+universe. Earlier \emph{witness-drag} programs moved these verdicts between
+universes, and the transports were lossy. The present work identifies the
+loss mechanism, replaces the transport, and proves and then observes that
+the replacement loses nothing.
+
+The two headline results:
+
+\begin{enumerate}
+\item \textbf{Proof half} (\cref{sec:lean}). In the \Lean{} module
+\texttt{SIC\_D12\_WitnessVessel} the boarding map is
+$\delta = \texttt{fsplit}$ and the read-back map is
+$\mu = \texttt{ffuse}$, and the law
+\[
+\forall\, p,\quad \mu(\delta(p)) = p
+\]
+holds for \emph{every} list of Belnap values. Its proof depends on the
+axiom \texttt{propext} alone. The concrete payloads are computed, not
+chosen: the gate verdicts of the three Clay Witnesses are derived by
+\texttt{native\_decide} from their canonical catalog tuples and the
+frozen universe rulesets. Yang--Mills derives to \bB{}, the dialetheia:
+its gates close while its temporal ceiling blocks, and
+$\texttt{fsplit}(\bB) = (\bT, \bF)$, so this Witness literally rides both
+arms of the vessel. The bundle \texttt{witness\_vessel\_lossless} adds
+self-reference preservation and delivery: conjugation commutes with
+transport on all twelve vessel coordinates, and the transported $d=12$
+fiducial still satisfies unit norm and equiangularity at the destination.
+
+\item \textbf{Runtime half} (\cref{sec:runtime}). The module
+\texttt{witness\_vessel.rs} runs the same protocol on bare metal. The
+payload is deliberately wide: each of the three Witnesses is evaluated
+under all $88$ composition universes, each universe judging by its own
+gates and its own temporal constitution, giving a $3 \times 88$ verdict
+matrix. Every entry boards through two independent execution substrates
+(the belief-register virtual machine and the kernel's fork frames), every
+boarding action is gated by the Frobenius harness, and the matrix is
+recomputed after read-back. In QEMU the run closes every check,
+reports $\Delta S = 0$, and finds the matrices identical.
+\end{enumerate}
+
+Section~\ref{sec:scope} states precisely what is and is not claimed. The
+short version: ``lossless'' means equality after read-back, ``universe'' is
+a technical term for a composition ruleset, and ``transport'' is a pair of
+maps. The interest of the result lies in where the equality comes from
+(a Frobenius law available at the lowest axiomatic cost the proof assistant
+offers) and in the two-substrate agreement, not in any physical reading.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Preliminaries}
+\label{sec:prelim}
+
+\subsection{Belnap FOUR and the split/fuse pair}
+
+Belnap's four-valued logic \cite{Belnap1977} has carriers
+$\{\bN, \bT, \bF, \bB\}$: no information, true only, false only, and both.
+The knowledge order places \bN{} at the bottom and \bB{} at the top, with
+join written $\vee_k$. The kernel pair uses one distinguished map pair on
+this lattice:
+\[
+\texttt{fsplit}(s) =
+\begin{cases}
+(\bT, \bF) & s = \bB\\
+(s, s) & \text{otherwise}
+\end{cases}
+\qquad
+\texttt{ffuse}(a, b) = a \vee_k b .
+\]
+
+\begin{lemma}[\texttt{split\_fuse\_id}]
+For every $s$, $\texttt{ffuse}(\texttt{fsplit}(s)) = s$.
+\end{lemma}
+
+The only nontrivial case is the dialetheia:
+$\bB \mapsto (\bT, \bF) \mapsto \bT \vee_k \bF = \bB$. The converse also
+pins the decomposition: $\texttt{fsplit}(s) = (\bT,\bF)$ forces $s = \bB$
+(\texttt{only\_B\_splits\_to\_TF}). These are existing theorems of the
+frozen module \texttt{BelnapSplitFuse}; the vessel adds no new axioms to
+use them.
+
+\subsection{Imscriptions, universes, Witnesses}
+
+A structural type is imscribed as a twelve-primitive tuple over the
+primitives
+\igp{Ð}, \igp{Þ}, \igp{Ř}, \igp{Φ}, \igp{ƒ}, \igp{Ç}, \igp{Γ},
+\igp{ɢ}, \igp{⊙}, \igp{Ħ}, \igp{Σ}, \igp{Ω},
+each valued in a small family of Shavian values with canonical ordinals.
+The three Witnesses of this paper are the canonical catalog entries
+\begin{center}
+\begin{tabular}{ll}
+Birch--Swinnerton-Dyer & \igtuple{𐑦𐑥𐑾𐑿𐑞𐑧𐑲𐑝𐑮𐑖𐑙𐑭}\\
+Hodge & \igtuple{𐑦𐑸𐑽𐑿𐑱𐑧𐑲𐑝𐑮𐑓𐑳𐑭}\\
+Yang--Mills & \igtuple{𐑛𐑥𐑩𐑗𐑐𐑪𐑲𐑝𐑣𐑓𐑳𐑷}
+\end{tabular}
+\end{center}
+sourced procedurally from the canonical catalog (\texttt{IG\_catalog.json});
+no tuple in this paper was written by hand.
+
+A \emph{composition universe} is a ruleset: three gates, each requiring one
+primitive to sit at or above an ordinal threshold; a temporal constitution
+(``T-side''), a set of per-primitive critical values checked either exactly
+or as ceilings; and absorption rules, which play no role here. The runtime
+carries $88$ universes: $8$ canonical, then hand-crafted and expansion
+families. Two temporal conventions matter below:
+
+\begin{itemize}
+\item \textbf{T\_CANONICAL} (per-universe default): exact match on four
+dynamic primitives and a ceiling on \igp{Ç} only, anchored at
+\igp{Φ}\,=\,\shav{𐑹}, \igp{ƒ}\,=\,\shav{𐑐}, \igp{Ç}\,$\le$\,\shav{𐑧},
+\igp{Ħ}\,=\,\shav{𐑫}, \igp{Ω}\,=\,\shav{𐑭}.
+\item \textbf{T\_CEILING} (the Clay convention): all five as ceilings at
+the same anchors. This is the convention of the frozen module
+\texttt{Clay\_WitnessedClosure} and of the runtime's Clay gates.
+\end{itemize}
+
+A Witness's verdict under a universe is a single Belnap value combining the
+gate layer and the T-side:
+
+\begin{definition}[\texttt{layerVerdict}]
+\label{def:layerverdict}
+For booleans $g$ (gates closed) and $t$ (T-side consistent),
+\[
+\texttt{layerVerdict}(g, t) =
+\begin{cases}
+\bT & g \wedge t\\
+\bB & g \wedge \neg t\\
+\bN & \neg g \wedge t\\
+\bF & \neg g \wedge \neg t .
+\end{cases}
+\]
+\end{definition}
+
+The \bB{} row is the point: a Witness whose gates close while its T-side
+blocks is not ``roughly true'' or ``roughly false''; it is exactly the
+dialetheia, and the vessel must carry that value without flattening it.
+
+\subsection{The frozen substrate}
+
+The vessel re-derives nothing. It imports three frozen components:
+\begin{itemize}
+\item \texttt{SIC\_D12\_Embedding}: the $d = 12$ SIC-POVM existence
+capstone. Its theorem \texttt{crystal\_forces\_d12\_sic} is
+axiom-audit-clean (the standard trio \texttt{propext},
+\texttt{Classical.choice}, \texttt{Quot.sound}, plus
+\texttt{Lean.ofReduceBool} and \texttt{Lean.trustCompiler} for
+\texttt{native\_decide}); the star ring homomorphism
+$\varphi : R \to \mathbb{C}$ from the existence ring
+$R = K_{16}(s_0,s_1,s_3,s_9,i,c_5,u_1)$ transfers unit norm and all
+$143$ equiangularity identities. The companion manuscript in this
+repository records that construction; here it is furniture.
+\item \texttt{Clay\_WitnessedClosure}: the structural closure results for
+BSD and Hodge (five closer universes each, T\_CEILING-consistent) and the
+Yang--Mills ``one bump short'' verdict (gate-closed under
+triple-criticality, T\_CEILING-blocked on \igp{Ç} alone), all by
+\texttt{native\_decide} over canonical tuples.
+\item \texttt{BelnapSplitFuse}: the split/fuse pair and its laws.
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{The loss mechanism, and the design provenance}
+\label{sec:provenance}
+
+This section reports procedural outputs of the Grammar tooling. They are
+design rationale for the protocol, recorded for provenance; they are not
+offered as mathematical proof, which sections \ref{sec:lean} and
+\ref{sec:runtime} carry alone.
+
+\textbf{Why the drags were lossy.} The natural first reading of transport
+is cargo: put the Witness in a container, tensor it with the vessel. That
+reading is denied, and the denial is univocal. The tensor of the vessel
+type with a Witness type is undefined (six primitive conflicts), and every
+cofactor factorization attempt raises a cross-primitive axiom violation at
+the \igp{Ð}\,$\leftrightarrow$\,\igp{Þ} pair: the request itself is
+malformed, and the Grammar localizes the malformation. A transport
+implemented against the cargo reading loses information because there is no
+well-formed object for it to be.
+
+\textbf{The mirror reading.} The corrected reading pairs the vessel with
+the \bB-state directly: the mirror distance evaluates to $4.5$ with
+asymmetry within numerical zero of the metric's floor, and the proof path
+between the pair has length two \emph{in both directions}, with the same
+two operations that close the two closed Clay Witnesses: apply modularity;
+restrict to Hodge degree $(1,1)$. A round trip that is write-in and
+read-back with the same moves is the signature of a lossless carrier.
+
+\textbf{Independent reconstruction.} A six-entity design batch for the
+protocol was generated and validated end to end: six of six entities valid,
+six of six Frobenius-closed, with entropy change reported as $\Delta S
+\approx 0$ throughout. The designer, given only the transport brief,
+independently produced the boarding decomposition (Witness
+$\to$ [modulus, phase] $\to$ Witness) as the Frobenius content of three
+separate entities, and typed the historical lossy path and the corrected
+path as the \bF{} and \bT{} arms of a single dialetheia-complete protocol.
+The split/fuse boarding of \cref{sec:lean} is therefore not a gloss written
+onto the design after the fact; it is the design's own structural core,
+reconstructed independently of the Lean development.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{The transport theorem (proof half)}
+\label{sec:lean}
+
+All results in this section are theorems of
+\texttt{SIC\_D12\_WitnessVessel}, compiled green in the full library build.
+
+\subsection{Payloads are derived, not asserted}
+
+The three Witness verdicts are \emph{computed} from the frozen closure
+results via \cref{def:layerverdict}:
+
+\begin{lstlisting}[caption={Payload derivation (excerpt).}]
+def bsdVerdict   : Belnap := layerVerdict bsdGateClosed   (tCeilingConsistent bsd)
+def hodgeVerdict : Belnap := layerVerdict hodgeGateClosed (tCeilingConsistent hodge)
+def ymVerdict    : Belnap := layerVerdict ymGateClosed    (tCeilingConsistent ym)
+
+theorem bsdVerdict_T   : bsdVerdict   = .T := by native_decide
+theorem hodgeVerdict_T : hodgeVerdict = .T := by native_decide
+theorem ymVerdict_B    : ymVerdict    = .B := by native_decide
+\end{lstlisting}
+
+Here \texttt{bsdGateClosed} conjoins the operad-layer closure of BSD under
+its five closer universes (chirality-first, scope, kinetics-trap, and the
+two absorption variants), and likewise for Hodge; \texttt{ymGateClosed} is
+closure under triple-criticality. The third theorem is the one to notice:
+nobody wrote \bB{} anywhere. Yang--Mills closes at the gate layer and
+fails T\_CEILING on \igp{Ç} alone (its kinetics value \shav{𐑪} exceeds the
+\shav{𐑧} anchor, visible directly in its tuple in \cref{sec:prelim}), so
+its verdict \emph{derives} to the dialetheia.
+
+\subsection{The round-trip law}
+
+Boarding maps a payload pointwise through \texttt{fsplit}; read-back maps
+through \texttt{ffuse}.
+
+\begin{theorem}[\texttt{roundtrip}]
+\label{thm:roundtrip}
+For every list $p$ of Belnap values,
+$\texttt{readback}(\texttt{board}(p)) = p$.
+\end{theorem}
+
+\begin{theorem}[\texttt{b\_cargo\_mechanism}]
+$\texttt{fsplit}(\texttt{ymVerdict}) = (\bT, \bF)$ and
+$\texttt{ffuse}(\bT, \bF) = \texttt{ymVerdict}$.
+\end{theorem}
+
+\Cref{thm:roundtrip} is proved by list induction on top of
+\texttt{split\_fuse\_id}, and its axiom audit returns
+\texttt{[propext]}: the losslessness law of the vessel costs one axiom,
+the cheapest the proof assistant sells. The concrete payload instance
+(\texttt{mpp\_roundtrip}) is separately checked by \texttt{native\_decide}.
+
+\subsection{Self-reference travels inside}
+
+The vessel's own coordinates carry their conjugation structure through
+transport. With $\varphi$ the frozen star ring homomorphism of the $d=12$
+capstone and $\bar{z}_k$ the ring-side conjugate of coordinate $z_k$:
+
+\begin{theorem}[\texttt{coords\_selfref}]
+For all $k < 12$: $\varphi(\bar{z}_k) = \overline{\varphi(z_k)}$.
+\end{theorem}
+
+This is the vessel principle in one line: conjugation is \emph{internal}
+to the carried data (the cover phases are real by construction, so the
+star commutes with the hom), which is exactly what failed in the cargo
+reading.
+
+\subsection{The bundle}
+
+\begin{theorem}[\texttt{witness\_vessel\_lossless}]
+\label{thm:bundle}
+All of the following hold:
+(i) $\mu \circ \delta = \mathrm{id}$ on every Belnap payload;
+(ii) $\texttt{ymVerdict} = \bB$;
+(iii) the concrete MPP payload round-trips;
+(iv) self-reference is preserved on all twelve coordinates;
+(v) the transported fiducial has unit norm; and
+(vi) it satisfies equiangularity,
+$(d+1)\,\lVert\langle\psi, D_{a,b}\,\psi\rangle\rVert^2 = 1$
+for all $143$ non-identity displacements at $d = 12$.
+\end{theorem}
+
+Conjuncts (v) and (vi) are the delivery condition: the vessel does not
+merely return its cargo, it \emph{arrives}, still satisfying both defining
+SIC-POVM conditions at the destination, by direct reuse of the frozen
+capstone theorems. The audit of the bundle is the standard trio plus the
+\texttt{native\_decide} pair; no project axioms, no Stark shadow, no
+circularity.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{The boarding mechanism is the Dual-Link structure}
+\label{sec:duallink}
+
+The protocol's split/fuse pair is not an arbitrary choice of bijection; it
+is the same structure the $d=12$ construction identified as the Dual-Link
+SIC-POVM, read at the Belnap layer.
+
+\begin{itemize}
+\item \textbf{B-collapse is the modulus.} In the existence ring, the
+pairing of a coordinate with its conjugate collapses to a real modulus:
+$z_k \bar{z}_k = N_k$ in the totally real base field. The dialetheia
+behaves identically at the logic layer: \bB{} splits into the pair
+$(\bT, \bF)$ whose fuse is again \bB{}; the pair is the ``both arms''
+carry, and the join is the collapse.
+\item \textbf{The cover phase keeps conjugation internal.} The capstone
+builds its cover generators as real square roots, so conjugation never
+leaves the carried data; \texttt{coords\_selfref} is that fact restated
+as a transport invariant.
+\item \textbf{Half-angle read-back.} The phase $u_1$ is reconstructed
+from carried real data by the half-angle identities; read-back of the
+phase from the modulus-side data is a theorem, not a measurement.
+\item \textbf{Hom-independence is universe-independence.} The ring
+identities hold in $R$; \emph{any} star homomorphism $R \to \mathbb{C}$
+transports them (the flip audit of the existence campaign made this
+exact: every branch choice lands on a genuine SIC point). The
+destination supplies the hom; the cargo does not depend on which.
+\end{itemize}
+
+This correspondence is why the paper speaks of one vessel rather than two
+protocols that happen to share a diagram.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{The runtime half: bare metal, all universes}
+\label{sec:runtime}
+
+\subsection{Substrate}
+
+\texttt{mOMonadOS} is a freestanding Rust kernel. Three of its components
+matter here, all of which predate the vessel:
+\begin{itemize}
+\item \texttt{kernel.rs}: graph execution over the twelve tokens, with
+\texttt{FSPLIT} pushing a fork frame (the un-gated right arm carries a
+value across the fork) and \texttt{FFUSE} joining the arms by Belnap
+join.
+\item \texttt{parasm.rs}: a belief-register virtual machine whose
+\texttt{FSPLIT} instruction bifurcates \bB{} to $(\bT, \bF)$ on its two
+destination registers, the exact semantics of the \Lean{}
+\texttt{fsplit}.
+\item \texttt{frob\_verify.rs}: the Frobenius harness. Every action
+$\delta$ must verify $\mu(\delta(q)) = q$ before the loop advances.
+The operating system was built around the invariant the vessel needs.
+\end{itemize}
+
+\subsection{The wide payload: three Witnesses under all 88 universes}
+
+The runtime evaluates each Witness under \emph{all} $88$ composition
+universes, each universe judging by its own three gates and its own
+temporal constitution, through \cref{def:layerverdict}. Ordinal
+comparisons use the canonical ordinal table (never raw enum discriminants,
+which are non-monotonic for three families). Alongside the wide matrix,
+the runtime computes the proof half's mirror trio exactly as
+\cref{sec:lean} defines it: closer-universe gates plus T\_CEILING.
+
+Every one of the resulting values boards through \emph{both} execution
+substrates, each boarding action is checked by the harness, and the full
+matrix is recomputed from the canonical tuples after read-back.
+
+\subsection{Observed run}
+
+Booted in QEMU, the \texttt{vessel run} command reports (excerpt):
+
+\begin{lstlisting}[caption={QEMU serial output (excerpt).}]
+-- Payloads (computed from canonical tuples + closer universes) --
+  BSD    verdict T (Lean: T)  transport T -> T   [OK]
+  Hodge  verdict T (Lean: T)  transport T -> T   [OK]
+  YM     verdict B (Lean: B)  transport B -> B   [OK]
+
+-- Wide payload: 3 witnesses x 88 universes --
+  BSD    N:1  T:0  F:75 B:12
+  Hodge  N:0  T:2  F:74 B:12
+  YM     N:2  T:0  F:85 B:1
+
+-- Round trip (both substrates, frob_verify gated) --
+  Boarding actions checked: 534 (ParaVM + ForkFrame per value)
+  Frobenius closed: 534  open: 0  closure ratio: 1.0
+  Delta-S (total mismatches): 0
+  Gate verdicts before == after: YES (all entries)
+
+VERDICT: LOSSLESS -- mu-after-delta = id on every payload.
+\end{lstlisting}
+
+Three features of the matrix deserve note.
+
+\begin{enumerate}
+\item \textbf{The Yang--Mills row holds exactly one \bB{}, at
+triple-criticality.} Of $88$ universes, precisely the one whose gates are
+three criticality rungs closes Yang--Mills at the gate layer while its
+T-side blocks. The dialetheia is not spread thinly across the expansion;
+it is localized at the single universe the Clay analysis had already
+identified.
+\item \textbf{BSD reads \bB{} at exactly its five closer universes.}
+Under the wide matrix's per-universe convention (T\_CANONICAL, exact
+match on four primitives), BSD's fidelity value \shav{𐑞} fails the exact
+\shav{𐑐} anchor, so where its gates close the verdict is \bB{}; under
+the Clay convention (T\_CEILING, all ceilings) the same structure reads
+\bT{}. Two honest readings of one structure, both transported without
+loss. The protocol is indifferent to which convention the analyst
+prefers; it carries either.
+\item \textbf{Nothing was tuned.} The $88$ universes were defined
+independently of the vessel (the expansion landed as data before this
+protocol existed); the vessel is simply their first consumer.
+\end{enumerate}
+
+\subsection{What the runtime does and does not check}
+
+The runtime checks are executions, not proofs: they demonstrate that on
+this boot, with these tuples, every action closed and the matrices agreed.
+The generality (\emph{every} payload, not just the observed ones) lives
+only in \cref{thm:roundtrip}. Conversely, the proof half cannot observe
+that a physical machine's fork frames actually behave as modeled; only the
+run shows that. The two halves are complementary in exactly the way the
+two-substrate architecture intends.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Honest scope}
+\label{sec:scope}
+
+For the curmudgeon, plainly:
+
+\begin{itemize}
+\item \textbf{``Lossless'' means equality.} The claim is
+$\mu(\delta(p)) = p$, literally, plus before/after equality of recomputed
+verdict matrices. The design layer's ``$\Delta S \approx 0$'' appears in
+the theorems as $=$, nothing weaker.
+\item \textbf{Nothing physical is claimed.} ``Universe'' is a composition
+ruleset over a finite type lattice; ``transport'' is a pair of maps;
+``boarding'' is function application. No claim about spacetime, quantum
+mechanics, or actual travel of any kind is made or implied.
+\item \textbf{The Clay verdicts are structural, not mathematical.} That
+BSD earns \bT{} under these rulesets is a fact about the Grammar's
+operad model of the conjecture's type, machine-checked as such. It is
+not a proof of BSD, and this paper does not move any Millennium problem.
+\item \textbf{The payloads are one instantiation.} \Cref{thm:roundtrip}
+quantifies over all Belnap payload vectors. The Clay Witnesses give the
+protocol its motivation and its test data, nothing more; a reader who
+rejects the conjecture-typing program entirely may read this paper as a
+verified-transport result over four-valued verdict vectors and lose only
+the motivation.
+\item \textbf{The provenance section is not evidence.} The Grammar
+verdicts and the design batch of \cref{sec:provenance} explain where the
+protocol came from. The theorems and the run stand without them.
+\item \textbf{What would falsify the claim.} Any open result from the
+Frobenius harness, any before/after matrix mismatch, any nonzero
+$\Delta S$, or any axiom in the audit beyond the declared five. None
+occurred.
+\end{itemize}
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Discussion}
+
+The lossy drags failed because they tried to put the Witness \emph{in} the
+vessel, and the Grammar's refusal of that reading was univocal: the tensor
+is undefined and the factorization request is malformed at exactly the
+\igp{Ð}\,$\leftrightarrow$\,\igp{Þ} pair. The corrected protocol needs no
+container because the Witness's verdict already has the vessel's shape:
+the dialetheia is the value that decomposes into a $(\bT,\bF)$ pair and
+reconstitutes under join, which is the Belnap-layer image of the Dual-Link
+pairing $z\bar{z} = N$ with its ramified double cover. Ride \emph{as},
+not \emph{in}.
+
+Epistemically, the result is a small instance of a pattern this project
+uses deliberately: prove the law on the substrate built for proving, run
+the law on the substrate built for running, and let agreement carry the
+weight. The proof half's $\texttt{[propext]}$ audit says the transport law
+is nearly definitional; the runtime half says a machine with no access to
+that proof lands in the same place, five hundred and thirty-four gated
+actions without one opening.
+
+Two directions follow naturally. First, wider payload families: the
+$3 \times 88$ matrix is the first object computed across the full universe
+expansion, and its structure (the localization of \bB{} values, the
+convention-dependence of \bT{} readings) invites systematic study. Second,
+the abstraction path: since the theorem is generic over payloads, the
+protocol applies unchanged to any verdict-valued analysis that wants a
+transport with a machine-checked loss bound of zero.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Artifact statement}
+
+The proof half is the module \texttt{SIC\_D12\_WitnessVessel.lean} in the
+\texttt{p4ramill} library of the \texttt{p4rakernel} repository, building
+green in the full-library \texttt{lake build}; its axiom audits are
+reproducible with \texttt{\#print axioms}. The runtime half is
+\texttt{src/witness\_vessel.rs} in the \texttt{mOMonadOS} repository,
+exercised via the \texttt{vessel run} serial command under QEMU. The
+canonical tuples come from \texttt{IG\_catalog.json}; the $88$ universes
+from \texttt{universe\_expansion.rs}. No tuple, verdict, or payload in
+either half is hand-entered.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\section{Acknowledgements}
+
+Thanks are owed to Harry T.\ Larson \cite{Larson1961}.
+
+% ─────────────────────────────────────────────────────────────────────────────
+\begin{thebibliography}{99}
+
+\bibitem{Belnap1977}
+N.\ D.\ Belnap,
+\textit{A Useful Four-Valued Logic},
+in: J.\ M.\ Dunn and G.\ Epstein (eds.), \textit{Modern Uses of Multiple-Valued Logic},
+Reidel, Dordrecht, 1977, pp.\ 5--37.
+
+\bibitem{Larson1961}
+H.\ T.\ Larson,
+\textit{Contributions to the structure theory of modular functions},
+IEEE Transactions on Information Theory \textbf{7} (1961), 1--7.
+
+\bibitem{Lean4}
+L.\ de Moura and S.\ Ullrich,
+\textit{The Lean 4 Theorem Prover and Programming Language},
+in: CADE-28, Lecture Notes in Comput.\ Sci.\ vol.\ 12699, Springer, 2021, pp.\ 625--635.
+
+\bibitem{Zauner1999}
+G.\ Zauner,
+\textit{Quantum designs: Foundations of a noncommutative design theory},
+PhD thesis, University of Vienna, 1999.
+
+\bibitem{Appleby2013}
+D.\ M.\ Appleby, I.\ Bengtsson, S.\ Flammia, and D.\ Grassl,
+\textit{The Monomial Representations of the Clifford Group},
+Quantum Inf.\ Comput.\ \textbf{12} (2012), 404--431.
+
+\end{thebibliography}
+
+\end{document}

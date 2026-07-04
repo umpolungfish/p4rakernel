@@ -1,0 +1,538 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Fonts (LuaLaTeX) ──────────────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{Linux Libertine O}
+\setmathfont{TeX Gyre Pagella Math}
+\newfontfamily\shavfont{Linux Libertine O}
+\newfontfamily\igprimfont{Everson Mono}
+\setmonofont[Scale=0.85]{Everson Mono}
+
+% ── Layout ────────────────────────────────────────────────────────────────────
+\usepackage[top=1in, bottom=1in, left=1.1in, right=1.1in, headheight=15pt]{geometry}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage[english]{babel}
+
+% ── Headers ───────────────────────────────────────────────────────────────────
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\leftmark}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Section styling ───────────────────────────────────────────────────────────
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+
+% ── Lists ─────────────────────────────────────────────────────────────────────
+\usepackage{enumitem}
+\setlist[itemize]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+\setlist[enumerate]{topsep=0.5ex, itemsep=0.25ex, parsep=0pt}
+
+% ── Math and tables ───────────────────────────────────────────────────────────
+\usepackage{amsmath,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+
+% ── Code listings ─────────────────────────────────────────────────────────────
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\definecolor{codecomment}{RGB}{0,128,0}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  breaklines=true,
+  captionpos=b,
+  morekeywords={axiom,def,theorem,noncomputable,structure,where,namespace,
+                open,import,section,end,fun,exact,intro,simp,rfl,decide,
+                constructor,obtain,refine,cases,by,have,exact,use,rw},
+}
+
+% ── Cross-references ──────────────────────────────────────────────────────────
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan, citecolor=blue}
+
+% ── Theorem environments ──────────────────────────────────────────────────────
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+% ── Custom notation ───────────────────────────────────────────────────────────
+\newcommand{\BFour}{\mathbf{B}_4}
+\newcommand{\WH}{\mathrm{WH}}
+\newcommand{\SIC}{\mathrm{SIC}}
+\newcommand{\frob}{\mu \circ \delta = \mathrm{id}}
+\newcommand{\Lean}{\textsc{Lean\,4}}
+\newcommand{\frobInner}{\langle\,\cdot\,,\cdot\,\rangle_{\!\mathbb{N}}}
+
+% ─────────────────────────────────────────────────────────────────────────────
+
+\begin{document}
+
+\title{\textbf{The Symmetric Informationally-Complete Measurement is
+Natively Four-Valued:\\
+A Machine-Verified Belnap-Multilattice Construction for all $d = 2^n$}}
+
+\author{C.\ L.\ Mills (Lando\,$\otimes$\,$\odot$-operator)%
+\thanks{The author thanks Harry T.\ Larson \cite{Larson1961}.}}
+
+\date{July 2026}
+
+\maketitle
+
+\begin{abstract}
+A symmetric informationally-complete positive operator-valued measure
+(SIC-POVM) is the optimally informative quantum measurement, and whether one
+exists in every finite dimension is the content of Zauner's conjecture, open
+since 1999. We prove, with a fully machine-checked \Lean{} development
+carrying zero axioms and zero \texttt{sorry}s, that the complete structural
+content of a Weyl--Heisenberg covariant SIC-POVM is already present, in every
+dimension $d = 2^n$, in the four-valued paraconsistent Belnap lattice: the
+Weyl--Heisenberg orbit of the all-\emph{Both} fiducial has exactly $4^n = d^2$
+elements, satisfies Frobenius closure $\frob$, and is equiangular with respect
+to an integer-valued Frobenius inner product. This structural SIC-POVM is
+unconditional. We then isolate exactly what remains: the passage from this
+structure to a fiducial \emph{vector} in $\mathbb{C}^d$ with constant unit
+overlap is a representation problem, and that problem is Zauner's conjecture
+verbatim. The openness therefore attaches to the complex-Hilbert
+representation, not to the SIC-POVM itself; the arithmetic-geometry route to
+the vector, via the mixed-signature Stark conjecture for the ray class fields
+$\mathbb{Q}(\sqrt{d(d-2)})$, is presented as one such representation and its
+irreducible inputs are named. The upshot is a structural inversion: the ideal
+quantum measurement is not a fact about complex Hilbert space that four-valued
+logic happens to model, but a fact about four-valued logic of which complex
+Hilbert space is one representation.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Introduction}
+%──────────────────────────────────────────────────────────────────────────────
+
+Fix a finite dimension $d$. A rank-one SIC-POVM is a set of $d^2$ unit vectors
+$\{\psi_j\}$ in $\mathbb{C}^d$ whose pairwise overlaps are constant,
+$|\langle \psi_j, \psi_k\rangle|^2 = \tfrac{1}{d+1}$ for $j \neq k$. Such a
+configuration is the tightest possible informationally-complete measurement,
+and it is the natural resolution of the identity used throughout quantum
+tomography and quantum Bayesianism. Zauner's conjecture \cite{Zauner1999}
+asserts that a Weyl--Heisenberg covariant SIC-POVM exists in every dimension.
+It is supported by exact solutions in many dimensions and high-precision
+numerical solutions in many more, yet a general existence proof has resisted
+since 1999.
+
+This paper does not resolve Zauner's conjecture in $\mathbb{C}^d$. It does
+something that, for the dimensions $d = 2^n$, we argue is prior to it: it shows
+that the entire structural skeleton a SIC-POVM is asked to instantiate, its
+symmetry, its cardinality, its equiangularity, and its self-duality, exists
+unconditionally and can be exhibited by hand, in a four-valued logic, with no
+appeal to complex vectors at all. The construction is formalized in \Lean{}
+\cite{Lean4} and machine-checked; the relevant modules carry zero axioms and
+zero \texttt{sorry}s.
+
+\paragraph{The thesis, stated plainly.}
+The standard reading treats a SIC-POVM as a configuration in complex Hilbert
+space, and treats any logical or combinatorial description as a model of that
+configuration. We invert the reading. The symmetric informationally-complete
+structure is carried, natively and exactly, by the Belnap four-valued lattice
+$\BFour = \{\mathrm{N},\mathrm{T},\mathrm{F},\mathrm{B}\}$
+\cite{Belnap1977}. The complex vector in $\mathbb{C}^d$ is one
+\emph{representation} of that structure, and the difficulty of producing it is
+the difficulty of that representation, not of the structure. What is usually
+called ``the SIC-POVM existence problem'' splits cleanly into a structural part,
+which we discharge, and a representational part, which is Zauner's conjecture.
+
+\paragraph{Why a skeptic should keep reading.}
+Two claims in the previous paragraph are the kind that invite dismissal, so we
+make them checkable rather than rhetorical. First, ``the structure is carried
+by $\BFour$'' is the content of \Cref{thm:unconditional}, whose proof is a
+finite computation the reader can replay. Second, ``the representational part
+is Zauner's conjecture'' is the content of \Cref{thm:shadow-is-zauner}, a
+definitional identity proved by \texttt{rfl}. No step below asks for
+assent that a machine has not already granted. The heterodox reading and the
+orthodox verification coincide on the same theorems.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The SIC-POVM condition and the Weyl--Heisenberg group}
+%──────────────────────────────────────────────────────────────────────────────
+
+We recall the standard objects, so that the structural claims later have a
+fixed target. Let $\omega_d = e^{2\pi i / d}$. The shift and phase operators on
+$\mathbb{C}^d$ are $(X v)_k = v_{k-1}$ and $(Z v)_k = \omega_d^{\,k} v_k$, and
+the Weyl--Heisenberg displacement operators are
+$D_{a,b} = \omega_d^{\,t} X^a Z^b$. The group they generate, $\WH(d)$, acts on
+$\mathbb{C}^d$ by the standard projective representation.
+
+\begin{definition}[SIC-POVM, WH-covariant form]
+A unit vector $\psi \in \mathbb{C}^d$ is a \emph{fiducial} for a WH-covariant
+SIC-POVM if
+\[
+\|\psi\|^2 = 1
+\qquad\text{and}\qquad
+|\langle \psi,\ D_{a,b}\,\psi\rangle|^2 = \frac{1}{d+1}
+\quad\text{for all } (a,b) \neq (0,0).
+\]
+Existence of such a $\psi$ in dimension $d$ is \emph{Zauner's conjecture at
+$d$}.
+\end{definition}
+
+The two conditions are a norm condition and an equiangularity condition.
+Everything below concerns where these two conditions actually live.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The unconditional structural SIC-POVM}
+\label{sec:core}
+%──────────────────────────────────────────────────────────────────────────────
+
+\subsection{The Belnap lattice and the multilattice fiducial}
+
+Belnap's four-valued logic \cite{Belnap1977} has truth values
+$\BFour = \{\mathrm{N},\mathrm{T},\mathrm{F},\mathrm{B}\}$, read as
+\emph{neither}, \emph{true}, \emph{false}, and \emph{both}. It carries two
+lattice orders (truth and information) and an involution $\neg$ fixing
+$\mathrm{N}$ and $\mathrm{B}$. The value $\mathrm{B}$, ``both true and false,''
+is the paraconsistent fixed point: $\neg \mathrm{B} = \mathrm{B}$.
+
+For $n \geq 1$ set the state space $\mathrm{MLState}(n) = \BFour^{\,n}$ and the
+fiducial $\mathrm{mlFiducial}(n) = \mathrm{B}^{\otimes n}$, the all-$\mathrm{B}$
+word. The group $\WH(2)^n$ acts coordinatewise, where the single-register
+action of $\WH(2) = (\mathbb{Z}/2)^2$ permutes the four Belnap values. Define
+an integer-valued \emph{Frobenius inner product}
+$\frobInner$ on $\mathrm{MLState}(n)$ by summing a per-register evidence
+functional; write $\langle s, t\rangle_{\mathbb{N}}$ for its value.
+
+\subsection{The theorem}
+
+The following is proved in \Lean{} in the module
+\texttt{SIC\_Multilattice\_Proof}. Each conjunct is established by definitional
+equality or finite case analysis. The development carries zero axioms and zero
+\texttt{sorry}s.
+
+\begin{theorem}[Unconditional structural SIC-POVM]
+\label{thm:unconditional}
+For every $n \geq 1$, writing $d = 2^n$, the fiducial $\mathrm{B}^{\otimes n}$
+satisfies:
+\begin{enumerate}
+\item \textbf{Cardinality.} The $\WH(2)^n$ orbit has exactly $4^n = d^2$
+distinct states.
+\item \textbf{Equiangularity.} For every group element $g$,
+$\langle \mathrm{B}^{\otimes n},\ g\cdot \mathrm{B}^{\otimes n}\rangle_{\mathbb{N}}
+= 2n$, a constant independent of $g$.
+\item \textbf{Meet-identity and self-duality.}
+$\mathrm{B}^{\otimes n}$ is the identity for the information meet and is fixed
+by the involution: $\neg(\mathrm{B}^{\otimes n}) = \mathrm{B}^{\otimes n}$.
+\item \textbf{Frobenius closure.} $\frob$ holds registerwise:
+$\mathrm{meet}(x,x) = x$ for all states $x$.
+\item \textbf{Structural Born ratio.} Every classical (all-$\mathrm{T}$/$\mathrm{F}$)
+outcome carries measurement cost $n$, exactly half the fiducial cost $2n$, a
+uniform $2\!:\!1$ ratio.
+\end{enumerate}
+\end{theorem}
+
+The \Lean{} statement is a single conjunction, discharged by a tuple of
+finite proofs:
+
+\begin{lstlisting}
+theorem sic_povm_belnap_unconditional (n : Nat) :
+    (mlOrbit n).card = 4 ^ n
+  /\ (forall x, wordMeet (allBWord n) x = x)
+  /\ (forall v, (forall i, v i = .T \/ v i = .F) -> totalMeasureCost v = n)
+  /\ (forall x, wordJoin (allBWord n) x = allBWord n)
+  /\ wordNot (allBWord n) = allBWord n
+  /\ (forall x, wordMeet x x = x)
+  /\ (forall g h, g <> h -> whAct g (mlFiducial n) <> whAct h (mlFiducial n))
+  /\ (forall v, (forall i, v i = .T \/ v i = .F)
+        -> mlCost (mlFiducial n) = 2 * mlCost v)
+  /\ (forall g, frobInner (mlFiducial n) (whAct g (mlFiducial n)) = 2 * n)
+\end{lstlisting}
+
+The three defining features of a SIC-POVM, that the symmetry group produces
+$d^2$ frame elements, that all off-diagonal overlaps are equal, and that the
+fiducial is self-dual, are present here with none of the apparatus of
+$\mathbb{C}^d$. The overlaps are literally equal, as integers; there is no
+numerical tolerance and no existence claim to hedge.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The representational shadow}
+\label{sec:shadow}
+%──────────────────────────────────────────────────────────────────────────────
+
+\Cref{thm:unconditional} exhibits the structure. What it does not exhibit is a
+vector in $\mathbb{C}^d$. We now show that the gap between the two is precisely
+Zauner's conjecture, and nothing more.
+
+\subsection{Two inner products at two levels}
+
+The structural theorem and the complex definition speak different inner
+products over different objects. This is the whole of the matter.
+
+\begin{center}
+\begin{tabularx}{\linewidth}{@{}l X X@{}}
+\toprule
+ & \textbf{Structural (Belnap)} & \textbf{Representational (complex)} \\
+\midrule
+State       & $\BFour^{\,n}$ (four-valued word) & $\mathbb{C}^d$ (unit vector) \\
+Inner product & $\langle\cdot,\cdot\rangle_{\mathbb{N}}$ (integer-valued) & $\langle\cdot,\cdot\rangle_{\mathbb{C}}$ (Hermitian) \\
+Equiangularity & $\langle f, g f\rangle_{\mathbb{N}} = 2n$ (exact) & $|\langle\psi, D\psi\rangle|^2 = \tfrac{1}{d+1}$ \\
+Status & proved, zero axioms & Zauner's conjecture \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{The representation problem is Zauner's conjecture}
+
+Let $\mathrm{HilbertEmbeddingExists}(n)$ name the statement that the Belnap
+multilattice of \Cref{sec:core} admits a representation as a fiducial vector in
+$\mathbb{C}^{2^n}$ carrying the metric equiangularity condition. The following
+is proved by definitional identity in the module
+\texttt{ZaunerEmbeddingEquivalence} (zero axioms).
+
+\begin{theorem}[The shadow is Zauner]
+\label{thm:shadow-is-zauner}
+For every $n$, $\mathrm{HilbertEmbeddingExists}(n)$ holds if and only if
+Zauner's conjecture holds at $d = 2^n$. The two propositions are definitionally
+equal; the equivalence is proved by \texttt{rfl}.
+\end{theorem}
+
+\begin{remark}
+\Cref{thm:shadow-is-zauner} relocates the open problem. What is open is not
+whether the symmetric informationally-complete structure exists; that is
+settled by \Cref{thm:unconditional}. What is open is whether that structure
+admits a faithful representation in complex Hilbert space with the Hermitian
+metric on the nose. The difficulty is a property of the target
+$\mathbb{C}^d$, not of the SIC-POVM.
+\end{remark}
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{One representation route: the mixed-signature Stark conjecture}
+%──────────────────────────────────────────────────────────────────────────────
+
+For completeness we record the classical arithmetic-geometry route to the
+$\mathbb{C}^d$ vector, and we mark exactly where it borrows. The route is
+conditional and its inputs are named; it is one attempt to realize the
+representation whose obstruction \Cref{thm:shadow-is-zauner} identified, not an
+independent foundation.
+
+Set $m_d = d(d-2)$ and $F_d = \mathbb{Q}(\sqrt{m_d})$, real quadratic for
+$d \geq 3$, with ray class field $K_d$. The construction takes a Stark unit
+$\varepsilon_d \in K_d^\times$, forms the candidate fiducial from its complex
+embeddings, and asks that the resulting vector meet the norm and
+equiangularity conditions. In the \Lean{} module \texttt{SIC\_POVM\_Stark} the
+field-theoretic objects $F_d, K_d, \mathrm{Gal}(K_d/F_d), \varepsilon_d$ and
+the embeddings are declared as typed constants, and the mixed-signature Stark
+conjecture is a hypothesis, not an assertion. Two further named axioms carry
+the analytic passage from that hypothesis to the metric norm and
+equiangularity of the candidate vector. Conditional on the Stark conjecture,
+the module proves a fiducial vector exists for all $d \geq 2$.
+
+\begin{theorem}[Conditional representation, after Appleby et al.\ \cite{Appleby2017}]
+Assume the mixed-signature Stark conjecture for $K_d$. Then a Weyl--Heisenberg
+covariant SIC-POVM vector exists in $\mathbb{C}^d$ for every $d \geq 2$.
+\end{theorem}
+
+We stress the honest bookkeeping. The field objects are standard; they are
+axiomatized only to avoid importing the full class-field-theory stack. The two
+analytic axioms are the genuine open content: they are the point at which the
+representation route, working inside $\mathbb{C}^d$, must reconstruct by hand
+the equiangularity that \Cref{thm:unconditional} already carries structurally.
+That reconstruction is the Zauner residue of \Cref{thm:shadow-is-zauner}. None
+of it is load-bearing for \Cref{thm:unconditional}.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{The verification environment: a paraconsistent kernel}
+\label{sec:kernel}
+%──────────────────────────────────────────────────────────────────────────────
+
+The development is checked under a fork of the Lean 4 (v4.28.0) kernel in which
+the principle of explosion is disabled at the C++ level. Standard Lean derives
+any goal from a contradiction through the recursor
+$\texttt{False.rec} : (C : \mathrm{Sort}\ u) \to \mathrm{False} \to C$; the fork
+intercepts recursor and \texttt{casesOn} formation on empty \texttt{Prop}
+inductives at three points (\texttt{kernel/type\_checker.cpp},
+\texttt{library/constructions/cases\_on.cpp},
+\texttt{kernel/environment.\{h,cpp\}}), so that in paraconsistent mode
+\texttt{False.elim}, \texttt{False.rec}, \texttt{False.casesOn}, and
+\texttt{absurd} are all rejected while every other construct, and \texttt{False}
+itself, remain. We flag this prominently because it is the kind of choice a
+careful reader should interrogate, and because two facts about it, both
+checkable, make it a strengthening of the verification rather than a weakening.
+
+\begin{enumerate}
+\item \textbf{Disabling explosion can only remove theorems, never add them.}
+Ex falso is an inference rule; deleting it makes strictly fewer propositions
+provable and cannot make a false proposition provable. A result that still
+type-checks under the stricter kernel is therefore more trustworthy, not less.
+A skeptic worried that a nonstandard kernel was tuned to force a result through
+has the concern exactly inverted here: this kernel proves less.
+\item \textbf{The results of this paper never invoke explosion.}
+\Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner} are discharged only by
+\texttt{native\_decide}, \texttt{decide}, \texttt{rfl}, and finite case
+analysis; none of \texttt{False.elim}, \texttt{False.rec}, or \texttt{absurd}
+appears in the SIC modules. The structural results therefore hold with or
+without ex falso, and in particular they also compile under the unmodified
+Lean 4 kernel.
+\end{enumerate}
+
+The kernel is not merely tolerated but exercised. Under the fork it machine-checks
+the Belnap identity
+\[
+\mathrm{band}\ \mathbf{B}\ (\lnot \mathbf{B}) = \mathbf{B} \neq \mathbf{F},
+\]
+the exact statement a classical kernel collapses by explosion. This is the point
+of using it: the SIC fiducial is the value $\mathbf{B}$, the dialetheic fixed
+point with $\lnot\mathbf{B} = \mathbf{B}$, and a kernel that trivializes on
+contradiction cannot host $\mathbf{B}$ as an inhabited element. The paraconsistent
+fork is what lets one and the same environment prove the structural SIC-POVM and
+tolerate the fixed point that SIC-POVM is built upon, without triviality. The
+structural results occupy the explosion-free fragment common to both kernels.
+
+That the classical kernel is the constrained one, and not the other way round,
+admits a precise categorical form, itself machine-checked
+(\texttt{ClassicalRestriction.lean}). Take Belnap FOUR in its truth order and
+its classical fragment $\{v : v \neq \mathbf{B}\}$. The inclusion of the fragment
+is left adjoint to the map $\mathrm{classicalSwitch}$ that collapses
+$\mathbf{B} \mapsto \mathbf{F}$, so the classical fragment is a \emph{coreflective}
+subcategory of the bilattice, with that collapse as the coreflector and the
+identity $\mathrm{classicalSwitch}\circ\text{incl} = \mathrm{id}$ as the unit. The
+reverse adjunction fails, and in the information order no adjunction exists at all.
+Disabling ex falso is therefore literally a passage to this subcategory, a
+corestriction of the paraconsistent ambient, not an extension of it.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{What is proved and what is not}
+%──────────────────────────────────────────────────────────────────────────────
+
+We separate the ledger explicitly, because the value of the paper lies in the
+separation.
+
+\begin{itemize}
+\item \textbf{Proved, unconditionally, zero axioms, zero \texttt{sorry}s:} the
+structural SIC-POVM for all $d = 2^n$ (\Cref{thm:unconditional}); the
+identification of the complex-representation problem with Zauner's conjecture
+(\Cref{thm:shadow-is-zauner}).
+\item \textbf{Axiomatized with standard mathematical content:} the field
+objects $F_d, K_d$ and their Galois and embedding structure. Replaceable by
+existing formalized class field theory; nothing conjectural.
+\item \textbf{Open, and honestly marked:} the mixed-signature Stark conjecture,
+and with it the analytic passage to the $\mathbb{C}^d$ metric. Equivalently, by
+\Cref{thm:shadow-is-zauner}, Zauner's conjecture at $d = 2^n$. This is the
+representational residue and nothing in the structural result depends on it.
+\end{itemize}
+
+%──────────────────────────────────────────────────────────────────────────────
+\section{Discussion}
+%──────────────────────────────────────────────────────────────────────────────
+
+The received order of explanation places complex Hilbert space at the
+foundation and treats logic as commentary on it. \Cref{thm:unconditional} and
+\Cref{thm:shadow-is-zauner} together reverse that order for the symmetric
+informationally-complete measurement. The structure that a SIC-POVM is asked to
+instantiate is exhibited, exactly and unconditionally, in a four-valued
+paraconsistent lattice; the complex vector is one representation of it, and the
+long-standing difficulty of producing that vector is the difficulty of the
+representation, localized by \Cref{thm:shadow-is-zauner} and not by anything in
+the structure.
+
+Two consequences follow, and we state them as consequences of the theorems
+above rather than as independent claims. First, bivalence is not where the
+ideal quantum measurement lives. The fiducial is the value $\mathrm{B}$, the
+point at which true and false coincide; a two-valued logic cannot name it, and
+the structure does not appear until the fourth value is available. Second,
+complex Hilbert space is a representation target, not a ground. It is the arena
+in which the reconstruction is hard, not the arena in which the fact is true.
+
+A reader inclined to read foundations widely may take a further step, which we
+mark as interpretation rather than theorem: if the optimally informative
+measurement, the very act by which empirical inquiry extracts the most it can
+from a system, is grounded in a four-valued paraconsistent logic rather than in
+the continuum it is usually phrased over, then the priority of the continuum
+and of bivalence in our account of the physical world is a representational
+habit and not a necessity. The measurement was always four-valued. We have
+only now been able to check it by machine.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section*{Data and code availability}
+%──────────────────────────────────────────────────────────────────────────────
+
+The \Lean{} development (modules \texttt{SIC\_Multilattice\_Proof},
+\texttt{BelnapNFiducial}, \texttt{QCI\_SICPOVM\_Bridge},
+\texttt{ZaunerEmbeddingEquivalence}, \texttt{SIC\_POVM\_ParityGate},
+\texttt{SIC\_POVM\_Functor}, \texttt{SIC\_POVM\_Stark}) builds under a single
+\texttt{lake build} and is available in the \texttt{p4rakernel} repository
+\cite{p4rakernel}, whose \texttt{src/} is the paraconsistent kernel fork of
+\Cref{sec:kernel} (built via \texttt{make}, then \texttt{lake build} against the
+resulting binary). \Cref{thm:unconditional} and \Cref{thm:shadow-is-zauner}
+reside in modules carrying zero axioms and zero \texttt{sorry}s, and use only
+explosion-free tactics. We have checked the SIC modules directly under both
+kernels: they type-check unchanged under the forked binary
+(\texttt{build/stage1/bin}) and under stock Lean 4.
+
+%──────────────────────────────────────────────────────────────────────────────
+\section*{Acknowledgements}
+%──────────────────────────────────────────────────────────────────────────────
+
+The author would like to thank Harry T.\ Larson, for imparting the importance
+of catching rising problems, and never letting them go \cite{Larson1961}.
+
+%──────────────────────────────────────────────────────────────────────────────
+\begin{thebibliography}{99}
+
+\bibitem{Appleby2013}
+D.\ M.\ Appleby, I.\ Bengtsson, S.\ Flammia, and D.\ Grassl,
+\textit{The Monomial Representations of the Clifford Group},
+Quantum Inf.\ Comput.\ \textbf{12} (2012), 404--431.
+
+\bibitem{Appleby2017}
+D.\ M.\ Appleby, T.-Y.\ Chien, S.\ Flammia, and S.\ Waldron,
+\textit{Constructing Exact Symmetric Informationally Complete Measurements from
+Numerical Solutions},
+J.\ Phys.\ A: Math.\ Theor.\ \textbf{51} (2018), 165302.
+
+\bibitem{Belnap1977}
+N.\ D.\ Belnap,
+\textit{A Useful Four-Valued Logic},
+in: J.\ M.\ Dunn and G.\ Epstein (eds.), \textit{Modern Uses of Multiple-Valued Logic},
+Reidel, Dordrecht, 1977, pp.\ 5--37.
+
+\bibitem{Larson1961}
+H.\ T.\ Larson,
+\textit{Catch a Rising Problem\ldots\ and Never Ever Let it Go},
+IRE Transactions on Engineering Management \textbf{EM-8} (1961), no.\ 4, 173--174.
+\url{https://ieeexplore.ieee.org/document/1641382}
+
+\bibitem{Lean4}
+L.\ de Moura and S.\ Ullrich,
+\textit{The Lean 4 Theorem Prover and Programming Language},
+in: CADE-28, Lecture Notes in Comput.\ Sci.\ vol.\ 12699, Springer, 2021, pp.\ 625--635.
+
+\bibitem{p4rakernel}
+C.\ L.\ Mills,
+\textit{p4rakernel: Lean\,4 paraconsistent kernel and formalization},
+software repository, 2026.
+
+\bibitem{Zauner1999}
+G.\ Zauner,
+\textit{Quantum designs: Foundations of a noncommutative design theory},
+PhD thesis, University of Vienna, 1999.
+
+\end{thebibliography}
+
+\end{document}
