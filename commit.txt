@@ -1,23 +1,24 @@
-SIC_D12_Embedding: heal two boundary-transcription defects — module + full library now GREEN (lake build, 8342 jobs). One real-math sorry remains: equiangular.
+SIC_D12_Embedding: reduce `equiangular` to ONE analytic bridge lemma; the entire ring-side equiangularity is now PROVEN and green.
 
-Root cause: the prior HEAD (8e369f1) pasted in the divided-difference boundary
-certificate apparatus (certLo/Hi/Mid, exact-rational qM0..qS2H, cert_id_*/cert_margin_*,
-abs_evalQR_le, cert_pos, cover_modulus_nonneg, c5_discr_nonneg, u1Val_sq) but was
-committed WITHOUT compiling — it reused b154261's commit message verbatim and swept in
-~30 unrelated lean/mathlib test files. `lake build` failed with two mechanical defects,
-both confined to the O0 boundary layer (the structural O-infinity spine —
-norm_sq_eq_one / phi_rmul / phi_rconj — typechecked cleanly throughout):
+What landed (all compiling, native_decide + phi-transfer, no new axioms):
+- Ocab_canon_all (native_decide) — canonicity of every Ō_{a,b} key.
+- unit_at / conj_at / Oab_canon / Ocab_canon — per-pair extractors decoding the
+  double-nested `.all` of Oab_unit_all / Ocab_conj_all / Oab_canon_all / Ocab_canon_all.
+- phi_rT13 : phi rT13 = 1/13.
+- phi_Ocab : phi (Ocab a b) = star (phi (Oab a b))  [conj_at + phi_rconj].
+- overlap_normSq : for (a,b) != (0,0), a,b < 12,  Complex.normSq (phi (Oab a b)) = 1/13.
+  This is the WHOLE equiangular content on the ring side: O_{a,b}·Ō_{a,b} = 1/13
+  (native_decide, Oab_unit_all) pushed through the star-ring homomorphism phi
+  (phi_rmul + phi_Ocab + phi_rT13), then z·conj z = normSq z.
 
-  (1) abs_evalQR_le (line ~492): `abs_add` is Unknown in Mathlib v4.28.0 (the
-      triangle inequality |a+b| <= |a|+|b| is `abs_add_le` here). Fixed:
-      le_trans (abs_add _ _) ... -> le_trans (abs_add_le _ _) ...
+`equiangular` now assembles in four lines from the bridge + overlap_normSq via
+Complex.sq_norm (‖z‖² = normSq z) and norm_star (‖star z‖ = ‖z‖).
 
-  (2) xE2_sq_add (line ~601): forward reference — `evalK16_one16` was USED at 601 but
-      DEFINED at 954. Inlined the trivial fact instead of hoisting:
-      rw [evalK16_one16, Complex.one_re]
-        -> rw [show evalK16 g0C one16 = (1:C) by simp [one16, evalK16], Complex.one_re]
-
-Both fixes are pure transcription heals; no mathematics changed. The certificate
-arithmetic (exact rational divided-difference certs, native_decide list identities)
-was already sound. crystal_forces_d12_sic now stands on a compiling boundary; only
-equiangular (route banked in d12_sic_build/d12_boundary_ctx.md section 4) remains.
+SOLE remaining sorry: `equiangular_bridge` —
+  wh_inner 12 psi (D_ah 12 a b 0 psi) = star (phi (Oab a.val b')),  b' = (m·b) mod 12,
+where Z = phi zeta = omega_d 12 ^ m, m in {1,5}. Route banked in
+d12_sic_build/d12_boundary_ctx.md §4: |Z| = 1 from zeta_pow12, Im Z = 1/2 pins
+Z in {omega, omega^5}; then term-by-term matching of the D_ah / X_d / Z_d iterates
+against Oab via phi_zpow / phi_rmul / phi_rconj, with Z^12 = 1 collapsing the exponents.
+This is the last plank of the d=12 capstone; discharging it drops crystal_forces_d12_sic
+from axiom to theorem.
