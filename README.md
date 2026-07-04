@@ -47,7 +47,7 @@ cannot eliminate into other types), every other connective, and the entire stand
 when the mode is off.
 
 ```bash
-cd ~/imsgct/p4rakernel
+cd imsgct/p4rakernel
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make stage0 -j$(nproc)    # requires libgmp-dev
@@ -84,8 +84,8 @@ The IG formalization library, built on Mathlib v4.28.0 under the paraconsistent 
 `lake build` is green.
 
 ```bash
-cd ~/imsgct/p4rakernel/p4ramill
-export PATH=~/imsgct/p4rakernel/build/stage1/bin:$PATH
+cd imsgct/p4rakernel/p4ramill
+export PATH=imsgct/p4rakernel/build/stage1/bin:$PATH
 lake build
 lean --run ParaconsistentMillennium.lean
 ```
