@@ -489,7 +489,7 @@ lemma abs_evalQR_le (x B : ℝ) (hB : |x| ≤ B) (v : List ℚ) :
   · simp
   · simp only [List.map_cons, evalQR_cons]
     have h1 : |(c:ℝ) + x * evalQR x cs| ≤ |(c:ℝ)| + |x| * |evalQR x cs| :=
-      le_trans (abs_add _ _) (by rw [abs_mul])
+      le_trans (abs_add_le _ _) (by rw [abs_mul])
     have h2 : |x| * |evalQR x cs| ≤ B * evalQR B (cs.map (fun c => |c|)) :=
       mul_le_mul hB ih (abs_nonneg _) hB0
     have h3 : ((|c| : ℚ) : ℝ) = |(c:ℝ)| := Rat.cast_abs c
@@ -598,7 +598,8 @@ lemma xE2_sq_add : xE2 ^ 2 + yE2 ^ 2 = 1 := by
   have h := congrArg evalR e2_unit_k16
   rw [evalR_kadd, evalR_kmul, evalR_kmul] at h
   have h1 : evalR one16 = 1 := by
-    unfold evalR; rw [evalK16_one16, Complex.one_re]
+    unfold evalR
+    rw [show evalK16 g0C one16 = (1:ℂ) by simp [one16, evalK16], Complex.one_re]
   rw [h1] at h
   unfold xE2 yE2
   linear_combination h
