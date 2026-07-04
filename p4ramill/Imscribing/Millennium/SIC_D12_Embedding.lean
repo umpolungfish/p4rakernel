@@ -1229,7 +1229,7 @@ lemma Ocab_canon {a b : ℕ} (ha : a < 12) (hb : b < 12) :
   exact of_decide_eq_true (Hb p hp)
 
 lemma phi_rT13 : phi rT13 = (1 / 13 : ℂ) := by
-  rw [rT13, phi_rK]; simp [evalK16]; norm_num
+  rw [rT13, phi_rK]; simp [evalK16]
 
 lemma phi_Ocab {a b : ℕ} (ha : a < 12) (hb : b < 12) :
     phi (Ocab a b) = star (phi (Oab a b)) := by
@@ -1247,7 +1247,8 @@ lemma overlap_normSq {a b : ℕ} (ha : a < 12) (hb : b < 12) (h : ¬(a = 0 ∧ b
   have hmc := Complex.mul_conj (phi (Oab a b))
   rw [show (starRingEnd ℂ) (phi (Oab a b)) = star (phi (Oab a b)) from rfl] at hmc
   rw [hmc] at h1
-  exact_mod_cast h1
+  apply Complex.ofReal_inj.mp
+  rw [h1]; norm_num
 
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
@@ -1266,10 +1267,7 @@ theorem equiangular : ∀ (a b : Fin 12), (a, b) ≠ (0, 0) →
     ((12 : ℝ) + 1) * ‖wh_inner 12 psi (D_ah 12 a b 0 psi)‖ ^ 2 = 1 := by
   intro a b h
   obtain ⟨b', hb', hne, hbr⟩ := equiangular_bridge a b h
-  rw [hbr, norm_star]
-  have hns : ‖phi (Oab a.val b')‖ ^ 2 = Complex.normSq (phi (Oab a.val b')) := by
-    rw [Complex.norm_eq_abs, Complex.sq_abs]
-  rw [hns, overlap_normSq a.isLt hb' hne]
+  rw [hbr, norm_star, Complex.sq_norm, overlap_normSq a.isLt hb' hne]
   norm_num
 
 theorem d12_sic_exists : IsSICPOVM 12 psi :=
