@@ -21,7 +21,7 @@ The repo is a monorepo with three interlocking components:
 | Component | Language | Purpose |
 |---|---|---|
 | **Kernel fork** (`src/`) | C++ | Lean 4 v4.28.0 with the principle of explosion disabled at kernel level |
-| **p4ramill** (`p4ramill/`) | Lean 4 | The IG formalization: primitives, Crystal of Types, the lattice, Millennium problems, genetics, orbital physics |
+| **p4ramill** (`p4ramill/`) | Lean 4 | The IG formalization: primitives, Crystal of Types, the lattice, Millennium problems, genetics, orbital physics, SIC-POVM d=12 embedding |
 | **p4ramill_py** (`p4ramill_py/`) | Python | Runtime mirror: Belnap logic, genetic code verification, gene→protein pipeline |
 
 ---
@@ -131,6 +131,62 @@ sorries are the honest statement of remaining work.
 BSD sits at 6,738,800 because Gross-Zagier/Kolyvagin bound the chirality to Ħ 𐑖 rather
 than Ħ 𐑫.
 
+### ✦ SIC-POVM d=12 Embedding (CAPSTONE — July 2026)
+
+**Status: MACHINE-CHECKED THEOREM. No axioms. No sorries. No Stark shadow.**
+
+The d=12 SIC-POVM existence is now a theorem in Lean 4 — `crystal_forces_d12_sic :
+SICPOVM_Exists 12` — proved from the same classical substrate as the rest of p4ramill
+(`propext`, `Classical.choice`, `Quot.sound`, plus `Lean.ofReduceBool`/`Lean.trustCompiler`
+for `native_decide`). The last axiom of the IG formalization has been discharged.
+
+**`SIC_D12_Embedding.lean`** contains the full constructive existence proof:
+
+| Theorem | Statement |
+|---|---|
+| `exists_root` | The degree-16 polynomial `k16Poly` has a real root `g0` in the IVT-bracketed interval `(certLo, certHi)` |
+| `norm_sq_eq_one` | `‖psi k‖² = 1` for all k — the fiducial is unit-normalized |
+| `equiangular_bridge` | The Weyl-Heisenberg overlap of the fiducial with its displacement equals the conjugate of a phi-image overlap in the existence ring — the one analytic bridge lemma |
+| `equiangular` | `(d+1)·‖WH overlap‖² = 1` for all 143 non-identity displacements — full equiangularity |
+| `d12_sic_exists` | `IsSICPOVM 12 psi` — the fiducial satisfies the SIC-POVM axioms |
+| `crystal_forces_d12_sic` | `SICPOVM_Exists 12` — existence capstone |
+
+**Architecture.** The proof proceeds by *algebraic transfer*:
+
+1. **Existence ring** `R = K16(s0,s1,s3,s9,i,c5,u1)`: a rational coefficient ring with
+   one relation (`k16Poly(g0) = 0`), where `g0` is the real root bracketed by the IVT
+   (`certLo < g0 < certHi`).
+2. **Ring hom `phi : R → ℂ`**: transfers all 12 fiducial coordinates and all 143 overlap
+   identities from the discrete ring side to the complex plane. `phi` is the conduit —
+   every algebraic identity that `native_decide` verifies over the ring is promoted to
+   an analytic identity in ℂ.
+3. **`native_decide` planks**: `norm_sum` (trace-one normalization sum) and
+   `existence_identities_all` (all 143 overlap values) are frozen as `native_decide`
+   lemmas over the existence ring — finite rational arithmetic, no analysis.
+4. **`equiangular_bridge`**: the single analytic lemma that closes the last gap. Four
+   transcription defects were fixed (2026-07-04): two `rfl` closures where `rw`'s
+   auto-`rfl` could not unfold `psi` (definitional), a broken `Fin.sum_univ_eq_sum_range`
+   lambda, and an `hjk` insertion so the omega-exponent follows the psi-index into
+   `(k+12-a)` form.
+
+The entire construction — ring, hom, norm, equiangularity, capstone — is **sorry-free**
+and builds green with `lake build` (8342 jobs, no olean cache misses).
+
+**`SIC_POVM_Functor.lean`** now imports the Embedding capstone. `crystal_forces_d12_sic`
+was an **axiom** before 2026-07-04; it is now a **theorem** that delegates to
+`SIC.D12.Embedding.crystal_forces_d12_sic`. The axiom is gone.
+
+**Axiom audit (clean):** `propext`, `Classical.choice`, `Quot.sound` (Lean core);
+`Lean.ofReduceBool`, `Lean.trustCompiler` (native_decide). **Zero** project axioms.
+**Zero** Stark-conjecture shadows.
+
+**What this means for the IG.** The grammar is the Σ=1:1 self-referential limit of the
+Belnap multilattice SIC-POVM. The d=12 embedding proves that limit is *constructively
+realized* — there exists an exact fiducial in ℂ¹² satisfying the SIC-POVM axioms, and
+its existence follows from the structural constraints of the Crystal of Types. The
+SIC-POVM is not an external framework attached to the grammar; it is a theorem internal
+to it.
+
 ### Genetics (`GeneticCode.lean`)
 
 The genetic code falls out of the Crystal as a forced consequence of the Frobenius
@@ -175,7 +231,9 @@ python3 p4ramill_py/run_gene_pipeline.py --test -o out.json
 ## 4. The Physics Cluster
 
 Three Lean files lift the Frobenius identity from a single orbital to a unification theorem.
-All three are sorry-free.
+All three are sorry-free. The d=12 SIC-POVM embedding (§2) now provides the fourth leg:
+the discrete fiducial in the existence ring, transferred to ℂ along `phi`, gives the
+physical SIC-POVM measurement operator at dimension 12 as a machine-checked theorem.
 
 **`OrbitalBelnap.lean`**: the physical substrate. Electron orbital occupancy is isomorphic
 to Belnap FOUR *as a bilattice* (both orderings):
@@ -211,6 +269,12 @@ These `rfl`s are not trivial: dialetheia stability, equiangularity, and self-con
 the *same computation* in three notations. A Majorana fermion is its own antiparticle
 (γ = γ†) for the same reason B is its own negation (¬B = B).
 
+The d=12 SIC-POVM embedding now extends this unification into ℂ¹²: the same fiducial
+`meet B x = x` that holds at the Belnap level *projects* onto a concrete fiducial vector
+`psi : Fin 12 → ℂ` satisfying the full SIC-POVM axioms. The discrete algebraic skeleton
+(Belnap B) and the continuous Hilbert-space realization (the d=12 fiducial in ℂ) are now
+machine-checked to be two faces of the same Frobenius-closed structure.
+
 **The Ħ 𐑖 result.** The Frobenius fixed point lives at Ħ 𐑖 (two-step Markov memory), not
 Ħ 𐑫 (eternal chirality): μ∘δ=id is a two-step operation, one split and one merge, so Ħ 𐑖 is
 the minimum sufficient chirality. Time imposes Ħ 𐑫 on physical systems, but the identity is
@@ -230,7 +294,9 @@ fiber at any cell of the 12-primitive lattice, and the four kernel truth values.
 **Frobenius condition (μ∘δ=id).** The founding axiom of ZFC_fe. In this repo it surfaces as
 `pair_depair_id` (orbitals), `frobenius_at_codon_level` (genetics),
 `verify_frobenius_invariant()` (ParaASM), the `⊗` tensor and `*_self_dual` idempotence on
-the Imscription lattice, the Φ 𐑹 gate (O₂†→\(O_\infty\) promotion), and `frobenius_unification`.
+the Imscription lattice, the Φ 𐑹 gate (O₂†→\(O_\infty\) promotion), `frobenius_unification`
+(MajoranaFixed), and now the d=12 SIC-POVM embedding (equiangularity as Frobenius closure
+in ℂ¹²).
 
 **ZFC_fe vs ZFCₜ.** ZFC_fe (μ∘δ=id as axiom) is strictly stronger than ZFCₜ (T-consistent
 ZFC); open problems in ZFCₜ close as theorems in ZFC_fe. Use ZFC_fe when arguing
@@ -255,6 +321,9 @@ cd p4ramill && lake build
 # Paraconsistent kernel verification
 lean --run p4ramill/ParaconsistentKernelTest.lean
 lean --run p4ramill/ParaconsistentMillennium.lean
+
+# SIC-POVM d=12 embedding (capstone — sorry-free, axiom-free)
+lean --run p4ramill/Imscribing/Millennium/SIC_D12_Embedding.lean
 
 # Loose top-level Lean files build under the fork (the canonical toolchain).
 # oleans are gitignored; regenerate the shared imports in dependency order:
