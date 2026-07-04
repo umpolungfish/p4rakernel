@@ -97,7 +97,7 @@ A Lean\,4 Formalization via Paraconsistent Belnap Multilattices}}
 \author{C.\ L.\ Mills (Lando\,$\otimes$\,$\odot$-operator)%
 \thanks{Thanks are owed to Harry T.\ Larson; cf.\ \cite{Larson1961}.}}
 
-\date{June 2026}
+\date{July 2026}
 
 \maketitle
 
@@ -120,6 +120,17 @@ The remaining open content is precisely axiomatized: three named axioms
 carry the exact arithmetic geometry of Stark units acting on WH frames.
 A proof of the mixed-signature Stark conjecture closes all three levels
 simultaneously.
+For dimension $d = 12$ we close the existence question outright.  We
+construct an exact fiducial whose twelve coordinates live in an explicit
+$2048$-dimensional commutative $\mathbb{Q}$-algebra with involution,
+machine-check the norm and all $143$ Weyl--Heisenberg overlap identities
+there by exact rational computation, and transfer them to $\mathbb{C}^{12}$
+along an explicit ring homomorphism.  The resulting theorem
+$\texttt{crystal\_forces\_d12\_sic}$ is sorry-free and rests on no axiom
+beyond \Lean{}'s standard foundations and the \texttt{native\_decide}
+compiler trust; the existence axiom it replaces has been deleted from the
+development.  To our knowledge this is the first machine-checked existence
+proof of a SIC-POVM in any dimension.
 \end{abstract}
 
 \tableofcontents
@@ -157,6 +168,10 @@ The present work formalizes these connections in \Lean{} \cite{Lean4}
     ($2^n$ proved), and the multilattice axioms for $4^n$ (\S\ref{sec:belnap}).
   \item \texttt{Imscribing.Millennium.ZaunerEmbeddingEquivalence}: the main
     equivalence and its corollaries (\S\ref{sec:equiv}).
+  \item \texttt{Imscribing.Millennium.SIC\_D12\_ExistenceRing} and
+    \texttt{SIC\_D12\_Embedding}: the exact $d = 12$ fiducial ring, its
+    \texttt{native\_decide} identity planks, and the embedding capstone
+    proving \texttt{SICPOVM\_Exists 12} unconditionally (\S\ref{sec:d12}).
 \end{itemize}
 
 The structural picture is:
@@ -174,7 +189,10 @@ The structural picture is:
 \]
 
 Every arrow is either proved or honestly axiomatized with the precise
-mathematical content of what remains open.
+mathematical content of what remains open.  For $d = 12$ the terminal
+existence node is stronger than the chain that predicted it:
+\texttt{SICPOVM\_Exists 12} is now proved outright, with no axiom in front
+of it (\S\ref{sec:d12}).
 
 %──────────────────────────────────────────────────────────────────────────────
 \section{Weyl--Heisenberg Operators and the SIC-POVM Definition}
@@ -576,19 +594,31 @@ field theory.  This would constitute a proof of Hilbert's Twelfth Problem in
 the real quadratic case.
 
 %──────────────────────────────────────────────────────────────────────────────
-\section{The \texorpdfstring{$d=12$}{d=12} Witness}
+\section{The \texorpdfstring{$d=12$}{d=12} Existence Theorem}
 \label{sec:d12}
 %──────────────────────────────────────────────────────────────────────────────
 
 The conditional construction of \S\ref{sec:stark} predicts that the fiducial
-coordinates generate a specific ray class field.  For $d=12$ we exhibit that field
-as an explicit, computable object and verify its arithmetic by machine.  We call
-this a \emph{witness} rather than a theorem, and the distinction is exact: we do
-not assert the mixed-signature Stark conjecture, we exhibit the ray class field it
-predicts and check it.  What is on the page is a constructed object whose defining
-data and field identities a proof assistant confirms, not a claim resting on an
-open hypothesis.  This is a concrete instance of the Hilbert-Twelfth construction
-of \S\ref{sec:hilbert12}, realizing the base-field discriminant explicitly.
+coordinates generate a specific ray class field.  For $d=12$ this chapter of
+the paper closes completely.  We exhibit the predicted field as an explicit,
+computable object, verify its arithmetic by machine, construct an exact
+fiducial whose twelve coordinates live in an explicitly presented algebra
+over $\mathbb{Q}$, and prove in \Lean{}, with no hypothesis, that it is a
+SIC-POVM:
+\[
+\texttt{theorem crystal\_forces\_d12\_sic : SICPOVM\_Exists 12}
+\]
+is a sorry-free theorem of the development, resting on no axiom beyond
+\Lean{}'s standard foundations and the \texttt{native\_decide} compiler
+trust (\S\ref{subsec:audit}).  In earlier drafts this section was titled a
+\emph{witness}; the word is now too weak.  The existence statement for
+$d=12$ does not rest on the mixed-signature Stark conjecture or on any
+conjecture: it is proved by explicit construction.  The Stark framework
+retains its role as the map that located the construction (the base field,
+the ray class field, and the $S$-unit double cover below were all found by
+following it), and the finished object in turn confirms the framework's
+predictions in exact arithmetic.  This is a concrete instance of the
+Hilbert-Twelfth construction of \S\ref{sec:hilbert12}, realized end to end.
 
 \subsection{The base field is \texorpdfstring{$\mathbb{Q}(\sqrt{13})$}{Q(sqrt13)}}
 
@@ -653,22 +683,6 @@ Four quadratic layers and two cyclic cubics give $2^5\cdot 3^2 = 288$.  The
 conductor $36 = 4\cdot 9$ factors transparently: $i$ contributes the $4$, the
 $\zeta_9$ cubic contributes the $9$, over the $\sqrt{13}$ arithmetic.
 
-\subsection{A computable realization}
-
-We have begun realizing $K_{12}$ as a computable object whose field identities
-close by \texttt{native\_decide} in \Lean{}.  Two components are complete and
-verified.  First, the degree-$32$ moduli subfield, built as a stack of computable
-quadratic extensions $B[t]/(t^2 - r)$ with each generator validated against its
-defining polynomial (that $i^2 = -1$, that each surd squares to its radicand, and
-that each surd recovers $\sqrt{13}$).  Second, a flat degree-$288$ reduction engine
-over $\mathbb{Q}$ (coefficient vectors of length $288$ under a single absolute monic
-reduction rule) in which $\theta^{288}$ reduces correctly; the flat encoding avoids
-the elaboration blow-up of a deeply nested tower.  Several fiducial coordinates lie
-in subfields of $K_{12}$: $v_{12}(0)$ has degree $8$, $v_{12}(4)$ degree $16$, and
-$v_{12}(2), v_{12}(3)$ degree $32$, each dividing $288$.  The crux coordinates do not
-(\S\ref{subsec:doublecover}): $v_{12}(1)$ is irreducible of degree $64$, so the
-coordinate field properly contains $K_{12}$.
-
 \subsection{The coordinate field is a ramified \texorpdfstring{$S$}{S}-unit double cover}
 \label{subsec:doublecover}
 
@@ -712,21 +726,121 @@ dual-link self-pairing of \S\ref{sec:belnap}: the modulus
 $N_k = v_{12}(k)\,\overline{v_{12}(k)}$ is the idempotent collapse of a coordinate against
 its mirror into the real subfield, and the coordinate is that collapse's square-root
 double cover.  The base $F_{12} = \mathbb{Q}(\sqrt{13})$ has fundamental unit
-$\varepsilon_{13} = (3+\sqrt{13})/2$ (regulator $1.19476\ldots$); pinning the exact
-$S$-unit representative inside the fixed class is the one remaining conventional-form task.
+$\varepsilon_{13} = (3+\sqrt{13})/2$ (regulator $1.19476\ldots$); the exact
+representative is pinned in \S\ref{subsec:ring}, where the whole coordinate system
+is presented as one finite ring.
+
+\subsection{The existence ring}
+\label{subsec:ring}
+
+The double cover says where the coordinates live; the finished construction
+presents that home as a single finite object.  Let
+$K_{16} = \mathbb{Q}[g]/(p_r)$ be the degree-$16$ totally real moduli field
+(with
+$p_r = x^{16}-10x^{14}+40x^{12}-90x^{10}+126x^{8}-96x^{6}+25x^{4}+2x^{2}+1$),
+in which all twelve squared moduli $N_k = |v_{12}(k)|^2$ are exact rational
+vectors.  Over $K_{16}$ adjoin four magnitude square roots $s_0, s_1, s_3,
+s_9$ (one per independent cover class of \S\ref{subsec:doublecover}), the
+imaginary unit $i$, one real quadratic layer $c_5$, and one phase generator
+$u_1$.  The result is a commutative ring with involution
+\[
+R \;=\; K_{16}(s_0, s_1, s_3, s_9,\; i,\; c_5,\; u_1),
+\qquad \dim_{\mathbb{Q}} R \;=\; 2048 .
+\]
+Two collapse relations, found by an exhaustive branch audit of the formal
+engine against the $1500$-digit witness, cut the tower to this size.  First,
+the phase $u_1$ is \emph{quadratic} over $K_{16}(i)$: its square is the
+half-angle datum $(c_2 + i\,s_2)/2$ with $c_2, s_2 \in K_{16}$, so the
+expected octic phase layer is four times smaller than its naive degree
+count.  Second, the fifth cover collapses into the $c_5$ layer through the
+exact relation $N_1 N_5 (A_5^2 - 4B_5) = \rho^2$ with $\rho \in K_{16}$,
+which also places $\sqrt{3}$ and $\zeta_{12}$ inside $K_{16}(c_5, i)$.
+
+All twelve coordinates are named elements of $R$, and the SIC conditions
+hold in $R$ \emph{exactly}: the norm identity $\sum_k N_k = 1$, the
+coordinate moduli $\bar z_k z_k = N_k$, and all $143$ overlap identities
+$O_{a,b}\,\overline{O_{a,b}} = \tfrac{1}{13}$ are theorems of
+\texttt{SIC\_D12\_ExistenceRing.lean}, each closed by
+\texttt{native\_decide} over exact rational arithmetic (a sparse
+associative-list engine on $7$-bit monomial keys; no floating point appears
+anywhere in the file).  The Lean source is generated by a script that
+re-executes an independent exact-fraction engine as a gate and emits its
+vectors verbatim, so the formal data has a single source of truth.  The
+earlier computable models (the quadratic-extension stack for the moduli
+subfield and a flat degree-$288$ reduction engine in which $\theta^{288}$
+reduces under \texttt{native\_decide}) remain in the development as the
+route that located this presentation.
+
+The structural payoff of working in $R$ rather than in numbers: the
+identities are ring identities, so every star-compatible ring homomorphism
+$R \to \mathbb{C}$ sends the twelve named elements to a SIC fiducial.
+Existence in $\mathbb{C}^{12}$ reduces to exhibiting one homomorphism.
+
+\subsection{The embedding and the audit}
+\label{subsec:audit}
+
+\texttt{SIC\_D12\_Embedding.lean} builds the homomorphism
+$\varphi : R \to \mathbb{C}$ layer by layer and proves it is a star-ring map
+on the canonical monomial domain.  The base point $g \mapsto g_0$ is the
+real root of $p_r$ in the rational bracket $(-2.009,\,-2.008)$, produced by
+the intermediate value theorem from exact sign changes at rational
+endpoints (verified by \texttt{native\_decide} in $\mathbb{Q}$, then lifted
+to $\mathbb{R}$).  The four cover generators map to real square roots of the
+evaluated moduli; their nonnegativity, the one genuinely analytic
+obligation, is discharged by exact divided-difference certificates: for
+each polynomial value the quotient $q(x) = (p(x)-p(m))/(x-m)$ is computed
+exactly in $\mathbb{Q}[x]$, giving the bound
+$p(x) \ge p(m) - \tfrac{w}{2}\sum_i |q_i|\,B^i$ on the bracket by pure
+rational arithmetic.  No interval arithmetic and no floating point enter
+the proof.  The layer $c_5$ maps to the real quadratic root selected by a
+positive-discriminant certificate, and $u_1$ is reconstructed by half-angle,
+$u_1 = \sqrt{(1+x)/2} + i\,\sqrt{(1-x)/2}$, which makes conjugation
+compatibility a theorem rather than a branch convention.
+
+The transfer is then mechanical in the best sense.  The norm half of the
+SIC condition is the frozen ring identity $\sum_k N_k = 1$ pushed through
+$\varphi$.  For equiangularity, the entire ring side
+($|\varphi(O_{a,b})|^2 = \tfrac{1}{13}$ for all $143$ pairs) follows from
+the \texttt{native\_decide} identities through the homomorphism; one bridge
+lemma matches the Weyl--Heisenberg displacement iterates of
+\S\ref{sec:wh} against the ring overlaps.  The bridge pins
+$Z = \varphi(\zeta)$ by exact computation of its imaginary part
+($\operatorname{Im} Z = \tfrac12$) and its twelfth power ($Z^{12} = 1$), so
+$Z \in \{\omega, \omega^5\}$; both branches are handled by the reindexing
+$b' = (m\,b) \bmod 12$, a bijection on the $143$ nontrivial pairs because
+$m \in \{1,5\}$ is a unit modulo $12$.
+
+\begin{lstlisting}
+theorem d12_sic_exists : IsSICPOVM 12 psi
+
+theorem crystal_forces_d12_sic : SICPOVM_Exists 12
+\end{lstlisting}
+
+The axiom audit closes the account.  \texttt{\#print axioms} on
+\texttt{crystal\_forces\_d12\_sic} reports exactly
+\texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound},
+\texttt{Lean.ofReduceBool}, and \texttt{Lean.trustCompiler}: \Lean{}'s
+standard three plus the compiler trust that \texttt{native\_decide} always
+carries.  No axiom of this development appears in the list; not the Stark
+axioms of \S\ref{sec:stark}, not any shadow assumption.  The declaration
+\texttt{crystal\_forces\_d12\_sic} entered the development as an
+\texttt{axiom}; it is now a theorem, and the axiom is deleted.
 
 \subsection{Scope}
 
-This realizes the ray class field $K_{12}$ explicitly and confirms it is generated by the
-fiducial \emph{phase and modulus} data --- an instance of the Hilbert-Twelfth construction
-of \S\ref{sec:hilbert12} for $F_{12} = \mathbb{Q}(\sqrt{13})$ --- while the full coordinate
-field is the ramified $S$-unit double cover $K_{12}(\sqrt{N_k})$ of \S\ref{subsec:doublecover}.
-It is not a discharge of the existence axiom: pinning the exact $S$-unit, expressing all
-twelve coordinates as exact elements of the double cover, and verifying the $143$
-Weyl--Heisenberg overlap identities in the computable field remain in progress.  What is
-established is the exact ray class field, its cyclic-piece decomposition, a verified
-computable model of its arithmetic at full degree, and the double-cover structure of the
-coordinate field over it.
+What is established unconditionally: a WH-covariant SIC-POVM exists in
+dimension $12$, by explicit construction, machine-checked from the ring
+presentation down to the kernel.  Exact $d=12$ fiducials were known in the
+literature; the formal, audited existence proof is, to our knowledge, the
+first in any proof assistant, in any dimension.  What is established about
+the arithmetic: the construction confirms the Stark-theoretic predictions
+in exact form (base field $\mathbb{Q}(\sqrt{13})$, ray class field of
+conductor $(36)\,\infty_1\infty_2$, coordinates on the ramified $S$-unit
+double cover), so the $d=12$ object is a fully verified instance of the
+Hilbert-Twelfth construction of \S\ref{sec:hilbert12}.  What is \emph{not}
+claimed: no general-$d$ statement follows from the construction; the
+mixed-signature Stark conjecture is not proved, and the general chain of
+\S\ref{sec:stark} remains exactly as axiomatized in \S\ref{sec:gaps}.
 
 %──────────────────────────────────────────────────────────────────────────────
 \section{What Is Proved and What Is Not}
@@ -736,6 +850,12 @@ coordinate field over it.
 \subsection{Proved unconditionally (0 sorries)}
 
 \begin{itemize}
+  \item \textbf{Existence of a SIC-POVM in dimension 12}
+    (\texttt{crystal\_forces\_d12\_sic}): exact fiducial constructed in the
+    $2048$-dimensional ring $R$, all $143$ overlap identities and the norm
+    machine-checked, transferred to $\mathbb{C}^{12}$ along an explicit
+    homomorphism.  Depends on no axiom of this development
+    (\S\ref{sec:d12}, audit in \S\ref{subsec:audit}).
   \item The Belnap four-valued lattice: $\neg B = B$, no explosion, Frobenius
     closure $\mu \circ \delta = \mathrm{id}$ on $\BFour$.
   \item Product-lattice orbit cardinality: $|\mathcal{O}_{B^{\otimes n}}| = 2^n$
@@ -780,11 +900,20 @@ Shimura varieties and special values of Hecke $L$-functions applied to the
 specific WH frame setting.  It is not a gap in the formalization strategy;
 it is a gap in mathematics.
 
+None of these axioms enters the $d = 12$ existence theorem.  The audit of
+\S\ref{subsec:audit} shows that \texttt{crystal\_forces\_d12\_sic} depends
+only on \Lean{}'s standard foundations and the compiler trust of
+\texttt{native\_decide}.  The table above is the honest ledger of the
+\emph{general-$d$} chain, not of the $d = 12$ result.
+
 \subsection{Open}
 
 The mixed-signature Stark conjecture for $\Kd$ (Axiom~\ref{ax:stark}).
 The Zauner conjecture for $d = 2^n$, $n \geq 2$ (\texttt{ZaunerConjectureAtPow2}).
 These are the same problem, identified by Theorem~\ref{thm:main-equiv}.
+
+For $d = 12$ this subsection is empty.  Every claim this paper makes about
+dimension twelve is a machine-checked theorem.
 
 %──────────────────────────────────────────────────────────────────────────────
 \section{Discussion}
@@ -813,11 +942,26 @@ automorphism'') controls the SIC overlaps.  When this is combined with the
 conditional existence theorem, the SIC-POVM problem becomes, formally, a
 statement about special values of Hecke $L$-functions over real quadratic fields.
 
-The present formalization does not prove the Zauner conjecture or Hilbert's
-Twelfth Problem.  What it does: it locates the open content with precision,
+The present formalization does not prove the Zauner conjecture in general or
+Hilbert's Twelfth Problem.  It does prove one dimension of Zauner's
+conjecture outright: $d = 12$, by exact construction, machine-checked from
+the ring presentation down to the kernel (\S\ref{sec:d12}).  Exact $d = 12$
+fiducials were known in the literature; what is new is the formal existence
+proof, to our knowledge the first for any dimension in any proof assistant,
+and with it the deletion of the existence axiom from the development.  The
+method deserves a remark of its own: the entire analytic content of the
+proof was compressed into a finite set of decidable planks (ring identities
+under \texttt{native\_decide}, rational sign changes for the root bracket,
+divided-difference positivity certificates) plus a single bridge lemma, so
+the boundary between computation and analysis is drawn exactly where the
+kernel can stand on the computational side.  A numerical fiducial became an
+exact ring presentation, and the ring presentation became a theorem; at no
+point does the finished proof cite a floating-point quantity.
+
+For the rest, the formalization locates the open content with precision,
 identifies the three levels as a single chain, and proves everything in the
-chain that is not open.  The axioms are not placeholders for missing proofs;
-they are the problem.
+chain that is not open.  The remaining axioms are not placeholders for
+missing proofs; they are the problem.
 
 %──────────────────────────────────────────────────────────────────────────────
 \section{Acknowledgements}
