@@ -1,4 +1,6 @@
 # Lake
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 Lake (Lean Make) is the new build system and package manager for Lean 4.
 Lake configurations can be written in Lean or TOML and are conventionally stored in a `lakefile` in the root directory of package.

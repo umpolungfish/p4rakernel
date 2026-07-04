@@ -1,6 +1,8 @@
 This is the repository for **Lean 4**.
 
 # About
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 
 - [Quickstart](https://lean-lang.org/install/)
 - [Homepage](https://lean-lang.org)

@@ -1,3 +1,5 @@
+**Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
+
 Test cases are taken from https://github.com/toml-lang/toml-test, which
 is licensed under the MIT license. The license is copied below.
 
