@@ -1,15 +1,32 @@
-feat: SIC_D12_Norm — discharge the norm half of the d=12 SIC in Lean (native_decide)
+feat: SIC_D12_Equiangularity: discharge the 143 overlap identities of the d=12 SIC in Lean (native_decide)
 
-This adds p4ramill/Imscribing/Millennium/SIC_D12_Norm.lean, the first Lean plank of the
-crystal_forces_d12_sic axiom-drop. It models K16 = Q[g]/(x^16-10x^14+40x^12-90x^10+126x^8
--96x^6+25x^4+2x^2+1) as flat power-basis coefficient vectors (List Q) and proves, by
-native_decide, that the twelve exact d=12 SIC fiducial moduli |z_k|^2 (recovered from the
-1500-digit fiducial, banked in ~/imsgct/d12_sic_build) sum to exactly 1 in K16 -- the
-trace-one SIC condition sum_k |z_k|^2 = 1, as an exact rational identity (no square roots,
-no multiplication table: the moduli are the summands). Also all_len16 well-formedness.
+This adds p4ramill/Imscribing/Millennium/SIC_D12_Equiangularity.lean, the second Lean
+plank of the crystal_forces_d12_sic axiom-drop, covering the equiangularity half of
+IsSICPOVM 12 psi: for every Weyl-Heisenberg index (a,b) != (0,0), |<psi|D_{a,b}|psi>|^2
+= 1/13.
 
-Module added to lakefile.toml (explicit glob list); whole p4ramill lib `lake build` GREEN
-(0 jobs). Complements SIC_D12_SymmetricModuli (the two symmetric moduli in Q(sqrt2,sqrt13)).
-The equiangularity half (143 Weyl-Heisenberg overlap identities) needs the magnitude/phase
-compositum tower and is the next plank; all 143 |O|^2 already certified rational = 1/13 at
-the deep-vanish floor (see d12_sic_build FINDINGS cont.9-12).
+The key dissolve (overlap_deg.gp, banked in ~/imsgct/d12_sic_build): each overlap
+O_{a,b} is individually a LOW-degree algebraic number (max degree 32 over Q; distribution
+deg 2:7, 4:16, 8:32, 16:48, 32:40), even though the twelve coordinates jointly need the
+degree-512 magnitude tower. So no compositum tower is needed: equiangularity splits into
+143 small per-overlap identities.
+
+Per overlap the pinned data (overlap_pin.gp, 1500-digit fiducial, floor gate >4700 bits,
+all 143 PASS / 0 failures) is the monic irreducible min poly p of O_{a,b} plus the
+lindep-recovered q with conj(O) = q(O) in the power basis of Q(O), pinned independently
+of p. The Lean theorem equiangularity_all then checks, in exact rational polynomial
+arithmetic (flat List Q engine, no floats, no square roots), that 13*x*q(x) == 1 mod p
+for all 143 entries, i.e. 13*O*conj(O) = 1, i.e. |O|^2 = 1/13. covers_all_pairs pins
+the index set to exactly the 143 non-identity WH pairs, no gaps, no duplicates. The
+congruence is NOT true by construction: q was recovered from the numerics of conj(O) by
+lindep, not computed as a modular inverse, so p and q are independent pinnings and the
+exact identity closed on its own -- the same closure structure as norm_sum.
+
+Together with SIC_D12_Norm (trace-one half, commit 897e3d5) both defining SIC conditions
+on the pinned d=12 fiducial data are now machine-checked exact in Lean. Coefficient
+heights are small (numerators under 60 bits), native_decide is fast. Data file
+overlap_pin_data.txt and generator gen_lean_equiangularity.py live in
+~/imsgct/d12_sic_build (the Lean data block is generated, never hand-entered).
+
+Whole p4ramill lib remains green: lake build -> Build completed successfully.
+lakefile.toml: register Imscribing.Millennium.SIC_D12_Equiangularity.
