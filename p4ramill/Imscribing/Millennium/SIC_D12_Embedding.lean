@@ -1352,6 +1352,95 @@ lemma phi_zeta_pin : phi zeta = omega_d 12 ∨ phi zeta = omega_d 12 ^ 5 := by
     · rw [hre, hom5_re]
     · rw [phi_zeta_im, hom5_im]
 
+/-- Iterating the phase operator b times multiplies exponents: Z_d^[b] v k = ω^(b·k)·v k. -/
+lemma Z_iterate (b : ℕ) (v : Fin 12 → ℂ) (k : Fin 12) :
+    (Z_d 12)^[b] v k = omega_d 12 ^ (b * k.val) * v k := by
+  induction b with
+  | zero => simp
+  | succ n ih =>
+    rw [Function.iterate_succ', Function.comp_apply]
+    simp only [Z_d]
+    rw [ih, ← mul_assoc, ← pow_add, show k.val + n * k.val = (n + 1) * k.val from by ring]
+
+/-- Iterating the shift a times: X_d^[a] v k = v(k + 11a mod 12). -/
+lemma X_iterate (a : ℕ) (v : Fin 12 → ℂ) (k : Fin 12) :
+    (X_d 12)^[a] v k = v ⟨(k.val + a * 11) % 12, Nat.mod_lt _ (by norm_num)⟩ := by
+  induction a generalizing k with
+  | zero =>
+    simp only [Function.iterate_zero, id_eq]
+    congr 1
+    apply Fin.ext
+    have := k.isLt; simp only; omega
+  | succ n ih =>
+    rw [Function.iterate_succ', Function.comp_apply]
+    simp only [X_d]
+    rw [ih]
+    congr 1
+    apply Fin.ext
+    simp only
+    omega
+
+/-- ω = omega_d 12 is a 12th root of unity: ω¹² = exp(2πi) = 1. -/
+lemma omega12_pow12 : omega_d 12 ^ 12 = 1 := by
+  have h : omega_d 12 ^ 12 = Complex.exp (2 * Real.pi * Complex.I) := by
+    rw [omega_d, ← Complex.exp_nat_mul]; congr 1; push_cast; ring
+  rw [h, Complex.exp_two_pi_mul_I]
+
+/-- ζ¹²=1 collapses exponents mod 12: for any z with z¹²=1, z^(e mod 12) = z^e. -/
+lemma cpow_mod12 (z : ℂ) (hz : z ^ 12 = 1) (e : ℕ) : z ^ (e % 12) = z ^ e := by
+  conv_rhs => rw [← Nat.div_add_mod e 12]
+  rw [pow_add, pow_mul, hz, one_pow, one_mul]
+
+/-- The displaced fiducial in closed form. -/
+lemma D_ah_closed (a b : Fin 12) (k : Fin 12) :
+    D_ah 12 a b 0 psi k
+      = omega_d 12 ^ (b.val * ((k.val + a.val * 11) % 12))
+        * psi ⟨(k.val + a.val * 11) % 12, Nat.mod_lt _ (by norm_num)⟩ := by
+  simp only [D_ah, Fin.val_zero, pow_zero, one_mul]
+  rw [X_iterate, Z_iterate]
+
+/-- conj(ω) has order dividing 12, so its powers only depend on the exponent mod 12. -/
+lemma cw_congr {A B : ℕ} (h : A ≡ B [MOD 12]) :
+    star (omega_d 12) ^ A = star (omega_d 12) ^ B := by
+  have hz : star (omega_d 12) ^ 12 = 1 := by rw [← star_pow, omega12_pow12, star_one]
+  rw [← cpow_mod12 _ hz A, ← cpow_mod12 _ hz B, show A % 12 = B % 12 from h]
+
+/-- phi pushed through a `radd`-foldl becomes a Finset sum. -/
+lemma phi_foldl_radd (n : ℕ) (f : ℕ → RElt) (init : RElt) :
+    phi ((List.range n).foldl (fun acc j => radd acc (f j)) init)
+      = phi init + ∑ j ∈ Finset.range n, phi (f j) := by
+  induction n with
+  | zero => simp
+  | succ m ih =>
+    rw [List.range_succ, List.foldl_append, List.foldl_cons, List.foldl_nil,
+      phi_radd, ih, Finset.sum_range_succ]
+    ring
+
+/-- Canonicity of the coordinate-pair product `z̄_j · z_{j'}` (from `T_canon_all`). -/
+lemma T_canon {j j' : ℕ} (hj : j < 12) (hj' : j' < 12) :
+    ∀ p ∈ rmul (rZB j) (rZ j'), p.1 < 128 := by
+  intro p hp
+  have H := T_canon_all
+  rw [List.all_eq_true] at H
+  have Hj := H j (List.mem_range.mpr hj)
+  rw [List.all_eq_true] at Hj
+  have Hj' := Hj j' (List.mem_range.mpr hj')
+  rw [List.all_eq_true] at Hj'
+  exact of_decide_eq_true (Hj' p hp)
+
+/-- phi of one `O_{a,b'}` summand: z̄_j → star(ψ_j), z_shift → ψ_shift, ζ-power → Zᵉ. -/
+lemma phi_OabTerm (a b' j : ℕ) (hj : j < 12) :
+    phi (rmul (rmul (rZB j) (rZ ((j + 12 - a) % 12)))
+      (zpow (((j + 12 - a) % 12 * b') % 12)))
+      = star (psi ⟨j, hj⟩) * psi ⟨(j + 12 - a) % 12, Nat.mod_lt _ (by norm_num)⟩
+        * (phi zeta) ^ (((j + 12 - a) % 12 * b') % 12) := by
+  have hidx : (j + 12 - a) % 12 < 12 := Nat.mod_lt _ (by norm_num)
+  have he : ((j + 12 - a) % 12 * b') % 12 < 13 := by omega
+  have hrzb : phi (rZB j) = star (psi ⟨j, hj⟩) := by
+    rw [rZB, phi_rconj (rZ j) (rZ_canon hj)]
+  rw [phi_rmul _ _ (T_canon hj hidx) (zpow_canon he), phi_zpow_lt _ he,
+    phi_rmul _ _ (rZB_canon hj) (rZ_canon hidx), hrzb]
+
 /-- THE ANALYTIC BRIDGE (last remaining plank). The Weyl–Heisenberg overlap of the
     fiducial with its displacement equals (the conjugate of) a phi-image overlap
     `O_{a,b'}` for `b' = (m·b) mod 12`, where `m ∈ {1,5}` is the branch with
@@ -1363,7 +1452,51 @@ lemma phi_zeta_pin : phi zeta = omega_d 12 ∨ phi zeta = omega_d 12 ^ 5 := by
 lemma equiangular_bridge (a b : Fin 12) (h : (a, b) ≠ (0, 0)) :
     ∃ b' : ℕ, b' < 12 ∧ ¬(a.val = 0 ∧ b' = 0) ∧
       wh_inner 12 psi (D_ah 12 a b 0 psi) = star (phi (Oab a.val b')) := by
-  sorry
+  -- Branch: Z = phi ζ = ωᵐ, m ∈ {1,5}.
+  obtain ⟨m, hm, hZ⟩ : ∃ m, (m = 1 ∨ m = 5) ∧ phi zeta = omega_d 12 ^ m := by
+    rcases phi_zeta_pin with hp | hp
+    · exact ⟨1, Or.inl rfl, by rw [hp, pow_one]⟩
+    · exact ⟨5, Or.inr rfl, hp⟩
+  refine ⟨(m * b.val) % 12, Nat.mod_lt _ (by norm_num), ?_, ?_⟩
+  · -- ¬(a = 0 ∧ b' = 0): m is coprime to 12, so b' = 0 forces b = 0.
+    rintro ⟨ha0, hb0⟩
+    apply h
+    have hb : b.val = 0 := by rcases hm with rfl | rfl <;> (have := b.isLt; omega)
+    exact Prod.ext (Fin.ext ha0) (Fin.ext hb)
+  · -- The overlap equation, term by term.
+    have hbcong : b.val ≡ m * ((m * b.val) % 12) [MOD 12] := by
+      have h1 : m * ((m * b.val) % 12) ≡ m * (m * b.val) [MOD 12] :=
+        (Nat.mod_modEq (m * b.val) 12).mul_left m
+      have h2 : m * (m * b.val) ≡ b.val [MOD 12] := by
+        rcases hm with rfl | rfl
+        · simp [Nat.ModEq]
+        · calc 5 * (5 * b.val) = 25 * b.val := by ring
+            _ ≡ 1 * b.val [MOD 12] := (by decide : (25 : ℕ) ≡ 1 [MOD 12]).mul_right b.val
+            _ = b.val := one_mul _
+      exact (h1.trans h2).symm
+    rw [wh_inner, Oab, phi_foldl_radd, phi_nil, zero_add, star_sum,
+      ← Fin.sum_univ_eq_sum_range (fun j => star (phi (rmul (rmul (rZB j)
+        (rZ ((j + 12 - a.val) % 12))) (zpow (((j + 12 - a.val) % 12 * ((m * b.val) % 12)) % 12)))) 12]
+    apply Finset.sum_congr rfl
+    intro k _
+    have hjk : (k.val + a.val * 11) % 12 = (k.val + 12 - a.val) % 12 := by
+      have := a.isLt; have := k.isLt; omega
+    have hpsi : psi ⟨(k.val + a.val * 11) % 12, Nat.mod_lt _ (by norm_num)⟩
+        = psi ⟨(k.val + 12 - a.val) % 12, Nat.mod_lt _ (by norm_num)⟩ :=
+      congrArg psi (Fin.ext hjk)
+    rw [D_ah_closed, hpsi, phi_OabTerm a.val ((m * b.val) % 12) k.val k.isLt]
+    have hphase : star (omega_d 12) ^ (b.val * ((k.val + 12 - a.val) % 12))
+        = star (omega_d 12) ^ (m * (((k.val + 12 - a.val) % 12 * ((m * b.val) % 12)) % 12)) := by
+      apply cw_congr
+      calc b.val * ((k.val + 12 - a.val) % 12)
+          ≡ m * ((m * b.val) % 12) * ((k.val + 12 - a.val) % 12) [MOD 12] := hbcong.mul_right _
+        _ = m * (((k.val + 12 - a.val) % 12) * ((m * b.val) % 12)) := by ring
+        _ ≡ m * ((((k.val + 12 - a.val) % 12) * ((m * b.val) % 12)) % 12) [MOD 12] :=
+            (Nat.mod_modEq _ _).symm.mul_left m
+    rw [hZ]
+    simp only [star_mul', star_pow, star_star, ← pow_mul]
+    rw [hphase]
+    ring
 
 theorem equiangular : ∀ (a b : Fin 12), (a, b) ≠ (0, 0) →
     ((12 : ℝ) + 1) * ‖wh_inner 12 psi (D_ah 12 a b 0 psi)‖ ^ 2 = 1 := by
