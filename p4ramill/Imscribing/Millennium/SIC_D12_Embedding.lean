@@ -579,9 +579,11 @@ lemma evalK16_covCorr (m : ℕ) (c : K16) :
   simp only [List.foldl_cons, List.foldl_nil]
   split_ifs <;> (try simp only [evalK16_kmul]) <;> ring
 
+set_option maxHeartbeats 2000000 in
 /-- The pure cover identity: the XOR cover times the shared-bit (AND) squared covers
     equals the product of the two individual covers. Proven by exhausting the 4 bits of
-    each 4-bit mask; `ring` only ever sees the four `sVal` atoms, so it stays cheap. -/
+    each 4-bit mask; the `evalK16 (covK i)` terms are rewritten to `sVal i ^ 2` atoms
+    *before* the case split, so each of the 256 cases only ever sees four `sVal` atoms. -/
 lemma cover_identity (A B : ℕ) (hA : A < 16) (hB : B < 16) :
     scov (A ^^^ B) *
       ((if ((A &&& B) >>> 0) &&& 1 == 1 then evalK16 g0C (covK 0) else 1) *
@@ -593,8 +595,10 @@ lemma cover_identity (A B : ℕ) (hA : A < 16) (hB : B < 16) :
   have s1 := sVal_sq 1 (by norm_num)
   have s2 := sVal_sq 2 (by norm_num)
   have s3 := sVal_sq 3 (by norm_num)
-  interval_cases A <;> interval_cases B <;>
-    simp only [scov, ← s0, ← s1, ← s2, ← s3] <;> norm_num <;> ring
+  rw [← s0, ← s1, ← s2, ← s3]
+  interval_cases A <;> interval_cases B <;> simp only [scov, Nat.reduceXor, Nat.reduceAnd,
+    Nat.reduceShiftRight, Nat.reduceMod, Nat.reduceDiv, Nat.reduceBEq, Nat.reduceEqDiff,
+    Bool.false_eq_true, ite_false, ite_true, one_mul, mul_one] <;> ring
 
 /-- The pointwise product law: the reduced monomial for the product of two ring
     monomials equals the product of their `evalKey`s. -/
