@@ -1,5 +1,10 @@
 # p4rakernel: Paraconsistent Computation Layer
 
+[![Language](https://img.shields.io/badge/language-Lean%204-green)](https://github.com/badges/shields)
+[![IG Tier](https://img.shields.io/badge/IG-O%E2%88%9E-blueviolet)](https://github.com/badges/shields)
+[![μ∘δ=id](https://img.shields.io/badge/%CE%BC%E2%88%98%CE%B4%3Did-paraconsistent-yellow)](https://github.com/badges/shields)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/badges/shields)
+
 **Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 **License:** Unlicense (public domain)
 
