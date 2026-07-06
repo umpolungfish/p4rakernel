@@ -1,3 +1,24 @@
+I proved the d=2 base case of the Zauner bridge from scratch — a real SIC-POVM in ℂ².
+
+Follow-up to the de-vacuization: the n=1 bridge is no longer just "provable in
+prose". Ring2048_Bridge.lean now carries a self-contained `D2` namespace that
+exhibits the explicit qubit SIC fiducial ψ = (√r₂, √s₂·(1+i)/√2) with
+r₂=(3+√3)/6, s₂=(3−√3)/6, and proves `D2.d2_sic : IsSICPOVM 2 ψ` — unit norm plus
+all three Weyl–Heisenberg overlaps at exactly 1/(d+1)=1/3 (ω₂=−1 via exp(πi)=−1,
+the X/Z/XZ displacements computed in closed form, the phase identities
+ξ±ξ̄ for ξ=(1+i)/√2, and the algebra √3·√3=3 ⇒ r₂s₂=1/6, (r₂−s₂)²=1/3). Hence
+`zauner_bridge_d2 : ZaunerBridge 1` is a genuine theorem, replacing the removed
+`zauner_bridge_d2_proved := right;trivial`.
+
+Verified: `lake build Imscribing` green (8346 jobs); zero sorries; `#print axioms`
+on `zauner_bridge_d2`, `D2.d2_sic`, and `ring2048_capstone` shows only
+[propext, Classical.choice, Quot.sound] — no native_decide, no project axioms, no
+new axioms. So the known dimensions are now honestly closed in-tree: d=2 proved
+here, d=12 proved via the ExistenceRing, d=2048 reduced to one named ℂ fiducial
+(the open Zauner conjecture, not asserted).
+
+---
+
 I de-vacuized the Zauner bridge for d=2048 and reduced its whole open content to one ℂ fiducial.
 
 Reviewing BelnapRing2048.lean I found the structural SIC skeleton proved
