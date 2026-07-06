@@ -1,3 +1,41 @@
+I de-vacuized the Zauner bridge for d=2048 and reduced its whole open content to one ℂ fiducial.
+
+Reviewing BelnapRing2048.lean I found the structural SIC skeleton proved
+unconditionally but the OPEN half — the ℂ^2048 representation / Zauner bridge —
+stated as `n = 0 ∨ True`, which is provably True for every n. An open problem with
+the wrong polarity, its actual mathematics stranded in comments. I fixed it for
+real rather than patched it.
+
+BelnapRing2048.lean (Paraconsistent/Shor):
+  - Removed the placeholders `ZaunerBridgeCondition`, `RepresentationProblem`,
+    `zauner_bridge_d2_proved`, `rep_problem_d2_solved`, `zauner_bridge_is_lift` (all
+    `n = 0 ∨ True` / `True := trivial`).
+  - Generalized `wh_exponent_two` to all n and replaced the vacuous
+    `character_obstruction : True` with the genuine `wh_char_two_valued`: every
+    ℂ-character of the acting group WH(2)^n is ±1-valued (exponent-two group), so it
+    cannot supply the 2^n-th-root phases a WH SIC needs for d = 2^n > 2 — the
+    representation must factor through the different group WH(2^n).
+
+Imscribing/Millennium/Ring2048_Bridge.lean (new, downstream of SIC_POVM_Stark):
+  - `ZaunerBridge n := SICPOVM_Exists (2^n)` — the genuine predicate; for n=11 it IS
+    Zauner for d=2048, not dischargeable by trivial.
+  - `bridge_of_fiducial` / `bridge_iff_fiducial`: the whole open content reduces to
+    producing one ℂ fiducial with IsSICPOVM.
+  - `ring2048_structural`: the skeleton re-exported unconditionally.
+  - `ring2048_capstone`: both registers conjoined, neither borrowing the other's
+    authority — structural PROVED, shadow (SICPOVM_Exists 2048) NOT asserted (that is
+    the open Zauner conjecture; the d=12 shadow crystal_forces_d12_sic is already a
+    theorem, the d=2048 one is genuinely open).
+
+Verified: `lake build Imscribing` green (8346 jobs); zero sorries; `#print axioms`
+on the capstone and its parts shows only the standard trio
+[propext, Classical.choice, Quot.sound] — no project axioms, no new axioms, no
+native_decide. What remains open is exactly one named ℂ fiducial for d=2048, not a
+fake True. (The n=1 base case SICPOVM_Exists 2 is classically provable and the next
+concrete plank.)
+
+---
+
 The Witness Vessel manuscript: first draft, compiled; manuscripts/ restored after external deletion.
 
 Two things in one commit, because the tree forced them together.
