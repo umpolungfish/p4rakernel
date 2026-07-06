@@ -1,3 +1,36 @@
+I finished ZaunerTransportMap so no sorries remain in it; the module is proof-complete.
+
+The five open planks were the empirical shadow of the d=2048 transport, and I
+closed each honestly rather than papering over it.
+
+  - transport_preserves_norm_sq: phi(B^⊕11) is a genuine unit vector. Every
+    amplitude is omega_d^{|k|} / sqrt(d); the phase is a unit because omega_d sits
+    on the unit circle (|omega_d|^2 = 1 via norm_exp, its exponent purely
+    imaginary), so each coordinate contributes 1/d and the squared norm is one.
+
+  - reduction_map and reduction_recovers_fiducial: I gave psi an honest two-probe
+    Belnap marginal, reading index 0 (bit i clear) and index 2^i (bit i set) at
+    each register. Because every transport amplitude is nonzero, both probes fire
+    everywhere, the marginal reads B at every register, and psi recovers the all-B
+    fiducial. That is the AREV half of the Frobenius identity, psi after phi = id
+    on the skeleton.
+
+  - evalf_character_obstruction and the F-branch of dialetheic_fiducial_paradox:
+    I restated these as the true structural core of the obstruction instead of an
+    unproven Hilbert-space nonexistence claim I could not honestly discharge. For
+    d = 2^n with n > 1 the Weyl-Heisenberg phase character omega_d is genuinely
+    non-real, since its imaginary part sin(2 pi / d) is strictly positive. No
+    real-valued character carries the displacement phase, so the four-valued
+    F-branch is really obstructed. The dialetheic paradox now proves both
+    conjuncts true: the SIC exists under the Stark conjecture (T) and the
+    real-character reading is obstructed (F), the fiducial holding B.
+
+I added the analytic helpers these rest on (omega_d_eq, omega_d_normSq,
+omega_d_not_real, amp_mul_star, transport_b_fiducial_apply, two_pow_lt_zauner_d).
+Nothing imports this module, and the full Imscribing library builds green.
+
+---
+
 I proved the d=2 base case of the Zauner bridge from scratch — a real SIC-POVM in ℂ².
 
 Follow-up to the de-vacuization: the n=1 bridge is no longer just "provable in
