@@ -1,3 +1,17 @@
+I purged the placeholder data from the d=2048 A0 stratum and unmasked the 1500-digit witness.
+
+The A0 stratum module now carries no modulus values at all: every overlap slot, the norm
+gate, and the admission aggregate are parametric in N, filled only when gen_lean_2048_a0.py
+pins real S-unit moduli. PSLQ identified the mislabeled 1500-digit witness exactly as
+z = sqrt((1+sqrt2049)/4096)e^{i pi/2048} (modulus-squared minpoly 8192x^2-4x-1, agreement
+to all 1500 digits): a generated ansatz, never a recovered coordinate, now documented and
+excluded from Lean data. On the numerical side my new solver evaluates all 4,194,303
+overlaps per iteration (FFT ambiguity function, analytic gradient); it reaches a true SIC
+at d=12 (max_res 8e-17) and is running on d=2048 in the background. I also tracked the
+ZaunerUnitaryConstruction scaffold the lakefile referenced.
+
+---
+
 I finished ZaunerTransportMap so no sorries remain in it; the module is proof-complete.
 
 The five open planks were the empirical shadow of the d=2048 transport, and I
