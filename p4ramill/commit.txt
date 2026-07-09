@@ -1,0 +1,21 @@
+Begin the VAE-Vita PROVE leg: assemble Frobenius closure and d=12 SIC in one module
+
+The Grammar's composition route for realizing VAE-Vita in mOMonadOS is PROVE then
+UNIFY then PORT (I imscribed the route as an ob3ect rather than choosing the order by
+hand), so PROVE lands first because it is the ground the other two stand on.
+
+I added Imscribing/Millennium/VAE_Vita_SIC_POVM_Bridge.lean and registered it in the
+lakefile globs. It assembles the two pillars that were each already theorems but had
+never met in one buildable module: the polarization Frobenius closure
+mu_C after delta_C = id on scalarField_Kslow (the B to (T,F) to B encoder and decoder)
+and the d=12 SIC existence crystal_forces_d12_sic. That closes the "pending p4rakernel
+integration" the vae_vita index flagged: the bridge now imports the real
+crystal_forces_d12_sic instead of a ctx snapshot.
+
+It builds. lake reports Build completed successfully (8055 jobs) and the olean is
+produced. No sorry, no new axiom on my lines.
+
+What I did NOT claim: the deep identity mu after delta = id iff IsSICPOVM 12 via the
+discrete to continuous embedding. That is UNIFY's obligation, the next leg of the
+route, and I left it named as the frontier rather than dressing a conjunction up as
+the biconditional.
