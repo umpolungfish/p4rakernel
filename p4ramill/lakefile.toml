@@ -349,6 +349,7 @@ globs = [
   "Imscribing.Millennium.SIC_D12_ExistenceRing",
   "Imscribing.Millennium.SIC_D12_Embedding",
   "Imscribing.Millennium.VAE_Vita_SIC_POVM_Bridge",
+  "Imscribing.Millennium.VAE_Vita_Unify",
   "Imscribing.Millennium.SIC_D12_WitnessVessel",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
