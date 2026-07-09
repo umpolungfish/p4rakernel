@@ -56,6 +56,7 @@ globs = [
   "Imscribing.Millennium.E8G2_Vessel",
   "Imscribing.Millennium.E8G2_Vessel_Witnesses",
   "Imscribing.Millennium.ErdosProblems",
+  "Imscribing.Millennium.ErdosFormalize",
   "Imscribing.Millennium.SemanticBranchVerifier",
   "Imscribing.Classical.Solitary10",
   "Imscribing.Classical.HeckeLandau",
