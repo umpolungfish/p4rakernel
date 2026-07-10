@@ -261,6 +261,7 @@ globs = [
   "Imscribing.Paraconsistent.QuantumGravityBelnap",
   "Imscribing.Paraconsistent.GravityStandardModel",
   "Imscribing.PowerMath.ShavianDefs",
+  "Imscribing.Paraconsistent.TenProofs",
   "Imscribing.PowerMath.The1323Theorem",
   "Imscribing.PowerMath.AbundanceTheorem",
   "Imscribing.PowerMath.AndrewsCurtisTheorem",
