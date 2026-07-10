@@ -233,6 +233,8 @@ globs = [
   "Imscribing.AtHomeSanguineHomunculus",
   "Imscribing.TimeWithinTheStone",
   "Imscribing.PhilosophicalSystem",
+  "Imscribing.ObjWitnessVessel",
+  "Imscribing.ObjWitnessCosmos",
 "Imscribing.HowNaturalNumbersArise",
 "Imscribing.HowInductionArise",
 "Imscribing.HowProbabilityArise",
