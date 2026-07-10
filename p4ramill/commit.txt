@@ -1,21 +1,33 @@
-Begin the VAE-Vita PROVE leg: assemble Frobenius closure and d=12 SIC in one module
+Manuscript-aligned spine: PORT × Witness Vessel (PROVE → UNIFY → PORT closed)
 
-The Grammar's composition route for realizing VAE-Vita in mOMonadOS is PROVE then
-UNIFY then PORT (I imscribed the route as an ob3ect rather than choosing the order by
-hand), so PROVE lands first because it is the ground the other two stand on.
+After reading ig-docs_lifted/manuscripts3 (SIC-Stark-12th, Witness Vessel,
+Chrysopoeia 2048), packaged the formal halves those papers rest on into one
+green module.
 
-I added Imscribing/Millennium/VAE_Vita_SIC_POVM_Bridge.lean and registered it in the
-lakefile globs. It assembles the two pillars that were each already theorems but had
-never met in one buildable module: the polarization Frobenius closure
-mu_C after delta_C = id on scalarField_Kslow (the B to (T,F) to B encoder and decoder)
-and the d=12 SIC existence crystal_forces_d12_sic. That closes the "pending p4rakernel
-integration" the vae_vita index flagged: the bridge now imports the real
-crystal_forces_d12_sic instead of a ctx snapshot.
+New: Imscribing/Millennium/VAE_Vita_ManuscriptSpine.lean (lakefile registered)
 
-It builds. lake reports Build completed successfully (8055 jobs) and the olean is
-produced. No sorry, no new axiom on my lines.
+  theorem manuscript_formal_spine :
+      port_kernel_spine (flat)
+    ∧ witness_vessel_lossless
 
-What I did NOT claim: the deep identity mu after delta = id iff IsSICPOVM 12 via the
-discrete to continuous embedding. That is UNIFY's obligation, the next leg of the
-route, and I left it named as the frontier rather than dressing a conjunction up as
-the biconditional.
+  i.e. PROVE (μ∘δ=id on scalarField_Kslow ∧ SICPOVM_Exists 12)
+     ∧ UNIFY (B = T+F in ℂ¹²)
+     ∧ Dual-Link self-verify (foldCotype allTrue allTrue = T)
+     ∧ ride-as transport (∀p, readback(board p)=p)
+     ∧ Clay cargo (YM = B, MPP roundtrip)
+     ∧ delivery (d=12 fiducial unit-norm + equiangular after transport)
+
+  lake build Imscribing.Millennium.VAE_Vita_ManuscriptSpine
+  → Build completed successfully (8067 jobs), olean present, 0 sorry.
+
+Scope:
+  - boarding is Dual-Link split/fuse; cargo/tensor into the vessel is a D-T
+    malformation, outside the theorem
+  - the Belnap stack is not the algebraic Scott-Grassl fiducial (double cover)
+  - Clay T/B are Grammar typings, not Millennium proofs
+  - d=2048 unconditional existence is open
+  - the two Belnap carriers (Paraconsistent, SplitFuse) enter as a product of
+    independent theorems, not one type
+
+Also: DualLinkVessel SS4 imscriptionState (filled earlier); VAE_Vita_Port green;
+modot/vessel.py docstring cites manuscripts3 + this spine.
