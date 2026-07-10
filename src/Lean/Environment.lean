@@ -326,6 +326,10 @@ private def isQuotInit (env : Environment) : Bool :=
 def markParaconsistent (env : Environment) : Environment :=
   { env with paraconsistent := true }
 
+@[export lean_environment_unmark_paraconsistent]
+def unmarkParaconsistent (env : Environment) : Environment :=
+  { env with paraconsistent := false }
+
 @[export lean_environment_paraconsistent]
 def isParaconsistent (env : Environment) : Bool :=
   env.paraconsistent
@@ -673,6 +677,25 @@ def ofKernelEnv (env : Kernel.Environment) : Environment :=
 @[export lean_elab_environment_to_kernel_env]
 def toKernelEnv (env : Environment) : Kernel.Environment :=
   env.checked.get
+
+/--
+Activates paraconsistent mode on this (elaboration-level) environment: subsequent
+kernel type-checking of declarations added to the returned environment will reject
+recursors on empty `Prop` inductives (`False.elim`, `False.rec`, `absurd`, ...),
+per `Kernel.Environment.markParaconsistent`. Toggle back off with `unmarkParaconsistent`.
+-/
+def markParaconsistent (env : Environment) : Environment :=
+  let base' := env.base.map Kernel.Environment.markParaconsistent
+  { env with base := base', checked := .pure base'.private }
+
+/-- Deactivates paraconsistent mode: restores ordinary ex falso for subsequent declarations. -/
+def unmarkParaconsistent (env : Environment) : Environment :=
+  let base' := env.base.map Kernel.Environment.unmarkParaconsistent
+  { env with base := base', checked := .pure base'.private }
+
+/-- Whether this environment is currently in paraconsistent mode (private branch). -/
+def isParaconsistent (env : Environment) : Bool :=
+  env.base.private.paraconsistent
 
 /-- Updates `env.isExporting`. Ignored if `env.header.isModule` is false. -/
 def setExporting (env : Environment) (isExporting : Bool) : Environment :=
