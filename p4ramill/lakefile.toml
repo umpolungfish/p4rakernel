@@ -232,6 +232,7 @@ globs = [
   "Imscribing.LandoMills",
   "Imscribing.AtHomeSanguineHomunculus",
   "Imscribing.TimeWithinTheStone",
+  "Imscribing.PhilosophicalSystem",
 "Imscribing.HowNaturalNumbersArise",
 "Imscribing.HowInductionArise",
 "Imscribing.HowProbabilityArise",
@@ -362,5 +363,6 @@ globs = [
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
   "Imscribing.Scratch.ProverScratch",
+  "Imscribing.Scratch.ProverScratchB",
 
 ]
