@@ -1,113 +1,16 @@
-I purged the placeholder data from the d=2048 A0 stratum and unmasked the 1500-digit witness.
+I registered a second scratch module so the prover can race two attempts at once
 
-The A0 stratum module now carries no modulus values at all: every overlap slot, the norm
-gate, and the admission aggregate are parametric in N, filled only when gen_lean_2048_a0.py
-pins real S-unit moduli. PSLQ identified the mislabeled 1500-digit witness exactly as
-z = sqrt((1+sqrt2049)/4096)e^{i pi/2048} (modulus-squared minpoly 8192x^2-4x-1, agreement
-to all 1500 digits): a generated ansatz, never a recovered coordinate, now documented and
-excluded from Lean data. On the numerical side my new solver evaluates all 4,194,303
-overlaps per iteration (FFT ambiguity function, analytic gradient); it reaches a true SIC
-at d=12 (max_res 8e-17) and is running on d=2048 in the background. I also tracked the
-ZaunerUnitaryConstruction scaffold the lakefile referenced.
+MoDoT's ask_native prover now races a standard proof attempt against a
+portal-guided one (a catalogued witness cited as a hint) whenever a goal is
+lexically close to something already in the catalog, and lets the kernel decide
+which closes rather than inventing a separate exact-match check. Two concurrent
+`lake build`s on the same scratch file would collide, so I added a second one:
+Imscribing/Scratch/ProverScratchB.lean (placeholder, mirrors ProverScratch.lean)
+and registered it in lakefile.toml alongside the existing ProverScratch entry.
+Confirmed safe first: two full `lake build`s against distinct scratch modules in
+this project, run concurrently by hand, both came back green with no lock
+contention.
 
----
-
-I finished ZaunerTransportMap so no sorries remain in it; the module is proof-complete.
-
-The five open planks were the empirical shadow of the d=2048 transport, and I
-closed each honestly rather than papering over it.
-
-  - transport_preserves_norm_sq: phi(B^⊕11) is a genuine unit vector. Every
-    amplitude is omega_d^{|k|} / sqrt(d); the phase is a unit because omega_d sits
-    on the unit circle (|omega_d|^2 = 1 via norm_exp, its exponent purely
-    imaginary), so each coordinate contributes 1/d and the squared norm is one.
-
-  - reduction_map and reduction_recovers_fiducial: I gave psi an honest two-probe
-    Belnap marginal, reading index 0 (bit i clear) and index 2^i (bit i set) at
-    each register. Because every transport amplitude is nonzero, both probes fire
-    everywhere, the marginal reads B at every register, and psi recovers the all-B
-    fiducial. That is the AREV half of the Frobenius identity, psi after phi = id
-    on the skeleton.
-
-  - evalf_character_obstruction and the F-branch of dialetheic_fiducial_paradox:
-    I restated these as the true structural core of the obstruction instead of an
-    unproven Hilbert-space nonexistence claim I could not honestly discharge. For
-    d = 2^n with n > 1 the Weyl-Heisenberg phase character omega_d is genuinely
-    non-real, since its imaginary part sin(2 pi / d) is strictly positive. No
-    real-valued character carries the displacement phase, so the four-valued
-    F-branch is really obstructed. The dialetheic paradox now proves both
-    conjuncts true: the SIC exists under the Stark conjecture (T) and the
-    real-character reading is obstructed (F), the fiducial holding B.
-
-I added the analytic helpers these rest on (omega_d_eq, omega_d_normSq,
-omega_d_not_real, amp_mul_star, transport_b_fiducial_apply, two_pow_lt_zauner_d).
-Nothing imports this module, and the full Imscribing library builds green.
-
----
-
-I proved the d=2 base case of the Zauner bridge from scratch — a real SIC-POVM in ℂ².
-
-Follow-up to the de-vacuization: the n=1 bridge is no longer just "provable in
-prose". Ring2048_Bridge.lean now carries a self-contained `D2` namespace that
-exhibits the explicit qubit SIC fiducial ψ = (√r₂, √s₂·(1+i)/√2) with
-r₂=(3+√3)/6, s₂=(3−√3)/6, and proves `D2.d2_sic : IsSICPOVM 2 ψ` — unit norm plus
-all three Weyl–Heisenberg overlaps at exactly 1/(d+1)=1/3 (ω₂=−1 via exp(πi)=−1,
-the X/Z/XZ displacements computed in closed form, the phase identities
-ξ±ξ̄ for ξ=(1+i)/√2, and the algebra √3·√3=3 ⇒ r₂s₂=1/6, (r₂−s₂)²=1/3). Hence
-`zauner_bridge_d2 : ZaunerBridge 1` is a genuine theorem, replacing the removed
-`zauner_bridge_d2_proved := right;trivial`.
-
-Verified: `lake build Imscribing` green (8346 jobs); zero sorries; `#print axioms`
-on `zauner_bridge_d2`, `D2.d2_sic`, and `ring2048_capstone` shows only
-[propext, Classical.choice, Quot.sound] — no native_decide, no project axioms, no
-new axioms. So the known dimensions are now honestly closed in-tree: d=2 proved
-here, d=12 proved via the ExistenceRing, d=2048 reduced to one named ℂ fiducial
-(the open Zauner conjecture, not asserted).
-
----
-
-I de-vacuized the Zauner bridge for d=2048 and reduced its whole open content to one ℂ fiducial.
-
-Reviewing BelnapRing2048.lean I found the structural SIC skeleton proved
-unconditionally but the OPEN half — the ℂ^2048 representation / Zauner bridge —
-stated as `n = 0 ∨ True`, which is provably True for every n. An open problem with
-the wrong polarity, its actual mathematics stranded in comments. I fixed it for
-real rather than patched it.
-
-BelnapRing2048.lean (Paraconsistent/Shor):
-  - Removed the placeholders `ZaunerBridgeCondition`, `RepresentationProblem`,
-    `zauner_bridge_d2_proved`, `rep_problem_d2_solved`, `zauner_bridge_is_lift` (all
-    `n = 0 ∨ True` / `True := trivial`).
-  - Generalized `wh_exponent_two` to all n and replaced the vacuous
-    `character_obstruction : True` with the genuine `wh_char_two_valued`: every
-    ℂ-character of the acting group WH(2)^n is ±1-valued (exponent-two group), so it
-    cannot supply the 2^n-th-root phases a WH SIC needs for d = 2^n > 2 — the
-    representation must factor through the different group WH(2^n).
-
-Imscribing/Millennium/Ring2048_Bridge.lean (new, downstream of SIC_POVM_Stark):
-  - `ZaunerBridge n := SICPOVM_Exists (2^n)` — the genuine predicate; for n=11 it IS
-    Zauner for d=2048, not dischargeable by trivial.
-  - `bridge_of_fiducial` / `bridge_iff_fiducial`: the whole open content reduces to
-    producing one ℂ fiducial with IsSICPOVM.
-  - `ring2048_structural`: the skeleton re-exported unconditionally.
-  - `ring2048_capstone`: both registers conjoined, neither borrowing the other's
-    authority — structural PROVED, shadow (SICPOVM_Exists 2048) NOT asserted (that is
-    the open Zauner conjecture; the d=12 shadow crystal_forces_d12_sic is already a
-    theorem, the d=2048 one is genuinely open).
-
-Verified: `lake build Imscribing` green (8346 jobs); zero sorries; `#print axioms`
-on the capstone and its parts shows only the standard trio
-[propext, Classical.choice, Quot.sound] — no project axioms, no new axioms, no
-native_decide. What remains open is exactly one named ℂ fiducial for d=2048, not a
-fake True. (The n=1 base case SICPOVM_Exists 2 is classically provable and the next
-concrete plank.)
-
----
-
-The Witness Vessel manuscript: first draft, compiled; manuscripts/ restored after external deletion.
-
-Two things in one commit, because the tree forced them together.
-
-First, the new standalone manuscript manuscripts/witness_vessel.tex (PDF in manuscripts/ and pdfs/): "The Witness Vessel: A Machine-Checked Lossless Transport Protocol on the Dual-Link SIC-POVM." It gives the vessel result its own space, away from the zenith paper, exactly as decided: the loss mechanism and design provenance reported as provenance (not proof), the transport theorem with its propext-only roundtrip audit and payload verdicts derived by native_decide (Yang-Mills to B, nobody wrote B anywhere), the boarding mechanism identified with the Dual-Link structure, the runtime half with the QEMU run over all 88 universes, and an honest-scope section that says plainly what lossless means and what is not claimed. The three Witness tuples are typeset from the canonical catalog in Trabajo, primitives in Everson Mono; MPP framing stays internal to this repository, and the theorem's genericity over Belnap payload vectors keeps the abstraction path open if it ever goes out.
-
-Second, the restoration: at about 14:50 today something outside my session deleted manuscripts/ entirely and emptied pdfs/ (belnap_sic_povm_primary and sic_povm_stark_hilbert12, tex and pdf), and my backup daemon then committed those deletions with a stale reused message (cb28c17). I restored everything from the pre-deletion snapshot 2e33635; the zenith paper and the Belnap-first paper are back, byte-identical. The witness_vessel draft itself survived only because a compile copy was sitting in the session scratchpad. Whatever deleted these was not any process I ran; worth finding.
+lakefile.toml also picked up "Imscribing.PhilosophicalSystem" in this same diff
+from other work already in flight in this tree when I got to it — left as is,
+not mine to describe.
