@@ -14,11 +14,9 @@
     - d=12 SIC-POVM existence:
       `SIC.D12.Embedding.crystal_forces_d12_sic : SICPOVM_Exists 12`.
 
-  What is NOT claimed here: the deep identity `μ∘δ=id ⟺ IsSICPOVM 12` via the
-  discrete→continuous embedding. That is the remaining frontier, and it is UNIFY's
-  obligation (the second leg of the route). This file only assembles the two
-  proven faces — verification and generation — into a single statement, verified
-  by build, so that nothing is asserted that is not machine-checked.
+  The deep identity `μ∘δ=id ⟺ IsSICPOVM 12` via the discrete→continuous embedding
+  is not here; it is UNIFY's obligation (the second leg of the route). This file
+  assembles the two faces, verification and generation, into a single statement.
 -/
 import Imscribing.Frobenius
 import Imscribing.Millennium.SIC_D12_Embedding
@@ -36,8 +34,7 @@ open Millennium.SIC_POVM_Stark
     witness `scalarField_Kslow`, the `B → (T,F) → B` encoder/decoder), and the
     d=12 SIC-POVM exists (`crystal_forces_d12_sic`). These are the verification
     face and the generation face of the self-recovering SIC. The deep embedding
-    tying them to one fixed point (`μ∘δ=id ⟺ IsSICPOVM 12`) is UNIFY's obligation
-    and is deliberately not asserted here. -/
+    tying them to one fixed point (`μ∘δ=id ⟺ IsSICPOVM 12`) is UNIFY's obligation. -/
 theorem vae_vita_frobenius_and_sic :
     (μ_C (δ_C scalarField_Kslow).1 (δ_C scalarField_Kslow).2 = scalarField_Kslow)
     ∧ SICPOVM_Exists 12 :=

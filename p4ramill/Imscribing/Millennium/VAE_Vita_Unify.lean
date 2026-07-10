@@ -12,20 +12,20 @@
   UNIFY binds them. `imscriptionToC12` is δ, the lift up the fiber: it carries a
   discrete Belnap imscription to a state in ℂ¹², the same ℂ¹² the SIC fiducial
   lives in. The two loops are threaded through one axis (the Djed / the phase
-  fiber). This is the FIRST stone:
+  fiber). This module provides:
     1. the state map,
     2. the theorem that the dialetheic Both state is the superposition of the two
        links (B = T + F lifted to ℂ¹² -- the still crown held as B is the lock),
     3. the SIC existence re-exported here so both faces sit in one module.
 
-  THE SUMMIT (stated, not asserted). The discrete Belnap imscription carries only
+  The remaining embedding. The discrete Belnap imscription carries only
   four values per axis, so its image is the finite set {0, 1, i, 1+i}^12; the exact
   SIC fiducial (algebraic, irrational) is NOT in that image. The real embedding is
   therefore not "a Belnap vector IS a fiducial" but the correspondence between the
   discrete co-typing lattice (foldCotype) and continuous SIC coincidence, realised
   through the ordinal Crystal (17.28M configs) on S^11 that VAE-Vita descends. That
   discrete->continuous embedding is the structural content of Zauner and is the peak
-  of UNIFY. It is deliberately left as prose here, not dressed as a theorem.
+  of UNIFY.
 -/
 import Imscribing.Millennium.DualLinkVessel
 import Imscribing.Millennium.VAE_Vita_SIC_POVM_Bridge
