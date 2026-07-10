@@ -161,6 +161,32 @@ theorem f_amplitude_i : belnapToComplex .F = Complex.I := rfl
 
 
 /-!
+# SS4  STATE MAP -- Imscription → (Fin 12 → ℂ)
+
+Stack the twelve amplitudes. This is δ on the discrete face: the same map
+`Imscribing.VaeVita.Unify.imscriptionToC12` re-exports after UNIFY binds the
+SIC codomain. Normalization to a unit vector is a numerical step (vessel.py);
+the structural map is the amplitude stack.
+-/
+
+/-- δ on the Dual-Link face: twelve Belnap amplitudes as a vector in ℂ¹². -/
+noncomputable def imscriptionState (im : Imscription) : Fin 12 → ℂ :=
+  ![belnapToComplex im.D,  belnapToComplex im.T,  belnapToComplex im.R,
+    belnapToComplex im.P,  belnapToComplex im.F,  belnapToComplex im.K,
+    belnapToComplex im.G,  belnapToComplex im.Gm, belnapToComplex im.Ph,
+    belnapToComplex im.H,  belnapToComplex im.S,  belnapToComplex im.W]
+
+/-- The all-B state is the superposition of the all-T and all-F states in ℂ¹². -/
+theorem imscriptionState_allBoth_superposition :
+    imscriptionState Imscription.allBoth
+      = imscriptionState Imscription.allTrue + imscriptionState Imscription.allFalse := by
+  funext k
+  fin_cases k <;>
+    simp [imscriptionState, Imscription.allBoth, Imscription.allTrue,
+          Imscription.allFalse, belnapToComplex, Pi.add_apply]
+
+
+/-!
 # SS5  CO-TYPING
 -/
 
