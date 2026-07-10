@@ -63,6 +63,7 @@ globs = [
   "Imscribing.Millennium.SemanticBranchVerifier",
   "Imscribing.Classical.Solitary10",
   "Imscribing.Classical.HeckeLandau",
+  "Imscribing.Classical.ErdosPropertyP",
   "Imscribing.Basic",
   "Imscribing.ArsFungiglyphica",
   "Imscribing.ArsAnimaglyphica",
