@@ -42,14 +42,20 @@ tolerated without trivializing the system.
 |---|---|
 | `src/kernel/type_checker.cpp` | `infer_constant` rejects recursors for empty Prop inductives when `paraconsistent = true` |
 | `src/library/constructions/cases_on.cpp` | `casesOn` generation blocked for empty Prop types |
-| `src/kernel/environment.{h,cpp}` | `is_paraconsistent()` / `mark_paraconsistent()` + Lean FFI |
-| `src/Lean/Environment.lean` | `paraconsistent : Bool` field + `Kernel.Environment.markParaconsistent` |
-| `src/Init/Paraconsistent.lean` | **New**: user-facing `enableParaconsistent` and Belnap FOUR |
+| `src/kernel/environment.{h,cpp}` | `is_paraconsistent()` / `mark_paraconsistent()` / `unmark_paraconsistent()` + Lean FFI |
+| `src/Lean/Environment.lean` | `paraconsistent : Bool` field, `Kernel.Environment.markParaconsistent`/`unmarkParaconsistent`, and elaboration-level `Environment.markParaconsistent`/`unmarkParaconsistent`/`isParaconsistent` (thread the flag through `base`/`checked` so it actually takes effect on subsequent declarations, not just the raw kernel env) |
+| `src/Init/Paraconsistent.lean` | User-facing `enable_paraconsistent` / `disable_paraconsistent` / `#is_paraconsistent` **commands** — a real toggle on the elaboration environment, not a banner |
 
-**Blocked in paraconsistent mode:** `False.elim`, `False.rec`, `False.casesOn`, `absurd`,
-and any `match h with .` where `h : False`. **Still available:** `False` itself (it just
-cannot eliminate into other types), every other connective, and the entire standard library
-when the mode is off.
+**Blocked in paraconsistent mode:** direct use of a recursor on an empty `Prop` — `False.rec`,
+`h.rec`, `False.casesOn`, `absurd`, and any `match h with .` where `h : False`. Note the
+precise boundary: this catches *new* code that directly invokes the recursor, not calls to
+already-compiled wrapper functions like `False.elim` — `False.elim` is itself a normal `def`
+elaborated once (under the standard, non-paraconsistent stdlib build) whose body happens to use
+`False.rec`; calling that already-checked constant doesn't re-expose the raw recursor to the
+kernel's `infer_constant` check. Write `h.rec` (or `match h with .`) directly if you want the
+block to fire. **Still available:** `False` itself (it just cannot eliminate into other types
+via a bare recursor), every other connective, and the entire standard library when the mode
+is off.
 
 ```bash
 cd imsgct/p4rakernel
@@ -61,13 +67,29 @@ make stage1 -j$(nproc)
 
 ```lean
 import Init.Paraconsistent
+open Paraconsistent
 
-unsafe def main : IO Unit := do
-  Paraconsistent.enableParaconsistent
-  open Paraconsistent.Belnap
-  #check band .T .F    -- F
-  #check dialetheia    -- B
+theorem before_toggle (h : False) : (0:Nat) = 1 := h.rec   -- fine, mode is off by default
+
+enable_paraconsistent
+-- [Paraconsistent] Kernel mode activated — principle of explosion disabled.
+
+#is_paraconsistent
+-- paraconsistent = true
+
+-- theorem blocked_now (h : False) : (0:Nat) = 2 := h.rec
+-- error: (kernel) paraconsistent mode: cannot use recursor 'False.rec' for
+--        empty inductive predicate 'False' (principle of explosion is disabled)
+
+disable_paraconsistent
+-- [Paraconsistent] Kernel mode deactivated — principle of explosion restored.
+
+theorem after_disable (h : False) : (0:Nat) = 3 := h.rec   -- fine again
 ```
+
+Verified live against `build/stage1/bin/lean` on this checkout: the enable/disable round
+trip above compiles clean end to end with `blocked_now` commented out, and uncommenting it
+reproduces the exact kernel error shown.
 
 ### Classical logic is a coreflective subcategory
 

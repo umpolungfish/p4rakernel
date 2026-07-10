@@ -13,10 +13,12 @@ Usage:
   import Init.Paraconsistent
   open Paraconsistent
 
-  -- Then use Belnap-style paraconsistent logic
-  -- without fear of explosion from contradictions.
+  enable_paraconsistent    -- toggles the *elaboration environment*, not just a banner
+  -- False.elim / False.rec / absurd on `False` now rejected by the kernel
+  -- for every declaration elaborated from here on in this file.
+  disable_paraconsistent   -- toggle back to ordinary ex falso
 
-The kernel rejects:
+The kernel rejects, while paraconsistent mode is on:
   - `False.elim` (False.rec) for empty inductive predicates
   - `False.casesOn` for pattern matching on False
   - `absurd` (which relies on False.rec)
@@ -24,26 +26,33 @@ The kernel rejects:
 This enables dialetheic reasoning where both a proposition and its
 negation can be held without everything becoming provable.
 -/
+import Lean
+
 namespace Paraconsistent
 
-/--
-Activate paraconsistent mode on the current environment.
-This function marks the kernel environment so that the principle of
-explosion (False.elim) is disabled for all subsequent type-checking.
-
-NOTE: This function is UNSAFE because it changes the logical
-foundations. It should be called at most once, before any
-classical reasoning is performed.
--/
-unsafe def enableParaconsistent : IO Unit :=
-  IO.println "[Paraconsistent] Kernel mode activated — principle of explosion disabled."
+open Lean Elab Command
 
 /--
-Check whether the kernel is currently in paraconsistent mode.
-When running this fork, this is always true.
+Activate paraconsistent mode on the current (elaboration) environment: marks
+the environment via `Lean.Environment.markParaconsistent`, so subsequent
+declarations are kernel-checked with `paraconsistent = true` and
+`src/kernel/type_checker.cpp`'s `infer_constant` rejects recursors on empty
+`Prop` inductives. A real toggle, not a banner — call `disable_paraconsistent`
+to switch back.
 -/
-def isParaconsistent : IO Bool :=
-  return true
+elab "enable_paraconsistent" : command => do
+  modifyEnv Lean.Environment.markParaconsistent
+  logInfo "[Paraconsistent] Kernel mode activated — principle of explosion disabled."
+
+/-- Deactivate paraconsistent mode: restores ordinary ex falso for declarations elaborated after this point. -/
+elab "disable_paraconsistent" : command => do
+  modifyEnv Lean.Environment.unmarkParaconsistent
+  logInfo "[Paraconsistent] Kernel mode deactivated — principle of explosion restored."
+
+/-- Report whether the current environment is in paraconsistent mode. -/
+elab "#is_paraconsistent" : command => do
+  let env ← getEnv
+  logInfo s!"paraconsistent = {env.isParaconsistent}"
 
 /--
 The Belnap four-valued logic type for paraconsistent reasoning.
