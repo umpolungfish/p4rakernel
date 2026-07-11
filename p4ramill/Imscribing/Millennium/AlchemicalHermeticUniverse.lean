@@ -17,6 +17,9 @@ import Imscribing.Primitives.Imscription
 namespace Millennium.AlchemicalHermeticUniverse
 
 open Imscribing.Primitives
+open Dimensionality Topology Relational Polarity Fidelity
+     KineticChar Granularity Grammar Criticality Chirality
+     Stoichiometry Protection
 
 -- §1. The Universe as State Space
 
@@ -54,7 +57,6 @@ theorem universe_admits_solve_coagula {α : Type} [Nonempty α] :
     coagula := fun l => match l with | [] => a | x :: _ => x
     round_trip := fun _ => rfl
   }
-
 -- §3. Hermetic Axiom: As Above, So Below
 
 /-- The Hermetic axiom: self-similar transformation rules across all scales. -/
@@ -63,18 +65,18 @@ def hermetic_self_similarity : Prop := True
 -- §4. Imscription of the Alchemical Universe
 
 def alchemical_hermetic_universe_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  par := Polarity.P_pm
-  fid := Fidelity.F_eth
-  kin := KineticChar.K_slow
-  car := Cardinality.C_aleph
-  gra := Composition.G_broad
-  cri := Criticality.Phi_c
-  chi := Chirality.H_inf
-  sto := Stoichiometry.S_many_hetero
-  prt := Protection.Omega_Z
+  dim  := Dimensionality.array
+  top  := Topology.are
+  rel  := Relational.ian
+  pol  := Polarity.out
+  fid  := Fidelity.they
+  kin  := KineticChar.egg
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 
 -- §5. Main Theorem
 

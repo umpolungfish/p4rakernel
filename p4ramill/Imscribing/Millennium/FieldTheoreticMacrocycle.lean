@@ -25,6 +25,9 @@ import Imscribing.Primitives.Imscription
 namespace Millennium.FieldTheoreticMacrocycle
 
 open Imscribing.Primitives
+open Dimensionality Topology Relational Polarity Fidelity
+     KineticChar Granularity Grammar Criticality Chirality
+     Stoichiometry Protection
 
 -- §1. Monomer Imscriptions
 -- ------------------------
@@ -35,34 +38,34 @@ open Imscribing.Primitives
     conjunctive composition, ⊙-critical, one-step chirality,
     single-instance stoichiometry, Z₂ winding (electroweak vacuum). -/
 def higgs_boson_imcription : Imscription where
-  dim := Dimensionality.D_wedge
-  top := Topology.T_net
-  rel := Relational.R_dagger
-  par := Polarity.P_pm
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_mod
-  car := Cardinality.C_beth
-  gra := Composition.G_and
-  cri := Criticality.Phi_c
-  chi := Chirality.H1
-  sto := Stoichiometry.S_one
-  prt := Protection.Omega_Z2
+  dim  := Dimensionality.dead
+  top  := Topology.judge
+  rel  := Relational.ear
+  pol  := Polarity.out
+  fid  := Fidelity.peep
+  kin  := KineticChar.loll
+  gran := Granularity.bib
+  gram := Grammar.vow
+  crit := Criticality.monad
+  chir := Chirality.kick
+  stoi := Stoichiometry.hung
+  prot := Protection.oak
 
 /-- Graviton: metric perturbation, diffeomorphism-invariant manifold.
     (Already defined in MacrocyclicClosure — redefined here for independence.) -/
 def graviton_ft_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_dagger
-  par := Polarity.P_sym
-  fid := Fidelity.F_ell
-  kin := KineticChar.K_slow
-  car := Cardinality.C_gimel
-  gra := Composition.G_broad
-  cri := Criticality.Phi_c
-  chi := Chirality.H0
-  sto := Stoichiometry.S_many
-  prt := Protection.Omega_Z
+  dim  := Dimensionality.array
+  top  := Topology.are
+  rel  := Relational.ear
+  pol  := Polarity.nun
+  fid  := Fidelity.age
+  kin  := KineticChar.egg
+  gran := Granularity.thigh
+  gram := Grammar.ooze
+  crit := Criticality.monad
+  chir := Chirality.fee
+  stoi := Stoichiometry.so
+  prot := Protection.ah
 
 /-- Gauge bridge operator A₃ ⊗ A₂†: adjoint representation coupling.
     Mediates between scalar sector (Higgs) and metric sector (graviton).
@@ -71,18 +74,18 @@ def graviton_ft_imcription : Imscription where
     mesoscale cardinality, sequential composition, critical, two-step chirality,
     many-identical stoichiometry, integer winding (Chern class). -/
 def gauge_bridge_imcription : Imscription where
-  dim := Dimensionality.D_triangle
-  top := Topology.T_bowtie
-  rel := Relational.R_cat
-  par := Polarity.P_psi
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_fast
-  car := Cardinality.C_gimel
-  gra := Composition.G_seq
-  cri := Criticality.Phi_c
-  chi := Chirality.H2
-  sto := Stoichiometry.S_many
-  prt := Protection.Omega_Z
+  dim  := Dimensionality.ash
+  top  := Topology.mime
+  rel  := Relational.tot
+  pol  := Polarity.yew
+  fid  := Fidelity.peep
+  kin  := KineticChar.yea
+  gran := Granularity.thigh
+  gram := Grammar.measure
+  crit := Criticality.monad
+  chir := Chirality.sure
+  stoi := Stoichiometry.so
+  prot := Protection.ah
 
 /-- h-mode plasma: confinement boundary, thermal equilibrium.
     Provides the medium in which the field-theoretic cycle resides.
@@ -91,18 +94,18 @@ def gauge_bridge_imcription : Imscription where
     broadcast composition, sub-critical (below phase transition), memoryless,
     many-identical stoichiometry, trivial winding. -/
 def h_mode_plasma_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_in
-  rel := Relational.R_lr
-  par := Polarity.P_pm
-  fid := Fidelity.F_eth
-  kin := KineticChar.K_mod
-  car := Cardinality.C_aleph
-  gra := Composition.G_broad
-  cri := Criticality.Phi_sub
-  chi := Chirality.H0
-  sto := Stoichiometry.S_many
-  prt := Protection.Omega_trivial
+  dim  := Dimensionality.array
+  top  := Topology.eat
+  rel  := Relational.ian
+  pol  := Polarity.out
+  fid  := Fidelity.they
+  kin  := KineticChar.loll
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.woe
+  chir := Chirality.fee
+  stoi := Stoichiometry.so
+  prot := Protection.awe
 
 -- §2. Conductive Macrocycle Properties
 -- ------------------------------------
@@ -110,7 +113,6 @@ def h_mode_plasma_imcription : Imscription where
 /-- The field-theoretic macrocycle sequence -/
 def ft_sequence : List Imscription :=
   [higgs_boson_imcription, graviton_ft_imcription, gauge_bridge_imcription, h_mode_plasma_imcription]
-
 /-- Bond interface: covalent-gauge hybrid.
     The bonds couple Higgs ↔ graviton through the gauge bridge,
     with plasma providing the confinement boundary. -/
@@ -155,17 +157,17 @@ def field_relations : List (Imscription × Imscription) :=
 /-- Diffeomorphism invariance: the graviton G ensures the resulting
     structure is a diffeomorphism-invariant manifold. -/
 theorem diffeomorphism_invariant :
-  graviton_ft_imcription.dim = Dimensionality.D_infty ∧
-  graviton_ft_imcription.top = Topology.T_odot := by rfl
+  graviton_ft_imcription.dim = Dimensionality.array ∧
+  graviton_ft_imcription.top = Topology.are := ⟨rfl, rfl⟩
 
 /-- Higgs mechanism: the higgs_boson provides the mass-energy density
     required to stabilize the graviton fluctuation. -/
 theorem higgs_stabilizes_graviton :
-  higgs_boson_imcription.fid = Fidelity.F_hbar := by rfl
+  higgs_boson_imcription.fid = Fidelity.peep := by rfl
 
 /-- Gauge bridge mediation: A₃ ⊗ A₂† is the unique bridge between
     scalar and metric sectors — without it the cycle cannot form. -/
 theorem gauge_bridge_is_essential :
-  gauge_bridge_imcription.rel = Relational.R_cat := by rfl
+  gauge_bridge_imcription.rel = Relational.tot := by rfl
 
 end Millennium.FieldTheoreticMacrocycle
