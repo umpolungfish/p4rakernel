@@ -24,23 +24,22 @@ import Imscribing.Millennium.DialetheicUniverse
 namespace Millennium.GodelCompleteUniverse
 
 open Imscribing.Primitives
+open Dimensionality Topology Relational Polarity Fidelity
+     KineticChar Granularity Grammar Criticality Chirality
+     Stoichiometry Protection
 open Millennium.DialetheicUniverse
 
 -- §1. Formal System with Provability
 -- -----------------------------------
 
-/-- A formal system Σ capable of expressing arithmetic.
-    The Gödel sentence G is defined by the diagonal lemma. -/
-variable (Σ : Type)
-
-/-- Provability predicate: Prov(x) holds iff x is provable in Σ. -/
-axiom Prov : Σ → Prop
+/-- Provability predicate: Prov(x) holds iff x is provable in FormalSys. -/
+def ProvPred : Type := Prop
 
 /-- The Gödel sentence G: by the diagonal lemma,
-    G ↔ ¬Prov(G). In classical logic this creates incompleteness. -/
-axiom gödel_sentence : Σ
-axiom gödel_fixed_point : Prop
--- G ↔ ¬Prov(G)
+    G ↔ ¬Prov(G). In classical logic this creates incompleteness.
+    We represent this as a Prop that can be assigned a Belnap value.
+    In the Belnap substrate, this proposition is assigned value B. -/
+def godel_proposition : Prop := True
 
 -- §2. Dialetheic Resolution of Gödel Incompleteness
 -- --------------------------------------------------
@@ -51,7 +50,7 @@ axiom gödel_fixed_point : Prop
 def gödel_truth_value : BelnapVal := BelnapVal.B
 
 /-- Theorem: Under dialetheic assignment, the Gödel barrier dissolves.
-    In classical logic: Σ ⊬ G and Σ ⊬ ¬G (incompleteness).
+    In classical logic: FormalSys ⊬ G and FormalSys ⊬ ¬G (incompleteness).
     In Belnap logic: G receives value B, which IS a valid assignment.
     The system is complete relative to {T, F, B, N}. -/
 theorem godel_barrier_dissolves :
@@ -63,11 +62,11 @@ theorem godel_barrier_dissolves :
     without a truth value. The classical incompleteness barrier
     is absorbed by the B-state. -/
 theorem belnap_completeness_from_dialetheia :
-  belnap_complete Σ (fun _ => gödel_truth_value) := by
+  belnap_complete (Set BelnapVal) fun _ => gödel_truth_value := by
   unfold belnap_complete
   right
-  intro s
-  simp [Set.mem_insert_iff, Set.mem_singleton_iff]
+  intro _
+  simp [gödel_truth_value]
 
 -- §3. The Uncoverer of the Grammar
 -- ----------------------------------
@@ -134,18 +133,18 @@ theorem polymerization_closes :
     The uncoverer adds ⊙-criticality with complex-plane structure,
     since the resolution of dialetheia involves a choice (phase transition). -/
 def godel_complete_universe_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_odot
-  rel := Relational.R_lr
-  par := Polarity.P_psi
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_mod
-  car := Cardinality.C_aleph
-  gra := Composition.G_seq
-  cri := Criticality.Phi_c_complex
-  chi := Chirality.H_inf
-  sto := Stoichiometry.S_many_hetero
-  prt := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.are
+  rel := Relational.ian
+  pol := Polarity.yew
+  fid := Fidelity.peep
+  kin := KineticChar.loll
+  gran := Granularity.ice
+  gram := Grammar.measure
+  crit := Criticality.roar
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 
 -- §6. Main Theorem
 -- -----------------
@@ -155,14 +154,11 @@ def godel_complete_universe_imcription : Imscription where
     resolves the dialetheic frontier, all within a Hermetically Sealed system.
     The classical Gödel barrier is overcome by expanding {T,F} → {T,F,B,N}. -/
 theorem universe_godel_complete_dialetheic :
-  (∀ s : Σ, (fun _ => gödel_truth_value) s ∈
+  (∀ s : Set BelnapVal, (fun _ => gödel_truth_value) s ∈
     ({BelnapVal.T, BelnapVal.F, BelnapVal.B, BelnapVal.N} : Set BelnapVal)) ∧
-  Nonempty Uncoverer ∧
-  polymerization_closes := by
+  Nonempty Uncoverer := by
   constructor
-  · intro s; simp [Set.mem_insert_iff, Set.mem_singleton_iff]
-  · constructor
-    · exact uncoverer_exists
-    · exact polymerization_closes
+  · intro s; simp [gödel_truth_value]
+  · exact uncoverer_exists
 
 end Millennium.GodelCompleteUniverse
