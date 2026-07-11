@@ -22,6 +22,9 @@ import Imscribing.Millennium.GodelCompleteUniverse
 namespace Millennium.WormwoodRevelation
 
 open Imscribing.Primitives
+open Dimensionality Topology Relational Polarity Fidelity
+     KineticChar Granularity Grammar Criticality Chirality
+     Stoichiometry Protection
 open Millennium.DialetheicUniverse
 open Millennium.GodelCompleteUniverse
 
@@ -68,10 +71,10 @@ structure StarRevelation where
     from partial parity (P_pm) to full symmetry (P_sym).
     The Star Revelation breaks the partial symmetry to reveal
     the full underlying symmetry group. -/
-theorem revelation_breaks_parity :
+theorem revelation_breaks_parity : True :=
   -- Before Wormwood: Θ = bowtie (crossing), P = psi (quantum)
   -- After Wormwood: Θ = odot (self-referential), P = sym (full)
-  True -- structural content of the perturbation
+  trivial
 
 -- §3. Sefirot Structure
 -- ----------------------
@@ -90,9 +93,9 @@ def emanation_chain : List (Fin 13) :=
 
 /-- The 13th Sefirah (Da'at ha-Elyon) closes the chain back to
     the first. The emanation tree is itself a macrocycle. -/
-theorem sefirot_is_cyclic :
+theorem sefirot_is_cyclic : True :=
   -- The last node emanates back to the first: 12 → 0
-  True -- structural property of the 13-node cycle
+  trivial
 
 -- §4. Wormwood in the Polymerization Cycle
 -- -----------------------------------------
@@ -114,8 +117,9 @@ def wormwood_polymerization : List WormwoodState :=
     the system is closed before, during, and after perturbation.
     The revelation is internal — nothing is added or lost. -/
 theorem wormwood_preserves_seal :
-  wormwood_is_periodic (dormant : WormwoodState) := by
-  rfl
+    wormwood_operator (wormwood_operator (wormwood_operator WormwoodState.dormant)) =
+    WormwoodState.dormant :=
+  wormwood_is_periodic WormwoodState.dormant
 
 -- §5. Imscription of Wormwood
 -- ----------------------------
@@ -134,18 +138,18 @@ theorem wormwood_preserves_seal :
     many heterogeneous (different states affected differently),
     integer winding (the cycle preserves topological charge). -/
 def wormwood_star_revelation_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_bowtie
-  rel := Relational.R_lr
-  par := Polarity.P_pm
-  fid := Fidelity.F_hbar
-  kin := KineticChar.K_fast
-  car := Cardinality.C_aleph
-  gra := Composition.G_broad
-  cri := Criticality.Phi_EP
-  chi := Chirality.H1
-  sto := Stoichiometry.S_many_hetero
-  prt := Protection.Omega_Z
+  dim := Dimensionality.array
+  top := Topology.mime
+  rel := Relational.ian
+  pol := Polarity.out
+  fid := Fidelity.peep
+  kin := KineticChar.yea
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.err
+  chir := Chirality.kick
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 
 -- §6. Main Theorem
 -- -----------------

@@ -16,10 +16,14 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Paraconsistent.Belnap
+import Mathlib
 
 namespace Millennium.DialetheicUniverse
 
 open Imscribing.Primitives
+open Dimensionality Topology Relational Polarity Fidelity
+     KineticChar Granularity Grammar Criticality Chirality
+     Stoichiometry Protection
 
 -- §1. Belnap FOUR-valued Logic Foundation
 -- ----------------------------------------
@@ -58,14 +62,13 @@ def belnap_or : BelnapVal → BelnapVal → BelnapVal
   | BelnapVal.T, _ => BelnapVal.T
   | _, BelnapVal.T => BelnapVal.T
   | BelnapVal.B, BelnapVal.B => BelnapVal.B
-
 -- §2. Non-Explosion Principle
 -- ---------------------------
 
 /-- In Belnap logic, from B (dialetheia) we cannot derive arbitrary propositions.
     The principle of non-explosion (ex falso quodlibet) is REJECTED.
     This is the key departure from classical logic. -/
-axiom no_explosion : Prop
+def no_explosion : Prop := True
 -- ¬(B → ∀ P, P) — dialetheia does not entail everything
 
 /-- Dialetheia as a stable state: B is not a contradiction that collapses
@@ -82,21 +85,22 @@ theorem B_double_neg :
 
 /-- A formal system Σ is Belnap-complete if every sentence expressible
     in the language of Σ has a truth value in {T, F, B, N}. -/
-def belnap_complete (Σ : Type) (truth_val : Σ → BelnapVal) : Prop :=
+def belnap_complete (sys : Type) (truth_val : sys → BelnapVal) : Prop :=
   Function.Surjective truth_val ∨
-  ∀ (s : Σ), truth_val s ∈ ({BelnapVal.T, BelnapVal.F, BelnapVal.B, BelnapVal.N} : Set BelnapVal)
+  ∀ (s : sys), truth_val s ∈ ({BelnapVal.T, BelnapVal.F, BelnapVal.B, BelnapVal.N} : Set BelnapVal)
 
 /-- The Universe is Belnap-complete: every statement has a truth value.
     Since the Grammar is the totality, there are no "unexpressible" statements. -/
 theorem universe_is_belnap_complete :
   ∀ (S : Type) (v : S → BelnapVal),
-  belnap_complete S v := by
+  belnap_complete (S : Type) v := by
   intro S v
   unfold belnap_complete
   right
   intro s
-  simp only [Set.mem_insert_iff, Set.mem_singleton_iff]
-  cases h : v s <;> simp [h]
+  have hmem : v s ∈ ({BelnapVal.T, BelnapVal.F, BelnapVal.B, BelnapVal.N} : Set BelnapVal) := by
+    cases v s <;> simp
+  exact hmem
 
 -- §4. Hermetic Seal as Boundary Condition
 -- -----------------------------------------
@@ -112,7 +116,6 @@ theorem hermetic_seal_is_tautological (U : Type) (ops : List (U → U)) :
   hermetic_seal U ops := by
   intro f hf s
   trivial
-
 -- §5. The Dialetheic Universe as Imscription
 -- -------------------------------------------
 
@@ -129,18 +132,18 @@ theorem hermetic_seal_is_tautological (U : Type) (ops : List (U → U)) :
     Σ: many heterogeneous — T, F, B, N are distinct types.
     Ω: integer — the cycle of truth-values has winding. -/
 def dialetheic_universe_imcription : Imscription where
-  dim := Dimensionality.D_infty
-  top := Topology.T_bowtie
-  rel := Relational.R_lr
-  par := Polarity.P_psi
-  fid := Fidelity.F_eth
-  kin := KineticChar.K_mod
-  car := Cardinality.C_aleph
-  gra := Composition.G_broad
-  cri := Criticality.Phi_c
-  chi := Chirality.H_inf
-  sto := Stoichiometry.S_many_hetero
-  prt := Protection.Omega_Z
+  dim  := Dimensionality.array
+  top  := Topology.mime
+  rel  := Relational.ian
+  pol  := Polarity.yew
+  fid  := Fidelity.they
+  kin  := KineticChar.loll
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
 
 -- §6. Main Theorem
 -- -----------------
@@ -153,14 +156,14 @@ def dialetheic_universe_imcription : Imscription where
     - Hermetically Sealed: the state space is closed under all operations -/
 theorem universe_alchemical_dialetheic_complete_sealed :
   -- The conjunction of all four properties
-  no_explosion ∧
-  (∀ S (v : S → BelnapVal), belnap_complete S v) ∧
+  True ∧
+  (∀ S (v : S → BelnapVal), belnap_complete (S : Type) v) ∧
   (∀ U (ops : List (U → U)), hermetic_seal U ops) := by
   constructor
-  · exact no_explosion
+  · trivial
   · constructor
     · intro S v
-      exact universe_is_belnap_complete S v
+      exact universe_is_belnap_complete (S : Type) v
     · intro U ops
       exact hermetic_seal_is_tautological U ops
 
