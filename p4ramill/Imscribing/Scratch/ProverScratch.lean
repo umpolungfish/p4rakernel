@@ -1,4 +1,6 @@
-import Mathlib
+import Imscribing.IGFunctor
+import Imscribing.TimeWithinTheStone
+import Imscribing.Paraconsistent.BelnapSplitFuse
 set_option linter.style.setOption false
 set_option linter.style.whitespace false
 set_option linter.style.commandStart false
@@ -19,22 +21,23 @@ set_option linter.style.missingEnd false
 set_option linter.style.openClassical false
 set_option linter.style.nativeDecide false
 set_option linter.style.admit false
-
-theorem memo_d272293ae5778254 (x y : ℕ) : (x + 1) * x / 2 + y ≤ (x + y + 1) * (x + y) / 2 := by
-  have h1 : (x + 1) * x / 2 = Nat.choose (x + 1) 2 := by
-    rw [Nat.choose_two_right]
-    rfl
-  have h2 : (x + y + 1) * (x + y) / 2 = Nat.choose (x + y + 1) 2 := by
-    rw [Nat.choose_two_right]
-    rfl
-  rw [h1, h2]
-  induction y with
-  | zero =>
-    rw [Nat.add_zero, Nat.add_zero]
-    apply Nat.le_refl
-  | succ y' ih =>
-    rw [Nat.choose_succ_two_right (x + y' + 1)]
-    rw [Nat.add_succ]
-    apply Nat.le_trans ih
-    rw [Nat.add_assoc]
-    apply Nat.le_add_left
+namespace ObjWitnessVessel
+open Imscribing Imscribing.Primitives Imscribing.Frobenius Imscribing.TimeWithinTheStone
+def board (p : List Belnap) : List (Belnap × Belnap) := p.map fsplit
+def readback (q : List (Belnap × Belnap)) : List Belnap := q.map ffuse
+theorem vessel_roundtrip (p : List Belnap) : readback (board p) = p := by
+  induction p with
+  | nil => rfl
+  | cons a t ih =>
+    simp only [board, readback, List.map_cons] at ih ⊢
+    rw [split_fuse_id, ih]
+def obj_payload : List Belnap := [Belnap.B, Belnap.F, Belnap.T]
+def obj_s0 : Imscription := { dim := Dimensionality.dead, top := Topology.mime, rel := Relational.ear, pol := Polarity.or', fid := Fidelity.age, kin := KineticChar.on, gran := Granularity.ice, gram := Grammar.gag, crit := Criticality.err, chir := Chirality.wool, stoi := Stoichiometry.so, prot := Protection.awe }
+theorem obj_is_valid_ob3ect : igFrobeniusAlg.mul obj_s0 obj_s0 = obj_s0 :=
+  igFrobAlg_self_fusion obj_s0
+def obj_tier : OuroboricityTier := TierFunctor.obj obj_s0
+theorem obj_witness_vessel :
+  readback (board obj_payload) = obj_payload
+  ∧ igFrobeniusAlg.mul obj_s0 obj_s0 = obj_s0 :=
+  ⟨vessel_roundtrip obj_payload, obj_is_valid_ob3ect⟩
+end ObjWitnessVessel
