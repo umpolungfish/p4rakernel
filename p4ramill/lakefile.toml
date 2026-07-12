@@ -193,6 +193,7 @@ globs = [
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
   "Imscribing.GateOrdering",
+  "Imscribing.TimeFixedPoint",
   "Imscribing.Millennium.Hodge_ThresholdCrossing",
   "Imscribing.Millennium.Hodge_KernelCrossing",
   "Imscribing.Millennium.Hodge_AlgebraicCycleConstruction",
