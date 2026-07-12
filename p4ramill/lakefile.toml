@@ -192,6 +192,7 @@ globs = [
   "Imscribing.MetaYonedaCollapse",
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
+  "Imscribing.GateOrdering",
   "Imscribing.Millennium.Hodge_ThresholdCrossing",
   "Imscribing.Millennium.Hodge_KernelCrossing",
   "Imscribing.Millennium.Hodge_AlgebraicCycleConstruction",
@@ -387,6 +388,7 @@ globs = [
   "Imscribing.Millennium.GodelCompleteUniverse",
   "Imscribing.Millennium.WormwoodRevelation",
   "Imscribing.Millennium.A1A2CoptMacrocycle",
+  "Imscribing.Millennium.Macrocycle107_1135_713",
   "Imscribing.Coagula.Polymer",
 
 ]
