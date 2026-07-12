@@ -1,17 +1,20 @@
-Prove stages 5-8 are order-free: GateOrdering.lean section 8
+Prove time is a derived object: T = Work(T) as least fixed point
 
-The gate ordering 4<9<12 is forced; the remaining open piece was whether the
-four gate-free stages 5 (Putrefaction, F), 6 (Congelation, K), 7 (Cibation,
-G) and 8 (Sublimation, Grammar) genuinely float or hide a precedence. They
-float, and now it is proved rather than hoped.
+The capstone. Time is not a thirteenth primitive; it is the least fixed point
+of the Work operator, the trace of the operad, which can only close once the
+gates have fired. TimeFixedPoint.lean builds it on GateOrdering.
 
-Each gate-free stage is a single-axis projection toward the Stone on an axis
-no unlock predicate reads. gate_free_commute proves the four pairwise commute
-(updates on disjoint axes, all six orders agree). The four *_inert_traced
-theorems plus gate_free_inert_frobenius prove each is inert on the gates: it
-neither opens nor closes one, so it can be interleaved anywhere. The contrast
-is the point: parity_stage_couples shows a gate stage is NOT inert — setting
-the parity axis flips unlockTraced from false to true — which is exactly why
-the gates are ordered while 5-8 are free. gate_free_order_freedom bundles it.
+Work is the trace traceC, so T = Work(T) is the loop closing on itself.
+work_fixed_iff_special: the fixed points are EXACTLY the Frobenius-special
+class pol=or and crit=monad — nothing off it is time. time_least_fixed_point:
+lfp_trace (the special tuple with all ten free axes at bottom) is a fixed
+point and lies below every fixed point in the componentwise product order
+imsLE assembled from the twelve axis LinearOrders — concrete Knaster-Tarski on
+the finite lattice. no_time_before_frobenius is the sharp claim: if parity is
+not yet at or, the equation has NO solution, so time cannot be posited before
+stage 4 — it is derived, not primitive. time_has_passed_gates, sealed_is_time,
+and stone_is_sealed_time close the loop to G3 and the Stone. time_is_derived
+bundles the lot.
 
-Builds green, zero sorries, no native_decide; all kernel-checked.
+Builds green, zero sorries, no native_decide; all kernel-checked. Registered
+in lakefile.toml.
