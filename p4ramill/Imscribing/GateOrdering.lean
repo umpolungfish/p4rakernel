@@ -222,4 +222,89 @@ theorem gate_ordering_theorem :
    frobenius_strictly_below_traced, traced_strictly_below_terminal,
    w_stone_terminal⟩
 
+-- ============================================================
+-- §8  THE GATE-FREE STAGES 5–8 ARE ORDER-FREE
+-- ============================================================
+-- Stages 5 (Putrefaction, F), 6 (Congelation, K), 7 (Cibation, G) and
+-- 8 (Sublimation, Γ) carry no gate. Each is a single-axis projection toward the
+-- Stone value on an axis that no unlock predicate reads. Two facts make
+-- "order-free" precise and distinguish these stages from the gates:
+--   (i)  the four projections pairwise COMMUTE (updates on disjoint axes);
+--   (ii) each is INERT on every unlock predicate (it neither opens nor closes a
+--        gate), so it may be interleaved anywhere in the sequence.
+-- The contrast lemma `parity_stage_couples` shows a gate stage is NOT inert:
+-- setting the parity axis can flip `unlockTraced` from false to true. That
+-- coupling is exactly why 4 < 9 < 12 is forced while 5–8 float.
+
+/-- Stage 5, Putrefaction: project fidelity toward the Stone. -/
+def stageFid (s : Imscription) : Imscription := { s with fid  := w_stone.fid }
+/-- Stage 6, Congelation: project kinetics toward the Stone. -/
+def stageKin (s : Imscription) : Imscription := { s with kin  := w_stone.kin }
+/-- Stage 7, Cibation: project granularity toward the Stone. -/
+def stageGran (s : Imscription) : Imscription := { s with gran := w_stone.gran }
+/-- Stage 8, Sublimation: project interaction grammar toward the Stone. -/
+def stageGram (s : Imscription) : Imscription := { s with gram := w_stone.gram }
+
+/-- The four gate-free stages pairwise commute: all six orders agree. -/
+theorem gate_free_commute (s : Imscription) :
+    stageFid (stageKin s)  = stageKin (stageFid s)  ∧
+    stageFid (stageGran s) = stageGran (stageFid s) ∧
+    stageFid (stageGram s) = stageGram (stageFid s) ∧
+    stageKin (stageGran s) = stageGran (stageKin s) ∧
+    stageKin (stageGram s) = stageGram (stageKin s) ∧
+    stageGran (stageGram s) = stageGram (stageGran s) := by
+  cases s
+  refine ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- Each gate-free stage is INERT on the traced gate: it leaves `unlockTraced`
+    exactly as it found it. (The proofs are `Iff.rfl` after the special-class
+    characterization: none of these axes is `pol` or `crit`.) -/
+theorem stageFid_inert_traced (s : Imscription) :
+    unlockTraced (stageFid s) ↔ unlockTraced s := by
+  simp only [unlockTraced, trace_closes_iff_special, stageFid]
+theorem stageKin_inert_traced (s : Imscription) :
+    unlockTraced (stageKin s) ↔ unlockTraced s := by
+  simp only [unlockTraced, trace_closes_iff_special, stageKin]
+theorem stageGran_inert_traced (s : Imscription) :
+    unlockTraced (stageGran s) ↔ unlockTraced s := by
+  simp only [unlockTraced, trace_closes_iff_special, stageGran]
+theorem stageGram_inert_traced (s : Imscription) :
+    unlockTraced (stageGram s) ↔ unlockTraced s := by
+  simp only [unlockTraced, trace_closes_iff_special, stageGram]
+
+/-- Gate-free stages are also inert on the Frobenius gate. -/
+theorem gate_free_inert_frobenius (s : Imscription) :
+    (unlockFrobenius (stageFid s) ↔ unlockFrobenius s) ∧
+    (unlockFrobenius (stageKin s) ↔ unlockFrobenius s) ∧
+    (unlockFrobenius (stageGran s) ↔ unlockFrobenius s) ∧
+    (unlockFrobenius (stageGram s) ↔ unlockFrobenius s) := by
+  refine ⟨?_, ?_, ?_, ?_⟩ <;>
+    simp only [unlockFrobenius, stageFid, stageKin, stageGran, stageGram]
+
+/-- CONTRAST — the parity stage (G1) is NOT inert. Setting the parity axis to
+    the Stone value can flip `unlockTraced` from false to true. This coupling is
+    absent from the gate-free stages, and is the reason the gates are ordered. -/
+def stagePol (s : Imscription) : Imscription := { s with pol := w_stone.pol }
+
+theorem parity_stage_couples :
+    ∃ s : Imscription, ¬ unlockTraced s ∧ unlockTraced (stagePol s) := by
+  refine ⟨{ w_stone with pol := nun }, ?_, ?_⟩
+  · intro h
+    have : ({ w_stone with pol := nun } : Imscription).pol = Polarity.or' :=
+      traced_needs_frobenius _ h
+    exact absurd this (by decide)
+  · exact frobenius_special_traces (stagePol { w_stone with pol := nun }) rfl rfl
+
+/-- ORDER-FREEDOM OF STAGES 5–8.
+    (i)  the four gate-free projections pairwise commute;
+    (ii) each is inert on the traced gate;
+    (iii) by contrast a gate stage (parity) couples to the traced gate. -/
+theorem gate_free_order_freedom :
+    (∀ s, stageFid (stageKin s) = stageKin (stageFid s)) ∧
+    (∀ s, unlockTraced (stageFid s) ↔ unlockTraced s) ∧
+    (∀ s, unlockTraced (stageGram s) ↔ unlockTraced s) ∧
+    (∃ s, ¬ unlockTraced s ∧ unlockTraced (stagePol s)) :=
+  ⟨fun s => (gate_free_commute s).1, stageFid_inert_traced, stageGram_inert_traced,
+   parity_stage_couples⟩
+
 end Imscribing.GateOrdering
