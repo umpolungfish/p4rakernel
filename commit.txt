@@ -1,16 +1,23 @@
-I registered a second scratch module so the prover can race two attempts at once
+Prove the gate ordering 4 < 9 < 12: Imscribing/GateOrdering.lean
 
-MoDoT's ask_native prover now races a standard proof attempt against a
-portal-guided one (a catalogued witness cited as a hint) whenever a goal is
-lexically close to something already in the catalog, and lets the kernel decide
-which closes rather than inventing a separate exact-match check. Two concurrent
-`lake build`s on the same scratch file would collide, so I added a second one:
-Imscribing/Scratch/ProverScratchB.lean (placeholder, mirrors ProverScratch.lean)
-and registered it in lakefile.toml alongside the existing ProverScratch entry.
-Confirmed safe first: two full `lake build`s against distinct scratch modules in
-this project, run concurrently by hand, both came back green with no lock
-contention.
+The Alchemical Theory of Mathematics rests on one ordered claim: the twelve
+structural invariants must be fixed in a definite order, forced by three
+categorical gates at stages 4 (Parity, special Frobenius mu-delta=id), 9
+(Criticality, traced monoidal), and 12 (Protection, idempotent terminal). I
+had only asserted that order in the manuscript; now it is a theorem.
 
-lakefile.toml also picked up "Imscribing.PhilosophicalSystem" in this same diff
-from other work already in flight in this tree when I got to it — left as is,
-not mine to describe.
+GateOrdering.lean models the four operad layers as a linearly ordered
+inductive (plain < frobenius < traced < terminal) and builds the G2 trace on
+the existing polarization Frobenius pair delta_C/mu_C. The hinge is
+trace_closes_iff_special: the traced layer is EXACTLY the special class
+pol=or and crit=monad, so a closing trace forces the Frobenius value —
+traced_needs_frobenius gives 4 < 9 as a theorem, not a definition. The
+precedence chain terminal -> traced -> frobenius is proved, and crucially
+every inclusion is STRICT: w_frob has the Frobenius value but its trace does
+not close, w_traced closes its trace but has no winding to seal the terminal.
+The tower does not collapse. g1_is_a_real_barrier re-exports
+frobenius_not_synthesizable: or cannot be reached by tensoring lower parities,
+so stage 4 is a genuine gate. gate_ordering_theorem bundles the lot.
+
+Builds green against Mathlib v4.28.0, zero sorries, and no native_decide —
+every proof is kernel-checked. Registered in lakefile.toml.
