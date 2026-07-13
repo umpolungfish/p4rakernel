@@ -1,23 +1,22 @@
-Shavian notation migration + explicit Belnap/Majorana/SIC iso witness
+Land the 49 primitive-type kernel files, aligned to scripture
 
-Two changes, one commit theme: say what the tree means in its current
-language, and say the isomorphism instead of gesturing at it.
+Each of the 49 primitive value types now has its own Lean file under
+Imscribing/Primitives/Types/, registered in the lakefile: surface tokens,
+the Belnap FOUR register descriptions, the full staged Imscription path
+as an IGProtocol term, a kernel-proved Frobenius self-fusion theorem, and
+a kernel-computed tier. These build green.
 
-Notation: all old-era primitive IDs in comments and docstrings are migrated
-to the NSNS_PRIME.md Shavian glyphs, both the glyph-pair code IDs (D_omega
-era) and the older human-name forms (Omega_0, Phi_c, D_infty, T_bowtie era).
-Comment-only sweep, 790 tokens across 48 files; live code strings
-(GeneToProtein codon tables, CLU_GPM promotion data, FrobeniusUnification
-ruleset names) and genuine math notation (cosmology density parameters in
-CosmologyBelnap, summation indices) are untouched. One pre-existing
-ID/label mismatch fixed in BanachMeasure: the chirality promotion target
-read H2 but was labeled wool; the Stone's chirality is wool.
+Before committing I checked their family/ordinal metadata against the
+only authority, the pre-existing inductive constructor order in
+Primitives/Core.lean, and several had drifted. The content of each file
+(surface tokens, tuples, theorems) was already right; only the trailing
+_family and _ordinal labels disagreed, so the fix is label-only:
 
-FrobeniusIso.lean: MajoranaFixed proved three fixed-point facts side by
-side; the one-object claim needs morphism data, not a conjunction. The new
-module supplies it: orbitalBelnapEquiv (explicit toFun/invFun/left_inv/
-right_inv), the transported operations (pair=join, depair=belnapDepair,
-spinFlip=bnot, omeet=meet), naturality for all four, transport of the
-Frobenius identity and the SIC equiangularity, and the dialetheic fixed
-point carried to the dialetheic fixed point. belnap_majorana_sic_iso
-bundles the witness. Builds green, zero sorries, no native_decide.
+  air  -> KineticChar 4     loll -> KineticChar 1   (were swapped)
+  peep -> Fidelity 2        they -> Fidelity 1
+  nun  -> Polarity 3        or   -> Polarity 4       yew -> Polarity 1
+  ice  -> Granularity 2     so   -> Stoichiometry 1
+
+ha_ha (Criticality 4) was already correct. After the fix every file
+agrees with Core.lean. The same lakefile edit also registers
+Imscribing.LiminalSpaces, included so no listed module dangles.
