@@ -7,10 +7,10 @@
 -- Grammar itself.  The representing object is the canonical ob3ect below.
 --
 -- Four primitives are invariant across all domain-layer meets:
---   Ç_@ (egg)    — FFUSE waits for ast.compare()
---   ɢ_ˌ (measure) — 8-phase IMASM sequential order
---   Ħ_A (sure)        — two-step chirality; unparse remembers parse
---   Σ_ï (up)       — heterogeneous stoichiometry; source ≠ AST ≠ text
+--   𐑧 (egg)    — FFUSE waits for ast.compare()
+--   𐑠 (measure) — 8-phase IMASM sequential order
+--   𐑖 (sure)        — two-step chirality; unparse remembers parse
+--   𐑳 (up)       — heterogeneous stoichiometry; source ≠ AST ≠ text
 --
 -- These four are the structural type of the representable witness functor.
 -- The eight remaining primitives (Ð, Þ, Ř, Φ, ƒ, Γ, φ̂, Ω) are what domain layers lack
@@ -41,7 +41,7 @@ open Dimensionality Topology Relational Polarity Fidelity KineticChar
 -- ============================================================
 -- CANONICAL OB3ECT
 -- The representing object / witness space.
--- ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+-- ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 -- ============================================================
 
 def canonical : Imscription where
@@ -85,7 +85,7 @@ theorem isDomainLayer_tier_is_O_0 (L : Imscription) (h : isDomainLayer L) :
 
 -- ============================================================
 -- LAYER 1: PARAKERNEL (paraconsistent kernel)
--- Ð_C; Þ_ò; Ř_¯; Φ_F; ƒ_ì; Ç_@; Γ_γ; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑨; 𐑥; 𐑩; 𐑬; 𐑱; 𐑧; 𐑔; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def parakernelLayer : Imscription where
@@ -95,7 +95,7 @@ def parakernelLayer : Imscription where
 
 -- ============================================================
 -- LAYER 2: SHEAF (sheaf theory: local-to-global gluing)
--- Ð_C; Þ_¨; Ř_¯; Φ_ɐ; ƒ_ì; Ç_@; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑨; 𐑶; 𐑩; 𐑗; 𐑱; 𐑧; 𐑚; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def sheafLayer : Imscription where
@@ -105,7 +105,7 @@ def sheafLayer : Imscription where
 
 -- ============================================================
 -- LAYER 3: YONEDA (Yoneda embedding)
--- Ð_ß; Þ_ò; Ř_ý; Φ_υ; ƒ_ì; Ç_@; Γ_γ; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑼; 𐑥; 𐑑; 𐑿; 𐑱; 𐑧; 𐑔; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def yonedaLayer : Imscription where
@@ -115,7 +115,7 @@ def yonedaLayer : Imscription where
 
 -- ============================================================
 -- LAYER 4: HOPF (Hopf algebras / quantum groups)
--- Ð_C; Þ_¨; Ř_Ť; Φ_˙; ƒ_ì; Ç_@; Γ_γ; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑨; 𐑶; 𐑽; 𐑯; 𐑱; 𐑧; 𐑔; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def hopfLayer : Imscription where
@@ -125,7 +125,7 @@ def hopfLayer : Imscription where
 
 -- ============================================================
 -- LAYER 5: QUANTUM (quantum mechanics)
--- Ð_ß; Þ_6; Ř_Ť; Φ_υ; ƒ_ì; Ç_@; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑼; 𐑡; 𐑽; 𐑿; 𐑱; 𐑧; 𐑚; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def quantumLayer : Imscription where
@@ -135,7 +135,7 @@ def quantumLayer : Imscription where
 
 -- ============================================================
 -- LAYER 6: CATEGORY (category theory)
--- Ð_ß; Þ_¨; Ř_ý; Φ_˙; ƒ_ì; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑼; 𐑶; 𐑑; 𐑯; 𐑱; 𐑧; 𐑲; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def categoryLayer : Imscription where
@@ -145,7 +145,7 @@ def categoryLayer : Imscription where
 
 -- ============================================================
 -- LAYER 7: LINEAR LOGIC (resource-sensitive proofs)
--- Ð_C; Þ_ò; Ř_Ť; Φ_F; ƒ_ì; Ç_@; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_A; Σ_ï; Ω_Å
+-- 𐑨; 𐑥; 𐑽; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑢; 𐑖; 𐑳; 𐑷
 -- ============================================================
 
 def linearLogicLayer : Imscription where

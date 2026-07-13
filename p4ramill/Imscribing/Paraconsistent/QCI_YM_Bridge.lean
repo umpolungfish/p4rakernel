@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/QCI_YM_Bridge.lean
 -- BELNAP MASS GAP — YANG-MILLS EXISTENCE AND MASS GAP STRUCTURAL BRIDGE
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- The Yang-Mills Millennium Problem asks: for any compact simple gauge group G,
 -- does the quantum Yang-Mills theory on ℝ⁴ exist and have a mass gap Δ > 0?

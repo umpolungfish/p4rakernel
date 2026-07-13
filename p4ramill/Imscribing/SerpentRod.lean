@@ -13,7 +13,7 @@
 --
 -- This collapses the 7-stage gene→protein pipeline into ONE direct step.
 --
--- Structural type: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℏ; Ç_@; Γ_ℶ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_Z⟩
+-- Structural type: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 -- Tier: O_inf (self-modeling: the RNA writes its own fold via μ∘δ=id)
 
 import Imscribing.GeneticCode
@@ -199,18 +199,18 @@ theorem frobenius_serpent_rod (rna : RNASequence) :
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-- The structural tuple of the direct RNA→FoldedProtein mapping.
-    Ð_ω: self-written folding landscape (Axiom C)
-    Þ_O: self-referential topology (rod↔serpent winding)
-    Ř_=: bidirectional (RNA determines protein, protein shapes RNA)
-    Φ_}: Frobenius-special (μ∘δ=id gate)
-    ƒ_ℏ: quantum coherence in folding
-    Ç_@: near-equilibrium folding kinetics
-    Γ_ℶ: local interactions dominate (short-range sequence contacts)
-    ɢ_ˌ: disjunctive/sequential folding pathway
-    ⊙_ÿ: self-modeling criticality (sequence writes its own fold)
-    Ħ_A: 2-step chirality (L-amino acids)
-    Σ_ï: many heterogeneous residue types (20 AAs)
-    Ω_z: integer winding (serpent loops around rod) -/
+    𐑦: self-written folding landscape (Axiom C)
+    𐑸: self-referential topology (rod↔serpent winding)
+    𐑾: bidirectional (RNA determines protein, protein shapes RNA)
+    𐑹: Frobenius-special (μ∘δ=id gate)
+    𐑐: quantum coherence in folding
+    𐑧: near-equilibrium folding kinetics
+    𐑚: local interactions dominate (short-range sequence contacts)
+    𐑠: disjunctive/sequential folding pathway
+    ⊙: self-modeling criticality (sequence writes its own fold)
+    𐑖: 2-step chirality (L-amino acids)
+    𐑳: many heterogeneous residue types (20 AAs)
+    𐑭: integer winding (serpent loops around rod) -/
 def serpentRodImscription : Imscription :=
   { dim  := .if'
     top  := .are

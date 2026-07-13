@@ -12,12 +12,12 @@ set_option linter.style.whitespace false
   in terms of six gate structures.
 
   The six ZFCt promotion channels:
-    1. HOLOBOUND (Þ_6 → Þ_O): Holographic boundary condition
-    2. LR_DUAL   (Ř_¯ → Ř_=): Electric-magnetic duality
-    3. PM_Z2     (Φ_ɐ → Φ_}): OS reflection positivity (Frobenius gate)
-    4. SEQAX     (ɢ_^ → ɢ_ˌ): Sequential UV→IR cascade
-    5. TEMPD2    (Ħ_Ñ → Ħ_A): 2-step temporal chirality
-    6. ZWIND     (Ω_Å → Ω_z): Instanton winding sectors
+    1. HOLOBOUND (𐑡 → 𐑸): Holographic boundary condition
+    2. LR_DUAL   (𐑩 → 𐑾): Electric-magnetic duality
+    3. PM_Z2     (𐑗 → 𐑹): OS reflection positivity (Frobenius gate)
+    4. SEQAX     (𐑝 → 𐑠): Sequential UV→IR cascade
+    5. TEMPD2    (𐑓 → 𐑖): 2-step temporal chirality
+    6. ZWIND     (𐑷 → 𐑭): Instanton winding sectors
 
   Key results:
     (1) All six gate structures are trivially inhabited (True-witnessed).
@@ -48,39 +48,39 @@ set_option relaxedAutoImplicit true
 -- Gate structures (local — these are the ZFCt promotion targets)
 -- ============================================================
 
-/-- HOLOBOUND (Þ_6 → Þ_O): The holographic boundary condition.
+/-- HOLOBOUND (𐑡 → 𐑸): The holographic boundary condition.
     The Euclidean path integral measure on M_4 is determined by boundary data
     on ∂M_4. This gate encodes the claim that a finite-dimensional boundary
     theory suffices to determine the bulk measure. -/
 structure YM_HoloBoundGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where
   holo_witness : True
 
-/-- LR_DUAL (Ř_¯ → Ř_=): Exact electric-magnetic duality.
+/-- LR_DUAL (𐑩 → 𐑾): Exact electric-magnetic duality.
     A categorical equivalence between magnetic and electric lattices rendering
     the SU(N) singularities tame via Fourier-Mukai dual space. -/
 structure YM_LRDualGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where
   lr_witness : True
 
-/-- PM_Z2 (Φ_ɐ → Φ_}): Frobenius gate — Osterwalder-Schrader reflection positivity.
+/-- PM_Z2 (𐑗 → 𐑹): Frobenius gate — Osterwalder-Schrader reflection positivity.
     The measure space carries an exact ℤ_2 Frobenius symmetry corresponding to
     OS time-reflection θ. This is the promotion that opens the Frobenius gate:
     μ∘δ = id exactly (not approximately). -/
 structure YM_FrobeniusGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where
   os_witness : True
 
-/-- SEQAX (ɢ_^ → ɢ_ˌ): Sequential UV→IR cascade.
+/-- SEQAX (𐑝 → 𐑠): Sequential UV→IR cascade.
     The renormalization group flow from lattice cutoff to continuum limit,
     constructing a directed acyclic graph of RG steps bridging the UV and IR. -/
 structure YM_SeqCascadeGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where
   rg_witness : True
 
-/-- TEMPD2 (Ħ_Ñ → Ħ_A): 2-step temporal chirality.
+/-- TEMPD2 (𐑓 → 𐑖): 2-step temporal chirality.
     Osterwalder-Schrader (Euclidean) ↔ Wightman (Minkowski) spectral flow
     via analytic continuation t → iτ in two steps. -/
 structure YM_ChiralityGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where
   spectral_witness : True
 
-/-- ZWIND (Ω_Å → Ω_z): Integer winding sectors ℤ-grading.
+/-- ZWIND (𐑷 → 𐑭): Integer winding sectors ℤ-grading.
     Instanton/monopole topology organized by integer winding number,
     providing the topological ℤ-grading of the path integral measure. -/
 structure YM_WindingGate (g : Type*) [LieRing g] [LieAlgebra ℝ g] where

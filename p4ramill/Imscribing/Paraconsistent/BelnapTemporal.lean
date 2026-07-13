@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/BelnapTemporal.lean
 -- BELNAP TEMPORAL LOGIC -- WINDING-AWARE PARACONSISTENT MODALITIES
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.QuantumClassicalInterface
 import Imscribing.Paraconsistent.Kernel

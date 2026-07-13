@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/QCI_nRegister.lean
 -- n-REGISTER QCI — COHERENCE RATIO INVARIANCE UNDER REGISTER SCALING
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.QuantumClassicalInterface
 import Imscribing.Primitives.Core

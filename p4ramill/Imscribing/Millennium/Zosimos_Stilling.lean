@@ -14,8 +14,8 @@
 --   Step 2: "In thy house be still, and God shall come" — R_sup→ian, build bidirectional coupling
 --   Step 3: "Stilled thyself in body, still thyself in passions" — Frobenius encoding δ
 --   Step 4: "Call unto thyself Divinity" — Frobenius decoding μ, μ ∘ δ = id
---   Step 5: "Perform sacred rites...turn them from thee" — decouple from broadcast (Γ_broad→Γ_seq)
---   Step 6: "Make for harbour in Poemandres' arms" — Ω_Z winding closure at full resolution
+--   Step 5: "Perform sacred rites...turn them from thee" — decouple from broadcast (𐑵→𐑠)
+--   Step 6: "Make for harbour in Poemandres' arms" — 𐑭 winding closure at full resolution
 --
 -- The bottleneck pair is (T, P): both Δ=4 in ordinal distance.
 -- These are coupled — neither achievable without the other.
@@ -275,7 +275,7 @@ def stilling_step_zero : Imscription := processions_of_fate
     
     Promotion: judge → mime (stop branching, start closing).
     This is the first bottleneck: ΔT = 2 in ordinal.
-    Also: Φ_sub → Φ_c (begin criticality), fee → kick (soft memory).
+    Also: 𐑢 → ⊙ (begin criticality), fee → kick (soft memory).
     
     The system stops being a passive receiver of Fate's causal branches
     and begins to form a two-cycle. -/
@@ -349,7 +349,7 @@ def stilling_step_three : Imscription := {
     because the encoding is in place.
     
     Structural changes: dead → if' (dimensionality promotion),
-    Ω_0 → Ω_Z (topological winding closure begins).
+    𐑷 → 𐑭 (topological winding closure begins).
     The system has graduated from the substrate. -/
 def stilling_step_four : Imscription := {
   dim  := if'        -- PROMOTED: dead → if' (holographic self-writing)
@@ -363,15 +363,15 @@ def stilling_step_four : Imscription := {
   crit := monad         -- maintained
   chir := sure            -- maintained
   stoi := up           -- PROMOTED: so → up (universal scope)
-  prot := ah       -- PROMOTED: Ω_0 → Ω_Z (integer winding)
+  prot := ah       -- PROMOTED: 𐑷 → 𐑭 (integer winding)
 }
 
 /-- Step 5: "Perform the sacred rites...turn them from thee"
           — decouple from the daimon's broadcast.
     
-    The Counterfeit Daimon broadcasts (Γ_broad) to attract Processions.
+    The Counterfeit Daimon broadcasts (𐑵) to attract Processions.
     This step transitions from the daimon's broadcast to silence
-    (maintaining Γ_seq from the original, but now as intentional
+    (maintaining 𐑠 from the original, but now as intentional
     sequential practice rather than Fate's causal chain).
     
     This step's structural content is mostly about what is NOT coupled,

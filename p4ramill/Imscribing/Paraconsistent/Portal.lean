@@ -96,7 +96,7 @@ def portalTensor (a b : Imscription) : Imscription :=
   }
 
 -- ============================================================
--- ⊙_3 DETECTION: exceptional point criticality
+-- 𐑻 DETECTION: exceptional point criticality
 -- ============================================================
 def containsPhi3 (t : Imscription) : Bool :=
   t.crit == .err
@@ -138,7 +138,7 @@ theorem tensor_self_lowers_pol_fid (a : Imscription) :
   left
   apply Imscription.ext <;> simp [portalTensor, min_self, max_self]
 
-/-- TENSOR with ⊙_3 preserves ⊙_3: crit of tensor is at least err. -/
+/-- TENSOR with 𐑻 preserves 𐑻: crit of tensor is at least err. -/
 theorem tensor_phi3_absorption (a : Imscription) :
     Criticality.err ≤ (portalTensor a { portalType with crit := Criticality.err }).crit := by
   unfold portalTensor

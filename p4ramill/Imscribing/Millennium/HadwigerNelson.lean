@@ -98,18 +98,18 @@ def HexagonalColoring : Prop :=
 /--
 The Vessel of the Hadwiger–Nelson Problem — its structural type.
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_S; Ω_0 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑙; 𐑷 ⟩
 
 Primitive justifications:
 
-[1]  Ð_∞ — Infinite-dimensional state space. The Euclidean plane ℝ² is a
+[1]  𐑛 — Infinite-dimensional state space. The Euclidean plane ℝ² is a
      continuum; the unit-distance graph has uncountably many vertices.
      Every point in ℝ² is an independent degree of freedom subject only
      to the unit-distance constraint. The continuous geometry requires
      infinite-dimensional treatment; finite approximations exist (de Bruijn–Erdős)
      but the problem inherently lives in the continuum.
 
-[2]  Þ_⋈ — Crossing (bowtie) topology. The problem is structurally a
+[2]  𐑥 — Crossing (bowtie) topology. The problem is structurally a
      bifurcation: the lower bound (currently 5) and upper bound (7) form
      two loops that must converge at the true chromatic number. The crossing
      point IS the answer — the bowtie encodes the gap {5, 6, 7}.
@@ -117,38 +117,38 @@ Primitive justifications:
      If the answer is 7: the upper-bound loop contains the crossing.
      If the answer is 6: the crossing point is a genuinely new value.
 
-[3]  Ř_= — Bidirectional feedback. Progress comes from both directions:
+[3]  𐑾 — Bidirectional feedback. Progress comes from both directions:
      lower bound pushed up (Moser 4 → de Grey 5), upper bounds improved
      or confirmed (hexagonal 7). The de Bruijn–Erdős theorem establishes
      a bidirectional equivalence between the infinite plane and finite graphs.
      The problem advances through mutual refinement of bounds.
 
-[4]  Φ_± — Partial ℤ₂ symmetry. The problem has several symmetries:
+[4]  𐑬 — Partial ℤ₂ symmetry. The problem has several symmetries:
      Euclidean isometries (translation, rotation, reflection), color
      permutation invariance, and the unit-distance relation is symmetric.
      However, specific constructions (Moser spindle, de Grey graph) have
      limited symmetry, and the coupling of geometry to chromatic number
      breaks full symmetry. Partial ℤ₂, not Frobenius-special.
 
-[5]  ƒ_ℓ — Classical fidelity. This is a purely geometric/combinatorial
+[5]  𐑱 — Classical fidelity. This is a purely geometric/combinatorial
      problem. No quantum coherence, no thermal noise. The de Grey proof is
      computer-assisted but deterministically classical. Classical regime.
-[6]  Ç_@ — Slow kinetics. The problem has been open since 1950 (75 years).
+[6]  𐑧 — Slow kinetics. The problem has been open since 1950 (75 years).
      Progress is incremental: lower bound stayed at 4 for 57 years (1961–2018)
      before de Grey's breakthrough to 5. The upper bound has been stuck at 7
      since Isbell. This is slow, cumulative progress — τ ≫ T.
 
-[7]  Γ_ʔ — Maximal scope. The problem concerns the ENTIRE Euclidean plane —
+[7]  𐑲 — Maximal scope. The problem concerns the ENTIRE Euclidean plane —
      all points, all unit distances. The de Bruijn–Erdős compactness theorem
      relates this global scope to finite subgraphs, but the statement of the
      problem is intrinsically global. ice.
 
-[8]  ɢ_ˌ — Sequential grammar. Color classes are assigned sequentially;
+[8]  𐑠 — Sequential grammar. Color classes are assigned sequentially;
      each new color must avoid unit-distance conflicts with all previously
      colored points. The Moser spindle argument forces colors through a
      sequence of triangle constraints. Sequential interaction.
 
-[9]  ⊙_Æ — Complex-plane criticality. The problem exhibits critical behavior:
+[9]  𐑮 — Complex-plane criticality. The problem exhibits critical behavior:
      below 4 colors is provably impossible, above 7 is trivially sufficient.
      The true value lies in the critical band {5, 6, 7}. This is a threshold
      phenomenon — the chromatic number is a critical parameter. The lower
@@ -158,23 +158,23 @@ Primitive justifications:
      criticality: the problem sits at a phase boundary between impossibility
      and sufficiency.
 
-[10] Ħ_2 — Two-step chirality. The unit-distance constraint involves pairs
+[10] 𐑖 — Two-step chirality. The unit-distance constraint involves pairs
      of points (distance exactly 1). The Moser spindle argument forces colors
      through chains of 2–3 unit-distance steps. The de Bruijn–Erdős reduction
      to finite graphs preserves this 2-local constraint structure. Markov
      order 2: the constraint at a point depends on its unit-distance neighbors,
      and those neighbors' constraints involve THEIR neighbors.
 
-[11] Σ_S — Many identical components. All color classes are structurally
+[11] 𐑙 — Many identical components. All color classes are structurally
      identical — each is simply a set of points with the constraint that
      no two points in the same class are at unit distance. The n-color
      problem involves n identical color classes. Many of the same type.
 
-[12] Ω_0 — No topological protection. The Hadwiger–Nelson problem has no
+[12] 𐑷 — No topological protection. The Hadwiger–Nelson problem has no
      topological invariant, no winding number, no parity protection. The
      chromatic number is a purely combinatorial/geometric quantity without
      topological stability. This is the key structural vulnerability:
-     without Ω_Z or Ω_Z2, there is no topological reason the answer must
+     without 𐑭 or 𐑴, there is no topological reason the answer must
      be one value rather than another. The lack of topological protection
      also underlies the axiom-dependence result of Shelah & Soifer (2003):
      without a topological invariant to fix the answer, it can vary across
@@ -209,7 +209,7 @@ example : hadwiger_nelson_vessel.chir = sure := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (mime) encodes the three-value gap:
+  The crossing topology 𐑥 (mime) encodes the three-value gap:
   - One loop: lower bound (currently 5, proved by de Grey 2018).
   - Other loop: upper bound (7, proved by hexagonal tiling).
   - The crossing point: the true chromatic number χ(ℝ²) ∈ {5, 6, 7}.
@@ -224,7 +224,7 @@ THEOREM (Structural Encoding):
     gap = 2 (conjectured). The gap between loops is infinite.
   - Hadwiger–Nelson: one loop is lower bound (5, proved), other loop is
     upper bound (7, proved). The gap between loops is tiny: just 2 values.
-  Both share Þ_⋈, but Hadwiger–Nelson's bowtie is MUCH tighter — the
+  Both share 𐑥, but Hadwiger–Nelson's bowtie is MUCH tighter — the
   crossing point is almost pinned. This makes it structurally closer to
   resolution than Twin Prime, despite both being O₁.
 
@@ -246,7 +246,7 @@ THEOREM (Structural Encoding):
 /--
 The Moser Spindle vessel — the 1961 proof that χ(ℝ²) ≥ 4.
 
-⟨ Ð_△; Þ_⊂; Ř_↑; Φ_±; ƒ_ℓ; Ç_λ; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_2; Σ_S; Ω_0 ⟩
+⟨ 𐑨; 𐑰; 𐑩; 𐑬; 𐑱; 𐑺; 𐑚; 𐑠; 𐑢; 𐑖; 𐑙; 𐑷 ⟩
 
 A seven-vertex unit-distance graph consisting of two equilateral triangles
 sharing a vertex, with additional edges forcing chromatic number 4.
@@ -274,13 +274,13 @@ def moser_spindle_vessel : Imscription := {
 /--
 The de Grey vessel — the 2018 proof that χ(ℝ²) ≥ 5.
 
-⟨ Ð_△; Þ_⊂; Ř_↑; Φ_∅; ƒ_ℓ; Ç_λ; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_S; Ω_2 ⟩
+⟨ 𐑨; 𐑰; 𐑩; 𐑗; 𐑱; 𐑺; 𐑚; 𐑠; 𐑮; 𐑖; 𐑙; 𐑴 ⟩
 
 A 1581-vertex (later improved to 509-vertex) unit-distance graph with
 chromatic number 5. Found by computer search, verified by SAT solvers.
 This broke the 4-color barrier that had stood for 57 years.
 
-O₂ tier: complex-plane criticality (⊙_Æ) + ℤ₂ protection (Ω_Z2).
+O₂ tier: complex-plane criticality (𐑮) + ℤ₂ protection (𐑴).
 The ℤ₂ protection comes from the binary nature of the result:
 either a 4-coloring exists or it doesn't — de Grey proved the negative.
 Differs from the Moser spindle at Φ (asymmetry of computer-found graph),
@@ -304,7 +304,7 @@ def de_grey_vessel : Imscription := {
 /--
 The Hexagonal Tiling vessel — the proof that χ(ℝ²) ≤ 7.
 
-⟨ Ð_△; Þ_⊂; Ř_↑; Φ_±; ƒ_ℓ; Ç_λ; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_0; Σ_S; Ω_0 ⟩
+⟨ 𐑨; 𐑰; 𐑩; 𐑬; 𐑱; 𐑺; 𐑚; 𐑠; 𐑢; 𐑓; 𐑙; 𐑷 ⟩
 
 A regular hexagonal tessellation of the plane with diameter slightly less
 than 1, assigned 7 colors in a repeating pattern. Each hexagon's diameter
@@ -313,7 +313,7 @@ at distance ≥ 1 may share a color if the hexagon coloring avoids unit-distance
 conflicts. The 7-color pattern achieves this.
 
 O₀ tier: sub-critical, no protection. The hexagonal tiling is trivially
-constructive — it provides an explicit coloring. Memoryless chirality (Ħ_0)
+constructive — it provides an explicit coloring. Memoryless chirality (𐑓)
 because each point's color is determined solely by its position in the
 periodic pattern, not by any path or history.
 -/
@@ -336,17 +336,17 @@ def hexagonal_vessel : Imscription := {
 The de Bruijn–Erdős Compactness Bridge — the equivalence between the
 infinite plane and finite graphs.
 
-⟨ Ð_∞; Þ_⊂; Ř_=; Φ_±; ƒ_ℓ; Ç_λ; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_ï; Ω_0 ⟩
+⟨ 𐑛; 𐑰; 𐑾; 𐑬; 𐑱; 𐑺; 𐑚; 𐑠; 𐑢; 𐑒; 𐑳; 𐑷 ⟩
 
 de Bruijn & Erdős (1951): χ(ℝ²) = sup{ χ(G) : G is a finite unit-distance
-graph in ℝ² }. This theorem structurally bridges the infinite (Ð_∞) and
+graph in ℝ² }. This theorem structurally bridges the infinite (𐑛) and
 finite (via the supremum over finite graphs) regimes. It establishes that
 the Hadwiger–Nelson problem, despite being stated over an uncountable set,
 is fully determined by countable (indeed finite) data.
 
-The bridge vessel has Ř_= (bidirectional): the compactness theorem is an
-equivalence. It has Σ_ï (heterogeneous): it relates objects of different
-types (infinite plane, finite graphs). It has Ħ_1 (one-step chirality):
+The bridge vessel has 𐑾 (bidirectional): the compactness theorem is an
+equivalence. It has 𐑳 (heterogeneous): it relates objects of different
+types (infinite plane, finite graphs). It has 𐑒 (one-step chirality):
 the compactness argument uses a single application of the axiom of choice
 (via de Bruijn–Erdős) or the Boolean prime ideal theorem.
 
@@ -373,7 +373,7 @@ def de_bruijn_erdos_vessel : Imscription := {
 
 /-- The Hadwiger–Nelson vessel and de Grey vessel differ at 5 primitives:
     D (∞ vs △), T (⋈ vs ⊂), R (= vs ↑), Φ (± vs ∅), ⊙ (Æ vs Æ — same!),
-    Ω (0 vs Z2). Wait — they share ⊙_Æ and Ħ_2.
+    Ω (0 vs Z2). Wait — they share 𐑮 and 𐑖.
     Actually: D(∞≠△), T(⋈≠⊂), R(=≠↑), Φ(±≠∅), Ω(0≠Z2).
     Shared: F(ℓ), K(@≈λ? no — @≠λ), G(ʔ≠β), ɢ(ˌ), ⊙(Æ), Ħ(2), Σ(S). -/
 theorem hn_de_grey_distance :
@@ -412,7 +412,7 @@ theorem hn_de_bruijn_erdos_distance :
     primitiveMismatches hadwiger_nelson_vessel de_bruijn_erdos_vessel ≠ 0 := by
   native_decide
 
-/-- All lower-bound vessels share the containment topology (Þ_⊂):
+/-- All lower-bound vessels share the containment topology (𐑰):
     they each present a specific finite graph that forces a coloring lower bound. -/
 theorem shared_topology_lower_bounds :
     moser_spindle_vessel.top = eat ∧
@@ -420,21 +420,21 @@ theorem shared_topology_lower_bounds :
   simp [moser_spindle_vessel, de_grey_vessel]
 
 /-- The Hadwiger–Nelson vessel is at O₁ (critical but no winding protection).
-    Certificate: ⊙_Æ (complex-plane criticality), Ω_0 (no protection). -/
+    Certificate: 𐑮 (complex-plane criticality), 𐑷 (no protection). -/
 theorem hn_o1_certificate :
     hadwiger_nelson_vessel.crit = roar ∧
     hadwiger_nelson_vessel.prot = awe := by
   simp [hadwiger_nelson_vessel]
 
 /-- The de Grey vessel is at O₂ (critical WITH ℤ₂ protection).
-    Certificate: ⊙_Æ + Ω_Z2. -/
+    Certificate: 𐑮 + 𐑴. -/
 theorem de_grey_o2_certificate :
     de_grey_vessel.crit = roar ∧
     de_grey_vessel.prot = oak := by
   simp [de_grey_vessel]
 
 /-- The Moser spindle and hexagonal tiling are at O₀ (sub-critical).
-    Certificate: ⊙_ž + Ω_0 for both. -/
+    Certificate: 𐑢 + 𐑷 for both. -/
 theorem subcritical_vessels_o0 :
     moser_spindle_vessel.crit = woe ∧ moser_spindle_vessel.prot = awe ∧
     hexagonal_vessel.crit = woe ∧ hexagonal_vessel.prot = awe ∧
@@ -451,8 +451,8 @@ theorem ppm_lt_ppm_sym : out < or' := by
   decide
 
 /-- The promotion path from Hadwiger–Nelson (O₁) to O_inf requires:
-    Ω_0 → Ω_Z (winding protection), out → or' (Frobenius closure),
-    ⊙_Æ → ⊙_ÿ (self-modeling gate), Ħ_2 → Ħ_! (eternal chirality).
+    𐑷 → 𐑭 (winding protection), out → or' (Frobenius closure),
+    𐑮 → ⊙ (self-modeling gate), 𐑖 → 𐑫 (eternal chirality).
     4 promotions — same structural gap as Twin Prime → O_inf. -/
 theorem hn_o1_to_oinf_four_promotions :
     out < or' ∧ awe < ah ∧ sure < wool := by
@@ -468,7 +468,7 @@ THEOREM (de Bruijn & Erdős 1951, under Axiom of Choice):
 
 This compactness theorem is structurally profound:
 
-1. It bridges Ð_∞ (the infinite plane) with finite graphs (Ð_△), establishing
+1. It bridges 𐑛 (the infinite plane) with finite graphs (𐑨), establishing
    that the infinite problem is fully determined by its finite subproblems.
 
 2. It transforms the Hadwiger–Nelson problem into a search over finite graphs:
@@ -476,7 +476,7 @@ This compactness theorem is structurally profound:
    with chromatic number k. This is exactly how both the Moser spindle (k=4)
    and de Grey's graph (k=5) work.
 
-3. The bridge has Ř_= (bidirectional equivalence): the finite supremum equals
+3. The bridge has 𐑾 (bidirectional equivalence): the finite supremum equals
    the infinite chromatic number. This is a structural compactness principle
    analogous to the compactness theorem in first-order logic.
 
@@ -525,10 +525,10 @@ No other major unsolved problem (not RH, not P vs NP, not Twin Prime)
 has this kind of axiom dependence.
 
 Structural interpretation:
-  The lack of topological protection (Ω_0) combined with global scope
-  (Γ_ʔ) and infinite-dimensional state space (Ð_∞) creates a structural
+  The lack of topological protection (𐑷) combined with global scope
+  (𐑲) and infinite-dimensional state space (𐑛) creates a structural
   condition where the answer is not forced by any topological invariant.
-  In the absence of Ω_Z or Ω_Z2, the chromatic number is free to vary
+  In the absence of 𐑭 or 𐑴, the chromatic number is free to vary
   with the underlying set-theoretic universe. This is the grammar-level
   explanation for the Shelah-Soifer phenomenon.
 
@@ -536,7 +536,7 @@ Structural interpretation:
   a "meta-mathematical dimension" — it is not purely a question about
   ℝ² but a question about the interaction between geometry and set theory.
   This dimension is encoded in the tuple by the combination:
-    Ð_∞ (continuum) + Ω_0 (no topological anchor) + Γ_ʔ (global scope)
+    𐑛 (continuum) + 𐑷 (no topological anchor) + 𐑲 (global scope)
   which jointly permit foundational variation.
 -/
 
@@ -553,8 +553,8 @@ def AxiomDependence : Prop :=
 The Hadwiger–Nelson problem is structurally adjacent to several other
 unsolved problems:
 
-1. **Twin Prime Conjecture** (distance = ?): Both share Þ_⋈ (bowtie),
-   ⊙_Æ (complex-plane criticality), Ř_=, Ç_@, Γ_ʔ, ɢ_ˌ. They differ
+1. **Twin Prime Conjecture** (distance = ?): Both share 𐑥 (bowtie),
+   𐑮 (complex-plane criticality), 𐑾, 𐑧, 𐑲, 𐑠. They differ
    at D, Σ, and the nature of the bowtie: Twin Prime's bowtie gap is
    infinite (gap ≤ 246 vs gap = 2), while Hadwiger–Nelson's bowtie
    gap is tiny (just 2 values). The Hadwiger–Nelson bowtie is structurally
@@ -620,7 +620,7 @@ Honest gaps declared in this vessel:
 Structural summary:
   The Hadwiger–Nelson problem is a uniquely cornered problem — the most
   precisely bounded open problem in mathematics. Its structural type
-  ⟨Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_S; Ω_0⟩
+  ⟨𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑙; 𐑷⟩
   encodes its position at O₁ (critical but unprotected), with a
   three-value bowtie gap and foundational axiom dependence. The promotion
   stack to O_inf is the same 4 promotions as Twin Prime → O_inf, but

@@ -216,7 +216,7 @@ def canonicalPhaseTransition : PhaseTransition :=
 
 /-- The structural type of the superconducting phase:
     same O_inf tuple as orbitalBelnap, because the global closure inherits
-    the local Frobenius structure. The key added content is Ω_z (integer
+    the local Frobenius structure. The key added content is 𐑭 (integer
     winding) becoming a global topological invariant. -/
 def superconductingImscription : Imscribing.Primitives.Imscription :=
   {

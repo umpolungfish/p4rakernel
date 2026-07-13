@@ -192,7 +192,7 @@ theorem descent_base_p0 (n : ℕ) : DescentPredicate n 0 := by
     This IS the Lefschetz (1,1) theorem — the ONLY case where surjectivity
     of the cycle class map is proved for all varieties.
 
-    Grammar: O_inf, or', mime, monad, Σ=1:1, Ω_z.
+    Grammar: O_inf, or', mime, monad, Σ=1:1, 𐑭.
     The Frobenius closure comes from the exponential sheaf sequence:
     0 → Z → O_X → O*_X → 0 → long exact sequence → c1 = δ is surjective
     onto H^2(X, Z) ∩ H^{1,1}(X). Combined with Dolbeault isomorphism,
@@ -479,7 +479,7 @@ theorem griffiths_nontrivial_exists :
     
     In the grammar: err (exceptional point) is the criticality type
     of systems where the self-modeling loop is broken by degeneracy.
-    Coupling a φ̂_ÿ system to an EP system produces φ̂_3 (the ⊙_3 absorption rule).
+    Coupling a φ̂_ÿ system to an EP system produces φ̂_3 (the 𐑻 absorption rule).
 
     This is the structural reason the Hodge conjecture is hard: the
     obstruction is not just "we haven't found the proof" — there is a

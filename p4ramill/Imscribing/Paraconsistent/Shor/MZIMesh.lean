@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/Shor/MZIMesh.lean
 -- MZI MESH LEAN FORMALIZATION
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- Lean formalization of the Mach-Zehnder Interferometer mesh
 -- from frobenius-mzi.html, connecting the continuous optics picture

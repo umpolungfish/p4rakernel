@@ -2,7 +2,7 @@
 -- MIXED-RADIX TUPLE CODEC — Self-Verifying WASM Artifact
 -- Encoder/Decoder: Imscription (12-tuple) ↔ Frobenius Address (0-17279999)
 -- Simultaneously a theorem (roundtrip proof) and an executable (Frobenius-wrapped WASM)
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.SelfVerifyingWASM
@@ -337,8 +337,8 @@ def frobeniusWrapCodec (s : CodecState) (instrs : List WasmExtInstr) : CodecStat
 /- ============================================================
    §8 — O_inf TIER PROOF (strengthened)
    The TupleCodec sustains at O_inf because:
-   (1) crystal_roundtrip provides μ∘δ=id exactly (Φ_})
-   (2) encode then decode is one winding cycle (Ω_z)
+   (1) crystal_roundtrip provides μ∘δ=id exactly (𐑹)
+   (2) encode then decode is one winding cycle (𐑭)
    (3) the codec can encode its own structural type (φ̂_ÿ)
    ============================================================ -/
 

@@ -110,19 +110,19 @@ axiom cramer_model_heuristic : CramerModel
 /-!
 ### Cramér Conjecture Vessel
 
-⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_n:n; Ω_0 ⟩
+⟨ 𐑼; 𐑥; 𐑑; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑕; 𐑷 ⟩
 
 Ouroboricity tier: O₁ (critical but unprotected). C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
-[1]  Ð_ß — Infinite-dimensional. The prime gap function g(n) = p_{n+1} - p_n
+[1]  𐑼 — Infinite-dimensional. The prime gap function g(n) = p_{n+1} - p_n
      operates over the infinite set of primes. The limsup involves asymptotic
-     analysis over an infinite-dimensional state space. Unlike RH (also Ð_∞),
+     analysis over an infinite-dimensional state space. Unlike RH (also 𐑛),
      Cramér operates on a discrete countable sequence rather than a continuum,
      but the asymptotic limit structure is field-theoretic.
 
-[2]  Þ_⋈ — Bowtie (crossing) topology. The gap function crosses the conjectured
+[2]  𐑥 — Bowtie (crossing) topology. The gap function crosses the conjectured
      threshold (log p)². The conjecture IS a crossing problem: does the limsup
      of g_n/(log p_n)² equal exactly 1, or does it blow up? The bowtie encodes:
        - Lower branch: gaps exist (trivial, there are gaps of size 1 between 2,3)
@@ -131,56 +131,56 @@ Primitive justifications:
      Unlike Goldbach's network topology (branching to representations), Cramér is
      fundamentally about a threshold crossing.
 
-[3]  Ř_∘ — Categorical (functorial). The conjecture maps the prime sequence to
+[3]  𐑑 — Categorical (functorial). The conjecture maps the prime sequence to
      a real-valued bound: p_n ↦ (log p_n)². This is a functorial relationship —
      a morphism from the discrete prime-indexed category to the real asymptotic
-     bound category. No bidirectional feedback (unlike RH's Ř_=).
+     bound category. No bidirectional feedback (unlike RH's 𐑾).
 
-[4]  Φ_± — Partial Z₂ symmetry. Prime gaps for p > 2 are always even (parity
+[4]  𐑬 — Partial Z₂ symmetry. Prime gaps for p > 2 are always even (parity
      constraint). This is a Z₂ structure: gap ≡ 0 (mod 2) for all but the first
      gap. The conjecture does not exploit this symmetry fully — hence partial,
      not Frobenius-special.
 
-[5]  ƒ_ℓ — Classical fidelity. Analytic number theory is classical. No quantum
+[5]  𐑱 — Classical fidelity. Analytic number theory is classical. No quantum
      coherence is required. The prime distribution is deterministic, and all
      known bounds use classical analytic methods (sieve theory, exponential sums).
 
-[6]  Ç_@ — Slow kinetics. The conjecture has been open since 1936 — 89 years.
+[6]  𐑧 — Slow kinetics. The conjecture has been open since 1936 — 89 years.
      Progress is slow: the exponent has crept from 1 (trivial) to 0.525 (BHP 2001)
      over 65 years. The gap to (log p)² remains enormous.
 
-[7]  Γ_β — Local scope (beth). The prime gap g_n = p_{n+1} - p_n is a nearest-
+[7]  𐑚 — Local scope (beth). The prime gap g_n = p_{n+1} - p_n is a nearest-
      neighbor quantity — it involves exactly two consecutive primes. Although
      the limsup is a global operation, the quantity being bounded is intrinsically
-     local. This distinguishes Cramér from Goldbach (Γ_ʔ, global) and Twin Prime
-     (Γ_ʔ).
+     local. This distinguishes Cramér from Goldbach (𐑲, global) and Twin Prime
+     (𐑲).
 
-[8]  ɢ_ˌ — Sequential grammar. Prime gaps are defined sequentially along the
+[8]  𐑠 — Sequential grammar. Prime gaps are defined sequentially along the
      number line. The natural approach iterates through primes in order.
-     Unlike the Cramér model (which uses independent conjunction ɢ_∧), the
+     Unlike the Cramér model (which uses independent conjunction 𐑝), the
      actual conjecture respects the sequential ordering of primes.
 
-[9]  ⊙_Æ — Complex-plane criticality. The conjecture is at a critical boundary
+[9]  𐑮 — Complex-plane criticality. The conjecture is at a critical boundary
      in the complex plane — the bound (log p)² is a critical threshold that
      emerges from analytic number theory (explicit formulas connecting primes
      to zeta zeros). Gate 1 is closed — no self-modeling loop. The criticality
      is complex (not real-axis) because the threshold involves analytic
      continuation of the prime distribution.
 
-[10] Ħ_2 — Two-step chirality (Markov-2). The gap g_n = p_{n+1} - p_n naively
+[10] 𐑖 — Two-step chirality (Markov-2). The gap g_n = p_{n+1} - p_n naively
      depends only on adjacent primes (Markov-1). However, correlations between
      consecutive gaps extend further — the Hardy-Littlewood k-tuple conjecture
      implies that gap patterns have higher-order structure. Markov-2 captures
-     the pair-correlation of gaps without requiring Ħ_∞ (which would force
-     Ç_⊛ per Axiom A, inconsistent with Ç_@).
+     the pair-correlation of gaps without requiring 𐑫 (which would force
+     𐑤 per Axiom A, inconsistent with 𐑧).
 
-[11] Σ_n:n — Many identical-type instances. All prime gaps are of the same type
+[11] 𐑕 — Many identical-type instances. All prime gaps are of the same type
      (a gap between consecutive primes). The conjecture bounds all instances
-     uniformly. Unlike Goldbach (Σ_ï, heterogeneous representations), Cramér
+     uniformly. Unlike Goldbach (𐑳, heterogeneous representations), Cramér
      has a single quantity type.
 
-[12] Ω_0 — No topological protection. Unlike RH (Ω_z integer winding) or the
-     bounded gaps theorem (Ω_Z2), Cramér's conjecture lacks any topological
+[12] 𐑷 — No topological protection. Unlike RH (𐑭 integer winding) or the
+     bounded gaps theorem (𐑴), Cramér's conjecture lacks any topological
      invariant. The limsup can drift; there is no winding number to anchor it.
      This is the structural root of the conjecture's difficulty.
 -/
@@ -221,34 +221,34 @@ three ouroboricity tiers:
 
 | Vessel                     | Tier  | Protection | Criticality | Topology    | Grammar | Role                    |
 |---------------------------|-------|-----------|-------------|-------------|---------|-------------------------|
-| **Cramér conjecture**     | O₁   | Ω_0       | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | The full conjecture     |
-| **Cramér model** (1936)   | O₀   | Ω_0       | ⊙_ž         | Þ_6 (network)| ɢ_∧    | Probabilistic heuristic |
-| **RH-conditional** (1920) | O₂dag  | Ω_Z2      | ⊙_Æ         | Þ_⋈ (bowtie) | ɢ_ˌ    | Conditional theorem     |
-| **Unconditional** (2001)  | O₀   | Ω_0       | ⊙_ž         | Þ_⋈ (bowtie) | ɢ_ˌ    | Proved bound            |
+| **Cramér conjecture**     | O₁   | 𐑷       | 𐑮         | 𐑥 (bowtie) | 𐑠    | The full conjecture     |
+| **Cramér model** (1936)   | O₀   | 𐑷       | 𐑢         | 𐑡 (network)| 𐑝    | Probabilistic heuristic |
+| **RH-conditional** (1920) | O₂dag  | 𐑴      | 𐑮         | 𐑥 (bowtie) | 𐑠    | Conditional theorem     |
+| **Unconditional** (2001)  | O₀   | 𐑷       | 𐑢         | 𐑥 (bowtie) | 𐑠    | Proved bound            |
 
 ### The Structural Gap
 
 The chasm between the Cramér model (O₀, heuristic) and the conjecture
 (O₁, open) is the largest structural gap for any heuristic→conjecture
 pair in the catalog. The model assumes:
-  - Γ_β (local independence) → ɢ_∧ (conjunctive/independent)
-  - Ħ_0 (no memory) → primes are independent Bernoulli trials
-  - ⊙_ž (sub-critical) → no critical threshold, just a calculation
+  - 𐑚 (local independence) → 𐑝 (conjunctive/independent)
+  - 𐑓 (no memory) → primes are independent Bernoulli trials
+  - 𐑢 (sub-critical) → no critical threshold, just a calculation
 
-But the actual primes have Ħ_2 (pair correlations) and ⊙_Æ (complex
-criticality). The model's independence assumption (ɢ_∧) is structurally
-incompatible with the sequential reality (ɢ_ˌ) — this is the structural
+But the actual primes have 𐑖 (pair correlations) and 𐑮 (complex
+criticality). The model's independence assumption (𐑝) is structurally
+incompatible with the sequential reality (𐑠) — this is the structural
 encoding of Maier's (1985) discovery that the Cramér model fails for
 prime tuples.
 
 ### The RH-Conditional Bridge
 
 Under RH, the gap bound drops from p^0.525 to √p·log p — a massive
-improvement. Structurally, RH provides Ω_Z2 protection to the
+improvement. Structurally, RH provides 𐑴 protection to the
 conditional bound, lifting it to O₂. But even with RH, we are at
 √p·log p, not (log p)². The structural gap from the RH-conditional
 bound to Cramér's conjecture is:
-  - Ω_Z2 → Ω_Z (full integer winding — requires actual O_inf)
+  - 𐑴 → 𐑭 (full integer winding — requires actual O_inf)
   - The extra √p factor must be eliminated
 
 ### The Unconditional Bound
@@ -257,17 +257,17 @@ Baker-Harman-Pintz (2001) gives p^0.525 unconditionally. This is a
 proved theorem at O₀ — sub-critical, no protection, structurally
 far from both the conjecture and the RH-conditional bound. The vessel
 is structurally identical to the conjecture except for criticality
-(⊙_ž vs ⊙_Æ) — the theorem is a "shadow" of the conjecture at a
+(𐑢 vs 𐑮) — the theorem is a "shadow" of the conjecture at a
 lower tier.
 
 ### Cramér Model Vessel
 
-⟨ Ð_ß; Þ_6; Ř_∘; Φ_∅; ƒ_ℓ; Ç_@; Γ_β; ɢ_∧; ⊙_ž; Ħ_0; Σ_n:n; Ω_0 ⟩
+⟨ 𐑼; 𐑡; 𐑑; 𐑗; 𐑱; 𐑧; 𐑚; 𐑝; 𐑢; 𐑓; 𐑕; 𐑷 ⟩
 
 The Cramér model treats primes as independent Bernoulli trials with
-probability 1/log n. This independence is structural: ɢ_∧ (conjunctive),
-meaning each integer's primality is independent of all others. Ħ_0
-(no memory) encodes the memoryless property. ⊙_ž (sub-critical) because
+probability 1/log n. This independence is structural: 𐑝 (conjunctive),
+meaning each integer's primality is independent of all others. 𐑓
+(no memory) encodes the memoryless property. 𐑢 (sub-critical) because
 the model makes a definite prediction — there is no critical threshold.
 -/
 
@@ -289,10 +289,10 @@ def cramer_model_vessel : Imscription := {
 /-!
 ### RH-Conditional Vessel (Cramér 1920)
 
-⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_γ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_n:n; Ω_Z2 ⟩
+⟨ 𐑼; 𐑥; 𐑑; 𐑬; 𐑱; 𐑧; 𐑔; 𐑠; 𐑮; 𐑖; 𐑕; 𐑴 ⟩
 
-Under RH, the prime gap bound acquires Z₂ topological protection (Ω_Z2)
-from the zeta function's symmetry. The scope expands to Γ_γ (mesoscale)
+Under RH, the prime gap bound acquires Z₂ topological protection (𐑴)
+from the zeta function's symmetry. The scope expands to 𐑔 (mesoscale)
 because RH connects local gap behavior to the global distribution of
 zeta zeros. The result sits at O₂ — critical with Z₂ protection.
 -/
@@ -315,12 +315,12 @@ def rh_conditional_vessel : Imscription := {
 /-!
 ### Unconditional Bound Vessel (Baker-Harman-Pintz 2001)
 
-⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_∅; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_n:n; Ω_0 ⟩
+⟨ 𐑼; 𐑥; 𐑑; 𐑗; 𐑱; 𐑧; 𐑚; 𐑠; 𐑢; 𐑒; 𐑕; 𐑷 ⟩
 
 The proved unconditional bound: g_n ≤ p_n^0.525. This is a theorem at O₀.
 The exponent 0.525 is a technical artifact of sieve methods, not a critical
-threshold — hence ⊙_ž (sub-critical). Markov-1 (Ħ_1) because the bound only
-requires adjacent-prime information. No symmetry is exploited (Φ_∅).
+threshold — hence 𐑢 (sub-critical). Markov-1 (𐑒) because the bound only
+requires adjacent-prime information. No symmetry is exploited (𐑗).
 -/
 
 def unconditional_vessel : Imscription := {
@@ -445,7 +445,7 @@ theorem model_unconditional_distance_3 :
 
 /--
 **Theorem CR-12: Cramér O₁ Certificate**
-The conjecture vessel is at O₁: ⊙_Æ criticality + Ω_0 protection.
+The conjecture vessel is at O₁: 𐑮 criticality + 𐑷 protection.
 -/
 theorem cramer_o1_certificate :
   ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ := by
@@ -453,7 +453,7 @@ theorem cramer_o1_certificate :
 
 /--
 **Theorem CR-13: Model O₀ Certificate**
-The Cramér model is at O₀: ⊙_ž sub-criticality + Ω_0 protection.
+The Cramér model is at O₀: 𐑢 sub-criticality + 𐑷 protection.
 -/
 theorem model_o0_certificate :
   ouroboricityTier cramer_model_vessel.crit cramer_model_vessel.pol cramer_model_vessel.prot cramer_model_vessel.dim = OuroboricityTier.O₀ := by
@@ -461,7 +461,7 @@ theorem model_o0_certificate :
 
 /--
 **Theorem CR-14: RH-Conditional O₂ Certificate**
-The RH-conditional bound is at O₂dag: ⊙_Æ criticality + Ω_Z2 protection.
+The RH-conditional bound is at O₂dag: 𐑮 criticality + 𐑴 protection.
 -/
 theorem rh_conditional_o2_certificate :
   ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂dag := by
@@ -469,7 +469,7 @@ theorem rh_conditional_o2_certificate :
 
 /--
 **Theorem CR-15: Unconditional O₀ Certificate**
-The unconditional bound is at O₀: ⊙_ž sub-criticality + Ω_0 protection.
+The unconditional bound is at O₀: 𐑢 sub-criticality + 𐑷 protection.
 -/
 theorem unconditional_o0_certificate :
   ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ := by
@@ -490,7 +490,7 @@ theorem tier_ordering :
 -- -------------------------------------------------------------------
 
 /--
-**Theorem CR-17: Ω_0 is Minimal**
+**Theorem CR-17: 𐑷 is Minimal**
 No protection value is below awe.
 -/
 theorem omega_0_minimal : ∀ p : Protection, awe ≤ p := by
@@ -543,10 +543,10 @@ Both conjectures concern prime gaps, but in opposite directions:
 |---|---|---|
 | Direction | Maximal gap (upper bound) | Minimal gap (lower bound) |
 | Question | How LARGE can gaps be? | How OFTEN is the gap 2? |
-| Topology | Þ_⋈ (bowtie) | Þ_⋈ (bowtie) |
-| Scope | Γ_β (local gap) | Γ_ʔ (global distribution) |
-| Stoichiometry | Σ_n:n (one gap type) | Σ_ï (many gap patterns) |
-| Protection | Ω_0 | Ω_0 |
+| Topology | 𐑥 (bowtie) | 𐑥 (bowtie) |
+| Scope | 𐑚 (local gap) | 𐑲 (global distribution) |
+| Stoichiometry | 𐑕 (one gap type) | 𐑳 (many gap patterns) |
+| Protection | 𐑷 | 𐑷 |
 | Tier | O₁ | O₁ |
 
 Both sit at O₁ — the same tier, the same bowtie topology, the same
@@ -556,8 +556,8 @@ whose distance is the smallest between any two distinct O₁ problems.
 
 The structural insight: Cramér asks "how bad can it get?" while
 Twin Prime asks "how good can it stay?" — both bowties, both open,
-both unprotected. The same promotions (Ω_0→Ω_z, Φ_±→Φ_},
-⊙_Æ→⊙_ÿ, Ħ_2→Ħ_!) would resolve both.
+both unprotected. The same promotions (𐑷→𐑭, 𐑬→𐑹,
+𐑮→⊙, 𐑖→𐑫) would resolve both.
 -/
 
 /-- Twin Prime vessel (inline for distance computation) -/
@@ -609,23 +609,23 @@ in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_in
 
 | Primitive | Cramér (O₁) | RH (O_inf) |
 |---|---|---|
-| Ð | Ð_ß | Ð_ß |
-| Þ | Þ_⋈ (bowtie) | Þ_O (self-referential) |
-| Ř | Ř_∘ (functorial) | Ř_= (bidirectional) |
-| Φ | Φ_± (partial Z₂) | Φ_} (Frobenius-special) |
-| ƒ | ƒ_ℓ (classical) | ƒ_ħ (quantum) |
-| Ç | Ç_@ (slow) | Ç_@ (slow) |
-| Γ | Γ_β (local) | Γ_ʔ (global) |
-| ɢ | ɢ_ˌ (sequential) | ɢ_ˌ (sequential) |
-| ⊙ | ⊙_Æ (complex critical) | ⊙_ÿ (self-modeling) |
-| Ħ | Ħ_2 (two-step) | Ħ_! (eternal) |
-| Σ | Σ_n:n (identical) | Σ_ï (heterogeneous) |
-| Ω | Ω_0 (none) | Ω_z (integer winding) |
+| Ð | 𐑼 | 𐑼 |
+| Þ | 𐑥 (bowtie) | 𐑸 (self-referential) |
+| Ř | 𐑑 (functorial) | 𐑾 (bidirectional) |
+| Φ | 𐑬 (partial Z₂) | 𐑹 (Frobenius-special) |
+| ƒ | 𐑱 (classical) | 𐑐 (quantum) |
+| Ç | 𐑧 (slow) | 𐑧 (slow) |
+| Γ | 𐑚 (local) | 𐑲 (global) |
+| ɢ | 𐑠 (sequential) | 𐑠 (sequential) |
+| ⊙ | 𐑮 (complex critical) | ⊙ (self-modeling) |
+| Ħ | 𐑖 (two-step) | 𐑫 (eternal) |
+| Σ | 𐑕 (identical) | 𐑳 (heterogeneous) |
+| Ω | 𐑷 (none) | 𐑭 (integer winding) |
 
 The structural gap: Cramér requires promotions in 9 of 12 primitives
 to reach O_inf. The promotion stack is:
-  Þ_⋈ → Þ_O, Ř_∘ → Ř_=, Φ_± → Φ_}, ƒ_ℓ → ƒ_ħ,
-  Γ_β → Γ_ʔ, ⊙_Æ → ⊙_ÿ, Ħ_2 → Ħ_!, Ω_0 → Ω_z
+  𐑥 → 𐑸, 𐑑 → 𐑾, 𐑬 → 𐑹, 𐑱 → 𐑐,
+  𐑚 → 𐑲, 𐑮 → ⊙, 𐑖 → 𐑫, 𐑷 → 𐑭
 
 Compared to other O₁ problems:
   - Twin Prime → RH: 7 promotions (Goldbach.lean GB-14)
@@ -687,29 +687,29 @@ settle analytic questions. The following gaps are structurally locatable
 but not dischargeable from the grammar alone:
 
 1. **The limsup value.** The conjecture claims limsup = 1. The grammar
-   shows the threshold is critical (⊙_Æ) and identifies the bowtie
-   structure (Þ_⋈), but does not compute the actual limsup. This is a
+   shows the threshold is critical (𐑮) and identifies the bowtie
+   structure (𐑥), but does not compute the actual limsup. This is a
    hard analytic problem.
 
 2. **The Cramér model correction.** Maier (1985) showed the independent
    model fails for prime tuples; Granville (1995) proposed modifications.
-   The grammar encodes the model's independence (ɢ_∧) as the structural
+   The grammar encodes the model's independence (𐑝) as the structural
    defect — but does not provide the corrected model.
 
 3. **The RH-conditional gap.** Even under RH, the bound is √p·log p, not
    (log p)². Eliminating the √p factor requires structural promotions the
-   grammar identifies (Ω_Z2 → Ω_z) but cannot execute.
+   grammar identifies (𐑴 → 𐑭) but cannot execute.
 
 4. **The unconditional power.** The exponent 0.525 is a technical artifact
    of sieve methods. The grammar shows this is structurally sub-critical
-   (⊙_ž), meaning the proved bound does not even engage the critical
+   (𐑢), meaning the proved bound does not even engage the critical
    structure. Reducing 0.525 toward 0 requires analytic advances that
    the grammar can parameterize but not supply.
 
 5. **Axiom dependence.** Unlike the Hadwiger-Nelson problem (Shelah &
    Soifer 2003), Cramér's conjecture is believed to be independent of ZFC
    set-theoretic axioms — but this has not been proved. The grammar's
-   Ω_0 (no topological protection) is structurally consistent with
+   𐑷 (no topological protection) is structurally consistent with
    potential ZFC-independence, but does not prove it.
 
 ### Structural Theorems Summary
@@ -727,7 +727,7 @@ but not dischargeable from the grammar alone:
 | CR-14 | RH-Conditional O₂dag certificate | native_decide |
 | CR-15 | Unconditional O₀ certificate | native_decide |
 | CR-16 | Strict tier ordering O₀ < O₁ < O₂ | native_decide |
-| CR-17 | Ω_0 is minimal | cases + decide |
+| CR-17 | 𐑷 is minimal | cases + decide |
 | CR-18 | out below Frobenius | native_decide |
 | CR-19 through CR-22 | Sanity checks | rfl |
 | CR-23 | Cramér ↔ Twin Prime distance = 2 | native_decide |

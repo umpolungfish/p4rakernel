@@ -1,16 +1,16 @@
 -- Millennium/NS_Resolution.lean
 -- Navier-Stokes Existence and Smoothness: O_inf Structural Resolution
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- Structural resolution: NS is promoted from O₂dag (ZFCₜ tier) to O_inf
--- by establishing or' (Φ_{}) as the gauge-invariant Frobenius gate.
+-- by establishing or' (𐑹) as the gauge-invariant Frobenius gate.
 -- The parity promotion church → or' is the single tier gate;
 -- 8 primitives change in total (D, T, R, P, F, K, Γ-gram, Ω).
 --
 -- Reference: Millennium/NS_RESOLUTION_FINAL.md
 --
 -- NOTE on "6-channel promotion signature":
---   NS_RESOLUTION_FINAL.md lists [Ð_ω, Þ_O, Φ_{}, ƒ_ż, Ç_Ù, ɢ_Ş] as the key
+--   NS_RESOLUTION_FINAL.md lists [𐑦, 𐑸, 𐑹, 𐑐, 𐑪, 𐑵] as the key
 --   structural channels. The full tuple comparison gives 8 mismatches: R also
 --   changes ian→tot, and Ω changes ah→oak. Lean counts 8.
 --
@@ -38,66 +38,66 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ============================================================
 
 /-
-  Source tuple: ⟨Ð_; ; Þ_ò ; Ř_= ; Φ_ɐ ; ƒ_ì ; Ç_@ ; Γ_ʔ ; ɢ_ˌ ; ⊙_ÿ ; Ħ_! ; Σ_ï ; Ω_z⟩
+  Source tuple: ⟨𐑛 ; 𐑥 ; 𐑾 ; 𐑗 ; 𐑱 ; 𐑧 ; 𐑲 ; 𐑠 ; ⊙ ; 𐑫 ; 𐑳 ; 𐑭⟩
 
   Semantic grounding:
-    array  (Ð_;) — infinite-dimensional: unbounded field-theoretic description
-    mime (Þ_ò) — crossing: energy scales meet without closure (blow-up bottleneck)
-    ian     (Ř_=) — bidirectional: NS equations formally self-adjoint
-    church   (Φ_ɐ) — asymmetric: no global Frobenius axis; the obstruction to O_inf
-    age    (ƒ_ì) — classical analytic: L^∞ estimates without categorical exactitude
-    egg   (Ç_@) — deliberate viscous dissipation
-    ice  (Γ_ʔ) — global fine-grained: all-to-all velocity correlations
-    measure(ɢ_ˌ) — sequential: vortex stretching cascades one by one
-    monad    (⊙_ÿ) — self-dual criticality: the regularity problem is self-referential
-    wool    (Ħ_!) — inexhaustible chirality: turbulence has no memory bound
-    up      (Σ_ï) — n:m unmatched: Fourier modes vs. physical vortex structures
-    ah  (Ω_z) — integer topological degree of the velocity field
+    array  (𐑛) — infinite-dimensional: unbounded field-theoretic description
+    mime (𐑥) — crossing: energy scales meet without closure (blow-up bottleneck)
+    ian     (𐑾) — bidirectional: NS equations formally self-adjoint
+    church   (𐑗) — asymmetric: no global Frobenius axis; the obstruction to O_inf
+    age    (𐑱) — classical analytic: L^∞ estimates without categorical exactitude
+    egg   (𐑧) — deliberate viscous dissipation
+    ice  (𐑲) — global fine-grained: all-to-all velocity correlations
+    measure(𐑠) — sequential: vortex stretching cascades one by one
+    monad    (⊙) — self-dual criticality: the regularity problem is self-referential
+    wool    (𐑫) — inexhaustible chirality: turbulence has no memory bound
+    up      (𐑳) — n:m unmatched: Fourier modes vs. physical vortex structures
+    ah  (𐑭) — integer topological degree of the velocity field
 -/
 def navierStokesSource : Imscription := {
-  dim  := .array,   -- Ð_;: infinite-dimensional field theory
-  top  := .mime,  -- Þ_ò: crossing (energy-scale blow-up bottleneck)
-  rel  := .ian,      -- Ř_=: bidirectional (NS formally self-adjoint)
-  pol  := .church,    -- Φ_ɐ: asymmetric (the tier gate — no Frobenius axis)
-  fid  := .age,     -- ƒ_ì: classical analytic (L^∞ estimates)
-  kin  := .egg,    -- Ç_@: deliberate viscous dissipation
-  gran := .ice,   -- Γ_ʔ: global fine-grained correlations
-  gram := .measure, -- ɢ_ˌ: sequential vortex cascades
-  crit := .monad,     -- ⊙_ÿ: self-dual criticality (regularity is self-referential)
-  chir := .wool,     -- Ħ_!: inexhaustible chirality
-  stoi := .up,       -- Σ_ï: n:m unmatched (Fourier modes ↔ vortex structures)
-  prot := .ah }  -- Ω_z: integer topological degree
+  dim  := .array,   -- 𐑛: infinite-dimensional field theory
+  top  := .mime,  -- 𐑥: crossing (energy-scale blow-up bottleneck)
+  rel  := .ian,      -- 𐑾: bidirectional (NS formally self-adjoint)
+  pol  := .church,    -- 𐑗: asymmetric (the tier gate — no Frobenius axis)
+  fid  := .age,     -- 𐑱: classical analytic (L^∞ estimates)
+  kin  := .egg,    -- 𐑧: deliberate viscous dissipation
+  gran := .ice,   -- 𐑲: global fine-grained correlations
+  gram := .measure, -- 𐑠: sequential vortex cascades
+  crit := .monad,     -- ⊙: self-dual criticality (regularity is self-referential)
+  chir := .wool,     -- 𐑫: inexhaustible chirality
+  stoi := .up,       -- 𐑳: n:m unmatched (Fourier modes ↔ vortex structures)
+  prot := .ah }  -- 𐑭: integer topological degree
 
 /-
-  Resolved tuple: ⟨Ð_ω ; Þ_O ; Ř_ý ; Φ_{} ; ƒ_ż ; Ç_Ù ; Γ_ʔ ; ɢ_Ş ; ⊙_ÿ ; Ħ_! ; Σ_ï ; Ω_2⟩
+  Resolved tuple: ⟨𐑦 ; 𐑸 ; 𐑑 ; 𐑹 ; 𐑐 ; 𐑪 ; 𐑲 ; 𐑵 ; ⊙ ; 𐑫 ; 𐑳 ; 𐑴⟩
 
   Semantic grounding:
-    if'    (Ð_ω) — holographic: the flow is its own observer (self-written state-space)
-    are    (Þ_O) — self-referential closure: singularity formation topologically excluded
-    tot     (Ř_ý) — categorical: regularity as a natural transformation (functorial chaining)
-    or'  (Φ_{}) — Special Frobenius: μ∘δ=id at all scales; the resolution gate
-    peep    (ƒ_ż) — quantum-coherent: information content of the flow is preserved
-    on    (Ç_Ù) — kinetically trapped: singularities frozen in the smooth regime
-    ice   (Γ_ʔ) — global fine-grained: unchanged (all-to-all correlations persist)
-    ooze(ɢ_Ş) — broadcast: regularity certificate propagates to all modes at once
-    monad    (⊙_ÿ) — self-dual criticality: unchanged (self-referential gate remains open)
-    wool    (Ħ_!) — inexhaustible chirality: unchanged
-    up      (Σ_ï) — n:m unmatched: unchanged
-    oak  (Ω_2) — ℤ₂ non-Abelian winding: replaces integer winding as protection
+    if'    (𐑦) — holographic: the flow is its own observer (self-written state-space)
+    are    (𐑸) — self-referential closure: singularity formation topologically excluded
+    tot     (𐑑) — categorical: regularity as a natural transformation (functorial chaining)
+    or'  (𐑹) — Special Frobenius: μ∘δ=id at all scales; the resolution gate
+    peep    (𐑐) — quantum-coherent: information content of the flow is preserved
+    on    (𐑪) — kinetically trapped: singularities frozen in the smooth regime
+    ice   (𐑲) — global fine-grained: unchanged (all-to-all correlations persist)
+    ooze(𐑵) — broadcast: regularity certificate propagates to all modes at once
+    monad    (⊙) — self-dual criticality: unchanged (self-referential gate remains open)
+    wool    (𐑫) — inexhaustible chirality: unchanged
+    up      (𐑳) — n:m unmatched: unchanged
+    oak  (𐑴) — ℤ₂ non-Abelian winding: replaces integer winding as protection
 -/
 def navierStokesResolved : Imscription := {
-  dim  := .if',       -- Ð_ω: holographic (flow = its own observer)
-  top  := .are,       -- Þ_O: self-referential closure (blow-up topologically excluded)
-  rel  := .tot,        -- Ř_ý: categorical (regularity as natural transformation)
-  pol  := .or',     -- Φ_{}: Special Frobenius at all scales (the resolution gate)
-  fid  := .peep,       -- ƒ_ż: quantum-coherent fidelity
-  kin  := .on,       -- Ç_Ù: kinetically trapped (singularities frozen in smooth regime)
-  gran := .ice,      -- Γ_ʔ: global fine-grained (unchanged)
-  gram := .ooze,  -- ɢ_Ş: broadcast (regularity propagates to all modes)
-  crit := .monad,        -- ⊙_ÿ: self-dual criticality (unchanged)
-  chir := .wool,        -- Ħ_!: inexhaustible chirality (unchanged)
-  stoi := .up,          -- Σ_ï: n:m unmatched (unchanged)
-  prot := .oak }    -- Ω_2: ℤ₂ non-Abelian winding protection
+  dim  := .if',       -- 𐑦: holographic (flow = its own observer)
+  top  := .are,       -- 𐑸: self-referential closure (blow-up topologically excluded)
+  rel  := .tot,        -- 𐑑: categorical (regularity as natural transformation)
+  pol  := .or',     -- 𐑹: Special Frobenius at all scales (the resolution gate)
+  fid  := .peep,       -- 𐑐: quantum-coherent fidelity
+  kin  := .on,       -- 𐑪: kinetically trapped (singularities frozen in smooth regime)
+  gran := .ice,      -- 𐑲: global fine-grained (unchanged)
+  gram := .ooze,  -- 𐑵: broadcast (regularity propagates to all modes)
+  crit := .monad,        -- ⊙: self-dual criticality (unchanged)
+  chir := .wool,        -- 𐑫: inexhaustible chirality (unchanged)
+  stoi := .up,          -- 𐑳: n:m unmatched (unchanged)
+  prot := .oak }    -- 𐑴: ℤ₂ non-Abelian winding protection
 
 
 -- ============================================================

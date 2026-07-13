@@ -207,10 +207,10 @@ def bsd_profile : PromotionProfile := {
   name := "Birch–Swinnerton-Dyer"
   holobound := true   -- Modularity Theorem: L(E,s) is holographic
   lr_dual   := true   -- E(Q) ↔ L(E,s) via modular parameterization
-  pm_z2     := true   -- Φ_}: Special Frobenius at s=1
+  pm_z2     := true   -- 𐑹: Special Frobenius at s=1
   seqax     := true   -- Euler product provides sequential structure
   tempd2    := true   -- Hasse-Weil → L-function has sure
-  zwind     := true   -- Ω_z: integer winding = Mordell-Weil rank
+  zwind     := true   -- 𐑭: integer winding = Mordell-Weil rank
 }
 
 /-- Odd Perfect Numbers: 1 channel closed (seqax), 5 blocked. -/

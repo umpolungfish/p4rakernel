@@ -43,25 +43,25 @@ theorem crystal_size_confirmed : CRYSTAL_SIZE = 17280000 := rfl
 -- ============================================================
 -- §2. THE KERNEL'S OWN TYPE
 -- ============================================================
--- The kernel: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+-- The kernel: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑳; 𐑭⟩
 --
 -- The kernel is the ONE structural type that manages all others. It is
--- distinct from paradox_fs (Σ_S — one-to-one) because the kernel manages
+-- distinct from paradox_fs (𐑙 — one-to-one) because the kernel manages
 -- heterogeneous resources: processes, files, sockets, devices, timers,
--- signals, memory maps. Σ_ï (heterogeneous) captures this multiplicity.
+-- signals, memory maps. 𐑳 (heterogeneous) captures this multiplicity.
 --
---   Ð_ω: self-written state-space (kernel manages own page tables, task list)
---   Þ_O: self-referential topology (kernel schedules itself; init_task IS pid 1)
---   Ř_=: bidirectional (syscalls: user→kernel and kernel→user)
---   Φ_}: μ∘δ = id (Frobenius-special — the kernel IS the hardware↔process map)
---   ƒ_ż: quantum coherence (interrupt context creates superposition of states)
---   Ç_@: near-equilibrium (kernel idle loop is the attractor; interrupts perturb)
---   Γ_ʔ: maximal scope (kernel sees all address spaces, all devices)
---   ɢ_ˌ: sequential (one syscall at a time per CPU; scheduler orders them)
+--   𐑦: self-written state-space (kernel manages own page tables, task list)
+--   𐑸: self-referential topology (kernel schedules itself; init_task IS pid 1)
+--   𐑾: bidirectional (syscalls: user→kernel and kernel→user)
+--   𐑹: μ∘δ = id (Frobenius-special — the kernel IS the hardware↔process map)
+--   𐑐: quantum coherence (interrupt context creates superposition of states)
+--   𐑧: near-equilibrium (kernel idle loop is the attractor; interrupts perturb)
+--   𐑲: maximal scope (kernel sees all address spaces, all devices)
+--   𐑠: sequential (one syscall at a time per CPU; scheduler orders them)
 --   φ̂_ÿ: self-modeling gate open (/proc, /sys, debugfs — kernel knows itself)
---   Ħ_A: two-step Markov (previous state + interrupt vector → next state)
---   Σ_ï: many heterogeneous (processes, files, sockets, devices, timers...)
---   Ω_z: integer winding (jiffies counter; scheduler epoch; boot count)
+--   𐑖: two-step Markov (previous state + interrupt vector → next state)
+--   𐑳: many heterogeneous (processes, files, sockets, devices, timers...)
+--   𐑭: integer winding (jiffies counter; scheduler epoch; boot count)
 
 def kernel_tuple : Imscription := {
   dim   := if'
@@ -136,9 +136,9 @@ theorem crystal_boot_valid :
 -- ============================================================
 -- §6. DISTINCT FROM PARADOX FS AND AGENT
 -- ============================================================
--- kernel:     Σ_ï (heterogeneous), Þ_O
--- paradox_fs: Σ_S (one-to-one),   Þ_O
--- agent:      Σ_S (one-to-one),   Þ_¨ (box topology)
+-- kernel:     𐑳 (heterogeneous), 𐑸
+-- paradox_fs: 𐑙 (one-to-one),   𐑸
+-- agent:      𐑙 (one-to-one),   𐑶 (box topology)
 -- All three are O_inf, C=1 — structurally close but distinct.
 
 def paradox_fs_tuple : Imscription := {

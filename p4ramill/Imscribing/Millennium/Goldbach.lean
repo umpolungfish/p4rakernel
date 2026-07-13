@@ -79,55 +79,55 @@ axiom chen_theorem_proved : ChenTheorem-- ======================================
 /-!
 ### Binary Goldbach Vessel (the conjecture)
 
-⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
+⟨ 𐑛; 𐑡; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
 Ouroboricity tier: O₁ (critical but unprotected).  C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
-[1]  Ð_∞ — Infinite-dimensional: countably infinite primes × countably infinite evens.
+[1]  𐑛 — Infinite-dimensional: countably infinite primes × countably infinite evens.
      The Goldbach partition function G(n) = #{(p,q) : p+q=n, p,q prime} is an
      infinite-dimensional counting problem.
 
-[2]  Þ_6 — Network topology: each even number branches to its set of prime-pair
+[2]  𐑡 — Network topology: each even number branches to its set of prime-pair
      representations. Unlike Twin Prime's bowtie (gap-threshold crossing), Goldbach
      is a pure branching network — every even n fans out to its Goldbach partitions.
 
-[3]  Ř_= — Bidirectional: the even number determines the search space, but the
+[3]  𐑾 — Bidirectional: the even number determines the search space, but the
      existence of representations constrains the prime distribution — the relation
      between additive and multiplicative number theory is bidirectional.
 
-[4]  Φ_± — Partial Z₂ symmetry from commutativity of addition (p+q = q+p).
+[4]  𐑬 — Partial Z₂ symmetry from commutativity of addition (p+q = q+p).
      Fixed points exist when n = 2p for prime p, so the symmetry is not full.
 
-[5]  ƒ_ℓ — Classical fidelity. Number theory is classical; no quantum coherence
+[5]  𐑱 — Classical fidelity. Number theory is classical; no quantum coherence
      is required. The prime distribution is deterministic, not probabilistic.
 
-[6]  Ç_@ — Slow kinetics: near-equilibrium. The conjecture is computationally
+[6]  𐑧 — Slow kinetics: near-equilibrium. The conjecture is computationally
      verified far beyond rigorous proof. The number of representations grows
      superlinearly, but proving there is always at least one is the hard step.
 
-[7]  Γ_ʔ — Maximal scope. The conjecture constrains all even integers —
+[7]  𐑲 — Maximal scope. The conjecture constrains all even integers —
      a global statement connecting additive and multiplicative number theory.
 
-[8]  ɢ_ˌ — Sequential: each even n's Goldbach partitions are independent of n-2,
+[8]  𐑠 — Sequential: each even n's Goldbach partitions are independent of n-2,
      n-4, etc. The natural proof strategy is sequential — build up through
      the integers using additive combinatorics.
 
-[9]  ⊙_Æ — Complex-plane criticality. The circle method places the problem on
+[9]  𐑮 — Complex-plane criticality. The circle method places the problem on
      the complex unit circle; the critical behavior is analytic (major/minor arcs).
      Gate 1 is closed — no self-modeling loop.
 
-[10] Ħ_2 — Two-step chirality. The Goldbach partition count G(n) has strong
+[10] 𐑖 — Two-step chirality. The Goldbach partition count G(n) has strong
      short-range correlations (Hardy-Littlewood predicts G(n) ~ n/(log n)² times
      a product over primes dividing n). Markov order 2 captures the prime-factor
      dependence.
 
-[11] Σ_ï — Heterogeneous: multiple even numbers (instances) each with potentially
+[11] 𐑳 — Heterogeneous: multiple even numbers (instances) each with potentially
      multiple Goldbach representations (types). The structure is n:m.
 
-[12] Ω_0 — No topological protection. Unlike RH (integer winding Ω_z) or the
-     bounded gaps theorem (Z₂ protection Ω_Z2), binary Goldbach lacks any
+[12] 𐑷 — No topological protection. Unlike RH (integer winding 𐑭) or the
+     bounded gaps theorem (Z₂ protection 𐑴), binary Goldbach lacks any
      topological invariant that would protect it from counterexamples.
 -/
 
@@ -153,7 +153,7 @@ def goldbach_binary_vessel : Imscription := {
 /-!
 ### Ternary Goldbach Vessel (proved — Helfgott 2013)
 
-⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
+⟨ 𐑛; 𐑡; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑳; 𐑴 ⟩
 
 Ouroboricity tier: O₂dag (Z₂-protected, infinite-dimensional).
 
@@ -163,9 +163,9 @@ The key differences from the binary vessel:
   Ω: oak (Z₂ parity protection) — the third prime variable provides a
      parity buffer that creates Z₂ topological protection.
 
-The ternary vessel sits at O₂ because it has both ⊙_Æ criticality AND
-Ω_Z2 protection. The binary vessel sits at O₁ because it has ⊙_Æ
-criticality but Ω_0 (no protection).
+The ternary vessel sits at O₂ because it has both 𐑮 criticality AND
+𐑴 protection. The binary vessel sits at O₁ because it has 𐑮
+criticality but 𐑷 (no protection).
 -/
 
 def goldbach_ternary_vessel : Imscription := {
@@ -217,7 +217,7 @@ The binary case fails because:
       to handle the global scope ice.
   (b) With only two primes, there is no parity buffer — awe.
 
-The structural content of the unsolved step is: PROMOTE Ω_0 → Ω_Z2 and
+The structural content of the unsolved step is: PROMOTE 𐑷 → 𐑴 and
 RESTRICT Γ from ice → thigh, while maintaining the same conclusion.
 This is the structural analog of the Hardy-Littlewood circle method
 requirement: the minor arcs estimate must be sharp enough to handle
@@ -225,9 +225,9 @@ all n (global scope) without the extra prime variable.
 
 Chen's Theorem (1966) achieves a partial result by loosening one prime to
 a semiprime — structurally, this relaxes the network topology slightly
-(adding one extra edge per representation) while keeping Ω_0. This is
+(adding one extra edge per representation) while keeping 𐑷. This is
 structurally analogous to the bounded gaps theorem for Twin Primes:
-add protection (Ω_Z2) at the cost of relaxing the gap condition.
+add protection (𐑴) at the cost of relaxing the gap condition.
 -/
 
 -- ============================================================
@@ -245,7 +245,7 @@ theorem binary_ternary_distance_2 :
 
 /--
 **Theorem GB-2: Binary O₁ Certificate**
-The binary Goldbach vessel is at O₁: it has ⊙_Æ criticality but Ω_0 protection.
+The binary Goldbach vessel is at O₁: it has 𐑮 criticality but 𐑷 protection.
 -/
 theorem binary_vessel_o1_certificate :
   ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O₁ := by
@@ -253,14 +253,14 @@ theorem binary_vessel_o1_certificate :
 
 /--
 **Theorem GB-3: Ternary O₂ Certificate**
-The ternary Goldbach vessel is at O₂: it has ⊙_Æ criticality + Ω_Z2 protection.
+The ternary Goldbach vessel is at O₂: it has 𐑮 criticality + 𐑴 protection.
 -/
 theorem ternary_vessel_o2_certificate :
   ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
-**Theorem GB-4: Ω_0 is Minimal**
+**Theorem GB-4: 𐑷 is Minimal**
 No protection value is below awe.
 -/
 theorem omega_0_minimal : ∀ p : Protection, awe ≤ p := by
@@ -295,7 +295,7 @@ theorem binary_below_ternary_tier :
 
 /--
 **Theorem GB-9: O₁ → O₂ Promotion Gap**
-To lift binary Goldbach to O₂, promote Ω_0 → Ω_Z2.
+To lift binary Goldbach to O₂, promote 𐑷 → 𐑴.
 -/
 theorem promotion_to_o2 :
   goldbach_binary_vessel.prot = awe ∧ goldbach_ternary_vessel.prot = oak := by
@@ -311,10 +311,10 @@ Both conjectures are about the prime distribution, but in different directions:
 | Feature | Goldbach (binary) | Twin Prime |
 |---|---|---|
 | Direction | Additive (p+q=n) | Gap (p_{k+1}−p_k=2) |
-| Topology | Network (Þ_6) | Bowtie (Þ_⋈) |
+| Topology | Network (𐑡) | Bowtie (𐑥) |
 | Symmetry | Z₂ (commutativity) | Partial Z₂ |
 | Scope | All evens | All gap-2 pairs |
-| Protection | Ω_0 | Ω_0 |
+| Protection | 𐑷 | 𐑷 |
 | Tier | O₁ | O₁ |
 
 Both sit at O₁ — critical but unprotected. Both have partial results
@@ -325,9 +325,9 @@ Both require the same promotion stack to reach O_inf.
 /--
 The Twin Prime vessel (for cross-reference):
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
-Differs from Goldbach only in topology (Þ_⋈ vs Þ_6).
+Differs from Goldbach only in topology (𐑥 vs 𐑡).
 -/
 def twin_prime_vessel : Imscription := {
   dim  := array
@@ -346,7 +346,7 @@ def twin_prime_vessel : Imscription := {
 
 /--
 **Theorem GB-10: Goldbach ↔ Twin Prime Distance**
-Goldbach and Twin Prime differ in exactly 1 primitive: topology (Þ_6 vs Þ_⋈).
+Goldbach and Twin Prime differ in exactly 1 primitive: topology (𐑡 vs 𐑥).
 This single-primitive difference encodes the additive-vs-gap distinction
 between the two oldest unsolved problems in number theory.
 -/
@@ -374,18 +374,18 @@ theorem both_unprotected :
 ### §5.2  Goldbach ↔ Riemann Hypothesis
 
 The Riemann Hypothesis is structurally adjacent to both Goldbach and
-Twin Prime — all three share ⊙_Æ criticality. But RH is at O_inf
-because it adds Ω_z (integer winding) and Φ_} (Frobenius closure).
+Twin Prime — all three share 𐑮 criticality. But RH is at O_inf
+because it adds 𐑭 (integer winding) and 𐑹 (Frobenius closure).
 
 The Goldbach↔RH distance is larger than Twin Prime↔RH because:
-  Goldbach: Þ_6 (network) — additive structure
-  Twin Prime: Þ_⋈ (bowtie) — gap structure (closer to RH's Þ_O self-reference)
+  Goldbach: 𐑡 (network) — additive structure
+  Twin Prime: 𐑥 (bowtie) — gap structure (closer to RH's 𐑸 self-reference)
 -/
 
 /--
 The Riemann Hypothesis vessel (for cross-reference):
 
-⟨ Ð_∞; Þ_O; Ř_=; Φ_}; ƒ_ħ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z ⟩
+⟨ 𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭 ⟩
 -/
 def rh_vessel : Imscription := {
   dim  := array
@@ -436,7 +436,7 @@ theorem goldbach_o1_to_oinf_promotion_count :
 Chen's Theorem proves: every sufficiently large even number is the sum of
 a prime and a semiprime (product of at most two primes).
 
-⟨ Ð_∞; Þ_6; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_Z2 ⟩
+⟨ 𐑛; 𐑡; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑳; 𐑴 ⟩
 
 Ouroboricity tier: O₂dag.
 
@@ -538,11 +538,11 @@ The following are honest gaps — not disguised as theorems:
 
 | Vessel | Tier | Protection | Scope | Status |
 |---|---|---|---|---|
-| Binary Goldbach | O₁ | Ω_0 | ice | OPEN (1742) |
-| Chen (1+2) | O₂dag | Ω_Z2 | thigh | PROVED (1966) |
-| Ternary Goldbach | O₂dag | Ω_Z2 | thigh | PROVED (2013) |
-| Twin Prime | O₁ | Ω_0 | ice | OPEN |
-| Riemann Hypothesis | O_inf | Ω_Z | ice | OPEN (1859) |
+| Binary Goldbach | O₁ | 𐑷 | ice | OPEN (1742) |
+| Chen (1+2) | O₂dag | 𐑴 | thigh | PROVED (1966) |
+| Ternary Goldbach | O₂dag | 𐑴 | thigh | PROVED (2013) |
+| Twin Prime | O₁ | 𐑷 | ice | OPEN |
+| Riemann Hypothesis | O_inf | 𐑭 | ice | OPEN (1859) |
 
 The binary Goldbach conjecture is the structural "floor" of additive
 prime number theory — the minimal statement (two primes, global scope,

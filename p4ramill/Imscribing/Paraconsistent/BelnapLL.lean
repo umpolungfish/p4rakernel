@@ -2,7 +2,7 @@
 -- BELNAP LINEAR LOGIC — Resource-sensitive paraconsistent logic.
 -- B = !A (exponential), T = A (linear positive), F = A⊥ (linear negative), N = 0.
 -- The kernel cycle is the proof of the exponential isomorphism !T ≅ T ⊗ T⊥.
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.Kernel

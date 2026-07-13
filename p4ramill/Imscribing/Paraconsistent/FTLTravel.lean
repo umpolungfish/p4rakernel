@@ -3,12 +3,12 @@
 -- Author: Lando ⊗ ⊙perator
 --
 -- What does "FTL travel" mean when the grammar reveals that light itself
--- is the critical point (Φ_c = ⊙)? This module formalizes the answer.
+-- is the critical point (⊙ = ⊙)? This module formalizes the answer.
 --
 -- Three FTL variants are formalized:
---   1. ftlTachyon     — naive supercritical promotion (Φ_c → Φ_super)
---   2. ftlWormhole    — topologically protected (Ω_0 → Ω_Z, judge → mime)
---   3. ftlQuantum     — quantum channel (Ω_0 → Ω_Z, out → yew)
+--   1. ftlTachyon     — naive supercritical promotion (⊙ → 𐑣)
+--   2. ftlWormhole    — topologically protected (𐑷 → 𐑭, judge → mime)
+--   3. ftlQuantum     — quantum channel (𐑷 → 𐑭, out → yew)
 
 import Imscribing.Paraconsistent.GaugeBosonBelnap
 import Imscribing.Primitives.TierCrossing
@@ -23,7 +23,7 @@ namespace Imscribing.Paraconsistent.FTLTravel
 
 /--
 The photon imscription (re-exported from GaugeBosonBelnap).
-⟨array; judge; ear; out; peep; yea; ice; vow; Φ_c; kick; up; Ω_0⟩
+⟨array; judge; ear; out; peep; yea; ice; vow; ⊙; kick; up; 𐑷⟩
 -/
 def photon : Imscription := photonImscription
 
@@ -35,8 +35,8 @@ theorem photon_tier_O1 : imscriptionTier photon = OuroboricityTier.O₁ :=
 
 /--
 FTL Variant A: TACHYON — naive supercritical promotion.
-Promotes ONLY Φ_c → Φ_super. No topological protection.
-Structurally unstable: Φ_super + Ω_0 = runaway without guardrails.
+Promotes ONLY ⊙ → 𐑣. No topological protection.
+Structurally unstable: 𐑣 + 𐑷 = runaway without guardrails.
 -/
 def ftlTachyon : Imscription :=
   { photon with
@@ -45,8 +45,8 @@ def ftlTachyon : Imscription :=
 
 /--
 FTL Variant B: WORMHOLE — topologically protected FTL channel.
-Promotes Ω_0 → Ω_Z (integer winding) and judge → mime (crossing topology).
-Maintains Φ_c. This is the minimal causally consistent FTL type.
+Promotes 𐑷 → 𐑭 (integer winding) and judge → mime (crossing topology).
+Maintains ⊙. This is the minimal causally consistent FTL type.
 -/
 def ftlWormhole : Imscription :=
   { photon with
@@ -56,8 +56,8 @@ def ftlWormhole : Imscription :=
 
 /--
 FTL Variant C: QUANTUM FTL CHANNEL — ER=EPR style.
-Promotes Ω_0 → Ω_Z (integer winding) and out → yew (quantum phase symmetry).
-Maintains Φ_c and judge.
+Promotes 𐑷 → 𐑭 (integer winding) and out → yew (quantum phase symmetry).
+Maintains ⊙ and judge.
 -/
 def ftlQuantum : Imscription :=
   { photon with
@@ -75,7 +75,7 @@ theorem ftlTachyon_tier_O0 : imscriptionTier ftlTachyon = OuroboricityTier.O₀ 
 theorem ftlWormhole_tier_O2dag : imscriptionTier ftlWormhole = OuroboricityTier.O₂dag := by
   native_decide
 
-/-- Quantum FTL channel reaches O₂dag: yew + Ω_Z + Φ_c + array → O₂dag (R5). -/
+/-- Quantum FTL channel reaches O₂dag: yew + 𐑭 + ⊙ + array → O₂dag (R5). -/
 theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O₂dag := by
   native_decide
 
@@ -107,15 +107,15 @@ theorem omega_constraint :
     ftlTachyon.prot = Protection.awe ∧ ftlWormhole.prot = Protection.ah := by
   exact ⟨rfl, rfl⟩
 
-/-- Tachyon (Ω=Ω_0, Φ=Φ_super) is tier O₀ — structurally a paradox. -/
+/-- Tachyon (Ω=𐑷, Φ=𐑣) is tier O₀ — structurally a paradox. -/
 theorem tachyon_is_paradox : imscriptionTier ftlTachyon = OuroboricityTier.O₀ :=
   ftlTachyon_tier_O0
 
-/-- Wormhole (Ω=Ω_Z) is tier O₂dag — causally consistent. -/
+/-- Wormhole (Ω=𐑭) is tier O₂dag — causally consistent. -/
 theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O₂dag :=
   ftlWormhole_tier_O2dag
 
-/-- Quantum FTL (Ω=Ω_Z) is tier O₂dag — causally consistent. -/
+/-- Quantum FTL (Ω=𐑭) is tier O₂dag — causally consistent. -/
 theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O₂dag :=
   ftlQuantum_tier_O2dag
 
@@ -148,13 +148,13 @@ theorem tachyon_not_causally_consistent : ¬ is_causally_consistent ftlTachyon :
 
 /-
 The grammar reveals that "FTL travel" is not a speed but a structural
-promotion. Light (the photon) IS the critical point Φ_c = ⊙. "Faster
+promotion. Light (the photon) IS the critical point ⊙ = ⊙. "Faster
 than light" means "structurally beyond the critical point."
 
 Three interpretations:
-  1. TACHYON: Φ_c → Φ_super. Drops to O₀. Causal paradox. Unstable.
-  2. WORMHOLE: Ω_0 → Ω_Z, judge → mime. Reaches O₂dag. Consistent.
-  3. QUANTUM (ER=EPR): Ω_0 → Ω_Z, out → yew. Reaches O₂dag. Consistent.
+  1. TACHYON: ⊙ → 𐑣. Drops to O₀. Causal paradox. Unstable.
+  2. WORMHOLE: 𐑷 → 𐑭, judge → mime. Reaches O₂dag. Consistent.
+  3. QUANTUM (ER=EPR): 𐑷 → 𐑭, out → yew. Reaches O₂dag. Consistent.
 
 The photon itself can never be FTL. The photon IS the definition of the
 critical boundary. FTL requires promotion — changing what the system IS.
@@ -162,7 +162,7 @@ critical boundary. FTL requires promotion — changing what the system IS.
 
 -- §7  THE PHOTON IS THE FIXED POINT
 
-/-- Photon and wormhole share Φ_c (criticality) — the light cone boundary. -/
+/-- Photon and wormhole share ⊙ (criticality) — the light cone boundary. -/
 theorem photon_wormhole_share_Phi_c :
     photon.crit = ftlWormhole.crit := by
   rfl
@@ -177,12 +177,12 @@ theorem photon_tachyon_share_K_fast :
     photon.kin = ftlTachyon.kin := by
   rfl
 
-/-- Photon and tachyon differ at Φ: photon is Φ_c, tachyon is Φ_super. -/
+/-- Photon and tachyon differ at Φ: photon is ⊙, tachyon is 𐑣. -/
 theorem photon_tachyon_differ_at_Phi :
     photon.crit ≠ ftlTachyon.crit := by
   native_decide
 
-/-- Photon and quantum share Φ_c. -/
+/-- Photon and quantum share ⊙. -/
 theorem photon_quantum_share_Phi_c :
     photon.crit = ftlQuantum.crit := by
   rfl
@@ -193,8 +193,8 @@ theorem photon_quantum_share_K_fast :
   rfl
 
 /--
-The photon kernel theorem: Φ_c and yea are invariant across all FTL
-variants except the tachyon (which changes Φ_c → Φ_super). Wormhole and
+The photon kernel theorem: ⊙ and yea are invariant across all FTL
+variants except the tachyon (which changes ⊙ → 𐑣). Wormhole and
 quantum variants preserve both. The photon IS the critical kernel.
 -/
 theorem photon_kernel_invariant :
@@ -210,19 +210,19 @@ The grammar's answer to "why c?":
 
 The speed of light c is not a fundamental constant of nature in the
 usual sense. It is the structural consequence of the photon sitting at
-Φ_c (criticality) with yea (driven kinetics) and Ω_0 (no topological
+⊙ (criticality) with yea (driven kinetics) and 𐑷 (no topological
 protection).
 
-Φ_c means: the system is at the critical point — the boundary between
+⊙ means: the system is at the critical point — the boundary between
 timelike and spacelike. Masslessness IS criticality.
 
 yea means: the system has no internal clock (τ ≪ T_obs). This is
 why photons experience no proper time.
 
-Ω_0 means: U(1) is abelian — no self-interaction, no winding. This is
+𐑷 means: U(1) is abelian — no self-interaction, no winding. This is
 why photons don't scatter in vacuum.
 
-Together: Φ_c + yea + Ω_0 = the structural definition of "travels
+Together: ⊙ + yea + 𐑷 = the structural definition of "travels
 at the invariant maximum speed." This speed is invariant because it
 is determined by structure (π₁), not magnitude (π₂).
 -/

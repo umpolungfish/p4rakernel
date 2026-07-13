@@ -214,7 +214,7 @@ theorem partial_zero_free_does_not_suffice (δ : ℝ) (_ : 0 < δ) :
   fun _ h => h  -- The ZeroFreeStrip δ hypothesis gives no help toward ZeroFreeStrip 0.
 
 -- ============================================================-- §6. PRIMITIVE-ALGEBRAIC INTERPRETATION
--- The grammar reveals why RH is at Φ_c^ℂ, not Φ_c; at nun, not or'.
+-- The grammar reveals why RH is at 𐑮, not ⊙; at nun, not or'.
 -- ============================================================
 
 open Imscribing.Primitives
@@ -225,9 +225,9 @@ open Dimensionality Topology Relational Polarity Grammar
 /-- **The ζ function's criticality is complex, not real.**
     RH asks about zeros on Re(s) = 1/2, which is the *imaginary*-axis critical
     phenomenon. The functional equation s ↦ 1-s is a complex reflection.
-    The real-axis criticality Φ_c governs Hermitian phase transitions (Ising, QCD).
-    The complex-axis criticality Φ_c^ℂ governs analytic continuation phenomena.
-    ζ sits at Φ_c^ℂ because its nontrivial zeros require complex s. -/
+    The real-axis criticality ⊙ governs Hermitian phase transitions (Ising, QCD).
+    The complex-axis criticality 𐑮 governs analytic continuation phenomena.
+    ζ sits at 𐑮 because its nontrivial zeros require complex s. -/
 theorem rh_criticality_is_complex :
     Criticality.roar ≠ Criticality.monad := by
   decide

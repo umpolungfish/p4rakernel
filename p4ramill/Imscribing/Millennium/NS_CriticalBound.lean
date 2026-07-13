@@ -315,7 +315,7 @@ Channel 2: LR_DUAL (Ř: ado → ian)
   B_F(u,v) = ⟨weak_u, strong_v⟩. Positive definiteness gives the bound.
   → ‖u(t)‖_{H^{1/2}} = ‖u₀‖_{H^{1/2}} (from duality invariance)
 
-Channel 3: PM_Z2 (Φ: church → or' → Φ_})
+Channel 3: PM_Z2 (Φ: church → or' → 𐑹)
   The parity reflection P(u)(x) = -u(-x) commutes with the NS flow.
   The Frobenius operator F IS the parity reflection on the critical manifold.
   F² = id (parity is an involution). The critical norm is P-invariant.
@@ -504,7 +504,7 @@ The Frobenius-critical manifold is structurally encoded in the ZFCₛ framework.
 ZFCₛ promotes spatial isotropy to or' (Frobenius condition), which is
 exactly the condition that F² = id on the critical Sobolev space.
 
-The connection: ZFCₛ.pol = or' (Φ_}) means the Frobenius gate is open
+The connection: ZFCₛ.pol = or' (𐑹) means the Frobenius gate is open
 for spatially isotropic systems. The NS equations in ℝ³ are fully rotationally
 symmetric — they are spatially isotropic. Therefore, by ZFCₛ, the Frobenius
 gate is open: NS carries the Frobenius structure μ∘δ = id.

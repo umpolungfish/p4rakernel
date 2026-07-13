@@ -1,8 +1,8 @@
 -- Imscribing/PrimitiveMismatch.lean
 -- Formalizes the five temporal primitive diagnostics from the task:
 --   1. Measurement problem as yew vs church mismatch
---   2. Wick rotation as Γ_seq → egg primitive substitution
---   3. Berry phase as Ω_ℤ emergent vs constitutive
+--   2. Wick rotation as 𐑠 → egg primitive substitution
+--   3. Berry phase as 𐑭 emergent vs constitutive
 --   4. H_∞ line: genuine memory vs Markovian approximation
 --   5. Temporal primitive sorting of physics problems
 --
@@ -23,7 +23,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- Catalog entries (verified via encode_system)
 -- ============================================================
 
-/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_sub; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; 𐑠; 𐑢; H₁; 1:1; Ω₀⟩ -/
 def schrodingerDynamics : Imscription := {
   dim  := ash
   top  := eat
@@ -39,7 +39,7 @@ def schrodingerDynamics : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_†; church; F_ℓ; yea; bib; Γ_seq; Φ_c; H₀; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_†; church; F_ℓ; yea; bib; 𐑠; ⊙; H₀; 1:1; Ω₀⟩ -/
 def measurementOutcome : Imscription := {
   dim  := ash
   top  := mime
@@ -55,7 +55,7 @@ def measurementOutcome : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; egg; ice; Γ_seq; Φ_c; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; egg; ice; 𐑠; ⊙; H₁; 1:1; Ω₀⟩ -/
 def wickRotation : Imscription := {
   dim  := ash
   top  := mime
@@ -71,7 +71,7 @@ def wickRotation : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_sub; H₁; 1:1; Ω_ℤ⟩ -/
+/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; 𐑠; 𐑢; H₁; 1:1; 𐑭⟩ -/
 def berryPhase : Imscription := {
   dim  := ash
   top  := eat
@@ -87,7 +87,7 @@ def berryPhase : Imscription := {
   prot := ah
 }
 
-/-- ⟨D_∞; T_⊙; tot; P_ψ; F_ℏ; egg; ice; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
+/-- ⟨D_∞; T_⊙; tot; P_ψ; F_ℏ; egg; ice; 𐑠; ⊙; H_∞; n:m; 𐑭⟩ -/
 def tqft : Imscription := {
   dim  := array
   top  := are
@@ -103,7 +103,7 @@ def tqft : Imscription := {
   prot := ah
 }
 
-/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; loll; thigh; Γ_seq; Φ_c; H_∞; n:m; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; loll; thigh; 𐑠; ⊙; H_∞; n:m; Ω₀⟩ -/
 def nonmarkovianOpenSystems : Imscription := {
   dim  := array
   top  := judge
@@ -119,7 +119,7 @@ def nonmarkovianOpenSystems : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_∞; T_net; R_sup; church; F_ϑ; egg; ice; Γ_∧; Φ_c; H₁; n:n; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_sup; church; F_ϑ; egg; ice; 𐑝; ⊙; H₁; n:n; Ω₀⟩ -/
 def statisticalMechanics : Imscription := {
   dim  := array
   top  := judge
@@ -135,7 +135,7 @@ def statisticalMechanics : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_∞; T_⊙; R_↔; church; F_ℏ; egg; ice; Γ_seq; Φ_c; H_∞; n:m; Ω_ℤ⟩ -/
+/-- ⟨D_∞; T_⊙; R_↔; church; F_ℏ; egg; ice; 𐑠; ⊙; H_∞; n:m; 𐑭⟩ -/
 def quantumGravityCandidate : Imscription := {
   dim  := array
   top  := are
@@ -157,7 +157,7 @@ def quantumGravityCandidate : Imscription := {
 
 /-- The measurement problem as primitive mismatch: Schrödinger dynamics carries
 yew (reversible superposition) while measurement outcomes require church
-(irreversible collapse). No mechanism within Γ_seq + egg + yew can
+(irreversible collapse). No mechanism within 𐑠 + egg + yew can
 produce church. -/
 theorem measurement_p_mismatch :
   schrodingerDynamics.pol = yew ∧
@@ -182,7 +182,7 @@ theorem measurement_problem_is_structural :
   constructor
   · simp only [tensorProduct, schrodingerDynamics, measurementOutcome, compare]; decide
   · simp only [schrodingerDynamics]; intro h; cases h
-/-- The Wick rotation t → -iτ converts Γ_seq (directed sequential evolution)
+/-- The Wick rotation t → -iτ converts 𐑠 (directed sequential evolution)
 into egg (relaxation/equilibration). In primitive terms: it converts
 peep → they (quantum coherence → thermal weight). -/
 def wickRotate (st : Imscription) : Imscription :=
@@ -200,11 +200,11 @@ theorem wick_rotation_single_primitive_change :
   simp [primitiveMismatches, wickRotate, schrodingerDynamics]
 
 -- ============================================================
--- 3. Berry Phase as Ω_ℤ: Emergent vs Constitutive
+-- 3. Berry Phase as 𐑭: Emergent vs Constitutive
 -- ============================================================
 
-/-- Berry phase carries Ω_ℤ as a byproduct of adiabaticity (egg).
-TQFT promotes Ω_ℤ to a constitutive primitive (paired with are, wool). -/
+/-- Berry phase carries 𐑭 as a byproduct of adiabaticity (egg).
+TQFT promotes 𐑭 to a constitutive primitive (paired with are, wool). -/
 def omegaIsConstitutive (st : Imscription) : Prop :=
   st.prot = ah ∧ st.top = are
 
@@ -219,7 +219,7 @@ theorem tqft_omega_constitutive : omegaIsConstitutive tqft := by
 
 /-- The key structural differences between Berry phase and TQFT:
 T differs (eat vs are), H differs (kick vs wool), D differs (ash vs array),
-S differs (hung vs up). Omega is shared (both Ω_ℤ). -/
+S differs (hung vs up). Omega is shared (both 𐑭). -/
 theorem berry_vs_tqft_key_deltas :
   berryPhase.top = eat ∧
   tqft.top = are ∧
@@ -265,10 +265,10 @@ theorem memory_is_distinct_regime :
 -- ============================================================
 
 inductive TemporalPrimitive where
-  | gammaSeq  -- Γ_seq: sequential composition
+  | gammaSeq  -- 𐑠: sequential composition
   | kSlow     -- egg: relaxation/adiabatic timescale
   | pAsym     -- church: irreversibility/parity breaking
-  | omegaZ    -- Ω_ℤ: integer winding/topological protection
+  | omegaZ    -- 𐑭: integer winding/topological protection
   | hInf      -- H_∞: genuine memory/history dependence
   deriving DecidableEq, Repr
 
@@ -303,20 +303,20 @@ theorem schrodinger_complexity_2 : temporalComplexity schrodingerDynamics = 2 :=
 theorem quantum_gravity_complexity_5 : temporalComplexity quantumGravityCandidate = 5 := by
   simp [temporalComplexity, activatedTemporalPrimitives, activateTemporalPrimitive, quantumGravityCandidate]
 
-/-- Statistical mechanics activates: Γ_seq, egg, church. -/
+/-- Statistical mechanics activates: 𐑠, egg, church. -/
 theorem stat_mech_complexity_3 :
   activatedTemporalPrimitives statisticalMechanics = [.kSlow, .pAsym] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, statisticalMechanics]
   decide
 
-/-- TQFT activates: Γ_seq, egg, Ω_ℤ. -/
+/-- TQFT activates: 𐑠, egg, 𐑭. -/
 theorem tqft_temporal_set :
   activatedTemporalPrimitives tqft = [.gammaSeq, .kSlow, .omegaZ, .hInf] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, tqft]
   decide
 
-/-- Non-Markovian open systems activate: Γ_seq, egg (via loll? no), H_∞.
-loll ≠ egg so only Γ_seq and H_∞. -/
+/-- Non-Markovian open systems activate: 𐑠, egg (via loll? no), H_∞.
+loll ≠ egg so only 𐑠 and H_∞. -/
 theorem nonmarkovian_temporal_set :
   activatedTemporalPrimitives nonmarkovianOpenSystems = [.gammaSeq, .hInf] := by
   simp only [activatedTemporalPrimitives, activateTemporalPrimitive, nonmarkovianOpenSystems]
@@ -368,7 +368,7 @@ theorem measurement_tensor_result :
   (tensorProduct schrodingerDynamics measurementOutcome).chir = kick := by
   simp only [tensorProduct, schrodingerDynamics, measurementOutcome]
   simp only [tensorProduct, schrodingerDynamics, measurementOutcome, compare]; decide
-/-- No mechanism operating purely within Γ_seq + egg with yew
+/-- No mechanism operating purely within 𐑠 + egg with yew
 can produce church — the measurement problem diagnosis. -/
 theorem no_asym_from_psi :
   ∀ (mech : Imscribing.Primitives.Imscription),

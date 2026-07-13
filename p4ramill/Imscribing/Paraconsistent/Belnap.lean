@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/Belnap.lean
 -- BELNAP FOUR-VALUED LOGIC — The logical substrate of the paraconsistent kernel.
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 namespace Imscribing.Paraconsistent
 

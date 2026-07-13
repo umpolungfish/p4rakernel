@@ -25,18 +25,18 @@ set_option linter.style.whitespace false
     Crystal address: 16,809,848. All values verified. -/
 def grammarTuple : Imscription :=
   Imscription.mk
-    if'      -- Ð_ω: holographic
-    are      -- Þ_¨: imscriptive closure
-    ian        -- Ř_=: bidirectional
-    or'    -- Φ_}: Frobenius-special
-    peep      -- ƒ_ż: quantum coherence
-    egg      -- Ç_@: slow kinetics
-    ice     -- Γ_ʔ: maximal scope
-    ooze -- ɢ_ˌ: broadcast
-    monad       -- ⊙_ÿ: self-modeling
-    sure          -- Ħ_A: 2-step Markov
-    up         -- Σ_S: many heterogeneous
-    ah     -- Ω_z: integer winding
+    if'      -- 𐑦: holographic
+    are      -- 𐑶: imscriptive closure
+    ian        -- 𐑾: bidirectional
+    or'    -- 𐑹: Frobenius-special
+    peep      -- 𐑐: quantum coherence
+    egg      -- 𐑧: slow kinetics
+    ice     -- 𐑲: maximal scope
+    ooze -- 𐑠: broadcast
+    monad       -- ⊙: self-modeling
+    sure          -- 𐑖: 2-step Markov
+    up         -- 𐑙: many heterogeneous
+    ah     -- 𐑭: integer winding
 
 /-- Grammar type crystal address. -/
 theorem grammar_crystal_addr : crystal_encode grammarTuple = 16809848 := by

@@ -97,17 +97,17 @@ def Tao_LogGap : Prop :=
 /--
 The Vessel of the Lonely Runner Conjecture — its structural type as an Imscription.
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_υ; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑿; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
 Primitive justifications:
 
-[1]  Ð_∞ — Infinite-dimensional state space. The runners' positions live on
+[1]  𐑛 — Infinite-dimensional state space. The runners' positions live on
      the k-torus T^k = (S¹)^k, a compact manifold of dimension k that grows
      with k. For the full conjecture (∀ k), the state space is effectively
      infinite-dimensional. Even for fixed k, the space of speed vectors is
      ℝ⁺⁺ᵏ (an open subset of ℝᵏ), making this a continuous-parameter problem.
 
-[2]  Þ_⋈ — Crossing topology (bowtie / figure-8). The conjecture sits at a
+[2]  𐑥 — Crossing topology (bowtie / figure-8). The conjecture sits at a
      structural bifurcation:
        - One loop: k ≤ 7 — PROVED via explicit covering arguments.
        - Other loop: k ≥ 8 — OPEN; the covering number exceeds the dimension.
@@ -117,13 +117,13 @@ Primitive justifications:
      This is the same bowtie structure as the Twin Prime Conjecture, but the
      threshold is between k=7 and k=8 rather than gap=246 and gap=2.
 
-[3]  Ř_= — Bidirectional (lateral). Speed choice and loneliness condition are
+[3]  𐑾 — Bidirectional (lateral). Speed choice and loneliness condition are
      symmetrically coupled: changing speeds changes the loneliness time, and
      the loneliness condition constrains admissible speed vectors. This is not
      a one-way implication but a mutual constraint between speed space and
      time space. ian.
 
-[4]  Φ_υ — Full symmetry. The conjecture has multiple symmetry groups:
+[4]  𐑿 — Full symmetry. The conjecture has multiple symmetry groups:
      (a) permutation symmetry: any reordering of runners is equivalent;
      (b) scaling symmetry: multiplying all speeds by a common factor λ > 0
          just rescales time (t → t/λ), leaving the existence invariant;
@@ -131,47 +131,47 @@ Primitive justifications:
          gives an equivalent configuration.
      All symmetries are unbroken — nun, not or' (no Frobenius closure).
 
-[5]  ƒ_ℓ — Classical fidelity. The problem is purely about real numbers on a
+[5]  𐑱 — Classical fidelity. The problem is purely about real numbers on a
      circle — deterministic kinematics, no probability, no quantum coherence.
      age.
 
-[6]  Ç_@ — Slow kinetics. The conjecture has resisted proof since 1967 (58 years).
+[6]  𐑧 — Slow kinetics. The conjecture has resisted proof since 1967 (58 years).
      Progress per k is hard-won (k=3 in 1967→1973, k=4 in 1998, k=5 in 2008,
      k=6-7 in 2009). Each step requires new combinatorial or geometric insight.
      τ ≫ T. egg.
 
-[7]  Γ_ʔ — Maximal scope. The conjecture must hold for ALL distinct speed vectors
+[7]  𐑲 — Maximal scope. The conjecture must hold for ALL distinct speed vectors
      — a universal quantifier over an infinite-dimensional parameter space.
      The Tao log-gap reduction shows: the hard case is when speeds are
      multiplicatively close, which is a global (all-runners) condition.
      ice.
 
-[8]  ɢ_ˌ — Sequential interaction. The runners evolve in time order; the
+[8]  𐑠 — Sequential interaction. The runners evolve in time order; the
      loneliness condition is checked at a single time t, but that t emerges
      from the sequential dynamics of the k trajectories on T^k. measure.
 
-[9]  ⊙_Æ — Complex-plane criticality. The threshold 1/k is a sharp phase
+[9]  𐑮 — Complex-plane criticality. The threshold 1/k is a sharp phase
      boundary: at distance d < 1/k the conjecture is FALSE (counterexamples
      exist with speeds forming an arithmetic progression), while at distance
      d = 1/k it is CONJECTURED TRUE. The 1/k bound lies on a critical line
      in parameter space — analogous to the Lee-Yang circle theorem or the
      critical line Re(s)=1/2 for the Riemann zeta function. roar.
 
-[10] Ħ_2 — Two-step chirality. The loneliness of each runner depends on its
+[10] 𐑖 — Two-step chirality. The loneliness of each runner depends on its
      own distance from the origin, which is a one-step (current-position)
      property. However, the constraint that ALL k runners are simultaneously
      lonely creates a pairwise interaction (runner i lonely AND runner j lonely
      at the SAME time t). This is a 2-local condition — sure.
 
-[11] Σ_ï — Heterogeneous stoichiometry. The runners have distinct speeds,
+[11] 𐑳 — Heterogeneous stoichiometry. The runners have distinct speeds,
      making them non-interchangeable entities. Even though the conjecture is
      symmetric under permutation, the speeds themselves are heterogeneous.
      This is up.
 
-[12] Ω_0 — No topological protection. The problem has no known topological
+[12] 𐑷 — No topological protection. The problem has no known topological
      invariant that guarantees a loneliness time. The torus T^k has rich
      topology (π₁ = ℤᵏ), but the conjecture does not assert a topological
-     property — it is a covering/existence claim. Without Ω_Z or Ω_Z2,
+     property — it is a covering/existence claim. Without 𐑭 or 𐑴,
      the loneliness pattern has no topological persistence. awe.
 -/
 def lonely_runner_vessel : Imscription := {
@@ -203,7 +203,7 @@ example : lonely_runner_vessel.chir = sure := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (mime) encodes the threshold at k=8:
+  The crossing topology 𐑥 (mime) encodes the threshold at k=8:
   - One loop: k ≤ 7 — PROVED (Barajas & Serra 2009). Covering arguments
     using the Lovász local lemma and explicit geometric constructions
     suffice for up to 7 runners.
@@ -247,7 +247,7 @@ THEOREM (Structural Encoding):
 The Proved Case vessel — the Lonely Runner Conjecture for k ≤ 7.
 This is what we CAN prove: loneliness holds for up to 7 runners.
 
-⟨ Ð_∞; Þ_⊂; Ř_=; Φ_υ; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
+⟨ 𐑛; 𐑰; 𐑾; 𐑿; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑳; 𐑴 ⟩
 
 Differs from the full conjecture vessel at exactly three primitives:
   - Topology (T): eat (inclusion: k ∈ {1,...,7}) vs mime (crossing at k=8)
@@ -289,7 +289,7 @@ ALL runners are lonely has measure zero for v_i = i.
 This vessel represents the "adversarial" speed configuration —
 the worst-case scenario that the conjecture must overcome.
 
-⟨ Ð_∞; Þ_⊂; Ř_↑; Φ_∅; ƒ_ℓ; Ç_-; Γ_β; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_1:1; Ω_0 ⟩
+⟨ 𐑛; 𐑰; 𐑩; 𐑗; 𐑱; 𐑘; 𐑚; 𐑠; 𐑢; 𐑒; 𐑙; 𐑷 ⟩
 
 This is structurally IDENTICAL to the PNT vessel in the Twin Prime analysis!
 The arithmetic progression speed configuration reduces the problem to a
@@ -316,7 +316,7 @@ Tao's Logarithmic-Gap vessel (2017).
 Under the assumption v_{i+1}/v_i ≫ 1 (large multiplicative gaps between
 consecutive speeds), the conjecture holds for ALL k.
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑳; 𐑴 ⟩
 
 This is ONE primitive away from the full conjecture vessel:
   - Polarity nun → out (the log-gap condition breaks full permutation symmetry)
@@ -404,7 +404,7 @@ theorem proved_vessel_topology :
     proved_k7_vessel.top = eat := by
   simp [proved_k7_vessel]
 
-/-- Ω_0 is the minimal protection — proved by case analysis over all
+/-- 𐑷 is the minimal protection — proved by case analysis over all
     Protection values. -/
 theorem omega0_is_minimal :
     ∀ (p : Protection), awe ≤ p := by
