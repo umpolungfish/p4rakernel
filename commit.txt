@@ -1,22 +1,21 @@
-Land the 49 primitive-type kernel files, aligned to scripture
+Formalize the chem↔math isomorphism in the kernel
 
-Each of the 49 primitive value types now has its own Lean file under
-Imscribing/Primitives/Types/, registered in the lakefile: surface tokens,
-the Belnap FOUR register descriptions, the full staged Imscription path
-as an IGProtocol term, a kernel-proved Frobenius self-fusion theorem, and
-a kernel-computed tier. These build green.
+MoDoT now prints each structural operation in both registers; this proves
+the identity behind that. Imscribing/Isomorphisms.lean shows, for four
+verbs, that the chemical law and the mathematical law are the SAME Lean
+proposition, holding by the kernel's existing μ∘δ=id theorems:
 
-Before committing I checked their family/ordinal metadata against the
-only authority, the pre-existing inductive constructor order in
-Primitives/Core.lean, and several had drifted. The content of each file
-(surface tokens, tuples, theorems) was already right; only the trailing
-_family and _ordinal labels disagreed, so the fix is label-only:
+  click   self-fusion is idempotent  ==  μ∘δ = id on the diagonal
+          (click_chem_iff_math is Iff.rfl — one theorem, two names)
+  cycle   catalyst returns unchanged ==  a fixed point of μ∘δ
+          (cycle_is_click: turnover IS self-fusion, by rfl)
+  cleave  fusing fragments restores the bond == δ is a section of μ
+  excite  re-exciting does nothing   ==  projection onto exceptional-point
+          criticality err is idempotent (excite_idem by rfl); excite touches
+          only Criticality (excite_preserves_off_crit)
 
-  air  -> KineticChar 4     loll -> KineticChar 1   (were swapped)
-  peep -> Fidelity 2        they -> Fidelity 1
-  nun  -> Polarity 3        or   -> Polarity 4       yew -> Polarity 1
-  ice  -> Granularity 2     so   -> Stoichiometry 1
-
-ha_ha (Criticality 4) was already correct. After the fix every file
-agrees with Core.lean. The same lakefile edit also registers
-Imscribing.LiminalSpaces, included so no listed module dangles.
+Everything is grounded in Imscribing.Frobenius (δ_A, μ_A, mu_delta_A_id)
+and the Core Criticality axis — no new axioms. The prose glosses MoDoT
+emits are recorded beside the proofs as TwoFaces data so the string key
+stays in sync with the proved content. Registered in the lakefile;
+`lake build Imscribing.Isomorphisms` is green.
