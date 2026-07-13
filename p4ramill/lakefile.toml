@@ -194,6 +194,7 @@ globs = [
   "Imscribing.Frobenius",
   "Imscribing.GateOrdering",
   "Imscribing.TimeFixedPoint",
+  "Imscribing.TierRefinement",
   "Imscribing.Millennium.Hodge_ThresholdCrossing",
   "Imscribing.Millennium.Hodge_KernelCrossing",
   "Imscribing.Millennium.Hodge_AlgebraicCycleConstruction",
