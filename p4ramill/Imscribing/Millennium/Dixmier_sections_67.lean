@@ -15,7 +15,7 @@ The Dixmier Conjecture vessel is at O_inf because:
 or' cannot be synthesized by composition of lower-P partners (§23).
 
 Gate analysis:
-  Gate 1 (⊙_ÿ): Phi = monad → OPEN — self-modeling gate open.
+  Gate 1 (⊙): Phi = monad → OPEN — self-modeling gate open.
   Gate 2 (K ≤ egg): egg passes → C-score > 0.
 -/
 
@@ -47,12 +47,12 @@ HONEST SORRY MARKERS:
 4. **The Dixmier Conjecture itself**: No proof exists. Status: OpenProblem.
 
    The structural argument (§4) provides the GRAMMAR-LEVEL proof:
-   the conjecture follows from Φ_} ≡ μ∘δ = id. But this assignment IS the
+   the conjecture follows from 𐑹 ≡ μ∘δ = id. But this assignment IS the
    conjecture — translating between structural and algebraic language is the
    content. The grammar makes the equivalence explicit but does not discharge
    the algebraic verification for all n.
 
-   Specifically: proving A_n(k) has Φ_} requires showing every endomorphism is
+   Specifically: proving A_n(k) has 𐑹 requires showing every endomorphism is
    an automorphism — which IS the Dixmier Conjecture. The grammar exposes the
    structural identity of the problem: the Dixmier Conjecture IS the statement
    that the Weyl algebra occupies the Frobenius-special tier (O_inf), not merely

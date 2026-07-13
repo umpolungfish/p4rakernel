@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/QCI_RH_Bridge.lean
 -- BELNAP B AS THE CRITICAL LINE — RIEMANN HYPOTHESIS STRUCTURAL BRIDGE
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- The Riemann Hypothesis states: every nontrivial zero of ζ(s) lies on Re(s) = 1/2.
 -- The critical line is the fixed locus of the functional-equation symmetry s ↦ 1-s.
@@ -144,7 +144,7 @@ theorem millennium_thresholds_share_b_gate :
 
 /-- The structural type of the RH-Belnap bridge: the critical line viewed
     through the dialetheic kernel's B-state. The tuple is O_inf because
-    the bridge inherits φ̂_ÿ from the kernel and Φ_} from the Frobenius condition. -/
+    the bridge inherits φ̂_ÿ from the kernel and 𐑹 from the Frobenius condition. -/
 def rhBelnapBridgeImscription : Imscription := {
   dim  := if'
   top  := are
@@ -165,7 +165,7 @@ theorem rh_bridge_is_O_inf : imscriptionTier rhBelnapBridgeImscription = .O_inf 
   decide
 
 /-- The three Millennium-Belnap bridges share the same O_inf tuple (up to stoichiometry).
-    PvsNP_Bridge: Σ_S (1:1); SICPOVM_Bridge: Σ_S (1:1); RH_Bridge: Σ_ï (n:m,
+    PvsNP_Bridge: 𐑙 (1:1); SICPOVM_Bridge: 𐑙 (1:1); RH_Bridge: 𐑳 (n:m,
     heterogeneous because ζ zeros are infinite and their distribution is irregular). -/
 theorem three_bridges_share_o_inf :
     imscriptionTier rhBelnapBridgeImscription = .O_inf :=

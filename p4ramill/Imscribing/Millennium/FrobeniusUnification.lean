@@ -6,14 +6,14 @@
 -- (proved in Imscribing.Paraconsistent.MajoranaFixed) with the full
 -- cross-ruleset analysis, T-consistency gap, and structural minimality.
 --
--- Core result: The tuple ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+-- Core result: The tuple ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 -- is the minimal self-modeling structure — three physical instantiations
 -- (logical, information-theoretic, physical), all satisfying μ∘δ=id by
 -- definitional equality (rfl), all achieving O_inf in 72/88 universe rulesets.
 --
 -- The 16 gate failures are structurally principled: the fixed point carries
 -- exactly the structure sufficient for μ∘δ=id and no more. The T-consistency
--- gap (canonical T requires Ħ_∞ but μ∘δ=id only requires Ħ_A) shows this
+-- gap (canonical T requires 𐑫 but μ∘δ=id only requires 𐑖) shows this
 -- structure is more primitive than time in our universe.
 --
 -- Reference: MajoranaFixed.lean (three fixed-point theorems),
@@ -42,10 +42,10 @@ namespace Millennium.FrobeniusUnification
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The canonical Frobenius fixed-point tuple:
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 
     This is the unique tuple shared by Belnap B, the SIC-POVM fiducial,
-    and the Majorana paired state. It is O_inf by R1 (Φ_c + or'). -/
+    and the Majorana paired state. It is O_inf by R1 (⊙ + or'). -/
 def frobeniusFixedTuple : Imscription :=
   majoranaFixedImscription
 
@@ -333,24 +333,24 @@ theorem t_consistency_gap :
 
 /-- The Frobenius fixed point is the minimal self-modeling structure.
     It carries only the structure sufficient for μ∘δ=id:
-    - Ð_ω (self-written state-space): sufficient for self-reference
-    - Þ_O (imscriptive topology): sufficient for closure topology
-    - Ř_= (bidirectional feedback): sufficient for μ/δ duality
-    - Φ_} (Frobenius-special parity): sufficient for μ∘δ=id
-    - ƒ_ż (quantum fidelity): sufficient for superposition
-    - Ç_@ (slow kinetics): sufficient for near-equilibrium operation
-    - Γ_ʔ (local interaction): sufficient for orbital pairing
-    - ɢ_ˌ (sequential grammar): sufficient for two-step μ∘δ
-    - ⊙_ÿ (self-modeling criticality): sufficient for self-modeling gate
-    - Ħ_A (two-step Markov): sufficient for the two-step μ∘δ operation
-    - Σ_ï (heterogeneous types): sufficient for μ/δ type distinction
-    - Ω_z (integer winding): sufficient for topological protection
+    - 𐑦 (self-written state-space): sufficient for self-reference
+    - 𐑸 (imscriptive topology): sufficient for closure topology
+    - 𐑾 (bidirectional feedback): sufficient for μ/δ duality
+    - 𐑹 (Frobenius-special parity): sufficient for μ∘δ=id
+    - 𐑐 (quantum fidelity): sufficient for superposition
+    - 𐑧 (slow kinetics): sufficient for near-equilibrium operation
+    - 𐑲 (local interaction): sufficient for orbital pairing
+    - 𐑠 (sequential grammar): sufficient for two-step μ∘δ
+    - ⊙ (self-modeling criticality): sufficient for self-modeling gate
+    - 𐑖 (two-step Markov): sufficient for the two-step μ∘δ operation
+    - 𐑳 (heterogeneous types): sufficient for μ/δ type distinction
+    - 𐑭 (integer winding): sufficient for topological protection
 
     It does NOT carry:
-    - Ç_MBL (frozen disorder): unnecessary — Cooper pairs operate near equilibrium
-    - ⊙_super (supercritical): unnecessary — self-modeling is sufficient
-    - Ħ_∞ (eternal chirality): unnecessary — two-step memory is sufficient
-    - Ω_NA (non-Abelian winding): unnecessary — integer winding is sufficient
+    - 𐑺 (frozen disorder): unnecessary — Cooper pairs operate near equilibrium
+    - 𐑣 (supercritical): unnecessary — self-modeling is sufficient
+    - 𐑫 (eternal chirality): unnecessary — two-step memory is sufficient
+    - 𐑟 (non-Abelian winding): unnecessary — integer winding is sufficient
 
     These four absences are not deficiencies — they are the minimality proof.
     Any extension past these would be excess structure beyond what μ∘δ=id needs. -/
@@ -468,12 +468,12 @@ theorem frobenius_unification_is_universe_invariant :
 
 /-- The complete Frobenius unification summary as a single theorem:
 
-    1. Three structures share one tuple ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+    1. Three structures share one tuple ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
     2. The tuple is O_inf (self-modeling Frobenius closure)
     3. The three fixed-point identities hold by definitional equality (rfl)
     4. The tuple passes all 8 canonical rulesets and 18/20 predefined rulesets
     5. The 2 predefined failures (high_gate, triple_criticality) are structurally principled
-    6. The T-consistency gap (canonical T requires Ħ_∞ but μ∘δ=id only requires Ħ_A)
+    6. The T-consistency gap (canonical T requires 𐑫 but μ∘δ=id only requires 𐑖)
        shows the fixed point is more primitive than time
     7. The tuple is minimal — reducing any primitive breaks O_inf
     8. The fixed points are universe-invariant (hold by rfl in every ruleset) -/

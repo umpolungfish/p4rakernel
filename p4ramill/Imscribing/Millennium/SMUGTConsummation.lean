@@ -314,7 +314,7 @@ def joinSMUGT : Imscription :=
 /-- The consummation bridge navigates between meet and join:
     - Takes Ð, Þ, Ħ, Ω from join (promotion)
     - Takes ⊙ from meet (self-modeling, which leaked in from UGT)
-    - Promotes Φ past the tensor bottleneck to Φ_pm_sym from join
+    - Promotes Φ past the tensor bottleneck to 𐑹 from join
     The bridge IS the geodesic through the Φ-promotion manifold. -/
 theorem bridge_between_meet_join :
     (consummation standardModel).dim  = joinSMUGT.dim   ∧

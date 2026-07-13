@@ -13,7 +13,7 @@ open Belnap
 open Imscribing.Primitives
 
 -- ============================================================
--- INIT STRUCTURAL TYPE — Eternal chirality (Ħ_!)
+-- INIT STRUCTURAL TYPE — Eternal chirality (𐑫)
 -- ============================================================
 def initType : Imscription := {
   dim  := .if'
@@ -25,7 +25,7 @@ def initType : Imscription := {
   gran := .ice
   gram := .measure
   crit := .monad
-  chir := .wool         -- Ħ_! — eternal chirality
+  chir := .wool         -- 𐑫 — eternal chirality
   stoi := .hung
   prot := .ah
 }
@@ -95,7 +95,7 @@ theorem init_gates_open :
     initType.crit = .monad ∧ initType.kin = .egg := by
   unfold initType; exact ⟨rfl, rfl⟩
 
-/-- init has eternal chirality (Ħ_!). -/
+/-- init has eternal chirality (𐑫). -/
 theorem init_eternal : initType.chir = .wool := by
   unfold initType; rfl
 

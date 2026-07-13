@@ -68,7 +68,7 @@ def PartitionFunction (G : Type*) (β : ℝ) : ℝ := 0
 -- ============================================================
 -- Osterwalder-Seiler (1978): The Wilson action satisfies reflection
 -- positivity for any β > 0. This ℤ₂ symmetry θ provides the Frobenius
--- gate — the promotion Φ_ɐ → Φ_} that enables the construction of a
+-- gate — the promotion 𐑗 → 𐑹 that enables the construction of a
 -- positive-definite physical Hilbert space ℋ_phys.
 
 /-- Time-reflection operator θ: t → -t.

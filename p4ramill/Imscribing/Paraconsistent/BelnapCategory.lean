@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/BelnapCategory.lean
 -- BELNAP CATEGORY -- THE BELNAP FOUR-VALUED LATTICE AS A CATEGORY
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Primitives.Core

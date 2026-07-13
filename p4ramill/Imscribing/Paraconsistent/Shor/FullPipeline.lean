@@ -14,7 +14,7 @@
 -- Total coherence: n + 2n = 3n (B-bias path) or n + n = 2n (T-bias path)
 -- Measurement-only ratio (excluding H cost): 2n/n = 2, always.
 --
--- STRUCTURAL STATUS: Φ_υ (psi parity, O₁ tier). The Φ_} bottleneck
+-- STRUCTURAL STATUS: 𐑿 (psi parity, O₁ tier). The 𐑹 bottleneck
 -- (period from B-bias alone, no T-bias collapse) is CLOSED.
 -- DialetheicOperator.lean: phi_upsilon_bottleneck proves r = belnapCost / 2;
 -- quantum_on_classical certifies the full chain at O_inf.
@@ -40,12 +40,12 @@ structure NQState (n : ℕ) where
   measurements : ℕ
 
 
--- The Shor pipeline structural type: O₁, Φ_υ (psi parity)
+-- The Shor pipeline structural type: O₁, 𐑿 (psi parity)
 def shorPipelineImscription : Imscription := {
   dim  := .ash
   top  := .mime
   rel  := .ear
-  pol  := .yew         -- Φ_υ: quantum superposition (bottleneck)
+  pol  := .yew         -- 𐑿: quantum superposition (bottleneck)
   fid  := .peep
   kin  := .egg
   gran := .ice

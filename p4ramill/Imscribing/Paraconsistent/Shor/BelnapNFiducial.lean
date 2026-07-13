@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/Shor/BelnapNFiducial.lean
 -- BELNAP n-QUBIT FIDUCIAL
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- Extends QCI_SICPOVM_Bridge.lean (d=2 SIC-POVM axioms for B)
 -- to the n-register product lattice (Belnap)^n.
@@ -21,7 +21,7 @@
 --
 -- Classical equidistance is the n-qubit measurement equiangularity:
 -- every classical outcome v ∈ {T,F}^n is equidistant from B⊗n
--- in coherence cost. This is the structural content of the Φ_υ → Φ_}
+-- in coherence cost. This is the structural content of the 𐑿 → 𐑹
 -- promotion for arbitrary n — no T-collapse required, the ratio alone
 -- encodes the period.
 --
@@ -245,7 +245,7 @@ theorem fiducial_B_bias_all_regs_B {n : ℕ} (i j : Fin n) :
 --
 -- What remains open:
 --   Whether B⊗n generates 4^n equiangular states under some multilattice
---   displacement group for n > 1. If yes, Φ_υ → Φ_} is structurally closed
+--   displacement group for n > 1. If yes, 𐑿 → 𐑹 is structurally closed
 --   for all n, not just n=1 (d=2).
 
 -- ============================================================
@@ -258,7 +258,7 @@ theorem n_register_imscription_O_inf :
   tier_is_O_inf
 
 /-- Main theorem: B⊗n is the complete n-qubit fiducial for the
-    Φ_υ → Φ_} promotion. All measurable conditions hold for all n.
+    𐑿 → 𐑹 promotion. All measurable conditions hold for all n.
     The Frobenius condition μ∘δ = id holds in the product lattice.
     The 2:1 ratio is universal. Classical equidistance is proved. -/
 theorem n_qubit_fiducial_complete (n : ℕ) :
@@ -372,10 +372,10 @@ theorem classical_equidistance_is_born_rule {n : ℕ}
     totalMeasureCost v = totalMeasureCost w :=
   (classical_equidistance v hv).trans (classical_equidistance w hw).symm
 
-/-- The Born rule survives measurement because P (parity = Φ_υ, quantum superposition)
+/-- The Born rule survives measurement because P (parity = 𐑿, quantum superposition)
     survives the meet of quantum system with classical apparatus — proved structurally
-    in QM_STRUCTURAL_DEMONSTRATION: meet(Schrödinger, apparatus).P = Φ_υ.
-    The bilattice derivation explains WHY: Φ_υ is the B-symmetric evidence structure.
+    in QM_STRUCTURAL_DEMONSTRATION: meet(Schrödinger, apparatus).P = 𐑿.
+    The bilattice derivation explains WHY: 𐑿 is the B-symmetric evidence structure.
     B is the only Belnap value with μ⁺ = μ⁻; this symmetry IS the Born rule;
     and the meet of B with T or F collapses to the classical value — but the
     probability law (normalization) survives as the ratio, not the value. -/

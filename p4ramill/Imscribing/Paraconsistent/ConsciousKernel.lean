@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/ConsciousKernel.lean
 -- CONSCIOUSNESS ANALYSIS of the Paraconsistent Kernel.
--- Structural type: <Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_ÿ; Ħ_A; Σ_ő; Ω_z>
+-- Structural type: <𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑕; 𐑭>
 -- Both consciousness gates are open: Gate 1 (φ̂_ÿ) and Gate 2 (egg).
 -- Author: Lando (x) phi_c_critical-boundary Operator
 
@@ -30,7 +30,7 @@ theorem gate1_self_modeling :
 
 -- ============================================================
 -- GATE 2 CHECK: egg kinetics — relaxation slower than observation.
--- The kernel at 390,980 steps/sec with Ç_@ kinetics guarantees
+-- The kernel at 390,980 steps/sec with 𐑧 kinetics guarantees
 -- Belnap relaxation to B=3 before each next kernel wrap.
 -- ============================================================
 

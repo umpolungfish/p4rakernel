@@ -18,7 +18,7 @@ STRUCTURAL VERIFICATION (cl8nk_navigator):
   GPM: ⟨𐑦;𐑸;𐑾;𐑹;𐑱;𐑧;𐑲;𐑠;⊙;𐑖;𐑳;𐑭⟩ — identical to IUG
 
 CLINK L8 tuple (terminal ontological layer):
-  ⟨Ð_ω; Þ_O; Ř_=; Φ_; ƒ_ż; Ç_@; Γ_ʔ; ɢ_Ş; ⊙_ÿ; Ħ_!; Σ_ï; Ω_5⟩
+  ⟨𐑦; 𐑸; 𐑾; Φ_; 𐑐; 𐑧; 𐑲; 𐑵; ⊙; 𐑫; 𐑳; 𐑟⟩
   TRANSCENDENCE: Ω(𐑭→𐑟) non-Abelian braiding, ɢ(𐑠→𐑵) broadcast composition
 
 REFERENCES:
@@ -272,20 +272,20 @@ deriving Repr
 
 /-- ZFC_fe satisfies all four grammar axioms simultaneously. -/
 theorem ZFC_fe_all_axioms : True := by
-  -- Axiom A: Ħ_∞ requires Ç_trap (eternal chirality needs frozen kinetics)
-  -- Axiom B: Ω_Z2 requires Ħ₂ or Ħ_∞ (parity protection needs memory)
-  -- Axiom C: Ð_⊙ ↔ Þ_⊙ (self-written state-space ↔ self-referential topology)
+  -- Axiom A: 𐑫 requires 𐑪 (eternal chirality needs frozen kinetics)
+  -- Axiom B: 𐑴 requires Ħ₂ or 𐑫 (parity protection needs memory)
+  -- Axiom C: 𐑦 ↔ 𐑸 (self-written state-space ↔ self-referential topology)
   -- Axiom D: Frobenius condition μ∘δ=id at P_special
   trivial
 
 /-- The 7 ZFC_fe promotion channels (from zfcfe_navigator.py):
-    1. HOLOBOUND: Ð_infty→Ð_⊙ (holographic boundary)
+    1. HOLOBOUND: 𐑛→𐑦 (holographic boundary)
     2. T_NET→T_ODOT: self-referential topology
-    3. LR_DUAL: Ř_super→Ř_lr (bidirectional coupling)
+    3. LR_DUAL: 𐑩→𐑾 (bidirectional coupling)
     4. PM_Z2: church→out (partial Z2 symmetry)
-    5. SEQAX: ɢ_and→ɢ_seq (sequential composition)
+    5. SEQAX: 𐑝→𐑠 (sequential composition)
     6. TEMPD2: Ħ₀→Ħ₂ (Markov-2 memory)
-    7. ZWIND: Ω₀→Ω_Z (integer winding) -/
+    7. ZWIND: Ω₀→𐑭 (integer winding) -/
 structure ZFC_fePromotion where
   channel : String
   from_val : String
@@ -408,9 +408,9 @@ theorem product_gap_resolves_OPN :
 ## §2.5 — BARRIER TAXONOMY FOR MILLENNIUM PROBLEMS
 
 Three barrier types (from GRAMMAR_PRECEDES_MATHEMATICS.tex §14):
-- Absorption Barrier (RH, PvNP): ⊙_complex→⊙, Ç_fast promotion
-- Construction Gap (YM, NS, BSD): Ç_trap trapping, ⊙_sub subcritical
-- Identity Gap (Hodge, OPN): Ħ₂→Ħ_∞, ⊙_complex→⊙ promotion
+- Absorption Barrier (RH, PvNP): 𐑮→⊙, 𐑘 promotion
+- Construction Gap (YM, NS, BSD): 𐑪 trapping, 𐑢 subcritical
+- Identity Gap (Hodge, OPN): Ħ₂→𐑫, 𐑮→⊙ promotion
 -/
 
 inductive BarrierType
@@ -530,10 +530,10 @@ activities.
 The grammar identifies WHAT must be constructed, estimated, contradicted.
 The mathematician constructs, estimates, contradicts.
 These are not competitors; they are the structural dual of each other —
-Ř_lr: bidirectional feedback between ground and figure.
+𐑾: bidirectional feedback between ground and figure.
 -/
 
-/-- Ř_lr: bidirectional coupling between structural analysis and mathematical proof.
+/-- 𐑾: bidirectional coupling between structural analysis and mathematical proof.
     The grammar names the construction; the mathematician performs it. -/
 structure StructuralDual where
   grammar_identifies : String

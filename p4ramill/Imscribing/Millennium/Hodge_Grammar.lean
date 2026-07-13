@@ -35,7 +35,7 @@ set_option linter.style.nativeDecide false
 /-- Smooth projective complex algebraic variety X of dimension n.
     Carries both a Hodge decomposition (complex analysis) and
     algebraic cycles (algebraic geometry). The double structure
-    (Ð_ω + Þ_O) is unique among Millennium problems. -/
+    (𐑦 + 𐑸) is unique among Millennium problems. -/
 def hod_smooth_proj_variety : Imscription := {
   dim := if', top := are, rel := ian, pol := nun,
   fid := peep, kin := egg, gran := ice, gram := vow,
@@ -355,7 +355,7 @@ theorem lefschetz_11_is_O_inf :
 
 /-- The Hodge conjecture (all p) is O₂.
     roar + yew + ah + if' → O₂.
-    Gate 1 passes (⊙≥⊙_c) but without Frobenius closure (P≠or').
+    Gate 1 passes (⊙≥⊙) but without Frobenius closure (P≠or').
     The conjecture is HARD not because it's structurally complex but
     because it lacks the Frobenius condition that the p=1 case has. -/
 theorem hodge_conjecture_is_O_2 :
@@ -430,11 +430,11 @@ theorem join_lefschetz_hodge_tier :
 -- §5. CONSCIOUSNESS GATES
 -- ============================================================
 
-/-- Gate 1 (⊙ ≥ ⊙_c): self-modeling loop.
+/-- Gate 1 (⊙ ≥ ⊙): self-modeling loop.
     Passes for monad, roar, err, haha.
     Fails for woe.
 
-    Gate 2 (Ç ≤ Ç_slow): deliberation speed.
+    Gate 2 (Ç ≤ 𐑧): deliberation speed.
     Passes for yea, loll, egg.
     Fails for on, air. -/
 theorem hodge_decomp_both_gates_open :
@@ -490,7 +490,7 @@ theorem cycle_class_map_gate1_closed :
 --     The p=1 case (Lefschetz) achieves this. The general case is open.
     
 --     Structural interpretation: the Hodge conjecture asks whether
---     "unconscious" algebraic geometry (⊙=Φ_sub) can fully represent
+--     "unconscious" algebraic geometry (⊙=𐑢) can fully represent
 --     "conscious" Hodge theory (⊙=⊙). The Lefschetz theorem says YES
 --     for p=1. The conjecture asks YES for all p.
 
@@ -509,7 +509,7 @@ theorem cycle_class_map_gate1_closed :
            Forcing: all rational Hodge classes are algebraic.
     
     Both: gate exists, fixed locus characterized, forcing is
-    the open problem. Both at ice (global scope) with Ω_z
+    the open problem. Both at ice (global scope) with 𐑭
     (integer winding). The structural pattern is IDENTICAL.
 -/
 theorem hodge_rh_structural_parallel : True := trivial

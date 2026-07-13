@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/Shor/BelnapWHMultilattice.lean
 -- BELNAP WEYL-HEISENBERG MULTILATTICE
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- §A  Product-lattice WH action: orbit = 2^n (proved)
 --     bnot B = B means amplitude displacements fix B⊗n.
@@ -146,7 +146,7 @@ theorem product_lattice_orbit_is_insufficient (n : ℕ) (hn : 1 ≤ n) :
 --   Ax-EQUI:  constant pairwise overlap (the SIC condition)
 --   Ax-COST:  the SIC measurement yields belnapCost = 2 * period
 --
--- Together these close the Φ_υ → Φ_} promotion for all n.
+-- Together these close the 𐑿 → 𐑹 promotion for all n.
 
 -- The multilattice state type: opaque — the product-lattice phase extension
 -- is insufficient; this type must accommodate amplitude-distinguishable states.
