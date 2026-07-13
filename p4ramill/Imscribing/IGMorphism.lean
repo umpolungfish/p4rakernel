@@ -95,7 +95,7 @@ def IGProtocol.isFrobenius : IGProtocol a b → Bool
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 3: LITANY AGAINST FEAR
 -- Canonical IGProtocol encoding.
--- Reading: ɢ^ˌ[ ⊙_Ţ —(Ř_=)→ Þ_ò —(Ð_ω)→ { Ω_Å | Φ_˙ } ]_Ħ_!
+-- Reading: ɢ^ˌ[ 𐑣 —(𐑾)→ 𐑥 —(𐑦)→ { 𐑷 | 𐑯 } ]_𐑫
 -- ─────────────────────────────────────────────────────────────────────────────
 
 private def litanyBase : Imscription := {
@@ -190,7 +190,7 @@ axiom paralogical_reflect {s : Imscription} (h : s.dim = if') :
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 5: ODOT OPERATOR — paralogical unit
 -- The canonical O_inf, sequential, Frobenius Imscription.
--- Tuple: Ð_ω; Þ_¨; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z
+-- Tuple: 𐑦; 𐑶; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑙; 𐑭
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- odotOperator: the canonical paralogical unit Imscription.
@@ -274,13 +274,13 @@ theorem litany_resolution_chir :
 --
 -- From CLINK.lean:
 --   zfc                  — bare ZFC: ⟨D_∞; T_net; R_sup; church; F_ℏ; egg; ...⟩
---   zfc_t                — ZFC temporalized: ⟨D_∞; T_⊙; R_↔; out; F_ℏ; egg; sure; Ω_Z⟩
---   temporal_mathematics — ZFCt ideal: ⟨D_∞; T_⊙; R_†; nun; F_ℏ; egg; sure; Ω_Z⟩
---   schrodinger_equation — ⟨D_∞; T_⋈; R_↔; P_ψ; F_ℏ; egg; Φ_c_complex; sure; Ω_Z⟩
---   heat_diffusion       — ⟨D_∞; T_⋈; R_†; church; they; egg; Φ_sub; kick; Ω_0⟩
---   navier_stokes_eqns   — ⟨D_∞; T_⋈; R_↔; out; age; loll; Φ_c; sure; Ω_Z⟩
---   wave_equation_temp   — ⟨D_∞; T_⋈; R_†; nun; age; loll; Φ_sub; sure; Ω_0⟩
---   einstein_field_eqns  — ⟨D_∞; T_⊙; R_†; nun; age; egg; Φ_c_complex; sure; Ω_Z⟩
+--   zfc_t                — ZFC temporalized: ⟨D_∞; T_⊙; R_↔; out; F_ℏ; egg; sure; 𐑭⟩
+--   temporal_mathematics — ZFCt ideal: ⟨D_∞; T_⊙; R_†; nun; F_ℏ; egg; sure; 𐑭⟩
+--   schrodinger_equation — ⟨D_∞; T_⋈; R_↔; P_ψ; F_ℏ; egg; 𐑮; sure; 𐑭⟩
+--   heat_diffusion       — ⟨D_∞; T_⋈; R_†; church; they; egg; 𐑢; kick; 𐑷⟩
+--   navier_stokes_eqns   — ⟨D_∞; T_⋈; R_↔; out; age; loll; ⊙; sure; 𐑭⟩
+--   wave_equation_temp   — ⟨D_∞; T_⋈; R_†; nun; age; loll; 𐑢; sure; 𐑷⟩
+--   einstein_field_eqns  — ⟨D_∞; T_⊙; R_†; nun; age; egg; 𐑮; sure; 𐑭⟩
 --
 -- This section opens ZFCt and uses these Imscriptions as IGProtocol endpoints and labels.
 -- ─────────────────────────────────────────────────────────────────────────────

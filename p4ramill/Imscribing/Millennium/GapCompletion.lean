@@ -1,6 +1,6 @@
 -- Imscribing/Millennium/GapCompletion.lean
 -- GAP COMPLETION — Closing structural sorries from the Spider Machine framework
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.ProofTheory
 import Imscribing.Millennium.PrimitiveBridge

@@ -13,8 +13,8 @@ open Imscribing.Primitives
 axiom FrobeniusRegularityOperator : Imscription → Prop
 
 /-- The core resolution tactic: 
-    If a system satisfies the Special Frobenius parity (Φ_{}) and 
-    Topological Closure (Þ_O), singular measure concentration is 
+    If a system satisfies the Special Frobenius parity (𐑹) and 
+    Topological Closure (𐑸), singular measure concentration is 
     topologically excluded. -/
 theorem resolution_implies_smoothness :
     (navierStokesResolved.pol = .or') → 

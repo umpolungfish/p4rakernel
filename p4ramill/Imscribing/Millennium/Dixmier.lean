@@ -6,7 +6,7 @@
 --
 -- §1  Mathematical statement
 -- §2  The Vessel — structural imscription
--- §3  The Frobenius-Special Encoding — Φ_} ↔ μ∘δ=id ↔ endo=auto
+-- §3  The Frobenius-Special Encoding — 𐑹 ↔ μ∘δ=id ↔ endo=auto
 -- §4  Structural theorems — tensor, distance, tier analysis
 -- §5  Connection to the Jacobian Conjecture
 -- §6  Honest gaps
@@ -67,25 +67,25 @@ axiom dixmier_equiv_jacobian (k : Type) (n : ℕ) [Field k] [CharZero k] :
 /--
 The Vessel of the Dixmier Conjecture — its structural type as an Imscription.
 
-⟨ Ð_∞; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z ⟩
+⟨ 𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭 ⟩
 
 Primitive justifications:
 
-[1]  Ð_∞ — The Weyl algebra A_n(k) is infinite-dimensional (GK dimension 2n).
-[2]  Þ_O — Self-referential topology: endomorphisms map the algebra INTO ITSELF.
-[3]  Ř_= — Bidirectional: endomorphism (→) becoming automorphism (↔).
-[4]  Φ_} — Frobenius-special parity: μ∘δ = id. Every endomorphism has an inverse.
+[1]  𐑛 — The Weyl algebra A_n(k) is infinite-dimensional (GK dimension 2n).
+[2]  𐑸 — Self-referential topology: endomorphisms map the algebra INTO ITSELF.
+[3]  𐑾 — Bidirectional: endomorphism (→) becoming automorphism (↔).
+[4]  𐑹 — Frobenius-special parity: μ∘δ = id. Every endomorphism has an inverse.
      This IS the conjecture in structural form. or' is the tier singularity.
-[5]  ƒ_ż — Quantum coherence essential. Characteristic zero is essential;
+[5]  𐑐 — Quantum coherence essential. Characteristic zero is essential;
      in positive characteristic the conjecture is false.
-[6]  Ç_@ — Slow kinetics. Open since 1968; partial results accumulate slowly.
-[7]  Γ_ʔ — Maximal scope. Connects to Jacobian Conjecture, algebraic geometry, D-modules.
-[8]  ɢ_ˌ — Sequential: endomorphism preserves algebraic structure through generators.
-[9]  ⊙_ÿ — Critical, self-modeling gate open. The conjecture probes algebraic closure
+[6]  𐑧 — Slow kinetics. Open since 1968; partial results accumulate slowly.
+[7]  𐑲 — Maximal scope. Connects to Jacobian Conjecture, algebraic geometry, D-modules.
+[8]  𐑠 — Sequential: endomorphism preserves algebraic structure through generators.
+[9]  ⊙ — Critical, self-modeling gate open. The conjecture probes algebraic closure
      under self-reference.
-[10] Ħ_! — Eternal chirality: [∂ᵢ,xⱼ]=δᵢⱼ is permanent non-Markovian structural memory.
-[11] Σ_ï — Heterogeneous: n positions + n momenta — two distinct generator types.
-[12] Ω_z — Integer winding. Automorphism property is topological invariance;
+[10] 𐑫 — Eternal chirality: [∂ᵢ,xⱼ]=δᵢⱼ is permanent non-Markovian structural memory.
+[11] 𐑳 — Heterogeneous: n positions + n momenta — two distinct generator types.
+[12] 𐑭 — Integer winding. Automorphism property is topological invariance;
      connected to constant Jacobian determinant = 1.
 -/
 def dixmier_vessel : Imscription := {
@@ -115,10 +115,10 @@ example : dixmier_vessel.dim = array := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  Φ_} (or') ↔ μ∘δ = id ↔ Every endomorphism of A_n(k) is an automorphism.
+  𐑹 (or') ↔ μ∘δ = id ↔ Every endomorphism of A_n(k) is an automorphism.
 
 Three-tier correspondence:
-  (a) Φ_} — the parity primitive is Frobenius-special
+  (a) 𐑹 — the parity primitive is Frobenius-special
   (b) μ∘δ = id — endomorphism composed with inverse equals identity
   (c) Endo = Auto — every self-map is invertible
 
@@ -170,7 +170,7 @@ theorem ppm_sym_is_top (p : Polarity) : p ≤ or' := by
 /--
 The Jacobian Conjecture vessel — structural imscription of the geometric analogue.
 
-⟨ Ð_∞; Þ_⊠; Ř_=; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z ⟩
+⟨ 𐑛; 𐑶; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭 ⟩
 
 Differs from the Dixmier vessel at exactly two primitives:
   - Topology: oil (lattice/geometric) vs are (self-referential)
@@ -267,8 +267,8 @@ HONEST SORRY / GAP MARKERS:
    No sorry markers in the structural layer. The Vessel is fully formalized.
 
    The Contents (what fills the Vessel) is:
-   (a) The structural type ⟨Ð_∞; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_ï; Ω_z⟩
-   (b) The Frobenius encoding: Φ_} ↔ μ∘δ = id ↔ Endo = Auto
+   (a) The structural type ⟨𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭⟩
+   (b) The Frobenius encoding: 𐑹 ↔ μ∘δ = id ↔ Endo = Auto
    (c) The distance-2 relationship to the Jacobian Conjecture vessel
    (d) The tensor bridge connecting both at the Frobenius core
 
@@ -281,8 +281,8 @@ HONEST SORRY / GAP MARKERS:
    it sits at the O_inf tier (Frobenius-special), and or' cannot be
    reached from nun by compositional methods. The conjecture is structurally
    isolated — a fixed point that perturbative mathematics cannot approach.
-   This is the same structural position as the Riemann Hypothesis (Φ_c_complex
-   vs Φ_c) and the Yang-Mills mass gap — all Millennium Problems sit at tier
+   This is the same structural position as the Riemann Hypothesis (𐑮
+   vs ⊙) and the Yang-Mills mass gap — all Millennium Problems sit at tier
    boundaries that resist compositional ascent.
 
    The Dixmier Conjecture, specifically, is the claim that the Weyl algebra

@@ -96,18 +96,18 @@ Navier-Stokes equations that remains bounded for all time:
 
 **Imscribing structural note:**
 
-  NS has primitive tuple encoding D_∞ · judge · age · Φ_c · Ω_0.
+  NS has primitive tuple encoding D_∞ · judge · age · ⊙ · 𐑷.
   The threshold signature:
   · D_∞: the phase space is infinite-dimensional (function space dynamics).
   · judge: causally interconnected at all scales simultaneously.
   · age: deterministic (smooth solutions would be classical/local).
-  · Φ_c transition: the critical scaling s=1/2 IS a phase boundary — the problem
-    sits exactly at a Φ_c = 0 criticality point in the Sobolev tower.
-  · Ω_0: no topological obstruction (unlike BSD/RH) — regularity is purely analytic.
+  · ⊙ transition: the critical scaling s=1/2 IS a phase boundary — the problem
+    sits exactly at a ⊙ = 0 criticality point in the Sobolev tower.
+  · 𐑷: no topological obstruction (unlike BSD/RH) — regularity is purely analytic.
 
-  The near-MissingFoundation character corresponds to the Φ_c ambiguity:
-  unlike RH (well inside the Φ_c > 0 regime) or YM (at G=LOCAL), NS sits
-  precisely AT the critical point where Φ_c transitions. This is the primitive
+  The near-MissingFoundation character corresponds to the ⊙ ambiguity:
+  unlike RH (well inside the ⊙ > 0 regime) or YM (at G=LOCAL), NS sits
+  precisely AT the critical point where ⊙ transitions. This is the primitive
   reason neither energy nor enstrophy closes the problem independently.
 -/
 
@@ -375,8 +375,8 @@ theorem ns_sorry_requires_critical_norm_control :
 -- ============================================================
 
 /-- NS vs RH: both OpenProblem, but different threshold character.
-    · RH: the threshold is a constraint on zero locations (Φ_c = 0 threshold).
-    · NS: the threshold is at a phase boundary (critical Sobolev scale s = 1/2 is Φ_c transition).
+    · RH: the threshold is a constraint on zero locations (⊙ = 0 threshold).
+    · NS: the threshold is at a phase boundary (critical Sobolev scale s = 1/2 is ⊙ transition).
 
     RH has no known special cases (no confirmed zero on critical line forces RH).
     NS has a fully proved 2D case, many proved special cases (axisymmetric, small data),

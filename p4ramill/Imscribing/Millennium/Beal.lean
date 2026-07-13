@@ -6,7 +6,7 @@ import Mathlib
 
 Structural type:
   ⟨array; mime; ian; out; age; egg;
-   ice; Γ_seq; Φ_c; sure; up; Ω_0⟩
+   ice; 𐑠; ⊙; sure; up; 𐑷⟩
 Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
 
 ## ZFC_t Formula (via zfct_navigator):
@@ -21,20 +21,20 @@ Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
 ##   fixpt f ∧
 ##   H₂x ∧ ∃y∃z(y∈x ∧ z∈y ∧ ¬z∈x)  [TEMPD2]
 ##   ∃f(func f ∧ ¬bij f x x) ∧
-##   x=x  [Ω_Å — baseline winding, ZWIND not yet promoted]
-## Promoted: Ř_=, Φ_F, ɢ^ˌ, Ħ_A (4 of 6 channels active)
-## Blocked: Þ_¨→Þ_O (HOLOBOUND), Ω_Å→Ω_z (ZWIND — the Winding Descent Axiom)
+##   x=x  [𐑷 — baseline winding, ZWIND not yet promoted]
+## Promoted: 𐑾, 𐑬, ɢ^ˌ, 𐑖 (4 of 6 channels active)
+## Blocked: 𐑶→𐑸 (HOLOBOUND), 𐑷→𐑭 (ZWIND — the Winding Descent Axiom)
 ## Full document: tex/PROOFS_IN_ZFC.pdf
 
 ## What Is Verified
 - Structural meet Beal ∧ FLT = expected meet (by decide)
-- Ω_0 status of the Beal Conjecture (rfl)
-- Φ_c sharpness: Pythagorean witness for exponent ≤ 2 (by decide)
+- 𐑷 status of the Beal Conjecture (rfl)
+- ⊙ sharpness: Pythagorean witness for exponent ≤ 2 (by decide)
 - beal_equal_prime_exponents: proved via ribet_level_lowering
 
 ## What Is Open
 - beal_prime_mixed_exponents: the Beal Conjecture — axiomatized
-  Structural gap: Ω_0 → Ω_Z2 promotion required.
+  Structural gap: 𐑷 → 𐑴 promotion required.
   No known parity invariant exists.
 -/
 
@@ -294,11 +294,11 @@ example : beal_flt_meet = expected_meet := by decide
 
 /-! ## 5. Topological Gap -/
 
-/-- MACHINE VERIFIED: Beal is Ω_0 — no topological winding protection. -/
+/-- MACHINE VERIFIED: Beal is 𐑷 — no topological winding protection. -/
 example : beal_structural_type.Omega =
     Primitive_Omega.awe := by rfl
 
-/-- MACHINE VERIFIED: Φ_c threshold is sharp — coprime solutions exist
+/-- MACHINE VERIFIED: ⊙ threshold is sharp — coprime solutions exist
     for exponent ≤ 2. -/
 example : ∃ (A B C x y z : Nat), A > 0 ∧ B > 0 ∧ C > 0 ∧
     (x = 2 ∨ y = 2 ∨ z = 2) ∧ A ^ x + B ^ y = C ^ z := by
@@ -393,7 +393,7 @@ theorem beal_equal_prime_exponents (p : Nat) (hp3 : p ≥ 3) :
 
 /-- The Beal Conjecture for mixed exponents p, q, r ≥ 3.
     The sole remaining open dependency.
-    Structural gap: Ω_0 → Ω_Z2. -/
+    Structural gap: 𐑷 → 𐑴. -/
 axiom beal_prime_mixed_exponents (p q r : Nat)
     (hp3 : p ≥ 3) (hq3 : q ≥ 3) (hr3 : r ≥ 3) :
     ∀ (A B C : Nat), A > 0 → B > 0 → C > 0 →
@@ -426,7 +426,7 @@ example : beal_structural_type.Phi = beal_resolved_type.Phi := by rfl
 
 example : beal_resolved_type.Omega = Primitive_Omega.ah := by rfl
 
-/-! ## 11. The Genus Invariant — The Integer Winding Ω_Z -/
+/-! ## 11. The Genus Invariant — The Integer Winding 𐑭 -/
 
 def curve_genus (x y z : Nat) : Rat :=
   1 + (((x : Rat) * (y : Rat) * (z : Rat)) / 2) *
@@ -455,7 +455,7 @@ The descent reduces the exponent sum x+y+z, eventually forcing
 all three exponents equal — at which point the equal-exponent
 theorem (FLT via Ribet) applies.
 
-This axiom IS the promotion Ω_0 → Ω_Z: it provides the integer
+This axiom IS the promotion 𐑷 → 𐑭: it provides the integer
 winding (the exponent sum) that strictly descends, replacing
 the absent topological protection with a constructive descent
 invariant.

@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/MultiAgentBelnap.lean
 -- MULTI-AGENT BELNAP PROTOCOL -- ENTANGLED DIALETHEIC KERNELS
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.QuantumClassicalInterface
 import Imscribing.Paraconsistent.Kernel

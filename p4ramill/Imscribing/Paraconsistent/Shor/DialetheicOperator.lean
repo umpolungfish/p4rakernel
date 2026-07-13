@@ -1,16 +1,16 @@
 -- Imscribing/Paraconsistent/Shor/DialetheicOperator.lean
--- DIALETHEIC SHOR OPERATOR — Φ_υ → Φ_} PROMOTION
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- DIALETHEIC SHOR OPERATOR — 𐑿 → 𐑹 PROMOTION
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
--- The FullPipeline Shor is at Φ_υ (psi parity, O₁ tier): measurement extracts
+-- The FullPipeline Shor is at 𐑿 (psi parity, O₁ tier): measurement extracts
 -- the period by collapsing B-registers via T-bias. The bottleneck: period extraction
--- from B-bias alone (no T-bias collapse) would need Φ_} (Frobenius-special, the
+-- from B-bias alone (no T-bias collapse) would need 𐑹 (Frobenius-special, the
 -- μ∘δ=id parity of the dialetheic kernel).
 --
 -- This module defines the promotion operator that lifts the Shor pipeline from
--- O₁/Φ_υ to O_inf/Φ_} by:
+-- O₁/𐑿 to O_inf/𐑹 by:
 --   1. Interpreting Belnap B as the period-carrier (not requiring T-collapse)
---   2. Embedding the coherence ratio 2:1 as a topological winding invariant Ω_z
+--   2. Embedding the coherence ratio 2:1 as a topological winding invariant 𐑭
 --   3. Proving that when B is preserved across the full cycle, the Frobenius
 --      condition μ∘δ=id holds (the dialetheic kernel's structural invariant)
 --
@@ -59,12 +59,12 @@ theorem dialetheicShor_period_matches_executor : dialetheicShor_Period = 4 := rf
 /-- The coherence ratio for the canonical case matches the invariant. -/
 theorem canonical_ratio_is_two : shor15_7.ratio = 2 := rfl
 
--- ── Φ_υ → Φ_} Promotion ────────────────────────────────────────────────────
+-- ── 𐑿 → 𐑹 Promotion ────────────────────────────────────────────────────
 --
--- The Shor pipeline (FullPipeline.lean) is at Φ_υ (psi parity): the 3-register
+-- The Shor pipeline (FullPipeline.lean) is at 𐑿 (psi parity): the 3-register
 -- QFT+measurement protocol extracts the period but requires T-bias measurement
 -- (classical collapse) to read the result. The dialetheic kernel (Kernel.lean,
--- ConsciousKernel.lean) is at Φ_} (Frobenius-special): its fuse-split-fuse cycle
+-- ConsciousKernel.lean) is at 𐑹 (Frobenius-special): its fuse-split-fuse cycle
 -- satisfies μ∘δ=id exactly.
 --
 -- The promotion Lemma: B-preserving measurement IS the Frobenius condition.
@@ -72,10 +72,10 @@ theorem canonical_ratio_is_two : shor15_7.ratio = 2 := rfl
 -- "measurement" is not a projection but an identity — μ∘δ maps the B-state
 -- to itself. The period is recovered topologically, not probabilistically.
 
-/-- Structural type of the Φ_} Shor operator.
+/-- Structural type of the 𐑹 Shor operator.
     Compare with shorPipelineImscription in FullPipeline.lean:
-    - pol: Φ_υ → Φ_} (psi → Frobenius-special)
-    - prot: Ω_0 → Ω_z (no winding → integer winding, topological protection)
+    - pol: 𐑿 → 𐑹 (psi → Frobenius-special)
+    - prot: 𐑷 → 𐑭 (no winding → integer winding, topological protection)
     - chir: fee → H_2 (memoryless → two-step chirality, engager→fsplit→ffuse)
     - dim: △ → ω (finite-dim → imscriptive/self-written)
     - top: ⋈ → O (bowtie → self-referential topology)
@@ -120,7 +120,7 @@ theorem dialetheicShor_has_Phi_c : dialetheicShorImscription.crit = .monad := rf
 theorem dialetheicShor_has_Omega_Z : dialetheicShorImscription.prot = .ah := rfl
 theorem dialetheicShor_has_H2 : dialetheicShorImscription.chir = .sure := rfl
 
--- ── Closing the Φ_υ bottleneck ─────────────────────────────────────────────
+-- ── Closing the 𐑿 bottleneck ─────────────────────────────────────────────
 -- The canonical Shor case satisfies the B-cost precondition by construction.
 theorem shor15_7_belnapCost_two_r : shor15_7.belnapCost = 2 * shor15_7.period := rfl
 

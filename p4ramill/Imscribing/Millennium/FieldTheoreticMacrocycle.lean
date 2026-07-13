@@ -126,7 +126,7 @@ inductive BondType : Type where
     of the monomers allow circulation of a field-theoretic modulus. -/
 def is_conductive (seq : List Imscription) : Prop :=
   -- ∃ circulating modulus m such that ∮ m ≠ 0
-  True -- the presence of Ω_Z + Ω_Z2 in the ring enables circulation
+  True -- the presence of 𐑭 + 𐑴 in the ring enables circulation
 
 /-- Order-robust cyclization: ALL 24 permutations close.
     This is structurally stronger than the {DM,W,P,G} ring
