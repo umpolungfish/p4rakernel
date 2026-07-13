@@ -244,6 +244,7 @@ globs = [
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
   "Imscribing.Isomorphisms",
+  "Imscribing.SpectralFace",
   "Imscribing.GateOrdering",
   "Imscribing.TimeFixedPoint",
   "Imscribing.TierRefinement",

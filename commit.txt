@@ -1,21 +1,22 @@
-Formalize the chem↔math isomorphism in the kernel
+Add the spectral face: ρ=2 for a pure ring, proved
 
-MoDoT now prints each structural operation in both registers; this proves
-the identity behind that. Imscribing/Isomorphisms.lean shows, for four
-verbs, that the chemical law and the mathematical law are the SAME Lean
-proposition, holding by the kernel's existing μ∘δ=id theorems:
+Isomorphisms.lean carried the algebraic faces; this adds the spectral one
+the forge/material reports lean on. Imscribing/SpectralFace.lean proves,
+in Mathlib, that a pure head-to-tail ring is 2-regular and its adjacency
+matrix carries eigenvalue 2 on the all-ones Perron vector:
 
-  click   self-fusion is idempotent  ==  μ∘δ = id on the diagonal
-          (click_chem_iff_math is Iff.rfl — one theorem, two names)
-  cycle   catalyst returns unchanged ==  a fixed point of μ∘δ
-          (cycle_is_click: turnover IS self-fusion, by rfl)
-  cleave  fusing fragments restores the bond == δ is a section of μ
-  excite  re-exciting does nothing   ==  projection onto exceptional-point
-          criticality err is idempotent (excite_idem by rfl); excite touches
-          only Criticality (excite_preserves_off_crit)
+  ring_two_regular        every vertex has degree 2
+  ring_has_eigenvalue_two ringAdj · 1 = 2 • 1 (the Perron eigenvalue = ρ)
+  cyclize_chem_and_math   both faces bound together — the ring closing
+                          (chem) IS the all-ones vector at eigenvalue 2 (math)
+  branched_row_sum_three  attaching an edge to a genuine non-neighbor lifts
+                          a vertex to degree 3 — the ρ>2 signature of branching
 
-Everything is grounded in Imscribing.Frobenius (δ_A, μ_A, mu_delta_A_id)
-and the Core Criticality axis — no new axioms. The prose glosses MoDoT
-emits are recorded beside the proofs as TwoFaces data so the string key
-stays in sync with the proved content. Registered in the lakefile;
-`lake build Imscribing.Isomorphisms` is green.
+Ring adjacency is built as shift + shiftᵀ (a permutation matrix plus its
+transpose), so the eigenvalue proof is clean and needs only NeZero n. All
+grounded in Mathlib's Fin group + matrix mulVec; no new axioms. Registered
+in the lakefile; lake build Imscribing.SpectralFace is green.
+
+Honest scope: the eigenvalue-2 equation on a positive eigenvector is the
+Perron value (= ρ); I prove that equation rather than invoking the full
+Perron-Frobenius spectral-radius theorem.
