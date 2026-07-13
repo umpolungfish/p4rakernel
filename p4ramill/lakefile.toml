@@ -245,6 +245,7 @@ globs = [
   "Imscribing.BooksOfJeu",
   "Imscribing.BotanicalWalkthrough",
   "Imscribing.CollatzOperationalized",
+  "Imscribing.CompletingD2048InD12",
   "Imscribing.LandoMills",
   "Imscribing.AtHomeSanguineHomunculus",
   "Imscribing.TimeWithinTheStone",

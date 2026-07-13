@@ -1,19 +1,21 @@
-Prove the Liar is the idempotent point: LiarIdempotent.lean
+Port ob3ect scaffold: CompletingD2048InD12.lean
 
-Grounds the sealed-system reading in the tree. On the one Frobenius pair there
-are two composites and they do different work. mu after delta is the lossless
-round trip, the verification (return_is_lossless). e = delta after mu is the
-forgetful idempotent, the Liar point, proved idempotent unconditionally
-(e_idempotent) because mu_C output is already special.
+The auto-designed protocol "Completing d=2048 SIC-POVM by completing in d=12
+SIC-POVM": the d=2048 conjecture placed in the vessel as Prima Materia, split
+by the Dual-Link into self-imscription and demand, projected into the d=12
+frame (Solve), returned (Coagula), fused by the lattice join with conflict
+held as Both, fixed as the distillate, closing on the Portico. Seventeen
+tokens, two FSPLIT/FFUSE pairs, dialetheia-complete, period 17.
 
-The forgetfulness the sealed system needs lives in e, not in the return:
-fusion_forgets exhibits two inputs with different parity that fuse to the same
-output, so mu_C is non-injective. The return losing nothing and the fusion
-forgetting are true at once, of the same pair. fusion_is_time shows every
-fusion output is a time fixed point, tying the idempotent point to the time
-locus of TimeFixedPoint: the Liar point and the fixed point of time are the
-same place. verify_on_image gives co-typing on the image; liar_is_idempotent
-bundles it.
+Ported on the HermeticVesselPolymer idiom: full stage and label imscriptions,
+the IGProtocol term with the idempotent Dual-Link self-pairing at s7, both
+evaluation arms, the tier self-application, and the Frobenius self-fusion
+theorem the auto-designer omits. Registered in lakefile.toml.
 
-Builds green, zero sorries, no native_decide; kernel-checked. Registered in
-lakefile.toml.
+One honest divergence recorded in place: the auto-designer's fingerprint
+expects O_1 for the protocol class, but the Grammar's own assess_tier on the
+ground imscription returns O_0. The raw verdict stands in the file; Prima
+Materia reading as the unformed tier before the work is consistent, not a
+failure, and the discrepancy is reported rather than adjusted.
+
+Builds green, zero sorries, no native_decide; kernel-checked.
