@@ -195,6 +195,7 @@ globs = [
   "Imscribing.GateOrdering",
   "Imscribing.TimeFixedPoint",
   "Imscribing.TierRefinement",
+  "Imscribing.LiarIdempotent",
   "Imscribing.Millennium.Hodge_ThresholdCrossing",
   "Imscribing.Millennium.Hodge_KernelCrossing",
   "Imscribing.Millennium.Hodge_AlgebraicCycleConstruction",
