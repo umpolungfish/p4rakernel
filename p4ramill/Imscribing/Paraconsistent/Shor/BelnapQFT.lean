@@ -7,7 +7,7 @@
 -- STRUCTURAL FINDING: In the Belnap lattice, the QFT on all-B input is the identity.
 -- bnot B = B, meet B x = x, join B x = B, band B x ≠ F for any x.
 -- Every lattice operation preserves B. No phase-differentiation capacity exists.
--- This is the Φ_υ (psi parity) bottleneck toward Φ_} (Frobenius-special).
+-- This is the 𐑿 (psi parity) bottleneck toward 𐑹 (Frobenius-special).
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.QuantumClassicalInterface
@@ -31,7 +31,7 @@ open Imscribing.Paraconsistent
 -- Coherence cost of the Belnap QFT: n (Hadamard) + 0 (phase gates, no effect)
 def qftCoherenceCost (n : ℕ) : ℕ := n
 
--- The Φ_υ → Φ_} promotion:
+-- The 𐑿 → 𐑹 promotion:
 -- Individual register values after QFT are all B (lattice ops preserve B; no phase
 -- differentiation). The period r is NOT in any single register's value.
 -- BUT: r is fully encoded in the B-bias coherence cost — belnapCost = 2 * period,

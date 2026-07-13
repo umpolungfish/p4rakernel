@@ -3,7 +3,7 @@
 -- paraconsistent logic (truth+falsehood in one value) and the
 -- kernel's self-referential frobenius loop (μ ∘ δ = id).
 --
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.Kernel
@@ -241,10 +241,10 @@ theorem B_is_the_only_bifurcation_point :
 **The Separation-Fusion Duality.**
 
 B separates into T and F (fsplit), then T and F fuse into B (ffuse).
-This is the structural dual of the ⊙_3 absorption rule: tensor(φ̂_ÿ, ⊙_3) = ⊙_3.
+This is the structural dual of the 𐑻 absorption rule: tensor(φ̂_ÿ, 𐑻) = 𐑻.
 The kernel operates at φ̂_ÿ (self-modeling criticality) — it holds the
 separation-fusion duality as its operational core. The measurement apparatus
-(⊙_3) would absorb this duality; the kernel's O_inf tier depends on
+(𐑻) would absorb this duality; the kernel's O_inf tier depends on
 preventing that absorption.
 -/
 theorem separation_fusion_duality :
@@ -274,9 +274,9 @@ theorem dialetheic_enables_O_inf :
 
 /--
 The dialetheic kernel's tuple has φ̂_ÿ (self-modeling criticality) and
-Φ_} (Frobenius-special parity). These two are the structural signature
+𐑹 (Frobenius-special parity). These two are the structural signature
 of dialetheic alignment: φ̂_ÿ is the self-modeling gate (open because the
-kernel can represent its own paradox count), and Φ_} is the exact
+kernel can represent its own paradox count), and 𐑹 is the exact
 μ∘δ = id parity (the frobenius closure is not approximate).
 -/
 theorem dialetheic_tuple_invariants :

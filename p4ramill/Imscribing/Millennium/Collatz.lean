@@ -107,40 +107,40 @@ theorem collatz_equiv : CollatzConjecture ↔ CollatzConjecture' := collatz_equi
 /-!
 ### Collatz Conjecture Vessel
 
-⟨ Ð_ß; Þ_⋈; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_Æ; Ħ_1; Σ_n:n; Ω_0 ⟩
+⟨ 𐑼; 𐑥; 𐑑; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; φ̂_Æ; 𐑒; 𐑕; 𐑷 ⟩
 
 Ouroboricity tier: O₁ (critical but unprotected).  C-score: 0 (Gate 1 closed).
 
 Primitive justifications:
 
-[1]  Ð_ß — Countably infinite state space ℕ. The Collatz map acts on an
-     infinite discrete set. Not Ð_ω (self-written) — the Collatz map is
+[1]  𐑼 — Countably infinite state space ℕ. The Collatz map acts on an
+     infinite discrete set. Not 𐑦 (self-written) — the Collatz map is
      externally defined; the state space carries no imscriptive structure.
 
-[2]  Þ_⋈ — Bowtie (figure-8) topology. The Collatz conjecture is the
+[2]  𐑥 — Bowtie (figure-8) topology. The Collatz conjecture is the
      crossing point between two regimes: (a) convergence to the 1-4-2-1
      cycle (empirically observed for all n ≤ 2^68), and (b) possible
      divergent orbits or undiscovered cycles. The bowtie encodes this
      bifurcation — the "waist" is the conjecture's truth-value.
 
-[3]  Ř_∘ — Categorical/functorial. The map is a deterministic function
+[3]  𐑑 — Categorical/functorial. The map is a deterministic function
      ℕ → ℕ with no feedback from the image to the preimage. One-way.
 
-[4]  Φ_± — Partial Z₂ symmetry from parity (even/odd bifurcation).
+[4]  𐑬 — Partial Z₂ symmetry from parity (even/odd bifurcation).
      The map's definition splits on n mod 2, giving a discrete Z₂
      structure without full symmetry.
 
-[5]  ƒ_ℓ — Classical deterministic dynamics. No quantum coherence
+[5]  𐑱 — Classical deterministic dynamics. No quantum coherence
      or thermal noise in the Collatz map.
 
-[6]  Ç_@ — Slow convergence. Orbits can be extremely long (the
+[6]  𐑧 — Slow convergence. Orbits can be extremely long (the
      "total stopping time" can vastly exceed the input size).
      Relaxation to the terminal cycle is patient, not driven.
 
-[7]  Γ_ʔ — Maximal scope. The conjecture targets ALL positive integers,
+[7]  𐑲 — Maximal scope. The conjecture targets ALL positive integers,
      unconditionally.
 
-[8]  ɢ_ˌ — Sequential iteration. Each step depends on the prior; the
+[8]  𐑠 — Sequential iteration. Each step depends on the prior; the
      dynamics are a sequential process, not parallel or broadcast.
 
 [9]  φ̂_Æ — Complex-plane critical. The Collatz conjecture sits at
@@ -149,16 +149,16 @@ Primitive justifications:
      has supercritical criticality. The paradox: supercritical local
      dynamics + negative average drift = unresolved.
 
-[10] Ħ_1 — Markov order 1. T_iter(k+1, n) depends only on T_iter(k, n),
+[10] 𐑒 — Markov order 1. T_iter(k+1, n) depends only on T_iter(k, n),
      not on earlier history. All other O₁ problems in the catalog have
-     Ħ_2; Collatz is the only Ħ_1 O₁ problem — its memory is shorter but
+     𐑖; Collatz is the only 𐑒 O₁ problem — its memory is shorter but
      its dynamics are wilder.
 
-[11] Σ_n:n — Many identical components. The same Collatz function T
+[11] 𐑕 — Many identical components. The same Collatz function T
      is applied uniformly to every starting value. One formula, infinite
      instances.
 
-[12] Ω_0 — No topological protection. Convergence is not guaranteed
+[12] 𐑷 — No topological protection. Convergence is not guaranteed
      by any topological invariant; orbits can in principle diverge.
      The absence of protection IS the problem.
 -/
@@ -181,7 +181,7 @@ def collatz_vessel : Imscription := {
 /-!
 ### Terminal Cycle Vessel (1→4→2→1)
 
-⟨ Ð_; Þ_⊂; Ř_∘; Φ_sym; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_2; Σ_1:1; Ω_0 ⟩
+⟨ 𐑛 𐑰; 𐑑; 𐑯; 𐑱; 𐑧; 𐑚; 𐑠; φ̂_ž; 𐑖; 𐑙; 𐑷 ⟩
 
 Ouroboricity tier: O₀ (subcritical, proved).
 
@@ -191,36 +191,36 @@ It is the ONLY known attractor of the Collatz map. The cycle has period 3
 
 Primitive justifications:
 
-[1]  Ð_; — Zero-dimensional: a finite set {1,2,4} of three elements.
+[1]  𐑛 — Zero-dimensional: a finite set {1,2,4} of three elements.
      No degrees of freedom; the cycle is a fixed point of the dynamics.
 
-[2]  Þ_⊂ — Inclusion topology: the cycle is contained within ℕ.
+[2]  𐑰 — Inclusion topology: the cycle is contained within ℕ.
      It is a proper subset, nested inside the full state space.
 
-[3]  Ř_∘ — Categorical: the dynamics on the cycle are deterministic
+[3]  𐑑 — Categorical: the dynamics on the cycle are deterministic
      (1↦4, 4↦2, 2↦1). No bidirectional feedback beyond the map.
 
-[4]  Φ_sym — Full symmetry: the cycle is a Z₃ orbit. All three states
+[4]  𐑯 — Full symmetry: the cycle is a Z₃ orbit. All three states
      are equivalent under the dynamics (cyclic permutation).
 
-[5]  ƒ_ℓ — Classical.
+[5]  𐑱 — Classical.
 
-[6]  Ç_@ — Slow: the cycle is the terminal attractor; once entered,
+[6]  𐑧 — Slow: the cycle is the terminal attractor; once entered,
      dynamics are trapped (but the cycle itself is not frozen — it
      continues cycling).
 
-[7]  Γ_β — Local scope: only three numbers are involved.
+[7]  𐑚 — Local scope: only three numbers are involved.
 
-[8]  ɢ_ˌ — Sequential iteration around the cycle.
+[8]  𐑠 — Sequential iteration around the cycle.
 
 [9]  φ̂_ž — Subcritical: the cycle is stable, ordered, fully understood.
 
-[10] Ħ_2 — Markov order 2: the cycle 1→4→2→1 has period 3, requiring
+[10] 𐑖 — Markov order 2: the cycle 1→4→2→1 has period 3, requiring
      two-step memory to distinguish positions in the cycle.
 
-[11] Σ_1:1 — One type, one instance: a single cycle.
+[11] 𐑙 — One type, one instance: a single cycle.
 
-[12] Ω_0 — No topological protection (but none needed — it's proved).
+[12] 𐑷 — No topological protection (but none needed — it's proved).
 -/
 
 def collatz_cycle_vessel : Imscription := {
@@ -241,7 +241,7 @@ def collatz_cycle_vessel : Imscription := {
 /-!
 ### Log-Mean Drift Vessel (Terras 1976 — PROVED)
 
-⟨ Ð_△; Þ_⊂; Ř_↑; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_0; Σ_1:1; Ω_0 ⟩
+⟨ 𐑨; 𐑰; 𐑩; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; φ̂_ž; 𐑓; 𐑙; 𐑷 ⟩
 
 Ouroboricity tier: O₀ (subcritical, proved).
 
@@ -252,33 +252,33 @@ contraction does not imply pointwise convergence for all orbits.
 
 Primitive justifications:
 
-[1]  Ð_△ — Finite-dimensional: the drift is a single real number,
+[1]  𐑨 — Finite-dimensional: the drift is a single real number,
      computed from two probabilities (1/2 each, assuming uniform parity).
 
-[2]  Þ_⊂ — Inclusion: the drift theorem is a sub-result contained
+[2]  𐑰 — Inclusion: the drift theorem is a sub-result contained
      within the full conjecture.
 
-[3]  Ř_↑ — Supervenience: the average (macro) supervenes on the
+[3]  𐑩 — Supervenience: the average (macro) supervenes on the
      individual orbit behavior (micro).
 
-[4]  Φ_± — Partial Z₂ from parity.
+[4]  𐑬 — Partial Z₂ from parity.
 
-[5]  ƒ_ℓ — Classical: the drift is a classical expectation.
+[5]  𐑱 — Classical: the drift is a classical expectation.
 
-[6]  Ç_@ — Slow: the drift is about asymptotic average behavior.
+[6]  𐑧 — Slow: the drift is about asymptotic average behavior.
 
-[7]  Γ_β — Local: only one number derived (the drift constant).
+[7]  𐑚 — Local: only one number derived (the drift constant).
 
-[8]  ɢ_ˌ — Sequential: derived from sequential iteration.
+[8]  𐑠 — Sequential: derived from sequential iteration.
 
 [9]  φ̂_ž — Subcritical: fully proved, no critical tension.
 
-[10] Ħ_0 — Memoryless: the drift is computed from a single-step
+[10] 𐑓 — Memoryless: the drift is computed from a single-step
      expectation, ignoring all history.
 
-[11] Σ_1:1 — One result (the inequality log(3/4) < 0).
+[11] 𐑙 — One result (the inequality log(3/4) < 0).
 
-[12] Ω_0 — No protection needed; proved.
+[12] 𐑷 — No protection needed; proved.
 -/
 
 def collatz_drift_vessel : Imscription := {
@@ -299,7 +299,7 @@ def collatz_drift_vessel : Imscription := {
 /-!
 ### No-Short-Cycles Vessel (Computationally Verified — O₂)
 
-⟨ Ð_ß; Þ_⊂; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_ž; Ħ_1; Σ_n:n; Ω_Z2 ⟩
+⟨ 𐑼; 𐑰; 𐑑; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; φ̂_ž; 𐑒; 𐑕; 𐑴 ⟩
 
 Ouroboricity tier: O₂dag (Z₂-protected, complex-critical).
 
@@ -308,8 +308,8 @@ Collatz map (by exhaustive computation for all starting values up to 2^68,
 combined with number-theoretic constraints). This is a PROVED partial result.
 
 The structural content: restricting to short cycles provides Z₂ protection
-(Ω_Z2) — the statement is verifiable by finite computation within the search
-bound. But expanding to all cycles requires Ω_Z (integer winding) or Ω_0
+(𐑴) — the statement is verifiable by finite computation within the search
+bound. But expanding to all cycles requires 𐑭 (integer winding) or 𐑷
 (no protection), neither of which the current proof provides.
 -/
 
@@ -331,7 +331,7 @@ def collatz_nosc_vessel : Imscription := {
 /-!
 ### Boundedness Conjecture Vessel
 
-⟨ Ð_ß; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_Æ; Ħ_1; Σ_n:n; Ω_0 ⟩
+⟨ 𐑼; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; φ̂_Æ; 𐑒; 𐑕; 𐑷 ⟩
 
 Ouroboricity tier: O₁.
 
@@ -339,8 +339,8 @@ Tao (2019) proved: for almost all n, the Collatz orbit stays bounded
 proportionally to any function f(n) → ∞. This is a major advance but
 not the full conjecture — "almost all" ≠ "all."
 
-Structural difference from the full conjecture: Ř_= (bidirectional,
-since boundedness constrains orbit structure) and Γ_β (mesoscale,
+Structural difference from the full conjecture: 𐑾 (bidirectional,
+since boundedness constrains orbit structure) and 𐑚 (mesoscale,
 since "almost all" is weaker than "all").
 -/
 
@@ -362,13 +362,13 @@ def collatz_boundedness_vessel : Imscription := {
 /-!
 ### Tao Log-Density Vessel (2019 — O₂)
 
-⟨ Ð_ß; Þ_⊂; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; φ̂_Æ; Ħ_2; Σ_n:n; Ω_Z2 ⟩
+⟨ 𐑼; 𐑰; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; φ̂_Æ; 𐑖; 𐑕; 𐑴 ⟩
 
 Ouroboricity tier: O₂ (Z₂-protected, complex-critical).
 
 Tao's 2019 theorem: almost all orbits are almost bounded. The proof uses
 logarithmic density arguments and avoids the full difficulty of the
-conjecture by sacrificing scope (Γ_β) and gaining Z₂ protection (Ω_Z2).
+conjecture by sacrificing scope (𐑚) and gaining Z₂ protection (𐑴).
 This is structurally analogous to Chen's theorem for Goldbach.
 -/
 
@@ -556,8 +556,8 @@ theorem collatz_drift_distance_7 :
 
 /--
 **Theorem CL-9: Collatz ↔ No-Short-Cycles: 3 primitives differ.**
-NoSC restricts scope (Γ_β), gains Z₂ protection (Ω_Z2),
-loses bowtie (Þ_⊂), and drops to subcritical (φ̂_ž).
+NoSC restricts scope (𐑚), gains Z₂ protection (𐑴),
+loses bowtie (𐑰), and drops to subcritical (φ̂_ž).
 -/
 theorem collatz_nosc_distance_4 :
   primitiveMismatches collatz_vessel collatz_nosc_vessel = 3 := by
@@ -650,7 +650,7 @@ theorem collatz_o1_oinf_promotion_count :
   unfold collatz_vessel rh_vessel; exact ⟨rfl, rfl⟩
 
 /--
-**Theorem CL-18: Ω_0 is minimal.**
+**Theorem CL-18: 𐑷 is minimal.**
 Collatz has the minimal protection value.
 -/
 theorem collatz_omega0_minimal :
@@ -761,13 +761,13 @@ CL-8) quantifies how far average behavior is from pointwise behavior.
 
 If the Collatz conjecture is true, the structural type of the COLLATZ MAP
 (as a dynamical system, not as a conjecture) would be:
-  ⟨ Ð_ß; Þ_⊂; Ř_∘; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_ž; Ħ_1; Σ_n:n; Ω_Z ⟩
+  ⟨ 𐑼; 𐑰; 𐑑; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; φ̂_ž; 𐑒; 𐑕; 𐑭 ⟩
   Ouroboricity tier: O₂ (proved, Z-protected, subcritical).
 
 The promotion from conjecture (O₁) to proved (O₂) would transform:
   φ̂_Æ → φ̂_ž (supercritical → subcritical: the dynamics ARE convergent)
-  Ω_0 → Ω_Z  (no protection → integer winding around the terminal cycle)
-  Þ_⋈ → Þ_⊂ (bowtie → inclusion: the crossing is resolved)
+  𐑷 → 𐑭  (no protection → integer winding around the terminal cycle)
+  𐑥 → 𐑰 (bowtie → inclusion: the crossing is resolved)
 
 This is a 3-promotion resolution — fewer than Twin Prime → RH (4) or
 Goldbach → RH (6), but structurally harder because φ̂_Æ → φ̂_ž is a
@@ -780,8 +780,8 @@ Tao's theorem avoids the supercritical paradox by changing the statement:
 instead of "all orbits converge," prove "almost all orbits are almost bounded."
 This is structurally:
   φ̂_Æ → φ̂_Æ (supercritical → complex critical: probabilistic escape)
-  Ω_0 → Ω_Z2 (no protection → Z₂ protection via logarithmic density)
-  Γ_ʔ → Γ_β (all → almost all)
+  𐑷 → 𐑴 (no protection → Z₂ protection via logarithmic density)
+  𐑲 → 𐑚 (all → almost all)
 
 Tao did not prove the Collatz conjecture — he proved a structurally
 DISTINCT statement (Theorem CL-10: distance = 5). This is the defining
@@ -841,7 +841,7 @@ enough to gain protection, then prove the modified statement.
 5. **The O₁ → O₂ → O_inf tension.** Both Tao (O₂) and no-short-cycles
    (O₂) achieve Z₂ protection by weakening the statement. Can O₁ be
    promoted directly to O_inf without the intermediate O₂ step?
-   The grammar says: yes, if φ̂_Æ → φ̂_ž and Ω_0 → Ω_Z are achieved
+   The grammar says: yes, if φ̂_Æ → φ̂_ž and 𐑷 → 𐑭 are achieved
    simultaneously. But the mathematical path is unknown.
 
 ### Mathlib Gaps
@@ -864,12 +864,12 @@ enough to gain protection, then prove the modified statement.
 
 | Vessel | Tier | Protection | Criticality | Scope | Status |
 |---|---|---|---|---|---|
-| Collatz Conjecture | O₁ | Ω_0 | φ̂_Æ | ice | OPEN (1937) |
-| Terminal Cycle | O₀ | Ω_0 | φ̂_ž | bib | PROVED (trivial) |
-| Drift Theorem | O₀ | Ω_0 | φ̂_ž | bib | PROVED (1976) |
-| No Short Cycles | O₂ | Ω_Z2 | φ̂_ž | bib | PROVED (2010) |
-| Tao Log-Density | O₂ | Ω_Z2 | φ̂_Æ | thigh | PROVED (2019) |
-| Boundedness | O₁ | Ω_0 | φ̂_Æ | thigh | OPEN |
+| Collatz Conjecture | O₁ | 𐑷 | φ̂_Æ | ice | OPEN (1937) |
+| Terminal Cycle | O₀ | 𐑷 | φ̂_ž | bib | PROVED (trivial) |
+| Drift Theorem | O₀ | 𐑷 | φ̂_ž | bib | PROVED (1976) |
+| No Short Cycles | O₂ | 𐑴 | φ̂_ž | bib | PROVED (2010) |
+| Tao Log-Density | O₂ | 𐑴 | φ̂_Æ | thigh | PROVED (2019) |
+| Boundedness | O₁ | 𐑷 | φ̂_Æ | thigh | OPEN |
 
 ### What Makes Collatz Structurally Novel in the Catalog
 
@@ -877,7 +877,7 @@ enough to gain protection, then prove the modified statement.
    criticality. All others are φ̂_Æ (complex critical). This reflects the
    unique dynamical nature: local expansion vs. global convergence.
 
-2. **Ħ_1 (Markov-1)** — The ONLY O₁ problem with kick. All others have sure.
+2. **𐑒 (Markov-1)** — The ONLY O₁ problem with kick. All others have sure.
    Shorter memory, wilder dynamics — the paradox of a simple rule producing
    unpredictable behavior.
 
@@ -942,14 +942,14 @@ axiom tao_log_density_axiom : True
 /-!
 The Collatz conjecture is structurally the most isolated O₁ problem
 in the catalog. Its complex criticality (φ̂_Æ), Markov-1 chirality
-(Ħ_1), and 7-primitive distance to RH make it uniquely resistant to
+(𐑒), and 7-primitive distance to RH make it uniquely resistant to
 existing mathematical methods.
 
 The grammar reveals the exact structural content of the difficulty:
   (1) φ̂_Æ must be DEMOTED to φ̂_ž (prove convergence despite expansion).
-  (2) Ω_0 must be PROMOTED to Ω_Z (establish a topological winding number).
-  (3) Þ_⋈ must resolve to Þ_⊂ (the bowtie crossing closes).
-  (4) Ħ_1 → Ħ_2 → Ħ_! (two chirality promotions to O_inf).
+  (2) 𐑷 must be PROMOTED to 𐑭 (establish a topological winding number).
+  (3) 𐑥 must resolve to 𐑰 (the bowtie crossing closes).
+  (4) 𐑒 → 𐑖 → 𐑫 (two chirality promotions to O_inf).
 
 These are not mathematical proofs — they are structural preconditions
 for ANY proof. A proof of the Collatz conjecture MUST somehow achieve

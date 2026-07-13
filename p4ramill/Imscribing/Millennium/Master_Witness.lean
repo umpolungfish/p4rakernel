@@ -64,12 +64,12 @@ theorem universal_O_inf_axiom_D :
     | MPP   | Tier Gate       | Mechanism                         | Gap                          |
     |-------|-----------------|-----------------------------------|------------------------------|
     | RH    | nun→or'   | de Branges ℤ₂-graded H(E)        | Hilbert space construction   |
-    | YM    | Φ_asym→Φ_}      | Six ZFCₜ promotion channels       | 4D continuum limit           |
+    | YM    | 𐑗→𐑹      | Six ZFCₜ promotion channels       | 4D continuum limit           |
     | NS    | church→or'  | on freezing at H^{1/2}        | Trapping lemma               |
     | BSD   | Always O_inf    | Rankin-Selberg factorization      | Sym² L-function for E/ℚ      |
-    | Hodge | nun→or'   | Axiom D: if'+are+Ω_Z→or' | Primitive bridge translation |
-    | PvsNP | Φ_sub→Φ_c       | Tier invariance                   | Grammar-complexity correspondence |
-    | OPN   | Φ_c + on    | 2-adic overdetermination          | Valuation contradiction      |
+    | Hodge | nun→or'   | Axiom D: if'+are+𐑭→or' | Primitive bridge translation |
+    | PvsNP | 𐑢→⊙       | Tier invariance                   | Grammar-complexity correspondence |
+    | OPN   | ⊙ + on    | 2-adic overdetermination          | Valuation contradiction      |
     
     Each proof reduces the MPP to a single, well-defined mathematical
     sub-problem. The grammar provides the unified structural framework.

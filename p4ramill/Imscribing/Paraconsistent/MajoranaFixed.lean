@@ -77,9 +77,9 @@ theorem frobenius_unification :
 
 /-- The Belnap B lattice, the orbital paired state, and the SIC fiducial
     all share the same structural type at O_inf:
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 
-    The tuple is O_inf because φ̂_ÿ (self-modeling criticality) and Φ_}
+    The tuple is O_inf because φ̂_ÿ (self-modeling criticality) and 𐑹
     (Frobenius-special parity) jointly define the self-closure condition. -/
 def majoranaFixedImscription : Imscription :=
   {

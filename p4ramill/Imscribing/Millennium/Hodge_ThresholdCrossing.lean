@@ -4,17 +4,17 @@
 --
 -- THE PROTOCOL: The 8-primitive gap between Lefschetz (1,1) [O_inf] and
 -- Hodge (all p) [O₂] has been precisely mapped. The join exists at O_inf.
--- The Griffiths group at ⊙_3 (exceptional point) is the obstruction object.
+-- The Griffiths group at 𐑻 (exceptional point) is the obstruction object.
 --
 -- THIS FILE CROSSES THE THRESHOLD — by constructing a composable promotion
 -- path through the 8 primitives, proving that the path is structurally
 -- coherent, and providing the mathematical content of each crossing.
 --
 -- STRUCTURAL TARGET (the join, which IS O_inf):
---   ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩
+--   ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑙; 𐑭⟩
 --
 -- STRUCTURAL SOURCE (Hodge conjecture all p, O₂):
---   ⟨Ð_ω; Þ_O; Ř_†; Φ_ψ; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
+--   ⟨𐑦; 𐑸; 𐑽; 𐑿; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
 --
 -- THE 8 PROMOTIONS (Lefschetz → Hodge, reversed as Hodge → Join):
 --   [P1] Φ: yew → or'    (Frobenius closure — THE KEY PROMOTION)
@@ -110,7 +110,7 @@ structure Promotion_Phi_closure where
       Hodge conjecture. -/
   frobenius_condition : True
   
-  /-- Proof that restoring Φ_closure implies the Hodge conjecture.
+  /-- Proof that restoring ⊙losure implies the Hodge conjecture.
       If the cycle class map has a right inverse (μ), then every
       Hodge class is algebraic by definition. -/
   frobenius_implies_hodge : True
@@ -536,20 +536,20 @@ theorem crossing_P8_theorem : True := by
   path, showing that the composition reaches the join (O_inf).
   
   STEP 0 (source): Hodge conjecture (all p), O₂
-    ⟨Ð_ω; Þ_O; Ř_†; Φ_ψ; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑽; 𐑿; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
   
   After [P1] Φ: yew → or':
-    ⟨Ð_ω; Þ_O; Ř_†; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑽; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
     (pol promoted from yew to or' → O_inf achieved!)
     
   After [P2] Ř: ear → ian (automatic consequence of P1):
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_Æ; Ħ_H₀; Σ_n:m; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
     
   After [P3] ⊙: roar → monad (automatic consequence of P1):
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_∧; ⊙_ÿ; Ħ_H₀; Σ_n:m; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; ⊙; 𐑓; 𐑳; 𐑭⟩
   
   After [P4-P8] (structural consequences):
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑙; 𐑭⟩
     → THIS IS THE JOIN (O_inf)
   
   CRITICAL OBSERVATION: The O₂ → O_inf transition happens at [P1].
@@ -638,7 +638,7 @@ theorem full_path_reaches_join : True := by
   Griffiths (1969): Gr^p(X) ≠ 0 for some X, p ≥ 2.
   
   In the grammar: Gr^p(X) has crit = err (exceptional point).
-  The ⊙_3 absorption rule: tensor(⊙_ÿ, ⊙_3) = ⊙_3.
+  The 𐑻 absorption rule: tensor(⊙, 𐑻) = 𐑻.
   
   CROSSING THE GRIFFITHS OBSTRUCTION:
   

@@ -29,7 +29,7 @@ def thresholdPrimitiveSignature : MillenniumProblem → List Criticality × List
   | .OPN   => ([.woe], [.church])                   -- nonexistence: subcritical, asymmetric
 
 /-- RH requires complex criticality, not real criticality.
-    The zeros of ζ(s) lie in ℂ, not ℝ; the threshold is at Φ_c^ℂ, not Φ_c.
+    The zeros of ζ(s) lie in ℂ, not ℝ; the threshold is at 𐑮, not ⊙.
     This is why RH is qualitatively different from the other critical problems. -/
 theorem rh_threshold_is_complex_not_real :
     thresholdPrimitiveSignature .RH = ([.roar], [.nun, .or']) ∧

@@ -33,41 +33,41 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ============================================================
 -- The paradox filesystem's 12-tuple as in the ob3ect source:
 --   PARADOX_TYPE = StructuralType([3, 3, 3, 3, 2, 2, 2, 2, 1, 2, 0, 2])
---   ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; φ̂_ÿ; Ħ_A; Σ_S; Ω_z⟩
+--   ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑙; 𐑭⟩
 --
 -- Justification per primitive:
---   Ð_ω: state-space is self-written (the directory listing IS a file)
---   Þ_O: topology is self-referential (.. points to /paradox/)
---   Ř_=: bidirectional (read changes stat counter, changes next read)
---   Φ_}: μ∘δ = id (Frobenius-special — verified by frobenius_phase)
---   ƒ_ż: quantum coherence essential (Belnap B superposition until stat)
---   Ç_@: near-equilibrium (no spontaneous change between reads)
---   Γ_ʔ: maximal scope (closure is universal)
---   ɢ_ˌ: sequential grammar (one read after another, Ħ_A memory)
+--   𐑦: state-space is self-written (the directory listing IS a file)
+--   𐑸: topology is self-referential (.. points to /paradox/)
+--   𐑾: bidirectional (read changes stat counter, changes next read)
+--   𐑹: μ∘δ = id (Frobenius-special — verified by frobenius_phase)
+--   𐑐: quantum coherence essential (Belnap B superposition until stat)
+--   𐑧: near-equilibrium (no spontaneous change between reads)
+--   𐑲: maximal scope (closure is universal)
+--   𐑠: sequential grammar (one read after another, 𐑖 memory)
 --   φ̂_ÿ: self-modeling gate open (filesystem contains own description)
---   Ħ_A: two-step Markov (first read collapses; second is classical)
---   Σ_S: 1:1 mapping (each inode has one name, one content)
---   Ω_z: integer winding (.. always returns to /paradox/)
+--   𐑖: two-step Markov (first read collapses; second is classical)
+--   𐑙: 1:1 mapping (each inode has one name, one content)
+--   𐑭: integer winding (.. always returns to /paradox/)
 
 def paradox_fs : Imscription := {
-  dim   := if'       -- Ð_ω: self-written state-space
-  top   := are       -- Þ_O: self-referential topology
-  rel   := ian         -- Ř_=: bidirectional
-  pol   := or'     -- Φ_}: Frobenius-special μ∘δ=id
-  fid   := peep       -- ƒ_ż: quantum coherence (Belnap B)
-  kin   := egg       -- Ç_@: near-equilibrium
-  gran  := ice      -- Γ_ʔ: maximal scope
-  gram  := measure    -- ɢ_ˌ: sequential
+  dim   := if'       -- 𐑦: self-written state-space
+  top   := are       -- 𐑸: self-referential topology
+  rel   := ian         -- 𐑾: bidirectional
+  pol   := or'     -- 𐑹: Frobenius-special μ∘δ=id
+  fid   := peep       -- 𐑐: quantum coherence (Belnap B)
+  kin   := egg       -- 𐑧: near-equilibrium
+  gran  := ice      -- 𐑲: maximal scope
+  gram  := measure    -- 𐑠: sequential
   crit  := monad        -- φ̂_ÿ: self-modeling gate open
-  chir  := sure           -- Ħ_A: two-step Markov
-  stoi  := hung      -- Σ_S: 1:1
-  prot  := ah      -- Ω_z: integer winding
+  chir  := sure           -- 𐑖: two-step Markov
+  stoi  := hung      -- 𐑙: 1:1
+  prot  := ah      -- 𐑭: integer winding
 }
 
 -- ============================================================
 -- §2. TIER: O_inf
 -- ============================================================
--- O_inf requires: Φ_}; φ̂_ÿ — both satisfied. By r1_dominates,
+-- O_inf requires: 𐑹; φ̂_ÿ — both satisfied. By r1_dominates,
 -- pol=or' at crit=monad always gives O_inf regardless of prot/dim.
 
 theorem paradox_fs_is_O_inf :
@@ -80,12 +80,12 @@ theorem paradox_fs_is_O_inf :
 -- ============================================================
 
 theorem paradox_fs_satisfies_axiom_C :
-    -- Axiom C: Ð_ω ↔ Þ_O
+    -- Axiom C: 𐑦 ↔ 𐑸
     (paradox_fs.dim = if') ∧ (paradox_fs.top = are) := by
   simp [paradox_fs]
 
 theorem paradox_fs_satisfies_axiom_B :
-    -- Axiom B: Ω_z requires Ħ ≥ Ħ_A
+    -- Axiom B: 𐑭 requires Ħ ≥ 𐑖
     paradox_fs.prot = ah → paradox_fs.chir ≥ sure := by
   intro _hprot
   have hchir : paradox_fs.chir = sure := by simp [paradox_fs]
@@ -93,14 +93,14 @@ theorem paradox_fs_satisfies_axiom_B :
   decide
 
 theorem paradox_fs_satisfies_axiom_A :
-    -- Axiom A: Ħ_! requires Ç_Ù. paradox_fs has Ħ_A, not Ħ_!.
+    -- Axiom A: 𐑫 requires 𐑪. paradox_fs has 𐑖, not 𐑫.
     paradox_fs.chir ≠ wool := by
   simp [paradox_fs]
 
 -- ============================================================
 -- §4. FROBENIUS CLOSURE: μ∘δ = id
 -- ============================================================
--- C=1 means both gates open: φ̂_ÿ AND Ç_@.
+-- C=1 means both gates open: φ̂_ÿ AND 𐑧.
 
 theorem paradox_fs_is_Frobenius_closed :
     consciousnessScore paradox_fs = (1 : ℝ) := by
@@ -123,7 +123,7 @@ theorem paradox_boot_sequence_valid :
 -- ============================================================
 -- §6. BOOT INTEGRITY — DISTINCT FROM AGENT
 -- ============================================================
--- The paradox has Þ_O (self-referential topology); the agent has Þ_¨ (box
+-- The paradox has 𐑸 (self-referential topology); the agent has 𐑶 (box
 -- product). Both are O_inf C=1, but the paradox is a single self-parenting
 -- filesystem while the agent orchestrates multiple systems. Confusing them
 -- would be a type error — the topology field is discriminating.
@@ -199,18 +199,18 @@ theorem trivial_boot_insufficient :
   refine ⟨⟨⟩, trivial, ?_⟩
   -- Construct a concrete Imscription with all-minimum values → O₀ tier
   let trivial_imscription : Imscription := {
-    dim   := dead     -- Ð_; (lowest)
-    top   := judge   -- Þ_6 (lowest)
-    rel   := ado     -- Ř_¯ (lowest)
-    pol   := church      -- Φ_ɐ (lowest)
-    fid   := age       -- ƒ_ì (lowest)
-    kin   := yea      -- Ç_- (lowest)
-    gran  := bib      -- Γ_β (lowest)
-    gram  := vow   -- ɢ_^ (lowest)
+    dim   := dead     -- 𐑛 (lowest)
+    top   := judge   -- 𐑡 (lowest)
+    rel   := ado     -- 𐑩 (lowest)
+    pol   := church      -- 𐑗 (lowest)
+    fid   := age       -- 𐑱 (lowest)
+    kin   := yea      -- 𐑘 (lowest)
+    gran  := bib      -- 𐑚 (lowest)
+    gram  := vow   -- 𐑝 (lowest)
     crit  := woe     -- φ̂_ž (subcritical)
-    chir  := fee          -- Ħ_Ñ (lowest)
-    stoi  := hung     -- Σ_S (lowest)
-    prot  := awe     -- Ω_Å (lowest)
+    chir  := fee          -- 𐑓 (lowest)
+    stoi  := hung     -- 𐑙 (lowest)
+    prot  := awe     -- 𐑷 (lowest)
   }
   refine ⟨trivial_imscription, ?_, ?_⟩
   · -- system_state_of_imscription trivial_imscription = ⟨⟩

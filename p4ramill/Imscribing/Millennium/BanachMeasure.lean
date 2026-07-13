@@ -44,7 +44,7 @@ namespace Imscribing.Primitives.BanachMeasure
 -- §0: CANONICAL STRUCTURAL TYPE
 -- ============================================================
 -- Banach's Problem as an Imscription.
--- ⟨Ð_ß; Þ_¨; Ř_¯; Φ_ɐ; ƒ_ì; Ç_@; Γ_γ; ɢ_^; ⊙_ž; Ħ_Ñ; Σ_S; Ω_Å⟩
+-- ⟨𐑼; 𐑶; 𐑩; 𐑗; 𐑱; 𐑧; 𐑔; 𐑝; 𐑢; 𐑓; 𐑙; 𐑷⟩
 -- O₀: non-critical, trivial winding, symmetry-broken by AC.
 
 /-- Banach's Measure Problem — the canonical structural type. -/
@@ -172,17 +172,17 @@ theorem frobenius_measure_exists_under_ppmsym :
 -- ============================================================
 
 def banach_to_zfc_fe_promotions : List (String × String × String) := [
-  ("1. Dimensionality", "Ð_ß (array)", "Ð_ω (if')"),
-  ("2. Topology", "Þ_¨ (oil)", "Þ_O (are)"),
-  ("3. Relational", "Ř_¯ (ado)", "Ř_= (ian)"),
-  ("4. ★ Parity (CRITICAL)", "Φ_ɐ (church)", "Φ_} (or')"),
-  ("5. Fidelity", "ƒ_ì (age)", "ƒ_ż (peep)"),
-  ("6. Granularity", "Γ_γ (thigh)", "Γ_ʔ (ice)"),
-  ("7. Grammar", "ɢ_^ (vow)", "ɢ_ˌ (measure)"),
-  ("8. Criticality", "⊙_ž (woe)", "⊙_ÿ (monad)"),
-  ("9. Chirality", "Ħ_Ñ (fee)", "Ħ_A (wool)"),
-  ("10. Stoichiometry", "Σ_S (hung)", "Σ_ï (up)"),
-  ("11. Winding", "Ω_Å (awe)", "Ω_z (ah)")
+  ("1. Dimensionality", "𐑼 (array)", "𐑦 (if')"),
+  ("2. Topology", "𐑶 (oil)", "𐑸 (are)"),
+  ("3. Relational", "𐑩 (ado)", "𐑾 (ian)"),
+  ("4. ★ Parity (CRITICAL)", "𐑗 (church)", "𐑹 (or')"),
+  ("5. Fidelity", "𐑱 (age)", "𐑐 (peep)"),
+  ("6. Granularity", "𐑔 (thigh)", "𐑲 (ice)"),
+  ("7. Grammar", "𐑝 (vow)", "𐑠 (measure)"),
+  ("8. Criticality", "𐑢 (woe)", "⊙ (monad)"),
+  ("9. Chirality", "𐑓 (fee)", "𐑫 (wool)"),
+  ("10. Stoichiometry", "𐑙 (hung)", "𐑳 (up)"),
+  ("11. Winding", "𐑷 (awe)", "𐑭 (ah)")
 ]
 
 theorem hamming_distance_to_zfc : primitiveMismatches banach_measure_problem zfc = 5 := by

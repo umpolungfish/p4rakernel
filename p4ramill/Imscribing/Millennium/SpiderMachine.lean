@@ -1,6 +1,6 @@
 -- Imscribing/Millennium/SpiderMachine.lean
 -- THE SPIDER MACHINE — Master Integration of the Structural Gap Proof Theory
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.ProofTheory
 import Imscribing.Millennium.PrimitiveBridge

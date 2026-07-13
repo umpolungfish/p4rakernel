@@ -7,8 +7,8 @@
 --
 -- The grammar does not prove the Lefschetz theorem directly — it
 -- STRUCTURALLY CHARACTERIZES the three gaps that constitute it:
---   top:  Þ_O (adjoint)  vs  Þ_ò (intersection)
---   gram: ɢ_ˌ (sequential) vs ɢ_^ (conjunctive)
+--   top:  𐑸 (adjoint)  vs  𐑥 (intersection)
+--   gram: 𐑠 (sequential) vs 𐑝 (conjunctive)
 --   crit: φ̂_Æ (complex-critical) vs φ̂_ÿ (self-modeling)
 
 import Imscribing.Primitives.Core
@@ -106,13 +106,13 @@ def lef_hodge_proj : Imscription := {
   mm(pic,intc)=1 (peep vs age — the Chern class promotion)
   mm(dolb,sc)=4  (T, R, Γ, H — the Dolbeault bridge cost)
   mm(expseq,longex)=1 (mime vs are — they are almost identical)
-  tensor(pic,chern).prot = int11.prot  (Ω_z = Ω_z — surjectivity tight)
+  tensor(pic,chern).prot = int11.prot  (𐑭 = 𐑭 — surjectivity tight)
   tensor(pic,chern).crit = φ̂_Æ ≠ int11.crit = φ̂_ÿ  (criticality gap)
   meet(int11,dolb).crit = φ̂_ÿ ≠ meet(int11,hol).crit = φ̂_ž (Dolbeault lift)
-  meet(hodged,int11).top = Þ_ò  (bowtie = crossing point)
-  meet(intc,dolb).top = Þ_ò  (integral × Dolbeault = crossing point)
-  tensor(hproj,hodged).top = Þ_¨  (projection restores box product)
-  tensor(pic,expseq).gram = ɢ_ˌ  (sequential — the proof's logical structure)
+  meet(hodged,int11).top = 𐑥  (bowtie = crossing point)
+  meet(intc,dolb).top = 𐑥  (integral × Dolbeault = crossing point)
+  tensor(hproj,hodged).top = 𐑶  (projection restores box product)
+  tensor(pic,expseq).gram = 𐑠  (sequential — the proof's logical structure)
   
   TIERS:
   All O₂ except hol_coh (O₀). No O_inf: none have or'.
@@ -351,14 +351,14 @@ WHAT THE GRAMMAR PROVES (above):
   [3] mismatches(exp_seq, long_exact) = 1 → they differ only in
       topology (bowtie vs odot) — T_ò is the crossing point
   [4] tensor(picard, chern).prot = int11.prot → surjectivity
-      is tight at the topological protection level (Ω_z = Ω_z)
+      is tight at the topological protection level (𐑭 = 𐑭)
   [5] Dolbeault lifts φ̂_ž → φ̂_ÿ (Theorem: dolbeault_lifts_criticality)
-  [6] The integral (1,1)-classes are the bowtie (Þ_ò) intersection
+  [6] The integral (1,1)-classes are the bowtie (𐑥) intersection
       of Hodge decomposition with the integral condition
 
 THE THREE STRUCTURAL GAPS (lefschetz_gap_values):
-  top:  Þ_O  (adjoint functor)  vs  Þ_ò  (crossing point)
-  gram: ɢ_ˌ  (sequential)       vs  ɢ_^  (conjunctive)
+  top:  𐑸  (adjoint functor)  vs  𐑥  (crossing point)
+  gram: 𐑠  (sequential)       vs  𐑝  (conjunctive)
   crit: φ̂_Æ  (complex-critical) vs  φ̂_ÿ (self-modeling)
 
 These three gaps encode the mathematical content of the Lefschetz

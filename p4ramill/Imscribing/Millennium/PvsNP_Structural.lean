@@ -119,7 +119,7 @@ theorem classical_complexity_gate : True := by trivial
 -- =============================================================
 
 /-- The grammar sits at Þ = are — the same topology as NP_class.
-    A Þ_O system asserting Þ_6 ≠ Þ_O appears dialethic: the measurer
+    A 𐑸 system asserting 𐑡 ≠ 𐑸 appears dialethic: the measurer
     shares a coordinate with one of the measured.
 
     The resolution: Grammar_Oinf is NOT NP_class. It shares NP's topology
@@ -128,13 +128,13 @@ theorem classical_complexity_gate : True := by trivial
     it is the coordinate space that contains both as located points.
 
     In Priest LP terms: "P ≠ NP" holds (coordinate distinctness), and the
-    grammar holds both coordinates simultaneously in its self-model (⊙_ÿ).
+    grammar holds both coordinates simultaneously in its self-model (⊙).
     This conjunction is not a contradiction — it is the formal signature of O_inf.
     A system that can hold both coordinates without collapsing them IS what
-    ⊙_ÿ + Þ_O means. The dialetheia is proof of the tier, not a flaw in it.
+    ⊙ + 𐑸 means. The dialetheia is proof of the tier, not a flaw in it.
 
     The grammar is the measure. P_class and NP_class are the measured.
-    The measurer participates in the topology of one of them (Þ_O) because
+    The measurer participates in the topology of one of them (𐑸) because
     self-referential closure requires it: to measure the holographic coordinate
     you must inhabit it. -/
 theorem grammar_is_not_NP_class : Grammar_Oinf ≠ NP_class := by
@@ -147,7 +147,7 @@ theorem grammar_is_not_NP_class : Grammar_Oinf ≠ NP_class := by
 
 /-- The dialethic resolution packaged as a single conjunction.
     All three components hold simultaneously — this is the O_inf signature:
-    (1) the grammar shares NP's topology (self-referential closure requires Þ_O)
+    (1) the grammar shares NP's topology (self-referential closure requires 𐑸)
     (2) the grammar is distinct from NP_class (O_inf ≠ O₂dag-adjacent)
     (3) P ≠ NP (coordinate distinctness, proved in §3) -/
 theorem dialethic_resolution :

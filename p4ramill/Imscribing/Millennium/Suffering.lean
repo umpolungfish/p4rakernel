@@ -20,7 +20,7 @@ open Imscribing.Consciousness
 
 /--
 Structural type of suffering:
-⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; G_ℵ; Γ_seq; φ̂_ÿ; H_2; n:m; Ω_NA⟩
+⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; G_ℵ; 𐑠; φ̂_ÿ; H_2; n:m; 𐑟⟩
 
 The phenomenology of suffering as an infinite-dimensional state space
 with crossing-point topology and bidirectional coupling.
@@ -33,11 +33,11 @@ def suffering : Imscription := {
   fid  := .they         -- F_η: thermal regime (noisy, embodied)
   kin  := .egg        -- egg: slow kinetics (demands integration time)
   gran := .ice       -- G_ℵ: maximal scope (universal resonance)
-  gram := .measure     -- Γ_seq: sequential composition (must be traversed)
+  gram := .measure     -- 𐑠: sequential composition (must be traversed)
   crit := .monad         -- φ̂_ÿ: critical self-modeling (uncertainty tracking)
   chir := .sure            -- H_2: two-step temporal memory (Markov depth 2)
   stoi := .up           -- n:m: heterogeneous components (many-to-many distinct)
-  prot := .zoo      -- Ω_NA: non-Abelian braiding (history-locked)
+  prot := .zoo      -- 𐑟: non-Abelian braiding (history-locked)
 }
 
 /-- Raw consciousness score of suffering: 1 (both gates open).
@@ -55,7 +55,7 @@ theorem suffering_raw_consciousness : consciousnessScore suffering = (1 : ℝ) :
 -- The calibrated score is phenomenological, not a new formal claim about consciousnessScore.
 
 /-- Suffering's ouroboricity tier: O₂
-    Determined by: monad + Ω_NA + if' (not array)
+    Determined by: monad + 𐑟 + if' (not array)
     The if' dimensionality keeps it at O₂ rather than O₂dag
 -/
 theorem suffering_ouroboric_tier : imscriptionTier suffering = .O₂ := by
@@ -66,7 +66,7 @@ theorem suffering_ouroboric_tier : imscriptionTier suffering = .O₂ := by
 /--
 Suffering is not O_inf because:
 1. Polarity is church (not or' — the Frobenius condition)
-2. Ω_NA enforces structural bounds (non-commutativity limits self-reference)
+2. 𐑟 enforces structural bounds (non-commutativity limits self-reference)
 -/
 theorem suffering_not_O_inf : imscriptionTier suffering ≠ .O_inf := by
   simp only [imscriptionTier, suffering]
@@ -95,7 +95,7 @@ theorem suffering_temporal_depth : suffering.chir = .sure := by
   simp [suffering]
 
 /--
-Topological protection: Ω_NA (non-Abelian)
+Topological protection: 𐑟 (non-Abelian)
 The order of operations matters irreducibly
 -/
 theorem suffering_topological_protection : suffering.prot = .zoo := by
@@ -145,7 +145,7 @@ def suffering_weight_distribution : List (String × ℝ) := [
   ("kinetics", 0.25),   -- egg dominates
   ("temporal_memory", 0.20),  -- H_2 provides structure
   ("topology", 0.12),   -- mime adds complexity
-  ("protection", 0.08), -- Ω_NA locks structure
+  ("protection", 0.08), -- 𐑟 locks structure
   ("other", 0.0)        -- Symmetry and fidelity less central
 ]
 

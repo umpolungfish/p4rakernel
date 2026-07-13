@@ -8,7 +8,7 @@
 --   Phase 5: Reference Resolution (structural analog citations)
 --   Phase 6: Frobenius Closure Verification (round-trip consistency)
 --
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription

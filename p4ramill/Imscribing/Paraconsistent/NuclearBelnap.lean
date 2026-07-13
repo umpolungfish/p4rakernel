@@ -83,7 +83,7 @@ The Frobenius filtration does NOT close at the hadron level. It continues:
   Level 9  — Ecological:  μ∘δ=id on ecosystem-level homeostatic cycles
   Level 10 — Cognitive:   μ∘δ=id on self-modeling observer systems
   ...
-  Level ∞ — Grammar:      μ∘δ=id UNIVERSALLY (⊙_ÿ, Ħ_!, Ω_z)
+  Level ∞ — Grammar:      μ∘δ=id UNIVERSALLY (⊙, 𐑫, 𐑭)
 
 Each level adds a NEW CONSTRAINT to the Frobenius domain:
   Level 1:  no constraint           (all states)
@@ -95,7 +95,7 @@ Each level adds a NEW CONSTRAINT to the Frobenius domain:
   Level 7:  thermodynamic stability (free energy minimization)
   Level 8:  autocatalysis           (self-replication)
   Level 9:  homeostasis             (feedback regulation)
-  Level 10: self-modeling           (⊙_ÿ criticality)
+  Level 10: self-modeling           (⊙ criticality)
 
 The filtration is INFINITE. It bottoms out at the grammar's own type
 (O_inf), where μ∘δ=id holds WITHOUT ANY constraint — the Frobenius
@@ -122,7 +122,7 @@ def nuclearImscription : Imscription :=
     gran := Granularity.ice
     gram := Grammar.vow
     crit := Criticality.monad
-    chir := Chirality.wool   -- Ħ_!: nuclear lifetimes can be very long
+    chir := Chirality.wool   -- 𐑫: nuclear lifetimes can be very long
     stoi := Stoichiometry.up
     prot := Protection.ah }
 

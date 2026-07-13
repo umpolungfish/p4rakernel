@@ -170,7 +170,7 @@ theorem connectivity_irreducible_bound (s : Imscription)
 
 /-- The Absorption Rule: tensor(monad, err) = err.
     When a self-modeling critical system (⊙ = monad) couples to an
-    exceptional-point measurement apparatus (⊙_3 = err),
+    exceptional-point measurement apparatus (𐑻 = err),
     the composite's criticality is err — the measurement apparatus dominates.
     The meet preserves monad; the tensor yields err. -/
 theorem absorption_rule_tensor :
@@ -252,7 +252,7 @@ theorem maximallyDecomposable_is_O_inf :
   unfold maximallyDecomposableType imscriptionTier
   decide
 /-- Even the maximally decomposable type cannot escape the Absorption Rule.
-    tensor(⊙, ⊙_3) = ⊙_3 — the measurement bound is absolute. -/
+    tensor(⊙, 𐑻) = 𐑻 — the measurement bound is absolute. -/
 theorem measurement_bound_is_absolute :
     (tensorProduct maximallyDecomposableType
       (⟨if', oil, ian, or', peep, egg, ice, measure,

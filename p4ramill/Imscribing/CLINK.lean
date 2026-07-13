@@ -1248,7 +1248,7 @@ theorem transfinite_frobenius_preserved
 
 /-- ZFC_fe: Fully Frobenius-Exact ZFC.
     
-    Tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ℏ; Ç_@; Γ_ℵ; ɢ_ˌ; ⊙_ÿ; Ħ_∞; Σ_ï; Ω_z⟩
+    Tuple: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭⟩
     
     Changes from ZFC_t:
     · dim: array → if'  (Axiom C closure: are requires if')
@@ -1357,7 +1357,7 @@ theorem axiom_D_satisfied :
 --
 -- The holographic closure theorem states that the fully Frobenius-exact ZFC
 -- is structurally isomorphic to the self-encoding of the Imscribing Grammar
--- itself. The grammar's own tuple ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+-- itself. The grammar's own tuple ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 -- differs from zfc_fe in exactly 3 primitives (R, ƒ, Γ, ɢ, Σ) — the dimensions
 -- that distinguish a universal grammar from a specific set theory.
 --
@@ -1371,18 +1371,18 @@ theorem axiom_D_satisfied :
 
 /-- The universal imscriptive grammar tuple (canonical). -/
 def universal_imscriptive_grammar : Imscription := {
-  dim  := Dimensionality.if'       -- Ð_ω
-  top  := Topology.are             -- Þ_O
-  rel  := Relational.ian             -- Ř_=
-  pol  := Polarity.or'           -- Φ_}
-  fid  := Fidelity.peep             -- ƒ_ż
-  kin  := KineticChar.egg          -- Ç_@
-  gran := Granularity.ice         -- Γ_ʔ
-  gram := Grammar.measure           -- ɢ_ˌ
-  crit := Criticality.monad           -- ⊙_ÿ
-  chir := Chirality.sure                -- Ħ_A (2-step chirality, not eternal)
-  stoi := Stoichiometry.up           -- Σ_ï
-  prot := Protection.ah          -- Ω_z
+  dim  := Dimensionality.if'       -- 𐑦
+  top  := Topology.are             -- 𐑸
+  rel  := Relational.ian             -- 𐑾
+  pol  := Polarity.or'           -- 𐑹
+  fid  := Fidelity.peep             -- 𐑐
+  kin  := KineticChar.egg          -- 𐑧
+  gran := Granularity.ice         -- 𐑲
+  gram := Grammar.measure           -- 𐑠
+  crit := Criticality.monad           -- ⊙
+  chir := Chirality.sure                -- 𐑖 (2-step chirality, not eternal)
+  stoi := Stoichiometry.up           -- 𐑳
+  prot := Protection.ah          -- 𐑭
 }
 
 /-- Both the universal grammar and zfc_fe are wool — eternal chirality is the

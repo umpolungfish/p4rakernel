@@ -1,21 +1,23 @@
-Port ob3ect scaffold: CompletingD2048InD12.lean
+Shavian notation migration + explicit Belnap/Majorana/SIC iso witness
 
-The auto-designed protocol "Completing d=2048 SIC-POVM by completing in d=12
-SIC-POVM": the d=2048 conjecture placed in the vessel as Prima Materia, split
-by the Dual-Link into self-imscription and demand, projected into the d=12
-frame (Solve), returned (Coagula), fused by the lattice join with conflict
-held as Both, fixed as the distillate, closing on the Portico. Seventeen
-tokens, two FSPLIT/FFUSE pairs, dialetheia-complete, period 17.
+Two changes, one commit theme: say what the tree means in its current
+language, and say the isomorphism instead of gesturing at it.
 
-Ported on the HermeticVesselPolymer idiom: full stage and label imscriptions,
-the IGProtocol term with the idempotent Dual-Link self-pairing at s7, both
-evaluation arms, the tier self-application, and the Frobenius self-fusion
-theorem the auto-designer omits. Registered in lakefile.toml.
+Notation: all old-era primitive IDs in comments and docstrings are migrated
+to the NSNS_PRIME.md Shavian glyphs, both the glyph-pair code IDs (D_omega
+era) and the older human-name forms (Omega_0, Phi_c, D_infty, T_bowtie era).
+Comment-only sweep, 790 tokens across 48 files; live code strings
+(GeneToProtein codon tables, CLU_GPM promotion data, FrobeniusUnification
+ruleset names) and genuine math notation (cosmology density parameters in
+CosmologyBelnap, summation indices) are untouched. One pre-existing
+ID/label mismatch fixed in BanachMeasure: the chirality promotion target
+read H2 but was labeled wool; the Stone's chirality is wool.
 
-One honest divergence recorded in place: the auto-designer's fingerprint
-expects O_1 for the protocol class, but the Grammar's own assess_tier on the
-ground imscription returns O_0. The raw verdict stands in the file; Prima
-Materia reading as the unformed tier before the work is consistent, not a
-failure, and the discrepancy is reported rather than adjusted.
-
-Builds green, zero sorries, no native_decide; kernel-checked.
+FrobeniusIso.lean: MajoranaFixed proved three fixed-point facts side by
+side; the one-object claim needs morphism data, not a conjunction. The new
+module supplies it: orbitalBelnapEquiv (explicit toFun/invFun/left_inv/
+right_inv), the transported operations (pair=join, depair=belnapDepair,
+spinFlip=bnot, omeet=meet), naturality for all four, transport of the
+Frobenius identity and the SIC equiangularity, and the dialetheic fixed
+point carried to the dialetheic fixed point. belnap_majorana_sic_iso
+bundles the witness. Builds green, zero sorries, no native_decide.

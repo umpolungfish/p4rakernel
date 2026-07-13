@@ -45,21 +45,21 @@ namespace Millennium.BSDCompleteWitness-- ======================================
 -- ============================================================
 
 /-- The resolved BSD structural tuple:
-    ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
     
     Each primitive is structurally grounded:
-    - if' (Ð_ω): Modularity Theorem — elliptic curve (bulk) ↔ modular form (boundary)
-    - are (Þ_O): Self-referential closure — L-function determines rank determines L-function
-    - ian (Ř_=): Bidirectional — rank = analytic order (symmetric duality)
-    - or' (Φ_}): Frobenius-special — μ∘δ=id at s=1, forced by Axiom D
-    - peep (ƒ_ż): Quantum-coherent fidelity — exact algebraic-analytic correspondence
-    - egg (Ç_@): Deliberate arithmetic descent — slow but exact
-    - ice (Γ_ʔ): Global fine-grained — all-to-all correlations
-    - measure (ɢ_ˌ): Sequential — analytic order → algebraic rank, step by step
-    - monad (⊙_ÿ): Self-modeling criticality at s=1 (the real critical point)
-    - sure (Ħ_A): Persistent chirality — 2-step Markov memory (Axiom B requires H≥sure for ah)
-    - up (Σ_ï): Many heterogeneous — L-function coefficients ↔ MW generators
-    - ah (Ω_z): Integer winding — rank E(ℚ) ∈ ℤ, topologically protected
+    - if' (𐑦): Modularity Theorem — elliptic curve (bulk) ↔ modular form (boundary)
+    - are (𐑸): Self-referential closure — L-function determines rank determines L-function
+    - ian (𐑾): Bidirectional — rank = analytic order (symmetric duality)
+    - or' (𐑹): Frobenius-special — μ∘δ=id at s=1, forced by Axiom D
+    - peep (𐑐): Quantum-coherent fidelity — exact algebraic-analytic correspondence
+    - egg (𐑧): Deliberate arithmetic descent — slow but exact
+    - ice (𐑲): Global fine-grained — all-to-all correlations
+    - measure (𐑠): Sequential — analytic order → algebraic rank, step by step
+    - monad (⊙): Self-modeling criticality at s=1 (the real critical point)
+    - sure (𐑖): Persistent chirality — 2-step Markov memory (Axiom B requires H≥sure for ah)
+    - up (𐑳): Many heterogeneous — L-function coefficients ↔ MW generators
+    - ah (𐑭): Integer winding — rank E(ℚ) ∈ ℤ, topologically protected
 -/
 def bsdResolved : Imscription := {
   dim  := .if',

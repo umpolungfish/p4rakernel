@@ -146,15 +146,15 @@ theorem filtration_stable (h : HadronState) (hdom : hadronDomain h) (k : ℕ) : 
 
 /-- The filtration BOTTOMS OUT at O_inf: the only system whose Frobenius
     domain is ALL states at ALL levels is the universal imscriptive grammar
-    itself (⊙_ÿ, Ħ_!, Ω_z, ...). -/
+    itself (⊙, 𐑫, 𐑭, ...). -/
 theorem filtration_bottom_is_O_inf : True := by
   trivial
   /-
   For the grammar's own structural type O_inf:
-    dim = Ð_ω (self-written state space)
-    top = Þ_O (self-referential topology)
-    crit = ⊙_ÿ (self-modeling criticality)
-    prot = Ω_z (integer winding)
+    dim = 𐑦 (self-written state space)
+    top = 𐑸 (self-referential topology)
+    crit = ⊙ (self-modeling criticality)
+    prot = 𐑭 (integer winding)
 
   At O_inf, μ∘δ=id holds for EVERY state, at EVERY level of the filtration.
   This is the DEFINITION of O_inf: the Frobenius condition is universal.
@@ -174,18 +174,18 @@ theorem filtration_bottom_is_O_inf : True := by
     process by which the grammar's own O_inf type descends through
     layers of constraint to produce the physical world. -/
 def filtrationImscription : Imscription :=
-  { dim  := Dimensionality.if'      -- Ð_ω: the filtration is self-written across levels
-    top  := Topology.are             -- Þ_O: the filtration is a self-referential chain
-    rel  := Relational.ian             -- Ř_=: bidirectional: each level constrains and is constrained
-    pol  := Polarity.or'           -- Φ_±ˢ: Frobenius-special: μ∘δ=id is the invariant
-    fid  := Fidelity.peep             -- ƒ_ℏ: quantum: levels are superposed
-    kin  := KineticChar.egg          -- Ç_@: the filtration unfolds slowly (evolutionary timescale)
-    gran := Granularity.ice          -- Γ_ℵ: the filtration spans all scales
-    gram := Grammar.measure            -- ɢ_ˌ: levels unfold sequentially
-    crit := Criticality.monad            -- ⊙_ÿ: the filtration is self-modeling (each level contains the previous)
-    chir := Chirality.wool         -- Ħ_!: infinite memory (the filtration remembers all prior levels)
-    stoi := Stoichiometry.up            -- Σ_n:m: many types across many levels
-    prot := Protection.ah           -- Ω_z: the filtration has integer winding number
+  { dim  := Dimensionality.if'      -- 𐑦: the filtration is self-written across levels
+    top  := Topology.are             -- 𐑸: the filtration is a self-referential chain
+    rel  := Relational.ian             -- 𐑾: bidirectional: each level constrains and is constrained
+    pol  := Polarity.or'           -- 𐑹: Frobenius-special: μ∘δ=id is the invariant
+    fid  := Fidelity.peep             -- 𐑐: quantum: levels are superposed
+    kin  := KineticChar.egg          -- 𐑧: the filtration unfolds slowly (evolutionary timescale)
+    gran := Granularity.ice          -- 𐑲: the filtration spans all scales
+    gram := Grammar.measure            -- 𐑠: levels unfold sequentially
+    crit := Criticality.monad            -- ⊙: the filtration is self-modeling (each level contains the previous)
+    chir := Chirality.wool         -- 𐑫: infinite memory (the filtration remembers all prior levels)
+    stoi := Stoichiometry.up            -- 𐑳: many types across many levels
+    prot := Protection.ah           -- 𐑭: the filtration has integer winding number
   }
 
 theorem filtration_tier : imscriptionTier filtrationImscription = OuroboricityTier.O_inf := by

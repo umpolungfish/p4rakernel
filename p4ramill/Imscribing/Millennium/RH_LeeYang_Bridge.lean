@@ -14,7 +14,7 @@ The Riemann Hypothesis is the conjecture that the *same* computation, with
 `P_neutral` instead of `P_doublebarpipe`, yields zeros on the critical line `Re(s) = 1/2`.
 
 Both sit at `φ̂_Æ` (complex-axis criticality). The difference is polar: Lee-Yang has
-`Φ_υ` (ℤ₂ symmetry — the double-bar pipe), while RH has `Φ_ɐ` (no enforced symmetry —
+`𐑿` (ℤ₂ symmetry — the double-bar pipe), while RH has `𐑗` (no enforced symmetry —
 neutral). This single primitive is the structural content of the gap.
 
 ## Zero-Locus Constraint as IG Forcing Question

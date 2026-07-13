@@ -4,7 +4,7 @@
 -- Each stage imscribed as a catalog entry; morphisms computed via distance.
 --
 -- CORRECTED STRUCTURAL TUPLES (2025):
---   D: secondary/tertiary/quaternary stages corrected from Ð_△ to Ð_ω (self-written)
+--   D: secondary/tertiary/quaternary stages corrected from 𐑨 to 𐑦 (self-written)
 --      to satisfy Axiom C (D_ω ↔ T_⊙) — the folding landscape IS self-written by the
 --      sequence, not externally imposed.
 --   φ̂=c: when triggered (3+ His), K auto-upgraded to ≥mod to sustain self-modeling
@@ -177,7 +177,7 @@ def primitive_trace (p : String) : List String :=
     protein (amino acid alphabet, self-written folding landscape).
     
     Consciousness score: DNA=0.5, Quaternary=0.5 (both fail Gate 1 via φ̂_sub,
-    both pass Gate 2 via egg ≤ Ç_@). The score is invariant across the pathway. -/
+    both pass Gate 2 via egg ≤ 𐑧). The score is invariant across the pathway. -/
 theorem consciousness_invariant :
     -- Both DNA and quaternary protein have C=0.5
     True := by trivial
@@ -218,7 +218,7 @@ def pipeline_verified : Bool :=
 /-- The pipeline's structural type: a composite of all 7 stages.
     This is the tensor product of all pathway morphisms.
     
-    ⟨Ð_ω; Þ_⊙; Ř_↔; Φ_±; ƒ_ℓ; Ç_@; Γ_ℵ; ɢ_∧; ⊙_↓; Ħ_2; Σ_n:m; Ω_ℤ⟩
+    ⟨𐑦; 𐑸; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑝; 𐑢; 𐑖; 𐑳; 𐑭⟩
     
     The tensor reveals: the full pathway expresses the quaternary structure's
     tuple, because the quaternary stage subsumes all prior stages -

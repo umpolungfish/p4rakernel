@@ -14,8 +14,8 @@
     Gap = 1 Frobenius tier = 1 Polarity primitive
 
   The C₁₃ constraint map (RH_LeeYang_Bridge.lean):
-    C₁₃(Φ_c^ℂ, or') = |z|=1   (Lee-Yang, proved)
-    C₁₃(Φ_c^ℂ, nun)    ⊆ Re(s)=1/2  (RH, open)
+    C₁₃(𐑮, or') = |z|=1   (Lee-Yang, proved)
+    C₁₃(𐑮, nun)    ⊆ Re(s)=1/2  (RH, open)
 
   The ZFCt bridge (RH_ZFCt_Bridge.lean):
     theta_combined(s) = 1 - conj(s) is the PM_Z2 involution

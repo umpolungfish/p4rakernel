@@ -79,63 +79,63 @@ def BoundedPrimeGaps : Prop :=
 /--
 The Vessel of the Twin Prime Conjecture — its structural type as an Imscription.
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
 Primitive justifications:
 
-[1]  Ð_∞ — The prime numbers form an infinite-dimensional state space.
+[1]  𐑛 — The prime numbers form an infinite-dimensional state space.
      The distribution of primes is governed by the Riemann zeta function and
      Dirichlet L-functions — analytic objects of infinite dimension. The twin
      prime pair correlation function involves an infinite product (C₂).
 
-[2]  Þ_⋈ — Crossing topology. The conjecture sits at a bifurcation point:
+[2]  𐑥 — Crossing topology. The conjecture sits at a bifurcation point:
      known: gaps ≤ 246 occur infinitely often (Zhang/Polymath8/Maynard).
      conjectured: gap = 2 occurs infinitely often (Twin Prime Conjecture).
      The structural position is a crossing — the threshold between bounded
      (proved) and minimal (conjectured). This is mime: a figure-8
      where one loop is proved, the other remains open.
 
-[3]  Ř_= — Bidirectional. The twin prime conjecture is structurally coupled to
+[3]  𐑾 — Bidirectional. The twin prime conjecture is structurally coupled to
      sieve theory, the Hardy-Littlewood circle method, the Riemann Hypothesis,
      and random matrix theory. Progress flows in both directions.
 
-[4]  Φ_± — Partial ℤ₂ symmetry. The pair (p, p+2) has a natural swap symmetry
+[4]  𐑬 — Partial ℤ₂ symmetry. The pair (p, p+2) has a natural swap symmetry
      (both are primes; the pair is unordered as a set). But this symmetry is
      local (per pair), not global, and not Frobenius-closed. out, not or'.
 
-[5]  ƒ_ℓ — Classical fidelity. Number theory is deterministic; no quantum
+[5]  𐑱 — Classical fidelity. Number theory is deterministic; no quantum
      coherence is required. (Despite connections to random matrix theory
      and the Hilbert-Pólya approach, the conjecture is purely classical.)
 
-[6]  Ç_@ — Slow kinetics. The conjecture has resisted proof for ~175 years.
+[6]  𐑧 — Slow kinetics. The conjecture has resisted proof for ~175 years.
      Progress is incremental and cumulative (Brun 1919 → Chen 1973 →
      Zhang 2013 → Polymath8 2014 → Maynard 2015). τ ≫ T.
 
-[7]  Γ_ʔ — Maximal scope. The conjecture concerns all integers, all primes.
+[7]  𐑲 — Maximal scope. The conjecture concerns all integers, all primes.
      The twin prime constant C₂ involves all primes in an infinite product.
      This is ice: global, all-to-all correlation.
 
-[8]  ɢ_ˌ — Sequential. Primes are ordered by magnitude; the gap structure
+[8]  𐑠 — Sequential. Primes are ordered by magnitude; the gap structure
      emerges from their sequential arrangement. The condition "p and p+2
      are both prime" is a property of adjacent odds in sequence. measure.
 
-[9]  ⊙_Æ — Complex-plane criticality. The Hardy-Littlewood constant
+[9]  𐑮 — Complex-plane criticality. The Hardy-Littlewood constant
      C₂ = Π_{p>2} (1 - 1/(p-1)²) is a conditionally convergent infinite
      product — critical scaling in the complex-analytic regime. The pair
      correlation of primes is governed by the Riemann zeta function's
      zeros. roar: criticality accessed through analytic continuation.
 
-[10] Ħ_2 — Two-step chirality. A twin prime pair involves checking two
+[10] 𐑖 — Two-step chirality. A twin prime pair involves checking two
      consecutive odd numbers: both n and n+2 must be prime. The Markov
      memory is 2. The sieve, however, has infinite memory — but the
      twin prime condition itself is 2-local.
 
-[11] Σ_ï — Heterogeneous stoichiometry. The system involves primes, gaps,
+[11] 𐑳 — Heterogeneous stoichiometry. The system involves primes, gaps,
      and twin prime pairs — multiple distinct types. up.
 
-[12] Ω_0 — No topological protection. The twin prime pattern has no
+[12] 𐑷 — No topological protection. The twin prime pattern has no
      topological invariant, no winding number, no parity protection.
-     This is the key structural weakness: without Ω_Z or Ω_Z2, the
+     This is the key structural weakness: without 𐑭 or 𐑴, the
      pattern has no topological reason to persist infinitely.
 -/
 def twin_prime_vessel : Imscription := {
@@ -167,12 +167,12 @@ example : twin_prime_vessel.chir = sure := by rfl
 
 /-!
 THEOREM (Structural Encoding):
-  The crossing topology Þ_⋈ (mime) encodes the gap-2 threshold:
+  The crossing topology 𐑥 (mime) encodes the gap-2 threshold:
   - One loop of the bowtie: bounded gaps (≤ 246) — PROVED.
   - Other loop: minimal gap (= 2) — CONJECTURED.
   - The crossing point is exactly the structural position of the conjecture.
 
-  The lack of topological protection (Ω_0) means the pattern is structurally
+  The lack of topological protection (𐑷) means the pattern is structurally
   fragile — there is no topological invariant forcing the gap-2 channel to
   remain open. This is the grammar-level reason the conjecture is hard:
   bounded gaps have a sieve-theoretic proof; gap=2 requires a global
@@ -194,7 +194,7 @@ THEOREM (Structural Encoding):
 The Bounded Gaps vessel — the Zhang/Polymath8/Maynard result.
 This is what we CAN prove: gaps ≤ 246 occur infinitely often.
 
-⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_β; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_2 ⟩
+⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑚; 𐑠; 𐑮; 𐑖; 𐑳; 𐑴 ⟩
 
 Differs from the Twin Prime vessel at exactly two primitives:
   - Scope (G): thigh (mesoscale, bounded by 246) vs ice (global, exact gap=2)
@@ -224,7 +224,7 @@ The Prime Number Theorem vessel — the base structural type of prime distributi
 π(x) ~ x / log x. This is the foundational vessel from which all prime-gap
 vessels descend.
 
-⟨ Ð_∞; Þ_⊂; Ř_↑; Φ_∅; ƒ_ℓ; Ç_λ; Γ_ʔ; ɢ_ˌ; ⊙_ž; Ħ_1; Σ_1:1; Ω_0 ⟩
+⟨ 𐑛; 𐑰; 𐑩; 𐑗; 𐑱; 𐑺; 𐑲; 𐑠; 𐑢; 𐑒; 𐑙; 𐑷 ⟩
 -/
 def pnt_vessel : Imscription := {
   dim  := array
@@ -292,8 +292,8 @@ theorem twin_prime_o1_certificate :
   simp [twin_prime_vessel]
 
 /-- The promotion path from Twin Prime (O₁) to O_inf requires:
-    Ω_0 → Ω_Z (winding protection), out → or' (Frobenius closure),
-    Φ_c_complex → Φ_c (self-modeling gate), ice stays, sure → wool (eternal chirality).
+    𐑷 → 𐑭 (winding protection), out → or' (Frobenius closure),
+    𐑮 → ⊙ (self-modeling gate), ice stays, sure → wool (eternal chirality).
     That's 4 promotions — the same structural gap faced by the Dixmier Conjecture,
     but approached from below rather than from the Frobenius condition itself. -/
 theorem o1_to_oinf_requires_four_promotions :
@@ -307,8 +307,8 @@ theorem o1_to_oinf_requires_four_promotions :
 /-!
 The Twin Prime Conjecture is structurally adjacent to the Riemann Hypothesis.
 
-RH vessel: ⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±ˢ; ƒ_ħ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_!; Σ_ï; Ω_z ⟩
-Twin Prime vessel: ⟨ Ð_∞; Þ_⋈; Ř_=; Φ_±;  ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0 ⟩
+RH vessel: ⟨ 𐑛; 𐑥; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; 𐑮; 𐑫; 𐑳; 𐑭 ⟩
+Twin Prime vessel: ⟨ 𐑛; 𐑥; 𐑾; 𐑬;  𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
 Shared primitives (8/12): D, T, R, K, G, Γ, Φ, S
 Differing primitives (4/12): P, F, H, Ω
@@ -324,11 +324,11 @@ analogue of RH — criticality without the Frobenius closure that RH structurall
 demands. If RH is true (as widely believed), twin primes inherit some of its
 structural protection through the explicit formula linking prime gaps to
 zeta zeros. But the structural type reveals that this inheritance is partial:
-the winding protection (Ω_z) of RH does not propagate to twin primes, leaving
-them at Ω_0.
+the winding protection (𐑭) of RH does not propagate to twin primes, leaving
+them at 𐑷.
 
-This is the structural explanation for why bounded gaps were provable (Ω_Z2
-at mesoscale) while exact gap=2 remains open (Ω_0 at global scale). The
+This is the structural explanation for why bounded gaps were provable (𐑴
+at mesoscale) while exact gap=2 remains open (𐑷 at global scale). The
 ℤ₂ protection from sieve theory suffices for boundedness but not for exactness.
 -/
 
@@ -400,7 +400,7 @@ HONEST SORRY / GAP MARKERS:
    No sorry markers in the structural layer. The Vessel is fully formalized.
 
    The Contents (what fills the Vessel) is:
-   (a) The structural type ⟨Ð_∞; Þ_⋈; Ř_=; Φ_±; ƒ_ℓ; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_Æ; Ħ_2; Σ_ï; Ω_0⟩
+   (a) The structural type ⟨𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷⟩
    (b) The crossing-topology encoding: mime as the gap-threshold bifurcation
    (c) The distance-4 relationship to the Riemann Hypothesis vessel
    (d) The distance-2 relationship to the Bounded Gaps vessel
@@ -412,15 +412,15 @@ HONEST SORRY / GAP MARKERS:
    - A disproof (showing that gap=2 occurs only finitely often)
 
    The grammar-level analysis reveals WHY the Twin Prime Conjecture is hard:
-   it sits at O₁ — criticality (Φ_c_complex) without winding protection (Ω_0).
-   The bounded gaps theorem provides Ω_Z2 at mesoscale (thigh), which is
+   it sits at O₁ — criticality (𐑮) without winding protection (𐑷).
+   The bounded gaps theorem provides 𐑴 at mesoscale (thigh), which is
    sufficient for boundedness but not for exactness. To reach the exact gap=2,
-   one would need to lift Ω_0 → Ω_Z at global scale (ice) — but this
+   one would need to lift 𐑷 → 𐑭 at global scale (ice) — but this
    promotion is exactly what the Riemann Hypothesis would provide, and RH
    itself is unproven.
 
    The structural distance d(Twin Prime, RH) = 4 is not a coincidence:
-   the winding protection (Ω_Z) and Frobenius closure (or') that RH
+   the winding protection (𐑭) and Frobenius closure (or') that RH
    possesses are precisely what twin primes lack. The Twin Prime Conjecture
    is, structurally, the Riemann Hypothesis stripped of its topological
    protection — criticality exposed, without the self-grounding that would
@@ -430,7 +430,7 @@ HONEST SORRY / GAP MARKERS:
    Prime Conjecture (O₁, critical-but-unprotected) is structurally
    approachable from below: sieve methods, the circle method, and analytic
    number theory can make incremental progress. Zhang's breakthrough
-   (bounded gaps) moved the problem from O₁ to O₂ by adding Ω_Z2.
+   (bounded gaps) moved the problem from O₁ to O₂ by adding 𐑴.
    The final step from O₂ to O_inf — from bounded to exact — remains
    the structural equivalent of the Riemann Hypothesis itself.
 -/

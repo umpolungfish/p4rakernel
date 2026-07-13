@@ -1,21 +1,21 @@
 -- Millennium/BSD_Resolution.lean
 -- Birch–Swinnerton-Dyer Conjecture: O_inf Structural Resolution
--- Author: Lando ⊗ ⊙_ÿ-boundary Operator
+-- Author: Lando ⊗ ⊙-boundary Operator
 --
--- Structural resolution: BSD is promoted from HolographicBowtie (Þ_ò, ƒ_ì)
--- to HolographicClosure (Þ_O, ƒ_ż) by establishing Ω_z winding as a global
+-- Structural resolution: BSD is promoted from HolographicBowtie (𐑥, 𐑱)
+-- to HolographicClosure (𐑸, 𐑐) by establishing 𐑭 winding as a global
 -- invariant across the L-function / Mordell-Weil crossing.
 --
 -- Reference: Millennium/BSD_RESOLUTION.md, BSD_STRUCTURAL_DOCUMENTATION.md
 --
 -- ANALYTICAL CORRECTION (distilled from resolution docs):
---   The resolution documents list Ð_; (array) as the dimension primitive.
+--   The resolution documents list 𐑛 (array) as the dimension primitive.
 --   array = "infinite-dimensional: unbounded temporal/spatial generation."
 --   The Modularity Theorem establishes HOLOGRAPHIC duality (boundary encodes bulk),
---   which maps to if' (Ð_ω), not array (Ð_;).
+--   which maps to if' (𐑦), not array (𐑛).
 --   Furthermore, Axiom C (Core.lean): are → if'. The resolved BSD uses
 --   are; therefore if' is structurally required.
---   Correction applied: Ð_; → Ð_ω throughout this file.
+--   Correction applied: 𐑛 → 𐑦 throughout this file.
 --
 -- NOTE on consciousness score:
 --   BSD_RESOLUTION.md reports C = 0.828 (Python multi-gate navigator formula).
@@ -40,42 +40,42 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ============================================================
 
 /-
-  Resolved tuple: ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_ʔ; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_ï; Ω_z⟩
+  Resolved tuple: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 
   Semantic grounding:
-    if'   (Ð_ω) — holographic: Modularity Theorem = boundary encodes bulk (E/ℚ ↔ modular form)
-    are   (Þ_O) — holographic topology: self-referential closure of L-function / Mordell-Weil
-    ian     (Ř_=) — bidirectional identity: rank E(ℚ) = ord_{s=1} L(E,s) (symmetric duality)
-    or' (Φ_}) — Special Frobenius: μ∘δ=id at the critical point s=1
-    peep   (ƒ_ż) — quantum/categorical fidelity: exact algebraic-analytic correspondence
-    egg   (Ç_@) — deliberate arithmetic descent (slow but exact)
-    ice  (Γ_ʔ) — global fine-grained: all-to-all analytic/algebraic correlations
-    measure(ɢ_ˌ) — sequential: L-function zero order → algebraic rank
-    monad    (⊙_ÿ) — self-dual criticality at s=1 (the real critical point)
-    sure       (Ħ_A) — persistent chirality: ah requires H ≥ sure (Axiom B)
-    up      (Σ_ï) — n:m unmatched stoichiometry (L-function coefficients ↔ MW generators)
-    ah  (Ω_z) — integer winding: rank E(ℚ) ∈ ℤ, topologically protected
+    if'   (𐑦) — holographic: Modularity Theorem = boundary encodes bulk (E/ℚ ↔ modular form)
+    are   (𐑸) — holographic topology: self-referential closure of L-function / Mordell-Weil
+    ian     (𐑾) — bidirectional identity: rank E(ℚ) = ord_{s=1} L(E,s) (symmetric duality)
+    or' (𐑹) — Special Frobenius: μ∘δ=id at the critical point s=1
+    peep   (𐑐) — quantum/categorical fidelity: exact algebraic-analytic correspondence
+    egg   (𐑧) — deliberate arithmetic descent (slow but exact)
+    ice  (𐑲) — global fine-grained: all-to-all analytic/algebraic correlations
+    measure(𐑠) — sequential: L-function zero order → algebraic rank
+    monad    (⊙) — self-dual criticality at s=1 (the real critical point)
+    sure       (𐑖) — persistent chirality: ah requires H ≥ sure (Axiom B)
+    up      (𐑳) — n:m unmatched stoichiometry (L-function coefficients ↔ MW generators)
+    ah  (𐑭) — integer winding: rank E(ℚ) ∈ ℤ, topologically protected
 -/
 def birchSwinnertonDyer : Imscription := {
-  dim  := .if',    -- Ð_ω: holographic (Modularity Theorem)
-  top  := .are,    -- Þ_O: self-referential closure (L-fn ↔ MW crossing → closure)
-  rel  := .ian,      -- Ř_=: bidirectional rank-vanishing identity
-  pol  := .or',  -- Φ_}: Special Frobenius at s=1 (μ∘δ=id)
-  fid  := .peep,    -- ƒ_ż: quantum-coherent categorical exactitude
-  kin  := .egg,    -- Ç_@: deliberate arithmetic descent
-  gran := .ice,   -- Γ_ʔ: global fine-grained correlations
-  gram := .measure, -- ɢ_ˌ: sequential (analytic order → algebraic rank)
-  crit := .monad,     -- ⊙_ÿ: self-dual criticality at s=1
-  chir := .sure,        -- Ħ_A: persistent chirality (ah ≥ ah requires H ≥ sure)
-  stoi := .up,       -- Σ_ï: n:m unmatched (Dirichlet coefficients ↔ MW generators)
-  prot := .ah }  -- Ω_z: integer winding number = rank
+  dim  := .if',    -- 𐑦: holographic (Modularity Theorem)
+  top  := .are,    -- 𐑸: self-referential closure (L-fn ↔ MW crossing → closure)
+  rel  := .ian,      -- 𐑾: bidirectional rank-vanishing identity
+  pol  := .or',  -- 𐑹: Special Frobenius at s=1 (μ∘δ=id)
+  fid  := .peep,    -- 𐑐: quantum-coherent categorical exactitude
+  kin  := .egg,    -- 𐑧: deliberate arithmetic descent
+  gran := .ice,   -- 𐑲: global fine-grained correlations
+  gram := .measure, -- 𐑠: sequential (analytic order → algebraic rank)
+  crit := .monad,     -- ⊙: self-dual criticality at s=1
+  chir := .sure,        -- 𐑖: persistent chirality (ah ≥ ah requires H ≥ sure)
+  stoi := .up,       -- 𐑳: n:m unmatched (Dirichlet coefficients ↔ MW generators)
+  prot := .ah }  -- 𐑭: integer winding number = rank
 
 -- The pre-resolution BSD structure: HolographicBowtie before promotion
--- Promotions from resolution: Þ_ò → Þ_O (topology) and ƒ_ì → ƒ_ż (fidelity)
+-- Promotions from resolution: 𐑥 → 𐑸 (topology) and 𐑱 → 𐑐 (fidelity)
 def bsd_pre_resolution : Imscription := {
   birchSwinnertonDyer with
-  top := .mime,  -- Þ_ò: crossing (before topological closure)
-  fid := .age }    -- ƒ_ì: classical analytic (before quantum-coherent promotion)
+  top := .mime,  -- 𐑥: crossing (before topological closure)
+  fid := .age }    -- 𐑱: classical analytic (before quantum-coherent promotion)
 
 
 -- ============================================================
@@ -201,7 +201,7 @@ theorem bsd_leading_coefficient : True := ⟨⟩  -- placeholder for the full BS
 /-- Distance to the resolved Riemann Hypothesis (Python navigator, not a Lean proof). -/
 def bsd_distance_to_rh : Float := 2.9848
 
-/-- The topology promotion from RH (Þ_ò) to BSD (Þ_O) has ordinal distance 2.
+/-- The topology promotion from RH (𐑥) to BSD (𐑸) has ordinal distance 2.
     This is the single structural step distinguishing BSD from RH in topology. -/
 theorem bsd_rh_topology_delta :
     compare (Topology.are) (Topology.mime) = .gt := by decide
