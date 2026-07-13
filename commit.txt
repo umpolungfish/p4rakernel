@@ -1,20 +1,21 @@
-Prove time is a derived object: T = Work(T) as least fixed point
+Complete the classifier: Omega refines O_inf into sealed/unsealed
 
-The capstone. Time is not a thirteenth primitive; it is the least fixed point
-of the Work operator, the trace of the operad, which can only close once the
-gates have fired. TimeFixedPoint.lean builds it on GateOrdering.
+Resolves the last structural gap (mismatch #2): ouroboricityTier left
+Protection irrelevant to O_inf, so the tier said nothing about whether the
+terminal (G3) actually seals. TierRefinement.lean closes it additively — Core
+is untouched, the GREEN library is not disturbed.
 
-Work is the trace traceC, so T = Work(T) is the loop closing on itself.
-work_fixed_iff_special: the fixed points are EXACTLY the Frobenius-special
-class pol=or and crit=monad — nothing off it is time. time_least_fixed_point:
-lfp_trace (the special tuple with all ten free axes at bottom) is a fixed
-point and lies below every fixed point in the componentwise product order
-imsLE assembled from the twelve axis LinearOrders — concrete Knaster-Tarski on
-the finite lattice. no_time_before_frobenius is the sharp claim: if parity is
-not yet at or, the equation has NO solution, so time cannot be posited before
-stage 4 — it is derived, not primitive. time_has_passed_gates, sealed_is_time,
-and stone_is_sealed_time close the loop to G3 and the Stone. time_is_derived
-bundles the lot.
+sealedTier splits O_inf by whether Omega gives an integer (ah) or non-Abelian
+(zoo) winding. refines_O_inf proves the split is EXACT (sealed and unsealed
+together cover precisely the O_inf locus), so protection is no longer silent
+inside O_inf. sealed_requires_frobenius ties sealing back to G1;
+terminal_implies_sealed and sealed_iff_terminal_on_monad prove the refined
+tier IS the G3 boundary on the Hermitian (monad) branch. The honest caveat is
+proved, not hidden: sealed_at_roar_need_not_close exhibits a tuple that is
+sealed (O_inf plus winding) at complex-axis roar criticality whose real
+Frobenius trace does not close, because mu_C forces monad. So sealed is a tier
+fact and a closing trace is the stricter Hermitian fact; they coincide exactly
+on monad. completed_classifier bundles the lot.
 
-Builds green, zero sorries, no native_decide; all kernel-checked. Registered
-in lakefile.toml.
+Builds green, zero sorries, no native_decide; kernel-checked. Registered in
+lakefile.toml.
