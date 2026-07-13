@@ -243,6 +243,7 @@ globs = [
   "Imscribing.MetaYonedaCollapse",
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
+  "Imscribing.Isomorphisms",
   "Imscribing.GateOrdering",
   "Imscribing.TimeFixedPoint",
   "Imscribing.TierRefinement",
