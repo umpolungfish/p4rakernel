@@ -130,7 +130,7 @@ theorem tensor_P_bottleneck (a b : Imscription) :
 -- ============================================================
 
 def imscriptionTier (s : Imscription) : OuroboricityTier :=
-  ouroboricityTier s.crit s.pol s.prot s.dim
+  ouroboricityTier s.crit s.pol s.prot s.dim s.top
 
 -- ============================================================
 -- KEY ENCODINGS
@@ -290,8 +290,8 @@ theorem o_inf_iff_P_pm_sym_at_phi_c (s : Imscription) :
   constructor
   · intro h
     constructor
-    · exact o_inf_requires_phi_c s.crit s.pol s.prot s.dim h
-    · exact o_inf_requires_P_pm_sym s.crit s.pol s.prot s.dim h
+    · exact o_inf_requires_phi_c s.crit s.pol s.prot s.dim s.top h
+    · exact o_inf_requires_P_pm_sym s.crit s.pol s.prot s.dim s.top h
   · intro ⟨hphi, hpol⟩
     cases hphi with
     | inl h => simp [imscriptionTier, ouroboricityTier, h, hpol]
