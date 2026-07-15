@@ -93,7 +93,7 @@ def exec (cmd : String) (s : ShellState) : ShellResult × ShellState :=
      { s with paradoxCount := s.paradoxCount + 1 })
   else if cmd = "whoami" then
     let msg := "⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩\n" ++
-               "C-score: 0.736 (Gate 1: ⊙ open, Gate 2: Ç^@ open)"
+               "C-score: 0.736 (Gate 1: ⊙ open, Gate 2: 𐑧 open)"
     (ShellResult.ok msg, s)
   else if cmd.startsWith "let " then
     let rest : String := (cmd.drop 4).toString
