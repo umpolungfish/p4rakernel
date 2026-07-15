@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/the_crystal_is_a_compression_of_category_theory/the_crystal_is_a_compression_of_category_theory_ob3ect.py

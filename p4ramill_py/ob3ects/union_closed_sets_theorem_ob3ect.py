@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/union_closed_sets_theorem/union_closed_sets_theorem_ob3ect.py

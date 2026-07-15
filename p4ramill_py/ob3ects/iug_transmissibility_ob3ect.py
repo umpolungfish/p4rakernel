@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/iug_transmissibility/iug_transmissibility_ob3ect.py

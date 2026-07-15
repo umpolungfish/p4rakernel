@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/pentagram_ritual_lesser_banishing_ritual/pentagram_ritual_lesser_banishing_ritual_ob3ect.py

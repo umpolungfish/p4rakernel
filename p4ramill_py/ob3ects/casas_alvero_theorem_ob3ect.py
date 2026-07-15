@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/casas_alvero_theorem/casas_alvero_theorem_ob3ect.py

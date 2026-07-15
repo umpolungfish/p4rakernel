@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/hermetic_memory_palace/hermetic_memory_palace_ob3ect.py

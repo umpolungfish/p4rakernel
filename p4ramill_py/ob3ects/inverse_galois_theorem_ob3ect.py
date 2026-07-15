@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/inverse_galois_theorem/inverse_galois_theorem_ob3ect.py

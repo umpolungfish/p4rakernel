@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/transuniversal_travel/transuniversal_travel_ob3ect.py

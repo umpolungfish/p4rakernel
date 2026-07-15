@@ -1,9 +1,0 @@
-name = "p4rakernel"
-version = "0.1.0"
-
-[leanOptions]
-pp.unicode.fun = true
-
-[[lean_lib]]
-name = "ParaconsistentPapers"
-globs = ["ParaconsistentPapers", "ParaconsistentCore", "ParaconsistentTier1"]

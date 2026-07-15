@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/message_of_the_books_of_jeu/message_of_the_books_of_jeu_ob3ect.py

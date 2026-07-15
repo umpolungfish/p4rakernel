@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/how_the_grammar_is_a_compression_of_category_the/how_the_grammar_is_a_compression_of_category_the_ob3ect.py
