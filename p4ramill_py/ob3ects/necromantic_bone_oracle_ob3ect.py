@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/necromantic_bone_oracle/necromantic_bone_oracle_ob3ect.py

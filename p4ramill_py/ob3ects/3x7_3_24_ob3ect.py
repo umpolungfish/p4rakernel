@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/3x7_3_24/3x7_3_24_ob3ect.py

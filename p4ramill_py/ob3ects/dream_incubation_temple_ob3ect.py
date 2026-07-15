@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/dream_incubation_temple/dream_incubation_temple_ob3ect.py

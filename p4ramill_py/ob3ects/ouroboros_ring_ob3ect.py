@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/ouroboros_ring/ouroboros_ring_ob3ect.py

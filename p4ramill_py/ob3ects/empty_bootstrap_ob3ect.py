@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/empty_bootstrap/empty_bootstrap_ob3ect.py

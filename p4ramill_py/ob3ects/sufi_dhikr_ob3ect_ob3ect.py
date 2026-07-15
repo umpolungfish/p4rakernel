@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/sufi_dhikr_ob3ect/sufi_dhikr_ob3ect_ob3ect.py

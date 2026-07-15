@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/hermetic_vessel_vas_hermeticum_/hermetic_vessel_vas_hermeticum__ob3ect.py

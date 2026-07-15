@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/twin_prime_critique/twin_prime_critique_ob3ect.py

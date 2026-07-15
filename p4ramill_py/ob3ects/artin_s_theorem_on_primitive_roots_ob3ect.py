@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/artin_s_theorem_on_primitive_roots/artin_s_theorem_on_primitive_roots_ob3ect.py

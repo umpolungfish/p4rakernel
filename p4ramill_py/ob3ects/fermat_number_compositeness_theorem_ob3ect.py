@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/fermat_number_compositeness_theorem/fermat_number_compositeness_theorem_ob3ect.py

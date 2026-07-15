@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/shamanic_journey_drum/shamanic_journey_drum_ob3ect.py

@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/the_grammar_is_the_cosmos/the_grammar_is_the_cosmos_ob3ect.py

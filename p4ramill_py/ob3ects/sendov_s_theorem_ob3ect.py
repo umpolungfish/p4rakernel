@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/sendov_s_theorem/sendov_s_theorem_ob3ect.py

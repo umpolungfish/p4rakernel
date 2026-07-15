@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/the_septuagint/the_septuagint_ob3ect.py

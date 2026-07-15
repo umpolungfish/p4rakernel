@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/universal_curvature/universal_curvature_ob3ect.py
