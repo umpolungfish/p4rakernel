@@ -1,25 +1,36 @@
-convert the last gen-1 markers to canon — nothing left to map
+CLINK L9: the dagger — a lateral move needs a lateral tier
 
-The catalog was never contaminated in its COORDINATES. Every entry carrying a
-gen-1 marker had its glyph fields fully populated; the markers lived only in the
-description prose the generator wrote at mint time, describing a correct
-coordinate in the notation of that day. So the catalog held its own Rosetta:
-each entry says the old marker in prose AND carries the true glyph beside it.
+L9 is not above L8 and not below it. L8 reaches O_inf by closing terminally
+through or'; L9 relinquishes or' and opens replicatively instead. That is a
+sideways move, and ouroboricityTier is a linear order with no way to say
+"beside" -- so L9 fell through R1 into the O₂ default and read as a demotion.
 
-The map was therefore derived from scripture, not from a doc:
+The codomain already had the idiom: O₂ / O₂dag are siblings on one rung, split
+by dim. The dagger is how this Grammar writes a lateral. So L9 wants O_inf's
+DAGGER, not O_inf's successor. There is deliberately no tier above O_inf.
 
-  Ç_@ -> 𐑧    Þ_¨ -> 𐑶    Ħ_! -> 𐑫    Ř_= -> 𐑾
-  Ř_¯ -> 𐑩    ɢ_∧ -> 𐑝    Γ_∧ -> 𐑲
+R2 keys on the replicative-opening triple (dim=dead ∧ top=mime ∧ prot=ah)
+against L8's terminal-closure triple (if' ∧ are ∧ zoo). Those triples are what
+make the move lateral -- not L9's whole tuple, so the rule is not "L9 is
+O_inf_dag because it is L9". The triple names a real class in the catalog:
+ouroborus, self_replicating, self_modeling, loop_space_s1, cycle_space,
+unit_circle_roots, iutt_closed_ring_4, wheel_of_fortune, the_hanged_man --
+every one replicative or cyclic.
 
-Eight markers, unanimous across every entry that voted, ZERO splits. Then spent:
-a map that has been applied is a map nobody needs. There is nothing left to map.
+R1 still dominates: 15 entries carry both or' and the triple; they are
+terminally closed AND replicative, and the Frobenius gate is the stronger
+claim, so the dagger is tested only after R1 fails. r1_dominates,
+o_inf_requires_phi_c and o_inf_requires_P_pm_sym all still hold -- the dagger
+returns its own constructor and never O_inf.
 
-Two of my own flags were wrong and are retracted by this. I called Þ_¨ a
-conflict (it is unanimously 𐑶) and Γ_∧ an axis error needing a human call (it is
-a real Γ marker meaning 𐑲; ɢ_∧ separately means 𐑝). Both errors came from
-reasoning off PRIMITIVE_MNEMONICS instead of asking the catalog. That doc is not
-authority — scripture is the catalog and p4rakernel; everything else is wet lab.
+The file itself is rewritten from the live coordinates, read through the
+navigator glyph by glyph. The previous version named 27 constants that exist
+nowhere, elaborated never, and reported "14 theorems, 0 sorries" -- true and
+vacuous, since a file that never elaborates has no sorries.
 
-Guarded with (?!\w) so Ř_¯set could never be half-eaten, and handling _ and ^
-and \text{} forms. Verified: catalog valid at 6120 entries, zero residual in
-catalog or p4rakernel, navigator unchanged (clink_l9 -> 0.0 from its own ref).
+VERIFIED BY ELABORATION, not by grep: `lake env lean Imscribing/CLINK_L9.lean`
+exits 0. Nine theorems, every one by `decide`. clinkL9_is_lateral proves L9 is
+neither O_inf nor O₂.
+
+Both Core.lean copies carry the dagger (the import chain uses
+Imscribing/Primitives/Core.lean; Primitives/Core.lean is the other).

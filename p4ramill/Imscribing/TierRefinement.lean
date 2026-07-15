@@ -40,7 +40,7 @@ inductive SealedTier where
 
 /-- The tuple sits at the O_inf tier. -/
 def isOInf (a : Imscription) : Prop :=
-  ouroboricityTier a.crit a.pol a.prot a.dim = OuroboricityTier.O_inf
+  ouroboricityTier a.crit a.pol a.prot a.dim a.top = OuroboricityTier.O_inf
 
 /-- Ω provides an integer (ah) or non-Abelian (zoo) winding. -/
 def hasWinding (a : Imscription) : Prop :=

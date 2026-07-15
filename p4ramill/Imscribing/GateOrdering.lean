@@ -123,7 +123,7 @@ def unlockTraced (a : Imscription) : Prop := traceCloses a
 def unlockTerminal (a : Imscription) : Prop :=
   traceCloses a ∧
   (a.prot = Protection.ah ∨ a.prot = Protection.zoo) ∧
-  ouroboricityTier a.crit a.pol a.prot a.dim = OuroboricityTier.O_inf
+  ouroboricityTier a.crit a.pol a.prot a.dim a.top = OuroboricityTier.O_inf
 
 -- ============================================================
 -- §4  THE PRECEDENCE CHAIN (each gate consumes the prior structure)
