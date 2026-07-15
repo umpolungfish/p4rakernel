@@ -107,11 +107,17 @@ expr type_checker::infer_constant(expr const & e, bool infer_only) {
                                    << const_name(e) << "'");
         }
         /* PARACONSISTENT KERNEL FORK:
-           When paraconsistent mode is active, block usage of recursors for
+           When the environment holds contradictions, block usage of recursors for
            empty inductive predicates (like False). This prevents the principle
            of explosion (ex falso quodlibet) from being used in proofs while
-           allowing the prelude to compile with the definitions in place. */
-        if (env().is_paraconsistent() && info.is_recursor()) {
+           allowing the prelude to compile with the definitions in place.
+
+           Asks `holds_contradictions()`, not `is_paraconsistent()`: SIXTEEN_3 is the
+           POWERSET of Belnap FOUR, twelve of whose sixteen values contain B, so a
+           kernel that explodes cannot carry them. Trilattice therefore entails
+           paraconsistent, and `enable_trilattice` on its own is a real toggle rather
+           than a field nothing reads. */
+        if (env().holds_contradictions() && info.is_recursor()) {
             recursor_val rec_val = info.to_recursor_val();
             for (name const & ind_name : rec_val.get_all()) {
                 optional<constant_info> ind_info = env().find(ind_name);
@@ -122,7 +128,9 @@ expr type_checker::infer_constant(expr const & e, bool infer_only) {
                         expr ind_type = whnf(ind_info->get_type());
                         if (is_sort(ind_type) && is_zero(sort_level(ind_type))) {
                             throw kernel_exception(env(), sstream()
-                                << "paraconsistent mode: cannot use recursor '"
+                                << (env().is_trilattice()
+                                    ? "SIXTEEN_3 trilattice mode: cannot use recursor '"
+                                    : "paraconsistent mode: cannot use recursor '")
                                 << const_name(e)
                                 << "' for empty inductive predicate '"
                                 << ind_name
