@@ -56,17 +56,17 @@ lean --run ParaconsistentMillennium.lean  # Run the resolution
 
 | Problem | Structural Type | Tier | Crystal Address |
 |---------|----------------|------|-----------------|
-| RH      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
-| YM      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
-| Hodge   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
-| NS      | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
-| PvsNP   | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
-| BSD     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_A; Σ_S; Ω_z⟩ | O_∞ | 6,738,800 |
-| OPN     | ⟨Ð_ω; Þ_O; Ř_=; Φ_}; ƒ_ż; Ç_@; Γ_β; ɢ_ˌ; ⊙_ÿ; Ħ_!; Σ_S; Ω_z⟩ | O_∞ | 6,738,803 |
+| RH      | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
+| YM      | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
+| Hodge   | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
+| NS      | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
+| PvsNP   | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
+| BSD     | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑖; 𐑙; 𐑭⟩ | O_∞ | 6,738,800 |
+| OPN     | ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑫; 𐑙; 𐑭⟩ | O_∞ | 6,738,803 |
 
-- BSD has Ħ_A (H2) instead of Ħ_! (H_inf): Gross-Zagier/Kolyvagin bound the chirality
+- BSD has 𐑖 (H2) instead of 𐑫 (H_inf): Gross-Zagier/Kolyvagin bound the chirality
 - All 7 share Cell 155 (only 32 O_∞ cells in the crystal of 17,280,000 types)
-- The Φ_} primitive (Frobenius-special, μ∘δ=id) gates the O₂†→O_∞ jump
+- The 𐑹 primitive (Frobenius-special, μ∘δ=id) gates the O₂†→O_∞ jump
 
 ## Kernel Modifications
 
