@@ -23,7 +23,11 @@ extern "C" object* lean_environment_find(object*, object*);
 extern "C" object* lean_environment_mark_quot_init(object*);
 extern "C" uint8 lean_environment_quot_init(object*);
 extern "C" object* lean_environment_mark_paraconsistent(object*);
+extern "C" object* lean_environment_unmark_paraconsistent(object*);
 extern "C" uint8 lean_environment_paraconsistent(object*);
+extern "C" object* lean_environment_mark_trilattice(object*);
+extern "C" object* lean_environment_unmark_trilattice(object*);
+extern "C" uint8 lean_environment_trilattice(object*);
 extern "C" object* lean_kernel_record_unfold (object*, object*);
 extern "C" object* lean_kernel_get_diag(object*);
 extern "C" object* lean_kernel_set_diag(object*, object*);
@@ -79,6 +83,35 @@ bool environment::is_paraconsistent() const {
 
 void environment::mark_paraconsistent() {
     m_obj = lean_environment_mark_paraconsistent(m_obj);
+}
+
+/* The Lean side has always had `unmarkParaconsistent` with its export attribute,
+   but C++ could only ever mark. The toggle was one-way down here: a fork whose
+   whole claim is that you can enter and leave the mode could not leave it from
+   the kernel. */
+void environment::unmark_paraconsistent() {
+    m_obj = lean_environment_unmark_paraconsistent(m_obj);
+}
+
+bool environment::is_trilattice() const {
+    return lean_environment_trilattice(to_obj_arg()) != 0;
+}
+
+void environment::mark_trilattice() {
+    m_obj = lean_environment_mark_trilattice(m_obj);
+}
+
+void environment::unmark_trilattice() {
+    m_obj = lean_environment_unmark_trilattice(m_obj);
+}
+
+/* SIXTEEN_3 is the POWERSET of Belnap FOUR: every one of its sixteen values is a
+   set of FOUR's values, and twelve of them contain B. A kernel that explodes on a
+   contradiction cannot carry any of those twelve, so trilattice mode entails
+   paraconsistent mode. Enforcement points ask this, not the raw flags — otherwise
+   `enable_trilattice` alone would set a field nothing reads. */
+bool environment::holds_contradictions() const {
+    return is_paraconsistent() || is_trilattice();
 }
 
 optional<constant_info> environment::find(name const & n) const {

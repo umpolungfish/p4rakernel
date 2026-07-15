@@ -254,6 +254,21 @@ structure Environment where
   -/
   paraconsistent : Bool := false
   /--
+  When `trilattice = true`, the kernel operates in SIXTEEN_3 trilattice mode:
+  Shramko-Wansing's trilattice on the POWERSET of Belnap FOUR — sixteen values
+  carrying three interlocking orders (truth ≤_t, falsity ≤_f, information ≤_i).
+  FOUR's single truth order SPLITS: truth and falsity become independent axes
+  rather than each other's complement, which is what the extra twelve values are
+  for — nested contradiction and meta-level uncertainty.
+
+  Twelve of the sixteen contain B, so a kernel that explodes on a contradiction
+  cannot carry them. `trilattice` therefore ENTAILS `paraconsistent` at every
+  enforcement point (see `holds_contradictions` / `environment::holds_contradictions`
+  in the C++ kernel); the two are separate flags, not a ladder, so an environment
+  may hold contradictions in FOUR without being in SIXTEEN_3.
+  -/
+  trilattice : Bool := false
+  /--
   Diagnostic information collected during kernel execution.
 
   Remark: We store kernel diagnostic information in an environment field to simplify the interface
@@ -333,6 +348,25 @@ def unmarkParaconsistent (env : Environment) : Environment :=
 @[export lean_environment_paraconsistent]
 def isParaconsistent (env : Environment) : Bool :=
   env.paraconsistent
+
+@[export lean_environment_mark_trilattice]
+def markTrilattice (env : Environment) : Environment :=
+  { env with trilattice := true }
+
+@[export lean_environment_unmark_trilattice]
+def unmarkTrilattice (env : Environment) : Environment :=
+  { env with trilattice := false }
+
+@[export lean_environment_trilattice]
+def isTrilattice (env : Environment) : Bool :=
+  env.trilattice
+
+/--
+Whether this environment must NOT explode: paraconsistent, or in SIXTEEN_3 (which
+entails it). Every kernel enforcement point asks this rather than a raw flag.
+-/
+def holdsContradictions (env : Environment) : Bool :=
+  env.paraconsistent || env.trilattice
 
 /-- Type check given declaration and add it to the environment -/
 @[extern "lean_add_decl"]
@@ -696,6 +730,29 @@ def unmarkParaconsistent (env : Environment) : Environment :=
 /-- Whether this environment is currently in paraconsistent mode (private branch). -/
 def isParaconsistent (env : Environment) : Bool :=
   env.base.private.paraconsistent
+
+/--
+Activates SIXTEEN_3 trilattice mode on this (elaboration-level) environment.
+Entails paraconsistent at the kernel's enforcement points: sixteen values built on
+the powerset of FOUR cannot be carried by a kernel that explodes. Toggle back off
+with `unmarkTrilattice`.
+-/
+def markTrilattice (env : Environment) : Environment :=
+  let base' := env.base.map Kernel.Environment.markTrilattice
+  { env with base := base', checked := .pure base'.private }
+
+/-- Deactivates SIXTEEN_3 trilattice mode for subsequent declarations. -/
+def unmarkTrilattice (env : Environment) : Environment :=
+  let base' := env.base.map Kernel.Environment.unmarkTrilattice
+  { env with base := base', checked := .pure base'.private }
+
+/-- Whether this environment is currently in SIXTEEN_3 trilattice mode (private branch). -/
+def isTrilattice (env : Environment) : Bool :=
+  env.base.private.trilattice
+
+/-- Whether this environment must not explode: paraconsistent, or SIXTEEN_3. -/
+def holdsContradictions (env : Environment) : Bool :=
+  env.isParaconsistent || env.isTrilattice
 
 /-- Updates `env.isExporting`. Ignored if `env.header.isModule` is false. -/
 def setExporting (env : Environment) (isExporting : Bool) : Environment :=
