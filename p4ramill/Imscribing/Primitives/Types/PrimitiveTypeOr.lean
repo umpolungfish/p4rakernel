@@ -37,7 +37,7 @@ def the_primitive_type_called_or_registerBoth : String := "Frobenius singularity
 --   The reverse morphism reconstructing the bulk from the boundary projection.
 -- CLINK: composition μ ∘ δ
 --   The sequential chaining of the encoding and decoding operations.
--- ENGAGR: criticality Φ_c
+-- ENGAGR: criticality ⊙
 --   The paradice state where the system is simultaneously bulk and boundary at the phase transition.
 -- EVALF: lossy projection
 --   The negative state where information is lost during the dimensionality split.
