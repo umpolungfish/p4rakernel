@@ -448,7 +448,7 @@ theorem model_unconditional_distance_3 :
 The conjecture vessel is at O₁: 𐑮 criticality + 𐑷 protection.
 -/
 theorem cramer_o1_certificate :
-  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ := by
+  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim cramer_vessel.top = OuroboricityTier.O₁ := by
   native_decide
 
 /--
@@ -456,7 +456,7 @@ theorem cramer_o1_certificate :
 The Cramér model is at O₀: 𐑢 sub-criticality + 𐑷 protection.
 -/
 theorem model_o0_certificate :
-  ouroboricityTier cramer_model_vessel.crit cramer_model_vessel.pol cramer_model_vessel.prot cramer_model_vessel.dim = OuroboricityTier.O₀ := by
+  ouroboricityTier cramer_model_vessel.crit cramer_model_vessel.pol cramer_model_vessel.prot cramer_model_vessel.dim cramer_model_vessel.top = OuroboricityTier.O₀ := by
   native_decide
 
 /--
@@ -464,7 +464,7 @@ theorem model_o0_certificate :
 The RH-conditional bound is at O₂dag: 𐑮 criticality + 𐑴 protection.
 -/
 theorem rh_conditional_o2_certificate :
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim rh_conditional_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -472,7 +472,7 @@ theorem rh_conditional_o2_certificate :
 The unconditional bound is at O₀: 𐑢 sub-criticality + 𐑷 protection.
 -/
 theorem unconditional_o0_certificate :
-  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ := by
+  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim unconditional_vessel.top = OuroboricityTier.O₀ := by
   native_decide
 
 /--
@@ -480,9 +480,9 @@ theorem unconditional_o0_certificate :
 O₀ < O₁ < O₂dag across the four vessels.
 -/
 theorem tier_ordering :
-  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim = OuroboricityTier.O₀ ∧
-  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim = OuroboricityTier.O₁ ∧
-  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier unconditional_vessel.crit unconditional_vessel.pol unconditional_vessel.prot unconditional_vessel.dim unconditional_vessel.top = OuroboricityTier.O₀ ∧
+  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim cramer_vessel.top = OuroboricityTier.O₁ ∧
+  ouroboricityTier rh_conditional_vessel.crit rh_conditional_vessel.pol rh_conditional_vessel.prot rh_conditional_vessel.dim rh_conditional_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 -- -------------------------------------------------------------------
@@ -589,8 +589,8 @@ theorem cramer_twin_prime_distance_2 :
 **Theorem CR-24: Cramér and Twin Prime Share O₁ Tier**
 -/
 theorem cramer_twin_prime_same_tier :
-  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim =
-  ouroboricityTier twin_prime_vessel.crit twin_prime_vessel.pol twin_prime_vessel.prot twin_prime_vessel.dim := by
+  ouroboricityTier cramer_vessel.crit cramer_vessel.pol cramer_vessel.prot cramer_vessel.dim cramer_vessel.top =
+  ouroboricityTier twin_prime_vessel.crit twin_prime_vessel.pol twin_prime_vessel.prot twin_prime_vessel.dim twin_prime_vessel.top := by
   native_decide
 
 /--
