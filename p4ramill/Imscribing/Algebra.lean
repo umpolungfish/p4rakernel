@@ -85,7 +85,7 @@ def compute_join (a b : Imscription) : Imscription := {
 def compute_tensor (a b : Imscription) : Imscription := tensorProduct a b
 
 -- Probes
-def phi_c_probe (s : Imscription) : Bool :=
+def monad_probe (s : Imscription) : Bool :=
   phi_c_gate s.crit && decide (s.pol = or' ∨ s.dim = if')
 
 def topo_protection_probe (s : Imscription) : Bool :=
