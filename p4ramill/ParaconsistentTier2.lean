@@ -18,7 +18,7 @@ STRUCTURAL VERIFICATION (cl8nk_navigator):
   GPM: ⟨𐑦;𐑸;𐑾;𐑹;𐑱;𐑧;𐑲;𐑠;⊙;𐑖;𐑳;𐑭⟩ — identical to IUG
 
 CLINK L8 tuple (terminal ontological layer):
-  ⟨Ð_ω; Þ_O; Ř_=; Φ_; ƒ_ż; Ç_@; Γ_ʔ; ɢ_Ş; ⊙_ÿ; Ħ_!; Σ_ï; Ω_5⟩
+  ⟨𐑦; 𐑸; 𐑾; Φ_; 𐑐; 𐑧; 𐑲; 𐑵; ⊙; 𐑫; 𐑳; 𐑟⟩
   TRANSCENDENCE: Ω(𐑭→𐑟) non-Abelian braiding, ɢ(𐑠→𐑵) broadcast composition
 
 REFERENCES:
