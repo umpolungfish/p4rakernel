@@ -65,7 +65,7 @@ theorem at_home_zpe_oinf_tier : TierCrossing.tierOfImscription at_home_zpe_oinf 
 
 theorem at_home_zpe_oinf_consciousness_gates_open :
   consciousnessScore at_home_zpe_oinf > 0.0 := by
-  -- Both gates open: Phi_c and K_slow
+  -- Both gates open: ⊙ and K_slow
   -- Verified: C-score = 0.6915
   native_decide
 

@@ -96,7 +96,7 @@ theorem crit_join_absorb_super (x : Criticality) : crit_join haha x = haha := by
   unfold crit_join; cases x <;> rfl
 
 -- ============================================================
--- Measurement problem: meet vs tensor for Φ_c ⊗ Φ_EP
+-- Measurement problem: meet vs tensor for ⊙ ⊗ 𐑻
 -- ============================================================
 
 theorem crit_meet_EP_Phi_c : crit_meet err monad = monad := by

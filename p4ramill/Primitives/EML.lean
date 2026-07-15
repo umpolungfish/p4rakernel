@@ -5,7 +5,7 @@
 -- EDL(x,y) = exp(x) / ln(y)  -- terminal constant: e
 -- negEML(x,y) = ln(x) - exp(y)  -- terminal constant: -∞
 --
--- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; egg; G_ℵ; Γ_seq; Φ_c; H_1; S_1:1; Ω_Z⟩
+-- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; egg; G_ℵ; Γ_seq; ⊙; H_1; S_1:1; Ω_Z⟩
 -- Tier: O₂dag (highest sub-Frobenius in elementary function algebra)
 --
 -- Key findings from EML_PROBE.tex:
