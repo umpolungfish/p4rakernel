@@ -65,6 +65,9 @@ class LEAN_EXPORT environment : public object_ref {
     void add_core(constant_info const & info);
     void mark_quot_initialized();
     void mark_paraconsistent();
+    void unmark_paraconsistent();
+    void mark_trilattice();
+    void unmark_trilattice();
     environment add(constant_info const & info) const;
     environment add_axiom(declaration const & d, bool check) const;
     environment add_definition(declaration const & d, bool check) const;
@@ -88,6 +91,14 @@ public:
 
     bool is_quot_initialized() const;
     bool is_paraconsistent() const;
+    /** \brief SIXTEEN_3 trilattice mode. Strictly stronger than paraconsistent:
+        sixteen values cannot be carried by a kernel that explodes, so the type
+        checker treats trilattice as implying paraconsistent. See `holds_contradictions`. */
+    bool is_trilattice() const;
+    /** \brief True when the kernel must NOT explode: paraconsistent or trilattice.
+        Every enforcement point asks THIS, never the raw flags, so enabling
+        trilattice alone is a real toggle rather than a banner. */
+    bool holds_contradictions() const;
 
     /** \brief Return information for the constant with name \c n (if it is defined in this environment). */
     optional<constant_info> find(name const & n) const;
