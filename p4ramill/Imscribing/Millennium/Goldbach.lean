@@ -248,7 +248,7 @@ theorem binary_ternary_distance_2 :
 The binary Goldbach vessel is at O₁: it has 𐑮 criticality but 𐑷 protection.
 -/
 theorem binary_vessel_o1_certificate :
-  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O₁ := by
+  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim goldbach_binary_vessel.top = OuroboricityTier.O₁ := by
   native_decide
 
 /--
@@ -256,7 +256,7 @@ theorem binary_vessel_o1_certificate :
 The ternary Goldbach vessel is at O₂: it has 𐑮 criticality + 𐑴 protection.
 -/
 theorem ternary_vessel_o2_certificate :
-  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier goldbach_ternary_vessel.crit goldbach_ternary_vessel.pol goldbach_ternary_vessel.prot goldbach_ternary_vessel.dim goldbach_ternary_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -290,7 +290,7 @@ theorem ternary_has_z2 : goldbach_ternary_vessel.prot = oak := by
 The binary vessel is strictly below the ternary vessel in tier.
 -/
 theorem binary_below_ternary_tier :
-  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = OuroboricityTier.O₁ := by
+  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim goldbach_binary_vessel.top = OuroboricityTier.O₁ := by
   native_decide
 
 /--
@@ -359,7 +359,7 @@ theorem goldbach_twin_prime_distance_1 :
 Both Goldbach and Twin Prime are at O₁.
 -/
 theorem goldbach_twin_prime_same_tier :
-  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim = ouroboricityTier twin_prime_vessel.crit twin_prime_vessel.pol twin_prime_vessel.prot twin_prime_vessel.dim := by
+  ouroboricityTier goldbach_binary_vessel.crit goldbach_binary_vessel.pol goldbach_binary_vessel.prot goldbach_binary_vessel.dim goldbach_binary_vessel.top = ouroboricityTier twin_prime_vessel.crit twin_prime_vessel.pol twin_prime_vessel.prot twin_prime_vessel.dim twin_prime_vessel.top := by
   native_decide
 
 /--
@@ -486,7 +486,7 @@ theorem chen_equals_ternary :
 Chen's Theorem sits at O₂dag — the same tier as the proved ternary case.
 -/
 theorem chen_o2_certificate :
-  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier chen_vessel.crit chen_vessel.pol chen_vessel.prot chen_vessel.dim chen_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /--

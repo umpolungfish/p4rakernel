@@ -341,15 +341,44 @@ inductive OuroboricityTier : Type where
   | O₁    -- critical, no topological protection
   | O₂    -- critical, Ω-protected, D ≠ array
   | O₂dag -- critical, Ω-protected, D = array
-  | O_inf  -- Special Frobenius (or' at ⊙)
+  | O_inf  -- Special Frobenius (or' at ⊙) — terminal self-referential closure
+  | O_inf_dag -- LATERAL to O_inf, not above it: self-replicative OPENING at ⊙.
+              -- CLINK L8 reaches O_inf by closing terminally through or'. CLINK L9
+              -- relinquishes or' and opens replicatively instead. That is a sideways
+              -- move, and a linear order has no way to say "beside", so L9 fell through
+              -- R1 into the O₂ default and read as a demotion. It is not a demotion and
+              -- it is not an ascent: `dag` is how this codomain already writes a
+              -- lateral (O₂ / O₂dag are siblings on one rung, split by dim), so the
+              -- same idiom carries L9. There is deliberately NO tier above O_inf.
   deriving DecidableEq, Repr, Ord
 
+/-- Ouroboricity tier of the gate primitives.
+
+R2 (the dagger) keys on the REPLICATIVE OPENING triple — dim=dead ∧ top=mime ∧ prot=ah:
+a point-like prime atom that crosses the moat and carries ℤ winding. Against L8's terminal
+closure triple (dim=if' ∧ top=are ∧ prot=zoo: holographic state, holobound, non-Abelian
+braid). Those two triples are what make the move lateral; they are not L9's whole tuple, so
+the rule is not "L9 is O_inf_dag because it is L9".
+
+The triple names a real class in the catalog, not a bucket: ouroborus, self_replicating,
+self_modeling, loop_space_s1, cycle_space, unit_circle_roots, iutt_closed_ring_4,
+arithmetic_geometric_macrocycle, prime_chain_2_3, wheel_of_fortune, the_hanged_man — every
+one replicative or cyclic. (A rule keyed instead on pol=out ∧ chir=wool swept 432 entries
+including prions and Kerr black holes: two common coordinates, no class.)
+
+R1 STILL DOMINATES. 15 entries carry both or' and the replicative triple; they are
+terminally closed AND replicative, and the Frobenius gate is the stronger claim, so the
+dagger is tested only after R1 fails. This also keeps `r1_dominates`,
+`o_inf_requires_phi_c` and `o_inf_requires_P_pm_sym` true: the dagger returns its own
+constructor and never O_inf. -/
 def ouroboricityTier (phi : Criticality) (pol : Polarity)
-    (prot : Protection) (dim : Dimensionality) : OuroboricityTier :=
+    (prot : Protection) (dim : Dimensionality) (top : Topology) : OuroboricityTier :=
   match phi with
   | .woe | .haha | .err => .O₀
   | .monad | .roar =>
-    if pol = .or' then .O_inf                    -- R1: Frobenius gate
+    if pol = .or' then .O_inf                    -- R1: Frobenius gate (terminal closure)
+    else if dim = .dead ∧ top = .mime ∧ prot = .ah then
+      .O_inf_dag                                 -- R2: lateral — replicative opening
     else match prot with
     | .awe => .O₁                                -- R3
     | _ => match dim with
@@ -357,24 +386,31 @@ def ouroboricityTier (phi : Criticality) (pol : Polarity)
       | _        => .O₂                              -- R4
 
 -- R1 is the dominant gate: or' at monad always gives O_inf.
-theorem r1_dominates (prot : Protection) (dim : Dimensionality) :
-    ouroboricityTier .monad .or' prot dim = .O_inf := by
+theorem r1_dominates (prot : Protection) (dim : Dimensionality) (top : Topology) :
+    ouroboricityTier .monad .or' prot dim top = .O_inf := by
   simp [ouroboricityTier]
 
 -- O_inf requires monad or roar: no other Phi value can give O_inf.
 theorem o_inf_requires_phi_c (phi : Criticality) (pol : Polarity)
-    (prot : Protection) (dim : Dimensionality)
-    (h : ouroboricityTier phi pol prot dim = .O_inf) :
+    (prot : Protection) (dim : Dimensionality) (top : Topology)
+    (h : ouroboricityTier phi pol prot dim top = .O_inf) :
     phi = .monad ∨ phi = .roar := by
   cases phi <;> simp [ouroboricityTier] at h <;> simp
 
 -- O_inf requires or': no other Polarity can give O_inf.
 theorem o_inf_requires_P_pm_sym (phi : Criticality) (pol : Polarity)
-    (prot : Protection) (dim : Dimensionality)
-    (h : ouroboricityTier phi pol prot dim = .O_inf) :
+    (prot : Protection) (dim : Dimensionality) (top : Topology)
+    (h : ouroboricityTier phi pol prot dim top = .O_inf) :
     pol = .or' := by
-  cases phi <;> cases pol <;> cases prot <;> cases dim <;> simp [ouroboricityTier] at h
-  <;> try rfl
+  cases phi <;> cases pol <;> cases prot <;> cases dim <;> cases top <;>
+    simp [ouroboricityTier] at h <;> try rfl
+
+/-- The dagger is LATERAL, never O_inf: R1 owns or' and the dagger never returns O_inf. -/
+theorem dag_is_not_O_inf (phi : Criticality) (pol : Polarity)
+    (prot : Protection) (dim : Dimensionality) (top : Topology)
+    (h : ouroboricityTier phi pol prot dim top = .O_inf_dag) :
+    pol ≠ .or' := by
+  cases phi <;> cases pol <;> simp [ouroboricityTier] at h ⊢
 
 -- The Frobenius non-synthesizability statement (§23):
 -- or' cannot be reached by the Polarity min (tensor bottleneck rule).

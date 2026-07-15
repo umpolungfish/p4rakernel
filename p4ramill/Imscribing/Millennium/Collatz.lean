@@ -491,7 +491,7 @@ determinate and machine-verified.
 Complex-critical (roar) + unprotected (awe) = O₁.
 -/
 theorem collatz_o1_certificate :
-  ouroboricityTier collatz_vessel.crit collatz_vessel.pol collatz_vessel.prot collatz_vessel.dim = OuroboricityTier.O₁ := by
+  ouroboricityTier collatz_vessel.crit collatz_vessel.pol collatz_vessel.prot collatz_vessel.dim collatz_vessel.top = OuroboricityTier.O₁ := by
   native_decide
 
 /--
@@ -499,7 +499,7 @@ theorem collatz_o1_certificate :
 Subcritical + unprotected = O₀. The cycle is proved and finite.
 -/
 theorem collatz_cycle_o0_certificate :
-  ouroboricityTier collatz_cycle_vessel.crit collatz_cycle_vessel.pol collatz_cycle_vessel.prot collatz_cycle_vessel.dim = OuroboricityTier.O₀ := by
+  ouroboricityTier collatz_cycle_vessel.crit collatz_cycle_vessel.pol collatz_cycle_vessel.prot collatz_cycle_vessel.dim collatz_cycle_vessel.top = OuroboricityTier.O₀ := by
   native_decide
 
 /--
@@ -507,7 +507,7 @@ theorem collatz_cycle_o0_certificate :
 The Terras log-mean drift is a proved subcritical result.
 -/
 theorem collatz_drift_o0_certificate :
-  ouroboricityTier collatz_drift_vessel.crit collatz_drift_vessel.pol collatz_drift_vessel.prot collatz_drift_vessel.dim = OuroboricityTier.O₀ := by
+  ouroboricityTier collatz_drift_vessel.crit collatz_drift_vessel.pol collatz_drift_vessel.prot collatz_drift_vessel.dim collatz_drift_vessel.top = OuroboricityTier.O₀ := by
   native_decide
 
 /--
@@ -515,7 +515,7 @@ theorem collatz_drift_o0_certificate :
 Z₂-protected partial result.
 -/
 theorem collatz_nosc_o2_certificate :
-  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier collatz_nosc_vessel.crit collatz_nosc_vessel.pol collatz_nosc_vessel.prot collatz_nosc_vessel.dim collatz_nosc_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -523,7 +523,7 @@ theorem collatz_nosc_o2_certificate :
 Tao's 2019 theorem is Z₂-protected.
 -/
 theorem collatz_tao_o2_certificate :
-  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim = OuroboricityTier.O₂dag := by
+  ouroboricityTier collatz_tao_vessel.crit collatz_tao_vessel.pol collatz_tao_vessel.prot collatz_tao_vessel.dim collatz_tao_vessel.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /--
@@ -531,7 +531,7 @@ theorem collatz_tao_o2_certificate :
 Same tier as the full conjecture but with mesoscale scope.
 -/
 theorem collatz_boundedness_o1_certificate :
-  ouroboricityTier collatz_boundedness_vessel.crit collatz_boundedness_vessel.pol collatz_boundedness_vessel.prot collatz_boundedness_vessel.dim = OuroboricityTier.O₁ := by
+  ouroboricityTier collatz_boundedness_vessel.crit collatz_boundedness_vessel.pol collatz_boundedness_vessel.prot collatz_boundedness_vessel.dim collatz_boundedness_vessel.top = OuroboricityTier.O₁ := by
   native_decide-- ----------------------------------------------------------
 -- Distance: Collatz ↔ Sub-Vessels
 -- ----------------------------------------------------------
