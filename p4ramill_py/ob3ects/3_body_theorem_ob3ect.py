@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/3_body_theorem/3_body_theorem_ob3ect.py

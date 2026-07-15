@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/mckay_theorem/mckay_theorem_ob3ect.py

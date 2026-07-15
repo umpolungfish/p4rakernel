@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/operation_of_rohnoc_codex/operation_of_rohnoc_codex_ob3ect.py

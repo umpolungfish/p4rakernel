@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/1_3_2_3_theorem/1_3_2_3_theorem_ob3ect.py

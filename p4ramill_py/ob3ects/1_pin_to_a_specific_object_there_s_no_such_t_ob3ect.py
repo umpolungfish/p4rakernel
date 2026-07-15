@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/1_pin_to_a_specific_object_there_s_no_such_t/1_pin_to_a_specific_object_there_s_no_such_t_ob3ect.py

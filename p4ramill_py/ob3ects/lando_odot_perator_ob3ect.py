@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/lando_odot_perator/lando_odot_perator_ob3ect.py

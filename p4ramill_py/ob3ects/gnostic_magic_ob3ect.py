@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/gnostic_magic/gnostic_magic_ob3ect.py

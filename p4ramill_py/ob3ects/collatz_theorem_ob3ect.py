@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/collatz_theorem/collatz_theorem_ob3ect.py

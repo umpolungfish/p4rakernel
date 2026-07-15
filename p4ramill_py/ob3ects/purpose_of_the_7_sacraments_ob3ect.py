@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/purpose_of_the_7_sacraments/purpose_of_the_7_sacraments_ob3ect.py

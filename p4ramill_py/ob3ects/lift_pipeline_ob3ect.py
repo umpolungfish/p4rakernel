@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/lift_pipeline/lift_pipeline_ob3ect.py

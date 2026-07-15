@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/natal_chart_ob3ect/natal_chart_ob3ect_ob3ect.py

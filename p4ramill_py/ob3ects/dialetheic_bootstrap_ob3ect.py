@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/dialetheic_bootstrap/dialetheic_bootstrap_ob3ect.py

@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/chaos_magic_shoal/chaos_magic_shoal_ob3ect.py

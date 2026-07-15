@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/electron_orbitals_fill_in_fde_four/electron_orbitals_fill_in_fde_four_ob3ect.py

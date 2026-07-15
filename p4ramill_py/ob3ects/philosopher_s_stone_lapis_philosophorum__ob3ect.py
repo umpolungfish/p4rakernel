@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/philosopher_s_stone_lapis_philosophorum_/philosopher_s_stone_lapis_philosophorum__ob3ect.py

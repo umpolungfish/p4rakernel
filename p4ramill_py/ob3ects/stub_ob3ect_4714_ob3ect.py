@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/stub_ob3ect_4714/stub_ob3ect_4714_ob3ect.py

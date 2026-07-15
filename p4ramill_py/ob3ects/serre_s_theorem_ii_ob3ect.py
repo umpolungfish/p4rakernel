@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/serre_s_theorem_ii/serre_s_theorem_ii_ob3ect.py

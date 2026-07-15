@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/collatz_proof/collatz_proof_ob3ect.py
