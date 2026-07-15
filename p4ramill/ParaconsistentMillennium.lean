@@ -496,7 +496,7 @@ theorem bsd_gap_dialetheic    : band bsd_gap (bnot bsd_gap) = bsd_gap := rfl
 theorem bsd_gap_non_explosion : band bsd_gap (bnot bsd_gap) ≠ .F      := by decide
 theorem bsd_cycle_closes      : cycle bsd_gap = bsd_gap                := rfl
 
--- BSD resolved: H = 𐑖 (Ħ_A, chirality 3 = sure persistent memory).
+-- BSD resolved: H = 𐑖 (𐑖, chirality 3 = sure persistent memory).
 def bsd_shavian : String := "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑳·𐑭⟩"
 
 end BSD
