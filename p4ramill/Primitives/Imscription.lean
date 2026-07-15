@@ -124,7 +124,7 @@ theorem tensor_P_bottleneck (a b : Imscription) :
 -- ============================================================
 
 def imscriptionTier (s : Imscription) : OuroboricityTier :=
-  ouroboricityTier s.crit s.pol s.prot s.dim
+  ouroboricityTier s.crit s.pol s.prot s.dim s.top
 
 -- ============================================================
 -- KEY ENCODINGS
