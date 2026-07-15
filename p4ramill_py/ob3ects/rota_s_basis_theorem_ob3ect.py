@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/rota_s_basis_theorem/rota_s_basis_theorem_ob3ect.py

@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/berry_tabor_theorem/berry_tabor_theorem_ob3ect.py

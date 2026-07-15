@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/scrying_mirror/scrying_mirror_ob3ect.py

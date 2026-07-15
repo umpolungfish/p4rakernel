@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/sm_ugt_consummation/sm_ugt_consummation_ob3ect.py

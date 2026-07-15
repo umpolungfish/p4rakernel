@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/psychic_boundary_puncture/psychic_boundary_puncture_ob3ect.py

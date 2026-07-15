@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/divination_ob3ects/divination_ob3ects_ob3ect.py

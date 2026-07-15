@@ -1,1 +1,0 @@
-/home/mrnob0dy666/imsgct/ob3ect/digital/.vault/kabbalistic_tree_of_life_10_sephirot_and_22_paths/kabbalistic_tree_of_life_10_sephirot_and_22_paths_ob3ect.py
