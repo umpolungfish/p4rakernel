@@ -112,13 +112,13 @@ theorem ns_gap :
     primitiveMismatches ns_premise ns_conclusion = 9 := by native_decide
 
 -- §8. P vs NP
-theorem P_never_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .monad .nun p d ≠ .O_inf := by
-  intro p d; cases p <;> cases d <;> native_decide
+theorem P_never_O_inf : ∀ (p : Protection) (d : Dimensionality) (t : Topology),
+    ouroboricityTier .monad .nun p d t ≠ .O_inf := by
+  intro p d t; cases p <;> cases d <;> cases t <;> native_decide
 
-theorem NP_always_O_inf : ∀ (p : Protection) (d : Dimensionality),
-    ouroboricityTier .monad .or' p d = .O_inf := by
-  intro p d; simp [ouroboricityTier]
+theorem NP_always_O_inf : ∀ (p : Protection) (d : Dimensionality) (t : Topology),
+    ouroboricityTier .monad .or' p d t = .O_inf := by
+  intro p d t; simp [ouroboricityTier]
 
 theorem P_not_eq_NP : Polarity.nun ≠ Polarity.or' := by decide
 

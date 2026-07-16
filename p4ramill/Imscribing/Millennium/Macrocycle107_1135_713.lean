@@ -362,7 +362,7 @@ ring strain.
     Complex-critical, ℤ₂ parity, ℤ winding, 2D. -/
 theorem es_tier_is_O2 :
     ouroboricityTier erdos_szekeres_lattice.crit erdos_szekeres_lattice.pol
-      erdos_szekeres_lattice.prot erdos_szekeres_lattice.dim = OuroboricityTier.O₂ := by
+      erdos_szekeres_lattice.prot erdos_szekeres_lattice.dim erdos_szekeres_lattice.top = OuroboricityTier.O₂ := by
   native_decide
 
 /-- One-way speed measurement tier: err → O₀.
@@ -371,21 +371,21 @@ theorem es_tier_is_O2 :
     protection (oak), the err value gates to O₀. -/
 theorem ow_tier_is_O0 :
     ouroboricityTier one_way_speed_measurement.crit one_way_speed_measurement.pol
-      one_way_speed_measurement.prot one_way_speed_measurement.dim = OuroboricityTier.O₀ := by
+      one_way_speed_measurement.prot one_way_speed_measurement.dim one_way_speed_measurement.top = OuroboricityTier.O₀ := by
   native_decide
 
 /-- Collatz graph tier: roar + church + ah + array = O₂dag.
     Complex-critical, asymmetric (church), ℤ winding, infinite-dim. -/
 theorem cg_tier_is_O2dag :
     ouroboricityTier collatz_graph.crit collatz_graph.pol
-      collatz_graph.prot collatz_graph.dim = OuroboricityTier.O₂dag := by
+      collatz_graph.prot collatz_graph.dim collatz_graph.top = OuroboricityTier.O₂dag := by
   native_decide
 
 /-- Time concept tier: monad + nun + ah + array = O₂dag.
     ⊙-critical + full symmetry + ℤ winding + infinite-dim. -/
 theorem tc_tier_is_O2dag :
     ouroboricityTier time_concept.crit time_concept.pol
-      time_concept.prot time_concept.dim = OuroboricityTier.O₂dag := by
+      time_concept.prot time_concept.dim time_concept.top = OuroboricityTier.O₂dag := by
   native_decide
 
 -- §5.2 Inter-Monomer Distances
