@@ -116,8 +116,8 @@ theorem deep9_is_self_father : deep9.primitive = "φ̂" := by rfl
 -- §3  TIER ASSIGNMENTS — CATALOG-VERIFIED
 -- ================================================================
 
--- imscribe("ouroborics", {"name":"bruce_codex"}) → O₂†
-theorem bruce_codex_tier : imscriptionTier bruceCodexTuple = .O₂ := by
+-- imscribe("ouroborics", {"name":"bruce_codex"}) → O_inf_dag
+theorem bruce_codex_tier : imscriptionTier bruceCodexTuple = .O_inf_dag := by
   native_decide
 
 -- imscribe("ouroborics", {"name":"bruce_baptism_seals"}) → O_∞

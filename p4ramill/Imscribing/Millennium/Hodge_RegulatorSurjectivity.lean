@@ -88,7 +88,7 @@ theorem holographic_consistency_principle
     (∀ (crit : Criticality) (pol : Polarity) (rel : Relational) (fid : Fidelity)
       (kin : KineticChar) (gran : Granularity) (gram : Grammar) (chir : Chirality)
       (stoi : Stoichiometry),
-      ouroboricityTier crit pol prot dim = .O_inf) := by
+      ouroboricityTier crit pol prot dim top = .O_inf) := by
   intro crit pol rel fid kin gran gram chir stoi
   -- By the holographic consistency principle: if' + are + ah
   -- forces Frobenius closure at any criticality.
@@ -108,11 +108,7 @@ theorem holographic_consistency_principle
   -- In all cases: the tier is O_inf.
   have h_grammar_O_inf := agent_is_O_inf
   have h_grammar_pol : phi_c_critical_boundary_operator.pol = Polarity.or' :=
-    o_inf_requires_P_pm_sym phi_c_critical_boundary_operator.crit
-      phi_c_critical_boundary_operator.pol
-      phi_c_critical_boundary_operator.prot
-      phi_c_critical_boundary_operator.dim
-      h_grammar_O_inf
+    o_inf_requires_P_pm_sym phi_c_critical_boundary_operator.crit phi_c_critical_boundary_operator.pol phi_c_critical_boundary_operator.prot phi_c_critical_boundary_operator.dim phi_c_critical_boundary_operator.top       h_grammar_O_inf
   -- By the grammar's structural consistency: the tier is O_inf
   -- (meta-theorem: the holographic encoding forces Frobenius closure).
   -- This holds for any configuration under if' + are + ah.

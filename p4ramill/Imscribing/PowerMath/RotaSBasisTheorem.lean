@@ -55,6 +55,6 @@ theorem RotaSBasisTheorem_consciousness :
 
 /-- The imscription is Frobenius-closed (within the grammar's tier lattice). -/
 theorem RotaSBasisTheorem_grammar_closed : TierFunctor.obj RotaSBasisTheoremImscription ≤ .O_inf := by
-  apply tier_all_le_O_inf
+  apply tier_all_le_O_inf; decide
 
 end Imscribing.PowerMath

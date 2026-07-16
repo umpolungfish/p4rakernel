@@ -179,7 +179,7 @@ phi_c_gate b.crit = true := by
 
 theorem phi_gate_O_inf_precondition (a : Imscription) (hO : imscriptionTier a = .O_inf) :
 a.pol = or' :=
-  o_inf_requires_P_pm_sym a.crit a.pol a.prot a.dim hO
+  o_inf_requires_P_pm_sym a.crit a.pol a.prot a.dim a.top hO
 
 -- ================================================================
 -- §3  INTER-TIER VS INTRA-TIER CLASSIFICATION

@@ -294,6 +294,7 @@ globs = [
   "Imscribing.Millennium.SacredConvergence",
   "Imscribing.Millennium.VoidConsensus",
   "Imscribing.CLINK",
+  "Imscribing.CLINK_L9",
   "Imscribing.BoundaryOperators",
   "Imscribing.BooksOfJeu",
   "Imscribing.BotanicalWalkthrough",

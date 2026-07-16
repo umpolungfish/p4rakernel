@@ -43,14 +43,14 @@ def pvsnp_encoding : Imscription := {
 
 /-- RH: O₁ via R3 (roar, nun, awe, ash). -/
 theorem rh_tier_O1_ig : ouroboricityTier rh_encoding.crit rh_encoding.pol
-    rh_encoding.prot rh_encoding.dim = OuroboricityTier.O₁ := by
+    rh_encoding.prot rh_encoding.dim rh_encoding.top = OuroboricityTier.O₁ := by
   native_decide
 
 theorem rh_tier_O1_conventional : True := by trivial
 
 /-- YM quantum target: O₂dag via R5 (monad, out, ah, array). -/
 theorem ym_tier_O2dag_ig : ouroboricityTier ym_quantum_target.crit
-    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim = OuroboricityTier.O₂dag := by
+    ym_quantum_target.pol ym_quantum_target.prot ym_quantum_target.dim ym_quantum_target.top = OuroboricityTier.O₂dag := by
   native_decide
 
 theorem ym_tier_O2dag_conventional : True := by trivial
@@ -58,34 +58,34 @@ theorem ym_tier_O2dag_conventional : True := by trivial
 /-- Hodge: O₁ via R3 (monad, nun, awe, if').
     Even though if' is holographic, awe → R3 dominates. -/
 theorem hodge_tier_O1_ig : ouroboricityTier hodge_encoding.crit
-    hodge_encoding.pol hodge_encoding.prot hodge_encoding.dim = OuroboricityTier.O₁ := by
+    hodge_encoding.pol hodge_encoding.prot hodge_encoding.dim hodge_encoding.top = OuroboricityTier.O₁ := by
   native_decide
 
 theorem hodge_tier_O1_conventional : True := by trivial
 
 /-- BSD: O₂ via R4 (monad, nun, ah, if', D ≠ array). -/
 theorem bsd_tier_O2_ig : ouroboricityTier bsd_encoding.crit
-    bsd_encoding.pol bsd_encoding.prot bsd_encoding.dim = OuroboricityTier.O₂ := by
+    bsd_encoding.pol bsd_encoding.prot bsd_encoding.dim bsd_encoding.top = OuroboricityTier.O₂ := by
   native_decide
 
 /-- OPN: O₁ via R3 (monad, church, awe, dead). -/
 theorem opn_tier_O1_ig : ouroboricityTier opn_encoding.crit
-    opn_encoding.pol opn_encoding.prot opn_encoding.dim = OuroboricityTier.O₁ := by
+    opn_encoding.pol opn_encoding.prot opn_encoding.dim opn_encoding.top = OuroboricityTier.O₁ := by
   native_decide
 
 /-- NS: O₀ because woe = non-critical. -/
 theorem ns_tier_O0_ig : ouroboricityTier ns_encoding.crit
-    ns_encoding.pol ns_encoding.prot ns_encoding.dim = OuroboricityTier.O₀ := by
+    ns_encoding.pol ns_encoding.prot ns_encoding.dim ns_encoding.top = OuroboricityTier.O₀ := by
   native_decide
 
 /-- YM classical: O₀ because woe. -/
 theorem ym_classical_tier_O0_ig : ouroboricityTier ym_classical.crit
-    ym_classical.pol ym_classical.prot ym_classical.dim = OuroboricityTier.O₀ := by
+    ym_classical.pol ym_classical.prot ym_classical.dim ym_classical.top = OuroboricityTier.O₀ := by
   native_decide
 
 -- RH irreducibility bridge (unchanged — originally correct)
 theorem rh_ig_threshold_bridge :
-    (ouroboricityTier .roar .nun .awe .ash = OuroboricityTier.O₁) ∧
+    (ouroboricityTier .roar .nun .awe .ash .judge = OuroboricityTier.O₁) ∧
     (millenniumThreshold .RH = ThresholdType.OpenProblem) ∧
     (RH.RiemannHypothesis ↔ ∀ s : ℂ, riemannZeta s = 0 →
      0 < s.re → s.re < 1 → s.re = 1 / 2) :=
