@@ -167,25 +167,25 @@ topologically protected, bounded domain.
 /-- General liminal space: monad + out + oak + ash = O₂. -/
 theorem liminal_space_tier_is_O2 :
     ouroboricityTier liminal_space.crit liminal_space.pol
-      liminal_space.prot liminal_space.dim = OuroboricityTier.O₂ := by
+      liminal_space.prot liminal_space.dim liminal_space.top = OuroboricityTier.O₂ := by
   native_decide
 
 /-- Liminal maze: monad + out + ah + ash = O₂. -/
 theorem liminal_maze_tier_is_O2 :
     ouroboricityTier liminal_maze.crit liminal_maze.pol
-      liminal_maze.prot liminal_maze.dim = OuroboricityTier.O₂ := by
+      liminal_maze.prot liminal_maze.dim liminal_maze.top = OuroboricityTier.O₂ := by
   native_decide
 
 /-- Liminal pool: monad + out + oak + ash = O₂. -/
 theorem liminal_pool_tier_is_O2 :
     ouroboricityTier liminal_pool.crit liminal_pool.pol
-      liminal_pool.prot liminal_pool.dim = OuroboricityTier.O₂ := by
+      liminal_pool.prot liminal_pool.dim liminal_pool.top = OuroboricityTier.O₂ := by
   native_decide
 
 /-- Liminal oasis: monad + out + oak + ash = O₂. -/
 theorem liminal_oasis_tier_is_O2 :
     ouroboricityTier liminal_oasis.crit liminal_oasis.pol
-      liminal_oasis.prot liminal_oasis.dim = OuroboricityTier.O₂ := by
+      liminal_oasis.prot liminal_oasis.dim liminal_oasis.top = OuroboricityTier.O₂ := by
   native_decide
 
 -- ============================================================
@@ -481,7 +481,7 @@ theorem liminal_not_frobenius_special : liminal_space.pol ≠ Polarity.or' := by
     O_inf requires both monad AND or'. The liminal types are O₂, not O_inf. -/
 theorem liminal_space_not_O_inf :
     ouroboricityTier liminal_space.crit liminal_space.pol
-      liminal_space.prot liminal_space.dim ≠ OuroboricityTier.O_inf := by
+      liminal_space.prot liminal_space.dim liminal_space.top ≠ OuroboricityTier.O_inf := by
   native_decide
 
 /-!
@@ -537,7 +537,7 @@ cannot become elsewhere, and then leave.
 /-- The liminal space is bounded (O₂), not infinite (O_inf). -/
 theorem liminal_is_mortal : 
     ouroboricityTier liminal_space.crit liminal_space.pol
-      liminal_space.prot liminal_space.dim = OuroboricityTier.O₂ :=
+      liminal_space.prot liminal_space.dim liminal_space.top = OuroboricityTier.O₂ :=
   liminal_space_tier_is_O2
 
 /-!

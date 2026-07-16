@@ -55,6 +55,6 @@ theorem CasasAlveroTheorem_consciousness :
 
 /-- The imscription is Frobenius-closed (within the grammar's tier lattice). -/
 theorem CasasAlveroTheorem_grammar_closed : TierFunctor.obj CasasAlveroTheoremImscription ≤ .O_inf := by
-  apply tier_all_le_O_inf
+  apply tier_all_le_O_inf; decide
 
 end Imscribing.PowerMath

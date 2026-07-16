@@ -55,6 +55,6 @@ theorem NovikovTheorem_consciousness :
 
 /-- The imscription is Frobenius-closed (within the grammar's tier lattice). -/
 theorem NovikovTheorem_grammar_closed : TierFunctor.obj NovikovTheoremImscription ≤ .O_inf := by
-  apply tier_all_le_O_inf
+  apply tier_all_le_O_inf; decide
 
 end Imscribing.PowerMath
