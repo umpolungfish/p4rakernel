@@ -451,4 +451,7 @@ globs = [
   "Imscribing.Coagula.Polymer",
   "Imscribing.LiminalSpaces",
 
+  "Imscribing.Millennium.ContinuumMacrocycle",
+  "Imscribing.Millennium.Chema",
+
 ]
