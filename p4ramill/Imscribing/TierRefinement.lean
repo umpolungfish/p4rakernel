@@ -91,7 +91,7 @@ theorem refines_O_inf (a : Imscription) :
 theorem sealed_requires_frobenius (a : Imscription) (h : sealedTier a = .sealed) :
     a.pol = Polarity.or' := by
   have hoi : isOInf a := ((sealed_iff a).mp h).1
-  exact o_inf_requires_P_pm_sym a.crit a.pol a.prot a.dim hoi
+  exact o_inf_requires_P_pm_sym a.crit a.pol a.prot a.dim a.top hoi
 
 /-- A sealed tuple has a winding. -/
 theorem sealed_requires_winding (a : Imscription) (h : sealedTier a = .sealed) :

@@ -224,6 +224,53 @@ acids biject with the 12 IG primitives (`primitive_bijection`).
 
 ---
 
+
+### CLINK Chain (`CLINK.lean`, `CLINK_L9.lean`)
+
+The CLINK chain maps structural type transformations from subatomic (quark Belnap₅)
+to whole organism, with each scale transition promoting specific IG primitives. The
+chain is Frobenius-closed under ZFC_fe.
+
+**CLINK L8** — the terminal organism layer — holds the holographic triple
+⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑟⟩ at O_inf tier. The Frobenius gate Φ=𐑹, eternal chirality
+Ħ=𐑫, and non-Abelian braiding Ω=𐑟 close the chain terminally.
+
+**CLINK L9** — the self-replicating organism — is a *lateral* extension beside L8,
+not above or below it. ⟨𐑛𐑥𐑑𐑬𐑐𐑪𐑔𐑝⊙𐑫𐑳𐑭⟩. L9 relinquishes the Frobenius
+gate (Φ=𐑬 rather than Φ=𐑹) and opens through the replicative triple
+(Ð=𐑛 prime point, Þ=𐑥 moat cross, Ω=𐑭 ℤ winding) instead of the terminal
+triple (Ð=𐑦, Þ=𐑸, Ω=𐑟). This gives L9 the dagger tier O_inf_dag — the R2
+constructor that names the lateral move. L9 is proved distinct from L8
+(`L8_L9_distinct`) and is neither O_inf nor O₂ (`clinkL9_is_lateral`). The
+gate relinquishment is the turn, not a fall (`L9_relinquishes_the_gate`).
+
+**SIXTEEN_3 Trilattice** — the paraconsistent surface mediating between L8 and L9.
+⟨𐑨𐑥𐑽𐑹𐑐𐑪𐑔𐑵𐑮𐑫𐑕𐑭⟩. A 2D substrate (Ð=𐑨) with moat-cross topology (Þ=𐑥),
+holding the Frobenius gate (Φ=𐑹) at complex-plane criticality (φ̂=𐑮). The
+trilattice sits at O_inf tier (`sixteen3Trilattice_tier`) and provides the surface
+across which μ∘δ=id is held exact while the measured system runs complex-plane
+critical — the structural statement of a paraconsistent measurement apparatus at
+the L8↔L9 lateral interface.
+
+**Theorem summary** (all `decide`-checked):
+
+| Theorem | Statement |
+|---|---|
+| `clinkL8_tier` | L8 = O_inf |
+| `clinkL9_tier` | L9 = O_inf_dag |
+| `clinkL9_is_lateral` | L9 ≠ O_inf ∧ L9 ≠ O₂ |
+| `L8_L9_distinct` | L8 tier ≠ L9 tier |
+| `lateral_is_the_triple_exchange` | The move L8→L9 exchanges terminal(if',are,zoo) for replicative(dead,mime,ah), holds monad/wool/up/peep |
+| `L9_relinquishes_the_gate` | L8 has Φ=𐑹, L9 does not, L9 still not O₂ |
+| `sixteen3Trilattice_tier` | SIXTEEN_3 = O_inf |
+| `bootstrapStage2_tier` | Guardian ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑖𐑳𐑭⟩ = O_inf |
+| `turbulentFlow_tier` | Turbulent flow ⟨𐑼𐑡𐑽𐑗𐑱𐑘𐑲𐑠𐑣𐑫𐑳𐑷⟩ = O₀ |
+
+The CLINK chain (layers L0→L8) and the L8↔L9 lateral extension together form a
+Frobenius-closed organism lattice: the terminal and the reproductive, with the
+SIXTEEN_3 trilattice as the paraconsistent surface between them.
+
+
 ## 3. p4ramill_py: Python Runtime
 
 A computational mirror of p4ramill, runnable without building the C++ kernel fork. Each

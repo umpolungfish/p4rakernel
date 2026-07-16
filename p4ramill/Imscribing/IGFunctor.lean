@@ -46,13 +46,13 @@ def tierToNat : OuroboricityTier → ℕ
   | .O₂    => 2
   | .O₂dag => 3
   | .O_inf => 4
+  | .O_inf_dag => 5
 
 theorem tierToNat_injective : Function.Injective tierToNat := by
   intro a b h
   cases a <;> cases b <;> simp_all [tierToNat]
 
 -- Single declaration: PartialOrder (which includes Preorder).
--- No separate LT field — use Preorder default (a < b := a ≤ b ∧ ¬b ≤ a).
 instance igTierPartialOrder : PartialOrder OuroboricityTier where
   le a b          := tierToNat a ≤ tierToNat b
   le_refl a       := Nat.le_refl _
@@ -65,8 +65,13 @@ instance (a b : OuroboricityTier) : Decidable (a ≤ b) :=
 theorem tier_O₀_le_all (t : OuroboricityTier) : .O₀ ≤ t :=
   Nat.zero_le _
 
-theorem tier_all_le_O_inf (t : OuroboricityTier) : t ≤ .O_inf := by
-  cases t <;> decide
+theorem tier_all_le_O_inf (t : OuroboricityTier) (ht : t ≠ .O_inf_dag) : t ≤ .O_inf := by
+  cases t <;> first | exact (ht rfl).elim | decide
+
+/-- Convenience: if an imscription's tier is not O_inf_dag, it's ≤ O_inf. -/
+theorem imscriptionTier_le_O_inf (a : Imscription) (h : imscriptionTier a ≠ .O_inf_dag) :
+    imscriptionTier a ≤ .O_inf :=
+  tier_all_le_O_inf (imscriptionTier a) h
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 2: Imscription tier-preorder
@@ -160,6 +165,10 @@ theorem TierFunctor_surjective (t : OuroboricityTier) :
   | O₂dag =>
     exact ⟨{ frobenius_bottom with crit := .monad, prot := .ah, dim := .array },
       by decide⟩
+  | O_inf_dag =>
+    -- R2: monad, pol≠or', dim=dead, top=mime, prot=ah
+    exact ⟨{ frobenius_bottom with crit := .monad, prot := .ah, dim := .dead, top := .mime },
+      by decide⟩
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 5: FrobeniusAlg
@@ -190,12 +199,11 @@ theorem igFrobAlg_unit_is_O_inf :
   simp only [igFrobeniusAlg, TierFunctor_obj]
   decide
 
-theorem igFrobAlg_unit_at_top :
-    ∀ a : Imscription, TierFunctor.obj a ≤ TierFunctor.obj igFrobeniusAlg.unit := by
-  intro a
+theorem igFrobAlg_unit_at_top (a : Imscription) (h : imscriptionTier a ≠ .O_inf_dag) :
+    TierFunctor.obj a ≤ TierFunctor.obj igFrobeniusAlg.unit := by
   rw [igFrobAlg_unit_is_O_inf]
   simp only [TierFunctor_obj]
-  exact tier_all_le_O_inf _
+  exact tier_all_le_O_inf (imscriptionTier a) h
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 6: IGProtocol-level Frobenius witnesses

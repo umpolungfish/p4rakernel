@@ -579,11 +579,11 @@ theorem frobenius_cliff :
     rw [hcrit]
     unfold ouroboricityTier
     simp only [if_neg hpol]
-    cases s.prot <;> cases s.dim <;> decide
+    cases s.prot <;> cases s.dim <;> cases s.top <;> decide
   · intro s htier
     unfold imscriptionTier at htier
-    exact ⟨o_inf_requires_P_pm_sym s.crit s.pol s.prot s.dim htier,
-           o_inf_requires_phi_c s.crit s.pol s.prot s.dim htier⟩
+    exact ⟨o_inf_requires_P_pm_sym s.crit s.pol s.prot s.dim s.top htier,
+           o_inf_requires_phi_c s.crit s.pol s.prot s.dim s.top htier⟩
 
 -- ============================================================
 -- §9. CRACK THE COUNTERFEIT — discrimination via comparison
