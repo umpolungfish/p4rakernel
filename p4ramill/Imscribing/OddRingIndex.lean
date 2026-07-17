@@ -169,4 +169,39 @@ theorem root_pos : 0 < 1 + Real.sqrt 3 := by positivity
 /-- The gap: (1+√3) − |−2| = √3 − 1 — the measured 0.7320508. -/
 theorem gap_value : (1 + Real.sqrt 3) - 2 = Real.sqrt 3 - 1 := by ring
 
+-- ============================================================
+-- S5. THE EIGENVECTORS (exact, correcting a proposed null vector)
+-- ============================================================
+-- A proposed reduction claimed ker(A+2I) ∋ (−1,−1,2). It does not:
+-- (A+2I)·(−1,−1,2) = (−2,−2,2). The kernel is spanned by (1,−1,0) — the
+-- ANTISYMMETRIC combination of the two collapsed A₂ roots (the doubled pair):
+-- the λ=−2 mode is the swap. And the Perron mode carries the gap in its own
+-- coordinates: the surviving direction is (1, 1, √3−1).
+
+/-- The λ = −2 eigenvector: the swap of the doubled pair. -/
+theorem eigvec_neg_two : ringAR.mulVec ![1, -1, 0] = (-2 : ℝ) • ![1, -1, 0] := by
+  funext i
+  fin_cases i <;>
+    simp [ringAR, Matrix.mulVec, dotProduct, Fin.sum_univ_three]
+
+/-- The proposed balance vector is NOT in ker(A+2I). -/
+theorem proposed_vector_fails :
+    (ringAR + (2 : ℝ) • (1 : Matrix (Fin 3) (Fin 3) ℝ)).mulVec ![-1, -1, 2] ≠ 0 := by
+  intro h
+  have h2 := congrFun h 2
+  simp [ringAR, Matrix.mulVec, dotProduct, Fin.sum_univ_three, Matrix.add_apply,
+        Matrix.smul_apply, Matrix.one_apply, smul_eq_mul] at h2
+  norm_num at h2
+
+/-- The Perron eigenvector, exactly: A·(1, 1, √3−1) = (1+√3)·(1, 1, √3−1).
+    The gap √3−1 is the third coordinate of the surviving mode. -/
+theorem eigvec_perron :
+    ringAR.mulVec ![1, 1, Real.sqrt 3 - 1] =
+      (1 + Real.sqrt 3) • ![1, 1, Real.sqrt 3 - 1] := by
+  have h : Real.sqrt 3 ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+  funext i
+  fin_cases i <;>
+    simp [ringAR, Matrix.mulVec, dotProduct, Fin.sum_univ_three] <;> nlinarith [h]
+
 end Imscribing.OddRingIndex
+
