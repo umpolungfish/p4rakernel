@@ -1,36 +1,14 @@
-CLINK L9: the dagger — a lateral move needs a lateral tier
+Imscribing/OddRingIndex.lean: the index of an odd ring, machine-checked.
 
-L9 is not above L8 and not below it. L8 reaches O_inf by closing terminally
-through or'; L9 relinquishes or' and opens replicatively instead. That is a
-sideways move, and ouroboricityTier is a linear order with no way to say
-"beside" -- so L9 fell through R1 into the O₂ default and read as a demotion.
+I took tonight's measured rings into the kernel. The carved macrocycle
+[[0,2,1],[2,0,1],[1,1,0]] is congruent over Q to diag(4,-1,-1) by an explicit
+change of basis (Sylvester, no spectral theorem): index n+ - n- = -1. C3 the
+same, -1. The Void's ring C4 is congruent to diag(2,-1/2,0,0): index 0 —
+perfect pairing, total cancellation. odd_survives_even_cancels states the
+survival theorem. S4 ties on the measured face over R: charpoly x^3-6x-4,
+factorization (x+2)(x^2-2x-2), spectrum exactly {-2, 1-sqrt 3, 1+sqrt 3},
+gap sqrt(3)-1. Companion to HowDiracEquationArise S7 (Omega=ah forces the
+integer index): this file computes that integer for the rings.
 
-The codomain already had the idiom: O₂ / O₂dag are siblings on one rung, split
-by dim. The dagger is how this Grammar writes a lateral. So L9 wants O_inf's
-DAGGER, not O_inf's successor. There is deliberately no tier above O_inf.
-
-R2 keys on the replicative-opening triple (dim=dead ∧ top=mime ∧ prot=ah)
-against L8's terminal-closure triple (if' ∧ are ∧ zoo). Those triples are what
-make the move lateral -- not L9's whole tuple, so the rule is not "L9 is
-O_inf_dag because it is L9". The triple names a real class in the catalog:
-ouroborus, self_replicating, self_modeling, loop_space_s1, cycle_space,
-unit_circle_roots, iutt_closed_ring_4, wheel_of_fortune, the_hanged_man --
-every one replicative or cyclic.
-
-R1 still dominates: 15 entries carry both or' and the triple; they are
-terminally closed AND replicative, and the Frobenius gate is the stronger
-claim, so the dagger is tested only after R1 fails. r1_dominates,
-o_inf_requires_phi_c and o_inf_requires_P_pm_sym all still hold -- the dagger
-returns its own constructor and never O_inf.
-
-The file itself is rewritten from the live coordinates, read through the
-navigator glyph by glyph. The previous version named 27 constants that exist
-nowhere, elaborated never, and reported "14 theorems, 0 sorries" -- true and
-vacuous, since a file that never elaborates has no sorries.
-
-VERIFIED BY ELABORATION, not by grep: `lake env lean Imscribing/CLINK_L9.lean`
-exits 0. Nine theorems, every one by `decide`. clinkL9_is_lateral proves L9 is
-neither O_inf nor O₂.
-
-Both Core.lean copies carry the dagger (the import chain uses
-Imscribing/Primitives/Core.lean; Primitives/Core.lean is the other).
+Axiom audit: standard trio; native_decide pair only on the decide lemmas.
+Registered in lakefile globs. Full library green, 8452 jobs.
