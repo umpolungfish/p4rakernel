@@ -314,6 +314,7 @@ globs = [
 "Imscribing.HowHilbertQMArise",
 "Imscribing.HowDiracEquationArise",
 "Imscribing.OddRingIndex",
+"Imscribing.ParityIndex",
   "Imscribing.Tier2.CLU_GPM",
 
   "Imscribing.Paraconsistent.FDEAsymptotic",
