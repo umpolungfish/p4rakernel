@@ -1,8 +1,9 @@
-OddRingIndex S5: the eigenvectors, exact — and a proposed null vector refuted.
+ROTAT: op-opcode proved in the kernel
 
-A reduction proposal claimed ker(A+2I) contains (-1,-1,2). The calc lane says
-(A+2I)(-1,-1,2) = (-2,-2,2), and the kernel is (1,-1,0) — the antisymmetric
-combination of the doubled A2 root pair: the lambda=-2 mode IS the swap. The
-Perron mode is exact: A(1,1,sqrt3-1) = (1+sqrt3)(1,1,sqrt3-1) — the gap is
-the third coordinate of the surviving direction. proposed_vector_fails puts
-the refutation in the kernel where it can't be re-asserted. Library green.
+Imscribing/RotatOpOpcode.lean defines rotat as List.rotate and proves the
+automorphism facts: it preserves length, composes additively (ROTAT^m after
+ROTAT^n = ROTAT^(n+m)), has order dividing the word length (rotat by |w| = id),
+and is a permutation of the word. The permutation fact is the kernel statement
+that every multiset and spectral invariant is ROTAT-invariant, the signal that
+ROTAT is a symmetry of the ring, not a transformation of its contents.
+Registered in the lakefile globs; typechecks clean against the built deps.
