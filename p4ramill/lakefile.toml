@@ -87,6 +87,7 @@ globs = [
   "Imscribing.Consciousness",
   "Imscribing.AgentSelf",
   "Imscribing.Algebra",
+  "Imscribing.RotatOpOpcode",
   "Imscribing.Millennium.RH",
   "Imscribing.Millennium.YM",
   "Imscribing.Millennium.Hodge",
