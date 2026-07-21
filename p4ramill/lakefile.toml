@@ -244,6 +244,7 @@ globs = [
   "Imscribing.MetaYonedaCollapse",
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
+  "Imscribing.CatalogImmutability",
   "Imscribing.Isomorphisms",
   "Imscribing.SpectralFace",
   "Imscribing.GateOrdering",
@@ -456,5 +457,6 @@ globs = [
 
   "Imscribing.Millennium.ContinuumMacrocycle",
   "Imscribing.Millennium.Chema",
+  "Imscribing.Millennium.DarkEnergy",
 
 ]
