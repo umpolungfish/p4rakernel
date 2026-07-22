@@ -470,6 +470,11 @@ globs = [
   "Imscribing.Millennium.StrongCPClosure",
   "Imscribing.Millennium.DimensionfulEmission",
   "Imscribing.Millennium.HubbleConstant",
+  "Imscribing.Millennium.FineStructureConstant",
+  "Imscribing.Millennium.ProtonElectronMass",
+  "Imscribing.Millennium.LeptonMassRatios",
+  "Imscribing.Millennium.BosonMassRatios",
+  "Imscribing.Millennium.GravitationalCoupling",
   "Imscribing.Millennium.MajoranaPhases",
   "Imscribing.CL9NK_Chain",
 
