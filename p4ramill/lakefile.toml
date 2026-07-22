@@ -459,4 +459,8 @@ globs = [
   "Imscribing.Millennium.Chema",
   "Imscribing.Millennium.DarkEnergy",
 
+  "Imscribing.Millennium.HornTorusEmission",
+  "Imscribing.Millennium.SICFlavorPartition",
+  "Imscribing.Millennium.OmegaCorrClosure",
+
 ]
