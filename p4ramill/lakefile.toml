@@ -470,6 +470,7 @@ globs = [
   "Imscribing.Millennium.StrongCPClosure",
   "Imscribing.Millennium.DimensionfulEmission",
   "Imscribing.Millennium.HubbleConstant",
+  "Imscribing.Millennium.MajoranaPhases",
   "Imscribing.CL9NK_Chain",
 
 ]
