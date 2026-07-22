@@ -88,6 +88,8 @@ globs = [
   "Imscribing.AgentSelf",
   "Imscribing.Algebra",
   "Imscribing.RotatOpOpcode",
+  "Imscribing.Millennium.RohoncCodexBraiding",
+  "Imscribing.Millennium.RohoncCodexJarlskog",
   "Imscribing.Millennium.RH",
   "Imscribing.Millennium.YM",
   "Imscribing.Millennium.Hodge",
@@ -461,6 +463,13 @@ globs = [
 
   "Imscribing.Millennium.HornTorusEmission",
   "Imscribing.Millennium.SICFlavorPartition",
+  "Imscribing.Millennium.PMNSFullDerivation",
   "Imscribing.Millennium.OmegaCorrClosure",
+  "Imscribing.Millennium.CKMFullDerivation",
+  "Imscribing.Millennium.InflationarySlowRoll",
+  "Imscribing.Millennium.StrongCPClosure",
+  "Imscribing.Millennium.DimensionfulEmission",
+  "Imscribing.Millennium.HubbleConstant",
+  "Imscribing.CL9NK_Chain",
 
 ]
