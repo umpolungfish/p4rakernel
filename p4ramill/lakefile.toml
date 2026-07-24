@@ -162,6 +162,7 @@ globs = [
   "Imscribing.IGFunctor",
   "Imscribing.Millennium.Lefschetz11",
   "Imscribing.Millennium.Manuscript_ZFCt",
+  "Imscribing.Millennium.MathProof",
   "Imscribing.Millennium.CompositionRules",
   "Imscribing.ProofTheory",
   "Imscribing.Millennium.SpiderMachine",
@@ -462,6 +463,7 @@ globs = [
   "Imscribing.Millennium.DarkEnergy",
 
   "Imscribing.Millennium.HornTorusEmission",
+  "Imscribing.Millennium.HornTorusModularForm",
   "Imscribing.Millennium.SICFlavorPartition",
   "Imscribing.Millennium.PMNSFullDerivation",
   "Imscribing.Millennium.OmegaCorrClosure",
