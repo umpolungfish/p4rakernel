@@ -73,16 +73,17 @@ def omega_corr_den : Nat := 4464  -- = d² * N_orbits = 144 * 31
 
 theorem omega_corr_den_eq : omega_corr_den = hw_order * n_orbits := rfl
 
-/-- Omega_corr_base = 1/744 = 0.001344086...
-    This is the HW group orbit contribution alone.
-    
-    The FULL Omega_corr (after B_3 braid reconciliation):
-    Omega_corr = (1/744) * Tr(B_3) / sin^2(theta_W) * kappa
-               = (1/744) * 0.241412 / (3/13) * (1 + cos(pi/12)/5)
-               = 1.6777e-3
-    
+/-- Omega_corr = 6/(d²·N_orbits) = 6/4464 = 1/744 = 0.001344086...
+    The HW group orbit decomposition IS Omega_corr, with no further factor.
+
     This is the value used in the cosmological constant closure:
-    rho_Lambda/rho_Pl = exp(-88*pi) * Omega_corr. -/
+    rho_Lambda/rho_Pl = exp(-88*pi) * Omega_corr.
+
+    RETIRED: the overlay Omega_corr = (1/744)*Tr(B_3)/sin^2(theta_W)*kappa
+    ≈ 1.6777e-3 is retired. It contradicts this theorem, and the braid-trace
+    identity it rested on fails under computation: the FFUSE₃ coupler-loop
+    Burau trace at q=e^(2πi/12) is 0.632088 (order one, real), not 1/744.
+    0.632088 is a distinct coupler-sector quantity, not Omega_corr. -/
 theorem omega_corr_value_is_one_over_744 : omega_corr_num * 744 = omega_corr_den := by
   native_decide
 
@@ -106,21 +107,14 @@ def n_shared_primitives : Nat := 6
 theorem n_shared_primitives_eq_omega_num :
     n_shared_primitives = omega_corr_num := rfl
 
-/- The geometric coupling κ between orbital and temporal sectors.
-    κ = 1 + cos(pi/12)/(gear+1) = 1 + cos(pi/12)/5 approx 1.193185.
-    
-    This is derived from the braid eigenvalue at the 12th root of unity,
-    normalized by the Wolfenstein denominator (gear+1). The numerator
-    cos(pi/12) is the real part of the fundamental Burau eigenvalue
-    e^(i*pi/12) at t = e^(2*pi*i/12).
-    
-    The full omega correction is:
-    Omega_corr = (1/744) * Tr(B_3) / sin^2(theta_W) * kappa
-               = 1.6777e-3
-    
-    This reconciles the HW group orbit (1/744) with the B_3 braid trace
-    Tr(B_3) = 1 + 2*cos(2*12*arctan(1/4)/3) = 0.241412
-    via the geometric coupling kappa. -/
+/- RETIRED braid-overlay scaffolding.
+    The geometric coupling κ = 1 + cos(pi/12)/5 ≈ 1.193185 and the
+    Rohonc braid trace Tr(B_3) = 0.241412 were part of the retired
+    overlay Omega_corr = (1/744)*Tr(B_3)/sin^2(theta_W)*kappa ≈ 1.6777e-3.
+    That overlay is retired: Omega_corr = 1/744 with no braid factor
+    (see omega_corr_value_is_one_over_744 above). The definitions are
+    kept only so downstream references still elaborate; they do not
+    enter the Omega_corr value. -/
 def geometric_kappa : Rat := (6 : Rat) / 5 -- approximate rational for 1+cos(pi/12)/5
 theorem kappa_structural_form : True := by trivial
 
