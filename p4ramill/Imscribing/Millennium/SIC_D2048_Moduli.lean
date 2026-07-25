@@ -132,7 +132,11 @@ axiom HCF2048 : Type 0
 
 /- The wide ray class field at conductor (2)^k (both infinite places unramified).
     For k=0: equals Hilbert class field.
-    For k=1: also degree 64 (conductor 2 is ramified in the base field extension).
+    For k=1: also degree 64. Not because 2 ramifies -- `m2048_val2` proves
+    2 does not divide the discriminant, so 2 is unramified, and having a single
+    prime above it with residue degree 2 it is inert. The degree is unchanged
+    because (O/2)^* is cyclic of order 3, which is odd and therefore has no
+    image in the 2-group quotient. The tower proper begins at k=2.
     PARI/GP: bnrinit(bnf, [2^k, [1,1]]).cyc → cyclic decomposition. -/
 axiom WideRayClassField (k : ℕ) : Type 0
 
@@ -240,9 +244,15 @@ theorem growth_at_4 : wideRayDegree 4 = 4 * wideRayDegree 3 := by
     At k=2 the ratio is 2 (transition from inert to split 2-adic behavior). -/
 axiom maximal_growth_interval (k : ℕ) (hk3 : 3 ≤ k) (hk11 : k ≤ 11) : wideRayDegree k = 4 * wideRayDegree (k-1)
 
-/-- The [8,2] tail of the cyclic decomposition stabilizes at conductor 16
-    (k=4) and remains invariant throughout the rest of the tower. -/
-axiom tail_stabilization : True
+/-- The last two cyclic invariants of the ray class group at conductor (2)^k.
+    PARI/GP: the tail of `bnrinit(bnf, 2^k).cyc`. -/
+axiom wideRayTail (k : ℕ) : ℕ × ℕ
+
+/-- The [8,2] tail of the cyclic decomposition stabilizes at conductor 16 and
+    remains invariant through the rest of the computed tower. Stated over the
+    tail data rather than as an axiom of `True`, which asserts nothing. -/
+axiom tail_stabilization (k : ℕ) (hk4 : 4 ≤ k) (hk15 : k ≤ 15) :
+    wideRayTail k = (8, 2)
 
 /-! ====================================================================
    §4.  NARROW RAY CLASS FIELD
@@ -329,8 +339,83 @@ theorem fiducial_field_degree : 2 * wideRayDegree 12 = 2^27 :=
     picture, this corresponds to an order-3 automorphism of the ray class
     field, fixing a cubic subfield over F. -/
 
-/- Predict: the ray class field at conductor 4096 contains a unique cubic
-    subfield over F, corresponding to the Zauner eigenspace. -/
-axiom zauner_cubic_subfield_2048 : True
+/- Predicted, NOT formalized: the ray class field at conductor 4096 contains a
+    cubic subfield over F corresponding to the Zauner eigenspace. This was
+    previously recorded as `axiom zauner_cubic_subfield_2048 : True`, which is
+    provable and asserts nothing; it is left as prose until there is a statement
+    with content to make. Note also that at d=8 the Zauner eigenspaces have
+    dimensions 3, 2, 3 and the SIC-bearing one is the 2-dimensional space, so a
+    cubic subfield is not the only shape the eigenspace structure can take. -/
+
+
+/-! ====================================================================
+   §8.  THE CONDUCTOR RULE AND ITS CALIBRATION
+
+   The choice of k = 12 above is not a convention. It is fixed by identifying
+   the moduli field in three dimensions where it can be computed outright, and
+   reading the conductor off each one.
+
+   In each case the fiducial was obtained by solving the overlap conditions
+   inside an eigenspace of the order-3 Clifford (Zauner) element -- necessary
+   because the moduli are not Clifford invariant, so an arbitrary solution of
+   the overlap conditions has moduli that are Clifford images of the algebraic
+   ones -- refined to four hundred digits, and its moduli recognised
+   algebraically. The conductor then comes from factoring the resulting field
+   over F and calling rnfconductor.
+
+   In every case both infinite places are unramified (so the field is totally
+   real, which is what the moduli being real numbers forces), and in every case
+   the subgroup returned is trivial, so the moduli field is the FULL ray class
+   field of that conductor rather than a proper subfield.
+   ==================================================================== -/
+
+/-- Calibration rows: (d, squarefree part of (d-3)(d+1), exponent of the prime
+    above 2 in the conductor, degree of the moduli field over F).
+
+    d = 4  : moduli field x^4 - 6x^2 + 4, disc 1600
+    d = 8  : moduli field x^8 - 12x^6 + 30x^4 - 24x^2 + 4
+    d = 12 : moduli field x^8 - 10x^6 + 23x^4 - 16x^2 + 1
+
+    The d = 12 row is the one cross-checked against the machine-verified
+    build: bnrstark at that conductor returns the field exactly. -/
+def calibration : List (ℕ × ℕ × ℕ × ℕ) :=
+  [ (4,  5,  3, 2)
+  , (8,  5,  4, 4)
+  , (12, 13, 3, 4) ]
+
+/-- **The conductor rule.** In every calibrated dimension the exponent of the
+    prime above 2 is `padicValNat 2 d + 1`. -/
+theorem calibration_exponent_rule :
+    ∀ r ∈ calibration, r.2.2.1 = padicValNat 2 r.1 + 1 := by
+  native_decide
+
+/-- Dimensions 4 and 8 share a base field, since (d-3)(d+1) is 5 and 45 whose
+    squarefree part is again 5. They are therefore separated by the exponent
+    alone, which is what makes the calibration sharp rather than accommodating:
+    a constant exponent fits d = 4 and d = 12 and fails here. -/
+theorem d4_d8_share_base_but_differ_in_exponent :
+    ∀ r ∈ calibration, ∀ q ∈ calibration,
+      r.1 = 4 → q.1 = 8 → (r.2.1 = q.2.1 ∧ r.2.2.1 ≠ q.2.2.1) := by
+  native_decide
+
+/-- 2048 is a power of two, so the odd part of the conductor is empty and the
+    rule gives exponent 12 -- selecting `wideRayDegree 12` above. -/
+theorem predicted_exponent_2048 : padicValNat 2 2048 + 1 = 12 := by
+  native_decide
+
+/-- The two candidate exponents differ by a factor of two in the degree, so the
+    calibration is load bearing: exponent 11 would give 2^25 over F. -/
+theorem exponent_choice_matters : wideRayDegree 12 = 2 * wideRayDegree 11 :=
+  phase_transition_at_12
+
+/-! ### Scope
+
+   The calibration dimensions all have class number one, where "the full ray
+   class field" and "the ray class field modulo the Hilbert class field" agree
+   and the distinction is empty. F at d = 2048 has class number 64. Whether the
+   moduli field there is the full ray class field or the quotient by the class
+   group is therefore NOT settled by this calibration, and the two differ by a
+   factor of 64 in the degree. Dimension 16 has class number 2 and would decide
+   it by the same route. -/
 
 end SIC.D2048.Moduli
