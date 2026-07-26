@@ -151,6 +151,7 @@ globs = [
   "Imscribing.Millennium.SIC_D2048_A0Stratum",
   "Imscribing.Millennium.SIC_D2048_Moduli",
   "Imscribing.Millennium.SIC_D16_Moduli",
+  "Imscribing.Millennium.SIC_D20_Moduli",
   "Imscribing.Millennium.SIC_POVM_DualLinkClosure",
   "Imscribing.Millennium.CMPLX_IMGN",
   "Imscribing.Millennium.Suffering",
