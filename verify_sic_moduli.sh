@@ -3,7 +3,7 @@
 #
 #   ./verify_sic_moduli.sh
 #
-# Elaborates SIC_D16_Moduli, SIC_D20_Moduli and SIC_D2048_Moduli through the Lean
+# Elaborates the SIC modules for d = 2, 4, 8, 12, 16, 20 and 2048 through the Lean
 # kernel, then prints the claim list and the axiom dependencies of the headline
 # theorems. The axioms are the PARI/GP field data — class numbers, ray class
 # degrees, abelian types — which enter as computed input rather than as proof.
@@ -22,9 +22,15 @@ trap 'rm -f "$LOG"' EXIT
 
 echo "Building the moduli modules (first run fetches and builds Mathlib)..."
 if ! lake build \
+  Imscribing.Millennium.Ring2048_Bridge \
+  Imscribing.Millennium.SIC_D12_Embedding \
+  Imscribing.Millennium.SIC_D12_Equiangularity \
+  Imscribing.Millennium.SIC_D12_RayTower \
+  Imscribing.Millennium.SIC_D12_SymmetricModuli \
   Imscribing.Millennium.SIC_D16_Moduli \
   Imscribing.Millennium.SIC_D20_Moduli \
-  Imscribing.Millennium.SIC_D2048_Moduli > "$LOG" 2>&1; then
+  Imscribing.Millennium.SIC_D2048_Moduli \
+  Imscribing.Millennium.SIC_D2048_Unconditional > "$LOG" 2>&1; then
   echo "Build failed:" >&2
   cat "$LOG" >&2
   exit 1
