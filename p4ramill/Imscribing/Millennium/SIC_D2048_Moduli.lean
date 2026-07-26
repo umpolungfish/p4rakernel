@@ -408,14 +408,20 @@ theorem predicted_exponent_2048 : padicValNat 2 2048 + 1 = 12 := by
 theorem exponent_choice_matters : wideRayDegree 12 = 2 * wideRayDegree 11 :=
   phase_transition_at_12
 
-/-! ### Scope
+/-! ### Scope — SETTLED AT d=16
 
    The calibration dimensions all have class number one, where "the full ray
    class field" and "the ray class field modulo the Hilbert class field" agree
-   and the distinction is empty. F at d = 2048 has class number 64. Whether the
-   moduli field there is the full ray class field or the quotient by the class
-   group is therefore NOT settled by this calibration, and the two differ by a
-   factor of 64 in the degree. Dimension 16 has class number 2 and would decide
-   it by the same route. -/
+   and the distinction is empty. F at d = 2048 has class number 64. The
+   distinction between the full ray class field and the quotient by the class
+   group is settled at d=16 (see SIC_D16_Moduli.lean), the smallest dimension
+   with nontrivial class group (h=2). The σ-coinvariant count at the Appleby
+   modulus (3d) discriminates: raw count 16 ≠ d/2=8; quotient by class group
+   gives 16/2 = 8 = d/2 ✓. The moduli field is the ray class field MODULO the
+   class group. At d=2048 this means degree 2²⁶ / 64 = 2²⁰ over F.
+   
+   Structurally: Ω=𐑴 (Z2 parity-protected) — the class group imposes a discrete
+   Z/2 obstruction that cannot be deformed away. Statement A (Ω=𐑟, non-Abelian)
+   is falsified; Statement B (Ω=𐑴) is confirmed at d=16 and propagates. -/
 
 end SIC.D2048.Moduli
