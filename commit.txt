@@ -1,3 +1,3 @@
-The d=20 module carries the raw coinvariant order, which is sixteen.
+A reader can now watch the moduli result check itself.
 
-The count at conductor 60 is |G_20^σ| = 16, from Cl_60 = [24,6,2] of order 288, and the class group contributes two, so the corrected count is eight. The module had eight and four, which came from reading a corrected figure as a raw one. The anomaly is unchanged, since neither sixteen nor eight is ten, and the 5-torsion explanation stands untouched; what changes is that the numbers now say what the computation says. corrected_count_is_four becomes corrected_count_is_eight and its uses follow. Module builds, 8026 jobs, no sorries.
+The three modules built, but nothing in the repository turned that into something a person could run. verify_sic_moduli.sh elaborates them and prints the claim list, then the axiom dependency of each headline theorem, so the line between proof and PARI-computed field data shows up in the output instead of having to be reconstructed from the sources.
