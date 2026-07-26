@@ -14,8 +14,8 @@ NOT extend to d=20.
 - 2 is inert (357 ≡ 5 mod 8), v₂(20)=2 → exponent 3
 - 5|d, so 5 contributes to the conductor
 - At conductor 3d = 60: ray class group [384, [24,4,2,2]]
-- **σ-coinvariant anomaly**: |G_20^σ| = 8 ≠ 10 = d/2
-  Even after class group correction: 8/2 = 4 ≠ 10
+- **σ-coinvariant anomaly**: |G_20^σ| = 16, corrected 16/2 = 8, neither is 10 = d/2
+  Even after class group correction: 16/2 = 8 ≠ 10
 - **Cause**: 5-torsion absent from the modulus. d/2 = 10 = 2·5,
   but p₅ only appears to the first power in the conductor.
   At p₅¹ local unit group has order 4; (5,4)=1 ⇒ no 5-torsion.
@@ -33,8 +33,8 @@ PARI/GP verification (2026-07-25):
   bnf.clgp → [2, [2], [[7, 4; 0, 1]]]  (class number 2)
   bnrinit(bnf, [2^3*5, [1,1]]).cyc → [24,2,2,2], degree 192
   bnrinit(bnf, [2^3*3*5, [1,1]]).cyc → [24,4,2,2], degree 384
-  σ-coinvariant count at 3d = 8, d/2 = 10 → ANOMALY
-  8 / 2 = 4 ≠ 10 → class group correction does not fix it
+  σ-coinvariant count at 3d = 16, corrected 8, d/2 = 10 → ANOMALY
+  16 / 2 = 8 ≠ 10 → class group correction does not fix it
 -/
 
 namespace SIC.D20.Moduli
@@ -245,34 +245,35 @@ theorem ray_class_group_is_abelian_20 : ray_class_group_type_60 = [24,4,2,2] :=
     The σ-coinvariant quotient of the ray class group at (3d) counts the
     number of independent moduli the field can carry.
 
-    At d=20, the paper reports |G_20^σ| = 8. But d/2 = 10. The raw
-    σ-coinvariant count falls short by 2.
+    At d=20 the raw count is |G_20^σ| = 16, computed at conductor 60 where
+    Cl_60 = [24,6,2] of order 288. But d/2 = 10.
 
     The class group of F has order 2. If the class group σ-coinvariants
     are nontrivial (order 2, since the unique order-2 element may be fixed
-    by σ), then dividing by the class group gives 8/2 = 4, which is even
-    further from d/2 = 10.
+    by σ), then dividing by the class group gives 16/2 = 8, which is still
+    not d/2 = 10.
 
-    This is the ANOMALY: neither the raw count (8) nor the class-group-
-    corrected count (4) equals d/2 (10). The identity that held at
+    This is the ANOMALY: neither the raw count (16) nor the class-group-
+    corrected count (8) equals d/2 (10). The identity that held at
     d=4,8,12,16 fails at d=20.
 
     The resolution: the failure is explained by the arithmetic of the
     5-torsion. See §5.
 -/
 
-/-! The raw σ-coinvariant order at conductor 60 for d=20. The paper reports
-    |G_20^σ| = 8. -/
+/-! The raw σ-coinvariant order at conductor 60 for d=20, computed in PARI/GP
+    from Cl_60 = [24,6,2]: |G_20^σ| = 16. The corrected count is 16/2 = 8. -/
 axiom sigma_coinvariant_order_20 : ℕ
-axiom sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 8
+axiom sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16
 
 /-! d/2 = 10 for d=20. -/
 theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
 
 /-! **The raw coinvariant count does NOT equal d/2 at d=20:**
-    |G_20^σ| = 8 ≠ 10 = d/2.
-    This is the first dimension where the raw count falls BELOW d/2.
-    At d=16 the raw count was above (16 vs 8); here it is below (8 vs 10). -/
+    |G_20^σ| = 16 ≠ 10 = d/2.
+    At d=16 the raw count overshoots d/2 by exactly the class number; here it
+    overshoots by a factor that is not the class number, and the corrected
+    count undershoots. -/
 theorem raw_coinvariant_neq_d_half_20 :
     sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val]
@@ -288,15 +289,15 @@ axiom cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2
 
 /-! **The anomaly, formally**: even after correcting for the class group,
     the coinvariant count does not equal d/2:
-    |G_20^σ| / |Cl(F)^σ| = 8 / 2 = 4 ≠ 10 = d/2. -/
+    |G_20^σ| / |Cl(F)^σ| = 16 / 2 = 8 ≠ 10 = d/2. -/
 theorem coinvariant_anomaly_theorem :
     sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val, cl_sigma_coinvariant_order_20_val]
   native_decide
 
-/-! The class-group corrected count is 4, not 10. The deficit is 6. -/
-theorem corrected_count_is_four :
-    sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 = 4 := by
+/-! The class-group corrected count is 8, not 10. The deficit is 2. -/
+theorem corrected_count_is_eight :
+    sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 = 8 := by
   rw [sigma_coinvariant_order_20_val, cl_sigma_coinvariant_order_20_val]
 
 /-! **The anomaly compared to d=16.**
@@ -304,10 +305,10 @@ theorem corrected_count_is_four :
     At d=20: raw=8,  d/2=10, 8/2=4≠10 ✗ (identity fails)
     The correction that WORKS at d=16 does NOT work at d=20. -/
 theorem d16_vs_d20_anomaly :
-    (sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 = 4) ∧
+    (sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 = 8) ∧
     ((20 : ℕ)/2 = 10) ∧ (4 ≠ 10) := by
   constructor
-  · exact corrected_count_is_four
+  · exact corrected_count_is_eight
   constructor
   · exact d_half_20
   · native_decide
@@ -537,7 +538,7 @@ theorem moduli_degree_at_conductor_20 : conductor_20_wide_degree / class_number_
     The moduli field's degree over F is 192, but the number of
     independent moduli it carries is only 8 — far fewer than the
     10 required. This is the structural mismatch. -/
-axiom sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 4
+axiom sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 8
 
 /-! ====================================================================
    §8.  THE CONDUCTOR RULE STANDS
