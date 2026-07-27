@@ -230,6 +230,38 @@ theorem Fmat_sq (a b : SimpleObj) :
     field_simp <;>
     nlinarith [hφ2, hs2, qdimTau_pos, sqrtPhi_pos]
 
+/-- **What the pentagon actually determines.**
+
+    `Fmat_sq` checks that four stipulated reals satisfy `F² = I`; it does not
+    derive them.  This does.  For a real symmetric `F` with `F² = I` and
+    nonzero off-diagonal, the equations force the anti-diagonal form `d = -a`
+    with `a² + b² = 1` — a one-parameter family.  Fixing the normalisation
+    `a = 1/φ` and the sign `b > 0` then pins `b = 1/√φ` uniquely.
+
+    So one constant and one sign convention are assumed; the remaining three
+    entries are consequences. -/
+theorem Fmat_forced (a b d : ℝ)
+    (hsq₁ : a * a + b * b = 1) (hsq₂ : b * (a + d) = 0) (hsq₃ : b * b + d * d = 1)
+    (hb : 0 < b) (ha : a = 1 / qdimTau) :
+    d = -a ∧ b = 1 / sqrtPhi := by
+  have hbne : b ≠ 0 := ne_of_gt hb
+  have hd : d = -a := by
+    have := mul_eq_zero.mp hsq₂
+    rcases this with h | h
+    · exact absurd h hbne
+    · linarith
+  refine ⟨hd, ?_⟩
+  -- b² = 1 - a² = 1 - 1/φ² = φ - 1 = 1/φ, and 1/√φ is the positive root
+  have hφ := qdimTau_ne
+  have hφ2 := qdimTau_sq
+  have hs2 := sqrtPhi_sq
+  have hspos := sqrtPhi_pos
+  have hb2 : b * b = 1 / qdimTau := by
+    rw [ha] at hsq₁; field_simp at hsq₁ ⊢; nlinarith [hsq₁, hφ2, qdimTau_pos]
+  have hrhs : (1 / sqrtPhi) * (1 / sqrtPhi) = 1 / qdimTau := by
+    field_simp; nlinarith [hs2, sqrtPhi_pos]
+  nlinarith [hb2, hrhs, hb, hspos, one_div_pos.mpr sqrtPhi_pos]
+
 end FibonacciAnyon
 end Quantum
 end Imscribing
