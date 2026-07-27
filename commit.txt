@@ -1,3 +1,3 @@
-The report walks the whole dimension ladder, not just the conductor dimensions.
+Verlinde is proved, and it catches the fusion rule it was meant to check.
 
-d=2 carries the exhibited fiducial and the base case of the Zauner bridge, d=4 and d=8 the calibration rows that the exponent rule separates, d=12 the constructed SIC and its ray tower, and the ladder runs up through 16 and 20 to 2048 where the bridge closes. Grouped by dimension so a reader can see which rung each claim sits on.
+The vacuum is a unit, so its multiplicity is one exactly when the other two objects agree; the file had it as one exactly when the target was the vacuum, which is right only when both inputs are, and made the tau channel of one tensor tau vanish. The formula is now stated over the real S matrix and closed case by case on the golden ratio relation and the global dimension, with no axiom and no sorry.

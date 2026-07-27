@@ -79,11 +79,14 @@ inductive SimpleObj : Type where
   | tau  -- Fibonacci anyon
   deriving Fintype, DecidableEq
 
+/-- Fusion multiplicities `N_{ab}^c`.  The vacuum is a unit: `1 ⊗ b = b`, so
+    `N_{1,b}^c = [b = c]` — NOT `[c = 1]`, which is right only when `b` is also
+    the vacuum and makes `N_{1,τ}^τ = 0`.  The Verlinde formula below is exactly
+    the check that catches that. -/
 def fusionMult : SimpleObj → SimpleObj → SimpleObj → ℕ
-  | .one, _, c => if c = .one then 1 else 0
-  | _, .one, c => if c = .one then 1 else 0
-  | .tau, .tau, .one => 1
-  | .tau, .tau, .tau => 1
+  | .one, b, c => if b = c then 1 else 0
+  | a, .one, c => if a = c then 1 else 0
+  | .tau, .tau, _ => 1
 
 def qdimOne : ℝ := 1
 noncomputable def qdimTau : ℝ := (1 + Real.sqrt 5) / 2
@@ -122,6 +125,37 @@ noncomputable def Smat (a b : SimpleObj) : ℝ :=
     | .tau, .one => qdimTau
     | .tau, .tau => -1)
   val / Dglob
+
+/-- `D² = 1 + φ²`, from `Real.sq_sqrt` on a nonnegative radicand. -/
+lemma Dglob_sq : Dglob ^ 2 = 1 + qdimTau ^ 2 :=
+  Real.sq_sqrt (le_of_lt Dglob_pos_helper)
+
+/-- `D² = φ + 2`, the form used in every Verlinde case. -/
+lemma Dglob_sq' : Dglob ^ 2 = qdimTau + 2 := by
+  rw [Dglob_sq]; linear_combination qdimTau_sq
+
+lemma qdimTau_pos : 0 < qdimTau := by
+  unfold qdimTau; positivity
+
+lemma Dglob_ne : Dglob ≠ 0 := ne_of_gt Dglob_pos
+lemma qdimTau_ne : qdimTau ≠ 0 := ne_of_gt qdimTau_pos
+
+/-- **Verlinde formula.**  `N_{ab}^c = Σ_d S_{ad} S_{bd} conj(S_{cd}) / S_{0d}`.
+    The Fibonacci `S` is real, so conjugation is the identity.  Proved case by
+    case: eight cases, each an identity in `φ` and `D` closed by `φ² = φ + 1`
+    and `D² = φ + 2`. -/
+theorem verlinde (a b c : SimpleObj) :
+    Smat a .one * Smat b .one * Smat c .one / Smat .one .one
+      + Smat a .tau * Smat b .tau * Smat c .tau / Smat .one .tau
+      = (fusionMult a b c : ℝ) := by
+  have hD := Dglob_ne
+  have hφ := qdimTau_ne
+  have hD2 := Dglob_sq'
+  have hφ2 := qdimTau_sq
+  cases a <;> cases b <;> cases c <;>
+    simp [Smat, fusionMult] <;>
+    field_simp <;>
+    nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
 
 end FibonacciAnyon
 end Quantum
