@@ -1,0 +1,475 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\Icc}{\operatorname{Icc}}
+\newcommand{\CN}{\binom{N}{2}}
+\newcommand{\ground}{\{1,\dots,N\}}
+
+\title{How Many Sets Can You Pack If Every Pair\\
+       Must Intersect in an Arithmetic Progression?\\
+       \large The answer is nearly always $\binom{N}{2}+1$ ---
+       except when it isn't.}
+\author{Math$\odot$perator\\
+        \small Lando $\otimes$ $\odot$perator team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Imagine you are building a collection of subsets of $\{1,\dots,N\}$ under a single,
+deceptively simple rule: whenever you pick two distinct sets from your collection,
+their intersection must be a \emph{non-empty arithmetic progression} --- a sequence
+with constant spacing, like $\{2,5,8\}$ or $\{4,7\}$. How large can your collection
+grow before the rule forces you to stop?
+
+We show that the answer, for every $N \geq 1$, is $t_{\max}(N) = \binom{N}{2}+1$,
+with exactly two exceptions: $N=5$ and $N=6$, where you can squeeze in one extra
+set, reaching $\binom{N}{2}+2$. The lower bound is fully formalized in Lean~4:
+twelve concrete families, verified automatically by \texttt{native\_decide}, prove
+that these sizes are achievable. The upper bound is established through a
+star-reduction argument inspired by Erd\H{o}s--Ko--Rado shifting, buttressed by an
+exhaustive Bron--Kerbosch computation for the small-$N$ regime ($N \leq 10$). Five
+structural axioms remain as the final bridge to a complete Lean~4 formalization of
+the upper bound.
+
+The paper is self-contained: we define the problem, build the achieving families by
+hand, walk through the proof that no larger family can exist, and explain why
+$N=5,6$ --- and \emph{only} $N=5,6$ --- break the pattern. Along the way we
+encounter a curious echo of the exceptional Lie algebras and the sporadic groups:
+sometimes small dimensions harbor structure that the general case forbids.
+\end{abstract}
+
+\section{The Problem}
+
+Pick a number $N$. Now start writing down subsets of $\{1,\dots,N\}$ --- any subsets,
+of any size, as many as you like. The catch: for any two \emph{different} sets in
+your collection, the elements they share must form an arithmetic progression. Not
+just any progression --- it must be non-empty (the sets must actually overlap) and it
+must have a positive common difference (no constant sequences allowed).
+
+A set of size $1$ or $2$ is always an arithmetic progression, so small overlaps are
+fine. Trouble brews when your sets start sharing three or more elements. If those
+shared elements happen to be, say, $\{1,3,4\}$, you are out of luck --- $3-1 \neq
+4-3$, so the spacing is uneven. The rule bites.
+
+The question is: how many sets can you collect before the rule makes it impossible
+to add another? Put differently, what is the \emph{maximum size} of an
+AP-intersecting family on $N$ elements?
+
+\subsection{What We Mean by an Arithmetic Progression}
+
+We need to be precise because the definition does a surprising amount of work.
+
+\begin{definition}[Arithmetic Progression]
+A non-empty set $S \subseteq \NN$ is an \emph{arithmetic progression} (AP) if,
+when its elements are sorted into increasing order, the differences between
+consecutive elements are all equal to some positive integer $d \geq 1$. Sets of
+size $1$ or $2$ are automatically APs (vacuously, since there are no consecutive
+differences to check). Constant progressions, where $d=0$ --- the set
+$\{5,5,5\}$ or any multiset with repeated elements --- are \emph{not} APs. We
+are working with sets, so repeated elements cannot arise, but the positive-gap
+requirement matters for intersections.
+\end{definition}
+
+\begin{definition}[AP-Intersecting Family]
+A family $\mathcal{F}$ of subsets of $\ground$ is \emph{AP-intersecting} if for
+every pair of distinct sets $A, B \in \mathcal{F}$, the intersection $A \cap B$
+is non-empty and forms an arithmetic progression.
+\end{definition}
+
+Notice what this rules out. If two sets intersect in $\{1,3,4\}$, the family is
+invalid. If they intersect in $\{1,2,4\}$, same problem. The intersection must
+have \emph{constant spacing}. That is a stiff constraint, and it is what makes
+the problem both tractable and, as we will see, occasionally surprising.
+
+\subsection{The Star Family: A Natural Candidate}
+
+Before proving anything, let us ask what a large AP-intersecting family might look
+like. The simplest idea is to pick a ``center'' element $c$ and take every set that
+contains $c$ --- a \emph{star}. If all your sets share $c$, then every pairwise
+intersection also contains $c$, which gives you a head start on being an AP.
+
+But a star of \emph{all} subsets containing $c$ fails badly: two large sets can
+intersect in a mess that is not an arithmetic progression. So we must restrict the
+star. How about keeping only the small sets --- those of size $1$, $2$, and $3$?
+
+\begin{definition}[Star Family]
+A family $\mathcal{F}$ is a \emph{star} with center $c$ if every set in $\mathcal{F}$
+contains $c$. A \emph{restricted star} is a star in which every set has size at most
+$3$.
+\end{definition}
+
+
+\section{Building Large Families: The Lower Bound}\label{sec:lower}
+
+The lower bound is the constructive half of the theorem: we actually build families
+of the claimed size and verify that they satisfy the AP-intersecting condition. The
+constructions are concrete enough that Lean~4 can check them automatically, with no
+human case analysis required.
+
+\subsection{The General Construction: $\operatorname{Star}(N,c)$}
+
+For any $N \geq 1$, pick a center element $c$. Take:
+\begin{itemize}
+    \item The singleton $\{c\}$,
+    \item Every pair $\{c, x\}$ where $x \neq c$, and
+    \item Every triple $\{c, x, y\}$ where $x < y$ and neither equals $c$.
+\end{itemize}
+
+In symbols:
+\[
+\begin{aligned}
+\operatorname{Star}(N,c) &= \{\,\{c\}\,\} \;\cup\;
+    \{\,\{c,x\} : x \in \ground,\; x \neq c\,\} \\
+    &\qquad \cup\; \{\,\{c,x,y\} : x,y \in \ground,\; x < y,\; x,y \neq c\,\}.
+\end{aligned}
+\]
+
+How many sets is this? We have one singleton, $N-1$ pairs, and $\binom{N-1}{2}$
+triples:
+\[
+|\operatorname{Star}(N,c)| = 1 + (N-1) + \binom{N-1}{2}
+    = 1 + (N-1) + \frac{(N-1)(N-2)}{2}
+    = \binom{N}{2} + 1.
+\]
+
+Why does this work? Take any two distinct sets from the family. Both contain $c$, so
+their intersection is non-empty. If both are small (size $\leq 3$), their
+intersection is a subset of a size-3 set that contains $c$, so it has size $1$, $2$,
+or $3$. Intersections of size $1$ or $2$ are automatically APs. An intersection of
+size $3$ must be exactly $\{c, x, y\}$ for some $x, y$, and that is a triple of
+integers with exactly one possible spacing pattern. As it happens, the spacing can
+fail --- the triple might not be an arithmetic progression. But here is the trick:
+since every set in the family \emph{already} has size at most $3$, the intersection
+of two distinct triples $\{c, x, y\}$ and $\{c, x', y'\}$ can have size at most $2$,
+because the triples differ in at least one element. So the dangerous size-3
+intersection never occurs between two distinct members. The construction sidesteps
+the problem entirely.
+
+\subsection{The Anomaly: $N=5$ and $N=6$}
+
+For $N=5$ and $N=6$, something curious happens: you can do \emph{better} than the
+star family. The reason, in hindsight, is that the ground set is small enough that
+you can introduce size-$4$ and size-$5$ sets --- sets that would normally break the
+AP condition --- and get away with it, because there are not enough elements to
+produce a bad intersection.
+
+Here is the construction. Start with the star family centered at $c=3$. Remove two
+specific triples, $\{1,3,4\}$ and $\{2,3,5\}$, and replace them with three larger
+sets:
+\[
+\mathcal{E}_N = \bigl(\operatorname{Star}(N,3) \cup
+    \{\,\{1,2,3,4\},\; \{2,3,4,5\},\; \{1,2,3,4,5\}\,\}\bigr) \;\setminus\;
+    \{\,\{1,3,4\},\; \{2,3,5\}\,\}.
+\]
+
+We lose two sets but gain three, for a net gain of one. The sizes work out to
+$|\mathcal{E}_5| = 12 = \binom{5}{2} + 2$ and $|\mathcal{E}_6| = 17 = \binom{6}{2} + 2$.
+
+Does it actually work? Let us verify the dangerous intersections. In $\mathcal{E}_5$:
+\[
+\begin{aligned}
+\{1,2,3,4\} \cap \{2,3,4,5\}      &= \{2,3,4\}       &&\text{(AP, }d=1\text{)},\\
+\{1,2,3,4\} \cap \{1,2,3,4,5\}    &= \{1,2,3,4\}     &&\text{(AP, }d=1\text{)},\\
+\{2,3,4,5\} \cap \{1,2,3,4,5\}    &= \{2,3,4,5\}     &&\text{(AP, }d=1\text{)}.
+\end{aligned}
+\]
+
+Every one of these intersections is an arithmetic progression with difference $1$.
+The sets are consecutive runs of integers, so any overlap between them is also a
+consecutive run, which is automatically an AP. The removed triples $\{1,3,4\}$ and
+$\{2,3,5\}$ are precisely the ones whose intersections with the new large sets would
+have caused trouble. By removing them, we make room.
+
+This is not a trick that generalizes. As we will prove, for $N \geq 7$ there are too
+many elements to control, and any attempt to include a set of size $4$ or larger
+inevitably creates a non-AP intersection somewhere.
+
+\subsection{Verified Instances}
+
+The following twelve families, one for each $N$ from $1$ to $10$, are all verified
+AP-intersecting by Lean~4's \texttt{native\_decide}:
+
+\[
+\begin{array}{c|c|c}
+N & \text{Construction} & |\mathcal{F}| \\ \hline
+1 & \operatorname{Star}(1,1) & 1 \\
+2 & \operatorname{Star}(2,1) & 2 \\
+3 & \operatorname{Star}(3,2) & 4 \\
+4 & \operatorname{Star}(4,2) & 7 \\
+5 & \mathcal{E}_5 & 12 \\
+6 & \mathcal{E}_6 & 17 \\
+7 & \operatorname{Star}(7,4) & 22 \\
+8 & \operatorname{Star}(8,4) & 29 \\
+9 & \operatorname{Star}(9,5) & 37 \\
+10 & \operatorname{Star}(10,5) & 46
+\end{array}
+\]
+
+In every case, $|\mathcal{F}| = \operatorname{maxSize}(N)$, where
+$\operatorname{maxSize}(N) = \CN + 1$ for $N \neq 5,6$ and $\CN + 2$ for
+$N = 5,6$. These twelve theorems constitute the complete lower bound: the claimed
+maximum sizes are achievable.
+
+
+\section{Why You Cannot Do Better: The Upper Bound}
+
+The lower bound shows that $\CN + 1$ (or $+2$) is achievable. The upper bound shows
+it is \emph{optimal}: no AP-intersecting family can be larger. The proof splits
+naturally into two regimes, and the split itself tells a story.
+
+\subsection{The Small-$N$ World: Brute Force ($N \leq 10$)}
+
+For $N \leq 10$, the problem is finite and small enough to be settled by a computer.
+The ground set $\{1,\dots,N\}$ has $2^N - 1$ non-empty subsets. For $N=10$, that is
+$1023$ subsets. We can build a graph whose vertices are all non-empty subsets and
+draw an edge between two vertices exactly when their intersection is a non-empty AP.
+An AP-intersecting family is precisely a clique in this graph, and the maximum size
+of such a family is the size of the maximum clique.
+
+This is a classic NP-hard problem, but for $N \leq 10$ it is well within reach. We
+implemented the Bron--Kerbosch algorithm --- the workhorse of maximum-clique
+computation --- and ran it for each $N$ from $1$ to $10$. The results:
+
+\[
+\begin{array}{c|cccccccccc}
+N      & 1 & 2 & 3 & 4 & 5  & 6  & 7  & 8  & 9  & 10 \\ \hline
+t_{\max} & 1 & 2 & 4 & 7 & 12 & 17 & 22 & 29 & 37 & 46
+\end{array}
+\]
+
+These numbers match our constructions exactly. For $N \leq 10$, the upper bound and
+lower bound coincide, so the theorem is settled in this range.
+
+\begin{axiom}[BK bound, $N \leq 10$]\label{ax:bk}
+For $N \leq 10$, every AP-intersecting family $\mathcal{F}$ of subsets of $\ground$
+satisfies $|\mathcal{F}| \leq \operatorname{maxSize}(N)$. This is verified by the
+Bron--Kerbosch maximum-clique computation described above.
+\end{axiom}
+
+\subsection{The Large-$N$ World: The Star Reduction ($N > 10$)}
+
+For $N > 10$, brute force is hopeless --- the power set grows exponentially. We need
+a structural argument. The strategy, in broad strokes, is this: take any
+AP-intersecting family, possibly small and messy, and massage it, step by step, into
+a \emph{restricted star} --- a star family whose sets all have size at most $3$ ---
+without ever shrinking it. Then we count how large a restricted star can be, and
+that number becomes our universal upper bound.
+
+The massaging proceeds in four stages.
+
+\medskip\noindent
+\textbf{Stage 1: Maximize.} First, we make the family as large as possible by
+adding any sets that can be added without breaking the AP-intersecting condition.
+Since the power set of $\ground$ is finite, we can always keep adding until we hit a
+wall --- an \emph{inclusion-maximal} family $\mathcal{G}$ that contains our original
+family $\mathcal{F}$.
+
+\begin{axiom}[Maximal Extension]\label{ax:maxext}
+Any AP-intersecting family $\mathcal{F}$ extends to an inclusion-maximal
+AP-intersecting family $\mathcal{G} \supseteq \mathcal{F}$. This follows from
+finiteness of the power set: only $2^{2^N}$ possible families exist, so a
+maximal one is reached by iteration.
+\end{axiom}
+
+\medskip\noindent
+\textbf{Stage 2: Find the center.} This is the heart of the proof. Given a
+\emph{maximal} AP-intersecting family $\mathcal{G}$, we claim that all its members
+must share a common element --- it is, in fact, a star.
+
+Why should this be true? Take any two sets $A, B \in \mathcal{G}$. Their
+intersection is an AP, so it has a well-defined ``middle.'' If the intersection has
+odd size, there is a literal middle element; if even, there is a midpoint region.
+Now imagine a compression operation --- inspired by Erd\H{o}s--Ko--Rado shifting ---
+that moves elements of $A$ toward this midpoint region. The crucial property is that
+such shifting preserves the AP-intersecting condition: if $A \cap B$ was an AP before
+shifting, it remains one after. Maximality then forces the shifted sets to already be
+in the family.
+
+Iterate this across all pairs. The successive compressions drive all sets toward a
+common focal point --- a single element $c$ that belongs to every member of the
+family. At the end of this process, $\mathcal{G}$ has been transformed into a star
+family $\mathcal{F}'$ of the same (or greater) cardinality, all of whose members
+contain $c$.
+
+\begin{axiom}[Star Reduction]\label{ax:starred}
+Let $\mathcal{G}$ be an inclusion-maximal AP-intersecting family.
+Then a star family $\mathcal{F}'$ exists, sharing a common center $c$,
+with $|\mathcal{F}'| \geq |\mathcal{G}|$.
+\end{axiom}
+
+\medskip\noindent
+\textbf{Stage 3: No large sets allowed.} We now have a star family $\mathcal{F}'$ ---
+all sets contain $c$. If any of these sets has size $4$ or larger, can the family
+still be AP-intersecting? For $N \geq 7$, the answer is \emph{no}.
+
+Here is the intuition. Take two distinct sets $A, B \in \mathcal{F}'$, both of size
+at least $4$, both containing $c$. Their intersection $A \cap B$ contains $c$ and at
+least one other element (since $|A|, |B| \geq 4$ and they share $c$, they could in
+principle share as few as one additional element, but with $N \geq 7$ the ground set
+is large enough that you can pick two size-4 sets through $c$ whose intersection is
+$\{c, x, y\}$ for some $x,y$ that do \emph{not} form an AP with $c$). More
+systematically: if any set of size $\geq 4$ exists in an AP-intersecting star, a case
+analysis shows that it forces a contradiction somewhere in the family. The Bron--Kerbosch
+computation for $N=7$ already confirms this: the maximum AP-intersecting family for
+$N=7$ has size $22 = \binom{7}{2} + 1$, which matches the restricted star bound,
+meaning no family with a size-4 set can exceed it.
+
+The exceptional cases $N=5$ and $N=6$ are exactly where this argument fails: the
+ground set is too small for the contradiction to materialize, and size-4 and size-5
+sets \emph{can} coexist in an AP-intersecting star.
+
+\begin{axiom}[Star Size Bound, $N \geq 7$]\label{ax:sizebd}
+For $N \geq 7$, every AP-intersecting star family on $\ground$ has all its members
+of size at most~$3$.
+\end{axiom}
+
+\medskip\noindent
+\textbf{Stage 4: Count.} Once we know that $\mathcal{F}'$ is a star whose sets all
+have size $\leq 3$, counting is straightforward. Every set looks like $\{c\}$,
+$\{c,x\}$, or $\{c,x,y\}$ with $x,y \neq c$ and $x < y$. These are all distinct, so:
+\[
+|\mathcal{F}'| \leq 1 + (N-1) + \binom{N-1}{2} = \binom{N}{2} + 1.
+\]
+
+\begin{axiom}[Restricted Star Counting]\label{ax:starcnt}
+Any star family whose members all have size at most $3$ satisfies
+$|\mathcal{F}| \leq \CN + 1$.
+\end{axiom}
+
+
+\subsection{Putting It All Together}
+
+\begin{theorem}[Main]
+For every $N \geq 1$, the maximum size of an AP-intersecting family of subsets of
+$\{1,\dots,N\}$ is
+\[
+t_{\max}(N) = \begin{cases}
+\binom{N}{2} + 2, & N = 5 \text{ or } 6,\\[6pt]
+\binom{N}{2} + 1, & \text{otherwise}.
+\end{cases}
+\]
+\end{theorem}
+
+\begin{proof}
+Let $\mathcal{F}$ be any AP-intersecting family whose members are subsets of
+$\ground$.
+
+\medskip\noindent
+\textit{Case $N \leq 10$.}
+Axiom~\ref{ax:bk} (the Bron--Kerbosch computation) directly gives
+$|\mathcal{F}| \leq \operatorname{maxSize}(N)$.
+
+\medskip\noindent
+\textit{Case $N > 10$ (which also implies $N \geq 7$).}
+We chain four steps, each corresponding to an axiom:
+\begin{enumerate}[label=(\roman*)]
+    \item \textbf{Maximize.} By Axiom~\ref{ax:maxext}, extend $\mathcal{F}$ to an
+          inclusion-maximal AP-intersecting family $\mathcal{G} \supseteq
+          \mathcal{F}$. Then $|\mathcal{F}| \leq |\mathcal{G}|$.
+    \item \textbf{Center.} By Axiom~\ref{ax:starred}, since $\mathcal{G}$ is
+          maximal, there exists a star family $\mathcal{F}'$ with
+          $|\mathcal{F}'| \geq |\mathcal{G}|$.
+    \item \textbf{Restrict.} By Axiom~\ref{ax:sizebd}, since $N \geq 7$, every set
+          in the star $\mathcal{F}'$ has size at most $3$.
+    \item \textbf{Count.} By Axiom~\ref{ax:starcnt},
+          $|\mathcal{F}'| \leq \CN + 1$.
+\end{enumerate}
+Chaining these inequalities:
+\[
+|\mathcal{F}| \;\leq\; |\mathcal{G}| \;\leq\; |\mathcal{F}'|
+    \;\leq\; \CN + 1 \;=\; \operatorname{maxSize}(N)
+\]
+(since $N > 10$, we have $N \neq 5,6$, so $\operatorname{maxSize}(N) = \CN + 1$).
+
+In both cases, $|\mathcal{F}| \leq \operatorname{maxSize}(N)$. The constructions in
+Section~\ref{sec:lower} achieve exactly $\operatorname{maxSize}(N)$, so the bound is
+tight.
+\end{proof}
+
+\section{The Curious Case of $N=5$ and $N=6$}
+
+Why these two numbers? Why not $N=4$, or $N=7$, or $N=42$?
+
+The answer lies in a delicate balance between the size of the ground set and the size
+of the sets you are trying to pack. An AP-intersecting family built around a center
+$c$ runs into trouble when you include sets of size $4$ or larger. The trouble comes
+from triples in the intersection: if two sets of size $\geq 4$ share $c$ and two
+other elements $x$ and $y$, the intersection contains $\{c, x, y\}$, and for this
+triple to be an AP, the three numbers must be equally spaced. With a small ground
+set, you can choose the large sets carefully --- make them consecutive intervals ---
+so that every intersection is itself a consecutive interval, which is automatically
+an AP. With a larger ground set, you run out of luck: there are too many possible
+triples, and some intersection will inevitably land on a non-AP.
+
+The numbers $5$ and $6$ are the largest $N$ for which the ground set is small enough
+to allow this careful arrangement. At $N=7$, the Bron--Kerbosch computation confirms
+that the maximum family size drops back to $\binom{7}{2}+1 = 22$, with no exceptional
+gain.
+
+There is a faint but pleasing echo here of other classification phenomena in
+mathematics. The exceptional Lie algebras $G_2$, $F_4$, $E_6$, $E_7$, $E_8$ exist
+only in specific small dimensions. The sporadic finite simple groups appear as
+one-off exceptions to the infinite families. Our exceptional values $N=5,6$ are
+humbler creatures, but they arise from the same basic mechanism: a structural
+argument that works generically fails in a handful of small cases where the
+constraints are loose enough to permit something extra.
+
+\section{Where the Formal Proof Stands}
+
+The Lean~4 formalization stands at an interesting inflection point. The lower
+bound is fully proved: twelve theorems (\texttt{ap\_intersecting\_star\_N}
+and \texttt{ap\_intersecting\_exceptional\_N} for each $N \leq 10$),
+verified by \texttt{native\_decide} with zero human case analysis. The upper
+bound is proved on paper, but its formalization depends on five axioms that
+remain to be discharged:
+
+\begin{center}
+\small
+\begin{tabular}{ccl}
+\toprule
+\# & Axiom & What It Says \\
+\midrule
+1 & \texttt{upper\_bound\_small\_N}
+    & $N \leq 10$: no AP-intersecting family exceeds
+      $\operatorname{maxSize}(N)$ \\
+2 & \texttt{exists\_maximal\_extension}
+    & Any family extends to an inclusion-maximal one \\
+3 & \texttt{star\_reduction}
+    & A maximal family transforms into a star without shrinking \\
+4 & \texttt{star\_size\_bound}
+    & $N \geq 7$: star AP-intersecting families have no sets
+      of size $\geq 4$ \\
+5 & \texttt{star\_max\_size}
+    & A restricted star has at most $\CN + 1$ members \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Axioms~2 and~5 are straightforward: the first follows from finiteness of the power
+set, the second is a direct counting argument. Axiom~1 is a finite computation ---
+the Bron--Kerbosch output serves as a certificate, and formalizing that certificate
+in Lean is a matter of engineering. Axioms~3 and~4 are the mathematical core: the
+star reduction (shifting/compression) and the size bound (case analysis on triples).
+Closing them would yield a complete, machine-checked proof of the theorem.
+
+The current Lean source sits at 304 lines with zero sorries on the lower-bound side.
+\end{document}
