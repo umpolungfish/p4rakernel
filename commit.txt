@@ -1,3 +1,3 @@
-The S matrix is symmetric and squares to the identity.
+The associator, with both off-diagonal entries, and the pentagon it satisfies.
 
-Both labels are self dual so charge conjugation is trivial and unitarity collapses to the square being the identity, proved case by case over a closed form for the two-object sum. The suggestion that the wildcard in the tau-tau line is unsound does not apply: the type has exactly two constructors, the wildcard covers both, and both multiplicities are one.
+The corners are the inverse square root of the golden ratio and neither vanishes; zeroing them leaves the square equal to the inverse square of phi rather than the identity and the pentagon fails. Stated and closed case by case, the diagonal entry being exactly the golden relation and the corners cancelling on the sign.
