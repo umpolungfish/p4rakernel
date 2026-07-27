@@ -124,9 +124,9 @@ theorem s1_is_O0 : imscriptionTier s1_excited_singlet = .O₀ := by
   simp [imscriptionTier, ouroboricityTier, s1_excited_singlet,
     excitedStateImscription]
 
-theorem s1_consciousness_zero :
-    consciousnessScore s1_excited_singlet = (0 : ℝ) := by
-  sorry
+theorem s1_consciousness_one :
+    consciousnessScore s1_excited_singlet = (1 : ℝ) := by
+  simp [consciousnessScore, phi_c_gate, k_slow_gate, s1_excited_singlet, excitedStateImscription]
 -- ============================================================
 -- S₀ → S₁: SPIN-ALLOWED EXCITATION (§5)
 -- Only 3 primitives shift. This is the structural signature
@@ -195,9 +195,9 @@ theorem t1_is_O0 : imscriptionTier t1_excited_triplet = .O₀ := by
   simp [imscriptionTier, ouroboricityTier, t1_excited_triplet,
     excitedStateImscription]
 
-theorem t1_consciousness_zero :
-    consciousnessScore t1_excited_triplet = (0 : ℝ) := by
-  sorry
+theorem t1_consciousness_one :
+    consciousnessScore t1_excited_triplet = (1 : ℝ) := by
+  simp [consciousnessScore, phi_c_gate, k_slow_gate, t1_excited_triplet, excitedStateImscription]
 -- ALL 12 primitives differ. This is the structural statement
 -- of why ISC is "spin-forbidden."
 -- ============================================================
