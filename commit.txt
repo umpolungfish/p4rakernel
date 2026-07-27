@@ -1,3 +1,3 @@
-The associator, with both off-diagonal entries, and the pentagon it satisfies.
+What the pentagon determines, as opposed to what it checks.
 
-The corners are the inverse square root of the golden ratio and neither vanishes; zeroing them leaves the square equal to the inverse square of phi rather than the identity and the pentagon fails. Stated and closed case by case, the diagonal entry being exactly the golden relation and the corners cancelling on the sign.
+The earlier theorem confirms that four stipulated reals satisfy the identity, which is a consistency check on constants rather than a derivation of them. Symmetry and the square being the identity force the anti-diagonal form and leave one parameter; fixing the normalisation and a sign then pins the corner entry, so one constant and one convention are assumed and the remaining three follow.
