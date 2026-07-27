@@ -119,6 +119,7 @@ globs = [
   "Imscribing.Quantum.FibonacciAnyon",
   "Imscribing.NumberTheory.TwoThreeSierpinski",
   "Imscribing.NumberTheory.HnGcdTheorem",
+  "Imscribing.NumberTheory.PrattCertificateMonad",
   "Imscribing.Millennium.SemanticBranchVerifier",
   "Imscribing.Classical.Solitary10",
   "Imscribing.CLU744Bridge",
