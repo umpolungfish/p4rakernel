@@ -157,6 +157,34 @@ theorem verlinde (a b c : SimpleObj) :
     field_simp <;>
     nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
 
+-- ============================================================
+-- §6. S-matrix properties
+-- ============================================================
+
+/-- Summation over the two simple objects, in closed form. -/
+lemma univ_SimpleObj : (Finset.univ : Finset SimpleObj) = {.one, .tau} := by
+  decide
+
+lemma sum_SimpleObj (f : SimpleObj → ℝ) :
+    ∑ c : SimpleObj, f c = f .one + f .tau := by
+  rw [univ_SimpleObj, Finset.sum_insert (by decide), Finset.sum_singleton]
+
+/-- `S` is symmetric. -/
+theorem Smat_sym (a b : SimpleObj) : Smat a b = Smat b a := by
+  cases a <;> cases b <;> simp [Smat]
+
+/-- `S² = I`.  Both Fibonacci labels are self-dual, so the charge-conjugation
+    matrix is the identity and unitarity collapses to this. -/
+theorem Smat_sq (a b : SimpleObj) :
+    ∑ c : SimpleObj, Smat a c * Smat c b = if a = b then 1 else 0 := by
+  have hD := Dglob_ne
+  have hD2 := Dglob_sq'
+  have hφ2 := qdimTau_sq
+  cases a <;> cases b <;>
+    simp [sum_SimpleObj, Smat] <;>
+    field_simp <;>
+    nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
+
 end FibonacciAnyon
 end Quantum
 end Imscribing
