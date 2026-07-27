@@ -174,8 +174,6 @@ theorem pratt_invariant_core :
     prattCertificateMonad_imscription.kin = KineticChar.egg := by
   simp [prattCertificateMonad_imscription]
 
-end Imscribing.NumberTheory.PrattCertificateMonad
-
 -- ============================================================
 -- §9. NEW OB3ECT TUPLE (--entry prime_class_hierarchy_pratt, laguna-s-2.1)
 -- ============================================================
@@ -229,25 +227,6 @@ theorem entry_ob3ect_vs_original_distance :
 -- §10. OB3ECT PROTOCOL INTEGRATION
 -- ============================================================
 
-/-- The IGProtocol scaffold terminal state (s15) uses chir=fee.
-    We prove it is structurally equivalent to the catalog tuple at the invariant core. -/
-
--- Terminal state s15 from the scaffold: dim=array, top=judge, rel=ian, pol=church,
--- fid=age, kin=yea, gran=thigh, gram=measure, crit=monad, chir=fee, stoi=hung, prot=ah
-
-/-- The scaffold terminal state shares the invariant core with all three tuples -/
-theorem scaffold_s15_invariant_core (s15 : Imscription)
-    (hcrit  : s15.crit  = Criticality.monad)
-    (hstoi  : s15.stoi  = Stoichiometry.up)
-    (hprot  : s15.prot  = Protection.ah)
-    (hkin   : s15.kin   = KineticChar.egg) :
-    s15.crit = prattCertificateMonad_imscription.crit ∧
-    s15.stoi = prattCertificateMonad_imscription.stoi ∧
-    s15.prot = prattCertificateMonad_imscription.prot ∧
-    s15.kin  = prattCertificateMonad_imscription.kin := by
-  rw [hcrit, hstoi, hprot, hkin]
-  simp [prattCertificateMonad_imscription]
-
 /-- Invariant core is preserved under the IGProtocol Frobenius self-fusion -/
 theorem invariant_core_frobenius_stable (a : Imscription) :
     igFrobeniusAlg.mul a a = a :=
@@ -262,15 +241,6 @@ theorem crit_preserved_under_self_fusion (a : Imscription) (h : a.crit = Critica
 -- ============================================================
 -- §11. PROTOCOL SOUNDNESS: CRITICALITY MONAD LADDER
 -- ============================================================
-
-/-- The 16-step IGProtocol preserves criticality=monad at every stage.
-    We prove this by constructing the ladder of criticality-preserving transitions. -/
-
-theorem protocol_criticality_ladder (s0 s15 : Imscription)
-    (h0 : s0.crit = Criticality.monad)
-    (h15 : s15.crit = Criticality.monad) :
-    s0.crit = s15.crit := by
-  rw [h0, h15]
 
 /-- All three ob3ect tuples (catalog, original ob3ect, entry ob3ect) share
     the exact same criticality: monad. This is the Pratt certificate monad's
@@ -288,17 +258,23 @@ theorem monad_critical_idempotent (a : Imscription) (_hcrit : a.crit = Criticali
     igFrobeniusAlg.mul a a = a :=
   igFrobAlg_self_fusion a
 
-/-- Tier stability: all three tuples are at or above O₂ -/
+/-- Tier stability: all three tuples are at or above O₂.
+    Catalog: O₂†, both ob3ects: O₂ -/
 theorem all_tuples_tier_at_least_O2 :
-    (imscriptionTier prattCertificateMonad_imscription = .O₂dag ∨
-     imscriptionTier prattCertificateMonad_imscription = .O₂) ∧
-    (imscriptionTier prattCertificateMonad_ob3ect_imscription = .O₂) ∧
-    (imscriptionTier pratt_entry_ob3ect_imscription = .O₂) := by
-  have hcat : imscriptionTier prattCertificateMonad_imscription = .O₂dag :=
-    prattCertificateMonad_tier
-  have hobj : imscriptionTier prattCertificateMonad_ob3ect_imscription = .O₂ :=
-    prattCertificateMonad_ob3ect_tier
-  have hentry : imscriptionTier pratt_entry_ob3ect_imscription = .O₂ := by
+    (imscriptionTier prattCertificateMonad_imscription =
+     Imscribing.Primitives.OuroboricityTier.O₂dag ∨
+     imscriptionTier prattCertificateMonad_imscription =
+     Imscribing.Primitives.OuroboricityTier.O₂) ∧
+    imscriptionTier prattCertificateMonad_ob3ect_imscription =
+      Imscribing.Primitives.OuroboricityTier.O₂ ∧
+    imscriptionTier pratt_entry_ob3ect_imscription =
+      Imscribing.Primitives.OuroboricityTier.O₂ := by
+  have hcat : imscriptionTier prattCertificateMonad_imscription =
+      Imscribing.Primitives.OuroboricityTier.O₂dag := prattCertificateMonad_tier
+  have hobj : imscriptionTier prattCertificateMonad_ob3ect_imscription =
+      Imscribing.Primitives.OuroboricityTier.O₂ := prattCertificateMonad_ob3ect_tier
+  have hentry : imscriptionTier pratt_entry_ob3ect_imscription =
+      Imscribing.Primitives.OuroboricityTier.O₂ := by
     unfold imscriptionTier pratt_entry_ob3ect_imscription
     decide
   exact ⟨Or.inl hcat, hobj, hentry⟩
