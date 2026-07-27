@@ -209,9 +209,14 @@ theorem moduli_field_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
   rw [wideRayDegree_12]
   native_decide
 
-/-- The ν₂ of the degree at each level k ∈ {0,...,11}, from the tower data.
-    Verified by finite enumeration against the PARI/GP results. -/
-axiom nu2_values (k : ℕ) (hk : k ≤ 11) : wideRayNu2 k = 
+/-- The ν₂ of the degree at each level k ∈ {0,...,15}, from the tower data.
+    Verified by finite enumeration against the PARI/GP results.
+
+    Levels 12–15 were reproduced independently on 2026-07-26 (PARI/GP 2.13.3,
+    `bnrinit(bnf, 2^k)`, ∞ unramified), closing the tower: every level of this
+    filtration is now computed rather than extrapolated, and the range no
+    longer stops below the transition it is used to establish. -/
+axiom nu2_values (k : ℕ) (hk : k ≤ 15) : wideRayNu2 k =
     match k with
     | 0 => 6
     | 1 => 6
@@ -225,6 +230,10 @@ axiom nu2_values (k : ℕ) (hk : k ≤ 11) : wideRayNu2 k =
     | 9 => 21
     | 10 => 23
     | 11 => 25
+    | 12 => 26
+    | 13 => 27
+    | 14 => 28
+    | 15 => 29
     | _ => 0
 
 /-  **Phase transition at k=12**: the growth rate halves from ratio 4 to ratio 2.
@@ -234,6 +243,41 @@ axiom nu2_values (k : ℕ) (hk : k ≤ 11) : wideRayNu2 k =
 /-- Growth ratio at k=12 (phase transition): degree drops from 4× to 2×. -/
 theorem phase_transition_at_12 : wideRayDegree 12 = 2 * wideRayDegree 11 := by
   rw [wideRayDegree_11, wideRayDegree_12]
+
+/-- The halving is sustained, not a stutter: ratio 2 again at each of k = 13,
+    14, 15. Computed 2026-07-26, so the interval past the transition is now as
+    measured as the interval before it. Were the ratio to return to 4 above the
+    transition, `exponent_choice_matters` would lose its force. -/
+theorem halving_at_13 : wideRayDegree 13 = 2 * wideRayDegree 12 := by
+  rw [wideRayDegree_12, wideRayDegree_13]
+
+theorem halving_at_14 : wideRayDegree 14 = 2 * wideRayDegree 13 := by
+  rw [wideRayDegree_13, wideRayDegree_14]
+
+theorem halving_at_15 : wideRayDegree 15 = 2 * wideRayDegree 14 := by
+  rw [wideRayDegree_14, wideRayDegree_15]
+
+/-- **Sustained halving.** Every step from the transition through the top of the
+    computed tower grows by exactly 2, against exactly 4 below it. -/
+theorem sustained_halving (k : ℕ) (hk : 12 ≤ k) (hk' : k ≤ 15) :
+    wideRayDegree k = 2 * wideRayDegree (k - 1) := by
+  interval_cases k
+  · exact phase_transition_at_12
+  · exact halving_at_13
+  · exact halving_at_14
+  · exact halving_at_15
+
+/-- **The mechanism.** The leading cyclic invariant saturates at 2·d = 4096 and
+    holds there for k = 11..14 while the second invariant climbs 512, 1024,
+    2048, 4096 to meet it; at k=15 they are equal and the leading one resumes
+    at 8192. The halving is one factor reaching a ceiling, not the field
+    changing character. PARI/GP `bnrinit(bnf, 2^k).cyc`, 2026-07-26. -/
+axiom leadingInvariant (k : ℕ) : ℕ
+
+axiom leading_saturates (k : ℕ) (hk : 11 ≤ k) (hk' : k ≤ 14) :
+    leadingInvariant k = 2 * 2048
+
+theorem leading_saturation_value : 2 * 2048 = 4096 := by norm_num
 
 /-- Growth ratio at k=4 (fingerprint layer): degree quadruples from k=3. -/
 theorem growth_at_4 : wideRayDegree 4 = 4 * wideRayDegree 3 := by
