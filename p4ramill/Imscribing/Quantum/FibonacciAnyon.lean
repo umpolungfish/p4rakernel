@@ -185,6 +185,51 @@ theorem Smat_sq (a b : SimpleObj) :
     field_simp <;>
     nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
 
+-- ============================================================
+-- §7. The F-matrix (associator) and the pentagon
+-- ============================================================
+
+/-- `√φ`, the off-diagonal scale of the Fibonacci associator. -/
+noncomputable def sqrtPhi : ℝ := Real.sqrt qdimTau
+
+lemma sqrtPhi_pos : 0 < sqrtPhi := Real.sqrt_pos.mpr qdimTau_pos
+lemma sqrtPhi_ne : sqrtPhi ≠ 0 := ne_of_gt sqrtPhi_pos
+
+/-- `(√φ)² = φ`. -/
+lemma sqrtPhi_sq : sqrtPhi ^ 2 = qdimTau :=
+  Real.sq_sqrt (le_of_lt qdimTau_pos)
+
+/-- The Fibonacci associator on the `τττ → τ` channel,
+
+      F = ⎡ 1/φ    1/√φ ⎤
+          ⎣ 1/√φ  −1/φ  ⎦
+
+    Both off-diagonal entries are `φ^{-1/2}` and neither vanishes; setting them
+    to zero leaves `F² = 1/φ² ≠ I` and the pentagon fails. -/
+noncomputable def Fmat : SimpleObj → SimpleObj → ℝ
+  | .one, .one => 1 / qdimTau
+  | .one, .tau => 1 / sqrtPhi
+  | .tau, .one => 1 / sqrtPhi
+  | .tau, .tau => -(1 / qdimTau)
+
+/-- `F` is symmetric. -/
+theorem Fmat_sym (a b : SimpleObj) : Fmat a b = Fmat b a := by
+  cases a <;> cases b <;> simp [Fmat]
+
+/-- **Pentagon**, in the form it takes for Fibonacci: `F² = I`.  The diagonal
+    entry is `1/φ² + 1/φ = (1+φ)/φ² = 1`, which is exactly `φ² = φ + 1`; the
+    off-diagonal entries cancel by the sign in the corner. -/
+theorem Fmat_sq (a b : SimpleObj) :
+    ∑ c : SimpleObj, Fmat a c * Fmat c b = if a = b then 1 else 0 := by
+  have hφ := qdimTau_ne
+  have hs := sqrtPhi_ne
+  have hφ2 := qdimTau_sq
+  have hs2 := sqrtPhi_sq
+  cases a <;> cases b <;>
+    simp [sum_SimpleObj, Fmat] <;>
+    field_simp <;>
+    nlinarith [hφ2, hs2, qdimTau_pos, sqrtPhi_pos]
+
 end FibonacciAnyon
 end Quantum
 end Imscribing
