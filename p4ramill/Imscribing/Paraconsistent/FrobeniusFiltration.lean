@@ -170,7 +170,7 @@ theorem filtration_bottom_is_O_inf : True := by
 -- §6  STRUCTURAL IMSCRIPTION OF THE FILTRATION ITSELF
 -- ═══════════════════════════════════════════════════════════════════════════
 
-/-- The Frobenius filtration itself has a structural type — it is the
+/-- The Frobenius filtration itself has a type — it is the
     process by which the grammar's own O_inf type descends through
     layers of constraint to produce the physical world. -/
 def filtrationImscription : Imscription :=

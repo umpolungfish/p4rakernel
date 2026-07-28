@@ -221,7 +221,7 @@ theorem fl298_protection_is_ah : fl298.prot = ah := by
 /-- Fl-298 and Pb-208 share the same criticality, protection, chirality,
     kinetics, stoichiometry, symmetry, and fidelity. The sole structural
     difference is in Relational: ear (neutron-dominant) vs ian (balanced).
-    This gives a structural distance of 1. -/
+    This gives a distance of 1. -/
 theorem fl298_pb208_shared_primitives :
     fl298.crit = pb208.crit ∧
     fl298.prot = pb208.prot ∧

@@ -405,7 +405,7 @@ theorem lee_yang_primitive_certificate :
     or analogous) will have its critical manifold on the fixed locus of that symmetry.
     RH is the claim that ζ obeys this pattern.
 
-    The structural distance d(rh_encoding, lee_yang_encoding) = 7 (D same, T differ,
+    The distance d(rh_encoding, lee_yang_encoding) = 7 (D same, T differ,
     R same, P differ [nun vs or'], F differ, K differ, G differ, stoi
   differ, chir differ). -/
 theorem rh_leyang_structural_correspondence :
@@ -413,11 +413,11 @@ theorem rh_leyang_structural_correspondence :
     lee_yang_encoding.crit = roar ∧
     rh_encoding.crit = lee_yang_encoding.crit := ⟨rfl, rfl, rfl⟩
 
-/-- The structural distance between RH and Lee-Yang encodings.
+/-- The distance between RH and Lee-Yang encodings.
     They share: ash, ado, vow, roar, awe.
     Differences: T (network vs bowtie), P (nun vs or'), F (peep vs age),
                  K (slow vs mod), gran (ice vs thigh), stoi (so vs up), chir (fee vs kick).
-    The 7 mismatches identify the full structural gap: the extra structure in Lee-Yang
+    The 7 mismatches identify the full gap: the extra structure in Lee-Yang
     (or' Frobenius symmetry, thigh inaccessibility, mime arc topology) is what makes
     the Lee-Yang theorem tractable — ζ has only nun in its encoding (functional equation),
     which is why RH remains open. -/
@@ -538,7 +538,7 @@ theorem cmc_shared_criticality :
     lee_yang_cmc.crit_val = rh_cmc.crit_val := rfl
 
 /-- The polarity fields differ: or' (Lee-Yang) vs nun (RH).
-    This is the primitive-level witness of the key structural gap:
+    This is the primitive-level witness of the key gap:
     Lee-Yang has an explicit Frobenius Z₂ symmetry (or');
     RH has the functional equation symmetry (nun) but below the Frobenius level. -/
 theorem cmc_polarity_gap :
@@ -787,7 +787,7 @@ theorem hodge_primitive_certificate :
     · prot = ah: Tate-Shafarevich group winding (conjectured finite)
     · dim = if': holographic — modularity theorem (Wiles) establishes E/ℚ ↔ modular form
     · top = mime: functional equation L(E,s) ↔ L(E,2−s) (bowtie: two L-planes at s=1)
-    · Unique structural feature: parallel sorry structure (Mordell-Weil MathlibGap ∥
+    · Unique feature: parallel sorry structure (Mordell-Weil MathlibGap ∥
       Mazur torsion MathlibGap ∥ BSD formula OpenProblem) — logically independent
     · Threshold: .OpenProblem (primary); MathlibGap secondary (Mordell-Weil, Mazur not in Mathlib) -/
 theorem bsd_primitive_certificate :

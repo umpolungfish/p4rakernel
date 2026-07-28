@@ -31,7 +31,7 @@ What is proved here, riding FROZEN machinery only (nothing re-derived):
 
 ## Honest scope (for the curmudgeon)
 
-These are exact structural theorems about the Grammar's transport protocol —
+These are exact theorems about the Grammar's transport protocol —
 Belnap round-trips and star-ring-homomorphism invariance — not claims about
 physical travel. "Lossless" means literal equality after read-back. The
 ob3ect layer's "Delta-S ~ 0" appears here as `=`, nothing weaker. The runtime

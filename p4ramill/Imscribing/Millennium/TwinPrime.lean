@@ -294,7 +294,7 @@ theorem twin_prime_o1_certificate :
 /-- The promotion path from Twin Prime (O₁) to O_inf requires:
     𐑷 → 𐑭 (winding protection), out → or' (Frobenius closure),
     𐑮 → ⊙ (self-modeling gate), ice stays, sure → wool (eternal chirality).
-    That's 4 promotions — the same structural gap faced by the Dixmier Conjecture,
+    That's 4 promotions — the same gap faced by the Dixmier Conjecture,
     but approached from below rather than from the Frobenius condition itself. -/
 theorem o1_to_oinf_requires_four_promotions :
     out < or' ∧ awe < ah ∧ sure < wool := by
