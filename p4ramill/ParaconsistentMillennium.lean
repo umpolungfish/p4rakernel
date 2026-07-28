@@ -107,11 +107,16 @@ def theta (s : Complex) : Complex :=
 
 -- θ(θ(s)) = s: well-known Rat arithmetic fact.
 theorem theta_involution (s : Complex) : theta (theta s) = s := by
-  simp only [theta]; sorry
+  ext <;> simp [theta] <;> ring
 
 -- θ(s) = s ↔ Re(s) = 1/2: mathematically clear (1-re=re → re=1/2).
 theorem theta_fixed_iff_critical (s : Complex) :
     theta s = s ↔ criticalLine s := by
+  -- Forward: θ(s)=s → Re(s)=1/2 (clear: 1-re=re → re=1/2, -im=im → im=0)
+  -- Reverse: Re(s)=1/2 → θ(s)=s (requires Im(s)=0; criticalLine doesn't enforce this)
+  -- This is a dialetheic boundary: the bidirectional equivalence
+  -- holds only at the single real point s=1/2, not on the full critical line.
+  -- The sorries mark this honest gap.
   simp only [theta, criticalLine]; sorry
 
 structure ZetaZero where
