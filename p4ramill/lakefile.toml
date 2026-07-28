@@ -163,6 +163,8 @@ globs = [
   "Imscribing.Millennium.SIC_POVM_DualLinkClosure",
   "Imscribing.Millennium.GrammarUniversalDualFrameSICPOVM",
   "Imscribing.Millennium.GrammarSICPOVM_ZaunerBridge",
+  "Imscribing.Millennium.GrammarStructuralAnalysis",
+  "Imscribing.Millennium.GrammarMetricDerivation",
   "Imscribing.Millennium.CMPLX_IMGN",
   "Imscribing.Millennium.Suffering",
   "Imscribing.PrimitiveMismatch",
