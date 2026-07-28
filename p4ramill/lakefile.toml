@@ -127,6 +127,7 @@ globs = [
   "Imscribing.IMASM.BankedWeight",
   "Imscribing.Quantum.WindingLattice",
   "Imscribing.Classical.SidonRepresentation",
+  "Imscribing.Classical.ErdosTuranReduction",
   "Imscribing.Classical.HeckeLandau",
   "Imscribing.Classical.ErdosPropertyP",
   "Imscribing.Classical.RamseyAsymptotics",
