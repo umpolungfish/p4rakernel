@@ -1,34 +1,34 @@
-The representation function of a Sidon set is bounded by two.
+Erdos-Turan on additive bases: the counting half proved, the gap named.
 
-An external theorem, not internal to the Grammar, on the conjecture the tools
-were pointed at.
+This does not settle the conjecture. It proves everything on one side of it and
+states what remains as a proposition rather than a gesture, so the boundary is
+in the file and not in a paragraph about the file.
 
-The Erdos-Turan conjecture on additive bases says an asymptotic basis of order
-two has unbounded representation function r(n) = #{(a,b) : a+b = n}. It is open.
-This proves the bridge between that conjecture and the Sidon condition, which is
-where the search for a counterexample lives.
+bounded_reps_forces_density. If A is an asymptotic basis of order two whose
+representation function is bounded by C, then
 
-sidon_reps_le_two. For every n, with no hypothesis on n and no asymptotics, a
-Sidon set admits at most two ordered representations. The Sidon property fixes
-the unordered pair and the ordered pairs over it are that pair and its swap. The
-constant is right rather than merely an upper bound: sidon_reps_eq_two_example
-attains it.
+    N + 1 <= N0 + C * |A cap [0,N]|^2
 
-sidon_not_basis_of_erdos_turan. If the conjecture holds, no set Sidon on every
-finite window is an asymptotic basis of order two. The conjecture demands counts
-above every bound and the theorem caps them at two. Which is why Sidon sets are
-where a counterexample would have to be, and why none has come from there: the
-property making the sums nearly injective is the property bounding r.
+for every N >= N0. Each integer in the window needs a representation, none has
+more than C, and every representation is a pair drawn from the window. The
+interval embeds in the image of the sum map over that product, so counting the
+pairs both ways gives it. A counterexample must therefore be of maximal counting
+order, at least sqrt(N/C).
 
-The route came from the tools rather than from me. shared_floor put the proven
-attractor at the tuple with the criticality slot at the complex-plane value
-while the proved counting structure sits at criticality, so the gap it named was
-the move from a critical-exponent count to complex analysis. That is the actual
-route in this area, elementary counting to generating functions on the circle,
-and the bridge such a route needs is the bound on r, which the repo did not
-have. The proof shape is the banked count: fix n, hold the pair in scope while
-the swap runs, fuse. The swap is the same involution that carries
-card_unorderedPairs in ErdosTuranBound.
+BoundedRepBasisIsSidonLike. The step that is NOT proved, stated as a definition:
+a basis of bounded representation function contains, in each window, a Sidon
+sub-structure carrying a constant fraction of it. That is the conjecture's
+content and naming it is the honest form of a reduction.
 
-Zero sorries. Both theorems depend on propext, Classical.choice, Quot.sound and
-nothing else, printed in the file.
+bounded_rep_basis_squeezed. Given that step and the Sidon upper bound, such a
+basis is caught between two estimates, dense from below by the counting and thin
+from above by the Sidon cap. Both hypotheses are used: an earlier draft carried
+them and proved its conclusion without them, which would have dressed the
+counting half as a reduction it is not, so the statement was changed to one that
+needs them.
+
+The choice function came out along the way. Bounding by the image of the sum map
+needs no choice and is shorter than choosing a representation per integer.
+
+Zero sorries. Both theorems on propext, Classical.choice, Quot.sound, printed in
+the file.
