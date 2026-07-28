@@ -21,7 +21,7 @@
 --
 -- Classical equidistance is the n-qubit measurement equiangularity:
 -- every classical outcome v ∈ {T,F}^n is equidistant from B⊗n
--- in coherence cost. This is the structural content of the 𐑿 → 𐑹
+-- in coherence cost. This is the content of the 𐑿 → 𐑹
 -- promotion for arbitrary n — no T-collapse required, the ratio alone
 -- encodes the period.
 --
@@ -364,7 +364,7 @@ theorem born_rule_from_bilattice {n : ℕ} (v : Fin n → Belnap)
 /-- classical_equidistance IS the Born rule.
     "All classical outcomes have equal coherence cost n" is the Belnap
     statement of "all SIC measurement outcomes from B⊗n have equal
-    Born probability 1/2^n". The same structural fact, two vocabularies. -/
+    Born probability 1/2^n". The same fact, two vocabularies. -/
 theorem classical_equidistance_is_born_rule {n : ℕ}
     (v w : Fin n → Belnap)
     (hv : ∀ i, v i = .T ∨ v i = .F)

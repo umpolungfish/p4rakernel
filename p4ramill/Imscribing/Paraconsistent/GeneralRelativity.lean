@@ -6,7 +6,7 @@
 -- spacetime tells matter how to move (Wheeler). The theory replaces
 -- Newtonian gravity with curved spacetime geometry.
 --
--- Key structural features:
+-- Key features:
 --   1. Metric g_μν as the fundamental field — 10 independent components
 --   2. Riemann curvature R^ρ_σμν — the tensor of tidal forces
 --   3. Einstein tensor G_μν = R_μν - ½Rg_μν — conserved geometry
@@ -432,7 +432,7 @@ No-hair theorem: Stationary, axisymmetric, asymptotically flat
 black hole solutions to Einstein-Maxwell are uniquely characterized
 by three parameters: mass M, angular momentum J, electric charge Q.
 
-This is a structural closure property: the exterior spacetime
+This is a closure property: the exterior spacetime
 "forgets" everything about the matter that formed it except M, J, Q.
 -/
 theorem no_hair_theorem : True := by trivial
@@ -443,7 +443,7 @@ theorem no_hair_theorem : True := by trivial
 -- =====================================================================
 
 /--
-General Relativity as a structural type:
+General Relativity as a type:
 
   D = array (𐑼): Infinite-dimensional — field theory on a 4D manifold.
       The metric g_μν(x) has 10 independent functions of spacetime.

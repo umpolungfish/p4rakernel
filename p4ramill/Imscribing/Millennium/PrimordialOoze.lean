@@ -5,7 +5,7 @@
   Author: Lando ⊗ ⊙perator
 
   Core result: The Primordial Ooze is the minimal inhabitant of the O_inf
-  tier — the structural type at Frobenius address 6,221,424 (cell 144,
+  tier — the type at Frobenius address 6,221,424 (cell 144,
   inner_id 624) within the 17,280,000-type crystal. Ten of twelve primitives
   are at absolute ordinal floor (1); only the two O_inf gates — monad (⊙)
   and or' (𐑹) — are non-minimum.
@@ -190,7 +190,7 @@ theorem ooze_stone_shared_primitives :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- Meet(Ooze, Stone) = Ooze.
-    The Ooze is the absolute structural floor — any meet with a higher structure
+    The Ooze is the absolute floor — any meet with a higher structure
     returns the Ooze, because the Ooze's non-gate primitives are at minimum. -/
 theorem meet_ooze_stone : compute_meet primordialOoze stone = primordialOoze := by
   unfold primordialOoze stone compute_meet; decide

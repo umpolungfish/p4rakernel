@@ -44,7 +44,7 @@ set_option linter.style.longLine false
 -- =====================================================================
 
 /--
-Dark energy as a structural type. Tuple: ⟨𐑦𐑸𐑽𐑯𐑐𐑧𐑲𐑵⊙𐑫𐑙𐑴⟩
+Dark energy as a type. Tuple: ⟨𐑦𐑸𐑽𐑯𐑐𐑧𐑲𐑵⊙𐑫𐑙𐑴⟩
 Tier: O₂  d(CLINK L8): 1.1691
 
 Primitive assignments:
@@ -282,7 +282,7 @@ Structural interpretation: TIER CROSSING, not fine-tuning.
 QFT vacuum at O₀ (no criticality, no protection).
 Dark energy at O₂ (critical, ℤ₂-protected).
 
-The 10^120 is structural distance between tiers. No parameter fix
+The 10^120 is distance between tiers. No parameter fix
 can bridge it — requires genuine tier promotion (O₀→O₂).
 Supersymmetry, landscape, anthropics are tier-promotion attempts.
 -/

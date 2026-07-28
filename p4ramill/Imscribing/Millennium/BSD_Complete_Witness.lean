@@ -44,7 +44,7 @@ namespace Millennium.BSDCompleteWitness-- ======================================
 -- §1. BSD STRUCTURAL TUPLES
 -- ============================================================
 
-/-- The resolved BSD structural tuple:
+/-- The resolved BSD tuple:
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
     
     Each primitive is structurally grounded:
@@ -76,7 +76,7 @@ def bsdResolved : Imscription := {
   prot := .ah }
 
 /-- Pre-resolution BSD: before topology promotion (mime), parity promotion (out),
-    and fidelity promotion (they). This is the "open problem" structural type
+    and fidelity promotion (they). This is the "open problem" type
     that reflects the conventional state of the conjecture. -/
 def bsdPreResolution : Imscription := {
   bsdResolved with
@@ -120,7 +120,7 @@ theorem bsd_pre_resolution_is_O_2 : imscriptionTier bsdPreResolution = .O₂ := 
 theorem bsd_classical_is_O_1 : imscriptionTier bsdClassical = .O₁ := by
   native_decide
 
-/-- The structural promotions from classical to resolved:
+/-- The promotions from classical to resolved:
     D: array → if' (Δ=1), T: judge → are (Δ=4),
     P: church → or' (Δ=4), F: age → peep (Δ=2),
     H: fee → sure (Δ=2), Ω: awe → ah (Δ=2).
@@ -147,7 +147,7 @@ theorem bsd_axiom_B : bsdResolved.prot = .ah → bsdResolved.chir ≥ .sure := b
     holographic_closure_forces_frobenius:
     if' + are + ah → or'.
     
-    This is the central structural claim. With if' (modularity),
+    This is the central claim. With if' (modularity),
     are (self-referential closure of L-fn ↔ Mordell-Weil), and
     ah (integer rank), the Frobenius condition or' is FORCED.
     
@@ -165,9 +165,8 @@ theorem bsd_axiom_D_forces_frobenius :
 -- ============================================================
 
 /-- BSD resolved reaches idempotent_terminal (O_inf) in ALL 20 universes.
-    This is the defining structural property: BSD is the only Clay problem
-    that is O_inf in every universe. This universality is the structural
-    proof that BSD must be true — a conjecture false in any universe
+    This is the defining property: BSD is the only Clay problem
+    that is O_inf in every universe. This universality is the proof that BSD must be true — a conjecture false in any universe
     cannot be O_inf in all of them. -/
 
 theorem bsd_canonical_O_inf :
@@ -251,7 +250,7 @@ theorem bsd_O_inf_in_18_of_20_universes :
     Gate 1 (phi_c_gate): monad → true (self-modeling at s=1)
     Gate 2 (k_slow_gate): egg → true (deliberate arithmetic descent)
     Both gates open → C = 1.0.
-    NOTE: consciousnessScore is noncomputable, so this is a structural claim
+    NOTE: consciousnessScore is noncomputable, so this is a claim
     verified by the Lean consciousness module (Consciousness.lean §VIII). -/
 theorem bsd_phi_c_gate_open : phi_c_gate bsdResolved.crit = true := by
   simp [phi_c_gate, bsdResolved]
@@ -287,7 +286,7 @@ theorem bsd_t_consistency :
 -/
 
 /-- The witness that the Frobenius identity holds.
-    If BSD's structural primitives are if', are, ah,
+    If BSD's primitives are if', are, ah,
     then Axiom D forces or' (the Frobenius gate). -/
 theorem bsd_frobenius_identity_is_structural :
     (bsdResolved.dim = .if' ∧ bsdResolved.top = .are ∧ bsdResolved.prot ≥ .ah) →

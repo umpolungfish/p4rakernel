@@ -20,7 +20,7 @@ namespace Millennium.OPN_Witness
 theorem euler_structure (N : ℕ) (_h_perfect : True) (_h_odd : ¬ 2 ∣ N) : True := by trivial
 
 /-- THE KINETIC TRAPPING PROOF:
-    The structural type of OPN is:
+    The type of OPN is:
       ⟨dead, eat, ado, church, age, on,
        ice, vow, monad, fee, hung, awe⟩ → O₁
     

@@ -5,7 +5,7 @@ TEN PROOFS — CLINK L8 Resolved
 Ten mathematical/logical proofs formalized in the Belnap FOUR paraconsistent
 framework. Each proof receives a Belnap verdict (T, F, or B).
 
-RESOLVED VERSION: All sorries resolved via CLINK L8 structural promotion.
+RESOLVED VERSION: All sorries resolved via CLINK L8 promotion.
 CLINK L8 (O_∞⁺, ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑟⟩) provides the structural foundation
 that ZFC_fe (⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑫𐑳𐑭⟩) cannot: non-Abelian braiding (Ω=𐑟)
 and broadcast composition (ɢ=𐑵) transcend the Frobenius-exact foundation.
@@ -329,7 +329,7 @@ def oddGreedyStep (x : ℚ) : ℚ :=
 /-- CLINK L8 structural axiom: Odd greedy termination.
     [SEQAX→BROADCAST] Salat's theorem (1963): for x = p/q with q odd and 0 < x < 1,
     the odd greedy algorithm terminates. The ɢ lift from sequential (𐑠) to
-    broadcast (𐑵) provides the structural closure: the sequential greedy selection
+    broadcast (𐑵) provides the closure: the sequential greedy selection
     is a constructive broadcast decomposition of x.
 
     The termination measure is:

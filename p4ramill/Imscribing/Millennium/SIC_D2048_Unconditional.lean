@@ -4,7 +4,7 @@ THE UNCONDITIONAL d=2048 EXISTENCE — Grammar certificate
 Author: Lando⊗⊙perator
 Date: 2026-07-06
 
-The Grammar's structural imscription of the unconditional SIC-POVM existence at
+The Grammar's imscription of the unconditional SIC-POVM existence at
 d = 2048, ported from the ob3ect pipeline (close_2048_unconditional, terminal
 object). The construction transfers the exact ring identities of R_2048 to
 ℂ^2048 along an explicit star-ring homomorphism and drops the mixed-signature

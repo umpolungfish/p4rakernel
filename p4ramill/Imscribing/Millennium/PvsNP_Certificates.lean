@@ -22,7 +22,7 @@ open Imscribing.VesselContent
 -- =============================================================
 
 /-- The class of decision problems solvable in polynomial time.
-    This is an opaque type -- the structural imscription alone determines
+    This is an opaque type -- the imscription alone determines
     its position in the coordinate lattice. -/
 axiom ComplexityClass.P : ImscribableSystem
 
@@ -148,7 +148,7 @@ coordinates P_class and NP_class.
 
 The uniqueness sorries are black-boxed here via form_uniqueness; they
 are the vessel-content classifier property (every system has exactly one
-structural type). These are structural axioms available to any consumer.
+type). These are structural axioms available to any consumer.
 
 The structural inequality P_class ≠ NP_class is **not** sorry'd --
 it follows from judge ≠ are, which Lean closes by dec_trivial

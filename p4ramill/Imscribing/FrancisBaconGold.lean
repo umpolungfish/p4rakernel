@@ -38,4 +38,4 @@ def tier : String := "O₁"
 -- F=𐑞: heat as primary operator ("Temperate Heat")
 -- Γ=𐑠: sequential axioms → experimental design
 -- S=𐑙: single experiment, single goal
--- Operational definition of gold: the most significant structural feature
+-- Operational definition of gold: the most significant feature

@@ -82,7 +82,7 @@ theorem T_not_dialetheic : ¬ isDialetheic Belnap.T := by
   unfold isDialetheic; decide
 
 /-- The RH open-problem status: the truth-value is B.
-    This is a structural claim about the RH proposition's status in the
+    This is a claim about the RH proposition's status in the
     mathematical knowledge lattice, not a claim about RH itself. -/
 theorem rh_epistemic_status_is_B : isDialetheic Belnap.B :=
   B_is_dialetheic
@@ -139,10 +139,10 @@ theorem millennium_thresholds_share_b_gate :
   B_fixed_point_negation
 
 -- ============================================================
--- §5. Structural imscription of the RH↔Belnap bridge
+-- §5. Imscription of the RH↔Belnap bridge
 -- ============================================================
 
-/-- The structural type of the RH-Belnap bridge: the critical line viewed
+/-- The type of the RH-Belnap bridge: the critical line viewed
     through the dialetheic kernel's B-state. The tuple is O_inf because
     the bridge inherits φ̂_ÿ from the kernel and 𐑹 from the Frobenius condition. -/
 def rhBelnapBridgeImscription : Imscription := {

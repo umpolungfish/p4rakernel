@@ -12,7 +12,7 @@
 --   1. Interpreting Belnap B as the period-carrier (not requiring T-collapse)
 --   2. Embedding the coherence ratio 2:1 as a topological winding invariant 𐑭
 --   3. Proving that when B is preserved across the full cycle, the Frobenius
---      condition μ∘δ=id holds (the dialetheic kernel's structural invariant)
+--      condition μ∘δ=id holds (the dialetheic kernel's invariant)
 --
 -- STRUCTURAL STATUS: Bridge from O₁ → O_inf. The promotion is gated on the
 -- SIC-POVM multilattice embedding (QCI_SICPOVM_Bridge.lean), which shows B satisfies
@@ -38,14 +38,14 @@ open Imscribing.Primitives
 -- ── The dialetheic Shor period: recovered from the Belnap lattice alone ────
 -- The period r is the number of modular exponentiation steps before a^r ≡ 1 (mod N).
 -- In the Belnap picture, r is recovered from the coherence ratio B-bias/T-bias = 2:1 —
--- the period IS the structural invariant encoded in the B-state's topology.
+-- the period IS the invariant encoded in the B-state's topology.
 
 /-- The dialetheic Shor period for the canonical case (N=15, a=7).
     Verified by belnap_shor_executor.py: find_period() = 4, ratio = 2, B preserved. -/
 def dialetheicShor_Period : ℕ := 4
 
 -- Coherence ratio: measurement cost ratio B-bias / T-bias (see FullPipeline.lean).
--- This 2:1 ratio is the structural invariant — it is invariant under register scaling
+-- This 2:1 ratio is the invariant — it is invariant under register scaling
 -- and is the fingerprint of the B-state's topological protection.
 def coherence_ratio : Nat := 2
 
@@ -72,7 +72,7 @@ theorem canonical_ratio_is_two : shor15_7.ratio = 2 := rfl
 -- "measurement" is not a projection but an identity — μ∘δ maps the B-state
 -- to itself. The period is recovered topologically, not probabilistically.
 
-/-- Structural type of the 𐑹 Shor operator.
+/-- Type of the 𐑹 Shor operator.
     Compare with shorPipelineImscription in FullPipeline.lean:
     - pol: 𐑿 → 𐑹 (psi → Frobenius-special)
     - prot: 𐑷 → 𐑭 (no winding → integer winding, topological protection)

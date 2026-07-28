@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Berry–Tabor Theorem. -/
+/-- The imscription of the Berry–Tabor Theorem. -/
 def BerryTaborTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def BerryTaborTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem BerryTaborTheorem_tier : TierFunctor.obj BerryTaborTheoremImscription = .O_inf := by
   native_decide
 

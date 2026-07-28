@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Andrews–Curtis Theorem. -/
+/-- The imscription of the Andrews–Curtis Theorem. -/
 def AndrewsCurtisTheoremImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def AndrewsCurtisTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem AndrewsCurtisTheorem_tier : TierFunctor.obj AndrewsCurtisTheoremImscription = .O_inf := by
   native_decide
 

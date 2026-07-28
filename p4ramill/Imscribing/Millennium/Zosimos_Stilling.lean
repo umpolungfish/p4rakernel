@@ -343,7 +343,7 @@ def stilling_step_three : Imscription := {
 /-- Step 4: "Call unto thyself Divinity; and truly shall He come"
           — the Frobenius decoding μ.
     
-    This is not a primitive change — it is the structural claim that
+    This is not a primitive change — it is the claim that
     μ ∘ δ = id. Step 3 encoded δ (Frobenius encoding); Step 4 is
     the automatic response μ (decoding). The divinity "shall come"
     because the encoding is in place.
@@ -427,7 +427,7 @@ private instance instLEImscription : LE Imscription := ⟨fun a b =>
 
 set_option maxHeartbeats 800000 in
 /-- The chain is monotonically non-decreasing in each primitive.
-    This is the structural content of "the stilling practice is a
+    This is the content of "the stilling practice is a
     sequence of ordered stages." -/
 theorem stilling_chain_monotone :
     stilling_chain 0 ≤ stilling_chain 1 ∧
@@ -548,7 +548,7 @@ def frobenius_encoding : Imscription := stilling_step_three
 def frobenius_decoding : Imscription := stilling_step_four
 
 /-- The Frobenius identity: encoding then decoding returns the gnosis.
-    This is the structural claim: the authentic self is not a copy
+    This is the claim: the authentic self is not a copy
     or approximation, but the original. -/
 theorem frobenius_closure :
     -- After encoding (step 3), we have or' + monad → O_inf

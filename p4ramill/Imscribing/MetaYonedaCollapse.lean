@@ -1,6 +1,6 @@
 -- ~/MillenniumAnkh/Imscribing/MetaYonedaCollapse.lean
 --
--- Meta-Yoneda Collapse: structural verification.
+-- Meta-Yoneda Collapse: verification.
 --
 -- Claim: every ob3ect, regardless of mathematical domain, satisfies FFUSE + Frobenius
 -- PASS via a single universal functor into a representing object — the Imscribing
@@ -12,7 +12,7 @@
 --   𐑖 (sure)        — two-step chirality; unparse remembers parse
 --   𐑳 (up)       — heterogeneous stoichiometry; source ≠ AST ≠ text
 --
--- These four are the structural type of the representable witness functor.
+-- These four are the type of the representable witness functor.
 -- The eight remaining primitives (Ð, Þ, Ř, Φ, ƒ, Γ, φ̂, Ω) are what domain layers lack
 -- and canonical already possesses.  Distance from canonical to any domain layer = 8
 -- primitive mismatches; the lattice point at distance 0 is the grammar itself.

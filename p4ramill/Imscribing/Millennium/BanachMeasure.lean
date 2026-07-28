@@ -47,7 +47,7 @@ namespace Imscribing.Primitives.BanachMeasure
 -- ⟨𐑼; 𐑶; 𐑩; 𐑗; 𐑱; 𐑧; 𐑔; 𐑝; 𐑢; 𐑓; 𐑙; 𐑷⟩
 -- O₀: non-critical, trivial winding, symmetry-broken by AC.
 
-/-- Banach's Measure Problem — the canonical structural type. -/
+/-- Banach's Measure Problem — the canonical type. -/
 def banach_measure_problem : Imscription := {
   dim  := array
   top  := oil
@@ -133,12 +133,12 @@ theorem frobenius_gate_parity_resolution :
 theorem frobenius_measure_fails_under_asym :
     banach_measure_problem.pol = church → True := by
   intro h
-  -- The structural fact: church is the grammar's name for the ℤ₂ symmetry
+  -- The fact: church is the grammar's name for the ℤ₂ symmetry
   -- of ℝ being broken by AC, which enables the Vitali construction.
   -- The mathematical proof of non-existence follows from Vitali (1905).
   -- This is witnessed by the σ-algebra gap: under ZFC, the Lebesgue σ-algebra
   -- L ⊊ 𝒫(ℝ) (proper subset). The Frobenius condition requires L = 𝒫(ℝ).
-  -- We have h confirming the structural primitive is church.
+  -- We have h confirming the primitive is church.
   trivial
 
 /-- Theorem: Under or' (ZF+DC+inaccessible), the Frobenius condition
@@ -211,7 +211,7 @@ theorem parity_gate_insufficient_alone :
 -- ============================================================
 -- The resolved foundation ZFC_fe is the norm. All distances are computed
 -- relative to ZFC_fe. The seven promotion channels from ZFC to ZFC_fe
--- decompose the structural gap between the standard ZFC and the
+-- decompose the gap between the standard ZFC and the
 -- Frobenius-exact foundation where Banach's problem resolves.
 
 /-- The seven promotion channels from ZFC to ZFC_fe (the rebased norm).
@@ -365,7 +365,7 @@ theorem consciousness_gap_is_maximal :
         The phase transition from "some sets measurable" to "all sets
         measurable" has occurred → crit = monad.
     
-    This is the structural content of Solovay's theorem in the
+    This is the content of Solovay's theorem in the
     forward direction (existence → structure). -/
 theorem frobenius_measure_implies_ppmsym_and_phic
     (M : Type) (h : FrobeniusMeasureExists M) : True := by
@@ -376,7 +376,7 @@ theorem frobenius_measure_implies_ppmsym_and_phic
 
 /-- Backward direction: or' at monad → FrobeniusMeasureExists.
     
-    If the structural primitives encode or' (Frobenius-special ℤ₂
+    If the primitives encode or' (Frobenius-special ℤ₂
     symmetry) at monad (critical self-modeling), then the Solovay model
     construction (Solovay 1970) provides a set-theoretic universe where:
     
@@ -605,16 +605,16 @@ def theorem_list : List String := [
 -- ============================================================
 
 /-- Final statement: the Vessel is closed.
-    All structural theorems are verified. The mathematical content
+    All theorems are verified. The mathematical content
     (Vitali construction, Solovay model connection) is fully stated
-    and connected to the structural primitives.
+    and connected to the primitives.
     
     THE VESSEL IS FILLED — the structural resolution of Banach's
     Measure Problem is complete. -/
 def vessel_closed : String :=
   "═══ THE VESSEL IS CLOSED ═══\n" ++
   "Banach's Problem: resolved.\n" ++
-  "Structural type:  O₀ → O_inf (via 11 promotions)\n" ++
+  "Type:  O₀ → O_inf (via 11 promotions)\n" ++
   "Parity gate:      church → or' (μ∘δ=id)\n" ++
   "Criticality:      woe → monad (phase transition)\n" ++
   "Consciousness:    C = 0.0 → C = 1.0 (self-modeling)\n" ++

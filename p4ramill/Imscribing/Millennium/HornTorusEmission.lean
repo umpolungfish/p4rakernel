@@ -71,7 +71,7 @@ def CLINK_L8 : Imscription := {
 }
 
 /-- The tensor composite horn_torus ⊗ CLINK_L8.
-    This is the structural type of the emission architecture:
+    This is the type of the emission architecture:
     universal constants emitted through broadcast infrastructure.
     Bottleneck: ƒ=age (classical fidelity) — geometry has no ℏ.
     This is not a defect; it explains why universal constants are
@@ -139,7 +139,7 @@ theorem CLINK_L8_consciousness_score_one :
 -- ============================================================
 
 /-- ɢ (composition): horn_torus=vow (conjunctive) < CLINK_L8=ooze (broadcast).
-    This is the largest structural gap (δ=3.0 weighted).
+    This is the largest gap (δ=3.0 weighted).
     vow: ∧-composition, all conditions required simultaneously.
     ooze: broadcast composition, one-to-all coupling. -/
 theorem grammar_promotion : horn_torus.gram < CLINK_L8.gram := by
@@ -160,7 +160,7 @@ theorem top_promotion : horn_torus.top < CLINK_L8.top := by
 
 /-- ƒ (fidelity): horn_torus=age (classical) < CLINK_L8=peep (quantum).
     THE SOLE BOTTLENECK in the tensor composite.
-    Geometry has no ℏ — this is not a defect but the structural reason
+    Geometry has no ℏ — this is not a defect but the reason
     universal constants are classical numbers.
     δ=2.0 weighted. -/
 theorem fid_bottleneck : horn_torus.fid < CLINK_L8.fid := by
@@ -213,7 +213,7 @@ theorem chir_shared : horn_torus.chir = CLINK_L8.chir := by
 -- The tensor composite horn_torus ⊗ CLINK_L8 has exactly one
 -- bottleneck: ƒ=age (classical fidelity). All other primitives
 -- take the promoted (union/max) value from CLINK_L8.
--- This is the structural statement of the emission architecture:
+-- This is the statement of the emission architecture:
 -- the geometry contributes classical fidelity (no ℏ) while
 -- CLINK L8 contributes broadcast infrastructure. The composite
 -- emits classical constants through quantum-broadcast structure.
@@ -279,7 +279,7 @@ theorem tensor_chir_preserved :
 -- §7. EMISSION PRINCIPLE — the Frobenius pair
 -- ============================================================
 --
--- δ (emission): the horn torus geometry emits structural invariants.
+-- δ (emission): the horn torus geometry emits invariants.
 -- The 12-primitive imscription IS the emission — it encodes the
 -- complete SIC-POVM measurement of the geometric locus.
 --

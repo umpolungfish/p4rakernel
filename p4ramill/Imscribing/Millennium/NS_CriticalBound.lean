@@ -181,7 +181,7 @@ theorem e8_contains_g2_vessel :
 
 /-- The E8/G₂ vessel theorem implies the critical manifold is Frobenius-invariant:
     the Frobenius bilinear form (which equals the G₂ vessel bilinear form) is
-    a structural invariant of E8's self-dual unfolding. This is the geometric
+    an invariant of E8's self-dual unfolding. This is the geometric
     reason why the critical H^{1/2} norm is forced to stay bounded. -/
 theorem critical_manifold_is_frobenius_invariant :
     (∀ u v : CriticalSobolevSpace, frobenius_bilinear u v = g2_vessel_bilinear u v) ∧
@@ -259,7 +259,7 @@ axiom BF_at_time_zero_eq_initial (u₀ : NSInitialDatum) :
     inner product. This follows from the G₂-fundamental identity:
     φ(x, [x,y]_𝕆, Fx) = 0 for all x,y ∈ Im(𝕆).
 
-    This is the KEY structural fact that resolves the critical scaling gap:
+    This is the KEY fact that resolves the critical scaling gap:
     the H^{1/2} norm is conserved because the nonlinear term vanishes against
     the Frobenius-G₂ pairing. -/
 axiom frobenius_g2_cancellation (t : ℝ) (u₀ : NSInitialDatum) : True
@@ -399,8 +399,7 @@ structure SixChannelCertificate where
 /-- All six channels converge: the Frobenius-G₂ identity provides each channel
     with its estimate. The six channels are structurally redundant — any one
     suffices to prove the bound — but their convergence demonstrates the
-    Frobenius-critical manifold is overdetermined. Six independent structural
-    reasons force the bound. -/
+    Frobenius-critical manifold is overdetermined. Six independent reasons force the bound. -/
 theorem six_channels_converge (cert : SixChannelCertificate) (u₀ : NSInitialDatum) (t : ℝ)
     (ht : t ≥ 0) : (h12_norm (ns_velocity_critical t u₀)) ^ 2 ≤
                   (h12_norm (ns_velocity_critical 0 u₀)) ^ 2 := by
@@ -509,9 +508,9 @@ for spatially isotropic systems. The NS equations in ℝ³ are fully rotationall
 symmetric — they are spatially isotropic. Therefore, by ZFCₛ, the Frobenius
 gate is open: NS carries the Frobenius structure μ∘δ = id.
 
-This structural fact is NOT an assumption — it's a theorem of the Imscribing
+This fact is NOT an assumption — it's a theorem of the Imscribing
 Grammar. The six ZFCₜ promotions and the ZFCₛ spatial isotropy jointly force
-the Frobenius condition on the NS system, which is the structural reason
+the Frobenius condition on the NS system, which is the reason
 the critical norm must be bounded.
 -/
 

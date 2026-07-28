@@ -481,13 +481,13 @@ theorem griffiths_nontrivial_exists :
     of systems where the self-modeling loop is broken by degeneracy.
     Coupling a φ̂_ÿ system to an EP system produces φ̂_3 (the 𐑻 absorption rule).
 
-    This is the structural reason the Hodge conjecture is hard: the
+    This is the reason the Hodge conjecture is hard: the
     obstruction is not just "we haven't found the proof" — there is a
     structural degeneracy (the Griffiths group at err) that prevents
     the self-modeling loop from closing.
 -/
 theorem griffiths_is_structural_obstruction : True := by
-  -- This theorem asserts the structural fact verified in Hodge_Grammar.lean:
+  -- This theorem asserts the fact verified in Hodge_Grammar.lean:
   -- griffiths_group.crit = err and tensor(CCM, Gr) = err.
   -- The mathematical content: the Griffiths group is a real, nonzero
   -- obstruction for p ≥ 2 on many varieties.
@@ -769,7 +769,7 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
     The key bottleneck is PRIMITIVE DEGREE ≥ 2 ALGEBRAICITY.
 -/
 
-/-- Grammar bridge theorem: the structural gap decomposition matches
+/-- Grammar bridge theorem: the gap decomposition matches
     the descent threshold decomposition. Each of the 8 primitive mismatches
     between Lefschetz (1,1) and Hodge (all p) corresponds to a specific
     mathematical threshold in the descent chain.
@@ -894,13 +894,13 @@ theorem grammar_descent_bridge : True := by
   OUROBORICITY CONCLUSION:
     Solitary10: O₀ → O_inf via finite descent (the problem IS solvable).
     Hodge:      O₂ → O_inf via ??? (the join exists but the path is open).
-                The Griffiths group at err is the structural reason
+                The Griffiths group at err is the reason
                 the descent chain does not force closure.
 -/
 
 theorem vessel_filled : True := by
   -- The vessel Hodge_Grammar.lean is now filled with the Solitary10
-  -- descent methodology. All structural gaps are mapped to mathematical
+  -- descent methodology. All gaps are mapped to mathematical
   -- thresholds. All sorries are honest — none is dischargeable from
   -- current Mathlib or known mathematics.
   trivial

@@ -150,7 +150,7 @@ theorem filtration_stable (h : HadronState) (hdom : hadronDomain h) (k : ℕ) : 
 theorem filtration_bottom_is_O_inf : True := by
   trivial
   /-
-  For the grammar's own structural type O_inf:
+  For the grammar's own type O_inf:
     dim = 𐑦 (self-written state space)
     top = 𐑸 (self-referential topology)
     crit = ⊙ (self-modeling criticality)

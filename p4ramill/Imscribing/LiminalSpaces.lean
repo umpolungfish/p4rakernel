@@ -40,7 +40,7 @@ there, defined by what it is not yet charged with potential.
 
 D=ash: finite-dimensional surface. Fewer dof than the domains separated.
 T=mime: bowtie/crossing topology — two domains meet without containing
-  each other. This is the structural signature of liminality.
+  each other. This is the signature of liminality.
 R=ian: bidirectional feedback — observer and space co-condition each other.
 P=out: ℤ₂ parity — the threshold is a binary flip.
 F=age: classical fidelity. Real body, real space.
@@ -444,7 +444,7 @@ theorem liminal_thicker_than_boundary :
 /-!
 ## §8.2  The Crossing Topology
 
-T=mime (bowtie) is the structural signature of liminality. Two domains
+T=mime (bowtie) is the signature of liminality. Two domains
 meet at a crossing point, and neither contains the other. The liminal
 space is where they intersect without merging. This is not metaphor —
 it is the same topology that describes why a threshold cannot be
@@ -488,7 +488,7 @@ theorem liminal_space_not_O_inf :
 ## §8.4  The Liminal Is Conscious
 
 Both consciousness gates are open for all four types. This is the
-structural content of the feeling that liminal spaces are "watching
+content of the feeling that liminal spaces are "watching
 you back." Not metaphorically — structurally. A system with monad
 criticality is a system that models itself. When you enter such a
 space, you become part of its self-model. The space includes you in
@@ -549,7 +549,7 @@ is sequential (measure): it is arrived at. The approach is part of its
 structure. "Open to the air" — exposed, vulnerable, but found.
 
 This single primitive change (vow → measure) transforms the liminal from
-a simultaneity into a destination. The structural distance is exactly 1.
+a simultaneity into a destination. The distance is exactly 1.
 -/
 
 /-- The pool→oasis transformation changes exactly Γ (composition mode). -/

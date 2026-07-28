@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Artin's Theorem on Primitive Roots. -/
+/-- The imscription of the Artin's Theorem on Primitive Roots. -/
 def ArtinSTheoremOnPrimitiveRootsImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def ArtinSTheoremOnPrimitiveRootsImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem ArtinSTheoremOnPrimitiveRoots_tier : TierFunctor.obj ArtinSTheoremOnPrimitiveRootsImscription = .O₀ := by
   native_decide
 
