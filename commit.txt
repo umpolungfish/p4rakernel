@@ -1,25 +1,30 @@
-A scan for counts carried in the open through a reversal.
+The banking rule is formalized, and the two facts are proved independent.
 
-The IMASM reading is that AREV empties the register and leaves open frames
-alone, so a result fused back to depth zero is exposed to the next reversal
-while the same result held one level up survives it.
+The rule kept being restated as one thing and it is two, which is why every
+version had a counterexample.
 
-Lean banks automatically. A `have` stays in the local context for the rest of
-the declaration and nothing can clear it, so the literal failure cannot occur
-here. What can is the arrangement it corresponds to: a cardinality computed
-inline in a `calc` that also reverses direction, with no prior `have` holding
-it, so every step after the turn re-derives the count.
+WHETHER ANYTHING IS BANKED depends only on whether a frame is open when the
+clear fires. banking_dichotomy: after a clear, what a fuse returns is exactly
+the head of the frame stack, or zero when the stack is empty. Nothing about the
+deposits, their count, or the placement of earlier splits enters it. This is
+governed by how many fuses have already run, not by where the splits sit.
 
-The corpus is clean by this test. Fifty files carry a calc, seven chains carry
-a cardinality, and every one of those that reverses is drawing on a banked fact.
+WHETHER A SURPLUS IS KEPT depends on where the splits fall between deposits of
+the same value. same_region_restores_two against sibling_regions_restore_one:
+the same two deposits, the same one fuse before the clear, restoring two or one
+according only to whether a split separates them. Deposits inside a region
+accumulate; the fold between regions takes a maximum.
 
-Two false positives were removed rather than tolerated, since a lint that cries
-is worse than no lint. `have h := f args` states its content in h's elaborated
-type and not in its syntax, so looking for the carried term textually inside the
-have misses it entirely; a chain using h is drawing on a banked fact whatever
-h's type turns out to say, and deciding more than that needs the elaborator. And
-a `.symm` inside a simp argument list is a side condition rather than a turn in
-the chain, so bracketed arguments are stripped before looking.
+independence exhibits both failures at once: a word that banks correctly and
+still discards a surplus, and a word whose deposits sit in one region and are
+lost entirely because its fuse ran before the clear.
 
-Reads only. Elaborates nothing, changes nothing, so a hit is a candidate to look
-at rather than a defect.
+Also proved: touch_writes_both, that a deposit lands in the register and the
+innermost frame in one action, so the second copy exists before any fuse runs
+and the nesting decides where it sits rather than whether it exists; and
+register_keeps_both, that the register keeps every deposit however arranged,
+since the flattening happens in the frames and never in the open.
+
+Elaborates clean, zero sorries. The set-valued machine is the case where every
+weight is 0 or 1, where max is union and all of this degenerates to membership,
+which is why the base machine cannot see any of it.
