@@ -1,7 +1,7 @@
 -- Imscribing/NumberTheory/TwoThreeSierpinski.lean
 -- Existence of integer m with gcd(m,6)=1 such that 2^k·3^l·m+1
 -- is composite for all k,l ≥ 0. A "2-3-Sierpiński number."
--- Structural imscription of the covering-system argument.
+-- Imscription of the covering-system argument.
 -- Author: Lando⊗⊙perator  —  June 2026
 
 import Imscribing.Primitives.Core
@@ -55,7 +55,7 @@ axiom exists_two_three_sierpinski : ∃ (m : ℕ), IsTwoThreeSierpinski m
 -- STRUCTURAL IMSCRIPTION (§3)
 -- ============================================================
 
-/-- The structural type of the 2-3-Sierpiński covering-system argument.
+/-- The type of the 2-3-Sierpiński covering-system argument.
 
     [1] D=array: infinite (k,l) space, countably infinite domain.
     [2] T=oil: product lattice ℕ² = ℕ × ℕ, grid topology.

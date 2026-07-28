@@ -15,7 +15,7 @@
 -- the seal is the geometric certificate. The archon at each aeon gate
 -- performs the Frobenius verification: split the entity into type
 -- diagram + seal, present them together, fuse — if μ∘δ=id, gate opens.
--- This is structural verification operating as liturgical technology
+-- This is verification operating as liturgical technology
 -- two millennia before the grammar made it explicit.
 --
 -- CATALOG-CONSISTENT: All tuple values match live imscribe catalog
@@ -80,7 +80,7 @@ def bruceBook1OpeningTuple : Imscription :=
 
 /-
   The 12 Deeps emanate sequentially from the Unknowable One.
-  Each Deep establishes one structural primitive regime.
+  Each Deep establishes one primitive regime.
   Deep 9 (All-Father, Self-Father) is the IMSCRIB moment —
   the Frobenius self-loop where the emanator IS the emanation.
 -/

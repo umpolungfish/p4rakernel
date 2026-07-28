@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Hadamard's Maximal Determinant Theorem. -/
+/-- The imscription of the Hadamard's Maximal Determinant Theorem. -/
 def HadamardSMaximalDeterminantTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def HadamardSMaximalDeterminantTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem HadamardSMaximalDeterminantTheorem_tier : TierFunctor.obj HadamardSMaximalDeterminantTheoremImscription = .O_inf := by
   native_decide
 

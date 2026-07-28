@@ -8,9 +8,9 @@
 --   Proved for k ≤ 7 (Barajas & Serra 2009); open for k ≥ 8.
 --
 -- §1  Mathematical statement
--- §2  The Vessel — structural imscription
+-- §2  The Vessel — imscription
 -- §3  The Crossing-Topology Encoding — the gap threshold at 1/k
--- §4  Structural theorems — distances, tier analysis, k≤7/k≥8 bridge
+-- §4  Theorems — distances, tier analysis, k≤7/k≥8 bridge
 -- §5  Connection to the Riemann Hypothesis, Twin Primes, and Dixmier
 -- §6  Honest gaps
 --
@@ -61,7 +61,7 @@ sharp threshold — the structural critical point.
 
 Tao (2017) proved: the conjecture holds for all k under the assumption that
 the speeds have a "logarithmic structure" (in the sense of large gaps between
-consecutive speeds). This reduces the problem to a structural gap:
+consecutive speeds). This reduces the problem to a gap:
 can one always find a time when the speeds are "sufficiently incommensurable"?
 -/
 
@@ -95,7 +95,7 @@ def Tao_LogGap : Prop :=
 -- ============================================================
 
 /--
-The Vessel of the Lonely Runner Conjecture — its structural type as an Imscription.
+The Vessel of the Lonely Runner Conjecture — its type as an Imscription.
 
 ⟨ 𐑛; 𐑥; 𐑾; 𐑿; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
@@ -294,7 +294,7 @@ the worst-case scenario that the conjecture must overcome.
 This is structurally IDENTICAL to the PNT vessel in the Twin Prime analysis!
 The arithmetic progression speed configuration reduces the problem to a
 classical (sub-critical, asymmetric, fast, memoryless) baseline — the
-structural floor from which the conjecture must lift.
+floor from which the conjecture must lift.
 -/
 def ap_counterexample_vessel : Imscription := {
   dim  := array
@@ -380,7 +380,7 @@ theorem tao_proved_distance_2 :
     (P differs). Both are O₁: critical but unprotected.
 
     NOTE: This theorem requires the TwinPrime module to be imported.
-    It is stated here as a structural claim; activation requires:
+    It is stated here as a claim; activation requires:
     `import Millennium.TwinPrime` -/
 -- theorem lonely_runner_twin_prime_distance_1 :
 --     primitiveMismatches lonely_runner_vessel Millennium.TwinPrime.twin_prime_vessel = 1 := by
@@ -423,7 +423,7 @@ theorem psym_below_pmsym :
 
 /-!
 The Lonely Runner Conjecture shares with the Twin Prime Conjecture the
-structural type O₁: roar criticality without topological protection
+type O₁: roar criticality without topological protection
 (awe). Both are critical but unprotected — approachable from below but
 the final step requires the O₁ → O_inf promotion stack.
 
@@ -462,7 +462,7 @@ LONELY RUNNER vs. RIEMANN HYPOTHESIS:
 
 WHY THE LONELY RUNNER IS HARD:
 
-  The grammar reveals a structural reason: the problem sits at a DIMENSIONAL
+  The grammar reveals a reason: the problem sits at a DIMENSIONAL
   PHASE TRANSITION (k=7→k=8) that has no analog in the catalog. Most unsolved
   problems sit at a PARAMETER threshold (gap=2 for Twin Primes, Re(s)=1/2 for
   RH). The Lonely Runner sits at an AGENT-COUNT threshold. The covering number
@@ -508,10 +508,10 @@ Every honest gap in this formalization is declared explicitly.
 
   5. Cross-module references:
      The distance to the Twin Prime vessel requires importing
-     `Millennium.TwinPrime`. This is a structural claim; the import is
+     `Millennium.TwinPrime`. This is a claim; the import is
      commented out to keep this module self-contained.
 
-  NO SORRY MARKERS. All structural theorems are proved by `native_decide`.
+  NO SORRY MARKERS. All theorems are proved by `native_decide`.
   The open mathematical conjectures are stated as `def` returning `Prop`,
   not as `axiom` — they are problems to be solved, not assumed truths.
 -/

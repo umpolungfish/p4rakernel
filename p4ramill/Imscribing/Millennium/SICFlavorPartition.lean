@@ -3,7 +3,7 @@
 -- of all flavor-sector constants: Weinberg angle, PMNS mixing angles,
 -- Cabibbo angle, and quark-lepton complementarity.
 --
--- Key structural identity: the d=12 SIC-POVM has d+1=13 outcomes.
+-- Key identity: the d=12 SIC-POVM has d+1=13 outcomes.
 -- These partition naturally as:
 --   {3 electroweak, 4 solar nu, 8 atmospheric nu, 10 strong/EM/Higgs}
 -- Note: 3+4+8 = 15 > 13 because some outcomes participate in

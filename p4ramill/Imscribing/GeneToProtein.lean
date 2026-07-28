@@ -12,7 +12,7 @@
 --   Distances: computed dynamically from actual tuples via weighted Euclidean metric.
 --
 -- Central result: protein folding is the grammatical self-realization of the
--- 12-primitive structural type encoded in the gene. The pathway distance sum is
+-- 12-primitive type encoded in the gene. The pathway distance sum is
 -- ~21.8, with DNA↔Quaternary=3.61. Secondary structure (local H-bond patterns)
 -- is the closest stage to DNA (3.46) — biologically accurate: secondary structure
 -- is most directly sequence-encoded.
@@ -110,7 +110,7 @@ theorem total_path_distance_approx : True := by trivial
     
     Secondary structure (3.46) is structurally CLOSER to DNA than quaternary
     (3.61), reflecting the biological reality that local H-bond patterns are
-    the most directly sequence-encoded structural feature.
+    the most directly sequence-encoded feature.
     
     The 6 differing primitives between DNA and quaternary:
     Ð: tri→odot (self-written state space of folded protein)
@@ -163,7 +163,7 @@ def primitive_trace (p : String) : List String :=
 /-- The genetic code's exact boxes (position-3-forgotten, μ∘δ=id) are the
     codon-level Frobenius condition. The gene→protein pathway extends this
     to the whole system: reading the DNA sequence through the ribosome
-    produces the folded protein's structural type.
+    produces the folded protein's type.
     
     δ (forgetting): DNA double helix → linear sequence of codons
       → sequence of AAs (8 ground + 12 promoted)
@@ -215,7 +215,7 @@ def pipeline_verified : Bool :=
   -- Verified by Python execution; see test_genetics.py --all
   true
 
-/-- The pipeline's structural type: a composite of all 7 stages.
+/-- The pipeline's type: a composite of all 7 stages.
     This is the tensor product of all pathway morphisms.
     
     ⟨𐑦; 𐑸; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑝; 𐑢; 𐑖; 𐑳; 𐑭⟩

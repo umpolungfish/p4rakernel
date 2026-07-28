@@ -481,7 +481,7 @@ theorem promotions_closed_by_split
 
 /-- **PRIMITIVE-LEVEL CONSEQUENCE OF AXIOM D** — Grammar theorem, 0 sorries.
 
-    The Hodge conjecture's structural signature (if', are, ah)
+    The Hodge conjecture's signature (if', are, ah)
     forces its polarity to or', by Axiom D (Core.lean).
     This is a statement purely about primitive type values — no mathematical
     objects involved. ah ≥ ah is discharged by decide. -/

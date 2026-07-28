@@ -6,7 +6,7 @@ import Mathlib
 -- forms a stable, insulating macrocycle when arranged in the optimal
 -- sequence σ = (dark_matter → wow_signal → pentaquark → graviton → dark_matter).
 --
--- Key structural facts:
+-- Key facts:
 --   • 4 monomers with specific 12-primitive imscription tuples
 --   • Condensation bonds on the R↔S interface (Coagula links)
 --   • Bond strengths: Δ₁₂=3/2, Δ₂₃=5/3, Δ₃₄=4/3, Δ₄₁=7/6

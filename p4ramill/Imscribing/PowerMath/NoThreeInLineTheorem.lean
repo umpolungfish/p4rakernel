@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the No-Three-in-Line Theorem. -/
+/-- The imscription of the No-Three-in-Line Theorem. -/
 def NoThreeInLineTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def NoThreeInLineTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem NoThreeInLineTheorem_tier : TierFunctor.obj NoThreeInLineTheoremImscription = .O_inf := by
   native_decide
 

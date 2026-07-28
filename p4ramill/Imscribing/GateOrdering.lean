@@ -2,7 +2,7 @@
 -- THE GATE ORDERING 4 < 9 < 12
 -- ============================================================
 -- The Alchemical Theory of Mathematics rests on a single ordered claim:
--- the twelve structural invariants must be fixed in a definite order, forced
+-- the twelve invariants must be fixed in a definite order, forced
 -- by three categorical gates,
 --
 --   G1  stage 4   Conjunction   Parity        special Frobenius  μ∘δ = id

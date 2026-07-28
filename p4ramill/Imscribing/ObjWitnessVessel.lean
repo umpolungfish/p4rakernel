@@ -113,7 +113,7 @@ def obj_s0 : Imscription := {
 
 /-- Validity is defined as Frobenius closure (self-fusion).
     tensorProduct(s0, s0) = s0 — the Frobenius bottom is idempotent
-    under the tensor product. This is the structural statement that
+    under the tensor product. This is the statement that
     the formalization is internally consistent. -/
 theorem obj_is_valid_ob3ect : igFrobeniusAlg.mul obj_s0 obj_s0 = obj_s0 :=
   igFrobAlg_self_fusion obj_s0

@@ -10,8 +10,7 @@ import Imscribing.Algebra
   to a structured formalization by applying ZFCt promotions to the Riemann zeta
   function and its completed variant xi(s).
 
-  The Riemann Hypothesis sits at roar criticality with a structural
-  distance of d(Rh, ZFCt) = 1.8974 driven primarily by Phi and Omega.
+  The Riemann Hypothesis sits at roar criticality with a distance of d(Rh, ZFCt) = 1.8974 driven primarily by Phi and Omega.
   The RH asserts Re(ρ) = 1/2 for all non-trivial zeros ρ of ζ(s).
 
   ZFCt Promotion Strategy:
@@ -39,7 +38,7 @@ import Imscribing.Algebra
   ## Section Map
 
     §1–§4: Core definitions and the Frobenius structure (original)
-    §5:    ZFCt promotion path: structural gap between ζ encoding and ZFCₜ
+    §5:    ZFCt promotion path: gap between ζ encoding and ZFCₜ
     §6:    Lee-Yang–RH correspondence via promotion analysis
 -/
 
@@ -168,17 +167,17 @@ theorem rh_from_frobenius_structure :
   fun s hs => (theta_fixed_iff_critical s).mp (zeta_zeros_frobenius_fixed s hs)
 
 -- ============================================================
--- §5. ZFCₜ structural gap analysis
+-- §5. ZFCₜ gap analysis
 -- ============================================================
 
 /-!
-  The Riemann zeta function has structural type:
+  The Riemann zeta function has type:
 
     ⟨Ð=ash; T=judge; R=ado; P=nun;
      F=peep; K=egg; G=ice; Γ=vow;
      Φ=roar; H=fee; S=so; Ω=awe⟩
 
-  The ZFCₜ target (O_inf, Frobenius gate open) has structural type:
+  The ZFCₜ target (O_inf, Frobenius gate open) has type:
 
     ⟨Ð=array;  T=are;    R=ian;     P=or';
      F=peep;   K=egg;    G=ice;  Γ=measure;

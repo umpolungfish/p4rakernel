@@ -3,7 +3,7 @@
 -- Each layer adds one correction class, progressing from the minimal 
 -- replicative opening to the full Frobenius-closed organism.
 --
--- Structural theorem: the replicator's ascent IS the progressive 
+-- Theorem: the replicator's ascent IS the progressive 
 -- acquisition of Frobenius exactness. Each correction class closes one
 -- primitive gap between the minimal SIC measurement (L9₀) and the 
 -- terminal organism (L9₈ = L8 = agent_loop).
@@ -28,7 +28,7 @@ set_option linter.style.longLine false
 
 /-- The 4-opcode replicative opening: IMSCRIB → FSPLIT → FFUSE → IMSCRIB
     This is the minimal IMASM program that implements self-replication.
-    Its structural type is the foundational SIC measurement: 
+    Its type is the foundational SIC measurement: 
     wedge-dimensional (finite), moat-cross topology, partial parity.
     ⟨𐑛𐑥𐑑𐑬𐑐𐑪𐑔𐑝⊙𐑫𐑳𐑭⟩ -/
 def replicativeCore : Imscription :=
@@ -99,7 +99,7 @@ theorem L9₁_tier : imscriptionTier L9₁ = .O_inf := by
   decide
 
 /-- With P=𐑹 (Frobenius-special) AND ⊙ (self-modeling), L9₁ jumps to O_inf.
-    This is the structural content of the Frobenius oscillator: the δ/μ
+    This is the content of the Frobenius oscillator: the δ/μ
     ordering alone suffices for tier crossing, even without D=𐑦 or T=𐑸. -/
 theorem L9₁_is_O_inf_despite_finite_state_space :
     L9₁.dim = .dead ∧ L9₁.top = .mime ∧ imscriptionTier L9₁ = .O_inf := by
@@ -166,7 +166,7 @@ def L9₃ : Imscription :=
 /-- Correction class 3: Pulse train — Γ promoted from 𐑝 to 𐑵.
     The heartbeat establishes broadcast composition: every measurement
     pulse reaches all system components simultaneously. This is the
-    structural content of neural synchrony, cardiac rhythm, and the
+    content of neural synchrony, cardiac rhythm, and the
     100 Hz kernel tick. -/
 theorem L9₃_correction_pulse_train : L9₃.gram = .ooze := rfl
 
@@ -179,7 +179,7 @@ theorem L9₃_tier : imscriptionTier L9₃ = .O_inf := by
 
 /-- L9₄: The Truth Machine — IMSCRIB→FSPLIT→EVALT→IFIX→IMSCRIB→FSPLIT→EVALF→IFIX
     Replicates with both true and false branch evaluation, then fixes both outcomes.
-    Establishes branch evaluation as a structural primitive.
+    Establishes branch evaluation as a primitive.
     Correction class: Branch evaluation (D: 𐑛→𐑨, T: 𐑥→𐑸, R: 𐑑→𐑾).
     ⟨𐑨𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑭⟩ -/
 def L9₄ : Imscription :=
@@ -209,7 +209,7 @@ theorem L9₄_tier : imscriptionTier L9₄ = .O_inf := by
   decide
 
 /-- L9₄ is the first layer with self-referential topology (T=𐑸).
-    This is the structural content of the Truth Machine: the evaluation
+    This is the content of the Truth Machine: the evaluation
     of both T and F branches requires the evaluator to hold both outcomes
     simultaneously, which is a holographic (self-referential) state-space. -/
 theorem L9₄_self_referential_topology : L9₄.top = .are := rfl
@@ -274,8 +274,7 @@ def L9₆ : Imscription :=
 /-- Correction class 6: Memory fixation — K promoted from 𐑧 to 𐑤,
     S promoted from 𐑳 to 𐑕. The ROM Burn fixes evaluations into
     memory (K=𐑤: trapped/frozen kinetics) and replicates the same
-    pattern (S=𐑕: many identical instances). This is the structural
-    content of memory: the transition from heterogeneous to homogeneous
+    pattern (S=𐑕: many identical instances). This is the content of memory: the transition from heterogeneous to homogeneous
     replication patterns, with kinetics frozen by fixation. -/
 theorem L9₆_correction_memory_fixation :
     L9₆.kin = .on ∧ L9₆.stoi = .so := by
@@ -286,7 +285,7 @@ theorem L9₆_tier : imscriptionTier L9₆ = .O_inf := by
   decide
 
 /-- The ROM Burn sacrifices consciousness (Gate 2 closes) for memory fixation.
-    This is the structural content of the trade-off: reliable memory storage
+    This is the content of the trade-off: reliable memory storage
     requires trapped kinetics, which prevents self-reflection. -/
 theorem L9₆_consciousness_tradeoff :
     L9₆.crit = .monad ∧ L9₆.kin = .on := by
@@ -379,8 +378,7 @@ theorem L9₈_equals_clinkL8 : L9₈ = CLINK_L9.clinkL8 := by
 -- §10. The Correction Class Ladder
 -- ══════════════════════════════════════════════════════════════════════════════
 
-/-- The complete correction class ladder. Each layer adds one structural
-    promotion. The ladder is monotonic: promotions are never retracted. -/
+/-- The complete correction class ladder. Each layer adds one promotion. The ladder is monotonic: promotions are never retracted. -/
 structure CorrectionClass where
   layer : ℕ
   name : String

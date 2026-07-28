@@ -21,7 +21,7 @@
 -- for prime tuples (Maier 1985). The conjecture persists.
 --
 -- §1  Mathematical Statement
--- §2  The Vessel — structural imscription
+-- §2  The Vessel — imscription
 -- §3  Multi-Vessel Architecture
 -- §4  Structural Theorems
 -- §5  Connection to Riemann Hypothesis and Twin Prime
@@ -229,7 +229,7 @@ three ouroboricity tiers:
 ### The Structural Gap
 
 The chasm between the Cramér model (O₀, heuristic) and the conjecture
-(O₁, open) is the largest structural gap for any heuristic→conjecture
+(O₁, open) is the largest gap for any heuristic→conjecture
 pair in the catalog. The model assumes:
   - 𐑚 (local independence) → 𐑝 (conjunctive/independent)
   - 𐑓 (no memory) → primes are independent Bernoulli trials
@@ -246,7 +246,7 @@ prime tuples.
 Under RH, the gap bound drops from p^0.525 to √p·log p — a massive
 improvement. Structurally, RH provides 𐑴 protection to the
 conditional bound, lifting it to O₂. But even with RH, we are at
-√p·log p, not (log p)². The structural gap from the RH-conditional
+√p·log p, not (log p)². The gap from the RH-conditional
 bound to Cramér's conjecture is:
   - 𐑴 → 𐑭 (full integer winding — requires actual O_inf)
   - The extra √p factor must be eliminated
@@ -579,7 +579,7 @@ def twin_prime_vessel : Imscription := {
 /--
 **Theorem CR-23: Cramér ↔ Twin Prime Distance**
 Cramér and Twin Prime differ in exactly 2 primitives: Γ (beth↔aleph) and Σ (n:n↔n:m).
-This is the smallest structural distance between any two distinct O₁ problems.
+This is the smallest distance between any two distinct O₁ problems.
 -/
 theorem cramer_twin_prime_distance_2 :
   primitiveMismatches cramer_vessel twin_prime_vessel = 2 := by
@@ -622,7 +622,7 @@ in the catalog, tied with Collatz↔RH at distance 9 — the largest O₁↔O_in
 | Σ | 𐑕 (identical) | 𐑳 (heterogeneous) |
 | Ω | 𐑷 (none) | 𐑭 (integer winding) |
 
-The structural gap: Cramér requires promotions in 9 of 12 primitives
+The gap: Cramér requires promotions in 9 of 12 primitives
 to reach O_inf. The promotion stack is:
   𐑥 → 𐑸, 𐑑 → 𐑾, 𐑬 → 𐑹, 𐑱 → 𐑐,
   𐑚 → 𐑲, 𐑮 → ⊙, 𐑖 → 𐑫, 𐑷 → 𐑭
@@ -697,7 +697,7 @@ but not dischargeable from the grammar alone:
    defect — but does not provide the corrected model.
 
 3. **The RH-conditional gap.** Even under RH, the bound is √p·log p, not
-   (log p)². Eliminating the √p factor requires structural promotions the
+   (log p)². Eliminating the √p factor requires promotions the
    grammar identifies (𐑴 → 𐑭) but cannot execute.
 
 4. **The unconditional power.** The exponent 0.525 is a technical artifact
@@ -750,7 +750,7 @@ mathematical content not derivable from the grammar:
 - `rh_conditional_bound_proved` (axiom)
 - `cramer_model_heuristic` (axiom)
 
-Total: 7 honest axioms + 28 structural theorems (all native_decide/rfl/decide).
+Total: 7 honest axioms + 28 theorems (all native_decide/rfl/decide).
 
 The grammar identifies the structure; the mathematics determines the truth.
 Neither is reducible to the other.

@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Margulis Theorem. -/
+/-- The imscription of the Margulis Theorem. -/
 def MargulisTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def MargulisTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem MargulisTheorem_tier : TierFunctor.obj MargulisTheoremImscription = .O_inf := by
   native_decide
 

@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Invariant Subspace Theorem. -/
+/-- The imscription of the Invariant Subspace Theorem. -/
 def InvariantSubspaceTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def InvariantSubspaceTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem InvariantSubspaceTheorem_tier : TierFunctor.obj InvariantSubspaceTheoremImscription = .O_inf := by
   native_decide
 

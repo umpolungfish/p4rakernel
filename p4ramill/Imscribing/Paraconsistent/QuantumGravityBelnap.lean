@@ -6,7 +6,7 @@
 -- spacetime geometry) with quantum mechanics (probabilistic amplitudes).
 -- It is the central unsolved problem in fundamental physics.
 --
--- Key structural features:
+-- Key features:
 --   1. Non-renormalizability: GR is perturbatively non-renormalizable
 --   2. Planck scale: ℓ_P = √(ℏG/c³) — where quantum gravity becomes essential
 --   3. Approaches: string theory, LQG, asymptotic safety, causal dynamical
@@ -300,7 +300,7 @@ inductive QGApproachTradeoff where
 -- =====================================================================
 
 /--
-Quantum Gravity as a structural type:
+Quantum Gravity as a type:
 
   D = array (𐑼): Infinite-dimensional. The space of all geometries
       (superspace) is infinite-dimensional. Even after quantization,

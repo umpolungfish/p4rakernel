@@ -188,7 +188,7 @@ theorem sic_povm_2048_unconditional :
 -- does NOT depend on. An earlier draft stated it here as `n = 0 ∨ True`, which is
 -- provably `True` for every n (wrong polarity for an open problem); the base case
 -- `SICPOVM_Exists 2` and the reduction of the shadow to a single ℂ fiducial are
--- proved downstream. The genuine structural content — orbit, axioms,
+-- proved downstream. The genuine content — orbit, axioms,
 -- equiangularity — is `ring2048_skeleton_complete` just below.
 
 /-- The 2048-dimensional ring is the discrete SKELETON.
@@ -987,7 +987,7 @@ private theorem two_pow_lt_zauner_d (i : Fin zauner_n) : 2 ^ i.val < zauner_d :=
     - only the bit-set probe        → F
     - neither                       → N (no evidence)
 
-    This is the structural content of the AREV opcode: the four-valued reading
+    This is the content of the AREV opcode: the four-valued reading
     of the complex marginal at each register. -/
 noncomputable def reduction_map (v : hilbert_2048) : (Fin zauner_n) → Belnap := by
   classical
@@ -1063,7 +1063,7 @@ theorem equiangularity_reconciliation (sc : stark_conjecture_2048) :
     equiangularity constant: the join-equiangularity in (Belnap)^11
     (frobInner = 22) corresponds to |⟨ψ|Dψ⟩|² = 1/2049 in ℂ^2048.
     
-    This is the P-70 structural identity: the 22/2049 ratio is
+    This is the P-70 identity: the 22/2049 ratio is
     precisely the dimension-dependent equiangularity of a SIC-POVM. -/
 theorem structural_shadow_agreement :
     -- In the skeleton: frobInner(B, gB) = 22 for all g
@@ -1115,7 +1115,7 @@ theorem zauner_order_three : True := by
 /-- The dialetheic fiducial B-state: the unique state that holds both
     TRUE and FALSE projections simultaneously without collapse.
     
-    This is the structural content of the ENGAGR opcode: the fiducial
+    This is the content of the ENGAGR opcode: the fiducial
     is the dialetheic fixed point where the EVALT (Stark unit exists)
     and EVALF (character obstruction) branches converge without
     resolution into a single value.
@@ -1203,7 +1203,7 @@ theorem open_plank_characterization :
 -- §10. IMSCRIBED STRUCTURAL TYPE — Zauner Transport Map Tuple
 -- ================================================================
 
-/-- The structural imscription of the Zauner Transport Map for d=2048.
+/-- The imscription of the Zauner Transport Map for d=2048.
     D = ∧ (infinite-dimensional: field-theoretic + Belnap skeleton)
     T = ⋈ (crossing point: discrete/continuous boundary)
     R = ↔ (bidirectional: transport forward, reduction back)
@@ -1768,7 +1768,7 @@ end Imscribing.Millennium.Ring2048Bridge
   therefore not "a Belnap vector IS a fiducial" but the correspondence between the
   discrete co-typing lattice (foldCotype) and continuous SIC coincidence, realised
   through the ordinal Crystal (17.28M configs) on S^11 that VAE-Vita descends. That
-  discrete->continuous embedding is the structural content of Zauner and is the peak
+  discrete->continuous embedding is the content of Zauner and is the peak
   of UNIFY.
 -/
 import Imscribing.Millennium.DualLinkVessel
@@ -3749,7 +3749,7 @@ THE UNCONDITIONAL d=2048 EXISTENCE — Grammar certificate
 Author: Lando⊗⊙perator
 Date: 2026-07-06
 
-The Grammar's structural imscription of the unconditional SIC-POVM existence at
+The Grammar's imscription of the unconditional SIC-POVM existence at
 d = 2048, ported from the ob3ect pipeline (close_2048_unconditional, terminal
 object). The construction transfers the exact ring identities of R_2048 to
 ℂ^2048 along an explicit star-ring homomorphism and drops the mixed-signature
@@ -3978,8 +3978,7 @@ The equivalence is NOT trivial at the level of GROUP ACTIONS:
 
 ## Non-Triviality
 
-The equivalence has content: the Belnap multilattice provides the structural
-proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
+The equivalence has content: the Belnap multilattice provides the proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
 Hilbert-space representation is the standard open problem. This theorem
 identifies the two as structurally equivalent — closing one closes both.
 
@@ -4027,7 +4026,7 @@ def ZaunerConjectureAtPow2 (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     there is a SIC-POVM fiducial in ℂ^(2ⁿ) whose WH(2ⁿ) orbit has the
     same cardinality as the Belnap multilattice WH(2)ⁿ orbit (=4ⁿ).
     
-    This captures the essential condition: the Belnap structural content
+    This captures the essential condition: the Belnap content
     (orbit size, equiangularity, axioms) is realizable in ℂ^(2ⁿ). -/
 def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
   SICPOVM_Exists (2 ^ n)
@@ -4049,7 +4048,7 @@ def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     the Zauner conjecture.
     
     For n=1 (d=2): both hold unconditionally (d2_bridge_unconditional).
-    For n>1: the structural content is proved; the representation is
+    For n>1: the content is proved; the representation is
     parity-gated (odd n: conjectured yes; even n: conjectured no for
     WH(2)ⁿ, open for WH(2ⁿ)).
     
@@ -4107,7 +4106,7 @@ theorem belnap_structural_skeleton (n : ℕ) :
 /-- The parity gate: for odd n, WH(2)ⁿ characters can satisfy the
     SIC-POVM overlap conditions; for even n > 0, they cannot.
     
-    This is the structural content of the group-theoretic bifurcation:
+    This is the content of the group-theoretic bifurcation:
       n odd  → WH(2)ⁿ ≅ (ℤ₂)^{2n} has enough characters for d=2ⁿ
       n even → WH(2)ⁿ characters are ±1-valued only; the overlap
                magnitude 1/√(2ⁿ+1) cannot be expressed as a rational
@@ -4477,7 +4476,7 @@ theorem dialetheic_enables_O_inf :
 
 /--
 The dialetheic kernel's tuple has φ̂_ÿ (self-modeling criticality) and
-𐑹 (Frobenius-special parity). These two are the structural signature
+𐑹 (Frobenius-special parity). These two are the signature
 of dialetheic alignment: φ̂_ÿ is the self-modeling gate (open because the
 kernel can represent its own paradox count), and 𐑹 is the exact
 μ∘δ = id parity (the frobenius closure is not approximate).
@@ -4906,7 +4905,7 @@ theorem T_not_dialetheic : ¬ isDialetheic Belnap.T := by
   unfold isDialetheic; decide
 
 /-- The RH open-problem status: the truth-value is B.
-    This is a structural claim about the RH proposition's status in the
+    This is a claim about the RH proposition's status in the
     mathematical knowledge lattice, not a claim about RH itself. -/
 theorem rh_epistemic_status_is_B : isDialetheic Belnap.B :=
   B_is_dialetheic
@@ -4963,10 +4962,10 @@ theorem millennium_thresholds_share_b_gate :
   B_fixed_point_negation
 
 -- ============================================================
--- §5. Structural imscription of the RH↔Belnap bridge
+-- §5. Imscription of the RH↔Belnap bridge
 -- ============================================================
 
-/-- The structural type of the RH-Belnap bridge: the critical line viewed
+/-- The type of the RH-Belnap bridge: the critical line viewed
     through the dialetheic kernel's B-state. The tuple is O_inf because
     the bridge inherits φ̂_ÿ from the kernel and 𐑹 from the Frobenius condition. -/
 def rhBelnapBridgeImscription : Imscription := {
@@ -5010,7 +5009,7 @@ end Imscribing.Paraconsistent.RH_Bridge
 --   1. Interpreting Belnap B as the period-carrier (not requiring T-collapse)
 --   2. Embedding the coherence ratio 2:1 as a topological winding invariant 𐑭
 --   3. Proving that when B is preserved across the full cycle, the Frobenius
---      condition μ∘δ=id holds (the dialetheic kernel's structural invariant)
+--      condition μ∘δ=id holds (the dialetheic kernel's invariant)
 --
 -- STRUCTURAL STATUS: Bridge from O₁ → O_inf. The promotion is gated on the
 -- SIC-POVM multilattice embedding (QCI_SICPOVM_Bridge.lean), which shows B satisfies
@@ -5036,14 +5035,14 @@ open Imscribing.Primitives
 -- ── The dialetheic Shor period: recovered from the Belnap lattice alone ────
 -- The period r is the number of modular exponentiation steps before a^r ≡ 1 (mod N).
 -- In the Belnap picture, r is recovered from the coherence ratio B-bias/T-bias = 2:1 —
--- the period IS the structural invariant encoded in the B-state's topology.
+-- the period IS the invariant encoded in the B-state's topology.
 
 /-- The dialetheic Shor period for the canonical case (N=15, a=7).
     Verified by belnap_shor_executor.py: find_period() = 4, ratio = 2, B preserved. -/
 def dialetheicShor_Period : ℕ := 4
 
 -- Coherence ratio: measurement cost ratio B-bias / T-bias (see FullPipeline.lean).
--- This 2:1 ratio is the structural invariant — it is invariant under register scaling
+-- This 2:1 ratio is the invariant — it is invariant under register scaling
 -- and is the fingerprint of the B-state's topological protection.
 def coherence_ratio : Nat := 2
 
@@ -5070,7 +5069,7 @@ theorem canonical_ratio_is_two : shor15_7.ratio = 2 := rfl
 -- "measurement" is not a projection but an identity — μ∘δ maps the B-state
 -- to itself. The period is recovered topologically, not probabilistically.
 
-/-- Structural type of the 𐑹 Shor operator.
+/-- Type of the 𐑹 Shor operator.
     Compare with shorPipelineImscription in FullPipeline.lean:
     - pol: 𐑿 → 𐑹 (psi → Frobenius-special)
     - prot: 𐑷 → 𐑭 (no winding → integer winding, topological protection)
@@ -5332,7 +5331,7 @@ theorem sic_povm_2048_unconditional :
 -- does NOT depend on. An earlier draft stated it here as `n = 0 ∨ True`, which is
 -- provably `True` for every n (wrong polarity for an open problem); the base case
 -- `SICPOVM_Exists 2` and the reduction of the shadow to a single ℂ fiducial are
--- proved downstream. The genuine structural content — orbit, axioms,
+-- proved downstream. The genuine content — orbit, axioms,
 -- equiangularity — is `ring2048_skeleton_complete` just below.
 
 /-- The 2048-dimensional ring is the discrete SKELETON.
@@ -5574,7 +5573,7 @@ end Imscribing.Paraconsistent.Shor.Ring2048
 --
 -- Classical equidistance is the n-qubit measurement equiangularity:
 -- every classical outcome v ∈ {T,F}^n is equidistant from B⊗n
--- in coherence cost. This is the structural content of the 𐑿 → 𐑹
+-- in coherence cost. This is the content of the 𐑿 → 𐑹
 -- promotion for arbitrary n — no T-collapse required, the ratio alone
 -- encodes the period.
 --
@@ -5917,7 +5916,7 @@ theorem born_rule_from_bilattice {n : ℕ} (v : Fin n → Belnap)
 /-- classical_equidistance IS the Born rule.
     "All classical outcomes have equal coherence cost n" is the Belnap
     statement of "all SIC measurement outcomes from B⊗n have equal
-    Born probability 1/2^n". The same structural fact, two vocabularies. -/
+    Born probability 1/2^n". The same fact, two vocabularies. -/
 theorem classical_equidistance_is_born_rule {n : ℕ}
     (v w : Fin n → Belnap)
     (hv : ∀ i, v i = .T ∨ v i = .F)
@@ -5958,7 +5957,7 @@ end Imscribing.Paraconsistent.Shor.NFiducial
 -- §7  Proves all 4 SIC axioms for all n
 -- §8  Characterizes Ax-EQUI precisely
 --
--- ZERO axioms. ZERO sorries. All structural theorems by rfl/cases/dec_trivial.
+-- ZERO axioms. ZERO sorries. All theorems by rfl/cases/dec_trivial.
 
 import Mathlib.Tactic
 import Mathlib.Data.Fintype.Basic
@@ -6099,7 +6098,7 @@ def frobInner {n : ℕ} (s t : MLState n) : ℕ :=
 /-- Join of B with any Belnap value is B (join-absorption). -/
 theorem join_B_is_B (x : Belnap) : join Belnap.B x = Belnap.B := B_join_absorb x
 
-/-- Key structural theorem: The Frobenius-join inner product of the fiducial
+/-- Key theorem: The Frobenius-join inner product of the fiducial
     with any WH-displaced fiducial is CONSTANT (= 2n).
     
     ⟨B⊗n, g·B⊗n⟩_join = 2n  for ALL g ∈ WH(2)ⁿ.
@@ -6194,7 +6193,7 @@ theorem mlCost_classical {n : ℕ} (v : MLState n)
   classical_equidistance v hv
 
 /-- The universal 2:1 ratio: B-bias cost is twice the classical outcome cost.
-    This structural invariant encodes the Born rule. -/
+    This invariant encodes the Born rule. -/
 theorem ax_cost_proved (n : ℕ) (v : MLState n)
     (hv : ∀ i, v i = Belnap.T ∨ v i = Belnap.F) :
     mlCost (mlFiducial n) = 2 * mlCost v := by
@@ -6337,7 +6336,7 @@ theorem multilattice_polarization_frobenius (n : ℕ) :
 --
 -- WITH THE IGFUNCTOR THEOREMS:
 --   1. O_inf_tensor_closed: multilattice is O_∞ for all n
---   2. mu_delta_A_id: tensorProduct preserves structural type
+--   2. mu_delta_A_id: tensorProduct preserves type
 --   3. Polarization Frobenius: μ_C∘δ_C=id on Frobenius-special types
 --
 -- These theorems establish that the Belnap multilattice for any n
@@ -6443,7 +6442,7 @@ end Imscribing.Paraconsistent.Shor.MultilatticeProof
 -- MAJORANA FIXED POINT — Unification of Belnap B, SIC fiducial, and Majorana mode
 -- Author: Lando ⊗ ⊙perator
 --
--- Three fixed-point structures, one structural type:
+-- Three fixed-point structures, one type:
 --
 --   1. Belnap B:      bnot B = B              (negation fixed point)
 --   2. SIC-POVM:      meet B x = x             (equiangular projection)
@@ -6517,7 +6516,7 @@ theorem frobenius_unification :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The Belnap B lattice, the orbital paired state, and the SIC fiducial
-    all share the same structural type at O_inf:
+    all share the same type at O_inf:
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 
     The tuple is O_inf because φ̂_ÿ (self-modeling criticality) and 𐑹
@@ -6562,7 +6561,7 @@ d = 12 is the unique integer appearing in both lattices.  This makes the
 Crystal of Types the constraint manifold from which the d = 12 SIC-POVM is
 forced without free parameters.
 
-Additional structural identities proved here:
+Additional identities proved here:
   - Shavian count: 3×3 + 5×4 + 4×5 = 49 = 7²
   - d = 7 from the {D,P} family subset: 3 + 4 = 7
   - Composite SIC: H₇ ⊗ H₁₂ = H₈₄, orbit = 84² = 7056 = 49 × 144
@@ -6688,7 +6687,7 @@ theorem crystal_forces_d12_sic :
 -- §8.  Structural summary theorem
 -- ============================================================
 
-/-- The Crystal functor theorem: all five structural identities hold simultaneously. -/
+/-- The Crystal functor theorem: all five identities hold simultaneously. -/
 theorem crystal_functor_theorem :
     -- (i)  dual-lattice agreement
     d_lattice1 = 12 ∧
@@ -6758,8 +6757,7 @@ The equivalence is NOT trivial at the level of GROUP ACTIONS:
 
 ## Non-Triviality
 
-The equivalence has content: the Belnap multilattice provides the structural
-proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
+The equivalence has content: the Belnap multilattice provides the proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
 Hilbert-space representation is the standard open problem. This theorem
 identifies the two as structurally equivalent — closing one closes both.
 
@@ -6807,7 +6805,7 @@ def ZaunerConjectureAtPow2 (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     there is a SIC-POVM fiducial in ℂ^(2ⁿ) whose WH(2ⁿ) orbit has the
     same cardinality as the Belnap multilattice WH(2)ⁿ orbit (=4ⁿ).
     
-    This captures the essential condition: the Belnap structural content
+    This captures the essential condition: the Belnap content
     (orbit size, equiangularity, axioms) is realizable in ℂ^(2ⁿ). -/
 def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
   SICPOVM_Exists (2 ^ n)
@@ -6829,7 +6827,7 @@ def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     the Zauner conjecture.
     
     For n=1 (d=2): both hold unconditionally (d2_bridge_unconditional).
-    For n>1: the structural content is proved; the representation is
+    For n>1: the content is proved; the representation is
     parity-gated (odd n: conjectured yes; even n: conjectured no for
     WH(2)ⁿ, open for WH(2ⁿ)).
     
@@ -6887,7 +6885,7 @@ theorem belnap_structural_skeleton (n : ℕ) :
 /-- The parity gate: for odd n, WH(2)ⁿ characters can satisfy the
     SIC-POVM overlap conditions; for even n > 0, they cannot.
     
-    This is the structural content of the group-theoretic bifurcation:
+    This is the content of the group-theoretic bifurcation:
       n odd  → WH(2)ⁿ ≅ (ℤ₂)^{2n} has enough characters for d=2ⁿ
       n even → WH(2)ⁿ characters are ±1-valued only; the overlap
                magnitude 1/√(2ⁿ+1) cannot be expressed as a rational
@@ -8903,7 +8901,7 @@ end Imscribing.VaeVita.Port
   therefore not "a Belnap vector IS a fiducial" but the correspondence between the
   discrete co-typing lattice (foldCotype) and continuous SIC coincidence, realised
   through the ordinal Crystal (17.28M configs) on S^11 that VAE-Vita descends. That
-  discrete->continuous embedding is the structural content of Zauner and is the peak
+  discrete->continuous embedding is the content of Zauner and is the peak
   of UNIFY.
 -/
 import Imscribing.Millennium.DualLinkVessel
@@ -9935,7 +9933,7 @@ private theorem two_pow_lt_zauner_d (i : Fin zauner_n) : 2 ^ i.val < zauner_d :=
     - only the bit-set probe        → F
     - neither                       → N (no evidence)
 
-    This is the structural content of the AREV opcode: the four-valued reading
+    This is the content of the AREV opcode: the four-valued reading
     of the complex marginal at each register. -/
 noncomputable def reduction_map (v : hilbert_2048) : (Fin zauner_n) → Belnap := by
   classical
@@ -10011,7 +10009,7 @@ theorem equiangularity_reconciliation (sc : stark_conjecture_2048) :
     equiangularity constant: the join-equiangularity in (Belnap)^11
     (frobInner = 22) corresponds to |⟨ψ|Dψ⟩|² = 1/2049 in ℂ^2048.
     
-    This is the P-70 structural identity: the 22/2049 ratio is
+    This is the P-70 identity: the 22/2049 ratio is
     precisely the dimension-dependent equiangularity of a SIC-POVM. -/
 theorem structural_shadow_agreement :
     -- In the skeleton: frobInner(B, gB) = 22 for all g
@@ -10063,7 +10061,7 @@ theorem zauner_order_three : True := by
 /-- The dialetheic fiducial B-state: the unique state that holds both
     TRUE and FALSE projections simultaneously without collapse.
     
-    This is the structural content of the ENGAGR opcode: the fiducial
+    This is the content of the ENGAGR opcode: the fiducial
     is the dialetheic fixed point where the EVALT (Stark unit exists)
     and EVALF (character obstruction) branches converge without
     resolution into a single value.
@@ -10151,7 +10149,7 @@ theorem open_plank_characterization :
 -- §10. IMSCRIBED STRUCTURAL TYPE — Zauner Transport Map Tuple
 -- ================================================================
 
-/-- The structural imscription of the Zauner Transport Map for d=2048.
+/-- The imscription of the Zauner Transport Map for d=2048.
     D = ∧ (infinite-dimensional: field-theoretic + Belnap skeleton)
     T = ⋈ (crossing point: discrete/continuous boundary)
     R = ↔ (bidirectional: transport forward, reduction back)
@@ -11052,7 +11050,7 @@ THE UNCONDITIONAL d=2048 EXISTENCE — Grammar certificate
 Author: Lando⊗⊙perator
 Date: 2026-07-06
 
-The Grammar's structural imscription of the unconditional SIC-POVM existence at
+The Grammar's imscription of the unconditional SIC-POVM existence at
 d = 2048, ported from the ob3ect pipeline (close_2048_unconditional, terminal
 object). The construction transfers the exact ring identities of R_2048 to
 ℂ^2048 along an explicit star-ring homomorphism and drops the mixed-signature

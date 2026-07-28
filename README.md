@@ -227,7 +227,7 @@ acids biject with the 12 IG primitives (`primitive_bijection`).
 
 ### CLINK Chain (`CLINK.lean`, `CLINK_L9.lean`)
 
-The CLINK chain maps structural type transformations from subatomic (quark Belnap₅)
+The CLINK chain maps type transformations from subatomic (quark Belnap₅)
 to whole organism, with each scale transition promoting specific IG primitives. The
 chain is Frobenius-closed under ZFC_fe.
 
@@ -249,7 +249,7 @@ gate relinquishment is the turn, not a fall (`L9_relinquishes_the_gate`).
 holding the Frobenius gate (Φ=𐑹) at complex-plane criticality (φ̂=𐑮). The
 trilattice sits at O_inf tier (`sixteen3Trilattice_tier`) and provides the surface
 across which μ∘δ=id is held exact while the measured system runs complex-plane
-critical — the structural statement of a paraconsistent measurement apparatus at
+critical — the statement of a paraconsistent measurement apparatus at
 the L8↔L9 lateral interface.
 
 **Theorem summary** (all `decide`-checked):

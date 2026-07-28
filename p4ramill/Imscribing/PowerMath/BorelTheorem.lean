@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Borel Theorem. -/
+/-- The imscription of the Borel Theorem. -/
 def BorelTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def BorelTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem BorelTheorem_tier : TierFunctor.obj BorelTheoremImscription = .O_inf := by
   native_decide
 

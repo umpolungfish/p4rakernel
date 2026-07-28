@@ -6,7 +6,7 @@
 -- that nothing, not even light, can escape. They are the most
 -- extreme prediction of general relativity.
 --
--- Key structural features:
+-- Key features:
 --   1. Event horizon: the boundary of no return
 --   2. Singularity: geodesic incompleteness (singularity theorems)
 --   3. No-hair theorem: characterized by M, J, Q only
@@ -295,7 +295,7 @@ def pageTime (mass : ℚ) : ℚ := mass ^ 3
 -- =====================================================================
 
 /--
-Black Holes as a structural type:
+Black Holes as a type:
 
   D = array (𐑼): Infinite-dimensional. The interior of a black hole
       contains a singularity where curvatures diverge. The spacetime

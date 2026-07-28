@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Lonely Runner Theorem. -/
+/-- The imscription of the Lonely Runner Theorem. -/
 def LonelyRunnerTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def LonelyRunnerTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem LonelyRunnerTheorem_tier : TierFunctor.obj LonelyRunnerTheoremImscription = .O_inf := by
   native_decide
 

@@ -104,7 +104,7 @@ theorem rh_leyang_distance_value : primitiveMismatches rh_encoding lee_yang_enco
 theorem rh_leyang_distance_nonzero : primitiveMismatches rh_encoding lee_yang_encoding ≠ 0 := by
   rw [rh_leyang_distance_value]; norm_num
 
-/-- The critical structural gap: LY has or' (Frobenius), RH has nun only.
+/-- The critical gap: LY has or' (Frobenius), RH has nun only.
     This single primitive difference is what separates the proved LY result
     from the open RH. -/
 theorem rh_leeyang_pol_gap : lee_yang_encoding.pol = Polarity.or' ∧

@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Smooth Four-Dimensional Poincaré Theorem. -/
+/-- The imscription of the Smooth Four-Dimensional Poincaré Theorem. -/
 def SmoothFourDimensionalPoincarTheoremImscription : Imscription := {
   dim  := if',
   top  := are,
@@ -34,7 +34,7 @@ def SmoothFourDimensionalPoincarTheoremImscription : Imscription := {
   prot := zoo
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem SmoothFourDimensionalPoincarTheorem_tier : TierFunctor.obj SmoothFourDimensionalPoincarTheoremImscription = .O_inf := by
   native_decide
 

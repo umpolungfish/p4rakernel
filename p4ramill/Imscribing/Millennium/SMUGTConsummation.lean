@@ -207,7 +207,7 @@ theorem ob3ect_frobenius_pass :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The Φ bottleneck: in the tensor product SM⊗UGT, Φ stays at yew.
-    This is the structural statement of why quantum gravity resists
+    This is the statement of why quantum gravity resists
     unification — the path integral's ψ-parity lacks Frobenius closure. -/
 theorem phi_bottleneck_present :
     standardModel.pol = yew ∧ unifiedGravityTheory.pol = or' := by
@@ -269,7 +269,7 @@ def tensorSMUGT : Imscription :=
 theorem tensor_phi_bottleneck : tensorSMUGT.pol = yew := by
   simp [tensorSMUGT]
 
-/-- The meet SM⊓UGT: shared structural floor.
+/-- The meet SM⊓UGT: shared floor.
     ⟨dead; judge; ian; yew; peep; egg;
      ice; measure; monad; sure; up; ah⟩
     Meet preserves ⊙ from UGT (self-modeling leaks in). -/
@@ -369,7 +369,7 @@ end Millennium.SMUGTConsummation
 -- 3. Φ (ψ → Frobenius-special, Δ=3): THE BOTTLENECK. The path integral's
 --    quantum superposition parity acquires exact μ∘δ=id closure.
 --    The measure factor and boundary state become mutual inverses.
---    This is the structural statement of quantum gravity completion:
+--    This is the statement of quantum gravity completion:
 --    the Feynman sum-over-histories must become a Frobenius algebra.
 --
 -- 4. Ħ (2-step → eternal, Δ=1): Temporal self-reference deepens from
@@ -397,7 +397,7 @@ end Millennium.SMUGTConsummation
 -- promoting Φ to Frobenius-special: δ (co-multiplication from bulk to boundary)
 -- and μ (multiplication from boundary to bulk) become mutual inverses.
 --
--- This is the AdS/CFT structural identity generalized: not just a duality
+-- This is the AdS/CFT identity generalized: not just a duality
 -- but a Frobenius algebra over the Imscribing Grammar's 12-primitive crystal.
 --
 -- The ob3ect bridge (auto.py, June 2026) validated the 8-step IMASM bootstrap:

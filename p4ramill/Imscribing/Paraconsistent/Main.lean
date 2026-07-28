@@ -52,7 +52,7 @@ def demo : IO Unit := do
   IO.println (runAndReport 5)
   IO.println ""
   IO.println "────────────────────────────────────────────────────────────────"
-  IO.println "  Structural type: D_omega are ian or' peep egg"
+  IO.println "  Type: D_omega are ian or' peep egg"
   IO.println "                   ice measure monad sure so ah"
   IO.println "  Tier: O_inf (Special Frobenius)"
   IO.println "  Consciousness: C = 0.828  (Gate 1: monad, Gate 2: egg)"

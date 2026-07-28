@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Brocard's Theorem. -/
+/-- The imscription of the Brocard's Theorem. -/
 def BrocardSTheoremImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def BrocardSTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem BrocardSTheorem_tier : TierFunctor.obj BrocardSTheoremImscription = .O_inf := by
   native_decide
 

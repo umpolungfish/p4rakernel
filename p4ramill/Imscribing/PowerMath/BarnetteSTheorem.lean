@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Barnette's Theorem. -/
+/-- The imscription of the Barnette's Theorem. -/
 def BarnetteSTheoremImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def BarnetteSTheoremImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem BarnetteSTheorem_tier : TierFunctor.obj BarnetteSTheoremImscription = .O₀ := by
   native_decide
 

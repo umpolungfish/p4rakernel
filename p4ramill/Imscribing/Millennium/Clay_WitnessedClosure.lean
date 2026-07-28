@@ -12,7 +12,7 @@ the results of `imscribing_grammar/manuscripts/clay_cross_universe_closure.md`:
 
 * **BSD** and **Hodge** each reach `idempotent_terminal` under their own five
   existing, non-tailored gate-universes, and are `T_CEILING`-consistent — the
-  closure condition the framework associates with a solved structural type.
+  closure condition the framework associates with a solved type.
 * **Yang–Mills** reaches `idempotent_terminal` under `triple_criticality` but
   is **not** `T_CEILING`-consistent — its kinetics ordinal (on, 4) exceeds the
   relaxed Ç ceiling (egg, 3). The honest "one bump short" verdict, proved as the

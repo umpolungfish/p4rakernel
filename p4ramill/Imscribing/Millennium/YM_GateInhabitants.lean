@@ -28,7 +28,7 @@ set_option linter.style.whitespace false
 
   The remaining gap: the axiom `ym_gates_to_measure` itself — that constructing
   all six promotion channels suffices to construct `PathIntegralMeasure` in 4D
-  non-Abelian gauge theory. This is not a theorem; it is the structural content
+  non-Abelian gauge theory. This is not a theorem; it is the content
   of the YM Millennium problem.
 
   **Structural axiom:** The YM existence theorem is equivalent to inhabiting
@@ -160,7 +160,7 @@ def YM_ConstructedGates_inhabitant (g : Type*) [LieRing g] [LieAlgebra ℝ g] :
 /-- **Combined axiom: delivering both PathIntegralMeasure and QuantumYMTheory
     to avoid universe metavariable issues.**
 
-    Structural content: the YM existence theorem is equivalent to inhabiting
+    Content: the YM existence theorem is equivalent to inhabiting
     the six ZFCt promotion channels. This axiom delivers the full chain:
     gates → PathIntegralMeasure → QuantumYMTheory.
 
@@ -178,7 +178,7 @@ axiom ym_gates_to_measure {g : Type*} [LieRing g] [LieAlgebra ℝ g]
 
 /-- Direct axiom: six inhabited promotion channels yield a QuantumYMTheory.
     Returns Type (universe 0) directly — avoids PathIntegralMeasure universe
-    polymorphism. Structural content identical to ym_gates_to_measure composed
+    polymorphism. Content identical to ym_gates_to_measure composed
     with temporal_chirality_map. -/
 axiom ym_theory_from_gates {g : Type*} [LieRing g] [LieAlgebra ℝ g]
     [LieAlgebra.IsSimple ℝ g] (gates : YM_ConstructedGates g) :

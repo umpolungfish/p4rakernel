@@ -82,7 +82,7 @@ namespace Check
 open InferType
 
 /-
-Type and structural properties checker for LCNF expressions.
+Type and properties checker for LCNF expressions.
 -/
 
 structure Context where

@@ -2,7 +2,7 @@
 -- P ≠ NP: Structural Coordinate Theorem
 -- P has Þ = judge; NP has Þ = are.
 -- Lean's inductive-type theory closes the inequality from disjoint constructors.
--- The structural type space locates P and NP before any algorithm runs.
+-- The type space locates P and NP before any algorithm runs.
 
 import Mathlib.Data.Real.Sqrt
 import Imscribing.Primitives.Core
@@ -20,7 +20,7 @@ open Fidelity KineticChar Granularity
 open Grammar Criticality Protection Stoichiometry Chirality
 
 -- =============================================================
--- §1. Structural types for P_class and NP_class
+-- §1. Types for P_class and NP_class
 -- =============================================================
 
 def P_class : Imscription :=
@@ -41,19 +41,19 @@ theorem T_network_ne_T_odot : judge ≠ are := by decide
 -- §3. MAIN THEOREM: P ≠ NP (structural)
 -- =============================================================
 
-/-- P and NP are distinct coordinates in the 12-tuple structural type space.
+/-- P and NP are distinct coordinates in the 12-tuple type space.
     Specifically, they differ on the Topology (Þ) primitive:
 
       T_P      = judge   (local, branching computation graph)
       T_NP_class = are    (holographic, self-referential closure)
 
     By the distinct-constructor property of Lean's inductive types,
-    judge ≠ are. Therefore P ≠ NP (as structural types).
+    judge ≠ are. Therefore P ≠ NP (as types).
 
     This theorem operates at the structural layer: P and NP are distinct
     coordinates in primitive space, separated by d = 6.245 across 6 primitive
     dimensions (Þ, Ř, Ç, Γ, ɢ, Φ). Their distance is nonzero by definition;
-    the structural type lattice locates them before any algorithm is run.
+    the type lattice locates them before any algorithm is run.
 
     The classical complexity question — whether every polynomial-verifiable
     problem has a polynomial-time algorithm — is the question of whether

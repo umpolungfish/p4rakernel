@@ -164,7 +164,7 @@ theorem bsd_peel_crit : imscriptionTier bsd_peeled_crit = .O₀ := by
   simp only [imscriptionTier, ouroboricityTier, bsd_peeled_crit, birchSwinnertonDyer]
 
 /-- Peeling the topology (are → judge) breaks holographic closure.
-    The tier is unchanged (O_inf), but the structural identity between
+    The tier is unchanged (O_inf), but the identity between
     analytic continuation and arithmetic descent is no longer enforced. -/
 def bsd_peeled_top : Imscription := { birchSwinnertonDyer with top := .judge }
 
@@ -195,7 +195,7 @@ theorem bsd_leading_coefficient : True := ⟨⟩  -- placeholder for the full BS
 
 
 -- ============================================================
--- §8. Structural distance to RH (external computation)
+-- §8. Distance to RH (external computation)
 -- ============================================================
 
 /-- Distance to the resolved Riemann Hypothesis (Python navigator, not a Lean proof). -/

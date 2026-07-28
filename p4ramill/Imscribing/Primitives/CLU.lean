@@ -10,7 +10,7 @@
 --   d_total = d_crystal ⊕ d_info
 -- where ⊕ denotes the sum over distinct metric types (not scalar addition).
 --
--- Key structural theorem: CLU(b) is invariant per Ç-tier boundary crossing regardless
+-- Key theorem: CLU(b) is invariant per Ç-tier boundary crossing regardless
 -- of ordinal spacing non-uniformities. The ratio d_geometric(Ç) / CLU(b) = 2.0/ln(b)
 -- for uniform steps, encoding the conversion factor between geometric and information fiber.
 --
@@ -174,7 +174,7 @@ Non-uniform step (on→air):
   d_K = 0.5 (ordinal spacing)
   CLU(b) = ln(b) nats (same! — invariance)
 
-This is THE structural signature: the geometric metric varies but the
+This is THE signature: the geometric metric varies but the
 information-theoretic cost per tier boundary is invariant at ln(b).
 -/
 theorem uniform_step_dist : kCrystalDist KineticChar.yea KineticChar.loll = 1 := by
@@ -374,7 +374,7 @@ def CLU_polarity : Polarity :=
   Polarity.church
 
 /--
-The CLU fiber metric as an Imscription: the structural type of the Ç-axis fiber.
+The CLU fiber metric as an Imscription: the type of the Ç-axis fiber.
 -/
 def CLU_fiber_imscription : Imscription := {
   dim  := Dimensionality.ash

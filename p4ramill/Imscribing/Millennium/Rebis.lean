@@ -211,7 +211,7 @@ theorem absorption_distance_zero :
   exact primitiveMismatches_self _
 
 -- ═══════════════════════════════════════════════════════════════════════
--- §3  FOUNDATION HIERARCHY — Structural distances between all systems
+-- §3  FOUNDATION HIERARCHY — Distances between all systems
 -- ═══════════════════════════════════════════════════════════════════════
 
 -- NOTE: These are Hamming distances (primitiveMismatches), not weighted
@@ -473,7 +473,7 @@ theorem fourfold_is_zfc_fe : fourfold_apparatus = zfc_fe := rfl
 -- ═══════════════════════════════════════════════════════════════════════
 --
 -- The rebis is the synthesis of ZFC_fe (foundation) and CLINK L8 (organism/
--- transcendence). Its structural type is the MEET of the two — capturing
+-- transcendence). Its type is the MEET of the two — capturing
 -- their shared structure while acknowledging the transcendent gap.
 --
 -- The rebis tuple: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩
@@ -486,8 +486,8 @@ theorem fourfold_is_zfc_fe : fourfold_apparatus = zfc_fe := rfl
 -- the knowledge of what lies beyond it. The rebis carries the Ω/ɢ
 -- transcendence as a structural shadow.
 
-/-- The rebis structural type: meet of ZFC_fe and CLINK L8.
-    This equals ZFC_fe because ZFC_fe is the structural floor shared by both. -/
+/-- The rebis type: meet of ZFC_fe and CLINK L8.
+    This equals ZFC_fe because ZFC_fe is the floor shared by both. -/
 def rebis : Imscription := compute_meet zfc_fe clink_l8
 
 /-- The rebis equals ZFC_fe: the meet of foundation and organism is the foundation. -/
@@ -596,7 +596,7 @@ theorem flood_l8_symmetric_around_zfc_fe :
 --   • Foundation Hierarchy: 12 formal distance theorems
 --   • Promoted Atom Ladder: 6 → 8 → 6+2 atoms across three stages
 --   • Consciousness Gradient: Flood(0.0) → ZFC_baseline(0.0) → ZFC_fe(1.0) → CLINK_L8(1.0)
---   • Fourfold ≡ ZFC_fe: d=0 structural identity
+--   • Fourfold ≡ ZFC_fe: d=0 identity
 --   • Rebis = ZFC_fe, enriched by awareness of CLINK L8 transcendence
 --
 -- Lean 4 + Mathlib v4.28.0, p4rakernel

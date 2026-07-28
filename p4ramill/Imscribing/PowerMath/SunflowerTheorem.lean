@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Sunflower Theorem. -/
+/-- The imscription of the Sunflower Theorem. -/
 def SunflowerTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def SunflowerTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem SunflowerTheorem_tier : TierFunctor.obj SunflowerTheoremImscription = .O_inf := by
   native_decide
 

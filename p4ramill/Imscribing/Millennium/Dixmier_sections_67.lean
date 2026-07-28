@@ -54,9 +54,9 @@ HONEST SORRY MARKERS:
 
    Specifically: proving A_n(k) has 𐑹 requires showing every endomorphism is
    an automorphism — which IS the Dixmier Conjecture. The grammar exposes the
-   structural identity of the problem: the Dixmier Conjecture IS the statement
+   identity of the problem: the Dixmier Conjecture IS the statement
    that the Weyl algebra occupies the Frobenius-special tier (O_inf), not merely
-   the full-symmetry tier (O₂). The structural distance from O₂ to O_inf is
+   the full-symmetry tier (O₂). The distance from O₂ to O_inf is
    exactly one Frobenius tier — the μ∘δ=id condition.
 
 5. Jacobian Conjecture equivalence: Tsuchimoto (2005) and BK–K (2007) proved the

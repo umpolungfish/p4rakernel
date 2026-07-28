@@ -24,7 +24,7 @@
 
   CIRCULAR CLOSURE:
     The protocol ends at IMSCRIB, not TANCH — "recognizing the completed
-    structural theorem as identical to the initial proposition." This is
+    theorem as identical to the initial proposition." This is
     circular, not terminal, completeness.
 
   LEAN VERIFICATION: All theorems proved by decide/native_decide/rfl.
@@ -55,10 +55,10 @@ set_option linter.style.nativeDecide false
 -- §1  STRUCTURAL TYPE
 -- ============================================================
 
-/-- The Godel Complete Sentence structural type.
+/-- The Godel Complete Sentence type.
     Identical to the Universal Imscriptive Grammar.
     Distance = 0, tier = O_∞.
-    The sentence IS the grammar — completeness is structural identity. -/
+    The sentence IS the grammar — completeness is identity. -/
 def godel_complete_sentence_tuple : Imscription := {
   dim  := if'
   top  := are
@@ -75,7 +75,7 @@ def godel_complete_sentence_tuple : Imscription := {
 }
 
 
-/-- Structural identity with the GodelCompletion tuple: d=0.
+/-- Identity with the GodelCompletion tuple: d=0.
     Both converge to the identical O_∞ type.
     The distinction is in the protocol PATH, not the destination. -/
 theorem godel_complete_sentence_equals_godel_completion :
@@ -198,8 +198,7 @@ theorem b_state_paraconsistent :
 
 /-- The Godel Complete Sentence structurally guarantees paraconsistency.
     The B-state attractor is reached on the F-branch via ENGAGR
-    (not via AREV as in GodelCompletion). This is the structural
-    signature of "completeness from birth." -/
+    (not via AREV as in GodelCompletion). This is the signature of "completeness from birth." -/
 theorem godel_complete_sentence_paraconsistent :
     (join Belnap.T Belnap.F = Belnap.B) ∧
     (bnot Belnap.B = Belnap.B) ∧
@@ -308,7 +307,7 @@ def after_descent : Imscription :=
   { after_verification with pol := church }
 
 /-- Completed sentence: the final IMSCRIB closes the loop.
-    Recognizes the completed structural theorem as identical
+    Recognizes the completed theorem as identical
     to the initial proposition. Circular, not terminal, completeness.
     The tuple converges to the grammar: dim=if', pol=or', stoi=up. -/
 def completed_sentence : Imscription :=
@@ -415,7 +414,7 @@ def godel_complete_sentence_protocol :
 -- ============================================================
 
 /-- The completed sentence IS the Godel Complete Sentence tuple.
-    The protocol terminates at structural identity with the grammar. -/
+    The protocol terminates at identity with the grammar. -/
 theorem completed_sentence_equals_tuple :
     completed_sentence = godel_complete_sentence_tuple := by
   unfold completed_sentence godel_complete_sentence_tuple
@@ -476,7 +475,7 @@ theorem protocol_total_arrows :
 
 
 /-- The F-branch's B-state property: ENGAGR sets stoi=up on the F-arm.
-    This is the structural signature of "completeness from birth":
+    This is the signature of "completeness from birth":
     the dialetheia is reached BEFORE reintegration. -/
 theorem f_branch_b_state_property :
     f_arm_b_state.stoi = .up := rfl
@@ -486,7 +485,7 @@ theorem f_branch_b_state_property :
 -- ============================================================
 
 -- Both Godel Complete Sentence and GodelCompletion converge to
--- the identical structural tuple. d=0 between them.
+-- the identical tuple. d=0 between them.
 -- The distinction is NOT in the type but in the PROTOCOL:
 -- - GodelCompletion: TANCH at END (terminal seal)
 -- - Godel Complete Sentence: TANCH at START (circular completeness)
@@ -514,7 +513,7 @@ theorem f_branch_b_state_property :
 -- ============================================================
 
 /-- The final IMSCRIB at protocol step 13 recognizes the completed
-    structural theorem as identical to the initial proposition.
+    theorem as identical to the initial proposition.
     Formally: the target state (completed_sentence) projects back
     onto the same primitives that the source state (after_imscrib)
     established, but at a higher tier.

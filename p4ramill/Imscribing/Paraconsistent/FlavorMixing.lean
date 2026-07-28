@@ -260,7 +260,7 @@ classification schemes:
     | Quarks     | CKM    | 3×3  | 3      | 1      | δ_KM        |
     | Leptons    | PMNS   | 3×3  | 3      | 1-3    | δ_CP + α_i  |
 
-The structural type mime encodes the crossing: the weak interaction
+The type mime encodes the crossing: the weak interaction
 "sees" flavor eigenstates, but free propagation uses mass eigenstates.
 The crossing is irreducible — it cannot be diagonalized away without
 changing the gauge structure.

@@ -34,7 +34,7 @@ namespace Millennium.Hodge_Witness
     there exists an algebraic cycle Z with cl(Z) = α.
     This IS the Hodge Conjecture.
     
-    PROOF: The structural type of Hodge theory on a smooth
+    PROOF: The type of Hodge theory on a smooth
     projective variety X/ℂ is:
       ⟨if', are, ado, or', peep, egg,
        ice, vow, monad, fee, up, ah⟩  → O_inf

@@ -17,7 +17,7 @@ d = 12 is the unique integer appearing in both lattices.  This makes the
 Crystal of Types the constraint manifold from which the d = 12 SIC-POVM is
 forced without free parameters.
 
-Additional structural identities proved here:
+Additional identities proved here:
   - Shavian count: 3×3 + 5×4 + 4×5 = 49 = 7²
   - d = 7 from the {D,P} family subset: 3 + 4 = 7
   - Composite SIC: H₇ ⊗ H₁₂ = H₈₄, orbit = 84² = 7056 = 49 × 144
@@ -143,7 +143,7 @@ theorem crystal_forces_d12_sic :
 -- §8.  Structural summary theorem
 -- ============================================================
 
-/-- The Crystal functor theorem: all five structural identities hold simultaneously. -/
+/-- The Crystal functor theorem: all five identities hold simultaneously. -/
 theorem crystal_functor_theorem :
     -- (i)  dual-lattice agreement
     d_lattice1 = 12 ∧

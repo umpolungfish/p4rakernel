@@ -42,7 +42,7 @@ def collatz_deep    : Imscription := collatz_drift_vessel
 
 -- §1. COLLATZ STRUCTURAL GAP
 
-/-- The Collatz shallow-to-deep structural gap is 7 — between Deep and Very Deep.
+/-- The Collatz shallow-to-deep gap is 7 — between Deep and Very Deep.
     Collatz reorganizes 7 of 12 primitives (T, R, P, K, Γ, H, Ω).
     This places it structurally between BSD (gap=6) and Pythagoras (gap=8). -/
 theorem collatz_gap : primitiveMismatches collatz_shallow collatz_deep = 7 := by

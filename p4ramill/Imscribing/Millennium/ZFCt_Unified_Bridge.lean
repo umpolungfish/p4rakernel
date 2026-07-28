@@ -23,7 +23,7 @@ import Imscribing.Consciousness
     5. TEMPD2     (fee → sure):             2-step temporal chirality
     6. ZWIND      (awe → ah):    Integer topological winding
 
-  Each Millennium Problem sits at a specific structural distance from ZFCₜ.
+  Each Millennium Problem sits at a specific distance from ZFCₜ.
   This file provides the unified distance ranking and promotion profile.
 -/
 

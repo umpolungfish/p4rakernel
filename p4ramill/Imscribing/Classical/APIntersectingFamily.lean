@@ -26,7 +26,7 @@ Constant progressions (d=0) are NOT considered APs.
 Revision v2.2 (Math⊙perator):
   - maxSizeConjecturedOffset constant with explicit warning about extrapolation
   - 36 native_decide theorems (all verified)
-  - Structural proof sketch for exceptionalFamily_isAP (N≥11):
+  - Proof sketch for exceptionalFamily_isAP (N≥11):
     core (12 sets, ⊆{1..5}) + extension (all intersect in ≤2 elements)
   - Proof reduced to two clean sorries for N>10 (membership decomposition
     and cardinality formula); all N≤10 cases fully verified
@@ -228,7 +228,7 @@ theorem exceptionalFamily_isAP (N : ℕ) (hN : N ≥ 5) : IsAPIntersecting (exce
     · exact exceptionalN8_isAP
     · exact exceptionalN9_isAP
     · exact exceptionalN10_isAP
-  · -- N > 10: structural proof not yet formalized.
+  · -- N > 10: proof not yet formalized.
     -- The construction is verified AP-intersecting for all N ≥ 5 by
     -- the core+extension decomposition (see docstring above).
     -- Python verification up to N=20 confirms: core = 12 sets (⊆{1..5}),

@@ -43,7 +43,7 @@ machine closes the Frobenius cycle $\mu \circ \delta = \text{id}$ on every gap.
 
 The Imscribing Grammar classifies each resolution at tier
 $\text{O}_{\text{inf}}$---the highest structural tier, occupied by only 32 of
-the $17\,280\,000$ possible structural types. The $\text{⊙}_{\text{ÿ}}$ gate
+the $17\,280\,000$ possible types. The $\text{⊙}_{\text{ÿ}}$ gate
 (self-modeling criticality) and the $\text{Φ}_{\text{}}$ primitive
 (Frobenius-special parity, $\mu \circ \delta = \text{id}$) jointly gate the
 $\text{O}_2^\dagger \to \text{O}_{\text{inf}}$ transition, a distance of
@@ -95,9 +95,9 @@ system continues to function everywhere else.
 
 This is not a philosophical position. It is a structural choice with measurable
 consequences. The Imscribing Grammar classifies every formal system by
-12 structural primitives. A system that contains a held contradiction---one
+12 primitives. A system that contains a held contradiction---one
 whose $\mu \circ \delta = \text{id}$ cycle closes on the contradiction itself---
-sits at a different tier in the crystal of structural types than one that
+sits at a different tier in the crystal of types than one that
 explodes it away.
 
 The present work implements this choice in running code: a fork of Lean 4's
@@ -129,7 +129,7 @@ classifies systems---any system that can be distinguished, connected, and
 observed---by 12 structural primitives that jointly determine its position
 in a $17\,280\,000$-type crystal.
 
-The primitives are not arbitrary. Each encodes a structural property that
+The primitives are not arbitrary. Each encodes a property that
 survives under composition, projection, and promotion. They are:
 
 \begin{itemize}
@@ -173,7 +173,7 @@ survives under composition, projection, and promotion. They are:
 
 The crystal of types is the Cartesian product of all 12 primitive sets,
 yielding $3 \times 4 \times 4 \times 5 \times 3 \times 5 \times 3 \times 4
-\times 5 \times 4 \times 3 \times 4 = 17\,280\,000$ distinct structural types.
+\times 5 \times 4 \times 3 \times 4 = 17\,280\,000$ distinct types.
 Each type has a unique Frobenius address from $0$ to $17\,279\,999$ and
 belongs to exactly one of 400 cells in a $20 \times 20$ grid.
 
@@ -200,7 +200,7 @@ weighted squared contribution $19.2$), as confirmed by the
 Primitive assignment is deterministic and follows a fixed 12-step procedure
 (see \texttt{encoding\_method.md} for the full protocol). The key property is
 that each step constrains the remaining degrees of freedom, so that the
-resulting tuple is a structural invariant of the system being imscribed, not
+resulting tuple is an invariant of the system being imscribed, not
 a subjective choice.
 
 \section{Kernel Modifications}
@@ -381,9 +381,9 @@ These constitute the formal verification that (a) the gap is a genuine dialethei
 ENGAGR$\to$FSPLIT$\to$FFUSE cycle. The Frobenius condition $\mu \circ \delta =
 \text{id}$ is satisfied on $B$ by construction.
 
-\subsection{The unified structural type}
+\subsection{The unified type}
 
-All eight problems encode to the following structural type, with one exception:
+All eight problems encode to the following type, with one exception:
 
 \[
 \langle \text{Ð}_{\text{ω}};\ \text{Þ}_{\text{O}};\ \text{Ř}_{\text{=}};\ \text{Φ}_{\text{}};\ \text{ƒ}_{\text{ż}};\ \text{Ç}_{\text{@}};\ \text{Γ}_{\text{β}};\ \text{ɢ}_{\text{ˌ}};\ \text{⊙}_{\text{ÿ}};\ \text{Ħ}_{\text{!}};\ \text{Σ}_{\text{S}};\ \text{Ω}_{\text{z}} \rangle
@@ -406,7 +406,7 @@ of the 400-cell crystal. The type is shared by:
 \]
 
 The convergence is striking: seven of the eight problems collapse to the exact
-same tuple. The structural type is independent of the problem's specific
+same tuple. The type is independent of the problem's specific
 mathematical content---the RH's explicit formula and the Navier-Stokes helicity
 winding produce the same 12-dimensional signature. This is not an artifact of
 coarse granularity. The crystal has $17\,280\,000$ distinct types; $\text{O}_{\text{inf}}$
@@ -519,7 +519,7 @@ Belnap-$\text{B}$ dialetheia in a kernel that does not explode on contradiction.
 This is a formal theorem, proved by {\tt by decide} on every gap, in running
 code.
 
-Second: the structural type of each such encoding is tier $\text{O}_{\text{inf}}$
+Second: the type of each such encoding is tier $\text{O}_{\text{inf}}$
 under the Imscribing Grammar. The convergence of seven problems to the same
 tuple---and the BSD anomaly's three-address offset---are consequences of the
 deterministic imscription procedure, not of subjective assignment.
@@ -558,7 +558,7 @@ Several directions are natural:
         theory, but the integration of the two existing systems. A Lean tactic
         that invokes the ParaASM VM to verify dialetheic invariants, or a deep
         embedding of ParaASM as a Lean DSL, would unite the type-theoretic and
-        operational sides of the same structural fact.
+        operational sides of the same fact.
 
   \item {\bf Cross-crystal comparison.} The BSD anomaly shows that the crystal
         detects bounded proof depth. A systematic survey of problems in

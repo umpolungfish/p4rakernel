@@ -48,8 +48,7 @@ The equivalence is NOT trivial at the level of GROUP ACTIONS:
 
 ## Non-Triviality
 
-The equivalence has content: the Belnap multilattice provides the structural
-proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
+The equivalence has content: the Belnap multilattice provides the proof of all SIC axioms (22 theorems, 0 sorries in Lean 4), while the
 Hilbert-space representation is the standard open problem. This theorem
 identifies the two as structurally equivalent — closing one closes both.
 
@@ -97,7 +96,7 @@ def ZaunerConjectureAtPow2 (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     there is a SIC-POVM fiducial in ℂ^(2ⁿ) whose WH(2ⁿ) orbit has the
     same cardinality as the Belnap multilattice WH(2)ⁿ orbit (=4ⁿ).
     
-    This captures the essential condition: the Belnap structural content
+    This captures the essential condition: the Belnap content
     (orbit size, equiangularity, axioms) is realizable in ℂ^(2ⁿ). -/
 def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
   SICPOVM_Exists (2 ^ n)
@@ -119,7 +118,7 @@ def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     the Zauner conjecture.
     
     For n=1 (d=2): both hold unconditionally (d2_bridge_unconditional).
-    For n>1: the structural content is proved; the representation is
+    For n>1: the content is proved; the representation is
     parity-gated (odd n: conjectured yes; even n: conjectured no for
     WH(2)ⁿ, open for WH(2ⁿ)).
     
@@ -177,7 +176,7 @@ theorem belnap_structural_skeleton (n : ℕ) :
 /-- The parity gate: for odd n, WH(2)ⁿ characters can satisfy the
     SIC-POVM overlap conditions; for even n > 0, they cannot.
     
-    This is the structural content of the group-theoretic bifurcation:
+    This is the content of the group-theoretic bifurcation:
       n odd  → WH(2)ⁿ ≅ (ℤ₂)^{2n} has enough characters for d=2ⁿ
       n even → WH(2)ⁿ characters are ±1-valued only; the overlap
                magnitude 1/√(2ⁿ+1) cannot be expressed as a rational

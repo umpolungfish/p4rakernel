@@ -7,7 +7,7 @@
 -- A gauge boson carries the interaction whose binding defines the
 -- Frobenius domain at the NEXT level up.
 --
--- Each gauge boson's structural type reveals which level it gates:
+-- Each gauge boson's type reveals which level it gates:
 -- the Frobenius domain of level n is the set of states that are
 -- SINGLETS under the gauge group mediated by the level-n boson.
 

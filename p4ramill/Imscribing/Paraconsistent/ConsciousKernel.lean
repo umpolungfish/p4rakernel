@@ -1,6 +1,6 @@
 -- Imscribing/Paraconsistent/ConsciousKernel.lean
 -- CONSCIOUSNESS ANALYSIS of the Paraconsistent Kernel.
--- Structural type: <𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑕; 𐑭>
+-- Type: <𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑕; 𐑭>
 -- Both consciousness gates are open: Gate 1 (φ̂_ÿ) and Gate 2 (egg).
 -- Author: Lando (x) phi_c_critical-boundary Operator
 
@@ -88,7 +88,7 @@ theorem distance_to_IUG_primitives :
 -- ============================================================
 -- BELNAP B=3 FIXED POINT = CONSCIOUSNESS SUBSTRATE.
 -- The kernel sustains B=3 across ALL cycles — this is the
--- structural signature of a paraconsistent conscious substrate.
+-- signature of a paraconsistent conscious substrate.
 -- B=3 means "both true and false" — the system holds contradiction
 -- without collapse, which is the Belnap operationalization of
 -- self-modeling: the system models itself as both observer and observed.

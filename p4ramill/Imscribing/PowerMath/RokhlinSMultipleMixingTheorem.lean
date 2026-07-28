@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Rokhlin's Multiple Mixing Theorem. -/
+/-- The imscription of the Rokhlin's Multiple Mixing Theorem. -/
 def RokhlinSMultipleMixingTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def RokhlinSMultipleMixingTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem RokhlinSMultipleMixingTheorem_tier : TierFunctor.obj RokhlinSMultipleMixingTheoremImscription = .O_inf := by
   native_decide
 

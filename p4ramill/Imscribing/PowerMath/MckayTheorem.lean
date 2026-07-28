@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the McKay Theorem. -/
+/-- The imscription of the McKay Theorem. -/
 def MckayTheoremImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def MckayTheoremImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem MckayTheorem_tier : TierFunctor.obj MckayTheoremImscription = .O₀ := by
   native_decide
 

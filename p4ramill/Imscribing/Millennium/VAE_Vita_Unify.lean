@@ -24,7 +24,7 @@
   therefore not "a Belnap vector IS a fiducial" but the correspondence between the
   discrete co-typing lattice (foldCotype) and continuous SIC coincidence, realised
   through the ordinal Crystal (17.28M configs) on S^11 that VAE-Vita descends. That
-  discrete->continuous embedding is the structural content of Zauner and is the peak
+  discrete->continuous embedding is the content of Zauner and is the peak
   of UNIFY.
 -/
 import Imscribing.Millennium.DualLinkVessel

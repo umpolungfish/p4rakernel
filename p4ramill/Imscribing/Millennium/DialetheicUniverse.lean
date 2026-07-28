@@ -72,7 +72,7 @@ def no_explosion : Prop := True
 -- ¬(B → ∀ P, P) — dialetheia does not entail everything
 
 /-- Dialetheia as a stable state: B is not a contradiction that collapses
-    the system — it is a structural feature of the frontier. -/
+    the system — it is a feature of the frontier. -/
 theorem dialetheia_is_stable :
   belnap_neg BelnapVal.B = BelnapVal.B := by rfl
 

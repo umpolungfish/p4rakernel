@@ -138,7 +138,7 @@ def clinkL8Sheaf : Sheaf := constSheaf Belnap.B
 --   zfc_baseline → zfc_t → zfc_fe → clink_layer8
 -- with distances: 6, then 3, then 2 mismatches respectively.
 
--- Structural promotion: a sheaf G is a promotion of sheaf F if
+-- Promotion: a sheaf G is a promotion of sheaf F if
 -- there exists a sequence of primitive promotions from the tuple
 -- underlying F to the tuple underlying G.
 -- For constant sheaves, this is equivalent to the tuple-level

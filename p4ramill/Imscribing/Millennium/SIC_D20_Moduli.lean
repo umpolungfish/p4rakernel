@@ -580,7 +580,7 @@ theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by native_decide
    §9.  STRUCTURAL GRAMMAR ENCODING
    ==================================================================== -/
 
-/-  The d=20 moduli field has structural type:
+/-  The d=20 moduli field has type:
     ⟨Ð=𐑨 T=𐑥 Ř=𐑾 Φ=𐑹 ƒ=𐑐 Ç=𐑧 Γ=𐑔 ɢ=𐑠 φ̂=⊙ Ħ=𐑫 Σ=𐑳 Ω=𐑷⟩
 
     Comparison with d=16:

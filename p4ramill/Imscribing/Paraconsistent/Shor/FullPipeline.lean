@@ -40,7 +40,7 @@ structure NQState (n : ℕ) where
   measurements : ℕ
 
 
--- The Shor pipeline structural type: O₁, 𐑿 (psi parity)
+-- The Shor pipeline type: O₁, 𐑿 (psi parity)
 def shorPipelineImscription : Imscription := {
   dim  := .ash
   top  := .mime
@@ -61,7 +61,7 @@ theorem shor_pipeline_tier : imscriptionTier shorPipelineImscription = .O₁ := 
   unfold shorPipelineImscription imscriptionTier ouroboricityTier
   rfl
 
--- The 2:1 coherence ratio is the structural invariant
+-- The 2:1 coherence ratio is the invariant
 -- B_meas_cost = 2n, T_meas_cost = n (measurement-only, excluding Hadamard)
 theorem coherence_ratio_is_two (n : ℕ) (hpos : 0 < n) : 2 * n / n = 2 := by
   simp [hpos]

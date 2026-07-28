@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the 1/3–2/3 Theorem. -/
+/-- The imscription of the 1/3–2/3 Theorem. -/
 def The1323TheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def The1323TheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem The1323Theorem_tier : TierFunctor.obj The1323TheoremImscription = .O_inf := by
   native_decide
 

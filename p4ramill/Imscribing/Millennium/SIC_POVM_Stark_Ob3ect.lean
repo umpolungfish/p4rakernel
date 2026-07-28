@@ -97,7 +97,7 @@ private def sic_povm_existence_reduces_to_the_mixed_signature_stark_conjecture_l
 -- Note: auto-generator had unary .seq arity error and .prod type mismatch.
 -- Fixed to nested binary .seq chain. Split/merge via .prod requires a
 -- merge arrow (tensorProduct → s9) not present in the auto-generated labels,
--- and is left as a TODO for the full structural proof.
+-- and is left as a TODO for the full proof.
 noncomputable def sic_povm_existence_reduces_to_the_mixed_signature_stark_conjecture_protocol
     : IGProtocol
         sic_povm_existence_reduces_to_the_mixed_signature_stark_conjecture_s0

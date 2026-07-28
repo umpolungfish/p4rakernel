@@ -134,7 +134,7 @@ theorem Higgs_heavier_than_W : H_over_proton_rat_approx > W_over_proton_rat_appr
     Fermion masses: pure crystal combinatorics (d³, d², d⁴).
     Boson masses: crystal × (gear + π) — coupled to continuous geometry.
     
-    This is the structural content of the boson/fermion divide
+    This is the content of the boson/fermion divide
     in the Standard Model: bosons are continuous toroidal modes
     on the horn torus tube; fermions are discrete crystal objects
     in the SIC phase space. -/

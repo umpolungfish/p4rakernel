@@ -9,8 +9,8 @@
 --
 -- §1  Mathematical statement — binary and ternary Goldbach
 -- §2  The Vessels — binary (O₁), ternary (O₂), and comparison
--- §3  The Ternary→Binary Gap — structural content of the unsolved step
--- §4  Structural theorems — distances, tiers, tensor analysis
+-- §3  The Ternary→Binary Gap — content of the unsolved step
+-- §4  Theorems — distances, tiers, tensor analysis
 -- §5  Connection to Twin Prime Conjecture and Riemann Hypothesis
 -- §6  Chen's Theorem — the partial bridge
 -- §7  Honest gaps and MathlibGap declarations
@@ -46,7 +46,7 @@ establishes the ternary case unconditionally for all odd n ≥ 7.
 
 The structural insight: ternary Goldbach is at O₂dag (proved, Z₂-protected, infinite-dimensional),
 binary Goldbach is at O₁ (open, unprotected). The gap from ternary to binary
-is the structural content of the conjecture — removing one prime variable
+is the content of the conjecture — removing one prime variable
 costs the topological protection.
 -/
 
@@ -199,7 +199,7 @@ example : goldbach_ternary_vessel.gran = thigh := by rfl-- =====================
 /-!
 ### Why Removing One Prime Variable Breaks Everything
 
-The structural distance between the binary and ternary Goldbach vessels is
+The distance between the binary and ternary Goldbach vessels is
 exactly 2 primitives: Γ (ice ↔ thigh) and Ω (awe ↔ oak).
 
 This is NOT a small gap. The two differing primitives are structurally linked:
@@ -217,7 +217,7 @@ The binary case fails because:
       to handle the global scope ice.
   (b) With only two primes, there is no parity buffer — awe.
 
-The structural content of the unsolved step is: PROMOTE 𐑷 → 𐑴 and
+The content of the unsolved step is: PROMOTE 𐑷 → 𐑴 and
 RESTRICT Γ from ice → thigh, while maintaining the same conclusion.
 This is the structural analog of the Hardy-Littlewood circle method
 requirement: the minor arcs estimate must be sharp enough to handle
@@ -558,7 +558,7 @@ Chen and Helfgott achieved by relaxing the statement.
    agent count and Twin Prime's gap threshold. This is the only catalog
    entry where the difficulty is controlled by arity.
 
-2. **Chen ≡ Helfgott** (distance 0) is a non-obvious structural identity:
+2. **Chen ≡ Helfgott** (distance 0) is a non-obvious identity:
    adding a third prime and relaxing the second prime to a semiprime
    achieve the exact same structural type. The grammar sees what the
    mathematical statements obscure.
