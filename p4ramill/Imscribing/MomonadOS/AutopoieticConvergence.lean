@@ -128,7 +128,7 @@ theorem canonical_in_sweet_spot : sweetSpot canonicalWeight := by
 --
 -- CORRECTED §8 (2025-07-15): The autopoietic loop converges to a low-diversity
 -- O_0 2-cycle for all substrate weights w ∈ [0,10] under the current discrete
--- from_snapshot() mapping. The kernel achieves O_inf STATICALLY (structural identity
+-- from_snapshot() mapping. The kernel achieves O_inf STATICALLY (identity
 -- with ZFC_fe, d=0.0, C=0.828, both Gates open), not dynamically.
 --
 -- Experimental verification (faithful Python port of sequence.rs + imas_ig.rs):

@@ -1,5 +1,5 @@
 /-
-Ars Cross-Domain Bridge — Structural distances between fungal and animal types.
+Ars Cross-Domain Bridge — Distances between fungal and animal types.
 15 fungal x 14 animal = 210 cross-domain pairs.
 Closest pair: Gilled Cap-and-Stipe <-> Amphibian Dermal (d=3).
 P/f invariant gap: fungi use out+age; animals use nun+they => min distance >= 2.

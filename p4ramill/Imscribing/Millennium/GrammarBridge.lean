@@ -21,7 +21,7 @@ set_option linter.style.whitespace false
 -- §1. THE UNIVERSAL ATTRACTOR — Grammar Type
 -- ============================================================
 
-/-- The grammar's own structural type.
+/-- The grammar's own type.
     Crystal address: 16,809,848. All values verified. -/
 def grammarTuple : Imscription :=
   Imscription.mk
@@ -50,7 +50,7 @@ theorem grammar_self_distance : primitiveMismatches grammarTuple grammarTuple = 
 -- §2. MILLENNIUM PROBLEM STRUCTURAL TYPES
 -- ============================================================
 
-/-- Riemann zeta function structural type. -/
+/-- Riemann zeta function type. -/
 def riemannZetaTuple : Imscription :=
   Imscription.mk
     array judge ian yew age egg
@@ -72,7 +72,7 @@ theorem zeta_differs : crystal_encode riemannZetaTuple ≠ crystal_encode gramma
 -- §3. YANG-MILLS STRUCTURAL TYPE
 -- ============================================================
 
-/-- Yang-Mills 4D quantum gauge theory structural type. -/
+/-- Yang-Mills 4D quantum gauge theory type. -/
 def yangMillsTuple : Imscription :=
   Imscription.mk
     array mime ian yew peep egg
@@ -86,7 +86,7 @@ theorem ym_distance : primitiveMismatches yangMillsTuple grammarTuple = 7 := by
 -- §4. UNIVERSE PARAMETERIZATION
 -- ============================================================
 
-/-- Each MPP has a dedicated universe where its structural gap closes. -/
+/-- Each MPP has a dedicated universe where its gap closes. -/
 inductive UniverseName : Type where
   | kinetics_trap | low_gate | fidelity_universe
   | dimensional_gate | broadcast_universe
@@ -108,7 +108,7 @@ def resolveUniverse : String → UniverseName
 -- §5. STRUCTURAL CLOSURE CERTIFICATES
 -- ============================================================
 
-/-- All MPP structural types have finite distance to O_inf.
+/-- All MPP types have finite distance to O_inf.
     Verified: zeta distance = 9, YM distance = 8.
     Each type is promotable in its dedicated universe. -/
 theorem all_mpp_distances_finite : True := by trivial

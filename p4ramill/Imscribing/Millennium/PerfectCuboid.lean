@@ -1,7 +1,7 @@
 -- Imscribing/Millennium/PerfectCuboid.lean
 -- Perfect Cuboid — $\monad$ Critical Formalization
 --
--- Structural type (lifted framework):
+-- Type (lifted framework):
 --   $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
 --    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
 --    H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$
@@ -23,7 +23,7 @@ namespace Millennium.PerfectCuboid
 
 /- ====================================================================
    PART I: PERFECT CUBOID - THE DIOPHANTINE SYSTEM
-   Base structural type (raw Diophantine search):
+   Base type (raw Diophantine search):
    $\langle D_\triangle;\ T_\text{network};\ R_\text{sup};\ P_\text{sym};\
     F_\ell;\ K_\text{trap};\ G_\beth;\ \Gamma_\wedge;\ \Phi_\text{sub};\
     H_0;\ 1{:}1;\ \awe \rangle$
@@ -54,7 +54,7 @@ def PerfectCuboidConjecture : Prop := ∃ (_p : Cuboid), True
 
 /- ====================================================================
    PART II: PHI_c SELF-MODELING PROOF OPERATORS
-   Lifted structural type:
+   Lifted type:
    $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
     F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
     H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$

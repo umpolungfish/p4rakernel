@@ -200,7 +200,7 @@ theorem both_joins_are_O2 :
   native_decide
 
 /-- Void is O2: critical + topologically protected, wedge domain.
-    The structural floor from which the Egyptian path ascends. -/
+    The floor from which the Egyptian path ascends. -/
 theorem void_is_O2 :
     imscriptionTier void_consensus_protocol = .O₂ := by
   unfold void_consensus_protocol imscriptionTier ouroboricityTier
@@ -225,7 +225,7 @@ theorem laozi_is_O2 :
 
 /-- Void -> Tao gap: 9 Hamming mismatches. Egypt starts at the protocol
     level (O2, wedge); Taoism starts at the principle level (O2,
-    holographic) -- already 9 structural promotions above the Void. -/
+    holographic) -- already 9 promotions above the Void. -/
 theorem void_to_tao_gap :
     primitiveMismatches void_consensus_protocol tao = 9 := by
   unfold void_consensus_protocol tao primitiveMismatches
@@ -255,7 +255,7 @@ theorem bod_laozi_closer_than_void_tao :
 /-- SACRED CONVERGENCE: The Egyptian and Taoist sacred technologies form
     a convergent lattice, not a dual mirror pair.
     
-    Key structural facts (all machine-verified by `native_decide`):
+    Key facts (all machine-verified by `native_decide`):
     
     1. CEILING CONVERGENCE: d(join(Void,Tao), join(BoD,Laozi)) = 3
        Both paths aim at the same summit -- critical, topologically protected,

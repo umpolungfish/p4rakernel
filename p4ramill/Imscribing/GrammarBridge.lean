@@ -14,7 +14,7 @@ open Millennium.Thresholds
 
 -- ============================================================
 -- §1. THRESHOLDS ARE PRIMITIVE OBSTRUCTIONS
--- Each Millennium Problem fails for a structural reason the grammar makes explicit.
+-- Each Millennium Problem fails for a reason the grammar makes explicit.
 -- ============================================================
 
 /-- The primitive signature of each Millennium Problem's threshold.
@@ -46,7 +46,7 @@ theorem ym_requires_special_frobenius :
   simp [thresholdPrimitiveSignature]
   decide
 
-/-- The structural gap between RH (OpenProblem) and YM (MissingFoundation) is in Polarity:
+/-- The gap between RH (OpenProblem) and YM (MissingFoundation) is in Polarity:
     RH requires nun (full symmetry), YM requires or' (Special Frobenius).
     Special Frobenius is not achievable by tensor composition (frobenius_not_synthesizable).
     This is why YM cannot be reduced to a "harder version" of RH. -/
@@ -74,7 +74,7 @@ def thresholdDistance (p : MillenniumProblem) : ℕ :=
   | .OPN   => 2   -- subcritical, asymmetric
 
 /-- YM and BSD have the same threshold distance (1), but YM is MissingFoundation
-    because Special Frobenius is not a degree of freedom — it's a structural type.
+    because Special Frobenius is not a degree of freedom — it's a type.
     BSD's out is achievable by tensor composition; YM's or' is not. -/
 theorem ym_vs_bsd_distance_vs_foundation :
     thresholdDistance .YM = thresholdDistance .BSD ∧

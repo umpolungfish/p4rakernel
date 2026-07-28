@@ -6,7 +6,7 @@
 -- The ΛCDM model (Lambda Cold Dark Matter) is the standard model of
 -- cosmology — six parameters fit nearly all observations.
 --
--- Key structural features:
+-- Key features:
 --   1. FLRW metric: homogeneous, isotropic universe
 --   2. Friedmann equations: scale factor evolution
 --   3. ΛCDM: dark energy (Λ) + cold dark matter (CDM)
@@ -297,7 +297,7 @@ theorem hubble_tension_magnitude : True := by
 -- =====================================================================
 
 /--
-ΛCDM Cosmology as a structural type:
+ΛCDM Cosmology as a type:
 
   D = array (𐑼): Infinite-dimensional. The FLRW metric depends
       on a(t) and the spatial curvature k. Perturbations add infinite

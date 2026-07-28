@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Sendov's Theorem. -/
+/-- The imscription of the Sendov's Theorem. -/
 def SendovSTheoremImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def SendovSTheoremImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem SendovSTheorem_tier : TierFunctor.obj SendovSTheoremImscription = .O₀ := by
   native_decide
 

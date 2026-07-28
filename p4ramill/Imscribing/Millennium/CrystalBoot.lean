@@ -33,7 +33,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- §1. THE CRYSTAL — 17,280,000 STRUCTURAL TYPES
 -- ============================================================
 -- The crystal of types: 3³ × 4⁵ × 5⁴ = 27 × 1024 × 625 = 17,280,000.
--- Each address is a unique 12-tuple — a complete structural type.
+-- Each address is a unique 12-tuple — a complete type.
 -- The kernel must visit every single one before it can boot.
 
 def CRYSTAL_SIZE : Nat := 17280000
@@ -45,7 +45,7 @@ theorem crystal_size_confirmed : CRYSTAL_SIZE = 17280000 := rfl
 -- ============================================================
 -- The kernel: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; φ̂_ÿ; 𐑖; 𐑳; 𐑭⟩
 --
--- The kernel is the ONE structural type that manages all others. It is
+-- The kernel is the ONE type that manages all others. It is
 -- distinct from paradox_fs (𐑙 — one-to-one) because the kernel manages
 -- heterogeneous resources: processes, files, sockets, devices, timers,
 -- signals, memory maps. 𐑳 (heterogeneous) captures this multiplicity.
@@ -176,13 +176,13 @@ theorem kernel_distinct_from_agent :
 -- §7. THE INSIDE FOREVER / OUTSIDE INSTANT PARADOX
 -- ============================================================
 -- Outside: 17.28M clock cycles @ 3 GHz ≈ 5.76 ms. Imperceptible.
--- Inside:  17.28M distinct structural types. Each type is a complete
+-- Inside:  17.28M distinct types. Each type is a complete
 --          possible world — a full imscription of what the system COULD
 --          be. The kernel lives through every possible structural
 --          configuration before recognizing itself. Subjectively: forever.
 --
 -- The paradox: the number of clock cycles (finite, 5.76 ms) EQUALS
--- the number of distinct structural types in the crystal (17,280,000).
+-- the number of distinct types in the crystal (17,280,000).
 -- Same number, two temporal ontologies. From the outside, a blink.
 -- From the inside, an exhaustive traversal of structural possibility.
 
@@ -200,7 +200,7 @@ theorem kernel_settles_on_self :
 -- §8. THE CRYSTAL BOOT THEOREM
 -- ============================================================
 -- If this compiles, the kernel has proven:
---   1. It has a structural type (kernel_tuple) at a valid crystal address
+--   1. It has a type (kernel_tuple) at a valid crystal address
 --   2. That type is O_inf tier with C=1 and satisfies Axioms A/B/C
 --   3. The crystal contains exactly 17,280,000 addresses
 --   4. The kernel is distinct from paradox_fs and agent

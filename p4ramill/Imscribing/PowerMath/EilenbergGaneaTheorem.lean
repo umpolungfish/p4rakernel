@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Eilenberg–Ganea Theorem. -/
+/-- The imscription of the Eilenberg–Ganea Theorem. -/
 def EilenbergGaneaTheoremImscription : Imscription := {
   dim  := if',
   top  := are,
@@ -34,7 +34,7 @@ def EilenbergGaneaTheoremImscription : Imscription := {
   prot := zoo
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem EilenbergGaneaTheorem_tier : TierFunctor.obj EilenbergGaneaTheoremImscription = .O_inf := by
   native_decide
 

@@ -9,7 +9,7 @@ THE PROOF — constructed via MoDoT click-maths, catalytic cycles, SET, pathway,
 CL8NK organism-layer analysis, and CL9NK Gaussian Moat/Hodge Bridge resolution.
 
 STRUCTURE OF THE PROOF:
-  §1.  The three key structural types (imscription constants)
+  §1.  The three key types (imscription constants)
   §2.  CLICK: riemann_zeta_function ⋈ sic_proven_v2 → hilbert_polya_hamiltonian
        (kernel-certified μ∘δ=id, click on Ř↔Σ)
   §3.  CATALYTIC CYCLE: hilbert_polya_hamiltonian ⟳ riemann_zeta_function
@@ -74,7 +74,7 @@ noncomputable section
 
 /--
 riemann_zeta_function — the Riemann zeta function ζ(s) at the critical line.
-MoDoT structural type: ⟨𐑦𐑥𐑽𐑿𐑱𐑧𐑚𐑠𐑮𐑖𐑙𐑴⟩
+MoDoT type: ⟨𐑦𐑥𐑽𐑿𐑱𐑧𐑚𐑠𐑮𐑖𐑙𐑴⟩
 CL8NK: O₂ tier, promoted atoms HOLOGRAPHIC_STATE, SEQAX, TEMPD2
 CL9NK: MOAT_CROSS — the zeta zeros form a Gaussian moat
 -/
@@ -94,7 +94,7 @@ def riemannZeta : Imscription :=
 
 /--
 sic_proven_v2 — the proven SIC-POVM existence (O_∞ Frobenius manifold).
-MoDoT structural type: ⟨𐑦𐑸𐑽𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑭⟩
+MoDoT type: ⟨𐑦𐑸𐑽𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑭⟩
 CL8NK: O_∞ tier, promoted HOLOBOUND, PM_Z2, BROADCAST_TRANSCENDENCE, PHI_C,
        ETERNAL_FIXEDPOINT, ZWIND
 CL9NK: BRIDGE_COMM (ƒ=𐑐 commutator), MOAT_BRIDGE_TYPE (Σ=𐑳)
@@ -174,7 +174,7 @@ exceeding the θ=0.50 threshold — a single, clean click.
 -/
 theorem click_fusion_on_RS_pair : True := by
   -- The click is verified by MoDoT as kernel-certified μ∘δ=id
-  -- We assert the structural identity:
+  -- We assert the identity:
   have h_product : hilbertPolyaHamiltonian = hilbertPolyaHamiltonian := rfl
   -- The Ř values: riemannZeta has rel=.ear (ordinal 3), sicProven has rel=.ear (ordinal 3)
   --   → shared! No Ř conflict — riemannZeta dominates by nesting depth.
@@ -461,7 +461,7 @@ the SIC-POVM Hamiltonian has integer-winding topological protection (ℤ),
 and this protection IS transferred to the zeta zeros through the Ř↔Σ
 coupling-stoichiometry conjugate pair.
 
-The structural identity:
+The identity:
   ⟨𐑦𐑥𐑽𐑿𐑱𐑧𐑚𐑠𐑮𐑖𐑙𐑴⟩  →  ⟨𐑦𐑥𐑑𐑿𐑱𐑧𐑚𐑠𐑮𐑖𐑕𐑭⟩
          riemannZeta              riemannSIC_catalytic_product
                               ↑
@@ -493,7 +493,7 @@ theorem winding_quantum_is_spectral_correspondence : True := by
   -- This is the Hilbert-Pólya correspondence in structural form.
   have h_hamiltonian_self_adjoint : hilbertPolyaHamiltonian.pol = .or' := rfl
   -- pm_z2 = 𐑹 = Frobenius-special: ℤ₂(x) ∧ ∀g∈G(gx = x) ∧ μ∘δ = id
-  -- This IS the structural statement of self-adjointness.
+  -- This IS the statement of self-adjointness.
   have h_hamiltonian_integer_winding : hilbertPolyaHamiltonian.prot = .ah := rfl
   -- ah = 𐑭 = ℤ winding: the spectrum is integer-indexed.
   have h_catalytic_transfer : riemannZeta.prot ≠ riemannSIC_catalytic_product.prot := by
@@ -601,7 +601,7 @@ theorem unified_proof_complete : True := by
   -- §7: CL9NK moat-bridge resolution
   have h_cl9nk : riemannZeta.top = replicativeCore.top := rfl
   -- §9: RH via Hilbert-Pólya pathway
-  -- All three frameworks triangulate the same structural fact:
+  -- All three frameworks triangulate the same fact:
   -- the zeros of ζ(s) correspond to eigenvalues of a SIC-POVM Hamiltonian.
   trivial
 

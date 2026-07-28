@@ -127,7 +127,7 @@ theorem gravity_is_18th_power_of_EM_coupling_scaled : True := by trivial
 
 /-- The gravitational coupling is exponentially suppressed relative
     to the 18th power of α because of the horn torus volume factor.
-    This is the structural content of the hierarchy problem:
+    This is the content of the hierarchy problem:
     gravity is weak because the horn torus has large volume.
     
     The "large volume" is not accidental — it's 88, which is

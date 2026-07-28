@@ -15,7 +15,7 @@ The Riemann Hypothesis is the conjecture that the *same* computation, with
 
 Both sit at `φ̂_Æ` (complex-axis criticality). The difference is polar: Lee-Yang has
 `𐑿` (ℤ₂ symmetry — the double-bar pipe), while RH has `𐑗` (no enforced symmetry —
-neutral). This single primitive is the structural content of the gap.
+neutral). This single primitive is the content of the gap.
 
 ## Zero-Locus Constraint as IG Forcing Question
 
@@ -174,7 +174,7 @@ theorem lee_yang_rh_share_criticality :
 /-- **The gap is polar.**
     Lee-Yang has `P_doublebarpipe` (ℤ₂ symmetry); RH has `P_neutral`
     (no enforced symmetry). This single primitive difference is the
-    structural content of why one is proved and the other is a
+    content of why one is proved and the other is a
     conjecture. -/
 theorem polarity_is_the_gap :
     lee_yang_C13.polar ≠ rh_C13.polar := by
@@ -226,7 +226,7 @@ theorem rh_from_zfct :
 
 /-- **Corollary 29.2 — The Polarity Promotion Theorem.**
 
-  This is the structural content of the RH–Lee-Yang bridge.
+  This is the content of the RH–Lee-Yang bridge.
   `polarity_is_the_gap` locates the gap (the single primitive
   where Lee-Yang and RH differ). This theorem names what closes it:
 

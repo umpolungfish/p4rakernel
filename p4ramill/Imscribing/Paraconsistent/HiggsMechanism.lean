@@ -5,7 +5,7 @@
 -- The Higgs mechanism breaks SU(2)_L × U(1)_Y → U(1)_EM through
 -- spontaneous symmetry breaking (SSB) of the Higgs doublet.
 --
--- Key structural features:
+-- Key features:
 --   1. SSB: vacuum expectation value (vev) ≠ 0 breaks the symmetry
 --   2. Goldstone bosons (3) are "eaten" by W⁺, W⁻, Z → massive
 --   3. Photon remains massless (unbroken U(1)_EM)
@@ -228,7 +228,7 @@ The Higgs mechanism completes the electroweak sector of the Standard Model:
     | Higgs             | complex doublet (4)| real scalar h (1)     |
     | Goldstones        | 0                  | 3 (eaten)             |
 
-The structural type or' (Frobenius-special) is the key: the Higgs
+The type or' (Frobenius-special) is the key: the Higgs
 mechanism is not just any symmetry breaking — it is the μ∘δ=id closure
 between gauge boson degrees of freedom and Goldstone modes. The 3
 Goldstone bosons are the "δ" that provides the longitudinal polarization

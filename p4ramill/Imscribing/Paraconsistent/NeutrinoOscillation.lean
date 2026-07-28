@@ -70,7 +70,7 @@ The oscillation probability depends on:
   - L/E (baseline / energy)
   - δ_CP (Dirac CP phase)
 
-We encode the structural fact that P(ν_α → ν_β) ≠ δ_{αβ} — i.e.,
+We encode the fact that P(ν_α → ν_β) ≠ δ_{αβ} — i.e.,
 neutrino flavor is NOT conserved during propagation.
 -/
 
@@ -202,8 +202,8 @@ theorem neutrino_oscillation_gate2_open :
 -- =====================================================================
 
 /--
-Neutrino oscillation is the structural signature of non-degenerate
-neutrino masses and non-trivial PMNS mixing. Key structural facts:
+Neutrino oscillation is the signature of non-degenerate
+neutrino masses and non-trivial PMNS mixing. Key facts:
 
   1. Neutrinos have mass (Δm²_ij ≠ 0)
   2. Mass eigenstates ≠ flavor eigenstates (U_PMNS ≠ I)
@@ -211,7 +211,7 @@ neutrino masses and non-trivial PMNS mixing. Key structural facts:
   4. CP violation in the lepton sector is possible (δ_CP ≠ 0, π)
   5. The Dirac/Majorana nature is undetermined
 
-The structural type mime (crossing point) captures the essential
+The type mime (crossing point) captures the essential
 feature: neutrino propagation is a continuous oscillation between
 two distinct classification schemes (flavor basis and mass basis),
 connected by a fixed unitary rotation.

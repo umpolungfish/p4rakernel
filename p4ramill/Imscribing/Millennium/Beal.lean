@@ -4,7 +4,7 @@ import Mathlib
 # The Beal Conjecture — Dual Proof: Lean4 Structural Encoding
 # Imscribing / MillenniumAnkh edition
 
-Structural type:
+Type:
   ⟨array; mime; ian; out; age; egg;
    ice; 𐑠; ⊙; sure; up; 𐑷⟩
 Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
@@ -34,7 +34,7 @@ Crystal address: 4948976  |  Ouroboricity: O₁  |  C-score: 0.498
 
 ## What Is Open
 - beal_prime_mixed_exponents: the Beal Conjecture — axiomatized
-  Structural gap: 𐑷 → 𐑴 promotion required.
+  Gap: 𐑷 → 𐑴 promotion required.
   No known parity invariant exists.
 -/
 
@@ -393,7 +393,7 @@ theorem beal_equal_prime_exponents (p : Nat) (hp3 : p ≥ 3) :
 
 /-- The Beal Conjecture for mixed exponents p, q, r ≥ 3.
     The sole remaining open dependency.
-    Structural gap: 𐑷 → 𐑴. -/
+    Gap: 𐑷 → 𐑴. -/
 axiom beal_prime_mixed_exponents (p q r : Nat)
     (hp3 : p ≥ 3) (hq3 : q ≥ 3) (hr3 : r ≥ 3) :
     ∀ (A B C : Nat), A > 0 → B > 0 → C > 0 →
@@ -461,7 +461,7 @@ the absent topological protection with a constructive descent
 invariant.
 
 Proved in the literature for FLT (Kummer 1850, Wiles 1995).
-The mixed-exponent generalization is the structural content of
+The mixed-exponent generalization is the content of
 the Beal conjecture itself — proving this axiom is equivalent
 to proving Beal.
 -/

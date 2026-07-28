@@ -103,7 +103,7 @@ inductive Wind where
 -- §1. STRUCTURAL TUPLE TYPE AND DISTANCE METRIC
 -- ============================================================================
 
-/-- The 12-primitive structural tuple encoding a religious tradition. -/
+/-- The 12-primitive tuple encoding a religious tradition. -/
 structure RelTuple where
   D : Dim
   T : Topo
@@ -452,7 +452,7 @@ def ouroborTier (s : RelTuple) : OuroborTier :=
 -- ============================================================================
 
 /-- Distance between Tao and Taoism: d = 3.1623 (7 primitives differ).
-    This is the structural gap between the principle and its tradition. -/
+    This is the gap between the principle and its tradition. -/
 theorem distance_Tao_Taoism :
   relDist Tao Taoism = Real.sqrt 19 := by
   dsimp [relDist, weightedSqDist, Tao, Taoism]

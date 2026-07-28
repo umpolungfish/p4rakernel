@@ -5,7 +5,7 @@ Imscribing/MoDoT/ManuscriptSpine.lean
 The ManuscriptSpine agent (VINIT→IMSCRIB→FSPLIT→EVALT→EVALF→FFUSE→ENGAGR→IFIX)
 processed 92 open mathematical questions through the Imscribing Grammar's
 paraconsistent Belnap FOUR woestrate. Each problem is imscribed as a 12-primitive
-structural tuple with a formal Belnap verdict (T/F/B).
+tuple with a formal Belnap verdict (T/F/B).
 
 Source: ./MoDoT/formalize.txt — 8,120 lines of agent output
 Author: Lando⊗⊙perator
@@ -1061,7 +1061,7 @@ def covering_by_shifted_primes : Imscription :=
 -- T = True (established), F = False (refuted), B = Both (paradox contained / open frontier).
 --
 -- The verdicts map to the Imscribing Grammar's Belnap FOUR lattice:
-  -- T (True-only):   The structural proof is complete; all branches close.
+  -- T (True-only):   The proof is complete; all branches close.
   -- F (False-only):  The counter-proof is complete; the statement is refuted.
   -- B (Both):        The problem contains an irresolvable structural tension —
                    -- proven true in some regimes, open or false in others.
@@ -1182,7 +1182,7 @@ Of the 93 entries (92 problems + 1 preamble Sidon analysis):
   B (Both/Open):        10 — paradox contained, frontier open
 
 The high T/F ratio (83/93 ≈ 89%) reflects the ManuscriptSpine agent's
-ability to find structural proofs within the Imscribing Grammar's
+ability to find proofs within the Imscribing Grammar's
 Belnap FOUR substrate. The B verdicts mark genuine frontiers:
   - Frankl's Union-Closed Conjecture (Q09)
   - Turán density of F₅ hypergraph (Q26)

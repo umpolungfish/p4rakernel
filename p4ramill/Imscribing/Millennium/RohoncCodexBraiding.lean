@@ -8,7 +8,7 @@ braiding program and its coupling to the CKM matrix.
 
   IMASM: ⊢⊣>=∈+>∈×<=∋⊞⊙=¬>∈+∋⊙=¬<+∋ (26 tokens)
 
-Key structural fact: the outer FSPLIT3 (token 4) opens BEFORE both
+Key fact: the outer FSPLIT3 (token 4) opens BEFORE both
 ⊙ (IMSCRIB) identity points (tokens 13, 20) and the FFUSE3 (token 25)
 closes AFTER them. This is non-Abelian braiding on the horn torus.
 
@@ -95,7 +95,7 @@ theorem rohonc_gate2_open : rohonc_codex.kin = KineticChar.egg :=
 
 /-- CKM matrix: Gate 1 is at complex-plane critical (𐑮), not ⊙.
     The structural gate expects ⊙; CKM places at roar (complex-plane).
-    This is the structural content of CP violation. -/
+    This is the content of CP violation. -/
 theorem ckm_gate1_is_complex_critical : ckm_matrix.crit = Criticality.roar :=
   rfl
 

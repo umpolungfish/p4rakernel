@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Zariski–Lipman Theorem. -/
+/-- The imscription of the Zariski–Lipman Theorem. -/
 def ZariskiLipmanTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def ZariskiLipmanTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem ZariskiLipmanTheorem_tier : TierFunctor.obj ZariskiLipmanTheoremImscription = .O_inf := by
   native_decide
 

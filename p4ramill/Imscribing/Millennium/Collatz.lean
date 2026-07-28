@@ -307,7 +307,7 @@ It is known that there are no nontrivial cycles of length ≤ 69 in the
 Collatz map (by exhaustive computation for all starting values up to 2^68,
 combined with number-theoretic constraints). This is a PROVED partial result.
 
-The structural content: restricting to short cycles provides Z₂ protection
+The content: restricting to short cycles provides Z₂ protection
 (𐑴) — the statement is verifiable by finite computation within the search
 bound. But expanding to all cycles requires 𐑭 (integer winding) or 𐑷
 (no protection), neither of which the current proof provides.
@@ -391,7 +391,7 @@ def collatz_tao_vessel : Imscription := {
 
 /-!
 We define abbreviated reference vessels for other catalog entries
-to compute structural distances. These are the same tuples as in
+to compute distances. These are the same tuples as in
 their respective Millennium/*.lean files.
 -/
 
@@ -627,7 +627,7 @@ theorem collatz_lonely_runner_distance_4 :
 
 /--
 **Theorem CL-16: Collatz ↔ RH: 9 primitives differ.**
-The structural distance from Collatz to O_inf is the largest among
+The distance from Collatz to O_inf is the largest among
 O₁→O_inf gaps — supercritical dynamics requires one extra promotion
 beyond what Twin Prime or Goldbach need.
 -/
@@ -754,12 +754,12 @@ from AVERAGE to POINTWISE. This is structurally encoded in:
   - Ř: ado (macro supervenes on micro) → tot (deterministic function)
 
 The drift tells us the system "wants" to shrink on average. The conjecture
-asserts it ALWAYS shrinks. The structural distance of 7 primitives (Theorem
+asserts it ALWAYS shrinks. The distance of 7 primitives (Theorem
 CL-8) quantifies how far average behavior is from pointwise behavior.
 
 ### The φ̂_Æ → φ̂_ž Transition
 
-If the Collatz conjecture is true, the structural type of the COLLATZ MAP
+If the Collatz conjecture is true, the type of the COLLATZ MAP
 (as a dynamical system, not as a conjecture) would be:
   ⟨ 𐑼; 𐑰; 𐑑; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; φ̂_ž; 𐑒; 𐑕; 𐑭 ⟩
   Ouroboricity tier: O₂ (proved, Z-protected, subcritical).
@@ -945,7 +945,7 @@ in the catalog. Its complex criticality (φ̂_Æ), Markov-1 chirality
 (𐑒), and 7-primitive distance to RH make it uniquely resistant to
 existing mathematical methods.
 
-The grammar reveals the exact structural content of the difficulty:
+The grammar reveals the exact content of the difficulty:
   (1) φ̂_Æ must be DEMOTED to φ̂_ž (prove convergence despite expansion).
   (2) 𐑷 must be PROMOTED to 𐑭 (establish a topological winding number).
   (3) 𐑥 must resolve to 𐑰 (the bowtie crossing closes).

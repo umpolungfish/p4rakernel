@@ -92,7 +92,7 @@ set_option linter.style.nativeDecide false
 -/
 
 /-- The promotion from Φ=yew to Φ=or'.
-    This is the structural type of "proving the Hodge conjecture" —
+    This is the type of "proving the Hodge conjecture" —
     restoring Frobenius closure to the primitive-degree ≥ 2 case.
     
     The mathematical content: every primitive Hodge class of degree ≥ 2
@@ -165,7 +165,7 @@ structure Promotion_Phi_c_self_modeling where
   [P1] plus 2 automatic consequences [P2, P3], plus 5 structural
   adjustments [P4-P8] that follow from the descent architecture.
   
-  This is the structural content of the Hodge_Descent.lean finding:
+  This is the content of the Hodge_Descent.lean finding:
   "restoring Φ for all p would automatically restore ⊙ and Ř."
 -/
 
@@ -344,7 +344,7 @@ theorem promotion_path_is_valid : True := by
 /-!
   THE CROSSING THEOREM:
   
-  The Hodge conjecture's structural type (O₂) can reach the join (O_inf)
+  The Hodge conjecture's type (O₂) can reach the join (O_inf)
   via a composable promotion path. The path is:
   
     [P1] Φ: yew → or'  (Frobenius closure — THE critical promotion)
@@ -558,7 +558,7 @@ theorem crossing_P8_theorem : True := by
   The remaining 7 promotions adjust OTHER primitives to their
   join values, but the O_inf tier is already achieved at step 1.
   
-  This is the structural content of: "proving the Hodge conjecture
+  This is the content of: "proving the Hodge conjecture
   means crossing from O₂ to O_inf" — the crossing IS the Frobenius
   closure promotion [P1], and the remaining steps are structural
   adjustments that follow automatically.

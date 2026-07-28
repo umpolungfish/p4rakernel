@@ -253,7 +253,7 @@ theorem castor_disjunctive :
 
 -- ══════════════════════════════════════════════════════════════════════
 -- SECTION 11: FROBENIUS CLOSURE — Bootstrap loop μ∘δ = id holds
--- The three-gate verification preserves structural identity.
+-- The three-gate verification preserves identity.
 -- ══════════════════════════════════════════════════════════════════════
 
 -- The Frobenius condition for the botanical gatekeeper is:
@@ -266,7 +266,7 @@ theorem frobenius_self_closure (p : Imscription) :
     primitiveMismatches p p = 0 :=
   primitiveMismatches_self p
 
--- The three plants are distinct as structural types — no degeneracy
+-- The three plants are distinct as types — no degeneracy
 -- between them despite sharing 10 of 12 primitives.
 theorem three_plants_distinct :
     artemisia_absinthium ≠ mandragora_officinarum ∧

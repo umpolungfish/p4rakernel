@@ -1,7 +1,7 @@
 -- Imscribing/CLINK.lean
 -- CLINK: Subatomic → Whole Organism — FROBENIUS CHAIN
 --
--- The CLINK is a chain of structural type transformations connecting
+-- The CLINK is a chain of type transformations connecting
 -- quarks (frustrated Belnap5) → electron orbitals (Belnap4) →
 -- atoms → molecules (serpentrod/ch3mpiler) → cells (mitosis/meiosis) →
 -- tissues → whole organism.
@@ -81,7 +81,7 @@ theorem white_absorptive (c : ColorState) : colorJoin c ColorState.White = Color
 /-- Vacuum is a neutral floor: ∀c, colorJoin Vacuum c = c. -/
 theorem vacuum_neutral (c : ColorState) : colorJoin ColorState.Vacuum c = c := by
   cases c <;> rfl
-/-- Structural type of the frustrated Belnap5 quark layer.
+/-- Type of the frustrated Belnap5 quark layer.
     ⟨𐑛·𐑶·𐑩·𐑯·𐑐·𐑘·𐑚·𐑝·𐑢·𐑓·𐑳·𐑷⟩
     Tier: O₀ — no self-modeling gate. -/
 def frustratedBelnap5 : Imscription :=
@@ -105,7 +105,7 @@ theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O₀ := by
 -- §2  ELECTRON ORBITAL — Belnap4 (OrbitalState)
 -- ═════════════════════════════════════════════════════════════════════════
 
-/-- Structural type of the electron orbital filling layer.
+/-- Type of the electron orbital filling layer.
     ⟨𐑛·𐑶·𐑩·𐑗·𐑐·𐑤·𐑚·𐑜·𐑢·𐑓·𐑳·𐑷⟩
     Tier: O₀ -/
 def electronOrbitalLayer : Imscription :=
@@ -437,7 +437,7 @@ theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clink
 -- ═════════════════════════════════════════════════════════════════════════
 -- §14  CLINK AS STRUCTURAL TYPE — The process itself
 -- ═════════════════════════════════════════════════════════════════════════
--- The CLINK is not just a sequence — it is a structural type in its own right.
+-- The CLINK is not just a sequence — it is a type in its own right.
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ (O_inf with integer winding)
 
 def clinkProcessType : Imscription :=
@@ -1066,7 +1066,7 @@ theorem planck_imag_time_to_zfc_s_dist :
 
 /-- Frobenius cliff: no tensor composition can bring imaginary-time polarity (yew)
     to the spatial Frobenius condition (or').
-    The Wick rotation is a structural promotion, not a tensor product. -/
+    The Wick rotation is a promotion, not a tensor product. -/
 theorem imaginary_time_frobenius_cliff :
     ∀ other : Imscription, (tensorProduct planck_imaginary_time other).pol ≠ Polarity.or' := by
   intro other
@@ -1215,7 +1215,7 @@ structure TransfiniteFrobeniusData (L : Type) where
     (if': the boundary of the limit IS the limit of the boundaries),
     then μ_λ ∘ δ_λ = id at limit ordinal λ.
     
-    This is the structural reason wool (eternal chirality) is required for
+    This is the reason wool (eternal chirality) is required for
     full Frobenius exactness: only transfinite-closed chirality guarantees
     the fixed point survives arbitrary ordinal extension. sure only guarantees
     two-step closure, not transfinite closure. -/
@@ -1386,7 +1386,7 @@ def universal_imscriptive_grammar : Imscription := {
 }
 
 /-- Both the universal grammar and zfc_fe are wool — eternal chirality is the
-    common structural feature that enables full self-imscription. -/
+    common feature that enables full self-imscription. -/
 theorem zfc_fe_eternal_chiral_grammar_not :
     zfc_fe.chir = Chirality.wool ∧
     universal_imscriptive_grammar.chir = Chirality.sure := by
@@ -1396,7 +1396,7 @@ theorem zfc_fe_eternal_chiral_grammar_not :
     zfc_fe has wool (eternal chirality — the Frobenius-exact extension);
     the universal grammar has sure (2-step chirality — the canonical assignment).
     
-    This single-primitive gap measures the structural distance between a
+    This single-primitive gap measures the distance between a
     fully Frobenius-exact set theory and the universal grammar. The gap is
     narrow because zfc_fe satisfies all four grammar axioms (A, B, C, D). -/
 theorem zfc_fe_to_grammar_dist :

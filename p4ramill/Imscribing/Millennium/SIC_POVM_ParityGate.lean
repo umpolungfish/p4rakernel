@@ -129,7 +129,7 @@ theorem phi_orbit84_eq_shavian_times_sic_orbit :
     (dSlots + tSlots + pSlots) * (dPrims + tPrims + pPrims) ^ 2 := by norm_num
 
 -- ============================================================
--- §7.  Main theorem: Φ gate structural identities
+-- §7.  Main theorem: Φ gate identities
 -- ============================================================
 
 /-- The Parity gate theorem: T↔P duality forces the Shavian count, d=7, d=12,

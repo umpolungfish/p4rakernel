@@ -5,9 +5,9 @@
 -- over a field k of characteristic zero is an automorphism.
 --
 -- §1  Mathematical statement
--- §2  The Vessel — structural imscription
+-- §2  The Vessel — imscription
 -- §3  The Frobenius-Special Encoding — 𐑹 ↔ μ∘δ=id ↔ endo=auto
--- §4  Structural theorems — tensor, distance, tier analysis
+-- §4  Theorems — tensor, distance, tier analysis
 -- §5  Connection to the Jacobian Conjecture
 -- §6  Honest gaps
 --
@@ -65,7 +65,7 @@ axiom dixmier_equiv_jacobian (k : Type) (n : ℕ) [Field k] [CharZero k] :
 -- ============================================================
 
 /--
-The Vessel of the Dixmier Conjecture — its structural type as an Imscription.
+The Vessel of the Dixmier Conjecture — its type as an Imscription.
 
 ⟨ 𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭 ⟩
 
@@ -122,7 +122,7 @@ Three-tier correspondence:
   (b) μ∘δ = id — endomorphism composed with inverse equals identity
   (c) Endo = Auto — every self-map is invertible
 
-The Frobenius-special condition or' is the structural invariant that encodes
+The Frobenius-special condition or' is the invariant that encodes
 the Dixmier Conjecture. It occupies the tier singularity: or' cannot be
 synthesized by composition of lower-P partners (§23 of PRIMITIVE_THEOREMS).
 
@@ -168,7 +168,7 @@ theorem ppm_sym_is_top (p : Polarity) : p ≤ or' := by
 -- ============================================================
 
 /--
-The Jacobian Conjecture vessel — structural imscription of the geometric analogue.
+The Jacobian Conjecture vessel — imscription of the geometric analogue.
 
 ⟨ 𐑛; 𐑶; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭 ⟩
 
@@ -199,7 +199,7 @@ theorem dixmier_jacobian_distance_2 :
     primitiveMismatches dixmier_vessel jacobian_conjecture_vessel = 2 := by
   native_decide
 
-/-- Both share the Frobenius-special parity — the structural invariant of the equivalence. -/
+/-- Both share the Frobenius-special parity — the invariant of the equivalence. -/
 theorem shared_frobenius_core :
     dixmier_vessel.pol = or' ∧ jacobian_conjecture_vessel.pol = or' := by
   simp [dixmier_vessel, jacobian_conjecture_vessel]
@@ -262,12 +262,12 @@ HONEST SORRY / GAP MARKERS:
    k[x₁,…,xₙ] by derivations ∂ᵢ = ∂/∂xᵢ is not available in Mathlib v4.28.
    Status: MathlibGap.
 
-5. **Structural completeness**: All structural theorems (§4–§5) are proved by
+5. **Structural completeness**: All theorems (§4–§5) are proved by
    `native_decide` — these are machine-verified claims about the primitive types.
    No sorry markers in the structural layer. The Vessel is fully formalized.
 
    The Contents (what fills the Vessel) is:
-   (a) The structural type ⟨𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭⟩
+   (a) The type ⟨𐑛; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭⟩
    (b) The Frobenius encoding: 𐑹 ↔ μ∘δ = id ↔ Endo = Auto
    (c) The distance-2 relationship to the Jacobian Conjecture vessel
    (d) The tensor bridge connecting both at the Frobenius core

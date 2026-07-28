@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Farrell–Jones Theorem. -/
+/-- The imscription of the Farrell–Jones Theorem. -/
 def FarrellJonesTheoremImscription : Imscription := {
   dim  := if',
   top  := are,
@@ -34,7 +34,7 @@ def FarrellJonesTheoremImscription : Imscription := {
   prot := zoo
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem FarrellJonesTheorem_tier : TierFunctor.obj FarrellJonesTheoremImscription = .O_inf := by
   native_decide
 

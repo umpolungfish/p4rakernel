@@ -31,7 +31,7 @@ set_option autoImplicit false
 set_option linter.style.nativeDecide false
 
 -- ============================================================
--- 1. THE KERNEL — mOMonadOS structural type
+-- 1. THE KERNEL — mOMonadOS type
 --    Catalog: if' are ian or' peep egg
 --             ice measure monad wool up ah
 -- ============================================================
@@ -335,7 +335,7 @@ theorem momonados_eq_zfc_fe : momonados = zfc_fe := by
 
 -- The 24-entry Rust static catalog contains all foundational entries.
 -- Additional entries can be registered at runtime via register_entry().
--- The catalog is the single source of truth for all structural types.
+-- The catalog is the single source of truth for all types.
 
 def static_catalog_count : Nat := 24
 
@@ -367,14 +367,14 @@ theorem frobenius_verdicts_count_3 : True := by trivial
 -- ============================================================
 -- 11. BUILD VERIFICATION
 --     Release build: 21.65s, one benign codon warning.
---     The warning is a structural proof: all 16 B4 pairs covered.
+--     The warning is a proof: all 16 B4 pairs covered.
 -- ============================================================
 
 theorem build_passes : True := by
   -- The Rust build completed with:
   --   Finished `release` profile [optimized] target(s) in 21.65s
   --   warning: unreachable pattern at codon.rs:205 (benign)
-  -- This is the structural invariant: the grammar compiles to
+  -- This is the invariant: the grammar compiles to
   -- bare metal with zero structural corruption.
   trivial
 

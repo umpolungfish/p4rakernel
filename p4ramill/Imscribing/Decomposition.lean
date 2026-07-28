@@ -1,6 +1,6 @@
 -- Imscribing/Decomposition.lean
 -- Six Decomposition Bounds: formalization of the DECOMP.md theorem.
--- Decomposition granularity is bounded by the meet of six structural primitives.
+-- Decomposition granularity is bounded by the meet of six primitives.
 --
 -- Author: Lando ⊗ ⊙perator
 --
@@ -129,7 +129,7 @@ axiom bowtie_max_three_layers (s : Imscription) (n : ℕ) :
   s.top = .mime → validTemporalDecomposition s n → n ≤ 3
 
 /-- oil connectivity axiom: a box-product system cannot be decomposed
-    into proper subsystems while preserving its structural type. -/
+    into proper subsystems while preserving its type. -/
 axiom box_irreducible (s : Imscription) (n : ℕ) :
   s.top = .oil → validTemporalDecomposition s n → n = 1
 

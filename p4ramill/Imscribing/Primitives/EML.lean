@@ -5,7 +5,7 @@
 -- EDL(x,y) = exp(x) / ln(y)  -- terminal constant: e
 -- negEML(x,y) = ln(x) - exp(y)  -- terminal constant: -∞
 --
--- Structural type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; egg; G_ℵ; 𐑠; ⊙; H_1; S_1:1; 𐑭⟩
+-- Type: ⟨D_∞; T_⋈; R_†; P_±; F_ℏ; egg; G_ℵ; 𐑠; ⊙; H_1; S_1:1; 𐑭⟩
 -- Tier: O₂dag (highest sub-Frobenius in elementary function algebra)
 --
 -- Key findings from EML_PROBE.tex:
@@ -60,7 +60,7 @@ def neg_eml_variant : Imscription := {
 -- §1. Z₂ ORBIT AND TIER
 -- ============================================================
 
-/-- All three variants share the same structural type. -/
+/-- All three variants share the same type. -/
 theorem eml_orbit_same_type :
     eml_operator = edl_variant ∧ eml_operator = neg_eml_variant := by
   constructor <;> rfl
@@ -113,7 +113,7 @@ theorem eml_is_not_O_inf : imscriptionTier eml_operator ≠ .O_inf := by
   rw [eml_is_O_two_dag] at h
   cases h
 
-/-- EML's structural distance to Frobenius target is exactly 1 mismatch (P). -/
+/-- EML's distance to Frobenius target is exactly 1 mismatch (P). -/
 theorem eml_distance_to_frobenius :
     primitiveMismatches eml_operator { eml_operator with pol := or' } = 1 := rfl
 
@@ -179,7 +179,7 @@ theorem eml_crystal_in_range : eml_crystal_address < 17280000 := by
 -- §7. CLOSURE BOUNDARY THEOREMS
 -- ============================================================
 
-/-- Stark unit structural type: requires or' at monad. -/
+/-- Stark unit type: requires or' at monad. -/
 def stark_unit_type : Imscription := {
   dim  := if',    top  := are,    rel  := ian,
   pol  := or',  fid  := peep,    kin  := egg,
@@ -242,7 +242,7 @@ theorem eml_winding_is_Omega_Z : eml_operator.prot = .ah := rfl
 -- §10. DISTANCE TO SIC-POVM (FROBENIUS GAP)
 -- ============================================================
 
-/-- EML → SIC-POVM structural distance.
+/-- EML → SIC-POVM distance.
     Mismatches: dim(array≠if'), top(mime≠are), rel(ear=ear ok),
     pol(out≠or'), fid(peep=peep ok), kin(egg=egg ok),
     gran(ice=ice ok), gram(measure=measure ok),

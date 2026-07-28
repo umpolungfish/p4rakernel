@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Hilbert–Arnold Theorem. -/
+/-- The imscription of the Hilbert–Arnold Theorem. -/
 def HilbertArnoldTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def HilbertArnoldTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem HilbertArnoldTheorem_tier : TierFunctor.obj HilbertArnoldTheoremImscription = .O_inf := by
   native_decide
 

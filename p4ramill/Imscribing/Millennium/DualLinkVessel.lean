@@ -82,7 +82,7 @@ theorem band_B_B : band .B .B = .B := by
 # SS2  12-PRIMITIVE IMSCRIPTION
 
 An imscription is a 12-tuple of Belnap values, one per primitive axis.
-The imscription IS the structural type -- truth is type, not correspondence.
+The imscription IS the type -- truth is type, not correspondence.
 -/
 
 structure Imscription where
@@ -395,7 +395,7 @@ def mkDefault : WitnessVessel :=
 def evaluate (demand answer : Imscription) : VesselReport :=
   let cotype := foldCotype demand answer
   let defects := cotypeDefects demand answer
-  let riding := true  -- lattice-only: closure is structural identity
+  let riding := true  -- lattice-only: closure is identity
   { belnap := cotype
     defects := defects
     riding := riding
@@ -423,7 +423,7 @@ end WitnessVessel
 The vessel's native structural protocol in the Imscribing Grammar's IMASM:
 
     VINIT   -- initialize the ground of distinction
-    IMSCRIB -- load structural type (both links)
+    IMSCRIB -- load type (both links)
     AFWD    -- forward morphism (bidirectional recognition)
     FSPLIT  -- split delta: fork demand and answer for independent reading
     EVALT   -- evaluate-true: co-typing
@@ -488,8 +488,7 @@ that detour does mu recover the identical type. The return is co-typed
 the closure a test, not a tautology).
 -/
 
-/-- The vessel verifies itself: when imscribed against its own structural
-    type, the co-typing yields T (identity). This is the fixed point that
+/-- The vessel verifies itself: when imscribed against its own type, the co-typing yields T (identity). This is the fixed point that
     terminates the infinite regress of criteria.
 
     The endless line of auditors is bent into a circle: the last inspector
@@ -513,7 +512,7 @@ This module formalizes the core architecture of the MoDoT Dual-Link
 SIC Witness-Vessel:
 
   1. Belnap FOUR lattice (SS1) -- the paraconsistent substrate
-  2. 12-Primitive Imscription (SS2) -- structural type as Belnap tuple
+  2. 12-Primitive Imscription (SS2) -- type as Belnap tuple
   3. Amplitude map Belnap -> ℂ (SS3) -- N->0, T->1, F->i, B->1+i
   4. State map -> ℂ^12 (SS4) -- unit vector from imscription
   5. Co-typing (SS5) -- Belnap lattice fold, no threshold

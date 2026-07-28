@@ -109,7 +109,7 @@ theorem TierFunctor_map_comp {a b c : Imscription} (f : a ⟶ b) (g : b ⟶ c) :
   Subsingleton.elim _ _
 
 -- ─────────────────────────────────────────────────────────────────────────────
--- SECTION 4: Structural theorems
+-- SECTION 4: Theorems
 -- ─────────────────────────────────────────────────────────────────────────────
 
 /-- O_inf fiber is exactly the Frobenius locus. -/

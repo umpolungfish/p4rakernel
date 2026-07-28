@@ -16,7 +16,7 @@ tree (the 20 in `allRulesets` plus the three ported `absorption_*` universes). T
 is the machine-checked form of the manuscript's "fail at the gate layer under all
 29, with or without T_CEILING."
 
-The structural reason is the winding gate: all three carry Ω (protection/winding)
+The reason is the winding gate: all three carry Ω (protection/winding)
 below the terminal anchor `ah` (ord 3) — RH Ω=`oak` (2), NS Ω=`awe` (1),
 PNP Ω=`awe` (1) — and every closure-bearing universe requires Ω≥3 at its terminal
 gate. Low winding ⇒ no idempotent-terminal closure.
@@ -35,7 +35,7 @@ nowhere, matching the manuscript; YM (⊙=haha=3) still closes.
 ## Honest scope
 
 Structural-resistance result in the operad model, verified by `native_decide`. It
-says these three structural types do not reach the framework's closure condition
+says these three types do not reach the framework's closure condition
 under any current universe — not a claim about the conventional mathematical
 problems.
 -/
@@ -76,7 +76,7 @@ theorem rh_ns_pnp_low_winding :
     (ordinalOmega rh.prot < 3) ∧ (ordinalOmega ns.prot < 3) ∧ (ordinalOmega pnp.prot < 3) := by
   decide
 
-/-- Combined resistance verdict for all three still-open Clay structural types. -/
+/-- Combined resistance verdict for all three still-open Clay types. -/
 theorem clay_resistance :
     (universes.any (fun r => decide (r.operadLayer rh = .idempotent_terminal)) = false) ∧
     (universes.any (fun r => decide (r.operadLayer ns = .idempotent_terminal)) = false) ∧

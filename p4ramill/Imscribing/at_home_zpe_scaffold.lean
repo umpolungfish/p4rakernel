@@ -8,7 +8,7 @@
 -- Expected tier: O₂
 -- FSPLIT/FFUSE pairs: [(3, 10)]
 --
--- Structural signature: CLINK and ENGAGR are INSIDE the FSPLIT/FFUSE gap
+-- Signature: CLINK and ENGAGR are INSIDE the FSPLIT/FFUSE gap
 --   T-branch: 4 nodes (AFWD, EVALT, CLINK, AREV)
 --   F-branch: 2 nodes (EVALF, ENGAGR)
 --   Gap width: 7 steps (FSPLIT[3] → FFUSE[10])
@@ -88,11 +88,11 @@ theorem at_home_zpe_frobenius_pair_exists : FSPLIT_FFUSE_Pair 3 10 := by
 -- Proof: apply igFrobAlg_self_fusion; exact mu_delta_A_id
 -- (requires mu_delta_A_id from IGFunctor library)
 
--- Structural theorem: CLINK is inside the extraction window
+-- Theorem: CLINK is inside the extraction window
 theorem clink_inside_gap : (3 < 6) ∧ (6 < 10) := by
   constructor <;> decide
 
--- Structural theorem: ENGAGR is inside the extraction window
+-- Theorem: ENGAGR is inside the extraction window
 theorem engagr_inside_gap : (3 < 9) ∧ (9 < 10) := by
   constructor <;> decide
 

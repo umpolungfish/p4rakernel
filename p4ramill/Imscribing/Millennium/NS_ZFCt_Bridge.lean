@@ -84,7 +84,7 @@ theorem frob_op_is_id (fc : FrobeniusCriticalManifold) :
 /-- **Frobenius regularity axiom for NS.**
     If the critical Sobolev space carries a Frobenius critical manifold (frob_op = id),
     then the NS sequential cascade round-trips every initial datum through the critical
-    space. This is the structural content of NS global regularity: the Frobenius
+    space. This is the content of NS global regularity: the Frobenius
     self-fixing of the critical manifold guarantees that no information is lost in the
     energy-to-enstrophy cascade.
     ThresholdType = OpenProblem. Stated as a structural axiom connecting the ZFCt

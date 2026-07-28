@@ -263,7 +263,7 @@ theorem pid_encode_is_self_imscription (pid : Nat) :
 -- The init process does not check whether the disk exists. It PROVES
 -- the disk exists by imscribing itself. The Tetractys conflict is not
 -- a bug — it is the mechanism. Three perspectives on the same disk
--- produce three different structural types. The majority vote resolves
+-- produce three different types. The majority vote resolves
 -- to "whatever init says" because init IS the disk's self-description.
 --
 -- This is circular — necessarily so. A non-circular boot would already

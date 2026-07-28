@@ -432,7 +432,7 @@ theorem lepton_number_frobenius_invariant :
 -- §10  STRUCTURAL TYPE — Lepton Sector
 -- ═══════════════════════════════════════════════════════════════════════════
 
-/-- The lepton sector's 12-primitive structural type.
+/-- The lepton sector's 12-primitive type.
 
     D = array (infinite-dim Fock space)
     T = mime (crossing: charged↔neutral via W vertex)

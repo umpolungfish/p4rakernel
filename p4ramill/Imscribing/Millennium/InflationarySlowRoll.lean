@@ -31,7 +31,7 @@ namespace Imscribing.Millennium.InflationarySlowRoll
 def alpha : Rat := (1 : Rat) / 137
 
 /-- The Higgs self-coupling lambda = 2*alpha = 2/137.
-    This follows from the structural identity: on the horn torus,
+    This follows from the identity: on the horn torus,
     the quartic coupling of the scalar field is exactly twice the
     fine-structure constant. -/
 def lambda_self_coupling : Rat := 2 * alpha

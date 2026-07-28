@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Casas-Alvero Theorem. -/
+/-- The imscription of the Casas-Alvero Theorem. -/
 def CasasAlveroTheoremImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def CasasAlveroTheoremImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem CasasAlveroTheorem_tier : TierFunctor.obj CasasAlveroTheoremImscription = .O₀ := by
   native_decide
 

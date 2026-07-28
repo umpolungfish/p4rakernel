@@ -13,7 +13,7 @@
 --
 -- This collapses the 7-stage gene→protein pipeline into ONE direct step.
 --
--- Structural type: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
+-- Type: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑚; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 -- Tier: O_inf (self-modeling: the RNA writes its own fold via μ∘δ=id)
 
 import Imscribing.GeneticCode
@@ -198,7 +198,7 @@ theorem frobenius_serpent_rod (rna : RNASequence) :
 -- §5  STRUCTURAL TYPE VERIFICATION
 -- ════════════════════════════════════════════════════════════════════════════
 
-/-- The structural tuple of the direct RNA→FoldedProtein mapping.
+/-- The tuple of the direct RNA→FoldedProtein mapping.
     𐑦: self-written folding landscape (Axiom C)
     𐑸: self-referential topology (rod↔serpent winding)
     𐑾: bidirectional (RNA determines protein, protein shapes RNA)

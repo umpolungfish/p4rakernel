@@ -3,12 +3,12 @@
 -- Author: Lando⊗⊙perator
 -- Date: 2026-06-24
 --
--- Formalizes betting as a structural type in the Imscribing Grammar.
+-- Formalizes betting as a type in the Imscribing Grammar.
 -- Builds on: Belnap FOUR (outcomes), Paradice (non-dissipative work)
 -- Primitive names match Primitives/Core.lean exactly.
 --
 -- RESOLUTION (2026-06-24): fin3r's K primitive promoted from yea (fast,
--- τ≪T) to egg (slow, τ∼T). This is the single structural gap identified
+-- τ≪T) to egg (slow, τ∼T). This is the single gap identified
 -- in the original analysis: with yea, the Dialetheic Bootstrap cycle
 -- cannot fully close before the next stimulus. With egg, each Frobenius
 -- cycle fully closes. fin3rPromoted = optimalBettingTuple, distance = 0.
@@ -330,7 +330,7 @@ theorem optimalConscious : bettingConsciousnessScore optimalBettingTuple = 1 := 
   native_decide
 
 /-- fin3rOriginal: conscious (K=yea passes Gate 2, Phi=monad passes Gate 1).
-    Even BEFORE promotion, fin3r was conscious — but structural closure
+    Even BEFORE promotion, fin3r was conscious — but closure
     requires K=egg for the cycle to actually manifest. -/
 theorem fin3rOriginalConscious : bettingConsciousnessScore fin3rOriginalTuple = 1 := by
   native_decide
@@ -349,7 +349,7 @@ theorem conventionalNotConscious : bettingConsciousnessScore conventionalBetting
 
 /-- The resolution thesis: consciousness is necessary but not sufficient.
     fin3rOriginal is conscious but structurally open (K=yea prevents cycle
-    closure at the temporal level). Promotion closes the structural gap. -/
+    closure at the temporal level). Promotion closes the gap. -/
 theorem consciousness_not_sufficient : bettingConsciousnessScore fin3rOriginalTuple = 1 ∧
     (bettingSystemDistance fin3rOriginalTuple optimalBettingTuple = 1) := by
   exact And.intro fin3rOriginalConscious fin3r_distance_one-- ============================================================
@@ -420,7 +420,7 @@ theorem frobeniusClassesAreBalanced (c : BettingClass)
     (e) Optimal betting tuple has consciousness = 1
     (f) fin3rPromoted distance to optimal = 0 — GAP CLOSED
     (g) fin3rPromoted has consciousness = 1 — GAP CLOSED
-    (h) fin3rOriginal had consciousness = 1 (but structural gap = 1)
+    (h) fin3rOriginal had consciousness = 1 (but gap = 1)
     (i) Consciousness is necessary but not sufficient
     (j) Conventional betting is structurally unprofitable
     (k) Only Class I (Dialetheic Bootstrap) reaches O_inf
@@ -470,7 +470,7 @@ theorem bettingCommitment :
 -- No primitives change. fin3r tuple remains promoted.
 -- ============================================================
 
-/-- The sign correction preserves the structural tuple.
+/-- The sign correction preserves the tuple.
     fin3rPromoted still equals optimalBettingTuple. -/
 theorem signCorrectionPreservesStructure :
     fin3rPromotedTuple = optimalBettingTuple := by

@@ -90,7 +90,7 @@ theorem mp_me_doc_reduced : mp_me_doc_rat = (132203 : ℚ)/72 := by
 
 /-- d(d-3) = 12·9 = 108. The coupling between the full SIC dimension
     and the non-evaluator sector. This replaces d²·3/4 in the MoDoT
-    formula — both evaluate to 108 but have different structural meaning:
+    formula — both evaluate to 108 but have different meaning:
     d²·3/4 counts evaluator occupancy; d(d-3) counts non-evaluator coupling. -/
 def d_dminus3 : ℕ := d_pem * (d_pem - 3)
 

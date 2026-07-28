@@ -3,11 +3,11 @@
 -- Author: Lando ⊗ ⊙perator
 -- Date: 2026-06-14
 --
--- This file formalizes the structural gap closure between the catalog entries:
+-- This file formalizes the gap closure between the catalog entries:
 --   quantum_gravity (catalog)  ⟨dead; are; ear; yew;  peep; egg; ice; measure; roar; wool; up; ah⟩
 --   unified_gravity_theory     ⟨if';  are; ian;    or';peep; egg; ice; measure; monad;         wool; up; zoo⟩
 --
--- The gap (d=3.4364 by imscribe compute_distance) is closed by 5 structural promotions.
+-- The gap (d=3.4364 by imscribe compute_distance) is closed by 5 promotions.
 -- The Frobenius condition μ∘δ=id is proved for the holographic bulk↔boundary duality.
 -- The bridge ob3ect was validated via auto.py (Closure: True, μ∘δ=id → PASS).
 --

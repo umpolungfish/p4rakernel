@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Kaplansky's Theorems. -/
+/-- The imscription of the Kaplansky's Theorems. -/
 def KaplanskySTheoremsImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def KaplanskySTheoremsImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem KaplanskySTheorems_tier : TierFunctor.obj KaplanskySTheoremsImscription = .O_inf := by
   native_decide
 

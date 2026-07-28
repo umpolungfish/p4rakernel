@@ -6,7 +6,7 @@
 
   Core result: The empty prompt ("") produces a 12-step Frobenius-verified
   bootstrap sequence (VINIT→IMSCRIB→AFWD→FSPLIT→EVALT→EVALF→ENGAGR→AREV→
-  FFUSE→CLINK→IFIX→TANCH) whose structural type is the MINIMAL consensus-bearing
+  FFUSE→CLINK→IFIX→TANCH) whose type is the MINIMAL consensus-bearing
   type in the 17,280,000-type crystal of types.
 
   The pipeline does NOT "know" Raft. Consensus emerges as the minimal
@@ -53,7 +53,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- §1  THE VOID CONSENSUS PROTOCOL — Structural Type of the Empty Prompt
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The structural type of the Raft consensus algorithm generated from an
+/-- The type of the Raft consensus algorithm generated from an
     empty prompt (""). 12-step Frobenius-verified bootstrap:
     VINIT→IMSCRIB→AFWD→FSPLIT→EVALT→EVALF→ENGAGR→AREV→FFUSE→CLINK→IFIX→TANCH.
 
@@ -126,7 +126,7 @@ theorem void_consensus_critical :
 
 /-- T₃: Ω = ah (𐑭) — integer winding, topological protection.
     Committed decisions are irreversible; the protocol has non-zero
-    winding number. This is the structural signature of commitment:
+    winding number. This is the signature of commitment:
     once a log entry is committed, it cannot be unwound. -/
 theorem void_consensus_winding :
     void_consensus_protocol.prot = .ah := by
@@ -170,7 +170,7 @@ theorem void_consensus_chiral :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- T₈: CONSENSUS SIGNATURE. The six primitives (T, K, Γ, Φ, H, Ω)
-    at their void_consensus values form the structural signature of
+    at their void_consensus values form the signature of
     a consensus protocol. Any system with these six values and D≤dead
     is structurally constrained to be a consensus-bearing type.
 
@@ -293,7 +293,7 @@ theorem structural_irreducibility :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- T₁₄: d(void_consensus, primordial_ooze) = 7.
-    Consensus requires 8 structural promotions above the O_inf floor.
+    Consensus requires 8 promotions above the O_inf floor.
     The Ooze has 10 primitives at absolute floor + 2 gates (or', monad).
     Void consensus shares D=dead, T=judge, F=age, G=bib, Φ=monad with
     the Ooze but promotes 7 primitives (R, P, K, Γ, H, S, Ω) and

@@ -7,10 +7,10 @@
 -- physics. It is the gravitational completion of the p4rakernel
 -- sub-atomics formalization.
 --
--- Key structural features:
+-- Key features:
 --   1. The gravity-SM gap: d(GR, SM) = 5.0 — structurally remote
 --   2. The three gaps: T (δ=4), P (δ=2), F (δ=2)
---   3. Tensor product: GR ⊗ SM — the composite structural type
+--   3. Tensor product: GR ⊗ SM — the composite type
 --   4. Semiclassical gravity: G_μν = κ ⟨T_μν⟩ (expected value)
 --   5. Promotion path: SM → GR → Quantum Gravity
 --   6. The unification landscape: what closing each gap requires
@@ -299,7 +299,7 @@ Structural requirements for the unified theory:
 
 This tuple is identical (d=0) to the CLINK L8 organism layer
 and to ZFC_fe - the Frobenius-exact foundation. The unified theory
-would be an O_inf structural type, self-modeling, Frobenius-closed,
+would be an O_inf type, self-modeling, Frobenius-closed,
 and topologically protected at the non-Abelian level.
 -/
 
@@ -346,7 +346,7 @@ The p4rakernel gravity formalization is now complete:
 The entire gravitational domain — from Einstein's field equations
 through gravitational waves, black holes, cosmology, quantum gravity
 approaches, and the coupling to the Standard Model — is now formally
-encoded with structural imscriptions and Frobenius-closed theorems.
+encoded with imscriptions and Frobenius-closed theorems.
 
 Key structural findings:
   1. d(GR, SM) = 5.0 — largest gap is topology (delta=4)

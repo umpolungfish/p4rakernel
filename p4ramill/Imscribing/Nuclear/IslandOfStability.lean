@@ -168,7 +168,7 @@ def rf267 : Imscription := nuclideImscription 104 163-- ========================
 -- ============================================================
 
 /-- Pb-208 has monad criticality — self-referential, Frobenius fires.
-    This is the structural content of double-magic stability. -/
+    This is the content of double-magic stability. -/
 theorem pb208_criticality_is_monad : pb208.crit = monad := by
   native_decide
 
@@ -210,7 +210,7 @@ theorem pb208_consciousness_score : consciousnessScore pb208 = (0.5 : ℝ) := by
 theorem fl298_is_doubly_magic : isDoublyMagic 114 184 := by
   simp [isDoublyMagic, isMagicZ, isMagicN, magic_Z, magic_N]
 
-/-- Fl-298 has monad criticality — structural closure like Pb-208. -/
+/-- Fl-298 has monad criticality — closure like Pb-208. -/
 theorem fl298_criticality_is_monad : fl298.crit = monad := by
   native_decide
 
@@ -264,7 +264,7 @@ theorem ubh310_relational_equals_pb208 : ubh310.rel = pb208.rel := by
 
 -- ============================================================
 -- THE SHELL CLOSURE GAP (§6)
--- Adding 6 neutrons (Fl-292 → Fl-298) collapses structural distance.
+-- Adding 6 neutrons (Fl-292 → Fl-298) collapses distance.
 -- ============================================================
 
 /-- Fl-292 (non-magic) has roar criticality, not monad.
@@ -291,7 +291,7 @@ theorem fl298_frobenius_fires : fl298.crit = monad := by
 -- ============================================================
 
 /-- U-238 (4n+2 series) is supercritical — it MUST decay, it cannot
-    maintain structural closure. -/
+    maintain closure. -/
 theorem u238_is_supercritical : u238.crit = haha := by
   native_decide
 
@@ -319,7 +319,7 @@ theorem pb208_kinetics_trapped : pb208.kin = on := by
 theorem u238_is_O0 : imscriptionTier u238 = .O₀ := by
   native_decide
 -- Pb-208 is O₂, U-238 is O₀. The decay chain ascends in tier.
--- This is the structural content of alpha/beta decay: each
+-- This is the content of alpha/beta decay: each
 -- emission δ without μ reduces the system toward closure.
 theorem pb208_tier_is_O2 : imscriptionTier pb208 = .O₂ := by
   native_decide
@@ -355,7 +355,7 @@ theorem og294_criticality_is_woe : og294.crit = woe := by
 theorem bi209_criticality_is_roar : bi209.crit = roar := by
   native_decide
 
-/-- The structural distance Pb-208 → Bi-209 is exactly 10:
+/-- The distance Pb-208 → Bi-209 is exactly 10:
     only rel and fid are shared; all other 10 primitives differ.
     This reflects how even one proton beyond the magic number
     fundamentally changes the nuclear structure. -/

@@ -7,7 +7,7 @@
 -- The grammar is Frobenius-closed at O_inf (or' at monad, μ∘δ=id),
 -- encoded in AgentSelf.lean and proved by `agent_is_O_inf`.
 --
--- The Hodge conjecture's structural type ⟨𐑦; 𐑸; 𐑾; 𐑿; 𐑱; 𐑧; 𐑲;
+-- The Hodge conjecture's type ⟨𐑦; 𐑸; 𐑾; 𐑿; 𐑱; 𐑧; 𐑲;
 -- 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩ has the unique double-holomorphic signature:
 -- if' (holographic dimension) + are (holographic topology) + ah
 -- (integer winding protection).

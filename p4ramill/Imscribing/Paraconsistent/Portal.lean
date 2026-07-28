@@ -26,7 +26,7 @@ inductive PortalMode : Type where
   deriving DecidableEq, Repr
 
 -- ============================================================
--- PORTAL TYPE as an Imscription (structural signature)
+-- PORTAL TYPE as an Imscription (signature)
 -- ============================================================
 def portalType : Imscription := {
   dim  := .if'

@@ -201,8 +201,7 @@ structure QSystem (α : Type) where
   dagger_mu_eq_delta : ∀ a : α, mu_dagger (delta a) = a
 
 /-- Entanglement fidelity theorem: in a Q-system, the encoding-decoding
-    cycle μ ∘ δ preserves the state exactly.  This is the structural
-    reason quantum error correction is possible. -/
+    cycle μ ∘ δ preserves the state exactly.  This is the reason quantum error correction is possible. -/
 theorem qsystem_entanglement_fidelity (α : Type) (Q : QSystem α) (a : α) :
     Q.mu (Q.delta a) = a :=
   Q.mu_comp_delta_eq_id a
@@ -285,16 +284,16 @@ theorem broadcastCompose_assoc (V : Type) (f g h : BroadcastRelation V)
 -- the braiding β to satisfy the Hecke algebra relations, which in turn
 -- force the Yang-Baxter equation: R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂.
 --
--- The structural type that generates YBE from Frobenius is the BIG-GDL
+-- The type that generates YBE from Frobenius is the BIG-GDL
 -- Cosmogeny (already formalized in Cosmogeny.lean as `cosmogeny`):
 --   ⟨if', are, ian, or', age, egg, thigh,
 --     measure, monad, sure, up, ah⟩
 --
 -- The implication: if a braided monoidal category contains a Frobenius
--- algebra object with this structural type, the braiding MUST satisfy YBE.
+-- algebra object with this type, the braiding MUST satisfy YBE.
 
 /-- The Cosmogeny tuple (from Cosmogeny.lean, verified against live catalog
-    entry `big_gdl_frobenius_cosmogeny`).  This is the structural type that
+    entry `big_gdl_frobenius_cosmogeny`).  This is the type that
     generates Yang-Baxter integrability from Frobenius identity. -/
 def yang_baxter_generating_type : Imscription := cosmogeny
 
@@ -306,7 +305,7 @@ theorem yang_baxter_type_is_O_inf : is_O_inf yang_baxter_generating_type :=
     The tuple ⟨𐑦𐑸𐑾𐑹𐑱𐑧𐑲𐑠⊙𐑖𐑳𐑭⟩ with
     μ∘δ=id in a braided category forces the braiding to satisfy YBE.
     
-    This is stated as a structural theorem: the distance from this tuple
+    This is stated as a theorem: the distance from this tuple
     to the Yang-Baxter equation is zero — they are the same structure
     expressed in different languages. -/
 theorem frobenius_implies_yang_baxter_structurally :
@@ -350,7 +349,7 @@ theorem dual_number_godel_correspondence :
 
 /-- The B-state is the paraconsistent completion that the Gödel gap necessitates.
     Without B, the system has a gap at T.  With B, the gap is bridged:
-    join(inc(T), T) = B.  This is the structural statement of the cosmogeny's
+    join(inc(T), T) = B.  This is the statement of the cosmogeny's
     fundamental thesis. -/
 theorem B_state_is_paraconsistent_completion :
     join (inc Belnap.T) Belnap.T = Belnap.B :=

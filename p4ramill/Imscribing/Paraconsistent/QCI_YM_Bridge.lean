@@ -83,7 +83,7 @@ theorem ym_threshold_is_N_to_B_gap :
   simp [measureQ0, qStateSuperposition]
 
 -- ============================================================
--- §5. Structural imscription of the YM↔Belnap bridge
+-- §5. Imscription of the YM↔Belnap bridge
 -- ============================================================
 
 def ymBelnapBridgeImscription : Imscription := {

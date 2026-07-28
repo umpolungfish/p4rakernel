@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Novikov Theorem. -/
+/-- The imscription of the Novikov Theorem. -/
 def NovikovTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def NovikovTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem NovikovTheorem_tier : TierFunctor.obj NovikovTheoremImscription = .O_inf := by
   native_decide
 

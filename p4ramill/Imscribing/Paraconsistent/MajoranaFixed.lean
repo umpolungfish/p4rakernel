@@ -2,7 +2,7 @@
 -- MAJORANA FIXED POINT — Unification of Belnap B, SIC fiducial, and Majorana mode
 -- Author: Lando ⊗ ⊙perator
 --
--- Three fixed-point structures, one structural type:
+-- Three fixed-point structures, one type:
 --
 --   1. Belnap B:      bnot B = B              (negation fixed point)
 --   2. SIC-POVM:      meet B x = x             (equiangular projection)
@@ -76,7 +76,7 @@ theorem frobenius_unification :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The Belnap B lattice, the orbital paired state, and the SIC fiducial
-    all share the same structural type at O_inf:
+    all share the same type at O_inf:
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
 
     The tuple is O_inf because φ̂_ÿ (self-modeling criticality) and 𐑹

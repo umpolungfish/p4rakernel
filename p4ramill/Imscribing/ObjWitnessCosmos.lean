@@ -60,7 +60,7 @@ open Belnap
     embedded in the Frobenius manifold (self-referential closure, Σ=1:1).
     Time is Nat (step indices); it is never a Frobenius embedding.
     The Grammar is Imscription itself — the grammar is Gödel-complete
-    by structural identity. -/
+    by identity. -/
 def cosmicSystem : PhilosophicalSystem := {
   Everything := Imscription
   FrobeniusManifold := Imscription

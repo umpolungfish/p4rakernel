@@ -5,9 +5,9 @@
 -- such that p+2 is also prime.
 --
 -- §1  Mathematical statement
--- §2  The Vessel — structural imscription
+-- §2  The Vessel — imscription
 -- §3  The Critical-Gap Encoding — crossing topology at gap=2
--- §4  Structural theorems — distances, tier analysis, bounded-gap bridge
+-- §4  Theorems — distances, tier analysis, bounded-gap bridge
 -- §5  Connection to Riemann Hypothesis and Goldbach
 -- §6  Honest gaps
 --
@@ -77,7 +77,7 @@ def BoundedPrimeGaps : Prop :=
 -- ============================================================
 
 /--
-The Vessel of the Twin Prime Conjecture — its structural type as an Imscription.
+The Vessel of the Twin Prime Conjecture — its type as an Imscription.
 
 ⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷 ⟩
 
@@ -176,7 +176,7 @@ THEOREM (Structural Encoding):
   fragile — there is no topological invariant forcing the gap-2 channel to
   remain open. This is the grammar-level reason the conjecture is hard:
   bounded gaps have a sieve-theoretic proof; gap=2 requires a global
-  structural invariant that no one has found.
+  invariant that no one has found.
 
   The crossing topology is a structural bifurcation:
     - If gap ≤ 2 occurs infinitely often → mime collapses to judge
@@ -220,7 +220,7 @@ def bounded_gaps_vessel : Imscription := {
 }
 
 /--
-The Prime Number Theorem vessel — the base structural type of prime distribution.
+The Prime Number Theorem vessel — the base type of prime distribution.
 π(x) ~ x / log x. This is the foundational vessel from which all prime-gap
 vessels descend.
 
@@ -318,12 +318,12 @@ The key difference: RH has Frobenius-special parity (or'), quantum fidelity
 have partial parity (out), classical fidelity (age), 2-step chirality (sure),
 and no winding (awe).
 
-The structural distance is 4 — the same as the distance from Twin Prime to
+The distance is 4 — the same as the distance from Twin Prime to
 O_inf. This is not coincidental: the Twin Prime Conjecture is a "de-protected"
 analogue of RH — criticality without the Frobenius closure that RH structurally
 demands. If RH is true (as widely believed), twin primes inherit some of its
 structural protection through the explicit formula linking prime gaps to
-zeta zeros. But the structural type reveals that this inheritance is partial:
+zeta zeros. But the type reveals that this inheritance is partial:
 the winding protection (𐑭) of RH does not propagate to twin primes, leaving
 them at 𐑷.
 
@@ -334,7 +334,7 @@ at mesoscale) while exact gap=2 remains open (𐑷 at global scale). The
 
 /--
 The Riemann Hypothesis vessel (from RH.lean).
-Used here for structural distance computation only.
+Used here for distance computation only.
 -/
 def rh_vessel : Imscription := {
   dim  := array
@@ -390,17 +390,17 @@ HONEST SORRY / GAP MARKERS:
    π₂(x) ~ 2C₂ x/(log x)² requires complex-analytic number theory beyond
    current Mathlib capabilities. Status: MathlibGap.
 
-4. **RH connection**: The structural distance d(Twin Prime, RH) = 4 is
+4. **RH connection**: The distance d(Twin Prime, RH) = 4 is
    computed by `native_decide` and is machine-verified. The causal claim
    that RH → (partial structural protection for twin primes) is a structural
    interpretation, not a formal implication.
 
-5. **Structural completeness**: All structural theorems (§4–§5) are proved by
+5. **Structural completeness**: All theorems (§4–§5) are proved by
    `native_decide` — these are machine-verified claims about the primitive types.
    No sorry markers in the structural layer. The Vessel is fully formalized.
 
    The Contents (what fills the Vessel) is:
-   (a) The structural type ⟨𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷⟩
+   (a) The type ⟨𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑳; 𐑷⟩
    (b) The crossing-topology encoding: mime as the gap-threshold bifurcation
    (c) The distance-4 relationship to the Riemann Hypothesis vessel
    (d) The distance-2 relationship to the Bounded Gaps vessel
@@ -419,7 +419,7 @@ HONEST SORRY / GAP MARKERS:
    promotion is exactly what the Riemann Hypothesis would provide, and RH
    itself is unproven.
 
-   The structural distance d(Twin Prime, RH) = 4 is not a coincidence:
+   The distance d(Twin Prime, RH) = 4 is not a coincidence:
    the winding protection (𐑭) and Frobenius closure (or') that RH
    possesses are precisely what twin primes lack. The Twin Prime Conjecture
    is, structurally, the Riemann Hypothesis stripped of its topological

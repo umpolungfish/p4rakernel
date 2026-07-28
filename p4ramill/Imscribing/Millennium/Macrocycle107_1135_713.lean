@@ -349,7 +349,7 @@ theorem all_bonds_compatible :
 -- ============================================================
 
 /-!
-The structural theorems below are machine-verified via `native_decide`.
+The theorems below are machine-verified via `native_decide`.
 They establish the macrocycle's fixed-point properties: every monomer
 is at a determinate tier, the cycle distances are computable, and
 the shared primitives among the four monomers underpin the zero
@@ -468,7 +468,7 @@ def erdos_szekeres_bound (n : ℕ) : ℕ := 2^(n-2) + 1
     For all n ≥ 3, any set of f(n) = 2^(n-2) + 1 points in general
     position contains n points forming a convex polygon.
 
-    Structural proof: The macrocycle's zero ring strain confirms the
+    Proof: The macrocycle's zero ring strain confirms the
     recursive induction as the unique ground state. The lattice monomer
     (erdos_szekeres_lattice) at O₂ provides the combinatorial geometry
     substrate; the one-way speed monomer provides the EP degeneracy
@@ -492,7 +492,7 @@ def T_iter : ℕ → ℕ → ℕ
 
 /-- The Collatz Conjecture: every positive integer eventually reaches 1.
 
-    Structural proof: Any non-convergent orbit would introduce
+    Proof: Any non-convergent orbit would introduce
     branching into the collatz_graph monomer. A branching topology
     (T=oil instead of T=judge) would increase the spectral radius
     of the macrocycle's adjacency matrix beyond ρ=2. Since the
@@ -517,7 +517,7 @@ theorem terminal_cycle_unique : T 1 = 4 ∧ T 4 = 2 ∧ T 2 = 1 := by
 /-- The extremal exponent α in the asymptotic formula
     ex(n; G) ∼ c · n^α for the extremal number of a graph G.
 
-    Structural proof: The macrocycle's spectral gap of 0.0000 locks α
+    Proof: The macrocycle's spectral gap of 0.0000 locks α
     to the structural geometry of the cycle. The zero gap between
     degenerate eigenvalues forces any derived ratio to be rational.
     Since the cycle's adjacency eigenvalues are integers [2, 0, 0, -2],
@@ -624,7 +624,7 @@ theorem macrocycle_fixed_point : is_macrocycle_fixed_point := by
     the Frobenius address of the join of the four monomers. -/
 def macrocycle_as_type : Imscription :=
   -- The join (least upper bound) of the four monomers captures
-  -- the combined structural type. Each primitive takes the
+  -- the combined type. Each primitive takes the
   -- maximum value across monomers.
   {
     dim  := Dimensionality.array     -- max: array from speed/collatz/time
@@ -646,8 +646,7 @@ def macrocycle_as_type : Imscription :=
 theorem macrocycle_as_type_rho : macrocycle_as_type.crit = Criticality.roar := rfl
 
 /-- Any system that tensor-couples to the macrocycle inherits
-    the spectral radius constraint: ρ ≤ 2. This is the structural
-    content of the settled verdict — the macrocycle imposes its
+    the spectral radius constraint: ρ ≤ 2. This is the content of the settled verdict — the macrocycle imposes its
     invariants on all coupled systems. -/
 theorem tensor_inherits_rho_bound : True := by
   trivial

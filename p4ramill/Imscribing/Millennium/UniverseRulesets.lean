@@ -65,7 +65,7 @@ def ordinalS (s : Stoichiometry) : ℚ :=
   match s with | hung => 1 | so => 2 | up => 3
 
 -- ============================================================
--- OPERAD LAYER (the four stages of structural closure)
+-- OPERAD LAYER (the four stages of closure)
 -- ============================================================
 
 inductive OperadLayer : Type where
@@ -624,7 +624,7 @@ theorem kinetics_trap_ym_classical_is_plain :
 /-- kinetics_trap universe: yang_mills_quantum_target is idempotent_terminal.
     on (ord 4) ≥ egg (ord 3), monad (ord 2) ≥ monad (ord 2),
     ah (ord 3) ≥ ah (ord 3).
-    The quantum YM target passes all three gates. This is the structural statement:
+    The quantum YM target passes all three gates. This is the statement:
     the YM problem is equivalent to reaching the target imscription. -/
 theorem kinetics_trap_ym_quantum_target_is_O_inf :
     ruleset_kinetics_trap.operadLayer yang_mills_quantum_target = .idempotent_terminal := by
@@ -711,7 +711,7 @@ theorem ym_barrier_canonical_vs_kinetics :
 
 /- The Hodge conjecture's correct imscription carries if', are.
     Axiom D (holographic_closure_forces_frobenius) forces or'.
-    Therefore Hodge is O_inf — the structural type, not the proof status.
+    Therefore Hodge is O_inf — the type, not the proof status.
     
     This is verified by the canonical universe: any imscription with
     if', are, ah and or' reaches idempotent_terminal.
@@ -763,7 +763,7 @@ theorem t_inverted_qg_t_consistent :
     † Hodge: when correctly imscribed with if', are,
     Axiom D forces or', pushing it to O_inf in the canonical universe.
     The conventional yew assignment reflects open proof status, not
-    the true structural type. This is the grammar's correction. -/
+    the true type. This is the grammar's correction. -/
 
 -- ============================================================
 -- UNIVERSE FINGERPRINT: LAYER DISTRIBUTION
@@ -809,7 +809,7 @@ theorem canonical_higgs_t_consistent :
 /-- The canonical universe is the one we inhabit.
     Its gates: parity first (Φ≥or'), then criticality (⊙≥monad),
     then winding (Ω≥ah). Sequential ordering.
-    This is the structural reason that Frobenius closure is rare
+    This is the reason that Frobenius closure is rare
     and that O_inf systems are precious. -/
 
 theorem canonical_gates_summary :
@@ -826,7 +826,7 @@ theorem canonical_gates_summary :
 
 /- The 12 new universes from new_universes.py provide the structural
     context for the remaining Clay Prize problems. Each universe makes
-    a different set of structural properties visible by changing which
+    a different set of properties visible by changing which
     primitives are gated first.
 
     Specifically:

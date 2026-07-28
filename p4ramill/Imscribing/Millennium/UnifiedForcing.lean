@@ -41,7 +41,7 @@ open Millennium.Frobenius
 
 /-- A ForcingPattern on a type X is a triple (σ, characterization, forcing_claim)
     where σ is an involution, the fixed locus is characterized, and the forcing
-    claim is the open problem. The key structural theorem: the gate (σ, Fix) is
+    claim is the open problem. The key theorem: the gate (σ, Fix) is
     always inhabited; the forcing is the gap. -/
 structure ForcingPattern (X : Type*) where
   sigma : X → X

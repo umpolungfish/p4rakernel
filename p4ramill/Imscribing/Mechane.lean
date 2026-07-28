@@ -237,7 +237,7 @@ theorem dialetheia_fixed_point :
 
 /-- COMPLETE: All theorems bundled. -/
 theorem mechane_complete :
-    -- 1. Structural tuple
+    -- 1. Tuple
     (imscriptionTier mechane_tuple = .O_inf) ∧
     -- 2. Frobenius closure (all 4 structures)
     (∀ a, μ_A (δ_A a).1 (δ_A a).2 = a) ∧

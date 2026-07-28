@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Lehmer's Theorem. -/
+/-- The imscription of the Lehmer's Theorem. -/
 def LehmerSTheoremImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def LehmerSTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem LehmerSTheorem_tier : TierFunctor.obj LehmerSTheoremImscription = .O_inf := by
   native_decide
 

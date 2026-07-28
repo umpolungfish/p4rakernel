@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Abundance Theorem. -/
+/-- The imscription of the Abundance Theorem. -/
 def AbundanceTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def AbundanceTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem AbundanceTheorem_tier : TierFunctor.obj AbundanceTheoremImscription = .O_inf := by
   native_decide
 

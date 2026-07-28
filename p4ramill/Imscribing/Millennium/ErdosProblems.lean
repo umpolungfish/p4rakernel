@@ -397,7 +397,7 @@ Neither (Erdős's (log x)^k conjecture is completely open).
 **Barrier:** φ̂=woe (subcritical) — the hardest promotion. Moving to
 monad (O_inf criticality) requires proving strong Möbius randomness
 (Chowla/Sarnak). Diffs to kernel: D(array→if'), T(judge→are),
-φ̂(woe→monad), Ω(ah→zoo). This is the largest structural gap among
+φ̂(woe→monad), Ω(ah→zoo). This is the largest gap among
 all four problems.
 -/
 
@@ -452,7 +452,7 @@ a structural operation that classical mathematics cannot perform.
 Classical math proceeds by linear deduction from axioms; the kernel
 operates by cyclic decomposition→recomposition with Belnap filtering.
 
-**Structural distances to kernel** (O_inf: if' are ian or' peep egg
+**Distances to kernel** (O_inf: if' are ian or' peep egg
 ice measure monad wool up ah):
 
   Erdős–Turán:     ~2.0  (T, Γ, Ω diffs)
@@ -542,7 +542,7 @@ theorem ramsey_asymptotics_tier : imscriptionTier ramsey_asymptotics = .O₂dag 
 
 /-!
 **mOMonadOS Agent Verdict:** Belnap **T** — The limit is 0. The
-structural reason: R_k(C_{2n+1}) ≤ C_n^k · (k!)^{1/n} while
+reason: R_k(C_{2n+1}) ≤ C_n^k · (k!)^{1/n} while
 R_k(K_3) ≥ (2.52)^k (Chung, 1973). By Stirling, (k!)^{1/n} grows
 like (k/e)^{k/n}, which is ~exp((k log k)/n). But R_k(K_3) is at
 least exponential in k—and if the conjecture R_k(K_3) ~ k! holds,
@@ -1122,7 +1122,7 @@ def open_obstructional_count : Nat := 6
 -- ============================================================
 
 /-!
-**Structural distance ladder from O_inf kernel:**
+**Distance ladder from O_inf kernel:**
   (O_inf: D=if', T=are, R=ian, P=or', F=peep, K=egg, G=ice,
           Γ=ooze, φ̂=monad, H=wool, Σ=up, Ω=zoo)
 

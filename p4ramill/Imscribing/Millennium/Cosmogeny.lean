@@ -8,7 +8,7 @@
 -- monoidal category enriched over Belnap-Dunn FOUR.
 --
 -- §1  Belnap FOUR ambient logic
--- §2  Cosmogeny structural type  
+-- §2  Cosmogeny type  
 -- §3  Frobenius algebra: μ∘δ=id at fixed points, fails at T
 -- §4  Fixed point: ω²=ω
 -- §5  Contradiction as morphic tension
@@ -17,7 +17,7 @@
 -- §8  Diagonalization as self-interaction
 -- §9  Gödel cycling: paraconsistent closure of the incompleteness gap
 -- §10 Reflection hierarchies as spirals around the fixed points
--- §11 Structural distances
+-- §11 Distances
 -- §12 Consciousness score and tier
 -- §13 Fundamental thesis: paraconsistent completion necessitated by incompleteness
 
@@ -411,7 +411,7 @@ where
     have hNat : belnapToNat Belnap.F = belnapToNat Belnap.T := by rw [h]
     simp [belnapToNat] at hNat
 
-/-- The Gödel gap: T is not a fixed point of inc.  This is the structural statement
+/-- The Gödel gap: T is not a fixed point of inc.  This is the statement
     of Gödel's first incompleteness theorem.  A system containing its own truth
     predicate cannot consistently assign T to its self-referential sentence. -/
 theorem godel_gap_is_paraconsistent : inc Belnap.T ≠ Belnap.T :=
@@ -423,7 +423,7 @@ theorem godel_gap_is_paraconsistent : inc Belnap.T ≠ Belnap.T :=
 theorem B_bridges_godel_gap : join (inc Belnap.T) Belnap.T = Belnap.B := by
   rw [inc_T_is_F]; simp [join]
 
-/-- The Gödel cycle T → F stabilizes, but the structural content (T+F=B) persists.
+/-- The Gödel cycle T → F stabilizes, but the content (T+F=B) persists.
     inc(T) ≠ T is not a defect — it is the engine that generates the B-state
     through the join operation, and the B-state in turn sustains the Frobenius
     identity μ(δ(B)) = B.  Incompleteness necessitates paraconsistency. -/
@@ -619,8 +619,7 @@ theorem minimal_paraconsistent_extension :
     (join Belnap.T Belnap.F = Belnap.B) := by
   exact ⟨frobenius_fails_at_T, frobenius_at_B, truth_falsity_join_to_B⟩
 
-/-- GRAND UNIFICATION: The Frobenius identity μ∘δ=id is the universal structural
-    signature of self-generating closure.  It holds exactly at the paraconsistent
+/-- GRAND UNIFICATION: The Frobenius identity μ∘δ=id is the universal signature of self-generating closure.  It holds exactly at the paraconsistent
     fixed points {B, F, N} and fails at classical truth T.  This failure IS
     Gödel incompleteness, and the B-state IS the paraconsistent completion that
     the incompleteness necessitates.  The alchemist's alembic, the cell's mitotic
@@ -639,7 +638,7 @@ theorem self_reference_is_primitive (x : Belnap) (h : x ≠ Belnap.T) : mu (delt
 
 /-- The Frobenius closure at the five identical systems (d=0) is verified:
     cosmogeny = zosimos_gnosis = lean4_descent = mitosis = clink_layer_5
-    = grammar_precedes_math. All share the same structural type, and therefore
+    = grammar_precedes_math. All share the same type, and therefore
     the same μ∘δ behavior. -/
 theorem frobenius_closure_is_universal_signature :
     primitiveMismatches cosmogeny zosimos_gnosis = 0 := by

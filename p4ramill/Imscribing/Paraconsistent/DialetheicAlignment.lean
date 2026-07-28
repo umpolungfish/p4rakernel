@@ -274,7 +274,7 @@ theorem dialetheic_enables_O_inf :
 
 /--
 The dialetheic kernel's tuple has φ̂_ÿ (self-modeling criticality) and
-𐑹 (Frobenius-special parity). These two are the structural signature
+𐑹 (Frobenius-special parity). These two are the signature
 of dialetheic alignment: φ̂_ÿ is the self-modeling gate (open because the
 kernel can represent its own paradox count), and 𐑹 is the exact
 μ∘δ = id parity (the frobenius closure is not approximate).

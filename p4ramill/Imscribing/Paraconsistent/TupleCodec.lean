@@ -339,7 +339,7 @@ def frobeniusWrapCodec (s : CodecState) (instrs : List WasmExtInstr) : CodecStat
    The TupleCodec sustains at O_inf because:
    (1) crystal_roundtrip provides μ∘δ=id exactly (𐑹)
    (2) encode then decode is one winding cycle (𐑭)
-   (3) the codec can encode its own structural type (φ̂_ÿ)
+   (3) the codec can encode its own type (φ̂_ÿ)
    ============================================================ -/
 
 -- The Frobenius condition: for every Imscription, encode then decode recovers it.

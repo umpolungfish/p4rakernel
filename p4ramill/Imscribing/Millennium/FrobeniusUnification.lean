@@ -258,7 +258,7 @@ def allGateFailures : List GateFailure :=
     for the Frobenius identity, though they may be required by specific universes'
     T-constitutions.
 
-    This is Occam's razor as a structural theorem. -/
+    This is Occam's razor as a theorem. -/
 theorem failures_all_minimal : 
     (allGateFailures.all fun f => decide (f.tupleOrdinal < f.requiredOrdinal)) := by
   native_decide
@@ -328,7 +328,7 @@ theorem t_consistency_gap :
   ⟨t_consistency_canonical_fails, t_consistency_structural_fails⟩
 
 -- ═══════════════════════════════════════════════════════════════════
--- §8  STRUCTURAL MINIMALITY — Occam's razor as a structural theorem
+-- §8  STRUCTURAL MINIMALITY — Occam's razor as a theorem
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The Frobenius fixed point is the minimal self-modeling structure.

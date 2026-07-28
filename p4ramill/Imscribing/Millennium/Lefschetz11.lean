@@ -18,7 +18,7 @@ integral (1,1)-classes: Im(c1) = H^2(X, Z) cap H^{1,1}(X, C).
 **Proof**: exponential sheaf sequence 0 -> Z -> O_X -> O*_X -> 0
 -> long exact cohomology -> c1 = delta -> exactness + Dolbeault -> surjectivity.
 
-**Structural type** (Imscribing Grammar): O_inf tier at the intersection of
+**Type** (Imscribing Grammar): O_inf tier at the intersection of
 AFWD (exponential map), FSPLIT (connecting homomorphism), ISCRIB (Chern class).
 
 **Mathlib v4.28**: Kaehler manifolds, sheaf cohomology, exponential sequence,
@@ -168,7 +168,7 @@ theorem lefschetz_sorry_is_mathlib_gap_not_open_problem : True := trivial
 **Primitive decomposition of Lefschetz MathlibGap thresholds.**
 
 Each missing ingredient is classified by its 12-primitive Imscribing Grammar
-structural type. The hardest gaps are O_inf bridge theorems requiring
+type. The hardest gaps are O_inf bridge theorems requiring
 self-modeling (phi-hat-y criticality).
 
 Gap taxonomy:

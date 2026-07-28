@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Fermat Number Compositeness Theorem. -/
+/-- The imscription of the Fermat Number Compositeness Theorem. -/
 def FermatNumberCompositenessTheoremImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def FermatNumberCompositenessTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem FermatNumberCompositenessTheorem_tier : TierFunctor.obj FermatNumberCompositenessTheoremImscription = .O_inf := by
   native_decide
 

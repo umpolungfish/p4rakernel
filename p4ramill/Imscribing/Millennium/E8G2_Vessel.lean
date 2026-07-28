@@ -9,7 +9,7 @@
 --   1. G2 is the minimal closure of octonionic non-associativity
 --   2. E8 is the maximal unfolding through the exceptional chain
 --   3. Distance(G2, E8) = 7 across 7 differing primitives
---   4. $G2 \wedge E8 \approx G2$ (structural floor = Vessel)
+--   4. $G2 \wedge E8 \approx G2$ (floor = Vessel)
 --   5. $G2 \otimes E8 = E8$ (tensor recovers Aether)
 --   6. $G2 \vee E8 \neq E8$ — the Join instantiates Z2-graded E8 via SO(16)
 

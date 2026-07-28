@@ -655,7 +655,7 @@ def leray_2d_ns_encoding : Imscription := {
 /-- **The C_12 gaps are minimal** (machine-checked).
     Each proved template is exactly 1 primitive step from its open conjecture.
     The gap is smaller than any other Millennium pair — yet both remain open.
-    Structural distance is not a measure of proof difficulty. -/
+    Distance is not a measure of proof difficulty. -/
 theorem c12_gaps_are_minimal :
     primitiveMismatches schwinger_encoding ym_quantum_target = 1 ∧
     primitiveMismatches leray_2d_ns_encoding ns_encoding = 1 := by decide
@@ -768,7 +768,7 @@ theorem witten_vs_ym_criticality_gap :
       exact criticality — neither trivially surjective nor trivially non-surjective
     · pol = nun: complex conjugation symmetry exists but does not Frobenius-force
       the surjectivity (that would require or')
-    · Unique structural signature: if' ∧ are — the only MPP with this doubly
+    · Unique signature: if' ∧ are — the only MPP with this doubly
       holographic topology (complex variety encodes boundary cohomology via Hodge
       decomposition; topology further encodes algebraic cycles)
     · Threshold: .OpenProblem (no proof that all Hodge classes are algebraic) -/

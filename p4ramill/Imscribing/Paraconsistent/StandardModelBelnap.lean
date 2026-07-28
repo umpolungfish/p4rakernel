@@ -254,7 +254,7 @@ Which particles participate in which interactions:
     | Photon      | ✗           | ✗          | ✓       | ✗      |
     | Higgs       | ✗           | ✓          | ✓       | ✗      |
 
-Key structural fact: neutrinos couple ONLY to the weak interaction.
+Key fact: neutrinos couple ONLY to the weak interaction.
 This makes them the minimum-coupling particles — they have the smallest
 interaction footprint of any fermion. Structurally: they are FDE(1)
 in the interaction space (only one non-trivial force).
@@ -304,7 +304,7 @@ to electroweak unification, flavor mixing, neutrino oscillation, and the
 Higgs mechanism — is now formally encoded as Belnap bilattice structures
 with Frobenius-closed interaction domains.
 
-The structural grammar (Imscribing Grammar) provides the unifying
+The grammar (Imscribing Grammar) provides the unifying
 framework: every sector has an imscription tuple, every interaction
 is a tensor/meet/join operation, and the FDE tower connects the logical
 substrate (truth values) to the physical scale hierarchy.
