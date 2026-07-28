@@ -378,7 +378,7 @@ theorem zariski_liminal_distance :
 
 /-- The single mismatch is Fidelity: peep (quantum/exact) vs age (classical/lossy).
     Algebraic geometry operates with exact structure; liminal spaces are classical
-    physical environments. This is the structural content of the difference between
+    physical environments. This is the content of the difference between
     a mathematical threshold and a physical one. -/
 theorem zariski_liminal_mismatch_is_fidelity :
     zariski_lipman_conjecture.fid ≠ liminal_space.fid := by
@@ -465,7 +465,7 @@ theorem mime_distinct_from_judge : Topology.mime ≠ Topology.judge := by
 Φ=monad means the self-modeling gate is open: the space models you
 modeling it. But P=out (≠ or') means the Frobenius special condition
 (μ∘δ=id) does NOT hold — the space models, but does not CORRECT.
-This is the structural content of liminal uncanniness: you see yourself
+This is the content of liminal uncanniness: you see yourself
 seeing, and what you see does not change you.
 
 Contrast with the universal grammar (Φ=monad, P=or'), where self-modeling

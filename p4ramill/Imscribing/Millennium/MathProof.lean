@@ -30,7 +30,7 @@ Key Theorems:
   §6  The Gap Closure Theorem:
       A proof system is complete (every T verdict has both verifications)
       iff the gap width is zero. Closing the gap requires semantic
-      verification to catch up to structural verification.
+      verification to catch up to verification.
 
   §7  The Tier-Crossing Theorem:
       Proof promotion from ProofTier.O0 to OInf requires closing the

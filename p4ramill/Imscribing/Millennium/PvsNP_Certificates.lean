@@ -27,7 +27,7 @@ open Imscribing.VesselContent
 axiom ComplexityClass.P : ImscribableSystem
 
 /-- The class of decision problems verifiable in polynomial time.
-    Opaque, like P. The structural imscription distinguishes them. -/
+    Opaque, like P. The imscription distinguishes them. -/
 axiom ComplexityClass.NP : ImscribableSystem
 
 -- =============================================================
