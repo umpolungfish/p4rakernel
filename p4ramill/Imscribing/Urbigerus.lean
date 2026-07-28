@@ -33,7 +33,7 @@ def urbigerus_aphorisms : Imscription :=
 -- Tier verification
 def tier : String := "O₁"
 
--- Key structural invariant: three ways from one first matter
+-- Key invariant: three ways from one first matter
 -- T=𐑶 captures the box-product topology of parallel paths
 -- F=𐑐 captures the undetermined (superposed) nature of the first matter
 -- Φ=𐑢 captures the controlled, sub-critical process regime

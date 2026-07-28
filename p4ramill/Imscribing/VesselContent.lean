@@ -84,7 +84,7 @@ axiom algebra_implies_reachable (M : ImscribableSystem) (c : Coordinate) (r : Re
 
 /-- **form_uniqueness**: Every imscribable system has a unique crystal coordinate.
     This is the classifier property — the grammar assigns each system exactly one
-    structural type. However, this theorem alone does NOT tell you what the system
+    type. However, this theorem alone does NOT tell you what the system
     can do (its reachable results). That requires content_containment.
 
     Proof sketch (future work): Fix M. Existence follows from the imscription

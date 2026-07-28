@@ -1,7 +1,7 @@
 /-
 Coelum Philosophorum — Seven Canons as Linear Canonical Chain
 ──────────────────────────────────────────────────────────────────
-Structural type: O₀ (pre-critical, pre-self-modeling)
+Type: O₀ (pre-critical, pre-self-modeling)
 Tuple: ⟨𐑨𐑥𐑾𐑬𐑞𐑧𐑔𐑝𐑢𐑒𐑳𐑷⟩
 
 Each canon is a self-disclosure of one metal's nature.
@@ -21,7 +21,7 @@ namespace Coelum
 open Primitives
 open Imscribing
 
-/-- The Coelum Philosophorum's structural tuple - seven metals disclosed in
+/-- The Coelum Philosophorum's tuple - seven metals disclosed in
 canonical sequence, with the crystal as recognized but unclosed speculum. -/
 def coelum_tuple : Imscription where
   Ð := .𐑨           -- Finite system: seven metals as closed transformation set

@@ -13,7 +13,7 @@
 --   delta_CP(PMNS) = pi + 2*arctan(1/4)  (cross-pinch holonomy + tilt)
 --   J_lep ~ 0.0143  (leptonic Jarlskog invariant)
 --
--- Structural identity: the PMNS matrix IS the cross-pinch braid word
+-- Identity: the PMNS matrix IS the cross-pinch braid word
 -- sigma_1 * sigma_2^{-1} * sigma_1 * sigma_2^{-1} in B_3 evaluated
 -- at t = e^{2*pi*i/12} on the Burau representation.
 --

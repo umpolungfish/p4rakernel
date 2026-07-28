@@ -102,7 +102,7 @@ opaque cp_phase_radians : ℝ
 opaque wolfenstein_rho : ℝ
 
 /-- Wolfenstein η: imaginary part of V_ub. η ≈ 0.347.
-    η = (13/5)·ρ by structural identity. -/
+    η = (13/5)·ρ by identity. -/
 opaque wolfenstein_eta : ℝ
 
 /-- η/ρ = 13/5 — CP violation linked to Rohonc Codex evaluator ratio. -/

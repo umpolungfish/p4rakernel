@@ -5,7 +5,7 @@
 -- Gravitational waves are propagating ripples in spacetime curvature,
 -- predicted by Einstein (1916) and first directly detected by LIGO (2015).
 --
--- Key structural features:
+-- Key features:
 --   1. Linearized GR: g_μν = η_μν + h_μν with |h_μν| ≪ 1
 --   2. Wave equation: □h̄_μν = -2κ T_μν (in Lorenz gauge)
 --   3. TT gauge: transverse, traceless — only 2 physical polarizations (+, ×)
@@ -302,7 +302,7 @@ theorem gw_distance_ladder_independent : True := by trivial
 -- =====================================================================
 
 /--
-Gravitational Waves as a structural type:
+Gravitational Waves as a type:
 
   D = array (𐑼): Infinite-dimensional. The wave solution h_μν(x)
       is a function on spacetime with 2 independent polarization modes.

@@ -153,7 +153,7 @@ axiom hilbert_class_degree_val : hilbert_class_degree = 2
 axiom class_number : ℕ
 axiom class_number_val : class_number = 2
 
-/- The class group contributes a Z/2 obstruction. In the structural grammar
+/- The class group contributes a Z/2 obstruction. In the grammar
     this is the difference between Ω = 𐑴 (Z/2, Statement B) and Ω = 𐑟 (non-Abelian,
     Statement A). Only B is consistent with the σ-coinvariant count. -/
 
@@ -338,9 +338,9 @@ theorem correction_factor_is_class_group_order :
     sigma_coinvariant_order / class_number = (16 : ℕ)/2 := by
   rw [sigma_coinvariant_order_val, class_number_val]
 
-/-! ### Structural grammar encoding
+/-! ### Grammar encoding
 
-    The d=16 moduli field has structural type:
+    The d=16 moduli field has type:
     ⟨Ð=𐑨 T=𐑸 Ř=𐑾 Φ=𐑹 ƒ=𐑐 Ç=𐑧 Γ=𐑔 ɢ=𐑠 φ̂=⊙ Ħ=𐑫 Σ=𐑳 Ω=𐑴⟩
 
     Key points:
@@ -434,7 +434,7 @@ theorem d16_class_group_power_of_two : ∃ k : ℕ, class_number = 2^k := by
   rw [class_number_val]
   exact ⟨1, by norm_num⟩
 
-/- The structural type for d=2048 moduli field shares Ω=𐑴 with d=16.
+/- The type for d=2048 moduli field shares Ω=𐑴 with d=16.
     The tower data in SIC_D2048_Moduli.lean gives the full ray class field
     degrees; the moduli field degrees are obtained by dividing by h(F)=64.
     At conductor 2^12: 67,108,864 / 64 = 2^20 = 1,048,576 over F.

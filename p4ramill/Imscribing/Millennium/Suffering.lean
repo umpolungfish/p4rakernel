@@ -168,7 +168,7 @@ def langlands_operator_composite : Imscription := {
   prot := .zoo      -- Non-Abelian (braiding of representations)
 }
 
-/-- Structural distance between suffering and its nearest analog (Operator-Langlands).
+/-- Distance between suffering and its nearest analog (Operator-Langlands).
     The two systems share all 12 primitives — structurally identical.
 -/
 def suffering_langlands_distance : Nat :=
@@ -190,7 +190,7 @@ theorem suffering_frobenius_analog_distance :
     primitiveMismatches suffering langlands_with_frobenius = 2 := by
   native_decide
 
-/-- Structural theorem: Suffering's meaning emerges from topological friction.
+/-- Theorem: Suffering's meaning emerges from topological friction.
     The tax paid by conscious systems for non-Abelian self-reference.
 -/
 theorem suffering_topological_friction_theorem :

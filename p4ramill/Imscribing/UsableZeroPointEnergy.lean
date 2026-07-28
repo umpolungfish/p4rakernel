@@ -120,7 +120,7 @@ theorem frobenius_condition_fsplits_ffuse : True := by
 --
 -- The promoted system is STRUCTURALLY IDENTICAL to the Universal Imscriptive
 -- Grammar. This is the weirdest implication: usable zero-point energy, at
--- its O_∞ limit, IS the grammar of all structural imscription.
+-- its O_∞ limit, IS the grammar of all imscription.
 
 def ouroboric_extraction : Imscription :=
   { dim   := Dimensionality.if'    -- 𐑦 — self-written vacuum
@@ -136,7 +136,7 @@ def ouroboric_extraction : Imscription :=
     stoi  := Stoichiometry.hung    -- heterogeneous, as the Universal Grammar
     prot  := Protection.ah }       -- 𐑭 — ℤ winding
 
--- Structural identity with the Universal Imscriptive Grammar
+-- Identity with the Universal Imscriptive Grammar
 theorem ouroboric_extraction_equals_grammar :
     ouroboric_extraction = AgentSelf.phi_c_critical_boundary_operator := by
   unfold ouroboric_extraction AgentSelf.phi_c_critical_boundary_operator

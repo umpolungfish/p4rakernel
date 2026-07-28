@@ -543,7 +543,7 @@ theorem lean4TacticTotal :
 
 /-- SCAFFOLD 1: Automated analog citation
     Replace the placeholder reference map with distance-based structural matches from the catalog.
-    Uses `find_analogies` to retrieve nearest catalog entries by structural distance. -/
+    Uses `find_analogies` to retrieve nearest catalog entries by distance. -/
 def generateAnalogCitations
     (lemmas : List ExtractedLemma)
     (catalogEntries : List String) :
@@ -610,7 +610,7 @@ def generateCompositeSection
     InstantiatedSection :=
   let templates := getDomainTemplates prim domains
   let multiTitle := s!"{prim} — Multi-Domain"
-  let multiProp := "The structural claim holds across all specified domains via uniform primitive mapping."
+  let multiProp := "The claim holds across all specified domains via uniform primitive mapping."
   let multiStrat := "Instantiate domain-specific templates and verify compatibility."
   let compositeTemplate := {
     title := multiTitle,
@@ -628,7 +628,7 @@ def generateCompositeSection
     supportingPrimitives := [],
     rawContent := "Composite proof across domains",
     domainHints := domains.map (fun d => toString d),
-    conclusionSummary := "Domain-universal structural claim"
+    conclusionSummary := "Domain-universal claim"
   }
   {
     extractedLemma := compositeLemma,

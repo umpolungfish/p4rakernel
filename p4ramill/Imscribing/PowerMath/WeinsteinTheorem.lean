@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Weinstein Theorem. -/
+/-- The imscription of the Weinstein Theorem. -/
 def WeinsteinTheoremImscription : Imscription := {
   dim  := if',
   top  := are,
@@ -34,7 +34,7 @@ def WeinsteinTheoremImscription : Imscription := {
   prot := zoo
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem WeinsteinTheorem_tier : TierFunctor.obj WeinsteinTheoremImscription = .O_inf := by
   native_decide
 

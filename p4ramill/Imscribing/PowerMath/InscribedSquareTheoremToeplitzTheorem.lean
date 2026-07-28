@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Inscribed Square Theorem (Toeplitz' Theorem). -/
+/-- The imscription of the Inscribed Square Theorem (Toeplitz' Theorem). -/
 def InscribedSquareTheoremToeplitzTheoremImscription : Imscription := {
   dim  := array,
   top  := judge,
@@ -34,7 +34,7 @@ def InscribedSquareTheoremToeplitzTheoremImscription : Imscription := {
   prot := awe
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem InscribedSquareTheoremToeplitzTheorem_tier : TierFunctor.obj InscribedSquareTheoremToeplitzTheoremImscription = .O₀ := by
   native_decide
 

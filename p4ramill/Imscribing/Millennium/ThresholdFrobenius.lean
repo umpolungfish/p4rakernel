@@ -2,7 +2,7 @@
 -- Integration: connects Threshold taxonomy with Frobenius tier structure.
 --
 -- EXPANDED: Each Frobenius assignment is now justified by a per-problem
--- structural theorem explaining WHY the problem sits at its assigned tier.
+-- theorem explaining WHY the problem sits at its assigned tier.
 -- A curmudgeon demands: not just that RH is .full, but what structural
 -- property of the zeta function forces the Frobenius condition to hold
 -- (without μ∘δ=id closing).
@@ -13,7 +13,7 @@
 -- §4  YM threshold-Frobenius cross (MissingFoundation ∧ full)
 -- §5  C₁₃ gap quantification
 -- §6  Per-problem structural justifications
--- §7  Frobenius type upon resolution (structural gap analysis)
+-- §7  Frobenius type upon resolution (gap analysis)
 -- §8  Threshold compatibility: Frobenius type constrains threshold type
 -- §9  Cross-problem Frobenius distance
 
@@ -83,8 +83,7 @@ theorem layered_problems_algebraOnly :
   simp [problemFrobenius]
 
 /-- No Millennium problem reaches the special (O_inf) tier.
-    Lee-Yang is the unique .special system. This is the structural
-    content of the C₁₃ gap: every MPP sits at most at .full. -/
+    Lee-Yang is the unique .special system. This is the content of the C₁₃ gap: every MPP sits at most at .full. -/
 theorem no_mpp_is_special :
     ∀ p : MillenniumProblem, problemFrobenius p ≠ .special := by
   intro p; cases p <;> simp [problemFrobenius]
@@ -211,7 +210,7 @@ theorem hodge_frobenius_justification :
   simp [problemFrobenius]
 
 -- =====================================================================
--- §7  Frobenius type upon resolution (structural gap analysis)
+-- §7  Frobenius type upon resolution (gap analysis)
 -- =====================================================================
 
 /-- The rank gap between current and resolved Frobenius assignments.
@@ -256,7 +255,7 @@ theorem ym_resolved_same_as_current :
     and YM is at .full (not .algebraOnly). This is the correct statement of
     the constraint — MissingFoundation does NOT imply .algebraOnly.
 
-    Structural content: YM's Frobenius algebra exists on the lattice
+    Content: YM's Frobenius algebra exists on the lattice
     (finite-volume path integral), so it is .full. The missing foundation
     is the continuum limit, which is a separate obstruction from the
     Frobenius completeness of the finite-volume theory. -/

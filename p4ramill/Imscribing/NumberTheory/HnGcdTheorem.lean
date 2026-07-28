@@ -140,7 +140,7 @@ lemma fermat_like_for_S {p n m : ℕ} (_hpS : p ∈ S n) (_hcop : Nat.Coprime m 
 -- §6. STRUCTURAL IMSCRIPTION
 -- ============================================================
 
-/-- The structural type of the H(n) gcd asymptotic theorem.
+/-- The type of the H(n) gcd asymptotic theorem.
 
     Primitive assignment (following deterministic imscribing procedure):
       [1]  D=.array   — infinite-dimensional asymptotic parameter space n→∞

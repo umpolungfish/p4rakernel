@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Union-Closed Sets Theorem. -/
+/-- The imscription of the Union-Closed Sets Theorem. -/
 def UnionClosedSetsTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def UnionClosedSetsTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem UnionClosedSetsTheorem_tier : TierFunctor.obj UnionClosedSetsTheoremImscription = .O_inf := by
   native_decide
 

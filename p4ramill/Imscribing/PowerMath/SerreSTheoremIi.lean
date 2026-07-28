@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Serre's Theorem II. -/
+/-- The imscription of the Serre's Theorem II. -/
 def SerreSTheoremIiImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def SerreSTheoremIiImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem SerreSTheoremIi_tier : TierFunctor.obj SerreSTheoremIiImscription = .O_inf := by
   native_decide
 

@@ -417,7 +417,7 @@ theorem zfc_ns_crit :
     CLINK.navier_stokes_equations.crit = monad := rfl
 
 /-- ZFCt's schrodinger_equation has roar — the same criticality
-    as the Riemann zeta function (rh_encoding). This structural identity
+    as the Riemann zeta function (rh_encoding). This identity
     confirms that quantum dynamics and the zeta function inhabit the same
     Lee-Yang critical class. -/
 theorem zfc_schrodinger_same_crit_as_rh :

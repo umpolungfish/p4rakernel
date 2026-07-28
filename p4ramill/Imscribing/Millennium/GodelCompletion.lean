@@ -50,7 +50,7 @@ set_option linter.style.nativeDecide false
 -- §1  STRUCTURAL TYPE
 -- ============================================================
 
-/-- The Godel-Completion structural type.
+/-- The Godel-Completion type.
     Identical to the Universal Imscriptive Grammar.
     Distance = 0, tier = O_∞.
     All values verified against live catalog via lookup_catalog. -/

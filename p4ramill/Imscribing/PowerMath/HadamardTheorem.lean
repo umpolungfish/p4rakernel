@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Hadamard Theorem. -/
+/-- The imscription of the Hadamard Theorem. -/
 def HadamardTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def HadamardTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem HadamardTheorem_tier : TierFunctor.obj HadamardTheoremImscription = .O_inf := by
   native_decide
 

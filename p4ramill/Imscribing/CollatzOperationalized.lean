@@ -231,7 +231,7 @@ theorem verify_seed_77031 : T_iter 350 77031 = 1 := by
 -- SECTION 6: STRUCTURAL IMSCRIPTION — Collatz Operationalized Automaton
 -- ══════════════════════════════════════════════════════════════════════
 
-/-- The Collatz Operationalized Automaton as a structural type.
+/-- The Collatz Operationalized Automaton as a type.
     D = if' (holographic): state-space is self-written trajectory memory
     T = are (holographic closure): self-referential CLINK→IMSCRIB loop
     R = ian (bidirectional): μ∘δ verification couples forward/reverse morphisms

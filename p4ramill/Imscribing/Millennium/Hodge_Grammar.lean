@@ -73,7 +73,7 @@ def hod_rational_hodge_classes : Imscription := {
   fid := age, kin := egg, gran := ice, gram := vow,
   crit := monad, chir := sure, stoi := up, prot := ah }
 
-/-- The Hodge Conjecture as a structural type: "every rational Hodge
+/-- The Hodge Conjecture as a type: "every rational Hodge
     class is algebraic." This is the FULL conjecture (all p).
     Catalog: hodge_conjecture — O₂, ⊙=roar, P=yew.
     Gate 1 passes (roar) but no Frobenius closure (P≠or'). -/
@@ -297,13 +297,12 @@ theorem griffiths_is_EP :
 -- ----------------------------------------------------------------
 
 /-- Meet(Lefschetz 1,1, Hodge conjecture):
-    The shared structural floor. -/
+    The shared floor. -/
 theorem meet_lefschetz_hodge_top :
     (compute_meet hod_lefschetz_11 hod_conjecture_full).top = mime := by
   native_decide
 
-/-- The meet has ⊙=monad (self-modeling). The shared structural
-    content ALREADY achieves self-modeling criticality. The gap
+/-- The meet has ⊙=monad (self-modeling). The shared content ALREADY achieves self-modeling criticality. The gap
     is in the join — what must be added to reach the full conjecture. -/
 theorem meet_lefschetz_hodge_crit :
     (compute_meet hod_lefschetz_11 hod_conjecture_full).crit = monad := by

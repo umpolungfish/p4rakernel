@@ -136,7 +136,7 @@ theorem split_fuse_id_complete :
 -- with T ≠ F.  For all other values, fsplit(s) = (s, s) — the
 -- diagonal, which carries no new information.
 --
--- This is the structural statement: the dialetheia is the ONLY
+-- This is the statement: the dialetheia is the ONLY
 -- truth-value that contains an internal contradiction resolvable
 -- by decomposition into classical streams.
 

@@ -26,7 +26,7 @@ set_option linter.style.whitespace false
 
 namespace Millennium.PvsNP_Witness
 
-/-- P as a structural type: O₀ tier. -/
+/-- P as a type: O₀ tier. -/
 def P_as_imscription : Imscription := {
   dim  := .dead
   top  := .judge
@@ -41,7 +41,7 @@ def P_as_imscription : Imscription := {
   stoi := .so
   prot := .awe }
 
-/-- NP as a structural type: O₁ tier. -/
+/-- NP as a type: O₁ tier. -/
 def NP_as_imscription : Imscription := {
   dim  := .dead
   top  := .judge

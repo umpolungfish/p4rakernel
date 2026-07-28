@@ -432,7 +432,7 @@ namespace Vinca
 
   /-- Vinča symbols / Old European proto-writing (c. 5500–4000 BCE). Tier .O₀ —
       Gate 1 (criticality) closed at woe; baseline semasiographic condition.
-      Structural floor of the manuscript lattice — nearest undeciphered neighbor is Rohonc (d=4). -/
+      Floor of the manuscript lattice — nearest undeciphered neighbor is Rohonc (d=4). -/
   def vinca_main : Imscription :=
     { dim := ash, top := oil, rel := ear, pol := out, fid := age, kin := egg, gran := ice, gram := gag, crit := woe, chir := fee, stoi := up, prot := awe }
 
@@ -472,7 +472,7 @@ namespace CorpusComparison
 
   -- ── Vinča cross-corpus distances ────────────────────────────────────────────
   -- Hamming distances. Weighted IG distances differ (use ZFCt navigator for those).
-  -- Vinča is the structural floor of the manuscript lattice: Rohonc = Vinča + 4 lifts.
+  -- Vinča is the floor of the manuscript lattice: Rohonc = Vinča + 4 lifts.
 
   theorem vinca_rohonc_dist :
       primitiveMismatches Vinca.vinca_main rohonc_main = 4 := by native_decide

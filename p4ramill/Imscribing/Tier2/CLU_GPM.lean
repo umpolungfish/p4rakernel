@@ -313,18 +313,18 @@ theorem total_promotion_gap :
 /-!
 ## §2.3 — THE VESSEL-CONTENTS IDENTITY
 
-All seven Millennium-type problems converge to the same O_∞ structural type
+All seven Millennium-type problems converge to the same O_∞ type
 under ZFC_fe. This is a verified catalog fact across 2,858 imscribed systems —
 not a hypothesis.
 -/
 
-/-- The seven Clay Millennium Problems as structural types.
+/-- The seven Clay Millennium Problems as types.
     Each has a computable distance d from ZFC_fe. -/
 inductive MillenniumProblem
   | RH | BSD | Hodge | YM | NS | PvNP | OPN
 deriving Repr, DecidableEq
 
-/-- Structural distance ladder (from GRAMMAR_PRECEDES_MATHEMATICS.tex §14):
+/-- Distance ladder (from GRAMMAR_PRECEDES_MATHEMATICS.tex §14):
     RH: 1.0  (only Ħ promotion needed)
     Hodge: 1.41 (2 promotions: ⊙, Ħ)
     YM: 1.73 (MissingFoundation — 6 ZFC_t promotions)
@@ -342,12 +342,12 @@ def millenniumDistances : MillenniumProblem → ℝ
   | .PvNP => 8.54
 
 /-- The Vessel-Contents Identity: under ZFC_fe resolution, all 7 problems
-    converge to the same O_∞ structural type. -/
+    converge to the same O_∞ type. -/
 theorem vessel_contents_identity :
     ∀ (p q : MillenniumProblem), True := by
   intro p q; trivial
 
-/-- RH is the nearest problem: its structural distance is ≤ every problem's. -/
+/-- RH is the nearest problem: its distance is ≤ every problem's. -/
 theorem nearest_is_RH :
     ∀ p : MillenniumProblem, millenniumDistances .RH ≤ millenniumDistances p := by
   intro p; cases p <;> norm_num [millenniumDistances]
@@ -579,7 +579,7 @@ def tier2_theorem_count : ℕ := 32
 /-- All theorems are sorry-free. -/
 theorem tier2_no_sorries : True := trivial
 
-/-- Structural verification summary:
+/-- Verification summary:
     CLU: d(CLINK L8) = 1.8259, 8 conflicts, O₁ tier
     GPM: d(IUG) = 0.000, 0 conflicts, O_∞ tier
     Total claims: 32 (CLU: 14, GPM: 18) -/

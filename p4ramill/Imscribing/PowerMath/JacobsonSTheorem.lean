@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Jacobson's Theorem. -/
+/-- The imscription of the Jacobson's Theorem. -/
 def JacobsonSTheoremImscription : Imscription := {
   dim  := if',
   top  := oil,
@@ -34,7 +34,7 @@ def JacobsonSTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem JacobsonSTheorem_tier : TierFunctor.obj JacobsonSTheoremImscription = .O_inf := by
   native_decide
 

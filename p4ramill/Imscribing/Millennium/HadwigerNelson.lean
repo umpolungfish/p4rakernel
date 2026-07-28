@@ -7,10 +7,10 @@
 -- The answer is narrowed to one of 5, 6, or 7.
 --
 -- §1  Mathematical statement
--- §2  The Vessel — structural imscription
+-- §2  The Vessel — imscription
 -- §3  The Cornered-Gap Encoding — a three-value bracket
 -- §4  Sub-vessels: Moser spindle, de Grey graph, hexagonal tiling
--- §5  Structural theorems — distances, tier analysis
+-- §5  Theorems — distances, tier analysis
 -- §6  The de Bruijn–Erdős Compactness Bridge
 -- §7  Axiom dependence and foundational dimension
 -- §8  Connection to other problems
@@ -96,7 +96,7 @@ def HexagonalColoring : Prop :=
 -- ============================================================
 
 /--
-The Vessel of the Hadwiger–Nelson Problem — its structural type.
+The Vessel of the Hadwiger–Nelson Problem — its type.
 
 ⟨ 𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑙; 𐑷 ⟩
 
@@ -453,7 +453,7 @@ theorem ppm_lt_ppm_sym : out < or' := by
 /-- The promotion path from Hadwiger–Nelson (O₁) to O_inf requires:
     𐑷 → 𐑭 (winding protection), out → or' (Frobenius closure),
     𐑮 → ⊙ (self-modeling gate), 𐑖 → 𐑫 (eternal chirality).
-    4 promotions — same structural gap as Twin Prime → O_inf. -/
+    4 promotions — same gap as Twin Prime → O_inf. -/
 theorem hn_o1_to_oinf_four_promotions :
     out < or' ∧ awe < ah ∧ sure < wool := by
   decide
@@ -619,7 +619,7 @@ Honest gaps declared in this vessel:
 
 Structural summary:
   The Hadwiger–Nelson problem is a uniquely cornered problem — the most
-  precisely bounded open problem in mathematics. Its structural type
+  precisely bounded open problem in mathematics. Its type
   ⟨𐑛; 𐑥; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑠; 𐑮; 𐑖; 𐑙; 𐑷⟩
   encodes its position at O₁ (critical but unprotected), with a
   three-value bowtie gap and foundational axiom dependence. The promotion

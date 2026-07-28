@@ -26,7 +26,7 @@ def the_primitive_type_called_out_boundaryCondition : String := "Imscribing.Prim
 
 /-- Belnap FOUR register descriptions -/
 def the_primitive_type_called_out_registerVoid : String := "uninitialized Lean environment without primitive definitions"
-def the_primitive_type_called_out_registerTrue : String := "valid structural type satisfying all cross-primitive axioms"
+def the_primitive_type_called_out_registerTrue : String := "valid type satisfying all cross-primitive axioms"
 def the_primitive_type_called_out_registerFalse : String := "inconsistent type assignment violating Axiom C or Axiom D"
 def the_primitive_type_called_out_registerBoth : String := "exceptional-point criticality where eigenvectors coalesce and phases overlap"
 
@@ -44,7 +44,7 @@ def the_primitive_type_called_out_registerBoth : String := "exceptional-point cr
 -- EVALT: O_inf
 --   The affirmative attainment of the Special Frobenius tier.
 -- FFUSE: holographic_closure
---   The reconstitution of a unified structural type from its boundary and bulk components.
+--   The reconstitution of a unified type from its boundary and bulk components.
 -- FSPLIT: ouroboricityTier match
 --   The branching of a system state into distinct O-tiers based on gate primitives.
 -- IFIX: axiom declaration
@@ -52,7 +52,7 @@ def the_primitive_type_called_out_registerBoth : String := "exceptional-point cr
 -- IMSCRIB: self-anchored fixed point
 --   The identity of the successor cycle where the exponent equals the primitive count.
 -- TANCH: crystal_total
---   The final cardinality of 17,280,000 which bounds the entire structural type space.
+--   The final cardinality of 17,280,000 which bounds the entire type space.
 -- VINIT: untyped void
 --   The state before any inductive type or ordinal value is defined in the Lean environment.
 

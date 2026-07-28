@@ -63,8 +63,7 @@ def integer_core_fsc : ℕ := d_sq_fsc - 7
 theorem integer_core_value : integer_core_fsc = 137 := by
   native_decide
 
-/-- 137 is prime. This is structurally significant: prime structural
-    invariants resist further decomposition. -/
+/-- 137 is prime. This is structurally significant: prime invariants resist further decomposition. -/
 theorem integer_core_is_prime : Nat.Prime integer_core_fsc := by
   native_decide
 
@@ -129,7 +128,7 @@ theorem alpha_inv_rat_value : alpha_inv_rat_approx = (274071978 : ℚ) / 2000000
 -- §4. EXACT RATIONAL STRUCTURAL RELATIONS
 -- ============================================================
 
-/-- The integer core 137 as a structural invariant. -/
+/-- The integer core 137 as an invariant. -/
 theorem integer_core_is_alpha_inv_floor : alpha_inv_rat_approx > (137 : ℚ) := by
   native_decide
 

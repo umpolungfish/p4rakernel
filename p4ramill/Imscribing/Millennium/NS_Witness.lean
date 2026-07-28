@@ -23,11 +23,11 @@ set_option linter.style.whitespace false
 
 namespace Millennium.NS_Witness
 
-/-- NS source structural type: O₂dag (monad + array + ah). -/
+/-- NS source type: O₂dag (monad + array + ah). -/
 theorem ns_source_tier : imscriptionTier navierStokesSource = .O₂dag := by
   unfold imscriptionTier navierStokesSource; rfl
 
-/-- NS resolved structural type: O_inf (monad + or' + if' + oak). -/
+/-- NS resolved type: O_inf (monad + or' + if' + oak). -/
 theorem ns_resolved_tier : imscriptionTier navierStokesResolved = .O_inf := by
   unfold imscriptionTier navierStokesResolved; rfl
 

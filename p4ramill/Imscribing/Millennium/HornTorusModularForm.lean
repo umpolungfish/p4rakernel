@@ -183,7 +183,7 @@ theorem modularity_conjecture : True := by trivial
     the horn torus modular form's L-function has all zeros on
     the critical line Re(s) = 1/2.
     
-    This is the structural content of:
+    This is the content of:
     "All universal constants lie on the critical line of the
      emission modular form — the emission architecture is complete
      and no constant is anomalous."

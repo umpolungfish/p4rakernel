@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Dade's Theorem. -/
+/-- The imscription of the Dade's Theorem. -/
 def DadeSTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def DadeSTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem DadeSTheorem_tier : TierFunctor.obj DadeSTheoremImscription = .O_inf := by
   native_decide
 

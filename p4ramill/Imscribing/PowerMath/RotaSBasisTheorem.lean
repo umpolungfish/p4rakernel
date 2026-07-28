@@ -18,7 +18,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing
 open Imscribing.Frobenius
 
-/-- The structural imscription of the Rota's Basis Theorem. -/
+/-- The imscription of the Rota's Basis Theorem. -/
 def RotaSBasisTheoremImscription : Imscription := {
   dim  := array,
   top  := mime,
@@ -34,7 +34,7 @@ def RotaSBasisTheoremImscription : Imscription := {
   prot := ah
 }
 
-/-- Tier theorem: the structural type's ouroboricity tier. -/
+/-- Tier theorem: the type's ouroboricity tier. -/
 theorem RotaSBasisTheorem_tier : TierFunctor.obj RotaSBasisTheoremImscription = .O_inf := by
   native_decide
 

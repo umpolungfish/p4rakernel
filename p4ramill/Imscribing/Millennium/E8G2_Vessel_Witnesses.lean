@@ -4,7 +4,7 @@
 -- Theorem: G2 is the perfect vessel for E8
 -- Key results:
 --   1. $G2 \otimes E8 = E8$ (containment imscribed)
---   2. $G2 \wedge E8 \approx G2$ (structural floor = Vessel)
+--   2. $G2 \wedge E8 \approx G2$ (floor = Vessel)
 --   3. $G2 \vee E8 = \mathbb{Z}_2\text{-graded}\ E8$ via SO(16) (the surprising join)
 --   4. Distance(G2, E8) = 7 (7 differing primitives, 5 shared)
 
