@@ -431,7 +431,7 @@ theorem einstein_gravity_topology_match :
     CLINK.einstein_field_equations_dynamic.top = quantum_gravity.top := rfl
 
 /-- The polarity gap: GR (nun) vs QG (or').
-    This single-polarity gap is the structural signature of the gap between
+    This single-polarity gap is the signature of the gap between
     classical general relativity and quantum gravity. -/
 theorem einstein_gravity_pol_gap :
     CLINK.einstein_field_equations_dynamic.pol = nun ∧

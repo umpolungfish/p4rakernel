@@ -73,7 +73,7 @@ inductive PathwayStage : Type where
   | Quaternary   -- multi-subunit complex, functional protein
   deriving DecidableEq, Repr, Fintype
 
-/-- A morphism between stages with its structural distance. -/
+/-- A morphism between stages with its distance. -/
 structure Morphism where
   source : PathwayStage
   target : PathwayStage
@@ -105,7 +105,7 @@ theorem total_path_distance_approx : True := by trivial
 /-- THE CENTRAL THEOREM (corrected):
     The gene→protein pathway is the unfolding of a structural isomorphism
     across physical media. DNA (nucleic acid) and quaternary (folded protein
-    complex) are at structural distance 3.61 — irreducible given the medium
+    complex) are at distance 3.61 — irreducible given the medium
     change from nucleotides to amino acids.
     
     Secondary structure (3.46) is structurally CLOSER to DNA than quaternary

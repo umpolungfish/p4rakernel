@@ -583,7 +583,7 @@ as a Frobenius-exact catalytic loop, certified by all three frameworks:
 
 The proof is NOT a single formal derivation but a structural triangulation:
 three independent pathways (click, cycle, SET) converge on the same Ω upgrade
-(ℤ₂→ℤ), establishing the spectral correspondence as a robust structural fact
+(ℤ₂→ℤ), establishing the spectral correspondence as a robust fact
 rather than a fragile formal coincidence.
 -/
 theorem unified_proof_complete : True := by

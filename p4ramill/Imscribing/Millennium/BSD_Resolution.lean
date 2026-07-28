@@ -36,7 +36,7 @@ open Dimensionality Topology Relational Polarity Grammar
      Stoichiometry Chirality
 
 -- ============================================================
--- §1. The resolved BSD structural tuple
+-- §1. The resolved BSD tuple
 -- ============================================================
 
 /-

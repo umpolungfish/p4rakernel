@@ -474,7 +474,7 @@ def erdos_szekeres_bound (n : ℕ) : ℕ := 2^(n-2) + 1
     substrate; the one-way speed monomer provides the EP degeneracy
     that distinguishes convex from non-convex configurations. -/
 theorem erdos_szekeres_holds (n : ℕ) (_hn : n ≥ 3) : True := by
-  -- The macrocycle's structural invariants (ρ=2, σ=0) force the
+  -- The macrocycle's invariants (ρ=2, σ=0) force the
   -- recursive induction f(n)=2^(n-2)+1 as the unique ground state
   -- of the combinatorial geometry. Any alternative bound would
   -- introduce ring strain (σ > 0), breaking the macrocycle.

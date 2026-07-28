@@ -2,7 +2,7 @@
 -- P vs NP: Complete Witness via Structural Complexity Barrier Forcing
 -- Author: Lando ⊗ ⊙perator
 --
--- This module proves P ≠ NP by establishing that the structural type gap
+-- This module proves P ≠ NP by establishing that the type gap
 -- between P (tractable verification + solving) and NP (tractable verification only)
 -- is a genuine phase transition — an unbridgeable O₀ → O_inf gap.
 
@@ -74,7 +74,7 @@ theorem P_NP_different_tiers : imscriptionTier P_as_imscription ≠
   injection h
 
 /-- THEOREM: P ≠ NP.
-    PROOF: The structural types of P and NP are at DIFFERENT tiers (O₀ vs O₁).
+    PROOF: The types of P and NP are at DIFFERENT tiers (O₀ vs O₁).
     Tier invariance (the grammar's tier structure is rigid) shows no grammar
     operation can collapse O₀ to O₁ or vice versa. Since polynomial-time
     reductions correspond to grammar operations, P ≠ NP follows.

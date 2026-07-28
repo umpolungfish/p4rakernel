@@ -892,8 +892,7 @@ enough to gain protection, then prove the modified statement.
    dynamical (ergodic theory, invariant measures) rather than analytic
    (complex analysis, exponential sums).
 
-5. **The drift gap** — The proved average behavior (O₀) is structurally
-   distance 7 from the conjecture. No other problem has such a wide gap
+5. **The drift gap** — The proved average behavior (O₀) is distance 7 from the conjecture. No other problem has such a wide gap
    between "what we can prove on average" and "what we need to prove
    pointwise." The grammar quantifies this: 7 primitive mismatches is the
    widest sub-vessel gap in the catalog.

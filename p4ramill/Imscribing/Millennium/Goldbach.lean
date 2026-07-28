@@ -445,7 +445,7 @@ both have thigh (mesoscale) and oak (Z₂ protection). This reveals
 the structural equivalence: relaxing the second prime to a semiprime
 provides the same structural protection as adding a third prime variable.
 
-This is the structural content of "1+2" (Chen) vs "1+1+1" (Helfgott) —
+This is the content of "1+2" (Chen) vs "1+1+1" (Helfgott) —
 both achieve O₂dag by the same mechanism: mesoscale scope + Z₂ protection.
 The unsolved step "1+1" (binary Goldbach) requires operating at O₁
 or a direct jump to O_inf.
@@ -560,7 +560,7 @@ Chen and Helfgott achieved by relaxing the statement.
 
 2. **Chen ≡ Helfgott** (distance 0) is a non-obvious identity:
    adding a third prime and relaxing the second prime to a semiprime
-   achieve the exact same structural type. The grammar sees what the
+   achieve the exact same type. The grammar sees what the
    mathematical statements obscure.
 
 3. **Goldbach↔Twin Prime distance = 1**: the additive-vs-gap topology
@@ -570,7 +570,7 @@ Chen and Helfgott achieved by relaxing the statement.
 
 4. **Goldbach↔RH distance = 6** (vs Twin Prime↔RH = 4): the network
    topology is structurally further from self-reference than the bowtie.
-   This quantifies the shared structural distance of additive and gap prime problems
+   This quantifies the shared distance of additive and gap prime problems
    to analytic methods than gap problems.
 -/
 

@@ -434,7 +434,7 @@ def barrierType : MillenniumProblem → BarrierType
   | .Hodge => .Identity
   | .OPN => .Identity
 
-/-- Hardest problem by structural distance is P vs NP (8.54).
+/-- Hardest problem by distance is P vs NP (8.54).
     Hardest by construction difficulty is Yang-Mills (requires building
     an object that does not yet exist in mathematics). -/
 structure ProblemHardness where

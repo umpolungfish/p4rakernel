@@ -464,7 +464,7 @@ theorem bettingCommitment :
 -- The fix: scores_to_belnap in coupling_bridge.py swaps T↔F so that
 -- short_score >> long_score → LONG (was SHORT), correcting the
 -- empirically-verified inversion. Affects only the empirical
--- coupling bridge, not the structural imscription.
+-- coupling bridge, not the imscription.
 --
 -- The betFrobenius identity (mu∘delta=id) is preserved.
 -- No primitives change. fin3r tuple remains promoted.

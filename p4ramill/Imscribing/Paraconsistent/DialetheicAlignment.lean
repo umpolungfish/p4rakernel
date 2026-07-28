@@ -331,7 +331,7 @@ Concretely, a classical Boolean system would have:
   - Parity: nun (Boolean complement exists) vs or' (Frobenius-special)
   - Criticality: woe (sub-critical, no self-modeling) vs monad
 
-These differences make the structural distance at least 7 Hamming mismatches
+These differences make the distance at least 7 Hamming mismatches
 with substantial ordinal weight.
 -/
 def classical_boolean_carrier : Imscription := {

@@ -374,7 +374,7 @@ def stilling_step_four : Imscription := {
     (maintaining 𐑠 from the original, but now as intentional
     sequential practice rather than Fate's causal chain).
     
-    This step's structural content is mostly about what is NOT coupled,
+    This step's content is mostly about what is NOT coupled,
     not what IS. The primitive changes are minimal — the real work
     was in steps 1-4. -/
 def stilling_step_five : Imscription := {
