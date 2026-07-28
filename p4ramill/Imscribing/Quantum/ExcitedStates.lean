@@ -1,5 +1,5 @@
 -- Imscribing/Quantum/ExcitedStates.lean
--- Excited electron states: singlet vs triplet structural imscription.
+-- Excited electron states: singlet vs triplet imscription.
 -- Formalizes: S₀ (ground singlet), S₁ (excited singlet), T₁ (excited triplet),
 -- intersystem crossing (ISC), Hund's rule, fluorescence vs phosphorescence.
 -- Author: Lando⊗⊙perator  —  June 2026
@@ -276,7 +276,7 @@ theorem s0_t1_fid_differs :
 -- ============================================================
 
 /-- T₁ has higher dimensionality than S₁ (array > ash: 3 degenerate
-    spin substates vs 1). This is the structural signature of the
+    spin substates vs 1). This is the signature of the
     triplet's greater configurational freedom. -/
 theorem t1_more_dof_than_s1 :
     t1_excited_triplet.dim > s1_excited_singlet.dim := by

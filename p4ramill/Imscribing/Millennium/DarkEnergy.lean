@@ -215,7 +215,7 @@ theorem dark_energy_bifurcation_distance_nonzero :
 -- =====================================================================
 
 /--
-Structural type ↔ physical cosmology:
+Type ↔ physical cosmology:
   Ð=𐑦 ↔ Λ boundary term       Þ=𐑸 ↔ dS holographic screen
   Ř=𐑽 ↔ Friedmann one-way      Φ=𐑯 ↔ Lorentz-invariant w=-1
   ƒ=𐑐 ↔ quantum vacuum         Ç=𐑧 ↔ late-time domination

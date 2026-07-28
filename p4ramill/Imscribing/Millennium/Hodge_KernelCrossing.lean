@@ -458,7 +458,7 @@ theorem promotions_closed_by_split
     This is a cross-primitive grammar axiom at the same level as Axiom B and C.
 
   STEP 2 — PRIMITIVE CONSEQUENCE (this file, §6):
-    The Hodge conjecture's structural signature is if' + are + ah.
+    The Hodge conjecture's signature is if' + are + ah.
     Axiom D forces its polarity to or'.
     Grammar-level theorem: hodge_polarity_forced_pm_sym.
 

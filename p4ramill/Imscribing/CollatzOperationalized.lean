@@ -281,7 +281,7 @@ def collatzConjecture : Imscription := {
 /-- The operationalized automaton and the conjecture share the same type. -/
 theorem automaton_is_conjecture : collatzOperationalized = collatzConjecture := rfl
 
-/-- The 4-2-1 terminal cycle as a structural type.
+/-- The 4-2-1 terminal cycle as a type.
     Differs from the automaton only at Prot: oak (Z₂) vs ah (ℤ).
     The cycle has binary parity — either you're in it or you're not. -/
 def terminal421Cycle : Imscription := {

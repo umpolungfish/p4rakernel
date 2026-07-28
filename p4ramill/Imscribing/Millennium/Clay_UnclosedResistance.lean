@@ -10,7 +10,7 @@ import Imscribing.Ob3ects.the_p_versus_np_separation_gate_blocked_under_al_scaff
 Content built on the RH/NS/PNP `witness-drag`/`furnace` scaffolds. Where
 `Clay_WitnessedClosure` shows BSD/Hodge closing and YM one-bump-short, this module
 proves the honest negative for the three that stay open: none of the canonical
-Riemann Hypothesis, Navier–Stokes, or P-vs-NP structural types reaches
+Riemann Hypothesis, Navier–Stokes, or P-vs-NP types reaches
 `idempotent_terminal` under **any** of the 23 gate-universes currently in the Lean
 tree (the 20 in `allRulesets` plus the three ported `absorption_*` universes). This
 is the machine-checked form of the manuscript's "fail at the gate layer under all

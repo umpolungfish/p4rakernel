@@ -1209,7 +1209,7 @@ def tier_OInf_count : Nat := 0
 -- The Frobenius closure certificate:
 -- Every imscription in this file has μ∘δ = id verified at the tuple level.
 -- The Belnap B verdicts are NOT failures — they are honest frontier markers
--- where the structural proof is incomplete and the paradox is contained
+-- where the proof is incomplete and the paradox is contained
 -- in the Belnap B state rather than exploding.
 
 theorem frobenius_manuscript_spine_closed : True := by

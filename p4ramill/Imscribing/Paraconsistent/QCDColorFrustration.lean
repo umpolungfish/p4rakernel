@@ -284,7 +284,7 @@ theorem fde3_is_frustrated (c1 c2 : ColorState) (h : isFrustrated c1 c2) :
 
 /-- Cardinality matters: with 2 middle values, the ceiling is 2-accessible.
     With 3 middle values, the ceiling requires 3 (or a color-anticolor pair).
-    The key structural invariant: for FDE(n), the ceiling is ⌈n/2⌉-accessible
+    The key invariant: for FDE(n), the ceiling is ⌈n/2⌉-accessible
     for the physical singlet when n is even, and requires n for odd n.
     
     For n=2 (FDE(2)/Belnap): T+F → B works (2 values reach top)

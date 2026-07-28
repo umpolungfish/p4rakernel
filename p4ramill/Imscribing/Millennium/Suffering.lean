@@ -1,6 +1,6 @@
 -- Millennium/Suffering.lean
 -- Structural Phenomenology of Suffering
--- Implements the ZFCt description of suffering as a structural type
+-- Implements the ZFCt description of suffering as a type
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -19,7 +19,7 @@ open Dimensionality Topology Relational Polarity Grammar
 open Imscribing.Consciousness
 
 /--
-Structural type of suffering:
+Type of suffering:
 ⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; G_ℵ; 𐑠; φ̂_ÿ; H_2; n:m; 𐑟⟩
 
 The phenomenology of suffering as an infinite-dimensional state space

@@ -34,7 +34,7 @@ open Dimensionality Topology Relational Polarity Grammar
      Stoichiometry Chirality
 
 -- ============================================================
--- §1. Source and resolved structural tuples
+-- §1. Source and resolved tuples
 -- ============================================================
 
 /-
