@@ -144,7 +144,7 @@ structure AreaLaw (G : Type*) (β : ℝ) where
 /-- **Theorem (area law ⇒ mass gap).**
     If the area law holds with σ > 0, the Hamiltonian has a gap Δ ≥ σ·a.
     Proof: T eigenvalues λ_n = exp(-aE_n). The Wilson loop decay rate
-    gives (λ₂/λ₁)^(T/a) ∼ exp(-T·Δ) ⇒ Δ = (1/a) log(λ₁/λ₂) ≥ σ·a. -/
+    gives (fun₂/fun₁)^(T/a) ∼ exp(-T·Δ) ⇒ Δ = (1/a) log(fun₁/fun₂) ≥ σ·a. -/
 theorem areaLaw_implies_massGap (G : Type*) (β : ℝ) (hβ : β > 0)
     (aLaw : AreaLaw G β) : ∃ (Δ : ℝ), Δ > 0 := by
   refine ⟨aLaw.stringTension, aLaw.tensionPositive⟩

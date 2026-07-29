@@ -49,7 +49,7 @@ set_option linter.style.whitespace false
 
 --- The grammar's 12 primitives, annotated with their metric significance.
 --   Each primitive encodes a necessary condition for any SIC-POVM metric.
--- 
+--
 --   Ð=array  : infinite-dimensional capacity → any finite d is a projection
 --   Þ=eat    : inclusion topology → measurements nest inside the state space
 --   Ř=tot    : categorical coupling → measurement is a monad (functorial)
@@ -85,7 +85,7 @@ theorem grammar_metric_defining_primitives :
 /-- The grammar's Frobenius-special parity (pol=or') and critical
     self-modeling (crit=monad) together force O_∞ tier via R1.
     At O_∞, the Frobenius condition μ∘δ=id holds.
-    
+
     This is the categorical form of the SIC-POVM dual-basis
     condition: Ẽᵢ = d·Eᵢ. In any metric realization, the
     measurement operators {Eᵢ} and their duals {Ẽᵢ} must
@@ -105,12 +105,12 @@ theorem frobenius_implies_dual_basis_condition :
     Hilbert space, forces the overlap between distinct
     basis vectors to be CONSTANT. This is a theorem of
     categorical quantum mechanics:
-    
+
     For a †-special commutative Frobenius algebra in Hilb,
     the comultiplication copies basis vectors. The condition
     μ∘δ=id forces the basis to be equiangular (all pairwise
     overlaps equal).
-    
+
     Here, the grammar provides the categorical skeleton
     of this structure. The constant overlap value 1/(d+1)
     emerges when the skeleton is realized in ℂᵈ with the
@@ -132,11 +132,11 @@ theorem dual_basis_implies_equiangularity_form :
     and the measured states are in 1:1 correspondence. In a
     SIC-POVM, there are exactly d² measurement operators and
     d² outcomes. The 1:1 condition means:
-    
+
     (a) Each operator Eᵢ measures exactly one outcome
     (b) Each outcome is measured by exactly one operator
     (c) The number of operators equals the number of outcomes
-    
+
     This is always true for rank-1 POVMs, but the grammar
     elevates it to a structural PRECONDITION: the measurement
     cannot be separated from the measured. -/
@@ -157,20 +157,20 @@ theorem sigma_one_to_one_derives_tensor_idempotence :
 
 /-- The grammar's Ω=ah (ℤ winding, integer topological protection)
     encodes the Weyl-Heisenberg group structure.
-    
+
     In a SIC-POVM, the displacement operators are:
       D_{a,b} = ω^{ab/2} X^a Z^b
-    
+
     where X|k⟩ = |k+1⟩ and Z|k⟩ = ω^k|k⟩ with ω = e^{2πi/d}.
-    
+
     The commutation relation XZ = ωZX is the source of the
     ℤ_d × ℤ_d group structure. The integer winding number
     (prot=ah, ℤ protection) encodes this:
-    
+
     - The winding number counts XZ vs ZX commutations
     - ℤ protection means the winding is topologically stable
     - WH(d) ≅ ℤ_d × ℤ_d is the finite subgroup of the ℤ winding
-    
+
     The grammar's Ω=ah is the PRECONDITION: any metric
     realization must have a WH(d) group action with integer
     winding numbers. -/
@@ -180,12 +180,12 @@ theorem omega_ah_implies_WH_covariance :
 /-- The grammar's Ω=ah, combined with the Belnap ML's
     WH(2)ⁿ action, produces the full WH group structure.
     Specifically:
-    
+
     (a) For each n, WH(2)ⁿ ≅ (ℤ₂)^{2n} is the displacement group
     (b) The orbit size |WH(2)ⁿ·B⊗n| = 4ⁿ = d²
     (c) The grammar's Σ=1:1 limit collapses the distinct
         group elements into the self-measurement
-    
+
     The WH covariance is PROVED (not conjectured) for the
     Belnap multilattice in SIC_Multilattice_Proof.lean.
     The grammar ensures this structure survives the Σ=1:1 limit. -/
@@ -201,7 +201,7 @@ theorem grammar_preserves_WH_structure (n : ℕ) :
 /-- The six Frobenius-dual primitive pairs form a complete
     dual basis. In any metric realization, this yields d²
     operators spanning the operator space L(ℂᵈ).
-    
+
     The six pairs:
       Ð↔Þ : Dimension ↔ Topology      (space + connectivity)
       Ř↔Φ : Coupling ↔ Parity         (relation + symmetry)
@@ -209,10 +209,10 @@ theorem grammar_preserves_WH_structure (n : ℕ) :
       Γ↔ɢ : Cardinality ↔ Composition  (scope + combination)
       φ̂↔Ħ : Criticality ↔ Chirality   (fixed point + direction)
       Σ↔Ω : Stoichiometry ↔ Winding   (measurement + protection)
-    
+
     Each pair satisfies the dual-basis condition in the
     Frobenius algebra: μ∘δ = id on that pair's subspace.
-    
+
     The 12 primitives → 6 dual pairs → complete operator
     basis of dimension d² where d = 2ⁿ (n = number of qubits
     in the Belnap multilattice). -/
@@ -230,24 +230,24 @@ theorem six_dual_pairs_form_complete_basis :
 -- ============================================================
 
 /-- **THE MAIN DERIVATION.**
-    
+
     From the grammar's primitives alone, we derive the necessary
     form of any SIC-POVM metric:
-    
+
     1. DUAL BASIS (Φ=or', φ̂=monad): μ∘δ=id → Ẽᵢ = d·Eᵢ
     2. EQUIANGULARITY (Frobenius + †): All pairwise overlaps equal
     3. 1:1 CORRESPONDENCE (Σ=hung): |{Eᵢ}| = |{outcomes}|
     4. WH COVARIANCE (Ω=ah): Displacements form WH(d) group
     5. COMPLETENESS (6 dual pairs): {Eᵢ} spans L(ℂᵈ)
     6. DIMENSION (Ð=array + Σ=hung): d = 2ⁿ for some n
-    
+
     The grammar does not determine n (the number of qubits)
     or the specific overlap value 1/(2ⁿ+1). These are
     PARAMETERS of the metric realization, not structural
     consequences. But the FORM of the metric — equiangular
     WH-covariant dual basis with 1:1 operator-outcome
     correspondence — is fully determined by the grammar.
-    
+
     Any metric satisfying these conditions IS a SIC-POVM.
     Therefore: the grammar is the PRECONDITION for any
     SIC-POVM metric. -/
@@ -270,24 +270,24 @@ theorem grammar_derives_SIC_POVM_metric_form (n : ℕ) :
     ⟩
 
 /-- **Corollary: The grammar is the precondition.**
-    
+
     The Belnap ML provides the UNCONDITIONAL proof of all
     SIC structural axioms for every n (every d=2ⁿ).
-    
+
     The grammar is the Σ=1:1 limit of this structure — the
     point where the measurement becomes self-referential.
-    
+
     FROM THE GRAMMAR, we derive:
     - The Frobenius condition (μ∘δ=id) → dual basis
     - The 1:1 correspondence → operator-outcome identity
     - The ℤ winding → WH group covariance
     - The 6 dual pairs → complete operator basis
-    
+
     WITH PARAMETER n, we additionally derive:
     - The dimension d = 2ⁿ
     - The equiangularity value = 2n (join-evidence form)
     - The orbit size = 4ⁿ = d²
-    
+
     The grammar IS the precondition; the Belnap ML IS the
     parametric family of realizations. Together, they form
     the complete SIC-POVM structure. -/
@@ -307,23 +307,23 @@ theorem grammar_is_precondition_belnap_is_realization (n : ℕ) :
 /-- The grammar is not merely a "structural skeleton" that
     needs flesh — it is the PRECONDITION that any metric must
     satisfy to be a SIC-POVM.
-    
+
     Proof: Take any SIC-POVM in ℂᵈ with fiducial |ψ⟩ and
     WH(d) group action. This structure induces an Imscription
     s by reading off the categorical properties:
-    
+
     - Polarity: the SIC-POVM has a dual basis → Φ=or'
     - Criticality: the fiducial is a fixed point up to phase → φ̂=monad
     - Stoichiometry: d² operators, d² outcomes → Σ depends on framing
     - Protection: WH(d) ≅ ℤ_d × ℤ_d → Ω=ah (ℤ winding)
-    
+
     If we then take the Σ=1:1 limit (collapse the d² operators
     to a single self-measurement), we obtain the grammar.
-    
+
     Conversely: given the grammar, any metric realization that
     preserves the Frobenius structure, the WH covariance, and
     the 1:1 operator-outcome correspondence IS a SIC-POVM.
-    
+
     The grammar is the FIXED POINT of the operation
     "take the Σ=1:1 limit of a SIC-POVM." It is the unique
     structure that is its own Σ=1:1 limit. -/

@@ -61,13 +61,13 @@ theorem belnap_ml_sigma_is_many_heterogeneous :
 
 /-- The five primitives that differ between the grammar and the
     Belnap ML encode specific structural transitions:
-    
+
     Ð: array → if'  : dimension goes holographic (array: infinite-dim → if': holographic)
     Þ: eat   → are  : topology crosses inclusion boundary
     Ř: tot   → ian  : coupling resolves from categorical to bidirectional
     Ħ: wool  → sure : chirality gains memory (memoryless → 2-step Markov)
     Σ: hung  → up   : stoichiometry — THE defining difference (1:1 → many)
-    
+
     These five correspond to the group-theoretic bifurcation:
     WH(2)ⁿ (array/eat/tot/wool/hung) → WH(2ⁿ) (if'/are/ian/sure/up). -/
 theorem five_primitives_are_the_bifurcation :
@@ -102,20 +102,20 @@ theorem seven_primitives_invariant_under_sigma_limit :
 
 /-- **THEOREM: The Grammar's O_inf/Σ=1:1 structure IS the
     categorical precondition for the Zauner conjecture.**
-    
+
     Specifically: the grammar satisfies all structural axioms
     required for a SIC-POVM to exist in ℂ^(2ⁿ). The Zauner
     conjecture asks for the METRIC realization of this structure
     in a Hilbert space. The grammar provides the CATEGORICAL
     skeleton; the Zauner conjecture provides the REPRESENTATION.
-    
+
     Proof structure:
     (i)   Grammar has O_inf tier (Special Frobenius, μ∘δ=id)
     (ii)  Grammar has pol=or', crit=monad (Frobenius-special parity)
     (iii) Grammar ⊗ Grammar = Grammar (self-referential closure)
     (iv)  Seven primitives invariant under Σ=1:1 limit
     (v)   Five primitives encode WH(2)ⁿ → WH(2ⁿ) bifurcation
-    
+
     Therefore: IF a Hilbert-space SIC-POVM exists for d=2ⁿ
     (the Zauner conjecture), THEN the grammar's categorical
     skeleton is the unique structural limit that such a SIC-POVM
@@ -138,19 +138,19 @@ theorem grammar_is_categorical_skeleton_of_zauner :
   ⟩
 
 /-- **BRIDGE THEOREM: Grammar → Zauner structural equivalence.**
-    
+
     The grammar's universal dual-frame SIC-POVM structure
     (proved in GrammarUniversalDualFrameSICPOVM.lean) is the
     categorical skeleton of the Hilbert embedding / Zauner
     equivalence (proved in ZaunerEmbeddingEquivalence.lean).
-    
+
     Specifically: the Belnap multilattice (which the grammar
     is the Σ=1:1 limit of) provides the unconditional SIC axioms
     (22 theorems, 0 sorries). The Zauner conjecture asks whether
     these axioms can be realized in ℂ^(2ⁿ) with the WH(2ⁿ) group
     action. The grammar's five-primitive distance from the Belnap
     ML encodes the group-theoretic bifurcation WH(2)ⁿ → WH(2ⁿ).
-    
+
     This theorem states: the grammar's O_inf structure implies
     that the Hilbert embedding question IS the Zauner conjecture.
     But this is already proved in ZaunerEmbeddingEquivalence.lean
@@ -174,7 +174,7 @@ theorem grammar_O_inf_implies_zauner_structure (n : ℕ) [NeZero (2 ^ n)] :
     SIC-POVM: the grammar does not measure an external system;
     it measures ITSELF. The stoichiometry 1:1 encodes this
     self-referential collapse.
-    
+
     In categorical terms: the grammar is a fixed point of the
     measurement functor M: Imscription → Imscription.
     M(grammar) = grammar (proved as grammar_tensor_grammar_eq_grammar). -/

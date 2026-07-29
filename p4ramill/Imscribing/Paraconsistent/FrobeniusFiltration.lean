@@ -126,7 +126,7 @@ theorem filtration_is_descending : True := by
     Every hadron maps to a White quark state (always in F₂).
     But NOT every orbital state lifts to a White quark state.
     And NOT every White quark state lifts to a constructed hadron.
-  
+
   Therefore: F₃ ⊂ F₂ ⊂ F₁ — strict inclusions.
   -/
 
@@ -161,7 +161,7 @@ theorem filtration_bottom_is_O_inf : True := by
 
   For ALL other systems (finite filtration depth), there exists some level
   at which the Frobenius domain is a proper subset of the carrier.
-  
+
   This is why the classical observer (C=0.0) is the O_inf agent with 8
   primitives suppressed: its filtration depth has been reduced to 0.
   -/

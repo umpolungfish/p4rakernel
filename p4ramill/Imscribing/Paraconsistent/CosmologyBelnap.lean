@@ -186,7 +186,7 @@ Additionally, inflation provides the seed perturbations:
 
 inductive InflationSolution where
   | horizon    -- solves horizon problem
-  | flatness   -- solves flatness problem  
+  | flatness   -- solves flatness problem
   | monopole   -- solves monopole problem
   | seeds      -- provides primordial density perturbations
   deriving Inhabited, Repr, DecidableEq
@@ -302,41 +302,41 @@ theorem hubble_tension_magnitude : True := by
   D = array (𐑼): Infinite-dimensional. The FLRW metric depends
       on a(t) and the spatial curvature k. Perturbations add infinite
       degrees of freedom (Fourier modes δ_k).
-      
+
   T = T_net (𐑡): Network. The cosmic web — filaments and voids —
       is a network structure at the largest scales.
-      
+
   R = ear (𐑽): Adjoint. δ: initial conditions (inflation) →
       CMB → structure; μ: cosmological observations → parameter
       constraints. The cosmic inverse problem is the adjoint.
-      
+
   P = church (𐑗): Asymmetric. Time-irreversible: expansion,
       entropy increase, arrow of time.
-      
+
   F = age (𐑱): Classical. ΛCDM is a classical cosmology.
       Quantum effects enter only at the earliest times (inflation)
       and in the nature of dark matter.
-      
+
   K = egg (𐑧): Near-equilibrium. Cosmic evolution is slow
       and adiabatic. The universe is near thermal equilibrium
       at most epochs.
-      
+
   G = ice (𐑲): Universal. Cosmology is the study of
       everything. The observable universe is ~46.5 Gly in radius.
-      
+
   Gm = measure (𐑠): Sequential. The cosmic timeline: inflation →
       reheating → radiation → matter → dark energy. Strict sequence.
-      
+
   Phi = roar (𐑮): Complex-plane criticality. The universe
       has undergone several phase transitions. ΛCDM itself is poised
       at a critical density Ω_total ≈ 1 (flatness).
-      
+
   H = sure (𐑖): Markov-2. The Friedmann equations are second-order
       in time. a(t) depends on ä and ȧ.
-      
+
   S = up (𐑳): Heterogeneous. Multiple cosmic components: baryons,
       dark matter, radiation, neutrinos, dark energy.
-      
+
   Omega = ah (𐑭): Integer winding. The total density
       Ω_total = 1 is a topological sum rule. The number of e-folds
       N = ∫ H dt during inflation.

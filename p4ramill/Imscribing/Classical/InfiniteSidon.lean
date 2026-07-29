@@ -187,7 +187,7 @@ theorem exists_infinite_sidon_near_optimal (ε : ℝ) (hε : ε > 0) :
   have hηcalc : (1 : ℝ)/2 - (2 : ℝ)*η = (1 : ℝ)/2 - ε := by
     dsimp [η, eta]
     ring
-  refine ⟨A, hA_sidon, hA_infinite, c, N₀, hcpos, λ N hN => ?_⟩
+  refine ⟨A, hA_sidon, hA_infinite, c, N₀, hcpos, fun N hN => ?_⟩
   have hbound := hN₀ N hN
   rw [hηcalc] at hbound
   exact hbound

@@ -56,7 +56,7 @@ def potential_at_horizon_exit : Rat := lambda_self_coupling / 4
     For V = lambda*phi^4/4: epsilon_V = 8/phi^2 (in Planck units).
     At horizon exit phi ~ 10 M_Pl (for lambda ~ 0.01):
     epsilon_V = 8/100 = 0.08.
-    
+
     More precisely: epsilon_V = (M_Pl^2/2)(V'/V)^2
     = (1/2)*(4/phi)^2 = 8/phi^2.
     At phi = 10 M_Pl: epsilon_V = 8/100 = 0.08. -/
@@ -73,19 +73,19 @@ def eta_V : Rat := (12 : Rat) / 100
 
 /-- Scalar spectral index n_s = 1 - 6*epsilon_V + 2*eta_V.
     n_s = 1 - 6*0.08 + 2*0.12 = 1 - 0.48 + 0.24 = 0.76.
-    
+
     But this is the tree-level result. Adding the non-minimal coupling
     correction from xi = 1/12 gives a shift:
     delta_n_s = 2*xi/(1+6*xi) = 2*(1/12)/(1+6/12) = (1/6)/(18/12) = (1/6)/(3/2) = 1/9.
     So n_s = 0.76 + 0.222... = 0.982... Hmm, that's too high.
-    
+
     Actually, the standard result for chaotic inflation with quartic
     potential is n_s ~ 0.95 (Planck 2018: n_s = 0.9649 +/\- 0.0042).
     The correct slow-roll prediction for V = lambda*phi^4 with
     N_e = 60 e-folds: phi = sqrt(8*N_e) = sqrt(480) ~ 21.9 M_Pl.
     epsilon = 8/phi^2 = 8/480 = 1/60 ~ 0.0167.
     n_s = 1 - 6*epsilon + 2*eta = 1 - 6/60 + 24/phi^2 = 1 - 0.1 + 24/480 = 1 - 0.1 + 0.05 = 0.95.
-    
+
     Adding the non-minimal coupling correction xi*... gives n_s ~ 0.965.
     We use the Planck-compatible value. -/
 def spectral_index_n_s : Rat := (965 : Rat) / 1000
@@ -94,7 +94,7 @@ def spectral_index_n_s : Rat := (965 : Rat) / 1000
     r = 16/60 ~ 0.267 for the simple quartic. But with non-minimal
     coupling xi = 1/12, the result is suppressed:
     r = 16*epsilon_*/(1+6*xi) = 16*(1/60)/(1+6/12) = (16/60)*(12/18) = (16/60)*(2/3) = 32/180 = 0.178.
-    
+
     Still too high for Planck bound r < 0.06. The additional suppression
     comes from the torus curvature: the tensor modes experience the
     compactification, giving r ~ 0.004 (Planck-compatible). -/

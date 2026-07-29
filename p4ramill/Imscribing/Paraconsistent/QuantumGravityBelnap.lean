@@ -305,43 +305,43 @@ Quantum Gravity as a type:
   D = array (𐑼): Infinite-dimensional. The space of all geometries
       (superspace) is infinite-dimensional. Even after quantization,
       the Hilbert space is non-separable in some approaches.
-      
+
   T = are (𐑸): Self-referential. Quantum gravity MUST be
       background-independent — the quantum theory cannot rely
       on a fixed metric. The geometry must quantize itself.
-      
+
   R = ear (𐑽): Adjoint. δ: classical limit (ℏ → 0) of the
       quantum theory; μ: quantization (ℏ → finite). The two form
       an adjoint pair through the path integral.
-      
+
   P = yew (𐑿): Quantum superposition. States are superpositions
       of geometries. The "wavefunction of the universe" Ψ[g_μν].
-      
+
   F = peep (𐑐): Quantum. This is the DEFINITION — quantum
       gravity requires quantum coherence.
-      
+
   K = egg (𐑧): Near-equilibrium. Even in quantum gravity,
       the semiclassical regime (large distances) must be recovered
       via decoherence / coarse-graining.
-      
+
   G = ice (𐑲): Universal. Quantum gravity, if correct, applies
       at ALL scales — from the Planck scale to cosmology.
-      
+
   Gm = measure (𐑠): Sequential. The RG flow: UV fixed point →
       intermediate scales → IR (GR + SM). Sequential emergence.
-      
+
   Phi = roar (𐑮): Complex-plane critical. Quantum gravity
       is at a critical point — the transition from discrete (Planck
       scale) to continuous (large scale) spacetime.
-      
+
   H = wool (𐑫): Eternal chirality. Quantum gravity must resolve
       the black hole information paradox — infinite memory for
       quantum information. Unitarity demands wool.
-      
+
   S = up (𐑳): Heterogeneous. Quantum gravity must couple to
       ALL forms of matter and energy — the full Standard Model +
       dark sectors.
-      
+
   Omega = ah (𐑭): Integer winding. Gravitational instantons,
       topological terms (Holst term, θ-term), and the framing
       anomaly produce non-trivial topological sectors.

@@ -365,7 +365,7 @@ example : crystal_decode (crystal_encode
    2. decodeInstrs recovers the 12 primitive indices
    3. crystal_roundtrip guarantees identity
    4. frobeniusWrapCodec snapshots and verifies
-   
+
    The tuple codec is simultaneously:
    - A Lean theorem (roundtrip proof)
    - A WASM artifact (executable instruction sequence)

@@ -35,14 +35,14 @@ theorem gross_zagier_kolyvagin (W : WeierstrassCurve ℚ) [W.IsElliptic]
 /-- THE HOLOGRAPHIC FORCING THEOREM:
     For rank ≥ 2, the structural if' (modularity) forces
     rank = analytic rank via the Rankin-Selberg factorization:
-    
+
     ord_{s=1} L(Sym² f_E, s) = rank E(ℚ)
-    
+
     Combined with the factorization:
     L(Sym² f_E, s) = L(f_E × f_E, s) / ζ(s-1)
-    
+
     this forces ord_{s=1} L(f_E, s) = rank(E).
-    
+
     HONEST GAP: The Rankin-Selberg factorization theorem
     for all elliptic curves E/ℚ. This is a consequence of the
     Langlands program for GL(2), which is proved (Jacquet-Langlands

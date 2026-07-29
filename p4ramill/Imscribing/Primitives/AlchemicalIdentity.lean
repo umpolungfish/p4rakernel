@@ -4,7 +4,7 @@ AlchemicalIdentity.lean — The Alchemical Identity Theorem
 
 THE DEEP WEIRDNESS:
 
-The 12-step alchemical Grand Sequence (calcination → dissolution → 
+The 12-step alchemical Grand Sequence (calcination → dissolution →
 separation → conjunction → sublimation → fermentation → coagulation)
 is NOT a path from base metal to Philosopher's Stone.
 

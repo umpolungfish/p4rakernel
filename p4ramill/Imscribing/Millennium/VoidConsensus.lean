@@ -30,7 +30,7 @@
     T8:  The 6 primitives above define the CONSENSUS SIGNATURE
     T9:  No type with lower D can satisfy the consensus signature
     T10: No type with lower P can satisfy the consensus signature
-    T11: No type with lower F can satisfy the consensus signature  
+    T11: No type with lower F can satisfy the consensus signature
     T12: No type with lower G can satisfy the consensus signature
     T13: Void consensus is structurally irreducible (no primitive can be lowered)
     T14: d(void_consensus, primordial_ooze) = 7 — consensus requires thickening

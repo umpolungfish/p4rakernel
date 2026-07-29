@@ -270,11 +270,11 @@ theorem fdeToInf_injective {n : ℕ} : Function.Injective (fdeToInf (n := n)) :=
 
 /-- FDE(∞) is countably infinite — it has ℵ₀ truth values. -/
 theorem fdeInf_infinite : Set.Infinite (Set.univ : Set FDEInf) := by
-  have h_inj : Function.Injective (λ n : ℕ => FDEInf.mid n) := by
+  have h_inj : Function.Injective (fun n : ℕ => FDEInf.mid n) := by
     intro a b h
     have h' := congrArg fdeInfMid h
     simpa [fdeInfMid] using h'
-  have h_range : (Set.range (λ n : ℕ => FDEInf.mid n)).Infinite :=
+  have h_range : (Set.range (fun n : ℕ => FDEInf.mid n)).Infinite :=
     Set.infinite_range_of_injective h_inj
   exact Set.Infinite.mono (Set.subset_univ _) h_range
 

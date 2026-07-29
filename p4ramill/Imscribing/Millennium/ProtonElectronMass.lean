@@ -51,10 +51,10 @@ theorem d_cube_value : d_cube = 1728 := by
 
 /-- The A₂ correction: d²·3/4 = 144·3/4 = 108.
     This counts the evaluator occupancy in the A₂ root system.
-    
+
     There are 3 evaluators (at 120° trine positions in the A₂ lattice).
     Each occupies d²/4 = 36 phase space cells. 3 × 36 = 108.
-    
+
     The factor 1/4 is the horn torus gear ratio. -/
 def a2_correction_rat : ℚ :=
   (d_sq_pem : ℚ) * (3 : ℚ) / (4 : ℚ)
@@ -73,7 +73,7 @@ theorem surface_term_value : surface_term_rat = (22 : ℚ)/144 := by
 /-- The DOCUMENT formula: d³ + d²·3/4 + 2(d-1)/d².
     Numerical: 1836.152777777778.
     CODATA 2022: 1836.15267343.  Residual: 0.057 ppm (5.68×10⁻⁸).
-    
+
     Exact rational: 264406/144 = 132203/72. -/
 def mp_me_doc_rat : ℚ :=
   (d_cube : ℚ) + a2_correction_rat + surface_term_rat
@@ -100,7 +100,7 @@ theorem d_dminus3_value : d_dminus3 = 108 := by
 /-- The α-embedded dressing: α·d²/(4√3).
     This term comes from α (the fine-structure constant) dressing
     the d² = 144 SIC phase space cells with the A₂ geometry factor 4√3.
-    
+
     Exact ℝ value: α·144/(4√3) ≈ 0.15267334...
     Rational approximation for the structural skeleton: 0.152 = 19/125. -/
 def alpha_dressing_rat_approx : ℚ := (19 : ℚ) / 125
@@ -112,10 +112,10 @@ def next_order_correction_rat_approx : ℚ := (1 : ℚ) / 1000
 
 /-- The MoDoT α-embedded formula skeleton (rational part):
     d³ + d(d-3) = 1728 + 108 = 1836.
-    
+
     The full ℝ formula adds the α-dressing and next-order terms:
     1836 + α·d²/(4√3) + 1/(d²·4√3) = 1836.15267497.
-    
+
     The α-dressing and next-order terms are noncomputable in Lean 4
     (Real.sqrt, Real.α). Compute them in Python (MoDoT session). -/
 def mp_me_modot_skeleton : ℚ :=

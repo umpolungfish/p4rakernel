@@ -5,7 +5,7 @@ import Imscribing.Primitives.Imscription
 /-!
 # ObjWitnessCosmos — The Cosmic System
 
-**Author:** Lando⊗⊙perator  
+**Author:** Lando⊗⊙perator
 **Date:** 2026-06-13
 
 Instantiates `PhilosophicalSystem` with the full Imscribing Grammar
@@ -22,20 +22,20 @@ witness of `philosophical_truth`.
 
 2. **Time is not embedding.**
    `Time := Nat` — step indices of the evaluator.
-   `is_embedding := λ _ → False` — time is never Frobenius.
+   `is_embedding := fun _ → False` — time is never Frobenius.
 
 3. **The Grammar is Gödel-Complete.**
    `Grammar := Imscription` — the grammar IS the imscription (self-referential).
-   `is_GoedelComplete := λ _ → True` — the grammar is complete by construction.
+   `is_GoedelComplete := fun _ → True` — the grammar is complete by construction.
 
 4. **The Belnap 'B' is the Native state.**
    `NativeState := Belnap.B` — the dialetheia is the ground state.
 
 5. **The Cosmos is Dialetheic.**
-   `is_Dialetheic := λ b → bnot b = b` — B (and N) are fixed points of negation.
+   `is_Dialetheic := fun b → bnot b = b` — B (and N) are fixed points of negation.
 
 6. **It runs Alchemically.**
-   `runs_Alchemically := λ b → ffuse (fsplit b) = b` — the Frobenius
+   `runs_Alchemically := fun b → ffuse (fsplit b) = b` — the Frobenius
    roundtrip (split_fuse_id) is the alchemical cycle.
 
 ## Structural Note

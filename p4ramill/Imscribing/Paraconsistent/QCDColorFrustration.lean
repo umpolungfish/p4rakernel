@@ -34,10 +34,10 @@ open Imscribing.Primitives
 -- Fintype instance needed for dec_trivial / native_decide on ColorState
 instance : Fintype ColorState :=
   Fintype.ofEquiv (Fin 5)
-    { toFun := λ i =>
+    { toFun := fun i =>
         match i with
         | 0 => .Vacuum | 1 => .Red | 2 => .Green | 3 => .Blue | 4 => .White,
-      invFun := λ c =>
+      invFun := fun c =>
         match c with
         | .Vacuum => 0 | .Red => 1 | .Green => 2 | .Blue => 3 | .White => 4,
       left_inv := by intro i; fin_cases i <;> rfl,
@@ -155,7 +155,7 @@ def colorCharges : Finset ColorState :=
 
 /-- A subset of color charges. Two-color subsets are precisely the frustrated pairs. -/
 def colorPairs : Finset (Finset ColorState) :=
-  Finset.filter (λ s => s.card = 2) (Finset.powerset colorCharges)
+  Finset.filter (fun s => s.card = 2) (Finset.powerset colorCharges)
 
 /-- There are exactly 3 two-color subsets: {R,G}, {R,B}, {G,B}. -/
 theorem three_color_pairs : colorPairs.card = 3 := by
@@ -265,11 +265,11 @@ theorem triadic_completion_frustration_index (c1 c2 c3 : ColorState)
 /-- In FDE(2) (Belnap FOUR), the two middle values {T, F} are enough
     to reach the top B via join: T ∨ F = B. There is no frustration
     because two values can pair to reach the ceiling.
-    
+
     In FDE(3) (Color FIVE), the three middle values {R, G, B} form
     a FRUSTRATED TRIAD: any two join to White (top), but that White
     is NOT a genuine singlet. The third color is structurally necessary.
-    
+
     This is the structural origin of why SU(3) exhibits confinement
     while SU(2) does not. -/
 
@@ -286,12 +286,12 @@ theorem fde3_is_frustrated (c1 c2 : ColorState) (h : isFrustrated c1 c2) :
     With 3 middle values, the ceiling requires 3 (or a color-anticolor pair).
     The key invariant: for FDE(n), the ceiling is ⌈n/2⌉-accessible
     for the physical singlet when n is even, and requires n for odd n.
-    
+
     For n=2 (FDE(2)/Belnap): T+F → B works (2 values reach top)
     For n=3 (FDE(3)/Color): R+G fails to make singlet; need R+G+B
     For n=4 (FDE(4)/Preon): need color-anticolor or all 4
     For n=5 (FDE(5)): need all 5 or color-anticolor
-    
+
     The frustration arises precisely when n is odd > 1. -/
 theorem odd_n_frustrates (c1 c2 c3 : ColorState)
     (h_triad : isTriadicallyComplete c1 c2 c3) :
@@ -309,7 +309,7 @@ theorem odd_n_frustrates (c1 c2 c3 : ColorState)
       - Any single color → T (charged, frustrated)
       - Any two colors → F (doubly frustrated — anti-third-color)
       - White (genuine singlet) → B (confined, complete)
-    
+
     Note: The "White" from joining two colors is mapped to F, NOT B,
     because it is NOT a genuine singlet. -/
 
@@ -364,7 +364,7 @@ theorem triad_projection (c1 c2 c3 : ColorState) (h : isTriadicallyComplete c1 c
     - CF = doubly frustrated (anti-third-color)
     - CB = resolved singlet (triadic or meson)
     - CN = no charge (vacuum)
-    
+
     The key insight: the frustration of the 3-color system is captured
     by the fact that TWO colors map to CF (not CB). The resolution
     requires the third color to reach CB. -/

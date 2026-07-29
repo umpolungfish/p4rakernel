@@ -513,7 +513,7 @@ def independence_number_edge_bound : Imscription :=
 --
 -- /--
 -- Q10: Chromatic number and triangle-free woegraphs.
--- For uncountable κ, ∃λ such that every graph with χ=λ contains a
+-- For uncountable κ, ∃fun such that every graph with χ=fun contains a
 -- triangle-free woegraph with χ=κ?
 -- Verdict: F — Erdős-Hajnal: at ℵ₁, the shift graph has χ=ℵ₁ but
 -- every triangle-free woegraph has countable χ.

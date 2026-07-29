@@ -94,13 +94,13 @@ def Vtb_magnitude : Rat := 1
 /-- CP-violating phase from forward/reverse bus difference on the horn torus.
     The forward bus (AREV->IFIX) accumulates phase arctan(13/5).
     The reverse bus (AREV->TANCH) accumulates phase pi - arctan(13/5).
-    
+
     The CP phase: delta_CP = arctan(13/5) ~ 68.96 deg.
-    
+
     In the Wolfenstein parameterization, this gives:
     eta/rho = tan(delta_CP) = 13/5.
     So rho^2 + eta^2 = |V_ub|^2/(A^2*lambda^6) = 1 (unitarity).
-    
+
     We encode delta_CP as its tangent ratio:
     tan(delta_CP) = 13/5. -/
 def tan_delta_CP : Rat := (13 : Rat) / 5
@@ -127,7 +127,7 @@ def eta_ckm : Rat := (13 : Rat) / 14
     J = A^2 * lambda^6 * eta ~ (4/5)^2 * (3/13)^6 * (13/14)
       = (16/25) * (729/4826809) * (13/14)
       ~ 3.36e-5
-    
+
     Exact rational: (16*729*13)/(25*4826809*14) = 151632/1689383150 = 75816/844691575. -/
 def jarlskog_invariant : Rat :=
   wolfenstein_A^2 * lambda_ckm^6 * eta_ckm

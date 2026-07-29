@@ -91,7 +91,7 @@ Six primitives differ from bare entry:
 
 Promoted atoms: HOLOGRAPHIC_STATE, SEQAX, PHI_C, TEMPD2
 
-The bare entry is NOT rewritten — entries are λ-terms, not mutable stores.
+The bare entry is NOT rewritten — entries are fun-terms, not mutable stores.
 -/
 def dark_energy_self_inclosed : Imscription := {
   dim := Dimensionality.if'

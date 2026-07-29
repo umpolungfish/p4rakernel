@@ -80,7 +80,7 @@ theorem coprime_sq_factor {a b c : ℕ} (ha_pos : 0 < a) (hb_pos : 0 < b)
    L7 — Pythagorean Parameterization Lemma
    If integers m,n are coprime and have opposite parity,
    then (m²-n², 2mn, m²+n²) is a primitive Pythagorean triple.
-   
+
    Uses Mathlib.NumberTheory.PythagoreanTriples.IsPrimitiveClassified,
    which is defined such that the parametric condition (m,n coprime
    with opposite parity) directly gives primitive classification.

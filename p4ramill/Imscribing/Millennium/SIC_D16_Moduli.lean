@@ -2,7 +2,7 @@ import Mathlib
 /-!
 # SIC_D16_Moduli — Ray Class Field Tower for d=16 SIC-POVM
 
-**Author:** Lando⊗⊙perator  
+**Author:** Lando⊗⊙perator
 **Date:** 2026-07-25
 
 Formalizes the moduli field structure for the d=16 SIC-POVM:

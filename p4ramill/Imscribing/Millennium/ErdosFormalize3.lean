@@ -190,7 +190,7 @@ Finite H appears in every 3-uniform G with χ(G) > ℵ₀ iff H is 3-partite.
 -/
 structure Hypergraph3 (V : Type _) where
   edges : Set (Set V)
-  uniform : ∀ e ∈ edges, (Finset.filter (λ x => x) (Finset.univ : Finset V)).card = 3
+  uniform : ∀ e ∈ edges, (Finset.filter (fun x => x) (Finset.univ : Finset V)).card = 3
 
 def chromatic_number_hypergraph {V : Type _} (G : Hypergraph3 V) : Cardinal :=
   infₛ { κ | ∃ (f : V → κ), ∀ e ∈ G.edges, ¬ (∀ v1 v2 ∈ e, f v1 = f v2) }
@@ -295,7 +295,7 @@ def has_pasch_conf {V : Type*} (H : Set (Finset V)) : Prop :=
 
 noncomputable def f_pasch (n t : ℕ) : ℕ :=
   infₛ { m | ∀ H : Set (Finset (Fin n)),
-    (∀ e ∈ H, e.card = t) → (Finset.card (Finset.image (λ e => e) (Finset.filter (λ e => e ∈ H) Finset.univ))) ≥ m → has_pasch_conf H }
+    (∀ e ∈ H, e.card = t) → (Finset.card (Finset.image (fun e => e) (Finset.filter (fun e => e ∈ H) Finset.univ))) ≥ m → has_pasch_conf H }
 
 theorem f_pasch_growth_rate (t : ℕ) (ht : t ≥ 3) :
   ∀ ε > 0, ∃ N, ∀ n ≥ N,
@@ -325,11 +325,11 @@ section geometric_distance_problems
 Maximum subset with no three collinear has size Θ(√n).
 -/
 def NoFourCollinear (P : Finset (ℝ × ℝ)) : Prop :=
-  ∀ (l : Set (ℝ × ℝ)), (∀ p q ∈ l, p ≠ q → (P.filter (λ x => x ∈ l)).card < 4) := by
+  ∀ (l : Set (ℝ × ℝ)), (∀ p q ∈ l, p ≠ q → (P.filter (fun x => x ∈ l)).card < 4) := by
     trivial
 
 def NoThreeCollinear (S : Finset (ℝ × ℝ)) : Prop :=
-  ∀ (l : Set (ℝ × ℝ)), (∀ p q ∈ l, p ≠ q → (S.filter (λ x => x ∈ l)).card < 3) := by
+  ∀ (l : Set (ℝ × ℝ)), (∀ p q ∈ l, p ≠ q → (S.filter (fun x => x ∈ l)).card < 3) := by
     trivial
 
 noncomputable def g_no_three_in_line (n : ℕ) : ℕ :=
@@ -387,7 +387,7 @@ distinct distances. Based on Altman's 2D result.
 theorem convex_polyhedron_distinct_distances_3d (n : ℕ) (V : Finset (EuclideanSpace ℝ (Fin 3)))
     (hV : V.card = n) (h_convex : ∀ v ∈ V, v ∉ convexHull ℝ (V \ {v} : Set (EuclideanSpace ℝ (Fin 3)))) :
     ((V.image (fun (p : EuclideanSpace ℝ (Fin 3) × EuclideanSpace ℝ (Fin 3)) =>
-      dist p.1 p.2)).filter (λ d => d > 0)).card ≥ (n - 1) / 2 := by
+      dist p.1 p.2)).filter (fun d => d > 0)).card ≥ (n - 1) / 2 := by
   sorry -- Altman's theorem extended to 3D
 
 /--

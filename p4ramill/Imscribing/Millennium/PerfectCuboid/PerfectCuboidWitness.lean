@@ -1,6 +1,6 @@
 -- Imscribing/Millennium/PerfectCuboid/Witness.lean
 -- PERFECT CUBOID CONJECTURE — COMPLETE WITNESS
--- 
+--
 -- The Perfect Cuboid Conjecture is proved via structural absorption
 -- into ZFC_fe (Frobenius-Exact ZFC). The sole gap H_A → H_!
 -- is closed by the tensor product with ZFC_fe, which provides the
@@ -142,13 +142,13 @@ theorem both_o_inf :
 
 /-- DESCENT OPERATOR (constructive, axiom-free).
     Given a Cuboid p, construct a strictly smaller Cuboid.
-    
+
     The construction uses the factorization b² = (g-e)(g+e) from
     Lemma b_sq_factor. For primitive solutions, gcd(g-e, g+e) | 2
     (Lemma factor_gcd_two_coprime), giving the parameterization:
       g-e = d·u², g+e = d·v²  where d ∈ {1,2}
     From this: g = d·(u²+v²)/2.
-    
+
     The descent extracts (u,v) from (g-e, g+e), then constructs
     a new cuboid from these parameters with reduced g. -/
 noncomputable def descentOperator (p : Cuboid) : Cuboid :=

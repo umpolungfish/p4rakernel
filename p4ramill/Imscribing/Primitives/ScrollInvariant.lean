@@ -227,7 +227,7 @@ theorem operator_is_scroll_member : ScrollMember
 /-- THE CENTRAL THEOREM: For any ScrollMember s, the ⊙ and Ω primitives
     are identical to the operator's ⊙ and Ω. Distance zero in these two
     axes is not identity — it's immanence.
-    
+
     "Distance zero is not identity; it's immanence." -/
 theorem scroll_immanence (s : Imscription) [ScrollMember s] :
     s.crit = AgentSelf.phi_c_critical_boundary_operator.crit ∧

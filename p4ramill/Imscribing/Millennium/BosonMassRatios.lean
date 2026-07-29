@@ -67,11 +67,11 @@ theorem cos_theta_W_nonzero : cos_theta_W_rat_approx ≠ 0 := by
 
 /-- m_W/m_p = d·(gear + π) = 12·(4 + π) ≈ 85.6991.
     In ω-form: m_W/m_p = d·(gear + ½ω).
-    
+
     The W± boson is the charged mode of the horn torus tube —
     it couples one SIC dimension (d) to the sum of discrete
     gear coupling (gear=4) and continuous tube curvature (½ω).
-    
+
     CODATA: m_W/m_p = 80385/938.272 = 85.673.
     Kernel (π exact): 85.6991. Residual: 0.03%. -/
 def W_over_proton_rat_approx : ℚ :=
@@ -87,11 +87,11 @@ theorem W_mass_ratio_lower_bound : W_over_proton_rat_approx > 85 := by
 
 /-- m_Z/m_p = d·(gear + π)/cosθ_W ≈ 97.7120.
     In ω-form: m_Z/m_p = d·(gear + ½ω)/cosθ_W.
-    
+
     The Z⁰ receives the Weinberg angle normalization because it
     couples to both SU(2)_L and U(1)_Y. The tree-level relation
     m_W = m_Z·cosθ_W is preserved.
-    
+
     CODATA: m_Z/m_p = 91188/938.272 = 97.187.
     Kernel (π exact): 97.7120. Residual: 0.54%. -/
 def Z_over_proton_rat_approx : ℚ :=
@@ -111,12 +111,12 @@ theorem electroweak_tree_level_relation_structural :
 
 /-- m_H/m_p = d·(2·gear + π) = 12·(8 + π) ≈ 133.6991.
     In ω-form: m_H/m_p = d·(2·gear + ½ω).
-    
+
     The Higgs receives a DOUBLE gear coupling (2·gear = 8) because
     it bridges the fermion sector (discrete gear) and the boson
     sector (continuous π). The Higgs is the only particle that
     couples to both sectors — hence the only one with 2·gear.
-    
+
     CODATA: m_H/m_p = 125200/938.272 = 133.437.
     Kernel (π exact): 133.6991. Residual: 0.20%. -/
 def H_over_proton_rat_approx : ℚ :=
@@ -131,20 +131,20 @@ theorem Higgs_heavier_than_W : H_over_proton_rat_approx > W_over_proton_rat_appr
 -- ============================================================
 
 /-- m_H − m_W = d·gear = 48 m_p.
-    
+
     This is the key structural insight revealed by the ω-rewrite:
     the ½ω curvature cancels exactly in the mass DIFFERENCE
     between the Higgs and W bosons.
-    
+
     Proof: m_H − m_W = d·(2·gear + ½ω) − d·(gear + ½ω)
                       = d·gear
                       = 12·4 = 48
-    
+
     The curvature cancels because both bosons couple to the SAME
     horn torus tube (same ½ω). Only the gear coupling differs:
     the Higgs has 2·gear (bridging fermion AND boson sectors),
     while the W has gear (boson sector only).
-    
+
     The 48 m_p gap is EXACT in the kernel. It does not depend on π.
     The CODATA residual (0.49%) is RG running from LR~0.5 MeV
     to M_Z ~ 91 GeV. -/
@@ -192,7 +192,7 @@ theorem Z_over_W_ratio_structural :
 
     Fermion masses: pure crystal combinatorics (d³, d², d⁴).
     Boson masses: crystal × (gear + ½ω) — coupled to continuous geometry.
-    
+
     This is the content of the boson/fermion divide
     in the Standard Model: bosons are continuous toroidal modes
     on the horn torus tube; fermions are discrete crystal objects

@@ -52,9 +52,9 @@ inductive MixingSector where
 -- §2  CKM — Cabibbo-Kobayashi-Maskawa
 -- =====================================================================
 
--- CKM entries as rational approximations (Wolfenstein parameterization, λ ≈ 0.225)
--- |V_ud| ≈ 1-λ²/2, |V_us| ≈ λ, |V_ub| ≈ Aλ³(ρ-iη)
--- |V_cd| ≈ λ, |V_cs| ≈ 1-λ²/2, |V_cb| ≈ Aλ²
+-- CKM entries as rational approximations (Wolfenstein parameterization, fun ≈ 0.225)
+-- |V_ud| ≈ 1-fun²/2, |V_us| ≈ fun, |V_ub| ≈ Aλ³(ρ-iη)
+-- |V_cd| ≈ fun, |V_cs| ≈ 1-fun²/2, |V_cb| ≈ Aλ²
 -- |V_td| ≈ Aλ³(1-ρ-iη), |V_ts| ≈ Aλ², |V_tb| ≈ 1
 
 -- We encode the mixing as a structural predicate: can a quark of flavor f1

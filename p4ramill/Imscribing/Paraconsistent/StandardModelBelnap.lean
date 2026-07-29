@@ -75,7 +75,7 @@ def particleStats : SMParticle -> SMStatistics
   | .higgs => .boson
 
 theorem fermion_count : List.length
-    (List.filter (λ p => particleStats p = .fermion) 
+    (List.filter (fun p => particleStats p = .fermion)
     [.up,.down,.charm,.strange,.top,.bottom,.electron,.muon,.tau,.nu_e,.nu_mu,.nu_tau]) = 12 := rfl
 
 
@@ -175,7 +175,7 @@ def generationOf : SMParticle -> Option SMGeneration
   | _                                        => none  -- bosons have no generation
 
 theorem three_fermion_generations :
-    (List.filter (λ p : SMParticle => generationOf p ≠ none)
+    (List.filter (fun p : SMParticle => generationOf p ≠ none)
       [.up,.down,.charm,.strange,.top,.bottom,
        .electron,.muon,.tau,.nu_e,.nu_mu,.nu_tau,
        .photon,.W_plus,.W_minus,.Z_boson,.gluon,.higgs]).length = 12 := by

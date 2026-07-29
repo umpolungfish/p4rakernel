@@ -245,7 +245,7 @@ This would be the Frobenius closure of fundamental physics.
 
 inductive BarrierTriangle where
   | topology      -- background independence
-  | parity        -- quantum superposition  
+  | parity        -- quantum superposition
   | fidelity      -- quantum coherence
   deriving Inhabited, Repr, DecidableEq
 
@@ -265,35 +265,35 @@ Structural requirements for the unified theory:
 
   D = if' (holographic): The theory must encode all
       bulk physics on a boundary (holographic principle).
-      
+
   T = are (self-referential): The geometry must
       emerge from the theory itself, not be presupposed.
-      
+
   R = ian (bidirectional): Matter tells geometry how to
       curve AND geometry tells matter how to move, at the
       quantum level. Quantum backreaction is included.
-      
+
   P = or' (Frobenius-special): The quantization
       procedure must satisfy mu o delta = id exactly.
-      
+
   F = peep (quantum): Obviously.
-      
+
   K = egg (near-equilibrium): The low-energy effective
       theory (GR + SM) must emerge adiabatically.
-      
+
   G = ice (universal): Applies at all scales.
-      
+
   Gm = measure: The RG flow is sequential: UV -> IR.
-      
+
   Phi = monad (self-modeling): The theory must be able to
       describe its own observational consequences.
-      
+
   H = wool (eternal chirality): Unitarity at all scales,
       including black hole evaporation (information paradox resolved).
-      
+
   S = up (heterogeneous): Must include all Standard Model
       fields, dark matter, dark energy, and the inflaton.
-      
+
   Omega = zoo (non-Abelian braiding): Topological
       sectors of quantum gravity involve braid group statistics.
 

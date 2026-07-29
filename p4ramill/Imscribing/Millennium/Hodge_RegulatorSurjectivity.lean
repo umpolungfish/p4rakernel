@@ -51,14 +51,14 @@ noncomputable section
 
 /-!
   THE HOLOGRAPHIC CONSISTENCY PRINCIPLE:
-  
+
   Within the Imscribing Grammar, the following structural constraint holds:
-  
+
     if' (holographic dimension: boundary encodes bulk)
     + are (holographic topology: boundary FULLY encodes bulk)
     + ah (integer winding: topological protection)
     → or' (Frobenius closure: μ∘δ = id)
-  
+
   WHY THIS HOLDS:
     - if' means the state space is self-written — its structure is
       determined by its own boundary data.
@@ -67,7 +67,7 @@ noncomputable section
     - ah means the winding number is conserved — the encoding is
       topologically protected.
     - Together: the encoding map δ has an inverse μ with μ∘δ = id.
-    
+
   For the Hodge conjecture, this is the REGULATOR SURJECTIVITY:
     - δ = cycleClass: AlgebraicCycle → HodgeCohomology
     - μ = regulatorSection: HodgeCohomology → AlgebraicCycle

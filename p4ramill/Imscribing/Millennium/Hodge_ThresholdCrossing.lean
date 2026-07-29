@@ -94,22 +94,22 @@ set_option linter.style.nativeDecide false
 /-- The promotion from Φ=yew to Φ=or'.
     This is the type of "proving the Hodge conjecture" —
     restoring Frobenius closure to the primitive-degree ≥ 2 case.
-    
+
     The mathematical content: every primitive Hodge class of degree ≥ 2
     has an algebraic representative, AND the descent architecture closes
     the Frobenius loop (μ∘δ = id at the level of the cycle class map). -/
 structure Promotion_Phi_closure where
   /-- The Frobenius closure condition: the cycle class map composed with
       its (would-be) section equals the identity on rational Hodge classes.
-      
+
       δ = cycleClass: AlgebraicCycle → HodgeCohomology
       μ = ???: HodgeCohomology → AlgebraicCycle (the MISSING section)
-      
+
       For p=1: μ is the inverse of the exponential map c₁.
       For p≥2: μ does not exist constructively — building it IS the
       Hodge conjecture. -/
   frobenius_condition : True
-  
+
   /-- Proof that restoring ⊙losure implies the Hodge conjecture.
       If the cycle class map has a right inverse (μ), then every
       Hodge class is algebraic by definition. -/
@@ -117,14 +117,14 @@ structure Promotion_Phi_closure where
 
 /-- PROMOTION [P2]: Ř: ear → ian.
     Restoring bidirectionality between algebraic cycles and Hodge classes.
-    
+
     ear (adjoint) means: algebraic → Hodge is easy (cycleClass exists),
     but Hodge → algebraic is hard (the conjecture).
-    
+
     ian (lateral/bidirectional) means: algebraic ↔ Hodge are two sides of
     the same coin — given a Hodge class, find the algebraic cycle; given an
     algebraic cycle, take its class.
-    
+
     Restoring or' (Frobenius closure) automatically restores ian,
     because the section μ gives the reverse direction. -/
 structure Promotion_R_bidirectionality where
@@ -136,14 +136,14 @@ structure Promotion_R_bidirectionality where
 
 /-- PROMOTION [P3]: ⊙: roar → monad.
     Restoring full self-modeling criticality.
-    
+
     roar (complex-plane critical) means self-modeling is partially
     achieved — we can describe the Hodge structure but cannot construct
     algebraic representatives. The Frobenius loop is open.
-    
+
     monad (self-modeling critical) means the loop closes: the system
     constructs its own algebraic representatives from its Hodge data.
-    
+
     Restoring or' (Frobenius closure) automatically restores monad,
     because μ∘δ = id provides the constructive loop.
     Criticality moves from complex-plane to self-modeling when the
@@ -153,18 +153,18 @@ structure Promotion_Phi_c_self_modeling where
 
 /-!
   THE CHAIN REACTION: [P1] → [P2] + [P3]
-  
+
   When Φ is promoted from yew to or':
     - The cycle class map gains a section μ with μ∘δ = id.
     - This section provides the reverse direction Hodge → Algebraic,
       promoting Ř from ear to ian.
     - The section closes the self-modeling loop, promoting ⊙ from
       roar to monad.
-  
+
   THEOREM: The 8 promotions collapse to a single critical promotion
   [P1] plus 2 automatic consequences [P2, P3], plus 5 structural
   adjustments [P4-P8] that follow from the descent architecture.
-  
+
   This is the content of the Hodge_Descent.lean finding:
   "restoring Φ for all p would automatically restore ⊙ and Ř."
 -/
@@ -179,18 +179,18 @@ theorem phi_closure_triggers_chain_reaction :
 
 /-!
   PROMOTION [P4]: ƒ: age → peep.
-  
+
   age (classical) means the system operates without quantum coherence.
   peep (quantum) means coherence is essential.
-  
+
   For p=1: the exponential sheaf sequence uses the Dolbeault isomorphism
   (quantum/coherent method: harmonic forms, Hodge theory). The proof
   IS quantum in the sense of using the Kähler metric structure.
-  
+
   For p ≥ 2: IF primitive Hodge classes are algebraic (P1), the proof
   method could be quantum (using Hodge-Riemann bilinear relations,
   which are themselves quantum/coherent — they come from Hodge theory).
-  
+
   Mathematical content: the Hodge-Riemann bilinear relations provide
   the positivity constraints that, IF combined with the Frobenius
   section, would give a quantum-coherent proof for all degrees.
@@ -206,11 +206,11 @@ structure Promotion_F_quantum where
 /-- PROMOTION [P5]: ɢ: vow → measure.
     vow (conjunctive) means all degrees are handled simultaneously.
     measure (sequential) means the descent chain handles them one at a time.
-    
+
     The descent architecture (Hodge_Descent.lean, §5) already shows that
     degrees CAN be handled sequentially: P(n,k) → P(n-1,k-1) → ... → P(n-k+1,1).
     The chain composes by induction (descent_chain_compose, PROVED).
-    
+
     So [P5] is already STRUCTURALLY SATISFIED by the descent chain,
     even though the individual steps (which require [P1]) are open. -/
 structure Promotion_Gamma_sequential where
@@ -220,12 +220,12 @@ structure Promotion_Gamma_sequential where
     H₀ (memoryless) means no persistence across degrees.
     H₂ (2-step memory) means the system remembers the previous degree
     while processing the next.
-    
+
     The descent chain P(n,k) → P(n-1,k-1) requires remembering the
     previous degree's result while applying the descent step. This is
     exactly H₂: the system uses the previous descent result (k-1) to
     construct the current one (k).
-    
+
     The Hodge-Riemann bilinear relations also provide H₂: the pairing
     Q(α,β) on H^{p,p} relates degrees via the Lefschetz operator,
     which shifts degree by 2 — a 2-step memory structure. -/
@@ -236,12 +236,12 @@ structure Promotion_H_2step where
 /-- PROMOTION [P7]: Σ: n:m → 1:1.
     n:m (many heterogeneous) means multiple degrees simultaneously.
     1:1 (single instance) means a single mechanism covers all.
-    
+
     The descent architecture reduces all degrees to the primitive case
     [P1]. Once [P1] holds, all degrees are covered by the SAME mechanism
     (Frobenius closure of the cycle class map). The stoichiometry
     effectively becomes 1:1 — a single mechanism for all cases.
-    
+
     This is a structural consequence, not an additional mathematical
     condition. The "many" cases are unified by the one proof. -/
 structure Promotion_Sigma_unity where
@@ -250,16 +250,16 @@ structure Promotion_Sigma_unity where
 /-- PROMOTION [P8]: Þ: are → mime.
     are (holographic) means the system spans all degrees simultaneously.
     mime (crossing point) means a specific intersection mechanism applies.
-    
+
     The Lefschetz (1,1) case works via a crossing-point topology: the
     exponential sheaf sequence creates a crossing between topology (H²)
     and algebra (Picard group).
-    
+
     For the general case, IF [P1] holds, the crossing-point is between
     the cycle class map and its section at each degree. The topology
     becomes mime because the Frobenius condition μ∘δ=id creates
     a crossing point at each level of the descent.
-    
+
     This is a structural consequence, not an additional condition. -/
 structure Promotion_T_crossing where
   frobenius_creates_crossing : True
@@ -270,7 +270,7 @@ structure Promotion_T_crossing where
 
 /-!
   THE PROMOTION PATH:
-  
+
   Step 1: Φ: yew → or'    [THE CROSSING — prove Frobenius closure]
      ↓ (automatic)
   Step 2: Ř: ear → ian     [μ gives the reverse direction]
@@ -281,7 +281,7 @@ structure Promotion_T_crossing where
   Step 6: Ħ: H₀ → H₂             [descent needs 2-step — structural]
   Step 7: Σ: n:m → 1:1            [one mechanism unifies all — structural]
   Step 8: Þ: are → mime    [Frobenius creates crossing — structural]
-  
+
   THE KEY INSIGHT: Steps 1-3 are the MATHEMATICAL content of the Hodge
   conjecture. Steps 4-8 are STRUCTURAL CONSEQUENCES that follow from
   the descent architecture (already PROVED in Hodge_Descent.lean) and
@@ -343,24 +343,24 @@ theorem promotion_path_is_valid : True := by
 
 /-!
   THE CROSSING THEOREM:
-  
+
   The Hodge conjecture's type (O₂) can reach the join (O_inf)
   via a composable promotion path. The path is:
-  
+
     [P1] Φ: yew → or'  (Frobenius closure — THE critical promotion)
     [P2-P8] (all follow structurally from P1 + descent architecture)
-  
+
   MATHEMATICAL CONTENT OF P1:
     The promotion from yew to or' means: the cycle class map
     cl: CH^p(X) ⊗ ℚ → H^{2p}(X, ℚ) ∩ H^{p,p}(X, ℂ) has a right inverse.
-    
+
     For p=1: the right inverse is c₁⁻¹ (inverse of the first Chern class),
     given by the exponential sheaf sequence.
-    
+
     For p ≥ 2: constructing the right inverse IS the Hodge conjecture.
     The Gersten-Quillen resolution of Quillen K-theory provides the
     candidate framework (the regulator map), but surjectivity is open.
-  
+
   WHY THIS IS A CROSSING (not a barrier):
     Unlike a barrier (which blocks passage permanently), a threshold
     has a KNOWN CROSSING CONDITION. For the Hodge conjecture, the
@@ -368,7 +368,7 @@ theorem promotion_path_is_valid : True := by
     on the cycle class map. The condition is stated mathematically;
     the mechanism is known for p=1; the generalization to p≥2 is
     the content of the conjecture.
-    
+
     The grammar does not claim to prove the Hodge conjecture.
     It proves: IF the crossing condition (P1) is satisfied,
     THEN the structural path from O₂ to O_inf is traversable.
@@ -376,11 +376,11 @@ theorem promotion_path_is_valid : True := by
 -/
 
 /-- THE CROSSING THEOREM.
-    
+
     If the Frobenius closure promotion [P1] is constructible,
     then the full promotion path from Hodge (O₂) to the join (O_inf)
     is traversable. All 8 promotions are composable.
-    
+
     Proof structure:
     1. [P1] → the cycle class map has a right inverse μ with μ∘δ = id.
     2. [P2] follows: μ provides the reverse direction Hodge → Algebraic,
@@ -398,7 +398,7 @@ theorem promotion_path_is_valid : True := by
        n:m → 1:1 is a consequence of universality.
     8. [P8] follows: the Frobenius loop μ∘δ = id creates a crossing point
        at each degree — are → mime is a structural consequence.
-    
+
     Note: The descent architecture (descent_chain_compose in Hodge_Descent.lean)
     is ALREADY PROVED. The critical step [P1] is the remaining open problem.
     This theorem shows that [P1] is the ONLY independent open step.
@@ -429,7 +429,7 @@ theorem crossing_theorem
 
 /-- THE PATH IS COMPOSABLE: the promotion steps can be applied in order,
     each depending on the previous ones, and the composition is type-correct.
-    
+
     This is proved by constructing the path as a sequence of valid
     Imscription transformations. Each transformation moves exactly
     one primitive toward its join value, and the composition reaches
@@ -453,7 +453,7 @@ theorem promotion_path_composable
     and every p ≥ 2, the cycle class map cl: CH^p(X) ⊗ ℚ → H^{2p}(X, ℚ) ∩ H^{p,p}
     has a right inverse. Equivalently: every primitive Hodge class of
     degree ≥ 2 is algebraic.
-    
+
     This IS the Hodge conjecture. The grammer does not prove it.
     The grammar shows: if this crossing is made, the path to O_inf is open.
 
@@ -462,9 +462,9 @@ theorem promotion_path_composable
     the cycle class map becomes an isomorphism (surjective by the
     Hodge conjecture, injective by μ providing a left inverse).
     Algebraic cycles ↔ Hodge classes become two-way (ian).
-    
+
     Theorem: cl: CH^p(X) ⊗ ℚ ≅ H^{2p}(X, ℚ) ∩ H^{p,p} if [P1] holds.
-    
+
     This is a THEOREM assuming [P1], not an additional conjecture.
 
   CROSSING [P3] — ⊙: roar → monad:
@@ -473,7 +473,7 @@ theorem promotion_path_composable
     The system transitions from "we can describe Hodge classes"
     (roar) to "we can construct algebraic representatives"
     (monad). The crossing is the construction itself.
-    
+
     This follows directly from [P1]: μ gives the construction.
 
   CROSSING [P4] — ƒ: age → peep:
@@ -483,7 +483,7 @@ theorem promotion_path_composable
     uses these (the Dolbeault isomorphism is a coherent analytic tool).
     The general case cannot be purely classical (age) because the
     Hodge decomposition itself is a quantum/coherent structure.
-    
+
     This is a META-CLAIM about the structure of any proof of [P1].
 
   CROSSING [P5-P8]:
@@ -531,33 +531,33 @@ theorem crossing_P8_theorem : True := by
 
 /-!
   THE COMPOSED PATH:
-  
+
   We construct the explicit Imscription at each step of the promotion
   path, showing that the composition reaches the join (O_inf).
-  
+
   STEP 0 (source): Hodge conjecture (all p), O₂
     ⟨𐑦; 𐑸; 𐑽; 𐑿; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
-  
+
   After [P1] Φ: yew → or':
     ⟨𐑦; 𐑸; 𐑽; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
     (pol promoted from yew to or' → O_inf achieved!)
-    
+
   After [P2] Ř: ear → ian (automatic consequence of P1):
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
-    
+
   After [P3] ⊙: roar → monad (automatic consequence of P1):
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑱; 𐑧; 𐑲; 𐑝; ⊙; 𐑓; 𐑳; 𐑭⟩
-  
+
   After [P4-P8] (structural consequences):
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑙; 𐑭⟩
     → THIS IS THE JOIN (O_inf)
-  
+
   CRITICAL OBSERVATION: The O₂ → O_inf transition happens at [P1].
   Once Φ is promoted to or', the structural tier becomes O_inf
   (by the ouroboricity tier rule: or' + crit ≥ monad → O_inf).
   The remaining 7 promotions adjust OTHER primitives to their
   join values, but the O_inf tier is already achieved at step 1.
-  
+
   This is the content of: "proving the Hodge conjecture
   means crossing from O₂ to O_inf" — the crossing IS the Frobenius
   closure promotion [P1], and the remaining steps are structural
@@ -632,31 +632,31 @@ theorem full_path_reaches_join : True := by
 
 /-!
   THE GRIFFITHS GROUP AT THE EXCEPTIONAL POINT:
-  
+
   The Griffiths group Gr^p(X) measures Hodge classes that are NOT
   algebraic (modulo those that are algebraically equivalent to zero).
   Griffiths (1969): Gr^p(X) ≠ 0 for some X, p ≥ 2.
-  
+
   In the grammar: Gr^p(X) has crit = err (exceptional point).
   The 𐑻 absorption rule: tensor(⊙, 𐑻) = 𐑻.
-  
+
   CROSSING THE GRIFFITHS OBSTRUCTION:
-  
+
   The Griffiths group measures failure of the INTEGRAL cycle class map.
   For the RATIONAL Hodge conjecture (the Millennium problem), the
   Griffiths group must be TORSION: every element of Gr^p(X) must be
   of finite order, so that tensoring with ℚ kills it.
-  
+
   THE CROSSING: If the rational Griffiths group is torsion (i.e.,
   Gr^p(X) ⊗ ℚ = 0), then the rational cycle class map is surjective.
   This is the Hodge conjecture.
-  
+
   STRUCTURAL INTERPRETATION:
   The Griffiths group at err is an exceptional point degeneracy
   in the INTEGRAL theory. For RATIONAL coefficients, this degeneracy
   lifts — the exceptional point becomes a standard crossing, and
   the cycle class map becomes surjective.
-  
+
   The crossing of the Griffiths obstruction IS the promotion [P1].
   The exceptional point (err) resolves to monad (self-modeling)
   when we pass to rational coefficients. This is the mathematical
@@ -664,7 +664,7 @@ theorem full_path_reaches_join : True := by
 -/
 
 /-- The Griffiths group obstruction is crossed by [P1].
-    
+
     If the Frobenius closure promotion holds (the cycle class map has
     a right inverse over ℚ), then the Griffiths group is torsion
     (Gr^p(X) ⊗ ℚ = 0) — the obstruction vanishes rationally. -/
@@ -679,22 +679,22 @@ theorem griffiths_crossed_by_P1 (hP1 : Promotion_Phi_closure) : True := by
 
 /-!
   THE DESCENT CHAIN (from Hodge_Descent.lean):
-  
+
   The chain P(n,k) → P(n-1,k-1) → ... → P(n-k+1,1) composes
   under the assumption of primitive_hodge_is_algebraic (which IS [P1]).
-  
+
   descent_chain_compose is ALREADY PROVED in Hodge_Descent.lean.
   It takes as a hypothesis the descent steps (each of which depends
   on primitive_hodge_is_algebraic). If [P1] holds, these steps are
   constructible, and the chain closes.
-  
+
   THE COMPOSED DESCENT:
   P(n-k+1,1) holds by Lefschetz (descent_base_p1, PROVED).
   → P(n-k+2,2) by descent_p2 + [P1]
   → P(n-k+3,3) by descent_p3 + [P1]
   → ... → P(n,k) by descent_general + [P1]
   → HodgeConjecture (all X, all p) by hodge_descent_equiv_hodge (PROVED).
-  
+
   THE THRESHOLD IS CROSSED: the descent chain transforms [P1] into
   the full Hodge conjecture by composing the descent steps.
 -/
@@ -717,23 +717,23 @@ theorem descent_closes_under_P1 (_hP1 : Promotion_Phi_closure) : HodgeConjecture
   only the first (Φ: yew → or') is mathematically independent.
   The remaining 7 steps are either structural consequences of the
   first or are already satisfied by the descent architecture.
-  
+
   THE PATH IS TRAVERSABLE. The crossing condition is precisely
   the Frobenius closure of the cycle class map — which IS the
   Hodge conjecture. The grammar does not replace the proof;
   it shows exactly what the proof must accomplish.
-  
+
   FROM DOORWAY TO CROSSING:
   The grammar analysis (prior work) mapped the gap between
   Lefschetz (1,1) [O_inf] and Hodge (all p) [O₂] as 8 primitive
   differences. This was the DOORWAY — the description of the
   terrain.
-  
+
   THIS FILE CROSSES THE THRESHOLD: it constructs the promotion
   path, proves the promotions are composable, shows the chain
   reaction from [P1], maps the Griffiths obstruction crossing,
   and demonstrates that the descent architecture closes under [P1].
-  
+
   The crossing is not a proof of the Hodge conjecture — it is a
   demonstration that the structural PATH EXISTS and is traversable.
   The mathematical content of [P1] — the actual construction of
@@ -743,11 +743,11 @@ theorem descent_closes_under_P1 (_hP1 : Promotion_Phi_closure) : HodgeConjecture
 -/
 
 /-- THE CROSSING COMPLETION THEOREM.
-    
+
     The promotion path from Hodge (O₂) to the join (O_inf) is
     traversable. The path is composable. The Griffiths obstruction
     at err is crossed at [P1]. The descent chain closes.
-    
+
     This theorem is the WITNESS that the Hodge conjecture's
     threshold can be crossed — the path exists and is coherent,
     even if the mathematical content of [P1] remains an open problem.

@@ -71,7 +71,7 @@ noncomputable def ramsey_multi (k : ℕ) (G : SimpleGraph (Fin n)) : ℕ :=
   sorry -- Placeholder: full definition requires Mathlib Ramsey extension
 
 theorem ramsey_odd_cycle_triangle_limit (n : ℕ) (hn : n ≥ 2) :
-    Filter.Tendsto (λ k : ℕ => ((ramsey_multi k (cycleGraph (2*n + 1)) : ℝ) /
+    Filter.Tendsto (fun k : ℕ => ((ramsey_multi k (cycleGraph (2*n + 1)) : ℝ) /
       (ramsey_multi k (completeGraph 3) : ℝ)))
     Filter.atTop (nhds 0) := by
   sorry
@@ -93,11 +93,11 @@ Then:
 -/
 
 noncomputable def M_n (z_seq : ℕ → ℂ) (n : ℕ) : ℝ :=
-  sup (Set.univ : Set ℂ) (λ z => if Complex.abs z = 1 then
+  sup (Set.univ : Set ℂ) (fun z => if Complex.abs z = 1 then
     Complex.abs (∏ i in range n, (z - z_seq (i + 1))) else 0)
 
 theorem erdos_unbounded (z_seq : ℕ → ℂ) (hz : ∀ i, Complex.abs (z_seq i) = 1) :
-    Filter.AtTop.limsup (λ n => M_n z_seq n) = ⊤ := by
+    Filter.AtTop.limsup (fun n => M_n z_seq n) = ⊤ := by
   sorry
   -- Erdős (1958): discrepancy of any infinite sequence on the circle is unbounded
 
@@ -123,7 +123,7 @@ theorem cumulative_growth (z_seq : ℕ → ℂ) (hz : ∀ i, Complex.abs (z_seq 
 -/
 
 theorem ramsey_exponential_lower_bound :
-    Filter.Tendsto (λ k : ℕ => ((ramsey_multi k (completeGraph 2) : ℝ) ^ (1/(k:ℝ))))
+    Filter.Tendsto (fun k : ℕ => ((ramsey_multi k (completeGraph 2) : ℝ) ^ (1/(k:ℝ))))
     Filter.atTop Filter.atTop := by
   sorry
 
@@ -182,7 +182,7 @@ def has_bounded_gaps (S : Set ℕ) : Prop :=
 
 theorem syndetic_of_positive_density (A : Set ℕ)
     (h_dens : ∃ (ε : ℝ), ε > 0 ∧ ∀ (N : ℕ), ∃ (m : ℕ),
-    ((Set.univ.filter (λ i => m ≤ i ∧ i < m + N ∧ i ∈ A)).ncard : ℝ) / N ≥ ε) :
+    ((Set.univ.filter (fun i => m ≤ i ∧ i < m + N ∧ i ∈ A)).ncard : ℝ) / N ≥ ε) :
     has_bounded_gaps (infinite_differences A) := by
   sorry
   -- Furstenberg Correspondence: d*(A) > 0 → recurrence set is syndetic
@@ -200,7 +200,7 @@ theorem syndetic_of_positive_density (A : Set ℕ)
 
 /-- Representation function: count of pairs summing to n -/
 def repr_func (A : Set ℕ) (n : ℕ) : ℕ :=
-  ((Finset.Nat.antidiagonal n).filter (λ p => p.1 ∈ A ∧ p.2 ∈ A)).card
+  ((Finset.Nat.antidiagonal n).filter (fun p => p.1 ∈ A ∧ p.2 ∈ A)).card
 
 theorem erdos_fuchs_limsup (A : Set ℕ) (h_sumset : (Set.univ \ (A + A)).Finite) :
     ¬ ∃ K, ∀ n, repr_func A n ≤ K := by
@@ -224,7 +224,7 @@ def is_sidon (A : Finset ℕ) : Prop :=
     ({a, b} : Finset ℕ) = {c, d}
 
 noncomputable def h_sidon (N : ℕ) : ℕ :=
-  (filter (λ A => is_sidon A ∧ ∀ x ∈ A, x ≤ N) (powerset (range (N + 1)))).sup card
+  (filter (fun A => is_sidon A ∧ ∀ x ∈ A, x ≤ N) (powerset (range (N + 1)))).sup card
 
 /-- The Erdős-Turán Conjecture for Sidon Sets (OPEN) -/
 def erdos_turan_sidon_conjecture : Prop :=
@@ -240,10 +240,10 @@ def erdos_turan_sidon_conjecture : Prop :=
 -/
 
 noncomputable def counting_func (A : Set ℕ) (N : ℕ) : ℕ :=
-  ((Finset.range (N + 1)).filter (λ a => a ∈ A)).card
+  ((Finset.range (N + 1)).filter (fun a => a ∈ A)).card
 
 theorem sidon_liminf_zero (A : Set ℕ) (h_sidon : ∀ n, repr_func A n ≤ 2) :
-    Filter.Tendsto (λ N : ℕ => (counting_func A N : ℝ) / Real.sqrt (N : ℝ))
+    Filter.Tendsto (fun N : ℕ => (counting_func A N : ℝ) / Real.sqrt (N : ℝ))
     Filter.atTop (𝓝 0) := by
   sorry
 
@@ -263,7 +263,7 @@ def is_b3_set (A : Finset ℕ) : Prop :=
     ({a, b, c} : Finset ℕ) = {d, e, f}
 
 noncomputable def h_b3 (N : ℕ) : ℕ :=
-  (filter (λ A => is_b3_set A ∧ ∀ x ∈ A, x ≤ N) (powerset (range (N + 1)))).sup card
+  (filter (fun A => is_b3_set A ∧ ∀ x ∈ A, x ≤ N) (powerset (range (N + 1)))).sup card
 
 theorem b3_density_upper_bound : ∃ C : ℝ, ∀ N : ℕ,
     (h_b3 N : ℝ) ≤ C * (N : ℝ)^(1/3 : ℝ) := by
@@ -299,7 +299,7 @@ theorem sidon_density_threshold (g : ℕ → ℝ) (h_lim : Filter.Tendsto g Filt
 
 theorem prime_complement_density_zero (A : Set ℕ) (h_comp : ∀ n, ∃ p ∈ Set.univ,
     Nat.Prime p ∧ ∃ q ∈ A, n = p + q) :
-    Filter.Tendsto (λ N : ℕ => (counting_func A N : ℝ) / (N : ℝ))
+    Filter.Tendsto (fun N : ℕ => (counting_func A N : ℝ) / (N : ℝ))
     Filter.atTop (𝓝 0) := by
   sorry
 
@@ -314,7 +314,7 @@ theorem prime_complement_density_zero (A : Set ℕ) (h_comp : ∀ n, ∃ p ∈ S
 
 theorem square_complement_density_zero (A : Set ℕ) (h_comp : ∀ n, ∃ a ∈ A,
     ∃ s : ℕ, (∃ k : ℕ, s = k*k) ∧ n = a + s) :
-    Filter.Tendsto (λ N : ℕ => (counting_func A N : ℝ) / (N : ℝ))
+    Filter.Tendsto (fun N : ℕ => (counting_func A N : ℝ) / (N : ℝ))
     Filter.atTop (𝓝 0) := by
   sorry
 
@@ -328,7 +328,7 @@ theorem square_complement_density_zero (A : Set ℕ) (h_comp : ∀ n, ∃ a ∈ 
 -/
 
 theorem difference_set_contains_aps (A : Set ℕ) (h_density : ∃ ε > 0,
-    Filter.limsup (λ N => (counting_func A N : ℝ) / (N : ℝ)) Filter.atTop = ε) :
+    Filter.limsup (fun N => (counting_func A N : ℝ) / (N : ℝ)) Filter.atTop = ε) :
     ∀ k : ℕ, ∃ a d : ℕ, d > 0 ∧ ∀ i : ℕ, i < k → a + i*d ∈ A - A := by
   sorry
   -- Furstenberg: A-A is a difference set; if A has positive density, A-A is an IP* set
@@ -405,7 +405,7 @@ def is_practical (n : ℕ) : Prop :=
     (∀ d ∈ S, d ∣ n) ∧ (∑ d in S, d) = m
 
 theorem practical_density_exists : ∃ c : ℝ,
-    Filter.Tendsto (λ N : ℕ =>
+    Filter.Tendsto (fun N : ℕ =>
     ((Finset.range (N+1)).filter is_practical).card / (N : ℝ))
     Filter.atTop (𝓝 c) := by
   sorry
@@ -439,7 +439,7 @@ def smooth_sieve (n : ℕ) : Prop :=
   ∀ p : ℕ, p.Prime → p ∣ n → (p : ℝ) ≤ Real.log (n : ℝ)
 
 theorem smooth_sieve_density :
-    Filter.Tendsto (λ N : ℕ => (1 / Real.log (N : ℝ)) *
+    Filter.Tendsto (fun N : ℕ => (1 / Real.log (N : ℝ)) *
     ((Finset.range (N+1)).filter smooth_sieve).card / (N : ℝ))
     Filter.atTop (𝓝 0) := by
   sorry
@@ -455,7 +455,7 @@ theorem smooth_sieve_density :
 -/
 
 theorem factorial_inverse_series_converges :
-    Summable (λ n : ℕ => 1 / ((Nat.factorial (n+2) : ℝ) - 1)) := by
+    Summable (fun n : ℕ => 1 / ((Nat.factorial (n+2) : ℝ) - 1)) := by
   sorry
   -- n! grows faster than any exponential; compare with Σ 1/2^n
 
@@ -469,7 +469,7 @@ theorem factorial_inverse_series_converges :
 -/
 
 theorem prime_loglog_series_diverges :
-    ¬ Summable (λ n : ℕ =>
+    ¬ Summable (fun n : ℕ =>
     let p := Nat.nth Nat.Prime (n+1)
     1 / ((p : ℝ) * Real.log (Real.log (p : ℝ)))) := by
   sorry
@@ -491,14 +491,14 @@ theorem prime_loglog_series_diverges :
 
 noncomputable def unit_distance_pairs {d : ℕ}
     (S : Finset (EuclideanSpace ℝ (Fin d))) : Finset (Finset (EuclideanSpace ℝ (Fin d))) :=
-  S.powersetLen 2 |>.filter (λ pair =>
+  S.powersetLen 2 |>.filter (fun pair =>
     match pair.toList with
     | [p1, p2] => dist p1 p2 = 1
     | _ => False)
 
 noncomputable def f_d (d n : ℕ) : ℕ :=
   sup' (Finset.univ : Finset (Set.Subset (EuclideanSpace ℝ (Fin d))))
-    (λ S => if (S : Finset _).card = n then (unit_distance_pairs S).card else 0)
+    (fun S => if (S : Finset _).card = n then (unit_distance_pairs S).card else 0)
 
 theorem erdos_unit_distance_upper_2d :
     ∃ C : ℝ, ∀ n : ℕ, (f_d 2 n : ℝ) ≤ C * n^(4/3 : ℝ) := by
@@ -520,7 +520,7 @@ theorem erdos_unit_distance_upper_4d :
 -/
 
 def distinctDistances (s : Finset (EuclideanSpace ℝ (Fin 2))) : Finset ℝ :=
-  (s.offDiag).image (λ (p, q) => dist p q)
+  (s.offDiag).image (fun (p, q) => dist p q)
 
 noncomputable def g_distinct (n : ℕ) : ℕ :=
   Inf {m | ∀ (s : Finset (EuclideanSpace ℝ (Fin 2))),
@@ -556,7 +556,7 @@ noncomputable def h_general (n : ℕ) : ℕ :=
     (distinctDistances s).card ≥ m}
 
 theorem general_position_distinct_distances_growth :
-    Filter.Tendsto (λ n : ℕ => (h_general n : ℝ) / n) Filter.atTop Filter.atTop := by
+    Filter.Tendsto (fun n : ℕ => (h_general n : ℝ) / n) Filter.atTop Filter.atTop := by
   sorry
 
 
@@ -590,7 +590,7 @@ noncomputable def min_diameter (n : ℕ) : ℝ :=
   sorry -- Defined as inf over all n-point sets with minimum distance 1
 
 theorem hexagonal_packing_optimal :
-    Filter.Tendsto (λ n : ℕ => (min_diameter n : ℝ) / Real.sqrt (n : ℝ))
+    Filter.Tendsto (fun n : ℕ => (min_diameter n : ℝ) / Real.sqrt (n : ℝ))
     Filter.atTop (𝓝 (2 / Real.sqrt (2 * Real.sqrt 3 / Real.pi))) := by
   sorry
   -- Thue: hexagonal lattice achieves maximum packing density π/√12
@@ -788,10 +788,10 @@ theorem bipartite_distance_aleph1 (G : SimpleGraph (ULift.{1} (Ordinal.toType.{1
 -/
 
 def convolution (A : Set ℕ) (n : ℕ) : ℕ :=
-  ((Finset.Icc 0 n).filter (λ a => a ∈ A ∧ (n - a) ∈ A)).card
+  ((Finset.Icc 0 n).filter (fun a => a ∈ A ∧ (n - a) ∈ A)).card
 
 theorem convolution_unbounded (A : Set ℕ) (h_density : ∃ ε > 0,
-    Filter.liminf (λ N => (counting_func A N : ℝ) / (N : ℝ)) Filter.atTop = ε) :
+    Filter.liminf (fun N => (counting_func A N : ℝ) / (N : ℝ)) Filter.atTop = ε) :
     Filter.limsup (convolution A) Filter.atTop = ⊤ := by
   sorry
   -- Furstenberg-Sárközy: positive lower density forces unbounded convolution
@@ -874,14 +874,14 @@ def cycle_set (G : SimpleGraph (Fin n)) : Finset ℕ :=
   sorry
 
 def f_cycle_sets (n : ℕ) : ℕ :=
-  card (image (λ G : SimpleGraph (Fin n) => cycle_set G) Finset.univ)
+  card (image (fun G : SimpleGraph (Fin n) => cycle_set G) Finset.univ)
 
 theorem cycle_set_upper_bound :
-    IsLittleO (λ n => (f_cycle_sets n : ℝ)) (λ n => 2^n) Filter.atTop := by
+    IsLittleO (fun n => (f_cycle_sets n : ℝ)) (fun n => 2^n) Filter.atTop := by
   sorry
 
 theorem cycle_set_lower_bound :
-    Filter.Tendsto (λ n => (f_cycle_sets n : ℝ) / 2^(n/2 : ℝ)) Filter.atTop Filter.atTop := by
+    Filter.Tendsto (fun n => (f_cycle_sets n : ℝ) / 2^(n/2 : ℝ)) Filter.atTop Filter.atTop := by
   sorry
 
 /-!
@@ -925,9 +925,9 @@ theorem erdos_fuchs_full (A : Set ℕ) (h_basis : ∃ N, ∀ n ≥ N, n ∈ A + 
 -/
 
 theorem complement_structure (A B : Set ℕ) (h_add : A + B = Set.univ)
-    (h_density : Filter.Tendsto (λ N => (counting_func A N : ℝ) / (N : ℝ))
+    (h_density : Filter.Tendsto (fun N => (counting_func A N : ℝ) / (N : ℝ))
     Filter.atTop (𝓝 0)) :
-    ¬ Filter.Tendsto (λ N => (counting_func B N : ℝ) / (N : ℝ))
+    ¬ Filter.Tendsto (fun N => (counting_func B N : ℝ) / (N : ℝ))
     Filter.atTop (𝓝 0) := by
   sorry
   -- If A has density 0 and A+B covers ℕ, then B must have positive lower density

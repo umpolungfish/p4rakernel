@@ -175,7 +175,7 @@ theorem canonical_all_O_inf : ∀ r : Ruleset, r ∈ canonicalRulesets →
   · subst h; unfold ruleset_t_structural; native_decide
 
 /-- Count of canonical rulesets where the fixed point is idempotent_terminal. -/
-theorem canonical_O_inf_count : 
+theorem canonical_O_inf_count :
     ((canonicalRulesets.filter fun r =>
       r.operadLayer frobeniusFixedTuple = .idempotent_terminal)).length = 7 := by
   native_decide
@@ -259,7 +259,7 @@ def allGateFailures : List GateFailure :=
     T-constitutions.
 
     This is Occam's razor as a theorem. -/
-theorem failures_all_minimal : 
+theorem failures_all_minimal :
     (allGateFailures.all fun f => decide (f.tupleOrdinal < f.requiredOrdinal)) := by
   native_decide
 -- ═══════════════════════════════════════════════════════════════════
@@ -314,11 +314,11 @@ theorem t_consistency_structural_fails :
 
 /-- The T-consistency gap statement: canonical T fails on Ħ (needs wool)
     AND structural T fails on ɢ (needs ooze).
-    
+
     The fixed point is more primitive than both T-constitutions:
     - Canonical T demands wool (eternal chirality) but μ∘δ=id needs only sure
     - Structural T demands ooze (broadcast grammar) but μ∘δ=id needs only measure
-    
+
     In both cases, the T-constitution imposes requirements beyond what the
     Frobenius identity minimally needs. The fixed point is T-inconsistent
     in every predefined T-constitution — it is more primitive than time itself. -/
@@ -437,7 +437,7 @@ theorem fixed_point_is_unique :
     of what any ruleset says. This is stronger than any gate classification:
     the identity μ∘δ=id holds by definitional equality, not by empirical
     verification against a specific universe's gate structure. -/
-    
+
 theorem belnap_invariant_across_universes :
     bnot Belnap.B = Belnap.B :=
   belnap_fixed_point

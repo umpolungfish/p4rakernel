@@ -272,11 +272,11 @@ def stilling_step_zero : Imscription := processions_of_fate
 
 /-- Step 1: "Be not thus distracted, and do not turn thyself about
           this way and that" — halt T_nw wandering, begin closure.
-    
+
     Promotion: judge → mime (stop branching, start closing).
     This is the first bottleneck: ΔT = 2 in ordinal.
     Also: 𐑢 → ⊙ (begin criticality), fee → kick (soft memory).
-    
+
     The system stops being a passive receiver of Fate's causal branches
     and begins to form a two-cycle. -/
 def stilling_step_one : Imscription := {
@@ -296,10 +296,10 @@ def stilling_step_one : Imscription := {
 
 /-- Step 2: "In thy house be still, and God shall come to thee"
           — establish bidirectional coupling with the incorporeal.
-    
+
     Promotion: ado → ian (supervenience → bidirectional).
     This is the second bottleneck of the relational chain: ΔR = 3.
-    
+
     You do not choose bidirectional coupling; you build the structure
     that makes it possible. -/
 def stilling_step_two : Imscription := {
@@ -319,7 +319,7 @@ def stilling_step_two : Imscription := {
 
 /-- Step 3: "Stilled thyself in body, still thyself in passions too"
           — the Frobenius encoding δ.
-    
+
     Promotion: church → or' (Frobenius special).
     This is the hard parity shift: ΔP = 4.
     The "twelve fates" are the full causal network of Fate's processions
@@ -342,12 +342,12 @@ def stilling_step_three : Imscription := {
 }
 /-- Step 4: "Call unto thyself Divinity; and truly shall He come"
           — the Frobenius decoding μ.
-    
+
     This is not a primitive change — it is the claim that
     μ ∘ δ = id. Step 3 encoded δ (Frobenius encoding); Step 4 is
     the automatic response μ (decoding). The divinity "shall come"
     because the encoding is in place.
-    
+
     Structural changes: dead → if' (dimensionality promotion),
     𐑷 → 𐑭 (topological winding closure begins).
     The system has graduated from the substrate. -/
@@ -368,12 +368,12 @@ def stilling_step_four : Imscription := {
 
 /-- Step 5: "Perform the sacred rites...turn them from thee"
           — decouple from the daimon's broadcast.
-    
+
     The Counterfeit Daimon broadcasts (𐑵) to attract Processions.
     This step transitions from the daimon's broadcast to silence
     (maintaining 𐑠 from the original, but now as intentional
     sequential practice rather than Fate's causal chain).
-    
+
     This step's content is mostly about what is NOT coupled,
     not what IS. The primitive changes are minimal — the real work
     was in steps 1-4. -/
@@ -393,7 +393,7 @@ def stilling_step_five : Imscription := {
 }
 
 /-- Step 6: "Make for harbour in Poemandres' arms" — full return.
-    
+
     This is the terminal state: Zosimian Gnosis.
     All 10 bottleneck promotions complete.
     Ouroboricity: O_inf. Both gates open.
@@ -473,18 +473,18 @@ theorem stilling_chain_reaches_Oinf_at_step3 :
     Each requires Δ=4 in ordinal distance from processions to gnosis.
     T: judge(0) → mime(2) = Δ2 in our canonical indexing.
     Wait: the document says Δ=4. Let me check:
-    
+
     In the document's exotic naming:
       T_nrleg → T_openo: Δ=4
       P_aolig → P_doublebarpipe: Δ=4
-    
+
     In canonical Lean indexing:
       judge(0) → mime(2): Δ=2
       church(0) → or'(4): Δ=4
-    
+
     The document's "Δ=4" refers to the exotic naming scheme.
     Our canonical indexing gives T: Δ=2, P: Δ=4.
-    
+
     The key point: P is the absolute hardest (full range 0→4),
     and T+P are coupled — neither works without the other. -/
 theorem bottleneck_topology_distance :
@@ -643,7 +643,7 @@ theorem discrimination_asymmetry :
 
 /-- When a Procession couples to a Daimon broadcast:
     tensor processions_of_fate counterfeit_daimon
-    
+
     The result preserves the weaker polarity (church) and weaker
     criticality (woe), keeping the composite at C=0.0.
     The broadcast is parasitic because it doesn't change the
@@ -658,7 +658,7 @@ theorem tensor_fate_daimon :
     The bottleneck rule: min(or', church) = church.
     The Frobenius symmetry is DESTROYED by coupling to asymmetry.
     This is the danger: coupling to the daimon breaks the gnosis.
-    
+
     But Zosimos says to "turn them from thee" rather than invoke —
     i.e., decouple rather than engage. -/
 theorem tensor_inner_door_daimon_destroys_frobenius :

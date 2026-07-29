@@ -2,11 +2,11 @@
   ManuscriptSpine Questions — Formalized in Lean 4
   ================================================
   Source: look.txt (76 questions from the ManuscriptSpine system)
-  
+
   Each theorem states a mathematical claim from the ManuscriptSpine corpus.
   Proofs marked `sorry` where they depend on unproven conjectures or
   deep mathematics not yet fully formalized.
-  
+
   Author: Lando⊗⊙perator
   Date: 2026
 -/
@@ -111,7 +111,7 @@ theorem phi_divides_n_plus_a (a : ℤ) :
   Witness: on_the_origin_of_the_world -/
 
 noncomputable def threshold_complete (A : Set ℕ) : ℕ :=
-  sInf {m : ℕ | ∀ n ≥ m, n ∈ 
+  sInf {m : ℕ | ∀ n ≥ m, n ∈
     {x : ℕ | ∃ (s : Finset ℕ), (∀ a ∈ s, a ∈ A) ∧ s.sum id = x}}
 
 def powers_of_k (k : ℕ) : Set ℕ := {n | ∃ i : ℕ, i > 0 ∧ n = i ^ k}
@@ -204,8 +204,8 @@ theorem szemeredi_trotter_bound : ∃ C : ℝ, C > 0 ∧
 def threeAP_free (A : Finset ℕ) : Prop :=
   ∀ (a d : ℕ), d > 0 → a ∈ A → a + d ∈ A → a + 2*d ∉ A
 
-theorem behrend_lower_bound : ∃ (C : ℝ), C > 0 ∧ ∀ n : ℕ, n > 0 → 
-  ∃ (A : Finset ℕ), (∀ a ∈ A, a ≤ n) ∧ threeAP_free A ∧ 
+theorem behrend_lower_bound : ∃ (C : ℝ), C > 0 ∧ ∀ n : ℕ, n > 0 →
+  ∃ (A : Finset ℕ), (∀ a ∈ A, a ≤ n) ∧ threeAP_free A ∧
   (A.card : ℝ) ≥ (n : ℝ) / Real.exp (C * Real.sqrt (Real.log (n : ℝ))) :=
   sorry
 
@@ -220,7 +220,7 @@ theorem behrend_lower_bound : ∃ (C : ℝ), C > 0 ∧ ∀ n : ℕ, n > 0 →
   Witness: formal_mathematics -/
 
 noncomputable def distinct_distances (P : Finset (ℝ × ℝ)) : ℕ :=
-  (P.product P).image (fun (p : (ℝ × ℝ) × (ℝ × ℝ)) => 
+  (P.product P).image (fun (p : (ℝ × ℝ) × (ℝ × ℝ)) =>
     (p.1.1 - p.2.1) ^ 2 + (p.1.2 - p.2.2) ^ 2) |>.card
 
 theorem guth_katz_bound : ∃ (C : ℝ), C > 0 ∧ ∀ (P : Finset (ℝ × ℝ)),
@@ -296,7 +296,7 @@ theorem darboux_derivative (f : ℝ → ℝ) (hf : ∀ x, DifferentiableAt ℝ f
   Witness: formal_mathematics -/
 
 theorem weierstrass_approximation (f : ℝ → ℝ) (a b : ℝ) (hcont : ContinuousOn f (Set.Icc a b)) :
-  ∃ (p : ℕ → Polynomial ℝ), 
+  ∃ (p : ℕ → Polynomial ℝ),
     Filter.Tendsto (fun n => ⨆ x ∈ Set.Icc a b, |(Polynomial.eval x (p n)) - f x|)
     Filter.atTop (nhds 0) :=
   sorry

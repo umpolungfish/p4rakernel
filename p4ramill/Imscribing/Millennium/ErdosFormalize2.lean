@@ -92,7 +92,7 @@ The connective constant C_k exists for k > 0.
 **Belnap Verdict:** T — follows from Fekete's Lemma via submultiplicativity.
 -/
 theorem existence_of_connective_constant (k : ℕ) (hk : k > 0) :
-    ∃ (C : ℝ), Tendsto (λ n => (saw_count n k : ℝ)^(1 / (n : ℝ))) atTop (𝓝 C) := by
+    ∃ (C : ℝ), Tendsto (fun n => (saw_count n k : ℝ)^(1 / (n : ℝ))) atTop (𝓝 C) := by
   sorry -- Apply Fekete's Lemma to ln(saw_count)
 
 /--
@@ -108,14 +108,14 @@ Question references: q524, q528
 variable (d_saw : ℕ → ℕ → ℝ) -- d_saw k n = mean displacement
 
 axiom saw_2d_growth :
-  ∃ (C : ℝ) (hC : C > 0), Tendsto (λ n => d_saw 2 n / (n : ℝ)^(1/2 : ℝ)) atTop (𝓝 ∞)
+  ∃ (C : ℝ) (hC : C > 0), Tendsto (fun n => d_saw 2 n / (n : ℝ)^(1/2 : ℝ)) atTop (𝓝 ∞)
 
 axiom saw_high_d_growth (k : ℕ) (hk : k ≥ 3) :
-  ¬ (IsLittleO atTop (λ n => d_saw k n) (λ n => (n : ℝ)^(1/2 : ℝ)))
+  ¬ (IsLittleO atTop (fun n => d_saw k n) (fun n => (n : ℝ)^(1/2 : ℝ)))
 
 theorem saw_displacement_answers :
-  (Tendsto (λ n => d_saw 2 n / (n : ℝ)^(1/2 : ℝ)) atTop (𝓝 ∞)) ∧
-  (∀ k, k ≥ 3 → ¬ (IsLittleO atTop (λ n => d_saw k n) (λ n => (n : ℝ)^(1/2 : ℝ)))) := by
+  (Tendsto (fun n => d_saw 2 n / (n : ℝ)^(1/2 : ℝ)) atTop (𝓝 ∞)) ∧
+  (∀ k, k ≥ 3 → ¬ (IsLittleO atTop (fun n => d_saw k n) (fun n => (n : ℝ)^(1/2 : ℝ)))) := by
   constructor
   · exact saw_2d_growth.choose_spec.2
   · intro k hk; exact saw_high_d_growth k hk
@@ -161,7 +161,7 @@ Question reference: q530
 -/
 
 def finiteSubsetSums (A : Finset ℕ) : Finset ℕ :=
-  (A.powerset.erase ∅).image (λ s => s.sum id)
+  (A.powerset.erase ∅).image (fun s => s.sum id)
 
 def HasMonochromaticSubsetSums (N k : ℕ) : Prop :=
   ∀ (color : ℕ → Fin 2),
@@ -190,7 +190,7 @@ For any set A of n positive integers, |R(A)| ≥ n.
 Question reference: q535
 -/
 def ratio_set (A : Finset ℕ) : Finset ℕ :=
-  (A.product A).image (λ p => p.1 / (Nat.gcd p.1 p.2))
+  (A.product A).image (fun p => p.1 / (Nat.gcd p.1 p.2))
 
 /--
 The ratio set cardinality lower bound: |R(A)| ≥ |A| for any set of positive integers.
@@ -204,7 +204,7 @@ Sharpness: h(n) = n, achieved by A = {2⁰, 2¹, ..., 2ⁿ⁻¹}.
 -/
 theorem ratio_set_sharp (n : ℕ) (hn : n > 0) :
   ∃ A : Finset ℕ, A.card = n ∧ (ratio_set A).card = n := by
-  let A := (range n).image (λ i => 2 ^ i)
+  let A := (range n).image (fun i => 2 ^ i)
   refine ⟨A, ?_, ?_⟩
   · -- card(A) = n
     sorry
@@ -227,17 +227,17 @@ Question reference: q536
 
 def Ramsey3k (k : ℕ) : ℕ :=
   sInf { N | ∀ (f : (Sym2 (Fin N)) → Fin 2),
-    (∃ (S : Finset (Fin N)), S.card = 3 ∧ ∀ e ∈ (Finset.powerset S).filter (λ s => s.card = 2),
+    (∃ (S : Finset (Fin N)), S.card = 3 ∧ ∀ e ∈ (Finset.powerset S).filter (fun s => s.card = 2),
       f (⟨s.toList.get ⟨0, by sorry⟩, s.toList.get ⟨1, by sorry⟩⟩) = 0) ∨
     (∃ (S : Finset (Fin N)), S.card = k ∧ ∀ e,
-      e ∈ (Finset.powerset S).filter (λ s => s.card = 2) →
+      e ∈ (Finset.powerset S).filter (fun s => s.card = 2) →
       f (⟨s.toList.get ⟨0, by sorry⟩, s.toList.get ⟨1, by sorry⟩⟩) = 1) }
 
 /--
 The gap between consecutive R(3,k) values diverges.
 -/
 theorem ramsey_3k_gap_diverges :
-    Tendsto (λ k => (Ramsey3k (k+1) : ℝ) - (Ramsey3k k : ℝ)) atTop atTop := by
+    Tendsto (fun k => (Ramsey3k (k+1) : ℝ) - (Ramsey3k k : ℝ)) atTop atTop := by
   sorry -- Proof: R(3,k) ≈ c k²/log k, so R(3,k+1)-R(3,k) ≈ 2c k/log k → ∞
 
 /--
@@ -245,7 +245,7 @@ Disproof of R(3,k+1) - R(3,k) = o(k).
 From the asymptotic R(3,k) = Θ(k²/log k), the difference is Ω(k/log k), not o(k).
 -/
 theorem ramsey_3k_gap_not_little_o_k :
-    ¬ (IsLittleO atTop (λ k => (Ramsey3k (k+1) : ℝ) - (Ramsey3k k : ℝ)) (λ k => (k : ℝ))) := by
+    ¬ (IsLittleO atTop (fun k => (Ramsey3k (k+1) : ℝ) - (Ramsey3k k : ℝ)) (fun k => (k : ℝ))) := by
   sorry
 
 /--
@@ -277,7 +277,7 @@ theorem ramsey_even_cycle_two_color (n : ℕ) (hn : n > 1) :
 Asymptotic for k colors.
 -/
 theorem ramsey_even_cycle_k_color_asymptotic (k : ℕ) :
-    Tendsto (λ n => (ramsey_number_k k (cycleGraph (2 * n)) : ℝ) / (n : ℝ)) atTop (𝓝 (k : ℝ)) := by
+    Tendsto (fun n => (ramsey_number_k k (cycleGraph (2 * n)) : ℝ) / (n : ℝ)) atTop (𝓝 (k : ℝ)) := by
   sorry -- Figaj-Łuczak 2007/2011
 
 /--
@@ -580,14 +580,14 @@ def NoLcmTriple (A : Set ℕ) : Prop :=
 
 noncomputable def f_lcm (N : ℕ) : ℕ :=
   Finset.sup (Finset.powerset (Finset.range (N + 1)))
-    (λ s => if NoLcmTriple (s : Set ℕ) then s.card else 0)
+    (fun s => if NoLcmTriple (s : Set ℕ) then s.card else 0)
 
 /--
 The density result: f(N) = o(N).
 This is a Turán-type extremal result in the divisor lattice.
 -/
 theorem f_lcm_is_little_o_N :
-    IsLittleO atTop (λ N => (f_lcm N : ℝ)) (λ N => (N : ℝ)) := by
+    IsLittleO atTop (fun N => (f_lcm N : ℝ)) (fun N => (N : ℝ)) := by
   sorry -- Erdős-Sárközy-Szemerédi: dense graph removal lemma in divisor lattice
 
 /--
@@ -632,7 +632,7 @@ def IsSumFree (S : Finset ℕ) : Prop :=
 
 noncomputable def sum_free_max (N : ℕ) : ℕ :=
   Finset.sup (Finset.powerset (Finset.range (N + 1)))
-    (λ s => if IsSumFree s then s.card else 0)
+    (fun s => if IsSumFree s then s.card else 0)
 
 /--
 Maximal sum-free subset size is ⌈N/2⌉ (Cameron-Erdős).
@@ -645,7 +645,7 @@ The number of sum-free subsets of {1,...,N} is 2^{N/2 + o(N)}.
 This was a $500 Erdős problem, solved by Green (2004) and Sapozhenko.
 -/
 theorem sum_free_count_asymptotic :
-    ∃ (c : ℝ), Tendsto (λ N => Real.log (Nat.card {S : Finset ℕ | S ⊆ Finset.range (N+1) ∧ IsSumFree S} : ℝ)
+    ∃ (c : ℝ), Tendsto (fun N => Real.log (Nat.card {S : Finset ℕ | S ⊆ Finset.range (N+1) ∧ IsSumFree S} : ℝ)
       / (N : ℝ)) atTop (𝓝 c) := by
   sorry -- Green 2004, Cameron-Erdős conjecture
 

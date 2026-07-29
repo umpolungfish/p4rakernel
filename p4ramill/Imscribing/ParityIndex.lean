@@ -16,8 +16,8 @@
 --   (i)  n₊ = n₋, hence the signature n₊ − n₋ vanishes
 --        — this is the "survivor count" of OddRingIndex / survivors_count.
 --
---   (ii) −ρ is an eigenvalue whenever ρ is, hence |λ₂| = ρ and the
---        modulus gap ρ − |λ₂| vanishes
+--   (ii) −ρ is an eigenvalue whenever ρ is, hence |fun₂| = ρ and the
+--        modulus gap ρ − |fun₂| vanishes
 --        — this is the "flat band, no privileged mode" the clock-ring papers
 --          report as the pure-cycle signature.
 --
@@ -126,7 +126,7 @@ theorem signature_cause_of_signing {R : Type*} [CommRing R]
   spectrum_symmetric_of_signing hS hA
 
 /-- **(ii) The modulus gap vanishes.** If `ρ` is an eigenvalue then so is `−ρ`,
-    so the two largest eigenvalues by modulus agree and `ρ − |λ₂| = 0`. Same
+    so the two largest eigenvalues by modulus agree and `ρ − |fun₂| = 0`. Same
     hypothesis, same one-line cause as the signature. -/
 theorem gap_cause_of_signing {K : Type*} [Field K]
     {S A : Matrix n n K} (hS : IsSigning S) (hA : S * A * S = -A) (ρ : K)

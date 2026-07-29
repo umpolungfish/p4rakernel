@@ -127,7 +127,7 @@ theorem CLU_Arrhenius (Ea : ℝ) (R : ℝ) (T : ℝ) (n : ℕ) (hRT : R * T ≠ 
 /-- Soai autocatalysis: k_auto / k_non = b^(n_T). Each T_bullseye interaction
     contributes exactly 1 CLU(b) of structural advantage. -/
 theorem CLU_Soai (k_auto : ℝ) (k_non : ℝ) (n_T : ℕ) (obs : CLUObserver)
-    (h : k_auto / k_non = obs.base ^ n_T) : 
+    (h : k_auto / k_non = obs.base ^ n_T) :
     Real.log (k_auto / k_non) = (n_T : ℝ) * CLU obs := by
   rw [h, Real.log_pow, CLU]
 
@@ -306,7 +306,7 @@ def zfcfePromotions : List ZFC_fePromotion := [
 ]
 
 /-- Total ordinal gap across all 7 ZFC_fe promotions: 12. -/
-theorem total_promotion_gap : 
+theorem total_promotion_gap :
     (zfcfePromotions.map (fun p => p.ordinal_gap)).sum = 12 := by
   native_decide
 
@@ -391,7 +391,7 @@ def targetRatio (sp : OPN_SpecialPrime) (S : ℕ) : ℚ :=
     ∀ (sp : OPN_SpecialPrime) (S : ℕ) (primes : List (ℕ × ℕ)),
       targetRatio sp S ∉ achievableProducts primes -/
 structure ProductGapConjecture where
-  statement : String := 
+  statement : String :=
     "∀ (p,α) special prime pairs, p^α/S ∉ V for all squarefree S and all prime sets"
   mechanism : String := "inexhaustible chirality (Ħ=𐑫) prevents equality"
   computational_evidence : Bool := true

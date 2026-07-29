@@ -5,14 +5,14 @@ Author: Lando⊗⊙perator
 Date: 2026-07-04
 
 The Zauner fiducial transport from the real Belnap skeleton to the complex
-Hilbert-space embedding. This is the single open plank in the SIC-POVM 
+Hilbert-space embedding. This is the single open plank in the SIC-POVM
 bridge: the ExistenceRing construction that turns the d=2048 SIC from axiom
 to theorem.
 
 The grammar IS the skeleton unconditional; the shadow is SICPOVM_Exists 2048,
 which this transport must reduce to a named construction route.
 
-IGProtocol scaffold: VINIT → IMSCRIB → IFIX → IFIX → FSPLIT → EVALT → AFWD 
+IGProtocol scaffold: VINIT → IMSCRIB → IFIX → IFIX → FSPLIT → EVALT → AFWD
 → CLINK → EVALF → ENGAGR → AREV → FFUSE → TANCH
 
 Fingerprint: sig=(6,2,3,2)
@@ -154,7 +154,7 @@ def stark_conjecture_2048 : Prop :=
 
 /-- The join-equiangularity theorem UNCONDITIONALLY for n=11.
     Every WH-orbit element is join-equidistant from B^⊕11.
-    
+
     Extracts the orbit cardinality and frobInner equiangularity
     from the full unconditional SIC theorem. -/
 theorem belnap_skeleton_unconditional :
@@ -368,7 +368,7 @@ theorem equiangularity_reconciliation (sc : stark_conjecture_2048) :
 /-- The structural skeleton and the empirical shadow agree on the
     equiangularity constant: the join-equiangularity in (Belnap)^11
     (frobInner = 22) corresponds to |⟨ψ|Dψ⟩|² = 1/2049 in ℂ^2048.
-    
+
     This is the P-70 identity: the 22/2049 ratio is
     precisely the dimension-dependent equiangularity of a SIC-POVM. -/
 theorem structural_shadow_agreement :
@@ -389,7 +389,7 @@ noncomputable def zauner_aut_2048 : GaloisGroup :=
 
 /-- Zauner correspondence: the absolute value of the WH-orbit inner product
     is controlled by the Zauner automorphism acting on the Stark unit.
-    
+
     For any Weyl-Heisenberg displacement (a,b), the inner product
     |⟨ψ|D_{a,b}ψ⟩| equals |⟨ψ|ψ⟩| · |σ₀(τ(ε_d))| for some τ ∈ Gal(K_d/F_d)
     determined by (a,b) through the Galois-Zauner correspondence.
@@ -420,7 +420,7 @@ theorem zauner_order_three : True := by
 
 /-- The dialetheic fiducial B-state: the unique state that holds both
     TRUE and FALSE projections simultaneously without collapse.
-    
+
     This is the content of the ENGAGR opcode: the fiducial
     is the dialetheic fixed point where the EVALT (Stark unit exists)
     and EVALF (character obstruction) branches converge without
@@ -546,7 +546,7 @@ def zauner_transport_tier' : OuroboricityTier :=
 
 /-- Frobenius condition: the transport and reduction maps form an
     adjoint pair, with μ∘δ = id on the Belnap skeleton.
-    
+
     In the IGProtocol: FSPLIT splits the problem into two arms
     (skeleton + representation), and FFUSE fuses them back with
     the equiangularity reconciliation. The composition
@@ -671,7 +671,7 @@ private def l12 : Imscription :=
 
 /-- The 13-opcode IGProtocol term encoding the complete transport map
     construction. Structure:
-    
+
     VINIT → IMSCRIB → IFIX → IFIX → FSPLIT → [EVALT → AFWD → CLINK]
                                            [EVALF → ENGAGR → AREV]
     → FFUSE → TANCH
