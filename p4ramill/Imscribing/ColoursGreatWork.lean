@@ -9,25 +9,25 @@ Tuple: ⟨𐑨𐑡𐑾𐑗𐑱𐑧𐑲𐑠𐑢𐑒𐑙𐑷⟩
 Predicted Tier: O₀
 -/
 
-import Primitives.Core
-import Primitives.Imscription
-import Primitives.TierCrossing
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
+import Imscribing.Primitives.TierCrossing
 
-open Primitives
+open Imscribing.Primitives
 
 def colours_great_work : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_network
-    Ř := .R_lr
-    Φ := .P_asym
-    ƒ := .F_ell
-    Ç := .K_slow
-    Γ := .G_beth
-    ɢ := .Gm_seq
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_1_1
-    Ω := .Omega_0
+  { dim := .ash
+    top := .judge
+    rel := .ian
+    pol := .church
+    fid := .age
+    kin := .egg
+    gran := .bib
+    gram := .measure
+    crit := .woe
+    chir := .kick
+    stoi := .hung
+    prot := .awe
   }
 
 #eval colours_great_work

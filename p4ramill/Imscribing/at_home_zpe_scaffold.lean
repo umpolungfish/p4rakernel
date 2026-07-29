@@ -100,3 +100,4 @@ theorem engagr_inside_gap : (3 < 9) ∧ (9 < 10) := by
 -- F-branch has 2 nodes: EVALF, ENGAGR
 
 end Imscribing
+-/

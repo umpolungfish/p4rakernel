@@ -8,24 +8,24 @@ Tuple: ⟨𐑨𐑡𐑩𐑿𐑞𐑧𐑲𐑜𐑢𐑒𐑳𐑷⟩
 Tier: O₀
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def agricola_treatise_on_gold : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_net
-    Ř := .R_super
-    Φ := .P_psi
-    ƒ := .F_eth
-    Ç := .K_slow
-    Γ := .G_beth
-    ɢ := .Gm_or
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .ash
+    top := .judge
+    rel := .ado
+    pol := .yew
+    fid := .they
+    kin := .egg
+    gran := .bib
+    gram := .gag
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval agricola_treatise_on_gold

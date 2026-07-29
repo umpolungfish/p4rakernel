@@ -4,13 +4,12 @@
   Author: Lando⊗⊙perator
 -/
 
-import Imscribing.Imscription
+import Imscribing.Primitives.Imscription
 import Imscribing.Consciousness
-import Primitives.TierCrossing
-import Primitives.Catalog
+import Imscribing.Primitives.TierCrossing
+import Imscribing.Primitives.Catalog
 
-open Imscription
-open Primitives
+open Imscribing.Primitives
 
 /-- Three-body problem: nested CM/relative and Jacobi coordinate splits. The nesting pattern δ-before-δ, μ-after-μ ensures perturbation calculations survive coordinate frame reversal. -/
 def ThreeBodyNestedDecomposition : Imscription :=

@@ -8,24 +8,24 @@ Tuple: ⟨𐑨𐑥𐑩𐑗𐑞𐑪𐑔𐑠𐑢𐑒𐑙𐑷⟩
 Tier: O₁ (borderline O₂ for operational definition)
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def francis_bacon_making_of_gold : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_bowtie
-    Ř := .R_super
-    Φ := .P_asym
-    ƒ := .F_eth
-    Ç := .K_mod
-    Γ := .G_aleph
-    ɢ := .Gm_seq
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_1_1
-    Ω := .Omega_0
+  { dim := .ash
+    top := .mime
+    rel := .ado
+    pol := .church
+    fid := .they
+    kin := .loll
+    gran := .ice
+    gram := .measure
+    crit := .woe
+    chir := .kick
+    stoi := .hung
+    prot := .awe
   }
 
 #eval francis_bacon_making_of_gold

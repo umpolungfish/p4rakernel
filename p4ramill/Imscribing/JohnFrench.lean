@@ -8,24 +8,24 @@ Tuple: ⟨𐑛𐑥𐑩𐑿𐑞𐑪𐑔𐑜𐑢𐑒𐑳𐑷⟩
 Tier: O₁
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def john_french_art_of_distillation : Imscription :=
-  { Ð := .D_infty
-    Þ := .T_bowtie
-    Ř := .R_super
-    Φ := .P_psi
-    ƒ := .F_eth
-    Ç := .K_mod
-    Γ := .G_aleph
-    ɢ := .Gm_or
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .array
+    top := .mime
+    rel := .ado
+    pol := .yew
+    fid := .they
+    kin := .loll
+    gran := .ice
+    gram := .gag
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval john_french_art_of_distillation

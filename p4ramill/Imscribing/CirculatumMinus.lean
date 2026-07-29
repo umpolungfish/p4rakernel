@@ -8,24 +8,24 @@ Tuple: ⟨𐑨𐑶𐑾𐑬𐑞𐑧𐑲𐑠𐑢𐑒𐑳𐑷⟩
 Tier: O₀
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def urbigerus_circulatum_minus : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_boxtimes
-    Ř := .R_lr
-    Φ := .P_pm
-    ƒ := .F_eth
-    Ç := .K_slow
-    Γ := .G_beth
-    ɢ := .Gm_seq
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .ash
+    top := .oil
+    rel := .ian
+    pol := .out
+    fid := .they
+    kin := .egg
+    gran := .bib
+    gram := .measure
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval urbigerus_circulatum_minus
