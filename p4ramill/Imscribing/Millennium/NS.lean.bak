@@ -237,8 +237,8 @@ def NavierStokesRegularity : Prop :=
     (see §5 below). -/
 -- See NS_ZFCt_Bridge.ns_from_frobenius_structure for the ZFCt derivation.
 -- ns_certificate is a stub; downstream imports that cannot take the ZFCt dependency use it.
-axiom ns_certificate : NavierStokesRegularity
-
+theorem ns_certificate : NavierStokesRegularity := by
+  sorry
   -- NS global regularity. Open problem since Leray 1934.
   -- Leray showed global weak solutions exist; smooth regularity is unproved.
   -- ThresholdType = OpenProblem (with near-MissingFoundation critical scaling character).
@@ -255,8 +255,10 @@ axiom ns_certificate : NavierStokesRegularity
 
     The key point: Leray's theorem does NOT discharge `ns_certificate`.
     Weak ≠ smooth. The Millennium problem is about smooth solutions specifically. -/
-axiom leray_weak_existence (u₀ : NSInitialDatum) : Nonempty (LerayWeakSolution u₀)
-
+theorem leray_weak_existence (u₀ : NSInitialDatum) :
+    Nonempty (LerayWeakSolution u₀) := by
+  sorry
+  -- MathlibGap: Leray's theorem (1934) IS proved in mathematics.
   -- Proof sketch: Galerkin approximation in H^1, pass to limit using energy inequality.
   -- Not in Mathlib: Galerkin method for NS, H^1 compactness theorems (Rellich-Kondrachov).
 
@@ -405,8 +407,11 @@ theorem vortex_stretching_is_3d_specific : True := trivial
 
     This is a MathlibGap sorry here (the result is proved in mathematics).
     It does NOT discharge `ns_certificate` for general data — only for small data. -/
-axiom ns_small_data_global_regularity (u₀ : NSInitialDatum) (_ : initialCriticalNorm u₀ < 1 / (2 * Real.sqrt 3)) : GlobalRegularityCert u₀
-
+theorem ns_small_data_global_regularity (u₀ : NSInitialDatum)
+    (_ : initialCriticalNorm u₀ < 1 / (2 * Real.sqrt 3)) :
+    GlobalRegularityCert u₀ := by
+  sorry
+  -- MathlibGap: Koch-Tataru (2001) theorem — small data in BMO^{-1} gives global regularity.
   -- Also: Fujita-Kato (1964) in H^{1/2}. Both are proved, neither in Mathlib.
   -- This sorry WILL go away as Mathlib's critical PDE theory grows.
 

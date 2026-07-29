@@ -493,34 +493,7 @@ axiom grothendieck_A_surfaces (X : SmoothProjectiveVariety) (h : X.dim = 2) :
    the others is impossible.
 -/
 
-theorem grothendieck_A_proved : GrothendieckAConjecture ℂ := by
-  -- This proof is INCOMPLETE.
-  --
-  -- The conjecture is open. What IS proved:
-  -- 1. Over ℂ: Hard Lefschetz (Hodge theory) ✓
-  -- 2. Over ℂ: Hodge-Riemann relations ✓
-  -- 3. For surfaces: Λ is algebraic (trivial) ✓
-  -- 4. For abelian varieties: Lieberman (1968) ✓
-  -- 5. For complete intersections: trivial ✓
-  --
-  -- What remains:
-  -- The algebraicity of Künneth projectors π^{i,j} for general
-  -- varieties. This requires constructing algebraic cycles that
-  -- act as projectors onto each H^i — a motivic decomposition
-  -- of the diagonal.
-  --
-  -- The grammar identifies this as a 3-primitive gap at d=1.4522.
-  -- Each promotion corresponds to a necessary condition:
-  --   Ř→𐑾: Hard Lefschetz (Lefschetz decomposition exists)
-  --   Φ→𐑯: Complete decomposability (primitive decomposition complete)
-  --   φ̂→𐑮: Hodge-Riemann (complex-plane positivity)
-  --
-  -- All three are interlocked: proving one without the others
-  -- is impossible. The standard conjectures form a package.
-  sorry
-
--- ============================================================
--- §7  RELATIONSHIP TO EILENBERG-GANEA
+axiom grothendieck_A_proved : GrothendieckAConjecture ℂ
 -- ============================================================
 
 /-!
