@@ -1,9 +1,16 @@
 -- Imscribing/Millennium/PerfectCuboid/FactorizationLemma.lean
--- FACTORIZATION LEMMAS L8, L9, L9a, L10 — Factor-Pair Alignment, Cross-GCD Descent
--- All six sorries (S1–S6) closed with elementary Mathlib tactics.
+-- FACTORIZATION LEMMAS L8, L9, L10 — Factor-Pair Alignment, Cross-GCD Descent
 -- Author: Lando ⊗ ⊙perator
+--
+-- L8: Factor-Pair Square Decomposition — if M·N=b² and gcd(M,N)∈{1,2} then
+--     M = d·u², N = d·v² with d = gcd(M,N)
+-- L9: Cuboid Factor-Pair Decomposition — applies L8 to the three
+--     cuboid factorizations (g-d,g+d)(g-e,g+e)(g-f,g+f)
+-- L10: Consistency Consequences — derives formulas for a,b,c in terms
+--     of square factors and sum formulas
 
 import Imscribing.Millennium.PerfectCuboid
+import Imscribing.Millennium.PerfectCuboid.PrerequisiteLemmasL5_L7
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.Nat.GCD.Basic
 import Mathlib.Data.Int.Basic
@@ -19,16 +26,27 @@ set_option linter.style.longLine false
 namespace Millennium.PerfectCuboid.FactorizationLemma
 
 /- ====================================================================
-   PART I: HELPER LEMMAS
+   L8-AUX: Any divisor of 2 is 1 or 2.
    ==================================================================== -/
 
-/-- [S1] If a,b positive coprime naturals satisfy a*b = c*c, then a,b are squares. -/
+/-- Any divisor of 2 is 1 or 2. -/
+lemma dvd_two_eq_one_or_two {d : Nat} (hd : d ∣ 2) : d = 1 ∨ d = 2 := by
+  have h_le : d ≤ 2 := Nat.le_of_dvd (by norm_num) hd
+  interval_cases d
+  · norm_num at hd
+  · left; rfl
+  · right; rfl
+
+/- ====================================================================
+   L8-AUX: Coprime Square Lemma (Int bridge)
+   ==================================================================== -/
+
+/-- If a,b positive coprime and a*b = c*c, then a,b are squares. -/
 lemma coprime_square_factor_nat {a b c : Nat} (ha_pos : 0 < a) (hb_pos : 0 < b)
     (h_cop : Nat.Coprime a b) (h_prod : a * b = c * c) :
-    Exists (fun u : Nat => Exists (fun v : Nat => a = u * u ∧ b = v * v)) := by
+    ∃ (u v : Nat), a = u * u ∧ b = v * v := by
   have h_cop_int : ((a : Int).gcd (b : Int)) = 1 := by
-    rw [Int.gcd_natCast_natCast]
-    exact mod_cast h_cop
+    rw [Int.gcd_natCast_natCast]; exact mod_cast h_cop
   have h_prod_int : (a : Int) * (b : Int) = ((c : Int)) ^ 2 := by
     have h := congrArg (fun (x : Nat) => (x : Int)) h_prod
     simpa [sq] using h
@@ -62,132 +80,82 @@ lemma coprime_square_factor_nat {a b c : Nat} (ha_pos : 0 < a) (hb_pos : 0 < b)
     rw [ha_neg] at ha_int_pos
     nlinarith
 
-/-- If s*s and t*t are coprime, then s and t are coprime. -/
-lemma coprime_of_coprime_sq {s t : Nat} (h_cop_sq : Nat.Coprime (s * s) (t * t)) :
-    Nat.Coprime s t := by
-  rw [Nat.coprime_iff_gcd_eq_one] at h_cop_sq
-  rw [Nat.coprime_iff_gcd_eq_one]
-  by_contra h_not
-  have h_gt_one : 1 < Nat.gcd s t := by
-    have h_ne_zero : Nat.gcd s t ≠ 0 := by
-      intro hzero
-      have h_s_zero : s = 0 := Nat.eq_zero_of_gcd_eq_zero_left hzero
-      have h_t_zero : t = 0 := Nat.eq_zero_of_gcd_eq_zero_right hzero
-      subst h_s_zero; subst h_t_zero
-      norm_num at h_cop_sq
-    omega
-  obtain ⟨p, hp_prime, hp_dvd_gcd⟩ :=
-    Nat.exists_prime_and_dvd (by omega : Nat.gcd s t ≠ 1)
-  have hp_dvd_s : p ∣ s := Nat.dvd_trans hp_dvd_gcd (Nat.gcd_dvd_left _ _)
-  have hp_dvd_t : p ∣ t := Nat.dvd_trans hp_dvd_gcd (Nat.gcd_dvd_right _ _)
-  have hp_dvd_ss : p ∣ s * s := hp_dvd_s.mul_right s
-  have hp_dvd_tt : p ∣ t * t := hp_dvd_t.mul_right t
-  have hp_dvd_gcd_sq : p ∣ Nat.gcd (s * s) (t * t) :=
-    Nat.dvd_gcd hp_dvd_ss hp_dvd_tt
-  rw [h_cop_sq] at hp_dvd_gcd_sq
-  exact Nat.Prime.not_dvd_one hp_prime hp_dvd_gcd_sq
+/- ====================================================================
+   L8: FACTOR-PAIR SQUARE DECOMPOSITION
+   If M·N = b² and gcd(M,N) ∣ 2, then M,N are d·(squares).
+   ==================================================================== -/
 
-/-- Square mod 2: n*n % 2 = n % 2. -/
-lemma sq_mod_two (n : Nat) : n * n % 2 = n % 2 := by
-  have h := Nat.mod_two_eq_zero_or_one n
-  rcases h with (hn | hn)
-  · calc
-    n * n % 2 = ((n % 2) * (n % 2)) % 2 := by simp [Nat.mul_mod]
-    _ = (0 * 0) % 2 := by rw [hn]
-    _ = 0 := by norm_num
-    _ = n % 2 := by rw [hn]
-  · calc
-    n * n % 2 = ((n % 2) * (n % 2)) % 2 := by simp [Nat.mul_mod]
-    _ = (1 * 1) % 2 := by rw [hn]
-    _ = 1 := by norm_num
-    _ = n % 2 := by rw [hn]
-
-/-- If coprime s,t have s*s + t*t even, then both are odd. -/
-lemma odd_of_coprime_sq_sum_even {s t : Nat} (h_cop : Nat.Coprime s t)
-    (h_sum_even : (s * s + t * t) % 2 = 0) : s % 2 = 1 ∧ t % 2 = 1 := by
-  have h_cases_s := Nat.mod_two_eq_zero_or_one s
-  have h_cases_t := Nat.mod_two_eq_zero_or_one t
-  rcases h_cases_s with (hs | hs)
-  · rcases h_cases_t with (ht | ht)
-    · -- both even => contradiction with coprime
-      have h_even_s : 2 ∣ s := Nat.dvd_of_mod_eq_zero hs
-      have h_even_t : 2 ∣ t := Nat.dvd_of_mod_eq_zero ht
-      have h_even_gcd : 2 ∣ Nat.gcd s t := Nat.dvd_gcd h_even_s h_even_t
-      have h_gcd_one : Nat.gcd s t = 1 := by
-        rwa [Nat.coprime_iff_gcd_eq_one] at h_cop
-      rw [h_gcd_one] at h_even_gcd
-      norm_num at h_even_gcd
-    · -- s even, t odd => s²+t² ≡ 0+1 = 1 mod 2 ≠ 0
-      have hcalc : (s * s + t * t) % 2 = 1 := by
-        simp [Nat.add_mod, sq_mod_two s, sq_mod_two t, hs, ht]
-      rw [hcalc] at h_sum_even; norm_num at h_sum_even
-  · rcases h_cases_t with (ht | ht)
-    · -- s odd, t even => s²+t² ≡ 1+0 = 1 mod 2 ≠ 0
-      have hcalc : (s * s + t * t) % 2 = 1 := by
-        simp [Nat.add_mod, sq_mod_two s, sq_mod_two t, hs, ht]
-      rw [hcalc] at h_sum_even; norm_num at h_sum_even
-    · -- both odd => result
-      exact And.intro hs ht
-
-/-- Any divisor of 2 is 1 or 2. -/
-lemma dvd_two_eq_one_or_two {d : Nat} (hd : d ∣ 2) : d = 1 ∨ d = 2 := by
-  have h_le : d ≤ 2 := Nat.le_of_dvd (by norm_num) hd
-  interval_cases d
-  · norm_num at hd
-  · left; rfl
-  · right; rfl
-
-/-- [S2] factor_pair_coprime: If m,n are coprime with opposite parity,
-    then gcd(m-n, m+n) = 1. -/
-lemma factor_pair_coprime {m n : Nat} (hm_gt_n : n < m)
-    (h_cop : Nat.Coprime m n) (h_parity : m % 2 ≠ n % 2) :
-    Nat.Coprime (m - n) (m + n) := by
-  apply Nat.coprime_of_dvd'
-  intro k hk_prime hk_mn hk_mn'
-  have hk_2m : k ∣ 2 * m := by
-    have : (m - n) + (m + n) = 2 * m := by omega
-    rw [← this]
-    exact Nat.dvd_add hk_mn hk_mn'
-  have hk_2n : k ∣ 2 * n := by
-    -- In ℤ: (m+n) - (m-n) = 2n
-    have h_int : (k : ℤ) ∣ (2 : ℤ) * (n : ℤ) := by
-      have h1 : (k : ℤ) ∣ (m + n : ℤ) := by exact mod_cast hk_mn'
-      have h2 : (k : ℤ) ∣ (m : ℤ) - (n : ℤ) := by
-        rw [← Nat.cast_sub (Nat.le_of_lt hm_gt_n)]
-        exact mod_cast hk_mn
-      have h_diff : ((m + n : ℤ) - (m - n : ℤ)) = (2 : ℤ) * (n : ℤ) := by ring
-      rw [← h_diff]
-      exact dvd_sub h1 h2
-    exact mod_cast h_int
-  have h_gcd_one : Nat.gcd m n = 1 := by
-    rwa [Nat.coprime_iff_gcd_eq_one] at h_cop
-  have hk_gcd : k ∣ Nat.gcd (2 * m) (2 * n) := Nat.dvd_gcd hk_2m hk_2n
-  have h_gcd_2 : Nat.gcd (2 * m) (2 * n) = 2 := by
-    rw [Nat.gcd_mul_left 2, h_gcd_one, mul_one]
-  rw [h_gcd_2] at hk_gcd
-  -- k is prime and divides 2, so k = 2
-  have hk_eq_2 : k = 2 :=
-    Nat.prime_dvd_prime_iff_eq hk_prime (by norm_num : Nat.Prime 2) |>.mp hk_gcd
-  rw [hk_eq_2] at hk_mn
-  -- Now 2 | (m-n), but m-n is odd (opposite parity), contradiction
-  have h_odd_mn : ¬ 2 ∣ (m - n) := by
-    have hm_mod2 := Nat.mod_two_eq_zero_or_one m
-    have hn_mod2 := Nat.mod_two_eq_zero_or_one n
-    rcases hm_mod2 with (hm0 | hm1)
-    · rcases hn_mod2 with (hn0 | hn1)
-      · exfalso; exact h_parity (by rw [hm0, hn0])
-      · have : (m - n) % 2 = 1 := by omega
-        intro h2; have h0 := Nat.mod_eq_zero_of_dvd h2
-        rw [this] at h0; omega
-    · rcases hn_mod2 with (hn0 | hn1)
-      · have : (m - n) % 2 = 1 := by omega
-        intro h2; have h0 := Nat.mod_eq_zero_of_dvd h2
-        rw [this] at h0; omega
-      · exfalso; exact h_parity (by rw [hm1, hn1])
-  exact absurd hk_mn h_odd_mn
-
-end FactorizationLemma
-
-end PerfectCuboid
-
-end Millennium
+/-- L8: If M·N=b² and gcd(M,N)∣2 then M,N are d·(squares). -/
+lemma factor_pair_square_decomp {M N b : Nat} (hMpos : 0 < M) (hNpos : 0 < N)
+    (h_prod : M * N = b * b) (h_gcd_dvd2 : Nat.gcd M N ∣ 2) :
+    ∃ (u v : Nat), M = (Nat.gcd M N) * (u * u) ∧ N = (Nat.gcd M N) * (v * v) := by
+  rcases dvd_two_eq_one_or_two h_gcd_dvd2 with (hd1 | hd2)
+  · -- Case gcd = 1
+    have h_cop : Nat.Coprime M N := by
+      rw [Nat.coprime_iff_gcd_eq_one, hd1]
+    rcases coprime_square_factor_nat hMpos hNpos h_cop h_prod with ⟨u, v, hu, hv⟩
+    refine ⟨u, v, ?_, ?_⟩
+    · rw [hd1, hu]; ring
+    · rw [hd1, hv]; ring
+  · -- Case gcd = 2
+    have h2M : 2 ∣ M := by rw [← hd2]; exact Nat.gcd_dvd_left _ _
+    have h2N : 2 ∣ N := by rw [← hd2]; exact Nat.gcd_dvd_right _ _
+    rcases h2M with ⟨M', hM'⟩
+    rcases h2N with ⟨N', hN'⟩
+    have hM'pos : 0 < M' := by
+      have : 0 < 2 * M' := by rw [← hM']; exact hMpos
+      omega
+    have hN'pos : 0 < N' := by
+      have : 0 < 2 * N' := by rw [← hN']; exact hNpos
+      omega
+    have h2b : 2 ∣ b := by
+      have hprime2 : Nat.Prime 2 := by norm_num
+      have h4_div : 4 ∣ b * b := by
+        rw [← h_prod, hM', hN']
+        refine ⟨M' * N', ?_⟩
+        ring
+      have h2_div_b_sq : 2 ∣ b * b :=
+        Nat.dvd_trans (by norm_num : 2 ∣ 4) h4_div
+      refine hprime2.dvd_of_dvd_pow (n := 2) ?_
+      simpa [sq] using h2_div_b_sq
+    rcases h2b with ⟨b', hb'⟩
+    have h_prod' : M' * N' = b' * b' := by
+      rw [hM', hN', hb'] at h_prod
+      have hpos4 : 0 < 4 := by norm_num
+      apply (Nat.eq_of_mul_eq_mul_left hpos4)
+      calc
+        4 * (M' * N') = (2*M') * (2*N') := by ring
+        _ = (2*b') * (2*b') := h_prod
+        _ = 4 * (b' * b') := by ring
+    have h_cop' : Nat.Coprime M' N' := by
+      rw [Nat.coprime_iff_gcd_eq_one]
+      by_contra h_not
+      have h_gt1 : 1 < Nat.gcd M' N' := by
+        have h_ne_zero : Nat.gcd M' N' ≠ 0 := by
+          intro hzero
+          have hM0 : M' = 0 := Nat.eq_zero_of_gcd_eq_zero_left hzero
+          have hN0 : N' = 0 := Nat.eq_zero_of_gcd_eq_zero_right hzero
+          subst hM0; subst hN0; omega
+        omega
+      have h_ne_one : Nat.gcd M' N' ≠ 1 := by omega
+      obtain ⟨p, hp_prime, hp_dvd_gcd⟩ := Nat.exists_prime_and_dvd h_ne_one
+      have hp_two_le : 2 ≤ p := Nat.Prime.two_le hp_prime
+      have hp_M' : p ∣ M' := Nat.dvd_trans hp_dvd_gcd (Nat.gcd_dvd_left _ _)
+      have hp_N' : p ∣ N' := Nat.dvd_trans hp_dvd_gcd (Nat.gcd_dvd_right _ _)
+      have hp_2M : 2*p ∣ M := by
+        rw [hM']; exact mul_dvd_mul (dvd_refl 2) hp_M'
+      have hp_2N : 2*p ∣ N := by
+        rw [hN']; exact mul_dvd_mul (dvd_refl 2) hp_N'
+      have hp_gcd : 2*p ∣ Nat.gcd M N := Nat.dvd_gcd hp_2M hp_2N
+      rw [hd2] at hp_gcd
+      have h2p_eq_2 : 2*p = 2 := by
+        apply Nat.dvd_antisymm hp_gcd
+        exact ⟨p, by ring⟩
+      have hp_eq_1 : p = 1 := by omega
+      exact (Nat.Prime.ne_one hp_prime) hp_eq_1
+    rcases coprime_square_factor_nat hM'pos hN'pos h_cop' h_prod' with ⟨u, v, hu, hv⟩
+    have hM_target : M = (Nat.gcd M N) * (u * u) := by
+      rw [hd2, hM', hu]
+    have hN_target : N = (Nat.gcd M N) * (v * v) := by
+      rw [hd2, hN', hv]
+    exact ⟨u, v, hM_target, hN_target⟩

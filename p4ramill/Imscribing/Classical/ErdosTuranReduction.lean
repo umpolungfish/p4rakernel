@@ -111,51 +111,75 @@ theorem bounded_reps_forces_density
     rw [this] at hmem
     simp at hmem
 
-/-! ## The gap, named
+/-! ## The other side, also proved -/
 
-    Everything above is proved. What follows is the one step that is not, stated
-    as a hypothesis so that it cannot be mistaken for a theorem. -/
+/-- **The counting half from above.** The same hypothesis bounds the window from
+    the other direction, and it needs no Sidon structure: the pairs from the
+    window number `|A ∩ [0,N]|²`, every sum lands in `[0, 2N]`, and each value is
+    hit at most `C` times.
 
-/-- **The missing step.** A basis of bounded representation function contains,
-    in each window, a Sidon sub-structure carrying a constant fraction of it.
-
-    This is the conjecture's content. Given it, the Erdős–Turán upper bound for
-    Sidon sets caps the counting function from above while
-    `bounded_reps_forces_density` forces it from below, and for large `N` the
-    two cannot both hold. Without it, nothing below is a proof of anything. -/
-def BoundedRepBasisIsSidonLike : Prop :=
-  ∀ (A : Set ℕ) (C : ℕ), (∀ (n : ℕ) (B : Finset ℕ), ↑B ⊆ A → (reps B n).card ≤ C) →
-    ∀ N, ∃ S : Finset ℕ, ↑S ⊆ A ∧ isSidonFinset S ∧
-      (window A N).card ≤ C * S.card
-
-/-- **The squeeze.** Given the missing step and the Sidon upper bound, a basis of
-    bounded representation function is caught between two estimates: dense from
-    below by counting, thin from above by the Sidon bound.
-
-    Both hypotheses are USED. An earlier draft of this theorem carried them and
-    proved its conclusion without them, which would have dressed the counting
-    half as a reduction it is not. -/
-theorem bounded_rep_basis_squeezed
-    (hgap : BoundedRepBasisIsSidonLike)
-    (hSidonBound : ∀ (S : Finset ℕ) (M : ℕ), isSidonFinset S →
-        (∀ x ∈ S, x ≤ M) → S.card * S.card ≤ 4 * M + 4)
-    (A : Set ℕ) (N₀ C : ℕ) (hC : 1 ≤ C)
-    (hbasis : ∀ n ≥ N₀, ∃ a ∈ A, ∃ b ∈ A, a + b = n)
+    An earlier draft of this file named a missing "Sidon-like sub-structure" as
+    the lever that would supply this bound. It was the wrong lever: the bound is
+    elementary, and having it changes nothing, as the next theorem shows. -/
+theorem bounded_reps_forces_sparsity
+    (A : Set ℕ) (C : ℕ)
     (hbound : ∀ (n : ℕ) (B : Finset ℕ), ↑B ⊆ A → (reps B n).card ≤ C)
-    (hInWindow : ∀ (S : Finset ℕ) (N : ℕ), ↑S ⊆ A → (∀ x ∈ S, x ≤ N)) :
-    ∀ N ≥ N₀, ∃ S : Finset ℕ,
-      -- from below: the window is large
-      N + 1 ≤ N₀ + C * ((window A N).card * (window A N).card) ∧
-      -- from above: a Sidon witness caps it
-      ↑S ⊆ A ∧ isSidonFinset S ∧ (window A N).card ≤ C * S.card ∧
-      S.card * S.card ≤ 4 * N + 4 := by
-  intro N hN
-  obtain ⟨S, hSA, hSidon, hSbound⟩ := hgap A C hbound N
-  refine ⟨S, bounded_reps_forces_density A N₀ C hbasis hbound N hN,
-          hSA, hSidon, hSbound, ?_⟩
-  exact hSidonBound S N hSidon (hInWindow S N hSA)
+    (N : ℕ) :
+    (window A N).card * (window A N).card ≤ C * (2 * N + 1) := by
+  classical
+  set W := window A N with hW
+  have hWA : (↑W : Set ℕ) ⊆ A := by
+    intro x hx
+    exact (mem_window.mp (by simpa using hx)).2
+  -- every fibre of the sum map is a `reps`, so has at most C points
+  have hfib : ∀ v ∈ (W ×ˢ W).image (fun p => p.1 + p.2),
+      ((W ×ˢ W).filter (fun p => p.1 + p.2 = v)).card ≤ C := by
+    intro v _
+    have : (W ×ˢ W).filter (fun p => p.1 + p.2 = v) = reps W v := rfl
+    rw [this]
+    exact hbound v W hWA
+  have h1 : (W ×ˢ W).card ≤ C * ((W ×ˢ W).image (fun p => p.1 + p.2)).card :=
+    Finset.card_le_mul_card_image _ _ hfib
+  -- and the image sits inside [0, 2N]
+  have h2 : (W ×ˢ W).image (fun p => p.1 + p.2) ⊆ Finset.range (2 * N + 1) := by
+    intro v hv
+    obtain ⟨⟨a, b⟩, hab, rfl⟩ := Finset.mem_image.mp hv
+    obtain ⟨haW, hbW⟩ := Finset.mem_product.mp hab
+    have ha := (mem_window.mp haW).1
+    have hb := (mem_window.mp hbW).1
+    exact Finset.mem_range.mpr (by omega)
+  have h3 : ((W ×ˢ W).image (fun p => p.1 + p.2)).card ≤ 2 * N + 1 := by
+    simpa using Finset.card_le_card h2
+  rw [Finset.card_product] at h1
+  calc W.card * W.card ≤ C * ((W ×ˢ W).image (fun p => p.1 + p.2)).card := h1
+    _ ≤ C * (2 * N + 1) := Nat.mul_le_mul_left _ h3
+
+/-- **The counting route is closed.**
+
+    Both bounds hold, and for every `C ≥ 1` and every `N` they are consistent:
+    a window of size `k` with
+
+        N + 1 - N₀ ≤ C * k²    and    k² ≤ C * (2N + 1)
+
+    exists whenever `N + 1 - N₀ ≤ C² * (2N + 1)`, which holds for all `N` once
+    `C ≥ 1`. So no contradiction can be extracted from these two estimates, at
+    any `C`.
+
+    This is why the conjecture is open and not merely unproved here: the
+    elementary counting reaches Θ(√N) from both sides and the gap between them
+    is a constant factor, not a growing one. Settling it needs an argument that
+    sees more than the number of pairs — which is what the move from the
+    critical exponent to the complex plane is for. -/
+theorem counting_bounds_compatible (N₀ C N : ℕ) (hC : 1 ≤ C) :
+    N + 1 - N₀ ≤ C * (C * (2 * N + 1)) := by
+  have h : N + 1 - N₀ ≤ N + 1 := Nat.sub_le _ _
+  have h2 : N + 1 ≤ 2 * N + 1 := by omega
+  calc N + 1 - N₀ ≤ 2 * N + 1 := le_trans h h2
+    _ ≤ C * (2 * N + 1) := Nat.le_mul_of_pos_left _ hC
+    _ ≤ C * (C * (2 * N + 1)) := Nat.le_mul_of_pos_left _ hC
 
 #print axioms bounded_reps_forces_density
-#print axioms bounded_rep_basis_squeezed
+#print axioms bounded_reps_forces_sparsity
+#print axioms counting_bounds_compatible
 
 end Imscribing.Classical
