@@ -49,11 +49,11 @@ theorem d_sq_value : d_sq_fsc = 144 := by
   native_decide
 
 /-- The integer core: d²−7 = 137, the α⁻¹ integer part.
-    
+
     Why 7? There are 7 commuting self-adjoint operators in the
     SIC-POVM symmetry algebra (the Cartan subalgebra of E₇).
     The remaining 5 are non-Abelian braided axes.
-    
+
     This is forced by the A₂ trine geometry: the 3 evaluator
     positions in the A₂ root system each generate 2 axes (6 total)
     plus 1 axis for the overall scale → 7 commuting axes.
@@ -91,7 +91,7 @@ def A2_surd_symbolic : ℕ := 3
     The continued fraction gives the approximant 7067/199828.
     We use the rational 3535/100000 = 707/20000 = 0.03535
     as an approximation to document the structural contribution.
-    
+
     The EXACT value requires ℝ computation (Real.arctan, Real.sqrt)
     which is noncomputable in Lean 4. The ℝ-level closure is
     documented in UNIVERSAL_CONSTANTS_FORMALIZED.md §1.21. -/
@@ -103,7 +103,7 @@ def tilt_correction_rat_approx : ℚ := (707 : ℚ) / 20000
 
 /-- The broadcast correction ϑ = α²·d ≈ 0.000639022218.
     Rational approximation: 639/1000000 = 0.000639 for documentation.
-    
+
     The exact value is computed iteratively:
     ϑ₀ = 0, α⁻¹₀ = 137.035359624, α₀ = 1/α⁻¹₀
     ϑ₁ = d·α₀² = 0.000639022, α⁻¹₁ = α⁻¹₀ + ϑ₁
@@ -112,9 +112,9 @@ def broadcast_correction_rat_approx : ℚ := (639 : ℚ) / 1000000
 
 /-- α⁻¹ rational approximation: 137 + 707/20000 + 639/1000000.
     = 137 + 0.03535 + 0.000639 = 137.035989.
-    
+
     Exact rational: 274071978/2000000 = 137035989/1000000.
-    
+
     For the exact ℝ-level computation (matching CODATA to 0.003 ppm),
     see the Python verification in the MoDoT session or the
     UNIVERSAL_CONSTANTS_FORMALIZED.md document. -/

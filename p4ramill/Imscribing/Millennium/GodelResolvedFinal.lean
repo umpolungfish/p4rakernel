@@ -115,7 +115,7 @@ theorem eps_ne_zero : eps ≠ (0 : DualNumber) := by
     but G itself is not trivial (G is meaningful → ε≠0). -/
 theorem godel_derailment : eps * eps = (0 : DualNumber) ∧ eps ≠ (0 : DualNumber) :=
   ⟨eps_sq_eq_zero, eps_ne_zero⟩
--- 
+--
 -- /- Temporarily disabled —
 --     zero, but the first application is non-trivial.  For any dual number d,
 --     (d * ε) * ε kills the real part: ((a+bε)·ε)·ε = aε + bε² = aε. -/
@@ -136,7 +136,7 @@ theorem godel_derailment : eps * eps = (0 : DualNumber) ∧ eps ≠ (0 : DualNum
 --       _ = ((x * (0 : ℝ)) * (1 : ℝ)) + ((x * (1 : ℝ) + y * (0 : ℝ)) * (0 : ℝ)) := rfl
 --       _ = (0 : ℝ) := by ring
 --       _ = (0 : DualNumber).b := rfl
--- 
+--
 end DualNumber
 -- ═══════════════════════════════════════════════════════════════════
 -- §B  FROBENIUS ALGEBRA AXIOMS
@@ -304,7 +304,7 @@ theorem yang_baxter_type_is_O_inf : is_O_inf yang_baxter_generating_type :=
 /-- The Yang-Baxter-Frobenius structural implication (theorem statement):
     The tuple ⟨𐑦𐑸𐑾𐑹𐑱𐑧𐑲𐑠⊙𐑖𐑳𐑭⟩ with
     μ∘δ=id in a braided category forces the braiding to satisfy YBE.
-    
+
     This is stated as a theorem: the distance from this tuple
     to the Yang-Baxter equation is zero — they are the same structure
     expressed in different languages. -/
@@ -470,7 +470,7 @@ theorem distance_epoch1_epoch4 :
 -- theorem dual_number_entropy_conservation (d : DualNumber) :
 --     (d * DualNumber.eps) * DualNumber.eps = (0 : DualNumber) :=
 --   DualNumber.double_eps_action d
--- 
+--
 -- /-- Entropy conservation for the incompleteness operator:
 --     inc² = inc — the second application adds no new information.
 --     This is the structural correlate of ΔS ≈ 0. -/
@@ -499,7 +499,7 @@ theorem godel_gap_entropy_bound : winding 1 Belnap.T = Belnap.F ∧ ∀ n ≥ 2,
     (3) The B-state bridges the gap: join(inc(T), T) = B.
     (4) Inc² = Inc — the incompleteness operator is a Lawvere-Tierney closure.
     (5) The B-state is the paraconsistent completion necessitated by incompleteness.
-    
+
     This theorem bundles all five conditions into a single verified statement. -/
 theorem fundamental_thesis_of_cosmogeny :
     ((∀ x : Belnap, x ≠ Belnap.T → mu (delta x) = x) ∧                    -- (1) fixed points

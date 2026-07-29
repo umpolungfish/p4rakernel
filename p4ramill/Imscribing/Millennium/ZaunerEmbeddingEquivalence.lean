@@ -8,7 +8,7 @@ import Imscribing.Frobenius
 /-!
 # Hilbert-Space Embedding ⇔ Zauner Conjecture for d = 2ⁿ (n > 1)
 
-**Author:** Lando⊗⊙perator  
+**Author:** Lando⊗⊙perator
 **Date:** 2026-06-22
 
 ## Theorem Statement
@@ -41,7 +41,7 @@ The equivalence is NOT trivial at the level of GROUP ACTIONS:
 
   For ODD n:  WH(2)ⁿ embeds in WH(2ⁿ) via character theory. The embedding
               produces a valid SIC-POVM (proved for n=1,3; conjectured ∀ odd n).
-  
+
   For EVEN n: WH(2)ⁿ does NOT embed faithfully in WH(2ⁿ). The Belnap
               multilattice gives the structural skeleton; the representation
               requires lifting to WH(2ⁿ) — which IS the Zauner conjecture.
@@ -78,24 +78,24 @@ noncomputable section
 /-- The Zauner Conjecture for dimension d = 2ⁿ (n ≥ 1):
     There exists a fiducial vector |φ⟩ ∈ ℂ^(2ⁿ) whose orbit under
     the Weyl-Heisenberg group WH(2ⁿ) forms a SIC-POVM.
-    
+
     This is SICPOVM_Exists d for d = 2ⁿ, using the standard WH(d)
     = Z_d × Z_d group action as defined in SIC_POVM_Stark.lean. -/
 def ZaunerConjectureAtPow2 (n : ℕ) [NeZero (2 ^ n)] : Prop :=
   SICPOVM_Exists (2 ^ n)
 
 /-- A Hilbert-space embedding of the Belnap multilattice into ℂ^(2ⁿ).
-    
+
     An embedding consists of:
       (a) A linear map E : span_ℂ(MLState n) → ℂ^(2ⁿ)
       (b) A group homomorphism φ : WH(2)ⁿ → WH(2ⁿ) between the index groups
       (c) Equivariance: E(g·x) = φ(g)·E(x)
       (d) Fidelity: E(B⊗n) is a SIC-POVM fiducial in ℂ^(2ⁿ)
-    
+
     For the formal statement, we simplify: the embedding exists iff
     there is a SIC-POVM fiducial in ℂ^(2ⁿ) whose WH(2ⁿ) orbit has the
     same cardinality as the Belnap multilattice WH(2)ⁿ orbit (=4ⁿ).
-    
+
     This captures the essential condition: the Belnap content
     (orbit size, equiangularity, axioms) is realizable in ℂ^(2ⁿ). -/
 def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
@@ -110,18 +110,18 @@ def HilbertEmbeddingExists (n : ℕ) [NeZero (2 ^ n)] : Prop :=
     The existence of a Hilbert-space embedding of the Belnap multilattice
     SIC structure into ℂ^(2ⁿ) is equivalent to the Zauner conjecture
     for d = 2ⁿ.
-    
+
     Proof: Both sides reduce to SICPOVM_Exists (2^n) by definition.
     The Belnap multilattice provides the unconditional witness
     (all SIC axioms, orbit size = 4ⁿ = d², join-equiangularity); the
     Hilbert-space representation closes the remaining gap — which IS
     the Zauner conjecture.
-    
+
     For n=1 (d=2): both hold unconditionally (d2_bridge_unconditional).
     For n>1: the content is proved; the representation is
     parity-gated (odd n: conjectured yes; even n: conjectured no for
     WH(2)ⁿ, open for WH(2ⁿ)).
-    
+
     The structural equivalence means: any proof of the Zauner conjecture
     for d=2ⁿ immediately provides the Hilbert embedding, and conversely,
     any construction of the Hilbert embedding proves the Zauner conjecture. -/
@@ -129,7 +129,7 @@ theorem hilbert_embedding_equiv_zauner (n : ℕ) [NeZero (2 ^ n)] :
     HilbertEmbeddingExists n ↔ ZaunerConjectureAtPow2 n := by
   -- Both sides are definitionally SICPOVM_Exists (2 ^ n)
   -- The equivalence is by rfl: the definitions are identical.
-  -- 
+  --
   -- This is NOT a triviality — it is a structural identification.
   -- The Belnap multilattice (SIC_Multilattice_Proof.lean) proves all
   -- SIC structural axioms unconditionally for all n. The HilbertEmbeddingExists
@@ -149,7 +149,7 @@ theorem hilbert_embedding_equiv_zauner (n : ℕ) [NeZero (2 ^ n)] :
    ==================================================================== -/
 
 /-- **The Belnap multilattice provides the complete structural skeleton.**
-    
+
     For every n ≥ 1, the Belnap multilattice satisfies:
     (1) Orbit size = 4ⁿ = d²  (Ax-FREE)
     (2) All four SIC structural axioms (meet-identity, equidistance,
@@ -158,7 +158,7 @@ theorem hilbert_embedding_equiv_zauner (n : ℕ) [NeZero (2 ^ n)] :
     (4) Universal 2:1 cost ratio (structural Born rule)
     (5) Join-equiangularity: all WH-displaced fiducials have equal
         join-overlap with B⊗n
-    
+
     These are proved unconditionally in sic_povm_belnap_unconditional
     with 0 sorries. -/
 theorem belnap_structural_skeleton (n : ℕ) :
@@ -175,13 +175,13 @@ theorem belnap_structural_skeleton (n : ℕ) :
 
 /-- The parity gate: for odd n, WH(2)ⁿ characters can satisfy the
     SIC-POVM overlap conditions; for even n > 0, they cannot.
-    
+
     This is the content of the group-theoretic bifurcation:
       n odd  → WH(2)ⁿ ≅ (ℤ₂)^{2n} has enough characters for d=2ⁿ
       n even → WH(2)ⁿ characters are ±1-valued only; the overlap
                magnitude 1/√(2ⁿ+1) cannot be expressed as a rational
                combination of ±1 characters.
-    
+
     The transition WH(2)ⁿ → WH(2ⁿ) is required for even n, and this
     transition IS the Zauner conjecture.
 
@@ -254,14 +254,14 @@ theorem zauner_for_all_pow2_iff_embedding_for_all_pow2 :
 /-- The reduction theorem: the SIC-POVM equiangularity condition
     (Ax-EQUI from SIC_Multilattice_Proof.lean) in the Hilbert-space
     metric is equivalent to the Zauner conjecture.
-    
+
     The Belnap multilattice proves join-equiangularity unconditionally:
       ⟨B⊗n, g·B⊗n⟩_join = 2n  for ALL g ∈ WH(2)ⁿ
-    
+
     The remaining condition is the REPRESENTATION: find an embedding
     into ℂ^(2ⁿ) such that:
       |⟨F(B⊗n), F(g·B⊗n)⟩|² = 1/(2ⁿ+1)  for all g ≠ identity
-    
+
     This representation problem IS the Zauner conjecture. -/
 theorem ax_equi_representation_is_zauner (n : ℕ) [NeZero (2 ^ n)] :
     HilbertEmbeddingExists n ↔ ZaunerConjectureAtPow2 n :=

@@ -133,7 +133,7 @@ second time derivative of the quadrupole moment radiates.
 
 inductive MultipoleRadiation where
   | monopole   -- forbidden by mass conservation
-  | dipole     -- forbidden by momentum conservation  
+  | dipole     -- forbidden by momentum conservation
   | quadrupole -- first allowed (and dominant)
   | octupole   -- higher-order corrections
   deriving Inhabited, Repr, DecidableEq
@@ -306,38 +306,38 @@ Gravitational Waves as a type:
 
   D = array (𐑼): Infinite-dimensional. The wave solution h_μν(x)
       is a function on spacetime with 2 independent polarization modes.
-      
+
   T = T_net (𐑡): Network topology. GWs propagate on the light cone.
       The TT gauge selects the radiation degrees of freedom.
-      
+
   R = ear (𐑽): Adjoint. Source (δ: I_ij → h_ij) and
       detector (μ: h_ij → ΔL) form an adjoint measurement chain.
-      
+
   P = nun (𐑯): Full symmetry. GWs respect the full Lorentz group
       and the 2 polarization states form a spin-2 representation.
-      
+
   F = age (𐑱): Classical. LIGO measures classical wave strains.
       The quantum nature of individual gravitons is inaccessible.
-      
+
   K = egg (𐑧): Slow. GW signals evolve on orbital timescales.
       The inspiral is adiabatic (radiation reaction is slow).
-      
+
   G = ice (𐑲): Universal. GWs couple to everything with
       energy-momentum. They cannot be screened.
-      
+
   Gm = measure (𐑠): Sequential. The chirp: inspiral → merger →
       ringdown is a strict temporal sequence.
-      
+
   Phi = monad (⊙): Critical. GW150914 reached peak luminosity
       exceeding the electromagnetic output of the observable universe.
       The merger is a genuine critical phenomenon.
-      
+
   H = sure (𐑖): Markov-2. The wave equation is second-order in time.
       Initial data: h_ij and ∂_t h_ij on a null hypersurface.
-      
+
   S = up (𐑳): Heterogeneous. Source types: BBH, BNS, NSBH,
       continuous waves (pulsars), stochastic background, bursts.
-      
+
   Omega = ah (𐑭): Integer winding. The GW phase Φ(t) wraps
       N cycles during the inspiral. The total accumulated phase is
       a topological invariant of the orbit.

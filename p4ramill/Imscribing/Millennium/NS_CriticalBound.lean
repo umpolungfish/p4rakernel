@@ -57,7 +57,7 @@ For divergence-free NS initial data, F = id (the restriction).
 -/
 
 /-- The critical Sobolev space H^{1/2}(ℝ³) for 3D Navier-Stokes.
-    Scale-invariant: ‖u_λ‖_{H^{1/2}} = ‖u‖_{H^{1/2}} under u_λ(t,x) = λu(λ²t, λx). -/
+    Scale-invariant: ‖u_λ‖_{H^{1/2}} = ‖u‖_{H^{1/2}} under u_λ(t,x) = λu(fun²t, λx). -/
 axiom CriticalSobolevSpace : Type
 
 /-- The H^{1/2} inner product. -/
@@ -100,7 +100,7 @@ theorem frobenius_bilinear_symm (u v : CriticalSobolevSpace) :
 
 /-- B_F is positive definite: B_F(u,u) = ‖u‖²_{H^{1/2}}. -/
 axiom frobenius_bilinear_sq (u : CriticalSobolevSpace) :
-    frobenius_bilinear u u = (h12_norm u) ^ 2 
+    frobenius_bilinear u u = (h12_norm u) ^ 2
 
 
 /-- The Frobenius critical manifold: the subspace of H^{1/2} where F acts as identity.

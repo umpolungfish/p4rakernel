@@ -85,7 +85,7 @@ structure SmoothProjectiveVariety where
   /-- Hard Lefschetz: L^{d-i}: H^i → H^{2d-i} is an isomorphism
       for 0 ≤ i ≤ d. Proved over ℂ (Hodge theory); conjectured
       in general (part of Standard Conjecture B). -/
-  hardLefschetz : ∀ (i : ℕ), i ≤ dim → 
+  hardLefschetz : ∀ (i : ℕ), i ≤ dim →
     -- L^{dim-i}: H^i(X) → H^{2·dim-i}(X) is an isomorphism
     True  -- PLACEHOLDER: would be (L^{dim-i}) is isomorphism
   /-- Poincaré duality: H^i × H^{2d-i} → k is a perfect pairing. -/
@@ -93,7 +93,7 @@ structure SmoothProjectiveVariety where
 
 /-- An algebraic cycle on X of codimension i: a formal ℤ-linear
     combination of closed subvarieties of codimension i.
-    
+
     The Chow group CH^i(X) is the group of algebraic cycles modulo
     rational equivalence. For our purposes, we define algebraic
     cycles as a type with appropriate operations. -/
@@ -133,7 +133,7 @@ is induced by an algebraic cycle on X × X with ℚ-coefficients.
 This is equivalent to: the Künneth components of the diagonal
 Δ ⊂ X × X are algebraic cycles.
 
-**Why it matters**: 
+**Why it matters**:
   - A ⇒ B (Lefschetz ⇒ Hodge standard conjecture)
   - A + D ⇒ the category of numerical motives is semisimple
   - A is the "hardest" of the standard conjectures
@@ -153,15 +153,15 @@ def GrothendieckAConjecture (k : Type) : Prop :=
 
 /-- The Lefschetz (1,1) theorem: For a smooth projective variety
     over ℂ, every Hodge class of type (1,1) is algebraic.
-    
+
     This is a PROVED theorem (Lefschetz, 1924). It is a special
     case of the Hodge conjecture for (1,1) classes.
-    
+
     For our grammar: lefschetz_1_1_theorem is the TARGET that
     Grothendieck A reduces to after 3 promotions. -/
 axiom lefschetz_1_1_theorem (X : SmoothProjectiveVariety) :
     True
-  
+
 -- ============================================================
 -- §2  GRAMMAR VESSELS
 -- ============================================================
@@ -264,7 +264,7 @@ theorem nine_primitives_identical :
 
 /-- Grammar distance to lefschetz_1_1_theorem:
     √(1.0² + 1.0² + 0.1089) = √2.1089 ≈ 1.4522.
-    
+
     The weights:
     - Ř (adjoint→lateral): weight 1.0
     - Φ (partial→full symmetry): weight 1.0
@@ -296,7 +296,7 @@ theorem grammar_distance_1_4522 : True := by
   is an isomorphism for 0 ≤ k ≤ d. Over ℂ, this is proved
   using Hodge theory and the Kähler package. Over arbitrary
   fields, this is part of the standard conjectures.
-  
+
   The Ř-promotion is the categorical recognition that the adjunction
   L ⊣ Λ lifts to a full Galois correspondence when Hard Lefschetz
   holds. This correspondence identifies primitive classes as those
@@ -333,7 +333,7 @@ theorem r_promotion_galois_connection : True := by
   (a) Hard Lefschetz: L^k is an isomorphism for all relevant degrees
   (b) Hodge-Riemann bilinear relations: the pairing on primitive
       classes is positive-definite (over ℝ)
-  
+
   Over ℂ, (a) and (b) are proved. Over arbitrary fields, (a) and (b)
   are Standard Conjectures A and B. The Φ-promotion IS the
   completeness of the primitive decomposition.
@@ -371,7 +371,7 @@ theorem p_promotion_full_decomposition : True := by
       Hermitian form: Q(Cx, ȳ) > 0 for x ≠ 0
   (b) This definite form is the "complex-plane" extension of
       the real Hard Lefschetz pairing
-  
+
   The φ̂-promotion is the grammar encoding of the Hodge-Riemann
   relations as a complex-plane analytic continuation of the
   critical coupling in the Lefschetz fixed-point structure.
@@ -463,16 +463,16 @@ axiom grothendieck_A_surfaces (X : SmoothProjectiveVariety) (h : X.dim = 2) :
 
 5. **Algebraicity of Λ** (the conjecture itself):
    Show that Λ is the action of an algebraic cycle γ on X × X.
-   
+
    For the Künneth components π^{i,j} of the diagonal Δ:
    Δ = Σ_{i+j=2d} π^{i,j} in H^{2d}(X × X)
    where π^{i,j} ∈ H^i(X) ⊗ H^j(X).
-   
+
    Conjecture A is equivalent to: all π^{i,j} are algebraic cycles.
 
 6. **The gap**: The algebraicity of the Künneth components of the
    diagonal is not known for general varieties.
-   
+
    - For abelian varieties: uses the group structure (Lieberman)
    - For curves and surfaces: low dimension makes it automatic
    - For general varieties: this IS the conjecture
@@ -487,7 +487,7 @@ axiom grothendieck_A_surfaces (X : SmoothProjectiveVariety) (h : X.dim = 2) :
    - Ř (Galois): L ⊣ Λ → full Lefschetz decomposition (Hard Lefschetz)
    - Φ (symmetry): partial → complete primitive decomposition
    - φ̂ (complex-plane): real → complex Hodge-Riemann relations
-   
+
    Each promotion addresses one of the three interlocked aspects
    of the conjecture. They cannot be separated: proving one without
    the others is impossible.

@@ -163,7 +163,7 @@ noncomputable def comult (f : GroupAlgebraZ7) : GroupAlgebraZ7 ⊗[ℝ] GroupAlg
     μ∘δ = 7·id.
     For any basis element e_g:
       μ(δ(e_g)) = μ(Σ_h e_h ⊗ e_{g-h}) = Σ_h e_{h+g-h} = Σ_h e_g = 7·e_g.
-    
+
     This is the standard group algebra factor. The six-coefficient algebra
     normalizes this to μ∘δ = id by scaling δ → δ/7.
     Both are valid Frobenius algebras; the factor |G| = 7 is the

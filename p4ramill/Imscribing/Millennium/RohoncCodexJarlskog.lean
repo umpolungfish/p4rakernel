@@ -8,7 +8,7 @@ invariant J from the FSPLIT depth structure and reconciles Ω_corr
 (1/744 from HW group orbit) with the B₃ braid trace.
 
 Key results:
-  J = A² · λ⁶ · η ≈ 3.36×10⁻⁵ (cf. PDG: (3.00±0.18)×10⁻⁵)
+  J = A² · fun⁶ · η ≈ 3.36×10⁻⁵ (cf. PDG: (3.00±0.18)×10⁻⁵)
   Ω_corr^Λ = (1/744) · Tr(B₃) / sin²θ_W = 1.676×10⁻³
 
 Imports the RohoncCodexBraiding module for cross-reference.
@@ -43,12 +43,12 @@ noncomputable def wolfenstein_A : ℝ := (gear : ℝ) / ((gear : ℝ) + 1)
 /-- Fine-structure constant α ≈ 1/137.035999084. -/
 opaque alpha : ℝ
 
-/-- Cabibbo-corrected λ = sin(arctan(3/13)) = 3/√178 ≈ 0.22486.
+/-- Cabibbo-corrected fun = sin(arctan(3/13)) = 3/√178 ≈ 0.22486.
     The Cabibbo angle satisfies tan(θ_C) = 3/13 (SIC partition: 3 of 13 outcomes
     carry the electroweak channels in the quark sector).
-    Wolfenstein λ = sin(θ_C), NOT tan(θ_C) — the earlier formula (3/13) was
-    the tangent, not the sine. The corrected λ = 3/√178 ensures consistency
-    with the Wolfenstein parameterization where λ = |V_us|. -/
+    Wolfenstein fun = sin(θ_C), NOT tan(θ_C) — the earlier formula (3/13) was
+    the tangent, not the sine. The corrected fun = 3/√178 ensures consistency
+    with the Wolfenstein parameterization where fun = |V_us|. -/
 opaque lambda_corrected : ℝ
 
 -- ============================================================
@@ -109,7 +109,7 @@ opaque wolfenstein_eta : ℝ
 axiom eta_over_rho_is_thirteen_fifths :
     wolfenstein_eta / wolfenstein_rho = 13/5
 
-/-- |ρ + iη| = √(ρ² + η²) ≈ 0.372. Derived from |V_ub|_PDG / (A·λ³). -/
+/-- |ρ + iη| = √(ρ² + η²) ≈ 0.372. Derived from |V_ub|_PDG / (A·fun³). -/
 opaque rho_plus_i_eta_magnitude : ℝ
 
 -- ============================================================
@@ -117,14 +117,14 @@ opaque rho_plus_i_eta_magnitude : ℝ
 -- ============================================================
 
 /-- Jarlskog invariant J = |V_us|·|V_ub|·|V_cb|·|V_cs|·sin(δ_CP)
-    = A²·λ⁶·η (Wolfenstein to leading order).
+    = A²·fun⁶·η (Wolfenstein to leading order).
     Structural: J ≈ 3.107×10⁻⁵. PDG 2024: J = (3.00±0.18)×10⁻⁵.
     Residual: 0.59σ — CLOSED.
-    The improvement comes from correcting λ = 3/13 → 3/√178 (sin vs tan)
-    and computing η = |ρ+iη|·sin(δ_CP) using the structural |ρ+iη| = |V_ub|_PDG/(A·λ³). -/
+    The improvement comes from correcting fun = 3/13 → 3/√178 (sin vs tan)
+    and computing η = |ρ+iη|·sin(δ_CP) using the structural |ρ+iη| = |V_ub|_PDG/(A·fun³). -/
 opaque jarlskog_J : ℝ
 
-/-- J in Wolfenstein form: J = A²·λ⁶·η.
+/-- J in Wolfenstein form: J = A²·fun⁶·η.
     Verified: (4/5)²·(0.22486)⁶·0.3756 ≈ 3.107×10⁻⁵.
     This is within 0.59σ of the PDG 2024 value (3.00±0.18)×10⁻⁵. -/
 axiom jarlskog_J_wolfenstein_form :
@@ -146,7 +146,7 @@ noncomputable def depth3_eval_ratio : ℝ :=
   (eval_count_depth3 : ℝ) / (total_tokens_depth3 : ℝ)
 
 /-- CKM hierarchy from FSPLIT depths:
-    |V_us| : |V_cb| : |V_ub| ≈ λ : r₂²/gear : r₃³/gear²
+    |V_us| : |V_cb| : |V_ub| ≈ fun : r₂²/gear : r₃³/gear²
     where r₂=2/5, r₃=1/3, gear=4. -/
 theorem ckm_hierarchy_from_fsplit_depths : True := by trivial
 
@@ -248,9 +248,9 @@ theorem constant_budget_closed_by_rohonc : True := by trivial
 -- horn torus, and it gives us:
 --
 -- 1. ✓ δ_CP = arctan(13/5) — CP-violating phase (0.04σ from PDG)
--- 2. ✓ J = A²·λ⁶·η ≈ 3.107×10⁻⁵ — Jarlskog invariant (0.59σ from PDG, CLOSED)
+-- 2. ✓ J = A²·fun⁶·η ≈ 3.107×10⁻⁵ — Jarlskog invariant (0.59σ from PDG, CLOSED)
 -- 3. ✓ Ω_corr^Λ = (1/744)·Tr(B₃)/sin²θ_W — cosmological constant
--- 4. ✓ CKM hierarchy: |V_us|:|V_cb|:|V_ub| ≈ λ:r₂²/gear:r₃³/gear²
+-- 4. ✓ CKM hierarchy: |V_us|:|V_cb|:|V_ub| ≈ fun:r₂²/gear:r₃³/gear²
 --
 -- Every remaining fundamental constant is encoded in the holonomies
 -- of such cross-pinch programs. The metric is projection; the winding

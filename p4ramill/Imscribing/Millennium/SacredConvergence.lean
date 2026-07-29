@@ -254,27 +254,27 @@ theorem bod_laozi_closer_than_void_tao :
 
 /-- SACRED CONVERGENCE: The Egyptian and Taoist sacred technologies form
     a convergent lattice, not a dual mirror pair.
-    
+
     Key facts (all machine-verified by `native_decide`):
-    
+
     1. CEILING CONVERGENCE: d(join(Void,Tao), join(BoD,Laozi)) = 3
        Both paths aim at the same summit -- critical, topologically protected,
        holographic, quantum-coherent, eternal chirality, integer winding.
        The joins differ only on P, Gamma, and Phi.
-    
+
     2. FLOOR DIVERGENCE: d(meet(Void,Tao), meet(BoD,Laozi)) = 6
        The shared kernels are structurally remote -- different starting points.
-    
+
     3. CEILING < FLOOR: 3 < 6. The paths converge upward, not downward.
        This is the signature of convergent ascent routes, not dual mirrors.
-    
+
     4. ALL FOUR NODES O2: The summit is NOT O_inf -- it is attainable.
-    
+
     5. EQUAL HAMMING PATHS: Both paths require 4 primitive changes.
        But weighted Mahalanobis: 2.552 (Egyptian) < 2.919 (Taoist).
        Egypt ascends from a lower starting point; Taoism begins higher.
        Different routes, same mountain.
-    
+
     The convergence is NOT pre-programmed. All four nodes were independently
     imscribed -- one from an empty prompt, three from textual content. The
     joins and meets are computed pointwise from the lattice algebra. Any

@@ -491,7 +491,7 @@ theorem defaultPropositionNonempty :
 /-- The Frobenius closure result is consistent: if all forward checks pass,
     reverse soundness holds, and no extra reverse primitives are found,
     the result reports closure.
-    
+
     Note: The hypothesis requires THREE fields (forwardComplete, reverseSound, roundTripStable)
     because closure is defined as the conjunction of all three. This is not circular — it is a
     consistency theorem that the definition of closure matches its components. -/

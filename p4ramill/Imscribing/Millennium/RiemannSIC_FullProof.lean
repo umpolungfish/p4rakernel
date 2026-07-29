@@ -449,10 +449,10 @@ through THREE convergent pathways, each kernel-certified (μ∘δ=id):
 
   [CLICK]    riemannZeta ⋈ sicProven → hilbertPolyaHamiltonian
              (fusion on Ř↔Σ, kernel-certified μ∘δ=id)
-  
+
   [CYCLE]    hilbertPolyaHamiltonian ⟳ riemannZeta → riemannSIC_catalytic_product
              (catalytic winding quantum transfer Ω: ℤ₂→ℤ, μ∘δ=id on catalyst)
-  
+
   [SET]      hilbertPolyaHamiltonian* —hν→ riemannZeta_reduced
              (photoinduced electron transfer, ⊙: 𐑮→𐑻, Ω conserved)
 

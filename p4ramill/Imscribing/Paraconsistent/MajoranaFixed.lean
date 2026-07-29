@@ -54,7 +54,7 @@ theorem sic_fixed_point (x : Belnap) :
 -- ═══════════════════════════════════════════════════════════════════
 
 /-- The three fixed points share the Frobenius structure μ∘δ = id.
-    
+
     For Belnap:  μ = band, δ(x) = (x, bnot x), fixed point = B
     For SIC:     μ = meet, δ(x) = (x, x),        fixed point = B (∀x, meet B x = x)
     For Majorana: μ = pair, δ = depair,           fixed point = paired

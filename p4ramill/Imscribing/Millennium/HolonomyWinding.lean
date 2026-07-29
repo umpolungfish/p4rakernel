@@ -147,7 +147,7 @@ theorem b3_squared_equals_b6 : invRelabel ((relabel 3 + relabel 3) % 7) = 6 := b
     element (index 3, value 4) yields the winding basis element
     (index 6, value 2π). This is the algebraic content of the
     holonomy winding theorem: Dimensionality² = Winding.
-    
+
     The algebra product is abstract (not numerical multiplication).
     The numerical values arise from the Frobenius counit ε:
     ε(b₃) = 4, ε(b₆) = 2π, but ε(b₃·b₃) ≠ ε(b₃)·ε(b₃). -/
@@ -181,7 +181,7 @@ theorem both_at_criticality :
 /- The integer winding number n ∈ ℤ is the degree of the
     holonomy map Hol∘γ: S¹ → U(1) ≅ S¹. This is captured
     structurally by Ω = ah (ℤ protection).
-    
+
     In the grammar, ℤ-valued topological invariants are
     the signature of Ω = ah. The ♢μ theorem IS this signature. -/
 

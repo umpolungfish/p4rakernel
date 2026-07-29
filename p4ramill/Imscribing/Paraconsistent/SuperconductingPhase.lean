@@ -143,7 +143,7 @@ theorem winding_maximal_iff_superconducting (sys : OrbitalSystem) :
     In the all-paired state, any perturbation that unpairs an orbital
     reduces the winding number, making it topologically distinguishable
     from the superconducting ground state.
-    
+
     Formally: if a state is not AllPaired, its winding number is
     strictly less than maximal. -/
 theorem topological_Meissner (sys : OrbitalSystem) (h : ¬ AllPaired sys) :

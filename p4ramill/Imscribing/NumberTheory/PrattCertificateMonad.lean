@@ -41,12 +41,12 @@ axiom pratt_theorem (p : ℕ) (hp : Nat.Prime p) : Nonempty (PrattCertificate p)
 
 def listMax : List ℕ → ℕ
   | [] => 0
-  | x :: xs => List.foldl (λ a b => max a b) x xs
+  | x :: xs => List.foldl (fun a b => max a b) x xs
 
 def PrattTree.depth {p : ℕ} : PrattTree p → ℕ
   | .leaf => 1
-  | .node _ _ _ factors _ _ children => 
-    1 + listMax ((factors.attach).map (λ ⟨r, hr⟩ => (children r hr).depth))
+  | .node _ _ _ factors _ _ children =>
+    1 + listMax ((factors.attach).map (fun ⟨r, hr⟩ => (children r hr).depth))
 
 -- ============================================================
 -- §3. CLASS HIERARCHY
@@ -116,12 +116,12 @@ theorem catalog_ob3ect_agree_on_core :
 -- §5. TIER THEOREMS
 -- ============================================================
 
-theorem prattCertificateMonad_tier : 
+theorem prattCertificateMonad_tier :
     imscriptionTier prattCertificateMonad_imscription = .O₂dag := by
   unfold imscriptionTier prattCertificateMonad_imscription
   decide
 
-theorem prattCertificateMonad_ob3ect_tier : 
+theorem prattCertificateMonad_ob3ect_tier :
     imscriptionTier prattCertificateMonad_ob3ect_imscription = .O₂ := by
   unfold imscriptionTier prattCertificateMonad_ob3ect_imscription
   decide

@@ -46,7 +46,7 @@ namespace Millennium.BSDCompleteWitness-- ======================================
 
 /-- The resolved BSD tuple:
     ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
-    
+
     Each primitive is structurally grounded:
     - if' (𐑦): Modularity Theorem — elliptic curve (bulk) ↔ modular form (boundary)
     - are (𐑸): Self-referential closure — L-function determines rank determines L-function
@@ -146,11 +146,11 @@ theorem bsd_axiom_B : bsdResolved.prot = .ah → bsdResolved.chir ≥ .sure := b
 /-- AXIOM D: THE RESOLUTION GATE.
     holographic_closure_forces_frobenius:
     if' + are + ah → or'.
-    
+
     This is the central claim. With if' (modularity),
     are (self-referential closure of L-fn ↔ Mordell-Weil), and
     ah (integer rank), the Frobenius condition or' is FORCED.
-    
+
     The Frobenius identity μ∘δ=id at s=1 IS the BSD rank equality:
     rank E(ℚ) = ord_{s=1} L(E,s). -/
 theorem bsd_axiom_D_forces_frobenius :

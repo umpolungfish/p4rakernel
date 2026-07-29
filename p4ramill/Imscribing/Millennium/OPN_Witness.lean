@@ -23,18 +23,18 @@ theorem euler_structure (N : ℕ) (_h_perfect : True) (_h_odd : ¬ 2 ∣ N) : Tr
     The type of OPN is:
       ⟨dead, eat, ado, church, age, on,
        ice, vow, monad, fee, hung, awe⟩ → O₁
-    
+
     KEY FEATURES:
     · on (kinetic trapping): the constraint system σ(N) = 2N with
       Euler's structure theorem is overdetermined
     · monad (exact criticality): σ(N)/N = 2 exactly
     · ice (number-theoretic precision): integer-valued constraints
-    
+
     THE CONTRADICTION: on + monad forces the system to be frozen
     at a critical point that cannot be realized by any integer.
     The 2-adic valuation approach shows v₂(σ(N)) ≠ v₂(2N) for all
     odd N satisfying Euler's form.
-    
+
     HONEST GAP: The rigorous 2-adic valuation computation. -/
 axiom opn_nonexistence_proved : OPNConjecture
 
