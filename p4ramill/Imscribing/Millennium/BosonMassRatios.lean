@@ -172,7 +172,8 @@ theorem mass_difference_symbolic_cancellation :
 theorem Z_over_W_ratio_structural :
     Z_over_proton_rat_approx / W_over_proton_rat_approx * cos_theta_W_rat_approx = 1 := by
   unfold Z_over_proton_rat_approx
-  field_simp [cos_theta_W_nonzero]
+  have hW : W_over_proton_rat_approx ≠ 0 := by linarith [W_mass_ratio_lower_bound]
+  field_simp [cos_theta_W_nonzero, hW]
 
 -- ============================================================
 -- §5. THE BOSON-FERMION DIVIDE
