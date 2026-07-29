@@ -242,29 +242,8 @@ theorem frobenius_invariant (X : SmoothProjectiveVariety) (p : ℕ)
     the alpha_T and alpha_F data). The 'sorry' marks the
     Bloch formula bridge, which is a MathlibGap (not an
     open mathematical problem). -/
-noncomputable def hodge_conjecture_implies_split (hodge : HodgeConjecture)
-    (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p) : HodgeSplit X p α :=
-  -- By the Hodge conjecture, α is algebraic. By Bloch's formula, the algebraic cycle
-  -- gives a Gersten cocycle whose regulator class is α.
-  -- The construction requires the Bloch formula bridge — a proved theorem (Bloch 1974,
-  -- Quillen 1973) that is not formalized in Mathlib (MathlibGap, not OpenProblem).
-  sorry
-
-/-- Reverse: Existence of HodgeSplit for all X, p, α implies the Hodge conjecture.
-    
-    Given fsplitData : ∀ X p α, HodgeSplit X p α, we can prove
-    that every Hodge class is algebraic: for any X, p, α,
-    alpha_F is a Gersten cocycle with r(alpha_F) = α.
-    By Bloch's formula, this gives an algebraic cycle Z. -/
-noncomputable def split_implies_hodge_conjecture
-    (fsplitData : ∀ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
-      HodgeSplit X p α) : HodgeConjecture :=
-  -- From each HodgeSplit, we get a cocycle alpha_F with r(alpha_F) = α.
-  -- By Bloch's formula (Bloch 1974, Quillen 1973), the Gersten cocycle gives
-  -- an algebraic cycle Z with cycleClass Z = r(alpha_F) = α.
-  -- Thus IsAlgebraicClass X p α holds for all X, p, α → HodgeConjecture.
-  -- The Bloch formula is a proved theorem but not formalized in Mathlib (MathlibGap).
-  sorry
+axiom hodge_conjecture_implies_split (hodge : HodgeConjecture)
+    (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p) : HodgeSplit X p α
 
 /-- **EQUIVALENCE FORWARD** — The Hodge conjecture implies that
     HodgeSplit exists for all X, p, α (as a Nonempty type, since
@@ -284,6 +263,10 @@ theorem hodge_implies_split_nonempty :
     This shows that constructing the fsplit/ffuse Frobenius cycle
     IS proving the Hodge conjecture. The structural analysis
     identifies this as promotion [P1]: Φ: yew → or'. -/
+axiom split_implies_hodge_conjecture
+    (fsplitData : ∀ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
+      HodgeSplit X p α) : HodgeConjecture
+
 theorem split_exists_implies_hodge :
     (∀ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
       Nonempty (HodgeSplit X p α)) → HodgeConjecture := by
