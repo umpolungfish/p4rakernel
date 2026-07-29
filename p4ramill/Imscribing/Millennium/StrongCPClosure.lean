@@ -36,10 +36,10 @@ namespace Imscribing.Millennium.StrongCPClosure
 def forward_bus_phase_ratio : Rat := (13 : Rat) / 5
 
 /-- The reverse bus phase at AREV -> TANCH.
-    theta_rev = pi - arctan(13/5). 
+    theta_rev = pi - arctan(13/5).
     On the horn torus, forward and reverse cover a half-torus:
     theta_fwd + theta_rev = pi.
-    
+
     The CP phase delta_CP = theta_fwd is the CKM phase.
     The strong CP angle theta_bar = theta_fwd - (pi - theta_rev) = 0
     because theta_rev = pi - theta_fwd exactly. -/
@@ -58,23 +58,23 @@ theorem theta_bar_is_zero_topologically : forward_bus_phase_ratio + reverse_bus_
 -- ============================================================================
 
 /-- The axion mass m_a is given by m_a^2 = chi / f_a^2.
-    
+
     chi (topological susceptibility of the gluon field):
     chi = (75 MeV)^4 ~ 3.16e7 MeV^4 (standard QCD result at T=0).
-    
+
     f_a (axion decay constant) on the horn torus:
     f_a = M_Pl / xi = M_Pl / (1/12) = 12 M_Pl.
-    
+
     m_a = sqrt(chi) / f_a = (75 MeV)^2 / (12 M_Pl)
         = 5625 MeV^2 / (12 * 2.435e27 eV)
         = 5625 / (12 * 2.435e21) eV
         ~ 1.93e-19 eV.
-    
+
     But this is for the standard QCD axion. On the horn torus,
     the scale is set by the CKM phase structure: the axion acquires
     its mass from the Peccei-Quinn symmetry breaking at the torus
     scale ~ 10^12 GeV, giving m_a ~ 2.3e-10 eV.
-    
+
     We encode the structural prediction:
     m_a = (3/13) * (M_Pl / xi) * (Lambda_QCD / M_Pl)^2
     where 3/13 is the lambda parameter, M_Pl/xi = 12 M_Pl, and
@@ -100,13 +100,13 @@ theorem axion_vev_vanishes : (0 : Rat) = 0 := rfl
 -- ============================================================================
 
 /-- The strong CP problem is structurally closed by the horn torus topology:
-    
+
     1. theta_bar = 0 because forward and reverse bus phases cancel at AREV
        (from the Frobenius identity mu circ delta = id).
     2. The axion emerges as the phase of the topological density operator.
     3. f_a = M_Pl/xi with xi = 1/12 (the non-minimal coupling).
     4. m_a = sqrt(chi)/f_a with chi from the torus winding susceptibility.
-    
+
     No new physics beyond the horn torus geometry is required. -/
 theorem strong_cp_is_closed_topologically : True := by trivial
 

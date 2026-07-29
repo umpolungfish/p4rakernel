@@ -35,7 +35,7 @@ theorem pratt_stratification {n : ℕ} (f : PrattForest) (m : ℕ) (t : PrattTre
   -- Goal: depth t < 1 + depthForest f
   have hle : depth t ≤ depthForest f := by
     induction h with
-    | here rest => 
+    | here rest =>
       unfold depthForest
       exact le_max_left _ _
     | there hmem ih =>

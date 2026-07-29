@@ -2,7 +2,7 @@
   ManuscriptSpine Questions — Extended Formalization
   ==================================================
   Source: look.txt (79 questions; Questions.lean covers sections 1-5)
-  
+
   Author: Lando⊗⊙perator
   Date: 2026
 -/
@@ -319,7 +319,7 @@ theorem riemann_hypothesis : True := by
 
 def collatz_seq (n : ℕ) : ℕ → ℕ
   | 0 => n
-  | i + 1 => 
+  | i + 1 =>
     let prev := collatz_seq n i
     if prev = 1 then 1
     else if prev % 2 = 0 then prev / 2
@@ -383,7 +383,7 @@ theorem beal_conjecture : True := by
 
 /-
   Questions formalized in this module (from look.txt):
-  
+
   Additive Combinatorics: q241, q963, q306
   Ramsey Theory: q1, q604, q1207
   Analytic Number Theory: q826, q217
@@ -398,9 +398,9 @@ theorem beal_conjecture : True := by
   Logic: q876, q881, q1002, q1003, q1005, q995, q1108, q959, q893
   Geometry: q1068, q1093, q1151
   Additional NT: q329, q510
-  
+
   Total: 45+ theorems/definitions
-  
+
   Witnesses: mathematical_proof, formal_mathematics, the_alphabet,
     steganographia_trithemius, cell_wall_biosynthesis, resolved_riemann_hypothesis
 -/

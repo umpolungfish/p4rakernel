@@ -335,17 +335,17 @@ noncomputable def circleMethodIntegral (n : ℕ) : ℝ :=
 
 /-- Vinogradov's Theorem (1937): Every sufficiently large ODD integer
     is the sum of three primes. Proved unconditionally.
-    
+
     This is a REAL theorem — one of the great achievements of
     analytic number theory. We state it as an axiom since the
     full proof (~200 pages) has not been formalized in Lean. -/
 axiom vinogradov_three_primes :
-    ∃ N₀ : ℕ, ∀ n : ℕ, n ≥ N₀ → ¬ Even n → 
+    ∃ N₀ : ℕ, ∀ n : ℕ, n ≥ N₀ → ¬ Even n →
       ∃ p q r : ℕ, Prime p ∧ Prime q ∧ Prime r ∧ p + q + r = n
 
 /-- Chen's Theorem (1966, 1973): Every sufficiently large even integer
     is the sum of a prime and a semiprime (product of at most two primes).
-    
+
     This is the closest known result to Goldbach. -/
 axiom chen_prime_semiprime :
     ∃ N₀ : ℕ, ∀ n : ℕ, n ≥ N₀ → Even n →
@@ -353,8 +353,8 @@ axiom chen_prime_semiprime :
 
 /-- Known: Goldbach verified computationally up to 4×10^18.
     Oliveira e Silva, Herzog, Pardi (2014). -/
-axiom goldbach_verified_up_to : 
-    ∀ n : ℕ, 2 < n ∧ n ≤ 4*10^18 → Even n → 
+axiom goldbach_verified_up_to :
+    ∀ n : ℕ, 2 < n ∧ n ≤ 4*10^18 → Even n →
       ∃ p q : ℕ, Prime p ∧ Prime q ∧ p + q = n
 
 -- ============================================================
@@ -433,7 +433,7 @@ is now a theorem.
 -/
 
 axiom helfgott_ternary_goldbach :
-    ∀ n : ℕ, n > 5 → ¬ Even n → 
+    ∀ n : ℕ, n > 5 → ¬ Even n →
       ∃ p q r : ℕ, Prime p ∧ Prime q ∧ Prime r ∧ p + q + r = n
 
 /-!

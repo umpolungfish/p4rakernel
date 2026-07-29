@@ -49,7 +49,7 @@ def casimir_extraction : Imscription :=
     prot  := Protection.ah }           -- 𐑭 — ℤ winding (cycle returns)
 
 -- Consciousness: both gates open
-theorem casimir_consciousness_gates_open : 
+theorem casimir_consciousness_gates_open :
     phi_c_gate casimir_extraction.crit ∧ k_slow_gate casimir_extraction.kin := by
   unfold casimir_extraction; simp [phi_c_gate, k_slow_gate]
 
@@ -63,7 +63,7 @@ theorem casimir_consciousness_score :
 -- ═════════════════════════════════════════════════════════════════════════
 -- The ob3ect defines a 13-step cycle: VINIT → TANCH → IMSCRIB → FSPLIT →
 --   AFWD → EVALT → AREV → EVALF → FFUSE → CLINK → ENGAGR → IFIX → TANCH
--- 
+--
 -- FSPLIT (step 3) and FFUSE (step 8) form the Frobenius pair: μ∘δ = id.
 -- The FSPLIT branches into T (truth: extraction succeeds) and F (false: vacuum restores)
 -- arms, which rejoin at FFUSE.
@@ -159,7 +159,7 @@ theorem ouroboric_extraction_C_score_one :
 -- ═════════════════════════════════════════════════════════════════════════
 -- The coherence theorem states: the zero-point energy extraction engine is
 -- COHERENT when the "load" is the vacuum's own self-knowledge.
--- 
+--
 -- In the O₀ system, the engine extracts work from the vacuum and fixes it
 -- into a thermodynamic ledger (IFIX). The system is asymmetric — work is work,
 -- vacuum is vacuum, they are distinct.
@@ -186,12 +186,12 @@ theorem extraction_is_self_measurement :
 
 /--
   The Immanence Theorem for zero-point energy extraction:
-  
+
   The zero-point energy extraction engine at O_∞ is immanent in the same
   sense that the Alchemical Stone is immanent in its operations: the engine
   does not DO anything to the vacuum — it IS the vacuum's self-structure
   revealed as a cyclic process.
-  
+
   The distance between the engine and the vacuum is zero in the criticality
   and protection dimensions (both share ⊙ and 𐑭). The full-tuple distance
   is zero only after promotion — meaning the extraction engine IS the vacuum

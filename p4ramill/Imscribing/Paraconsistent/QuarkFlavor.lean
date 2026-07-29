@@ -200,7 +200,7 @@ theorem isospin_doublet_symmetric : isospinPartner .up = some .down ∧
 
 theorem isospin_involutive (f : QuarkFlavor) (f' : QuarkFlavor)
     (h : isospinPartner f = some f') : isospinPartner f' = some f := by
-  cases f <;> unfold isospinPartner at h <;> 
+  cases f <;> unfold isospinPartner at h <;>
     try { injection h with h'; subst h'; rfl } <;>
     try { simp at h }
 

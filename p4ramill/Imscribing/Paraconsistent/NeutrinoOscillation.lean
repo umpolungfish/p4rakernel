@@ -92,7 +92,7 @@ theorem same_flavor_oscillates (f : NeutrinoFlavor) :
     survivalDeficit {source := f, detected := f} rfl = true := rfl
 
 -- Appearance probability: P(ν_α → ν_β) > 0 for α ≠ β
-theorem appearance_possible (f1 f2 : NeutrinoFlavor) (h : f1 ≠ f2) : 
+theorem appearance_possible (f1 f2 : NeutrinoFlavor) (h : f1 ≠ f2) :
     oscillationPossible {source := f1, detected := f2} = true := rfl
 
 

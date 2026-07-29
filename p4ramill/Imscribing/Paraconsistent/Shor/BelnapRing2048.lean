@@ -371,7 +371,7 @@ theorem multilattice_polarization_frobenius (n : ℕ) :
 
 /-- MAIN THEOREM: The Belnap multilattice at n=11 (d=2048) is the
     complete discrete skeleton of the SIC-POVM in dimension 2048.
-    
+
     ALL structural SIC axioms are unconditionally satisfied:
     (1) Meet-identity: meet(B⊗^11, x) = x  (∀ x)
     (2) Classical equidistance: all 2048 T/F outcomes cost 11
@@ -383,14 +383,14 @@ theorem multilattice_polarization_frobenius (n : ℕ) :
     (8) Join-equiangularity: constant overlap = 22 for all g
     (9) O_∞ ouroboricity tier — self-modeling gate open
     (10) All claims proved by rfl, dec_trivial, or native_decide
-    
+
     The SINGLE open condition: the Zauner bridge — a genuine
     Weyl–Heisenberg SIC-POVM fiducial for ℂ^2048 under the standard
     WH(2048) action, i.e. `SICPOVM_Exists 2048`. That predicate, the
     character obstruction (§6), and the reduction of the shadow to
     exactly one ℂ fiducial are made precise downstream in
     `Imscribing/Millennium/Ring2048_Bridge.lean`.
-    
+
     ZERO axioms. ZERO sorries. -/
 theorem main_theorem_2048_ring :
     (∀ x : Fin dim2048_n → Belnap, wordMeet (allBWord dim2048_n) x = x) ∧

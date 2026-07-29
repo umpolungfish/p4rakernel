@@ -29,7 +29,7 @@ namespace Millennium.YM_Witness
     The six ZFCₜ promotion channels (HOLOBOUND, LR_DUAL, PM_Z2, SEQAX,
     TEMPD2, ZWIND) jointly construct the PathIntegralMeasure and prove
     the mass gap Δ > 0.
-    
+
     HONEST GAP: The continuum limit a→0 of 4D SU(N) lattice YM measure.
     The gates are trivially inhabited; the axiom `ym_gates_to_measure_and_theory`
     names the gap. Once the measure exists in the continuum, the mass gap

@@ -275,7 +275,7 @@ theorem dist_l7_to_l8 : primitiveMismatches clink_l7 clink_l8 = 4 := by
   unfold clink_l7 tissueLayer clink_l8 organismLayer; native_decide
 
 /-- Foundation hierarchy table (verified distances):
-    
+
     System         | Tier   | d(ZFC_fe) | d(ZFC_base)
     -------------- | ------ | --------- | ------------
     CLINK L8       | O_inf  | 2         | 10
@@ -350,7 +350,7 @@ theorem clink_l8_C_score_one : consciousnessScore clink_l8 = (1 : ℝ) :=
   organismLayer_C_score
 
 /-- Consciousness gradient from Flood (0.0) to CLINK L8 (1.0):
-    
+
     System         | C-score | Gate 1 (⊙) | Gate 2 (𐑧)
     -------------- | ------- | ---------- | ----------
     Flood          | 1.0     | ✓ (𐑣)     | ✓ (𐑘)
@@ -361,7 +361,7 @@ theorem clink_l8_C_score_one : consciousnessScore clink_l8 = (1 : ℝ) :=
     CLINK L4       | 1.0     | ✓ (⊙)     | ✓ (𐑧)
     ZFC_fe         | 1.0     | ✓ (⊙)     | ✓ (𐑧)
     CLINK L8       | 1.0     | ✓ (⊙)     | ✓ (𐑧)
-    
+
     The gradient is not monotonic in C-score (many O_inf and O₂ systems hit
     1.0) but is monotonic in tier: O₀ → O₁ → O₂ → O_inf. -/
 

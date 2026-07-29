@@ -236,10 +236,10 @@ theorem descent_base_p1 (n : ℕ) : DescentPredicate n 1 := by
   THE DESCENT CHAIN STRUCTURE (analogous to Solitary10):
     P(n, p) depends on: P(n-1, p-1) [hyperplane section, degree drops]
                         P(n, p-1) [same variety, lower degree]
-    
+
     Chain:  P(n, p) → P(n-1, p-1) → P(n-2, p-2) → ... → P(n-p+1, 1)
     Base:   P(d, 1) = true for all d (Lefschetz).
-    
+
     But the chain does NOT force P(n, p) because each step requires
     surjectivity of the cycle class map on the primitive part, which
     is exactly what's open.
@@ -311,7 +311,7 @@ theorem descent_step (n p : ℕ) (hp : 2 ≤ p) (hnp : p ≤ n) :
   --   • If p-j = 0: α_j algebraic by descent_base_p0 (trivial)
   -- Then L^j α_j is algebraic by lefschetzPreservesAlgebraicity (j times).
   -- The sum of algebraic classes is algebraic → α algebraic.
-  -- 
+  --
   -- The descent structure: hind : P(n-1, p-1) provides the induction
   -- through the hyperplane section Y (dim n-1). Each α_j corresponds
   -- via Hard Lefschetz to a class β_j ∈ H^{p-j,p-j}(Y). For j ≥ 1,
@@ -364,17 +364,17 @@ axiom hodgeRiemannPositivity (X : SmoothProjectiveVariety) (p : ℕ)
 /-- Griffiths (1969): There exists a smooth projective variety X, a degree p ≥ 2,
     and a nonzero primitive Hodge class α ∈ H^{p,p}_prim(X) that is NOT algebraic.
     This is the Griffiths group counterexample — a nontrivial element of Gr^p(X).
-    
+
     Specifically: a general quintic hypersurface X₅ ⊂ P⁴ has Gr²(X₅) ≠ 0
     (Griffiths 1969, Clemens 1983). The Ceresa cycle (X - X⁻) gives a nonzero
     element in the Griffiths group — a primitive (2,2)-class with Q(α,ᾱ) > 0
     (by Hodge-Riemann positivity) that is not algebraically equivalent to zero.
-    
+
     This axiom gives us the counterexample needed for positivity_does_not_imply_algebraicity:
     a primitive Hodge class with positive self-intersection that is NOT algebraic.
-    
+
     MathlibGap: not formalized in Mathlib, but the theorem is proved in mathematics. -/
-axiom griffiths_counterexample : 
+axiom griffiths_counterexample :
     ∃ (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p),
       2 ≤ p ∧ IsPrimitiveClass X p α ∧ α ≠ HodgeClass.zero X p ∧ ¬ IsAlgebraicClass X p α
 /-- The product bound lemma: the Hodge-Riemann form provides a positivity
@@ -383,7 +383,7 @@ axiom griffiths_counterexample :
 
     In Solitary10: the bound 5·32·332·41872·10939240 > 9·25·331·36631·7194483
     is a NUMERICAL inequality that provides a contradiction.
-    
+
     In Hodge: Q(α,ᾱ) > 0 is a GEOMETRIC inequality that constrains the
     Hodge structure but does not contradict anything — it provides a
     necessary condition that algebraic cycles satisfy, but the condition
@@ -472,11 +472,11 @@ theorem griffiths_nontrivial_exists :
 
 /-- The structural encoding of the Griffiths obstruction:
     tensor(cycle_class_map, griffiths_group) has crit = err.
-    
+
     This means: when you couple the cycle class map (the map whose
     surjectivity is in question) with its kernel (the Griffiths group),
     you get an exceptional point — a degeneracy where eigenstates coalesce.
-    
+
     In the grammar: err (exceptional point) is the criticality type
     of systems where the self-modeling loop is broken by degeneracy.
     Coupling a φ̂_ÿ system to an EP system produces φ̂_3 (the 𐑻 absorption rule).
@@ -502,7 +502,7 @@ theorem griffiths_is_structural_obstruction : True := by
     descent_32_45:   32·σ(z) = 45·z   → no solution (proved)
     descent_332_465: 332·σ(v) = 465·v → no solution (proved)
     descent_41872_51305: 41872·σ(s) = 51305·s → no solution (proved)
-  
+
   Each lemma follows the SAME pattern:
     1. Factor z = 2^e·t (t odd)
     2. e=0: contradiction via parity/gcd
@@ -550,7 +550,7 @@ theorem griffiths_is_structural_obstruction : True := by
       - Abelian varieties of dimension ≤ 3: YES (Mumford, Lefschetz).
       - General quintic in P^4: NO — Griffiths group Gr^2 ≠ 0 shows
         integral Hodge fails; rational case is OPEN.
-    
+
     In Solitary10 terms: this is like `descent_32_45` — the first nontrivial
     step after the easy case A. But unlike 32/45, which is provable by
     coefficient inequality, this step IS the conjecture. -/
@@ -622,11 +622,11 @@ theorem descent_p3 (n : ℕ) (hn : 3 ≤ n) :
 
     Structure of the would-be proof:
       H^{k,k}(X) = ⊕_{j=0}^k L^j H^{k-j,k-j}_prim(X)
-    
+
     For j ≥ 1: L^j H^{k-j,k-j}_prim = L(L^{j-1} H^{k-j,k-j}_prim).
       If H^{k-j,k-j}_prim(X) classes are algebraic (induction on degree),
       then L^{j-1} preserves algebraicity → these pieces are algebraic.
-    
+
     For j = 0: H^{k,k}_prim(X). Hard Lefschetz → H^{k,k}_prim(X) ≅ H^{k,k}(Y)
       for a hyperplane section Y (dim n-1). If P(n-1, k) holds, then
       H^{k,k}_prim(X) classes are algebraic. BUT P(n-1, k) is what we're
@@ -672,18 +672,18 @@ theorem descent_general (n k : ℕ) (hk : 2 ≤ k) (hkn : k ≤ n) :
   exact h_prim
 
 /-- The chain composes: P(n,k) follows from P(n-k+1, 1) + k-1 descent steps.
-    
+
     The descent chain:
       P(n-k+1, 1) → P(n-k+2, 2) → ... → P(n-1, k-1) → P(n, k)
-    
+
     Each step at level m (from degree m-1 to degree m, dimension increases by 1):
       P(n - k + m, m) → P(n - k + m + 1, m + 1)
-    
+
     The `hsteps` hypothesis provides each step explicitly. The composition is proved
     by induction on m from 1 to k — the descent ARCHITECTURE is sound; the open gap
     is in the individual steps (primitive Hodge class algebraicity), not in the
     chaining logic.
-    
+
     In Solitary10: the chain 31 → 331 → 36631 → 7194483 composes because each
     step IS provable (coefficient inequality). In Hodge: this lemma shows the
     composition WOULD close IF the steps were provable — isolating the honest

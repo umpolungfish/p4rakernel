@@ -140,9 +140,9 @@ def PressureField := ℝ≥0 → Space3 → ℝ
     For s = 0:   H^0 = L² — the energy space. ‖u‖_{L²}² = kinetic energy (up to ρ/2).
     For s = 1:   H^1 — the enstrophy space. ‖∇u‖_{L²}² = enstrophy.
 
-    The scaling under u_λ(t,x) = λu(λ²t, λx):
-      ‖u_λ(0)‖_{Ḣˢ(ℝ³)} = λ^{s - 1/2} · ‖u₀‖_{Ḣˢ(ℝ³)}
-    Critical (scale-invariant) at s = 1/2: λ^0 = 1. -/
+    The scaling under u_λ(t,x) = λu(fun²t, λx):
+      ‖u_λ(0)‖_{Ḣˢ(ℝ³)} = fun^{s - 1/2} · ‖u₀‖_{Ḣˢ(ℝ³)}
+    Critical (scale-invariant) at s = 1/2: fun^0 = 1. -/
 axiom SobolevSpace (s : ℝ) : Type
 
 /-- The H^s Sobolev norm. -/
@@ -294,8 +294,8 @@ theorem ns_certificate_is_minimal :
 
 /-- **The critical Sobolev exponent for 3D Navier-Stokes.**
 
-    Under the NS scaling symmetry u_λ(t,x) = λu(λ²t, λx):
-      ‖u_λ(0)‖_{Ḣˢ(ℝ³)} = λ^{s - 1/2} · ‖u₀‖_{Ḣˢ(ℝ³)}
+    Under the NS scaling symmetry u_λ(t,x) = λu(fun²t, λx):
+      ‖u_λ(0)‖_{Ḣˢ(ℝ³)} = fun^{s - 1/2} · ‖u₀‖_{Ḣˢ(ℝ³)}
 
     Scale-invariant (critical) when s = 1/2.
     · s < 1/2 (subcritical): norm SHRINKS under small-scale zoom → worse control

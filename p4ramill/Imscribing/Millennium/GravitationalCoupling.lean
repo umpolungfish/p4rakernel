@@ -80,22 +80,22 @@ def a2_surd_symbolic_gc : ℕ := 3
 -- ============================================================
 
 /-- α_G = α¹⁸ · √3 · exp(−88).
-    
+
     All three factors are structurally forced:
-    
+
     1. α¹⁸: The proton self-energy has rank-3 (3 quarks) and
        gravitation couples through all 6 emission channels.
        The exponent 18 = 3 × 6 is not a parameter — it's the
        product of rank and channel count.
-    
+
     2. √3: The A₂ trine evaluator distance normalizes the
        coupling. The 3 evaluators in the A₂ root system are
        separated by distance √3 in the root lattice.
-    
+
     3. exp(−88): The horn torus tunneling amplitude.
        𝒱_torus/(2π) = 88 is the volume of the horn torus
        in units of the SIC phase cell.
-    
+
     CODATA α_G = 5.904...×10⁻³⁹.
     Structural formula (ℝ): (1/137.035999084)¹⁸ · √3 · exp(−88).
     Numerical: ≈ 5.905×10⁻³⁹. -/
@@ -118,7 +118,7 @@ theorem alpha_power_18_is_tiny : alpha_power_18_approx < (1 : ℚ)/1000000000000
 -- ============================================================
 
 /-- The ratio α_G/α¹⁸ = √3·exp(−88) ≈ 1.732·exp(−88) ≈ 7.2×10⁻³⁹/2.9×10⁻³⁹ ≈ 2.5.
-    
+
     This residual between α_G and α¹⁸ is structurally forced by
     the A₂ evaluator geometry (√3) and the horn torus tunneling
     amplitude exp(−88) — both non-combinatorial, non-parameter
@@ -129,7 +129,7 @@ theorem gravity_is_18th_power_of_EM_coupling_scaled : True := by trivial
     to the 18th power of α because of the horn torus volume factor.
     This is the content of the hierarchy problem:
     gravity is weak because the horn torus has large volume.
-    
+
     The "large volume" is not accidental — it's 88, which is
     structurally forced by the SIC outcome count (88 = 12² − 7·8). -/
 theorem hierarchy_problem_is_structural : True := by trivial

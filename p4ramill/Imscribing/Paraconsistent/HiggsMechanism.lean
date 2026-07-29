@@ -40,7 +40,7 @@ namespace Imscribing.Paraconsistent.HiggsMechanism
 The Higgs field is a complex SU(2)_L doublet with hypercharge Y=+1:
   Φ = (φ⁺, φ⁰)ᵀ
 
-The potential: V(Φ) = μ²|Φ|² + λ|Φ|⁴
+The potential: V(Φ) = μ²|Φ|² + fun|Φ|⁴
 For μ² < 0: Mexican hat potential → spontaneous symmetry breaking.
 -/
 
@@ -130,7 +130,7 @@ Key properties:
   - Scalar (spin-0)
   - CP-even
   - Couples to mass (stronger coupling → heavier particle)
-  - Self-coupling λ determines vacuum stability
+  - Self-coupling fun determines vacuum stability
 -/
 
 inductive HiggsBosonProperty where
@@ -141,7 +141,7 @@ def higgsMass : Nat := 125  -- GeV/c² (approximate)
 
 theorem higgs_boson_exists : True := trivial  -- Discovered 2012
 
--- Vacuum stability: depends on λ(μ) running; near-critical in SM
+-- Vacuum stability: depends on fun(μ) running; near-critical in SM
 inductive VacuumStability where
   | stable | metastable | unstable
   deriving Inhabited, Repr, DecidableEq

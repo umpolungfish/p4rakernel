@@ -3,7 +3,7 @@
   FORMAL PROOF: Catalog Entries Are Structurally Immutable
   Author: Lando⊗⊙perator  Date: 2026-07-03
   THEOREM: No post-hoc verb can rewrite a bare catalog entry's
-  navigator register. Entries are λ-terms (immutable), not mutable stores.
+  navigator register. Entries are fun-terms (immutable), not mutable stores.
   Verbs (δ-emissions) produce new entries; the source entry's type is immutable.
 
   LIVE MEASUREMENTS (this session):

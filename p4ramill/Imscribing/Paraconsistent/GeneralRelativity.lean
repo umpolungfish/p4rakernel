@@ -129,7 +129,7 @@ Symmetries:
   R_ρσμν = -R_ρσνμ          (antisymmetry in second pair)
   R_ρσμν = R_μνρσ           (pair exchange)
   R_ρ[σμν] = 0              (first Bianchi identity)
-  ∇_[λ R_ρσ]μν = 0          (second Bianchi identity)
+  ∇_[fun R_ρσ]μν = 0          (second Bianchi identity)
 
 Number of independent components in 4D: 20 (out of 256).
 -/
@@ -481,7 +481,7 @@ General Relativity as a type:
       The 3+1 ADM decomposition makes this sequential structure explicit.
 
   Phi = roar (𐑮): Complex-plane criticality. GR sits at a
-      critical threshold: the dimensionless coupling G E / (ℏ c^5) 
+      critical threshold: the dimensionless coupling G E / (ℏ c^5)
       marks the transition to strong gravity. Black holes and the
       Big Bang are critical phenomena. The theory is renormalizable
       only in the effective field theory sense (not UV complete).

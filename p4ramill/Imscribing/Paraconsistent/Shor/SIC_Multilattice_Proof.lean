@@ -82,7 +82,7 @@ abbrev WHIdx (n : ℕ) : Type := Fin n → WHIdx2
 /-- The faithful WH(2) action on a single Belnap value.
     Corrected (2026-06-20): (1,0) now uses the Pauli X action,
     not bnot. The X action maps N→F, T→B, F→N, B→T.
-    
+
     This ensures WH(2)·B = {B, T, F, N} — the full Belnap set. -/
 def wh2Act (d : WHIdx2) (v : Belnap) : Belnap :=
   match d with
@@ -127,13 +127,13 @@ def whAct {n : ℕ} (g : WHIdx n) (s : MLState n) : MLState n :=
 /-- The WH(2) orbit of B is the entire Belnap set {N, T, F, B}.
     With the corrected wh2Act:
     (0,0)·B = B, (1,0)·B = T, (0,1)·B = F, (1,1)·B = N. -/
-theorem wh2_orbit_of_B : 
+theorem wh2_orbit_of_B :
     (Finset.univ : Finset WHIdx2).image (fun d => wh2Act d Belnap.B) =
     (Finset.univ : Finset Belnap) := by
   decide
 
 /-- The WH(2) orbit of B has exactly 4 elements. -/
-theorem wh2_orbit_size : 
+theorem wh2_orbit_size :
     ((Finset.univ : Finset WHIdx2).image (fun d => wh2Act d Belnap.B)).card = 4 := by
   rw [wh2_orbit_of_B]
   decide
@@ -163,9 +163,9 @@ theorem join_B_is_B (x : Belnap) : join Belnap.B x = Belnap.B := B_join_absorb x
 
 /-- Key theorem: The Frobenius-join inner product of the fiducial
     with any WH-displaced fiducial is CONSTANT (= 2n).
-    
+
     ⟨B⊗n, g·B⊗n⟩_join = 2n  for ALL g ∈ WH(2)ⁿ.
-    
+
     This is the join-based equiangularity: the fiducial has identical
     join-evidence with every member of its WH orbit, including itself.
     The join-absorption axiom (Axiom 3) is the structural source. -/
@@ -290,7 +290,7 @@ theorem d2_bridge_unconditional :
 -- ================================================================
 
 /-- The Belnap SIC-POVM existence theorem (UNCONDITIONAL).
-    
+
     For EVERY n ≥ 1 (every d = 2ⁿ), there exists:
     1. A state space MLState n = (Belnap)ⁿ with 4ⁿ elements
     2. A fiducial B⊗n satisfying all four SIC structural axioms:
@@ -301,7 +301,7 @@ theorem d2_bridge_unconditional :
     3. A WH(2)ⁿ group action producing 4ⁿ distinct orbit states
     4. Frobenius closure: wordMeet x x = x (∀x)
     5. Universal 2:1 B-bias to classical cost ratio
-    
+
     These are all proved by definitional equality (rfl) or finite
     case analysis. ZERO axioms, ZERO sorries. -/
 theorem sic_povm_belnap_unconditional (n : ℕ) :

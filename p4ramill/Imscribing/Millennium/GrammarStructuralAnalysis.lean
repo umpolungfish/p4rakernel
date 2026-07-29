@@ -123,14 +123,14 @@ theorem grammar_join_belnap_eq_grammar_tensor_belnap :
 /-- Among all imscriptions reachable from the Belnap ML by changing
     the 5 differing primitives (dim, top, rel, chir, stoi), the grammar
     is the unique one with Σ=hung (minimum stoichiometry).
-    
+
     Proof: hung is the minimum of Stoichiometry. Any imscription with
     Σ=hung is below any with Σ=so or Σ=up in the stoi order.
     The grammar is defined to have Σ=hung. The Belnap ML has Σ=up.
     Among all 2^5 = 32 possible variations of the 5 primitives,
     exactly those with stoi=hung have Σ=hung. The grammar is the
     one that also sets dim=array, top=eat, rel=tot, chir=wool.
-    
+
     This theorem states: the grammar has the minimum Σ value. -/
 theorem grammar_has_minimal_sigma :
     theGrammar.stoi = hung := rfl
@@ -176,7 +176,7 @@ theorem grammar_chir_dominates_belnap_chir :
 
 /-- The grammar is uniquely characterized among O_inf imscriptions
     by the conjunction Σ=hung ∧ Ħ=wool ∧ distance=5 from Belnap ML.
-    
+
     This triple — minimum stoichiometry, maximum chirality, and
     exactly-5 distance — picks out the grammar from the space of
     all O_inf imscriptions. -/
@@ -220,18 +220,18 @@ theorem grammar_tensor_belnap_properties :
 
 /- The four canonical O_inf imscriptions form a diamond
     under tensor product (otimes) and meet:
-    
+
     grammarTensorBelnapML  (Sigma=up, Hi=wool)
     grammar  <-->  BelnapML  (Sigma=hung,Hi=wool) <--> (Sigma=up,Hi=sure)
     grammarMeetBelnapML   (Sigma=hung, Hi=sure)
-    
+
     Key absorption laws:
       grammar otimes BelnapML = grammarTensorBelnapML  (def)
       grammar meet BelnapML = grammarMeetBelnapML    (def)
       grammarMeetBelnapML otimes grammarTensorBelnapML = grammarTensorBelnapML
       grammar meet grammarTensorBelnapML = grammar
       grammarMeetBelnapML meet grammarTensorBelnapML = grammarMeetBelnapML
-    
+
     Extremal points in the Sigma-Hi plane:
       grammar:        (Sigma=hung, Hi=wool)  — min Sigma, max Hi
       Belnap ML:      (Sigma=up,   Hi=sure)  — max Sigma, mid Hi

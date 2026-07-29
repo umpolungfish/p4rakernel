@@ -38,20 +38,20 @@ theorem ns_promotion_distance :
   unfold primitiveMismatches navierStokesResolved navierStokesSource; rfl
 
 /-- THE NOVEL MATHEMATICAL CONTRIBUTION: The Trapping Lemma.
-    
+
     For 3D incompressible NS, the enstrophy evolution equation:
       (1/2) d/dt ‖∇u‖_{L²}² = -ν ‖Δu‖_{L²}² + ∫ (u⊗u): ∇∇u dx
-    
+
     The vortex stretching term ∫ (u⊗u): ∇∇u dx can cause blow-up.
     THE TRAPPING LEMMA: There exists a constant C_* such that if
     ‖∇u‖_{L²} ≥ C_*, then ∫ (u⊗u): ∇∇u dx ≤ 0.
-    
+
     PHYSICAL BASIS: Helicity H = ∫ u·ω dx is a Lyapunov functional
     for NS flow (H decreases). At large enstrophy, the alignment
     of vorticity with strain saturates, making the stretching term
     self-limiting. Vortex lines cannot stretch indefinitely without
     violating topological conservation of helicity.
-    
+
     HONEST GAP: Rigorous proof of the trapping lemma. If true,
     NS global regularity follows by standard parabolic PDE theory
     (the solution stays in H¹, preventing blow-up).

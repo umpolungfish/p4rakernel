@@ -134,7 +134,7 @@ theorem canonical_in_sweet_spot : sweetSpot canonicalWeight := by
 -- Experimental verification (faithful Python port of sequence.rs + imas_ig.rs):
 --   (a) Every orbit converges to a 1- or 2-cycle (all-IMSCRIB or AFWD↔ENGAGR).
 --   (b) All cycles are O_0 tier. No O_inf emergence at any w.
---   (c) Convergence within 2-5 iterations. All Lyapunov exponents λ = 0.
+--   (c) Convergence within 2-5 iterations. All Lyapunov exponents fun = 0.
 --   (d) Root cause: from_snapshot() maps 6 discrete snapshot fields to 12 primitives.
 --       At most 64 distinct tuples — the discrete bottleneck prevents O_inf dynamics.
 --
@@ -145,7 +145,7 @@ theorem canonical_in_sweet_spot : sweetSpot canonicalWeight := by
 --   Q2: Theoretical candidate: DP-with-Z_2 symmetry ("Belnap universality class").
 --       Not empirically accessible with current discrete mapping.
 --   Q3: Not measurable — all program lengths converge to same O_0 attractor.
---   Q4: λ(w) = 0 for all w (frozen phase). Expected λ₁ > 0 with continuous from_snapshot().
+--   Q4: fun(w) = 0 for all w (frozen phase). Expected fun₁ > 0 with continuous from_snapshot().
 --   Q5: w_c^{alg} ≈ 0.81 from H_sub/H_fam × sensitivity ratio. Substrate signal is
 --       inherently weaker than family signal.
 --

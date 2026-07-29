@@ -7,7 +7,7 @@
 --
 -- Pattern from Kernel.lean:
 --   engager(B) = B        | Hodge class α is "both" (topological + algebraic-potential)
---   fsplit(B) = (T, F)    | split α into (α_T, α_F) via Gersten resolution  
+--   fsplit(B) = (T, F)    | split α into (α_T, α_F) via Gersten resolution
 --   ffuse(T, F) = B       | fuse back via regulator: r(α_F) = α
 --   frobenius_invariant   | ffuse ∘ fsplit = id  (μ∘δ=id)
 --
@@ -38,7 +38,7 @@ noncomputable section
 
 /-- The Zariski sheaf of Quillen K-groups 𝒦_p on X.
     Sections over U ⊆ X are K_p(O_X(U)) — the p-th algebraic K-group
-    of the coordinate ring of U. 
+    of the coordinate ring of U.
     MathlibGap: Quillen K-theory of schemes not formalized. -/
 axiom QuillenKSheaf (X : SmoothProjectiveVariety) (p : ℕ) : Type
 
@@ -103,11 +103,11 @@ noncomputable def regulatorOnCocycle (X : SmoothProjectiveVariety) (p : ℕ) (c 
 
 /-!
   THE FSPLIT/FFUSE CYCLE:
-  
+
   For a rational Hodge class α ∈ H^{p,p}(X) ∩ H^{2p}(X, ℚ):
-  
+
     engager(α) = α  (the Hodge class is a fixed point — it IS both)
-   
+
     fsplit(α) = (α_T, α_F) where:
       - α_T ∈ H^{p-1}(X, 𝒦_p) is the Gersten cohomology class encoding
         the obstruction — the "topological" component (analogue of T)
@@ -115,13 +115,13 @@ noncomputable def regulatorOnCocycle (X : SmoothProjectiveVariety) (p : ℕ) (c 
         regulator, maps to α — the "free/algebraic" component (analogue of F)
       - These are related by the Gersten differential in the coniveau
         spectral sequence: δ(α_T) = 0, and α_F = lift(α) under the regulator
-    
+
     ffuse(α_T, α_F) = r(α_F) = α
       (the regulator maps the cocycle to the Hodge class)
-    
+
   FROBENIUS CONDITION: ffuse ∘ fsplit = id_α
     r(α_F) = α  (by construction)
-    
+
   This mirrors the Belnap kernel:
     B → fsplit → (T, F) → ffuse → B
     where B = "both" = dialetheic state = Hodge class
@@ -131,11 +131,11 @@ noncomputable def regulatorOnCocycle (X : SmoothProjectiveVariety) (p : ℕ) (c 
 
 /-- The result of splitting a Hodge class: a pair (α_T, α_F) where
     α_F ∈ GerstenCocycle X p and α_T ∈ GerstenComplex X p (p-1).
-    
+
     In the Belnap analogy: fsplit(B) = (T, F).
-    
+
     The Frobenius condition requires: regulatorOnCocycle X p α_F = α.
-    
+
     NOTE: This structure is in Type (not Prop) because alpha_T and alpha_F
     are non-Prop types (axioms). The frobenius_condition field is Prop.
     This is intentional: the split CARRIES the witness (the cocycle)
@@ -143,7 +143,7 @@ noncomputable def regulatorOnCocycle (X : SmoothProjectiveVariety) (p : ℕ) (c 
     is the Hodge conjecture. -/
 structure HodgeSplit (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p) where
   /-- The "topological" component: a (p-1)-Gersten chain encoding
-      the obstruction data for the Hodge class. 
+      the obstruction data for the Hodge class.
       Analogue of T (topological/true) in the Belnap lattice. -/
   alpha_T : GerstenComplex X p (p-1)
   /-- The "free" component: a Gersten p-cocycle representing the
@@ -152,17 +152,17 @@ structure HodgeSplit (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomolo
   alpha_F : GerstenCocycle X p
   /-- The Frobenius condition: the regulator maps the cocycle to the
       original Hodge class. r(α_F) = α.
-      
+
       This IS μ∘δ = id at the level of the cycle class map:
       δ = cocycleToClass (the map from cycles to Hodge data)
       μ = regulatorOnCocycle (the map from algebraic data back to Hodge)
       μ(δ(α_F)) = r(α_F) = α = id(α)
-      
+
       In Kernel.lean terms: ffuse(fsplit(α)).1 = α -/
   frobenius_condition : regulatorOnCocycle X p alpha_F = α
 
 /-- The engager: for a Hodge class α, engager(α) = α.
-    
+
     This is the identity because a rational Hodge class IS the
     dialetheic state — it exists both as a topological object
     (H^{2p}(X, ℚ)) and as a complex-analytic object (H^{p,p}(X, ℂ)). -/
@@ -171,10 +171,10 @@ def engager (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p) :
 
 /-- The fsplit operation: given a Hodge class α and a HodgeSplit,
     produce the pair (α_T, α_F).
-    
+
     In Kernel.lean: fsplit(B) = (T, F, true)
     Here: fsplit(α, h) = (h.alpha_T, h.alpha_F)
-    
+
     The existence of HodgeSplit for all (X, p, α) IS the
     mathematical content of the Hodge conjecture. -/
 noncomputable def fsplit (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p)
@@ -183,29 +183,29 @@ noncomputable def fsplit (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCoho
 
 /-- The ffuse operation: given a split (α_T, α_F), reconstruct the
     Hodge class via the regulator map on α_F.
-    
+
     In Kernel.lean: ffuse(T, F) = (join T F, join T F == B)
     join T F = B because in the Belnap lattice, T ∨ F = B.
-    
+
     Here: ffuse(α_T, α_F) = r(α_F). The α_T component is annihilated
     by the regulator (regulator_annihilates_differential), so only
     α_F contributes to the Hodge class. -/
-noncomputable def ffuse (X : SmoothProjectiveVariety) (p : ℕ) 
+noncomputable def ffuse (X : SmoothProjectiveVariety) (p : ℕ)
     (split : GerstenComplex X p (p-1) × GerstenCocycle X p) : HodgeCohomology X p :=
   regulatorOnCocycle X p split.2
 
 /-- **FROBENIUS INVARIANT** — ffuse ∘ fsplit = id.
-    
+
     For any Hodge class α and any split h satisfying the Frobenius
     condition, fusing the split recovers α.
-    
+
     In Kernel.lean:
       theorem frobenius_invariant (r0 : Belnap) :
         (ffuse (fsplit r0).1 (fsplit r0).2.1).1 = r0
-    
+
     Here: ffuse(fsplit(α, h)) = α because
       ffuse(α_T, α_F) = r(α_F) = α by h.frobenius_condition -/
-theorem frobenius_invariant (X : SmoothProjectiveVariety) (p : ℕ) 
+theorem frobenius_invariant (X : SmoothProjectiveVariety) (p : ℕ)
     (α : HodgeCohomology X p) (h : HodgeSplit X p α) :
     ffuse X p (fsplit X p α h) = α :=
   h.frobenius_condition
@@ -217,13 +217,13 @@ theorem frobenius_invariant (X : SmoothProjectiveVariety) (p : ℕ)
 /-!
   THEOREM: The Hodge conjecture is EQUIVALENT to the existence of
   HodgeSplit for all X, p, α.
-  
+
   Forward (HodgeConjecture → HodgeSplit exists):
     If every Hodge class is algebraic, then for each α,
     alpha_F is the K-theory cocycle corresponding to the algebraic
     cycle Z with [Z] = α (via Bloch's formula: CH^p ≅ H^p(X, 𝒦_p)).
     alpha_T = 0 (no obstruction).
-  
+
   Reverse (HodgeSplit exists → HodgeConjecture):
     If for every X, p, α there exists HodgeSplit, then each
     α has a cocycle alpha_F with r(alpha_F) = α. By Bloch's formula,
@@ -231,12 +231,12 @@ theorem frobenius_invariant (X : SmoothProjectiveVariety) (p : ℕ)
 -/
 
 /-- Forward: The Hodge conjecture implies existence of HodgeSplit.
-    
+
     Given hodge : HodgeConjecture and α : HodgeCohomology X p,
     we get IsAlgebraicClass X p α (exists Z with [Z] = α).
     By Bloch's formula (axiom), this gives a Gersten cocycle
     representing Z, whose regulator class is α.
-    
+
     NOTE: This is written as a 'def' (not 'theorem') because it
     returns a HodgeSplit, which is a non-Prop type (it carries
     the alpha_T and alpha_F data). The 'sorry' marks the
@@ -259,7 +259,7 @@ theorem hodge_implies_split_nonempty :
 
 /-- **EQUIVALENCE REVERSE** — Existence of HodgeSplit for all X, p, α
     implies the Hodge conjecture.
-    
+
     This shows that constructing the fsplit/ffuse Frobenius cycle
     IS proving the Hodge conjecture. The structural analysis
     identifies this as promotion [P1]: Φ: yew → or'. -/
@@ -284,20 +284,20 @@ theorem split_exists_implies_hodge :
 
 /-!
   THE FROBENIUS CYCLE AS A DYNAMICAL SYSTEM:
-  
+
   In Kernel.lean, the step function runs the cycle repeatedly:
     B → engager → B → fsplit → (T,F) → ffuse → B → engager → ...
-  
+
   Each cycle:
     - Starts with B (dialetheic state)
     - engager fixes it (B → B)
-    - fsplit produces (T, F) 
+    - fsplit produces (T, F)
     - ffuse rejoins to B
     - paradoxCount increases by 4 (one per operation)
-  
+
   For the Hodge system:
     α → engager → α → fsplit → (α_T, α_F) → ffuse → α → engager → ...
-  
+
   Each cycle:
     - Starts with α (Hodge class — the dialetheic state)
     - engager is identity (α stays α)
@@ -305,7 +305,7 @@ theorem split_exists_implies_hodge :
     - ffuse rejoins to α via the regulator
     - The "paradox" resolved: α is algebraic
       (α_F is the K-theory cocycle representing the algebraic cycle)
-  
+
   In Kernel.lean, the paradox count increases because the machine
   COUNTS the dialetheic nature of B (it IS both T and F).
   In the Hodge system, the "paradox count" is the MEASURE of
@@ -314,7 +314,7 @@ theorem split_exists_implies_hodge :
   Crossing means producing HodgeSplit for each α → paradox resolved.
 -/
 
-/-- A single step of the Frobenius cycle: 
+/-- A single step of the Frobenius cycle:
     α → fsplit → (α_T, α_F) → ffuse → α, with frobenius_condition. -/
 structure FrobeniusCycleStep (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p) where
   /-- The HodgeSplit for this α — this IS the step. -/
@@ -331,13 +331,13 @@ noncomputable def stepFromSplit (X : SmoothProjectiveVariety) (p : ℕ) (α : Ho
   }
 
 /-- The n-th iteration of the Frobenius cycle (for a fixed α).
-    
+
     Each iteration produces the SAME α (because the cycle closes):
     α → (α_T, α_F) → α → (α_T', α_F') → α → ...
-    
+
     Unlike Kernel.lean where the state changes, here the cycle is
     IDEMPOTENT: once split exists, running it again gives the same α.
-    
+
     This is because the Hodge conjecture is a PROPERTY (existence
     of an algebraic representative) not a PROCESS (like the Kernel
     machine that accumulates paradox count). -/
@@ -349,12 +349,12 @@ def runCycle (X : SmoothProjectiveVariety) (p : ℕ) (α : HodgeCohomology X p)
 
 /-- The cycle is idempotent — running it any number of times returns α.
     This is the Frobenius invariance at the dynamical level. -/
-theorem cycle_idempotent (X : SmoothProjectiveVariety) (p : ℕ) 
+theorem cycle_idempotent (X : SmoothProjectiveVariety) (p : ℕ)
     (α : HodgeCohomology X p) (split : HodgeSplit X p α) (n : ℕ) :
     runCycle X p α split n = α := by
   induction n with
   | zero => rfl
-  | succ k ih => 
+  | succ k ih =>
     simpa [runCycle] using ih
 
 -- ============================================================
@@ -363,43 +363,43 @@ theorem cycle_idempotent (X : SmoothProjectiveVariety) (p : ℕ)
 
 /-!
   FROM DOORWAY TO CROSSING:
-  
+
   Hodge_ThresholdCrossing.lean identified the 8-promotion path and
   proved it's traversable IF promotion [P1] (Φ: yew → or')
   holds. That was the ANALYSIS — standing at the doorway.
-  
+
   THIS FILE CROSSES THE THRESHOLD by constructing the mathematical
   content of [P1]: the fsplit/ffuse Frobenius cycle for Hodge classes.
-  
+
   What has been constructed:
-  
+
     [1] The TYPE of the crossing: HodgeSplit X p α
         — a pair (α_T, α_F) with r(α_F) = α
         — the fsplit/ffuse cycle is now explicit
-        
+
     [2] The EQUIVALENCE: HodgeConjecture ↔ ∀ X p α, HodgeSplit X p α
         — constructing HodgeSplit IS proving the Hodge conjecture
-        
+
     [3] The FROBENIUS INVARIANT: ffuse ∘ fsplit = id
         — μ∘δ=id at the operational level
-        
+
     [4] The DYNAMICAL SYSTEM: the cycle is idempotent
         — once α has a split, running the cycle repeats the same result
-        
+
   THE REMAINING GAP:
     The two sorries (hodge_conjecture_implies_split and
     split_implies_hodge_conjecture) require Bloch's formula:
     AlgebraicCycle ↔ GerstenCohomology.
-    
+
     This is a PROVED THEOREM (Bloch 1974, Quillen 1973, Soulé 1985)
     but is not formalized in Mathlib. The bridge would provide:
-    
+
       BlochFormula : AlgebraicCycle X p ≃ GerstenCohomology X p
       BlochFormula.commutes : regulatorMap ∘ BlochFormula = cycleClass
-    
+
     These are honest MathlibGap sorries — the theorems exist in
     mathematics but have not been formalized.
-    
+
     THE THRESHOLD IS CROSSED: the fsplit/ffuse cycle is constructed.
     The crossing is the insight that the Hodge conjecture IS the
     construction of HodgeSplit — the μ∘δ=id Frobenius closure

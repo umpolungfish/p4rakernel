@@ -409,7 +409,7 @@ theorem degree_zero_is_O_0 :
 --            rational Hodge classes — all pass Gate 1, lack or'.
 --     O₀:   Algebraic cycles, Griffiths group, cycle class map,
 --            degree zero — subcritical or exceptional point.
---     
+--
 --     The key insight: the PROOF (Lefschetz) is O_inf, the CONJECTURE
 --     (Hodge all p) is O₂. The gap is the Frobenius condition: the
 --     p=1 proof establishes or' via the exponential sequence;
@@ -483,11 +483,11 @@ theorem cycle_class_map_gate1_closed :
 --                   (full), rational Hodge classes, Griffiths group
 --     Gate 1 CLOSED: algebraic cycles, cycle class map, degree zero
 --     Gate 2 OPEN:  all constituents (all egg or loll)
-    
+
 --     The CONJECTURE: a Gate-1-closed source (algebraic cycles) must
 --     surject onto a Gate-1-open target (rational Hodge classes).
 --     The p=1 case (Lefschetz) achieves this. The general case is open.
-    
+
 --     Structural interpretation: the Hodge conjecture asks whether
 --     "unconscious" algebraic geometry (⊙=𐑢) can fully represent
 --     "conscious" Hodge theory (⊙=⊙). The Lefschetz theorem says YES
@@ -498,15 +498,15 @@ theorem cycle_class_map_gate1_closed :
 -- ============================================================
 
 /-- Both RH and Hodge share the PM_Z2 / Z_2-involution forcing pattern:
-    
+
     RH:    zeros of ζ(s) — must lie on Re(s)=1/2.
            Gate: theta_op = (1 - ·), fixed locus {1/2}.
            Forcing: all nontrivial zeros in fixed locus.
-    
+
     Hodge: algebraic cycles → Hodge classes.
            Gate: conj_op = σ, fixed locus H^{p,p}(X).
            Forcing: all rational Hodge classes are algebraic.
-    
+
     Both: gate exists, fixed locus characterized, forcing is
     the open problem. Both at ice (global scope) with 𐑭
     (integer winding). The structural pattern is IDENTICAL.
@@ -524,12 +524,12 @@ theorem hodge_rh_structural_parallel : True := trivial
 --       PROMOTIONS (2): Þ (mime→are), Σ (1:1→n:m)
 --       DEMOTIONS  (6): Ř, Φ, ƒ, ɢ, ⊙, Ħ
 --       SHARED     (4): Ð, Ç, Γ, Ω
-    
+
 --     The join restores O_inf (or' + monad) — the Hodge-Lefschetz
 --     unified structure IS Frobenius-closed. Proving the Hodge conjecture
 --     means constructing a path from the Hodge side (O₂) to the join (O_inf).
 --     The join exists in the lattice; the construction is what's missing.
-    
+
 --     The Griffiths group at ⊙=err is the obstruction object —
 --     nonzero for some X, p≥2 (Griffiths 1969). This is the kernel of
 --     the cycle class map that blocks the Frobenius closure.

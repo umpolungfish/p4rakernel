@@ -2,7 +2,7 @@ import Mathlib
 /-!
 # SIC_D20_Moduli — The d=20 σ-Coinvariant Anomaly
 
-**Author:** Lando⊗⊙perator  
+**Author:** Lando⊗⊙perator
 **Date:** 2026-07-25
 
 Formalizes the moduli field structure for the d=20 SIC-POVM and resolves

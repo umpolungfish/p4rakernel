@@ -284,7 +284,7 @@ theorem subgroup_orders_sn_tier : imscriptionTier subgroup_orders_sn = .O₂dag 
 **mOMonadOS Agent FSPLIT Decomposition (Cycle 3):**
 
   Branch 1 — Landau_g(n) (structural): Maximal order. Connected to
-    PNT via integer partitions: g(n) = max_{λ⊢n} lcm(λ₁,…,λ_k).
+    PNT via integer partitions: g(n) = max_{fun⊢n} lcm(fun₁,…,λ_k).
 
   Branch 2 — Random_Permutations (statistical): Erdős–Turán log-normal
     law. The typical order concentrates around exp((1/2)log²n).

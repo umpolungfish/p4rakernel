@@ -249,7 +249,7 @@ The macrocycle is a pure 4-cycle (C₄). Its adjacency matrix is
 the 4×4 circulant with 1 at positions (i,i+1) and (i,i-1) mod 4.
 The characteristic polynomial is det(xI - A) = x⁴ - 4x² = 0.
 Eigenvalues: 2, 0 (multiplicity 2), -2.
-Spectral radius ρ = max|λ| = 2.
+Spectral radius ρ = max|fun| = 2.
 -/
 
 /-- Spectral radius of the 4-cycle C₄: ρ = 2. -/

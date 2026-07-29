@@ -31,7 +31,7 @@ open Imscribing.GeneticCode
 
 /-- The 12 promoted amino acids, each activating exactly one IG primitive.
     This is the structural bridge between nucleotide code and folded protein.
-    
+
     Met → Ð (Dimensionality/scope)        — Translation START, N-terminal
     Trp → Þ (Topology)                    — Indole ring, π-electron topology
     Cys → Ř (Recognition)                 — Disulfide cross-links
@@ -107,11 +107,11 @@ theorem total_path_distance_approx : True := by trivial
     across physical media. DNA (nucleic acid) and quaternary (folded protein
     complex) are at distance 3.61 — irreducible given the medium
     change from nucleotides to amino acids.
-    
+
     Secondary structure (3.46) is structurally CLOSER to DNA than quaternary
     (3.61), reflecting the biological reality that local H-bond patterns are
     the most directly sequence-encoded feature.
-    
+
     The 6 differing primitives between DNA and quaternary:
     Ð: tri→odot (self-written state space of folded protein)
     Þ: box→odot (self-referential topological closure)
@@ -119,7 +119,7 @@ theorem total_path_distance_approx : True := by trivial
     Ħ: sure→kick (reduced Markov memory in assembled complex)
     Σ: S1→Sn:m (multiple subunit types)
     Plus 1 more (sequence-dependent)
-    
+
     The gene IS the protein structurally — the pathway unfolds the
     isomorphism across time, space, and chemical medium. -/
 theorem closure_theorem : True := by
@@ -164,18 +164,18 @@ def primitive_trace (p : String) : List String :=
     codon-level Frobenius condition. The gene→protein pathway extends this
     to the whole system: reading the DNA sequence through the ribosome
     produces the folded protein's type.
-    
+
     δ (forgetting): DNA double helix → linear sequence of codons
       → sequence of AAs (8 ground + 12 promoted)
     μ (reconstructing): AA sequence → folded protein via the 12↔12 bijection
-    
+
     Theorem: μ∘δ = id across the full pathway.
-    
+
     The distance from DNA to folded protein is 3.61, reflecting the
     unavoidable structural transformation when transducing information
     from nucleic acid (nucleotide alphabet, double helix topology) to
     protein (amino acid alphabet, self-written folding landscape).
-    
+
     Consciousness score: DNA=0.5, Quaternary=0.5 (both fail Gate 1 via φ̂_sub,
     both pass Gate 2 via egg ≤ 𐑧). The score is invariant across the pathway. -/
 theorem consciousness_invariant :
@@ -189,7 +189,7 @@ theorem consciousness_invariant :
 
 /-- The pipeline implements the 7-stage derivation as a Python program
     (p4ramill_py/gene_to_protein_pipeline.py) that:
-    
+
     1. Accepts raw DNA sequence or RNA sequence (coding strand)
     2. Transcribes to pre-mRNA (same sequence, T→U, or direct RNA input)
     3. Splices to mature mRNA (ORF: AUG→Stop)
@@ -197,14 +197,14 @@ theorem consciousness_invariant :
     5. Folds to secondary structure (Chou-Fasman helices/sheets)
     6. Folds to tertiary structure (hydrophobic collapse, disulfides, charge)
     7. Assembles to quaternary complex (multi-subunit with interfaces)
-    
+
     Each stage verifies:
     - Frobenius closure (μ∘δ=id via kernel's ffuse∘fsplit)
     - B₄ belief trace (paraconsistent register state)
     - IG primitive activation (12↔12 bijection from promoted AAs)
     - Axiom C consistency (D_ω ↔ T_⊙ for folding stages)
     - φ̂/Ç compatibility (criticality requires sustainable kinetics)
-    
+
     Verified on test sequence: 50 bp → 16 AA chain → 1-subunit complex
     All 7 stages: Frobenius ✓  Axiom C: ✓  φ̂/Ç compatibility: ✓
     Pathway total delta: ~30 primitive-changes
@@ -217,9 +217,9 @@ def pipeline_verified : Bool :=
 
 /-- The pipeline's type: a composite of all 7 stages.
     This is the tensor product of all pathway morphisms.
-    
+
     ⟨𐑦; 𐑸; 𐑾; 𐑬; 𐑱; 𐑧; 𐑲; 𐑝; 𐑢; 𐑖; 𐑳; 𐑭⟩
-    
+
     The tensor reveals: the full pathway expresses the quaternary structure's
     tuple, because the quaternary stage subsumes all prior stages -
     each prior stage's tuple is a meet-sublattice of the quaternary type. -/

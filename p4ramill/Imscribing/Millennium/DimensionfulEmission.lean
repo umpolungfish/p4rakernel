@@ -40,7 +40,7 @@ namespace Imscribing.Millennium.DimensionfulEmission
     Derivation: 24 routes * 64 ticks/route = 1536.
     The 5 missing ticks are the CLINK correction classes that are
     already structurally closed at O_inf: 1536 - 5 = 1531.
-    
+
     tick1531 is prime (the 242nd prime). -/
 def tick1531 : Nat := 1531
 
@@ -77,7 +77,7 @@ def broadcastDivisor : Rat :=
         = 1531 * 200*pi * 13/18
         = 1531 * 2600*pi / 18
         = 1531 * 1300*pi / 9
-        
+
     Dimensionless: ~ 1531 * 1300 * 355/113 / 9 ~ 694,696.
     This dimensionless number times the fundamental tick energy
     E_tick = hbar * 200*pi = 6.626e-32 J gives ~ 125 GeV when
@@ -90,13 +90,13 @@ def higgs_mass_ratio : Rat :=
 -- ============================================================================
 
 /-- The dimensionful emission chain connects 5 structural layers:
-    
+
     1. tick (100 Hz) -> tickMass (hbar*omega/c^2)
     2. tick1531 (completeness count) -> one full torus traversal
     3. broadcastSum (24 routes) -> absoluteMassScale
     4. SIC d=12 + CKM lambda -> broadcastDivisor
     5. higgsMassRatio -> physical Higgs mass (125 GeV)
-    
+
     The chain is parameterized by: hbar, c, and the PIT divisor.
     These are the kernel dimensionful constants that give the tick
     its physical meaning. The structural ratios are pure numbers

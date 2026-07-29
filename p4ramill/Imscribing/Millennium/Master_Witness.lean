@@ -60,7 +60,7 @@ theorem universal_O_inf_axiom_D :
   simp [universal_O_inf_type]
 
 /-- THE MASTER THEOREM: All seven MPPs converge to the O_inf type.
-    
+
     | MPP   | Tier Gate       | Mechanism                         | Gap                          |
     |-------|-----------------|-----------------------------------|------------------------------|
     | RH    | nun→or'   | de Branges ℤ₂-graded H(E)        | Hilbert space construction   |
@@ -70,7 +70,7 @@ theorem universal_O_inf_axiom_D :
     | Hodge | nun→or'   | Axiom D: if'+are+𐑭→or' | Primitive bridge translation |
     | PvsNP | 𐑢→⊙       | Tier invariance                   | Grammar-complexity correspondence |
     | OPN   | ⊙ + on    | 2-adic overdetermination          | Valuation contradiction      |
-    
+
     Each proof reduces the MPP to a single, well-defined mathematical
     sub-problem. The grammar provides the unified structural framework.
     The vessel (O_inf type) is ready. The contents (specific proofs) await

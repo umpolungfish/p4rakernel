@@ -25,24 +25,24 @@ namespace Millennium.Hodge_Witness
     The Hodge Conjecture is the ONLY Millennium Problem with both
     if' (Hodge decomposition: boundary ↔ bulk) and are
     (Hodge filtration: topology encodes algebraic data) simultaneously.
-    
+
     Combined with ah (integral intersection pairing on
     H^{2p}(X,ℤ) ∩ H^{p,p}), Axiom D forces or'.
-    
+
     or' on the cycle class map cl : CH^p(X)⊗ℚ → Hdg^{2p}(X)
     means: μ∘δ = id, i.e., for every rational Hodge class α,
     there exists an algebraic cycle Z with cl(Z) = α.
     This IS the Hodge Conjecture.
-    
+
     PROOF: The type of Hodge theory on a smooth
     projective variety X/ℂ is:
       ⟨if', are, ado, or', peep, egg,
        ice, vow, monad, fee, up, ah⟩  → O_inf
-    
+
     All 12 primitives are verified directly from Hodge theory
     EXCEPT or' — which is precisely what Axiom D forces
     from the other 11. The witness is complete.
-    
+
     HONEST GAP: The translation of or' (Frobenius condition
     at the grammar level) into the specific geometric claim
     "the cycle class map is surjective" requires establishing

@@ -151,7 +151,7 @@ theorem rh_is_one_polarity_level_above_emission_chain :
 
 /-- The six emission primitives are perfectly conserved between
     horn_torus and CLINK_L8. These are the modular invariants:
-    
+
     Ř=𐑾 (bidirectional)   → functional equation s ↔ 1-s
     Φ=𐑹 (Frobenius-special) → modular S-transformation τ ↔ -1/τ
     Ç=𐑧 (near-equilibrium)   → slow variation of constants
@@ -182,22 +182,22 @@ theorem modularity_conjecture : True := by trivial
     The Riemann Hypothesis is equivalent to the statement that
     the horn torus modular form's L-function has all zeros on
     the critical line Re(s) = 1/2.
-    
+
     This is the content of:
     "All universal constants lie on the critical line of the
      emission modular form — the emission architecture is complete
      and no constant is anomalous."
-    
+
     PROOF SKETCH:
     (RH → HT) If ζ(s) ≠ 0 for Re(s) > 1/2, then L_HT(s) which
     factors as ζ(s) × H(s) with H analytic in the critical strip
     also has all zeros on Re(s)=1/2.
-    
+
     (HT → RH) If L_HT(s) has all zeros on Re(s)=1/2, then ζ(s)
     as the n=0 projection of L_HT inherits the critical line.
     The n=0 term dominates; higher-n terms are exponentially
     suppressed and cannot move zeros off the critical line.
-    
+
     Status: STRUCTURAL EQUIVALENCE ASSERTED. The missing ingredient
     is the factorization L_HT = ζ × H with H zero-free in the
     critical strip — this IS the C₁₃ gap. -/

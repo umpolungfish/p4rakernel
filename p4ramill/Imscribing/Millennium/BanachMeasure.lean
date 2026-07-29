@@ -104,27 +104,27 @@ theorem frobenius_gate_parity_resolution :
 
 /-- Theorem: Under church (AC), the Frobenius condition fails on SOME subset.
     This is Vitali's theorem (1905): AC → ∃ non-measurable set.
-    
-    Vitali's construction (formalized in the companion module 
+
+    Vitali's construction (formalized in the companion module
     Imscribing.Millennium.VitaliConstruction):
-    
-    Define the equivalence relation x ~ y iff x - y ∈ ℚ on ℝ. 
+
+    Define the equivalence relation x ~ y iff x - y ∈ ℚ on ℝ.
     Partition [0,1] into ℚ-coset equivalence classes. Using AC,
     select one representative from each class → Vitali set V.
-    
+
     Key properties of V:
     (i)   V ⊆ [0,1]
     (ii)  For any x ∈ [0,1], ∃ v ∈ V, q ∈ ℚ: x = v + q
     (iii) For distinct q₁, q₂ ∈ ℚ, (V+q₁) ∩ (V+q₂) = ∅
-    
+
     If V were measurable, then by countable additivity and translation
-    invariance of Lebesgue measure λ:
-      λ(⋃_{q∈ℚ∩[-1,1]} (V+q)) = Σ_q λ(V+q) = Σ_q λ(V)
-    
-    This sum is 0 if λ(V)=0, or ∞ if λ(V)>0. But:
+    invariance of Lebesgue measure fun:
+      fun(⋃_{q∈ℚ∩[-1,1]} (V+q)) = Σ_q fun(V+q) = Σ_q fun(V)
+
+    This sum is 0 if fun(V)=0, or ∞ if fun(V)>0. But:
       [0,1] ⊆ ⋃_{q∈ℚ∩[-1,1]} (V+q) ⊆ [-1,2]
-    implies 1 ≤ λ(⋃) ≤ 3, contradiction. Hence V is NOT measurable.
-    
+    implies 1 ≤ fun(⋃) ≤ 3, contradiction. Hence V is NOT measurable.
+
     Therefore, no countably additive, translation-invariant measure
     can exist on ALL subsets of ℝ extending Lebesgue measure.
     The Frobenius condition μ∘δ=id fails at V: μ(δ(V)) ≠ μ(V)
@@ -143,21 +143,21 @@ theorem frobenius_measure_fails_under_asym :
 
 /-- Theorem: Under or' (ZF+DC+inaccessible), the Frobenius condition
     holds on ALL subsets. This is Solovay's theorem (1970).
-    
+
     Solovay (1970) constructed a model of ZF + DC where every subset of ℝ
     is Lebesgue measurable. The model requires an inaccessible cardinal κ.
     In the Solovay model:
     - The ℤ₂ translation symmetry of ℝ is UNBROKEN (AC is withheld for
       subsets of ℝ, so no Vitali construction is possible)
-    - Every A ⊆ ℝ is Lebesgue measurable: λ*(A) = λ_*(A)
+    - Every A ⊆ ℝ is Lebesgue measurable: fun*(A) = λ_*(A)
     - The completion operator δ is trivial: δ(A) = A for all A
     - μ∘δ = id holds trivially on 𝒫(ℝ)
-    
+
     In the grammar, this is or' at monad with if' (self-written
     state space for the inaccessible cardinal), are (holographic
     topology for the forcing poset), and wool (eternal chirality for
     transfinite fixed-point preservation).
-    
+
     ZFC_fe is the structural encoding of the Solovay model. -/
 theorem frobenius_measure_exists_under_ppmsym :
     zfc_fe.pol = or' → True := by
@@ -345,26 +345,26 @@ theorem consciousness_gap_is_maximal :
 -- This is the bridge between conventional mathematics and the grammar.
 
 /-- Forward direction: FrobeniusMeasureExists → or' at monad.
-    
+
     If a countably additive, translation-invariant measure μ exists on
     ALL subsets of ℝ extending Lebesgue measure, then:
-    
+
     (1) For any A ⊆ ℝ, μ(A) is defined. Since μ extends Lebesgue measure
         and is translation-invariant, μ(A + t) = μ(A) for all t.
-    
+
     (2) Every A ⊆ ℝ is μ-measurable (by definition, μ is on 𝒫(ℝ)).
         Hence the Lebesgue completion operator δ satisfies δ(A) = A for
         all A, and μ(δ(A)) = μ(A) — the Frobenius condition holds.
-    
+
     (3) No Vitali-type non-measurable set can exist, because all sets
         are measurable. Hence the Axiom of Choice cannot be used to
         construct a non-measurable set from ℝ (this is only possible
         if the measure is restricted to a proper σ-algebra).
-    
+
     (4) Structurally: the ℤ₂ translation symmetry is unbroken → pol = or'.
         The phase transition from "some sets measurable" to "all sets
         measurable" has occurred → crit = monad.
-    
+
     This is the content of Solovay's theorem in the
     forward direction (existence → structure). -/
 theorem frobenius_measure_implies_ppmsym_and_phic
@@ -375,26 +375,26 @@ theorem frobenius_measure_implies_ppmsym_and_phic
   trivial
 
 /-- Backward direction: or' at monad → FrobeniusMeasureExists.
-    
+
     If the primitives encode or' (Frobenius-special ℤ₂
     symmetry) at monad (critical self-modeling), then the Solovay model
     construction (Solovay 1970) provides a set-theoretic universe where:
-    
+
     (1) Every subset of ℝ is Lebesgue measurable (ZF + DC + inaccessible
         cardinal → all sets are measurable in the Levy collapse extension)
-    
-    (2) Lebesgue measure λ restricted to this universe is defined on all
-        subsets of ℝ: ∀ A ⊆ ℝ, λ(A) is well-defined.
-    
-    (3) λ is countably additive and translation-invariant (these are
+
+    (2) Lebesgue measure fun restricted to this universe is defined on all
+        subsets of ℝ: ∀ A ⊆ ℝ, fun(A) is well-defined.
+
+    (3) fun is countably additive and translation-invariant (these are
         properties of Lebesgue measure in any model of ZF+DC).
-    
+
     (4) The Frobenius condition holds: define δ(A) = A (trivial completion,
-        since all sets are measurable) and μ = λ. Then μ(δ(A)) = μ(A)
+        since all sets are measurable) and μ = fun. Then μ(δ(A)) = μ(A)
         trivially for all A ⊆ ℝ.
-    
+
     This yields a witness for FrobeniusMeasureExists.
-    
+
     The structural requirements (if', are, ian, wool, ah)
     are precisely the conditions needed for the Solovay model to exist:
     if' = inaccessible cardinal (self-written state space)
@@ -608,7 +608,7 @@ def theorem_list : List String := [
     All theorems are verified. The mathematical content
     (Vitali construction, Solovay model connection) is fully stated
     and connected to the primitives.
-    
+
     THE VESSEL IS FILLED — the structural resolution of Banach's
     Measure Problem is complete. -/
 def vessel_closed : String :=

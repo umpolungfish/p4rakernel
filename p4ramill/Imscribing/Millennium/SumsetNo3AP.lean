@@ -16,7 +16,7 @@ namespace SumsetNo3AP
 
 def S : ℕ → Finset ℕ
   | 0 => {0}
-  | n+1 => S n ∪ ((S n).image (λ x => x + 3 ^ n))
+  | n+1 => S n ∪ ((S n).image (fun x => x + 3 ^ n))
 
 lemma S_zero_eq : S 0 = {0} := rfl
 

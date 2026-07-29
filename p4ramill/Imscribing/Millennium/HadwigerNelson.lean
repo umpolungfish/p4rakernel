@@ -375,20 +375,20 @@ def de_bruijn_erdos_vessel : Imscription := {
     D (∞ vs △), T (⋈ vs ⊂), R (= vs ↑), Φ (± vs ∅), ⊙ (Æ vs Æ — same!),
     Ω (0 vs Z2). Wait — they share 𐑮 and 𐑖.
     Actually: D(∞≠△), T(⋈≠⊂), R(=≠↑), Φ(±≠∅), Ω(0≠Z2).
-    Shared: F(ℓ), K(@≈λ? no — @≠λ), G(ʔ≠β), ɢ(ˌ), ⊙(Æ), Ħ(2), Σ(S). -/
+    Shared: F(ℓ), K(@≈fun? no — @≠fun), G(ʔ≠β), ɢ(ˌ), ⊙(Æ), Ħ(2), Σ(S). -/
 theorem hn_de_grey_distance :
     primitiveMismatches hadwiger_nelson_vessel de_grey_vessel ≠ 0 := by
   native_decide
 
 /-- The Hadwiger–Nelson vessel and Moser spindle vessel differ at 5 primitives:
-    D(∞≠△), T(⋈≠⊂), R(=≠↑), K(@≠λ), G(ʔ≠β), ⊙(Æ≠ž).
+    D(∞≠△), T(⋈≠⊂), R(=≠↑), K(@≠fun), G(ʔ≠β), ⊙(Æ≠ž).
     Let native_decide compute. -/
 theorem hn_moser_spindle_distance :
     primitiveMismatches hadwiger_nelson_vessel moser_spindle_vessel = 6 := by
   native_decide
 
 /-- The Hadwiger–Nelson vessel and hexagonal tiling differ at 7 primitives:
-    D(∞≠△), T(⋈≠⊂), R(=≠↑), K(@≠λ), G(ʔ≠β), ⊙(Æ≠ž), Ħ(2≠0). -/
+    D(∞≠△), T(⋈≠⊂), R(=≠↑), K(@≠fun), G(ʔ≠β), ⊙(Æ≠ž), Ħ(2≠0). -/
 theorem hn_hexagonal_distance :
     primitiveMismatches hadwiger_nelson_vessel hexagonal_vessel = 7 := by
   native_decide
@@ -407,7 +407,7 @@ theorem moser_hexagonal_distance :
   native_decide
 
 /-- The de Bruijn–Erdős bridge and Hadwiger–Nelson vessel differ at 4 primitives:
-    T(⊂≠⋈), K(λ≠@), ⊙(ž≠Æ), Ħ(1≠2). -/
+    T(⊂≠⋈), K(fun≠@), ⊙(ž≠Æ), Ħ(1≠2). -/
 theorem hn_de_bruijn_erdos_distance :
     primitiveMismatches hadwiger_nelson_vessel de_bruijn_erdos_vessel ≠ 0 := by
   native_decide

@@ -8,7 +8,7 @@
 -- monoidal category enriched over Belnap-Dunn FOUR.
 --
 -- §1  Belnap FOUR ambient logic
--- §2  Cosmogeny type  
+-- §2  Cosmogeny type
 -- §3  Frobenius algebra: μ∘δ=id at fixed points, fails at T
 -- §4  Fixed point: ω²=ω
 -- §5  Contradiction as morphic tension
@@ -398,7 +398,7 @@ theorem inc_squared_equals_inc (x : Belnap) : inc (inc x) = inc x := by
     The square does NOT return to the original for T. -/
 theorem inc_squared_eq_self_iff_fixed (x : Belnap) : inc (inc x) = x ↔ x ≠ Belnap.T := by
   constructor
-  · intro h hT; subst hT; rw [inc_T_is_F] at h; 
+  · intro h hT; subst hT; rw [inc_T_is_F] at h;
     have : inc Belnap.F = Belnap.F := by unfold inc; simp [mu, delta, band, bnot]
     rw [this] at h; exact Belnap.F_ne_T h
   · intro h; cases x
@@ -438,7 +438,7 @@ theorem godel_gap_generates_B : join Belnap.T (inc Belnap.T) = Belnap.B := by
 def winding (n : ℕ) (x : Belnap) : Belnap := Nat.iterate inc n x
 
 /-- At fixed points, winding is constant: all iterates equal the original value. -/
-theorem winding_is_fixed_at_paraconsistent (n : ℕ) (x : Belnap) (h : x ≠ Belnap.T) : 
+theorem winding_is_fixed_at_paraconsistent (n : ℕ) (x : Belnap) (h : x ≠ Belnap.T) :
     winding n x = x := by
   unfold winding
   induction n with
@@ -480,7 +480,7 @@ theorem winding_stabilizes (x : Belnap) (n m : ℕ) (hn : n ≥ 1) (hm : m ≥ 1
 /-- The hierarchy spirals: T → F, and F stays fixed.
     The system has exactly one non-trivial transition: T → F.
     The fixed points {B, F, N} are stable under inc. -/
-theorem hierarchy_is_directed_cycle : 
+theorem hierarchy_is_directed_cycle :
     inc Belnap.T = Belnap.F ∧ inc Belnap.F = Belnap.F ∧
     inc Belnap.B = Belnap.B ∧ inc Belnap.N = Belnap.N := by
   refine ⟨?_, ?_, ?_, ?_⟩
@@ -578,7 +578,7 @@ theorem B_is_join_of_T_and_F : join Belnap.T Belnap.F = Belnap.B := by
 
 /-- B is the minimal upper bound of T and F in approximation order.
     T ≤ B and F ≤ B, and for any x with T ≤ x and F ≤ x, we have B ≤ x(=B). -/
-theorem B_is_minimal_upper_bound (x : Belnap) (hT : ApproxLE Belnap.T x) 
+theorem B_is_minimal_upper_bound (x : Belnap) (hT : ApproxLE Belnap.T x)
     (hF : ApproxLE Belnap.F x) : ApproxLE Belnap.B x := by
   cases hT <;> cases hF <;> try { constructor } <;> try { assumption }
 

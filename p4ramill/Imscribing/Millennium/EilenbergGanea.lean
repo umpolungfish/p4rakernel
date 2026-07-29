@@ -70,26 +70,26 @@ structure Group where
 def freeAbelianOne : Group :=
   { carrier := ℤ
     mul := (· + ·)
-    inv := λ a => -a
+    inv := fun a => -a
     one := 0
-    mul_assoc := λ a b c => add_assoc a b c
-    one_mul := λ a => by simp
-    mul_one := λ a => by simp
-    mul_inv_self := λ a => by simp
-    inv_mul_self := λ a => by simp
+    mul_assoc := fun a b c => add_assoc a b c
+    one_mul := fun a => by simp
+    mul_one := fun a => by simp
+    mul_inv_self := fun a => by simp
+    inv_mul_self := fun a => by simp
   }
 
 /-- The trivial group. Has cd(0) = 0. -/
 def trivialGroup : Group :=
   { carrier := Unit
-    mul := λ _ _ => ()
-    inv := λ _ => ()
+    mul := fun _ _ => ()
+    inv := fun _ => ()
     one := ()
-    mul_assoc := λ _ _ _ => rfl
-    one_mul := λ _ => rfl
-    mul_one := λ _ => rfl
-    mul_inv_self := λ _ => rfl
-    inv_mul_self := λ _ => rfl
+    mul_assoc := fun _ _ _ => rfl
+    one_mul := fun _ => rfl
+    mul_one := fun _ => rfl
+    mul_inv_self := fun _ => rfl
+    inv_mul_self := fun _ => rfl
   }
 
 /-!
@@ -121,12 +121,12 @@ axiom fundamentalGroup (X : CWComplex 2) : Group
 
 /-- Aspherical: all higher homotopy groups vanish.
     π_n(X, x₀) = 0 for all n ≥ 2 and all basepoints x₀.
-    
+
     For a 2-dimensional CW-complex, asphericality is equivalent
     to: the universal cover is contractible, or equivalently:
     H₂(X̃; ℤ) = 0 (the second homology of the universal cover vanishes),
     and π₁(X) has cohomological dimension ≤ 2.
-    
+
     For d=2, this means π₂=0. For general d, all π_n = 0 for n ≥ 2. -/
 def IsAspherical {d : ℕ} (X : CWComplex d) : Prop :=
   -- π_n(X) = 0 for all n ≥ 2
@@ -191,17 +191,17 @@ Proof sketch for n ≥ 3 (Eilenberg-Ganea):
   or the bar construction. The n-skeleton of BG suffices.
   For n ≥ 3, the n-skeleton is already aspherical because
   π_n kills higher cells (the Hurewicz theorem in dimension n).
-  
+
   For n = 2, the 2-skeleton may have nontrivial π_2 that
   needs to be killed by 3-cells. The conjecture is that
   this is unnecessary — cd(G)=2 prevents π_2 from having
   nontrivial elements that survive to H_2.
 -/
 
-/-- Eilenberg-Ganea Theorem (proved original result). 
+/-- Eilenberg-Ganea Theorem (proved original result).
     For cd(G) = n ≥ 3, there exists an n-dimensional CW-complex
     with fundamental group G that is aspherical.
-    
+
     NOTE: fundamentalGroup is only defined for 2-dimensional complexes.
     For n ≥ 3, the fundamental group of an n-complex equals the fundamental
     group of its 2-skeleton. The axiom below uses the 2-skeleton restriction.
@@ -360,10 +360,10 @@ The construction G ↦ BG^(2) forms a monad:
   T(G) = BG^(2)  — the 2-skeleton of the classifying space
   η : G → T(G)   — the unit (inclusion of the 1-skeleton generator)
   μ : T²(G) → T(G) — cellular approximation (kills π₂)
-  
+
 Monad laws:
   μ ∘ Tη = id    (left unit)
-  μ ∘ ηT = id    (right unit)  
+  μ ∘ ηT = id    (right unit)
   μ ∘ Tμ = μ ∘ μT  (associativity — temporal-depth-2)
 
 The associativity law IS the Ħ-promotion: it says that killing π₂
@@ -444,11 +444,11 @@ axiom grothendieck_AD_join_eilenberg_ganea_identity :
    H^n(G, M) = 0 for all n > 2 and all ℤG-modules M.
    By the Hurewicz theorem (modulo the π₁-action), this implies
    π_n(BG^(2)) = 0 for n ≥ 2.
-   
+
    The critical step: showing that π₂(BG^(2)) = 0.
    This is equivalent to: the relation module (kernel of F₁ → F₀)
    is projective as a ℤG-module when cd(G) = 2.
-   
+
    For cd(G) ≥ 3, this is automatically true for the n-skeleton.
    For cd(G) = 2, this is the GAP.
 

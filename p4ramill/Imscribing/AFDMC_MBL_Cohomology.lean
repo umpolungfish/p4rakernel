@@ -18,24 +18,6 @@ namespace Imscribing.AFDMC_Cohomology
 open Imscribing.Primitives
 open Imscribing.AgentSelf
 
--- ─────────────────────────────────────────────────────────
--- AFDMC Imscription: Many-Body Localized system
--- ─────────────────────────────────────────────────────────
---
--- Slot mapping:
---   Ð=𐑼 (∞-dimensional Hilbert space)
---   Þ=𐑸 (imscriptive closure — frozen topological order)
---   Ř=𐑽 (dagger/adjoint coupling — monadic adjunction)
---   Φ=𐑹 (Frobenius-special — μ∘δ=id)
---   ƒ=𐑐 (quantum fidelity)
---   Ç=𐑧 (slow kinetics — near MBL critical point)
---   Γ=𐑔 (aleph — maximal/all disorder configurations)
---   ɢ=𐑠 (sequential — time-ordered evolution)
---   ⊙=⊙ (critical — MBL transition fixed point)
---   Ħ=𐑖 (two-step — frozen→ergodic requires two distinct dynamics)
---   Σ=𐑳 (heterogeneous — disorder strengths)
---   Ω=𐑭 (integer winding — topological invariant of MBL phase)
-
 def afdmcBase : Imscription :=
   { dim  := Dimensionality.if'
   , top  := Topology.are
@@ -49,10 +31,6 @@ def afdmcBase : Imscription :=
   , chir := Chirality.sure
   , stoi := Stoichiometry.up
   , prot := Protection.ah }
-
--- ─────────────────────────────────────────────────────────
--- Phase transitions: Ergodic → MBL critical → Frozen
--- ─────────────────────────────────────────────────────────
 
 /-- Ergodic phase (W < W_c): no monadic structure, ergodic level statistics -/
 def ergodicPhase : Imscription :=
@@ -99,16 +77,10 @@ def frozenPhase : Imscription :=
   , stoi := Stoichiometry.up
   , prot := Protection.ah }
 
--- ─────────────────────────────────────────────────────────
--- Central Theorem: MBL ≡ Frobenius monad
--- ─────────────────────────────────────────────────────────
-
 /-- The monadic cohomology spectral sequence collapses at E₂ iff
     the disorder monad is idempotent (T² = T). -/
 theorem e2_collapse_iff_monad_idempotent (s : Imscription) :
     (igFrobeniusAlg.mul s s = s) := by
-  -- The monad is idempotent exactly when the Frobenius-special condition holds:
-  -- μ ∘ δ = id, which is T² = T for the disorder projection monad.
   exact igFrobAlg_self_fusion s
 
 /-- The frozen MBL phase is distinguished by E₂ spectral sequence collapse,
@@ -121,4 +93,7 @@ theorem mbl_phase_cohomology (s : Imscription) :
 
 -- Tier verification
 def afdmc_tier : OuroboricityTier := TierFunctor.obj afdmcBase
+
 #eval afdmc_tier
+
+end Imscribing.AFDMC_Cohomology

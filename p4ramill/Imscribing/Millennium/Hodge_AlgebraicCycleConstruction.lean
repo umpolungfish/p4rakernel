@@ -25,19 +25,19 @@ noncomputable section
 
 /-!
   AXIOMS — The regulator right inverse for all degrees.
-  
+
   For any Hodge class α ∈ H^{p,p}(X) ∩ H^{2p}(X, ℚ) and any degree p,
   there exists a Gersten p-cocycle α_F ∈ GerstenCocycle X p such that
   regulatorOnCocycle X p α_F = α.
-  
+
   This IS the Hodge conjecture. The choice to split by degree is
   structural, not mathematical: the construction works the same
   whether p = 0, 1, or ≥ 2.
-  
+
   For p = 0: the regulator maps the fundamental cocycle [X] to 1 ∈ H^0 ≅ ℚ.
   For p = 1: the regulator maps the divisor of a line bundle to its Chern class.
   For p ≥ 2: the regulator maps the Gersten cocycle to the Hodge class.
-  
+
   In ALL cases, the construction is the SAME: the right inverse of the
   regulator map. The axiom below unifies all degrees.
 -/
