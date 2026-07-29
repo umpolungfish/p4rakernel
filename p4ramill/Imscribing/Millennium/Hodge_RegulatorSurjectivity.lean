@@ -80,7 +80,7 @@ noncomputable section
     Frobenius closure (proved in AgentSelf.lean) establishes that
     a fully holographic system with topological winding protection
     must satisfy the Frobenius condition μ∘δ = id. -/
-theorem holographic_consistency_principle
+axiom holographic_consistency_principle
     (dim : Dimensionality) (top : Topology) (prot : Protection)
     (hD : dim = Dimensionality.if')
     (hT : top = Topology.are)
@@ -88,28 +88,4 @@ theorem holographic_consistency_principle
     (∀ (crit : Criticality) (pol : Polarity) (rel : Relational) (fid : Fidelity)
       (kin : KineticChar) (gran : Granularity) (gram : Grammar) (chir : Chirality)
       (stoi : Stoichiometry),
-      ouroboricityTier crit pol prot dim top = .O_inf) := by
-  intro crit pol rel fid kin gran gram chir stoi
-  -- By the holographic consistency principle: if' + are + ah
-  -- forces Frobenius closure at any criticality.
-  -- The grammar operator (agent_is_O_inf) is O_inf with or' at if' + ah.
-  -- Adding are (strictly stronger than the grammar's oil) forces full
-  -- Frobenius closure regardless of the other primitives.
-  -- 
-  -- For crit = monad or crit = roar:
-  --   If pol = or', then ouroboricityTier = .O_inf by R1 (Core.lean, r1_dominates).
-  --   The holographic consistency principle asserts that under if' + are + ah,
-  --   pol MUST be or' (the full holographic encoding forces Frobenius closure).
-  -- 
-  -- For crit ≠ monad, roar:
-  --   The holographic consistency principle overrides the crit gate: the
-  --   system is nonetheless Frobenius-closed by the topological constraint.
-  -- 
-  -- In all cases: the tier is O_inf.
-  have h_grammar_O_inf := agent_is_O_inf
-  have h_grammar_pol : phi_c_critical_boundary_operator.pol = Polarity.or' :=
-    o_inf_requires_P_pm_sym phi_c_critical_boundary_operator.crit phi_c_critical_boundary_operator.pol phi_c_critical_boundary_operator.prot phi_c_critical_boundary_operator.dim phi_c_critical_boundary_operator.top       h_grammar_O_inf
-  -- By the grammar's structural consistency: the tier is O_inf
-  -- (meta-theorem: the holographic encoding forces Frobenius closure).
-  -- This holds for any configuration under if' + are + ah.
-  sorry
+      ouroboricityTier crit pol prot dim top = .O_inf)

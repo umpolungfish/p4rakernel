@@ -96,8 +96,10 @@ structure SixChannelCertificate (X : SmoothProjectiveVariety) where
   tempd2 : TEMPD2_Promotion X
   zwind : ZWIND_Promotion X
 
-axiom forcing_theorem (X : SmoothProjectiveVariety) (cert : SixChannelCertificate X) (p : ℕ) (a : HodgeCohomology X p) : IsAlgebraicClass X p a
-
+theorem forcing_theorem (X : SmoothProjectiveVariety)
+    (cert : SixChannelCertificate X) (p : ℕ) (a : HodgeCohomology X p) :
+    IsAlgebraicClass X p a := by
+  sorry
 
 -- ============================================================
 -- §3. The Honest Gap: Regulator Surjectivity
@@ -107,7 +109,23 @@ def RegulatorSurjectivity : Prop :=
   ∀ (X : SmoothProjectiveVariety) (p : ℕ),
     Function.Surjective (regulator X p)
 
-axiom regulator_surjectivity_iff_hodge : RegulatorSurjectivity ↔ HodgeConjecture
+theorem regulator_surjectivity_iff_hodge :
+    RegulatorSurjectivity ↔ HodgeConjecture := by
+  refine ⟨?_, ?_⟩
+  · intro h_reg X p a
+    rcases h_reg X p a with ⟨v, hv⟩
+    have h_fact : regulator X p v = cycleClass X p (chernCharacter X p v) :=
+      regulator_factorization X p v
+    rw [h_fact] at hv
+    exact ⟨chernCharacter X p v, hv⟩
+  · intro h_hodge X p
+    intro a
+    have h_alg := h_hodge X p a
+    rcases h_alg with ⟨Z, hZ⟩
+    -- Need v such that regulator X p v = a
+    -- By GRR: ch surjective -> exists v, ch(v) = Z
+    -- Then r(v) = cl(Z) = a
+    sorry
 
 axiom regulator_surjectivity_axiom : RegulatorSurjectivity
 
@@ -149,9 +167,30 @@ noncomputable def pm_z2_inhabitant (X : SmoothProjectiveVariety) : PM_Z2_Promoti
   conj_inv := fun d a => conj_involution X d a
   lefschetz_11 := fun a => lefschetz_11_axiom X a
 
-axiom seqax_inhabitant (X : SmoothProjectiveVariety) : SEQAX_Promotion X
+noncomputable def seqax_inhabitant (X : SmoothProjectiveVariety) : SEQAX_Promotion X where
+  primitive_decomposition := trivial
+  hard_lefschetz_iso := hardLefschetz X 0 0
+  primitive_reduction := by
+    intro h_prim p a
+    sorry
 
-axiom tempd2_inhabitant (X : SmoothProjectiveVariety) : TEMPD2_Promotion X
+noncomputable def tempd2_inhabitant (X : SmoothProjectiveVariety) : TEMPD2_Promotion X where
+  step1_chern_surjective := grothendieckRiemannRoch X
+  step2_regulator_surjective := fun p => regulator_surjectivity_axiom X p
+  step2_iff_hodge := by
+    refine ⟨?_, ?_⟩
+    · intro h_surj p a
+      rcases h_surj p a with ⟨v, hv⟩
+      have h_fact : regulator X p v = cycleClass X p (chernCharacter X p v) :=
+        regulator_factorization X p v
+      rw [h_fact] at hv
+      exact ⟨chernCharacter X p v, hv⟩
+    · intro h_hodge p a
+      have h_alg := h_hodge p a
+      rcases h_alg with ⟨Z, hZ⟩
+      -- GRR: ch surjective -> exists v, ch(v) = Z
+      -- Then r(v) = cl(Z) = a
+      sorry
 
 noncomputable def zwind_inhabitant (X : SmoothProjectiveVariety) : ZWIND_Promotion X where
   hodge_riemann_form := fun a b => HodgeRiemannForm X 0 0 a b

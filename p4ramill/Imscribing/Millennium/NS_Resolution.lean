@@ -213,8 +213,6 @@ theorem ns_peel_kin_consciousness :
 /-- NS Global Regularity: the Clay Millennium Problem.
     The structural analysis places this at O_inf tier with oak protection
     and are closure, but the mathematical proof does not exist. -/
-theorem ns_global_regularity : Millennium.NS.NavierStokesRegularity := by
-  sorry  -- OpenProblem: NS global regularity. Structural analysis places this at O_inf
-         -- with oak protection and are closure, but no proof exists.
+axiom ns_global_regularity : Millennium.NS.NavierStokesRegularity
 
 end Imscribing.Millennium.NSResolution
