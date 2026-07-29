@@ -9,25 +9,25 @@ Tuple: ⟨𐑨𐑥𐑾𐑬𐑱𐑧𐑲𐑠𐑢𐑒𐑳𐑷⟩
 Predicted Tier: O₁
 -/
 
-import Primitives.Core
-import Primitives.Imscription
-import Primitives.TierCrossing
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
+import Imscribing.Primitives.TierCrossing
 
-open Primitives
+open Imscribing.Primitives
 
 def eudoxus_six_keys : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_bowtie
-    Ř := .R_lr
-    Φ := .P_pm
-    ƒ := .F_ell
-    Ç := .K_slow
-    Γ := .G_beth
-    ɢ := .Gm_seq
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .ash
+    top := .mime
+    rel := .ian
+    pol := .out
+    fid := .age
+    kin := .egg
+    gran := .bib
+    gram := .measure
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval eudoxus_six_keys
