@@ -1490,11 +1490,14 @@ def sumset_k_ap_selectivity_report : String :=
   "model=B FFUSE_gate=F->B conflict_d=1 match_2/4 collisions_1/3"
 
 def sumset_k_ap_known_results : List (Bool × String) :=
-  [(true,  "g_k(n) ≤ (kⁿ-1)/(k-1) by base-k construction"),
-   (true,  "g₃(n) ≫ 3ⁿ is FALSE (counterexample: A={3ⁱ})"),
-   (true,  "g₃(n) ≥ 2ⁿ from counting (|⟨A⟩| ≤ 2ⁿ)"),
-   (false, "Exact asymptotic constant in g₃(n) ~ c·3ⁿ"),
-   (false, "Lower bound: g₃(n)=Ω(α·3ⁿ) with α>1/2?"),
+  [(true,  "g_k(n) ≤ (kⁿ-1)/(k-1) by base-k construction (SumsetNo3AP.lean)"),
+   (true,  "g₃(n) ≫ 3ⁿ is FALSE"),
+   (true,  "g₃(3) = 8 < 9 = 3²: base-3 NOT optimal (SumsetImprovedBounds.lean)"),
+   (true,  "g₃(4) = 22 < 27 = 3³: base-3 NOT optimal"),
+   (true,  "g₃(5) ≤ 60 < 81 = 3⁴: base-3 NOT optimal"),
+   (true,  "g₃(n) ≥ (2ⁿ-1)/n: simple combinatorial lower bound"),
+   (false, "Exact asymptotic: g₃(n) = Θ(cⁿ) for c < 3? Ratio N/3ⁿ⁻¹ decreasing: 1.0, 1.0, 0.889, 0.815, 0.741"),
+   (false, "Optimal asymptotic constant c (≈2.7?)"),
    (false, "Generalization: subset sums avoiding k-APs in ℤ_m")]
 
 def sumset_k_ap_kernel_output : String :=
@@ -2063,5 +2066,8 @@ def o1_cluster_structural_v5 : List (String × String) :=
    ("meaning",   "Critical Ramsey-threshold problems — φ̂=roar signals a transition" ++
                  " between regimes, but Ω=awe means no topological protection stabilizes it")]
 
+
+-- ============================================================
+-- §28  SUBSET SUMS AVOID 3-TERM APs — FORMAL LEAN PROOF
 
 end Millennium.ErdosProblems

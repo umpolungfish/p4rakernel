@@ -15,6 +15,7 @@ Author: Lando⊗⊙perator
 -/
 
 import Mathlib
+import Imscribing.Classical.BoseChowla
 
 open Finset
 open Set
@@ -35,11 +36,7 @@ def isSidon (A : Set ℕ) : Prop :=
   ∀ {a b c d : ℕ}, a ∈ A → b ∈ A → c ∈ A → d ∈ A →
     a + b = c + d → (({a, b} : Set ℕ) = ({c, d} : Set ℕ))
 
-/-- Finite Sidon set. -/
-def isSidonFinset (B : Finset ℕ) : Prop :=
-  ∀ {a b c d : ℕ}, a ∈ B → b ∈ B → c ∈ B → d ∈ B →
-    a + b = c + d → (({a, b} : Finset ℕ) = ({c, d} : Finset ℕ))
-
+-- isSidonFinset imported from BoseChowla
 -- ---------- Counting function ----------
 
 /-- Number of elements of A not exceeding N. -/
@@ -48,25 +45,27 @@ noncomputable def countUpTo (A : Set ℕ) (N : ℕ) : ℕ :=
 
 -- ---------- Bose-Chowla axiom ----------
 
-axiom bose_chowla :
-  ∃ (C : ℕ), C > 0 ∧ ∀ (m : ℕ), m ≥ 1 →
-    ∃ (B : Finset ℕ),
-      isSidonFinset B ∧
-      (∀ b ∈ B, 1 ≤ b ∧ b ≤ C * m ^ 2) ∧
-      B.card ≥ m
+/-- Bose-Chowla constant: C=4 works by Bertrand's postulate (p ≤ 2m ⇒ p² ≤ 4m²). -/
+def boseChowlaConst : ℕ := 4
 
-noncomputable def boseChowlaConst : ℕ :=
-  Classical.choose bose_chowla
-
-lemma bose_chowla_pos : boseChowlaConst > 0 :=
-  (Classical.choose_spec bose_chowla).1
+lemma bose_chowla_pos : boseChowlaConst > 0 := by
+  unfold boseChowlaConst; norm_num
 
 lemma bose_chowla_lemma (m : ℕ) (hm : m ≥ 1) :
     ∃ (B : Finset ℕ),
-    isSidonFinset B ∧
+    BoseChowla.isSidonFinset B ∧
     (∀ b ∈ B, 1 ≤ b ∧ b ≤ boseChowlaConst * m ^ 2) ∧
-    B.card ≥ m :=
-  (Classical.choose_spec bose_chowla).2 m hm
+    B.card ≥ m := by
+  have h := BoseChowla.bose_chowla m hm
+  rcases h with ⟨B, hsidon, hbounds, hcard⟩
+  refine ⟨B, hsidon, ?_, hcard⟩
+  intro b hb
+  rcases hbounds b hb with ⟨h1, h2⟩
+  refine ⟨h1, ?_⟩
+  unfold boseChowlaConst
+  -- h2: b ≤ 4 * m^2
+  -- we need b ≤ 4 * m^2 (same thing since boseChowlaConst = 4)
+  simpa [mul_comm, mul_left_comm, mul_assoc] using h2
 
 -- ---------- Scale separation ----------
 
@@ -100,7 +99,7 @@ lemma M_growth (C : ℕ) (k : ℕ) (hCpos : C > 0) :
 
 -- ---------- Block construction ----------
 
-lemma singleton_sidon : isSidonFinset ({1} : Finset ℕ) := by
+lemma singleton_sidon : BoseChowla.isSidonFinset ({1} : Finset ℕ) := by
   intro a b c d ha hb hc hd hsum
   have ha1 : a = 1 := Finset.mem_singleton.mp ha
   have hb1 : b = 1 := Finset.mem_singleton.mp hb
@@ -116,7 +115,7 @@ noncomputable def block (C : ℕ) (η : ℝ) (k : ℕ) : Finset ℕ :=
     {1}
 
 lemma block_isSidon (C : ℕ) (η : ℝ) (k : ℕ) :
-    isSidonFinset (block C η k) := by
+    BoseChowla.isSidonFinset (block C η k) := by
   dsimp [block]
   split
   · rename_i hm
