@@ -8,24 +8,24 @@ Tuple: ⟨𐑨𐑥𐑾𐑬𐑱; 𑑧; 𐑲𐑠𐑢𐑒𐑳𐑷⟩
 Tier: O₁ (identical to Eudoxus)
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def basil_valentine_antimony : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_bowtie
-    Ř := .R_lr
-    Φ := .P_pm
-    ƒ := .F_ell
-    Ç := .K_slow
-    Γ := .G_beth
-    ɢ := .Gm_seq
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .ash
+    top := .mime
+    rel := .ian
+    pol := .out
+    fid := .age
+    kin := .egg
+    gran := .bib
+    gram := .measure
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval basil_valentine_antimony
