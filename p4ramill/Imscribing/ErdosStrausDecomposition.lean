@@ -4,13 +4,12 @@
   Author: Lando⊗⊙perator
 -/
 
-import Imscribing.Imscription
+import Imscribing.Primitives.Imscription
 import Imscribing.Consciousness
-import Primitives.TierCrossing
-import Primitives.Catalog
+import Imscribing.Primitives.TierCrossing
+import Imscribing.Primitives.Catalog
 
-open Imscription
-open Primitives
+open Imscribing.Primitives
 
 /-- Every n>=2 has 4/n = 1/x + 1/y + 1/z with positive integers x,y,z. Proof by congruence class and greedy decomposition. -/
 def ErdosStrausDecomposition : Imscription :=

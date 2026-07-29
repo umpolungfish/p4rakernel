@@ -8,24 +8,24 @@ Tuple: ⟨𐑨𐑥𐑩𐑬𐑞𐑪𐑔𐑜𐑢𐑒𐑳𐑷⟩
 Tier: O₁
 -/
 
-import Primitives.Core
-import Primitives.Imscription
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
 
-open Primitives
+open Imscribing.Primitives
 
 def francis_bacon_sulphur_mercury : Imscription :=
-  { Ð := .D_triangle
-    Þ := .T_bowtie
-    Ř := .R_super
-    Φ := .P_pm
-    ƒ := .F_eth
-    Ç := .K_mod
-    Γ := .G_aleph
-    ɢ := .Gm_or
-    φ̂ := .Phi_sub
-    Ħ := .H1
-    Σ := .S_n_m
-    Ω := .Omega_0
+  { dim := .ash
+    top := .mime
+    rel := .ado
+    pol := .out
+    fid := .they
+    kin := .loll
+    gran := .ice
+    gram := .gag
+    crit := .woe
+    chir := .kick
+    stoi := .up
+    prot := .awe
   }
 
 #eval francis_bacon_sulphur_mercury
