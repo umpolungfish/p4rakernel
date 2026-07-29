@@ -56,7 +56,7 @@ theorem no_non_base_global {G L : Type}
   have h_bound : forall n, vals n + n <= vals 0 := by
     intro n
     induction n with
-    | zero => 
+    | zero =>
       simp [vals]
     | succ n ih =>
       have hlt_n : vals (n+1) < vals n := h_lt n

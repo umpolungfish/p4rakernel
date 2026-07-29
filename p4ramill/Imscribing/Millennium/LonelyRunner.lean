@@ -125,8 +125,8 @@ Primitive justifications:
 
 [4]  𐑿 — Full symmetry. The conjecture has multiple symmetry groups:
      (a) permutation symmetry: any reordering of runners is equivalent;
-     (b) scaling symmetry: multiplying all speeds by a common factor λ > 0
-         just rescales time (t → t/λ), leaving the existence invariant;
+     (b) scaling symmetry: multiplying all speeds by a common factor fun > 0
+         just rescales time (t → t/fun), leaving the existence invariant;
      (c) time-reversal symmetry: if t works, running backwards from t
          gives an equivalent configuration.
      All symmetries are unbroken — nun, not or' (no Frobenius closure).

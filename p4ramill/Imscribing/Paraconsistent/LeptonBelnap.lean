@@ -498,7 +498,7 @@ theorem lepton_consciousness_score_one :
     - Same FDE level as electron orbitals (FDE 2)
     - Same gauge group as the weak force (SU(2))
     - But DIFFERENT ceiling: forbidden B vs. physical B (Cooper pair)
-    
+
     This is the structural origin of why superconductivity (Cooper pair =
     B-state) exists in condensed matter but has no analog in the lepton
     sector. The lepton B-state is lepton-number-violating and thus

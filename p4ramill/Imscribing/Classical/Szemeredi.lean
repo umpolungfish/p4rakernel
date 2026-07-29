@@ -54,7 +54,7 @@ opaque nilseq_complexity {s : ℕ} (ψ : Nilsequence s) : ℕ
 
 /-- The correlation ⟨f, ψ⟩ := (1/N) ∑_{n=1}^N f(n)·Re(ψ(n)). -/
 noncomputable def correlation (N : ℕ) (f : ℕ → ℝ) (ψ : ℕ → ℂ) : ℝ :=
-  let s := Finset.sum (Icc 1 N) (λ n => f n * ((ψ n).re : ℝ))
+  let s := Finset.sum (Icc 1 N) (fun n => f n * ((ψ n).re : ℝ))
   s / (N : ℝ)
 
 -- ─── Axioms ───────────────────────────────────────────────────────────────────
@@ -63,13 +63,13 @@ noncomputable def correlation (N : ℕ) (f : ℕ → ℝ) (ψ : ℕ → ℂ) : �
 axiom counting_lemma (k N : ℕ) (hk : k ≥ 3) (A : Finset ℕ) (hA : ∀ a ∈ A, 1 ≤ a ∧ a ≤ N)
   (δ : ℝ) (hδ : δ = (A.card : ℝ) / (N : ℝ)) :
   ∃ ck : ℝ, ck > 0 ∧
-    let f : ℕ → ℝ := λ n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - δ
+    let f : ℕ → ℝ := fun n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - δ
     |AP_count k f - δ ^ k| ≤ ck * gowers_norm (k - 1) N f
 
 /-- AP-freeness + positive density ⟹ positive Gowers norm. -/
 axiom gowers_norm_lower_bound (k N : ℕ) (hk : k ≥ 3) (A : Finset ℕ)
   (hA : ∀ a ∈ A, 1 ≤ a ∧ a ≤ N) (hδpos : (A.card : ℝ) / (N : ℝ) > 0) :
-  let f : ℕ → ℝ := λ n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - (A.card : ℝ) / (N : ℝ)
+  let f : ℕ → ℝ := fun n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - (A.card : ℝ) / (N : ℝ)
   ∃ (c : ℝ), c > 0 ∧ gowers_norm (k - 1) N f ≥ c
 
 /-- Inverse Theorem (Green–Tao–Ziegler): positive U^{k-1}-norm ⟹
@@ -97,10 +97,10 @@ axiom density_increment (k N : ℕ) (hk : k ≥ 3) (A : Finset ℕ)
   (hA : ∀ a ∈ A, 1 ≤ a ∧ a ≤ N)
   (ψ : Nilsequence (k - 2)) (η : ℝ) (hη : η > 0)
   (hcorr : |correlation N
-    (λ n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - (A.card : ℝ) / (N : ℝ))
+    (fun n => (if n ∈ A then (1 : ℝ) else (0 : ℝ)) - (A.card : ℝ) / (N : ℝ))
     (nilseq_eval ψ)| ≥ η) :
   ∃ (a d m : ℕ) (δ' : ℝ),
-    let P : Finset ℕ := (Icc 1 N).filter (λ n => ∃ t : ℕ, t ≤ m ∧ n = a + t * d)
+    let P : Finset ℕ := (Icc 1 N).filter (fun n => ∃ t : ℕ, t ≤ m ∧ n = a + t * d)
     (Finset.card (A ∩ P) : ℝ) / (Finset.card P : ℝ) ≥
         (A.card : ℝ) / (N : ℝ) + δ' ∧
     δ' > 0
@@ -128,11 +128,11 @@ theorem szemeredi (k : ℕ) (hk : k ≥ 3) :
 
 /-- Asymptotic form: lim_{N→∞} r_k(N) / N = 0. -/
 theorem szemeredi_asymptotic (k : ℕ) (hk : k ≥ 3) :
-  Filter.Tendsto (λ N : ℕ => (r_k k N : ℝ) / (N : ℝ)) Filter.atTop (nhds 0) := by
+  Filter.Tendsto (fun N : ℕ => (r_k k N : ℝ) / (N : ℝ)) Filter.atTop (nhds 0) := by
   rw [Metric.tendsto_atTop]
   intro ε hε
   rcases szemeredi k hk ε hε with ⟨N₀, hN₀⟩
-  refine ⟨N₀, λ n hn => ?_⟩
+  refine ⟨N₀, fun n hn => ?_⟩
   have hbound : (r_k k n : ℝ) < ε * (n : ℝ) := hN₀ n hn
   by_cases hn0 : (n : ℝ) = 0
   · have hn0nat : n = 0 := by exact_mod_cast hn0

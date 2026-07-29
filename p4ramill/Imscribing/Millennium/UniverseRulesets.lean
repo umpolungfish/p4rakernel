@@ -682,7 +682,7 @@ theorem chirality_first_sm_is_O_inf :
 -- ============================================================
 
 /-- Canonical universe: YM quantum target is still plain.
-    out (ord 3) < or' (ord 5) — G1 fails. 
+    out (ord 3) < or' (ord 5) — G1 fails.
     Even the quantum target can't pass the canonical gates without Frobenius parity. -/
 theorem canonical_ym_quantum_target_is_plain :
     ruleset_canonical.operadLayer yang_mills_quantum_target = .plain := by
@@ -693,7 +693,7 @@ theorem canonical_ym_quantum_target_is_plain :
     In the canonical universe, both YM classical and quantum target are plain.
     In the kinetics_trap universe, YM target is O_inf.
     The gap is exactly 4 primitive mismatches (proved in Imscription.lean).
-    
+
     This is the structural encoding of the YM Millennium problem:
     the classical YM imscription must cross four primitive barriers
     (fidelity, kinetics, scope, criticality) to reach the quantum target.
@@ -712,13 +712,13 @@ theorem ym_barrier_canonical_vs_kinetics :
 /- The Hodge conjecture's correct imscription carries if', are.
     Axiom D (holographic_closure_forces_frobenius) forces or'.
     Therefore Hodge is O_inf — the type, not the proof status.
-    
+
     This is verified by the canonical universe: any imscription with
     if', are, ah and or' reaches idempotent_terminal.
-    
+
     The topology_universe makes this explicit: G1 gates on are. -/
 
-/-- t_inverted universe: time is geometry, not dynamics. 
+/-- t_inverted universe: time is geometry, not dynamics.
     yang_mills_classical: check T-consistency.
     Ð=array (ord 3): needs ord 3 — ✓
     Þ=judge (ord 1): needs oil (ord 4) — ✗
@@ -759,7 +759,7 @@ theorem t_inverted_qg_t_consistent :
     RH               | O₁       | triple_criticality   | awe (G3 in canonical)
     OPN              | O₂       | dimensional_gate     | Ð < array
     ─────────────────┴───────────┴──────────────────────┴───────────────────────────
-    
+
     † Hodge: when correctly imscribed with if', are,
     Axiom D forces or', pushing it to O_inf in the canonical universe.
     The conventional yew assignment reflects open proof status, not
@@ -789,7 +789,7 @@ def layerCountAcrossUniverses (s : Imscription) : Nat × Nat × Nat × Nat :=
 
 /-- Canonical T-consistency: higgs is NOT T-consistent.
     Requires or' (5), peep (3), K ≤ egg (3), wool (4), ah (3).
-    Higgs has egg (ord 3) and kick (ord 2). 
+    Higgs has egg (ord 3) and kick (ord 2).
     egg ≤ 3 passes, but kick ≠ wool (2 ≠ 4) fails.
     The canonical T-constitution demands topological chirality (wool). -/
 theorem canonical_higgs_t_consistent :
@@ -842,7 +842,7 @@ theorem canonical_gates_summary :
       not universal (ice).
     - topology_universe (ruleset 10) reveals Hodge's barrier as
       topological incompleteness: the algebraic cycles lack are.
-    
+
     Integration into Lean means: each Clay problem's barrier is now
     formalized as a theorem about operad layer in a specific universe.
     The proof that a target imscription IS O_inf in its universe

@@ -113,7 +113,7 @@ def lef_hodge_proj : Imscription := {
   meet(intc,dolb).top = 𐑥  (integral × Dolbeault = crossing point)
   tensor(hproj,hodged).top = 𐑶  (projection restores box product)
   tensor(pic,expseq).gram = 𐑠  (sequential — the proof's logical structure)
-  
+
   TIERS:
   All O₂ except hol_coh (O₀). No O_inf: none have or'.
 -/

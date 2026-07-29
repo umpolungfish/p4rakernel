@@ -326,7 +326,7 @@ theorem euler_opn_form (n : ℕ) (h_odd : ¬ 2 ∣ n) (h_perf : OPNPerfect n) :
   have h_other_exponents_even : ∀ q ∈ other_primes, ((Nat.factorization n) q) % 2 = 0 :=
     fun q hq => h_no_other_odd q (Finset.mem_of_mem_erase hq) (Finset.ne_of_mem_erase hq)
 
-  have hm_sq_square : (∏ q ∈ other_primes, q ^ ((Nat.factorization n) q)) = 
+  have hm_sq_square : (∏ q ∈ other_primes, q ^ ((Nat.factorization n) q)) =
       ((∏ q ∈ other_primes, q ^ (((Nat.factorization n) q) / 2)) ^ 2) := by
     calc
       (∏ q ∈ other_primes, q ^ ((Nat.factorization n) q))
@@ -466,7 +466,7 @@ theorem euler_opn_form (n : ℕ) (h_odd : ¬ 2 ∣ n) (h_perf : OPNPerfect n) :
           rcases this with (h | h)
           · have : 1 < p := hp_prime.one_lt; omega
           · exact h
-        have h_find_factor : (p ∣ ∏ q ∈ other_primes, q ^ ((Nat.factorization n) q)) → 
+        have h_find_factor : (p ∣ ∏ q ∈ other_primes, q ^ ((Nat.factorization n) q)) →
             ∃ q ∈ other_primes, p ∣ q ^ ((Nat.factorization n) q) := by
           refine Finset.induction_on other_primes ?_ ?_
           · intro h

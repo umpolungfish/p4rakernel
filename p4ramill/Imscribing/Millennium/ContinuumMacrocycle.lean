@@ -6,7 +6,7 @@
 -- but as a symmetric, topologically closed, syndiotactic macrocycle. Under
 -- the Belnap-four substrate, CH_true and CH_false, mediated by time_concept,
 -- close head-to-tail to form a relaxed, stable, non-conducting manifold with
--- vanishing spectral gap: ρ - |λ₂| = 0.0000.
+-- vanishing spectral gap: ρ - |fun₂| = 0.0000.
 --
 -- Monomers:
 --   CH_true:     ⟨dead; oil; ado; nun; peep; egg; bib; vow; monad; fee; hung; oak⟩

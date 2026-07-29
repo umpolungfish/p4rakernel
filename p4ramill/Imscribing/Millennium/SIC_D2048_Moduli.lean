@@ -463,7 +463,7 @@ theorem exponent_choice_matters : wideRayDegree 12 = 2 * wideRayDegree 11 :=
    modulus (3d) discriminates: raw count 16 ≠ d/2=8; quotient by class group
    gives 16/2 = 8 = d/2 ✓. The moduli field is the ray class field MODULO the
    class group. At d=2048 this means degree 2²⁶ / 64 = 2²⁰ over F.
-   
+
    Structurally: Ω=𐑴 (Z2 parity-protected) — the class group imposes a discrete
    Z/2 obstruction that cannot be deformed away. Statement A (Ω=𐑟, non-Abelian)
    is falsified; Statement B (Ω=𐑴) is confirmed at d=16 and propagates. -/

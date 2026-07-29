@@ -126,12 +126,12 @@ theorem odd_survives_even_cancels :
 
 def ringAR : Matrix (Fin 3) (Fin 3) ℝ := !![0, 2, 1; 2, 0, 1; 1, 1, 0]
 
-/-- The characteristic polynomial of the carved ring: λ³ − 6λ − 4. -/
+/-- The characteristic polynomial of the carved ring: fun³ − 6λ − 4. -/
 theorem ringA_charpoly (x : ℝ) :
     (x • (1 : Matrix (Fin 3) (Fin 3) ℝ) - ringAR).det = x ^ 3 - 6 * x - 4 := by
   simp [ringAR, Matrix.det_fin_three]; ring
 
-/-- The factorization the calc lane verified: (λ+2)(λ²−2λ−2). -/
+/-- The factorization the calc lane verified: (fun+2)(fun²−2λ−2). -/
 theorem charpoly_factor (x : ℝ) : x ^ 3 - 6 * x - 4 = (x + 2) * (x ^ 2 - 2 * x - 2) := by
   ring
 
@@ -175,10 +175,10 @@ theorem gap_value : (1 + Real.sqrt 3) - 2 = Real.sqrt 3 - 1 := by ring
 -- A proposed reduction claimed ker(A+2I) ∋ (−1,−1,2). It does not:
 -- (A+2I)·(−1,−1,2) = (−2,−2,2). The kernel is spanned by (1,−1,0) — the
 -- ANTISYMMETRIC combination of the two collapsed A₂ roots (the doubled pair):
--- the λ=−2 mode is the swap. And the Perron mode carries the gap in its own
+-- the fun=−2 mode is the swap. And the Perron mode carries the gap in its own
 -- coordinates: the surviving direction is (1, 1, √3−1).
 
-/-- The λ = −2 eigenvector: the swap of the doubled pair. -/
+/-- The fun = −2 eigenvector: the swap of the doubled pair. -/
 theorem eigvec_neg_two : ringAR.mulVec ![1, -1, 0] = (-2 : ℝ) • ![1, -1, 0] := by
   funext i
   fin_cases i <;>

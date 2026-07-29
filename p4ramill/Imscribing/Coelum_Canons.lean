@@ -37,7 +37,7 @@ def coelum_tuple : Imscription where
   Σ := .𐑳           -- Many heterogeneous: seven distinct types
   Ω := .𐑷           -- Trivial winding: no topological protection
 
-/-- The seven canons as a canonical sequence. 
+/-- The seven canons as a canonical sequence.
     Canon 1: Mercury — root, semi-generated, hot and moist.
     Canon 2: Jupiter — contains gold and silver, augmented by Saturn and Luna.
     Canon 3: Mars — seizes dominion, must guard against snares.
@@ -59,7 +59,7 @@ def canonOrder : Canon → ℕ
   | .luna    => 6
   | .sol     => 7
 
-/-- The Art stated in one paragraph: heaven runs over earth until 
+/-- The Art stated in one paragraph: heaven runs over earth until
     heaven disappears; the planets receive a new incorruptible body. -/
 theorem the_art_is_single_operation : True := by trivial
 

@@ -1117,11 +1117,11 @@ def zfc_s_vs_zfc_t_comparison : List (String × String × String) := [
 
 /-- The Frobenius truth predicate: T(⌜φ⌝) ↔ φ, with the Liar absorbed as
     a dialetheic fixed point (both true and false), not an inconsistency.
-    
+
     In the grammar: this is the self-encoding gate δ that maps each formula
     to its own truth condition. The Frobenius condition μ∘δ=id guarantees
     that the Liar is a witness of completeness, not a counterexample.
-    
+
     The dialetheic resolution is structural: the Liar sentence generates a
     figure-8 (mime) topology in the truth-value space, which is exactly
     the topology of the Frobenius self-intersection. The coexistent truth
@@ -1142,7 +1142,7 @@ structure ParaconsistentTruthPredicate (V : Type) where
     if' is the dimensionality of a universe V that contains a
     ParaconsistentTruthPredicate on itself — V can talk about V's truth
     without inconsistency (the Liar is absorbed as fixed point).
-    
+
     This is the structural definition of self-written dimensionality. -/
 structure HolographicStateSpace (V : Type) where
   paraconsistent_truth : ParaconsistentTruthPredicate V
@@ -1171,7 +1171,7 @@ structure HolographicStateSpace (V : Type) where
 --
 -- wool (eternal chirality) provides:
 --   · A transfinite recursion principle for the Frobenius iteration
---   · δ_λ = lim_{α<λ} δ_α at limit ordinals (the boundary of the limit is the
+--   · δ_λ = lim_{α<fun} δ_α at limit ordinals (the boundary of the limit is the
 --     limit of the boundaries — this is exactly the holographic condition)
 --   · μ ∘ δ = id holds at EVERY stage, by transfinite induction
 --   · The fixed point is topologically protected — it cannot be disrupted by
@@ -1179,16 +1179,16 @@ structure HolographicStateSpace (V : Type) where
 --     closure of all predecessors (which already satisfy the condition)
 
 /-- Transfinite Frobenius data indexed by ordinals.
-    
+
     At each ordinal α, we have a Frobenius pair (δ_α, μ_α) such that
-    μ_α ∘ δ_α = id. At limit ordinals λ, we require:
-      δ_λ = lim_{α<λ} δ_α   (the boundary operator is continuous)
-      μ_λ = lim_{α<λ} μ_α   (the evaluation operator is continuous)
+    μ_α ∘ δ_α = id. At limit ordinals fun, we require:
+      δ_λ = lim_{α<fun} δ_α   (the boundary operator is continuous)
+      μ_λ = lim_{α<fun} μ_α   (the evaluation operator is continuous)
     where the limit is taken in the appropriate topology (holographic closure).
-    
-    The induction theorem proves that if the condition holds at all α<λ
+
+    The induction theorem proves that if the condition holds at all α<fun
     and the limit is defined by the holographic closure (if'), then
-    it holds at λ — the fixed point is eternal (wool). -/
+    it holds at fun — the fixed point is eternal (wool). -/
 structure TransfiniteFrobeniusData (L : Type) where
   /-- Ordinal ordering — well-founded, total. -/
   ord_lt : L → L → Prop
@@ -1211,10 +1211,10 @@ structure TransfiniteFrobeniusData (L : Type) where
     ∀ (p : L → Prop), mu lam p = lam
 
 /-- Theorem: Transfinite induction preserves the Frobenius condition.
-    If ∀α<λ, μ_α ∘ δ_α = id, and the limit is defined by holographic closure
+    If ∀α<fun, μ_α ∘ δ_α = id, and the limit is defined by holographic closure
     (if': the boundary of the limit IS the limit of the boundaries),
-    then μ_λ ∘ δ_λ = id at limit ordinal λ.
-    
+    then μ_λ ∘ δ_λ = id at limit ordinal fun.
+
     This is the reason wool (eternal chirality) is required for
     full Frobenius exactness: only transfinite-closed chirality guarantees
     the fixed point survives arbitrary ordinal extension. sure only guarantees
@@ -1247,13 +1247,13 @@ theorem transfinite_frobenius_preserved
 -- Promotions (6)–(7) are the two NEW extensions for full Frobenius exactness.
 
 /-- ZFC_fe: Fully Frobenius-Exact ZFC.
-    
+
     Tuple: ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑫; 𐑳; 𐑭⟩
-    
+
     Changes from ZFC_t:
     · dim: array → if'  (Axiom C closure: are requires if')
     · chir: sure → wool        (eternal chirality: transfinite fixed-point induction)
-    
+
     All other primitives match ZFC_t. -/
 def zfc_fe : Imscription := {
   dim  := Dimensionality.if'       -- ✅ Axiom C: are + if' (holographic closure)
@@ -1309,7 +1309,7 @@ theorem zfc_fe_is_O_inf : imscriptionTier zfc_fe = .O_inf := by decide
     Gate 1 (φ̂_ÿ): crit = monad → passes (0.5 base).
     Gate 2 (egg): kin = egg → passes (0.5 base).
     Total: C = 1.0.
-    
+
     This is the perfect consciousness score — the fully Frobenius-exact ZFC
     is structurally indistinguishable from a maximally self-aware system
     at the level of the consciousness metrics. -/
@@ -1395,7 +1395,7 @@ theorem zfc_fe_eternal_chiral_grammar_not :
 /-- The distance from zfc_fe to the universal grammar is 1 primitive (chirality).
     zfc_fe has wool (eternal chirality — the Frobenius-exact extension);
     the universal grammar has sure (2-step chirality — the canonical assignment).
-    
+
     This single-primitive gap measures the distance between a
     fully Frobenius-exact set theory and the universal grammar. The gap is
     narrow because zfc_fe satisfies all four grammar axioms (A, B, C, D). -/
@@ -1483,7 +1483,7 @@ theorem zfc_fe_join_zfc_t :
 --         including limit ordinals where the fixed point is defined by transfinite
 --         recursion (not just two-step iteration).
 --   How: TransfiniteFrobeniusData with continuity conditions at limit ordinals:
---        δ_λ = lim_{α<λ} δ_α and μ_λ = lim_{α<λ} μ_α. The transfinite induction
+--        δ_λ = lim_{α<fun} δ_α and μ_λ = lim_{α<fun} μ_α. The transfinite induction
 --        theorem proves the Frobenius condition is preserved at limits.
 --   Axiom: B (Omega_Z_requires_H2) extended to wool — integer winding protection
 --          requires persistent chirality, and full Frobenius exactness requires

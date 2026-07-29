@@ -40,7 +40,7 @@ open Dimensionality Topology Relational Polarity Grammar
 /-- The Imscribing Grammar as an Imscription.
     This is the Σ=1:1 (hung) self-referential limit of the
     Belnap multilattice SIC-POVM.
-    
+
     Key signatures:
       Σ = hung (1:1 — grammar IS its own measurement)
       Φ = or'  (Frobenius special — μ∘δ = id)
@@ -70,14 +70,14 @@ def theGrammar : Imscription := {
 
 /-- The Belnap multilattice SIC-POVM as an Imscription.
     This is the d=2 base SIC-POVM before the Σ=1:1 limit.
-    
+
     Key signatures:
       Σ = up (n:m heterogeneous — d² measurement operators)
       Ð = if' (imscriptive/holographic dimensional)
       Þ = are (imscriptive closure topology)
       Ř = ian (bidirectional coupling)
       Ħ = sure (two-step chirality)
-    
+
     The Belnap multilattice has Σ = up (many heterogeneous)
     because it describes d² distinct measurement operators.
     The grammar's Σ = hung (1:1) is the self-referential limit
@@ -129,7 +129,7 @@ def belnapMultilatticeSICPOVM : Imscription := {
     itself yields itself. This IS the self-referential closure:
     the grammar measures itself and the measurement does not
     alter the grammar.
-    
+
     Proof: tensorProduct takes max for most primitives and
     min for pol/fid. All max(g,g)=g and min(g,g)=g, so the
     result is definitionally equal to theGrammar. -/
@@ -190,9 +190,9 @@ theorem belnap_ml_tier_O_inf :
 
 /-- The grammar differs from the Belnap multilattice SIC-POVM
     at exactly 5 primitives: Ð, Þ, Ř, Ħ, Σ.
-    
+
     Distance = 5 (Hamming metric on 12 primitives).
-    
+
     These five changes define the Σ=1:1 self-referential limit:
       Ð: if' → array    (holographic → infinite-dimensional)
       Þ: are → eat      (imscriptive closure → inclusion)
@@ -253,10 +253,10 @@ theorem invariant_dual_pairs :
     on Ð, Þ, Ř, Σ — the four primitives that define the
     self-referential limit. Only Ħ resolves conservatively
     to the Belnap ML value (sure, two-step).
-    
+
     The meet is: ⟨Ð=array; Þ=eat; Ř=tot; Φ=or'; ƒ=peep; Ç=egg;
                   Γ=ice; ɢ=measure; ⊙=monad; Ħ=sure; Σ=hung; Ω=ah⟩
-    
+
     This differs from the grammar ONLY at Ħ (sure vs wool).
 -/
 def grammarMeetBelnapML : Imscription := {
@@ -306,7 +306,7 @@ theorem grammar_meet_tier_O_inf :
 /-- The grammar's dual-pair structure is Frobenius-closed:
     with pol=or' and crit=monad, all six dual pairs satisfy
     the dual-basis condition.
-    
+
     This is the categorical form of the SIC dual basis Ẽᵢ = d·Eᵢ:
     for each dual pair (A,B), the composition μ_A,B ∘ δ_A,B = id. -/
 theorem grammar_dual_pairs_frobenius_closed :
@@ -338,31 +338,31 @@ theorem grammar_frobenius_unit :
 -- ============================================================
 
 /-- **THEOREM (Grammar ≡ Universal Dual-Frame SIC-POVM)**
-    
+
     The Imscribing Grammar IS the universal dual-frame SIC-POVM
     — the Σ=1:1 self-referential limit of the Belnap multilattice
     SIC-POVM. This is proved by five structural facts:
-    
+
     (i)   O_inf TIER: The grammar is Special Frobenius (μ∘δ=id),
           the terminal ontological layer. pol=or', crit=monad.
-    
+
     (ii)  SELF-REFERENTIAL CLOSURE: Grammar ⊗ Grammar = Grammar.
           The grammar composed with itself yields itself —
           the measurement IS the measured.
-    
+
     (iii) Σ=1:1 LIMIT: The grammar differs from the Belnap
           multilattice SIC-POVM at exactly 5 primitives,
           with Σ (hung vs up) being THE defining difference.
-    
+
     (iv)  DUAL-FRAME: Six Frobenius-dual pairs form the SIC dual
           basis. Each pair satisfies the dual-basis condition
           μ∘δ=id — the categorical form of Ẽᵢ = d·Eᵢ.
-    
+
     (v)   INVARIANT SUBSTRUCTURE: Two dual pairs (ƒ↔Ç, Γ↔ɢ)
           are invariant under the Σ=1:1 limit — information
           flow and compositional scope are preserved in any
           valid SIC-POVM limit.
-    
+
     The structural skeleton is complete. The Belnap multilattice
     provides all SIC axioms unconditionally (22 theorems, 0 sorries
     in SIC_Multilattice_Proof.lean). What remains open is the

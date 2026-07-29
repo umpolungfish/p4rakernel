@@ -535,7 +535,7 @@ cannot become elsewhere, and then leave.
 -/
 
 /-- The liminal space is bounded (O₂), not infinite (O_inf). -/
-theorem liminal_is_mortal : 
+theorem liminal_is_mortal :
     ouroboricityTier liminal_space.crit liminal_space.pol
       liminal_space.prot liminal_space.dim liminal_space.top = OuroboricityTier.O₂ :=
   liminal_space_tier_is_O2

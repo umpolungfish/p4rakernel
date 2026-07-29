@@ -83,11 +83,11 @@ vacuum solution to Einstein's equations.
   ds² = -(1 - r_s/r) c² dt² + (1 - r_s/r)⁻¹ dr² + r² dΩ²
 
 where r_s = 2GM/c² is the Schwarzschild radius.
-  
+
 Key features:
   r = r_s: event horizon (coordinate singularity, not physical)
   r = 0:   curvature singularity (R_μνρσ R^μνρσ → ∞)
-  
+
 The Schwarzschild solution describes a non-rotating, uncharged
 black hole. It is the simplest exact black hole solution.
 -/
@@ -170,13 +170,13 @@ to the four laws of thermodynamics:
 
   0th: κ (surface gravity) is constant over the event horizon
        ↔ T is constant throughout a body in thermal equilibrium
-  
+
   1st: dM = (κ/8πG) dA + Ω dJ + Φ dQ
        ↔ dE = T dS - P dV + μ dN
-  
+
   2nd: dA/dt ≥ 0 (area theorem, assuming NEC)
        ↔ dS/dt ≥ 0 (second law of thermodynamics)
-  
+
   3rd: κ → 0 is unreachable in finite operations (extremal limit)
        ↔ T → 0 is unreachable in finite steps (third law)
 
@@ -300,48 +300,48 @@ Black Holes as a type:
   D = array (𐑼): Infinite-dimensional. The interior of a black hole
       contains a singularity where curvatures diverge. The spacetime
       is geodesically incomplete.
-      
+
   T = are (𐑸): Self-referential. The horizon's properties encode
       the interior mass distribution. The no-hair theorem means the
       exterior is fully determined by M, J, Q — the horizon IS the
       holographic boundary encoding all interior data.
-      
+
   R = ear (𐑽): Adjoint. δ: matter → horizon formation,
       μ: horizon → Hawking radiation. The two are adjoint in the
       sense of the generalized second law.
-      
+
   P = church (𐑗): Asymmetric. Information appears to flow only
       inward across the horizon. Time asymmetry of gravitational
       collapse (Wheeler's "black holes have no hair").
-      
+
   F = peep (𐑐): Quantum. Hawking radiation REQUIRES quantum
       field theory. The semiclassical treatment (QFT on curved
       background) is the minimal framework.
-      
+
   K = egg (𐑧): Near-equilibrium. Black holes evolve slowly
       (τ ∝ M³). The evaporation process is adiabatic except at
       the very end (Planck-scale finale).
-      
+
   G = ice (𐑲): Universal. Gravity couples to everything.
       Black holes can form from any form of energy-momentum.
-      
+
   Gm = measure (𐑠): Sequential. Formation → quasinormal
       ringdown → Hawking evaporation → final burst.
-      
+
   Phi = monad (⊙): Critical. The threshold of black hole
       formation is a critical phenomenon (Choptuik scaling).
       Extremal black holes are critical points (T=0).
-      
+
   H = wool (𐑫): Eternal chilarity. Black holes have
       infinite memory — the no-hair theorem says they forget
       everything except M, J, Q. What falls in is gone;
       only conserved charges remain. This is the ultimate
       Markov limit: memory n → ∞ for what's preserved,
       n → 0 for everything else.
-      
+
   S = up (𐑳): Heterogeneous. Stellar-mass, intermediate-mass,
       supermassive, primordial — a diverse population.
-      
+
   Omega = ah (𐑭): Integer winding. The Euler characteristic
       of the horizon (topological), the Chern-Simons invariant,
       and the gravitational instanton number.

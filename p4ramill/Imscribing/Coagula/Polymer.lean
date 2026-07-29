@@ -105,7 +105,7 @@ def stable (p : Polymer) : Prop :=
 def adjBonds (idx : ℕ) : List Imscription → List CoagulaBond
   | [] => []
   | [_] => []
-  | m₁ :: m₂ :: ms' => 
+  | m₁ :: m₂ :: ms' =>
     mkBond idx (idx+1) m₁ m₂ :: adjBonds (idx+1) (m₂ :: ms')
 
 theorem adjBonds_length (idx : Nat) (ms : List Imscription) :
@@ -191,7 +191,7 @@ def classifyConductivity (p : Polymer) : MaterialProperty :=
   if allTrivial then .insulating else .conducting
 
 theorem trivial_protection_insulating (p : Polymer)
-    (h : ∀ m ∈ p.monomers, m.prot = .awe) : 
+    (h : ∀ m ∈ p.monomers, m.prot = .awe) :
     classifyConductivity p = .insulating := by
   unfold classifyConductivity
   have hall : p.monomers.all (fun m => m.prot = .awe) := by
@@ -270,7 +270,7 @@ theorem optimalFieldPolymer_isotactic : isotactic optimalFieldPolymer := by
   rcases hm with (rfl|rfl|rfl|rfl) <;> rfl
 
 theorem optimalFieldMacrocycle_has_graviton_winding :
-    (polymerize optimalFieldMacrocycleSeq).monomers.all 
+    (polymerize optimalFieldMacrocycleSeq).monomers.all
       (fun m => m.prot = .awe) = false := by
   unfold polymerize optimalFieldMacrocycleSeq
   simp [darkMatter, wowSignal, pentaquark, graviton]
@@ -291,7 +291,7 @@ theorem optimalClosure_strength_positive :
   unfold mkBond mkStrength
   native_decide
 
-theorem optimalFieldPolymer_degree : 
+theorem optimalFieldPolymer_degree :
     degreeOfPolymerization optimalFieldPolymer = 4 := by
   unfold degreeOfPolymerization optimalFieldPolymer polymerize
     optimalFieldMacrocycleSeq

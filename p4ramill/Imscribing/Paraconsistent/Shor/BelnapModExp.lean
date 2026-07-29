@@ -21,7 +21,7 @@ def allBWord (n : ℕ) : Fin n → Belnap := fun _ => .B
 -- Every Boolean gate preserves B. Verified by Python executor on N=15,21,35.
 structure ModExpResult where
   a : ℕ
-  N : ℕ  
+  N : ℕ
   period : ℕ
   belnapCost : ℕ  -- measurement coherence cost: B-bias
   classicalCost : ℕ  -- measurement coherence cost: T-bias

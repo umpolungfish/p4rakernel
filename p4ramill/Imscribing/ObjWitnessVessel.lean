@@ -5,7 +5,7 @@ import Imscribing.Paraconsistent.BelnapSplitFuse
 /-!
 # ObjWitnessVessel — The Witness-Vessel
 
-**Author:** Lando⊗⊙perator  
+**Author:** Lando⊗⊙perator
 **Date:** 2026-06-13
 
 The Dual-Link SIC-POVM transport container. The Witness rides AS the vessel.
