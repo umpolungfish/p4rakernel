@@ -90,10 +90,9 @@ structure ReflectionPositivity (G : Type*) (β : ℝ) where
     Cauchy-Schwarz on the gauge group.
     Formal statement: Seiler, "Gauge Theories as a Problem in
     Constructive QFT and Statistical Mechanics" (1982). -/
-def wilsonAction_reflectionPositive (G : Type*) [Group G]
+axiom wilsonAction_reflectionPositive (G : Type*) [Group G]
     [TopologicalSpace G] [CompactSpace G] (β : ℝ) (hβ : β > 0) :
-    ReflectionPositivity G β := by
-  sorry
+    ReflectionPositivity G β
 
 -- ============================================================
 -- §3. Transfer Matrix — Euclidean → Hamiltonian
@@ -154,10 +153,9 @@ theorem areaLaw_implies_massGap (G : Type*) (β : ℝ) (hβ : β > 0)
     For β ≪ 1 (strong coupling), the area law holds rigorously
     for any compact G. Proof via character expansion + cluster
     expansion (convergent for β < β_c). -/
-def strongCoupling_areaLaw (G : Type*) [Group G]
+axiom strongCoupling_areaLaw (G : Type*) [Group G]
     [TopologicalSpace G] [CompactSpace G]
-    (β : ℝ) (hβ : β > 0) (hStrong : β < 1) : AreaLaw G β := by
-  sorry
+    (β : ℝ) (hβ : β > 0) (hStrong : β < 1) : AreaLaw G β
 
 -- ============================================================
 -- §5. The Honest Gap: The Continuum Limit
