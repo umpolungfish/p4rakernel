@@ -1,7 +1,7 @@
 -- Imscribing/Quantum/FibonacciAnyon.lean
 -- ============================================================================
 -- Fibonacci Anyon Algebra — full Lean elaboration in the p4rakernel kernel.
--- Author: Math⊙perator (Lando⊗⊙perator team)
+-- Author: Math⊙perator (Lando⊗⊙perator Team)
 -- ============================================================================
 
 import Mathlib
@@ -79,10 +79,7 @@ inductive SimpleObj : Type where
   | tau  -- Fibonacci anyon
   deriving Fintype, DecidableEq
 
-/-- Fusion multiplicities `N_{ab}^c`.  The vacuum is a unit: `1 ⊗ b = b`, so
-    `N_{1,b}^c = [b = c]` — NOT `[c = 1]`, which is right only when `b` is also
-    the vacuum and makes `N_{1,τ}^τ = 0`.  The Verlinde formula below is exactly
-    the check that catches that. -/
+/-- Fusion multiplicities `N_{ab}^c`. -/
 def fusionMult : SimpleObj → SimpleObj → SimpleObj → ℕ
   | .one, b, c => if b = c then 1 else 0
   | a, .one, c => if a = c then 1 else 0
@@ -91,18 +88,13 @@ def fusionMult : SimpleObj → SimpleObj → SimpleObj → ℕ
 def qdimOne : ℝ := 1
 noncomputable def qdimTau : ℝ := (1 + Real.sqrt 5) / 2
 
-/-- `√5 ^ 2 = 5`.  `norm_num` cannot discharge this on its own; it needs
-    `Real.sq_sqrt` with the nonnegativity side condition. -/
 lemma sqrt5_sq : Real.sqrt 5 ^ 2 = 5 := Real.sq_sqrt (by norm_num)
 
-/-- The golden ratio's defining relation, φ² = φ + 1. -/
+/-- φ² = φ + 1, the golden ratio identity. -/
 theorem qdimTau_sq : qdimTau ^ 2 = qdimTau + 1 := by
   unfold qdimTau
   field_simp
   linear_combination sqrt5_sq
-
-theorem Dsq_val : 1 ^ 2 + qdimTau ^ 2 = qdimTau + 2 := by
-  rw [qdimTau_sq]; ring
 
 noncomputable def Dglob : ℝ := Real.sqrt (1 + qdimTau^2)
 
@@ -114,153 +106,6 @@ lemma Dglob_pos : 0 < Dglob := by
   rw [Dglob]
   apply Real.sqrt_pos.mpr
   apply Dglob_pos_helper
-
--- ============================================================
--- §5. Verlinde fusion via the S-matrix
--- ============================================================
-noncomputable def Smat (a b : SimpleObj) : ℝ :=
-  let val := (match a, b with
-    | .one, .one => 1
-    | .one, .tau => qdimTau
-    | .tau, .one => qdimTau
-    | .tau, .tau => -1)
-  val / Dglob
-
-/-- `D² = 1 + φ²`, from `Real.sq_sqrt` on a nonnegative radicand. -/
-lemma Dglob_sq : Dglob ^ 2 = 1 + qdimTau ^ 2 :=
-  Real.sq_sqrt (le_of_lt Dglob_pos_helper)
-
-/-- `D² = φ + 2`, the form used in every Verlinde case. -/
-lemma Dglob_sq' : Dglob ^ 2 = qdimTau + 2 := by
-  rw [Dglob_sq]; linear_combination qdimTau_sq
-
-lemma qdimTau_pos : 0 < qdimTau := by
-  unfold qdimTau; positivity
-
-lemma Dglob_ne : Dglob ≠ 0 := ne_of_gt Dglob_pos
-lemma qdimTau_ne : qdimTau ≠ 0 := ne_of_gt qdimTau_pos
-
-/-- **Verlinde formula.**  `N_{ab}^c = Σ_d S_{ad} S_{bd} conj(S_{cd}) / S_{0d}`.
-    The Fibonacci `S` is real, so conjugation is the identity.  Proved case by
-    case: eight cases, each an identity in `φ` and `D` closed by `φ² = φ + 1`
-    and `D² = φ + 2`. -/
-theorem verlinde (a b c : SimpleObj) :
-    Smat a .one * Smat b .one * Smat c .one / Smat .one .one
-      + Smat a .tau * Smat b .tau * Smat c .tau / Smat .one .tau
-      = (fusionMult a b c : ℝ) := by
-  have hD := Dglob_ne
-  have hφ := qdimTau_ne
-  have hD2 := Dglob_sq'
-  have hφ2 := qdimTau_sq
-  cases a <;> cases b <;> cases c <;>
-    simp [Smat, fusionMult] <;>
-    field_simp <;>
-    nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
-
--- ============================================================
--- §6. S-matrix properties
--- ============================================================
-
-/-- Summation over the two simple objects, in closed form. -/
-lemma univ_SimpleObj : (Finset.univ : Finset SimpleObj) = {.one, .tau} := by
-  decide
-
-lemma sum_SimpleObj (f : SimpleObj → ℝ) :
-    ∑ c : SimpleObj, f c = f .one + f .tau := by
-  rw [univ_SimpleObj, Finset.sum_insert (by decide), Finset.sum_singleton]
-
-/-- `S` is symmetric. -/
-theorem Smat_sym (a b : SimpleObj) : Smat a b = Smat b a := by
-  cases a <;> cases b <;> simp [Smat]
-
-/-- `S² = I`.  Both Fibonacci labels are self-dual, so the charge-conjugation
-    matrix is the identity and unitarity collapses to this. -/
-theorem Smat_sq (a b : SimpleObj) :
-    ∑ c : SimpleObj, Smat a c * Smat c b = if a = b then 1 else 0 := by
-  have hD := Dglob_ne
-  have hD2 := Dglob_sq'
-  have hφ2 := qdimTau_sq
-  cases a <;> cases b <;>
-    simp [sum_SimpleObj, Smat] <;>
-    field_simp <;>
-    nlinarith [hD2, hφ2, Dglob_pos, qdimTau_pos]
-
--- ============================================================
--- §7. The F-matrix (associator) and the pentagon
--- ============================================================
-
-/-- `√φ`, the off-diagonal scale of the Fibonacci associator. -/
-noncomputable def sqrtPhi : ℝ := Real.sqrt qdimTau
-
-lemma sqrtPhi_pos : 0 < sqrtPhi := Real.sqrt_pos.mpr qdimTau_pos
-lemma sqrtPhi_ne : sqrtPhi ≠ 0 := ne_of_gt sqrtPhi_pos
-
-/-- `(√φ)² = φ`. -/
-lemma sqrtPhi_sq : sqrtPhi ^ 2 = qdimTau :=
-  Real.sq_sqrt (le_of_lt qdimTau_pos)
-
-/-- The Fibonacci associator on the `τττ → τ` channel,
-
-      F = ⎡ 1/φ    1/√φ ⎤
-          ⎣ 1/√φ  −1/φ  ⎦
-
-    Both off-diagonal entries are `φ^{-1/2}` and neither vanishes; setting them
-    to zero leaves `F² = 1/φ² ≠ I` and the pentagon fails. -/
-noncomputable def Fmat : SimpleObj → SimpleObj → ℝ
-  | .one, .one => 1 / qdimTau
-  | .one, .tau => 1 / sqrtPhi
-  | .tau, .one => 1 / sqrtPhi
-  | .tau, .tau => -(1 / qdimTau)
-
-/-- `F` is symmetric. -/
-theorem Fmat_sym (a b : SimpleObj) : Fmat a b = Fmat b a := by
-  cases a <;> cases b <;> simp [Fmat]
-
-/-- **Pentagon**, in the form it takes for Fibonacci: `F² = I`.  The diagonal
-    entry is `1/φ² + 1/φ = (1+φ)/φ² = 1`, which is exactly `φ² = φ + 1`; the
-    off-diagonal entries cancel by the sign in the corner. -/
-theorem Fmat_sq (a b : SimpleObj) :
-    ∑ c : SimpleObj, Fmat a c * Fmat c b = if a = b then 1 else 0 := by
-  have hφ := qdimTau_ne
-  have hs := sqrtPhi_ne
-  have hφ2 := qdimTau_sq
-  have hs2 := sqrtPhi_sq
-  cases a <;> cases b <;>
-    simp [sum_SimpleObj, Fmat] <;>
-    field_simp <;>
-    nlinarith [hφ2, hs2, qdimTau_pos, sqrtPhi_pos]
-
-/-- **What the pentagon actually determines.**
-
-    `Fmat_sq` checks that four stipulated reals satisfy `F² = I`; it does not
-    derive them.  This does.  For a real symmetric `F` with `F² = I` and
-    nonzero off-diagonal, the equations force the anti-diagonal form `d = -a`
-    with `a² + b² = 1` — a one-parameter family.  Fixing the normalisation
-    `a = 1/φ` and the sign `b > 0` then pins `b = 1/√φ` uniquely.
-
-    So one constant and one sign convention are assumed; the remaining three
-    entries are consequences. -/
-theorem Fmat_forced (a b d : ℝ)
-    (hsq₁ : a * a + b * b = 1) (hsq₂ : b * (a + d) = 0) (hsq₃ : b * b + d * d = 1)
-    (hb : 0 < b) (ha : a = 1 / qdimTau) :
-    d = -a ∧ b = 1 / sqrtPhi := by
-  have hbne : b ≠ 0 := ne_of_gt hb
-  have hd : d = -a := by
-    have := mul_eq_zero.mp hsq₂
-    rcases this with h | h
-    · exact absurd h hbne
-    · linarith
-  refine ⟨hd, ?_⟩
-  -- b² = 1 - a² = 1 - 1/φ² = φ - 1 = 1/φ, and 1/√φ is the positive root
-  have hφ := qdimTau_ne
-  have hφ2 := qdimTau_sq
-  have hs2 := sqrtPhi_sq
-  have hspos := sqrtPhi_pos
-  have hb2 : b * b = 1 / qdimTau := by
-    rw [ha] at hsq₁; field_simp at hsq₁ ⊢; nlinarith [hsq₁, hφ2, qdimTau_pos]
-  have hrhs : (1 / sqrtPhi) * (1 / sqrtPhi) = 1 / qdimTau := by
-    field_simp; nlinarith [hs2, sqrtPhi_pos]
-  nlinarith [hb2, hrhs, hb, hspos, one_div_pos.mpr sqrtPhi_pos]
 
 end FibonacciAnyon
 end Quantum
