@@ -110,22 +110,24 @@ def ordinalS : Stoichiometry → ℕ
 def ordinalW : Protection → ℕ
   | .awe => 0 | .oak => 1 | .ah => 2 | .zoo => 3
 
+-- `|x - y|` over ℕ wants `AddGroup ℕ`, which does not exist, so the twelve
+-- arms below use `Nat.dist`, which is the same number and computes.
 /-- The raw ordinal gap at a single primitive between two Imscriptions.
     For Criticality, the raw integer gap is given; weighted gap computed separately. -/
 def ordinalGapAt (a b : Imscription) (primitive : String) : ℕ :=
   match primitive with
-  | "Ð" => |(ordinalD a.dim).sub (ordinalD b.dim)|
-  | "Þ" => |(ordinalT a.top).sub (ordinalT b.top)|
-  | "Ř" => |(ordinalR a.rel).sub (ordinalR b.rel)|
-  | "Φ" => |(ordinalP a.pol).sub (ordinalP b.pol)|
-  | "ƒ" => |(ordinalF a.fid).sub (ordinalF b.fid)|
-  | "Ç" => |(ordinalK a.kin).sub (ordinalK b.kin)|
-  | "Γ" => |(ordinalG a.gran).sub (ordinalG b.gran)|
-  | "ɢ" => |(ordinalGm a.gram).sub (ordinalGm b.gram)|
-  | "⊙" => |(ordinalOd a.crit).sub (ordinalOd b.crit)|
-  | "Ħ" => |(ordinalH a.chir).sub (ordinalH b.chir)|
-  | "Σ" => |(ordinalS a.stoi).sub (ordinalS b.stoi)|
-  | "Ω" => |(ordinalW a.prot).sub (ordinalW b.prot)|
+  | "Ð" => Nat.dist (ordinalD a.dim) (ordinalD b.dim)
+  | "Þ" => Nat.dist (ordinalT a.top) (ordinalT b.top)
+  | "Ř" => Nat.dist (ordinalR a.rel) (ordinalR b.rel)
+  | "Φ" => Nat.dist (ordinalP a.pol) (ordinalP b.pol)
+  | "ƒ" => Nat.dist (ordinalF a.fid) (ordinalF b.fid)
+  | "Ç" => Nat.dist (ordinalK a.kin) (ordinalK b.kin)
+  | "Γ" => Nat.dist (ordinalG a.gran) (ordinalG b.gran)
+  | "ɢ" => Nat.dist (ordinalGm a.gram) (ordinalGm b.gram)
+  | "⊙" => Nat.dist (ordinalOd a.crit) (ordinalOd b.crit)
+  | "Ħ" => Nat.dist (ordinalH a.chir) (ordinalH b.chir)
+  | "Σ" => Nat.dist (ordinalS a.stoi) (ordinalS b.stoi)
+  | "Ω" => Nat.dist (ordinalW a.prot) (ordinalW b.prot)
   | _   => 0
 
 /-- The ⊙ encoding ratio: ⊙_ordinal_gap / ɢ_ordinal_gap.
@@ -137,7 +139,6 @@ def ordinalGapAt (a b : Imscription) (primitive : String) : ℕ :=
 def criticalityRatio (a b : Imscription) : ℚ :=
   (ordinalGapAt a b "⊙" : ℚ) / (ordinalGapAt a b "ɢ" : ℚ)
 
-/-- A primitive gap record: which primitive differs and by how much. -/
 /-- A primitive gap record: which primitive differs and by how much.
     The encoding ratio (⊙/ɢ) is computed separately via criticalityRatio. -/
 structure PrimitiveGap where
@@ -167,7 +168,7 @@ theorem gap_d2048_cardinality : gap_d2048.length = 3 := by
 
 /-- Theorem: the gap primitives at d=2048 are exactly Ř, ɢ, and ⊙. -/
 theorem gap_d2048_primitives :
-    (gap_d2048.map (·.primitive)).sort = (["⊙","Ř","ɢ"] : List String).sort := by
+    ((gap_d2048.map (·.primitive)).mergeSort (· ≤ ·)) = ((["⊙","Ř","ɢ"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
 /-- Theorem: Ř ordinal gap is exactly 1 (ian=3 → ear=2). -/
@@ -182,7 +183,7 @@ theorem gap_Gm_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial 
 theorem gap_Od_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "⊙" = 2 := by
   native_decide
 
-//-- Theorem: ⊙/ɢ ratio is exactly 2/3.
+/-- Theorem: ⊙/ɢ ratio is exactly 2/3.
     Using ONLY Lean integer ordinals:
     ⊙ gap = |monad - err| = |1 - 3| = 2 (Lean ranks per Core.lean),
     ɢ gap = |ooze - vow| = |3 - 0| = 3.
@@ -207,13 +208,13 @@ theorem matching_primitives_zero_gap :
     ramified layer transition: the fundamental unit is inverted.
     e₀ = -δ_Ř = -1. -/
 theorem encoding_rule_R :
-    starkSunitExponents.get? 0 = some (-1) := by
+    starkSunitExponents[0]? = some (-1) := by
   native_decide
 
 /-- The Ř gap magnitude (1) equals |e₀|. -/
 theorem encoding_rule_R_magnitude :
     ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "Ř" = 1 ∧
-    (starkSunitExponents.get? 0 = some (-1)) := by
+    (starkSunitExponents[0]? = some (-1)) := by
   constructor
   · native_decide
   · native_decide
@@ -223,13 +224,13 @@ theorem encoding_rule_R_magnitude :
     number of independent S-unit generators visible at this conductor.
     e₁ = ⌊δ_ɢ⌋ = 3. -/
 theorem encoding_rule_Gm :
-    starkSunitExponents.get? 1 = some 3 := by
+    starkSunitExponents[1]? = some 3 := by
   native_decide
 
 /-- The ɢ gap magnitude (3) equals e₁. -/
 theorem encoding_rule_Gm_magnitude :
     ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "ɢ" = 3 ∧
-    (starkSunitExponents.get? 1 = some 3) := by
+    (starkSunitExponents[1]? = some 3) := by
   constructor
   · native_decide
   · native_decide
@@ -245,14 +246,14 @@ theorem encoding_rule_Od_ratio :
 
 /-- e₂ = 2, verified against the exponent list. -/
 theorem encoding_rule_Od_exponent :
-    starkSunitExponents.get? 2 = some 2 := by
+    starkSunitExponents[2]? = some 2 := by
   native_decide
 
 /-- The complete encoding: (Ř,ɢ,⊙) → [-1, 3, 2]. -/
 theorem encoding_rules_complete :
-    (starkSunitExponents.get? 0 = some (-1)) ∧
-    (starkSunitExponents.get? 1 = some 3) ∧
-    (starkSunitExponents.get? 2 = some 2) := by
+    (starkSunitExponents[0]? = some (-1)) ∧
+    (starkSunitExponents[1]? = some 3) ∧
+    (starkSunitExponents[2]? = some 2) := by
   constructor <;> native_decide
 
 -- ============================================================
@@ -295,7 +296,7 @@ theorem commuting_square_sunit_rank :
 --      Gap primitive count scales inversely with conductor depth.
 -- ============================================================
 
-/-- **Tower Compression Theorem.**
+/- **Tower Compression Theorem.**
     At deeper 2-adic tower levels, fewer grammar primitives carry the
     entire S-unit exponent vector. For d=2048 at conductor 16 (k=4),
     the gap involves 3 primitives for 3 exponents — a 1:1 compression
@@ -355,7 +356,7 @@ theorem d12_vs_d2048_abs_sum_ratio :
 --      The entire structure closes under ffuse ∘ fsplit = id.
 -- ============================================================
 
-/-- The grammar-gap mapping preserves the Frobenius identity.
+/- The grammar-gap mapping preserves the Frobenius identity.
     The meet and join of the two Imscriptions form a Frobenius pair:
     the meet preserves critical criticality (⊙) and conjunctive composition (𐑝),
     the join restores broadcast composition (𐑵) and lifts degeneracy at ⊙→𐑻. -/
@@ -397,7 +398,7 @@ def join_d2048 : Imscription := {
 /-- The meet-join pair brackets the grammar gap.
     The gap vector is exactly the difference between join and meet. -/
 theorem meet_join_gap_cardinality :
-    gapVector join_d2048 meet_d2048 |>.length = 3 := by
+    (gapVector join_d2048 meet_d2048).length = 3 := by
   native_decide
 
 -- ============================================================
@@ -409,8 +410,6 @@ theorem meet_join_gap_cardinality :
     The cycle closes exactly. -/
 theorem frobenius_closure : True := by
   trivial
-
-end Imscribing.NumberTheory.GrammarStarkCorrespondence
 
 -- ============================================================
 -- §7b. D=12 CATALOG ENTRIES
@@ -469,15 +468,15 @@ theorem gap_d12_cardinality : gap_d12.length = 10 := by
 
 /-- Theorem: the 10 gap primitives at d=12 are Ð,Þ,Ř,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω. -/
 theorem gap_d12_primitives :
-    (gap_d12.map (·.primitive)).sort =
-    (["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).sort := by
+    ((gap_d12.map (·.primitive)).mergeSort (· ≤ ·)) =
+    ((["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
 /-- Theorem: the 2 matching primitives at d=12 are Φ and Ç. -/
 theorem d12_matching_primitives :
     (["Ð","Þ","Ř","Φ","ƒ","Ç","Γ","ɢ","⊙","Ħ","Σ","Ω"].filter
-      (fun p => ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance p = 0)).sort =
-    (["Φ","Ç"] : List String).sort := by
+      (fun p => ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance p = 0)).mergeSort (· ≤ ·) =
+    ((["Φ","Ç"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
 /-- Theorem: Ð (dimensionality) gap at d=12 is 2 (ash→if'). -/
@@ -567,14 +566,14 @@ def join_d12 : Imscription := {
 /-- The d=12 meet-join pair brackets the grammar gap.
     Gap vector between join and meet has 10 entries. -/
 theorem meet_join_gap_d12_cardinality :
-    gapVector join_d12 meet_d12 |>.length = 10 := by
+    (gapVector join_d12 meet_d12).length = 10 := by
   native_decide
 
 /-- The d=12 gap primitives match exactly between (existence⊖stark) and (join⊖meet).
     Both are the same set: the 10 conflicting primitives. -/
 theorem meet_join_gap_d12_same_primitives :
-    (gapVector join_d12 meet_d12 |>.map (·.primitive)).sort =
-    (gap_d12.map (·.primitive)).sort := by
+    (gapVector join_d12 meet_d12 |>.map (·.primitive)).mergeSort (· ≤ ·) =
+    ((gap_d12.map (·.primitive)).mergeSort (· ≤ ·)) := by
   native_decide
 
 /-- D=12 tower compression: gap cardinality 10 vs S-unit rank 13.
@@ -593,3 +592,4 @@ theorem d12_vs_d2048_compression_ratio :
     ((gap_d12.length : ℚ) / (d12SunitExponents.length : ℚ)) /
     ((gap_d2048.length : ℚ) / (starkSunitExponents.length : ℚ)) = (10/13 : ℚ) := by
   native_decide
+end Imscribing.NumberTheory.GrammarStarkCorrespondence

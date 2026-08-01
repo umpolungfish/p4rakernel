@@ -58,14 +58,12 @@ lemma m_d_real_pos (d : ℕ) (hd : 4 ≤ d) : 0 < m_d_real d := by
     This is the standard norm in the real quadratic field Q(√m_d). -/
 theorem stark_unit_norm_one (d : ℕ) (hd : 4 ≤ d) :
     stark_unit_epsilon d * stark_unit_epsilon_conj d = 1 := by
-  unfold stark_unit_epsilon stark_unit_epsilon_conj m_d_real
-  -- (a + √s)/2 * (a - √s)/2 = (a² - s)/4 where a = d-1, s = (d-3)(d+1)
-  ring
-  -- ((d-1)² - (d-3)(d+1)) / 4 = 4/4 = 1
-  have hnum : ((d : ℝ) - 1)^2 - ((d : ℝ) - 3) * ((d : ℝ) + 1) = 4 := by
-    ring
-  rw [hnum]
-  norm_num
+  -- `ring` alone cannot do this: it treats √s as an atom, so (√s)² = s never
+  -- fires, and that identity is exactly where the hypothesis 4 ≤ d is needed.
+  have hsq : Real.sqrt (m_d_real d) ^ 2 = m_d_real d :=
+    Real.sq_sqrt (m_d_real_pos d hd).le
+  unfold stark_unit_epsilon stark_unit_epsilon_conj m_d_real at *
+  linear_combination (-(1 : ℝ) / 4) * hsq
 
 /-- **Corollary: ε_d ≠ 0 for all d ≥ 4.**
     Follows from ε_d · ε_d' = 1. -/
@@ -172,29 +170,43 @@ theorem fib_qc_d323 : isFibonacciQC 323 := by
 theorem fib_qc_d844 : isFibonacciQC 844 := by
   refine ⟨377, ?_⟩; native_decide
 
-/-- The 9 Fibonacci-QC dimensions. All verified by native_decide below.
-    Pattern: d = 1 + F_{2n+1}, k = F_{2n}.
-    The first 7 (n=1..7) are also pattern-verified via fib_qc_pattern_seven.
-    Dimensions 8 (d=2208, k=F_16=987) and 9 (d=5779, k=F_18=2584)
-    are verified numerically — the Lucas-Fibonacci relationship holds. -/
+/-- The 9 Fibonacci-QC dimensions.
+    The pattern is Lucas on the dimension and Fibonacci on the witness:
+    d - 1 = L_{2n} and k = F_{2n}, so m_d = 5·F_{2n}².
+    (It is not d = 1 + F_{2n+1}: that gives 3, not 4, at n=1.) -/
 def fibQCDimensions : List ℕ := [4, 8, 19, 48, 124, 323, 844, 2208, 5779]
 
-/-- All 9 list entries satisfy isFibonacciQC. Finite verification. -/
-theorem fib_qc_all_nine : (fibQCDimensions.filter isFibonacciQC).length = 9 := by
+/-- Each dimension paired with its witness k, so the check is decidable.
+    `isFibonacciQC` is an unbounded ∃ over ℕ and carries no `Decidable`
+    instance, so `filter`/`all` cannot range over it and `native_decide`
+    has nothing to evaluate. Carrying the witness is what makes the
+    verification real rather than merely stated. -/
+def fibQCWitnesses : List (ℕ × ℕ) :=
+  [(4, 1), (8, 3), (19, 8), (48, 21), (124, 55), (323, 144), (844, 377),
+   (2208, 987), (5779, 2584)]
+
+/-- k = F_{2n} for each witness, tying the list back to the Fibonacci pattern. -/
+theorem fib_qc_witnesses_are_fib :
+    (List.range 9).all (fun i =>
+      (fibQCWitnesses.getD i (0, 0)).2 == fib (2 * (i + 1))) := by
   native_decide
 
-/-- The first 7 Fibonacci-QC dimensions are verified. -/
-theorem fib_qc_verified_seven : (fibQCDimensions.take 7).all isFibonacciQC := by
+/-- The witness check itself: m_d = 5·k². -/
+def witnessOK (p : ℕ × ℕ) : Bool := decide (m_d p.1 = (5 : ℤ) * ((p.2 : ℤ) ^ 2))
+
+/-- All 9 witnessed pairs check out. Finite, decidable verification. -/
+theorem fib_qc_all_nine : (fibQCWitnesses.filter witnessOK).length = 9 := by
   native_decide
 
-/-- Pattern verification for n=1..7: each m_d = 5·F_{2n}².
-    This establishes the Lucas-Fibonacci relationship for the first 7 entries.
-    The 8th (n=8, k=F_16=987) and 9th (n=9, k=F_18=2584) extend the pattern
-    and are verified numerically in fib_qc_all_nine. -/
-theorem fib_qc_pattern_seven :
-    ((fibQCDimensions.take 7).map (fun d => m_d d)).all
-      (fun m => ∃ n : ℕ, 1 ≤ n ∧ n ≤ 7 ∧ m = (5 : ℤ) * (((fib (2*n)) : ℤ) ^ 2)) := by
+/-- The dimensions listed are exactly the dimensions witnessed. -/
+theorem fib_qc_dimensions_match : fibQCWitnesses.map (·.1) = fibQCDimensions := by
   native_decide
+
+/-- Lifting back to the Prop: every listed dimension is Fibonacci-QC. -/
+theorem fib_qc_all_nine_prop : ∀ p ∈ fibQCWitnesses, isFibonacciQC p.1 := by
+  intro p hp
+  refine ⟨p.2, ?_⟩
+  fin_cases hp <;> native_decide
 -- ================================================================
 -- §3.  S-UNIT EXPONENT DECOMPOSITION (GENERALIZED)
 --      For each dimension d, the grammar gap vector G(d) encodes
@@ -269,8 +281,8 @@ theorem d12_exponent_count_calibrated : d12SunitExponents.length = 13 := by
 
 /-- The 10 gap primitives at d=12: Ð,Þ,Ř,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω. -/
 theorem d12_gap_primitives_calibrated :
-    (gap_d12.map (·.primitive)).sort =
-    (["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).sort :=
+    ((gap_d12.map (·.primitive)).mergeSort (· ≤ ·)) =
+    ((["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).mergeSort (· ≤ ·)) :=
   gap_d12_primitives
 
 /-- d=12 ⊙ ordinal gap: woe→roar, δ = |0-2| = 2. -/
@@ -420,16 +432,19 @@ theorem d12_all_rules :
     encoding_rule_Gm 2 (-6) := by
   exact ⟨d12_rule_R, d12_rule_Gm⟩
 
-/-- **Encoding completeness.**
-    For d=2048 at maximal compression, the grammar gaps
-    (Ř=1, ɢ=3, ⊙=2) uniquely determine the exponent vector [-1, 3, 2].
-    Ř → e_0 = -1  (|e_0| = gap_R, sign from inversion semantics)
-    ɢ → e_1 = 3   (gap_Gm = |e_1|)
-    ⊙  → e_2 = 2   (gap_Od/gap_Gm = e_2/e_1, e_1 known from ɢ)
+/-- **Consistency of the d=2048 encoding.**
+    The exponent vector [-1, 3, 2] satisfies all three rules at the
+    d=2048 gaps (Ř=1, ɢ=3, ⊙=2).
 
-    At partial compression (d=12), the encoding rules provide
-    divisibility and bounding constraints rather than uniqueness.
-    The 10 gaps encode 13 exponents with 10/13 ≈ 0.77 compression. -/
+    This is consistency, not uniqueness, and the difference matters:
+    rule 1 is a bound (gap_R ≤ |e_0|) and rule 2 is a divisibility
+    (gap_Gm ∣ e_1), so e_1 = 6 or 9 would satisfy them too. What
+    actually pins {3, 2} out of the four solutions of e_1 + 2e_2 = 7
+    is the norm constraint together with the ⊙ ratio; uniqueness in
+    that sense is stated in StarkSunitD2048 and is not proven here.
+
+    At d=12 the rules give the same bounding and divisibility only,
+    with 10 gaps against 13 exponents. -/
 theorem encoding_completeness_d2048 :
     (∃ e0 e1 e2 : ℤ,
       encoding_rule_R 1 e0 ∧

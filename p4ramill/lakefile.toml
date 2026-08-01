@@ -123,6 +123,8 @@ globs = [
   "Imscribing.NumberTheory.PrattCertificateMonad",
   "Imscribing.NumberTheory.PrattStratification",
   "Imscribing.NumberTheory.StarkSunitD2048",
+  "Imscribing.NumberTheory.GrammarStarkCorrespondence",
+  "Imscribing.NumberTheory.GeneralizedStarkCorrespondence",
   "Imscribing.Millennium.SemanticBranchVerifier",
   "Imscribing.Classical.Solitary10",
   "Imscribing.CLU744Bridge",
