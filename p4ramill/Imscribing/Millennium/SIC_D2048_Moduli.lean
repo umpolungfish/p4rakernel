@@ -53,7 +53,7 @@ theorem m2048_val2 : padicValNat 2 (4190205 : ℕ) = 0 := by
 
 /-! ## The base field F = Q(√4190205) -/
 
-/-- Element of F = Q(√4190205): a + b·√4190205 with a,b ∈ ℚ. -/
+/- Element of F = Q(√4190205): a + b·√4190205 with a,b ∈ ℚ. -/
 @[ext] structure F2048 where
   a : ℚ
   b : ℚ
@@ -223,33 +223,80 @@ theorem moduli_field_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
   rw [wideRayDegree_12]
   native_decide
 
-/-- The ν₂ of the degree at each level k ∈ {0,...,15}, from the tower data.
+/- The ν₂ of the degree at each level k ∈ {0,...,15}, from the tower data.
     Verified by finite enumeration against the PARI/GP results.
 
     Levels 12–15 were reproduced independently on 2026-07-26 (PARI/GP 2.13.3,
     `bnrinit(bnf, 2^k)`, ∞ unramified), closing the tower: every level of this
     filtration is now computed rather than extrapolated, and the range no
     longer stops below the transition it is used to establish. -/
-theorem nu2_values (k : ℕ) (hk : k ≤ 15) : wideRayNu2 k =
-    match k with
-    | 0 => 6
-    | 1 => 6
-    | 2 => 7
-    | 3 => 9
-    | 4 => 11
-    | 5 => 13
-    | 6 => 15
-    | 7 => 17
-    | 8 => 19
-    | 9 => 21
-    | 10 => 23
-    | 11 => 25
-    | 12 => 26
-    | 13 => 27
-    | 14 => 28
-    | 15 => 29
-    | _ => 0 := by
-  interval_cases k <;> decide
+/-- nu_2 of the degree at each level. `wideRayNu2` is `padicValNat`, which is
+    noncomputable, so these cannot be decided; every degree is a power of two
+    though, which is exactly `padicValNat.prime_pow`. -/
+theorem nu2_0  : wideRayNu2 0 = 6 := by
+  show padicValNat 2 (wideRayDegree 0) = 6
+  rw [wideRayDegree_0 ]
+  exact padicValNat.prime_pow 6
+theorem nu2_1  : wideRayNu2 1 = 6 := by
+  show padicValNat 2 (wideRayDegree 1) = 6
+  rw [wideRayDegree_1 ]
+  exact padicValNat.prime_pow 6
+theorem nu2_2  : wideRayNu2 2 = 7 := by
+  show padicValNat 2 (wideRayDegree 2) = 7
+  rw [wideRayDegree_2 ]
+  exact padicValNat.prime_pow 7
+theorem nu2_3  : wideRayNu2 3 = 9 := by
+  show padicValNat 2 (wideRayDegree 3) = 9
+  rw [wideRayDegree_3 ]
+  exact padicValNat.prime_pow 9
+theorem nu2_4  : wideRayNu2 4 = 11 := by
+  show padicValNat 2 (wideRayDegree 4) = 11
+  rw [wideRayDegree_4 ]
+  exact padicValNat.prime_pow 11
+theorem nu2_5  : wideRayNu2 5 = 13 := by
+  show padicValNat 2 (wideRayDegree 5) = 13
+  rw [wideRayDegree_5 ]
+  exact padicValNat.prime_pow 13
+theorem nu2_6  : wideRayNu2 6 = 15 := by
+  show padicValNat 2 (wideRayDegree 6) = 15
+  rw [wideRayDegree_6 ]
+  exact padicValNat.prime_pow 15
+theorem nu2_7  : wideRayNu2 7 = 17 := by
+  show padicValNat 2 (wideRayDegree 7) = 17
+  rw [wideRayDegree_7 ]
+  exact padicValNat.prime_pow 17
+theorem nu2_8  : wideRayNu2 8 = 19 := by
+  show padicValNat 2 (wideRayDegree 8) = 19
+  rw [wideRayDegree_8 ]
+  exact padicValNat.prime_pow 19
+theorem nu2_9  : wideRayNu2 9 = 21 := by
+  show padicValNat 2 (wideRayDegree 9) = 21
+  rw [wideRayDegree_9 ]
+  exact padicValNat.prime_pow 21
+theorem nu2_10 : wideRayNu2 10 = 23 := by
+  show padicValNat 2 (wideRayDegree 10) = 23
+  rw [wideRayDegree_10]
+  exact padicValNat.prime_pow 23
+theorem nu2_11 : wideRayNu2 11 = 25 := by
+  show padicValNat 2 (wideRayDegree 11) = 25
+  rw [wideRayDegree_11]
+  exact padicValNat.prime_pow 25
+theorem nu2_12 : wideRayNu2 12 = 26 := by
+  show padicValNat 2 (wideRayDegree 12) = 26
+  rw [wideRayDegree_12]
+  exact padicValNat.prime_pow 26
+theorem nu2_13 : wideRayNu2 13 = 27 := by
+  show padicValNat 2 (wideRayDegree 13) = 27
+  rw [wideRayDegree_13]
+  exact padicValNat.prime_pow 27
+theorem nu2_14 : wideRayNu2 14 = 28 := by
+  show padicValNat 2 (wideRayDegree 14) = 28
+  rw [wideRayDegree_14]
+  exact padicValNat.prime_pow 28
+theorem nu2_15 : wideRayNu2 15 = 29 := by
+  show padicValNat 2 (wideRayDegree 15) = 29
+  rw [wideRayDegree_15]
+  exact padicValNat.prime_pow 29
 
 /-  **Phase transition at k=12**: the growth rate halves from ratio 4 to ratio 2.
     For k ∈ [3,11]: wideRayDegree(k)/wideRayDegree(k-1) = 4 (maximal 2-adic growth).
