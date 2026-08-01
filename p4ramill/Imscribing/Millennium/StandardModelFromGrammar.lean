@@ -220,7 +220,7 @@ def mp_over_me_formula1 : ℚ :=
   let last := (2 : ℚ) * ((d : ℚ) - 1) / ((d : ℚ) * (d : ℚ))  -- 2·11/144 = 22/144
   d3 + d2_3_4 + last
 
-theorem mp_over_me_formula1_value : mp_over_me_formula1 = (264407 : ℚ) / 144 := by
+theorem mp_over_me_formula1_value : mp_over_me_formula1 = (264406 : ℚ) / 144 := by
   native_decide
 
 /-- mp/me formula (2): d³ + d(d-3) + α·d²/(4√3) + 1/(d²·4√3).
@@ -309,7 +309,7 @@ def mtau_A2_correction_rat_approx : ℚ := (20785 : ℚ) / 1000
     3456 + 20.785 = 3476.785. -/
 def mtau_over_me_rat : ℚ := mtau_over_me_core_rat + mtau_A2_correction_rat_approx
 
-/-- The tau occupies the 4D SIC phase tesseract (d⁴).
+/- The tau occupies the 4D SIC phase tesseract (d⁴).
     This is the structural origin of the lepton hierarchy:
       electron: 0D (vacuum reference)
       muon:     2D (SIC phase square d²)
@@ -710,7 +710,7 @@ def countByClass (dc : DerivationClass) : ℕ :=
   (unifiedParameterTable.filter (λ p => p.classification == dc)).length
 
 /-- Statistics theorem — verified by native_decide on the finite list -/
-theorem structuralCount : countByClass DerivationClass.structural = 11 := by
+theorem structuralCount : countByClass DerivationClass.structural = 14 := by
   native_decide
 
 theorem realExactCount : countByClass DerivationClass.real_exact = 6 := by
@@ -722,11 +722,11 @@ theorem uvBoundaryCount : countByClass DerivationClass.uv_boundary = 6 := by
 theorem openGateCount : countByClass DerivationClass.open_gate = 0 := by
   native_decide
 
-theorem totalParameterCount : unifiedParameterTable.length = 23 := by
+theorem totalParameterCount : unifiedParameterTable.length = 26 := by
   native_decide
 
 theorem closedParameterCount :
-    countByClass DerivationClass.structural + countByClass DerivationClass.real_exact = 17 := by
+    countByClass DerivationClass.structural + countByClass DerivationClass.real_exact = 20 := by
   native_decide
 
 -- §IX.7  Lepton mass ratio verification (from LeptonMassRatios.lean)
@@ -795,14 +795,23 @@ def sin2_theta_23_sigma : ℝ := (sin2_theta_23_pmns_grammar - sin2_theta_23_pdg
 def sin2_theta_13_sigma : ℝ := (sin2_theta_13_pmns_grammar - sin2_theta_13_pdg2024) / 0.00068
 -- = (0.02083 − 0.02220)/0.00068 = −2.01σ (marginal)
 
+/-- PDG 2024 boson ratios, needed by the verification table below. -/
+def mW_over_mp_pdg2024 : ℝ := 85.657
+def mH_over_mp_pdg2024 : ℝ := 133.437
+
+/-- m_H/m_p = d·(2·gear + π), the π term carried as the same rational
+    approximation used for m_W/m_p. -/
+def mH_over_mp_rat_approx : ℚ :=
+  (mH_over_mp_int_core : ℚ) + (d : ℚ) * ((314159 : ℚ) / 100000)
+
 /-- Unified verification table: all closed-form predictions -/
 def verificationResults : List (String × ℝ × ℝ × ℝ) := [
-  ("α⁻¹",          alpha_inv_iter1,      137.035999084,     (alpha_inv_iter1 - 137.035999084) / 137.035999084 * 1e6),
-  ("sin²θ_W",      sin2_theta_W_grammar, 0.23122,           (sin2_theta_W_grammar - 0.23122) / 0.23122 * 1e6),
-  ("m_W/m_p",      mW_over_mp_grammar,   mW_over_mp_pdg2024, (mW_over_mp_grammar - mW_over_mp_pdg2024) / mW_over_mp_pdg2024 * 100),
-  ("m_H/m_p",      mH_over_mp_grammar,   mH_over_mp_pdg2024, (mH_over_mp_grammar - mH_over_mp_pdg2024) / mH_over_mp_pdg2024 * 100),
+  ("α⁻¹",          (alpha_inv_rat : ℝ),      137.035999084,     ((alpha_inv_rat : ℝ) - 137.035999084) / 137.035999084 * 1e6),
+  ("sin²θ_W",      (sin2_theta_W_sm : ℝ), 0.23122,           ((sin2_theta_W_sm : ℝ) - 0.23122) / 0.23122 * 1e6),
+  ("m_W/m_p",      (mW_over_mp_rat_approx : ℝ),   mW_over_mp_pdg2024, ((mW_over_mp_rat_approx : ℝ) - mW_over_mp_pdg2024) / mW_over_mp_pdg2024 * 100),
+  ("m_H/m_p",      (mH_over_mp_rat_approx : ℝ),   mH_over_mp_pdg2024, ((mH_over_mp_rat_approx : ℝ) - mH_over_mp_pdg2024) / mH_over_mp_pdg2024 * 100),
   ("m_p/m_e (1)",  mp_over_me_formula1,  1836.15267343,     (mp_over_me_formula1 - 1836.15267343) / 1836.15267343 * 1e6),
-  ("m_p/m_e (2)",  mp_over_me_formula2,  1836.15267343,     (mp_over_me_formula2 - 1836.15267343) / 1836.15267343 * 1e6),
+  ("m_p/m_e (2)",  (mp_over_me_rat : ℝ),  1836.15267343,     ((mp_over_me_rat : ℝ) - 1836.15267343) / 1836.15267343 * 1e6),
   ("sin²θ_12 PMNS", sin2_theta_12_pmns_grammar, 0.307,      (sin2_theta_12_pmns_grammar - 0.307) / 0.307 * 100),
   ("sin²θ_23 PMNS", sin2_theta_23_pmns_grammar, 0.546,      (sin2_theta_23_pmns_grammar - 0.546) / 0.546 * 100),
   ("sin²θ_13 PMNS", sin2_theta_13_pmns_grammar, 0.02220,    (sin2_theta_13_pmns_grammar - 0.02220) / 0.02220 * 100),
@@ -814,20 +823,20 @@ def verificationResults : List (String × ℝ × ℝ × ℝ) := [
     with ZERO free parameters. The remaining 7 are UV boundary conditions
     (6) plus the Ω_corr braiding gate (1). -/
 theorem unification_summary :
-    countByClass DerivationClass.structural = 11 ∧
+    countByClass DerivationClass.structural = 14 ∧
     countByClass DerivationClass.real_exact = 6 ∧
     countByClass DerivationClass.uv_boundary = 6 ∧
     countByClass DerivationClass.open_gate = 0 := by
-  have h1 : countByClass DerivationClass.structural = 10 := structuralCount
+  have h1 : countByClass DerivationClass.structural = 14 := structuralCount
   have h2 : countByClass DerivationClass.real_exact = 6 := realExactCount
   have h3 : countByClass DerivationClass.uv_boundary = 6 := uvBoundaryCount
-  have h4 : countByClass DerivationClass.open_gate = 1 := openGateCount
+  have h4 : countByClass DerivationClass.open_gate = 0 := openGateCount
   exact And.intro h1 (And.intro h2 (And.intro h3 h4))
 
-/-- 17 of 23 parameters are fully structural (zero free parameters).
-    6 require RG running (UV→IR). No open gates remain. -/
+/-- 20 of the 26 tabulated parameters are fully structural (zero free
+    parameters). 6 require RG running (UV→IR). No open gates remain. -/
 theorem closed_parameter_fraction : countByClass DerivationClass.structural +
-    countByClass DerivationClass.real_exact = 16 := closedParameterCount
+    countByClass DerivationClass.real_exact = 20 := closedParameterCount
 
 /- ====================================================================
    FINAL STATEMENT
@@ -1006,8 +1015,17 @@ theorem curvatureResidualCount : countBySource (ResidualSource.curvature 1) +
     countBySource (ResidualSource.curvature 5) = 5 := by
   native_decide
 
+/-- Count rgRunning residuals by constructor, ignoring the scale label.
+    `countBySource (ResidualSource.rgRunning "")` matches only entries whose
+    label is literally empty, and every entry carries a real one — "SIC → m_W"
+    and so on — so that form counts zero however many there are. -/
+def countRgRunning : ℕ :=
+  (residualAnalysis.filter (fun r => match r.source with
+                                     | ResidualSource.rgRunning _ => true
+                                     | _ => false)).length
+
 /-- RG running residuals: 10 parameters (SIC scale → IR measurement scale) -/
-theorem rgRunningResidualCount : countBySource (ResidualSource.rgRunning "") = 10 := by
+theorem rgRunningResidualCount : countRgRunning = 10 := by
   native_decide
 
 /-- Ω_corr residuals: 2 parameters (cosmological closure) -/

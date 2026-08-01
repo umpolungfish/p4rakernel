@@ -412,7 +412,7 @@ theorem frobenius_closure : True := by
   trivial
 
 -- ============================================================
--- §7b. D=12 CATALOG ENTRIES
+-- §10. D=12 CATALOG ENTRIES
 --      sic_d12_existence_proof and sic_d12_stark_instance
 --      Glyph values verified via compute_distance (2026-08-02).
 -- ============================================================
@@ -454,7 +454,7 @@ def sic_d12_stark_instance : Imscription := {
 }
 
 -- ============================================================
--- §7c. D=12 GAP COMPUTATION
+-- §11. D=12 GAP COMPUTATION
 --      10 primitives differ; 2 match (Φ, Ç).
 --      Gap cardinality ≈ S-unit rank at conductor 2.
 -- ============================================================
@@ -525,7 +525,7 @@ theorem gap_d12_Od_ratio :
   native_decide
 
 -- ============================================================
--- §7d. D=12 MEET/JOIN FROBENIUS PAIR
+-- §12. D=12 MEET/JOIN FROBENIUS PAIR
 --      Brackets the d=12 gap; verifies Frobenius closure.
 -- ============================================================
 
@@ -592,4 +592,5 @@ theorem d12_vs_d2048_compression_ratio :
     ((gap_d12.length : ℚ) / (d12SunitExponents.length : ℚ)) /
     ((gap_d2048.length : ℚ) / (starkSunitExponents.length : ℚ)) = (10/13 : ℚ) := by
   native_decide
+
 end Imscribing.NumberTheory.GrammarStarkCorrespondence
