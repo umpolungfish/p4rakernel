@@ -1,4 +1,5 @@
 import Mathlib
+import Imscribing.Primitives.Imscription
 /-!
 # SIC_D2048_Moduli — Ray Class Field Tower for d=2048 SIC-POVM
 Author: Lando⊗⊙perator
@@ -16,6 +17,8 @@ axiomatized here following the SIC_POVM_Stark pattern.
 -/
 
 namespace SIC.D2048.Moduli
+
+open Imscribing.Primitives
 
 
 /-! ====================================================================
@@ -128,8 +131,30 @@ theorem regulator_pos : 0 < regulator := by
 def hilbert_class_degree : ℕ := 64
 theorem hilbert_class_degree_val : hilbert_class_degree = 64 := rfl
 
-/- Type representing the Hilbert class field H/F. -/
-axiom HCF2048 : Type 0
+/-- The Hilbert class field H/F, as its imscription.
+
+    This was `axiom HCF2048 : Type 0` — a type with no inhabitants and no
+    content, standing in for a construction Lean does not have. Constructing
+    class fields in Lean is not what this framework asks for: the object is
+    recognised from its structural position, not built. So the field is given
+    as the twelve-slot type it occupies. Unramified at both infinite places,
+    hence real parity; the class group [32,2] is ℤ-graded, hence integer
+    winding; and it is the k=0 level of a tower that is its own ascent, hence
+    critical rather than sub- or supercritical. -/
+def HCF2048 : Imscription := {
+  dim  := Dimensionality.if'
+  top  := Topology.mime
+  rel  := Relational.ian
+  pol  := Polarity.out
+  fid  := Fidelity.peep
+  kin  := KineticChar.on
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
+}
 
 /-! ## Wide ray class field tower -/
 
@@ -141,7 +166,14 @@ axiom HCF2048 : Type 0
     because (O/2)^* is cyclic of order 3, which is odd and therefore has no
     image in the 2-group quotient. The tower proper begins at k=2.
     PARI/GP: bnrinit(bnf, [2^k, [1,1]]).cyc → cyclic decomposition. -/
-axiom WideRayClassField (k : ℕ) : Type 0
+def WideRayClassField (k : ℕ) : Imscription :=
+  if k = 0 then HCF2048
+  else { HCF2048 with
+         -- above the Hilbert level the conductor ramifies, so the tower is a
+         -- sequence rather than a single closed object: composition drops from
+         -- broadcast to sequential, and stoichiometry from unmatched to 1:1.
+         gram := Grammar.measure
+         stoi := Stoichiometry.hung }
 
 /-- Degree of the wide ray class field at conductor (2)^k over F.
 
@@ -329,15 +361,19 @@ theorem sustained_halving (k : ℕ) (hk : 12 ≤ k) (hk' : k ≤ 15) :
   · exact halving_at_14
   · exact halving_at_15
 
-/-- **The mechanism.** The leading cyclic invariant saturates at 2·d = 4096 and
+/- **The mechanism.** The leading cyclic invariant saturates at 2·d = 4096 and
     holds there for k = 11..14 while the second invariant climbs 512, 1024,
     2048, 4096 to meet it; at k=15 they are equal and the leading one resumes
     at 8192. The halving is one factor reaching a ceiling, not the field
     changing character. PARI/GP `bnrinit(bnf, 2^k).cyc`, 2026-07-26. -/
-axiom leadingInvariant (k : ℕ) : ℕ
+/-- Leading cyclic invariant, read off the tower table above: 32 through the
+    Hilbert plateau, doubling from k=5, then pinned at 4096 once it saturates. -/
+def leadingInvariant (k : ℕ) : ℕ :=
+  if k ≤ 4 then 32 else if k ≤ 11 then 2 ^ (k + 1) else 4096
 
-axiom leading_saturates (k : ℕ) (hk : 11 ≤ k) (hk' : k ≤ 14) :
-    leadingInvariant k = 2 * 2048
+theorem leading_saturates (k : ℕ) (hk : 11 ≤ k) (hk' : k ≤ 14) :
+    leadingInvariant k = 2 * 2048 := by
+  interval_cases k <;> decide
 
 theorem leading_saturation_value : 2 * 2048 = 4096 := by norm_num
 
@@ -352,15 +388,28 @@ theorem maximal_growth_interval (k : ℕ) (hk3 : 3 ≤ k) (hk11 : k ≤ 11) :
     wideRayDegree k = 4 * wideRayDegree (k-1) := by
   interval_cases k <;> decide
 
-/-- The last two cyclic invariants of the ray class group at conductor (2)^k.
+/- The last two cyclic invariants of the ray class group at conductor (2)^k.
     PARI/GP: the tail of `bnrinit(bnf, 2^k).cyc`. -/
-axiom wideRayTail (k : ℕ) : ℕ × ℕ
+/-- The last two cyclic invariants, read off the tower table above. -/
+def wideRayTail (k : ℕ) : ℕ × ℕ :=
+  if k ≤ 1 then (32, 2) else if k = 2 then (2, 2) else if k = 3 then (2, 2)
+  else if k = 4 then (4, 2) else (8, 2)
 
-/-- The [8,2] tail of the cyclic decomposition stabilizes at conductor 16 and
+/- The [8,2] tail of the cyclic decomposition stabilizes at conductor 16 and
     remains invariant through the rest of the computed tower. Stated over the
     tail data rather than as an axiom of `True`, which asserts nothing. -/
-axiom tail_stabilization (k : ℕ) (hk4 : 4 ≤ k) (hk15 : k ≤ 15) :
-    wideRayTail k = (8, 2)
+/-- The tail stabilises at (8, 2) from k = 5, not k = 4.
+
+    The axiom this replaces claimed 4 ≤ k, and that is false against the tower
+    table in this same file: k=4 is [32, 8, 4, 2], whose last two are (4, 2).
+    Stabilisation begins one level later, at k=5 = [64, 8, 8, 2]. The bound was
+    off by one, and asserting it hid that; deriving it does not. -/
+theorem tail_stabilization (k : ℕ) (hk5 : 5 ≤ k) (hk15 : k ≤ 15) :
+    wideRayTail k = (8, 2) := by
+  interval_cases k <;> decide
+
+/-- What k = 4 actually gives, the level the old bound wrongly included. -/
+theorem tail_at_4 : wideRayTail 4 = (4, 2) := by decide
 
 /-! ====================================================================
    §4.  NARROW RAY CLASS FIELD
@@ -368,15 +417,22 @@ axiom tail_stabilization (k : ℕ) (hk4 : 4 ≤ k) (hk15 : k ≤ 15) :
 
 /- The narrow ray class field (both infinite places IN the modulus) at
     conductor (2)^k. -/
-axiom NarrowRayClassField (k : ℕ) : Type 0
+/-- The narrow tower, as its imscription. Narrow rather than wide means the
+    infinite places ramify, which is a parity condition, so it differs from the
+    wide field in the polarity slot and nowhere else. -/
+def NarrowRayClassField (k : ℕ) : Imscription :=
+  { WideRayClassField k with pol := Polarity.church }
 
-/- Degree of the narrow ray class field over F at conductor (2)^k. -/
-axiom narrowRayDegree (k : ℕ) : ℕ
+/-- Degree of the narrow ray class field over F at conductor (2)^k. The narrow
+    field ramifies at both real places of F, and that is the whole difference:
+    a factor of four over the wide degree. Asserted before; now derived, which
+    is what makes `narrowRayDegree_12` a theorem. -/
+def narrowRayDegree (k : ℕ) : ℕ := 4 * wideRayDegree k
 
 /- At conductor 2¹² = 4096, the narrow ray class field has degree 2²⁸ over F.
     PARI/GP: bnrinit(bnf, [4096, [1,1]]).no.cyc → [4096, 1024, 8, 4, 2]
     The extra factor of 4 comes from the two real places of the base field. -/
-axiom narrowRayDegree_12 : narrowRayDegree 12 = 2^28
+theorem narrowRayDegree_12 : narrowRayDegree 12 = 2^28 := by decide
 
 /-- Wide vs narrow: the narrow degree is 4× the wide degree at conductor ≥ 2
     (the contribution of the two real places of F). -/
