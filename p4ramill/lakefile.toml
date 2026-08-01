@@ -162,6 +162,7 @@ globs = [
   "Imscribing.Millennium.PerfectCuboid.PrerequisiteLemmasL5_L7",
   "Imscribing.Millennium.Beal",
   "Imscribing.Millennium.SIC_POVM_Stark",
+  "Imscribing.Millennium.StandardModelFromGrammar",
   "Imscribing.Millennium.Ring2048_Bridge",
   "Imscribing.Millennium.SIC_POVM_Functor",
   "Imscribing.Millennium.SIC_POVM_ParityGate",
