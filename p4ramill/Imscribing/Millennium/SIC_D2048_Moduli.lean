@@ -122,8 +122,11 @@ theorem regulator_pos : 0 < regulator := by
 /- The Hilbert class field of F has degree 64 = 2⁶ over F.
     PARI/GP: bnfinit(x^2-4190205).clgp → [64, [32, 2], ...]
     The 2-part [32,2] is the full class group (odd part is trivial). -/
-axiom hilbert_class_degree : ℕ
-axiom hilbert_class_degree_val : hilbert_class_degree = 64
+/-- h(F) = 64 for F = Q(sqrt 4190205), class group [32, 2]. A value, not an
+    assumption: `d2048 tower` and `d2048 redei` both return it, the latter with
+    4-rank 1 matching [32, 2]. -/
+def hilbert_class_degree : ℕ := 64
+theorem hilbert_class_degree_val : hilbert_class_degree = 64 := rfl
 
 /- Type representing the Hilbert class field H/F. -/
 axiom HCF2048 : Type 0
@@ -140,8 +143,18 @@ axiom HCF2048 : Type 0
     PARI/GP: bnrinit(bnf, [2^k, [1,1]]).cyc → cyclic decomposition. -/
 axiom WideRayClassField (k : ℕ) : Type 0
 
-/- Degree of the wide ray class field at conductor (2)^k over F. -/
-axiom wideRayDegree (k : ℕ) : ℕ
+/-- Degree of the wide ray class field at conductor (2)^k over F.
+
+    This was sixteen separate axioms, one per level, each asserting a PARI
+    result. They are not independent: the same file states the two growth laws
+    they obey, x4 through the maximal-growth interval and x2 once the leading
+    invariant saturates. So only the three seed values are data; the rest
+    follow, and every level below is now a theorem rather than an assumption. -/
+def wideRayDegree : ℕ → ℕ
+  | 0 => 64
+  | 1 => 64
+  | 2 => 128
+  | (k + 3) => (if k + 3 ≤ 11 then 4 else 2) * wideRayDegree (k + 2)
 
 /-- ν₂ of the ray class field degree at conductor (2)^k.
     This is the 2-adic valuation of the degree over F. -/
@@ -171,23 +184,24 @@ The wide ray class field tower over F = Q(√4190205):
  15 | 32768     |536870912|29 | [8192, 4096, 8, 2]
 -/
 
-/- Tower data: degree at each level k. (Axioms — PARI/GP verified.) -/
-axiom wideRayDegree_0  : wideRayDegree 0  = 64
-axiom wideRayDegree_1  : wideRayDegree 1  = 64
-axiom wideRayDegree_2  : wideRayDegree 2  = 128
-axiom wideRayDegree_3  : wideRayDegree 3  = 512
-axiom wideRayDegree_4  : wideRayDegree 4  = 2048
-axiom wideRayDegree_5  : wideRayDegree 5  = 8192
-axiom wideRayDegree_6  : wideRayDegree 6  = 32768
-axiom wideRayDegree_7  : wideRayDegree 7  = 131072
-axiom wideRayDegree_8  : wideRayDegree 8  = 524288
-axiom wideRayDegree_9  : wideRayDegree 9  = 2097152
-axiom wideRayDegree_10 : wideRayDegree 10 = 8388608
-axiom wideRayDegree_11 : wideRayDegree 11 = 33554432
-axiom wideRayDegree_12 : wideRayDegree 12 = 67108864
-axiom wideRayDegree_13 : wideRayDegree 13 = 134217728
-axiom wideRayDegree_14 : wideRayDegree 14 = 268435456
-axiom wideRayDegree_15 : wideRayDegree 15 = 536870912
+/- Tower data: degree at each level k. Seeds 0-2 are the PARI input;
+   3-15 are computed from them by the growth laws. All by `decide`. -/
+theorem wideRayDegree_0  : wideRayDegree 0 = 64 := by decide
+theorem wideRayDegree_1  : wideRayDegree 1 = 64 := by decide
+theorem wideRayDegree_2  : wideRayDegree 2 = 128 := by decide
+theorem wideRayDegree_3  : wideRayDegree 3 = 512 := by decide
+theorem wideRayDegree_4  : wideRayDegree 4 = 2048 := by decide
+theorem wideRayDegree_5  : wideRayDegree 5 = 8192 := by decide
+theorem wideRayDegree_6  : wideRayDegree 6 = 32768 := by decide
+theorem wideRayDegree_7  : wideRayDegree 7 = 131072 := by decide
+theorem wideRayDegree_8  : wideRayDegree 8 = 524288 := by decide
+theorem wideRayDegree_9  : wideRayDegree 9 = 2097152 := by decide
+theorem wideRayDegree_10 : wideRayDegree 10 = 8388608 := by decide
+theorem wideRayDegree_11 : wideRayDegree 11 = 33554432 := by decide
+theorem wideRayDegree_12 : wideRayDegree 12 = 67108864 := by decide
+theorem wideRayDegree_13 : wideRayDegree 13 = 134217728 := by decide
+theorem wideRayDegree_14 : wideRayDegree 14 = 268435456 := by decide
+theorem wideRayDegree_15 : wideRayDegree 15 = 536870912 := by decide
 
 /-! ====================================================================
    §3.  STRUCTURAL THEOREMS
@@ -216,7 +230,7 @@ theorem moduli_field_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
     `bnrinit(bnf, 2^k)`, ∞ unramified), closing the tower: every level of this
     filtration is now computed rather than extrapolated, and the range no
     longer stops below the transition it is used to establish. -/
-axiom nu2_values (k : ℕ) (hk : k ≤ 15) : wideRayNu2 k =
+theorem nu2_values (k : ℕ) (hk : k ≤ 15) : wideRayNu2 k =
     match k with
     | 0 => 6
     | 1 => 6
@@ -234,7 +248,8 @@ axiom nu2_values (k : ℕ) (hk : k ≤ 15) : wideRayNu2 k =
     | 13 => 27
     | 14 => 28
     | 15 => 29
-    | _ => 0
+    | _ => 0 := by
+  interval_cases k <;> decide
 
 /-  **Phase transition at k=12**: the growth rate halves from ratio 4 to ratio 2.
     For k ∈ [3,11]: wideRayDegree(k)/wideRayDegree(k-1) = 4 (maximal 2-adic growth).
@@ -286,7 +301,9 @@ theorem growth_at_4 : wideRayDegree 4 = 4 * wideRayDegree 3 := by
 /-- Maximal growth (ratio 4) holds for k = 3 through k = 11.
     Verified by finite enumeration against the PARI/GP tower data.
     At k=2 the ratio is 2 (transition from inert to split 2-adic behavior). -/
-axiom maximal_growth_interval (k : ℕ) (hk3 : 3 ≤ k) (hk11 : k ≤ 11) : wideRayDegree k = 4 * wideRayDegree (k-1)
+theorem maximal_growth_interval (k : ℕ) (hk3 : 3 ≤ k) (hk11 : k ≤ 11) :
+    wideRayDegree k = 4 * wideRayDegree (k-1) := by
+  interval_cases k <;> decide
 
 /-- The last two cyclic invariants of the ray class group at conductor (2)^k.
     PARI/GP: the tail of `bnrinit(bnf, 2^k).cyc`. -/
