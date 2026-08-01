@@ -537,6 +537,8 @@ globs = [
   "Imscribing.Millennium.MajoranaPhases",
   "Imscribing.CL9NK_Chain",
   "Imscribing.AFDMC_MBL_Cohomology",
+  "Imscribing.Seals",
   "Imscribing.AFDMC_MBL_Cohomology",
+  "Imscribing.Seals",
 
 ]
