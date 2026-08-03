@@ -1,34 +1,21 @@
-Erdos-Turan on additive bases: the counting half proved, the gap named.
+⊢ Dimensionality: every underscored name gone
 
-This does not settle the conjecture. It proves everything on one side of it and
-states what remains as a proposition rather than a gesture, so the boundary is
-in the file and not in a paragraph about the file.
+The first axis of the per-primitive purge. Ð_wynn, Ð_turnthree, Ð_invomega,
+Ð_omega and the rest resolve to their Shavian values; the LaTeX subscript forms
+Ð_{ß} Ð_{C} Ð_{;} Ð_{\omega} with them.
 
-bounded_reps_forces_density. If A is an asymptotic basis of order two whose
-representation function is bounded by C, then
+Three kinds of hit, treated differently. Real values became the value glyph.
+Ordinary mathematics that an earlier sweep had glyph-substituted went back to
+ASCII: $A_n$, $B_n$, $C_n$, $Ð_n$ in E8G2.tex is the classical Lie series D_n,
+Ð_p in the SIC-POVM paper is the displacement operator D_p, and Ð_H / Ð_A are
+hydrogen-bond distances. And English words whose D had been eaten were restored:
+HYBRIÐ_SUPRA_TEMP was HYBRID, BROAÐ_SEQ was BROAD.
 
-    N + 1 <= N0 + C * |A cap [0,N]|^2
+Also gone: the eight spent migration scripts under .stuff/scripts, the subscript
+fallback in resolve_ordinal_key (which is how a value that had stopped being
+legal went on resolving to something anyway), and the whole PRIM_LATEX table in
+IG_latex.py, whose only job was rendering a value as a retired glyph with a
+subscript.
 
-for every N >= N0. Each integer in the window needs a representation, none has
-more than C, and every representation is a pair drawn from the window. The
-interval embeds in the image of the sum map over that product, so counting the
-pairs both ways gives it. A counterexample must therefore be of maximal counting
-order, at least sqrt(N/C).
-
-BoundedRepBasisIsSidonLike. The step that is NOT proved, stated as a definition:
-a basis of bounded representation function contains, in each window, a Sidon
-sub-structure carrying a constant fraction of it. That is the conjecture's
-content and naming it is the honest form of a reduction.
-
-bounded_rep_basis_squeezed. Given that step and the Sidon upper bound, such a
-basis is caught between two estimates, dense from below by the counting and thin
-from above by the Sidon cap. Both hypotheses are used: an earlier draft carried
-them and proved its conclusion without them, which would have dressed the
-counting half as a reduction it is not, so the statement was changed to one that
-needs them.
-
-The choice function came out along the way. Bounding by the image of the sum map
-needs no choice and is shorter than choosing a representation per integer.
-
-Zero sorries. Both theorems on propext, Classical.choice, Quot.sound, printed in
-the file.
+Zero remain anywhere except 2m3iosis/crystal_fs/*.jsonl, which are kernel run
+logs rather than code or data. Eleven axes to go.

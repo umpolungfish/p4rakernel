@@ -280,12 +280,12 @@ deriving Repr
 theorem ZFC_fe_all_axioms : True := by
   -- Axiom A: Ħ_∞ requires Ç_trap (eternal chirality needs frozen kinetics)
   -- Axiom B: Ω_Z2 requires Ħ₂ or Ħ_∞ (parity protection needs memory)
-  -- Axiom C: Ð_⊙ ↔ Þ_⊙ (self-written state-space ↔ self-referential topology)
+  -- Axiom C: 𐑦 ↔ Þ_⊙ (self-written state-space ↔ self-referential topology)
   -- Axiom D: Frobenius condition μ∘δ=id at P_special
   trivial
 
 /-- The 7 ZFC_fe promotion channels (from zfcfe_navigator.py):
-    1. HOLOBOUND: Ð_infty→Ð_⊙ (holographic boundary)
+    1. HOLOBOUND: 𐑼→𐑦 (holographic boundary)
     2. T_NET→T_ODOT: self-referential topology
     3. LR_DUAL: Ř_super→Ř_lr (bidirectional coupling)
     4. PM_Z2: church→out (partial Z2 symmetry)
@@ -302,7 +302,7 @@ deriving Repr
 
 /-- The 7 promotion channels verified by zfcfe_navigator. -/
 def zfcfePromotions : List ZFC_fePromotion := [
-  ⟨"HOLOBOUND", "Ð_infty", "Ð_⊙", 1, "state space → self-written"⟩,
+  ⟨"HOLOBOUND", "𐑼", "𐑦", 1, "state space → self-written"⟩,
   ⟨"T_NET→T_ODOT", "Þ_net", "Þ_odot", 2, "branching → self-referential"⟩,
   ⟨"LR_DUAL", "Ř_super", "Ř_lr", 1, "supervenience → bidirectional"⟩,
   ⟨"PM_Z2", "Φ_asym", "Φ_pm", 2, "trivial → partial Z2"⟩,

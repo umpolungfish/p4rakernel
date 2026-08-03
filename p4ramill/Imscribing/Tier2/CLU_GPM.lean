@@ -296,7 +296,7 @@ deriving Repr
 
 /-- The 7 promotion channels verified by zfcfe_navigator. -/
 def zfcfePromotions : List ZFC_fePromotion := [
-  ⟨"HOLOBOUND", "Ð_infty", "Ð_⊙", 1, "state space → self-written"⟩,
+  ⟨"HOLOBOUND", "𐑼", "𐑦", 1, "state space → self-written"⟩,
   ⟨"T_NET→T_ODOT", "Þ_net", "Þ_odot", 2, "branching → self-referential"⟩,
   ⟨"LR_DUAL", "Ř_super", "Ř_lr", 1, "supervenience → bidirectional"⟩,
   ⟨"PM_Z2", "Φ_asym", "Φ_pm", 2, "trivial → partial Z2"⟩,
