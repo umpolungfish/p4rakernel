@@ -546,4 +546,6 @@ globs = [
   "Imscribing.AFDMC_MBL_Cohomology",
   "Imscribing.Seals",
 
+  "Imscribing.B4FactorBootstrap",
+  "Imscribing.Paraconsistent.B4Measurement",
 ]
