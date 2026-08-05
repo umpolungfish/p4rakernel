@@ -44,4 +44,35 @@ lemma exactly_one_odd (p : Cuboid) (hg : ¬ Even p.g) :
   · exfalso; omega
   · exfalso; omega
 
+/-- Iteration 4: with the odd edge singled out, the two face diagonals TO it are
+    odd and the remaining diagonal is even. Stated for the c-odd branch; the
+    others follow by the symmetry of the face equations. Proven mod 2 from the
+    face equations and sq_mod_four_parity. -/
+lemma diagonals_parity_c_odd (p : Cuboid)
+    (ha : Even p.a) (hb : Even p.b) (hc : Odd p.c) :
+    Even p.d ∧ Odd p.e ∧ Odd p.f := by
+  refine ⟨?_, ?_, ?_⟩
+  · -- d^2 = a^2 + b^2, both even, so d^2 % 4 = 0, so d even
+    have : p.d * p.d % 4 = 0 := by
+      have hA := (sq_mod_four_parity p.a).1 ha
+      have hB := (sq_mod_four_parity p.b).1 hb
+      have := p.h_ab; omega
+    exact even_of_sq_mod_four_zero this
+  · -- e^2 = a^2 + c^2 = even + odd, so e odd
+    rcases Nat.even_or_odd p.e with he | he
+    · exfalso
+      have hA := (sq_mod_four_parity p.a).1 ha
+      have hC := (sq_mod_four_parity p.c).2 hc
+      have hE := (sq_mod_four_parity p.e).1 he
+      have := p.h_ac; omega
+    · exact he
+  · -- f^2 = b^2 + c^2 = even + odd, so f odd
+    rcases Nat.even_or_odd p.f with hf | hf
+    · exfalso
+      have hB := (sq_mod_four_parity p.b).1 hb
+      have hC := (sq_mod_four_parity p.c).2 hc
+      have hF := (sq_mod_four_parity p.f).1 hf
+      have := p.h_bc; omega
+    · exact hf
+
 end Millennium.PerfectCuboid.CaseC.Attempt
