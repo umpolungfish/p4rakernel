@@ -1,0 +1,6 @@
+{ "ob3ect":"case_c_attempt_02_exactly_one_odd","attempt":2,
+  "goal":"exactly_one_odd","verdict":"F (build failed)",
+  "won":"sq_mod_four_parity (Even->%4=0, Odd->%4=1) compiles clean",
+  "refusal":"dite glue in the exfalso branch type-mismatched; omega lacked the residue facts in scope",
+  "seed_next":"drop the parity rcases; take residues ra,rb,rc := sq_mod_four on each edge, let omega force exactly-one-=1 from hsp+hgsq, then map %4=1->Odd (add odd_of_sq_mod_four_one) and %4=0->Even (even_of_sq_mod_four_zero, exists)",
+  "mu_delta":"open" }
