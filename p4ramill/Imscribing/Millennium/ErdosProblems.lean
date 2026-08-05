@@ -363,7 +363,7 @@ theorem erdos_kac_interval_tier : imscriptionTier erdos_kac_interval = .O₀ := 
   unfold erdos_kac_interval; native_decide
 
 /-!
-**Why O₀?** The subcritical φ̂=woe anchors this problem below the
+**Why O₀?** The subcritical ⊙=woe anchors this problem below the
 critical threshold. The Erdős–Kac CLT is a subcritical phenomenon:
 correlations decay fast enough for a normal limit but not fast
 enough for the interval conjecture. This is structurally the

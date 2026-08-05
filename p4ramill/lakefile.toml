@@ -506,6 +506,7 @@ globs = [
   "Imscribing.Millennium.Z7StructureConstants",
   "Imscribing.Millennium.HolonomyWinding",
   "Imscribing.Millennium.PerfectCuboid.DescentTheorem",
+"Imscribing.Millennium.PerfectCuboid.DescentOperator",
   "Imscribing.at_home_zpe_scaffold",
   "Imscribing.Agricola",
   "Imscribing.BasilValentine",
