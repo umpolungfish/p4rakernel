@@ -1,33 +1,28 @@
-Manuscript-aligned spine: PORT × Witness Vessel (PROVE → UNIFY → PORT closed)
+Perfect cuboid: consolidate three descent axioms into one named residual
 
-After reading ig-docs_lifted/manuscripts3 (SIC-Stark-12th, Witness Vessel,
-Chrysopoeia 2048), packaged the formal halves those papers rest on into one
-green module.
+A Grammar-first workflow, decomposed to Lean. The descent protocol imscribes and
+closes as a shape (imasm check ⊢∈⊤⊥∋◻⊣ → T), but the kernel closure verdict on
+the assembled theorem is OPEN — it rested on the opaque axiom
+descent_operator_exists. The catalog locates the cut on the ⊥ (chirality) axis:
+the descent imscriptions split 𐑖 (two-step, bounded — cases A and B) versus 𐑫
+(inexhaustible — case C), and that promotion is the one unclosed step.
 
-New: Imscribing/Millennium/VAE_Vita_ManuscriptSpine.lean (lakefile registered)
+CaseC.lean decomposes it into a complete case split and discharges what is
+already proven:
+  A. diagonal even  → all seven entries even (all_seven_even_of_g_even, new,
+     from the mod-4 face equations) → halve to a strictly smaller cuboid
+     (halve_g_smaller, proven).
+  B. edge-pairs coprime → impossible (case_all_gcd_one_impossible, proven).
+  C. diagonal odd, some pair shares a factor → one axiom,
+     case_mixed_parity_impossible, stating exactly the open mixed-parity content.
 
-  theorem manuscript_formal_spine :
-      port_kernel_spine (flat)
-    ∧ witness_vessel_lossless
+descent_or_impossible and no_perfect_cuboid are theorems from these. The kernel
+confirms the result:
+  #print axioms no_perfect_cuboid
+  → [propext, Classical.choice, Quot.sound, case_mixed_parity_impossible]
 
-  i.e. PROVE (μ∘δ=id on scalarField_Kslow ∧ SICPOVM_Exists 12)
-     ∧ UNIFY (B = T+F in ℂ¹²)
-     ∧ Dual-Link self-verify (foldCotype allTrue allTrue = T)
-     ∧ ride-as transport (∀p, readback(board p)=p)
-     ∧ Clay cargo (YM = B, MPP roundtrip)
-     ∧ delivery (d=12 fiducial unit-norm + equiangular after transport)
-
-  lake build Imscribing.Millennium.VAE_Vita_ManuscriptSpine
-  → Build completed successfully (8067 jobs), olean present, 0 sorry.
-
-Scope:
-  - boarding is Dual-Link split/fuse; cargo/tensor into the vessel is a D-T
-    malformation, outside the theorem
-  - the Belnap stack is not the algebraic Scott-Grassl fiducial (double cover)
-  - Clay T/B are Grammar typings, not Millennium proofs
-  - d=2048 unconditional existence is open
-  - the two Belnap carriers (Paraconsistent, SplitFuse) enter as a product of
-    independent theorems, not one type
-
-Also: DualLinkVessel SS4 imscriptionState (filled earlier); VAE_Vita_Port green;
-modot/vessel.py docstring cites manuscripts3 + this spine.
+Three opaque descent axioms become one precisely-named residual; cases A and B
+are proof, not assumption. The conjecture is not closed — the residual axiom IS
+the conjecture on its branch — and that is stated plainly. The workflow is
+written up in ig-docs/perfect_cuboid_grammar_workflow.md as the reference
+example for the specialists.
