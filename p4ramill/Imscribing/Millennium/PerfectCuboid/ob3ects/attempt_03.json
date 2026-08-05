@@ -1,4 +1,0 @@
-{ "ob3ect":"case_c_attempt_03_exactly_one_odd","attempt":3,"verdict":"T (closes)",
-  "won":"exactly_one_odd PROVEN, axiom-clean: mixed parity => exactly one edge odd. Residues-then-map, omega discharges the 5 impossible parity sums.",
-  "mu_delta":"closed",
-  "seed_next":"WLOG c odd, a,b even. Next sub-lemma: with a,b even and the primitive gcd condition, 4 | gcd... build toward the two-squares parametrization g^2=a^2+b^2+c^2. Attack the descent: does a mixed cuboid force a smaller one? This is the open core." }

@@ -124,33 +124,15 @@ lemma halve_cuboid_g_eq_choose (p : Cuboid)
 theorem halve_g_smaller (p : Cuboid)
   (h : Even p.a ∧ Even p.b ∧ Even p.c ∧ Even p.d ∧ Even p.e ∧ Even p.f ∧ Even p.g) :
   (halve_cuboid p h).g < p.g := by
-  -- p.g = Classical.choose hg + Classical.choose hg by Classical.choose_spec hg
-  -- (halve_cuboid p h).g = Classical.choose hg by halve_cuboid_g_eq_choose
-  -- Since p.g > 0, Classical.choose hg > 0, so Classical.choose hg < p.g
-
-  -- Establish the relationship p.g = Classical.choose hg + Classical.choose hg
-  have hg_spec : p.g = Classical.choose h.2.2.2.2.2.2 + Classical.choose h.2.2.2.2.2.2 :=
-    Classical.choose_spec h.2.2.2.2.2.2
-
-  -- p.g > 0 implies Classical.choose h.2.2.2.2.2.2 > 0 (since p.g = x + x with x : Nat)
-  have hg_pos : 0 < Classical.choose h.2.2.2.2.2.2 := by
-    have h0 : 0 < Classical.choose h.2.2.2.2.2.2 + Classical.choose h.2.2.2.2.2.2 := by
-      rw [← hg_spec]
-      exact p.hg_pos
-    -- h0 : 0 < x + x where x = Classical.choose h.2.2.2.2.2.2
-    -- For naturals: 0 < x + x implies 0 < x (since if x = 0, x + x = 0)
+  -- Write x for the halved diagonal, Classical.choose of g's evenness. Then
+  -- p.g = x + x, the halved cuboid's g is x, and 0 < x because 0 < p.g; so x < 2x.
+  set x := Classical.choose h.2.2.2.2.2.2 with hx
+  have hg_spec : p.g = x + x := Classical.choose_spec h.2.2.2.2.2.2
+  have hg_pos : 0 < x := by
+    have h0 : 0 < x + x := by rw [← hg_spec]; exact p.hg_pos
     linarith
-
-  -- Rewrite p.g in the goal using hg_spec
-  rw [hg_spec]
-
-  -- Rewrite (halve_cuboid p h).g using the lemma
-  rw [halve_cuboid_g_eq_choose p h]
-
-  -- Goal: x < x + x where x = Classical.choose h.2.2.2.2.2.2 and x > 0
-  -- From 0 < x, we get 0 + x < x + x by Nat.add_lt_add_right, and 0 + x = x
-  have : 0 + Classical.choose h.2.2.2.2.2.2 < Classical.choose h.2.2.2.2.2.2 + Classical.choose h.2.2.2.2.2.2 :=
-    Nat.add_lt_add_right hg_pos (Classical.choose h.2.2.2.2.2.2)
+  rw [hg_spec, halve_cuboid_g_eq_choose p h, ← hx]
+  have : 0 + x < x + x := Nat.add_lt_add_right hg_pos x
   simpa [Nat.zero_add] using this
 
 end Millennium.PerfectCuboid
