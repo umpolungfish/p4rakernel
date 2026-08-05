@@ -1,0 +1,11 @@
+{
+  "ob3ect": "case_c_attempt_01_exactly_one_odd",
+  "target": "case_mixed_parity_impossible",
+  "attempt": 1,
+  "goal": "exactly_one_odd : g odd -> exactly one of a,b,c odd",
+  "verdict": "F (build failed)",
+  "refusal": "inline mod-8 square classification via k*(k+1)/2 exceeded omega heartbeat (200000) and 'too many tactics' in the nested rcases; whnf timeout",
+  "isolated_obligation": "square-mod-8 classification and odd-square-mod-8 = 1",
+  "seed_next": "use existing sq_mod_eight (PerfectCuboid.lean:215) and sq_mod_four rather than reproving; drive the final case split with interval_cases / decide on residues, not omega on products",
+  "mu_delta": "open"
+}
