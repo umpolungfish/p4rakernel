@@ -1,6 +1,6 @@
 # p4rakernel: Paraconsistent Computation Layer
 
-![language](https://img.shields.io/badge/language-Lean%204-2E7D32?style=for-the-badge) ![tier](https://img.shields.io/badge/tier-O%E2%88%9E-8A2BE2?style=for-the-badge) ![μ∘δ](https://img.shields.io/badge/%CE%BC%E2%88%98%CE%B4-id-00A86B?style=for-the-badge) ![licence](https://img.shields.io/badge/licence-LUNLICENSE-1A1A1A?style=for-the-badge)
+![language](https://img.shields.io/badge/language-Lean%204-2E7D32?style=for-the-badge) ![logic](https://img.shields.io/badge/logic-paraconsistent-C1440E?style=for-the-badge) ![tier](https://img.shields.io/badge/tier-O%E2%88%9E-8A2BE2?style=for-the-badge) ![μ∘δ](https://img.shields.io/badge/%CE%BC%E2%88%98%CE%B4-id-00A86B?style=for-the-badge) ![licence](https://img.shields.io/badge/licence-LUNLICENSE-1A1A1A?style=for-the-badge)
 
 **License:** Unlicense (public domain)
 
