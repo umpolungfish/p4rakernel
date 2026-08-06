@@ -483,6 +483,9 @@ globs = [
   "Imscribing.Millennium.SIC_D12_WitnessVessel",
   "Imscribing.Millennium.Clay_WitnessedClosure",
   "Imscribing.Millennium.Clay_UnclosedResistance",
+  "Imscribing.Millennium.ClayCandidateTuples",
+  "Imscribing.Millennium.ClayCandidateProfile",
+  "Imscribing.Millennium.Clay_TransportedClosure",
   "Imscribing.Scratch.ProverScratch",
   "Imscribing.Scratch.ProverScratchB",
 
