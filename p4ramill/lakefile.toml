@@ -131,6 +131,7 @@ globs = [
   "Imscribing.CLU744Bridge",
   "Imscribing.IMASM.BankedWeight",
   "Imscribing.Quantum.WindingLattice",
+  "Imscribing.Quantum.GateObstruction",
   "Imscribing.Quantum.PeriodReadout",
   "Imscribing.Classical.SidonRepresentation",
   "Imscribing.Classical.ErdosTuranReduction",
