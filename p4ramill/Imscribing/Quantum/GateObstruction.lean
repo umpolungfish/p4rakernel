@@ -177,6 +177,9 @@ lemma inQ5_mul {x y : ℝ} (hx : inQ5 x) (hy : inQ5 y) : inQ5 (x * y) := by
   obtain ⟨c, d, rfl⟩ := hy
   exact ⟨a * c + 5 * b * d, a * d + b * c, mul_coord a b c d⟩
 
+lemma inQ5_sq {x : ℝ} (hx : inQ5 x) : inQ5 (x ^ 2) := by
+  rw [sq]; exact inQ5_mul hx hx
+
 lemma inQ5_add {x y : ℝ} (hx : inQ5 x) (hy : inQ5 y) : inQ5 (x + y) := by
   obtain ⟨a, b, rfl⟩ := hx
   obtain ⟨c, d, rfl⟩ := hy
@@ -191,7 +194,7 @@ lemma inQ5_ratCast (q : ℚ) : inQ5 (q : ℝ) := ⟨q, 0, by push_cast; ring⟩
 
 lemma inQ5_phi : inQ5 phi := ⟨1/2, 1/2, phi_coord⟩
 
-/-- A nonzero element of `ℚ(√5)` has an inverse there. The conjugate does it:
+/-- A nonzero element of `ℚ(√5)` has its inverse there: the conjugate supplies it,
 `(a + b√5)(a - b√5) = N(a,b)`, and the norm cannot vanish on a nonzero element. -/
 lemma inQ5_inv {x : ℝ} (hx : inQ5 x) (hx0 : x ≠ 0) : inQ5 x⁻¹ := by
   obtain ⟨a, b, rfl⟩ := hx
@@ -205,18 +208,18 @@ lemma inQ5_inv {x : ℝ} (hx : inQ5 x) (hx0 : x ≠ 0) : inQ5 x⁻¹ := by
     push_cast at hconj
     rcases mul_eq_zero.mp hconj with h1 | h2
     · exact hx0 h1
-    · have : ((a : ℝ)) + (b : ℝ) * r5 = ((0 : ℚ) : ℝ) + ((0 : ℚ) : ℝ) * r5 := by
-        have hb : (b : ℝ) * r5 = (a : ℝ) := by linarith
+    · have hz : ((a : ℝ)) + ((-b : ℚ) : ℝ) * r5 = ((0 : ℚ) : ℝ) + ((0 : ℚ) : ℝ) * r5 := by
         push_cast
-        nlinarith [h2, hb]
-      obtain ⟨ha0, hb0⟩ := coord_unique this
-      exact hx0 (by rw [ha0, hb0]; push_cast; ring)
-  refine ⟨a / nrm a b, -b / nrm a b, ?_⟩
+        linarith [h2]
+      obtain ⟨ha0, hb0⟩ := coord_unique hz
+      have hb : b = 0 := by linarith [hb0]
+      exact hx0 (by rw [ha0, hb]; push_cast; ring)
   have hnR : ((nrm a b : ℚ) : ℝ) ≠ 0 := by exact_mod_cast hn
-  field_simp
+  refine ⟨a / nrm a b, -b / nrm a b, ?_⟩
+  have hx0' : ((a : ℝ) + (b : ℝ) * r5) ≠ 0 := hx0
   push_cast
-  field_simp at hconj ⊢
-  linarith [hconj]
+  field_simp
+  linear_combination -hconj
 
 /-! ## The second floor: ℚ(√φ) -/
 
@@ -229,47 +232,152 @@ lemma sphi_not_inQ5 : ¬ inQ5 sphi := by
   rintro ⟨a, b, h⟩
   exact phi_not_sq_in_Q5 ⟨a, b, by rw [← h]; exact sphi_sq⟩
 
-/-- If `c·√φ` lands back in `ℚ(√5)` then `c = 0`. This is the statement that
-`1, √φ` is a basis of `ℚ(√φ)` over `ℚ(√5)`. -/
+/-- If `c·√φ` lands back in `ℚ(√5)` then `c = 0`: `1, √φ` is a basis of `ℚ(√φ)`
+over `ℚ(√5)`. -/
 lemma coeff_eq_zero {c : ℝ} (hc : inQ5 c) (h : inQ5 (c * sphi)) : c = 0 := by
   by_contra hc0
-  exact sphi_not_inQ5 (by
-    have : sphi = c⁻¹ * (c * sphi) := by field_simp
-    rw [this]
-    exact inQ5_mul (inQ5_inv hc hc0) h)
+  refine sphi_not_inQ5 ?_
+  have hrw : sphi = c⁻¹ * (c * sphi) := by field_simp
+  rw [hrw]
+  exact inQ5_mul (inQ5_inv hc hc0) h
 
-/-! ## The two obstructions -/
+/-! ## Two elements that are not squares in ℚ(√φ) -/
 
-/-- **The T obstruction.** `√2` is not in `ℚ(√φ)`, so `2 + √2` is not in `K`,
-so no braid word has the trace-squared-over-determinant of the `T` gate. -/
-theorem sqrt_two_not_in_Qsqrtphi :
-    ¬ ∃ p q : ℝ, inQ5 p ∧ inQ5 q ∧ (p + q * sphi) ^ 2 = 2 := by
+/-- `2/φ = √5 - 1`. -/
+lemma two_div_phi : 2 / phi = r5 - 1 := by
+  have hp : phi ≠ 0 := ne_of_gt phi_pos
+  rw [div_eq_iff hp]
+  simp only [phi]
+  linear_combination (-1/2 : ℝ) * r5_sq
+
+/-- The pattern both gates reduce to: an element `t` of `ℚ(√5)` is not a square in
+`ℚ(√φ)` when neither `t` nor `t/φ` has non-negative norm as a square would. -/
+theorem not_sq_in_Qsqrtphi {tc td : ℚ}
+    (hdirect : ∀ a b : ℚ, ((a : ℝ) + (b : ℝ) * r5) ^ 2 ≠ (tc : ℝ) + (td : ℝ) * r5)
+    (hphi : ∀ a b : ℚ, ((a : ℝ) + (b : ℝ) * r5) ^ 2 * phi ≠ (tc : ℝ) + (td : ℝ) * r5) :
+    ¬ ∃ p q : ℝ, inQ5 p ∧ inQ5 q ∧ (p + q * sphi) ^ 2 = (tc : ℝ) + (td : ℝ) * r5 := by
   rintro ⟨p, q, hp, hq, h⟩
-  have hexp : p ^ 2 + q ^ 2 * phi + (2 * p * q) * sphi = 2 := by
-    rw [← h]; rw [← sphi_sq]; ring
+  have hexp : p ^ 2 + q ^ 2 * phi + (2 * p * q) * sphi = (tc : ℝ) + (td : ℝ) * r5 := by
+    linear_combination h - (q ^ 2) * sphi_sq
   have hrest : inQ5 ((2 * p * q) * sphi) := by
-    have : (2 * p * q) * sphi = 2 - (p ^ 2 + q ^ 2 * phi) := by linarith [hexp]
-    rw [this]
-    exact inQ5_sub (inQ5_ratCast 2) (inQ5_add (inQ5_mul hp hp) (inQ5_mul (inQ5_mul hq hq) inQ5_phi))
+    have hr : (2 * p * q) * sphi = ((tc : ℝ) + (td : ℝ) * r5) - (p ^ 2 + q ^ 2 * phi) := by
+      linarith [hexp]
+    rw [hr]
+    exact inQ5_sub ⟨tc, td, rfl⟩ (inQ5_add (inQ5_sq hp) (inQ5_mul (inQ5_sq hq) inQ5_phi))
   have hpq : 2 * p * q = 0 :=
     coeff_eq_zero (inQ5_mul (inQ5_mul (inQ5_ratCast 2) hp) hq) hrest
   have hpq' : p * q = 0 := by linarith
   rcases mul_eq_zero.mp hpq' with hp0 | hq0
-  · -- p = 0: then q²φ = 2, and the norm of φ is negative
-    subst hp0
+  · subst hp0
     obtain ⟨a, b, rfl⟩ := hq
-    have hq2 : (((a : ℝ) + (b : ℝ) * r5) ^ 2) * phi = 2 := by
-      have := hexp; simp at this ⊢; linarith [this]
-    rw [sq, mul_coord, phi_coord, mul_coord] at hq2
-    have hq2' : ((a * a + 5 * b * b) * (1/2) + 5 * (a * b + b * a) * (1/2) : ℚ) +
-        (((a * a + 5 * b * b) * (1/2) + (a * b + b * a) * (1/2) : ℚ) : ℝ) * r5
-          = ((2 : ℚ) : ℝ) + ((0 : ℚ) : ℝ) * r5 := by
-      push_cast at hq2 ⊢
-      constructor <;> linarith [hq2]
-    sorry
-  · -- q = 0: then p² = 2 inside ℚ(√5)
-    subst hq0
+    refine hphi a b ?_
+    have : (0 : ℝ) ^ 2 + ((a : ℝ) + (b : ℝ) * r5) ^ 2 * phi
+        + (2 * 0 * ((a : ℝ) + (b : ℝ) * r5)) * sphi = (tc : ℝ) + (td : ℝ) * r5 := hexp
+    linarith [this]
+  · subst hq0
     obtain ⟨a, b, rfl⟩ := hp
-    exact sqrt_two_not_in_Q5 ⟨a, b, by simpa using h⟩
+    refine hdirect a b ?_
+    have : ((a : ℝ) + (b : ℝ) * r5) ^ 2 + (0 : ℝ) ^ 2 * phi
+        + (2 * ((a : ℝ) + (b : ℝ) * r5) * 0) * sphi = (tc : ℝ) + (td : ℝ) * r5 := hexp
+    linarith [this]
+
+/-- **The T obstruction.** `√2 ∉ ℚ(√φ)`. Since `K ∩ ℝ = ℚ(√φ)` and the gate forces
+`tr² / det = 2 + √2`, no braid word realizes `T`, at any length, up to any phase. -/
+theorem sqrt_two_not_in_Qsqrtphi :
+    ¬ ∃ p q : ℝ, inQ5 p ∧ inQ5 q ∧ (p + q * sphi) ^ 2 = ((2 : ℚ) : ℝ) + ((0 : ℚ) : ℝ) * r5 := by
+  refine not_sq_in_Qsqrtphi (fun a b h => ?_) (fun a b h => ?_)
+  · exact sqrt_two_not_in_Q5 ⟨a, b, by push_cast at h ⊢; linarith [h]⟩
+  · -- q²·φ = 2 forces q² = √5 - 1, whose norm is 1 - 5 = -4
+    have hp : phi ≠ 0 := ne_of_gt phi_pos
+    have hq2 : ((a : ℝ) + (b : ℝ) * r5) ^ 2 = ((-1 : ℚ) : ℝ) + ((1 : ℚ) : ℝ) * r5 := by
+      have h2 : ((a : ℝ) + (b : ℝ) * r5) ^ 2 = 2 / phi := by
+        field_simp
+        push_cast at h
+        linarith [h]
+      rw [h2, two_div_phi]
+      push_cast
+      ring
+    have := nrm_sq_nonneg hq2
+    simp only [nrm] at this
+    norm_num at this
+
+/-- **The S obstruction.** `(5-√5)/5` is not a square in `ℚ(√φ)` either, which is
+what rules out `S`: there `tr²/det = 2` passes, and the determinant lattice is
+what closes it. -/
+theorem five_minus_r5_not_sq :
+    ¬ ∃ p q : ℝ, inQ5 p ∧ inQ5 q ∧
+      (p + q * sphi) ^ 2 = ((1 : ℚ) : ℝ) + ((-1/5 : ℚ) : ℝ) * r5 := by
+  refine not_sq_in_Qsqrtphi (fun a b h => ?_) (fun a b h => ?_)
+  · -- norm would be 4/5, and 4/5 is not a rational square: (5x)² = 20
+    have hn := nrm_of_sq h
+    simp only [nrm] at hn
+    refine no_rat_sq_twenty (5 * (a ^ 2 - 5 * b ^ 2)) ?_
+    nlinarith [hn]
+  · -- dividing by φ flips the sign of the norm
+    have hp : phi ≠ 0 := ne_of_gt phi_pos
+    have hq2 : ((a : ℝ) + (b : ℝ) * r5) ^ 2
+        = ((-1 : ℚ) : ℝ) + ((3/5 : ℚ) : ℝ) * r5 := by
+      have h2 : ((a : ℝ) + (b : ℝ) * r5) ^ 2 = (1 - r5 / 5) / phi := by
+        field_simp
+        push_cast at h
+        linarith [h]
+      rw [h2]
+      have hp2 : phi * (((-1 : ℚ) : ℝ) + ((3/5 : ℚ) : ℝ) * r5) = 1 - r5 / 5 := by
+        simp only [phi]
+        push_cast
+        linear_combination (3/10 : ℝ) * r5_sq
+      field_simp
+      linarith [hp2]
+    have := nrm_sq_nonneg hq2
+    simp only [nrm] at this
+    norm_num at this
+
+/-! ## The bridge: the invariant a global phase cannot touch -/
+
+open Matrix in
+/-- `tr²/det` is blind to the projective freedom. This is why "up to a phase"
+buys the braid nothing: whatever `λ` is, it cancels. -/
+theorem J_phase_invariant (M : Matrix (Fin 2) (Fin 2) ℂ) (l : ℂ) (hl : l ≠ 0) :
+    (trace (l • M)) ^ 2 / (l • M).det = (trace M) ^ 2 / M.det := by
+  rw [trace_smul, det_smul]
+  simp only [Fintype.card_fin, smul_eq_mul]
+  rcases eq_or_ne M.det 0 with hd | hd
+  · simp [hd]
+  · field_simp
+
+/-- A gate whose eigenvalue ratio is `z` has `tr²/det = 2 + z + z⁻¹`. -/
+theorem J_of_ratio {z : ℂ} (hz : z ≠ 0) : (1 + z) ^ 2 / z = 2 + (z + z⁻¹) := by
+  field_simp
+  ring
+
+/-- The eighth root of unity, written out. -/
+noncomputable def zeta8 : ℂ := (Real.sqrt 2 / 2 : ℝ) + (Real.sqrt 2 / 2 : ℝ) * Complex.I
+
+lemma r2_sq : (Real.sqrt 2 : ℝ) ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+
+lemma zeta8_ne_zero : zeta8 ≠ 0 := by
+  have hs : (0 : ℝ) < Real.sqrt 2 := Real.sqrt_pos.mpr (by norm_num)
+  intro h
+  have hre : (Real.sqrt 2 / 2 : ℝ) = 0 := by
+    simpa [zeta8, Complex.ext_iff] using congrArg Complex.re h
+  linarith
+
+/-- `T` is the gate of relative phase `ζ₈`, and its invariant is `2 + √2`. -/
+theorem J_of_T : (1 + zeta8) ^ 2 / zeta8 = 2 + (Real.sqrt 2 : ℝ) := by
+  rw [J_of_ratio zeta8_ne_zero]
+  have h2 : (Real.sqrt 2 : ℂ) ^ 2 = 2 := by
+    have := r2_sq
+    exact_mod_cast congrArg (fun x : ℝ => (x : ℂ)) this
+  have hz : zeta8 * ((Real.sqrt 2 / 2 : ℝ) - (Real.sqrt 2 / 2 : ℝ) * Complex.I) = 1 := by
+    simp only [zeta8]
+    push_cast
+    have hI : Complex.I ^ 2 = -1 := Complex.I_sq
+    linear_combination ((1 - Complex.I ^ 2) / 4) * h2 + (-(1 : ℂ) / 2) * hI
+  have hinv : zeta8⁻¹ = (Real.sqrt 2 / 2 : ℝ) - (Real.sqrt 2 / 2 : ℝ) * Complex.I :=
+    inv_eq_of_mul_eq_one_right hz
+  rw [hinv]
+  simp only [zeta8]
+  push_cast
+  ring
 
 end Imscribing.Quantum.GateObstruction
