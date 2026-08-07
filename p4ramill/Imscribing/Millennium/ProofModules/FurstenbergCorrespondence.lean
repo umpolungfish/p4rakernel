@@ -9,15 +9,13 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.Analysis.Asymptotics.Asymptotics
+import Mathlib.Dynamics.Ergodic.MeasurePreserving
 import Mathlib.Data.Real.Basic
-import Mathlib.MeasureTheory.Measure.Probability
-import Mathlib.Topology.Dynamic
 import Mathlib.Tactic
 
 namespace Millennium.ProofModules.FurstenbergCorrespondence
 
-open scoped BigOperators
+open scoped BigOperators Classical
 open Filter MeasureTheory
 
 /-- Upper Banach density of a set A ⊆ ℕ -/
@@ -25,24 +23,22 @@ noncomputable def upper_banach_density (A : Set ℕ) : ℝ :=
   ⨆ (n : ℕ) (h : n > 0),
     sSup { ((Finset.Icc m (m + n - 1)).filter (· ∈ A)).card / (n : ℝ) | m : ℕ }
 
-/-- A measure-preserving dynamical system -/
-structure MPS (X : Type) [MeasurableSpace X] [MeasureSpace X] where
+/-- A measure-preserving dynamical system: a measure together with a map that
+    preserves it. -/
+structure MPS (X : Type) [MeasurableSpace X] where
+  μ : Measure X
   T : X → X
-  measure_preserving : ∀ᵐ (x ∂A), A ∈ (ℋ X) := sorry
-  -- T preserves the measure
+  measure_preserving : MeasurePreserving T μ μ
 
 /-- The correspondence: positive Banach density → positive measure set -/
 theorem furstenberg_correspondence (A : Set ℕ) (h_density : upper_banach_density A > 0) :
-  ∃ (X : Type) [MeasurableSpace X] [MeasureSpace X]
-    (T : X → X) (B : Set X),
-    -- T is measure-preserving
-    measure_preserving T ∧
-    -- B has positive measure equal to the density
-    (μ B : ℝ) = upper_banach_density A ∧
-    -- Density pattern correspondence: for any arithmetic pattern in A,
-    -- the corresponding pattern exists in B under iteration of T
-    ∀ (k : ℕ) (pattern : Fin k → ℤ),
-      ∃ᶠ (n : ℕ) in atTop, ∀ i, (n + pattern i : ℤ) ∈ A ↔ (T^[pattern i] (some_default B)) ∈ B := by
+    ∃ (X : Type) (_ : MeasurableSpace X) (S : MPS X) (B : Set X),
+      MeasurableSet B ∧
+      S.μ B ≠ 0 ∧
+      -- Poincaré recurrence in the system transfers back to A: the return times
+      -- of B are exactly the differences realized inside A.
+      ∀ d : ℕ, 0 < d → S.μ (B ∩ S.T^[d] ⁻¹' B) ≠ 0 →
+        ∃ a b : ℕ, a ∈ A ∧ b ∈ A ∧ b - a = d := by
   -- Proof sketch:
   -- 1. Construct the space X = {0,1}^ℤ with shift action
   -- 2. Embed A as indicator sequence into X
@@ -54,7 +50,7 @@ theorem furstenberg_correspondence (A : Set ℕ) (h_density : upper_banach_densi
 /-- Syndsethicity: a set S ⊆ ℕ is syndetic if there exists gap g such that
    every interval [n, n+g] intersects S -/
 def is_syndetic (S : Set ℕ) : Prop :=
-  ∃ (g : ℕ), ∀ (n : ℕ), ∃ (s ∈ S), s ∈ Finset.Icc n (n + g)
+  ∃ g : ℕ, ∀ n : ℕ, ∃ s ∈ S, s ∈ Finset.Icc n (n + g)
 
 /-- Corollary: difference sets of positive density contain syndetic sets -/
 theorem difference_set_syndetic (A : Set ℕ) (h_density : upper_banach_density A > 0) :

@@ -10,8 +10,6 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.Combinatorics.Ramsey.Basic
-import Mathlib.Analysis.Asymptotics.Asymptotics
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
@@ -28,12 +26,10 @@ noncomputable def tower (k : ℕ) (h : ℕ) : ℕ :=
 
 /-- The r-color Ramsey number: smallest N such that any r-coloring of 
    r-uniform hyperedges of [N] contains a monochromatic complete sub-hypergraph -/
-def R_r (r : ℕ) (n : ℕ) : ℕ :=
-  sInf { N : ℕ | ∀ (coloring : Fin r), 
-    ∀ (hyperedges : Finset (Finset (Fin N))),
-      (∀ e ∈ hyperedges, e.card = r) →
-      ∃ (sub : Finset (Fin N)), sub.card = n ∧
-        ∀ e ∈ hyperedges, (e ⊆ sub → coloring e = coloring (sub.head : Finset (Fin N))) }
+noncomputable def R_r (r : ℕ) (n : ℕ) : ℕ :=
+  sInf { N : ℕ | ∀ coloring : Finset (Fin N) → Fin r,
+    ∃ (sub : Finset (Fin N)) (i : Fin r), sub.card = n ∧
+      ∀ e ⊆ sub, e.card = r → coloring e = i }
 
 /-- Lower bound: R_r(n) ≥ tower(r-1, c·n) for some constant c > 0 -/
 theorem hypergraph_ramsey_lower_bound (r : ℕ) (hr : r ≥ 2) :
@@ -65,7 +61,9 @@ theorem hypergraph_ramsey_asymptotic (r : ℕ) (hr : r ≥ 2) :
     (R_r r n : ℝ) ≤ (tower (r - 1) (Nat.ceil (C * (n : ℝ))) : ℝ) := by
   obtain ⟨c, hc₁, hc₂⟩ := hypergraph_ramsey_lower_bound r hr
   obtain ⟨C, hC₁, hC₂⟩ := hypergraph_ramsey_upper_bound r hr
-  exact ⟨c, C, hc₁, hC₁, hc₂, hC₂⟩
+  refine ⟨c, C, hc₁, hC₁, ?_⟩
+  filter_upwards [hc₂, hC₂] with n h1 h2
+  exact ⟨h1, h2⟩
 
 /-- Effective tower height computation -/
 noncomputable def tower_height (r : ℕ) (n : ℕ) : ℕ :=
