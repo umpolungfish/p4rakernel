@@ -115,12 +115,10 @@ concretely instantiated at Belnap FOUR, with the coreflector computed rather tha
 posited.
 
 `ClassicalRestriction.lean` and its two dependencies (`ParaconsistentCore.lean`,
-`ParaconsistentFrobeniusClosure.lean`) were deleted on 2026-07-14 by a commit whose
-message described a notation migration and whose diff, alongside it, deleted 375
-files. Restored from git history 2026-08-06 and reverified against the current
-`build/stage1/bin/lean` with no changes needed — the proof still holds exactly as
-written. The other ~372 files that commit deleted have not been audited; treat that
-commit as unverified rather than as a clean retirement until they are.
+`ParaconsistentFrobeniusClosure.lean`) are verified against the current
+`build/stage1/bin/lean`. Commit d971846 removed 375 files under a notation-migration
+message; three are accounted for here and the remaining ~372 are unaudited. Treat
+anything that commit removed as unverified rather than retired until it is checked.
 
 ---
 
@@ -167,7 +165,7 @@ O₂†→\(O_\infty\) jump). These modules deliberately carry **`sorry` at exac
 that are the grammar's open mathematical claims**: the IG identifies *what* must be
 constructed, estimated, or contradicted; it does not pretend those proofs are already done.
 The kernel, primitives, lattice, and paraconsistent cluster are sorry-free; the Millennium
-sorries are the honest statement of remaining work.
+sorries state the remaining work.
 
 | Problem | Ħ | Crystal address |
 |---|---|---|
@@ -177,7 +175,7 @@ sorries are the honest statement of remaining work.
 BSD sits at 6,738,800 because Gross-Zagier/Kolyvagin bound the chirality to Ħ 𐑖 rather
 than Ħ 𐑫.
 
-### ✦ SIC-POVM d=12 Embedding (CAPSTONE — July 2026)
+### SIC-POVM d=12 Embedding
 
 **Status: MACHINE-CHECKED THEOREM. No axioms. No sorries. No Stark shadow.**
 
@@ -209,18 +207,17 @@ for `native_decide`). The last axiom of the IG formalization has been discharged
 3. **`native_decide` planks**: `norm_sum` (trace-one normalization sum) and
    `existence_identities_all` (all 143 overlap values) are frozen as `native_decide`
    lemmas over the existence ring — finite rational arithmetic, no analysis.
-4. **`equiangular_bridge`**: the single analytic lemma that closes the last gap. Four
-   transcription defects were fixed (2026-07-04): two `rfl` closures where `rw`'s
-   auto-`rfl` could not unfold `psi` (definitional), a broken `Fin.sum_univ_eq_sum_range`
-   lambda, and an `hjk` insertion so the omega-exponent follows the psi-index into
-   `(k+12-a)` form.
+4. **`equiangular_bridge`**: the single analytic lemma that closes the last gap. It
+   turns on two definitional `rfl` closures where `rw`'s auto-`rfl` cannot unfold
+   `psi`, an explicit `Fin.sum_univ_eq_sum_range` lambda, and an `hjk` hypothesis so
+   the omega-exponent follows the psi-index into `(k+12-a)` form.
 
 The entire construction — ring, hom, norm, equiangularity, capstone — is **sorry-free**
 and builds green with `lake build` (8342 jobs, no olean cache misses).
 
-**`SIC_POVM_Functor.lean`** now imports the Embedding capstone. `crystal_forces_d12_sic`
-was an **axiom** before 2026-07-04; it is now a **theorem** that delegates to
-`SIC.D12.Embedding.crystal_forces_d12_sic`. The axiom is gone.
+**`SIC_POVM_Functor.lean`** imports the Embedding capstone, so `crystal_forces_d12_sic`
+is a **theorem** delegating to `SIC.D12.Embedding.crystal_forces_d12_sic` rather than an
+axiom.
 
 **Axiom audit (clean):** `propext`, `Classical.choice`, `Quot.sound` (Lean core);
 `Lean.ofReduceBool`, `Lean.trustCompiler` (native_decide). **Zero** project axioms.
