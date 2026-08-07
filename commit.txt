@@ -1,17 +1,44 @@
-README: record what counts as a clean build, and what stands in the way
+SerpentRod: three theorems restated to what is true, and the witnesses that show it
 
-No errors is not clean. Clean means no warnings and none silenced: a
-set_option disabling a linter does not clear a finding, it hides it.
+All three central claims in SerpentRod.lean were false as written, each carrying
+a sorry that could never close because the statement did not hold.
 
-The note lists the categories standing between the tree and a clean build,
-heaviest first, and says which are mechanical and which are not. Line length
-and layout are safe to reflow. native_decide is not mechanical, since the
-objection is that it trusts the compiler rather than the kernel, so each site
-is a decision about what the proof rests on. Unused variables and unused simp
-arguments each mark a hypothesis a statement asks for and its proof never
-touches, which is worth reading before deleting.
+frobenius_serpent_rod asserted mu_reconstruct ∘ delta_forget = transcribeToAA
+unrestricted, and its docstring conceded the gap while asserting past it: "using
+.U default selects the pyrimidine family, which is consistent with the genetic
+code's structure (same AA family, different specific AA)". A different specific
+amino acid is exactly what makes the equality fail. delta_forget drops position
+3 and mu_reconstruct refills it with U, which selects the pyrimidine member of a
+split box, so AUG carries Met on the way in and Ile on the way out.
 
-Sorries are named separately because they are not defects to be cleared. Each
-is an original claim standing unproven, and the warning reports that
-correctly. They close by being proven, never by suppression and never by
-weakening the statement until it goes through.
+Restated as the two statements that are true:
+
+- frobenius_serpent_rod_exact: on the exact stratum, where every codon sits in a
+  four-fold box, mu ∘ delta IS the identity on the amino acid sequence. Proved by
+  induction, discharged at each codon by frobenius_at_codon_level, which was
+  already there.
+- frobenius_serpent_rod_fails_split: AUG is a counterexample to the unrestricted
+  form, by decide.
+
+split_collapse_pairs names the collapse: each split box whose halves carry
+different amino acids sends its purine member to its pyrimidine member.
+collapsing_pairs_are_promoted records that both members of every such pair are
+promoted, so mu ∘ delta maps twelve primitive-bearing amino acids onto a strictly
+smaller set. The Frobenius holds on the ground layer and fails exactly where the
+Grammar's twelve primitives live.
+
+serpent_winding_bounds_contacts and direct_mapping_closure asserted inequalities
+between winding number and predicted contacts in opposite directions. Both are
+false, and one witness refutes both: three Ser codons, UCUUCUUCU. Ser is ground
+layer, so it activates no primitive and the fold has no contacts, while the
+nucleotide path still winds three times. Winding is read off the raw path,
+contacts are counted between promoted residues at distance four or more, and the
+two are independent rather than ordered. Replaced by
+winding_does_not_bound_contacts and contacts_do_not_bound_winding, each proved
+from the witness, plus no_promoted_no_contacts for the part that does hold.
+
+transcribeToAA, delta_forget and mu_reconstruct kept their behaviour; their inner
+let rec bodies were lifted to top-level transcribeGo, deltaGo and muToAA so the
+induction could name them.
+
+SerpentRod.lean now has no sorries.
