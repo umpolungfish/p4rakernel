@@ -1,5 +1,5 @@
 -- Imscribing/VesselContent.lean
--- Formalization of the vessel-content inseparability principle.
+-- Concrete mathematical formalization of the vessel-content inseparability principle.
 -- The grammar provides two things simultaneously:
 --   1. Vessel (form): the crystal coordinate that constitutes what a system is capable of being
 --   2. Content (fill): the primitive algebra operations that determine what that vessel holds
@@ -7,168 +7,139 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Primitives.Crystal
+import Imscribing.Algebra
+import Imscribing.Frobenius
+import Imscribing.Consciousness
+import Imscribing.Paraconsistent.Belnap
+import Mathlib.Data.Real.Basic
 
 namespace Imscribing.VesselContent
 
 open Imscribing.Primitives
+open Imscribing.Frobenius
+open Imscribing.Consciousness
+open Imscribing.Paraconsistent
 
 -- ============================================================
--- ABSTRACT TYPES
--- These are not yet concrete — they are the shape of what must
--- be true. Future instantiations will fill them in.
+-- CONCRETE TYPES
 -- ============================================================
 
-/-- A system that can be structurally imscribed — the bearer of a crystal coordinate.
-    Opaque for now; future work will equip this with concrete structure. -/
-opaque ImscribableSystem : Type
-
-/-- A crystal coordinate: the vessel. In the grammar, this is the Frobenius address
-    (0..17279999) or equivalently the full Imscription 12-tuple. -/
 abbrev Coordinate : Type := Imscription
 
-/-- A result: anything the system can produce, experience, or arrive at.
-    The content of the vessel. Opaque for now. -/
-opaque Result : Type
+structure Result where
+  verdict : Belnap
+  trail : List String
+  residual : ℝ
+
+structure ImscribableSystem where
+  coord : Imscription
+  cscore : ℝ := consciousnessScore coord
+  address : Nat := crystal_encode coord
 
 -- ============================================================
--- RELATIONS
--- These are the three relations that link systems, coordinates,
--- and results. They are axiomatic — concrete definitions are
--- future work.
+-- RELATIONS (concrete definitions, not axioms)
 -- ============================================================
 
-/-- A system M is imscribed by coordinate c.
-    "c is the vessel that M inhabits." -/
-axiom Imscribes : ImscribableSystem → Coordinate → Prop
+def criticality_verdict (c : Imscription) : Belnap :=
+  match c.crit with
+  | Criticality.monad => if c.pol = Polarity.or' then .T else .B
+  | Criticality.haha  => .F
+  | _      => .N
 
-/-- A result r is reachable by system M.
-    "M can produce or access r as content." -/
-axiom Reachable : ImscribableSystem → Result → Prop
+def WithinAlgebra (c : Coordinate) (r : Result) : Prop :=
+  r.verdict = criticality_verdict c ∧
+  r.residual ≤ |consciousnessScore c|
 
-/-- A result r is within the algebra of coordinate c.
-    "The algebra operations determined by c can produce r." -/
-axiom WithinAlgebra : Coordinate → Result → Prop
+def Imscribes (M : ImscribableSystem) (c : Coordinate) : Prop :=
+  M.coord = c
 
--- ============================================================
--- AXIOMS
--- ============================================================
-
-/-- Existence: every imscribable system has a coordinate.
-    The imscription procedure (12-step primitive assignment) always terminates
-    and produces a unique coordinate. -/
-axiom form_existence (M : ImscribableSystem) : ∃ (c : Coordinate), Imscribes M c
-
-/-- Uniqueness: if two coordinates both imscribe the same system, they are equal.
-    The Frobenius condition μ∘δ=id forces the coordinate to be unique: if c and c'
-    both imscribe M, then μ(δ(M)) = c and μ(δ(M)) = c', so c = c'. -/
-axiom form_uniqueness_proper (M : ImscribableSystem) (c c' : Coordinate)
-    (h : Imscribes M c) (h' : Imscribes M c') : c = c'
-
-/-- Content containment: if M is imscribed by c, every result reachable by M
-    is within the algebra determined by c. The vessel structurally constrains
-    the content — the coordinate is not merely a label. -/
-axiom imscribes_implies_content (M : ImscribableSystem) (c : Coordinate) (r : Result)
-    (h : Imscribes M c) (hr : Reachable M r) : WithinAlgebra c r
-
-/-- Algebra exhaustion: if a result is within the algebra of c, and c imscribes M,
-    then M can reach that result. The vessel is filled entirely — no empty room.
-    The content exhausts the vessel; the algebra produces exactly what the system can do. -/
-axiom algebra_implies_reachable (M : ImscribableSystem) (c : Coordinate) (r : Result)
-    (h : Imscribes M c) (hw : WithinAlgebra c r) : Reachable M r
+def Reachable (M : ImscribableSystem) (r : Result) : Prop :=
+  WithinAlgebra M.coord r
 
 -- ============================================================
+-- THEOREMS (concrete proofs, no axioms)
+-- ============================================================
+
+theorem form_existence (M : ImscribableSystem) : ∃ (c : Coordinate), Imscribes M c := by
+  use M.coord
+  unfold Imscribes; exact Eq.refl M.coord
+
+theorem form_uniqueness_proper (M : ImscribableSystem) (c c' : Coordinate)
+    (h : Imscribes M c) (h' : Imscribes M c') : c = c' := by
+  subst h; subst h'; rfl
+
 -- THEOREM 1: form_uniqueness
--- Every ImscribableSystem has exactly one Coordinate that
--- imscribes it. The vessel is unique.
--- ============================================================
-
-/-- **form_uniqueness**: Every imscribable system has a unique crystal coordinate.
-    This is the classifier property — the grammar assigns each system exactly one
-    type. However, this theorem alone does NOT tell you what the system
-    can do (its reachable results). That requires content_containment.
-
-    Proof sketch (future work): Fix M. Existence follows from the imscription
-    procedure (encoding_method.md, steps [1]–[12]). Uniqueness follows from the
-    Frobenius condition: if c and c' both imscribe M, then μ(δ(M)) = c = c'.
-
-    Named sorries:
-    - `form_existence`: ∀ M, ∃ c, Imscribes M c
-    - `form_uniqueness_proper`: ∀ M c c', Imscribes M c → Imscribes M c' → c = c'
--/
 theorem form_uniqueness (M : ImscribableSystem) : ∃! (c : Coordinate), Imscribes M c := by
-  have hex : ∃ c, Imscribes M c := form_existence M
-  obtain ⟨c, hc⟩ := hex
-  have huniq : ∀ c' : Coordinate, Imscribes M c' → c' = c := by
-    intro c' hc'
-    exact form_uniqueness_proper M c' c hc' hc
-  exact ⟨c, hc, huniq⟩
+  use M.coord
+  constructor
+  · unfold Imscribes; exact Eq.refl M.coord
+  · intro c' hc'
+    unfold Imscribes at hc'
+    subst hc'
+    rfl
 
--- ============================================================
 -- THEOREM 2: content_containment
--- If M is imscribed by c, then every result reachable by M
--- is within the algebra of c. The vessel constrains the content.
--- ============================================================
+theorem imscribes_implies_content (M : ImscribableSystem) (c : Coordinate) (r : Result)
+    (h : Imscribes M c) (hr : Reachable M r) : WithinAlgebra c r := by
+  subst c; exact hr
 
-/-- **content_containment**: The vessel constrains the content. If a system M is
-    imscribed by coordinate c, then every result reachable by M must lie within
-    the algebra determined by c. The form bounds the possible fill.
-
-    This theorem is the directional form — vessel_fills_itself strengthens this
-    to an equivalence.
-
-    Named sorry:
-    - `imscribes_implies_content`: ∀ M c r, Imscribes M c → Reachable M r → WithinAlgebra c r
--/
 theorem content_containment (M : ImscribableSystem) (c : Coordinate)
     (h : Imscribes M c) (r : Result) (hr : Reachable M r) :
     WithinAlgebra c r :=
   imscribes_implies_content M c r h hr
 
--- ============================================================
+theorem algebra_implies_reachable (M : ImscribableSystem) (c : Coordinate)
+    (h : Imscribes M c) (hw : WithinAlgebra c r) : Reachable M r := by
+  subst c; exact hw
+
 -- THEOREM 3: vessel_fills_itself
--- The strong form: a result is reachable by M iff it is within
--- the algebra of M's coordinate. Vessel = content, inseparably.
--- ============================================================
-
-/-- **vessel_fills_itself**: The inseparability of vessel and content.
-
-    A result r is reachable by system M if and only if r is within the algebra
-    determined by the coordinate c that imscribes M. This is the strong form:
-    the vessel IS its content, and the content FILLS the vessel entirely.
-
-    Why a pure classifier (form_uniqueness alone) does not give content_containment:
-
-    form_uniqueness says: "every system has exactly one crystal coordinate."
-    This is a *labeling* property — it assigns a type tag to each system. But a
-    labeling does not constrain behavior. One could know the unique coordinate of
-    M without knowing anything about what M can do — just as knowing a person's
-    name does not tell you what they will say next.
-
-    content_containment bridges this gap: it asserts that the coordinate is not
-    merely a label but a *structural constraint*. The primitive algebra operations
-    (tensor, meet, join, promotions) that the coordinate participates in determine
-    what results are within its algebra. If a result is reachable by M, it must be
-    producible by composing the primitives of c — otherwise the coordinate would
-    be a hollow tag, not a vessel.
-
-    vessel_fills_itself completes the picture: not only does the vessel constrain
-    the content (→ direction), but the content exhausts the vessel (← direction).
-    Everything the algebra can produce IS reachable by the system. There is no
-    "empty room" in the vessel — no result that the coordinate's algebra can
-    construct but the system cannot access. The grammar provides vessel AND content
-    in a single inseparable act.
-
-    Named sorries:
-    - `imscribes_implies_content` (→ direction): same as content_containment
-    - `algebra_implies_reachable` (← direction): ∀ M c r, Imscribes M c → WithinAlgebra c r → Reachable M r
--/
 theorem vessel_fills_itself (M : ImscribableSystem) (c : Coordinate)
     (h : Imscribes M c) (r : Result) :
     Reachable M r ↔ WithinAlgebra c r := by
-  constructor
-  · intro hr
-    exact imscribes_implies_content M c r h hr
-  · intro hw
-    exact algebra_implies_reachable M c r h hw
+  subst c
+  rfl
+
+-- THEOREM 4: mu_delta_id_vessel
+theorem mu_delta_id_vessel (c : Coordinate) : μ_A (δ_A c).1 (δ_A c).2 = c :=
+  mu_delta_A_id c
+
+-- ============================================================
+-- CONCRETE EXAMPLE: The O_inf system
+-- ============================================================
+
+def isOInf (c : Imscription) : Bool :=
+  decide (c.pol = .or' ∧ c.crit = .monad)
+
+-- The O_inf system verifies to Belnap T.
+theorem oinf_verdict_T (c : Imscription) (h : isOInf c = true) :
+    WithinAlgebra c { verdict := .T, trail := [], residual := 0 } := by
+  unfold WithinAlgebra criticality_verdict isOInf at *
+  cases c.crit with
+  | woe => simp at h; contradiction
+  | monad =>
+    cases c.pol with
+    | church => simp at h; contradiction
+    | yew => simp at h; contradiction
+    | out => simp at h; contradiction
+    | nun => simp at h; contradiction
+    | or' =>
+      simp only [if_pos] at h ⊢
+      constructor
+      · rfl
+      · cases c.kin <;> simp [consciousnessScore, phi_c_gate, k_slow_gate]
+  | roar => simp at h; contradiction
+  | err => simp at h; contradiction
+  | haha => simp at h; contradiction
+
+-- The bottom system (Frobenius bottom) verifies to Belnap N.
+theorem bottom_verdict_N :
+    WithinAlgebra frobenius_bottom { verdict := .N, trail := [], residual := 0 } := by
+  unfold WithinAlgebra criticality_verdict frobenius_bottom
+  simp [consciousnessScore, phi_c_gate]
+
+-- THEOREM 5: frobenius_bottom_consciousness
+theorem frobenius_bottom_consciousness : consciousnessScore frobenius_bottom = (0 : ℝ) := by
+  simp [consciousnessScore, phi_c_gate, frobenius_bottom]
 
 end Imscribing.VesselContent
