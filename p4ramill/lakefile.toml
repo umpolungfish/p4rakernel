@@ -556,4 +556,17 @@ globs = [
 
   "Imscribing.B4FactorBootstrap",
   "Imscribing.Paraconsistent.B4Measurement",
+  "Imscribing.Millennium.ProofModules.SunflowerProofModule",
+  "Imscribing.Millennium.ProofModules.RamseyGap",
+  "Imscribing.Millennium.ProofModules.RamseyLimit",
+  "Imscribing.Millennium.ProofModules.DistinctDistances",
+  "Imscribing.Millennium.ProofModules.ErdosFuchs",
+  "Imscribing.Millennium.ProofModules.FurstenbergSarkozy",
+  "Imscribing.Millennium.ProofModules.FurstenbergCorrespondence",
+  "Imscribing.Millennium.ProofModules.HopfPannwitz",
+  "Imscribing.Millennium.ProofModules.SumFreeSets",
+  "Imscribing.Millennium.ProofModules.TrianglePartition",
+  "Imscribing.Millennium.ProofModules.HypergraphRamsey",
+  "Imscribing.Millennium.ProofModules.LCMSieve",
+  "Imscribing.Millennium.ProofModules.VerifiedConjectures",
 ]
