@@ -45,6 +45,7 @@ lean-oleans:
 	$(LEAN) ParaconsistentCore.lean -o ParaconsistentCore.olean
 	LEAN_PATH=. $(LEAN) ParaconsistentFrobeniusClosure.lean -o ParaconsistentFrobeniusClosure.olean
 	LEAN_PATH=. $(LEAN) ClassicalRestriction.lean -o ClassicalRestriction.olean
+	LEAN_PATH=. $(LEAN) DeMorganBooleanCentre.lean -o DeMorganBooleanCentre.olean
 	@echo "Built top-level oleans under the paraconsistent fork ($(LEAN))."
 
 help:
