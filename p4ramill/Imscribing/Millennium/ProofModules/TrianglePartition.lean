@@ -10,23 +10,24 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.Combinatorics.Graph.TrianglePartition
-import Mathlib.Data.Nat.Modular
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
 namespace Millennium.ProofModules.TrianglePartition
 
-open scoped BigOperators
+open scoped BigOperators Classical
+open Filter
 
-/-- A triangle decomposition of K_n: partition of edges into triangles -/
+/-- A triangle decomposition of K_n: every edge lies in exactly one triangle.
+    Stated as a Steiner triple system: a family of 3-element vertex sets such
+    that each 2-element vertex set is contained in exactly one of them. Covering
+    each edge exactly once is what makes the triangles edge-disjoint, so
+    disjointness is a consequence here rather than a separate clause. -/
 def triangle_decomposition (n : ℕ) : Prop :=
-  ∃ (triangles : Finset (Finset (Fin n × Fin n))),
-    -- Each triangle is a 3-clique
+  ∃ triangles : Finset (Finset (Fin n)),
     (∀ t ∈ triangles, t.card = 3) ∧
-    -- Triangles are edge-disjoint
-    (Pairwise (Disjoint · ·)) ∧
-    -- Every edge is covered exactly once
+    ∀ e : Finset (Fin n), e.card = 2 →
+      (triangles.filter (fun t => e ⊆ t)).card = 1
 
 /-- Necessary and sufficient condition: n ≡ 1 or 3 (mod 6) -/
 theorem triangle_partition_condition (n : ℕ) :
@@ -55,13 +56,13 @@ theorem triangle_count_matches_edges (n : ℕ) (h_tri : triangle_decomposition n
   sorry
 
 /-- Effective construction: for any valid n, we can explicitly build -/
-noncomputable def construct_triangle_partition (n : ℕ) 
-  (h_valid : n % 6 = 1 ∨ n % 6 = 3) : Finset (Finset (Fin n × Fin n)) :=
+noncomputable def construct_triangle_partition (n : ℕ)
+    (h_valid : n % 6 = 1 ∨ n % 6 = 3) : Finset (Finset (Fin n)) :=
   -- Wilson's construction via difference families
   sorry
 
 /-- Asymptotic density: almost all valid n have partitions -/
-theorem asymptotic_existence : 
+theorem asymptotic_existence :
   (fun n : ℕ => if (n % 6 = 1 ∨ n % 6 = 3) then 1 else 0) =ᶠ[atTop] 1 := by
   -- The set of valid n has density 1/3 in the naturals
   sorry

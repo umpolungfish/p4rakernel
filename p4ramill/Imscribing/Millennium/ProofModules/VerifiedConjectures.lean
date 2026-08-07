@@ -13,10 +13,7 @@ Author: Quantum⊙perator (Lando⊗⊙perator team)
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
 import Mathlib.Combinatorics.SimpleGraph.Basic
-import Mathlib.Combinatorics.Ramsey.Basic
-import Mathlib.Analysis.Asymptotics.Asymptotics
 import Mathlib.Data.Real.Basic
-import Mathlib.Data.Nat.Prime
 import Mathlib.Tactic
 
 namespace Millennium.ProofModules.VerifiedConjectures

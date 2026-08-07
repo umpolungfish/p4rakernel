@@ -11,8 +11,6 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.NumberTheory.LCM
-import Mathlib.Analysis.Asymptotics.Asymptotics
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
@@ -20,18 +18,19 @@ namespace Millennium.ProofModules.LCMSieve
 
 open scoped BigOperators
 open Asymptotics Filter
+open scoped Topology
 
 /-- The least common multiple of {1, ..., n} -/
-noncomputable def lcm_to_n (n : ℕ) : ℕ :=
-  Nat.lcm (Finset.range (n+1) \ {0})
+def lcm_to_n (n : ℕ) : ℕ :=
+  (Finset.Icc 1 n).fold Nat.lcm 1 id
 
 /-- The density function: fraction of n ≤ N where lcm(1,...,n) has "excess" -/
-def lcm_density_excess (N : ℕ) : ℝ :=
-  ((Finset.range (N+1) \ {0}).filter (fun n => 
-    (lcm_to_n n : ℝ) > (n : ℝ) * (Real.log (n : ℝ + 1)))).card / (N : ℝ)
+noncomputable def lcm_density_excess (N : ℕ) : ℝ :=
+  (((Finset.Icc 1 N).filter (fun n =>
+    (lcm_to_n n : ℝ) > (n : ℝ) * Real.log ((n : ℝ) + 1))).card : ℝ) / (N : ℝ)
 
 /-- Main theorem: f(N) = o(1), i.e., lcm(1,...,n) ≤ n·log(n) for most n -/
-theorem lcm_sieve_density : 
+theorem lcm_sieve_density :
   Tendsto (fun N : ℕ => lcm_density_excess N) atTop (𝓝 0) := by
   -- Proof uses:
   -- 1. Prime number theorem: lcm(1,...,n) = e^{n(1+o(1))}
@@ -47,7 +46,7 @@ theorem lcm_sieve_epsilon_bound (ε : ℝ) (hε : ε > 0) :
   sorry
 
 /-- The main asymptotic: lcm(1,...,n) = e^{n + o(n)} -/
-theorem lcm_asymptotic : 
+theorem lcm_asymptotic :
   Tendsto (fun n : ℕ => (Real.log (lcm_to_n n : ℝ) / (n : ℝ))) atTop (𝓝 1) := by
   -- Chebyshev's function ψ(n) = log(lcm(1,...,n)) ~ n by PNT
   sorry
@@ -63,12 +62,12 @@ theorem lcm_upper_bound (n : ℕ) (hn : n ≥ 1) :
 
 /-- The "excess" set has diminishing density -/
 noncomputable def excess_set (N : ℕ) : Finset ℕ :=
-  (Finset.range (N+1) \ {0}).filter (fun n => 
-    (lcm_to_n n : ℝ) / (n : ℝ) > Real.log (n : ℝ + 1))
+  (Finset.Icc 1 N).filter (fun n =>
+    (lcm_to_n n : ℝ) / (n : ℝ) > Real.log ((n : ℝ) + 1))
 
 /-- Density bound: |excess_set(N)| / N = o(1) -/
 theorem excess_set_density_vanishes :
-  Tendsto (fun N : ℕ => (excess_set N).card / (N : ℝ)) atTop (𝓝 0) := by
+  Tendsto (fun N : ℕ => ((excess_set N).card : ℝ) / (N : ℝ)) atTop (𝓝 0) := by
   -- Follows from Markov's inequality applied to the asymptotic bound
   sorry
 
