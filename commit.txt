@@ -1,40 +1,46 @@
-Align the verdict map to Core's tier rule table; archive the pre-migration Primitives tree
+Make the tree build clean: repair the ProofModules that had never compiled
 
-VesselContent's criticality_verdict and isOInf admitted only `monad`, while
-Core's R1 admits the R2 escape set {monad, roar}. A roar+or' vessel was therefore
-O_inf by the rule table and N by the verdict map: the same vessel at terminal
-self-referential closure and unmarked at once. Core is canonical, so the verdict
-map is realigned rather than the rule table.
+Every module under Millennium/ProofModules/ imported Mathlib paths that do not
+exist in the pinned Mathlib (Analysis.Asymptotics.Asymptotics,
+Combinatorics.Ramsey.Basic, NumberTheory.PrimeAsts, Data.Nat.Prime, and others).
+The bad imports were only the outer layer: behind them the files had never been
+checked by Lean at all, and each carried errors of its own.
 
-- criticality_verdict and isOInf now key on {monad, roar} x or', matching R1.
-- isOInf_iff_tier_O_inf proves the vessel predicate and the rule table name the
-  same set, in both directions. The reverse direction discharges against Core's
-  o_inf_requires_phi_c and o_inf_requires_P_pm_sym rather than re-deriving the
-  case analysis, so the two cannot drift apart again silently.
-- criticality_verdict_classify gives the total classification over
-  Criticality x Polarity; oinf_iff_verdict_T restates the T-locus over the pair.
-- The residual conjunct of WithinAlgebra now carries content: consciousnessScore
-  is proven three-valued, and residual_pos_forces_phi / residual_gt_half_forces_k
-  show positive residual excludes the subcritical region and residual above one
-  half pins both gates open. frozen_brain_rejects_residual is the concrete
-  unreachability witness.
-- oinf_verdict_T's proof is replaced. The old one split on c.crit while the
-  hypothesis still spoke of c.crit, so no branch became contradictory and every
-  `contradiction` had nothing to close.
+All the phantom imports are removable, since every file already pulls in
+Mathlib.Tactic. Three modules needed a real import that Mathlib.Tactic does not
+reach: SimpleGraph.Clique, SimpleGraph.Circulant with Maps, and
+Dynamics.Ergodic.MeasurePreserving, plus Topology for the neighbourhood filter.
 
-The dagger rule was numbered R2 in ouroboricityTier's docstring and inline
-comment, colliding with the R2 already in the header table. It is now R6 and
-appears in the header table, here and in CLINK_L9.
+Statements repaired, in the direction of saying what the docstring already
+claimed:
 
-The package-root Primitives/ tree is a duplicate of Imscribing/Primitives/ that
-left the build before the alphabet migration and kept the retired spellings
-(⊙^ℂ, Ω_0) in its copy of the tier rule table. Nothing imports it and the
-lakefile does not glob it. Moved to archive/Primitives-pre-migration/ with a note
-recording why, rather than deleted.
+- TrianglePartition's triangle_decomposition ended mid-clause, after the comment
+  "Every edge is covered exactly once", with no term. Completed as a Steiner
+  triple system: a family of three-element vertex sets in which every
+  two-element vertex set lies in exactly one. Edge-disjointness is a consequence
+  of covering each edge once, so it is no longer a separate clause.
+- RamseyGap and RamseyLimit used names that do not exist (Clique, cycleGraph
+  applied to a bare numeral, completeGraph applied to a numeral) and embedded the
+  monochromatic subgraph into the target rather than the target into it. Restated
+  with IsNClique, the complement graph, completeGraph on a type, and the
+  embedding turned around.
+- HypergraphRamsey typed its coloring as an element of Fin r and then applied it
+  to edges. It is now a function on edges, and the Ramsey condition asks for a
+  monochromatic set of the requested size.
+- SunflowerProofModule required stems.uncurry.disjoint_or_eq, which names
+  nothing. The content that clause was reaching for is injectivity of the petal
+  family, which is what it now says.
+- FurstenbergCorrespondence's measure-preserving system had an unparseable field
+  and the correspondence theorem invoked an undefined some_default. Rebuilt as a
+  measure with a MeasurePreserving map; the pattern clause is now Poincare
+  recurrence, transferring return times of the set back to differences realized
+  inside A.
+- FurstenbergSarkozy's density increment carried a clause built on a nonexistent
+  constant. Dropped; the perfect-square difference is the claim.
+- A malformed cast recurred across four modules: (N : ℝ + 1) and (N : ℝ / 2)
+  parse as arithmetic on Type rather than on N.
 
-README gains a note that phi_c_gate tests ⊙, not Φ. The prefix is vestigial; the
-rename is deferred because it touches every module that unfolds
-consciousnessScore.
+Sorries are left where they stand. They are the original claims, and closing them
+is separate work from making the file compile.
 
-Pre-existing and untouched: Millennium/ProofModules/* fail on imports of Mathlib
-modules that do not exist on disk.
+lake build now completes with no errors.

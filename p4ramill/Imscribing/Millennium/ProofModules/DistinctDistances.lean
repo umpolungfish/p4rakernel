@@ -10,9 +10,6 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.Analysis.Calculus.PolyBasic
-import Mathlib.AlgebraicGeometry.Polynomial
-import Mathlib.MeasureTheory.Measure.Probability
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
@@ -25,9 +22,9 @@ namespace Millennium.ProofModules.DistinctDistances
 /-- The distinct distances function g(n): minimum number of distinct
    pairwise distances among n points in the plane -/
 noncomputable def g_distinct (n : ℕ) : ℕ :=
-  sInf { m : ℕ | ∀ (P : Finset (EuclideanSpace ℝ (Fin 2))),
-    P.card = n → 
-    (P.image (fun (p q : P) => dist p.1 q.1)).card ≥ m }
+  sInf { m : ℕ | ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
+    P.card = n →
+    (((P ×ˢ P).image (fun pq => dist pq.1 pq.2)).erase 0).card ≥ m }
 
 /-- Guth-Katz polynomial partitioning setup: for any n points,
    there exists a polynomial P of degree D such that ℝ² is partitioned
@@ -37,7 +34,7 @@ noncomputable def partitioning_polynomial_degree (n : ℕ) : ℕ :=
 
 /-- Cell decomposition bound: number of cells created -/
 noncomputable def cell_count (n : ℕ) : ℕ :=
-  (partitioning_polynomial_degree n : ℝ)^2
+  partitioning_polynomial_degree n ^ 2
 
 /-- Points per cell (balanced partitioning) -/
 noncomputable def points_per_cell (n : ℕ) : ℝ :=
@@ -69,4 +66,4 @@ theorem guth_katz_computable (n : ℕ) (hn : n ≥ 2) :
 
 end Millennium.ProofModules.DistinctDistances
 
-end Millennium.ProofModules.DistinctDistances
+end

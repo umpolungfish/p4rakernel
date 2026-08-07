@@ -9,9 +9,7 @@ Belnap Verdict: T (True)
 Author: Quantum⊙perator
 Source: p4rakernel/p4ramill/Imscribing/Millennium/
 -/
-import Mathlib.Combinatorics.Ramsey.Basic
-import Mathlib.Analysis.Asymptotics.Asymptotics
-import Mathlib.NumberTheory.PrimeAsts
+import Mathlib.Combinatorics.SimpleGraph.Clique
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
@@ -23,11 +21,9 @@ open Asymptotics Filter
 /-- The Ramsey number R(3, k+1) — smallest N such that any red-blue coloring
    of K_N contains a red K₃ or blue K_{k+1}. -/
 noncomputable def R3k (k : ℕ) : ℕ :=
-  sInf { N : ℕ | ∀ (G : SimpleGraph (Fin N)),
-    (∃ (e : Sym2 (Fin N)), ¬ G.Adj e.1 e.2) → -- some edge is "red"
-    G.complement.edgeSet.nonempty → -- some edge is "blue"
-    (∃ (t : Finset (Fin N)), t.card = 3 ∧ Clique G t ≠ ⊥) ∨
-    (∃ (t : Finset (Fin N)), t.card = k + 1 ∧ Clique G.complement t ≠ ⊥) }
+  sInf { N : ℕ | ∀ G : SimpleGraph (Fin N),
+    (∃ t : Finset (Fin N), G.IsNClique 3 t) ∨
+    (∃ t : Finset (Fin N), Gᶜ.IsNClique (k + 1) t) }
 
 /-- Kim's lower bound (1995): R(3,k) ≥ c₁ k² / log(k) -/
 theorem kim_lower_bound : ∃ (c₁ : ℝ), c₁ > 0 ∧
@@ -49,7 +45,9 @@ theorem ramsey_3k_asymptotic : ∃ (c₁ c₂ : ℝ), c₁ > 0 ∧ c₂ > 0 ∧
     (R3k k : ℝ) ≤ c₂ * (k : ℝ)^2 / Real.log (k : ℝ) := by
   obtain ⟨c₁, hc₁, _, ha⟩ := kim_lower_bound
   obtain ⟨c₂, hc₂, hb⟩ := aks_upper_bound
-  exact ⟨c₁, c₂, hc₁, hc₂, ha, hb⟩
+  refine ⟨c₁, c₂, hc₁, hc₂, ?_⟩
+  filter_upwards [ha, hb] with k h1 h2
+  exact ⟨h1, h2⟩
 
 /-- Main theorem: gaps between consecutive R(3,k) diverge -/
 theorem ramsey_3k_gap_diverges :
@@ -65,7 +63,7 @@ noncomputable def gap_growth_rate (k : ℕ) : ℝ :=
   (2 * (k : ℝ)) / Real.log (k : ℝ)
 
 /-- The gap grows without bound -/
-theorem gap_unbounded : ∀ M : ℝ, ∃ (K : ℕ), ∀ k ≥ K, 
+theorem gap_unbounded : ∀ M : ℝ, ∃ K : ℕ, ∀ k ≥ K,
   (R3k (k+1) : ℝ) - (R3k k : ℝ) > M := by
   intro M
   -- By the asymptotic bound, gap ∼ 2k/log k → ∞
