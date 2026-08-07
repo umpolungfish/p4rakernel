@@ -6,7 +6,7 @@
 -- or' and opens replicatively instead (prime point, moat cross, ℤ winding). That
 -- is a LATERAL move, and `ouroboricityTier` had no way to say "beside", so L9 fell
 -- through R1 into the O₂ default and read as a demotion. It is neither a demotion
--- nor an ascent. R2 (the dagger) names the move; see Primitives/Core.lean.
+-- nor an ascent. R6 (the dagger) names the move; see Primitives/Core.lean.
 --
 -- Every coordinate below was read from the live catalog through the cl9nk
 -- navigator, glyph by glyph. None was transcribed from the previous file, whose

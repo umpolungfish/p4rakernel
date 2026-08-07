@@ -1,34 +1,40 @@
-Erdos-Turan on additive bases: the counting half proved, the gap named.
+Align the verdict map to Core's tier rule table; archive the pre-migration Primitives tree
 
-This does not settle the conjecture. It proves everything on one side of it and
-states what remains as a proposition rather than a gesture, so the boundary is
-in the file and not in a paragraph about the file.
+VesselContent's criticality_verdict and isOInf admitted only `monad`, while
+Core's R1 admits the R2 escape set {monad, roar}. A roar+or' vessel was therefore
+O_inf by the rule table and N by the verdict map: the same vessel at terminal
+self-referential closure and unmarked at once. Core is canonical, so the verdict
+map is realigned rather than the rule table.
 
-bounded_reps_forces_density. If A is an asymptotic basis of order two whose
-representation function is bounded by C, then
+- criticality_verdict and isOInf now key on {monad, roar} x or', matching R1.
+- isOInf_iff_tier_O_inf proves the vessel predicate and the rule table name the
+  same set, in both directions. The reverse direction discharges against Core's
+  o_inf_requires_phi_c and o_inf_requires_P_pm_sym rather than re-deriving the
+  case analysis, so the two cannot drift apart again silently.
+- criticality_verdict_classify gives the total classification over
+  Criticality x Polarity; oinf_iff_verdict_T restates the T-locus over the pair.
+- The residual conjunct of WithinAlgebra now carries content: consciousnessScore
+  is proven three-valued, and residual_pos_forces_phi / residual_gt_half_forces_k
+  show positive residual excludes the subcritical region and residual above one
+  half pins both gates open. frozen_brain_rejects_residual is the concrete
+  unreachability witness.
+- oinf_verdict_T's proof is replaced. The old one split on c.crit while the
+  hypothesis still spoke of c.crit, so no branch became contradictory and every
+  `contradiction` had nothing to close.
 
-    N + 1 <= N0 + C * |A cap [0,N]|^2
+The dagger rule was numbered R2 in ouroboricityTier's docstring and inline
+comment, colliding with the R2 already in the header table. It is now R6 and
+appears in the header table, here and in CLINK_L9.
 
-for every N >= N0. Each integer in the window needs a representation, none has
-more than C, and every representation is a pair drawn from the window. The
-interval embeds in the image of the sum map over that product, so counting the
-pairs both ways gives it. A counterexample must therefore be of maximal counting
-order, at least sqrt(N/C).
+The package-root Primitives/ tree is a duplicate of Imscribing/Primitives/ that
+left the build before the alphabet migration and kept the retired spellings
+(⊙^ℂ, Ω_0) in its copy of the tier rule table. Nothing imports it and the
+lakefile does not glob it. Moved to archive/Primitives-pre-migration/ with a note
+recording why, rather than deleted.
 
-BoundedRepBasisIsSidonLike. The step that is NOT proved, stated as a definition:
-a basis of bounded representation function contains, in each window, a Sidon
-sub-structure carrying a constant fraction of it. That is the conjecture's
-content and naming it is the honest form of a reduction.
+README gains a note that phi_c_gate tests ⊙, not Φ. The prefix is vestigial; the
+rename is deferred because it touches every module that unfolds
+consciousnessScore.
 
-bounded_rep_basis_squeezed. Given that step and the Sidon upper bound, such a
-basis is caught between two estimates, dense from below by the counting and thin
-from above by the Sidon cap. Both hypotheses are used: an earlier draft carried
-them and proved its conclusion without them, which would have dressed the
-counting half as a reduction it is not, so the statement was changed to one that
-needs them.
-
-The choice function came out along the way. Bounding by the image of the sum map
-needs no choice and is shorter than choosing a representation per integer.
-
-Zero sorries. Both theorems on propext, Classical.choice, Quot.sound, printed in
-the file.
+Pre-existing and untouched: Millennium/ProofModules/* fail on imports of Mathlib
+modules that do not exist on disk.

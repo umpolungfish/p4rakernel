@@ -333,6 +333,7 @@ axiom holographic_closure_forces_frobenius (d : Dimensionality) (t : Topology)
 -- R3: ⊙ + 𐑷 → O₁  (P < or')
 -- R4: ⊙ + Ω ≠ 0 + D ∈ {dead, if', ash} → O₂
 -- R5: ⊙ + Ω ≠ 0 + array → O₂dag
+-- R6: ⊙ + dead + mime + ah → O_inf_dag  (lateral: replicative opening, tested after R1)
 -- Frobenius cliff: d(O₂dag, O_inf) ≈ 4.382 (non-tunable by gradient methods).
 
 /-- Ouroboricity tier as a decidable function of the four gate primitives. -/
@@ -354,7 +355,7 @@ inductive OuroboricityTier : Type where
 
 /-- Ouroboricity tier of the gate primitives.
 
-R2 (the dagger) keys on the REPLICATIVE OPENING triple — dim=dead ∧ top=mime ∧ prot=ah:
+R6 (the dagger) keys on the REPLICATIVE OPENING triple — dim=dead ∧ top=mime ∧ prot=ah:
 a point-like prime atom that crosses the moat and carries ℤ winding. Against L8's terminal
 closure triple (dim=if' ∧ top=are ∧ prot=zoo: holographic state, holobound, non-Abelian
 braid). Those two triples are what make the move lateral; they are not L9's whole tuple, so
@@ -378,7 +379,7 @@ def ouroboricityTier (phi : Criticality) (pol : Polarity)
   | .monad | .roar =>
     if pol = .or' then .O_inf                    -- R1: Frobenius gate (terminal closure)
     else if dim = .dead ∧ top = .mime ∧ prot = .ah then
-      .O_inf_dag                                 -- R2: lateral — replicative opening
+      .O_inf_dag                                 -- R6: lateral, replicative opening
     else match prot with
     | .awe => .O₁                                -- R3
     | _ => match dim with

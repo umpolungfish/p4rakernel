@@ -68,6 +68,19 @@ lean --run ParaconsistentMillennium.lean  # Run the resolution
 - All 7 share Cell 155 (only 32 O_∞ cells in the crystal of 17,280,000 types)
 - The 𐑹 primitive (Frobenius-special, μ∘δ=id) gates the O₂†→O_∞ jump
 
+## Naming note: `phi_c_gate` is the ⊙ gate
+
+The identifier `phi_c_gate` in `Imscribing/Consciousness.lean` (and its call sites
+across the tree) reads as if it belonged to the Φ axis. It does not. The gate tests
+`Criticality` for self-modeling, which is the ⊙ axis: explicit agency and
+self-reference. The `phi_` prefix is vestigial and should be read as `⊙_` wherever
+it appears.
+
+The name stays as is for now, since renaming it touches every module that unfolds
+`consciousnessScore`, and that sweep is deferred. Nothing about the mathematics
+depends on the spelling. `phi_c_gate` gates ⊙, `k_slow_gate` gates kinetics, and
+`consciousnessScore` is the two-gate product of those two axes alone.
+
 ## Classical Results
 
 Combinatorial and number-theoretic theorems formalized in `Imscribing/Classical/`.
