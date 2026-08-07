@@ -99,6 +99,29 @@ bilattice, with the collapse as coreflector and the retract
 and in the information order no adjunction exists at all. So disabling ex falso is literally a
 corestriction to that subcategory — `classical_coreflective_in_truth_order`, all `decide`-checked.
 
+`DeMorganBooleanCentre.lean` asks a sharper question of the same bilattice: not "not
+contradictory" (`v ≠ B`) but classical in the textbook De Morgan-algebra sense,
+`v ∨ ¬v = 1`, under the truth-order meet and join (De Morgan duality holds for those;
+it does not hold for `band`/`bor`, which are dominance operators, not the lattice
+operations — the kernel rejects that pairing outright). The Boolean centre this
+computes is `{T, F}`, not `{v ≠ B}`: **N survives `ClassicalRestriction`'s cut but
+fails this one** — `N ∨ ¬N = N ≠ T`, so a gap is no more classical than a glut once
+excluded middle is the actual bar. A second coreflector, `boolSwitch` (only a
+definite `T` counts, everything else collapses to `F`), gives the same shape of
+adjunction — `inclCentre ⊣ boolSwitch` in the truth order, reverse fails, no
+adjunction in the information order — over the smaller fragment, all `decide`-checked.
+This is the general "Bool is a coreflective subcategory of DeMorg" theorem,
+concretely instantiated at Belnap FOUR, with the coreflector computed rather than
+posited.
+
+`ClassicalRestriction.lean` and its two dependencies (`ParaconsistentCore.lean`,
+`ParaconsistentFrobeniusClosure.lean`) were deleted on 2026-07-14 by a commit whose
+message described a notation migration and whose diff, alongside it, deleted 375
+files. Restored from git history 2026-08-06 and reverified against the current
+`build/stage1/bin/lean` with no changes needed — the proof still holds exactly as
+written. The other ~372 files that commit deleted have not been audited; treat that
+commit as unverified rather than as a clean retirement until they are.
+
 ---
 
 ## 2. p4ramill: Lean 4 Formalization
@@ -398,7 +421,8 @@ lean --run p4ramill/Imscribing/Millennium/SIC_D12_Embedding.lean
 # Loose top-level Lean files build under the fork (the canonical toolchain).
 # oleans are gitignored; regenerate the shared imports in dependency order:
 make lean-oleans                                  # -> build/stage1/bin/lean
-./build/stage1/bin/lean ClassicalRestriction.lean # classical = coreflective subcategory
+./build/stage1/bin/lean ClassicalRestriction.lean  # classical = coreflective subcategory
+./build/stage1/bin/lean DeMorganBooleanCentre.lean # Bool ↪ DeMorg, computed at Belnap FOUR
 ```
 
 See also `GENETICS_CLI.md` (command reference) and `IG_CROSS_POLLINATION.md` (bridge
