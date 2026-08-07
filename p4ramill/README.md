@@ -68,6 +68,45 @@ lean --run ParaconsistentMillennium.lean  # Run the resolution
 - All 7 share Cell 155 (only 32 O_∞ cells in the crystal of 17,280,000 types)
 - The 𐑹 primitive (Frobenius-special, μ∘δ=id) gates the O₂†→O_∞ jump
 
+## What counts as a clean build
+
+`lake build` completes with no errors. That is not the same as clean.
+
+Clean means no warnings, and no warnings silenced. Disabling a linter with
+`set_option linter.… false`, or wrapping a warning to make it stop printing,
+does not clear it; it hides the thing the linter found. The warning is the
+finding.
+
+The tree does not build clean yet. What stands between here and there, heaviest
+first:
+
+- **Line length.** By far the largest group. Mechanical to fix and safe, since
+  reflowing a line changes no term.
+- **`native_decide`.** The second largest group, and not mechanical. The linter
+  objects because `native_decide` trusts the whole compiler rather than the
+  kernel, so a proof that leans on it is trusted on different grounds from one
+  that does not. Clearing these means replacing them with `decide` where the
+  computation is small enough for the kernel, and deciding deliberately, case by
+  case, where it is not.
+- **Unused variables and unused `simp` arguments.** Each one marks a hypothesis
+  or lemma that a statement asks for and its proof never touches. Worth reading
+  before deleting: an unused hypothesis is sometimes a statement that is
+  stronger than it needs to be, and sometimes a proof that forgot to use what it
+  was given.
+- **Whitespace and layout.** Extra spaces, empty lines inside commands, commands
+  indented off column zero, doc-strings ending in stray whitespace. Mechanical.
+- **Flexible tactics.** `simp` and `simp_all` closing goals where `simp only […]`
+  would say what actually fired. Fixing these makes proofs robust against
+  changes to the simp set.
+- **Discouraged tactics** and redundant steps: `decide` that does nothing,
+  `simpa` where `simp` suffices, tactics that are never reached.
+- **`open scoped Classical`.** Flagged because it can hide a decidability
+  assumption that the statement would be better off making explicit.
+- **`sorry`.** These are not defects to be cleared. Each is an original claim
+  standing unproven, and the warning is the correct report of that. They go away
+  by being proven, never by being suppressed or by having the statement weakened
+  until it closes.
+
 ## Naming note: `phi_c_gate` is the ⊙ gate
 
 The identifier `phi_c_gate` in `Imscribing/Consciousness.lean` (and its call sites

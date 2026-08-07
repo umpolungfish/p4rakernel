@@ -1,46 +1,17 @@
-Make the tree build clean: repair the ProofModules that had never compiled
+README: record what counts as a clean build, and what stands in the way
 
-Every module under Millennium/ProofModules/ imported Mathlib paths that do not
-exist in the pinned Mathlib (Analysis.Asymptotics.Asymptotics,
-Combinatorics.Ramsey.Basic, NumberTheory.PrimeAsts, Data.Nat.Prime, and others).
-The bad imports were only the outer layer: behind them the files had never been
-checked by Lean at all, and each carried errors of its own.
+No errors is not clean. Clean means no warnings and none silenced: a
+set_option disabling a linter does not clear a finding, it hides it.
 
-All the phantom imports are removable, since every file already pulls in
-Mathlib.Tactic. Three modules needed a real import that Mathlib.Tactic does not
-reach: SimpleGraph.Clique, SimpleGraph.Circulant with Maps, and
-Dynamics.Ergodic.MeasurePreserving, plus Topology for the neighbourhood filter.
+The note lists the categories standing between the tree and a clean build,
+heaviest first, and says which are mechanical and which are not. Line length
+and layout are safe to reflow. native_decide is not mechanical, since the
+objection is that it trusts the compiler rather than the kernel, so each site
+is a decision about what the proof rests on. Unused variables and unused simp
+arguments each mark a hypothesis a statement asks for and its proof never
+touches, which is worth reading before deleting.
 
-Statements repaired, in the direction of saying what the docstring already
-claimed:
-
-- TrianglePartition's triangle_decomposition ended mid-clause, after the comment
-  "Every edge is covered exactly once", with no term. Completed as a Steiner
-  triple system: a family of three-element vertex sets in which every
-  two-element vertex set lies in exactly one. Edge-disjointness is a consequence
-  of covering each edge once, so it is no longer a separate clause.
-- RamseyGap and RamseyLimit used names that do not exist (Clique, cycleGraph
-  applied to a bare numeral, completeGraph applied to a numeral) and embedded the
-  monochromatic subgraph into the target rather than the target into it. Restated
-  with IsNClique, the complement graph, completeGraph on a type, and the
-  embedding turned around.
-- HypergraphRamsey typed its coloring as an element of Fin r and then applied it
-  to edges. It is now a function on edges, and the Ramsey condition asks for a
-  monochromatic set of the requested size.
-- SunflowerProofModule required stems.uncurry.disjoint_or_eq, which names
-  nothing. The content that clause was reaching for is injectivity of the petal
-  family, which is what it now says.
-- FurstenbergCorrespondence's measure-preserving system had an unparseable field
-  and the correspondence theorem invoked an undefined some_default. Rebuilt as a
-  measure with a MeasurePreserving map; the pattern clause is now Poincare
-  recurrence, transferring return times of the set back to differences realized
-  inside A.
-- FurstenbergSarkozy's density increment carried a clause built on a nonexistent
-  constant. Dropped; the perfect-square difference is the claim.
-- A malformed cast recurred across four modules: (N : ℝ + 1) and (N : ℝ / 2)
-  parse as arithmetic on Type rather than on N.
-
-Sorries are left where they stand. They are the original claims, and closing them
-is separate work from making the file compile.
-
-lake build now completes with no errors.
+Sorries are named separately because they are not defects to be cleared. Each
+is an original claim standing unproven, and the warning reports that
+correctly. They close by being proven, never by suppression and never by
+weakening the statement until it goes through.
