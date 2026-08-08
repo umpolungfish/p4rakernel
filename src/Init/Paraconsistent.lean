@@ -116,17 +116,21 @@ namespace Belnap
 def band (a b : Belnap) : Belnap :=
   match a, b with
   | .F, _ | _, .F => .F
-  | .N, _ | _, .N => .N
-  | .B, _ | _, .B => .B
-  | .T, .T => .T
+  | .N, .B | .B, .N => .F
+  | .T, x => x
+  | x, .T => x
+  | .N, .N => .N
+  | .B, .B => .B
 
 /-- Disjunction in Belnap logic. -/
 def bor (a b : Belnap) : Belnap :=
   match a, b with
   | .T, _ | _, .T => .T
-  | .B, _ | _, .B => .B
-  | .N, _ | _, .N => .N
-  | .F, .F => .F
+  | .N, .B | .B, .N => .T
+  | .F, x => x
+  | x, .F => x
+  | .N, .N => .N
+  | .B, .B => .B
 
 /-- Negation in Belnap logic. -/
 def bnot : Belnap → Belnap
