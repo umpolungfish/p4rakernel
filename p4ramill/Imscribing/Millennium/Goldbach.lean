@@ -18,6 +18,7 @@
 -- Reference: Goldbach (1742); Vinogradov (1937); Chen (1966);
 --            Helfgott (2013); Oliveira e Silva (2014, verification to 4×10^18)
 
+import Mathlib.Data.Nat.Prime.Basic
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 
@@ -51,27 +52,30 @@ costs the topological protection.
 -/
 
 /-- Binary Goldbach Conjecture: every even n > 2 is the sum of two primes.
+    Open since 1742; verified for all n ≤ 4×10^18. -/
+def BinaryGoldbach : Prop :=
+    ∀ n : ℕ, Even n → 2 < n → ∃ p q : ℕ, p.Prime ∧ q.Prime ∧ p + q = n
 
-    Stated as a Prop constant — no proof exists (open since 1742).
-    The predicate `Nat.Prime` is not formalized here; this is a placeholder
-    for the actual mathematical statement. -/
-opaque BinaryGoldbach : Prop
+/-- Ternary Goldbach Theorem (Helfgott 2013): every odd n ≥ 7 is the sum of
+    three primes. -/
+def TernaryGoldbach : Prop :=
+    ∀ n : ℕ, Odd n → 7 ≤ n → ∃ p q r : ℕ, p.Prime ∧ q.Prime ∧ r.Prime ∧
+      p + q + r = n
 
-/-- Ternary Goldbach Theorem (Helfgott 2013): every odd n ≥ 7 is the sum of three primes.
-
-    Stated as an axiom — the proof uses the circle method (major/minor arcs,
-    exponential sums, L-function estimates) far beyond Mathlib v4.28. -/
-axiom TernaryGoldbach : Prop
-
-/-- Ternary Goldbach is proved. -/
+/-- Ternary Goldbach is proved. Held as an axiom: the statement is written,
+    the circle-method proof (major/minor arcs, exponential sums, L-function
+    estimates) is far beyond Mathlib v4.28. -/
 axiom ternary_goldbach_proved : TernaryGoldbach
 
 /-- Chen's Theorem (1966): every sufficiently large even number is the sum of
-    a prime and a semiprime (product of at most two primes).
+    a prime and a number with at most two prime factors.
     This is the best known partial result toward binary Goldbach. -/
-axiom ChenTheorem : Prop
+def ChenTheorem : Prop :=
+    ∃ N : ℕ, ∀ n : ℕ, N ≤ n → Even n → ∃ p m : ℕ, p.Prime ∧ p + m = n ∧
+      (m.Prime ∨ ∃ q r : ℕ, q.Prime ∧ r.Prime ∧ m = q * r)
 
-/-- Chen's Theorem is proved. -/
+/-- Chen's Theorem is proved. Held as an axiom: the statement is written, the
+    sieve-theoretic proof (Jurkat-Richert, Iwaniec) is not formalised. -/
 axiom chen_theorem_proved : ChenTheorem-- ============================================================
 -- §2  The Vessels — Structural Imscriptions
 -- ============================================================
@@ -509,16 +513,16 @@ theorem binary_chen_distance_2 :
 The following are honest gaps — not disguised as theorems:
 
 1. **BinaryGoldbach** — OpenProblem (since 1742).
-   Declared as `opaque BinaryGoldbach : Prop` — no proof exists.
-   The literal oldest unsolved problem in mathematics.
+   Written out as `def BinaryGoldbach : Prop` — the statement stands, no
+   proof exists. The literal oldest unsolved problem in mathematics.
 
 2. **TernaryGoldbach** — Proved (Helfgott 2013).
-   Declared as `axiom TernaryGoldbach` with `axiom ternary_goldbach_proved`.
+   Written out as `def TernaryGoldbach`, asserted by `ternary_goldbach_proved`.
    The full circle-method proof (major/minor arcs, exponential sums,
    L-function estimates) is a MathlibGap far beyond v4.28's formalization.
 
 3. **Chen's Theorem** — Proved (1966).
-   Declared as `axiom ChenTheorem` with `axiom chen_theorem_proved`.
+   Written out as `def ChenTheorem`, asserted by `chen_theorem_proved`.
    The sieve-theoretic proof (Jurkat-Richert, Iwaniec) is a MathlibGap.
 
 4. **Hardy-Littlewood asymptotic** — MathlibGap.
