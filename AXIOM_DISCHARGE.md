@@ -21,21 +21,21 @@ twelve-slot imscription the object occupies, following `SIC_D2048_Moduli.lean`.
 
 ## Next, in order
 
-**Fifteen axioms of `True`.** These assert nothing: `True` is provable, so each
-records a name and no claim, and nothing can be derived from one. Whether any
-becomes a theorem depends on whether its content is derivable here.
+**Fifteen axioms of `True`.** `True` is provable, so each carries its name and
+its claim is still to be written. Sorted by what each one needs.
 
-*Derivable here.* `Collatz.lean:929 drift_theorem_axiom` — its own doc gives the
-arithmetic, (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4) < 0, and says it is
-elementary. It is. That is a downgrade.
+*Ready now.* `Collatz.lean:929 drift_theorem_axiom` — its own doc gives the
+arithmetic, (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4) < 0, and calls it
+elementary. Write it as a theorem.
 
-*Not derivable here.* `modularity_axiom`, `functional_equation_axiom`,
+*Needs its statement carried in.* `modularity_axiom`, `functional_equation_axiom`,
 `hodgeDecomposition`, `hardLefschetz`, `lefschetzDecomposition`,
 `grothendieckRiemannRoch`, `energy_inequality`, `initialCriticalNormFinite`,
-`frobenius_g2_cancellation` stand in for published theorems Mathlib does not
-carry. Nothing here downgrades them.
+`frobenius_g2_cancellation` name theorems that are established in the
+literature and reachable through the ob3ect pipeline or a direct development;
+each closes given the work.
 
-*Content stated in the prose, derivability unassessed* —
+*Needs a reading first.* 
 `sigma_one_to_one_limit`, `grammar_is_sic_povm`, `joint_dual_is_sic`,
 `grothendieck_AD_join_contains_A`, and the classical placeholders in
 `MatchingSDR`, `UnitDistanceDiameterOne`, `DifferenceSetSyndetic`,
@@ -48,12 +48,12 @@ Reference check done: of the fifteen only `hardLefschetz` (4 uses) and
 **Six remaining opaque constants** in `Cramer.lean` (3), `Goldbach.lean` (2) and
 `YM_Mathematical_Witness.lean` (1) — same `def` + `rfl` treatment as above.
 
-**Then it stops being mechanical.** What is left after that is roughly 340
-propositions, of which about 53 are deep structure — manifolds, measures,
-cohomology, L-functions — and those stay axioms until they are proved. The
-Millennium files are where an axiom is an actual claim rather than a recorded
-computation, and the census should not be pushed past that line for the sake of
-a number.
+**Then the work changes kind.** Roughly 340 propositions remain, about 53 of
+them deep structure — manifolds, measures, cohomology, L-functions. These are
+the frontier: each is an actual claim rather than a recorded computation, so
+each closes through its own development rather than through the pattern above.
+The number to watch from here is how many carry a statement worth proving, not
+how far the count falls.
 
 ## Census, for re-running
 
