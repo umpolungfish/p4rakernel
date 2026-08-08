@@ -44,37 +44,49 @@ def m16 : ℤ := 221
 
 /-- The discriminant formula holds: m_16 = (16−3)(16+1) = 13·17. -/
 theorem m16_formula : m16 = ((16 : ℤ) - 3) * ((16 : ℤ) + 1) := by
-  native_decide
+  decide
 
 /-- Alternate form: m_16 = 16² − 2·16 − 3. -/
 theorem m16_alt : m16 = (16 : ℤ)^2 - 2*(16 : ℤ) - 3 := by
-  native_decide
+  decide
 
 /-- Factorization: 221 = 13 × 17. -/
 theorem m16_factorization : m16 = 13 * 17 := by
-  native_decide
+  decide
 
 /-- m_16 is positive (so the base field is real quadratic). -/
 theorem m16_pos : 0 < (m16 : ℝ) := by
   unfold m16; norm_num
 
+
+/-- A concrete `p`-adic valuation, pinned by one divisibility and one
+    non-divisibility. Keeps these facts inside the kernel: the compiled
+    evaluator is not part of the trusted base for anything below. -/
+private theorem padicValNat_eq_of_dvd_of_not_dvd {p n k : ℕ} [Fact p.Prime] (hn : n ≠ 0)
+    (h1 : p ^ k ∣ n) (h2 : ¬ p ^ (k + 1) ∣ n) : padicValNat p n = k := by
+  have hle : k ≤ padicValNat p n := (padicValNat_dvd_iff_le hn).mp h1
+  have hlt : ¬ (k + 1) ≤ padicValNat p n := fun h => h2 ((padicValNat_dvd_iff_le hn).mpr h)
+  omega
+
 /-- m_16 = 221 is not a perfect square — F = Q(√221) is a proper quadratic extension. -/
 theorem m16_not_square : ¬ IsSquare (221 : ℤ) := by
-  native_decide
+  norm_num
 
 /-- 221 is squarefree (13·17, both distinct primes). -/
 theorem m16_squarefree : Squarefree (221 : ℕ) := by
-  native_decide
+  rw [show (221 : ℕ) = 13 * 17 by norm_num, Nat.squarefree_mul_iff]
+  exact ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree,
+    (Nat.prime_iff.mp (by norm_num)).squarefree⟩
 
 /- The 2-adic valuation ν₂(221) = 0 — the discriminant is odd, so 2 is unramified
     in the base field. -/
-theorem m16_val2 : padicValNat 2 (221 : ℕ) = 0 := by
-  native_decide
+theorem m16_val2 : padicValNat 2 (221 : ℕ) = 0 :=
+  padicValNat.eq_zero_of_not_dvd (by norm_num)
 
 /-- 221 ≡ 5 mod 8, so 2 is inert in Q(√221). (A quadratic field Q(√D) with D≡5 mod 8
     has 2 inert: (2) = p₂ is prime of residue degree 2.) -/
 theorem m16_mod_eight : (221 : ℤ) % 8 = 5 := by
-  native_decide
+  decide
 
 /-! ## The base field F = Q(√221) -/
 
@@ -99,7 +111,8 @@ def sqrtD : F16 := ⟨0, 1⟩
 
 /-- The defining relation: (√D)² = D. -/
 theorem sqrtD_sq : sqrtD * sqrtD = (⟨221, 0⟩ : F16) := by
-  native_decide
+  show (⟨(0 : ℚ) * 0 + 221 * (1 * 1), (0 : ℚ) * 1 + 1 * 0⟩ : F16) = ⟨221, 0⟩
+  norm_num
 
 /-- Galois conjugation in F: a + b√D ↦ a − b√D. -/
 def conj (x : F16) : F16 := ⟨x.a, -x.b⟩
@@ -120,7 +133,8 @@ def fundUnit : F16 := ⟨15/2, 1/2⟩
 
 /-- The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
-  native_decide
+  show (15 / 2 : ℚ) * (15 / 2) - 221 * ((1 / 2) * (1 / 2)) = 1
+  norm_num
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit, not its inverse. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((15/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 221) := by
@@ -291,13 +305,13 @@ def sigma_coinvariant_order : ℕ := 16
 theorem sigma_coinvariant_order_val : sigma_coinvariant_order = 16 := rfl
 
 /-- d/2 = 8 for d=16. -/
-theorem d_half : (16 : ℕ)/2 = 8 := by native_decide
+theorem d_half : (16 : ℕ)/2 = 8 := by decide
 
 /-- The raw σ-coinvariant count does NOT equal d/2:
     |G_16^σ| = 16 ≠ 8 = d/2. -/
 theorem raw_coinvariant_neq_d_half : sigma_coinvariant_order ≠ (16 : ℕ)/2 := by
   rw [sigma_coinvariant_order_val]
-  native_decide
+  decide
 
 /- The class group of F has order 2, and its σ-coinvariants are trivial
     (the nontrivial automorphism σ acts as inversion on the class group,
@@ -415,7 +429,7 @@ theorem correction_factor_is_class_group_order :
 
 /-- v₂(16) + 1 = 5. -/
 theorem exponent_at_16 : padicValNat 2 16 + 1 = 5 := by
-  native_decide
+  rw [show (16 : ℕ) = 2 ^ 4 by norm_num, padicValNat.prime_pow]
 
 /-- The wide ray class group at conductor p₂^5 has order 128. From the tower
     data: k=5 → wideRayDegree 5 = 128. -/
