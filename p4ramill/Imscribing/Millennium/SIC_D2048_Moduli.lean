@@ -1,5 +1,6 @@
 import Mathlib
 import Imscribing.Primitives.Imscription
+import Imscribing.Millennium.SIC_StarkUnit
 /-!
 # SIC_D2048_Moduli — Ray Class Field Tower for d=2048 SIC-POVM
 Author: Lando⊗⊙perator
@@ -110,7 +111,9 @@ def fundUnit : F2048 := ⟨2047/2, 1/2⟩
 /-- The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
   show (2047 / 2 : ℚ) * (2047 / 2) - 4190205 * ((1 / 2) * (1 / 2)) = 1
-  norm_num
+  -- an instance of the general formula: 4190205 = 2047² − 4, so the norm is one
+  -- for the same reason in every dimension. See SIC_StarkUnit.
+  exact SIC.StarkUnit.norm_one_coords 2047 4190205 (by norm_num)
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit, not its inverse. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((2047/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 4190205) := by

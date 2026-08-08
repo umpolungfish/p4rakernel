@@ -1,4 +1,5 @@
 import Mathlib
+import Imscribing.Millennium.SIC_StarkUnit
 /-!
 # SIC_D20_Moduli — The d=20 σ-Coinvariant Anomaly
 
@@ -140,7 +141,9 @@ def fundUnit : F20 := ⟨19/2, 1/2⟩
 /-! The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
   show (19 / 2 : ℚ) * (19 / 2) - 357 * ((1 / 2) * (1 / 2)) = 1
-  norm_num
+  -- an instance of the general formula: 357 = 19² − 4, so the norm is one
+  -- for the same reason in every dimension. See SIC_StarkUnit.
+  exact SIC.StarkUnit.norm_one_coords 19 357 (by norm_num)
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((19/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 357) := by
