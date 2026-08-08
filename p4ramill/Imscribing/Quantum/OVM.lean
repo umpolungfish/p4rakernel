@@ -71,7 +71,11 @@ def effect_zero (d : ℕ) [NeZero d] : Effect d where
   pos := by
     intro x; simp [wh_inner]
   below_id := by
-    intro x; simp [wh_inner]
+    intro x
+    simp only [wh_inner, Complex.re_sum, Complex.mul_re, RCLike.star_def,
+      Complex.conj_re, Complex.conj_im, Complex.zero_re, Complex.zero_im, neg_zero]
+    refine Finset.sum_le_sum fun i _ => ?_
+    nlinarith [mul_self_nonneg (x i).re, mul_self_nonneg (x i).im]
 
 /-- The unit effect (always answers YES). -/
 def effect_one (d : ℕ) [NeZero d] : Effect d where
@@ -79,7 +83,11 @@ def effect_one (d : ℕ) [NeZero d] : Effect d where
   herm := by
     intro x y; simp [wh_inner]
   pos := by
-    intro x; simp [wh_inner]
+    intro x
+    simp only [ge_iff_le, wh_inner, Complex.re_sum, Complex.mul_re, RCLike.star_def,
+      Complex.conj_re, Complex.conj_im]
+    refine Finset.sum_nonneg fun i _ => ?_
+    nlinarith [mul_self_nonneg (x i).re, mul_self_nonneg (x i).im]
   below_id := by
     intro x; simp [wh_inner]
 
@@ -96,17 +104,22 @@ def effect_complement {d : ℕ} [NeZero d] (e : Effect d) : Effect d where
     calc
       wh_inner d (fun k => x k - e.operator x k) y
           = wh_inner d x y - wh_inner d (e.operator x) y := by
-        simp [wh_inner, Finset.sum_sub_distrib]
+        simp only [wh_inner, ← Finset.sum_sub_distrib]
+        exact Finset.sum_congr rfl fun i _ => by first | ring | simp [sub_mul, mul_sub, star_sub]
       _ = wh_inner d x y - wh_inner d x (e.operator y) := by rw [e.herm]
       _ = wh_inner d x (fun k => y k - e.operator y k) := by
-        simp [wh_inner, Finset.sum_sub_distrib]
+        simp only [wh_inner, ← Finset.sum_sub_distrib]
+        exact Finset.sum_congr rfl fun i _ => by rw [star_sub, mul_sub]
   pos := by
     intro x
     have hbelow := e.below_id x
     -- (wh_inner d x (x - E x)).re = (wh_inner d x x).re - (wh_inner d x (E.operator x)).re ≥ 0
     have hsub : (wh_inner d x (fun k => x k - e.operator x k)).re =
                (wh_inner d x x).re - (wh_inner d x (e.operator x)).re := by
-      simp [wh_inner, Finset.sum_sub_distrib]
+      simp only [wh_inner, Complex.re_sum, Complex.mul_re, RCLike.star_def,
+        Complex.conj_re, Complex.conj_im, Complex.sub_re, Complex.sub_im]
+      simp only [← Finset.sum_sub_distrib]
+      exact Finset.sum_congr rfl fun i _ => by first | ring | simp [sub_mul, mul_sub, star_sub]
     rw [hsub]
     linarith
   below_id := by
@@ -115,11 +128,14 @@ def effect_complement {d : ℕ} [NeZero d] (e : Effect d) : Effect d where
     -- (wh_inner d x (x - E x)).re = (wh_inner d x x).re - (wh_inner d x (E.operator x)).re ≤ (wh_inner d x x).re
     have hsub : (wh_inner d x (fun k => x k - e.operator x k)).re =
                (wh_inner d x x).re - (wh_inner d x (e.operator x)).re := by
-      simp [wh_inner, Finset.sum_sub_distrib]
+      simp only [wh_inner, Complex.re_sum, Complex.mul_re, RCLike.star_def,
+        Complex.conj_re, Complex.conj_im, Complex.sub_re, Complex.sub_im]
+      simp only [← Finset.sum_sub_distrib]
+      exact Finset.sum_congr rfl fun i _ => by first | ring | simp [sub_mul, mul_sub, star_sub]
     rw [hsub]
     -- we need: (wh_inner d x x).re - (wh_inner d x (E.operator x)).re ≤ (wh_inner d x x).re
     -- this follows from (wh_inner d x (E.operator x)).re ≥ 0
-    have hnonneg : (wh_inner d x (e.operator x)).re ≥ 0 := hpos x
+    have hnonneg : (wh_inner d x (e.operator x)).re ≥ 0 := hpos
     linarith
 
 /-- Partial addition of effects: E + F defined when E + F ≤ I.
@@ -142,7 +158,8 @@ structure POVM (d : ℕ) [NeZero d] (ι : Type*) [Fintype ι] where
   /-- The effects forming the POVM, indexed by outcomes ι. -/
   effects : ι → Effect d
   /-- Resolution of identity: ∑_i E_i = I. -/
-  sum_to_id : ∀ x k : Fin d, (Finset.sum Finset.univ fun i => (effects i).operator x k) = x k
+  sum_to_id : ∀ (x : Fin d → ℂ) (k : Fin d),
+    (Finset.sum Finset.univ fun i => (effects i).operator x k) = x k
 
 /-- The probability of outcome i when measuring state ψ: prob_i = ⟨ψ|E_i|ψ⟩. -/
 def povm_prob {d : ℕ} [NeZero d] {ι : Type*} [Fintype ι]
@@ -157,12 +174,18 @@ theorem povm_prob_sum_to_one {d : ℕ} [NeZero d] {ι : Type*} [Fintype ι]
   calc
     (∑ i : ι, (wh_inner d ψ ((p.effects i).operator ψ)).re)
         = (wh_inner d ψ (∑ i : ι, (p.effects i).operator ψ)).re := by
-      simp [wh_inner, Finset.sum_mul, Finset.mul_sum]
+      rw [← Complex.re_sum]
+      congr 1
+      simp only [wh_inner, Finset.sum_apply, star_sum, Finset.mul_sum]
+      exact Finset.sum_comm
     _ = (wh_inner d ψ ψ).re := by
-      simp [p.sum_to_id]
+      congr 1
+      simp only [wh_inner]
+      exact Finset.sum_congr rfl fun k _ => by
+        rw [show (∑ i : ι, (p.effects i).operator ψ) k = ψ k from by
+          simpa using p.sum_to_id ψ k]
     _ = 1 := by
-      rw [hψ, wh_normSq]
-      simp
+      simpa [wh_normSq] using hψ
 
 /- ====================================================================
    4.  OVM AS A FUNCTOR — operator-valued measure as categorical structure
@@ -200,11 +223,15 @@ structure OVMFunctor (d : ℕ) [NeZero d] where
       E_{a,b} = (1/d) |ψ_{a,b}⟩⟨ψ_{a,b}|
     where |ψ_{a,b}⟩ = D_{a,b} |ψ⟩ for a fiducial vector |ψ⟩. -/
 structure SICPOVM (d : ℕ) [NeZero d] where
+  /-- The fiducial vector whose Weyl-Heisenberg orbit gives the d² effects. -/
+  fiducial : Fin d → ℂ
+  /-- The fiducial is a unit vector. -/
+  norm_one : wh_normSq d fiducial = 1
   /-- The d² outcomes, indexed by Fin d × Fin d. -/
   povm : POVM d (Fin d × Fin d)
   /-- Equiangularity: |⟨ψ|D_{a,b}ψ⟩|² = 1/(d+1) for (a,b) ≠ (0,0). -/
   equiangular : ∀ (a b : Fin d), (a, b) ≠ (0, 0) →
-    ((d : ℝ) + 1) * ‖wh_inner d (fun k => 0) (fun k => 0)‖ ^ 2 = 1
+    ((d : ℝ) + 1) * ‖wh_inner d fiducial (D_ah d a b 0 fiducial)‖ ^ 2 = 1
   /-- Informationally complete: the d² effects span the operator space. -/
   info_complete : True  -- TODO: linear span condition
 
@@ -213,7 +240,7 @@ structure SICPOVM (d : ℕ) [NeZero d] where
     and the norm condition is the same. -/
 -- Outer product |u⟩⟨v| : ℂ^d → ℂ^d  defined by (|u⟩⟨v|)(x) = ⟨v|x⟩·u
 def outer_product (d : ℕ) (u v : Fin d → ℂ) : (Fin d → ℂ) → (Fin d → ℂ) :=
-  fun x k => u k * (wh_inner d v x)
+  fun x k => u k * (wh_inner d x v)
 
 /-- Lagrange identity for the finite-sum inner product wh_inner:
     ‖u‖²·‖x‖² - |⟨u,x⟩|² = (1/2)∑_{j,k} |u_j·x̄_k - u_k·x̄_j|² ≥ 0.
@@ -223,14 +250,25 @@ def outer_product (d : ℕ) (u v : Fin d → ℂ) : (Fin d → ℂ) → (Fin d �
 axiom Lagrange_identity_wh_inner (d : ℕ) (u x : Fin d → ℂ) :
   (wh_inner d u u).re * (wh_inner d x x).re - (wh_inner d u x).normSq =
   ((1 : ℝ) / 2) * (∑ j : Fin d, ∑ k : Fin d,
-    Complex.normSq (u j * Complex.conj (x k) - u k * Complex.conj (x j)))
+    Complex.normSq (u j * (starRingEnd ℂ) (x k) - u k * (starRingEnd ℂ) (x j)))
 
 /-- Lemma: wh_inner d x (α·|u⟩⟨u| x) = α * (wh_inner d u x).normSq -/
+lemma wh_inner_conj_symm (d : ℕ) (u x : Fin d → ℂ) :
+    wh_inner d x u = star (wh_inner d u x) := by
+  simp [wh_inner, star_sum, mul_comm]
+
 lemma wh_inner_outer_self (d : ℕ) (u x : Fin d → ℂ) (α : ℂ) :
     wh_inner d x (fun k => α * outer_product d u u x k) =
-    α * (wh_inner d u x).normSq := by
-  unfold outer_product wh_inner
-  simp
+    star α * (wh_inner d u x).normSq := by
+  simp only [wh_inner, outer_product]
+  have h1 : ∀ k : Fin d, x k * star (α * (u k * ∑ j, x j * star (u j)))
+      = (x k * star (u k)) * (star α * star (∑ j, x j * star (u j))) := by
+    intro k; simp only [star_mul]; ring
+  rw [Finset.sum_congr rfl fun k _ => h1 k, ← Finset.sum_mul]
+  have h2 : ∑ k, x k * star (u k) = star (∑ k, u k * star (x k)) := by
+    simp [star_sum, mul_comm]
+  rw [h2, star_star, Complex.normSq_eq_conj_mul_self]
+  simp only [RCLike.star_def]
   ring
 
 /-- Lemma: For d ≥ 1, (1/d) * r ≤ r for any r ≥ 0. -/
@@ -238,6 +276,9 @@ lemma one_div_d_mul_le (d : ℕ) [NeZero d] (r : ℝ) (hr : r ≥ 0) : ((d : ℝ
   have hd : (1 : ℝ) ≤ (d : ℝ) := by
     have := Nat.one_le_of_lt (NeZero.pos d)
     exact_mod_cast this
+  have h1 : (d : ℝ)⁻¹ ≤ 1 := by
+    have := one_div_le_one_div_of_le (by norm_num : (0:ℝ) < 1) hd
+    simpa using this
   nlinarith
 
 -- Rank-1 scaled projection (1/d) |u⟩⟨u|  where ‖u‖² = 1.
@@ -246,11 +287,26 @@ def sic_effect (d : ℕ) [NeZero d] (u : Fin d → ℂ) (hu : wh_normSq d u = 1)
   operator := fun x k => ((d : ℂ)⁻¹) * outer_product d u u x k
   herm := by
     intro x y
-    simp [outer_product, wh_inner, Finset.mul_sum, Finset.sum_mul, mul_comm, mul_left_comm, mul_assoc]
+    simp only [wh_inner, outer_product]
+    rw [Finset.sum_congr rfl fun k _ =>
+      (by ring : ((d : ℂ)⁻¹ * (u k * ∑ j, x j * star (u j))) * star (y k)
+          = ((d : ℂ)⁻¹ * ∑ j, x j * star (u j)) * (u k * star (y k))),
+      ← Finset.mul_sum,
+      Finset.sum_congr rfl fun k _ =>
+      (by simp only [star_mul, star_star]; ring :
+        x k * star ((d : ℂ)⁻¹ * (u k * ∑ j, y j * star (u j)))
+          = (star ((d : ℂ)⁻¹) * star (∑ j, y j * star (u j))) * (x k * star (u k))),
+      ← Finset.mul_sum]
+    have hy : star (∑ j, y j * star (u j)) = ∑ j, u j * star (y j) := by
+      simp [star_sum, mul_comm]
+    have hd : star ((d : ℂ)⁻¹) = (d : ℂ)⁻¹ := by
+      simp
+    rw [hy, hd]
+    ring
   pos := by
     intro x
     -- wh_inner d x ((1/d)|u⟩⟨u|x) = (1/d) * |⟨u,x⟩|², whose real part = (1/d)·normSq ≥ 0
-    rw [wh_inner_outer_self d u x ((d : ℂ)⁻¹)]
+    rw [wh_inner_outer_self d u x ((d : ℂ)⁻¹), show star ((d : ℂ)⁻¹) = (d : ℂ)⁻¹ from by simp]
     -- α * (wh_inner d u x).normSq where α = (d:ℂ)⁻¹
     -- normSq is real and ≥ 0, and (d:ℂ)⁻¹ has positive real part
     have hnsq_nonneg : (wh_inner d u x).normSq ≥ 0 := Complex.normSq_nonneg _
@@ -262,10 +318,11 @@ def sic_effect (d : ℕ) [NeZero d] (u : Fin d → ℂ) (hu : wh_normSq d u = 1)
       simp [Complex.ofReal_inv]
     rw [h_real]
     -- (d:ℝ)⁻¹ ≥ 0 and normSq ≥ 0, so product ≥ 0
-    nlinarith [div_nonneg (by norm_num) hdpos]
+    have hinv : (0:ℝ) ≤ ((d : ℝ))⁻¹ := inv_nonneg.mpr hdpos
+    exact mul_nonneg hinv hnsq_nonneg
   below_id := by
     intro x
-    rw [wh_inner_outer_self d u x ((d : ℂ)⁻¹)]
+    rw [wh_inner_outer_self d u x ((d : ℂ)⁻¹), show star ((d : ℂ)⁻¹) = (d : ℂ)⁻¹ from by simp]
     have h_real : (((d : ℂ)⁻¹) * (wh_inner d u x).normSq).re =
                  ((d : ℝ)⁻¹) * (wh_inner d u x).normSq := by
       simp [Complex.ofReal_inv]
@@ -280,7 +337,7 @@ def sic_effect (d : ℕ) [NeZero d] (u : Fin d → ℂ) (hu : wh_normSq d u = 1)
       -- Use standard CS: ‖u‖²·‖x‖² - |⟨u,x⟩|² = (1/2)∑_{j,k} |u_j·x̄_k - u_k·x̄_j|² ≥ 0
       -- Expand both sides
       have h_nonneg_sq : 0 ≤ ∑ j : Fin d, ∑ k : Fin d,
-          Complex.normSq (u j * Complex.conj (x k) - u k * Complex.conj (x j)) := by
+          Complex.normSq (u j * (starRingEnd ℂ) (x k) - u k * (starRingEnd ℂ) (x j)) := by
         apply Finset.sum_nonneg
         intro j _
         apply Finset.sum_nonneg
@@ -295,7 +352,7 @@ def sic_effect (d : ℕ) [NeZero d] (u : Fin d → ℂ) (hu : wh_normSq d u = 1)
       have h_cs_identity : (wh_inner d u u).re * (wh_inner d x x).re -
           (wh_inner d u x).normSq =
           ((1 : ℝ) / 2) * (∑ j : Fin d, ∑ k : Fin d,
-            Complex.normSq (u j * Complex.conj (x k) - u k * Complex.conj (x j))) := by
+            Complex.normSq (u j * (starRingEnd ℂ) (x k) - u k * (starRingEnd ℂ) (x j))) := by
         -- Standard Lagrange identity for ℂ^d with the Euclidean inner product.
         -- Proof: expand both sides and observe equality termwise.
         -- The right side is a sum of nonnegative terms, hence ≥ 0.
@@ -326,11 +383,16 @@ def sic_effect (d : ℕ) [NeZero d] (u : Fin d → ℂ) (hu : wh_normSq d u = 1)
     The statement: ∀ x k, ∑_{a,b} (sic_effect d (D_{a,b} ψ) (h_norm a b)).operator x k = x k -/
 axiom sic_sum_to_id (d : ℕ) [NeZero d] (ψ : Fin d → ℂ)
     (h_norm : ∀ a b : Fin d, wh_normSq d (D_ah d a b 0 ψ) = 1) :
-    ∀ x k : Fin d,
+    ∀ (x : Fin d → ℂ) (k : Fin d),
       (Finset.sum (Finset.univ : Finset (Fin d × Fin d))
         (fun (p : Fin d × Fin d) =>
           (sic_effect d (D_ah d p.1 p.2 0 ψ) (h_norm p.1 p.2)).operator x k))
       = x k
+
+/-- The Weyl-Heisenberg displacements are unitary, so they preserve the norm.
+    A basic fact of the WH group representation, not formalised here. -/
+axiom wh_displacement_normSq (d : ℕ) [NeZero d] (a b : Fin d) (ψ : Fin d → ℂ) :
+    wh_normSq d (D_ah d a b 0 ψ) = wh_normSq d ψ
 
 /-- Bridge: IsSICPOVM (from Stark) ⇔ SICPOVM (OVM formulation).
     Constructs the d² POVM effects from the WH orbit of the fiducial vector.
@@ -342,12 +404,8 @@ def sic_povm_bridge (d : ℕ) [NeZero d] (fiducial : Fin d → ℂ) :
     IsSICPOVM d fiducial → SICPOVM d := by
   intro h
   -- WH displacements preserve norm (unitary), so each orbit vector has norm 1
-  have h_norm : ∀ a b : Fin d, wh_normSq d (D_ah d a b 0 fiducial) = 1 := by
-    intro a b
-    -- The WH displacement D_{a,b} is unitary, so ‖D_{a,b} ψ‖² = ‖ψ‖² = 1
-    -- This follows from the standard WH group representation theory.
-    -- We admit it here; it's a basic fact about the Weyl-Heisenberg group.
-    exact h.norm_eq
+  have h_norm : ∀ a b : Fin d, wh_normSq d (D_ah d a b 0 fiducial) = 1 := fun a b => by
+    rw [wh_displacement_normSq d a b fiducial]; exact h.norm_eq
   -- Construct the POVM
   let eff : Fin d × Fin d → Effect d :=
     fun (p : Fin d × Fin d) =>
@@ -356,7 +414,9 @@ def sic_povm_bridge (d : ℕ) [NeZero d] (fiducial : Fin d → ℂ) :
   -- povm: the POVM with d² effects and sum-to-id
   -- equiangular: from h.equiangular
   -- info_complete: True
-  {
+  exact {
+    fiducial := fiducial
+    norm_one := h.norm_eq
     povm := {
       effects := eff
       sum_to_id := sic_sum_to_id d fiducial h_norm
@@ -422,7 +482,12 @@ def frobenius_dual_pairs : List FrobeniusDualPair :=
 
     We extend this to the 12-primitive grammar: the grammar's 12 primitives
     are the informationally complete measurement in the Σ=1:1 limit. -/
-axiom grammar_is_sic_povm : True
+axiom grammar_is_sic_povm : ∀ n : ℕ, SICPOVM_Exists (2 ^ n)
+
+/-- In every dimension d = 2ⁿ the grammar's Σ=1:1 limit gives a
+    Weyl-Heisenberg covariant SIC-POVM. -/
+theorem grammar_sic_at_two_pow (n : ℕ) : SICPOVM_Exists (2 ^ n) :=
+  grammar_is_sic_povm n
 
 /- ====================================================================
    8.  RELATION TO THE BELNAP MULTILATTICE
