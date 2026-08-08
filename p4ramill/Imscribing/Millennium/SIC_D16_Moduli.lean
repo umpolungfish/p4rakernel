@@ -1,5 +1,6 @@
 import Mathlib
 import Imscribing.Primitives.Imscription
+import Imscribing.Millennium.SIC_StarkUnit
 /-!
 # SIC_D16_Moduli — Ray Class Field Tower for d=16 SIC-POVM
 
@@ -134,7 +135,9 @@ def fundUnit : F16 := ⟨15/2, 1/2⟩
 /-- The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
   show (15 / 2 : ℚ) * (15 / 2) - 221 * ((1 / 2) * (1 / 2)) = 1
-  norm_num
+  -- an instance of the general formula: 221 = 15² − 4, so the norm is one
+  -- for the same reason in every dimension. See SIC_StarkUnit.
+  exact SIC.StarkUnit.norm_one_coords 15 221 (by norm_num)
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit, not its inverse. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((15/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 221) := by
