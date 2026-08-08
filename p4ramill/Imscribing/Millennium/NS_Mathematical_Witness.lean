@@ -40,9 +40,6 @@ axiom criticalNorm (u₀ : NSInitialDatum) : ℝ
 /-- Enstrophy norm of initial data (H¹ norm). -/
 axiom enstrophyNorm (u₀ : NSInitialDatum) : ℝ
 
-/-- The energy inequality for Leray weak solutions. -/
-axiom energy_inequality (u₀ : NSInitialDatum) (t : ℝ) (ht : t ≥ 0) : True
-
 /-- Axiom: the critical norm is always finite. -/
 axiom criticalNorm_finite (u₀ : NSInitialDatum) : criticalNorm u₀ = 0
 
@@ -58,16 +55,25 @@ structure SpacetimeField where
 /-- The solution operator: maps initial data to full spacetime field. -/
 axiom solutionOperator (u₀ : NSInitialDatum) : SpacetimeField
 
+/-- The kinetic energy of a spacetime field at time `t`: ∫_{ℝ³} |u(t,x)|² dx. -/
+noncomputable def kineticEnergy (F : SpacetimeField) (t : ℝ) : ℝ :=
+    ∫ x : R3, ‖F.velocity t x‖ ^ 2
+
+/-- The energy inequality for Leray weak solutions: the kinetic energy never
+    exceeds its initial value, the dissipation term being non-negative. -/
+axiom energy_inequality (u₀ : NSInitialDatum) (t : ℝ) (ht : t ≥ 0) :
+    kineticEnergy (solutionOperator u₀) t ≤ kineticEnergy (solutionOperator u₀) 0
+
 /-- Far-field decay: u(t,x) → 0 as |x| → ∞.
     Uses the norm on Fin 3 → ℝ (product norm), inherited via abbrev. -/
 axiom farField_decay (u₀ : NSInitialDatum) (t : ℝ) (ht : t ≥ 0) :
-    ∀ ε : ℝ, ε > 0 → ∃ R : ℝ, R > 0 → ∀ x : R3, ‖x‖ > R → ‖(solutionOperator u₀).velocity t x‖ < ε
+    ∀ ε : ℝ, ε > 0 → ∃ R : ℝ, R > 0 ∧ ∀ x : R3, ‖x‖ > R → ‖(solutionOperator u₀).velocity t x‖ < ε
 
 /-- HOLOBOUND channel: the unbounded domain ℝ³ as holographic boundary. -/
 structure HOLOBOUND_Promotion where
   solution_map : NSInitialDatum → SpacetimeField
   far_field_decay_property : ∀ (u₀ : NSInitialDatum) (t : ℝ) (ht : t ≥ 0) (ε : ℝ),
-    ε > 0 → ∃ R : ℝ, R > 0 → ∀ x : R3, ‖x‖ > R → ‖(solution_map u₀).velocity t x‖ < ε
+    ε > 0 → ∃ R : ℝ, R > 0 ∧ ∀ x : R3, ‖x‖ > R → ‖(solution_map u₀).velocity t x‖ < ε
   holographic_principle : True
 
 -- ============================================================
