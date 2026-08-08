@@ -18,6 +18,16 @@ axiomatized here following the SIC_POVM_Stark pattern.
 
 namespace SIC.D2048.Moduli
 
+/-- A concrete `p`-adic valuation, pinned by one divisibility and one
+    non-divisibility. Keeps these facts inside the kernel: the compiled
+    evaluator is not part of the trusted base for anything below. -/
+private theorem padicValNat_eq_of_dvd_of_not_dvd {p n k : ℕ} [Fact p.Prime] (hn : n ≠ 0)
+    (h1 : p ^ k ∣ n) (h2 : ¬ p ^ (k + 1) ∣ n) : padicValNat p n = k := by
+  have hle : k ≤ padicValNat p n := (padicValNat_dvd_iff_le hn).mp h1
+  have hlt : ¬ (k + 1) ≤ padicValNat p n := fun h => h2 ((padicValNat_dvd_iff_le hn).mpr h)
+  omega
+
+
 open Imscribing.Primitives
 
 
@@ -31,15 +41,15 @@ def m2048 : ℤ := 4190205
 
 /-- The discriminant formula holds: m_2048 = (2048−3)(2048+1). -/
 theorem m2048_formula : m2048 = ((2048 : ℤ) - 3) * ((2048 : ℤ) + 1) := by
-  native_decide
+  decide
 
 /-- Alternate form: m_2048 = 2048² − 2·2048 − 3. -/
 theorem m2048_alt : m2048 = (2048 : ℤ)^2 - 2*(2048 : ℤ) - 3 := by
-  native_decide
+  decide
 
 /-- Factorization: 4190205 = 3 × 5 × 409 × 683. -/
 theorem m2048_factorization : m2048 = 3 * 5 * 409 * 683 := by
-  native_decide
+  decide
 
 /-- m_2048 is positive (so the base field is real quadratic). -/
 theorem m2048_pos : 0 < (m2048 : ℝ) := by
@@ -47,12 +57,12 @@ theorem m2048_pos : 0 < (m2048 : ℝ) := by
 
 /-- m_2048 is not a perfect square — F = Q(√4190205) is a proper quadratic extension. -/
 theorem m2048_not_square : ¬ IsSquare (4190205 : ℤ) := by
-  native_decide
+  norm_num
 
 /- The 2-adic valuation ν₂(m2048) = 0 — the discriminant is odd, so 2 is unramified
     in the base field. -/
-theorem m2048_val2 : padicValNat 2 (4190205 : ℕ) = 0 := by
-  native_decide
+theorem m2048_val2 : padicValNat 2 (4190205 : ℕ) = 0 :=
+  padicValNat.eq_zero_of_not_dvd (by norm_num)
 
 /-! ## The base field F = Q(√4190205) -/
 
@@ -77,7 +87,8 @@ def sqrtD : F2048 := ⟨0, 1⟩
 
 /-- The defining relation: (√D)² = D. -/
 theorem sqrtD_sq : sqrtD * sqrtD = (⟨4190205, 0⟩ : F2048) := by
-  native_decide
+  show (⟨(0 : ℚ) * 0 + 4190205 * (1 * 1), (0 : ℚ) * 1 + 1 * 0⟩ : F2048) = ⟨4190205, 0⟩
+  norm_num
 
 /-- Galois conjugation in F: a + b√D ↦ a − b√D. -/
 def conj (x : F2048) : F2048 := ⟨x.a, -x.b⟩
@@ -98,7 +109,8 @@ def fundUnit : F2048 := ⟨2047/2, 1/2⟩
 
 /-- The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
-  native_decide
+  show (2047 / 2 : ℚ) * (2047 / 2) - 4190205 * ((1 / 2) * (1 / 2)) = 1
+  norm_num
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit, not its inverse. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((2047/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 4190205) := by
@@ -248,12 +260,12 @@ theorem fingerprint_at_conductor_16 : wideRayDegree 4 = 2048 := by
     has degree 2²⁶ = 67,108,864 over F, and 2²⁷ = 134,217,728 over ℚ. -/
 theorem moduli_field_degree_over_F : wideRayDegree 12 = 2^26 := by
   rw [wideRayDegree_12]
-  native_decide
+  decide
 
 /-- Degree over ℚ: [K_12 : ℚ] = 2 × [K_12 : F] = 2²⁷. -/
 theorem moduli_field_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
   rw [wideRayDegree_12]
-  native_decide
+  decide
 
 /- The ν₂ of the degree at each level k ∈ {0,...,15}, from the tower data.
     Verified by finite enumeration against the PARI/GP results.
@@ -438,7 +450,7 @@ theorem narrowRayDegree_12 : narrowRayDegree 12 = 2^28 := by decide
     (the contribution of the two real places of F). -/
 theorem narrow_over_wide_at_12 : narrowRayDegree 12 = 4 * wideRayDegree 12 := by
   rw [narrowRayDegree_12, wideRayDegree_12]
-  native_decide
+  decide
 
 /-! ====================================================================
    §5.  RELATION TO d=12 RAY CLASS FIELD
@@ -460,12 +472,18 @@ def m12 : ℤ := 117
 
 /-- d=12 discriminant factorization: 117 = 3² × 13, so Q(√117) = Q(√13). -/
 theorem m12_squarefree_part : Squarefree (13 : ℕ) := by
-  native_decide
+  exact (Nat.prime_iff.mp (by norm_num)).squarefree
 
 /-- The field discriminant for d=2048 is 4190205 — squarefree (product of
     distinct primes 3,5,409,683). So F = Q(√4190205) is its own maximal order. -/
 theorem m2048_squarefree : Squarefree (4190205 : ℕ) := by
-  native_decide
+  rw [show (4190205 : ℕ) = 3 * (5 * (409 * 683)) by norm_num, Nat.squarefree_mul_iff]
+  refine ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree, ?_⟩
+  rw [Nat.squarefree_mul_iff]
+  refine ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree, ?_⟩
+  rw [Nat.squarefree_mul_iff]
+  exact ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree,
+    (Nat.prime_iff.mp (by norm_num)).squarefree⟩
 
 /-! ====================================================================
    §6.  CONNECTION TO SIC-POVM FIDUCIAL
@@ -551,7 +569,14 @@ def calibration : List (ℕ × ℕ × ℕ × ℕ) :=
     prime above 2 is `padicValNat 2 d + 1`. -/
 theorem calibration_exponent_rule :
     ∀ r ∈ calibration, r.2.2.1 = padicValNat 2 r.1 + 1 := by
-  native_decide
+  intro r hr
+  fin_cases hr
+  · rw [padicValNat_eq_of_dvd_of_not_dvd (by norm_num) (by norm_num : (2:ℕ)^2 ∣ 4)
+      (by norm_num : ¬ (2:ℕ)^3 ∣ 4)]
+  · rw [padicValNat_eq_of_dvd_of_not_dvd (by norm_num) (by norm_num : (2:ℕ)^3 ∣ 8)
+      (by norm_num : ¬ (2:ℕ)^4 ∣ 8)]
+  · rw [padicValNat_eq_of_dvd_of_not_dvd (by norm_num) (by norm_num : (2:ℕ)^2 ∣ 12)
+      (by norm_num : ¬ (2:ℕ)^3 ∣ 12)]
 
 /-- Dimensions 4 and 8 share a base field, since (d-3)(d+1) is 5 and 45 whose
     squarefree part is again 5. They are therefore separated by the exponent
@@ -560,12 +585,12 @@ theorem calibration_exponent_rule :
 theorem d4_d8_share_base_but_differ_in_exponent :
     ∀ r ∈ calibration, ∀ q ∈ calibration,
       r.1 = 4 → q.1 = 8 → (r.2.1 = q.2.1 ∧ r.2.2.1 ≠ q.2.2.1) := by
-  native_decide
+  decide
 
 /-- 2048 is a power of two, so the odd part of the conductor is empty and the
     rule gives exponent 12 -- selecting `wideRayDegree 12` above. -/
 theorem predicted_exponent_2048 : padicValNat 2 2048 + 1 = 12 := by
-  native_decide
+  rw [show (2048 : ℕ) = 2 ^ 11 by norm_num, padicValNat.prime_pow]
 
 /-- The two candidate exponents differ by a factor of two in the degree, so the
     calibration is load bearing: exponent 11 would give 2^25 over F. -/
