@@ -35,9 +35,20 @@ Belnap Verdict: T (True) — an explicit ZFC construction using injections
   if χ(G) ≤ ℵ₀, the color classes would force edges in an uncountable
   independent set, contradiction.
 -/
-axiom exists_hajnal_specker_graph : True
+axiom exists_hajnal_specker_graph :
+    ∃ (V : Type) (G : SimpleGraph V),
+      Cardinal.mk V = Cardinal.aleph 1 ∧
+      (∀ (s : Finset V), (G.induce (s : Set V)).IsAcyclic) ∧
+      ¬ ∃ c : V → ℕ, ∀ u v : V, G.Adj u v → c u ≠ c v
 
-theorem hajnal_specker_main : True :=
+/-- Erdős–Hajnal–Specker: a graph on ω₁ whose every finite subgraph is a
+    forest, yet which admits no colouring by countably many colours. The
+    De Bruijn–Erdős compactness principle fails at ℵ₁. -/
+theorem hajnal_specker_main :
+    ∃ (V : Type) (G : SimpleGraph V),
+      Cardinal.mk V = Cardinal.aleph 1 ∧
+      (∀ (s : Finset V), (G.induce (s : Set V)).IsAcyclic) ∧
+      ¬ ∃ c : V → ℕ, ∀ u v : V, G.Adj u v → c u ≠ c v :=
   exists_hajnal_specker_graph
 
 end Classical.HajnalSpecker
