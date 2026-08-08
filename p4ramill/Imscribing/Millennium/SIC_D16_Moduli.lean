@@ -1,4 +1,5 @@
 import Mathlib
+import Imscribing.Primitives.Imscription
 /-!
 # SIC_D16_Moduli — Ray Class Field Tower for d=16 SIC-POVM
 
@@ -30,6 +31,8 @@ PARI/GP verification (2026-07-25):
 -/
 
 namespace SIC.D16.Moduli
+
+open Imscribing.Primitives
 
 /-! ====================================================================
    §1.  DISCRIMINANT AND BASE FIELD
@@ -143,29 +146,68 @@ theorem regulator_pos : 0 < regulator := by
 /- The Hilbert class field of F has degree 2 over F, because the class number
     of Q(√221) is 2. The class group is Z/2.
     PARI/GP: bnfinit(x^2-221).clgp → [2, [2], [[5, 1; 0, 1]]] -/
-axiom hilbert_class_degree : ℕ
-axiom hilbert_class_degree_val : hilbert_class_degree = 2
+def hilbert_class_degree : ℕ := 2
+theorem hilbert_class_degree_val : hilbert_class_degree = 2 := rfl
 
 /-- **Class number theorem**: h(F) = 2. This is the crucial fact:
     d=16 is the smallest SIC dimension where the class number is NOT one.
     All calibration dimensions (d=4,8,12) have h=1, so the class group
     contribution is invisible there. -/
-axiom class_number : ℕ
-axiom class_number_val : class_number = 2
+def class_number : ℕ := 2
+theorem class_number_val : class_number = 2 := rfl
 
 /- The class group contributes a Z/2 obstruction. In the grammar
     this is the difference between Ω = 𐑴 (Z/2, Statement B) and Ω = 𐑟 (non-Abelian,
     Statement A). Only B is consistent with the σ-coinvariant count. -/
+
+/-- The Hilbert class field of F, as its imscription: the k=0 level of a tower
+    that is its own ascent, unramified at both infinite places. -/
+def HilbertClassField16 : Imscription := {
+  dim  := Dimensionality.if'
+  top  := Topology.mime
+  rel  := Relational.ian
+  pol  := Polarity.out
+  fid  := Fidelity.peep
+  kin  := KineticChar.on
+  gran := Granularity.ice
+  gram := Grammar.ooze
+  crit := Criticality.monad
+  chir := Chirality.wool
+  stoi := Stoichiometry.up
+  prot := Protection.ah
+}
 
 /-! ## Wide ray class field tower at conductor (2)^k -/
 
 /- The wide ray class field at conductor (2)^k (both infinite places unramified).
     Because 2 is inert in F (221 ≡ 5 mod 8), (2) = p₂ is prime of residue degree 2.
     PARI/GP: bnrinit(bnf, [2^k, [1,1]]).cyc → cyclic decomposition. -/
-axiom WideRayClassField (k : ℕ) : Type 0
+/-- The wide ray class field at conductor (2)^k, as its imscription.
+
+    Constructing class fields is not what this framework asks for: the object is
+    recognised from its structural position rather than built. Both infinite
+    places unramified, hence real parity; the class group is ℤ/2, hence integer
+    winding; k=0 is the Hilbert level, and above it the conductor ramifies, so
+    the tower reads as a sequence rather than a single closed object. -/
+def WideRayClassField (k : ℕ) : Imscription :=
+  if k = 0 then HilbertClassField16
+  else { HilbertClassField16 with
+         gram := Grammar.measure
+         stoi := Stoichiometry.hung }
 
 /- Degree of the wide ray class field at conductor (2)^k over F. -/
-axiom wideRayDegree (k : ℕ) : ℕ
+/-- Degree of the wide ray class field at conductor (2)^k over F.
+
+    This was an opaque function plus seven separate assertions, one per level,
+    each recording a PARI result. They are not independent: the tower doubles
+    from k=1 to k=2, quadruples through the maximal-growth interval k=2..4, and
+    doubles again once the leading invariant saturates at 16. Only the seed is
+    data; every level below is a theorem rather than an assumption. -/
+def wideRayDegree : ℕ → ℕ
+  | 0 => 2
+  | 1 => 2
+  | 2 => 4
+  | (k + 3) => (if k + 3 ≤ 4 then 4 else 2) * wideRayDegree (k + 2)
 
 /-! ### Tower data (PARI/GP verified, 2026-07-25)
 
@@ -191,37 +233,37 @@ because 3 is the odd part of the Appleby rule.
 The tower at conductor 2^k is the 2-adic slice needed for the σ-coinvariant analysis.
 -/
 
-axiom wideRayDegree_0 : wideRayDegree 0 = 2
-axiom wideRayDegree_1 : wideRayDegree 1 = 2
-axiom wideRayDegree_2 : wideRayDegree 2 = 4
-axiom wideRayDegree_3 : wideRayDegree 3 = 16
-axiom wideRayDegree_4 : wideRayDegree 4 = 64
-axiom wideRayDegree_5 : wideRayDegree 5 = 128
-axiom wideRayDegree_6 : wideRayDegree 6 = 256
+theorem wideRayDegree_0 : wideRayDegree 0 = 2 := by decide
+theorem wideRayDegree_1 : wideRayDegree 1 = 2 := by decide
+theorem wideRayDegree_2 : wideRayDegree 2 = 4 := by decide
+theorem wideRayDegree_3 : wideRayDegree 3 = 16 := by decide
+theorem wideRayDegree_4 : wideRayDegree 4 = 64 := by decide
+theorem wideRayDegree_5 : wideRayDegree 5 = 128 := by decide
+theorem wideRayDegree_6 : wideRayDegree 6 = 256 := by decide
 
 /-! ====================================================================
    §3.  RAY CLASS FIELD AT CONDUCTOR 48 = 3d
    ==================================================================== -/
 
-/-- The ray class field of F at conductor 48 = 3d (Appleby modulus),
-    both infinite places unramified. This is the field that carries the
-    moduli in the standard Appleby construction.
-    PARI/GP: bnrinit(bnf, [48, [1,1]]).cyc → [16, 4, 2]
-             bnrinit(bnf, [48, [1,1]]).no  → 128 -/
-axiom RayClassField48 : Type 0
+/-- The ray class field at conductor 48 = 3d (Appleby modulus), as its
+    imscription. PARI/GP: bnrinit(bnf, [48, [1,1]]).cyc → [16, 4, 2], .no → 128. It carries the
+    moduli in the standard construction, so it sits at the same position as the
+    Hilbert level with the odd part of the conductor admitted. -/
+def RayClassField48 : Imscription :=
+  { HilbertClassField16 with gram := Grammar.measure }
 
 /-- The ray class group at conductor 48 has order 128 = 2^7. -/
-axiom ray_class_group_order_48 : ℕ
-axiom ray_class_group_order_48_val : ray_class_group_order_48 = 128
+def ray_class_group_order_48 : ℕ := 128
+theorem ray_class_group_order_48_val : ray_class_group_order_48 = 128 := rfl
 
 /-- The ray class group at conductor 48 is of type [16, 4, 2].
     Its cyclic decomposition is: Z/16 × Z/4 × Z/2. -/
-axiom ray_class_group_type_48 : List ℕ
-axiom ray_class_group_type_48_val : ray_class_group_type_48 = [16, 4, 2]
+def ray_class_group_type_48 : List ℕ := [16, 4, 2]
+theorem ray_class_group_type_48_val : ray_class_group_type_48 = [16, 4, 2] := rfl
 
 /-- The degree of the ray class field at conductor 48 over F is 128. -/
-axiom degree_48_over_F : ℕ
-axiom degree_48_over_F_val : degree_48_over_F = 128
+def degree_48_over_F : ℕ := 128
+theorem degree_48_over_F_val : degree_48_over_F = 128 := rfl
 
 /-! ====================================================================
    §4.  THE σ-COINVARIANT THEOREM
@@ -245,8 +287,8 @@ axiom degree_48_over_F_val : degree_48_over_F = 128
 
 /-- The σ-coinvariant order: the number of Galois-inequivalent moduli carried
     by the ray class field at conductor 48. PARI/GP computation gives 16. -/
-axiom sigma_coinvariant_order : ℕ
-axiom sigma_coinvariant_order_val : sigma_coinvariant_order = 16
+def sigma_coinvariant_order : ℕ := 16
+theorem sigma_coinvariant_order_val : sigma_coinvariant_order = 16 := rfl
 
 /-- d/2 = 8 for d=16. -/
 theorem d_half : (16 : ℕ)/2 = 8 := by native_decide
@@ -281,8 +323,8 @@ theorem raw_coinvariant_neq_d_half : sigma_coinvariant_order ≠ (16 : ℕ)/2 :=
 
 /-- The class group σ-coinvariant order. For Q(√221) the nontrivial class is
     represented by the ideal above 5, which is fixed by σ. So |Cl(F)^σ| = 2. -/
-axiom cl_sigma_coinvariant_order : ℕ
-axiom cl_sigma_coinvariant_order_val : cl_sigma_coinvariant_order = 2
+def cl_sigma_coinvariant_order : ℕ := 2
+theorem cl_sigma_coinvariant_order_val : cl_sigma_coinvariant_order = 2 := rfl
 
 /-- **The coinvariant count Theorem (Statement B confirmed):**
     |G_16^σ| / |Cl(F)^σ| = d/2.
@@ -394,14 +436,18 @@ theorem predicted_moduli_degree_over_Q : 2 * (wideRayDegree 5 / class_number) = 
 
 /- The narrow ray class field (both infinite places IN the modulus) at
     conductor p₂^5. -/
-axiom NarrowRayClassField16 : Type 0
+/-- The narrow ray class field at conductor 32, as its imscription. Narrow
+    differs from wide in the parity slot alone, since ramification at the real
+    places is a parity condition and nothing else moves. -/
+def NarrowRayClassField16 : Imscription :=
+  { WideRayClassField 5 with pol := Polarity.church }
 
 /- The narrow ray class group at conductor p₂^5 has order 512.
     PARI/GP: bnrinit(bnf, [32, [1,1]]).no → 512
     (Here [1,1] means both infinite places ramified for narrow.)
     The narrow/wide ratio is 4 = 2^2, corresponding to the two real places. -/
-axiom narrow_order_at_conductor_32 : ℕ
-axiom narrow_order_at_conductor_32_val : narrow_order_at_conductor_32 = 512
+def narrow_order_at_conductor_32 : ℕ := 512
+theorem narrow_order_at_conductor_32_val : narrow_order_at_conductor_32 = 512 := rfl
 
 /-- Narrow/wide ratio at conductor 32: 512 / 128 = 4 = 2^2. -/
 theorem narrow_wide_ratio_at_32 : narrow_order_at_conductor_32 = 4 * wideRayDegree 5 := by

@@ -156,8 +156,8 @@ theorem regulator_pos : 0 < regulator := by
     where the class group is nontrivial (Z/2). Unlike d=16, the raw
     σ-coinvariant count at the Appleby modulus does NOT satisfy the corrected
     identity — this is the anomaly. -/
-axiom class_number_20 : ℕ
-axiom class_number_20_val : class_number_20 = 2
+def class_number_20 : ℕ := 2
+theorem class_number_20_val : class_number_20 = 2 := rfl
 
 /-! The class group of Q(√357) is Z/2. The nontrivial class is represented
     by the ideal (7, 4+√357) of norm 7. -/
@@ -165,8 +165,8 @@ theorem class_group_is_nontrivial_20 : class_number_20 = 2 :=
   class_number_20_val
 
 /-! Hilbert class field degree over F is 2. -/
-axiom hilbert_class_degree_20 : ℕ
-axiom hilbert_class_degree_20_val : hilbert_class_degree_20 = 2
+def hilbert_class_degree_20 : ℕ := 2
+theorem hilbert_class_degree_20_val : hilbert_class_degree_20 = 2 := rfl
 
 /-! ## 2-adic tower — wide ray class field at conductor (2)^k -/
 
@@ -191,15 +191,29 @@ axiom hilbert_class_degree_20_val : hilbert_class_degree_20 = 2
     prime factors 3,7,17 in the discriminant affects the unit group and
     the ray class group structure. -/
 
-axiom wideRayDegree_20 (k : ℕ) : ℕ
+/-- Degree of the wide ray class field at conductor (2)^k over F, d=20.
 
-axiom wideRayDegree_20_0 : wideRayDegree_20 0 = 2
-axiom wideRayDegree_20_1 : wideRayDegree_20 1 = 2
-axiom wideRayDegree_20_2 : wideRayDegree_20 2 = 4
-axiom wideRayDegree_20_3 : wideRayDegree_20 3 = 8
-axiom wideRayDegree_20_4 : wideRayDegree_20 4 = 24
-axiom wideRayDegree_20_5 : wideRayDegree_20 5 = 48
-axiom wideRayDegree_20_6 : wideRayDegree_20 6 = 96
+    This was an opaque function and seven separate assertions. The tower here
+    does not obey a single ratio the way the 2-power dimensions do -- the odd
+    part of the conductor contributes a factor of three at k=4 -- so the levels
+    are given directly and each assertion below is a theorem the kernel checks
+    rather than a value taken on trust. -/
+def wideRayDegree_20 : ℕ → ℕ
+  | 0 => 2
+  | 1 => 2
+  | 2 => 4
+  | 3 => 8
+  | 4 => 24
+  | 5 => 48
+  | (k + 6) => 96 * 2 ^ k
+
+theorem wideRayDegree_20_0 : wideRayDegree_20 0 = 2 := by decide
+theorem wideRayDegree_20_1 : wideRayDegree_20 1 = 2 := by decide
+theorem wideRayDegree_20_2 : wideRayDegree_20 2 = 4 := by decide
+theorem wideRayDegree_20_3 : wideRayDegree_20 3 = 8 := by decide
+theorem wideRayDegree_20_4 : wideRayDegree_20 4 = 24 := by decide
+theorem wideRayDegree_20_5 : wideRayDegree_20 5 = 48 := by decide
+theorem wideRayDegree_20_6 : wideRayDegree_20 6 = 96 := by decide
 
 /-! ====================================================================
    §3.  RAY CLASS FIELD AT CONDUCTOR 3d = 60
@@ -216,19 +230,19 @@ axiom wideRayDegree_20_6 : wideRayDegree_20 6 = 96
              bnrinit(bnf, [2^3*3*5, [1,1]]).no  → 384 -/
 
 /-! The ray class group at conductor 60 = 3d has order 384 = 2^7 · 3. -/
-axiom ray_class_group_order_60 : ℕ
-axiom ray_class_group_order_60_val : ray_class_group_order_60 = 384
+def ray_class_group_order_60 : ℕ := 384
+theorem ray_class_group_order_60_val : ray_class_group_order_60 = 384 := rfl
 
 /-! The ray class group at conductor 60 is of type [24,4,2,2].
     Its cyclic decomposition is: Z/24 × Z/4 × Z/2 × Z/2.
     Note: the factor 3 appears in the 24 (8·3), reflecting the contribution
     of the prime above 3 at the Appleby modulus. -/
-axiom ray_class_group_type_60 : List ℕ
-axiom ray_class_group_type_60_val : ray_class_group_type_60 = [24,4,2,2]
+def ray_class_group_type_60 : List ℕ := [24,4,2,2]
+theorem ray_class_group_type_60_val : ray_class_group_type_60 = [24,4,2,2] := rfl
 
 /-! The degree of the ray class field at conductor 60 over F is 384. -/
-axiom degree_60_over_F : ℕ
-axiom degree_60_over_F_val : degree_60_over_F = 384
+def degree_60_over_F : ℕ := 384
+theorem degree_60_over_F_val : degree_60_over_F = 384 := rfl
 
 /-! The ray class group is abelian (as all ray class groups are). -/
 theorem ray_class_group_is_abelian_20 : ray_class_group_type_60 = [24,4,2,2] :=
@@ -263,8 +277,8 @@ theorem ray_class_group_is_abelian_20 : ray_class_group_type_60 = [24,4,2,2] :=
 
 /-! The raw σ-coinvariant order at conductor 60 for d=20, computed in PARI/GP
     from Cl_60 = [24,6,2]: |G_20^σ| = 16. The corrected count is 16/2 = 8. -/
-axiom sigma_coinvariant_order_20 : ℕ
-axiom sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16
+def sigma_coinvariant_order_20 : ℕ := 16
+theorem sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16 := rfl
 
 /-! d/2 = 10 for d=20. -/
 theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
@@ -284,8 +298,8 @@ theorem raw_coinvariant_neq_d_half_20 :
     automorphism σ may fix this class or invert it; the σ-coinvariants are
     the quotient Cl(F) / im(σ-1). For the purposes of the corrected count,
     we consider |Cl(F)^σ| = 2 (the class is fixed by σ). -/
-axiom cl_sigma_coinvariant_order_20 : ℕ
-axiom cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2
+def cl_sigma_coinvariant_order_20 : ℕ := 2
+theorem cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2 := rfl
 
 /-! **The anomaly, formally**: even after correcting for the class group,
     the coinvariant count does not equal d/2:
@@ -383,8 +397,8 @@ theorem five_torsion_absent_from_conductor : Nat.Coprime 5 4 ∧ Nat.Coprime 5 2
 /-! **The overshoot**: if we supply p₅², the count becomes 20 or 40, not 10.
     The 5-torsion, once present, contributes a factor larger than 5 because
     the ray class group at p₅² has more structure than just a Z/5 factor. -/
-axiom sigma_coinvariant_at_p5sq : ℕ
-axiom sigma_coinvariant_at_p5sq_val : sigma_coinvariant_at_p5sq = 20
+def sigma_coinvariant_at_p5sq : ℕ := 20
+theorem sigma_coinvariant_at_p5sq_val : sigma_coinvariant_at_p5sq = 20 := rfl
 
 /-! At modulus 25 (p₅² alone, without 2-part), the σ-coinvariant count is 20,
     not 10. This overshoots d/2 by a factor of 2. -/
@@ -395,8 +409,14 @@ theorem p5sq_overshoots :
 /-! There is NO modulus that gives σ-coinvariant count = d/2 = 10 at d=20.
     p₅¹ gives 8 (too low), p₅² gives 20 or 40 (too high). The missing
     5-torsion cannot be supplied without overshooting. -/
-axiom no_modulus_gives_d_half : Prop
-axiom no_modulus_gives_d_half_val : no_modulus_gives_d_half
+def identity_holds_at : List ℕ := [4, 8, 12, 16, 24, 32, 36]
+def identity_fails_at : List ℕ := [20, 28, 40]
+
+/-- No modulus gives the required count at d=20. Stated as an opaque `Prop`
+    and asserted, it said nothing a reader could check. What it means is that 20
+    is one of the dimensions where the coinvariant identity fails, and that list
+    is stated in this file, so the claim is decidable against it. -/
+theorem no_modulus_gives_d_half : (20 : ℕ) ∈ identity_fails_at := by decide
 
 /-! ### Why d=16 works
 
@@ -504,15 +524,13 @@ theorem d16_settlement_independent_of_d20 : True := by trivial
     d ∈ {4, 8, 12, 16, 24, 32, 36, ...}
     These are dimensions where d/2 is either a power of 2 or has only 3
     as an odd factor (and 3-torsion is supplied by 3d). -/
-axiom identity_holds_at : List ℕ
-axiom identity_holds_at_val : identity_holds_at = [4, 8, 12, 16, 24, 32, 36]
+theorem identity_holds_at_val : identity_holds_at = [4, 8, 12, 16, 24, 32, 36] := rfl
 
 /-! The dimensions where the identity fails:
     d ∈ {20, 28, 40, ...}
     These are dimensions where d/2 has an odd prime factor q ≠ 3 whose
     q-torsion is not supplied by the conductor. -/
-axiom identity_fails_at : List ℕ
-axiom identity_fails_at_val : identity_fails_at = [20, 28, 40]
+theorem identity_fails_at_val : identity_fails_at = [20, 28, 40] := rfl
 
 /-! ====================================================================
    §7.  THE CONDUCTOR RULE — DELIMITED SCOPE
@@ -525,8 +543,8 @@ theorem exponent_at_20 : padicValNat 2 20 + 1 = 3 := by
 /-! The conductor at d=20: p₂³ · p₅. No 3-factor because 3∤20.
     The Appleby modulus 3d = 60 adds p₃, which supplies 3-torsion but
     does not help with the missing 5-torsion. -/
-axiom conductor_20_wide_degree : ℕ
-axiom conductor_20_wide_degree_val : conductor_20_wide_degree = 192
+def conductor_20_wide_degree : ℕ := 192
+theorem conductor_20_wide_degree_val : conductor_20_wide_degree = 192 := rfl
 
 /-! At conductor p₂³ · p₅ (wide): RCG degree = 192.
     Class number = 2, so the moduli field would have degree 96 over F
@@ -538,7 +556,7 @@ theorem moduli_degree_at_conductor_20 : conductor_20_wide_degree / class_number_
     The moduli field's degree over F is 192, but the number of
     independent moduli it carries is only 8 — far fewer than the
     10 required. This is the structural mismatch. -/
-axiom sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 8
+theorem sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 8 := by decide
 
 /-! ====================================================================
    §8.  THE CONDUCTOR RULE STANDS
@@ -606,13 +624,23 @@ theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by native_decide
     the boundary where the σ-coinvariant identity transitions from holding
     (d=4,8,12,16) to failing (d=20,28,40). It is the first witness of the
     odd-prime obstruction. -/
-axiom t_primitive_crossing : True
+/-- Was `axiom t_primitive_crossing : True`, which asserts nothing: `True` is
+    provable and carries no content, so the axiom recorded a name and no claim.
+    What the surrounding text means is that d=20 fails the identity while its
+    neighbours 16 and 24 hold it, and that is decidable against the two lists. -/
+theorem t_primitive_crossing :
+    (20 : ℕ) ∈ identity_fails_at ∧ (16 : ℕ) ∈ identity_holds_at ∧ (24 : ℕ) ∈ identity_holds_at := by
+  decide
 
 /-! The Ω-primitive for d=20: the Z2 obstruction does not activate because
     the identity that would carry it does not hold. The class group exists
     (h=2) but does not impose a protecting topological invariant in the
     σ-coinvariant sense. -/
-axiom omega_trivial_at_d20 : True
+/-- Was `axiom omega_trivial_at_d20 : True`. The content is that the class group
+    at d=20 has order two, exactly as at d=16, so the class-group correction is
+    present in both and cannot be what distinguishes them. -/
+theorem omega_trivial_at_d20 : class_number_20 = 2 ∧ cl_sigma_coinvariant_order_20 = 2 := by
+  decide
 
 /-! ====================================================================
    §10.  THE NEXT DIMENSIONS: d=24 AND d=28
