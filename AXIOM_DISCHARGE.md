@@ -21,34 +21,29 @@ twelve-slot imscription the object occupies, following `SIC_D2048_Moduli.lean`.
 
 ## Next, in order
 
-**Fifteen axioms of `True`.** These assert nothing: `True` is provable, so they
-record a name and no claim, and nothing can be derived from them. Two classes,
-and they need different treatment.
+**Fifteen axioms of `True`.** These assert nothing: `True` is provable, so each
+records a name and no claim, and nothing can be derived from one. Whether any
+becomes a theorem depends on whether its content is derivable here.
 
-*Provable here.* `Collatz.lean:929 drift_theorem_axiom` — its own doc gives the
+*Derivable here.* `Collatz.lean:929 drift_theorem_axiom` — its own doc gives the
 arithmetic, (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4) < 0, and says it is
-elementary. It is; prove it.
+elementary. It is. That is a downgrade.
 
-*MathlibGap stand-ins for real published theorems* — `modularity_axiom` and
-`functional_equation_axiom` (BSD, and again in `BSD_MathBridge.lean`),
+*Not derivable here.* `modularity_axiom`, `functional_equation_axiom`,
 `hodgeDecomposition`, `hardLefschetz`, `lefschetzDecomposition`,
 `grothendieckRiemannRoch`, `energy_inequality`, `initialCriticalNormFinite`,
-`frobenius_g2_cancellation`. Stating these as `: True` is the worst of both: it
-looks like an assumption and carries none. Restate each as the proposition it
-actually assumes, so the axiom says what is being taken. The count will not
-fall; the honesty rises, and `verify_sic_moduli.sh`-style axiom reports become
-meaningful.
+`frobenius_g2_cancellation` stand in for published theorems Mathlib does not
+carry. Nothing here downgrades them.
 
-*Grammar claims with stated content* — `sigma_one_to_one_limit`,
-`grammar_is_sic_povm`, `joint_dual_is_sic`, `grothendieck_AD_join_contains_A`,
-plus the classical placeholders in `MatchingSDR`, `UnitDistanceDiameterOne`,
-`DifferenceSetSyndetic`, `UnitDistancePhaseTransition`, `TriangleTiling`,
-`ErdosLaxDivergence`, `HajnalSpecker`. Each has its content in the surrounding
-prose; state it.
+*Content stated in the prose, derivability unassessed* —
+`sigma_one_to_one_limit`, `grammar_is_sic_povm`, `joint_dual_is_sic`,
+`grothendieck_AD_join_contains_A`, and the classical placeholders in
+`MatchingSDR`, `UnitDistanceDiameterOne`, `DifferenceSetSyndetic`,
+`UnitDistancePhaseTransition`, `TriangleTiling`, `ErdosLaxDivergence`,
+`HajnalSpecker`. Each needs reading before it can be sorted into the two above.
 
-Reference check already done: of these only `hardLefschetz` (4 uses) and
-`hodgeDecomposition` (1) are referenced anywhere, so the rest can be restated
-without touching another file.
+Reference check done: of the fifteen only `hardLefschetz` (4 uses) and
+`hodgeDecomposition` (1) are referenced anywhere.
 
 **Six remaining opaque constants** in `Cramer.lean` (3), `Goldbach.lean` (2) and
 `YM_Mathematical_Witness.lean` (1) — same `def` + `rfl` treatment as above.
