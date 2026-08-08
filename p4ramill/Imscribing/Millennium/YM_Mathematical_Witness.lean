@@ -165,12 +165,20 @@ axiom strongCoupling_areaLaw (G : Type*) [Group G]
 -- taking β → ∞ (weak coupling) along an RG trajectory so that physical
 -- quantities remain finite (asymptotic scaling).
 
-/-- **The continuum limit axiom.**
-    There exists a continuum quantum Yang-Mills theory satisfying the
-    Osterwalder-Schrader axioms, obtained as the limit a → 0 of the
-    lattice theory. The existence of this limit is the Millennium Problem.
-    We state it as an axiom to mark the honest gap. -/
-axiom continuumLimit_exists : Prop
+/-- **The continuum limit.**
+    For each SU(N), N ≥ 2, there is a sequence of lattice spacings a_k → 0⁺
+    and couplings β_k → ∞ whose lattice theories satisfy the area law with
+    string tensions σ_k for which the physical tension σ_k / a_k² converges
+    to a positive limit. This is dimensional transmutation: the lattice gap,
+    measured in physical units, survives a → 0. Its existence is the
+    Millennium Problem — the statement is written, nothing asserts it. -/
+def continuumLimit_exists : Prop :=
+    ∀ N : ℕ, 2 ≤ N →
+      ∃ (a β : ℕ → ℝ) (law : ∀ k, AreaLaw (Matrix.specialUnitaryGroup (Fin N) ℂ) (β k))
+        (σ : ℝ), 0 < σ ∧ (∀ k, 0 < a k) ∧
+        Filter.Tendsto a Filter.atTop (nhds 0) ∧
+        Filter.Tendsto β Filter.atTop Filter.atTop ∧
+        Filter.Tendsto (fun k => (law k).stringTension / a k ^ 2) Filter.atTop (nhds σ)
 
 /-- **Theorem (conditional): Continuum mass gap.**
     If the continuum limit exists, the Yang-Mills theory has a mass gap.
