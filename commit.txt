@@ -1,3 +1,19 @@
-The report walks the whole dimension ladder, not just the conductor dimensions.
+Crystal for the conductor paper, carrying its instantiation
 
-d=2 carries the exhibited fiducial and the base case of the Zauner bridge, d=4 and d=8 the calibration rows that the exponent rule separates, d=12 the constructed SIC and its ray tower, and the ladder runs up through 16 and 20 to 2048 where the bridge closes. Grouped by dimension so a reader can see which rung each claim sits on.
+The previous conductor crystal was a branch label sitting on the same commit as
+main, which freezes nothing, and it predated the paper's current content. It is
+deleted and remade here.
+
+What the branch now carries is what a reader needs to follow the paper without
+reading another paper: the mOMonadOS module that instantiates the arithmetic,
+the recovered d=12 fiducial the equiangularity check runs on, the Lean tower
+that carries no axioms, and a claim-to-verb table mapping each statement in the
+manuscript to the command that prints it.
+
+The instantiation is pinned by commit rather than vendored whole, and the boot
+path is written out so the kernel can be built and the verbs run from a clean
+checkout.
+
+The README also records what is absent: there is no d=2048 fiducial, the paper
+determines a conductor and not a vector, and the welch verb prints that
+distinction instead of computing 1/2049 from 2048 and calling it verification.
