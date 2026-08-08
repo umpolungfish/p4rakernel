@@ -79,6 +79,11 @@ theorem wcComplement_involution (n : Nucleotide) :
 theorem wcComplement_fixpoint_free (n : Nucleotide) : wcComplement n ≠ n := by
   cases n <;> simp [wcComplement]
 
+/-- The fixed points of B₄ negation are exactly B and N — the two values the
+    act of distinguishing creates, as against the two it selects between. -/
+theorem bnot_fixpoint_iff (b : Belnap) : bnot b = b ↔ (b = Belnap.B ∨ b = Belnap.N) := by
+  cases b <;> simp [bnot]
+
 /-- B₄ negation bnot has fixed points: bnot B = B and bnot N = N. -/
 theorem bnot_fixpoints : bnot Belnap.B = Belnap.B ∧ bnot Belnap.N = Belnap.N :=
   ⟨rfl, rfl⟩
