@@ -30,7 +30,7 @@ import Imscribing.Quantum.OVM
 
 namespace Imscribing.Quantum.FrobeniusDualPOVM
 
-open OVM
+open OVM Millennium.SIC_POVM_Stark
 
 noncomputable section
 
@@ -62,7 +62,7 @@ structure FrobeniusDualMeasurement (d : ℕ) [NeZero d] where
   /-- The 2-outcome POVM: left = a-measurement, right = b-measurement. -/
   povm : POVM d DualOutcome
   /-- Frobenius condition: E_left + E_right = I (completeness). -/
-  complement_sum : ∀ x k : Fin d,
+  complement_sum : ∀ (x : Fin d → ℂ) (k : Fin d),
     (povm.effects .left).operator x k + (povm.effects .right).operator x k = x k
   /-- Orthogonality: the effects are orthogonal (Frobenius-dual). -/
   orthogonal : ∀ x y : Fin d → ℂ,
@@ -147,7 +147,15 @@ structure JointDualPOVM (d : ℕ) [NeZero d] where
 
     This is the operational bridge between the grammar's operator-valued
     measure and the Zauner SIC-POVM conjecture. -/
-axiom joint_dual_is_sic (d : ℕ) [NeZero d] : True
+axiom joint_dual_is_sic (d : ℕ) [NeZero d] :
+    SICPOVM_Exists d → Nonempty (JointDualPOVM d)
+
+/-- Wherever a SIC-POVM exists, the 6-pair joint measurement realises one.
+    Stated as an implication: the existence of the SIC in dimension d is the
+    Zauner conjecture and is not asserted here. -/
+theorem joint_dual_realises_sic (d : ℕ) [NeZero d] (h : SICPOVM_Exists d) :
+    Nonempty (JointDualPOVM d) :=
+  joint_dual_is_sic d h
 
 /- ====================================================================
    5.  DUALITY AS COMPLEMENTARITY IN THE EFFECT ALGEBRA
@@ -181,7 +189,7 @@ theorem frobenius_dual_are_complements (d : ℕ) [NeZero d]
     (m.povm.effects .right).operator x k =
     x k - (m.povm.effects .left).operator x k := by
   have h := m.complement_sum x k
-  linarith
+  linear_combination h
 
 end -- noncomputable section
 

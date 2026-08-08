@@ -177,7 +177,15 @@ axiom grammar_is_info_complete (d : ℕ) [NeZero d] :
     separation between "measuring apparatus" and "measured system."
 
     Tuple of this limit: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙𐑒𐑙𐑭⟩ -/
-axiom sigma_one_to_one_limit : True
+axiom sigma_one_to_one_limit :
+    ∃ g : GrammarPOVM 8, Function.Injective g.combined.effects
+
+/-- At Σ=1:1 the 4096 outcomes are exactly 4096 distinct effects: the
+    grammar's measurement operators are its own type distinctions, with no
+    two outcomes collapsing to the same effect. -/
+theorem grammar_outcomes_are_distinctions :
+    ∃ g : GrammarPOVM 8, Function.Injective g.combined.effects :=
+  sigma_one_to_one_limit
 
 end -- noncomputable section
 
