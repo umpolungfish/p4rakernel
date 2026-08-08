@@ -77,12 +77,14 @@ Already proved in Belnap.lean as `B_ne_F`; restated here for self-containment.
 theorem dialetheic_no_collapse : Belnap.B ≠ Belnap.F := B_ne_F
 
 /--
-B has no Boolean complement: there exists no c such that B ∧ c = F and B ∨ c = T.
-Already proved in Belnap.lean as `B_no_boolean_complement`.
+B's Boolean complement is exactly N, and nothing else: B ∧ N = F and B ∨ N = T.
+The complement is not the negation — negation fixes both B and N, while the
+complement exchanges them. That is what keeps a contradiction from being a
+falsehood. Proved in Belnap.lean as `B_complement_iff`.
 -/
-theorem dialetheic_no_boolean_complement (c : Belnap) :
-    ¬ (band Belnap.B c = Belnap.F ∧ bor Belnap.B c = Belnap.T) :=
-  B_no_boolean_complement c
+theorem dialetheic_complement_iff (c : Belnap) :
+    (band Belnap.B c = Belnap.F ∧ bor Belnap.B c = Belnap.T) ↔ c = Belnap.N :=
+  B_complement_iff c
 
 /--
 In the approximation order, B is top (most informative) and N is bottom (least).

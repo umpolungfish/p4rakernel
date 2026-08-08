@@ -59,9 +59,9 @@ def join (a b : Belnap) : Belnap :=
 def band (a b : Belnap) : Belnap :=
   match a, b with
   | .F, _ | _, .F => .F
-  | .B, .T | .T, .B | .B, .N | .N, .B => .B
-  | .T, .T => .T
-  | .T, .N | .N, .T => .N
+  | .N, .B | .B, .N => .F
+  | .T, x => x
+  | x, .T => x
   | .N, .N => .N
   | .B, .B => .B
 
@@ -69,9 +69,9 @@ def band (a b : Belnap) : Belnap :=
 def bor (a b : Belnap) : Belnap :=
   match a, b with
   | .T, _ | _, .T => .T
-  | .B, .F | .F, .B | .B, .N | .N, .B => .B
-  | .F, .F => .F
-  | .F, .N | .N, .F => .N
+  | .N, .B | .B, .N => .T
+  | .F, x => x
+  | x, .F => x
   | .N, .N => .N
   | .B, .B => .B
 
@@ -101,10 +101,68 @@ theorem B_ne_F : Belnap.B ≠ Belnap.F := by
   have hNat : belnapToNat Belnap.B = belnapToNat Belnap.F := by rw [h]
   simp [belnapToNat] at hNat
 
-/-- B has no Boolean complement. -/
-theorem B_no_boolean_complement (c : Belnap) :
-    ¬ (band Belnap.B c = Belnap.F ∧ bor Belnap.B c = Belnap.T) := by
-  intro ⟨hc, hd⟩; cases c <;> simp [band, bor] at hc hd
+/-- **B's Boolean complement is exactly N.** In the truth lattice the created
+    pair are each other's complement: their meet is bottom and their join is
+    top. Nothing else complements B. -/
+theorem B_complement_iff (c : Belnap) :
+    (band Belnap.B c = Belnap.F ∧ bor Belnap.B c = Belnap.T) ↔ c = Belnap.N := by
+  cases c <;> simp [band, bor]
+
+/-- The complement is **not** the negation. Negation fixes B and N; the lattice
+    complement exchanges them. The two involutions on the created pair are
+    different maps, which is why a contradiction is not a falsehood. -/
+theorem complement_ne_negation :
+    bnot Belnap.B = Belnap.B ∧ bnot Belnap.N = Belnap.N ∧
+    (band Belnap.B Belnap.N = Belnap.F ∧ bor Belnap.B Belnap.N = Belnap.T) :=
+  ⟨rfl, rfl, rfl, rfl⟩
+
+/-! ### The laws that fix the table
+
+`band` and `bor` are the meet and join of the truth order F < N < T, F < B < T,
+in which N and B are incomparable. The four laws below pin that table down: a
+pair of binary operations satisfying commutativity, associativity, idempotence
+and absorption *is* a lattice, and De Morgan says the negation dualises it.
+Together they leave no freedom at the incomparable pair — which is exactly where
+this file and the kernel prelude once disagreed, each in a way that broke one of
+these laws. -/
+
+theorem band_comm (a b : Belnap) : band a b = band b a := by cases a <;> cases b <;> rfl
+theorem bor_comm (a b : Belnap) : bor a b = bor b a := by cases a <;> cases b <;> rfl
+
+theorem band_assoc (a b c : Belnap) : band (band a b) c = band a (band b c) := by
+  cases a <;> cases b <;> cases c <;> rfl
+theorem bor_assoc (a b c : Belnap) : bor (bor a b) c = bor a (bor b c) := by
+  cases a <;> cases b <;> cases c <;> rfl
+
+theorem band_idem (a : Belnap) : band a a = a := by cases a <;> rfl
+theorem bor_idem (a : Belnap) : bor a a = a := by cases a <;> rfl
+
+/-- Absorption — the law that makes the pair a lattice rather than merely two
+    commutative associative operations. -/
+theorem band_absorb (a b : Belnap) : band a (bor a b) = a := by
+  cases a <;> cases b <;> rfl
+theorem bor_absorb (a b : Belnap) : bor a (band a b) = a := by
+  cases a <;> cases b <;> rfl
+
+/-- De Morgan — the law that makes negation the lattice's dualising involution. -/
+theorem de_morgan_and (a b : Belnap) : bnot (band a b) = bor (bnot a) (bnot b) := by
+  cases a <;> cases b <;> rfl
+theorem de_morgan_or (a b : Belnap) : bnot (bor a b) = band (bnot a) (bnot b) := by
+  cases a <;> cases b <;> rfl
+
+/-- The lattice is distributive. -/
+theorem band_distrib_bor (a b c : Belnap) :
+    band a (bor b c) = bor (band a b) (band a c) := by
+  cases a <;> cases b <;> cases c <;> rfl
+theorem bor_distrib_band (a b c : Belnap) :
+    bor a (band b c) = band (bor a b) (bor a c) := by
+  cases a <;> cases b <;> cases c <;> rfl
+
+/-- F is the bottom of the truth order and T the top. -/
+theorem band_F (a : Belnap) : band a Belnap.F = Belnap.F := by cases a <;> rfl
+theorem bor_T (a : Belnap) : bor a Belnap.T = Belnap.T := by cases a <;> rfl
+theorem band_T (a : Belnap) : band a Belnap.T = a := by cases a <;> rfl
+theorem bor_F (a : Belnap) : bor a Belnap.F = a := by cases a <;> rfl
 
 /-- B is top in approximation order: a ≤ B for all a. -/
 theorem B_is_top (a : Belnap) : a ≤ Belnap.B := by
