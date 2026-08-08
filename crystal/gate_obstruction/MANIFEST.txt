@@ -1,0 +1,14 @@
+crystal: gate_obstruction
+branch:  crystalline/gate-obstruction-2026-08-08
+date:    2026-08-08
+
+instantiation
+  repo:   https://github.com/umpolungfish/momonad_os
+  commit: 3626769
+  verbs:  fibqc verify | qc <gates> | bi <generators>
+
+verification surface at crystallization
+  fibqc verify   22 PASS, including
+    Phase lattice = tenths of a winding: PASS   (the lattice the gates miss)
+    Braid relation (Y-B), Braid Artin B_n<=8:   PASS
+    F unitary, Pentagon form:                   PASS
