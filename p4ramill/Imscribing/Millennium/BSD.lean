@@ -6,6 +6,10 @@ import Mathlib.AlgebraicGeometry.EllipticCurve.Weierstrass
 import Mathlib.AlgebraicGeometry.EllipticCurve.Affine.Point
 import Mathlib.Analysis.Complex.Basic
 import Mathlib.Tactic
+import Mathlib.GroupTheory.Torsion
+import Mathlib.LinearAlgebra.TensorProduct.Basic
+import Mathlib.LinearAlgebra.FiniteDimensional.Defs
+import Mathlib.RingTheory.TensorProduct.Basic
 
 set_option linter.unusedVariables false
 
@@ -137,15 +141,24 @@ def ExampleCurve : WeierstrassCurve ℚ :=
 
     Mathlib has the group law on affine points (WeierstrassCurve.Affine.Point),
     but NOT the Mordell-Weil theorem (finite generation). -/
-axiom MordellWeilGroup (W : WeierstrassCurve ℚ) [W.IsElliptic] : Type*
-axiom MordellWeilGroup.addCommGroup (W : WeierstrassCurve ℚ) [W.IsElliptic] :
-    AddCommGroup (MordellWeilGroup W)
+def MordellWeilGroup (W : WeierstrassCurve ℚ) [W.IsElliptic] : Type :=
+  W.toAffine.Point
 
-/-- The algebraic rank: the number of ℤ-summands in E(ℚ) ≅ ℤ^r ⊕ E(ℚ)_tors. -/
-axiom ellipticRank (W : WeierstrassCurve ℚ) [W.IsElliptic] : ℕ
+instance MordellWeilGroup.addCommGroup (W : WeierstrassCurve ℚ) [W.IsElliptic] :
+    AddCommGroup (MordellWeilGroup W) :=
+  inferInstanceAs (AddCommGroup W.toAffine.Point)
+
+/-- The algebraic rank: the number of ℤ-summands in E(ℚ) ≅ ℤ^r ⊕ E(ℚ)_tors,
+    read off as the ℚ-dimension of E(ℚ) ⊗ ℚ, which kills the torsion. -/
+noncomputable def ellipticRank (W : WeierstrassCurve ℚ) [W.IsElliptic] : ℕ :=
+  Module.finrank ℚ (TensorProduct ℤ ℚ (MordellWeilGroup W))
 
 /-- The torsion subgroup E(ℚ)_tors: the finite part of the Mordell-Weil group. -/
-axiom TorsionSubgroup (W : WeierstrassCurve ℚ) [W.IsElliptic] : Type*
+def TorsionSubgroup (W : WeierstrassCurve ℚ) [W.IsElliptic] : AddSubgroup (MordellWeilGroup W) :=
+  AddCommGroup.torsion (MordellWeilGroup W)
+
+/-- E(ℚ)_tors is finite — a consequence of finite generation. Held as an axiom
+    for the same reason Mordell-Weil is. -/
 axiom TorsionSubgroup.finite (W : WeierstrassCurve ℚ) [W.IsElliptic] :
     Fintype (TorsionSubgroup W)
 
@@ -214,7 +227,7 @@ def BSDFullConjecture : Prop :=
     E(ℚ) is finitely generated. Proved: Mordell (1922), Weil (1928).
     Not in Mathlib (requires Galois cohomology, Néron-Tate heights). -/
 axiom mordell_weil_axiom (W : WeierstrassCurve ℚ) [W.IsElliptic] :
-    ∃ (r : ℕ) (T : Fintype (TorsionSubgroup W)), True
+    AddGroup.FG (MordellWeilGroup W)
 
 /-- Mazur's torsion theorem axiom (MathlibGap).
     E(ℚ)_tors is isomorphic to one of 15 groups. Proved: Mazur (1977).
@@ -224,8 +237,7 @@ axiom mazur_torsion_axiom (W : WeierstrassCurve ℚ) [W.IsElliptic] :
     ∃ (m : ℕ), m ∈ ({1,2,3,4} : Finset ℕ) ∧ True
 
 theorem mordell_weil (W : WeierstrassCurve ℚ) [W.IsElliptic] :
-    ∃ (r : ℕ) (T : Fintype (TorsionSubgroup W)),
-      True :=
+    AddGroup.FG (MordellWeilGroup W) :=
   mordell_weil_axiom W
 
 -- ============================================================
