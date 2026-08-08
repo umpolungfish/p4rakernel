@@ -48,16 +48,25 @@ namespace SIC.D20.Moduli
 def m20 : ℤ := 357
 
 /-! The discriminant formula holds: m_20 = (20−3)(20+1) = 17·21. -/
+/-- A concrete `p`-adic valuation, pinned by one divisibility and one
+    non-divisibility. Keeps these facts inside the kernel: the compiled
+    evaluator is not part of the trusted base for anything below. -/
+private theorem padicValNat_eq_of_dvd_of_not_dvd {p n k : ℕ} [Fact p.Prime] (hn : n ≠ 0)
+    (h1 : p ^ k ∣ n) (h2 : ¬ p ^ (k + 1) ∣ n) : padicValNat p n = k := by
+  have hle : k ≤ padicValNat p n := (padicValNat_dvd_iff_le hn).mp h1
+  have hlt : ¬ (k + 1) ≤ padicValNat p n := fun h => h2 ((padicValNat_dvd_iff_le hn).mpr h)
+  omega
+
 theorem m20_formula : m20 = ((20 : ℤ) - 3) * ((20 : ℤ) + 1) := by
-  native_decide
+  decide
 
 /-! Alternate form: m_20 = 20² − 2·20 − 3. -/
 theorem m20_alt : m20 = (20 : ℤ)^2 - 2*(20 : ℤ) - 3 := by
-  native_decide
+  decide
 
 /-! Factorization: 357 = 3 × 7 × 17. -/
 theorem m20_factorization : m20 = 3 * 7 * 17 := by
-  native_decide
+  decide
 
 /-! m_20 is positive (so the base field is real quadratic). -/
 theorem m20_pos : 0 < (m20 : ℝ) := by
@@ -65,21 +74,25 @@ theorem m20_pos : 0 < (m20 : ℝ) := by
 
 /-! m_20 = 357 is not a perfect square — F = Q(√357) is a proper quadratic extension. -/
 theorem m20_not_square : ¬ IsSquare (357 : ℤ) := by
-  native_decide
+  norm_num
 
 /-! 357 is squarefree (3·7·17, all distinct primes). -/
 theorem m20_squarefree : Squarefree (357 : ℕ) := by
-  native_decide
+  rw [show (357 : ℕ) = 3 * (7 * 17) by norm_num, Nat.squarefree_mul_iff]
+  refine ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree, ?_⟩
+  rw [Nat.squarefree_mul_iff]
+  exact ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree,
+    (Nat.prime_iff.mp (by norm_num)).squarefree⟩
 
 /-! 2-adic valuation: ν₂(357) = 0 — the discriminant is odd, so 2 is unramified. -/
-theorem m20_val2 : padicValNat 2 (357 : ℕ) = 0 := by
-  native_decide
+theorem m20_val2 : padicValNat 2 (357 : ℕ) = 0 :=
+  padicValNat.eq_zero_of_not_dvd (by norm_num)
 
 /-! 357 ≡ 5 mod 8, so 2 is inert in Q(√357).
     (A quadratic field Q(√D) with D≡5 mod 8 has 2 inert: (2) = p₂ is prime
     of residue degree 2.) -/
 theorem m20_mod_eight : (357 : ℤ) % 8 = 5 := by
-  native_decide
+  decide
 
 /-! ## The base field F = Q(√357) -/
 
@@ -104,7 +117,8 @@ def sqrtD : F20 := ⟨0, 1⟩
 
 /-! The defining relation: (√D)² = D. -/
 theorem sqrtD_sq : sqrtD * sqrtD = (⟨357, 0⟩ : F20) := by
-  native_decide
+  show (⟨(0 : ℚ) * 0 + 357 * (1 * 1), (0 : ℚ) * 1 + 1 * 0⟩ : F20) = ⟨357, 0⟩
+  norm_num
 
 /-! Galois conjugation in F: a + b√D ↦ a − b√D. -/
 def conj (x : F20) : F20 := ⟨x.a, -x.b⟩
@@ -125,7 +139,8 @@ def fundUnit : F20 := ⟨19/2, 1/2⟩
 
 /-! The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
-  native_decide
+  show (19 / 2 : ℚ) * (19 / 2) - 357 * ((1 / 2) * (1 / 2)) = 1
+  norm_num
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((19/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 357) := by
@@ -281,7 +296,7 @@ def sigma_coinvariant_order_20 : ℕ := 16
 theorem sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16 := rfl
 
 /-! d/2 = 10 for d=20. -/
-theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
+theorem d_half_20 : (20 : ℕ)/2 = 10 := by decide
 
 /-! **The raw coinvariant count does NOT equal d/2 at d=20:**
     |G_20^σ| = 16 ≠ 10 = d/2.
@@ -291,7 +306,7 @@ theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
 theorem raw_coinvariant_neq_d_half_20 :
     sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val]
-  native_decide
+  decide
 
 /-! The class group σ-coinvariant order. For Q(√357) the class group is Z/2
     and the nontrivial class is represented by the ideal above 7. The Galois
@@ -307,7 +322,7 @@ theorem cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2 :=
 theorem coinvariant_anomaly_theorem :
     sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val, cl_sigma_coinvariant_order_20_val]
-  native_decide
+  decide
 
 /-! The class-group corrected count is 8, not 10. The deficit is 2. -/
 theorem corrected_count_is_eight :
@@ -325,7 +340,7 @@ theorem d16_vs_d20_anomaly :
   · exact corrected_count_is_eight
   constructor
   · exact d_half_20
-  · native_decide
+  · decide
 
 /-! ====================================================================
    §5.  THE 5-TORSION ARITHMETIC
@@ -376,23 +391,23 @@ theorem d16_vs_d20_anomaly :
 
 /-! d/2 for d=20 factors as 2 × 5. The 2-part is supplied by p₂³;
     the 5-part is not supplied by p₅¹. -/
-theorem d_half_factorization : (20 : ℕ)/2 = 10 := by native_decide
+theorem d_half_factorization : (20 : ℕ)/2 = 10 := by decide
 
 /-! 10 = 2 × 5. The torsion requirement: need both 2-torsion and 5-torsion. -/
-theorem ten_is_two_times_five : (10 : ℕ) = 2 * 5 := by native_decide
+theorem ten_is_two_times_five : (10 : ℕ) = 2 * 5 := by decide
 
 /-! At p₅¹, the local unit group has order N(p₅)−1.
     If 5 splits: N(p₅)=5, |U|=4. If 5 is inert: N(p₅)=25, |U|=24.
     In both cases, gcd(|U|, 5) = 1 — no 5-torsion. -/
-theorem local_unit_no_5_torsion_at_p5_1 : Nat.Coprime 5 4 := by native_decide
+theorem local_unit_no_5_torsion_at_p5_1 : Nat.Coprime 5 4 := by decide
 
 /-! The gcd of 5 and 24 is also 1: (5,24) = 1. -/
-theorem local_unit_no_5_torsion_at_p5_1_inert : Nat.Coprime 5 24 := by native_decide
+theorem local_unit_no_5_torsion_at_p5_1_inert : Nat.Coprime 5 24 := by decide
 
 /-! **5-torsion absence theorem**: the conductor p₅¹ cannot supply 5-torsion
     because (5, |U_5^(1)|) = 1 regardless of the splitting behavior of 5. -/
 theorem five_torsion_absent_from_conductor : Nat.Coprime 5 4 ∧ Nat.Coprime 5 24 := by
-  constructor <;> native_decide
+  constructor <;> decide
 
 /-! **The overshoot**: if we supply p₅², the count becomes 20 or 40, not 10.
     The 5-torsion, once present, contributes a factor larger than 5 because
@@ -429,7 +444,7 @@ theorem no_modulus_gives_d_half : (20 : ℕ) ∈ identity_fails_at := by decide
     the coinvariant identity. -/
 
 /-! d/2 at d=16 is a pure power of 2: 8 = 2³. -/
-theorem d16_d_half_pure_two_power : (16 : ℕ)/2 = 2^3 := by native_decide
+theorem d16_d_half_pure_two_power : (16 : ℕ)/2 = 2^3 := by decide
 
 /-! d/2 at d=20 is NOT a pure power of 2: 10 = 2·5 has an odd factor. -/
 theorem d20_d_half_has_odd_factor : ¬∃ k : ℕ, (20 : ℕ)/2 = 2^k := by
@@ -538,7 +553,8 @@ theorem identity_fails_at_val : identity_fails_at = [20, 28, 40] := rfl
 
 /-! At d=20: v₂(20) + 1 = 3. The 2-part of the conductor is p₂³. -/
 theorem exponent_at_20 : padicValNat 2 20 + 1 = 3 := by
-  native_decide
+  rw [padicValNat_eq_of_dvd_of_not_dvd (by norm_num) (by norm_num : (2:ℕ)^2 ∣ 20)
+    (by norm_num : ¬ (2:ℕ)^3 ∣ 20)]
 
 /-! The conductor at d=20: p₂³ · p₅. No 3-factor because 3∤20.
     The Appleby modulus 3d = 60 adds p₃, which supplies 3-torsion but
@@ -588,11 +604,11 @@ theorem conductor_rule_correct_at_20 : padicValNat 2 20 + 1 = 3 :=
   exponent_at_20
 
 /-! 5 divides 20, so p₅ enters the conductor. -/
-theorem five_divides_d : 5 ∣ (20 : ℕ) := by native_decide
+theorem five_divides_d : 5 ∣ (20 : ℕ) := by decide
 
 /-! 3 does NOT divide 20, so p₃ does NOT enter the conductor
     (it only enters the Appleby calibration modulus 3d). -/
-theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by native_decide
+theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by decide
 
 /-! ====================================================================
    §9.  STRUCTURAL GRAMMAR ENCODING
@@ -666,15 +682,15 @@ theorem omega_trivial_at_d20 : class_number_20 = 2 ∧ cl_sigma_coinvariant_orde
 
 /-! d=24: d/2 = 12, which has odd factor 3. But 3-torsion IS supplied
     because 3|d and 3d includes 3². The identity should hold. -/
-theorem d24_identity_should_hold : (24 : ℕ)/2 = 12 := by native_decide
+theorem d24_identity_should_hold : (24 : ℕ)/2 = 12 := by decide
 
 /-! d=28: d/2 = 14 = 2·7. The 7-torsion is absent from p₇¹.
     The identity should fail, with predicted raw count 12. -/
-theorem d28_identity_should_fail : (28 : ℕ)/2 = 14 := by native_decide
+theorem d28_identity_should_fail : (28 : ℕ)/2 = 14 := by decide
 
 /-! d=40: d/2 = 20 = 4·5. Same 5-torsion issue as d=20.
     The identity should fail, with predicted raw count 16. -/
-theorem d40_identity_should_fail : (40 : ℕ)/2 = 20 := by native_decide
+theorem d40_identity_should_fail : (40 : ℕ)/2 = 20 := by decide
 
 /-! ====================================================================
    §11.  SUMMARY — WHAT THE ANOMALY MEANS
@@ -722,6 +738,6 @@ theorem anomaly_delimits_not_undermines :
   · exact raw_coinvariant_neq_d_half_20
   constructor
   · exact coinvariant_anomaly_theorem
-  · native_decide
+  · decide
 
 end SIC.D20.Moduli
