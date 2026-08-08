@@ -157,6 +157,7 @@ globs = [
   "Imscribing.Classical.ErdosTuranBound",
   "Imscribing.Classical.ErdosStrausDecomposition",
   "Imscribing.Classical.APIntersectingFamily",
+  "Imscribing.Barriers",
   "Imscribing.Basic",
   "Imscribing.ArsFungiglyphica",
   "Imscribing.ArsAnimaglyphica",

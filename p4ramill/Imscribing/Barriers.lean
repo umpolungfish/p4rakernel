@@ -1,15 +1,15 @@
--- ImscribingGrammar/Millennium/Barriers.lean
+-- Imscribing/Barriers.lean
 -- Cross-problem barrier taxonomy for all 7 Millennium Prize Problems.
 -- The central theorem: a formal classification of why each problem is hard.
 
 import Mathlib.Tactic
-import SynthOmnicon.Millennium.RH
-import SynthOmnicon.Millennium.YM
-import SynthOmnicon.Millennium.Hodge
-import SynthOmnicon.Millennium.NS
-import SynthOmnicon.Millennium.PvsNP
-import SynthOmnicon.Millennium.OPN
-import SynthOmnicon.Millennium.BSD
+import Imscribing.Millennium.RH
+import Imscribing.Millennium.YM
+import Imscribing.Millennium.Hodge
+import Imscribing.Millennium.NS
+import Imscribing.Millennium.PvsNP
+import Imscribing.Millennium.OPN
+import Imscribing.Millennium.BSD
 
 /-!
 # Millennium Problem Barrier Taxonomy
@@ -89,19 +89,22 @@ inductive MillenniumProblem
 -- §3. The sorry boundary for each problem (typed axioms)
 -- ============================================================
 
--- Each sorry is declared as an axiom: the exact type that cannot be inhabited.
+-- Each sorry is named as the exact proposition that cannot be inhabited. These
+-- are `def`s, not axioms: the point of the taxonomy is to say what is missing,
+-- and an axiom asserting the conjecture would hand the prize problems to
+-- everything downstream.
 
 /-- RH barrier: every critical zero has Re = 1/2.
     Type: `ZeroFreeStrip 0` (see RH.lean).
     Barrier: OpenProblem — no proof exists since 1859. -/
-axiom rh_sorry_boundary : Millennium.RH.RiemannHypothesis
+def rh_sorry_boundary : Prop := Millennium.RH.RiemannHypothesis
 
 /-- Hodge barrier: every rational Hodge class on a smooth projective variety is algebraic.
     The missing type: `AlgebraicCycleRep X p α` — a proof that α ∈ H^{2p}(X,ℚ) ∩ H^{p,p}
     lies in the image of cl : CH^p(X) ⊗ ℚ → H^{2p}(X,ℚ) ∩ H^{p,p}.
     Barrier: OpenProblem. The p=1 case is proved (Lefschetz 1924); p ≥ 2 is open.
     See Hodge.lean for the full three-layer analysis. -/
-axiom hodge_sorry_boundary : Millennium.Hodge.HodgeConjecture
+def hodge_sorry_boundary : Prop := Millennium.Hodge.HodgeConjecture
 
 /-- P vs NP barrier: the Boolean satisfiability problem is not in P.
     The missing type: `CircuitLowerBound SAT ε` — SAT requires circuits of size ≥ 2^(εn).
@@ -109,7 +112,7 @@ axiom hodge_sorry_boundary : Millennium.Hodge.HodgeConjecture
     Three meta-barriers in mathematics: relativization (BGS 1975), natural proofs
     (Razborov-Rudich 1994), algebrization (Aaronson-Wigderson 2009).
     See PvsNP.lean for the full three-layer analysis. -/
-axiom pvsnp_sorry_boundary : Millennium.PvsNP.PNotEqualsNP
+def pvsnp_sorry_boundary : Prop := Millennium.PvsNP.PNotEqualsNP
 
 /-- Navier-Stokes barrier: smooth initial data gives smooth global solutions.
     The missing type: `GlobalRegularityCert u₀` — a smooth global bounded solution
@@ -117,15 +120,15 @@ axiom pvsnp_sorry_boundary : Millennium.PvsNP.PNotEqualsNP
     Barrier: OpenProblem (near-MissingFoundation: critical Sobolev exponent s=1/2 in 3D).
     The critical scaling gap sits strictly between energy (s=0) and enstrophy (s=1).
     See NS.lean for the full three-layer analysis. -/
-axiom ns_sorry_boundary : Millennium.NS.NavierStokesRegularity
+def ns_sorry_boundary : Prop := Millennium.NS.NavierStokesRegularity
 
 /-- YM barrier: the quantum Yang-Mills theory exists with mass gap.
     Primary missing type: `PathIntegralMeasure 𝔤` — the path integral measure over gauge
     connections modulo gauge equivalence in 4D. This type does not exist in mathematics.
     Two stacked sorries: `ym_theory_exists` (MissingFoundation) → `ym_mass_gap` (OpenProblem).
     Barrier: MissingFoundation. See YM.lean for the full three-layer analysis. -/
-axiom ym_sorry_boundary :
-    ∀ (𝔤 : Type*) [LieRing 𝔤] [LieAlgebra ℝ 𝔤] [LieAlgebra.IsSimple ℝ 𝔤],
+def ym_sorry_boundary : Prop :=
+    ∀ (𝔤 : Type) [LieRing 𝔤] [LieAlgebra ℝ 𝔤] [LieAlgebra.IsSimple ℝ 𝔤],
       Nonempty (Millennium.YM.QuantumYMTheory 𝔤) ∧
       ∀ T : Millennium.YM.QuantumYMTheory 𝔤, 0 < Millennium.YM.massGap 𝔤 T
 
@@ -134,14 +137,14 @@ axiom ym_sorry_boundary :
     stacked methodologically (not logically) with `opn_nonexistence` (OpenProblem).
     Barrier: OpenProblem (primary). Euler form layer will eventually be discharged.
     See OPN.lean for the full analysis. -/
-axiom opn_sorry_boundary : Millennium.OPN.OPNConjecture
+def opn_sorry_boundary : Prop := Millennium.OPN.OPNConjecture
 
 /-- BSD barrier: the algebraic rank of E(ℚ) equals the analytic rank ord_{s=1} L(E,s).
     Three parallel sorries: `mordell_weil` + `mazur_torsion` (both MathlibGap, proved)
     and `bsd_certificate` (OpenProblem). All logically independent — unlike YM (stacked)
     and OPN (methodologically ordered). Known for analytic rank ≤ 1 (Kolyvagin 1988).
     See BSD.lean for the full three-layer analysis. -/
-axiom bsd_sorry_boundary : Millennium.BSD.BSDRankConjecture
+def bsd_sorry_boundary : Prop := Millennium.BSD.BSDRankConjecture
 
 -- ============================================================
 -- §4. The barrier classification theorem
@@ -198,14 +201,14 @@ theorem ym_has_stacked_not_parallel_sorries :
   simp [sorryDepth, millenniumBarrier]
 
 -- ============================================================
--- §6. Relationship to SynthOmnicon primitive structure
+-- §6. Relationship to the grammar's primitive structure
 -- ============================================================
 
 /-!
 Each Millennium Problem's sorry boundary corresponds to a missing primitive certificate
-in the SynthOmnicon constraint grammar.
+in the Imscribing constraint grammar.
 
-  | Problem | Missing certificate    | Primitive analog in SynthOmnicon             |
+  | Problem | Missing certificate    | Primitive analog in the grammar              |
   |---------|------------------------|----------------------------------------------|
   | RH      | ZeroFreeStrip 0        | ⊙ = 0 threshold: no zeros off critical line|
   | Hodge   | AlgebraicCycleRep      | R-degeneracy: topology-to-algebra lift       |
@@ -216,7 +219,7 @@ in the SynthOmnicon constraint grammar.
   | OPN     | Nonexistence proof     | σ-constraint no solution                     |
 
 The YM barrier (G=LOCAL, no quantum lift) corresponds exactly to the G-scope
-analysis in SYNTHONICON.md §XVII: the quantum-gravity tensor product fails at G=LOCAL
+analysis: the quantum-gravity tensor product fails at G=LOCAL
 because the carrier type (path integral measure) cannot be constructed.
 -/
 
