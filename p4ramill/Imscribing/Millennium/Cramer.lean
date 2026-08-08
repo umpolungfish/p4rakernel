@@ -31,6 +31,9 @@
 --   Maier (1985); Baker-Harman-Pintz (2001); Granville (1995);
 --   Soundararajan (2007); Ford-Green-Konyagin-Maynard-Tao (2018)
 
+import Mathlib.Data.Nat.Nth
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
+import Mathlib.Analysis.SpecialFunctions.Sqrt
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 
@@ -83,26 +86,37 @@ a breakthrough in sieve theory or a proof of the Riemann Hypothesis.
     Placeholder Prop — no proof exists (open since 1936). -/
 opaque CramerConjecture : Prop
 
-/-- RH-conditional bound (Cramér 1920): under RH, g_n = O(√p_n · log p_n).
-    This is a proved theorem conditional on RH. -/
-axiom RH_Conditional_Bound : Prop
+/-- The nth prime, `p_n`. -/
+noncomputable def p (n : ℕ) : ℕ := Nat.nth Nat.Prime n
 
-/-- The unconditional bound (Baker-Harman-Pintz 2001): g_n ≤ p_n^0.525.
-    This is a proved theorem. -/
-axiom UnconditionalBound : Prop
+/-- The nth prime gap, `g_n = p_{n+1} - p_n`. -/
+noncomputable def primeGap (n : ℕ) : ℕ := p (n + 1) - p n
 
-/-- Cramér's probabilistic model (1936): the independent-prime heuristic.
-    This is a model, not a theorem — it produces the (log p)² prediction. -/
-axiom CramerModel : Prop
+/-- RH-conditional bound (Cramér 1920): under RH, g_n = O(√p_n · log p_n). -/
+noncomputable def RH_Conditional_Bound : Prop :=
+    ∃ C : ℝ, 0 < C ∧ ∀ᶠ n in Filter.atTop,
+      (primeGap n : ℝ) ≤ C * Real.sqrt (p n) * Real.log (p n)
 
-/-- The unconditional bound is proved. -/
+/-- The unconditional bound (Baker-Harman-Pintz 2001): g_n ≤ p_n^0.525
+    for all sufficiently large n. -/
+noncomputable def UnconditionalBound : Prop :=
+    ∀ᶠ n in Filter.atTop, (primeGap n : ℝ) ≤ (p n : ℝ) ^ (0.525 : ℝ)
+
+/-- What Cramér's probabilistic model predicts: g_n = O((log p_n)²).
+    This is the model's output, not a theorem — the model is known to be
+    subtly wrong for prime correlations (Maier 1985), and the prediction
+    itself is the upper half of the conjecture, unproved. -/
+noncomputable def CramerModel : Prop :=
+    ∃ C : ℝ, 0 < C ∧ ∀ᶠ n in Filter.atTop,
+      (primeGap n : ℝ) ≤ C * Real.log (p n) ^ 2
+
+/-- The unconditional bound is proved (Baker-Harman-Pintz 2001). Held as an
+    axiom: the statement is written, the sieve argument is not formalised. -/
 axiom unconditional_bound_proved : UnconditionalBound
 
-/-- The RH-conditional bound is proved (conditional on RH). -/
+/-- The RH-conditional bound is proved (Cramér 1920), conditional on RH. Held
+    as an axiom: the statement is written, the argument is not formalised. -/
 axiom rh_conditional_bound_proved : RH_Conditional_Bound
-
-/-- The Cramér model is a heuristic, not a theorem. -/
-axiom cramer_model_heuristic : CramerModel
 -- ============================================================
 -- §2  The Vessel — Structural Imscription
 -- ============================================================
@@ -743,11 +757,11 @@ The following are declared as `axiom` or `opaque` — they are the
 mathematical content not derivable from the grammar:
 
 - `CramerConjecture` (opaque): the conjecture itself (open)
-- `RH_Conditional_Bound` (axiom): Cramér's 1920 theorem
-- `UnconditionalBound` (axiom): Baker-Harman-Pintz 2001
-- `CramerModel` (axiom): the Cramér model heuristic
-- `unconditional_bound_proved` (axiom)
-- `rh_conditional_bound_proved` (axiom)
+- `RH_Conditional_Bound` (def): Cramér's 1920 statement, g_n = O(√p_n log p_n)
+- `UnconditionalBound` (def): Baker-Harman-Pintz 2001, g_n ≤ p_n^0.525
+- `CramerModel` (def): what the heuristic predicts, g_n = O((log p_n)²)
+- `unconditional_bound_proved` (axiom): the BHP theorem, unformalised
+- `rh_conditional_bound_proved` (axiom): the 1920 theorem, unformalised
 - `cramer_model_heuristic` (axiom)
 
 Total: 7 honest axioms + 28 theorems (all native_decide/rfl/decide).

@@ -31,6 +31,7 @@
 --            Oliveira e Silva (2010, verification to 2^68);
 --            Tao (2019, almost all orbits almost bounded)
 
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 
@@ -922,11 +923,21 @@ axiom no_cycle_below_69_axiom :
 
 /-- The log-mean drift theorem (Terras 1976).
     For the compressed map C, E[log(C(n)/n)] < 0.
-    This is PROVED — the inequality log(3/4) < 0 is elementary.
-    The full theorem in its number-theoretic context is:
-    (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4) < 0.
-    We include it as an axiom for completeness. -/
-axiom drift_theorem_axiom : True
+    Under the parity measure each step halves with probability 1/2 and
+    multiplies by 3/2 with probability 1/2, so the expected log-step is
+    (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4), and log(3/4) < 0. -/
+theorem drift_expected_log_step :
+    (1/2 : ℝ) * Real.log (1/2) + (1/2 : ℝ) * Real.log (3/2)
+      = (1/2 : ℝ) * Real.log (3/4) := by
+  rw [← mul_add, ← Real.log_mul (by norm_num) (by norm_num)]
+  norm_num
+
+/-- The drift is strictly negative: the compressed map contracts on average. -/
+theorem drift_theorem :
+    (1/2 : ℝ) * Real.log (1/2) + (1/2 : ℝ) * Real.log (3/2) < 0 := by
+  rw [drift_expected_log_step]
+  have h : Real.log (3/4) < 0 := Real.log_neg (by norm_num) (by norm_num)
+  linarith
 
 /-- Tao's log-density theorem (2019).
     Almost all Collatz orbits are almost bounded.
