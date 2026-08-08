@@ -32,10 +32,14 @@
 --            Tao (2019, almost all orbits almost bounded)
 
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Order.Filter.AtTopBot.Basic
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 
 namespace Millennium.Collatz
+
+open scoped Classical
 
 open Imscribing.Primitives
 open Dimensionality Topology Relational Polarity Grammar
@@ -939,11 +943,26 @@ theorem drift_theorem :
   have h : Real.log (3/4) < 0 := Real.log_neg (by norm_num) (by norm_num)
   linarith
 
-/-- Tao's log-density theorem (2019).
-    Almost all Collatz orbits are almost bounded.
-    The proof uses logarithmic density and the Furstenberg
-    correspondence principle. -/
-axiom tao_log_density_axiom : True
+/-- The logarithmic density of `S` within `[1, N]`, weighting `n` by `1/n`. -/
+noncomputable def logDensityUpTo (S : ℕ → Prop) (N : ℕ) : ℝ :=
+    (∑ n ∈ (Finset.Icc 1 N).filter (fun n => S n), (1 : ℝ) / n) /
+      (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n)
+
+/-- Tao's log-density theorem (2019): almost all Collatz orbits are almost
+    bounded. For every `f` tending to infinity, the set of `n` whose orbit
+    dips below `f n` has logarithmic density 1.
+    The proof uses logarithmic density and the Furstenberg correspondence
+    principle; it is not formalised. -/
+axiom tao_log_density_axiom :
+    ∀ f : ℕ → ℝ, Filter.Tendsto f Filter.atTop Filter.atTop →
+      Filter.Tendsto (logDensityUpTo fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n)
+        Filter.atTop (nhds 1)
+
+/-- Almost all orbits are almost bounded. -/
+theorem tao_log_density (f : ℕ → ℝ) (hf : Filter.Tendsto f Filter.atTop Filter.atTop) :
+    Filter.Tendsto (logDensityUpTo fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n)
+      Filter.atTop (nhds 1) :=
+  tao_log_density_axiom f hf
 
 -- ============================================================
 -- §8  Closing — The Supercritical Vessel
