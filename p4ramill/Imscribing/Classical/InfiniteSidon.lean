@@ -154,11 +154,73 @@ noncomputable def infiniteSidon (C : ℕ) (η : ℝ) : Set ℕ :=
 
 -- ---------- Structural axioms ----------
 
+/-- Blocks are small relative to their own scale: every member of block `k` is
+    at most `4 · M_k`. This is what makes the scales separate — the block sits
+    inside `(M_k, 5·M_k]` after translation, while the next scale starts at
+    `10·C·M_k² + M_k + 1`. -/
+theorem block_le_scale (C : ℕ) (η : ℝ) (hη : 0 ≤ η) (k : ℕ) (b : ℕ)
+    (hb : b ∈ block C η k) : b ≤ 4 * M_seq C k := by
+  rcases Nat.lt_or_ge (m_k C η k) 1 with h | h
+  · have hbk : block C η k = {1} := by dsimp [block]; rw [dif_neg (by omega)]
+    rw [hbk, Finset.mem_singleton] at hb
+    have := M_pos C k; omega
+  · have hup := block_upper_bound C η k b hb h
+    have hM : (1:ℝ) ≤ (M_seq C k : ℝ) := by exact_mod_cast M_pos C k
+    -- m_k ≤ M_k^(1/2 - η) ≤ M_k^(1/2), so m_k² ≤ M_k
+    have hmk : ((m_k C η k : ℝ)) ≤ (M_seq C k : ℝ) ^ ((1:ℝ)/2 - η) :=
+      Nat.floor_le (by positivity)
+    have hsq : ((m_k C η k : ℝ))^2 ≤ (M_seq C k : ℝ) := by
+      have hpow : (M_seq C k : ℝ) ^ ((1:ℝ)/2 - η) ≤ (M_seq C k : ℝ) ^ ((1:ℝ)/2) := by
+        apply Real.rpow_le_rpow_of_exponent_le hM
+        linarith
+      have h1 : ((m_k C η k : ℝ))^2 ≤ ((M_seq C k : ℝ) ^ ((1:ℝ)/2))^2 := by
+        have : (0:ℝ) ≤ (m_k C η k : ℝ) := by positivity
+        nlinarith [hmk.trans hpow]
+      calc ((m_k C η k : ℝ))^2 ≤ ((M_seq C k : ℝ) ^ ((1:ℝ)/2))^2 := h1
+        _ = (M_seq C k : ℝ) := by
+            rw [← Real.rpow_natCast ((M_seq C k : ℝ) ^ ((1:ℝ)/2)) 2, ← Real.rpow_mul (by linarith)]
+            norm_num
+    have hnat : (m_k C η k)^2 ≤ M_seq C k := by exact_mod_cast hsq
+    have hconst : boseChowlaConst = 4 := rfl
+    rw [hconst] at hup
+    calc b ≤ 4 * (m_k C η k)^2 := hup
+      _ ≤ 4 * M_seq C k := by omega
+
 axiom union_isSidon (C : ℕ) (η : ℝ) (hCpos : C > 0) :
   isSidon (infiniteSidon C η)
 
-axiom union_infinite (C : ℕ) (η : ℝ) (hCpos : C > 0) :
-  Set.Infinite (infiniteSidon C η)
+/-- Blocks are never empty: the Bose-Chowla branch has at least `m_k` elements
+    and the fallback branch is `{1}`. -/
+theorem block_nonempty (C : ℕ) (η : ℝ) (k : ℕ) : (block C η k).Nonempty := by
+  rcases Nat.lt_or_ge (m_k C η k) 1 with h | h
+  · have hb : block C η k = {1} := by dsimp [block]; rw [dif_neg (by omega)]
+    rw [hb]; exact ⟨1, Finset.mem_singleton_self 1⟩
+  · have hc := block_card_ge C η k h
+    exact Finset.card_pos.mp (by omega)
+
+/-- `M_seq` outruns its index, so it is unbounded. -/
+theorem M_ge_self (C : ℕ) (k : ℕ) : k + 1 ≤ M_seq C k := by
+  induction k with
+  | zero => exact M_pos C 0
+  | succ m ih => have := M_lt_next C m; omega
+
+/-- Every block contributes a point above `M_seq C k`. -/
+theorem mem_infiniteSidon_ge (C : ℕ) (η : ℝ) (k : ℕ) :
+    ∃ x ∈ infiniteSidon C η, M_seq C k < x := by
+  obtain ⟨b, hb⟩ := block_nonempty C η k
+  refine ⟨M_seq C k + b, ?_, ?_⟩
+  · rw [infiniteSidon, Set.mem_iUnion]
+    exact ⟨k, ⟨b, hb, rfl⟩⟩
+  · have := block_pos C η k b hb; omega
+
+theorem union_infinite (C : ℕ) (η : ℝ) (hCpos : C > 0) :
+    Set.Infinite (infiniteSidon C η) := by
+  apply Set.infinite_of_not_bddAbove
+  rintro ⟨B, hB⟩
+  obtain ⟨x, hx, hgt⟩ := mem_infiniteSidon_ge C η B
+  have hle := hB hx
+  have := M_ge_self C B
+  omega
 
 axiom counting_asymptotic (η : ℝ) (hη : η > 0) :
   ∃ (c : ℝ) (N₀ : ℕ), c > 0 ∧ ∀ (N : ℕ), N ≥ N₀ →
