@@ -34,6 +34,39 @@ structure Imscription : Type where
   prot  : Protection       -- Ω
   deriving DecidableEq, Repr
 
+-- STATED AS A PREDICATE, NOT AN AXIOM, AND THE REASON MATTERS.
+--
+-- This was an axiom of the form
+--
+--   axiom holographic_closure_forces_frobenius (d) (t) (p) (pol) :
+--     d = if' → t = are → p ≥ ah → pol = or'
+--
+-- with `pol` universally quantified and unconstrained. Instantiating it at
+-- pol := yew and discharging the three hypotheses by rfl and le_refl yields
+-- `yew = or'`, and Polarity.noConfusion turns that into False. The axiom did
+-- not state that a holographically closed system carries or'; it stated that
+-- EVERY polarity is or', so it proved anything at all.
+--
+-- The content the axiom was reaching for is a constraint on an imscription, so
+-- that is what it is now: a predicate that reads the polarity off the structure
+-- instead of quantifying over it freely. Every field of a concrete imscription
+-- is a constructor, so the predicate is decidable and each instance is
+-- discharged by `decide` — no axiom, and the theorem says something, because it
+-- can fail for an imscription that does not satisfy it.
+def HolographicClosure (i : Imscription) : Prop :=
+  i.dim = Dimensionality.if' → i.top = Topology.are →
+  i.prot ≥ Protection.ah → i.pol = Polarity.or'
+
+instance : DecidablePred HolographicClosure := fun i => by
+  unfold HolographicClosure; infer_instance
+
+/-- Axiom D, demoted. For any concrete imscription the predicate is decided by
+    computation, so what used to need an axiom now needs nothing: the claim is
+    checked rather than assumed. -/
+theorem holographicClosure_of_decide (i : Imscription)
+    (h : decide (HolographicClosure i) = true) : HolographicClosure i :=
+  of_decide_eq_true h
+
 -- ============================================================
 -- HAMMING DISTANCE
 -- Count of component mismatches. Zero iff tuples are identical.
