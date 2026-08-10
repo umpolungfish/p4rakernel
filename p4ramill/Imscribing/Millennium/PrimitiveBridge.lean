@@ -933,14 +933,9 @@ def hodge_encoding_corrected : Imscription := {
     Given if' + are + ah, Axiom D forces pol = or'.
     This is the grammar-level theorem — it says nothing about mathematics,
     only about the constraint structure of the primitive lattice. -/
-theorem hodge_corrected_polarity_forced : hodge_encoding_corrected.pol = or' :=
-  holographic_closure_forces_frobenius
-    hodge_encoding_corrected.dim hodge_encoding_corrected.top
-    hodge_encoding_corrected.prot hodge_encoding_corrected.pol
-    rfl rfl (by
-      -- hodge_encoding_corrected.prot = ah, and ah ≥ ah
-      -- DecidableLE Protection: `decide` works on ground terms
-      decide)
+theorem hodge_corrected_polarity_forced : hodge_encoding_corrected.pol = or' := by
+  -- Concrete imscription: decided, not assumed.
+  decide
 
 /-- **THE SEMANTIC BRIDGE** — the one remaining gap.
 
