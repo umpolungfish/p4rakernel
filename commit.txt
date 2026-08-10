@@ -1,33 +1,38 @@
-Sixty-two axioms in the SIC moduli files were never assumptions
+Axiom D demoted: it proved False, and the concrete cases need no axiom
 
-The d=16 and d=20 moduli modules carried twenty-seven and thirty-five axioms
-between them, and none of them was a mathematical assumption. They were recorded
-PARI results wearing the syntax of one.
+Axiom D read
 
-Almost all came in pairs: an opaque constant and a second axiom giving its
-value. A value is a value. Each pair is now a definition and a theorem proved by
-rfl, which assumes nothing and says exactly what the pair said.
+  axiom holographic_closure_forces_frobenius (d) (t) (p) (pol) :
+    d = if' → t = are → p ≥ ah → pol = or'
 
-The tower degrees were seven separate assertions each. They are not independent:
-at d=16 the tower doubles, then quadruples through the maximal-growth interval,
-then doubles again once the leading invariant saturates, so only the seed is
-data. At d=20 the odd part of the conductor contributes a factor of three at
-k=4, so that tower does not obey a single ratio and the levels are given
-directly. Either way every level is now checked rather than taken.
+with pol universally quantified and untouched by the hypotheses. I meant it to
+say that a holographically closed system carries or'. It said that EVERY
+polarity is or'. Instantiate at pol := yew, discharge the three hypotheses by
+rfl and le_refl, and it hands back yew = or'; Polarity.noConfusion turns that
+into False. I proved False from it and printed the dependency to be sure: the
+standard three plus that axiom, nothing else. So it proved anything at all, and
+every theorem resting on it said nothing.
 
-Three at d=20 said nothing at all. Two were axioms of True, which is provable
-and carries no content, so what they recorded was a name and no claim. The third
-was an opaque Prop asserted to hold. All three had real content in the prose
-around them, and that content is decidable against the two dimension lists the
-same file states: 20 fails the coinvariant identity, 16 and 24 hold it, and the
-class group at 20 has order two exactly as at 16, so it cannot be what
-distinguishes them.
+Hodge_KernelCrossing carried the inconsistency as a stated lemma —
+hodge_polarity_forced_pm_sym (pol : Polarity) : pol = or' — and the chain
+Axiom D → that lemma → hodge_pm_semantic_bridge → HodgeConjecture ran through
+it.
 
-Both modules build, and the theorems stand on nothing. The coinvariant
-confirmation at d=16 and the class-group statement at d=20 depend on no axioms
-whatever; the rest carry only propext and Quot.sound, which is what any use of
-Mathlib's equality carries. The tower theorems use `decide` rather than
-`native_decide`, so the compiler is out of the trusted base and the kernel
-checks the arithmetic itself.
+It is now HolographicClosure, a predicate on an imscription that reads the
+polarity off the structure instead of quantifying over it. Every field of a
+concrete imscription is a constructor, so the predicate is decidable, and the
+three theorems that used to invoke the axiom are now closed by `decide`:
+bsd_axiom_D_forces_frobenius depends on propext alone,
+bsd_frobenius_identity_is_structural and hodge_corrected_polarity_forced on no
+axiom at all. The axiom was never needed for a concrete case — and using it made
+those theorems vacuous, because it proved the conclusion whatever the polarity
+actually was.
 
-Repository axiom count falls from 435 to 373.
+AxiomD_Demotion.lean is the guard. It prints the dependencies, shows the
+constraint HOLDS for bsdResolved, and shows it FAILS for the same imscription
+with only its polarity changed — the signature intact, so the hypotheses still
+fire. That falsifiability is the whole point: it is now a claim that can be
+wrong, which the axiom form could not express.
+
+The predicate lives in Primitives/Imscription.lean because that is where
+Imscription is defined; Core.lean keeps a note saying where it went and why.

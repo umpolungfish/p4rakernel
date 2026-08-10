@@ -313,10 +313,10 @@ axiom Omega_Z_requires_H2 (p : Protection) (h : Chirality) :
 --
 -- This is the grammar's original claim for the Hodge conjecture, the unique MPP
 -- carrying both if' and are simultaneously among all seven problems.
-axiom holographic_closure_forces_frobenius (d : Dimensionality) (t : Topology)
-    (p : Protection) (pol : Polarity) :
-    d = Dimensionality.if' → t = Topology.are → p ≥ Protection.ah →
-    pol = Polarity.or'
+-- Axiom D was here, as `holographic_closure_forces_frobenius`. It is now the
+-- decidable predicate `HolographicClosure` in Primitives/Imscription.lean,
+-- because it constrains an imscription and Imscription is defined there. See
+-- that file for why the axiom form was unsound.
 
 -- Tendency (not hard axiom): wool co-occurs with on.
 -- An inexhaustible tower stands because its store is frozen.

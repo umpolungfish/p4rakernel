@@ -159,8 +159,11 @@ theorem bsd_axiom_D_forces_frobenius :
   have hT : bsdResolved.top = .are := rfl
   have hΩ : bsdResolved.prot ≥ .ah := by
     simp [bsdResolved]; decide
-  exact holographic_closure_forces_frobenius
-    bsdResolved.dim bsdResolved.top bsdResolved.prot bsdResolved.pol hD hT hΩ-- ============================================================
+  -- bsdResolved is concrete: every field is a constructor, so this is decided
+  -- by computation. The axiom this used to invoke proved the same conclusion
+  -- whatever bsdResolved.pol actually was, which is why it proved nothing.
+  clear hD hT hΩ
+  decide-- ============================================================
 -- §4. MULTIVERSE ANALYSIS: BSD ACROSS ALL 20 UNIVERSES
 -- ============================================================
 
@@ -291,9 +294,8 @@ theorem bsd_t_consistency :
 theorem bsd_frobenius_identity_is_structural :
     (bsdResolved.dim = .if' ∧ bsdResolved.top = .are ∧ bsdResolved.prot ≥ .ah) →
     bsdResolved.pol = .or' := by
-  intro ⟨hD, hT, hΩ⟩
-  exact holographic_closure_forces_frobenius
-    bsdResolved.dim bsdResolved.top bsdResolved.prot bsdResolved.pol hD hT hΩ
+  intro _
+  decide
 
 -- ============================================================
 -- §7. COMPARISON: BSD vs OTHER CLAY PROBLEMS

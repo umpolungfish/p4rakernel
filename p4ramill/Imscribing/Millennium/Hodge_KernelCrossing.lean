@@ -464,14 +464,23 @@ theorem promotions_closed_by_split
 
 /-- **PRIMITIVE-LEVEL CONSEQUENCE OF AXIOM D** — Grammar theorem, 0 sorries.
 
-    The Hodge conjecture's signature (if', are, ah)
-    forces its polarity to or', by Axiom D (Core.lean).
-    This is a statement purely about primitive type values — no mathematical
-    objects involved. ah ≥ ah is discharged by decide. -/
-theorem hodge_polarity_forced_pm_sym (pol : Polarity) : pol = Polarity.or' :=
-  holographic_closure_forces_frobenius
-    Dimensionality.if' Topology.are Protection.ah pol
-    rfl rfl (by decide)
+    An imscription carrying the Hodge signature (if', are, ah) and satisfying
+    holographic closure has polarity or'.
+
+    This used to read `(pol : Polarity) : pol = or'` — every polarity is or' —
+    which is false, and was derivable only because Axiom D quantified over an
+    unconstrained polarity. Applying that version to any two distinct polarities
+    proved False, so every downstream theorem built on it said nothing.
+
+    Now the imscription carries the claim and `HolographicClosure i` is a
+    hypothesis that must be discharged. For a concrete imscription that is
+    `by decide` and costs no axiom. -/
+theorem hodge_polarity_forced_pm_sym (i : Imscription)
+    (hd : i.dim = Dimensionality.if') (ht : i.top = Topology.are)
+    (hp : i.prot ≥ Protection.ah) (hc : HolographicClosure i) :
+    i.pol = Polarity.or' := by
+  unfold HolographicClosure at hc
+  exact hc hd ht hp
 
 /-!
   COROLLARY: The catalog entry for the Hodge conjecture must have pol = or'.
