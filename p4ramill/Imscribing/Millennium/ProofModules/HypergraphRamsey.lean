@@ -32,35 +32,24 @@ noncomputable def R_r (r : ℕ) (n : ℕ) : ℕ :=
       ∀ e ⊆ sub, e.card = r → coloring e = i }
 
 /-- Lower bound: R_r(n) ≥ tower(r-1, c·n) for some constant c > 0 -/
-theorem hypergraph_ramsey_lower_bound (r : ℕ) (hr : r ≥ 2) :
-  ∃ (c : ℝ) (h_c : c > 0),
-  ∀ᶠ (n : ℕ) in atTop,
-    (R_r r n : ℝ) ≥ (tower (r - 1) (Nat.ceil (c * (n : ℝ))) : ℝ) := by
-  -- Proof by probabilistic method (Erdős-Rényi):
-  -- Random r-coloring of all r-subsets of [N] has no monochromatic K_n^r
-  -- when N = tower(r-1, o(n))
-  -- The tower growth comes from iterating the probabilistic bound
-  sorry
+def HypergraphRamseyLowerBound : Prop :=
+  ∀ r : ℕ, 2 ≤ r → ∃ c : ℝ, 0 < c ∧ ∀ᶠ (n : ℕ) in atTop,
+    (R_r r n : ℝ) ≥ (tower (r - 1) (Nat.ceil (c * (n : ℝ))) : ℝ)
 
 /-- Upper bound: R_r(n) ≤ tower(r-1, C·n) for some constant C > 0 -/
-theorem hypergraph_ramsey_upper_bound (r : ℕ) (hr : r ≥ 2) :
-  ∃ (C : ℝ) (h_C : C > 0),
-  ∀ᶠ (n : ℕ) in atTop,
-    (R_r r n : ℝ) ≤ (tower (r - 1) (Nat.ceil (C * (n : ℝ))) : ℝ) := by
-  -- Proof by induction on r:
-  -- Base case r=2: Schur's theorem and exponential bound
-  -- Inductive step: use the step-up construction
-  -- R_r(n) ≤ 2^{R_{r-1}(n)} iterated (r-1) times
-  sorry
+def HypergraphRamseyUpperBound : Prop :=
+  ∀ r : ℕ, 2 ≤ r → ∃ C : ℝ, 0 < C ∧ ∀ᶠ (n : ℕ) in atTop,
+    (R_r r n : ℝ) ≤ (tower (r - 1) (Nat.ceil (C * (n : ℝ))) : ℝ)
 
 /-- Main theorem: R_r(n) = tower(r-1, Θ(n)) -/
-theorem hypergraph_ramsey_asymptotic (r : ℕ) (hr : r ≥ 2) :
+theorem hypergraph_ramsey_asymptotic (hlow : HypergraphRamseyLowerBound)
+    (hup : HypergraphRamseyUpperBound) (r : ℕ) (hr : r ≥ 2) :
   ∃ (c C : ℝ) (h_c : c > 0) (h_C : C > 0),
   ∀ᶠ (n : ℕ) in atTop,
     (tower (r - 1) (Nat.ceil (c * (n : ℝ))) : ℝ) ≤ (R_r r n : ℝ) ∧
     (R_r r n : ℝ) ≤ (tower (r - 1) (Nat.ceil (C * (n : ℝ))) : ℝ) := by
-  obtain ⟨c, hc₁, hc₂⟩ := hypergraph_ramsey_lower_bound r hr
-  obtain ⟨C, hC₁, hC₂⟩ := hypergraph_ramsey_upper_bound r hr
+  obtain ⟨c, hc₁, hc₂⟩ := hlow r hr
+  obtain ⟨C, hC₁, hC₂⟩ := hup r hr
   refine ⟨c, C, hc₁, hC₁, ?_⟩
   filter_upwards [hc₂, hC₂] with n h1 h2
   exact ⟨h1, h2⟩
@@ -69,16 +58,23 @@ theorem hypergraph_ramsey_asymptotic (r : ℕ) (hr : r ≥ 2) :
 noncomputable def tower_height (r : ℕ) (n : ℕ) : ℕ :=
   Nat.ceil ((r - 1 : ℝ) * (n : ℝ))
 
-/-- Double-exponential lower bound for r = 2 -/
-theorem binary_ramsey_two_color (n : ℕ) :
-  R_r 2 n ≥ (2 ^ n : ℕ) := by
-  -- Classical result: R(2, n) ≥ 2^{n/2} via the probabilistic method
-  sorry
+/-- **The two-colour bound, at the exponent the classical result gives.**
+This read `R_r 2 n ≥ 2^n` while its own comment quoted the classical
+`R(n,n) ≥ 2^{n/2}`. The Erdős probabilistic bound is `2^{n/2}`, and squaring it
+is not a weakening — asserting `2^n` claims strictly more than the method
+delivers, and the exponent is exactly the open part of the two-colour problem.
+Stated at `n/2`, and as a Prop. -/
+def BinaryRamseyTwoColour : Prop :=
+  ∀ n : ℕ, R_r 2 n ≥ (2 ^ (n / 2) : ℕ)
 
-/-- Triple-exponential lower bound for r = 3 -/
-theorem ternary_ramsey_lower (n : ℕ) :
-  R_r 3 n ≥ (tower 2 (n / 2) : ℕ) := by
-  -- Double tower growth: R_3(n) ≥ 2^{2^{c·n}}
-  sorry
+/-- The gap between the two readings, so the difference is on the record:
+`2^(n/2)` and `2^n` part company from `n = 2`. -/
+theorem exponent_gap_two_colour (n : ℕ) (hn : 2 ≤ n) : 2 ^ (n / 2) < 2 ^ n := by
+  refine Nat.pow_lt_pow_right (by norm_num) ?_
+  omega
+
+/-- The three-colour tower bound, as a statement. -/
+def TernaryRamseyLower : Prop :=
+  ∀ n : ℕ, R_r 3 n ≥ (tower 2 (n / 2) : ℕ)
 
 end Millennium.ProofModules.HypergraphRamsey

@@ -31,22 +31,15 @@ def is_sunflower {α : Type*} [DecidableEq α] (F : Finset (Finset α)) (r : ℕ
 noncomputable def alwz_threshold (k : ℕ) : ℝ :=
   (40 : ℝ)^k -- C ≈ 40 from the random algebraic construction
 
-theorem sunflower_conjecture_resolution {α : Type*} [DecidableEq α] (k : ℕ) (hk : k ≥ 2) :
-    ∃ C : ℝ, C > 0 ∧ ∀ F : Finset (Finset α),
-      (∀ s ∈ F, s.card = k) →
-      (F.card : ℝ) > (C * (k : ℝ) / Real.log (k : ℝ))^k →
-      ∃ r : ℕ, r ≥ k + 1 ∧ is_sunflower F r := by
-  -- Proof structure:
-  -- 1. Random algebraic method: choose random polynomial map φ : [α] → 𝔽_q^k
-  -- 2. Each set S ∈ F maps to φ(S) ∈ 𝔽_q^k
-  -- 3. Sunflower in 𝔽_q^k corresponds to collinear subsets
-  -- 4. If |F| > threshold, pigeonhole forces two elements with same pattern
-  -- 5. This creates a sunflower of size ≥ k+1
-  refine ⟨40, by norm_num, ?_⟩
-  intro F hF hbig
-  -- The full proof requires the random algebraic construction
-  -- over finite fields of characteristic p ≈ k
-  sorry
+/-- **Alweiss–Lovett–Wu–Zhang, as a statement.** Cited, not formalized here.
+Writing it as a Prop keeps it out of the trusted base; the `sorry` that stood
+here put every downstream result in this file on `sorryAx` instead, including
+the effective bound below, which is fully proved and does not need it. -/
+def SunflowerConjecture (α : Type*) [DecidableEq α] (k : ℕ) : Prop :=
+  ∃ C : ℝ, C > 0 ∧ ∀ F : Finset (Finset α),
+    (∀ s ∈ F, s.card = k) →
+    (F.card : ℝ) > (C * (k : ℝ) / Real.log (k : ℝ))^k →
+    ∃ r : ℕ, r ≥ k + 1 ∧ is_sunflower F r
 
 /-! ### The effective bound, proved
 
