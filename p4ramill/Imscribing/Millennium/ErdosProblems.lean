@@ -115,7 +115,7 @@ theorem frobenius_invariant_note : True := by
   Anti-Ramsey C_{2k+1}    O₂     roar  oak  hung
   Subgroup Orders S_n     O₂dag   roar  ah   so
   Erdős–Kac Interval      O₀      woe   ah   hung
-  Ramsey Asymptotics      O₂     roar  ah   hung
+  Ramsey Asymptotics      O₂dag  roar  ah   hung
   Polynom Asymptotics     O₂dag   roar  ah   hung
   Unit Distance Problem   O₂     roar  oak  hung
   Difference Sets Syn.    O₂dag   roar  ah   hung
@@ -126,8 +126,9 @@ theorem frobenius_invariant_note : True := by
   - O₂dag dominates (5 of 10). roar+ah at thigh/ice gives the
     dagger-crossing — analytic criticality with integer winding
     at intermediate-to-global correlation range.
-  - O₂ appears in 2: Anti-Ramsey (oak), Ramsey Asym. (ah at thigh),
-    Unit Distance (oak at thigh).
+  - O₂ appears in 2: Anti-Ramsey (oak) and Unit Distance (oak at
+    thigh). Ramsey Asymptotics is O₂dag, as its tier theorem proves and
+    as the §18 distribution already counted it.
   - O₀ only for Erdős-Kac (woe subcritical, global ice).
   - O₀ for Triangle Partition (woe subcritical, local bib) and Erdős-Kac.
 
