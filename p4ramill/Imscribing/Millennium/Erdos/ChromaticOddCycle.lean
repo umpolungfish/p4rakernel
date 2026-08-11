@@ -8,6 +8,7 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Imscribing.Paraconsistent.BelnapSplitFuse
 import Mathlib.Tactic
 
 namespace Millennium.ErdosProblems
@@ -46,10 +47,14 @@ SELECTIVITY: model=B FFUSE gate=F→B, conflict d=1, match 1/3, collisions 1/3.
   to small subgraphs. High χ is compatible with every odd cycle's
   induced subgraph having the minimum possible χ (=3).
 
-  Tier: O₁ (critical, no topological protection). Belnap: B.
-  The structural branch says "NO for k≥4" (T). But the k=3 vs k≥4
-  divide creates a dialetheia: YES for k=3, NO for k≥4. The two
-  imscriptions conflict at the k-boundary → B.
+  Tier: O₁ (critical, no topological protection). Verdict: T.
+  This read B, on the ground that "YES for k=3, NO for k≥4" is a
+  dialetheia at the k-boundary. It is a case split. The answer is a
+  function of k, and a function taking different values at different
+  arguments is not a proposition holding both True and False — the same
+  correction as in AntiRamseyOddCycles §2.3. B needs one proposition
+  with a T and an F on it, which `ffuse` reaches only from that pair
+  (`chromatic_ffuse_case_split`).
 
   This is O₁: roar criticality (Erdős probabilistic construction is
   a critical phenomenon) but no Ω-protection (the odd cycle's χ=3
@@ -175,7 +180,8 @@ theorem shortest_odd_cycle_chi_three : (3 : ℕ) < 4 := by norm_num
 #print axioms chorded_cycle_long
 #print axioms cycleColour_proper
 
-def chromatic_odd_cycle_belnap_verdict : String := "B"
+/-- T. The k=3 / k≥4 divide is a case split, not a dialetheia. -/
+def chromatic_odd_cycle_belnap_verdict : String := "T"
 
 def chromatic_odd_cycle_branch_verdicts : List (FsplitBranch × String) :=
   [(FsplitBranch.structural, "T"),
@@ -197,6 +203,12 @@ def chromatic_odd_cycle_known_results : List (Bool × String) :=
 
 def chromatic_odd_cycle_kernel_output : String :=
   "NO for k≥4. Erdős (1959): high χ + large girth; the shortest odd cycle is chordless, χ=3<k."
+
+/-- Two answers at two arguments fuse to T; only a T/F opposition on ONE
+proposition reaches B. -/
+theorem chromatic_ffuse_case_split :
+    ffuse (Belnap.T, Belnap.T) = Belnap.T ∧ ffuse (Belnap.T, Belnap.F) = Belnap.B := by
+  decide
 
 /-- What was a `: True` placeholder now names the mechanism: the chord
 split, and the girth threshold that the split forces. -/

@@ -6,6 +6,7 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Paraconsistent.BelnapSplitFuse
 import Imscribing.Millennium.Erdos.Base
 import Imscribing.Millennium.Erdos.ErdosTuranAP
 import Imscribing.Millennium.Erdos.AntiRamseyOddCycles
@@ -98,12 +99,15 @@ information was lost in decomposition.
 -/
 
 /--
-The kernel's Frobenius invariant: mu ∘ delta = id holds at every
-FSPLIT/FFUSE pair in the Rust kernel's frob_verify.rs.
-All 4 cycles passed 2/2 checks.
+The kernel's Frobenius invariant, stated where it can be checked rather
+than reported. `frob_verify.rs` runs the FSPLIT/FFUSE round trip on the
+Belnap values; the identity it checks is `ffuse ∘ fsplit = id`, and that
+is a theorem here — `split_fuse_id` in BelnapSplitFuse, by exhaustion
+over the four values. What the Rust run adds is that the kernel's own
+implementation agrees with it, not the identity itself.
 -/
-theorem frobenius_invariant_note : True := by
-  trivial
+theorem frobenius_invariant (s : Belnap) : ffuse (fsplit s) = s :=
+  split_fuse_id s
 
 -- ============================================================
 -- §13  CROSS-PROBLEM STRUCTURAL COMPARISON (CYCLES 5–10)
@@ -229,11 +233,15 @@ FSPLIT→FFUSE round-trip.
 -/
 
 /--
-The mOMonadOS kernel's Frobenius invariant holds across all 10
-Erdős problem cycles. Each FSPLIT/FFUSE pair satisfies μ∘δ=id.
+The same identity across all ten cycles. It is one theorem, not ten
+checks: `ffuse ∘ fsplit = id` holds for every Belnap value, so it holds
+at every cycle's pair whatever the cycle carried. B is the only value
+that genuinely bifurcates — `fsplit B = (T,F)` — and it is also the only
+one whose reassembly needs the (T,F) ↦ B arm rather than the join.
 -/
-theorem frobenius_10_cycle_note : True := by
-  trivial
+theorem frobenius_10_cycle :
+    (∀ s : Belnap, ffuse (fsplit s) = s) ∧ fsplit Belnap.B = (Belnap.T, Belnap.F) :=
+  ⟨split_fuse_id, rfl⟩
 
 -- ============================================================
 -- §18  CROSS-RUN DIVERGENCE TABLE — all 5 reruns vs. originals
@@ -357,8 +365,16 @@ Now 17 problems total. The breakdown:
     O_∞: 0
 
   **Belnap verdict distribution** (counted from `belnap_verdict_table_v4`):
-    T (single voice): 11
-    B (dialetheia held, not resolved to one voice): 6
+    T (single voice): 12
+    B (dialetheia held, not resolved to one voice): 4
+    F (refuted): 1
+  Two entries moved off B. Chromatic vs Odd Cycle held B for the k=3 / k≥4
+  divide, which is a case split — the answer is a function of k, and a
+  function taking different values at different arguments is not one
+  proposition carrying both T and F. Sumset k-APs held B for a claim that
+  is refuted, g₃(n) ≫ 3ⁿ, with the constant open; that is F with N, and
+  the join sends it to F. A table partitioned into T and B alone is what
+  let both of them sit at B.
   The v4 table carries one verdict per problem, so it cannot be split further
   into T/T/T and T/T/B; the three-branch split is recorded only for the first
   ten problems, in `belnap_verdict_table_extended`.
@@ -377,14 +393,14 @@ Now 17 problems total. The breakdown:
 
 def belnap_verdict_table_v4 : List (String × String × String × FsplitBranch × FsplitBranch × FsplitBranch) :=
   [("Erdős-Hajnal ℵ₁ Graph",        "O₀", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
-   ("Sumset k-APs (q817)",           "O₀", "B", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
+   ("Sumset k-APs (q817)",           "O₀", "F", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Unit Distance Problem",         "O₀", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Chromatic Number",              "O₀", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Chromatic-Girth",               "O₀", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Contact Graph Convex Trans.",   "O₀", "B", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Perfect Cuboid (infinite desc.)","O₀", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Binomial GCD",                  "O₁", "B", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
-   ("Chromatic vs Odd Cycle (q640)", "O₁", "B", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
+   ("Chromatic vs Odd Cycle (q640)", "O₁", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Monochr. Odd Cycle K_{2ⁿ+1}",   "O₁", "B", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("De Bruijn-Erdős Crossing",      "O₁", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Ramsey R(3,k)",                 "O₁", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
@@ -406,15 +422,23 @@ def dialetheic_v4 : List (String × String × String × FsplitBranch × FsplitBr
 def single_voiced_v4 : List (String × String × String × FsplitBranch × FsplitBranch × FsplitBranch) :=
   belnap_verdict_table_v4.filter (fun r => r.2.2.1 == "T")
 
+/-- The third value. Two entries carried B for something that was not an
+    opposition and one of them was a refutation, so the table needs F as
+    well as T and B — a partition into two was itself the drift. -/
+def refuted_v4 : List (String × String × String × FsplitBranch × FsplitBranch × FsplitBranch) :=
+  belnap_verdict_table_v4.filter (fun r => r.2.2.1 == "F")
+
 def belnap_dialetheic_count_v4 : Nat := dialetheic_v4.length
 def single_voiced_count_v4 : Nat := single_voiced_v4.length
+def refuted_count_v4 : Nat := refuted_v4.length
 
 theorem verdicts_partition_v4 :
-    belnap_dialetheic_count_v4 + single_voiced_count_v4
+    belnap_dialetheic_count_v4 + single_voiced_count_v4 + refuted_count_v4
       = belnap_verdict_table_v4.length := by decide
 
-theorem dialetheic_count_v4_is_six : belnap_dialetheic_count_v4 = 6 := by decide
-theorem single_voiced_count_v4_is_eleven : single_voiced_count_v4 = 11 := by decide
+theorem dialetheic_count_v4_is_four : belnap_dialetheic_count_v4 = 4 := by decide
+theorem single_voiced_count_v4_is_twelve : single_voiced_count_v4 = 12 := by decide
+theorem refuted_count_v4_is_one : refuted_count_v4 = 1 := by decide
 
 /--
 The O₀ cluster (subcritical problems) share criticality φ̂=woe: φ̂<⊙
@@ -508,8 +532,9 @@ Tournament Domination problem (q946). Now 18 problems total.
     O_∞: 0
 
   **Belnap verdict distribution** (counted from `belnap_verdict_table_v5`):
-    T (single voice): 11
-    B (dialetheia held): 7
+    T (single voice): 12
+    B (dialetheia held): 5
+    F (refuted): 1
 
   **Structural clusters by nearest-neighbor:**
     Cluster A (subcritical counting, d < 1.5):
@@ -535,14 +560,14 @@ Tournament Domination problem (q946). Now 18 problems total.
 
 def belnap_verdict_table_v5 : List (String × String × String) :=
   [("Erdős-Hajnal ℵ₁ Graph",        "O₀", "T"),
-   ("Sumset k-APs (q817)",           "O₀", "B"),
+   ("Sumset k-APs (q817)",           "O₀", "F"),
    ("Unit Distance Problem",         "O₀", "T"),
    ("Chromatic Number",              "O₀", "T"),
    ("Chromatic-Girth",               "O₀", "T"),
    ("Contact Graph Convex Trans.",   "O₀", "B"),
    ("Perfect Cuboid (infinite desc.)","O₀", "T"),
    ("Binomial GCD",                  "O₁", "B"),
-   ("Chromatic vs Odd Cycle (q640)", "O₁", "B"),
+   ("Chromatic vs Odd Cycle (q640)", "O₁", "T"),
    ("Monochr. Odd Cycle K_{2ⁿ+1}",   "O₁", "B"),
    ("De Bruijn-Erdős Crossing",      "O₁", "T"),
    ("Ramsey R(3,k)",                 "O₁", "T"),
@@ -567,17 +592,24 @@ def dialetheic_v5 : List (String × String × String) :=
 def single_voiced_v5 : List (String × String × String) :=
   belnap_verdict_table_v5.filter (fun r => r.2.2 == "T")
 
+def refuted_v5 : List (String × String × String) :=
+  belnap_verdict_table_v5.filter (fun r => r.2.2 == "F")
+
 def belnap_dialetheic_count_v5 : Nat := dialetheic_v5.length
 def single_voiced_count_v5    : Nat := single_voiced_v5.length
+def refuted_count_v5          : Nat := refuted_v5.length
 
-/-- The table is fully classified: every problem is T or B, none unaccounted. -/
+/-- The table is fully classified across THREE values. It was partitioned
+    into T and B alone, which is what let a refuted claim and a case split
+    both sit at B. -/
 theorem verdicts_partition_v5 :
-    belnap_dialetheic_count_v5 + single_voiced_count_v5
+    belnap_dialetheic_count_v5 + single_voiced_count_v5 + refuted_count_v5
       = belnap_verdict_table_v5.length := by decide
 
 /-- And what the counts actually are, computed rather than claimed. -/
-theorem dialetheic_count_v5_is_seven : belnap_dialetheic_count_v5 = 7 := by decide
-theorem single_voiced_count_v5_is_eleven : single_voiced_count_v5 = 11 := by decide
+theorem dialetheic_count_v5_is_five : belnap_dialetheic_count_v5 = 5 := by decide
+theorem single_voiced_count_v5_is_twelve : single_voiced_count_v5 = 12 := by decide
+theorem refuted_count_v5_is_one : refuted_count_v5 = 1 := by decide
 
 /--
 The Schütte Tournament adds a sixth O₁ problem with the φ̂=roar / Ω=awe
