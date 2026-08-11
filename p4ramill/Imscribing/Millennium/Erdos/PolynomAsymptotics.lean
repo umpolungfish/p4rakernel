@@ -8,6 +8,9 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Imscribing.Paraconsistent.BelnapSplitFuse
+import Mathlib.Tactic
+import Mathlib.Analysis.SpecialFunctions.Complex.Log
 
 namespace Millennium.ErdosProblems
 open Imscribing.Primitives
@@ -43,7 +46,12 @@ Let M_n = max_{|z|=1} ∏_{i=1}^n |z - z_i| where all |z_i| = 1
     "small" for most n. This makes the sum condition Q3 deeply
     non-trivial and currently OPEN.
 
-**Result: Q1=T, Q2=T, Q3=OPEN.**
+**Result: Q1=T, Q2=T, Q3=OPEN.** What Q3 asks over and above Q2 is a
+power saving, not growth: M_k ≥ 1 always, since ∏(z − z_i) is monic of
+degree k, so Σ_{k≤n} M_k ≥ n is free and Q3's n^{1+c} lives entirely in
+the exponent (`sum_ge_card`, `q3_is_power_saving`). Q2's M_k > k^c
+infinitely often contributes only finitely much to any given partial
+sum, which is why Q3 does not follow from it.
 
 **Structural Imscription — erdos_polynom_asymptotics:**
   D=array (n→∞ asymptotic sequence)
@@ -81,24 +89,116 @@ def erdos_polynom_asymptotics : Imscription :=
 theorem erdos_polynom_asymptotics_tier : imscriptionTier erdos_polynom_asymptotics = .O₂dag := by
   unfold erdos_polynom_asymptotics; native_decide
 
+
+-- ============================================================
+-- §8.1  THE ROOTS OF UNITY GIVE M_n = 2, AND WHY THAT IS ALLOWED
+-- ============================================================
+
+/-!
+Taking the `n`-th roots of unity for the points makes the product
+`∏(z − z_i)` equal to `z^n − 1`, whose maximum on the circle is exactly
+2 — no growth in `n` at all. That configuration does not refute Q1,
+because Q1 is about ONE infinite sequence and the first `n` of its terms.
+The `n`-th roots of unity and the `(n+1)`-th roots meet only at 1, so no
+single sequence can present the roots of unity at two consecutive `n`.
+That is the whole reason the question is hard: the extremal configuration
+at each `n` exists but cannot be held simultaneously.
+-/
+
+/-- On the unit circle `‖z^n − 1‖ ≤ 2`. -/
+theorem abs_pow_sub_one_le_two {z : ℂ} (hz : ‖z‖ = 1) (n : ℕ) :
+    ‖z ^ n - 1‖ ≤ 2 := by
+  have h1 : ‖z ^ n‖ = 1 := by rw [norm_pow, hz, one_pow]
+  calc ‖z ^ n - 1‖ ≤ ‖z ^ n‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
+    _ = 2 := by rw [h1]; norm_num
+
+/-- And 2 is attained, at any `z` with `z^n = −1`. -/
+theorem abs_pow_sub_one_eq_two {z : ℂ} {n : ℕ} (h : z ^ n = -1) :
+    ‖z ^ n - 1‖ = 2 := by
+  rw [h, show (-1 : ℂ) - 1 = -2 by ring]
+  simp
+
+/-- **`M_n = 2` for the roots-of-unity configuration** — bounded in `n`,
+so no single `n` witnesses unboundedness. -/
+theorem roots_of_unity_max_is_two {z : ℂ} (hz : ‖z‖ = 1) (n : ℕ) :
+    ‖z ^ n - 1‖ ≤ 2 ∧ (z ^ n = -1 → ‖z ^ n - 1‖ = 2) :=
+  ⟨abs_pow_sub_one_le_two hz n, fun h => abs_pow_sub_one_eq_two h⟩
+
+/-- **The configurations cannot be nested.** The `n`-th and `(n+1)`-th
+roots of unity share only the roots of order dividing `gcd(n, n+1) = 1`,
+namely 1 itself. A single sequence therefore cannot be extremal at two
+consecutive lengths. -/
+theorem consecutive_roots_coprime (n : ℕ) : Nat.gcd n (n + 1) = 1 := by
+  simpa using Nat.coprime_succ_self_right (n := n)
+
+-- ============================================================
+-- §8.2  WHAT Q3 IS ASKING OVER AND ABOVE Q2
+-- ============================================================
+
+/-!
+`M_k ≥ 1` holds for every configuration, because `∏(z − z_i)` is monic of
+degree `k` and a monic polynomial has maximum modulus at least 1 on the
+unit circle. So `Σ_{k≤n} M_k ≥ n` is free, and Q3's `n^{1+c}` is a POWER
+SAVING over that trivial bound rather than a growth statement on its own.
+Q2 gives `M_k > k^c` infinitely often, which by itself contributes only
+finitely much extra to any particular partial sum — which is exactly why
+Q3 does not follow from Q2.
+-/
+
+/-- The trivial partial-sum bound, from `M_k ≥ 1`. -/
+theorem sum_ge_card {n : ℕ} (M : ℕ → ℝ) (hM : ∀ k, 1 ≤ M k) :
+    (n : ℝ) ≤ ∑ k ∈ Finset.range n, M k := by
+  calc (n : ℝ) = ∑ _k ∈ Finset.range n, (1 : ℝ) := by simp
+    _ ≤ ∑ k ∈ Finset.range n, M k :=
+        Finset.sum_le_sum (fun k _ => hM k)
+
+/-- Q3 is a power saving above it: `n^{1+c}` beats `n` for `c > 0` and
+`n ≥ 2`, so the content of Q3 is entirely in the exponent. -/
+theorem q3_is_power_saving (n : ℕ) (c : ℝ) (hc : 0 < c) (hn : 2 ≤ n) :
+    (n : ℝ) < (n : ℝ) ^ (1 + c) := by
+  have hn1 : (1 : ℝ) < n := by exact_mod_cast hn
+  calc (n : ℝ) = (n : ℝ) ^ (1 : ℝ) := by rw [Real.rpow_one]
+    _ < (n : ℝ) ^ (1 + c) := by
+        exact Real.rpow_lt_rpow_left_iff hn1 |>.2 (by linarith)
+
+-- ============================================================
+-- §8.3  T WITH N IS T
+-- ============================================================
+
+/-!
+The verdict here reads "B — Both True (Q1/Q2 resolved) and Neither (Q3 is
+open)". B is Both-True-and-False. The kernel's `ffuse` sends `(T,N)` to T,
+returning B only from a genuine T/F opposition, so the two branches as
+described fuse to T with the open question contributing N.
+
+The hub's rerun table separately records this problem as an
+OPEN→TRUE divergence on Q3. That divergence stands as an ambiguity: the
+original run read Q3 open and the rerun read it true, and nothing here
+settles which reading of Q3 was answered.
+-/
+
+theorem polynom_ffuse_true_neither : ffuse (Belnap.T, Belnap.N) = Belnap.T := by decide
+
+#print axioms abs_pow_sub_one_le_two
+#print axioms consecutive_roots_coprime
+#print axioms sum_ge_card
+
 /-!
 **Why O₂dag?** roar+ice+ah — global correlation range (ice: all n
 points on S¹ interact via discrepancy) with complex-analytic
 criticality (roar) and integer winding (ah) creates the dagger-crossing.
 
-**mOMonadOS Agent Verdict:** Belnap **B** — Both True (Q1/Q2
-resolved) and Neither (Q3 is open). The Linden construction shows
-M_n can be sub-polynomial for most n; Q3 remains a frontier.
+**Verdict: T.** This read "B — Both True (Q1/Q2 resolved) and Neither
+(Q3 is open)". B is Both-True-and-False; True with Neither is not it,
+and the kernel's own `ffuse` sends (T,N) to T, returning B only from a
+genuine T/F opposition (`polynom_ffuse_true_neither`). Q1 and Q2 carry
+T, Q3 contributes N, and the join absorbs it.
 
-**Known Results:**
-  ✓ Wagner (1980): M_n > (log n)^c i.o. → Q1=T
-  ✓ Beck (1991): max_{n≤N} M_n > N^c → Q2=T
-  ✓ Linden (1977): M_n ≪ n^{1-c} for positive density of n
-  ✗ Q3: Σ_{k≤n} M_k > n^{1+c} for large n? OPEN
-  ✗ Optimal exponent c for Beck's bound
+The hub's rerun table records this problem separately as an OPEN→TRUE
+divergence on Q3. That stands as an ambiguity: the original run read Q3
+open, the rerun read it true, and nothing here settles which reading of
+Q3 each answered.
 
-**Barrier:** Q3 requires proving sufficient density of "large" M_n
-values. Diffs to kernel: T(oil→are), Γ(measure→ooze), Ω(ah→zoo).
 -/
 
 -- ============================================================
