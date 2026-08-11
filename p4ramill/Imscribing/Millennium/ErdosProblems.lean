@@ -1461,6 +1461,71 @@ What is the growth of g_k(n)? Specifically: is g₃(n) ≫ 3ⁿ?
   yielding B. The kernel output: "g₃(n) ≫ 3ⁿ is REJECTED."
 -/
 
+/-! ### The construction, machine-checked
+
+The answer above was prose in this docstring: the base-3 construction rejects
+g₃(n) ≫ 3ⁿ because subset sums of {3⁰,…,3ⁿ⁻¹} are the numbers whose base-3
+digits lie in {0,1}, and no three of those form an arithmetic progression. That
+argument is elementary and there was no reason for it to stay unchecked.
+
+The mechanism is "no carries". Digits in {0,1} make x%3 + z%3 ≤ 2 and
+2·(y%3) ≤ 2, so reading x + z = 2y modulo 3 gives an EQUALITY rather than a
+congruence, nothing carries into the next place, and the AP condition descends
+to the digits one place at a time. At each place it forces x_i = y_i = z_i.
+-/
+
+namespace Q817
+
+/-- Numbers below `3^n` whose base-3 digits all lie in {0,1}. -/
+def BinaryBase3 : ℕ → ℕ → Prop
+  | 0,       x => x = 0
+  | (n + 1), x => (x % 3 = 0 ∨ x % 3 = 1) ∧ BinaryBase3 n (x / 3)
+
+/-- The key step: with digits restricted to {0,1} there are no carries, so an
+    arithmetic-progression condition descends to the digits one place at a time,
+    and at each place it forces equality. -/
+theorem no_three_ap (n : ℕ) :
+    ∀ x y z : ℕ, BinaryBase3 n x → BinaryBase3 n y → BinaryBase3 n z →
+      x + z = 2 * y → x = y ∧ z = y := by
+  induction n with
+  | zero =>
+      intro x y z hx hy hz _
+      simp [BinaryBase3] at hx hy hz
+      subst hx; subst hy; subst hz; exact ⟨rfl, rfl⟩
+  | succ n ih =>
+      intro x y z hx hy hz hap
+      obtain ⟨hx0, hx'⟩ := hx
+      obtain ⟨hy0, hy'⟩ := hy
+      obtain ⟨hz0, hz'⟩ := hz
+      -- the units digits satisfy x%3 + z%3 = 2*(y%3) exactly, no carry
+      -- x + z = 2y taken mod 3. Digits are in {0,1}, so x%3 + z%3 ≤ 2 and
+      -- 2*(y%3) ≤ 2: both sides are already reduced, so the congruence is an
+      -- equality. This is exactly "no carries".
+      have ex : 3 * (x / 3) + x % 3 = x := Nat.div_add_mod x 3
+      have ey : 3 * (y / 3) + y % 3 = y := Nat.div_add_mod y 3
+      have ez : 3 * (z / 3) + z % 3 = z := Nat.div_add_mod z 3
+      -- x + z = 2y read mod 3. Digits lie in {0,1}, so x%3 + z%3 ≤ 2 and
+      -- 2*(y%3) ≤ 2: both sides are already reduced, the congruence is an
+      -- equality, and nothing carries into the next place.
+      have hunits : x % 3 = y % 3 ∧ z % 3 = y % 3 ∧
+                    x / 3 + z / 3 = 2 * (y / 3) := by
+        rcases hx0 with h1 | h1 <;> rcases hy0 with h2 | h2 <;> rcases hz0 with h3 | h3 <;>
+          omega
+      obtain ⟨hxu, hzu, hcarry⟩ := hunits
+      obtain ⟨hxr, hzr⟩ := ih (x / 3) (y / 3) (z / 3) hx' hy' hz' hcarry
+      constructor
+      · omega
+      · omega
+
+/-- No NON-DEGENERATE 3-term AP: distinctness is impossible outright. -/
+theorem no_nondegenerate_three_ap (n x y z : ℕ)
+    (hx : BinaryBase3 n x) (hy : BinaryBase3 n y) (hz : BinaryBase3 n z)
+    (hap : x + z = 2 * y) (hne : x ≠ z) : False := by
+  obtain ⟨h1, h2⟩ := no_three_ap n x y z hx hy hz hap
+  exact hne (h1.trans h2.symm)
+
+end Q817
+
 def sumset_avoiding_k_ap : Imscription :=
   Imscription.mk
     (.array)   -- D: countable infinite (N grows with n)
@@ -2035,9 +2100,31 @@ def belnap_verdict_table_v5 : List (String × String × String) :=
    ("Hadwiger-Nelson Problem",       "O₂", "T"),
    ("Erdős Discrepancy Problem",     "O₂†","T")]
 
-def fully_resolved_count_v5 : Nat := 9
-def open_obstructional_count_v5 : Nat := 3
-def belnap_dialetheic_count_v5 : Nat := 6
+/-- Counted from the table, not asserted beside it.
+
+    These were hand-written numbers and they had gone stale: the table carries
+    11 verdicts of T and 7 of B, while the constants read 9 + 3 + 6. Adding
+    Schütte (q946) as the eighteenth problem moved the B count to 7 and the
+    constant stayed at 6. A number written next to a list it is supposed to
+    describe drifts the moment the list grows, which is exactly what happened
+    here — so the number now comes from the list. -/
+def dialetheic_v5 : List (String × String × String) :=
+  belnap_verdict_table_v5.filter (fun r => r.2.2 == "B")
+
+def single_voiced_v5 : List (String × String × String) :=
+  belnap_verdict_table_v5.filter (fun r => r.2.2 == "T")
+
+def belnap_dialetheic_count_v5 : Nat := dialetheic_v5.length
+def single_voiced_count_v5    : Nat := single_voiced_v5.length
+
+/-- The table is fully classified: every problem is T or B, none unaccounted. -/
+theorem verdicts_partition_v5 :
+    belnap_dialetheic_count_v5 + single_voiced_count_v5
+      = belnap_verdict_table_v5.length := by decide
+
+/-- And what the counts actually are, computed rather than claimed. -/
+theorem dialetheic_count_v5_is_seven : belnap_dialetheic_count_v5 = 7 := by decide
+theorem single_voiced_count_v5_is_eleven : single_voiced_count_v5 = 11 := by decide
 
 /--
 The Schütte Tournament adds a sixth O₁ problem with the φ̂=roar / Ω=awe
