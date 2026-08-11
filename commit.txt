@@ -1,25 +1,29 @@
-Landau's g(n) computed, with the partition search proved complete
+Difference sets: a thick set has density one, not zero
 
-The order of a permutation is the lcm of its cycle lengths, so g(n) is the
-largest lcm over partitions of n. That is the kernel's One-Shot #1 in the
-symmetric group — the period IS the winding number — and it is what Ω=ah was
-already recording on this tuple.
+The counterexample the file leaned on was backwards. It refuted the converse —
+syndetic D(A) implies d*(A)>0 — by saying "thick sets have d*(A)=0 but syndetic
+D(A)". A thick set contains arbitrarily long intervals, so a window of every
+length is completely full and its upper Banach density is 1.
+thick_not_banach_zero proves it: density zero would put every window at some
+scale below the full fraction, and thick_window_full produces a full window at
+that very scale. A counterexample to the converse has to be a density-zero set
+whose difference set still has bounded gaps, and thickness supplies the opposite
+of that.
 
-Partitions are generated with a fuel parameter, so termination is immediate, and
-the generator is proved complete: every non-increasing partition of n with parts
-at most k is produced. partsF_complete is the induction, and partsF_sum is the
-soundness half. Together they turn the computed table into a theorem about all
-cycle types rather than about the ones the search happened to visit — the same
-discipline the g₃ search was put under.
+Both halves of the dichotomy are now defined and related. Syndetic is bounded
+gaps, thick is arbitrarily long runs, and they are dual:
+thick_iff_compl_not_syndetic. A syndetic set meets EVERY window of its gap
+length, so its lower density is already positive — strictly more than the thick
+set was being asked to supply.
 
-g(1..10) = 1,2,3,4,6,6,12,15,20,30. g(7)=12 comes from 4+3 and not from the
-7-cycle, which is the first n where the maximum order is not a single cycle;
-g(8)=15 by 5+3 and g(9)=20 by 5+4.
+The lacunary side is a bound rather than an asymptotic. If 2^a − 2^b = d with
+d > 0 then 2^b ≤ d, because the cofactor 2^(a−b) − 1 is at least one, and hence
+2^a ≤ 2d. Both exponents are pinned by d, so each non-zero difference is
+realised finitely often and D({2ⁿ}) = {0}.
 
-The heavy tail the file describes as "~√(n log n) in the exponent" is now
-stated as the inequality it is. Landau's exponent √(n log n) dominates
-Erdős-Turán's (1/2)log²n exactly when log³n ≤ 4n, and exponent_gap proves that
-equivalence with L standing for log n.
+Two more corrections. The verdict called the gap CLASSIFIED, giving syndeticity
+of D(A) as equivalent to piecewise syndetic modulo a null set, while the results
+list two lines below marks the full classification as open; the classification
+is the open one. And Furstenberg was spelled Funstenberg.
 
-Standard axioms except landau_table, which is native_decide. Library green at
-8585 jobs.
+Standard axioms throughout. Library green at 8585 jobs.
