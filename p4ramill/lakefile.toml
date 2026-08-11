@@ -151,6 +151,7 @@ globs = [
   "Imscribing.Millennium.Erdos.SchutteTournament",
   "Imscribing.Millennium.Erdos.SidonCounting",
   "Imscribing.Millennium.Erdos.RatioSetSharp",
+  "Imscribing.Millennium.Erdos.SquarefreePlusPowerOfTwo",
   "Imscribing.Millennium.ErdosProblems",
   "Imscribing.MoDoT.ManuscriptSpine",
   "Imscribing.Millennium.DualLinkVessel",
