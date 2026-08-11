@@ -1,23 +1,20 @@
-Polynom asymptotics: the extremal configuration exists at every n and cannot be held
+Anti-Ramsey odd cycles: a piecewise formula is not a dialetheia
 
-Taking the n-th roots of unity for the points makes ∏(z − z_i) equal to z^n − 1,
-whose maximum on the circle is exactly 2 — no growth in n at all.
-abs_pow_sub_one_le_two and abs_pow_sub_one_eq_two give both halves. That does not
-refute Q1, and the reason is the whole difficulty of the problem: Q1 is about ONE
-infinite sequence and the first n of its terms, while the n-th roots of unity and
-the (n+1)-th meet only at 1, since gcd(n, n+1) = 1. The extremal configuration
-exists at every n and no single sequence can hold two consecutive ones.
+The verdict read "B — Both True and False depending on k", calling the C₃ and C₅
+cases a dialetheic breakdown. A quantity taking different values at different
+arguments is a function. regime_of_k is one, and regime_partition proves the
+three regimes partition k with no k claimed by two of them, so no proposition
+here holds both True and False. The kernel's ffuse on (T,T) is T and returns B
+only from a genuine T/F opposition, which a partition cannot produce. The
+transition at k=3 is a change of order, not a bifurcation of one claim, and
+regimes_separate shows the linear formula falls below the quadratic one from
+n=8 onward.
 
-Q3 asks for a power saving rather than growth. M_k ≥ 1 for every configuration,
-because ∏(z − z_i) is monic of degree k, so Σ_{k≤n} M_k ≥ n comes for free and
-Q3's n^{1+c} lives entirely in the exponent. Q2 gives M_k > k^c infinitely often,
-which contributes only finitely much to any particular partial sum, and that is
-why Q3 does not follow from Q2.
-
-The verdict read "B — Both True (Q1/Q2 resolved) and Neither (Q3 is open)". B is
-Both-True-and-False. The kernel's ffuse sends (T,N) to T and returns B only from
-a genuine T/F opposition, so the branches as described fuse to T. The hub's
-separate record of an OPEN→TRUE divergence on Q3 stays an ambiguity; nothing here
-settles which reading of Q3 each run answered.
+The threshold the problem sits one edge above is now named rather than quoted.
+Mantel's extremal graph is the balanced complete bipartite graph, and its edge
+count ⌈n/2⌉·⌊n/2⌋ equals ⌊n²/4⌋ — turan_edges, proved by splitting on parity,
+with the odd branch needing the left side normalized before the product is
+abstracted. So "one edge above the Turán threshold" is a statement about a
+specific graph plus a specific edge.
 
 Standard axioms throughout. Library green at 8585 jobs.
