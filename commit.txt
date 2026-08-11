@@ -1,39 +1,27 @@
-All four Grammar axioms demoted: every one of them proved False
+Two more axioms down, and this time by a different defect
 
-I checked A, B and C after finding it in D, and all three had the same defect.
-Each said "X requires Y" and was written with BOTH values universally quantified,
-so the antecedent never touched the value named in the consequent and the axiom
-asserted that consequent of everything:
+bowtie_max_three_layers and box_irreducible in Decomposition also proved False,
+but not the way A through D did. Both hypotheses constrained both variables, so
+they looked sound. The defect was a level down, in validTemporalDecomposition:
+its wool branch does not mention n at all, because infinite memory means
+arbitrary decomposition — which is the INTENDED reading. So for a wool system
+the hypothesis holds for every n, and a universal bound on n is refuted by
+picking a bigger one. n = 4 against a bound of 3, n = 2 against a claim of 1.
 
-  A  (h) (k) : h = wool → (k = egg ∨ k = on)      k free
-  B  (p) (h) : p ≥ ah   → h ≥ sure                h free
-  C  (d) (t) : t = are  → d = if'                 d free
-  D  (d)(t)(p)(pol) : … → pol = or'               pol free
+The outcomes differ and that is the part worth keeping. Excluding wool, the
+bowtie bound is a THEOREM: maxTemporalLayers is 1, 2 or 3 on the bounded
+chiralities, so it follows by cases with nothing assumed. Box irreducibility
+does NOT follow even then, because chiralities permitting 2 and 3 layers remain,
+so n = 1 is a genuine constraint on the system rather than a consequence of the
+definitions, and it is now a decidable predicate discharged per system.
 
-Instantiate the free value at anything the consequent denies and noConfusion
-does the rest. I proved False from each before changing any of them and printed
-the dependencies: axiomA_False rests on nothing but its own axiom.
+An axiom that becomes a theorem and an axiom that becomes an obligation are both
+better than an axiom, and they are not the same result. Collapsing them would
+have hidden which is which.
 
-A, B and C had no call sites at all — declared, never used, unsound the whole
-time. Only D was load-bearing, and it made its consequences vacuous: it proved
-bsdResolved.pol = or' whatever that polarity actually was, and
-Hodge_KernelCrossing carried the inconsistency as a stated lemma,
-hodge_polarity_forced_pm_sym (pol : Polarity) : pol = or'.
+Six axioms now, two defects. The first four had a free variable in the
+consequent. These two had a hypothesis that was vacuously true. Both shapes look
+like ordinary implications until you ask what the antecedent actually pins down.
 
-All four are now decidable predicates on an Imscription, which reads the value
-off the structure instead of quantifying over it. That is the repair and it is
-also the demotion: every field of a concrete imscription is a constructor, so
-each instance is settled by decide and needs no axiom. The three former D
-consequences now depend on propext alone or on nothing.
-
-Named Imscriptive, not Holographic. Holographic is the static subset — a
-boundary encoding a bulk it does not write — and these constraints are the
-general condition. I corrected if''s own doc comment in Core.lean too, which
-called it holographic outright and is where the confusion started.
-
-GrammarAxioms_Demotion.lean is the guard. Each predicate is checked twice: it
-HOLDS for bsdResolved, and it FAILS for a witness built to break it with the
-signature left intact. A predicate that cannot fail is not a claim, and that
-falsifiability is exactly what the axiom form could not express.
-
-Full library green at 8570 jobs.
+Guard extended: BoxIrreducible holds for bsdResolved by computation and fails on
+an oil system with two layers permitted. Full library green at 8570 jobs.

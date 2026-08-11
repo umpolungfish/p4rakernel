@@ -20,6 +20,22 @@
   is also the demotion: every field of a concrete imscription is a constructor,
   so each instance is settled by `decide` and needs no axiom at all.
 
+  TWO MORE, BY A DIFFERENT ROUTE. `bowtie_max_three_layers` and `box_irreducible`
+  in Decomposition also proved False, but not because a variable was free — both
+  hypotheses constrained both variables. The defect was in
+  `validTemporalDecomposition`, whose wool branch does not mention `n` at all:
+  infinite memory means arbitrary decomposition, which is the INTENDED reading.
+  So for a wool system the hypothesis holds for every n, and a universal bound on
+  every n is refuted by picking a bigger one.
+
+  Their outcomes differ, and the difference is the useful part. Excluding wool,
+  the bowtie bound is a THEOREM — maxTemporalLayers is 1, 2 or 3 on the bounded
+  chiralities, so it follows by cases with nothing assumed. Box irreducibility
+  does NOT follow even then, since chiralities permitting 2 and 3 layers remain,
+  so it is a decidable predicate carrying a real constraint. An axiom that
+  becomes a theorem and an axiom that becomes an obligation are both better than
+  an axiom, and they are not the same result.
+
   Axiom D used to read:
 
       axiom holographic_closure_forces_frobenius (d) (t) (p) (pol) :
@@ -116,6 +132,24 @@ def kineticsBrokenWitness : Imscription :=
 theorem kinetics_witness_fails :
     ¬ Imscribing.Decomposition.InfiniteMemoryNeedsSlowKinetics kineticsBrokenWitness := by
   decide
+
+-- (5) The decomposition pair. The bowtie bound needs no hypothesis beyond
+--     bounded memory, and is proved rather than assumed.
+
+example (s : Imscription) (n : ℕ) (hb : s.chir ≠ Chirality.wool) :
+    s.top = Topology.mime → Imscribing.Decomposition.validTemporalDecomposition s n → n ≤ 3 :=
+  Imscribing.Decomposition.bowtie_max_three_layers s n hb
+
+/-- Box irreducibility holds for the BSD imscription, by computation. -/
+theorem bsd_box_irreducible :
+    Imscribing.Decomposition.BoxIrreducible bsdResolved 1 := by decide
+
+/-- And fails where it should: an oil system with two layers permitted. -/
+def boxBrokenWitness : Imscription :=
+  { bsdResolved with top := Topology.oil, chir := Chirality.kick }
+
+theorem box_witness_fails :
+    ¬ Imscribing.Decomposition.BoxIrreducible boxBrokenWitness 2 := by decide
 
 /-- The demotion in one line: the constraint is decidable, so every instance of
     it is established by computation and Axiom D is needed for none of them.
