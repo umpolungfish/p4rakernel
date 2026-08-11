@@ -575,6 +575,7 @@ globs = [
   "Imscribing.Millennium.SumsetNo3AP",
   "Imscribing.NumberTheory.PrattOb3ectProtocol",
   "Imscribing.NumberTheory.ErdosStrausProof",
+  "Imscribing.Classical.ErdosProblem16",
   "Imscribing.Paraconsistent.Paraconsistent",
   "Imscribing.TheGrammarAppliedToTheGrammar",
   "Imscribing.VaeVitaScaffold",
