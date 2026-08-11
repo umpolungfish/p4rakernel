@@ -472,14 +472,14 @@ theorem promotions_closed_by_split
     unconstrained polarity. Applying that version to any two distinct polarities
     proved False, so every downstream theorem built on it said nothing.
 
-    Now the imscription carries the claim and `HolographicClosure i` is a
+    Now the imscription carries the claim and `ImscriptiveClosure i` is a
     hypothesis that must be discharged. For a concrete imscription that is
     `by decide` and costs no axiom. -/
 theorem hodge_polarity_forced_pm_sym (i : Imscription)
     (hd : i.dim = Dimensionality.if') (ht : i.top = Topology.are)
-    (hp : i.prot ≥ Protection.ah) (hc : HolographicClosure i) :
+    (hp : i.prot ≥ Protection.ah) (hc : ImscriptiveClosure i) :
     i.pol = Polarity.or' := by
-  unfold HolographicClosure at hc
+  unfold ImscriptiveClosure at hc
   exact hc hd ht hp
 
 /-!

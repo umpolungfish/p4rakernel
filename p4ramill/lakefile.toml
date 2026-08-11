@@ -6,8 +6,29 @@ defaultTargets = ["Imscribing"]
 [leanOptions]
 pp.unicode.fun = true
 relaxedAutoImplicit = false
-weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
+
+# Linters off. The build carried 5,152 warnings across 26 linters, which is not
+# a signal — it is a wall that hides the one warning that would matter. The
+# `weak.` prefix means an option Lean does not recognise is ignored rather than
+# fatal, so this survives a toolchain bump.
+#
+# The mathlib standard set is the bulk of it: longLine, whitespace, emptyLine,
+# docString, show, induction, cases, refine, multiGoal, setOption, lambdaSyntax,
+# maxHeartbeats, missingEnd, openClassical.
+weak.linter.mathlibStandardSet = false
+
+# The rest are core Lean linters, which the set above does not govern.
+weak.linter.unusedVariables = false
+weak.linter.unusedSimpArgs = false
+weak.linter.unusedTactic = false
+weak.linter.unreachableTactic = false
+weak.linter.unnecessarySimpa = false
+weak.linter.unnecessarySeqFocus = false
+weak.linter.unusedSectionVars = false
+weak.linter.unusedDecidableInType = false
+weak.linter.dupNamespace = false
+weak.linter.flexible = false
 
 [[require]]
 name = "mathlib"
@@ -289,7 +310,7 @@ globs = [
   "Imscribing.MetaYonedaCollapse",
   "Imscribing.Decomposition",
   "Imscribing.Frobenius",
-  "Imscribing.AxiomD_Demotion",
+  "Imscribing.GrammarAxioms_Demotion",
   "Imscribing.CatalogImmutability",
   "Imscribing.Isomorphisms",
   "Imscribing.SpectralFace",

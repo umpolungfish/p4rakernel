@@ -42,9 +42,17 @@ def maxTemporalLayers (h : Chirality) : ℕ :=
 
 /-- Axiom A: wool requires egg or on as precondition.
     Infinite memory demands slow-enough kinetics or structural freezing
-    to prevent memory overwrite. -/
-axiom axiom_A_hinf_requires_slow_or_trapped (h : Chirality) (k : KineticChar) :
-  h = .wool → (k = .egg ∨ k = .on)
+    to prevent memory overwrite.
+
+    A predicate on the imscription, not an axiom over two free values. The axiom
+    form left `k` unconstrained by the hypothesis, so it asserted
+    `k = egg ∨ k = on` of EVERY kinetic character and proved False. Decidable,
+    so each instance is checked rather than assumed. -/
+def InfiniteMemoryNeedsSlowKinetics (s : Imscription) : Prop :=
+  s.chir = .wool → (s.kin = .egg ∨ s.kin = .on)
+
+instance : DecidablePred InfiniteMemoryNeedsSlowKinetics := fun s => by
+  unfold InfiniteMemoryNeedsSlowKinetics; infer_instance
 
 /-- A decomposition into n temporal layers is valid only if
     n ≤ maxTemporalLayers(s.chir) or s.chir = wool with egg/on. -/
