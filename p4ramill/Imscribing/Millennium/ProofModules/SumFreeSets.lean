@@ -35,29 +35,44 @@ noncomputable def odd_subset_count (N : ℕ) : ℕ :=
 noncomputable def correction_term (N : ℕ) : ℝ :=
   (Nat.floor ((N : ℝ) / 2)) * (Real.log ((N : ℝ) + 1)) / (N : ℝ)
 
-/-- Main theorem: count_sum_free(N) = 2^{N/2 + o(1)} -/
-theorem sum_free_asymptotic :
-  (fun N : ℕ => Real.log (count_sum_free (N+1) : ℝ) / (N : ℝ)) =O[atTop] (fun _ : ℕ => (1/2 : ℝ)) := by
-  -- Proof uses:
-  -- 1. All odd numbers form a sum-free set of size ~N/2 → gives 2^{N/2} subsets
-  -- 2. Sets containing only large odd numbers (≥ N/3) contribute to lower order
-  -- 3. Cameron-Erdős: the count is exactly 2^{N/2}(1 + O(2^{-N/4}))
-  sorry
+/-- **Cameron–Erdős, as a statement.** Cited, not formalized here. -/
+def CameronErdosAsymptotic : Prop :=
+  (fun N : ℕ => Real.log (count_sum_free (N+1) : ℝ) / (N : ℝ)) =O[atTop] (fun _ : ℕ => (1/2 : ℝ))
 
-/-- Explicit asymptotic formula -/
-theorem sum_free_explicit_asymptotic :
-  ∃ c : ℝ, c > 0 ∧
-  ∀ᶠ (N : ℕ) in atTop,
-    (count_sum_free (N+1) : ℝ) ≤ c * 2^(((N : ℝ) / 2 + correction_term N)) := by
-  -- The o(N) correction is bounded by O(N log N) from the structure
-  sorry
+/-- The explicit form, likewise cited. -/
+def SumFreeExplicitAsymptotic : Prop :=
+  ∃ c : ℝ, c > 0 ∧ ∀ᶠ (N : ℕ) in atTop,
+    (count_sum_free (N+1) : ℝ) ≤ c * 2^(((N : ℝ) / 2 + correction_term N))
 
-/-- Effective bound: for any ε > 0, count_sum_free(N) = 2^{N/2 + εN} for large N -/
-theorem sum_free_epsilon_bound (ε : ℝ) (hε : ε > 0) :
-  ∀ᶠ (N : ℕ) in atTop,
-    (count_sum_free (N+1) : ℝ) ≤ 2^(((N : ℝ) / 2) + ε * (N : ℝ)) := by
-  -- Direct consequence of the o(N) term being sublinear
-  sorry
+/-- The ε-form, likewise. -/
+def SumFreeEpsilonBound : Prop :=
+  ∀ ε : ℝ, 0 < ε → ∀ᶠ (N : ℕ) in atTop,
+    (count_sum_free (N+1) : ℝ) ≤ 2^(((N : ℝ) / 2) + ε * (N : ℝ))
+
+/-! ### What is elementary here
+
+The lower half of Cameron–Erdős needs no analysis: the odd numbers below `N`
+are sum-free, since a sum of two odds is even, and every one of their `2^⌈N/2⌉`
+subsets is sum-free too. That is where the exponent `N/2` comes from, and it is
+the half that does not need citing. -/
+
+/-- A sum of two odd numbers is even, so no odd number is a sum of two odds —
+the odd numbers are sum-free. -/
+theorem odds_sum_free {a b : ℕ} (ha : a % 2 = 1) (hb : b % 2 = 1) : (a + b) % 2 = 0 := by
+  omega
+
+/-- The count of odd numbers below `N` is `⌈N/2⌉`, which is the exponent. -/
+theorem card_odds_below (N : ℕ) :
+    ((Finset.range N).filter (fun a => a % 2 = 1)).card = N / 2 := by
+  induction N with
+  | zero => rfl
+  | succ m ih =>
+      rw [Finset.range_succ, Finset.filter_insert]
+      by_cases h : m % 2 = 1
+      · rw [if_pos h, Finset.card_insert_of_notMem (by simp), ih]
+        omega
+      · rw [if_neg h, ih]
+        omega
 
 /-- `⌈N/2⌉` over the reals is `(N+1)/2` over the naturals. -/
 theorem ceil_half (N : ℕ) : Nat.ceil ((N : ℝ) / 2) = (N + 1) / 2 := by

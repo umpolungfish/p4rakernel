@@ -29,21 +29,14 @@ def triangle_decomposition (n : ℕ) : Prop :=
     ∀ e : Finset (Fin n), e.card = 2 →
       (triangles.filter (fun t => e ⊆ t)).card = 1
 
-/-- Necessary and sufficient condition: n ≡ 1 or 3 (mod 6) -/
-theorem triangle_partition_condition (n : ℕ) :
-  triangle_decomposition n ↔ (n % 6 = 1 ∨ n % 6 = 3) := by
-  -- Kirkman's theorem (1847): 
-  -- K_n decomposes into triangles iff n ≡ 1 or 3 (mod 6)
-  -- Necessary: n(n-1)/2 ≡ 0 (mod 3) and n-1 ≡ 0 (mod 2)
-  -- Sufficient: explicit construction via Steiner triple systems
-  sorry
+/-- Kirkman's theorem, as a statement. Cited, not formalized. -/
+def KirkmanCondition : Prop :=
+  ∀ n : ℕ, triangle_decomposition n ↔ (n % 6 = 1 ∨ n % 6 = 3)
 
-/-- Existence: ALL valid n ≥ 1 admit partitions -/
-theorem all_valid_n_admit_partitions (n : ℕ) (h_valid : n % 6 = 1 ∨ n % 6 = 3) :
-  triangle_decomposition n := by
-  -- Constructive proof using Steiner triple systems STS(n)
-  -- For n ≡ 1, 3 (mod 6), STS(n) exists
-  sorry
+/-- The sufficiency half is a consequence of Kirkman, not a second citation. -/
+theorem all_valid_n_admit_partitions (hk : KirkmanCondition) (n : ℕ)
+    (h_valid : n % 6 = 1 ∨ n % 6 = 3) : triangle_decomposition n :=
+  (hk n).2 h_valid
 
 /-- The number of triangles in the decomposition -/
 noncomputable def num_triangles (n : ℕ) : ℕ :=
@@ -108,11 +101,12 @@ theorem triangle_count_matches_edges (n : ℕ) (h_tri : triangle_decomposition n
     push_cast at this ⊢
     linarith
 
-/-- Effective construction: for any valid n, we can explicitly build -/
-noncomputable def construct_triangle_partition (n : ℕ)
-    (h_valid : n % 6 = 1 ∨ n % 6 = 3) : Finset (Finset (Fin n)) :=
-  -- Wilson's construction via difference families
-  sorry
+/-- Wilson's construction, as a statement about what exists rather than a
+`sorry`ed term that would inhabit the type with nothing in it. -/
+def ConstructTrianglePartition : Prop :=
+  ∀ n : ℕ, n % 6 = 1 ∨ n % 6 = 3 →
+    ∃ T : Finset (Finset (Fin n)), (∀ t ∈ T, t.card = 3) ∧
+      ∀ e : Finset (Fin n), e.card = 2 → (T.filter (fun t => e ⊆ t)).card = 1
 
 /-- The previous statement here was refutable, not merely unproved. It read
 
