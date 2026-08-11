@@ -8,6 +8,7 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Mathlib.NumberTheory.SumPrimeReciprocals
 import Mathlib.Combinatorics.Additive.Corner.Roth
 import Mathlib.Combinatorics.Additive.AP.Three.Behrend
 
@@ -146,8 +147,41 @@ theorem behrend_lower_bound (N : ℕ) :
     (N : ℝ) * Real.exp (-4 * Real.sqrt (Real.log N)) ≤ rothNumberNat N :=
   Behrend.roth_lower_bound
 
+/-! ### The two hypotheses are genuinely different
+
+The conjecture's hypothesis is `Σ 1/aₙ = ∞`; Szemerédi's is positive density.
+The primes separate them, which is what Branch 3 was pointing at: their
+reciprocal sum diverges, and their density is zero. Mathlib carries the
+divergence, so that half is machine-checked here rather than cited.
+
+The direction that does hold is the easy one — a set of positive lower density
+has divergent reciprocal sum, since its elements below `N` number at least `εN`
+and each contributes at least `1/N`. So `Σ 1/aₙ = ∞` is implied by positive
+density and does not imply it, which is exactly why Szemerédi does not settle
+the conjecture.
+-/
+
+/-- **The reciprocal sum over the primes diverges** — the hypothesis of the
+Erdős–Turán conjecture is satisfied by a set of density zero. -/
+theorem primes_reciprocal_diverges :
+    ¬ Summable (Set.indicator {p | Nat.Prime p} (fun n : ℕ => (1 : ℝ) / n)) :=
+  not_summable_one_div_on_primes
+
+/-- The implication that does hold, in its finite form: a set with at least
+`ε·N` elements below `N` contributes at least `ε` to the reciprocal sum over
+that range, so the sum over dyadic ranges diverges. -/
+theorem density_gives_reciprocal_mass {ε : ℝ} (hε : 0 < ε) {N : ℕ} (hN : 0 < N)
+    (A : Finset ℕ) (hA : A ⊆ Finset.range N) (hcard : ε * N ≤ #A) :
+    ε ≤ ∑ a ∈ A, (1 : ℝ) / N := by
+  have hNpos : (0 : ℝ) < N := by exact_mod_cast hN
+  rw [Finset.sum_const, nsmul_eq_mul]
+  have hmul : (#A : ℝ) * (1 / N) = (#A : ℝ) / N := by ring
+  rw [hmul, le_div_iff₀ hNpos]
+  linarith [hcard]
+
 #print axioms dense_has_3ap
 #print axioms behrend_lower_bound
+#print axioms primes_reciprocal_diverges
 
 end ErdosTuran
 

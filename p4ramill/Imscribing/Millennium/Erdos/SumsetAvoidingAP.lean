@@ -8,6 +8,7 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Imscribing.Paraconsistent.BelnapSplitFuse
 import Imscribing.Millennium.SumsetNo3AP
 import Imscribing.Millennium.SumsetImprovedBounds
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
@@ -434,7 +435,14 @@ def sumset_k_ap_known_results : List (Bool × String) :=
 def sumset_k_ap_kernel_output : String :=
   "REJECTED: g₃(n)≫3ⁿ is false. g₃(n)=O(3ⁿ) via base-k construction."
 
-theorem sumset_k_ap_frobenius_closure : True := by trivial
+/-- Nothing here is in opposition. The claim g₃(n) ≫ 3ⁿ is refuted and the
+constant is open — F with N, not a bifurcation — and only a T/F pair
+reaches B. The join is truth-ordered, with F at the bottom, so F with N
+lands on N: the fuse reports that nothing is settled, while the
+refutation itself is what the verdict column records. -/
+theorem sumset_k_ap_frobenius_closure :
+    ffuse (Belnap.F, Belnap.N) = Belnap.N ∧ ffuse (Belnap.T, Belnap.F) = Belnap.B := by
+  decide
 
 #print axioms Q817.two_pow_le_of_apFree
 #print axioms Q817.no_triple_below_eight

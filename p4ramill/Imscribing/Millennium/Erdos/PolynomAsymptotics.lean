@@ -270,14 +270,25 @@ def polynom_q3_divergence : List (String × PolynomQ3Verdict) :=
   [("original_cycle6", PolynomQ3Verdict.open_question),
    ("rerun_cycle11",   PolynomQ3Verdict.proven_true)]
 
-/--
-The meta-level Belnap verdict: B (Both).
-The divergence between the two runs is itself a dialetheic state.
--/
-theorem polynom_q3_meta_belnap : True := by
-  -- Q3 is both OPEN (per original run, consistent with Linden 1977)
-  -- and TRUE (per rerun, citing Körner 1996 flatness results).
-  -- The kernel preserves both as internally consistent branches.
-  trivial
+/-- The Belnap value each recorded verdict carries: `open_question` is N,
+`proven_true` is T. -/
+def q3VerdictBelnap : PolynomQ3Verdict → Belnap
+  | PolynomQ3Verdict.open_question => Belnap.N
+  | PolynomQ3Verdict.proven_true   => Belnap.T
+
+/-- **The divergence is not dialetheic.** This was recorded as a
+meta-level B — "the divergence between the two runs is itself a
+dialetheic state". One run read Q3 open and the other read it true, which
+is N against T, and `ffuse` sends that pair to T. B needs one run to have
+read it FALSE. What the two runs disagree about is how much is known, and
+a gap in knowledge is N, which the join absorbs. -/
+theorem polynom_q3_meta_fuses_to_true :
+    ffuse (q3VerdictBelnap PolynomQ3Verdict.proven_true,
+           q3VerdictBelnap PolynomQ3Verdict.open_question) = Belnap.T := by
+  decide
+
+/-- For contrast, the pair that would have earned B. -/
+theorem polynom_q3_what_B_needs :
+    ffuse (Belnap.T, Belnap.F) = Belnap.B := by decide
 
 end Millennium.ErdosProblems
