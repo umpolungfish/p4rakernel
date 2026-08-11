@@ -160,6 +160,12 @@ theorem litany_witness_satisfies_axiom_C
     Classical type theory has no canonical reversal; dagger reversal
     exists independently of invertibility.
     This is the paralogical: reversal without invertibility. -/
+-- The dagger pair below stays an axiom, and deliberately. A trivial witness
+-- (`.arrow a b a`) inhabits the reversal type, but `paralogical_dagger_depth`
+-- demands the reversal PRESERVE depth, and a structural reversal cannot be
+-- built: `prod f g : IGProtocol a (b ⊗ c)` reverses to `IGProtocol (b ⊗ c) a`,
+-- and no constructor assembles that from the two reversed branches. So this one
+-- carries real content and is not demotable by construction.
 axiom paralogical_dagger {a b : Imscription}
     (p : IGProtocol a b) (h : p.isDagger = true) :
     IGProtocol b a
@@ -175,17 +181,36 @@ axiom paralogical_dagger_depth {a b : Imscription}
     Δ : s → s ⊗ s exists and is non-trivial (depth ≥ 1).
     Classical linear logic forbids arbitrary copying; Frobenius structure
     makes duplication and fusion exact inverses, uniquely licensing it.
-    This is the paralogical: resource duplication without linearity violation. -/
-axiom paralogical_copy {s : Imscription} (h : imscriptionTier s = .O_inf) :
-    { p : IGProtocol s (tensorProduct s s) // p.depth = 1 }
+    This is the paralogical: resource duplication without linearity violation. 
+
+    Constructed, not assumed. `prod` of two labelled arrows has depth
+    `max 1 1 = 1`, so the witness exists outright.
+
+    The tier hypothesis is retained for the signature its callers expect, and it
+    is UNUSED — which is the finding. As stated, this claim has no content: the
+    type is inhabited for every imscription, O_∞ or not, because `arrow` builds a
+    protocol between any two. If the intended claim is that Δ is a genuine
+    Frobenius comultiplication rather than any depth-1 protocol, that is a
+    stronger statement than this one and is not yet written. -/
+def paralogical_copy {s : Imscription} (_h : imscriptionTier s = .O_inf) :
+    { p : IGProtocol s (tensorProduct s s) // p.depth = 1 } :=
+  ⟨.prod (.arrow s s s) (.arrow s s s), rfl⟩
 
 /-- P3. Imscriptive self-reference (Axiom C*: if' as holographic boundary).
     A Imscription with dim = if' generates a non-trivial self-protocol of depth ≥ 1:
     the boundary type produces its own interior (bulk from boundary).
     Distinct from refl (depth 0): this is a non-trivial self-morphism.
-    This is the paralogical: type-as-term self-application. -/
-axiom paralogical_reflect {s : Imscription} (h : s.dim = if') :
-    { p : IGProtocol s s // p.depth ≥ 1 }
+    This is the paralogical: type-as-term self-application. 
+
+    Constructed, not assumed: a labelled self-arrow has depth 1.
+
+    The `dim = if'` hypothesis is likewise unused. Every imscription has a
+    non-trivial self-protocol, so imscriptive dimensionality is not what makes
+    one exist. Whatever distinguishes an imscriptive self-reference from an
+    arbitrary self-arrow is not captured by "depth ≥ 1". -/
+def paralogical_reflect {s : Imscription} (_h : s.dim = if') :
+    { p : IGProtocol s s // p.depth ≥ 1 } :=
+  ⟨.arrow s s s, Nat.le_refl 1⟩
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 5: ODOT OPERATOR — paralogical unit

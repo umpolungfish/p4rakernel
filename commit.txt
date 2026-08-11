@@ -1,27 +1,31 @@
-Two more axioms down, and this time by a different defect
+Two vacuous axioms constructed away, and one kept for a reason
 
-bowtie_max_three_layers and box_irreducible in Decomposition also proved False,
-but not the way A through D did. Both hypotheses constrained both variables, so
-they looked sound. The defect was a level down, in validTemporalDecomposition:
-its wool branch does not mention n at all, because infinite memory means
-arbitrary decomposition — which is the INTENDED reading. So for a wool system
-the hypothesis holds for every n, and a universal bound on n is refuted by
-picking a bigger one. n = 4 against a bound of 3, n = 2 against a claim of 1.
+paralogical_copy and paralogical_reflect were not false, they were empty. Both
+types are inhabited by construction and both hypotheses go unused: `arrow`
+builds a protocol between any two imscriptions, so a labelled self-arrow gives
+depth 1 and a prod of two gives max 1 1 = 1. Neither `dim = if'` nor
+`tier = O_inf` is what makes the witness exist. They are defs now, witness
+constructed, signatures unchanged so the 42 ob3ect scaffolds still compile.
 
-The outcomes differ and that is the part worth keeping. Excluding wool, the
-bowtie bound is a THEOREM: maxTemporalLayers is 1, 2 or 3 on the bounded
-chiralities, so it follows by cases with nothing assumed. Box irreducibility
-does NOT follow even then, because chiralities permitting 2 and 3 layers remain,
-so n = 1 is a genuine constraint on the system rather than a consequence of the
-definitions, and it is now a decidable predicate discharged per system.
+The finding is what the demotion exposes rather than what it removes. If the
+intended claim is that delta is a genuine Frobenius comultiplication rather than
+any depth-1 protocol, that is a stronger statement and it is not written
+anywhere. Same for imscriptive self-reference against an arbitrary self-arrow:
+"depth >= 1" does not tell them apart. An axiom that asserts nothing is worse
+than a missing one, because it looks like the claim has been made.
 
-An axiom that becomes a theorem and an axiom that becomes an obligation are both
-better than an axiom, and they are not the same result. Collapsing them would
-have hidden which is which.
+paralogical_dagger stays an axiom and I nearly demoted it wrongly. A trivial
+witness inhabits the reversal type, so it reads vacuous like the other two — but
+paralogical_dagger_depth demands the reversal PRESERVE depth, and there is no
+structural construction: prod f g : IGProtocol a (b ⊗ c) reverses to
+IGProtocol (b ⊗ c) a, and no constructor assembles that from the two reversed
+branches. Real content. The reason is now in the source so nobody removes it on
+the strength of the trivial witness.
 
-Six axioms now, two defects. The first four had a free variable in the
-consequent. These two had a hypothesis that was vacuously true. Both shapes look
-like ordinary implications until you ask what the antecedent actually pins down.
+Eight axioms, three defects. A free variable in the consequent (A, B, C, D):
+asserts the conclusion of every value. A vacuously true hypothesis (bowtie,
+box): holds for every n. An inhabited type with unused hypotheses (copy,
+reflect): asserts nothing at all. The first two prove False. The third is
+quieter and, on this evidence, more common.
 
-Guard extended: BoxIrreducible holds for bsdResolved by computation and fails on
-an oil system with two layers permitted. Full library green at 8570 jobs.
+Full library green at 8570 jobs.
