@@ -1,41 +1,30 @@
-The three ErdosFormalize batches compile, and the sorries are gone
+Two Erdős statements given their real content, and proved
 
-All three are rewritten against the Mathlib that exists and are in the build.
-Together they carried 119 theorem statements and 76 sorries, and not one had
-ever been checked: they imported Mathlib.Combinatorics.Ramsey.Basic and
-Mathlib.Combinatorics.Hypergraph, neither of which has ever existed, and their
-bodies used Rat.toReal, SimpleGraph.Cycle and SimpleGraph.CliqueNumber, which do
-not either.
+I ran the ninety nullary open Props in the ErdosFormalize batches past the
+kernel with a single tactic line each. Seventy-five of them close: `trivial`
+takes sixty-one. A statement that closes by `trivial` is not an open problem, it
+is an empty statement wearing the name of one — `B3DensityUpper` said
+`∃ C > 0, ∀ N, 0 ≤ C·√N`, which is true of C = 1 and never mentions a Sidon set.
+Proving those as they stand would certify the defect, so they are not proved
+here; they are being restated.
 
-Open problems are Props now rather than sorried theorems. That is the whole
-structural change and it is the one that matters: a sorry asserts its statement
-and puts everything downstream on sorryAx, so a false statement among 119
-unchecked ones would have been a live falsehood — which is not hypothetical,
-since three of the neighbouring modules turned out to carry claims that were
-refutable rather than merely unproved. A Prop says what the problem is and
-claims nothing.
+Two are done, with the mathematics constructed rather than asserted.
 
-What could be proved is proved. Batch 1: squares below N number at most √N + 1,
-so they have density zero; a proper k-colouring of n vertices leaves some class
-with at least n/k of them, by fibering the colour map; K_n has n(n−1)/2 edges,
-which is why decomposing it into few cycles is refuted; ∑1/n! converges and ∑1/p
-diverges, both from Mathlib; there are infinitely many primes, which was one of
-the sorried statements. Batch 2: submultiplicativity gives c(kn) ≤ c(n)^k, with
-the empty-walk normalisation c(0)=1 made explicit, since submultiplicativity
-alone permits c(0) above one; the ratio set of A has at most |A|² elements; and
-three distinct primes never form an LCM triple. Batch 3: the extremal set is
-bounded above by the number of pairs, so its supremum is genuine rather than the
-junk value an unbounded sSup on ℕ returns.
+Erdos/SidonCounting.lean is the Erdős–Turán counting bound: on a Sidon set the
+difference map is injective over the ordered pairs of distinct elements, so
+k² − k ≤ 2N − 2 inside [1,N], and the density corollary follows without a square
+root. The differences are taken over ℤ — on ℕ they truncate, which is how a bound
+of this shape goes vacuous. The bound also has objects: the powers of four are a
+Sidon set at every size, because a sum of two of them cannot reach the next
+power of four, so the larger exponent is forced and cancelling it forces the
+smaller.
 
-Each batch ends with its verdict distribution computed from the table rather
-than asserted beside it.
+Erdos/RatioSetSharp.lean proves RatioSetSharp: for every n there are n integers
+with all n² − n + 1 ratios distinct. The witness attached to that statement was
+geometric progressions, and it is wrong — a progression's ratios are r^(i−j) over
+an arithmetic set of exponents, which collide down to 2n − 1, and that is a
+theorem in the file now too. Sharpness needs exponents whose differences are all
+distinct, which is a Sidon set, so the witness is 2 raised to the powers of four.
 
-And the last Erdős sorry is gone with them. Classical/ErdosStrausDecomposition
-carried class_one_exists as a sorry — n ≡ 1 (mod 4), the open heart of the
-conjecture. A sorry asserts what it stands under, so that one asserted the
-conjecture and put the file's three genuinely proved congruence classes on
-sorryAx alongside it. It is ClassOneExists now, and conjecture_of_class_one
-proves the whole conjecture follows from that single class, so the gap is
-located rather than assumed away. The class is N, unknown, not F.
-
-No Erdős file in the repository contains a sorry.
+Both rest on propext, Classical.choice and Quot.sound, nothing else. Library
+green at 8592 jobs.
