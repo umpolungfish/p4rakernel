@@ -1,38 +1,39 @@
-Axiom D demoted: it proved False, and the concrete cases need no axiom
+All four Grammar axioms demoted: every one of them proved False
 
-Axiom D read
+I checked A, B and C after finding it in D, and all three had the same defect.
+Each said "X requires Y" and was written with BOTH values universally quantified,
+so the antecedent never touched the value named in the consequent and the axiom
+asserted that consequent of everything:
 
-  axiom holographic_closure_forces_frobenius (d) (t) (p) (pol) :
-    d = if' → t = are → p ≥ ah → pol = or'
+  A  (h) (k) : h = wool → (k = egg ∨ k = on)      k free
+  B  (p) (h) : p ≥ ah   → h ≥ sure                h free
+  C  (d) (t) : t = are  → d = if'                 d free
+  D  (d)(t)(p)(pol) : … → pol = or'               pol free
 
-with pol universally quantified and untouched by the hypotheses. I meant it to
-say that a holographically closed system carries or'. It said that EVERY
-polarity is or'. Instantiate at pol := yew, discharge the three hypotheses by
-rfl and le_refl, and it hands back yew = or'; Polarity.noConfusion turns that
-into False. I proved False from it and printed the dependency to be sure: the
-standard three plus that axiom, nothing else. So it proved anything at all, and
-every theorem resting on it said nothing.
+Instantiate the free value at anything the consequent denies and noConfusion
+does the rest. I proved False from each before changing any of them and printed
+the dependencies: axiomA_False rests on nothing but its own axiom.
 
-Hodge_KernelCrossing carried the inconsistency as a stated lemma —
-hodge_polarity_forced_pm_sym (pol : Polarity) : pol = or' — and the chain
-Axiom D → that lemma → hodge_pm_semantic_bridge → HodgeConjecture ran through
-it.
+A, B and C had no call sites at all — declared, never used, unsound the whole
+time. Only D was load-bearing, and it made its consequences vacuous: it proved
+bsdResolved.pol = or' whatever that polarity actually was, and
+Hodge_KernelCrossing carried the inconsistency as a stated lemma,
+hodge_polarity_forced_pm_sym (pol : Polarity) : pol = or'.
 
-It is now HolographicClosure, a predicate on an imscription that reads the
-polarity off the structure instead of quantifying over it. Every field of a
-concrete imscription is a constructor, so the predicate is decidable, and the
-three theorems that used to invoke the axiom are now closed by `decide`:
-bsd_axiom_D_forces_frobenius depends on propext alone,
-bsd_frobenius_identity_is_structural and hodge_corrected_polarity_forced on no
-axiom at all. The axiom was never needed for a concrete case — and using it made
-those theorems vacuous, because it proved the conclusion whatever the polarity
-actually was.
+All four are now decidable predicates on an Imscription, which reads the value
+off the structure instead of quantifying over it. That is the repair and it is
+also the demotion: every field of a concrete imscription is a constructor, so
+each instance is settled by decide and needs no axiom. The three former D
+consequences now depend on propext alone or on nothing.
 
-AxiomD_Demotion.lean is the guard. It prints the dependencies, shows the
-constraint HOLDS for bsdResolved, and shows it FAILS for the same imscription
-with only its polarity changed — the signature intact, so the hypotheses still
-fire. That falsifiability is the whole point: it is now a claim that can be
-wrong, which the axiom form could not express.
+Named Imscriptive, not Holographic. Holographic is the static subset — a
+boundary encoding a bulk it does not write — and these constraints are the
+general condition. I corrected if''s own doc comment in Core.lean too, which
+called it holographic outright and is where the confusion started.
 
-The predicate lives in Primitives/Imscription.lean because that is where
-Imscription is defined; Core.lean keeps a note saying where it went and why.
+GrammarAxioms_Demotion.lean is the guard. Each predicate is checked twice: it
+HOLDS for bsdResolved, and it FAILS for a witness built to break it with the
+signature left intact. A predicate that cannot fail is not a claim, and that
+falsifiability is exactly what the axiom form could not express.
+
+Full library green at 8570 jobs.
