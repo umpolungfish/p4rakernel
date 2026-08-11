@@ -8,6 +8,7 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Mathlib.Order.Interval.Finset.Nat
 
 namespace Millennium.ErdosProblems
 open Imscribing.Primitives
@@ -20,11 +21,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ============================================================
 
 /-!
-**Erdős-Pomerance Problem (1980):** Let f(n) be the minimal length
-of an interval I = (x, x+f(n)) such that there exists a system of
-distinct representatives (SDR) for the sets S_k = {a ∈ I : k ∣ a}
-for k = 1,…,n. Equivalently: find n distinct numbers in an interval
-of length f(n), each divisible by a different k ∈ {1,…,n}.
+**Erdős-Pomerance Problem (1980):** `f(n,m)` is the least integer such
+that the interval `(m, m+f(n,m)]` contains n distinct integers a_1,…,a_n
+with i ∣ a_i for every i. It is a function of TWO arguments: the interval
+length is not the only variable, WHERE the window sits matters, and that
+is the whole problem.
+
+This section previously defined a one-argument f(n) as the minimal length
+over all intervals. That reading is trivial — see `SDRWindow` below, which
+machine-checks that the window just above lcm(1,…,n) works and that no
+window shorter than n can hold n distinct integers, so the minimum over
+starting points is exactly n. The interesting quantities are f(n,n), the
+window starting at n, and max_m f(n,m), the worst window.
 
 **The Hall Marriage formulation:** There exist a_1,…,a_n all distinct
 in I with k ∣ a_k iff the Hall condition holds: for every J ⊆ {1,…,n},
@@ -44,12 +52,19 @@ in I with k ∣ a_k iff the Hall condition holds: for every J ⊆ {1,…,n},
     Pomerance (1980) bounded f(n) by analyzing integers with
     p > n/f(n). Result: f(n) ≲ c·n √(log n / log log n).
 
-  Branch 3 — Matching_Asymptotics (obstructional): The exact constant
-    c is unknown. Erdős offered 2000 rupees for determining c.
-    Candidates: e^γ (from the Dickman-de Bruijn function ρ(u)
-    controlling smooth numbers in short intervals).
+  Branch 3 — Matching_Asymptotics (obstructional): the upper and lower
+    bounds do not match, so there is no constant c to name yet. The prize
+    Erdős attached here (1000 rupees) was for a different question: that
+    max_m f(n,m) − f(n,n) → ∞, i.e. that the worst window is genuinely
+    worse than the window at n. That conjecture is now settled — see §17.
 
-**Result:** f(n) ≍ n √(log n / log log n). The constant remains open.
+**Result:** the order of f(n,n) is NOT known. Erdős-Pomerance (1980) proved
+
+    (2/√e + o(1))·n √(log n / log log n)  <  f(n,n)  <  (2 + o(1))·n √(log n)
+
+and the two ends differ by a factor √(log log n). The section formerly
+asserted f(n) ≍ n √(log n / log log n), which promotes their lower bound to
+a matching order it does not have.
 
 **Structural Imscription — erdos_pomerance_problem:**
   D=array (n→∞ asymptotic parameter)
@@ -65,6 +80,82 @@ in I with k ∣ a_k iff the Hall condition holds: for every J ⊆ {1,…,n},
   Σ=hung (1:1: one interval → one SDR existence claim)
   Ω=ah (integer winding: interval length is an integer)
 -/
+
+/-! ### Which quantity is the problem, machine-checked
+
+The statement above minimises over the interval as well as over its length, and
+that reading is trivial: the window `(L, L+n]` sitting just above
+`L = lcm(1,…,n)` already carries distinct multiples, namely `a_i = L + i`, and
+no window shorter than `n` can hold `n` distinct integers. So the minimum over
+starting points is exactly `n`, with no number theory in it at all.
+
+The Erdős–Pomerance quantity is therefore not that minimum. It is `f(n,m)`, the
+least length such that `(m, m+f(n,m)]` contains distinct multiples of `1,…,n` —
+a function of WHERE the window sits. Both theorems below are about the easy
+end of that function; they are here to fix which quantity the section is about.
+-/
+
+namespace SDRWindow
+
+open Finset
+
+/-- `lcmUpTo n = lcm(1,…,n)`, by recursion rather than through `Finset.lcm`,
+which would drag in the `NormalizedGCDMonoid` machinery for no gain here. -/
+def lcmUpTo : ℕ → ℕ
+  | 0 => 1
+  | (n + 1) => Nat.lcm (n + 1) (lcmUpTo n)
+
+theorem dvd_lcmUpTo : ∀ {n i : ℕ}, i ∈ Finset.Icc 1 n → i ∣ lcmUpTo n := by
+  intro n
+  induction n with
+  | zero => intro i hi; simp at hi
+  | succ n ih =>
+      intro i hi
+      rw [Finset.mem_Icc] at hi
+      rcases Nat.lt_or_ge i (n + 1) with h | h
+      · exact dvd_trans (ih (Finset.mem_Icc.2 ⟨hi.1, by omega⟩)) (Nat.dvd_lcm_right _ _)
+      · have : i = n + 1 := by omega
+        subst this
+        exact Nat.dvd_lcm_left _ _
+
+/-- **The window just above the lcm.** `a_i = lcm(1,…,n) + i` are `n` distinct
+integers in an interval of length `n`, each divisible by its index: the minimum
+over starting points is attained at once, so `min_m f(n,m) ≤ n`. -/
+theorem exists_distinct_multiples_window (n : ℕ) :
+    ∃ a : ℕ → ℕ, (∀ i ∈ Finset.Icc 1 n, i ∣ a i) ∧
+      Set.InjOn a (Finset.Icc 1 n) ∧
+      (∀ i ∈ Finset.Icc 1 n, lcmUpTo n < a i ∧ a i ≤ lcmUpTo n + n) := by
+  refine ⟨fun i => lcmUpTo n + i, ?_, ?_, ?_⟩
+  · intro i hi
+    exact Nat.dvd_add (dvd_lcmUpTo hi) dvd_rfl
+  · intro i _ j _ h
+    dsimp only at h
+    omega
+  · intro i hi
+    rw [Finset.mem_Icc] at hi
+    dsimp only
+    omega
+
+/-- **And no shorter window works, anywhere.** `n` distinct integers need `n`
+integer slots, so `f(n,m) ≥ n` for every `m` — the bound that makes the
+construction above exactly optimal for the minimising reading. -/
+theorem window_length_ge (n m len : ℕ) (a : ℕ → ℕ)
+    (hinj : Set.InjOn a (Finset.Icc 1 n))
+    (hmem : ∀ i ∈ Finset.Icc 1 n, m < a i ∧ a i ≤ m + len) :
+    n ≤ len := by
+  classical
+  have hsub : (Finset.Icc 1 n).image a ⊆ Finset.Ioc m (m + len) := by
+    intro x hx
+    obtain ⟨i, hi, rfl⟩ := Finset.mem_image.1 hx
+    exact Finset.mem_Ioc.2 (hmem i hi)
+  have hcard := Finset.card_le_card hsub
+  rwa [Finset.card_image_of_injOn hinj, Nat.card_Icc, Nat.card_Ioc,
+    Nat.add_sub_cancel_left, Nat.add_sub_cancel] at hcard
+
+#print axioms exists_distinct_multiples_window
+#print axioms window_length_ge
+
+end SDRWindow
 
 /--
 The Erdős-Pomerance SDR problem as an Imscription.
@@ -94,20 +185,26 @@ range [1,n], making the correlation range truly global (ice).
 This contrasts with problems where only intermediate-range
 correlations (thigh) suffice.
 
-**mOMonadOS Agent Verdict:** Belnap **B** — Both True (the asymptotic
-order is established: f(n) ≍ n √(log n / log log n)) and Neither
-(the exact constant c is open; Erdős's 2000-rupee prize stands).
+**mOMonadOS Agent Verdict:** Belnap **B** — and it survives the
+correction, though not for the reason recorded. Not "order established,
+constant open": the order of f(n,n) is itself open. What is True is the
+max_m branch, settled by van Doorn in 2026; what is Neither is f(n,n),
+where lower and upper bound differ by √(log log n).
 
 **Known Results:**
-  ✓ Erdős-Pomerance (1980): f(n) ∼ c·n √(log n / log log n)
+  ✓ min_m f(n,m) = n, attained just above lcm(1,…,n) — `SDRWindow`,
+    machine-checked. The minimising reading of the problem is trivial.
+  ✓ Erdős-Pomerance (1980): (2/√e + o(1))·n√(log n/log log n) < f(n,n)
+  ✓ Erdős-Pomerance (1980): f(n,n) < (2 + o(1))·n√(log n)
+  ✓ van Doorn (2026, arXiv:2601.16972): max_m f(n,m) − f(n,n) >
+    0.36·n log n / log log n for all large n — the 1000-rupee conjecture
   ✓ Hall's Marriage Theorem provides the SDR formulation
-  ✓ CRT lower bound: (2/√e) n √(log n / log log n)
-  ✗ Exact constant c (Erdős $2000 / 2000 rupees)
-  ✗ Is c = e^γ? (Dickman-de Bruijn conjecture)
+  ✗ The order of f(n,n): a factor √(log log n) separates the two bounds
+  ✗ Any asymptotic constant — premature while the order is open
 
-**Barrier:** Determining c requires controlling the Dickman function
-ρ(u) in the critical range u ≈ √(log n / log log n), which pushes
-probabilistic number theory beyond current methods. Diffs to kernel:
+**Barrier:** closing the √(log log n) gap in f(n,n) requires controlling
+the Dickman function ρ(u) in the critical range u ≈ √(log n / log log n),
+which pushes probabilistic number theory beyond current methods. Diffs to kernel:
 T(judge→are), Γ(measure→ooze), Ω(ah→zoo).
 -/
 
@@ -116,74 +213,69 @@ T(judge→are), Γ(measure→ooze), Ω(ah→zoo).
 -- ============================================================
 
 /-!
-**CRITICAL KERNEL DIVERGENCE — Erdős-Pomerance q5 Rerun:**
+**The q5 rerun was not wrong, and this section used to say it was.**
 
-The mOMonadOS q5 rerun (Cycle 14) produced a DIFFERENT asymptotic
-formula from the original run (Cycle 9, §11) and from the established
-mathematical literature.
+  ORIGINAL RUN (Cycle 9):  f ≍ n √(log n / log log n)
+  RERUN (Cycle 14):        f ∼ n log n / log log n
 
-  ORIGINAL RUN (Cycle 9):    f(n) ≍ n √(log n / log log n)
-  RERUN (Cycle 14):          f(n) ∼ n log n / log log n
-  ESTABLISHED (Erdős-Pomerance 1980): f(n) ≍ n √(log n / log log n)
+This section formerly diagnosed the rerun as a kernel ERROR: it claimed the
+rerun had confused the SDR problem with the Jacobsthal function g(n), and gave
+n log n / log log n as the Jacobsthal asymptotic, attributed to Iwaniec (1978).
+Both halves of that diagnosis are false, and they were checked against the
+literature rather than argued with.
 
-The rerun's formula f(n) ∼ n log n / log log n matches the growth
-of the Jacobsthal function g(n) — the maximum gap between integers
-coprime to n — NOT the Erdős-Pomerance SDR problem.
+**First:** Iwaniec (1978, *On the problem of Jacobsthal*, Demonstratio Math. 11,
+225–231) proves g(n) ≪ (log n)², not n log n / log log n. The asymptotic this
+file attributed to him is not his and is not Jacobsthal's function.
 
-**Structural Analysis:**
+**Second, and the real point:** n log n / log log n is the right order for a
+real quantity in this problem. Van Doorn (2026, arXiv:2601.16972) proves
 
-The q5 rerun confused two distinct problems:
-  1. Erdős-Pomerance SDR (the actual problem): find minimal interval
-     length f(n) for distinct multiples of 1,…,n. Answer: ≍ n√(log n/log log n).
-  2. Jacobsthal function g(n): maximal gap between integers coprime
-     to n. Answer: ≍ n log n / log log n (Iwaniec, 1978).
+    max_m f(n,m) − f(n,n) > 0.36 · n log n / log log n   for all large n,
 
-The rerun explicitly mentions "The Jacobsthal Connection" and gives
-the Jacobsthal asymptotic. This is a structural collision in the
-kernel's FSPLIT decomposition — the branch labeled "Jacobsthal_Connection"
-was not properly FFUSE-fused back to the original problem, resulting
-in the wrong asymptotic being broadcast to CLINK L8.
+settling the Erdős–Pomerance 1000-rupee conjecture that max_m f(n,m) − f(n,n)
+→ ∞. So the worst window exceeds the window at n by exactly the order the
+rerun broadcast.
 
-**This is a kernel ERROR, not a legitimate divergence.**
-The Frobenius ratio was still reported as 1.0, but the FFUSE
-recomposition picked up the wrong branch. This reveals a limitation:
-Frobenius closure (μ∘δ=id) guarantees internal consistency of the
-FSPLIT→FFUSE pair but does NOT guarantee that the fused result
-matches external mathematical truth.
+**What actually diverged is the quantifier over m.** The original run answered
+about f(n,n); the rerun answered about max_m f(n,m). Two different functions,
+two different orders, both defensible — the one-argument "f(n)" in §11 is what
+made them look like rival answers to one question. That places this divergence
+in the same category as Polynom Q3: structural ambiguity, a kernel fork where
+both branches are defensible, NOT a factual error.
 
-**Corrected verdict:** f(n) ≍ n √(log n / log log n) (per §11).
-The rerun's asymptotic is WRONG and should be disregarded.
-
-**Structural Imscription (unchanged):** Same as erdos_pomerance_problem (§11).
+**Consequence for the reliability note.** The hub's §18 recorded 3 consistent /
+2 divergent reruns, of which one was called a kernel error and one an ambiguity.
+Both divergences are ambiguities. The claim that Frobenius closure does not
+guarantee external correctness survives on the Polynom Q3 case, but it is no
+longer evidenced by a factual error here, because there was none.
 -/
 
 /--
-The Jacobsthal function asymptotic (WRONG for this problem).
-The q5 rerun gave f(n) ~ n log n / log log n, which is the
-Jacobsthal function g(n), NOT the Erdős-Pomerance f(n).
-
-Correct: f(n) ≍ n √(log n / log log n) (Erdős-Pomerance, 1980)
+Iwaniec's actual bound on the Jacobsthal function, kept because this file
+previously misquoted it. g(n) is the largest gap between consecutive integers
+coprime to n.
 -/
 def jacobsthal_asymptotic_note : String :=
-  "g(n) ~ n log n / log log n (Iwaniec 1978) ≠ f(n) ≍ n√(log n/log log n)"
+  "Iwaniec 1978: g(n) ≪ (log n)². The n log n/log log n attributed to him here was neither his nor Jacobsthal's."
 
 /--
-The two conflicting asymptotics from the original run vs. the rerun.
-The original run matches Erdős-Pomerance (1980); the rerun is wrong.
+The two asymptotics, with the quantity each is about. They are not rival
+answers: they are answers about different functions.
 -/
-def pomerance_asymptotic_divergence : List (String × String) :=
-  [("original_cycle9",       "n √(log n / log log n)"),
-   ("rerun_cycle14",         "n log n / log log n"),
-   ("erdos_pomerance_1980",  "n √(log n / log log n)")]
+def pomerance_asymptotic_divergence : List (String × String × String) :=
+  [("original_cycle9",      "f(n,n)",          "≍ n √(log n / log log n) — but the order is open: EP1980 bracket it between (2/√e)n√(log n/log log n) and 2n√(log n)"),
+   ("rerun_cycle14",        "max_m f(n,m)",    "∼ n log n / log log n — the order van Doorn 2026 proves for the excess over f(n,n)"),
+   ("erdos_pomerance_1980", "f(n,n)",          "lower bound (2/√e + o(1)) n √(log n / log log n)"),
+   ("van_doorn_2026",       "max_m f(n,m)",    "max_m f(n,m) − f(n,n) > 0.36 n log n / log log n for large n")]
 
 /--
-The rerun FFUSE-fused the wrong branch (Jacobsthal function instead
-of the SDR problem). Frobenius ratio was still 1.0 because the
-FSPLIT→FFUSE was internally consistent — it just picked the wrong
-semantic branch. This is a structural limitation: μ∘δ=id ensures
-closure but not external correctness.
+What the q5 rerun episode does and does not show. The FSPLIT→FFUSE pair was
+internally consistent (Frobenius ratio 1.0) and the fused answer was also
+externally correct — for the quantity it was about. The failure was in this
+file: a one-argument f(n) for a two-argument function, which made a difference
+of quantifier look like a difference of fact.
 -/
-theorem pomerance_frobenius_closure_limitation : True := by
-  trivial
+def pomerance_divergence_kind : String := "structural ambiguity (quantifier over m), not kernel error"
 
 end Millennium.ErdosProblems
