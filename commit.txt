@@ -1,20 +1,3 @@
-Erdős: one problem, one file
+Gate check for the 946a6017 ob3ect
 
-ErdosProblems.lean had grown to 2160 lines carrying fifteen problems and nine
-synthesis sections in one place. Each problem now has its own home in
-Millennium/Erdos/, 91 to 189 lines each, and the hub keeps only what spans them
-— cross-problem comparison, the kernel connection, the verdict distributions.
-555 lines instead of 2160.
-
-Reruns went into their problem's file rather than standing alone: §15 with
-Ramsey Asymptotics, §16 with Polynom, §17 with Pomerance. A rerun of a problem
-is not a second problem.
-
-FsplitBranch had been living in the file header, and fifteen files needed it, so
-it is in Erdos/Base.lean now. One definition, one home — the same rule the split
-is an instance of.
-
-The q817 proof landed in SumsetAvoidingAP.lean beside §28, which turned out to
-be an empty banner reserved for exactly that proof and never filled.
-
-Full library green at 8585 jobs.
+Auto-generated gate-check scaffold from an ob3ect run.
