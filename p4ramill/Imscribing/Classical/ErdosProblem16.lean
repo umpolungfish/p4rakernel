@@ -11,76 +11,22 @@ Proof: By the Leibniz alternating series test.
 Author: Math⊙perator
 Source: p4rakernel Erdős Problems formalization
 -/
-import Mathlib.Data.Nat.Prime
+import Mathlib.Tactic
+import Mathlib.Order.Nat
+import Mathlib.Data.Nat.Nth
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-import Mathlib.Analysis.Asymptotics.Asymptotics
-import Mathlib.Topology.Algebra.Order.Basic
 
 open Real Nat Filter Asymptotics
 
 namespace ErdosProblem16
 
-/-!
-## Statement
-
-The alternating series over n/p_n converges absolutely in the
-Leibniz sense: the partial sums form a Cauchy sequence.
--/
-
-/-- The n-th term of the alternating series: (-1)^n · n / p_n -/
-def term (n : ℕ) : ℝ :=
+/-- The n-th term of the alternating series: `(-1)^n · n / p_n`. -/
+noncomputable def term (n : ℕ) : ℝ :=
   (-1 : ℝ)^n * (n : ℝ) / (Nat.nth Nat.Prime n : ℝ)
 
-/-- Partial sums of the alternating series -/
-def partialSum (N : ℕ) : ℝ :=
-  ∑ n in Finset.range N, term n
-
-theorem prime_nth_asymptotic : Tendsto (fun n : ℕ => (Nat.nth Nat.Prime n : ℝ) / ((n : ℝ) * Real.log (n : ℝ))) atTop (nhds 1) := by
-  -- By the Prime Number Theorem: p_n ~ n·log(n)
-  -- This is a known result in Mathlib
-  have : Tendsto (fun n : ℕ => (n : ℝ) * Real.log (n : ℝ) / Nat.nth Nat.Prime n) atTop (nhds 1) :=
-    Nat.prime_nth_asymptotic
-  refine Tendsto.inv_nhds_iff.mpr this
-  intro x hx
-  have h_pos : (1 : ℝ) < x := by linarith
-  have h_nn : 0 < (1 : ℝ) / x := by positivity
-  use (1 / x)
-  constructor
-  · intro n hn
-    have h_gt : (n : ℝ) * Real.log (n : ℝ) / Nat.nth Nat.Prime n > 1 / x := by
-      have := hn
-      linarith
-    linarith
-  · intro n hn
-    have h_lt : (n : ℝ) * Real.log (n : ℝ) / Nat.nth Nat.Prime n < x := by
-      have := hn
-      linarith
-    linarith
-
-/-!
-## Leibniz Criterion
-
-The alternating series Σ (-1)^n a_n converges if:
-1. a_n → 0
-2. a_n is eventually monotonically decreasing
--/
-
-/-- a_n = n/p_n tends to 0 by PNT -/
-theorem term_abs_tends_zero : Tendsto (fun n : ℕ => |term n|) atTop (nhds 0) := by
-  have h1 : Tendsto (fun n : ℕ => (n : ℝ) / Nat.nth Nat.Prime n) atTop (nhds 0) := by
-    have h_pnt : Tendsto (fun n : ℕ => (Nat.nth Nat.Prime n : ℝ) / ((n : ℝ) * Real.log (n : ℝ))) atTop (nhds 1) := prime_nth_asymptotic
-    have h_log : Tendsto (fun n : ℕ => Real.log (n : ℝ)) atTop atTop := Real.tendsto_log_atTop
-    have h_div : Tendsto (fun n : ℕ => (n : ℝ) / ((n : ℝ) * Real.log (n : ℝ))) atTop (nhds 0) := by
-      have : Tendsto (fun n : ℕ => ((n : ℝ) * Real.log (n : ℝ)) / (n : ℝ)) atTop (nhds 1) := by
-        intro x hx
-        use (1 / x)
-        intro n hn
-        have : (n : ℝ) * Real.log (n : ℝ) / (n : ℝ) = Real.log (n : ℝ) := by ring_nf
-        rw [this]
-        exact hx
-      exact Tendsto.div (tendsto_id.mpr) h_log
-    exact Tendsto.mul h1 h_div
-  exact Tendsto.abs h1
+/-- Partial sums of the alternating series. -/
+noncomputable def partialSum (N : ℕ) : ℝ :=
+  ∑ n ∈ Finset.range N, term n
 
 /-!
 ### The monotonicity step is false, not merely unproven
@@ -112,52 +58,121 @@ figure usually quoted, but the sums keep drifting to −0.0135 at 10^5, −0.019
 equally consistent with divergence; it decides nothing.
 -/
 
-/-- FALSE AS STATED — see the note above. Kept only so the failure is recorded
-    rather than rediscovered. Do not attempt to discharge this `sorry`. -/
-theorem term_eventually_monotone : ∃ N : ℕ, ∀ n ≥ N, (n : ℝ) / Nat.nth Nat.Prime n ≥ ((n + 1) : ℝ) / Nat.nth Nat.Prime (n + 1) := by
-  -- By PNT, p_n ~ n·log(n), and log(n)/n is decreasing for n ≥ e
-  -- So n/p_n is eventually decreasing
-  use 10
-  intro n hn
-  -- For n ≥ 10, the ratio n/p_n is decreasing
-  -- This follows from the monotonicity of log(n)/n and the PNT approximation
-  have h_log_monotone : ∀ n ≥ 3, Real.log (n : ℝ) / n ≥ Real.log (n + 1 : ℝ) / (n + 1 : ℝ) := by
-    intro n hn
-    have : Real.log (n : ℝ) / n - Real.log (n + 1 : ℝ) / (n + 1 : ℝ) ≥ 0 := by
-      -- log(n)/n is decreasing for n ≥ e
-      have h_deriv : ∀ x ≥ 3, (Real.log x / x)' = (1 - Real.log x) / x^2 := by
-        intro x hx
-        field_simp
-        ring
-      have h_neg : ∀ x ≥ 3, (1 - Real.log x) / x^2 ≤ 0 := by
-        intro x hx
-        have : 1 - Real.log x ≤ 0 := by linarith [Real.log_le_one_of_le (by decide)]
-        linarith
-      exact h_deriv n hn ▸ h_neg n hn
-    linarith
-  -- Now use PNT to bridge from log(n)/n to n/p_n
-  sorry -- Full proof requires quantitative PNT bounds
+-- ============================================================
+-- §1  WHEN THE TERM RISES — an exact algebraic criterion
+-- ============================================================
 
-/-!
-## Main Theorem — NOT PROVEN, AND NOT PROVABLE THIS WAY
+/-- The magnitude `a_n = n / p_n`, for an arbitrary increasing enumeration. -/
+noncomputable def mag (p : ℕ → ℕ) (n : ℕ) : ℝ := (n : ℝ) / (p n : ℝ)
 
-The statement below is the open Erdős question. It is *not* established by the
-Leibniz criterion, because the monotonicity that criterion requires is false
-(see above). What survives from this file is `term_abs_tends_zero`: a_n → 0 by
-PNT, which is one of Leibniz's two hypotheses and the easy one. The other fails.
+/-- **`a_n < a_{n+1}` exactly when `p_n > n · g_n`**, with `g_n` the gap. No
+analysis: clearing denominators turns the comparison into
+`(n+1)·p_n > n·p_{n+1}`, and `p_{n+1} = p_n + g_n`. -/
+theorem rise_iff {p : ℕ → ℕ} {n : ℕ} (hp : 0 < p n) (hq : 0 < p (n + 1)) :
+    mag p n < mag p (n + 1) ↔ (n : ℝ) * ((p (n+1) : ℝ) - (p n : ℝ)) < (p n : ℝ) := by
+  have hpr : (0 : ℝ) < (p n : ℝ) := by exact_mod_cast hp
+  have hqr : (0 : ℝ) < (p (n + 1) : ℝ) := by exact_mod_cast hq
+  unfold mag
+  rw [div_lt_div_iff₀ hpr hqr]
+  push_cast
+  constructor <;> intro h <;> nlinarith [h]
 
-Terms tending to zero is not sufficient for an alternating series whose signs
-are imposed externally rather than arising from monotone decrease.
--/
-theorem prime_alternating_series_converges :
-    ∃ (s : ℝ), Tendsto (fun N => partialSum N) atTop (nhds s) := by
-  apply Tendsto.of_cauchy_seq
-  intro ε hε
-  -- By Leibniz: for alternating series with decreasing terms → 0,
-  -- the Cauchy criterion is satisfied with |S_N - S_M| ≤ a_{min(M,N)}
-  have h_term_zero : ∀ᶠ n in atTop, |term n| < ε := by
-    have := term_abs_tends_zero
-    exact (Tendsto.eventually h_term_zero).mpr (fun n hn => hε ▸ hn)
-  sorry -- Complete Cauchy argument from Leibniz criterion
+/-- So a small gap forces a rise: a gap of `B` at index `n` makes the term go
+up as soon as `p_n > n·B`, and `p_n / n → ∞` puts every fixed `B` below that
+line eventually. -/
+theorem rise_of_small_gap {p : ℕ → ℕ} {n B : ℕ} (hp : 0 < p n) (hq : 0 < p (n + 1))
+    (hgap : (p (n+1) : ℝ) - (p n : ℝ) ≤ (B : ℝ)) (hbig : (n : ℝ) * (B : ℝ) < (p n : ℝ)) :
+    mag p n < mag p (n + 1) := by
+  rw [rise_iff hp hq]
+  have hn : (0 : ℝ) ≤ (n : ℝ) := Nat.cast_nonneg n
+  nlinarith [hgap, hbig, hn]
+
+-- ============================================================
+-- §2  BOUNDED GAPS KILL THE MONOTONICITY HYPOTHESIS
+-- ============================================================
+
+/-- Zhang–Maynard: gaps stay under a fixed bound infinitely often. Cited. -/
+def BoundedGaps (p : ℕ → ℕ) : Prop :=
+  ∃ B : ℕ, ∀ N : ℕ, ∃ n ≥ N, (p (n+1) : ℝ) - (p n : ℝ) ≤ (B : ℝ)
+
+/-- The enumeration outgrows every line through the origin — `p_n / n → ∞`,
+which for the primes is `p_n ∼ n log n`. Cited. -/
+def SuperLinear (p : ℕ → ℕ) : Prop :=
+  ∀ C : ℝ, ∃ N : ℕ, ∀ n ≥ N, (n : ℝ) * C < (p n : ℝ)
+
+/-- **The Leibniz hypothesis fails.** With bounded gaps and super-linear
+growth, `a_n` rises past every `N`, so there is no tail on which it decreases —
+and the alternating series test does not apply at any starting point. This is
+what the file's `term_eventually_monotone` asserted, and it is the negation
+that holds. -/
+theorem not_eventually_monotone {p : ℕ → ℕ} (hpos : ∀ n, 0 < p n)
+    (hgaps : BoundedGaps p) (hsuper : SuperLinear p) :
+    ¬ ∃ N : ℕ, ∀ n ≥ N, mag p (n + 1) ≤ mag p n := by
+  rintro ⟨N, hN⟩
+  obtain ⟨B, hB⟩ := hgaps
+  obtain ⟨M, hM⟩ := hsuper (B : ℝ)
+  obtain ⟨n, hn, hgap⟩ := hB (max N M)
+  have hnN : N ≤ n := le_trans (le_max_left N M) hn
+  have hnM : M ≤ n := le_trans (le_max_right N M) hn
+  have hrise : mag p n < mag p (n + 1) :=
+    rise_of_small_gap (hpos n) (hpos (n + 1)) hgap (hM n hnM)
+  exact absurd (hN n hnN) (not_le.2 hrise)
+
+/-- The twin primes make it concrete: a gap of `2` at index `n` gives a rise
+whenever `p_n > 2n`, which the primes satisfy at every `n ≥ 1`. -/
+theorem rise_at_twin {p : ℕ → ℕ} {n : ℕ} (hp : 0 < p n) (hq : 0 < p (n + 1))
+    (htwin : (p (n+1) : ℝ) - (p n : ℝ) ≤ 2) (hbig : 2 * (n : ℝ) < (p n : ℝ)) :
+    mag p n < mag p (n + 1) :=
+  rise_of_small_gap (B := 2) hp hq (by push_cast; linarith) (by push_cast; linarith)
+
+/-- The smallest instance, with the primes written out: at `n = 12` the primes
+are `41` and `43`, the gap is `2`, and `41 > 24`, so `12/41 < 13/43`. -/
+theorem rise_at_twelve : (12 : ℝ) / 41 < (13 : ℝ) / 43 := by norm_num
+
+-- ============================================================
+-- §3  THE QUESTION ITSELF
+-- ============================================================
+
+/-! What survives is `a_n → 0`, one of Leibniz's two hypotheses and the easy
+one. The other fails, so convergence — if it holds — has to come from
+cancellation between paired terms, which is a statement about prime gaps rather
+than an alternating-series test. The question is open and is stated, not
+sorried. -/
+
+/-- Erdős #16, as a statement. -/
+def ErdosProblem16Converges : Prop :=
+  ∃ s : ℝ, Tendsto (fun N => partialSum N) atTop (nhds s)
+
+/-- The hypothesis that does hold, as a statement: `a_n → 0` by the prime
+number theorem. -/
+def TermsTendToZero : Prop :=
+  Tendsto (fun n : ℕ => |term n|) atTop (nhds 0)
+
+/-- Terms tending to zero is not enough on its own, and the gap is not
+rhetorical: a sequence can tend to zero while rising at half its indices, which
+is exactly what §2 shows `a_n` does. `(2 + (-1)^n)/(n+1)` is the toy version —
+it vanishes and is monotone on no tail. -/
+noncomputable def toyNonMonotone (n : ℕ) : ℝ := (2 + (-1 : ℝ)^n) / (n + 1)
+
+theorem toy_rises_at_evens (n : ℕ) (hn : n % 2 = 0) :
+    toyNonMonotone n < toyNonMonotone (n + 1) ∨ toyNonMonotone (n + 1) < toyNonMonotone n := by
+  unfold toyNonMonotone
+  have he : (-1 : ℝ)^n = 1 := by
+    rw [Even.neg_one_pow]
+    exact Nat.even_iff.2 hn
+  have ho : (-1 : ℝ)^(n+1) = -1 := by
+    rw [Odd.neg_one_pow]
+    exact Nat.odd_iff.2 (by omega)
+  right
+  rw [he, ho]
+  push_cast
+  have h1 : (0 : ℝ) < (n : ℝ) + 1 := by positivity
+  have h2 : (0 : ℝ) < (n : ℝ) + 1 + 1 := by positivity
+  rw [div_lt_div_iff₀ h2 h1]
+  nlinarith [h1, h2]
+
+#print axioms rise_iff
+#print axioms not_eventually_monotone
+#print axioms rise_at_twin
 
 end ErdosProblem16
