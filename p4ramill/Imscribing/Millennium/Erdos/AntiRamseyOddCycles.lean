@@ -8,6 +8,8 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Erdos.Base
+import Imscribing.Paraconsistent.BelnapSplitFuse
+import Mathlib.Tactic
 
 namespace Millennium.ErdosProblems
 open Imscribing.Primitives
@@ -93,16 +95,123 @@ theorem regime_transition_at_k3 : regime_of_k 3 = AntiRamseyRegime.quadratic := 
 theorem regime_c3_is_constant : regime_of_k 1 = AntiRamseyRegime.constant := rfl
 theorem regime_c5_is_linear : regime_of_k 2 = AntiRamseyRegime.linear := rfl
 
+
+-- ============================================================
+-- §2.1  THE TURÁN THRESHOLD THE PROBLEM SITS ONE EDGE ABOVE
+-- ============================================================
+
 /-!
-**mOMonadOS Agent Verdict (Cycle 2):** Belnap **B** — Both True
-and False depending on k. For k ≥ 4 the Bucić-Chen-Ma result proves
-the asymptotic n²/8. The C₃ and C₅ anomalies create a dialetheic
-breakdown: the structure is fully resolved for k≥4 but the transition
-at k=3 is a structural bifurcation.
+The edge count `⌊n²/4⌋ + 1` is one above `ex(n, K₃)`, and Mantel's
+extremal graph is the balanced complete bipartite graph. That the two
+numbers agree is arithmetic on the two parts, and it is what makes "one
+edge above the threshold" a statement about a specific graph plus a
+specific edge rather than about a bound.
+-/
+
+/-- The balanced complete bipartite graph on `n` vertices has
+`⌈n/2⌉ · ⌊n/2⌋` edges, and that is exactly `⌊n²/4⌋`. -/
+theorem turan_edges (n : ℕ) : (n + 1) / 2 * (n / 2) = n * n / 4 := by
+  rcases Nat.even_or_odd n with ⟨m, hm⟩ | ⟨m, hm⟩
+  · subst hm
+    have h1 : (m + m + 1) / 2 = m := by omega
+    have h2 : (m + m) / 2 = m := by omega
+    have h3 : (m + m) * (m + m) = 4 * (m * m) := by ring
+    rw [h1, h2, h3]
+    generalize m * m = q
+    omega
+  · subst hm
+    have h1 : (2 * m + 1 + 1) / 2 = m + 1 := by omega
+    have h2 : (2 * m + 1) / 2 = m := by omega
+    have h3 : (2 * m + 1) * (2 * m + 1) = 4 * (m * m + m) + 1 := by ring
+    have h4 : (m + 1) * m = m * m + m := by ring
+    rw [h1, h2, h3, h4]
+    generalize m * m = q
+    omega
+
+/-- The threshold and the problem's edge count differ by one. -/
+theorem one_above_threshold (n : ℕ) : n * n / 4 + 1 = (n + 1) / 2 * (n / 2) + 1 := by
+  rw [turan_edges]
+
+/-- Small values, to fix the shape: `⌊n²/4⌋` for `n = 2…9`. -/
+theorem turan_small :
+    [4 * 4 / 4, 5 * 5 / 4, 6 * 6 / 4, 7 * 7 / 4, 8 * 8 / 4, 9 * 9 / 4]
+      = [4, 6, 9, 12, 16, 20] := by decide
+
+-- ============================================================
+-- §2.2  THE THREE REGIMES PARTITION k, THEY DO NOT CONFLICT
+-- ============================================================
+
+/-!
+`regime_of_k` is a function, so no `k` receives two regimes. The three
+cases are a partition of the positive integers, and the orders they name
+are genuinely different — constant, linear, quadratic — separating once
+`n` is large enough for the linear formula to fall below the quadratic
+one.
+-/
+
+theorem regime_partition (k : ℕ) :
+    (regime_of_k k = AntiRamseyRegime.constant ↔ k = 1) ∧
+    (regime_of_k k = AntiRamseyRegime.linear ↔ k = 2) ∧
+    (regime_of_k k = AntiRamseyRegime.quadratic ↔ k ≠ 1 ∧ k ≠ 2) := by
+  unfold regime_of_k
+  by_cases h1 : k = 1
+  · subst h1; simp
+  · by_cases h2 : k = 2
+    · subst h2; simp
+    · simp [h1, h2]
+
+/-- The linear regime really is below the quadratic one from `n = 8`, so
+the three formulas name three different orders rather than three readings
+of one quantity. -/
+theorem regimes_separate (n : ℕ) (hn : 8 ≤ n) : 8 * (n / 2 + 3) < n * n := by
+  have h1 : 8 * (n / 2) ≤ 4 * n := by omega
+  have h2 : 8 * n ≤ n * n := Nat.mul_le_mul_right _ hn
+  omega
+
+-- ============================================================
+-- §2.3  A PIECEWISE FORMULA IS NOT A DIALETHEIA
+-- ============================================================
+
+/-!
+The verdict reads "B — Both True and False depending on k", with "the C₃
+and C₅ anomalies create a dialetheic breakdown". A quantity taking
+different values at different arguments is a function, not a
+contradiction. B is one proposition holding both True and False; here
+there are three propositions, one per regime, each True at its own `k`,
+and `regime_partition` shows no `k` is claimed by two of them.
+
+The kernel's fuse agrees: the three branches are three T's, and `ffuse`
+on `(T,T)` is T. It returns B only from a genuine T/F opposition, which
+a partition never produces.
+-/
+
+theorem antiramsey_ffuse_three_trues : ffuse (Belnap.T, Belnap.T) = Belnap.T := by decide
+
+theorem antiramsey_no_opposition :
+    ffuse (Belnap.T, Belnap.T) = Belnap.T ∧ ffuse (Belnap.T, Belnap.F) = Belnap.B := by
+  decide
+
+#print axioms turan_edges
+#print axioms regime_partition
+#print axioms regimes_separate
+
+/-!
+**Verdict: T.** This read "B — Both True and False depending on k",
+calling the C₃ and C₅ cases a dialetheic breakdown. A quantity taking
+different values at different arguments is a function. `regime_of_k` is
+one, and `regime_partition` shows the three regimes partition k with no
+k claimed by two of them, so there is no proposition here holding both
+True and False. The kernel's `ffuse` on (T,T) is T; it returns B only
+from a genuine T/F opposition, which a partition cannot produce. The
+transition at k=3 is a change of order — constant, then linear, then
+quadratic, separating from n=8 by `regimes_separate` — not a bifurcation
+of one claim.
 
 **Known Results:**
   ✓ Bucić-Chen-Ma: asymptotic n²/8 for k ≥ 4
   ✓ C₃ and C₅ cases fully resolved
+  ✓ The threshold ⌊n²/4⌋ is the balanced bipartite edge count
+    ⌈n/2⌉·⌊n/2⌋ (`turan_edges`), so "one edge above" names a graph
   ✗ Sharp constants for k ≥ 4
   ✗ Classification for arbitrary H beyond odd cycles
 
