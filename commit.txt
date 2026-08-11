@@ -1,26 +1,20 @@
-q817: the base-3 construction, machine-checked
+Erdős: one problem, one file
 
-The sumset-avoiding-k-APs answer was prose in a docstring. It rejects
-g_3(n) >> 3^n by the construction A = {3^0,…,3^(n-1)}, whose subset sums are
-exactly the numbers with base-3 digits in {0,1}, none three of which form an
-arithmetic progression. Elementary, and there was no reason for it to stay
-unchecked while the file around it carried 0 sorries.
+ErdosProblems.lean had grown to 2160 lines carrying fifteen problems and nine
+synthesis sections in one place. Each problem now has its own home in
+Millennium/Erdos/, 91 to 189 lines each, and the hub keeps only what spans them
+— cross-problem comparison, the kernel connection, the verdict distributions.
+555 lines instead of 2160.
 
-no_three_ap now proves it: for digits in {0,1}, x + z = 2y forces x = y = z, at
-every length n. no_nondegenerate_three_ap is the corollary that distinctness is
-outright impossible. Both on propext, Classical.choice, Quot.sound only.
+Reruns went into their problem's file rather than standing alone: §15 with
+Ramsey Asymptotics, §16 with Polynom, §17 with Pomerance. A rerun of a problem
+is not a second problem.
 
-The mechanism is no carries, and it is what makes the induction go. Digits in
-{0,1} give x%3 + z%3 <= 2 and 2*(y%3) <= 2, so reading x + z = 2y modulo 3 is an
-EQUALITY and not merely a congruence: nothing carries into the next place, the
-AP condition descends one digit at a time, and at each place it forces
-x_i = y_i = z_i.
+FsplitBranch had been living in the file header, and fifteen files needed it, so
+it is in Erdos/Base.lean now. One definition, one home — the same rule the split
+is an instance of.
 
-While here, the verdict counts. belnap_verdict_table_v5 carries 11 T and 7 B and
-the constants beside it read 9 + 3 + 6. Adding Schutte q946 as the eighteenth
-moved the B count to 7 and the hand-written 6 stayed. The counts are computed
-from the table now, with verdicts_partition_v5 checking that every problem is
-classified and nothing is unaccounted. A number written next to the list it
-describes drifts the moment the list grows, which is what happened.
+The q817 proof landed in SumsetAvoidingAP.lean beside §28, which turned out to
+be an empty banner reserved for exactly that proof and never filled.
 
-Full library green at 8569 jobs.
+Full library green at 8585 jobs.
