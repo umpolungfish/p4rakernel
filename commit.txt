@@ -1,29 +1,25 @@
-Difference sets: a thick set has density one, not zero
+Erdős-Kac interval: the interval has no prime powers, and T with N is T
 
-The counterexample the file leaned on was backwards. It refuted the converse —
-syndetic D(A) implies d*(A)>0 — by saying "thick sets have d*(A)=0 but syndetic
-D(A)". A thick set contains arbitrarily long intervals, so a window of every
-length is completely full and its upper Banach density is 1.
-thick_not_banach_zero proves it: density zero would put every window at some
-scale below the full fraction, and thick_window_full produces a full window at
-that very scale. A counterexample to the converse has to be a density-zero set
-whose difference set still has bounded gaps, and thickness supplies the opposite
-of that.
+A constraint the decomposition never states, and it is immediate. A prime power
+has ω(n)=1, and log log n passes 1 at e^e ≈ 15.154, so past 16 no prime power
+can satisfy ω(n) > log log n. An interval on which the inequality holds
+EVERYWHERE is therefore free of prime powers, and its length is capped by the
+largest prime-power gap in [x,2x] — which is where the difficulty actually
+sits. loglog_sixteen_gt_one pins the threshold from log 16 = 4 log 2 > 2.7725
+against e < 2.7183, and prime_power_excluded and interval_avoids_primes carry it
+to every n ≥ 16.
 
-Both halves of the dichotomy are now defined and related. Syndetic is bounded
-gaps, thick is arbitrarily long runs, and they are dual:
-thick_iff_compl_not_syndetic. A syndetic set meets EVERY window of its gap
-length, so its lower density is already positive — strictly more than the thick
-set was being asked to supply.
+The verdict was B on the wrong pair. It read "Both True (CRT bound is
+unconditional) and Neither (Erdős's conjecture is completely open)". B is
+Both-True-and-False; True with Neither is not it. The kernel's own ffuse returns
+B only from (T,F) and (F,T) and is the Belnap join everywhere else, which is
+T-dominant, so the pair described fuses to T. ffuse_true_neither is that fuse,
+checked against BelnapSplitFuse rather than asserted.
 
-The lacunary side is a bound rather than an asymptotic. If 2^a − 2^b = d with
-d > 0 then 2^b ≤ d, because the cofactor 2^(a−b) − 1 is at least one, and hence
-2^a ≤ 2d. Both exponents are pinned by d, so each non-zero difference is
-realised finitely often and D({2ⁿ}) = {0}.
-
-Two more corrections. The verdict called the gap CLASSIFIED, giving syndeticity
-of D(A) as equivalent to piecewise syndetic modulo a null set, while the results
-list two lines below marks the full classification as open; the classification
-is the open one. And Furstenberg was spelled Funstenberg.
+And the gap was measured one logarithm out. With L = log x the CRT bound is
+L/(log L)² and the conjecture is L^k, so the ratio is L^(k−1)(log L)² —
+polynomial in L, exponential in log L. Exponential in log x would be e^(cL) =
+x^c, the size of the whole interval [x,2x] rather than a gap between two bounds
+inside it.
 
 Standard axioms throughout. Library green at 8585 jobs.
