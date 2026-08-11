@@ -1,22 +1,11 @@
-Squarefree plus a power of two is false, and false infinitely often
+The prover's scratch modules leave the library alone
 
-The corpus asserted that every N ≥ 2 is a squarefree number plus a power of two.
-It is not. 100 is the least counterexample — 99 = 9·11, 98 = 2·7², and 96, 92,
-84, 68, 36 are all divisible by 4 — and the reason generalises into a congruence.
+Imscribing.Scratch.ProverScratch and …B were inside the Imscribing glob while
+the kernel-gated prover writes candidate proofs into them, so every prover run
+turned `lake build` red until I restored the file by hand — twice today. A red
+library that means nothing is worse than no signal.
 
-If 4 divides N then every k ≥ 2 leaves N − 2^k divisible by 4, so only N − 1 and
-N − 2 can be squarefree. Force those to be multiples of 9 and 49 and nothing is
-left: N ≡ 0 (mod 4), N ≡ 1 (mod 9), N ≡ 2 (mod 49), which is N ≡ 100 (mod 1764).
-Every member of that family is a counterexample, the family is injective, so the
-counterexamples are infinite. Erdos/SquarefreePlusPowerOfTwo.lean carries all of
-it, and ErdosFormalize.SquarefreePlusPowerOfTwo is refuted by name.
-
-What actually remains of Erdős's question is the density — how many integers
-fail — and that is a Prop in the file, not a claim. The family already puts
-x/1764 of them below x, which is the bound any density statement has to beat.
-
-Standard axioms only. Library green at 8593 jobs.
-
-Note: Imscribing/Scratch/ProverScratch.lean is in the library glob and the
-kernel-gated prover writes candidates into it, so any prover run leaves the
-library red until it is restored. I restored it twice today.
+They have their own lean_lib now, outside the default target. Checked both ways:
+with the scratch deliberately broken `lake build` is green at 8591 jobs, and
+`lake build Imscribing.Scratch.ProverScratch` still resolves and reports the
+failure, which is the output the prover reads.
