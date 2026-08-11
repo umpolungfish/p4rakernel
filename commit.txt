@@ -1,52 +1,49 @@
-The last True placeholders, f(n,n) computed, and two verdicts off B
+Eleven Erdős proof modules taken off sorry, and three false claims found under it
 
-Every remaining `: True` in the Erdős set now names a theorem. The three
-Frobenius-closure notes said mu∘delta=id holds at every FSPLIT/FFUSE pair and
-proved nothing; the identity is ffuse ∘ fsplit = id, which BelnapSplitFuse
-proves by exhaustion over the four values, so the hub's frobenius_invariant and
-frobenius_10_cycle now cite it. What the Rust run adds is that the kernel's
-implementation agrees with the theorem, not the theorem.
+Every sorry in the Erdős proof modules is gone. Where the statement is a cited
+theorem it is now a Prop and the results that used it take it as a hypothesis,
+so nothing in these files rests on sorryAx and the cited results are visible as
+citations rather than as proofs. Where the statement was wrong, that is written
+down with the refutation beside it.
 
-The other placeholders each carry the verdict they were standing next to.
-BinomialGCD's B is a genuine opposition — h(n)→∞ along the primes is True and
-h(n)→∞ through all n is False, one proposition under two quantifiers, exactly
-the pair fsplit produces from B. SumsetAvoidingAP's is not: the claim is refuted
-and the constant is open, F with N, which is not the T/F opposition B needs.
-The truth-ordered join sends F with N to N — it reports that nothing is
-settled — so the verdict column records the refutation directly. And Polynom's
-meta-level B for the divergence between two runs is N against T, since one run
-read Q3 open and the other read it true; B needs one of them to have read it
-false.
+Three were wrong, not merely unproved.
 
-f(n,n) is computed for n = 1…9: 1, 2, 3, 5, 5, 8, 8, 10, 12. It parts from n at
-n=4, and the obstruction is visible in the raw — the window (4,8] carries only 6
-and 8 as multiples of two, index 4 is forced onto 8 and index 2 takes 6, leaving
-index 3 with nothing, since 6 was its only candidate. The search is Hall's
-theorem run constructively.
+DistinctDistances defined g(n) as an infimum: sInf { m | ∀ P, |P| = n →
+count P ≥ m }. That set is downward closed and contains 0, so g_distinct was
+identically zero, and guth_katz_computable — asserting g(n) ≥ (1/10)·n/log n for
+all n ≥ 2 — was asserting 0 ≥ a positive number. Both halves are proved:
+g_distinct_eq_zero and guth_katz_computable_is_false. The quantity wanted is the
+supremum of the same set.
 
-Erdős-Turán gets the separation the file's own Branch 3 pointed at. The primes
-have divergent reciprocal sum, which Mathlib carries, and density zero — so the
-conjecture's hypothesis is strictly weaker than Szemerédi's, and the direction
-that does hold is the easy one.
+LCMSieve asserted that lcm(1,…,n) ≤ n·log n for most n, as a density tending to
+zero. It tends to one. The comment beneath the claim quotes the prime number
+theorem as e^{n(1+o(1))} and Chebyshev as ≤ 4ⁿ, and an exponential is not
+eventually below n log n. The elementary reason needs no analytic number theory:
+n and n−1 are coprime and both divide lcm(1,…,n), so lcm ≥ n(n−1), while
+log(n+1) < n−1 from n = 3. Every n ≥ 3 is in the excess set —
+excess_of_three_le.
 
-Two entries moved off B in both hub tables. Chromatic vs Odd Cycle held B for
-the k=3 / k≥4 divide, which is a case split: the answer is a function of k, and
-a function taking different values at different arguments is not one proposition
-carrying both T and F. Sumset k-APs held B for a refuted claim, which is F with N and not an
-opposition at all. A table
-partitioned into T and B alone is what let both of them sit there, so the
-partition now runs over three values and the counts are recomputed from the
-lists: v4 reads 12 T, 4 B, 1 F and v5 reads 12 T, 5 B, 1 F.
+RamseyLimit's refined base comparison used (4n−2)/3.199. That base is below one
+only at n = 1; at n = 2 it is 6/3.199 and it grows with n, so the refinement
+diverged for every n ≥ 2 instead of vanishing. base_exceeds_one_from_two proves
+it. The bound that works is the exponential Bondy-Erdős form (2n+1)·2^k, whose
+base against Schur is 2/3.199 for every n, with the n-dependence in the constant
+rather than the base — and the comparison is now proved from that, not sorried.
 
-And one duplicate named. Erdős-Straus had three copies:
-Imscribing/Classical carries correct parametric witnesses for the three solvable
-congruence classes, each proved, with n ≡ 1 mod 4 isolated as the one open case.
-Imscribing/Conjectures was a second implementation that had drifted into being
-wrong — decomposition_mod4_zero returned x = n/4, y = 1, z = 1, whose
-reciprocals sum to 4/n + 2, and decomposition_mod4_two returned x = n/2, y = n,
-z = 1, summing to 3/n + 1. Its own docstring formulas were the same two errors
-written out: "4/n = 1/(n/2) + 1/n" is 3/n, and the mod-4-three formula evaluates
-to 1 at n = 3 where 4/n is 4/3. Five sorries stood where the proofs would have
-caught it, and nothing imports the file, so nothing ever did. It is now a
-pointer to the Classical copy, with what was wrong written down. Nothing was
-deleted.
+Four smaller corrections. FurstenbergSarkozy counted representations over
+Finset.Icc 0 (sSup A + d), and sSup on ℕ returns the junk value 0 for a set with
+no upper bound, which is every set the theorem is about — the window had
+collapsed to Icc 0 d. HypergraphRamsey asserted R(2,n) ≥ 2ⁿ while its own
+comment quoted the classical 2^{n/2}. HopfPannwitz recorded tightness as n−1
+edges when the bound n is attained, by the Reuleaux polygon at odd n. And three
+statements wrote a square or a difference as b − a = d on ℕ, where truncated
+subtraction makes it hold for b ≤ a and carry no ordering; they are a + d = b
+now.
+
+What is proved rather than cited: ErdosFuchs gets the counting identity
+∑_{n<N} r_A(n) = #pairs and the square-root density bound a basis of order 2
+forces, HopfPannwitz gets its asymptotic form from the edge bound, RamseyGap
+gets the unbounded gap from divergence, TrianglePartition gets sufficiency from
+Kirkman, and SumFreeSets gets the elementary half of Cameron-Erdős — the odd
+numbers are sum-free and there are ⌊N/2⌋ of them, which is where the exponent
+comes from.
