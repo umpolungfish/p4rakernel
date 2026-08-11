@@ -1,20 +1,26 @@
-Anti-Ramsey odd cycles: a piecewise formula is not a dialetheia
+Ramsey asymptotics: the Stirling route never closed, and the refined one does
 
-The verdict read "B — Both True and False depending on k", calling the C₃ and C₅
-cases a dialetheic breakdown. A quantity taking different values at different
-arguments is a function. regime_of_k is one, and regime_partition proves the
-three regimes partition k with no k claimed by two of them, so no proposition
-here holds both True and False. The kernel's ffuse on (T,T) is T and returns B
-only from a genuine T/F opposition, which a partition cannot produce. The
-transition at k=3 is a change of order, not a bifurcation of one claim, and
-regimes_separate shows the linear formula falls below the quadratic one from
-n=8 onward.
+§7 paired R_k(C_{2n+1}) ≤ C_n^k·(k!)^{1/n} with R_k(K_3) ≥ (2.52)^k and concluded
+the limit is 0. Those two do not give it. (k!)^{1/n} is exp(k log k / n) to
+leading order, which outgrows every exponential c^k — the file called it
+"subexponential in k", the opposite of what it is. Against a merely exponential
+lower bound that ratio tends to infinity. stirling_beats_exponential proves the
+comparison at the level of exponents: log k > n log c as soon as k > c^n, so no
+exponential lower bound can dominate. Branch 3 reaches 0 only under the
+conjecture R_k(K_3) ∼ k!, which the same docstring lists as open two entries
+later.
 
-The threshold the problem sits one edge above is now named rather than quoted.
-Mantel's extremal graph is the balanced complete bipartite graph, and its edge
-count ⌈n/2⌉·⌊n/2⌋ equals ⌊n²/4⌋ — turan_edges, proved by splitting on parity,
-with the odd branch needing the left side normalized before the product is
-abstracted. So "one edge above the Turán threshold" is a statement about a
-specific graph plus a specific edge.
+§15's pairing is the one that works, and it is now proved rather than described.
+Bondy-Erdős bounds the numerator by (2n+1)·2^k and Schur bounds the denominator
+below by 3.199^k, so the ratio is at most (2n+1)·(2/3.199)^k — refined_ratio_bound
+— and that vanishes by geometric decay alone, refined_ratio_tendsto_zero. No
+factorial asymptotics anywhere, and it holds for every fixed n ≥ 1 rather than
+only n ≥ 2. ramsey_base_comparison_note was `: True`; it is now
+ramsey_base_comparison carrying both halves.
+
+One tier disagreement inside the file and one in the hub. The §7 docstring read
+O₂ while ramsey_asymptotics_tier proves O₂dag, and the hub's §13 summary read O₂
+while its own §18 distribution counted this problem among the O₂dag six. The
+theorem is authority; both readings now say O₂dag.
 
 Standard axioms throughout. Library green at 8585 jobs.
