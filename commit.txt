@@ -1,31 +1,37 @@
-Triangle partition: the classification, and the 6 that separates two questions
+Schütte tournaments: f(2)=7 closed on both sides, and a B that was not a conflict
 
-The file said "Result: ALL n ≥ 1", attributed to Laczkovich 1990. That is a
-conflation of three different questions, and the answer to the one the file
-types is not all of ℕ.
+f(2) = 7 is now machine-checked in both directions. The upper half is the Paley
+tournament on ℤ/7 — i beats j when j−i is a quadratic residue, and paley7_has_S2
+checks every pair. The lower half, no_S2_on_six, is an exhaustive search over
+ALL 2^15 tournaments on six vertices. That search is only feasible because a
+tournament is stored as the fifteen bits of its upper triangle, so antisymmetry
+is a property of the encoding rather than a hypothesis — beats6_antisymm proves
+that outright, and the enumeration hits each tournament exactly once. f(1) = 3
+goes the same way, cyc3_has_S1 against no_S1_on_two.
 
-A triangle is rep-n — dissected into n congruent pieces each SIMILAR to the
-original — exactly when n is a square, a sum of two positive squares, or three
-times a square (Snover–Waiveris–Williams 1991). 6 is none of those, and it is
-the least excluded value: not_repArith_six and six_is_least_excluded prove both
-halves by bounded search.
+The lower bound recorded in the file was the wrong one. It said f(n) ≥ 2ⁿ⁺¹−1,
+proved by "double counting of dominator sets, one per vertex, each of size at
+most 2ⁿ" — an argument that does not go through as written, since a vertex's
+dominated set carries no such bound. The bound the literature carries is
+Szekeres–Szekeres, (n+2)·2ⁿ⁻¹−1, and it is tight at both exactly known values:
+4·2−1 = 7 = f(2) and 5·4−1 = 19 = f(3), where 2ⁿ⁺¹−1 gives 7 and then 15 and
+misses f(3) by four. stated_bound_weaker proves the old bound is strictly weaker
+for every n ≥ 3, which is also why the file's "gap between 31 and ~140" at n=4
+started in the wrong place: the lower end is 47.
 
-What makes the arithmetic appear at all is the area identity. n pieces of ratio
-r exhaust the original, so n r² = 1 and r = 1/√n — rep_ratio_sq and rep_ratio.
-The ratio is rational exactly for square n, which is why homothety subdivision
-works there and why every other n needs a special triangle.
+And the B was carried for the wrong reason. The note fused "the structural
+branch claims f(n)≈2ⁿ⁺¹" with "the probabilistic branch gives f(n)≈n²·2ⁿ" into a
+held dialetheia. Those are a lower bound and an upper bound; they do not
+contradict each other. sandwich_nonempty proves the interval is non-empty for
+every n and szekeres_le_known puts every known value inside it. A gap between
+bounds is a gap, not a conflict. B stands, but on the obstructional branch —
+f(n) is open for n ≥ 4 — and the branch verdicts go from T/T/T, which
+contradicted the B above them, to T/T/B.
 
-And 6 is exactly the witness that the two readings differ. Drop the similarity
-requirement and 6 is available: the equilateral triangle's three altitudes cut
-it into six congruent 30-60-90 triangles. That is machine-checked by SSS on
-squared side lengths, so no square root is extracted — every piece has squared
-sides 1/4, 1/12, 1/3, and piece_not_similar_to_original shows none of them is
-similar to the equilateral original, whose squared sides are all 1. Laczkovich's
-theorem is about tilings by similar triangles of possibly different sizes, a
-third question again.
+Two smaller conflations: the upper bound was headed Θ(n²·2ⁿ) over a union-bound
+computation that yields only O, and Θ would have settled the file's own last
+open item; and schutte_tournament_frobenius_closure was `: True`, now replaced
+by f2_eq_seven, which names the two searches that actually close the value.
 
-Three copies of the wrong claim were in the file — the branch summary, the tier
-note, and the verdict block — and all three are corrected, along with the hub's
-one-line summary.
-
-Standard axioms throughout. Library green at 8585 jobs.
+Standard axioms except no_S2_on_six, which is native_decide and carries
+ofReduceBool. Library green at 8585 jobs.
