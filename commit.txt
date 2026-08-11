@@ -1,34 +1,24 @@
-Monochromatic odd cycles: the bipartite half proved, the triangle half refuted
+Chromatic number and odd cycles: the chordless cycle is the shortest one
 
-The kernel's argument was half right and the file recorded the whole thing at B.
+The construction was resting on the wrong lemma. The file read "with girth>g,
+there are no chords: G[V(C)] is exactly the cycle C". Girth does not forbid
+chords on every cycle. If a cycle of length ℓ carries a chord, the chord cuts it
+into two cycles, so both pieces reach the girth and ℓ ≥ 2g−2 — that is
+chorded_cycle_long, and it is the only thing girth buys. At girth 4 the
+threshold is 6, and a 6-cycle split 3+3 gives two legal 4-cycles; K_{3,3}
+realises it. Above the threshold a cycle can carry a chord and its induced
+subgraph need not be the bare cycle.
 
-The correct half is now a theorem for arbitrary N and n, and it needs no graph
-theory at all. If every colour class is bipartite, witnessed by a side-function
-per class, then v ↦ (side · v) is injective — two vertices agreeing on every
-side would put their own edge inside a part of that edge's own colour class. So
-N ≤ 2ⁿ, and on K_{2ⁿ+1} some class is not bipartite and therefore carries an odd
-cycle. That is product_injective and card_le_of_classes_bipartite.
+What the construction actually needs is the shortest odd cycle, and that one is
+chordless with no girth hypothesis at all. A chord cuts an odd cycle into
+lengths a+1 and b+1 with a+b odd, so exactly one side is even and closes to an
+odd cycle, and both sides are shorter because the other is at least two.
+chord_gives_shorter_odd. So a shortest odd cycle induces the bare cycle, whose
+chromatic number is 3, and 3 < 4 ≤ k is the answer being NO for k ≥ 4.
 
-The half that fails is the step from odd cycle to triangle. col5 two-colours K₅
-with the pentagon and the pentagram; both classes are 2-regular and
-triangle-free, hence 5-cycles, so the shortest monochromatic odd cycle is C₅ and
-f(2) = 5 rather than 3. The other side is machine-checked too: every one of the
-2^15 two-colourings of K₆ has a monochromatic triangle, so R(3,3) = 6 and
-2² + 1 = 5 < 6 is exactly why K₅ escapes.
+The 3-colouring and the failure of two colours are machine-checked at the odd
+lengths up to 21: alternating 0,1,0,1 and giving the last vertex colour 2 is
+proper, and two colours collide at the wrap because ℓ−1 is even.
 
-The verdict was B on the ground that the kernel claim and the correction were a
-dialetheia the FFUSE gate held. They are not. The file's own text, two
-paragraphs above, says the kernel "conflates 'odd cycle exists' with 'triangle
-exists'" — that is a diagnosis of an error, and the error now has its
-counterexample in the same file. B is for a conflict both of whose sides stand.
-A claim with a counterexample does not stand, and holding it at B keeps a
-refuted statement half-alive. The branch verdicts went T/T/T, sitting under a B
-with the third branch being the correction that contradicts the first; they are
-now F/T/B. The B is carried by what is actually open, whether f(n) = 5 for every
-n ≥ 3, on the obstructional branch alone.
-
-monochromatic_odd_cycle_frobenius_closure was `: True`, now r33_eq_six naming
-the two searches that pin the value.
-
-Standard axioms except the K₆ sweep, which is native_decide and carries
-ofReduceBool. Library green at 8585 jobs.
+chromatic_odd_cycle_frobenius_closure was `: True`, now chord_and_girth carrying
+both halves of the mechanism. Standard axioms. Library green at 8585 jobs.
