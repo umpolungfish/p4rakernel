@@ -1,37 +1,34 @@
-Schütte tournaments: f(2)=7 closed on both sides, and a B that was not a conflict
+Monochromatic odd cycles: the bipartite half proved, the triangle half refuted
 
-f(2) = 7 is now machine-checked in both directions. The upper half is the Paley
-tournament on ℤ/7 — i beats j when j−i is a quadratic residue, and paley7_has_S2
-checks every pair. The lower half, no_S2_on_six, is an exhaustive search over
-ALL 2^15 tournaments on six vertices. That search is only feasible because a
-tournament is stored as the fifteen bits of its upper triangle, so antisymmetry
-is a property of the encoding rather than a hypothesis — beats6_antisymm proves
-that outright, and the enumeration hits each tournament exactly once. f(1) = 3
-goes the same way, cyc3_has_S1 against no_S1_on_two.
+The kernel's argument was half right and the file recorded the whole thing at B.
 
-The lower bound recorded in the file was the wrong one. It said f(n) ≥ 2ⁿ⁺¹−1,
-proved by "double counting of dominator sets, one per vertex, each of size at
-most 2ⁿ" — an argument that does not go through as written, since a vertex's
-dominated set carries no such bound. The bound the literature carries is
-Szekeres–Szekeres, (n+2)·2ⁿ⁻¹−1, and it is tight at both exactly known values:
-4·2−1 = 7 = f(2) and 5·4−1 = 19 = f(3), where 2ⁿ⁺¹−1 gives 7 and then 15 and
-misses f(3) by four. stated_bound_weaker proves the old bound is strictly weaker
-for every n ≥ 3, which is also why the file's "gap between 31 and ~140" at n=4
-started in the wrong place: the lower end is 47.
+The correct half is now a theorem for arbitrary N and n, and it needs no graph
+theory at all. If every colour class is bipartite, witnessed by a side-function
+per class, then v ↦ (side · v) is injective — two vertices agreeing on every
+side would put their own edge inside a part of that edge's own colour class. So
+N ≤ 2ⁿ, and on K_{2ⁿ+1} some class is not bipartite and therefore carries an odd
+cycle. That is product_injective and card_le_of_classes_bipartite.
 
-And the B was carried for the wrong reason. The note fused "the structural
-branch claims f(n)≈2ⁿ⁺¹" with "the probabilistic branch gives f(n)≈n²·2ⁿ" into a
-held dialetheia. Those are a lower bound and an upper bound; they do not
-contradict each other. sandwich_nonempty proves the interval is non-empty for
-every n and szekeres_le_known puts every known value inside it. A gap between
-bounds is a gap, not a conflict. B stands, but on the obstructional branch —
-f(n) is open for n ≥ 4 — and the branch verdicts go from T/T/T, which
-contradicted the B above them, to T/T/B.
+The half that fails is the step from odd cycle to triangle. col5 two-colours K₅
+with the pentagon and the pentagram; both classes are 2-regular and
+triangle-free, hence 5-cycles, so the shortest monochromatic odd cycle is C₅ and
+f(2) = 5 rather than 3. The other side is machine-checked too: every one of the
+2^15 two-colourings of K₆ has a monochromatic triangle, so R(3,3) = 6 and
+2² + 1 = 5 < 6 is exactly why K₅ escapes.
 
-Two smaller conflations: the upper bound was headed Θ(n²·2ⁿ) over a union-bound
-computation that yields only O, and Θ would have settled the file's own last
-open item; and schutte_tournament_frobenius_closure was `: True`, now replaced
-by f2_eq_seven, which names the two searches that actually close the value.
+The verdict was B on the ground that the kernel claim and the correction were a
+dialetheia the FFUSE gate held. They are not. The file's own text, two
+paragraphs above, says the kernel "conflates 'odd cycle exists' with 'triangle
+exists'" — that is a diagnosis of an error, and the error now has its
+counterexample in the same file. B is for a conflict both of whose sides stand.
+A claim with a counterexample does not stand, and holding it at B keeps a
+refuted statement half-alive. The branch verdicts went T/T/T, sitting under a B
+with the third branch being the correction that contradicts the first; they are
+now F/T/B. The B is carried by what is actually open, whether f(n) = 5 for every
+n ≥ 3, on the obstructional branch alone.
 
-Standard axioms except no_S2_on_six, which is native_decide and carries
+monochromatic_odd_cycle_frobenius_closure was `: True`, now r33_eq_six naming
+the two searches that pin the value.
+
+Standard axioms except the K₆ sweep, which is native_decide and carries
 ofReduceBool. Library green at 8585 jobs.
