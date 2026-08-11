@@ -1,49 +1,33 @@
-Eleven Erdős proof modules taken off sorry, and three false claims found under it
+Erdős-Straus: the file claimed the conjecture, and the statement was empty
 
-Every sorry in the Erdős proof modules is gone. Where the statement is a cited
-theorem it is now a Prop and the results that used it take it as a hypothesis,
-so nothing in these files rests on sorryAx and the cited results are visible as
-citations rather than as proofs. Where the statement was wrong, that is written
-down with the refutation beside it.
+ErdosStrausProof.lean was 1175 lines asserting the whole Erdős-Straus conjecture,
+sorry-free. Three things were wrong with it, and nothing had ever checked any of
+them: the file imported Mathlib.NumberTheory.Primes, which does not exist in this
+toolchain, and it was absent from the lakefile, so it never compiled.
 
-Three were wrong, not merely unproved.
+The statement was empty. `structure Solution` carried
+4*x*y*z = n*(y*z + x*z + x*y) with `n` appearing nowhere in its parameters, and
+the main theorem read `erdos_straus (n : ℕ) (hn : n ≥ 2) : ∃ (sol : Solution)`.
+The conclusion does not mention n. Whatever n the structure's equation referred
+to, it was not the n the theorem quantified over. Solution now takes n as a
+parameter and the theorem concludes about that n.
 
-DistinctDistances defined g(n) as an infimum: sInf { m | ∀ P, |P| = n →
-count P ≥ m }. That set is downward closed and contains 0, so g_distinct was
-identically zero, and guth_katz_computable — asserting g(n) ≥ (1/10)·n/log n for
-all n ≥ 2 — was asserting 0 ≥ a positive number. Both halves are proved:
-g_distinct_eq_zero and guth_katz_computable_is_false. The quantity wanted is the
-supremum of the same set.
+One family was arithmetically false. solve_mod12_9 set x = 3k+3 and
+y = z = (12k+9)(k+1), which at k=0 is 1/3 + 1/9 + 1/9 = 5/9 against 4/9. Each
+tail is half what it should be: 4/n − 1/(3k+3) = 1/(n(k+1)), so splitting it in
+two gives y = z = 2n(k+1). old_mod12_9_fails and new_mod12_9_holds record both
+sides of that at k=0.
 
-LCMSieve asserted that lcm(1,…,n) ≤ n·log n for most n, as a density tending to
-zero. It tends to one. The comment beneath the claim quotes the prime number
-theorem as e^{n(1+o(1))} and Chebyshev as ≤ 4ⁿ, and an exponential is not
-eventually below n log n. The elementary reason needs no analytic number theory:
-n and n−1 are coprime and both divide lcm(1,…,n), so lcm ≥ n(n−1), while
-log(n+1) < n−1 from n = 3. Every n ≥ 3 is in the excess set —
-excess_of_three_le.
+And it constructed a solution for the open case. solve_mod4_1_not3 claimed to
+build one for n ≡ 1 (mod 4) with 3 ∤ n, out of a CRT search for d with
+d ≡ 3 (mod 4), d ≡ 0 (mod 3), d ≡ −n (mod 5). That case IS the conjecture. It is
+a Prop here and is not constructed.
 
-RamseyLimit's refined base comparison used (4n−2)/3.199. That base is below one
-only at n = 1; at n = 2 it is 6/3.199 and it grows with n, so the refinement
-diverged for every n ≥ 2 instead of vanishing. base_exceeds_one_from_two proves
-it. The bound that works is the exponential Bondy-Erdős form (2n+1)·2^k, whose
-base against Schur is 2/3.199 for every n, with the n-dependence in the constant
-rather than the base — and the comparison is now proved from that, not sorried.
+What survives is real and is now proved: every n ≥ 2 outside that one class has
+an explicit solution, by four parametric families — even, 4k+3, 4k+2 and the
+corrected 12k+9 — each a ring identity once cleared of denominators.
+erdos_straus_off_open_case is that theorem, and conjecture_iff_open_case shows
+the conjecture is exactly the open class away, with the converse immediate. So
+the gap is located rather than papered over.
 
-Four smaller corrections. FurstenbergSarkozy counted representations over
-Finset.Icc 0 (sSup A + d), and sSup on ℕ returns the junk value 0 for a set with
-no upper bound, which is every set the theorem is about — the window had
-collapsed to Icc 0 d. HypergraphRamsey asserted R(2,n) ≥ 2ⁿ while its own
-comment quoted the classical 2^{n/2}. HopfPannwitz recorded tightness as n−1
-edges when the bound n is attained, by the Reuleaux polygon at odd n. And three
-statements wrote a square or a difference as b − a = d on ℕ, where truncated
-subtraction makes it hold for b ≤ a and carry no ordering; they are a + d = b
-now.
-
-What is proved rather than cited: ErdosFuchs gets the counting identity
-∑_{n<N} r_A(n) = #pairs and the square-root density bound a basis of order 2
-forces, HopfPannwitz gets its asymptotic form from the edge bound, RamseyGap
-gets the unbounded gap from divergence, TrianglePartition gets sufficiency from
-Kirkman, and SumFreeSets gets the elementary half of Cameron-Erdős — the odd
-numbers are sum-free and there are ⌊N/2⌋ of them, which is where the exponent
-comes from.
+The file is in the lakefile now, so it is checked. Standard axioms.
