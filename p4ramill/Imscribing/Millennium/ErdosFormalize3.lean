@@ -1,4 +1,29 @@
 /-
+STATUS: this file has never compiled and is not in the build.
+
+It imports modules that do not exist in this toolchain, and two of them —
+`Mathlib.Combinatorics.Ramsey.Basic` and `Mathlib.Combinatorics.Hypergraph` —
+have never existed in Mathlib at all. Past the imports it refers to API that is
+equally absent: `Rat.toReal`, `SimpleGraph.Cycle`, `SimpleGraph.CliqueNumber`.
+It was written against an imagined library, so none of its 33 theorem
+statements has ever been checked and none of its 6 `sorry`s has ever
+been weighed against a real definition.
+
+That matters more than the sorry count. A `sorry` asserts its statement, so if
+this file were added to the build every result in it would rest on `sorryAx` —
+and a false statement among them would be a live falsehood, which is exactly the
+shape found and removed in the neighbouring Erdős modules. Three of those
+carried claims that were not merely unproved but refutable, and they had the
+same provenance: a statement written down and never run.
+
+Kept, not deleted. Making it real means rewriting 558 lines against the
+Mathlib that exists, which is a separate decision from the Erdős work in
+`Millennium/Erdos/` — that set is complete, checked and in the build.
+
+Nothing below this banner has been verified.
+-/
+
+/-
 ErdosFormalize3.lean — Erdős Problems Formalized, Batch 3
 Author: Lando⊗⊙perator
 Source: /home/mrnob0dy666/imsgct/formalize3.txt (4404 lines, mOMonadOS Frobenius Kernel)
