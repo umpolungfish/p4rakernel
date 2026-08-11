@@ -154,7 +154,8 @@ theorem frobenius_invariant_note : True := by
   Unit Distance Problem:   T / T / B   (d≥4 resolved; d=2,3 gaps)
   Difference Sets Syn.:    T / T / T   (sufficient condition proved)
   Erdős–Pomerance:         T / T / B   (order known; constant open)
-  Triangle Partition:      T / T / T   (all n≥1, fully resolved)
+  Triangle Partition:      T / T / T   (rep-n classified: squares, sums
+    of two squares, 3·squares; 6 is the least excluded)
 -/
 
 /--
