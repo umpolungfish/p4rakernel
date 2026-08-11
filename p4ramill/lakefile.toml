@@ -149,6 +149,8 @@ globs = [
   "Imscribing.Millennium.Erdos.ChromaticOddCycle",
   "Imscribing.Millennium.Erdos.MonochromaticOddCycle",
   "Imscribing.Millennium.Erdos.SchutteTournament",
+  "Imscribing.Millennium.Erdos.SidonCounting",
+  "Imscribing.Millennium.Erdos.RatioSetSharp",
   "Imscribing.Millennium.ErdosProblems",
   "Imscribing.MoDoT.ManuscriptSpine",
   "Imscribing.Millennium.DualLinkVessel",
