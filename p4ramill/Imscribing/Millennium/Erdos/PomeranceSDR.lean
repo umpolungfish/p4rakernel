@@ -81,6 +81,63 @@ a matching order it does not have.
   Ω=ah (integer winding: interval length is an integer)
 -/
 
+-- ============================================================
+-- §11.1  f(n,n) COMPUTED, AND HALL'S CONDITION AS THE MECHANISM
+-- ============================================================
+
+/-!
+The window at `n` is the quantity Erdős–Pomerance bracket, and for small
+`n` it can simply be found. The search is a backtracking matcher over the
+divisibility candidates, which is Hall's theorem run constructively: an
+SDR exists exactly when the walk with backtracking finds one.
+-/
+
+/-- Multiples of `i` inside the window `(n, n+L]`. -/
+def cands (n L i : Nat) : List Nat :=
+  ((List.range L).map (fun j => n + 1 + j)).filter (fun a => a % i == 0)
+
+/-- Backtracking assignment: give each index a distinct multiple of itself
+drawn from the window. -/
+def matchFrom (n L : Nat) : List Nat → List Nat → Bool
+  | _,    []        => true
+  | used, i :: rest =>
+      (cands n L i).any (fun a => !(used.contains a) && matchFrom n L (a :: used) rest)
+
+/-- The window `(n, n+L]` admits a system of distinct representatives. -/
+def hasSDR (n L : Nat) : Bool := matchFrom n L [] ((List.range n).map (· + 1))
+
+/-- `f(n,n)`: the least window length at `n` that works. -/
+def fnn (n : Nat) : Nat := ((List.range 40).find? (fun L => hasSDR n L)).getD 0
+
+/-- **`f(n,n)` for `n = 1…9`**: 1, 2, 3, 5, 5, 8, 8, 10, 12. It parts from
+`n` at `n = 4`. -/
+theorem fnn_table :
+    [fnn 1, fnn 2, fnn 3, fnn 4, fnn 5, fnn 6, fnn 7, fnn 8, fnn 9]
+      = [1, 2, 3, 5, 5, 8, 8, 10, 12] := by native_decide
+
+/-- The obstruction at `n = 4`, in the raw. The window `(4,8]` carries only
+`6` and `8` as multiples of two; index 4 is forced onto `8` and index 2
+takes `6`, leaving index 3 with nothing, since `6` was its only candidate.
+The window has to reach 9. -/
+theorem four_window_fails : hasSDR 4 4 = false := by native_decide
+
+theorem four_window_works : hasSDR 4 5 = true := by native_decide
+
+/-- `f(n,n) ≥ n` throughout: `n` distinct integers need `n` slots. -/
+theorem fnn_ge_index_count :
+    ([fnn 1, fnn 2, fnn 3, fnn 4, fnn 5, fnn 6, fnn 7, fnn 8, fnn 9].zip
+      [1, 2, 3, 4, 5, 6, 7, 8, 9]).all (fun p => p.2 ≤ p.1) = true := by native_decide
+
+/-- And strictly exceeds it from `n = 4` on — the superlinearity the
+asymptotic bracket is about. -/
+theorem fnn_exceeds_index_from_four :
+    [(fnn 4, 4), (fnn 6, 6), (fnn 8, 8), (fnn 9, 9)].all
+      (fun p => p.2 < p.1) = true := by native_decide
+
+#print axioms fnn_table
+#print axioms four_window_fails
+
+
 /-! ### Which quantity is the problem, machine-checked
 
 The statement above minimises over the interval as well as over its length, and
