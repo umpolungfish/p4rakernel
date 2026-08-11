@@ -1,31 +1,24 @@
-Erdős #16: the false step is now a proved refutation, not a sorry
+The three ErdosFormalize batches were written against a Mathlib that does not exist
 
-The file already carried a careful note saying its monotonicity step is false and
-that no bound will close it. The step was still written as a theorem with a
-`sorry` under it, which is the one shape that cannot stand: a `sorry` on a false
-statement is a live falsehood, and anything that ever discharged it would make
-the file inconsistent. The claim is now the negation, and the negation is
-proved.
+ErdosFormalize, ErdosFormalize2 and ErdosFormalize3 are 2318 lines carrying 119
+theorem statements and 76 sorries, and not one of them has ever been checked.
+They import modules that are absent from this toolchain, and two —
+Mathlib.Combinatorics.Ramsey.Basic and Mathlib.Combinatorics.Hypergraph — have
+never existed in Mathlib at all. Collapsing the imports to plain Mathlib does
+not rescue them: the bodies refer to Rat.toReal, SimpleGraph.Cycle and
+SimpleGraph.CliqueNumber, none of which exist either, at a dozen errors per
+hundred lines.
 
-The mechanism is one line of algebra. a_n < a_{n+1} exactly when p_n > n·g_n,
-with g_n the gap — clear denominators and the comparison becomes
-(n+1)p_n > n·p_{n+1}. That is rise_iff, and it needs no analysis at all. A small
-gap therefore forces a rise as soon as p_n passes n·B, and p_n/n → ∞ puts every
-fixed B under that line eventually. So bounded gaps plus super-linear growth
-give not_eventually_monotone: a_n rises past every N, and the alternating series
-test has no starting point. Both inputs are stated as Props and cited —
-Zhang-Maynard for the gaps, the prime number theorem for the growth — rather
-than assumed silently.
+The sorry count is the smaller half of it. A sorry asserts its statement, so
+adding these to the build would put every result in them on sorryAx, and a false
+statement among them would be a live falsehood. That is not hypothetical: three
+of the neighbouring modules carried claims that were refutable rather than
+merely unproved — a distinct-distances function defined by an infimum that made
+it identically zero, an LCM density claim pointing the wrong way, and a base
+comparison that diverged for every n ≥ 2 — and all three had the same
+provenance, a statement written down and never run.
 
-The twin primes make it concrete: a gap of 2 at index n raises the term whenever
-p_n > 2n. The smallest instance is n = 12, where the primes are 41 and 43 and
-12/41 < 13/43.
-
-What survives is a_n → 0, one of Leibniz's two hypotheses and the easy one. The
-convergence question itself is Erdős's and is open; it is a Prop here. In its
-place the file had a `sorry`ed Cauchy argument whose first step already cited
-the criterion it was supposed to establish.
-
-The file also never compiled — it imported Mathlib.Data.Nat.Prime, which does
-not exist in this toolchain — and was absent from the lakefile. It is in the
-build now. Standard axioms.
+Each file now says so at the top, with what is absent and what it would take.
+Nothing is deleted. Making them real means rewriting 2318 lines against the
+Mathlib that exists, which is a separate decision from the Erdős work in
+Millennium/Erdos/ — that set is complete, checked, and in the build.
