@@ -173,18 +173,27 @@ def belnap_verdict_table_extended : List (String × String × String × String) 
    ("ErdosPomerance",      "T", "T", "B"),
    ("TrianglePartition",   "T", "T", "T")]
 
-/--
-Count of fully resolved problems (T,T,T verdict):
-  AntiRamsey, RamseyAsymptotics, DifferenceSets, TrianglePartition
--/
-def fully_resolved_count : Nat := 4
+/-- Counted from the table, not asserted beside it — the same discipline the
+    v5 counts were put under after they drifted. Fully resolved means all three
+    branches read T; open obstructional means the third branch does not. -/
+def fully_resolved : List (String × String × String × String) :=
+  belnap_verdict_table_extended.filter
+    (fun r => r.2.1 == "T" && r.2.2.1 == "T" && r.2.2.2 == "T")
 
-/--
-Count of problems with open obstructional branch (B or N):
-  ErdosTuran(B), SubgroupOrders(N), ErdosKac(B), PolynomAsymptotics(B),
-  UnitDistance(B), ErdosPomerance(B)
--/
-def open_obstructional_count : Nat := 6
+def open_obstructional : List (String × String × String × String) :=
+  belnap_verdict_table_extended.filter (fun r => r.2.2.2 != "T")
+
+def fully_resolved_count : Nat := fully_resolved.length
+def open_obstructional_count : Nat := open_obstructional.length
+
+/-- Every problem is either fully resolved or has an open obstructional branch:
+    the two counts exhaust the table. -/
+theorem extended_counts_partition :
+    fully_resolved_count + open_obstructional_count
+      = belnap_verdict_table_extended.length := by decide
+
+theorem fully_resolved_count_is_four : fully_resolved_count = 4 := by decide
+theorem open_obstructional_count_is_six : open_obstructional_count = 6 := by decide
 
 -- ============================================================
 -- §14  KERNEL CONNECTION — distance ladder for all 10 problems
@@ -237,11 +246,17 @@ theorem frobenius_10_cycle_note : True := by
   Polynom Asymptotics    §8        T/T/T          ✗       Q3: OPEN→TRUE divergence
   Unit Distance          §9        T/T/B          ✓       Consistent
   Difference Sets        §10       T/T/T          ✓       Consistent
-  Erdős-Pomerance        §11       T/T/B          ✗       WRONG asymptotics (Jacobsthal)
+  Erdős-Pomerance        §11       T/T/B          ✗       Different m: f(n,n) vs max_m f(n,m)
 
-**Three consistent, two divergent.** Of the two divergences:
+**Three consistent, two divergent.** Both divergences are structural
+ambiguities, not errors:
   - Polynom Q3: legitimate structural ambiguity (Linden vs. Körner)
-  - Pomerance: kernel error (confused with Jacobsthal function)
+  - Pomerance: the runs answered about different quantities. The original
+    took f(n,n), the rerun max_m f(n,m); van Doorn (2026, arXiv:2601.16972)
+    proves max_m f(n,m) − f(n,n) > 0.36 n log n/log log n, which is the
+    rerun's order. This file previously called it a kernel error confusing
+    the Jacobsthal function — see Erdos/PomeranceSDR.lean §17, where that
+    diagnosis is retracted against the literature.
 
 **Updated tier distribution (unchanged by reruns):**
   O₂dag: 6 (Erdős–Turán, Subgroup Orders, Polynom, Difference Sets,
@@ -258,18 +273,22 @@ theorem frobenius_10_cycle_note : True := by
   Polynom Asymptotics:T / T / B*  [*Q3: OPEN in orig, TRUE in rerun]
   Unit Distance:      T / T / B
   Difference Sets:    T / T / T
-  Erdős-Pomerance:    T / T / B   [rerun asymptotics WRONG]
+  Erdős-Pomerance:    T / T / B   [rerun answers about max_m f(n,m)]
   Triangle Partition: T / T / T
 
 **Kernel reliability note:**
   The mOMonadOS agent achieved 100% Frobenius closure (μ∘δ=id) across
-  all 15 cycles (10 original + 5 reruns), yet produced one factual
-  error (Pomerance asymptotics) and one ambiguous verdict (Polynom Q3).
-  This demonstrates that Frobenius closure is necessary but not
-  sufficient for external correctness — the kernel's internal
-  consistency does not guarantee alignment with mathematical truth.
-  The FSPLIT/FFUSE pairs are structurally sound; the risk lies in
-  branch selection during FFUSE recombination.
+  all 15 cycles (10 original + 5 reruns) and produced two ambiguous
+  verdicts (Polynom Q3, Pomerance) and — on the present accounting — no
+  factual error. The Pomerance case was recorded here as a factual error
+  for as long as the hub carried a one-argument f(n) for a two-argument
+  function; once f(n,m) is written with both arguments the two runs are
+  answering different questions and both answers stand.
+  The residual point is unchanged and rests on Polynom Q3: Frobenius
+  closure is necessary but not sufficient for external correctness. The
+  FSPLIT/FFUSE pairs are structurally sound; the risk lies in branch
+  selection during FFUSE recombination — and, as here, in the hub's own
+  statement of the problem being coarser than the problem.
 -/
 
 /--
@@ -290,6 +309,18 @@ Divergent reruns: 2 of 5
 -/
 def divergent_reruns : Nat := 2
 
+/-- Neither divergence is a factual error; both are ambiguities. The Pomerance
+    entry was reclassified after checking the literature — see
+    Erdos/PomeranceSDR.lean §17. -/
+def divergent_rerun_kinds : List (String × String) :=
+  [("PolynomAsymptotics", "structural ambiguity (Linden vs Körner)"),
+   ("ErdosPomerance",     "structural ambiguity (quantifier over m)")]
+
+def kernel_factual_errors : Nat :=
+  (divergent_rerun_kinds.filter (fun r => r.2 == "factual error")).length
+
+theorem no_kernel_factual_errors : kernel_factual_errors = 0 := by decide
+
 /--
 The mOMonadOS kernel divergence table.
 Records which reruns matched the original and which diverged.
@@ -299,7 +330,7 @@ def rerun_divergence_table : List (String × String × String) :=
    ("PolynomAsymptotics",  "divergent",   "Q3: OPEN(orig) vs TRUE(rerun)"),
    ("UnitDistance",        "consistent",  "No change"),
    ("DifferenceSets",      "consistent",  "No change"),
-   ("ErdosPomerance",      "divergent",   "Wrong asymptotics (Jacobsthal confusion)")]
+   ("ErdosPomerance",      "divergent",   "Answers about max_m f(n,m), not f(n,n)")]
 
 -- ============================================================
 -- §23  UPDATED CROSS-PROBLEM COMPARISON (17 PROBLEMS)
@@ -323,11 +354,12 @@ Now 17 problems total. The breakdown:
     O₂†: 1 (critical, array-dim) — none in this set
     O_∞: 0
 
-  **Belnap verdict distribution:**
-    T/T/T (fully resolved): 7
-    T/T/B: 3 (obstructional branch open)
-    B: 5 (dialetheia held, not resolved to one voice)
-    F: 2 (kernel claim falsified, mathematical correction pending)
+  **Belnap verdict distribution** (counted from `belnap_verdict_table_v4`):
+    T (single voice): 11
+    B (dialetheia held, not resolved to one voice): 6
+  The v4 table carries one verdict per problem, so it cannot be split further
+  into T/T/T and T/T/B; the three-branch split is recorded only for the first
+  ten problems, in `belnap_verdict_table_extended`.
 
   **Structural clusters by nearest-neighbor:**
     Cluster A (subcritical counting, d < 1.5):
@@ -360,9 +392,27 @@ def belnap_verdict_table_v4 : List (String × String × String × FsplitBranch �
    ("Hadwiger-Nelson Problem",       "O₂", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional),
    ("Erdős Discrepancy Problem",     "O₂", "T", FsplitBranch.structural, FsplitBranch.statistical, FsplitBranch.obstructional)]
 
-def fully_resolved_count_v4 : Nat := 9
-def open_obstructional_count_v4 : Nat := 3
-def belnap_dialetheic_count_v4 : Nat := 5
+/-- Counted from the v4 table. These were hand-written as 9 / 3 / 5 and all
+    three were wrong: the table carries 11 verdicts of T and 6 of B, and 9+3
+    is not even 11. The v4 table records ONE verdict per problem, so the
+    T/T/T-versus-T/T/B split cannot be recovered from it — that split lives in
+    `belnap_verdict_table_extended`, which covers only the first ten problems.
+    What v4 can be asked, it is now asked. -/
+def dialetheic_v4 : List (String × String × String × FsplitBranch × FsplitBranch × FsplitBranch) :=
+  belnap_verdict_table_v4.filter (fun r => r.2.2.1 == "B")
+
+def single_voiced_v4 : List (String × String × String × FsplitBranch × FsplitBranch × FsplitBranch) :=
+  belnap_verdict_table_v4.filter (fun r => r.2.2.1 == "T")
+
+def belnap_dialetheic_count_v4 : Nat := dialetheic_v4.length
+def single_voiced_count_v4 : Nat := single_voiced_v4.length
+
+theorem verdicts_partition_v4 :
+    belnap_dialetheic_count_v4 + single_voiced_count_v4
+      = belnap_verdict_table_v4.length := by decide
+
+theorem dialetheic_count_v4_is_six : belnap_dialetheic_count_v4 = 6 := by decide
+theorem single_voiced_count_v4_is_eleven : single_voiced_count_v4 = 11 := by decide
 
 /--
 The O₀ cluster (subcritical problems) share criticality φ̂=woe: φ̂<⊙
@@ -416,7 +466,7 @@ The φ̂ primitive is thus the single most informative primitive for
 Erdős-type problems: it distinguishes "does it exist?" from "where is
 the boundary?" from "how does it fold back on itself?"
 
-**Belnap Dialetheia:** 5 of 17 problems carry Belnap verdict B —
+**Belnap Dialetheia:** 6 of 17 problems carry Belnap verdict B —
 dialetheia held, conflict not resolved. This is the structural imprint
 of problems where the mOMonadOS kernel's structural branch (T) and the
 mathematical obstructional branch (F) conflict and the FFUSE gate fuses
@@ -430,8 +480,11 @@ landscape.
 def phi_criticality_distribution_v4 : List (Criticality × Nat) :=
   [(.woe, 7), (.roar, 5), (.monad, 5)]
 
+/-- Read off the table rather than beside it: 11 single-voiced, 6 dialetheic.
+    The former 9/3/5 reading split the T column by a three-branch verdict the
+    v4 table does not carry, and undercounted B. -/
 def belnap_verdict_distribution_v4 : List (String × Nat) :=
-  [("T/T/T", 9), ("T/T/B", 3), ("B", 5)]
+  [("T", single_voiced_count_v4), ("B", belnap_dialetheic_count_v4)]
 
 -- ============================================================
 -- §26  UPDATED CROSS-PROBLEM COMPARISON (18 PROBLEMS)
@@ -452,10 +505,9 @@ Tournament Domination problem (q946). Now 18 problems total.
     O₂†: 1 — Erdős Discrepancy Problem
     O_∞: 0
 
-  **Belnap verdict distribution:**
-    T/T/T (fully resolved): 9
-    T/T/B (obstructional branch open): 3
-    B (dialetheia held): 6
+  **Belnap verdict distribution** (counted from `belnap_verdict_table_v5`):
+    T (single voice): 11
+    B (dialetheia held): 7
 
   **Structural clusters by nearest-neighbor:**
     Cluster A (subcritical counting, d < 1.5):
@@ -540,8 +592,10 @@ Chromatic vs Odd Cycle), and mixed (Binomial GCD, Monochromatic Odd Cycle).
 def phi_criticality_distribution_v5 : List (Criticality × Nat) :=
   [(.woe, 7), (.roar, 6), (.monad, 5)]
 
+/-- Likewise computed. Adding Schütte took B to 7 and T to 11; the written
+    numbers had stayed at 6 and 9+3. -/
 def belnap_verdict_distribution_v5 : List (String × Nat) :=
-  [("T/T/T", 9), ("T/T/B", 3), ("B", 6)]
+  [("T", single_voiced_count_v5), ("B", belnap_dialetheic_count_v5)]
 
 def o1_cluster_structural_v5 : List (String × String) :=
   [("shared φ̂", ".roar"),

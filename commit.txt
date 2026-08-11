@@ -1,3 +1,31 @@
-Gate check for the 946a6017 ob3ect
+Five Erdős files given real content, and one verdict retracted
 
-Auto-generated gate-check scaffold from an ob3ect run.
+BinomialGCD: the prime-power branch via Nat.Prime.dvd_choose_pow, the digit
+obstruction via one step of Lucas, and a refutation of the file's own smooth-n
+mechanism — it said p ∣ n is blocked by i = p-1, but that index forces a carry,
+so p ∣ C(n,p-1) always.
+
+UnitDistance: the Lenz construction at d=4 in EuclideanSpace ℝ (Fin 4), two
+circles of radius 1/√2 in orthogonal planes at constant distance 1, assembled to
+f₄(n) ≥ ⌊n²/4⌋. Circle points are carried by unit vectors of ℝ², not angles, so
+distinctness is read off coordinates.
+
+SumsetAvoidingAP: every ✓ now names a theorem. Progression-freeness of the
+sumset FORCES distinct subset sums — a repeated sum ∑B = ∑C builds the
+progression ∑(B∩C), ∑B, ∑(B∪C) — which is what licenses the 2ⁿ ≤ nN+1 lower
+bound that had sat in the list with no argument. g₃(5) = 60 is proved by a
+pruned DFS whose soundness is itself proved: search_true shows the walk reaches
+any valid configuration, so a false verdict is a theorem about every subset, not
+only the visited ones.
+
+ErdosTuranAP: two conflations fixed. Branch 1 called Σ1/aₙ = ∞ equivalent to
+positive density while Branch 3 said the primes refute exactly that, and the
+Belnap note read "Both True (Szemerédi proved it)" — Szemerédi is about positive
+density, a strictly stronger hypothesis. k=3 for positive density is now
+machine-checked from Mathlib's Roth and Behrend.
+
+PomeranceSDR: I had recorded the q5 rerun as a kernel factual error confusing
+the Jacobsthal function. Against the literature that is wrong — the two runs
+answered about different quantities, f(n,n) versus max_m f(n,m), and van Doorn
+2026 proves the rerun's order. The divergence is an ambiguity;
+kernel_factual_errors is computed and zero.
