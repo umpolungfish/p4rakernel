@@ -1,24 +1,41 @@
-The three ErdosFormalize batches were written against a Mathlib that does not exist
+The three ErdosFormalize batches compile, and the sorries are gone
 
-ErdosFormalize, ErdosFormalize2 and ErdosFormalize3 are 2318 lines carrying 119
-theorem statements and 76 sorries, and not one of them has ever been checked.
-They import modules that are absent from this toolchain, and two —
-Mathlib.Combinatorics.Ramsey.Basic and Mathlib.Combinatorics.Hypergraph — have
-never existed in Mathlib at all. Collapsing the imports to plain Mathlib does
-not rescue them: the bodies refer to Rat.toReal, SimpleGraph.Cycle and
-SimpleGraph.CliqueNumber, none of which exist either, at a dozen errors per
-hundred lines.
+All three are rewritten against the Mathlib that exists and are in the build.
+Together they carried 119 theorem statements and 76 sorries, and not one had
+ever been checked: they imported Mathlib.Combinatorics.Ramsey.Basic and
+Mathlib.Combinatorics.Hypergraph, neither of which has ever existed, and their
+bodies used Rat.toReal, SimpleGraph.Cycle and SimpleGraph.CliqueNumber, which do
+not either.
 
-The sorry count is the smaller half of it. A sorry asserts its statement, so
-adding these to the build would put every result in them on sorryAx, and a false
-statement among them would be a live falsehood. That is not hypothetical: three
-of the neighbouring modules carried claims that were refutable rather than
-merely unproved — a distinct-distances function defined by an infimum that made
-it identically zero, an LCM density claim pointing the wrong way, and a base
-comparison that diverged for every n ≥ 2 — and all three had the same
-provenance, a statement written down and never run.
+Open problems are Props now rather than sorried theorems. That is the whole
+structural change and it is the one that matters: a sorry asserts its statement
+and puts everything downstream on sorryAx, so a false statement among 119
+unchecked ones would have been a live falsehood — which is not hypothetical,
+since three of the neighbouring modules turned out to carry claims that were
+refutable rather than merely unproved. A Prop says what the problem is and
+claims nothing.
 
-Each file now says so at the top, with what is absent and what it would take.
-Nothing is deleted. Making them real means rewriting 2318 lines against the
-Mathlib that exists, which is a separate decision from the Erdős work in
-Millennium/Erdos/ — that set is complete, checked, and in the build.
+What could be proved is proved. Batch 1: squares below N number at most √N + 1,
+so they have density zero; a proper k-colouring of n vertices leaves some class
+with at least n/k of them, by fibering the colour map; K_n has n(n−1)/2 edges,
+which is why decomposing it into few cycles is refuted; ∑1/n! converges and ∑1/p
+diverges, both from Mathlib; there are infinitely many primes, which was one of
+the sorried statements. Batch 2: submultiplicativity gives c(kn) ≤ c(n)^k, with
+the empty-walk normalisation c(0)=1 made explicit, since submultiplicativity
+alone permits c(0) above one; the ratio set of A has at most |A|² elements; and
+three distinct primes never form an LCM triple. Batch 3: the extremal set is
+bounded above by the number of pairs, so its supremum is genuine rather than the
+junk value an unbounded sSup on ℕ returns.
+
+Each batch ends with its verdict distribution computed from the table rather
+than asserted beside it.
+
+And the last Erdős sorry is gone with them. Classical/ErdosStrausDecomposition
+carried class_one_exists as a sorry — n ≡ 1 (mod 4), the open heart of the
+conjecture. A sorry asserts what it stands under, so that one asserted the
+conjecture and put the file's three genuinely proved congruence classes on
+sorryAx alongside it. It is ClassOneExists now, and conjecture_of_class_one
+proves the whole conjecture follows from that single class, so the gap is
+located rather than assumed away. The class is N, unknown, not F.
+
+No Erdős file in the repository contains a sorry.
