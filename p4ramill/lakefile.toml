@@ -532,8 +532,6 @@ globs = [
   "Imscribing.Millennium.ClayCandidateTuples",
   "Imscribing.Millennium.ClayCandidateProfile",
   "Imscribing.Millennium.Clay_TransportedClosure",
-  "Imscribing.Scratch.ProverScratch",
-  "Imscribing.Scratch.ProverScratchB",
 
   "Imscribing.Millennium.MacrocyclicClosure",
   "Imscribing.Millennium.FieldTheoreticMacrocycle",
@@ -621,3 +619,14 @@ globs = [
   "Imscribing.Millennium.ProofModules.LCMSieve",
   "Imscribing.Millennium.ProofModules.VerifiedConjectures",
 ]
+
+# The prover's scratch modules live in their own library, OUTSIDE the default
+# target. The kernel-gated prover writes candidate proofs into them and builds
+# them by name; while it works they hold whatever the model just proposed, which
+# is usually broken Lean. Inside the `Imscribing` glob that made every prover run
+# turn `lake build` red until the file was restored by hand — a red library that
+# means nothing, which is worse than no signal. `lake build` now ignores them and
+# `lake build Imscribing.Scratch.ProverScratch` still resolves.
+[[lean_lib]]
+name = "ProverScratch"
+roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"]
