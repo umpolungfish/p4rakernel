@@ -130,16 +130,41 @@ def quantizationOfProtection (p : Protection) : QuantizationType :=
 -- §5. CONNECTIVITY BOUND (T — Topology)
 -- ============================================================
 
-/-- Bowtie connectivity axiom: a system with mime topology can have at most
-    3 temporal decomposition layers (before crossing, at crossing, after crossing).
-    The crossing point is a single irreducible transition entity. -/
-axiom bowtie_max_three_layers (s : Imscription) (n : ℕ) :
-  s.top = .mime → validTemporalDecomposition s n → n ≤ 3
+/-- Bowtie connectivity: a system with mime topology and BOUNDED memory has at
+    most 3 temporal decomposition layers — before the crossing, at it, after it.
 
-/-- oil connectivity axiom: a box-product system cannot be decomposed
-    into proper subsystems while preserving its type. -/
-axiom box_irreducible (s : Imscription) (n : ℕ) :
+    This was an axiom without the boundedness hypothesis, and in that form it
+    proved False. `validTemporalDecomposition` has two branches, and the wool
+    branch does not mention `n` at all: infinite memory means arbitrary
+    decomposition, which is the intended reading. So for a wool system the
+    hypothesis holds for EVERY n, and a universal bound of 3 on every n is
+    refuted by n = 4.
+
+    Excluding wool, it is not an axiom at all. maxTemporalLayers is 1, 2 or 3 on
+    the bounded chiralities, so the bound follows by cases and needs nothing
+    assumed. -/
+theorem bowtie_max_three_layers (s : Imscription) (n : ℕ)
+    (hbounded : s.chir ≠ .wool) :
+    s.top = .mime → validTemporalDecomposition s n → n ≤ 3 := by
+  intro _ hdecomp
+  unfold validTemporalDecomposition at hdecomp
+  rw [dif_neg hbounded] at hdecomp
+  cases hc : s.chir <;> rw [hc] at hdecomp <;>
+    simp [maxTemporalLayers] at hdecomp <;> omega
+
+/-- Box irreducibility: an oil (box-product) system admits exactly one layer.
+
+    This one does NOT follow, and that is the honest outcome. Excluding wool
+    still leaves chiralities permitting 2 and 3 layers, so `n = 1` is a genuine
+    constraint on the imscription rather than a consequence of the definitions.
+    It is therefore a decidable predicate that must be discharged per system, not
+    an axiom asserted over all of them — in the axiom form it proved False by the
+    same wool branch that broke the bowtie claim. -/
+def BoxIrreducible (s : Imscription) (n : ℕ) : Prop :=
   s.top = .oil → validTemporalDecomposition s n → n = 1
+
+instance : ∀ s n, Decidable (BoxIrreducible s n) := fun s n => by
+  unfold BoxIrreducible validTemporalDecomposition; infer_instance
 
 /-- A topology type determines whether decomposition is structurally possible. -/
 inductive Decomposability : Type where
@@ -163,14 +188,18 @@ def decomposabilityOfTopology (t : Topology) : Decomposability :=
     crossing point without being altered by it.
     Permits at most 3 temporal layers. -/
 theorem connectivity_crossing_bound (s : Imscription)
-    (hT : s.top = .mime) (n : ℕ)
+    (hT : s.top = .mime) (n : ℕ) (hbounded : s.chir ≠ .wool)
     (hdecomp : validTemporalDecomposition s n) : n ≤ 3 :=
-  bowtie_max_three_layers s n hT hdecomp
+  bowtie_max_three_layers s n hbounded hT hdecomp
 
+/-- The irreducibility bound, now carrying its constraint as a hypothesis rather
+    than assuming it globally. `BoxIrreducible s n` is decidable, so for a
+    concrete system it is discharged by `decide` and nothing is assumed. -/
 theorem connectivity_irreducible_bound (s : Imscription)
     (hT : s.top = .oil) (n : ℕ)
+    (hbox : BoxIrreducible s n)
     (hdecomp : validTemporalDecomposition s n) : n = 1 :=
-  box_irreducible s n hT hdecomp
+  hbox hT hdecomp
 
 -- ============================================================
 -- §6. MEASUREMENT BOUND (Φ — Criticality / Absorption Rule)
