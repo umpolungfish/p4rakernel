@@ -133,6 +133,7 @@ globs = [
   "Imscribing.Millennium.FrobeniusStructure",
   "Imscribing.Millennium.E8G2_Vessel",
   "Imscribing.Millennium.E8G2_Vessel_Witnesses",
+  "Imscribing.Millennium.Unsolved",
   "Imscribing.Millennium.Erdos.Base",
   "Imscribing.Millennium.Erdos.ErdosTuranAP",
   "Imscribing.Millennium.Erdos.AntiRamseyOddCycles",
