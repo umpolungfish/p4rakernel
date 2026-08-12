@@ -1,13 +1,11 @@
-The list-chromatic threshold, with the discarded arm restored
+The joint growth, fused because both readings are of the same primes
 
-The tenth ob3ect forks the graph class on the property and reports B, and its
-reason is worth keeping: the fuse stays open because the arm of graphs that do
-NOT exceed the bound is dropped when the least order is named. A minimum over one
-arm is not a fusion of the split — what went into the fork does not come back out
-of it — so the object records the defect instead of hiding it behind a value.
+The eleventh ob3ect fuses lcm(1..n) and Landau's g(n) into one statement, and its
+reason is why the fuse closes: both estimates come from the distribution of the
+primes below n. log lcm(1..n) asymptotic to n, log g(n) asymptotic to
+sqrt(n log n) — two readings of one layout, not two facts about unrelated
+objects.
 
-LeastOrderListChromatic therefore carries both halves: a bipartite witness at the
-order, and the absence of one below it. The second conjunct is the arm the fuse
-dropped, put back. ListColourable and ListChromaticExceeds write out the notion
-the removed entry never mentioned, its conclusion having been that some N is
-positive.
+JointLogarithmicGrowth states both. lcmUpTo is the lcm of a finite set rather
+than a fold, so the divisibility is the library's own lemma instead of an
+induction over a fold's shape — my first version fought that shape and lost.
