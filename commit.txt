@@ -1,11 +1,11 @@
-Erdos-Straus: the rung reads off k*n+1
+Erdos-Straus: k=2 as a residue condition on 2n+1
 
-Every cofactor is w = k*r - 1, so the rung is (w+1)/k and the condition w | M
-becomes a condition on n alone: 4k*a = k*n + w + 1, so w | k*n+1 with w coprime
-to 4k gives w | a. That is closedAtRung_of_kshift.
+closedAtRung_of_two_shift. A divisor w = 5 (mod 8) of 2n+1 closes 4/n at the rung
+(w+1)/2, and nothing else needs checking: w is odd so coprime to 8, and the
+residue is exactly what makes (w+1)/2 = 3 (mod 4).
 
-This removes the circularity. The divisor search wanted a factor of M = n*a while
-a depended on the rung being tested; now each k needs only the factorisation of
-k*n+1, and k=1 is the divisor family already there. Below 20000 the frontier's 83
-values fall to k <= 8 in 64 cases and to k <= 40 in 74. Only even k occur, since
-w must be odd where M is.
+SurvivesKShift names what a frontier value must satisfy to get past every k up to
+K — one multiplicative condition per k, on top of the four already recorded. The
+frontier is cut by a growing family of independent conditions, not one
+obstruction. n = 193 shows the k=2 condition can hold: 2n+1 = 387 = 9*43, whose
+divisors are 1, 3, 9, 43, 129, 387, none of them 5 (mod 8).
