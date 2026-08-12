@@ -1,21 +1,11 @@
-Erdos batches 2 and 3: the same repair
+LCMSieve prints its axiom cost
 
-Batch 2 loses twenty-one statements and batch 3 sixteen, all of them entries that
-asserted something true of everything: "there exists N with N <= 4k+1", "n/n
-tends to 1", "aleph one is at most its square", "there is a transversal" with no
-bound on its size, and the negation of a statement ending in True — that last one
-being FALSE while recorded as B.
+The three results the lcm manuscript rests on now print their dependencies, which
+come back as propext, Classical.choice and Quot.sound — what the paper claims. A
+paper that names its dependencies has to be able to check them.
 
-What survives is restated with its object. Hindman's function against a tower of
-twos with the monochromatic finite-sums set spelled out; the LCM triple count as
-a count of triples; Cameron-Erdos as a two-sided bound on the number of sum-free
-subsets; average degree forcing a vertex of degree three rather than of positive
-degree.
-
-One became a theorem: bounded degree bounds the edge count linearly, which the
-handshake identity gives outright, so edges_le_of_degree_le proves what the Prop
-was citing.
-
-Verdict tables and their counts are recomputed from what each file defines. A
-count of a table is only worth stating if it moves when the table does. Library
-green at 8592 jobs.
+Sweeping the whole Erdos corpus: 100 axiom lines, 94 on the standard three. The
+six that are not are compiled evaluations — the K6 colouring sweep, the SDR
+table and its four-window failure, the Schutte lower bound, Landau's table, and
+the quintuple search below sixty — and every one of them is declared as compiled
+evaluation in its manuscript.
