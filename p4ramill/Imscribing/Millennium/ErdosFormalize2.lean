@@ -156,6 +156,71 @@ theorem edges_le_of_degree_le (d n : ℕ) (G : SimpleGraph (Fin n))
     _ ≤ ∑ _v : Fin n, d := Finset.sum_le_sum (fun v _ => h v)
     _ = n * d := by simp [Finset.sum_const, Finset.card_univ]
 
+/-! ## §4b The Ramsey number of a pair
+
+The entries removed from this section — even-cycle Ramsey at two and at `k`
+colours, `R(C₄, K_{1,n})`, Ramsey-goodness, and the question whether equal edge
+counts force equal Ramsey numbers — all needed one object this file did not
+carry: the least order forcing a monochromatic copy of one of two given graphs.
+It is written here as a search with a terminal anchor, which is what it is: the
+candidates open, each is tested against every colouring, and the value is the
+least that survives.
+
+A `sInf` over a set that might be empty returns junk, so the arrow relation and
+its non-emptiness are separate: `ArrowsPair` says what it means to force, and
+`RamseyFinite` says a forcing order exists. Ramsey's theorem is that statement,
+and it is a citation here rather than a proof.
+-/
+
+/-- `G` embeds into the colour-`c` part of a colouring of `K_N`. The embedding is
+by an injection carrying adjacency forward, which is containment rather than
+induced containment — the notion Ramsey's theorem uses. -/
+def MonoCopy {m N : ℕ} (G : SimpleGraph (Fin m)) (col : Fin N → Fin N → Bool)
+    (c : Bool) : Prop :=
+  ∃ f : Fin m → Fin N, Function.Injective f ∧
+    ∀ u v : Fin m, G.Adj u v → col (f u) (f v) = c
+
+/-- `N` forces the pair: every two-colouring of `K_N` carries a copy of `G` in
+the first colour or of `H` in the second. -/
+def ArrowsPair (N : ℕ) {m k : ℕ} (G : SimpleGraph (Fin m)) (H : SimpleGraph (Fin k)) : Prop :=
+  ∀ col : Fin N → Fin N → Bool,
+    (∀ u v, col u v = col v u) → MonoCopy G col true ∨ MonoCopy H col false
+
+/-- **Ramsey's theorem, as the statement that the search terminates.** Without
+it the least forcing order is an infimum over a possibly empty set, and that is
+`0` rather than "no such order". -/
+def RamseyFinite : Prop :=
+  ∀ (m k : ℕ) (G : SimpleGraph (Fin m)) (H : SimpleGraph (Fin k)),
+    ∃ N : ℕ, ArrowsPair N G H
+
+/-- The Ramsey number of a pair: the least order that forces. Meaningful exactly
+when `RamseyFinite` holds, which is why the two are separate. -/
+noncomputable def ramseyPair {m k : ℕ} (G : SimpleGraph (Fin m))
+    (H : SimpleGraph (Fin k)) : ℕ :=
+  sInf { N : ℕ | ArrowsPair N G H }
+
+/-- **Monotone in the order.** If `N` forces and `N ≤ M`, then `M` forces: a
+colouring of the larger complete graph restricts to one of the smaller, and a
+copy found there is a copy here. -/
+theorem arrowsPair_mono {m k : ℕ} (G : SimpleGraph (Fin m)) (H : SimpleGraph (Fin k))
+    {N M : ℕ} (hNM : N ≤ M) (h : ArrowsPair N G H) : ArrowsPair M G H := by
+  intro col hsymm
+  -- The restriction of the colouring to the first `N` vertices.
+  set res : Fin N → Fin N → Bool :=
+    fun u v => col ⟨u.1, lt_of_lt_of_le u.2 hNM⟩ ⟨v.1, lt_of_lt_of_le v.2 hNM⟩ with hres
+  have hsym' : ∀ u v : Fin N, res u v = res v u := by
+    intro u v; simp only [hres]; exact hsymm _ _
+  -- The inclusion of the first `N` vertices into the `M`.
+  set incl : Fin N → Fin M := fun u => ⟨u.1, lt_of_lt_of_le u.2 hNM⟩ with hincl
+  have hincl_inj : Function.Injective incl := by
+    intro a b hab
+    have : (a : ℕ) = (b : ℕ) := by
+      simpa [hincl] using congrArg Fin.val hab
+    exact Fin.ext this
+  rcases h res hsym' with ⟨f, hf, hadj⟩ | ⟨f, hf, hadj⟩
+  · exact Or.inl ⟨incl ∘ f, hincl_inj.comp hf, fun u v huv => hadj u v huv⟩
+  · exact Or.inr ⟨incl ∘ f, hincl_inj.comp hf, fun u v huv => hadj u v huv⟩
+
 /-! ## §5 Hypergraph Ramsey -/
 
 /-! Five stepping-up entries stood here — `∃ c₁ c₂ > 0`, `∃ N, n ≤ N`,
@@ -257,5 +322,7 @@ theorem verdict_partition : countOf "T" + countOf "B" = verdicts.length := by de
 #print axioms saw_pow_bound
 #print axioms ratio_set_bound
 #print axioms primes_not_lcm_triple
+
+#print axioms arrowsPair_mono
 
 end ErdosFormalize2
