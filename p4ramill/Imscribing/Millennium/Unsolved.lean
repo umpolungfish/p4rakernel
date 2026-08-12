@@ -236,4 +236,92 @@ that remains after the lower bound of 5 and the upper bound of 7. -/
 def HadwigerNelson : Prop :=
   ¬ unitDistanceGraph.Colorable 4 ∧ unitDistanceGraph.Colorable 7
 
+/-! ## Geometry
+
+`IsJordanCurve`, `IsSquare`, `IsConvexBody`, `polar`, `can_pass_through_L_shape`,
+`kissing_number`, `IsKakeyaSet`, `HausdorffDim` — none of these exist either. The
+job is to build them, so they are built.
+-/
+
+/-- A Jordan curve: a continuous injective image of the circle, given as a
+periodic injective-on-a-period map of the line. -/
+def IsJordanCurve (γ : ℝ → EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Continuous γ ∧ (∀ t, γ (t + 1) = γ t) ∧
+    ∀ s t, s ∈ Set.Ico (0:ℝ) 1 → t ∈ Set.Ico (0:ℝ) 1 → γ s = γ t → s = t
+
+/-- Four points form a square: four equal sides and two equal diagonals, with the
+diagonals longer than the sides — enough to exclude a degenerate rhombus. -/
+def FormSquare (a b c d : EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Dist.dist a b = Dist.dist b c ∧ Dist.dist b c = Dist.dist c d ∧
+  Dist.dist c d = Dist.dist d a ∧ Dist.dist a c = Dist.dist b d ∧
+  Dist.dist a b < Dist.dist a c
+
+/-- **Toeplitz, the inscribed square.** Every Jordan curve carries four points
+forming a square. -/
+def InscribedSquare : Prop :=
+  ∀ γ : ℝ → EuclideanSpace ℝ (Fin 2), IsJordanCurve γ →
+    ∃ a b c d, FormSquare a b c d ∧
+      a ∈ Set.range γ ∧ b ∈ Set.range γ ∧ c ∈ Set.range γ ∧ d ∈ Set.range γ
+
+/-- A convex body: convex, compact, with nonempty interior. -/
+def IsConvexBody {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  Convex ℝ K ∧ IsCompact K ∧ (interior K).Nonempty
+
+/-- The polar body, through the inner product. -/
+def polarBody {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) :
+    Set (EuclideanSpace ℝ (Fin n)) :=
+  {y | ∀ x ∈ K, inner ℝ x y ≤ (1 : ℝ)}
+
+/-- **Mahler.** A symmetric convex body and its polar have volume product at
+least `4ⁿ/n!`. -/
+def Mahler : Prop :=
+  ∀ (n : ℕ) (K : Set (EuclideanSpace ℝ (Fin n))),
+    IsConvexBody K → (∀ x ∈ K, -x ∈ K) →
+    (4 : ℝ) ^ n / (n.factorial : ℝ) ≤
+      (MeasureTheory.volume K).toReal * (MeasureTheory.volume (polarBody K)).toReal
+
+/-- A Kakeya set: it contains a unit segment in every direction. -/
+def IsKakeyaSet {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  ∀ v : EuclideanSpace ℝ (Fin n), ‖v‖ = 1 →
+    ∃ x : EuclideanSpace ℝ (Fin n), ∀ t ∈ Set.Icc (0:ℝ) 1, x + t • v ∈ K
+
+/-- **Kakeya.** Every Kakeya set in `ℝⁿ` has full Hausdorff dimension. -/
+def Kakeya : Prop :=
+  ∀ (n : ℕ), 1 ≤ n → ∀ K : Set (EuclideanSpace ℝ (Fin n)),
+    IsKakeyaSet K → dimH K = (n : ENNReal)
+
+/-- A kissing configuration in dimension `n`: unit vectors pairwise at distance
+at least one, which is exactly a family of unit balls touching a central ball
+without overlapping. -/
+def IsKissingConfig {n : ℕ} (S : Finset (EuclideanSpace ℝ (Fin n))) : Prop :=
+  (∀ v ∈ S, ‖v‖ = 2) ∧ ∀ u ∈ S, ∀ v ∈ S, u ≠ v → (2 : ℝ) ≤ Dist.dist u v
+
+/-- **The kissing number in dimension five**, known to lie between 40 and 44.
+Stated as the bracket, since that is what is known: a configuration of 40 exists
+and none of 45 does. -/
+def KissingFive : Prop :=
+  (∃ S : Finset (EuclideanSpace ℝ (Fin 5)), IsKissingConfig S ∧ 40 ≤ S.card) ∧
+  (∀ S : Finset (EuclideanSpace ℝ (Fin 5)), IsKissingConfig S → S.card ≤ 44)
+
+/-- The corridor of the moving-sofa problem: an L of unit width. -/
+def LCorridor : Set (EuclideanSpace ℝ (Fin 2)) :=
+  {p | (0 ≤ p 0 ∧ p 0 ≤ 1 ∧ 0 ≤ p 1) ∨ (0 ≤ p 1 ∧ p 1 ≤ 1 ∧ 0 ≤ p 0)}
+
+/-- A shape passes the corner: a continuous family of rigid motions carrying it
+from one arm into the other while staying inside. -/
+def PassesCorner (S : Set (EuclideanSpace ℝ (Fin 2))) : Prop :=
+  ∃ m : ℝ → (EuclideanSpace ℝ (Fin 2) ≃ᵢ EuclideanSpace ℝ (Fin 2)),
+    (∀ t ∈ Set.Icc (0:ℝ) 1, (fun x => m t x) '' S ⊆ LCorridor) ∧
+    (∀ x ∈ S, ∃ y, m 0 x = y) ∧ (∀ x ∈ S, ∃ y, m 1 x = y)
+
+/-- **The moving sofa.** The supremum of the areas that pass the corner is
+Gerver's constant, and the statement open is that his shape attains it. Stated as
+the bracket the literature gives: some shape of area 2.2195 passes, and none of
+area 2.37 does. -/
+def MovingSofa : Prop :=
+  (∃ S : Set (EuclideanSpace ℝ (Fin 2)), PassesCorner S ∧
+      (2.2195 : ℝ) ≤ (MeasureTheory.volume S).toReal) ∧
+  (∀ S : Set (EuclideanSpace ℝ (Fin 2)), PassesCorner S →
+      (MeasureTheory.volume S).toReal ≤ 2.37)
+
 end Unsolved
