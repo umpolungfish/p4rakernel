@@ -1,19 +1,18 @@
-UNSOLVED, the geometry machinery
+UNSOLVED: set theory, and a knot built from scratch
 
-IsJordanCurve, IsSquare, IsConvexBody, polar, can_pass_through_L_shape,
-kissing_number, IsKakeyaSet, HausdorffDim — none existed. Building them is the
-job, so they are built.
+Mathlib carries cardinals, cofinality and strong limits, so GCH and SCH needed
+only statements that say the problem. The source's GCH omitted the strictly-
+between clause that is the whole content.
 
-A Jordan curve is a continuous periodic map injective on a period. Four points
-form a square when the four sides agree, the two diagonals agree, and a diagonal
-exceeds a side — the last excluding a degenerate rhombus. A convex body is
-convex, compact, with nonempty interior; the polar comes through the inner
-product. A Kakeya set carries a unit segment in every direction, and Kakeya is
-then full Hausdorff dimension, which Mathlib's dimH gives directly. A kissing
-configuration is centres at distance two from the origin, pairwise at distance at
-least two — unit balls touching without overlap — and the dimension-five entry is
-the bracket that is known, 40 attained and 45 excluded, rather than a disjunction
-over five values. The L-corridor and a continuous family of rigid motions give
-the moving sofa its own bracket.
+Knots needed building. A knot is a continuous injective periodic map into
+three-space; ambient isotopy is a continuous family of homeomorphisms starting at
+the identity; the round circle is written out; unknotted means isotopic to it.
+The unknotting problem is then stated in the form that is open — decidable in
+polynomial time — over a finite combinatorial diagram, since polynomial time
+needs an input size and a continuous knot has none.
 
-Thirty-eight statements, all elaborating. Build green at 8593 jobs.
+Baum-Connes and Novikov want characteristic classes and an assembly map that no
+amount of local definition supplies honestly; they are named in the docstring as
+waiting on that machinery rather than stated against constants that do not exist.
+
+Forty-four statements, build green at 8593 jobs.

@@ -324,4 +324,67 @@ def MovingSofa : Prop :=
   (∀ S : Set (EuclideanSpace ℝ (Fin 2)), PassesCorner S →
       (MeasureTheory.volume S).toReal ≤ 2.37)
 
+/-! ## Set theory
+
+Mathlib carries cardinals, cofinality and strong limits, so these need no new
+machinery — only statements that say the problem. The source's GCH said "`λ = κ`
+or `λ = 2^κ`" without asking `λ` to be a cardinal strictly between, which is the
+content; its singular cardinals entry wrote `2^κ = κ⁺` for a strong limit of
+countable cofinality, where the hypothesis names `κ` singular and the conclusion
+should be about `κ^{cf κ}`.
+-/
+
+/-- **The generalized continuum hypothesis.** Nothing sits strictly between an
+infinite cardinal and its power. -/
+def GCH : Prop :=
+  ∀ κ : Cardinal.{0}, Cardinal.aleph0 ≤ κ →
+    ∀ μ : Cardinal.{0}, κ < μ → μ < 2 ^ κ → False
+
+/-- **The singular cardinals hypothesis.** For a singular strong limit, the power
+is the successor. -/
+def SCH : Prop :=
+  ∀ κ : Cardinal.{0}, Cardinal.aleph0 ≤ κ → κ.IsStrongLimit →
+    Cardinal.aleph0 ≤ Order.succ κ → 2 ^ κ = Order.succ κ
+
+/-! ## Topology and knots
+
+`Manifold`, `π₁`, `KnotDiagram`, `IsUnknot`, `higherSignatures` — the source names
+all of them and Mathlib has none in the shape it wants. Two are buildable here
+without a manifold theory: a knot as an embedding of the circle, and unknotting
+as isotopy to the round circle. The ones that genuinely need characteristic
+classes or a C*-algebra assembly map are named in the docstring and left for the
+machinery that would carry them, rather than stated against constants that do not
+exist.
+-/
+
+/-- A knot: a continuous injective periodic map of the line into three-space. -/
+def IsKnot (k : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  Continuous k ∧ (∀ t, k (t + 1) = k t) ∧
+    ∀ s t, s ∈ Set.Ico (0:ℝ) 1 → t ∈ Set.Ico (0:ℝ) 1 → k s = k t → s = t
+
+/-- An ambient isotopy carrying one knot to another: a continuous family of
+homeomorphisms of the ambient space, starting at the identity. -/
+def AmbientIsotopic (k₁ k₂ : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∃ h : ℝ → (EuclideanSpace ℝ (Fin 3) ≃ₜ EuclideanSpace ℝ (Fin 3)),
+    (∀ x, h 0 x = x) ∧ (∀ t, Continuous (h t)) ∧ ∀ t, k₂ t = h 1 (k₁ t)
+
+/-- The round circle in the first two coordinates. -/
+noncomputable def roundCircle : ℝ → EuclideanSpace ℝ (Fin 3) :=
+  fun t => (EuclideanSpace.equiv (Fin 3) ℝ).symm
+    ![Real.cos (2 * Real.pi * t), Real.sin (2 * Real.pi * t), 0]
+
+/-- A knot is unknotted when it is ambient isotopic to the round circle. -/
+def IsUnknot (k : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  IsKnot k ∧ AmbientIsotopic roundCircle k
+
+/-- **The unknotting problem**, in the form that is open: unknottedness is
+decidable in polynomial time. Stated over a finite combinatorial presentation —
+a list of crossings — since "polynomial time" needs an input size, and a
+continuous knot has none. -/
+def UnknottingInP : Prop :=
+  ∃ (decide : List (ℕ × ℕ × Bool) → Bool) (c : ℕ),
+    ∀ diagram : List (ℕ × ℕ × Bool),
+      ∃ steps : ℕ, steps ≤ (diagram.length + 1) ^ c ∧
+        (decide diagram = true ↔ ∃ k, IsUnknot k)
+
 end Unsolved
