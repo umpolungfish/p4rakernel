@@ -719,8 +719,9 @@ multiplicative group. The divisors of `M²` reduce mod `r` to the reachable set
 
 and the rung closes exactly when `−M ∈ R`. Since `M` is itself in `R`, and `R`
 sits inside the subgroup `H = ⟨p₁, …, p_k⟩` of `(ZMod r)ˣ`, the criterion is
-`−1 ∈ H` up to the exponents actually available. The budget gap is a steady few per cent of the rungs walked: 19 of 379 below
-50000, 21 of 850 from there to 200000, spread across many values. What is
+`−1 ∈ H` up to the exponents actually available. The budget gap thins as `n` grows: 19 of 379 rungs walked below 50000 (5.0%), 21
+of 850 to 200000 (2.5%), 15 of 974 to 400000 (1.5%). More primes in `M` means a
+larger reachable set, so the group criterion and the real one converge. What is
 exceptional is failing that way at EVERY rung, which `n = 2521` does: searched to
 rung 4000, `M = 2521·(2521+r)/4` carries no divisor at `−1` for any of them, so
 its divisor genuinely lives in `M²` rather than merely beyond a small budget. By
