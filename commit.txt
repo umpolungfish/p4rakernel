@@ -1,10 +1,12 @@
-Girth against chromatic number, held as a range
+The packing density, with its definedness attached
 
-The fifth ob3ect forks this extremal function into an arm where the construction
-and the upper bound coincide and an arm where they leave a gap, and its fuse
-keeps both — the first contributing a value, the second an interval. So
-GirthRange carries two ends and GirthExact is the case where they meet.
+The sixth ob3ect forks on validity — discs pairwise disjoint or some pair
+overlapping — and its forward morphism is the passage from a finite window to the
+asymptotic proportion by enlarging the window. Its fuse carries the proportion
+only when the packing is valid AND the limit exists.
 
-Writing it as a single number would assert an exactness the problem does not
-have, which is the collapse this kernel exists to refuse. The entry removed from
-this file asked for the limit of n/n.
+So PackingDensityIs asserts a limit rather than naming a value: a packing whose
+density does not converge satisfies it for no d. HexagonalPackingOptimal then has
+both halves, the bound and its attainment, because a bound without attainment is
+not optimality. The entry that stood here said there is a real strictly between
+zero and one, and it is back in the verdict table now that it says something.
