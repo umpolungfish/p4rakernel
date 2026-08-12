@@ -1,11 +1,14 @@
-The joint growth, fused because both readings are of the same primes
+The bound's route, from the twelfth object
 
-The eleventh ob3ect fuses lcm(1..n) and Landau's g(n) into one statement, and its
-reason is why the fuse closes: both estimates come from the distribution of the
-primes below n. log lcm(1..n) asymptotic to n, log g(n) asymptotic to
-sqrt(n log n) — two readings of one layout, not two facts about unrelated
-objects.
+The object designed for the least closing rung reads its reverse morphism as the
+product's SIZE forcing the divisor: as M grows its divisors multiply, and a
+residue class cannot stay empty once enough of them land. That is the coverage
+the instrument has been measuring, and it is the bridge from a measurement to a
+bound.
 
-JointLogarithmicGrowth states both. lcmUpTo is the lcm of a finite set rather
-than a fold, so the divisibility is the library's own lemma instead of an
-induction over a fold's shape — my first version fought that shape and lost.
+closedAtRung_of_full_coverage proves the bridge: if the divisors of M^2 meet
+every class mod r, one of them meets -M and the rung closes.
+CoverageReachesFull states what a bound needs on top — that coverage becomes full
+by a stated rung — which the measurement supports and does not prove.
+
+All twelve objects have landed. Every one became a definition or a theorem.
