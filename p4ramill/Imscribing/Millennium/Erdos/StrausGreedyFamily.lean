@@ -1045,6 +1045,42 @@ theorem threeUnit_of_closedAtRungSq (n r : ℕ) (hn : 0 < n) (hr0 : 0 < r)
     straus_master n r a (n * a) u v b c hn ha0 hb0 hc0 hr0 rfl hM0 ha huv hb.symm hc.symm⟩
 
 #print axioms Erdos.StrausGreedy.threeUnit_of_closedAtRungSq
+/-! ## What a bound would have to say
+
+Three statements now sit between the ladder and the conjecture on this class, and
+they are ordered by strength.
+
+The weakest is `EveryNClosedSq`: every `n` has SOME rung. By `ladder_complete`
+this is the conjecture itself on the class, neither more nor less.
+
+The middle one is the cofactor version: every `n` has a rung at which `M` — not
+`M²` — carries a divisor at `−1`. It is strictly stronger, and `n = 2521`
+refutes it as stated for rungs up to 200 while satisfying the weak one, so the
+gap between the two is inhabited rather than notional.
+
+The strongest is a BOUND: a function `B` with a closing rung below `B n` for
+every `n`. Everything measured is consistent with `B n = C·n^{1/4}`, and a bound
+of any shape settles the conjecture on every range it covers, since the rungs
+below it are finitely many and each is decidable. That is why the bound, and not
+the existence, is the statement worth attacking.
+-/
+
+/-- **The bounded form.** A closing rung below an explicit bound. -/
+def RungBounded (B : ℕ → ℕ) : Prop :=
+  ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → ¬ (3 ∣ n) → ∃ r, r < B n ∧ r % 4 = 3 ∧ ClosedAtRungSq n r
+
+/-- A bound gives the conjecture on the surviving class: the rung it supplies is
+a rung, and `threeUnit_of_closedAtRungSq` turns it into three unit fractions. -/
+theorem straus_class_of_rungBounded (B : ℕ → ℕ) (h : RungBounded B) :
+    ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → ¬ (3 ∣ n) →
+      ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  intro n hn5 h4 h3
+  obtain ⟨r, _, hr4, hcl⟩ := h n hn5 h4 h3
+  have hn : 0 < n := by omega
+  have hr0 : 0 < r := by omega
+  exact threeUnit_of_closedAtRungSq n r hn hr0 hcl
+
+#print axioms Erdos.StrausGreedy.straus_class_of_rungBounded
 #print axioms Erdos.StrausGreedy.ladder_cross
 #print axioms Erdos.StrausGreedy.ladder_complete
 #print axioms Erdos.StrausGreedy.ladder_rung_residue
