@@ -546,6 +546,43 @@ theorem straus_class_of_everyNClosed (h : EveryNClosed) :
   obtain ⟨r, hr, hclosed⟩ := h n h5 h4 h3
   exact straus_of_closedAtRung n r (by omega) hr hclosed
 
+/-! ## The one-shot half
+
+The Fixed-Point Nesting Rule separates a nesting that must be searched from one
+whose inner object already sits at the outer's fixed point. Here the outer action
+is the rung's congruence and the inner object is the divisor offered to it, and
+there is a divisor that is fixed identically:
+
+`u = 2` at rung `3`. The congruence `3 ∣ n² + 4u = n² + 8` holds for EVERY `n`
+with `3 ∤ n`, since `n² ≡ 1 (mod 3)` and `1 + 8 = 9`. Nothing about `n` is used
+beyond `3 ∤ n`, so nothing is searched. The only remaining requirement is that `2`
+actually divide `M = n·a`, and with `n` odd that is `2 ∣ a`, which for
+`a = (n+3)/4` says exactly `n ≡ 5 (mod 8)`.
+
+Half the surviving class is therefore a one-shot: `n ≡ 5 (mod 8)` closes at the
+greedy rung with price zero. The kernel's `straus census` reads 50.2% one-shot
+across `5 ≤ n ≤ 4000`, the rest iterated, none dead.
+-/
+
+/-- **The one-shot family.** For `n ≡ 5 (mod 8)` with `3 ∤ n`, the divisor `u = 2`
+closes at rung 3 with no search: `4/n = 1/a + 1/b + 1/(w·b)` where `4a = n+3`,
+`2w = n·a` and `3b = n·a + 2`. -/
+theorem straus_one_shot (n a w b : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hw0 : 0 < w) (hb0 : 0 < b)
+    (ha : 4 * a = n + 3) (hw : 2 * w = n * a) (hb : 3 * b = n * a + 2) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / ((w * b : ℕ) : ℚ) := by
+  refine straus_practical n 3 a 2 w b (w * b) hn ha0 hb0 (Nat.mul_pos hw0 hb0)
+    (by norm_num) (by norm_num) hw0 hw.symm ha ?_ ?_
+  · -- `3·b = M + 2 = 2·w + 2`
+    rw [hb, ← hw]
+  · -- `3·(w·b) = w·(M + 2) = 2·w + 2·w²`
+    have : 3 * (w * b) = w * (3 * b) := by ring
+    rw [this, hb, ← hw]; ring
+
+/-- `n = 5`: `a = 2`, `w = 5`, `b = 4`, giving `4/5 = 1/2 + 1/4 + 1/20`. -/
+theorem straus_five_one_shot : (4 : ℚ) / 5 = 1 / 2 + 1 / 4 + 1 / 20 := by norm_num
+
+#print axioms Erdos.StrausGreedy.straus_one_shot
 #print axioms Erdos.StrausGreedy.straus_class_of_everyNClosed
 #print axioms Erdos.StrausGreedy.straus_of_closedAtRung
 #print axioms Erdos.StrausGreedy.straus_practical

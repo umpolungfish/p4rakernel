@@ -1,24 +1,19 @@
-The rung height grows like the fourth root, and the conjecture is one Prop
+straus_one_shot — half the class needs no search at all
 
-The ceiling is not a constant, and chasing one was the wrong target. Measured
-across the surviving class:
+The Fixed-Point Nesting Rule separates a nesting that must be searched from one
+whose inner object already sits at the outer's fixed point. Applied here: the
+outer action is the rung's congruence, the inner object is the divisor offered to
+it, and u = 2 at rung 3 is fixed identically.
 
-  n < 2000    max rung 23  at 1201      n^(1/4) =  5.9
-  n < 10000   max rung 23  at 2161      n^(1/4) =  6.8
-  n < 50000   max rung 51  at 35809     n^(1/4) = 13.8
-  n < 100000  max rung 47  at 99961     n^(1/4) = 17.8
-  n < 200000  max rung 75  at 196561    n^(1/4) = 21.1
+3 ∣ n² + 4u = n² + 8 holds for EVERY n with 3 ∤ n, since n² ≡ 1 (mod 3) and
+1 + 8 = 9. Nothing about n enters beyond 3 ∤ n, so nothing is searched — price
+zero, in the rule's accounting. The only requirement left is that 2 divide
+M = n·a, which with n odd is 2 ∣ a, which for a = (n+3)/4 says exactly
+n ≡ 5 (mod 8).
 
-The ratio of maximum rung to n^(1/4) is 3.9, 3.4, 3.7, 2.6, 3.6 — flat across two
-orders of magnitude. So a proof has to control an O(n^(1/4))-deep search, not a
-constant one, and RungGrowthFourthRoot states that as a Prop with the measured
-constant named.
+So half the surviving class closes at the greedy rung with a formula:
+4/n = 1/a + 1/b + 1/(w·b), where 4a = n+3, 2w = n·a, 3b = n·a + 2. Checked
+against 3334 values, no failures; n = 5 gives 4/5 = 1/2 + 1/4 + 1/20.
 
-EveryNClosed is the conjecture itself in this file's vocabulary: every n in the
-surviving class is closed at some rung. straus_class_of_everyNClosed derives
-Erdős–Straus for the class from it, which is the whole reduction in one line.
-
-33333 values checked across 5 ≤ n ≤ 200000, all closed, the single exception being
-n = 2521 whose divisor lives in M² rather than M.
-
-Library green.
+The kernel's own reading agrees from the other side: `straus census 5 4000`
+reports 50.2% one-shot, 49.8% iterated, 0% no closure.
