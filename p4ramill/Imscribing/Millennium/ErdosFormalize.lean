@@ -276,6 +276,43 @@ def ConvexUnitDistancesBound : Prop :=
   ∃ C : ℝ, 0 < C ∧ ∀ s : Finset (EuclideanSpace ℝ (Fin 2)),
     (unitDistances s : ℝ) ≤ C * (s.card : ℝ) * Real.log (s.card + 1)
 
+/-! ### The density of a packing
+
+The sixth object of the nest forks the analysis on validity — discs pairwise
+disjoint, or some pair overlapping — and its forward morphism is the passage from
+a finite window to the asymptotic proportion by enlarging the window. Its fuse
+carries the proportion only when the packing is valid AND the limit exists, so
+the definedness travels with the value rather than being assumed. That is how it
+is written here: `PackingDensityIs` asserts a limit, and a packing with no limit
+satisfies it for no value.
+-/
+
+/-- A packing of unit discs, by centres: two centres are at distance at least the
+sum of the radii, so the open discs are disjoint. -/
+def IsUnitPacking (C : Set (EuclideanSpace ℝ (Fin 2))) : Prop :=
+  ∀ p ∈ C, ∀ q ∈ C, p ≠ q → (2 : ℝ) ≤ Dist.dist p q
+
+/-- How many centres lie within `R` of the origin. -/
+noncomputable def centresWithin (C : Set (EuclideanSpace ℝ (Fin 2))) (R : ℝ) : ℕ :=
+  (C ∩ Metric.closedBall 0 R).ncard
+
+/-- **The density, with its definedness attached.** The proportion of the plane
+covered is the limit of the covered area over the window area, and the statement
+is that this limit is `d` — false for every `d` when the limit does not exist,
+which is the fuse's other arm. -/
+def PackingDensityIs (C : Set (EuclideanSpace ℝ (Fin 2))) (d : ℝ) : Prop :=
+  IsUnitPacking C ∧
+    Tendsto (fun R : ℝ => (centresWithin C R : ℝ) * Real.pi / (Real.pi * R ^ 2))
+      atTop (nhds d)
+
+/-- **Optimality of the hexagonal density.** No packing exceeds `π/√12`, and some
+packing attains it. Stated with both halves, since a bound without attainment is
+not optimality. -/
+def HexagonalPackingOptimal : Prop :=
+  (∀ C : Set (EuclideanSpace ℝ (Fin 2)), ∀ d : ℝ, PackingDensityIs C d →
+      d ≤ Real.pi / Real.sqrt 12) ∧
+  (∃ C : Set (EuclideanSpace ℝ (Fin 2)), PackingDensityIs C (Real.pi / Real.sqrt 12))
+
 /-! A `HexagonalPackingOptimal` entry stood here reading `∃ c, 0 < c ∧ c < 1`,
 satisfied by `c = 1/2` and mentioning no packing. The optimal density is
 `π/√12`, a specific constant; stating optimality needs a definition of packing
@@ -369,7 +406,7 @@ def verdicts : List (String × String) :=
    ("PracticalDensityExists", "T"), ("SquarefreePlusPowerOfTwo", "B"),
    ("SmoothSieveDensity", "T"), ("UnitDistanceUpper2D", "B"),
    ("GuthKatzDistinctDistances", "T"), ("ConvexUnitDistancesBound", "T"),
-   ("ErdosHajnalStatement", "B")]
+   ("ErdosHajnalStatement", "B"), ("HexagonalPackingOptimal", "B")]
 
 def countOf (v : String) : Nat := (verdicts.filter (fun p => p.2 == v)).length
 
