@@ -1,12 +1,14 @@
-The packing density, with its definedness attached
+The displacement exponent, as the pair the object fused to
 
-The sixth ob3ect forks on validity — discs pairwise disjoint or some pair
-overlapping — and its forward morphism is the passage from a finite window to the
-asymptotic proportion by enlarging the window. Its fuse carries the proportion
-only when the packing is valid AND the limit exists.
+The seventh ob3ect fuses this one to B: the exponent is constructively estimated
+on the finite regime and constructively unattainable in the limit, and its FFUSE
+keeps both arms rather than choosing. So the file carries both — a bracket that
+finite computation establishes on the mean squared displacement, and a limit
+statement no finite computation reaches — with DisplacementKnownState holding
+them together.
 
-So PackingDensityIs asserts a limit rather than naming a value: a packing whose
-density does not converge satisfies it for no d. HexagonalPackingOptimal then has
-both halves, the bound and its attainment, because a bound without attainment is
-not optimality. The entry that stood here said there is a real strictly between
-zero and one, and it is back in the verdict table now that it says something.
+The walk is written out too: a list of lattice points, no repeats, consecutive
+points a unit apart, taken by zipping the list with its tail.
+
+My first draft of the bracket ended in True, which is the exact shape this pass
+exists to remove. It states the two inequalities now.
