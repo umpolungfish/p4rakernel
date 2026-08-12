@@ -603,10 +603,10 @@ prime of `a` that `n` does not carry — which is the searched rung, and is wher
 the remaining work lives.
 
 Measured on `5 ≤ n ≤ 200000`: the three divisibilities plus the `n ≡ 5 (mod 8)`
-one-shot close 32062 of the 33333 values in the surviving class. The 1271 that
-remain all satisfy `n ≡ 1 (mod 24)`; multiplicative descent through a proper
-divisor takes 632 of them, leaving a frontier of density 1.9% beginning
-193, 313, 457, 673, 1009, 1153, 1201.
+one-shot close 32062 of the 33333 values in the surviving class, and all 1271
+that remain satisfy `n ≡ 1 (mod 24)`. The shift family below and multiplicative
+descent bring the total to 32709, leaving a frontier of 624 — 622 of them prime —
+beginning 193, 313, 457, 673, 1009, 1153, 1201.
 -/
 
 /-- The first denominator exists whenever the rung has the right residue. -/
@@ -683,16 +683,25 @@ theorem straus_scaling (d n k a b c : ℕ) (hd : 0 < d) (hk : 0 < k) (hn : n = d
   field_simp at h ⊢
   nlinarith [h, sq_nonneg ((k : ℚ))]
 
+/-- **The shift family.** Any divisor `d` of `n` divides `M = n·a`, so a rung
+`r ≡ 3 (mod 4)` dividing `d+1` closes by the cofactor form, with `u = M/d`. The
+rung is read off the factorisation of `n` alone — `a` is never consulted — and
+unlike `r ∣ n+1` the shift may be taken at any divisor of `n` rather than at `n`
+itself. -/
+def ShiftCovered (n : ℕ) : Prop :=
+  ∃ d r, 1 < d ∧ d ∣ n ∧ 3 ≤ r ∧ r % 4 = 3 ∧ r ∣ d + 1
+
 /-- **The frontier.** What the price-zero layer and the one-shot leave: the
 values whose rung must be searched. -/
 def StrausFrontier (n : ℕ) : Prop :=
-  5 ≤ n ∧ n % 4 = 1 ∧ ¬ (3 ∣ n) ∧ n % 8 ≠ 5 ∧ ¬ PriceZeroCovered n
+  5 ≤ n ∧ n % 4 = 1 ∧ ¬ (3 ∣ n) ∧ n % 8 ≠ 5 ∧ ¬ PriceZeroCovered n ∧
+    ¬ ShiftCovered n
 
 /-- **The frontier sits on one residue class.** Every value the two layers miss
 is `n ≡ 1 (mod 24)`: `n % 8 = 1` because `n % 8 = 5` is the one-shot, and
 `n % 3 = 1` because `n ≡ 2 (mod 3)` puts `3 ∣ n+1` in the price-zero layer. -/
 theorem straus_frontier_mod_24 (n : ℕ) (h : StrausFrontier n) : n % 24 = 1 := by
-  obtain ⟨hn5, h4, h3, h8, hpz⟩ := h
+  obtain ⟨hn5, h4, h3, h8, hpz, _⟩ := h
   have h3' : ¬ (3 ∣ n + 1) := fun hd => hpz ⟨3, le_refl 3, by norm_num, Or.inr (Or.inl hd)⟩
   have h3n : ¬ (3 ∣ n) := h3
   have e3 : n % 3 = 1 := by omega
@@ -775,10 +784,10 @@ def SubgroupExceedsReach (M r : ℕ) : Prop :=
 The witnesses the frontier actually uses are not `u = M·t` but the smaller
 `u = M/w`: a factorisation `M = u·w` whose COFACTOR sits at `−1`. Then
 `M + u = u(w+1)` and the congruence is immediate. Below 200000 that form closes
-1269 of the 1271 frontier values with a rung no larger than 51, cascading
+622 of the 624 frontier values with a rung no larger than 51, cascading
 
-    rung  3: 873    rung  7: 277    rung 11:  64    rung 15: 17
-    rung 19:   8    rung 23:  20    rung 27:   2    rung 31:  5    rung 39: 3
+    rung  3: 313    rung  7: 202    rung 11:  55    rung 15: 15
+    rung 19:   8    rung 23:  19    rung 27:   2    rung 31:  5    rung 39: 3
 
 and the two it does not reach, `n = 2521` and `n = 196561`, are exactly the
 values whose divisor genuinely lies in `M²` rather than `M`.
@@ -786,8 +795,7 @@ values whose divisor genuinely lies in `M²` rather than `M`.
 At the greedy rung the condition is a statement about primes and nothing more.
 `M ≡ 1 (mod 3)` for every frontier value, so a divisor at `−1 ≡ 2` exists exactly
 when some prime factor of `M` is `≡ 2 (mod 3)`, and that single prime is the
-whole witness — which is why rung 3 alone takes better than two thirds of the
-frontier.
+whole witness — which is why rung 3 alone takes half the frontier.
 -/
 
 /-- **The cofactor form.** A factorisation `M = u·w` whose cofactor satisfies
@@ -800,6 +808,12 @@ theorem closedAtRung_of_cofactor (n r a u w : ℕ)
   have h : n * a + u = u * (w + 1) := by rw [hM]; ring
   rw [h]
   exact Dvd.dvd.mul_left hw u
+
+/-- The shift family closes its rung. -/
+theorem closedAtRung_of_shift (n d r a u : ℕ) (hn : 0 < n) (ha0 : 0 < a)
+    (hd0 : 0 < d) (ha : 4 * a = n + r) (hM : n * a = u * d) (hu0 : 0 < u)
+    (hr : r ∣ d + 1) : ClosedAtRung n r :=
+  closedAtRung_of_cofactor n r a u d ha0 hu0 hd0 ha hM hr
 
 /-- **The greedy rung, as a condition on one prime.** If any prime factor of
 `M = n(n+3)/4` is `≡ 2 (mod 3)`, that prime is the cofactor and rung 3 closes. -/
@@ -849,6 +863,7 @@ theorem rung_three_residue (n a : ℕ) (hn : 0 < n) (ha0 : 0 < a)
   exact hopen (closedAtRung_three_of_prime n a p hn ha0 hp.pos ha hpd h2)
 
 #print axioms Erdos.StrausGreedy.rung_three_residue
+#print axioms Erdos.StrausGreedy.closedAtRung_of_shift
 #print axioms Erdos.StrausGreedy.straus_196561
 #print axioms Erdos.StrausGreedy.closedAtRung_of_cofactor
 #print axioms Erdos.StrausGreedy.closedAtRung_three_of_prime
