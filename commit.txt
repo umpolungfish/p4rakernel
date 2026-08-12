@@ -1,11 +1,32 @@
-The prover's scratch modules leave the library alone
+Erdős–Straus: the greedy family covers most of the surviving class
 
-Imscribing.Scratch.ProverScratch and …B were inside the Imscribing glob while
-the kernel-gated prover writes candidate proofs into them, so every prover run
-turned `lake build` red until I restored the file by hand — twice today. A red
-library that means nothing is worse than no signal.
+I read the conjecture through the kernel's own instrument before touching it.
+`nesting greedy` puts it in the ATTRACTED bin with a finite budget — greedy
+unit-fraction removal always arrives, so Erdős–Straus is a claim about the
+BUDGET being three, not about arrival. That is a different question from the one
+the "never" machinery answers, and knowing which one it is came from the
+instrument, not from me. I added the greedy map to src/nesting.rs so the reading
+is reproducible.
 
-They have their own lean_lib now, outside the default target. Checked both ways:
-with the scratch deliberately broken `lake build` is green at 8591 jobs, and
-`lake build Imscribing.Scratch.ProverScratch` still resolves and reports the
-failure, which is the output the prover reads.
+The one-shot shape then gives the mechanism: #1 reads a period off the
+denominator structure rather than iterating, and the greedy step does the same
+here. For n = 4k+1 the largest unit fraction below 4/n is 1/(k+1), and
+
+    4/(4k+1) − 1/(k+1) = 3/((4k+1)(k+1))
+
+with numerator exactly 3, always. So the surviving class collapses onto one
+question — when is 3/m a sum of two unit fractions — and that has a divisor
+answer: for m = (3t+2)·e,
+
+    3/m = 1/(e(t+1)) + 1/(m(t+1))
+
+Composing them gives an explicit three-term representation whose denominators
+are written down from the factorisation, none of them searched for.
+
+Erdos/StrausGreedyFamily.lean carries both identities and the composition,
+sorry-free on the standard axioms. What the family does not reach is m whose
+prime factors are all ≡ 1 (mod 3); across n < 100000 in the class that is 6.8%,
+the family closing the other 93.2%. The residue is a Prop, named GreedyResidue,
+because that is where the difficulty now sits and nothing here settles it.
+
+Library green at 8592 jobs.
