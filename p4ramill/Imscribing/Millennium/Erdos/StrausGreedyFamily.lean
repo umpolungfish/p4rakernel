@@ -769,6 +769,74 @@ def SubgroupExceedsReach (M r : ℕ) : Prop :=
   (∃ s : ℕ, 0 < s ∧ (s : ZMod r) = -1 ∧ ∀ p : ℕ, p.Prime → p ∣ s → p ∣ M) ∧
     ¬ NegMReachable M r
 
+
+/-! ## The cofactor form, and what it closes
+
+The witnesses the frontier actually uses are not `u = M·t` but the smaller
+`u = M/w`: a factorisation `M = u·w` whose COFACTOR sits at `−1`. Then
+`M + u = u(w+1)` and the congruence is immediate. Below 200000 that form closes
+1269 of the 1271 frontier values with a rung no larger than 51, cascading
+
+    rung  3: 873    rung  7: 277    rung 11:  64    rung 15: 17
+    rung 19:   8    rung 23:  20    rung 27:   2    rung 31:  5    rung 39: 3
+
+and the two it does not reach, `n = 2521` and `n = 196561`, are exactly the
+values whose divisor genuinely lies in `M²` rather than `M`.
+
+At the greedy rung the condition is a statement about primes and nothing more.
+`M ≡ 1 (mod 3)` for every frontier value, so a divisor at `−1 ≡ 2` exists exactly
+when some prime factor of `M` is `≡ 2 (mod 3)`, and that single prime is the
+whole witness — which is why rung 3 alone takes better than two thirds of the
+frontier.
+-/
+
+/-- **The cofactor form.** A factorisation `M = u·w` whose cofactor satisfies
+`r ∣ w+1` closes the rung: `M + u = u(w+1)`. -/
+theorem closedAtRung_of_cofactor (n r a u w : ℕ)
+    (ha0 : 0 < a) (hu0 : 0 < u) (hw0 : 0 < w)
+    (ha : 4 * a = n + r) (hM : n * a = u * w) (hw : r ∣ w + 1) :
+    ClosedAtRung n r := by
+  refine ⟨a, u, w, ha0, hu0, hw0, ha, hM, ?_⟩
+  have h : n * a + u = u * (w + 1) := by rw [hM]; ring
+  rw [h]
+  exact Dvd.dvd.mul_left hw u
+
+/-- **The greedy rung, as a condition on one prime.** If any prime factor of
+`M = n(n+3)/4` is `≡ 2 (mod 3)`, that prime is the cofactor and rung 3 closes. -/
+theorem closedAtRung_three_of_prime (n a p : ℕ) (hn : 0 < n) (ha0 : 0 < a)
+    (hp0 : 0 < p) (ha : 4 * a = n + 3) (hp : p ∣ n * a) (hp3 : p % 3 = 2) :
+    ClosedAtRung n 3 := by
+  obtain ⟨u, hu⟩ := hp
+  have hu0 : 0 < u := by
+    rcases Nat.eq_zero_or_pos u with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at hu
+      exact absurd hu (Nat.mul_pos hn ha0).ne'
+    · exact h0
+  exact closedAtRung_of_cofactor n 3 a u p ha0 hu0 hp0 ha (by rw [hu]; ring)
+    (by omega)
+
+/-- Every frontier value has `M ≡ 1 (mod 3)`, so at rung 3 the cofactor
+condition asks precisely for a prime factor `≡ 2 (mod 3)`: there is no divisor at
+`2` unless a prime sits there. -/
+theorem frontier_M_mod_three (n a : ℕ) (h3 : n % 3 = 1) (ha : 4 * a = n + 3) :
+    (n * a) % 3 = 1 := by
+  have hA : a % 3 = 1 := by omega
+  have : n * a % 3 = (n % 3) * (a % 3) % 3 := by
+    rw [Nat.mul_mod]
+  rw [this, h3, hA]
+
+/-- `n = 196561`, the second of the two values below 200000 that the cofactor
+form does not reach. At rung 27, `M = 7²·17·59·196561` and the closing divisor is
+`u = 7⁴·17 = 40817`, which divides `M²` and not `M` — the fourth power of 7 is
+available only after squaring. It gives
+`4/196561 = 1/49147 + 1/357793492 + 1/84680949964892`. -/
+theorem straus_196561 :
+    (4 : ℚ) / 196561 = 1 / 49147 + 1 / 357793492 + 1 / 84680949964892 := by
+  norm_num
+
+#print axioms Erdos.StrausGreedy.straus_196561
+#print axioms Erdos.StrausGreedy.closedAtRung_of_cofactor
+#print axioms Erdos.StrausGreedy.closedAtRung_three_of_prime
 #print axioms Erdos.StrausGreedy.straus_of_neg_one_divisor
 #print axioms Erdos.StrausGreedy.negMReachable_of_negOneReachable
 

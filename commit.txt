@@ -1,18 +1,17 @@
-Erdos-Straus: the searched rung, as a condition on a group
+Erdos-Straus: the cofactor form, and the greedy rung as a prime condition
 
-For a frontier value the divisor has to come from the primes of M = na, so the
-criterion turns into a question about the multiplicative group mod r. The
-divisors of M^2 reduce to a reachable set R, the rung closes when -M is in it,
-and since M is itself in R the content is whether -1 is in the subgroup the
-primes of M generate.
+The witnesses the frontier uses are cofactors, not the M*t I wrote first: a
+factorisation M = u*w with w = -1 (mod r), so M+u = u(w+1). That is
+closedAtRung_of_cofactor, and it is the whole of what the frontier needs.
 
-straus_of_neg_one_divisor is the half that needs no exponent bookkeeping: a
-divisor t of M with t = -1 (mod r) closes the rung by u = M*t.
-negMReachable_of_negOneReachable states it against the reachable-set predicate.
+At rung 3 it becomes a statement about one prime. Every frontier value has
+M = 1 (mod 3) — frontier_M_mod_three — so a divisor at 2 exists exactly when
+some prime of M sits at 2 (mod 3), and that prime is the entire witness. That is
+closedAtRung_three_of_prime, and it takes 873 of the 1271 frontier values below
+200000 on its own.
 
-The other half is not an equivalence, and SubgroupExceedsReach names why: the
-subgroup allows any exponent, the divisors of M^2 cap them at twice those of M.
-Over the 162 frontier values below 20000, -1 in the subgroup predicts closure at
-248 of 251 rungs. All three misses are the same shape — n = 1201 at r = 11, and
-n = 2521 at r = 11 and r = 19 — where M is squarefree, the primes generate the
-whole group, and -1 needs a higher power than M^2 supplies.
+Cascading the same test up the ladder leaves two values needing a divisor of M^2
+rather than of M: 2521 at rung 23, already witnessed here, and 196561 at rung 27,
+now witnessed as straus_196561. There M = 7^2*17*59*196561 and the divisor is
+7^4*17 — the fourth power exists only after squaring, which is the exponent
+budget being exercised rather than an accident.
