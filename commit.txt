@@ -1,14 +1,13 @@
-The displacement exponent, as the pair the object fused to
+Pasch configurations, and the pattern the entry never named
 
-The seventh ob3ect fuses this one to B: the exponent is constructively estimated
-on the finite regime and constructively unattainable in the limit, and its FFUSE
-keeps both arms rather than choosing. So the file carries both — a bracket that
-finite computation establishes on the mean squared displacement, and a limit
-statement no finite computation reaches — with DisplacementKnownState holding
-them together.
+The eighth ob3ect reads this as a forward morphism from a system to the set of
+its four-block subsets, forked on whether any matches the pattern. The pattern is
+what was missing: four blocks on six points, each point in exactly two of the
+four.
 
-The walk is written out too: a list of lattice points, no repeats, consecutive
-points a unit apart, taken by zipping the list with its tail.
+IsSteinerTriple, IsPasch and paschCount write it out, and PaschExtremes states
+the growth of the extremes with both halves — the bound over every system, and a
+system attaining each end. Anti-Pasch systems are the case lo = 0, and their
+existence is the part that is not free.
 
-My first draft of the bracket ended in True, which is the exact shape this pass
-exists to remove. It states the two inequalities now.
+The entry removed here compared c*n with n^2 and named no system.
