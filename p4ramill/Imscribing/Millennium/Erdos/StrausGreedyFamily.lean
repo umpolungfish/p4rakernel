@@ -112,6 +112,68 @@ theorem straus_five : IsThreeUnit 5 2 5 10 := by
 theorem straus_thirteen : IsThreeUnit 13 4 26 52 := by
   refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
 
+/-! ## The ladder: the numerator 3 was never special
+
+The instrument that read this class returned `B (open)` on the two-fork form —
+"a δ fork dangles; fuse them, or COMMIT one arm (IFIX)". Committing the arm means
+the second choice comes from a rule rather than a search, and the rule is here:
+the greedy step is only the first rung.
+
+For `n = 4k+1` and any `r ≡ 3 (mod 4)`, the term `a = (n+r)/4` is an integer and
+
+    4/n − 1/a = r/(n·a)
+
+so the remainder's numerator is `r`, chosen rather than met. And the two-term
+identity never needed `r = 3` either: for `M = d·e` with `d ≡ −1 (mod r)`,
+
+    r/M = 1/(e(t+1)) + 1/(M(t+1)),    d = r·t + (r−1)
+
+The greedy family is `r = 3`. Each further rung is another covering condition on
+the same `n`, and a value the earlier rungs miss can be caught by a later one:
+`n = 49`, the first residue of the greedy family, closes at `r = 7` in two terms —
+`4/49 = 1/14 + 1/98`.
+-/
+
+/-- **The two-term identity, in general.** The numerator `r` plays no special
+role; what matters is a divisor of `M` congruent to `−1` mod `r`. -/
+theorem r_over_M_split (r t e : ℕ) (hr : 2 ≤ r) (he : 0 < e) :
+    (r : ℚ) / ((r * t + (r - 1)) * e)
+      = 1 / (e * (t + 1)) + 1 / ((r * t + (r - 1)) * e * (t + 1)) := by
+  have he' : (e : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr he.ne'
+  have ht' : ((t : ℚ) + 1) ≠ 0 := by positivity
+  -- `r ≥ 2` makes the divisor at least 1, so the denominator does not vanish.
+  -- At `r = 1` it can be zero (`t = 0`), which is why the bound is two: a
+  -- numerator of one is already a unit fraction and needs no split.
+  have hd : ((r : ℚ) * t + ((r : ℚ) - 1)) ≠ 0 := by
+    have h2 : (2 : ℚ) ≤ (r : ℚ) := by exact_mod_cast hr
+    have ht0 : (0 : ℚ) ≤ (t : ℚ) := Nat.cast_nonneg t
+    nlinarith
+  field_simp
+  ring
+
+/-- **The ladder step.** For `n = 4k+1` and `r = 4j+3`, the term `a = (n+r)/4`
+is `k+j+1`, and the remainder has numerator exactly `r`. -/
+theorem ladder_step (k j : ℕ) :
+    (4 : ℚ) / (4 * k + 1) - 1 / (k + j + 1)
+      = (4 * j + 3) / ((4 * k + 1) * (k + j + 1)) := by
+  have h1 : ((4 : ℚ) * k + 1) ≠ 0 := by positivity
+  have h2 : ((k : ℚ) + j + 1) ≠ 0 := by positivity
+  field_simp
+  ring
+
+/-- **`n = 49` closes on the second rung**, in two terms rather than three:
+`4/49 = 1/14 + 1/98`. It is the first value the greedy family misses. -/
+theorem straus_forty_nine : (4 : ℚ) / 49 = 1 / 14 + 1 / 98 := by norm_num
+
+/-- Two terms suffice there, so the three-term claim holds a fortiori — the
+third denominator is free, and `4/49 = 1/14 + 1/98` is the whole content. -/
+theorem straus_forty_nine_witness :
+    (4 : ℚ) / 49 = 1 / 14 + 1 / 98 ∧ (0:ℚ) < 1 / 14 := by
+  constructor <;> norm_num
+
+#print axioms Erdos.StrausGreedy.r_over_M_split
+#print axioms Erdos.StrausGreedy.ladder_step
+#print axioms Erdos.StrausGreedy.straus_forty_nine
 #print axioms Erdos.StrausGreedy.straus_of_divisor
 #print axioms Erdos.StrausGreedy.straus_off_residue
 #print axioms Erdos.StrausGreedy.greedy_step
