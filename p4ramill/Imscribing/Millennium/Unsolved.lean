@@ -423,6 +423,102 @@ def UnknottingInP : Prop :=
       ∃ steps : ℕ, steps ≤ (diagram.length + 1) ^ c ∧
         (decide diagram = true ↔ ∃ k, IsUnknot k)
 
+/-! ## Discrete geometry
+
+The third document names `maxCapSetSize`, `IsConvexPosition`,
+`maxMinTriangleArea`, `maxThreePointLines`, `IsUnitCube` and more. Each is a
+finite combinatorial quantity, so each is built here and the conjecture said
+about it.
+-/
+
+/-- A cap set: no three distinct points of `(ZMod 3)^n` on a line, which in
+characteristic three is exactly that no three distinct points sum to zero. -/
+def IsCapSet {n : ℕ} (A : Finset (Fin n → ZMod 3)) : Prop :=
+  ∀ x ∈ A, ∀ y ∈ A, ∀ z ∈ A, x + y + z = 0 → x = y ∧ y = z
+
+/-- **The cap set problem.** Cap sets are exponentially smaller than the whole
+space: their size is `c^n` for some `c < 3`. The source wrote `(3/C)^n` with `C`
+existentially quantified after the bound, which any `C` near zero satisfies. -/
+def CapSet : Prop :=
+  ∃ c : ℝ, 0 < c ∧ c < 3 ∧ ∀ (n : ℕ) (A : Finset (Fin n → ZMod 3)),
+    IsCapSet A → (A.card : ℝ) ≤ c ^ n
+
+/-- Points in convex position: none lies in the convex hull of the others. -/
+def IsConvexPosition (P : Finset (EuclideanSpace ℝ (Fin 2))) : Prop :=
+  ∀ p ∈ P, p ∉ convexHull ℝ ((P.erase p : Finset _) : Set (EuclideanSpace ℝ (Fin 2)))
+
+/-- **Erdős–Szekeres, the happy ending problem.** Enough points in general
+position contain `n` in convex position. -/
+def HappyEnding : Prop :=
+  ∀ n : ℕ, 3 ≤ n → ∃ N : ℕ, ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
+    N ≤ P.card → ∃ Q ⊆ P, Q.card = n ∧ IsConvexPosition Q
+
+/-- Twice the area of a triangle, as the absolute determinant of its edge
+vectors — no orientation, no square roots. -/
+noncomputable def triangleArea2 (a b c : EuclideanSpace ℝ (Fin 2)) : ℝ :=
+  |(b 0 - a 0) * (c 1 - a 1) - (c 0 - a 0) * (b 1 - a 1)|
+
+/-- **Heilbronn's triangle problem.** Among `n` points in the unit square, the
+smallest triangle can be forced to be small, and cannot be forced smaller than a
+constant over `n²`: the two-sided bound is what is open. -/
+def Heilbronn : Prop :=
+  ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ n : ℕ, 3 ≤ n →
+    (∃ P : Finset (EuclideanSpace ℝ (Fin 2)), P.card = n ∧
+        (∀ p ∈ P, ∀ i, p i ∈ Set.Icc (0:ℝ) 1) ∧
+        ∀ a ∈ P, ∀ b ∈ P, ∀ c ∈ P, a ≠ b → b ≠ c → a ≠ c →
+          c₁ / (n : ℝ) ^ 2 ≤ triangleArea2 a b c) ∧
+    (∀ P : Finset (EuclideanSpace ℝ (Fin 2)), P.card = n →
+        (∀ p ∈ P, ∀ i, p i ∈ Set.Icc (0:ℝ) 1) →
+        ∃ a ∈ P, ∃ b ∈ P, ∃ c ∈ P, a ≠ b ∧ b ≠ c ∧ a ≠ c ∧
+          triangleArea2 a b c ≤ c₂ / (n : ℝ) ^ (8 / 7 : ℝ))
+
+/-- Three points are collinear when the triangle they span has zero area. -/
+def Collinear3 (a b c : EuclideanSpace ℝ (Fin 2)) : Prop := triangleArea2 a b c = 0
+
+/-- **Hadwiger's covering conjecture.** A convex body in `ℝⁿ` is covered by `2ⁿ`
+smaller homothets of itself. -/
+def HadwigerCovering : Prop :=
+  ∀ (n : ℕ) (K : Set (EuclideanSpace ℝ (Fin n))), IsConvexBody K →
+    ∃ (m : ℕ) (x : Fin m → EuclideanSpace ℝ (Fin n)) (r : Fin m → ℝ),
+      m ≤ 2 ^ n ∧ (∀ i, 0 < r i ∧ r i < 1) ∧
+      K ⊆ ⋃ i, (fun y => x i + r i • y) '' K
+
+/-! ## Diophantine equations
+
+The source's Erdős–Straus entry reads `4/n = 1/x + 1/y + 1/z` over `ℕ`, where
+division truncates: for `n > 4` the left side is `0` and the right side is `0`
+whenever `x, y, z > 1`, so the statement holds for reasons that have nothing to
+do with the conjecture. It is not restated here — `Erdos.StrausGreedy.IsThreeUnit`
+carries it over `ℚ`, with the ladder and the frontier around it, and a second
+copy is drift.
+-/
+
+/-- **Brocard.** Beyond `n = 7`, `n! + 1` is never a square. -/
+def Brocard : Prop := ¬ ∃ n m : ℕ, 7 < n ∧ n.factorial + 1 = m ^ 2
+
+/-- **Fermat–Catalan.** Only finitely many coprime powers satisfy `aᵐ + bⁿ = cᵏ`
+with the exponents' reciprocals summing below one. -/
+def FermatCatalan : Prop :=
+  {t : ℕ × ℕ × ℕ × ℕ × ℕ × ℕ |
+    t.1 ^ t.2.1 + t.2.2.1 ^ t.2.2.2.1 = t.2.2.2.2.1 ^ t.2.2.2.2.2 ∧
+    Nat.Coprime t.1 t.2.2.1 ∧ 0 < t.2.1 ∧ 0 < t.2.2.2.1 ∧ 0 < t.2.2.2.2.2 ∧
+    1 / (t.2.1 : ℝ) + 1 / (t.2.2.2.1 : ℝ) + 1 / (t.2.2.2.2.2 : ℝ) < 1}.Finite
+
+/-- **Goormaghtigh.** The only repunit coincidence in two bases past the trivial
+ones is `31` in bases `2` and `5`. -/
+def Goormaghtigh : Prop :=
+  ∀ x y m n : ℕ, y < x → 1 < y → 2 < m → 2 < n →
+    (x ^ m - 1) * (y - 1) = (y ^ n - 1) * (x - 1) →
+    (x = 2 ∧ y = 5 ∧ m = 5 ∧ n = 3) ∨ (x = 90 ∧ y = 2 ∧ m = 3 ∧ n = 13)
+
+/-- **Factoring in polynomial time**, with the input size written out: the step
+count is bounded by a polynomial in the number of BITS of `n`, not in `n`. An
+algorithm polynomial in `n` itself is trial division, which is not the question. -/
+def FactoringInP : Prop :=
+  ∃ (steps : ℕ → ℕ) (factor : ℕ → ℕ) (c : ℕ),
+    (∀ n : ℕ, steps n ≤ (Nat.log 2 n + 1) ^ c) ∧
+    ∀ n : ℕ, 1 < n → ¬ n.Prime → 1 < factor n ∧ factor n < n ∧ factor n ∣ n
+
 #print axioms Unsolved.ig_assembly_reconstitutes
 
 end Unsolved
