@@ -53,22 +53,30 @@ theorem saw_pow_bound {c : SAWCount} (h : SAWSubmultiplicative c) (h0 : c 0 = 1)
         _ ≤ (c n) ^ m * c n := Nat.mul_le_mul_right _ ih
         _ = (c n) ^ (m + 1) := by ring
 
-/-- **[T]** Mean-square displacement exponents: `ν = 3/4` at `d = 2`, `ν = 1/2`
-for `d ≥ 5` (Hara–Slade), the middle dimensions open. -/
-def SAWDisplacementExponents : Prop :=
-  ∃ ν : ℕ → ℝ, ν 2 = 3 / 4 ∧ ∀ d ≥ 5, ν d = 1 / 2
+/-! A `SAWDisplacementExponents` entry stood here as `∃ ν : ℕ → ℝ` with two
+prescribed values, which any function taking those values satisfies and which
+says nothing about a walk. The exponent is defined by the asymptotics of the
+mean-square displacement, a quantity this file does not carry. -/
 
 /-! ## §2 Growth functions -/
 
-/-- **[B]** The order of growth of `ℓ`. -/
-def EllOrderOfGrowth : Prop :=
-  ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ᶠ n : ℕ in atTop,
-    c₁ * (n : ℝ) ≤ (n : ℝ) ∧ (n : ℝ) ≤ c₂ * (n : ℝ) ^ 2
+/-! An `EllOrderOfGrowth` entry stood here bounding `n` between `c₁·n` and
+`c₂·n²`, which holds of `c₁ = c₂ = 1` and names no function `ℓ`. -/
 
-/-- **[T]** Hindman's function grows like a tower, bounded by iterated
-Hales–Jewett. -/
+/-- The tower function, as the growth rate to compare against. -/
+def tower : ℕ → ℕ
+  | 0 => 1
+  | n + 1 => 2 ^ tower n
+
+/-- **[T]** Hindman's function is bounded by a tower: for every `n`-colouring
+there is a monochromatic finite-sums set of size `n` inside `[0, H n]`, with `H`
+below the tower. The old statement asked only for SOME `f` below the tower, which
+the zero function satisfies. -/
 def HindmanGrowth : Prop :=
-  ∃ f : ℕ → ℕ, ∀ n : ℕ, f n ≤ Nat.rec 1 (fun _ ih => 2 ^ ih) n
+  ∃ H : ℕ → ℕ, (∀ n : ℕ, H n ≤ tower n) ∧
+    ∀ n : ℕ, ∀ col : ℕ → Fin n, ∃ S : Finset ℕ, S.card = n ∧
+      (∀ m ∈ S, m ≤ H n) ∧
+      ∃ i : Fin n, ∀ T : Finset ℕ, T ⊆ S → T.Nonempty → col (T.sum id) = i
 
 /-! ## §3 Ratio sets -/
 
@@ -110,67 +118,54 @@ def Ramsey3kAsymptotic : Prop :=
   ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ᶠ k : ℕ in atTop,
     c₁ * (k : ℝ)^2 / Real.log k ≤ (R3k k : ℝ) ∧ (R3k k : ℝ) ≤ c₂ * (k : ℝ)^2 / Real.log k
 
-/-- **[B]** Even-cycle Ramsey, exact at two colours. -/
-def RamseyEvenCycleTwoColour : Prop := ∀ n : ℕ, 1 < n → ∃ N : ℕ, N = 3 * n - 1
+/-! Two even-cycle Ramsey entries stood here. The first said `∃ N, N = 3n − 1`,
+which names that value and asserts nothing of it; the second compared `c·n` with
+`n·k`. Both need the Ramsey number of an even cycle, which this file does not
+define — `R3k` covers the triangle against an independent set and nothing
+else. -/
 
-/-- **[B]** and asymptotic at `k` colours. -/
-def RamseyEvenCycleKColour : Prop :=
-  ∀ k : ℕ, 0 < k → ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * (n : ℝ) ≤ (n : ℝ) * k
+/-! A `RamseyNotMaximisedByH` entry stood here whose body was the negation of a
+statement ending in `True`, hence FALSE, and it was recorded with verdict `B`.
+What it meant to say — equal edge counts do not force equal Ramsey numbers —
+needs the Ramsey number of a general `H`. -/
 
-/-- **[B]** The Ramsey number is NOT always maximised by the extremal `H` —
-the file's refuted entry, and it is refuted because the number is sensitive to
-structure rather than to edge count alone. -/
-def RamseyNotMaximisedByH : Prop :=
-  ¬ ∀ m : ℕ, ∀ H₁ H₂ : SimpleGraph (Fin m),
-      H₁.edgeFinset.card = H₂.edgeFinset.card → R3k m = R3k m → True
+/-! Two `R(C₄, K_{1,n})` entries stood here: `∃ N, N ≤ n + √n + 1`, satisfied by
+`N = 0`, and the negation of `n + c√n ≤ n`, true because the left side is larger
+— a triviality dressed as a refutation. -/
 
-/-- **[B]** `R(C₄, K_{1,n})` bound. -/
-def RamseyC4StarBound : Prop := ∀ n : ℕ, ∃ N : ℕ, N ≤ n + Nat.sqrt n + 1
+/-! A `SizeRamseyStarForest` entry stood here reading `∃ r, r = sizes.sum +
+sizes.length`, which names a number and asserts nothing of it. -/
 
-/-- **[B]** and the asymptotic that fails. -/
-def RamseyC4StarAsymptoticFails : Prop :=
-  ¬ ∀ c : ℝ, 0 < c → ∀ᶠ n : ℕ in atTop, (n : ℝ) + c * Real.sqrt n ≤ (n : ℝ)
+/-! An `OddCycleRamseyBound` entry stood here reading `∃ N, N ≤ 4k + 1`,
+satisfied by `N = 0`. -/
 
-/-- **[T]** Size-Ramsey of a star forest: an exact additive formula, one of the
-few cases with an exact answer. -/
-def SizeRamseyStarForest : Prop :=
-  ∀ sizes : List ℕ, 0 < sizes.length → ∃ r : ℕ, r = sizes.sum + sizes.length
+/-! A `SizeRamseyLinear` entry stood here reading `∃ c > 0, ∀ n, n ≤ c·n`,
+satisfied by `c = 1`. -/
 
-/-- **[T]** Odd-cycle Ramsey, from Burr–Erdős for odd cycles. -/
-def OddCycleRamseyBound : Prop := ∀ k : ℕ, 1 ≤ k → ∃ N : ℕ, N ≤ 4 * k + 1
-
-/-- **[T]** Size-Ramsey is linear for `Q₃`, `K_{3,3}` and `H₅`. -/
-def SizeRamseyLinear : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ n : ℕ, (n : ℝ) ≤ c * (n : ℝ)
-
-/-- **[T]** Bounded degree gives linear size-Ramsey (Chvátal–Burr–Beck). -/
-def SizeRamseyBoundedDegree : Prop :=
-  ∀ d : ℕ, ∃ c : ℝ, 0 < c ∧ ∀ n : ℕ, ∀ G : SimpleGraph (Fin n),
-    (∀ v, G.degree v ≤ d) → (G.edgeFinset.card : ℝ) ≤ c * (n : ℝ)
+/-- **Bounded degree bounds the edge count linearly**, and this is a theorem
+rather than a citation: the handshake identity turns a degree bound into an edge
+bound. It stood in the file as a Prop about size-Ramsey; what its body said is
+this, so this is what it now is. -/
+theorem edges_le_of_degree_le (d n : ℕ) (G : SimpleGraph (Fin n))
+    [DecidableRel G.Adj] (h : ∀ v, G.degree v ≤ d) :
+    2 * G.edgeFinset.card ≤ n * d := by
+  classical
+  have hsum : ∑ v : Fin n, G.degree v = 2 * G.edgeFinset.card :=
+    G.sum_degrees_eq_twice_card_edges
+  calc 2 * G.edgeFinset.card = ∑ v : Fin n, G.degree v := hsum.symm
+    _ ≤ ∑ _v : Fin n, d := Finset.sum_le_sum (fun v _ => h v)
+    _ = n * d := by simp [Finset.sum_const, Finset.card_univ]
 
 /-! ## §5 Hypergraph Ramsey -/
 
-/-- **[T]** Erdős–Rado stepping-up: tower growth, both bounds. -/
-def HypergraphRamseyGrowth : Prop :=
-  ∀ r : ℕ, 3 ≤ r → ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂
+/-! Five stepping-up entries stood here — `∃ c₁ c₂ > 0`, `∃ N, n ≤ N`,
+`∃ N, 0 < N`, `c·n ≤ 2ⁿ`, `c·log n ≤ n` — none mentioning a hypergraph. The
+faithful Erdős–Rado tower bounds live in `ProofModules/HypergraphRamsey.lean`,
+with the asymptotic proved from them. -/
 
-/-- **[T]** The stepping-up upper bound. -/
-def SteppingUpUpper : Prop := ∀ r n : ℕ, 2 ≤ r → ∃ N : ℕ, n ≤ N
-
-/-- **[T]** and the lower. -/
-def SteppingUpLower : Prop := ∀ r : ℕ, 2 ≤ r → ∃ N : ℕ, 0 < N
-
-/-- **[T]** Three-uniform growth. -/
-def Ramsey3UniformGrowth : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * (n : ℝ) ≤ (2 : ℝ) ^ (n : ℕ)
-
-/-- **[T]** Logarithmic growth in the number of colours. -/
-def HypergraphRamseyLogGrowth : Prop :=
-  ∀ r : ℕ, 3 ≤ r → ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * Real.log n ≤ (n : ℝ)
-
-/-- **[T]** Bukh–Conlon rational exponents, settling Erdős–Simonovits. -/
-def RationalExponentsBipartite : Prop :=
-  ∀ α : ℚ, 1 ≤ α → α < 2 → ∃ c : ℝ, 0 < c
+/-! A `RationalExponentsBipartite` entry stood here producing a positive real
+from each rational exponent and asserting nothing of it. Bukh–Conlon is stated
+with its extremal count in batch 3. -/
 
 /-! ## §6 LCM triples -/
 
@@ -178,9 +173,14 @@ def RationalExponentsBipartite : Prop :=
 def IsLcmTriple (a b c : ℕ) : Prop :=
   a ∣ Nat.lcm b c ∧ b ∣ Nat.lcm a c ∧ c ∣ Nat.lcm a b
 
-/-- **[T]** The count of LCM triples below `N` is `o(N³)`. -/
+/-- **[T]** The count of LCM triples below `N` is `o(N³)`. The old body compared
+`N` with `N³` and never counted a triple. -/
 def LcmTripleCountLittleO : Prop :=
-  IsLittleO atTop (fun N : ℕ => (N : ℝ)) (fun N : ℕ => (N : ℝ) ^ 3)
+  IsLittleO atTop
+    (fun N : ℕ =>
+      ((((Finset.range N) ×ˢ (Finset.range N) ×ˢ (Finset.range N)).filter
+        (fun t : ℕ × ℕ × ℕ => IsLcmTriple t.1 t.2.1 t.2.2)).card : ℝ))
+    (fun N : ℕ => (N : ℝ) ^ 3)
 
 /-- **[T]** The `p`-adic valuation condition: in an LCM triple, no prime's
 valuation is strictly largest at a single member. -/
@@ -209,9 +209,19 @@ theorem sum_free_max_value (N : ℕ) : sum_free_max N = (N + 1) / 2 := rfl
 theorem odds_sum_free {a b : ℕ} (ha : a % 2 = 1) (hb : b % 2 = 1) : (a + b) % 2 = 0 := by
   omega
 
-/-- **[B]** Cameron–Erdős: the count of sum-free subsets is `2^{N/2 + o(N)}`. -/
+/-- A sum-free subset: no element is a sum of two of its members. -/
+def IsSumFreeIn (A : Finset ℕ) : Prop :=
+  ∀ a ∈ A, ∀ b ∈ A, a + b ∉ A
+
+/-- **[B]** Cameron–Erdős: the number of sum-free subsets of `[0, N)` is
+`2^{N/2 + o(N)}`. The old body compared `2^{N/2}` with `c·2^{N/2}` and counted
+nothing. -/
 def SumFreeCountAsymptotic : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ N : ℕ in atTop, (2 : ℝ) ^ ((N : ℝ) / 2) ≤ c * (2 : ℝ) ^ ((N : ℝ) / 2)
+  ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ᶠ N : ℕ in atTop,
+    c₁ * (2 : ℝ) ^ ((N : ℝ) / 2) ≤
+      ((((Finset.range N).powerset).filter (fun A => IsSumFreeIn A)).card : ℝ) ∧
+    ((((Finset.range N).powerset).filter (fun A => IsSumFreeIn A)).card : ℝ) ≤
+      c₂ * (2 : ℝ) ^ ((N : ℝ) / 2) * (N : ℝ)
 
 /-! ## §8 Cycles, theta graphs, Erdős–Hajnal -/
 
@@ -220,40 +230,25 @@ def AverageDegreeCycleBound : Prop :=
   ∀ n : ℕ, ∀ G : SimpleGraph (Fin n), n ≤ G.edgeFinset.card →
     ∃ v : Fin n, 0 < G.degree v
 
-/-- **[T]** The theta-graph exponent. -/
-def ThetaGraphExponent : Prop :=
-  ∀ k l : ℕ, 2 ≤ k → k ^ 2 ≤ l → ∃ c : ℝ, 0 < c
+/-! A `ThetaGraphExponent` entry stood here producing a positive real from `k`
+and `l` and asserting nothing of it. -/
 
-/-- **[B]** Erdős–Hajnal, proved for perfect graphs and `C₅`, open in general. -/
-def ErdosHajnalProperty : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ n : ℕ, ∀ _G : SimpleGraph (Fin n),
-    ∃ S : Finset (Fin n), (n : ℝ) ^ c ≤ (S.card : ℝ) + (n : ℝ) ^ c
+/-! An `ErdosHajnalProperty` entry stood here whose conclusion was
+`n^c ≤ S.card + n^c`, true of the empty `S`. Erdős–Hajnal is stated faithfully in
+batch 1, with its clique-or-independent-set conclusion restored. -/
 
-/-- **[T]** Odd cycles are Ramsey-good. -/
-def OddCycleRamseyGood : Prop := ∀ k n : ℕ, 1 ≤ k → 2 * k ≤ n → ∃ N : ℕ, N ≤ 2 * n
-
-/-- **[B]** Even cycles are not. -/
-def EvenCycleNotRamseyGood : Prop := ¬ ∀ k n : ℕ, 1 ≤ k → 2 * k ≤ n → n ≤ 0
+/-! Two Ramsey-goodness entries stood here: `∃ N, N ≤ 2n`, satisfied by `N = 0`,
+and the negation of `n ≤ 0`, true whenever `n` is positive and silent about
+cycles. -/
 
 /-! ## §9 Verdict distribution, computed -/
 
 def verdicts : List (String × String) :=
   [("SAWSubmultiplicative", "T"), ("ConnectiveConstantExists", "T"),
-   ("SAWDisplacementExponents", "T"), ("EllOrderOfGrowth", "B"),
    ("HindmanGrowth", "T"), ("RatioSetSharp", "T"),
    ("Ramsey3kGapDiverges", "T"), ("Ramsey3kGapNotLittleO", "T"),
-   ("Ramsey3kAsymptotic", "B"), ("RamseyEvenCycleTwoColour", "B"),
-   ("RamseyEvenCycleKColour", "B"), ("RamseyNotMaximisedByH", "B"),
-   ("RamseyC4StarBound", "B"), ("RamseyC4StarAsymptoticFails", "B"),
-   ("SizeRamseyStarForest", "T"), ("OddCycleRamseyBound", "T"),
-   ("SizeRamseyLinear", "T"), ("SizeRamseyBoundedDegree", "T"),
-   ("HypergraphRamseyGrowth", "T"), ("SteppingUpUpper", "T"),
-   ("SteppingUpLower", "T"), ("Ramsey3UniformGrowth", "T"),
-   ("HypergraphRamseyLogGrowth", "T"), ("RationalExponentsBipartite", "T"),
-   ("LcmTripleCountLittleO", "T"), ("SumFreeCountAsymptotic", "B"),
-   ("AverageDegreeCycleBound", "T"), ("ThetaGraphExponent", "T"),
-   ("ErdosHajnalProperty", "B"), ("OddCycleRamseyGood", "T"),
-   ("EvenCycleNotRamseyGood", "B")]
+   ("Ramsey3kAsymptotic", "B"), ("LcmTripleCountLittleO", "T"),
+   ("SumFreeCountAsymptotic", "B"), ("AverageDegreeCycleBound", "T")]
 
 def countOf (v : String) : Nat := (verdicts.filter (fun p => p.2 == v)).length
 

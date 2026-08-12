@@ -71,10 +71,10 @@ def K222FreeIndependentSet : Prop :=
       ∃ S : Finset (Fin n), C * (n : ℝ) ≤ (S.card : ℝ) ∧
         ∀ u ∈ S, ∀ v ∈ S, ¬ G.Adj u v
 
-/-- **[T]** A graph with no two edge-disjoint cycles on the same vertex set has
-at most `⌊3(n−1)/2⌋` edges. -/
-def NoTwoEdgeDisjointCycles : Prop :=
-  ∀ n : ℕ, ∀ G : SimpleGraph (Fin n), 3 * (n - 1) / 2 ≥ 0 → edges G ≤ 3 * n
+/-! A `NoTwoEdgeDisjointCycles` entry stood here whose hypothesis was
+`3(n−1)/2 ≥ 0`, true of every `n`, and whose conclusion bounded the edge count by
+`3n` rather than by `⌊3(n−1)/2⌋`. Stating it needs a cycle predicate this file
+does not carry. -/
 
 /-- **[T]** Diameter of a `K_{2r+1}`-free graph with minimum degree `d`. -/
 def DiameterK2rPlus1 : Prop :=
@@ -87,10 +87,8 @@ def DiameterK2r : Prop :=
     ∀ G : SimpleGraph (Fin n), G.CliqueFree (2 * r) →
       (∀ v, d ≤ G.degree v) → ∃ D : ℕ, D * d ≤ 3 * n
 
-/-- **[T]** `f(n,k) = C(n−1,2)`: the minimum edge count forcing every
-`(k+2)`-vertex induced subgraph to have a vertex of degree `k`. -/
-def MinEdgesMaxDegree : Prop :=
-  ∀ n k : ℕ, k + 2 ≤ n → ∃ f : ℕ, f = Nat.choose (n - 1) 2
+/-! A `MinEdgesMaxDegree` entry stood here reading `∃ f, f = C(n−1,2)`, which names
+that number and asserts nothing of it. -/
 
 /-- The value in that statement, computed. `C(n−1,2)` is `(n−1)(n−2)/2`. -/
 theorem choose_two_formula (n : ℕ) (hn : 2 ≤ n) :
@@ -117,40 +115,29 @@ def FolkmanPairCharacterisation : Prop :=
   ∀ m : ℕ, ∀ G₁ G₂ : SimpleGraph (Fin m), ∃ N : ℕ, ∀ n ≥ N,
     ∀ c : Sym2 (Fin n) → Bool, ∃ S : Finset (Fin n), 0 < S.card
 
-/-- **[B]** The partition relation `ω₁² → (ω₁ω, G)²` for finite `G`. -/
-def Omega1SquarePartitionFinite : Prop :=
-  ∀ m : ℕ, ∀ _G : SimpleGraph (Fin m),
-    (Cardinal.aleph 1 : Cardinal.{0}) ≤ (Cardinal.aleph 1 : Cardinal.{0}) ^ (2 : ℕ)
+/-! An `Omega1SquarePartitionFinite` entry stood here reading `ℵ₁ ≤ ℵ₁²`, true of
+every infinite cardinal. The partition relation it was named for is a statement
+about colourings of pairs, not about cardinal arithmetic. -/
 
-/-- **[B]** And its `ℵ₁` counterexample. -/
-def Omega1SquarePartitionAleph1Fails : Prop :=
-  ¬ ((Cardinal.aleph 1 : Cardinal.{0}) ^ (2 : ℕ) < (Cardinal.aleph 1 : Cardinal.{0}))
+/-! Its companion said `¬ (ℵ₁² < ℵ₁)`, which is `¬ False`. -/
 
-/-- **[B]** Colouring the countable subsets of a set of size `(2^ℵ₀)⁺`. -/
-def CountableSubsetsColouring : Prop :=
-  ∀ κ : Cardinal.{0}, κ = Order.succ ((2 : Cardinal.{0}) ^ Cardinal.aleph0) →
-    ∃ f : Cardinal.{0} → Cardinal.{0}, f κ = κ
+/-! A `CountableSubsetsColouring` entry stood here asking for a function fixing a
+cardinal, which the identity provides. -/
 
-/-- **[T]** Kuratowski–Sierpiński at `ℵ_ω`. -/
-def KuratowskiSierpinski : Prop :=
-  ∀ n : ℕ, ∃ f : Cardinal.{0} → Cardinal.{0},
-    f (Cardinal.aleph n) = Cardinal.aleph n
+/-! A `KuratowskiSierpinski` entry stood here asking for a function fixing `ℵₙ`,
+which the identity provides. -/
 
 /-! ## §3 Set systems and hypergraphs -/
 
-/-- **[T]** Transversal bound for `r`-uniform hypergraphs. -/
-def TransversalBoundRUniform : Prop :=
-  ∀ r : ℕ, 3 ≤ r → ∀ n : ℕ, ∀ F : Finset (Finset (Fin n)), (∀ e ∈ F, e.card = r) →
-    ∃ T : Finset (Fin n), ∀ e ∈ F, ∃ v ∈ T, v ∈ e
+/-! A `TransversalBoundRUniform` entry stood here asking for a transversal with no
+bound on its size, which the whole vertex set provides. The bound is the content
+of the problem. -/
 
-/-- **[T]** Growth of the Pasch-configuration function `f_t`. -/
-def PaschGrowthRate : Prop :=
-  ∀ t : ℕ, 3 ≤ t → ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * (n : ℝ) ≤ (n : ℝ) ^ 2
+/-! A `PaschGrowthRate` entry stood here comparing `c·n` with `n²` and naming no
+Pasch configuration. -/
 
-/-- **[T]** τ-criticality for `k`-uniform hypergraphs. -/
-def TauCriticality : Prop :=
-  ∀ k r : ℕ, 2 ≤ r → ∀ n : ℕ, ∀ F : Finset (Finset (Fin n)), (∀ e ∈ F, e.card = k) →
-    ∃ b : ℕ, F.card ≤ b
+/-! A `TauCriticality` entry stood here asking for `b` with `F.card ≤ b`, which
+`F.card` itself provides. -/
 
 /-! ## §4 Geometric and distance problems -/
 
@@ -159,10 +146,8 @@ noncomputable def distinctDistances (P : Finset (EuclideanSpace ℝ (Fin 2))) : 
   (((P ×ˢ P).image fun q : EuclideanSpace ℝ (Fin 2) × EuclideanSpace ℝ (Fin 2) =>
       dist q.1 q.2).erase 0).card
 
-/-- **[T]** No-three-in-line variant: `g(n) = Θ(√n)`. -/
-def NoThreeInLineSqrt : Prop :=
-  ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ᶠ n : ℕ in atTop,
-    c₁ * Real.sqrt n ≤ (n : ℝ) ∧ (n : ℝ) ≤ c₂ * (n : ℝ)
+/-! A `NoThreeInLineSqrt` entry stood here comparing `c₁·√n` with `n` and `n` with
+`c₂·n`, naming no point set. -/
 
 /-- **[B]** Guth–Katz from a single point: `Ω(n / log n)`. -/
 def DistinctDistancesSinglePoint : Prop :=
@@ -181,20 +166,15 @@ def NoIsoscelesOmegaN : Prop :=
     (∀ a ∈ P, ∀ b ∈ P, ∀ c ∈ P, a ≠ b → b ≠ c → a ≠ c → dist a b ≠ dist a c) →
       P.card ≤ distinctDistances P + 1
 
-/-- **[T]** A 3-dimensional convex polyhedron's vertices give at least
-`(1−o(1))n/2` distinct distances. -/
-def ConvexPolyhedron3D : Prop :=
-  ∀ᶠ n : ℕ in atTop, ∀ P : Finset (EuclideanSpace ℝ (Fin 3)), P.card = n →
-    (n : ℝ) / 2 - (n : ℝ) / 4 ≤ (n : ℝ)
+/-! A `ConvexPolyhedron3D` entry stood here reading `n/2 − n/4 ≤ n`, which holds
+of every `n` and counts no distances. -/
 
 /-- **[F]** Bipartite distinct distances are NOT `o(n/√(log n))` — the file's
 one refuted entry. -/
 def BipartiteDistinctDistancesNotLittleO : Prop :=
   ¬ IsLittleO atTop (fun n : ℕ => (n : ℝ)) (fun n : ℕ => (n : ℝ) / Real.sqrt (Real.log n))
 
-/-- **[T]** The hexagonal lattice bound. -/
-def HexagonalLatticeBound : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * (n : ℝ) / Real.sqrt (Real.log n) ≤ (n : ℝ)
+/-! A `HexagonalLatticeBound` entry stood here comparing `c·n/√log n` with `n`. -/
 
 /-! ## §5 Chromatic and colouring problems -/
 
@@ -210,24 +190,16 @@ def OddCycleInEdgeColoured : Prop :=
 def RandomGraphChiMinusZeta : Prop :=
   ∀ M : ℝ, ∀ᶠ n : ℕ in atTop, M ≤ (n : ℝ) * 2 * Real.log (Real.log n) / (2 * Real.log n) ^ 2
 
-/-- **[T]** `g_k(n)`, the largest girth of a `k`-chromatic `n`-vertex graph. -/
-def GkLimit : Prop :=
-  ∀ k : ℕ, 3 ≤ k → ∃ L : ℝ, Tendsto (fun n : ℕ => (n : ℝ) / (n : ℝ)) atTop (nhds L)
+/-! A `GkLimit` entry stood here asking for the limit of `n/n`, which is one and has
+nothing to do with girth. -/
 
-/-- **[B]** Minimal vertex count for a bipartite graph with list chromatic
-number above `k`. -/
-def MinimalVerticesListChromatic : Prop :=
-  ∀ k : ℕ, 1 ≤ k → ∃ N : ℕ, 0 < N
+/-! A `MinimalVerticesListChromatic` entry stood here concluding `∃ N, 0 < N`. -/
 
 /-! ## §6 Number theory -/
 
-/-- **[T]** `e(n,r)`: differences tend to infinity. -/
-def ErDifferenceTendsInfinity : Prop :=
-  ∀ r : ℕ, 2 ≤ r → Tendsto (fun n : ℕ => (n : ℝ)) atTop atTop
+/-! An `ErDifferenceTendsInfinity` entry stood here asserting that `n → ∞`. -/
 
-/-- **[T]** and the ratios tend to one. -/
-def ErRatioTendsOne : Prop :=
-  ∀ r : ℕ, 2 ≤ r → Tendsto (fun n : ℕ => (n : ℝ) / (n : ℝ)) atTop (nhds 1)
+/-! An `ErRatioTendsOne` entry stood here asserting that `n/n → 1`. -/
 
 /-! ## §7 Verdict distribution, computed from the table -/
 
@@ -235,20 +207,12 @@ def ErRatioTendsOne : Prop :=
 def verdicts : List (String × String) :=
   [("RationalExponents", "B"), ("Girth5Extremal", "B"),
    ("HypercubeTuranDensityZero", "B"), ("K222FreeIndependentSet", "B"),
-   ("NoTwoEdgeDisjointCycles", "T"), ("DiameterK2rPlus1", "T"),
-   ("DiameterK2r", "T"), ("MinEdgesMaxDegree", "T"),
+   ("DiameterK2rPlus1", "T"), ("DiameterK2r", "T"),
    ("OddCycleInducedChromatic", "T"), ("ErdosHajnal3Uniform", "B"),
-   ("FolkmanPairCharacterisation", "B"), ("Omega1SquarePartitionFinite", "B"),
-   ("Omega1SquarePartitionAleph1Fails", "B"), ("CountableSubsetsColouring", "B"),
-   ("KuratowskiSierpinski", "T"), ("TransversalBoundRUniform", "T"),
-   ("PaschGrowthRate", "T"), ("TauCriticality", "T"),
-   ("NoThreeInLineSqrt", "T"), ("DistinctDistancesSinglePoint", "B"),
+   ("FolkmanPairCharacterisation", "B"), ("DistinctDistancesSinglePoint", "B"),
    ("NoFourConcyclic", "T"), ("NoIsoscelesOmegaN", "T"),
-   ("ConvexPolyhedron3D", "T"), ("BipartiteDistinctDistancesNotLittleO", "F"),
-   ("HexagonalLatticeBound", "T"), ("OddCycleInEdgeColoured", "T"),
-   ("RandomGraphChiMinusZeta", "B"), ("GkLimit", "T"),
-   ("MinimalVerticesListChromatic", "B"), ("ErDifferenceTendsInfinity", "T"),
-   ("ErRatioTendsOne", "T")]
+   ("BipartiteDistinctDistancesNotLittleO", "F"),
+   ("OddCycleInEdgeColoured", "T"), ("RandomGraphChiMinusZeta", "B")]
 
 def countOf (v : String) : Nat := (verdicts.filter (fun p => p.2 == v)).length
 
@@ -261,9 +225,11 @@ theorem verdict_counts :
     countOf "B" = (verdicts.filter (fun p => p.2 == "B")).length ∧
     countOf "F" = (verdicts.filter (fun p => p.2 == "F")).length := by decide
 
-/-- The three counts, read off the list. -/
+/-- The three counts, read off the list. The numbers moved when the statements
+that asserted nothing were removed; a count of a table is only worth stating if
+it is recomputed when the table changes. -/
 theorem verdict_counts_value :
-    countOf "T" = 18 ∧ countOf "B" = 12 ∧ countOf "F" = 1 := by decide
+    countOf "T" = 6 ∧ countOf "B" = 8 ∧ countOf "F" = 1 := by decide
 
 #print axioms exClique_bddAbove
 #print axioms choose_two_formula
