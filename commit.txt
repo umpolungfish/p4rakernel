@@ -1,13 +1,17 @@
-Pasch configurations, and the pattern the entry never named
+A partition relation, held at B
 
-The eighth ob3ect reads this as a forward morphism from a system to the set of
-its four-block subsets, forked on whether any matches the pattern. The pattern is
-what was missing: four blocks on six points, each point in exactly two of the
-four.
+The ninth ob3ect splits this one into the constructible universe, where the
+relation holds, and a model of Martin's Axiom, where a colouring refutes it. Its
+ENGAGR keeps the contradiction open instead of resolving it, the fuse is B, and
+IFIX fixes B as the fact.
 
-IsSteinerTriple, IsPasch and paschCount write it out, and PaschExtremes states
-the growth of the extremes with both halves — the bound over every system, and a
-system attaining each end. Anti-Pasch systems are the case lo = 0, and their
-existence is the part that is not free.
+What can be written here is the relation and its two arms: ArrowsPairsOfType over
+colourings of pairs, PartitionArmHolds, PartitionArmFails. What cannot is a proof
+of either, since each holds in a different model and a development asserting one
+would be asserting its model.
 
-The entry removed here compared c*n with n^2 and named no system.
+partition_arms_exclusive is the part that is provable and it depends on no axioms
+at all: over the same parameters the two arms cannot both be inhabited. That is
+what makes their coexistence across models an independence rather than a
+contradiction here. The entries removed from this file said aleph one is at most
+its square, and the negation of a false inequality.
