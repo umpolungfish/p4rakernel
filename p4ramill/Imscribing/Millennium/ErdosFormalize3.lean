@@ -179,6 +179,39 @@ which the identity provides. -/
 bound on its size, which the whole vertex set provides. The bound is the content
 of the problem. -/
 
+/-! ### Pasch configurations
+
+The eighth object of the nest reads this one as a forward morphism from a system
+to the set of its four-block subsets, forked on whether any matches the pattern.
+The pattern itself is what the removed entry never named: four blocks on six
+points in which every point of the six lies in exactly two of the four.
+-/
+
+/-- A Steiner triple system on `n` points: a set of blocks of size three in which
+every pair of distinct points lies in exactly one block. -/
+def IsSteinerTriple {n : ℕ} (B : Finset (Finset (Fin n))) : Prop :=
+  (∀ b ∈ B, b.card = 3) ∧
+  ∀ p q : Fin n, p ≠ q → ∃! b, b ∈ B ∧ p ∈ b ∧ q ∈ b
+
+/-- A Pasch configuration inside a system: four blocks whose union has six
+points, each of those points lying in exactly two of the four blocks. -/
+def IsPasch {n : ℕ} (P : Finset (Finset (Fin n))) : Prop :=
+  P.card = 4 ∧ (P.biUnion id).card = 6 ∧
+    ∀ p ∈ P.biUnion id, (P.filter (fun b => p ∈ b)).card = 2
+
+/-- How many Pasch configurations a system carries. -/
+noncomputable def paschCount {n : ℕ} (B : Finset (Finset (Fin n))) : ℕ :=
+  ((B.powerset).filter (fun P => IsPasch P)).card
+
+/-- **The growth of the extremes.** The largest and smallest Pasch counts over
+systems of a given order — the quantity the removed entry compared `c·n` with
+`n²` about, having named no system and no configuration. Anti-Pasch systems are
+the case `lo = 0`, and their existence is the part that is not free. -/
+def PaschExtremes (n lo hi : ℕ) : Prop :=
+  (∀ B : Finset (Finset (Fin n)), IsSteinerTriple B → lo ≤ paschCount B ∧ paschCount B ≤ hi) ∧
+  (∃ B : Finset (Finset (Fin n)), IsSteinerTriple B ∧ paschCount B = lo) ∧
+  (∃ B : Finset (Finset (Fin n)), IsSteinerTriple B ∧ paschCount B = hi)
+
 /-! A `PaschGrowthRate` entry stood here comparing `c·n` with `n²` and naming no
 Pasch configuration. -/
 
