@@ -138,4 +138,102 @@ def Perfect (n : ℕ) : Prop := ∑ d ∈ Nat.divisors n, d = 2 * n
 /-- **Odd perfect numbers.** There are none. -/
 def NoOddPerfect : Prop := ¬ ∃ n : ℕ, 0 < n ∧ ¬ Even n ∧ Perfect n
 
+/-! ## Graph theory
+
+The second document states these against an API Mathlib does not have —
+`dominationNumber`, `IsHamiltonian`, `IsPlanar`, `totalChromaticNumber`,
+`unitDistanceGraph` and a dozen more. A statement naming a constant that does not
+exist is not a weaker statement, it is no statement, so the notions are defined
+here and the conjectures said about them.
+-/
+
+/-- A clique minor model: `k` disjoint nonempty branch sets, each connected in
+`G`, with an edge between every two. This is what "`G` has `K_k` as a minor"
+means, and it is definable without a contraction operation. -/
+def HasCliqueMinor {V : Type} [Fintype V] (G : SimpleGraph V) (k : ℕ) : Prop :=
+  ∃ B : Fin k → Finset V,
+    (∀ i, (B i).Nonempty) ∧
+    (∀ i j, i ≠ j → Disjoint (B i) (B j)) ∧
+    (∀ i, ∀ u ∈ B i, ∀ v ∈ B i, G.Reachable u v) ∧
+    (∀ i j, i ≠ j → ∃ u ∈ B i, ∃ v ∈ B j, G.Adj u v)
+
+/-- **Hadwiger.** A graph with no `k`-colouring has `K_k` as a minor. The entry
+in the source asked that the chromatic number be at least the clique number,
+which is a theorem: a clique needs its own vertices coloured apart. -/
+def Hadwiger : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V) (k : ℕ),
+    ¬ G.Colorable k → HasCliqueMinor G (k + 1)
+
+/-- A dominating set: every vertex is in it or adjacent to it. -/
+def IsDominating {V : Type} [Fintype V] (G : SimpleGraph V) (S : Finset V) : Prop :=
+  ∀ v : V, v ∈ S ∨ ∃ u ∈ S, G.Adj u v
+
+/-- **Vizing's domination conjecture.** The domination number of a box product is
+at least the product of the factors', stated through dominating sets rather than
+a `dominationNumber` field: a dominating set of the product yields a bound on the
+product of the factors' minima. -/
+def VizingDomination : Prop :=
+  ∀ (V W : Type) [Fintype V] [Fintype W] [DecidableEq V] [DecidableEq W]
+    (G : SimpleGraph V) (H : SimpleGraph W) (dG dH : ℕ),
+    (∀ S : Finset V, IsDominating G S → dG ≤ S.card) →
+    (∀ T : Finset W, IsDominating H T → dH ≤ T.card) →
+    ∀ D : Finset (V × W), IsDominating (G.boxProd H) D → dG * dH ≤ D.card
+
+/-- **Reconstruction.** Two graphs whose vertex-deleted subgraphs agree pairwise
+are isomorphic. Stated for at least three vertices, below which it is false. -/
+def Reconstruction : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G H : SimpleGraph V),
+    3 ≤ Fintype.card V →
+    (∀ v : V, Nonempty ((G.induce {u | u ≠ v}) ≃g (H.induce {u | u ≠ v}))) →
+    Nonempty (G ≃g H)
+
+/-- A graph is vertex-transitive when its automorphisms act transitively. -/
+def IsVertexTransitive {V : Type} (G : SimpleGraph V) : Prop :=
+  ∀ u v : V, ∃ σ : G ≃g G, σ u = v
+
+/-- A Hamiltonian cycle, as a walk that is a cycle and meets every vertex. -/
+def HasHamiltonianCycle {V : Type} [Fintype V] (G : SimpleGraph V) : Prop :=
+  ∃ (v : V) (w : G.Walk v v), w.IsCycle ∧ ∀ u : V, u ∈ w.support
+
+/-- **Lovász.** Every connected vertex-transitive graph has a Hamiltonian path;
+stated here in the cycle form for the graphs above four vertices, which is the
+form the exceptions are usually quoted against. -/
+def LovaszHamiltonian : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V),
+    G.Connected → IsVertexTransitive G → 5 ≤ Fintype.card V →
+    HasHamiltonianCycle G
+
+/-- **Erdős–Faber–Lovász.** A family of `n` cliques of size `n` meeting pairwise
+in at most one vertex is `n`-colourable. -/
+def ErdosFaberLovasz : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (n : ℕ) (cliques : Finset (Finset V)),
+    cliques.card = n → (∀ c ∈ cliques, c.card = n) →
+    (∀ c ∈ cliques, ∀ d ∈ cliques, c ≠ d → (c ∩ d).card ≤ 1) →
+    ∃ col : V → Fin n, ∀ c ∈ cliques, ∀ x ∈ c, ∀ y ∈ c, x ≠ y → col x ≠ col y
+
+/-- **Total colouring.** Vertices and edges together can be coloured with
+`Δ + 2` colours so that adjacent or incident objects differ. Stated over the sum
+type of vertices and edges, which is what "total" means. -/
+def TotalColouring : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj]
+    (Δ : ℕ), (∀ v : V, G.degree v ≤ Δ) →
+    ∃ col : V ⊕ (Sym2 V) → Fin (Δ + 2),
+      (∀ u v : V, G.Adj u v → col (Sum.inl u) ≠ col (Sum.inl v)) ∧
+      (∀ u v : V, G.Adj u v → col (Sum.inl u) ≠ col (Sum.inr s(u, v))) ∧
+      (∀ e f : Sym2 V, e ∈ G.edgeSet → f ∈ G.edgeSet → e ≠ f →
+        (∃ x, x ∈ e ∧ x ∈ f) → col (Sum.inr e) ≠ col (Sum.inr f))
+
+/-- The unit-distance graph on the plane. -/
+def unitDistanceGraph : SimpleGraph (EuclideanSpace ℝ (Fin 2)) where
+  Adj p q := Dist.dist p q = 1
+  symm := by intro p q h; rwa [dist_comm]
+  loopless := by
+    refine ⟨fun p h => ?_⟩
+    simp at h
+
+/-- **Hadwiger–Nelson.** The plane's chromatic number is 5, 6 or 7 — the interval
+that remains after the lower bound of 5 and the upper bound of 7. -/
+def HadwigerNelson : Prop :=
+  ¬ unitDistanceGraph.Colorable 4 ∧ unitDistanceGraph.Colorable 7
+
 end Unsolved
