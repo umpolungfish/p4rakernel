@@ -1,21 +1,21 @@
-Erdos batch 1: the statements now state their problems
+Erdos batches 2 and 3: the same repair
 
-Thirty Props stood in ErdosFormalize.lean. Most did not say what their docstring
-said. RamseyOddCycleTriangleLimit was "there is a real strictly between 0 and 1".
-ErdosUnbounded was Archimedes. HopfPannwitz was s.card <= s.card. Wagner and
-Cumulative compared n, log n and n^2 with a free constant.
-RodlShelahChromaticIntersection was proved, as "for every k there is n >= k".
+Batch 2 loses twenty-one statements and batch 3 sixteen, all of them entries that
+asserted something true of everything: "there exists N with N <= 4k+1", "n/n
+tends to 1", "aleph one is at most its square", "there is a transversal" with no
+bound on its size, and the negation of a statement ending in True — that last one
+being FALSE while recorded as B.
 
-Nine are gone. Five because the faithful statement already lives elsewhere —
-Hopf-Pannwitz and Erdos-Fuchs in their proof modules, the odd-cycle Ramsey ratio
-proved outright in Erdos/RamseyAsymptotics — and a second weaker copy is drift.
-Four because the docstring named no object to restate, or because the subject is
-a consistency statement rather than a Prop with a truth value here.
+What survives is restated with its object. Hindman's function against a tower of
+twos with the monochromatic finite-sums set spelled out; the LCM triple count as
+a count of triples; Cameron-Erdos as a two-sided bound on the number of sum-free
+subsets; average degree forcing a vertex of degree three rather than of positive
+degree.
 
-The rest are restated with the object they are about: Ramsey bounds through an
-Arrows relation on colourings, the unit-distance and distinct-distance counts as
-definitions, upper density and the difference set as definitions, practical
-numbers, B3 sets, and Erdos-Hajnal with its conclusion restored.
+One became a theorem: bounded degree bounds the edge count linearly, which the
+handshake identity gives outright, so edges_le_of_degree_le proves what the Prop
+was citing.
 
-The verdict table is rebuilt from what the file defines, so it counts what is
-here. Library green at 8592 jobs.
+Verdict tables and their counts are recomputed from what each file defines. A
+count of a table is only worth stating if it moves when the table does. Library
+green at 8592 jobs.
