@@ -221,6 +221,42 @@ theorem arrowsPair_mono {m k : ℕ} (G : SimpleGraph (Fin m)) (H : SimpleGraph (
   · exact Or.inl ⟨incl ∘ f, hincl_inj.comp hf, fun u v huv => hadj u v huv⟩
   · exact Or.inr ⟨incl ∘ f, hincl_inj.comp hf, fun u v huv => hadj u v huv⟩
 
+/-! ## §4c The size-Ramsey number
+
+The second object of the nest reads this one as a fork with two arms that must
+both close: one constructs a host that forces, the other establishes that no
+smaller host does. Written out, the first arm is membership in the set below and
+the second is the infimum being attained rather than merely bounded.
+-/
+
+/-- A host graph forces `G`: every two-colouring of the host's edges carries a
+monochromatic copy of `G`, where a copy is an injection carrying adjacency into
+one colour class of the host. -/
+def HostForces {N m : ℕ} (host : SimpleGraph (Fin N)) (G : SimpleGraph (Fin m)) : Prop :=
+  ∀ col : Fin N → Fin N → Bool, (∀ u v, col u v = col v u) →
+    ∃ (f : Fin m → Fin N) (c : Bool), Function.Injective f ∧
+      ∀ u v : Fin m, G.Adj u v → host.Adj (f u) (f v) ∧ col (f u) (f v) = c
+
+/-- The edge counts of the hosts that force `G` — the set the size-Ramsey number
+takes its infimum over. -/
+def ForcingSizes {m : ℕ} (G : SimpleGraph (Fin m)) : Set ℕ :=
+  { e : ℕ | ∃ (N : ℕ) (host : SimpleGraph (Fin N)) (_ : DecidableRel host.Adj),
+      host.edgeFinset.card = e ∧ HostForces host G }
+
+/-- **The size-Ramsey number.** Least edge count of a forcing host. As with the
+Ramsey number of a pair, the infimum and the non-emptiness are separate: an
+infimum over an empty set is zero, which would read as "no edges needed". -/
+noncomputable def sizeRamsey {m : ℕ} (G : SimpleGraph (Fin m)) : ℕ :=
+  sInf (ForcingSizes G)
+
+/-- **Any forcing host bounds it.** The arm that constructs a forcer gives an
+upper bound directly; the other arm — that no smaller host forces — is what the
+infimum being attained says, and is not free. -/
+theorem sizeRamsey_le {m N : ℕ} (G : SimpleGraph (Fin m)) (host : SimpleGraph (Fin N))
+    [DecidableRel host.Adj] (h : HostForces host G) :
+    sizeRamsey G ≤ host.edgeFinset.card :=
+  Nat.sInf_le ⟨N, host, inferInstance, rfl, h⟩
+
 /-! ## §5 Hypergraph Ramsey -/
 
 /-! Five stepping-up entries stood here — `∃ c₁ c₂ > 0`, `∃ N, n ≤ N`,
@@ -324,5 +360,6 @@ theorem verdict_partition : countOf "T" + countOf "B" = verdicts.length := by de
 #print axioms primes_not_lcm_triple
 
 #print axioms arrowsPair_mono
+#print axioms sizeRamsey_le
 
 end ErdosFormalize2
