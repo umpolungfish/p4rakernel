@@ -1,16 +1,18 @@
-Erdos-Straus: the price-zero layer, and the frontier it leaves
+Erdos-Straus: the searched rung, as a condition on a group
 
-The one-shot at n = 5 (mod 8) was not the only rung read off n. Writing the
-divisor as u = n^i a^j and using 4a = n (mod r), the congruence r | M+u leaves
-exactly three live outcomes: r | n, r | n+1, r | n+4. Every other exponent pair
-demands r | 8, r | 5 or r | n^2+4, all dead for r = 3 (mod 4).
+For a frontier value the divisor has to come from the primes of M = na, so the
+criterion turns into a question about the multiplicative group mod r. The
+divisors of M^2 reduce to a reachable set R, the rung closes when -M is in it,
+and since M is itself in R the content is whether -1 is in the subgroup the
+primes of M generate.
 
-So I collected the three families into one theorem, straus_of_priceZero, which
-takes the divisibility and hands back the three denominators with nothing
-searched. Added multiplicative descent, and the frontier: what the price-zero
-layer and the one-shot both miss. Every frontier value is n = 1 (mod 24), and
-that is proved rather than observed.
+straus_of_neg_one_divisor is the half that needs no exponent bookkeeping: a
+divisor t of M with t = -1 (mod r) closes the rung by u = M*t.
+negMReachable_of_negOneReachable states it against the reachable-set predicate.
 
-Measured over 5 <= n <= 200000: 32062 of the 33333 values in the surviving class
-close at price zero. 1271 remain, and descent through a proper divisor takes 639
-of those, leaving 632.
+The other half is not an equivalence, and SubgroupExceedsReach names why: the
+subgroup allows any exponent, the divisors of M^2 cap them at twice those of M.
+Over the 162 frontier values below 20000, -1 in the subgroup predicts closure at
+248 of 251 rungs. All three misses are the same shape — n = 1201 at r = 11, and
+n = 2521 at r = 11 and r = 19 — where M is squarefree, the primes generate the
+whole group, and -1 needs a higher power than M^2 supplies.
