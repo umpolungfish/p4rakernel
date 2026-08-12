@@ -691,6 +691,26 @@ itself. -/
 def ShiftCovered (n : ℕ) : Prop :=
   ∃ d r, 1 < d ∧ d ∣ n ∧ 3 ≤ r ∧ r % 4 = 3 ∧ r ∣ d + 1
 
+/-- **Descent, in the form the frontier reading uses.** A representable proper
+divisor represents `n`: this is `straus_scaling` with the denominators
+existentially quantified, and it is why a composite survives only when every
+factor does. -/
+theorem straus_of_representable_divisor (n d : ℕ) (hn : 0 < n) (hd : 0 < d)
+    (hdvd : d ∣ n)
+    (h : ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / d = 1 / a + 1 / b + 1 / c) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  obtain ⟨k, hk⟩ := hdvd
+  obtain ⟨a, b, c, ha, hb, hc, hrep⟩ := h
+  have hk0 : 0 < k := by
+    rcases Nat.eq_zero_or_pos k with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at hk; omega
+    · exact h0
+  refine ⟨k * a, k * b, k * c, Nat.mul_pos hk0 ha, Nat.mul_pos hk0 hb,
+    Nat.mul_pos hk0 hc, ?_⟩
+  have := straus_scaling d n k a b c hd hk0 hk ha hb hc hrep
+  push_cast
+  exact this
+
 /-- **The frontier.** What the price-zero layer and the one-shot leave: the
 values whose rung must be searched. -/
 def StrausFrontier (n : ℕ) : Prop :=
@@ -1106,6 +1126,7 @@ theorem straus_class_of_rungBounded (B : ℕ → ℕ) (h : RungBounded B) :
 
 #print axioms Erdos.StrausGreedy.straus_of_priceZero
 #print axioms Erdos.StrausGreedy.straus_scaling
+#print axioms Erdos.StrausGreedy.straus_of_representable_divisor
 #print axioms Erdos.StrausGreedy.straus_frontier_mod_24
 
 #print axioms Erdos.StrausGreedy.straus_one_shot
