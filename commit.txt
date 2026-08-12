@@ -1,6 +1,7 @@
-Erdos-Straus: the budget gap is concentrated, not spread
+Erdos-Straus: the budget gap is steady, not concentrated
 
-Measured below 50000: 19 of 379 rungs walked show -1 in the subgroup and out of
-reach in M^2, and 2521 owns all but one of them. Every other failing rung fails
-because the subgroup lacks -1. The exponent budget is a rare mode globally and
-the total mode for that one value.
+The 50000-200000 block shows 21 gaps in 850 rungs walked, spread over many
+values, against 19 in 379 below 50000. So it is a persistent mode of a few per
+cent, and my reading of it as concentrated on 2521 came from one block. What is
+exceptional about 2521 is failing that way at every rung, which is why its
+divisor lives in M^2; elsewhere the gap costs one rung and the walk continues.
