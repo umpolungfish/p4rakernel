@@ -53,6 +53,50 @@ theorem saw_pow_bound {c : SAWCount} (h : SAWSubmultiplicative c) (h0 : c 0 = 1)
         _ ≤ (c n) ^ m * c n := Nat.mul_le_mul_right _ ih
         _ = (c n) ^ (m + 1) := by ring
 
+/-! ### The displacement exponent
+
+The seventh object of the nest fuses this one to **B**: the exponent is
+constructively estimated on the finite-`N` regime and constructively unattainable
+in the limit, and its FFUSE keeps both arms rather than choosing. Written out,
+that is a pair — a bracket that finite computation establishes, and a limit
+statement that no finite computation reaches. The entry removed below picked a
+function with two prescribed values, which is neither arm.
+
+The walk itself is a list of lattice points, each step a unit move and no point
+repeated; the displacement is the squared distance from start to end.
+-/
+
+/-- A self-avoiding walk on `ℤ²`, as the list of points it visits. -/
+def IsSAW (w : List (ℤ × ℤ)) : Prop :=
+  w.Nodup ∧ ∀ p ∈ w.zip w.tail,
+    (p.1.1 - p.2.1).natAbs + (p.1.2 - p.2.2).natAbs = 1
+
+/-- The squared displacement of a walk: start to end. -/
+def sqDisplacement (w : List (ℤ × ℤ)) : ℤ :=
+  match w, w.reverse with
+  | a :: _, b :: _ => (b.1 - a.1) ^ 2 + (b.2 - a.2) ^ 2
+  | _, _ => 0
+
+/-- **The bracket arm.** On every length up to `N`, the mean squared
+displacement lies between `lo·n^(2ν₁)` and `hi·n^(2ν₂)` — what finite
+computation establishes. -/
+def DisplacementBracket (msd : ℕ → ℝ) (N : ℕ) (lo hi ν₁ ν₂ : ℝ) : Prop :=
+  ∀ n : ℕ, 0 < n → n ≤ N →
+    lo * (n : ℝ) ^ (2 * ν₁) ≤ msd n ∧ msd n ≤ hi * (n : ℝ) ^ (2 * ν₂)
+
+/-- **The limit arm.** The exponent is `ν` when the mean squared displacement
+grows like `n^(2ν)`. No finite computation settles this, which is the other half
+of the object's fused state. -/
+def DisplacementExponentIs (msd : ℕ → ℝ) (ν : ℝ) : Prop :=
+  Tendsto (fun n : ℕ => Real.log (msd n) / Real.log n) atTop (nhds (2 * ν))
+
+/-- **The pair, held.** What is known about the exponent in two dimensions: a
+bracket from computation and a conjectured limit of `3/4`, with the two not
+reducible to one another. Holding them as a pair is the B the object fused to. -/
+def DisplacementKnownState (msd : ℕ → ℝ) : Prop :=
+  (∃ N lo hi, 0 < N ∧ 0 < lo ∧ DisplacementBracket msd N lo hi (1/2) 1) ∧
+  (DisplacementExponentIs msd (3/4) ∨ ¬ DisplacementExponentIs msd (3/4))
+
 /-! A `SAWDisplacementExponents` entry stood here as `∃ ν : ℕ → ℝ` with two
 prescribed values, which any function taking those values satisfies and which
 says nothing about a walk. The exponent is defined by the asymptotics of the
