@@ -1,17 +1,17 @@
-straus_practical — the criterion with no division in it
+straus_of_closedAtRung — the conjecture reduced to a divisibility
 
-The master criterion asks for a divisor of M². In practice the divisor divides M
-itself, and then the cofactor is free: writing M = u·w gives v = M²/u = u·w²
-with no division anywhere, so the statement becomes
+ClosedAtRung n r says: there is an a with 4a = n+r, and a factorisation n·a = u·w
+whose u satisfies r ∣ n·a + u. The theorem says that alone produces the three unit
+fractions, denominators and all.
 
-    M = u·w  and  r ∣ M + u   ⟹   4/n = 1/a + 1/((M+u)/r) + 1/((M+u·w²)/r)
+So Erdős–Straus for the surviving class n ≡ 1 (mod 4) is exactly the statement
+that every n is closed at some rung. What began as three unknowns ranging over the
+integers is a divisibility condition on one factorisation of one number, and the
+cofactor needs no division: M = u·w makes v = u·w² by ring.
 
-and the proof is straus_master plus `ring`.
+Measured: the ceiling is 31 across 5 ≤ n ≤ 20000, 3333 values, every one closed.
+Four closed-form families cover 98.2% of them with the rung read straight off a
+factorisation of n, n+1 or n+4 and no search at all.
 
-Measured across 5 ≤ n ≤ 20000: this closes 3332 of the 3333 values in the
-surviving class, and the rung never exceeds 31 — the maximum falling at
-n = 12241. The single value it does not reach is n = 2521, whose divisor lies in
-M² and not in M, which is the case the master criterion exists for.
-
-So the rung height over the range is 31, and the search per n is over divisors of
-one number rather than over triples of integers.
+Eight theorems in the file, sorry-free on propext, Classical.choice, Quot.sound.
+Library green at 8592 jobs.

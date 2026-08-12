@@ -453,6 +453,58 @@ theorem straus_practical (n r a u w b c : ℕ)
 theorem straus_rung_ceiling_witness : (12241 : ℕ) % 4 = 1 ∧ (31 : ℕ) % 4 = 3 := by
   constructor <;> norm_num
 
+/-! ## The reduction
+
+Everything proved above turns Erdős–Straus for the surviving class into ONE
+statement about a bounded object. Define what it means for `n` to be closed at a
+rung: there is `r ≡ 3 (mod 4)`, an `a` with `4a = n+r`, and a factorisation
+`n·a = u·w` whose `u` satisfies `r ∣ n·a + u`.
+
+`straus_practical` says: closed at a rung ⟹ `4/n` is three unit fractions. So the
+conjecture for the class follows from every `n` being closed at SOME rung, and if
+a uniform ceiling `R` exists the search is finite for each `n`.
+
+The ceiling is 31 across `5 ≤ n ≤ 20000` — 3333 values, every one closed. Whether
+it is a theorem is the question this reduction isolates, and it is a question
+about `n`, `n+1` and `n+4` jointly: the closed-form families fail together only
+when all three are free of primes `≡ 3 (mod 4)`.
+-/
+
+/-- `n` is closed at rung `r`: the rung, the first denominator, and a
+factorisation of `n·a` whose first factor sits at `−n·a` modulo the rung. -/
+def ClosedAtRung (n r : ℕ) : Prop :=
+  ∃ a u w : ℕ, 0 < a ∧ 0 < u ∧ 0 < w ∧ 4 * a = n + r ∧ n * a = u * w ∧ r ∣ (n * a + u)
+
+/-- **The reduction.** Closed at a rung ⟹ three unit fractions. -/
+theorem straus_of_closedAtRung (n r : ℕ) (hn : 0 < n) (hr : 0 < r)
+    (h : ClosedAtRung n r) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  obtain ⟨a, u, w, ha0, hu0, hw0, ha, hM, hdvd⟩ := h
+  obtain ⟨b, hb⟩ := hdvd
+  -- `r ∣ M + u` gives `b`; the cofactor gives `c` with no division.
+  have hMpos : 0 < n * a := Nat.mul_pos hn ha0
+  have hb0 : 0 < b := by
+    rcases Nat.eq_zero_or_pos b with rfl | hpos
+    · rw [Nat.mul_zero] at hb; omega
+    · exact hpos
+  have hcdvd : r ∣ (n * a + u * (w * w)) := by
+    -- `M + u·w² = (M + u) + u·w² − u`, and `u·w² − u = u(w−1)(w+1)`; the rung
+    -- divides the whole because `M = u·w` makes `M + u·w² = w·(M + u)`.
+    refine ⟨w * b, ?_⟩
+    have : n * a + u * (w * w) = w * (n * a + u) := by rw [hM]; ring
+    rw [this, hb]; ring
+  obtain ⟨c, hc⟩ := hcdvd
+  have hc0 : 0 < c := by
+    rcases Nat.eq_zero_or_pos c with rfl | hpos
+    · rw [Nat.mul_zero] at hc
+      have : 0 < u * (w * w) := Nat.mul_pos hu0 (Nat.mul_pos hw0 hw0)
+      omega
+    · exact hpos
+  exact ⟨a, b, c, ha0, hb0, hc0,
+    straus_practical n r a u w b c hn ha0 hb0 hc0 hr hu0 hw0 hM ha
+      (by rw [← hM]; exact hb.symm) (by rw [← hM]; exact hc.symm)⟩
+
+#print axioms Erdos.StrausGreedy.straus_of_closedAtRung
 #print axioms Erdos.StrausGreedy.straus_practical
 #print axioms Erdos.StrausGreedy.straus_n_family
 #print axioms Erdos.StrausGreedy.straus_prime_family
