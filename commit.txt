@@ -1,7 +1,6 @@
-Erdos-Straus: the ceiling read out to two million
+Erdos-Straus: the budget gap is concentrated, not spread
 
-71 at n = 1430641, so the ceiling of 59 I recorded from the first million was a
-range fact, not the shape. Out to 2*10^6 the records are 3, 7, 11, 23, 31, 59, 71
-and the ratio to n^(1/4) is 3.0, 3.5, 2.2, 4.6, 2.6, 3.3, 2.1 — largest at small
-n, settling at 2.0 to 2.1 further out. So C*n^(1/4) fits with C just above 4.6,
-and the binding constant comes from n = 1201.
+Measured below 50000: 19 of 379 rungs walked show -1 in the subgroup and out of
+reach in M^2, and 2521 owns all but one of them. Every other failing rung fails
+because the subgroup lacks -1. The exponent budget is a rare mode globally and
+the total mode for that one value.
