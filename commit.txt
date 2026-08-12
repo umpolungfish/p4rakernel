@@ -1,11 +1,5 @@
-Erdos-Straus: the three statements, ordered
+Erdos-Straus: the constant a bound would need
 
-RungBounded and straus_class_of_rungBounded. A bound B with a closing rung below
-B n for every n in the class gives the conjecture on that class outright.
-
-The ordering is now explicit in the file. Weakest: every n has some rung, which
-by ladder_complete is the conjecture itself. Middle: every n has a rung where M
-rather than M^2 carries a divisor at -1 — strictly stronger, and 2521 inhabits
-the gap. Strongest: the bound, consistent with C*n^(1/4) on everything measured,
-and the one worth attacking since the rungs below a bound are finitely many and
-each is decidable.
+The n^(1/4) claim now carries its measurement: records 3, 7, 11, 23, 31, 59 at
+n = 5, 49, 1129, 1201, 21169, 118801, ratios 3.0, 3.5, 2.2, 4.6, 2.6, 3.3 over
+5 <= n <= 400000. No drift, so C a little above 4.6 fits the evidence.

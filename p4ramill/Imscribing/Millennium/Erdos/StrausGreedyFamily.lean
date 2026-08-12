@@ -1059,7 +1059,10 @@ refutes it as stated for rungs up to 200 while satisfying the weak one, so the
 gap between the two is inhabited rather than notional.
 
 The strongest is a BOUND: a function `B` with a closing rung below `B n` for
-every `n`. Everything measured is consistent with `B n = C·n^{1/4}`, and a bound
+every `n`. Everything measured is consistent with `B n = C·n^{1/4}`: over `5 ≤ n ≤ 400000`
+the rung records are 3, 7, 11, 23, 31, 59 at n = 5, 49, 1129, 1201, 21169,
+118801, and `r / ⌊n^{1/4}⌋` at those points is 3.0, 3.5, 2.2, 4.6, 2.6, 3.3 — no
+drift across five orders of magnitude, so `C` a little above 4.6 fits. A bound
 of any shape settles the conjecture on every range it covers, since the rungs
 below it are finitely many and each is decidable. That is why the bound, and not
 the existence, is the statement worth attacking.
