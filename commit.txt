@@ -1,7 +1,7 @@
-Erdos-Straus: descent in the form the frontier reading uses
+Erdos-Straus: the frontier read out to a million
 
-straus_of_representable_divisor: a representable proper divisor represents n.
-That is straus_scaling with the denominators existentially quantified, and it is
-the Lean statement of why a composite survives the frontier only when every
-factor does — which is what the instrument's on_frontier computes and why 622 of
-624 frontier values below 200000 are prime.
+800001-1000000 gives 390 values, 388 prime, 1.2% of the class. Five blocks now
+cover the surviving class to 10^6: 624, 486, 444, 395, 390, shares 1.9, 1.5, 1.3,
+1.2, 1.2, two composites per block and each a product of frontier primes, which
+is what straus_of_representable_divisor forces. Every value but 2521 has a
+cofactor of M at a rung no larger than 200.
