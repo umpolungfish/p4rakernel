@@ -826,10 +826,16 @@ So each `k` reads its rungs off the factorisation of `k·n + 1`: `k = 1` is the
 divisor family `r ∣ n+1`, `k = 2` reads `2n+1`, and so on. The search over
 divisors of `M` — which needed `a`, which needed the rung — becomes a search over
 `k`, with no reference to `a` at all. The reparametrization is exact — every cofactor is `k·r − 1` for some `k` — but
-`k` is not bounded a priori, reaching `(M+1)/r`. Over the 624 frontier values
-below 200000: `k = 2` supplies the rung in 321 cases, `k = 4` in 103, `k = 6` in
-59, and `k ≤ 40` in 589 altogether. Only even `k` occur, since `w` must be odd
+`k` is not bounded a priori, reaching `(M+1)/r`, so `k` is the wrong axis to
+search on. Read from the RUNG side instead, each cofactor handing back its own
+`k = (w+1)/r`, the picture over the 624 frontier values below 200000 is: least
+`k ≤ 2` for 314 of them, `≤ 8` for 565, `≤ 32` for 613, and a tail reaching
+`k = 12813` at `n = 66529`, rung 135. Only even `k` occur, since `w` must be odd
 where `M` is.
+
+Allowing rungs up to 200, exactly ONE frontier value below 200000 has no cofactor
+of `M` at any rung and genuinely needs a divisor of `M²`: `n = 2521`. The
+`n = 196561` case needs only a rung past 51.
 -/
 
 /-- **The `k`-shift family.** A divisor `w` of `k·n + 1`, coprime to `4k`, with
