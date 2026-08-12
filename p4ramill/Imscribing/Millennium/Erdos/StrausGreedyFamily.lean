@@ -840,9 +840,10 @@ Allowing rungs up to 200, exactly ONE frontier value below 200000 has no cofacto
 of `M` at any rung and genuinely needs a divisor of `M²`: `n = 2521`. The
 `n = 196561` case needs only a rung past 51.
 
-Two blocks further out, the frontier thins: 486 values in 200001–400000 (1.5% of
-the class, 484 prime) and 444 in 400001–600000 (1.3%, 440 prime), with a cofactor
-at a rung ≤ 200 for every one of them. The largest least-`k` seen anywhere is
+Three blocks further out, the frontier thins: 486 values in 200001–400000 (1.5%
+of the class, 484 prime), 444 in 400001–600000 (1.3%, 440 prime) and 395 in
+600001–800000 (1.2%, 393 prime), with a cofactor at a rung ≤ 200 for every one of
+them. The largest least-`k` seen anywhere is
 15083, at `n = 297889` on rung 79.
 -/
 

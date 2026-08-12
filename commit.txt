@@ -1,6 +1,5 @@
-Erdos-Straus: the ceiling holds to four million
+Erdos-Straus: a fourth frontier block
 
-The block from 2*10^6 to 4*10^6 tops out at rung 55, below the record 71 at
-1430641, so the least closing rung never exceeds 71 over everything read. The
-ratio to n^(1/4) runs 1.4 to 2.1 past a million and peaks at 4.6 at n = 1201, so
-the shape holds and the constant is set by the small values.
+600001-800000 gives 395 frontier values, 393 prime, 1.2% of the surviving class,
+every one closed by a cofactor of M at a rung no larger than 200. The share keeps
+falling: 1.9, 1.5, 1.3, 1.2.
