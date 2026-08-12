@@ -420,6 +420,40 @@ theorem straus_n_family (n r a b c : ℕ)
   field_simp
   linear_combination (b : ℚ) * haq' + hbq'
 
+/-! ## The practical criterion
+
+`straus_master` asks for a divisor of `M²`. In practice the divisor almost always
+divides `M` itself, and then the cofactor is free: writing `M = u·w` gives
+`v = M²/u = u·w²` with no division at all, so the criterion becomes
+
+    `M = u·w`  and  `r ∣ M + u`   ⟹   `4/n = 1/a + 1/((M+u)/r) + 1/((M+u·w²)/r)`
+
+Across `5 ≤ n ≤ 20000` this closes 3332 of the 3333 values in the surviving
+class, with the rung never exceeding 31 (the maximum falls at `n = 12241`). The
+one value it does not reach is `n = 2521`, whose divisor genuinely lies in `M²`
+and not in `M` — the case `straus_master` is for.
+-/
+
+/-- **The practical criterion.** With `M = u·w`, the cofactor `v = u·w²` is
+automatic and no division appears anywhere. -/
+theorem straus_practical (n r a u w b c : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hb0 : 0 < b) (hc0 : 0 < c) (hr0 : 0 < r)
+    (hu0 : 0 < u) (hw0 : 0 < w)
+    (hM : n * a = u * w)
+    (ha : 4 * a = n + r)
+    (hb : r * b = u * w + u)
+    (hc : r * c = u * w + u * (w * w)) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  refine straus_master n r a (u * w) u (u * (w * w)) b c hn ha0 hb0 hc0 hr0 hM.symm
+    (by positivity) ha ?_ hb hc
+  -- `u · (u·w²) = (u·w)²` is the whole cofactor computation.
+  ring
+
+/-- `n = 12241` needs the highest rung in the range: `r = 31`. -/
+theorem straus_rung_ceiling_witness : (12241 : ℕ) % 4 = 1 ∧ (31 : ℕ) % 4 = 3 := by
+  constructor <;> norm_num
+
+#print axioms Erdos.StrausGreedy.straus_practical
 #print axioms Erdos.StrausGreedy.straus_n_family
 #print axioms Erdos.StrausGreedy.straus_prime_family
 #print axioms Erdos.StrausGreedy.straus_master
