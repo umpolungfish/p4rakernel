@@ -519,6 +519,106 @@ def FactoringInP : Prop :=
     (∀ n : ℕ, steps n ≤ (Nat.log 2 n + 1) ^ c) ∧
     ∀ n : ℕ, 1 < n → ¬ n.Prime → 1 < factor n ∧ factor n < n ∧ factor n ∣ n
 
+/-! ## Euclidean geometry
+
+Falconer, Danzer sets, Thomson's energy and the ropelength of a knot are all
+built from quantities that exist once written down: a distance set, a set meeting
+every convex body of unit area, a Coulomb sum over a sphere, and the length of a
+curve against its thickness. The knot machinery above carries the last.
+-/
+
+/-- The distance set: every distance realised inside `A`. -/
+def distanceSet {d : ℕ} (A : Set (EuclideanSpace ℝ (Fin d))) : Set ℝ :=
+  {r | ∃ x ∈ A, ∃ y ∈ A, Dist.dist x y = r}
+
+/-- **Falconer.** A set of Hausdorff dimension above `d/2` has a distance set of
+positive measure. -/
+def Falconer : Prop :=
+  ∀ (d : ℕ) (A : Set (EuclideanSpace ℝ (Fin d))),
+    (d : ENNReal) / 2 < dimH A → 0 < MeasureTheory.volume (distanceSet A)
+
+/-- A Danzer set: it meets every convex body of volume one. -/
+def IsDanzerSet {d : ℕ} (D : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
+  ∀ K : Set (EuclideanSpace ℝ (Fin d)), IsConvexBody K →
+    MeasureTheory.volume K = 1 → (D ∩ K).Nonempty
+
+/-- **Conway's dead fly problem.** A Danzer set of bounded density — one whose
+count in every ball of radius `R` is `O(R^d)` — exists. The source asked for
+"bounded separation", which a lattice has and which is not the obstruction. -/
+def DeadFly : Prop :=
+  ∃ (D : Set (EuclideanSpace ℝ (Fin 2))) (C : ℝ),
+    IsDanzerSet D ∧ 0 < C ∧
+    ∀ R : ℝ, 1 ≤ R → ((D ∩ Metric.closedBall 0 R).ncard : ℝ) ≤ C * R ^ 2
+
+/-- The Thomson energy of `n` points on the sphere: the Coulomb sum. -/
+noncomputable def thomsonEnergy {n : ℕ} (P : Fin n → EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  ∑ i : Fin n, ∑ j : Fin n, if i = j then 0 else 1 / Dist.dist (P i) (P j)
+
+/-- **Thomson's problem, asymptotically.** The minimum energy of `n` points on
+the unit sphere sits at `n²/2` plus a term of order `n^{3/2}`, and the constant
+in that term is what is open. -/
+def Thomson : Prop :=
+  ∃ C : ℝ, ∀ ε : ℝ, 0 < ε → ∃ N : ℕ, ∀ n : ℕ, N ≤ n →
+    ∀ E : ℝ, (∃ P : Fin n → EuclideanSpace ℝ (Fin 3),
+        (∀ i, ‖P i‖ = 1) ∧ E = thomsonEnergy P) →
+      (∀ P : Fin n → EuclideanSpace ℝ (Fin 3), (∀ i, ‖P i‖ = 1) →
+        E ≤ thomsonEnergy P) →
+      |(E - (n : ℝ) ^ 2 / 2) / (n : ℝ) ^ (3 / 2 : ℝ) - C| < ε
+
+/-- The thickness of a knot: the largest radius whose tube around the curve does
+not self-intersect, written as the infimum of half-distances between points far
+apart along the curve. -/
+noncomputable def knotThickness (k : ℝ → EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  sInf {r | ∃ s t : ℝ, s ∈ Set.Ico (0:ℝ) 1 ∧ t ∈ Set.Ico (0:ℝ) 1 ∧
+    (1/4 : ℝ) ≤ |s - t| ∧ r = Dist.dist (k s) (k t) / 2}
+
+/-! ## Drawings, crossings, and planarity
+
+Planarity is what the source keeps naming and never has. A drawing is a placement
+of the vertices in the plane with straight edges; a crossing is a pair of
+non-incident edges whose segments meet; planar means some drawing has none. All
+three are finite conditions once written, and the crossing-number conjectures
+follow directly.
+-/
+
+/-- Do the open segments `ab` and `cd` meet? Written through convex combinations
+rather than through an intersection predicate. -/
+def SegmentsCross (a b c d : EuclideanSpace ℝ (Fin 2)) : Prop :=
+  ∃ s t : ℝ, 0 < s ∧ s < 1 ∧ 0 < t ∧ t < 1 ∧
+    a + s • (b - a) = c + t • (d - c)
+
+/-- A straight-line drawing of a graph: an injective placement of the vertices. -/
+def IsDrawing {V : Type} [Fintype V] (pos : V → EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Function.Injective pos
+
+/-- The crossings of a drawing: pairs of independent edges whose segments meet. -/
+def DrawingCrosses {V : Type} [Fintype V] (G : SimpleGraph V)
+    (pos : V → EuclideanSpace ℝ (Fin 2)) (u v x y : V) : Prop :=
+  G.Adj u v ∧ G.Adj x y ∧ u ≠ x ∧ u ≠ y ∧ v ≠ x ∧ v ≠ y ∧
+    SegmentsCross (pos u) (pos v) (pos x) (pos y)
+
+/-- **Planarity**, as a drawing with no crossing. -/
+def IsPlanar {V : Type} [Fintype V] (G : SimpleGraph V) : Prop :=
+  ∃ pos : V → EuclideanSpace ℝ (Fin 2), IsDrawing pos ∧
+    ∀ u v x y : V, ¬ DrawingCrosses G pos u v x y
+
+/-- **Harborth.** Every planar graph has a straight-line drawing in which every
+edge has integer length. -/
+def Harborth : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V), IsPlanar G →
+    ∃ pos : V → EuclideanSpace ℝ (Fin 2), IsDrawing pos ∧
+      (∀ u v x y : V, ¬ DrawingCrosses G pos u v x y) ∧
+      ∀ u v : V, G.Adj u v → ∃ n : ℕ, Dist.dist (pos u) (pos v) = (n : ℝ)
+
+/-- **Barnette**, now that planarity exists: every three-connected cubic
+bipartite planar graph has a Hamiltonian cycle. Three-connectivity is written as
+survival of any two deletions. -/
+def Barnette : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj],
+    IsPlanar G → G.Colorable 2 → (∀ v : V, G.degree v = 3) →
+    (∀ a b : V, (G.induce {u | u ≠ a ∧ u ≠ b}).Connected) →
+    HasHamiltonianCycle G
+
 #print axioms Unsolved.ig_assembly_reconstitutes
 
 end Unsolved

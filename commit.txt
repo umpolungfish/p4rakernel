@@ -1,19 +1,17 @@
-UNSOLVED: discrete geometry and Diophantine equations
+UNSOLVED: Euclidean geometry, and planarity built
 
-Cap sets over F_3^n with the collinearity written as a zero sum, convex position
-through the convex hull, twice the triangle area as a determinant so Heilbronn
-gets its two-sided bound, and Hadwiger's covering by homothets. Each quantity the
-source named — maxCapSetSize, IsConvexPosition, maxMinTriangleArea — is built
-here rather than assumed.
+Falconer through a distance set, Danzer sets as meeting every unit-volume convex
+body, Thomson's energy as the Coulomb sum with its asymptotic constant, and knot
+thickness for ropelength. The source's dead-fly entry asked for bounded
+separation, which a lattice has and which is not the obstruction; it asks for
+bounded density now.
 
-The source's cap set bound wrote (3/C)^n with C existentially quantified after
-the inequality, which any C near zero satisfies. It says c^n with c < 3 now.
+Planarity is the one the source kept naming and never had. A drawing places
+vertices in the plane with straight edges, a crossing is two independent edges
+whose open segments meet, and planar means some drawing has none. Harborth then
+says what it should — a crossing-free integer-length drawing — and Barnette,
+which I had skipped for want of planarity, is stated: three-connected cubic
+bipartite planar graphs have a Hamiltonian cycle, with three-connectivity as
+survival of any two deletions.
 
-Its Erdos-Straus entry reads 4/n = 1/x + 1/y + 1/z over natural division, where
-the left side is 0 for n > 4 and the right side is 0 for x,y,z > 1 — the
-statement holds for reasons unrelated to the conjecture. Not restated here:
-Erdos.StrausGreedy.IsThreeUnit carries it over the rationals with the ladder
-around it, and a second copy is drift.
-
-Factoring in polynomial time now says polynomial in the BITS of n. Polynomial in
-n itself is trial division.
+Sixty-six statements. Build green at 8593 jobs.
