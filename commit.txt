@@ -1,6 +1,6 @@
-Erdos-Straus: the budget gap thins with n
+Erdos-Straus: the ceiling holds to four million
 
-5.0% of walked rungs below 50000, 2.5% to 200000, 1.5% to 400000. More primes in
-M means a larger reachable set, so the subgroup criterion and the real one
-converge as n grows — which says the exponent budget is not what a bound will
-have to fight.
+The block from 2*10^6 to 4*10^6 tops out at rung 55, below the record 71 at
+1430641, so the least closing rung never exceeds 71 over everything read. The
+ratio to n^(1/4) runs 1.4 to 2.1 past a million and peaks at 4.6 at n = 1201, so
+the shape holds and the constant is set by the small values.
