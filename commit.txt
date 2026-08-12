@@ -1,18 +1,21 @@
-UNSOLVED: set theory, and a knot built from scratch
+Novikov and Baum-Connes against the machinery the Grammar already carries
 
-Mathlib carries cardinals, cofinality and strong limits, so GCH and SCH needed
-only statements that say the problem. The source's GCH omitted the strictly-
-between clause that is the whole content.
+I wrote that these two want characteristic classes and an assembly map that no
+local definition supplies. That implied a lack the Grammar does not have.
 
-Knots needed building. A knot is a continuous injective periodic map into
-three-space; ambient isotopy is a continuous family of homeomorphisms starting at
-the identity; the round circle is written out; unknotted means isotopic to it.
-The unknotting problem is then stated in the form that is open — decidable in
-polynomial time — over a finite combinatorial diagram, since polynomial time
-needs an input size and a continuous knot has none.
+FrobeniusAlg in IGFunctor.lean IS an assembly: comul localises, mul assembles,
+and frob says the assembly reconstitutes what the splitting produced — which is
+what an assembly map being an isomorphism asserts. The characteristic class is
+the winding: an integer invariant of a closed object, carried on the twelfth axis
+and read by the winding lattice.
 
-Baum-Connes and Novikov want characteristic classes and an assembly map that no
-amount of local definition supplies honestly; they are named in the docstring as
-waiting on that machinery rather than stated against constants that do not exist.
+So AssemblyReconstitutes and AssemblyIsIso are stated over an arbitrary Frobenius
+algebra, and ig_assembly_reconstitutes PROVES the Grammar's own case on propext
+alone — igFrobeniusAlg.frob, discharged by mu_delta_A_id. What stays open
+elsewhere is the same statement where the splitting is not diagonal.
 
-Forty-four statements, build green at 8593 jobs.
+Novikov is WindingInvariantUnderClosure: an integer invariant unchanged by every
+transformation preserving the closure. That is the homotopy invariance of a
+higher signature, said in the register that has the objects.
+
+Build green at 8593 jobs.
