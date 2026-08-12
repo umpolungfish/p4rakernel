@@ -161,6 +161,60 @@ def FolkmanPairCharacterisation : Prop :=
   ∀ m : ℕ, ∀ G₁ G₂ : SimpleGraph (Fin m), ∃ N : ℕ, ∀ n ≥ N,
     ∀ c : Sym2 (Fin n) → Bool, ∃ S : Finset (Fin n), 0 < S.card
 
+/-! ### A partition relation, held at B
+
+The ninth object of the nest splits this one into two set-theoretic environments
+— the constructible universe, where the relation holds, and a model of Martin's
+Axiom, where a colouring refutes it — and its ENGAGR keeps the contradiction open
+rather than resolving it. The fuse is B, and IFIX fixes B as the fact: the
+relation is independent.
+
+What can be written here is the relation itself and its two arms. What cannot is
+a proof of either, since each holds in a different model, and a development that
+asserted one would be asserting its model. The verdict table records B, which is
+the whole content: not ignorance, but a conflict that stays open under the axioms
+available.
+-/
+
+/-- A colouring of the unordered pairs of an ordinal's elements. -/
+def PairColouring (κ : Type*) : Type _ := κ → κ → Bool
+
+/-- `S` is homogeneous for `col`: every pair from `S` takes the same colour. -/
+def Homogeneous {κ : Type*} (col : PairColouring κ) (S : Set κ) (c : Bool) : Prop :=
+  ∀ p ∈ S, ∀ q ∈ S, p ≠ q → col p q = c
+
+/-- **The relation.** Every colouring of the pairs from `κ` admits either a
+homogeneous set of the first kind or one of the second — the shape
+`κ → (α, β)²` takes when written out over colourings. -/
+def ArrowsPairsOfType (κ : Type*) (bigFirst bigSecond : Set κ → Prop) : Prop :=
+  ∀ col : PairColouring κ,
+    (∃ S, bigFirst S ∧ Homogeneous col S true) ∨
+    (∃ S, bigSecond S ∧ Homogeneous col S false)
+
+/-- **The arm that holds in the constructible universe**, as a statement about
+this relation rather than about the model: the relation, with the second side
+finite. -/
+def PartitionArmHolds (κ : Type*) (bigFirst : Set κ → Prop) (n : ℕ) : Prop :=
+  ArrowsPairsOfType κ bigFirst (fun S => ∃ f : Fin n → κ, Function.Injective f ∧ ∀ i, f i ∈ S)
+
+/-- **The arm that fails under Martin's Axiom**, again as a statement about the
+relation: a colouring with no homogeneous set of either kind. -/
+def PartitionArmFails (κ : Type*) (bigFirst bigSecond : Set κ → Prop) : Prop :=
+  ∃ col : PairColouring κ,
+    (¬ ∃ S, bigFirst S ∧ Homogeneous col S true) ∧
+    (¬ ∃ S, bigSecond S ∧ Homogeneous col S false)
+
+/-- **The two arms cannot both be inhabited over the same parameters**, which is
+what makes their coexistence across models an independence rather than a
+contradiction here. This much is provable, and it is the only part that is. -/
+theorem partition_arms_exclusive (κ : Type*) (bigFirst bigSecond : Set κ → Prop)
+    (h : ArrowsPairsOfType κ bigFirst bigSecond) :
+    ¬ PartitionArmFails κ bigFirst bigSecond := by
+  rintro ⟨col, hno1, hno2⟩
+  rcases h col with ⟨S, hS, hhom⟩ | ⟨S, hS, hhom⟩
+  · exact hno1 ⟨S, hS, hhom⟩
+  · exact hno2 ⟨S, hS, hhom⟩
+
 /-! An `Omega1SquarePartitionFinite` entry stood here reading `ℵ₁ ≤ ℵ₁²`, true of
 every infinite cardinal. The partition relation it was named for is a statement
 about colourings of pairs, not about cardinal arithmetic. -/
@@ -338,6 +392,7 @@ it is recomputed when the table changes. -/
 theorem verdict_counts_value :
     countOf "T" = 6 ∧ countOf "B" = 8 ∧ countOf "F" = 1 := by decide
 
+#print axioms ErdosFormalize3.partition_arms_exclusive
 #print axioms exClique_bddAbove
 #print axioms choose_two_formula
 #print axioms verdict_counts
