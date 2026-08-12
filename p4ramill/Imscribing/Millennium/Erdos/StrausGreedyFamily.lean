@@ -719,11 +719,11 @@ multiplicative group. The divisors of `M²` reduce mod `r` to the reachable set
 
 and the rung closes exactly when `−M ∈ R`. Since `M` is itself in `R`, and `R`
 sits inside the subgroup `H = ⟨p₁, …, p_k⟩` of `(ZMod r)ˣ`, the criterion is
-`−1 ∈ H` up to the exponents actually available. Read over the 162 frontier
-values below 20000, `−1 ∈ H` predicts closure on 248 of 251 rungs; all three
-exceptions — `n = 1201` at rung 11, `n = 2521` at rungs 11 and 19 — are values
-where `−1` lies in the subgroup but needs a higher power of a prime than `M²`
-supplies. The exponent budget, not the group, is what fails there.
+`−1 ∈ H` up to the exponents actually available. Read below 50000, the budget gap appears at 19 of the 379 rungs walked, and it is
+concentrated: `n = 2521` fails this way at r = 11, 19, 43, 47, 59, 63, 67, 75, 95
+and on, while the only other case is `n = 1201` at r = 11. Every other failing
+rung fails because the subgroup itself lacks `−1`. So the exponent budget is a
+rare mode globally and the total mode for one value.
 
 The half of this that needs no exponent bookkeeping is below: a divisor of `M`
 congruent to `−1` produces the closing divisor directly, as `u = M·t`.
