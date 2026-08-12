@@ -74,10 +74,15 @@ lemma all_seven_even_of_g_even (p : Cuboid) (hg : Even p.g) :
    branch, and it is the ⊥ 𐑖→𐑫 promotion the Grammar located.
    ==================================================================== -/
 
-axiom case_mixed_parity_impossible (p : Cuboid)
-    (hg_odd : ¬ Even p.g)
-    (hshare : Nat.gcd p.a p.b ≠ 1 ∨ Nat.gcd p.a p.c ≠ 1 ∨ Nat.gcd p.b p.c ≠ 1) :
-    False
+/-- The mixed-parity case, as a PROP rather than an axiom. Its own account above
+says the sub-analysis remains open and that it carries the content of the
+conjecture on this branch — so an axiom here asserts the open case, and every
+theorem downstream inherits that silently through the axiom set. As a hypothesis
+it inherits it in the TYPE instead, which is the discipline the rest of this
+corpus uses for an open statement. -/
+def MixedParityImpossible : Prop :=
+  ∀ p : Cuboid, ¬ Even p.g →
+    (Nat.gcd p.a p.b ≠ 1 ∨ Nat.gcd p.a p.c ≠ 1 ∨ Nat.gcd p.b p.c ≠ 1) → False
 
 /- ====================================================================
    descent_operator_exists, now a THEOREM.
@@ -88,7 +93,8 @@ axiom case_mixed_parity_impossible (p : Cuboid)
    branches a smaller cuboid exists vacuously.
    ==================================================================== -/
 
-theorem descent_or_impossible (p : Cuboid) : ∃ q : Cuboid, q.g < p.g := by
+theorem descent_or_impossible (hmixed : MixedParityImpossible) (p : Cuboid) :
+    ∃ q : Cuboid, q.g < p.g := by
   by_cases hcop : Nat.gcd p.a p.b = 1 ∧ Nat.gcd p.a p.c = 1 ∧ Nat.gcd p.b p.c = 1
   · exact (case_all_gcd_one_impossible p hcop.1 hcop.2.1 hcop.2.2).elim
   · by_cases hge : Even p.g
@@ -98,14 +104,15 @@ theorem descent_or_impossible (p : Cuboid) : ∃ q : Cuboid, q.g < p.g := by
         by_contra h
         push_neg at h
         exact hcop ⟨h.1, h.2.1, h.2.2⟩
-      exact (case_mixed_parity_impossible p hge hshare).elim
+      exact (hmixed p hge hshare).elim
 
 /- ====================================================================
    The perfect cuboid cannot exist — proved from descent_or_impossible by
    well-ordering, resting on the single residual axiom above.
    ==================================================================== -/
 
-theorem no_perfect_cuboid : ¬ ∃ (_ : Cuboid), True := by
+theorem no_perfect_cuboid (hmixed : MixedParityImpossible) :
+    ¬ ∃ (_ : Cuboid), True := by
   intro h
   obtain ⟨p, _⟩ := h
   have chain : ∀ n : Nat, ∃ q : Cuboid, q.g + n ≤ p.g := by
@@ -114,7 +121,7 @@ theorem no_perfect_cuboid : ¬ ∃ (_ : Cuboid), True := by
     | zero => exact ⟨p, by omega⟩
     | succ k ih =>
       obtain ⟨q, hq⟩ := ih
-      obtain ⟨q', hq'⟩ := descent_or_impossible q
+      obtain ⟨q', hq'⟩ := descent_or_impossible hmixed q
       exact ⟨q', by omega⟩
   obtain ⟨q, hq⟩ := chain (p.g + 1)
   omega
