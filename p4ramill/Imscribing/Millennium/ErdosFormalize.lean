@@ -26,17 +26,21 @@ namespace ErdosFormalize
 
 /-! ## §1 Ramsey theory and asymptotics -/
 
-/-- **[B]** The odd-cycle to triangle Ramsey ratio vanishes. Proved in
-`Millennium/Erdos/RamseyAsymptotics.lean` from the exponential Bondy–Erdős
-bound against Schur; the Stirling route stated here originally does not close
-it, since `(k!)^{1/n}` outgrows every exponential. -/
-def RamseyOddCycleTriangleLimit : Prop :=
-  ∀ n : ℕ, 2 ≤ n → ∃ c : ℝ, 0 < c ∧ c < 1
+/-! The odd-cycle to triangle Ramsey ratio is PROVED in
+`Millennium/Erdos/RamseyAsymptotics.lean`, and its statement carrying the ratio
+lives in `ProofModules/RamseyLimit.lean`. The version that stood here said only
+`∃ c : ℝ, 0 < c ∧ c < 1`, which is true of `c = 1/2` and mentions neither Ramsey
+numbers nor cycles — a second, weaker copy of a settled problem. It is gone
+rather than restated: one of each thing. -/
 
-/-- **[T]** Erdős: the maximum modulus of a monic product over unit-circle
-roots is unbounded along the sequence. -/
+/-- **[T]** Erdős: the maximum modulus of a monic product over unit-circle roots
+is unbounded in the degree. The statement quantifies over the ROOTS and asks for
+a point of the circle where the product is large; the version that stood here
+asked only for a natural number above `M`, which is Archimedes and says nothing
+about the product. -/
 def ErdosUnbounded : Prop :=
-  ∀ z : ℕ → ℂ, (∀ i, ‖z i‖ = 1) → ∀ M : ℝ, ∃ n : ℕ, M ≤ (n : ℝ)
+  ∀ M : ℝ, ∃ N : ℕ, ∀ n ≥ N, ∀ z : Fin n → ℂ, (∀ i, ‖z i‖ = 1) →
+    ∃ w : ℂ, ‖w‖ = 1 ∧ M ≤ ‖∏ i, (w - z i)‖
 
 /-- On the unit circle the `n`-th roots of unity give a maximum of exactly `2`,
 which is why the question is about a single sequence rather than a single `n`. -/
@@ -45,30 +49,41 @@ theorem abs_pow_sub_one_le_two {z : ℂ} (hz : ‖z‖ = 1) (n : ℕ) : ‖z ^ n
   calc ‖z ^ n - 1‖ ≤ ‖z ^ n‖ + ‖(1 : ℂ)‖ := norm_sub_le _ _
     _ = 2 := by rw [h1]; norm_num
 
-/-- **[T]** Wagner's power growth. -/
-def WagnerPowerGrowth : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * Real.log n ≤ (n : ℝ)
+/-! Two entries stood here, `WagnerPowerGrowth` and `CumulativeGrowth`, each
+asserting an inequality between `n`, `log n` and `n²` that holds for any positive
+constant and names no object of either problem. Neither docstring identified the
+quantity growing, so there is nothing to restate faithfully; they are removed
+rather than left standing as formalisations of problems they do not mention. -/
 
-/-- **[T]** Cumulative growth of the partial sums. -/
-def CumulativeGrowth : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, c * (n : ℝ) ≤ (n : ℝ) ^ 2
+/-- `N` arrows `n`: every two-colouring of the edges of `K_N` has a monochromatic
+`K_n`. Written through `CliqueFree` on a graph and its complement, which is what
+a two-colouring of the complete graph is. -/
+def Arrows (N n : ℕ) : Prop :=
+  ∀ G : SimpleGraph (Fin N), ¬ (G.CliqueFree n ∧ Gᶜ.CliqueFree n)
 
-/-- **[N]** The diagonal Ramsey exponential lower bound. -/
+/-- **[N]** The diagonal Ramsey exponential lower bound: below `c^n` vertices the
+arrow fails, for some `c > 1`. The version that stood here said `c^n ≤ 2^n` for
+some `c > 1`, which `c = 2` satisfies and which mentions no graph. -/
 def RamseyExponentialLower : Prop :=
-  ∃ c : ℝ, 1 < c ∧ ∀ᶠ n : ℕ in atTop, c ^ n ≤ (2 : ℝ) ^ n
+  ∃ c : ℝ, 1 < c ∧ ∀ᶠ n : ℕ in atTop, ∀ N : ℕ, (N : ℝ) ≤ c ^ n → ¬ Arrows N n
 
-/-- **[N]** and the Campos–Griffiths–Morris–Sahasrabudhe upper bound. -/
+/-- **[N]** and the Campos–Griffiths–Morris–Sahasrabudhe upper bound: above `c^n`
+vertices the arrow holds, for some `c < 4`. -/
 def RamseyCamposUpper : Prop :=
-  ∃ c : ℝ, c < 4 ∧ ∀ᶠ n : ℕ in atTop, (1 : ℝ) ≤ c ^ n
+  ∃ c : ℝ, 0 < c ∧ c < 4 ∧ ∀ᶠ n : ℕ in atTop, ∀ N : ℕ, c ^ n ≤ (N : ℝ) → Arrows N n
 
-/-- **[T]** Frankl–Wilson, constructive by the linear algebra method. -/
+/-- **[T]** Frankl–Wilson: a lower bound for the diagonal Ramsey number of
+superpolynomial shape, `k^{c log k / log log k}` vertices still failing to arrow.
+The version that stood here compared `c·k` with `k²`. -/
 def FranklWilsonLower : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ k : ℕ, 3 ≤ k → c * (k : ℝ) ≤ (k : ℝ) ^ 2
+  ∃ c : ℝ, 0 < c ∧ ∀ᶠ k : ℕ in atTop, ∀ N : ℕ,
+    (N : ℝ) ≤ (k : ℝ) ^ (c * Real.log k / Real.log (Real.log k)) → ¬ Arrows N k
 
-/-- **[B]** Erdős–Rado partition relation below the continuum — consistently
-true under CH, consistently false. -/
-def ErdosRadoPartition : Prop :=
-  ∀ β : Cardinal.{0}, β < Cardinal.continuum → ∀ n : ℕ, β ≤ Cardinal.continuum
+/-! An `ErdosRadoPartition` entry stood here reading
+`β < continuum → β ≤ continuum`, which is transitivity of `<` into `≤` and holds
+of every cardinal. The partition relation it was named for is independent of ZFC,
+so its content is a consistency statement rather than a Prop with a truth value
+here, and a placeholder that proves itself is worse than its absence. -/
 
 /-! ## §2 Additive combinatorics and Sidon sets -/
 
@@ -76,36 +91,60 @@ def ErdosRadoPartition : Prop :=
 noncomputable def repr_func (A : Set ℕ) (n : ℕ) : ℕ :=
   ((Finset.antidiagonal n).filter (fun p : ℕ × ℕ => p.1 ∈ A ∧ p.2 ∈ A)).card
 
+/-- How many elements of `A` lie below `N`. -/
+noncomputable def countUpTo (A : Set ℕ) (N : ℕ) : ℕ :=
+  ((Finset.range N).filter (fun n => n ∈ A)).card
+
+/-- The upper density of `A`, as the limsup of its counting ratio. -/
+noncomputable def upperDensity (A : Set ℕ) : ℝ :=
+  limsup (fun N : ℕ => (countUpTo A N : ℝ) / (N : ℝ)) atTop
+
+/-- The difference set: the positive `d` realised as a gap inside `A`. Written
+`a + d = b`, since on `ℕ` the subtraction `b − a` truncates and carries no
+ordering. -/
+def DifferenceSet (A : Set ℕ) : Set ℕ :=
+  {d : ℕ | 0 < d ∧ ∃ a b : ℕ, a ∈ A ∧ b ∈ A ∧ a + d = b}
+
 /-- **[T]** Positive density gives a syndetic difference set, via Furstenberg
-correspondence. The difference is written `a + d = b`: on `ℕ`, `b − a = d`
-truncates and carries no ordering. -/
+correspondence: the gaps of `DifferenceSet A` are bounded by a single `g`. Both
+halves of the old statement were empty — its hypothesis was `∃ ε > 0, True`,
+which every `A` satisfies, and its conclusion allowed `d` anywhere below `n + g`
+rather than in the window above `n`. -/
 def SyndeticOfPositiveDensity : Prop :=
-  ∀ A : Set ℕ, (∃ ε > (0:ℝ), True) →
-    ∃ g : ℕ, ∀ n : ℕ, ∃ d ≤ n + g, 0 < d ∧ ∃ a b : ℕ, a ∈ A ∧ b ∈ A ∧ a + d = b
+  ∀ A : Set ℕ, 0 < upperDensity A →
+    ∃ g : ℕ, 0 < g ∧ ∀ n : ℕ, ∃ d, n ≤ d ∧ d ≤ n + g ∧ d ∈ DifferenceSet A
 
-/-- **[B]** Erdős–Fuchs: the limsup of the averaged representation count. The
-theorem is about the ERROR TERM in the partial sums, not about the average —
-see `ProofModules/ErdosFuchs.lean`, where the average is proved bounded for a
-basis of square-root density. -/
-def ErdosFuchsLimsup : Prop :=
-  ∀ A : Set ℕ, (Set.univ \ {n : ℕ | ∃ a ∈ A, ∃ b ∈ A, a + b = n}).Finite →
-    ∀ c : ℝ, 0 < c → ∃ N : ℕ, 0 < N
+/-! An `ErdosFuchsLimsup` entry stood here whose conclusion was `∃ N, 0 < N`.
+Erdős–Fuchs is about the error term in the partial sums of the representation
+count, and that statement, with the average proved bounded for a basis of
+square-root density, lives in `ProofModules/ErdosFuchs.lean`. -/
 
-/-- **[T]** A Sidon set has liminf-zero representation density. -/
+/-- **[T]** A Sidon set misses infinitely many values: its representation
+function is zero infinitely often. The old statement asked for
+`repr_func A n < ε·n + 2` under the hypothesis `repr_func A n ≤ 2`, which the
+hypothesis alone gives for every `n`. -/
 def SidonLiminfZero : Prop :=
-  ∀ A : Set ℕ, (∀ n, repr_func A n ≤ 2) →
-    ∀ ε > (0:ℝ), ∃ n : ℕ, (repr_func A n : ℝ) < ε * (n : ℝ) + 2
+  ∀ A : Set ℕ, (∀ n, repr_func A n ≤ 2) → ∃ᶠ n : ℕ in atTop, repr_func A n = 0
 
-/-- **[B]** `B₃` density upper bound. -/
-def B3DensityUpper : Prop := ∃ C : ℝ, 0 < C ∧ ∀ N : ℕ, (0:ℝ) ≤ C * Real.sqrt N
+/-- A `B₃` set: no value has more than six ordered triples summing to it, which
+is the bound the six orderings of a single unordered triple force. -/
+def IsB3 (A : Finset ℕ) : Prop :=
+  ∀ n : ℕ, ((A ×ˢ A ×ˢ A).filter (fun t : ℕ × ℕ × ℕ => t.1 + t.2.1 + t.2.2 = n)).card ≤ 6
 
-/-- **[B]** The Sidon density threshold. -/
-def SidonDensityThreshold : Prop :=
-  ∀ g : ℕ → ℝ, Tendsto g atTop atTop → ∃ N : ℕ, 0 < N
+/-- **[B]** The `B₃` density upper bound: such a set inside `[0, N)` has at most
+`C · N^{1/3}` elements. The old statement said `0 ≤ C·√N`, true of every `C > 0`
+and mentioning no set. -/
+def B3DensityUpper : Prop :=
+  ∃ C : ℝ, 0 < C ∧ ∀ N : ℕ, ∀ A : Finset ℕ, A ⊆ Finset.range N → IsB3 A →
+    (A.card : ℝ) ≤ C * (N : ℝ) ^ ((1 : ℝ) / 3)
 
-/-- **[T]** A set whose complement is covered by primes has density zero. -/
-def PrimeComplementDensityZero : Prop :=
-  ∀ A : Set ℕ, (∀ n : ℕ, ∃ p : ℕ, p.Prime ∧ (n ∈ A ∨ p ∣ n)) → True
+/-! A `SidonDensityThreshold` entry stood here concluding `∃ N, 0 < N` from an
+arbitrary divergent `g`. Its docstring named no threshold and no set, so there is
+nothing to restate; it is removed. -/
+
+/-! A `PrimeComplementDensityZero` entry stood here whose conclusion was `True`.
+A conclusion of `True` is the shape that makes a statement unfalsifiable, and the
+hypothesis it carried holds of every set, since `2 ∣ n` or `n ∈ A` covers `n`. -/
 
 /-- **[T]** Squares have density zero. -/
 theorem squares_density_zero (N : ℕ) :
@@ -127,10 +166,13 @@ theorem squares_density_zero (N : ℕ) :
     _ ≤ (Finset.range (Nat.sqrt N + 1)).card := Finset.card_image_le
     _ = Nat.sqrt N + 1 := Finset.card_range _
 
-/-- **[T]** Difference sets of positive density contain arithmetic
-progressions, from Szemerédi. -/
+/-- **[T]** Difference sets of positive density contain arbitrarily long
+arithmetic progressions, from Szemerédi. The old statement's hypothesis was
+`∃ ε > 0, True` and its conclusion `k ≤ k + d`, so it held of every set and every
+`k` with `d = 1`. -/
 def DifferenceSetContainsAPs : Prop :=
-  ∀ A : Set ℕ, (∃ ε > (0:ℝ), True) → ∀ k : ℕ, ∃ d : ℕ, 0 < d ∧ k ≤ k + d
+  ∀ A : Set ℕ, 0 < upperDensity A → ∀ k : ℕ,
+    ∃ d : ℕ, 0 < d ∧ ∀ i : ℕ, i < k → (i + 1) * d ∈ DifferenceSet A
 
 /-! ## §3 Primes -/
 
@@ -152,17 +194,36 @@ theorem infinitely_many_primes : InfinitePrimesWithDiff := by
   obtain ⟨p, hp, hpp⟩ := Nat.exists_infinite_primes N
   exact ⟨p, hp, hpp⟩
 
-/-- **[T]** Practical numbers have a density (Weingartner 2015). -/
-def PracticalDensityExists : Prop := ∃ c : ℝ, 0 < c
+/-- A practical number: every smaller positive integer is a sum of distinct
+divisors of it. -/
+def IsPractical (n : ℕ) : Prop :=
+  0 < n ∧ ∀ m : ℕ, 0 < m → m ≤ n →
+    ∃ S : Finset ℕ, (∀ d ∈ S, d ∣ n) ∧ S.sum id = m
+
+/-- **[T]** Practical numbers have a positive density (Weingartner 2015): the
+counting ratio converges to a positive constant. The old statement said
+`∃ c : ℝ, 0 < c`. -/
+def PracticalDensityExists : Prop :=
+  ∃ c : ℝ, 0 < c ∧
+    Tendsto (fun N : ℕ =>
+      (((Finset.range N).filter (fun n => IsPractical n)).card : ℝ) / (N : ℝ))
+      atTop (nhds c)
 
 /-- **[B]** Every `N ≥ 2` is squarefree plus a power of two — Erdős conjectured
 it and it is open. -/
 def SquarefreePlusPowerOfTwo : Prop :=
   ∀ N : ℕ, 2 ≤ N → ∃ s k : ℕ, Squarefree s ∧ N = s + 2 ^ k
 
-/-- **[T]** Smooth numbers have logarithmic density zero, by Dickman–de
-Bruijn. -/
-def SmoothSieveDensity : Prop := ∀ u : ℝ, 1 < u → ∃ c : ℝ, 0 < c
+/-- **[T]** Dickman–de Bruijn: the `y`-smooth numbers below `x = y^u` have
+density `ρ(u)`, which tends to zero as `u` grows. Stated here as the vanishing of
+the smooth density in the limit, the part that needs no special function: for
+every `ε` there is a `u` beyond which the `x^{1/u}`-smooth numbers below `x` are
+fewer than `ε·x`. The old statement said `∃ c : ℝ, 0 < c` for each `u`. -/
+def SmoothSieveDensity : Prop :=
+  ∀ ε : ℝ, 0 < ε → ∃ u : ℝ, 1 < u ∧ ∀ᶠ x : ℕ in atTop,
+    ((((Finset.range x).filter
+        (fun n => ∀ p : ℕ, p ∈ n.primeFactors → (p : ℝ) ≤ (x : ℝ) ^ (1 / u))).card : ℝ))
+      ≤ ε * (x : ℝ)
 
 /-- **[T]** `∑ 1/n!` converges — and it converges to `e`, which Mathlib
 knows. -/
@@ -177,33 +238,55 @@ theorem prime_reciprocal_series_diverges :
 
 /-! ## §4 Discrete geometry -/
 
-/-- **[B]** Unit distances: `d = 2, 3` partially solved, `d ≥ 4` settled. The
-`d = 4` construction is proved in `Millennium/Erdos/UnitDistance.lean`. -/
+/-- The number of unit distances determined by a finite planar set. -/
+noncomputable def unitDistances (P : Finset (EuclideanSpace ℝ (Fin 2))) : ℕ :=
+  ((P ×ˢ P).filter
+    (fun q : EuclideanSpace ℝ (Fin 2) × EuclideanSpace ℝ (Fin 2) =>
+      Dist.dist q.1 q.2 = 1)).card
+
+/-- The number of distinct distances determined by a finite planar set. -/
+noncomputable def distinctDistancesOf (P : Finset (EuclideanSpace ℝ (Fin 2))) : ℕ :=
+  ((P ×ˢ P).image
+    (fun q : EuclideanSpace ℝ (Fin 2) × EuclideanSpace ℝ (Fin 2) =>
+      Dist.dist q.1 q.2)).card
+
+
+/-- **[B]** The planar unit-distance upper bound: `n` points determine
+`O(n^{4/3})` unit distances. The old statement compared `n` with `c·n^{4/3}` and
+named no point set. The `d = 4` construction, where the problem is settled, is
+proved in `Millennium/Erdos/UnitDistance.lean`. -/
 def UnitDistanceUpper2D : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, (n : ℝ) ≤ c * (n : ℝ) ^ ((4 : ℝ)/3)
+  ∃ c : ℝ, 0 < c ∧ ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
+    (unitDistances P : ℝ) ≤ c * (P.card : ℝ) ^ ((4 : ℝ) / 3)
 
-def UnitDistanceUpper4D : Prop :=
-  ∀ᶠ n : ℕ in atTop, (n : ℝ)^2 / 4 ≤ (n : ℝ)^2
-
-/-- **[T]** Guth–Katz: `Ω(n / log n)` distinct distances. -/
+/-- **[T]** Guth–Katz: `n` points determine `Ω(n / log n)` distinct distances.
+The old statement compared `c·n/log n` with `n`, which holds for small `c` and
+mentions no point set. -/
 def GuthKatzDistinctDistances : Prop :=
-  ∃ c : ℝ, 0 < c ∧ ∀ n : ℕ, 2 ≤ n → c * (n : ℝ) / Real.log n ≤ (n : ℝ)
+  ∃ c : ℝ, 0 < c ∧ ∀ P : Finset (EuclideanSpace ℝ (Fin 2)), 2 ≤ P.card →
+    c * (P.card : ℝ) / Real.log (P.card) ≤ (distinctDistancesOf P : ℝ)
 
-/-- **[T]** General position growth. -/
-def GeneralPositionGrowth : Prop := ∃ c : ℝ, 0 < c
+/-! A `GeneralPositionGrowth` entry stood here reading `∃ c : ℝ, 0 < c`. Its
+docstring named no quantity, so nothing can be restated from it. -/
 
-/-- **[T]** Füredi: convex position gives `O(n log n)` unit distances. -/
+/-- **[T]** Füredi: a convex polygon's vertices determine `O(n log n)` unit
+distances. The old statement bounded `n` by `C·n·log(n+1)`, true of `C = 1` and
+saying nothing about distances. -/
 def ConvexUnitDistancesBound : Prop :=
   ∃ C : ℝ, 0 < C ∧ ∀ s : Finset (EuclideanSpace ℝ (Fin 2)),
-    (s.card : ℝ) ≤ C * (s.card : ℝ) * Real.log (s.card + 1)
+    (unitDistances s : ℝ) ≤ C * (s.card : ℝ) * Real.log (s.card + 1)
 
-/-- **[T]** Hexagonal packing is asymptotically optimal. -/
-def HexagonalPackingOptimal : Prop := ∃ c : ℝ, 0 < c ∧ c < 1
+/-! A `HexagonalPackingOptimal` entry stood here reading `∃ c, 0 < c ∧ c < 1`,
+satisfied by `c = 1/2` and mentioning no packing. The optimal density is
+`π/√12`, a specific constant; stating optimality needs a definition of packing
+density that this file does not carry, so the entry is removed rather than
+faked. -/
 
-/-- **[T]** Hopf–Pannwitz: the diameter graph has at most `n` edges, and the
-bound is attained at odd `n` by the Reuleaux polygon — not `n − 1`. -/
-def HopfPannwitz : Prop :=
-  ∀ s : Finset (EuclideanSpace ℝ (Fin 2)), (s.card : ℕ) ≤ s.card
+/-! Hopf–Pannwitz stood here as `∀ s : Finset _, s.card ≤ s.card`, which is
+reflexivity. The faithful statement — the diameter graph of `n` non-collinear
+points has at most `n` edges, and the bound is attained at odd `n` by the
+Reuleaux polygon — lives in `ProofModules/HopfPannwitz.lean` together with the
+asymptotic form proved from it. -/
 
 /-! ## §5 Chromatic numbers and graphs -/
 
@@ -238,12 +321,21 @@ theorem chromatic_independence_ratio {n k : ℕ} (hk : 0 < k)
   rw [← Finset.sum_mul, hsum] at hlt
   omega
 
-/-- **[B]** Erdős–Hajnal for graphs. -/
+/-- **[B]** Erdős–Hajnal: for every graph `H` there is `c > 0` such that any
+`H`-free graph on `n` vertices has a clique or an independent set of size `n^c`.
+The old statement produced a positive real and forgot the conclusion. -/
 def ErdosHajnalStatement : Prop :=
-  ∀ m : ℕ, ∀ _H : SimpleGraph (Fin m), ∃ c : ℝ, 0 < c
+  ∀ m : ℕ, ∀ H : SimpleGraph (Fin m), ∃ c : ℝ, 0 < c ∧
+    ∀ n : ℕ, ∀ G : SimpleGraph (Fin n),
+      (∀ f : Fin m → Fin n, ¬ (∀ u v, H.Adj u v ↔ G.Adj (f u) (f v))) →
+      ∃ S : Finset (Fin n), (n : ℝ) ^ c ≤ (S.card : ℝ) ∧
+        ((∀ u ∈ S, ∀ v ∈ S, u ≠ v → G.Adj u v) ∨
+         (∀ u ∈ S, ∀ v ∈ S, ¬ G.Adj u v))
 
-/-- **[T]** PFA gives bipartite containment (Shelah). -/
-def PfaBipartiteContainment : Prop := ∃ c : Cardinal.{0}, 0 < c
+/-! A `PfaBipartiteContainment` entry stood here reading `∃ c : Cardinal, 0 < c`.
+Its subject is a consequence of the Proper Forcing Axiom, so its content is a
+consistency statement about set theory rather than a Prop with a truth value in
+this development. -/
 
 /-- **[F]** `f(C₄)` is not monotone: it oscillates. -/
 def FC4NonMonotonic (f : ℕ → ℕ) : Prop := ¬ ∃ N, ∀ n ≥ N, f n ≤ f (n + 1)
@@ -256,29 +348,28 @@ theorem parity_not_monotone : FC4NonMonotonic (fun n => n % 2) := by
   simp only at h1
   omega
 
-/-- **[T]** Rödl–Shelah: chromatic intersection constructions. -/
-def RodlShelahChromaticIntersection : Prop := ∀ k : ℕ, ∃ n : ℕ, k ≤ n
+/-! A `RodlShelahChromaticIntersection` entry stood here reading
+`∀ k, ∃ n, k ≤ n`, with a theorem proving it by `⟨k, le_rfl⟩`. Proving the
+Archimedean property under the name of a chromatic construction is what makes a
+catalogue of trivialities look like a corpus of results. Both are removed. -/
 
-theorem rodl_shelah_holds : RodlShelahChromaticIntersection := fun k => ⟨k, le_rfl⟩
+/-! ## §6 Verdict distribution, computed
 
-/-! ## §6 Verdict distribution, computed -/
+The table names the statements this file carries and nothing else. Entries whose
+statement was removed — because it asserted a triviality, or because its faithful
+form lives in a proof module — are gone from the table with them, so the count
+below is a count of what is here. -/
 
 def verdicts : List (String × String) :=
-  [("RamseyOddCycleTriangleLimit", "B"), ("ErdosUnbounded", "T"),
-   ("WagnerPowerGrowth", "T"), ("CumulativeGrowth", "T"),
-   ("RamseyExponentialLower", "N"), ("RamseyCamposUpper", "N"),
-   ("FranklWilsonLower", "T"), ("ErdosRadoPartition", "B"),
-   ("SyndeticOfPositiveDensity", "T"), ("ErdosFuchsLimsup", "B"),
-   ("SidonLiminfZero", "T"), ("B3DensityUpper", "B"),
-   ("SidonDensityThreshold", "B"), ("PrimeComplementDensityZero", "T"),
-   ("DifferenceSetContainsAPs", "T"), ("PrimeAlternatingSeriesConverges", "B"),
-   ("InfinitePrimesWithDiff", "T"), ("PracticalDensityExists", "T"),
-   ("SquarefreePlusPowerOfTwo", "B"), ("SmoothSieveDensity", "T"),
-   ("UnitDistanceUpper2D", "B"), ("UnitDistanceUpper4D", "B"),
-   ("GuthKatzDistinctDistances", "T"), ("GeneralPositionGrowth", "T"),
-   ("ConvexUnitDistancesBound", "T"), ("HexagonalPackingOptimal", "T"),
-   ("HopfPannwitz", "T"), ("ErdosHajnalStatement", "B"),
-   ("PfaBipartiteContainment", "T"), ("RodlShelahChromaticIntersection", "T")]
+  [("ErdosUnbounded", "T"), ("RamseyExponentialLower", "N"),
+   ("RamseyCamposUpper", "N"), ("FranklWilsonLower", "T"),
+   ("SyndeticOfPositiveDensity", "T"), ("SidonLiminfZero", "T"),
+   ("B3DensityUpper", "B"), ("DifferenceSetContainsAPs", "T"),
+   ("PrimeAlternatingSeriesConverges", "B"), ("InfinitePrimesWithDiff", "T"),
+   ("PracticalDensityExists", "T"), ("SquarefreePlusPowerOfTwo", "B"),
+   ("SmoothSieveDensity", "T"), ("UnitDistanceUpper2D", "B"),
+   ("GuthKatzDistinctDistances", "T"), ("ConvexUnitDistancesBound", "T"),
+   ("ErdosHajnalStatement", "B")]
 
 def countOf (v : String) : Nat := (verdicts.filter (fun p => p.2 == v)).length
 
