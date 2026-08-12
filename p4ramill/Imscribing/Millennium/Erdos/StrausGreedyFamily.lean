@@ -351,6 +351,77 @@ theorem straus_master (n r a M u v b c : ℕ)
       hb hc hb0 hc0
   linarith [hstep, hsplit]
 
+/-! ## Bounding the rung: two families that name their own rung
+
+The rung height is bounded whenever the rung can be READ OFF `n` rather than
+searched for, and two divisors do that.
+
+Take `u = M`. Then `v = M` too, and `u ≡ −M (mod r)` says `r ∣ 2M`, which for odd
+`r` is `r ∣ M`. Since `M = n·a` and `4a ≡ n (mod r)`, that is `r ∣ n²`. So ANY
+prime factor of `n` congruent to `3 (mod 4)` is a working rung, and the two later
+denominators coincide.
+
+Take `u = n²a` instead and the condition becomes `r ∣ n²(n+1)`, so any divisor of
+`n(n+1)` congruent to `3 (mod 4)` is a working rung — that is
+`straus_divisor_family` above.
+
+Together: the rung is bounded by the least prime factor `≡ 3 (mod 4)` of `n(n+1)`,
+whenever one exists. What survives both is the case where `n` and `n+1` have every
+odd prime factor `≡ 1 (mod 4)`.
+-/
+
+/-- **The prime-factor family.** A prime `p ∣ n` with `p ≡ 3 (mod 4)` is itself a
+rung, and the representation has a repeated denominator:
+`4/n = 1/a + 1/b + 1/b` with `4a = n + p` and `p·b = 2·n·a`. -/
+theorem straus_prime_family (n p a b : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hb0 : 0 < b) (hp0 : 0 < p)
+    (ha : 4 * a = n + p) (hb : p * b = 2 * (n * a)) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / b := by
+  have hnq : (n : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha0.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb0.ne'
+  have hpq : (p : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hp0.ne'
+  have haq' : (4 : ℚ) * a = (n : ℚ) + p := by exact_mod_cast ha
+  have hbq' : (p : ℚ) * b = 2 * ((n : ℚ) * a) := by exact_mod_cast hb
+  -- `1/b + 1/b = 2/b = p/(na)`, and `1/a + p/(na) = (n+p)/(na) = 4a/(na) = 4/n`.
+  field_simp
+  nlinarith [haq', hbq', sq_nonneg ((n : ℚ) * a)]
+
+/-- `n = 49`, `p = 7`: `4/49 = 1/14 + 1/196 + 1/196`. -/
+theorem straus_49_prime : (4 : ℚ) / 49 = 1 / 14 + 1 / 196 + 1 / 196 := by norm_num
+
+/-- **The rung bound.** If `n(n+1)` has any divisor `≡ 3 (mod 4)` — equivalently
+if `n` or `n+1` has a prime factor `≡ 3 (mod 4)` — then a rung no larger than that
+divisor closes `4/n`. The two families above are the two ways it can happen. -/
+def RungBoundedBy (n R : ℕ) : Prop :=
+  ∃ r ≤ R, r % 4 = 3 ∧ 3 ≤ r ∧ r ∣ n * (n + 1)
+
+/-- **The `u = n` family.** Taking the divisor to be `n` itself makes
+`v = n·a²`, so the third denominator is `a` times the second: `c = a·b`. The
+congruence becomes `r ∣ n(n+4)`, and the identity is
+
+    1/b + 1/c = (a+1)/(ab) = r/(na),   then   1/a + r/(na) = (n+r)/(na) = 4/n
+-/
+theorem straus_n_family (n r a b c : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hb0 : 0 < b) (hr0 : 0 < r)
+    (ha : 4 * a = n + r) (hb : r * b = n * (a + 1)) (hc : c = a * b) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have hnq : (n : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha0.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb0.ne'
+  have haq' : (4 : ℚ) * a = (n : ℚ) + r := by exact_mod_cast ha
+  have hbq' : (r : ℚ) * b = (n : ℚ) * ((a : ℚ) + 1) := by exact_mod_cast hb
+  have hcq : (c : ℚ) = (a : ℚ) * b := by exact_mod_cast hc
+  -- Push the cast so the goal speaks of `↑a * ↑b`, not `↑(a*b)`.
+  subst hc
+  push_cast
+  -- Cleared, the goal is `4ab = nb + na + n`, and that is `b·(4a) = b·(n+r)`
+  -- with `rb = n(a+1)` substituted — the two hypotheses, combined linearly.
+  field_simp
+  linear_combination (b : ℚ) * haq' + hbq'
+
+#print axioms Erdos.StrausGreedy.straus_n_family
+#print axioms Erdos.StrausGreedy.straus_prime_family
 #print axioms Erdos.StrausGreedy.straus_master
 #print axioms Erdos.StrausGreedy.v_condition_free
 #print axioms Erdos.StrausGreedy.straus_divisor_family
