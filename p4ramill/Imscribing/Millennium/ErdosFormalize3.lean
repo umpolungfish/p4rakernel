@@ -71,6 +71,52 @@ def K222FreeIndependentSet : Prop :=
       ∃ S : Finset (Fin n), C * (n : ℝ) ≤ (S.card : ℝ) ∧
         ∀ u ∈ S, ∀ v ∈ S, ¬ G.Adj u v
 
+/-! ### Cycles that must share an edge
+
+The fourth object of the nest forks the graph space on the definitional property
+itself: the graphs carrying a pair of edge-disjoint cycles, and those in which
+every two cycles share an edge. The second arm's edge count is the constructive
+witness, and the extremal function is the maximum over that arm — which needs a
+cycle predicate, the thing this file did not carry.
+
+A cycle here is a closed walk with no repeated vertex, given by its vertex list;
+its edge set is the set of consecutive pairs. Two cycles are edge-disjoint when
+those sets meet in nothing.
+-/
+
+/-- The consecutive pairs of a vertex list, closed up: the edges of the cycle it
+describes. -/
+def cycleEdges {n : ℕ} (vs : List (Fin n)) : List (Fin n × Fin n) :=
+  match vs with
+  | [] => []
+  | v :: rest => (vs.zip (rest ++ [v]))
+
+/-- A list of vertices is a cycle of `G`: at least three of them, no repeats, and
+every consecutive pair adjacent. -/
+def IsCycleList {n : ℕ} (G : SimpleGraph (Fin n)) (vs : List (Fin n)) : Prop :=
+  3 ≤ vs.length ∧ vs.Nodup ∧ ∀ e ∈ cycleEdges vs, G.Adj e.1 e.2
+
+/-- Two cycles share no edge, in either orientation. -/
+def EdgeDisjointCycles {n : ℕ} (G : SimpleGraph (Fin n)) (a b : List (Fin n)) : Prop :=
+  IsCycleList G a ∧ IsCycleList G b ∧
+    ∀ e ∈ cycleEdges a, ∀ f ∈ cycleEdges b, e ≠ f ∧ e ≠ (f.2, f.1)
+
+/-- The property the extremal function maximises over: every two cycles of `G`
+share an edge. -/
+def EveryTwoCyclesMeet {n : ℕ} (G : SimpleGraph (Fin n)) : Prop :=
+  ∀ a b : List (Fin n), ¬ EdgeDisjointCycles G a b
+
+/-- **The extremal count.** The largest edge count of a graph on `n` vertices in
+which every two cycles share an edge. The classical answer is `⌊3(n−1)/2⌋`, and
+the entry removed below bounded it by `3n` under a hypothesis true of every `n`,
+so this states the quantity rather than the bound. -/
+def MaxEdgesEveryTwoCyclesMeet (n : ℕ) : Prop :=
+  ∃ M : ℕ, (∀ (G : SimpleGraph (Fin n)) (_ : DecidableRel G.Adj),
+      EveryTwoCyclesMeet G → G.edgeFinset.card ≤ M) ∧
+    (∃ (G : SimpleGraph (Fin n)) (_ : DecidableRel G.Adj),
+      EveryTwoCyclesMeet G ∧ G.edgeFinset.card = M) ∧
+    M = 3 * (n - 1) / 2
+
 /-! A `NoTwoEdgeDisjointCycles` entry stood here whose hypothesis was
 `3(n−1)/2 ≥ 0`, true of every `n`, and whose conclusion bounded the edge count by
 `3n` rather than by `⌊3(n−1)/2⌋`. Stating it needs a cycle predicate this file
