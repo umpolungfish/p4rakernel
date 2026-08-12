@@ -354,6 +354,35 @@ def GirthExact (n k g : ℕ) : Prop := GirthRange n k g g
 /-! A `GkLimit` entry stood here asking for the limit of `n/n`, which is one and has
 nothing to do with girth. -/
 
+/-! ### The list-chromatic threshold
+
+The tenth object of the nest forks the graph class on the property and then
+reports **B**, for a reason worth keeping: its FFUSE says the fork stays open,
+because the arm of graphs that do NOT exceed the bound is discarded when the
+least order is named. A minimum taken over one arm is not a fusion of the split —
+what went into the fork does not come back out of it — so the object records the
+defect rather than hiding it behind a value.
+
+Written out, that is why the threshold needs both halves: a witness at the order,
+and the absence of one below it. The second half is the discarded arm, put back.
+-/
+
+/-- A colouring drawn from per-vertex lists. -/
+def ListColourable {n : ℕ} (G : SimpleGraph (Fin n)) (L : Fin n → Finset ℕ) : Prop :=
+  ∃ c : Fin n → ℕ, (∀ v, c v ∈ L v) ∧ ∀ u v, G.Adj u v → c u ≠ c v
+
+/-- The list chromatic number exceeds `b`: some assignment of `b`-element lists
+admits no proper colouring. -/
+def ListChromaticExceeds {n : ℕ} (G : SimpleGraph (Fin n)) (b : ℕ) : Prop :=
+  ∃ L : Fin n → Finset ℕ, (∀ v, (L v).card = b) ∧ ¬ ListColourable G L
+
+/-- **The threshold, with the discarded arm restored.** `n` is least for `b` when
+a bipartite graph of order `n` exceeds the bound and no smaller order carries
+one. The second conjunct is the arm the fuse dropped. -/
+def LeastOrderListChromatic (b n : ℕ) : Prop :=
+  (∃ G : SimpleGraph (Fin n), G.Colorable 2 ∧ ListChromaticExceeds G b) ∧
+  (∀ m : ℕ, m < n → ∀ G : SimpleGraph (Fin m), G.Colorable 2 → ¬ ListChromaticExceeds G b)
+
 /-! A `MinimalVerticesListChromatic` entry stood here concluding `∃ N, 0 < N`. -/
 
 /-! ## §6 Number theory -/
