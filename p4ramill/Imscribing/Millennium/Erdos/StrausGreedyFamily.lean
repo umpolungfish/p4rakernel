@@ -861,6 +861,31 @@ theorem closedAtRung_of_kshift (n k w r a : ℕ)
     (by omega) ha ?_ ⟨k, by rw [← hkr]; ring⟩
   rw [ht]; ring
 
+/-- **`k = 2`, as a residue condition on `2n+1`.** A divisor `w ≡ 5 (mod 8)` of
+`2n+1` closes `4/n` at the rung `(w+1)/2`. Nothing else is checked: `w` is odd so
+coprime to 8, and `w ≡ 5 (mod 8)` is exactly what makes `(w+1)/2 ≡ 3 (mod 4)`. -/
+theorem closedAtRung_of_two_shift (n w a : ℕ) (hn : 0 < n) (hw : 1 < w)
+    (ha0 : 0 < a) (hw8 : w % 8 = 5) (hdvd : w ∣ 2 * n + 1)
+    (ha : 4 * a = n + (w + 1) / 2) :
+    ClosedAtRung n ((w + 1) / 2) := by
+  have hr : 2 * ((w + 1) / 2) = w + 1 := by omega
+  refine closedAtRung_of_kshift n 2 w ((w + 1) / 2) a hn (by norm_num) hw
+    (by omega) ha0 hr hdvd ?_ ha
+  -- `w` is odd, so `gcd(w, 8) = 1`.
+  have hrec : Nat.gcd 8 w = Nat.gcd (w % 8) 8 := Nat.gcd_rec 8 w
+  unfold Nat.Coprime
+  rw [show 4 * 2 = 8 from rfl, Nat.gcd_comm, hrec, hw8]
+  decide
+
+/-- **The frontier carries one constraint per `k`.** A value that survives the
+`k`-shift family for every `k ≤ K` has, for each such `k`, no divisor of `k·n+1`
+in the residue class that would produce a rung — on top of the four
+multiplicative conditions already recorded. The frontier is therefore cut by a
+growing family of independent conditions rather than by a single obstruction. -/
+def SurvivesKShift (n K : ℕ) : Prop :=
+  ∀ k w, 0 < k → k ≤ K → 1 < w → w ∣ k * n + 1 → Nat.Coprime w (4 * k) →
+    ¬ (∃ r, k * r = w + 1 ∧ r % 4 = 3 ∧ 3 ≤ r)
+
 /-- **The greedy rung, as a condition on one prime.** If any prime factor of
 `M = n(n+3)/4` is `≡ 2 (mod 3)`, that prime is the cofactor and rung 3 closes. -/
 theorem closedAtRung_three_of_prime (n a p : ℕ) (hn : 0 < n) (ha0 : 0 < a)
@@ -1013,6 +1038,7 @@ theorem threeUnit_of_closedAtRungSq (n r : ℕ) (hn : 0 < n) (hr0 : 0 < r)
 #print axioms Erdos.StrausGreedy.rung_three_residue
 #print axioms Erdos.StrausGreedy.closedAtRung_of_shift
 #print axioms Erdos.StrausGreedy.closedAtRung_of_kshift
+#print axioms Erdos.StrausGreedy.closedAtRung_of_two_shift
 #print axioms Erdos.StrausGreedy.straus_196561
 #print axioms Erdos.StrausGreedy.closedAtRung_of_cofactor
 #print axioms Erdos.StrausGreedy.closedAtRung_three_of_prime
