@@ -1059,12 +1059,12 @@ refutes it as stated for rungs up to 200 while satisfying the weak one, so the
 gap between the two is inhabited rather than notional.
 
 The strongest is a BOUND: a function `B` with a closing rung below `B n` for
-every `n`. What is measured is milder than `n^{1/4}`. Over `5 ≤ n ≤ 1000000` the least
-closing rung never exceeds 59, first reached at n = 118801; the records below
-that are 3, 7, 11, 23, 31 at n = 5, 49, 1129, 1201, 21169. The ratio
-`r / ⌊n^{1/4}⌋` at the records falls from 4.6 at n = 1201 to about 2.0 in the
-last block, so `n^{1/4}` is an overestimate of the growth rather than a fit to
-it. A bound
+every `n`. What is measured fits `C·n^{1/4}` with `C ≈ 4.6`. Over `5 ≤ n ≤ 2·10⁶` the least
+closing rung reaches 59 at n = 118801 and 71 at n = 1430641, with earlier records
+3, 7, 11, 23, 31 at n = 5, 49, 1129, 1201, 21169. The ratio `r / ⌊n^{1/4}⌋` is
+largest at small `n` — 4.6 at n = 1201 — and settles near 2.0–2.1 in the last two
+blocks, so the shape holds and the binding constant comes from the small values.
+A bound
 of any shape settles the conjecture on every range it covers, since the rungs
 below it are finitely many and each is decidable. That is why the bound, and not
 the existence, is the statement worth attacking.
