@@ -1,6 +1,6 @@
-Erdos-Straus: 2521 is in the square stratum for real
+Erdos-Straus: the budget gap thins with n
 
-Searched to rung 4000, no M = 2521(2521+r)/4 carries a divisor at -1. So its
-divisor lives in M^2 rather than beyond a small rung budget, which is what the
-earlier reading to 51 could not distinguish. 196561 acquires a cofactor at rung
-75 and 1201 at rung 23.
+5.0% of walked rungs below 50000, 2.5% to 200000, 1.5% to 400000. More primes in
+M means a larger reachable set, so the subgroup criterion and the real one
+converge as n grows — which says the exponent budget is not what a bound will
+have to fight.
