@@ -171,6 +171,66 @@ theorem straus_forty_nine_witness :
     (4 : ℚ) / 49 = 1 / 14 + 1 / 98 ∧ (0:ℚ) < 1 / 14 := by
   constructor <;> norm_num
 
+/-! ## The second split, in full
+
+The identity above is one sufficient family. The criterion it sits inside is
+larger, and the difference is not cosmetic: it is the difference between an
+instrument that called `n = 2521` unreachable and one that closes it at rung 23.
+
+`r/M = 1/b + 1/c` holds exactly when some `u` with `u·v = M²` satisfies
+`r ∣ M + u` and `r ∣ M + v`, because
+
+    (M + u)(M + v) = M² + M(u+v) + uv = M(2M + u + v)
+
+so the two unit fractions with denominators `(M+u)/r` and `(M+v)/r` sum to
+`r(2M+u+v) / (M(2M+u+v)) = r/M`. The earlier lemma is the case `u = d`,
+`v = M²/d` for a divisor `d ≡ −1 (mod r)` of `M` itself; the criterion ranges
+over divisors of `M²`, which is strictly more of them.
+
+The fixed-point rule is what made the difference legible rather than lucky. The
+rung test is a congruence — a conservative action — and the rule says a
+conservative operator populates only {one-shot, no-closure}, never a basin. So a
+value the instrument could not close was never "close to" closing: the
+stabiliser set being read was simply the wrong one, and reading the right one
+either lands in one shot or does not land at all.
+-/
+
+/-- **The second split, as the criterion rather than a family.** Given `u·v = M²`
+with `r ∣ M+u` and `r ∣ M+v`, the two unit fractions are explicit. -/
+theorem second_split_general (r M u v b c : ℕ) (hr : 0 < r) (hM : 0 < M)
+    (huv : u * v = M * M) (hu : 0 < u) (hv : 0 < v)
+    (hb : r * b = M + u) (hc : r * c = M + v) (hb0 : 0 < b) (hc0 : 0 < c) :
+    (r : ℚ) / M = 1 / b + 1 / c := by
+  have hMq : (M : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hM.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb0.ne'
+  have hcq : (c : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hc0.ne'
+  have hrq : (r : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hr.ne'
+  have huvq : (u : ℚ) * v = (M : ℚ) * M := by exact_mod_cast huv
+  have hbq' : (r : ℚ) * b = (M : ℚ) + u := by exact_mod_cast hb
+  have hcq' : (r : ℚ) * c = (M : ℚ) + v := by exact_mod_cast hc
+  -- `(M+u)(M+v) = M(2M+u+v)` is where the whole criterion lives.
+  have key : ((M : ℚ) + u) * ((M : ℚ) + v) = (M : ℚ) * (2 * M + u + v) := by
+    nlinarith [huvq]
+  -- Multiply the target through: `r·bc = M·(b+c)`. It follows from `key` after
+  -- one cancellation of `r`, which is why `r ≠ 0` is a hypothesis.
+  have sq : (r : ℚ) * ((r : ℚ) * (b * c)) = (r : ℚ) * ((M : ℚ) * (b + c)) := by
+    calc (r : ℚ) * ((r : ℚ) * (b * c))
+        = ((r : ℚ) * b) * ((r : ℚ) * c) := by ring
+      _ = ((M : ℚ) + u) * ((M : ℚ) + v) := by rw [hbq', hcq']
+      _ = (M : ℚ) * (2 * M + u + v) := key
+      _ = (M : ℚ) * (((r : ℚ) * b) + ((r : ℚ) * c)) := by rw [hbq', hcq']; ring
+      _ = (r : ℚ) * ((M : ℚ) * (b + c)) := by ring
+  have main : (r : ℚ) * (b * c) = (M : ℚ) * (b + c) := mul_left_cancel₀ hrq sq
+  field_simp
+  linarith [main]
+
+/-- `n = 2521` — the value the first instrument could not reach — closes on rung
+23: `4/2521 = 1/636 + 1/69748 + 1/131876031`. -/
+theorem straus_2521 : IsThreeUnit 2521 636 69748 131876031 := by
+  refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
+
+#print axioms Erdos.StrausGreedy.second_split_general
+#print axioms Erdos.StrausGreedy.straus_2521
 #print axioms Erdos.StrausGreedy.r_over_M_split
 #print axioms Erdos.StrausGreedy.ladder_step
 #print axioms Erdos.StrausGreedy.straus_forty_nine

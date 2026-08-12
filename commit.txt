@@ -1,28 +1,25 @@
-The numerator three was never special — Erdős–Straus has a ladder
+The second split, as the criterion rather than a family
 
-I took the residue back to the instruments rather than to a search. `imasm check`
-on the two-fork form returns B (open): "a δ fork dangles; fuse them, or COMMIT
-one arm (IFIX)". Committing the arm means the second choice comes from a rule,
-and the rule is that the greedy step is only the first rung.
+The fixed-point rule is what found this. The rung test is a congruence — a
+conservative action — and the rule says conservative operators populate only
+{one-shot, no-closure}, never a basin. So when the instrument could not close
+n = 2521, that was not "nearly": a conservative operator either lands or does
+not, and the only way to be wrong about it is to be reading the wrong stabiliser
+set. I was. The set is the divisors of M², not of M.
 
-For n = 4k+1 and any r ≡ 3 (mod 4), the term a = (n+r)/4 is an integer k+j+1 and
+r/M = 1/b + 1/c holds exactly when some u with u·v = M² satisfies r ∣ M+u and
+r ∣ M+v, because (M+u)(M+v) = M² + M(u+v) + uv = M(2M+u+v). The earlier lemma is
+the case u = d, v = M²/d for a divisor d ≡ −1 (mod r) of M itself; this ranges
+over strictly more divisors. second_split_general carries it, proved by one
+cancellation of r rather than by a search.
 
-    4/n − 1/a = r/(n·a)
+With the criterion right, 2521 closes on rung 23:
+4/2521 = 1/636 + 1/69748 + 1/131876031, and that is a theorem in the file.
 
-so the remainder's numerator is CHOSEN, not met. And the two-term identity never
-needed r = 3 either: for M = d·e with d ≡ −1 (mod r) and d = r·t + (r−1),
+The instrument re-swept: 5 ≤ n ≤ 20000, 3333 values in the class, every one
+closed, and the highest rung needed is 23. So the conjecture now rests on one
+question — whether the rung height is BOUNDED. A fixed R that works for every n
+gives Erdős–Straus. That is a question about the rungs, and a sweep does not
+answer it.
 
-    r/M = 1/(e(t+1)) + 1/(M(t+1))
-
-which holds for every r ≥ 2. At r = 1 the divisor can vanish, and a numerator of
-one is already a unit fraction, so two is the honest bound.
-
-The greedy family proved earlier is the r = 3 rung. Each further rung is another
-covering condition on the same n, and what one rung misses another can catch:
-n = 49 — the first value the greedy family leaves — closes on the r = 7 rung in
-TWO terms, 4/49 = 1/14 + 1/98.
-
-All of it sorry-free on the standard axioms, library green at 8592 jobs. The
-conjecture is not closed: the ladder gives infinitely many covering conditions
-but no proof that some rung always catches. That is now the precise question,
-and it is a question about the rungs rather than about n.
+Standard axioms throughout, library green.
