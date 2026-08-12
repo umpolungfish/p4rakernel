@@ -1,6 +1,11 @@
-Erdos-Straus: the k-shift numbers, measured over the whole range
+Erdos-Straus: k is a readout, not an axis
 
-k=2 supplies the rung for 321 of the 624 frontier values below 200000, k=4 for
-103, k=6 for 59, and k <= 40 for 589. The reparametrization is exact — every
-cofactor is k*r-1 — but k is not bounded a priori and reaches (M+1)/r, which is
-why the last 35 sit further out rather than outside the family.
+Searching over k was the wrong direction. Every cofactor hands back its own
+k = (w+1)/r, so reading from the rung side gives the whole k-spectrum of an n
+without factoring k*n+1 for any k. Over the 624 frontier values below 200000 the
+least k is at most 2 for 314 of them, at most 8 for 565, at most 32 for 613, and
+the tail reaches 12813 at n = 66529, rung 135.
+
+With rungs allowed to 200, exactly one value below 200000 has no cofactor of M at
+any rung and genuinely needs a divisor of M^2: 2521. 196561 only needed a rung
+past 51.
