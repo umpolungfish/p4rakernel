@@ -137,3 +137,10 @@ def ExcessSetDensityVanishes : Prop :=
   Tendsto (fun N : ℕ => ((excess_set N).card : ℝ) / (N : ℝ)) atTop (𝓝 0)
 
 end Millennium.ProofModules.LCMSieve
+
+-- The axiom cost of the three results the manuscript rests on, printed rather
+-- than assumed: a paper that names its dependencies has to be able to check
+-- them.
+#print axioms Millennium.ProofModules.LCMSieve.mul_pred_le_lcm
+#print axioms Millennium.ProofModules.LCMSieve.log_succ_lt
+#print axioms Millennium.ProofModules.LCMSieve.excess_of_three_le
