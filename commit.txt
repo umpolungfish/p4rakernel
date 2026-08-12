@@ -1,16 +1,10 @@
-The cycle predicate the third batch lacked
+Girth against chromatic number, held as a range
 
-The fourth ob3ect forks the graph space on the property itself: graphs carrying a
-pair of edge-disjoint cycles, and graphs where every two cycles share an edge.
-The second arm's edge count is the witness, and the extremal function is the
-maximum over that arm.
+The fifth ob3ect forks this extremal function into an arm where the construction
+and the upper bound coincide and an arm where they leave a gap, and its fuse
+keeps both — the first contributing a value, the second an interval. So
+GirthRange carries two ends and GirthExact is the case where they meet.
 
-So the predicate is written. A cycle is a vertex list of length at least three
-with no repeats and every consecutive pair adjacent; its edges are the
-consecutive pairs closed up; two cycles are edge-disjoint when neither
-orientation of an edge of one appears in the other.
-MaxEdgesEveryTwoCyclesMeet states the extremal count with both halves — the bound
-and its attainment — and names the classical value.
-
-The entry removed from this file bounded the edge count by 3n under the
-hypothesis 3(n-1)/2 >= 0, which is true of every n.
+Writing it as a single number would assert an exactness the problem does not
+have, which is the collapse this kernel exists to refuse. The entry removed from
+this file asked for the limit of n/n.
