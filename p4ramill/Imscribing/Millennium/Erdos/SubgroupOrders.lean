@@ -212,6 +212,36 @@ theorem exponent_gap (L n : ℝ) (hL : 0 < L) (hn : L ^ 3 ≤ 4 * n) :
   nlinarith [h]
 
 #print axioms partsF_sum
+/-! ## The joint growth
+
+The eleventh object of the nest fuses these two sequences into ONE statement, and
+its reason is the reason the fuse closes: both growth estimates come from the same
+prime distribution. `log lcm(1…n)` is asymptotic to `n` and `log g(n)` to
+`√(n log n)`, and the two are not independent facts about unrelated objects —
+they are two readings of how the primes below `n` are laid out.
+
+The lcm side is stated here through `Nat.lcm` over the initial segment rather
+than imported, since this module is where `landau` lives and a second copy of
+either definition would be the drift this corpus keeps finding.
+-/
+
+/-- The least common multiple of `1 … n`, as the lcm of a finite set rather than
+a fold: the divisibility below is then the library's own lemma instead of an
+induction over the fold's shape. -/
+def lcmUpTo (n : ℕ) : ℕ := (Finset.Icc 1 n).lcm id
+
+/-- **The joint statement.** Both asymptotics, held as one because both follow
+from the distribution of the primes below `n`. -/
+def JointLogarithmicGrowth : Prop :=
+  Filter.Tendsto (fun n : ℕ => Real.log (lcmUpTo n) / (n : ℝ)) Filter.atTop (nhds 1) ∧
+  Filter.Tendsto (fun n : ℕ => Real.log (landau n) / Real.sqrt ((n : ℝ) * Real.log n))
+    Filter.atTop (nhds 1)
+
+/-- Every member of the segment divides its lcm — the elementary half, and the
+foothold the asymptotic sits on. -/
+theorem dvd_lcmUpTo (n m : ℕ) (h1 : 1 ≤ m) (h2 : m ≤ n) : m ∣ lcmUpTo n :=
+  Finset.dvd_lcm (Finset.mem_Icc.mpr ⟨h1, h2⟩)
+
 #print axioms partsF_complete
 #print axioms landau_table
 
