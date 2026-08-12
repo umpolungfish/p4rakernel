@@ -1,11 +1,16 @@
-LCMSieve prints its axiom cost
+The Ramsey number of a pair, from the object that types it
 
-The three results the lcm manuscript rests on now print their dependencies, which
-come back as propext, Classical.choice and Quot.sound — what the paper claims. A
-paper that names its dependencies has to be able to check them.
+The ob3ect designed for "the least vertex count forcing a monochromatic copy of
+one of two given graphs" reads it as a search under a terminal anchor: the
+candidates open at FSPLIT, each is tested against every colouring, FFUSE collects
+those that force, and IFIX fixes the least. That is the object four removed
+statements needed, so it is written now.
 
-Sweeping the whole Erdos corpus: 100 axiom lines, 94 on the standard three. The
-six that are not are compiled evaluations — the K6 colouring sweep, the SDR
-table and its four-window failure, the Schutte lower bound, Landau's table, and
-the quintuple search below sixty — and every one of them is declared as compiled
-evaluation in its manuscript.
+MonoCopy says what a monochromatic copy is, ArrowsPair says what forcing means,
+RamseyFinite says the search terminates — Ramsey's theorem, cited rather than
+proved — and ramseyPair takes the infimum. The three are separate because an
+infimum over a possibly empty set is zero rather than "no such order", which is
+the junk-value shape this corpus has been bitten by before.
+
+arrowsPair_mono is proved and depends on no axioms: a colouring of the larger
+complete graph restricts to the smaller, and a copy found there is a copy here.
