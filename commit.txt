@@ -1,20 +1,19 @@
-UNSOLVED, the graph-theory block
+UNSOLVED, the geometry machinery
 
-The source states these against an API Mathlib does not have — dominationNumber,
-IsHamiltonian, IsPlanar, totalChromaticNumber, unitDistanceGraph and a dozen
-more. Naming a constant that does not exist is not a weaker statement, it is no
-statement, so the notions are defined here and the conjectures said about them.
+IsJordanCurve, IsSquare, IsConvexBody, polar, can_pass_through_L_shape,
+kissing_number, IsKakeyaSet, HausdorffDim — none existed. Building them is the
+job, so they are built.
 
-HasCliqueMinor is a minor model — disjoint connected branch sets with an edge
-between every two — which is what "has K_k as a minor" means and needs no
-contraction operation. Hadwiger is then stated as: no k-colouring gives a
-K_{k+1} minor. The source asked that the chromatic number be at least the clique
-number, which is a theorem, since a clique needs its own vertices coloured apart.
+A Jordan curve is a continuous periodic map injective on a period. Four points
+form a square when the four sides agree, the two diagonals agree, and a diagonal
+exceeds a side — the last excluding a degenerate rhombus. A convex body is
+convex, compact, with nonempty interior; the polar comes through the inner
+product. A Kakeya set carries a unit segment in every direction, and Kakeya is
+then full Hausdorff dimension, which Mathlib's dimH gives directly. A kissing
+configuration is centres at distance two from the origin, pairwise at distance at
+least two — unit balls touching without overlap — and the dimension-five entry is
+the bracket that is known, 40 attained and 45 excluded, rather than a disjunction
+over five values. The L-corridor and a continuous family of rigid motions give
+the moving sofa its own bracket.
 
-Also: dominating sets and Vizing's product bound, reconstruction above three
-vertices, vertex-transitivity and a Hamiltonian cycle for Lovasz,
-Erdos-Faber-Lovasz, total colouring over the sum of vertices and edges, and the
-unit-distance graph with Hadwiger-Nelson as the interval that remains — not
-5-colourable, 7-colourable.
-
-Twenty-six statements in the module, all elaborating, build green at 8593 jobs.
+Thirty-eight statements, all elaborating. Build green at 8593 jobs.
