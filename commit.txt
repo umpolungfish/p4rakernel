@@ -1,12 +1,11 @@
-Erdos-Straus: the ladder loses nothing
+Erdos-Straus: the rung reads off k*n+1
 
-ladder_complete and ladder_cross. Given any representation 4/n = 1/x + 1/y + 1/z,
-put r = 4x - n and M = nx: then u = ry - M and v = rz - M satisfy uv = M^2 and
-both congruences, because (M+u)(M+v) = r^2yz = M((M+u)+(M+v)). So the rung and
-the divisor are a coordinate system on the representations, not a method for
-finding some of them, and a value with no rung has no representation at all.
+Every cofactor is w = k*r - 1, so the rung is (w+1)/k and the condition w | M
+becomes a condition on n alone: 4k*a = k*n + w + 1, so w | k*n+1 with w coprime
+to 4k gives w | a. That is closedAtRung_of_kshift.
 
-threeUnit_of_closedAtRungSq is the converse. ClosedAtRungSq carries both
-congruences now — the version that took the second as a hypothesis had the
-hypothesis doing the work of v_condition_free, which is the defect shape I keep
-finding elsewhere.
+This removes the circularity. The divisor search wanted a factor of M = n*a while
+a depended on the rung being tested; now each k needs only the factorisation of
+k*n+1, and k=1 is the divisor family already there. Below 20000 the frontier's 83
+values fall to k <= 8 in 64 cases and to k <= 40 in 74. Only even k occur, since
+w must be odd where M is.

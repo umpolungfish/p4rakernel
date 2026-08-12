@@ -815,6 +815,52 @@ theorem closedAtRung_of_shift (n d r a u : ℕ) (hn : 0 < n) (ha0 : 0 < a)
     (hr : r ∣ d + 1) : ClosedAtRung n r :=
   closedAtRung_of_cofactor n r a u d ha0 hu0 hd0 ha hM hr
 
+/-! ### Reading the rung off `k·n + 1`
+
+Every cofactor is `w = k·r − 1` for some `k ≥ 1`, so the rung is `r = (w+1)/k`,
+and the requirement `w ∣ M` becomes a condition on `n` alone. From `4a = n + r`,
+multiplying by `k` gives `4k·a = k·n + k·r = k·n + w + 1`, so if `w` divides
+`k·n + 1` and is coprime to `4k`, then `w ∣ a`, hence `w ∣ M`.
+
+So each `k` reads its rungs off the factorisation of `k·n + 1`: `k = 1` is the
+divisor family `r ∣ n+1`, `k = 2` reads `2n+1`, and so on. The search over
+divisors of `M` — which needed `a`, which needed the rung — becomes a search over
+`k`, with no reference to `a` at all. Below 20000 the frontier's 83 values are
+closed by `k ≤ 8` in 64 cases and by `k ≤ 40` in 74; only even `k` occur, since
+`w` must be odd where `M` is.
+-/
+
+/-- **The `k`-shift family.** A divisor `w` of `k·n + 1`, coprime to `4k`, with
+`k ∣ w+1` and `r = (w+1)/k ≡ 3 (mod 4)`, closes the rung `r`. -/
+theorem closedAtRung_of_kshift (n k w r a : ℕ)
+    (hn : 0 < n) (hk : 0 < k) (hw : 1 < w) (hr0 : 0 < r) (ha0 : 0 < a)
+    (hkr : k * r = w + 1) (hdvd : w ∣ k * n + 1) (hcop : Nat.Coprime w (4 * k))
+    (ha : 4 * a = n + r) :
+    ClosedAtRung n r := by
+  -- `4k·a = k·n + w + 1`, and `w` divides the right side, so `w ∣ 4k·a`.
+  have h1 : 4 * k * a = k * n + (w + 1) := by
+    have : k * (4 * a) = k * (n + r) := by rw [ha]
+    calc 4 * k * a = k * (4 * a) := by ring
+    _ = k * (n + r) := this
+    _ = k * n + k * r := by ring
+    _ = k * n + (w + 1) := by rw [hkr]
+  have h2 : w ∣ 4 * k * a := by
+    obtain ⟨c, hc⟩ := hdvd
+    refine ⟨c + 1, ?_⟩
+    calc 4 * k * a = k * n + (w + 1) := h1
+      _ = (k * n + 1) + w := by ring
+      _ = w * c + w := by rw [hc]
+      _ = w * (c + 1) := by ring
+  have h3 : w ∣ a := (Nat.Coprime.dvd_of_dvd_mul_left hcop h2)
+  obtain ⟨t, ht⟩ := h3
+  have ht0 : 0 < t := by
+    rcases Nat.eq_zero_or_pos t with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at ht; omega
+    · exact h0
+  refine closedAtRung_of_cofactor n r a (n * t) w ha0 (Nat.mul_pos hn ht0)
+    (by omega) ha ?_ ⟨k, by rw [← hkr]; ring⟩
+  rw [ht]; ring
+
 /-- **The greedy rung, as a condition on one prime.** If any prime factor of
 `M = n(n+3)/4` is `≡ 2 (mod 3)`, that prime is the cofactor and rung 3 closes. -/
 theorem closedAtRung_three_of_prime (n a p : ℕ) (hn : 0 < n) (ha0 : 0 < a)
@@ -966,6 +1012,7 @@ theorem threeUnit_of_closedAtRungSq (n r : ℕ) (hn : 0 < n) (hr0 : 0 < r)
 #print axioms Erdos.StrausGreedy.ladder_rung_residue
 #print axioms Erdos.StrausGreedy.rung_three_residue
 #print axioms Erdos.StrausGreedy.closedAtRung_of_shift
+#print axioms Erdos.StrausGreedy.closedAtRung_of_kshift
 #print axioms Erdos.StrausGreedy.straus_196561
 #print axioms Erdos.StrausGreedy.closedAtRung_of_cofactor
 #print axioms Erdos.StrausGreedy.closedAtRung_three_of_prime
