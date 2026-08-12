@@ -309,6 +309,49 @@ theorem v_condition_free (r M u v : ℕ) (hr : 0 < r)
   have := (ZMod.natCast_eq_zero_iff (M + v) r).mp (by push_cast; exact this)
   exact this
 
+/-! ## The master criterion
+
+Everything above composes into one statement. Fix `n ≡ 1 (mod 4)` and a rung
+`r ≡ 3 (mod 4)`; put `a = (n+r)/4` and `M = n·a`. Then
+
+    ONE divisor `u` of `M²` with `r ∣ M + u`  ⟹  `4/n` is three unit fractions
+
+with the denominators `a`, `(M+u)/r`, `(M+v)/r` where `v = M²/u`. The rung supplies
+the first term, the divisor supplies the other two, and the second congruence that
+the raw criterion asks for is free.
+
+This is the whole surviving class of Erdős–Straus reduced to a search over
+divisors of a single number, per rung — a finite, decidable question for each `n`,
+where before there were three unknowns ranging over the integers.
+-/
+
+/-- **Erdős–Straus for the surviving class, from one divisor.** -/
+theorem straus_master (n r a M u v b c : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hb0 : 0 < b) (hc0 : 0 < c) (hr0 : 0 < r)
+    (hM : M = n * a) (hM0 : 0 < M)
+    (ha : 4 * a = n + r)
+    (huv : u * v = M * M)
+    (hb : r * b = M + u) (hc : r * c = M + v) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have hnq : (n : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha0.ne'
+  have hMq : (M : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hM0.ne'
+  -- The rung gives `4/n − 1/a = r/M`.
+  have hstep : (4 : ℚ) / n - 1 / a = (r : ℚ) / M := by
+    have haq' : (4 : ℚ) * a = (n : ℚ) + r := by exact_mod_cast ha
+    have hMq' : (M : ℚ) = (n : ℚ) * a := by exact_mod_cast hM
+    rw [hMq']
+    field_simp
+    linarith [haq']
+  -- The divisor gives `r/M = 1/b + 1/c`.
+  have hsplit : (r : ℚ) / M = 1 / b + 1 / c :=
+    second_split_general r M u v b c hr0 hM0 huv
+      (Nat.pos_of_ne_zero (by rintro rfl; simp at huv; omega))
+      (Nat.pos_of_ne_zero (by rintro rfl; simp at huv; omega))
+      hb hc hb0 hc0
+  linarith [hstep, hsplit]
+
+#print axioms Erdos.StrausGreedy.straus_master
 #print axioms Erdos.StrausGreedy.v_condition_free
 #print axioms Erdos.StrausGreedy.straus_divisor_family
 #print axioms Erdos.StrausGreedy.second_split_general

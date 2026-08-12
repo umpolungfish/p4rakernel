@@ -1,27 +1,15 @@
-Erdős–Straus: one congruence, one divisor
+straus_master — the surviving class from one divisor
 
-Three theorems, each sorry-free on the standard axioms.
+The pieces compose. Fix n ≡ 1 (mod 4) and a rung r ≡ 3 (mod 4); put a = (n+r)/4
+and M = n·a. Then ONE divisor u of M² with r ∣ M+u gives
 
-second_split_general — the criterion. r/M = 1/b + 1/c whenever u·v = M² with
-r ∣ M+u and r ∣ M+v, since (M+u)(M+v) = M(2M+u+v). Proved by one cancellation of
-r; nothing is searched inside the proof.
+    4/n = 1/a + 1/(M+u)/r + 1/(M+v)/r,     v = M²/u
 
-v_condition_free — the second condition is not a condition. From u·v = M² and
-u ≡ −M (mod r), M(v+M) ≡ 0, and M is a unit whenever r is coprime to it, so
-r ∣ M+v follows. Done in ZMod r. What was a pair of congruences is a single one
-on a single divisor, which is what makes the criterion searchable.
+The rung supplies the first term, the divisor supplies the other two, and the
+second congruence the raw criterion asks for is free (v_condition_free).
 
-straus_divisor_family — the closed form. Take u = a, the first term's own
-denominator. With 4a = n+r and r·b = a(n+1),
+That is the surviving class of Erdős–Straus reduced to a divisor search on a
+single number per rung: a finite decidable question for each n, where the
+original statement has three unknowns ranging over the integers.
 
-    1/a + 1/b + 1/(nb) = 1/a + (n+1)/(nb) = 1/a + r/(na) = (n+r)/(na) = 4/n
-
-so every n whose n(n+1) has a divisor r ≡ 3 (mod 4) is settled with all three
-denominators written down from n and r. Checked against 442 cases, no failures.
-
-Coverage of the surviving class n ≡ 1 (mod 4), 3∤n, below 20000: the closed-form
-families reach 95.14% of 3333 values. The remainder are the n whose every prime
-factor is ≡ 1 (mod 4), and the criterion closes those too — the divisor u there
-runs over primes of a as well as of n, which is exactly what the M² set is for.
-
-Library green.
+Sorry-free on propext, Classical.choice, Quot.sound. Library green at 8592 jobs.
