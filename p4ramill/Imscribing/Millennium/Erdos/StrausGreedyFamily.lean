@@ -862,6 +862,108 @@ theorem rung_three_residue (n a : ℕ) (hn : 0 < n) (ha0 : 0 < a)
   have h2 : p % 3 = 2 := by omega
   exact hopen (closedAtRung_three_of_prime n a p hn ha0 hp.pos ha hpd h2)
 
+/-! ## The ladder loses nothing
+
+Everything above produces representations. The question left is whether the
+ladder can MISS one: whether some `4/n = 1/x + 1/y + 1/z` fails to arise from a
+rung and a divisor. It cannot. Given any representation, the smallest denominator
+`x` satisfies `4x > n`, so `r = 4x − n` is a positive integer `≡ 3 (mod 4)` — a
+rung — with `a = x`, and the other two denominators hand back a divisor of `M²`
+at `−M`. The search the instrument performs is therefore exhaustive, and
+`ClosedAtRungSq` below is not an approximation to the conjecture on this class
+but a restatement of it.
+-/
+
+/-- The rung criterion in its full form, with the divisor drawn from `M²`. The
+cofactor version `ClosedAtRung` is strictly weaker: `n = 2521` and `n = 196561`
+satisfy this and not that. -/
+def ClosedAtRungSq (n r : ℕ) : Prop :=
+  ∃ a u v : ℕ, 0 < a ∧ 0 < u ∧ 0 < v ∧ 4 * a = n + r ∧
+    u * v = (n * a) * (n * a) ∧ r ∣ (n * a + u) ∧ r ∣ (n * a + v)
+
+/-- **The ladder is complete.** From a representation, the two larger
+denominators produce the divisor: with `M = nx`, `r = 4x − n`, `u = ry − M` and
+`v = rz − M`, the identity `(M+u)(M+v) = M(2M+u+v)` forces `uv = M²`, and
+`M + u = ry` is divisible by `r` outright. -/
+theorem ladder_complete (n x y z r M u v : ℕ)
+    (hr : 4 * x = n + r) (hM : M = n * x)
+    (hyz : M * (y + z) = r * (y * z))
+    (hu : M + u = r * y) (hv : M + v = r * z) :
+    u * v = M * M ∧ r ∣ (M + u) ∧ r ∣ (M + v) := by
+  refine ⟨?_, ⟨y, hu⟩, ⟨z, hv⟩⟩
+  · -- `(M+u)(M+v) = r²yz = M(2M+u+v)`, and expanding cancels everything but `uv`.
+    have h1 : (M + u) * (M + v) = (r * y) * (r * z) := by rw [hu, hv]
+    have h2 : (r * y) * (r * z) = r * (r * (y * z)) := by ring
+    have h3 : r * (r * (y * z)) = r * (M * (y + z)) := by rw [hyz]
+    have h4 : r * (M * (y + z)) = M * (r * y + r * z) := by ring
+    have h5 : M * (r * y + r * z) = M * ((M + u) + (M + v)) := by rw [hu, hv]
+    have h6 : (M + u) * (M + v) = M * ((M + u) + (M + v)) := by
+      rw [h1, h2, h3, h4, h5]
+    nlinarith [h6]
+
+/-- The cross-multiplied form of a representation: `4/n = 1/x + 1/y + 1/z` says
+exactly `M(y+z) = r·yz` once `r = 4x − n` and `M = nx` are named. -/
+theorem ladder_cross (n x y z r M : ℕ) (hn : 0 < n) (hx : 0 < x) (hy : 0 < y)
+    (hz : 0 < z) (hr : 4 * x = n + r) (hM : M = n * x)
+    (hrep : (4 : ℚ) / n = 1 / x + 1 / y + 1 / z) :
+    M * (y + z) = r * (y * z) := by
+  have hnq : (n : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have hxq : (x : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hx.ne'
+  have hyq : (y : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hy.ne'
+  have hzq : (z : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hz.ne'
+  have hrq : (4 : ℚ) * x = (n : ℚ) + r := by exact_mod_cast hr
+  have hMq : (M : ℚ) = (n : ℚ) * x := by exact_mod_cast hM
+  have hMq0 : (M : ℚ) ≠ 0 := by
+    rw [hMq]; exact mul_ne_zero hnq hxq
+  -- `4/n − 1/x = (4x − n)/(nx) = r/M`, so the tail is `r/M`.
+  have hsplit : (4 : ℚ) / n - 1 / x = (r : ℚ) / M := by
+    rw [hMq]
+    field_simp
+    linarith [hrq]
+  have key : (1 : ℚ) / y + 1 / z = (r : ℚ) / M := by
+    rw [← hsplit]; linarith [hrep]
+  have goal : (M : ℚ) * ((y : ℚ) + z) = (r : ℚ) * ((y : ℚ) * z) := by
+    field_simp at key
+    linarith [key]
+  exact_mod_cast goal
+
+/-- The rung a representation sits on is `4x − n`, and it is `≡ 3 (mod 4)`
+because `n ≡ 1` is. -/
+theorem ladder_rung_residue (n x r : ℕ) (hn : n % 4 = 1) (hr : 4 * x = n + r) :
+    r % 4 = 3 := by omega
+
+/-- **The conjecture on the surviving class, as a statement about rungs.** With
+completeness in hand, `EveryNClosed` is not a sufficient condition dressed up: a
+value with no rung has no representation at all. -/
+def EveryNClosedSq : Prop :=
+  ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → ¬ (3 ∣ n) → ∃ r, r % 4 = 3 ∧ ClosedAtRungSq n r
+
+/-- **The equivalence.** A rung with a divisor of `M²` at `−M` gives a
+representation: the two congruence quotients are the denominators. With
+`ladder_complete` for the converse, `ClosedAtRungSq` at some rung and
+representability are the same property of `n`. -/
+theorem threeUnit_of_closedAtRungSq (n r : ℕ) (hn : 0 < n) (hr0 : 0 < r)
+    (h : ClosedAtRungSq n r) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  obtain ⟨a, u, v, ha0, hu0, hv0, ha, huv, hdu, hdv⟩ := h
+  obtain ⟨b, hb⟩ := hdu
+  obtain ⟨c, hc⟩ := hdv
+  have hM0 : 0 < n * a := Nat.mul_pos hn ha0
+  have hb0 : 0 < b := by
+    rcases Nat.eq_zero_or_pos b with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at hb; omega
+    · exact h0
+  have hc0 : 0 < c := by
+    rcases Nat.eq_zero_or_pos c with h0 | h0
+    · exfalso; rw [h0, Nat.mul_zero] at hc; omega
+    · exact h0
+  exact ⟨a, b, c, ha0, hb0, hc0,
+    straus_master n r a (n * a) u v b c hn ha0 hb0 hc0 hr0 rfl hM0 ha huv hb.symm hc.symm⟩
+
+#print axioms Erdos.StrausGreedy.threeUnit_of_closedAtRungSq
+#print axioms Erdos.StrausGreedy.ladder_cross
+#print axioms Erdos.StrausGreedy.ladder_complete
+#print axioms Erdos.StrausGreedy.ladder_rung_residue
 #print axioms Erdos.StrausGreedy.rung_three_residue
 #print axioms Erdos.StrausGreedy.closedAtRung_of_shift
 #print axioms Erdos.StrausGreedy.straus_196561
