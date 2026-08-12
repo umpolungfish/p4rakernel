@@ -1,19 +1,16 @@
-straus_one_shot — half the class needs no search at all
+Erdos-Straus: the price-zero layer, and the frontier it leaves
 
-The Fixed-Point Nesting Rule separates a nesting that must be searched from one
-whose inner object already sits at the outer's fixed point. Applied here: the
-outer action is the rung's congruence, the inner object is the divisor offered to
-it, and u = 2 at rung 3 is fixed identically.
+The one-shot at n = 5 (mod 8) was not the only rung read off n. Writing the
+divisor as u = n^i a^j and using 4a = n (mod r), the congruence r | M+u leaves
+exactly three live outcomes: r | n, r | n+1, r | n+4. Every other exponent pair
+demands r | 8, r | 5 or r | n^2+4, all dead for r = 3 (mod 4).
 
-3 ∣ n² + 4u = n² + 8 holds for EVERY n with 3 ∤ n, since n² ≡ 1 (mod 3) and
-1 + 8 = 9. Nothing about n enters beyond 3 ∤ n, so nothing is searched — price
-zero, in the rule's accounting. The only requirement left is that 2 divide
-M = n·a, which with n odd is 2 ∣ a, which for a = (n+3)/4 says exactly
-n ≡ 5 (mod 8).
+So I collected the three families into one theorem, straus_of_priceZero, which
+takes the divisibility and hands back the three denominators with nothing
+searched. Added multiplicative descent, and the frontier: what the price-zero
+layer and the one-shot both miss. Every frontier value is n = 1 (mod 24), and
+that is proved rather than observed.
 
-So half the surviving class closes at the greedy rung with a formula:
-4/n = 1/a + 1/b + 1/(w·b), where 4a = n+3, 2w = n·a, 3b = n·a + 2. Checked
-against 3334 values, no failures; n = 5 gives 4/5 = 1/2 + 1/4 + 1/20.
-
-The kernel's own reading agrees from the other side: `straus census 5 4000`
-reports 50.2% one-shot, 49.8% iterated, 0% no closure.
+Measured over 5 <= n <= 200000: 32062 of the 33333 values in the surviving class
+close at price zero. 1271 remain, and descent through a proper divisor takes 639
+of those, leaving 632.

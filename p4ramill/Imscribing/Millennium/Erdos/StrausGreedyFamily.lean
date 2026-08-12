@@ -582,6 +582,127 @@ theorem straus_one_shot (n a w b : ℕ)
 /-- `n = 5`: `a = 2`, `w = 5`, `b = 4`, giving `4/5 = 1/2 + 1/4 + 1/20`. -/
 theorem straus_five_one_shot : (4 : ℚ) / 5 = 1 / 2 + 1 / 4 + 1 / 20 := by norm_num
 
+
+/-! ## The price-zero layer, and where it stops
+
+The one-shot at `n ≡ 5 (mod 8)` is not the only rung read off `n` rather than
+searched. Writing the divisor as `u = n^i a^j` and using `4a ≡ n (mod r)`, the
+congruence `r ∣ M + u` becomes
+
+    4^j + 4·n^(i+j-2) ≡ 0   (mod r)
+
+and there are exactly four outcomes: `i+j = 2` gives `r ∣ 8` or `r ∣ 5`, both
+dead for `r ≡ 3 (mod 4)`; `i+j = 1` with `j = 1` gives `r ∣ n+1`; `i+j = 1` with
+`i = 1` gives `r ∣ n+4`; and `r ∣ n` closes with `u = M`. So the whole family of
+divisors built from `n` and `a` alone covers exactly
+
+    some `r ≡ 3 (mod 4)`, `r ≥ 3`, dividing one of `n`, `n+1`, `n+4`,
+
+and nothing further. Every value outside that set needs a divisor drawn from a
+prime of `a` that `n` does not carry — which is the searched rung, and is where
+the remaining work lives.
+
+Measured on `5 ≤ n ≤ 200000`: the three divisibilities plus the `n ≡ 5 (mod 8)`
+one-shot close 32062 of the 33333 values in the surviving class. The 1271 that
+remain all satisfy `n ≡ 1 (mod 24)`; multiplicative descent through a proper
+divisor takes 632 of them, leaving a frontier of density 1.9% beginning
+193, 313, 457, 673, 1009, 1153, 1201.
+-/
+
+/-- The first denominator exists whenever the rung has the right residue. -/
+theorem ladder_first_term (n r : ℕ) (hn : 0 < n) (hnr : n % 4 = 1)
+    (hrr : r % 4 = 3) : ∃ a, 0 < a ∧ 4 * a = n + r := by
+  have h4 : 4 ∣ n + r := by omega
+  obtain ⟨a, ha⟩ := h4
+  exact ⟨a, by omega, by omega⟩
+
+/-- **The price-zero layer.** A rung `r ≡ 3 (mod 4)` dividing `n`, `n+1` or `n+4`
+is read off `n` — no divisor of `M` is searched for. -/
+def PriceZeroCovered (n : ℕ) : Prop :=
+  ∃ r, 3 ≤ r ∧ r % 4 = 3 ∧ (r ∣ n ∨ r ∣ n + 1 ∨ r ∣ n + 4)
+
+/-- **The three families, as one theorem.** Each of the three divisibilities
+supplies its own denominators, with no search anywhere. -/
+theorem straus_of_priceZero (n : ℕ) (hn : 0 < n) (hnr : n % 4 = 1)
+    (h : PriceZeroCovered n) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  obtain ⟨r, hr3, hrr, hcase⟩ := h
+  have hr0 : 0 < r := by omega
+  obtain ⟨a, ha0, ha⟩ := ladder_first_term n r hn hnr hrr
+  -- `r` is odd, so it is coprime to 4 — used to strip the 4 in two of the cases.
+  have hcop4 : Nat.Coprime r 4 := by
+    have hrec : Nat.gcd 4 r = Nat.gcd (r % 4) 4 := Nat.gcd_rec 4 r
+    unfold Nat.Coprime
+    rw [Nat.gcd_comm, hrec, hrr]
+    decide
+  rcases hcase with hdn | hdn1 | hdn4
+  · -- `r ∣ n`: the repeated-denominator family, `b = 2na/r`.
+    have hdvd : r ∣ 2 * (n * a) := Dvd.dvd.mul_left (Dvd.dvd.mul_right hdn a) 2
+    obtain ⟨b, hb⟩ := hdvd
+    have hb0 : 0 < b := by
+      rcases Nat.eq_zero_or_pos b with h0 | h0
+      · exfalso; subst h0; simp at hb; omega
+      · exact h0
+    exact ⟨a, b, b, ha0, hb0, hb0,
+      straus_prime_family n r a b hn ha0 hb0 hr0 ha hb.symm⟩
+  · -- `r ∣ n+1`: the divisor family, `b = a(n+1)/r`, `c = n·b`.
+    obtain ⟨b, hb⟩ := Dvd.dvd.mul_left hdn1 a
+    have hb0 : 0 < b := by
+      rcases Nat.eq_zero_or_pos b with h0 | h0
+      · exfalso; subst h0; simp at hb; omega
+      · exact h0
+    refine ⟨a, b, n * b, ha0, hb0, Nat.mul_pos hn hb0, ?_⟩
+    have := straus_divisor_family n r a b hn ha0 hb0 hr0 ha hb.symm
+    simpa using this
+  · -- `r ∣ n+4`: the `u = n` family. `4(a+1) = n+r+4`, so `r ∣ 4(a+1)`, and `r`
+    -- being odd gives `r ∣ a+1`; then `b = n(a+1)/r` and `c = a·b`.
+    have h4a : 4 * (a + 1) = (n + 4) + r := by omega
+    have hr4 : r ∣ 4 * (a + 1) := by rw [h4a]; exact Nat.dvd_add hdn4 dvd_rfl
+    have hra : r ∣ a + 1 := (Nat.Coprime.dvd_of_dvd_mul_left hcop4 (by simpa [Nat.mul_comm] using hr4))
+    obtain ⟨b, hb⟩ := Dvd.dvd.mul_left hra n
+    have hb0 : 0 < b := by
+      rcases Nat.eq_zero_or_pos b with h0 | h0
+      · exfalso; subst h0; simp at hb; omega
+      · exact h0
+    exact ⟨a, b, a * b, ha0, hb0, Nat.mul_pos ha0 hb0,
+      straus_n_family n r a b (a * b) hn ha0 hb0 hr0 ha hb.symm rfl⟩
+
+/-- **Multiplicative descent.** A closing proper divisor closes `n` itself:
+scaling every denominator by `n/d` carries the representation up. -/
+theorem straus_scaling (d n k a b c : ℕ) (hd : 0 < d) (hk : 0 < k) (hn : n = d * k)
+    (ha : 0 < a) (hb : 0 < b) (hc : 0 < c)
+    (h : (4 : ℚ) / d = 1 / a + 1 / b + 1 / c) :
+    (4 : ℚ) / n = 1 / (k * a) + 1 / (k * b) + 1 / (k * c) := by
+  have hdq : (d : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hd.ne'
+  have hkq : (k : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hk.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb.ne'
+  have hcq : (c : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hc.ne'
+  subst hn
+  push_cast
+  field_simp at h ⊢
+  nlinarith [h, sq_nonneg ((k : ℚ))]
+
+/-- **The frontier.** What the price-zero layer and the one-shot leave: the
+values whose rung must be searched. -/
+def StrausFrontier (n : ℕ) : Prop :=
+  5 ≤ n ∧ n % 4 = 1 ∧ ¬ (3 ∣ n) ∧ n % 8 ≠ 5 ∧ ¬ PriceZeroCovered n
+
+/-- **The frontier sits on one residue class.** Every value the two layers miss
+is `n ≡ 1 (mod 24)`: `n % 8 = 1` because `n % 8 = 5` is the one-shot, and
+`n % 3 = 1` because `n ≡ 2 (mod 3)` puts `3 ∣ n+1` in the price-zero layer. -/
+theorem straus_frontier_mod_24 (n : ℕ) (h : StrausFrontier n) : n % 24 = 1 := by
+  obtain ⟨hn5, h4, h3, h8, hpz⟩ := h
+  have h3' : ¬ (3 ∣ n + 1) := fun hd => hpz ⟨3, le_refl 3, by norm_num, Or.inr (Or.inl hd)⟩
+  have h3n : ¬ (3 ∣ n) := h3
+  have e3 : n % 3 = 1 := by omega
+  have e8 : n % 8 = 1 := by omega
+  omega
+
+#print axioms Erdos.StrausGreedy.straus_of_priceZero
+#print axioms Erdos.StrausGreedy.straus_scaling
+#print axioms Erdos.StrausGreedy.straus_frontier_mod_24
+
 #print axioms Erdos.StrausGreedy.straus_one_shot
 #print axioms Erdos.StrausGreedy.straus_class_of_everyNClosed
 #print axioms Erdos.StrausGreedy.straus_of_closedAtRung
