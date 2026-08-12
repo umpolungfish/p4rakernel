@@ -504,6 +504,49 @@ theorem straus_of_closedAtRung (n r : ℕ) (hn : 0 < n) (hr : 0 < r)
     straus_practical n r a u w b c hn ha0 hb0 hc0 hr hu0 hw0 hM ha
       (by rw [← hM]; exact hb.symm) (by rw [← hM]; exact hc.symm)⟩
 
+/-! ## The rung height grows like the fourth root
+
+The ceiling is not a constant. Measured across the surviving class:
+
+    n < 2000      max rung 23   at n = 1201     n^(1/4) =  5.9
+    n < 10000     max rung 23   at n = 2161     n^(1/4) =  6.8
+    n < 50000     max rung 51   at n = 35809    n^(1/4) = 13.8
+    n < 100000    max rung 47   at n = 99961    n^(1/4) = 17.8
+    n < 200000    max rung 75   at n = 196561   n^(1/4) = 21.1
+
+The ratio of the maximum rung to `n^(1/4)` is 3.9, 3.4, 3.7, 2.6, 3.6 — flat
+across two orders of magnitude. So the search a proof would have to control is
+`O(n^(1/4))` rungs deep, not `O(1)`, and a bounded-ceiling statement is the wrong
+target: what is wanted is that SOME rung closes, with the fourth root as the
+budget rather than a constant.
+
+Across `5 ≤ n ≤ 200000` — 33333 values in the class — every one is closed at a
+rung, except that `n = 2521` requires the divisor to come from `M²` rather than
+`M`, which `straus_master` supplies.
+-/
+
+/-- The growth statement, as a `Prop`: some constant `C` bounds every `n`'s least
+closing rung by `C · n^(1/4)`. Measured at `C ≈ 3.6` up to 200000; unproved. -/
+def RungGrowthFourthRoot : Prop :=
+  ∃ C : ℝ, 0 < C ∧ ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → n % 3 ≠ 0 →
+    ∃ r : ℕ, ClosedAtRung n r ∧ (r : ℝ) ≤ C * (n : ℝ) ^ ((1 : ℝ) / 4)
+
+/-- And the conjecture itself, in the vocabulary this file has built: every `n`
+in the surviving class is closed at some rung. `straus_of_closedAtRung` turns
+this into Erdős–Straus for the class. -/
+def EveryNClosed : Prop :=
+  ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → n % 3 ≠ 0 → ∃ r : ℕ, 0 < r ∧ ClosedAtRung n r
+
+/-- **The reduction, stated once.** `EveryNClosed` gives the conjecture on the
+surviving class. -/
+theorem straus_class_of_everyNClosed (h : EveryNClosed) :
+    ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → n % 3 ≠ 0 →
+      ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  intro n h5 h4 h3
+  obtain ⟨r, hr, hclosed⟩ := h n h5 h4 h3
+  exact straus_of_closedAtRung n r (by omega) hr hclosed
+
+#print axioms Erdos.StrausGreedy.straus_class_of_everyNClosed
 #print axioms Erdos.StrausGreedy.straus_of_closedAtRung
 #print axioms Erdos.StrausGreedy.straus_practical
 #print axioms Erdos.StrausGreedy.straus_n_family

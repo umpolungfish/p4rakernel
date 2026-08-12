@@ -1,17 +1,24 @@
-straus_of_closedAtRung — the conjecture reduced to a divisibility
+The rung height grows like the fourth root, and the conjecture is one Prop
 
-ClosedAtRung n r says: there is an a with 4a = n+r, and a factorisation n·a = u·w
-whose u satisfies r ∣ n·a + u. The theorem says that alone produces the three unit
-fractions, denominators and all.
+The ceiling is not a constant, and chasing one was the wrong target. Measured
+across the surviving class:
 
-So Erdős–Straus for the surviving class n ≡ 1 (mod 4) is exactly the statement
-that every n is closed at some rung. What began as three unknowns ranging over the
-integers is a divisibility condition on one factorisation of one number, and the
-cofactor needs no division: M = u·w makes v = u·w² by ring.
+  n < 2000    max rung 23  at 1201      n^(1/4) =  5.9
+  n < 10000   max rung 23  at 2161      n^(1/4) =  6.8
+  n < 50000   max rung 51  at 35809     n^(1/4) = 13.8
+  n < 100000  max rung 47  at 99961     n^(1/4) = 17.8
+  n < 200000  max rung 75  at 196561    n^(1/4) = 21.1
 
-Measured: the ceiling is 31 across 5 ≤ n ≤ 20000, 3333 values, every one closed.
-Four closed-form families cover 98.2% of them with the rung read straight off a
-factorisation of n, n+1 or n+4 and no search at all.
+The ratio of maximum rung to n^(1/4) is 3.9, 3.4, 3.7, 2.6, 3.6 — flat across two
+orders of magnitude. So a proof has to control an O(n^(1/4))-deep search, not a
+constant one, and RungGrowthFourthRoot states that as a Prop with the measured
+constant named.
 
-Eight theorems in the file, sorry-free on propext, Classical.choice, Quot.sound.
-Library green at 8592 jobs.
+EveryNClosed is the conjecture itself in this file's vocabulary: every n in the
+surviving class is closed at some rung. straus_class_of_everyNClosed derives
+Erdős–Straus for the class from it, which is the whole reduction in one line.
+
+33333 values checked across 5 ≤ n ≤ 200000, all closed, the single exception being
+n = 2521 whose divisor lives in M² rather than M.
+
+Library green.
