@@ -721,9 +721,10 @@ and the rung closes exactly when `−M ∈ R`. Since `M` is itself in `R`, and `
 sits inside the subgroup `H = ⟨p₁, …, p_k⟩` of `(ZMod r)ˣ`, the criterion is
 `−1 ∈ H` up to the exponents actually available. The budget gap is a steady few per cent of the rungs walked: 19 of 379 below
 50000, 21 of 850 from there to 200000, spread across many values. What is
-exceptional is failing that way at EVERY rung, which `n = 2521` does — r = 11,
-19, 43, 47, 59, 63, 67, 75, 95 and on — and which is why its divisor must be
-sought in `M²`. Elsewhere the gap costs one rung and the walk continues; every
+exceptional is failing that way at EVERY rung, which `n = 2521` does: searched to
+rung 4000, `M = 2521·(2521+r)/4` carries no divisor at `−1` for any of them, so
+its divisor genuinely lives in `M²` rather than merely beyond a small budget. By
+contrast `n = 196561` acquires a cofactor at rung 75 and `n = 1201` at rung 23. Elsewhere the gap costs one rung and the walk continues; every
 other failing rung fails because the subgroup itself lacks `−1`.
 
 The half of this that needs no exponent bookkeeping is below: a divisor of `M`

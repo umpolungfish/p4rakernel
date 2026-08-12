@@ -1,7 +1,6 @@
-Erdos-Straus: the budget gap is steady, not concentrated
+Erdos-Straus: 2521 is in the square stratum for real
 
-The 50000-200000 block shows 21 gaps in 850 rungs walked, spread over many
-values, against 19 in 379 below 50000. So it is a persistent mode of a few per
-cent, and my reading of it as concentrated on 2521 came from one block. What is
-exceptional about 2521 is failing that way at every rung, which is why its
-divisor lives in M^2; elsewhere the gap costs one rung and the walk continues.
+Searched to rung 4000, no M = 2521(2521+r)/4 carries a divisor at -1. So its
+divisor lives in M^2 rather than beyond a small rung budget, which is what the
+earlier reading to 51 could not distinguish. 196561 acquires a cofactor at rung
+75 and 1201 at rung 23.
