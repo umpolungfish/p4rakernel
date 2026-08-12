@@ -229,6 +229,88 @@ theorem second_split_general (r M u v b c : ℕ) (hr : 0 < r) (hM : 0 < M)
 theorem straus_2521 : IsThreeUnit 2521 636 69748 131876031 := by
   refine ⟨by norm_num, by norm_num, by norm_num, by norm_num⟩
 
+/-! ## The divisor family, in closed form
+
+The criterion ranges over divisors of `M²`. Taking `u = a` — the first term's own
+denominator, which certainly divides `M² = n²a²` — collapses the whole thing to a
+divisibility condition on `n` alone, and the three denominators become a formula.
+
+With `4a = n + r` and `r·b = a(n+1)`:
+
+    1/a + 1/b + 1/(nb) = 1/a + (n+1)/(nb) = 1/a + r/(na) = (n+r)/(na) = 4a/(na) = 4/n
+
+So every `n` for which `n(n+1)` has a divisor `r ≡ 3 (mod 4)` is settled, with the
+representation written down rather than searched. `n = 49` is the case `r = 7`:
+`a = 14`, `b = 100`, and `4/49 = 1/14 + 1/100 + 1/4900`.
+-/
+
+/-- **The divisor family.** `4a = n + r` and `r·b = a(n+1)` force
+`4/n = 1/a + 1/b + 1/(nb)`. No congruence is needed in the proof — the two
+equations carry it. -/
+theorem straus_divisor_family (n r a b : ℕ)
+    (hn : 0 < n) (ha0 : 0 < a) (hb0 : 0 < b) (hr0 : 0 < r)
+    (ha : 4 * a = n + r) (hb : r * b = a * (n + 1)) :
+    (4 : ℚ) / n = 1 / a + 1 / b + 1 / (n * b) := by
+  have hnq : (n : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha0.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb0.ne'
+  have hrq : (r : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hr0.ne'
+  have haq' : (4 : ℚ) * a = (n : ℚ) + r := by exact_mod_cast ha
+  have hbq' : (r : ℚ) * b = (a : ℚ) * ((n : ℚ) + 1) := by exact_mod_cast hb
+  -- Clear the denominators; the two equations then close it by ring arithmetic.
+  field_simp
+  nlinarith [haq', hbq', sq_nonneg ((n : ℚ) * b), sq_nonneg ((a : ℚ) * r)]
+
+/-- `n = 49` at `r = 7`: `4/49 = 1/14 + 1/100 + 1/4900`. -/
+theorem straus_49_family : (4 : ℚ) / 49 = 1 / 14 + 1 / 100 + 1 / (49 * 100) := by
+  norm_num
+
+/-! ## One condition, not two
+
+`second_split_general` asks for `r ∣ M+u` and `r ∣ M+v`. The second is free: from
+`u·v = M²` and `u ≡ −M (mod r)`,
+
+    (−M)·v ≡ M²  ⟹  M·(v + M) ≡ 0  (mod r)
+
+so `r ∣ M+v` as soon as `r` is coprime to `M`. The criterion is therefore a
+single congruence on a single divisor, which is what makes it searchable at all:
+`∃ u ∣ M² with r ∣ M + u`.
+-/
+
+/-- **The second condition is implied.** With `u·v = M²` and `r` coprime to `M`,
+`r ∣ M+u` gives `r ∣ M+v`. -/
+theorem v_condition_free (r M u v : ℕ) (hr : 0 < r)
+    (huv : u * v = M * M) (hcop : Nat.Coprime r M) (hu : r ∣ M + u) :
+    r ∣ M + v := by
+  -- Work in `ZMod r`, where the hypothesis says `u = -M`.
+  have h1 : ((M : ZMod r) + (u : ZMod r)) = 0 := by
+    have := (ZMod.natCast_eq_zero_iff (M + u) r).mpr hu
+    push_cast at this
+    exact this
+  have h2 : ((u : ZMod r) * (v : ZMod r)) = (M : ZMod r) * (M : ZMod r) := by
+    have := congrArg (fun n : ℕ => (n : ZMod r)) huv
+    push_cast at this
+    exact this
+  have hu' : (u : ZMod r) = -(M : ZMod r) := by linear_combination h1
+  rw [hu'] at h2
+  -- `-M·v = M²` ⟹ `M·(v + M) = 0`, and `M` is a unit.
+  have h3 : (M : ZMod r) * ((v : ZMod r) + (M : ZMod r)) = 0 := by
+    linear_combination -h2
+  have hMunit : IsUnit (M : ZMod r) := by
+    rw [ZMod.isUnit_iff_coprime] at *
+    exact hcop.symm
+  have h4 : ((v : ZMod r) + (M : ZMod r)) = 0 := by
+    rcases hMunit.exists_left_inv with ⟨w, hw⟩
+    calc ((v : ZMod r) + (M : ZMod r))
+        = w * ((M : ZMod r) * ((v : ZMod r) + (M : ZMod r))) := by
+          rw [← mul_assoc, hw, one_mul]
+      _ = 0 := by rw [h3, mul_zero]
+  have : ((M : ZMod r) + (v : ZMod r)) = 0 := by linear_combination h4
+  have := (ZMod.natCast_eq_zero_iff (M + v) r).mp (by push_cast; exact this)
+  exact this
+
+#print axioms Erdos.StrausGreedy.v_condition_free
+#print axioms Erdos.StrausGreedy.straus_divisor_family
 #print axioms Erdos.StrausGreedy.second_split_general
 #print axioms Erdos.StrausGreedy.straus_2521
 #print axioms Erdos.StrausGreedy.r_over_M_split
