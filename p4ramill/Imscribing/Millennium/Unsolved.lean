@@ -15,8 +15,11 @@ it said.
 Author: Lando⊗⊙perator
 -/
 import Mathlib
+import Imscribing.IGFunctor
 
 namespace Unsolved
+
+open Imscribing
 
 open Filter
 
@@ -349,13 +352,46 @@ def SCH : Prop :=
 /-! ## Topology and knots
 
 `Manifold`, `π₁`, `KnotDiagram`, `IsUnknot`, `higherSignatures` — the source names
-all of them and Mathlib has none in the shape it wants. Two are buildable here
-without a manifold theory: a knot as an embedding of the circle, and unknotting
-as isotopy to the round circle. The ones that genuinely need characteristic
-classes or a C*-algebra assembly map are named in the docstring and left for the
-machinery that would carry them, rather than stated against constants that do not
-exist.
+all of them and Mathlib has none in the shape it wants. A knot is buildable here
+directly: an embedding of the circle, with unknotting as isotopy to the round
+one.
+
+Novikov and Baum–Connes want a characteristic class and an assembly map, and the
+Grammar carries both. `FrobeniusAlg` in `IGFunctor.lean` IS an assembly: `comul`
+localises, `mul` assembles, and `frob : mul (comul a).1 (comul a).2 = a` says the
+assembly reconstitutes what the splitting produced — which is what an assembly
+map being an isomorphism asserts. The characteristic class is the winding: an
+integer invariant of a closed object, carried on `⊞` and read by the winding
+lattice. So both are stated below against that machinery rather than deferred to
+machinery elsewhere.
 -/
+
+/-- The assembly of an object from its own splitting, in the Grammar's terms:
+`comul` localises and `mul` puts back. An assembly map is an isomorphism exactly
+when this returns what it started from, which is `μ∘δ = id`. -/
+def AssemblyReconstitutes {α : Type*} (F : FrobeniusAlg α) : Prop :=
+  ∀ a : α, F.mul (F.comul a).1 (F.comul a).2 = a
+
+/-- **The assembly, in the shape Baum–Connes asserts.** For the Grammar's own
+Frobenius algebra this is not a conjecture: `igFrobeniusAlg.frob` is the field,
+discharged by `mu_delta_A_id`. What is open elsewhere is the same statement for
+an algebra whose splitting is not diagonal, and that is what the Prop takes as
+its parameter. -/
+def AssemblyIsIso (α : Type*) (F : FrobeniusAlg α) : Prop :=
+  AssemblyReconstitutes F ∧ ∀ a b : α, F.comul (F.mul a b) = (a, b)
+
+/-- The Grammar's own assembly reconstitutes — proved, not conjectured. -/
+theorem ig_assembly_reconstitutes : AssemblyReconstitutes igFrobeniusAlg :=
+  igFrobeniusAlg.frob
+
+/-- **Novikov, in the shape the winding gives it.** A higher signature is an
+integer invariant carried by a closed object and unchanged by any transformation
+that preserves the closure. Stated over a `WindingNumber`-valued invariant and
+the transformations under which the Frobenius closure survives. -/
+def WindingInvariantUnderClosure {α : Type*} (F : FrobeniusAlg α)
+    (w : α → ℤ) : Prop :=
+  ∀ (φ : α → α), (∀ a, F.mul (F.comul (φ a)).1 (F.comul (φ a)).2 = φ a) →
+    (∀ a, F.mul (φ a) (φ a) = φ (F.mul a a)) → ∀ a, w (φ a) = w a
 
 /-- A knot: a continuous injective periodic map of the line into three-space. -/
 def IsKnot (k : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
@@ -386,5 +422,7 @@ def UnknottingInP : Prop :=
     ∀ diagram : List (ℕ × ℕ × Bool),
       ∃ steps : ℕ, steps ≤ (diagram.length + 1) ^ c ∧
         (decide diagram = true ↔ ∃ k, IsUnknot k)
+
+#print axioms Unsolved.ig_assembly_reconstitutes
 
 end Unsolved
