@@ -1,12 +1,12 @@
-The size-Ramsey number, from the object that forked it
+The uniformity lift, from the object that forked it on parity
 
-The second ob3ect of the nest reads size-Ramsey as a fork whose two arms must
-both close: one constructs a host that forces, the other establishes that no
-smaller host does. HostForces is the first arm's content, ForcingSizes is the set
-it lands in, sizeRamsey is the infimum, and sizeRamsey_le is the upper bound a
-construction gives outright. The second arm — the infimum attained rather than
-merely bounded — is not free, and the file says so rather than assuming it.
+The third ob3ect reads stepping-up as a parity fork with a forward morphism: odd
+and even uniformity need different constructions, and what crosses between them
+is a blow-up carrying a colouring that avoids a monochromatic set at r to one
+that avoids it at r+1.
 
-Same separation as the Ramsey pair: the infimum and the non-emptiness are
-distinct, since an infimum over an empty set is zero and would read here as "no
-edges needed".
+HyperArrows says what arrowing at uniformity r means, SteppingUpLift says the
+lift exists, and HypergraphTowerGrowth says what iterating it gives — a tower
+below the Ramsey number. The five entries that stood here asserted that growth
+while mentioning no hypergraph; now the growth is stated about the object that
+has one.

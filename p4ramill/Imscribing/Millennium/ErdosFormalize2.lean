@@ -259,6 +259,39 @@ theorem sizeRamsey_le {m N : ℕ} (G : SimpleGraph (Fin m)) (host : SimpleGraph 
 
 /-! ## §5 Hypergraph Ramsey -/
 
+/-! ### The uniformity lift
+
+The third object of the nest reads stepping-up as a parity fork with a forward
+morphism: the construction differs at odd and even uniformity, and what crosses
+between them is a blow-up carrying a colouring that avoids a monochromatic set at
+`r` to one that avoids it at `r+1`. That is what the entries removed below were
+about, and it is written here rather than gestured at.
+-/
+
+/-- An `r`-uniform two-colouring of the `r`-subsets of `Fin N`. -/
+def HyperColouring (r N : ℕ) : Type := Finset (Fin N) → Bool
+
+/-- `N` arrows `n` at uniformity `r`: every two-colouring of the `r`-subsets
+carries a set of `n` vertices all of whose `r`-subsets take one colour. -/
+def HyperArrows (r N n : ℕ) : Prop :=
+  ∀ col : HyperColouring r N, ∃ (S : Finset (Fin N)) (c : Bool),
+    S.card = n ∧ ∀ T ⊆ S, T.card = r → col T = c
+
+/-- **Stepping up, as a statement.** A colouring on `N` vertices avoiding a
+monochromatic `n`-set at uniformity `r` lifts to one on `2^N` vertices avoiding a
+monochromatic `(n+1)`-set at uniformity `r+1`. The lift is the forward morphism
+the object names; the parity of `r` decides which construction realises it, which
+is why the statement is about existence of the lift rather than a formula. -/
+def SteppingUpLift : Prop :=
+  ∀ r N n : ℕ, 3 ≤ r → ¬ HyperArrows r N n → ¬ HyperArrows (r + 1) (2 ^ N) (n + 1)
+
+/-- **The tower, as what iterating the lift gives.** Each application squares the
+vertex count in the exponent, so `k` applications from a base bound put a tower
+of height `k` below the Ramsey number — the growth the removed entries asserted
+without naming a hypergraph. -/
+def HypergraphTowerGrowth : Prop :=
+  SteppingUpLift → ∀ n : ℕ, 2 ≤ n → ∀ k : ℕ, ¬ HyperArrows (k + 3) (tower k) (n + k)
+
 /-! Five stepping-up entries stood here — `∃ c₁ c₂ > 0`, `∃ N, n ≤ N`,
 `∃ N, 0 < N`, `c·n ≤ 2ⁿ`, `c·log n ≤ n` — none mentioning a hypergraph. The
 faithful Erdős–Rado tower bounds live in `ProofModules/HypergraphRamsey.lean`,
