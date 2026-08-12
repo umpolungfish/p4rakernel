@@ -1,14 +1,16 @@
-The bound's route, from the twelfth object
+The perfect cuboid rested on an axiom asserting its open case
 
-The object designed for the least closing rung reads its reverse morphism as the
-product's SIZE forcing the divisor: as M grows its divisors multiply, and a
-residue class cannot stay empty once enough of them land. That is the coverage
-the instrument has been measuring, and it is the bridge from a measurement to a
-bound.
+Sweeping the whole library's axiom lines turned up two results outside the Erdos
+corpus depending on case_mixed_parity_impossible, an axiom concluding False from
+hypotheses a genuine cuboid can satisfy. Its own account says the sub-analysis
+remains open and that it carries the content of the conjecture on that branch. So
+no_perfect_cuboid was proved by assuming the conjecture where the conjecture is
+hard, and the assumption travelled in the axiom set where nothing reads it.
 
-closedAtRung_of_full_coverage proves the bridge: if the divisors of M^2 meet
-every class mod r, one of them meets -M and the rung closes.
-CoverageReachesFull states what a bound needs on top — that coverage becomes full
-by a stated rung — which the measurement supports and does not prove.
+It is a Prop now, MixedParityImpossible, taken as a hypothesis by
+descent_or_impossible and no_perfect_cuboid. Both come back on propext,
+Classical.choice and Quot.sound, and the dependence shows in the type — the same
+repair the Grammar axioms got, applied where the sweep found it rather than where
+I was looking.
 
-All twelve objects have landed. Every one became a definition or a theorem.
+Library green at 8592 jobs.
