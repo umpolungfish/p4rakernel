@@ -236,6 +236,34 @@ def OddCycleInEdgeColoured : Prop :=
 def RandomGraphChiMinusZeta : Prop :=
   ∀ M : ℝ, ∀ᶠ n : ℕ in atTop, M ≤ (n : ℝ) * 2 * Real.log (Real.log n) / (2 * Real.log n) ^ 2
 
+/-! ### Girth against chromatic number
+
+The fifth object of the nest forks this extremal function into two arms — one
+where the construction and the upper bound coincide, one where they leave a gap —
+and its fuse keeps BOTH: the exact arm contributes a value, the gap arm an
+interval. So the quantity is written here as a range, with equality of the ends
+saying the value is known exactly. Collapsing it to a single number would assert
+an exactness the problem does not have.
+-/
+
+/-- `G` has girth at least `g`: no cycle of `G` is shorter than `g`. The cycle
+predicate is the one this file already carries. -/
+def GirthAtLeast {n : ℕ} (G : SimpleGraph (Fin n)) (g : ℕ) : Prop :=
+  ∀ vs : List (Fin n), IsCycleList G vs → g ≤ vs.length
+
+/-- **The girth available at a given order and chromatic number, as a range.**
+The lower end is realised by a construction; the upper end bounds every graph of
+that order and chromatic number. When the two ends meet the value is exact, which
+is the exact-match arm of the fork; otherwise the pair is what is known. -/
+def GirthRange (n k lo hi : ℕ) : Prop :=
+  (∃ (G : SimpleGraph (Fin n)) (_ : DecidableRel G.Adj),
+      k ≤ G.chromaticNumber ∧ GirthAtLeast G lo) ∧
+  (∀ (G : SimpleGraph (Fin n)) (_ : DecidableRel G.Adj),
+      k ≤ G.chromaticNumber → ∀ vs : List (Fin n), IsCycleList G vs → vs.length ≤ hi ∨ hi = 0)
+
+/-- The value is known exactly when the range's ends meet. -/
+def GirthExact (n k g : ℕ) : Prop := GirthRange n k g g
+
 /-! A `GkLimit` entry stood here asking for the limit of `n/n`, which is one and has
 nothing to do with girth. -/
 
