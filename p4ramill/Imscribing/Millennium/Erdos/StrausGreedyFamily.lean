@@ -834,6 +834,21 @@ theorem straus_196561 :
     (4 : ℚ) / 196561 = 1 / 49147 + 1 / 357793492 + 1 / 84680949964892 := by
   norm_num
 
+/-- **What surviving the greedy rung costs.** If rung 3 does not close a frontier
+value by the cofactor form, then every prime factor of `M = n(n+3)/4` is
+`≡ 1 (mod 3)` — so `n` and `(n+3)/4` are simultaneously built from primes
+`≡ 1 (mod 3)`, on top of `n` and `n+4` being built from primes `≡ 1 (mod 4)`.
+Four multiplicative conditions at once, which is why the cascade thins so fast. -/
+theorem rung_three_residue (n a : ℕ) (hn : 0 < n) (ha0 : 0 < a)
+    (ha : 4 * a = n + 3) (hopen : ¬ ClosedAtRung n 3) :
+    ∀ p : ℕ, p.Prime → p ∣ n * a → p % 3 = 1 ∨ p % 3 = 0 := by
+  intro p hp hpd
+  by_contra hcon
+  push_neg at hcon
+  have h2 : p % 3 = 2 := by omega
+  exact hopen (closedAtRung_three_of_prime n a p hn ha0 hp.pos ha hpd h2)
+
+#print axioms Erdos.StrausGreedy.rung_three_residue
 #print axioms Erdos.StrausGreedy.straus_196561
 #print axioms Erdos.StrausGreedy.closedAtRung_of_cofactor
 #print axioms Erdos.StrausGreedy.closedAtRung_three_of_prime
