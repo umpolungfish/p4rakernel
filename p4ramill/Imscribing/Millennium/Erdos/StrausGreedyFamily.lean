@@ -1111,6 +1111,44 @@ theorem straus_class_of_rungBounded (B : ℕ → ℕ) (h : RungBounded B) :
   have hr0 : 0 < r := by omega
   exact threeUnit_of_closedAtRungSq n r hn hr0 hcl
 
+/-! ## What the twelfth object says about the bound
+
+The object designed for "the least rung at which the ladder product carries a
+divisor at `−1`, and its bound in the integer alone" reads its reverse morphism
+as the product's SIZE forcing the divisor: as `M` grows its divisors multiply,
+and a residue class cannot stay empty once enough of them land. That is the
+coverage the instrument measures — the size of `{M + u mod r : u ∣ M²}` against
+`r` — and it is the bridge from a measurement to a bound.
+
+The bridge itself is elementary and is proved here. What is not proved, and is
+what a bound needs, is that coverage reaches `r` by a stated rung.
+-/
+
+/-- **Full coverage forces closure.** If the divisors of `M²` meet every residue
+class mod `r`, one of them meets `−M`, and the rung closes. This is the object's
+reverse morphism written out: size forcing the divisor. -/
+theorem closedAtRung_of_full_coverage (n r a : ℕ) (hn : 0 < n) (ha0 : 0 < a)
+    (hr : 0 < r) (ha : 4 * a = n + r)
+    (hfull : ∀ x : ZMod r, ∃ u : ℕ, 0 < u ∧ u ∣ (n * a) * (n * a) ∧ (u : ZMod r) = x) :
+    ∃ u : ℕ, 0 < u ∧ u ∣ (n * a) * (n * a) ∧ r ∣ (n * a + u) := by
+  obtain ⟨u, hu0, hudvd, hux⟩ := hfull (-(n * a : ℕ) : ZMod r)
+  refine ⟨u, hu0, hudvd, ?_⟩
+  have : ((n * a + u : ℕ) : ZMod r) = 0 := by
+    push_cast [hux]
+    ring
+  exact (ZMod.natCast_eq_zero_iff _ _).mp this
+
+/-- **The coverage route to a bound, as a Prop.** A bound follows from knowing
+that the divisors of `M²` cover `ZMod r` by some rung below `B n`. Measured, the
+coverage at a closing rung averages 0.73 and the walk is dissipative in it; that
+is evidence for this statement, not a proof of it. -/
+def CoverageReachesFull (B : ℕ → ℕ) : Prop :=
+  ∀ n : ℕ, 5 ≤ n → n % 4 = 1 → ¬ (3 ∣ n) →
+    ∃ r a : ℕ, r < B n ∧ r % 4 = 3 ∧ 4 * a = n + r ∧
+      ∀ x : ZMod r, ∃ u : ℕ, 0 < u ∧ u ∣ (n * a) * (n * a) ∧ (u : ZMod r) = x
+
+#print axioms Erdos.StrausGreedy.closedAtRung_of_full_coverage
+
 #print axioms Erdos.StrausGreedy.straus_class_of_rungBounded
 #print axioms Erdos.StrausGreedy.ladder_cross
 #print axioms Erdos.StrausGreedy.ladder_complete
