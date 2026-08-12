@@ -825,9 +825,11 @@ multiplying by `k` gives `4k·a = k·n + k·r = k·n + w + 1`, so if `w` divides
 So each `k` reads its rungs off the factorisation of `k·n + 1`: `k = 1` is the
 divisor family `r ∣ n+1`, `k = 2` reads `2n+1`, and so on. The search over
 divisors of `M` — which needed `a`, which needed the rung — becomes a search over
-`k`, with no reference to `a` at all. Below 20000 the frontier's 83 values are
-closed by `k ≤ 8` in 64 cases and by `k ≤ 40` in 74; only even `k` occur, since
-`w` must be odd where `M` is.
+`k`, with no reference to `a` at all. The reparametrization is exact — every cofactor is `k·r − 1` for some `k` — but
+`k` is not bounded a priori, reaching `(M+1)/r`. Over the 624 frontier values
+below 200000: `k = 2` supplies the rung in 321 cases, `k = 4` in 103, `k = 6` in
+59, and `k ≤ 40` in 589 altogether. Only even `k` occur, since `w` must be odd
+where `M` is.
 -/
 
 /-- **The `k`-shift family.** A divisor `w` of `k·n + 1`, coprime to `4k`, with
