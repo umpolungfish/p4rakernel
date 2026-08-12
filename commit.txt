@@ -1,17 +1,13 @@
-A partition relation, held at B
+The list-chromatic threshold, with the discarded arm restored
 
-The ninth ob3ect splits this one into the constructible universe, where the
-relation holds, and a model of Martin's Axiom, where a colouring refutes it. Its
-ENGAGR keeps the contradiction open instead of resolving it, the fuse is B, and
-IFIX fixes B as the fact.
+The tenth ob3ect forks the graph class on the property and reports B, and its
+reason is worth keeping: the fuse stays open because the arm of graphs that do
+NOT exceed the bound is dropped when the least order is named. A minimum over one
+arm is not a fusion of the split — what went into the fork does not come back out
+of it — so the object records the defect instead of hiding it behind a value.
 
-What can be written here is the relation and its two arms: ArrowsPairsOfType over
-colourings of pairs, PartitionArmHolds, PartitionArmFails. What cannot is a proof
-of either, since each holds in a different model and a development asserting one
-would be asserting its model.
-
-partition_arms_exclusive is the part that is provable and it depends on no axioms
-at all: over the same parameters the two arms cannot both be inhabited. That is
-what makes their coexistence across models an independence rather than a
-contradiction here. The entries removed from this file said aleph one is at most
-its square, and the negation of a false inequality.
+LeastOrderListChromatic therefore carries both halves: a bipartite witness at the
+order, and the absence of one below it. The second conjunct is the arm the fuse
+dropped, put back. ListColourable and ListChromaticExceeds write out the notion
+the removed entry never mentioned, its conclusion having been that some N is
+positive.
