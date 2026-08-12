@@ -1,14 +1,12 @@
-Erdos-Straus: the shift family, and the frontier is now essentially primes
+Erdos-Straus: the ladder loses nothing
 
-Any divisor d of n divides M = n*a, so a rung r = 3 (mod 4) dividing d+1 closes
-by the cofactor form. The rung is read off the factorisation of n alone, a is
-never consulted, and it is not of monomial type — the exhaustion theorem does not
-reach it. That is closedAtRung_of_shift, and ShiftCovered now sits in the
-frontier definition beside PriceZeroCovered.
+ladder_complete and ladder_cross. Given any representation 4/n = 1/x + 1/y + 1/z,
+put r = 4x - n and M = nx: then u = ry - M and v = rz - M satisfy uv = M^2 and
+both congruences, because (M+u)(M+v) = r^2yz = M((M+u)+(M+v)). So the rung and
+the divisor are a coordinate system on the representations, not a method for
+finding some of them, and a value with no rung has no representation at all.
 
-It halves the frontier: 1271 values below 200000 become 638, and multiplicative
-descent takes it to 624, of which 622 are prime. The composites survive only when
-every factor does, which is what descent means.
-
-Numbers in the docstrings updated to match, and the cascade rerun: 313 at rung 3,
-202 at 7, 55 at 11, down to the same two values needing a divisor of M^2.
+threeUnit_of_closedAtRungSq is the converse. ClosedAtRungSq carries both
+congruences now — the version that took the second as a hypothesis had the
+hypothesis doing the work of v_condition_free, which is the defect shape I keep
+finding elsewhere.
