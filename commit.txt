@@ -1,16 +1,33 @@
-The perfect cuboid rested on an axiom asserting its open case
+UNSOLVED, first document: statements that state their problems
 
-Sweeping the whole library's axiom lines turned up two results outside the Erdos
-corpus depending on case_mixed_parity_impossible, an axiom concluding False from
-hypotheses a genuine cuboid can satisfy. Its own account says the sub-analysis
-remains open and that it carries the content of the conjecture on that branch. So
-no_perfect_cuboid was proved by assuming the conjecture where the conjecture is
-hard, and the assumption travelled in the axiom set where nothing reads it.
+ig-docs/UNSOLVED.md holds 175 open-problem statements across three concatenated
+documents, and none of it compiles — 219 errors, Lean 3 syntax against a Mathlib
+that partly does not exist. A statement that cannot be elaborated has been
+checked by nothing.
 
-It is a Prop now, MixedParityImpossible, taken as a hypothesis by
-descent_or_impossible and no_perfect_cuboid. Both come back on propext,
-Classical.choice and Quot.sound, and the dependence shows in the type — the same
-repair the Grammar axioms got, applied where the sweep found it rather than where
-I was looking.
+Worse than that, several said something other than their problem:
 
-Library green at 8592 jobs.
+  the invariant subspace entry asserted the existence of an operator WITHOUT a
+  nontrivial invariant subspace, over every Hilbert space including the
+  finite-dimensional ones where every operator has an eigenvector — false as
+  written, and pointing away from the open direction;
+
+  the abc entry wrote "exists C, C > 0 -> ..." where the implication makes C = 0
+  satisfy the whole statement;
+
+  the lonely runner asked for SOME integer at distance 1/k, which any large
+  integer supplies; the condition is on the NEAREST integer;
+
+  Casas-Alvero asked that each derivative vanish at zero rather than share a root
+  with f;
+
+  the Riemann entry defined zeta by the naive series, which diverges where the
+  problem lives, and admitted the trivial zeros through an alternative
+  conclusion;
+
+  Hadwiger, in the second document, asks that the chromatic number be at least
+  the clique number, which is a theorem.
+
+The first document's twenty are now sixteen statements in
+Millennium/Unsolved.lean, each elaborating and each saying its problem, with the
+docstrings recording what the original said. In the build at 8593 jobs.
