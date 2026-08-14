@@ -1,0 +1,24 @@
+import Mathlib
+
+/-!
+# Erdős problem #1
+
+Prize: $500.  Status as catalogued: **OPEN**.
+
+The statement below is a FORMALISATION ATTEMPT, not a proof and not a settled
+reading of the problem. It carries `sorry`, which is the claim itself: what is
+asserted here is that this sentence is the problem, and nothing more. A `sorry`
+that elaborates is a typed claim on the ledger; a file that does not elaborate
+is not yet a claim at all, and the two are graded separately.
+
+"OPEN" is the status of the MATHEMATICS in the literature, not of this file.
+-/
+
+open scoped BigOperators
+open Finset
+
+theorem erdos_problem_1
+    (A : Finset ℕ)
+    (h_distinct : ∀ S T : Finset ℕ, S ⊆ A → T ⊆ A → S.sum id = T.sum id → S = T) :
+    ∃ C > 0, ∀ᶠ N in Filter.atTop, A.card = N → ∃ n : ℕ, n ≥ A.card ∧ C * 2 ^ A.card ≤ N := by
+  sorry

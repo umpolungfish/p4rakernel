@@ -156,6 +156,7 @@ globs = [
   "Imscribing.Millennium.Erdos.SquarefreePlusPowerOfTwo",
   "Imscribing.Millennium.Erdos.StrausGreedyFamily",
   "Imscribing.Millennium.ErdosProblems",
+  "Imscribing.Millennium.Erdos.Problems.Problem0003",
   "Imscribing.MoDoT.ManuscriptSpine",
   "Imscribing.Millennium.DualLinkVessel",
   "Imscribing.Nuclear.IslandOfStability",

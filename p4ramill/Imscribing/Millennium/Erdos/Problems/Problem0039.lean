@@ -1,0 +1,23 @@
+import Mathlib
+
+/-!
+# Erdős problem #39
+
+Prize: $500.  Status as catalogued: **OPEN**.
+
+The statement below is a FORMALISATION ATTEMPT, not a proof and not a settled
+reading of the problem. It carries `sorry`, which is the claim itself: what is
+asserted here is that this sentence is the problem, and nothing more. A `sorry`
+that elaborates is a typed claim on the ledger; a file that does not elaborate
+is not yet a claim at all, and the two are graded separately.
+
+"OPEN" is the status of the MATHEMATICS in the literature, not of this file.
+-/
+
+open scoped BigOperators
+open Finset
+
+theorem erdos_problem_39 :
+    ∃ A : Set ℕ, (∀ a ∈ A, ∀ b ∈ A, ∀ c ∈ A, ∀ d ∈ A, a + b = c + d → {a, b} = {c, d}) ∧
+      ∀ ε > 0, ∀ᶠ N in Filter.atTop, ∃ C > 0, C * N^(1/2 - ε) ≤ ((A ∩ Finset.Icc 1 N).ncard) := by
+  sorry
