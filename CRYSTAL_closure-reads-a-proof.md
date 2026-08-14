@@ -61,6 +61,38 @@ modules. The top-level collisions were repaired and are zero; the namespaced one
 remain and block the sweep. Verdicts above are from the modules reachable without
 tripping a collision, plus the self-nest.
 
-The instantiation on the bare-metal substrate is not done. `imasm_core` is carried
-there and the on-board kernel already computes the same verdict, so the remaining
-work is a verb and the words, not a port.
+The instantiation on the bare-metal substrate IS done for the calibration set:
+mOMonadOS carries the words and returns N T B B from its own kernel, the same
+`check::word_verdict` that gates the vita trunk's speech, matching the host.
+
+One divergence is open and is a finding rather than a nuisance. On the self-nest
+word — the closure law's own proof, tens of thousands of tokens — the host auditor
+returns T in about eleven milliseconds, and the on-board kernel did not return
+inside ten minutes. Two implementations of ONE condition, agreeing on every small
+word and differing by orders of magnitude in cost on a large one. The ancestry
+pairing is the suspect: the host's is not quadratic in the token count and the
+on-board one appears to be. Until that is settled, the metal reproduces the
+calibration verdicts and not the nest.
+
+## Verdicts on selected theorems, under these conditions
+
+| theorem | verdict | reading |
+|---|---|---|
+| three_ap_of_not_threeAPFree | T | the case split is performed here |
+| erdos_problem_3_k3 | T | the same |
+| erdos_problem_3 | B | the undischarged k >= 4 case, as an open fork |
+| dense_has_3ap | N | a thin wrapper over an imported theorem |
+| primes_reciprocal_diverges | N | a re-export under a local name |
+| Nat.le_antisymm | T | case analysis |
+| Nat.add_comm | T | structural recursion with a match |
+| List.reverse_reverse | N | NOT an induction: a rewrite chain delegating to a lemma |
+| Nat.sub_add_cancel | N | no case analysis in the term |
+| Nat.lt_irrefl | N | a single constant |
+
+The `List.reverse_reverse` row is the one that tested the instrument rather than
+confirming it. The expectation was T, since the statement is normally proved by
+induction. Its proof TERM is `Eq.mpr (congrArg ...) (Eq.refl ...)`, a rewrite that
+delegates the induction to a separate lemma, so N is correct and the expectation
+was wrong. That is the distinction the verdict claims to draw — performing the case
+analysis against delegating it — landing correctly where a reader would have
+guessed otherwise.
