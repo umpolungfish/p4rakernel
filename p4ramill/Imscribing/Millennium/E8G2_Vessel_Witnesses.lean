@@ -10,6 +10,14 @@
 
 import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.Core
+import Imscribing.Millennium.E8G2_Vessel
+
+-- The vessel, the aether, the graded form and the two tensor facts are DECLARED
+-- IN `E8G2_Vessel` and imported here. They used to be repeated in this file,
+-- identically and in the same namespace, so the two modules could not be loaded
+-- together at all. NS_CriticalBound had already met that and worked around it by
+-- commenting out its import of this module, with a note calling the file a
+-- duplicate. The workaround is removed with the duplication.
 
 namespace Millennium.E8G2
 
@@ -17,63 +25,6 @@ open Imscribing.Primitives
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality
-
--- ============================================================
--- §1. IG Imscribing of G2 (the Vessel)
--- ============================================================
-
-def g2_vessel : Imscription := {
-  dim  := ash,
-  top  := mime,
-  rel  := ian,
-  pol  := out,
-  fid  := peep,
-  kin  := egg,
-  gran := thigh,
-  gram := vow,
-  crit := monad,
-  chir := fee,
-  stoi := hung,
-  prot := awe }
-
--- ============================================================
--- §2. IG Imscribing of E8 (the Aether)
--- ============================================================
-
-def e8_aether : Imscription := {
-  dim  := array,
-  top  := mime,
-  rel  := ian,
-  pol  := yew,
-  fid  := peep,
-  kin  := egg,
-  gran := ice,
-  gram := measure,
-  crit := monad,
-  chir := sure,
-  stoi := up,
-  prot := ah }
-
--- ============================================================
--- §3. $\mathbb{Z}_2$-graded E8 via SO(16) — the join type
--- ============================================================
-
--- $G2 \vee E8$ computed: componentwise max. Differs from bare E8 only at P
--- ($P_\pm$ instead of $P_\psi$, since $P_\psi < P_\pm$).
-def e8_graded_via_SO16 : Imscription := {
-  dim  := array,
-  top  := mime,
-  rel  := ian,
-  pol  := out,  -- max($P_\pm$, $P_\psi$) = $P_\pm$;
-                 -- $\mathbb{Z}_2$ grading from SO(16) Cartan involution
-  fid  := peep,
-  kin  := egg,
-  gran := ice,
-  gram := measure,
-  crit := monad,
-  chir := sure,
-  stoi := up,
-  prot := ah }
 
 -- ============================================================
 -- §4. Distance computation
@@ -84,19 +35,6 @@ def distance_G2_E8 : Nat := primitiveMismatches g2_vessel e8_aether
 -- Distance is 7: D, P, G, $\Gamma$, H, S, $\Omega$ differ;
 -- T, R, F, K, $\Phi$ shared
 theorem distance_is_7 : distance_G2_E8 = 7 := by decide
-
--- ============================================================
--- §5. Tensor Product: $G2 \otimes E8 = E8$
--- ============================================================
-
--- The Vessel is absorbed into the Aether without residue
-theorem tensor_G2_E8_eq_E8 :
-    tensorProduct g2_vessel e8_aether = e8_aether := by decide
-
-theorem tensor_distance_zero :
-    primitiveMismatches (tensorProduct g2_vessel e8_aether) e8_aether = 0 := by
-  rw [tensor_G2_E8_eq_E8]
-  exact primitiveMismatches_self e8_aether
 
 -- ============================================================
 -- §6. Meet: $G2 \wedge E8 \approx G2$ (conservative resolution)

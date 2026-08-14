@@ -1,14 +1,22 @@
-The nest reproduces on the metal, and the cost divergence had a cause
+E8G2: the duplicate is gone and the workaround with it
 
-The crystal recorded an open divergence: the host auditor answering in
-milliseconds where the bare-metal kernel did not return inside ten minutes, same
-condition, same word. It is closed, and the substrate was not the reason.
+E8G2_Vessel_Witnesses declared g2_vessel, e8_aether, e8_graded_via_SO16 and the
+two tensor facts in namespace Millennium.E8G2 — the same names, in the same
+namespace, that E8G2_Vessel already declares, and it did not import it. The
+definitions are identical field for field; only a comment differs. So the two
+modules could not be loaded together at all.
 
-In the shared core the edge list was a flat vector and the successor lookup
-scanned all of it and allocated on every call — inside the inner loop of a walk
-run once per fork and twice more per pair. Adjacency built once leaves both the
-graph and the condition untouched and changes only the lookup. The self-nest word
-now returns T on the metal in about eleven seconds including boot.
+That had been met before and papered over: NS_CriticalBound carried a commented
+import of the witnesses with the note "(duplicate, content from E8G2_Vessel)". The
+collision was known, worked around locally, and left in the tree, so it went on
+blocking anything that wanted both.
 
-The manuscript's headline verdict is therefore bootable, not merely transcribed,
-which is what this branch exists to make true.
+Witnesses now imports Vessel and drops the five redeclarations, NS_CriticalBound
+imports the witnesses again, and the two modules load in one environment. Build
+unchanged.
+
+Also repaired eight symlinks under Ob3ects that resolved nowhere. Seven had one
+too few levels of `..` — the targets were present all along, one directory further
+up than the link said — and are repointed. The eighth, a scaffold generated from a
+`__pycache__` directory, has no target and is removed; a generator walked a place
+it should not have.
