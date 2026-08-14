@@ -1186,4 +1186,1638 @@ def CoverageReachesFull (B : ℕ → ℕ) : Prop :=
 #print axioms Erdos.StrausGreedy.straus_off_residue
 #print axioms Erdos.StrausGreedy.greedy_step
 
+/-! ## A new covering progression: `n ≡ 17 (mod 20)`
+
+The `k`-shift reads a rung off `k·n + 1` for any `k`, not only `k = 1`. Taking
+`k = 2` with cofactor `w = 5` and rung `r = 3` (`k·r = w+1`, `Coprime 5 8`) needs
+`5 ∣ 2n+1`, i.e. `n ≡ 2 (mod 5)`. Together with `n ≡ 1 (mod 4)` that is the class
+`n ≡ 17 (mod 20)`, closed at the greedy rung with no search — a covering family
+beyond the price-zero layer, whose rung is read off `2n+1` rather than `n`. -/
+
+/-- **`n ≡ 17 (mod 20)` closes at rung 3.** Instance of `closedAtRung_of_kshift`
+with `k=2, w=5, r=3`: the cofactor `w = 5` divides `2n+1` exactly when
+`n ≡ 2 (mod 5)`. -/
+theorem closedAtRung_three_of_mod20 (n : ℕ) (hn : 0 < n)
+    (h4 : n % 4 = 1) (h5 : n % 5 = 2) : ClosedAtRung n 3 := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  refine closedAtRung_of_kshift n 2 5 3 a hn (by norm_num) (by norm_num)
+    (by norm_num) ha0 (by norm_num) ?_ (by norm_num) (by omega)
+  omega
+
+/-- **Erdős–Straus on `n ≡ 17 (mod 20)`.** Every such `n` has `4/n` a sum of three
+unit fractions, with denominators exhibited by the rung-3 construction. -/
+theorem straus_mod20 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (h5 : n % 5 = 2) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c :=
+  straus_of_closedAtRung n 3 hn (by norm_num) (closedAtRung_three_of_mod20 n hn h4 h5)
+
+#print axioms straus_mod20
+
+/-! ## Frontier witnesses from the mOMonadOS `straus` instrument
+
+The kernel's iterated rung emits an explicit representation for each frontier
+value `n ≡ 1 (mod 24)` the price-zero and one-shot families miss. Each is
+machine-checked here, turning the instrument's print into a theorem. -/
+
+theorem straus_193 : (4:ℚ)/193 = 1/50 + 1/1380 + 1/1331700 := by norm_num
+theorem straus_313 : (4:ℚ)/313 = 1/80 + 1/3580 + 1/4482160 := by norm_num
+theorem straus_457 : (4:ℚ)/457 = 1/115 + 1/17520 + 1/184152720 := by norm_num
+theorem straus_673 : (4:ℚ)/673 = 1/170 + 1/16345 + 1/374006290 := by norm_num
+theorem straus_1009 : (4:ℚ)/1009 = 1/253 + 1/85096 + 1/1974822872 := by norm_num
+
+/-! ## More covering progressions from the kernel's `kshift` engine
+
+Each `(k, w, r)` the instrument returns closes an infinite congruence class at a
+fixed rung with no search — the covering families beyond `n ≡ 17 (mod 20)`. -/
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 8 (mod 11)` close at rung 3
+    via the `k=4` shift (cofactor `w=11`). Erdős–Straus on this class. -/
+theorem straus_cover_mod44 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 11 = 8) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 4 11 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 6 (mod 13)` close at rung 7
+    via the `k=2` shift (cofactor `w=13`). Erdős–Straus on this class. -/
+theorem straus_cover_mod52 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 13 = 6) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 2 13 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 14 (mod 17)` close at rung 3
+    via the `k=6` shift (cofactor `w=17`). Erdős–Straus on this class. -/
+theorem straus_cover_mod68 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 17 = 14) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 6 17 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 10 (mod 21)` close at rung 11
+    via the `k=2` shift (cofactor `w=21`). Erdős–Straus on this class. -/
+theorem straus_cover_mod84 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 21 = 10) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 2 21 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 20 (mod 23)` close at rung 3
+    via the `k=8` shift (cofactor `w=23`). Erdős–Straus on this class. -/
+theorem straus_cover_mod92 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 23 = 20) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 8 23 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 20 (mod 27)` close at rung 7
+    via the `k=4` shift (cofactor `w=27`). Erdős–Straus on this class. -/
+theorem straus_cover_mod108 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 27 = 20) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 4 27 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+/-- Covering family: `n ≡ 1 (mod 4)` and `n ≡ 14 (mod 29)` close at rung 15
+    via the `k=2` shift (cofactor `w=29`). Erdős–Straus on this class. -/
+theorem straus_cover_mod116 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 29 = 14) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 2 29 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+
+/-! ## Covering families and frontier witnesses, batch 2 (kernel-sourced) -/
+
+theorem straus_cover_mod140 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 35 = 32) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 12 35 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+theorem straus_cover_mod148 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 37 = 18) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 2 37 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod164 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 41 = 34) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 6 41 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod172 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 43 = 32) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 4 43 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod180 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 45 = 22) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 2 45 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod212 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 53 = 26) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 27 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 27 :=
+    closedAtRung_of_kshift n 2 53 27 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 27 hn (by norm_num) hcl
+
+theorem straus_cover_mod220 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 55 = 48) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 8 55 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod236 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 59 = 44) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 4 59 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod244 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 61 = 30) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 31 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 31 :=
+    closedAtRung_of_kshift n 2 61 31 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 31 hn (by norm_num) hcl
+
+theorem straus_cover_mod260 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 65 = 54) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 6 65 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_1153 : (4:ℚ)/1153 = 1/289 + 1/111078 + 1/2177239878 := by norm_num
+theorem straus_1201 : (4:ℚ)/1201 = 1/306 + 1/15980 + 1/172727820 := by norm_num
+theorem straus_1453 : (4:ℚ)/1453 = 1/364 + 1/176298 + 1/46621300908 := by norm_num
+theorem straus_1489 : (4:ℚ)/1489 = 1/374 + 1/79560 + 1/1303113240 := by norm_num
+theorem straus_1621 : (4:ℚ)/1621 = 1/406 + 1/219376 + 1/72188524688 := by norm_num
+theorem straus_1873 : (4:ℚ)/1873 = 1/470 + 1/125760 + 1/11070778560 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 3 (kernel-sourced) -/
+
+theorem straus_cover_mod276 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 69 = 34) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 35 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 35 :=
+    closedAtRung_of_kshift n 2 69 35 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 35 hn (by norm_num) hcl
+
+theorem straus_cover_mod300 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 75 = 56) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 4 75 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod308 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 77 = 38) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 39 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 39 :=
+    closedAtRung_of_kshift n 2 77 39 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 39 hn (by norm_num) hcl
+
+theorem straus_cover_mod332 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 83 = 76) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 12 83 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod340 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 85 = 42) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 43 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 43 :=
+    closedAtRung_of_kshift n 2 85 43 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 43 hn (by norm_num) hcl
+
+theorem straus_cover_mod348 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 87 = 76) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 8 87 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod356 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 89 = 74) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 6 89 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod364 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 91 = 68) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 4 91 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod372 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 93 = 46) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 47 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 47 :=
+    closedAtRung_of_kshift n 2 93 47 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 47 hn (by norm_num) hcl
+
+theorem straus_cover_mod388 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 97 = 90) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 14 97 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod404 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 101 = 50) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 51 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 51 :=
+    closedAtRung_of_kshift n 2 101 51 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 51 hn (by norm_num) hcl
+
+theorem straus_cover_mod428 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 107 = 80) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 27 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 27 :=
+    closedAtRung_of_kshift n 4 107 27 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 27 hn (by norm_num) hcl
+
+theorem straus_2089 : (4:ℚ)/2089 = 1/524 + 1/156414 + 1/653497692 := by norm_num
+theorem straus_2113 : (4:ℚ)/2113 = 1/529 + 1/372600 + 1/18107987400 := by norm_num
+theorem straus_2857 : (4:ℚ)/2857 = 1/715 + 1/680920 + 1/278190546920 := by norm_num
+theorem straus_3049 : (4:ℚ)/3049 = 1/765 + 1/212058 + 1/3232824210 := by norm_num
+theorem straus_3217 : (4:ℚ)/3217 = 1/805 + 1/863230 + 1/447098756510 := by norm_num
+theorem straus_3313 : (4:ℚ)/3313 = 1/830 + 1/392830 + 1/54010000285 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 4 (kernel-sourced) -/
+
+theorem straus_cover_mod188 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 47 = 44) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 16 47 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+theorem straus_cover_mod436 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 109 = 54) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 55 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 55 :=
+    closedAtRung_of_kshift n 2 109 55 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 55 hn (by norm_num) hcl
+
+theorem straus_cover_mod444 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 111 = 104) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 16 111 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod452 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 113 = 94) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 6 113 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod468 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 117 = 58) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 59 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 59 :=
+    closedAtRung_of_kshift n 2 117 59 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 59 hn (by norm_num) hcl
+
+theorem straus_cover_mod476 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 119 = 104) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 8 119 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod492 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 123 = 92) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 31 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 31 :=
+    closedAtRung_of_kshift n 4 123 31 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 31 hn (by norm_num) hcl
+
+theorem straus_cover_mod500 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 125 = 62) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 63 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 63 :=
+    closedAtRung_of_kshift n 2 125 63 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 63 hn (by norm_num) hcl
+
+theorem straus_cover_mod524 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 131 = 120) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 12 131 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod532 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 133 = 66) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 67 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 67 :=
+    closedAtRung_of_kshift n 2 133 67 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 67 hn (by norm_num) hcl
+
+theorem straus_cover_mod548 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 137 = 114) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 6 137 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod556 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 139 = 104) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 35 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 35 :=
+    closedAtRung_of_kshift n 4 139 35 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 35 hn (by norm_num) hcl
+
+theorem straus_cover_mod564 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 141 = 70) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 71 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 71 :=
+    closedAtRung_of_kshift n 2 141 71 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 71 hn (by norm_num) hcl
+
+theorem straus_cover_mod596 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 149 = 74) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 75 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 75 :=
+    closedAtRung_of_kshift n 2 149 75 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 75 hn (by norm_num) hcl
+
+theorem straus_cover_mod604 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 151 = 132) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 8 151 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod612 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 153 = 142) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 14 153 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_3457 : (4:ℚ)/3457 = 1/865 + 1/996770 + 1/596129262970 := by norm_num
+theorem straus_3673 : (4:ℚ)/3673 = 1/920 + 1/482740 + 1/81562784920 := by norm_num
+theorem straus_4177 : (4:ℚ)/4177 = 1/1045 + 1/1454990 + 1/1270196085070 := by norm_num
+theorem straus_4481 : (4:ℚ)/4481 = 1/1121 + 1/1674420 + 1/142558444380 := by norm_num
+theorem straus_4657 : (4:ℚ)/4657 = 1/1165 + 1/1808470 + 1/1962336436070 := by norm_num
+theorem straus_4993 : (4:ℚ)/4993 = 1/1250 + 1/891610 + 1/278238045625 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 5 (kernel-sourced) -/
+
+theorem straus_cover_mod620 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 155 = 116) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 39 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 39 :=
+    closedAtRung_of_kshift n 4 155 39 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 39 hn (by norm_num) hcl
+
+theorem straus_cover_mod628 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 157 = 78) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 79 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 79 :=
+    closedAtRung_of_kshift n 2 157 79 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 79 hn (by norm_num) hcl
+
+theorem straus_cover_mod644 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 161 = 134) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 27 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 27 :=
+    closedAtRung_of_kshift n 6 161 27 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 27 hn (by norm_num) hcl
+
+theorem straus_cover_mod660 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 165 = 82) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 83 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 83 :=
+    closedAtRung_of_kshift n 2 165 83 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 83 hn (by norm_num) hcl
+
+theorem straus_cover_mod684 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 171 = 128) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 43 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 43 :=
+    closedAtRung_of_kshift n 4 171 43 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 43 hn (by norm_num) hcl
+
+theorem straus_cover_mod692 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 173 = 86) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 87 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 87 :=
+    closedAtRung_of_kshift n 2 173 87 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 87 hn (by norm_num) hcl
+
+theorem straus_cover_mod700 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 175 = 164) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 16 175 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod716 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 179 = 164) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 12 179 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod724 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 181 = 90) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 91 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 91 :=
+    closedAtRung_of_kshift n 2 181 91 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 91 hn (by norm_num) hcl
+
+theorem straus_cover_mod732 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 183 = 160) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 8 183 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod740 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 185 = 154) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 31 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 31 :=
+    closedAtRung_of_kshift n 6 185 31 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 31 hn (by norm_num) hcl
+
+theorem straus_cover_mod748 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 187 = 140) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 47 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 47 :=
+    closedAtRung_of_kshift n 4 187 47 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 47 hn (by norm_num) hcl
+
+theorem straus_cover_mod756 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 189 = 94) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 95 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 95 :=
+    closedAtRung_of_kshift n 2 189 95 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 95 hn (by norm_num) hcl
+
+theorem straus_cover_mod788 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 197 = 98) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 99 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 99 :=
+    closedAtRung_of_kshift n 2 197 99 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 99 hn (by norm_num) hcl
+
+theorem straus_cover_mod812 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 203 = 152) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 51 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 51 :=
+    closedAtRung_of_kshift n 4 203 51 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 51 hn (by norm_num) hcl
+
+theorem straus_cover_mod820 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 205 = 102) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 103 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 103 :=
+    closedAtRung_of_kshift n 2 205 103 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 103 hn (by norm_num) hcl
+
+theorem straus_5233 : (4:ℚ)/5233 = 1/1309 + 1/2283336 + 1/1421894977272 := by norm_num
+theorem straus_5449 : (4:ℚ)/5449 = 1/1363 + 1/2475672 + 1/634027026216 := by norm_num
+theorem straus_5641 : (4:ℚ)/5641 = 1/1411 + 1/2653156 + 1/1242215598668 := by norm_num
+theorem straus_6217 : (4:ℚ)/6217 = 1/1555 + 1/3222480 + 1/6230623187760 := by norm_num
+theorem straus_6553 : (4:ℚ)/6553 = 1/1639 + 1/3580126 + 1/3495624286022 := by norm_num
+theorem straus_6793 : (4:ℚ)/6793 = 1/1700 + 1/1649730 + 1/1905124701300 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 6 (kernel-sourced) -/
+
+theorem straus_cover_mod836 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 209 = 174) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 35 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 35 :=
+    closedAtRung_of_kshift n 6 209 35 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 35 hn (by norm_num) hcl
+
+theorem straus_cover_mod852 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 213 = 106) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 107 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 107 :=
+    closedAtRung_of_kshift n 2 213 107 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 107 hn (by norm_num) hcl
+
+theorem straus_cover_mod860 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 215 = 188) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 27 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 27 :=
+    closedAtRung_of_kshift n 8 215 27 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 27 hn (by norm_num) hcl
+
+theorem straus_cover_mod876 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 219 = 164) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 55 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 55 :=
+    closedAtRung_of_kshift n 4 219 55 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 55 hn (by norm_num) hcl
+
+theorem straus_cover_mod884 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 221 = 110) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 111 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 111 :=
+    closedAtRung_of_kshift n 2 221 111 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 111 hn (by norm_num) hcl
+
+theorem straus_cover_mod908 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 227 = 208) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 12 227 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod916 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 229 = 114) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 115 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 115 :=
+    closedAtRung_of_kshift n 2 229 115 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 115 hn (by norm_num) hcl
+
+theorem straus_cover_mod932 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 233 = 194) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 39 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 39 :=
+    closedAtRung_of_kshift n 6 233 39 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 39 hn (by norm_num) hcl
+
+theorem straus_cover_mod940 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 235 = 176) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 59 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 59 :=
+    closedAtRung_of_kshift n 4 235 59 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 59 hn (by norm_num) hcl
+
+theorem straus_cover_mod948 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 237 = 118) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 119 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 119 :=
+    closedAtRung_of_kshift n 2 237 119 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 119 hn (by norm_num) hcl
+
+theorem straus_cover_mod956 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 239 = 224) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 16 239 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod980 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 245 = 122) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 123 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 123 :=
+    closedAtRung_of_kshift n 2 245 123 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 123 hn (by norm_num) hcl
+
+theorem straus_cover_mod988 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 247 = 216) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 31 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 31 :=
+    closedAtRung_of_kshift n 8 247 31 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 31 hn (by norm_num) hcl
+
+theorem straus_cover_mod1004 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 251 = 188) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 63 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 63 :=
+    closedAtRung_of_kshift n 4 251 63 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 63 hn (by norm_num) hcl
+
+theorem straus_cover_mod1012 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 253 = 126) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 127 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 127 :=
+    closedAtRung_of_kshift n 2 253 127 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 127 hn (by norm_num) hcl
+
+theorem straus_cover_mod1028 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 257 = 214) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 43 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 43 :=
+    closedAtRung_of_kshift n 6 257 43 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 43 hn (by norm_num) hcl
+
+theorem straus_7057 : (4:ℚ)/7057 = 1/1765 + 1/4151870 + 1/10342810546270 := by norm_num
+theorem straus_7297 : (4:ℚ)/7297 = 1/1825 + 1/4439010 + 1/11822881429050 := by norm_num
+theorem straus_7873 : (4:ℚ)/7873 = 1/1969 + 1/5167316 + 1/7282127917372 := by norm_num
+theorem straus_8089 : (4:ℚ)/8089 = 1/2023 + 1/5454688 + 1/5250633576608 := by norm_num
+theorem straus_8761 : (4:ℚ)/8761 = 1/2193 + 1/1746660 + 1/86714100140 := by norm_num
+theorem straus_9337 : (4:ℚ)/9337 = 1/2335 + 1/7267300 + 1/31688182306700 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 7 (kernel-sourced) -/
+
+theorem straus_cover_mod1044 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 261 = 130) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 131 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 131 :=
+    closedAtRung_of_kshift n 2 261 131 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 131 hn (by norm_num) hcl
+
+theorem straus_cover_mod1060 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 265 = 246) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 14 265 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod1068 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 267 = 200) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 67 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 67 :=
+    closedAtRung_of_kshift n 4 267 67 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 67 hn (by norm_num) hcl
+
+theorem straus_cover_mod1076 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 269 = 134) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 135 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 135 :=
+    closedAtRung_of_kshift n 2 269 135 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 135 hn (by norm_num) hcl
+
+theorem straus_cover_mod1100 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 275 = 252) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 12 275 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod1108 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 277 = 138) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 139 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 139 :=
+    closedAtRung_of_kshift n 2 277 139 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 139 hn (by norm_num) hcl
+
+theorem straus_cover_mod1116 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 279 = 244) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 35 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 35 :=
+    closedAtRung_of_kshift n 8 279 35 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 35 hn (by norm_num) hcl
+
+theorem straus_cover_mod1124 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 281 = 234) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 47 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 47 :=
+    closedAtRung_of_kshift n 6 281 47 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 47 hn (by norm_num) hcl
+
+theorem straus_cover_mod1132 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 283 = 212) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 71 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 71 :=
+    closedAtRung_of_kshift n 4 283 71 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 71 hn (by norm_num) hcl
+
+theorem straus_cover_mod1140 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 285 = 142) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 143 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 143 :=
+    closedAtRung_of_kshift n 2 285 143 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 143 hn (by norm_num) hcl
+
+theorem straus_cover_mod1172 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 293 = 146) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 147 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 147 :=
+    closedAtRung_of_kshift n 2 293 147 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 147 hn (by norm_num) hcl
+
+theorem straus_cover_mod1196 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 299 = 224) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 75 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 75 :=
+    closedAtRung_of_kshift n 4 299 75 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 75 hn (by norm_num) hcl
+
+theorem straus_cover_mod1204 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 301 = 150) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 151 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 151 :=
+    closedAtRung_of_kshift n 2 301 151 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 151 hn (by norm_num) hcl
+
+theorem straus_cover_mod1212 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 303 = 284) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 19 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 19 :=
+    closedAtRung_of_kshift n 16 303 19 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 19 hn (by norm_num) hcl
+
+theorem straus_cover_mod1220 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 305 = 254) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 51 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 51 :=
+    closedAtRung_of_kshift n 6 305 51 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 51 hn (by norm_num) hcl
+
+theorem straus_cover_mod1236 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 309 = 154) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 155 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 155 :=
+    closedAtRung_of_kshift n 2 309 155 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 155 hn (by norm_num) hcl
+
+theorem straus_9601 : (4:ℚ)/9601 = 1/2405 + 1/1216930 + 1/898749610 := by norm_num
+theorem straus_9817 : (4:ℚ)/9817 = 1/2455 + 1/8033580 + 1/38723036536260 := by norm_num
+theorem straus_10009 : (4:ℚ)/10009 = 1/2504 + 1/3580407 + 1/286690349304 := by norm_num
+theorem straus_10513 : (4:ℚ)/10513 = 1/2629 + 1/9212896 + 1/23148386979872 := by norm_num
+theorem straus_11113 : (4:ℚ)/11113 = 1/2780 + 1/4413450 + 1/13634974218300 := by norm_num
+theorem straus_11593 : (4:ℚ)/11593 = 1/2900 + 1/4802815 + 1/32293839891100 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 8 (kernel-sourced) -/
+
+theorem straus_cover_mod964 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 241 = 230) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 22 241 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod1244 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 311 = 272) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 39 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 39 :=
+    closedAtRung_of_kshift n 8 311 39 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 39 hn (by norm_num) hcl
+
+theorem straus_cover_mod1260 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 315 = 236) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 79 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 79 :=
+    closedAtRung_of_kshift n 4 315 79 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 79 hn (by norm_num) hcl
+
+theorem straus_cover_mod1268 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 317 = 158) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 159 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 159 :=
+    closedAtRung_of_kshift n 2 317 159 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 159 hn (by norm_num) hcl
+
+theorem straus_cover_mod1284 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 321 = 298) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 14 321 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod1292 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 323 = 296) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 27 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 27 :=
+    closedAtRung_of_kshift n 12 323 27 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 27 hn (by norm_num) hcl
+
+theorem straus_cover_mod1300 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 325 = 162) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 163 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 163 :=
+    closedAtRung_of_kshift n 2 325 163 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 163 hn (by norm_num) hcl
+
+theorem straus_cover_mod1316 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 329 = 274) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 55 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 55 :=
+    closedAtRung_of_kshift n 6 329 55 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 55 hn (by norm_num) hcl
+
+theorem straus_cover_mod1324 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 331 = 248) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 83 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 83 :=
+    closedAtRung_of_kshift n 4 331 83 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 83 hn (by norm_num) hcl
+
+theorem straus_cover_mod1332 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 333 = 166) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 167 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 167 :=
+    closedAtRung_of_kshift n 2 333 167 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 167 hn (by norm_num) hcl
+
+theorem straus_cover_mod1364 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 341 = 170) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 171 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 171 :=
+    closedAtRung_of_kshift n 2 341 171 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 171 hn (by norm_num) hcl
+
+theorem straus_cover_mod1372 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 343 = 300) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 43 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 43 :=
+    closedAtRung_of_kshift n 8 343 43 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 43 hn (by norm_num) hcl
+
+theorem straus_cover_mod1388 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 347 = 260) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 87 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 87 :=
+    closedAtRung_of_kshift n 4 347 87 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 87 hn (by norm_num) hcl
+
+theorem straus_cover_mod1396 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 349 = 174) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 175 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 175 :=
+    closedAtRung_of_kshift n 2 349 175 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 175 hn (by norm_num) hcl
+
+theorem straus_cover_mod1412 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 353 = 294) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 59 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 59 :=
+    closedAtRung_of_kshift n 6 353 59 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 59 hn (by norm_num) hcl
+
+theorem straus_cover_mod1428 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 357 = 178) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 179 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 179 :=
+    closedAtRung_of_kshift n 2 357 179 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 179 hn (by norm_num) hcl
+
+theorem straus_12097 : (4:ℚ)/12097 = 1/3025 + 1/12197810 + 1/89271929079850 := by norm_num
+theorem straus_12409 : (4:ℚ)/12409 = 1/3103 + 1/12835052 + 1/17041907148676 := by norm_num
+theorem straus_13513 : (4:ℚ)/13513 = 1/3380 + 1/6524850 + 1/29801560740900 := by norm_num
+theorem straus_13729 : (4:ℚ)/13729 = 1/3434 + 1/6735060 + 1/9339029512740 := by norm_num
+theorem straus_14401 : (4:ℚ)/14401 = 1/3605 + 1/2732590 + 1/39352028590 := by norm_num
+theorem straus_15013 : (4:ℚ)/15013 = 1/3754 + 1/18786268 + 1/529385779265468 := by norm_num
+
+/-! ## Covering families and frontier witnesses, batch 9 (kernel-sourced) -/
+
+theorem straus_cover_mod284 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 71 = 68) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 3 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 3 :=
+    closedAtRung_of_kshift n 24 71 3 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 3 hn (by norm_num) hcl
+
+theorem straus_cover_mod668 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 167 = 160) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 7 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 7 :=
+    closedAtRung_of_kshift n 24 167 7 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 7 hn (by norm_num) hcl
+
+theorem straus_cover_mod1052 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 263 = 252) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 11 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 11 :=
+    closedAtRung_of_kshift n 24 263 11 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 11 hn (by norm_num) hcl
+
+theorem straus_cover_mod1436 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 359 = 344) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 15 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 15 :=
+    closedAtRung_of_kshift n 24 359 15 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 15 hn (by norm_num) hcl
+
+theorem straus_cover_mod1452 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 363 = 272) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 91 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 91 :=
+    closedAtRung_of_kshift n 4 363 91 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 91 hn (by norm_num) hcl
+
+theorem straus_cover_mod1460 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 365 = 182) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 183 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 183 :=
+    closedAtRung_of_kshift n 2 365 183 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 183 hn (by norm_num) hcl
+
+theorem straus_cover_mod1468 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 367 = 344) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 23 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 23 :=
+    closedAtRung_of_kshift n 16 367 23 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 23 hn (by norm_num) hcl
+
+theorem straus_cover_mod1484 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 371 = 340) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 31 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 31 :=
+    closedAtRung_of_kshift n 12 371 31 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 31 hn (by norm_num) hcl
+
+theorem straus_cover_mod1492 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 373 = 186) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 187 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 187 :=
+    closedAtRung_of_kshift n 2 373 187 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 187 hn (by norm_num) hcl
+
+theorem straus_cover_mod1500 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 375 = 328) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 47 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 47 :=
+    closedAtRung_of_kshift n 8 375 47 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 47 hn (by norm_num) hcl
+
+theorem straus_cover_mod1508 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 377 = 314) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 63 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 63 :=
+    closedAtRung_of_kshift n 6 377 63 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 63 hn (by norm_num) hcl
+
+theorem straus_cover_mod1516 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 379 = 284) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 95 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 95 :=
+    closedAtRung_of_kshift n 4 379 95 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 95 hn (by norm_num) hcl
+
+theorem straus_cover_mod1524 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 381 = 190) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 191 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 191 :=
+    closedAtRung_of_kshift n 2 381 191 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 191 hn (by norm_num) hcl
+
+theorem straus_cover_mod1556 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 389 = 194) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 195 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 195 :=
+    closedAtRung_of_kshift n 2 389 195 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 195 hn (by norm_num) hcl
+
+theorem straus_cover_mod1580 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 395 = 296) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 99 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 99 :=
+    closedAtRung_of_kshift n 4 395 99 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 99 hn (by norm_num) hcl
+
+theorem straus_cover_mod1588 (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1) (hw : n % 397 = 198) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  have h4d : 4 ∣ n + 199 := by omega
+  obtain ⟨a, ha⟩ := h4d
+  have ha0 : 0 < a := by omega
+  have hcl : ClosedAtRung n 199 :=
+    closedAtRung_of_kshift n 2 397 199 a hn (by norm_num) (by norm_num)
+      (by norm_num) ha0 (by norm_num) (by omega) (by norm_num) (by omega)
+  exact straus_of_closedAtRung n 199 hn (by norm_num) hcl
+
+theorem straus_15121 : (4:ℚ)/15121 = 1/3782 + 1/8169669 + 1/7659081026838 := by norm_num
+theorem straus_15313 : (4:ℚ)/15313 = 1/3830 + 1/8378400 + 1/49138302213600 := by norm_num
+theorem straus_16033 : (4:ℚ)/16033 = 1/4010 + 1/9184620 + 1/59050061996460 := by norm_num
+theorem straus_16633 : (4:ℚ)/16633 = 1/4160 + 1/9884755 + 1/136791724089280 := by norm_num
+theorem straus_17401 : (4:ℚ)/17401 = 1/4352 + 1/10818460 + 1/12048129437440 := by norm_num
+theorem straus_18313 : (4:ℚ)/18313 = 1/4580 + 1/11981935 + 1/200993460899980 := by norm_num
+
+/-! ## The consolidated coverage theorem -/
+
+/-- **The covered residue classes** — the explicit union over every proved covering family. -/
+def StrausCovered (n : ℕ) : Prop :=
+  n % 5 = 2 ∨ n % 11 = 8 ∨ n % 13 = 6 ∨ n % 17 = 14 ∨ n % 21 = 10 ∨ n % 23 = 20 ∨ n % 27 = 20 ∨ n % 29 = 14 ∨ n % 35 = 32 ∨ n % 37 = 18 ∨ n % 41 = 34 ∨ n % 43 = 32 ∨ n % 45 = 22 ∨ n % 53 = 26 ∨ n % 55 = 48 ∨ n % 59 = 44 ∨ n % 61 = 30 ∨ n % 65 = 54 ∨ n % 69 = 34 ∨ n % 75 = 56 ∨ n % 77 = 38 ∨ n % 83 = 76 ∨ n % 85 = 42 ∨ n % 87 = 76 ∨ n % 89 = 74 ∨ n % 91 = 68 ∨ n % 93 = 46 ∨ n % 97 = 90 ∨ n % 101 = 50 ∨ n % 107 = 80 ∨ n % 47 = 44 ∨ n % 109 = 54 ∨ n % 111 = 104 ∨ n % 113 = 94 ∨ n % 117 = 58 ∨ n % 119 = 104 ∨ n % 123 = 92 ∨ n % 125 = 62 ∨ n % 131 = 120 ∨ n % 133 = 66 ∨ n % 137 = 114 ∨ n % 139 = 104 ∨ n % 141 = 70 ∨ n % 149 = 74 ∨ n % 151 = 132 ∨ n % 153 = 142 ∨ n % 155 = 116 ∨ n % 157 = 78 ∨ n % 161 = 134 ∨ n % 165 = 82 ∨ n % 171 = 128 ∨ n % 173 = 86 ∨ n % 175 = 164 ∨ n % 179 = 164 ∨ n % 181 = 90 ∨ n % 183 = 160 ∨ n % 185 = 154 ∨ n % 187 = 140 ∨ n % 189 = 94 ∨ n % 197 = 98 ∨ n % 203 = 152 ∨ n % 205 = 102 ∨ n % 209 = 174 ∨ n % 213 = 106 ∨ n % 215 = 188 ∨ n % 219 = 164 ∨ n % 221 = 110 ∨ n % 227 = 208 ∨ n % 229 = 114 ∨ n % 233 = 194 ∨ n % 235 = 176 ∨ n % 237 = 118 ∨ n % 239 = 224 ∨ n % 245 = 122 ∨ n % 247 = 216 ∨ n % 251 = 188 ∨ n % 253 = 126 ∨ n % 257 = 214 ∨ n % 261 = 130 ∨ n % 265 = 246 ∨ n % 267 = 200 ∨ n % 269 = 134 ∨ n % 275 = 252 ∨ n % 277 = 138 ∨ n % 279 = 244 ∨ n % 281 = 234 ∨ n % 283 = 212 ∨ n % 285 = 142 ∨ n % 293 = 146 ∨ n % 299 = 224 ∨ n % 301 = 150 ∨ n % 303 = 284 ∨ n % 305 = 254 ∨ n % 309 = 154 ∨ n % 241 = 230 ∨ n % 311 = 272 ∨ n % 315 = 236 ∨ n % 317 = 158 ∨ n % 321 = 298 ∨ n % 323 = 296 ∨ n % 325 = 162 ∨ n % 329 = 274 ∨ n % 331 = 248 ∨ n % 333 = 166 ∨ n % 341 = 170 ∨ n % 343 = 300 ∨ n % 347 = 260 ∨ n % 349 = 174 ∨ n % 353 = 294 ∨ n % 357 = 178 ∨ n % 71 = 68 ∨ n % 167 = 160 ∨ n % 263 = 252 ∨ n % 359 = 344 ∨ n % 363 = 272 ∨ n % 365 = 182 ∨ n % 367 = 344 ∨ n % 371 = 340 ∨ n % 373 = 186 ∨ n % 375 = 328 ∨ n % 377 = 314 ∨ n % 379 = 284 ∨ n % 381 = 190 ∨ n % 389 = 194 ∨ n % 395 = 296 ∨ n % 397 = 198
+
+/-- **Erdős–Straus on the covered union.** One theorem: every `n ≡ 1 (mod 4)` in any
+    proved covering class has `4/n` a sum of three unit fractions. -/
+theorem straus_of_covered (n : ℕ) (hn : 0 < n) (h4 : n % 4 = 1)
+    (hc : StrausCovered n) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4:ℚ)/n = 1/a + 1/b + 1/c := by
+  unfold StrausCovered at hc
+  rcases hc with c0|c1|c2|c3|c4|c5|c6|c7|c8|c9|c10|c11|c12|c13|c14|c15|c16|c17|c18|c19|c20|c21|c22|c23|c24|c25|c26|c27|c28|c29|c30|c31|c32|c33|c34|c35|c36|c37|c38|c39|c40|c41|c42|c43|c44|c45|c46|c47|c48|c49|c50|c51|c52|c53|c54|c55|c56|c57|c58|c59|c60|c61|c62|c63|c64|c65|c66|c67|c68|c69|c70|c71|c72|c73|c74|c75|c76|c77|c78|c79|c80|c81|c82|c83|c84|c85|c86|c87|c88|c89|c90|c91|c92|c93|c94|c95|c96|c97|c98|c99|c100|c101|c102|c103|c104|c105|c106|c107|c108|c109|c110|c111|c112|c113|c114|c115|c116|c117|c118|c119|c120|c121|c122|c123|c124|c125
+  · exact straus_mod20 n hn h4 c0
+  · exact straus_cover_mod44 n hn h4 c1
+  · exact straus_cover_mod52 n hn h4 c2
+  · exact straus_cover_mod68 n hn h4 c3
+  · exact straus_cover_mod84 n hn h4 c4
+  · exact straus_cover_mod92 n hn h4 c5
+  · exact straus_cover_mod108 n hn h4 c6
+  · exact straus_cover_mod116 n hn h4 c7
+  · exact straus_cover_mod140 n hn h4 c8
+  · exact straus_cover_mod148 n hn h4 c9
+  · exact straus_cover_mod164 n hn h4 c10
+  · exact straus_cover_mod172 n hn h4 c11
+  · exact straus_cover_mod180 n hn h4 c12
+  · exact straus_cover_mod212 n hn h4 c13
+  · exact straus_cover_mod220 n hn h4 c14
+  · exact straus_cover_mod236 n hn h4 c15
+  · exact straus_cover_mod244 n hn h4 c16
+  · exact straus_cover_mod260 n hn h4 c17
+  · exact straus_cover_mod276 n hn h4 c18
+  · exact straus_cover_mod300 n hn h4 c19
+  · exact straus_cover_mod308 n hn h4 c20
+  · exact straus_cover_mod332 n hn h4 c21
+  · exact straus_cover_mod340 n hn h4 c22
+  · exact straus_cover_mod348 n hn h4 c23
+  · exact straus_cover_mod356 n hn h4 c24
+  · exact straus_cover_mod364 n hn h4 c25
+  · exact straus_cover_mod372 n hn h4 c26
+  · exact straus_cover_mod388 n hn h4 c27
+  · exact straus_cover_mod404 n hn h4 c28
+  · exact straus_cover_mod428 n hn h4 c29
+  · exact straus_cover_mod188 n hn h4 c30
+  · exact straus_cover_mod436 n hn h4 c31
+  · exact straus_cover_mod444 n hn h4 c32
+  · exact straus_cover_mod452 n hn h4 c33
+  · exact straus_cover_mod468 n hn h4 c34
+  · exact straus_cover_mod476 n hn h4 c35
+  · exact straus_cover_mod492 n hn h4 c36
+  · exact straus_cover_mod500 n hn h4 c37
+  · exact straus_cover_mod524 n hn h4 c38
+  · exact straus_cover_mod532 n hn h4 c39
+  · exact straus_cover_mod548 n hn h4 c40
+  · exact straus_cover_mod556 n hn h4 c41
+  · exact straus_cover_mod564 n hn h4 c42
+  · exact straus_cover_mod596 n hn h4 c43
+  · exact straus_cover_mod604 n hn h4 c44
+  · exact straus_cover_mod612 n hn h4 c45
+  · exact straus_cover_mod620 n hn h4 c46
+  · exact straus_cover_mod628 n hn h4 c47
+  · exact straus_cover_mod644 n hn h4 c48
+  · exact straus_cover_mod660 n hn h4 c49
+  · exact straus_cover_mod684 n hn h4 c50
+  · exact straus_cover_mod692 n hn h4 c51
+  · exact straus_cover_mod700 n hn h4 c52
+  · exact straus_cover_mod716 n hn h4 c53
+  · exact straus_cover_mod724 n hn h4 c54
+  · exact straus_cover_mod732 n hn h4 c55
+  · exact straus_cover_mod740 n hn h4 c56
+  · exact straus_cover_mod748 n hn h4 c57
+  · exact straus_cover_mod756 n hn h4 c58
+  · exact straus_cover_mod788 n hn h4 c59
+  · exact straus_cover_mod812 n hn h4 c60
+  · exact straus_cover_mod820 n hn h4 c61
+  · exact straus_cover_mod836 n hn h4 c62
+  · exact straus_cover_mod852 n hn h4 c63
+  · exact straus_cover_mod860 n hn h4 c64
+  · exact straus_cover_mod876 n hn h4 c65
+  · exact straus_cover_mod884 n hn h4 c66
+  · exact straus_cover_mod908 n hn h4 c67
+  · exact straus_cover_mod916 n hn h4 c68
+  · exact straus_cover_mod932 n hn h4 c69
+  · exact straus_cover_mod940 n hn h4 c70
+  · exact straus_cover_mod948 n hn h4 c71
+  · exact straus_cover_mod956 n hn h4 c72
+  · exact straus_cover_mod980 n hn h4 c73
+  · exact straus_cover_mod988 n hn h4 c74
+  · exact straus_cover_mod1004 n hn h4 c75
+  · exact straus_cover_mod1012 n hn h4 c76
+  · exact straus_cover_mod1028 n hn h4 c77
+  · exact straus_cover_mod1044 n hn h4 c78
+  · exact straus_cover_mod1060 n hn h4 c79
+  · exact straus_cover_mod1068 n hn h4 c80
+  · exact straus_cover_mod1076 n hn h4 c81
+  · exact straus_cover_mod1100 n hn h4 c82
+  · exact straus_cover_mod1108 n hn h4 c83
+  · exact straus_cover_mod1116 n hn h4 c84
+  · exact straus_cover_mod1124 n hn h4 c85
+  · exact straus_cover_mod1132 n hn h4 c86
+  · exact straus_cover_mod1140 n hn h4 c87
+  · exact straus_cover_mod1172 n hn h4 c88
+  · exact straus_cover_mod1196 n hn h4 c89
+  · exact straus_cover_mod1204 n hn h4 c90
+  · exact straus_cover_mod1212 n hn h4 c91
+  · exact straus_cover_mod1220 n hn h4 c92
+  · exact straus_cover_mod1236 n hn h4 c93
+  · exact straus_cover_mod964 n hn h4 c94
+  · exact straus_cover_mod1244 n hn h4 c95
+  · exact straus_cover_mod1260 n hn h4 c96
+  · exact straus_cover_mod1268 n hn h4 c97
+  · exact straus_cover_mod1284 n hn h4 c98
+  · exact straus_cover_mod1292 n hn h4 c99
+  · exact straus_cover_mod1300 n hn h4 c100
+  · exact straus_cover_mod1316 n hn h4 c101
+  · exact straus_cover_mod1324 n hn h4 c102
+  · exact straus_cover_mod1332 n hn h4 c103
+  · exact straus_cover_mod1364 n hn h4 c104
+  · exact straus_cover_mod1372 n hn h4 c105
+  · exact straus_cover_mod1388 n hn h4 c106
+  · exact straus_cover_mod1396 n hn h4 c107
+  · exact straus_cover_mod1412 n hn h4 c108
+  · exact straus_cover_mod1428 n hn h4 c109
+  · exact straus_cover_mod284 n hn h4 c110
+  · exact straus_cover_mod668 n hn h4 c111
+  · exact straus_cover_mod1052 n hn h4 c112
+  · exact straus_cover_mod1436 n hn h4 c113
+  · exact straus_cover_mod1452 n hn h4 c114
+  · exact straus_cover_mod1460 n hn h4 c115
+  · exact straus_cover_mod1468 n hn h4 c116
+  · exact straus_cover_mod1484 n hn h4 c117
+  · exact straus_cover_mod1492 n hn h4 c118
+  · exact straus_cover_mod1500 n hn h4 c119
+  · exact straus_cover_mod1508 n hn h4 c120
+  · exact straus_cover_mod1516 n hn h4 c121
+  · exact straus_cover_mod1524 n hn h4 c122
+  · exact straus_cover_mod1556 n hn h4 c123
+  · exact straus_cover_mod1580 n hn h4 c124
+  · exact straus_cover_mod1588 n hn h4 c125
+
+/-! ## The general rung criterion: a QNR prime factor puts −1 in the subgroup -/
+
+open ZMod in
+/-- **The Euler-criterion rung lemma.** For an odd prime rung `r`, any nonzero
+non-square `a` mod `r` satisfies `a^(r/2) = -1`. A quadratic non-residue divisor
+of `M` therefore puts `-1` in the subgroup `⟨primes of M⟩ ⊂ (ZMod r)ˣ` at EVERY
+rung — the general form of the rung-3 `p ≡ 2 (mod 3)` criterion. -/
+theorem qnr_pow_eq_neg_one {r : ℕ} [Fact r.Prime] (hr2 : r ≠ 2)
+    (a : ZMod r) (ha : a ≠ 0) (hns : ¬ IsSquare a) : a ^ (r / 2) = -1 := by
+  have hodd : Odd r := (Nat.Prime.odd_of_ne_two (Fact.out) hr2)
+  -- a^(r/2) ≠ 1  (Euler: square ↔ = 1)
+  have hne1 : a ^ (r / 2) ≠ 1 := fun h => hns ((ZMod.euler_criterion r ha).mpr h)
+  -- (a^(r/2))^2 = a^(r-1) = 1
+  have hsq : (a ^ (r / 2)) ^ 2 = 1 := by
+    rw [← pow_mul]
+    obtain ⟨k, hk⟩ := hodd
+    have : r / 2 * 2 = r - 1 := by omega
+    rw [this]; exact ZMod.pow_card_sub_one_eq_one ha
+  -- x^2 = 1 → x = 1 ∨ x = -1, and x ≠ 1
+  have h2 : a ^ (r / 2) * a ^ (r / 2) = 1 := by rw [← sq]; exact hsq
+  rcases mul_self_eq_one_iff.mp h2 with h | h
+  · exact absurd h hne1
+  · exact h
+
+/-! ## Primitive-root closure of the exponent-budget arm -/
+
+/-- **Primitive-root closure of the exponent-budget arm.** If `M` carries a prime
+`p` that is a primitive root mod `r` (its powers hit every nonzero residue) with
+enough power that `p^(r-1) ∣ M²`, then some divisor of `M²` lands at `−M`, so the
+rung is `NegMReachable`. This resolves the held exponent-budget case (`−1` in the
+subgroup but the divisor must be assembled) whenever a single primitive-root prime
+supplies the whole group. -/
+theorem negMReachable_of_primitiveRoot (M r p : ℕ) (hr : 1 < r) (hp : 0 < p)
+    (hrM : ¬ (r ∣ M))
+    (hprim : ∀ x : ZMod r, x ≠ 0 → ∃ j : ℕ, j < r - 1 ∧ (p : ZMod r) ^ j = x)
+    (hpow : (p : ℕ) ^ (r - 1) ∣ M * M) :
+    NegMReachable M r := by
+  have hMne : (M : ZMod r) ≠ 0 := fun h => hrM ((ZMod.natCast_eq_zero_iff M r).mp h)
+  have hne : (-(M : ZMod r)) ≠ 0 := neg_ne_zero.mpr hMne
+  obtain ⟨j, hj, hjx⟩ := hprim (-(M : ZMod r)) hne
+  refine ⟨p ^ j, pow_pos hp j, ?_, ?_⟩
+  · exact dvd_trans (pow_dvd_pow p (by omega)) hpow
+  · have : ((M + p ^ j : ℕ) : ZMod r) = 0 := by
+      push_cast
+      rw [hjx]; ring
+    exact (ZMod.natCast_eq_zero_iff _ r).mp this
+
+/-! ## Two-generator coverage -/
+
+/-- **Two-generator closure.** When two coprime primes `p, q` of `M` jointly hit
+every nonzero residue mod `r` (`⟨p,q⟩ = (ZMod r)ˣ`) and each carries enough power
+(`p^(r-1), q^(r-1) ∣ M²`), the product `p^i q^j` realizing `−M` is a divisor of
+`M²`, so the rung is `NegMReachable`. The multi-generator step past a single
+primitive root. -/
+theorem negMReachable_of_twoGen (M r p q : ℕ) (hp : 0 < p) (hq : 0 < q)
+    (hcop : Nat.Coprime p q) (hrM : ¬ (r ∣ M))
+    (hgen : ∀ x : ZMod r, x ≠ 0 →
+      ∃ i j : ℕ, i < r - 1 ∧ j < r - 1 ∧ (p : ZMod r) ^ i * (q : ZMod r) ^ j = x)
+    (hpM : (p : ℕ) ^ (r - 1) ∣ M * M) (hqM : (q : ℕ) ^ (r - 1) ∣ M * M) :
+    NegMReachable M r := by
+  have hMne : (M : ZMod r) ≠ 0 := fun h => hrM ((ZMod.natCast_eq_zero_iff M r).mp h)
+  obtain ⟨i, j, hi, hj, hx⟩ := hgen (-(M : ZMod r)) (neg_ne_zero.mpr hMne)
+  refine ⟨p ^ i * q ^ j, by positivity, ?_, ?_⟩
+  · exact Nat.Coprime.mul_dvd_of_dvd_of_dvd (Nat.Coprime.pow i j hcop)
+      (dvd_trans (pow_dvd_pow p (by omega)) hpM)
+      (dvd_trans (pow_dvd_pow q (by omega)) hqM)
+  · have : ((M + p ^ i * q ^ j : ℕ) : ZMod r) = 0 := by push_cast; rw [hx]; ring
+    exact (ZMod.natCast_eq_zero_iff _ r).mp this
+
+/-! ## Multi-generator coverage — the pigeonhole step -/
+
+/-- Product of pairwise-coprime divisors of `N` divides `N`. -/
+theorem prod_dvd_of_pairwise_coprime {N : ℕ} (g : ℕ → ℕ) :
+    ∀ T : Finset ℕ, (∀ s ∈ T, g s ∣ N) →
+      (∀ a ∈ T, ∀ b ∈ T, a ≠ b → Nat.Coprime (g a) (g b)) →
+      (∏ s ∈ T, g s) ∣ N := by
+  intro T
+  induction T using Finset.induction with
+  | empty => intro _ _; simp
+  | @insert a T ha ih =>
+    intro hd hc
+    rw [Finset.prod_insert ha]
+    have hcop : Nat.Coprime (g a) (∏ s ∈ T, g s) := by
+      apply Nat.Coprime.prod_right
+      intro s hs
+      exact hc a (Finset.mem_insert_self a T) s (Finset.mem_insert_of_mem hs)
+        (by rintro rfl; exact ha hs)
+    exact Nat.Coprime.mul_dvd_of_dvd_of_dvd hcop (hd a (Finset.mem_insert_self a T))
+      (ih (fun s hs => hd s (Finset.mem_insert_of_mem hs))
+          (fun x hx y hy hxy => hc x (Finset.mem_insert_of_mem hx) y
+            (Finset.mem_insert_of_mem hy) hxy))
+
+/-- **Multi-generator closure.** A finite family `S` of pairwise-coprime prime
+powers dividing `M`, whose powers jointly hit every nonzero residue mod `r`
+within budget, closes the rung. The full pigeonhole coverage step. -/
+theorem negMReachable_of_multiGen (M r : ℕ) (S : Finset ℕ)
+    (hpos : ∀ s ∈ S, 0 < s)
+    (hcop : ∀ a ∈ S, ∀ b ∈ S, a ≠ b → Nat.Coprime a b)
+    (hrM : ¬ (r ∣ M)) (hbud : ∀ s ∈ S, s ^ (r - 1) ∣ M * M)
+    (hgen : ∀ x : ZMod r, x ≠ 0 → ∃ f : ℕ → ℕ, (∀ s ∈ S, f s < r - 1) ∧
+        ∏ s ∈ S, (s : ZMod r) ^ (f s) = x) :
+    NegMReachable M r := by
+  have hMne : (M : ZMod r) ≠ 0 := fun h => hrM ((ZMod.natCast_eq_zero_iff M r).mp h)
+  obtain ⟨f, hf, hx⟩ := hgen (-(M : ZMod r)) (neg_ne_zero.mpr hMne)
+  refine ⟨∏ s ∈ S, s ^ (f s), Finset.prod_pos (fun s hs => pow_pos (hpos s hs) _), ?_, ?_⟩
+  · exact prod_dvd_of_pairwise_coprime (fun s => s ^ (f s)) S
+      (fun s hs => dvd_trans (pow_dvd_pow s (by have := hf s hs; omega)) (hbud s hs))
+      (fun a ha b hb hab => Nat.Coprime.pow _ _ (hcop a ha b hb hab))
+  · have hc : ((∏ s ∈ S, s ^ (f s) : ℕ) : ZMod r) = -(M : ZMod r) := by push_cast; exact hx
+    have : ((M + ∏ s ∈ S, s ^ (f s) : ℕ) : ZMod r) = 0 := by push_cast [hc]; ring
+    exact (ZMod.natCast_eq_zero_iff _ r).mp this
+
 end Erdos.StrausGreedy

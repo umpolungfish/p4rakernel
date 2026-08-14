@@ -242,6 +242,27 @@ foothold the asymptotic sits on. -/
 theorem dvd_lcmUpTo (n m : ℕ) (h1 : 1 ≤ m) (h2 : m ≤ n) : m ∣ lcmUpTo n :=
   Finset.dvd_lcm (Finset.mem_Icc.mpr ⟨h1, h2⟩)
 
+/-- **The quadratic lower bound on `lcm(1..n)`.** `n` and `n-1` are coprime
+divisors of `lcmUpTo n`, so their product divides it: `n(n-1) ≤ lcm(1..n)`. The
+elementary floor beneath `log lcm(1..n) ~ n`; the kernel `erdos lcm` core. -/
+theorem lcmUpTo_ge_quadratic (n : ℕ) (hn : 2 ≤ n) : n * (n - 1) ≤ lcmUpTo n := by
+  have hdn : n ∣ lcmUpTo n := dvd_lcmUpTo n n (by omega) le_rfl
+  have hdn1 : (n - 1) ∣ lcmUpTo n := dvd_lcmUpTo n (n - 1) (by omega) (by omega)
+  have hpos : 0 < lcmUpTo n := by
+    have hne : lcmUpTo n ≠ 0 := by
+      unfold lcmUpTo
+      rw [Finset.lcm_ne_zero_iff]
+      intro i hi
+      rw [Finset.mem_Icc] at hi
+      simp only [id_eq]; omega
+    omega
+  have hcop : Nat.Coprime n (n - 1) := by
+    have h2 : Nat.gcd n (n - 1) ∣ (n - 1) := Nat.gcd_dvd_right _ _
+    have h1' : Nat.gcd n (n - 1) ∣ (n - 1) + 1 := by
+      rw [show (n - 1) + 1 = n by omega]; exact Nat.gcd_dvd_left _ _
+    exact Nat.dvd_one.mp ((Nat.dvd_add_right h2).mp h1')
+  exact Nat.le_of_dvd hpos (Nat.Coprime.mul_dvd_of_dvd_of_dvd hcop hdn hdn1)
+
 #print axioms partsF_complete
 #print axioms landau_table
 
