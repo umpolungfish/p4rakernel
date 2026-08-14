@@ -157,4 +157,37 @@ theorem counterexample_density : CounterexampleDensity := by
     exact_mod_cast hcard
   linarith
 
+/-! ## Paper-facing statements
+
+Everything above is stated through `NotRepresentable`,
+`ErdosFormalize.SquarefreePlusPowerOfTwo` and `CounterexampleDensity`. A reader
+checking the manuscript should not have to unfold three definitions to see what
+was proved, so the same content is restated here with every definition expanded.
+These are the theorems the manuscript states; they carry no new mathematics and
+are not meant to.
+-/
+
+/-- The universal assertion is false, an explicit counterexample exists, and
+counterexamples occur arbitrarily far out. -/
+theorem squarefree_plus_pow_two_certificate :
+    (¬ ∀ N : ℕ, 2 ≤ N → ∃ s k : ℕ, Squarefree s ∧ N = s + 2 ^ k)
+    ∧ (∃ N : ℕ, 2 ≤ N ∧ ¬ ∃ s k : ℕ, Squarefree s ∧ N = s + 2 ^ k)
+    ∧ (∀ M : ℕ, ∃ N : ℕ, M < N ∧ ¬ ∃ s k : ℕ, Squarefree s ∧ N = s + 2 ^ k) := by
+  refine ⟨not_forall_squarefree_plus_pow_two, ?_, infinitely_many_counterexamples⟩
+  exact ⟨100, by norm_num, hundred_not_representable⟩
+
+/-- `100` is the canonical obstruction: at least `2`, and not representable. -/
+theorem hundred_is_the_canonical_obstruction :
+    2 ≤ 100 ∧ ¬ ∃ s k : ℕ, Squarefree s ∧ 100 = s + 2 ^ k :=
+  ⟨by norm_num, hundred_not_representable⟩
+
+/-- The density statement with `CounterexampleDensity` unfolded. -/
+theorem counterexample_density_explicit :
+    ∃ c : ℝ, 0 < c ∧ ∀ x : ℕ, 1764 ≤ x →
+      c * (x : ℝ) ≤ Nat.card {N : ℕ // N < x ∧ NotRepresentable N} :=
+  counterexample_density
+
+#print axioms squarefree_plus_pow_two_certificate
+#print axioms counterexample_density_explicit
+
 end Erdos.SquarefreePow2

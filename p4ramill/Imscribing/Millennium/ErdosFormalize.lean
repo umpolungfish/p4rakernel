@@ -209,8 +209,15 @@ def PracticalDensityExists : Prop :=
       (((Finset.range N).filter (fun n => IsPractical n)).card : ℝ) / (N : ℝ))
       atTop (nhds c)
 
-/-- **[B]** Every `N ≥ 2` is squarefree plus a power of two — Erdős conjectured
-it and it is open. -/
+/-- **[F]** Every `N ≥ 2` is squarefree plus a power of two. FALSE, and not by
+a hard argument: `Erdos.SquarefreePow2` refutes it in
+`Erdos/SquarefreePlusPowerOfTwo.lean` with the progression
+`1764t + 100`, whose first member 100 is already a counterexample. Since
+`1764 = lcm(9, 49, 4)`, subtracting `2^0` leaves a multiple of 9, subtracting
+`2^1` leaves a multiple of 49, and for `k ≥ 2` both terms are even squares
+apart, so every `2^k` leaves a non-squarefree remainder. Counterexamples have
+positive lower density, so this was never open — Erdős proved the opposite by
+covering congruences. -/
 def SquarefreePlusPowerOfTwo : Prop :=
   ∀ N : ℕ, 2 ≤ N → ∃ s k : ℕ, Squarefree s ∧ N = s + 2 ^ k
 
@@ -403,7 +410,7 @@ def verdicts : List (String × String) :=
    ("SyndeticOfPositiveDensity", "T"), ("SidonLiminfZero", "T"),
    ("B3DensityUpper", "B"), ("DifferenceSetContainsAPs", "T"),
    ("PrimeAlternatingSeriesConverges", "B"), ("InfinitePrimesWithDiff", "T"),
-   ("PracticalDensityExists", "T"), ("SquarefreePlusPowerOfTwo", "B"),
+   ("PracticalDensityExists", "T"), ("SquarefreePlusPowerOfTwo", "F"),
    ("SmoothSieveDensity", "T"), ("UnitDistanceUpper2D", "B"),
    ("GuthKatzDistinctDistances", "T"), ("ConvexUnitDistancesBound", "T"),
    ("ErdosHajnalStatement", "B"), ("HexagonalPackingOptimal", "B")]
