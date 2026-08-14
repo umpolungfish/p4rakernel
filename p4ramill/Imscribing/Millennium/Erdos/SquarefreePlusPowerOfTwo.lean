@@ -119,4 +119,42 @@ theorem not_squarefreePlusPowerOfTwo : ¬ ErdosFormalize.SquarefreePlusPowerOfTw
 #print axioms Erdos.SquarefreePow2.infinitely_many_counterexamples
 #print axioms Erdos.SquarefreePow2.family_injective
 
+/-- **The counterexample density lower bound, proved.** The `bad` family lands one
+non-representable value in each block of `1764`, and it injects, so at least
+`x/3528` values below `x` are non-representable. This settles the stated
+`CounterexampleDensity` as a positive-density lower bound (the *exact* order is
+what Erdős asked and is not claimed here). -/
+theorem counterexample_density : CounterexampleDensity := by
+  classical
+  refine ⟨1/3528, by norm_num, ?_⟩
+  intro x hx
+  have hSfin : {N : ℕ | N < x ∧ NotRepresentable N}.Finite :=
+    (Set.finite_Iio x).subset (fun N hN => hN.1)
+  have : Finite {N : ℕ // N < x ∧ NotRepresentable N} := hSfin.to_subtype
+  set T : ℕ := (x - 101) / 1764 + 1 with hT
+  have hmem : ∀ t : ℕ, t < T → bad t < x ∧ NotRepresentable (bad t) := by
+    intro t ht
+    have hdiv : (x - 101) / 1764 * 1764 ≤ x - 101 := Nat.div_mul_le_self _ _
+    have : bad t < x := by simp only [bad]; omega
+    exact ⟨this, bad_not_representable t⟩
+  let f : Fin T → {N : ℕ // N < x ∧ NotRepresentable N} :=
+    fun t => ⟨bad t.1, hmem t.1 t.2⟩
+  have hf : Function.Injective f := by
+    intro a b hab
+    exact Fin.ext (family_injective (congrArg Subtype.val hab))
+  have hcard : T ≤ Nat.card {N : ℕ // N < x ∧ NotRepresentable N} := by
+    simpa using Nat.card_le_card_of_injective f hf
+  have hlt : x - 101 < 1764 * T := by rw [hT]; omega
+  have hx101 : (101 : ℕ) ≤ x := by omega
+  have hltr : (x : ℝ) - 101 < 1764 * (T : ℝ) := by
+    have hcast : ((x - 101 : ℕ) : ℝ) = (x : ℝ) - 101 := by
+      rw [Nat.cast_sub hx101]; norm_num
+    have h2 : ((x - 101 : ℕ) : ℝ) < ((1764 * T : ℕ) : ℝ) := by exact_mod_cast hlt
+    rw [hcast] at h2; push_cast at h2; linarith
+  have hxr : (1764 : ℝ) ≤ x := by exact_mod_cast hx
+  have hTge : (1 / 3528 : ℝ) * x ≤ (T : ℝ) := by nlinarith [hltr, hxr]
+  have hcardr : (T : ℝ) ≤ (Nat.card {N : ℕ // N < x ∧ NotRepresentable N} : ℝ) := by
+    exact_mod_cast hcard
+  linarith
+
 end Erdos.SquarefreePow2
