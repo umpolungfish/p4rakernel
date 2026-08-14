@@ -1,33 +1,6 @@
-ProofLift: a proof is a control-flow graph, so Vox can audit it
+SelfNest: lift the proof of the law and hand it to the law
 
-Vox already enforces the close condition on x86, EVM, WASM and CPython bytecode:
-mu after delta = id over a TRANSFORMED object — split, work, fuse. A Lean proof
-term is a DAG under exactly that condition. A case analysis is the fork, the
-branches landing on one goal is the fuse, and a sorry is a fork whose arm never
-comes back. So the audit transfers with no new theory, and nearly no new code:
-vox already exposes `verdict <glyph-word>`, so the lift is all that was missing.
-
-The twelve read on a term as: recursor or match opens the fork, its branches are
-the arms, the rejoin is the fuse; application is composition; a bound variable is
-identity; a let is irreversible fixation; Eq.mpr and Eq.symm are the forward and
-reverse morphisms. sorryAx emits an opening with nothing to pair it.
-
-Measured, not asserted:
-
-    p -> p by h                  ⊢⊙⊣          N   never forked
-    case split, both discharged  ⊢∈⊤...∋⊣     T   split, work, fuse
-    one arm sorry'd              ⊢∈...∈...∋⊣  B   a fork held open
-    nothing but sorry            ⊢∈⊣          B   the claim, never rejoined
-
-    Nat.succ_ne_zero    234 glyphs   T
-    Nat.le_of_lt_succ     7 glyphs   N
-    List.length_append 1020 glyphs   T
-    Nat.strongRecOn      23 glyphs   N
-
-What this says that `lake build` does not: sorry-free is a bool, and the verdict
-is graded. N is the one worth having — a proof that closes without ever forking
-weighed no alternatives, and for some statements that means the thing proved is
-not the thing intended. Lean has no notion of that; the close condition does.
-
-`sorry` and "unfused fork" turn out not to be an analogy. They are the same
-object, and the kernel that judges machine code catches it unchanged.
+mu_delta_A_id and mu_delta_B_id lift to 86,065-glyph words and verdict T through
+vox. The prediction came from FIXED_POINT_NESTING_RULE before the run: the proof
+of mu-after-delta = id states what the auditor computes, so it is a fixed point of
+the auditor, so the nest closes in one shot. It did.
