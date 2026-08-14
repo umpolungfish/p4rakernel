@@ -1,20 +1,14 @@
-The metal reproduces the calibration, and one cost divergence is open
+The nest reproduces on the metal, and the cost divergence had a cause
 
-mOMonadOS now carries the lifted words and returns N T B B from its own kernel —
-the same check::word_verdict that gates the vita trunk — matching the host. The
-calibration verdicts can be booted rather than trusted, which is what the crystal
-is for.
+The crystal recorded an open divergence: the host auditor answering in
+milliseconds where the bare-metal kernel did not return inside ten minutes, same
+condition, same word. It is closed, and the substrate was not the reason.
 
-The nest does not reproduce there yet, and the reason is worth more than the
-result. On the closure law's own proof the host auditor returns T in about eleven
-milliseconds; the on-board kernel did not return inside ten minutes. Same
-condition, same word, two implementations, agreeing on every small case and
-differing by orders of magnitude on a large one. The ancestry pairing is the
-suspect. Recorded as an open divergence, not smoothed over.
+In the shared core the edge list was a flat vector and the successor lookup
+scanned all of it and allocated on every call — inside the inner loop of a walk
+run once per fork and twice more per pair. Adjacency built once leaves both the
+graph and the condition untouched and changes only the lookup. The self-nest word
+now returns T on the metal in about eleven seconds including boot.
 
-Also tabulated: verdicts on ten selected theorems. Nine confirmed an expectation.
-The tenth did not, and is the useful one — List.reverse_reverse came back N where
-T was expected, and inspection of the proof TERM shows it is a rewrite chain
-delegating its induction to a separate lemma rather than performing it. The
-verdict was right and the expectation was wrong, which is the distinction the
-instrument claims to draw.
+The manuscript's headline verdict is therefore bootable, not merely transcribed,
+which is what this branch exists to make true.
