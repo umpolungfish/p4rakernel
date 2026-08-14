@@ -18,8 +18,15 @@ def isSplitter (n : Name) : Bool :=
     || s.endsWith ".elim" || s.endsWith ".brecOn" || s == "Or.elim"
     || s == "dite" || s == "ite" || (s.splitOn "match_").length > 1
 
-def isSorry (n : Name) : Bool :=
-  n == ``sorryAx || ((n.toString.splitOn "sorry").length > 1)
+/-- The axiom of unproved assertion, and ONLY it.
+
+This was a substring test on the name, which is wrong in a way the corpus itself
+exposed: a module reasoning ABOUT undischarged claims declares `sorryDepth`, a
+function counting them, and `ym_has_stacked_not_parallel_sorries`, a theorem
+comparing them. Both are fully proved. Both contain the substring, so both lifted
+to an unpaired fork and read B. Eight false positives, every one in the one module
+whose subject is the thing being detected. Match the axiom, not the spelling. -/
+def isSorry (n : Name) : Bool := n == ``sorryAx
 
 partial def lift (e : Expr) : MetaM String := do
   match e with
