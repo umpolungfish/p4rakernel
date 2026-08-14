@@ -1,42 +1,27 @@
-Two Erdős papers get their proofs; one corpus verdict was stale
+DifferenceSets: a harness error message was written into the source
 
-SchutteTClose.lean, in the build and sorry-free. Five theorems on the two
-classical bound functions: szekeresBound is Θ(n·2ⁿ) with limit 1/2,
-probabilisticUpperBound is O(n²·2ⁿ), their ratio is Θ(n) with constants 3 and
-12, and R(n)/(6n) → 1. The gap between the classical bounds is exactly linear
-with slope 6 against the constant 3, or 2·ln 2 against the sharp constant. None
-of it touches f, so the statistical branch moves and the obstructional branch
-stays B.
+`lake build` on the default target has been red at
+Erdos/DifferenceSets.lean:93 with "unexpected identifier; expected command".
+The identifier is the first word of a tool harness's own error text, which was
+written into the file in place of its contents:
 
-The same file refutes the doubling construction that claimed to determine f
-exactly. The recurrence f(n+1)=2f(n)+1 from 3 has closed form 2ⁿ⁺²−1, not
-(n+2)·2ⁿ⁻¹−1; the two agree only at n=2. doublingCount 2 = 15 against
-szekeresBound 3 = 19, so the construction would place property S₃ on 15
-vertices and contradict a value this directory already carries.
+    PARSE ERROR: run_command arguments were truncated or malformed ...
 
-SquarefreePlusPowerOfTwo.lean gains its paper-facing statements:
-squarefree_plus_pow_two_certificate, hundred_is_the_canonical_obstruction and
-counterexample_density_explicit restate the result with NotRepresentable,
-SquarefreePlusPowerOfTwo and CounterexampleDensity all unfolded, so the sentence
-the kernel checks and the sentence the manuscript asserts are the same sentence
-rather than two joined by a definition the reader must trust.
+68e0d5a intended to add two imports, Mathlib.Data.Set.Lattice and
+Mathlib.Data.Real.Basic. The write truncated at 778 characters, so the two
+imports landed, lines 93 through 235 were destroyed, and the error text was
+appended where the theorems had been. The commit was about Euclidean geometry;
+this was collateral and nothing in it was meant.
 
-ErdosFormalize recorded SquarefreePlusPowerOfTwo as B, "Erdős conjectured it and
-it is open", while the refutation sat in the same repository and the completion
-checklist already called it complete. Three documents, two of them right. The
-verdict is now F: the universal form fails at N = 100, the least counterexample,
-and Erdős proved the opposite by covering congruences.
+Reconstructed from b3c307e, which is the last version with all 235 lines, with
+the two intended imports carried forward. The file builds, and `lake build`
+completes for the first time: 8594 jobs, no errors.
 
-Manuscripts: manuscripts_erdos/squarefree_plus_power_of_two.tex is new and
-schutte_f2.tex gains the asymptotic section, both compiled and copied to pdfs/.
-mOMonadOS carries both proofs as cr3echrz theorems — `squarefree_pow2` and
-`schutte_gap` — with tests that confirm 100 is the LEAST counterexample by
-brute force over 2..99 and that the bracket holds for k = 3..12.
-
-OPEN: `lake build` on the default target is red at
-Erdos/DifferenceSets.lean:93, and has been. Per-module builds do not reach it,
-which is how it stayed invisible. Erdos/DifferenceSets_Complete.lean is not in
-the lakefile at all and does not parse.
-
-OPEN: sixteen other entries in ErdosFormalize.verdicts carry B. This one was
-false at N=100 and only trying small cases would have shown it.
+Sweeping the tree for the same signature finds 52 further files — 33 markdown,
+11 Python, 8 LaTeX, no other Lean — and they are not all the same thing. Three
+shapes so far: cr3echrz/generate_vault_files.py is two lines and a total loss
+against 14080 characters intended; publishing/tex/CRYSTALCOSMOS_v5.tex carries
+an injection at line 66 and is otherwise intact to \end{document}; ig-docs
+INDEX.md is not damaged at all, it faithfully quotes the error as the first line
+of a document that is. Recovery is per-file and needs git history plus a check
+for an intended edit riding along, exactly as here.
