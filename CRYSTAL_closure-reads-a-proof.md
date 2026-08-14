@@ -65,14 +65,17 @@ The instantiation on the bare-metal substrate IS done for the calibration set:
 mOMonadOS carries the words and returns N T B B from its own kernel, the same
 `check::word_verdict` that gates the vita trunk's speech, matching the host.
 
-One divergence is open and is a finding rather than a nuisance. On the self-nest
-word — the closure law's own proof, tens of thousands of tokens — the host auditor
-returns T in about eleven milliseconds, and the on-board kernel did not return
-inside ten minutes. Two implementations of ONE condition, agreeing on every small
-word and differing by orders of magnitude in cost on a large one. The ancestry
-pairing is the suspect: the host's is not quadratic in the token count and the
-on-board one appears to be. Until that is settled, the metal reproduces the
-calibration verdicts and not the nest.
+The nest reproduces there too, and closing it identified the cause. The on-board
+kernel first did not return inside ten minutes on the self-nest word while the
+host answered in about eleven milliseconds, and the substrate was the wrong
+suspect. In the shared core the edge list was a flat vector and the successor
+lookup scanned all of it and allocated on every call, inside the inner loop of a
+depth-first walk run once per fork and twice more per pair. Building adjacency
+once, in both directions, leaves the graph and the condition untouched and changes
+only the lookup. After it: verdict T on the same word in about eleven seconds
+wall-clock including the boot. The remaining gap to the host is a constant factor
+rather than a difference in kind, and it explains the same slowness reported in
+the vita path, which shares the core.
 
 ## Verdicts on selected theorems, under these conditions
 
