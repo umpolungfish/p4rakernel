@@ -1,6 +1,21 @@
-SelfNest: lift the proof of the law and hand it to the law
+Crystal: the conditions, not only the source
 
-mu_delta_A_id and mu_delta_B_id lift to 86,065-glyph words and verdict T through
-vox. The prediction came from FIXED_POINT_NESTING_RULE before the run: the proof
-of mu-after-delta = id states what the auditor computes, so it is a fixed point of
-the auditor, so the nest closes in one shot. It did.
+A crystalline branch that carries the source alone is a compound without a
+notebook page. Someone checking it out later rebuilds against whatever the
+libraries have since become, which is a different reaction, and the claim was
+"under these conditions, this happens".
+
+So the conditions are written down: toolchain and its commit, Mathlib revision AND
+the state of its working tree, rustc, the auditor's revision and the md5 of the
+binary that actually returned the verdicts, the PARI version used for the ray class
+computation, and the host kernel.
+
+One line in it is the one a replicator should check first. The Mathlib tree is
+dirty — twenty-two files — and every one of them is a README with two lines added.
+No .lean is touched, so the reagent is mathematically stock. That is worth stating
+exactly, because "dirty" alone would invite dismissal and "clean" would be false.
+
+The verdicts obtained under these conditions are tabulated, the axiom dependencies
+of the repaired module are given, and two things that are NOT done are named: the
+corpus-wide sweep still blocked by namespaced collisions, and the bare-metal
+instantiation.
