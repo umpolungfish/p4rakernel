@@ -1,17 +1,36 @@
-UNSOLVED: Euclidean geometry, and planarity built
+Two Erdős files close; one corpus verdict was wrong
 
-Falconer through a distance set, Danzer sets as meeting every unit-volume convex
-body, Thomson's energy as the Coulomb sum with its asymptotic constant, and knot
-thickness for ropelength. The source's dead-fly entry asked for bounded
-separation, which a lattice has and which is not the obstruction; it asks for
-bounded density now.
+SchutteTClose.lean, in the build and sorry-free. Five theorems on the two
+classical bound functions: szekeresBound is Θ(n·2ⁿ) with limit 1/2,
+probabilisticUpperBound is O(n²·2ⁿ), their ratio is Θ(n) with constants 3 and
+12, and R(n)/(6n) → 1. The gap between the classical bounds is exactly linear
+with slope 6. None of that touches f, so the statistical branch moves and the
+obstructional branch stays B.
 
-Planarity is the one the source kept naming and never had. A drawing places
-vertices in the plane with straight edges, a crossing is two independent edges
-whose open segments meet, and planar means some drawing has none. Harborth then
-says what it should — a crossing-free integer-length drawing — and Barnette,
-which I had skipped for want of planarity, is stated: three-connected cubic
-bipartite planar graphs have a Hamiltonian cycle, with three-connectivity as
-survival of any two deletions.
+The same file refutes the doubling construction that claimed to determine f
+exactly. The recurrence f(n+1)=2f(n)+1 from 3 has closed form 2ⁿ⁺²−1, not
+(n+2)·2ⁿ⁻¹−1; the two agree only at n=2. doublingCount 2 = 15 against
+szekeresBound 3 = 19, so the construction would place property S₃ on 15
+vertices and contradict a value this directory already carries. szekeresBound 1
+is 2, not f(1)=3. Each decided by the kernel, not argued.
 
-Sixty-six statements. Build green at 8593 jobs.
+SquarefreePlusPowerOfTwoClose.lean, likewise green. The progression
+1764t + 100 contains no squarefree-plus-power-of-two: 1764 = lcm(9, 49, 4), so
+2⁰ leaves a multiple of 9, 2¹ leaves a multiple of 49, and for k ≥ 2 both terms
+carry a factor of 4. bad 0 = 100 is the smallest counterexample. Infinitely
+many, injective in t, positive lower density at c = 1/3528.
+
+ErdosFormalize recorded SquarefreePlusPowerOfTwo as B, "Erdős conjectured it and
+it is open." It is neither: Erdős proved the opposite by covering congruences
+and the smallest counterexample is 100. Corrected to F with the refutation
+named, verdicts list with it.
+
+Both arrived as prose-correct Lean that did not elaborate — Squarefree applied
+to the wrong divisibility, IsTheta.of_bound with four arguments, a Mathlib name
+that does not exist, comment blocks written in C. The mathematics was sound in
+both and none of the Lean was, which is the argument for the kernel being the
+step that decides, not the step that confirms.
+
+OPEN: sixteen other entries in ErdosFormalize.verdicts carry B. This one was
+false at N=100 and no amount of work on the statement would have shown it —
+only trying small cases. Worth a sweep before more effort goes anywhere.
