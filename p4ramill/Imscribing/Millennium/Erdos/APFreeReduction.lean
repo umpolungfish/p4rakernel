@@ -267,18 +267,124 @@ theorem not_summable_at_exponent_one (C : ℝ) (hC : 0 < C) :
     field_simp
   exact Real.not_summable_one_div_natCast this
 
-/-- **A `log log` bound is not enough, at any exponent.**
+/-- **Gowers' shape is not enough, at any exponent.**
 
-Gowers' bound for general `k`, and the Leng--Sah--Sawhney improvement, have the
-shape `r_k(N) ≤ C·N/(log log N)^c` or weaker. At `N = 2^j` that leaves terms of
-order `1/(log j)^c`, which diverge for every `c > 0` by
-`not_summable_one_div_log_rpow`. No improvement of the constant, and no increase
-of the exponent `c`, changes this: the shape itself is insufficient. What the
-reduction requires is a bound polylogarithmic in `N`, past exponent one --- known
-at `k = 3`, and at `k = 4` known only with an exponent far below one. -/
+Gowers' bound has the shape `r_k(N) ≤ C·N/(log log N)^c`. At `N = 2^j` that leaves
+terms of order `1/(log j)^c`, which diverge for every `c > 0`. No improvement of
+the constant, and no increase of `c`, changes it: the shape itself is
+insufficient.
+
+This does NOT cover the Leng--Sah--Sawhney bound, which is
+`N·exp(-(log log N)^{c_k})` — a different shape, treated below, and one whose
+sufficiency turns on whether `c_k` exceeds one. -/
 theorem loglog_shape_insufficient (c : ℝ) (hc : 0 < c) :
     ¬ Summable (fun j : ℕ => 1 / (Real.log j) ^ c) :=
   not_summable_one_div_log_rpow c hc
+
+
+/-- At exponent `c ≤ 1` the Leng–Sah–Sawhney shape diverges. -/
+theorem not_summable_exp_neg_log_rpow (c : ℝ) (hc : 0 < c) (hc1 : c ≤ 1) :
+    ¬ Summable (fun j : ℕ => Real.exp (-(Real.log j) ^ c)) := by
+  intro hsum
+  have hshift := (summable_nat_add_iff 3).mpr hsum
+  have : Summable (fun j : ℕ => 1 / ((j + 3 : ℕ) : ℝ)) := by
+    refine Summable.of_nonneg_of_le (fun j => by positivity) ?_ hshift
+    intro j
+    have hj3 : (3 : ℝ) ≤ ((j + 3 : ℕ) : ℝ) := by exact_mod_cast Nat.le_add_left 3 j
+    have hjpos : (0 : ℝ) < ((j + 3 : ℕ) : ℝ) := by linarith
+    have hlog1 : (1 : ℝ) ≤ Real.log ((j + 3 : ℕ) : ℝ) := by
+      have : Real.log 3 ≤ Real.log ((j + 3 : ℕ) : ℝ) := Real.log_le_log (by norm_num) hj3
+      have h3 : (1 : ℝ) ≤ Real.log 3 := by
+        have he : Real.exp 1 ≤ 3 := by
+          have := Real.exp_one_lt_d9
+          linarith
+        have := Real.log_le_log (Real.exp_pos 1) he
+        rwa [Real.log_exp] at this
+      linarith
+    -- (log j)^c ≤ log j when the base is ≥ 1 and c ≤ 1
+    have hrp : (Real.log ((j + 3 : ℕ) : ℝ)) ^ c ≤ Real.log ((j + 3 : ℕ) : ℝ) := by
+      calc (Real.log ((j + 3 : ℕ) : ℝ)) ^ c
+          ≤ (Real.log ((j + 3 : ℕ) : ℝ)) ^ (1 : ℝ) :=
+            Real.rpow_le_rpow_of_exponent_le hlog1 hc1
+        _ = Real.log ((j + 3 : ℕ) : ℝ) := Real.rpow_one _
+    have : Real.exp (-Real.log ((j + 3 : ℕ) : ℝ))
+        ≤ Real.exp (-(Real.log ((j + 3 : ℕ) : ℝ)) ^ c) := by
+      apply Real.exp_le_exp.mpr; linarith
+    calc (1 : ℝ) / ((j + 3 : ℕ) : ℝ)
+        = Real.exp (-Real.log ((j + 3 : ℕ) : ℝ)) := by
+          rw [Real.exp_neg, Real.exp_log hjpos]; ring
+      _ ≤ _ := this
+  exact Real.not_summable_one_div_natCast ((summable_nat_add_iff 3).mp this)
+
+set_option maxHeartbeats 1000000 in
+/-- At exponent `c > 1` the same shape converges. -/
+theorem summable_exp_neg_log_rpow (c : ℝ) (hc : 1 < c) :
+    Summable (fun j : ℕ => Real.exp (-(Real.log j) ^ c)) := by
+  -- eventually (log j)^c ≥ 2 log j, so the term is at most 1/j²
+  have hev : ∀ᶠ j : ℕ in Filter.atTop,
+      Real.exp (-(Real.log j) ^ c) ≤ 1 / (j : ℝ) ^ 2 := by
+    have hlog : Filter.Tendsto (fun j : ℕ => Real.log j) Filter.atTop Filter.atTop :=
+      Real.tendsto_log_atTop.comp tendsto_natCast_atTop_atTop
+    have hbig : ∀ᶠ j : ℕ in Filter.atTop, (2 : ℝ) ^ (1 / (c - 1)) ≤ Real.log j ∧ 1 ≤ Real.log j :=
+      (hlog.eventually_ge_atTop _).and (hlog.eventually_ge_atTop 1)
+    filter_upwards [hbig, Filter.eventually_gt_atTop 0] with j ⟨hj, hj1⟩ hjpos
+    have hjR : (0 : ℝ) < (j : ℝ) := by exact_mod_cast hjpos
+    -- (log j)^(c-1) ≥ 2
+    have hpow : (2 : ℝ) ≤ (Real.log j) ^ (c - 1) := by
+      have h1 : ((2 : ℝ) ^ (1 / (c - 1))) ^ (c - 1) ≤ (Real.log j) ^ (c - 1) :=
+        Real.rpow_le_rpow (by positivity) hj (by linarith)
+      rwa [← Real.rpow_mul (by norm_num), one_div, inv_mul_cancel₀ (by linarith),
+        Real.rpow_one] at h1
+    have hone : (Real.log (j : ℝ)) ^ (1 : ℝ) = Real.log (j : ℝ) := Real.rpow_one _
+    have hadd : (Real.log (j : ℝ)) ^ (c - 1) * (Real.log (j : ℝ)) ^ (1 : ℝ)
+        = (Real.log (j : ℝ)) ^ c := by
+      rw [← Real.rpow_add (by linarith : (0:ℝ) < Real.log (j : ℝ))]
+      norm_num
+    have hmul : 2 * Real.log (j : ℝ) ≤ (Real.log (j : ℝ)) ^ c := by
+      calc 2 * Real.log (j : ℝ)
+          ≤ (Real.log (j : ℝ)) ^ (c - 1) * Real.log (j : ℝ) :=
+            mul_le_mul_of_nonneg_right hpow (le_trans zero_le_one hj1)
+        _ = (Real.log (j : ℝ)) ^ (c - 1) * (Real.log (j : ℝ)) ^ (1 : ℝ) := by rw [hone]
+        _ = (Real.log (j : ℝ)) ^ c := hadd
+    have hexp2 : Real.exp (2 * Real.log (j : ℝ)) = (j : ℝ) ^ (2 : ℕ) := by
+      rw [show (2:ℝ) * Real.log (j : ℝ) = Real.log ((j : ℝ) ^ (2 : ℕ)) by
+        rw [Real.log_pow]; push_cast; ring]
+      exact Real.exp_log (by positivity)
+    calc Real.exp (-(Real.log (j : ℝ)) ^ c) ≤ Real.exp (-(2 * Real.log (j : ℝ))) := by
+          apply Real.exp_le_exp.mpr; linarith
+      _ = 1 / (j : ℝ) ^ 2 := by
+          rw [Real.exp_neg, hexp2]
+          push_cast; ring
+  obtain ⟨M, hM⟩ := Filter.eventually_atTop.mp hev
+  have hsum2 : Summable (fun j : ℕ => 1 / (j : ℝ) ^ 2) :=
+    Real.summable_one_div_nat_pow.mpr (by norm_num)
+  have hsum2' : Summable (fun j : ℕ => 1 / ((j + M : ℕ) : ℝ) ^ 2) :=
+    (summable_nat_add_iff M).mpr hsum2
+  rw [← summable_nat_add_iff M]
+  exact Summable.of_nonneg_of_le (fun j => le_of_lt (Real.exp_pos _))
+    (fun j => hM (j + M) (Nat.le_add_left M j)) hsum2'
+
+/-! ### Where the two open cases actually stand
+
+Both reduce to pushing a published constant past one.
+
+`k = 4`. Green--Tao (arXiv:1705.01703) prove `r_4(N) ≪ N(log N)^{-c}` for an
+absolute `c > 0` — already the shape `erdos_conjecture_of_bound` consumes. Their
+own convention records `0 < c ≪ 1`, and they call the result "the limit of our
+methods". The case closes when that `c` is pushed past `1`.
+
+`k ≥ 5`. Leng--Sah--Sawhney (arXiv:2402.17995), Theorem 1.1: "There is
+`c_k ∈ (0,1)` such that `r_k(N) ≪ N exp(-(log log N)^{c_k})`." The interval is
+theirs, not an estimate. At `N = 2^j` the terms are `exp(-(log j)^{c_k})`, and by
+`not_summable_exp_neg_log_rpow` those diverge for `c_k ≤ 1` while by
+`summable_exp_neg_log_rpow` they converge for `c_k > 1`. So the case closes when
+that `c_k` is pushed past `1`, and fails to close for any value below it.
+
+One is not a weaker version of the other: at `k = 4` a polylogarithmic exponent
+must cross one, at `k ≥ 5` a log-log exponent must. Both are a single number in a
+published theorem, and in both the number is stated by its authors to be below
+the threshold.
+-/
 
 /-- **Erdős's conjecture at `k`, from a counting bound past exponent one.**
 
@@ -311,5 +417,7 @@ theorem erdos_conjecture_of_bound (k : ℕ)
 #print axioms erdos_conjecture_of_bound
 #print axioms not_summable_one_div_log_rpow
 #print axioms not_summable_at_exponent_one
+#print axioms not_summable_exp_neg_log_rpow
+#print axioms summable_exp_neg_log_rpow
 
 end Millennium.ErdosProblems.APFree
