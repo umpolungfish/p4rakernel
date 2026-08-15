@@ -1,25 +1,23 @@
-Erdős's conjecture at every k, reduced — the 3-specific step was one lemma
+Prove what is not enough, so the k ≥ 4 target is an inequality and not a mood
 
-The k=3 development runs on Mathlib's ThreeAPFree and rothNumberNat, and takes
-translation invariance from addRothNumber_Ico. Neither exists for k ≥ 4, and that
-lemma was the only thing in the argument that knew the length of a progression.
+The reduction is worth nothing until a bound exists for k ≥ 4, and "the known
+bounds fall short" was a remark. It is two theorems now.
 
-card_le_r_k proves it directly at every k. Shift a progression-free subset of any
-interval down to range N; the shift is injective there, so the count is
-preserved; a progression in the image lifts back by adding the offset, so the
-image is still progression-free; and r_k is a supremum over exactly that family.
+not_summable_one_div_log_rpow: for every c > 0, Σ 1/(log j)^c diverges. Gowers'
+bound for general k, and the Leng–Sah–Sawhney improvement, have the shape
+r_k(N) ≤ C·N/(log log N)^c or weaker; at N = 2^j that leaves terms of order
+1/(log j)^c. So no constant and no exponent c rescues that shape — it is
+insufficient as a shape, not merely insufficiently strong. Proved by log j ≤
+c·j^(1/c), so (log j)^c ≤ c^c·j, and comparison with the harmonic series.
 
-Everything downstream then generalises without change of substance. The dyadic
-decomposition, the block estimate, the transport from a subtype to an indicator,
-the comparison with a p-series — none of them mention k except through the
-counting function that bounds it. erdos_conjecture_of_bound is the statement they
-add up to: given r_k(N) ≤ C·N/(log N)^(1+ε) for some ε > 0, divergent reciprocals
-force a k-term progression. Uniform in k, no axioms beyond propext,
-Classical.choice and Quot.sound.
+not_summable_at_exponent_one: a bound C·N/log N gives dyadic terms C/(j log 2),
+which is harmonic. That is the knife-edge, and it is where Roth's own bound sits
+at k = 3.
 
-Which changes what is open. Before this the k ≥ 4 case was open mathematics with
-an unstated shape; now the shape is a single inequality and everything on the
-far side of it is machine-checked. A door is not open because it is a door.
+Between them the target is exact. What is needed is polylogarithmic in N, past
+exponent one. At k = 3 that is Bloom–Sisask. At k = 4 a bound of the right SHAPE
+exists — Green–Tao's r_4(N) ≪ N/(log N)^c — with an exponent far below one, so
+the door there is not "prove something polylogarithmic" but "push a known
+exponent past 1". For k ≥ 5 the shape itself is not yet reached.
 
-The lift reads T on card_le_r_k, block_sum_le, summable_of_blocks and
-erdos_conjecture_of_bound.
+No axioms; propext, Classical.choice and Quot.sound throughout.
