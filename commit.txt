@@ -1,22 +1,21 @@
-E8G2: the duplicate is gone and the workaround with it
+The detector matched the spelling, not the axiom
 
-E8G2_Vessel_Witnesses declared g2_vessel, e8_aether, e8_graded_via_SO16 and the
-two tensor facts in namespace Millennium.E8G2 — the same names, in the same
-namespace, that E8G2_Vessel already declares, and it did not import it. The
-definitions are identical field for field; only a comment differs. So the two
-modules could not be loaded together at all.
+Swept the corpus and got eight B verdicts, every one of them in the Barriers
+module — the one module whose SUBJECT is undischarged claims. That is the shape of
+a false positive, and it was one.
 
-That had been met before and papered over: NS_CriticalBound carried a commented
-import of the witnesses with the note "(duplicate, content from E8G2_Vessel)". The
-collision was known, worked around locally, and left in the tree, so it went on
-blocking anything that wanted both.
+isSorry tested whether a declaration's NAME contains the substring "sorry".
+`sorryDepth` is a function counting them per problem;
+`ym_has_stacked_not_parallel_sorries` is a theorem comparing two of those counts.
+Both are fully proved, neither holds an undischarged claim, and both lifted to an
+unpaired fork on the strength of their names. The detector was reading the label
+on the jar.
 
-Witnesses now imports Vessel and drops the five redeclarations, NS_CriticalBound
-imports the witnesses again, and the two modules load in one environment. Build
-unchanged.
+It now matches the axiom of unproved assertion and nothing else. Barriers re-lifts
+to thirty N and ten T with no B, and the calibration is unchanged: a development
+that is one undischarged claim still lifts to a lone fork and still reads B.
 
-Also repaired eight symlinks under Ob3ects that resolved nowhere. Seven had one
-too few levels of `..` — the targets were present all along, one directory further
-up than the link said — and are repointed. The eighth, a scaffold generated from a
-`__pycache__` directory, has no target and is removed; a generator walked a place
-it should not have.
+Worth stating plainly, since the instrument is the thing being argued for. This
+was caught by running it over a corpus large enough to contain its own adversary —
+the corpus supplied a module about sorries, and that is what caught a
+sorry-detector matching on the word "sorry".
