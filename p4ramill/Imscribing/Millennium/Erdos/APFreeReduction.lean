@@ -203,6 +203,83 @@ theorem summable_blocks_of_log_bound (k : ℕ)
     _ = K * (1 / (n : ℝ) ^ (1 + ε)) := by
         rw [hlogpow]; push_cast; rw [hsplit, hK]; field_simp
 
+
+/-! ## What is not enough
+
+The reduction needs the dyadic series `Σ_j r_k(2^j)/2^j` to converge. Two shapes
+of bound that are actually known for `k ≥ 4` fail it, and fail it provably rather
+than merely failing to be strong enough for a proof anyone has written.
+-/
+
+/-- For every `c > 0`, the series `Σ 1/(log j)^c` diverges. -/
+theorem not_summable_one_div_log_rpow (c : ℝ) (hc : 0 < c) :
+    ¬ Summable (fun j : ℕ => 1 / (Real.log j) ^ c) := by
+  intro hsum
+  -- log j ≤ c · j^(1/c), so (log j)^c ≤ c^c · j
+  have key : ∀ j : ℕ, 3 ≤ j → (Real.log j) ^ c ≤ c ^ c * j := by
+    intro j hj
+    have hj0 : (0 : ℝ) ≤ (j : ℝ) := by positivity
+    have hlog : Real.log j ≤ (j : ℝ) ^ (1/c) / (1/c) :=
+      Real.log_le_rpow_div hj0 (by positivity)
+    have hlognn : 0 ≤ Real.log j := Real.log_nonneg (by exact_mod_cast Nat.one_le_of_lt hj)
+    have h1 : (Real.log j) ^ c ≤ ((j : ℝ) ^ (1/c) / (1/c)) ^ c :=
+      Real.rpow_le_rpow hlognn hlog (le_of_lt hc)
+    have h2 : ((j : ℝ) ^ (1/c) / (1/c)) ^ c = c ^ c * (j : ℝ) := by
+      rw [div_eq_mul_inv, one_div, inv_inv, mul_comm,
+        Real.mul_rpow (le_of_lt hc) (by positivity),
+        ← Real.rpow_mul hj0, inv_mul_cancel₀ (ne_of_gt hc), Real.rpow_one]
+    rw [h2] at h1
+    exact h1
+  -- hence 1/(c^c · j) ≤ 1/(log j)^c, and the harmonic series would be summable
+  have hcc : (0 : ℝ) < c ^ c := Real.rpow_pos_of_pos hc c
+  have hshift := (summable_nat_add_iff 3).mpr hsum
+  have hcomp : Summable (fun j : ℕ => 1 / (c ^ c * ((j + 3 : ℕ) : ℝ))) := by
+    refine Summable.of_nonneg_of_le (fun j => by positivity) ?_ hshift
+    intro j
+    have hj3 : 3 ≤ j + 3 := by omega
+    have hk := key (j + 3) hj3
+    have hlogpos : 0 < Real.log ((j : ℕ) + 3 : ℕ) := by
+      apply Real.log_pos
+      have : (3 : ℝ) ≤ ((j + 3 : ℕ) : ℝ) := by exact_mod_cast hj3
+      linarith
+    have hlrpow : 0 < (Real.log ((j + 3 : ℕ) : ℝ)) ^ c := Real.rpow_pos_of_pos hlogpos c
+    exact one_div_le_one_div_of_le hlrpow hk
+  -- strip the constant and the shift: the harmonic series is not summable
+  have : Summable (fun j : ℕ => 1 / ((j + 3 : ℕ) : ℝ)) := by
+    have := hcomp.mul_left (c ^ c)
+    refine this.congr (fun j => ?_)
+    field_simp
+  exact Real.not_summable_one_div_natCast ((summable_nat_add_iff 3).mp this)
+
+/-- **Exponent one is not enough.** A bound `r_k(N) ≤ C·N/log N` gives dyadic
+terms `C/(j·log 2)`, and the harmonic series diverges.
+
+This is the knife-edge. Roth's own bound for `k = 3` has exactly this shape, and
+every bound at exponent one, however small the constant, leaves the dyadic sum
+divergent. Only `1 + ε` closes it. -/
+theorem not_summable_at_exponent_one (C : ℝ) (hC : 0 < C) :
+    ¬ Summable (fun j : ℕ => C / ((j : ℝ) * Real.log 2)) := by
+  intro hsum
+  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
+  have : Summable (fun j : ℕ => 1 / (j : ℝ)) := by
+    have h := hsum.mul_left (Real.log 2 / C)
+    refine h.congr (fun j => ?_)
+    field_simp
+  exact Real.not_summable_one_div_natCast this
+
+/-- **A `log log` bound is not enough, at any exponent.**
+
+Gowers' bound for general `k`, and the Leng--Sah--Sawhney improvement, have the
+shape `r_k(N) ≤ C·N/(log log N)^c` or weaker. At `N = 2^j` that leaves terms of
+order `1/(log j)^c`, which diverge for every `c > 0` by
+`not_summable_one_div_log_rpow`. No improvement of the constant, and no increase
+of the exponent `c`, changes this: the shape itself is insufficient. What the
+reduction requires is a bound polylogarithmic in `N`, past exponent one --- known
+at `k = 3`, and at `k = 4` known only with an exponent far below one. -/
+theorem loglog_shape_insufficient (c : ℝ) (hc : 0 < c) :
+    ¬ Summable (fun j : ℕ => 1 / (Real.log j) ^ c) :=
+  not_summable_one_div_log_rpow c hc
+
 /-- **Erdős's conjecture at `k`, from a counting bound past exponent one.**
 
 Divergent reciprocals force a `k`-term arithmetic progression, given
@@ -232,5 +309,7 @@ theorem erdos_conjecture_of_bound (k : ℕ)
 #print axioms summable_of_blocks
 #print axioms summable_blocks_of_log_bound
 #print axioms erdos_conjecture_of_bound
+#print axioms not_summable_one_div_log_rpow
+#print axioms not_summable_at_exponent_one
 
 end Millennium.ErdosProblems.APFree
