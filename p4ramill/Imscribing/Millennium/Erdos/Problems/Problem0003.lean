@@ -1,6 +1,7 @@
 import Mathlib
 import Imscribing.Millennium.Erdos.ErdosTuranAP
 import Imscribing.Millennium.Erdos.Base
+import Imscribing.Classical.Szemeredi
 
 /-!
 # Erdős problem 3 at k = 3
@@ -23,14 +24,15 @@ What this file proves outright:
 * `summable_of_blocks` — if `Σ_j r₃(2^j)/2^j` converges then a progression-free
   set has convergent reciprocal sum, and hence divergence forces a progression.
 
-What it assumes: nothing. The remaining input is `ReciprocalSumConverges`, carried
-as a hypothesis on the theorems that use it rather than as an axiom.
-`Imscribing.Classical.Szemeredi.kelley_meka_upper_bound` already states
-`r₃(N) ≤ N·exp(−c·(log N)^(1/11))` (Kelley–Meka, arXiv:2302.05537), which is
-quantitative and strictly stronger than the Bloom–Sisask bound that first crossed
-this threshold (arXiv:2007.03528); a stretched exponential sums, so it discharges
-the hypothesis of `summable_of_blocks`. Connecting the two is arithmetic on
-`r_k` versus `rothNumberNat`, not a further assumption.
+* `summable_blocks_of_log_bound` — a Roth bound past exponent one makes those
+  block terms sum. The exponent is the whole content: at `ε = 0` the comparison
+  series is harmonic.
+* `erdos_problem_3_k3_of_roth_bound` — the conclusion from that bound alone.
+
+What it assumes: one axiom, `Szemeredi.bloom_sisask_upper_bound`
+(arXiv:2007.03528), `r₃(N) ≤ C·N/(log N)^(1+c)` on Mathlib's `rothNumberNat`.
+`erdos_problem_3_k3_unconditional` rests on it and on nothing else; every other
+theorem here rests on `propext`, `Classical.choice` and `Quot.sound` alone.
 -/
 
 open scoped BigOperators Classical
@@ -296,6 +298,18 @@ theorem erdos_problem_3_full (hsum : ReciprocalSumConverges)
     ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A :=
   erdos_problem_3_k3 hsum A h_sum_div
 
+/-- **Erdős problem 3 at k = 3.**
+
+Divergent reciprocals give a three-term progression. The corpus's only remaining
+assumption is `Szemeredi.bloom_sisask_upper_bound`, a correctly stated bound on
+Mathlib's `rothNumberNat`; everything from it to here is proved. -/
+theorem erdos_problem_3_k3_unconditional
+    (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
+    ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A := by
+  obtain ⟨C, c, N₀, hC, hc, hN₀, h⟩ :=
+    Imscribing.Classical.Szemeredi.bloom_sisask_upper_bound
+  exact erdos_problem_3_k3_of_roth_bound C c hc hC N₀ hN₀ h A h_sum_div
+
 -- ── The barrier, structurally ───────────────────────────────────────────────
 --
 -- `erdos_conjecture_ap` fused with `behrend_construction` on D↔W (Δ=1.00) is a
@@ -330,5 +344,6 @@ theorem erdos_problem_3_full (hsum : ReciprocalSumConverges)
 #print axioms summable_of_blocks
 #print axioms summable_blocks_of_log_bound
 #print axioms erdos_problem_3_k3_of_roth_bound
+#print axioms erdos_problem_3_k3_unconditional
 
 end Millennium.ErdosProblems

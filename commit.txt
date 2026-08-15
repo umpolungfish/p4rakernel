@@ -1,28 +1,33 @@
-Erdős 3 at k=3, from a Roth bound and nothing else
+Szemeredi: define r_k, prove Behrend, and state the bounds about a real object
 
-The analytic half is proved, so the chain from a quantitative Roth bound to the
-conclusion is now complete inside this file, with no axiom and no sorry anywhere
-in it.
+Six opaque symbols and eight axioms about them, two theorems that unwrapped an
+axiom each. The trouble is `opaque r_k (k N : ℕ) : ℕ` — a constant with no body.
+Every bound stated about it is a bound on an arbitrary function of two naturals,
+satisfied by `fun _ _ => 0`. It cannot be contradicted and it cannot discharge
+anything, which I found by trying to use it and being unable to.
 
-summable_blocks_of_log_bound: given r₃(N) ≤ C·N/(log N)^(1+ε) past some N₀, the
-dyadic block terms r₃(2^j)/2^j sum. Substituting N = 2^j turns the bound into
-K·j^-(1+ε) with K = C/(log 2)^(1+ε), and a p-series with p > 1 converges. The
-exponent carries the whole argument: at ε = 0 the comparison series is harmonic
-and the proof gives nothing, which is exactly why every Roth bound before
-Bloom–Sisask left this problem open.
+r_k is defined now: the largest cardinality among progression-free subsets of
+range N, a supremum over a finite family. r_k_le proves the definition has
+content — such a subset has at most N elements — which is exactly the kind of
+fact an opaque symbol admits none of.
 
-erdos_problem_3_k3_of_roth_bound: the statement resting on that hypothesis alone.
-Divergent reciprocals give a three-term progression, given a Roth bound past
-exponent one.
+Behrend at k = 3 stops being an axiom. Behrend.roth_lower_bound is in Mathlib and
+ErdosTuranAP already re-exports it as a theorem; assuming it again here, in a
+weaker form about an opaque symbol, was the same claim written twice with the
+second copy inert.
 
-I stated it about Mathlib's rothNumberNat, and the reason matters. The corpus
-already had kelley_meka_upper_bound in Imscribing.Classical.Szemeredi, and I went
-to use it — but r_k there is declared `opaque r_k (k N : ℕ) : ℕ`, a constant with
-no body and no connection to rothNumberNat. A bound on an opaque symbol is a
-bound on an arbitrary function; it cannot discharge anything, and wiring it to
-the real Roth number would take a fresh assumption of its own. So the hypothesis
-here names the object Mathlib defines.
+Kelley–Meka and Bloom–Sisask are stated about rothNumberNat, the object Mathlib
+defines. Bloom–Sisask is the weaker of the two and is stated separately because
+it is the shape the consumer wants: r₃(N) ≤ C·N/(log N)^(1+c) is what
+Problem0003.erdos_problem_3_k3_of_roth_bound takes.
 
-Everything in the file rests on propext, Classical.choice and Quot.sound alone.
-The lift reads T on three_ap_of_dense, three_ap_of_not_threeAPFree, block_sum_le,
-summable_of_blocks and erdos_problem_3_k3.
+So Erdős 3 at k=3 now closes in the corpus. erdos_problem_3_k3_unconditional
+depends on propext, Classical.choice, Quot.sound and one named axiom —
+bloom_sisask_upper_bound — and nothing else. Every other theorem in Problem0003
+depends on the foundational three alone.
+
+The six density-increment axioms stay as they are, and the header now says what
+they are: AP_count, gowers_norm, Nilsequence, nilseq_eval and nilseq_complexity
+have no bodies, so those axioms carry the shape of Szemerédi's argument and none
+of its force. They are an outline. Written down as such rather than left to read
+like assumptions doing work.
