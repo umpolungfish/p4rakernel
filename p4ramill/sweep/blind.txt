@@ -1,0 +1,34 @@
+A system of discrete operations over an abstract machine. The operations are
+named only by label; what each does is given below and nowhere else.
+
+The machine has an ordered scratch region whose contents are discarded when the
+run ends, and a separate persistent region whose contents outlive the run. A
+position marker advances through a fixed array of operation labels. Every
+operation draws a fixed budget from a finite allowance, and exhausting the
+allowance ends the run.
+
+  K01  removes the top scratch value
+  K02  places a constant onto the scratch region
+  K03  duplicates a scratch value
+  K04  exchanges two scratch values
+  K05  combines the top two scratch values arithmetically
+  K06  compares the top two scratch values and leaves an indicator
+  K07  reads from the discardable region at an offset
+  K08  writes to the discardable region at an offset
+  K09  reads from the persistent region at a key
+  K10  writes to the persistent region at a key
+  K11  moves the position marker to an offset taken from the scratch region
+  K12  takes an offset and an indicator from the scratch region, and moves the
+       position marker to that offset only when the indicator is set; otherwise
+       the marker advances as usual
+  K13  a label that does nothing, and is the only label the marker may be moved
+       to by K11 or K12; an attempt to move the marker anywhere else fails
+  K14  ends the run and keeps everything written to the persistent region
+  K15  ends the run, keeps nothing, and returns the unspent allowance
+  K16  ends the run and keeps nothing
+  K17  suspends this run, starts a nested run over a different array, and
+       resumes here with an indicator saying whether the nested run kept its
+       writes
+  K18  reports the remaining allowance
+  K19  reports the current position of the marker
+  K20  copies data supplied from outside the run into the discardable region

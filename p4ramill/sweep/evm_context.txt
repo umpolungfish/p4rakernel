@@ -1,0 +1,15 @@
+Operations in full: STOP, ADD, SUB, MUL, DIV, MOD, EXP, LT, GT, SLT, SGT, EQ,
+ISZERO, AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR, KECCAK256, ADDRESS, BALANCE,
+ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE, CALLDATACOPY, CODESIZE,
+CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY, RETURNDATASIZE, RETURNDATACOPY,
+EXTCODEHASH, BLOCKHASH, COINBASE, TIMESTAMP, NUMBER, PREVRANDAO, GASLIMIT,
+CHAINID, SELFBALANCE, BASEFEE, POP, MLOAD, MSTORE, MSTORE8, SLOAD, SSTORE, JUMP,
+JUMPI, PC, MSIZE, GAS, JUMPDEST, PUSH0-PUSH32, DUP1-DUP16, SWAP1-SWAP16,
+LOG0-LOG4, CREATE, CALL, CALLCODE, RETURN, DELEGATECALL, CREATE2, STATICCALL,
+REVERT, INVALID, SELFDESTRUCT.
+
+Execution is a single pass over a byte array with a program counter. Control
+transfer takes an absolute byte offset from the stack, and an offset is a legal
+destination only if the byte there is the designated destination marker. Storage
+is a persistent key-value map surviving the call; stack and memory do not.
+Execution is metered and exhausting the budget ends it.

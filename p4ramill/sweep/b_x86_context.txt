@@ -1,0 +1,33 @@
+The machine has a flat addressable store, a fixed set of named registers, and a
+set of one-bit indicators updated as a side effect of certain operations. A
+position marker advances through a byte array. A transfer takes its destination
+either as a displacement written into the operation itself or from a register or
+a location in the store, and nothing in the byte array marks which positions are
+legal destinations. Operations are not distinguished by name into those that
+write the store and those that write a register; the operands decide.
+
+  A01  copies between registers, or between a register and the store
+  A02  computes an address without reading through it
+  A03  places a value onto a downward-growing region indexed by one register
+  A04  removes a value from that region
+  A05  combines two operands arithmetically and updates the indicators
+  A06  combines two operands bitwise and updates the indicators
+  A07  shifts or rotates an operand and updates the indicators
+  A08  subtracts two operands, updates the indicators, and discards the result
+  A09  ands two operands, updates the indicators, and discards the result
+  A10  writes one register to 0 or 1 according to the indicators
+  A11  copies one operand to another only when the indicators say so
+  A12  moves the marker to a destination written into the operation
+  A13  moves the marker to a destination taken from a register or the store
+  A14  moves the marker to a destination written into the operation only when
+       the indicators say so; otherwise the marker advances as usual
+  A15  places the position after this operation onto the downward-growing region
+       and moves the marker to a destination written into the operation
+  A16  places the position after this operation onto that region and moves the
+       marker to a destination taken from a register or the store
+  A17  removes a position from that region and moves the marker to it
+  A18  transfers to a fixed handler outside this array and returns
+  A19  ends the run as faulted, and is also written into unused space
+  A20  ends the run as faulted, with no defined meaning
+  A21  halts the machine
+  A22  does nothing, and is also written into unused space for alignment

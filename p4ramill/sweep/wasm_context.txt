@@ -1,0 +1,13 @@
+Control operations: unreachable, nop, block, loop, if, else, end, br, br_if,
+br_table, return, call, call_indirect. Parametric: drop, select. Variable:
+local.get, local.set, local.tee, global.get, global.set. Memory: i32.load,
+i64.load, f32.load, f64.load, i32.store, i64.store, f32.store, f64.store,
+memory.size, memory.grow. Numeric: const, eqz, eq, ne, lt, gt, le, ge, clz, ctz,
+popcnt, add, sub, mul, div, rem, and, or, xor, shl, shr, rotl, rotr, and the
+float and conversion operations.
+
+Control flow is structured rather than addressed: block, loop and if open a
+region that end closes, and branches name a region by its depth in the enclosing
+stack rather than by any offset. A branch out of a region leaves it for good.
+Locals and globals are separate from the linear memory. The whole is validated
+before it runs, and a validated module cannot transfer control outside a region.

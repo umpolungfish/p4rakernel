@@ -1,0 +1,2 @@
+The instruction set of an abstract machine whose operations are named only by
+opaque label. Assign each of the twelve marks the operation that occupies it.

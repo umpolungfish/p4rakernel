@@ -1,0 +1,24 @@
+The instruction set of the Ethereum Virtual Machine, as a system of discrete
+operations over a stack machine with persistent storage.
+
+Its operations, in full surface inventory: STOP, ADD, SUB, MUL, DIV, MOD, EXP,
+LT, GT, SLT, SGT, EQ, ISZERO, AND, OR, XOR, NOT, BYTE, SHL, SHR, SAR, KECCAK256,
+ADDRESS, BALANCE, ORIGIN, CALLER, CALLVALUE, CALLDATALOAD, CALLDATASIZE,
+CALLDATACOPY, CODESIZE, CODECOPY, GASPRICE, EXTCODESIZE, EXTCODECOPY,
+RETURNDATASIZE, RETURNDATACOPY, EXTCODEHASH, BLOCKHASH, COINBASE, TIMESTAMP,
+NUMBER, PREVRANDAO, GASLIMIT, CHAINID, SELFBALANCE, BASEFEE, POP, MLOAD, MSTORE,
+MSTORE8, SLOAD, SSTORE, JUMP, JUMPI, PC, MSIZE, GAS, JUMPDEST, PUSH0 through
+PUSH32, DUP1 through DUP16, SWAP1 through SWAP16, LOG0 through LOG4, CREATE,
+CALL, CALLCODE, RETURN, DELEGATECALL, CREATE2, STATICCALL, REVERT, INVALID,
+SELFDESTRUCT.
+
+Structurally: execution is a single pass over a byte array with a program
+counter. Control transfer is by absolute byte offset taken from the stack, and
+an offset is only a legal destination if the byte there is the designated
+destination marker, so the set of places control can arrive at is explicitly
+marked in the code rather than inferred. One transfer consumes a condition from
+the stack and takes one of two continuations; another takes its continuation
+unconditionally. Several operations end execution outright, differing in whether
+they keep or discard the state changes made so far. Storage is a persistent
+key-value map that survives the call, while the stack and memory do not.
+Execution is metered: every operation consumes a budget and running out ends it.

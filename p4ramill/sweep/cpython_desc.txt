@@ -1,0 +1,2 @@
+The bytecode instruction set of CPython. Assign each of the twelve marks the
+operation that occupies it.
