@@ -153,25 +153,13 @@ def assumedAxioms (n : Name) : MetaM (List Name) := do
   let (_, st) := ((Lean.CollectAxioms.collect n).run env).run {}
   return st.axioms.toList.filter (fun a => !foundational.contains a)
 
-/-- A declaration the elaborator produced, not one the corpus states. `_proof_`,
-`_simp_`, `sizeOf_spec`, `ctorIdx`, the decidability instances and the `match_`
-auxiliaries are Lean's own bookkeeping. They lift and they verdict, and counting
-them buries the claims under their own scaffolding. -/
-def isGenerated (n : Name) : Bool :=
-  let s := n.toString
-  (s.splitOn "._proof_").length > 1 || (s.splitOn "._simp_").length > 1
-    || (s.splitOn ".match_").length > 1 || (s.splitOn ".eq_").length > 1
-    || s.endsWith "sizeOf_spec" || s.endsWith "ctorIdx"
-    || (s.splitOn "instDecidable").length > 1
-    || (s.splitOn ".noConfusion").length > 1 || s.endsWith ".injEq"
-
 /-- One line per declaration this corpus states: name, word, and the axiom
 oracle's own answer. Vox verdicts the word; nothing here verdicts anything, so
 there is exactly one implementation of the verdict and it is not in Lean. -/
 def sweepAll (maxLen : Nat := 60000) : MetaM Unit := do
   let env ← getEnv
   for (nm, ci) in env.constants.toList do
-    if ourDecl nm && !isGenerated nm then
+    if ourDecl nm then
       match ci with
       | .thmInfo ti =>
           let w ← (try lift ti.value catch _ => pure "")
@@ -190,7 +178,7 @@ def sweepModule (prefix_ : String) (maxLen : Nat := 60000) : MetaM Unit := do
   let env ← getEnv
   for (nm, ci) in env.constants.toList do
     let s := nm.toString
-    if s.startsWith prefix_ && !isGenerated nm then
+    if s.startsWith prefix_ then
       match ci with
       | .thmInfo ti =>
           let w ← (try lift ti.value catch _ => pure "")
