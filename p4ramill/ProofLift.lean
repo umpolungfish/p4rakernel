@@ -43,6 +43,47 @@ to an unpaired fork and read B. Eight false positives, every one in the one modu
 whose subject is the thing being detected. Match the axiom, not the spelling. -/
 def isSorry (n : Name) : Bool := n == ``sorryAx
 
+/-- The three axioms Lean's own foundation rests on. Every classical proof in
+Mathlib cites them, so counting them as undischarged makes every theorem read B
+and the verdict says nothing. -/
+def foundational : List Name := [``propext, ``Classical.choice, ``Quot.sound]
+
+/-- A name this corpus declares, as opposed to one it imports. -/
+def ourDecl (n : Name) : Bool :=
+  let s := n.toString
+  s.startsWith "Imscribing" || s.startsWith "Millennium" || s.startsWith "IG"
+
+
+/-- A `axiom` declaration of this corpus: asserted, never derived.
+
+`sorryAx` is not the only way to leave a claim open — it is only the way that
+announces itself. A declared axiom is an ordinary constant in the term, so it
+lifted to ◻, a commit, and read exactly like a proved lemma. That is the same
+failure as matching the spelling instead of the axiom, in the other direction:
+narrowing to `sorryAx` left the deliberate assertions invisible.
+
+An axiom opens what nothing closes, so it lifts where a sorry lifts. -/
+def isAssumed (n : Name) : MetaM Bool := do
+  if foundational.contains n then return false
+  let env ← getEnv
+  match env.find? n with
+  | some (.axiomInfo _) => return true
+  | some _ =>
+      -- Transitively, the way `#print axioms` is. A theorem whose body is one
+      -- citation of a theorem that rests on an axiom lifted to a bare ◻ and read
+      -- N — closed, because the lift stopped at the constant and never saw what
+      -- held it up. Depending on an assertion is resting on it.
+      --
+      -- Only for names this corpus declares. Collecting axioms walks the whole
+      -- dependency graph of a constant, and doing that for every Mathlib name in
+      -- every term does not finish. A Mathlib constant was elaborated before this
+      -- corpus existed, so it cannot rest on a corpus axiom, and the walk would
+      -- only ever return the foundational three.
+      if !(ourDecl n) then return false
+      let (_, st) := ((Lean.CollectAxioms.collect n).run env).run {}
+      return st.axioms.any (fun a => !foundational.contains a)
+  | none => return false
+
 partial def lift (e : Expr) : MetaM String := do
   match e with
   | .bvar _ | .fvar _ | .mvar _ => return "⊙"
@@ -52,6 +93,7 @@ partial def lift (e : Expr) : MetaM String := do
   | .proj _ _ b => return (← lift b) ++ "⋈"
   | .const n _ =>
       if isSorry n then return "∈"            -- opens, never rejoins
+      else if (← isAssumed n) then return "∈" -- so does an asserted axiom
       else if n == ``Eq.mpr then return "≻"
       else if n == ``Eq.symm then return "≺"
       else return "◻"
@@ -64,6 +106,7 @@ partial def lift (e : Expr) : MetaM String := do
       match f with
       | .const n _ =>
           if isSorry n then return "∈"
+          else if (← isAssumed n) then return "∈"
           else if isSplitter n then
             -- fork, the arms, then the rejoin
             let mut w := "∈"

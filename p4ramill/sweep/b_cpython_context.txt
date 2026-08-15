@@ -1,0 +1,42 @@
+The machine has an ordered scratch region and an array of numbered cells held
+apart from it, both belonging to one activation. A position marker advances
+through a fixed array of operation labels, and transfers move the marker by a
+displacement relative to its current position. An array of operations may
+contain further such arrays, each run on its own fresh activation. A separate
+side table maps positions to recovery points, and a fault consults that table
+rather than any transfer.
+
+  P01  begins an activation
+  P02  does nothing
+  P03  removes the top scratch value
+  P04  duplicates a scratch value
+  P05  exchanges two scratch values
+  P06  places a constant onto the scratch region
+  P07  reads a numbered cell of this activation
+  P08  writes a numbered cell of this activation
+  P09  reads a cell held outside this activation by name
+  P10  writes a cell held outside this activation by name
+  P11  reads a named field of a scratch value
+  P12  writes a named field of a scratch value
+  P13  writes a keyed position of a scratch value
+  P14  combines the top two scratch values arithmetically
+  P15  compares the top two scratch values and leaves an indicator
+  P16  moves the marker by a displacement, forward, unconditionally
+  P17  moves the marker by a displacement, backward, unconditionally
+  P18  takes an indicator and moves the marker by a displacement only when it is
+       set; otherwise the marker advances as usual
+  P19  takes an indicator and moves the marker by a displacement only when it is
+       clear; otherwise the marker advances as usual
+  P20  draws the next value from a running source and moves the marker past the
+       repeated part when the source is spent
+  P21  makes a running source from a scratch value
+  P22  ends the activation and yields the top scratch value to the caller
+  P23  ends the activation and yields a constant to the caller
+  P24  hands a value out and suspends the activation so it may be resumed
+  P25  hands a value into a suspended activation and resumes it
+  P26  raises a fault, consulting the side table
+  P27  re-raises the fault currently being handled
+  P28  tests whether the current fault matches a given kind
+  P29  builds a new array-of-operations value from parts on the scratch region
+  P30  suspends here, runs an array-of-operations value on a fresh activation,
+       and resumes with its yielded value

@@ -1,0 +1,13 @@
+Operations include: mov, movzx, movsx, lea, push, pop, xchg, add, sub, adc, sbb,
+imul, mul, idiv, div, and, or, xor, not, neg, inc, dec, shl, shr, sar, rol, ror,
+bt, bsf, bsr, popcnt, cmp, test, ucomisd, ucomiss, setcc, cmovcc, jmp, the jcc
+family, call, ret, leave, syscall, int, int3, ud2, hlt, iret, nop, and the SSE
+and AVX families.
+
+Execution is over a flat address space with a register file and flags. Control
+transfer is by direct displacement or through a register or memory operand, and
+nothing marks a legal destination, so where control may arrive is not recorded
+in the code. Comparison writes flags that a later conditional consumes.
+A call pushes a return address and the matching return pops it. Memory writes
+and register writes are not distinguished by the instruction's name but by its
+operands.
