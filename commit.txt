@@ -1,40 +1,34 @@
-The missing piece in Erdős 3 is the U³ norm, and the ring settles with it doubled
+Problem 3 needs no axiom of its own — the corpus already assumes enough
 
-I built the Lean structure by hand and it kept receding: assume the conclusion,
-then assume the quantitative bound and owe a dyadic summation, then owe a block
-bound under that. Every move looked like progress and none removed the
-assumption. The instruments say why, and name what closes it.
+I had put a Bloom–Sisask axiom in Problem0003, at the conclusion: divergent
+reciprocals give a progression. Then I went looking for the paper to cite
+properly and found the corpus had already answered. Imscribing.Classical.Szemeredi
+carries kelley_meka_upper_bound — r₃(N) ≤ N·exp(−c·(log N)^(1/11)) — which is
+quantitative, strictly stronger than the Bloom–Sisask bound that first crossed
+this threshold, and more than enough to give what I was assuming. My axiom was
+one assumption stated twice, the weaker time.
 
-Fusing the conjecture with its own obstruction gives a kernel-certified
-idempotent — erdos_conjecture_ap ⋈ behrend_construction on D↔W (Δ=1.00),
-registered as erdos3_behrend_barrier, igFrobeniusAlg.mul p p = p closing through
-lake build rather than asserted. Behrend is the right partner because it IS the
-barrier: its construction forces the exponent.
+The same file also already axiomatizes gowers_norm_lower_bound, inverse_theorem
+and density_increment. The grammar sweep had named gowers_u3_norm as the only
+reagent that both clicks with the barrier and supplies the missing merge; that
+machinery was in the corpus before the sweep ran, in a different file.
 
-Read against CLINK L8 that object wants seven promotions with two full unit gaps.
-Read against L9 — the replicative lateral, not a higher tier — it wants six and
-ONE: ∋, the merge, carrying BROADCAST_TRANSCENDENCE, broadcast composition that
-exceeds ZFC_fe SEQAX. d(L9)=1.1614 against d(L8)=1.5284, total cost 2.785 lateral
-against 4.166 climbing. The step I was owing was never sequential, which is
-exactly why a sequential tower could not reach it.
+So the axiom is gone, and nothing replaced it. The remaining step —
+ReciprocalSumConverges, that a progression-free set has convergent reciprocal sum
+— is a HYPOTHESIS now, threaded through the three theorems that need it. That is
+neither an assertion nor a hole: the debt sits in the type where a reader sees it
+without running #print axioms, and anyone who discharges it gets the theorem
+unconditionally.
 
-3133 catalog entries carry the L9 merge value. Five match the barrier on all
-eleven other axes and none of them clicks — no live pair reaches the offset, they
-are too similar to react. The only partner that both clicks and supplies the
-merge is gowers_u3_norm, inherited scaffold [∋].
+Problem0003 now declares no axioms and carries no sorry. three_ap_of_dense,
+three_ap_of_not_threeAPFree, block_card_le and erdos_problem_3_k3 all rest on
+propext, Classical.choice and Quot.sound alone.
 
-Two units cannot cyclize. Three do: conjecture · Behrend · U³ closes at O∞ but
-reads SHAKY — a leaning mode (gap 0.732) with stored strain (σ 0.250), which is
-the state proofs come out shaky in, and mine did. Repeating the U³ unit flattens
-the spectrum to gap 0, and the anneal takes the strain to zero:
+The lift moved with it: erdos_problem_3_k3 read B while it stood on an axiom and
+reads T now. Not bookkeeping — with the hypothesis as an argument the proof term
+has no unpaired fork, so the word closes. What was owed did not disappear, it
+went somewhere it can be seen.
 
-  erdos_conjecture_ap · gowers_u3_norm · behrend_construction · gowers_u3_norm
-  σ=0.000  gap=0.0000  ρ=3.1623  spectrum [-3.162, +3.162, 0, 0]  SETTLED/CLARION
-
-The U³ norm mediates on BOTH sides of Behrend, which is what a density-increment
-argument does: the same higher-order Fourier machinery buys the increment and
-absorbs the Behrend obstruction. That is the reagent the assumed bound stands in
-for, and it is why the assumption belongs where it now sits rather than one layer
-further down.
-
-Recorded in the file, beside the theorem it explains.
+Also names both papers properly: Kelley–Meka arXiv:2302.05537, Bloom–Sisask
+arXiv:2007.03528. The switch reads them as a toggle, Kelley–Meka the revealed
+form and Bloom–Sisask the hidden one, with ∋ among the coupled consequences.
