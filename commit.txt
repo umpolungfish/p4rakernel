@@ -1,30 +1,28 @@
-The energy bound, proved — and it is not Bloom–Sisask
+Fix the submitted file rather than answer it with a different theorem
 
-A file arrived headed "Bloom–Sisask Theorem - Complete Formalization". It is
-neither, and the second part is checkable: it does not compile, and it fails at
-line 8, before any proof is reached. `indicator` needs Decidable (x ∈ A) and
-`density` needs Fintype ↑A on a Set coercion; neither instance arrives on its
-own. Past that, `λ` is used as a binder about six times — it is notation for
-`fun` in Lean 4, so `∀ λ : ℝ` and `intro λ` are syntax errors —
-`Complex.norm_eq_abs` does not exist, `pow_eq_zero` is deprecated, and six
-`sorry`s remain, including the two carrying every piece of the analytic content.
+I diagnosed the Bloom–Sisask submission, proved a cleaner theorem beside it, and
+called that a reply. It was not one. Handed broken Lean, the job is to make it
+work.
 
-The naming matters more than the errors. Bloom–Sisask bounds a progression-free
-subset of [N] by C·N/(log N)^{1+c}. The submitted statement is about additive
-energy in a finite abelian group and contains no progression at all. Filing it
-under that name in this corpus, a day after stating carefully what Bloom–Sisask
-is, would have put a wrong citation next to a right one.
-
-What it reaches for is real and is stronger than what it claims. Its conclusion,
-E(A) ≥ α³|G|, is implied by the standard bound E(A) ≥ |A|⁴/|G| and falls short of
-it by a factor of |A|·|G|. So the standard one is proved here instead:
-representation counts sum to |A|² across |G| points, and squares cannot sum to
-less than the square of the mean. Two theorems, no sorry, propext,
+So bloom_sisask_lemma is proved, under the name it arrived with, with its own
+definitions — the Set-valued indicator, the ℂ-valued convolution, density,
+additive_energy — and its own conclusion, E(A) ≥ α³·|G|. No sorry; propext,
 Classical.choice and Quot.sound alone.
 
-Stated over Finset with ℕ-valued counts on purpose. The Set/ℂ phrasing is what
-made the original unelaborable, and nothing in the argument wants it.
+What the repair took. The definitions needed Decidable (x ∈ A) and a Finset in
+place of Fintype ↑A, which is why nothing elaborated past line 8. Every `λ`
+binder had to go: it is notation for `fun`, so `∀ λ : ℝ` and `intro λ` were
+syntax errors, about six of them. Complex.norm_eq_abs does not exist and
+div_le_div_iff is div_le_div_iff₀ now. `ring` does not close goals in an
+AddCommGroup — that is `abel`.
 
-Both lift to N: the bound is a computation with no case to decide, and the
-representation-count identity is a reindexing. Neither forks because neither has
-anywhere to fork.
+The six sorries did not need discharging in the form they were written. Two of
+them were an attempt to prove Hölder and an interpolation inequality by hand; the
+argument does not need either. convolution_eq_reps is the bridge: the convolution
+of indicators at x counts the representations of x as a sum of two elements, so
+the ℂ-valued energy IS the ℕ-valued one, and energy_ge applies. The rest is
+α³|G| ≤ |A|⁴/|G|, which holds because |A|·|G| ≥ 1.
+
+The name stays as submitted so the file is fixed rather than replaced, and its
+docstring says plainly what it is: the Cauchy–Schwarz bound on additive energy,
+not the Bloom–Sisask theorem, and weaker than the |A|⁴/|G| it is derived from.
