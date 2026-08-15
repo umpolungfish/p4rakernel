@@ -1,34 +1,33 @@
-Problem 3 needs no axiom of its own — the corpus already assumes enough
+Prove the dyadic assembly, and write the file as a proof rather than a log
 
-I had put a Bloom–Sisask axiom in Problem0003, at the conclusion: divergent
-reciprocals give a progression. Then I went looking for the paper to cite
-properly and found the corpus had already answered. Imscribing.Classical.Szemeredi
-carries kelley_meka_upper_bound — r₃(N) ≤ N·exp(−c·(log N)^(1/11)) — which is
-quantitative, strictly stronger than the Bloom–Sisask bound that first crossed
-this threshold, and more than enough to give what I was assuming. My axiom was
-one assumption stated twice, the weaker time.
+The remaining step in Problem 3 was that a progression-free set has convergent
+reciprocal sum. It splits cleanly, and the combinatorial half is now proved.
 
-The same file also already axiomatizes gowers_norm_lower_bound, inverse_theorem
-and density_increment. The grammar sweep had named gowers_u3_norm as the only
-reagent that both clicks with the barrier and supplies the missing merge; that
-machinery was in the corpus before the sweep ran, in a different file.
+dyadic_split: [1, 2^J) is the disjoint union of its dyadic blocks, by induction
+on J through sum_Ico_consecutive.
 
-So the axiom is gone, and nothing replaced it. The remaining step —
-ReciprocalSumConverges, that a progression-free set has convergent reciprocal sum
-— is a HYPOTHESIS now, threaded through the three theorems that need it. That is
-neither an assertion nor a hole: the debt sits in the type where a reader sees it
-without running #print axioms, and anyone who discharges it gets the theorem
-unconditionally.
+block_sum_le: over one block the reciprocals are bounded by r₃(2^j)/2^j — at most
+rothNumberNat(2^j) terms by block_card_le, each at most 1/2^j because the block
+starts there. Progression-freeness passes to the subset by ThreeAPFree.mono.
 
-Problem0003 now declares no axioms and carries no sorry. three_ap_of_dense,
-three_ap_of_not_threeAPFree, block_card_le and erdos_problem_3_k3 all rest on
-propext, Classical.choice and Quot.sound alone.
+summable_of_blocks: if Σ_j r₃(2^j)/2^j converges then so does the reciprocal sum.
+Through summable_subtype_iff_indicator to an indicator on ℕ, then bounded partial
+sums: push N out to 2^N, drop index 0 (1/0 = 0 in ℝ either way), split dyadically,
+bound each block, compare to the tsum.
 
-The lift moved with it: erdos_problem_3_k3 read B while it stood on an axiom and
-reads T now. Not bookkeeping — with the hypothesis as an argument the proof term
-has no unpaired fork, so the word closes. What was owed did not disappear, it
-went somewhere it can be seen.
+That is everything combinatorics owes. What is left is analytic and already on the
+shelf: kelley_meka_upper_bound gives r₃(N) ≤ N·exp(−c·(log N)^(1/11)), and a
+stretched exponential sums. Connecting r_k to rothNumberNat is arithmetic, not
+another assumption.
 
-Also names both papers properly: Kelley–Meka arXiv:2302.05537, Bloom–Sisask
-arXiv:2007.03528. The switch reads them as a toggle, Kelley–Meka the revealed
-form and Bloom–Sisask the hidden one, with ∋ among the coupled consequences.
+The file still declares no axioms and carries no sorry. The lift: block_sum_le,
+summable_of_blocks, three_ap_of_dense, three_ap_of_not_threeAPFree and
+erdos_problem_3_k3 all read T.
+
+Rewrote the prose. It had become a record of what I had tried and undone — an
+axiom that was false, an axiom that was redundant, a tower that receded — which
+is history and belongs in these messages, not in a file someone reads to learn
+what is true. The module docstring now states the mathematical situation (why
+density is unavailable, what is proved, what is assumed and where it comes from),
+and the structural note states the barrier's reading as fact rather than as the
+story of finding it.

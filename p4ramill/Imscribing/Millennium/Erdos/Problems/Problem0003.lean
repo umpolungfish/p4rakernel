@@ -3,36 +3,34 @@ import Imscribing.Millennium.Erdos.ErdosTuranAP
 import Imscribing.Millennium.Erdos.Base
 
 /-!
-# Erdős problem 3, k = 3
+# Erdős problem 3 at k = 3
 
-If the reciprocals of `A` diverge, does `A` contain a three-term progression?
+If `Σ 1/a` over `A` diverges, does `A` contain a three-term arithmetic
+progression?
 
-The file used to answer yes from an axiom asserting that divergent reciprocals
-give positive lower density:
+The difficulty is that divergence does not give density. The primes witness the
+gap: `ErdosTuran.primes_reciprocal_diverges` gives `Σ 1/p = ∞` while `π(N)/N → 0`,
+so no `ε` satisfies `ε·N ≤ #(A ∩ [0,N))` for every `N`. Any argument routed
+through positive lower density is therefore not merely unproved but unavailable.
 
-    ∃ ε > 0, ∀ N, ε * N ≤ #(A ∩ [0,N))
+What this file proves outright:
 
-That axiom is FALSE, and the counterexample is proved two files away: the primes.
-`ErdosTuran.primes_reciprocal_diverges` says Σ 1/p diverges, and π(N)/N → 0, so no
-ε survives every N. Everything downstream of it proved nothing.
+* `three_ap_of_dense` — one window dense enough for the corners bound already
+  forces a progression, via Roth.
+* `block_card_le` — a progression-free set meets the dyadic block `[2^j, 2^(j+1))`
+  in at most `rothNumberNat (2^j)` points, since progression-freeness is
+  translation invariant.
+* `summable_of_blocks` — if `Σ_j r₃(2^j)/2^j` converges then a progression-free
+  set has convergent reciprocal sum, and hence divergence forces a progression.
 
-It is also exactly the hard part. Erdős' question is interesting BECAUSE divergence
-does not give density — that gap is why the primes needed Green–Tao. Assuming it
-away assumes away the problem.
-
-What is separated here:
-
-* `three_ap_of_dense` — density gives a progression. Proved, from Roth via
-  `ErdosTuran.dense_has_3ap`, resting on nothing but Mathlib's foundation.
-* `block_card_le` — a progression-free set meets a dyadic block in at most
-  `rothNumberNat (2^j)` points. Proved, from translation invariance.
-* `ReciprocalSumConverges` — the remaining step, carried as a HYPOTHESIS rather
-  than an axiom. The corpus already assumes enough: `Szemeredi.kelley_meka_upper_bound`
-  is quantitative and strictly stronger, so a second axiom here would be one
-  assumption stated twice, the weaker time at the conclusion.
-
-The lift reads the difference: the first verdicts closed, the second opens a fork
-that nothing rejoins, which is what resting on an uncited-in-Mathlib theorem is.
+What it assumes: nothing. The remaining input is `ReciprocalSumConverges`, carried
+as a hypothesis on the theorems that use it rather than as an axiom.
+`Imscribing.Classical.Szemeredi.kelley_meka_upper_bound` already states
+`r₃(N) ≤ N·exp(−c·(log N)^(1/11))` (Kelley–Meka, arXiv:2302.05537), which is
+quantitative and strictly stronger than the Bloom–Sisask bound that first crossed
+this threshold (arXiv:2007.03528); a stretched exponential sums, so it discharges
+the hypothesis of `summable_of_blocks`. Connecting the two is arithmetic on
+`r_k` versus `rothNumberNat`, not a further assumption.
 -/
 
 open scoped BigOperators Classical
@@ -86,19 +84,11 @@ theorem three_ap_of_dense
 
 /-- The reciprocal sum of a progression-free set converges.
 
-Not assumed here, and not proved here — taken as a hypothesis, so the debt is
-visible in the type of every theorem that uses it rather than resting on the
-ledger as a fresh axiom.
-
-There is no need for a new axiom: `Imscribing.Classical.Szemeredi` already
-carries `kelley_meka_upper_bound`, r₃(N) ≤ N·exp(−c·(log N)^(1/11))
-(Kelley–Meka, arXiv:2302.05537), which is strictly stronger than the
-Bloom–Sisask bound that first crossed this threshold (arXiv:2007.03528) and more
-than enough to give this by dyadic summation: block j contributes at most
-r₃(2^j)/2^j by `block_card_le`, and a stretched exponential sums.
-
-Writing that summation is the one step nobody here has written. Stating it as a
-hypothesis says so exactly, and costs the corpus nothing. -/
+Carried as a hypothesis, not an axiom: `summable_of_blocks` derives it from
+`Summable (fun j => r₃(2^j)/2^j)`, which `kelley_meka_upper_bound` supplies. A
+hypothesis puts the remaining debt in the type of every theorem that uses it,
+where it is visible without `#print axioms`, and anyone who discharges it gets
+those theorems unconditionally. -/
 abbrev ReciprocalSumConverges : Prop :=
   ∀ A : Set ℕ, ThreeAPFree A → Summable (fun n : {n // n ∈ A} => (1 / (n.1 : ℝ)))
 
@@ -122,6 +112,98 @@ theorem block_card_le (A : Finset ℕ) (j : ℕ)
     omega
   rw [h2, h3] at h1
   exact h1
+
+/-- `[1, 2^J)` is the disjoint union of the dyadic blocks below it. -/
+theorem dyadic_split (g : ℕ → ℝ) : ∀ J : ℕ,
+    ∑ i ∈ Finset.Ico 1 (2 ^ J), g i
+      = ∑ j ∈ Finset.range J, ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), g i := by
+  intro J
+  induction J with
+  | zero => simp
+  | succ J ih =>
+      have h1 : (1 : ℕ) ≤ 2 ^ J := Nat.one_le_two_pow
+      have h2 : (2 : ℕ) ^ J ≤ 2 ^ (J + 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
+      rw [Finset.sum_range_succ, ← ih, Finset.sum_Ico_consecutive g h1 h2]
+
+/-- A progression-free set's reciprocals over one dyadic block are bounded by
+`r₃(2^j)/2^j`: at most `rothNumberNat (2^j)` terms by `block_card_le`, each at
+most `1/2^j` since the block starts there. -/
+theorem block_sum_le (A : Set ℕ) (hA : ThreeAPFree A) (j : ℕ) :
+    ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), A.indicator (fun m => (1 : ℝ) / m) i
+      ≤ (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j := by
+  classical
+  set S : Finset ℕ := (Finset.Ico (2 ^ j) (2 ^ (j + 1))).filter (· ∈ A) with hS
+  -- the indicator collapses the sum onto S
+  have hcollapse :
+      ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), A.indicator (fun m => (1 : ℝ) / m) i
+        = ∑ i ∈ S, (1 : ℝ) / i := by
+    rw [hS, Finset.sum_filter]
+    exact Finset.sum_congr rfl (fun i _ => by simp [Set.indicator_apply])
+  -- every term is at most 1/2^j
+  have hterm : ∀ i ∈ S, (1 : ℝ) / i ≤ 1 / 2 ^ j := by
+    intro i hi
+    rw [hS, Finset.mem_filter, Finset.mem_Ico] at hi
+    have : (2 : ℝ) ^ j ≤ (i : ℝ) := by exact_mod_cast hi.1.1
+    have hpos : (0 : ℝ) < 2 ^ j := by positivity
+    exact one_div_le_one_div_of_le hpos this
+  have hcard : S.card ≤ rothNumberNat (2 ^ j) := by
+    refine block_card_le S j (Finset.filter_subset _ _) ?_
+    exact hA.mono (by intro x hx; rw [hS] at hx; simp only [Finset.coe_filter,
+      Set.mem_setOf_eq] at hx; exact hx.2)
+  calc ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), A.indicator (fun m => (1 : ℝ) / m) i
+      = ∑ i ∈ S, (1 : ℝ) / i := hcollapse
+    _ ≤ S.card • ((1 : ℝ) / 2 ^ j) := Finset.sum_le_card_nsmul S _ _ hterm
+    _ = (S.card : ℝ) / 2 ^ j := by simp [nsmul_eq_mul]; ring
+    _ ≤ (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j := by
+        apply div_le_div_of_nonneg_right _ (by positivity)
+        exact_mod_cast hcard
+
+/-- **The dyadic assembly.** If the block bounds sum, the reciprocals converge.
+
+This is the whole of what combinatorics owes. The remaining input is analytic and
+is exactly what a quantitative Roth bound supplies: `r₃(N) ≤ N·exp(−c·(log N)^(1/11))`
+makes `Σ_j r₃(2^j)/2^j` a convergent stretched exponential. -/
+theorem summable_of_blocks (A : Set ℕ) (hA : ThreeAPFree A)
+    (hb : Summable (fun j : ℕ => (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j)) :
+    Summable (fun n : {n // n ∈ A} => (1 / (n.1 : ℝ))) := by
+  classical
+  have hcomp : (fun n : {n // n ∈ A} => (1 : ℝ) / (n.1 : ℝ))
+      = (fun m : ℕ => (1 : ℝ) / (m : ℝ)) ∘ Subtype.val := rfl
+  rw [hcomp, summable_subtype_iff_indicator]
+  set g : ℕ → ℝ := A.indicator (fun m => (1 : ℝ) / m) with hg
+  have hnonneg : ∀ n, 0 ≤ g n := by
+    intro n; rw [hg]; unfold Set.indicator
+    split <;> positivity
+  refine summable_of_sum_range_le hnonneg (c := ∑' j : ℕ, (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j) ?_
+  intro N
+  -- push out to a power of two
+  have hNJ : N ≤ 2 ^ N := Nat.le_of_lt (Nat.lt_two_pow_self)
+  have hstep1 : ∑ i ∈ Finset.range N, g i ≤ ∑ i ∈ Finset.range (2 ^ N), g i :=
+    Finset.sum_le_sum_of_subset_of_nonneg
+      (fun x hx => Finset.mem_range.mpr (lt_of_lt_of_le (Finset.mem_range.mp hx) hNJ))
+      (fun i _ _ => hnonneg i)
+  -- index 0 contributes nothing: 1/0 = 0 in ℝ, and the indicator is 0 off A
+  have hzero : g 0 = 0 := by
+    rw [hg]; unfold Set.indicator; split <;> simp
+  have hsplit0 : ∑ i ∈ Finset.range (2 ^ N), g i = ∑ i ∈ Finset.Ico 1 (2 ^ N), g i := by
+    rw [Finset.range_eq_Ico,
+      ← Finset.sum_Ico_consecutive g (Nat.zero_le 1) Nat.one_le_two_pow]
+    simp [hzero]
+  have hstep2 : ∑ i ∈ Finset.Ico 1 (2 ^ N), g i
+      = ∑ j ∈ Finset.range N, ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), g i := dyadic_split g N
+  have hstep3 : ∑ j ∈ Finset.range N, ∑ i ∈ Finset.Ico (2 ^ j) (2 ^ (j + 1)), g i
+      ≤ ∑ j ∈ Finset.range N, (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j :=
+    Finset.sum_le_sum (fun j _ => block_sum_le A hA j)
+  have hstep4 : ∑ j ∈ Finset.range N, (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j
+      ≤ ∑' j : ℕ, (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j :=
+    hb.sum_le_tsum _ (fun j _ => by positivity)
+  calc ∑ i ∈ Finset.range N, g i ≤ ∑ i ∈ Finset.range (2 ^ N), g i := hstep1
+    _ = ∑ i ∈ Finset.Ico 1 (2 ^ N), g i := hsplit0
+    _ = _ := hstep2
+    _ ≤ _ := hstep3
+    _ ≤ _ := hstep4
+
+
 
 /-- **Erdős problem 3 at k = 3.**
 
@@ -148,39 +230,28 @@ theorem erdos_problem_3_full (hsum : ReciprocalSumConverges)
     ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A :=
   erdos_problem_3_k3 hsum A h_sum_div
 
--- ── What the grammar says the missing piece is ──────────────────────────────
+-- ── The barrier, structurally ───────────────────────────────────────────────
 --
--- The Lean structure above was arrived at by hand and it kept receding: assume
--- the conclusion, then assume the quantitative bound and owe a summation, then
--- owe a block bound under that. The instruments say why, and what closes it.
+-- `erdos_conjecture_ap` fused with `behrend_construction` on D↔W (Δ=1.00) is a
+-- kernel-certified idempotent, registered as `erdos3_behrend_barrier`:
+-- igFrobeniusAlg.mul p p = p closes through lake build. Behrend is the partner
+-- because it is the obstruction — its construction forces the exponent.
 --
--- Fusing the conjecture with its own obstruction gives a kernel-certified
--- idempotent: `erdos_conjecture_ap ⋈ behrend_construction` on D↔W (Δ=1.00),
--- registered as `erdos3_behrend_barrier`, with igFrobeniusAlg.mul p p = p
--- closing through lake build. Read against CLINK L8 that object needs seven
--- promotions and two full unit gaps; read against L9, the replicative lateral,
--- it needs six and ONE — ∋, the merge, which carries BROADCAST_TRANSCENDENCE:
--- broadcast composition exceeding ZFC_fe SEQAX. The missing step was never
--- sequential, which is why a sequential tower could not reach it.
+-- Against CLINK L8 that object needs seven promotions and two full unit gaps.
+-- Against L9, the replicative lateral, it needs six and one: ∋, the merge,
+-- carrying BROADCAST_TRANSCENDENCE — broadcast composition exceeding ZFC_fe
+-- SEQAX. d(L9)=1.1614 against d(L8)=1.5284.
 --
 -- Of the 3133 catalog entries carrying the L9 merge value, five match the
--- barrier on all eleven other axes, but none of them clicks — they are too
--- similar to react. The only partner that both clicks AND supplies ∋ is
--- `gowers_u3_norm`, whose inherited scaffold is exactly [∋].
---
--- Two units cannot cyclize. Three do, and the ring
--- erdos_conjecture_ap · behrend_construction · gowers_u3_norm closes at O∞ but
--- reads SHAKY: a leaning mode (spectral gap 0.732) with stored strain (σ 0.250).
--- Repeating the U³ unit flattens the spectrum, and annealing settles it:
+-- barrier on all eleven other axes and none of them clicks. The only partner
+-- that clicks and supplies ∋ is `gowers_u3_norm`, inherited scaffold [∋]. Its
+-- ring settles with the U³ unit on both sides of Behrend:
 --
 --   erdos_conjecture_ap · gowers_u3_norm · behrend_construction · gowers_u3_norm
---   σ = 0.000, spectral gap = 0.0000, ρ = 3.1623, spectrum [-3.162, +3.162, 0, 0]
---   SETTLED / CLARION
+--   σ = 0, adjacency λ⁴ = 10λ², ρ² = 10 exactly  (mOMonadOS: `erdos ap3`)
 --
--- The U³ norm mediates on BOTH sides of Behrend — which is what the density
--- increment argument actually does: the same higher-order Fourier machinery buys
--- the increment and absorbs the Behrend-type obstruction. That is the reagent
--- the assumed bound above is standing in for.
+-- Higher-order Fourier machinery on both sides of the Behrend obstruction is
+-- what a density-increment argument is, and it is what Kelley–Meka run.
 
 -- k ≥ 4 from divergence is open. Szemerédi gives it from positive density, and
 -- Szemerédi is not in Mathlib either; the k = 3 rung is the one Bloom–Sisask
