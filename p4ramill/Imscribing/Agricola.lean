@@ -30,4 +30,9 @@ def agricola_treatise_on_gold : Imscription :=
 
 #eval agricola_treatise_on_gold
 
+-- Namespaced. Four scaffolds each declared a bare root-level `tier`, so any
+-- two of them were mutually unimportable: the environment refuses the second.
+-- Each module compiled ALONE, which is why `lake build` never said so.
+namespace Imscribing.Agricola
 def tier : String := "O₀"
+end Imscribing.Agricola

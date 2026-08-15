@@ -31,8 +31,12 @@ def urbigerus_circulatum_minus : Imscription :=
 #eval urbigerus_circulatum_minus
 
 -- Tier
+-- Namespaced. Four scaffolds each declared a bare root-level `tier`, so any
+-- two of them were mutually unimportable: the environment refuses the second.
+-- Each module compiled ALONE, which is why `lake build` never said so.
+namespace Imscribing.CirculatumMinus
 def tier : String := "O₀"
-
+end Imscribing.CirculatumMinus
 -- Key invariant: hierarchical subordination to the main Aphorisms
 -- G=𐑲 captures the local (beth) scope restricted to Vegetable Kingdom
 -- F=𐑞 captures the thermal/practical regime of operations
