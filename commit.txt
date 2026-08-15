@@ -1,28 +1,26 @@
-Fix the submitted file rather than answer it with a different theorem
+Observed flatness is now a theorem about the probe, not a tautology
 
-I diagnosed the Bloom–Sisask submission, proved a cleaner theorem beside it, and
-called that a reply. It was not one. Handed broken Lean, the job is to make it
-work.
+CosmologyBelnap carried observed_flatness : SpatialCurvature.zero =
+SpatialCurvature.zero := rfl — the physics was in the comment and the Lean
+carried none of it. Replaced under the same name with the real statement.
 
-So bloom_sisask_lemma is proved, under the name it arrived with, with its own
-definitions — the Set-valued indicator, the ℂ-valued convolution, density,
-additive_energy — and its own conclusion, E(A) ≥ α³·|G|. No sorry; propext,
-Classical.choice and Quot.sound alone.
+Gauss-Bonnet gives a geodesic triangle of area A on constant curvature K an
+angle excess of exactly K·A, so a probe of linear scale l measures a deviation
+of order K·l². angleExcess is that, with angleExcess_mono and angleExcess_strict
+saying the residual grows with the probe and that two probes at different scales
+do NOT read the same number. Resolves and resolves_mono put a noise floor on it:
+what a small probe separates from zero, a larger one separates too.
 
-What the repair took. The definitions needed Decidable (x ∈ A) and a Finset in
-place of Fintype ↑A, which is why nothing elaborated past line 8. Every `λ`
-binder had to go: it is notation for `fun`, so `∀ λ : ℝ` and `intro λ` were
-syntax errors, about six of them. Complex.norm_eq_abs does not exist and
-div_le_div_iff is div_le_div_iff₀ now. `ring` does not close goals in an
-AddCommGroup — that is `abel`.
+readCurvature is what an observer reads off, a function of the probe and the
+floor rather than a constant of the universe. observed_flatness now says that if
+|K|·L² sits under the floor then every probe within the horizon L reads flat,
+whatever K actually is. flat_reading_is_not_flat_universe exhibits a positively
+curved case read as flat, and larger_probe_resolves shows the same curvature
+recovered once the scale is raised — suppressed, never absent.
 
-The six sorries did not need discharging in the form they were written. Two of
-them were an attempt to prove Hölder and an interpolation inequality by hand; the
-argument does not need either. convolution_eq_reps is the bridge: the convolution
-of indicators at x counts the representations of x as a sum of two elements, so
-the ℂ-valued energy IS the ℕ-valued one, and energy_ge applies. The rest is
-α³|G| ≤ |A|⁴/|G|, which holds because |A|·|G| ≥ 1.
+This is the phrasing that survives Theorema Egregium. Curvature is intrinsic and
+embedding hides nothing; what is bounded is l, which cannot exceed the horizon.
+So the claim predicts rather than describes: probes at different scales should
+recover systematically different residuals, ordered by scale.
 
-The name stays as submitted so the file is fixed rather than replaced, and its
-docstring says plainly what it is: the Cauchy–Schwarz bound on additive energy,
-not the Bloom–Sisask theorem, and weaker than the |A|⁴/|G| it is derived from.
+Standard three axioms, module green.
