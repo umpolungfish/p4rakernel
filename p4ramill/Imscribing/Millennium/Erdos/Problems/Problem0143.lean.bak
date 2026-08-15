@@ -548,16 +548,8 @@ lemma final_register_phase_dependent :
     -- Since VINIT and AFWD both map N → B but the context differs, the final result differs
     have h_original_result : Sixteen_3 := foldl (fun acc f => f acc) N word_flow := by simp
     have h_rotated_result : Sixteen_3 := foldl (fun acc f => f acc) N (word_flow.map (List.rotate erdos_word 1)) := by simp
-    exact h_rotated_result ≠ h_original_result := by
-      -- The first function in original fold is VINIT (⊢), in rotated fold is AFWD (≻)
-      -- These are different IMASM operations with different semantics
-      -- Since fold applies functions sequentially from the left,
-      -- different first applications yield different final results
-      have h_first_diff : (word_flow.head) ≠ (h_rotated_flow.head) := by
-        rw [h_first_orig_is_VINIT, h_first_rotated_is_AFWD]
-        exact this
-      -- Different first functions in sequential fold → different results
-      exact h_rotated_result ≠ h_original_result
+    exact h_rotated_result ≠ h_original_result
+  sorry
 
 end Erdos143
 

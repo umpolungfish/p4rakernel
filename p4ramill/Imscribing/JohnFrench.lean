@@ -31,8 +31,9 @@ def john_french_art_of_distillation : Imscription :=
 #eval john_french_art_of_distillation
 
 -- Tier
+namespace Imscribing.JohnFrench
 def tier : String := "O₁"
-
+end Imscribing.JohnFrench
 -- Key invariants:
 -- D=𐑛: open-ended system of knowledge (6 books + promised future volumes)
 -- T=𐑥: crossing point where multiple knowledge streams meet in distillation
