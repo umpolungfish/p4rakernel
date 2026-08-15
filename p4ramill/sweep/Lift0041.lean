@@ -1,28 +1,4 @@
-import Mathlib
-/-!
-# ProofLift — a proof term is a control-flow graph, so Vox can audit it.
-
-A Lean proof is a term, a term is a DAG, and the close condition Vox already
-enforces on machine code is the same one a proof either meets or does not:
-μ∘δ = id over a TRANSFORMED object — split, work, fuse. A case analysis IS a
-fork; the branches rejoining on one goal IS the fuse; and a `sorry` is a fork
-whose arm never comes back.
-
-So the twelve read on a proof term as:
-
-    ⊢  entry            ⊣  the closing term
-    ∈  a recursor/match opens the case split
-    ∋  its branches rejoin on one goal
-    ⊤  the first arm            ⊥  a later arm
-    ⋈  application — composition
-    ⊙  a bound variable — identity, self-reference
-    ◻  a `let`/`have` — irreversible fixation
-    ≻  Eq.mpr / rewriting forward     ≺  Eq.symm / backward
-    ⊞  a paradox HELD
-
-`sorryAx` emits ∈ and nothing to pair it: the claim that was never rejoined.
-That is not a metaphor for the verdict, it is the verdict — an open fork reads B.
--/
+import Imscribing.Millennium.Erdos.Problems.Problem0041
 open Lean Meta Elab
 
 namespace ProofLift
@@ -145,35 +121,15 @@ elab "#lift " n:ident : command => Elab.Command.liftTermElabM do
 
 end ProofLift
 
--- ── the demonstration ────────────────────────────────────────────────────────
-section Demo
 open ProofLift
 
-theorem closed_trivial (p : Prop) (h : p) : p := h
-
-theorem closed_fork (p q : Prop) (h : p ∨ q) : q ∨ p := by
-  cases h with
-  | inl hp => exact Or.inr hp
-  | inr hq => exact Or.inl hq
-
-theorem open_fork (p q : Prop) (h : p ∨ q) : q ∨ p := by
-  cases h with
-  | inl hp => exact Or.inr hp
-  | inr hq => sorry
-
-theorem all_sorry (p : Prop) : p := by sorry
-
-#lift closed_trivial
-#lift closed_fork
-#lift open_fork
-#lift all_sorry
-end Demo
-
--- Real theorems, not toys.
-section Real
-open ProofLift
-#lift Nat.succ_ne_zero
-#lift Nat.le_of_lt_succ
-#lift List.length_append
-#lift Nat.strongRecOn
-end Real
+#eval show Lean.Meta.MetaM Unit from do
+  let env ← Lean.getEnv
+  for (nm, ci) in env.constants.toList do
+    let s := nm.toString
+    if s.startsWith "Millennium.ErdosProblems" || s.startsWith "erdos_problem" then
+      match ci with
+      | .thmInfo ti =>
+          let w ← (try lift ti.value catch _ => pure "")
+          if w != "" then IO.println s!"{nm}	⊢{w}⊣"
+      | _ => pure ()

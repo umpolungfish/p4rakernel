@@ -1,21 +1,38 @@
-The detector matched the spelling, not the axiom
+The axiom was false, and the lift could not see it
 
-Swept the corpus and got eight B verdicts, every one of them in the Barriers
-module — the one module whose SUBJECT is undischarged claims. That is the shape of
-a false positive, and it was one.
+Problem0003 answered Erdős 3 at k=3 from an axiom asserting that divergent
+reciprocals give positive lower density. That is false, and my own corpus holds
+the counterexample: ErdosTuran.primes_reciprocal_diverges proves Σ1/p diverges,
+and π(N)/N → 0, so no ε survives every N. Everything below it proved nothing.
 
-isSorry tested whether a declaration's NAME contains the substring "sorry".
-`sorryDepth` is a function counting them per problem;
-`ym_has_stacked_not_parallel_sorries` is a theorem comparing two of those counts.
-Both are fully proved, neither holds an undischarged claim, and both lifted to an
-unpaired fork on the strength of their names. The detector was reading the label
-on the jar.
+It was also the whole problem. Erdős 3 is interesting BECAUSE divergence does not
+give density — that gap is why the primes needed Green–Tao. Assuming it away
+assumed away the question.
 
-It now matches the axiom of unproved assertion and nothing else. Barriers re-lifts
-to thirty N and ten T with no B, and the calibration is unchanged: a development
-that is one undischarged claim still lifts to a lone fork and still reads B.
+Split by what it costs. three_ap_of_dense is the half Roth settles, and it is now
+proved: one window wide enough for the corners bound, no uniform density over
+every N, nothing assumed beyond Lean's foundation. The other half is
+Bloom–Sisask 2020, a real theorem that is not in Mathlib, so it stands as an
+axiom named for the paper instead of dressed as a density claim.
 
-Worth stating plainly, since the instrument is the thing being argued for. This
-was caught by running it over a corpus large enough to contain its own adversary —
-the corpus supplied a module about sorries, and that is what caught a
-sorry-detector matching on the word "sorry".
+The lift was blind to all of it. isSorry matched sorryAx alone, so a declared
+axiom was an ordinary constant and lifted to ◻, a commit, reading exactly like a
+proved lemma. Every theorem resting on the false axiom verdicted T or N. An axiom
+opens what nothing closes, so it now lifts where a sorry lifts, and transitively,
+because a theorem whose body is one citation of an assumption is resting on that
+assumption. The transitive walk is scoped to names this corpus declares: a
+Mathlib constant was elaborated before this corpus existed and cannot rest on its
+axioms, and collecting axioms for every Mathlib name in every term does not
+finish — that run went ten minutes before I killed it. Scoped, it takes twelve
+seconds.
+
+Problem0041 stated its bound as ncard / (N^(1/3) : ℝ), where 1/3 is ℕ division,
+so the exponent was 0, the denominator was 1, and the goal read |A ∩ [1,N]| → 0 —
+false for every infinite A, and reachable only through the sorry. The exponent is
+real now. The counting bound is proved: the sum map is injective on 3-subsets by
+hypothesis and every sum lands in [3,3N], so C(k,3) ≤ 3N. The o(N^(1/3)) is the
+open question and stays open. The file was also an orphan, in no glob and
+unreachable by lake build; it is in the tree now.
+
+Verdicts track the axiom ledger exactly: T where #print axioms shows the
+foundational three, B where it shows more.
