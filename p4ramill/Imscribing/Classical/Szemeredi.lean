@@ -14,7 +14,23 @@ Quantitative bounds:
   Behrend (lower): r_k(N) ≥ N exp(−c_k (log N)^{1/(k−1)}).
   Kelley–Meka (upper, k=3): r_3(N) ≤ N exp(−c (log N)^{1/11}).
 
-Belnap Verdict: T (True) — established. Remaining gaps are quantitative.
+What is proved here, and what is assumed:
+
+  r_k is DEFINED (the largest progression-free subset of range N), and r_k_le
+  proves it has content. Behrend at k = 3 is a theorem, from Mathlib's
+  Behrend.roth_lower_bound.
+
+  The two quantitative upper bounds — Bloom–Sisask and Kelley–Meka — are axioms,
+  stated about Mathlib's rothNumberNat so that they can be used. Neither is
+  formalized anywhere; that is the real debt and it is two lines.
+
+  The density-increment machinery (counting_lemma, gowers_norm_lower_bound,
+  inverse_theorem, arithmetic_regularity, density_increment, szemeredi_axiom)
+  is still stated over OPAQUE symbols: AP_count, gowers_norm, Nilsequence,
+  nilseq_eval, nilseq_complexity have no bodies. An axiom about an opaque
+  symbol is inert — it cannot be contradicted and it cannot discharge anything
+  downstream. Those six carry the shape of the argument and none of its force,
+  and should be read as an outline rather than as assumptions doing work.
 
 Author: Lando⊗⊙perator
 -/
@@ -22,6 +38,7 @@ Author: Lando⊗⊙perator
 import Mathlib
 
 open Finset
+open scoped Classical
 
 namespace Imscribing.Classical.Szemeredi
 
@@ -34,8 +51,31 @@ set_option linter.unusedVariables false
 
 -- ─── Opaque definitions ───────────────────────────────────────────────────────
 
-/-- r_k(N): the largest size of a k-AP-free subset of {1,…,N}. -/
-opaque r_k (k N : ℕ) : ℕ
+/-- `A` carries no `k`-term arithmetic progression with positive common
+difference. -/
+def APFree (k : ℕ) (A : Finset ℕ) : Prop :=
+  ∀ a d : ℕ, 0 < d → ¬ (∀ i, i < k → a + i * d ∈ A)
+
+/-- `r_k k N`: the largest size of a `k`-AP-free subset of `range N`.
+
+Defined, not declared. It was `opaque r_k (k N : ℕ) : ℕ` — a constant with no
+body — and every bound below was then a bound on an arbitrary function of two
+naturals, satisfiable by `fun _ _ => 0` and therefore incapable of discharging
+anything. A definition costs nothing here: the largest cardinality among
+progression-free subsets is a supremum over a finite family. -/
+noncomputable def r_k (k N : ℕ) : ℕ :=
+  ((Finset.range N).powerset.filter (fun A => APFree k A)).sup
+    (fun A : Finset ℕ => A.card)
+
+/-- The definition has content: a progression-free subset of `range N` has at
+most `N` elements. An opaque symbol admits no such fact. -/
+theorem r_k_le (k N : ℕ) : r_k k N ≤ N := by
+  unfold r_k
+  refine Finset.sup_le ?_
+  intro A hA
+  rw [Finset.mem_filter, Finset.mem_powerset] at hA
+  calc A.card ≤ (Finset.range N).card := Finset.card_le_card hA.1
+    _ = N := Finset.card_range N
 
 /-- The k-term arithmetic progression counting operator Λ_k(f). -/
 opaque AP_count (k : ℕ) (f : ℕ → ℝ) : ℝ
@@ -109,15 +149,43 @@ axiom density_increment (k N : ℕ) (hk : k ≥ 3) (A : Finset ℕ)
 axiom szemeredi_axiom (k : ℕ) (hk : k ≥ 3) :
   ∀ ε : ℝ, ε > 0 → ∃ N₀ : ℕ, ∀ N : ℕ, N ≥ N₀ → (r_k k N : ℝ) < ε * (N : ℝ)
 
-/-- Behrend lower bound: r_k(N) ≥ N·exp(−c·(log N)^{1/(k−1)}). -/
-axiom behrend_lower_bound (k : ℕ) (hk : k ≥ 3) :
-  ∃ (c : ℝ) (N₀ : ℕ), c > 0 ∧ ∀ N : ℕ, N ≥ N₀ →
-    (r_k k N : ℝ) ≥ (N : ℝ) * Real.exp (-c * (Real.log (N : ℝ)) ^ (1 / ((k : ℝ) - 1)))
+/-- **Behrend's lower bound at k = 3.** Proved, from Mathlib.
 
-/-- Kelley–Meka upper bound (k=3): r_3(N) ≤ N·exp(−c·(log N)^{1/11}). -/
+Not an axiom: `Behrend.roth_lower_bound` is in Mathlib and states it about
+`rothNumberNat`, so at k = 3 there is nothing to assume. The general-k Behrend
+bound is not in Mathlib and is not stated here, because stating it about the
+`r_k` above would need the bridge `r_k 3 N = rothNumberNat N`, which is a
+theorem someone has to prove rather than a definition to unfold. -/
+theorem behrend_lower_bound_three (N : ℕ) :
+    (N : ℝ) * Real.exp (-4 * Real.sqrt (Real.log N)) ≤ rothNumberNat N :=
+  Behrend.roth_lower_bound
+
+/-- **Bloom–Sisask upper bound at k = 3** (arXiv:2007.03528).
+
+`r₃(N) ≤ C·N/(log N)^(1+c)` for some `c > 0` — the first bound past exponent one,
+which is the threshold this corollary needs: at `c = 0` the dyadic comparison
+series is harmonic and gives nothing.
+
+Weaker than `kelley_meka_upper_bound` and stated separately because it is the
+shape the consumer wants. `Problem0003.erdos_problem_3_k3_of_roth_bound` takes a
+hypothesis of exactly this form and returns Erdős 3 at k = 3. -/
+axiom bloom_sisask_upper_bound :
+  ∃ (C c : ℝ) (N₀ : ℕ), 0 ≤ C ∧ 0 < c ∧ 1 ≤ N₀ ∧ ∀ N : ℕ, N₀ ≤ N →
+    (rothNumberNat N : ℝ) ≤ C * N / (Real.log N) ^ (1 + c)
+
+/-- **Kelley–Meka upper bound at k = 3** (arXiv:2302.05537).
+
+Stated about `rothNumberNat`, which Mathlib defines, rather than about a symbol
+of this file. A bound on an opaque constant is inert: it cannot be contradicted
+and it cannot be used. This one has content — `Problem0003.summable_blocks_of_log_bound`
+consumes a bound of exactly this shape and returns the summability that closes
+Erdős 3 at k = 3.
+
+Still an axiom, because the theorem is not formalized anywhere. That is the
+honest remaining debt, and it is one line rather than eight. -/
 axiom kelley_meka_upper_bound :
   ∃ (c : ℝ) (N₀ : ℕ), c > 0 ∧ ∀ N : ℕ, N ≥ N₀ →
-    (r_k 3 N : ℝ) ≤ (N : ℝ) * Real.exp (-c * (Real.log (N : ℝ)) ^ (1/11 : ℝ))
+    (rothNumberNat N : ℝ) ≤ (N : ℝ) * Real.exp (-c * (Real.log (N : ℝ)) ^ (1/11 : ℝ))
 
 -- ─── Theorems ─────────────────────────────────────────────────────────────────
 
