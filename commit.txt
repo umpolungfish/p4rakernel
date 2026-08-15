@@ -1,33 +1,28 @@
-Prove the dyadic assembly, and write the file as a proof rather than a log
+Erdős 3 at k=3, from a Roth bound and nothing else
 
-The remaining step in Problem 3 was that a progression-free set has convergent
-reciprocal sum. It splits cleanly, and the combinatorial half is now proved.
+The analytic half is proved, so the chain from a quantitative Roth bound to the
+conclusion is now complete inside this file, with no axiom and no sorry anywhere
+in it.
 
-dyadic_split: [1, 2^J) is the disjoint union of its dyadic blocks, by induction
-on J through sum_Ico_consecutive.
+summable_blocks_of_log_bound: given r₃(N) ≤ C·N/(log N)^(1+ε) past some N₀, the
+dyadic block terms r₃(2^j)/2^j sum. Substituting N = 2^j turns the bound into
+K·j^-(1+ε) with K = C/(log 2)^(1+ε), and a p-series with p > 1 converges. The
+exponent carries the whole argument: at ε = 0 the comparison series is harmonic
+and the proof gives nothing, which is exactly why every Roth bound before
+Bloom–Sisask left this problem open.
 
-block_sum_le: over one block the reciprocals are bounded by r₃(2^j)/2^j — at most
-rothNumberNat(2^j) terms by block_card_le, each at most 1/2^j because the block
-starts there. Progression-freeness passes to the subset by ThreeAPFree.mono.
+erdos_problem_3_k3_of_roth_bound: the statement resting on that hypothesis alone.
+Divergent reciprocals give a three-term progression, given a Roth bound past
+exponent one.
 
-summable_of_blocks: if Σ_j r₃(2^j)/2^j converges then so does the reciprocal sum.
-Through summable_subtype_iff_indicator to an indicator on ℕ, then bounded partial
-sums: push N out to 2^N, drop index 0 (1/0 = 0 in ℝ either way), split dyadically,
-bound each block, compare to the tsum.
+I stated it about Mathlib's rothNumberNat, and the reason matters. The corpus
+already had kelley_meka_upper_bound in Imscribing.Classical.Szemeredi, and I went
+to use it — but r_k there is declared `opaque r_k (k N : ℕ) : ℕ`, a constant with
+no body and no connection to rothNumberNat. A bound on an opaque symbol is a
+bound on an arbitrary function; it cannot discharge anything, and wiring it to
+the real Roth number would take a fresh assumption of its own. So the hypothesis
+here names the object Mathlib defines.
 
-That is everything combinatorics owes. What is left is analytic and already on the
-shelf: kelley_meka_upper_bound gives r₃(N) ≤ N·exp(−c·(log N)^(1/11)), and a
-stretched exponential sums. Connecting r_k to rothNumberNat is arithmetic, not
-another assumption.
-
-The file still declares no axioms and carries no sorry. The lift: block_sum_le,
-summable_of_blocks, three_ap_of_dense, three_ap_of_not_threeAPFree and
-erdos_problem_3_k3 all read T.
-
-Rewrote the prose. It had become a record of what I had tried and undone — an
-axiom that was false, an axiom that was redundant, a tower that receded — which
-is history and belongs in these messages, not in a file someone reads to learn
-what is true. The module docstring now states the mathematical situation (why
-density is unavailable, what is proved, what is assumed and where it comes from),
-and the structural note states the barrier's reading as fact rather than as the
-story of finding it.
+Everything in the file rests on propext, Classical.choice and Quot.sound alone.
+The lift reads T on three_ap_of_dense, three_ap_of_not_threeAPFree, block_sum_le,
+summable_of_blocks and erdos_problem_3_k3.
