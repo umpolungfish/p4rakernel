@@ -1,38 +1,30 @@
-Pulled the three papers, and one of my claims was wrong
+The energy bound, proved — and it is not Bloom–Sisask
 
-Checked the literature instead of citing it from memory, and found I had
-conflated two different shapes.
+A file arrived headed "Bloom–Sisask Theorem - Complete Formalization". It is
+neither, and the second part is checkable: it does not compile, and it fails at
+line 8, before any proof is reached. `indicator` needs Decidable (x ∈ A) and
+`density` needs Fintype ↑A on a Set coercion; neither instance arrives on its
+own. Past that, `λ` is used as a binder about six times — it is notation for
+`fun` in Lean 4, so `∀ λ : ℝ` and `intro λ` are syntax errors —
+`Complex.norm_eq_abs` does not exist, `pow_eq_zero` is deprecated, and six
+`sorry`s remain, including the two carrying every piece of the analytic content.
 
-Bloom–Sisask (arXiv:2007.03528), abstract verbatim: |A| ≪ N/(log N)^{1+c} for
-absolute c > 0. Exactly the shape erdos_conjecture_of_bound consumes, past
-exponent one. k = 3 closes.
+The naming matters more than the errors. Bloom–Sisask bounds a progression-free
+subset of [N] by C·N/(log N)^{1+c}. The submitted statement is about additive
+energy in a finite abelian group and contains no progression at all. Filing it
+under that name in this corpus, a day after stating carefully what Bloom–Sisask
+is, would have put a wrong citation next to a right one.
 
-Green–Tao III (arXiv:1705.01703): r_4(N) ≪ N(log N)^{-c}, absolute c > 0, "the
-limit of our methods". Their own notational convention records 0 < c ≪ 1. Right
-shape, exponent below one.
+What it reaches for is real and is stronger than what it claims. Its conclusion,
+E(A) ≥ α³|G|, is implied by the standard bound E(A) ≥ |A|⁴/|G| and falls short of
+it by a factor of |A|·|G|. So the standard one is proved here instead:
+representation counts sum to |A|² across |G| points, and squares cannot sum to
+less than the square of the mean. Two theorems, no sorry, propext,
+Classical.choice and Quot.sound alone.
 
-Leng–Sah–Sawhney (arXiv:2402.17995), Theorem 1.1 verbatim: "Fix k ≥ 5. There is
-c_k ∈ (0,1) such that r_k(N) ≪ N exp(-(log log N)^{c_k})." The interval is
-theirs.
+Stated over Finset with ℕ-valued counts on purpose. The Set/ℂ phrasing is what
+made the original unelaborable, and nothing in the argument wants it.
 
-The error: I had written that a log-log bound is insufficient at any exponent and
-attached Leng–Sah–Sawhney to that claim. The theorem I proved is about
-1/(log j)^c, which is what Gowers' N/(log log N)^c gives. Leng–Sah–Sawhney give
-exp(-(log j)^{c_k}) at the dyadic scale, which is a different shape, and it is
-NOT insufficient at any exponent — it converges precisely when c_k > 1.
-
-So two more theorems, and they change what the open cases are.
-not_summable_exp_neg_log_rpow: the shape diverges for c ≤ 1.
-summable_exp_neg_log_rpow: it converges for c > 1.
-
-Which makes both open cases the same kind of thing. At k = 4 a polylogarithmic
-exponent must cross one; at k ≥ 5 a log-log exponent must. Each is a single
-number in a published theorem, and in each the authors state their number is
-below the threshold. Not a programme — a constant.
-
-Note for the next fight with the elaborator: the convergence proof timed out at a
-million heartbeats, and none of the analysis was to blame. `Summable.of_nonneg_of_le`
-applied against `(summable_nat_add_iff M).mpr ?_` leaves a metavariable to be
-solved by higher-order unification, which does not terminate usefully. Naming the
-comparison series first and passing it explicitly compiles the whole thing in
-twenty seconds.
+Both lift to N: the bound is a computation with no case to decide, and the
+representation-count identity is a reindexing. Neither forks because neither has
+anywhere to fork.
