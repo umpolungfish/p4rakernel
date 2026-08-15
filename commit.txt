@@ -1,26 +1,33 @@
-Observed flatness is now a theorem about the probe, not a tautology
+One lifter, per module, cross-checked against the axiom oracle
 
-CosmologyBelnap carried observed_flatness : SpatialCurvature.zero =
-SpatialCurvature.zero := rfl — the physics was in the comment and the Lean
-carried none of it. Replaced under the same name with the real statement.
+The proof lifter existed in twenty-four copies across p4ramill, in two
+generations that disagreed on both things that matter. Twenty of them matched
+the SPELLING of sorry — the bug my own ProofLift docstring records, where
+sorryDepth and ym_has_stacked_not_parallel_sorries are fully proved, contain the
+substring, and read B. None of those twenty had isAssumed at all, so a declared
+axiom lifted to a commit and read exactly like a proved lemma. The corpus sweep
+ran on that copy, which is a second reason its results were not worth keeping.
 
-Gauss-Bonnet gives a geodesic triangle of area A on constant curvature K an
-angle excess of exactly K·A, so a probe of linear scale l measures a deviation
-of order K·l². angleExcess is that, with angleExcess_mono and angleExcess_strict
-saying the residual grows with the probe and that two probes at different scales
-do NOT read the same number. Resolves and resolves_mono put a noise floor on it:
-what a small probe separates from zero, a larger one separates too.
+The lifter now lives once, at Imscribing/Vox/ProofLift.lean, in the lakefile, and
+every sweep file imports it instead of restating it.
 
-readCurvature is what an observer reads off, a function of the probe and the
-floor rather than a constant of the universe. observed_flatness now says that if
-|K|·L² sits under the floor then every probe within the horizon L reads flat,
-whatever K actually is. flat_reading_is_not_flat_universe exhibits a positively
-curved case read as flat, and larger_probe_resolves shows the same curvature
-recovered once the scale is raised — suppressed, never absent.
+It sweeps per module, which is what worked before and what I had drifted away
+from. Importing the whole corpus into one environment is blocked by name
+collisions between modules, and the lift never needed it: it is per declaration,
+so one module at a time means nothing has to coexist and the collisions stop
+mattering. isGenerated drops the elaborator's own bookkeeping — _proof_, _simp_,
+match_, eq_, sizeOf_spec, ctorIdx, the decidability instances, noConfusion, injEq
+— which is not a claim the corpus makes and which buries the claims that are.
 
-This is the phrasing that survives Theorema Egregium. Curvature is intrinsic and
-embedding hides nothing; what is bounded is l, which cannot exceed the horizon.
-So the claim predicts rather than describes: probes at different scales should
-recover systematically different residuals, ordered by scale.
+And the sweep now emits a third column: the axioms the declaration actually
+rests on, from CollectAxioms. #print axioms knows nothing about the twelve, so it
+is an independent oracle, and a sweep reporting only its own verdict cannot be
+checked. sweep/run_sweep.sh runs the whole chain in the repo and writes the
+cross-check beside the words.
 
-Standard three axioms, module green.
+On Problem0003 the two agree exactly, eighteen declarations, no disagreement in
+either direction. B 2, N 11, T 5. Both B's are the assumed ones:
+erdos_problem_3_k3_unconditional, resting on bloom_sisask_upper_bound, and
+erdos_turan_ap_tier. Every clean declaration reads T or N, and the conditional
+forms — erdos_problem_3_full, erdos_k3_certified — read N clean, because taking
+the hypothesis is not an open fork.
