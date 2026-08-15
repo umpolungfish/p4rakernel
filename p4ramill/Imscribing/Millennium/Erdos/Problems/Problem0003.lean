@@ -26,10 +26,10 @@ What is separated here:
   `ErdosTuran.dense_has_3ap`, resting on nothing but Mathlib's foundation.
 * `block_card_le` — a progression-free set meets a dyadic block in at most
   `rothNumberNat (2^j)` points. Proved, from translation invariance.
-* `bloom_sisask_reciprocal_three_ap` — divergence gives a progression. A real
-  theorem (Bloom–Sisask 2020), not in Mathlib, so it is stated as an axiom and
-  named for the paper that proved it rather than dressed as a density claim.
-  One citation, at the conclusion: see its own docstring for why not in pieces.
+* `ReciprocalSumConverges` — the remaining step, carried as a HYPOTHESIS rather
+  than an axiom. The corpus already assumes enough: `Szemeredi.kelley_meka_upper_bound`
+  is quantitative and strictly stronger, so a second axiom here would be one
+  assumption stated twice, the weaker time at the conclusion.
 
 The lift reads the difference: the first verdicts closed, the second opens a fork
 that nothing rejoins, which is what resting on an uncited-in-Mathlib theorem is.
@@ -84,22 +84,23 @@ theorem three_ap_of_dense
     exact hx.2
   exact ⟨a, d, hd, mem h1, mem h2, mem h3⟩
 
-/-- **Bloom–Sisask (2020).** Divergent reciprocals give a three-term progression.
+/-- The reciprocal sum of a progression-free set converges.
 
-*Breaking the logarithmic barrier in Roth's theorem on arithmetic progressions.*
-Not in Mathlib, so it is assumed, and assumed at the conclusion rather than in
-pieces.
+Not assumed here, and not proved here — taken as a hypothesis, so the debt is
+visible in the type of every theorem that uses it rather than resting on the
+ledger as a fresh axiom.
 
-I tried it in pieces first: assume their quantitative bound
-`r₃(N) ≪ N/(log N)^(1+c)` instead, and derive this by dyadic summation. That is
-a real derivation and it would have left the summation as a hole, which would
-have wanted the block bound, which would have wanted the Roth asymptotic. The
-assumption never left; it only moved, and each move looked like progress. The
-theorem is not reachable from Mathlib by any arrangement — the density route is
-closed by the primes, whose reciprocals diverge at zero density — so the honest
-form is one citation, named, load-bearing, and countable in the audit. -/
-axiom bloom_sisask_reciprocal_three_ap (A : Set ℕ) (h : reciprocalDiverges A) :
-    ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A
+There is no need for a new axiom: `Imscribing.Classical.Szemeredi` already
+carries `kelley_meka_upper_bound`, r₃(N) ≤ N·exp(−c·(log N)^(1/11))
+(Kelley–Meka, arXiv:2302.05537), which is strictly stronger than the
+Bloom–Sisask bound that first crossed this threshold (arXiv:2007.03528) and more
+than enough to give this by dyadic summation: block j contributes at most
+r₃(2^j)/2^j by `block_card_le`, and a stretched exponential sums.
+
+Writing that summation is the one step nobody here has written. Stating it as a
+hypothesis says so exactly, and costs the corpus nothing. -/
+abbrev ReciprocalSumConverges : Prop :=
+  ∀ A : Set ℕ, ThreeAPFree A → Summable (fun n : {n // n ∈ A} => (1 / (n.1 : ℝ)))
 
 /-- A progression-free set meets a dyadic block in at most `rothNumberNat (2^j)`
 points.
@@ -126,21 +127,26 @@ theorem block_card_le (A : Finset ℕ) (j : ℕ)
 
 Proved from the two above by contraposition: if `A` carried no progression its
 reciprocals would converge, and they do not. -/
-theorem erdos_problem_3_k3 (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
-    ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A :=
-  bloom_sisask_reciprocal_three_ap A h_sum_div
+theorem erdos_problem_3_k3 (hsum : ReciprocalSumConverges)
+    (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
+    ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A := by
+  by_cases hfree : ThreeAPFree A
+  · exact absurd (hsum A hfree) h_sum_div
+  · exact three_ap_of_not_threeAPFree hfree
 
 theorem erdos_problem_3_k3' {S : Set ℕ} (h : ¬ ThreeAPFree S) :
     ∃ a d : ℕ, 1 ≤ d ∧ a ∈ S ∧ a + d ∈ S ∧ a + 2 * d ∈ S :=
   three_ap_of_not_threeAPFree h
 
-theorem erdos_k3_certified (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
+theorem erdos_k3_certified (hsum : ReciprocalSumConverges)
+    (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
     ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A :=
-  erdos_problem_3_k3 A h_sum_div
+  erdos_problem_3_k3 hsum A h_sum_div
 
-theorem erdos_problem_3_full (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
+theorem erdos_problem_3_full (hsum : ReciprocalSumConverges)
+    (A : Set ℕ) (h_sum_div : reciprocalDiverges A) :
     ∃ a d : ℕ, 1 ≤ d ∧ a ∈ A ∧ a + d ∈ A ∧ a + 2 * d ∈ A :=
-  erdos_problem_3_k3 A h_sum_div
+  erdos_problem_3_k3 hsum A h_sum_div
 
 -- ── What the grammar says the missing piece is ──────────────────────────────
 --
