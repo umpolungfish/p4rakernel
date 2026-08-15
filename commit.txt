@@ -1,33 +1,25 @@
-Szemeredi: define r_k, prove Behrend, and state the bounds about a real object
+Erdős's conjecture at every k, reduced — the 3-specific step was one lemma
 
-Six opaque symbols and eight axioms about them, two theorems that unwrapped an
-axiom each. The trouble is `opaque r_k (k N : ℕ) : ℕ` — a constant with no body.
-Every bound stated about it is a bound on an arbitrary function of two naturals,
-satisfied by `fun _ _ => 0`. It cannot be contradicted and it cannot discharge
-anything, which I found by trying to use it and being unable to.
+The k=3 development runs on Mathlib's ThreeAPFree and rothNumberNat, and takes
+translation invariance from addRothNumber_Ico. Neither exists for k ≥ 4, and that
+lemma was the only thing in the argument that knew the length of a progression.
 
-r_k is defined now: the largest cardinality among progression-free subsets of
-range N, a supremum over a finite family. r_k_le proves the definition has
-content — such a subset has at most N elements — which is exactly the kind of
-fact an opaque symbol admits none of.
+card_le_r_k proves it directly at every k. Shift a progression-free subset of any
+interval down to range N; the shift is injective there, so the count is
+preserved; a progression in the image lifts back by adding the offset, so the
+image is still progression-free; and r_k is a supremum over exactly that family.
 
-Behrend at k = 3 stops being an axiom. Behrend.roth_lower_bound is in Mathlib and
-ErdosTuranAP already re-exports it as a theorem; assuming it again here, in a
-weaker form about an opaque symbol, was the same claim written twice with the
-second copy inert.
+Everything downstream then generalises without change of substance. The dyadic
+decomposition, the block estimate, the transport from a subtype to an indicator,
+the comparison with a p-series — none of them mention k except through the
+counting function that bounds it. erdos_conjecture_of_bound is the statement they
+add up to: given r_k(N) ≤ C·N/(log N)^(1+ε) for some ε > 0, divergent reciprocals
+force a k-term progression. Uniform in k, no axioms beyond propext,
+Classical.choice and Quot.sound.
 
-Kelley–Meka and Bloom–Sisask are stated about rothNumberNat, the object Mathlib
-defines. Bloom–Sisask is the weaker of the two and is stated separately because
-it is the shape the consumer wants: r₃(N) ≤ C·N/(log N)^(1+c) is what
-Problem0003.erdos_problem_3_k3_of_roth_bound takes.
+Which changes what is open. Before this the k ≥ 4 case was open mathematics with
+an unstated shape; now the shape is a single inequality and everything on the
+far side of it is machine-checked. A door is not open because it is a door.
 
-So Erdős 3 at k=3 now closes in the corpus. erdos_problem_3_k3_unconditional
-depends on propext, Classical.choice, Quot.sound and one named axiom —
-bloom_sisask_upper_bound — and nothing else. Every other theorem in Problem0003
-depends on the foundational three alone.
-
-The six density-increment axioms stay as they are, and the header now says what
-they are: AP_count, gowers_norm, Nilsequence, nilseq_eval and nilseq_complexity
-have no bodies, so those axioms carry the shape of Szemerédi's argument and none
-of its force. They are an outline. Written down as such rather than left to read
-like assumptions doing work.
+The lift reads T on card_le_r_k, block_sum_le, summable_of_blocks and
+erdos_conjecture_of_bound.
