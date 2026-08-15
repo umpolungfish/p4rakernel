@@ -1,23 +1,38 @@
-Prove what is not enough, so the k ≥ 4 target is an inequality and not a mood
+Pulled the three papers, and one of my claims was wrong
 
-The reduction is worth nothing until a bound exists for k ≥ 4, and "the known
-bounds fall short" was a remark. It is two theorems now.
+Checked the literature instead of citing it from memory, and found I had
+conflated two different shapes.
 
-not_summable_one_div_log_rpow: for every c > 0, Σ 1/(log j)^c diverges. Gowers'
-bound for general k, and the Leng–Sah–Sawhney improvement, have the shape
-r_k(N) ≤ C·N/(log log N)^c or weaker; at N = 2^j that leaves terms of order
-1/(log j)^c. So no constant and no exponent c rescues that shape — it is
-insufficient as a shape, not merely insufficiently strong. Proved by log j ≤
-c·j^(1/c), so (log j)^c ≤ c^c·j, and comparison with the harmonic series.
+Bloom–Sisask (arXiv:2007.03528), abstract verbatim: |A| ≪ N/(log N)^{1+c} for
+absolute c > 0. Exactly the shape erdos_conjecture_of_bound consumes, past
+exponent one. k = 3 closes.
 
-not_summable_at_exponent_one: a bound C·N/log N gives dyadic terms C/(j log 2),
-which is harmonic. That is the knife-edge, and it is where Roth's own bound sits
-at k = 3.
+Green–Tao III (arXiv:1705.01703): r_4(N) ≪ N(log N)^{-c}, absolute c > 0, "the
+limit of our methods". Their own notational convention records 0 < c ≪ 1. Right
+shape, exponent below one.
 
-Between them the target is exact. What is needed is polylogarithmic in N, past
-exponent one. At k = 3 that is Bloom–Sisask. At k = 4 a bound of the right SHAPE
-exists — Green–Tao's r_4(N) ≪ N/(log N)^c — with an exponent far below one, so
-the door there is not "prove something polylogarithmic" but "push a known
-exponent past 1". For k ≥ 5 the shape itself is not yet reached.
+Leng–Sah–Sawhney (arXiv:2402.17995), Theorem 1.1 verbatim: "Fix k ≥ 5. There is
+c_k ∈ (0,1) such that r_k(N) ≪ N exp(-(log log N)^{c_k})." The interval is
+theirs.
 
-No axioms; propext, Classical.choice and Quot.sound throughout.
+The error: I had written that a log-log bound is insufficient at any exponent and
+attached Leng–Sah–Sawhney to that claim. The theorem I proved is about
+1/(log j)^c, which is what Gowers' N/(log log N)^c gives. Leng–Sah–Sawhney give
+exp(-(log j)^{c_k}) at the dyadic scale, which is a different shape, and it is
+NOT insufficient at any exponent — it converges precisely when c_k > 1.
+
+So two more theorems, and they change what the open cases are.
+not_summable_exp_neg_log_rpow: the shape diverges for c ≤ 1.
+summable_exp_neg_log_rpow: it converges for c > 1.
+
+Which makes both open cases the same kind of thing. At k = 4 a polylogarithmic
+exponent must cross one; at k ≥ 5 a log-log exponent must. Each is a single
+number in a published theorem, and in each the authors state their number is
+below the threshold. Not a programme — a constant.
+
+Note for the next fight with the elaborator: the convergence proof timed out at a
+million heartbeats, and none of the analysis was to blame. `Summable.of_nonneg_of_le`
+applied against `(summable_nat_add_iff M).mpr ?_` leaves a metavariable to be
+solved by higher-order unification, which does not terminate usefully. Naming the
+comparison series first and passing it explicitly compiles the whole thing in
+twenty seconds.
