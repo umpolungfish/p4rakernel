@@ -1,43 +1,53 @@
 import Mathlib
+import Imscribing.Classical.Szemeredi
 open Finset
+open scoped Classical
+open Imscribing.Classical.Szemeredi
 
-/-- From a Roth bound `r₃(N) ≤ C·N/(log N)^(1+ε)`, the dyadic block terms sum. -/
-theorem summable_blocks_of_log_bound
-    (C ε : ℝ) (hε : 0 < ε) (hC : 0 ≤ C) (N₀ : ℕ) (hN₀ : 1 ≤ N₀)
-    (h : ∀ N : ℕ, N₀ ≤ N → (rothNumberNat N : ℝ) ≤ C * N / (Real.log N) ^ (1 + ε)) :
-    Summable (fun j : ℕ => (rothNumberNat (2 ^ j) : ℝ) / 2 ^ j) := by
-  have hlog2 : (0 : ℝ) < Real.log 2 := Real.log_pos (by norm_num)
-  set K : ℝ := C / (Real.log 2) ^ (1 + ε) with hK
-  have hKnn : 0 ≤ K := by
-    apply div_nonneg hC
-    exact le_of_lt (Real.rpow_pos_of_pos hlog2 _)
-  -- the comparison series
-  have hp : Summable (fun j : ℕ => K * (1 / (j : ℝ) ^ (1 + ε))) :=
-    (Real.summable_one_div_nat_rpow.mpr (by linarith)).mul_left K
-  -- shift past the first N₀ indices, where the bound has nothing to say
-  rw [← summable_nat_add_iff N₀]
-  refine Summable.of_nonneg_of_le (fun j => by positivity) ?_ ((summable_nat_add_iff N₀).mpr hp)
-  intro j
-  set n : ℕ := j + N₀ with hn
-  have h2n : (N₀ : ℕ) ≤ 2 ^ n := le_trans (Nat.le_of_lt (Nat.lt_two_pow_self)) (Nat.pow_le_pow_right (by norm_num) (by omega))
-  have hbound := h (2 ^ n) h2n
-  have hlogpow : Real.log ((2 : ℕ) ^ n : ℕ) = n * Real.log 2 := by
-    push_cast
-    rw [Real.log_pow]
-  have hpos : (0 : ℝ) < (2 : ℝ) ^ n := by positivity
-  have hnpos : (0 : ℝ) < (n : ℝ) := by
-    have : 1 ≤ n := by omega
-    exact_mod_cast Nat.lt_of_lt_of_le Nat.zero_lt_one this
-  have hlrpow : (0 : ℝ) < (Real.log 2) ^ (1 + ε) := Real.rpow_pos_of_pos hlog2 _
-  have hnrpow : (0 : ℝ) < (n : ℝ) ^ (1 + ε) := Real.rpow_pos_of_pos hnpos _
-  have hsplit : ((n : ℝ) * Real.log 2) ^ (1 + ε)
-      = (n : ℝ) ^ (1 + ε) * (Real.log 2) ^ (1 + ε) :=
-    Real.mul_rpow (le_of_lt hnpos) (le_of_lt hlog2)
-  calc (rothNumberNat (2 ^ n) : ℝ) / 2 ^ n
-      ≤ (C * ((2:ℕ) ^ n : ℕ) / (Real.log ((2:ℕ) ^ n : ℕ)) ^ (1 + ε)) / 2 ^ n := by
-        gcongr
-    _ = K * (1 / (n : ℝ) ^ (1 + ε)) := by
-        rw [hlogpow]
-        push_cast
-        rw [hsplit, hK]
-        field_simp
+/-- Translation invariance at every `k`: a `k`-AP-free subset of an interval of
+length `N` is no larger than `r_k k N`. -/
+theorem card_le_r_k (k N m : ℕ) (A : Finset ℕ)
+    (hsub : A ⊆ Finset.Ico m (m + N)) (hA : APFree k A) :
+    A.card ≤ r_k k N := by
+  set B : Finset ℕ := A.image (fun x => x - m) with hB
+  have hmem : ∀ x ∈ A, m ≤ x ∧ x < m + N := by
+    intro x hx
+    have := hsub hx
+    rw [Finset.mem_Ico] at this
+    exact this
+  -- the shift is injective on A, so cardinality is preserved
+  have hinj : Set.InjOn (fun x => x - m) A := by
+    intro x hx y hy hxy
+    have hx' := hmem x hx
+    have hy' := hmem y hy
+    simp only at hxy
+    omega
+  have hcard : B.card = A.card := by
+    rw [hB, Finset.card_image_of_injOn hinj]
+  -- the shifted set lands in range N
+  have hBsub : B ⊆ Finset.range N := by
+    intro b hb
+    rw [hB, Finset.mem_image] at hb
+    obtain ⟨x, hx, rfl⟩ := hb
+    have := hmem x hx
+    rw [Finset.mem_range]
+    omega
+  -- and is still progression-free: an AP in B lifts to one in A by adding m back
+  have hBfree : APFree k B := by
+    intro a d hd hcontra
+    refine hA (a + m) d hd ?_
+    intro i hi
+    have hbi : a + i * d ∈ B := hcontra i hi
+    rw [hB, Finset.mem_image] at hbi
+    obtain ⟨x, hx, hxeq⟩ := hbi
+    have := hmem x hx
+    have : x = a + i * d + m := by omega
+    subst this
+    have : a + m + i * d = a + i * d + m := by ring
+    rw [this]
+    exact hx
+  rw [← hcard]
+  unfold r_k
+  refine Finset.le_sup (f := fun A : Finset ℕ => A.card) ?_
+  rw [Finset.mem_filter, Finset.mem_powerset]
+  exact ⟨hBsub, hBfree⟩
