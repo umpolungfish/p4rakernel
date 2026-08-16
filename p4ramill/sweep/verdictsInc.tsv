@@ -1,0 +1,9 @@
+Imscribing.Paraconsistent.inc_closes_in_one_step	T	186
+Imscribing.Paraconsistent.inc_idempotent	T	194
+Imscribing.Paraconsistent.inc_is_closure_operator	N	87
+Imscribing.Paraconsistent.inc_fixed_point_iff	N	109
+Imscribing.Paraconsistent.inc_monotone	T	838
+Imscribing.Paraconsistent.inc_inflationary	T	156
+Imscribing.Paraconsistent.inc_strict_below_B	N	95
+Imscribing.Paraconsistent.inc_image_is_B	T	166
+Imscribing.Paraconsistent.unique_closed_state	N	27
