@@ -1,10 +1,35 @@
-The sweep reports everything it lifts
+The paraconsistent tower audited, and native_decide taken back out
 
-Dropped isGenerated. It filtered the elaborator's own declarations out of the
-report — _proof_, _simp_, match_, sizeOf_spec, ctorIdx, the decidability
-instances — on the grounds that they are not claims the corpus makes. They lift
-and they verdict like anything else, and deciding in advance which of them is
-not worth reading is a restriction the sweep does not need.
+The four files at the kernel root — ParaconsistentCore, the Frobenius closure,
+ClassicalRestriction, DeMorganBooleanCentre — sit outside p4ramill's lakefile, so
+no sweep had ever reached them. Audited both ways now.
 
-Problem0003 goes from eighteen lines to forty: B 3, N 28, T 9. The two oracles
-still agree everywhere they both speak.
+The ARTIFACT audit is not diagnostic and that is worth recording. Pointing V⊙x at
+the .olean files reports F 0, 0, 0 and 3, but an .olean is serialized Lean objects
+rather than machine code, so the raw-image path decodes data as x86 and the
+verdicts describe byte patterns. The control settles it: Imscribing oleans of
+comparable size carry the same rate — AFDMC_MBL_Cohomology F 1 at 70KB, Algebra
+F 1 at 239KB, against DeMorgan's F 3 at 481KB. Reading those as a defect in the
+proofs would have been reading the container.
+
+The PROOF audit is diagnostic, and it found something. Lifting every declaration
+through ProofLift and verdicting the words: 96 declarations, F 0, T 44, N 47, and
+B 5 — every B carrying an assumed axiom, every one of them in
+ParaconsistentFrobeniusClosure, and the axiom oracle naming it independently:
+Lean.ofReduceBool and Lean.trustCompiler, which is native_decide.
+
+frobenius_closure_decidable proves `∀ s, inc (inc s) = inc s`. So does
+frobenius_closure, four lines above it, on no axioms at all. The identical
+proposition was being restated on a compiler-trust dependency over a FOUR-ELEMENT
+type, where the kernel decides it outright. Same for the complete_verification
+variant. Replaced both with `decide`.
+
+Re-audited: 91 declarations, every one clean, B 0, F 0, T 44, N 47. The count
+falls from 96 because native_decide's auxiliary proof terms no longer exist.
+
+Two notes for whoever comes next. The .olean files here were built 2026-08-06 on
+v4.30.0 and read as "incompatible header" under the corpus toolchain; they are
+rebuilt on v4.28.0 to match p4ramill. And these four are still outside every
+lakefile, so nothing but a deliberate visit verifies them — the root is not a
+misfile, since they import each other by bare module name and the root IS their
+search path, but being unbuilt is how the stale oleans went unnoticed for ten days.
