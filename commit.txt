@@ -1,35 +1,38 @@
-The paraconsistent tower audited, and native_decide taken back out
+The closure theorem, made load-bearing and moved into Imscribing
 
-The four files at the kernel root — ParaconsistentCore, the Frobenius closure,
-ClassicalRestriction, DeMorganBooleanCentre — sit outside p4ramill's lakefile, so
-no sweep had ever reached them. Audited both ways now.
+Two questions, one answer: the root tower is thin AND outside the lakefile for the
+same reason, and the reason is that it carries its own Belnap.
 
-The ARTIFACT audit is not diagnostic and that is worth recording. Pointing V⊙x at
-the .olean files reports F 0, 0, 0 and 3, but an .olean is serialized Lean objects
-rather than machine code, so the raw-image path decodes data as x86 and the
-verdicts describe byte patterns. The control settles it: Imscribing oleans of
-comparable size carry the same rate — AFDMC_MBL_Cohomology F 1 at 70KB, Algebra
-F 1 at 239KB, against DeMorgan's F 3 at 481KB. Reading those as a defect in the
-proofs would have been reading the container.
+There are already two Belnap types in the corpus — Imscribing.Paraconsistent.Belnap
+and Paraconsistent.Belnap — and the root files add a third, bare one. That is why
+they cannot simply join the lakefile: three Belnaps in one environment is the name
+collision that blocks the batch sweep. And the isolation is what let the third copy
+DRIFT: its band gives N∧B = N and its bor gives N∨B = B, where the FDE truth-order
+meet and join are F and T, which is what the corpus copy has. Two cells wrong in
+each table, on the same pair. Everything above it — the classical restriction, the
+De Morgan centre — was verified against a non-FDE algebra.
 
-The PROOF audit is diagnostic, and it found something. Lifting every declaration
-through ProofLift and verdicting the words: 96 declarations, F 0, T 44, N 47, and
-B 5 — every B carrying an assumed axiom, every one of them in
-ParaconsistentFrobeniusClosure, and the axiom oracle naming it independently:
-Lean.ofReduceBool and Lean.trustCompiler, which is native_decide.
+So the closure theorem is rebuilt on the CORPUS Belnap, in
+Imscribing/Paraconsistent/IncompletenessClosure.lean, and in the lakefile glob.
 
-frobenius_closure_decidable proves `∀ s, inc (inc s) = inc s`. So does
-frobenius_closure, four lines above it, on no axioms at all. The identical
-proposition was being restated on a compiler-trust dependency over a FOUR-ELEMENT
-type, where the kernel decides it outright. Same for the complete_verification
-variant. Replaced both with `decide`.
+Made load-bearing rather than restated. `inc (inc s) = inc s` is true and carries
+nothing, since inc is constant and every constant map is idempotent. The claim is
+that inc is a CLOSURE OPERATOR on the information order: inflationary, monotone,
+idempotent. The first leg is the content and it cannot even be STATED without the
+order — it says augmenting a system with its own Gödel sentence moves it UP the
+approximation order and never down. Idempotence becomes the leg you get for free,
+and inc_image_is_B says so in the file so nobody has to rediscover why.
 
-Re-audited: 91 declarations, every one clean, B 0, F 0, T 44, N 47. The count
-falls from 96 because native_decide's auxiliary proof terms no longer exist.
+With the sharpenings the thin version could not reach: inc_fixed_point_iff carries
+both directions instead of asserting the easy half; inc_strict_below_B says every
+non-B state strictly gains information, which is what fails for an operator fixing
+more than one point; inc_closes_in_one_step is strictly stronger than idempotence
+and distinguishes this from a closure with a longer ascent; unique_closed_state is
+the bridge to the bifurcation law.
 
-Two notes for whoever comes next. The .olean files here were built 2026-08-06 on
-v4.30.0 and read as "incompatible header" under the corpus toolchain; they are
-rebuilt on v4.28.0 to match p4ramill. And these four are still outside every
-lakefile, so nothing but a deliberate visit verifies them — the root is not a
-misfile, since they import each other by bare module name and the root IS their
-search path, but being unbuilt is how the stale oleans went unnoticed for ten days.
+Nine declarations, F 0, B 0, T 5, N 4, every one clean — and #print axioms reports
+no dependence on any axiom at all, not even the standard three.
+
+The three older root files still carry the divergent algebra and are NOT moved;
+they need reproving against the corpus Belnap before they can be, and that is a
+separate pass.
