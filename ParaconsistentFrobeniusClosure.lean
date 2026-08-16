@@ -86,10 +86,13 @@ theorem frobenius_closure : ∀ (s : Belnap), inc (inc s) = inc s := by
   intro s
   cases s <;> rfl
 
-/-- The closure is decidable for all values via native_decide. -/
+/-- The closure is decidable for all values. `decide`, not `native_decide`: the
+    type has four elements, so the KERNEL settles it, and native evaluation would
+    buy nothing but a dependency on `Lean.ofReduceBool` and `Lean.trustCompiler`
+    for a proposition already proved above on no axioms at all. -/
 theorem frobenius_closure_decidable : ∀ (s : Belnap), inc (inc s) = inc s := by
   intro s
-  cases s <;> native_decide
+  cases s <;> decide
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §3  FIXED POINT UNIQUENESS
@@ -180,13 +183,13 @@ theorem inc_band_inc (s t : Belnap) : Belnap.band (inc s) (inc t) = Belnap.B := 
 
 /-- Complete verification: every Belnap value satisfies the
     Frobenius closure under inc.  Exhaustive case analysis
-    over the 4-element type, decidable by native_decide. -/
+    over the 4-element type, decidable by the kernel. -/
 theorem frobenius_closure_complete_verification :
     (inc (inc Belnap.N) = inc Belnap.N) ∧
     (inc (inc Belnap.T) = inc Belnap.T) ∧
     (inc (inc Belnap.F) = inc Belnap.F) ∧
     (inc (inc Belnap.B) = inc Belnap.B) := by
-  native_decide
+  decide
 
 /-- The frobenius_closure theorem compiles without explosion.
     This proves the B-state is a stable inhabitant of the
