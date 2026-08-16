@@ -628,6 +628,7 @@ globs = [
 
   # The proof lifter. One copy, in the library, so the sweep files import it
   # instead of restating it — every restatement of it was a generation behind.
+  "Imscribing.Paraconsistent.IncompletenessClosure",
   "Imscribing.Vox.ProofLift",
 ]
 
