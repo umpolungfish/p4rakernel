@@ -39,6 +39,7 @@ rev = "v4.28.0"
 name = "Imscribing"
 root = "Imscribing"
 globs = [
+  "Imscribing.FoldVerdict",
   "Imscribing.Primitives.Core",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
