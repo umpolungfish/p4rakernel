@@ -1,18 +1,29 @@
-GeneToProtein: three theorems that stated True now state something
+MachHolonomy: transport is a connection, and the basepoint is a theorem
 
-The file backing the gene-to-protein chain carried its content in docstrings and
-proved nothing. total_path_distance_approx, closure_theorem and
-consciousness_invariant each read `: True := by trivial`, with the actual claims
-written in comments and marked verified by a Python run.
+A word is a loop and reading it is transport around that loop. Three things
+about that picture, machine-checked.
 
-They are statements now, decided over the morphism list itself: the path has six
-morphisms, each begins where the last ended so no stage is skipped or revisited,
-every morphism moves the type so no stage restates the one before it, folding and
-assembly each move at least as many primitives as splicing, and the path starts at
-the gene and ends at the assembled complex. The path length is a definition over the
-distances rather than a number asserted in prose.
+Transport composes along concatenation and rotation conjugates it rather than
+fixing it: transport (t ++ v) (transport v s) = transport v (transport (v ++ t) s),
+with no identity making the two readings equal. What does survive the basepoint
+is the abelian image, the signed balance, and it survives because it factors
+through a permutation.
 
-The header comment carried the pre-revision assignment a sixth time, with histidine
-on Granularity, asparagine on Coupling and glutamine on Criticality, directly above
-code that calls the canonical map. Corrected, and written in the marks: asparagine
-divides, glutamine rejoins, histidine is criticality.
+Closure is balance zero AND no prefix dipping below zero. Balance alone is not
+closure: [fsplit, ffuse] closes, its rotation [ffuse, fsplit] has the same
+balance and dips at the first mark.
+
+The cycle lemma: a word of balance zero always has a rotation that closes, and
+the rotation is read off the word — cut where the prefix balance is least. The
+prefix identities for a rotation are proved on both sides of the wrap, so the
+reading point is determined by the word rather than chosen for it. That is what
+makes a canonical basepoint a theorem instead of a convention.
+
+Also: the conductor generator at d = 2^n is a power of sixteen exactly when
+n + 1 is divisible by four, which is the one congruence carrying 16, 16^2, 16^3,
+16^4 at d = 8, 128, 2048, 32768. The exponent counts n, so no member of the
+family carries meaning the others do not.
+
+Zero sorries; cycle_lemma and closes_at_min rest on nothing but the foundational
+three. Lifted through ProofLift and verdicted by Vox: every theorem that forks
+reads T, the rest read N.
