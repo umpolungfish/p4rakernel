@@ -40,6 +40,8 @@ name = "Imscribing"
 root = "Imscribing"
 globs = [
   "Imscribing.FoldVerdict",
+  "Imscribing.MachHolonomy",
+  "Imscribing.CosmicHolonomy",
   "Imscribing.Primitives.Core",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
