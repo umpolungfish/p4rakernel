@@ -1,0 +1,12 @@
+import Imscribing.Vox.ProofLift
+import Imscribing.MachHolonomy
+#lift Imscribing.MachHolonomy.transport_append
+#lift Imscribing.MachHolonomy.transport_rotate_intertwine
+#lift Imscribing.MachHolonomy.bal_rotate
+#lift Imscribing.MachHolonomy.transport_not_rotation_invariant
+#lift Imscribing.MachHolonomy.rotation_dips
+#lift Imscribing.MachHolonomy.pre_rotate_lt
+#lift Imscribing.MachHolonomy.pre_rotate_ge
+#lift Imscribing.MachHolonomy.cycle_lemma
+#lift Imscribing.MachHolonomy.closes_at_min
+#lift Imscribing.MachHolonomy.sixteen_power_iff
