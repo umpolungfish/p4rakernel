@@ -1,27 +1,60 @@
 import Mathlib
 
 /-!
-# Erdős Problem #593 — Conventional-Mathematics Translation of the IMASM Word
+# Erdős Problem #593, the conventional-mathematics translation of an IMASM word
 
-## IMASM Verification
+This file is the ordinary-math reading of an ob3ect scaffold. The scaffold
+encodes a proof as a word over the twelve marks of the Imscribing Grammar, and
+this file rewrites that word as a standard Lean state machine so a reader who
+does not know the Grammar can follow it. Nothing here depends on the Imscribing
+library: the only import is Mathlib.
 
-The proof is verified by the IMASM protocol with the following properties:
+## The pieces, for a first-time reader
+
+An IMASM word is a sequence drawn from twelve marks, each a primitive of the
+Grammar: ⊢ dimensionality, ≻ recognition, ∈ granularity, ⊤ criticality,
+⋈ fidelity, ⊙ grammar, ⊥ chirality, ≺ polarity, ⊞ stoichiometry, ∋ composition,
+◻ protection, ⊣ topology. The ob3ect pipeline assigns every mark an opcode and a
+value, producing a program that the control-flow auditor Vox lifts and verdicts.
+
+SIXTEEN_3 is the carrier of generalized truth values, the power set
+P({T, F, t, f}), equipped with three orderings (information, truth,
+constructivity). A proof walk moves through registers taken from that carrier.
+The registers this particular word visits are n (ground), t (affirmative),
+f (the negative, the refuted arm), tf (the held fork, a B-state carrying both
+arms), and a (the full set {T, F, t, f}).
+
+## IMASM verification of this word
 
 Word: ⊢≻∈≻⊤≺⊥∋⋈⊙⊞◻≺∈≻⊤∋⊣⋈◻⊙
-Verdict: T — tri-ancestral reconnection over a transformed object — closes
-Final Register: A — Full set {T, F, t, f}
-Phase-Bearing: landings at k = 0,2,6,7,8,11 | F at 7 | TF at 8,9,10 | A at 11..21
-Tri-ancestral verdict: T — closes
+Verdict: T, the tri-ancestral reconnection over a transformed object, closes.
+Final register: a, the full set {T, F, t, f}.
+Phase-bearing: landings at k = 0, 2, 6, 7, 8, 11; f at 7; tf at 8, 9, 10;
+a at 11 through 21.
+Tri-ancestral verdict: T, closes.
 
-## Structural Decomposition
+## How the file is laid out
 
-Phase 0: Domain Charter — register carrier, opcode transition functions
-Phase 1: Opcode Map — ⊢→VINIT, ≻→AFWD, ∈→FSPLIT3, ⊤→EVALT, ≺→AREV, ⊥→EVALF,
-           ∋→FFUSE3, ⋈→CLINK, ⊙→IMSCRIB, ⊞→EVALI, ◻→IFIX, ⊣→TANCH
-Phase 11: SIXTEEN_3 — final register A, open walk, tri-ancestral verdict T
+Phase 0 defines the register carrier and, for each opcode, a transition
+function. Phase 1 is the opcode map, the plain-English meaning of each mark.
+Phases 2 through 21 prove, one lemma per opcode, that the transition it performs
+is exactly the one the word specifies. The final theorem composes the whole walk
+and shows it reaches register a. Vox, run separately on the word above, closes
+the same word with verdict T, which is the independent check that the program
+really terminates in the full register.
 
-The conventional mathematics below re-encodes the opcode program as a finite
-state machine over the register carrier, one lemma per opcode, closing at A.
+## Opcode map, plain English
+
+VINIT takes the object as given at the ground register. AFWD advances from the
+ground to the affirmative arm. FSPLIT3 splits into the three-valued branch and
+is stable on the carrier. EVALT evaluates the affirmative arm. AREV reverses,
+returning the affirmative to the ground and leaving the full register fixed.
+EVALF evaluates the negative arm, closing the ground into the negative register.
+FFUSE3 fuses the negative into the held fork and leaves the full register fixed.
+CLINK composes with coherence preserved. IMSCRIB is the self-referential critical
+phase. EVALI engages the paradox so the held fork fills to the full register.
+IFIX commits and is the identity on the full register. TANCH anchors the
+conclusion.
 -/
 
 open scoped BigOperators
@@ -41,40 +74,46 @@ inductive Register where
 -- PHASE 1: Opcode Map — each mark becomes a transition function
 -- ============================================================
 
--- VINIT (⊢): establish the ground register, identity on entry.
+/-- VINIT (⊢): the initial object. Take the proof object as given at the ground
+register. The transition is the identity on entry. -/
 def vinit : Register → Register := fun r => r
 
--- AFWD (≻): forward morphism — advance the ground to the affirmative register.
+/-- AFWD (≻): the forward morphism. Advance from the ground register to the
+affirmative register; leave any other register unchanged. -/
 def afwd : Register → Register := fun r => match r with | .n => .t | _ => r
 
--- FSPLIT3 (∈): split into the three-valued branch, stable on the carrier.
+/-- FSPLIT3 (∈): the split into the three-valued branch. Stable on the carrier. -/
 def fsplit3 : Register → Register := fun r => r
 
--- EVALT (⊤): evaluate the affirmative arm — identity on the carrier.
+/-- EVALT (⊤): evaluate the affirmative arm. Identity on the carrier. -/
 def evalt : Register → Register := fun r => r
 
--- AREV (≺): reverse morphism — the affirmative returns to the ground.
+/-- AREV (≺): the reverse morphism. The affirmative register returns to the
+ground register, and the full register is held fixed. -/
 def arev : Register → Register := fun r => match r with | .t => .n | .a => .a | _ => r
 
--- EVALF (⊥): evaluate the negative arm — the ground closes into the negative.
+/-- EVALF (⊥): evaluate the negative arm. The ground register closes into the
+negative register. -/
 def evalf : Register → Register := fun r => match r with | .n => .f | _ => r
 
--- FFUSE3 (∋): fuse — the negative resolves into the held fork.
+/-- FFUSE3 (∋): fuse. The negative register resolves into the held fork, and
+the full register is held fixed. -/
 def ffuse3 : Register → Register := fun r => match r with | .f => .tf | .a => .a | _ => r
 
--- CLINK (⋈): compose — identity on the carrier (coherence preserved).
+/-- CLINK (⋈): compose. Identity on the carrier; coherence is preserved. -/
 def clink : Register → Register := fun r => r
 
--- IMSCRIB (⊙): self-imscription — identity on the carrier (critical phase).
+/-- IMSCRIB (⊙): self-imscription, the critical phase. Identity on the carrier. -/
 def imscribe : Register → Register := fun r => r
 
--- EVALI (⊞, ENGAGR): engage the paradox — the held fork fills to the full register.
+/-- EVALI (⊞, ENGAGR): engage the paradox. The held fork register fills to the
+full register. -/
 def evali : Register → Register := fun r => match r with | .tf => .a | _ => r
 
--- IFIX (◻): commitment — identity on the full register.
+/-- IFIX (◻): commit. Identity on the full register. -/
 def ifix : Register → Register := fun r => r
 
--- TANCH (⊣): anchor the conclusion — identity on the full register.
+/-- TANCH (⊣): anchor the conclusion. Identity on the full register. -/
 def tanch : Register → Register := fun r => r
 
 -- ============================================================
@@ -122,8 +161,10 @@ def walk0593 : Register :=
   let r20 := ifix r19
   imscribe r20
 
-/-- The decomposed proof closes: the walk from the ground register reaches the
-full register A. -/
+/-- The decomposed proof closes. The walk, started at the ground register,
+reaches the full register a. That is the conventional reading of the SIXTEEN_3
+verdict T that Vox returns for this word: the program terminates in the full
+register. -/
 theorem erdos_problem_593 : walk0593 = .a := rfl
 
 -- ============================================================
