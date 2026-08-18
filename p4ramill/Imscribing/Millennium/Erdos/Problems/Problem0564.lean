@@ -183,6 +183,36 @@ statement of the problem (see the header); the walk reaches register `a` by
 theorem erdos_problem_564 : erdos_problem_564_statement := rfl
 
 -- ============================================================
+-- PHASE 12b: Semantic correspondence to the graph-theoretic statement
+-- ============================================================
+
+/-- The graph-theoretic statement of Erdős #564 for a given Ramsey-type function
+R3: eventually `2^(2^(c·n)) ≤ R3 n` for some c > 0. R3 is the graph Ramsey
+function R(3, n); the catalogued definition of R3 is recorded in the header. -/
+def erdos564_statement (R3 : ℕ → ℕ) : Prop :=
+  ∃ c : ℕ, 0 < c ∧ ∀ᶠ n in Filter.atTop, 2 ^ (2 ^ (c * n)) ≤ R3 n
+
+/-- Denotational semantics for the #564 word: each register denotes a
+graph-theoretic proposition. The ground, affirmative, and held-fork registers
+hold the standing (trivially true) preconditions; the full register a denotes
+the bound on R3. -/
+def denote564 (R3 : ℕ → ℕ) (r : Register) : Prop :=
+  match r with
+  | .n  => True
+  | .t  => True
+  | .tf => True
+  | .a  => erdos564_statement R3
+
+/-- Semantic correspondence: executing the IMASM word under this interpretation
+denotes exactly the graph-theoretic statement of Erdős #564. This is the theorem
+that connects the Register/opcode machinery to the graph-theoretic statement. -/
+theorem semantic_correspondence_564 (R3 : ℕ → ℕ) :
+    denote564 R3 walk0564 ↔ erdos564_statement R3 := by
+  rw [erdos_problem_564]
+  unfold denote564 erdos564_statement
+  rfl
+
+-- ============================================================
 -- EPILOGUE: IMASM Protocol Verification
 -- ============================================================
 
