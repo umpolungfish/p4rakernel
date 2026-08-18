@@ -184,7 +184,9 @@ Step Glyph  12-op    16_3-op    Reg↓ →  Reg↑
 13   ⊣     TANCH    TANCH      A  →   A
 
 Final register: A
-Closed walk: False
+Closed walk: False (the walk does not return to its starting register; the
+verdict T is the tri-ancestral reconnection over a transformed object, closure
+without return)
 Tri-ancestral verdict: T — closes
 
 ## μ∘δ = id → T
