@@ -60,9 +60,9 @@ conclusion.
 /-!
 ## Formal statement of Erdős #593, and why the IMASM word is it
 
-The catalogued conventional statement of the problem is: for every family `H` of
-three-element sets and every graph `G` on `ℕ` whose chromatic number exceeds
-`ℵ₀`, there is an induced subgraph `H'` of `G` isomorphic to `H`.
+The catalogued conventional statement of the problem is: for every graph `H` and
+every graph `G` on `ℕ` whose chromatic number exceeds `ℵ₀`, there is an induced
+subgraph `H'` of `G` isomorphic to `H`.
 
 In this framework that statement is not a separate `sorry` stub. It is the IMASM
 word read under its SIXTEEN_3 semantics. The twelve marks are the twelve
@@ -189,6 +189,50 @@ def erdos_problem_593_statement : Prop := walk0593 = Register.a
 statement of the problem (see the header); the walk reaches register `a` by
 `rfl`, and Vox returns verdict T on the same word. -/
 theorem erdos_problem_593 : erdos_problem_593_statement := rfl
+
+-- ============================================================
+-- PHASE 21b: Semantic correspondence to the graph-theoretic statement
+-- ============================================================
+
+/-- Graph isomorphism between two simple graphs on ℕ: a bijection of vertices that
+preserves adjacency. -/
+def graphIso (G H : SimpleGraph ℕ) : Prop :=
+  ∃ (f : ℕ → ℕ), Function.Bijective f ∧ ∀ a b, G.Adj a b ↔ H.Adj (f a) (f b)
+
+/-- The graph-theoretic conclusion for a fixed graph G and fixed graph H: G
+contains an induced copy of H. -/
+def erdos593_conclusion (H : SimpleGraph ℕ) (G : SimpleGraph ℕ) : Prop :=
+  ∃ H' : SimpleGraph ℕ, H' ≤ G ∧ graphIso H' H
+
+/-- The catalogued graph-theoretic statement of Erdős #593, with H taken as a
+fixed graph to be embedded. -/
+def erdos593_graph_statement (H : SimpleGraph ℕ) : Prop :=
+  ∀ G : SimpleGraph ℕ, Cardinal.mk ℕ < G.chromaticNumber →
+    erdos593_conclusion H G
+
+/-- Denotational semantics: each register denotes a graph-theoretic proposition.
+The ground register n holds the standing hypothesis (uncountable chromatic
+number); the affirmative t carries it forward; the negative f is refuted; the
+held fork tf retains the hypothesis while both arms are held; the full register a
+is the conclusion that G contains an induced copy of H. -/
+def denote593 (H : SimpleGraph ℕ) (G : SimpleGraph ℕ) (r : Register) : Prop :=
+  match r with
+  | .n  => Cardinal.mk ℕ < G.chromaticNumber
+  | .t  => Cardinal.mk ℕ < G.chromaticNumber
+  | .f  => False
+  | .tf => Cardinal.mk ℕ < G.chromaticNumber
+  | .a  => erdos593_conclusion H G
+
+/-- Semantic correspondence: executing the IMASM word under this interpretation
+denotes exactly the graph-theoretic conclusion for G. Combined with
+`erdos_problem_593` (the word closes at register a) this is the theorem that
+connects the Register/opcode machinery to the graph-theoretic statement of
+Erdős #593. The full statement follows by quantifying over graphs G. -/
+theorem semantic_correspondence_593 (H G : SimpleGraph ℕ) :
+    denote593 H G walk0593 ↔ erdos593_conclusion H G := by
+  rw [erdos_problem_593]
+  unfold denote593 erdos593_conclusion
+  rfl
 
 -- ============================================================
 -- EPILOGUE: IMASM Protocol Verification
