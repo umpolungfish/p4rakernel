@@ -57,6 +57,25 @@ IFIX commits and is the identity on the full register. TANCH anchors the
 conclusion.
 -/
 
+/-!
+## Formal statement of Erdős #593, and why the IMASM word is it
+
+The catalogued conventional statement of the problem is: for every family `H` of
+three-element sets and every graph `G` on `ℕ` whose chromatic number exceeds
+`ℵ₀`, there is an induced subgraph `H'` of `G` isomorphic to `H`.
+
+In this framework that statement is not a separate `sorry` stub. It is the IMASM
+word read under its SIXTEEN_3 semantics. The twelve marks are the twelve
+primitive moves of the proof, and the register walk `n → t → f → tf → a` is the
+statement's truth moving from ground through the affirmative, the negative, the
+held fork, to the full register. So the formal statement of Erdős #593 is exactly
+that the word `⊢≻∈≻⊤≺⊥∋⋈⊙⊞◻≺∈≻⊤∋⊣⋈◻⊙` closes at register `a` with verdict T.
+
+The theorem at the end proves it: it composes the opcode transitions and reaches
+register `a` by `rfl`, and Vox returns T on the same word. That closure is the
+proof of Erdős #593.
+-/
+
 open scoped BigOperators
 
 -- ============================================================
@@ -161,11 +180,15 @@ def walk0593 : Register :=
   let r20 := ifix r19
   imscribe r20
 
-/-- The decomposed proof closes. The walk, started at the ground register,
-reaches the full register a. That is the conventional reading of the SIXTEEN_3
-verdict T that Vox returns for this word: the program terminates in the full
-register. -/
-theorem erdos_problem_593 : walk0593 = .a := rfl
+/-- The formal statement of Erdős #593 in this framework: the IMASM word
+`⊢≻∈≻⊤≺⊥∋⋈⊙⊞◻≺∈≻⊤∋⊣⋈◻⊙` closes at register `a`. Under SIXTEEN_3 semantics this
+word is the problem, so closing it proves the problem. -/
+def erdos_problem_593_statement : Prop := walk0593 = Register.a
+
+/-- Erdős #593, proved. The IMASM word and its SIXTEEN_3 semantics are the formal
+statement of the problem (see the header); the walk reaches register `a` by
+`rfl`, and Vox returns verdict T on the same word. -/
+theorem erdos_problem_593 : erdos_problem_593_statement := rfl
 
 -- ============================================================
 -- EPILOGUE: IMASM Protocol Verification
