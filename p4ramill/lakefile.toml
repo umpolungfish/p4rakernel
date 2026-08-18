@@ -163,6 +163,7 @@ globs = [
   "Imscribing.Millennium.Erdos.Problems.Problem0041",
   "Imscribing.Millennium.Erdos.Problems.Problem0564",
   "Imscribing.Millennium.Erdos.Problems.Problem0593",
+  "Imscribing.Millennium.Erdos.Problems.Problem0500",
   "Imscribing.Millennium.Erdos.APFreeReduction",
   "Imscribing.Millennium.Erdos.AdditiveEnergy",
   "Imscribing.MoDoT.ManuscriptSpine",
