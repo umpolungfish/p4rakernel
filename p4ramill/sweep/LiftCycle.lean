@@ -13,7 +13,8 @@ open Lean Meta in
              `CollatzDepthSplit.col_succ_odd,
              `CollatzDepthSplit.cycle_bound,
              `CollatzDepthSplit.iterate_banked,
-             `CollatzDepthSplit.cycle_banked] do
+             `CollatzDepthSplit.cycle_banked,
+             `CollatzDepthSplit.descends_iff_banked] do
     let some (.thmInfo ti) := (← getEnv).find? nm | IO.println s!"{nm}: not found"
     let w ← ProofLift.lift ti.value
     let ax ← ProofLift.assumedAxioms nm
