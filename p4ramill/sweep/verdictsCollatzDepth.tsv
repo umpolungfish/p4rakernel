@@ -31,6 +31,7 @@ CollatzDepthSplit.preimage_cases._proof_1_3	T	19124
 CollatzDepthSplit.survives_pred_two_pow._proof_1_2	N	16611
 CollatzDepthSplit.survives_succ_of_odd._proof_1_1	N	5981
 CollatzDepthSplit.col_two_mul._proof_1_2	T	24940
+CollatzDepthSplit.double_collide_iff	N	311
 CollatzDepthSplit.chain_defined_iff	T	796
 CollatzDepthSplit.col6_64u63_grows	N	861
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_6	N	53075
@@ -123,6 +124,7 @@ CollatzDepthSplit.subtreeCount_succ	N	35
 CollatzDepthSplit.starved_junction._proof_1_2	T	50066
 CollatzDepthSplit.contracts_mod	N	1117
 CollatzDepthSplit.subtreeCount_le_classBound._proof_1_12	N	13777
+CollatzDepthSplit.arm_collide_iff	N	455
 CollatzDepthSplit.col_shift._proof_1_9	N	54545
 CollatzDepthSplit.no_member_descends._proof_1_1	N	8417
 CollatzDepthSplit.col4_16t7_grows._proof_1_1	N	7429
