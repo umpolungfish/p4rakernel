@@ -1,0 +1,1 @@
+One object carrying both readings of the same map, the dense reading that banks nothing and the sparse reading that banks everything. State what is conserved between them.
