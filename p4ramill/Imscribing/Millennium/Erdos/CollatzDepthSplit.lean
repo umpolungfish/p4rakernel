@@ -538,4 +538,33 @@ theorem card_predStep (L : Finset ℕ) :
     obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
     omega
 
+/-! ### Why the branch factor is `4/3` only in the limit
+
+Both maps building a level are bijections on residues mod `3^r`: doubling is,
+because 2 is a unit there, and `t ↦ 2*t+1` is the same map composed with a shift.
+So a level equidistributed mod `3^(r+1)` produces one equidistributed mod `3^r`,
+with `3c` from the doubling image and `c` from the odd image, which is the `4/3`
+exactly.  One 3-adic digit of resolution is consumed per level.  Since the tree
+starts at a point, uniformity cannot be propagated forward from the root: it has
+to come from mixing, and the rate of that mixing is a measurement. -/
+
+theorem two_coprime_three_pow (r : ℕ) : Nat.gcd (3 ^ r) 2 = 1 :=
+  Nat.Coprime.pow_left r (by decide)
+
+theorem double_inj_mod {r a b : ℕ} (h : 2 * a ≡ 2 * b [MOD 3 ^ r]) : a ≡ b [MOD 3 ^ r] :=
+  Nat.ModEq.cancel_left_of_coprime (two_coprime_three_pow r) h
+
+theorem odd_map_inj_mod {r a b : ℕ} (h : 2 * a + 1 ≡ 2 * b + 1 [MOD 3 ^ r]) :
+    a ≡ b [MOD 3 ^ r] :=
+  double_inj_mod (Nat.ModEq.add_right_cancel' 1 h)
+
+/-- Two is invertible on residues mod `3^r`, so doubling is onto them as well. -/
+theorem two_inv_mod (r : ℕ) : 2 * ((3 ^ r + 1) / 2) ≡ 1 [MOD 3 ^ r] := by
+  have hodd : Odd (3 ^ r) := Odd.pow (by decide)
+  obtain ⟨j, hj⟩ := hodd
+  have hhalf : 2 * ((3 ^ r + 1) / 2) = 3 ^ r + 1 := by omega
+  rw [hhalf]
+  unfold Nat.ModEq
+  exact Nat.add_mod_left _ _
+
 end CollatzDepthSplit
