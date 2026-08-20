@@ -3306,4 +3306,40 @@ theorem survives_all_not_reaches_one {n : ℕ} (hn : 1 < n) (h : ∀ k, ¬ Contr
   intro k hk
   exact absurd (survives_all_never_descends h k) (by omega)
 
+/-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
+
+`cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
+`∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0` — a nonzero integer winding — which is
+`cycle_margin_pos`: the loop closes, `2^k − 3^j` is a nonzero integer, so the margin
+is at least one, with no Diophantine input.  At `∋` it is strict one-way sequencing
+promoted to `f → all(x) ∧ broadcast(x, f)`, which is `col_shift` acting on a whole
+residue class at once rather than iterating a point.
+
+The margin being at least one is weak; but the margin being *large* is equally
+informative, and that gives a dichotomy with no transcendence at all.  If `2^k` clears
+`3^(j+1)` then `3^j ≤ 2^k/3`, so `3(2^k − 3^j) ≥ 2·2^k`, and `cycle_min_bound` closes
+it:
+
+    3^(j+1) ≤ 2^k   ⟹   2(n + 1) ≤ 3k
+
+`cycle_ratio_tight`.  So a cycle either has its exponents pinned within one power of
+three — `2^k < 3^(j+1)`, forcing `k/j` against `log₂ 3` — or its minimum is at most
+`3k/2`.  The sharpening item 6 would supply is to the first horn; the second horn is
+unconditional. -/
+
+/-- **The dichotomy.**  Either `2^k < 3^(j+1)`, or the cycle's minimum is at most
+    `3k/2`.  No Diophantine input. -/
+theorem cycle_ratio_tight {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n)
+    (h3 : (3 : ℤ) ^ (oddSteps n k + 1) ≤ (2 : ℤ) ^ k) :
+    2 * ((n : ℤ) + 1) ≤ 3 * (k : ℤ) := by
+  have hbound := cycle_min_bound hcyc hmin
+  have hpow : (0 : ℤ) < (2 : ℤ) ^ k := by positivity
+  have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
+  have h3' : 3 * (3 : ℤ) ^ oddSteps n k ≤ (2 : ℤ) ^ k := by
+    calc 3 * (3 : ℤ) ^ oddSteps n k = (3 : ℤ) ^ (oddSteps n k + 1) := by ring
+      _ ≤ (2 : ℤ) ^ k := h3
+  have hmar : 2 * (2 : ℤ) ^ k ≤ 3 * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) := by linarith
+  nlinarith [hbound, hmar, hn, hpow]
+
 end CollatzDepthSplit
