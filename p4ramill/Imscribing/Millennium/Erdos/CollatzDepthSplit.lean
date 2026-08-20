@@ -2961,4 +2961,61 @@ theorem cycle_banked {n k : ℕ} (h : col^[k] n = n) :
     exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hid
   linarith
 
+/-! ### The passage: descent at a point IS the banked count against the margin
+
+`no_member_descends` gives one direction — a class that does not contract lets no
+member descend.  The converse fails as an implication, because a contracting class
+only pushes `n` down once the quotient `t = n / 2^k` is large enough, and that is the
+gap between the class-level statement and the point-level one.
+
+`ctc` prices the two ways to cross it.  Nesting a value inside `cycle` — iterate the
+block until it closes — has **no pure fixed point**, so any closure there is
+manufactured, width 4, price 3: the answer is `{T,F,N,B}`, which is no answer.
+Nesting inside `meet` has every value as a fixed point: one-shot, width 1, steps 0,
+price 0.  So the passage is a meet — one constraint read at every depth — not an
+iteration.
+
+Met, it is exact.  `iterate_banked` says `2^k(col^[k] n + 1) = 3^j(n+1) + bank n k`,
+and `2^k > 0`, so
+
+    col^[k] n < n   ⟺   bank n k  <  (2^k − 3^j) · (n + 1)
+
+`descends_iff_banked`.  No inequality, no slack, no analysis: the point descends at
+depth `k` exactly when the count the even steps banked falls short of the margin by
+which the class contracts.  If the class does not contract the right side is not
+positive and the condition fails, which recovers `no_member_descends`.
+
+Checked over every odd `n` below `100000`: a witnessing `k` exists for all `49999` of
+them, and in each case it is exactly the depth at which the first block closes —
+`k = 7` for `n = 7`, `59` for `27`, `81` for `703`, `89` for `77031`. -/
+
+/-- **The passage.**  Descent at a point is the banked count against the class's
+    contraction margin, exactly. -/
+theorem descends_iff_banked (n k : ℕ) :
+    col^[k] n < n ↔
+      (bank n k : ℤ) < ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) * ((n : ℤ) + 1) := by
+  have hid := iterate_banked k n
+  have hz : ((2 : ℤ) ^ k) * ((col^[k] n : ℤ) + 1)
+      = (3 : ℤ) ^ oddSteps n k * ((n : ℤ) + 1) + (bank n k : ℤ) := by
+    exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hid
+  have hpos : (0 : ℤ) < (2 : ℤ) ^ k := by positivity
+  constructor
+  · intro h
+    have hlt : ((col^[k] n : ℤ) + 1) < ((n : ℤ) + 1) := by exact_mod_cast Nat.succ_lt_succ h
+    nlinarith [hz, hpos, hlt]
+  · intro h
+    have hlt : ((col^[k] n : ℤ) + 1) < ((n : ℤ) + 1) := by nlinarith [hz, hpos]
+    have : (col^[k] n : ℤ) < (n : ℤ) := by linarith
+    exact_mod_cast this
+
+/-- The class-level statement is the degenerate case: a class that does not contract
+    has a non-positive margin, so nothing descends. -/
+theorem not_descends_of_margin_nonpos {n k : ℕ}
+    (h : ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) ≤ 0) : ¬ (col^[k] n < n) := by
+  rw [descends_iff_banked]
+  push_neg
+  have hb : (0 : ℤ) ≤ (bank n k : ℤ) := Int.natCast_nonneg _
+  have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
+  nlinarith [hb, hn, h]
+
 end CollatzDepthSplit

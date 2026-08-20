@@ -6,3 +6,4 @@ CollatzDepthSplit.col_succ_odd	T	2051
 CollatzDepthSplit.cycle_bound	T	2326
 CollatzDepthSplit.iterate_banked	T	459454
 CollatzDepthSplit.cycle_banked	N	409041
+CollatzDepthSplit.descends_iff_banked	N	710247
