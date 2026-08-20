@@ -43,6 +43,7 @@ N  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_6
 N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_7
 N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_8
 N  clean    CollatzDepthSplit.oddSteps_pred_two_pow
+N  clean    CollatzDepthSplit.odd_arm_count
 N  clean    CollatzDepthSplit.odd_map_inj_mod
 N  clean    CollatzDepthSplit.odd_step_lands_on_junction
 N  clean    CollatzDepthSplit.pow_mul_le_iterate._proof_1_6
@@ -104,6 +105,7 @@ T  clean    CollatzDepthSplit.preimage_cases._proof_1_3
 T  clean    CollatzDepthSplit.starved_junction._proof_1_1
 T  clean    CollatzDepthSplit.starved_junction._proof_1_2
 T  clean    CollatzDepthSplit.subtreeCount_barren
+T  clean    CollatzDepthSplit.subtreeCount_junction
 T  clean    CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_3
 T  clean    CollatzDepthSplit.survives_pred_two_pow
 T  clean    CollatzDepthSplit.survives_succ_of_odd
