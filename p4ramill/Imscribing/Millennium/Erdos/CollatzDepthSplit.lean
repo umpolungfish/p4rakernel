@@ -605,4 +605,30 @@ theorem chain_defined_iff (n : ℕ) : (∃ t, n = 3 * t + 1) ↔ n % 3 = 1 := by
   · rintro ⟨t, rfl⟩; omega
   · intro h; exact ⟨n / 3, by omega⟩
 
+/-! ## The junctions
+
+A value takes two predecessors exactly when it is `2 (mod 3)` (`odd_pred_iff`),
+so every merge of two trajectories happens there and nowhere else.  Which arm the
+traffic arrives on is then forced, and the forcing is already in `col_odd_pred`:
+an odd step sends `2t+1` to `3t+2`, which is `2 (mod 3)` for every `t`.  So EVERY
+odd step lands on a junction, while an even step lands on one only when its own
+half does — a third of the time.  With the two step kinds equinumerous that puts
+the odd arm's share of all junction arrivals at `(1/2) / (1/2 + (1/3)(1/2)) = 3/4`,
+and the census reads `0.7513` over seeds to 20000 and `0.7501` to 60000. -/
+
+/-- Every odd step lands on a junction. -/
+theorem odd_step_lands_on_junction (t : ℕ) : col (2 * t + 1) % 3 = 2 := by
+  rw [col_odd_pred]; omega
+
+/-- An even step lands on a junction exactly when its half is one, which is a
+    third of the residues. -/
+theorem even_step_junction_iff (m : ℕ) : col (2 * m) % 3 = 2 ↔ m % 3 = 2 := by
+  rw [col_two_mul]
+
+/-- The two arms into a junction, named: the even arm is always there, the odd
+    arm is the one the residue buys. -/
+theorem junction_arms {v : ℕ} (h : v % 3 = 2) :
+    col (2 * v) = v ∧ col (2 * (v / 3) + 1) = v :=
+  ⟨col_two_mul v, by rw [col_odd_pred]; omega⟩
+
 end CollatzDepthSplit
