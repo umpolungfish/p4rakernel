@@ -3018,4 +3018,59 @@ theorem not_descends_of_margin_nonpos {n k : ℕ}
   have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
   nlinarith [hb, hn, h]
 
+/-! ### Item 4: the core statement implies the conjecture
+
+The list of components has one entry that was unwritten rather than unknown: that
+`∀n>1 ∃k, col^[k] n < n` gives Collatz.  It is strong induction on `n`, and the only
+thing to check besides is that `col` keeps a positive value positive, so the descent
+lands somewhere the induction hypothesis applies. -/
+
+/-- `col` never leaves the positives. -/
+theorem col_pos {n : ℕ} (h : 1 ≤ n) : 1 ≤ col n := by
+  rcases Nat.even_or_odd n with he | ho
+  · obtain ⟨m, hm⟩ := he
+    have hn : n = 2 * m := by omega
+    have hm1 : 1 ≤ m := by omega
+    rw [hn, col_two_mul]
+    exact hm1
+  · obtain ⟨t, ht⟩ := ho
+    rw [ht, col_odd_pred]
+    omega
+
+theorem iterate_col_pos : ∀ (k n : ℕ), 1 ≤ n → 1 ≤ col^[k] n := by
+  intro k
+  induction k with
+  | zero => intro n h; simpa using h
+  | succ k ih =>
+      intro n h
+      rw [Function.iterate_succ_apply]
+      exact ih (col n) (col_pos h)
+
+/-- **Item 4.**  The core statement implies the conjecture. -/
+theorem reaches_one_of_descends
+    (H : ∀ n : ℕ, 1 < n → ∃ k, col^[k] n < n) :
+    ∀ n : ℕ, 1 ≤ n → ∃ m, col^[m] n = 1 := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+      intro hn
+      rcases Nat.lt_or_ge 1 n with hgt | hle
+      · obtain ⟨k, hk⟩ := H n hgt
+        have hpos : 1 ≤ col^[k] n := iterate_col_pos k n hn
+        obtain ⟨m, hm⟩ := ih (col^[k] n) hk hpos
+        refine ⟨m + k, ?_⟩
+        rw [Function.iterate_add_apply]
+        exact hm
+      · have : n = 1 := by omega
+        exact ⟨0, by simpa [this]⟩
+
+/-- And in the banked form, which is the shape items 1 and 2 deliver. -/
+theorem reaches_one_of_banked
+    (H : ∀ n : ℕ, 1 < n → ∃ k,
+      (bank n k : ℤ) < ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) * ((n : ℤ) + 1)) :
+    ∀ n : ℕ, 1 ≤ n → ∃ m, col^[m] n = 1 := by
+  refine reaches_one_of_descends (fun n hn => ?_)
+  obtain ⟨k, hk⟩ := H n hn
+  exact ⟨k, (descends_iff_banked n k).mpr hk⟩
+
 end CollatzDepthSplit
