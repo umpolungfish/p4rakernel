@@ -1049,4 +1049,42 @@ theorem junction_classes_split (v : ℕ) (h : v % 3 = 2) :
   · exact Or.inr (Or.inl ⟨h9, by omega⟩)
   · exact Or.inr (Or.inr ⟨h9, by omega⟩)
 
+/-! ## The cross term, decomposed
+
+Write each histogram as its flat part plus a deviation.  Because both deviations
+sum to zero, the flat parts contribute exactly the product of the totals over the
+modulus and nothing else survives to first order: the cross term IS the
+correlation of the two deviations, with no remainder.  That is `cross_decompose`
+below, stated over any finite index type and any reindexing of the second factor.
+
+With it, Cauchy–Schwarz gives `|cross(r)| ≤ (3/8)·√(e_even(r)·e_odd(r))`, where
+`e_even(r)` is the level's own excess exactly, by the doubling bijection, and
+`e_odd(r)` is the arm image's.  Summed against the weight that is
+`c ≤ (3/8)√3·√(‖e_arm‖/‖e‖)`.
+
+Measured, the arm image is as uniform as its quarter share allows — the ratio runs
+`3.7` to `5.7`, against the `4` that population alone would give — so the bound
+lands at `1.25` to `1.55`.  The measured `c` is about `0.1`.  So Cauchy–Schwarz is
+loose here by roughly a factor of fourteen, and it cannot reach `1/4`: it takes
+absolute values, and the sign is exactly what carries the contraction.  The
+inequality below is what is provable without the sign; the sign is what remains. -/
+
+/-- The flat parts cancel: a cross sum of two mean-zero-perturbed histograms is
+    the product of the totals plus the correlation of the deviations, exactly. -/
+theorem cross_decompose {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : ℚ) (a b : ι → ℚ) (σ : ι ≃ ι)
+    (ha : ∑ i, a i = 0) (hb : ∑ i, b i = 0) :
+    ∑ i, (A + a i) * (B + b (σ i))
+      = (Fintype.card ι : ℚ) * A * B + ∑ i, a i * b (σ i) := by
+  have hbσ : ∑ i, b (σ i) = 0 := by
+    rw [← hb]
+    exact Fintype.sum_equiv σ _ _ (fun _ => rfl)
+  have expand : ∀ i : ι, (A + a i) * (B + b (σ i))
+      = A * B + A * b (σ i) + a i * B + a i * b (σ i) := fun i => by ring
+  rw [Finset.sum_congr rfl (fun i _ => expand i)]
+  simp only [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.sum_mul, ha, hbσ,
+    Finset.sum_const, Finset.card_univ, nsmul_eq_mul, mul_zero, zero_mul, add_zero,
+    zero_add]
+  ring
+
 end CollatzDepthSplit
