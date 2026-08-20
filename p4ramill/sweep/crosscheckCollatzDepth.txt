@@ -90,6 +90,8 @@ N  clean    CollatzDepthSplit.growth_is_one_plus_p2._simp_1_4
 N  clean    CollatzDepthSplit.growth_is_one_plus_p2._simp_1_5
 N  clean    CollatzDepthSplit.growth_is_one_plus_p2._simp_1_6
 N  clean    CollatzDepthSplit.growth_is_one_plus_p2._simp_1_7
+N  clean    CollatzDepthSplit.harm_even_child
+N  clean    CollatzDepthSplit.harm_predStep._proof_1_3
 N  clean    CollatzDepthSplit.inv_two_mod_nine
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.junction_class_cycle
@@ -239,6 +241,7 @@ T  clean    CollatzDepthSplit.evenImage_eq_even_part
 T  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_5
 T  clean    CollatzDepthSplit.even_part_coeff._proof_1_1
 T  clean    CollatzDepthSplit.exists_survivor_lift
+T  clean    CollatzDepthSplit.harm_predStep._proof_1_2
 T  clean    CollatzDepthSplit.inTree_col
 T  clean    CollatzDepthSplit.inTree_col._proof_1_1
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
