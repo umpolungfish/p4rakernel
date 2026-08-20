@@ -41,6 +41,7 @@ CollatzDepthSplit.wtz_ge_of_class_one	T	18187
 CollatzDepthSplit.census_mass	T	1998
 CollatzDepthSplit.two_pow_ne_three_pow	T	1412
 CollatzDepthSplit.chain_block._proof_1_1	N	7089
+CollatzDepthSplit.iterate_le_pow._proof_1_4	T	27720
 CollatzDepthSplit.tower_never_fills	N	20423
 CollatzDepthSplit.junction_classes_split	T	4787
 CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_1	N	11139
@@ -135,6 +136,7 @@ CollatzDepthSplit.even_part_coeff._proof_1_1	T	14280
 CollatzDepthSplit.growth_is_one_plus_p2._simp_1_1	N	37
 CollatzDepthSplit.classBound_fib._proof_1_4	T	37650
 CollatzDepthSplit.equidist_of_dft_small._simp_1_4	N	55
+CollatzDepthSplit.cycle_excursion._proof_1_1	N	8833
 CollatzDepthSplit.wtz_le._proof_1_1	N	943
 CollatzDepthSplit.evenImage_eq_even_part._simp_1_2	N	61
 CollatzDepthSplit.oddSteps_all_ones_le._proof_1_6	N	19961
@@ -146,6 +148,7 @@ CollatzDepthSplit.evenImage_eq_even_part	T	10417
 CollatzDepthSplit.doubling_involutive_only_at_three	N	347
 CollatzDepthSplit.double_inj_mod	N	55
 CollatzDepthSplit.odd_child_class_two	N	233
+CollatzDepthSplit.col_succ_even._proof_1_1	N	25481
 CollatzDepthSplit.preds_of_barren._proof_1_1	N	15367
 CollatzDepthSplit.subtreeCount_le_classBound._proof_1_10	N	51113
 CollatzDepthSplit.coeff_parity_split._simp_1_1	N	61
@@ -189,6 +192,7 @@ CollatzDepthSplit.classBound.eq_2	N	15
 CollatzDepthSplit.junctions_ge_class_one._proof_1_2	T	14280
 CollatzDepthSplit.both_lifts_survive	N	1111
 CollatzDepthSplit.classBound.eq_1	N	21
+CollatzDepthSplit.col_succ_even	T	1515
 CollatzDepthSplit.arm_bijection_mod	T	2634
 CollatzDepthSplit.two_order_mod_twentyseven	N	2063
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_3	N	37
@@ -257,6 +261,7 @@ CollatzDepthSplit.survivors_mod_32	N	1443
 CollatzDepthSplit.col_two_mul._proof_1_1	T	35508
 CollatzDepthSplit.mem_predStep_col._proof_1_1	T	25772
 CollatzDepthSplit.survivors_survive_mod_32	N	467
+CollatzDepthSplit.cycle_excursion	N	513
 CollatzDepthSplit.norm_root_of_unity	N	11
 CollatzDepthSplit.wtz_children._proof_1_4	T	57494
 CollatzDepthSplit.barren_doubling	T	34630
@@ -297,6 +302,7 @@ CollatzDepthSplit.no_member_descends._proof_1_1	N	8417
 CollatzDepthSplit.doubling_image_prim._simp_1_2	N	61
 CollatzDepthSplit.col4_16t7_grows._proof_1_1	N	7429
 CollatzDepthSplit.junctions_ge_class_one	T	1924
+CollatzDepthSplit.col_succ_odd	T	2051
 CollatzDepthSplit.autocorr_sum_zero	N	3845
 CollatzDepthSplit.no_member_descends._proof_1_2	N	34099
 CollatzDepthSplit.oddSteps_all_ones._proof_1_5	T	31042

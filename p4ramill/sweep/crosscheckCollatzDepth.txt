@@ -40,6 +40,7 @@ N  clean    CollatzDepthSplit.col_lt_of_gap
 N  clean    CollatzDepthSplit.col_odd_pred._proof_1_1
 N  clean    CollatzDepthSplit.col_shift._proof_1_9
 N  clean    CollatzDepthSplit.col_starved_arm._proof_1_1
+N  clean    CollatzDepthSplit.col_succ_even._proof_1_1
 N  clean    CollatzDepthSplit.contracts_mod
 N  clean    CollatzDepthSplit.cross_decompose._simp_1_1
 N  clean    CollatzDepthSplit.cross_decompose._simp_1_2
@@ -48,6 +49,8 @@ N  clean    CollatzDepthSplit.cube_indicator._proof_1_5
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.cycle_bound._proof_1_2
 N  clean    CollatzDepthSplit.cycle_bound._simp_1_1
+N  clean    CollatzDepthSplit.cycle_excursion
+N  clean    CollatzDepthSplit.cycle_excursion._proof_1_1
 N  clean    CollatzDepthSplit.density_characteristic
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_injOn_prim
@@ -232,6 +235,8 @@ T  clean    CollatzDepthSplit.col_chain_down._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_up
 T  clean    CollatzDepthSplit.col_odd_pred
 T  clean    CollatzDepthSplit.col_starved_arm
+T  clean    CollatzDepthSplit.col_succ_even
+T  clean    CollatzDepthSplit.col_succ_odd
 T  clean    CollatzDepthSplit.col_two_mul
 T  clean    CollatzDepthSplit.col_two_mul._proof_1_1
 T  clean    CollatzDepthSplit.col_two_mul._proof_1_2
@@ -247,6 +252,7 @@ T  clean    CollatzDepthSplit.exists_survivor_lift
 T  clean    CollatzDepthSplit.harm_predStep._proof_1_2
 T  clean    CollatzDepthSplit.inTree_col
 T  clean    CollatzDepthSplit.inTree_col._proof_1_1
+T  clean    CollatzDepthSplit.iterate_le_pow._proof_1_4
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
 T  clean    CollatzDepthSplit.junction_class_no_fixpoint
 T  clean    CollatzDepthSplit.junction_classes_split
