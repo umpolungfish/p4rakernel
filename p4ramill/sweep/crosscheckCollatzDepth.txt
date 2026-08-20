@@ -47,6 +47,10 @@ N  clean    CollatzDepthSplit.even_child_mod_nine
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.inv_two_mod_nine
 N  clean    CollatzDepthSplit.junction_arms
+N  clean    CollatzDepthSplit.junction_class_cycle
+N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_2
+N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3
+N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
 N  clean    CollatzDepthSplit.no_member_descends
@@ -124,7 +128,9 @@ T  clean    CollatzDepthSplit.contracts_mod_le._proof_1_1
 T  clean    CollatzDepthSplit.contracts_succ_of_even_step
 T  clean    CollatzDepthSplit.exists_survivor_lift
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
+T  clean    CollatzDepthSplit.junction_class_no_fixpoint
 T  clean    CollatzDepthSplit.junction_classes_split
+T  clean    CollatzDepthSplit.junction_cycle_order_three
 T  clean    CollatzDepthSplit.mem_predStep_col
 T  clean    CollatzDepthSplit.mem_predStep_col._proof_1_1
 T  clean    CollatzDepthSplit.oddSteps.eq_def

@@ -39,6 +39,7 @@ CollatzDepthSplit.col_two_mul._proof_1_2	T	24940
 CollatzDepthSplit.double_collide_iff	N	311
 CollatzDepthSplit.chain_defined_iff	T	796
 CollatzDepthSplit.col6_64u63_grows	N	861
+CollatzDepthSplit.junction_class_cycle	N	1611
 CollatzDepthSplit.cross_decompose._simp_1_1	N	103
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_6	N	53075
 CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_3	T	32542
@@ -82,6 +83,7 @@ CollatzDepthSplit.subtreeCount_le_classBound._proof_1_10	N	51113
 CollatzDepthSplit.oddSteps.eq_2	N	13
 CollatzDepthSplit.col_two_mul	T	1596
 CollatzDepthSplit.survivors_nonempty._proof_1_1	T	6174
+CollatzDepthSplit.junction_cycle_order_three	T	1721
 CollatzDepthSplit.card_predStep._proof_1_2	T	14280
 CollatzDepthSplit.barren_doubling._proof_1_1	T	22104
 CollatzDepthSplit.odd_pred_iff._proof_1_1	T	49988
@@ -106,7 +108,9 @@ CollatzDepthSplit.col_chain_up._proof_1_1	N	12591
 CollatzDepthSplit.col6_64u63_grows._proof_1_1	N	7429
 CollatzDepthSplit.odd_pred_iff	T	796
 CollatzDepthSplit.three_lifts	T	27093
+CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4	N	48211
 CollatzDepthSplit.col_lt_of_gap	N	43683
+CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3	N	48211
 CollatzDepthSplit.col4_16t7	N	4479
 CollatzDepthSplit.preds_of_mod_three	N	945
 CollatzDepthSplit.oddSteps_mod._proof_1_7	N	27321
@@ -137,8 +141,10 @@ CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1	N	8417
 CollatzDepthSplit.survives_succ_of_slack._proof_1_2	T	37542
 CollatzDepthSplit.oddSteps_pred_two_pow	N	1687
 CollatzDepthSplit.chain_defined_iff._proof_1_2	T	25766
+CollatzDepthSplit.junction_class_no_fixpoint	T	857
 CollatzDepthSplit.subtreeCount_succ	N	35
 CollatzDepthSplit.odd_child_class_five	N	233
+CollatzDepthSplit.junction_class_no_fixpoint._proof_1_2	N	48181
 CollatzDepthSplit.doubling_onto_mod_nine	N	611
 CollatzDepthSplit.starved_junction._proof_1_2	T	50066
 CollatzDepthSplit.contracts_mod	N	1117
