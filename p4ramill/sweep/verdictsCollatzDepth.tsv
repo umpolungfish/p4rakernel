@@ -34,6 +34,7 @@ CollatzDepthSplit.survivors_nonempty	T	1392
 CollatzDepthSplit.col5_32s15_grows._proof_1_1	N	7429
 CollatzDepthSplit.oddSource_is_junction	N	371
 CollatzDepthSplit.survives_succ_of_slack._proof_1_4	N	30731
+CollatzDepthSplit.triangle_recursion_has_no_decay	N	24853
 CollatzDepthSplit.col4_16t3_contracts	N	861
 CollatzDepthSplit.cube_indicator._proof_1_3	N	11139
 CollatzDepthSplit.col_chain_down._proof_1_2	T	54776
@@ -63,6 +64,7 @@ CollatzDepthSplit.subtreeCount.eq_2	N	13
 CollatzDepthSplit.col5_32s31	N	4511
 CollatzDepthSplit.survives_succ_of_odd	T	2980
 CollatzDepthSplit.classBound_mono._proof_1_4	N	8335
+CollatzDepthSplit.level_weighted_step	N	59161
 CollatzDepthSplit.equidist_of_dft_small._simp_1_3	N	37
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_1	N	37
 CollatzDepthSplit.col_starved_arm	T	2620
@@ -148,6 +150,7 @@ CollatzDepthSplit.wt_le._proof_1_7	N	703
 CollatzDepthSplit.col_lt_of_gap	N	43683
 CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3	N	48211
 CollatzDepthSplit.col4_16t7	N	4479
+CollatzDepthSplit.level_coeff_triangle	N	32759
 CollatzDepthSplit.preds_of_mod_three	N	945
 CollatzDepthSplit.oddSteps_mod._proof_1_7	N	27321
 CollatzDepthSplit.oddSteps_all_ones_le._proof_1_7	T	31310
@@ -157,6 +160,7 @@ CollatzDepthSplit.odd_arm_exponent	N	313
 CollatzDepthSplit.oddSteps.eq_def	T	5197
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_2	N	37
 CollatzDepthSplit.wt_le._proof_1_5	N	943
+CollatzDepthSplit.weighted_contraction_constant	N	4159
 CollatzDepthSplit.subtreeCount_of_three_dvd	N	1565
 CollatzDepthSplit.contracts_mod_le._proof_1_1	T	28966
 CollatzDepthSplit.col_chain_up	T	2812
@@ -176,6 +180,7 @@ CollatzDepthSplit.survivors_mod_32	N	1443
 CollatzDepthSplit.col_two_mul._proof_1_1	T	35508
 CollatzDepthSplit.mem_predStep_col._proof_1_1	T	25772
 CollatzDepthSplit.survivors_survive_mod_32	N	467
+CollatzDepthSplit.norm_root_of_unity	N	11
 CollatzDepthSplit.barren_doubling	T	34630
 CollatzDepthSplit.threshold_clear	N	431
 CollatzDepthSplit.odd_child_class_eight	N	233

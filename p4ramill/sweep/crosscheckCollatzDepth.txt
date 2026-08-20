@@ -68,10 +68,13 @@ N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4
 N  clean    CollatzDepthSplit.junctions_nondecreasing_two_levels
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
+N  clean    CollatzDepthSplit.level_coeff_triangle
+N  clean    CollatzDepthSplit.level_weighted_step
 N  clean    CollatzDepthSplit.levels_equidistribute
 N  clean    CollatzDepthSplit.no_member_descends
 N  clean    CollatzDepthSplit.no_member_descends._proof_1_1
 N  clean    CollatzDepthSplit.no_member_descends._proof_1_2
+N  clean    CollatzDepthSplit.norm_root_of_unity
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_1
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_2
@@ -125,10 +128,12 @@ N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_5
 N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_6
 N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_7
 N  clean    CollatzDepthSplit.threshold_clear
+N  clean    CollatzDepthSplit.triangle_recursion_has_no_decay
 N  clean    CollatzDepthSplit.two_coprime_three_pow
 N  clean    CollatzDepthSplit.two_order_mod_nine
 N  clean    CollatzDepthSplit.two_order_mod_three
 N  clean    CollatzDepthSplit.two_order_mod_twentyseven
+N  clean    CollatzDepthSplit.weighted_contraction_constant
 N  clean    CollatzDepthSplit.wt.eq_1
 N  clean    CollatzDepthSplit.wt_le._proof_1_1
 N  clean    CollatzDepthSplit.wt_le._proof_1_2
