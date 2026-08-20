@@ -2264,4 +2264,115 @@ theorem contraction_via_twist {Q Q2 Qeven Qodd Qprev ρ : ℝ}
     (h : Q2 > (2 * ρ ^ 2 - 1) * Qprev + 2 * Qodd) : Q < Qprev := by
   nlinarith [hpar, heven, h]
 
+/-! ## Counting by size: the certificate refined by odd steps
+
+Equidistribution is not the conjecture.  What the conjecture asserts is that the
+predecessor tree of `1` is all of `ℕ`, which is a statement about how many integers
+below `x` the tree contains.  Counting by depth is lossy: nodes at depth `d` number
+about `(4/3)^d` but run as large as `2^d`, giving density exponent
+`log(4/3)/log 2 = 0.415` at best and `log(6/5)/log 2 = 0.263` from the growth rate
+actually proved.
+
+Counting by size is sharper, because the two arms move size differently.  Doubling
+multiplies by `2`; the odd arm `n = (2m−1)/3` multiplies by less than `2/3`.  So a
+node reached by `d` steps of which `j` are odd-arm steps has
+
+    size  <  2^d / 3^j
+
+and nodes with many odd steps are small.  The count that matters is therefore the
+joint one, carried by `F_d(z) = Σ_nodes z^j`.
+
+The conductor-nine certificate refines to it directly.  Put `z` on the two
+injections of the six-cycle — the odd arm is exactly where `j` increments, since a
+child is odd precisely when it comes from that arm — and the same tight chain gives
+
+    L(z)^6  ≤  z L(z)^2 + z L(z) + 1
+
+against `L^6 ≤ L^2 + L + 1` at `z = 1`.  At `z = 2` the root is `1.40759` and
+`L = 7/5` clears it, with weights that clear to integers:
+
+    w₁ = 6125   w₂ = 8575   w₄ = 5755   w₈ = 8057   w₇ = 3125   w₅ = 4375
+
+and all six requirements hold, five of them with equality.  Measured against the
+tree, `F_d(2)` grows at `1.66` per level, so `7/5` is a true lower bound with room;
+the same holds at `z = 0.5, 0.75, 1, 1.5`.
+
+Optimising `max_α log₂(inf_z L(z) z^(−α)) / (1 − α log₂ 3)` over the certificate
+gives density exponent **`0.4366`** at `α = 0.18`, against `0.2630` from the depth
+count alone.  `collatz_density_certificate.py` carries both. -/
+
+/-- The certificate weight refined by odd steps: the same six-cycle at `z = 2`,
+    where `z` counts the odd-arm steps that shrink a node. -/
+def wtz (v : ℕ) : ℕ :=
+  if v % 9 = 1 then 6125 else
+  if v % 9 = 2 then 8575 else
+  if v % 9 = 4 then 5755 else
+  if v % 9 = 8 then 8057 else
+  if v % 9 = 7 then 3125 else
+  if v % 9 = 5 then 4375 else 0
+
+theorem wtz_le (v : ℕ) : wtz v ≤ 8575 := by unfold wtz; split_ifs <;> omega
+
+theorem wtz_ge_of_class_one {x : ℕ} (h : x % 3 = 1) : 3125 ≤ wtz x := by
+  have h9 : x % 9 = 1 ∨ x % 9 = 4 ∨ x % 9 = 7 := by omega
+  unfold wtz; rcases h9 with h9 | h9 | h9 <;> simp [h9]
+
+theorem wtz_ge_of_class_two {x : ℕ} (h : x % 3 = 2) : 4375 ≤ wtz x := by
+  have h9 : x % 9 = 2 ∨ x % 9 = 5 ∨ x % 9 = 8 := by omega
+  unfold wtz; rcases h9 with h9 | h9 | h9 <;> simp [h9]
+
+theorem wtz_double (v : ℕ) :
+    wtz (2 * v) =
+      if v % 9 = 1 then 8575 else
+      if v % 9 = 2 then 5755 else
+      if v % 9 = 4 then 8057 else
+      if v % 9 = 8 then 3125 else
+      if v % 9 = 7 then 4375 else
+      if v % 9 = 5 then 6125 else 0 := by
+  have h9 : v % 9 = 0 ∨ v % 9 = 1 ∨ v % 9 = 2 ∨ v % 9 = 3 ∨ v % 9 = 4 ∨ v % 9 = 5
+      ∨ v % 9 = 6 ∨ v % 9 = 7 ∨ v % 9 = 8 := by omega
+  have hd : (2 * v) % 9 = (2 * (v % 9)) % 9 := by omega
+  unfold wtz
+  rcases h9 with h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 <;> rw [hd, h9] <;> norm_num
+
+/-- **The refined pointwise certificate.**  Counting the odd arm twice — which is
+    `z = 2` — every vertex's children carry at least `7/5` of its own weight. -/
+theorem wtz_children (v : ℕ) :
+    7 * wtz v ≤ 5 * (wtz (2 * v) + if v % 3 = 2 then 2 * wtz (2 * (v / 3) + 1) else 0) := by
+  rw [wtz_double]
+  have h9 : v % 9 = 0 ∨ v % 9 = 1 ∨ v % 9 = 2 ∨ v % 9 = 3 ∨ v % 9 = 4 ∨ v % 9 = 5
+      ∨ v % 9 = 6 ∨ v % 9 = 7 ∨ v % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9
+  · simp [wtz, h9]
+  · have : v % 3 = 1 := by omega
+    simp [wtz, h9, this]
+  · have h3 : v % 3 = 2 := by omega
+    obtain ⟨c, hcdef⟩ : ∃ c, wtz (2 * (v / 3) + 1) = c := ⟨_, rfl⟩
+    have hc : _ ≤ c := hcdef ▸ wtz_ge_of_class_one (odd_child_class_two v h9)
+    rw [hcdef]
+    simp only [wtz, h9, h3, if_true, if_false]
+    norm_num
+    omega
+  · simp [wtz, h9]
+  · have : v % 3 = 1 := by omega
+    simp [wtz, h9, this]
+  · have h3 : v % 3 = 2 := by omega
+    simp only [wtz, h9, h3, if_true, if_false] at *
+    norm_num at *
+    omega
+  · simp [wtz, h9]
+  · have : v % 3 = 1 := by omega
+    simp [wtz, h9, this]
+  · have h3 : v % 3 = 2 := by omega
+    obtain ⟨c, hcdef⟩ : ∃ c, wtz (2 * (v / 3) + 1) = c := ⟨_, rfl⟩
+    have hc : _ ≤ c := hcdef ▸ wtz_ge_of_class_two (odd_child_class_eight v h9)
+    rw [hcdef]
+    simp only [wtz, h9, h3, if_true, if_false]
+    norm_num
+    omega
+
+/-- The characteristic inequality the refinement satisfies, at `z = 2`. -/
+theorem density_characteristic : ((7 : ℚ) / 5) ^ 6 ≤ 2 * (7 / 5) ^ 2 + 2 * (7 / 5) + 1 := by
+  norm_num
+
 end CollatzDepthSplit
