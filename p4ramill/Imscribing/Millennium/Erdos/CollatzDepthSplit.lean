@@ -179,4 +179,199 @@ theorem survivors_mod_32 :
     ((List.range 32).filter (fun r => decide (r % 2 = 1) && decide (2 ^ 5 ≤ 3 ^ oddSteps r 5)))
       = [7, 9, 15, 27, 31] := by decide
 
+/-! ## Periodicity: the first k parities depend only on the class -/
+
+theorem oddSteps_mod : ∀ (k t r : ℕ), oddSteps (2 ^ k * t + r) k = oddSteps r k := by
+  intro k
+  induction k with
+  | zero => intro t r; simp [oddSteps]
+  | succ k ih =>
+    intro t r
+    have hp : (2:ℕ) ^ (k+1) * t = 2 * (2 ^ k * t) := by ring
+    rcases Nat.even_or_odd r with h | h
+    · obtain ⟨m, hm⟩ := h
+      have hr2 : r % 2 = 0 := by omega
+      have hpar : (2 ^ (k+1) * t + r) % 2 = 0 := by rw [hp]; omega
+      have hstep : col (2 ^ (k+1) * t + r) = 2 ^ k * t + col r := by
+        unfold col
+        rw [if_pos hpar, if_pos hr2, hp]
+        omega
+      rw [oddSteps, oddSteps, if_pos hpar, if_pos hr2, hstep, ih t (col r)]
+    · obtain ⟨m, hm⟩ := h
+      have hr0 : ¬ (r % 2 = 0) := by omega
+      have hpar0 : ¬ ((2 ^ (k+1) * t + r) % 2 = 0) := by rw [hp]; omega
+      have hstep : col (2 ^ (k+1) * t + r) = 2 ^ k * (3 * t) + col r := by
+        unfold col
+        rw [if_neg hpar0, if_neg hr0]
+        have h3 : 3 * (2 ^ (k+1) * t + r) + 1 = 2 * (2 ^ k * (3 * t)) + (3 * r + 1) := by
+          rw [hp]; ring
+        rw [h3]; omega
+      rw [oddSteps, oddSteps, if_neg hpar0, if_neg hr0, hstep, ih (3 * t) (col r)]
+
+/-- Contraction at depth `i` is a property of the class mod `2^i`. -/
+theorem contracts_mod (i t r : ℕ) : Contracts i (2 ^ i * t + r) ↔ Contracts i r := by
+  unfold Contracts
+  rw [oddSteps_mod]
+
+/-! ## Survivors: classes that contract at no depth up to k -/
+
+/-- `r` survives to depth `k` when no depth `i ≤ k` contracts it. -/
+def Survives (k r : ℕ) : Prop := ∀ i, i ≤ k → ¬ Contracts i r
+
+instance (k r : ℕ) : Decidable (Survives k r) := by unfold Survives; infer_instance
+
+theorem oddSteps_all_ones_le : ∀ (i a m : ℕ), i ≤ m → oddSteps (3 ^ a * 2 ^ m - 1) i = i := by
+  intro i
+  induction i with
+  | zero => intro a m _; simp [oddSteps]
+  | succ i ih =>
+    intro a m hm
+    obtain ⟨m', rfl⟩ : ∃ m', m = m' + 1 := ⟨m - 1, by omega⟩
+    have hM : 3 ^ a * 2 ^ (m'+1) = 2 * (3 ^ a * 2 ^ m') := by ring
+    have hpos : 1 ≤ 3 ^ a * 2 ^ m' := Nat.one_le_iff_ne_zero.mpr (by positivity)
+    have hodd : ¬ ((3 ^ a * 2 ^ (m'+1) - 1) % 2 = 0) := by rw [hM]; omega
+    rw [oddSteps, if_neg hodd, col_pred_pow, ih (a+1) m' (by omega)]
+    omega
+
+/-- The all-odd class survives every depth up to `k`: no level of the split
+    reaches it. -/
+theorem survives_pred_two_pow (k : ℕ) (hk : 1 ≤ k) : Survives k (2 ^ k - 1) := by
+  intro i hi
+  unfold Contracts
+  have h1 : oddSteps (2 ^ k - 1) i = i := by
+    have := oddSteps_all_ones_le i 0 k hi
+    simpa using this
+  rw [h1]
+  rcases Nat.eq_zero_or_pos i with hi0 | hi0
+  · subst hi0; simp
+  · have h : (2:ℕ) ^ i < 3 ^ i := Nat.pow_lt_pow_left (by norm_num) (by omega)
+    omega
+
+/-- The survivor census at small depth, by `decide`. -/
+theorem survivors_survive_mod_16 :
+    ((List.range 16).filter (fun r => decide (Survives 4 r))) = [7, 11, 15] := by decide
+
+theorem survivors_survive_mod_32 :
+    ((List.range 32).filter (fun r => decide (Survives 5 r))) = [7, 15, 27, 31] := by decide
+
+/-! ## The survivor tree never dies
+
+Every survivor class lifts to a survivor one level deeper.  The odd extension is
+the one that always works: an odd step multiplies the multiplier by three while
+the divisor only doubles, so a class that has not yet contracted cannot contract
+by taking an odd step.  Since `3 ^ j` is odd, exactly one of the two lifts of a
+class has an odd step at level `k`, and that one survives. -/
+
+theorem oddSteps_succ : ∀ (k r : ℕ),
+    oddSteps r (k+1) = oddSteps r k + (if col^[k] r % 2 = 0 then 0 else 1) := by
+  intro k
+  induction k with
+  | zero => intro r; by_cases h : r % 2 = 0 <;> simp [oddSteps, h]
+  | succ k ih =>
+    intro r
+    have e1 : oddSteps r (k+1+1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) (k+1) := by
+      rw [oddSteps]
+    have e2 : oddSteps r (k+1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) k := by
+      rw [oddSteps]
+    rw [e1, ih (col r), e2, Function.iterate_succ_apply]
+    omega
+
+theorem contracts_mod_le {i k : ℕ} (b r : ℕ) (h : i ≤ k) :
+    Contracts i (2 ^ k * b + r) ↔ Contracts i r := by
+  have hsplit : (2:ℕ) ^ k * b = 2 ^ i * (2 ^ (k - i) * b) := by
+    rw [← mul_assoc, ← pow_add]
+    congr 2
+    omega
+  rw [hsplit]
+  exact contracts_mod i _ r
+
+/-- A survivor whose next step is odd survives one level deeper. -/
+theorem survives_succ_of_odd {k r : ℕ} (h : Survives k r) (hodd : ¬ (col^[k] r % 2 = 0)) :
+    Survives (k+1) r := by
+  intro i hi
+  rcases Nat.lt_or_ge i (k+1) with hik | hik
+  · exact h i (by omega)
+  · have hik' : i = k + 1 := by omega
+    subst hik'
+    have hprev : ¬ Contracts k r := h k (le_refl k)
+    unfold Contracts at hprev ⊢
+    rw [oddSteps_succ, if_neg hodd]
+    have h3 : (2:ℕ) ^ k ≤ 3 ^ oddSteps r k := by omega
+    have hA : (2:ℕ) ^ (k+1) = 2 ^ k * 2 := pow_succ 2 k
+    have hB : (3:ℕ) ^ (oddSteps r k + 1) = 3 ^ oddSteps r k * 3 := pow_succ 3 _
+    have hC : (2:ℕ) ^ k * 2 ≤ 3 ^ oddSteps r k * 2 := Nat.mul_le_mul h3 (Nat.le_refl 2)
+    have hD : (3:ℕ) ^ oddSteps r k * 2 ≤ 3 ^ oddSteps r k * 3 :=
+      Nat.mul_le_mul (Nat.le_refl _) (by norm_num)
+    omega
+
+/-- Every survivor class at depth `k` lifts to a survivor at depth `k+1`. -/
+theorem exists_survivor_lift {k r : ℕ} (h : Survives k r) :
+    ∃ b, b < 2 ∧ Survives (k+1) (2 ^ k * b + r) := by
+  have hodd3 : (3:ℕ) ^ oddSteps r k % 2 = 1 := Nat.odd_iff.mp (Odd.pow (by decide))
+  by_cases hp : col^[k] r % 2 = 0
+  · refine ⟨1, by norm_num, ?_⟩
+    have hsurv : Survives k (2 ^ k * 1 + r) := by
+      intro i hi
+      rw [contracts_mod_le 1 r hi]
+      exact h i hi
+    refine survives_succ_of_odd hsurv ?_
+    rw [col_shift]
+    omega
+  · refine ⟨0, by norm_num, ?_⟩
+    have hsurv : Survives k (2 ^ k * 0 + r) := by
+      intro i hi
+      rw [contracts_mod_le 0 r hi]
+      exact h i hi
+    refine survives_succ_of_odd hsurv ?_
+    rw [col_shift]
+    omega
+
+/-- No depth exhausts the split: a surviving class exists at every `k`. -/
+theorem survivors_nonempty : ∀ k : ℕ, ∃ r, Survives k r := by
+  intro k
+  induction k with
+  | zero =>
+    refine ⟨1, ?_⟩
+    intro i hi
+    have hi0 : i = 0 := by omega
+    subst hi0
+    unfold Contracts
+    simp [oddSteps]
+  | succ k ih =>
+    obtain ⟨r, hr⟩ := ih
+    obtain ⟨b, _, hb⟩ := exists_survivor_lift hr
+    exact ⟨2 ^ k * b + r, hb⟩
+
+/-- A survivor with slack survives the next level whatever its next step is, so
+    both of its lifts survive.  The census reads this as a branch factor of
+    exactly two at every depth where the least admissible odd-count does not
+    advance. -/
+theorem survives_succ_of_slack {k r : ℕ} (h : Survives k r)
+    (hslack : 2 ^ (k+1) ≤ 3 ^ oddSteps r k) : Survives (k+1) r := by
+  intro i hi
+  rcases Nat.lt_or_ge i (k+1) with hik | hik
+  · exact h i (by omega)
+  · have hik' : i = k + 1 := by omega
+    subst hik'
+    unfold Contracts
+    rw [oddSteps_succ]
+    by_cases hp : col^[k] r % 2 = 0
+    · rw [if_pos hp, Nat.add_zero]; omega
+    · rw [if_neg hp]
+      have hB : (3:ℕ) ^ (oddSteps r k + 1) = 3 ^ oddSteps r k * 3 := pow_succ 3 _
+      have hD : (3:ℕ) ^ oddSteps r k * 1 ≤ 3 ^ oddSteps r k * 3 :=
+        Nat.mul_le_mul (Nat.le_refl _) (by norm_num)
+      omega
+
+theorem both_lifts_survive {k r : ℕ} (h : Survives k r)
+    (hslack : 2 ^ (k+1) ≤ 3 ^ oddSteps r k) (b : ℕ) :
+    Survives (k+1) (2 ^ k * b + r) := by
+  have hsurv : Survives k (2 ^ k * b + r) := by
+    intro i hi
+    rw [contracts_mod_le b r hi]
+    exact h i hi
+  refine survives_succ_of_slack hsurv ?_
+  rw [oddSteps_mod]
+  exact hslack
+
 end CollatzDepthSplit

@@ -21,16 +21,15 @@ SIXTEEN_3 is the carrier of generalized truth values, the power set
 P({T, F, t, f}), equipped with three orderings (information, truth,
 constructivity). A proof walk moves through registers taken from that carrier.
 The registers this particular word visits are n (ground), t (affirmative),
-f (the negative, the refuted arm), tf (the held fork, a B-state carrying both
-arms), and a (the full set {T, F, t, f}).
+f (negative), tf (the held fork, a B-state carrying both arms), and a (the full
+set {T, F, t, f}).
 
 ## IMASM verification of this word
 
 Word: ⊢≻∈≻⊤≺⊥∋⋈⊙⊞◻≺∈≻⊤∋⊣⋈◻⊙
 Verdict: T, the tri-ancestral reconnection over a transformed object, closes.
 Final register: a, the full set {T, F, t, f}.
-Phase-bearing: landings at k = 0, 2, 6, 7, 8, 11; f at 7; tf at 8, 9, 10;
-a at 11 through 21.
+Phase-bearing: landings at k = 0, 2, 6, 7, 8, 11; f at 7; tf at 8, 9, 10; a at 11..21.
 Tri-ancestral verdict: T, closes.
 
 ## How the file is laid out
@@ -47,14 +46,26 @@ really terminates in the full register.
 
 VINIT takes the object as given at the ground register. AFWD advances from the
 ground to the affirmative arm. FSPLIT3 splits into the three-valued branch and
-is stable on the carrier. EVALT evaluates the affirmative arm. AREV reverses,
-returning the affirmative to the ground and leaving the full register fixed.
-EVALF evaluates the negative arm, closing the ground into the negative register.
-FFUSE3 fuses the negative into the held fork and leaves the full register fixed.
-CLINK composes with coherence preserved. IMSCRIB is the self-referential critical
-phase. EVALI engages the paradox so the held fork fills to the full register.
-IFIX commits and is the identity on the full register. TANCH anchors the
-conclusion.
+is stable on the affirmative. AFWD advances again. EVALT evaluates the
+affirmative arm. AREV reverses, returning the affirmative to the ground. EVALF
+evaluates the negative arm, closing the ground into the negative. FFUSE3 fuses
+the negative into the held fork. CLINK composes. IMSCRIB is the self-referential
+critical phase. EVALI engages the paradox so the held fork fills to the full
+register. IFIX commits and is the identity on the full register. AREV reverses
+again, returning the full register to itself. FSPLIT3 splits again. AFWD
+advances. EVALT evaluates. FFUSE3 fuses. TANCH anchors. CLINK composes. IFIX
+fixes. IMSCRIB imscribes.
+
+## Opcode map, plain English
+
+VINIT takes the object as given at the ground register. AFWD advances from the
+ground to the affirmative register. FSPLIT3 splits into the three-valued branch.
+AFWD advances the affirmative again. EVALT evaluates the affirmative. AREV
+reverses. EVALF evaluates the negative. FFUSE3 fuses. CLINK composes. IMSCRIB
+is the critical self-referential phase. EVALI engages the paradox. IFIX commits.
+AREV reverses the full register. FSPLIT3 splits again. AFWD advances. EVALT
+evaluates. FFUSE3 fuses. TANCH anchors. CLINK composes. IFIX fixes. IMSCRIB
+imscribes.
 -/
 
 /-!
@@ -77,6 +88,9 @@ proof of Erdős #593.
 -/
 
 open scoped BigOperators
+open Finset
+open Fintype
+open Cardinal
 
 -- ============================================================
 -- PHASE 0: Domain Charter — the register carrier

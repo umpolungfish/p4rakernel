@@ -231,8 +231,8 @@ Step Glyph  12-op    16_3-op    Reg↓ →  Reg↑
  6   ⊙     IMSCRIB  IMSCRIB    T  →   T
  7   ⊥     EVALF    EVALF      T  →   TF
  8   ≺     AREV     AREV       TF →   N
- 9   ⊞     ENGAGR   EVALI      N  →   tf
-10   ∋     FFUSE    FFUSE3     tf →   A
+ 9   ∋     FFUSE    FFUSE3     tf →   A
+10   ⊞     ENGAGR   EVALI      N  →   A
 11   ◻     IFIX     IFIX       A  →   A
 12   ⋈     CLINK    CLINK      A  →   A
 13   ⊣     TANCH    TANCH      A  →   A
