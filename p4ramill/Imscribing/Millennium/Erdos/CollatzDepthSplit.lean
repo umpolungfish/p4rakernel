@@ -3113,10 +3113,23 @@ theorem suffix_contracts {n k : ℕ} (hcyc : col^[k] n = n)
     le_trans h1 h2
   exact Nat.le_of_mul_le_mul_right h3 (by omega)
 
-/-- With every suffix contracting, the banked count is at most `k · 2^k`. -/
+/-- The odd-step count never exceeds the depth. -/
+theorem oddSteps_le : ∀ (k r : ℕ), oddSteps r k ≤ k := by
+  intro k
+  induction k with
+  | zero => intro r; simp [oddSteps]
+  | succ k ih =>
+      intro r
+      have hstep : oddSteps r (k + 1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) k := rfl
+      rw [hstep]
+      have := ih (col r)
+      split_ifs <;> omega
+
+/-- With every suffix contracting, the banked count is at most `(k − j) · 2^k` — only
+    the even steps contribute a term, and there are `k − j` of them. -/
 theorem bank_le_of_suffix : ∀ (k n : ℕ),
     (∀ i, i ≤ k → 3 ^ oddSteps (col^[i] n) (k - i) ≤ 2 ^ (k - i)) →
-    bank n k ≤ k * 2 ^ k := by
+    bank n k ≤ (k - oddSteps n k) * 2 ^ k := by
   intro k
   induction k with
   | zero => intro n _; simp [bank]
@@ -3126,36 +3139,46 @@ theorem bank_le_of_suffix : ∀ (k n : ℕ),
       simp only [Function.iterate_one, Nat.add_sub_cancel] at hhead
       have htail : ∀ i, i ≤ k → 3 ^ oddSteps (col^[i] (col n)) (k - i) ≤ 2 ^ (k - i) := by
         intro i hi
+        have hcomp : col^[i + 1] n = col^[i] (col n) := by rw [Function.iterate_succ_apply]
+        have hk : k + 1 - (i + 1) = k - i := by omega
         have := h (i + 1) (by omega)
-        have hcomp : col^[i + 1] n = col^[i] (col n) := by
-          rw [Function.iterate_succ_apply]
-        rw [hcomp] at this
-        have : k + 1 - (i + 1) = k - i := by omega
-        simpa [this] using h (i + 1) (by omega) |>.trans_eq (by rw [this])
+        rw [hcomp, hk] at this
+        exact this
+      have hb := ih (col n) htail
       have hrec : bank n (k + 1)
           = 2 * bank (col n) k + (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0) := rfl
-      have hb := ih (col n) htail
-      rw [hrec]
-      have hcase : (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0) ≤ 2 ^ k := by
-        split_ifs with hp
-        · exact hhead
-        · positivity
-      calc 2 * bank (col n) k + (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0)
-          ≤ 2 * (k * 2 ^ k) + 2 ^ k := by
-            exact Nat.add_le_add (Nat.mul_le_mul_left _ hb) hcase
-        _ = k * 2 ^ (k + 1) + 2 ^ k := by ring
-        _ ≤ (k + 1) * 2 ^ (k + 1) := by
-            have : 2 ^ k ≤ 2 ^ (k + 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
-            nlinarith [this]
+      have hodd : oddSteps n (k + 1)
+          = (if n % 2 = 0 then 0 else 1) + oddSteps (col n) k := rfl
+      have hle : oddSteps (col n) k ≤ k := oddSteps_le k (col n)
+      rw [hrec, hodd]
+      rcases Nat.even_or_odd n with he | ho
+      · have h0 : n % 2 = 0 := Nat.even_iff.mp he
+        rw [if_pos h0, if_pos h0]
+        have hpow : 2 ^ k ≤ 2 ^ (k + 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
+        have hstep : 2 * bank (col n) k ≤ (k - oddSteps (col n) k) * 2 ^ (k + 1) := by
+          calc 2 * bank (col n) k ≤ 2 * ((k - oddSteps (col n) k) * 2 ^ k) :=
+                Nat.mul_le_mul_left 2 hb
+            _ = (k - oddSteps (col n) k) * 2 ^ (k + 1) := by ring
+        have hcnt : k + 1 - (0 + oddSteps (col n) k) = (k - oddSteps (col n) k) + 1 := by omega
+        rw [hcnt, add_mul, one_mul]
+        exact Nat.add_le_add hstep (le_trans hhead hpow)
+      · have h1 : n % 2 = 1 := Nat.odd_iff.mp ho
+        rw [if_neg (by omega), if_neg (by omega), Nat.add_zero]
+        have hcnt : k + 1 - (1 + oddSteps (col n) k) = k - oddSteps (col n) k := by omega
+        rw [hcnt]
+        calc 2 * bank (col n) k ≤ 2 * ((k - oddSteps (col n) k) * 2 ^ k) :=
+              Nat.mul_le_mul_left 2 hb
+          _ = (k - oddSteps (col n) k) * 2 ^ (k + 1) := by ring
 
 /-- **Item 5.**  A cycle taken at its minimum satisfies `(n+1)(2^k − 3^j) ≤ k·2^k`. -/
 theorem cycle_min_bound {n k : ℕ} (hcyc : col^[k] n = n)
     (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) :
-    ((n : ℤ) + 1) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) ≤ (k : ℤ) * (2 : ℤ) ^ k := by
+    ((n : ℤ) + 1) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k)
+      ≤ ((k - oddSteps n k : ℕ) : ℤ) * (2 : ℤ) ^ k := by
   have heq := cycle_banked hcyc
-  have hb : bank n k ≤ k * 2 ^ k :=
+  have hb : bank n k ≤ (k - oddSteps n k) * 2 ^ k :=
     bank_le_of_suffix k n (fun i hi => suffix_contracts hcyc hmin hi)
-  have : (bank n k : ℤ) ≤ (k : ℤ) * (2 : ℤ) ^ k := by exact_mod_cast hb
+  have : (bank n k : ℤ) ≤ ((k - oddSteps n k : ℕ) : ℤ) * (2 : ℤ) ^ k := by exact_mod_cast hb
   linarith [heq, this]
 
 /-! ### Items 1 and 2: the converse to `no_member_descends`, with its threshold
@@ -3263,7 +3286,8 @@ theorem cycle_margin_pos {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n) :
 
 /-- **Item 7, unconditionally.**  The minimum of a `k`-cycle is at most `k · 2^k`. -/
 theorem cycle_min_le {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
-    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) : ((n : ℤ) + 1) ≤ (k : ℤ) * (2 : ℤ) ^ k := by
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) :
+    ((n : ℤ) + 1) ≤ ((k - oddSteps n k : ℕ) : ℤ) * (2 : ℤ) ^ k := by
   have hmar : (3 : ℤ) ^ oddSteps n k < (2 : ℤ) ^ k := cycle_margin_pos hk hcyc
   have h1 : (1 : ℤ) ≤ (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k := by omega
   have hbound := cycle_min_bound hcyc hmin
@@ -3332,7 +3356,7 @@ unconditional. -/
 theorem cycle_ratio_tight {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
     (hmin : ∀ i, i ≤ k → n ≤ col^[i] n)
     (h3 : (3 : ℤ) ^ (oddSteps n k + 1) ≤ (2 : ℤ) ^ k) :
-    2 * ((n : ℤ) + 1) ≤ 3 * (k : ℤ) := by
+    2 * ((n : ℤ) + 1) ≤ 3 * ((k - oddSteps n k : ℕ) : ℤ) := by
   have hbound := cycle_min_bound hcyc hmin
   have hpow : (0 : ℤ) < (2 : ℤ) ^ k := by positivity
   have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
