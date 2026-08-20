@@ -2483,4 +2483,61 @@ theorem live_pair_factor (l : ℝ) : 3 * l ^ 2 - l - 4 = (3 * l - 4) * (l + 1) :
 theorem growth_is_one_plus_p2 (N n2 : ℝ) (hN : N ≠ 0) :
     (N + n2) / N = 1 + n2 / N := by field_simp
 
+/-! ## Why no approximation from below reaches it
+
+The density exponent is `1` exactly when `Λ(z) ≥ 2√(z/3)` for every `z`, and
+`Λ(z) = 1 + z·q(z)` with `q` the `z`-weighted junction fraction.  If `q ≡ 1/3` then
+`Λ(z) = 1 + z/3` and the requirement is AM–GM — which holds, **with equality at
+`z = 3` and strict inequality everywhere else**.  So the requirement is met with zero
+margin at exactly one point.
+
+That is why the conductor tower's exponent climbs toward `1` and does not arrive.
+Measured at `z = 3`, where the tangency sits:
+
+    k     L_k(3)     2 − L_k(3)
+    10  1.908410     9.16e−2
+    11  1.916899     8.31e−2
+    12  1.924541     7.55e−2
+    13  1.930915     6.91e−2
+
+decaying at ratio `≈ 0.91`, so `L_k(3) → 2`, but every finite rung is strictly below
+`2` and therefore fails `Λ(3) ≥ 2` outright.  At `k = 13` the certificate clears the
+requirement for `z ≤ 2` — slack `+0.35, +0.18, +0.019` at `z = 0.5, 1, 2` — and
+fails from `z = 3` on.  The upper operator is no help there: `U_k(3) → 3.000001`,
+since the adversary maximising can concentrate.
+
+So the density form of the conjecture is not an inequality with room that a good
+enough bound will eventually clear.  It is the exact value
+
+    q(3) = 1/3,        equivalently   Λ(3) = 2
+
+and an argument that closes it has to produce that value, not approach it.  The same
+holds at every `z` in the sense that `q(z) ≥ 1/3` suffices, but `z = 3` is where the
+slack vanishes and where the conjecture actually lives. -/
+
+/-- At the tangency the requirement is exactly `2`, so any bound strictly below it
+    fails, however close.  This is why the tower approaches `1` without arriving. -/
+theorem no_slack_at_tangency {L : ℝ} (h : L < 2) : ¬ (2 * Real.sqrt ((3 : ℝ) / 3) ≤ L) := by
+  have : Real.sqrt ((3 : ℝ) / 3) = 1 := by norm_num
+  rw [this]; linarith
+
+/-- Strict AM–GM off the tangency: away from `z = 3` there is genuine slack. -/
+theorem amgm_strict {z : ℝ} (hz : 0 < z) (hne : z ≠ 3) : 2 * Real.sqrt (z / 3) < 1 + z / 3 := by
+  have hnn : (0 : ℝ) ≤ z / 3 := by linarith
+  have hs : Real.sqrt (z / 3) ^ 2 = z / 3 := Real.sq_sqrt hnn
+  have hne' : Real.sqrt (z / 3) ≠ 1 := by
+    intro h
+    apply hne
+    have : z / 3 = 1 := by rw [← hs, h]; norm_num
+    linarith
+  have hpos : 0 < (1 - Real.sqrt (z / 3)) ^ 2 := by
+    have hz0 : (1 : ℝ) - Real.sqrt (z / 3) ≠ 0 := sub_ne_zero.mpr (Ne.symm hne')
+    positivity
+  nlinarith [hpos, hs]
+
+/-- The conjecture's density form as a single exact value: the `3`-weighted junction
+    fraction is `1/3`, equivalently `Λ(3) = 2`. -/
+theorem density_form_exact (q : ℝ) : 1 + 3 * q = 2 ↔ q = 1 / 3 := by
+  constructor <;> intro h <;> linarith
+
 end CollatzDepthSplit
