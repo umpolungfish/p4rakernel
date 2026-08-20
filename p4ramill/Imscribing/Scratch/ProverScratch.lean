@@ -1,3 +1,5 @@
+import Imscribing.IGFunctor
+import Imscribing.Paraconsistent.BelnapSplitFuse
 set_option linter.style.setOption false
 set_option linter.style.whitespace false
 set_option linter.style.commandStart false
@@ -18,4 +20,9 @@ set_option linter.style.missingEnd false
 set_option linter.style.openClassical false
 set_option linter.style.nativeDecide false
 set_option linter.style.admit false
-[LLM empty: empty content, 24040 chars of reasoning (finish_reason=length) — the budget went to reasoning; pass --max-tokens 0 to uncap]
+open Belnap
+-- the closure carries a transformation: B splits to DISTINCT arms (T,F)
+-- and fuses back (μ∘δ=id). Not a diagonal identity copy.
+theorem imasm_genuine_closure :
+    (fsplit Belnap.B).1 ≠ (fsplit Belnap.B).2 ∧ ffuse (fsplit Belnap.B) = Belnap.B := by
+  exact ⟨by decide, split_fuse_id _⟩
