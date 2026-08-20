@@ -1616,4 +1616,135 @@ theorem levels_equidistribute {N : ℕ} [NeZero N] (lvl : ℕ → Finset ℕ)
     (fun d => ((lvl d).card : ℝ)) (fun d => Nat.cast_pos.mpr (hne d))
     (fun d => by rw [census_mass]; norm_num) ε hε0 hsmall hε x
 
+/-! ## The level operator, entry by entry
+
+The one link in the chain still resting on a numerical check was the first: that
+the operator being normed is the true level map, "verified to five decimals at
+conductors 3 and 9".  It is an exact algebraic identity and it is proved here.
+
+Write `ζ` for a `3^(r+1)`-th root of unity and `ω = ζ^(3^r)`, a cube root.  The
+unnormalised coefficient of a level `L` at index `k` is `coeff ζ L k = ∑ ζ^(k v)`.
+One level of the tree is `predStep`, whose two arms are `m ↦ 2m` on all of `L` and
+`m ↦ 2(m/3)+1` on the part at `2 (mod 3)`.
+
+The doubling arm is a relabelling: `ζ^(3j·2m) = ζ^(6j·m)`, so it contributes the
+coefficient at `2j` and moves nothing between conductors.
+
+The odd arm needs the parent's class.  With `m % 3 = 2` and `n = 2(m/3)+1` the
+exact relation is `3n + 1 = 2m` — no subtraction and no division — so
+`ζ^j · ζ^(3j·n) = ζ^(2j·m)`, which is the phase `e(−j/3^(r+1))` of the informal
+statement, cleared of its inverse.  Restricting to `m % 3 = 2` is the cube-root
+indicator, and there the informal `ω^(−2s)` is simply `ω^s`, since `ω³ = 1` gives
+`ω^(−2) = ω`.  One inverse and one negative exponent disappear from the formula.
+
+Composing, `ζ^(s(m+1)) · ζ^(2j m) = ζ^((2j + s·3^r) m)` lifts the index one
+conductor, which is the whole of the block-triangular structure: the odd arm is
+fed by `r+1` and by nothing below.
+
+The identity, with every entry explicit and nothing measured:
+
+    ζ^j · coeff ζ (predStep L) (3j)
+      = ζ^j · coeff ζ L (6j) + (1/3) ∑_{s<3} ω^s · coeff ζ L (2j + s·3^r)
+-/
+
+/-- The unnormalised Fourier coefficient of a level at the character of index `k`. -/
+noncomputable def coeff (ζ : ℂ) (L : Finset ℕ) (k : ℕ) : ℂ := ∑ v ∈ L, ζ ^ (k * v)
+
+/-- The cube-root indicator of the junction class.  This is where `ω^(−2s)`
+    becomes `ω^s`: `ω³ = 1` makes the two the same weight. -/
+theorem cube_indicator {ω : ℂ} (h3 : ω ^ 3 = 1) (h1 : ω ≠ 1) (m : ℕ) :
+    (∑ s ∈ Finset.range 3, ω ^ (s * (m + 1))) = if m % 3 = 2 then 3 else 0 := by
+  have hsum : 1 + ω + ω ^ 2 = 0 := by
+    have : (ω - 1) * (1 + ω + ω ^ 2) = 0 := by linear_combination h3
+    rcases mul_eq_zero.mp this with h | h
+    · exact absurd (sub_eq_zero.mp h) h1
+    · exact h
+  have hpow : ∀ s : ℕ, ω ^ (s * (m + 1)) = (ω ^ (m + 1)) ^ s := by
+    intro s; rw [← pow_mul, Nat.mul_comm]
+  simp only [hpow, Finset.sum_range_succ, Finset.sum_range_zero, pow_zero, pow_one, zero_add]
+  -- `ω^(m+1)` is `1` exactly when `3 ∣ m+1`, i.e. when `m % 3 = 2`
+  have hcyc : ω ^ (m + 1) = ω ^ ((m + 1) % 3) := by
+    conv_lhs => rw [← Nat.div_add_mod (m + 1) 3]
+    rw [pow_add, pow_mul, h3, one_pow, one_mul]
+  rcases (by omega : m % 3 = 0 ∨ m % 3 = 1 ∨ m % 3 = 2) with hm | hm | hm
+  · -- `ω^(m+1) = ω`, and `1 + ω + ω² = 0`
+    rw [hcyc, (by omega : (m + 1) % 3 = 1), if_neg (by omega : ¬ m % 3 = 2), pow_one]
+    linear_combination hsum
+  · -- `ω^(m+1) = ω²`, and `1 + ω² + ω⁴ = (1 + ω + ω²) + ω(ω³ − 1)`
+    rw [hcyc, (by omega : (m + 1) % 3 = 2), if_neg (by omega : ¬ m % 3 = 2)]
+    linear_combination hsum + ω * h3
+  · -- `ω^(m+1) = 1`, and the three terms are three ones
+    rw [hcyc, (by omega : (m + 1) % 3 = 0), if_pos hm, pow_zero]
+    norm_num
+
+/-- The odd arm's phase, without inverses: `3n + 1 = 2m` exactly, for `m` a
+    junction and `n` its odd predecessor. -/
+theorem odd_arm_exponent {m : ℕ} (h : m % 3 = 2) : 3 * (2 * (m / 3) + 1) + 1 = 2 * m := by
+  omega
+
+/-- The coefficient of a level, split along the two arms of `predStep`. -/
+theorem coeff_predStep (ζ : ℂ) (L : Finset ℕ) (k : ℕ) :
+    coeff ζ (predStep L) k
+      = (∑ m ∈ L, ζ ^ (k * (2 * m)))
+        + ∑ m ∈ L.filter (fun m => m % 3 = 2), ζ ^ (k * (2 * (m / 3) + 1)) := by
+  unfold coeff predStep
+  rw [Finset.sum_union, Finset.sum_image, Finset.sum_image]
+  · intro a ha b hb hab
+    obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+    obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+    simp only at hab
+    omega
+  · intro a _ b _ hab; simp only at hab; omega
+  · rw [Finset.disjoint_left]
+    rintro x hx hy
+    obtain ⟨m, _, rfl⟩ := Finset.mem_image.mp hx
+    obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
+    omega
+
+/-- **The level operator, exactly.**  Every entry of the map on coefficients, with
+    no approximation anywhere: the doubling arm relabels the index as `2j` at the
+    same conductor, and the odd arm carries the phase `ζ^(−j)` and the three lifts
+    one conductor above, weighted by the cube roots. -/
+theorem level_operator (ζ ω : ℂ) (r j : ℕ) (L : Finset ℕ)
+    (hω : ζ ^ 3 ^ r = ω) (h3 : ω ^ 3 = 1) (h1 : ω ≠ 1) :
+    ζ ^ j * coeff ζ (predStep L) (3 * j)
+      = ζ ^ j * coeff ζ L (6 * j)
+        + (3 : ℂ)⁻¹ * ∑ s ∈ Finset.range 3, ω ^ s * coeff ζ L (2 * j + s * 3 ^ r) := by
+  rw [coeff_predStep, mul_add]
+  congr 1
+  · -- the doubling arm is a relabelling and nothing else
+    unfold coeff
+    rw [Finset.mul_sum, Finset.mul_sum]
+    exact Finset.sum_congr rfl (fun m _ => by ring_nf)
+  · -- the odd arm: phase, then indicator, then the lift of the index
+    have harm : ζ ^ j * ∑ m ∈ L.filter (fun m => m % 3 = 2), ζ ^ (3 * j * (2 * (m / 3) + 1))
+        = ∑ m ∈ L.filter (fun m => m % 3 = 2), ζ ^ (2 * j * m) := by
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl (fun m hm => ?_)
+      obtain ⟨_, hm3⟩ := Finset.mem_filter.mp hm
+      rw [← pow_add]
+      congr 1
+      have := odd_arm_exponent hm3
+      nlinarith [this]
+    rw [harm]
+    -- the filter is the cube-root indicator
+    have hind : ∑ m ∈ L.filter (fun m => m % 3 = 2), ζ ^ (2 * j * m)
+        = (3 : ℂ)⁻¹ * ∑ m ∈ L, (∑ s ∈ Finset.range 3, ω ^ (s * (m + 1))) * ζ ^ (2 * j * m) := by
+      rw [Finset.mul_sum, Finset.sum_filter]
+      refine Finset.sum_congr rfl (fun m _ => ?_)
+      rw [cube_indicator h3 h1 m]
+      by_cases hm : m % 3 = 2 <;> simp [hm] <;> ring
+    rw [hind]
+    -- and each cube root lifts the index one conductor
+    congr 1
+    simp only [Finset.sum_mul]
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl (fun s _ => ?_)
+    unfold coeff
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun m _ => ?_)
+    rw [← hω, ← pow_mul, ← pow_add]
+    congr 1
+    ring
+
 end CollatzDepthSplit
