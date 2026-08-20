@@ -2034,13 +2034,31 @@ theorem predStep_parity_partition (L : Finset ℕ) :
   rw [← Finset.filter_or]
   exact Finset.filter_true_of_mem (fun x _ => by omega)
 
-/-- The contraction condition at fixed conductor: with the feed read as the odd part
-    of the next level, `Q(d+1) ≤ ρ²/(1 − ρ²κ) Q(d)`, which contracts exactly when
-    `κ < 1/ρ² − 1`.  At `ρ = 3/4` that threshold is `7/9`, and the measured worst
-    case at conductor 81 is `0.4435`. -/
+/-- The contraction condition at fixed conductor.  With `Q_odd ≤ κ Q(d+1)` and the
+    cross term non-positive, `level_energy_recursion` gives
+    `Q(d+1) ≤ ρ²Q(d)/(1 − κ)`, so the level contracts exactly when `κ < 1 − ρ²`.
+
+    The earlier statement of this threshold as `1/ρ² − 1 = 7/9` was wrong: that is
+    the threshold for the feed normalised by the *previous* level's count, while `κ`
+    is normalised by the new level's.  At `ρ = 3/4` the correct threshold is `7/16`,
+    and under the growth rate actually proved, `ρ ≤ 5/6`, it is `11/36`.
+
+    Measured at conductor 81 over twenty-four levels, `κ` has geometric mean
+    `0.2855`, inside `11/36` and so inside `7/16`.  Since the bound composes
+    multiplicatively, the geometric mean is the operative average — a single level
+    above the threshold does not break the composition, the same correction the
+    junction fraction needed. -/
 theorem fixed_conductor_threshold :
-    (1 : ℝ) / (3 / 4) ^ 2 - 1 = 7 / 9 ∧ (0.4435 : ℝ) < 7 / 9 := by
-  constructor <;> norm_num
+    (1 : ℝ) - (3 / 4) ^ 2 = 7 / 16 ∧ (1 : ℝ) - (5 / 6) ^ 2 = 11 / 36
+      ∧ (0.2855 : ℝ) < 11 / 36 := by
+  refine ⟨by norm_num, by norm_num, by norm_num⟩
+
+/-- The rate itself, from the recursion: `ρ²/(1 − κ) < 1` exactly when `κ < 1 − ρ²`. -/
+theorem contraction_rate {ρ κ : ℝ} (hρ : 0 ≤ ρ) (hκ : κ < 1) :
+    ρ ^ 2 / (1 - κ) < 1 ↔ κ < 1 - ρ ^ 2 := by
+  rw [div_lt_one (by linarith)]
+  constructor <;> intro h <;> linarith
+
 
 /-! ## The even part carries the previous level's energy, exactly
 
