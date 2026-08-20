@@ -668,4 +668,54 @@ theorem starved_junction (k : ℕ) :
     (9 * k + 5) % 3 = 2 ∧ col (6 * k + 3) = 9 * k + 5 ∧ (6 * k + 3) % 3 = 0 :=
   ⟨by omega, col_starved_arm k, by omega⟩
 
+/-! ## The amplitude, and the equation that fixes the map
+
+Counting predecessors under a value to depth `d` gives a number growing like
+`(4/3)^d`, so what separates one arm from another is the constant in front of it.
+Measured, that amplitude converges: under 40 it settles near `5.53`, under 80
+near `7.364`, under 53 near `6.656`, with the per-level ratio pinned at `4/3`.
+
+The counts obey an exact recursion, and the amplitude is its limit:
+
+    S(v, d+1) = 1 + S(2v, d) + (if v ≡ 2 (mod 3) then S((2v-1)/3, d) else 0)
+    A(v)      = (3/4) * ( A(2v) + [v ≡ 2 (mod 3)] * A((2v-1)/3) )
+
+Both halves check against the verb. For `v = 40`, which is `1 (mod 3)` and so
+carries only the doubling arm, `(3/4)·A(80) = 7.3667·0.75 = 5.525` against `5.525`
+measured. For `v = 80`, which branches, `(4/3)·A(80) − A(160) = 6.6656` predicts
+`A(53)`, measured `6.656`. So the odd share at a junction is a ratio of
+amplitudes, `A((2v-1)/3) / (A(2v) + A((2v-1)/3))`, and the 3-adic map of the
+share is the map of `A`. -/
+
+/-- Predecessors under `v` to depth `d`, counted. -/
+def subtreeCount : ℕ → ℕ → ℕ
+  | _, 0     => 1
+  | v, (d+1) => 1 + subtreeCount (2 * v) d
+                  + (if v % 3 = 2 then subtreeCount (2 * (v / 3) + 1) d else 0)
+
+/-- The recursion, holding by construction: the count under a value is the value
+    itself, the count under its doubling, and the count under its odd arm where
+    the residue provides one. -/
+theorem subtreeCount_succ (v d : ℕ) :
+    subtreeCount v (d + 1)
+      = 1 + subtreeCount (2 * v) d
+          + (if v % 3 = 2 then subtreeCount (2 * (v / 3) + 1) d else 0) := rfl
+
+/-- Off `2 (mod 3)` the recursion has one term: the arm is the doubling alone. -/
+theorem subtreeCount_barren {v : ℕ} (h : ¬ v % 3 = 2) (d : ℕ) :
+    subtreeCount v (d + 1) = 1 + subtreeCount (2 * v) d := by
+  rw [subtreeCount_succ, if_neg h, Nat.add_zero]
+
+/-- A value divisible by three keeps its whole doubling chain barren, so its
+    count is the chain itself: `d + 1` and nothing more. -/
+theorem subtreeCount_of_three_dvd {v : ℕ} (h : v % 3 = 0) (d : ℕ) :
+    subtreeCount v d = d + 1 := by
+  induction d generalizing v with
+  | zero => rfl
+  | succ d ih =>
+    have h2 : ¬ v % 3 = 2 := by omega
+    have h3 : (2 * v) % 3 = 0 := by omega
+    rw [subtreeCount_barren h2, ih h3]
+    omega
+
 end CollatzDepthSplit
