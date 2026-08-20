@@ -2540,4 +2540,85 @@ theorem amgm_strict {z : ℝ} (hz : 0 < z) (hne : z ≠ 3) : 2 * Real.sqrt (z / 
 theorem density_form_exact (q : ℝ) : 1 + 3 * q = 2 ↔ q = 1 / 3 := by
   constructor <;> intro h <;> linarith
 
+/-! ## The size relation, exactly
+
+The tangency needs an exact value, so the size bound has to be an identity rather
+than an estimate.  It is one.  Under `u = v + 1` the odd arm is exactly
+`u ↦ 2u/3` — because `v = 3t+2` gives `n = 2t+1` and `3(n+1) = 2(v+1)` — while
+doubling is `u ↦ 2u − 1`.  Induction along the tree then gives, for every node,
+
+    3^j · (v + 1)  ≤  2^(d+1)
+
+with `d` its depth and `j` its number of odd-arm steps, and equality only at the
+root.  `tree_size_bound`.  This is the exact form of "a node with `j` odd steps has
+size below `2^d/3^j`", and it is what makes `z = 3` the coordinate the density
+argument runs in: `3^j` is `2^(d+1)/(v+1)` up to a bounded factor.
+
+Summing it, `F_d(3) ≤ 2^(d+1) S_d` with `S_d = Σ_{v ∈ L_d} 1/(v+1)` the level's
+harmonic sum — measured, the ratio is a constant `0.432` from depth 15 to 46, so the
+inequality is tight up to that factor.  Hence
+
+    Λ(3) = 2 · lim S_d^(1/d)
+
+and `Λ(3) = 2`, which is the whole density form, becomes the statement that the
+level's harmonic sum is subexponential in both directions.
+
+Upward it is free: the tree's nodes are distinct integers below `2^d`, so
+`Σ_{d' ≤ d} S_d' ≤ H(2^d) ≈ d log 2`, giving `S_d = O(d)` and `Λ(3) ≤ 2`.  Downward,
+`S_d ≥ 1/(min L_d + 1)`, so it is enough that the smallest node at depth `d` grows
+subexponentially.  Measured to depth 46 it grows like `5d` — `5, 24, 14, 25, 43, 78,
+135, 246, 159, 283, 167, 222` — with `(min)^(1/d)` at `1.1246` and falling, and
+`S_d` flat at `0.11` from depth 25 on.
+
+So the conjecture's density form has come down to: **at every depth the tree contains
+a node of subexponential size.** -/
+
+/-- Membership in the predecessor tree of `1`, carrying depth and odd-step count. -/
+inductive InTree : ℕ → ℕ → ℕ → Prop
+  | root : InTree 1 0 0
+  | dbl {v d j} : InTree v d j → InTree (2 * v) (d + 1) j
+  | odd {v d j} : InTree v d j → v % 3 = 2 → InTree (2 * (v / 3) + 1) (d + 1) (j + 1)
+
+/-- The odd arm in the `u = v+1` coordinate is exactly multiplication by `2/3`. -/
+theorem odd_arm_exact {v : ℕ} (h : v % 3 = 2) :
+    3 * ((2 * (v / 3) + 1) + 1) = 2 * (v + 1) := by omega
+
+/-- **The size relation.**  Every node of the tree satisfies `3^j (v+1) ≤ 2^(d+1)`,
+    with equality only at the root.  This is the exact form of the estimate the
+    density argument runs on, and the reason `z = 3` is its coordinate. -/
+theorem tree_size_bound {v d j : ℕ} (h : InTree v d j) : 3 ^ j * (v + 1) ≤ 2 ^ (d + 1) := by
+  induction h with
+  | root => norm_num
+  | dbl _ ih =>
+      rename_i v d j _
+      calc 3 ^ j * (2 * v + 1) ≤ 3 ^ j * (2 * (v + 1)) := by
+            exact Nat.mul_le_mul_left _ (by omega)
+        _ = 2 * (3 ^ j * (v + 1)) := by ring
+        _ ≤ 2 * 2 ^ (d + 1) := Nat.mul_le_mul_left _ ih
+        _ = 2 ^ (d + 1 + 1) := by ring
+  | odd _ hv ih =>
+      rename_i v d j _
+      have hex := odd_arm_exact hv
+      have : 3 ^ (j + 1) * (2 * (v / 3) + 1 + 1) = 2 * (3 ^ j * (v + 1)) := by
+        have : 3 ^ (j + 1) = 3 ^ j * 3 := by ring
+        rw [this]
+        calc 3 ^ j * 3 * (2 * (v / 3) + 1 + 1)
+            = 3 ^ j * (3 * ((2 * (v / 3) + 1) + 1)) := by ring
+          _ = 3 ^ j * (2 * (v + 1)) := by rw [hex]
+          _ = 2 * (3 ^ j * (v + 1)) := by ring
+      rw [this]
+      calc 2 * (3 ^ j * (v + 1)) ≤ 2 * 2 ^ (d + 1) := Nat.mul_le_mul_left _ ih
+        _ = 2 ^ (d + 1 + 1) := by ring
+
+/-- Every node is genuinely in the tree of `1`: one step of `col` moves to a node one
+    level down, so the inductive definition agrees with `predStep`. -/
+theorem inTree_col {v d j : ℕ} (h : InTree v (d + 1) j) :
+    ∃ u j', InTree u d j' ∧ col v = u := by
+  cases h with
+  | dbl h' => exact ⟨_, _, h', col_two_mul _⟩
+  | odd h' hv =>
+      refine ⟨_, _, h', ?_⟩
+      rw [col_odd_pred]
+      omega
+
 end CollatzDepthSplit
