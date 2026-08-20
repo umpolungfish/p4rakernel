@@ -57,9 +57,14 @@ N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_4
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_5
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_6
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_7
+N  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_6
+N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_2
+N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_3
+N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_4
 N  clean    CollatzDepthSplit.even_child_mod_nine
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.feed_extremal_triple
+N  clean    CollatzDepthSplit.fixed_conductor_threshold
 N  clean    CollatzDepthSplit.inv_two_mod_nine
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.junction_class_cycle
@@ -80,6 +85,11 @@ N  clean    CollatzDepthSplit.not_contracts_pred_two_pow
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_1
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_2
 N  clean    CollatzDepthSplit.not_survives_succ_of_even_step
+N  clean    CollatzDepthSplit.oddImage.eq_1
+N  clean    CollatzDepthSplit.oddImage_eq_odd_part._proof_1_7
+N  clean    CollatzDepthSplit.oddImage_eq_odd_part._simp_1_3
+N  clean    CollatzDepthSplit.oddImage_eq_odd_part._simp_1_4
+N  clean    CollatzDepthSplit.oddImage_eq_odd_part._simp_1_5
 N  clean    CollatzDepthSplit.oddSource_feeds
 N  clean    CollatzDepthSplit.oddSource_is_junction
 N  clean    CollatzDepthSplit.oddSteps.eq_1
@@ -98,6 +108,8 @@ N  clean    CollatzDepthSplit.odd_map_inj_mod
 N  clean    CollatzDepthSplit.odd_source_mod_nine
 N  clean    CollatzDepthSplit.odd_step_lands_on_junction
 N  clean    CollatzDepthSplit.pow_mul_le_iterate._proof_1_6
+N  clean    CollatzDepthSplit.predStep.eq_1
+N  clean    CollatzDepthSplit.predStep_parity_partition
 N  clean    CollatzDepthSplit.preds_of_barren._proof_1_1
 N  clean    CollatzDepthSplit.preds_of_mod_three
 N  clean    CollatzDepthSplit.starved_junction
@@ -175,6 +187,8 @@ T  clean    CollatzDepthSplit.col_two_mul._proof_1_2
 T  clean    CollatzDepthSplit.contracts_mod_le
 T  clean    CollatzDepthSplit.contracts_mod_le._proof_1_1
 T  clean    CollatzDepthSplit.contracts_succ_of_even_step
+T  clean    CollatzDepthSplit.evenImage_eq_even_part
+T  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_5
 T  clean    CollatzDepthSplit.exists_survivor_lift
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
 T  clean    CollatzDepthSplit.junction_class_no_fixpoint
@@ -184,6 +198,7 @@ T  clean    CollatzDepthSplit.junctions_ge_class_one
 T  clean    CollatzDepthSplit.junctions_ge_class_one._proof_1_2
 T  clean    CollatzDepthSplit.mem_predStep_col
 T  clean    CollatzDepthSplit.mem_predStep_col._proof_1_1
+T  clean    CollatzDepthSplit.oddImage_eq_odd_part
 T  clean    CollatzDepthSplit.oddSteps.eq_def
 T  clean    CollatzDepthSplit.oddSteps_all_ones._proof_1_5
 T  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_4
@@ -195,6 +210,7 @@ T  clean    CollatzDepthSplit.odd_pred_iff._proof_1_1
 T  clean    CollatzDepthSplit.odd_pred_iff._proof_1_2
 T  clean    CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1
 T  clean    CollatzDepthSplit.pow_mul_le_iterate._proof_1_4
+T  clean    CollatzDepthSplit.predStep_parity_partition._proof_1_1
 T  clean    CollatzDepthSplit.preds_of_barren
 T  clean    CollatzDepthSplit.preimage_cases
 T  clean    CollatzDepthSplit.preimage_cases._proof_1_1
