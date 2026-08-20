@@ -3073,4 +3073,89 @@ theorem reaches_one_of_banked
   obtain ⟨k, hk⟩ := H n hn
   exact ⟨k, (descends_iff_banked n k).mpr hk⟩
 
+/-! ### Item 5: the sharp bound on `bank` for a cycle
+
+`bank n k` is a sum of `3^(o_i) 2^i` over the even positions, with `o_i` the odd steps
+remaining.  Each term is at most `2^k` exactly when the suffix from `i` contracts, and
+for a cycle taken at its minimum every suffix does — which `iterate_banked` supplies
+at the suffix rather than at the whole.  From position `i`,
+
+    2^(k−i) (col^[k] n + 1) = 3^(o_i) (col^[i] n + 1) + bank(col^[i] n, k−i)
+
+so with `col^[k] n = n` and `col^[i] n ≥ n` the left side is `2^(k−i)(n+1)` and the
+right is at least `3^(o_i)(n+1)`, giving `3^(o_i) ≤ 2^(k−i)`.  `suffix_contracts`.
+
+Feeding that into the recursion for `bank` gives `bank n k ≤ k · 2^k`
+(`bank_le_of_suffix`), and with `cycle_banked` that is item 5:
+
+    (n + 1) · (2^k − 3^j)  ≤  k · 2^k
+
+`cycle_min_bound`.  A cycle can hold a large number only when `2^k − 3^j` is small
+against `2^k`, and now with an explicit constant rather than an excursion. -/
+
+/-- For a cycle taken at its minimum, every suffix contracts. -/
+theorem suffix_contracts {n k : ℕ} (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) {i : ℕ} (hi : i ≤ k) :
+    3 ^ oddSteps (col^[i] n) (k - i) ≤ 2 ^ (k - i) := by
+  have hsuf : col^[k - i] (col^[i] n) = col^[k] n := by
+    rw [← Function.iterate_add_apply]
+    congr 1
+    omega
+  have hid := iterate_banked (k - i) (col^[i] n)
+  rw [hsuf, hcyc] at hid
+  have hge : n ≤ col^[i] n := hmin i hi
+  have h1 : 3 ^ oddSteps (col^[i] n) (k - i) * (n + 1)
+      ≤ 3 ^ oddSteps (col^[i] n) (k - i) * (col^[i] n + 1) :=
+    Nat.mul_le_mul_left _ (by omega)
+  have h2 : 3 ^ oddSteps (col^[i] n) (k - i) * (col^[i] n + 1) ≤ 2 ^ (k - i) * (n + 1) := by
+    omega
+  have h3 : 3 ^ oddSteps (col^[i] n) (k - i) * (n + 1) ≤ 2 ^ (k - i) * (n + 1) :=
+    le_trans h1 h2
+  exact Nat.le_of_mul_le_mul_right h3 (by omega)
+
+/-- With every suffix contracting, the banked count is at most `k · 2^k`. -/
+theorem bank_le_of_suffix : ∀ (k n : ℕ),
+    (∀ i, i ≤ k → 3 ^ oddSteps (col^[i] n) (k - i) ≤ 2 ^ (k - i)) →
+    bank n k ≤ k * 2 ^ k := by
+  intro k
+  induction k with
+  | zero => intro n _; simp [bank]
+  | succ k ih =>
+      intro n h
+      have hhead : 3 ^ oddSteps (col^[1] n) (k + 1 - 1) ≤ 2 ^ (k + 1 - 1) := h 1 (by omega)
+      simp only [Function.iterate_one, Nat.add_sub_cancel] at hhead
+      have htail : ∀ i, i ≤ k → 3 ^ oddSteps (col^[i] (col n)) (k - i) ≤ 2 ^ (k - i) := by
+        intro i hi
+        have := h (i + 1) (by omega)
+        have hcomp : col^[i + 1] n = col^[i] (col n) := by
+          rw [Function.iterate_succ_apply]
+        rw [hcomp] at this
+        have : k + 1 - (i + 1) = k - i := by omega
+        simpa [this] using h (i + 1) (by omega) |>.trans_eq (by rw [this])
+      have hrec : bank n (k + 1)
+          = 2 * bank (col n) k + (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0) := rfl
+      have hb := ih (col n) htail
+      rw [hrec]
+      have hcase : (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0) ≤ 2 ^ k := by
+        split_ifs with hp
+        · exact hhead
+        · positivity
+      calc 2 * bank (col n) k + (if n % 2 = 0 then 3 ^ oddSteps (col n) k else 0)
+          ≤ 2 * (k * 2 ^ k) + 2 ^ k := by
+            exact Nat.add_le_add (Nat.mul_le_mul_left _ hb) hcase
+        _ = k * 2 ^ (k + 1) + 2 ^ k := by ring
+        _ ≤ (k + 1) * 2 ^ (k + 1) := by
+            have : 2 ^ k ≤ 2 ^ (k + 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
+            nlinarith [this]
+
+/-- **Item 5.**  A cycle taken at its minimum satisfies `(n+1)(2^k − 3^j) ≤ k·2^k`. -/
+theorem cycle_min_bound {n k : ℕ} (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) :
+    ((n : ℤ) + 1) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) ≤ (k : ℤ) * (2 : ℤ) ^ k := by
+  have heq := cycle_banked hcyc
+  have hb : bank n k ≤ k * 2 ^ k :=
+    bank_le_of_suffix k n (fun i hi => suffix_contracts hcyc hmin hi)
+  have : (bank n k : ℤ) ≤ (k : ℤ) * (2 : ℤ) ^ k := by exact_mod_cast hb
+  linarith [heq, this]
+
 end CollatzDepthSplit
