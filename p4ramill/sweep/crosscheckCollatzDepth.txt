@@ -1,5 +1,6 @@
 N  clean    CollatzDepthSplit.arm_collide_iff
 N  clean    CollatzDepthSplit.arm_inj_mod
+N  clean    CollatzDepthSplit.autocorr_sum_zero
 N  clean    CollatzDepthSplit.both_lifts_survive
 N  clean    CollatzDepthSplit.card_predStep._proof_1_3
 N  clean    CollatzDepthSplit.chain_block
@@ -39,6 +40,8 @@ N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_inj_mod
 N  clean    CollatzDepthSplit.double_involution
 N  clean    CollatzDepthSplit.double_swaps_classes
+N  clean    CollatzDepthSplit.doubling_involutive_only_at_three
+N  clean    CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
@@ -87,6 +90,9 @@ N  clean    CollatzDepthSplit.survivors_mod_32
 N  clean    CollatzDepthSplit.survivors_survive_mod_16
 N  clean    CollatzDepthSplit.survivors_survive_mod_32
 N  clean    CollatzDepthSplit.two_coprime_three_pow
+N  clean    CollatzDepthSplit.two_order_mod_nine
+N  clean    CollatzDepthSplit.two_order_mod_three
+N  clean    CollatzDepthSplit.two_order_mod_twentyseven
 T  clean    CollatzDepthSplit.arm_bijection_mod
 T  clean    CollatzDepthSplit.arm_surj_mod
 T  clean    CollatzDepthSplit.barren_doubling

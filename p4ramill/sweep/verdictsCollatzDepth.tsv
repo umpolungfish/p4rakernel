@@ -1,5 +1,6 @@
 CollatzDepthSplit.subtreeCount_junction	T	3747
 CollatzDepthSplit.odd_step_lands_on_junction	N	695
+CollatzDepthSplit.two_order_mod_three	N	1115
 CollatzDepthSplit.survives_succ_of_slack	T	4721
 CollatzDepthSplit.chain_defined_iff._proof_1_1	T	49994
 CollatzDepthSplit.classBound.eq_def	T	4929
@@ -40,6 +41,7 @@ CollatzDepthSplit.col6_64u63_grows	N	861
 CollatzDepthSplit.cross_decompose._simp_1_1	N	103
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_6	N	53075
 CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_3	T	32542
+CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2	N	2761
 CollatzDepthSplit.col_odd_pred._proof_1_1	N	12591
 CollatzDepthSplit.subtreeCount.eq_2	N	13
 CollatzDepthSplit.col5_32s31	N	4511
@@ -68,6 +70,7 @@ CollatzDepthSplit.oddSteps_all_ones_le._proof_1_6	N	19961
 CollatzDepthSplit.survives_succ_of_slack._proof_1_3	N	18553
 CollatzDepthSplit.two_coprime_three_pow	N	131
 CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_2	N	10933
+CollatzDepthSplit.doubling_involutive_only_at_three	N	347
 CollatzDepthSplit.double_inj_mod	N	55
 CollatzDepthSplit.odd_child_class_two	N	233
 CollatzDepthSplit.preds_of_barren._proof_1_1	N	15367
@@ -88,6 +91,8 @@ CollatzDepthSplit.classBound.eq_2	N	15
 CollatzDepthSplit.both_lifts_survive	N	1111
 CollatzDepthSplit.classBound.eq_1	N	21
 CollatzDepthSplit.arm_bijection_mod	T	2634
+CollatzDepthSplit.two_order_mod_twentyseven	N	2063
+CollatzDepthSplit.two_order_mod_nine	N	5867
 CollatzDepthSplit.survives_succ_of_odd._proof_1_4	N	29873
 CollatzDepthSplit.col_starved_arm._proof_1_1	N	12621
 CollatzDepthSplit.chain_block._proof_1_2	N	8655
@@ -136,6 +141,7 @@ CollatzDepthSplit.arm_collide_iff	N	455
 CollatzDepthSplit.col_shift._proof_1_9	N	54545
 CollatzDepthSplit.no_member_descends._proof_1_1	N	8417
 CollatzDepthSplit.col4_16t7_grows._proof_1_1	N	7429
+CollatzDepthSplit.autocorr_sum_zero	N	3845
 CollatzDepthSplit.no_member_descends._proof_1_2	N	34099
 CollatzDepthSplit.oddSteps_all_ones._proof_1_5	T	31042
 CollatzDepthSplit.oddSteps_mod._proof_1_8	N	46049
