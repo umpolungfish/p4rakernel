@@ -1,3 +1,4 @@
+N  clean    CollatzDepthSplit.arm_inj_mod
 N  clean    CollatzDepthSplit.both_lifts_survive
 N  clean    CollatzDepthSplit.card_predStep._proof_1_3
 N  clean    CollatzDepthSplit.chain_block
@@ -76,6 +77,8 @@ N  clean    CollatzDepthSplit.survivors_mod_32
 N  clean    CollatzDepthSplit.survivors_survive_mod_16
 N  clean    CollatzDepthSplit.survivors_survive_mod_32
 N  clean    CollatzDepthSplit.two_coprime_three_pow
+T  clean    CollatzDepthSplit.arm_bijection_mod
+T  clean    CollatzDepthSplit.arm_surj_mod
 T  clean    CollatzDepthSplit.barren_doubling
 T  clean    CollatzDepthSplit.barren_doubling._proof_1_1
 T  clean    CollatzDepthSplit.card_predStep
