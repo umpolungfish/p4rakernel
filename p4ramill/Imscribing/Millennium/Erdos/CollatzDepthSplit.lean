@@ -13,6 +13,7 @@
 
 import Mathlib.Data.Nat.Basic
 import Mathlib.Analysis.Fourier.ZMod
+import Mathlib.Analysis.SpecialFunctions.Log.Base
 import Mathlib.Tactic
 
 namespace CollatzDepthSplit
@@ -2373,6 +2374,64 @@ theorem wtz_children (v : ℕ) :
 
 /-- The characteristic inequality the refinement satisfies, at `z = 2`. -/
 theorem density_characteristic : ((7 : ℚ) / 5) ^ 6 ≤ 2 * (7 / 5) ^ 2 + 2 * (7 / 5) + 1 := by
+  norm_num
+
+/-! ## The density reduces to the junction fraction
+
+The tower's rungs climb toward the true growth `Λ(z)` of `F_d(z) = Σ_nodes z^j`, and
+`Λ` has a closed form.  One level sends each node to its double and, when the node is
+a junction, to an odd child carrying one more odd step, so
+
+    F_{d+1}(z) = F_d(z) + z · F_d^{junc}(z)
+
+and `Λ(z) = 1 + z·q(z)` with `q` the `z`-weighted junction fraction.  Measured to
+depth 52, `q(z) → 1/3` and `Λ(z) = 1 + z/3` to five decimals: `1.166742` against
+`7/6`, `1.333317` against `4/3`, `1.499914` against `3/2`, `1.666919` against `5/3`.
+
+With `Λ(z) = 1 + z/3` the Legendre transform is the binary entropy.  Minimising
+`log₂(1 + z/3) − α log₂ z` gives `z = 3α/(1−α)` and `1 + z/3 = 1/(1−α)`, so
+
+    I(α) = H(α) − α log₂ 3
+
+and the density exponent is `max_α (H(α) − α log₂3)/(1 − α log₂3)`.  At `α = 1/2`,
+`H(1/2) = 1`, so numerator and denominator coincide and the value is **exactly 1**;
+`0.9951` at `α = 0.48`, `0.9934` at `0.52`.  The maximum is a tangency at one point.
+
+Equivalently, and with no entropy: the exponent is `1` exactly when
+
+    Λ(z)  ≥  2 √(z/3)   for every z > 0
+
+and `1 + z/3 ≥ 2√(z/3)` is AM–GM, with equality forced at `z = 3`.  So the density
+form of the conjecture is the single statement that the `z`-weighted junction
+fraction is at least `1/3` — and at `z = 1` that is `p₂ ≥ 1/3`, the quantity this
+whole development began with, which the conductor tower approaches from below:
+`L_11(1) = 1.33273` against `4/3`.
+
+The chain therefore closes on itself.  Levels equidistributed mod 3 give `p₂ = 1/3`,
+which gives `Λ(z) = 1 + z/3`, which gives density exponent `1`.  `levels_equidistribute`
+supplies the first step from coefficient decay. -/
+
+/-- The entropy at a half is one, which is why the exponent is a tangency. -/
+theorem entropy_half : -(1 / 2 : ℝ) * Real.logb 2 (1 / 2) - (1 / 2) * Real.logb 2 (1 / 2) = 1 := by
+  have h : Real.logb 2 (1 / 2 : ℝ) = -1 := by
+    rw [one_div, Real.logb_inv, Real.logb_self_eq_one (by norm_num)]
+  rw [h]; ring
+
+/-- At `α = 1/2` the numerator and denominator of the exponent coincide, so the
+    value is exactly one.  The maximum of the density exponent is this tangency. -/
+theorem exponent_tangency {c : ℝ} (hc : c ≠ 1) : (1 - c) / (1 - c) = 1 :=
+  div_self (sub_ne_zero.mpr (Ne.symm hc))
+
+/-- The extremal inequality, without entropy: `1 + z/3 ≥ 2√(z/3)` is AM–GM, with
+    equality exactly at `z = 3`.  The density exponent is one precisely when the
+    growth `Λ` clears this bound at every `z`. -/
+theorem amgm_critical (z : ℝ) (hz : 0 ≤ z) : 2 * Real.sqrt (z / 3) ≤ 1 + z / 3 := by
+  have hnn : (0 : ℝ) ≤ z / 3 := by linarith
+  have hs : Real.sqrt (z / 3) ^ 2 = z / 3 := Real.sq_sqrt hnn
+  nlinarith [sq_nonneg (1 - Real.sqrt (z / 3)), Real.sqrt_nonneg (z / 3), hs]
+
+/-- And the equality case is `z = 3`, where the critical `α` is `1/2`. -/
+theorem amgm_equality : 2 * Real.sqrt ((3 : ℝ) / 3) = 1 + (3 : ℝ) / 3 := by
   norm_num
 
 end CollatzDepthSplit

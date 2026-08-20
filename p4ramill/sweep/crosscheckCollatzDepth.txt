@@ -1,5 +1,6 @@
 N  clean    CollatzDepthSplit.W_le_card
 N  clean    CollatzDepthSplit.W_predStep._proof_1_3
+N  clean    CollatzDepthSplit.amgm_equality
 N  clean    CollatzDepthSplit.arm_collide_iff
 N  clean    CollatzDepthSplit.arm_inj_mod
 N  clean    CollatzDepthSplit.autocorr_sum_zero
@@ -61,6 +62,7 @@ N  clean    CollatzDepthSplit.doubling_involutive_only_at_three
 N  clean    CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2
 N  clean    CollatzDepthSplit.doubling_onto_mod_nine
 N  clean    CollatzDepthSplit.energy_contraction
+N  clean    CollatzDepthSplit.entropy_half
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_1
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_2
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_3
@@ -77,6 +79,7 @@ N  clean    CollatzDepthSplit.even_part_coeff
 N  clean    CollatzDepthSplit.even_part_energy
 N  clean    CollatzDepthSplit.even_part_energy._proof_1_1
 N  clean    CollatzDepthSplit.even_step_junction_iff
+N  clean    CollatzDepthSplit.exponent_tangency
 N  clean    CollatzDepthSplit.feed_extremal_triple
 N  clean    CollatzDepthSplit.fixed_conductor_threshold
 N  clean    CollatzDepthSplit.inv_two_mod_nine
