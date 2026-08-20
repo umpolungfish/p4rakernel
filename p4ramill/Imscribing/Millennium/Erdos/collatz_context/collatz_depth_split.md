@@ -889,3 +889,108 @@ Cauchy–Schwarz gives `|cross| ≤ 2√(δ_even · δ_odd)` structurally, and i
 every measured row; what is needed is that bound carried through the `3^{-r}`
 weighting with a constant small enough to leave `3/4 + c < 1`. That is one
 inequality, and everything else is in place beneath it.
+
+### What the ob3ect returned, and the fold it named
+
+`collatz_cross_bound` grounds full at ⟨𐑦𐑰𐑽𐑿𐑐𐑧𐑚𐑝⊙𐑖𐑳𐑭⟩, Lean-verifies at `O₂dag`,
+and passes the Frobenius gate `T`. Its phase 1 names the pieces the way the
+measurements had them: `≻` the doubling map, `≺` the odd lift reaching one
+conductor higher, `⊥` the marginal fixed point, `⊞` the phase cancellation, `◻`
+the Cauchy–Schwarz bound as the permanent record. Its phase 3 `both` reads
+"the linear part has multiplier one, but the cross term is negative and provides
+the decay" — which is the measurement, arrived at independently.
+
+The usable content is in `banked_count_check`, which passes and still flags a
+loss:
+
+> 1 further unit(s) flattened by a fold between sibling regions and not
+> restored … the fold keeps the larger rather than the sum. Put them in one
+> region to keep both.
+
+That is about the norm. `sup_r 3^{-r}e(r)` is a fold that keeps the larger and
+drops the rest. Replacing it with the sum keeps every rung, and it still
+contracts: over levels 17 to 28 the sum-fold ratio runs `1.334, 0.694, 0.760,
+0.866, 0.978, 0.840, 0.762, 0.605, 1.106, 0.613, 0.725, 0.635`, mean about `0.82`
+against the max-fold's `0.76`, with `sum × N` bounded between `2.0` and `4.2`.
+Keeping every rung costs a slightly larger constant and discards nothing.
+
+`weight` on the ob3ect's own word then shows the same fault structurally: four
+units **stranded in frames never fused**. The movement stops dead at step 8 —
+`⊞` deposits `t+f`, the register fixes at `Ftf`, and `◻ ⋈ ∋ ⊤` all read inert, so
+the fuse never collects what the split put in. The cancellation is asserted before
+the fusion.
+
+Reordering to fuse first fixes it. `⊢⊙∈≻⊤≺⋈∋⊥⊞◻⊤⊣` and `⊢⊙∈≻⊤≺⊥⊞⋈∋◻⊤⊣` both
+verdict `T`, bank clean, need no repair, land on `A` with all four values held,
+`restored 1`, and **nothing stranded**. Moving `⊞` after `∋` alone takes the
+stranding from four to two; putting the whole fusion ahead of both evaluations
+takes it to zero.
+
+Read into the mathematics that is one instruction: **sum the legs before
+asserting the fixed point**. Collect the three collision legs into the excess
+first, and only then invoke the marginal fixed point and the phase cancellation.
+Evaluating the fixed point before collecting the legs is precisely what the
+max-fold does when it drops rungs before summing them, and it is why that norm
+reads a smaller constant than it has earned.
+
+### Summing before evaluating, and what it costs
+
+Following the instruction, the ℓ¹ fold `‖e‖₁ = Σ_r 3^{-r} e(r)` sums the recursion
+exactly:
+
+    ‖e_{d+1}‖₁ ≤ (9/16)‖e_d‖₁ + (3/16)‖e_d‖₁ + C = (3/4)‖e_d‖₁ + C,
+    C = Σ_r 3^{-r}·cross(r)
+
+with the `3/16` arising because the `r+1` terms are a sub-sum of the same norm.
+Nothing is discarded, and the only free quantity is `c = C/‖e‖₁`, which must sit
+under `1/4`.
+
+Measured over 23 levels: `c < 1/4` holds in 18, mean `+0.197`, and it fails at
+five with a worst of `+3.25`. At the worst ordinary level the ratio is `1.106`,
+so `3/4 + c = 1.107` and that level expands rather than contracting. The
+two-step map does not repair it either — the involution has period two, so pairs
+were the natural place for an excursion to meet its partner, but the two-step
+ratio sits under `(3/4)² = 0.5625` in only 7 of 23, mean `0.745`, worst `1.778`.
+
+What is true is weaker and still real: the norm decays. The per-level ratios have
+geometric mean about `0.78`, and the two-step mean of `0.745` is `0.863` per
+level, which is `√(3/4) = 0.866` — the square-root rate the coefficients were
+already measured at. So the ℓ¹ fold decays at the square-root rate rather than at
+the linear part's `3/4`, and the difference is exactly what the cross term costs.
+
+So summing rather than maxing is the honest fold and it does not close the
+constant. The linear part gives `3/4` and is proved; the measured constant is
+`0.78` to `0.86`; and a uniform bound on `c` below `1/4` is false as stated,
+because five levels in twenty-three exceed it. What a proof needs is not that
+bound but a bound on the excursions — the levels where `c` spikes — or a norm
+that averages them out. That is the open item, stated at the size it actually is.
+
+### The excursions were the instrument, not the object
+
+The five levels where `c` exceeded `1/4` were not the dynamics. Two things were
+moving underneath them. A rung opens whenever `3^r` crosses `N`, so the sum gains
+a term the level below never had and the ratio jumps once; and at small `N` the
+histogram is a handful of nodes and the excess is noise. Holding the rung count
+fixed removes the first, and reading only levels with enough nodes removes the
+second.
+
+With rungs held at four, every failure sits at `N ≤ 91` — levels 10, 13, 16 and
+17, with 12, 31, 68 and 91 nodes. From level 18 onward:
+
+| level | nodes | ratio | c |
+|---|---|---|---|
+| 18 | 120 | 0.694 | −0.056 |
+| 22 | 381 | 0.872 | +0.122 |
+| 26 | 1187 | 0.530 | −0.220 |
+| 30 | 3765 | 0.992 | +0.242 |
+| 34 | 11878 | 0.813 | +0.063 |
+
+`c < 1/4` at **every one of seventeen consecutive levels**, `N` running from 120
+to 11878, and the ratio never reaches one, the worst being `0.992`. Mean `c` is
+`+0.145`.
+
+So the contraction `3/4 + c < 1` holds at every level large enough for its own
+histogram to mean anything, and the earlier failures were the measurement rather
+than the map. What is still missing is the same thing it always was, now stated
+at its real size: an a priori bound on `c` for levels above a threshold, coming
+from the residue structure rather than from the census.
