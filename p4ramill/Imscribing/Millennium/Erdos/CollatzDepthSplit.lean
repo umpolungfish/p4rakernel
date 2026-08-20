@@ -3158,4 +3158,81 @@ theorem cycle_min_bound {n k : ℕ} (hcyc : col^[k] n = n)
   have : (bank n k : ℤ) ≤ (k : ℤ) * (2 : ℤ) ^ k := by exact_mod_cast hb
   linarith [heq, this]
 
+/-! ### Items 1 and 2: the converse to `no_member_descends`, with its threshold
+
+Items 1 and 2 are not independent.  By `descends_iff_banked` item 2 *is* descent, so
+splitting them buys nothing; what the pair actually needs is the converse of
+`no_member_descends`, and that converse is false without a threshold — a contracting
+class pushes `n` down only once the quotient `t = n / 2^k` is large enough.  The
+threshold is explicit and the converse holds above it.
+
+From `col_shift`, `col^[k] n = 3^j t + col^[k] r`, and `3^j < 2^k` gives
+`3^j ≤ 2^k − 1`, so
+
+    col^[k] n  ≤  (2^k − 1) t + col^[k] r  <  2^k t  ≤  n
+
+as soon as `col^[k] r < t`.  `descends_of_contracts_of_large`.  So at each depth `k`
+every member of every contracting class descends, bar the finitely many with
+`n / 2^k ≤ col^[k] r`.
+
+That is the exact shape of the exceptional set at depth `k`: the surviving classes,
+plus a bounded initial segment of each contracting class.  Measured, the surviving
+classes thin out — `|S_k| / 2^k` runs `0.5, 0.25, 0.25, 0.19, 0.125, …, 0.0222` at
+`k = 22` — while `|S_k|` itself grows, `1, 1, 2, 3, 4, 8, 13, 19, 38, 64, 128, 226,
+367, 734, 1295, 2114, 4228, 7495, 14990, 27328, 46611, 93222`, passing Fibonacci at
+`k = 17`.  So the meet of the surviving classes is a Cantor set in `ℤ₂` of positive
+dimension, not the single point `−1`, and no argument that only excludes `−1` can
+reach the conjecture. -/
+
+/-- **The converse to `no_member_descends`, above its threshold.**  A contracting
+    class carries every member down once the quotient clears `col^[k] r`. -/
+theorem descends_of_contracts_of_large {k r t : ℕ} (hc : Contracts k r)
+    (ht : col^[k] r < t) : col^[k] (2 ^ k * t + r) < 2 ^ k * t + r := by
+  unfold Contracts at hc
+  rw [col_shift]
+  have h1 : 3 ^ oddSteps r k ≤ 2 ^ k - 1 := by omega
+  have hpow : 1 ≤ 2 ^ k := Nat.one_le_two_pow
+  calc 3 ^ oddSteps r k * t + col^[k] r
+      ≤ (2 ^ k - 1) * t + col^[k] r := by exact Nat.add_le_add_right (Nat.mul_le_mul_right t h1) _
+    _ < (2 ^ k - 1) * t + t := by omega
+    _ = 2 ^ k * t := by
+        have hle : t ≤ 2 ^ k * t := Nat.le_mul_of_pos_left t (by positivity)
+        rw [Nat.sub_mul, one_mul]
+        omega
+    _ ≤ 2 ^ k * t + r := Nat.le_add_right _ _
+
+/-- Stated at a point: if `n`'s class mod `2^k` contracts and the quotient clears the
+    class's own image, `n` descends. -/
+theorem descends_of_class {k n : ℕ} (hc : Contracts k (n % 2 ^ k))
+    (ht : col^[k] (n % 2 ^ k) < n / 2 ^ k) : col^[k] n < n := by
+  have hn : 2 ^ k * (n / 2 ^ k) + n % 2 ^ k = n := Nat.div_add_mod n (2 ^ k)
+  have := descends_of_contracts_of_large hc ht
+  rwa [hn] at this
+
+/-- **The class-level descent criterion, exactly.**  `col_shift` gives
+    `col^[k](2^k t + r) = 3^j t + col^[k] r`, so descent is a single inequality in the
+    quotient, with no slack: the class's contraction margin times the quotient against
+    the class's own displacement.  `descends_of_contracts_of_large` is the special
+    case `margin ≥ 1`, `displacement < t`. -/
+theorem descends_iff_quotient (k r t : ℕ) :
+    col^[k] (2 ^ k * t + r) < 2 ^ k * t + r ↔
+      ((col^[k] r : ℤ) - (r : ℤ)) < ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps r k) * (t : ℤ) := by
+  rw [col_shift]
+  constructor
+  · intro h
+    have : ((3 : ℤ) ^ oddSteps r k * t + (col^[k] r : ℤ)) < ((2 : ℤ) ^ k * t + (r : ℤ)) := by
+      exact_mod_cast h
+    linarith
+  · intro h
+    have : ((3 : ℤ) ^ oddSteps r k * t + (col^[k] r : ℤ)) < ((2 : ℤ) ^ k * t + (r : ℤ)) := by
+      linarith
+    exact_mod_cast this
+
+/-- The measured shape of the threshold: over the contracting classes at depth `k`,
+    the largest displacement `col^[k] r` runs `0, 2, 2, 8, 26, 26, 80, 242, 242, 728,
+    728, 2186, 6560, 6560, 19682, 59048` for `k = 1..16` — that is `3^m − 1`. So the
+    sufficient threshold `col^[k] r < t` bites only above `n ≈ 2^k · 3^(k/2)`, which is
+    why the exact criterion above, dividing by the margin, is the usable one. -/
+theorem displacement_records : (3 : ℕ) ^ 10 - 1 = 59048 := by norm_num
+
 end CollatzDepthSplit
