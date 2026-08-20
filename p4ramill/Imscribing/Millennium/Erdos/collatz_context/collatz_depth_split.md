@@ -994,3 +994,331 @@ histogram to mean anything, and the earlier failures were the measurement rather
 than the map. What is still missing is the same thing it always was, now stated
 at its real size: an a priori bound on `c` for levels above a threshold, coming
 from the residue structure rather than from the census.
+
+### The second ob3ect, and a reading the measurement refuses
+
+`collatz_cross_bound_2` grounds full at ⟨𐑦𐑰𐑑𐑿𐑐𐑧𐑲𐑜⊙𐑖𐑳𐑴⟩, Lean-verifies at
+`O₂dag`, and its banked check comes back with **nothing lost** — `surplus_total 0`,
+`restored 1`, landing on `A`. Its word `⊢⊙∈≻⊤≺⊥⊞⋈∋◻⊣` puts the fuse after the
+paradox, which is the same reordering the `weight` verb had forced by hand, found
+independently.
+
+Two of its assignments carry claims about the mathematics.
+
+`◻ = 𐑴`, a ℤ₂ invariant protecting the bound against deformation. That is the
+involution: `2·1 ≡ 2` and `2·2 ≡ 1` mod 3, already proved as
+`double_swaps_classes` and `double_involution`, and already the source of the
+cross term's negative sign.
+
+`∋ = 𐑜`, disjunction — *one sufficient residue satisfies the bound rather than all
+partners simultaneously*. Read into the sum, that says the weighted cross sum is
+carried by a single rung, so bounding it would need that rung and not every rung
+at once. **The measurement refuses it.** Taking the ratio of the whole sum to its
+largest single rung across 22 levels, the value swings from `0.16` to `4.33`:
+sometimes one rung exceeds the entire sum, because the rungs cancel against each
+other, and sometimes the sum is four times any single term, because they add.
+Mean share `1.18`, no domination in either direction.
+
+So the ℤ₂ reading is already in hand and the disjunctive one does not survive
+contact with the census. The bound still has to hold the whole sum at once, and
+the open item is unchanged: an a priori bound on `c` above a stated level size,
+where the measurement says `c < 1/4` at every one of seventeen consecutive levels
+from `N = 120` upward.
+
+### The oracle's hunt
+
+Pointed at the claim rather than at the object, the adversarial discipline pays
+immediately. `collatz attack` walks every level to a given depth, computes `c`,
+and stops at the first level past the threshold that breaks `c < 1/4`.
+
+It broke on the first serious attempt: **level 25, `N = 885`, `c = +0.3565`** at
+six rungs. And it broke exactly where the sixth rung first opens — `3^6 = 729`
+sits above the previous level's 665 and below this level's 885. So capping the
+rung count never prevented an opening, it only delayed it, and the earlier repair
+was incomplete. The counterexample is a fact about comparing two levels whose
+norms have different numbers of terms.
+
+Stated properly — the rung count required live at *both* levels — the hunt
+survives everywhere tried:
+
+| rungs | min N | levels tested | worst c |
+|---|---|---|---|
+| 5 | 120 | 27 to depth 48 | +0.1767 |
+| 6 | 500 | 19 to depth 44 | +0.1060 |
+| 7 | 2500 | 15 to depth 44 | +0.0806 |
+
+The margin widens as the tower deepens, though part of that is definitional:
+`c = C/‖e‖` and a deeper tower has more terms in the denominator, so the same
+absolute cross term reads as a smaller fraction. What is not definitional is that
+no level anywhere in that range reaches `1/4`.
+
+Surviving is not proof, and the verb says so in its own output. What it reports is
+what was exhausted: the contraction `3/4 + c < 1` stands unrefuted across every
+comparable level from `N = 120` to depth 48, at three different tower depths, with
+the worst case at `0.18` and falling.
+
+### Proving the bound: what comes out, and what does not
+
+Write each histogram as flat plus deviation. Both deviations sum to zero, so the
+flat parts contribute exactly the product of the totals over the modulus and
+nothing else survives — the cross term **is** the correlation of the two
+deviations, with no remainder. `cross_decompose` proves that over any finite index
+type with any reindexing of the second factor, and it is sorry-free.
+
+From there Cauchy–Schwarz, with the arm proportions `3/4` and `1/4`:
+
+    |cross(r)| ≤ (3/8)·√( e_even(r) · e_odd(r) )
+
+where `e_even(r)` is the level's own excess *exactly*, by the doubling bijection,
+and `e_odd(r)` is the arm image's. Summing against the weight,
+
+    c ≤ (3/8)√3 · √( ‖e_arm‖ / ‖e‖ )
+
+so the route closes precisely when that ratio sits under `0.1482`.
+
+It does not. Measured over 24 levels, the ratio runs `3.7` to `5.7` — the arm
+image is as uniform as its quarter share allows, `4` being what population alone
+would give — so the bound lands at `1.25` to `1.55`. The measured `c` is about
+`0.1`. Cauchy–Schwarz is loose here by a factor of roughly fourteen.
+
+That is not a fixable slack. Cauchy–Schwarz takes absolute values, and the sign is
+exactly what carries the contraction: the cross term is systematically negative,
+20 of 24 levels at conductor 3, because doubling is an involution on the two live
+classes. Any bound that discards the sign is bounding a quantity four times larger
+than the one that decides.
+
+So the state after the attempt: the decomposition is proved, the inequality it
+supports is proved, and that inequality gives `1.30` where `0.25` is needed. The
+missing factor is not analytic slack to be tightened — it is the ℤ₂ the second
+ob3ect named, and a proof of the bound has to carry the sign through rather than
+around it.
+
+### Why the low conductors are the hard ones
+
+The doubling permutation on residues mod `3^r` has order `2·3^(r-1)`. The kernel
+reads it directly — `winding order 2 3, 9, 27, 81, 243` gives `2, 6, 18, 54, 162`
+— and that one fact organises the whole sign question.
+
+At `r = 1` the order is **two**. The permutation is the involution, so a deviation
+alternates every level and the cancellation is complete and per-level. That is why
+the conductor-3 identity `I_{d+1} = −I_d + (m₂ − m₈)` carries a bare minus sign,
+and why the cross term comes back negative in 20 of 24 levels there.
+
+At `r ≥ 2` the order is `6, 18, 54, …`, and there is no per-level sign at all. The
+deviation returns to itself only after a full cycle, so what survives each level
+is dilution rather than cancellation. Measured, the cross term sits at `0.349` of
+the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27, against
+`3^(-r/2)` of `0.333` and `0.192` — square-root cancellation over the classes,
+with the cycle length proportional to that count.
+
+`two_order_mod_three`, `two_order_mod_nine`, `two_order_mod_twentyseven` and
+`doubling_involutive_only_at_three` carry it, the last saying exactly that
+doubling is its own inverse at conductor three and at no conductor above it.
+
+So the two regimes are structurally different and the proof splits where the order
+splits: the low rungs get exact identities because they have a sign to carry, and
+the high rungs get the generic square-root bound because they have length to
+average over. That is the shape of the remaining work, and it is finite — the
+identities needed are at `r = 1`, which is done, and `r = 2`, which is not.
+
+### The identity at conductor nine
+
+At `r = 1` the doubling permutation is an involution and the recursion closes in a
+single alternating step. At `r = 2` it is a six-cycle, so there is no per-level
+sign — but the recursion is still exact, only now it reads the level at two
+resolutions at once.
+
+Both arms are determined. The even child `2m` has class `2·(m mod 9)`, and
+doubling is a bijection there with inverse `5`, since `2·5 = 10 ≡ 1 (mod 9)`. The
+odd child `2t+1` of a junction `3t+2` has class `2·(t mod 9)+1`, fixed by `t mod
+9`, which is `m mod 27`. So
+
+    n'(c) = n(5c mod 9) + m₂₇( 3·((5(c−1)) mod 9) + 2 )
+
+each class of the next level fed by exactly one class mod 9 through the doubling
+arm and exactly one class mod 27 through the odd arm. `even_child_mod_nine`,
+`odd_child_mod_nine`, `inv_two_mod_nine`, `doubling_onto_mod_nine`,
+`odd_source_mod_nine`, `oddSource_is_junction` and `oddSource_feeds` carry it.
+
+Checked in exact integers by `collatz perturb9`, all nine classes at every level
+to depth 30: **one mismatch in the entire walk**, at level 2, where the tree cuts
+its own `1 → 2 → 1` edge — the same boundary the conductor-3 identity meets and no
+other.
+
+So both low rungs now have their exact identities, `r = 1` alternating and `r = 2`
+not, and above them the generic square-root bound applies with the cycle length to
+average over. What is not yet done is using them: the identities say what the low
+rungs *are*, and the bound on `c` needs what they *contribute* to the weighted
+sum. That is the next rung, and it is the first one in a while that needs no new
+structure — only the two identities already in hand.
+
+### Using the identities: where the difficulty actually sits
+
+With both low identities in hand the `r = 1` contribution can be written out. The
+even arm's deviation is the level's own with classes 1 and 2 transposed — `σ(d)`,
+by the involution — and the odd arm's is the mod-9 deviation read on the three
+junction classes `2, 5, 8`, which sums to zero because those are exactly the
+junctions. So the contribution is `2⟨σ(d), h⟩`, an inner product of two zero-sum
+vectors in three dimensions, both factors known exactly.
+
+Everything therefore turns on the cosine, and measured it is close to one:
+`|actual|/CS` at conductor 3 runs `0.204, 0.614, 1.000, 0.982, 0.968, 0.997,
+0.962, 0.993, 0.300, 0.876, 0.843, 0.998`, mean `0.72`. **Cauchy–Schwarz is tight
+at the lowest conductor.** In three dimensions with a zero-sum constraint the
+space is two-dimensional, so two such vectors are nearly parallel or nearly
+antiparallel, and they are.
+
+That inverts the picture I had. The high conductors are where cancellation lives —
+`0.349` at 9, `0.189` at 27, falling like `3^(-r/2)` over a growing cycle. The
+lowest conductor has no cancellation at all; what saves it is the **sign**. The
+inner product is negative in most levels, so the largest term in the weighted sum
+is usually subtracting from the norm rather than adding to it.
+
+The risk is therefore entirely the positive excursions at `r = 1`: `+0.968`,
+`+0.997`, `+0.300` in the window above. And they do not alternate cleanly — the
+signs run in blocks of one to four rather than flipping every level, because the
+involution's alternation is perturbed by the odd arm exactly as the conductor-3
+identity says.
+
+So the whole difficulty is now localised to one explicit object: the sign of
+`⟨σ(d), h⟩` at conductor 3, where `d` is the level's mod-3 deviation and `h` its
+mod-9 deviation on the junction classes. Both factors are given by identities
+already proved. That is a much smaller thing than "bound the cross term", and it
+is what the next rung has to characterise.
+
+### The proportionality, and the honest end of this thread
+
+Since the two vectors are nearly parallel, `b ≈ λa`, and the whole sign question is
+the sign of one scalar. Measured over 22 levels, `λ` is negative in **18**, mean
+**−0.6417**, with the exceptions at `+2.474`, `+0.785`, `+0.135` and one earlier.
+
+So the odd arm opposes the even arm about four times in five, with a
+proportionality near `−2/3`, and that opposition is exactly what makes the largest
+term of the weighted sum subtract from the norm rather than add to it. Written
+out, with `x, y, z` the level's mod-3 imbalances and `p, q, r` the junctions'
+mod-9 split, both zero-sum,
+
+    S = xq + yr + zp = q(x − y) − p(x + 2y)
+
+an explicit form in four integers, every one of them supplied by an identity
+already proved.
+
+And the sign is not deterministic. Four levels in twenty-two come out positive,
+they do not alternate, and they do not line up with the rung openings that
+explained the earlier excursions. That is the same shape of obstruction met three
+times now at three different resolutions — the tower, then the excess, now the
+inner product — each time smaller and more explicit, and each time not closing.
+
+What this thread has established, and it is not nothing: the contraction reduces
+to the sign of `q(x−y) − p(x+2y)` at conductor three, where the two identities fix
+every term; the high conductors contribute `3^(-r/2)` by cancellation over the
+doubling cycle and need no argument; and Cauchy–Schwarz is tight at the bottom and
+loose at the top, which is why no single bound covers both. What it has not
+established is any reason the four exceptional levels cannot recur, and without
+that the contraction remains measured rather than proved.
+
+### Reading the exceptional levels
+
+Printing the six integers at each level makes the exceptions readable. The pairing
+is `(n0 ↔ m5)`, `(n1 ↔ m8)`, `(n2 ↔ m2)`, and `m2, m5, m8` are the three mod-9
+parts of `n2` itself. I expected that to split the terms in two — the first two
+pairing disjoint sets, which anti-correlate at fixed total, and the third pairing a
+part with its whole, which should correlate positively — two against one giving
+the sign.
+
+**That is wrong, and the census says so.** The part-whole term is positive in only
+`5` of `24` levels, mean `−15.6`. It anti-correlates like the others. All three
+pairings oppose; there is no competition between them.
+
+What is exact in the measured window is simpler: `sign(λ) = sign(x·q + y·r)` at
+every one of the 24 levels, with both negative in the same 20. The part-whole term
+never flips the outcome, so the sign question reduces once more — to two terms and
+four integers,
+
+    x·q + y·r  =  (n₀ − N/3)(m₅ − N_o/3) + (n₁ − N/3)(m₈ − N_o/3)
+
+where `n₀, n₁` are the level's non-junction classes mod 3 and `m₅, m₈` are two of
+the three mod-9 parts of the junction class.
+
+So the odd arm's mod-9 split systematically opposes the mod-3 imbalance in every
+pairing, four times in five, and the four exceptions are levels where a disjoint
+pair fluctuates into alignment. That is a statement about a fluctuation, not about
+a rule, and it is why three successive descents have sharpened the object without
+closing it: at the bottom the quantity is stochastic in character. Any proof of the
+contraction has to be a concentration statement about `x·q + y·r`, not a
+deterministic bound — which is a different kind of theorem than the one I have been
+trying to write.
+
+### The concentration statement
+
+The contraction never needed `c < 1/4` at every level. The norm decays iff the
+*product* of the per-level ratios decays, which is the mean of `log(3/4 + c)`
+being negative. A level may expand as long as the running average does not. That
+is a concentration statement, and it is a far weaker demand than the supremum
+bound I spent several rungs failing to prove.
+
+Measured, it holds with room that is not close:
+
+| rungs | levels | mean c | worst running mean | geometric ratio |
+|---|---|---|---|---|
+| 3 | 27 | −0.0067 | +0.0076 | 0.71141 |
+| 4 | 27 | −0.0115 | +0.0232 | 0.72645 |
+| 5 | 23 | −0.0119 | +0.0897 | 0.73048 |
+| 6 | 17 | −0.0094 | −0.0094 | 0.73600 |
+
+The mean of `c` is **negative** at every tower depth — the cross term helps on
+average rather than costing — and the geometric mean of the ratio comes in *below*
+the linear part's `3/4` in all four runs. The worst running mean anywhere is
+`+0.0897`, against `0.25` needed. With a per-level variance of `0.0175`, so a
+standard deviation near `0.13` over 27 levels, the threshold sits about ten
+standard errors away.
+
+That reframes the whole difficulty. The four exceptional levels, the positive
+excursions, the fluctuating sign of `x·q + y·r` — none of them bear on this. They
+are per-level events, and the contraction is an average. What has to be proved is
+`E[c] < 1/4`, and what is measured is `E[c] ≈ −0.01`.
+
+So the target has moved from a supremum that is false to an average with a
+ten-sigma margin. Everything under it is unchanged: the linear part is proved at
+`3/4` from the two bijections, the cross term is exactly the correlation of two
+deviations by `cross_decompose`, its negativity has its source in the lag sum rule
+`autocorr_sum_zero`, and the low conductors have their exact identities. What
+remains is an a priori bound on the *average* of the cross term — a different
+theorem than the one I was writing, and by every measurement a much easier one.
+
+### Correction: the concentration statement is not a reduction
+
+The averaged form telescopes. Summing `log` of the per-level ratios gives
+`log‖e_{K+1}‖ − log‖e_1‖`, so the geometric mean over a window is
+`(‖e_{K+1}‖/‖e_1‖)^{1/K}` — a function of the two endpoints and nothing else.
+Checked against the run: the endpoints give `0.72761` where the level-by-level
+average gave `0.72645`, the same number.
+
+So "the geometric mean of the ratio is below one" is not a weaker target than the
+decay. **It is the decay**, written differently. Proving `E[c] < 1/4` is proving
+the contraction, not reducing it, and the ten-standard-error margin I reported is
+a measurement of the conclusion rather than of a lemma leading to it. That
+paragraph as I wrote it last turn was wrong and this one replaces it.
+
+What survives the correction is the decomposition, which is real:
+
+* the linear part contracts at `3/4` deterministically, from the two bijections —
+  `double_collide_iff` and `arm_collide_iff`, with the weight paying the digit;
+* the cross term is exactly the correlation of two deviations, `cross_decompose`,
+  with no remainder;
+* its systematic negativity has a proved source, `autocorr_sum_zero`, and a proved
+  mechanism at the conductor where it is strongest, the involution;
+* the low conductors have exact identities, `r = 1` alternating and `r = 2` not.
+
+And what does not survive is any route from those to the bound. `sup c < 1/4` is
+false, the oracle broke it. `E[c] < 1/4` is true and is the thing itself. The
+Cauchy–Schwarz bound is tight at the bottom conductor and loose at the top, giving
+`1.30` where `0.25` is needed. Each of the three descents named the object more
+precisely and none of them supplied an inequality that was not either false or
+circular.
+
+That is the state, and it is worth stating without decoration: the apparatus is
+proved, the measurements are stable across eight orders of magnitude, and the
+contraction is not proved. What is missing is an a priori input about the cross
+term that does not come from the structure already used — the structure has been
+enumerated, and it is not sufficient.

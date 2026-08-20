@@ -1,5 +1,6 @@
 N  clean    CollatzDepthSplit.arm_collide_iff
 N  clean    CollatzDepthSplit.arm_inj_mod
+N  clean    CollatzDepthSplit.autocorr_sum_zero
 N  clean    CollatzDepthSplit.both_lifts_survive
 N  clean    CollatzDepthSplit.card_predStep._proof_1_3
 N  clean    CollatzDepthSplit.chain_block
@@ -32,12 +33,19 @@ N  clean    CollatzDepthSplit.col_odd_pred._proof_1_1
 N  clean    CollatzDepthSplit.col_shift._proof_1_9
 N  clean    CollatzDepthSplit.col_starved_arm._proof_1_1
 N  clean    CollatzDepthSplit.contracts_mod
+N  clean    CollatzDepthSplit.cross_decompose._simp_1_1
+N  clean    CollatzDepthSplit.cross_decompose._simp_1_2
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_inj_mod
 N  clean    CollatzDepthSplit.double_involution
 N  clean    CollatzDepthSplit.double_swaps_classes
+N  clean    CollatzDepthSplit.doubling_involutive_only_at_three
+N  clean    CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2
+N  clean    CollatzDepthSplit.doubling_onto_mod_nine
+N  clean    CollatzDepthSplit.even_child_mod_nine
 N  clean    CollatzDepthSplit.even_step_junction_iff
+N  clean    CollatzDepthSplit.inv_two_mod_nine
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
@@ -48,6 +56,8 @@ N  clean    CollatzDepthSplit.not_contracts_pred_two_pow
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_1
 N  clean    CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_2
 N  clean    CollatzDepthSplit.not_survives_succ_of_even_step
+N  clean    CollatzDepthSplit.oddSource_feeds
+N  clean    CollatzDepthSplit.oddSource_is_junction
 N  clean    CollatzDepthSplit.oddSteps.eq_1
 N  clean    CollatzDepthSplit.oddSteps.eq_2
 N  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_6
@@ -58,7 +68,9 @@ N  clean    CollatzDepthSplit.odd_arm_count
 N  clean    CollatzDepthSplit.odd_child_class_eight
 N  clean    CollatzDepthSplit.odd_child_class_five
 N  clean    CollatzDepthSplit.odd_child_class_two
+N  clean    CollatzDepthSplit.odd_child_mod_nine
 N  clean    CollatzDepthSplit.odd_map_inj_mod
+N  clean    CollatzDepthSplit.odd_source_mod_nine
 N  clean    CollatzDepthSplit.odd_step_lands_on_junction
 N  clean    CollatzDepthSplit.pow_mul_le_iterate._proof_1_6
 N  clean    CollatzDepthSplit.preds_of_barren._proof_1_1
@@ -85,6 +97,9 @@ N  clean    CollatzDepthSplit.survivors_mod_32
 N  clean    CollatzDepthSplit.survivors_survive_mod_16
 N  clean    CollatzDepthSplit.survivors_survive_mod_32
 N  clean    CollatzDepthSplit.two_coprime_three_pow
+N  clean    CollatzDepthSplit.two_order_mod_nine
+N  clean    CollatzDepthSplit.two_order_mod_three
+N  clean    CollatzDepthSplit.two_order_mod_twentyseven
 T  clean    CollatzDepthSplit.arm_bijection_mod
 T  clean    CollatzDepthSplit.arm_surj_mod
 T  clean    CollatzDepthSplit.barren_doubling
