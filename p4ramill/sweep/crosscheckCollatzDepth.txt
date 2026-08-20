@@ -32,6 +32,8 @@ N  clean    CollatzDepthSplit.col_odd_pred._proof_1_1
 N  clean    CollatzDepthSplit.col_shift._proof_1_9
 N  clean    CollatzDepthSplit.col_starved_arm._proof_1_1
 N  clean    CollatzDepthSplit.contracts_mod
+N  clean    CollatzDepthSplit.cross_decompose._simp_1_1
+N  clean    CollatzDepthSplit.cross_decompose._simp_1_2
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_inj_mod
