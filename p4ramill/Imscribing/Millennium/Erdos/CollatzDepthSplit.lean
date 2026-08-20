@@ -886,4 +886,54 @@ theorem arm_bijection_mod (r y : ℕ) :
   obtain ⟨t, ht⟩ := arm_surj_mod r y
   exact ⟨t, ht, fun t' ht' => arm_inj_mod (by rw [ht', ht])⟩
 
+/-! ## The level map on coefficients, and where the decay comes from
+
+Writing `μ̂_d(j,r)` for the coefficient of the level-`d` measure at the character
+`x ↦ e(jx/3^r)`, one level acts as
+
+    μ̂_{d+1}(j,r) = ρ_d [ μ̂_d(2j, r)
+                        + e(−j/3^{r+1}) · (1/3) Σ_{s<3} ω^{−2s} μ̂_d(2j + s·3^r, r+1) ]
+
+with `ω` a primitive cube root of unity and `ρ_d = N_d / N_{d+1} → 3/4`.  The
+first term is the doubling permutation, which moves no mass between conductors
+and contracts by exactly `ρ_d`.  The second is the odd arm, and it reaches one
+conductor higher.
+
+The cancellation in it is exact: `Σ_{s<3} ω^{−2s} = 0`, so the feed sees only the
+DIFFERENCE of the three lifts and never their size.  A conductor-`3^{r+1}`
+coefficient that is constant across the three lifts contributes nothing at all.
+That is `cube_roots_sum_zero` below, and it is why the flow between conductors is
+a difference operator rather than a transport.
+
+Measured, the identity holds to five decimals at every level, and the decay is
+not a term-wise contraction: the feed runs comparable to the doubling term
+(`feed/same` averaging about 1.5), so the triangle bound gives nothing under one.
+What decays is the SUM, because the two terms cancel in phase — the mean of
+`|sum| / (|same| + |feed|)` is `0.53` at conductor 3 over 24 levels and `0.79` at
+conductor 9 over 20.  That phase cancellation is the square-root law seen from
+the operator side, and bounding it is what remains. -/
+
+/-- The cancellation the feed term rests on: the three cube roots of unity sum to
+    zero, so a constant across the three lifts of a class contributes nothing to
+    the odd arm's coefficient. -/
+theorem cube_roots_sum_zero {R : Type*} [CommRing R] {ω : R} (h : ω ^ 2 + ω + 1 = 0) :
+    1 + ω + ω ^ 2 = 0 := by linear_combination h
+
+/-- Stated on the residues themselves: the three lifts of a class mod `3^r` to
+    mod `3^(r+1)` are exactly `c`, `c + 3^r` and `c + 2·3^r`. -/
+theorem three_lifts {r c x : ℕ} (hc : c < 3 ^ r) (hx : x < 3 ^ (r + 1)) :
+    x % 3 ^ r = c ↔ ∃ s < 3, x = c + s * 3 ^ r := by
+  have hpos : 0 < 3 ^ r := pow_pos (by norm_num) r
+  constructor
+  · intro h
+    refine ⟨x / 3 ^ r, ?_, ?_⟩
+    · rw [Nat.div_lt_iff_lt_mul hpos]
+      calc x < 3 ^ (r + 1) := hx
+        _ = 3 * 3 ^ r := by ring
+    · have hdm := Nat.div_add_mod x (3 ^ r)
+      rw [Nat.mul_comm] at hdm
+      omega
+  · rintro ⟨s, _, rfl⟩
+    rw [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hc]
+
 end CollatzDepthSplit
