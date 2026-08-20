@@ -54,6 +54,7 @@ CollatzDepthSplit.oddSource_feeds	N	679
 CollatzDepthSplit.odd_child_mod_nine	N	359
 CollatzDepthSplit.odd_source_mod_nine	N	955
 CollatzDepthSplit.double_swaps_classes	N	735
+CollatzDepthSplit.class_one_ge_junctions._proof_1_2	T	14280
 CollatzDepthSplit.col6_64u31_grows._proof_1_1	N	7429
 CollatzDepthSplit.preds_of_barren	T	574
 CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1	T	49988
@@ -62,6 +63,7 @@ CollatzDepthSplit.subtreeCount_barren	T	3285
 CollatzDepthSplit.odd_arm_count	N	1899
 CollatzDepthSplit.le_iterate_of_not_contracts	N	623
 CollatzDepthSplit.junction_arms	N	811
+CollatzDepthSplit.junctions_nondecreasing_two_levels	N	287
 CollatzDepthSplit.cube_roots_sum_zero	N	29985
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_4	T	55800
 CollatzDepthSplit.two_inv_mod	T	1604
@@ -95,6 +97,7 @@ CollatzDepthSplit.starved_junction._proof_1_1	T	50066
 CollatzDepthSplit.preimage_cases	T	2656
 CollatzDepthSplit.even_child_mod_nine	N	263
 CollatzDepthSplit.classBound.eq_2	N	15
+CollatzDepthSplit.junctions_ge_class_one._proof_1_2	T	14280
 CollatzDepthSplit.both_lifts_survive	N	1111
 CollatzDepthSplit.classBound.eq_1	N	21
 CollatzDepthSplit.arm_bijection_mod	T	2634
@@ -154,6 +157,7 @@ CollatzDepthSplit.col_shift._proof_1_9	N	54545
 CollatzDepthSplit.inv_two_mod_nine	N	303
 CollatzDepthSplit.no_member_descends._proof_1_1	N	8417
 CollatzDepthSplit.col4_16t7_grows._proof_1_1	N	7429
+CollatzDepthSplit.junctions_ge_class_one	T	1924
 CollatzDepthSplit.autocorr_sum_zero	N	3845
 CollatzDepthSplit.no_member_descends._proof_1_2	N	34099
 CollatzDepthSplit.oddSteps_all_ones._proof_1_5	T	31042
@@ -163,3 +167,4 @@ CollatzDepthSplit.classBound_fib	N	609
 CollatzDepthSplit.oddSteps_succ	T	17923
 CollatzDepthSplit.classBound_mono	N	355
 CollatzDepthSplit.not_survives_succ_of_even_step	N	71
+CollatzDepthSplit.class_one_ge_junctions	T	1924

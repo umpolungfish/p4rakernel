@@ -51,6 +51,7 @@ N  clean    CollatzDepthSplit.junction_class_cycle
 N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_2
 N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3
 N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4
+N  clean    CollatzDepthSplit.junctions_nondecreasing_two_levels
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
 N  clean    CollatzDepthSplit.no_member_descends
@@ -115,6 +116,8 @@ T  clean    CollatzDepthSplit.chain_defined_iff._proof_1_1
 T  clean    CollatzDepthSplit.chain_defined_iff._proof_1_2
 T  clean    CollatzDepthSplit.classBound.eq_def
 T  clean    CollatzDepthSplit.classBound_fib._proof_1_4
+T  clean    CollatzDepthSplit.class_one_ge_junctions
+T  clean    CollatzDepthSplit.class_one_ge_junctions._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_down
 T  clean    CollatzDepthSplit.col_chain_down._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_up
@@ -131,6 +134,8 @@ T  clean    CollatzDepthSplit.junction_arms._proof_1_1
 T  clean    CollatzDepthSplit.junction_class_no_fixpoint
 T  clean    CollatzDepthSplit.junction_classes_split
 T  clean    CollatzDepthSplit.junction_cycle_order_three
+T  clean    CollatzDepthSplit.junctions_ge_class_one
+T  clean    CollatzDepthSplit.junctions_ge_class_one._proof_1_2
 T  clean    CollatzDepthSplit.mem_predStep_col
 T  clean    CollatzDepthSplit.mem_predStep_col._proof_1_1
 T  clean    CollatzDepthSplit.oddSteps.eq_def
