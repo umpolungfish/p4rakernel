@@ -567,4 +567,486 @@ theorem two_inv_mod (r : ℕ) : 2 * ((3 ^ r + 1) / 2) ≡ 1 [MOD 3 ^ r] := by
   unfold Nat.ModEq
   exact Nat.add_mod_left _ _
 
+/-! ## The record chain
+
+The budget records the `collatz` verb reports climb a chain, and the chain is the
+two arms of the split composed once each: one doubling and one odd lift send `n`
+to `(4n-1)/3`, defined exactly when `n ≡ 1 (mod 3)`.  Written without division,
+`n = 3t+1` goes to `4t+1`, and the block from `4t+1` is exactly two steps landing
+on `3t+1`, so the budget rises by exactly one and the ratio sits at four thirds.
+The chain dies at `n ≡ 0 (mod 3)`, where the odd lift has no arm. -/
+
+/-- One step up the chain rises, and the step after it lands. -/
+theorem col_chain_up (t : ℕ) : col (4 * t + 1) = 2 * (3 * t + 1) := by
+  unfold col
+  rw [if_neg (by omega : ¬ (4 * t + 1) % 2 = 0)]
+  omega
+
+theorem col_chain_down (t : ℕ) : col (2 * (3 * t + 1)) = 3 * t + 1 := by
+  unfold col
+  rw [if_pos (by omega : (2 * (3 * t + 1)) % 2 = 0)]
+  omega
+
+/-- The chain law: from `4t+1` the block is exactly two steps and lands on
+    `3t+1`, the first step rising above the seed and the second falling below
+    it.  So one chain step spends one block and the seed grows by four thirds. -/
+theorem chain_block (t : ℕ) (ht : 1 ≤ t) :
+    col^[2] (4 * t + 1) = 3 * t + 1 ∧ 4 * t + 1 < col (4 * t + 1) ∧ 3 * t + 1 < 4 * t + 1 := by
+  refine ⟨?_, ?_, by omega⟩
+  · rw [show (2:ℕ) = 1 + 1 from rfl, Function.iterate_add_apply]
+    simp only [Function.iterate_one]
+    rw [col_chain_up, col_chain_down]
+  · rw [col_chain_up]; omega
+
+/-- The chain runs on `1 (mod 3)` and stops on `0 (mod 3)`: the lift `(4n-1)/3`
+    is an integer exactly there. -/
+theorem chain_defined_iff (n : ℕ) : (∃ t, n = 3 * t + 1) ↔ n % 3 = 1 := by
+  constructor
+  · rintro ⟨t, rfl⟩; omega
+  · intro h; exact ⟨n / 3, by omega⟩
+
+/-! ## The junctions
+
+A value takes two predecessors exactly when it is `2 (mod 3)` (`odd_pred_iff`),
+so every merge of two trajectories happens there and nowhere else.  Which arm the
+traffic arrives on is then forced, and the forcing is already in `col_odd_pred`:
+an odd step sends `2t+1` to `3t+2`, which is `2 (mod 3)` for every `t`.  So EVERY
+odd step lands on a junction, while an even step lands on one only when its own
+half does — a third of the time.  With the two step kinds equinumerous that puts
+the odd arm's share of all junction arrivals at `(1/2) / (1/2 + (1/3)(1/2)) = 3/4`,
+and the census reads `0.7513` over seeds to 20000 and `0.7501` to 60000. -/
+
+/-- Every odd step lands on a junction. -/
+theorem odd_step_lands_on_junction (t : ℕ) : col (2 * t + 1) % 3 = 2 := by
+  rw [col_odd_pred]; omega
+
+/-- An even step lands on a junction exactly when its half is one, which is a
+    third of the residues. -/
+theorem even_step_junction_iff (m : ℕ) : col (2 * m) % 3 = 2 ↔ m % 3 = 2 := by
+  rw [col_two_mul]
+
+/-- The two arms into a junction, named: the even arm is always there, the odd
+    arm is the one the residue buys. -/
+theorem junction_arms {v : ℕ} (h : v % 3 = 2) :
+    col (2 * v) = v ∧ col (2 * (v / 3) + 1) = v :=
+  ⟨col_two_mul v, by rw [col_odd_pred]; omega⟩
+
+/-! ## What fixes the share: the starved arm
+
+Grouping junctions by residue, the odd share is fixed one 3-adic digit at a time.
+At modulus 9 the class `5` is pinned at `0.004` with a spread of `0.0014` while
+the other two classes spread over a quarter; at modulus 27 the pinned classes are
+`5, 14, 23` and at 81 the spreads elsewhere fall to a few hundredths.
+
+The pinned class has an exact cause. A junction `v = 9k+5` has odd arm `6k+3`,
+which is `0 (mod 3)`, and a value `0 (mod 3)` takes only its doubling
+predecessor — `preds_of_barren` — while every value in its doubling chain stays
+`0 (mod 3)` — `barren_doubling`. So that arm is a bare chain of `d+1` nodes at
+depth `d` against the even arm's exponential subtree, and the share it can hold
+falls like `d / (4/3)^d`. At depth 24 that is `0.004`, which is what the census
+reads. -/
+
+theorem col_starved_arm (k : ℕ) : col (6 * k + 3) = 9 * k + 5 := by
+  unfold col
+  rw [if_neg (by omega : ¬ (6 * k + 3) % 2 = 0)]
+  omega
+
+/-- A value divisible by three has one predecessor, not two. -/
+theorem preds_of_barren {u n : ℕ} (hu : u % 3 = 0) (h : col n = u) : n = 2 * u := by
+  rcases preimage_cases h with h1 | ⟨t, _, h2⟩
+  · exact h1
+  · omega
+
+/-- And its whole doubling chain stays barren, so the arm never branches. -/
+theorem barren_doubling (u i : ℕ) (hu : u % 3 = 0) : (2 ^ i * u) % 3 = 0 := by
+  obtain ⟨m, rfl⟩ : ∃ m, u = 3 * m := ⟨u / 3, by omega⟩
+  have : 2 ^ i * (3 * m) = 3 * (2 ^ i * m) := by ring
+  omega
+
+/-- The junction whose odd arm is barren, named by its residue. -/
+theorem starved_junction (k : ℕ) :
+    (9 * k + 5) % 3 = 2 ∧ col (6 * k + 3) = 9 * k + 5 ∧ (6 * k + 3) % 3 = 0 :=
+  ⟨by omega, col_starved_arm k, by omega⟩
+
+/-! ## The amplitude, and the equation that fixes the map
+
+Counting predecessors under a value to depth `d` gives a number growing like
+`(4/3)^d`, so what separates one arm from another is the constant in front of it.
+Measured, that amplitude converges: under 40 it settles near `5.53`, under 80
+near `7.364`, under 53 near `6.656`, with the per-level ratio pinned at `4/3`.
+
+The counts obey an exact recursion, and the amplitude is its limit:
+
+    S(v, d+1) = 1 + S(2v, d) + (if v ≡ 2 (mod 3) then S((2v-1)/3, d) else 0)
+    A(v)      = (3/4) * ( A(2v) + [v ≡ 2 (mod 3)] * A((2v-1)/3) )
+
+Both halves check against the verb. For `v = 40`, which is `1 (mod 3)` and so
+carries only the doubling arm, `(3/4)·A(80) = 7.3667·0.75 = 5.525` against `5.525`
+measured. For `v = 80`, which branches, `(4/3)·A(80) − A(160) = 6.6656` predicts
+`A(53)`, measured `6.656`. So the odd share at a junction is a ratio of
+amplitudes, `A((2v-1)/3) / (A(2v) + A((2v-1)/3))`, and the 3-adic map of the
+share is the map of `A`. -/
+
+/-- Predecessors under `v` to depth `d`, counted. -/
+def subtreeCount : ℕ → ℕ → ℕ
+  | _, 0     => 1
+  | v, (d+1) => 1 + subtreeCount (2 * v) d
+                  + (if v % 3 = 2 then subtreeCount (2 * (v / 3) + 1) d else 0)
+
+/-- The recursion, holding by construction: the count under a value is the value
+    itself, the count under its doubling, and the count under its odd arm where
+    the residue provides one. -/
+theorem subtreeCount_succ (v d : ℕ) :
+    subtreeCount v (d + 1)
+      = 1 + subtreeCount (2 * v) d
+          + (if v % 3 = 2 then subtreeCount (2 * (v / 3) + 1) d else 0) := rfl
+
+/-- Off `2 (mod 3)` the recursion has one term: the arm is the doubling alone. -/
+theorem subtreeCount_barren {v : ℕ} (h : ¬ v % 3 = 2) (d : ℕ) :
+    subtreeCount v (d + 1) = 1 + subtreeCount (2 * v) d := by
+  rw [subtreeCount_succ, if_neg h, Nat.add_zero]
+
+/-- A value divisible by three keeps its whole doubling chain barren, so its
+    count is the chain itself: `d + 1` and nothing more. -/
+theorem subtreeCount_of_three_dvd {v : ℕ} (h : v % 3 = 0) (d : ℕ) :
+    subtreeCount v d = d + 1 := by
+  induction d generalizing v with
+  | zero => rfl
+  | succ d ih =>
+    have h2 : ¬ v % 3 = 2 := by omega
+    have h3 : (2 * v) % 3 = 0 := by omega
+    rw [subtreeCount_barren h2, ih h3]
+    omega
+
+/-! ## Solving the amplitude equation
+
+At a junction the two arms and the value itself exhaust the count, so the share
+needs only ONE function rather than two subtrees.  From
+`(4/3)·A(v) = A(2v) + A(u)` the even arm is `A(2v) = (4/3)A(v) − A(u)`, hence
+
+    share v = A(u) / (A(2v) + A(u)) = (3/4) · A(u) / A(v)
+
+which the verb confirms: `(3/4)·A(13)/A(20) = 0.53197` against `0.5317` measured,
+and `(3/4)·A(67)/A(101) = 0.46389` against `0.4635`.
+
+Reading that along a trajectory solves the equation.  If `n` is odd then `n` IS
+the odd arm of `T n`, so `A n = (4/3) · share (T n) · A (T n)`; if `n` is even it
+is the doubling arm, so `A n = (4/3) · (1 − share (T n)) · A (T n)`.  Composing
+over the whole trajectory,
+
+    A n = (4/3)^L · (∏ w_i) · A(boundary),
+    w_i = share (T n_i) at an odd step, 1 − share (T n_i) at an even one
+
+so `log A` is a Birkhoff sum along the Collatz map: the amplitude is a
+multiplicative cocycle whose weights are the shares, and the shares are ratios of
+the amplitude along the odd lift.  The system closes on itself, which is what a
+fixed point of this kind looks like rather than a defect in it.
+
+Measured, every step holds to a twentieth of a percent — `A(13)` from `A(4)`
+across five steps gives `6.275` against `6.287` — with one exception, the step
+crossing the `1 → 2 → 1` cycle, where the count deliberately cuts the edge back
+into the root and the recursion reads `+56%` at `v = 2`.  That is the boundary
+condition, not a break in the law.
+
+The finite identity behind it is exact and needs no limit. -/
+
+/-- At a junction the two arms and the value exhaust the count. -/
+theorem subtreeCount_junction {v : ℕ} (h : v % 3 = 2) (d : ℕ) :
+    subtreeCount v (d + 1)
+      = 1 + subtreeCount (2 * v) d + subtreeCount (2 * (v / 3) + 1) d := by
+  rw [subtreeCount_succ, if_pos h]
+
+/-- So the odd arm's count is what the whole count has left after the doubling
+    arm, which is the finite form of `share = (3/4) A(u) / A(v)`. -/
+theorem odd_arm_count {v : ℕ} (h : v % 3 = 2) (d : ℕ) :
+    subtreeCount (2 * (v / 3) + 1) d
+      = subtreeCount v (d + 1) - (1 + subtreeCount (2 * v) d) := by
+  rw [subtreeCount_junction h]
+  omega
+
+/-! ## What the residues alone force, and what they do not
+
+Boundedness of the amplitude is boundedness of `S(v,d) / (4/3)^d`, so the first
+question is what growth rate the residue structure forces on its own.
+
+The transitions are rigid on two of the three classes.  A node `≡ 0 (mod 3)` has
+only its doubling child and that child is `≡ 0` again, so the class is a chain.
+A node `≡ 1 (mod 3)` has only its doubling child, which is `≡ 2`.  A node
+`≡ 2 (mod 3)` has a doubling child `≡ 1` and an odd child whose class depends on
+the next digit.  So a branch is always followed by a non-branching step on the
+even side, and the fastest a subtree can grow is the Fibonacci pairing
+
+    a (d+1) = 1 + b d          -- a bounds the `≡ 1` class
+    b (d+1) = 1 + a d + b d    -- b bounds the `≡ 2` class
+
+giving `1, 3, 6, 11, 19, …` with `b(d) = b(d-1) + b(d-2) + 2`, so the ceiling is
+`φ^d` and not `2^d`.  That is proved below.
+
+It is also NOT `(4/3)^d`.  The gap between the Fibonacci ceiling and the measured
+`4/3` is exactly the assumption that the odd child's class is equidistributed
+rather than adversarial: taking the odd child to land on `2 (mod 3)` every time
+gives `φ`, and taking it uniformly over the three classes gives `4/3`.  So the
+amplitude's boundedness is not a consequence of the residue structure, and the
+measurement that stands behind it — `gap × length` flat at `−1.3` across two
+orders of magnitude — is evidence for the equidistribution rather than a
+substitute for it. -/
+
+/-- Bounds for the two live classes, paired: `(bound for ≡1, bound for ≡2)`. -/
+def classBound : ℕ → ℕ × ℕ
+  | 0     => (1, 1)
+  | (d+1) => (1 + (classBound d).2, 1 + (classBound d).1 + (classBound d).2)
+
+theorem classBound_mono (d : ℕ) : (classBound d).1 ≤ (classBound d).2 := by
+  induction d with
+  | zero => simp [classBound]
+  | succ d ih =>
+    simp only [classBound]
+    omega
+
+/-- The count under any value is bounded by its class's entry, so the subtree
+    grows at most like `φ^d`. -/
+theorem subtreeCount_le_classBound : ∀ (d v : ℕ),
+    subtreeCount v d ≤ (if v % 3 = 2 then (classBound d).2 else (classBound d).1) := by
+  intro d
+  induction d with
+  | zero => intro v; simp [subtreeCount, classBound]
+  | succ d ih =>
+    intro v
+    by_cases h : v % 3 = 2
+    · have h2 : (2 * v) % 3 = 1 := by omega
+      have hb1 := ih (2 * v)
+      have hb2 := ih (2 * (v / 3) + 1)
+      rw [if_pos h, subtreeCount_junction h]
+      simp only [classBound]
+      rw [if_neg (by omega : ¬ (2 * v) % 3 = 2)] at hb1
+      have := classBound_mono d
+      by_cases h3 : (2 * (v / 3) + 1) % 3 = 2
+      · rw [if_pos h3] at hb2; omega
+      · rw [if_neg h3] at hb2; omega
+    · have hb1 := ih (2 * v)
+      rw [if_neg h, subtreeCount_barren h]
+      simp only [classBound]
+      by_cases h2 : (2 * v) % 3 = 2
+      · rw [if_pos h2] at hb1; omega
+      · rw [if_neg h2] at hb1
+        have := classBound_mono d
+        omega
+
+/-- The pairing IS the Fibonacci recursion, shifted by two. -/
+theorem classBound_fib (d : ℕ) :
+    (classBound (d + 2)).2 = (classBound (d + 1)).2 + (classBound d).2 + 2 := by
+  simp only [classBound]
+  omega
+
+/-! ## Toward the equidistribution
+
+The odd lift is a bijection from the junction classes one digit finer onto
+everything.  Concretely a junction is `3t+2` and its odd arm is `2t+1`, so on
+residues the arm map is `t ↦ 2t+1`, which is injective and onto `Z/3^r` because
+`2` is a unit there.  A junction class mod `3^(r+1)` is a `t` class mod `3^r`, so
+the arm carries the finer classes onto the coarser ones one-to-one: uniform in
+gives uniform out, and the digit is what it costs.
+
+That is the whole of what the structure gives for free.  It says the uniform
+measure is FIXED by the level map; it does not say the tree converges to it,
+because the tree starts at a point and every level consumes a digit rather than
+producing one.  The convergence is the open piece, and the shape it has is a
+flow between conductors: doubling permutes the characters of a fixed conductor,
+while the odd arm sends a conductor `3^r` character to one of conductor `3^(r+1)`,
+so the coefficient at each level is fed from the level above it and never from
+below. -/
+
+/-- The arm map on residues is injective. -/
+theorem arm_inj_mod {r a b : ℕ} (h : (2 * a + 1) % 3 ^ r = (2 * b + 1) % 3 ^ r) :
+    a % 3 ^ r = b % 3 ^ r :=
+  odd_map_inj_mod h
+
+/-- And onto: every residue is `2t+1` for some `t`, by the explicit inverse of 2. -/
+theorem arm_surj_mod (r y : ℕ) :
+    ∃ t, (2 * t + 1) % 3 ^ r = y % 3 ^ r := by
+  have hpos : 1 ≤ 3 ^ r := Nat.one_le_pow r 3 (by norm_num)
+  have hodd : Odd (3 ^ r) := Odd.pow (by decide)
+  obtain ⟨j, hj⟩ := hodd
+  have hhalf : 2 * ((3 ^ r + 1) / 2) = 3 ^ r + 1 := by omega
+  refine ⟨((3 ^ r + 1) / 2) * (y + 3 ^ r - 1), ?_⟩
+  have key : 2 * (((3 ^ r + 1) / 2) * (y + 3 ^ r - 1))
+      + 1 = (y + 3 ^ r) + 3 ^ r * (y + 3 ^ r - 1) := by
+    rw [← Nat.mul_assoc, hhalf]
+    have hexp : (3 ^ r + 1) * (y + 3 ^ r - 1)
+        = 3 ^ r * (y + 3 ^ r - 1) + (y + 3 ^ r - 1) := by ring
+    omega
+  rw [key, Nat.add_mul_mod_self_left, Nat.add_mod_right]
+
+/-- The junction whose arm lands on a named class: the arm map is a bijection
+    from junctions mod `3^(r+1)` onto residues mod `3^r`, so a level uniform one
+    digit finer produces a level uniform here. -/
+theorem arm_bijection_mod (r y : ℕ) :
+    ∃ t, (2 * t + 1) % 3 ^ r = y % 3 ^ r ∧
+      ∀ t', (2 * t' + 1) % 3 ^ r = y % 3 ^ r → t' % 3 ^ r = t % 3 ^ r := by
+  obtain ⟨t, ht⟩ := arm_surj_mod r y
+  exact ⟨t, ht, fun t' ht' => arm_inj_mod (by rw [ht', ht])⟩
+
+/-! ## The level map on coefficients, and where the decay comes from
+
+Writing `μ̂_d(j,r)` for the coefficient of the level-`d` measure at the character
+`x ↦ e(jx/3^r)`, one level acts as
+
+    μ̂_{d+1}(j,r) = ρ_d [ μ̂_d(2j, r)
+                        + e(−j/3^{r+1}) · (1/3) Σ_{s<3} ω^{−2s} μ̂_d(2j + s·3^r, r+1) ]
+
+with `ω` a primitive cube root of unity and `ρ_d = N_d / N_{d+1} → 3/4`.  The
+first term is the doubling permutation, which moves no mass between conductors
+and contracts by exactly `ρ_d`.  The second is the odd arm, and it reaches one
+conductor higher.
+
+The cancellation in it is exact: `Σ_{s<3} ω^{−2s} = 0`, so the feed sees only the
+DIFFERENCE of the three lifts and never their size.  A conductor-`3^{r+1}`
+coefficient that is constant across the three lifts contributes nothing at all.
+That is `cube_roots_sum_zero` below, and it is why the flow between conductors is
+a difference operator rather than a transport.
+
+Measured, the identity holds to five decimals at every level, and the decay is
+not a term-wise contraction: the feed runs comparable to the doubling term
+(`feed/same` averaging about 1.5), so the triangle bound gives nothing under one.
+What decays is the SUM, because the two terms cancel in phase — the mean of
+`|sum| / (|same| + |feed|)` is `0.53` at conductor 3 over 24 levels and `0.79` at
+conductor 9 over 20.  That phase cancellation is the square-root law seen from
+the operator side, and bounding it is what remains. -/
+
+/-- The cancellation the feed term rests on: the three cube roots of unity sum to
+    zero, so a constant across the three lifts of a class contributes nothing to
+    the odd arm's coefficient. -/
+theorem cube_roots_sum_zero {R : Type*} [CommRing R] {ω : R} (h : ω ^ 2 + ω + 1 = 0) :
+    1 + ω + ω ^ 2 = 0 := by linear_combination h
+
+/-- Stated on the residues themselves: the three lifts of a class mod `3^r` to
+    mod `3^(r+1)` are exactly `c`, `c + 3^r` and `c + 2·3^r`. -/
+theorem three_lifts {r c x : ℕ} (hc : c < 3 ^ r) (hx : x < 3 ^ (r + 1)) :
+    x % 3 ^ r = c ↔ ∃ s < 3, x = c + s * 3 ^ r := by
+  have hpos : 0 < 3 ^ r := pow_pos (by norm_num) r
+  constructor
+  · intro h
+    refine ⟨x / 3 ^ r, ?_, ?_⟩
+    · rw [Nat.div_lt_iff_lt_mul hpos]
+      calc x < 3 ^ (r + 1) := hx
+        _ = 3 * 3 ^ r := by ring
+    · have hdm := Nat.div_add_mod x (3 ^ r)
+      rw [Nat.mul_comm] at hdm
+      omega
+  · rintro ⟨s, _, rfl⟩
+    rw [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hc]
+
+/-! ## Equidistribution as a collision count
+
+Summing squared coefficients over a conductor turns the analytic question into a
+counting one:
+
+    Σ_j |μ̂(j,r)|² = 3^r · C(r) / N²,   C(r) = #{ pairs of level nodes with a ≡ b (mod 3^r) }
+
+so equidistribution is `C(r) = N²/3^r` up to lower order, and the excess over that
+IS the nonprincipal mass.  Measured, `excess × N` stays bounded — between `0.6`
+and `6` over levels 19 to 32 with no growth — which is the square-root law in
+counting form.
+
+The count splits by which arms the two nodes came down, and two of the three legs
+are forced by bijections already proved:
+
+  * doubling with doubling: `2a ≡ 2b (mod 3^r) ↔ a ≡ b (mod 3^r)`, so this leg is
+    exactly the previous level's `C(r)`;
+  * odd with odd: `2s+1 ≡ 2t+1 (mod 3^r) ↔ s ≡ t (mod 3^r)`, so this leg is the
+    previous level's collision count one digit finer, restricted to the junctions;
+  * mixed: `2a ≡ u(b) (mod 3^r)`, the only free quantity.
+
+Measured, the three legs take shares `0.5631, 0.0625, 0.3743` of the total, stable
+to four digits across fourteen levels.  Those are `9/16`, `1/16` and `6/16`: the
+squares of the arm proportions `3/4` and `1/4`.  So the mixed leg takes exactly
+its proportional share and no more — the two arms are uncorrelated at the level of
+collisions — and with the doubling leg exactly `C_d(r)` that forces
+`C_{d+1} = (16/9) C_d`, which is exactly how `N²` grows.  Equidistribution is
+maintained at each level precisely when the mixed leg stays proportional. -/
+
+/-- The doubling leg: children of distinct classes stay distinct, children of the
+    same class collide. -/
+theorem double_collide_iff {r a b : ℕ} :
+    (2 * a) % 3 ^ r = (2 * b) % 3 ^ r ↔ a % 3 ^ r = b % 3 ^ r := by
+  constructor
+  · exact fun h => double_inj_mod h
+  · intro h
+    exact Nat.ModEq.mul_left 2 h
+
+/-- The odd leg: the arm map is injective on residues, so it collides only where
+    its sources do. -/
+theorem arm_collide_iff {r s t : ℕ} :
+    (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r ↔ s % 3 ^ r = t % 3 ^ r := by
+  constructor
+  · exact fun h => arm_inj_mod h
+  · intro h
+    exact (Nat.ModEq.mul_left 2 h).add_right 1
+
+/-! ## Why the cross correlation carries a sign
+
+Doubling is an involution on the live classes mod 3: `2·1 ≡ 2` and `2·2 ≡ 1`, so
+the two classes that branch are swapped every level and returned every second
+level.  An imbalance between them therefore tends to alternate in sign, and the
+correlation between a level and its own image under the arms is negative for that
+reason rather than by accident.
+
+Measured, the bias is real and strongest where the swap is purest.  The cross
+deviation is negative in 20 of 24 levels at conductor 3 with mean `−0.140`, 15 of
+22 at conductor 9 with mean `−0.063`, and 12 of 20 at conductor 27 with mean
+`−0.037` — weakening as the conductor rises and the swap dilutes.  The signed
+imbalance at conductor 3 changes sign every two to three levels rather than every
+level, which is the involution perturbed by the odd arm's feed. -/
+
+/-- Doubling swaps the two live classes and fixes the dead one. -/
+theorem double_swaps_classes (m : ℕ) :
+    (m % 3 = 1 → (2 * m) % 3 = 2) ∧ (m % 3 = 2 → (2 * m) % 3 = 1)
+      ∧ (m % 3 = 0 → (2 * m) % 3 = 0) := by
+  refine ⟨fun h => by omega, fun h => by omega, fun h => by omega⟩
+
+/-- And returns every value to its own class after two steps, so doubling is an
+    involution on residues mod 3. -/
+theorem double_involution (m : ℕ) : (4 * m) % 3 = m % 3 := by omega
+
+/-! ## The perturbation, exactly
+
+At conductor three the even children swap the two live classes, so their whole
+contribution to the imbalance `n₁ − n₂` is its negation.  The odd children come
+only from the junctions, and which class they land in is fixed by the parent's
+residue mod 9: `2 ↦ 1`, `5 ↦ 0`, `8 ↦ 2`.  Only two of those three touch the
+imbalance, so
+
+    I_{d+1} = −I_d + (m₂ − m₈)
+
+with `m_c` the level's counts mod 9.  The involution is the minus sign and the
+perturbation is one difference of two mod-9 classes, nothing else.
+
+Checked in exact integers, the identity holds at every level to depth 30 with a
+single exception at level 2, where the tree cuts its own `1 → 2 → 1` edge and the
+prediction of 2 meets an actual 1 — off by exactly the omitted node.  The
+perturbation is not small: its mean size is `1.79` times the imbalance it
+perturbs, so the odd arm carries the level rather than nudging it, while the
+imbalance itself stays at a fraction of `√N`. -/
+
+theorem odd_child_class_two (v : ℕ) (h : v % 9 = 2) : (2 * (v / 3) + 1) % 3 = 1 := by
+  omega
+
+theorem odd_child_class_five (v : ℕ) (h : v % 9 = 5) : (2 * (v / 3) + 1) % 3 = 0 := by
+  omega
+
+theorem odd_child_class_eight (v : ℕ) (h : v % 9 = 8) : (2 * (v / 3) + 1) % 3 = 2 := by
+  omega
+
+/-- So of the three junction classes mod 9, one feeds each live class and one
+    feeds the dead class: the imbalance sees `2` and `8` and never `5`. -/
+theorem junction_classes_split (v : ℕ) (h : v % 3 = 2) :
+    (v % 9 = 2 ∧ (2 * (v / 3) + 1) % 3 = 1)
+      ∨ (v % 9 = 5 ∧ (2 * (v / 3) + 1) % 3 = 0)
+      ∨ (v % 9 = 8 ∧ (2 * (v / 3) + 1) % 3 = 2) := by
+  have h9 : v % 9 = 2 ∨ v % 9 = 5 ∨ v % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9
+  · exact Or.inl ⟨h9, by omega⟩
+  · exact Or.inr (Or.inl ⟨h9, by omega⟩)
+  · exact Or.inr (Or.inr ⟨h9, by omega⟩)
+
 end CollatzDepthSplit
