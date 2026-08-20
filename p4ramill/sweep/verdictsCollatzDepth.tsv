@@ -47,6 +47,7 @@ CollatzDepthSplit.col5_32s15_grows._proof_1_1	N	7429
 CollatzDepthSplit.oddSource_is_junction	N	371
 CollatzDepthSplit.wtz_children._proof_1_10	T	57608
 CollatzDepthSplit.survives_succ_of_slack._proof_1_4	N	30731
+CollatzDepthSplit.exponent_tangency	N	175
 CollatzDepthSplit.triangle_recursion_has_no_decay	N	24853
 CollatzDepthSplit.double_inj_prim._simp_1_2	N	61
 CollatzDepthSplit.col4_16t3_contracts	N	861
@@ -98,6 +99,7 @@ CollatzDepthSplit.col6_64u31_grows._proof_1_1	N	7429
 CollatzDepthSplit.coeff_predStep._proof_1_2	T	14280
 CollatzDepthSplit.preds_of_barren	T	574
 CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1	T	49988
+CollatzDepthSplit.amgm_equality	N	3205
 CollatzDepthSplit.wtz_children._proof_1_6	T	57566
 CollatzDepthSplit.col_chain_down	T	3132
 CollatzDepthSplit.subtreeCount_barren	T	3285
@@ -151,6 +153,7 @@ CollatzDepthSplit.oddImage_eq_odd_part	T	13425
 CollatzDepthSplit.even_part_energy	N	45137
 CollatzDepthSplit.evenImage_eq_even_part._proof_1_5	T	35508
 CollatzDepthSplit.level_energy_recursion	N	49905
+CollatzDepthSplit.entropy_half	N	18169
 CollatzDepthSplit.evenImage_eq_even_part._proof_1_6	N	18109
 CollatzDepthSplit.wt.eq_1	N	9
 CollatzDepthSplit.card_predStep._proof_1_2	T	14280
