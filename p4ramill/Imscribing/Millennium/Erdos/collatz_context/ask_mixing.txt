@@ -1,0 +1,1 @@
+A quantity computed from one level of the predecessor tree that bounds the same quantity on the next level by a factor strictly below one. It must be forced by the two residue bijections that build the level, not fitted to the census.
