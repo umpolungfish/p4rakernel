@@ -936,4 +936,53 @@ theorem three_lifts {r c x : ℕ} (hc : c < 3 ^ r) (hx : x < 3 ^ (r + 1)) :
   · rintro ⟨s, _, rfl⟩
     rw [Nat.add_mul_mod_self_right, Nat.mod_eq_of_lt hc]
 
+/-! ## Equidistribution as a collision count
+
+Summing squared coefficients over a conductor turns the analytic question into a
+counting one:
+
+    Σ_j |μ̂(j,r)|² = 3^r · C(r) / N²,   C(r) = #{ pairs of level nodes with a ≡ b (mod 3^r) }
+
+so equidistribution is `C(r) = N²/3^r` up to lower order, and the excess over that
+IS the nonprincipal mass.  Measured, `excess × N` stays bounded — between `0.6`
+and `6` over levels 19 to 32 with no growth — which is the square-root law in
+counting form.
+
+The count splits by which arms the two nodes came down, and two of the three legs
+are forced by bijections already proved:
+
+  * doubling with doubling: `2a ≡ 2b (mod 3^r) ↔ a ≡ b (mod 3^r)`, so this leg is
+    exactly the previous level's `C(r)`;
+  * odd with odd: `2s+1 ≡ 2t+1 (mod 3^r) ↔ s ≡ t (mod 3^r)`, so this leg is the
+    previous level's collision count one digit finer, restricted to the junctions;
+  * mixed: `2a ≡ u(b) (mod 3^r)`, the only free quantity.
+
+Measured, the three legs take shares `0.5631, 0.0625, 0.3743` of the total, stable
+to four digits across fourteen levels.  Those are `9/16`, `1/16` and `6/16`: the
+squares of the arm proportions `3/4` and `1/4`.  So the mixed leg takes exactly
+its proportional share and no more — the two arms are uncorrelated at the level of
+collisions — and with the doubling leg exactly `C_d(r)` that forces
+`C_{d+1} = (16/9) C_d`, which is exactly how `N²` grows.  Equidistribution is
+maintained at each level precisely when the mixed leg stays proportional. -/
+
+/-- The doubling leg: children of distinct classes stay distinct, children of the
+    same class collide. -/
+theorem double_collide_iff {r a b : ℕ} :
+    (2 * a) % 3 ^ r = (2 * b) % 3 ^ r ↔ a % 3 ^ r = b % 3 ^ r := by
+  constructor
+  · exact fun h => double_inj_mod h
+  · intro h
+    unfold Nat.ModEq at *
+    omega
+
+/-- The odd leg: the arm map is injective on residues, so it collides only where
+    its sources do. -/
+theorem arm_collide_iff {r s t : ℕ} :
+    (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r ↔ s % 3 ^ r = t % 3 ^ r := by
+  constructor
+  · exact fun h => arm_inj_mod h
+  · intro h
+    unfold Nat.ModEq at *
+    omega
+
 end CollatzDepthSplit

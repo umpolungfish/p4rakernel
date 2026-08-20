@@ -1,0 +1,14 @@
+cycle ⊢⋈⊞⊤≺⋈⊙∈⊤⊙≺∋
+vox verdict ⊢∈⋈⊞⊤≺⋈⊙∈⊤⊙≺∋
+weight ⊢∈⋈⊞⊤≺⋈⊙∈⊤⊙≺∋
+banked ⊢∈⋈⊞⊤≺⋈⊙∈⊤⊙≺∋
+insert ⊢∈⋈⊞⊤≺⋈⊙∈⊤⊙≺∋
+vox verdict ⊢⋈∈⊞⊤≺⋈⊙∈⊤⊙≺∋
+weight ⊢⋈∈⊞⊤≺⋈⊙∈⊤⊙≺∋
+banked ⊢⋈∈⊞⊤≺⋈⊙∈⊤⊙≺∋
+insert ⊢⋈∈⊞⊤≺⋈⊙∈⊤⊙≺∋
+vox verdict ⊢⋈⊞∈⊤≺⋈⊙∈⊤⊙≺∋
+weight ⊢⋈⊞∈⊤≺⋈⊙∈⊤⊙≺∋
+banked ⊢⋈⊞∈⊤≺⋈⊙∈⊤⊙≺∋
+insert ⊢⋈⊞∈⊤≺⋈⊙∈⊤⊙≺∋
+quit
