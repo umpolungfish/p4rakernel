@@ -380,3 +380,512 @@ Taken off the tree, the deviation from uniform decays geometrically. Over
 noisy. Deviation mod 27 falls from `0.298` at `k = 25` to `0.025` at `k = 40`.
 That gap is what makes `4/3` the limit rather than merely the fixed point, and
 pinning its value is the open quantity here.
+
+## What the three ob3ects returned
+
+All three ground full and all three verdict `T` at the Frobenius gate.
+
+`collatz_level_contraction` types the level map with the doubling map at ≻, the
+odd lift at ≺, the `2 (mod 3)` filter at ∈ and the cardinality sum at ∋, and it
+puts the deviation bound at ◻ as a permanent record chained forward by ⋈. Its
+phase 6 prices the cycle at one 3-adic digit of resolution per level, and its B
+state is the level simultaneously approaching `4/3` and retaining a non-zero
+deviation. `collatz_open_arm` fuses the arm at level cardinality and prices the
+same digit as the cost of maintaining `4/3`. `collatz_two_readings` fuses the
+dense and sparse readings at a conserved **winding number** with ◻ = 𐑭, integer
+winding, and calls the fused result a scale-free state.
+
+Two of the three ground with chirality 𐑖, sure, and kinetics 𐑧, egg: a descent
+through rank at slow kinetics. That is an admissible pair, where the forward
+depth-split word was wool with yea and was not.
+
+### The recursion, corrected
+
+Reading the ◻ record as a one-step bound, the obvious inequality is
+
+    D_r(L') ≤ (3/4) D_r(L) + (1/4) D_(r+1)(L)
+
+for `D_r(L)` the maximum deviation of `L` from uniform on residues mod `3^r`.
+That is false: measured against the tree it breaks at `k = 18, 23, 25, 29, 30`,
+worst ratio 1.97. The dropped factor is the normalization of the odd branch,
+which is fed by the `2 (mod 3)` third of the level and so divides by `|O|`, not
+`|L|`. Writing that out gives the exact statement, with `w_e = |L|/|L'|`,
+`w_o = |O|/|L'|` and `E_r` the conditional deviation of the parent one digit
+finer,
+
+    D_r(L') ≤ w_e D_r(L) + w_o E_r(L),
+    E_r(L) ≤ ( D_(r+1)(L) + 3^(-r) D_1(L) ) / p₂
+
+and substituting, since `w_o / p₂ = w_e = 1/(1 + p₂)`,
+
+    D_r(L') ≤ [ D_r(L) + D_(r+1)(L) + 3^(-r) D_1(L) ] / (1 + p₂)
+
+which is closed in the deviation family alone. Measured at `r = 1` and `r = 2`
+over `k = 23..28` it holds every time, ratios `0.13` to `0.76`.
+
+### Why it does not close, stated exactly
+
+With `1 + p₂ → 4/3`, contraction from that bound needs
+`D_(r+1) + 3^(-r) D_1 < D_r / 3`, so it needs the deviation to fall by more than
+a factor three per digit of resolution. It does not: measured, `D_2/D_1` and
+`D_3/D_2` sit near 1, the deviation being roughly flat in `r`. So the closed
+recursion is valid and non-contracting, and the observed mixing at `0.83` per
+level is not produced by it.
+
+What that rules out is the max-norm itself. A maximum over classes discards the
+signs, and the mixing has to come from cancellation between classes rather than
+from any single worst class. The natural replacement is the character side, where
+doubling permutes characters and the odd lift acts on them as a genuine
+contraction. Measured at these tree sizes the character sums `|E[e(m/3^r)]|` sit
+between `1e-3` and `3e-2` with per-level ratios swinging from `0.06` to `17`, so
+the sizes reached here do not yet separate a rate from the noise. Getting that
+rate wants either a larger tree or the transfer operator written out on
+characters directly.
+
+## The budget, the chain, and the junctions
+
+Bound to the kernel rather than analysed, the object reads differently. The
+`nesting` verb answers whether a point is drawn in to a map's answer, and its own
+help says Erdős–Straus is the BUDGET on greedy removal rather than its arrival.
+Collatz had no map there. The raw shortcut map cannot be one: it is not a
+contraction, so two gaps read every point as open and the confirm loop stops at
+the first widening, which is the edge that module's doc already names. The action
+that nests is the BLOCK, from `n` to the first value below `n`, which strictly
+decreases by construction with one held outright. Reading it needed the stopping
+condition the doc asked for, so a map may now name the point it arrives AT and
+have its gap read there; every existing map reads unchanged.
+
+With that, `nesting collatz` predicts attracted and the run agrees at every point
+tried, and the `collatz` verb reports the budget: 27 in seven blocks and seventy
+shortcut steps, peak 4616. Over `2..20000` no block is left open, mean budget
+17.55, max 25 at 19323. To 3000000 the records climb 1 to 40.
+
+**The records fall into two families, and `merge` separates them.** Of the
+consecutive record pairs, eleven have the larger record's trajectory running
+straight through the smaller, and twenty are siblings meeting at a junction — and
+the junctions are almost no set at all, 20 and 65 carrying twelve of the twenty.
+
+**The ancestor family is exact.** Nine of the eleven are `n ↦ (4n−1)/3`, the two
+arms of the split composed once each, one doubling and one odd lift, defined
+exactly when `n ≡ 1 (mod 3)`. Without division, `3t+1 ↦ 4t+1`. `col_chain_up` and
+`col_chain_down` give `col(4t+1) = 2(3t+1)` and `col(2(3t+1)) = 3t+1`, so
+`chain_block` says the block from `4t+1` is exactly two steps, rising above the
+seed then landing on `3t+1`: one chain step spends exactly one block, and the
+ratio is four thirds. `chain_defined_iff` puts the chain on `1 (mod 3)`, and the
+verb shows 26407 at budget 26 climbing through 35209, 46945, 62593 to 83457 at
+budget 30, where `0 (mod 3)` ends it because the odd lift has no arm.
+
+So the ratio was never one law. Within-chain steps sit at four thirds and
+everything else is a chain switch, which is why the mean sat at 1.42 and neither
+`4/3` nor `√2` was the answer.
+
+**The junctions carry a forced ratio.** Every merge happens at a value
+`2 (mod 3)`, since that is exactly where a second predecessor exists. Which arm
+the traffic uses is forced by `col_odd_pred`: an odd step sends `2t+1` to `3t+2`,
+which is `2 (mod 3)` for every `t`, so EVERY odd step lands on a junction, while
+an even step lands on one only when its own half does. With the two step kinds
+equinumerous that fixes the odd arm's share of all arrivals at
+
+    (1/2) / ( (1/2) + (1/3)(1/2) ) = 3/4
+
+and the census reads `0.7513` over seeds to 20000 and `0.7501` to 60000.
+`odd_step_lands_on_junction`, `even_step_junction_iff` and `junction_arms` carry
+it.
+
+Measured by traffic from a window of seeds, the junctions look polarized: of
+48199 used by seeds to 60000, 37868 sit in the top tenth of odd share and carry
+63% of the arrivals. That reading is a fact about the window rather than the
+tree, and the intrinsic measure says otherwise — 4616 reads `0.9996` by traffic
+and `0.7481` by subtree. Every trajectory ends through the same tail, so low
+values collect the traffic whatever their branching is.
+
+New verbs, all in the tool's own help: `collatz`, with `trace`, `merge`, `chain`,
+`junctions`, `sweep` and `ceiling`, and `collatz` as a map in `nesting`.
+
+
+### The intrinsic balance, and an invariant
+
+The quantity that does not move with the window is how much tree feeds each arm.
+`collatz balance v d` counts the two subtrees under `2v` and `(2v−1)/3` to a
+common depth; `collatz balanced lo hi d` scans for the junctions whose arms feed
+within a tenth of each other.
+
+The balanced fraction converges in depth and then does not move with scale. Over
+`2..3000` it reads `0.370` at depth 8, then `0.340`, `0.322`, `0.319`, `0.316`,
+`0.316` and `0.315` at depths 12, 16, 20, 24, 28, 32. At depth 12 it reads
+`0.3400` on `2..3000`, `0.3380` on `100000..103000` and `0.3407` on
+`5000000..5003000`. At depth 28 it reads `0.3160` low and `0.3187` at five
+million.
+
+The full distribution is the same object at both ends of that range, and it is
+discrete rather than smooth. At depth 28, out of a thousand junctions:
+
+    odd share   0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7   0.8   0.9
+    low         333     0     2   117    47   269   107   125     0     0
+    5 million   334     0     4   114    50   269   109   121     0     0
+
+Mean odd share `0.3733` low and `0.3727` at five million. A third of all
+junctions have a starved odd arm, nothing lands between `0.1` and `0.2`, nothing
+above `0.8`, and the largest single cluster sits at `0.5`. Those are the same
+numbers six orders of magnitude apart, which is the scale-free state the
+two-readings ob3ect named as the fusion of the dense and sparse readings, read
+off the tree instead of asserted.
+
+One harness note, since it cost a run: the REPL splits a command line with
+`splitn(4, ' ')`, so a fourth argument arrives glued to the third. The `collatz`
+arm re-splits its tail before reading it.
+### What fixes the share
+
+The spectrum being discrete means something finite sets it, so `collatz classes`
+groups junctions by residue and reports the spread inside each class. At modulus
+9 the answer is immediate: class `5` sits at mean `0.0041` with a spread of
+`0.0014`, while classes `2` and `8` spread over a quarter. At modulus 27 the
+pinned classes are `5, 14, 23`; at modulus 81 the spreads elsewhere fall to a few
+hundredths. The share is fixed one 3-adic digit at a time, which is the same
+digit-per-level accounting the forward reading pays.
+
+The pinned class has an exact cause, and it proves. A junction `v = 9k+5` has odd
+arm `6k+3`, which is `0 (mod 3)`. A value `0 (mod 3)` takes only its doubling
+predecessor, since the odd one exists exactly on `2 (mod 3)` — `preds_of_barren`
+— and every value in its doubling chain stays `0 (mod 3)` — `barren_doubling`. So
+that arm never branches at all: it is a bare chain of `d+1` nodes at depth `d`,
+against an even arm growing like `(4/3)^d`.
+
+That predicts a share of `(d+1) / ((d+1) + even)`, which at depth 24 is `0.004`.
+The verb reads exactly that: `collatz balance 23 24` gives odd arm subtree **25**
+against even arm 5666, and `41` gives **25** against 6235, where a junction off
+that class — 20 — reads 6266 against 5519 for a share of `0.5317`. Twenty-five is
+`d+1` on the nose.
+
+So a third of all junctions are starved for a structural reason rather than a
+statistical one, and it is the residue `5 (mod 9)` that starves them.
+`col_starved_arm`, `preds_of_barren`, `barren_doubling` and `starved_junction`
+carry it, sorry-free on the standard three.
+
+### Solving the amplitude equation
+
+At a junction the two arms and the value exhaust the count, so the even arm is
+`A(2v) = (4/3)A(v) − A(u)` and the share collapses to a ratio of one function:
+
+    share(v) = (3/4) · A(u) / A(v)
+
+The verb confirms it directly: `(3/4)·A(13)/A(20) = 0.53197` against `0.5317`
+measured, and `(3/4)·A(67)/A(101) = 0.46389` against `0.4635`. The finite form
+needs no limit at all and is `subtreeCount_junction` with `odd_arm_count`.
+
+Read along a trajectory that solves the equation. An odd `n` IS the odd arm of
+`T n`, so `A(n) = (4/3)·share(T n)·A(T n)`; an even `n` is the doubling arm, so
+`A(n) = (4/3)·(1 − share(T n))·A(T n)`. Composing over the trajectory,
+
+    A(n) = (4/3)^L · (∏ wᵢ) · A(boundary)
+    wᵢ = share(T nᵢ) at an odd step, 1 − share(T nᵢ) at an even one
+
+so `log A` is a Birkhoff sum along the Collatz map. The amplitude is a
+multiplicative cocycle whose weights are the shares, and the shares are ratios of
+the amplitude along the odd lift: the system closes on itself, which is what this
+kind of fixed point looks like rather than a defect in it.
+
+Every step holds to a twentieth of a percent. `A(13)` rebuilt from `A(4)` across
+five steps gives `6.275` against `6.287` measured, and the amplitudes verb reports
+the recursion within `±0.5%` over a whole range. The single exception is the step
+crossing the `1 → 2 → 1` cycle, where the count cuts the edge back into the root:
+the recursion reads `+56.34%` at `v = 2` and `+0.05%` at every other value in the
+same window. That is the boundary condition, and it is visible rather than hidden.
+
+Vox audits the module at 49 T and 68 N, no B, no F, nothing assumed, no `sorry`.
+
+### The Birkhoff average, and what it closes
+
+The weight reads straight off the counts, `w = (3/4)·S(n,d)/S(T n,d)`, so the sum
+of `log w` telescopes and the average is pinned by the two endpoints:
+
+    mean log w = log(3/4) + [ log S(seed) − log S(end) ] / L
+
+The numerator is bounded because the amplitude is, so the prediction is that the
+average approaches `log(3/4) = −0.287682` exactly and the gap falls like `1/L`.
+`collatz birkhoff` tests it, and the gap times the length is the quantity that
+decides:
+
+| seed window | mean length | geometric mean w | gap × length |
+|---|---|---|---|
+| 2..400 | 31.77 | 0.7215 | −1.2307 |
+| 100000..100150 | 80.05 | 0.7379 | −1.3045 |
+| 2000000..2000100 | 101.55 | 0.7403 | −1.3266 |
+
+The gap shrinks from `−0.0387` to `−0.0131` while `gap × length` stays at about
+`−1.3` across three windows and two orders of magnitude in the seed. That
+constant IS the boundedness of the cocycle, and with it the Birkhoff average is
+`log(3/4)` exactly rather than approximately. The odd-step fraction falls to
+`0.5124` over the same windows.
+
+So the geometric mean of the weights is `3/4`, the reciprocal of the branch
+factor `4/3`. The predecessor tree grows at exactly the rate the forward
+trajectories thin, and the two readings of the object — the sparse backward one
+that banks everything and the dense forward one that banks nothing — are inverse
+to each other rather than merely complementary. That is `μ∘δ = id` for this
+object, measured: `δ` branches at `4/3` per level and `μ` weights at `3/4` per
+step, and the amplitude that carries the composition is bounded.
+
+### Boundedness: what is proved, what is forced, and what is measured
+
+**Proved.** The residue structure forces a Fibonacci ceiling and nothing weaker.
+A node `≡ 0 (mod 3)` is a chain, a node `≡ 1` has a single child which is `≡ 2`,
+and a node `≡ 2` has a doubling child `≡ 1` plus an odd child. So a branch is
+always followed by a non-branching step on the even side, and the pairing
+
+    a(d+1) = 1 + b(d)          -- the `≡ 1` bound
+    b(d+1) = 1 + a(d) + b(d)   -- the `≡ 2` bound
+
+gives `1, 3, 6, 11, 19, …` with `b(d) = b(d−1) + b(d−2) + 2`. That is `φ^d`, not
+`2^d`, and `subtreeCount_le_classBound` proves every count sits under its class's
+entry, with `classBound_fib` showing the recursion is Fibonacci shifted by two.
+
+**Forced.** The mean amplitude is `6`, by conservation rather than by fitting.
+Summing the counts over a window counts each `(ancestor, depth)` pair once, so
+
+    Σ_{v ∈ W} S(v,d) = Σ_{k=0}^{d} #{ w : T^k(w) ∈ W }
+
+and with the preimage counts growing at `4/3` the right side is `4·(4/3)^d − 3`
+times `|W|`. Dividing by the two thirds of the window that is not a multiple of
+three gives `(4 − 3/(4/3)^d) / (2/3)`, which is `5.992` at depth 22. Measured:
+`5.9686`, and in depth `5.648, 5.866, 5.950, 5.981, 5.993` at depths 12 to 28,
+climbing to 6.
+
+**Measured.** The maximum amplitude does not drift, in either direction that
+could break it. Across windows at depth 22 it reads `10.0036` low, then `10.1445`
+at a hundred thousand, `10.1659` at five million and `10.1659` at five hundred
+million, while the mean holds at `5.968, 5.974, 5.968, 5.972` — eight orders of
+magnitude, four digits of agreement. In depth on a fixed window it converges:
+`9.8197, 9.9825, 10.0210, 10.0229, 10.0263` at depths 12 to 28.
+
+**Open, and located exactly.** Boundedness does not follow from the residues.
+Writing `M₁, M₂` for the suprema on the two live classes, the relations give
+`M₁ ≤ (3/4)M₂` and `M₂ ≤ (3/4)(M₁ + M₂)`, which is consistent for every `M₂` and
+so bounds nothing. The gap between the proved `φ` ceiling and the measured `4/3`
+is exactly the assumption that the odd child's residue equidistributes rather
+than landing on `2 (mod 3)` every time: adversarial gives `φ`, uniform gives
+`4/3`. So the amplitude is bounded **iff** the odd-lift residues equidistribute,
+and that single statement now carries the whole structure — the `4/3` branch
+factor, the mean `6`, the `3/4` Birkhoff average, and `μ∘δ = id` between the two
+readings.
+
+### The equidistribution, measured at square-root rate
+
+Equidistribution mod `3^r` is the vanishing of every nonprincipal character sum,
+so `collatz fourier` measures those directly rather than through a maximum
+deviation, which discards the signs the cancellation lives in.
+
+The structure of the flow is fixed and one-way. Doubling permutes the characters
+of a given conductor, so it moves no mass between levels; the odd arm sends a
+conductor `3^r` character to one of conductor `3^(r+1)`. So the coefficient at
+each conductor is fed from the conductor above it and never from below, which is
+why nothing propagates outward from the root and why the convergence has to be
+cancellation rather than transport.
+
+Measured, the cancellation is square-root. The raw coefficients fall from
+`0.25, 0.64, 0.41` at level 9 to `0.0009, 0.0040, 0.0017` at level 34, and the
+quantity that decides is the coefficient times `√N`:
+
+| level | nodes | ×√N at 3 | at 9 | at 27 |
+|---|---|---|---|---|
+| 26 | 1187 | 0.475 | 0.394 | 1.036 |
+| 28 | 2122 | 0.095 | 0.365 | 1.377 |
+| 30 | 3765 | 0.448 | 0.683 | 0.606 |
+| 32 | 6682 | 0.141 | 0.106 | 0.124 |
+| 34 | 11878 | 0.103 | 0.433 | 0.186 |
+
+That column stays of order one, mostly under 1.4, while `N` grows tenfold. So
+`|μ̂_d(χ)| = O(N_d^{-1/2})`, which is the strongest rate there is, and since
+`N_d ≍ (4/3)^d` the coefficients decay like `(4/3)^{-d/2} = 0.866^d` — the same
+number the crude deviation census read as `0.83` before the signs were kept.
+
+What is proved around it: the arm map is a bijection on residues, `arm_inj_mod`
+with `arm_surj_mod` and `arm_bijection_mod`, so a level uniform one digit finer
+produces a level uniform here. Uniform is FIXED by the level map; what is
+measured is that the tree converges to it at the square-root rate.
+
+The rung after this is finite linear algebra rather than analysis. Writing the
+coefficient vector up to conductor `3^R`, one level of the tree acts on it by a
+matrix that is upper-triangular in conductor: same-conductor terms come from the
+doubling permutation with modulus one, and the only other term comes from the
+conductor above. Proving `|μ̂_{d+1}| ≤ c·|μ̂_d|` therefore reduces to bounding the
+feed from `3^(r+1)` against the coefficient at `3^r`, level by level, with every
+entry of that matrix explicit. That bound, with `c < 1`, closes the chain:
+square-root cancellation gives the equidistribution, the equidistribution bounds
+the amplitude, and the bounded amplitude is what makes the Birkhoff average
+exactly `log(3/4)` and `μ∘δ = id` between the two readings.
+
+### The level map on coefficients, exactly
+
+Writing `μ̂_d(j,r)` for the coefficient at the character `x ↦ e(jx/3^r)`, one level
+of the tree acts as
+
+    μ̂_{d+1}(j,r) = ρ_d [ μ̂_d(2j, r)
+                       + e(−j/3^{r+1}) · (1/3) Σ_{s<3} ω^{−2s} μ̂_d(2j + s·3^r, r+1) ]
+
+with `ω` a primitive cube root of unity and `ρ_d = N_d/N_{d+1} → 3/4`. The first
+term is the doubling permutation: it moves no mass between conductors and
+contracts by exactly `ρ_d`. The second is the odd arm, reaching one conductor
+higher.
+
+`collatz flow` verifies it. The computed `|sum|` matches the coefficient the next
+level actually carries to five decimals at every level, at conductor 3 and at
+conductor 9.
+
+**The feed is a difference, not a sum.** Because `Σ_{s<3} ω^{−2s} = 0`, a
+conductor-`3^{r+1}` coefficient that is constant across the three lifts
+contributes exactly nothing. The flow between conductors is a difference operator
+rather than a transport, which is `cube_roots_sum_zero` with `three_lifts` naming
+the three lifts as `c`, `c + 3^r`, `c + 2·3^r`.
+
+**And the decay is phase cancellation, not term-wise contraction.** Measured, the
+feed runs comparable to the doubling term — `feed/same` averages about 1.5 — so
+the triangle bound gives nothing below one and no term-wise argument can work.
+What decays is the sum: the mean of `|sum| / (|same| + |feed|)` is `0.5312` at
+conductor 3 over 24 levels and `0.7884` at conductor 9 over 20. The two terms
+systematically partly cancel, and that cancellation is the square-root law seen
+from the operator side rather than from the sample.
+
+So the remaining statement is sharp and it is about phase: the doubling term and
+the odd-arm difference term must decorrelate. Everything else in the chain is
+closed — the operator is exact and verified, the cancellation in the feed is
+proved, the arm bijection is proved, the Fibonacci ceiling is proved, the mean
+amplitude is forced to 6, and the amplitude and Birkhoff average are measured
+stable across eight orders of magnitude.
+
+### The cross term: bounded, and anti-correlated
+
+The cross leg has an exact form. With `φ(a) = 3(a − 2⁻¹) + 2` a bijection from
+classes mod `3^r` onto the junction classes mod `3^{r+1}`,
+
+    C_cross = 2 · Σ_c n_r(c) · m(φ(c))
+
+so its deviation from the flat value `2·N·Np/3^r` is a correlation between two
+mean-zero vectors, and Cauchy–Schwarz bounds it by the product of the two
+deviations. Measured, that bound holds in every row with room to spare —
+`|cross|/N` against `CS/N` reads `0.063` against `0.585`, `0.594` against `0.719`,
+`0.040` against `0.105`.
+
+With the cross leg flat, the three shares are forced to `9/16`, `1/16` and `6/16`
+by the two bijections already proved — the doubling leg is exactly the previous
+`C(r)`, and the odd leg is the junction population over the `3^r` junction classes
+mod `3^{r+1}`. Those are the shares measured, stable to four digits.
+
+In the scale a square-root law lives at, `E = e·N`, the recursion reads
+
+    E_{d+1}(r) = (3/4)·E_d(r) + (1/12)·E_d(r+1) + cross
+
+whose linear part has multiplier exactly `1` when `E(r+1) = 3·E(r)`. So the
+square-root law is a **marginal fixed point** of the level map, neither growing
+nor decaying, which is why it sits so still across levels and scales. Measured,
+`E` stays bounded at both conductors over thirty levels: `0.02`–`0.65` at
+conductor 3 and `0.6`–`6.1` at conductor 9.
+
+But the measured ratio `E(r+1)/E(r)` runs `3.5` to `17`, not `3`, so the linear
+part alone predicts growth that does not happen. The cross term supplies the
+difference, and it is not a negligible remainder: it is **systematically
+negative**, eight of eleven rows, mean about `−0.09` per unit `N`. The two arms
+are weakly anti-correlated rather than independent.
+
+So the statement that remains is sharper than decorrelation, and it has a sign:
+the cross correlation between the doubling image and the odd image is negative on
+average, and that negativity is exactly what holds `E` at its marginal fixed
+point. Everything else in the chain is closed.
+
+### Where the sign comes from
+
+Doubling is an involution on the live classes mod 3: `2·1 ≡ 2` and `2·2 ≡ 1`, so
+the two branching classes are swapped every level and returned every second one,
+while the dead class is fixed. `double_swaps_classes` and `double_involution`
+carry that. An imbalance between the two live classes therefore tends to
+alternate, and a level's correlation with its own image under the arms is
+negative for that reason rather than by accident.
+
+The measurement matches, and it matches where the mechanism is purest:
+
+| conductor | levels negative | mean cross deviation | inside CS bound |
+|---|---|---|---|
+| 3 | 20 of 24 | −0.140 | 24 of 24 |
+| 9 | 15 of 22 | −0.063 | 22 of 22 |
+| 27 | 12 of 20 | −0.037 | 20 of 20 |
+
+The bias is strongest at conductor 3, where the junction condition *is* the mod-3
+condition and the swap is exact, and it weakens toward a coin flip as the
+conductor rises and the swap dilutes. The Cauchy–Schwarz bound holds in every row
+at every conductor, so the bound is structural while the sign is dynamical.
+
+Reading the signed imbalance directly at conductor 3, it changes sign every two to
+three levels rather than every level — the involution perturbed by the odd arm's
+feed, which is exactly the term that reaches one conductor higher.
+
+So the chain now reads: `μ∘δ = id` between the two readings rests on the bounded
+amplitude, the bounded amplitude on the square-root law, the square-root law on
+its being a marginal fixed point of the excess recursion, and that fixed point on
+the cross correlation's negative sign — which the doubling involution supplies and
+the odd arm perturbs. That last perturbation is the whole of what is left.
+
+### The perturbation, exactly
+
+At conductor three the even children swap the two live classes, so their entire
+contribution to the imbalance `I = n₁ − n₂` is its negation. The odd children come
+only from the junctions, and which class each lands in is fixed by its parent's
+residue mod 9: `2 ↦ 1`, `5 ↦ 0`, `8 ↦ 2`. Only two of those three touch the
+imbalance, so
+
+    I_{d+1} = −I_d + (m₂ − m₈)
+
+with `m_c` the level's counts mod 9. The involution is the minus sign; the
+perturbation is one difference of two mod-9 classes and nothing else.
+`odd_child_class_two`, `_five`, `_eight` and `junction_classes_split` carry the
+pointwise content.
+
+Checked in exact integers to depth 30 the identity holds at every level, with a
+single exception at level 2 where the tree cuts its own `1 → 2 → 1` edge: the
+prediction of 2 meets an actual 1, short by exactly the omitted node. Boundary,
+not law.
+
+The perturbation is not a small correction. Its mean size is `1.79` times the
+imbalance it perturbs, so the odd arm carries the level rather than nudging it —
+while the imbalance itself stays tiny, running between `−13` and `+11` at level 30
+where `N = 3765` and `√N = 61`. Both terms are `O(√N)` and they trade the level
+between them, which is why the sign alternates in runs of two and three rather
+than every level.
+
+So the structure recurses: the conductor-3 imbalance is driven exactly by a
+conductor-9 difference, which is in turn driven by conductor-27 differences by the
+same argument one digit up. That tower, with the involution supplying the minus
+sign at every rung, is the whole mechanism.
+
+### The tower is finite, and the norm it closes in
+
+The regress has a floor. A level of `N` nodes leaves classes empty once `3^r > N`,
+so the tower has about `0.262·d` rungs rather than infinitely many, and the top
+rung saturates at `e(r) ≈ 3^r/N` for free. That is the base case, and it was there
+all along.
+
+With the finer term carrying coefficient `1/16`, the object that closes is the
+weighted norm `‖e‖ = sup_r 3^{-r}·e(r)`:
+
+    3^{-r}·e_{d+1}(r) ≤ (9/16)·3^{-r}e_d(r) + (3/16)·3^{-(r+1)}e_d(r+1) ≤ (12/16)·‖e_d‖
+
+a contraction at `3/4` per level, because the weight pays exactly the `3` the
+digit costs. And `(3/4)^d = 1/N_d`, so the fixed point of that contraction IS the
+square-root law — derived from the two bijections rather than fitted to the
+census.
+
+Measured over sixteen levels, including every term and with no modelling: the
+per-level ratio runs `0.583, 1.006, 0.926, 0.610, 0.834, 0.852, 0.744, 0.772,
+0.719, 0.662, 0.816, 0.734, 0.768, 0.692, 0.818, 0.709`, mean `0.76` against the
+predicted `0.75`. And `‖e‖ × N` runs `0.59` to `1.04`, sitting at one.
+
+The norm is attained at the top rung every time, so it reads the saturation end,
+and the quantity that matters below it is bounded by it: `e(1) ≤ 3‖e‖ ≈ 3/N`,
+against a measured `e(1)·N` of `0.02` to `0.65`. Comfortably inside.
+
+So the linear half of the contraction is proved — it is the two bijections and the
+weight — and the measurement says the full map contracts at `0.76` with the cross
+term included. What is not yet proved is the cross term's bound in this norm.
+Cauchy–Schwarz gives `|cross| ≤ 2√(δ_even · δ_odd)` structurally, and it holds in
+every measured row; what is needed is that bound carried through the `3^{-r}`
+weighting with a constant small enough to leave `3/4 + c < 1`. That is one
+inequality, and everything else is in place beneath it.

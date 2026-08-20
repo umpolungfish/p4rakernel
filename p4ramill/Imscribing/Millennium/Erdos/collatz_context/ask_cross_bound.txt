@@ -1,0 +1,1 @@
+A bound on the cross correlation between the doubling image and the odd image of one tree level, carried through a weight of three per 3-adic digit. It must leave the level map's contraction constant below one.
