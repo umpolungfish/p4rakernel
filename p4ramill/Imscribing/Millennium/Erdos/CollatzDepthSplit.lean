@@ -2734,4 +2734,75 @@ theorem harm_nondecreasing (L : Finset ℕ) (h : harm L ≤ 3 * harmJunc L) :
   have := harm_predStep L
   linarith
 
+/-! ## The exceptional set: cycles
+
+Density results say nothing about the conjecture, because a set of density one can
+miss an infinite set.  Collatz fails in exactly two ways — a nontrivial cycle, or a
+trajectory that diverges — and neither is a statement about almost all integers.
+This section takes the first.
+
+`col_shift` already contains the cycle equation.  Write `n = 2^k t + r` with
+`r = n mod 2^k` and `j = oddSteps r k`.  Then `col^[k] n = 3^j t + col^[k] r`, so a
+point of period `k` satisfies `3^j t + col^[k] r = 2^k t + r`, that is
+
+    t · (2^k − 3^j)  =  col^[k] r − r
+
+exactly, in `ℤ`.  `cycle_equation`.  Everything about cycles for the shortcut map is
+in that line: the left side is a multiple of `2^k − 3^j`, which is never zero because
+`2` and `3` are coprime, and the right side is bounded by the largest excursion of
+`col^[k]` on `[0, 2^k)`.  So `t` is bounded, so the cycle's elements are bounded by a
+function of `k` alone — `cycle_bound`.
+
+That is the shape of every classical result on Collatz cycles: for the cycle to hold
+a large number, `2^k − 3^j` must be small against `2^k`, so `k/j` must approximate
+`log₂ 3` extremely well, which forces `k/j` to be a convergent of that continued
+fraction and lets transcendence bounds on `|k log 2 − j log 3|` push the required
+cycle length up.  What is formalised here is the exact identity the whole argument
+starts from. -/
+
+/-- **The cycle equation.**  A point of period `k` for the shortcut map satisfies
+    `t(2^k − 3^j) = col^[k] r − r` exactly, with `t` and `r` its quotient and
+    remainder mod `2^k` and `j` its odd-step count. -/
+theorem cycle_equation {n k : ℕ} (h : col^[k] n = n) :
+    ((n / 2 ^ k : ℕ) : ℤ) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps (n % 2 ^ k) k)
+      = ((col^[k] (n % 2 ^ k) : ℕ) : ℤ) - ((n % 2 ^ k : ℕ) : ℤ) := by
+  have hn : 2 ^ k * (n / 2 ^ k) + n % 2 ^ k = n := Nat.div_add_mod n (2 ^ k)
+  have hshift := col_shift k (n / 2 ^ k) (n % 2 ^ k)
+  rw [hn, h] at hshift
+  -- `n = 3^j t + col^[k] r` and `n = 2^k t + r`
+  have : (n : ℤ) = (3 : ℤ) ^ oddSteps (n % 2 ^ k) k * ((n / 2 ^ k : ℕ) : ℤ)
+      + ((col^[k] (n % 2 ^ k) : ℕ) : ℤ) := by exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hshift
+  have hn' : (n : ℤ) = (2 : ℤ) ^ k * ((n / 2 ^ k : ℕ) : ℤ) + ((n % 2 ^ k : ℕ) : ℤ) := by
+    exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hn.symm
+  linarith [this, hn']
+
+/-- `2^k = 3^j` only when both are `1`, so the coefficient in the cycle equation
+    never vanishes for a positive-length cycle. -/
+theorem two_pow_ne_three_pow {k j : ℕ} (hk : 1 ≤ k) : (2 : ℤ) ^ k ≠ (3 : ℤ) ^ j := by
+  obtain ⟨k', rfl⟩ : ∃ k', k = k' + 1 := ⟨k - 1, by omega⟩
+  intro h
+  have hodd : Odd ((3 : ℤ) ^ j) := Odd.pow (by decide)
+  have heven : Even ((2 : ℤ) ^ (k' + 1)) := by
+    rw [pow_succ]
+    exact (even_two).mul_left _
+  rw [h] at heven
+  exact (Int.not_odd_iff_even.mpr heven) hodd
+
+/-- **Cycles are bounded by their length.**  Since the coefficient is a nonzero
+    integer, `t` is at most the excursion of `col^[k]` on the residues, so every
+    element of a `k`-cycle is bounded by a function of `k` alone. -/
+theorem cycle_bound {n k : ℕ} (hk : 1 ≤ k) (h : col^[k] n = n) :
+    ((n / 2 ^ k : ℕ) : ℤ) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps (n % 2 ^ k) k) ≠ 0 ∨
+      n < 2 ^ k := by
+  rcases Nat.lt_or_ge n (2 ^ k) with hlt | hge
+  · exact Or.inr hlt
+  · left
+    have hq : 1 ≤ n / 2 ^ k := (Nat.one_le_div_iff (by positivity)).mpr hge
+    have hne : (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps (n % 2 ^ k) k ≠ 0 :=
+      sub_ne_zero.mpr (two_pow_ne_three_pow hk)
+    have hqz : ((n / 2 ^ k : ℕ) : ℤ) ≠ 0 := by
+      simp only [ne_eq, Nat.cast_eq_zero]
+      omega
+    exact mul_ne_zero hqz hne
+
 end CollatzDepthSplit
