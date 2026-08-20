@@ -67,6 +67,7 @@ CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_6	N	75
 CollatzDepthSplit.double_inj_prim	N	2385
 CollatzDepthSplit.double_involution	N	167
 CollatzDepthSplit.card_grows_from_root	N	58747
+CollatzDepthSplit.harm_predStep._proof_1_2	T	14280
 CollatzDepthSplit.survives_succ_of_odd._proof_1_1	N	5981
 CollatzDepthSplit.col_two_mul._proof_1_2	T	24940
 CollatzDepthSplit.wt_le._proof_1_3	N	943
@@ -177,6 +178,7 @@ CollatzDepthSplit.starved_junction._proof_1_1	T	50066
 CollatzDepthSplit.wt_ge_of_class_two	T	21722
 CollatzDepthSplit.wtz_children._proof_1_7	T	57572
 CollatzDepthSplit.inTree_col._proof_1_1	T	25772
+CollatzDepthSplit.harm_predStep._proof_1_3	N	7825
 CollatzDepthSplit.preimage_cases	T	2656
 CollatzDepthSplit.even_child_mod_nine	N	263
 CollatzDepthSplit.mod_three_fixed_point	N	10271
@@ -204,6 +206,7 @@ CollatzDepthSplit.col6_64u63_grows._proof_1_1	N	7429
 CollatzDepthSplit.wt_children._proof_1_10	T	57608
 CollatzDepthSplit.odd_pred_iff	T	796
 CollatzDepthSplit.wtz_children._proof_1_5	N	22795
+CollatzDepthSplit.harm_even_child	N	53017
 CollatzDepthSplit.three_lifts	T	27093
 CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4	N	48211
 CollatzDepthSplit.wtz_le._proof_1_2	N	943

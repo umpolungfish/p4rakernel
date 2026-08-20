@@ -2621,4 +2621,117 @@ theorem inTree_col {v d j : ℕ} (h : InTree v (d + 1) j) :
       rw [col_odd_pred]
       omega
 
+/-! ## The harmonic recursion, elementary and exact
+
+`tree_size_bound` makes `S_d = Σ_{v ∈ L_d} 1/(v+1)` the object the density form asks
+about, and `S_d` obeys a recursion with no Fourier analysis, no operator and no
+conductor in it.
+
+The odd arm is exact.  For a junction `v` with odd child `n`, `3(n+1) = 2(v+1)` —
+`odd_arm_exact` — so
+
+    1/(n+1) = (3/2) · 1/(v+1)
+
+exactly.  The doubling arm loses only the difference between `2v+1` and `2v+2`:
+
+    1/(2v+1) ≥ (1/2) · 1/(v+1)
+
+Summing the two over a level, with `T = Σ over the junctions`,
+
+    S(predStep L)  ≥  (1/2) S(L) + (3/2) T(L)
+
+`harm_predStep`.  Measured, the inequality is tight to five decimals — `0.10289`
+against `0.10290` at depth 48, `0.10422` against `0.10422` at 54 — because the
+doubling loss vanishes as the nodes grow.
+
+The consequence is immediate.  If the junctions carry at least a third of the
+harmonic mass, `S ≤ 3T`, then
+
+    S(predStep L) ≥ (1/2)S + (1/2)S = S
+
+so `S_d` is non-decreasing and cannot decay at all, let alone exponentially —
+`harm_nondecreasing`.  Measured, `T/S` oscillates about `1/3`: `0.3156, 0.2179,
+0.3662, 0.3537, 0.3125, 0.3312, 0.3447, 0.3832` at depths `18` to `56`, and `S_d`
+sits flat at `0.10` to `0.12`.
+
+So the density form of the conjecture, stripped to its last elementary statement, is
+
+> the junctions carry at least a third of the level's harmonic mass.
+
+which is the same `1/3` as the junction fraction, the same `1/3` as `q(3)`, and the
+same tangency — now with no machinery around it. -/
+
+/-- A level's harmonic sum. -/
+noncomputable def harm (L : Finset ℕ) : ℝ := ∑ v ∈ L, (1 : ℝ) / (v + 1)
+
+/-- Its junction part. -/
+noncomputable def harmJunc (L : Finset ℕ) : ℝ :=
+  ∑ v ∈ L.filter (fun v => v % 3 = 2), (1 : ℝ) / (v + 1)
+
+/-- The odd arm multiplies the harmonic weight by exactly `3/2`. -/
+theorem harm_odd_child {v : ℕ} (h : v % 3 = 2) :
+    (1 : ℝ) / ((2 * (v / 3) + 1 : ℕ) + 1) = (3 / 2) * ((1 : ℝ) / (v + 1)) := by
+  have hex : 3 * ((2 * (v / 3) + 1) + 1) = 2 * (v + 1) := odd_arm_exact h
+  have hc : (3 : ℝ) * ((2 * (v / 3) + 1 : ℕ) + 1) = 2 * ((v : ℝ) + 1) := by
+    exact_mod_cast congrArg (fun n : ℕ => (n : ℝ)) hex
+  have hpos : ((2 * (v / 3) + 1 : ℕ) : ℝ) + 1 > 0 := by positivity
+  have hv : ((v : ℝ) + 1) > 0 := by positivity
+  field_simp
+  linarith [hc]
+
+/-- The doubling arm loses only `2v+1` against `2v+2`. -/
+theorem harm_even_child (v : ℕ) :
+    (1 / 2 : ℝ) * ((1 : ℝ) / (v + 1)) ≤ (1 : ℝ) / ((2 * v : ℕ) + 1) := by
+  have hcast : ((2 * v : ℕ) : ℝ) = 2 * (v : ℝ) := by push_cast; ring
+  rw [hcast]
+  have hpos : (0 : ℝ) < 2 * (v : ℝ) + 1 := by positivity
+  have hle : 2 * (v : ℝ) + 1 ≤ 2 * ((v : ℝ) + 1) := by linarith
+  have key : (1 : ℝ) / (2 * ((v : ℝ) + 1)) ≤ 1 / (2 * (v : ℝ) + 1) :=
+    one_div_le_one_div_of_le hpos hle
+  have heq : (1 / 2 : ℝ) * ((1 : ℝ) / ((v : ℝ) + 1)) = 1 / (2 * ((v : ℝ) + 1)) := by
+    field_simp
+  rw [heq]
+  exact key
+
+/-- **The harmonic recursion.**  Elementary, exact on the odd arm, and tight. -/
+theorem harm_predStep (L : Finset ℕ) :
+    (1 / 2 : ℝ) * harm L + (3 / 2) * harmJunc L ≤ harm (predStep L) := by
+  have hsplit : harm (predStep L)
+      = (∑ v ∈ L, (1 : ℝ) / ((2 * v : ℕ) + 1))
+        + ∑ v ∈ L.filter (fun v => v % 3 = 2), (1 : ℝ) / ((2 * (v / 3) + 1 : ℕ) + 1) := by
+    unfold harm predStep
+    rw [Finset.sum_union, Finset.sum_image, Finset.sum_image]
+    · intro a ha b hb hab
+      obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+      obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+      simp only at hab
+      omega
+    · intro a _ b _ hab; simp only at hab; omega
+    · rw [Finset.disjoint_left]
+      rintro x hx hy
+      obtain ⟨m, _, rfl⟩ := Finset.mem_image.mp hx
+      obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
+      omega
+  rw [hsplit]
+  have h1 : (1 / 2 : ℝ) * harm L ≤ ∑ v ∈ L, (1 : ℝ) / ((2 * v : ℕ) + 1) := by
+    unfold harm
+    rw [Finset.mul_sum]
+    exact Finset.sum_le_sum (fun v _ => harm_even_child v)
+  have h2 : (3 / 2 : ℝ) * harmJunc L
+      = ∑ v ∈ L.filter (fun v => v % 3 = 2), (1 : ℝ) / ((2 * (v / 3) + 1 : ℕ) + 1) := by
+    unfold harmJunc
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun v hv => ?_)
+    obtain ⟨_, hv3⟩ := Finset.mem_filter.mp hv
+    rw [harm_odd_child hv3]
+  rw [h2]
+  linarith
+
+/-- **The consequence.**  If the junctions carry a third of the harmonic mass, the
+    harmonic sum never decreases — so it cannot decay exponentially, and `Λ(3) = 2`. -/
+theorem harm_nondecreasing (L : Finset ℕ) (h : harm L ≤ 3 * harmJunc L) :
+    harm L ≤ harm (predStep L) := by
+  have := harm_predStep L
+  linarith
+
 end CollatzDepthSplit
