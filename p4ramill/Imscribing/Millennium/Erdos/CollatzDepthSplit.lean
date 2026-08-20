@@ -1244,4 +1244,57 @@ theorem junction_cycle_order_three (m : ℕ) (h : m % 3 = 2) :
   have h9 : m % 9 = 2 ∨ m % 9 = 5 ∨ m % 9 = 8 := by omega
   rcases h9 with h9 | h9 | h9 <;> omega
 
+/-! ## What is provable about the junction fraction
+
+`p₂ ≥ 1/4` is false as stated: at level 2 the tree is `{4}` and `4 ≡ 1 (mod 3)`,
+so `p₂ = 0`, and at level 7 it is `0.2`.  Measured, those are the only two levels
+below it, and from level 8 onward the minimum is `0.2581`.  So the true statement
+carries a threshold, and the threshold is not decoration — the small levels really
+do violate it.
+
+What is provable without a threshold is the mechanism that keeps the live classes
+alive.  The even arm alone gives two inequalities, because doubling carries class
+`1` onto class `2` and class `2` onto class `1`, injectively:
+
+    (junctions of the next level) ≥ (class-1 count of this one)
+    (class-1 count of the next)   ≥ (junction count of this one)
+
+so both live classes are non-decreasing every two levels and neither can be driven
+to zero.  With `junction_cycle_order_three` excluding permanent starvation, that
+is the whole of what the structure gives: `p₂` is bounded away from `0`, and the
+numeric value `1/4` is measured rather than derived. -/
+
+/-- Doubling carries class 1 into the junctions, injectively, so the next level
+    has at least as many junctions as this level has class-1 members. -/
+theorem junctions_ge_class_one (L : Finset ℕ) :
+    (L.filter (fun m => m % 3 = 1)).card
+      ≤ ((predStep L).filter (fun m => m % 3 = 2)).card := by
+  apply Finset.card_le_card_of_injOn (fun m => 2 * m)
+  · intro a ha
+    obtain ⟨haL, ha1⟩ := Finset.mem_filter.mp ha
+    refine Finset.mem_filter.mpr ⟨?_, show (2 * a) % 3 = 2 by omega⟩
+    exact Finset.mem_union_left _ (Finset.mem_image.mpr ⟨a, haL, rfl⟩)
+  · intro a _ b _ hab
+    simp only at hab
+    omega
+
+/-- And doubling carries the junctions into class 1, so the count returns. -/
+theorem class_one_ge_junctions (L : Finset ℕ) :
+    (L.filter (fun m => m % 3 = 2)).card
+      ≤ ((predStep L).filter (fun m => m % 3 = 1)).card := by
+  apply Finset.card_le_card_of_injOn (fun m => 2 * m)
+  · intro a ha
+    obtain ⟨haL, ha2⟩ := Finset.mem_filter.mp ha
+    refine Finset.mem_filter.mpr ⟨?_, show (2 * a) % 3 = 1 by omega⟩
+    exact Finset.mem_union_left _ (Finset.mem_image.mpr ⟨a, haL, rfl⟩)
+  · intro a _ b _ hab
+    simp only at hab
+    omega
+
+/-- So the junction count does not fall across two levels. -/
+theorem junctions_nondecreasing_two_levels (L : Finset ℕ) :
+    (L.filter (fun m => m % 3 = 2)).card
+      ≤ ((predStep (predStep L)).filter (fun m => m % 3 = 2)).card :=
+  le_trans (class_one_ge_junctions L) (junctions_ge_class_one (predStep L))
+
 end CollatzDepthSplit
