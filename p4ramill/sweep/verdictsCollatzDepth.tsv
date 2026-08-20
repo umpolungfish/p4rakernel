@@ -49,6 +49,7 @@ CollatzDepthSplit.subtreeCount_barren	T	3285
 CollatzDepthSplit.odd_arm_count	N	1899
 CollatzDepthSplit.le_iterate_of_not_contracts	N	623
 CollatzDepthSplit.junction_arms	N	811
+CollatzDepthSplit.cube_roots_sum_zero	N	29985
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_4	T	55800
 CollatzDepthSplit.two_inv_mod	T	1604
 CollatzDepthSplit.col5_32s15	N	4511
@@ -87,6 +88,7 @@ CollatzDepthSplit.subtreeCount.eq_1	N	19
 CollatzDepthSplit.col_chain_up._proof_1_1	N	12591
 CollatzDepthSplit.col6_64u63_grows._proof_1_1	N	7429
 CollatzDepthSplit.odd_pred_iff	T	796
+CollatzDepthSplit.three_lifts	T	27093
 CollatzDepthSplit.col_lt_of_gap	N	43683
 CollatzDepthSplit.col4_16t7	N	4479
 CollatzDepthSplit.preds_of_mod_three	N	945
