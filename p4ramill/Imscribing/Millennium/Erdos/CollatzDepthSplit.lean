@@ -3438,4 +3438,54 @@ theorem cycle_margin_lower {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
   rw [cycle_banked hcyc]
   exact hbz
 
+/-! ### Item 1′, the shallow classes
+
+Item 1′ asks for a descending depth at every `n`.  The shallow classes give it
+outright, and they are most of `ℕ`.
+
+At depth one, an even `n` halves.  At depth two, `n = 4m+1` goes to `6m+2` and then to
+`3m+1`, which is below `4m+1` whenever `m ≥ 1`.  So every `n ≥ 2` outside `3 (mod 4)`
+descends within two steps — `descends_shallow` — which is three quarters of the
+naturals with no depth split at all.
+
+Beyond that the covering is the contracting classes at each depth, whose density is
+`1 − |S_k|/2^k`.  Measured, `|S_k|/2^k` runs `0.5, 0.25, 0.5, 0.3125, 0.1875, 0.3438,
+0.2266, 0.1445, 0.2539, 0.1719, 0.2744, 0.1938, 0.1334, 0.2120, 0.1509, 0.1051` for
+`k = 1..16`, so depth 16 already covers `89.5%` of residues; and `descends_of_class`
+turns each covered residue into descent for every member above its threshold.  What
+none of that reaches is the residues that survive every depth, which is where item 1′
+stays open. -/
+
+/-- Three quarters of `ℕ` descends within two steps, with no depth split. -/
+theorem descends_shallow {n : ℕ} (hn : 2 ≤ n) (h : n % 4 ≠ 3) :
+    col^[1] n < n ∨ col^[2] n < n := by
+  rcases Nat.even_or_odd n with he | ho
+  · left
+    have h0 : n % 2 = 0 := Nat.even_iff.mp he
+    obtain ⟨m, hm⟩ : ∃ m, n = 2 * m := ⟨n / 2, by omega⟩
+    rw [Function.iterate_one, hm, col_two_mul]
+    omega
+  · right
+    have h1 : n % 2 = 1 := Nat.odd_iff.mp ho
+    have h4 : n % 4 = 1 := by omega
+    obtain ⟨m, hm⟩ : ∃ m, n = 4 * m + 1 := ⟨n / 4, by omega⟩
+    have hm1 : 1 ≤ m := by omega
+    have hstep1 : col n = 6 * m + 2 := by
+      rw [hm, show 4 * m + 1 = 2 * (2 * m) + 1 by ring, col_odd_pred]
+      ring
+    have hstep2 : col (6 * m + 2) = 3 * m + 1 := by
+      rw [show 6 * m + 2 = 2 * (3 * m + 1) by ring, col_two_mul]
+    show col^[2] n < n
+    rw [show (2 : ℕ) = 1 + 1 by rfl, Function.iterate_add_apply, Function.iterate_one,
+      Function.iterate_one, hstep1, hstep2, hm]
+    omega
+
+/-- So the only `n` needing the depth split at all are those at `3 (mod 4)`. -/
+theorem needs_depth_split {n : ℕ} (hn : 2 ≤ n)
+    (h : ∀ k, 1 ≤ k → k ≤ 2 → ¬ (col^[k] n < n)) : n % 4 = 3 := by
+  by_contra hc
+  rcases descends_shallow hn hc with h1 | h2
+  · exact h 1 (by omega) (by omega) h1
+  · exact h 2 (by omega) (by omega) h2
+
 end CollatzDepthSplit
