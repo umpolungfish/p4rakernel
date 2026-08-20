@@ -35,6 +35,8 @@ N  clean    CollatzDepthSplit.contracts_mod
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_inj_mod
+N  clean    CollatzDepthSplit.double_involution
+N  clean    CollatzDepthSplit.double_swaps_classes
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
