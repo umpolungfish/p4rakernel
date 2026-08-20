@@ -374,4 +374,60 @@ theorem both_lifts_survive {k r : ℕ} (h : Survives k r)
   rw [oddSteps_mod]
   exact hslack
 
+/-! ## The constant: the class criterion is exact
+
+Every step is at least a multiplication by `3/2` on odd and exactly `1/2` on
+even, so `2^k * col^[k] r ≥ 3^(oddSteps r k) * r` with no error term.  A class
+that has not contracted has `3^j ≥ 2^k`, so its constant satisfies
+`col^[k] r ≥ r`, and then no member of the class descends within `k` steps at
+all.  The multiplier test is therefore not a sufficient condition with a finite
+exceptional set: it is exact. -/
+
+theorem pow_mul_le_iterate : ∀ (k r : ℕ), 3 ^ oddSteps r k * r ≤ 2 ^ k * col^[k] r := by
+  intro k
+  induction k with
+  | zero => intro r; simp [oddSteps]
+  | succ k ih =>
+    intro r
+    have hy := ih r
+    set y := col^[k] r with hydef
+    rw [Function.iterate_succ_apply', ← hydef, oddSteps_succ, ← hydef]
+    by_cases hp : y % 2 = 0
+    · have hcol : col y = y / 2 := by unfold col; rw [if_pos hp]
+      have hhalf : 2 * (y / 2) = y := by omega
+      rw [if_pos hp, Nat.add_zero, hcol, pow_succ]
+      calc 3 ^ oddSteps r k * r ≤ 2 ^ k * y := hy
+        _ = 2 ^ k * 2 * (y / 2) := by rw [mul_assoc, hhalf]
+    · have hcol : col y = (3 * y + 1) / 2 := by unfold col; rw [if_neg hp]
+      have hhalf : 2 * ((3 * y + 1) / 2) = 3 * y + 1 := by omega
+      rw [if_neg hp, hcol, pow_succ, pow_succ]
+      have hstep : 3 * (3 ^ oddSteps r k * r) ≤ 3 * (2 ^ k * y) := by omega
+      have hexp : 2 ^ k * (3 * y + 1) = 3 * (2 ^ k * y) + 2 ^ k := by ring
+      calc 3 ^ oddSteps r k * 3 * r = 3 * (3 ^ oddSteps r k * r) := by ring
+        _ ≤ 3 * (2 ^ k * y) := hstep
+        _ ≤ 2 ^ k * (3 * y + 1) := by rw [hexp]; exact Nat.le_add_right _ _
+        _ = 2 ^ k * 2 * ((3 * y + 1) / 2) := by rw [mul_assoc, hhalf]
+
+/-- A class that has not contracted carries a constant no smaller than its
+    residue. -/
+theorem le_iterate_of_not_contracts {k r : ℕ} (h : ¬ Contracts k r) : r ≤ col^[k] r := by
+  unfold Contracts at h
+  have hge : (2:ℕ) ^ k ≤ 3 ^ oddSteps r k := by omega
+  have hmain := pow_mul_le_iterate k r
+  have hstep : (2:ℕ) ^ k * r ≤ 3 ^ oddSteps r k * r := Nat.mul_le_mul_right r hge
+  have hpos : 0 < (2:ℕ) ^ k := pow_pos (by norm_num) k
+  have : (2:ℕ) ^ k * r ≤ 2 ^ k * col^[k] r := le_trans hstep hmain
+  exact Nat.le_of_mul_le_mul_left this hpos
+
+/-- Nothing in a surviving class descends within `k` steps: the multiplier test
+    is exact, not merely sufficient. -/
+theorem no_member_descends {k r : ℕ} (h : ¬ Contracts k r) (t : ℕ) :
+    2 ^ k * t + r ≤ col^[k] (2 ^ k * t + r) := by
+  unfold Contracts at h
+  have hge : (2:ℕ) ^ k ≤ 3 ^ oddSteps r k := by omega
+  have hc : r ≤ col^[k] r := le_iterate_of_not_contracts (by unfold Contracts; omega)
+  rw [col_shift]
+  have hmul : 2 ^ k * t ≤ 3 ^ oddSteps r k * t := Nat.mul_le_mul_right t hge
+  omega
+
 end CollatzDepthSplit
