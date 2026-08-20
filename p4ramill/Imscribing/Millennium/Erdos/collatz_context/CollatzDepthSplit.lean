@@ -1049,4 +1049,161 @@ theorem junction_classes_split (v : ℕ) (h : v % 3 = 2) :
   · exact Or.inr (Or.inl ⟨h9, by omega⟩)
   · exact Or.inr (Or.inr ⟨h9, by omega⟩)
 
+/-! ## The cross term, decomposed
+
+Write each histogram as its flat part plus a deviation.  Because both deviations
+sum to zero, the flat parts contribute exactly the product of the totals over the
+modulus and nothing else survives to first order: the cross term IS the
+correlation of the two deviations, with no remainder.  That is `cross_decompose`
+below, stated over any finite index type and any reindexing of the second factor.
+
+With it, Cauchy–Schwarz gives `|cross(r)| ≤ (3/8)·√(e_even(r)·e_odd(r))`, where
+`e_even(r)` is the level's own excess exactly, by the doubling bijection, and
+`e_odd(r)` is the arm image's.  Summed against the weight that is
+`c ≤ (3/8)√3·√(‖e_arm‖/‖e‖)`.
+
+Measured, the arm image is as uniform as its quarter share allows — the ratio runs
+`3.7` to `5.7`, against the `4` that population alone would give — so the bound
+lands at `1.25` to `1.55`.  The measured `c` is about `0.1`.  So Cauchy–Schwarz is
+loose here by roughly a factor of fourteen, and it cannot reach `1/4`: it takes
+absolute values, and the sign is exactly what carries the contraction.  The
+inequality below is what is provable without the sign; the sign is what remains. -/
+
+/-- The flat parts cancel: a cross sum of two mean-zero-perturbed histograms is
+    the product of the totals plus the correlation of the deviations, exactly. -/
+theorem cross_decompose {ι : Type*} [Fintype ι] [DecidableEq ι]
+    (A B : ℚ) (a b : ι → ℚ) (σ : ι ≃ ι)
+    (ha : ∑ i, a i = 0) (hb : ∑ i, b i = 0) :
+    ∑ i, (A + a i) * (B + b (σ i))
+      = (Fintype.card ι : ℚ) * A * B + ∑ i, a i * b (σ i) := by
+  have hbσ : ∑ i, b (σ i) = 0 := by
+    rw [← hb]
+    exact Fintype.sum_equiv σ _ _ (fun _ => rfl)
+  have expand : ∀ i : ι, (A + a i) * (B + b (σ i))
+      = A * B + A * b (σ i) + a i * B + a i * b (σ i) := fun i => by ring
+  rw [Finset.sum_congr rfl (fun i _ => expand i)]
+  simp only [Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.sum_mul, ha, hbσ,
+    Finset.sum_const, Finset.card_univ, nsmul_eq_mul, mul_zero, zero_mul, add_zero,
+    zero_add]
+  ring
+
+/-! ## Why the cross term is negative: the lag sum rule
+
+Both deviations are the same level's, read under two affine maps, so the cross
+term is an autocorrelation of the deviation at a nonzero lag.  A deviation sums to
+zero, and that forces the autocorrelations over ALL lags to sum to zero:
+
+    Σ_lag R(lag) = (Σ_c d c)² = 0,   R 0 = ‖d‖² > 0
+
+so the nonzero lags sum to `−‖d‖²`.  They cannot all be positive; on average they
+are negative, and a typical one sits at `−‖d‖²/(M−1)`.  That is the whole source
+of the sign, and `autocorr_sum_zero` proves it for any mean-zero function on a
+finite additive group.
+
+What it buys depends on the conductor.  Measured, the cross term runs `0.349` of
+the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27 — which is
+`3^(-r/2)` to two digits, square-root cancellation over the `3^r` lags.  At
+conductor 3 there are only two nonzero lags and no such gain exists, and that is
+exactly where the weight `3^(-r)` is heaviest.  So the low rungs cannot be handled
+generically; they need their identities, and `r = 1` already has one — the exact
+integer recursion `I_{d+1} = −I_d + (m₂ − m₈)`. -/
+
+/-- A mean-zero function's autocorrelations sum to zero over all lags.  The zero
+    lag contributes `‖d‖²`, so every other lag together contributes `−‖d‖²`: the
+    nonzero lags cannot all be positive, which is where the cross term's sign
+    comes from. -/
+theorem autocorr_sum_zero {G : Type*} [Fintype G] [DecidableEq G] [AddCommGroup G]
+    (d : G → ℚ) (hd : ∑ x, d x = 0) :
+    ∑ t, ∑ x, d x * d (x + t) = 0 := by
+  have inner : ∀ x : G, ∑ t, d x * d (x + t) = 0 := by
+    intro x
+    rw [← Finset.mul_sum]
+    have : ∑ t, d (x + t) = ∑ y, d y :=
+      Fintype.sum_equiv (Equiv.addLeft x) _ _ (fun _ => rfl)
+    rw [this, hd, mul_zero]
+  rw [Finset.sum_comm]
+  simpa using Finset.sum_congr rfl (fun x _ => inner x)
+
+/-! ## Why the low conductors are the hard ones
+
+The doubling permutation on residues mod `3^r` has order `2·3^(r-1)`: the kernel
+reads `2, 6, 18, 54, 162` at `r = 1..5`.  That single fact organises everything
+about the sign.
+
+At `r = 1` the order is **two** — the permutation is the involution
+`double_swaps_classes`, so a deviation alternates every level and the
+cancellation is complete and per-level.  That is why the conductor-3 identity
+`I_{d+1} = −I_d + (m₂ − m₈)` carries a bare minus sign, and why the cross term is
+negative in 20 of 24 levels there.
+
+At `r ≥ 2` the order is `6, 18, 54, …`.  There is no per-level sign at all; the
+deviation returns to itself only after a full cycle, and what survives per level
+is dilution rather than cancellation.  Measured, the cross term sits at `0.349`
+of the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27, against
+`3^(-r/2)` of `0.333` and `0.192` — square-root cancellation over the classes,
+with the cycle length `2·3^(r-1)` proportional to that count.
+
+So the two regimes are structurally different, and the split in the proof follows
+the split in the order: the low rungs get exact identities, because they have a
+sign to carry, and the high rungs get the generic square-root bound, because they
+have length to average over. -/
+
+theorem two_order_mod_three : 2 ^ 2 % 3 = 1 ∧ 2 ^ 1 % 3 ≠ 1 := by decide
+
+theorem two_order_mod_nine :
+    2 ^ 6 % 9 = 1 ∧ 2 ^ 1 % 9 ≠ 1 ∧ 2 ^ 2 % 9 ≠ 1 ∧ 2 ^ 3 % 9 ≠ 1
+      ∧ 2 ^ 4 % 9 ≠ 1 ∧ 2 ^ 5 % 9 ≠ 1 := by decide
+
+theorem two_order_mod_twentyseven :
+    2 ^ 18 % 27 = 1 ∧ 2 ^ 6 % 27 ≠ 1 ∧ 2 ^ 9 % 27 ≠ 1 := by decide
+
+/-- At conductor three, and only there, doubling is its own inverse — which is
+    the whole of the per-level sign. -/
+theorem doubling_involutive_only_at_three (m : ℕ) :
+    (4 * m) % 3 = m % 3 ∧ ¬ (∀ x : ℕ, (4 * x) % 9 = x % 9) := by
+  refine ⟨by omega, fun h => ?_⟩
+  have := h 1
+  omega
+
+/-! ## The identity at conductor nine
+
+At `r = 1` the doubling permutation is an involution and the recursion closes on
+itself in one step.  At `r = 2` it is a six-cycle, so there is no per-level sign,
+but the recursion is still exact — only now it reads the level at two resolutions
+at once.
+
+Both arms are determined:
+
+  * the even child `2m` has class `2·(m mod 9) mod 9`, and doubling is a bijection
+    there with inverse `5`, since `2·5 = 10 ≡ 1 (mod 9)`;
+  * the odd child `2t+1` of a junction `3t+2` has class `2·(t mod 9)+1 mod 9`, so
+    it is fixed by `t mod 9`, which is `m mod 27`.
+
+So each class mod 9 of the next level is fed by exactly one class mod 9 of this
+one through the doubling arm, and by exactly one class mod 27 through the odd arm.
+`odd_source_mod_nine` names the second: the `t` class feeding `c` is `5·(c−1)`,
+written `5·(c+8)` to stay in `ℕ`. -/
+
+theorem even_child_mod_nine (m : ℕ) : (2 * m) % 9 = (2 * (m % 9)) % 9 := by omega
+
+theorem odd_child_mod_nine (t : ℕ) : (2 * t + 1) % 9 = (2 * (t % 9) + 1) % 9 := by omega
+
+theorem inv_two_mod_nine : (2 * 5) % 9 = 1 := by decide
+
+/-- Doubling is onto the classes mod 9, so every class of the next level has
+    exactly one doubling source. -/
+theorem doubling_onto_mod_nine : ∀ c < 9, ∃ b, b < 9 ∧ (2 * b) % 9 = c := by decide
+
+/-- And the odd arm's source: the `t` class feeding class `c` is `5(c−1) mod 9`,
+    so the junction class feeding it is `3·that + 2` mod 27. -/
+theorem odd_source_mod_nine : ∀ c < 9, (2 * ((5 * (c + 8)) % 9) + 1) % 9 = c := by decide
+
+/-- The junction class mod 27 that feeds class `c` mod 9 through the odd arm. -/
+def oddSource (c : ℕ) : ℕ := 3 * ((5 * (c + 8)) % 9) + 2
+
+theorem oddSource_is_junction (c : ℕ) : oddSource c % 3 = 2 := by
+  unfold oddSource; omega
+
+theorem oddSource_feeds : ∀ c < 9, (2 * (oddSource c / 3) + 1) % 9 = c := by decide
+
 end CollatzDepthSplit
