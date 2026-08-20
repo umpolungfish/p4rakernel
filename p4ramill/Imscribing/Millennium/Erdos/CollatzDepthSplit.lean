@@ -764,4 +764,78 @@ theorem odd_arm_count {v : ℕ} (h : v % 3 = 2) (d : ℕ) :
   rw [subtreeCount_junction h]
   omega
 
+/-! ## What the residues alone force, and what they do not
+
+Boundedness of the amplitude is boundedness of `S(v,d) / (4/3)^d`, so the first
+question is what growth rate the residue structure forces on its own.
+
+The transitions are rigid on two of the three classes.  A node `≡ 0 (mod 3)` has
+only its doubling child and that child is `≡ 0` again, so the class is a chain.
+A node `≡ 1 (mod 3)` has only its doubling child, which is `≡ 2`.  A node
+`≡ 2 (mod 3)` has a doubling child `≡ 1` and an odd child whose class depends on
+the next digit.  So a branch is always followed by a non-branching step on the
+even side, and the fastest a subtree can grow is the Fibonacci pairing
+
+    a (d+1) = 1 + b d          -- a bounds the `≡ 1` class
+    b (d+1) = 1 + a d + b d    -- b bounds the `≡ 2` class
+
+giving `1, 3, 6, 11, 19, …` with `b(d) = b(d-1) + b(d-2) + 2`, so the ceiling is
+`φ^d` and not `2^d`.  That is proved below.
+
+It is also NOT `(4/3)^d`.  The gap between the Fibonacci ceiling and the measured
+`4/3` is exactly the assumption that the odd child's class is equidistributed
+rather than adversarial: taking the odd child to land on `2 (mod 3)` every time
+gives `φ`, and taking it uniformly over the three classes gives `4/3`.  So the
+amplitude's boundedness is not a consequence of the residue structure, and the
+measurement that stands behind it — `gap × length` flat at `−1.3` across two
+orders of magnitude — is evidence for the equidistribution rather than a
+substitute for it. -/
+
+/-- Bounds for the two live classes, paired: `(bound for ≡1, bound for ≡2)`. -/
+def classBound : ℕ → ℕ × ℕ
+  | 0     => (1, 1)
+  | (d+1) => (1 + (classBound d).2, 1 + (classBound d).1 + (classBound d).2)
+
+theorem classBound_mono (d : ℕ) : (classBound d).1 ≤ (classBound d).2 := by
+  induction d with
+  | zero => simp [classBound]
+  | succ d ih =>
+    simp only [classBound]
+    omega
+
+/-- The count under any value is bounded by its class's entry, so the subtree
+    grows at most like `φ^d`. -/
+theorem subtreeCount_le_classBound : ∀ (d v : ℕ),
+    subtreeCount v d ≤ (if v % 3 = 2 then (classBound d).2 else (classBound d).1) := by
+  intro d
+  induction d with
+  | zero => intro v; simp [subtreeCount, classBound]
+  | succ d ih =>
+    intro v
+    by_cases h : v % 3 = 2
+    · have h2 : (2 * v) % 3 = 1 := by omega
+      have hb1 := ih (2 * v)
+      have hb2 := ih (2 * (v / 3) + 1)
+      rw [if_pos h, subtreeCount_junction h]
+      simp only [classBound]
+      rw [if_neg (by omega : ¬ (2 * v) % 3 = 2)] at hb1
+      have := classBound_mono d
+      by_cases h3 : (2 * (v / 3) + 1) % 3 = 2
+      · rw [if_pos h3] at hb2; omega
+      · rw [if_neg h3] at hb2; omega
+    · have hb1 := ih (2 * v)
+      rw [if_neg h, subtreeCount_barren h]
+      simp only [classBound]
+      by_cases h2 : (2 * v) % 3 = 2
+      · rw [if_pos h2] at hb1; omega
+      · rw [if_neg h2] at hb1
+        have := classBound_mono d
+        omega
+
+/-- The pairing IS the Fibonacci recursion, shifted by two. -/
+theorem classBound_fib (d : ℕ) :
+    (classBound (d + 2)).2 = (classBound (d + 1)).2 + (classBound d).2 + 2 := by
+  simp only [classBound]
+  omega
+
 end CollatzDepthSplit
