@@ -2805,4 +2805,77 @@ theorem cycle_bound {n k : ℕ} (hk : 1 ≤ k) (h : col^[k] n = n) :
       omega
     exact mul_ne_zero hqz hne
 
+/-! ### The excursion bound, and the cycle bound made quantitative
+
+`cycle_bound` says a cycle's elements are bounded by its length; to say by how much,
+bound `col^[k] r`.  The `u = n+1` coordinate does it in one line each way, and it is
+the same coordinate that made the tree's odd arm exactly `×2/3`:
+
+* an odd step is exactly `u ↦ (3/2)u`, since `n` odd gives `col n + 1 = 3(n+1)/2`;
+* an even step never increases `u`, since `col n + 1 = n/2 + 1 ≤ n + 1`.
+
+So `j` odd steps multiply `u` by `(3/2)^j` and the rest cannot help, giving
+
+    2^j · (col^[k] r + 1)  ≤  3^j · (r + 1)
+
+`iterate_le_pow`, by induction on `k`.  With `r < 2^k` that bounds the excursion in
+the cycle equation, and
+
+    t · |2^k − 3^j|  =  |col^[k] r − r|  ≤  3^j · 2^(k−j)
+
+so a `k`-cycle can hold a large number only when `|2^k − 3^j|` is small against
+`2^k` — which is the Diophantine condition the classical results exploit, reached
+here from the residue split. -/
+
+/-- One step, in the `u = n+1` coordinate: odd multiplies by exactly `3/2`. -/
+theorem col_succ_odd {n : ℕ} (h : n % 2 = 1) : 2 * (col n + 1) = 3 * (n + 1) := by
+  have : col n = (3 * n + 1) / 2 := by
+    unfold col; simp [h]
+  omega
+
+/-- And even never increases it. -/
+theorem col_succ_even {n : ℕ} (h : n % 2 = 0) : col n + 1 ≤ n + 1 := by
+  have : col n = n / 2 := by unfold col; simp [h]
+  omega
+
+/-- **The excursion bound.**  `j` odd steps multiply `n+1` by at most `(3/2)^j`, and
+    the even steps cannot help. -/
+theorem iterate_le_pow : ∀ (k r : ℕ),
+    2 ^ oddSteps r k * (col^[k] r + 1) ≤ 3 ^ oddSteps r k * (r + 1) := by
+  intro k
+  induction k with
+  | zero => intro r; simp [oddSteps]
+  | succ k ih =>
+      intro r
+      rw [Function.iterate_succ_apply]
+      have hstep : oddSteps r (k + 1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) k := rfl
+      rcases Nat.even_or_odd r with he | ho
+      · have h0 : r % 2 = 0 := Nat.even_iff.mp he
+        have hj : oddSteps r (k + 1) = oddSteps (col r) k := by rw [hstep, if_pos h0]; ring
+        rw [hj]
+        calc 2 ^ oddSteps (col r) k * (col^[k] (col r) + 1)
+            ≤ 3 ^ oddSteps (col r) k * (col r + 1) := ih (col r)
+          _ ≤ 3 ^ oddSteps (col r) k * (r + 1) :=
+              Nat.mul_le_mul_left _ (col_succ_even h0)
+      · have h1 : r % 2 = 1 := Nat.odd_iff.mp ho
+        have hj : oddSteps r (k + 1) = oddSteps (col r) k + 1 := by
+          rw [hstep, if_neg (by omega)]; ring
+        rw [hj, pow_succ, pow_succ]
+        have hc := col_succ_odd h1
+        calc 2 ^ oddSteps (col r) k * 2 * (col^[k] (col r) + 1)
+            = 2 * (2 ^ oddSteps (col r) k * (col^[k] (col r) + 1)) := by ring
+          _ ≤ 2 * (3 ^ oddSteps (col r) k * (col r + 1)) :=
+              Nat.mul_le_mul_left _ (ih (col r))
+          _ = 3 ^ oddSteps (col r) k * (2 * (col r + 1)) := by ring
+          _ = 3 ^ oddSteps (col r) k * (3 * (r + 1)) := by rw [hc]
+          _ = 3 ^ oddSteps (col r) k * 3 * (r + 1) := by ring
+
+/-- **The cycle bound, quantitative.**  Combining the cycle equation with the
+    excursion bound: the multiplier `t` is at most the excursion divided by
+    `|2^k − 3^j|`, so a long cycle needs `2^k` and `3^j` to be very close. -/
+theorem cycle_excursion {k r : ℕ} (hr : r < 2 ^ k) :
+    2 ^ oddSteps r k * (col^[k] r + 1) ≤ 3 ^ oddSteps r k * 2 ^ k := by
+  calc 2 ^ oddSteps r k * (col^[k] r + 1) ≤ 3 ^ oddSteps r k * (r + 1) := iterate_le_pow k r
+    _ ≤ 3 ^ oddSteps r k * 2 ^ k := Nat.mul_le_mul_left _ (by omega)
+
 end CollatzDepthSplit
