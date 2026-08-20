@@ -55,6 +55,9 @@ N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_7
 N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_8
 N  clean    CollatzDepthSplit.oddSteps_pred_two_pow
 N  clean    CollatzDepthSplit.odd_arm_count
+N  clean    CollatzDepthSplit.odd_child_class_eight
+N  clean    CollatzDepthSplit.odd_child_class_five
+N  clean    CollatzDepthSplit.odd_child_class_two
 N  clean    CollatzDepthSplit.odd_map_inj_mod
 N  clean    CollatzDepthSplit.odd_step_lands_on_junction
 N  clean    CollatzDepthSplit.pow_mul_le_iterate._proof_1_6
@@ -106,6 +109,7 @@ T  clean    CollatzDepthSplit.contracts_mod_le._proof_1_1
 T  clean    CollatzDepthSplit.contracts_succ_of_even_step
 T  clean    CollatzDepthSplit.exists_survivor_lift
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
+T  clean    CollatzDepthSplit.junction_classes_split
 T  clean    CollatzDepthSplit.mem_predStep_col
 T  clean    CollatzDepthSplit.mem_predStep_col._proof_1_1
 T  clean    CollatzDepthSplit.oddSteps.eq_def
