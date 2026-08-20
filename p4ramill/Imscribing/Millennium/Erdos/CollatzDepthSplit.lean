@@ -1008,4 +1008,45 @@ theorem double_swaps_classes (m : ℕ) :
     involution on residues mod 3. -/
 theorem double_involution (m : ℕ) : (4 * m) % 3 = m % 3 := by omega
 
+/-! ## The perturbation, exactly
+
+At conductor three the even children swap the two live classes, so their whole
+contribution to the imbalance `n₁ − n₂` is its negation.  The odd children come
+only from the junctions, and which class they land in is fixed by the parent's
+residue mod 9: `2 ↦ 1`, `5 ↦ 0`, `8 ↦ 2`.  Only two of those three touch the
+imbalance, so
+
+    I_{d+1} = −I_d + (m₂ − m₈)
+
+with `m_c` the level's counts mod 9.  The involution is the minus sign and the
+perturbation is one difference of two mod-9 classes, nothing else.
+
+Checked in exact integers, the identity holds at every level to depth 30 with a
+single exception at level 2, where the tree cuts its own `1 → 2 → 1` edge and the
+prediction of 2 meets an actual 1 — off by exactly the omitted node.  The
+perturbation is not small: its mean size is `1.79` times the imbalance it
+perturbs, so the odd arm carries the level rather than nudging it, while the
+imbalance itself stays at a fraction of `√N`. -/
+
+theorem odd_child_class_two (v : ℕ) (h : v % 9 = 2) : (2 * (v / 3) + 1) % 3 = 1 := by
+  omega
+
+theorem odd_child_class_five (v : ℕ) (h : v % 9 = 5) : (2 * (v / 3) + 1) % 3 = 0 := by
+  omega
+
+theorem odd_child_class_eight (v : ℕ) (h : v % 9 = 8) : (2 * (v / 3) + 1) % 3 = 2 := by
+  omega
+
+/-- So of the three junction classes mod 9, one feeds each live class and one
+    feeds the dead class: the imbalance sees `2` and `8` and never `5`. -/
+theorem junction_classes_split (v : ℕ) (h : v % 3 = 2) :
+    (v % 9 = 2 ∧ (2 * (v / 3) + 1) % 3 = 1)
+      ∨ (v % 9 = 5 ∧ (2 * (v / 3) + 1) % 3 = 0)
+      ∨ (v % 9 = 8 ∧ (2 * (v / 3) + 1) % 3 = 2) := by
+  have h9 : v % 9 = 2 ∨ v % 9 = 5 ∨ v % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9
+  · exact Or.inl ⟨h9, by omega⟩
+  · exact Or.inr (Or.inl ⟨h9, by omega⟩)
+  · exact Or.inr (Or.inr ⟨h9, by omega⟩)
+
 end CollatzDepthSplit

@@ -19,6 +19,7 @@ CollatzDepthSplit.oddSteps.eq_1	N	19
 CollatzDepthSplit.survives_succ_of_odd._proof_1_3	N	9399
 CollatzDepthSplit.contracts_mod_le	T	3571
 CollatzDepthSplit.chain_block._proof_1_1	N	7089
+CollatzDepthSplit.junction_classes_split	T	4787
 CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_1	N	11139
 CollatzDepthSplit.subtreeCount.eq_def	T	9052
 CollatzDepthSplit.survivors_nonempty	T	1392
@@ -66,6 +67,7 @@ CollatzDepthSplit.survives_succ_of_slack._proof_1_3	N	18553
 CollatzDepthSplit.two_coprime_three_pow	N	131
 CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_2	N	10933
 CollatzDepthSplit.double_inj_mod	N	55
+CollatzDepthSplit.odd_child_class_two	N	233
 CollatzDepthSplit.preds_of_barren._proof_1_1	N	15367
 CollatzDepthSplit.subtreeCount_le_classBound._proof_1_10	N	51113
 CollatzDepthSplit.oddSteps.eq_2	N	13
@@ -117,12 +119,14 @@ CollatzDepthSplit.col_two_mul._proof_1_1	T	35508
 CollatzDepthSplit.mem_predStep_col._proof_1_1	T	25772
 CollatzDepthSplit.survivors_survive_mod_32	N	467
 CollatzDepthSplit.barren_doubling	T	34630
+CollatzDepthSplit.odd_child_class_eight	N	233
 CollatzDepthSplit.arm_inj_mod	N	11
 CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1	N	8417
 CollatzDepthSplit.survives_succ_of_slack._proof_1_2	T	37542
 CollatzDepthSplit.oddSteps_pred_two_pow	N	1687
 CollatzDepthSplit.chain_defined_iff._proof_1_2	T	25766
 CollatzDepthSplit.subtreeCount_succ	N	35
+CollatzDepthSplit.odd_child_class_five	N	233
 CollatzDepthSplit.starved_junction._proof_1_2	T	50066
 CollatzDepthSplit.contracts_mod	N	1117
 CollatzDepthSplit.subtreeCount_le_classBound._proof_1_12	N	13777
