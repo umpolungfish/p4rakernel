@@ -46,6 +46,8 @@ N  clean    CollatzDepthSplit.cross_decompose._simp_1_2
 N  clean    CollatzDepthSplit.cube_indicator._proof_1_3
 N  clean    CollatzDepthSplit.cube_indicator._proof_1_5
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
+N  clean    CollatzDepthSplit.cycle_bound._proof_1_2
+N  clean    CollatzDepthSplit.cycle_bound._simp_1_1
 N  clean    CollatzDepthSplit.density_characteristic
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_injOn_prim
@@ -236,6 +238,7 @@ T  clean    CollatzDepthSplit.col_two_mul._proof_1_2
 T  clean    CollatzDepthSplit.contracts_mod_le
 T  clean    CollatzDepthSplit.contracts_mod_le._proof_1_1
 T  clean    CollatzDepthSplit.contracts_succ_of_even_step
+T  clean    CollatzDepthSplit.cycle_bound
 T  clean    CollatzDepthSplit.doubling_image_prim
 T  clean    CollatzDepthSplit.evenImage_eq_even_part
 T  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_5
@@ -286,6 +289,8 @@ T  clean    CollatzDepthSplit.survivors_nonempty
 T  clean    CollatzDepthSplit.survivors_nonempty._proof_1_1
 T  clean    CollatzDepthSplit.three_lifts
 T  clean    CollatzDepthSplit.two_inv_mod
+T  clean    CollatzDepthSplit.two_pow_ne_three_pow
+T  clean    CollatzDepthSplit.two_pow_ne_three_pow._proof_1_1
 T  clean    CollatzDepthSplit.wt_children._proof_1_10
 T  clean    CollatzDepthSplit.wt_children._proof_1_3
 T  clean    CollatzDepthSplit.wt_children._proof_1_4

@@ -12,6 +12,7 @@ CollatzDepthSplit.chain_defined_iff._proof_1_1	T	49994
 CollatzDepthSplit.classBound.eq_def	T	4929
 CollatzDepthSplit.arm_surj_mod	T	49378
 CollatzDepthSplit.contracts_succ_of_even_step	T	2687
+CollatzDepthSplit.cycle_bound	T	2326
 CollatzDepthSplit.odd_map_inj_mod	N	107
 CollatzDepthSplit.wt_le._proof_1_1	N	943
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_4	N	55
@@ -38,6 +39,7 @@ CollatzDepthSplit.survives_succ_of_odd._proof_1_3	N	9399
 CollatzDepthSplit.contracts_mod_le	T	3571
 CollatzDepthSplit.wtz_ge_of_class_one	T	18187
 CollatzDepthSplit.census_mass	T	1998
+CollatzDepthSplit.two_pow_ne_three_pow	T	1412
 CollatzDepthSplit.chain_block._proof_1_1	N	7089
 CollatzDepthSplit.tower_never_fills	N	20423
 CollatzDepthSplit.junction_classes_split	T	4787
@@ -100,6 +102,7 @@ CollatzDepthSplit.coeff_predStep._proof_1_3	N	7825
 CollatzDepthSplit.class_one_ge_junctions._proof_1_2	T	14280
 CollatzDepthSplit.wt_le._proof_1_2	N	943
 CollatzDepthSplit.col6_64u31_grows._proof_1_1	N	7429
+CollatzDepthSplit.cycle_bound._simp_1_1	N	73
 CollatzDepthSplit.coeff_predStep._proof_1_2	T	14280
 CollatzDepthSplit.preds_of_barren	T	574
 CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1	T	49988
@@ -227,6 +230,7 @@ CollatzDepthSplit.col_odd_pred	T	2620
 CollatzDepthSplit.odd_arm_exponent	N	313
 CollatzDepthSplit.oddSteps.eq_def	T	5197
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_2	N	37
+CollatzDepthSplit.two_pow_ne_three_pow._proof_1_1	T	26580
 CollatzDepthSplit.wt_le._proof_1_5	N	943
 CollatzDepthSplit.weighted_contraction_constant	N	4159
 CollatzDepthSplit.subtreeCount_of_three_dvd	N	1565
@@ -237,6 +241,7 @@ CollatzDepthSplit.wt_children._proof_1_3	T	57494
 CollatzDepthSplit.oddImage_eq_odd_part._simp_1_4	N	75
 CollatzDepthSplit.col6_64u31_grows	N	861
 CollatzDepthSplit.doubling_image_prim._simp_1_3	N	37
+CollatzDepthSplit.cycle_bound._proof_1_2	N	8609
 CollatzDepthSplit.col4_16t7_grows	N	861
 CollatzDepthSplit.col6_64u63	N	4511
 CollatzDepthSplit.equidist_of_dft_small._simp_1_1	N	37
