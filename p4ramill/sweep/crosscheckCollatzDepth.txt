@@ -15,6 +15,8 @@ N  clean    CollatzDepthSplit.classBound.eq_2
 N  clean    CollatzDepthSplit.classBound_fib
 N  clean    CollatzDepthSplit.classBound_mono
 N  clean    CollatzDepthSplit.classBound_mono._proof_1_4
+N  clean    CollatzDepthSplit.coeff_parity_split._proof_1_3
+N  clean    CollatzDepthSplit.coeff_parity_split._simp_1_1
 N  clean    CollatzDepthSplit.coeff_predStep._proof_1_3
 N  clean    CollatzDepthSplit.col4_16t3
 N  clean    CollatzDepthSplit.col4_16t3_contracts
@@ -44,12 +46,20 @@ N  clean    CollatzDepthSplit.cube_indicator._proof_1_3
 N  clean    CollatzDepthSplit.cube_indicator._proof_1_5
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_collide_iff
+N  clean    CollatzDepthSplit.double_injOn_prim
 N  clean    CollatzDepthSplit.double_inj_mod
+N  clean    CollatzDepthSplit.double_inj_prim
+N  clean    CollatzDepthSplit.double_inj_prim._simp_1_2
+N  clean    CollatzDepthSplit.double_inj_prim._simp_1_3
 N  clean    CollatzDepthSplit.double_involution
 N  clean    CollatzDepthSplit.double_swaps_classes
+N  clean    CollatzDepthSplit.doubling_image_prim._proof_1_5
+N  clean    CollatzDepthSplit.doubling_image_prim._simp_1_2
+N  clean    CollatzDepthSplit.doubling_image_prim._simp_1_3
 N  clean    CollatzDepthSplit.doubling_involutive_only_at_three
 N  clean    CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2
 N  clean    CollatzDepthSplit.doubling_onto_mod_nine
+N  clean    CollatzDepthSplit.energy_contraction
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_1
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_2
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_3
@@ -62,6 +72,9 @@ N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_2
 N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_3
 N  clean    CollatzDepthSplit.evenImage_eq_even_part._simp_1_4
 N  clean    CollatzDepthSplit.even_child_mod_nine
+N  clean    CollatzDepthSplit.even_part_coeff
+N  clean    CollatzDepthSplit.even_part_energy
+N  clean    CollatzDepthSplit.even_part_energy._proof_1_1
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.feed_extremal_triple
 N  clean    CollatzDepthSplit.fixed_conductor_threshold
@@ -75,6 +88,7 @@ N  clean    CollatzDepthSplit.junctions_nondecreasing_two_levels
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
 N  clean    CollatzDepthSplit.level_coeff_triangle
+N  clean    CollatzDepthSplit.level_energy_recursion
 N  clean    CollatzDepthSplit.level_weighted_step
 N  clean    CollatzDepthSplit.levels_equidistribute
 N  clean    CollatzDepthSplit.no_member_descends
@@ -112,6 +126,7 @@ N  clean    CollatzDepthSplit.predStep.eq_1
 N  clean    CollatzDepthSplit.predStep_parity_partition
 N  clean    CollatzDepthSplit.preds_of_barren._proof_1_1
 N  clean    CollatzDepthSplit.preds_of_mod_three
+N  clean    CollatzDepthSplit.prim.eq_1
 N  clean    CollatzDepthSplit.starved_junction
 N  clean    CollatzDepthSplit.subtreeCount.eq_1
 N  clean    CollatzDepthSplit.subtreeCount.eq_2
@@ -174,6 +189,9 @@ T  clean    CollatzDepthSplit.classBound.eq_def
 T  clean    CollatzDepthSplit.classBound_fib._proof_1_4
 T  clean    CollatzDepthSplit.class_one_ge_junctions
 T  clean    CollatzDepthSplit.class_one_ge_junctions._proof_1_2
+T  clean    CollatzDepthSplit.coeff_parity_split
+T  clean    CollatzDepthSplit.coeff_parity_split._proof_1_2
+T  clean    CollatzDepthSplit.coeff_periodic
 T  clean    CollatzDepthSplit.coeff_predStep
 T  clean    CollatzDepthSplit.coeff_predStep._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_down
@@ -187,8 +205,10 @@ T  clean    CollatzDepthSplit.col_two_mul._proof_1_2
 T  clean    CollatzDepthSplit.contracts_mod_le
 T  clean    CollatzDepthSplit.contracts_mod_le._proof_1_1
 T  clean    CollatzDepthSplit.contracts_succ_of_even_step
+T  clean    CollatzDepthSplit.doubling_image_prim
 T  clean    CollatzDepthSplit.evenImage_eq_even_part
 T  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_5
+T  clean    CollatzDepthSplit.even_part_coeff._proof_1_1
 T  clean    CollatzDepthSplit.exists_survivor_lift
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
 T  clean    CollatzDepthSplit.junction_class_no_fixpoint
@@ -240,3 +260,4 @@ T  clean    CollatzDepthSplit.wt_children._proof_1_9
 T  clean    CollatzDepthSplit.wt_ge_of_class_one
 T  clean    CollatzDepthSplit.wt_ge_of_class_two
 T  clean    CollatzDepthSplit.wt_le
+T  clean    CollatzDepthSplit.zpow_mod
