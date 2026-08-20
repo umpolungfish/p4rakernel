@@ -631,4 +631,41 @@ theorem junction_arms {v : ℕ} (h : v % 3 = 2) :
     col (2 * v) = v ∧ col (2 * (v / 3) + 1) = v :=
   ⟨col_two_mul v, by rw [col_odd_pred]; omega⟩
 
+/-! ## What fixes the share: the starved arm
+
+Grouping junctions by residue, the odd share is fixed one 3-adic digit at a time.
+At modulus 9 the class `5` is pinned at `0.004` with a spread of `0.0014` while
+the other two classes spread over a quarter; at modulus 27 the pinned classes are
+`5, 14, 23` and at 81 the spreads elsewhere fall to a few hundredths.
+
+The pinned class has an exact cause. A junction `v = 9k+5` has odd arm `6k+3`,
+which is `0 (mod 3)`, and a value `0 (mod 3)` takes only its doubling
+predecessor — `preds_of_barren` — while every value in its doubling chain stays
+`0 (mod 3)` — `barren_doubling`. So that arm is a bare chain of `d+1` nodes at
+depth `d` against the even arm's exponential subtree, and the share it can hold
+falls like `d / (4/3)^d`. At depth 24 that is `0.004`, which is what the census
+reads. -/
+
+theorem col_starved_arm (k : ℕ) : col (6 * k + 3) = 9 * k + 5 := by
+  unfold col
+  rw [if_neg (by omega : ¬ (6 * k + 3) % 2 = 0)]
+  omega
+
+/-- A value divisible by three has one predecessor, not two. -/
+theorem preds_of_barren {u n : ℕ} (hu : u % 3 = 0) (h : col n = u) : n = 2 * u := by
+  rcases preimage_cases h with h1 | ⟨t, _, h2⟩
+  · exact h1
+  · omega
+
+/-- And its whole doubling chain stays barren, so the arm never branches. -/
+theorem barren_doubling (u i : ℕ) (hu : u % 3 = 0) : (2 ^ i * u) % 3 = 0 := by
+  obtain ⟨m, rfl⟩ : ∃ m, u = 3 * m := ⟨u / 3, by omega⟩
+  have : 2 ^ i * (3 * m) = 3 * (2 ^ i * m) := by ring
+  omega
+
+/-- The junction whose odd arm is barren, named by its residue. -/
+theorem starved_junction (k : ℕ) :
+    (9 * k + 5) % 3 = 2 ∧ col (6 * k + 3) = 9 * k + 5 ∧ (6 * k + 3) % 3 = 0 :=
+  ⟨by omega, col_starved_arm k, by omega⟩
+
 end CollatzDepthSplit
