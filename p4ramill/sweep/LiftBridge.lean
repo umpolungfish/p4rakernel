@@ -1,7 +1,7 @@
 import Imscribing.Millennium.Erdos.CollatzDepthSplit
 import Imscribing.Vox.ProofLift
 /-!
-The two bridge theorems lift past the sweep's default 60000-mark cap, so they get
+The bridge and level-operator theorems lift past the sweep's default 60000-mark cap, so they get
 their own pass at a cap that admits them.
 -/
 open Lean Meta in
@@ -9,7 +9,9 @@ open Lean Meta in
   for nm in [`CollatzDepthSplit.equidist_of_dft_small,
              `CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero,
              `CollatzDepthSplit.levels_equidistribute,
-             `CollatzDepthSplit.census_mass] do
+             `CollatzDepthSplit.census_mass,
+             `CollatzDepthSplit.level_operator,
+             `CollatzDepthSplit.cube_indicator] do
     let some (.thmInfo ti) := (← getEnv).find? nm | IO.println s!"{nm}: not found"
     let w ← ProofLift.lift ti.value
     let ax ← ProofLift.assumedAxioms nm
