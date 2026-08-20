@@ -1,3 +1,4 @@
+CollatzDepthSplit.subtreeCount_junction	T	3747
 CollatzDepthSplit.odd_step_lands_on_junction	N	695
 CollatzDepthSplit.survives_succ_of_slack	T	4721
 CollatzDepthSplit.chain_defined_iff._proof_1_1	T	49994
@@ -39,6 +40,7 @@ CollatzDepthSplit.preds_of_barren	T	574
 CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1	T	49988
 CollatzDepthSplit.col_chain_down	T	3132
 CollatzDepthSplit.subtreeCount_barren	T	3285
+CollatzDepthSplit.odd_arm_count	N	1899
 CollatzDepthSplit.le_iterate_of_not_contracts	N	623
 CollatzDepthSplit.junction_arms	N	811
 CollatzDepthSplit.pow_mul_le_iterate._proof_1_4	T	55800
