@@ -1,0 +1,8 @@
+N  clean    CollatzDepthSplit.cycle_banked
+N  clean    CollatzDepthSplit.cycle_equation
+N  clean    CollatzDepthSplit.cycle_excursion
+T  clean    CollatzDepthSplit.col_succ_odd
+T  clean    CollatzDepthSplit.cycle_bound
+T  clean    CollatzDepthSplit.iterate_banked
+T  clean    CollatzDepthSplit.iterate_le_pow
+T  clean    CollatzDepthSplit.two_pow_ne_three_pow
