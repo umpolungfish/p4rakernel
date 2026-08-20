@@ -499,4 +499,43 @@ theorem preds_of_mod_three {m t : ℕ} (h : m = 3 * t + 2) :
     col (2 * m) = m ∧ col (2 * t + 1) = m := by
   exact ⟨col_two_mul m, by rw [col_odd_pred, h]⟩
 
+/-! ### The level recursion
+
+One level of the predecessor tree is the doubling image together with the odd
+image of the classes at `2 (mod 3)`, and the two are disjoint by parity, so the
+count of a level is the count of the previous one plus the count of its
+`2 (mod 3)` part.  The branch multiplicity is a property of the level, not of any
+target in it. -/
+
+/-- One level of the tree, built from the level below. -/
+def predStep (L : Finset ℕ) : Finset ℕ :=
+  L.image (fun m => 2 * m) ∪ (L.filter (fun m => m % 3 = 2)).image (fun m => 2 * (m / 3) + 1)
+
+theorem mem_predStep_col {L : Finset ℕ} {n : ℕ} (h : n ∈ predStep L) : col n ∈ L := by
+  unfold predStep at h
+  rcases Finset.mem_union.mp h with h | h
+  · obtain ⟨m, hm, rfl⟩ := Finset.mem_image.mp h
+    rwa [col_two_mul]
+  · obtain ⟨m, hm, rfl⟩ := Finset.mem_image.mp h
+    obtain ⟨hmL, hm3⟩ := Finset.mem_filter.mp hm
+    have : 3 * (m / 3) + 2 = m := by omega
+    rw [col_odd_pred, this]
+    exact hmL
+
+theorem card_predStep (L : Finset ℕ) :
+    (predStep L).card = L.card + (L.filter (fun m => m % 3 = 2)).card := by
+  unfold predStep
+  rw [Finset.card_union_of_disjoint, Finset.card_image_of_injective, Finset.card_image_of_injOn]
+  · intro a ha b hb hab
+    obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+    obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+    simp only at hab
+    omega
+  · intro a b hab; simp only at hab; omega
+  · rw [Finset.disjoint_left]
+    rintro x hx hy
+    obtain ⟨m, _, rfl⟩ := Finset.mem_image.mp hx
+    obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
+    omega
+
 end CollatzDepthSplit
