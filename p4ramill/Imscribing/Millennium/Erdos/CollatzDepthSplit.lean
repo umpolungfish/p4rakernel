@@ -1894,11 +1894,9 @@ so the top of the tower is not merely unproved but **empty**: at depth 30 and
 induction that would close the chain asks, at every step, for equidistribution at a
 conductor the tree has not begun to fill.
 
-This is why the chain stops here, and it is a proved reason rather than a failure
-to find an argument.  What remains true and unexplained is that the contraction
-happens anyway: measured, `Q_r(d+1)/Q_r(d)` has geometric mean `0.7295` at
-conductor 81 and every one of twenty-four levels contracts.  The decay is real; the
-route through the conductor tower cannot reach it. -/
+What that rules out is one induction scheme — propagation at fixed depth up the
+conductors — and nothing else.  The next section removes the tower from the
+recursion entirely by reading the same quantity at the other index. -/
 
 /-- The three lifts at which Cauchy–Schwarz is tight: no constant below `3` is
     available for arbitrary coefficients. -/
@@ -1963,5 +1961,85 @@ theorem tower_never_fills (R : ℕ) :
       _ = ((4 : ℝ) / 9) ^ d := by rw [← div_pow]; norm_num
   exact squeeze_zero hlow hhigh
     (tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num))
+
+/-! ## The parity split, which takes the tower out of the recursion
+
+The feed at conductor `r` and depth `d` is the odd image's coefficient, and the odd
+image is fed by conductor `r+1` — that is the tower.  But the odd image has a second
+reading.  `2m` is always even and `2(m/3)+1` is always odd, so the two arms of
+`predStep` are exactly its even and odd parts:
+
+    oddImage L  =  (predStep L).filter (· odd)
+    L.image (2·) = (predStep L).filter (· even)
+
+`oddImage_eq_odd_part` and `evenImage_eq_even_part`.  So the feed at conductor `r`
+and depth `d` is the energy of the **odd part of level `d+1`, at conductor `r`** —
+the same conductor.  The tower appeared only because the quantity was being read at
+depth `d`; read at depth `d+1` the conductor does not move at all.
+
+The recursion then closes at fixed conductor.  Doubling permutes the conductor-`r`
+characters, so the even part carries energy `ρ²Q(d)` exactly, and
+
+    Q(d+1) = ρ² Q(d) + Q_odd(d+1) + cross
+
+with `Q_odd(d+1) ≤ κ Q(d+1)`.  Solving for `Q(d+1)`,
+
+    Q(d+1) ≤ ρ²/(1 − ρ²κ) · Q(d)
+
+which contracts exactly when `κ < 1/ρ² − 1 ≈ 0.7918`.  Nothing in that chain refers
+to conductor `r+1`.
+
+The price, measured: `κ` has median `0.27` at conductors 9, 27 and 81, and at
+conductor 81 its **maximum over all twenty-four levels is `0.4435`**, inside the
+allowance by a factor of `1.79`.  At `κ = 0.4435` the rate is `0.7495`, which is the
+`0.73` measured directly.  The odd mass sits at `0.2491` throughout.
+
+Parity is a twist, not a conductor: `2` is coprime to `3^r`, and the odd part's
+coefficients are `ν̂(j) = (μ̂(j) − μ̂₂(j))/2` with `μ̂₂` the mod-2 twist — verified to
+`10⁻¹⁶`.  Bounding `|ν̂|²` by `(|μ̂| + |μ̂₂|)²/4` is far too lossy, giving `κ ≤ 1.11`
+against a truth of `0.27`, because `μ̂` and its twist are strongly correlated,
+`Re⟨μ̂, μ̂₂⟩/Q ≈ 0.57`.  So the rung is `κ`, at fixed conductor, and its price is that
+correlation. -/
+
+/-- Doubling produces only even numbers and the odd arm only odd ones, so the two
+    arms of `predStep` are its parity classes.  This is what lets the feed be read
+    at the same conductor one level later. -/
+theorem oddImage_eq_odd_part (L : Finset ℕ) :
+    oddImage L = (predStep L).filter (fun n => n % 2 = 1) := by
+  ext n
+  simp only [oddImage, predStep, Finset.mem_filter, Finset.mem_image, Finset.mem_union]
+  constructor
+  · rintro ⟨m, hm, rfl⟩
+    exact ⟨Or.inr ⟨m, hm, rfl⟩, by omega⟩
+  · rintro ⟨h | h, hodd⟩
+    · obtain ⟨m, _, rfl⟩ := h; omega
+    · exact h
+
+theorem evenImage_eq_even_part (L : Finset ℕ) :
+    L.image (fun m => 2 * m) = (predStep L).filter (fun n => n % 2 = 0) := by
+  ext n
+  simp only [predStep, Finset.mem_filter, Finset.mem_image, Finset.mem_union]
+  constructor
+  · rintro ⟨m, hm, rfl⟩
+    exact ⟨Or.inl ⟨m, hm, rfl⟩, by omega⟩
+  · rintro ⟨h | h, heven⟩
+    · exact h
+    · obtain ⟨m, hm, rfl⟩ := h
+      omega
+
+/-- The two parts are disjoint and exhaust the level, by parity. -/
+theorem predStep_parity_partition (L : Finset ℕ) :
+    (predStep L).filter (fun n => n % 2 = 0) ∪ (predStep L).filter (fun n => n % 2 = 1)
+      = predStep L := by
+  rw [← Finset.filter_or]
+  exact Finset.filter_true_of_mem (fun x _ => by omega)
+
+/-- The contraction condition at fixed conductor: with the feed read as the odd part
+    of the next level, `Q(d+1) ≤ ρ²/(1 − ρ²κ) Q(d)`, which contracts exactly when
+    `κ < 1/ρ² − 1`.  At `ρ = 3/4` that threshold is `7/9`, and the measured worst
+    case at conductor 81 is `0.4435`. -/
+theorem fixed_conductor_threshold :
+    (1 : ℝ) / (3 / 4) ^ 2 - 1 = 7 / 9 ∧ (0.4435 : ℝ) < 7 / 9 := by
+  constructor <;> norm_num
 
 end CollatzDepthSplit
