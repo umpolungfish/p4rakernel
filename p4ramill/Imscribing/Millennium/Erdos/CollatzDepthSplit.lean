@@ -972,8 +972,7 @@ theorem double_collide_iff {r a b : ℕ} :
   constructor
   · exact fun h => double_inj_mod h
   · intro h
-    unfold Nat.ModEq at *
-    omega
+    exact Nat.ModEq.mul_left 2 h
 
 /-- The odd leg: the arm map is injective on residues, so it collides only where
     its sources do. -/
@@ -982,7 +981,6 @@ theorem arm_collide_iff {r s t : ℕ} :
   constructor
   · exact fun h => arm_inj_mod h
   · intro h
-    unfold Nat.ModEq at *
-    omega
+    exact (Nat.ModEq.mul_left 2 h).add_right 1
 
 end CollatzDepthSplit
