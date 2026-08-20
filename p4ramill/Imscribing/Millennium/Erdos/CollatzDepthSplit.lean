@@ -838,4 +838,52 @@ theorem classBound_fib (d : ℕ) :
   simp only [classBound]
   omega
 
+/-! ## Toward the equidistribution
+
+The odd lift is a bijection from the junction classes one digit finer onto
+everything.  Concretely a junction is `3t+2` and its odd arm is `2t+1`, so on
+residues the arm map is `t ↦ 2t+1`, which is injective and onto `Z/3^r` because
+`2` is a unit there.  A junction class mod `3^(r+1)` is a `t` class mod `3^r`, so
+the arm carries the finer classes onto the coarser ones one-to-one: uniform in
+gives uniform out, and the digit is what it costs.
+
+That is the whole of what the structure gives for free.  It says the uniform
+measure is FIXED by the level map; it does not say the tree converges to it,
+because the tree starts at a point and every level consumes a digit rather than
+producing one.  The convergence is the open piece, and the shape it has is a
+flow between conductors: doubling permutes the characters of a fixed conductor,
+while the odd arm sends a conductor `3^r` character to one of conductor `3^(r+1)`,
+so the coefficient at each level is fed from the level above it and never from
+below. -/
+
+/-- The arm map on residues is injective. -/
+theorem arm_inj_mod {r a b : ℕ} (h : (2 * a + 1) % 3 ^ r = (2 * b + 1) % 3 ^ r) :
+    a % 3 ^ r = b % 3 ^ r :=
+  odd_map_inj_mod h
+
+/-- And onto: every residue is `2t+1` for some `t`, by the explicit inverse of 2. -/
+theorem arm_surj_mod (r y : ℕ) :
+    ∃ t, (2 * t + 1) % 3 ^ r = y % 3 ^ r := by
+  have hpos : 1 ≤ 3 ^ r := Nat.one_le_pow r 3 (by norm_num)
+  have hodd : Odd (3 ^ r) := Odd.pow (by decide)
+  obtain ⟨j, hj⟩ := hodd
+  have hhalf : 2 * ((3 ^ r + 1) / 2) = 3 ^ r + 1 := by omega
+  refine ⟨((3 ^ r + 1) / 2) * (y + 3 ^ r - 1), ?_⟩
+  have key : 2 * (((3 ^ r + 1) / 2) * (y + 3 ^ r - 1))
+      + 1 = (y + 3 ^ r) + 3 ^ r * (y + 3 ^ r - 1) := by
+    rw [← Nat.mul_assoc, hhalf]
+    have hexp : (3 ^ r + 1) * (y + 3 ^ r - 1)
+        = 3 ^ r * (y + 3 ^ r - 1) + (y + 3 ^ r - 1) := by ring
+    omega
+  rw [key, Nat.add_mul_mod_self_left, Nat.add_mod_right]
+
+/-- The junction whose arm lands on a named class: the arm map is a bijection
+    from junctions mod `3^(r+1)` onto residues mod `3^r`, so a level uniform one
+    digit finer produces a level uniform here. -/
+theorem arm_bijection_mod (r y : ℕ) :
+    ∃ t, (2 * t + 1) % 3 ^ r = y % 3 ^ r ∧
+      ∀ t', (2 * t' + 1) % 3 ^ r = y % 3 ^ r → t' % 3 ^ r = t % 3 ^ r := by
+  obtain ⟨t, ht⟩ := arm_surj_mod r y
+  exact ⟨t, ht, fun t' ht' => arm_inj_mod (by rw [ht', ht])⟩
+
 end CollatzDepthSplit
