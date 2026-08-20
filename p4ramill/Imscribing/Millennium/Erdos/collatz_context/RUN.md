@@ -4,8 +4,6 @@ Each ask is one or two lines and names no candidate; the context folder carries
 the weight. No provider and no model are named, so the loopback 27B takes it,
 which is the default lane for every ob3ect.
 
-Run from `~/imsgct/ob3ect`.
-
 ```
 python3 auto.py \
   --desc-file /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/Millennium/Erdos/collatz_context/ask_mixing.txt \
