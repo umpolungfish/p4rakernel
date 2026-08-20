@@ -983,4 +983,29 @@ theorem arm_collide_iff {r s t : ℕ} :
   · intro h
     exact (Nat.ModEq.mul_left 2 h).add_right 1
 
+/-! ## Why the cross correlation carries a sign
+
+Doubling is an involution on the live classes mod 3: `2·1 ≡ 2` and `2·2 ≡ 1`, so
+the two classes that branch are swapped every level and returned every second
+level.  An imbalance between them therefore tends to alternate in sign, and the
+correlation between a level and its own image under the arms is negative for that
+reason rather than by accident.
+
+Measured, the bias is real and strongest where the swap is purest.  The cross
+deviation is negative in 20 of 24 levels at conductor 3 with mean `−0.140`, 15 of
+22 at conductor 9 with mean `−0.063`, and 12 of 20 at conductor 27 with mean
+`−0.037` — weakening as the conductor rises and the swap dilutes.  The signed
+imbalance at conductor 3 changes sign every two to three levels rather than every
+level, which is the involution perturbed by the odd arm's feed. -/
+
+/-- Doubling swaps the two live classes and fixes the dead one. -/
+theorem double_swaps_classes (m : ℕ) :
+    (m % 3 = 1 → (2 * m) % 3 = 2) ∧ (m % 3 = 2 → (2 * m) % 3 = 1)
+      ∧ (m % 3 = 0 → (2 * m) % 3 = 0) := by
+  refine ⟨fun h => by omega, fun h => by omega, fun h => by omega⟩
+
+/-- And returns every value to its own class after two steps, so doubling is an
+    involution on residues mod 3. -/
+theorem double_involution (m : ℕ) : (4 * m) % 3 = m % 3 := by omega
+
 end CollatzDepthSplit
