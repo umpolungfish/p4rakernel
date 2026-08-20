@@ -567,4 +567,42 @@ theorem two_inv_mod (r : ℕ) : 2 * ((3 ^ r + 1) / 2) ≡ 1 [MOD 3 ^ r] := by
   unfold Nat.ModEq
   exact Nat.add_mod_left _ _
 
+/-! ## The record chain
+
+The budget records the `collatz` verb reports climb a chain, and the chain is the
+two arms of the split composed once each: one doubling and one odd lift send `n`
+to `(4n-1)/3`, defined exactly when `n ≡ 1 (mod 3)`.  Written without division,
+`n = 3t+1` goes to `4t+1`, and the block from `4t+1` is exactly two steps landing
+on `3t+1`, so the budget rises by exactly one and the ratio sits at four thirds.
+The chain dies at `n ≡ 0 (mod 3)`, where the odd lift has no arm. -/
+
+/-- One step up the chain rises, and the step after it lands. -/
+theorem col_chain_up (t : ℕ) : col (4 * t + 1) = 2 * (3 * t + 1) := by
+  unfold col
+  rw [if_neg (by omega : ¬ (4 * t + 1) % 2 = 0)]
+  omega
+
+theorem col_chain_down (t : ℕ) : col (2 * (3 * t + 1)) = 3 * t + 1 := by
+  unfold col
+  rw [if_pos (by omega : (2 * (3 * t + 1)) % 2 = 0)]
+  omega
+
+/-- The chain law: from `4t+1` the block is exactly two steps and lands on
+    `3t+1`, the first step rising above the seed and the second falling below
+    it.  So one chain step spends one block and the seed grows by four thirds. -/
+theorem chain_block (t : ℕ) (ht : 1 ≤ t) :
+    col^[2] (4 * t + 1) = 3 * t + 1 ∧ 4 * t + 1 < col (4 * t + 1) ∧ 3 * t + 1 < 4 * t + 1 := by
+  refine ⟨?_, ?_, by omega⟩
+  · rw [show (2:ℕ) = 1 + 1 from rfl, Function.iterate_add_apply]
+    simp only [Function.iterate_one]
+    rw [col_chain_up, col_chain_down]
+  · rw [col_chain_up]; omega
+
+/-- The chain runs on `1 (mod 3)` and stops on `0 (mod 3)`: the lift `(4n-1)/3`
+    is an integer exactly there. -/
+theorem chain_defined_iff (n : ℕ) : (∃ t, n = 3 * t + 1) ↔ n % 3 = 1 := by
+  constructor
+  · rintro ⟨t, rfl⟩; omega
+  · intro h; exact ⟨n / 3, by omega⟩
+
 end CollatzDepthSplit
