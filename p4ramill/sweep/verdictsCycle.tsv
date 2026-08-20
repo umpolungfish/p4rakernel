@@ -1,0 +1,8 @@
+CollatzDepthSplit.cycle_equation	N	354403
+CollatzDepthSplit.iterate_le_pow	T	179550
+CollatzDepthSplit.cycle_excursion	N	513
+CollatzDepthSplit.two_pow_ne_three_pow	T	1412
+CollatzDepthSplit.col_succ_odd	T	2051
+CollatzDepthSplit.cycle_bound	T	2326
+CollatzDepthSplit.iterate_banked	T	459454
+CollatzDepthSplit.cycle_banked	N	409041

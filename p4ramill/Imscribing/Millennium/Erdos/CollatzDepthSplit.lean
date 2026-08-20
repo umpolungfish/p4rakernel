@@ -2878,4 +2878,87 @@ theorem cycle_excursion {k r : ℕ} (hr : r < 2 ^ k) :
   calc 2 ^ oddSteps r k * (col^[k] r + 1) ≤ 3 ^ oddSteps r k * (r + 1) := iterate_le_pow k r
     _ ≤ 3 ^ oddSteps r k * 2 ^ k := Nat.mul_le_mul_left _ (by omega)
 
+/-! ### Banking the even steps: the exact identity
+
+Vox reads `cycle_excursion` as **vacuous** — `weight` gives one seed and `83` inert
+steps with no deposit, `banked` reports that no clear ever fired against a live
+register, and `insert` finds no glyph that repairs it.  The reading is right: the
+excursion bound throws the even steps away, keeping only that they do not increase
+`u = n+1`.  A discarded count is exactly what `banked` reports as vacuous, and the
+repair is to bank it.
+
+Banked, the two steps are
+
+    odd:   2u' = 3u          even:  2u' = u + 1
+
+so carrying `2^i u_i` through the iteration gives an **exact** identity rather than
+an inequality:
+
+    2^k · (col^[k] r + 1)  =  3^j · (r + 1)  +  bank r k
+
+with `bank` accumulating one `3^(odd steps remaining) · 2^(position)` at each even
+step and nothing at an odd one.  `iterate_banked`.  The inequality proved earlier is
+this identity with `bank` dropped.
+
+For a cycle it closes immediately.  With `col^[k] n = n` the two sides share `n+1`:
+
+    (n + 1) · (2^k − 3^j)  =  bank n k
+
+`cycle_banked` — the cycle equation with its right-hand side explicit and positive,
+instead of the excursion of `col^[k]` over a range of residues.  This is the form the
+classical cycle arguments use, and it arrived by banking rather than by importing. -/
+
+/-- The banked count: what the even steps contribute, kept instead of discarded. -/
+def bank : ℕ → ℕ → ℕ
+  | _, 0 => 0
+  | r, (k + 1) => 2 * bank (col r) k + (if r % 2 = 0 then 3 ^ oddSteps (col r) k else 0)
+
+/-- **The exact iterate identity.**  `2^k(col^[k] r + 1) = 3^j(r+1) + bank r k`. -/
+theorem iterate_banked : ∀ (k r : ℕ),
+    2 ^ k * (col^[k] r + 1) = 3 ^ oddSteps r k * (r + 1) + bank r k := by
+  intro k
+  induction k with
+  | zero => intro r; simp [oddSteps, bank]
+  | succ k ih =>
+      intro r
+      rw [Function.iterate_succ_apply]
+      have hstep : oddSteps r (k + 1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) k := rfl
+      have hbank : bank r (k + 1)
+          = 2 * bank (col r) k + (if r % 2 = 0 then 3 ^ oddSteps (col r) k else 0) := rfl
+      have ihc := ih (col r)
+      rcases Nat.even_or_odd r with he | ho
+      · have h0 : r % 2 = 0 := Nat.even_iff.mp he
+        have hcol : 2 * (col r + 1) = r + 2 := by
+          have : col r = r / 2 := by unfold col; simp [h0]
+          omega
+        rw [hstep, if_pos h0, hbank, if_pos h0, pow_succ]
+        calc 2 ^ k * 2 * (col^[k] (col r) + 1)
+            = 2 * (2 ^ k * (col^[k] (col r) + 1)) := by ring
+          _ = 2 * (3 ^ oddSteps (col r) k * (col r + 1) + bank (col r) k) := by rw [ihc]
+          _ = 3 ^ oddSteps (col r) k * (2 * (col r + 1)) + 2 * bank (col r) k := by ring
+          _ = 3 ^ oddSteps (col r) k * (r + 2) + 2 * bank (col r) k := by rw [hcol]
+          _ = 3 ^ (0 + oddSteps (col r) k) * (r + 1)
+                + (2 * bank (col r) k + 3 ^ oddSteps (col r) k) := by ring_nf
+      · have h1 : r % 2 = 1 := Nat.odd_iff.mp ho
+        have hcol : 2 * (col r + 1) = 3 * (r + 1) := col_succ_odd h1
+        rw [hstep, if_neg (by omega), hbank, if_neg (by omega), pow_succ]
+        calc 2 ^ k * 2 * (col^[k] (col r) + 1)
+            = 2 * (2 ^ k * (col^[k] (col r) + 1)) := by ring
+          _ = 2 * (3 ^ oddSteps (col r) k * (col r + 1) + bank (col r) k) := by rw [ihc]
+          _ = 3 ^ oddSteps (col r) k * (2 * (col r + 1)) + 2 * bank (col r) k := by ring
+          _ = 3 ^ oddSteps (col r) k * (3 * (r + 1)) + 2 * bank (col r) k := by rw [hcol]
+          _ = 3 ^ (1 + oddSteps (col r) k) * (r + 1) + (2 * bank (col r) k + 0) := by ring
+
+/-- **The cycle equation, banked.**  A point of period `k` satisfies
+    `(n+1)(2^k − 3^j) = bank n k`, with the right-hand side an explicit positive
+    integer rather than an excursion. -/
+theorem cycle_banked {n k : ℕ} (h : col^[k] n = n) :
+    ((n : ℤ) + 1) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) = (bank n k : ℤ) := by
+  have hid := iterate_banked k n
+  rw [h] at hid
+  have : ((2 : ℤ) ^ k * ((n : ℤ) + 1))
+      = (3 : ℤ) ^ oddSteps n k * ((n : ℤ) + 1) + (bank n k : ℤ) := by
+    exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hid
+  linarith
+
 end CollatzDepthSplit
