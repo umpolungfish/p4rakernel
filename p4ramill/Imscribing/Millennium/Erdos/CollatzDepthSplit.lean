@@ -3270,4 +3270,40 @@ theorem cycle_min_le {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
   have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
   nlinarith [hbound, h1, hn]
 
+/-! ### Correcting the list: items 1 and 2 are one item, and it points the other way
+
+The list separated "the class contracts at some depth" (item 1) from "the banked count
+falls short there" (item 2).  The separation does not hold up.  `descends_iff_banked`
+makes item 2 *be* descent, and the implication between contraction and descent runs
+one way only: `le_iterate_of_not_contracts` gives `¬Contracts k n → n ≤ col^[k] n`, so
+
+    descent at k  ⟹  Contracts k n
+
+and not conversely — `pow_mul_le_iterate` bounds `col^[k] r` from below, never above.
+So contraction at some depth is *necessary* for descent and not sufficient, and items
+1 and 2 collapse to the single statement `∀ n > 1, ∃ k, col^[k] n < n`, which is what
+`reaches_one_of_descends` discharges.
+
+What the direction does give is a target for search rather than for proof.  A natural
+number that fails to contract at every depth never descends at any depth, so it is a
+counterexample outright:
+
+    survives_all_never_descends
+
+`{n : ∀k, ¬Contracts k n} ⊆ {counterexamples}` — the inclusion runs that way, not the
+other, so emptying the meet of the surviving classes removes one shape of
+counterexample without settling the conjecture. -/
+
+/-- A natural that contracts at no depth never descends at any depth. -/
+theorem survives_all_never_descends {n : ℕ} (h : ∀ k, ¬ Contracts k n) (k : ℕ) :
+    n ≤ col^[k] n :=
+  le_iterate_of_not_contracts (h k)
+
+/-- So such an `n` would be a counterexample: it never reaches a smaller value, hence
+    never reaches `1` unless it is `1`. -/
+theorem survives_all_not_reaches_one {n : ℕ} (hn : 1 < n) (h : ∀ k, ¬ Contracts k n) :
+    ∀ k, ¬ (col^[k] n < n) := by
+  intro k hk
+  exact absurd (survives_all_never_descends h k) (by omega)
+
 end CollatzDepthSplit
