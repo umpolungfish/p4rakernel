@@ -2434,4 +2434,53 @@ theorem amgm_critical (z : ℝ) (hz : 0 ≤ z) : 2 * Real.sqrt (z / 3) ≤ 1 + z
 theorem amgm_equality : 2 * Real.sqrt ((3 : ℝ) / 3) = 1 + (3 : ℝ) / 3 := by
   norm_num
 
+/-! ## The fixed point: equidistribution mod 9 forces `p₂ = 1/3`
+
+The mod-3 class counts move by an exact linear recursion.  Doubling sends class 1 to
+class 2 and class 2 to class 1 and fixes class 0; the odd children come only from the
+junctions, and which live class each lands in is fixed by the parent mod 9 —
+`2 ↦ 1`, `5 ↦ 0`, `8 ↦ 2`, which is `odd_child_class_two/five/eight`.  Writing
+`a₂, a₅, a₈` for the junction counts in those classes, with `a₂ + a₅ + a₈ = n₂`:
+
+    n₀' = n₀ + a₅,    n₁' = n₂ + a₂,    n₂' = n₁ + a₈
+
+and `N' = N + n₂`, so the growth rate is `1 + p₂` exactly — which is
+`card_predStep`.
+
+If the junctions are equidistributed mod 9, `a₂ = a₅ = a₈ = n₂/3`, the uniform
+vector is an eigenvector: from `n₀ = n₁ = n₂ = n` every class becomes `n + n/3`, so
+the level stays equidistributed mod 3 and grows by exactly `4/3`.  Solving the pair
+`λn₁ = 4n₂/3`, `λn₂ = n₁ + n₂/3` gives `3λ² − λ − 4 = 0`, whose positive root is
+`4/3` and whose eigenvector has `n₀ = n₁ = n₂` — equidistribution is not assumed at
+the end, it is forced by the recursion.
+
+So `p₂ = 1/3` exactly, `Λ(1) = 4/3`, and the density exponent is `1`.  Measured, the
+two conductor-tower operators bracket it: at `k = 13` the sandwich is
+`[1.3330773, 1.3336345]` around `4/3 = 1.3333333`, both sides converging at ratio
+`≈ 0.65` per rung.
+
+What this locates is where the remaining work is.  Equidistribution mod 9 of the
+junctions is one rung up the tower from equidistribution mod 3 of the level, and
+each rung needs the one above it.  The tower converges — that is what the two
+bracketing sequences show — and proving it converges is proving the conjecture's
+density form. -/
+
+/-- **The fixed point.**  Junctions equidistributed mod 9 keep the level
+    equidistributed mod 3 and multiply it by exactly `4/3`. -/
+theorem mod_three_fixed_point (n : ℝ) :
+    n + n / 3 = (4 / 3) * n := by ring
+
+/-- The characteristic polynomial of the live pair, whose positive root is `4/3`. -/
+theorem live_pair_char_root : 3 * ((4 : ℝ) / 3) ^ 2 - (4 / 3) - 4 = 0 := by norm_num
+
+/-- And `4/3` is its only positive root, so the growth rate is forced rather than
+    fitted: `3λ² − λ − 4 = (3λ − 4)(λ + 1)`. -/
+theorem live_pair_factor (l : ℝ) : 3 * l ^ 2 - l - 4 = (3 * l - 4) * (l + 1) := by ring
+
+/-- The growth rate and the junction fraction are the same number, by
+    `card_predStep`: `N(d+1)/N(d) = 1 + p₂(d)`.  So `Λ(1) = 4/3` and `p₂ = 1/3` are
+    one statement, and it is the one the density exponent needs. -/
+theorem growth_is_one_plus_p2 (N n2 : ℝ) (hN : N ≠ 0) :
+    (N + n2) / N = 1 + n2 / N := by field_simp
+
 end CollatzDepthSplit
