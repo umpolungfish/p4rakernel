@@ -1165,4 +1165,45 @@ theorem doubling_involutive_only_at_three (m : ℕ) :
   have := h 1
   omega
 
+/-! ## The identity at conductor nine
+
+At `r = 1` the doubling permutation is an involution and the recursion closes on
+itself in one step.  At `r = 2` it is a six-cycle, so there is no per-level sign,
+but the recursion is still exact — only now it reads the level at two resolutions
+at once.
+
+Both arms are determined:
+
+  * the even child `2m` has class `2·(m mod 9) mod 9`, and doubling is a bijection
+    there with inverse `5`, since `2·5 = 10 ≡ 1 (mod 9)`;
+  * the odd child `2t+1` of a junction `3t+2` has class `2·(t mod 9)+1 mod 9`, so
+    it is fixed by `t mod 9`, which is `m mod 27`.
+
+So each class mod 9 of the next level is fed by exactly one class mod 9 of this
+one through the doubling arm, and by exactly one class mod 27 through the odd arm.
+`odd_source_mod_nine` names the second: the `t` class feeding `c` is `5·(c−1)`,
+written `5·(c+8)` to stay in `ℕ`. -/
+
+theorem even_child_mod_nine (m : ℕ) : (2 * m) % 9 = (2 * (m % 9)) % 9 := by omega
+
+theorem odd_child_mod_nine (t : ℕ) : (2 * t + 1) % 9 = (2 * (t % 9) + 1) % 9 := by omega
+
+theorem inv_two_mod_nine : (2 * 5) % 9 = 1 := by decide
+
+/-- Doubling is onto the classes mod 9, so every class of the next level has
+    exactly one doubling source. -/
+theorem doubling_onto_mod_nine : ∀ c < 9, ∃ b, b < 9 ∧ (2 * b) % 9 = c := by decide
+
+/-- And the odd arm's source: the `t` class feeding class `c` is `5(c−1) mod 9`,
+    so the junction class feeding it is `3·that + 2` mod 27. -/
+theorem odd_source_mod_nine : ∀ c < 9, (2 * ((5 * (c + 8)) % 9) + 1) % 9 = c := by decide
+
+/-- The junction class mod 27 that feeds class `c` mod 9 through the odd arm. -/
+def oddSource (c : ℕ) : ℕ := 3 * ((5 * (c + 8)) % 9) + 2
+
+theorem oddSource_is_junction (c : ℕ) : oddSource c % 3 = 2 := by
+  unfold oddSource; omega
+
+theorem oddSource_feeds : ∀ c < 9, (2 * (oddSource c / 3) + 1) % 9 = c := by decide
+
 end CollatzDepthSplit
