@@ -31,6 +31,7 @@ N  clean    CollatzDepthSplit.col_odd_pred._proof_1_1
 N  clean    CollatzDepthSplit.col_shift._proof_1_9
 N  clean    CollatzDepthSplit.col_starved_arm._proof_1_1
 N  clean    CollatzDepthSplit.contracts_mod
+N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_inj_mod
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.junction_arms
@@ -131,4 +132,5 @@ T  clean    CollatzDepthSplit.survives_succ_of_slack
 T  clean    CollatzDepthSplit.survives_succ_of_slack._proof_1_2
 T  clean    CollatzDepthSplit.survivors_nonempty
 T  clean    CollatzDepthSplit.survivors_nonempty._proof_1_1
+T  clean    CollatzDepthSplit.three_lifts
 T  clean    CollatzDepthSplit.two_inv_mod
