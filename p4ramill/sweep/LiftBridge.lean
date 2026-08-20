@@ -11,7 +11,8 @@ open Lean Meta in
              `CollatzDepthSplit.levels_equidistribute,
              `CollatzDepthSplit.census_mass,
              `CollatzDepthSplit.level_operator,
-             `CollatzDepthSplit.cube_indicator] do
+             `CollatzDepthSplit.cube_indicator,
+             `CollatzDepthSplit.feed_is_odd_image] do
     let some (.thmInfo ti) := (← getEnv).find? nm | IO.println s!"{nm}: not found"
     let w ← ProofLift.lift ti.value
     let ax ← ProofLift.assumedAxioms nm

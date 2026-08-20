@@ -27,6 +27,7 @@ CollatzDepthSplit.survives_succ_of_odd._proof_1_3	N	9399
 CollatzDepthSplit.contracts_mod_le	T	3571
 CollatzDepthSplit.census_mass	T	1998
 CollatzDepthSplit.chain_block._proof_1_1	N	7089
+CollatzDepthSplit.tower_never_fills	N	20423
 CollatzDepthSplit.junction_classes_split	T	4787
 CollatzDepthSplit.subtreeCount_of_three_dvd._proof_1_1	N	11139
 CollatzDepthSplit.subtreeCount.eq_def	T	9052
@@ -139,6 +140,7 @@ CollatzDepthSplit.wt_le._proof_1_6	N	943
 CollatzDepthSplit.col_starved_arm._proof_1_1	N	12621
 CollatzDepthSplit.wt_children._proof_1_4	T	57494
 CollatzDepthSplit.chain_block._proof_1_2	N	8655
+CollatzDepthSplit.feed_extremal_triple	N	38677
 CollatzDepthSplit.subtreeCount.eq_1	N	19
 CollatzDepthSplit.col_chain_up._proof_1_1	N	12591
 CollatzDepthSplit.col6_64u63_grows._proof_1_1	N	7429
@@ -174,6 +176,7 @@ CollatzDepthSplit.survives_succ_of_slack._proof_1_1	N	12813
 CollatzDepthSplit.not_contracts_pred_two_pow	N	771
 CollatzDepthSplit.junction_arms._proof_1_1	T	25772
 CollatzDepthSplit.even_step_junction_iff	N	549
+CollatzDepthSplit.tower_never_fills._proof_1_1	N	4225
 CollatzDepthSplit.not_contracts_pred_two_pow._proof_1_1	N	2265
 CollatzDepthSplit.wt_children._proof_1_7	T	57572
 CollatzDepthSplit.survivors_mod_32	N	1443
