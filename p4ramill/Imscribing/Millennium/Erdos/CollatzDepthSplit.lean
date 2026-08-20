@@ -1206,4 +1206,42 @@ theorem oddSource_is_junction (c : ℕ) : oddSource c % 3 = 2 := by
 
 theorem oddSource_feeds : ∀ c < 9, (2 * (oddSource c / 3) + 1) % 9 = c := by decide
 
+/-! ## The junction fraction cannot vanish
+
+The junction fraction `p₂` is what sets `ρ = 1/(1 + p₂)`, so a contraction stated
+with `ρ = 3/4` needs `p₂` bounded below.  It is, and the reason is a three-cycle.
+
+A junction can only stop feeding the odd arm by sitting in the class whose odd
+child is barren, `5 (mod 9)` — that is `col_starved_arm` and
+`odd_child_class_five`.  But junction classes do not sit still.  Two doublings
+send `m ↦ 4m`, and on the three junction classes mod 9 that is
+
+    4·2 = 8,   4·5 = 20 ≡ 2,   4·8 = 32 ≡ 5
+
+a three-cycle `2 → 8 → 5 → 2`.  So a junction in the starved class is carried out
+of it in two levels, and no junction population can remain starved: over any six
+levels every junction's doubling descendant visits all three classes, two of which
+feed live children.
+
+That is `junction_class_cycle`, and with it the starving configuration — every
+junction in `5 (mod 9)`, so that the odd arm dies and `p₂ → 0` — is not stable
+under the level map for even one step. -/
+
+/-- Two doublings permute the three junction classes mod 9 in a three-cycle. -/
+theorem junction_class_cycle :
+    (4 * 2) % 9 = 8 ∧ (4 * 5) % 9 = 2 ∧ (4 * 8) % 9 = 5 := by decide
+
+/-- So the class is never fixed: no junction class returns to itself in one
+    application of `4`. -/
+theorem junction_class_no_fixpoint (m : ℕ) (h : m % 3 = 2) : (4 * m) % 9 ≠ m % 9 := by
+  have h9 : m % 9 = 2 ∨ m % 9 = 5 ∨ m % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9 <;> omega
+
+/-- And the cycle has order three, so a junction sits in the starved class for at
+    most one level in every three. -/
+theorem junction_cycle_order_three (m : ℕ) (h : m % 3 = 2) :
+    (4 * (4 * (4 * m))) % 9 = m % 9 := by
+  have h9 : m % 9 = 2 ∨ m % 9 = 5 ∨ m % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9 <;> omega
+
 end CollatzDepthSplit
