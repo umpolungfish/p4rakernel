@@ -3342,4 +3342,76 @@ theorem cycle_ratio_tight {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
   have hmar : 2 * (2 : ℤ) ^ k ≤ 3 * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) := by linarith
   nlinarith [hbound, hmar, hn, hpow]
 
+/-! ### The other side of `bank`: a cycle's last step is even
+
+`bank_le_of_suffix` bounds the banked count from above.  The lower bound comes from a
+structural fact about cycles: the step that closes one cannot be odd.  If
+`x = col^[k-1] n` were odd then `n = col x = (3x+1)/2 ≥ (3n+1)/2`, which fails for
+every `n ≥ 0`.  So the closing step is even, and its own contribution to `bank` is
+`3^0 · 2^(k-1) = 2^(k-1)` with nothing after it to multiply — every other term being
+a count, the whole is at least that:
+
+    2^(k-1)  ≤  bank n k
+
+`bank_ge_of_last_even`.  With `cycle_banked` that pins the minimum from below as well
+as above:
+
+    2^(k-1) / (2^k − 3^j)   ≤   n + 1   ≤   k · 2^k / (2^k − 3^j)
+
+so `n+1` is determined by the margin within a factor of `2k`.  Read as a bound on the
+margin instead, `(n+1)(2^k − 3^j) ≥ 2^(k-1)` is a lower bound on `|2^k − 3^j|` with no
+transcendence in it — weaker than item 6 by the factor `n`, and free. -/
+
+/-- A cycle cannot close on an odd step. -/
+theorem cycle_last_step_even {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) : col^[k - 1] n % 2 = 0 := by
+  by_contra hodd
+  have h1 : col^[k - 1] n % 2 = 1 := by omega
+  obtain ⟨t, ht⟩ : ∃ t, col^[k - 1] n = 2 * t + 1 := ⟨col^[k - 1] n / 2, by omega⟩
+  have hstep : col^[k] n = col (col^[k - 1] n) := by
+    conv_lhs => rw [show k = (k - 1) + 1 by omega]
+    rw [Function.iterate_succ_apply']
+  rw [hstep, ht, col_odd_pred] at hcyc
+  have hge : n ≤ col^[k - 1] n := hmin (k - 1) (by omega)
+  omega
+
+/-- The closing even step contributes `2^(k-1)` and nothing cancels it. -/
+theorem bank_ge_of_last_even : ∀ (k n : ℕ), col^[k] n % 2 = 0 → 2 ^ k ≤ bank n (k + 1) := by
+  intro k
+  induction k with
+  | zero =>
+      intro n h
+      simp only [Function.iterate_zero_apply] at h
+      show (2 : ℕ) ^ 0 ≤ 2 * bank (col n) 0 + (if n % 2 = 0 then 3 ^ oddSteps (col n) 0 else 0)
+      rw [if_pos h]
+      have h1 : 3 ^ oddSteps (col n) 0 = 1 := by simp [oddSteps]
+      simp [bank, h1]
+  | succ k ih =>
+      intro n h
+      have hc : col^[k] (col n) % 2 = 0 := by
+        rw [← Function.iterate_succ_apply]
+        exact h
+      have hb := ih (col n) hc
+      have hrec : bank n (k + 2)
+          = 2 * bank (col n) (k + 1)
+            + (if n % 2 = 0 then 3 ^ oddSteps (col n) (k + 1) else 0) := rfl
+      rw [hrec]
+      have : 2 ^ (k + 1) ≤ 2 * bank (col n) (k + 1) := by
+        have : 2 * 2 ^ k ≤ 2 * bank (col n) (k + 1) := Nat.mul_le_mul_left 2 hb
+        calc 2 ^ (k + 1) = 2 * 2 ^ k := by ring
+          _ ≤ 2 * bank (col n) (k + 1) := this
+      omega
+
+/-- **The two-sided pin.**  For a cycle at its minimum, `2^(k-1) ≤ (n+1)(2^k − 3^j)`. -/
+theorem cycle_margin_lower {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) :
+    (2 : ℤ) ^ (k - 1) ≤ ((n : ℤ) + 1) * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) := by
+  have heven := cycle_last_step_even hk hcyc hmin
+  have hb := bank_ge_of_last_even (k - 1) n heven
+  have hk1 : k - 1 + 1 = k := by omega
+  rw [hk1] at hb
+  have hbz : ((2 : ℤ) ^ (k - 1)) ≤ (bank n k : ℤ) := by exact_mod_cast hb
+  rw [cycle_banked hcyc]
+  exact hbz
+
 end CollatzDepthSplit
