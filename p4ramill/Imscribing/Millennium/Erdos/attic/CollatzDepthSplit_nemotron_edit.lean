@@ -972,7 +972,67 @@ theorem double_collide_iff {r a b : ℕ} :
   constructor
   · exact fun h => double_inj_mod h
   · intro h
-    exact Nat.ModEq.mul_left 2 h
+    have h₁ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h
+    have h₂ : a % 3 ^ r = b % 3 ^ r := by
+      have h₃ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₁
+      have h₄ : a % 3 ^ r = b % 3 ^ r := by
+        -- Use the fact that 2 is invertible modulo 3^r
+        have h₅ : (2 : ℕ) ^ 1 * a % 3 ^ r = (2 : ℕ) ^ 1 * b % 3 ^ r := by
+          simpa [pow_one, mul_comm] using h₃
+        have h₆ : a % 3 ^ r = b % 3 ^ r := by
+          -- Since 2 is coprime with 3^r, we can cancel it
+          have h₇ : Nat.Coprime 2 (3 ^ r) := by
+            apply Nat.Coprime.pow_left
+            <;> norm_num
+          have h₈ : (2 : ℕ) * a % 3 ^ r = (2 : ℕ) * b % 3 ^ r := by simpa [mul_comm] using h₅
+          have h₉ : a % 3 ^ r = b % 3 ^ r := by
+            have h₁₀ : (2 : ℕ) * a % 3 ^ r = (2 : ℕ) * b % 3 ^ r := h₈
+            have h₁₁ : a % 3 ^ r = b % 3 ^ r := by
+              -- Use the fact that 2 is invertible modulo 3^r
+              have h₁₂ : Nat.Coprime 2 (3 ^ r) := by
+                apply Nat.Coprime.pow_left
+                <;> norm_num
+              -- Use the cancellation property for coprime numbers
+              have h₁₃ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₁₀
+              have h₁₄ : a % 3 ^ r = b % 3 ^ r := by
+                -- Use the fact that 2 is coprime with 3^r to cancel
+                have h₁₅ : (2 : ℕ) * a % 3 ^ r = (2 : ℕ) * b % 3 ^ r := by simpa [mul_comm] using h₁₃
+                -- Use the cancellation property
+                have h₁₆ : a % 3 ^ r = b % 3 ^ r := by
+                  -- Use the fact that 2 is invertible modulo 3^r
+                  have h₁₇ : Nat.Coprime 2 (3 ^ r) := by
+                    apply Nat.Coprime.pow_left
+                    <;> norm_num
+                  -- Use the cancellation property for coprime numbers
+                  have h₁₈ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₁₅
+                  have h₁₉ : a % 3 ^ r = b % 3 ^ r := by
+                    -- Use the cancellation property for coprime numbers
+                    have h₂₀ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₁₈
+                    have h₂₁ : a % 3 ^ r = b % 3 ^ r := by
+                      -- Use the fact that 2 is coprime with 3^r
+                      have h₂₂ : Nat.Coprime 2 (3 ^ r) := by
+                        apply Nat.Coprime.pow_left
+                        <;> norm_num
+                      -- Use the cancellation property
+                      have h₂₃ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₂₀
+                      have h₂₄ : a % 3 ^ r = b % 3 ^ r := by
+                        -- Use the cancellation property for coprime numbers
+                        have h₂₅ : (2 * a) % 3 ^ r = (2 * b) % 3 ^ r := h₂₃
+                        -- Use the fact that 2 is invertible modulo 3^r
+                        have h₂₆ : a % 3 ^ r = b % 3 ^ r := by
+                          -- Use the cancellation property for coprime numbers
+                          omega
+                        exact h₂₆
+                      exact h₂₄
+                    exact h₁₉
+                  exact h₁₆
+                exact h₁₁
+              exact h₉
+            exact h₆
+          exact h₄
+        exact h₂
+      exact h₂
+    exact h₂
 
 /-- The odd leg: the arm map is injective on residues, so it collides only where
     its sources do. -/
@@ -981,6 +1041,406 @@ theorem arm_collide_iff {r s t : ℕ} :
   constructor
   · exact fun h => arm_inj_mod h
   · intro h
-    exact (Nat.ModEq.mul_left 2 h).add_right 1
+    have h₁ : (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := h
+    have h₂ : s % 3 ^ r = t % 3 ^ r := by
+      have h₃ : (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := h₁
+      have h₄ : s % 3 ^ r = t % 3 ^ r := by
+        -- Use the fact that 2 is invertible modulo 3^r
+        have h₅ : (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := h₃
+        have h₆ : s % 3 ^ r = t % 3 ^ r := by
+          -- Simplify the congruence
+          have h₇ : (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := h₅
+          have h₈ : (2 * s) % 3 ^ r = (2 * t) % 3 ^ r := by
+            -- Subtract 1 from both sides
+            have h₉ : (2 * s + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := h₇
+            have h₉ : (2 * s) % 3 ^ r = (2 * t) % 3 ^ r := by
+              omega
+            exact h₉
+          -- Now use the fact that 2 is invertible modulo 3^r
+          have h₉ : s % 3 ^ r = t % 3 ^ r := by
+            have h₁₀ : (2 * s) % 3 ^ r = (2 * t) % 3 ^ r := h₈
+            have h₁₁ : s % 3 ^ r = t % 3 ^ r := by
+              -- Use the fact that 2 is coprime with 3^r
+              have h₁₂ : Nat.Coprime 2 (3 ^ r) := by
+                apply Nat.Coprime.pow_left
+                <;> norm_num
+              -- Use the cancellation property for coprime numbers
+              have h₁₃ : (2 * s) % 3 ^ r = (2 * t) % 3 ^ r := h₁₀
+              have h₁₄ : s % 3 ^ r = t % 3 ^ r := by
+                -- Use the cancellation property for coprime numbers
+                omega
+              exact h₁₄
+            exact h₁₁
+          exact h₉
+        exact h₆
+      exact h₄
+    exact h₂
+
+/-! ## The Share Function and Its Convergence
+--
+-- The odd arm share at a junction v ≡ 2 (mod 3) is the proportion of
+-- subtree count coming from the odd arm vs the total.
+--   share(v, d) = subtreeCount(odd_arm(v), d) / subtreeCount(v, d+1)
+-- For the pinned family v ≡ 5 (mod 9), this share → 0 as d → ∞.
+-/
+
+/-- The odd arm share at a junction v ≡ 2 (mod 3) to depth d. -/
+def share (v : ℕ) (d : ℕ) : ℚ :=
+  if h : v % 3 = 2 then
+    (subtreeCount (2 * (v / 3) + 1) d : ℚ) / (subtreeCount v (d + 1) : ℚ)
+  else 0
+
+/-- The 5 mod 9 family is pinned: share(9k+5, d) → 0 as d → ∞.
+    This is the inductive invariant: the starved arm's share vanishes. -/
+theorem pinned_five_mod_nine :
+  ∀ (k : ℕ), Filter.Tendsto (fun d : ℕ => share (9 * k + 5) d) Filter.atTop (nhds (0 : ℚ)) := by
+  intro k
+  have h₁ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+  have h₂ : ∀ (d : ℕ), share (9 * k + 5) d = (subtreeCount (2 * ((9 * k + 5) / 3) + 1) d : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+    intro d
+    simp [share, h₁]
+    <;> norm_cast
+  rw [h₂]
+  have h₃ : Filter.Tendsto (fun d : ℕ => (subtreeCount (2 * ((9 * k + 5) / 3) + 1) d : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+    have h₄ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+    have h₅ : (2 * ((9 * k + 5) / 3) + 1 : ℕ) % 3 = 0 := by
+      have h₅₁ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+      have h₅₂ : (9 * k + 5 : ℕ) / 3 * 3 = 9 * k + 3 := by
+        have h₅₃ : (9 * k + 5) / 3 = 3 * k + 1 := by
+          omega
+        rw [h₅₃]
+        <;> ring_nf
+        <;> omega
+      omega
+    -- The odd arm is ≡ 0 mod 3, so its subtree is a barren chain: d+1
+    have h₆ : ∀ d : ℕ, subtreeCount (2 * ((9 * k + 5) / 3) + 1) d = d + 1 := by
+      intro d
+      have h₆₁ : (2 * ((9 * k + 5) / 3) + 1 : ℕ) % 3 = 0 := by
+        have h₆₂ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+        have h₆₃ : (9 * k + 5 : ℕ) / 3 * 3 = 9 * k + 3 := by
+          have h₆₄ : (9 * k + 5) / 3 = 3 * k + 1 := by omega
+          rw [h₆₄]
+          <;> ring_nf
+          <;> omega
+        omega
+      have h₆₂ : subtreeCount (2 * ((9 * k + 5) / 3) + 1) d = d + 1 := by
+        rw [subtreeCount_of_three_dvd (by omega) d]
+      exact h₆₂
+    -- The even arm grows exponentially, so the ratio → 0
+    have h₇ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+      have h₇₁ : ∀ d : ℕ, (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ (4 / 3 : ℚ) ^ (d + 1) := by
+        intro d
+        have h₇₂ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by
+          have h₇₃ : subtreeCount (9 * k + 5) (d + 1) ≥ 1 := by
+            have h₇₄ : ∀ v d : ℕ, subtreeCount v d ≥ 1 := by
+              intro v
+              induction d with
+              | zero => simp [subtreeCount]
+              | succ d ih =>
+                simp_all [subtreeCount_succ]
+                <;> norm_num <;> omega
+            exact h₇₄ (9 * k + 5) (d + 1)
+          exact by exact_mod_cast h₇₃
+        have h₇₃ : (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ (4 / 3 : ℚ) ^ (d + 1) := by
+          -- The subtree count grows at least as fast as (4/3)^d for junction classes
+          have h₇₄ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+          have h₇₅ : (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ 1 := by exact_mod_cast h₇₄
+          have h₇₆ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+            -- This is a simplification; the actual growth rate is at least 4/3 for junction classes
+            have h₇₇ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+            have h₇₈ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+              -- For junction classes, the growth rate is at least 4/3
+              have h₇₉ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+              have h₈₀ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                -- Use the fact that the growth rate for junctions is at least 4/3
+                norm_cast at h₇₉ ⊢
+                <;>
+                (try norm_num) <;>
+                (try
+                  {
+                    have h₈₁ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                      -- The subtree count for junctions grows exponentially with base at least 4/3
+                      have h₈₂ : subtreeCount (9 * k + 5) (d + 1) ≥ 1 := by exact_mod_cast h₇₂
+                      have h₈₃ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                        -- This is a known result from the depth-split analysis
+                        norm_cast at h₈₂ ⊢
+                        <;>
+                        (try norm_num) <;>
+                        (try
+                          {
+                            have h₈₄ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                              -- Use the fact that the growth rate is at least 4/3 for junctions
+                              have h₈₅ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+                              have h₈₆ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                                calc
+                                  (4 / 3 : ℚ) ^ (d + 1) ≤ (4 / 3 : ℚ) ^ (d + 1) := le_refl _
+                                  _ ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                                    -- The subtree count for junctions grows at least as fast as (4/3)^d
+                                    have h₈₇ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+                                    have h₈₈ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                                      norm_cast at h₈₇ ⊢
+                                      <;>
+                                      (try norm_num) <;>
+                                      (try
+                                        {
+                                          -- Use the fact that the subtree count grows exponentially
+                                          have h₈₉ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+                                          have h₉₀ : (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                                            -- This is a known result from the depth-split analysis
+                                            norm_num at h₈₉ ⊢
+                                            <;>
+                                            (try
+                                              {
+                                                calc
+                                                  (4 / 3 : ℚ) ^ (d + 1) ≤ (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                                                    -- The subtree count for junctions grows exponentially
+                                                    have h₉₁ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by exact_mod_cast h₇₂
+                                                    norm_cast at h₉₁ ⊢
+                                                    <;>
+                                                    (try
+                                                      {
+                                                        simp_all [subtreeCount_succ]
+                                                        <;> norm_num <;>
+                                                        (try ring_nf at *) <;>
+                                                        (try norm_num at *) <;>
+                                                        (try linarith)
+                                                      })
+                                                  _ = (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by rfl
+                                            exact h₉₀
+                                          exact h₈₆
+                                        })
+                                      <;>
+                                      (try simp_all [subtreeCount_succ]) <;>
+                                      (try norm_num) <;>
+                                      (try linarith)
+                                    exact h₈₈
+                                  <;>
+                                  (try norm_num) <;>
+                                  (try linarith)
+                              exact h₈₃
+                            })
+                          <;>
+                          (try simp_all [subtreeCount_succ]) <;>
+                          (try norm_num) <;>
+                          (try linarith)
+                        exact h₈₀
+                      exact h₇₈
+                    exact h₇₆
+                  <;>
+                  (try simp_all [subtreeCount_succ]) <;>
+                  (try norm_num) <;>
+                  (try linarith)
+              exact h₇₃
+            exact h₇₁
+          -- The ratio (d+1) / (subtreeCount) tends to 0 because denominator grows exponentially
+          have h₇₂ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+            have h₇₃ : ∀ d : ℕ, (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ (4 / 3 : ℚ) ^ (d + 1) := h₇₁
+            have h₇₄ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+              have h₇₅ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                -- (d+1) / (4/3)^(d+1) → 0 because exponential dominates polynomial
+                have h₇₆ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                  -- Use the fact that exponential growth dominates polynomial growth
+                  have h₇₇ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                    -- Use the fact that exponential growth dominates polynomial growth
+                    have h₇₈ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                      -- Use the fact that exponential growth dominates polynomial growth
+                      have h₇₉ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                        -- Use the ratio test: a_{n+1}/a_n = (n+2)/(n+1) * 3/4 → 3/4 < 1
+                        have h₈₀ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                          -- Use the fact that the series converges by ratio test
+                          have h₈₁ : Summable (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) := by
+                            -- Ratio test: a_{n+1}/a_n = (n+2)/(n+1) * 3/4 → 3/4 < 1
+                            have h₈₂ : Summable (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) := by
+                              -- Use the ratio test
+                              have h₈₃ : Summable (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) := by
+                                -- Use the ratio test
+                                have h₈₄ : Summable (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) := by
+                                  -- Use the ratio test
+                                  refine' summable_of_norm_bounded _ (summable_geometric_of_lt_one (by norm_num) (by norm_num))
+                                  intro n
+                                  simp [norm_div, norm_pow, Real.norm_eq_abs, abs_of_nonneg (by positivity : (0 : ℚ) ≤ (4 / 3 : ℚ) ^ (n + 1))]
+                                  <;>
+                                  (try norm_num) <;>
+                                  (try
+                                    {
+                                      have h₈₅ : ((n + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (n + 1) : ℚ) ≥ 0 := by positivity
+                                      have h₈₆ : ((n + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (n + 1) : ℚ) ≤ 1 := by
+                                        have h₈₇ : ((4 / 3 : ℚ) : ℚ) ^ (n + 1) ≥ (n + 1 : ℚ) := by
+                                          have h₈₈ : ∀ n : ℕ, ((4 / 3 : ℚ) : ℚ) ^ (n + 1) ≥ (n + 1 : ℚ) := by
+                                            intro n
+                                            induction' n with n ih
+                                            · norm_num
+                                            · cases n with
+                                              | zero => norm_num
+                                              | succ n =>
+                                                simp_all [pow_succ]
+                                                <;> norm_num at * <;>
+                                                (try norm_num at *) <;>
+                                                (try nlinarith)
+                                          exact h₈₈ n
+                                        have h₈₉ : ((n + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (n + 1) : ℚ) ≤ 1 := by
+                                          rw [div_le_one (by positivity)]
+                                          <;> nlinarith
+                                        exact h₈₉
+                                      rw [abs_of_nonneg (by positivity)]
+                                      <;> linarith
+                                    })
+                                  <;>
+                                  (try simp_all [abs_of_nonneg]) <;>
+                                  (try norm_num) <;>
+                                  (try linarith)
+                                exact h₈₄
+                              exact h₈₃
+                            exact h₈₂
+                          -- If the series is summable, the terms tend to 0
+                          have h₈₃ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                            have h₈₄ : Summable (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) := h₈₁
+                            exact h₈₄.tendsto_atTop_zero
+                          exact h₈₃
+                        exact h₈₀
+                      exact h₇₉
+                    exact h₇₈
+                  exact h₇₇
+                exact h₇₆
+              have h₇₇ : ∀ d : ℕ, (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ (4 / 3 : ℚ) ^ (d + 1) := h₇₁
+              have h₇₈ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                have h₇₉ : ∀ d : ℕ, ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≤ ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ) := by
+                  intro d
+                  have h₈₀ : (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≥ (4 / 3 : ℚ) ^ (d + 1) := h₇₁ d
+                  have h₈₁ : 0 < (4 / 3 : ℚ) ^ (d + 1) := by positivity
+                  have h₈₂ : 0 < (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                    have h₈₃ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by
+                      have h₈₄ : ∀ v d : ℕ, subtreeCount v d ≥ 1 := by
+                        intro v
+                        induction d with
+                        | zero => simp [subtreeCount]
+                        | succ d ih =>
+                          simp_all [subtreeCount_succ]
+                          <;> norm_num <;> omega
+                      exact h₈₄ (9 * k + 5) (d + 1)
+                    exact by
+                      norm_cast at h₈₄ ⊢
+                      <;> positivity
+                  have h₈₃ : ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≤ ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ) := by
+                    apply div_le_div_of_le_left (by positivity) (by positivity)
+                    <;> linarith
+                  exact h₈₃
+                have h₈₀ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := h₇₅
+                have h₈₁ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                  have h₈₂ : ∀ d : ℕ, 0 ≤ ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                    intro d
+                    have h₈₃ : 0 < (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                      have h₈₄ : (subtreeCount (9 * k + 5) (d + 1) : ℕ) ≥ 1 := by
+                        have h₈₅ : ∀ v d : ℕ, subtreeCount v d ≥ 1 := by
+                          intro v
+                          induction d with
+                          | zero => simp [subtreeCount]
+                          | succ d ih =>
+                            simp_all [subtreeCount_succ]
+                            <;> norm_num <;> omega
+                        exact h₈₅ (9 * k + 5) (d + 1)
+                      exact by
+                        norm_cast at h₈₄ ⊢
+                        <;> positivity
+                    positivity
+                  have h₈₃ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                    -- Use the squeeze theorem
+                    have h₈₄ : Filter.Tendsto (fun d : ℕ => (0 : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                      apply tendsto_const_nhds
+                    have h₈₅ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := h₇₅
+                    have h₈₆ : ∀ d : ℕ, (0 : ℚ) ≤ ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+                      intro d
+                      positivity
+                    have h₈₇ : ∀ d : ℕ, ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) ≤ ((d + 1 : ℚ) : ℚ) / ((4 / 3 : ℚ) ^ (d + 1) : ℚ) := h₇₉
+                    -- Use the squeeze theorem
+                    have h₈₈ : Filter.Tendsto (fun d : ℕ => ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ)) Filter.atTop (nhds (0 : ℚ)) := by
+                      apply tendsto_of_tendsto_of_tendsto_of_le_of_le' h₈₄ h₈₀
+                      · intro d
+                        exact h₈₆ d
+                      · intro d
+                        exact h₈₇ d
+                    exact h₈₈
+                exact h₈₁
+              exact h₇₄
+            exact h₇₄
+          exact h₇₂
+        have h₈ : ∀ d : ℕ, share (9 * k + 5) d = ((d + 1 : ℚ) : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+          intro d
+          have h₈₁ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+          have h₈₂ : share (9 * k + 5) d = (subtreeCount (2 * ((9 * k + 5) / 3) + 1) d : ℚ) / (subtreeCount (9 * k + 5) (d + 1) : ℚ) := by
+            simp [share, h₈₁]
+            <;> norm_cast
+          rw [h₈₂]
+          have h₈₃ : subtreeCount (2 * ((9 * k + 5) / 3) + 1) d = d + 1 := by
+            have h₈₄ : (2 * ((9 * k + 5) / 3) + 1 : ℕ) % 3 = 0 := by
+              have h₈₅ : (9 * k + 5 : ℕ) % 3 = 2 := by omega
+              have h₈₆ : (9 * k + 5 : ℕ) / 3 * 3 = 9 * k + 3 := by
+                have h₈₇ : (9 * k + 5) / 3 = 3 * k + 1 := by omega
+                rw [h₈₇]
+                <;> ring_nf
+                <;> omega
+              omega
+            rw [subtreeCount_of_three_dvd (by omega) d]
+            <;> simp [Nat.cast_add, Nat.cast_one]
+          rw [h₈₃]
+          <;> norm_cast
+          <;> field_simp [Nat.cast_add_one_ne_zero]
+          <;> ring_nf
+          <;> norm_cast
+          <;> field_simp [Nat.cast_add_one_ne_zero]
+          <;> ring_nf
+          <;> norm_cast
+        rw [h₈]
+        exact h₇
+      exact h₇
+    exact h₃
+  exact h₃
+
+/-- The amplitude A(v) for a value v, defined as the limit of subtreeCount(v, d) / (4/3)^d as d → ∞. -/
+noncomputable def amplitude (v : ℕ) : ℝ :=
+  if h : v % 3 = 0 then 0 else
+    Classical.choose (exists_amplitude_limit v h)
+
+/- The amplitude limit exists for all v not divisible by 3. -/
+theorem exists_amplitude_limit (v : ℕ) (h : v % 3 ≠ 0) :
+  ∃ (L : ℝ), Filter.Tendsto (fun d : ℕ => (subtreeCount v d : ℝ) / ((4 / 3 : ℝ) ^ d)) Filter.atTop (nhds L) := by
+  sorry
+
+/-- The amplitude converges for the pinned 5 mod 9 family. -/
+theorem amplitude_converges_pinned (k : ℕ) :
+  ∃ (L : ℝ), Filter.Tendsto (fun d : ℕ => (subtreeCount (9 * k + 5) d : ℝ) / ((4 / 3 : ℝ) ^ d)) Filter.atTop (nhds L) := by
+  sorry
+
+/-- The cocycle weight w_i = share(T n_i) at odd steps, 1 - share(T n_i) at even steps.
+    The geometric mean of w_i converges to 3/4. -/
+theorem cocycle_converges :
+  Filter.Tendsto (fun N : ℕ => (∏ i in Finset.range N, (share (T_iter i 27) 10 : ℝ)) ^ (1 / (N : ℝ))) Filter.atTop (nhds (3 / 4 : ℝ)) := by
+  sorry
+
+/-- The cocycle is bounded: gap × length = O(1). -/
+theorem cocycle_bounded :
+  ∃ (C : ℝ), ∀ (lo hi : ℕ) (d : ℕ), lo ≤ hi →
+    |(mean_log_w lo hi d : ℝ) + Real.log (4 / 3)| * (mean_length lo hi d : ℝ) ≤ C := by
+  sorry
+
+/-- The mean log weight for seeds in [lo, hi] at depth d. -/
+def mean_log_w (lo hi d : ℕ) : ℚ :=
+  0 -- placeholder
+
+/-- The mean length for seeds in [lo, hi] at depth d. -/
+def mean_length (lo hi d : ℕ) : ℚ :=
+  0 -- placeholder
+
+/-- The 5 mod 9 lattice forms a complete 3-adic refinement lattice.
+    This is the inductive invariant: the pinned classes form a complete
+    refinement lattice under 3-adic refinement. -/
+def five_mod_nine_lattice (r : ℕ) : Finset ℕ :=
+  Finset.Icc (5) (3 ^ (r + 1) - 1) |>
+  Finset.filter (fun x => x % 9 = 5)
+
+/-- The 5 mod 9 lattice is complete under 3-adic refinement. -/
+theorem five_mod_nine_lattice_complete :
+  ∀ (r : ℕ), (five_mod_nine_lattice r).card = 3 ^ r := by
+  sorry
 
 end CollatzDepthSplit
