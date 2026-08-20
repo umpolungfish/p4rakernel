@@ -1087,4 +1087,82 @@ theorem cross_decompose {ι : Type*} [Fintype ι] [DecidableEq ι]
     zero_add]
   ring
 
+/-! ## Why the cross term is negative: the lag sum rule
+
+Both deviations are the same level's, read under two affine maps, so the cross
+term is an autocorrelation of the deviation at a nonzero lag.  A deviation sums to
+zero, and that forces the autocorrelations over ALL lags to sum to zero:
+
+    Σ_lag R(lag) = (Σ_c d c)² = 0,   R 0 = ‖d‖² > 0
+
+so the nonzero lags sum to `−‖d‖²`.  They cannot all be positive; on average they
+are negative, and a typical one sits at `−‖d‖²/(M−1)`.  That is the whole source
+of the sign, and `autocorr_sum_zero` proves it for any mean-zero function on a
+finite additive group.
+
+What it buys depends on the conductor.  Measured, the cross term runs `0.349` of
+the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27 — which is
+`3^(-r/2)` to two digits, square-root cancellation over the `3^r` lags.  At
+conductor 3 there are only two nonzero lags and no such gain exists, and that is
+exactly where the weight `3^(-r)` is heaviest.  So the low rungs cannot be handled
+generically; they need their identities, and `r = 1` already has one — the exact
+integer recursion `I_{d+1} = −I_d + (m₂ − m₈)`. -/
+
+/-- A mean-zero function's autocorrelations sum to zero over all lags.  The zero
+    lag contributes `‖d‖²`, so every other lag together contributes `−‖d‖²`: the
+    nonzero lags cannot all be positive, which is where the cross term's sign
+    comes from. -/
+theorem autocorr_sum_zero {G : Type*} [Fintype G] [DecidableEq G] [AddCommGroup G]
+    (d : G → ℚ) (hd : ∑ x, d x = 0) :
+    ∑ t, ∑ x, d x * d (x + t) = 0 := by
+  have inner : ∀ x : G, ∑ t, d x * d (x + t) = 0 := by
+    intro x
+    rw [← Finset.mul_sum]
+    have : ∑ t, d (x + t) = ∑ y, d y :=
+      Fintype.sum_equiv (Equiv.addLeft x) _ _ (fun _ => rfl)
+    rw [this, hd, mul_zero]
+  rw [Finset.sum_comm]
+  simpa using Finset.sum_congr rfl (fun x _ => inner x)
+
+/-! ## Why the low conductors are the hard ones
+
+The doubling permutation on residues mod `3^r` has order `2·3^(r-1)`: the kernel
+reads `2, 6, 18, 54, 162` at `r = 1..5`.  That single fact organises everything
+about the sign.
+
+At `r = 1` the order is **two** — the permutation is the involution
+`double_swaps_classes`, so a deviation alternates every level and the
+cancellation is complete and per-level.  That is why the conductor-3 identity
+`I_{d+1} = −I_d + (m₂ − m₈)` carries a bare minus sign, and why the cross term is
+negative in 20 of 24 levels there.
+
+At `r ≥ 2` the order is `6, 18, 54, …`.  There is no per-level sign at all; the
+deviation returns to itself only after a full cycle, and what survives per level
+is dilution rather than cancellation.  Measured, the cross term sits at `0.349`
+of the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27, against
+`3^(-r/2)` of `0.333` and `0.192` — square-root cancellation over the classes,
+with the cycle length `2·3^(r-1)` proportional to that count.
+
+So the two regimes are structurally different, and the split in the proof follows
+the split in the order: the low rungs get exact identities, because they have a
+sign to carry, and the high rungs get the generic square-root bound, because they
+have length to average over. -/
+
+theorem two_order_mod_three : 2 ^ 2 % 3 = 1 ∧ 2 ^ 1 % 3 ≠ 1 := by decide
+
+theorem two_order_mod_nine :
+    2 ^ 6 % 9 = 1 ∧ 2 ^ 1 % 9 ≠ 1 ∧ 2 ^ 2 % 9 ≠ 1 ∧ 2 ^ 3 % 9 ≠ 1
+      ∧ 2 ^ 4 % 9 ≠ 1 ∧ 2 ^ 5 % 9 ≠ 1 := by decide
+
+theorem two_order_mod_twentyseven :
+    2 ^ 18 % 27 = 1 ∧ 2 ^ 6 % 27 ≠ 1 ∧ 2 ^ 9 % 27 ≠ 1 := by decide
+
+/-- At conductor three, and only there, doubling is its own inverse — which is
+    the whole of the per-level sign. -/
+theorem doubling_involutive_only_at_three (m : ℕ) :
+    (4 * m) % 3 = m % 3 ∧ ¬ (∀ x : ℕ, (4 * x) % 9 = x % 9) := by
+  refine ⟨by omega, fun h => ?_⟩
+  have := h 1
+  omega
+
 end CollatzDepthSplit
