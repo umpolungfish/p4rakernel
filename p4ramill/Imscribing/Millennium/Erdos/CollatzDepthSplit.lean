@@ -3235,4 +3235,39 @@ theorem descends_iff_quotient (k r t : ℕ) :
     why the exact criterion above, dividing by the margin, is the usable one. -/
 theorem displacement_records : (3 : ℕ) ^ 10 - 1 = 59048 := by norm_num
 
+/-! ### Item 7 without item 6: an unconditional bound on cycle minima
+
+`cycle_banked` gives `(n+1)(2^k − 3^j) = bank n k`, and `bank` is a count, so the
+right side is non-negative and `2^k ≥ 3^j`.  `two_pow_ne_three_pow` rules out
+equality for `k ≥ 1`, so the margin is at least one — with no Diophantine input at
+all.  Feeding that into `cycle_min_bound`:
+
+    n + 1  ≤  (n + 1)(2^k − 3^j)  ≤  k · 2^k
+
+`cycle_min_le`.  So the minimum of a `k`-cycle is bounded by `k·2^k`, unconditionally.
+Item 6 sharpens the margin from `1` to something growing, which is what turns this
+into a bound on `k`; the shape of the argument does not wait on it. -/
+
+/-- A cycle's class contracts: the margin is positive, from the equation alone. -/
+theorem cycle_margin_pos {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n) :
+    (3 : ℤ) ^ oddSteps n k < (2 : ℤ) ^ k := by
+  have heq := cycle_banked hcyc
+  have hb : (0 : ℤ) ≤ (bank n k : ℤ) := Int.natCast_nonneg _
+  have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
+  have hge : (0 : ℤ) ≤ (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k := by
+    by_contra hcon
+    push_neg at hcon
+    nlinarith [heq, hb, hn, hcon]
+  have hne : (2 : ℤ) ^ k ≠ (3 : ℤ) ^ oddSteps n k := two_pow_ne_three_pow hk
+  omega
+
+/-- **Item 7, unconditionally.**  The minimum of a `k`-cycle is at most `k · 2^k`. -/
+theorem cycle_min_le {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) : ((n : ℤ) + 1) ≤ (k : ℤ) * (2 : ℤ) ^ k := by
+  have hmar : (3 : ℤ) ^ oddSteps n k < (2 : ℤ) ^ k := cycle_margin_pos hk hcyc
+  have h1 : (1 : ℤ) ≤ (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k := by omega
+  have hbound := cycle_min_bound hcyc hmin
+  have hn : (0 : ℤ) < (n : ℤ) + 1 := by positivity
+  nlinarith [hbound, h1, hn]
+
 end CollatzDepthSplit
