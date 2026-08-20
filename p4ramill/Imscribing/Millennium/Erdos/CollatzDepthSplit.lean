@@ -2042,4 +2042,208 @@ theorem fixed_conductor_threshold :
     (1 : ℝ) / (3 / 4) ^ 2 - 1 = 7 / 9 ∧ (0.4435 : ℝ) < 7 / 9 := by
   constructor <;> norm_num
 
+/-! ## The even part carries the previous level's energy, exactly
+
+The fixed-conductor recursion rests on one identity: that the doubling arm moves no
+energy at all.  It is proved here rather than assumed.
+
+`ζ^(3*j*(2m)) = ζ^(6*j*m)`, so the even part's coefficient at index `3j` is the
+previous level's at `6j`; and `j ↦ 2j` is a bijection of the primitive indices mod
+`3^r`, since `2` is a unit there.  Summing the squares over the primitive indices,
+the two sums are the same sum reindexed:
+
+    Σ_{j primitive} ‖coeff (even part of predStep L) (3j)‖²
+      = Σ_{j primitive} ‖coeff L (3j)‖²
+
+so `Q_even(d+1) = Q(d)` unnormalised, and `ρ²Q(d)` after normalising by the level
+count.  With `predStep_parity_partition` splitting the level, the whole recursion
+
+    Q(d+1) = ρ² Q(d) + Q_odd(d+1) + cross
+
+has its first term proved exact and its remaining two the rung. -/
+
+/-- The primitive indices at conductor `3^r`: those not divisible by three. -/
+def prim (r : ℕ) : Finset ℕ := (Finset.range (3 ^ r)).filter (fun j => j % 3 ≠ 0)
+
+/-- A root of unity only sees the exponent modulo its order. -/
+theorem zpow_mod {ζ : ℂ} {M : ℕ} (hζ : ζ ^ M = 1) (n : ℕ) : ζ ^ n = ζ ^ (n % M) := by
+  conv_lhs => rw [← Nat.div_add_mod n M]
+  rw [pow_add, pow_mul, hζ, one_pow, one_mul]
+
+/-- So a coefficient only sees its index modulo the order. -/
+theorem coeff_periodic {ζ : ℂ} {M : ℕ} (hζ : ζ ^ M = 1) (L : Finset ℕ) {k k' : ℕ}
+    (h : k % M = k' % M) : coeff ζ L k = coeff ζ L k' := by
+  unfold coeff
+  refine Finset.sum_congr rfl (fun v _ => ?_)
+  rw [zpow_mod hζ (k * v), zpow_mod hζ (k' * v)]
+  congr 1
+  exact Nat.ModEq.mul_right v h
+
+/-- Doubling is injective on the primitive indices: `2` is a unit mod `3^r`. -/
+theorem double_inj_prim (r : ℕ) : ∀ a ∈ prim r, ∀ b ∈ prim r,
+    2 * a % 3 ^ r = 2 * b % 3 ^ r → a = b := by
+  intro a ha b hb hab
+  simp only [prim, Finset.mem_filter, Finset.mem_range] at ha hb
+  have h : 2 * a ≡ 2 * b [MOD 3 ^ r] := hab
+  have h2 := double_inj_mod h
+  unfold Nat.ModEq at h2
+  rw [Nat.mod_eq_of_lt ha.1, Nat.mod_eq_of_lt hb.1] at h2
+  exact h2
+
+theorem double_injOn_prim (r : ℕ) : Set.InjOn (fun j => 2 * j % 3 ^ r) (prim r) :=
+  fun _ ha _ hb hab =>
+    double_inj_prim r _ (Finset.mem_coe.mp ha) _ (Finset.mem_coe.mp hb) hab
+
+/-- And so permutes them. -/
+theorem doubling_image_prim (r : ℕ) :
+    (prim r).image (fun j => 2 * j % 3 ^ r) = prim r := by
+  have hpos : 0 < 3 ^ r := pow_pos (by norm_num) r
+  have hmaps : ∀ j ∈ prim r, 2 * j % 3 ^ r ∈ prim r := by
+    intro j hj
+    simp only [prim, Finset.mem_filter, Finset.mem_range] at hj ⊢
+    refine ⟨Nat.mod_lt _ hpos, ?_⟩
+    rcases Nat.eq_zero_or_pos r with rfl | hr
+    · simp at hj; omega
+    · have h3 : (3 : ℕ) ∣ 3 ^ r := dvd_pow_self 3 (by omega)
+      have : (2 * j % 3 ^ r) % 3 = (2 * j) % 3 := Nat.mod_mod_of_dvd _ h3
+      omega
+  refine Finset.eq_of_subset_of_card_le ?_ ?_
+  · intro x hx
+    obtain ⟨j, hj, rfl⟩ := Finset.mem_image.mp hx
+    exact hmaps j hj
+  · rw [Finset.card_image_of_injOn (double_injOn_prim r)]
+
+/-- The even arm's coefficient is the previous level's, at the doubled index. -/
+theorem even_part_coeff (ζ : ℂ) (L : Finset ℕ) (j : ℕ) :
+    coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j) = coeff ζ L (6 * j) := by
+  rw [← evenImage_eq_even_part]
+  unfold coeff
+  rw [Finset.sum_image (by intro a _ b _ hab; simp only at hab; omega)]
+  exact Finset.sum_congr rfl (fun m _ => by ring_nf)
+
+/-- **The doubling arm moves no energy.**  Summed over the primitive indices, the
+    even part of a level carries exactly the energy of the level below it. -/
+theorem even_part_energy {ζ : ℂ} {r : ℕ} (hζ : ζ ^ 3 ^ (r + 1) = 1) (L : Finset ℕ) :
+    ∑ j ∈ prim r, ‖coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j)‖ ^ 2
+      = ∑ j ∈ prim r, ‖coeff ζ L (3 * j)‖ ^ 2 := by
+  have hstep : ∀ j : ℕ, coeff ζ L (6 * j) = coeff ζ L (3 * (2 * j % 3 ^ r)) := by
+    intro j
+    refine coeff_periodic hζ L ?_
+    have h : 3 * (2 * j) % (3 * 3 ^ r) = 3 * (2 * j % 3 ^ r) := Nat.mul_mod_mul_left _ _ _
+    have hlt : 3 * (2 * j % 3 ^ r) < 3 * 3 ^ r := by
+      have := Nat.mod_lt (2 * j) (pow_pos (by norm_num : (0:ℕ) < 3) r)
+      omega
+    have hpow : (3 : ℕ) ^ (r + 1) = 3 * 3 ^ r := by ring
+    rw [hpow, show 6 * j = 3 * (2 * j) by ring, h, Nat.mod_eq_of_lt hlt]
+  calc ∑ j ∈ prim r, ‖coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j)‖ ^ 2
+      = ∑ j ∈ prim r, ‖coeff ζ L (3 * (2 * j % 3 ^ r))‖ ^ 2 := by
+        exact Finset.sum_congr rfl (fun j _ => by rw [even_part_coeff, hstep])
+    _ = ∑ j ∈ (prim r).image (fun j => 2 * j % 3 ^ r), ‖coeff ζ L (3 * j)‖ ^ 2 := by
+        rw [Finset.sum_image (double_injOn_prim r)]
+    _ = ∑ j ∈ prim r, ‖coeff ζ L (3 * j)‖ ^ 2 := by rw [doubling_image_prim]
+
+/-- A level's coefficient splits along the parity partition. -/
+theorem coeff_parity_split (ζ : ℂ) (L : Finset ℕ) (k : ℕ) :
+    coeff ζ (predStep L) k
+      = coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) k
+        + coeff ζ ((predStep L).filter (fun n => n % 2 = 1)) k := by
+  unfold coeff
+  rw [← Finset.sum_filter_add_sum_filter_not (predStep L) (fun n => n % 2 = 0)]
+  congr 1
+  refine Finset.sum_congr ?_ (fun _ _ => rfl)
+  ext x
+  simp only [Finset.mem_filter]
+  constructor
+  · rintro ⟨hx, h⟩; exact ⟨hx, by omega⟩
+  · rintro ⟨hx, h⟩; exact ⟨hx, by omega⟩
+
+/-- **The level energy recursion, exactly.**  Summed over the primitive indices at
+    conductor `3^r`, a level's energy is the energy of the level below it — the
+    doubling arm, which moves nothing — plus the energy of its own odd part, plus
+    the cross term between them.  No inequality anywhere. -/
+theorem level_energy_recursion {ζ : ℂ} {r : ℕ} (hζ : ζ ^ 3 ^ (r + 1) = 1) (L : Finset ℕ) :
+    ∑ j ∈ prim r, ‖coeff ζ (predStep L) (3 * j)‖ ^ 2
+      = (∑ j ∈ prim r, ‖coeff ζ L (3 * j)‖ ^ 2)
+        + (∑ j ∈ prim r, ‖coeff ζ (oddImage L) (3 * j)‖ ^ 2)
+        + ∑ j ∈ prim r, 2 * ((coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j))
+            * (starRingEnd ℂ) (coeff ζ (oddImage L) (3 * j))).re := by
+  have hodd : ∀ j : ℕ, coeff ζ ((predStep L).filter (fun n => n % 2 = 1)) (3 * j)
+      = coeff ζ (oddImage L) (3 * j) := by
+    intro j; rw [oddImage_eq_odd_part]
+  have hterm : ∀ j : ℕ, ‖coeff ζ (predStep L) (3 * j)‖ ^ 2
+      = ‖coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j)‖ ^ 2
+        + ‖coeff ζ (oddImage L) (3 * j)‖ ^ 2
+        + 2 * ((coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j))
+            * (starRingEnd ℂ) (coeff ζ (oddImage L) (3 * j))).re := by
+    intro j
+    rw [coeff_parity_split ζ L (3 * j), hodd j]
+    rw [Complex.sq_norm, Complex.sq_norm, Complex.sq_norm, Complex.normSq_add]
+  calc ∑ j ∈ prim r, ‖coeff ζ (predStep L) (3 * j)‖ ^ 2
+      = ∑ j ∈ prim r, (‖coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j)‖ ^ 2
+          + ‖coeff ζ (oddImage L) (3 * j)‖ ^ 2
+          + 2 * ((coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j))
+              * (starRingEnd ℂ) (coeff ζ (oddImage L) (3 * j))).re) :=
+        Finset.sum_congr rfl (fun j _ => hterm j)
+    _ = (∑ j ∈ prim r, ‖coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j)‖ ^ 2)
+          + (∑ j ∈ prim r, ‖coeff ζ (oddImage L) (3 * j)‖ ^ 2)
+          + ∑ j ∈ prim r, 2 * ((coeff ζ ((predStep L).filter (fun n => n % 2 = 0)) (3 * j))
+              * (starRingEnd ℂ) (coeff ζ (oddImage L) (3 * j))).re := by
+        rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+    _ = _ := by rw [even_part_energy hζ L]
+
+/-- **The contraction, from the recursion.**  If the odd part carries at most `κ`
+    of the level's energy and the cross term is non-positive, then the level's
+    energy is at most `1/(1 − κ)` of the previous level's — so with `κ < 1` the
+    unnormalised energy is controlled, and after the `ρ²` of normalisation the
+    level contracts exactly when `κ < 1/ρ² − 1`. -/
+theorem energy_contraction {Q Qodd cross Qprev κ : ℝ}
+    (hrec : Q = Qprev + Qodd + cross) (hodd : Qodd ≤ κ * Q) (hcross : cross ≤ 0)
+    (hκ : κ < 1) : Q * (1 - κ) ≤ Qprev := by
+  nlinarith [hrec, hodd, hcross]
+
+/-! ### The mod-2 twist carries the cross term
+
+Parity being a twist rather than a conductor has an exact consequence.  Writing `e`
+for the even part's coefficients and `o` for the odd part's, the level's coefficient
+is `e + o` and its mod-2 twist is `e − o`.  The parallelogram law then gives
+
+    Q + Q₂ = 2 Q_even + 2 Q_odd,      Q − Q₂ = 2 cross
+
+so the cross term is not an independent unknown: it is the defect between a level's
+energy and its twisted energy, and both of the recursion's inputs are determined by
+the single quantity `Q₂`.  Combined with `even_part_energy`, contraction becomes
+
+    Q₂ > (2ρ² − 1) Q_prev + 2 Q_odd
+
+measured `1.22 Q` against `0.71 Q`, a margin of `1.7`. -/
+
+/-- The parallelogram law, summed over the characters. -/
+theorem energy_parallelogram (e o : ℕ → ℂ) (s : Finset ℕ) :
+    (∑ j ∈ s, ‖e j + o j‖ ^ 2) + ∑ j ∈ s, ‖e j - o j‖ ^ 2
+      = 2 * (∑ j ∈ s, ‖e j‖ ^ 2) + 2 * ∑ j ∈ s, ‖o j‖ ^ 2 := by
+  rw [← Finset.sum_add_distrib, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  rw [Complex.sq_norm, Complex.sq_norm, Complex.sq_norm, Complex.sq_norm,
+    Complex.normSq_add, Complex.normSq_sub]
+  ring
+
+/-- **The cross term is the twist defect.**  It is not an independent quantity: the
+    correlation between the two arms is exactly half the gap between a level's
+    energy and the energy of its mod-2 twist. -/
+theorem cross_is_twist_defect (e o : ℕ → ℂ) (s : Finset ℕ) :
+    (∑ j ∈ s, 2 * ((e j) * (starRingEnd ℂ) (o j)).re)
+      = ((∑ j ∈ s, ‖e j + o j‖ ^ 2) - ∑ j ∈ s, ‖e j - o j‖ ^ 2) / 2 := by
+  rw [← Finset.sum_sub_distrib]
+  rw [Finset.sum_div]
+  refine Finset.sum_congr rfl (fun j _ => ?_)
+  rw [Complex.sq_norm, Complex.sq_norm, Complex.normSq_add, Complex.normSq_sub]
+  ring
+
+/-- So both inputs of the recursion are read off one quantity, and contraction is
+    the single inequality `Q₂ > (2ρ² − 1) Q_prev + 2 Q_odd`. -/
+theorem contraction_via_twist {Q Q2 Qeven Qodd Qprev ρ : ℝ}
+    (hpar : Q + Q2 = 2 * Qeven + 2 * Qodd) (heven : Qeven = ρ ^ 2 * Qprev)
+    (h : Q2 > (2 * ρ ^ 2 - 1) * Qprev + 2 * Qodd) : Q < Qprev := by
+  nlinarith [hpar, heven, h]
+
 end CollatzDepthSplit
