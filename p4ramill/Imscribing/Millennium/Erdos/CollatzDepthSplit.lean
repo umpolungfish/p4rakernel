@@ -450,4 +450,53 @@ theorem not_survives_succ_of_even_step {k r : ℕ} (heven : col^[k] r % 2 = 0)
   intro hs
   exact hs (k+1) (le_refl _) (contracts_succ_of_even_step heven hslack)
 
+/-! ## The holder-first reading: predecessors
+
+Forward, the branch is free — both parities are available at every class, so the
+tree is all `2^k` residues with a survival filter laid over it, and the filter is
+all the content there is.  Read from the target instead and the branch becomes
+arithmetic.  Every `m` has the predecessor `2*m`, and `m` has an odd predecessor
+exactly when `m ≡ 2 (mod 3)`, in which case it is `2*t+1` for `m = 3*t+2` with no
+division and no parity side condition.  Nothing needs filtering: every path in
+this tree is a trajectory. -/
+
+theorem col_two_mul (m : ℕ) : col (2 * m) = m := by
+  unfold col
+  rw [if_pos (by omega : (2 * m) % 2 = 0)]
+  omega
+
+theorem col_odd_pred (t : ℕ) : col (2 * t + 1) = 3 * t + 2 := by
+  unfold col
+  rw [if_neg (by omega : ¬ (2 * t + 1) % 2 = 0)]
+  omega
+
+/-- Every preimage is one of the two, and the odd one forces `m ≡ 2 (mod 3)`. -/
+theorem preimage_cases {n m : ℕ} (h : col n = m) :
+    n = 2 * m ∨ ∃ t, n = 2 * t + 1 ∧ m = 3 * t + 2 := by
+  rcases Nat.even_or_odd n with he | ho
+  · obtain ⟨c, hc⟩ := he
+    left
+    have hn : n % 2 = 0 := by omega
+    unfold col at h
+    rw [if_pos hn] at h
+    omega
+  · obtain ⟨t, ht⟩ := ho
+    right
+    refine ⟨t, ht, ?_⟩
+    subst ht
+    rw [col_odd_pred] at h
+    omega
+
+/-- The branch is two exactly on the residue `2 (mod 3)`. -/
+theorem odd_pred_iff (m : ℕ) : (∃ t, m = 3 * t + 2) ↔ m % 3 = 2 := by
+  constructor
+  · rintro ⟨t, rfl⟩; omega
+  · intro h; exact ⟨m / 3, by omega⟩
+
+/-- Stated as the tree step: the predecessors of `m` are `2*m` always, and
+    `2*t+1` when `m = 3*t+2`. -/
+theorem preds_of_mod_three {m t : ℕ} (h : m = 3 * t + 2) :
+    col (2 * m) = m ∧ col (2 * t + 1) = m := by
+  exact ⟨col_two_mul m, by rw [col_odd_pred, h]⟩
+
 end CollatzDepthSplit
