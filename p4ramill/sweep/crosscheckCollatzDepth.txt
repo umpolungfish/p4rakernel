@@ -15,6 +15,7 @@ N  clean    CollatzDepthSplit.classBound.eq_2
 N  clean    CollatzDepthSplit.classBound_fib
 N  clean    CollatzDepthSplit.classBound_mono
 N  clean    CollatzDepthSplit.classBound_mono._proof_1_4
+N  clean    CollatzDepthSplit.coeff_predStep._proof_1_3
 N  clean    CollatzDepthSplit.col4_16t3
 N  clean    CollatzDepthSplit.col4_16t3_contracts
 N  clean    CollatzDepthSplit.col4_16t3_contracts._proof_1_1
@@ -39,6 +40,8 @@ N  clean    CollatzDepthSplit.col_starved_arm._proof_1_1
 N  clean    CollatzDepthSplit.contracts_mod
 N  clean    CollatzDepthSplit.cross_decompose._simp_1_1
 N  clean    CollatzDepthSplit.cross_decompose._simp_1_2
+N  clean    CollatzDepthSplit.cube_indicator._proof_1_3
+N  clean    CollatzDepthSplit.cube_indicator._proof_1_5
 N  clean    CollatzDepthSplit.cube_roots_sum_zero
 N  clean    CollatzDepthSplit.double_collide_iff
 N  clean    CollatzDepthSplit.double_inj_mod
@@ -82,6 +85,7 @@ N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_7
 N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_8
 N  clean    CollatzDepthSplit.oddSteps_pred_two_pow
 N  clean    CollatzDepthSplit.odd_arm_count
+N  clean    CollatzDepthSplit.odd_arm_exponent
 N  clean    CollatzDepthSplit.odd_child_class_eight
 N  clean    CollatzDepthSplit.odd_child_class_five
 N  clean    CollatzDepthSplit.odd_child_class_two
@@ -150,6 +154,8 @@ T  clean    CollatzDepthSplit.classBound.eq_def
 T  clean    CollatzDepthSplit.classBound_fib._proof_1_4
 T  clean    CollatzDepthSplit.class_one_ge_junctions
 T  clean    CollatzDepthSplit.class_one_ge_junctions._proof_1_2
+T  clean    CollatzDepthSplit.coeff_predStep
+T  clean    CollatzDepthSplit.coeff_predStep._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_down
 T  clean    CollatzDepthSplit.col_chain_down._proof_1_2
 T  clean    CollatzDepthSplit.col_chain_up
@@ -175,6 +181,7 @@ T  clean    CollatzDepthSplit.oddSteps_all_ones._proof_1_5
 T  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_4
 T  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_7
 T  clean    CollatzDepthSplit.oddSteps_succ
+T  clean    CollatzDepthSplit.odd_arm_exponent._proof_1_1
 T  clean    CollatzDepthSplit.odd_pred_iff
 T  clean    CollatzDepthSplit.odd_pred_iff._proof_1_1
 T  clean    CollatzDepthSplit.odd_pred_iff._proof_1_2
