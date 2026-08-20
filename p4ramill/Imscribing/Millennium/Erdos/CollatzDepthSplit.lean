@@ -1297,4 +1297,204 @@ theorem junctions_nondecreasing_two_levels (L : Finset ℕ) :
       ≤ ((predStep (predStep L)).filter (fun m => m % 3 = 2)).card :=
   le_trans (class_one_ge_junctions L) (junctions_ge_class_one (predStep L))
 
+/-! ## The growth rate, proved
+
+`p₂(d) = N(d+1)/N(d) − 1` exactly, by `card_predStep`, so the junction fraction is
+the level-growth ratio and nothing else.  What the weighted-norm contraction needs
+is not a bound at each level but the telescoped product: over levels `a..b` the
+composed bound is `1.1644^D · N(a)/N(b+1)`, and `∏(1+p₂) = N(b+1)/N(a)`, so the
+requirement is an exponential rate
+
+    liminf N(d)^(1/d) > 1.1644
+
+and nothing per-level.  The single failing level `d = 2` disappears with the
+per-level demand.
+
+The rate is provable at conductor nine.  Doubling acts on `ℤ/9` as the six-cycle
+`1 → 2 → 4 → 8 → 7 → 5 → 1` on the units, fixes `0` and swaps `3, 6`.  The dead
+classes carry no growth at all — `subtreeCount_of_three_dvd` — so give them weight
+zero.  Odd children inject at exactly two places on the cycle: a junction at
+`2 (mod 9)` has an odd child at `1 (mod 3)`, one at `8 (mod 9)` has one at
+`2 (mod 3)`, and one at `5 (mod 9)` has one at `0 (mod 3)`, which is dead.  Which
+class mod 9 the child lands in needs the parent mod 27, so at this conductor it is
+adversarial; weighting by the minimum over the three lifts removes the choice.
+
+Requiring `w(children) ≥ L·w(parent)` at each of the six units gives
+
+    w₂ ≥ L w₁    w₄ + min(w₁,w₄,w₇) ≥ L w₂    w₈ ≥ L w₄
+    w₅ ≥ L w₇    w₇ + min(w₂,w₅,w₈) ≥ L w₈    w₁ ≥ L w₅
+
+and taking the chain tight with `w₇ = 1` forces `w₅ = L`, `w₁ = L²`, `w₂ = L³`,
+`w₄ = L⁴ − 1`, `w₈ = L⁵ − L`, so the last requirement is exactly
+
+    L⁶ ≤ L² + L + 1
+
+whose root is `L = 1.2498…`.  At `L = 6/5` the weights clear denominators to
+integers and every requirement holds, three of them with equality.  Against the
+real tree the functional's ratio is `6/5` exactly at levels 3, 5, 6 and 12 and
+never below it through level 30, so the certificate is sharp and not slack. -/
+
+/-- The certificate weight: zero on the dead classes `0, 3, 6 (mod 9)`, and on the
+    six units the tight solution of the six-cycle at `L = 6/5`. -/
+def wt (v : ℕ) : ℕ :=
+  if v % 9 = 1 then 4500 else
+  if v % 9 = 2 then 5400 else
+  if v % 9 = 4 then 3355 else
+  if v % 9 = 8 then 4026 else
+  if v % 9 = 7 then 3125 else
+  if v % 9 = 5 then 3750 else 0
+
+/-- Its total over a level. -/
+def W (L : Finset ℕ) : ℕ := ∑ v ∈ L, wt v
+
+theorem wt_le (v : ℕ) : wt v ≤ 5400 := by
+  unfold wt; split_ifs <;> omega
+
+/-- A child at `1 (mod 3)` sits in one of `1, 4, 7 (mod 9)`, so weighs at least the
+    least of those three. -/
+theorem wt_ge_of_class_one {x : ℕ} (h : x % 3 = 1) : 3125 ≤ wt x := by
+  have h9 : x % 9 = 1 ∨ x % 9 = 4 ∨ x % 9 = 7 := by omega
+  unfold wt; rcases h9 with h9 | h9 | h9 <;> simp [h9]
+
+/-- A child at `2 (mod 3)` sits in one of `2, 5, 8 (mod 9)`. -/
+theorem wt_ge_of_class_two {x : ℕ} (h : x % 3 = 2) : 3750 ≤ wt x := by
+  have h9 : x % 9 = 2 ∨ x % 9 = 5 ∨ x % 9 = 8 := by omega
+  unfold wt; rcases h9 with h9 | h9 | h9 <;> simp [h9]
+
+/-- The doubling six-cycle on the units, and the two dead orbits. -/
+theorem wt_double (v : ℕ) :
+    wt (2 * v) =
+      if v % 9 = 1 then 5400 else
+      if v % 9 = 2 then 3355 else
+      if v % 9 = 4 then 4026 else
+      if v % 9 = 8 then 3125 else
+      if v % 9 = 7 then 3750 else
+      if v % 9 = 5 then 4500 else 0 := by
+  have h9 : v % 9 = 0 ∨ v % 9 = 1 ∨ v % 9 = 2 ∨ v % 9 = 3 ∨ v % 9 = 4 ∨ v % 9 = 5
+      ∨ v % 9 = 6 ∨ v % 9 = 7 ∨ v % 9 = 8 := by omega
+  have hd : (2 * v) % 9 = (2 * (v % 9)) % 9 := by omega
+  unfold wt
+  rcases h9 with h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 <;>
+    rw [hd, h9] <;> norm_num
+
+/-- **The pointwise certificate.** Every vertex's children carry at least `6/5` of
+    its own weight, with no hypothesis and no choice left to the adversary. -/
+theorem wt_children (v : ℕ) :
+    6 * wt v ≤ 5 * (wt (2 * v) + if v % 3 = 2 then wt (2 * (v / 3) + 1) else 0) := by
+  rw [wt_double]
+  have h9 : v % 9 = 0 ∨ v % 9 = 1 ∨ v % 9 = 2 ∨ v % 9 = 3 ∨ v % 9 = 4 ∨ v % 9 = 5
+      ∨ v % 9 = 6 ∨ v % 9 = 7 ∨ v % 9 = 8 := by omega
+  rcases h9 with h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9 | h9
+  -- the dead classes: weight zero on both sides
+  · simp [wt, h9]
+  -- 1 → 2 : 5·5400 ≥ 6·4500, equality
+  · have : v % 3 = 1 := by omega
+    simp [wt, h9, this]
+  -- 2 → 4, plus an odd child at 1 (mod 3), worth at least 3125
+  · have h3 : v % 3 = 2 := by omega
+    have hc := wt_ge_of_class_one (odd_child_class_two v h9)
+    simp only [wt, h9, h3, if_true, if_false] at *
+    norm_num at *
+    omega
+  · simp [wt, h9]
+  -- 4 → 8 : 5·4026 ≥ 6·3355, equality
+  · have : v % 3 = 1 := by omega
+    simp [wt, h9, this]
+  -- 5 → 1, and its odd child is dead: 5·4500 ≥ 6·3750, equality
+  · have h3 : v % 3 = 2 := by omega
+    simp only [wt, h9, h3, if_true, if_false] at *
+    norm_num at *
+    omega
+  · simp [wt, h9]
+  -- 7 → 5 : 5·3750 ≥ 6·3125, equality
+  · have : v % 3 = 1 := by omega
+    simp [wt, h9, this]
+  -- 8 → 7, plus an odd child at 2 (mod 3), worth at least 3750: the one slack case
+  · have h3 : v % 3 = 2 := by omega
+    have hc := wt_ge_of_class_two (odd_child_class_eight v h9)
+    simp only [wt, h9, h3, if_true, if_false] at *
+    norm_num at *
+    omega
+
+/-- The weight of a level, split along the two arms. -/
+theorem W_predStep (L : Finset ℕ) :
+    W (predStep L) =
+      (∑ m ∈ L, wt (2 * m))
+        + ∑ m ∈ L.filter (fun m => m % 3 = 2), wt (2 * (m / 3) + 1) := by
+  unfold W predStep
+  rw [Finset.sum_union, Finset.sum_image, Finset.sum_image]
+  · intro a ha b hb hab
+    obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+    obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+    simp only at hab
+    omega
+  · intro a _ b _ hab; simp only at hab; omega
+  · rw [Finset.disjoint_left]
+    rintro x hx hy
+    obtain ⟨m, _, rfl⟩ := Finset.mem_image.mp hx
+    obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
+    omega
+
+/-- **The level certificate.** Summing the pointwise bound: the weight of a level
+    is at least `6/5` of the weight of the level below it, for every level. -/
+theorem W_grows (L : Finset ℕ) : 6 * W L ≤ 5 * W (predStep L) := by
+  rw [W_predStep, Nat.mul_add]
+  have hsplit : ∑ m ∈ L, (if m % 3 = 2 then wt (2 * (m / 3) + 1) else 0)
+      = ∑ m ∈ L.filter (fun m => m % 3 = 2), wt (2 * (m / 3) + 1) := by
+    rw [Finset.sum_filter]
+  calc 6 * W L
+      = ∑ m ∈ L, 6 * wt m := by unfold W; rw [Finset.mul_sum]
+    _ ≤ ∑ m ∈ L, 5 * (wt (2 * m) + if m % 3 = 2 then wt (2 * (m / 3) + 1) else 0) :=
+        Finset.sum_le_sum (fun m _ => wt_children m)
+    _ = 5 * (∑ m ∈ L, wt (2 * m))
+          + 5 * ∑ m ∈ L, (if m % 3 = 2 then wt (2 * (m / 3) + 1) else 0) := by
+        simp [Finset.sum_add_distrib, Nat.mul_add, Finset.mul_sum, mul_ite, mul_zero]
+    _ = 5 * (∑ m ∈ L, wt (2 * m))
+          + 5 * ∑ m ∈ L.filter (fun m => m % 3 = 2), wt (2 * (m / 3) + 1) := by
+        rw [hsplit]
+
+/-- Iterated: the weight is at least `(6/5)^n` of where it started. -/
+theorem W_grows_iterate (L : Finset ℕ) : ∀ n : ℕ,
+    6 ^ n * W L ≤ 5 ^ n * W (predStep^[n] L)
+  | 0 => by simp
+  | n + 1 => by
+      have ih := W_grows_iterate L n
+      have hstep := W_grows (predStep^[n] L)
+      calc 6 ^ (n + 1) * W L = 6 * (6 ^ n * W L) := by ring
+        _ ≤ 6 * (5 ^ n * W (predStep^[n] L)) := Nat.mul_le_mul_left _ ih
+        _ = 5 ^ n * (6 * W (predStep^[n] L)) := by ring
+        _ ≤ 5 ^ n * (5 * W (predStep (predStep^[n] L))) := Nat.mul_le_mul_left _ hstep
+        _ = 5 ^ (n + 1) * W (predStep^[n + 1] L) := by
+            rw [Function.iterate_succ_apply']
+            ring
+
+theorem W_le_card (L : Finset ℕ) : W L ≤ 5400 * L.card := by
+  unfold W
+  calc ∑ v ∈ L, wt v ≤ ∑ _v ∈ L, 5400 := Finset.sum_le_sum (fun v _ => wt_le v)
+    _ = 5400 * L.card := by rw [Finset.sum_const, smul_eq_mul, mul_comm]
+
+/-- **The growth rate of the predecessor tree.** From any level the count grows at
+    least like `(6/5)^n`.  With `p₂(d) = N(d+1)/N(d) − 1` this is the junction
+    fraction in the only form the contraction uses, and `6/5 > 1.1644`. -/
+theorem card_grows (L : Finset ℕ) (n : ℕ) :
+    6 ^ n * W L ≤ 5 ^ n * 5400 * (predStep^[n] L).card := by
+  calc 6 ^ n * W L ≤ 5 ^ n * W (predStep^[n] L) := W_grows_iterate L n
+    _ ≤ 5 ^ n * (5400 * (predStep^[n] L).card) :=
+        Nat.mul_le_mul_left _ (W_le_card _)
+    _ = 5 ^ n * 5400 * (predStep^[n] L).card := by ring
+
+/-- Rooted at level three, which is the single node `{8}`, weight `4026`. -/
+theorem card_grows_from_root (n : ℕ) :
+    4026 * 6 ^ n ≤ 5400 * 5 ^ n * (predStep^[n] {8}).card := by
+  have h := card_grows {8} n
+  have hW : W ({8} : Finset ℕ) = 4026 := by decide
+  rw [hW] at h
+  calc 4026 * 6 ^ n = 6 ^ n * 4026 := by ring
+    _ ≤ 5 ^ n * 5400 * (predStep^[n] {8}).card := h
+    _ = 5400 * 5 ^ n * (predStep^[n] {8}).card := by ring
+
+/-- And `6/5` clears the threshold the contraction needs, with room: the composed
+    bound over `D` levels is `1.1644^D · N(a)/N(b+1)`, and `(1.1644/1.2)^D → 0`. -/
+theorem threshold_clear : (11644 : ℕ) * 5 < 6 * 10000 := by norm_num
+
 end CollatzDepthSplit
