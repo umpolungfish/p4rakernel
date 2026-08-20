@@ -1,1 +1,1 @@
-A bound on the cross correlation between the doubling image and the odd image of one tree level, carried through a weight of three per 3-adic digit. It must leave the level map's contraction constant below one.
+A bound on the weighted cross sum of one tree level, valid once the level exceeds a stated size, small enough that three quarters plus it stays below one. It must come from the residue structure and not from the census.
