@@ -1,9 +1,11 @@
 CollatzDepthSplit.subtreeCount_junction	T	3747
+CollatzDepthSplit.wtz_children._proof_1_11	N	22795
 CollatzDepthSplit.coeff_parity_split._proof_1_3	N	11151
 CollatzDepthSplit.odd_step_lands_on_junction	N	695
 CollatzDepthSplit.oddImage_eq_odd_part._proof_1_7	N	8917
 CollatzDepthSplit.two_order_mod_three	N	1115
 CollatzDepthSplit.survives_succ_of_slack	T	4721
+CollatzDepthSplit.density_characteristic	N	3331
 CollatzDepthSplit.oddImage_eq_odd_part._simp_1_3	N	61
 CollatzDepthSplit.chain_defined_iff._proof_1_1	T	49994
 CollatzDepthSplit.classBound.eq_def	T	4929
@@ -32,6 +34,7 @@ CollatzDepthSplit.coeff_periodic	T	1771
 CollatzDepthSplit.oddSteps.eq_1	N	19
 CollatzDepthSplit.survives_succ_of_odd._proof_1_3	N	9399
 CollatzDepthSplit.contracts_mod_le	T	3571
+CollatzDepthSplit.wtz_ge_of_class_one	T	18187
 CollatzDepthSplit.census_mass	T	1998
 CollatzDepthSplit.chain_block._proof_1_1	N	7089
 CollatzDepthSplit.tower_never_fills	N	20423
@@ -42,12 +45,15 @@ CollatzDepthSplit.survivors_nonempty	T	1392
 CollatzDepthSplit.doubling_image_prim._proof_1_5	N	4513
 CollatzDepthSplit.col5_32s15_grows._proof_1_1	N	7429
 CollatzDepthSplit.oddSource_is_junction	N	371
+CollatzDepthSplit.wtz_children._proof_1_10	T	57608
 CollatzDepthSplit.survives_succ_of_slack._proof_1_4	N	30731
 CollatzDepthSplit.triangle_recursion_has_no_decay	N	24853
 CollatzDepthSplit.double_inj_prim._simp_1_2	N	61
 CollatzDepthSplit.col4_16t3_contracts	N	861
 CollatzDepthSplit.cube_indicator._proof_1_3	N	11139
+CollatzDepthSplit.wtz_le._proof_1_3	N	943
 CollatzDepthSplit.col_chain_down._proof_1_2	T	54776
+CollatzDepthSplit.wtz_children._proof_1_9	T	57602
 CollatzDepthSplit.card_predStep	T	9445
 CollatzDepthSplit.evenImage_eq_even_part._simp_1_4	N	79
 CollatzDepthSplit.wt_ge_of_class_one	T	18187
@@ -92,10 +98,11 @@ CollatzDepthSplit.col6_64u31_grows._proof_1_1	N	7429
 CollatzDepthSplit.coeff_predStep._proof_1_2	T	14280
 CollatzDepthSplit.preds_of_barren	T	574
 CollatzDepthSplit.odd_step_lands_on_junction._proof_1_1	T	49988
+CollatzDepthSplit.wtz_children._proof_1_6	T	57566
 CollatzDepthSplit.col_chain_down	T	3132
 CollatzDepthSplit.subtreeCount_barren	T	3285
 CollatzDepthSplit.odd_arm_count	N	1899
-CollatzDepthSplit.fixed_conductor_threshold	N	5319
+CollatzDepthSplit.fixed_conductor_threshold	N	7615
 CollatzDepthSplit.coeff_parity_split	T	9433
 CollatzDepthSplit.le_iterate_of_not_contracts	N	623
 CollatzDepthSplit.junction_arms	N	811
@@ -116,6 +123,7 @@ CollatzDepthSplit.W_le_card	N	1483
 CollatzDepthSplit.even_part_coeff._proof_1_1	T	14280
 CollatzDepthSplit.classBound_fib._proof_1_4	T	37650
 CollatzDepthSplit.equidist_of_dft_small._simp_1_4	N	55
+CollatzDepthSplit.wtz_le._proof_1_1	N	943
 CollatzDepthSplit.evenImage_eq_even_part._simp_1_2	N	61
 CollatzDepthSplit.oddSteps_all_ones_le._proof_1_6	N	19961
 CollatzDepthSplit.survives_succ_of_slack._proof_1_3	N	18553
@@ -130,7 +138,11 @@ CollatzDepthSplit.subtreeCount_le_classBound._proof_1_10	N	51113
 CollatzDepthSplit.coeff_parity_split._simp_1_1	N	61
 CollatzDepthSplit.even_part_energy._proof_1_1	N	27163
 CollatzDepthSplit.oddSteps.eq_2	N	13
+CollatzDepthSplit.wtz_ge_of_class_two	T	21722
+CollatzDepthSplit.wtz_le._proof_1_7	N	703
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_7	N	99
+CollatzDepthSplit.wtz_le._proof_1_5	N	943
+CollatzDepthSplit.wtz.eq_1	N	9
 CollatzDepthSplit.col_two_mul	T	1596
 CollatzDepthSplit.survivors_nonempty._proof_1_1	T	6174
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_5	N	73
@@ -151,6 +163,7 @@ CollatzDepthSplit.no_member_descends	N	1367
 CollatzDepthSplit.predStep_parity_partition._proof_1_1	T	45547
 CollatzDepthSplit.starved_junction._proof_1_1	T	50066
 CollatzDepthSplit.wt_ge_of_class_two	T	21722
+CollatzDepthSplit.wtz_children._proof_1_7	T	57572
 CollatzDepthSplit.preimage_cases	T	2656
 CollatzDepthSplit.even_child_mod_nine	N	263
 CollatzDepthSplit.classBound.eq_2	N	15
@@ -161,6 +174,7 @@ CollatzDepthSplit.arm_bijection_mod	T	2634
 CollatzDepthSplit.two_order_mod_twentyseven	N	2063
 CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_3	N	37
 CollatzDepthSplit.predStep.eq_1	N	11
+CollatzDepthSplit.wtz_children._proof_1_3	T	57494
 CollatzDepthSplit.two_order_mod_nine	N	5867
 CollatzDepthSplit.survives_succ_of_odd._proof_1_4	N	29873
 CollatzDepthSplit.wt_le._proof_1_6	N	943
@@ -174,12 +188,15 @@ CollatzDepthSplit.col_chain_up._proof_1_1	N	12591
 CollatzDepthSplit.col6_64u63_grows._proof_1_1	N	7429
 CollatzDepthSplit.wt_children._proof_1_10	T	57608
 CollatzDepthSplit.odd_pred_iff	T	796
+CollatzDepthSplit.wtz_children._proof_1_5	N	22795
 CollatzDepthSplit.three_lifts	T	27093
 CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4	N	48211
+CollatzDepthSplit.wtz_le._proof_1_2	N	943
 CollatzDepthSplit.wt_le._proof_1_7	N	703
 CollatzDepthSplit.col_lt_of_gap	N	43683
 CollatzDepthSplit.double_inj_prim._simp_1_3	N	37
 CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3	N	48211
+CollatzDepthSplit.wtz_le._proof_1_4	N	943
 CollatzDepthSplit.col4_16t7	N	4479
 CollatzDepthSplit.level_coeff_triangle	N	32759
 CollatzDepthSplit.preds_of_mod_three	N	945
@@ -215,6 +232,7 @@ CollatzDepthSplit.col_two_mul._proof_1_1	T	35508
 CollatzDepthSplit.mem_predStep_col._proof_1_1	T	25772
 CollatzDepthSplit.survivors_survive_mod_32	N	467
 CollatzDepthSplit.norm_root_of_unity	N	11
+CollatzDepthSplit.wtz_children._proof_1_4	T	57494
 CollatzDepthSplit.barren_doubling	T	34630
 CollatzDepthSplit.threshold_clear	N	431
 CollatzDepthSplit.odd_child_class_eight	N	233
@@ -222,6 +240,7 @@ CollatzDepthSplit.arm_inj_mod	N	11
 CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1	N	8417
 CollatzDepthSplit.W_grows	T	24357
 CollatzDepthSplit.odd_arm_exponent._proof_1_1	T	37952
+CollatzDepthSplit.wtz_le._proof_1_6	N	943
 CollatzDepthSplit.survives_succ_of_slack._proof_1_2	T	37542
 CollatzDepthSplit.oddSteps_pred_two_pow	N	1687
 CollatzDepthSplit.equidist_of_dft_small._simp_1_5	N	73
@@ -230,6 +249,7 @@ CollatzDepthSplit.junction_class_no_fixpoint	T	857
 CollatzDepthSplit.subtreeCount_succ	N	35
 CollatzDepthSplit.oddImage_eq_odd_part._simp_1_5	N	79
 CollatzDepthSplit.coeff_predStep	T	21061
+CollatzDepthSplit.wtz_le	T	30482
 CollatzDepthSplit.odd_child_class_five	N	233
 CollatzDepthSplit.wt_children._proof_1_9	T	57602
 CollatzDepthSplit.zpow_mod	T	6334
