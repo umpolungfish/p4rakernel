@@ -1865,4 +1865,103 @@ theorem weighted_contraction_constant :
 theorem triangle_recursion_has_no_decay (ρ : ℝ) (hρ : (1 : ℝ) / 2 ≤ ρ) :
     (1 : ℝ) ≤ ρ * (1 + 1) := by linarith
 
+/-! ## What the feed is, and why the gap does not close here
+
+The gap was stated as a local inequality on the three lifts of a class,
+
+    |b₀ + ω b₁ + ω² b₂|² ≤ c (|b₀|² + |b₁|² + |b₂|²)   with c ≈ 1,
+
+measured at `c ≈ 0.97` where Cauchy–Schwarz gives `3`.  As a statement about
+arbitrary `b` it is **false**: take `b_s = ω^(−s)` and every term aligns, giving
+`|3|² = 9` against `3`, so `c = 3` is attained.  `feed_extremal_triple` records the
+witness.  No inequality of that shape is available, and the measured `0.97` is a
+fact about the coefficients the tree supplies, not about triples of numbers.
+
+What the tree supplies them from is the point.  The feed is not an arbitrary
+combination at all: it is the coefficient of another measure.  `feed_is_odd_image`
+shows the `ω`-weighted average of the three lifts *is* `ζ^j` times the coefficient
+of the odd arm's image, at conductor `r`, on the nose.  So bounding the feed's
+energy is bounding how equidistributed the odd image is — one conductor up.
+
+That is the tower, and now it can be priced.  Conductor `R` at depth `d` is fed by
+conductor `R+1` at depth `d−1`, hence by conductor `R+d` at the root.  The level
+there has `N_d ≍ (4/3)^d` points to spread over `3^(R+d)` classes, and
+
+    (4/3)^d / 3^(R+d) = 3^(−R) (4/9)^d → 0
+
+so the top of the tower is not merely unproved but **empty**: at depth 30 and
+`R = 3` it is `10^(−12)` points per class.  `tower_never_fills` states it.  The
+induction that would close the chain asks, at every step, for equidistribution at a
+conductor the tree has not begun to fill.
+
+This is why the chain stops here, and it is a proved reason rather than a failure
+to find an argument.  What remains true and unexplained is that the contraction
+happens anyway: measured, `Q_r(d+1)/Q_r(d)` has geometric mean `0.7295` at
+conductor 81 and every one of twenty-four levels contracts.  The decay is real; the
+route through the conductor tower cannot reach it. -/
+
+/-- The three lifts at which Cauchy–Schwarz is tight: no constant below `3` is
+    available for arbitrary coefficients. -/
+theorem feed_extremal_triple {ω : ℂ} (h3 : ω ^ 3 = 1) :
+    ‖(1 : ℂ) + ω * ω ^ 2 + ω ^ 2 * ω‖ ^ 2
+      = 3 * (‖(1 : ℂ)‖ ^ 2 + ‖ω ^ 2‖ ^ 2 + ‖ω‖ ^ 2) := by
+  have hn : ‖ω‖ = 1 := norm_root_of_unity h3 (by norm_num)
+  have hval : (1 : ℂ) + ω * ω ^ 2 + ω ^ 2 * ω = 3 := by
+    have e : ω * ω ^ 2 = ω ^ 3 := by ring
+    have e' : ω ^ 2 * ω = ω ^ 3 := by ring
+    rw [e, e', h3]; norm_num
+  rw [hval, norm_pow, hn]
+  norm_num
+
+/-- The odd arm's image: the level's junctions carried to their odd predecessors. -/
+def oddImage (L : Finset ℕ) : Finset ℕ :=
+  (L.filter (fun m => m % 3 = 2)).image (fun m => 2 * (m / 3) + 1)
+
+/-- **The feed is a measure's coefficient.**  The `ω`-weighted average of the three
+    lifts is exactly `ζ^j` times the coefficient of the odd image at conductor `r`.
+    So the feed is not an arbitrary combination of three numbers, and bounding its
+    energy is bounding the equidistribution of another measure one conductor up. -/
+theorem feed_is_odd_image (ζ ω : ℂ) (r j : ℕ) (L : Finset ℕ)
+    (hω : ζ ^ 3 ^ r = ω) (h3 : ω ^ 3 = 1) (h1 : ω ≠ 1) :
+    ζ ^ j * coeff ζ (oddImage L) (3 * j)
+      = (3 : ℂ)⁻¹ * ∑ s ∈ Finset.range 3, ω ^ s * coeff ζ L (2 * j + s * 3 ^ r) := by
+  have hsplit := coeff_predStep ζ L (3 * j)
+  have hop := level_operator ζ ω r j L hω h3 h1
+  have hdbl : (∑ m ∈ L, ζ ^ (3 * j * (2 * m))) = coeff ζ L (6 * j) := by
+    unfold coeff
+    exact Finset.sum_congr rfl (fun m _ => by ring_nf)
+  have himg : coeff ζ (oddImage L) (3 * j)
+      = ∑ m ∈ L.filter (fun m => m % 3 = 2), ζ ^ (3 * j * (2 * (m / 3) + 1)) := by
+    unfold coeff oddImage
+    rw [Finset.sum_image]
+    intro a ha b hb hab
+    obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+    obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+    simp only at hab
+    omega
+  rw [himg]
+  rw [hsplit, hdbl, mul_add] at hop
+  linear_combination hop
+
+/-- **The tower is empty.**  Conductor `R` at depth `d` is fed by conductor `R+d` at
+    the root, where the level's `(4/3)^d` points must spread over `3^(R+d)` classes.
+    The ratio is `3^(−R)(4/9)^d`, which goes to zero: the induction asks at every
+    step for equidistribution at a conductor the tree has not begun to fill. -/
+theorem tower_never_fills (R : ℕ) :
+    Filter.Tendsto (fun d : ℕ => ((4 : ℝ) / 3) ^ d / 3 ^ (R + d))
+      Filter.atTop (nhds 0) := by
+  have hlow : ∀ d : ℕ, (0 : ℝ) ≤ ((4 : ℝ) / 3) ^ d / 3 ^ (R + d) := by
+    intro d; positivity
+  have hhigh : ∀ d : ℕ, ((4 : ℝ) / 3) ^ d / 3 ^ (R + d) ≤ ((4 : ℝ) / 9) ^ d := by
+    intro d
+    have h1 : (3 : ℝ) ^ d ≤ 3 ^ (R + d) :=
+      pow_le_pow_right₀ (by norm_num) (by omega)
+    have h2 : (0 : ℝ) < 3 ^ d := by positivity
+    have h3 : ((4 : ℝ) / 3) ^ d / 3 ^ (R + d) ≤ ((4 : ℝ) / 3) ^ d / 3 ^ d := by
+      gcongr
+    calc ((4 : ℝ) / 3) ^ d / 3 ^ (R + d) ≤ ((4 : ℝ) / 3) ^ d / 3 ^ d := h3
+      _ = ((4 : ℝ) / 9) ^ d := by rw [← div_pow]; norm_num
+  exact squeeze_zero hlow hhigh
+    (tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num))
+
 end CollatzDepthSplit

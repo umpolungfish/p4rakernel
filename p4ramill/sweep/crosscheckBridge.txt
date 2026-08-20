@@ -3,4 +3,5 @@ N  clean    CollatzDepthSplit.levels_equidistribute
 N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero
 T  clean    CollatzDepthSplit.census_mass
 T  clean    CollatzDepthSplit.cube_indicator
+T  clean    CollatzDepthSplit.feed_is_odd_image
 T  clean    CollatzDepthSplit.level_operator

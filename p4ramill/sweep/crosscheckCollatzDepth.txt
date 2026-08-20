@@ -59,6 +59,7 @@ N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_6
 N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_7
 N  clean    CollatzDepthSplit.even_child_mod_nine
 N  clean    CollatzDepthSplit.even_step_junction_iff
+N  clean    CollatzDepthSplit.feed_extremal_triple
 N  clean    CollatzDepthSplit.inv_two_mod_nine
 N  clean    CollatzDepthSplit.junction_arms
 N  clean    CollatzDepthSplit.junction_class_cycle
@@ -128,6 +129,8 @@ N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_5
 N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_6
 N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_7
 N  clean    CollatzDepthSplit.threshold_clear
+N  clean    CollatzDepthSplit.tower_never_fills
+N  clean    CollatzDepthSplit.tower_never_fills._proof_1_1
 N  clean    CollatzDepthSplit.triangle_recursion_has_no_decay
 N  clean    CollatzDepthSplit.two_coprime_three_pow
 N  clean    CollatzDepthSplit.two_order_mod_nine
