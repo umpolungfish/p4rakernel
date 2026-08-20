@@ -12,6 +12,7 @@
 -- k, and the next rung is a criterion that reads the class rather than the depth.
 
 import Mathlib.Data.Nat.Basic
+import Mathlib.Analysis.Fourier.ZMod
 import Mathlib.Tactic
 
 namespace CollatzDepthSplit
@@ -1496,5 +1497,123 @@ theorem card_grows_from_root (n : ℕ) :
 /-- And `6/5` clears the threshold the contraction needs, with room: the composed
     bound over `D` levels is `1.1644^D · N(a)/N(b+1)`, and `(1.1644/1.2)^D → 0`. -/
 theorem threshold_clear : (11644 : ℕ) * 5 < 6 * 10000 := by norm_num
+
+/-! ## The bridge: coefficient decay is equidistribution
+
+Everything above bounds Fourier coefficients.  The conjecture wants densities.
+This section is the transfer, and it is finite Fourier inversion and nothing else —
+no analysis of the map enters here, which is the point: the bridge should be
+provable without knowing what tree it is carrying.
+
+A level's census mod `N` is the function `census L N : ZMod N → ℂ` counting the
+members of `L` in each class.  Its zeroth coefficient is the total mass, by
+`dft_apply_zero`.  Inversion writes every value as the mean plus the nontrivial
+coefficients, so a uniform bound `ε` on those is a uniform bound `(N−1)/N · ε` on
+the deviation of every class from the mean — that is `equidist_of_dft_small`.
+Divide through by the mass and let the bound go to zero and every class has
+density `1/N`, which is `tendsto_density_of_dft_tendsto_zero`.
+
+So "the weighted norm contracts" and "the tree equidistributes mod `3^r`" are the
+same statement, joined here rather than asserted. -/
+
+open ZMod in
+/-- **The transfer.** If every nontrivial Fourier coefficient of `Φ` is at most `ε`,
+    then every value of `Φ` sits within `(N−1)/N · ε` of the mean. -/
+theorem equidist_of_dft_small {N : ℕ} [NeZero N] (Φ : ZMod N → ℂ) (ε : ℝ)
+    (h : ∀ j : ZMod N, j ≠ 0 → ‖𝓕 Φ j‖ ≤ ε) (x : ZMod N) :
+    ‖Φ x - (∑ y, Φ y) / N‖ ≤ (N - 1) / N * ε := by
+  have hN : (0 : ℝ) < N := Nat.cast_pos.mpr (Nat.pos_of_ne_zero (NeZero.ne N))
+  have hNC : (N : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (NeZero.ne N)
+  -- inversion, with the zeroth coefficient split off as the mass
+  have hinv : Φ x = (N : ℂ)⁻¹ • ∑ j : ZMod N, stdAddChar (j * x) • 𝓕 Φ j := by
+    have hx : 𝓕⁻ (𝓕 Φ) x = Φ x := congrFun (LinearEquiv.symm_apply_apply _ _) x
+    rw [← hx, ZMod.invDFT_apply]
+  have hzero : stdAddChar ((0 : ZMod N) * x) • 𝓕 Φ 0 = (∑ y, Φ y) := by
+    rw [zero_mul, dft_apply_zero, AddChar.map_zero_eq_one, one_smul]
+  have hsum : ∑ j : ZMod N, stdAddChar (j * x) • 𝓕 Φ j
+      = (∑ j ∈ ({0} : Finset (ZMod N))ᶜ, stdAddChar (j * x) • 𝓕 Φ j) + (∑ y, Φ y) := by
+    rw [← Finset.sum_compl_add_sum ({0} : Finset (ZMod N)), Finset.sum_singleton, hzero]
+  have hsplit : Φ x - (∑ y, Φ y) / N
+      = (N : ℂ)⁻¹ * ∑ j ∈ ({0} : Finset (ZMod N))ᶜ, stdAddChar (j * x) • 𝓕 Φ j := by
+    rw [hinv, hsum, smul_eq_mul, mul_add]
+    field_simp
+    ring
+  -- and the tail is at most (N−1) terms of size ε
+  rw [hsplit, norm_mul, norm_inv, Complex.norm_natCast]
+  have hterm : ∀ j ∈ ({0} : Finset (ZMod N))ᶜ, ‖stdAddChar (j * x) • 𝓕 Φ j‖ ≤ ε := by
+    intro j hj
+    exact (Circle.norm_smul _ _).trans_le (h j (by simpa using Finset.mem_compl.mp hj))
+  have hcard : (({0} : Finset (ZMod N))ᶜ).card = N - 1 := by
+    rw [Finset.card_compl, Finset.card_singleton, ZMod.card]
+  calc (N : ℝ)⁻¹ * ‖∑ j ∈ ({0} : Finset (ZMod N))ᶜ, stdAddChar (j * x) • 𝓕 Φ j‖
+      ≤ (N : ℝ)⁻¹ * ∑ j ∈ ({0} : Finset (ZMod N))ᶜ, ‖stdAddChar (j * x) • 𝓕 Φ j‖ :=
+        mul_le_mul_of_nonneg_left (norm_sum_le _ _) (by positivity)
+    _ ≤ (N : ℝ)⁻¹ * ((({0} : Finset (ZMod N))ᶜ).card • ε) :=
+        mul_le_mul_of_nonneg_left (Finset.sum_le_card_nsmul _ _ _ hterm) (by positivity)
+    _ = (N - 1) / N * ε := by
+        rw [hcard, nsmul_eq_mul]
+        have hc : ((N - 1 : ℕ) : ℝ) = (N : ℝ) - 1 := by
+          have h1 : 1 ≤ N := Nat.one_le_iff_ne_zero.mpr (NeZero.ne N)
+          push_cast [Nat.cast_sub h1]
+          ring
+        rw [hc]; field_simp
+
+open ZMod in
+/-- **The bridge.** Coefficients small relative to the mass, uniformly and going to
+    zero, is exactly every class having density `1/N` in the limit. -/
+theorem tendsto_density_of_dft_tendsto_zero {N : ℕ} [NeZero N]
+    (Φ : ℕ → ZMod N → ℂ) (M : ℕ → ℝ) (hM : ∀ d, 0 < M d)
+    (hmass : ∀ d, ∑ y, Φ d y = (M d : ℂ))
+    (ε : ℕ → ℝ) (hε0 : ∀ d, 0 ≤ ε d)
+    (hsmall : ∀ d, ∀ j : ZMod N, j ≠ 0 → ‖𝓕 (Φ d) j‖ ≤ ε d * M d)
+    (hε : Filter.Tendsto ε Filter.atTop (nhds 0)) (x : ZMod N) :
+    Filter.Tendsto (fun d => ‖Φ d x / (M d : ℂ) - (N : ℂ)⁻¹‖) Filter.atTop (nhds 0) := by
+  have hN : (0 : ℝ) < N := Nat.cast_pos.mpr (Nat.pos_of_ne_zero (NeZero.ne N))
+  have hNC : (N : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (NeZero.ne N)
+  have key : ∀ d, ‖Φ d x / (M d : ℂ) - (N : ℂ)⁻¹‖ ≤ (N - 1) / N * ε d := by
+    intro d
+    have hMd : (M d : ℂ) ≠ 0 := by exact_mod_cast (hM d).ne'
+    have h := equidist_of_dft_small (Φ d) (ε d * M d) (hsmall d) x
+    have hrw : Φ d x / (M d : ℂ) - (N : ℂ)⁻¹
+        = (Φ d x - (∑ y, Φ d y) / N) / (M d : ℂ) := by
+      rw [hmass d]; field_simp
+    rw [hrw, norm_div, Complex.norm_real, Real.norm_of_nonneg (hM d).le]
+    rw [div_le_iff₀ (hM d)]
+    calc ‖Φ d x - (∑ y, Φ d y) / N‖ ≤ (N - 1) / N * (ε d * M d) := h
+      _ = (N - 1) / N * ε d * M d := by ring
+  have hlow : ∀ d, (0 : ℝ) ≤ ‖Φ d x / (M d : ℂ) - (N : ℂ)⁻¹‖ := fun _ => norm_nonneg _
+  have : Filter.Tendsto (fun d => (N - 1) / N * ε d) Filter.atTop (nhds 0) := by
+    have h := Filter.Tendsto.const_mul (((N : ℝ) - 1) / N) hε
+    simpa using h
+  exact squeeze_zero hlow key this
+
+/-- The census of a level mod `N`: how many of its members sit in each class. -/
+noncomputable def census (L : Finset ℕ) (N : ℕ) : ZMod N → ℂ :=
+  fun j => ((L.filter (fun v : ℕ => ((v : ZMod N) = j))).card : ℂ)
+
+/-- Its total mass is the size of the level, so `dft_apply_zero` reads the count. -/
+theorem census_mass (L : Finset ℕ) (N : ℕ) [NeZero N] :
+    ∑ j : ZMod N, census L N j = (L.card : ℂ) := by
+  unfold census
+  rw [← Nat.cast_sum]
+  congr 1
+  exact (Finset.card_eq_sum_card_fiberwise (fun (v : ℕ) _ => Finset.mem_univ ((v : ZMod N)))).symm
+
+open ZMod in
+/-- **The statement the whole apparatus is for.** If the level census's nontrivial
+    coefficients decay relative to the level count, every residue class mod `N`
+    holds a `1/N` share of the tree in the limit.  With `N = 3^r` this is the
+    equidistribution the branch factor `4/3` and the contraction both assume. -/
+theorem levels_equidistribute {N : ℕ} [NeZero N] (lvl : ℕ → Finset ℕ)
+    (hne : ∀ d, 0 < (lvl d).card) (ε : ℕ → ℝ) (hε0 : ∀ d, 0 ≤ ε d)
+    (hsmall : ∀ d, ∀ j : ZMod N, j ≠ 0 →
+      ‖𝓕 (census (lvl d) N) j‖ ≤ ε d * ((lvl d).card : ℝ))
+    (hε : Filter.Tendsto ε Filter.atTop (nhds 0)) (x : ZMod N) :
+    Filter.Tendsto
+      (fun d => ‖census (lvl d) N x / (((lvl d).card : ℝ) : ℂ) - (N : ℂ)⁻¹‖)
+      Filter.atTop (nhds 0) :=
+  tendsto_density_of_dft_tendsto_zero (fun d => census (lvl d) N)
+    (fun d => ((lvl d).card : ℝ)) (fun d => Nat.cast_pos.mpr (hne d))
+    (fun d => by rw [census_mass]; norm_num) ε hε0 hsmall hε x
 
 end CollatzDepthSplit

@@ -47,6 +47,13 @@ N  clean    CollatzDepthSplit.double_swaps_classes
 N  clean    CollatzDepthSplit.doubling_involutive_only_at_three
 N  clean    CollatzDepthSplit.doubling_involutive_only_at_three._proof_1_2
 N  clean    CollatzDepthSplit.doubling_onto_mod_nine
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_1
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_2
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_3
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_4
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_5
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_6
+N  clean    CollatzDepthSplit.equidist_of_dft_small._simp_1_7
 N  clean    CollatzDepthSplit.even_child_mod_nine
 N  clean    CollatzDepthSplit.even_step_junction_iff
 N  clean    CollatzDepthSplit.inv_two_mod_nine
@@ -58,6 +65,7 @@ N  clean    CollatzDepthSplit.junction_class_no_fixpoint._proof_1_4
 N  clean    CollatzDepthSplit.junctions_nondecreasing_two_levels
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts
 N  clean    CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1
+N  clean    CollatzDepthSplit.levels_equidistribute
 N  clean    CollatzDepthSplit.no_member_descends
 N  clean    CollatzDepthSplit.no_member_descends._proof_1_1
 N  clean    CollatzDepthSplit.no_member_descends._proof_1_2
@@ -105,6 +113,13 @@ N  clean    CollatzDepthSplit.survivors_mod_16
 N  clean    CollatzDepthSplit.survivors_mod_32
 N  clean    CollatzDepthSplit.survivors_survive_mod_16
 N  clean    CollatzDepthSplit.survivors_survive_mod_32
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_1
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_2
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_3
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_4
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_5
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_6
+N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_7
 N  clean    CollatzDepthSplit.threshold_clear
 N  clean    CollatzDepthSplit.two_coprime_three_pow
 N  clean    CollatzDepthSplit.two_order_mod_nine
@@ -127,6 +142,7 @@ T  clean    CollatzDepthSplit.barren_doubling
 T  clean    CollatzDepthSplit.barren_doubling._proof_1_1
 T  clean    CollatzDepthSplit.card_predStep
 T  clean    CollatzDepthSplit.card_predStep._proof_1_2
+T  clean    CollatzDepthSplit.census_mass
 T  clean    CollatzDepthSplit.chain_defined_iff
 T  clean    CollatzDepthSplit.chain_defined_iff._proof_1_1
 T  clean    CollatzDepthSplit.chain_defined_iff._proof_1_2
