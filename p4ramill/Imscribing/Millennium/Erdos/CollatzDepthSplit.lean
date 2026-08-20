@@ -430,4 +430,24 @@ theorem no_member_descends {k r : ℕ} (h : ¬ Contracts k r) (t : ℕ) :
   have hmul : 2 ^ k * t ≤ 3 ^ oddSteps r k * t := Nat.mul_le_mul_right t hge
   omega
 
+/-! ## The branch dichotomy
+
+`survives_succ_of_slack` says a survivor with `2^(k+1) ≤ 3^j` keeps both lifts.
+Its complement is exact: a survivor without that slack keeps only the lift whose
+next step is odd, because the even lift leaves the multiplier where it was while
+the divisor doubles past it.  So the census obeys `S_(k+1) = 2*A_k + B_k`, with
+`A` the survivors carrying slack and `B` those without. -/
+
+theorem contracts_succ_of_even_step {k r : ℕ} (heven : col^[k] r % 2 = 0)
+    (hslack : 3 ^ oddSteps r k < 2 ^ (k+1)) : Contracts (k+1) r := by
+  unfold Contracts
+  rw [oddSteps_succ, if_pos heven, Nat.add_zero]
+  exact hslack
+
+/-- The even lift of a slackless survivor does not survive. -/
+theorem not_survives_succ_of_even_step {k r : ℕ} (heven : col^[k] r % 2 = 0)
+    (hslack : 3 ^ oddSteps r k < 2 ^ (k+1)) : ¬ Survives (k+1) r := by
+  intro hs
+  exact hs (k+1) (le_refl _) (contracts_succ_of_even_step heven hslack)
+
 end CollatzDepthSplit
