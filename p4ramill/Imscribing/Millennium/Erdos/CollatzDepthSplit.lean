@@ -1747,4 +1747,122 @@ theorem level_operator (ζ ω : ℂ) (r j : ℕ) (L : Finset ℕ)
     congr 1
     ring
 
+/-! ## The weighted contraction, and what it is a contraction of
+
+With `level_operator` exact, the operator bound is a triangle inequality and no
+longer needs singular values.  A character has modulus one, the feed is an average
+of three terms, so at conductor `r`
+
+    |μ̂_{d+1}(j,r)| ≤ ρ_d ( D_r + D_{r+1} )
+
+with `D_r` the largest coefficient at conductor `r`.  Under the weight `w^r` —
+`D_r ≤ K w^r` — that reads `K w^r (1 + w)`, so in the weighted supremum norm
+
+    ‖L‖_w ≤ ρ (1 + w)
+
+for every `w`, uniformly in the truncation and with no computation.  With
+`ρ ≤ 5/6` from `card_grows_from_root` and `w = 1/6` this is `35/36 < 1`.  Proved,
+where the singular-value figure `0.8733` was measured; weaker as a number, since
+it discards the cancellation, and stronger as a statement, since it holds at every
+truncation and needs no matrix.
+
+**And it does not apply to the tree.**  The norm `‖a‖_w = sup_{j,r} w^{-r}|a(j,r)|`
+is finite only for coefficients that decay like `w^r` in the conductor.  The
+tree's do the opposite: measured, `max_j |μ̂_d(j,r)|` *rises* with `r` toward one —
+at `d = 8` it runs `0.14, 0.29, 0.37, 0.68, 0.72, 0.87, 0.98, 0.998` for
+`r = 1..8`, where the weight at `w = 0.3` demands `0.30, 0.09, 0.027, …, 0.0001`.
+That is not a small discrepancy, it is the opposite behaviour, and it is forced:
+once `3^r` exceeds the spread of a level, its `N_d` points cannot be spread over
+`3^r` classes, so the coefficients are near one.  So `‖μ̂_d‖_w = ∞`, and the
+weighted contraction is a true statement about the operator applied to vectors the
+tree does not supply.
+
+That is a finding about the route, not a missing constant.  The record above said
+the remaining item was to prove a measured number; the number is now proved, in a
+stronger and cheaper form, and it does not close the chain.
+
+**What the obstruction actually is.**  Write `m_r(d)` for the largest coefficient
+at conductor `r` and depth `d`.  The triangle recursion is exact in form:
+
+    m_r(d+1) ≤ ρ ( m_r(d) + m_{r+1}(d) )
+
+and every coefficient obeys `m ≤ 1`.  The all-ones vector is invariant under it:
+`ρ(1 + 1) = 3/2 > 1`, so the cap never binds and the recursion has no decay in it
+at all.  No refinement of the triangle inequality can help, because the inequality
+is already tight term by term — the doubling term genuinely has modulus `D_r` and
+the feed genuinely has modulus up to `D_{r+1}`.
+
+So the cancellation between the doubling term and the feed is not a sharpening of
+this argument.  It is the entire content, and it is the only thing in the chain
+that is still measured: `|sum| / (|same| + |feed|)` averages `0.5312` at conductor
+3 over 24 levels and `0.7884` at conductor 9 over 20.  Everything else — the
+operator, the growth rate, the bridge — is proved. -/
+
+/-- A character has modulus one, so the phases in `level_operator` cost nothing. -/
+theorem norm_root_of_unity {z : ℂ} {n : ℕ} (h : z ^ n = 1) (hn : n ≠ 0) : ‖z‖ = 1 :=
+  Complex.norm_eq_one_of_pow_eq_one h hn
+
+/-- **The level bound.**  The triangle inequality on `level_operator`: the new
+    coefficient is at most the old one at the same conductor plus the largest of
+    the three lifts one conductor above.  Both phases drop out. -/
+theorem level_coeff_triangle (ζ ω : ℂ) (r j : ℕ) (L : Finset ℕ) (Dr Dr1 : ℝ)
+    (hζ : ‖ζ‖ = 1) (hω : ζ ^ 3 ^ r = ω) (h3 : ω ^ 3 = 1) (h1 : ω ≠ 1)
+    (hr : ‖coeff ζ L (6 * j)‖ ≤ Dr)
+    (hr1 : ∀ s < 3, ‖coeff ζ L (2 * j + s * 3 ^ r)‖ ≤ Dr1) :
+    ‖coeff ζ (predStep L) (3 * j)‖ ≤ Dr + Dr1 := by
+  have hωn : ‖ω‖ = 1 := norm_root_of_unity h3 (by norm_num)
+  have hζj : ‖ζ ^ j‖ = 1 := by rw [norm_pow, hζ, one_pow]
+  have key := level_operator ζ ω r j L hω h3 h1
+  have hlhs : ‖ζ ^ j * coeff ζ (predStep L) (3 * j)‖ = ‖coeff ζ (predStep L) (3 * j)‖ := by
+    rw [norm_mul, hζj, one_mul]
+  rw [← hlhs, key]
+  refine (norm_add_le _ _).trans ?_
+  have hA : ‖ζ ^ j * coeff ζ L (6 * j)‖ ≤ Dr := by rw [norm_mul, hζj, one_mul]; exact hr
+  have hB : ‖(3 : ℂ)⁻¹ * ∑ s ∈ Finset.range 3, ω ^ s * coeff ζ L (2 * j + s * 3 ^ r)‖ ≤ Dr1 := by
+    rw [norm_mul]
+    have h3n : ‖(3 : ℂ)⁻¹‖ = (3 : ℝ)⁻¹ := by norm_num
+    rw [h3n]
+    have hsum : ‖∑ s ∈ Finset.range 3, ω ^ s * coeff ζ L (2 * j + s * 3 ^ r)‖ ≤ 3 * Dr1 := by
+      refine (norm_sum_le _ _).trans ?_
+      have : ∀ s ∈ Finset.range 3, ‖ω ^ s * coeff ζ L (2 * j + s * 3 ^ r)‖ ≤ Dr1 := by
+        intro s hs
+        rw [norm_mul, norm_pow, hωn, one_pow, one_mul]
+        exact hr1 s (Finset.mem_range.mp hs)
+      calc ∑ s ∈ Finset.range 3, ‖ω ^ s * coeff ζ L (2 * j + s * 3 ^ r)‖
+          ≤ ∑ _s ∈ Finset.range 3, Dr1 := Finset.sum_le_sum this
+        _ = 3 * Dr1 := by simp [Finset.sum_const]
+    calc (3 : ℝ)⁻¹ * ‖∑ s ∈ Finset.range 3, ω ^ s * coeff ζ L (2 * j + s * 3 ^ r)‖
+        ≤ (3 : ℝ)⁻¹ * (3 * Dr1) := by
+          exact mul_le_mul_of_nonneg_left hsum (by norm_num)
+      _ = Dr1 := by ring
+  exact add_le_add hA hB
+
+/-- **The weighted step.**  Under the weight `w^r` the bound is `(1+w)` times the
+    weight at conductor `r`, so the unnormalised coefficient grows by at most
+    `1 + w` per level and the normalisation supplies the factor `ρ`. -/
+theorem level_weighted_step (ζ ω : ℂ) (r j : ℕ) (L : Finset ℕ) (K w : ℝ)
+    (hw : 0 ≤ w) (hK : 0 ≤ K)
+    (hζ : ‖ζ‖ = 1) (hω : ζ ^ 3 ^ r = ω) (h3 : ω ^ 3 = 1) (h1 : ω ≠ 1)
+    (hr : ‖coeff ζ L (6 * j)‖ ≤ K * w ^ r)
+    (hr1 : ∀ s < 3, ‖coeff ζ L (2 * j + s * 3 ^ r)‖ ≤ K * w ^ (r + 1)) :
+    ‖coeff ζ (predStep L) (3 * j)‖ ≤ (1 + w) * (K * w ^ r) := by
+  have h := level_coeff_triangle ζ ω r j L (K * w ^ r) (K * w ^ (r + 1)) hζ hω h3 h1 hr hr1
+  calc ‖coeff ζ (predStep L) (3 * j)‖ ≤ K * w ^ r + K * w ^ (r + 1) := h
+    _ = (1 + w) * (K * w ^ r) := by ring
+
+/-- The constant the proved growth rate supplies: `ρ ≤ 5/6` from `card_grows`, and
+    `w = 1/6`, giving `35/36 < 1` — a proved contraction where `0.8733` was a
+    measured one. -/
+theorem weighted_contraction_constant :
+    (1 + (1 : ℝ) / 6) * (5 / 6) = 35 / 36 ∧ (35 : ℝ) / 36 < 1 := by
+  constructor <;> norm_num
+
+/-- **The obstruction, stated.**  The triangle recursion has the all-ones vector as
+    a fixed point: with every coefficient at its maximum, `ρ(1 + 1) = 3/2 > 1`, so
+    the bound never binds and carries no decay.  The cancellation between the
+    doubling term and the feed is therefore not a refinement of this argument but
+    the whole of what is missing. -/
+theorem triangle_recursion_has_no_decay (ρ : ℝ) (hρ : (1 : ℝ) / 2 ≤ ρ) :
+    (1 : ℝ) ≤ ρ * (1 + 1) := by linarith
+
 end CollatzDepthSplit
