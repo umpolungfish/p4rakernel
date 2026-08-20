@@ -129,6 +129,7 @@ N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_7
 N  clean    CollatzDepthSplit.oddSteps_mod._proof_1_8
 N  clean    CollatzDepthSplit.oddSteps_pred_two_pow
 N  clean    CollatzDepthSplit.odd_arm_count
+N  clean    CollatzDepthSplit.odd_arm_exact
 N  clean    CollatzDepthSplit.odd_arm_exponent
 N  clean    CollatzDepthSplit.odd_child_class_eight
 N  clean    CollatzDepthSplit.odd_child_class_five
@@ -174,6 +175,7 @@ N  clean    CollatzDepthSplit.tendsto_density_of_dft_tendsto_zero._simp_1_7
 N  clean    CollatzDepthSplit.threshold_clear
 N  clean    CollatzDepthSplit.tower_never_fills
 N  clean    CollatzDepthSplit.tower_never_fills._proof_1_1
+N  clean    CollatzDepthSplit.tree_size_bound._proof_1_1
 N  clean    CollatzDepthSplit.triangle_recursion_has_no_decay
 N  clean    CollatzDepthSplit.two_coprime_three_pow
 N  clean    CollatzDepthSplit.two_order_mod_nine
@@ -198,6 +200,7 @@ N  clean    CollatzDepthSplit.wtz_le._proof_1_4
 N  clean    CollatzDepthSplit.wtz_le._proof_1_5
 N  clean    CollatzDepthSplit.wtz_le._proof_1_6
 N  clean    CollatzDepthSplit.wtz_le._proof_1_7
+T  clean    CollatzDepthSplit.InTree.brecOn
 T  clean    CollatzDepthSplit.W_grows
 T  clean    CollatzDepthSplit.W_predStep
 T  clean    CollatzDepthSplit.W_predStep._proof_1_2
@@ -236,6 +239,8 @@ T  clean    CollatzDepthSplit.evenImage_eq_even_part
 T  clean    CollatzDepthSplit.evenImage_eq_even_part._proof_1_5
 T  clean    CollatzDepthSplit.even_part_coeff._proof_1_1
 T  clean    CollatzDepthSplit.exists_survivor_lift
+T  clean    CollatzDepthSplit.inTree_col
+T  clean    CollatzDepthSplit.inTree_col._proof_1_1
 T  clean    CollatzDepthSplit.junction_arms._proof_1_1
 T  clean    CollatzDepthSplit.junction_class_no_fixpoint
 T  clean    CollatzDepthSplit.junction_classes_split
@@ -250,6 +255,7 @@ T  clean    CollatzDepthSplit.oddSteps_all_ones._proof_1_5
 T  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_4
 T  clean    CollatzDepthSplit.oddSteps_all_ones_le._proof_1_7
 T  clean    CollatzDepthSplit.oddSteps_succ
+T  clean    CollatzDepthSplit.odd_arm_exact._proof_1_1
 T  clean    CollatzDepthSplit.odd_arm_exponent._proof_1_1
 T  clean    CollatzDepthSplit.odd_pred_iff
 T  clean    CollatzDepthSplit.odd_pred_iff._proof_1_1

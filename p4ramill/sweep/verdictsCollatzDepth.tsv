@@ -24,6 +24,7 @@ CollatzDepthSplit.subtreeCount_le_classBound._proof_1_11	N	28345
 CollatzDepthSplit.energy_contraction	N	54603
 CollatzDepthSplit.mem_predStep_col	T	3931
 CollatzDepthSplit.W_predStep._proof_1_3	N	7825
+CollatzDepthSplit.tree_size_bound._proof_1_1	N	17961
 CollatzDepthSplit.survives_succ_of_odd._proof_1_2	T	17574
 CollatzDepthSplit.cross_decompose._simp_1_2	N	103
 CollatzDepthSplit.starved_junction	N	851
@@ -158,6 +159,7 @@ CollatzDepthSplit.junction_cycle_order_three	T	1721
 CollatzDepthSplit.oddImage_eq_odd_part	T	13425
 CollatzDepthSplit.even_part_energy	N	45137
 CollatzDepthSplit.evenImage_eq_even_part._proof_1_5	T	35508
+CollatzDepthSplit.InTree.brecOn	T	84
 CollatzDepthSplit.level_energy_recursion	N	49905
 CollatzDepthSplit.entropy_half	N	18169
 CollatzDepthSplit.evenImage_eq_even_part._proof_1_6	N	18109
@@ -174,6 +176,7 @@ CollatzDepthSplit.predStep_parity_partition._proof_1_1	T	45547
 CollatzDepthSplit.starved_junction._proof_1_1	T	50066
 CollatzDepthSplit.wt_ge_of_class_two	T	21722
 CollatzDepthSplit.wtz_children._proof_1_7	T	57572
+CollatzDepthSplit.inTree_col._proof_1_1	T	25772
 CollatzDepthSplit.preimage_cases	T	2656
 CollatzDepthSplit.even_child_mod_nine	N	263
 CollatzDepthSplit.mod_three_fixed_point	N	10271
@@ -207,6 +210,7 @@ CollatzDepthSplit.wtz_le._proof_1_2	N	943
 CollatzDepthSplit.wt_le._proof_1_7	N	703
 CollatzDepthSplit.col_lt_of_gap	N	43683
 CollatzDepthSplit.double_inj_prim._simp_1_3	N	37
+CollatzDepthSplit.odd_arm_exact._proof_1_1	T	41172
 CollatzDepthSplit.junction_class_no_fixpoint._proof_1_3	N	48211
 CollatzDepthSplit.wtz_le._proof_1_4	N	943
 CollatzDepthSplit.col4_16t7	N	4479
@@ -225,6 +229,7 @@ CollatzDepthSplit.weighted_contraction_constant	N	4159
 CollatzDepthSplit.subtreeCount_of_three_dvd	N	1565
 CollatzDepthSplit.contracts_mod_le._proof_1_1	T	28966
 CollatzDepthSplit.col_chain_up	T	2812
+CollatzDepthSplit.inTree_col	T	2283
 CollatzDepthSplit.wt_children._proof_1_3	T	57494
 CollatzDepthSplit.oddImage_eq_odd_part._simp_1_4	N	75
 CollatzDepthSplit.col6_64u31_grows	N	861
@@ -252,6 +257,7 @@ CollatzDepthSplit.odd_child_class_eight	N	233
 CollatzDepthSplit.arm_inj_mod	N	11
 CollatzDepthSplit.le_iterate_of_not_contracts._proof_1_1	N	8417
 CollatzDepthSplit.W_grows	T	24357
+CollatzDepthSplit.odd_arm_exact	N	361
 CollatzDepthSplit.odd_arm_exponent._proof_1_1	T	37952
 CollatzDepthSplit.wtz_le._proof_1_6	N	943
 CollatzDepthSplit.no_slack_at_tangency	N	11819
