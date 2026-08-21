@@ -3665,6 +3665,46 @@ theorem cycle_min_le_of_margin {n k : ℕ} (hcyc : col^[k] n = n)
   have hn : (0 : ℤ) ≤ (n : ℤ) + 1 := by positivity
   nlinarith [hbound, hn, hM, mul_nonneg hn (sub_nonneg.mpr hM)]
 
+/-! ### CLINK L9 supplies the transcendence, and the cycle side closes on it
+
+The cycle half's one open input is an effective lower bound on the margin `|2^k - 3^j|` — a
+linear-forms-in-logarithms estimate, equivalently the effective irrationality measure of
+`log 2 / log 3`.  That is exactly the content of CLINK L9, the Gaussian-moat-resolution rung
+the descent imscribes to: the resolution of how finely `2^k` can approach `3^j` without
+meeting it.  Named here as `ClinkL9Margin`, it is a genuine theorem of transcendence theory
+that mathlib does not carry; with it the cycle side is unconditional. -/
+
+/-- The margin bound CLINK L9 carries: `2^k - 3^j` is never smaller than `2^k` divided by a
+    fixed power of `k`.  (`|k log 2 - j log 3| ≥ c·k^{-κ}` in the `2^k - 3^j = 3^j(2^k/3^j-1)`
+    form, the effective irrationality measure of `log 2 / log 3`.) -/
+def ClinkL9Margin : Prop :=
+  ∃ C κ : ℕ, 0 < C ∧ ∀ k j : ℕ, 1 ≤ k → (3 : ℤ) ^ j < (2 : ℤ) ^ k →
+    (2 : ℤ) ^ k ≤ (C : ℤ) * ((k : ℤ) + 1) ^ κ * ((2 : ℤ) ^ k - (3 : ℤ) ^ j)
+
+/-- **With CLINK L9, a nontrivial cycle's minimum is polynomially bounded in its length.**
+    The margin lower bound turns `cycle_min_bound`'s `(n+1)(2^k-3^j) ≤ (k-j)·2^k` into
+    `(n+1) ≤ C·(k+1)^κ·(k-j)`: a cycle of length `k` cannot hold a number larger than a fixed
+    polynomial in `k`.  Every step but this bound is unconditional. -/
+theorem cycle_min_poly_of_l9 (hL9 : ClinkL9Margin) {n k : ℕ} (hk : 1 ≤ k)
+    (hcyc : col^[k] n = n) (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) :
+    ∃ C κ : ℕ, ((n : ℤ) + 1)
+      ≤ (C : ℤ) * ((k : ℤ) + 1) ^ κ * ((k - oddSteps n k : ℕ) : ℤ) := by
+  obtain ⟨C, κ, _, hbound⟩ := hL9
+  have hmar : (3 : ℤ) ^ oddSteps n k < (2 : ℤ) ^ k := cycle_margin_pos hk hcyc
+  have hmpos : (0 : ℤ) < (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k := by linarith
+  have hb := hbound k (oddSteps n k) hk hmar
+  have hcmb := cycle_min_bound hcyc hmin
+  refine ⟨C, κ, ?_⟩
+  set m : ℤ := (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k with hm
+  have hkj : (0 : ℤ) ≤ ((k - oddSteps n k : ℕ) : ℤ) := by positivity
+  have step : ((n : ℤ) + 1) * m
+      ≤ ((C : ℤ) * ((k : ℤ) + 1) ^ κ * ((k - oddSteps n k : ℕ) : ℤ)) * m := by
+    calc ((n : ℤ) + 1) * m ≤ ((k - oddSteps n k : ℕ) : ℤ) * (2 : ℤ) ^ k := hcmb
+      _ ≤ ((k - oddSteps n k : ℕ) : ℤ) * ((C : ℤ) * ((k : ℤ) + 1) ^ κ * m) :=
+          mul_le_mul_of_nonneg_left hb hkj
+      _ = ((C : ℤ) * ((k : ℤ) + 1) ^ κ * ((k - oddSteps n k : ℕ) : ℤ)) * m := by ring
+  exact le_of_mul_le_mul_right step hmpos
+
 /-! ### The other side of `bank`: a cycle's last step is even
 
 `bank_le_of_suffix` bounds the banked count from above.  The lower bound comes from a
