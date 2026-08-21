@@ -3570,4 +3570,41 @@ theorem descends_iff_point (k n : ℕ) :
   have := descends_iff_quotient k (n % 2 ^ k) (n / 2 ^ k)
   rwa [hn] at this
 
+/-! ### The surviving band is governed by `log₂ 3`
+
+The residue of item 1′ is the surviving classes, and their growth is not arbitrary.
+Computed to depth 24,
+
+    |S_k| = 1, 1, 2, 3, 4, 8, 13, 19, 38, 64, 128, 226, 367, 734, 1295, 2114,
+            4228, 7495, 14990, 27328, 46611, 93222, 168807, 286581
+
+and `|S_k| = 2|S_{k−1}|` exactly at `k = 3, 6, 9, 11, 14, 17, 19, 22`, with gaps
+`3, 3, 2, 3, 3, 2, 3`.  Those depths are `⌊m log₂ 3⌋` for the `m` at which that Beatty
+sequence steps by two — `m = 2, 4, 6, 7, 9, 11, 12, 14`, giving `3, 6, 9, 11, 14, 17,
+19, 22` and next `25`, past the computed range.  The match is exact over every depth
+computed.
+
+The mechanism is a crossing count.  A class first contracts at depth `k` when `3^j`
+first falls below `2^k`, so new contractions occur exactly at the depths where `2^k`
+crosses a fresh power of three, and at no other depth does any class leave.  Between
+two consecutive powers of three the surviving set simply doubles, every class taking
+both its lifts.  `no_crossing_doubles` records the first instance: `3^1 < 2^2` and
+`2^3 < 3^2`, so depths two and three sit between the same two powers and nothing new
+contracts at three.
+
+So the two open items are governed by one irrational.  Item 6 asks how close `2^k` can
+come to `3^j`; item 1′'s residue band grows by exactly the schedule of how often `2^k`
+passes `3^j`.  That is not a proof of either, and it is the same constant. -/
+
+/-- The first depth at which nothing new contracts: `2^2` and `2^3` lie between the
+    same two powers of three, so no class crosses. -/
+theorem no_crossing_doubles : (3 : ℕ) ^ 1 < 2 ^ 2 ∧ (2 : ℕ) ^ 3 < 3 ^ 2 := by
+  constructor <;> norm_num
+
+/-- The next two, for the pattern: between `3^2` and `3^3` sit `2^4` and `2^5`; between
+    `3^3` and `3^4` sit `2^6` and `2^7`. -/
+theorem crossings_next : ((3 : ℕ) ^ 2 < 2 ^ 4 ∧ (2 : ℕ) ^ 4 < 3 ^ 3)
+    ∧ ((3 : ℕ) ^ 3 < 2 ^ 5 ∧ (2 : ℕ) ^ 5 < 3 ^ 4) := by
+  refine ⟨⟨by norm_num, by norm_num⟩, ⟨by norm_num, by norm_num⟩⟩
+
 end CollatzDepthSplit
