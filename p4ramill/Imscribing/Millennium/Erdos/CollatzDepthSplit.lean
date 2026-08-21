@@ -3605,6 +3605,24 @@ theorem descent_iff_no_nondescender :
     push_neg at hc
     exact h ⟨n, hn, fun k => by have := hc k; omega⟩
 
+/-- **Collatz, as one equivalence.**  The conjecture — every `n ≥ 1` reaches `1` — holds
+    exactly when no value above `1` is a non-descender (a value its own trajectory never drops
+    below).  Forward: a non-descender never reaches a value below itself, so never reaches `1`.
+    Backward: `descent_iff_no_nondescender` then `reaches_one_of_descends`.  With
+    `nondescender_unbounded_or_nontrivial_cycle` classifying every non-descender as a divergence
+    or a nontrivial cycle, this is the whole conjecture in one line: Collatz ⟺ no non-descender
+    ⟺ no divergent trajectory and no nontrivial cycle. -/
+theorem collatz_iff_no_nondescender :
+    (∀ n, 1 ≤ n → ∃ m, col^[m] n = 1) ↔ ¬ (∃ n, 1 < n ∧ ∀ k, n ≤ col^[k] n) := by
+  constructor
+  · rintro hcol ⟨n, hn, hnd⟩
+    obtain ⟨m, hm⟩ := hcol n (le_of_lt hn)
+    have := hnd m
+    rw [hm] at this
+    omega
+  · intro h
+    exact reaches_one_of_descends (descent_iff_no_nondescender.mpr h)
+
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
 `cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
