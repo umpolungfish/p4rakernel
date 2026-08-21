@@ -156,14 +156,24 @@ def assumedAxioms (n : Name) : MetaM (List Name) := do
 /-- One line per declaration this corpus states: name, word, and the axiom
 oracle's own answer. Vox verdicts the word; nothing here verdicts anything, so
 there is exactly one implementation of the verdict and it is not in Lean. -/
-def sweepAll (maxLen : Nat := 60000) : MetaM Unit := do
+def sweepAll (maxLen : Nat := 4000000) : MetaM Unit := do
   let env ← getEnv
   for (nm, ci) in env.constants.toList do
     if ourDecl nm then
       match ci with
       | .thmInfo ti =>
           let w ← (try lift ti.value catch _ => pure "")
-          if w != "" && w.length < maxLen then
+          if w == "" then
+            -- A declaration the lift could not read is REPORTED, never dropped in
+            -- silence: an absent name would otherwise be indistinguishable from a
+            -- declaration that does not exist.
+            IO.println s!"#skip\t{nm}\tlift-failed\t0"
+          else if w.length ≥ maxLen then
+            -- The cap discards exactly the largest proofs, which are the ones most
+            -- worth reading. Say so, with the length, so the cap can be raised on
+            -- evidence rather than guessed at.
+            IO.println s!"#skip\t{nm}\tmaxlen\t{w.length}"
+          else
             let ax ← assumedAxioms nm
             let axs := if ax.isEmpty then "clean" else String.intercalate "," (ax.map toString)
             IO.println s!"{nm}\t⊢{w}⊣\t{axs}"
@@ -174,7 +184,7 @@ environment is blocked by name collisions between modules, and it does not need
 to be done: the lift is per declaration, so lifting one module at a time means
 nothing ever has to coexist and the collisions stop mattering. `prefix` is the
 namespace the module declares into. -/
-def sweepModule (prefix_ : String) (maxLen : Nat := 60000) : MetaM Unit := do
+def sweepModule (prefix_ : String) (maxLen : Nat := 4000000) : MetaM Unit := do
   let env ← getEnv
   for (nm, ci) in env.constants.toList do
     let s := nm.toString
@@ -182,7 +192,17 @@ def sweepModule (prefix_ : String) (maxLen : Nat := 60000) : MetaM Unit := do
       match ci with
       | .thmInfo ti =>
           let w ← (try lift ti.value catch _ => pure "")
-          if w != "" && w.length < maxLen then
+          if w == "" then
+            -- A declaration the lift could not read is REPORTED, never dropped in
+            -- silence: an absent name would otherwise be indistinguishable from a
+            -- declaration that does not exist.
+            IO.println s!"#skip\t{nm}\tlift-failed\t0"
+          else if w.length ≥ maxLen then
+            -- The cap discards exactly the largest proofs, which are the ones most
+            -- worth reading. Say so, with the length, so the cap can be raised on
+            -- evidence rather than guessed at.
+            IO.println s!"#skip\t{nm}\tmaxlen\t{w.length}"
+          else
             let ax ← assumedAxioms nm
             let axs := if ax.isEmpty then "clean" else String.intercalate "," (ax.map toString)
             IO.println s!"{nm}\t⊢{w}⊣\t{axs}"
