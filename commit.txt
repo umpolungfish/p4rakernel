@@ -1,29 +1,35 @@
-MachHolonomy: transport is a connection, and the basepoint is a theorem
+Collatz: the conductor-three imbalance identity, proved, and the levels are sub-random
 
-A word is a loop and reading it is transport around that loop. Three things
-about that picture, machine-checked.
+The predecessor face. I read the 3-adic profile off the real tree to depth 46 rather
+than building an operator that would report its own construction, and the deviation
+from uniform falls at every conductor -- 3, 9, 27, 81 -- at a fitted rate near 0.866.
 
-Transport composes along concatenation and rotation conjugates it rather than
-fixing it: transport (t ++ v) (transport v s) = transport v (transport (v ++ t) s),
-with no identity making the two readings equal. What does survive the basepoint
-is the abelian image, the signed balance, and it survives because it factors
-through a permutation.
+That rate is also exactly (4/3)^(-1/2), the decay of pure sampling noise, since the
+level grows by 4/3 per step. So I tested it against the noise floor of a uniform
+random set of the same size. The measured deviation is BELOW that floor, and strongly
+so at low conductor: mod 3 runs at 0.10 to 0.40 of it while mod 81 sits at 0.7 to 1.0,
+at the floor. The levels are not merely equidistributed mod 3, they are more uniform
+than random. The equidistribution is enforced, not statistical.
 
-Closure is balance zero AND no prefix dipping below zero. Balance alone is not
-closure: [fsplit, ffuse] closes, its rotation [ffuse, fsplit] has the same
-balance and dips at the first mark.
+The mechanism is the involution, and the identity that carries it was only checked in
+exact integers to depth 30. Now proved:
 
-The cycle lemma: a word of balance zero always has a rotation that closes, and
-the rotation is read off the word — cut where the prefix balance is least. The
-prefix identities for a rotation are proved on both sides of the wrap, so the
-reading point is determined by the word rather than chosen for it. That is what
-makes a canonical basepoint a theorem instead of a convention.
+  imbalance_recursion   I_{d+1} = -I_d + (m2 - m8), over predStep, no exception
+  cnt_predStep_one/two  each class of the next level, exactly: the swapped class
+                        doubled, plus one class mod 9
+  cnt_double_arm        the doubling arm's contribution
+  cnt_odd_arm           the odd arm's, fixed by the parent mod 9
+  predStep_disjoint     the arms are disjoint by parity
+  oddArm_injOn          the odd arm is injective on junctions
+  imbalance_two_step    two levels return the imbalance to itself up to the two
+                        perturbations, so it is an ALTERNATING sum
 
-Also: the conductor generator at d = 2^n is a power of sixteen exactly when
-n + 1 is divisible by four, which is the one congruence carrying 16, 16^2, 16^3,
-16^4 at d = 8, 128, 2048, 32768. The exponent counts n, so no member of the
-family carries meaning the others do not.
+The level-2 discrepancy in the old census was the script cutting the 1 -> 2 -> 1 edge,
+which predStep does not do: checked again against the uncut tree, zero mismatches over
+35 levels.
 
-Zero sorries; cycle_lemma and closes_at_min rest on nothing but the foundational
-three. Lifted through ProofLift and verdicted by Vox: every theorem that forks
-reads T, the rest read N.
+Measured alongside: |I_d| / sqrt(N) stays inside [0, 0.31] for d in 20..46, bounded
+well below the random scale. The fitted exponent 0.23 covers a range where the sign
+flips and is not a rate.
+
+231 theorems, zero sorries, propext / Classical.choice / Quot.sound.
