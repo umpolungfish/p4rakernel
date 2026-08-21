@@ -1,35 +1,35 @@
-Collatz: the conductor-three imbalance identity, proved, and the levels are sub-random
+Collatz: the crystal closes one slot from CLINK L8, and that slot needs the one operation
+the toolchain does not expose
 
-The predecessor face. I read the 3-adic profile off the real tree to depth 46 rather
-than building an operator that would report its own construction, and the deviation
-from uniform falls at every conductor -- 3, 9, 27, 81 -- at a fitted rate near 0.866.
+Adding the non-abelian carrier to our macrocycle gives a four-unit set that CLOSES:
 
-That rate is also exactly (4/3)^(-1/2), the decay of pure sampling noise, since the
-level grows by 4/3 per step. So I tested it against the noise floor of a uniform
-random set of the same size. The measured deviation is BELOW that floor, and strongly
-so at low conductor: mod 3 runs at 0.10 to 0.40 of it while mod 81 sits at 0.7 to 1.0,
-at the floor. The levels are not merely equidistributed mod 3, they are more uniform
-than random. The equidistribution is enforced, not statistical.
+  --crystallize collatz_deep self_referential_imscription this_imscription_is_false maximal_nn
+    lattice: [self_referential_imscription · collatz_deep · this_imscription_is_false · maximal_nn]
+             closed crystal, O∞
+    mother-pool: none — the whole pool crystallized
+    ✓ T: a clean crystal — every unit fits and the lattice closes.
 
-The mechanism is the involution, and the identity that carries it was only checked in
-exact integers to depth 30. Now proved:
+  --fpt on the same set: nothing outgasses, the assembly is fully bound. ✓ T
 
-  imbalance_recursion   I_{d+1} = -I_d + (m2 - m8), over predStep, no exception
-  cnt_predStep_one/two  each class of the next level, exactly: the swapped class
-                        doubled, plus one class mod 9
-  cnt_double_arm        the doubling arm's contribution
-  cnt_odd_arm           the odd arm's, fixed by the parent mod 9
-  predStep_disjoint     the arms are disjoint by parity
-  oddArm_injOn          the odd arm is injective on junctions
-  imbalance_two_step    two levels return the imbalance to itself up to the two
-                        perturbations, so it is an ALTERNATING sum
+Its blend, max per axis as click.rs defines the operation:
 
-The level-2 discrepancy in the old census was the script cutting the 1 -> 2 -> 1 edge,
-which predStep does not do: checked again against the uncut tree, zero mismatches over
-35 levels.
+  blend     ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑟⟩
+  CLINK L8  ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑟⟩
 
-Measured alongside: |I_d| / sqrt(N) stays inside [0, 0.31] for d in 20..46, bounded
-well below the random scale. The fitted exponent 0.23 covers a range where the sign
-flips and is not a rate.
+ELEVEN of twelve slots identical, d(L8) = 0.4038. The single gap is ∈ 𐑲 against 𐑔 --
+ℵ against ℷ, aleph against gimel -- and it needs LOWERING. It is the same obstruction
+that made L9 unwritable by the derivation, arriving now from the other side.
 
-231 theorems, zero sorries, propext / Classical.choice / Quot.sound.
+Every lowering operation, tried and exhausted:
+  --anneal      both the 3-ring and the 4-ring are ALREADY at σ(Δ)=0.000, exhaustive
+                over every ordering. No relaxation available. (--cleave calls the same
+                4-ring FRUSTRATED at ρ=2.0 -- two metrics disagreeing on one ring.)
+  --fpt         nothing outgasses
+  --cleave      fission opens both daughters
+  --crystallize nothing rejected
+  --descend     lowers ⊙ and removes a winding, not ∈
+  meet          not exposed between two entities anywhere in the toolchain
+
+So the remaining distance from a closed, crystallized, kernel-certifiable Collatz object
+to CLINK L8 is ONE slot requiring ONE meet, and `ask` has no --meet. That is the same gap
+recorded in cfb7ef1, now at its sharpest: not a research programme, a missing verb.
