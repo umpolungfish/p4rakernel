@@ -3418,6 +3418,57 @@ theorem no_survivor_counterexample_of_all_contract
   obtain ⟨k, hk⟩ := H n hn
   exact (survives_all_iff_never_contracts n).mp hsurv k hk
 
+/-! ### A never-contracting integer is aperiodic — the two failure modes are disjoint
+
+`cycle_margin_pos` reads exactly `Contracts k n` off a period-`k` cycle: a cycle's class
+contracts.  So a never-contracting integer has no period at all, and the two shapes of
+counterexample — a cycle and a never-contracting divergence — are disjoint sets, not one
+phenomenon.  With `survives_all_never_descends` this pins the trajectory strictly above `n`
+at every step, which forces the first step upward, so `n` is odd. -/
+
+/-- A never-contracting integer returns to itself at no depth: it is aperiodic. -/
+theorem never_contracts_aperiodic {n : ℕ} (h : ∀ k, ¬ Contracts k n) {k : ℕ} (hk : 1 ≤ k) :
+    col^[k] n ≠ n := by
+  intro hcyc
+  have hz := cycle_margin_pos hk hcyc
+  exact h k (by unfold Contracts; exact_mod_cast hz)
+
+/-- And its trajectory is strictly above `n` at every positive depth: never descending and
+    never returning leaves only ascent. -/
+theorem never_contracts_gt {n : ℕ} (h : ∀ k, ¬ Contracts k n) {k : ℕ} (hk : 1 ≤ k) :
+    n < col^[k] n := by
+  have hge := survives_all_never_descends h k
+  have hne := never_contracts_aperiodic h hk
+  omega
+
+/-- So a never-contracting integer is odd: an even `n` steps to `n/2 ≤ n`, but the first
+    step is strictly up. -/
+theorem never_contracts_odd {n : ℕ} (h : ∀ k, ¬ Contracts k n) : n % 2 = 1 := by
+  by_contra hodd
+  have heven : n % 2 = 0 := by omega
+  obtain ⟨m, hm⟩ : ∃ m, n = 2 * m := ⟨n / 2, by omega⟩
+  have h1 : n < col^[1] n := never_contracts_gt h (le_refl 1)
+  rw [Function.iterate_one, hm, col_two_mul] at h1
+  omega
+
+/-- Sharper: a never-contracting integer is `≡ 3 (mod 4)`.  An `n ≡ 1 (mod 4)` steps up
+    once, to an even value, and the second step lands at `3(n-1)/4 + 1 ≤ n` — a descent,
+    against the strict ascent every positive depth must show.  So only the `3 (mod 4)`
+    residue can sustain the climb. -/
+theorem never_contracts_mod_four {n : ℕ} (h : ∀ k, ¬ Contracts k n) : n % 4 = 3 := by
+  have hodd := never_contracts_odd h
+  rcases (show n % 4 = 1 ∨ n % 4 = 3 by omega) with h1 | h3
+  · exfalso
+    obtain ⟨j, hj⟩ : ∃ j, n = 4 * j + 1 := ⟨n / 4, by omega⟩
+    have hcol1 : col n = 2 * (3 * j + 1) := by
+      have e1 : n = 2 * (2 * j) + 1 := by omega
+      rw [e1, col_odd_pred]; ring
+    have hc2 : col^[2] n = 3 * j + 1 := by
+      rw [Function.iterate_succ_apply', Function.iterate_one, hcol1, col_two_mul]
+    have hgt := never_contracts_gt h (k := 2) (by norm_num)
+    rw [hc2] at hgt; omega
+  · exact h3
+
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
 `cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
