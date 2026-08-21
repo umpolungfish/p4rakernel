@@ -3536,4 +3536,38 @@ theorem descends_three_mod_sixteen (t : ℕ) : col^[4] (16 * t + 3) < 16 * t + 3
   norm_num at this ⊢
   exact this
 
+/-! ### Item 1′ at a point, and what is left of it
+
+`descends_iff_quotient` is stated on a class decomposition.  At a point it reads with
+`r = n mod 2^k` and `t = n / 2^k`, and it is the sharpest form: an equivalence,
+covering the threshold-free classes and the thresholded ones alike.
+
+    col^[k] n < n   ⟺   col^[k] r − r  <  (2^k − 3^j) · t
+
+`descends_iff_point`.
+
+**What that leaves.**  Measured at `k = 18`, of the `262144` residues:
+
+| | count | density |
+|---|---|---|
+| threshold-free — `Contracts` and `col^[k] r < r` | 251538 | 0.959541 |
+| contracts, image not below `r` — covered above an explicit `n` | 3111 | 0.011868 |
+| never contracts at any depth `≤ 18` — the surviving classes | 7495 | 0.028591 |
+
+So `96.0%` of residues descend unconditionally, another `1.2%` descend above a
+computable threshold, and the residue of item 1′ is the surviving classes at
+`2.9%` and falling — `0.0222` by `k = 22`.  That last band is where the conjecture
+lives, and `survives_all_never_descends` says why: a natural in it at *every* depth
+would be a counterexample outright. -/
+
+/-- **Item 1′ at a point.**  Descent at depth `k` is one inequality between the class's
+    displacement and its contraction margin scaled by the quotient. -/
+theorem descends_iff_point (k n : ℕ) :
+    col^[k] n < n ↔
+      ((col^[k] (n % 2 ^ k) : ℤ) - ((n % 2 ^ k : ℕ) : ℤ))
+        < ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps (n % 2 ^ k) k) * ((n / 2 ^ k : ℕ) : ℤ) := by
+  have hn : 2 ^ k * (n / 2 ^ k) + n % 2 ^ k = n := Nat.div_add_mod n (2 ^ k)
+  have := descends_iff_quotient k (n % 2 ^ k) (n / 2 ^ k)
+  rwa [hn] at this
+
 end CollatzDepthSplit
