@@ -912,11 +912,45 @@ enough to gain protection, then prove the modified statement.
 -- §7  Axioms — The Honest Gaps
 -- ============================================================
 
-/-- Collatz Conjecture.
-    For every positive integer n, T^k(n) = 1 for some k.
-    Open since 1937. Verified for all n ≤ 2^68.
-    This IS the Collatz conjecture — the honest gap. -/
-axiom collatz_conjecture_axiom : CollatzConjecture
+/-- `T` keeps the positives positive. -/
+theorem T_pos {n : ℕ} (h : 1 ≤ n) : 1 ≤ T n := by
+  unfold T; split <;> omega
+
+/-- So does every iterate. -/
+theorem T_iter_pos : ∀ (k n : ℕ), 1 ≤ n → 1 ≤ T_iter k n := by
+  intro k
+  induction k with
+  | zero => intro n h; simpa [T_iter] using h
+  | succ k ih => intro n h; rw [T_iter]; exact T_pos (ih n h)
+
+/-- Iterates compose: `T^{a+b} = T^a ∘ T^b`. -/
+theorem T_iter_add : ∀ (a b n : ℕ), T_iter (a + b) n = T_iter a (T_iter b n) := by
+  intro a b n
+  induction a with
+  | zero => simp [T_iter]
+  | succ a ih => rw [Nat.succ_add, T_iter, ih, T_iter]
+
+/-- **The descent — the single honest gap.**  For every `n > 1` some iterate falls below `n`.
+    This is the sharpest form of the conjecture: everything else follows.  It is the same
+    statement carried by the shortcut map in `CollatzDepthSplit` (`stopping_time_exists`), where
+    the conjecture is reduced to no divergence and no nontrivial cycle. -/
+axiom stopping_time_exists : ∀ n : ℕ, 1 < n → ∃ k : ℕ, T_iter k n < n
+
+/-- **Collatz Conjecture, discharged from the descent.**  No longer an axiom: it is the descent
+    carried to `1` by well-founded induction, exactly `reaches_one_of_descends`.  The file now
+    rests on the single descent axiom, not on the conjecture asserted whole. -/
+theorem collatz_conjecture_axiom : CollatzConjecture := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro hn
+    rcases Nat.lt_or_ge 1 n with hgt | hle
+    · obtain ⟨k, hk⟩ := stopping_time_exists n hgt
+      have hpos : 0 < T_iter k n := T_iter_pos k n hn
+      obtain ⟨m, hm⟩ := ih (T_iter k n) hk hpos
+      exact ⟨m + k, by rw [T_iter_add]; exact hm⟩
+    · have h1 : n = 1 := by omega
+      exact ⟨0, by simp [h1, T_iter]⟩
 
 /-- No nontrivial cycles of length ≤ 69.
     Known by exhaustive computation + number-theoretic constraints.
