@@ -1,0 +1,6 @@
+import Imscribing.Millennium.Erdos.CollatzDepthSplit
+open CollatzDepthSplit
+#print axioms CollatzDepthSplit.survives_iff_le
+#print axioms CollatzDepthSplit.two_pow_le_three_pow_pred
+#print axioms CollatzDepthSplit.singleEven_survives_iff
+#print axioms CollatzDepthSplit.singleEven_survivor_count
