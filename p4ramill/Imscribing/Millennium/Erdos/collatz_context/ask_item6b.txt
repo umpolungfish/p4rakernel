@@ -1,0 +1,4 @@
+Assume a nontrivial Collatz cycle of length k taken at its minimum n, so that the
+margin 2^k - 3^j is already determined from inside by (n+1)(2^k - 3^j) = bank(n,k).
+Working only inside that assumption, derive a contradiction or an explicit upper bound
+on k.
