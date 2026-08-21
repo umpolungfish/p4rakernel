@@ -3383,6 +3383,30 @@ theorem cycle_ratio_tight {n k : ℕ} (hk : 1 ≤ k) (hcyc : col^[k] n = n)
   have hmar : 2 * (2 : ℤ) ^ k ≤ 3 * ((2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) := by linarith
   nlinarith [hbound, hmar, hn, hpow]
 
+/-! ### The margin is the whole of the transcendence dependence
+
+`cycle_ratio_tight` needs no Diophantine input, but its first horn — `2^k < 3^(j+1)`,
+the case a large cycle forces — is where the classical no-cycles argument spends a
+lower bound on `|k log 2 − j log 3|`.  That bound enters at exactly one place, the
+margin `2^k − 3^j`, and nowhere else: `cycle_min_bound` reads `(n+1)(2^k − 3^j) ≤
+(k−j)·2^k`, so any positive lower bound `M ≤ 2^k − 3^j` on the margin bounds the
+minimum, `(n+1)·M ≤ (k−j)·2^k`.  With the effective estimate `2^k − 3^j ≥ 2^k·k^(−κ)`
+(a linear-forms-in-logarithms bound) this reads `n+1 ≤ (k−j)·k^κ`, a polynomial bound
+on a cycle's least element in its length.  Mathlib carries no such estimate — only
+Liouville and Lindemann — so the transcendence input stays an explicit hypothesis; the
+reduction to it is unconditional. -/
+
+/-- **The cycle minimum is bounded by any margin lower bound.**  The single point where
+    a linear-forms-in-logarithms estimate would enter the no-cycles argument, isolated:
+    for any `M ≤ 2^k − 3^j`, a cycle taken at its minimum has `(n+1)·M ≤ (k−j)·2^k`. -/
+theorem cycle_min_le_of_margin {n k : ℕ} (hcyc : col^[k] n = n)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n)
+    {M : ℤ} (hM : M ≤ (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps n k) :
+    ((n : ℤ) + 1) * M ≤ ((k - oddSteps n k : ℕ) : ℤ) * (2 : ℤ) ^ k := by
+  have hbound := cycle_min_bound hcyc hmin
+  have hn : (0 : ℤ) ≤ (n : ℤ) + 1 := by positivity
+  nlinarith [hbound, hn, hM, mul_nonneg hn (sub_nonneg.mpr hM)]
+
 /-! ### The other side of `bank`: a cycle's last step is even
 
 `bank_le_of_suffix` bounds the banked count from above.  The lower bound comes from a
