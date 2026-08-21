@@ -3714,4 +3714,61 @@ theorem residue_determined {n n' k : ℕ}
     exact dvd_sub (dvd_sub h1 h2) hb
   exact (two_three_coprime k (oddSteps n' k)).dvd_of_dvd_mul_left hmul
 
+/-! ### What separates the rigid arithmetic from a fixed share
+
+The share `collatz balance` reports is
+`subtreeCount(odd arm, d) / (subtreeCount(even arm, d) + subtreeCount(odd arm, d))`,
+so it is a ratio of subtree counts and the question is what fixes those.
+
+`subtreeCount v (d+1) = 1 + subtreeCount (2v) d + [v ≡ 2 mod 3] subtreeCount (2(v/3)+1) d`
+branches on `v mod 3` and its odd arm divides by three, so each level consumes one
+3-adic digit.  Induction makes that exact: **`subtreeCount v d` is determined by
+`v mod 3^d`** — `subtreeCount_mod_three_pow`.  Measured, the smallest sufficient
+modulus is `3^m` with `m = 0, 1, 2, 3, 4, 5, 5, 6, 7` for `d = 0..8`, so the bound is
+tight up to occasional savings.
+
+That is the whole separation, and it is a rate:
+
+| | cost |
+|---|---|
+| the arithmetic — `2^k ∣ 3^j(n+1) + bank n k` | exact at every `k`, no digits |
+| the share — `subtreeCount v d` | `d` 3-adic digits |
+
+The congruence pins the residue, the banked count and the exponent to one another for
+free, at any depth.  The share is pinned only as digits are supplied, one per level —
+which is exactly what `collatz adic` displays as `open → close → pinned`, each further
+digit splitting a class in three and collapsing the spread.  The two readings are the
+same fact.
+
+So the barrier is not that the share is unknown.  It is that the share's rigidity is
+bought a digit at a time while the arithmetic's is free, and no finite number of digits
+buys all of it. -/
+
+/-- **The digit cost.**  A depth-`d` subtree count is periodic in `v` with period
+    `3^d`: one 3-adic digit per level, and no more. -/
+theorem subtreeCount_period : ∀ (d v c : ℕ),
+    subtreeCount (v + 3 ^ d * c) d = subtreeCount v d := by
+  intro d
+  induction d with
+  | zero => intro v c; simp [subtreeCount]
+  | succ d ih =>
+      intro v c
+      have key : (3 : ℕ) ^ (d + 1) * c = 3 * (3 ^ d * c) := by ring
+      rw [key]
+      have h3 : (v + 3 * (3 ^ d * c)) % 3 = v % 3 := by omega
+      have hq : (v + 3 * (3 ^ d * c)) / 3 = v / 3 + 3 ^ d * c := by omega
+      have heven : 2 * (v + 3 * (3 ^ d * c)) = 2 * v + 3 ^ d * (6 * c) := by ring
+      rw [subtreeCount_succ, subtreeCount_succ, h3, heven, ih (2 * v) (6 * c), hq]
+      have h2 : 2 * (v / 3 + 3 ^ d * c) + 1 = (2 * (v / 3) + 1) + 3 ^ d * (2 * c) := by ring
+      rw [h2, ih (2 * (v / 3) + 1) (2 * c)]
+
+/-- Hence it depends on `v` only through `v mod 3^d`. -/
+theorem subtreeCount_mod_three_pow (d v : ℕ) :
+    subtreeCount v d = subtreeCount (v % 3 ^ d) d := by
+  have hpos : 0 < 3 ^ d := pow_pos (by norm_num) d
+  have hv : v = v % 3 ^ d + 3 ^ d * (v / 3 ^ d) := by
+    have := Nat.div_add_mod v (3 ^ d); omega
+  conv_lhs => rw [hv]
+  exact subtreeCount_period d (v % 3 ^ d) (v / 3 ^ d)
+
 end CollatzDepthSplit
