@@ -3658,4 +3658,60 @@ theorem k_lt_two_pow : ∀ k : ℕ, 5 ≤ k → k < 2 ^ (k - 2) := by
         have hpos : 1 ≤ 2 ^ (k - 2) := Nat.one_le_two_pow
         omega
 
+/-! ### The interface collapses: the 2-adic spread inherits the cycle's rigidity
+
+`cycle_congruence` pinned a cycle's exponent by reading `cycle_banked` modulo `2^k`.
+Nothing in that used the cycle.  `iterate_banked` says
+
+    2^k (col^[k] n + 1)  =  3^j (n + 1) + bank n k
+
+for every `n` and `k`, so the left side is divisible by `2^k` outright and
+
+    2^k  ∣  3^j (n + 1) + bank n k
+
+`iterate_congruence` — at every point, cyclic or not.  The cycle case was only the
+place where the quotient happened to be `n + 1`.
+
+And `3^j` is a unit mod `2^k`, so the congruence *determines* the residue: two points
+with the same odd-step count and the same banked count mod `2^k` have the same
+`n mod 2^k`.  `residue_determined`.  Turned around, `n mod 2^k` and `bank mod 2^k`
+determine `3^j mod 2^k`, and `3` has order `2^(k−2)` there, so for `j < 2^(k−2)` — which
+`k_lt_two_pow` gives from `k = 5` on — the exponent itself is fixed.
+
+That is the rigidity the cycle half already had, holding on the whole 2-adic side.  The
+residual spread `collatz classes` reports is a spread in the *share*, not in the
+arithmetic: the residue does not fix the share, but the residue, the banked count and
+the exponent fix each other. -/
+
+/-- **The congruence at every point.** -/
+theorem iterate_congruence (n k : ℕ) :
+    (2 : ℤ) ^ k ∣ (3 : ℤ) ^ oddSteps n k * ((n : ℤ) + 1) + (bank n k : ℤ) := by
+  have hid := iterate_banked k n
+  have hz : ((2 : ℤ) ^ k) * ((col^[k] n : ℤ) + 1)
+      = (3 : ℤ) ^ oddSteps n k * ((n : ℤ) + 1) + (bank n k : ℤ) := by
+    exact_mod_cast congrArg (fun m : ℕ => (m : ℤ)) hid
+  exact ⟨(col^[k] n : ℤ) + 1, hz.symm⟩
+
+/-- `2^k` and `3^j` are coprime. -/
+theorem two_three_coprime (k j : ℕ) : IsCoprime ((2 : ℤ) ^ k) ((3 : ℤ) ^ j) :=
+  (show IsCoprime (2 : ℤ) 3 from ⟨-1, 1, by ring⟩).pow
+
+/-- **The residue is determined.**  Same odd-step count and banked counts agreeing mod
+    `2^k` force the same `n mod 2^k`. -/
+theorem residue_determined {n n' k : ℕ}
+    (hj : oddSteps n k = oddSteps n' k)
+    (hb : (2 : ℤ) ^ k ∣ (bank n k : ℤ) - (bank n' k : ℤ)) :
+    (2 : ℤ) ^ k ∣ ((n : ℤ) - (n' : ℤ)) := by
+  have h1 := iterate_congruence n k
+  have h2 := iterate_congruence n' k
+  rw [hj] at h1
+  have hmul : (2 : ℤ) ^ k ∣ (3 : ℤ) ^ oddSteps n' k * ((n : ℤ) - (n' : ℤ)) := by
+    have hkey : (3 : ℤ) ^ oddSteps n' k * ((n : ℤ) - (n' : ℤ))
+        = ((3 : ℤ) ^ oddSteps n' k * ((n : ℤ) + 1) + (bank n k : ℤ))
+          - ((3 : ℤ) ^ oddSteps n' k * ((n' : ℤ) + 1) + (bank n' k : ℤ))
+          - ((bank n k : ℤ) - (bank n' k : ℤ)) := by ring
+    rw [hkey]
+    exact dvd_sub (dvd_sub h1 h2) hb
+  exact (two_three_coprime k (oddSteps n' k)).dvd_of_dvd_mul_left hmul
+
 end CollatzDepthSplit
