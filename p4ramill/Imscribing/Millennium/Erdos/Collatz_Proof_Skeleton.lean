@@ -314,11 +314,10 @@ lemma odd_mod_3_mod_8 {n : ℕ} (h_odd : ¬ Even n) (h_mod : n % 4 = 3) :
 axiom stopping_time_exists {n : ℕ} (hn : n > 1) :
     ∃ k : ℕ, (col^[k]) n < n
 
-/-- COROLLARY: Every n ≥ 1 eventually reaches 1.
-    Follows from stopping_time_exists by strong induction on n.
-    This is the Collatz conjecture itself. -/
-axiom collatz_conjecture {n : ℕ} (hn : n ≥ 1) :
-    ∃ k : ℕ, (col^[k]) n = 1
+-- The Collatz conjecture is NOT axiomatised: it follows from `stopping_time_exists` by
+-- well-founded induction, discharged as the theorem `collatz_conjecture` below (after
+-- `collatz_proof_skeleton_main`, which is that induction). One open axiom remains — the
+-- descent `stopping_time_exists` — and everything else is proved.
 
 end ArithmeticLemmas
 
@@ -428,5 +427,13 @@ theorem collatz_proof_skeleton_main :
         rw [hk]
         <;> simp [col]
   exact h_main
+
+/-- The Collatz conjecture, off the single open axiom `stopping_time_exists` — no separate
+    axiom for the conclusion.  `collatz_proof_skeleton_main` is the well-founded induction
+    (the same argument as `CollatzDepthSplit.reaches_one_of_descends`); feeding it the
+    descent axiom discharges the conjecture. -/
+theorem collatz_conjecture {n : ℕ} (hn : n ≥ 1) :
+    ∃ k : ℕ, (col^[k]) n = 1 :=
+  collatz_proof_skeleton_main (fun _ hm => stopping_time_exists hm) n hn
 
 end CollatzProofSkeleton
