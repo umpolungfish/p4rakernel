@@ -118,6 +118,37 @@ theorem not_contracts_pred_two_pow {k : ℕ} (hk : 1 ≤ k) : ¬ Contracts k (2 
   have h : (2:ℕ) ^ k < 3 ^ k := Nat.pow_lt_pow_left (by norm_num) (by omega)
   omega
 
+/-! ### Where the extremal survivor actually goes
+
+`2^k - 1` survives to depth `k` and contracts at no level, so it is the survivor witness
+at every scale.  But the specific integer is not a counterexample: it climbs, all `k`
+steps odd, to exactly `3^k - 1`, and then — `3^k - 1` being even — it turns and descends.
+The climb is exact, `col^[i](2^k - 1) = 3^i·2^(k-i) - 1`, from `col_pred_pow` step by
+step. -/
+
+/-- The all-odd climb, level by level: `i` odd steps carry `2^k - 1` to `3^i·2^(k-i) - 1`. -/
+theorem col_iterate_all_ones : ∀ (i k : ℕ), i ≤ k →
+    col^[i] (2 ^ k - 1) = 3 ^ i * 2 ^ (k - i) - 1 := by
+  intro i
+  induction i with
+  | zero => intro k _; simp
+  | succ i ih =>
+    intro k hk
+    have hik : i ≤ k := Nat.le_of_succ_le hk
+    have hpos : 1 ≤ k - i := by omega
+    obtain ⟨m, hm⟩ : ∃ m, k - i = m + 1 := ⟨k - i - 1, by omega⟩
+    rw [Function.iterate_succ_apply', ih k hik, hm, col_pred_pow]
+    have : k - (i + 1) = m := by omega
+    rw [this]
+
+/-- **The extremal survivor's destination.**  `2^k - 1` climbs, every step odd, to exactly
+    `3^k - 1`.  The survivor witness at each scale is not a counterexample: `3^k - 1` is
+    even, so the very next step contracts it, and the infinite survivor path `2^k - 1` is
+    the 2-adic `-1 = …111`, which is not a positive integer. -/
+theorem col_iterate_pred_two_pow (k : ℕ) : col^[k] (2 ^ k - 1) = 3 ^ k - 1 := by
+  have h := col_iterate_all_ones k k (le_refl k)
+  simpa using h
+
 /-! ## The depth-4, -5 and -6 classes, computed -/
 
 theorem col4_16t3 (t : ℕ) : col^[4] (16 * t + 3) = 9 * t + 2 := by
