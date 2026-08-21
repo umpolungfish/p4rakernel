@@ -3476,8 +3476,8 @@ theorem descends_shallow {n : ℕ} (hn : 2 ≤ n) (h : n % 4 ≠ 3) :
     have hstep2 : col (6 * m + 2) = 3 * m + 1 := by
       rw [show 6 * m + 2 = 2 * (3 * m + 1) by ring, col_two_mul]
     show col^[2] n < n
-    rw [show (2 : ℕ) = 1 + 1 by rfl, Function.iterate_add_apply, Function.iterate_one,
-      Function.iterate_one, hstep1, hstep2, hm]
+    change col (col n) < n
+    rw [hstep1, hstep2, hm]
     omega
 
 /-- So the only `n` needing the depth split at all are those at `3 (mod 4)`. -/
