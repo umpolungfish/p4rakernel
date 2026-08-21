@@ -164,6 +164,20 @@ theorem no_integer_follows_spine (n : ℕ) : ¬ (∀ k, n % 2 ^ k = 2 ^ k - 1) :
   have hpos : 1 ≤ 2 ^ n := Nat.one_le_two_pow
   omega
 
+/-- **A positive integer follows no unbounded tower.**  A coherent residue tower `r` whose
+    values are unbounded cannot be a positive integer's tower, since `n \bmod 2^k \le n` while
+    `r k` eventually exceeds `n`.  The positive-integer branches of the survivor tree are exactly
+    the bounded (eventually constant) towers; every branch whose residues run off to infinity ---
+    the spine and the rest of the `2`-adic boundary --- carries no integer.  `no_integer_follows_spine`
+    is the case `r k = 2^k - 1`. -/
+theorem no_integer_follows_unbounded_tower (r : ℕ → ℕ) (hr : ∀ M, ∃ k, M < r k) :
+    ¬ ∃ n, ∀ k, n % 2 ^ k = r k := by
+  rintro ⟨n, hn⟩
+  obtain ⟨k, hk⟩ := hr n
+  have hmod : n % 2 ^ k ≤ n := Nat.mod_le n (2 ^ k)
+  rw [hn k] at hmod
+  omega
+
 /-! ## The depth-4, -5 and -6 classes, computed -/
 
 theorem col4_16t3 (t : ℕ) : col^[4] (16 * t + 3) = 9 * t + 2 := by
