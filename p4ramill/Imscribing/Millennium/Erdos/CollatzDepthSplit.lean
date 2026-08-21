@@ -3897,4 +3897,104 @@ theorem singleEven_survivor_count {k : ℕ} (hk : 2 ≤ k) :
   omega
 
 
+/-! ### The conductor-three imbalance identity, proved
+
+`I_{d+1} = −I_d + (m₂ − m₈)` was checked in exact integers to depth 30.  Here it
+is as a theorem about `predStep`, with no exception: the level-2 discrepancy in the
+census script came from that script cutting the `1 → 2 → 1` edge, which `predStep`
+does not do.
+
+Both arms are already pinned.  The doubling arm swaps the live classes
+(`double_swaps_classes`), so its entire contribution to `I` is `−I`.  The odd arm
+fires only at junctions and its landing class is fixed by the parent mod 9
+(`junction_classes_split`): `2 ↦ 1`, `5 ↦ 0`, `8 ↦ 2`.  One of the three feeds the
+dead class, so the imbalance sees exactly `m₂ − m₈`.
+
+This is the mechanism behind the measured sub-randomness: the levels are not merely
+equidistributed mod 3, they are MORE uniform than a random set of the same size —
+`collatz_pred_profile.py` puts the mod-3 deviation at `0.10`–`0.40` of the noise
+floor of a uniform random set, while conductor 81 sits at `0.7`–`1.0`, at the floor.
+A per-level sign cancels; dilution does not. -/
+
+/-- The count of a level in one residue class. -/
+def cnt (r c : ℕ) (L : Finset ℕ) : ℕ := (L.filter (fun m => m % r = c)).card
+
+/-- The two arms are disjoint: the doubling arm is even, the odd arm is odd. -/
+theorem predStep_disjoint (L : Finset ℕ) :
+    Disjoint (L.image (fun m => 2 * m))
+      ((L.filter (fun m => m % 3 = 2)).image (fun m => 2 * (m / 3) + 1)) := by
+  rw [Finset.disjoint_left]
+  rintro x hx hy
+  obtain ⟨m, _, rfl⟩ := Finset.mem_image.mp hx
+  obtain ⟨m', _, hm'⟩ := Finset.mem_image.mp hy
+  omega
+
+/-- The odd arm is injective on the junctions. -/
+theorem oddArm_injOn (L : Finset ℕ) :
+    Set.InjOn (fun m => 2 * (m / 3) + 1) (L.filter (fun m => m % 3 = 2)) := by
+  intro a ha b hb hab
+  obtain ⟨_, ha3⟩ := Finset.mem_filter.mp ha
+  obtain ⟨_, hb3⟩ := Finset.mem_filter.mp hb
+  simp only at hab
+  omega
+
+/-- The doubling arm's contribution to a class mod 3 is the swapped class. -/
+theorem cnt_double_arm (L : Finset ℕ) (c d : ℕ) (h : ∀ m : ℕ, (2 * m) % 3 = c ↔ m % 3 = d) :
+    ((L.image (fun m => 2 * m)).filter (fun x => x % 3 = c)).card = cnt 3 d L := by
+  rw [Finset.filter_image]
+  rw [Finset.card_image_of_injective _ (fun a b hab => by omega)]
+  unfold cnt
+  exact congrArg Finset.card (Finset.filter_congr (fun m _ => by simp [h m]))
+
+/-- The odd arm's contribution to a class mod 3 is a class mod 9. -/
+theorem cnt_odd_arm (L : Finset ℕ) (c e : ℕ)
+    (h : ∀ m : ℕ, (m % 3 = 2 ∧ (2 * (m / 3) + 1) % 3 = c) ↔ m % 9 = e) :
+    (((L.filter (fun m => m % 3 = 2)).image (fun m => 2 * (m / 3) + 1)).filter
+        (fun x => x % 3 = c)).card = cnt 9 e L := by
+  rw [Finset.filter_image, Finset.card_image_of_injOn]
+  · unfold cnt
+    rw [Finset.filter_filter]
+    exact congrArg Finset.card (Finset.filter_congr (fun m _ => by simp [← h m]))
+  · exact (oddArm_injOn L).mono (by intro x hx; exact Finset.mem_coe.mpr (Finset.mem_filter.mp hx).1)
+
+/-- Class 1 of the next level: the class-2 part doubled, plus the mod-9 class 2. -/
+theorem cnt_predStep_one (L : Finset ℕ) :
+    cnt 3 1 (predStep L) = cnt 3 2 L + cnt 9 2 L := by
+  unfold cnt predStep
+  rw [Finset.filter_union, Finset.card_union_of_disjoint
+    (Finset.disjoint_filter_filter (predStep_disjoint L))]
+  rw [cnt_double_arm L 1 2 (fun m => by omega), cnt_odd_arm L 1 2 (fun m => by omega)]
+  rfl
+
+/-- Class 2 of the next level: the class-1 part doubled, plus the mod-9 class 8. -/
+theorem cnt_predStep_two (L : Finset ℕ) :
+    cnt 3 2 (predStep L) = cnt 3 1 L + cnt 9 8 L := by
+  unfold cnt predStep
+  rw [Finset.filter_union, Finset.card_union_of_disjoint
+    (Finset.disjoint_filter_filter (predStep_disjoint L))]
+  rw [cnt_double_arm L 2 1 (fun m => by omega), cnt_odd_arm L 2 8 (fun m => by omega)]
+  rfl
+
+/-- **The conductor-three imbalance identity.**  `I_{d+1} = −I_d + (m₂ − m₈)`:
+    the involution is the minus sign, and the perturbation is one difference of
+    two mod-9 classes, nothing else. -/
+theorem imbalance_recursion (L : Finset ℕ) :
+    ((cnt 3 1 (predStep L) : ℤ) - cnt 3 2 (predStep L))
+      = -((cnt 3 1 L : ℤ) - cnt 3 2 L) + ((cnt 9 2 L : ℤ) - cnt 9 8 L) := by
+  rw [cnt_predStep_one, cnt_predStep_two]
+  push_cast
+  ring
+
+/-- Two levels of the involution return the imbalance to itself, up to the two
+    perturbations — so the imbalance is an ALTERNATING sum, which is why it stays
+    below the square-root of the level rather than accumulating. -/
+theorem imbalance_two_step (L : Finset ℕ) :
+    ((cnt 3 1 (predStep (predStep L)) : ℤ) - cnt 3 2 (predStep (predStep L)))
+      = ((cnt 3 1 L : ℤ) - cnt 3 2 L)
+        - ((cnt 9 2 L : ℤ) - cnt 9 8 L)
+        + ((cnt 9 2 (predStep L) : ℤ) - cnt 9 8 (predStep L)) := by
+  rw [imbalance_recursion (predStep L), imbalance_recursion L]
+  ring
+
+
 end CollatzDepthSplit
