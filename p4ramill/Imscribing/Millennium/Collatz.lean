@@ -952,12 +952,17 @@ theorem collatz_conjecture_axiom : CollatzConjecture := by
     · have h1 : n = 1 := by omega
       exact ⟨0, by simp [h1, T_iter]⟩
 
-/-- No nontrivial cycles of length ≤ 69.
-    Known by exhaustive computation + number-theoretic constraints.
-    The cycle 1→4→2→1 is the only cycle with period ≤ 69. -/
+/-- No *nontrivial* cycles of period ≤ 69: the cycle `1 → 4 → 2 → 1` is the only one, so every
+    element of a primitive cycle of period `p ≤ 69` lies in `{1, 2, 4}`.  Known by exhaustive
+    computation and number-theoretic constraints (Simons–de Weger).
+
+    The earlier form `¬ ∃ (n p), … T_iter p n = n ∧ (primitive)` was inconsistent: the trivial
+    cycle `(n = 1, p = 3)` witnesses that existential (`T_iter 3 1 = 1`, and `T_iter 1 1 = 4`,
+    `T_iter 2 1 = 2` are both `≠ 1`), so the negation proved `False`.  The intended statement
+    excludes the trivial cycle rather than forbidding all cycles. -/
 axiom no_cycle_below_69_axiom :
-    ¬ ∃ (n p : ℕ), n > 0 ∧ 1 < p ∧ p ≤ 69 ∧ T_iter p n = n
-    ∧ ∀ k, 0 < k → k < p → T_iter k n ≠ n
+    ∀ (n p : ℕ), 0 < n → 1 < p → p ≤ 69 → T_iter p n = n →
+      (∀ k, 0 < k → k < p → T_iter k n ≠ n) → n = 1 ∨ n = 2 ∨ n = 4
 
 /-- The log-mean drift theorem (Terras 1976).
     For the compressed map C, E[log(C(n)/n)] < 0.
