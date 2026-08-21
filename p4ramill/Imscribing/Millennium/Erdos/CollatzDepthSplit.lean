@@ -1138,9 +1138,26 @@ cancellation is complete and per-level.  That is why the conductor-3 identity
 `I_{d+1} = −I_d + (m₂ − m₈)` carries a bare minus sign, and why the cross term is
 negative in 20 of 24 levels there.
 
-At `r ≥ 2` the order is `6, 18, 54, …`.  There is no per-level sign at all; the
-deviation returns to itself only after a full cycle, and what survives per level
-is dilution rather than cancellation.  Measured, the cross term sits at `0.349`
+At `r ≥ 2` the order is `6, 18, 54, …` — but the deviation does NOT return on it.
+Measured on the real tree at `N ≈ 4.8·10⁶` (`collatz_pred_transfer.py`), the
+autocorrelation of the deviation peaks at **lag 2 at every conductor**: `0.7375` at 9,
+`0.7995` at 27, `0.6979` at 81, while the full cycle shows nothing — `−0.1738` at lag
+18 for conductor 27.  Odd-lag means run `+0.369`, `−0.191`, `−0.126`; even-lag means
+`+0.625`, `+0.554`, `+0.335`.
+
+The sign is INHERITED rather than absent: the class mod `3^r` determines the class mod
+3, and doubling is an involution there (`double_involution`), so the per-level
+alternation reaches every conductor.  What weakens as the conductor rises is its
+amplitude, and the even-lag correlation falling `0.625 → 0.554 → 0.335` is that
+dilution.  An earlier draft of this file read the order `2·3^(r-1)` as the return lag;
+the measurement says otherwise and the measurement governs.
+
+The transfer itself generalises, and is proved: `cnt_predStep_mod_pow` holds at `3^r`
+for every `r`, the doubling arm reading the level mod `3^r` and the odd arm mod
+`3^(r+1)`.  Measured first at moduli 3, 9, 27 and 81 over 28 levels, zero mismatches.
+The `r = 2` proof runs on `omega` because every modulus there is a literal; at general
+`r` the modulus is symbolic, so the arms go through `Nat.ModEq` and the junction lemma
+`junction_mod_pow_succ` instead.  Measured, the cross term sits at `0.349`
 of the Cauchy–Schwarz bound at conductor 9 and `0.189` at conductor 27, against
 `3^(-r/2)` of `0.333` and `0.192` — square-root cancellation over the classes,
 with the cycle length `2·3^(r-1)` proportional to that count.
@@ -4065,5 +4082,87 @@ theorem cnt_three_eq_sum_nine (L : Finset ℕ) (c : ℕ) (hc : c < 3) :
       · have h1 := (Finset.mem_filter.mp h).2
         omega
   rw [hsplit, Finset.card_union_of_disjoint d2, Finset.card_union_of_disjoint d1]
+
+/-! ### The transfer at every conductor
+
+`cnt_predStep_mod_nine` is the `r = 2` case, and the same two arms work at `3^r` for
+every `r`.  The digit the level costs is visible in the statement rather than hidden in
+an error term: the doubling arm reads the level mod `3^r`, the odd arm mod `3^(r+1)`.
+
+Stated with both sources given rather than with an inverse in the statement — `b` any
+doubling source for the target class, `t` any odd source — which is what a caller has
+anyway, and which keeps the modular inverse out of the arithmetic. -/
+
+/-- Doubling is injective on residues mod `3^r`: 2 is coprime to it. -/
+theorem double_inj_mod_pow {r m b : ℕ} (h : (2 * m) % 3 ^ r = (2 * b) % 3 ^ r) :
+    m % 3 ^ r = b % 3 ^ r := by
+  exact Nat.ModEq.cancel_left_of_coprime (two_coprime_three_pow r) h
+
+/-- A junction carries its quotient's class up one digit: `m = 3·(m/3) + 2`, and the
+    `+2` cannot overflow the finer modulus.  This is the digit, as an identity. -/
+theorem junction_mod_pow_succ {m r : ℕ} (h : m % 3 = 2) :
+    m % 3 ^ (r + 1) = 3 * ((m / 3) % 3 ^ r) + 2 := by
+  have hM : 0 < 3 ^ r := pow_pos (by norm_num) r
+  have hqk : m / 3 = 3 ^ r * (m / 3 / 3 ^ r) + (m / 3) % 3 ^ r :=
+    (Nat.div_add_mod (m / 3) (3 ^ r)).symm
+  have hm3 : m = 3 * (m / 3) + 2 := by omega
+  have key : ∀ q k a : ℕ, q = 3 ^ r * k + a → 3 * q + 2 = (3 * a + 2) + 3 ^ r * 3 * k := by
+    intro q k a hq; subst hq; ring
+  have hform : m = (3 * ((m / 3) % 3 ^ r) + 2) + 3 ^ r * 3 * (m / 3 / 3 ^ r) := by
+    conv_lhs => rw [hm3]
+    exact key (m / 3) (m / 3 / 3 ^ r) ((m / 3) % 3 ^ r) hqk
+  have hlt : 3 * ((m / 3) % 3 ^ r) + 2 < 3 ^ r * 3 := by
+    have := Nat.mod_lt (m / 3) hM; omega
+  calc m % 3 ^ (r + 1)
+      = ((3 * ((m / 3) % 3 ^ r) + 2) + 3 ^ r * 3 * (m / 3 / 3 ^ r)) % (3 ^ r * 3) := by
+        rw [← hform, pow_succ]
+    _ = (3 * ((m / 3) % 3 ^ r) + 2) % (3 ^ r * 3) := Nat.add_mul_mod_self_left ..
+    _ = 3 * ((m / 3) % 3 ^ r) + 2 := Nat.mod_eq_of_lt hlt
+
+/-- **The conductor-`3^r` transfer.**  Each class of the next level is one class mod
+    `3^r` through the doubling arm, plus one class mod `3^(r+1)` through the odd arm.
+    Measured first at moduli 3, 9, 27 and 81 over 28 levels, zero mismatches. -/
+theorem cnt_predStep_mod_pow (L : Finset ℕ) (r c b t : ℕ)
+    (hb : (2 * b) % 3 ^ r = c) (ht : (2 * t + 1) % 3 ^ r = c) :
+    cnt (3 ^ r) c (predStep L)
+      = cnt (3 ^ r) (b % 3 ^ r) L + cnt (3 ^ (r + 1)) (3 * (t % 3 ^ r) + 2) L := by
+  have heven : ∀ m : ℕ, (2 * m) % 3 ^ r = c ↔ m % 3 ^ r = b % 3 ^ r := by
+    intro m
+    refine ⟨fun h => double_inj_mod_pow (by rw [h, hb]), fun h => ?_⟩
+    have h2 : (2 * m) % 3 ^ r = (2 * b) % 3 ^ r := Nat.ModEq.mul_left 2 h
+    rw [h2, hb]
+  have hodd : ∀ m : ℕ,
+      (m % 3 = 2 ∧ (2 * (m / 3) + 1) % 3 ^ r = c)
+        ↔ m % 3 ^ (r + 1) = 3 * (t % 3 ^ r) + 2 := by
+    intro m
+    constructor
+    · rintro ⟨h3, hc⟩
+      have hmod : (2 * (m / 3) + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r := by rw [hc, ht]
+      have hstep : (2 * (m / 3)) % 3 ^ r = (2 * t) % 3 ^ r :=
+        Nat.ModEq.add_right_cancel' 1 hmod
+      rw [junction_mod_pow_succ h3, double_inj_mod_pow hstep]
+    · intro h
+      have hM : 0 < 3 ^ r := pow_pos (by norm_num) r
+      have h3 : m % 3 = 2 := by
+        have hmm : m % 3 ^ (r + 1) % 3 = m % 3 := by
+          rw [pow_succ, Nat.mod_mul_left_mod]
+        rw [h] at hmm
+        omega
+      refine ⟨h3, ?_⟩
+      have hq : (m / 3) % 3 ^ r = t % 3 ^ r := by
+        rw [junction_mod_pow_succ h3] at h
+        have h1 := Nat.mod_lt (m / 3) hM
+        have h2 := Nat.mod_lt t hM
+        omega
+      have : (2 * (m / 3) + 1) % 3 ^ r = (2 * t + 1) % 3 ^ r :=
+        Nat.ModEq.add_right 1 (Nat.ModEq.mul_left 2 hq)
+      rw [this, ht]
+  unfold cnt predStep
+  rw [Finset.filter_union, Finset.card_union_of_disjoint
+    (Finset.disjoint_filter_filter (predStep_disjoint L))]
+  rw [cnt_double_arm L (3 ^ r) c (b % 3 ^ r) heven,
+      cnt_odd_arm L (3 ^ r) (3 ^ (r + 1)) c (3 * (t % 3 ^ r) + 2) hodd]
+  rfl
+
 
 end CollatzDepthSplit
