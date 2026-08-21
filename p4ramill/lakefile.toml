@@ -139,6 +139,7 @@ globs = [
   "Imscribing.Millennium.Unsolved",
   "Imscribing.Millennium.Erdos.Base",
   "Imscribing.Millennium.Erdos.CollatzDepthSplit",
+  "Imscribing.Millennium.Erdos.Collatz_Unified_Closure",
   "Imscribing.Millennium.Erdos.ErdosTuranAP",
   "Imscribing.Millennium.Erdos.AntiRamseyOddCycles",
   "Imscribing.Millennium.Erdos.SubgroupOrders",
