@@ -3488,4 +3488,52 @@ theorem needs_depth_split {n : ℕ} (hn : 2 ≤ n)
   · exact h 1 (by omega) (by omega) h1
   · exact h 2 (by omega) (by omega) h2
 
+/-! ### Item 1′, the threshold-free classes
+
+`descends_of_contracts_of_large` needs the quotient to clear `col^[k] r`.  The exact
+criterion `descends_iff_quotient` shows when no threshold is needed at all: descent is
+`col^[k] r − r < (2^k − 3^j) t`, and if the class's own image lies *below* it the left
+side is negative while the right is not, for every `t`.  So
+
+    Contracts k r  ∧  col^[k] r < r   ⟹   every member of `r (mod 2^k)` descends
+
+`descends_all_of_class` — no bound on `n`, no exceptional initial segment.
+
+At `k = 4`, `r = 3`: the orbit is `3 → 5 → 8 → 4 → 2`, so `oddSteps 3 4 = 2` with
+`9 < 16`, and `col^[4] 3 = 2 < 3`.  Every `n ≡ 3 (mod 16)` therefore descends within
+four steps — `descends_three_mod_sixteen` — which is the first slice of `3 (mod 4)`,
+the residue `descends_shallow` had to leave out.  Together they cover `13/16` of `ℕ`
+with two explicit depths. -/
+
+/-- A contracting class whose image lies below it carries every member down, with no
+    threshold on the quotient. -/
+theorem descends_all_of_class {k r : ℕ} (hc : Contracts k r) (hlt : col^[k] r < r) (t : ℕ) :
+    col^[k] (2 ^ k * t + r) < 2 ^ k * t + r := by
+  rw [descends_iff_quotient]
+  unfold Contracts at hc
+  have hmar : (1 : ℤ) ≤ (2 : ℤ) ^ k - (3 : ℤ) ^ oddSteps r k := by
+    have : (3 : ℤ) ^ oddSteps r k < (2 : ℤ) ^ k := by exact_mod_cast hc
+    omega
+  have hneg : ((col^[k] r : ℤ) - (r : ℤ)) < 0 := by
+    have : (col^[k] r : ℤ) < (r : ℤ) := by exact_mod_cast hlt
+    omega
+  have ht : (0 : ℤ) ≤ (t : ℤ) := Int.natCast_nonneg t
+  nlinarith [hmar, hneg, ht]
+
+/-- The orbit of `3` to depth four: `3 → 5 → 8 → 4 → 2`. -/
+theorem col_iterate_three : col^[4] 3 = 2 := by decide
+
+theorem oddSteps_three_four : oddSteps 3 4 = 2 := by decide
+
+/-- **Every `n ≡ 3 (mod 16)` descends within four steps**, with no threshold. -/
+theorem descends_three_mod_sixteen (t : ℕ) : col^[4] (16 * t + 3) < 16 * t + 3 := by
+  have hc : Contracts 4 3 := by
+    unfold Contracts
+    rw [oddSteps_three_four]
+    norm_num
+  have hlt : col^[4] 3 < 3 := by rw [col_iterate_three]; norm_num
+  have := descends_all_of_class hc hlt t
+  norm_num at this ⊢
+  exact this
+
 end CollatzDepthSplit
