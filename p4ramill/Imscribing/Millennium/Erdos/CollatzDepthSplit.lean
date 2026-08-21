@@ -503,6 +503,25 @@ theorem col_odd_pred (t : ℕ) : col (2 * t + 1) = 3 * t + 2 := by
   rw [if_neg (by omega : ¬ (2 * t + 1) % 2 = 0)]
   omega
 
+/-- No positive fixed point: `col` has no length-`1` cycle above `0`.  An even `n = 2m`
+    steps to `m < n`; an odd `n = 2t+1` steps to `3t+2 > n`.  Neither returns. -/
+theorem col_ne_self {n : ℕ} (hn : 1 ≤ n) : col n ≠ n := by
+  rcases Nat.even_or_odd n with ⟨m, hm⟩ | ⟨t, ht⟩
+  · have hm' : n = 2 * m := by omega
+    rw [hm', col_two_mul]; omega
+  · rw [ht, col_odd_pred]; omega
+
+/-- The minimum of a nontrivial cycle is odd: the least element must step up, and only an
+    odd value does — an even `2m` steps down to `m`. -/
+theorem cycle_min_odd {n k : ℕ} (hk : 1 ≤ k)
+    (hmin : ∀ i, i ≤ k → n ≤ col^[i] n) (hn : 1 ≤ n) : n % 2 = 1 := by
+  by_contra hodd
+  have heven : n % 2 = 0 := by omega
+  obtain ⟨m, hm⟩ : ∃ m, n = 2 * m := ⟨n / 2, by omega⟩
+  have h1 : n ≤ col^[1] n := hmin 1 hk
+  rw [Function.iterate_one, hm, col_two_mul] at h1
+  omega
+
 /-- Every preimage is one of the two, and the odd one forces `m ≡ 2 (mod 3)`. -/
 theorem preimage_cases {n m : ℕ} (h : col n = m) :
     n = 2 * m ∨ ∃ t, n = 2 * t + 1 ∧ m = 3 * t + 2 := by
