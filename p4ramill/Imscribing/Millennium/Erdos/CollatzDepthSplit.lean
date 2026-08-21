@@ -149,6 +149,21 @@ theorem col_iterate_pred_two_pow (k : ℕ) : col^[k] (2 ^ k - 1) = 3 ^ k - 1 := 
   have h := col_iterate_all_ones k k (le_refl k)
   simpa using h
 
+/-- **No positive integer follows the survivor spine.**  To sit in the all-odd survivor class
+    `2^k - 1` at every scale is to have `n \equiv 2^k - 1 \pmod{2^k}` for all `k`, i.e.
+    `2^k \mid n+1` for all `k` --- impossible for a fixed integer, since `n+1` is below `2^k`
+    once `k` is large.  The spine is the `2`-adic `-1`, and it haunts the tree without ever
+    landing on an integer. -/
+theorem no_integer_follows_spine (n : ℕ) : ¬ (∀ k, n % 2 ^ k = 2 ^ k - 1) := by
+  intro h
+  have hk := h (n + 1)
+  have hlt : n < 2 ^ n := Nat.lt_two_pow_self
+  have hle : 2 ^ n ≤ 2 ^ (n + 1) := Nat.pow_le_pow_right (by norm_num) (by omega)
+  have hnlt : n < 2 ^ (n + 1) := lt_of_lt_of_le hlt hle
+  rw [Nat.mod_eq_of_lt hnlt] at hk
+  have hpos : 1 ≤ 2 ^ n := Nat.one_le_two_pow
+  omega
+
 /-! ## The depth-4, -5 and -6 classes, computed -/
 
 theorem col4_16t3 (t : ℕ) : col^[4] (16 * t + 3) = 9 * t + 2 := by
