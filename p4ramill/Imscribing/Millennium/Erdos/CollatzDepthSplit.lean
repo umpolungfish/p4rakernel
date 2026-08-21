@@ -4165,4 +4165,45 @@ theorem cnt_predStep_mod_pow (L : Finset ℕ) (r c b t : ℕ)
   rfl
 
 
+/-! ### Why the alternation reaches every conductor
+
+The measured lag-2 return is not a coincidence of the tree: the class mod `3^r`
+DETERMINES the class mod 3, so the conductor-3 profile is a projection of every finer
+one, and `imbalance_recursion`'s per-level sign is inherited wholesale.  That is the
+content the autocorrelation is seeing.  The measurement itself — peaks `0.7375`,
+`0.7995`, `0.6979` at lag 2 for conductors 9, 27, 81, nothing at the doubling order —
+is a finite-range observation and stays a measurement; this is the part that is a
+theorem. -/
+
+/-- Each conductor-3 count is the sum of the `3^(r-1)` classes above it: the fine
+    profile projects onto the coarse one, exactly. -/
+theorem cnt_three_eq_sum_pow (L : Finset ℕ) (s c : ℕ) (hc : c < 3) :
+    cnt 3 c L = ∑ j ∈ Finset.range (3 ^ s), cnt (3 ^ (s + 1)) (c + 3 * j) L := by
+  have hM : 0 < 3 ^ s := pow_pos (by norm_num) s
+  have hpow : 3 ^ (s + 1) = 3 * 3 ^ s := by rw [pow_succ]; ring
+  unfold cnt
+  rw [← Finset.card_biUnion]
+  · refine congrArg Finset.card (Finset.ext fun m => ?_)
+    simp only [Finset.mem_filter, Finset.mem_biUnion, Finset.mem_range]
+    constructor
+    · rintro ⟨hmL, h3⟩
+      refine ⟨(m % 3 ^ (s + 1)) / 3, ?_, hmL, ?_⟩
+      · have hlt : m % 3 ^ (s + 1) < 3 * 3 ^ s := by rw [← hpow]; exact Nat.mod_lt _ (by positivity)
+        omega
+      · have hmm : m % 3 ^ (s + 1) % 3 = m % 3 := by
+          rw [hpow, Nat.mod_mul_right_mod]
+        omega
+    · rintro ⟨j, _, hmL, hj⟩
+      refine ⟨hmL, ?_⟩
+      have hmm : m % 3 ^ (s + 1) % 3 = m % 3 := by rw [hpow, Nat.mod_mul_right_mod]
+      omega
+  · intro a _ b _ hab
+    simp only [Function.onFun]
+    rw [Finset.disjoint_left]
+    intro x hx hy
+    have h1 := (Finset.mem_filter.mp hx).2
+    have h2 := (Finset.mem_filter.mp hy).2
+    omega
+
+
 end CollatzDepthSplit
