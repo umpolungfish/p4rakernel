@@ -27,7 +27,9 @@ lemma odd_positive {n : ℕ} (hn : n ≥ 1) : (3 * n + 1) / 2 ≥ 1 := by
     exact h₃
   exact h₁
 
-lemma col_one : col 1 = 1 := by norm_num [col, Nat.even_iff]
+-- 1 is odd, so the shortcut map sends it to (3·1+1)/2 = 2, and 2 back to 1: the
+-- terminal two-cycle, not a fixed point.
+lemma col_one : col 1 = 2 := by norm_num [col, Nat.even_iff]
 lemma col_two : col 2 = 1 := by norm_num [col, Nat.even_iff]
 
 -- Even numbers contract: col(n) = n/2 < n for n ≥ 2

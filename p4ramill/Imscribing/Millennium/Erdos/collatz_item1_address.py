@@ -2,7 +2,10 @@
 
 Every word here was run through
   /home/mrnob0dy666/imsgct/mOMonadOS/run_hosted_cmds.sh 'imasm derive <word>'
-and the tuple read off.  Nothing is asserted that was not derived.
+and the tuple read off.  Nothing is asserted that was not derived.  Re-derived
+2026-08-21 after Dimensionality ⊢ and Topology ⊣ were given the R2 fields they are
+named for (mOMonadOS b683fe9), which moved ⊢ 𐑦 -> 𐑛 on every word carrying one
+FSPLIT/FFUSE pair.
 
 TWO INDEPENDENT LEVERS, four addresses.
 
@@ -13,22 +16,27 @@ TWO INDEPENDENT LEVERS, four addresses.
      any one missing     ⋈ = 𐑞 (2), ⊙ = 𐑣 (3)
 
    Nothing else touches these two slots.  Reordering at a FIXED CUT does nothing,
-   multiplicity does nothing -- ⋈, ⊙, ◻, ∈∋, ⊤⊥ all doubled, no change -- and dropping
-   ≻, ≺, ◻, ⊢, ⊣, or ⊙ itself does nothing.
+   and dropping ≻, ≺, ◻, ⊢, ⊣, or ⊙ itself does nothing.  Multiplicity does nothing
+   at ⋈, ⊙, ◻ and ⊤⊥ -- but see lever 3, which ∈∋ doubled now moves.
 
 2. ROTAT.  The address is NOT rotation-invariant, and the first version of this file
    said it was.  That claim came from deriving every variant cut at ⊢, which measures
    the cut and not the word -- the ring rule, exactly.  Cycled, item 1'
    ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣ splits 7/5 over its twelve rotations:
 
-     k = 0,1,2 and 8..11   ≻ = 𐑾, ≺ = 𐑹, ◻ = 𐑭     crystal 16404190
-     k = 3..7              ≻ = 𐑽, ≺ = 𐑯, ◻ = 𐑴     crystal 16144989
+     k = 0,1,2 and 8..11   ≻ = 𐑾, ≺ = 𐑹, ◻ = 𐑭     crystal 3442270
+     k = 3..7              ≻ = 𐑽, ≺ = 𐑯, ◻ = 𐑴     crystal 3183069
 
-   and ⊢⊙∈⊞⊤⋈≻≺∋◻⊣ splits the same way, 16389838 against 16130637, the same three
+   and ⊢⊙∈⊞⊤⋈≻≺∋◻⊣ splits the same way, 3427918 against 3168717, the same three
    slots taking the same two values.  The phase flips exactly when the cut falls INSIDE
    the evaluation region ≻⊤≺⊥∋.
 
-Invariant across the whole orbit and both levers: ⊢ 𐑦, ⊣ 𐑶, ⊤ 𐑘, ∈ 𐑔, ∋ 𐑠, ⊥ 𐑫, ⊞ 𐑳.
+3. The FORK COUNT.  Dimensionality ⊢ reads `atomic_reentry` -- exactly one FSPLIT and
+   one FFUSE, a point-like fork -- so every word here takes ⊢ 𐑛 except ⊢⊙∈∈⊞⊤⊥≺∋∋⋈◻⊣,
+   which carries two pairs and keeps ⊢ 𐑦.  It is the one place multiplicity moves the
+   address, and it is why ∈∋ doubled is not in the "does nothing" list above.
+
+Invariant across the whole orbit and both levers: ⊢ 𐑛, ⊣ 𐑶, ⊤ 𐑘, ∈ 𐑲, ∋ 𐑠, ⊥ 𐑫, ⊞ 𐑳.
 
 So item 1's exceptional-point criticality is not an artefact of phrasing -- the ∃k is
 not what puts it there, since dropping ≻ and ≺ at a fixed cut leaves ⊙ alone -- but the
@@ -41,60 +49,60 @@ readouts.
 
 DERIVED = [
     # word,                          tuple,                        crystal
-    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣",   "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # item 1'
-    ("⊢⊙∈⊞⊤⊥≺∋⋈◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # mod-9 holder-first
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻⊣",   "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # collatzcombo, repaired
-    ("⊢⊙∈⊤⊥≺∋⋈⊞◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊢⊙∈⊤≺⊥∋⋈≻⊞◻⊣",   "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊢⊙∈≻⊤⊥≺∋⋈⊞◻⊣",   "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊢⊙∈⊞⊤⊥⋈⋈≻≺∋◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⋈ doubled
-    ("⊢⊙⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⊙ doubled
-    ("⊢∈⊞⊤⊥⋈≻≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⊙ dropped
-    ("⊢⊙∈⊞⊤⊥≺∋⋈◻◻⊣",   "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ◻ doubled
-    ("⊢⊙∈∈⊞⊤⊥≺∋∋⋈◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ∈∋ doubled
-    ("⊢⊙∈⊞⊤⊤⊥⊥≺∋⋈◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⊤⊥ doubled
-    ("⊢⊙∈⊞⊤⊥⋈≻∋◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ≺ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ≻ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ◻ dropped
-    ("⊙∈⊞⊤⊥⋈≻≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⊢ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻",     "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),  # ⊣ dropped
+    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # item 1'
+    ("⊢⊙∈⊞⊤⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # mod-9 holder-first
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # collatzcombo, repaired
+    ("⊢⊙∈⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊢⊙∈⊤≺⊥∋⋈≻⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊢⊙∈≻⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊢⊙∈⊞⊤⊥⋈⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⋈ doubled
+    ("⊢⊙⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊙ doubled
+    ("⊢∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊙ dropped
+    ("⊢⊙∈⊞⊤⊥≺∋⋈◻◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ◻ doubled
+    ("⊢⊙∈∈⊞⊤⊥≺∋∋⋈◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 16402270),  # ∈∋ doubled
+    ("⊢⊙∈⊞⊤⊤⊥⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊤⊥ doubled
+    ("⊢⊙∈⊞⊤⊥⋈≻∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ≺ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ≻ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ◻ dropped
+    ("⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊢ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊣ dropped
     # the two addresses part exactly here:
-    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),  # ⊥ dropped
-    ("⊢⊙∈⊞⊥⋈≻≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),  # ⊤ dropped
-    ("⊢⊙∈⊤⊥⋈≻≺∋◻⊣",     "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),  # ⊞ dropped
-    ("⊢⊙∈⊤⋈∋◻⊞≺⋈⊣",     "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),  # the kernel's wound word
+    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊥ dropped
+    ("⊢⊙∈⊞⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊤ dropped
+    ("⊢⊙∈⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊞ dropped
+    ("⊢⊙∈⊤⋈∋◻⊞≺⋈⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # the kernel's wound word
 ]
 
 # The cycled readouts: word, tuple, crystal, for every rotation of two words.
 ROTAT_ORBIT = [
-    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊙∈≻⊤≺⊥∋⋈⊞◻⊣⊢", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("∈≻⊤≺⊥∋⋈⊞◻⊣⊢⊙", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("≻⊤≺⊥∋⋈⊞◻⊣⊢⊙∈", "𐑦𐑶𐑽𐑯𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑴", 16144989),
-    ("⊤≺⊥∋⋈⊞◻⊣⊢⊙∈≻", "𐑦𐑶𐑽𐑯𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑴", 16144989),
-    ("≺⊥∋⋈⊞◻⊣⊢⊙∈≻⊤", "𐑦𐑶𐑽𐑯𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑴", 16144989),
-    ("⊥∋⋈⊞◻⊣⊢⊙∈≻⊤≺", "𐑦𐑶𐑽𐑯𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑴", 16144989),
-    ("∋⋈⊞◻⊣⊢⊙∈≻⊤≺⊥", "𐑦𐑶𐑽𐑯𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑴", 16144989),
-    ("⋈⊞◻⊣⊢⊙∈≻⊤≺⊥∋", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊞◻⊣⊢⊙∈≻⊤≺⊥∋⋈", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("◻⊣⊢⊙∈≻⊤≺⊥∋⋈⊞", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊣⊢⊙∈≻⊤≺⊥∋⋈⊞◻", "𐑦𐑶𐑾𐑹𐑐𐑘𐑔𐑠𐑻𐑫𐑳𐑭", 16404190),
-    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
-    ("⊙∈⊞⊤⋈≻≺∋◻⊣⊢", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
-    ("∈⊞⊤⋈≻≺∋◻⊣⊢⊙", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
-    ("⊞⊤⋈≻≺∋◻⊣⊢⊙∈", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("⊤⋈≻≺∋◻⊣⊢⊙∈⊞", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("⋈≻≺∋◻⊣⊢⊙∈⊞⊤", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("≻≺∋◻⊣⊢⊙∈⊞⊤⋈", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("≺∋◻⊣⊢⊙∈⊞⊤⋈≻", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("∋◻⊣⊢⊙∈⊞⊤⋈≻≺", "𐑦𐑶𐑽𐑯𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑴", 16130637),
-    ("◻⊣⊢⊙∈⊞⊤⋈≻≺∋", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
-    ("⊣⊢⊙∈⊞⊤⋈≻≺∋◻", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
+    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊙∈≻⊤≺⊥∋⋈⊞◻⊣⊢", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("∈≻⊤≺⊥∋⋈⊞◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("≻⊤≺⊥∋⋈⊞◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
+    ("⊤≺⊥∋⋈⊞◻⊣⊢⊙∈≻", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
+    ("≺⊥∋⋈⊞◻⊣⊢⊙∈≻⊤", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
+    ("⊥∋⋈⊞◻⊣⊢⊙∈≻⊤≺", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
+    ("∋⋈⊞◻⊣⊢⊙∈≻⊤≺⊥", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
+    ("⋈⊞◻⊣⊢⊙∈≻⊤≺⊥∋", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊞◻⊣⊢⊙∈≻⊤≺⊥∋⋈", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("◻⊣⊢⊙∈≻⊤≺⊥∋⋈⊞", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊣⊢⊙∈≻⊤≺⊥∋⋈⊞◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
+    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
+    ("⊙∈⊞⊤⋈≻≺∋◻⊣⊢", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
+    ("∈⊞⊤⋈≻≺∋◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
+    ("⊞⊤⋈≻≺∋◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("⊤⋈≻≺∋◻⊣⊢⊙∈⊞", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("⋈≻≺∋◻⊣⊢⊙∈⊞⊤", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("≻≺∋◻⊣⊢⊙∈⊞⊤⋈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("≺∋◻⊣⊢⊙∈⊞⊤⋈≻", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("∋◻⊣⊢⊙∈⊞⊤⋈≻≺", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
+    ("◻⊣⊢⊙∈⊞⊤⋈≻≺∋", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
+    ("⊣⊢⊙∈⊞⊤⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
 ]
 
 # The four verbs over item 1's twelve cuts, run through run_hosted_cmds.sh.
 # banked / weight / insert partition the orbit 4/2/6, which is NOT the crystal's 7/5:
-# k = 8,9,10 sit at 16404190 and are vacuous.  Same IG type, different token content --
+# k = 8,9,10 sit at 3442270 and are vacuous.  Same IG type, different token content --
 # the token algebra is finer than the crystal, measured here rather than cited.
 # trans is fully rotation-invariant: ring 12, linear 11 at every cut, only the closing
 # edge label moves.
@@ -122,8 +130,8 @@ if __name__ == "__main__":
         full = all(g in w for g in TRIPLE)
         print(f"{w:<28} {t[4]:>3} {t[8]:>3} {c:>10}  {full}")
     bad = [(w, t, c) for w, t, c in DERIVED
-           if (all(g in w for g in TRIPLE)) != (c == 16404190)]
-    print(f"\nfixed cut at ⊢: counterexamples to 'full triple <-> 16404190': {len(bad)}")
+           if (all(g in w for g in TRIPLE)) != (t[4] == "𐑐" and t[8] == "𐑻")]
+    print(f"\nfixed cut at ⊢: counterexamples to 'full triple <-> ⋈𐑐 ⊙𐑻': {len(bad)}")
 
     print("\nROTAT orbit — the address is PHASE-BEARING:")
     print(f"  {'rotation':<28} {'≻':>3} {'≺':>3} {'◻':>3} {'crystal':>10}")
@@ -140,6 +148,6 @@ if __name__ == "__main__":
     for k, w, b, f, dcr, ins, sur in VERBS:
         print(f"  {k:>2} {b:<8} {f:<5} {dcr:<7} {ins:<10} {sur}")
     banks = [k for k, *_ , in VERBS if _[0] == "OK"] if False else [v[0] for v in VERBS if v[2] == "OK"]
-    print(f"\n  banks at cuts {banks};  crystal 16404190 at cuts "
-          f"{[i for i, (w, t, c) in enumerate(ROTAT_ORBIT[:12]) if c == 16404190]}")
+    print(f"\n  banks at cuts {banks};  crystal 3442270 at cuts "
+          f"{[i for i, (w, t, c) in enumerate(ROTAT_ORBIT[:12]) if c == 3442270]}")
     print("  the two partitions differ -- token algebra finer than the crystal")
