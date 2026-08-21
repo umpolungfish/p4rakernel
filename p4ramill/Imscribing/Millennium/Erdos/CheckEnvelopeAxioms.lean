@@ -1,8 +1,5 @@
 import Imscribing.Millennium.Erdos.CollatzDepthSplit
 open CollatzDepthSplit
-#print axioms CollatzDepthSplit.singleEven_survives_iff
-#print axioms CollatzDepthSplit.singleEven_survivor_count
-#print axioms CollatzDepthSplit.cnt_predStep_one
-#print axioms CollatzDepthSplit.cnt_predStep_two
 #print axioms CollatzDepthSplit.imbalance_recursion
-#print axioms CollatzDepthSplit.imbalance_two_step
+#print axioms CollatzDepthSplit.cnt_predStep_mod_nine
+#print axioms CollatzDepthSplit.cnt_three_eq_sum_nine
