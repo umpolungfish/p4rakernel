@@ -15,7 +15,12 @@ BASE="$(basename "$LIFT" .lean)"
 OUT="${BASE#Lift}"
 VOX="${VOX:-$HOME/imsgct/Vox/target/release/vox}"
 
-lake env lean "$LIFT" 2>/dev/null > "sweep/words${OUT}.tsv"
+lake env lean "$LIFT" 2>/dev/null > "sweep/.raw${OUT}.tsv"
+# Declarations the lift could not read, or that the length cap discarded, are
+# reported by the lift as `#skip` lines. They are split out here rather than
+# left to vanish: a name missing from the sweep must never be silent.
+grep    '^#skip' "sweep/.raw${OUT}.tsv" > "sweep/skipped${OUT}.tsv" || true
+grep -v '^#skip' "sweep/.raw${OUT}.tsv" > "sweep/words${OUT}.tsv"
 cut -f1,2 "sweep/words${OUT}.tsv" > "sweep/.w.tsv"
 "$VOX" verdict --tsv "sweep/.w.tsv" > "sweep/verdicts${OUT}.tsv"
 rm -f "sweep/.w.tsv"

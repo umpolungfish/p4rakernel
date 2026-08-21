@@ -1,5 +1,4 @@
 import Imscribing.Millennium.Erdos.CollatzDepthSplit
 open CollatzDepthSplit
-#print axioms CollatzDepthSplit.double_inj_mod_pow
-#print axioms CollatzDepthSplit.junction_mod_pow_succ
+#print axioms CollatzDepthSplit.cnt_three_eq_sum_pow
 #print axioms CollatzDepthSplit.cnt_predStep_mod_pow
