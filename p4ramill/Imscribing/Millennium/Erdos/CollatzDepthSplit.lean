@@ -3939,18 +3939,18 @@ theorem oddArm_injOn (L : Finset ℕ) :
   omega
 
 /-- The doubling arm's contribution to a class mod 3 is the swapped class. -/
-theorem cnt_double_arm (L : Finset ℕ) (c d : ℕ) (h : ∀ m : ℕ, (2 * m) % 3 = c ↔ m % 3 = d) :
-    ((L.image (fun m => 2 * m)).filter (fun x => x % 3 = c)).card = cnt 3 d L := by
+theorem cnt_double_arm (L : Finset ℕ) (r c d : ℕ) (h : ∀ m : ℕ, (2 * m) % r = c ↔ m % r = d) :
+    ((L.image (fun m => 2 * m)).filter (fun x => x % r = c)).card = cnt r d L := by
   rw [Finset.filter_image]
   rw [Finset.card_image_of_injective _ (fun a b hab => by omega)]
   unfold cnt
   exact congrArg Finset.card (Finset.filter_congr (fun m _ => by simp [h m]))
 
 /-- The odd arm's contribution to a class mod 3 is a class mod 9. -/
-theorem cnt_odd_arm (L : Finset ℕ) (c e : ℕ)
-    (h : ∀ m : ℕ, (m % 3 = 2 ∧ (2 * (m / 3) + 1) % 3 = c) ↔ m % 9 = e) :
+theorem cnt_odd_arm (L : Finset ℕ) (r s c e : ℕ)
+    (h : ∀ m : ℕ, (m % 3 = 2 ∧ (2 * (m / 3) + 1) % r = c) ↔ m % s = e) :
     (((L.filter (fun m => m % 3 = 2)).image (fun m => 2 * (m / 3) + 1)).filter
-        (fun x => x % 3 = c)).card = cnt 9 e L := by
+        (fun x => x % r = c)).card = cnt s e L := by
   rw [Finset.filter_image, Finset.card_image_of_injOn]
   · unfold cnt
     rw [Finset.filter_filter]
@@ -3963,7 +3963,7 @@ theorem cnt_predStep_one (L : Finset ℕ) :
   unfold cnt predStep
   rw [Finset.filter_union, Finset.card_union_of_disjoint
     (Finset.disjoint_filter_filter (predStep_disjoint L))]
-  rw [cnt_double_arm L 1 2 (fun m => by omega), cnt_odd_arm L 1 2 (fun m => by omega)]
+  rw [cnt_double_arm L 3 1 2 (fun m => by omega), cnt_odd_arm L 3 9 1 2 (fun m => by omega)]
   rfl
 
 /-- Class 2 of the next level: the class-1 part doubled, plus the mod-9 class 8. -/
@@ -3972,7 +3972,7 @@ theorem cnt_predStep_two (L : Finset ℕ) :
   unfold cnt predStep
   rw [Finset.filter_union, Finset.card_union_of_disjoint
     (Finset.disjoint_filter_filter (predStep_disjoint L))]
-  rw [cnt_double_arm L 2 1 (fun m => by omega), cnt_odd_arm L 2 8 (fun m => by omega)]
+  rw [cnt_double_arm L 3 2 1 (fun m => by omega), cnt_odd_arm L 3 9 2 8 (fun m => by omega)]
   rfl
 
 /-- **The conductor-three imbalance identity.**  `I_{d+1} = −I_d + (m₂ − m₈)`:
@@ -3996,5 +3996,74 @@ theorem imbalance_two_step (L : Finset ℕ) :
   rw [imbalance_recursion (predStep L), imbalance_recursion L]
   ring
 
+
+/-! ### The whole conductor-nine profile, not the difference
+
+The Grammar refused the difference taken on its own.  Asked as *compute `m₂ − m₈`,
+then clear it against the level*, the word `⊢⊙⊞⊤⊥≺∈∋⋈◻⊣` loses four units in the
+open at the clear and verdicts N — the item-6 leak exactly.  Moving the
+multiplicity inside the frame that holds the level, `⊢⊙∈⊞⊤⊥≺∋⋈◻⊣`, restores all
+four, `cleared 4 restored 4`, lands on A and verdicts T, and `insert` reports it
+already holds.  So the carried object is the WHOLE profile mod 9, and the
+difference is read off it rather than bounded on its own.
+
+Each class is fed by exactly two sources, and both are already named: the doubling
+arm by one class mod 9, since `2·5 ≡ 1` inverts it (`inv_two_mod_nine`), and the odd
+arm by one class mod 27 (`oddSource`, `oddSource_feeds`).  That is the digit the
+level costs, appearing as the modulus of the second term rather than as a loss. -/
+
+/-- **The conductor-nine profile transfer.**  Each class mod 9 of the next level is
+    one class mod 9 of this one through the doubling arm, plus one class mod 27
+    through the odd arm.  Verified over all nine classes to depth 33 before proof. -/
+theorem cnt_predStep_mod_nine (L : Finset ℕ) (c : ℕ) (hc : c < 9) :
+    cnt 9 c (predStep L) = cnt 9 ((5 * c) % 9) L + cnt 27 (oddSource c) L := by
+  have harm : ∀ e f : ℕ,
+      (∀ m : ℕ, (2 * m) % 9 = c ↔ m % 9 = e) →
+      (∀ m : ℕ, (m % 3 = 2 ∧ (2 * (m / 3) + 1) % 9 = c) ↔ m % 27 = f) →
+      cnt 9 c (predStep L) = cnt 9 e L + cnt 27 f L := by
+    intro e f he hf
+    unfold cnt predStep
+    rw [Finset.filter_union, Finset.card_union_of_disjoint
+      (Finset.disjoint_filter_filter (predStep_disjoint L))]
+    rw [cnt_double_arm L 9 c e he, cnt_odd_arm L 9 27 c f hf]
+    rfl
+  unfold oddSource
+  interval_cases c <;>
+    exact harm _ _ (fun m => by omega) (fun m => by omega)
+
+/-- The imbalance read off the profile: classes 1 and 2 mod 3 are classes
+    `1, 4, 7` and `2, 5, 8` mod 9, so the conductor-three identity is the
+    conductor-nine profile summed. -/
+theorem cnt_three_eq_sum_nine (L : Finset ℕ) (c : ℕ) (hc : c < 3) :
+    cnt 3 c L = cnt 9 c L + cnt 9 (c + 3) L + cnt 9 (c + 6) L := by
+  unfold cnt
+  have hsplit : L.filter (fun m => m % 3 = c)
+      = (L.filter (fun m => m % 9 = c) ∪ L.filter (fun m => m % 9 = c + 3))
+        ∪ L.filter (fun m => m % 9 = c + 6) := by
+    ext m
+    simp only [Finset.mem_filter, Finset.mem_union]
+    constructor
+    · rintro ⟨hm, h3⟩
+      have : m % 9 = c ∨ m % 9 = c + 3 ∨ m % 9 = c + 6 := by omega
+      rcases this with h | h | h
+      · exact Or.inl (Or.inl ⟨hm, h⟩)
+      · exact Or.inl (Or.inr ⟨hm, h⟩)
+      · exact Or.inr ⟨hm, h⟩
+    · rintro ((⟨hm, h⟩ | ⟨hm, h⟩) | ⟨hm, h⟩) <;> exact ⟨hm, by omega⟩
+  have d1 : Disjoint (L.filter (fun m => m % 9 = c)) (L.filter (fun m => m % 9 = c + 3)) := by
+    rw [Finset.disjoint_left]
+    intro x hx hy
+    have h1 := (Finset.mem_filter.mp hx).2
+    have h2 := (Finset.mem_filter.mp hy).2
+    omega
+  have d2 : Disjoint (L.filter (fun m => m % 9 = c) ∪ L.filter (fun m => m % 9 = c + 3))
+      (L.filter (fun m => m % 9 = c + 6)) := by
+    rw [Finset.disjoint_left]
+    intro x hx hy
+    have h2 := (Finset.mem_filter.mp hy).2
+    rcases Finset.mem_union.mp hx with h | h <;>
+      · have h1 := (Finset.mem_filter.mp h).2
+        omega
+  rw [hsplit, Finset.card_union_of_disjoint d2, Finset.card_union_of_disjoint d1]
 
 end CollatzDepthSplit
