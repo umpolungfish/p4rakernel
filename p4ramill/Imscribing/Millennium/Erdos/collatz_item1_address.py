@@ -92,6 +92,28 @@ ROTAT_ORBIT = [
     ("⊣⊢⊙∈⊞⊤⋈≻≺∋◻", "𐑦𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭", 16389838),
 ]
 
+# The four verbs over item 1's twelve cuts, run through run_hosted_cmds.sh.
+# banked / weight / insert partition the orbit 4/2/6, which is NOT the crystal's 7/5:
+# k = 8,9,10 sit at 16404190 and are vacuous.  Same IG type, different token content --
+# the token algebra is finer than the crystal, measured here rather than cited.
+# trans is fully rotation-invariant: ring 12, linear 11 at every cut, only the closing
+# edge label moves.
+VERBS = [
+    # k, rotation,          banked,    final, dep/clr/rst, insert,       surviving
+    (0,  "⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "OK",      "A",   "3/1/1", "holds",      "T,F,t,f"),
+    (1,  "⊙∈≻⊤≺⊥∋⋈⊞◻⊣⊢", "OK",      "A",   "3/1/1", "holds",      "T,F,t,f"),
+    (2,  "∈≻⊤≺⊥∋⋈⊞◻⊣⊢⊙", "OK",      "A",   "3/1/1", "holds",      "T,F,t,f"),
+    (3,  "≻⊤≺⊥∋⋈⊞◻⊣⊢⊙∈", "LEAK 1",  "Ftf", "3/1/0", "2 repairs",  "F,t,f"),
+    (4,  "⊤≺⊥∋⋈⊞◻⊣⊢⊙∈≻", "LEAK 1",  "Ftf", "3/1/0", "1 repair",   "F,t,f"),
+    (5,  "≺⊥∋⋈⊞◻⊣⊢⊙∈≻⊤", "VACUOUS", "Ftf", "2/0/0", "vacuous",    "F,t,f"),
+    (6,  "⊥∋⋈⊞◻⊣⊢⊙∈≻⊤≺", "VACUOUS", "Ftf", "2/0/0", "vacuous",    "F,t,f"),
+    (7,  "∋⋈⊞◻⊣⊢⊙∈≻⊤≺⊥", "VACUOUS", "tf",  "1/0/0", "vacuous",    "t,f"),
+    (8,  "⋈⊞◻⊣⊢⊙∈≻⊤≺⊥∋", "VACUOUS", "tf",  "1/0/0", "vacuous",    "t,f"),
+    (9,  "⊞◻⊣⊢⊙∈≻⊤≺⊥∋⋈", "VACUOUS", "tf",  "1/0/0", "vacuous",    "t,f"),
+    (10, "◻⊣⊢⊙∈≻⊤≺⊥∋⋈⊞", "VACUOUS", "T",   "0/0/0", "vacuous",    "none"),
+    (11, "⊣⊢⊙∈≻⊤≺⊥∋⋈⊞◻", "OK",      "A",   "3/1/1", "holds",      "T,F,t,f"),
+]
+
 TRIPLE = ("⊤", "⊥", "⊞")
 
 if __name__ == "__main__":
@@ -112,3 +134,12 @@ if __name__ == "__main__":
     inv = [i for i in range(12)
            if len({t[i] for _, t, _ in ROTAT_ORBIT if len(t) == 12}) == 1]
     print(f"  slots invariant across the whole orbit: {inv}")
+
+    print("\nthe four verbs over the same twelve cuts:")
+    print(f"  {'k':>2} {'banked':<8} {'final':<5} {'d/c/r':<7} {'insert':<10} surviving")
+    for k, w, b, f, dcr, ins, sur in VERBS:
+        print(f"  {k:>2} {b:<8} {f:<5} {dcr:<7} {ins:<10} {sur}")
+    banks = [k for k, *_ , in VERBS if _[0] == "OK"] if False else [v[0] for v in VERBS if v[2] == "OK"]
+    print(f"\n  banks at cuts {banks};  crystal 16404190 at cuts "
+          f"{[i for i, (w, t, c) in enumerate(ROTAT_ORBIT[:12]) if c == 16404190]}")
+    print("  the two partitions differ -- token algebra finer than the crystal")
