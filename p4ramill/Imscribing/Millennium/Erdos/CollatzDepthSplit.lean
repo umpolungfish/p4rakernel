@@ -3607,4 +3607,55 @@ theorem crossings_next : ((3 : ℕ) ^ 2 < 2 ^ 4 ∧ (2 : ℕ) ^ 4 < 3 ^ 3)
     ∧ ((3 : ℕ) ^ 3 < 2 ^ 5 ∧ (2 : ℕ) ^ 5 < 3 ^ 4) := by
   refine ⟨⟨by norm_num, by norm_num⟩, ⟨by norm_num, by norm_num⟩⟩
 
+/-! ### The winding pins the exponent
+
+`winding order` reads the two closure windings this object carries:
+
+    winding_order(2, 3^m) = 2·3^(m−1)      2, 6, 18, 54, 162, 486
+    winding_order(3, 2^k) = 2^(k−2)        2, 4, 8, 16, 32, 64, 128
+
+The second is the one the depth split turns on.  `cycle_banked` rearranges to a
+divisibility with no remainder at all —
+
+    (n + 1) · 3^j  +  bank n k   =   (n + 1) · 2^k
+
+`cycle_congruence` — so `2^k` divides the left side exactly.  Read modulo `2^k` this
+says `(n+1) · 3^j ≡ −bank` there, and `3` has order `2^(k−2)` in that ring, so the
+map `j ↦ 3^j mod 2^k` is injective for `j < 2^(k−2)`.  A cycle has
+`3^j < 2^k`, hence `j < k`, and `k < 2^(k−2)` from `k = 5` on — so the exponent is
+**determined** by the residue data rather than free.
+
+That is what the winding buys: not a bound on `|2^k − 3^j|`, which is item 6, but the
+rigidity of the pair `(j, k)` given `n` and `bank` modulo `2^k`.  `k_lt_two_pow`
+records the range where it bites. -/
+
+/-- The cycle identity as an exact divisibility. -/
+theorem cycle_congruence {n k : ℕ} (hcyc : col^[k] n = n) :
+    ((n : ℤ) + 1) * (3 : ℤ) ^ oddSteps n k + (bank n k : ℤ)
+      = ((n : ℤ) + 1) * (2 : ℤ) ^ k := by
+  have h := cycle_banked hcyc
+  linarith [h]
+
+/-- So `2^k` divides it. -/
+theorem cycle_congruence_dvd {n k : ℕ} (hcyc : col^[k] n = n) :
+    (2 : ℤ) ^ k ∣ ((n : ℤ) + 1) * (3 : ℤ) ^ oddSteps n k + (bank n k : ℤ) := by
+  rw [cycle_congruence hcyc]
+  exact ⟨(n : ℤ) + 1, by ring⟩
+
+/-- From `k = 5` on the depth is below the order of `3` mod `2^k`, which is `2^(k−2)`,
+    so the exponent is pinned by the congruence rather than free. -/
+theorem k_lt_two_pow : ∀ k : ℕ, 5 ≤ k → k < 2 ^ (k - 2) := by
+  intro k hk
+  induction k with
+  | zero => omega
+  | succ k ih =>
+      rcases Nat.lt_or_ge k 5 with hlt | hge
+      · interval_cases k <;> simp_all <;> norm_num
+      · have hk2 : k < 2 ^ (k - 2) := ih (by omega)
+        have hstep : 2 ^ (k - 2) + 2 ^ (k - 2) = 2 ^ (k + 1 - 2) := by
+          have : k + 1 - 2 = (k - 2) + 1 := by omega
+          rw [this, pow_succ]; ring
+        have hpos : 1 ≤ 2 ^ (k - 2) := Nat.one_le_two_pow
+        omega
+
 end CollatzDepthSplit
