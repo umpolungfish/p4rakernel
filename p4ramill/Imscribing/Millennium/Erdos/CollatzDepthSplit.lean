@@ -3469,6 +3469,61 @@ theorem never_contracts_mod_four {n : ℕ} (h : ∀ k, ¬ Contracts k n) : n % 4
     rw [hc2] at hgt; omega
   · exact h3
 
+/-! ### The two halves meet: a bounded never-contracting integer feeds a nontrivial cycle
+
+A never-contracting integer is aperiodic, so it is not itself a cycle; and its whole
+trajectory stays at or above `n`.  If that trajectory is also bounded, the orbit is a finite
+set, so two iterates coincide — pigeonhole — and the value between them is a genuine cycle
+whose every element is `≥ n`.  So a never-contracting integer is either **unbounded**, a true
+divergence, or it flows into a **nontrivial cycle** (minimum `≥ n ≥ 3`, never the `1 ↔ 2`
+cycle).  The divergence obstruction, if bounded, is the cycle obstruction — the two failure
+modes are one, and `cycle_min_le_of_margin` prices the cycle side. -/
+
+/-- A bounded never-contracting integer produces a cycle every element of which is `≥ n`. -/
+theorem never_contracts_bounded_gives_cycle {n : ℕ} (h : ∀ k, ¬ Contracts k n)
+    {M : ℕ} (hM : ∀ k, col^[k] n ≤ M) :
+    ∃ v p, 1 ≤ p ∧ col^[p] v = v ∧ n ≤ v := by
+  have hnM : n ≤ M := by simpa using hM 0
+  obtain ⟨i, _, j, _, hij, heq⟩ :=
+    Finset.exists_ne_map_eq_of_card_lt_of_maps_to
+      (s := Finset.range (M - n + 2)) (t := Finset.Icc n M) (f := fun k => col^[k] n)
+      (by rw [Finset.card_range, Nat.card_Icc]; omega)
+      (by
+        intro k _
+        simp only [Finset.coe_Icc, Set.mem_Icc]
+        exact ⟨survives_all_never_descends h k, hM k⟩)
+  rcases Nat.lt_or_ge i j with hlt | hge
+  · refine ⟨col^[i] n, j - i, by omega, ?_, survives_all_never_descends h i⟩
+    have hj_eq : col^[j - i] (col^[i] n) = col^[j] n := by
+      rw [← Function.iterate_add_apply]; congr 1; omega
+    rw [hj_eq]; exact heq.symm
+  · have hlt : j < i := by omega
+    refine ⟨col^[j] n, i - j, by omega, ?_, survives_all_never_descends h j⟩
+    have hi_eq : col^[i - j] (col^[j] n) = col^[i] n := by
+      rw [← Function.iterate_add_apply]; congr 1; omega
+    rw [hi_eq]; exact heq
+
+/-- **The dichotomy.**  A never-contracting integer is either unbounded — a genuine
+    divergence — or its trajectory enters a nontrivial cycle (an element `≥ 3`, so not the
+    `1 ↔ 2` cycle).  Since a never-contracting integer is `≡ 3 (mod 4)`, hence `≥ 3`, and the
+    cycle it would feed has every element `≥ n`, the cycle is nontrivial.  So the divergence
+    obstruction and the cycle obstruction are not two problems: closing cycles forces every
+    never-contracting integer to diverge, and the never-contracting set is the divergence
+    half's whole integer content. -/
+theorem never_contracts_unbounded_or_nontrivial_cycle {n : ℕ} (h : ∀ k, ¬ Contracts k n) :
+    (∀ M, ∃ k, M < col^[k] n) ∨ (∃ v p, 1 ≤ p ∧ col^[p] v = v ∧ 3 ≤ v) := by
+  by_cases hb : ∃ M, ∀ k, col^[k] n ≤ M
+  · right
+    obtain ⟨M, hM⟩ := hb
+    obtain ⟨v, p, hp, hcyc, hv⟩ := never_contracts_bounded_gives_cycle h hM
+    have h3 : 3 ≤ n := by have := never_contracts_mod_four h; omega
+    exact ⟨v, p, hp, hcyc, by omega⟩
+  · left
+    push_neg at hb
+    intro M
+    obtain ⟨k, hk⟩ := hb M
+    exact ⟨k, hk⟩
+
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
 `cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
