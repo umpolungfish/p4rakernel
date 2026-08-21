@@ -99,9 +99,20 @@ def InTerminalCycle (n : ℕ) : Prop := n = 1 ∨ n = 2 ∨ n = 4
     and the terminal cycle feeds into 1. -/
 def CollatzConjecture' : Prop := ∀ n : ℕ, n > 0 → ∃ k : ℕ, InTerminalCycle (T_iter k n)
 
-/-- These two formulations are equivalent by definitional reduction
-    of InTerminalCycle and the terminal cycle structure. -/
-axiom collatz_equiv_axiom : CollatzConjecture ↔ CollatzConjecture'
+/-- The two formulations are equivalent, and no longer axiomatically: reaching `1` places the
+    orbit in the terminal cycle (left disjunct), and reaching `{1,2,4}` reaches `1` since
+    `4 → 2 → 1`. -/
+theorem collatz_equiv_axiom : CollatzConjecture ↔ CollatzConjecture' := by
+  constructor
+  · intro h n hn
+    obtain ⟨k, hk⟩ := h n hn
+    exact ⟨k, Or.inl hk⟩
+  · intro h n hn
+    obtain ⟨k, hk⟩ := h n hn
+    rcases hk with h1 | h2 | h4
+    · exact ⟨k, h1⟩
+    · exact ⟨k + 1, by show T (T_iter k n) = 1; rw [h2]; decide⟩
+    · exact ⟨k + 2, by show T (T (T_iter k n)) = 1; rw [h4]; decide⟩
 
 theorem collatz_equiv : CollatzConjecture ↔ CollatzConjecture' := collatz_equiv_axiom
 
