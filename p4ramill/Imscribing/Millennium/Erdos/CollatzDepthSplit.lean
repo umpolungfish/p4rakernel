@@ -3771,4 +3771,43 @@ theorem subtreeCount_mod_three_pow (d v : ℕ) :
   conv_lhs => rw [hv]
   exact subtreeCount_period d (v % 3 ^ d) (v / 3 ^ d)
 
+/-! ### Why the share does not bank: a walk banks, a branching does not
+
+The arithmetic banks because it is a walk.  `iterate_banked` tracks `2^i u_i` along one
+orbit: a single register, one deposit per even step, and the inhomogeneity collects
+into `bank`.  The word `∈⊞≺∋` is that shape — one frame, opened, deposited into,
+cleared against, fused.
+
+The share is not a walk.  `subtreeCount v (d+1) = 1 + subtreeCount (2v) d +
+[v ≡ 2 mod 3] subtreeCount (2(v/3)+1) d` calls itself **twice** at a junction, so the
+two arms are live at the same depth, not nested.  A word is linear: `∈∈` opens depth 2
+inside depth 1, never two frames side by side.  Banking is defined on a register that
+one deposit stream feeds; a branching needs two at once.
+
+The inhomogeneous `1` makes it exact.  A shift `subtreeCount v d + c` homogenises the
+barren branch only when `1 − c = 0` and the junction branch only when `1 − 2c = 0`,
+and those have no common solution — `no_uniform_shift`.  So no change of coordinate
+turns the subtree recursion into a walk, the way `u = n + 1` turned the odd arm into
+exactly `×3/2` and made `iterate_banked` possible.
+
+That is the gap between the rigid arithmetic and a fixed share, stated structurally
+rather than as a missing lemma: **the arithmetic is one-dimensional and banks; the
+share branches and cannot.**  It is why the arithmetic is free at every depth while the
+share costs a 3-adic digit per level — `subtreeCount_period` — and why the two readings
+`collatz classes` and `collatz adic` split the way they do. -/
+
+/-- No constant shift homogenises the subtree recursion: the barren branch needs
+    `c = 1`, the junction branch needs `c = 1/2`, and the two are inconsistent. -/
+theorem no_uniform_shift : ¬ ∃ c : ℚ, (1 : ℚ) - c = 0 ∧ (1 : ℚ) - 2 * c = 0 := by
+  rintro ⟨c, h1, h2⟩
+  have : c = 1 := by linarith
+  rw [this] at h2
+  norm_num at h2
+
+/-- The junction branch really is two calls, where the iterate is one. -/
+theorem subtree_branches {v : ℕ} (h : v % 3 = 2) (d : ℕ) :
+    subtreeCount v (d + 1)
+      = 1 + subtreeCount (2 * v) d + subtreeCount (2 * (v / 3) + 1) d := by
+  rw [subtreeCount_succ, if_pos h]
+
 end CollatzDepthSplit
