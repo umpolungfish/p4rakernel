@@ -1,0 +1,4 @@
+Prove that for every natural n > 1 there exists a depth k with
+bank(n,k) < (2^k - 3^(oddSteps n k)) * (n+1), where bank and oddSteps are as
+defined in CollatzDepthSplit.lean. This single statement discharges the Collatz
+conjecture through the already-proved reaches_one_of_banked.
