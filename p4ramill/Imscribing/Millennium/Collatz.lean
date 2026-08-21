@@ -987,21 +987,52 @@ noncomputable def logDensityUpTo (S : ℕ → Prop) (N : ℕ) : ℝ :=
     (∑ n ∈ (Finset.Icc 1 N).filter (fun n => S n), (1 : ℝ) / n) /
       (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n)
 
-/-- Tao's log-density theorem (2019): almost all Collatz orbits are almost
-    bounded. For every `f` tending to infinity, the set of `n` whose orbit
-    dips below `f n` has logarithmic density 1.
-    The proof uses logarithmic density and the Furstenberg correspondence
-    principle; it is not formalised. -/
-axiom tao_log_density_axiom :
-    ∀ f : ℕ → ℝ, Filter.Tendsto f Filter.atTop Filter.atTop →
-      Filter.Tendsto (logDensityUpTo fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n)
-        Filter.atTop (nhds 1)
+/-- The `f`-escaping set: orbits that stay at or above `f n` forever. -/
+def escapesForever (f : ℕ → ℝ) (n : ℕ) : Prop := ∀ k, f n ≤ (T_iter k n : ℝ)
 
-/-- Almost all orbits are almost bounded. -/
+/-- **The complement partition.**  The below-`f` set and the escaping set partition `[1,N]`, so
+    their logarithmic densities sum to one (for `N ≥ 1`). -/
+theorem logDensity_dips_add_escapes (f : ℕ → ℝ) (N : ℕ) (hN : 1 ≤ N) :
+    logDensityUpTo (fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n) N
+      + logDensityUpTo (escapesForever f) N = 1 := by
+  unfold logDensityUpTo
+  have hne : (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n) ≠ 0 := by
+    have hpos : 0 < ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n :=
+      Finset.sum_pos (fun n hn => by
+        have : (0:ℝ) < n := by
+          have := (Finset.mem_Icc.mp hn).1; positivity
+        positivity)
+        (by simp [Finset.nonempty_Icc]; omega)
+    exact ne_of_gt hpos
+  rw [div_add_div_same, div_eq_one_iff_eq hne]
+  have hcong : (Finset.Icc 1 N).filter (escapesForever f)
+      = (Finset.Icc 1 N).filter (fun n => ¬ ∃ k : ℕ, (T_iter k n : ℝ) < f n) := by
+    apply Finset.filter_congr
+    intro n _; simp only [escapesForever, not_exists, not_lt]
+  rw [hcong, Finset.sum_filter_add_sum_filter_not]
+
+/-- **Tao's analytic core (2019).**  For every `f` tending to infinity, the `f`-escaping set has
+    logarithmic density zero — almost no orbit stays above `f n` forever.  This is the log-density
+    sibling of the null escaping set proved for the shortcut map in `CollatzDepthSplit`
+    (`measure_escape_zero`, on the 2-adic Haar measure); here it is the single named analytic input,
+    the heart of the proof by logarithmic density and the Furstenberg correspondence. -/
+axiom tao_escape_density_zero :
+    ∀ f : ℕ → ℝ, Filter.Tendsto f Filter.atTop Filter.atTop →
+      Filter.Tendsto (logDensityUpTo (escapesForever f)) Filter.atTop (nhds 0)
+
+/-- **Almost all orbits are almost bounded** — discharged from the escaping-density core by the
+    complement: the below-`f` density is one minus the escaping density, and `1 - 0 = 1`. -/
 theorem tao_log_density (f : ℕ → ℝ) (hf : Filter.Tendsto f Filter.atTop Filter.atTop) :
     Filter.Tendsto (logDensityUpTo fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n)
-      Filter.atTop (nhds 1) :=
-  tao_log_density_axiom f hf
+      Filter.atTop (nhds 1) := by
+  have hz := tao_escape_density_zero f hf
+  have hlim : Filter.Tendsto (fun N => 1 - logDensityUpTo (escapesForever f) N)
+      Filter.atTop (nhds (1 - 0)) := Filter.Tendsto.const_sub 1 hz
+  rw [sub_zero] at hlim
+  refine hlim.congr' ?_
+  filter_upwards [Filter.eventually_ge_atTop 1] with N hN
+  have := logDensity_dips_add_escapes f N hN
+  linarith
 
 -- ============================================================
 -- §8  Closing — The Supercritical Vessel
