@@ -3810,4 +3810,91 @@ theorem subtree_branches {v : ℕ} (h : v % 3 = 2) (d : ℕ) :
       = 1 + subtreeCount (2 * v) d + subtreeCount (2 * (v / 3) + 1) d := by
   rw [subtreeCount_succ, if_pos h]
 
+/-! ### The envelope of the survivor band, and where the count stops being carried
+
+Survival reads a prefix condition: `r` survives to `k` exactly when every prefix
+depth `i ≤ k` has `2^i ≤ 3^(oddSteps r i)`.  A prefix condition is what ROTAT
+prices, so the question is whether the number of surviving rotations inside one
+rotation class is a function of the LEVEL `(k, j)` or of the WORD.
+
+Measured to `k = 24` (`collatz_first_passage_rotation.py`,
+`collatz_rotation_slack.py`, beside this file): it is carried on the two envelope
+rows and nowhere below them.
+
+* `j = k` — all `k` rotations survive.  That is `oddSteps_all_ones_le`.
+* `j = k - 1` — exactly `k - 2` survive, and the two that fail are exactly the
+  rotations placing the single even step first or second.  That is
+  `singleEven_survives_iff` below, whose whole content is the arithmetic fact
+  `2^i ≤ 3^(i-1) ↔ 3 ≤ i`.
+* `j ≤ k - 2` — NOT carried.  The spread inside a single `(k, j)` row is 1 at
+  `k = 6`, 2 at `k = 9`, 3 at `k = 15`, and the word-dependent rows run over slack
+  `0.26 … 6.19`, so no slack threshold separates them: the proved dichotomy
+  `survives_succ_of_slack` / `contracts_succ_of_even_step` does not govern this.
+
+So the cycle lemma prices the envelope and stops.  In the interior the count
+belongs to the word rather than to the level, which is why the rotation operator
+cannot supply the existential depth item 1' asks for — and it is the contrast with
+`card_predStep`, where the branch count provably belongs to the level. -/
+
+/-- Survival as the prefix condition it is. -/
+theorem survives_iff_le (k r : ℕ) :
+    Survives k r ↔ ∀ i, i ≤ k → 2 ^ i ≤ 3 ^ oddSteps r i := by
+  constructor
+  · intro h i hi
+    have := h i hi
+    unfold Contracts at this
+    omega
+  · intro h i hi
+    unfold Contracts
+    have := h i hi
+    omega
+
+/-- The arithmetic behind the envelope: one even step is affordable from depth
+    three on, and never before. -/
+theorem two_pow_le_three_pow_pred {i : ℕ} (hi : 3 ≤ i) : 2 ^ i ≤ 3 ^ (i - 1) := by
+  obtain ⟨m, rfl⟩ : ∃ m, i = m + 3 := ⟨i - 3, by omega⟩
+  induction m with
+  | zero => norm_num
+  | succ m ih =>
+      have h : (2:ℕ) ^ (m + 3) ≤ 3 ^ (m + 2) := by simpa using ih (by omega)
+      have : (2:ℕ) ^ (m + 1 + 3) = 2 * 2 ^ (m + 3) := by ring
+      calc (2:ℕ) ^ (m + 1 + 3) = 2 * 2 ^ (m + 3) := this
+        _ ≤ 2 * 3 ^ (m + 2) := by omega
+        _ ≤ 3 * 3 ^ (m + 2) := by omega
+        _ = 3 ^ (m + 1 + 2) := by ring
+
+/-- **The `j = k - 1` envelope row.**  A profile that takes an odd step at every
+    depth except one, the exception falling at depth `p`, survives to `k` exactly
+    when `p ≥ 3`.  The two failing positions are the first and the second, at every
+    `k`: `2 ≤ 1` and `4 ≤ 3` are the whole obstruction. -/
+theorem singleEven_survives_iff {k p r : ℕ} (hp : 1 ≤ p) (hpk : p ≤ k)
+    (hlt : ∀ i, i < p → oddSteps r i = i)
+    (hge : ∀ i, p ≤ i → i ≤ k → oddSteps r i = i - 1) :
+    Survives k r ↔ 3 ≤ p := by
+  rw [survives_iff_le]
+  constructor
+  · intro h
+    have hpp := h p hpk
+    rw [hge p le_rfl hpk] at hpp
+    by_contra hlt3
+    interval_cases p
+    · simp at hpp
+    · norm_num at hpp
+  · intro h3 i hi
+    rcases lt_or_ge i p with hip | hip
+    · rw [hlt i hip]
+      exact Nat.pow_le_pow_left (by norm_num) i
+    · rw [hge i hip hi]
+      exact two_pow_le_three_pow_pred (by omega)
+
+/-- The carried count on that row: of the `k` positions the single even step can
+    occupy, exactly `k - 2` survive. -/
+theorem singleEven_survivor_count {k : ℕ} (hk : 2 ≤ k) :
+    ((Finset.Icc 1 k).filter (fun p => 3 ≤ p)).card = k - 2 := by
+  have : (Finset.Icc 1 k).filter (fun p => 3 ≤ p) = Finset.Icc 3 k := by
+    ext p; simp [Finset.mem_filter, Finset.mem_Icc]; omega
+  rw [this, Nat.card_Icc]
+  omega
+
+
 end CollatzDepthSplit
