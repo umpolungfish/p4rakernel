@@ -4206,4 +4206,49 @@ theorem cnt_three_eq_sum_pow (L : Finset ℕ) (s c : ℕ) (hc : c < 3) :
     omega
 
 
+/-! ### The boundary encodes the bulk, and it costs no digit
+
+The classifier puts item 1' one slot from canonical after the meet, and the slot is
+Topology: `oil`, a lattice, where the canonical wants `are`, holographic — the boundary
+fully encoding the bulk.  The lattice reading is the PROFILE: the level's counts mod
+`3^r`, which the previous level fixes only at mod `3^(r+1)`, one 3-adic digit per level
+(`cnt_predStep_mod_pow`, `junction_mod_pow_succ`).  That ladder never closes at a fixed
+conductor.
+
+But the level as a SET is not lattice-bound, and it recovers the level below it exactly:
+`col` undoes `predStep` on the nose.  The doubling arm's child halves back, and the odd
+arm's child `2t+1` maps to `3t+2`, which is the junction it came from.  Nothing is
+approximated and no conductor appears.
+
+So the digit is a cost of the coordinate, not of the object.  The profile is the lattice
+and pays per level; the level itself is holographic and pays nothing.  Item 1' is stated
+in the coordinate that pays. -/
+
+/-- `col` inverts `predStep` exactly: a level recovers the one below it. -/
+theorem predStep_image_col (L : Finset ℕ) : (predStep L).image col = L := by
+  ext m
+  simp only [Finset.mem_image]
+  constructor
+  · rintro ⟨n, hn, rfl⟩
+    exact mem_predStep_col hn
+  · intro hm
+    refine ⟨2 * m, ?_, col_two_mul m⟩
+    unfold predStep
+    exact Finset.mem_union_left _ (Finset.mem_image_of_mem _ hm)
+
+/-- Hence the whole bulk is read off the boundary: `d` levels up, `col^[d]` brings the
+    level back to where the tree was rooted, with no residue coordinate anywhere. -/
+theorem predStep_iterate_image_col (L : Finset ℕ) :
+    ∀ i, (predStep^[i] L).image (col^[i]) = L := by
+  intro i
+  induction i generalizing L with
+  | zero => simp
+  | succ i ih =>
+      have hcomp : col^[i] ∘ col = col^[i + 1] := by
+        funext x
+        exact (Function.iterate_succ_apply col i x).symm
+      rw [Function.iterate_succ_apply', ← hcomp, ← Finset.image_image,
+        predStep_image_col]
+      exact ih _
+
 end CollatzDepthSplit
