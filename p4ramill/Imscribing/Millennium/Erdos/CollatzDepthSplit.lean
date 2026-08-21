@@ -3378,6 +3378,46 @@ theorem survives_all_not_reaches_one {n : ℕ} (hn : 1 < n) (h : ∀ k, ¬ Contr
   intro k hk
   exact absurd (survives_all_never_descends h k) (by omega)
 
+/-! ### The tree meets the integers exactly at the never-contracting set
+
+An infinite survivor path is a coherent choice of a surviving residue at every scale — a
+2-adic integer.  It is a *positive integer* only when it is eventually constant, and for the
+integer `n` that constant is `n` itself, whose residue `n` survives at every scale exactly
+when `n` contracts at no depth.  So the tree meets ℕ precisely at `{n : ∀k, ¬Contracts k n}`,
+and every other branch — the archetype `2^k - 1`, whose branch is the 2-adic `-1` by
+`col_iterate_pred_two_pow` — carries no integer at all.  This is the divergence half stated
+without the 2-adic red herrings: its whole integer content is the never-contracting set. -/
+
+/-- A positive integer sits on an infinite survivor path iff it contracts at no depth.
+    (`Survives k n` reads `∀ i ≤ k, ¬Contracts i n`; the branch through `n` is the constant
+    one.) -/
+theorem survives_all_iff_never_contracts (n : ℕ) :
+    (∀ k, Survives k n) ↔ (∀ k, ¬ Contracts k n) := by
+  constructor
+  · intro h k; exact h k k (le_refl k)
+  · intro h k i _; exact h i
+
+/-- A never-contracting integer above `1` never reaches `1`: a genuine Collatz
+    counterexample, and by the characterization above the only kind the survivor tree
+    contributes. -/
+theorem never_contracts_ne_one {n : ℕ} (hn : 1 < n) (h : ∀ k, ¬ Contracts k n) (m : ℕ) :
+    col^[m] n ≠ 1 := by
+  have hge := survives_all_never_descends h m
+  omega
+
+/-- **The divergence half, as a statement about integers only.**  If every integer above
+    `1` contracts at some depth, the survivor tree carries no positive-integer branch, and
+    the descent has no survivor-type counterexample.  The bound is one-directional — a
+    counterexample could still contract yet not descend (`descends_iff_banked`), so this
+    removes the never-contracting shape, not every shape — but it is the whole of what the
+    tree sees, and it drops the quotient/bank condition the full descent still carries. -/
+theorem no_survivor_counterexample_of_all_contract
+    (H : ∀ n : ℕ, 1 < n → ∃ k, Contracts k n) :
+    ∀ n : ℕ, 1 < n → ¬ (∀ k, Survives k n) := by
+  intro n hn hsurv
+  obtain ⟨k, hk⟩ := H n hn
+  exact (survives_all_iff_never_contracts n).mp hsurv k hk
+
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
 `cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
