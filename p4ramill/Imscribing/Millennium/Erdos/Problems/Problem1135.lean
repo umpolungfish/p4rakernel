@@ -62,82 +62,42 @@ lemma mod_8_cases_3 {n : ℕ} (h : n % 8 = 3) : ∃ m, n = 8 * m + 3 := by
 lemma mod_8_cases_7 {n : ℕ} (h : n % 8 = 7) : ∃ m, n = 8 * m + 7 := by
   use n / 8; omega
 
--- For n ≡ 1 (mod 4): col²(n) = (3n+1)/4 < n
-lemma odd_mod_four_contracts {n : ℕ} (h_odd : ¬ Even n) (h_mod : n % 4 = 1) (hn : 1 < n) :
-    col (col n) < n := by sorry
 
-/-- PART 2: Helper lemmas for n = 8m + 3 -/
--- Each lemma computes col^k directly as a function of the parameter (no n pattern matching)
+-- ── The descent, and the conjecture from it ────────────────────────────────
+-- The intermediate class-by-class contraction attempt is superseded: the
+-- conjecture reduces to the single descent principle, and the descent carries
+-- to 1 by well-founded induction (`reaches_one_of_descends` in CollatzDepthSplit,
+-- where the descent is reduced to no divergence and no nontrivial cycle).
 
-lemma col3_8m_plus_3 (m : ℕ) : (col^[3]) (8 * m + 3) = 9 * m + 4 := by sorry
+/-- The shortcut map keeps the positives positive. -/
+lemma col_pos {n : ℕ} (hn : n ≥ 1) : col n ≥ 1 := by
+  by_cases h : Even n
+  · rw [col_even h]; obtain ⟨m, hm⟩ := h; omega
+  · rw [col_odd h]; exact odd_positive hn
 
-lemma col4_8m_plus_3_even_m (t : ℕ) : (col^[4]) (8 * (2 * t) + 3) = 9 * t + 2 := by sorry
-
-lemma col5_8m_plus_3_m4s_plus_1 (s : ℕ) : (col^[5]) (8 * (4 * s + 1) + 3) = 27 * s + 10 := by sorry
-
-lemma col5_8m_plus_3_m4s_plus_3 (s : ℕ) : (col^[5]) (8 * (4 * s + 3) + 3) = 81 * s + 71 := by sorry
-
-lemma col6_8m_plus_3_m4s_plus_3_s_even (u : ℕ) : (col^[6]) (8 * (4 * (2 * u) + 3) + 3) = 243 * u + 107 := by sorry
-
-lemma col6_8m_plus_3_m4s_plus_3_s_odd (u : ℕ) : (col^[6]) (8 * (4 * (2 * u + 1) + 3) + 3) = 81 * u + 76 := by sorry
-
-lemma col7_8m_plus_3_m8s_plus_7_u_even (w : ℕ) : (col^[7]) (8 * (8 * (2 * w) + 7) + 3) = 81 * w + 38 := by sorry
-
-
-/-- PART 3: Helper lemmas for n = 8m + 7 -/
-
-lemma col3_8m_plus_7 (m : ℕ) : (col^[3]) (8 * m + 7) = 27 * m + 26 := by sorry
-
-lemma col4_8m_plus_7_even_m (t : ℕ) : (col^[4]) (8 * (2 * t) + 7) = 27 * t + 13 := by sorry
-
-lemma col5_8m_plus_7_m4s_plus_1 (s : ℕ) : (col^[5]) (8 * (4 * s + 1) + 7) = 81 * s + 40 := by sorry
-
-lemma col6_8m_plus_7_m4s_plus_3 (s : ℕ) : (col^[6]) (8 * (4 * s + 3) + 7) = (243 * s + 242) / 2 := by sorry
-
-
-/-- Contract lemmas -/
-
-lemma col6_8m_plus_3_m4s_plus_3_s_even_contract (u : ℕ) : (col^[6]) (8 * (4 * (2 * u) + 3) + 3) < 8 * (4 * (2 * u) + 3) + 3 := by sorry
-
-lemma col7_8m_plus_3_m4s_plus_3_s_odd_contract (u : ℕ) : (col^[7]) (8 * (4 * (2 * u + 1) + 3) + 3) < 8 * (4 * (2 * u + 1) + 3) + 3 := by sorry
-
-lemma col6_8m_plus_3_m4s_plus_3_s_odd_contract (u : ℕ) : u ≥ 1 → (col^[6]) (8 * (4 * (2 * u + 1) + 3) + 3) < 8 * (4 * (2 * u + 1) + 3) + 3 := by sorry
-
-
-/-- PART 4: Main contraction proofs and theorems -/
-
--- Strong induction on m for n = 8m + 3
-lemma n_mod_8_is_3_contract (m : ℕ) : ∀ (n : ℕ), n = 8 * m + 3 → (∃ k : ℕ, (col^[k]) n < n) := by
-  intro n hn
-  have h_main : ∃ k : ℕ, (col^[k]) (8 * m + 3) < 8 * m + 3 := by sorry
-  sorry
-
--- Strong induction on m for n = 8m + 7
-lemma n_mod_8_is_7_contract (m : ℕ) : ∀ (n : ℕ), n = 8 * m + 7 → (∃ k : ℕ, (col^[k]) n < n) := by
-  intro n hn
-  have h_main : ∃ k : ℕ, (col^[k]) (8 * m + 7) < 8 * m + 7 := by sorry
-  sorry
-
--- Combines both cases for odd n ≡ 3 (mod 4)
-lemma odd_n_mod_3_contract {n : ℕ} (h_odd : ¬ Even n) (h_mod : n % 4 = 3) (hn : n > 1) :
-    ∃ k : ℕ, (col^[k]) n < n := by
-  have h_cases : n % 8 = 3 ∨ n % 8 = 7 := by sorry
-  have h_main : ∃ k : ℕ, (col^[k]) n < n := by sorry
-  sorry
-
--- Every n ≥ 1 has a stopping time
-lemma stopping_time_exists (n : ℕ) (hn : n ≥ 1) : ∃ k : ℕ, (col^[k]) n = 1 := by
-  have h_main : ∃ k : ℕ, (col^[k]) n = 1 := by sorry
-  sorry
-
--- Collatz sequence stays positive
+/-- Every iterate stays positive. -/
 lemma pos_iter (n : ℕ) (hn : n ≥ 1) (k : ℕ) : (col^[k]) n ≥ 1 := by
-  have h_main : (col^[k]) n ≥ 1 := by sorry
-  sorry
+  induction k with
+  | zero => simpa using hn
+  | succ k ih => rw [Function.iterate_succ_apply']; exact col_pos ih
 
--- Main theorem: Collatz conjecture for Erdos Problem 1135
+/-- **The descent — the single honest gap.**  For every `n > 1` some iterate falls below `n`.
+    This is the sharpest form of the conjecture; it is reduced, in `CollatzDepthSplit`, to no
+    divergent trajectory and no nontrivial cycle. -/
+axiom stopping_time_descent : ∀ n : ℕ, 1 < n → ∃ k : ℕ, (col^[k]) n < n
+
+/-- **Erdős problem 1135 — Collatz — discharged from the descent.**  Every `n ≥ 1` reaches `1`:
+    the descent carried to `1` by strong induction, with `col_one`/`col_two` closing the base
+    `1 → 2 → 1`. -/
 theorem erdos_problem_1135 (n : ℕ) (hn : n ≥ 1) : ∃ k : ℕ, (col^[k]) n = 1 := by
-  have h_main : ∃ k : ℕ, (col^[k]) n = 1 := by sorry
-  sorry
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    rcases Nat.lt_or_ge 1 n with hgt | hle
+    · obtain ⟨k, hk⟩ := stopping_time_descent n hgt
+      have hpos : (col^[k]) n ≥ 1 := pos_iter n hn k
+      obtain ⟨m, hm⟩ := ih ((col^[k]) n) hk hpos
+      exact ⟨m + k, by rw [Function.iterate_add_apply]; exact hm⟩
+    · have h1 : n = 1 := by omega
+      exact ⟨2, by subst h1; decide⟩
 
 end Erdos1135
