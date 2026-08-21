@@ -3524,6 +3524,68 @@ theorem never_contracts_unbounded_or_nontrivial_cycle {n : ℕ} (h : ∀ k, ¬ C
     obtain ⟨k, hk⟩ := hb M
     exact ⟨k, hk⟩
 
+/-! ### The full obstruction, not just its never-contracting subset
+
+The pigeonhole needed nothing about contraction — only that the trajectory stays at or above
+`n`.  So the same dichotomy holds for every *non-descender*: a value `n > 1` its own trajectory
+never drops below.  These are exactly the failures of the descent, and every one is either a
+divergence or a nontrivial cycle — the classical decomposition, proved: the descent holds iff
+there is neither a divergent trajectory nor a nontrivial cycle. -/
+
+/-- A non-descender with bounded trajectory feeds a cycle whose every element is `≥ n`. -/
+theorem nondescender_bounded_gives_cycle {n : ℕ} (h : ∀ k, n ≤ col^[k] n)
+    {M : ℕ} (hM : ∀ k, col^[k] n ≤ M) :
+    ∃ v p, 1 ≤ p ∧ col^[p] v = v ∧ n ≤ v := by
+  have hnM : n ≤ M := by simpa using hM 0
+  obtain ⟨i, _, j, _, hij, heq⟩ :=
+    Finset.exists_ne_map_eq_of_card_lt_of_maps_to
+      (s := Finset.range (M - n + 2)) (t := Finset.Icc n M) (f := fun k => col^[k] n)
+      (by rw [Finset.card_range, Nat.card_Icc]; omega)
+      (by intro k _; simp only [Finset.coe_Icc, Set.mem_Icc]; exact ⟨h k, hM k⟩)
+  rcases Nat.lt_or_ge i j with hlt | hge
+  · refine ⟨col^[i] n, j - i, by omega, ?_, h i⟩
+    have hj_eq : col^[j - i] (col^[i] n) = col^[j] n := by
+      rw [← Function.iterate_add_apply]; congr 1; omega
+    rw [hj_eq]; exact heq.symm
+  · have hlt : j < i := by omega
+    refine ⟨col^[j] n, i - j, by omega, ?_, h j⟩
+    have hi_eq : col^[i - j] (col^[j] n) = col^[i] n := by
+      rw [← Function.iterate_add_apply]; congr 1; omega
+    rw [hi_eq]; exact heq
+
+/-- **The full descent obstruction.**  A value `n > 1` that never descends is either
+    unbounded — a divergent trajectory — or it lies on a nontrivial cycle (least element
+    `> 1`).  Every failure of the descent is one of these two, so the descent holds exactly
+    when there is neither. -/
+theorem nondescender_unbounded_or_nontrivial_cycle {n : ℕ} (hn : 1 < n)
+    (h : ∀ k, n ≤ col^[k] n) :
+    (∀ M, ∃ k, M < col^[k] n) ∨ (∃ v p, 1 ≤ p ∧ col^[p] v = v ∧ 1 < v) := by
+  by_cases hb : ∃ M, ∀ k, col^[k] n ≤ M
+  · right
+    obtain ⟨M, hM⟩ := hb
+    obtain ⟨v, p, hp, hcyc, hv⟩ := nondescender_bounded_gives_cycle h hM
+    exact ⟨v, p, hp, hcyc, by omega⟩
+  · left
+    push_neg at hb
+    intro M; obtain ⟨k, hk⟩ := hb M; exact ⟨k, hk⟩
+
+/-- **The descent is exactly the absence of non-descenders.**  `∀n>1 ∃k col^[k]n < n` says no
+    value above `1` stays at or above itself forever.  With
+    `nondescender_unbounded_or_nontrivial_cycle` classifying every non-descender as a divergence
+    or a nontrivial cycle, and `reaches_one_of_descends` carrying the descent to `1`, this is
+    the full architecture: Collatz holds iff no trajectory diverges and no nontrivial cycle
+    exists. -/
+theorem descent_iff_no_nondescender :
+    (∀ n, 1 < n → ∃ k, col^[k] n < n) ↔ ¬ (∃ n, 1 < n ∧ ∀ k, n ≤ col^[k] n) := by
+  constructor
+  · rintro hd ⟨n, hn, hnd⟩
+    obtain ⟨k, hk⟩ := hd n hn
+    exact absurd (hnd k) (by omega)
+  · intro h n hn
+    by_contra hc
+    push_neg at hc
+    exact h ⟨n, hn, fun k => by have := hc k; omega⟩
+
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
 `cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
