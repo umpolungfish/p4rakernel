@@ -6,7 +6,7 @@
 -- pair rather than one tuple.
 --
 --   depth split      ⊙∈≻≻∋◻        ⟨𐑛𐑶𐑾𐑹𐑞𐑘𐑔𐑠𐑣𐑫𐑳𐑭⟩  crystal  3429838
---   mod-9 rung   ⊢⊙∈⊞⊤⊥≺∋⋈◻⊣  ⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩  crystal  3442270
+--   mod-9 rung   ⊢⊙∈⊞⊤⊥≺∋⋈◻⊣  ⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩  crystal  3444190
 --
 -- 𐑫 is wool (chirality, infinite memory) and 𐑘 is yea (kinetics), by the catalog's
 -- glyph table.  The two words differ in four slots and agree on these two.
