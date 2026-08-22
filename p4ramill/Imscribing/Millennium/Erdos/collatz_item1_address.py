@@ -2,7 +2,22 @@
 
 Every word here was run through
   /home/mrnob0dy666/imsgct/mOMonadOS/run_hosted_cmds.sh 'imasm derive <word>'
-and the tuple read off.  Nothing is asserted that was not derived.  Re-derived
+and the tuple read off.  Nothing is asserted that was not derived.
+
+RE-DERIVED 2026-08-22 after G_ORD was corrected to Core.lean's order (mOMonadOS
+ac0b3e4).  catalog.rs had the G/Cardinality axis as [ice, bib, thigh], carried
+over from an older Core.lean generation that ordered it aleph < beth < gimel;
+the live Core.lean declares bib < thigh < ice and says so.  Every tuple in this
+file carries ∈ = 𐑲 (ice), whose ordinal moves 0 -> 2, so every address here
+moves by exactly +1920 = 2 x stride 960 and NOTHING ELSE about the file changes:
+
+    3168717 -> 3170637     3183069 -> 3184989     3427918 -> 3429838
+    3442270 -> 3444190     16402270 -> 16404190
+
+The two levers and the 7/5 rotation split are untouched — the shift is uniform,
+so every equality and every distinction recorded below survives verbatim.  Spot-
+checked against the kernel, not just recomputed: ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣ now derives
+3444190 and ⊢⊙∈⊞⊤⋈≻≺∋◻⊣ now derives 3429838.  Re-derived
 2026-08-21 after Dimensionality ⊢ and Topology ⊣ were given the R2 fields they are
 named for (mOMonadOS b683fe9), which moved ⊢ 𐑦 -> 𐑛 on every word carrying one
 FSPLIT/FFUSE pair.
@@ -24,10 +39,10 @@ TWO INDEPENDENT LEVERS, four addresses.
    the cut and not the word -- the ring rule, exactly.  Cycled, item 1'
    ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣ splits 7/5 over its twelve rotations:
 
-     k = 0,1,2 and 8..11   ≻ = 𐑾, ≺ = 𐑹, ◻ = 𐑭     crystal 3442270
-     k = 3..7              ≻ = 𐑽, ≺ = 𐑯, ◻ = 𐑴     crystal 3183069
+     k = 0,1,2 and 8..11   ≻ = 𐑾, ≺ = 𐑹, ◻ = 𐑭     crystal 3444190
+     k = 3..7              ≻ = 𐑽, ≺ = 𐑯, ◻ = 𐑴     crystal 3184989
 
-   and ⊢⊙∈⊞⊤⋈≻≺∋◻⊣ splits the same way, 3427918 against 3168717, the same three
+   and ⊢⊙∈⊞⊤⋈≻≺∋◻⊣ splits the same way, 3429838 against 3170637, the same three
    slots taking the same two values.  The phase flips exactly when the cut falls INSIDE
    the evaluation region ≻⊤≺⊥∋.
 
@@ -49,60 +64,60 @@ readouts.
 
 DERIVED = [
     # word,                          tuple,                        crystal
-    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # item 1'
-    ("⊢⊙∈⊞⊤⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # mod-9 holder-first
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # collatzcombo, repaired
-    ("⊢⊙∈⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊢⊙∈⊤≺⊥∋⋈≻⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊢⊙∈≻⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊢⊙∈⊞⊤⊥⋈⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⋈ doubled
-    ("⊢⊙⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊙ doubled
-    ("⊢∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊙ dropped
-    ("⊢⊙∈⊞⊤⊥≺∋⋈◻◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ◻ doubled
-    ("⊢⊙∈∈⊞⊤⊥≺∋∋⋈◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 16402270),  # ∈∋ doubled
-    ("⊢⊙∈⊞⊤⊤⊥⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊤⊥ doubled
-    ("⊢⊙∈⊞⊤⊥⋈≻∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ≺ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ≻ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ◻ dropped
-    ("⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊢ dropped
-    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),  # ⊣ dropped
+    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # item 1'
+    ("⊢⊙∈⊞⊤⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # mod-9 holder-first
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # collatzcombo, repaired
+    ("⊢⊙∈⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊢⊙∈⊤≺⊥∋⋈≻⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊢⊙∈≻⊤⊥≺∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊢⊙∈⊞⊤⊥⋈⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⋈ doubled
+    ("⊢⊙⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⊙ doubled
+    ("⊢∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⊙ dropped
+    ("⊢⊙∈⊞⊤⊥≺∋⋈◻◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ◻ doubled
+    ("⊢⊙∈∈⊞⊤⊥≺∋∋⋈◻⊣", "𐑦𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 16404190),  # ∈∋ doubled
+    ("⊢⊙∈⊞⊤⊤⊥⊥≺∋⋈◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⊤⊥ doubled
+    ("⊢⊙∈⊞⊤⊥⋈≻∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ≺ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ≻ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ◻ dropped
+    ("⊙∈⊞⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⊢ dropped
+    ("⊢⊙∈⊞⊤⊥⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),  # ⊣ dropped
     # the two addresses part exactly here:
-    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊥ dropped
-    ("⊢⊙∈⊞⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊤ dropped
-    ("⊢⊙∈⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # ⊞ dropped
-    ("⊢⊙∈⊤⋈∋◻⊞≺⋈⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),  # the kernel's wound word
+    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),  # ⊥ dropped
+    ("⊢⊙∈⊞⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),  # ⊤ dropped
+    ("⊢⊙∈⊤⊥⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),  # ⊞ dropped
+    ("⊢⊙∈⊤⋈∋◻⊞≺⋈⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),  # the kernel's wound word
 ]
 
 # The cycled readouts: word, tuple, crystal, for every rotation of two words.
 ROTAT_ORBIT = [
-    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊙∈≻⊤≺⊥∋⋈⊞◻⊣⊢", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("∈≻⊤≺⊥∋⋈⊞◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("≻⊤≺⊥∋⋈⊞◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
-    ("⊤≺⊥∋⋈⊞◻⊣⊢⊙∈≻", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
-    ("≺⊥∋⋈⊞◻⊣⊢⊙∈≻⊤", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
-    ("⊥∋⋈⊞◻⊣⊢⊙∈≻⊤≺", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
-    ("∋⋈⊞◻⊣⊢⊙∈≻⊤≺⊥", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3183069),
-    ("⋈⊞◻⊣⊢⊙∈≻⊤≺⊥∋", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊞◻⊣⊢⊙∈≻⊤≺⊥∋⋈", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("◻⊣⊢⊙∈≻⊤≺⊥∋⋈⊞", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊣⊢⊙∈≻⊤≺⊥∋⋈⊞◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3442270),
-    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
-    ("⊙∈⊞⊤⋈≻≺∋◻⊣⊢", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
-    ("∈⊞⊤⋈≻≺∋◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
-    ("⊞⊤⋈≻≺∋◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("⊤⋈≻≺∋◻⊣⊢⊙∈⊞", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("⋈≻≺∋◻⊣⊢⊙∈⊞⊤", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("≻≺∋◻⊣⊢⊙∈⊞⊤⋈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("≺∋◻⊣⊢⊙∈⊞⊤⋈≻", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("∋◻⊣⊢⊙∈⊞⊤⋈≻≺", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3168717),
-    ("◻⊣⊢⊙∈⊞⊤⋈≻≺∋", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
-    ("⊣⊢⊙∈⊞⊤⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3427918),
+    ("⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊙∈≻⊤≺⊥∋⋈⊞◻⊣⊢", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("∈≻⊤≺⊥∋⋈⊞◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("≻⊤≺⊥∋⋈⊞◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3184989),
+    ("⊤≺⊥∋⋈⊞◻⊣⊢⊙∈≻", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3184989),
+    ("≺⊥∋⋈⊞◻⊣⊢⊙∈≻⊤", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3184989),
+    ("⊥∋⋈⊞◻⊣⊢⊙∈≻⊤≺", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3184989),
+    ("∋⋈⊞◻⊣⊢⊙∈≻⊤≺⊥", "𐑛𐑶𐑽𐑯𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑴", 3184989),
+    ("⋈⊞◻⊣⊢⊙∈≻⊤≺⊥∋", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊞◻⊣⊢⊙∈≻⊤≺⊥∋⋈", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("◻⊣⊢⊙∈≻⊤≺⊥∋⋈⊞", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊣⊢⊙∈≻⊤≺⊥∋⋈⊞◻", "𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭", 3444190),
+    ("⊢⊙∈⊞⊤⋈≻≺∋◻⊣", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),
+    ("⊙∈⊞⊤⋈≻≺∋◻⊣⊢", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),
+    ("∈⊞⊤⋈≻≺∋◻⊣⊢⊙", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),
+    ("⊞⊤⋈≻≺∋◻⊣⊢⊙∈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("⊤⋈≻≺∋◻⊣⊢⊙∈⊞", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("⋈≻≺∋◻⊣⊢⊙∈⊞⊤", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("≻≺∋◻⊣⊢⊙∈⊞⊤⋈", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("≺∋◻⊣⊢⊙∈⊞⊤⋈≻", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("∋◻⊣⊢⊙∈⊞⊤⋈≻≺", "𐑛𐑶𐑽𐑯𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑴", 3170637),
+    ("◻⊣⊢⊙∈⊞⊤⋈≻≺∋", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),
+    ("⊣⊢⊙∈⊞⊤⋈≻≺∋◻", "𐑛𐑶𐑾𐑹𐑞𐑘𐑲𐑠𐑣𐑫𐑳𐑭", 3429838),
 ]
 
 # The four verbs over item 1's twelve cuts, run through run_hosted_cmds.sh.
 # banked / weight / insert partition the orbit 4/2/6, which is NOT the crystal's 7/5:
-# k = 8,9,10 sit at 3442270 and are vacuous.  Same IG type, different token content --
+# k = 8,9,10 sit at 3444190 and are vacuous.  Same IG type, different token content --
 # the token algebra is finer than the crystal, measured here rather than cited.
 # trans is fully rotation-invariant: ring 12, linear 11 at every cut, only the closing
 # edge label moves.
@@ -148,6 +163,6 @@ if __name__ == "__main__":
     for k, w, b, f, dcr, ins, sur in VERBS:
         print(f"  {k:>2} {b:<8} {f:<5} {dcr:<7} {ins:<10} {sur}")
     banks = [k for k, *_ , in VERBS if _[0] == "OK"] if False else [v[0] for v in VERBS if v[2] == "OK"]
-    print(f"\n  banks at cuts {banks};  crystal 3442270 at cuts "
-          f"{[i for i, (w, t, c) in enumerate(ROTAT_ORBIT[:12]) if c == 3442270]}")
+    print(f"\n  banks at cuts {banks};  crystal 3444190 at cuts "
+          f"{[i for i, (w, t, c) in enumerate(ROTAT_ORBIT[:12]) if c == 3444190]}")
     print("  the two partitions differ -- token algebra finer than the crystal")

@@ -1,7 +1,7 @@
 """Item 1' against CLINK L9, through cl9nk_navigator rather than by hand.
 
 The word ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣ derives (imasm derive, mOMonadOS) to
-⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩, crystal 3442270.  L9 is the transcendence rung, so this asks
+⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩, crystal 3444190.  L9 is the transcendence rung, so this asks
 what L9 says about it: distance, tensor, meet, join, tier.
 """
 import sys, os
