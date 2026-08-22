@@ -37,7 +37,7 @@ def sixCoeffFrobenius : Imscription := {
   pol  := .or'     -- Φ = 𐑹: PM_Z2 Frobenius-special (μ∘δ = id exactly)
   fid  := .peep    -- ƒ = 𐑐: quantum fidelity (universal constants encoded)
   kin  := .egg     -- Ç = 𐑧: near-equilibrium (holomorphic modular form)
-  gran := .ice     -- Γ = 𐑔: aleph cardinality (ℝ coefficient field)
+  gran := .ice     -- Γ = 𐑔: maximal cardinality (ℝ coefficient field)
   gram := .measure -- ɢ = 𐑠: sequential composition (μ∘δ ordered)
   crit := .monad   -- ⊙ = ⊙: critical (μ∘δ = id, self-modeling gate)
   chir := .wool    -- Ħ = 𐑫: eternal chirality (fixed points of μ∘δ)

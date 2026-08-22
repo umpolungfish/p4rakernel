@@ -52,7 +52,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑹  pol  = or'     — Frobenius-special: ℤ₂ parity, μ∘δ=id
 --   ƒ=𐑐  fid  = peep    — quantum: coherent channel, [x,p]=iℏ
 --   Ç=𐑧  kin  = egg     — slow: MBL-localized, τ≫T, near-equilibrium
---   Γ=𐑔  gran = ice     — aleph: maximal, ∃y∈x(|y|∼|x|)
+--   Γ=𐑔  gran = ice     — maximal, ∃y∈x(|y|∼|x|)
 --   ɢ=𐑵  gram = ooze    — broadcast: BROADCAST_TRANSCENDENCE
 --   ⊙=⊙  crit = monad   — critical: ξ→∞, μ∘δ=id self-modeling
 --   Ħ=𐑖  chir = sure    — two-step: broadcast and echo are distinguishable

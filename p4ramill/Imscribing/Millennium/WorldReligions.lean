@@ -59,9 +59,9 @@ inductive Kin where
   deriving DecidableEq, Repr
 
 inductive Scope where
-  | beth    -- bib: local/mesoscale
-  | gimel   -- thigh: intermediate collective
-  | aleph   -- ice: global/fine-grained
+  | bib     -- local/mesoscale
+  | thigh   -- intermediate collective
+  | ice     -- global/fine-grained
   deriving DecidableEq, Repr
 
 inductive IxGrammar where
@@ -139,7 +139,7 @@ def kinVal : Kin → ℕ
   | .fast => 0 | .mod => 1 | .slow => 2 | .trap => 3 | .MBL => 4
 
 def scopeVal : Scope → ℕ
-  | .beth => 0 | .gimel => 1 | .aleph => 2
+  | .bib => 0 | .thigh => 1 | .ice => 2
 
 def ixVal : IxGrammar → ℕ
   | .and_ => 0 | .or_ => 1 | .seq => 2 | .broad => 3
@@ -198,7 +198,7 @@ noncomputable def relDist (a b : RelTuple) : ℝ :=
     Tier: O₂, C = 0.828 -/
 def Tao : RelTuple where
   D := .odot; T := .odot; R := .dagger; P := .sym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .broad; Phi := .c
+  K := .slow; G := .ice; Gamma := .broad; Phi := .c
   H := .Hinf; S := .so; Omega := .Z
 
 /-- Taoism (the tradition).
@@ -208,7 +208,7 @@ def Tao : RelTuple where
     Distance from Tao: d = 3.1623 (7 primitives differ) -/
 def Taoism : RelTuple where
   D := .odot; T := .boxtimes; R := .lr; P := .pm; F := .ell
-  K := .slow; G := .aleph; Gamma := .seq; Phi := .sub
+  K := .slow; G := .ice; Gamma := .seq; Phi := .sub
   H := .Hinf; S := .up; Omega := .Z
 
 /-- Buddhism.
@@ -217,7 +217,7 @@ def Taoism : RelTuple where
     Tier: O_inf, C = 0.736 (Frobenius-special emptiness) -/
 def Buddhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .broad; Phi := .c
+  K := .slow; G := .ice; Gamma := .broad; Phi := .c
   H := .Hinf; S := .so; Omega := .Z2
 
 /-- Christianity.
@@ -226,7 +226,7 @@ def Buddhism : RelTuple where
     Tier: O_inf, C = 0.736 (Frobenius-special perichoresis) -/
 def Christianity : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .pm_sym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .seq; Phi := .c
+  K := .slow; G := .ice; Gamma := .seq; Phi := .c
   H := .Hinf; S := .up; Omega := .Z2
 
 /-- Islam.
@@ -235,7 +235,7 @@ def Christianity : RelTuple where
     Tier: O₂, C = 0.736 (Tawhid with supervenience) -/
 def Islam : RelTuple where
   D := .odot; T := .odot; R := .super; P := .sym; F := .ell
-  K := .slow; G := .aleph; Gamma := .seq; Phi := .c
+  K := .slow; G := .ice; Gamma := .seq; Phi := .c
   H := .Hinf; S := .up; Omega := .Z2
 
 /-- Sikhism.
@@ -244,7 +244,7 @@ def Islam : RelTuple where
     Tier: O₂, C = 0.828 (complex-plane criticality) -/
 def Sikhism : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .sym; F := .ell
-  K := .slow; G := .aleph; Gamma := .seq; Phi := .c_complex
+  K := .slow; G := .ice; Gamma := .seq; Phi := .c_complex
   H := .Hinf; S := .up; Omega := .Z
 
 /-- Paganism.
@@ -253,7 +253,7 @@ def Sikhism : RelTuple where
     Tier: O₂, C = 0.36 (branching polytheistic topology) -/
 def Paganism : RelTuple where
   D := .odot; T := .network; R := .lr; P := .sym; F := .eth
-  K := .mod; G := .gimel; Gamma := .or_; Phi := .c
+  K := .mod; G := .thigh; Gamma := .or_; Phi := .c
   H := .Hinf; S := .up; Omega := .Z
 
 /-- Satanism.
@@ -262,14 +262,14 @@ def Paganism : RelTuple where
     Tier: O₁, C = 0.2825 (individualist revolt) -/
 def Satanism : RelTuple where
   D := .triangle; T := .bowtie; R := .lr; P := .asym; F := .ell
-  K := .fast; G := .beth; Gamma := .or_; Phi := .c
+  K := .fast; G := .bib; Gamma := .or_; Phi := .c
   H := .kick; S := .up; Omega := .zero/-- Sufi fana-baqa (annihilation-in-God / subsistence-through-God).
     Tuple: <if'; are; ear; or'; peep; egg; ice;
             ooze; monad; wool; n:n; oak>
     Near-identity with Buddhism: d = 1.0, differing only on R (ear vs ian). -/
 def Sufi_fana_baqa : RelTuple where
   D := .odot; T := .odot; R := .dagger; P := .pm_sym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .broad; Phi := .c
+  K := .slow; G := .ice; Gamma := .broad; Phi := .c
   H := .Hinf; S := .so; Omega := .Z2
 
 /-- Gnostic Christianity.
@@ -279,7 +279,7 @@ def Sufi_fana_baqa : RelTuple where
     Closer to Merkavah than to orthodox Christianity. -/
 def Gnostic_Christianity : RelTuple where
   D := .odot; T := .in_; R := .dagger; P := .asym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .or_; Phi := .c
+  K := .slow; G := .ice; Gamma := .or_; Phi := .c
   H := .Hinf; S := .up; Omega := .zero
 
 /-- Contemporary (institutional) Christianity.
@@ -288,7 +288,7 @@ def Gnostic_Christianity : RelTuple where
     Distance from mainstream Christianity: d = 5.9917 (10 of 12 primitives differ). -/
 def Contemporary_Christianity : RelTuple where
   D := .triangle; T := .network; R := .cat; P := .pm; F := .ell
-  K := .mod; G := .aleph; Gamma := .broad; Phi := .sub
+  K := .mod; G := .ice; Gamma := .broad; Phi := .sub
   H := .kick; S := .up; Omega := .zero
 
 /-- I AM THAT I AM (the divine self-declaration).
@@ -297,7 +297,7 @@ def Contemporary_Christianity : RelTuple where
     Distance from Christianity: d = 2.1679. -/
 def I_AM_that_I_AM : RelTuple where
   D := .odot; T := .odot; R := .lr; P := .sym; F := .hbar
-  K := .slow; G := .aleph; Gamma := .seq; Phi := .c
+  K := .slow; G := .ice; Gamma := .seq; Phi := .c
   H := .Hinf; S := .hung; Omega := .Z
 
 -- ============================================================================

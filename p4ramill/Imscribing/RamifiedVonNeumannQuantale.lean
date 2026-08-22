@@ -41,7 +41,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑬  pol  = out      — ℤ₂: powerset operation as symmetry
 --   ƒ=𐑐  fid  = peep     — quantum: set-theoretic truth as quantum observable
 --   Ç=𐑧  kin  = egg      — slow: cumulative hierarchy builds slowly
---   Γ=𐑔  gran = ice      — aleph: inaccessible cardinal κ
+--   Γ=𐑔  gran = ice      — inaccessible cardinal κ
 --   ɢ=𐑠  gram = measure   — sequential: rank-by-rank construction
 --   ⊙=⊙  crit = monad     — critical: κ = κ^κ fixed point
 --   Ħ=𐑖  chir = sure     — two-step: successor/limit alternation

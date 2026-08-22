@@ -82,7 +82,7 @@ theorem p_not_equals_np_structural_tautology : P_class ≠ NP_class :=
 -- NP_class: <array, are,     ian,    church, age, on,
 --             ice, measure,  monad,   fee,    hung, awe>
 -- Mismatches: T (network≠odot), R (super≠lr), K (fast≠trap),
---             G (beth≠aleph), Gamma (and≠seq), Phi (sub≠c) = 6
+--             G (bib≠ice), Gamma (and≠seq), Phi (sub≠c) = 6
 
 theorem mismatch_count : primitiveMismatches P_class NP_class = 6 := by
   decide

@@ -38,7 +38,7 @@ open Imscribing.Frobenius
 --   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at fixed point
 --   ƒ=𐑐  fid  = peep    — quantum: non-commutative C*-algebra projections
 --   Ç=𐑧  kin  = egg     — near-equilibrium: at ouroboric fixed point
---   Γ=𐑔  gran = ice     — aleph: inaccessible cardinal for Q ≅ End(Q)
+--   Γ=𐑔  gran = ice     — inaccessible cardinal for Q ≅ End(Q)
 --   ɢ=𐑝  gram = vow     — conjunctive: quantale ⊗ distributes over joins
 --   ⊙=⊙  crit = monad   — critical: ouroboric fixed point
 --   Ħ=𐑖  chir = sure    — two-step: 3-cycle triangular identity
@@ -232,7 +232,7 @@ theorem troq_tensor_tier_preserved :
     correctly encodes the cardinality Tier (Γ=𐑔) as a theorem. -/
 theorem troq_cardinal_is_inaccessible : True := trivial
 
-/-- Consequence: the TROQ's gran=ice is correct — it signals aleph
+/-- Consequence: the TROQ's gran=ice is correct — it signals ice
     cardinality (Γ=𐑔 above ℵ_0). This cannot be proven in ZFC alone. -/
 theorem troq_cardinality_justifies_gran : troq.gran = Granularity.ice := rfl
 
