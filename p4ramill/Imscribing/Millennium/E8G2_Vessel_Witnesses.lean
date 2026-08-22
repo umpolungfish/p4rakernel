@@ -52,7 +52,7 @@ def meet_G2_E8 : Imscription := {
   pol  := yew,        -- min($P_\pm$, $P_\psi$) = $P_\psi$
   fid  := peep,       -- min($F_\hbar$, $F_\hbar$) = $F_\hbar$
   kin  := egg,       -- min($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
-  gran := thigh,      -- min($G_\gimel$, $G_\aleph$) = $G_\gimel$
+  gran := thigh,      -- min(thigh, ice) = thigh
   gram := vow,    -- min($\Gamma_\wedge$, $\Gamma_\text{seq}$)
                         -- = $\Gamma_\wedge$
   crit := monad,        -- min($\monad$, $\monad$) = $\monad$
@@ -80,7 +80,7 @@ def join_G2_E8 : Imscription := {
   pol  := out,         -- max($P_\pm$, $P_\psi$) = $P_\pm$
   fid  := peep,       -- max($F_\hbar$, $F_\hbar$) = $F_\hbar$
   kin  := egg,       -- max($K_\text{slow}$, $K_\text{slow}$) = $K_\text{slow}$
-  gran := ice,      -- max($G_\gimel$, $G_\aleph$) = $G_\aleph$
+  gran := ice,      -- max(thigh, ice) = ice
   gram := measure,    -- max($\Gamma_\wedge$, $\Gamma_\text{seq}$)
                         -- = $\Gamma_\text{seq}$
   crit := monad,        -- max($\monad$, $\monad$) = $\monad$
