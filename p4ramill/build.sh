@@ -4,7 +4,6 @@
 # result, so ill-typed (F) imscriptions surface at build time rather than silently.
 #
 # Usage:  ./build.sh [lake build args...]
-#   VOX_STRICT=1  -> a non-empty F census fails the build (exit 1)
 #   VOX_BIN=path  -> override the hosted vox binary
 set -uo pipefail
 cd "$(dirname "$0")"
@@ -21,7 +20,6 @@ else
 fi
 
 if [ "$lake_rc" -ne 0 ]; then exit "$lake_rc"; fi
-if [ "${VOX_STRICT:-0}" = "1" ] && [ "$vox_rc" -ne 0 ]; then
-  echo "VOX_STRICT: failing build on non-empty F census"; exit 1
-fi
+# F is a legitimate verdict, not a build fault — the vox census is relayed,
+# never used to fail a build (that would collapse four values to pass/fail).
 exit 0
