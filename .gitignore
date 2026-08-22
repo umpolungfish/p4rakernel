@@ -37,3 +37,4 @@ downstream_releases/
 *.olean
 __pycache__/
 p4ramill/sweep/wordsCollatzDepth.tsv
+p4ramill/sweep/.rawCollatzDepth.tsv
