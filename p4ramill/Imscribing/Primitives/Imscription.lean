@@ -304,7 +304,7 @@ def yang_mills_classical : Imscription := {
 
 -- ── Yang-Mills (quantum target) ─────────────────────────────
 -- The target tuple if the path integral measure existed.
--- Gap from classical: F(eth→hbar), K(mod→trap), G(beth→aleph), Φ(sub→c) = 4 mismatches.
+-- Gap from classical: F(eth→hbar), K(mod→trap), G(bib→ice), Φ(sub→c) = 4 mismatches.
 def yang_mills_quantum_target : Imscription := {
   dim  := array
   top  := judge

@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: VINIT → AFWD → FSPLIT → EVALT → AREV → ENGAGR → CLINK → IMSCRIB → FFUSE → IFIX → CLINK → IMSCRIB
--- Class: A Diels-Alder thermoreversible self-healing ob3ect for the Frobenius Composite. Furan (diene) + maleimide (dienophile) cycloaddition as bidirectional structural morphism. Forward 25-60°C crosslinking, reverse 110-150°C healing. Self-verifies mu∘delta=id for the thermal healing cycle. 12 primitives: D=imscriptive (self-written healing history), T=odot (crossing point topology), R=bidirectional, P=quantum symmetry (endo), F=quantum (pericyclic), K=slow, G=aleph, Gm=sequential, Ph=odot critical, H=eternal (infinite cycles), S=n:m, W=integer.
+-- Class: A Diels-Alder thermoreversible self-healing ob3ect for the Frobenius Composite. Furan (diene) + maleimide (dienophile) cycloaddition as bidirectional structural morphism. Forward 25-60°C crosslinking, reverse 110-150°C healing. Self-verifies mu∘delta=id for the thermal healing cycle. 12 primitives: D=imscriptive (self-written healing history), T=odot (crossing point topology), R=bidirectional, P=quantum symmetry (endo), F=quantum (pericyclic), K=slow, G=ice, Gm=sequential, Ph=odot critical, H=eternal (infinite cycles), S=n:m, W=integer.
 -- Fingerprint: sig=(7,2,2,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=False | period=12

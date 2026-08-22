@@ -163,7 +163,7 @@ Primitive justifications:
      Progress is slow: the exponent has crept from 1 (trivial) to 0.525 (BHP 2001)
      over 65 years. The gap to (log p)² remains enormous.
 
-[7]  𐑚 — Local scope (beth). The prime gap g_n = p_{n+1} - p_n is a nearest-
+[7]  𐑚 — Local scope (bib). The prime gap g_n = p_{n+1} - p_n is a nearest-
      neighbor quantity — it involves exactly two consecutive primes. Although
      the limsup is a global operation, the quantity being bounded is intrinsically
      local. This distinguishes Cramér from Goldbach (𐑲, global) and Twin Prime
