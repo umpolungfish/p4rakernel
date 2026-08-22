@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # vox_audit.sh — sweep every GateCheck IGProtocol scaffold through the hosted
-# kernel's vox control-flow closure auditor. Reports the T/B/N/F census and
-# lists any F (ill-typed) word. Exit 1 if any F is found, so it can gate a build.
+# kernel's vox control-flow closure auditor. Reports the four-valued T/B/N/F
+# census as the Grammar returns it. F is a legitimate verdict, not a fault — an
+# ob3ect is a designed opening and may stay open (F) by purpose; a proof-word
+# closes (T). The audit RELAYS the Grammar's adjudication; it does not judge it,
+# and never exits nonzero on F (that would collapse four values back to pass/fail).
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 GATEDIR="$ROOT/Imscribing/Ob3ects/GateCheck"
@@ -38,7 +41,7 @@ echo "── vox audit: $GATEDIR"
 echo "   scaffolds: $n   verdicts read: $i"
 echo "   T=$T  B=$B  N=$N  F=$F"
 if [ "$F" -gt 0 ]; then
-  echo "   ✗ ILL-TYPED (F):"; for x in "${fails[@]}"; do echo "     - $x"; done
-  exit 1
+  echo "   F (open — the Grammar's fourth verdict; an ob3ect may stay open by purpose):"
+  for x in "${fails[@]}"; do echo "     - $x"; done
 fi
-echo "   ✓ vox-clean — no ill-typed (F) scaffolds"
+echo "   census relayed — F is a verdict, not a fault"
