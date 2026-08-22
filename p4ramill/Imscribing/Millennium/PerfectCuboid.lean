@@ -25,7 +25,7 @@ namespace Millennium.PerfectCuboid
    PART I: PERFECT CUBOID - THE DIOPHANTINE SYSTEM
    Base type (raw Diophantine search):
    $\langle D_\triangle;\ T_\text{network};\ R_\text{sup};\ P_\text{sym};\
-    F_\ell;\ K_\text{trap};\ G_\beth;\ \Gamma_\wedge;\ \Phi_\text{sub};\
+    F_\ell;\ K_\text{trap};\ G_\bib;\ \Gamma_\wedge;\ \Phi_\text{sub};\
     H_0;\ 1{:}1;\ \awe \rangle$
    ==================================================================== -/
 

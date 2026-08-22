@@ -591,7 +591,7 @@ theorem collatz_tao_distance_5 :
 /--
 **Theorem CL-11: Collatz ↔ Boundedness: 2 primitives differ.**
 Boundedness differs from full conjecture only in Ř (lr vs cat)
-and Γ (gimel vs aleph). This is the structurally closest partial result.
+and Γ (thigh vs ice). This is the structurally closest partial result.
 -/
 theorem collatz_boundedness_distance_2 :
   primitiveMismatches collatz_vessel collatz_boundedness_vessel = 2 := by

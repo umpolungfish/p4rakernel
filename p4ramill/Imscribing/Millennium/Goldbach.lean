@@ -241,7 +241,7 @@ add protection (𐑴) at the cost of relaxing the gap condition.
 /--
 **Theorem GB-1: Binary–Ternary Distance**
 The binary and ternary Goldbach vessels differ in exactly 2 primitives:
-  G (aleph vs gimel) and Omega (0 vs Z2).
+  G (ice vs thigh) and Omega (0 vs Z2).
 -/
 theorem binary_ternary_distance_2 :
   primitiveMismatches goldbach_binary_vessel goldbach_ternary_vessel = 2 := by
@@ -496,7 +496,7 @@ theorem chen_o2_certificate :
 /--
 **Theorem GB-18: Binary→Chen Distance**
 The binary conjecture differs from Chen's proved result in exactly
-2 primitives: G (aleph vs gimel) and Omega (0 vs Z2).
+2 primitives: G (ice vs thigh) and Omega (0 vs Z2).
 These are the SAME two primitives as the binary→ternary gap.
 -/
 theorem binary_chen_distance_2 :

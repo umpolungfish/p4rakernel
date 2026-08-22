@@ -38,5 +38,5 @@ namespace Imscribing.CirculatumMinus
 def tier : String := "O₀"
 end Imscribing.CirculatumMinus
 -- Key invariant: hierarchical subordination to the main Aphorisms
--- G=𐑲 captures the local (beth) scope restricted to Vegetable Kingdom
+-- G=𐑲 captures the local (bib) scope restricted to Vegetable Kingdom
 -- F=𐑞 captures the thermal/practical regime of operations

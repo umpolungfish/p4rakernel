@@ -229,7 +229,7 @@ theorem fid_is_minimal :
     void_consensus_protocol.fid = .age := by
   rfl
 
-/-- T₁₂: G=bib is necessary at the floor. Promoting G (bib → ice → gimel)
+/-- T₁₂: G=bib is necessary at the floor. Promoting G (bib → ice → thigh)
     extends interaction range beyond what consensus requires. Local
     (bib) scope is sufficient — each node only needs to communicate
     with its quorum, not the entire network simultaneously. -/

@@ -49,7 +49,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id, topological charge conservation
 --   ƒ=𐑐  fid  = peep    — quantum: braiding phases are complex unitary matrices
 --   Ç=𐑺  kin  = yea     — fast/driven: active braiding dynamics
---   Γ=𐑔  gran = ice     — aleph: complete lattice with arbitrary suprema
+--   Γ=𐑔  gran = ice     — complete lattice with arbitrary suprema
 --   ɢ=𐑜  gram = gag     — disjunctive: fusion is direct sum ⊕_c N^c_{ab} c
 --   ⊙=⊙  crit = monad   — critical: RG fixed point, fusion rules scale-invariant
 --   Ħ=𐑫  chir = wool    — eternal: braid group B_n infinite temporal extent

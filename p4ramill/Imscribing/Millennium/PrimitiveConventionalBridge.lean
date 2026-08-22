@@ -97,7 +97,7 @@ theorem rh_ig_threshold_bridge :
 
 /-- RH-LY distance: 7 primitive differences.
     Diffs: T (network≠bowtie), P (sym≠pm_sym), F (hbar≠ell), K (slow≠mod),
-          G (aleph≠gimel), H (fee≠kick), S (so≠up). -/
+          G (ice≠thigh), H (fee≠kick), S (so≠up). -/
 theorem rh_leyang_distance_value : primitiveMismatches rh_encoding lee_yang_encoding = 7 := by
   native_decide
 

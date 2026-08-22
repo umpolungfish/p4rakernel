@@ -23,7 +23,7 @@ The OVM structure itself imscribes as: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙�
   Φ=𐑹 (Frob-special) — complete positivity as Frobenius-special
   ƒ=𐑐 (quantum)   — quantum fidelity
   Ç=𐑧 (slow)      — measurement is near-equilibrium collapse
-  Γ=𐑔 (aleph)     — maximal cardinality (all effects)
+  Γ=𐑔 (ice)     — maximal cardinality (all effects)
   ɢ=𐑠 (sequential) — sequential measurement composition
   ⊙=⊙ (critical)   — self-modeling: the OVM measures itself
   Ħ=𐑒 (1-step)    — single measurement step memory
