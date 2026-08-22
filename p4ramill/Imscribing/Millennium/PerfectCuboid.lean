@@ -3,7 +3,7 @@
 --
 -- Type (lifted framework):
 --   $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
---    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
+--    F_\hbar;\ K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\
 --    H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$
 --   Crystal address: 6738896 | Tier: $O_\infty$
 --   | $C = 0.828$ | Co-typed: Hadwiger-Nelson
@@ -56,7 +56,7 @@ def PerfectCuboidConjecture : Prop := ∃ (_p : Cuboid), True
    PART II: PHI_c SELF-MODELING PROOF OPERATORS
    Lifted type:
    $\langle D_\odot;\ T_\odot;\ R_\leftrightarrow;\ P_{\pm}^{\text{sym}};\
-    F_\hbar;\ K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\
+    F_\hbar;\ K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\
     H_2;\ n{:}m;\ \Omega_\mathbb{Z} \rangle$
    ==================================================================== -/
 

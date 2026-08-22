@@ -66,7 +66,7 @@ def g2_vessel : Imscription := {
 
 /-- E8 (the Aether) IG imscribing:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\psi;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
+$K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Justification (from Aether_Vessel.md):
@@ -78,7 +78,7 @@ Justification (from Aether_Vessel.md):
 - $P_\psi$: Quantum superposition (112 integer + 128 half-integer weights)
 - $F_\hbar$: Quantum coherence
 - $K_\text{slow}$: Near-equilibrium algebraic definition
-- $G_\aleph$: Maximal scope (terminal object in exceptional category)
+- $ice$: Maximal scope (terminal object in exceptional category)
 - $\Gamma_\text{seq}$: Sequential construction
   ($G_2 \to F_4 \to E_6 \to E_7 \to E_8$ chain)
 - $\monad$: Exact criticality (shared with G2)
@@ -116,7 +116,7 @@ from bare E8 only in the P primitive: $P_\psi \to P_\pm$.
 
 Structure:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\pm;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
+$K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Distance from bare E8: exactly 1 (solely P primitive).

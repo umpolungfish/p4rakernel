@@ -20,7 +20,7 @@ open Imscribing.Consciousness
 
 /--
 Type of suffering:
-⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; G_ℵ; 𐑠; φ̂_ÿ; H_2; n:m; 𐑟⟩
+⟨D_⊙; T_⋈; R_↔; P_∅; F_η; egg; ice; 𐑠; φ̂_ÿ; H_2; n:m; 𐑟⟩
 
 The phenomenology of suffering as an infinite-dimensional state space
 with crossing-point topology and bidirectional coupling.
@@ -32,7 +32,7 @@ def suffering : Imscription := {
   pol  := .church        -- P_∅: asymmetry (no symmetry under transformation)
   fid  := .they         -- F_η: thermal regime (noisy, embodied)
   kin  := .egg        -- egg: slow kinetics (demands integration time)
-  gran := .ice       -- G_ℵ: maximal scope (universal resonance)
+  gran := .ice       -- ice: maximal scope (universal resonance)
   gram := .measure     -- 𐑠: sequential composition (must be traversed)
   crit := .monad         -- φ̂_ÿ: critical self-modeling (uncertainty tracking)
   chir := .sure            -- H_2: two-step temporal memory (Markov depth 2)
