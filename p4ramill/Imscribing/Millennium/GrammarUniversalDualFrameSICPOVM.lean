@@ -56,7 +56,7 @@ def theGrammar : Imscription := {
   pol  := or'        -- Φ = 𐑹: Frobenius special (μ∘δ=id)
   fid  := peep       -- ƒ = 𐑐: quantum fidelity
   kin  := egg        -- Ç = 𐑧: slow/near-equilibrium kinetics
-  gran := ice        -- Γ = 𐑔: global/fine-grained (ℵ)
+  gran := ice        -- Γ = 𐑔: global/fine-grained
   gram := measure    -- ɢ = 𐑠: sequential composition
   crit := monad      -- φ̂ = ⊙: critical (self-modeling gate)
   chir := wool       -- Ħ = 𐑫: eternal chirality

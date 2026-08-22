@@ -423,7 +423,7 @@ theorem cramer_model_distance_5 :
 /--
 **Theorem CR-8: Cramér ↔ RH-Conditional Distance**
 The conjecture and the RH-conditional bound differ in 2 primitives:
-  Γ (beth↔gimel), Ω (0↔Z2).
+  Γ (bib↔thigh), Ω (0↔Z2).
 -/
 theorem cramer_rh_conditional_distance_2 :
   primitiveMismatches cramer_vessel rh_conditional_vessel = 2 := by
@@ -565,7 +565,7 @@ Both conjectures concern prime gaps, but in opposite directions:
 
 Both sit at O₁ — the same tier, the same bowtie topology, the same
 absence of topological protection. They differ in only 2 primitives:
-Γ (beth↔aleph) and Σ (n:n↔n:m). This makes them structural near-twins
+Γ (bib↔ice) and Σ (n:n↔n:m). This makes them structural near-twins
 whose distance is the smallest between any two distinct O₁ problems.
 
 The structural insight: Cramér asks "how bad can it get?" while
@@ -592,7 +592,7 @@ def twin_prime_vessel : Imscription := {
 
 /--
 **Theorem CR-23: Cramér ↔ Twin Prime Distance**
-Cramér and Twin Prime differ in exactly 2 primitives: Γ (beth↔aleph) and Σ (n:n↔n:m).
+Cramér and Twin Prime differ in exactly 2 primitives: Γ (bib↔ice) and Σ (n:n↔n:m).
 This is the smallest distance between any two distinct O₁ problems.
 -/
 theorem cramer_twin_prime_distance_2 :
