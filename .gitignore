@@ -36,3 +36,4 @@ downstream_releases/
 # Committing version-specific oleans caused a stock/4.30 vs fork/4.28 version soup.
 *.olean
 __pycache__/
+p4ramill/sweep/wordsCollatzDepth.tsv
