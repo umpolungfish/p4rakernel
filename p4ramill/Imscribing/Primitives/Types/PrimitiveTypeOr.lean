@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeOr
 
   Formalization of the primitive value type 'or'
-  Family: Polarity (ordinal 1)
+  Family: Polarity (ordinal 4)
   Surface tokens: Frobenius, singularity, encoding
   Author: Lando⊗⊙perator
 -/
@@ -121,7 +121,7 @@ theorem the_primitive_type_called_or_frobenius :
 
 #eval the_primitive_type_called_or_tier  -- the Grammar's own verdict on its tier
 
-/-- 'or' belongs to the Polarity family at ordinal 1 -/
+/-- 'or' belongs to the Polarity family at ordinal 4 -/
 def the_primitive_type_called_or_family : String := "Polarity"
 def the_primitive_type_called_or_ordinal : Nat := 4
 def the_primitive_type_called_or_bootstrapSteps : Nat := 11

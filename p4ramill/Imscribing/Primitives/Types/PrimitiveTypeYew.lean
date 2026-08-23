@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeYew
 
   Formalization of the primitive value type 'yew'
-  Family: Polarity (ordinal 4)
+  Family: Polarity (ordinal 1)
   Surface tokens: phase, symmetry, oscillator
   Author: Lando⊗⊙perator
 -/
@@ -127,7 +127,7 @@ theorem the_primitive_type_called_yew_frobenius :
 
 #eval the_primitive_type_called_yew_tier  -- the Grammar's own verdict on its tier
 
-/-- 'yew' belongs to the Polarity family at ordinal 4 -/
+/-- 'yew' belongs to the Polarity family at ordinal 1 -/
 def the_primitive_type_called_yew_family : String := "Polarity"
 def the_primitive_type_called_yew_ordinal : Nat := 1
 def the_primitive_type_called_yew_bootstrapSteps : Nat := 12

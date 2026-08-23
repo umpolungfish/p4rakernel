@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeNun
 
   Formalization of the primitive value type 'nun'
-  Family: Fidelity (ordinal 2)
+  Family: Polarity (ordinal 3)
   Surface tokens: isometry, manifold, invariance
   Author: Lando⊗⊙perator
 -/
@@ -127,7 +127,7 @@ theorem the_primitive_type_called_nun_frobenius :
 
 #eval the_primitive_type_called_nun_tier  -- the Grammar's own verdict on its tier
 
-/-- 'nun' belongs to the Fidelity family at ordinal 2 -/
+/-- 'nun' belongs to the Polarity family at ordinal 3 -/
 def the_primitive_type_called_nun_family : String := "Polarity"
 def the_primitive_type_called_nun_ordinal : Nat := 3
 def the_primitive_type_called_nun_bootstrapSteps : Nat := 12

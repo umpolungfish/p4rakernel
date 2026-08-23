@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypePeep
 
   Formalization of the primitive value type 'peep'
-  Family: Polarity (ordinal 3)
+  Family: Fidelity (ordinal 2)
   Surface tokens: quantum_fidelity, lossless_encoding, peep_primitive
   Author: Lando⊗⊙perator
 -/
@@ -121,7 +121,7 @@ theorem the_primitive_type_called_peep_frobenius :
 
 #eval the_primitive_type_called_peep_tier  -- the Grammar's own verdict on its tier
 
-/-- 'peep' belongs to the Polarity family at ordinal 3 -/
+/-- 'peep' belongs to the Fidelity family at ordinal 2 -/
 def the_primitive_type_called_peep_family : String := "Fidelity"
 def the_primitive_type_called_peep_ordinal : Nat := 2
 def the_primitive_type_called_peep_bootstrapSteps : Nat := 11
