@@ -147,11 +147,18 @@ def the_primitive_type_called_fee_promotedAtomL9 : String := ""
 
 /-- The fragment in ordinary mathematics, which is what a reader outside the
     Grammar reads. -/
-def the_primitive_type_called_fee_conventionalReading : String := "invariant under the successor everywhere: period 1, constant along every orbit. **No handedness.**"
+def the_primitive_type_called_fee_conventionalReading : String := "invariant under the successor everywhere: period 1, constant along every orbit. No handedness."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_fee_fragmentIsStatement : Bool := false
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_fee_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_fee_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_fee_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

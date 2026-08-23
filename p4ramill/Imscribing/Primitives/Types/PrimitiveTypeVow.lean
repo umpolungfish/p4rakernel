@@ -149,9 +149,16 @@ def the_primitive_type_called_vow_promotedAtomL9 : String := "STITCH_3"
     Grammar reads. -/
 def the_primitive_type_called_vow_conventionalReading : String := "conjunction."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_vow_fragmentIsStatement : Bool := false
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_vow_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_vow_fragmentIsStatementEvidence : String := "starred in none of the 2 sampled theorem(s) that carry it"
 def the_primitive_type_called_vow_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types
