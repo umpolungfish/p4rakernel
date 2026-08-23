@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeLoll
 
   Formalization of the primitive value type 'loll'
-  Family: KineticChar (ordinal 4)
+  Family: KineticChar (ordinal 1)
   Surface tokens: viscosity, activation energy, kinetic threshold
   Author: Lando⊗⊙perator
 -/
@@ -127,7 +127,7 @@ theorem the_primitive_type_called_loll_frobenius :
 
 #eval the_primitive_type_called_loll_tier  -- the Grammar's own verdict on its tier
 
-/-- 'loll' belongs to the KineticChar family at ordinal 4 -/
+/-- 'loll' belongs to the KineticChar family at ordinal 1 -/
 def the_primitive_type_called_loll_family : String := "KineticChar"
 def the_primitive_type_called_loll_ordinal : Nat := 1
 def the_primitive_type_called_loll_bootstrapSteps : Nat := 12

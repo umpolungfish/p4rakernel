@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeIce
 
   Formalization of the primitive value type 'ice'
-  Family: Fidelity (ordinal 1)
+  Family: Granularity (ordinal 2)
   Surface tokens: global correlation, fine-grained resolution, all-to-all coupling
   Author: Lando⊗⊙perator
 -/
@@ -113,7 +113,7 @@ theorem the_primitive_type_called_ice_frobenius :
 
 #eval the_primitive_type_called_ice_tier  -- the Grammar's own verdict on its tier
 
-/-- 'ice' belongs to the Fidelity family at ordinal 1 -/
+/-- 'ice' belongs to the Granularity family at ordinal 2 -/
 def the_primitive_type_called_ice_family : String := "Granularity"
 def the_primitive_type_called_ice_ordinal : Nat := 2
 def the_primitive_type_called_ice_bootstrapSteps : Nat := 9

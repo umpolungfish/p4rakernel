@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeSo
 
   Formalization of the primitive value type 'so'
-  Family: Granularity (ordinal 2)
+  Family: Stoichiometry (ordinal 1)
   Surface tokens: stoichiometry, matched-ratio, multi-channel
   Author: Lando⊗⊙perator
 -/
@@ -119,7 +119,7 @@ theorem the_primitive_type_called_so_frobenius :
 
 #eval the_primitive_type_called_so_tier  -- the Grammar's own verdict on its tier
 
-/-- 'so' belongs to the Granularity family at ordinal 2 -/
+/-- 'so' belongs to the Stoichiometry family at ordinal 1 -/
 def the_primitive_type_called_so_family : String := "Stoichiometry"
 def the_primitive_type_called_so_ordinal : Nat := 1
 def the_primitive_type_called_so_bootstrapSteps : Nat := 11
