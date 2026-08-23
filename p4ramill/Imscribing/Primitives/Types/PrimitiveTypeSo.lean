@@ -122,6 +122,28 @@ theorem the_primitive_type_called_so_frobenius :
 /-- 'so' belongs to the Stoichiometry family at ordinal 1 -/
 def the_primitive_type_called_so_family : String := "Stoichiometry"
 def the_primitive_type_called_so_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'so' (⊞ = 𐑕), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_so_clinkFragmentL8 : String := "∀a∈A∀b∈B( type(a) = type(b) )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_so_proximityL8 : String := "close"
+def the_primitive_type_called_so_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_so_clinkFragmentL9 : String := "∀a∈A∀b∈B( type(a) = type(b) )"
+def the_primitive_type_called_so_proximityL9 : String := "close"
+def the_primitive_type_called_so_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_so_conventionalReading : String := "one type throughout: homotypic."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_so_fragmentIsStatement : Bool := false
 def the_primitive_type_called_so_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

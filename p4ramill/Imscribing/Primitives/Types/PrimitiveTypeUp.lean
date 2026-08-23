@@ -131,6 +131,28 @@ def the_primitive_type_called_up_tier : OuroboricityTier := TierFunctor.obj the_
 /-- 'up' belongs to the Stoichiometry family at ordinal 2 -/
 def the_primitive_type_called_up_family : String := "Stoichiometry"
 def the_primitive_type_called_up_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'up' (⊞ = 𐑳), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_up_clinkFragmentL8 : String := "∃a∈A∃b∈B( type(a) ≠ type(b) )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_up_proximityL8 : String := "match"
+def the_primitive_type_called_up_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_up_clinkFragmentL9 : String := "∃a∈A∃b∈B( type(a) ≠ type(b) ) — moat vs bridge"
+def the_primitive_type_called_up_proximityL9 : String := "match"
+def the_primitive_type_called_up_promotedAtomL9 : String := "MOAT_BRIDGE_TYPE"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_up_conventionalReading : String := "the two sides contain elements of different type: heterotypic, no type-preserving bijection."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_up_fragmentIsStatement : Bool := false
 def the_primitive_type_called_up_bootstrapSteps : Nat := 13
 
 end Imscribing.Primitives.Types

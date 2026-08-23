@@ -134,6 +134,28 @@ theorem the_primitive_type_called_egg_frobenius :
 /-- 'egg' belongs to the KineticChar family at ordinal 2 -/
 def the_primitive_type_called_egg_family : String := "KineticChar"
 def the_primitive_type_called_egg_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'egg' (⊤ = 𐑧), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_egg_clinkFragmentL8 : String := "τ ≫ T ∧ eq(x) ∧ gate_open(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_egg_proximityL8 : String := "match"
+def the_primitive_type_called_egg_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_egg_clinkFragmentL9 : String := "τ ≫ T ∧ eq(x) ∧ gate_open(x)"
+def the_primitive_type_called_egg_proximityL9 : String := "distant"
+def the_primitive_type_called_egg_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_egg_conventionalReading : String := "relaxation far slower than observation, at the stationary distribution, with the channel open: the quasi-static limit."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_egg_fragmentIsStatement : Bool := false
 def the_primitive_type_called_egg_bootstrapSteps : Nat := 13
 
 end Imscribing.Primitives.Types

@@ -124,6 +124,28 @@ theorem the_primitive_type_called_on_frobenius :
 /-- 'on' belongs to the KineticChar family at ordinal 3 -/
 def the_primitive_type_called_on_family : String := "KineticChar"
 def the_primitive_type_called_on_ordinal : Nat := 3
+
+/-- The CLINK L8 fragment for 'on' (⊤ = 𐑪), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_on_clinkFragmentL8 : String := "τ = ∞ ∧ ord(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_on_proximityL8 : String := "distant"
+def the_primitive_type_called_on_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_on_clinkFragmentL9 : String := "τ = ∞ ∧ ord(x) — infinite extension"
+def the_primitive_type_called_on_proximityL9 : String := "match"
+def the_primitive_type_called_on_promotedAtomL9 : String := "INFINITE_EXT"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_on_conventionalReading : String := "never relaxes, ordered: an integrable system with conserved quantities."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_on_fragmentIsStatement : Bool := false
 def the_primitive_type_called_on_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

@@ -116,6 +116,28 @@ theorem the_primitive_type_called_monad_frobenius :
 /-- 'monad' belongs to the Criticality family at ordinal 1 -/
 def the_primitive_type_called_monad_family : String := "Criticality"
 def the_primitive_type_called_monad_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'monad' (⊙ = ⊙), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_monad_clinkFragmentL8 : String := "ξ → ∞ ∧ μ∘δ = id"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_monad_proximityL8 : String := "match"
+def the_primitive_type_called_monad_promotedAtomL8 : String := "PHI_C"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_monad_clinkFragmentL9 : String := "ξ → ∞ ∧ μ∘δ = id — criticality"
+def the_primitive_type_called_monad_proximityL9 : String := "match"
+def the_primitive_type_called_monad_promotedAtomL9 : String := "PHI_C"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_monad_conventionalReading : String := "diverging correlation length at which the Frobenius algebra is special: a critical point that is idempotent."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_monad_fragmentIsStatement : Bool := false
 def the_primitive_type_called_monad_bootstrapSteps : Nat := 9
 
 end Imscribing.Primitives.Types

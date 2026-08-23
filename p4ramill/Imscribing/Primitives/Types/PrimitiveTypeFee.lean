@@ -130,6 +130,28 @@ theorem the_primitive_type_called_fee_frobenius :
 /-- 'fee' belongs to the Chirality family at ordinal 0 -/
 def the_primitive_type_called_fee_family : String := "Chirality"
 def the_primitive_type_called_fee_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'fee' (⊥ = 𐑓), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_fee_clinkFragmentL8 : String := "∀x( P(x) ↔ P(S(x)) )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_fee_proximityL8 : String := "distant"
+def the_primitive_type_called_fee_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_fee_clinkFragmentL9 : String := "∀x( P(x) ↔ P(S(x)) )"
+def the_primitive_type_called_fee_proximityL9 : String := "distant"
+def the_primitive_type_called_fee_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_fee_conventionalReading : String := "invariant under the successor everywhere: period 1, constant along every orbit. **No handedness.**"
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_fee_fragmentIsStatement : Bool := false
 def the_primitive_type_called_fee_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

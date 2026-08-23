@@ -130,6 +130,28 @@ theorem the_primitive_type_called_loll_frobenius :
 /-- 'loll' belongs to the KineticChar family at ordinal 1 -/
 def the_primitive_type_called_loll_family : String := "KineticChar"
 def the_primitive_type_called_loll_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'loll' (⊤ = 𐑤), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_loll_clinkFragmentL8 : String := "τ ∼ T ∧ noisy(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_loll_proximityL8 : String := "close"
+def the_primitive_type_called_loll_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_loll_clinkFragmentL9 : String := "τ ∼ T ∧ noisy(x)"
+def the_primitive_type_called_loll_proximityL9 : String := "close"
+def the_primitive_type_called_loll_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_loll_conventionalReading : String := "relaxation and observation on one timescale: the critical regime."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_loll_fragmentIsStatement : Bool := false
 def the_primitive_type_called_loll_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

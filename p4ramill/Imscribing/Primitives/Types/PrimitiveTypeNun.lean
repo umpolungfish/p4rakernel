@@ -130,6 +130,28 @@ theorem the_primitive_type_called_nun_frobenius :
 /-- 'nun' belongs to the Polarity family at ordinal 3 -/
 def the_primitive_type_called_nun_family : String := "Polarity"
 def the_primitive_type_called_nun_ordinal : Nat := 3
+
+/-- The CLINK L8 fragment for 'nun' (≺ = 𐑯), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_nun_clinkFragmentL8 : String := "∀g∈G( gx = x )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_nun_proximityL8 : String := "distant"
+def the_primitive_type_called_nun_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_nun_clinkFragmentL9 : String := "∀g∈G( gx = x )"
+def the_primitive_type_called_nun_proximityL9 : String := "distant"
+def the_primitive_type_called_nun_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_nun_conventionalReading : String := "x is a fixed point of the group action; invariant."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_nun_fragmentIsStatement : Bool := false
 def the_primitive_type_called_nun_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

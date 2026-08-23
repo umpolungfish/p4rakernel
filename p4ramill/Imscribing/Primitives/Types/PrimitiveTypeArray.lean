@@ -138,6 +138,28 @@ theorem the_primitive_type_called_array_frobenius :
 /-- 'array' belongs to the Dimensionality family at ordinal 2 -/
 def the_primitive_type_called_array_family : String := "Dimensionality"
 def the_primitive_type_called_array_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'array' (⊢ = 𐑼), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_array_clinkFragmentL8 : String := "∀n∃y( y ∈ x ∧ rank(y) > n )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_array_proximityL8 : String := "close"
+def the_primitive_type_called_array_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_array_clinkFragmentL9 : String := "∀n∃y( y ∈ x ∧ rank(y) > n )"
+def the_primitive_type_called_array_proximityL9 : String := "close"
+def the_primitive_type_called_array_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_array_conventionalReading : String := "the von Neumann ranks of members of x are unbounded: x is cofinal in the rank hierarchy, contained in no V_α."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_array_fragmentIsStatement : Bool := false
 def the_primitive_type_called_array_bootstrapSteps : Nat := 14
 
 end Imscribing.Primitives.Types

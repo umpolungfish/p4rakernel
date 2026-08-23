@@ -138,6 +138,28 @@ theorem the_primitive_type_called_dead_frobenius :
 /-- 'dead' belongs to the Dimensionality family at ordinal 0 -/
 def the_primitive_type_called_dead_family : String := "Dimensionality"
 def the_primitive_type_called_dead_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'dead' (⊢ = 𐑛), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_dead_clinkFragmentL8 : String := "dim(x) = 0 ∧ fin(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_dead_proximityL8 : String := "distant"
+def the_primitive_type_called_dead_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_dead_clinkFragmentL9 : String := "dim(x) = 0 ∧ fin(x) — point-like prime atom"
+def the_primitive_type_called_dead_proximityL9 : String := "match"
+def the_primitive_type_called_dead_promotedAtomL9 : String := "PRIME_POINT"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_dead_conventionalReading : String := "x is a finite discrete space."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_dead_fragmentIsStatement : Bool := false
 def the_primitive_type_called_dead_bootstrapSteps : Nat := 14
 
 end Imscribing.Primitives.Types

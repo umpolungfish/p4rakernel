@@ -124,6 +124,28 @@ theorem the_primitive_type_called_or_frobenius :
 /-- 'or' belongs to the Polarity family at ordinal 4 -/
 def the_primitive_type_called_or_family : String := "Polarity"
 def the_primitive_type_called_or_ordinal : Nat := 4
+
+/-- The CLINK L8 fragment for 'or' (≺ = 𐑹), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_or_clinkFragmentL8 : String := "ℤ₂(x) ∧ ∀g∈G( gx = x ) ∧ μ∘δ = id"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_or_proximityL8 : String := "match"
+def the_primitive_type_called_or_promotedAtomL8 : String := "PM_Z2"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_or_clinkFragmentL9 : String := "ℤ₂(x) ∧ ∀g∈G( gx = x ) ∧ μ∘δ = id"
+def the_primitive_type_called_or_proximityL9 : String := "distant"
+def the_primitive_type_called_or_promotedAtomL9 : String := "PM_Z2"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_or_conventionalReading : String := "a special commutative Frobenius algebra — multiplication after comultiplication is the identity — carrying a ℤ₂ grading on which the group acts trivially."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_or_fragmentIsStatement : Bool := false
 def the_primitive_type_called_or_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types
