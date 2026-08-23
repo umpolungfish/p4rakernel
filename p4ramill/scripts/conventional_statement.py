@@ -127,17 +127,54 @@ def kernel(cmds: list[str], timeout: int = 900) -> str:
     return r.stdout + r.stderr
 
 
-def word_and_verdict(tuple_glyphs: str) -> tuple[str, str, str]:
-    """The word a tuple composes to, its vox verdict, and its banked reading."""
+def word_and_verdict(tuple_glyphs: str) -> dict:
+    """The word a tuple composes to, its vox verdict, and its register trace.
+
+    vox is the rotation-invariant reading: the word closes at T, carries an open
+    fork at B, runs clean and linear at N, and is a designed opening at F. It is
+    not a gate and none of the four is a failure. The register is a different
+    question, and `weight` and `banked` answer it: what a clear takes, what a
+    fuse restores, and whether anything was ever at risk.
+    """
     out = kernel([f"imasm write {tuple_glyphs}"])
     m = re.search(r"^word:\s*(\S+)", out, re.M)
     if not m:
-        return "", "", ""
+        return {}
     word = m.group(1)
-    out2 = kernel([f"vox verdict {word}", f"banked {word}"])
-    v = re.search(r"^verdict (\w+)", out2, re.M)
-    b = re.search(r"^\s{2}(OK —.*|VACUOUS.*|LEAK.*)$", out2, re.M)
-    return word, (v.group(1) if v else ""), (b.group(1).strip() if b else "")
+    o = kernel([f"vox verdict {word}", f"banked {word}", f"weight {word}"])
+    v = re.search(r"^verdict (\w+)", o, re.M)
+
+    if "VACUOUS" in o:
+        banked = "vacuous: no clear ever fired against a live register"
+    elif "with nothing banked behind" in o:
+        n = re.search(r"(\d+) unit\(s\) cleared with nothing banked", o)
+        where = re.search(r"step (\d+) (\S+) cleared (\d+) with nothing behind it", o)
+        banked = f"leaks {n.group(1) if n else '?'}"
+        if where:
+            banked += f" at step {where.group(1)} {where.group(2)}"
+    elif re.search(r"^\s*OK —", o, re.M):
+        banked = "banked: survived every live clear"
+    else:
+        banked = ""
+
+    final = re.search(r"^\s*final\s*:\s*(\S+)", o, re.M)
+    surv = re.search(r"^\s*surviving:\s*(.+?)\s*$", o, re.M)
+    tally = re.search(
+        r"deposits (\d+)\s+cleared (\d+)\s+restored (\d+)\s+seeded (\d+)\s+inert (\d+)", o
+    )
+    return {
+        "word": word,
+        "vox": v.group(1) if v else "",
+        "banked": banked,
+        "final": final.group(1) if final else "",
+        "surviving": surv.group(1) if surv else "",
+        "tally": dict(
+            zip(
+                ("deposits", "cleared", "restored", "seeded", "inert"),
+                (int(x) for x in tally.groups()),
+            )
+        ) if tally else {},
+    }
 
 
 def decompose(name: str, records, catalog, want_vox: bool) -> dict:
@@ -179,10 +216,7 @@ def decompose(name: str, records, catalog, want_vox: bool) -> dict:
         "marks": marks,
     }
     if want_vox:
-        word, verdict, banked = word_and_verdict(tup)
-        out["word"] = word
-        out["vox"] = verdict
-        out["banked"] = banked
+        out.update(word_and_verdict(tup))
     return out
 
 
@@ -210,11 +244,19 @@ def render(d: dict) -> str:
             lines.append(f"    {m['mark']} {m['glyph']}   {m['fragment']}")
             lines.append(f"        {m['isStatementEvidence']}")
     if d.get("vox"):
+        t = d.get("tally") or {}
         lines += [
             "",
             f"    word {d['word']}",
-            f"    vox {d['vox']}   {d['banked']}",
+            f"    vox {d['vox']}   register {d.get('final','')}"
+            f"   surviving {d.get('surviving','')}",
+            f"    {d['banked']}",
         ]
+        if t:
+            lines.append(
+                "    deposits {deposits}  cleared {cleared}  restored {restored}"
+                "  seeded {seeded}  inert {inert}".format(**t)
+            )
     lines.append("")
     return "\n".join(lines)
 
