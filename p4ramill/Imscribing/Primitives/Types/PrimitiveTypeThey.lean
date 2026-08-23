@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeThey
 
   Formalization of the primitive value type 'they'
-  Family: Stoichiometry (ordinal 1)
+  Family: Fidelity (ordinal 1)
   Surface tokens: HotSwap, threshold, fidelity
   Author: Lando⊗⊙perator
 -/
@@ -127,7 +127,7 @@ theorem the_primitive_type_called_they_frobenius :
 
 #eval the_primitive_type_called_they_tier  -- the Grammar's own verdict on its tier
 
-/-- 'they' belongs to the Stoichiometry family at ordinal 1 -/
+/-- 'they' belongs to the Fidelity family at ordinal 1 -/
 def the_primitive_type_called_they_family : String := "Fidelity"
 def the_primitive_type_called_they_ordinal : Nat := 1
 def the_primitive_type_called_they_bootstrapSteps : Nat := 12

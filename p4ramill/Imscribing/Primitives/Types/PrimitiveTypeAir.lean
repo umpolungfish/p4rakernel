@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeAir
 
   Formalization of the primitive value type 'air'
-  Family: KineticChar (ordinal 1)
+  Family: KineticChar (ordinal 4)
   Surface tokens: disorder, localization, stasis
   Author: Lando⊗⊙perator
 -/
@@ -113,7 +113,7 @@ theorem the_primitive_type_called_air_frobenius :
 
 #eval the_primitive_type_called_air_tier  -- the Grammar's own verdict on its tier
 
-/-- 'air' belongs to the KineticChar family at ordinal 1 -/
+/-- 'air' belongs to the KineticChar family at ordinal 4 -/
 def the_primitive_type_called_air_family : String := "KineticChar"
 def the_primitive_type_called_air_ordinal : Nat := 4
 def the_primitive_type_called_air_bootstrapSteps : Nat := 9
