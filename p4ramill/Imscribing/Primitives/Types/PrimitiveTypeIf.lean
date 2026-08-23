@@ -149,9 +149,16 @@ def the_primitive_type_called_if_promotedAtomL9 : String := "HOLOGRAPHIC_STATE"
     Grammar reads. -/
 def the_primitive_type_called_if_conventionalReading : String := "the universe is the constructible hierarchy relativized to x, V = L[x], together with the reflection schema φ^x ↔ φ for every formula φ, and x is a member of it. A set-sized model satisfying exactly what the universe satisfies."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_if_fragmentIsStatement : Bool := false
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_if_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_if_fragmentIsStatementEvidence : String := "starred in none of the 7 sampled theorem(s) that carry it"
 def the_primitive_type_called_if_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

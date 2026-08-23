@@ -153,9 +153,16 @@ def the_primitive_type_called_egg_promotedAtomL9 : String := ""
     Grammar reads. -/
 def the_primitive_type_called_egg_conventionalReading : String := "relaxation far slower than observation, at the stationary distribution, with the channel open: the quasi-static limit."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_egg_fragmentIsStatement : Bool := false
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_egg_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_egg_fragmentIsStatementEvidence : String := "starred in none of the 7 sampled theorem(s) that carry it"
 def the_primitive_type_called_egg_bootstrapSteps : Nat := 13
 
 end Imscribing.Primitives.Types
