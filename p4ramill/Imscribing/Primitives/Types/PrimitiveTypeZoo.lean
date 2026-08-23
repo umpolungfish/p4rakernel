@@ -157,9 +157,16 @@ def the_primitive_type_called_zoo_promotedAtomL9 : String := "BRAID_TRANSCENDENC
     Grammar reads. -/
 def the_primitive_type_called_zoo_conventionalReading : String := "a braid group representation with nontrivial R-matrix and non-commuting monodromy: non-abelian statistics."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_zoo_fragmentIsStatement : Bool := true
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_zoo_fragmentIsStatement : String := "always"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_zoo_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_zoo_bootstrapSteps : Nat := 14
 
 end Imscribing.Primitives.Types

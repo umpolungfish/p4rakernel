@@ -161,9 +161,16 @@ def the_primitive_type_called_measure_promotedAtomL9 : String := "SEQAX"
     Grammar reads. -/
 def the_primitive_type_called_measure_conventionalReading : String := "a strict causal order: f precedes g within τ and g does not precede f. Antisymmetric precedence."
 
-/-- True when the fragment IS the conventional statement rather than a picture
-    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
-def the_primitive_type_called_measure_fragmentIsStatement : Bool := false
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_measure_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_measure_fragmentIsStatementEvidence : String := "starred in none of the 2 sampled theorem(s) that carry it"
 def the_primitive_type_called_measure_bootstrapSteps : Nat := 15
 
 end Imscribing.Primitives.Types
