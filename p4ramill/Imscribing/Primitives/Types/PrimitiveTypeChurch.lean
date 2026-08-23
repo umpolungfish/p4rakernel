@@ -120,6 +120,28 @@ theorem the_primitive_type_called_church_frobenius :
 /-- 'church' belongs to the Polarity family at ordinal 0 -/
 def the_primitive_type_called_church_family : String := "Polarity"
 def the_primitive_type_called_church_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'church' (≺ = 𐑗), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_church_clinkFragmentL8 : String := "¬∃sym(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_church_proximityL8 : String := "distant"
+def the_primitive_type_called_church_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_church_clinkFragmentL9 : String := "¬∃sym(x)"
+def the_primitive_type_called_church_proximityL9 : String := "distant"
+def the_primitive_type_called_church_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_church_conventionalReading : String := "trivial automorphism group, Aut(x) = 1: rigid."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_church_fragmentIsStatement : Bool := false
 def the_primitive_type_called_church_bootstrapSteps : Nat := 10
 
 end Imscribing.Primitives.Types

@@ -130,6 +130,28 @@ theorem the_primitive_type_called_vow_frobenius :
 /-- 'vow' belongs to the Grammar family at ordinal 0 -/
 def the_primitive_type_called_vow_family : String := "Grammar"
 def the_primitive_type_called_vow_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'vow' (∋ = 𐑝), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_vow_clinkFragmentL8 : String := "f ∧ g ∧ h"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_vow_proximityL8 : String := "distant"
+def the_primitive_type_called_vow_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_vow_clinkFragmentL9 : String := "f ∧ g ∧ h — three-unit stitch"
+def the_primitive_type_called_vow_proximityL9 : String := "match"
+def the_primitive_type_called_vow_promotedAtomL9 : String := "STITCH_3"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_vow_conventionalReading : String := "conjunction."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_vow_fragmentIsStatement : Bool := false
 def the_primitive_type_called_vow_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

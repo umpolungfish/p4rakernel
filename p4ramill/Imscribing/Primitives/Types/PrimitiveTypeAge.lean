@@ -143,6 +143,28 @@ def the_primitive_type_called_age_tier : OuroboricityTier := TierFunctor.obj the
 /-- 'age' belongs to the Fidelity family at ordinal 0 -/
 def the_primitive_type_called_age_family : String := "Fidelity"
 def the_primitive_type_called_age_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'age' (⋈ = 𐑱), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_age_clinkFragmentL8 : String := "P(x) ∈ {0,1} ∧ det(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_age_proximityL8 : String := "distant"
+def the_primitive_type_called_age_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_age_clinkFragmentL9 : String := "P(x) ∈ {0,1} ∧ det(x)"
+def the_primitive_type_called_age_proximityL9 : String := "distant"
+def the_primitive_type_called_age_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_age_conventionalReading : String := "a Dirac measure: every event has probability zero or one."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_age_fragmentIsStatement : Bool := false
 def the_primitive_type_called_age_bootstrapSteps : Nat := 16
 
 end Imscribing.Primitives.Types

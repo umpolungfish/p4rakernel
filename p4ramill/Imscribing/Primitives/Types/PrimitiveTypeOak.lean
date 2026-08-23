@@ -130,6 +130,28 @@ theorem the_primitive_type_called_oak_frobenius :
 /-- 'oak' belongs to the Protection family at ordinal 1 -/
 def the_primitive_type_called_oak_family : String := "Protection"
 def the_primitive_type_called_oak_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'oak' (◻ = 𐑴), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_oak_clinkFragmentL8 : String := "∮_γ A = nπ ∧ n ∈ ℤ₂"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_oak_proximityL8 : String := "distant"
+def the_primitive_type_called_oak_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_oak_clinkFragmentL9 : String := "∮_γ A = nπ ∧ n ∈ ℤ₂"
+def the_primitive_type_called_oak_proximityL9 : String := "close"
+def the_primitive_type_called_oak_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_oak_conventionalReading : String := "a Berry phase of 0 or π: a ℤ₂ characteristic class."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_oak_fragmentIsStatement : Bool := true
 def the_primitive_type_called_oak_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

@@ -116,6 +116,28 @@ theorem the_primitive_type_called_air_frobenius :
 /-- 'air' belongs to the KineticChar family at ordinal 4 -/
 def the_primitive_type_called_air_family : String := "KineticChar"
 def the_primitive_type_called_air_ordinal : Nat := 4
+
+/-- The CLINK L8 fragment for 'air' (⊤ = 𐑺), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_air_clinkFragmentL8 : String := "τ = ∞ ∧ dis(x) ∧ MBL"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_air_proximityL8 : String := "distant"
+def the_primitive_type_called_air_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_air_clinkFragmentL9 : String := "τ = ∞ ∧ dis(x) ∧ MBL"
+def the_primitive_type_called_air_proximityL9 : String := "distant"
+def the_primitive_type_called_air_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_air_conventionalReading : String := "never relaxes, disordered, many-body localized: an extensive set of quasi-local conserved quantities forbidding thermalization."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_air_fragmentIsStatement : Bool := false
 def the_primitive_type_called_air_bootstrapSteps : Nat := 9
 
 end Imscribing.Primitives.Types

@@ -130,6 +130,28 @@ theorem the_primitive_type_called_ear_frobenius :
 /-- 'ear' belongs to the Relational family at ordinal 2 -/
 def the_primitive_type_called_ear_family : String := "Relational"
 def the_primitive_type_called_ear_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'ear' (≻ = 𐑽), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_ear_clinkFragmentL8 : String := "f ⊣ g ∧ L Adj(f, g)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_ear_proximityL8 : String := "close"
+def the_primitive_type_called_ear_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_ear_clinkFragmentL9 : String := "f ⊣ g ∧ L Adj(f, g)"
+def the_primitive_type_called_ear_proximityL9 : String := "close"
+def the_primitive_type_called_ear_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_ear_conventionalReading : String := "f is left adjoint to g: Hom(f a, b) ≅ Hom(a, g b), naturally in a and b."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_ear_fragmentIsStatement : Bool := false
 def the_primitive_type_called_ear_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

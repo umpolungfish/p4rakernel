@@ -124,6 +124,28 @@ theorem the_primitive_type_called_roar_frobenius :
 /-- 'roar' belongs to the Criticality family at ordinal 2 -/
 def the_primitive_type_called_roar_family : String := "Criticality"
 def the_primitive_type_called_roar_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'roar' (⊙ = 𐑮), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_roar_clinkFragmentL8 : String := "ξ ∈ ℂ ∧ Im(ξ) → ∞"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_roar_proximityL8 : String := "close"
+def the_primitive_type_called_roar_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_roar_clinkFragmentL9 : String := "ξ ∈ ℂ ∧ Im(ξ) → ∞"
+def the_primitive_type_called_roar_proximityL9 : String := "close"
+def the_primitive_type_called_roar_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_roar_conventionalReading : String := "complex correlation length with diverging imaginary part: oscillatory decay of unbounded period."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_roar_fragmentIsStatement : Bool := false
 def the_primitive_type_called_roar_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

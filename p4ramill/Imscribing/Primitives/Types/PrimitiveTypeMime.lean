@@ -130,6 +130,28 @@ theorem the_primitive_type_called_mime_frobenius :
 /-- 'mime' belongs to the Topology family at ordinal 2 -/
 def the_primitive_type_called_mime_family : String := "Topology"
 def the_primitive_type_called_mime_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'mime' (⊣ = 𐑥), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_mime_clinkFragmentL8 : String := "cross(x, y) ∧ ¬ meet(x, y)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_mime_proximityL8 : String := "close"
+def the_primitive_type_called_mime_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_mime_clinkFragmentL9 : String := "cross(x, y) ∧ ¬ meet(x, y) — moat crossing"
+def the_primitive_type_called_mime_proximityL9 : String := "match"
+def the_primitive_type_called_mime_promotedAtomL9 : String := "MOAT_CROSS"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_mime_conventionalReading : String := "disjoint sets with nonzero linking number: x ∩ y = ∅ but lk(x,y) ≠ 0."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_mime_fragmentIsStatement : Bool := false
 def the_primitive_type_called_mime_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

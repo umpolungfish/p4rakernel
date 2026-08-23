@@ -126,6 +126,28 @@ theorem the_primitive_type_called_thigh_frobenius :
 /-- 'thigh' belongs to the Granularity family at ordinal 1 -/
 def the_primitive_type_called_thigh_family : String := "Granularity"
 def the_primitive_type_called_thigh_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'thigh' (∈ = 𐑔), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_thigh_clinkFragmentL8 : String := "∃y∈x( |y| ∼ |x| )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_thigh_proximityL8 : String := "close"
+def the_primitive_type_called_thigh_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_thigh_clinkFragmentL9 : String := "∃y∈x( |y| ∼ |x| ) — bridge existence"
+def the_primitive_type_called_thigh_proximityL9 : String := "match"
+def the_primitive_type_called_thigh_promotedAtomL9 : String := "BRIDGE_EXIST"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_thigh_conventionalReading : String := "y"
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_thigh_fragmentIsStatement : Bool := false
 def the_primitive_type_called_thigh_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types
