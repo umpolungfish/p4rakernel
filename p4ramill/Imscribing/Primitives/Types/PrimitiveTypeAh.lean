@@ -120,6 +120,28 @@ theorem the_primitive_type_called_ah_frobenius :
 /-- 'ah' belongs to the Protection family at ordinal 2 -/
 def the_primitive_type_called_ah_family : String := "Protection"
 def the_primitive_type_called_ah_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'ah' (◻ = 𐑭), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_ah_clinkFragmentL8 : String := "∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_ah_proximityL8 : String := "close"
+def the_primitive_type_called_ah_promotedAtomL8 : String := "ZWIND"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_ah_clinkFragmentL9 : String := "∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0 — winding bridge"
+def the_primitive_type_called_ah_proximityL9 : String := "match"
+def the_primitive_type_called_ah_promotedAtomL9 : String := "WIND_BRIDGE"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_ah_conventionalReading : String := "quantized flux with nonzero winding: a nonzero first Chern class, c₁ ≠ 0."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_ah_fragmentIsStatement : Bool := true
 def the_primitive_type_called_ah_bootstrapSteps : Nat := 10
 
 end Imscribing.Primitives.Types

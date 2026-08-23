@@ -130,6 +130,28 @@ theorem the_primitive_type_called_they_frobenius :
 /-- 'they' belongs to the Fidelity family at ordinal 1 -/
 def the_primitive_type_called_they_family : String := "Fidelity"
 def the_primitive_type_called_they_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'they' (⋈ = 𐑞), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_they_clinkFragmentL8 : String := "Tr(ρ²) < 1 ∧ ρ = Σ p_i |i⟩⟨i|"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_they_proximityL8 : String := "close"
+def the_primitive_type_called_they_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_they_clinkFragmentL9 : String := "Tr(ρ²) < 1 ∧ ρ = Σ p_i |i⟩⟨i|"
+def the_primitive_type_called_they_proximityL9 : String := "close"
+def the_primitive_type_called_they_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_they_conventionalReading : String := "i⟩⟨i"
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_they_fragmentIsStatement : Bool := false
 def the_primitive_type_called_they_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

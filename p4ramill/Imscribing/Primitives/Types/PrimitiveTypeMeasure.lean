@@ -142,6 +142,28 @@ theorem the_primitive_type_called_measure_frobenius :
 /-- 'measure' belongs to the Grammar family at ordinal 2 -/
 def the_primitive_type_called_measure_family : String := "Grammar"
 def the_primitive_type_called_measure_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'measure' (∋ = 𐑠), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_measure_clinkFragmentL8 : String := "seq!(f, g) ∧ ⟨→⟩(f, g, τ) ∧ ¬ ⟨→⟩(g, f, τ)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_measure_proximityL8 : String := "close"
+def the_primitive_type_called_measure_promotedAtomL8 : String := "SEQAX"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_measure_clinkFragmentL9 : String := "seq!(f, g) ∧ ⟨→⟩(f, g, τ) ∧ ¬ ⟨→⟩(g, f, τ)"
+def the_primitive_type_called_measure_proximityL9 : String := "distant"
+def the_primitive_type_called_measure_promotedAtomL9 : String := "SEQAX"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_measure_conventionalReading : String := "a strict causal order: f precedes g within τ and g does not precede f. Antisymmetric precedence."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_measure_fragmentIsStatement : Bool := false
 def the_primitive_type_called_measure_bootstrapSteps : Nat := 15
 
 end Imscribing.Primitives.Types

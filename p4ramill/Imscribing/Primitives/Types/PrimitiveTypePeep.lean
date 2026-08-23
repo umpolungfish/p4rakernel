@@ -124,6 +124,28 @@ theorem the_primitive_type_called_peep_frobenius :
 /-- 'peep' belongs to the Fidelity family at ordinal 2 -/
 def the_primitive_type_called_peep_family : String := "Fidelity"
 def the_primitive_type_called_peep_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'peep' (⋈ = 𐑐), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_peep_clinkFragmentL8 : String := "ℏ(x) ∧ [x, p] = iℏ"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_peep_proximityL8 : String := "match"
+def the_primitive_type_called_peep_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_peep_clinkFragmentL9 : String := "ℏ(x) ∧ [x, p] = iℏ — commutator of bridge"
+def the_primitive_type_called_peep_proximityL9 : String := "match"
+def the_primitive_type_called_peep_promotedAtomL9 : String := "BRIDGE_COMM"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_peep_conventionalReading : String := "a representation of the Heisenberg Lie algebra: the canonical commutation relation, hence Stone–von Neumann."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_peep_fragmentIsStatement : Bool := true
 def the_primitive_type_called_peep_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

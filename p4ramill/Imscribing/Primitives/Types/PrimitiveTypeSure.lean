@@ -128,6 +128,28 @@ theorem the_primitive_type_called_sure_frobenius :
 /-- 'sure' belongs to the Chirality family at ordinal 2 -/
 def the_primitive_type_called_sure_family : String := "Chirality"
 def the_primitive_type_called_sure_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'sure' (⊥ = 𐑖), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_sure_clinkFragmentL8 : String := "∃y∃z( y ∈ x ∧ z ∈ y ∧ ¬ z ∈ x ∧ rank(z) < rank(y) )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_sure_proximityL8 : String := "close"
+def the_primitive_type_called_sure_promotedAtomL8 : String := "TEMPD2"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_sure_clinkFragmentL9 : String := "∃y∃z( y ∈ x ∧ z ∈ y ∧ ¬ z ∈ x ∧ rank(z) < rank(y) )"
+def the_primitive_type_called_sure_proximityL9 : String := "close"
+def the_primitive_type_called_sure_promotedAtomL9 : String := "TEMPD2"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_sure_conventionalReading : String := "failure of transitivity witnessed two levels down, with rank descending: return in exactly two steps."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_sure_fragmentIsStatement : Bool := false
 def the_primitive_type_called_sure_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

@@ -126,6 +126,28 @@ theorem the_primitive_type_called_bib_frobenius :
 /-- 'bib' belongs to the Granularity family at ordinal 0 -/
 def the_primitive_type_called_bib_family : String := "Granularity"
 def the_primitive_type_called_bib_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'bib' (∈ = 𐑚), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_bib_clinkFragmentL8 : String := "∀y∈x( |y| < |x| )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_bib_proximityL8 : String := "distant"
+def the_primitive_type_called_bib_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_bib_clinkFragmentL9 : String := "∀y∈x( |y| < |x| )"
+def the_primitive_type_called_bib_proximityL9 : String := "distant"
+def the_primitive_type_called_bib_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_bib_conventionalReading : String := "y"
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_bib_fragmentIsStatement : Bool := true
 def the_primitive_type_called_bib_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

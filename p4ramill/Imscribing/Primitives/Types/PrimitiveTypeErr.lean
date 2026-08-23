@@ -130,6 +130,28 @@ theorem the_primitive_type_called_err_frobenius :
 /-- 'err' belongs to the Criticality family at ordinal 3 -/
 def the_primitive_type_called_err_family : String := "Criticality"
 def the_primitive_type_called_err_ordinal : Nat := 3
+
+/-- The CLINK L8 fragment for 'err' (⊙ = 𐑻), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_err_clinkFragmentL8 : String := "H(λ) non-Herm ∧ det(H - λI) = 0 ∧ ∂_λ H = 0"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_err_proximityL8 : String := "distant"
+def the_primitive_type_called_err_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_err_clinkFragmentL9 : String := "H(λ) non-Herm ∧ det(H - λI) = 0 ∧ ∂_λ H = 0"
+def the_primitive_type_called_err_proximityL9 : String := "distant"
+def the_primitive_type_called_err_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_err_conventionalReading : String := "an exceptional point: eigenvalues and eigenvectors coalesce, the operator fails to be diagonalizable."
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_err_fragmentIsStatement : Bool := false
 def the_primitive_type_called_err_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

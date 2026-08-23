@@ -130,6 +130,28 @@ theorem the_primitive_type_called_yew_frobenius :
 /-- 'yew' belongs to the Polarity family at ordinal 1 -/
 def the_primitive_type_called_yew_family : String := "Polarity"
 def the_primitive_type_called_yew_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'yew' (≺ = 𐑿), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_yew_clinkFragmentL8 : String := "|ψ⟩ = Σ c_i |e_i⟩"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_yew_proximityL8 : String := "close"
+def the_primitive_type_called_yew_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_yew_clinkFragmentL9 : String := "|ψ⟩ = Σ c_i |e_i⟩"
+def the_primitive_type_called_yew_proximityL9 : String := "close"
+def the_primitive_type_called_yew_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_yew_conventionalReading : String := "ψ⟩ = Σ c_i"
+
+/-- True when the fragment IS the conventional statement rather than a picture
+    of it. Read off the marks in ig-docs/OVMs/conventional_statements.md. -/
+def the_primitive_type_called_yew_fragmentIsStatement : Bool := false
 def the_primitive_type_called_yew_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types
