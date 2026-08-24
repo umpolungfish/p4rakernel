@@ -124,6 +124,7 @@ globs = [
 "Imscribing.Millennium.BiochemicalMassGapUnification",
   "Imscribing.Millennium.Hodge",
   "Imscribing.Millennium.NS",
+  "Imscribing.Millennium.HornTorusGeometry",
   "Imscribing.Millennium.PvsNP",
   "Imscribing.Millennium.PvsNP_Structural",
   "Imscribing.Millennium.PvsNP_Certificates",

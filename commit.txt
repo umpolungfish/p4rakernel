@@ -1,8 +1,19 @@
-Remove the outdated scope disclaimer from Clay_WitnessedClosure.lean
+Add HornTorusGeometry and its ELF-audited runtime kernel
 
-The disclaimer said the structural-closure witnesses here do not discharge
-BSD/Hodge/YM and answer a different question from the direct proofs. That
-framing is no longer the standing position: the Witness/Closure treatment
-is the verification appropriate to these problems, not a side track next
-to the sorry-laden direct attempts. Removed the paragraph; nothing else in
-the file changed.
+Formalizes the horn torus geometry from HORN_TORUS_GEOMETRY_CONTEXT.md and
+the seven Clay-theorem structure ob3ects against it, zero sorries. Proves
+the ENGAGR-on-both-surfaces claim exactly: rotating about the syzygy axis
+by 30 degrees maps the scaled ENGAGR point to a point that lies on the
+R=2 horn torus.
+
+HornTorusELF.c/.lean and HornTorusRuntime.c are the compiled companion:
+same lesson as the BiochemicalMassGapUnification episode this session,
+vox needs real machine code, not .olean, to give a verdict worth reading.
+v3 threads the seven words through runtime arithmetic instead of literal
+constants so Lean's codegen can't fold the checks away before vox ever
+sees them; the runtime primitives are provided in-image so vox can follow
+every call without an external PLT target. VoxAudit_HornTorusGeometry.lean
+is the independent oracle over the theorem set: #print axioms on each one,
+expecting real-number construction axioms only, nothing else.
+
+lakefile.toml wires the new module into the Imscribing library glob.
