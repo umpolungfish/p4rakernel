@@ -178,6 +178,8 @@ globs = [
   "Imscribing.Millennium.DualLinkVessel",
   "Imscribing.Nuclear.IslandOfStability",
   "Imscribing.Quantum.OVM",
+  "Imscribing.Millennium.OVMCatalog",
+  "Imscribing.Quantum.OVMTaxonomy",
   "Imscribing.Quantum.GrammarPOVM",
   "Imscribing.Quantum.FrobeniusDualPOVM",
   "Imscribing.Quantum.ExcitedStates",
