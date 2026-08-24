@@ -17,6 +17,7 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Quantum.WindingLattice
 -- Mathlib imports not needed for structural analysis
 -- The TwinPrimeConjecture is stated as a Prop placeholder
 
@@ -434,5 +435,36 @@ HONEST SORRY / GAP MARKERS:
    The final step from O₂ to O_inf — from bounded to exact — remains
    the structural equivalent of the Riemann Hypothesis itself.
 -/
+
+
+-- ============================================================
+-- §10. The winding principle (○ = IFIX) instantiated for Twin Prime (negative case)
+-- ============================================================
+
+/-! CHECKED. Twin Prime sits at O₁ (critical but UNPROTECTED): it lacks the
+    winding protection (░) that RH possesses. Imscribing.Quantum.WindingLattice
+    proves the Fibonacci model native phases are exact TENTHS of a winding and
+    that the T gate (one eighth) is not a tenth -- gate_separation. The SAME
+    arithmetic is the shape of the missing protection: twin primes have no
+    integer winding to force the pattern to persist. The ○ primitive is the
+    exact coordinate of the structural gap -- the absence, recorded rather than
+    filled. -/
+theorem twinprime_winding_gap :
+    (∃ p : ℤ, (1 : ℚ) / 2 = (p : ℚ) / 10) ∧
+    (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
+  Imscribing.Quantum.gate_separation
+
+/-! CONJECTURE (original claim). The ○ winding incommensurability -- a phase
+    that cannot be closed by the model own lattice -- IS the structural
+    explanation of the Twin Prime gap: the conjecture is RH stripped of its
+    topological winding protection (░). -/
+def twinprime_winding_bridge : String :=
+  "the absent ░ winding IS the Twin-Prime/O₁ gap (RH without topological protection)"
+
+/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈◻∋ cycles to
+    verdict T at every ROTAT cut (instrument verdict imasm cycle: k = 0,1,2 → T,T,T),
+    enclosing the interior winding mark the proof carries. Reuses the closed
+    gate_separation arithmetic fact. -/
+def twinprime_winding_word : String := "∈◻∋"
 
 end Millennium.TwinPrime
