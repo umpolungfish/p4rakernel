@@ -56,15 +56,19 @@
 --      reported T 3 F 0 from the source and that was the wrong input.
 --        vox .lake/build/lib/lean/Imscribing/Millennium/\
 --            BiochemicalMassGapUnification.olean
---        → 1752 function(s):  T 30   B 1046   N 1624   F 2
---      Two ill-typed fragments, and vox names both: at 0x2531
---      ⊢∈∋◻◻◻◻◻◻⊞⊞⋈◻◻⊞∋◻≺ and at 0xfb4d ⊢⋈⊞◻◻◻◻◻⊞∋⋈◻◻≺. Each carries a ∋
---      with no ∈ left to pair it, and both read VACUOUS on `banked`.
+--        → 2831 function(s) (1816 by descent, 1015 by fallback sweep):
+--          T 23   B 1053   N 1754   F 1
+--      One ill-typed fragment, and vox names it: at 0x3ce5
+--      ⊢∈∋◻◻◻◻◻∋◻◻◻◻⊞⋈⋈◻◻◻⊞⊞⋈◻◻◻◻◻◻◻◻◻◻◻⊞⋈◻◻⊞◻≺. It carries a ∋
+--      with no ∈ left to pair it (1 ∈ vs 2 ∋), reads VACUOUS on `banked`, and
+--      its cycle has period 40 with verdict F at every ROTAT cut — a true
+--      count imbalance, which no rotation repairs.
 --      The olean is the artifact to read because native compilation erases the
 --      proof terms: the .so built from this module's C backend output has 53
---      functions against the olean's 1752. Control for the reading being an
---      artifact of disassembling non-code: shuffling the olean's own bytes
---      drops its fork rate from 39.2% to 24.3%, so byte order is carrying it.
+--      functions against the olean's 2831 (1816 by descent). Control for the
+--      reading being an artifact of disassembling non-code: shuffling the
+--      olean's own bytes drops its fork rate from 39.2% to 24.3%, so byte
+--      order is carrying it.
 --
 --    • `import Imscribing.Quantum.WindingLattice` added: Pillar 3's obstruction
 --      is now the explicit winding incommensurability `gate_separation`
@@ -242,17 +246,22 @@ def pillar3_bridge : String := "the √2 ∉ ℚ(√φ) obstruction IS the foldi
 /-! CHECKED. The Fibonacci model's native phases are exact tenths of a winding
     (Imscribing.Quantum: thetaTau = 4/10, rTau = -3/10, jonesRoot = 2/10,
     framing = -1/10; eigenvalues_generate proves the tenths are the whole
-    lattice). The T gate is one eighth of a winding, and
-    Imscribing.Quantum.eighth_not_a_tenth proves 1/8 is not a multiple of 1/10.
-    So the algebraic obstruction of Pillar 3 (√2 ∉ ℚ(√φ)) and this winding
-    incommensurability (1/8 ∉ {n/10}) are one fact on two surfaces: the gate
-    cannot be reached because it sits at a winding the model's own phases do
-    not contain. The ◻ primitive is therefore the exact coordinate of the
-    barrier, not a decorative label. -/
+    lattice). The T gate is one eighth of a winding: `1/2` of a winding IS a
+    tenth (`10 = 2·5`) and `1/8` is NOT (`10 = 8·p` has no integer solution) —
+    the same fact `Imscribing.Quantum.gate_separation` records over `ℚ` as
+    `1/2 = p/10` vs `1/8 = p/10`. So the algebraic obstruction of Pillar 3
+    (√2 ∉ ℚ(√φ)) and this winding incommensurability (1/8 ∉ {n/10}) are one
+    fact on two surfaces: the gate cannot be reached because it sits at a
+    winding the model's own phases do not contain. The ◻ primitive is therefore
+    the exact coordinate of the barrier, not a decorative label. The integer
+    statement keeps `ℚ` out of this module's serialized environment. -/
 theorem pillar3_winding_form :
-    (∃ p : ℤ, (1 : ℚ) / 2 = (p : ℚ) / 10) ∧
-    (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
-  Imscribing.Quantum.gate_separation
+    (∃ p : ℤ, (10 : ℤ) = 2 * p) ∧
+    (¬ ∃ p : ℤ, (10 : ℤ) = 8 * p) := by
+  constructor
+  · exact ⟨5, by norm_num⟩
+  · rintro ⟨p, hp⟩
+    omega
 
 /-- CONJECTURE (original claim). The ◻ winding gap — a winding that cannot be
     closed by continuous deformation — IS the same barrier that separates the
