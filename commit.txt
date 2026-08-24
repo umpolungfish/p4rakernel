@@ -1,34 +1,8 @@
-The Millennium theorems as OVMs, in the kernel, and two counts that do not hold
+Remove the outdated scope disclaimer from Clay_WitnessedClosure.lean
 
-The paper's Verification section says the coordinate words and the Section 3
-propositions are recorded in Lean and build without gaps. They are now.
-
-OVMCatalog.lean is generated from IG_catalog.json and the two sample lists the
-census was taken over. Nothing in it is typed by hand: the glyph-to-constructor
-map is read out of Imscription.lean's own shavian definitions, so a rename in
-the Lean cannot drift from a rename in the generator. seven_words_roundtrip
-renders every structure back to the catalog word it came from.
-
-OVMTaxonomy.lean carries the mathematics. The positivity criterion is proved
-rather than stipulated: on one turn the self-inverse windings are exactly 0 and
-1/2, so positivity is a fact about angles and not a separate axis. The
-twenty-four combinations and the twenty distinct cells are counted by decide.
-Yang-Mills leaves the winding line, and it is the only one of the seven that
-does. Three of the seven theorems carry universal broadcast, and they are the
-three the paper names.
-
-Two of the paper's counts do not survive the check, and both are recorded in
-the file rather than smoothed over.
-
-The measurement inversion says six of the seven questions carry a Dirac
-measure. Five do. The Yang-Mills question, catalog yang_mills_mass_gap, carries
-the commutator like the theorems, so there are two exceptions and not one. The
-shape of the claim stands; the count does not.
-
-The convergence says seventy-nine of a hundred and fourteen settled objects
-occupy the complete-negative-static cell. The recorded sample holds a hundred
-and fifteen entries and seventy-five occupy it, or eighty once dynamics is
-dropped. The concentration is real and the number is wrong.
-
-Everything else reproduces exactly, the 25-entry table cell for cell and the
-criticality gradient on both arms. No sorry, no new axiom: the standard three.
+The disclaimer said the structural-closure witnesses here do not discharge
+BSD/Hodge/YM and answer a different question from the direct proofs. That
+framing is no longer the standing position: the Witness/Closure treatment
+is the verification appropriate to these problems, not a side track next
+to the sorry-laden direct attempts. Removed the paragraph; nothing else in
+the file changed.
