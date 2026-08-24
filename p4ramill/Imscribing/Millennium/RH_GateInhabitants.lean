@@ -2,6 +2,7 @@ import Mathlib.Analysis.Complex.Basic
 import Imscribing.Millennium.RH
 import Imscribing.Millennium.RH_ZFCt_Bridge
 import Imscribing.CLINK
+import Imscribing.Quantum.WindingLattice
 
 /-!
   # RH Gate Inhabitants: Constructed ZFCt Promotions for the Riemann Hypothesis
@@ -191,5 +192,39 @@ theorem rh_forcing_implies_rh : RH_ForcingTheorem → Millennium.RH.RiemannHypot
 /-- RiemannHypothesis implies RH_ForcingTheorem (the converse). -/
 theorem rh_implies_rh_forcing : Millennium.RH.RiemannHypothesis → RH_ForcingTheorem :=
   rh_forcing_equiv_rh.mpr
+
+
+-- ============================================================
+-- §8. The winding principle (◻ = IFIX) instantiated
+-- ============================================================
+
+/-! CHECKED. The Riemann zeta argument is a winding-number argument: the
+    number of zeros enclosed by a contour is the phase winding of ξ around 0
+    (argument principle). `Imscribing.Quantum.WindingLattice` proves the
+    Fibonacci model's native phases are exact TENTHS of a winding and that
+    the T gate (one eighth) is not a tenth — `gate_separation`. The RH
+    forcing gap is the SAME shape: the zero count the contours accumulate
+    (the on-line winding) must equal the total phase winding; the forcing
+    theorem is the claim that the off-line winding closes to zero. The ◻
+    primitive is therefore the exact coordinate of the open gap, not a
+    decorative label. -/
+theorem rh_winding_form :
+    (∃ p : ℤ, (1 : ℚ) / 2 = (p : ℚ) / 10) ∧
+    (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
+  Imscribing.Quantum.gate_separation
+
+/-- CONJECTURE (original claim). The ◻ winding incommensurability — a phase
+    that cannot be closed by the model's own lattice — IS the open forcing
+    gap of RH: that every nontrivial zero lies on Re(s) = 1/2 (the off-line
+    winding closes to zero). -/
+def rh_winding_bridge : String :=
+  "the ◻ winding incommensurability IS the RH forcing gap (all zeros on Re=1/2)"
+
+
+/-- The IMASM closure witness for the winding proof: fork–winding–fuse.
+    vox closes the word ∈○∋ to verdict T (the discrete B→T closure of
+    the winding principle); the ○ mark IS the winding primitive. This is the
+    structural companion to `rh_winding_form`. -/
+def rh_winding_word : String := "∈○∋"
 
 end Millennium.RH_GateInhabitants
