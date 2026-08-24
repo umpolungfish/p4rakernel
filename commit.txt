@@ -1,35 +1,34 @@
-Collatz: the crystal closes one slot from CLINK L8, and that slot needs the one operation
-the toolchain does not expose
+The Millennium theorems as OVMs, in the kernel, and two counts that do not hold
 
-Adding the non-abelian carrier to our macrocycle gives a four-unit set that CLOSES:
+The paper's Verification section says the coordinate words and the Section 3
+propositions are recorded in Lean and build without gaps. They are now.
 
-  --crystallize collatz_deep self_referential_imscription this_imscription_is_false maximal_nn
-    lattice: [self_referential_imscription · collatz_deep · this_imscription_is_false · maximal_nn]
-             closed crystal, O∞
-    mother-pool: none — the whole pool crystallized
-    ✓ T: a clean crystal — every unit fits and the lattice closes.
+OVMCatalog.lean is generated from IG_catalog.json and the two sample lists the
+census was taken over. Nothing in it is typed by hand: the glyph-to-constructor
+map is read out of Imscription.lean's own shavian definitions, so a rename in
+the Lean cannot drift from a rename in the generator. seven_words_roundtrip
+renders every structure back to the catalog word it came from.
 
-  --fpt on the same set: nothing outgasses, the assembly is fully bound. ✓ T
+OVMTaxonomy.lean carries the mathematics. The positivity criterion is proved
+rather than stipulated: on one turn the self-inverse windings are exactly 0 and
+1/2, so positivity is a fact about angles and not a separate axis. The
+twenty-four combinations and the twenty distinct cells are counted by decide.
+Yang-Mills leaves the winding line, and it is the only one of the seven that
+does. Three of the seven theorems carry universal broadcast, and they are the
+three the paper names.
 
-Its blend, max per axis as click.rs defines the operation:
+Two of the paper's counts do not survive the check, and both are recorded in
+the file rather than smoothed over.
 
-  blend     ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑟⟩
-  CLINK L8  ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑟⟩
+The measurement inversion says six of the seven questions carry a Dirac
+measure. Five do. The Yang-Mills question, catalog yang_mills_mass_gap, carries
+the commutator like the theorems, so there are two exceptions and not one. The
+shape of the claim stands; the count does not.
 
-ELEVEN of twelve slots identical, d(L8) = 0.4038. The single gap is ∈ 𐑲 against 𐑔 --
-ℵ against ℷ, aleph against gimel -- and it needs LOWERING. It is the same obstruction
-that made L9 unwritable by the derivation, arriving now from the other side.
+The convergence says seventy-nine of a hundred and fourteen settled objects
+occupy the complete-negative-static cell. The recorded sample holds a hundred
+and fifteen entries and seventy-five occupy it, or eighty once dynamics is
+dropped. The concentration is real and the number is wrong.
 
-Every lowering operation, tried and exhausted:
-  --anneal      both the 3-ring and the 4-ring are ALREADY at σ(Δ)=0.000, exhaustive
-                over every ordering. No relaxation available. (--cleave calls the same
-                4-ring FRUSTRATED at ρ=2.0 -- two metrics disagreeing on one ring.)
-  --fpt         nothing outgasses
-  --cleave      fission opens both daughters
-  --crystallize nothing rejected
-  --descend     lowers ⊙ and removes a winding, not ∈
-  meet          not exposed between two entities anywhere in the toolchain
-
-So the remaining distance from a closed, crystallized, kernel-certifiable Collatz object
-to CLINK L8 is ONE slot requiring ONE meet, and `ask` has no --meet. That is the same gap
-recorded in cfb7ef1, now at its sharpest: not a research programme, a missing verb.
+Everything else reproduces exactly, the 25-entry table cell for cell and the
+criticality gradient on both arms. No sorry, no new axiom: the standard three.
