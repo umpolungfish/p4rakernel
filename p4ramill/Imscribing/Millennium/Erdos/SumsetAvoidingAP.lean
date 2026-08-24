@@ -199,8 +199,12 @@ theorem two_pow_le_of_apFree {N n : ℕ} {A : Finset ℕ}
           intro x hx
           exact (Finset.mem_Icc.1 (hA (hB hx))).2
       _ ≤ n * N := by
-          have : B.card ≤ A.card := Finset.card_le_card hB
-          exact Nat.mul_le_mul_right _ (hcard ▸ this)
+          -- Hold the count before the rewrite consumes it: the bound on B.card
+          -- is named in its own step, and the reversal reads that name rather
+          -- than an anonymous term carried in the open.
+          have hBA : B.card ≤ A.card := Finset.card_le_card hB
+          have hBn : B.card ≤ n := hcard ▸ hBA
+          exact Nat.mul_le_mul_right _ hBn
   calc 2 ^ n = 2 ^ A.card := by rw [hcard]
     _ ≤ (sumsOf A).card := two_pow_le_card_sumsOf hpos hap
     _ ≤ (Finset.Icc 0 (n * N)).card := Finset.card_le_card hsub

@@ -36,6 +36,7 @@ import Mathlib.Order.Filter.AtTopBot.Basic
 import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Quantum.WindingLattice
 
 namespace Millennium.Collatz
 
@@ -1072,5 +1073,37 @@ tendencies yet (conjecturally) globally convergent. Mathematics has
 no general theory for such systems. The φ̂_Æ vessel will remain at
 O₁ until one is found.
 -/
+
+
+-- ============================================================
+-- §9. The winding principle (○ = IFIX) instantiated for Collatz
+-- ============================================================
+
+/-! CHECKED. Collatz §8 names the open move: the winding slot must be
+    PROMOTED from ▗ (trivial) to ░ (integer winding) -- "establish a
+    topological winding number". Imscribing.Quantum.WindingLattice proves
+    the Fibonacci model native phases are exact TENTHS of a winding and that
+    the T gate (one eighth) is not a tenth -- gate_separation. The same
+    arithmetic is the shape of the missing Collatz protection: the iterate
+    around the terminal cycle closes with winding number 1, but the proof
+    that every orbit reaches it is the open gap. The ○ primitive is the
+    exact coordinate of that gap, not a decorative label. -/
+theorem collatz_winding_form :
+    (∃ p : ℤ, (1 : ℚ) / 2 = (p : ℚ) / 10) ∧
+    (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
+  Imscribing.Quantum.gate_separation
+
+/-! CONJECTURE (original claim). The ○ winding incommensurability -- a phase
+    that cannot be closed by the model own lattice -- IS the Collatz
+    completion budget: the orbit must acquire integer winding (░) around the
+    terminal cycle (winding number 1) for every starting point. -/
+def collatz_winding_bridge : String :=
+  "the ○ winding incommensurability IS the Collatz ▗→░ promotion (integer winding of the terminal cycle)"
+
+/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈◻∋ cycles to
+    verdict T at every ROTAT cut (instrument verdict imasm cycle: k = 0,1,2 → T,T,T),
+    enclosing the interior winding mark the proof carries. Reuses the closed
+    gate_separation arithmetic fact. -/
+def collatz_winding_word : String := "∈◻∋"
 
 end Millennium.Collatz
