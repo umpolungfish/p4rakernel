@@ -492,6 +492,7 @@ globs = [
   "Imscribing.VitalNecrosis",
   "Imscribing.UsableZeroPointEnergy",
   "Imscribing.IGScaffold",
+  "Imscribing.Ob3ects.unified_observers_machine_scaffold",
   "Imscribing.Ob3ects.apply_criticality_absorbing_element_entering_b_scaffold",
   "Imscribing.Ob3ects.classical_non_commutative_complement_to_the_quan_scaffold",
   "Imscribing.Ob3ects.descent_to_stark_unit_bottleneck_for_the_d_19_br_scaffold",
