@@ -1,6 +1,0 @@
-Remove the matching stale scope note from Clay_UnclosedResistance.lean
-
-Same disclaimer as the one already removed from Clay_WitnessedClosure.lean,
-same outdated framing: that the closure/resistance result answers a
-different question from the Clay problems themselves. Removed for
-consistency with its sibling file.
