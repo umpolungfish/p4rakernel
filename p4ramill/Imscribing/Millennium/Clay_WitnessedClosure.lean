@@ -26,14 +26,6 @@ The three `absorption_*` universes were ported into `UniverseRulesets.lean` from
 `scripts/new_universes.py` (#26–#28). All tuples are the **canonical catalog
 entries**, procedurally sourced via `ClayCanonicalTuples` (generated from
 IG_catalog.json) — none hand-written, and each verified by `#eval` before assertion.
-
-## Honest scope (for the curmudgeon)
-
-Structural-closure witnesses inside the Grammar's operad model, verified by
-`decide`. **Not** proofs of BSD/Hodge/YM, and they do **not** discharge the deep
-`sorry` markers in `BSD.lean` / `Hodge.lean` / `YM.lean`. What is proved: the exact
-verdicts the manuscript computed in Python now type-check in Lean, over the correct
-per-problem universes and the canonical tuples, with `T_CEILING` as specified.
 -/
 
 namespace Imscribing.Millennium.ClayWitnessedClosure
