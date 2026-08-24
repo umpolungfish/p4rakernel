@@ -1,0 +1,21 @@
+[package]
+name = "bip39_extract"
+version = "0.1.0"
+edition = "2021"
+description = "BIP39-to-IMASM extraction module for mOMonadOS kernel"
+license = "Unlicense"
+
+[lib]
+name = "bip39_extract"
+path = "lib.rs"
+
+[[bin]]
+name = "bip39_extract_tool"
+path = "main.rs"
+
+[dependencies]
+# No external dependencies - pure Rust implementation
+
+[features]
+default = []
+kernel = []  # mOMonadOS kernel integration feature
