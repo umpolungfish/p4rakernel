@@ -29,9 +29,9 @@
   Tier:   O_∞
 -/
 
-import ParaconsistentCore
-import ParaconsistentFrobeniusClosure
-import ClassicalRestriction
+import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure
+import Imscribing.Paraconsistent.ClassicalRestriction
 
 namespace DeMorganBooleanCentre
 
