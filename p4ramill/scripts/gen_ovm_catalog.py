@@ -27,7 +27,7 @@ CATALOG = os.path.expanduser("~/imsgct/imscribing_grammar/IG_catalog.json")
 OVMS = os.path.expanduser("~/imsgct/ig-docs/OVMs")
 OUT = os.path.join(P4RAMILL, "Imscribing", "Millennium", "OVMCatalog.lean")
 
-MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "◻"]
+MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "⊡"]
 
 # Lean field name per mark, in the order the twelve are written.
 FIELDS = ["dim", "top", "rel", "pol", "fid", "kin",

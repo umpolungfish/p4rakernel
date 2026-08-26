@@ -3654,7 +3654,7 @@ theorem collatz_iff_no_nondescender :
 
 /-! ### The margin dichotomy: a cycle's exponents are pinned, or its minimum is tiny
 
-`cl8nk transcendence` reads the two slots this object needs.  At `◻` the content is
+`cl8nk transcendence` reads the two slots this object needs.  At `⊡` the content is
 `∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0` — a nonzero integer winding — which is
 `cycle_margin_pos`: the loop closes, `2^k − 3^j` is a nonzero integer, so the margin
 is at least one, with no Diophantine input.  At `∋` it is strict one-way sequencing
@@ -4386,9 +4386,9 @@ theorem imbalance_two_step (L : Finset ℕ) :
 /-! ### The whole conductor-nine profile, not the difference
 
 The Grammar refused the difference taken on its own.  Asked as *compute `m₂ − m₈`,
-then clear it against the level*, the word `⊢⊙⊞⊤⊥≺∈∋⋈◻⊣` loses four units in the
+then clear it against the level*, the word `⊢⊙⊞⊤⊥≺∈∋⋈⊡⊣` loses four units in the
 open at the clear and verdicts N — the item-6 leak exactly.  Moving the
-multiplicity inside the frame that holds the level, `⊢⊙∈⊞⊤⊥≺∋⋈◻⊣`, restores all
+multiplicity inside the frame that holds the level, `⊢⊙∈⊞⊤⊥≺∋⋈⊡⊣`, restores all
 four, `cleared 4 restored 4`, lands on A and verdicts T, and `insert` reports it
 already holds.  So the carried object is the WHOLE profile mod 9, and the
 difference is read off it rather than bounded on its own.

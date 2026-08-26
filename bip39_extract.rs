@@ -117,12 +117,12 @@ mod tests {
         // Test known mappings from TSV
         assert_eq!(
             extractor.word_to_imasm("abandon"),
-            Some("⊢⊢⊢⊢◻∋∋∈∈⊣⊥⊤".to_string())
+            Some("⊢⊢⊢⊢⊡∋∋∈∈⊣⊥⊤".to_string())
         );
         
         assert_eq!(
             extractor.word_to_imasm("ability"),
-            Some("⊢⊢⊢⊢◻⊥⊢⊤⊥◻≻⊞".to_string())
+            Some("⊢⊢⊢⊢⊡⊥⊢⊤⊥⊡≻⊞".to_string())
         );
         
         assert_eq!(
@@ -139,7 +139,7 @@ mod tests {
         
         // Test reverse mapping
         assert_eq!(
-            extractor.imasm_to_word("⊢⊢⊢⊢◻∋∋∈∈⊣⊥⊤"),
+            extractor.imasm_to_word("⊢⊢⊢⊢⊡∋∋∈∈⊣⊥⊤"),
             Some("abandon".to_string())
         );
     }

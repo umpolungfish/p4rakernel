@@ -14,7 +14,7 @@ open Filter Finset Set Real
 /-!
 # Erdős Problem #143: Complete Formalization
 
-IMASM word: ⊢⊙∈≻⋈⊤◻≺⋈⊥◻⊞∋⊣
+IMASM word: ⊢⊙∈≻⋈⊤⊡≺⋈⊥⊡⊞∋⊣
 
 Domain Charter (Phase 0):
 - Tokens: infinite_set, separation_condition, logarithmic_sum, harmonic_tail, critical_threshold
@@ -147,7 +147,7 @@ def register10 (A : Set ℕ) (h_sep : SeparationCondition A) (h_inf : A.Infinite
 /-! ## Phase 4: Bootstrap - The Core Theorem -/
 
 /--
-Erdős Problem #143 (IMASM word: ⊢⊙∈≻⋈⊤◻≺⋈⊥◻⊞∋⊣)
+Erdős Problem #143 (IMASM word: ⊢⊙∈≻⋈⊤⊡≺⋈⊥⊡⊞∋⊣)
 
 The separation condition on an infinite set A implies the disjunction:
 1. The logarithmic series ∑_{x∈A} 1/(x log x) converges, OR
@@ -170,10 +170,10 @@ theorem erdos_problem_143
   -- Determine which condition holds based on the sparsity of A
 
   by_cases h_log_converges : ∑' x : {x // x ∈ A}, (1 / (x : ℝ) * Real.log x) < ∞
-  · -- T-branch ≻⋈⊤◻: Affirm log sum finite, record convergence
+  · -- T-branch ≻⋈⊤⊡: Affirm log sum finite, record convergence
     exact Or.inl h_log_converges
 
-  · -- F-branch ≺⋈⊥◻: Descend along falsity, affirm harmonic vanishing
+  · -- F-branch ≺⋈⊥⊡: Descend along falsity, affirm harmonic vanishing
     push_neg at h_log_converges
     have h_diverges : ∑' x : {x // x ∈ A}, (1 / (x : ℝ) * Real.log x) = ∞ := by
       linarith
@@ -405,7 +405,7 @@ theorem erdos143_proven : ∀ A, Erdos143Theorem A := by
 @[reducible]
 def IMASMWord := List Char
 
-def erdos_word : IMASMWord := ['⊢', '⊙', '∈', '≻', '⋈', '⊤', '◻', '≺', '⋈', '⊥', '◻', '⊞', '∋', '⊣']
+def erdos_word : IMASMWord := ['⊢', '⊙', '∈', '≻', '⋈', '⊤', '⊡', '≺', '⋈', '⊥', '⊡', '⊞', '∋', '⊣']
 
 /-- The word length is 14 -/
 lemma erdos_word_length : erdos_word.length = 14 := rfl
@@ -414,16 +414,16 @@ lemma erdos_word_length : erdos_word.length = 14 := rfl
 @[reducible]
 def TopologyFlatChain := True
 
-/-- The number of T_ops is 4 (⊤, ◻, ◻, ⊞) -/
+/-- The number of T_ops is 4 (⊤, ⊡, ⊡, ⊞) -/
 lemma erdos_word_T_ops : 4 := by
   simp [erdos_word]
-  -- Count: EVALT (⊤) = 1, IFIX (◻) = 2, ENGAGR (⊞) = 1
+  -- Count: EVALT (⊤) = 1, IFIX (⊡) = 2, ENGAGR (⊞) = 1
   -- Total T_ops = 4
   trivial
 
-/-- The number of F_ops is 3 (⊥, ◻, ◻) -/
+/-- The number of F_ops is 3 (⊥, ⊡, ⊡) -/
 lemma erdos_word_F_ops : 3 := by
-  -- EVALF (⊥) = 1, IFIX (◻) = 2
+  -- EVALF (⊥) = 1, IFIX (⊡) = 2
   -- Total F_ops = 3
   trivial
 
@@ -462,12 +462,12 @@ def word_flow : List (Sixteen_3 → Sixteen_3) :=
   , (⋈ CLINK)    : Sixteen_3 → Sixteen_3 := id
   , (⊤ EVALT)    : Sixteen_3 → Sixteen_3 := fun x =>
       if T ∈ x.toSet then B else N
-  , (◻ IFIX)     : Sixteen_3 → Sixteen_3 := id
+  , (⊡ IFIX)     : Sixteen_3 → Sixteen_3 := id
   , (≺ AREV)     : Sixteen_3 → Sixteen_3 := fun x => x.swap
   , (⋈ CLINK)    : Sixteen_3 → Sixteen_3 := id
   , (⊥ EVALF)    : Sixteen_3 → Sixteen_3 := fun x =>
       if F ∈ x.toSet then B else N
-  , (◻ IFIX)     : Sixteen_3 → Sixteen_3 := id
+  , (⊡ IFIX)     : Sixteen_3 → Sixteen_3 := id
   , (⊞ EVALI)    : Sixteen_3 → Sixteen_3 := fun x =>
       if t ∈ x.toSet ∨ f ∈ x.toSet then B else N
   , (∋ FFUSE3)   : Sixteen_3 → Sixteen_3 := fun _ => B
@@ -484,11 +484,11 @@ lemma final_register_T : foldl (fun acc f => f acc) N word_flow = T := by
   -- ≻: B → B
   -- ⋈: B → B
   -- ⊤: B → B (T ∈ B, so B)
-  -- ◻: B → B
+  -- ⊡: B → B
   -- ≺: B → B (B swap = B)
   -- ⋈: B → B
   -- ⊥: B → B (F ∈ B, so B)
-  -- ◻: B → B
+  -- ⊡: B → B
   -- ⊞: B → B (t/f ∈ B, so B)
   -- ∋: B → B
   -- ⊣: B → T

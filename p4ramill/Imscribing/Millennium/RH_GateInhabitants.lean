@@ -195,7 +195,7 @@ theorem rh_implies_rh_forcing : Millennium.RH.RiemannHypothesis → RH_ForcingTh
 
 
 -- ============================================================
--- §8. The winding principle (◻ = IFIX) instantiated
+-- §8. The winding principle (⊡ = IFIX) instantiated
 -- ============================================================
 
 /-! CHECKED. The Riemann zeta argument is a winding-number argument: the
@@ -205,7 +205,7 @@ theorem rh_implies_rh_forcing : Millennium.RH.RiemannHypothesis → RH_ForcingTh
     the T gate (one eighth) is not a tenth — `gate_separation`. The RH
     forcing gap is the SAME shape: the zero count the contours accumulate
     (the on-line winding) must equal the total phase winding; the forcing
-    theorem is the claim that the off-line winding closes to zero. The ◻
+    theorem is the claim that the off-line winding closes to zero. The ⊡
     primitive is therefore the exact coordinate of the open gap, not a
     decorative label. -/
 theorem rh_winding_form :
@@ -213,12 +213,12 @@ theorem rh_winding_form :
     (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
   Imscribing.Quantum.gate_separation
 
-/-- CONJECTURE (original claim). The ◻ winding incommensurability — a phase
+/-- CONJECTURE (original claim). The ⊡ winding incommensurability — a phase
     that cannot be closed by the model's own lattice — IS the open forcing
     gap of RH: that every nontrivial zero lies on Re(s) = 1/2 (the off-line
     winding closes to zero). -/
 def rh_winding_bridge : String :=
-  "the ◻ winding incommensurability IS the RH forcing gap (all zeros on Re=1/2)"
+  "the ⊡ winding incommensurability IS the RH forcing gap (all zeros on Re=1/2)"
 
 
 /-- The IMASM closure witness for the winding proof: fork–winding–fuse.

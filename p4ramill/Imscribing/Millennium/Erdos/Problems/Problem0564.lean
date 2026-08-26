@@ -14,7 +14,7 @@ library: the only import is Mathlib.
 An IMASM word is a sequence drawn from twelve marks, each a primitive of the
 Grammar: ⊢ dimensionality, ≻ recognition, ∈ granularity, ⊤ criticality,
 ⋈ fidelity, ⊙ grammar, ⊥ chirality, ≺ polarity, ⊞ stoichiometry, ∋ composition,
-◻ protection, ⊣ topology. The ob3ect pipeline assigns every mark an opcode and a
+⊡ protection, ⊣ topology. The ob3ect pipeline assigns every mark an opcode and a
 value, producing a program that the control-flow auditor Vox lifts and verdicts.
 
 SIXTEEN_3 is the carrier of generalized truth values, the power set
@@ -26,7 +26,7 @@ tf (the held fork, a B-state carrying both arms), and a (the full set
 
 ## IMASM verification of this word
 
-Word: ⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣
+Word: ⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣
 Verdict: T, the tri-ancestral reconnection over a transformed object, closes.
 Final register: a, the full set {T, F, t, f}.
 Phase-bearing: landings at k = 0, 2, 7, 9; tf at 9; a at 10 through 12.
@@ -68,7 +68,7 @@ word read under its SIXTEEN_3 semantics. The twelve marks are the twelve
 primitive moves of the proof, and the register walk `n → t → tf → a` is the
 statement's truth moving from ground through the affirmative and the held fork to
 the full register. So the formal statement of Erdős #564 is exactly that the word
-`⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣` closes at register `a` with verdict T.
+`⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣` closes at register `a` with verdict T.
 
 The theorem at the end proves it: it composes the opcode transitions and reaches
 register `a` by `rfl`, and Vox returns T on the same word. That closure is the
@@ -129,7 +129,7 @@ def evali : Register → Register := fun r => match r with | .n => .tf | _ => r
 /-- FFUSE3 (∋): fuse. The held fork register resolves into the full register. -/
 def ffuse3 : Register → Register := fun r => match r with | .tf => .a | _ => r
 
-/-- IFIX (◻): commit. Identity on the full register. -/
+/-- IFIX (⊡): commit. Identity on the full register. -/
 def ifix : Register → Register := fun r => r
 
 /-- TANCH (⊣): anchor the conclusion. Identity on the full register. -/
@@ -173,7 +173,7 @@ def walk0564 : Register :=
   tanch r12
 
 /-- The formal statement of Erdős #564 in this framework: the IMASM word
-`⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣` closes at register `a`. Under SIXTEEN_3 semantics this word is
+`⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣` closes at register `a`. Under SIXTEEN_3 semantics this word is
 the problem, so closing it proves the problem. -/
 def erdos_problem_564_statement : Prop := walk0564 = Register.a
 
@@ -233,7 +233,7 @@ Step Glyph  12-op    16_3-op    Reg↓ →  Reg↑
  8   ≺     AREV     AREV       TF →   N
  9   ∋     FFUSE    FFUSE3     tf →   A
 10   ⊞     ENGAGR   EVALI      N  →   A
-11   ◻     IFIX     IFIX       A  →   A
+11   ⊡     IFIX     IFIX       A  →   A
 12   ⋈     CLINK    CLINK      A  →   A
 13   ⊣     TANCH    TANCH      A  →   A
 

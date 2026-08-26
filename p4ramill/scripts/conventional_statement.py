@@ -37,7 +37,7 @@ GRAMMAR = os.path.expanduser("~/imsgct/imscribing_grammar")
 MOMONADOS = os.path.expanduser("~/imsgct/mOMonadOS")
 CATALOG = os.path.join(GRAMMAR, "IG_catalog.json")
 
-MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "◻"]
+MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "⊡"]
 
 sys.path.insert(0, GRAMMAR)
 sys.path.insert(0, os.path.join(GRAMMAR, "navigators"))

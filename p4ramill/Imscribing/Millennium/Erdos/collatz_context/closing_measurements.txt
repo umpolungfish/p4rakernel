@@ -9,7 +9,7 @@
               Braid Artin B_n<=8: PASS
   Phase lattice = tenths of a winding: PASS
     Constants derivable from PHI: PASS
-[TORUS] kernel wound: ⊢⊙∈⊤⋈∋◻⊞≺⋈⊣  (11 tokens, pinch=0.0000)
+[TORUS] kernel wound: ⊢⊙∈⊤⋈∋⊡⊞≺⋈⊣  (11 tokens, pinch=0.0000)
 
 
    ⊙   mOMonadOS

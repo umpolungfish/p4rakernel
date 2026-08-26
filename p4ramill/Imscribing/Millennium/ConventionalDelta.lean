@@ -46,7 +46,7 @@ def riemannTheorem : Imscription :=
   { dim := .if', top := .mime, rel := .ear, pol := .or', fid := .peep, kin := .egg,
     gran := .thigh, gram := .measure, crit := .monad, chir := .wool, stoi := .up, prot := .ah }
 
-/-- The marks that move: ⊢ ≻ ≺ ⋈ ∈ ∋ ⊙ ⊥ ◻ -/
+/-- The marks that move: ⊢ ≻ ≺ ⋈ ∈ ∋ ⊙ ⊥ ⊡ -/
 theorem riemann_moves :
     riemannConjecture.dim ≠ riemannTheorem.dim ∧
     riemannConjecture.rel ≠ riemannTheorem.rel ∧
@@ -110,7 +110,7 @@ def yangMillsTheorem : Imscription :=
   { dim := .if', top := .mime, rel := .ear, pol := .or', fid := .peep, kin := .egg,
     gran := .bib, gram := .ooze, crit := .monad, chir := .wool, stoi := .up, prot := .zoo }
 
-/-- The marks that move: ⊢ ≻ ⊤ ∈ ◻ -/
+/-- The marks that move: ⊢ ≻ ⊤ ∈ ⊡ -/
 theorem yangMills_moves :
     yangMillsConjecture.dim ≠ yangMillsTheorem.dim ∧
     yangMillsConjecture.rel ≠ yangMillsTheorem.rel ∧
@@ -142,7 +142,7 @@ def navierStokesTheorem : Imscription :=
   { dim := .if', top := .are, rel := .ear, pol := .yew, fid := .peep, kin := .egg,
     gran := .thigh, gram := .vow, crit := .woe, chir := .wool, stoi := .up, prot := .ah }
 
-/-- The marks that move: ⊢ ⊣ ≺ ⋈ ⊤ ∈ ⊙ ⊥ ◻ -/
+/-- The marks that move: ⊢ ⊣ ≺ ⋈ ⊤ ∈ ⊙ ⊥ ⊡ -/
 theorem navierStokes_moves :
     navierStokesConjecture.dim ≠ navierStokesTheorem.dim ∧
     navierStokesConjecture.top ≠ navierStokesTheorem.top ∧
@@ -174,7 +174,7 @@ def pVersusNPTheorem : Imscription :=
   { dim := .if', top := .are, rel := .ear, pol := .or', fid := .peep, kin := .egg,
     gran := .thigh, gram := .vow, crit := .monad, chir := .wool, stoi := .up, prot := .ah }
 
-/-- The marks that move: ⊢ ⊣ ≻ ≺ ⋈ ⊤ ∈ ⊥ ⊞ ◻ -/
+/-- The marks that move: ⊢ ⊣ ≻ ≺ ⋈ ⊤ ∈ ⊥ ⊞ ⊡ -/
 theorem pVersusNP_moves :
     pVersusNPConjecture.dim ≠ pVersusNPTheorem.dim ∧
     pVersusNPConjecture.top ≠ pVersusNPTheorem.top ∧
@@ -238,7 +238,7 @@ def collatzTheorem : Imscription :=
   { dim := .if', top := .are, rel := .ear, pol := .or', fid := .peep, kin := .egg,
     gran := .ice, gram := .ooze, crit := .monad, chir := .wool, stoi := .up, prot := .oak }
 
-/-- The marks that move: ⊢ ⊣ ≻ ≺ ⋈ ⊤ ∋ ⊙ ⊥ ⊞ ◻ -/
+/-- The marks that move: ⊢ ⊣ ≻ ≺ ⋈ ⊤ ∋ ⊙ ⊥ ⊞ ⊡ -/
 theorem collatz_moves :
     collatzConjecture.dim ≠ collatzTheorem.dim ∧
     collatzConjecture.top ≠ collatzTheorem.top ∧

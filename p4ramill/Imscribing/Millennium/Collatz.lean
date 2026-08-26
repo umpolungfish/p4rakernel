@@ -1100,10 +1100,10 @@ theorem collatz_winding_form :
 def collatz_winding_bridge : String :=
   "the ○ winding incommensurability IS the Collatz ▗→░ promotion (integer winding of the terminal cycle)"
 
-/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈◻∋ cycles to
+/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈⊡∋ cycles to
     verdict T at every ROTAT cut (instrument verdict imasm cycle: k = 0,1,2 → T,T,T),
     enclosing the interior winding mark the proof carries. Reuses the closed
     gate_separation arithmetic fact. -/
-def collatz_winding_word : String := "∈◻∋"
+def collatz_winding_word : String := "∈⊡∋"
 
 end Millennium.Collatz

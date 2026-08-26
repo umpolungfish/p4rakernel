@@ -63,7 +63,7 @@ impl ExtractionPipeline {
         // The combination encodes the scalar relationship
         // 
         // Glyph mapping (example):
-        // ⊢ = 0, ⊣ = 1, ⊤ = 2, ⊥ = 3, ◻ = 4, ≻ = 5, ≺ = 6, 
+        // ⊢ = 0, ⊣ = 1, ⊤ = 2, ⊥ = 3, ⊡ = 4, ≻ = 5, ≺ = 6, 
         // ⋈ = 7, ∋ = 8, ∈ = 9, ⊞ = 10, ⊙ = 11
         //
         // Decode the 12 glyphs as a base-12 number
@@ -74,7 +74,7 @@ impl ExtractionPipeline {
                 '⊣' => 1,
                 '⊤' => 2,
                 '⊥' => 3,
-                '◻' => 4,
+                '⊡' => 4,
                 '≻' => 5,
                 '≺' => 6,
                 '⋈' => 7,

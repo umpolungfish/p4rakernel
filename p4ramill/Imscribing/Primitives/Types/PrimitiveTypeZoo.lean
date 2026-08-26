@@ -139,7 +139,7 @@ theorem the_primitive_type_called_zoo_frobenius :
 def the_primitive_type_called_zoo_family : String := "Protection"
 def the_primitive_type_called_zoo_ordinal : Nat := 3
 
-/-- The CLINK L8 fragment for 'zoo' (◻ = 𐑟), as the organism-layer
+/-- The CLINK L8 fragment for 'zoo' (⊡ = 𐑟), as the organism-layer
     navigator emits it. Not authored here: the string is the navigator's. -/
 def the_primitive_type_called_zoo_clinkFragmentL8 : String := "Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)"
 

@@ -36,7 +36,7 @@ MOMONADOS = os.path.expanduser("~/imsgct/mOMonadOS")
 
 sys.path.insert(0, HERE)
 
-MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "◻"]
+MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "⊡"]
 
 
 def vox_words(path: str) -> list[tuple[str, str]]:

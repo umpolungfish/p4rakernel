@@ -20,7 +20,7 @@
 --   ⊙=⊙ (critical - self-modeling on ℤ)
 --   ⊥=𐑖 (two-step chirality - d vs -d difference direction)
 --   ⊞=𐑙 (1:1 stoichiometry - one A → one D(A))
---   ◻=𐑭 (integer winding - ℤ-valued gaps)
+--   ⊡=𐑭 (integer winding - ℤ-valued gaps)
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription

@@ -10,7 +10,7 @@ and the seven Clay-theorem structure ob3ects generated 2026-08-23/24 into
   bsd_structure                     (∋ coupler)
   hodge_structure                   (chirality, trine vertex 2)
   riemann_structure                 (⊞ self-reference closure)
-  p_vs_np_structure                 (◻ winding)
+  p_vs_np_structure                 (⊡ winding)
   dynamics_structure_trine_vertex_1 (⊤ shared floor)
 
 Every numeric claim is exact — zero sorries. In particular the tilt that puts
@@ -324,7 +324,7 @@ open Op
 def glyph : Op → String
   | VINIT => "⊢" | TANCH => "⊣" | AFWD => "≻" | AREV => "≺" | CLINK => "⋈"
   | IMSCRIB => "⊙" | FSPLIT => "∈" | FFUSE => "∋" | EVALT => "⊤" | EVALF => "⊥"
-  | ENGAGR => "⊞" | IFIX => "◻"
+  | ENGAGR => "⊞" | IFIX => "⊡"
 
 -- The seven structure ob3ects, sequences exactly as generated
 def ns_word : List Op := [VINIT, IMSCRIB, FSPLIT, AFWD, EVALT, AREV, EVALF, ENGAGR, CLINK, IFIX, FFUSE, TANCH]
@@ -394,7 +394,7 @@ def featureOf (o : StructureOb3ect) : TorusFeature :=
   | BSD => EvaluatorCoupler          -- ∋ : stoichiometry |A|=1∧|B|=1 sits on composition
   | Hodge => EvaluatorCoupler        -- ∋ : long exact sequence shares the coupler with BSD
   | Riemann => TrineEngagr           -- ⊞ : μ∘δ = id, self-reference closure
-  | PvsNP => KnotWinding             -- ◻ : winding alone, an integer separation
+  | PvsNP => KnotWinding             -- ⊡ : winding alone, an integer separation
   | Dynamics => TrineTop             -- ⊤ : the shared static floor, no theorem owns it
 
 theorem feature_ns : featureOf NavierStokes = Pinch := rfl
