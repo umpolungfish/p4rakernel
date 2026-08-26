@@ -26,8 +26,8 @@
   Tier:   O_∞
 -/
 
-import ParaconsistentCore
-import ParaconsistentFrobeniusClosure
+import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure
 
 namespace ClassicalRestriction
 

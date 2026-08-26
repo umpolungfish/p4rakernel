@@ -38,7 +38,7 @@
     lean ParaconsistentFrobeniusClosure.lean -R .
 -/
 
-import ParaconsistentCore
+import Imscribing.Paraconsistent.ParaconsistentCore
 
 set_option linter.unusedVariables false
 
