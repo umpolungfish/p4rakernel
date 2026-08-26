@@ -1,17 +1,17 @@
+import Mathlib.CategoryTheory.Limits.Conical
+import Mathlib.CategoryTheory.Monoidal.Functor
+import Mathlib.Topology.Algebra.InfiniteSum.Basic
+import Mathlib.RingTheory.Ideal.Basic
+
 /-
-  Formal Description: Derived Non-Commutative Motivic Cohomology 
+  Formal Description: Derived Non-Commutative Motivic Cohomology
   of Hyper-Transfinite p-adic Quantales with Exotic Differentiable Structures
-  
+
   This file encodes the mathematical structure from the ob3ect JSON through
   the d=12 SIC-POVM of the Imscribing Grammar.
 -/
 
 namespace DerivedNonCommutativeMotivicCohomology
-
-import Mathlib.CategoryTheory.Limits.Conical
-import Mathlib.CategoryTheory.Monoidal.Functor
-import Mathlib.Topology.Algebra.InfiniteSum.Basic
-import Mathlib.RingTheory.Ideal.Basic
 
 /-! 
   # Phase 0: Domain Structure
