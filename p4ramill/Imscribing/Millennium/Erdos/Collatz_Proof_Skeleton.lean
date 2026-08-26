@@ -15,7 +15,7 @@
 --   ⊙=⊙   — Critical self-reference (Collatz map defined by its own structure)
 --   ⊥=𐑒  — One-step chirality (Markov order 1: v₂(n) determines next)
 --   ⊞=𐑙  — 1:1 stoichiometry (each n has unique trajectory)
---   ◻=𐑭  — Integer winding (winding = 2-adic valuation, ℤ-protected)
+--   ⊡=𐑭  — Integer winding (winding = 2-adic valuation, ℤ-protected)
 --
 -- The proof strategy: well-founded lexicographic descent on (v₂(n), n) for the compressed map.
 -- This requires the arithmetic lemma: v₂((3n+1)/2) > v₂(n) for odd n, which is FALSE in general.
@@ -347,7 +347,7 @@ def odd_step_valuation : True := by trivial
 /-- ∋ : Broadcast fusion of valuation frames (global well-founded order) -/
 def valuation_fusion : True := by trivial
 
-/-- ◻ : Integer winding protection (winding = v₂, valued in ℤ) -/
+/-- ⊡ : Integer winding protection (winding = v₂, valued in ℤ) -/
 def integer_winding : True := by trivial
 
 /-- ⊣ : Close with box-product topology (well-founded lexicographic order) -/

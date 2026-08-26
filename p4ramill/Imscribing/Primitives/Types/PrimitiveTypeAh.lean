@@ -121,7 +121,7 @@ theorem the_primitive_type_called_ah_frobenius :
 def the_primitive_type_called_ah_family : String := "Protection"
 def the_primitive_type_called_ah_ordinal : Nat := 2
 
-/-- The CLINK L8 fragment for 'ah' (◻ = 𐑭), as the organism-layer
+/-- The CLINK L8 fragment for 'ah' (⊡ = 𐑭), as the organism-layer
     navigator emits it. Not authored here: the string is the navigator's. -/
 def the_primitive_type_called_ah_clinkFragmentL8 : String := "∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0"
 

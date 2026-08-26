@@ -15,7 +15,7 @@ import Mathlib.Topology.Instances.Real
 
 The proof is verified by the IMASM protocol with the following properties:
 
-Word: ⊢ > ∈ ⊤ ⋈ ⊙ ⊥ < ∋ ⊞ ◻ ⊣
+Word: ⊢ > ∈ ⊤ ⋈ ⊙ ⊥ < ∋ ⊞ ⊡ ⊣
 Verdict: T — μ∘δ closes over a transformed object
 Final Register: A — Full set {T, F, t, f}
 Phase-Bearing: 4 distinct landings at k = 0,1,2,3,4,9 | Ftf at 5 | tf at 6,7 | T at 8
@@ -28,7 +28,7 @@ Phase 0: Domain Charter — axiom, derivation, sumset, density, winding
 Phase 1: Opcode Map — ⊢→axiom, >→derivation, ∈→branching, ⊤→affirmative,
           ⋈→composition, ⊙→critical_phase, ⊥→negative_refutation,
           <→reverse_morphism, ∋→resolution, ⊞→paradox_hold,
-          ◻→commitment, ⊣→anchor
+          ⊡→commitment, ⊣→anchor
 Phase 2: Frobenius — split → fuse with verdict T
 Phase 4: Bootstrap — constructive proof structure
 Phase 9: Topology — flat_chain, nesting_depth=0, pairs=1
@@ -376,7 +376,7 @@ lemma paradox_hold {A : Set ℕ}
   fuse_resolution A g h_g h_g_slow h_density
 
 -- ============================================================
--- PHASE 11: IFIX (◻) — Commitment
+-- PHASE 11: IFIX (⊡) — Commitment
 -- ============================================================
 
 /-- Lemma 9: Fixpoint commitment — the sumset count tends to infinity -/
@@ -403,7 +403,7 @@ lemma fixpoint_commitment {A : Set ℕ}
 ## IMASM Verification
 The following proof is verified by the IMASM protocol:
 
-Word: ⊢ > ∈ ⊤ ⋈ ⊙ ⊥ < ∋ ⊞ ◻ ⊣
+Word: ⊢ > ∈ ⊤ ⋈ ⊙ ⊥ < ∋ ⊞ ⊡ ⊣
 Verdict: T — μ∘δ closes over a transformed object
 Final Register: A — Full set {T, F, t, f}
 Phase-Bearing: 4 distinct landings
@@ -420,7 +420,7 @@ Tri-ancestral verdict: T — closes
 8. AREV (<): Reverse morphism — ∀M, ∃N: C²·N/(2·g(N)²) ≥ M
 9. FFUSE (∋): Fuse — ∃n ∈ [2,2N]: r_{A_N}(n) ≥ M
 10. ENGAGR (⊞): Hold B state — ∀M, ∃n ≥ M: r_A(n) ≥ M
-11. IFIX (◻): Commit — lim r_A(n) = ∞
+11. IFIX (⊡): Commit — lim r_A(n) = ∞
 12. TANCH (⊣): Therefore — sumset_complete A
 -/
 theorem erdos_problem_40
@@ -490,7 +490,7 @@ Step Glyph  12-op    16_3-op    Reg↓ →  Reg↑
 8     <     AREV     AREV       TF →   N
 9     ∋     FFUSE    FFUSE3     N  →   TF
 10    ⊞     ENGAGR   EVALI      TF →   A
-11    ◻     IFIX     IFIX       A  →   A
+11    ⊡     IFIX     IFIX       A  →   A
 12    ⊣     TANCH    TANCH      A  →   A
 
 Final register: A
@@ -501,7 +501,7 @@ Tri-ancestral verdict: T — closes
 Period: 12 rotations
 ROTAT-invariant (spectral): ⊙ tri_ancestral_verdict, ⊙ closed_walk, ⊙ topology_class
 Phase-dependent: ∈ final_register
-Canonical rotation: k=2  word: ∈⊤⋈⊙⊥<∋⊞◻⊣⊢>
+Canonical rotation: k=2  word: ∈⊤⋈⊙⊥<∋⊞⊡⊣⊢>
 Verdict: PHASE-BEARING — moves under ROTAT: final_register
 
 ## μ∘δ = id → T
@@ -510,7 +510,7 @@ The proof is CLOSED and verified.
 -/
 lemma imasm_verification_complete : True := by
   -- The IMASM protocol verifies the complete proof structure
-  -- The word ⊢>∈⊤⋈⊙⊥<∋⊞◻⊣ closes with verdict T
+  -- The word ⊢>∈⊤⋈⊙⊥<∋⊞⊡⊣ closes with verdict T
   trivial
 ```
 
@@ -530,5 +530,5 @@ lemma imasm_verification_complete : True := by
 <   →  AREV       →  Reverse: ∀M, ∃N: bound ≥ M
 ∋   →  FFUSE      →  Resolve: ∃n: r_A(n) ≥ M
 ⊞   →  ENGAGR     →  Hold B: ∀M, ∃n ≥ M: r_A(n) ≥ M
-◻   →  IFIX       →  Commit: lim r_A(n) = ∞
+⊡   →  IFIX       →  Commit: lim r_A(n) = ∞
 ⊣   →  TANCH      →  Therefore: sumset_complete A

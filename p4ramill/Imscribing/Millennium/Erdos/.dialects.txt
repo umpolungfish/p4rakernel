@@ -1,42 +1,42 @@
-  * U₀  canonical            G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ ~8%
-    U₁  low_gate             G1:≺≥𐑬  G2:⊙≥𐑢  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ ~30%
-    U₂  strict_frobenius     G1:⋈≥𐑐  G2:≺≥𐑹  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ ~3.3%
-    U₃  inverted_gates       G1:⊙≥⊙  G2:≺≥𐑹  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ ~8%
-    U₄  no_ordering          G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ ~8%
-    U₅  high_gate            G1:≺≥𐑹  G2:⊙≥𐑮  G3:◻≥𐑟  [seq]  T:dynamic  O_∞ ~3%
-    U₆  winding_first        G1:◻≥𐑭  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ ~8%
-    U₇  t_structural         G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ ~8%
-    U₈  chirality_first      G1:⊥≥𐑖  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ 20%
+  * U₀  canonical            G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ ~8%
+    U₁  low_gate             G1:≺≥𐑬  G2:⊙≥𐑢  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ ~30%
+    U₂  strict_frobenius     G1:⋈≥𐑐  G2:≺≥𐑹  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ ~3.3%
+    U₃  inverted_gates       G1:⊙≥⊙  G2:≺≥𐑹  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ ~8%
+    U₄  no_ordering          G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ ~8%
+    U₅  high_gate            G1:≺≥𐑹  G2:⊙≥𐑮  G3:⊡≥𐑟  [seq]  T:dynamic  O_∞ ~3%
+    U₆  winding_first        G1:⊡≥𐑭  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ ~8%
+    U₇  t_structural         G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ ~8%
+    U₈  chirality_first      G1:⊥≥𐑖  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ 20%
     U₉  scope_dialect        G1:⊣≥𐑸  G2:≻≥𐑾  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ 13.3%
-    U₁₀ triple_criticality   G1:∈≥𐑲  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ 16%
+    U₁₀ triple_criticality   G1:∈≥𐑲  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ 16%
     U₁₁ triple_criticality_gapped G1:⊢≥𐑼  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ 16%
-    U₁₂ kinetics_trap        G1:⊤≥𐑧  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₁₂ kinetics_trap        G1:⊤≥𐑧  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
     U₁₃ triple_criticality   G1:⊙≥𐑢  G2:⊙≥⊙  G3:⊙≥𐑣  [seq]  T:dynamic  O_∞ compute
-    U₁₄ t_hybrid             G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₁₅ broadcast_universe   G1:∋≥𐑠  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₁₆ t_inverted           G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₁₄ t_hybrid             G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₁₅ broadcast_universe   G1:∋≥𐑠  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₁₆ t_inverted           G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
     U₁₇ single_gate          G1:≺≥𐑹  G2:⊞≥𐑙  G3:⊞≥𐑙  [seq]  T:dynamic  O_∞ compute
     U₁₈ fidelity_universe    G1:⋈≥𐑐  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
-    U₁₉ stoichiometry_universe G1:⊞≥𐑳  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₀ absorption_democracy G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₁ absorption_monarchy  G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₂ absorption_inverted  G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₃ absorption_tensor_only G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₄ absorption_chirality_first G1:⊥≥𐑖  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₅ absorption_scope_empire G1:∈≥𐑲  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₆ absorption_topology_seal G1:⊣≥𐑸  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₇ predator_universe    G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₈ prey_universe        G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₂₉ coupling_first       G1:≻≥𐑽  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₀ coupling_maximal     G1:≻≥𐑾  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₁ chirality_second     G1:≺≥𐑹  G2:⊥≥𐑖  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₂ dimensional_second   G1:≺≥𐑹  G2:⊢≥𐑼  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₃ topology_second      G1:≺≥𐑹  G2:⊣≥𐑥  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₄ fidelity_second      G1:≺≥𐑹  G2:⋈≥𐑐  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₅ scope_second         G1:≺≥𐑹  G2:∈≥𐑲  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₆ composition_second   G1:≺≥𐑹  G2:∋≥𐑠  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₃₇ winding_second       G1:≺≥𐑹  G2:◻≥𐑴  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
-    U₃₈ kinetics_second      G1:≺≥𐑹  G2:⊤≥𐑧  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₁₉ stoichiometry_universe G1:⊞≥𐑳  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₀ absorption_democracy G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₁ absorption_monarchy  G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₂ absorption_inverted  G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₃ absorption_tensor_only G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₄ absorption_chirality_first G1:⊥≥𐑖  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₅ absorption_scope_empire G1:∈≥𐑲  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₆ absorption_topology_seal G1:⊣≥𐑸  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₇ predator_universe    G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₈ prey_universe        G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₂₉ coupling_first       G1:≻≥𐑽  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₀ coupling_maximal     G1:≻≥𐑾  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₁ chirality_second     G1:≺≥𐑹  G2:⊥≥𐑖  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₂ dimensional_second   G1:≺≥𐑹  G2:⊢≥𐑼  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₃ topology_second      G1:≺≥𐑹  G2:⊣≥𐑥  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₄ fidelity_second      G1:≺≥𐑹  G2:⋈≥𐑐  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₅ scope_second         G1:≺≥𐑹  G2:∈≥𐑲  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₆ composition_second   G1:≺≥𐑹  G2:∋≥𐑠  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₃₇ winding_second       G1:≺≥𐑹  G2:⊡≥𐑴  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
+    U₃₈ kinetics_second      G1:≺≥𐑹  G2:⊤≥𐑧  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
     U₃₉ chirality_third      G1:≺≥𐑹  G2:⊙≥⊙  G3:⊥≥𐑫  [seq]  T:dynamic  O_∞ compute
     U₄₀ dimensional_third    G1:≺≥𐑹  G2:⊙≥⊙  G3:⊢≥𐑦  [seq]  T:dynamic  O_∞ compute
     U₄₁ topology_third       G1:≺≥𐑹  G2:⊙≥⊙  G3:⊣≥𐑶  [seq]  T:dynamic  O_∞ compute
@@ -45,44 +45,44 @@
     U₄₄ composition_third    G1:≺≥𐑹  G2:⊙≥⊙  G3:∋≥𐑵  [seq]  T:dynamic  O_∞ compute
     U₄₅ coupling_third       G1:≺≥𐑹  G2:⊙≥⊙  G3:≻≥𐑾  [seq]  T:dynamic  O_∞ compute
     U₄₆ kinetics_third       G1:≺≥𐑹  G2:⊙≥⊙  G3:⊤≥𐑪  [seq]  T:dynamic  O_∞ compute
-    U₄₇ parallel_canonical   G1:≺≥𐑹  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
-    U₄₈ parallel_low         G1:≺≥𐑬  G2:⊙≥𐑢  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
-    U₄₉ parallel_high        G1:≺≥𐑹  G2:⊙≥𐑮  G3:◻≥𐑟  [par]  T:dynamic  O_∞ compute
-    U₅₀ parallel_chirality   G1:⊥≥𐑖  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₄₇ parallel_canonical   G1:≺≥𐑹  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₄₈ parallel_low         G1:≺≥𐑬  G2:⊙≥𐑢  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₄₉ parallel_high        G1:≺≥𐑹  G2:⊙≥𐑮  G3:⊡≥𐑟  [par]  T:dynamic  O_∞ compute
+    U₅₀ parallel_chirality   G1:⊥≥𐑖  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
     U₅₁ parallel_topology    G1:⊣≥𐑸  G2:≻≥𐑾  G3:⊙≥⊙  [par]  T:dynamic  O_∞ compute
-    U₅₂ parallel_scope       G1:∈≥𐑲  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
-    U₅₃ parallel_broadcast   G1:∋≥𐑠  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₅₂ parallel_scope       G1:∈≥𐑲  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₅₃ parallel_broadcast   G1:∋≥𐑠  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
     U₅₄ parallel_dimensional G1:⊢≥𐑼  G2:⊙≥⊙  G3:≺≥𐑹  [par]  T:dynamic  O_∞ compute
-    U₅₅ parallel_kinetics    G1:⊤≥𐑧  G2:⊙≥⊙  G3:◻≥𐑭  [par]  T:dynamic  O_∞ compute
+    U₅₅ parallel_kinetics    G1:⊤≥𐑧  G2:⊙≥⊙  G3:⊡≥𐑭  [par]  T:dynamic  O_∞ compute
     U₅₆ triple_parity        G1:≺≥𐑬  G2:≺≥𐑯  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
     U₅₇ triple_topology      G1:⊣≥𐑥  G2:⊣≥𐑶  G3:⊣≥𐑸  [seq]  T:dynamic  O_∞ compute
     U₅₈ triple_coupling      G1:≻≥𐑽  G2:≻≥𐑾  G3:≻≥𐑾  [seq]  T:dynamic  O_∞ compute
     U₅₉ triple_chirality     G1:⊥≥𐑒  G2:⊥≥𐑖  G3:⊥≥𐑫  [seq]  T:dynamic  O_∞ compute
-    U₆₀ triple_winding       G1:◻≥𐑴  G2:◻≥𐑭  G3:◻≥𐑟  [seq]  T:dynamic  O_∞ compute
+    U₆₀ triple_winding       G1:⊡≥𐑴  G2:⊡≥𐑭  G3:⊡≥𐑟  [seq]  T:dynamic  O_∞ compute
     U₆₁ ordinal4_parity      G1:≺≥𐑬  G2:≺≥𐑯  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
-    U₆₂ ordinal4_winding     G1:◻≥𐑴  G2:◻≥𐑭  G3:◻≥𐑟  [seq]  T:dynamic  O_∞ compute
-    U₆₃ ordinal_swap         G1:◻≥𐑭  G2:⊙≥⊙  G3:≺≥𐑯  [seq]  T:dynamic  O_∞ compute
+    U₆₂ ordinal4_winding     G1:⊡≥𐑴  G2:⊡≥𐑭  G3:⊡≥𐑟  [seq]  T:dynamic  O_∞ compute
+    U₆₃ ordinal_swap         G1:⊡≥𐑭  G2:⊙≥⊙  G3:≺≥𐑯  [seq]  T:dynamic  O_∞ compute
     U₆₄ ordinal_invert       G1:⊞≥𐑳  G2:≺≥𐑹  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₆₅ t_ceiling_topology   G1:⊣≥𐑶  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
     U₆₆ t_ceiling_dimensional G1:⊢≥𐑼  G2:⊙≥⊙  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
-    U₆₇ absorb_ep            G1:⊙≥⊙  G2:⊙≥𐑣  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₆₈ absorb_sub           G1:⊙≥⊙  G2:⊙≥𐑢  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
-    U₆₉ absorb_dual          G1:⊙≥⊙  G2:≺≥𐑹  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₆₇ absorb_ep            G1:⊙≥⊙  G2:⊙≥𐑣  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₆₈ absorb_sub           G1:⊙≥⊙  G2:⊙≥𐑢  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₆₉ absorb_dual          G1:⊙≥⊙  G2:≺≥𐑹  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
     U₇₀ t_subset_th_sigma    G1:⊣≥𐑸  G2:⊞≥𐑳  G3:⊙≥⊙  [par]  T:dynamic  O_∞ compute
-    U₇₁ t_subset_th_omega    G1:⊣≥𐑸  G2:◻≥𐑭  G3:⊙≥⊙  [par]  T:dynamic  O_∞ compute
+    U₇₁ t_subset_th_omega    G1:⊣≥𐑸  G2:⊡≥𐑭  G3:⊙≥⊙  [par]  T:dynamic  O_∞ compute
     U₇₂ t_subset_d_sigma     G1:⊢≥𐑼  G2:⊞≥𐑳  G3:⊙≥⊙  [par]  T:dynamic  O_∞ compute
     U₇₃ mixed_gamma_th       G1:∈≥𐑲  G2:⊣≥𐑸  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₇₄ mixed_fidelity_coupling G1:⋈≥𐑐  G2:≻≥𐑾  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₇₅ mixed_composition_kinetics G1:∋≥𐑠  G2:⊤≥𐑧  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₇₆ g4_quad              G1:∈≥𐑲  G2:≺≥𐑹  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₇₇ only_parity          G1:≺≥𐑹  G2:≥𐑛  G3:≥𐑛  [par]  T:dynamic  O_∞ compute
-    U₇₈ only_winding         G1:◻≥𐑭  G2:≥𐑛  G3:≥𐑛  [par]  T:dynamic  O_∞ compute
+    U₇₈ only_winding         G1:⊡≥𐑭  G2:≥𐑛  G3:≥𐑛  [par]  T:dynamic  O_∞ compute
     U₇₉ only_odot            G1:⊙≥⊙  G2:≥𐑛  G3:≥𐑛  [par]  T:dynamic  O_∞ compute
     U₈₀ empty_gate           G1:≥𐑛  G2:≥𐑛  G3:≥𐑛  [par]  T:dynamic  O_∞ compute
     U₈₁ dense_gates          G1:≺≥𐑹  G2:⊙≥⊙  G3:⊣≥𐑸  [seq]  T:dynamic  O_∞ compute
-    U₈₂ chirality_winding    G1:⊥≥𐑫  G2:◻≥𐑭  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
+    U₈₂ chirality_winding    G1:⊥≥𐑫  G2:⊡≥𐑭  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₈₃ composition_scope    G1:∋≥𐑠  G2:∈≥𐑲  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
     U₈₄ fidelity_chirality   G1:⋈≥𐑐  G2:⊥≥𐑖  G3:⊙≥⊙  [seq]  T:dynamic  O_∞ compute
-    U₈₅ t_broadcast          G1:∋≥𐑵  G2:⊙≥⊙  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₈₅ t_broadcast          G1:∋≥𐑵  G2:⊙≥⊙  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute
     U₈₆ absorb_broadcast     G1:⊙≥⊙  G2:∋≥𐑵  G3:≺≥𐑹  [seq]  T:dynamic  O_∞ compute
-    U₈₇ the_all              G1:⊙≥⊙  G2:≺≥𐑹  G3:◻≥𐑭  [seq]  T:dynamic  O_∞ compute
+    U₈₇ the_all              G1:⊙≥⊙  G2:≺≥𐑹  G3:⊡≥𐑭  [seq]  T:dynamic  O_∞ compute

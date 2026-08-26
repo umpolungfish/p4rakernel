@@ -14,7 +14,7 @@
 --  cannot even be posed in the register conventional proofs operate on. The
 --  grammar's own classification records exactly this: the OVM paper assigns YM
 --  the tuple ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑚𐑵⊙𐑫𐑳𐑟⟩ — "paracomplete, static, and OFF THE POSITIVITY AXIS"
---  (winding coordinate ◻=𐑟, non-Abelian, beyond the Frobenius-exact ZFC_fe
+--  (winding coordinate ⊡=𐑟, non-Abelian, beyond the Frobenius-exact ZFC_fe
 --  foundation). The positivity axis is precisely where a spectral gap Δ>0 would
 --  be stated; YM is off it, so the very act of asserting Δ>0 lies outside the
 --  proof-types. This file therefore organizes the four-pillar unification into
@@ -59,7 +59,7 @@
 --        → 2831 function(s) (1816 by descent, 1015 by fallback sweep):
 --          T 23   B 1053   N 1754   F 1
 --      One ill-typed fragment, and vox names it: at 0x3ce5
---      ⊢∈∋◻◻◻◻◻∋◻◻◻◻⊞⋈⋈◻◻◻⊞⊞⋈◻◻◻◻◻◻◻◻◻◻◻⊞⋈◻◻⊞◻≺. It carries a ∋
+--      ⊢∈∋⊡⊡⊡⊡⊡∋⊡⊡⊡⊡⊞⋈⋈⊡⊡⊡⊞⊞⋈⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊞⋈⊡⊡⊞⊡≺. It carries a ∋
 --      with no ∈ left to pair it (1 ∈ vs 2 ∋), reads VACUOUS on `banked`, and
 --      its cycle has period 40 with verdict F at every ROTAT cut — a true
 --      count imbalance, which no rotation repairs.
@@ -72,7 +72,7 @@
 --
 --    • `import Imscribing.Quantum.WindingLattice` added: Pillar 3's obstruction
 --      is now the explicit winding incommensurability `gate_separation`
---      (1/8 of a winding is not a tenth), so the ◻ primitive (IFIX) is
+--      (1/8 of a winding is not a tenth), so the ⊡ primitive (IFIX) is
 --      instantiated as a CHECKED fact, not merely named in the OVM tuple.
 --
 --  The OVM paper (millennium_theorems_as_ovms) classifies Yang–Mills by the
@@ -144,7 +144,7 @@ theorem conductor_saturation :
     ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑚𐑵⊙𐑫𐑳𐑟⟩ and describes it as "paracomplete, static, and off the
     positivity axis". The mass gap is the completeness coordinate
     inf spec(H)|vac⟂ = Δ > 0 — one coordinate of that tuple, not a solved theorem.
-    The winding slot ◻=𐑟 (non-Abelian) and the "off the positivity axis"
+    The winding slot ⊡=𐑟 (non-Abelian) and the "off the positivity axis"
     descriptor together place YM beyond the Frobenius-exact ZFC_fe foundation and
     off the axis where a spectral gap Δ>0 can be *stated* by conventional proof
     apparatus. This is the structural record of the operator's claim (winding 60):
@@ -161,9 +161,9 @@ def ym_ovm_tuple_string : String := "𐑦𐑥𐑽𐑹𐑐𐑧𐑚𐑵⊙𐑫𐑳
 theorem ym_is_open_by_repo_record : ym_sorry_count = 2 := rfl
 
 -- ============================================================================
--- §2b. The winding primitive (◻ = IFIX) is instantiated by WindingLattice
+-- §2b. The winding primitive (⊡ = IFIX) is instantiated by WindingLattice
 -- ----------------------------------------------------------------------------
---  The twelve-axis tuple names ◻ (IFIX, winding) as the coordinate that
+--  The twelve-axis tuple names ⊡ (IFIX, winding) as the coordinate that
 --  carries the folding barrier. This is not metaphor: `WindingLattice` proves
 --  the Fibonacci anyon model measures every phase in windings (one winding =
 --  a full turn) and that its native phases are exact TENTHS of a winding
@@ -172,9 +172,9 @@ theorem ym_is_open_by_repo_record : ym_sorry_count = 2 := rfl
 --  gate is ONE EIGHTH of a winding, and Imscribing.Quantum.eighth_not_a_tenth
 --  proves 1/8 is not a multiple of 1/10. So the Pillar-3 obstruction
 --  (sqrt_two_not_in_Qsqrtphi: √2 ∉ ℚ(√φ)) and the winding incommensurability
---  (1/8 ∉ {n/10}) are the SAME fact on two surfaces. The ◻ axis is therefore
+--  (1/8 ∉ {n/10}) are the SAME fact on two surfaces. The ⊡ axis is therefore
 --  the precise coordinate on which the B→T confinement gap (Pillar 1→2) and
---  the folding barrier (Pillar 3) both sit. The YM tuple's ◻=𐑟 (non-Abelian)
+--  the folding barrier (Pillar 3) both sit. The YM tuple's ⊡=𐑟 (non-Abelian)
 --  is the same primitive read at the braiding side: non-Abelian winding is
 --  what places YM off the positivity axis where a spectral gap could be
 --  stated. See pillar3_winding_form (CHECKED) in §3 below.
@@ -215,8 +215,8 @@ theorem pillar2_grammar :
 theorem bare_fork_fuse_is_N : verdictOf 0 false = Verdict.N := by
   decide
 
-/-- CHECKED. The witness word `∈◻∋` = `[fsplit, ifix, ffuse]` forks, encloses the
-    working mark `ifix` (◻ = IFIX; `doesWork ifix = true`, FoldVerdict line 35), then
+/-- CHECKED. The witness word `∈⊡∋` = `[fsplit, ifix, ffuse]` forks, encloses the
+    working mark `ifix` (⊡ = IFIX; `doesWork ifix = true`, FoldVerdict line 35), then
     fuses: d = 0 and sub = true, so `verdictOf` returns T. This is the Lean-level
     closure of the EXACT word the `…_winding_word` witnesses carry and that the imasm
     `cycle` instrument reports as verdict T,T,T at every ROTAT cut. The closure is by
@@ -242,7 +242,7 @@ def pillar3_grammar := sqrt_two_not_in_Qsqrtphi
     the native fold is the unique legal μ, not a random search (Levinthal). -/
 def pillar3_bridge : String := "the √2 ∉ ℚ(√φ) obstruction IS the folding/Levinthal barrier"
 
--- ---- Pillar 3b: the obstruction IS a winding incommensurability (◻ axis) ----
+-- ---- Pillar 3b: the obstruction IS a winding incommensurability (⊡ axis) ----
 /-! CHECKED. The Fibonacci model's native phases are exact tenths of a winding
     (Imscribing.Quantum: thetaTau = 4/10, rTau = -3/10, jonesRoot = 2/10,
     framing = -1/10; eigenvalues_generate proves the tenths are the whole
@@ -252,7 +252,7 @@ def pillar3_bridge : String := "the √2 ∉ ℚ(√φ) obstruction IS the foldi
     `1/2 = p/10` vs `1/8 = p/10`. So the algebraic obstruction of Pillar 3
     (√2 ∉ ℚ(√φ)) and this winding incommensurability (1/8 ∉ {n/10}) are one
     fact on two surfaces: the gate cannot be reached because it sits at a
-    winding the model's own phases do not contain. The ◻ primitive is therefore
+    winding the model's own phases do not contain. The ⊡ primitive is therefore
     the exact coordinate of the barrier, not a decorative label. The integer
     statement keeps `ℚ` out of this module's serialized environment. -/
 theorem pillar3_winding_form :
@@ -263,13 +263,13 @@ theorem pillar3_winding_form :
   · rintro ⟨p, hp⟩
     omega
 
-/-- CONJECTURE (original claim). The ◻ winding gap — a winding that cannot be
+/-- CONJECTURE (original claim). The ⊡ winding gap — a winding that cannot be
     closed by continuous deformation — IS the same barrier that separates the
     deconfined B-verdict vacuum (Pillar 1) from the folded T-verdict gapped
     state (Pillar 2): non-closing winding is the unconfined phase; closing
     winding is the confined, gapped phase. -/
 def pillar3b_winding_bridge : String :=
-  "the ◻ winding incommensurability (1/8 ∉ {n/10}) IS the B→T confinement gap"
+  "the ⊡ winding incommensurability (1/8 ∉ {n/10}) IS the B→T confinement gap"
 
 -- ---- Pillar 4: conductor 16³ saturation ↔ codon length 3 ----
 /-- CHECKED. The 2-adic ray-class field saturates its 2-part at conductor 2¹²

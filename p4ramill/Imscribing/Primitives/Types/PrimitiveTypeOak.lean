@@ -131,7 +131,7 @@ theorem the_primitive_type_called_oak_frobenius :
 def the_primitive_type_called_oak_family : String := "Protection"
 def the_primitive_type_called_oak_ordinal : Nat := 1
 
-/-- The CLINK L8 fragment for 'oak' (◻ = 𐑴), as the organism-layer
+/-- The CLINK L8 fragment for 'oak' (⊡ = 𐑴), as the organism-layer
     navigator emits it. Not authored here: the string is the navigator's. -/
 def the_primitive_type_called_oak_clinkFragmentL8 : String := "∮_γ A = nπ ∧ n ∈ ℤ₂"
 

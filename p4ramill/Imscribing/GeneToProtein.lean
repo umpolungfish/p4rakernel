@@ -43,7 +43,7 @@ open Imscribing.GeneticCode
     His → ⊙ (Criticality)                 — imidazole pH switch
     Asp → ⊥ (Chirality)                   — carboxyl charge specificity
     Lys → ⊞ (Stoichiometry)               — positive charge balance
-    Glu → ◻ (Protection)                  — C-terminal closure -/
+    Glu → ⊡ (Protection)                  — C-terminal closure -/
 def promotedAA_primitive_pair (aa : AminoAcid) : Option IGPrimitive :=
   aaToPrimitive aa
 

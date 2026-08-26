@@ -21,7 +21,7 @@
   Phase lattice = tenths of a winding: PASS
     Constants derivable from PHI: PASS
 [2;37m[boot][0m Fibonacci anyon QC: algebra verified = true
-[36m[TORUS][0m kernel wound: ⊢⊙∈⊤⋈∋◻⊞≺⋈⊣  (11 tokens, pinch=0.0000)
+[36m[TORUS][0m kernel wound: ⊢⊙∈⊤⋈∋⊡⊞≺⋈⊣  (11 tokens, pinch=0.0000)
 [2;37m[boot][0m Crystal FS: 17280000 addresses
 [2;37m[boot][0m 29 total programs (I–XXIX): 12 canonical + 4 continuous + 4 novel + 9 shunted
 

@@ -15,7 +15,7 @@ computed from those coordinates by `decide`.
 
 ## The axes
 
-* **Positivity** is carried by the winding coordinate `◻` alone, and is not a
+* **Positivity** is carried by the winding coordinate `⊡` alone, and is not a
   separate stipulation: a measure is positive exactly when its winding is a
   fixed point of negation. `windingSelfInverse_iff` is that fact about angles.
 * **Completeness** is carried by `∈`.
@@ -65,7 +65,7 @@ theorem windingSelfInverse_iff (x : ℚ) (h0 : 0 ≤ x) (h1 : x < 1) :
     · exact ⟨0, by norm_num⟩
     · exact ⟨1, by norm_num⟩
 
-/-- The four values the winding coordinate `◻` takes. The first three are the
+/-- The four values the winding coordinate `⊡` takes. The first three are the
     positivity axis; the fourth leaves the line the axis is drawn on, because a
     non-abelian holonomy around a cycle is not a scalar and has no rational
     winding at all. -/
@@ -161,7 +161,7 @@ def completenessOf (i : Imscription) : Completeness :=
   | .thigh => .complete
   | _ => .paracomplete
 
-/-- The winding class is carried by `◻` alone. -/
+/-- The winding class is carried by `⊡` alone. -/
 def windingClassOf (i : Imscription) : WindingClass :=
   match i.prot with
   | .awe => .zero
