@@ -29,13 +29,13 @@ Encoding (4 bits per token, little-endian, 0 = empty):
 
 The seven words, exactly as generated (encodings computed from the module
 source, not hand-transcribed):
-  ns       ⊢⊙∈≻⊤≺⊥⊞⋈◻∋⊣                0x000028C5BA493761
-  ym       ⊢⊣≻⋈⊙∈⊤≻⊥≺⊞⋈∋◻⊙⊣             0x26C85B4A39765321
-  bsd      ⊢⊙∈≻⊤⋈≺⊥∋⊞◻⊣                0x00002CB8A4593761
-  hodge    ⊢≻∈⊤≺⊥⋈⊙⊞∋◻⊣                0x00002C8B65A49731
-  riemann  ⊢⊣∈≻⊤≺⊥⊞∋⊙⋈◻⊣               0x0002C568BA493721
-  pvsnp    ⊢⊙∈≻⊤⋈≺⊥⊞◻⋈⊙∋⊣◻              0x0C2865CBA4593761
-  dyn      ⊢≻∈⊤⊥⊞⋈≺∋⊙◻⊣                0x00002C6845BA9731
+  ns       ⊢⊙∈≻⊤≺⊥⊞⋈⊡∋⊣                0x000028C5BA493761
+  ym       ⊢⊣≻⋈⊙∈⊤≻⊥≺⊞⋈∋⊡⊙⊣             0x26C85B4A39765321
+  bsd      ⊢⊙∈≻⊤⋈≺⊥∋⊞⊡⊣                0x00002CB8A4593761
+  hodge    ⊢≻∈⊤≺⊥⋈⊙⊞∋⊡⊣                0x00002C8B65A49731
+  riemann  ⊢⊣∈≻⊤≺⊥⊞∋⊙⋈⊡⊣               0x0002C568BA493721
+  pvsnp    ⊢⊙∈≻⊤⋈≺⊥⊞⊡⋈⊙∋⊣⊡              0x0C2865CBA4593761
+  dyn      ⊢≻∈⊤⊥⊞⋈≺∋⊙⊡⊣                0x00002C6845BA9731
 
 Author: Quantum⊙perator (Lando⊗⊙perator team) · 2026-08-24
 -/

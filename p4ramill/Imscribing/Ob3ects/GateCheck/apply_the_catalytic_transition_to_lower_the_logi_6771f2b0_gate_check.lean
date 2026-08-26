@@ -1,4 +1,4 @@
--- IGProtocol scaffold: ⊢ → ∈ → ≻ → ⊤ → ⋈ → ⊙ → ≺ → ⊥ → ⊞ → ∋ → ◻ → ⋈ → ⊙ → ⊣
+-- IGProtocol scaffold: ⊢ → ∈ → ≻ → ⊤ → ⋈ → ⊙ → ≺ → ⊥ → ⊞ → ∋ → ⊡ → ⋈ → ⊙ → ⊣
 -- Class: Apply the catalytic transition to lower the logical barrier on the T-arm.
 -- Fingerprint: sig=(8,2,3,1)
 --   self_ref=False | frobenius_order=1
@@ -25,7 +25,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   [7] ⊥     chir   := 𐑖               𐑚 → 𐑙  | evaluate-false — chirality check
 --   [8] ⊞    stoi   := 𐑳               𐑚 → 𐑙  | engage paradox — B-state, both arms
 --   [9] ∋     stoi   := 𐑙               𐑙 → 𐑭  | fuse μ — assembly mode
---   [10] ◻      prot   := 𐑭               𐑙 → 𐑱  | irreversible fixation — winding number
+--   [10] ⊡      prot   := 𐑭               𐑙 → 𐑱  | irreversible fixation — winding number
 --   [11] ⋈     fid    := 𐑱               𐑭 → 𐑠  | composition — regime coherence
 --   [12] ⊙   gram   := 𐑠               𐑱 → 𐑡  | identity — self-imscription
 --   [13] ⊣     top    := 𐑡               𐑠 → 𐑼  | terminal object — connectivity boundary

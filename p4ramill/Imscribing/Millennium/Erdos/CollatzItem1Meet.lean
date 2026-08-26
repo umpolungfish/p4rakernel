@@ -5,7 +5,7 @@
 -- while `absorption_rule_meet` says the meet does move it.  So this computes the
 -- meet, rather than reasoning about it.
 --
---   item 1'   ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣   ⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩  crystal 3444190
+--   item 1'   ⊢⊙∈≻⊤≺⊥∋⋈⊞⊡⊣   ⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩  crystal 3444190
 --   canonical I_Dialetheic_Bootstrap  ⟨𐑼𐑸𐑾𐑹𐑐𐑘𐑔𐑠⊙𐑫𐑳𐑭⟩
 --
 -- They differ in exactly three slots: dim, top, crit.

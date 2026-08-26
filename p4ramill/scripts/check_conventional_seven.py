@@ -9,7 +9,7 @@ it has run the decomposition in the direction nothing in the tree had run.
 
 The comparison is deliberately not equality of star sets, because the stars are
 not all the same kind of fact. Of the eight starred values, seven are starred in
-every sampled theorem that carries them. One, ◻ 𐑭, is starred in three of the
+every sampled theorem that carries them. One, ⊡ 𐑭, is starred in three of the
 five that carry it: the integer winding is the statement for Riemann (the
 argument principle), Birch and Swinnerton-Dyer (the regulator) and Hodge (the
 first Chern class), and is not the statement for Navier-Stokes or P versus NP.

@@ -99,7 +99,7 @@ the binomial spread. The surviving residues at depth four are `7, 9, 11, 15`
 
 ## The protocol reading
 
-`⊙∈≻≻∋◻` closes as a shape, and the arms are what have to be imscribed onto it.
+`⊙∈≻≻∋⊡` closes as a shape, and the arms are what have to be imscribed onto it.
 FSPLIT forks on `r` mod `2^k`, the forward steps are the `k` iterations, and
 FFUSE requires each arm to arrive strictly below where it entered. The classes
 with `j/k > 0.630930` never reach the fuse, and the all-odd class provably never
@@ -249,7 +249,7 @@ than the depth.
 
 ## What the Grammar says about the split, and the reading it names
 
-The protocol word for the depth split, `⊙∈≻≻∋◻`, imscribes to
+The protocol word for the depth split, `⊙∈≻≻∋⊡`, imscribes to
 ⟨𐑨 𐑶 𐑾 𐑹 𐑞 𐑘 𐑔 𐑠 𐑣 𐑫 𐑳 𐑭⟩ at crystal address 7749838. Chirality is 𐑫, wool,
 inexhaustible memory; kinetics is 𐑘, yea, untrapped. That pair is exactly what
 `InfiniteMemoryNeedsSlowKinetics` refuses: wool admits only egg or on. The word
@@ -267,10 +267,10 @@ than a patch. `cycle` shows the verdict `T` invariant under every rotation, so t
 closure is not an artifact of where the reading is cut.
 
 Two repairs are admissible for wool. Dropping to a finite chirality — 𐑖, sure,
-with kinetics left at yea — composes to `◻⊞◻⊞⊤≻⋈⊞⊥⋈≺⊤`, which verdicts `N`:
+with kinetics left at yea — composes to `⊡⊞⊡⊞⊤≻⋈⊞⊥⋈≺⊤`, which verdicts `N`:
 ten inert steps, nothing seeded, no fork at all. A bounded-memory reading of the
 trajectory never forks, so it cannot be the closing structure. Keeping wool and
-slowing to egg composes to `⊢⋈⊞⊤≺◻⊙∈⊤⊙≺∋`, verdict `T` but again
+slowing to egg composes to `⊢⋈⊞⊤≺⊡⊙∈⊤⊙≺∋`, verdict `T` but again
 `surviving: none`. Keeping wool and pairing with on — kinetically trapped by
 order — composes to `⊢⋈⊞⊤≺⋈⊙∈⊤⊙≺∋`, verdict `T` with `surviving: T×1`,
 deposits 3, restored 1, nothing inert. It is the only one of the three that banks
@@ -387,12 +387,12 @@ All three ground full and all three verdict `T` at the Frobenius gate.
 
 `collatz_level_contraction` types the level map with the doubling map at ≻, the
 odd lift at ≺, the `2 (mod 3)` filter at ∈ and the cardinality sum at ∋, and it
-puts the deviation bound at ◻ as a permanent record chained forward by ⋈. Its
+puts the deviation bound at ⊡ as a permanent record chained forward by ⋈. Its
 phase 6 prices the cycle at one 3-adic digit of resolution per level, and its B
 state is the level simultaneously approaching `4/3` and retaining a non-zero
 deviation. `collatz_open_arm` fuses the arm at level cardinality and prices the
 same digit as the cost of maintaining `4/3`. `collatz_two_readings` fuses the
-dense and sparse readings at a conserved **winding number** with ◻ = 𐑭, integer
+dense and sparse readings at a conserved **winding number** with ⊡ = 𐑭, integer
 winding, and calls the fused result a scale-free state.
 
 Two of the three ground with chirality 𐑖, sure, and kinetics 𐑧, egg: a descent
@@ -401,7 +401,7 @@ depth-split word was wool with yea and was not.
 
 ### The recursion, corrected
 
-Reading the ◻ record as a one-step bound, the obvious inequality is
+Reading the ⊡ record as a one-step bound, the obvious inequality is
 
     D_r(L') ≤ (3/4) D_r(L) + (1/4) D_(r+1)(L)
 
@@ -895,7 +895,7 @@ inequality, and everything else is in place beneath it.
 `collatz_cross_bound` grounds full at ⟨𐑦𐑰𐑽𐑿𐑐𐑧𐑚𐑝⊙𐑖𐑳𐑭⟩, Lean-verifies at `O₂dag`,
 and passes the Frobenius gate `T`. Its phase 1 names the pieces the way the
 measurements had them: `≻` the doubling map, `≺` the odd lift reaching one
-conductor higher, `⊥` the marginal fixed point, `⊞` the phase cancellation, `◻`
+conductor higher, `⊥` the marginal fixed point, `⊞` the phase cancellation, `⊡`
 the Cauchy–Schwarz bound as the permanent record. Its phase 3 `both` reads
 "the linear part has multiplier one, but the cross term is negative and provides
 the decay" — which is the measurement, arrived at independently.
@@ -916,11 +916,11 @@ Keeping every rung costs a slightly larger constant and discards nothing.
 
 `weight` on the ob3ect's own word then shows the same fault structurally: four
 units **stranded in frames never fused**. The movement stops dead at step 8 —
-`⊞` deposits `t+f`, the register fixes at `Ftf`, and `◻ ⋈ ∋ ⊤` all read inert, so
+`⊞` deposits `t+f`, the register fixes at `Ftf`, and `⊡ ⋈ ∋ ⊤` all read inert, so
 the fuse never collects what the split put in. The cancellation is asserted before
 the fusion.
 
-Reordering to fuse first fixes it. `⊢⊙∈≻⊤≺⋈∋⊥⊞◻⊤⊣` and `⊢⊙∈≻⊤≺⊥⊞⋈∋◻⊤⊣` both
+Reordering to fuse first fixes it. `⊢⊙∈≻⊤≺⋈∋⊥⊞⊡⊤⊣` and `⊢⊙∈≻⊤≺⊥⊞⋈∋⊡⊤⊣` both
 verdict `T`, bank clean, need no repair, land on `A` with all four values held,
 `restored 1`, and **nothing stranded**. Moving `⊞` after `∋` alone takes the
 stranding from four to two; putting the whole fusion ahead of both evaluations
@@ -999,13 +999,13 @@ from the residue structure rather than from the census.
 
 `collatz_cross_bound_2` grounds full at ⟨𐑦𐑰𐑑𐑿𐑐𐑧𐑲𐑜⊙𐑖𐑳𐑴⟩, Lean-verifies at
 `O₂dag`, and its banked check comes back with **nothing lost** — `surplus_total 0`,
-`restored 1`, landing on `A`. Its word `⊢⊙∈≻⊤≺⊥⊞⋈∋◻⊣` puts the fuse after the
+`restored 1`, landing on `A`. Its word `⊢⊙∈≻⊤≺⊥⊞⋈∋⊡⊣` puts the fuse after the
 paradox, which is the same reordering the `weight` verb had forced by hand, found
 independently.
 
 Two of its assignments carry claims about the mathematics.
 
-`◻ = 𐑴`, a ℤ₂ invariant protecting the bound against deformation. That is the
+`⊡ = 𐑴`, a ℤ₂ invariant protecting the bound against deformation. That is the
 involution: `2·1 ≡ 2` and `2·2 ≡ 1` mod 3, already proved as
 `double_swaps_classes` and `double_involution`, and already the source of the
 cross term's negative sign.

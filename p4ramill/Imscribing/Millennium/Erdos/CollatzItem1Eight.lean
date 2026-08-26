@@ -5,7 +5,7 @@ open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality
 
-/-- Item 1' carried on eight IFIX marks: ⊢⊙∈≻⊤≺⊥∋⋈⊞◻◻◻◻◻◻◻◻⊣
+/-- Item 1' carried on eight IFIX marks: ⊢⊙∈≻⊤≺⊥∋⋈⊞⊡⊡⊡⊡⊡⊡⊡⊡⊣
     derives ⟨𐑛𐑶𐑾𐑹𐑐𐑪𐑲𐑠𐑻𐑫𐑳𐑭⟩, crystal 3450910.  `dim` is `dead` because the word
     carries exactly one FSPLIT/FFUSE pair -- a point-like fork, which is CLINK L9's
     own ⊢ value. -/

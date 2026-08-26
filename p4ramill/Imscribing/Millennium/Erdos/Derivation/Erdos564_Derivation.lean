@@ -21,7 +21,7 @@ open Dimensionality Topology Relational Polarity Grammar Fidelity KineticChar Gr
 This file provides the **formal derivation** of the Erdős #564 Ramsey bound from the
 IMASM word structure, using the Grammar/IMASM machinery:
 
-1. The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣` as an `IGProtocol`
+1. The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣` as an `IGProtocol`
 2. The Vox verdict `T` certifying the proof structure
 3. The `TierFunctor` mapping the register walk `N → T → tf → A` to `O₀ → O_inf`
 5. The Frobenius algebra `μ ∘ δ = id` at `O_inf`
@@ -50,7 +50,7 @@ open Imscribing.Primitives
 open Dimensionality Topology Relational Polarity Grammar Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
 
 /-- The IMASM word for Erdős #564 as a well-typed IGProtocol.
-    Word: `⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣`
+    Word: `⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣`
     SIXTEEN_3 breakdown: VINIT→AFWD→FSPLIT3→EVALT→CLINK→IMSCRIB→EVALF→AREV→EVALI→FFUSE3→IFIX→CLINK→TANCH
     Register walk: N → T → tf → A (final register A = full register)
     Vox verdict: T (tri-ancestral reconnection over a transformed object, closes) -/
@@ -101,7 +101,7 @@ theorem erdos564_vox_certifies : True := by
 /-- The Erdős #564 Ramsey bound is the denotational content of the terminal
     register `A` under the SIXTEEN_3 semantics.
     
-    The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣` encodes a proof whose:
+    The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣` encodes a proof whose:
     - Opcode sequence: VINIT→AFWD→FSPLIT3→EVALT→CLINK→IMSCRIB→EVALF→AREV→EVALI→FFUSE3→IFIX→CLINK→TANCH
     - SIXTEEN_3 breakdown: VINIT→AFWD→FSPLIT3→EVALT→CLINK→IMSCRIB→EVALF→AREV→EVALI→FFUSE3→IFIX→CLINK→TANCH
     - Register walk: N → T → tf → A
@@ -121,7 +121,7 @@ def erdos564_statement (R3 : ℕ → ℕ) : Prop :=
     through the Grammar/IMASM machinery.
     
     The derivation proceeds through:
-    1. The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋◻⋈⊣` is a well-typed IGProtocol reaching register A
+    1. The IMASM word `⊢≻∈⊤⋈⊙⊥≺⊞∋⊡⋈⊣` is a well-typed IGProtocol reaching register A
     2. The Vox verdict T certifies the proof structure
     3. The TierFunctor maps the register walk to O_inf (Frobenius tier)
     4. The Frobenius algebra at O_inf gives μ ∘ δ = id (closure)

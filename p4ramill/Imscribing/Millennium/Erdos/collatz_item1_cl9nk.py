@@ -1,6 +1,6 @@
 """Item 1' against CLINK L9, through cl9nk_navigator rather than by hand.
 
-The word ⊢⊙∈≻⊤≺⊥∋⋈⊞◻⊣ derives (imasm derive, mOMonadOS) to
+The word ⊢⊙∈≻⊤≺⊥∋⋈⊞⊡⊣ derives (imasm derive, mOMonadOS) to
 ⟨𐑛𐑶𐑾𐑹𐑐𐑘𐑲𐑠𐑻𐑫𐑳𐑭⟩, crystal 3444190.  L9 is the transcendence rung, so this asks
 what L9 says about it: distance, tensor, meet, join, tier.
 """
@@ -9,7 +9,7 @@ sys.path.insert(0, "/home/mrnob0dy666/imsgct/imscribing_grammar/navigators")
 import cl9nk_navigator as nav
 
 ITEM1 = {"⊢":"𐑦","⊣":"𐑶","≻":"𐑾","≺":"𐑹","⋈":"𐑐","⊤":"𐑘",
-         "∈":"𐑔","∋":"𐑠","⊙":"𐑻","⊥":"𐑫","⊞":"𐑳","◻":"𐑭"}
+         "∈":"𐑔","∋":"𐑠","⊙":"𐑻","⊥":"𐑫","⊞":"𐑳","⊡":"𐑭"}
 
 def show(label, t):
     print(f"  {label:<10} ⟨{' · '.join(t[k] for k in nav.PRIMITIVE_KEYS)}⟩")

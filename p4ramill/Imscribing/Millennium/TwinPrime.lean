@@ -461,10 +461,10 @@ theorem twinprime_winding_gap :
 def twinprime_winding_bridge : String :=
   "the absent ░ winding IS the Twin-Prime/O₁ gap (RH without topological protection)"
 
-/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈◻∋ cycles to
+/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈⊡∋ cycles to
     verdict T at every ROTAT cut (instrument verdict imasm cycle: k = 0,1,2 → T,T,T),
     enclosing the interior winding mark the proof carries. Reuses the closed
     gate_separation arithmetic fact. -/
-def twinprime_winding_word : String := "∈◻∋"
+def twinprime_winding_word : String := "∈⊡∋"
 
 end Millennium.TwinPrime
