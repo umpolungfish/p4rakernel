@@ -38,3 +38,4 @@ downstream_releases/
 __pycache__/
 p4ramill/sweep/wordsCollatzDepth.tsv
 p4ramill/sweep/.rawCollatzDepth.tsv
+p4ramill/sweep/erdos_all/test_bisect.tsv
