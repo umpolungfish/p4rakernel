@@ -4,7 +4,7 @@ What is proved and measured, for grounding an ob3ect.
 
 The map is the shortcut Collatz map, `col n = n/2` on evens and `(3n+1)/2` on odds.
 
-Proved, sorry-free on propext / Classical.choice / Quot.sound, in
+Proved, *sans* sorry on propext / Classical.choice / Quot.sound, in
 `CollatzDepthSplit.lean`:
 
 - `col_shift`: over a residue class `r` mod `2^k` the k-fold iterate is affine,

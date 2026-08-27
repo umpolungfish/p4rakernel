@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: ⊢ → ∈ → ≻ → ⊤ → ⋈ → ⊙ → ≺ → ⊥ → ⊞ → ∋ → ⊡ → ⋈ → ⊙ → ⊣
--- Class: SORRY-FREE GAPLESS AND COMPLETED PROOF
+-- Class: *sans* sorry GAPLESS AND COMPLETED PROOF
 -- Fingerprint: sig=(8,2,3,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=True | period=14

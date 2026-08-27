@@ -136,7 +136,7 @@ Combinatorial and number-theoretic theorems formalized in `Imscribing/Classical/
 **Definition of AP:** Strictly increasing arithmetic progression with positive difference d ≥ 1. Sets of size 1 or 2 are automatically APs. Constant progressions (d=0) are excluded — this matches the external BK computation used for upper bounds.
 
 **Status:** Lower bound fully verified (12 explicit constructions by `native_decide`).
-Upper bound: 5 axioms. 304 lines, 0 sorries.  Builds clean (`lake build Imscribing.Classical.APIntersectingFamily`).
+Upper bound: 5 axioms. 304 lines, *sans* sorry.  Builds clean (`lake build Imscribing.Classical.APIntersectingFamily`).
 
 **Proof structure:**
 - **Lower bound:** Star families (all subsets containing center c, size ≤3) achieve C(N,2)+1 for all N. N=5,6 have exceptional constructions (star at c=3 plus 3 size-4/5 sets, minus 2 conflicting size-3 sets) achieving the +2.

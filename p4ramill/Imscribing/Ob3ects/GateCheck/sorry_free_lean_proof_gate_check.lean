@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: VINIT → CLINK → CLINK → CLINK → CLINK → FSPLIT → EVALT → EVALF → CLINK → CLINK → CLINK → FFUSE → CLINK → IFIX → TANCH → IMSCRIB
--- Class: sorry-free lean proof
+-- Class: *sans* sorry lean proof
 -- Fingerprint: sig=(11,2,2,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=False | period=16

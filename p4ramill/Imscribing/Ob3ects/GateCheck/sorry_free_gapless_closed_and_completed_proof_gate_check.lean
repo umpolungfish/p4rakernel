@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: VINIT → CLINK → FSPLIT → EVALT → AFWD → CLINK → FFUSE → EVALF → AREV → ENGAGR → IFIX → IMSCRIB → TANCH
--- Class: SORRY-FREE, GAPLESS, CLOSED, AND COMPLETED PROOF
+-- Class: *sans* sorry, GAPLESS, CLOSED, AND COMPLETED PROOF
 -- Fingerprint: sig=(7,2,3,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=True | period=13
