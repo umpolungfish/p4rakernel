@@ -1,7 +1,7 @@
 # Item 6, re-asked: bound the cycle from inside, not from outside
 
 File: /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/Millennium/Erdos/CollatzDepthSplit.lean
-Sorry-free. See ctx_item6.md for the full cycle apparatus; this restates the ask.
+*sans* sorry. See ctx_item6.md for the full cycle apparatus; this restates the ask.
 
 ## Why the first ask leaked
 
@@ -29,7 +29,7 @@ cycle_banked is an identity, not an estimate:
 so the margin IS bank(n,k)/(n+1), determined by the cycle itself. Nothing outside is
 needed to know it; what is needed is to work inside the assumption where it is fixed.
 
-## Everything available inside the assumption (all proved, sorry-free)
+## Everything available inside the assumption (all proved, *sans* sorry)
 
 Let n be the minimum of a cycle of length k with j = oddSteps n k odd steps.
 

@@ -1,7 +1,7 @@
 # Item 6: the Diophantine input the cycle half waits on
 
 File: /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/Millennium/Erdos/CollatzDepthSplit.lean
-Sorry-free. Axioms: propext / Classical.choice / Quot.sound.
+*sans* sorry. Axioms: propext / Classical.choice / Quot.sound.
 
 ## Setting
 

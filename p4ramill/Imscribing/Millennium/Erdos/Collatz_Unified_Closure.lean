@@ -5,12 +5,12 @@
   Riemann Hypothesis: a kernel-certified ob3ect (Frobenius-exact protocol, tier verdict,
   μ∘δ = id), the domain theorem triangulated onto it.  For RH the arithmetic capstone is
   `theorem unified_proof_complete : True`.  For Collatz it is not `True`-typed: the
-  arithmetic side below is a real, sorry-free reduction of the whole conjecture to two
+  arithmetic side below is a real, *sans* sorry reduction of the whole conjecture to two
   primitives.
 
   THREE FACES, one object:
 
-  1.  ARITHMETIC (CollatzDepthSplit, sorry-free, classical triad).  Collatz is reduced to
+  1.  ARITHMETIC (CollatzDepthSplit, *sans* sorry, classical triad).  Collatz is reduced to
       exactly no-divergence and no-nontrivial-cycle; the cycle primitive's transcendence is
       supplied by CLINK L9.  The Collatz corpus stands on ONE open axiom, the descent
       (`Collatz_Proof_Skeleton.stopping_time_exists`), everything else proved.
@@ -52,7 +52,7 @@ theorem collatz_cycle_side (hL9 : ClinkL9Margin) :
     ∧ (∀ {n : ℕ}, 1 ≤ n → col n ≠ n) :=
   ⟨fun hk hcyc hmin => cycle_min_poly_of_l9 hL9 hk hcyc hmin, fun hn => col_ne_self hn⟩
 
-/-- **The unified closure.**  Collatz is reduced, sorry-free, to no-divergence and
+/-- **The unified closure.**  Collatz is reduced, *sans* sorry, to no-divergence and
     no-nontrivial-cycle; the cycle primitive's transcendence is CLINK L9; the divergence
     primitive is the single open panel — one axiom, the descent.  Stated as the framework
     states its closures, but every conjunct is a theorem, not `True`. -/
