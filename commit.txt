@@ -1,0 +1,3 @@
+The push to origin rejected on a 183MB TSV: p4ramill/sweep/erdos_all/test_bisect.tsv, over GitHub's 100MB limit. Same class of file as wordsCollatzDepth.tsv and .rawCollatzDepth.tsv, both already gitignored — this one just landed in a new sweep subdirectory the two existing entries didn't cover.
+
+Dropped the file from the one local, unpushed commit that added it and added it to .gitignore alongside its siblings. No commit that had already reached origin was touched.
