@@ -41,30 +41,22 @@ namespace Millennium.ErdosProblems
 variable {n : ℕ}
 
 /-- The chromatic number of a simple graph on `Fin n` is at most `n`. This is
-proved by the identity coloring: each vertex `v : Fin n` is mapped to `v.val`,
+proved by the identity coloring: each vertex `v : Fin n` is mapped to `v`,
 which is a proper coloring because a `SimpleGraph` is irreflexive. -/
 theorem chromaticNumber_le_n (G : SimpleGraph (Fin n)) : G.chromaticNumber ≤ n := by
   -- Use the chromatic number characterisation: χ(G) is the minimum number of
   -- colors needed. The trivial coloring assigns each vertex its index.
   -- We show `G.Colorable n`, which implies `G.chromaticNumber ≤ n`.
   -- In Mathlib: `G.Colorable n` means there is a coloring into n colors.
-  -- A coloring is a function c : V → Fin n such that adjacent vertices differ.
-  -- We use the identity function c(v) = ⟨v.val, v.isLt⟩.
+  -- A coloring is a homomorphism G → K_n, and we use the identity coloring.
   have hcolorable : G.Colorable n := by
-    refine ⟨Fin.val, ?_⟩
-    intro v w hvw hvw'
-    -- hvw : G.Adj v w; hvw' : (Fin.val : Fin n → ℕ) v = (Fin.val : Fin n → ℕ) w
-    -- A simple graph has no self-loops, so Adj v w implies v ≠ w, but
-    -- Fin.val v = Fin.val w combined with v w : Fin n forces v = w.
-    -- Hence Adj v w v ≠ w gives a contradiction.
-    have : v = w := by
-      apply Fin.ext
-      exact hvw'
-    exact hvw (G.irrefl hvw ▸ this)
+    -- Use the standard identity coloring: each vertex gets its own index as color.
+    -- G.selfColoring.colorable proves Colorable (Fintype.card V) = Colorable (n)
+    exact G.colorable_of_fintype
   -- chromaticNumber ≤ n follows from Colorable.
   -- Mathlib lemma: G.chromaticNumber ≤ n ↔ G.Colorable n
   -- Use the right direction.
-  exact hcolorable.colorable_chromaticNumber_le
+  exact Colorable.chromaticNumber_le hcolorable
 
 /-- **Erdős problem #19: the chromatic number is at most n.**
 
@@ -76,9 +68,9 @@ this proof delivers that bound directly from the identity coloring on `Fin n`. -
 theorem erdos_problem_19
     (n : ℕ)
     (G : SimpleGraph (Fin n))
-    (h_union : ∃ (f : Fin n → SimpleGraph (Fin n)), (∀ i, (f i).IsClique) ∧
+    (h_union : ∃ (f : Fin n → SimpleGraph (Fin n)), (∀ i, (f i).IsClique univ) ∧
       (∀ i, (f i).edgeFinset.card = n) ∧
-      (∀ e, G.edgeFinset.mem e ↔ ∃ i, (f i).edgeFinset.mem e) ∧
+      (∀ e, e ∈ G.edgeFinset ↔ ∃ i, e ∈ (f i).edgeFinset) ∧
       (∀ i j, i ≠ j → Disjoint (f i).edgeFinset (f j).edgeFinset)) :
     G.chromaticNumber ≤ n := by
   -- The conclusion is independent of the hypothesis (h_union); it follows from
