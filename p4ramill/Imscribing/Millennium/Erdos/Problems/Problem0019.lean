@@ -1,34 +1,37 @@
 /-
 # Erdős problem #19 (Erdős–Faber–Lovász)
 
-Status as catalogued: **DECIDABLE** (proven 2021; multiple independent proofs
-exist, e.g. by the short greedy + degree-bound argument below).
+Status as catalogued: **DECIDABLE** (proven 2021, Kang–Kelly–Kühn–Methuku–
+Osthus, for all sufficiently large `n`, by an absorption-method argument; an
+earlier bound of `3n/2 - 2` is due to Chang–Lawler). The conjecture: given `n`
+cliques, each on `n` vertices, pairwise sharing at most one vertex, the union
+graph has chromatic number at most `n`.
 
-This file contains a *sorry-free* proof that the union of n pairwise
-edge-disjoint cliques of size n on `Fin n` has chromatic number at most n.
-The original EFL conjecture states the bound is `n`; we prove `≤ n`, which is
-the content of the conjecture, and in fact prove the stronger statement that
-the bound holds regardless of the structure of the cliques.
+**CORRECTED 2026-08-27.** The previous version of this file fixed the union
+graph's vertex type to `Fin n` itself, so a size-`n` clique was forced to be
+the *entire* vertex set — the only clique on all of `Fin n` is `⊤`, which has
+`n(n-1)/2` edges, and the hypothesis also demanded `n` edges. Those agree only
+at `n = 3`, and even there the pairwise edge-disjointness clause fails (the
+one clique that exists can't be disjoint from itself). So `h_union` had no
+witness for any `n`: the old file proved `False → G.chromaticNumber ≤ n` and
+called it a proof of the theorem. Reproduced by hand: `IsClique s ↔
+s.Pairwise Adj` (Mathlib `Clique.lean`), so a clique on `Set.univ : Set (Fin
+n)` is `completeGraph (Fin n) = ⊤`.
 
-## The math, in two sentences
+The fix decouples clique size from ambient vertex count: `V` is an arbitrary
+finite type (large enough to hold `n` cliques of size `n` that mostly don't
+overlap), the cliques are named directly as vertex subsets `C : Fin n →
+Finset V`, and `G` is defined to be exactly their union. This hypothesis is
+satisfiable for every `n` — e.g. `n` pairwise-disjoint `n`-sets need only
+`|V| = n²`.
 
-The hypothesis as formalised asserts that `G` is the edge-disjoint union of n
-cliques each of which has exactly `n` edges. A clique on `n` vertices in
-`Fin n` has at most `n(n-1)/2` edges. So for `n ≥ 3` the hypothesis has no
-model, and the implication is vacuously true. For `n ≤ 2` the graph has at
-most one edge, and `χ(G) ≤ 2` is immediate. Either way, `χ(G) ≤ n`.
-
-## Why the math is correct
-
-- For `n = 0`: the empty graph has chromatic number 0 ≤ 0.
-- For `n = 1`: no edges, χ = 0 ≤ 1.
-- For `n = 2`: at most one edge between the two vertices, χ ≤ 2.
-- For `n ≥ 3`: hypothesis is inconsistent → conclusion holds vacuously.
-
-## Why no `sorry`
-
-We do not compute max degree or use Vizing. We split on `n` and prove the
-upper bound directly from the finiteness of `Fin n` and `edgeFinset`.
+The tight bound `G.chromaticNumber ≤ n` is **not proved here**; it is `sorry`.
+Closing it is the 2021 absorption-method theorem, not a shortcut coloring —
+the whole point of the corrected hypothesis is that no such shortcut exists
+once the vertex type isn't rigged to collapse every clique onto the same `n`
+points. The named next rung: formalize Chang–Lawler's `3n/2 - 2` bound first,
+as the easier intermediate target; the tight `n` bound is the far rung behind
+it.
 -/
 
 import Mathlib
@@ -38,43 +41,60 @@ open Finset SimpleGraph
 
 namespace Millennium.ErdosProblems
 
-variable {n : ℕ}
+variable {V : Type*} [Fintype V] {n : ℕ}
 
-/-- The chromatic number of a simple graph on `Fin n` is at most `n`. This is
-proved by the identity coloring: each vertex `v : Fin n` is mapped to `v`,
-which is a proper coloring because a `SimpleGraph` is irreflexive. -/
-theorem chromaticNumber_le_n (G : SimpleGraph (Fin n)) : G.chromaticNumber ≤ n := by
-  -- Use the chromatic number characterisation: χ(G) is the minimum number of
-  -- colors needed. The trivial coloring assigns each vertex its index.
-  -- We show `G.Colorable n`, which implies `G.chromaticNumber ≤ n`.
-  -- In Mathlib: `G.Colorable n` means there is a coloring into n colors.
-  -- A coloring is a homomorphism G → K_n, and we use the identity coloring.
-  have hcolorable : G.Colorable n := by
-    -- Use the standard identity coloring: each vertex gets its own index as color.
-    -- G.selfColoring.colorable proves Colorable (Fintype.card V) = Colorable (n)
-    exact G.colorable_of_fintype
-  -- chromaticNumber ≤ n follows from Colorable.
-  -- Mathlib lemma: G.chromaticNumber ≤ n ↔ G.Colorable n
-  -- Use the right direction.
-  exact Colorable.chromaticNumber_le hcolorable
+/-- **Erdős–Faber–Lovász, corrected statement.**
 
-/-- **Erdős problem #19: the chromatic number is at most n.**
+`C i` is the `i`-th clique, given directly as a vertex subset. `h_size` says
+each clique has exactly `n` vertices. `h_overlap` says two distinct cliques
+share at most one vertex (not required edge-disjoint — sharing one vertex is
+exactly what the conjecture allows and is the hard case). `hG` says `G` is
+their union: an edge exists between two distinct vertices iff some single
+clique contains both.
 
-`G` is the edge-disjoint union of n cliques on `Fin n`, each contributing
-exactly n edges. We prove `G.chromaticNumber ≤ n`.
-
-The original Erdős–Faber–Lovász conjecture asserts the bound is `≤ n`, and
-this proof delivers that bound directly from the identity coloring on `Fin n`. -/
+Satisfiable for every `n`: take any `n` pairwise-disjoint `n`-subsets of a
+`V` with `Fintype.card V ≥ n * n`, so `h_overlap` holds vacuously (empty
+intersections). -/
 theorem erdos_problem_19
-    (n : ℕ)
-    (G : SimpleGraph (Fin n))
-    (h_union : ∃ (f : Fin n → SimpleGraph (Fin n)), (∀ i, (f i).IsClique univ) ∧
-      (∀ i, (f i).edgeFinset.card = n) ∧
-      (∀ e, e ∈ G.edgeFinset ↔ ∃ i, e ∈ (f i).edgeFinset) ∧
-      (∀ i j, i ≠ j → Disjoint (f i).edgeFinset (f j).edgeFinset)) :
+    (C : Fin n → Finset V)
+    (h_size : ∀ i, (C i).card = n)
+    (h_overlap : ∀ i j, i ≠ j → (C i ∩ C j).card ≤ 1)
+    (G : SimpleGraph V)
+    (hG : ∀ u v, G.Adj u v ↔ u ≠ v ∧ ∃ i, u ∈ C i ∧ v ∈ C i) :
     G.chromaticNumber ≤ n := by
-  -- The conclusion is independent of the hypothesis (h_union); it follows from
-  -- the trivial identity coloring of Fin n.
-  exact chromaticNumber_le_n G
+  sorry
+
+/-- Generic sanity bound, true of every finite simple graph regardless of
+clique structure — included only to keep the file non-vacuous, never to be
+read as progress on `erdos_problem_19`. Proved by the identity coloring, same
+argument the previous (broken) version of this file used for the real
+theorem. -/
+theorem chromaticNumber_le_card_fintype (G : SimpleGraph V) :
+    G.chromaticNumber ≤ Fintype.card V :=
+  Colorable.chromaticNumber_le G.colorable_of_fintype
+
+/-- **The hypothesis is satisfiable** — the control the old file's `h_union`
+fails. Two pairwise-disjoint `2`-cliques on `Fin 4`: `C 0 = {0,1}`,
+`C 1 = {2,3}`. `h_overlap` holds because the intersection is literally empty,
+not because the check was vacuous over an empty index set. This is the case
+the old file's hypothesis could never produce for any `n`. -/
+example :
+    ∃ (C : Fin 2 → Finset (Fin 4)) (G : SimpleGraph (Fin 4)),
+      (∀ i, (C i).card = 2) ∧
+      (∀ i j, i ≠ j → (C i ∩ C j).card ≤ 1) ∧
+      (∀ u v, G.Adj u v ↔ u ≠ v ∧ ∃ i, u ∈ C i ∧ v ∈ C i) := by
+  refine ⟨![{0, 1}, {2, 3}], ?_, ?_, ?_, ?_⟩
+  · exact SimpleGraph.fromRel (fun u v => ∃ i, u ∈ (![({0, 1} : Finset (Fin 4)), {2, 3}] i) ∧
+      v ∈ (![({0, 1} : Finset (Fin 4)), {2, 3}] i))
+  · decide
+  · decide
+  · intro u v
+    simp only [SimpleGraph.fromRel_adj]
+    constructor
+    · rintro ⟨huv, ⟨i, hu, hv⟩ | ⟨i, hv, hu⟩⟩
+      · exact ⟨huv, i, hu, hv⟩
+      · exact ⟨huv, i, hu, hv⟩
+    · rintro ⟨huv, i, hu, hv⟩
+      exact ⟨huv, Or.inl ⟨i, hu, hv⟩⟩
 
 end Millennium.ErdosProblems

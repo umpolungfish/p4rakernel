@@ -1,3 +1,26 @@
-The push to origin rejected on a 183MB TSV: p4ramill/sweep/erdos_all/test_bisect.tsv, over GitHub's 100MB limit. Same class of file as wordsCollatzDepth.tsv and .rawCollatzDepth.tsv, both already gitignored — this one just landed in a new sweep subdirectory the two existing entries didn't cover.
+Fix Problem0019.lean: the Erdős–Faber–Lovász hypothesis was unsatisfiable
 
-Dropped the file from the one local, unpushed commit that added it and added it to .gitignore alongside its siblings. No commit that had already reached origin was touched.
+The old h_union pinned the union graph's vertex type to Fin n itself, so a
+size-n clique had to be the whole vertex set. That forces every clique to
+equal K_n, whose edge count n(n-1)/2 only matches the file's separate "n
+edges" requirement at n=3, and even there the pairwise edge-disjointness
+clause fails since the one possible clique can't be disjoint from itself.
+h_union had no witness for any n; the file proved False → conclusion and
+called it a proof of the theorem.
+
+Rewrote the statement to decouple clique size from ambient vertex count:
+cliques are named directly as vertex subsets C : Fin n → Finset V on an
+arbitrary finite V, sharing at most one vertex pairwise (not edge-disjoint —
+that's what the real conjecture allows), with G defined as their union.
+Added a concrete satisfiability witness (two disjoint 2-cliques on Fin 4)
+so the hypothesis being real isn't just asserted. The tight bound
+chromaticNumber ≤ n stays sorry — that's the actual 2021 Kang–Kelly–Kühn–
+Methuku–Osthus theorem, not a shortcut coloring, and no shortcut survives
+once the vertex type isn't rigged to collapse every clique onto the same n
+points. Kept a clearly-labeled generic sanity bound (chromaticNumber ≤
+Fintype.card V) separate from the real theorem so it can't be mistaken for
+progress on it again.
+
+Also removed a stray one-file Isscribing/ directory (typo of Imscribing/,
+created today, not on the lakefile's build target) holding a near-duplicate
+of the old broken Problem0019.lean.
