@@ -462,7 +462,7 @@ theorem promotions_closed_by_split
     → hodge_pm_semantic_bridge (PrimitiveBridge) → HodgeConjecture.
 -/
 
-/-- **PRIMITIVE-LEVEL CONSEQUENCE OF AXIOM D** — Grammar theorem, 0 sorries.
+/-- **PRIMITIVE-LEVEL CONSEQUENCE OF AXIOM D** — Grammar theorem, *sans* sorry.
 
     An imscription carrying the Hodge signature (if', are, ah) and satisfying
     holographic closure has polarity or'.

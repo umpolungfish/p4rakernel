@@ -1,6 +1,6 @@
 # The gap, enumerated
 
-Everything named here is proved and sorry-free in `CollatzDepthSplit.lean`, or
+Everything named here is proved and *sans* sorry in `CollatzDepthSplit.lean`, or
 measured by the verb named, with the outputs in `closing_measurements.txt`.
 
 **The object.** One level of the Collatz predecessor tree maps to the next by two

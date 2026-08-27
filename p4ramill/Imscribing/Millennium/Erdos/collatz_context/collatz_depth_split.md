@@ -16,7 +16,7 @@ contracts exactly when `3^j < 2^k`, that is when
 That ratio is the coordinate. It is graded, it is computed from the class, and
 it replaces the per-arm contraction claims that a fixed trace suggests.
 
-Lean: `p4ramill/Imscribing/Millennium/Erdos/CollatzDepthSplit.lean`, sorry-free
+Lean: `p4ramill/Imscribing/Millennium/Erdos/CollatzDepthSplit.lean`, *sans* sorry
 on propext / Classical.choice / Quot.sound. `col_shift` is the affine identity,
 `col_lt_of_gap` turns the gap `2^k - 3^j` into descent for the whole class.
 The census script is `collatz_depth_split.py` beside it.
@@ -560,7 +560,7 @@ that class — 20 — reads 6266 against 5519 for a share of `0.5317`. Twenty-fi
 So a third of all junctions are starved for a structural reason rather than a
 statistical one, and it is the residue `5 (mod 9)` that starves them.
 `col_starved_arm`, `preds_of_barren`, `barren_doubling` and `starved_junction`
-carry it, sorry-free on the standard three.
+carry it, *sans* sorry on the standard three.
 
 ### Solving the amplitude equation
 
@@ -1063,7 +1063,7 @@ Write each histogram as flat plus deviation. Both deviations sum to zero, so the
 flat parts contribute exactly the product of the totals over the modulus and
 nothing else survives — the cross term **is** the correlation of the two
 deviations, with no remainder. `cross_decompose` proves that over any finite index
-type with any reindexing of the second factor, and it is sorry-free.
+type with any reindexing of the second factor, and it is *sans* sorry.
 
 From there Cauchy–Schwarz, with the arm proportions `3/4` and `1/4`:
 

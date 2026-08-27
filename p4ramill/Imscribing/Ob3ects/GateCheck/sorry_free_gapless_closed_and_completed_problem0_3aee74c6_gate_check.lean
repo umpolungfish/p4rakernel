@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: VINIT → IMSCRIB → FSPLIT → FFUSE → EVALT → IFIX
--- Class: SORRY-FREE GAPLESS CLOSED AND COMPLETED Problem0003 PROOF
+-- Class: *sans* sorry GAPLESS CLOSED AND COMPLETED Problem0003 PROOF
 -- Fingerprint: sig=(2,2,1,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=False | period=6

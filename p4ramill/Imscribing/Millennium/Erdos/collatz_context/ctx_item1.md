@@ -1,7 +1,7 @@
 # Item 1': the last open statement of the Collatz chain
 
 File: /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/Millennium/Erdos/CollatzDepthSplit.lean
-Sorry-free. Axioms: propext / Classical.choice / Quot.sound. Proof-term sweep: 134 T, 243 N, no B, no F.
+*sans* sorry. Axioms: propext / Classical.choice / Quot.sound. Proof-term sweep: 134 T, 243 N, no B, no F.
 
 ## The map and the definitions
 

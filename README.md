@@ -147,7 +147,7 @@ lean --run ParaconsistentMillennium.lean
 - `Primitives/CLU.lean`: CLU(b) = ln(b), the observer-relative fiber metric on the Ç-axis
 - `Primitives/ZFCt.lean` / `ZFCs.lean`: ZFCₜ (T-consistent) and ZFC_fe (Frobenius-Extended)
 
-### Paraconsistent cluster (sorry-free)
+### Paraconsistent cluster (*sans* sorry)
 
 - `Belnap.lean`: Belnap FOUR; approximation and truth orders; `no_explosion`, `B_is_top`,
   `B_fixed_point_negation`, `B_no_boolean_complement`
@@ -164,7 +164,7 @@ imscription at the \(O_\infty\) tier (the Φ 𐑹 Frobenius-special primitive ga
 O₂†→\(O_\infty\) jump). These modules deliberately carry **`sorry` at exactly the points
 that are the grammar's open mathematical claims**: the IG identifies *what* must be
 constructed, estimated, or contradicted; it does not pretend those proofs are already done.
-The kernel, primitives, lattice, and paraconsistent cluster are sorry-free; the Millennium
+The kernel, primitives, lattice, and paraconsistent cluster are *sans* sorry; the Millennium
 sorries state the remaining work.
 
 | Problem | Ħ | Crystal address |
@@ -212,7 +212,7 @@ for `native_decide`). The last axiom of the IG formalization has been discharged
    `psi`, an explicit `Fin.sum_univ_eq_sum_range` lambda, and an `hjk` hypothesis so
    the omega-exponent follows the psi-index into `(k+12-a)` form.
 
-The entire construction — ring, hom, norm, equiangularity, capstone — is **sorry-free**
+The entire construction — ring, hom, norm, equiangularity, capstone — is ***sans* sorry**
 and builds green with `lake build` (8342 jobs, no olean cache misses).
 
 **`SIC_POVM_Functor.lean`** imports the Embedding capstone, so `crystal_forces_d12_sic`
@@ -321,7 +321,7 @@ python3 p4ramill_py/run_gene_pipeline.py --test -o out.json
 ## 4. The Physics Cluster
 
 Three Lean files lift the Frobenius identity from a single orbital to a unification theorem.
-All three are sorry-free. The d=12 SIC-POVM embedding (§2) now provides the fourth leg:
+All three are *sans* sorry. The d=12 SIC-POVM embedding (§2) now provides the fourth leg:
 the discrete fiducial in the existence ring, transferred to ℂ along `phi`, gives the
 physical SIC-POVM measurement operator at dimension 12 as a machine-checked theorem.
 
@@ -412,7 +412,7 @@ cd p4ramill && lake build
 lean --run p4ramill/ParaconsistentKernelTest.lean
 lean --run p4ramill/ParaconsistentMillennium.lean
 
-# SIC-POVM d=12 embedding (capstone — sorry-free, axiom-free)
+# SIC-POVM d=12 embedding (capstone — *sans* sorry, axiom-free)
 lean --run p4ramill/Imscribing/Millennium/SIC_D12_Embedding.lean
 
 # Loose top-level Lean files build under the fork (the canonical toolchain).

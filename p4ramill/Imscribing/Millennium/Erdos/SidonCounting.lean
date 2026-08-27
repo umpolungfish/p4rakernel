@@ -131,7 +131,7 @@ theorem sidon_card_le {N : ℕ} (hN : 1 ≤ N) {A : Finset ℕ}
   nlinarith [hcount, hprod, hmk, hm]
 
 /-- A Sidon set is a set of distinct differences: the counting bound in the form
-that names the objects rather than a constant. `Fin`-free, sorry-free, and it
+that names the objects rather than a constant. `Fin`-free, *sans* sorry, and it
 mentions Sidon sets — which is what the statement it replaces did not. -/
 theorem sidon_not_dense {N : ℕ} (hN : 1 ≤ N) {A : Finset ℕ}
     (hA : A ⊆ Finset.Icc 1 N) (h : IsSidon A)
