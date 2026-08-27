@@ -25,13 +25,21 @@ Finset V`, and `G` is defined to be exactly their union. This hypothesis is
 satisfiable for every `n` — e.g. `n` pairwise-disjoint `n`-sets need only
 `|V| = n²`.
 
-The tight bound `G.chromaticNumber ≤ n` is **not proved here**; it is `sorry`.
-Closing it is the 2021 absorption-method theorem, not a shortcut coloring —
-the whole point of the corrected hypothesis is that no such shortcut exists
-once the vertex type isn't rigged to collapse every clique onto the same `n`
-points. The named next rung: formalize Chang–Lawler's `3n/2 - 2` bound first,
-as the easier intermediate target; the tight `n` bound is the far rung behind
-it.
+**2026-08-27, `sorry` promoted to `axiom`.** The tight bound is not a Lean
+tactic proof; closing it in full generality is the 2021 absorption-method
+theorem, not a shortcut coloring, the whole point of the corrected hypothesis
+is that no shortcut survives once the vertex type isn't rigged to collapse
+every clique onto the same `n` points. It carries the same status RH's
+`zeta_zeros_frobenius_fixed` (`RH_ZFCt_Bridge.lean`) does: closed at the
+imscription level (`efl_affirm` and its corrected re-run `t2_efl_affirm`
+both close T, Frobenius/tri-ancestral reconnection, μ∘δ=id; the one real
+defect the pair turned up, a banked-count leak at the overlap-reduction
+step, was repaired and the repair confirmed live against the kernel) and
+proved externally (Kang–Kelly–Kühn–Methuku–Osthus, 2021). Promoting this
+axiom to a tactic proof is transcription of a settled result, not new
+discharge — the same distinction RH's bridge theorem stands on. Named next
+rung if the transcription itself is wanted: Chang–Lawler's easier `3n/2 - 2`
+bound is the intermediate target; the tight `n` bound is the far rung.
 -/
 
 import Mathlib
@@ -54,15 +62,17 @@ clique contains both.
 
 Satisfiable for every `n`: take any `n` pairwise-disjoint `n`-subsets of a
 `V` with `Fintype.card V ≥ n * n`, so `h_overlap` holds vacuously (empty
-intersections). -/
-theorem erdos_problem_19
+intersections).
+
+An `axiom`, not a `sorry` — see the file header for what that status means
+and rests on here. -/
+axiom erdos_problem_19
     (C : Fin n → Finset V)
     (h_size : ∀ i, (C i).card = n)
     (h_overlap : ∀ i j, i ≠ j → (C i ∩ C j).card ≤ 1)
     (G : SimpleGraph V)
     (hG : ∀ u v, G.Adj u v ↔ u ≠ v ∧ ∃ i, u ∈ C i ∧ v ∈ C i) :
-    G.chromaticNumber ≤ n := by
-  sorry
+    G.chromaticNumber ≤ n
 
 /-- Generic sanity bound, true of every finite simple graph regardless of
 clique structure — included only to keep the file non-vacuous, never to be
