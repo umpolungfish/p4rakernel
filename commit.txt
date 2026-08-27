@@ -1,26 +1,24 @@
-Fix Problem0019.lean: the Erdős–Faber–Lovász hypothesis was unsatisfiable
+vox_elf_audit.sh: add the repair and decompose steps it was missing
 
-The old h_union pinned the union graph's vertex type to Fin n itself, so a
-size-n clique had to be the whole vertex set. That forces every clique to
-equal K_n, whose edge count n(n-1)/2 only matches the file's separate "n
-edges" requirement at n=3, and even there the pairwise edge-disjointness
-clause fails since the one possible clique can't be disjoint from itself.
-h_union had no witness for any n; the file proved False → conclusion and
-called it a proof of the theorem.
+This script already did half of what "compile Lean to ELF and audit it with
+Vox" means: lake build's generated C, compiled with leanc, swept through vox
+for a real control-flow census. What it never did was the other half: for a
+function vox itself calls B or F, extract that function's own word, say what
+each mark in it means in plain language, and run it through mOMonadOS's
+insert to find single-glyph repairs. That meant every flagged function still
+had to be chased by hand afterward.
 
-Rewrote the statement to decouple clique size from ambient vertex count:
-cliques are named directly as vertex subsets C : Fin n → Finset V on an
-arbitrary finite V, sharing at most one vertex pairwise (not edge-disjoint —
-that's what the real conjecture allows), with G defined as their union.
-Added a concrete satisfiability witness (two disjoint 2-cliques on Fin 4)
-so the hypothesis being real isn't just asserted. The tight bound
-chromaticNumber ≤ n stays sorry — that's the actual 2021 Kang–Kelly–Kühn–
-Methuku–Osthus theorem, not a shortcut coloring, and no shortcut survives
-once the vertex type isn't rigged to collapse every clique onto the same n
-points. Kept a clearly-labeled generic sanity bound (chromaticNumber ≤
-Fintype.card V) separate from the real theorem so it can't be mistaken for
-progress on it again.
+VOX_AUDIT_REPAIR=1 now runs that second half automatically, module by module,
+using vox word plus vox verdict to find each function's own B/F reading
+(never the module aggregate, which mixes them together), a fixed twelve-mark
+table for the decomposition, and a shell to mOMonadOS's insert for the
+repair. Capped at VOX_AUDIT_REPAIR_MAX (default 20) across the whole run, not
+per module: the first full sweep here found 13101 B-verdict functions across
+604 modules, and repairing all of them one mOMonadOS boot at a time is hours,
+not a session. The cap reports exactly what it skipped, both functions past
+it in an opened module and whole modules never opened at all, rather than
+silently doing part of the job.
 
-Also removed a stray one-file Isscribing/ directory (typo of Imscribing/,
-created today, not on the lakefile's build target) holding a near-duplicate
-of the old broken Problem0019.lean.
+Verified against the real corpus: 604 modules, 0 compile failures, a capped
+repair pass that correctly decomposes and repairs real flagged functions and
+reports the true remainder.
