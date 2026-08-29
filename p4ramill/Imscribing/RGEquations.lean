@@ -26,9 +26,10 @@ open Imscribing.Primitives.Imscription
 open Imscribing.Frobenius
 open Imscribing.Seals
 open Imscribing.IGProtocol
+open Imscribing
 
 -- ============================================================
--- §0  SHARED CRYSTAL CONSTANTS & GROUND IMSCRIPTION
+-- §0  SHARED CRYSTAL CONSTANTS & GROUND/TERMINAL STATES
 -- ============================================================
 
 /-- Cardinalities: [D, T, R, P, F, K, G, C, ⊙, H, S, Ω] = [4,5,4,5,3,5,3,4,5,4,3,4] -/
@@ -38,30 +39,16 @@ def primitiveCardinalities : List ℕ := [4, 5, 4, 5, 3, 5, 3, 4, 5, 4, 3, 4]
 def crystalStrides : List ℕ := [4320000, 864000, 216000, 43200, 14400, 2880, 960, 240, 48, 12, 4, 1]
 
 /-- The pre-seal void state at O₀: array/judge/ado/church/age/yea/bib/vow/woe/fee/hung/awe -/
-def rg_ground_state : Imscription :=
+abbrev rg_ground_state : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church,
     fid := age, kin := yea, gran := bib, gram := vow,
     crit := woe, chir := fee, stoi := hung, prot := awe }
 
 /-- The UV fixed point terminal state at O_∞: if'/are/ian/or'/peep/on/ice/measure/monad/wool/up/zoo -/
-def rg_terminal_state : Imscription :=
+abbrev rg_terminal_state : Imscription :=
   { dim := if', top := are, rel := ian, pol := or',
     fid := peep, kin := on, gran := ice, gram := measure,
     crit := monad, chir := wool, stoi := up, prot := zoo }
-
-/-- UV fixed-point seal record. Each field is a dimensionless ratio at d=12.
-    Authoritative type for §6 below. -/
-structure UVFixedPoint where
-  alpha_inverse        : ℝ
-  proton_electron_ratio : ℝ
-  muon_electron_ratio  : ℝ
-  tau_electron_ratio   : ℝ
-  w_proton_ratio       : ℝ
-  higgs_w_diff         : ℝ
-  weinberg_angle_sq    : ℝ
-  neutrino_hierarchy   : List ℕ
-  omega                : ℝ
-  omega_corr           : ℝ
 
 -- ============================================================
 -- §1  RG FLOW TRAJECTORY (discrete crystal → continuous flow)
@@ -72,71 +59,78 @@ structure UVFixedPoint where
 namespace RGTrajectory
 
 /-- Stage 0: pre-crystalline void -/
-def s0 : Imscription := rg_ground_state
+@[reducible] def s0 : Imscription := rg_ground_state
+
 /-- Stage 1: split into discrete/continuous arms (FSPLIT) -/
-def s1 : Imscription := { s0 with dim := dead }
+@[reducible] def s1 : Imscription := { s0 with dim := dead }
+
 /-- Stage 2: forward morphism on discrete arm (AFWD) -/
-def s2 : Imscription := { s1 with rel := ian }
+@[reducible] def s2 : Imscription := { s1 with rel := ian }
+
 /-- Stage 3: affirm topological protection (EVALT) -/
-def s3 : Imscription := { s2 with crit := Criticality.monad }
-/-- Stage 4: chain discrete steps (CLINK) — swap to quantum fidelity -/
-def s4 : Imscription := { s3 with fid := Fidelity.peep }
+@[reducible] def s3 : Imscription := { s2 with crit := Criticality.monad }
+
+/-- Stage 4: chain discrete steps (CLINK) -/
+@[reducible] def s4 : Imscription := { s3 with fid := Fidelity.peep }
+
 /-- Stage 5: reverse morphism on continuous arm (AREV) -/
-def s5 : Imscription := { s4 with pol := Polarity.nun }
+@[reducible] def s5 : Imscription := { s4 with pol := Polarity.nun }
+
 /-- Stage 6: evaluate symmetry breaking (EVALF) -/
-def s6 : Imscription := { s5 with chir := Chirality.fee }
+@[reducible] def s6 : Imscription := { s5 with chir := Chirality.fee }
+
 /-- Stage 7: chain continuous steps (CLINK) -/
-def s7 : Imscription := { s6 with gram := Grammar.measure }
+@[reducible] def s7 : Imscription := { s6 with gram := Grammar.measure }
+
 /-- Stage 8: asymmetric participation (ENGAGR) -/
-def s8 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def s8 : Imscription := { s7 with stoi := Stoichiometry.up }
+
 /-- Stage 9: scale collapse / fuse (FFUSE) -/
-def s9 : Imscription := { s8 with rel := ian }
+@[reducible] def s9 : Imscription := { s8 with rel := ian }
+
 /-- Stage 10: critical threshold (IMSCRIB) -/
-def s10 : Imscription := { s9 with crit := Criticality.monad }
+@[reducible] def s10 : Imscription := { s9 with crit := Criticality.monad }
+
 /-- Stage 11: residual integral record (IFIX) -/
-def s11 : Imscription := { s10 with prot := Protection.ah }
+@[reducible] def s11 : Imscription := { s10 with prot := Protection.ah }
+
 /-- Stage 12: chain residual with UV seals (CLINK) -/
-def s12 : Imscription := { s11 with fid := Fidelity.peep }
+@[reducible] def s12 : Imscription := { s11 with fid := Fidelity.peep }
+
 /-- Stage 13: terminal anchor at UV fixed point (TANCH) -/
-def s13 : Imscription := { s12 with top := Topology.are }
+@[reducible] def s13 : Imscription := { s12 with top := are }
 
 /-- Label imscriptions (deltas per step) -/
-def l0 : Imscription := s0
-def l1 : Imscription := { s0 with dim := dead }
-def l2 : Imscription := { s1 with rel := ian }
-def l3 : Imscription := { s2 with crit := Criticality.monad }
-def l4 : Imscription := { s3 with fid := Fidelity.peep }
-def l5 : Imscription := { s4 with pol := Polarity.nun }
-def l6 : Imscription := { s5 with chir := Chirality.fee }
-def l7 : Imscription := { s6 with gram := Grammar.measure }
-def l8 : Imscription := { s7 with stoi := Stoichiometry.up }
-def l9 : Imscription := { s8 with rel := ian }
-def l10 : Imscription := { s9 with crit := Criticality.monad }
-def l11 : Imscription := { s10 with prot := Protection.ah }
-def l12 : Imscription := { s11 with fid := Fidelity.peep }
+@[reducible] def l0 : Imscription := s0
+@[reducible] def l1 : Imscription := { s0 with dim := dead }
+@[reducible] def l2 : Imscription := { s1 with rel := ian }
+@[reducible] def l3 : Imscription := { s2 with crit := Criticality.monad }
+@[reducible] def l4 : Imscription := { s3 with fid := Fidelity.peep }
+@[reducible] def l5 : Imscription := { s4 with pol := Polarity.nun }
+@[reducible] def l6 : Imscription := { s5 with chir := Chirality.fee }
+@[reducible] def l7 : Imscription := { s6 with gram := Grammar.measure }
+@[reducible] def l8 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def l9 : Imscription := { s8 with rel := ian }
+@[reducible] def l10 : Imscription := { s9 with crit := Criticality.monad }
+@[reducible] def l11 : Imscription := { s10 with prot := Protection.ah }
+@[reducible] def l12 : Imscription := { s11 with fid := Fidelity.peep }
 
 /-- Main IGProtocol: ⊢ → ∈ → ≻ → ⊤ → ⋈ → ≺ → ⊥ → ⋈ → ⊞ → ∋ → ⊙ → ⋈ → ⊡ → ⋈ → ⊣ -/
 noncomputable def protocol : IGProtocol s0 s13 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow l0 s0 s1)
-    (.seq (.arrow l1 s1 s2)
-      (.seq (.arrow l2 s2 s3)
-        (.seq (.arrow l3 s3 s4)
-          (.seq (.arrow l4 s4 s5)
-            (.seq (.arrow l5 s5 s6)
-              (.seq (.arrow l6 s6 s7)
-                (.seq (.arrow l7 s7 s8)
-                  (.seq (.arrow l8 s8 s9)
-                    (.seq (.arrow l9 s9 s10)
-                      (.seq (.arrow l10 s10 s11)
-                        (.seq (.arrow l11 s11 s12)
-                          (.arrow l12 s12 s13)))))))))))))
-
-/-- Truth arm (EVALT restriction) -/
-noncomputable def true_arm : IGProtocol s0 s13 := protocol.restrictToEVALT
-
-/-- False arm (EVALF restriction) -/
-noncomputable def false_arm : IGProtocol s0 s13 := protocol.restrictToEVALF
+  .seq (.arrow l0 s0 s1) <|
+  .seq (.arrow l1 s1 s2) <|
+  .seq (.arrow l2 s2 s3) <|
+  .seq (.arrow l3 s3 s4) <|
+  .seq (.arrow l4 s4 s5) <|
+  .seq (.arrow l5 s5 s6) <|
+  .seq (.arrow l6 s6 s7) <|
+  .seq (.arrow l7 s7 s8) <|
+  .seq (.arrow l8 s8 s9) <|
+  .seq (.arrow l9 s9 s10) <|
+  .seq (.arrow l10 s10 s11) <|
+  .seq (.arrow l11 s11 s12) <|
+  .arrow l12 s12 s13
 
 /-- Tier verification: ground is O₀, terminal is O₂dag -/
 def tier_ground : OuroboricityTier := TierFunctor.obj s0
@@ -155,57 +149,55 @@ end RGTrajectory
 
 namespace TierTransitions
 
-def s0 : Imscription := rg_ground_state
-def s1 : Imscription := { s0 with fid := Fidelity.peep }
-def s2 : Imscription := { s1 with fid := Fidelity.peep }
-def s3 : Imscription := { s2 with gran := Granularity.thigh }
-def s4 : Imscription := { s3 with gran := Granularity.thigh }
-def s5 : Imscription := { s4 with rel := Relational.ian }
-def s6 : Imscription := { s5 with crit := Criticality.monad }
-def s7 : Imscription := { s6 with fid := Fidelity.peep }
-def s8 : Imscription := { s7 with pol := Polarity.nun }
-def s9 : Imscription := { s8 with chir := Chirality.fee }
-def s10 : Imscription := { s9 with stoi := Stoichiometry.up }
-def s11 : Imscription := { s10 with prot := Protection.ah }
-def s12 : Imscription := { s11 with fid := Fidelity.peep }
-def s13 : Imscription := { s12 with chir := Chirality.wool }
-def s14 : Imscription := { s13 with stoi := Stoichiometry.hung }
-def s15 : Imscription := { s14 with prot := Protection.zoo }
+@[reducible] def s0 : Imscription := rg_ground_state
+@[reducible] def s1 : Imscription := { s0 with fid := Fidelity.they }
+@[reducible] def s2 : Imscription := { s1 with fid := Fidelity.peep }
+@[reducible] def s3 : Imscription := { s2 with gran := Granularity.thigh }
+@[reducible] def s4 : Imscription := { s3 with gran := Granularity.thigh }
+@[reducible] def s5 : Imscription := { s4 with rel := Relational.ian }
+@[reducible] def s6 : Imscription := { s5 with crit := Criticality.monad }
+@[reducible] def s7 : Imscription := { s6 with fid := Fidelity.peep }
+@[reducible] def s7b : Imscription := { s6 with pol := Polarity.nun }
+@[reducible] def s8 : Imscription := { s7 with chir := Chirality.fee }
+@[reducible] def s9 : Imscription := { s8 with stoi := Stoichiometry.up }
+@[reducible] def s10 : Imscription := { s9 with prot := Protection.ah }
+@[reducible] def s11 : Imscription := { s10 with fid := Fidelity.peep }
+@[reducible] def s11b : Imscription := { s10 with chir := Chirality.wool }
+@[reducible] def s12 : Imscription := { s11 with stoi := Stoichiometry.hung }
+@[reducible] def s13 : Imscription := { s12 with prot := Protection.zoo }
+@[reducible] def s14 : Imscription := { s13 with fid := Fidelity.peep }
 
-def l0 : Imscription := s0
-def l1 : Imscription := { s0 with fid := Fidelity.peep }
-def l2 : Imscription := { s1 with rel := Relational.ian }
-def l3 : Imscription := { s2 with gran := Granularity.thigh }
-def l4 : Imscription := { s3 with prot := Protection.ah }
-def l5 : Imscription := { s4 with rel := Relational.ian }
-def l6 : Imscription := { s5 with crit := Criticality.monad }
-def l7 : Imscription := { s6 with fid := Fidelity.peep }
-def l8 : Imscription := { s7 with pol := Polarity.nun }
-def l9 : Imscription := { s8 with chir := Chirality.fee }
-def l10 : Imscription := { s9 with stoi := Stoichiometry.up }
-def l11 : Imscription := { s10 with prot := Protection.ah }
-def l12 : Imscription := { s11 with fid := Fidelity.peep }
-def l13 : Imscription := { s12 with chir := Chirality.wool }
-def l14 : Imscription := { s13 with stoi := Stoichiometry.hung }
-def l15 : Imscription := { s14 with prot := Protection.zoo }
+@[reducible] def l0 : Imscription := s0
+@[reducible] def l1 : Imscription := { s0 with fid := Fidelity.they }
+@[reducible] def l2 : Imscription := { s1 with rel := Relational.ian }
+@[reducible] def l3 : Imscription := { s2 with gran := Granularity.thigh }
+@[reducible] def l4 : Imscription := { s3 with prot := Protection.ah }
+@[reducible] def l5 : Imscription := { s4 with rel := Relational.ian }
+@[reducible] def l6 : Imscription := { s5 with crit := Criticality.monad }
+@[reducible] def l7 : Imscription := { s6 with fid := Fidelity.peep }
+@[reducible] def l8 : Imscription := { s7 with pol := Polarity.nun }
+@[reducible] def l9 : Imscription := { s8 with chir := Chirality.fee }
+@[reducible] def l10 : Imscription := { s9 with stoi := Stoichiometry.up }
+@[reducible] def l11 : Imscription := { s10 with prot := Protection.ah }
+@[reducible] def l12 : Imscription := { s11 with fid := Fidelity.peep }
+@[reducible] def l13 : Imscription := { s12 with chir := Chirality.wool }
+@[reducible] def l14 : Imscription := { s13 with stoi := Stoichiometry.hung }
+@[reducible] def l15 : Imscription := { s14 with prot := Protection.zoo }
 
-/-- Protocol: O₀ → O₁(1.0) → O₂(1.0) → O₂†(1.0) → O_∞(4.38)
-    Topology: s0 ─arrow→ s3, fork into twin arms of (s3→s11) ⊗ (s3→s11),
-    which tensor-fuse back into s11 ⊗ s11, then seq-resume through s11→s15. -/
-noncomputable def protocol : IGProtocol s0 s15 :=
+/-- Protocol: O₀ → O₁(1.0) → O₂(1.0) → O₂†(1.0) → O_∞(4.38) -/
+noncomputable def protocol : IGProtocol s0 (TierTransitions.s14) :=
   .withGram Grammar.measure <|
-  (.seq (.arrow l0 s0 s3)
-    (.seq (.prod (.arrow l3 s3 s11) (.arrow l3 s3 s11))
-      (.seq (.arrow l11 s11 s12)
-        (.seq (.arrow l12 s12 s13)
-          (.seq (.arrow l13 s13 s14)
-            (.arrow l14 s14 s15))))))
-
-noncomputable def true_arm : IGProtocol s0 s15 := protocol.restrictToEVALT
-noncomputable def false_arm : IGProtocol s0 s15 := protocol.restrictToEVALF
+  .seq (.arrow l0 s0 s1) <|
+  .seq (.arrow l1 s1 s2) <|
+  .seq (.arrow l2 s2 s3) <|
+  .seq (.prod (.arrow l3 s3 s11) (.arrow l3 s3 s11)) <|
+  .seq (.arrow l11 s11 s11) <|
+  .seq (.arrow l11 s11 s12) <|
+  .seq (.arrow l12 s12 s13) <|
+  .arrow l13 s13 s14
 
 def tier_ground : OuroboricityTier := TierFunctor.obj s0
-def tier_terminal : OuroboricityTier := TierFunctor.obj s15
+def tier_terminal : OuroboricityTier := TierFunctor.obj (TierTransitions.s14)
 
 theorem frobenius : igFrobeniusAlg.mul s0 s0 = s0 := igFrobAlg_self_fusion s0
 
@@ -219,66 +211,65 @@ end TierTransitions
 
 namespace BetaFunctions
 
-def s0 : Imscription := rg_ground_state
-def s1 : Imscription := { s0 with prot := Protection.ah }
-def s2 : Imscription := { s1 with prot := Protection.ah }
-def s3 : Imscription := { s2 with gram := Grammar.measure }
-def s4 : Imscription := { s3 with gran := Granularity.thigh }
-def s5 : Imscription := { s4 with rel := Relational.ian }
-def s6 : Imscription := { s5 with crit := Criticality.monad }
-def s7 : Imscription := { s6 with crit := Criticality.monad }
-def s8 : Imscription := { s7 with chir := Chirality.fee }
-def s9 : Imscription := { s8 with chir := Chirality.sure }
-def s10 : Imscription := { s9 with stoi := Stoichiometry.up }
-def s11 : Imscription := { s10 with stoi := Stoichiometry.up }
-def s12 : Imscription := { s11 with stoi := Stoichiometry.up }
-def s13 : Imscription := { s12 with chir := Chirality.sure }
-def s14 : Imscription := { s13 with chir := Chirality.sure }
-def s15 : Imscription := { s14 with stoi := Stoichiometry.hung }
-def s16 : Imscription := { s15 with chir := Chirality.sure }
-def s17 : Imscription := { s16 with prot := Protection.ah }
-def s18 : Imscription := { s17 with top := Topology.are }
+@[reducible] def s0 : Imscription := rg_ground_state
+@[reducible] def s1 : Imscription := { s0 with prot := Protection.ah }
+@[reducible] def s2 : Imscription := { s1 with prot := Protection.ah }
+@[reducible] def s2b : Imscription := { s1 with gram := Grammar.measure }
+@[reducible] def s3 : Imscription := { s2b with gran := Granularity.thigh }
+@[reducible] def s4 : Imscription := { s3 with rel := Relational.ian }
+@[reducible] def s5 : Imscription := { s4 with crit := Criticality.monad }
+@[reducible] def s5b : Imscription := { s5 with crit := Criticality.monad }
+@[reducible] def s6 : Imscription := { s5b with chir := Chirality.fee }
+@[reducible] def s7 : Imscription := { s6 with chir := Chirality.sure }
+@[reducible] def s8 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def s8b : Imscription := { s8 with stoi := Stoichiometry.up }
+@[reducible] def s9 : Imscription := { s8b with stoi := Stoichiometry.up }
+@[reducible] def s10 : Imscription := { s9 with chir := Chirality.sure }
+@[reducible] def s10b : Imscription := { s10 with chir := Chirality.sure }
+@[reducible] def s11 : Imscription := { s10b with stoi := Stoichiometry.hung }
+@[reducible] def s12 : Imscription := { s11 with chir := Chirality.sure }
+@[reducible] def s13 : Imscription := { s12 with prot := Protection.ah }
+@[reducible] def s14 : Imscription := { s13 with top := Topology.are }
+@[reducible] def s15 : Imscription := { s14 with top := Topology.are }
+@[reducible] def s16 : Imscription := { s15 with top := Topology.are }
 
-def l0 : Imscription := s0
-def l1 : Imscription := { s0 with prot := Protection.ah }
-def l2 : Imscription := { s1 with prot := Protection.ah }
-def l3 : Imscription := { s2 with gran := Granularity.thigh }
-def l4 : Imscription := { s3 with rel := Relational.ian }
-def l5 : Imscription := { s4 with pol := Polarity.church }
-def l6 : Imscription := { s5 with crit := Criticality.monad }
-def l7 : Imscription := { s6 with chir := Chirality.fee }
-def l8 : Imscription := { s7 with chir := Chirality.sure }
-def l9 : Imscription := { s8 with stoi := Stoichiometry.up }
-def l10 : Imscription := { s9 with stoi := Stoichiometry.up }
-def l11 : Imscription := { s10 with prot := Protection.ah }
-def l12 : Imscription := { s11 with top := Topology.are }
-def l13 : Imscription := { s12 with gram := Grammar.measure }
-def l14 : Imscription := { s13 with rel := Relational.ian }
-def l15 : Imscription := { s14 with crit := Criticality.monad }
-def l16 : Imscription := { s15 with chir := Chirality.sure }
-def l17 : Imscription := { s16 with stoi := Stoichiometry.up }
-def l18 : Imscription := { s17 with prot := Protection.ah }
+@[reducible] def l0 : Imscription := s0
+@[reducible] def l1 : Imscription := { s0 with prot := Protection.ah }
+@[reducible] def l2 : Imscription := { s1 with prot := Protection.ah }
+@[reducible] def l3 : Imscription := { s2b with gran := Granularity.thigh }
+@[reducible] def l4 : Imscription := { s3 with rel := Relational.ian }
+@[reducible] def l5 : Imscription := { s4 with pol := Polarity.church }
+@[reducible] def l6 : Imscription := { s5 with crit := Criticality.monad }
+@[reducible] def l7 : Imscription := { s5b with chir := Chirality.fee }
+@[reducible] def l8 : Imscription := { s6 with chir := Chirality.sure }
+@[reducible] def l9 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def l10 : Imscription := { s8 with stoi := Stoichiometry.up }
+@[reducible] def l11 : Imscription := { s8b with prot := Protection.ah }
+@[reducible] def l12 : Imscription := { s9 with top := Topology.are }
+@[reducible] def l13 : Imscription := { s10 with gram := Grammar.measure }
+@[reducible] def l14 : Imscription := { s11 with rel := Relational.ian }
+@[reducible] def l15 : Imscription := { s12 with crit := Criticality.monad }
+@[reducible] def l16 : Imscription := { s13 with chir := Chirality.sure }
+@[reducible] def l17 : Imscription := { s14 with stoi := Stoichiometry.up }
+@[reducible] def l18 : Imscription := { s15 with prot := Protection.ah }
 
-/-- Protocol: μ∘δ=id → β = μ-δ → 12→3 projection → SU(2) U(t) → residual Δg
-    Topology: s0→s4 then fork into (s4→s11)⊗(s4→s11), tensor-fuse s11⊗s11,
-    seq-resume s11→s18. -/
-noncomputable def protocol : IGProtocol s0 s18 :=
+/-- Protocol: μ∘δ=id → β = μ-δ → 12→3 projection → SU(2) U(t) → residual Δg -/
+noncomputable def protocol : IGProtocol s0 (BetaFunctions.s16) :=
   .withGram Grammar.measure <|
-  (.seq (.arrow l0 s0 s4)
-    (.seq (.prod (.arrow l4 s4 s11) (.arrow l4 s4 s11))
-      (.seq (.arrow l11 s11 s12)
-        (.seq (.arrow l12 s12 s13)
-          (.seq (.arrow l13 s13 s14)
-            (.seq (.arrow l14 s14 s15)
-              (.seq (.arrow l15 s15 s16)
-                (.seq (.arrow l16 s16 s17)
-                  (.arrow l17 s17 s18)))))))))
-
-noncomputable def true_arm : IGProtocol s0 s18 := protocol.restrictToEVALT
-noncomputable def false_arm : IGProtocol s0 s18 := protocol.restrictToEVALF
+  (.seq (.arrow l0 s0 s1)
+    (.seq (.arrow l1 s1 s2)
+      (.seq (.arrow l2 s2 s2b)
+        (.seq (.arrow l3 s2b s3)
+          (.seq (.prod (.arrow l4 s3 s11) (.arrow l4 s3 s11))
+            (.seq (.arrow l11 s11 s11)
+              (.seq (.arrow l11 s11 s12)
+                (.seq (.arrow l12 s12 s13)
+                  (.seq (.arrow l13 s13 s14)
+                    (.seq (.arrow l14 s14 s15)
+                      (.arrow l15 s15 s16)))))))))))
 
 def tier_ground : OuroboricityTier := TierFunctor.obj s0
-def tier_terminal : OuroboricityTier := TierFunctor.obj s18
+def tier_terminal : OuroboricityTier := TierFunctor.obj (BetaFunctions.s16)
 
 theorem frobenius : igFrobeniusAlg.mul s0 s0 = s0 := igFrobAlg_self_fusion s0
 
@@ -292,56 +283,52 @@ end BetaFunctions
 
 namespace ResidualDecomposition
 
-def s0 : Imscription := rg_ground_state
-def s1 : Imscription := { s0 with gram := Grammar.measure }
-def s2 : Imscription := { s1 with rel := Relational.ian }
-def s3 : Imscription := { s2 with rel := Relational.ian }
-def s4 : Imscription := { s3 with gran := Granularity.thigh }
-def s5 : Imscription := { s4 with crit := Criticality.monad }
-def s6 : Imscription := { s5 with crit := Criticality.monad }
-def s7 : Imscription := { s6 with chir := Chirality.sure }
-def s8 : Imscription := { s7 with chir := Chirality.sure }
-def s9 : Imscription := { s8 with stoi := Stoichiometry.up }
-def s10 : Imscription := { s9 with stoi := Stoichiometry.up }
-def s11 : Imscription := { s10 with stoi := Stoichiometry.hung }
-def s12 : Imscription := { s11 with prot := Protection.ah }
-def s13 : Imscription := { s12 with prot := Protection.ah }
-def s14 : Imscription := { s13 with prot := Protection.ah }
-def s15 : Imscription := { s14 with stoi := Stoichiometry.hung }
-def s16 : Imscription := { s15 with top := Topology.are }
+@[reducible] def s0 : Imscription := rg_ground_state
+@[reducible] def s1 : Imscription := { s0 with gram := Grammar.measure }
+@[reducible] def s2 : Imscription := { s1 with rel := Relational.ian }
+@[reducible] def s3 : Imscription := { s2 with rel := Relational.ian }
+@[reducible] def s4 : Imscription := { s3 with gran := Granularity.thigh }
+@[reducible] def s5 : Imscription := { s4 with crit := Criticality.monad }
+@[reducible] def s6 : Imscription := { s5 with crit := Criticality.monad }
+@[reducible] def s7 : Imscription := { s6 with chir := Chirality.sure }
+@[reducible] def s8 : Imscription := { s7 with chir := Chirality.sure }
+@[reducible] def s9 : Imscription := { s8 with stoi := Stoichiometry.up }
+@[reducible] def s10 : Imscription := { s9 with stoi := Stoichiometry.up }
+@[reducible] def s11 : Imscription := { s10 with stoi := Stoichiometry.hung }
+@[reducible] def s12 : Imscription := { s11 with prot := Protection.ah }
+@[reducible] def s13 : Imscription := { s12 with prot := Protection.ah }
+@[reducible] def s14 : Imscription := { s13 with prot := Protection.ah }
+@[reducible] def s15 : Imscription := { s14 with stoi := Stoichiometry.hung }
+@[reducible] def s16 : Imscription := { s15 with top := Topology.are }
 
-def l0 : Imscription := s0
-def l1 : Imscription := { s0 with dim := dead }
-def l2 : Imscription := { s1 with rel := Relational.ian }
-def l3 : Imscription := { s2 with gran := Granularity.thigh }
-def l4 : Imscription := { s3 with prot := Protection.ah }
-def l5 : Imscription := { s4 with prot := Protection.ah }
-def l6 : Imscription := { s5 with dim := dead }
-def l7 : Imscription := { s6 with chir := Chirality.sure }
-def l8 : Imscription := { s7 with dim := dead }
-def l9 : Imscription := { s8 with stoi := Stoichiometry.up }
-def l10 : Imscription := { s9 with stoi := Stoichiometry.hung }
-def l11 : Imscription := { s10 with prot := Protection.ah }
-def l12 : Imscription := { s11 with prot := Protection.ah }
-def l13 : Imscription := { s12 with dim := dead }
-def l14 : Imscription := { s13 with dim := dead }
-def l15 : Imscription := { s14 with top := Topology.are }
+@[reducible] def l0 : Imscription := s0
+@[reducible] def l1 : Imscription := { s0 with dim := dead }
+@[reducible] def l2 : Imscription := { s1 with rel := Relational.ian }
+@[reducible] def l3 : Imscription := { s2 with gran := Granularity.thigh }
+@[reducible] def l4 : Imscription := { s3 with prot := Protection.ah }
+@[reducible] def l5 : Imscription := { s4 with prot := Protection.ah }
+@[reducible] def l6 : Imscription := { s5 with dim := dead }
+@[reducible] def l7 : Imscription := { s6 with chir := Chirality.sure }
+@[reducible] def l8 : Imscription := { s7 with dim := dead }
+@[reducible] def l9 : Imscription := { s8 with stoi := Stoichiometry.up }
+@[reducible] def l10 : Imscription := { s9 with stoi := Stoichiometry.hung }
+@[reducible] def l11 : Imscription := { s10 with prot := Protection.ah }
+@[reducible] def l12 : Imscription := { s11 with prot := Protection.ah }
+@[reducible] def l13 : Imscription := { s12 with dim := dead }
+@[reducible] def l14 : Imscription := { s13 with dim := dead }
+@[reducible] def l15 : Imscription := { s14 with top := Topology.are }
 
-/-- Protocol: UV exact → β-integral → 3 mechanisms (A/B/C) → B4 verdict → IR boundary
-    Topology: s0→s1 then fork into (s1→s11)⊗(s1→s11), fuse s11⊗s11,
-    seq-resume s11→s16. -/
+/-- Protocol: UV exact → β-integral → 3 mechanisms (A/B/C) → B4 verdict → IR boundary -/
 noncomputable def protocol : IGProtocol s0 s16 :=
   .withGram Grammar.measure <|
   (.seq (.arrow l0 s0 s1)
     (.seq (.prod (.arrow l1 s1 s11) (.arrow l1 s1 s11))
-      (.seq (.arrow l11 s11 s12)
-        (.seq (.arrow l12 s12 s13)
-          (.seq (.arrow l13 s13 s14)
-            (.seq (.arrow l14 s14 s15)
-              (.arrow l15 s15 s16)))))))
-
-noncomputable def true_arm : IGProtocol s0 s16 := protocol.restrictToEVALT
-noncomputable def false_arm : IGProtocol s0 s16 := protocol.restrictToEVALF
+      (.seq (.arrow l11 s11 s11)
+        (.seq (.arrow l11 s11 s12)
+          (.seq (.arrow l12 s12 s13)
+            (.seq (.arrow l13 s13 s14)
+              (.seq (.arrow l14 s14 s15)
+                (.arrow l15 s15 s16))))))))
 
 def tier_ground : OuroboricityTier := TierFunctor.obj s0
 def tier_terminal : OuroboricityTier := TierFunctor.obj s16
@@ -358,46 +345,42 @@ end ResidualDecomposition
 
 namespace UVBoundary
 
-def s0 : Imscription := rg_ground_state
-def s1 : Imscription := { s0 with fid := Fidelity.peep }
-def s2 : Imscription := { s1 with rel := Relational.ian }
-def s3 : Imscription := { s2 with gran := Granularity.thigh }
-def s4 : Imscription := { s3 with crit := Criticality.monad }
-def s5 : Imscription := { s4 with prot := Protection.ah }
-def s6 : Imscription := { s5 with chir := Chirality.sure }
-def s7 : Imscription := { s6 with chir := Chirality.fee }
-def s8 : Imscription := { s7 with stoi := Stoichiometry.up }
-def s9 : Imscription := { s8 with stoi := Stoichiometry.hung }
-def s10 : Imscription := { s9 with gram := Grammar.measure }
-def s11 : Imscription := { s10 with prot := Protection.ah }
-def s12 : Imscription := { s11 with top := Topology.are }
+@[reducible] def s0 : Imscription := rg_ground_state
+@[reducible] def s1 : Imscription := { s0 with fid := Fidelity.peep }
+@[reducible] def s2 : Imscription := { s1 with rel := Relational.ian }
+@[reducible] def s3 : Imscription := { s2 with gran := Granularity.thigh }
+@[reducible] def s4 : Imscription := { s3 with crit := Criticality.monad }
+@[reducible] def s5 : Imscription := { s4 with prot := Protection.ah }
+@[reducible] def s6 : Imscription := { s5 with chir := Chirality.sure }
+@[reducible] def s7 : Imscription := { s6 with chir := Chirality.fee }
+@[reducible] def s8 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def s9 : Imscription := { s8 with stoi := Stoichiometry.hung }
+@[reducible] def s10 : Imscription := { s9 with gram := Grammar.measure }
+@[reducible] def s11 : Imscription := { s10 with prot := Protection.ah }
+@[reducible] def s12 : Imscription := { s11 with top := Topology.are }
 
-def l0 : Imscription := s0
-def l1 : Imscription := { s0 with dim := dead }
-def l2 : Imscription := { s1 with rel := Relational.ian }
-def l3 : Imscription := { s2 with gran := Granularity.thigh }
-def l4 : Imscription := { s3 with crit := Criticality.monad }
-def l5 : Imscription := { s4 with prot := Protection.ah }
-def l6 : Imscription := { s5 with chir := Chirality.sure }
-def l7 : Imscription := { s6 with chir := Chirality.fee }
-def l8 : Imscription := { s7 with stoi := Stoichiometry.up }
-def l9 : Imscription := { s8 with stoi := Stoichiometry.hung }
-def l10 : Imscription := { s9 with prot := Protection.ah }
-def l11 : Imscription := { s10 with top := Topology.are }
+@[reducible] def l0 : Imscription := s0
+@[reducible] def l1 : Imscription := { s0 with dim := dead }
+@[reducible] def l2 : Imscription := { s1 with rel := Relational.ian }
+@[reducible] def l3 : Imscription := { s2 with gran := Granularity.thigh }
+@[reducible] def l4 : Imscription := { s3 with crit := Criticality.monad }
+@[reducible] def l5 : Imscription := { s4 with prot := Protection.ah }
+@[reducible] def l6 : Imscription := { s5 with chir := Chirality.sure }
+@[reducible] def l7 : Imscription := { s6 with chir := Chirality.fee }
+@[reducible] def l8 : Imscription := { s7 with stoi := Stoichiometry.up }
+@[reducible] def l9 : Imscription := { s8 with stoi := Stoichiometry.hung }
+@[reducible] def l10 : Imscription := { s9 with prot := Protection.ah }
+@[reducible] def l11 : Imscription := { s10 with top := Topology.are }
 
-/-- Protocol: 10 exact seals at d=12 → B4 verdict → terminal boundary
-    Topology: s0→s1 then fork into (s1→s9)⊗(s1→s9), fuse s9⊗s9,
-    seq-resume s9→s12. -/
+/-- Protocol: 10 exact seals at d=12 → B4 verdict → terminal boundary -/
 noncomputable def protocol : IGProtocol s0 s12 :=
   .withGram Grammar.measure <|
   (.seq (.arrow l0 s0 s1)
     (.seq (.prod (.arrow l1 s1 s9) (.arrow l1 s1 s9))
-      (.seq (.arrow l9 s9 s10)
-        (.seq (.arrow l10 s10 s11)
-          (.arrow l11 s11 s12)))))
-
-noncomputable def true_arm : IGProtocol s0 s12 := protocol.restrictToEVALT
-noncomputable def false_arm : IGProtocol s0 s12 := protocol.restrictToEVALF
+      (.seq (.arrow l9 s9 s9)
+        (.seq (.arrow l9 s9 s10)
+          (.seq (.arrow l10 s10 s11)
+            (.arrow l11 s11 s12))))))
 
 def tier_ground : OuroboricityTier := TierFunctor.obj s0
 def tier_terminal : OuroboricityTier := TierFunctor.obj s12
@@ -409,6 +392,18 @@ end UVBoundary
 -- ============================================================
 -- §6  EXACT UV FIXED POINT VALUES (from Seals)
 -- ============================================================
+
+structure UVFixedPoint where
+  alpha_inverse : ℝ
+  proton_electron_ratio : ℝ
+  muon_electron_ratio : ℝ
+  tau_electron_ratio : ℝ
+  w_proton_ratio : ℝ
+  higgs_w_diff : ℝ
+  weinberg_angle_sq : ℝ
+  neutrino_hierarchy : List ℝ
+  omega : ℝ
+  omega_corr : ℝ
 
 noncomputable def exactUVFixedPoint : UVFixedPoint :=
   { alpha_inverse := 137
