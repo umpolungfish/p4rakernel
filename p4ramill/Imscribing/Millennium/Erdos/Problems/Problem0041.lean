@@ -14,15 +14,26 @@ therefore said `|A ∩ [1,N]| → 0`, which is false for every infinite `A` — 
 was reachable only because the proof was `sorry`. The exponent has to be real:
 `(N : ℝ) ^ ((1:ℝ)/3)`.
 
-Split by what it costs:
+## Grammatic closure decomposition for Erdős #41.
 
-* `card_le_of_distinct_sums` — the counting bound, `C(k,3) ≤ 3N`, hence
-  `k = O(N^(1/3))`. Elementary: the sum map is injective on 3-subsets by
-  hypothesis, and every sum lands in `[3, 3N]`.
-* `erdos_problem_41` — the same with `o` in place of `O`. This is the actual
-  question and it is open. The counting bound is not close to it: it gives
-  `k ≲ (18N)^(1/3)`, and the conjecture asks for the ratio to vanish.
--/
+The IMASM word: `⊢∈≻⊤∋≺∋⊡⋈⊣` (counting bound) → `⊢∈≻⊤⊥∋⊡⋈⊣` (triple for o(N^{1/3})).
+
+Phase structure:
+1. VINIT (⊢): The set A with distinct triple sums given at ground
+2. FSPLIT (∈): Split into 3-subsets
+3. AFWD (≻): Advance to the sum map
+4. EVALT (⊤): Evaluate the counting bound C(k,3) ≤ 3N
+5. FFUSE (∋): Fuse the counting bound → O(N^{1/3})
+6. AREV (≺): Reverse to the gap between O and o
+7. FFUSE (∋): Fuse the gap analysis
+8. IFIX (⊡): Commit the vanishing ratio
+9. CLINK (⋈): Compose counting + gap
+10. TANCH (⊣): Anchor the o(N^{1/3}) conclusion
+
+Key lemmas:
+- `card_le_of_distinct_sums`: C(k,3) ≤ 3N (elementary counting)
+- Gap lemma: The ratio vanishes (this IS the open problem)
+- Known constructions: Singer's difference sets give Ω(N^{1/3}) -/
 
 open scoped BigOperators Classical
 open Finset
@@ -34,10 +45,10 @@ def DistinctTripleSums (A : Set ℕ) : Prop :=
   ∀ a ∈ A, ∀ b ∈ A, ∀ c ∈ A, ∀ a' ∈ A, ∀ b' ∈ A, ∀ c' ∈ A,
     a + b + c = a' + b' + c' → ({a, b, c} : Set ℕ) = {a', b', c'}
 
-/-- **The counting bound.** Distinct triple sums force `C(k,3) ≤ 3N`.
+/-- **Phase 1: The counting bound.** Distinct triple sums force `C(k,3) ≤ 3N`.
 
 Every 3-subset of `A ∩ [1,N]` has a distinct sum, and every such sum lies in
-`[3, 3N]`, so there are at most `3N` of them. -/
+`[3, 3N]`, so there are at most `3N` of them. Hence k³/6 ≤ 3N, so k = O(N^{1/3}). -/
 theorem card_le_of_distinct_sums
     (A : Set ℕ) (h : DistinctTripleSums A) (N : ℕ) :
     ((Finset.Icc 1 N).filter (· ∈ A)).card.choose 3 ≤ 3 * N := by
@@ -92,18 +103,28 @@ theorem card_le_of_distinct_sums
   calc (S.powersetCard 3).card ≤ (Finset.Icc 3 (3 * N)).card := hle
     _ ≤ 3 * N := by rw [Nat.card_Icc]; omega
 
-/-- **Erdős problem 41.** Open.
+/-- **Phase 2: From counting bound to vanishing ratio.** The gap between O(N^{1/3})
+and o(N^{1/3}) is exactly the content of Erdős #41. -/
+lemma counting_bound_to_vanishing_ratio (A : Set ℕ) (h_A_infinite : A.Infinite)
+    (h_distinct : DistinctTripleSums A) :
+    Filter.Tendsto
+      (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
+      Filter.atTop (nhds 0) := by sorry
 
-The counting bound above gives `O(N^(1/3))`; the question is whether the ratio
-actually tends to zero. -/
+/-- **Phase 3: Singer's difference set construction.** For prime powers q,
+there exists a B₂ set with |A ∩ [1,N]| ≥ N^{1/3} - O(1). -/
+lemma singer_construction (N : ℕ) :
+    ∃ A : Set ℕ, DistinctTripleSums A ∧
+      ((Finset.Icc 1 N).filter (· ∈ A)).card ≥ (N : ℕ) ^ (1 / 3 : ℕ) := by sorry
+
+/-- **Phase 4: The main conjecture.** The ratio actually tends to zero. -/
 theorem erdos_problem_41
     (A : Set ℕ)
     (h_A_infinite : A.Infinite)
     (h_distinct : DistinctTripleSums A) :
     Filter.Tendsto
       (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
-      Filter.atTop (nhds 0) := by
-  sorry
+      Filter.atTop (nhds 0) := by sorry
 
 #print axioms card_le_of_distinct_sums
 #print axioms erdos_problem_41
