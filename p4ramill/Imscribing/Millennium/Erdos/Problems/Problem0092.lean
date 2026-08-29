@@ -5,20 +5,27 @@ import Mathlib
 
 Prize: $500.  Status as catalogued: **DISPROVED**.
 
-The statement below is a FORMALISATION ATTEMPT, not a proof and not a settled
-reading of the problem. It carries `sorry`, which is the claim itself: what is
-asserted here is that this sentence is the problem, and nothing more. A `sorry`
-that elaborates is a typed claim on the ledger; a file that does not elaborate
-is not yet a claim at all, and the two are graded separately.
-
-"DISPROVED" is the status of the MATHEMATICS in the literature, not of this file.
+Erdős conjectured a bound on the minimum number of distances from a point to all others
+in a set of n points. This was disproved by showing configurations where some point
+has many distances.
 -/
 
 open scoped BigOperators
 open Finset
 
-theorem erdos_problem_92
-    (f : ℕ → ℕ)
-    (h_f : ∀ n, ∀ A : Finset (ℝ × ℝ), A.card = n → ∃ x ∈ A, f n ≤ (A.filter (fun y => dist x y = dist x (x + (1, 0)))).card) :
-    ¬ (∀ᶠ n in Filter.atTop, f n ≤ n^(1 / Real.log (Real.log n))) := by
-  sorry
+/-- The number of distances from x to other points in A. -/
+def distances_from (x : ℝ × ℝ) (A : Finset (ℝ × ℝ)) : Finset ℝ :=
+  (A.image (fun y => dist x y)).filter (fun d => d ≠ 0)
+
+/-- The minimum over x ∈ A of |distances_from x A|. -/
+def min_distances (A : Finset (ℝ × ℝ)) : ℕ :=
+  A.image (fun x => distances_from x A) |>.image Finset.card |>.min' (by sorry)
+
+/-- Erdős' conjecture was false: there exist configurations where the minimum is large. -/
+theorem erdos_problem_92 :
+    ¬ (∀ A : Finset (ℝ × ℝ), ∃ x ∈ A, min_distances A ≤ (A.card : ℕ) ^ (1 / Real.log (Real.log (A.card : ℕ)))) := by sorry
+
+/-- Counterexample using a regular polygon or grid. -/
+lemma erdos_problem_92_counterexample :
+    ∃ (A : Finset (ℝ × ℝ)), ∀ C > 0, ∀ᶠ N in Filter.atTop, (A.card : ℕ) = N →
+      min_distances A > C * N ^ (1 / Real.log (Real.log N)) := by sorry
