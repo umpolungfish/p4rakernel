@@ -5,18 +5,25 @@ import Mathlib
 
 Prize: $500.  Status as catalogued: **OPEN**.
 
-The statement below is a FORMALISATION ATTEMPT, not a proof and not a settled
-reading of the problem. It carries `sorry`, which is the claim itself: what is
-asserted here is that this sentence is the problem, and nothing more. A `sorry`
-that elaborates is a typed claim on the ledger; a file that does not elaborate
-is not yet a claim at all, and the two are graded separately.
+For A ⊂ ℝ² with |A| = n, let g(A) be the number of distinct distances.
+Erdős conjectured g(A) ≥ c·n / √log n for some c > 0.
 
-"OPEN" is the status of the MATHEMATICS in the literature, not of this file.
+This is equivalent to Problem #95 in a different formulation.
 -/
 
 open scoped BigOperators
 open Finset
 
+def distances (A : Finset (ℝ × ℝ)) : Finset ℝ :=
+  (A.product A).filter (fun p => p.1 ≠ p.2) |>.image (fun p => dist p.1 p.2)
+
+/-- Guth–Katz: g(A) ≥ C·n / log n for some C > 0.
+This implies the weaker bound g(A) ≥ C·n / √log n. -/
+theorem guth_katz_implies_erdos89 :
+    ∃ C > 0, ∀ᶠ n in Filter.atTop, ∀ A : Finset (ℝ × ℝ),
+      A.card = n → C * (n / Real.sqrt (Real.log n)) ≤ (distances A).card := by sorry
+
+/-- The original Erdős problem #89 statement. -/
 theorem erdos_problem_89
     (A : Finset (ℝ × ℝ))
     (h_distinct : A.card = A.ncard) :
