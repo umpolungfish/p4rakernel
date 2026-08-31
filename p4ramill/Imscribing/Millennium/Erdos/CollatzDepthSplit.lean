@@ -370,6 +370,30 @@ theorem oddSteps_double_of_period {k r : ℕ} (hcyc : col^[k] r = r) :
   rw [h2k, h]
   ring
 
+/-- A period-`k` cycle repeats: running it `m` times returns to the start. -/
+theorem col_iterate_period {k r : ℕ} (hcyc : col^[k] r = r) :
+    ∀ m, col^[m * k] r = r := by
+  intro m
+  induction m with
+  | zero => simp
+  | succ m ih =>
+    have hidx : (m + 1) * k = m * k + k := by ring
+    rw [hidx, Function.iterate_add_apply, hcyc, ih]
+
+/-- The doubling case generalizes to any multiple: `m` trips around a
+    period-`k` cycle take exactly `m` times the odd steps of one trip. -/
+theorem oddSteps_mul_of_period {k r : ℕ} (hcyc : col^[k] r = r) :
+    ∀ m, oddSteps r (m * k) = m * oddSteps r k := by
+  intro m
+  induction m with
+  | zero => simp [oddSteps]
+  | succ m ih =>
+    have hidx : (m + 1) * k = m * k + k := by ring
+    have h := oddSteps_add (m * k) k r
+    rw [col_iterate_period hcyc m] at h
+    rw [hidx, h, ih]
+    ring
+
 theorem contracts_mod_le {i k : ℕ} (b r : ℕ) (h : i ≤ k) :
     Contracts i (2 ^ k * b + r) ↔ Contracts i r := by
   have hsplit : (2:ℕ) ^ k * b = 2 ^ i * (2 ^ (k - i) * b) := by
