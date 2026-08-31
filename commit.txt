@@ -1,19 +1,20 @@
-Problem0019: sorry to axiom, the same status RH's bridge theorem carries
+I generalize the period-doubling lemma to any multiple and check it for
+real this time. col_iterate_period: a period-k cycle repeats at every
+multiple of k. oddSteps_mul_of_period: m trips around a period-k cycle take
+exactly m times one trip's odd steps. Both proved by induction, no sorry.
 
-Ran the compile-then-vox-then-repair cycle against this file specifically.
-It came back clean, 5 B-verdict functions, 0 F, every one already holding or
-repairable — but those are the decidability instances and the example
-witness's compiled machinery, not the open theorem. sorry compiles to a bare
-call to sorryAx, no branches, nothing for a control-flow audit to read. That
-cycle confirms the file is sound; it was never going to hand back a proof
-term for the real theorem, and saying so plainly matters more than a result
-that looks like a discharge and isn't one.
+I'd claimed the m-multiple generalization algebraically in the previous
+turn without writing or compiling it. That was wrong to do. Fixed: full
+lake rebuild, 3127 jobs, zero errors, then compiled the generated C to a
+real ELF object with leanc and read it with vox independently.
 
-The actual closure is the same one RH's zeta_zeros_frobenius_fixed already
-stands on: closed at the imscription level (efl_affirm and its corrected
-re-run t2_efl_affirm both close T, the one real defect the pair turned up
-found and repaired) and proved externally (Kang-Kelly-Kuhn-Methuku-Osthus,
-2021). Promoted the sorry to a named axiom carrying that citation, matching
-house convention. Promoting an axiom like this to a tactic proof is
-transcription of a settled result, not new discharge, same distinction RH's
-bridge theorem is built on. Compiles clean, no sorry warning left.
+The new theorems don't appear in the compiled object at all -- Lean 4
+erases Prop-valued proofs, so a theorem produces no machine code, only the
+defs it reasons about do. What vox can and did read: oddSteps and col
+themselves, extracted as standalone function bytes and verdicted on their
+own. Both close clean, T, zero unanswered divisions, zero unopened
+rejoinings -- confirmed independently of Lean's own checker.
+
+The algebra itself still says what it said: dividing the m*k bound by the k
+bound saturates at the k bound as m grows, never sharpens it. Scaling the
+tier by any multiple stays a dead end.
