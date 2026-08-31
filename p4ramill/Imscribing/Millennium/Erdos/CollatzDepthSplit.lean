@@ -338,6 +338,38 @@ theorem oddSteps_succ : ∀ (k r : ℕ),
     rw [e1, ih (col r), e2, Function.iterate_succ_apply]
     omega
 
+/-- The odd-step count is additive over composition: `k` steps then `m` more
+    from wherever the first `k` landed. `oddSteps_succ` is the `m = 1` case
+    of this; this is the general statement it was pointing at. -/
+theorem oddSteps_add : ∀ (k m r : ℕ),
+    oddSteps r (k + m) = oddSteps r k + oddSteps (col^[k] r) m := by
+  intro k
+  induction k with
+  | zero => intro m r; simp [oddSteps]
+  | succ k ih =>
+    intro m r
+    have hidx : k + 1 + m = (k + m) + 1 := by ring
+    have e1 : oddSteps r (k + 1 + m) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) (k + m) := by
+      rw [hidx, oddSteps]
+    have e2 : oddSteps r (k + 1) = (if r % 2 = 0 then 0 else 1) + oddSteps (col r) k := by
+      rw [oddSteps]
+    have e3 : col^[k+1] r = col^[k] (col r) := Function.iterate_succ_apply col k r
+    rw [e1, ih m (col r), e2, e3]
+    ring
+
+/-- A period-`k` cycle's odd-step count doubles over two periods: running
+    the cycle around twice takes exactly twice the odd steps of running it
+    once. The two-tier combination `cycle_min_bound` at `k` and at `2k`
+    needs this to eliminate the period-doubled odd-step count in favor of
+    the single-period one. -/
+theorem oddSteps_double_of_period {k r : ℕ} (hcyc : col^[k] r = r) :
+    oddSteps r (2 * k) = 2 * oddSteps r k := by
+  have h := oddSteps_add k k r
+  rw [hcyc] at h
+  have h2k : 2 * k = k + k := by ring
+  rw [h2k, h]
+  ring
+
 theorem contracts_mod_le {i k : ℕ} (b r : ℕ) (h : i ≤ k) :
     Contracts i (2 ^ k * b + r) ↔ Contracts i r := by
   have hsplit : (2:ℕ) ^ k * b = 2 ^ i * (2 ^ (k - i) * b) := by
