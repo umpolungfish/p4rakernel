@@ -1,33 +1,30 @@
-Defined the paraconsistent witness type. Not P and its negation for one
-fixed P -- that's not buildable in Lean without the whole environment
-going unsound, h2 h1 : False, and once False is inhabited every Prop is,
-whether or not the resulting term ever gets pattern matched into
-False.elim. Consistency is a property of the whole kernel, not one local
-site. What's real and sound: Verdict P : Type, four constructors,
-proved/refuted/held/admitted, where held carries two INDEPENDENTLY real
-facts about the same object, P and a genuinely different Q, not P and
-not-P. That's the actual shape CosmicHolonomy's coexistence theorem and
-ENGAGR both already have.
+Both instances of the paraconsistent witness, and a real correction in
+between. Read ig-docs/the_two_seals.md after being pointed at it: the
+kernel maintains one seal (soundness, nothing false gets through) and
+the work needs a second (adequacy, did the formal object actually cost
+anything, or is it a true triviality in ceremonial robes). Checked
+engagrVerdict against that standard rather than let it stand unexamined:
+engagr_holds_both is unconditional in x, unfold the definition and it's
+immediate regardless of what x actually was, the same "landing was T at
+every rotation because the fixation ran early" pattern the document
+names from elsewhere in the corpus. Flagged it plainly in the file
+rather than quietly keep it as if it were substantive -- it still proves
+the machinery type-checks, that's a real, if minimal, thing.
 
-Type, not Prop, on purpose: a Prop's content is erased by Lean's
-compiler at every use, confirmed directly earlier today with nm on real
-compiled objects, zero symbol for any theorem's proof, real or vacuous.
-Verdict P doesn't erase -- which constructor a value uses is real,
-compiled data, so a function dispatching on it produces real machine
-code Vox can audit, closing the exact gap the ELF-audit thread found.
-Checked, not assumed: compiled DialetheicWitness.lean through leanc same
-as scripts/vox_elf_audit.sh does, classify and engagrVerdict both
-survive as real symbols (nm confirms), engagrVerdict_is_B does not
-(it's a theorem, erased, exactly as predicted). vox on the real object:
-T=0 B=10 N=181 F=0, no explosion at the machine-code level either.
+Built unionCreatesVerdict to actually earn the second seal: two specific
+registers, pureT and pureF, where union genuinely creates a B-state
+neither carries alone. Swap either register and the claim goes false --
+that dependence on the actual values is what "at risk" means for a
+proposition, checked by trying it, not asserted. unionCreatesVerdict_is_B
+depends on zero axioms, stronger even than the other two instances,
+fully closed by decide on concrete values.
 
-Added Reg16_3.engagr to SixteenThreeTrilattice.lean first -- it only
-existed in Rust (added there earlier today), never in Lean. Mirrors the
-Rust definition exactly, proved sound (engagr_holds_both, by decide),
-and is the file's own worked instance of `held`: for any register,
-engagr's smallT and smallF are two independently real, decide-proved
-facts, not one proposition and its negation. #print axioms confirms the
-distinction from sorry mechanically: anAdmittedVerdict depends on no
-axioms at all, engagrVerdict_is_B depends only on the three standard
-foundational axioms every classical Mathlib proof cites (propext,
-Classical.choice, Quot.sound) -- never sorryAx.
+Built cosmicHolonomyVerdict too: generic over any connection satisfying
+CosmicHolonomy.lean's own hypotheses, built directly from
+local_flatness_permits_global_holonomy rather than a fresh invented
+example, where correctness risked being wrong is exactly the place not
+to improvise. Compiled all three through leanc same as
+scripts/vox_elf_audit.sh: unionCreatesVerdict and pureT/pureF survive as
+real data symbols (constant-folded, fully closed at compile time),
+cosmicHolonomyVerdict survives as a real function (genuinely generic, not
+folded). vox on the real object: T=0 B=11 N=196 F=0.
