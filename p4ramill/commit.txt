@@ -1,0 +1,29 @@
+Formalized the SIXTEEN_3 trilattice gates in Lean: new file
+Imscribing/Paraconsistent/SixteenThreeTrilattice.lean. Checked first, not
+assumed: nothing in this repo formalized meet_t, join_t, meet_c, join_c,
+the three swaps, or the three ≤ orders before tonight -- only the classical
+Belnap fsplit/ffuse round trip (BelnapSplitFuse.lean) had a Lean proof.
+Everything mOMonadOS's gpu_sixteen3.rs computes at scale on GPU rested on
+that Rust implementation and its own bit-for-bit CPU cross-check, not on
+an independent proof. This closes that gap for the specific claims that
+matter: union is a real semilattice join (commutative, idempotent,
+associative, and the least upper bound for the information order it's
+supposed to be one for); the three swaps are each genuine involutions;
+invol factors as info_swap composed with truth_swap, exactly what the
+Rust doc comment on invol already claimed. Fifteen theorems, all closed
+by decide against the same four-lane carrier gpu_sixteen3.rs uses, zero
+sorry, lake build clean (had to register the file as a lean_lib glob in
+lakefile.toml -- new files aren't auto-discovered here).
+
+Closed the Lean+Vox loop on three of them live: #lift each theorem, feed
+the emitted word straight into vox verdict. All three came back N, not T
+like split_fuse_id did -- checked why rather than treating it as a
+surprise: none of the three emitted words contain a single fork or fuse
+glyph, which is exactly Part III's own rule for N ("no fork -- no delta/mu
+dyad at all"). These fifteen are proved by decide, kernel reflection
+collapsing straight to a computed answer with no branch in the resulting
+term, where split_fuse_id is proved by explicit case-splitting on the
+Belnap constructors, real branching structure Vox has something to read.
+Both readings are correct for what they're reading; the two proof styles
+produce genuinely different term shapes, and Vox is telling the two apart
+exactly as it should.
