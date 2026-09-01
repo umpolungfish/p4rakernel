@@ -1,29 +1,22 @@
-Formalized the SIXTEEN_3 trilattice gates in Lean: new file
-Imscribing/Paraconsistent/SixteenThreeTrilattice.lean. Checked first, not
-assumed: nothing in this repo formalized meet_t, join_t, meet_c, join_c,
-the three swaps, or the three ≤ orders before tonight -- only the classical
-Belnap fsplit/ffuse round trip (BelnapSplitFuse.lean) had a Lean proof.
-Everything mOMonadOS's gpu_sixteen3.rs computes at scale on GPU rested on
-that Rust implementation and its own bit-for-bit CPU cross-check, not on
-an independent proof. This closes that gap for the specific claims that
-matter: union is a real semilattice join (commutative, idempotent,
-associative, and the least upper bound for the information order it's
-supposed to be one for); the three swaps are each genuine involutions;
-invol factors as info_swap composed with truth_swap, exactly what the
-Rust doc comment on invol already claimed. Fifteen theorems, all closed
-by decide against the same four-lane carrier gpu_sixteen3.rs uses, zero
-sorry, lake build clean (had to register the file as a lean_lib glob in
-lakefile.toml -- new files aren't auto-discovered here).
+OuroboricHolomorphicAutomeshedWindingSpectrum.lean had never actually been
+built. Not registered in lakefile.toml's Imscribing glob, so lake build
+never touched it, and once I added the registration and built it for
+real it failed outright: missing Mathlib import (Complex.exp unresolved),
+expMap needing noncomputable, and winding_composition's tactic genuinely
+not closing the goal (simp alone doesn't rearrange the exp argument).
+Fixed all three. File builds clean now, the first time it ever has.
 
-Closed the Lean+Vox loop on three of them live: #lift each theorem, feed
-the emitted word straight into vox verdict. All three came back N, not T
-like split_fuse_id did -- checked why rather than treating it as a
-surprise: none of the three emitted words contain a single fork or fuse
-glyph, which is exactly Part III's own rule for N ("no fork -- no delta/mu
-dyad at all"). These fifteen are proved by decide, kernel reflection
-collapsing straight to a computed answer with no branch in the resulting
-term, where split_fuse_id is proved by explicit case-splitting on the
-Belnap constructors, real branching structure Vox has something to read.
-Both readings are correct for what they're reading; the two proof styles
-produce genuinely different term shapes, and Vox is telling the two apart
-exactly as it should.
+Found this while checking whether Vox can tell a vacuous theorem (body
+`: True := True.intro`, two of them in this file) apart from a real one,
+using the real methodology: compiled the generated C through leanc to an
+actual object file and read it with vox directly (scripts/vox_elf_audit.sh's
+own method), not the #lift shortcut. That surfaced a sharper, structural
+fact: theorems are Props, Lean erases Prop content at compile time, so
+none of the four theorems I was comparing -- the two vacuous ones here,
+on_lattice, and CosmicHolonomy's real coexistence theorem -- exist as a
+compiled symbol at all. nm confirms zero symbol for any of them. The
+file-level census (T=7 B=30 N=204 F=0 here, T=0 B=11 N=67 F=0 for
+CosmicHolonomy.o) is real and correctly obtained, but it speaks to each
+file's actual computable defs and Lean's own registration code, never to
+a specific theorem's proof content -- that question has no answer at the
+ELF level, for any theorem, by construction of the type theory.
