@@ -1,30 +1,18 @@
-Both instances of the paraconsistent witness, and a real correction in
-between. Read ig-docs/the_two_seals.md after being pointed at it: the
-kernel maintains one seal (soundness, nothing false gets through) and
-the work needs a second (adequacy, did the formal object actually cost
-anything, or is it a true triviality in ceremonial robes). Checked
-engagrVerdict against that standard rather than let it stand unexamined:
-engagr_holds_both is unconditional in x, unfold the definition and it's
-immediate regardless of what x actually was, the same "landing was T at
-every rotation because the fixation ran early" pattern the document
-names from elsewhere in the corpus. Flagged it plainly in the file
-rather than quietly keep it as if it were substantive -- it still proves
-the machinery type-checks, that's a real, if minimal, thing.
+Strengthened vox_elf_audit.sh's repair pass. It only ever tried a
+single-glyph insert on the word as compiled, the shallow check. Today's
+manual work on three real B-verdict objects (DialetheicWitness.o,
+CosmicHolonomy.o, OuroboricHolomorphicAutomeshedWindingSpectrum.o) went
+further: combo2 across every distinct rotation of the word, weight |
+banked | insert | repair each, then a second pass on whatever the first
+pass repaired. Every one of those five distinct words, checked that way,
+came back with no rotation producing a repair -- a real, exhaustive
+negative result, not a shallow one. The script now runs combo2 too, and
+keeps the output compact: one line when nothing is found (the common
+case, checked automatically now rather than by hand), the full second-
+pass output when something actually is, since that would be rare enough
+to be worth reading in full.
 
-Built unionCreatesVerdict to actually earn the second seal: two specific
-registers, pureT and pureF, where union genuinely creates a B-state
-neither carries alone. Swap either register and the claim goes false --
-that dependence on the actual values is what "at risk" means for a
-proposition, checked by trying it, not asserted. unionCreatesVerdict_is_B
-depends on zero axioms, stronger even than the other two instances,
-fully closed by decide on concrete values.
-
-Built cosmicHolonomyVerdict too: generic over any connection satisfying
-CosmicHolonomy.lean's own hypotheses, built directly from
-local_flatness_permits_global_holonomy rather than a fresh invented
-example, where correctness risked being wrong is exactly the place not
-to improvise. Compiled all three through leanc same as
-scripts/vox_elf_audit.sh: unionCreatesVerdict and pureT/pureF survive as
-real data symbols (constant-folded, fully closed at compile time),
-cosmicHolonomyVerdict survives as a real function (genuinely generic, not
-folded). vox on the real object: T=0 B=11 N=196 F=0.
+Verified against the known case before trusting it for a wider run:
+called repair_flagged_functions directly on DialetheicWitness.o, same
+one addressable B, same "no rotation produced a repair" result the
+manual combo2 run gave, automatically now.
