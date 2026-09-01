@@ -42,6 +42,7 @@ globs = [
   "Imscribing.FoldVerdict",
   "Imscribing.MachHolonomy",
   "Imscribing.CosmicHolonomy",
+  "Imscribing.OuroboricHolomorphicAutomeshedWindingSpectrum",
   "Imscribing.RGEquations",
   "Imscribing.Primitives.Core",
 
@@ -168,6 +169,10 @@ globs = [
   "Imscribing.Millennium.Erdos.StrausGreedyFamily",
   "Imscribing.Millennium.ErdosProblems",
   "Imscribing.Millennium.Erdos.Problems.Problem0001",
+  "Imscribing.Millennium.Erdos.Problems.Problem0006",
+  "Imscribing.Millennium.Erdos.Problems.Problem0099",
+  "Imscribing.Millennium.Erdos.Problems.Problem0040",
+  "Imscribing.Millennium.Erdos.Problems.ProblemWitnesses",
   "Imscribing.Millennium.Erdos.Problems.Problem0003",
   "Imscribing.Millennium.Erdos.Problems.Problem0019",
   "Imscribing.Millennium.Erdos.Problems.Problem0021",
