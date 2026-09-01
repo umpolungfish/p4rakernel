@@ -1,22 +1,33 @@
-OuroboricHolomorphicAutomeshedWindingSpectrum.lean had never actually been
-built. Not registered in lakefile.toml's Imscribing glob, so lake build
-never touched it, and once I added the registration and built it for
-real it failed outright: missing Mathlib import (Complex.exp unresolved),
-expMap needing noncomputable, and winding_composition's tactic genuinely
-not closing the goal (simp alone doesn't rearrange the exp argument).
-Fixed all three. File builds clean now, the first time it ever has.
+Defined the paraconsistent witness type. Not P and its negation for one
+fixed P -- that's not buildable in Lean without the whole environment
+going unsound, h2 h1 : False, and once False is inhabited every Prop is,
+whether or not the resulting term ever gets pattern matched into
+False.elim. Consistency is a property of the whole kernel, not one local
+site. What's real and sound: Verdict P : Type, four constructors,
+proved/refuted/held/admitted, where held carries two INDEPENDENTLY real
+facts about the same object, P and a genuinely different Q, not P and
+not-P. That's the actual shape CosmicHolonomy's coexistence theorem and
+ENGAGR both already have.
 
-Found this while checking whether Vox can tell a vacuous theorem (body
-`: True := True.intro`, two of them in this file) apart from a real one,
-using the real methodology: compiled the generated C through leanc to an
-actual object file and read it with vox directly (scripts/vox_elf_audit.sh's
-own method), not the #lift shortcut. That surfaced a sharper, structural
-fact: theorems are Props, Lean erases Prop content at compile time, so
-none of the four theorems I was comparing -- the two vacuous ones here,
-on_lattice, and CosmicHolonomy's real coexistence theorem -- exist as a
-compiled symbol at all. nm confirms zero symbol for any of them. The
-file-level census (T=7 B=30 N=204 F=0 here, T=0 B=11 N=67 F=0 for
-CosmicHolonomy.o) is real and correctly obtained, but it speaks to each
-file's actual computable defs and Lean's own registration code, never to
-a specific theorem's proof content -- that question has no answer at the
-ELF level, for any theorem, by construction of the type theory.
+Type, not Prop, on purpose: a Prop's content is erased by Lean's
+compiler at every use, confirmed directly earlier today with nm on real
+compiled objects, zero symbol for any theorem's proof, real or vacuous.
+Verdict P doesn't erase -- which constructor a value uses is real,
+compiled data, so a function dispatching on it produces real machine
+code Vox can audit, closing the exact gap the ELF-audit thread found.
+Checked, not assumed: compiled DialetheicWitness.lean through leanc same
+as scripts/vox_elf_audit.sh does, classify and engagrVerdict both
+survive as real symbols (nm confirms), engagrVerdict_is_B does not
+(it's a theorem, erased, exactly as predicted). vox on the real object:
+T=0 B=10 N=181 F=0, no explosion at the machine-code level either.
+
+Added Reg16_3.engagr to SixteenThreeTrilattice.lean first -- it only
+existed in Rust (added there earlier today), never in Lean. Mirrors the
+Rust definition exactly, proved sound (engagr_holds_both, by decide),
+and is the file's own worked instance of `held`: for any register,
+engagr's smallT and smallF are two independently real, decide-proved
+facts, not one proposition and its negation. #print axioms confirms the
+distinction from sorry mechanically: anAdmittedVerdict depends on no
+axioms at all, engagrVerdict_is_B depends only on the three standard
+foundational axioms every classical Mathlib proof cites (propext,
+Classical.choice, Quot.sound) -- never sorryAx.
