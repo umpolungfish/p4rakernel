@@ -311,6 +311,7 @@ globs = [
   "Imscribing.Paraconsistent.Belnap",
   "Imscribing.Paraconsistent.BelnapSplitFuse",
   "Imscribing.Paraconsistent.SixteenThreeTrilattice",
+  "Imscribing.Paraconsistent.DialetheicWitness",
   "Imscribing.Paraconsistent.BelnapAgreement",
   "Imscribing.Paraconsistent.Paradice",
   "Imscribing.Paraconsistent.Betting",

@@ -102,6 +102,24 @@ theorem truthSwap_involutive : ∀ x : Reg16_3, truthSwap (truthSwap x) = x := b
 theorem infoSwap_involutive : ∀ x : Reg16_3, infoSwap (infoSwap x) = x := by decide
 theorem invol_involutive : ∀ x : Reg16_3, invol (invol x) = x := by decide
 
+/-- ENGAGR (⊞) -- mirrors `imasm_core::imasm16_3::Reg16_3::engagr`
+    (MoDoT/imasm_core/src/imasm16_3.rs), added there this session under
+    its house name. Pins both information-axis lanes true, leaving the
+    truth-axis lanes exactly as they were: the paraconsistency operator,
+    made literal. After ENGAGR the register unconditionally carries a
+    live, held contradiction on the information layer, whatever it
+    carried before. -/
+def engagr (x : Reg16_3) : Reg16_3 := mk x.bigT x.bigF true true
+
+/-- ENGAGR's own defining property, proved rather than asserted: for any
+    register, the result genuinely carries both t and f. This is the
+    concrete case a real paraconsistent witness (Verdict.held, see
+    Imscribing/Paraconsistent/DialetheicWitness.lean) is built from --
+    two independently real facts about the same value, not one
+    proposition and its negation. -/
+theorem engagr_holds_both : ∀ x : Reg16_3, (engagr x).smallT = true ∧ (engagr x).smallF = true := by
+  decide
+
 -- ═══════════════════════════════════════════════════════════════════
 -- §4  THE INFORMATION ORDER ≤_i
 -- ═══════════════════════════════════════════════════════════════════
