@@ -308,6 +308,7 @@ globs = [
   "Imscribing.Paraconsistent.Portal",
   "Imscribing.Paraconsistent.Belnap",
   "Imscribing.Paraconsistent.BelnapSplitFuse",
+  "Imscribing.Paraconsistent.SixteenThreeTrilattice",
   "Imscribing.Paraconsistent.BelnapAgreement",
   "Imscribing.Paraconsistent.Paradice",
   "Imscribing.Paraconsistent.Betting",
