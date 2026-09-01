@@ -1,20 +1,17 @@
-I generalize the period-doubling lemma to any multiple and check it for
-real this time. col_iterate_period: a period-k cycle repeats at every
-multiple of k. oddSteps_mul_of_period: m trips around a period-k cycle take
-exactly m times one trip's odd steps. Both proved by induction, no sorry.
+I add the gate-check Lean scaffolds for the ten digit ob3ects and for
+primality as banking closure on a digit-concatenated word, the formal
+side of the primality engine I just rebuilt in mOMonadOS.
 
-I'd claimed the m-multiple generalization algebraically in the previous
-turn without writing or compiling it. That was wrong to do. Fixed: full
-lake rebuild, 3127 jobs, zero errors, then compiled the generated C to a
-real ELF object with leanc and read it with vox independently.
+Verified primality_as_banking_closure_on_a_digit_concaten_aa051a70_gate_check.lean
+directly against the kernel, not just trusted the JSON that named it:
+compiles clean, tier computation matches what the ob3ect claimed (O₀
+ground, O₂dag closed), and the Frobenius theorem depends on propext
+alone.
 
-The new theorems don't appear in the compiled object at all -- Lean 4
-erases Prop-valued proofs, so a theorem produces no machine code, only the
-defs it reasons about do. What vox can and did read: oddSteps and col
-themselves, extracted as standalone function bytes and verdicted on their
-own. Both close clean, T, zero unanswered divisions, zero unopened
-rejoinings -- confirmed independently of Lean's own checker.
-
-The algebra itself still says what it said: dividing the m*k bound by the k
-bound saturates at the k bound as m grows, never sharpens it. Scaling the
-tier by any multiple stays a dead end.
+This is the formal grounding for what the Rust side now does: N is
+prime iff its digit-encoded IMASM word already holds. The ob3ect's own
+canonical word, cycled through its full ROTAT orbit, hits all three
+states that engine distinguishes on its own: six rotations already
+hold, five are exposed, and three are vacuous -- the same three-way
+split built into is_prime, present in the operator's own structure
+before I ever wrote the Rust.
