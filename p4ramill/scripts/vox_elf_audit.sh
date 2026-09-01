@@ -98,6 +98,21 @@ repair_flagged_functions() {
     decompose_word "$word"
     echo "  repair (insert, via mOMonadOS):"
     "$MOMONADOS_CMDS" "insert $word" 2>/dev/null | sed -n '/^word   :/,/^⊙>/p' | sed '$d' | sed 's/^/    /'
+    # A single-glyph insert on the word as given is a narrow question --
+    # `combo2` is the real check: every distinct rotation, weight | banked |
+    # insert | repair, then a second pass on whatever the first pass
+    # repaired. If that finds nothing either, say so in one line rather
+    # than repeat the 47-rotation dump per flagged function across a whole
+    # corpus sweep; if it DOES find something, that is rare enough to be
+    # worth the full output.
+    echo "  repair (combo2, every rotation, via mOMonadOS):"
+    local c2
+    c2=$("$MOMONADOS_CMDS" "combo2 $word" 2>/dev/null)
+    if printf '%s\n' "$c2" | command grep -q "no rotation produced a repair"; then
+      echo "    no rotation produced a repair (checked every distinct rotation)"
+    else
+      printf '%s\n' "$c2" | sed -n '/^══ SECOND PASS/,/^⊙>/p' | sed '$d' | sed 's/^/    /'
+    fi
   done < <("$VOX" word "$obj" 2>/dev/null)
 }
 
