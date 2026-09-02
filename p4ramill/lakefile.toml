@@ -624,6 +624,7 @@ globs = [
   "Imscribing.Paraconsistent.ClassicalRestriction",
   "Imscribing.Paraconsistent.DeMorganBooleanCentre",
   "Imscribing.Paraconsistent.SixteenThreeTorus",
+  "Imscribing.Paraconsistent.SixteenThreeTorusKnot",
   "Imscribing.TheGrammarAppliedToTheGrammar",
   "Imscribing.VaeVitaScaffold",
   "Imscribing.Millennium.PMNSFullDerivation",
