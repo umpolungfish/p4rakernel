@@ -247,4 +247,74 @@ theorem centre_coreflective_in_truth_order :
    truth_switch_left_adjoint_fails,
    info_inclCentre_left_adjoint_fails⟩
 
+-- ═══════════════════════════════════════════════════════════════════
+-- §8  THE REFLECTOR: THE DUAL DIRECTION, WITH THE MAP THAT ACTUALLY WORKS
+-- ═══════════════════════════════════════════════════════════════════
+--
+-- truth_switch_left_adjoint_fails in §7 shows boolSwitch itself cannot
+-- double as a left adjoint. That is a fact about boolSwitch, not about
+-- reflectors in general: boolSwitch is the ex-falso map (N, B ↦ F), and a
+-- reflector needs the ex-quodlibet map instead (N, B ↦ T). This section
+-- builds that map, truthSwitch, and checks the adjunction it actually
+-- satisfies, rather than reusing the coreflector's map in the wrong slot.
+
+/-- Only a definite F counts as classically false; N, B, and T all default
+    to T. The mirror image of boolSwitch's ex-falso rule. -/
+def truthSwitch : Belnap → Belnap
+  | .F => .F
+  | _  => .T
+
+theorem truthSwitch_image_in_centre : ∀ v : Belnap, inCentre (truthSwitch v) := by
+  intro v; cases v <;> decide
+
+theorem truthSwitch_idempotent : ∀ v : Belnap,
+    truthSwitch (truthSwitch v) = truthSwitch v := by
+  intro v; cases v <;> rfl
+
+theorem truthSwitch_fixes_iff_centre : ∀ v : Belnap,
+    truthSwitch v = v ↔ inCentre v := by
+  intro v; cases v <;> decide
+
+/-- The counit: inclCentre ∘ truthSwitch retracts onto the centre from
+    above, same shape as switch_inclCentre_retract but for the other map. -/
+theorem truthSwitch_inclCentre_retract : ∀ c : BoolCentre,
+    truthSwitch (inclCentre c) = inclCentre c :=
+  fun c => (truthSwitch_fixes_iff_centre c.1).mpr c.2
+
+/-- The reflector's defining property: truthSwitch ⊣ inclCentre in the truth
+    order. For every x and every centre element c,
+    truthLE (truthSwitch x) c = truthLE x c — checked across all x, not
+    assumed. -/
+theorem truth_truthSwitch_left_adjoint : ∀ (x c : Belnap), inCentre c →
+    truthLE (truthSwitch x) c = truthLE x c := by
+  intro x c hc
+  rcases (centre_is_T_F c).mp hc with hT | hF
+  · subst hT; cases x <;> decide
+  · subst hF; cases x <;> decide
+
+theorem truthSwitch_monotone_truth : ∀ (a b : Belnap),
+    truthLE a b = true → truthLE (truthSwitch a) (truthSwitch b) = true := by
+  intro a b; cases a <;> cases b <;> decide
+
+/-- Information order: this adjunction fails there too, same as the
+    coreflector's. -/
+theorem info_truthSwitch_left_adjoint_fails :
+    infoLE (truthSwitch .B) .T ≠ infoLE .B .T := by decide
+
+/-- **Reflective subcategory (dual main theorem).** BoolCentre is ALSO a
+    reflective subcategory of Belnap FOUR in the truth order: truthSwitch is
+    the left adjoint (reflector), inclusion is the right adjoint, the
+    retract above is this adjunction's counit. Read together with
+    centre_coreflective_in_truth_order, the Boolean centre sits inside
+    Belnap FOUR as both a reflective and a coreflective subcategory at once:
+    two distinct genuine adjunctions, truthSwitch ⊣ inclCentre ⊣ boolSwitch,
+    not one collapse with a failed dual. -/
+theorem centre_reflective_in_truth_order :
+    (∀ c : Belnap, inCentre c → truthSwitch c = c) ∧
+    (∀ x c : Belnap, inCentre c → truthLE (truthSwitch x) c = truthLE x c) ∧
+    (infoLE (truthSwitch .B) .T ≠ infoLE .B .T) :=
+  ⟨fun c hc => (truthSwitch_fixes_iff_centre c).mpr hc,
+   truth_truthSwitch_left_adjoint,
+   info_truthSwitch_left_adjoint_fails⟩
+
 end DeMorganBooleanCentre
