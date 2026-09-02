@@ -623,6 +623,7 @@ globs = [
   "Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure",
   "Imscribing.Paraconsistent.ClassicalRestriction",
   "Imscribing.Paraconsistent.DeMorganBooleanCentre",
+  "Imscribing.Paraconsistent.SixteenThreeTorus",
   "Imscribing.TheGrammarAppliedToTheGrammar",
   "Imscribing.VaeVitaScaffold",
   "Imscribing.Millennium.PMNSFullDerivation",
