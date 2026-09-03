@@ -1,17 +1,7 @@
-I add the gate-check Lean scaffolds for the ten digit ob3ects and for
-primality as banking closure on a digit-concatenated word, the formal
-side of the primality engine I just rebuilt in mOMonadOS.
+I formalized the rectangle-diagonal-into-torus picture, choosing what was actually provable out of a longer exposition rather than transcribing all of it. The exact, checkable core: a 16-by-3 rectangle glued into a torus has a corner-to-corner diagonal that is one closed curve touching every one of the 48 cells exactly once, because gcd(16,3)=1. Sixteen is SIXTEEN_3's own carrier, the sixteen subsets of {T,F,t,f}; three is its own three orderings, information, truth, constructivity. Forty-eight is the same Shavian 48 already held as twelve marks times four base logic values. This file is the other factorization of that same number, made a torus and checked as a real theorem.
 
-Verified primality_as_banking_closure_on_a_digit_concaten_aa051a70_gate_check.lean
-directly against the kernel, not just trusted the JSON that named it:
-compiles clean, tier computation matches what the ob3ect claimed (O₀
-ground, O₂dag closed), and the Frobenius theorem depends on propext
-alone.
+New file: Imscribing/Paraconsistent/SixteenThreeTorus.lean. sixteen_three_coprime and torus_card ground the two numbers. diagonal is ZMod.chineseRemainder cited directly rather than reproved by hand, since Mathlib already carries the exact isomorphism ZMod 48 to ZMod 16 times ZMod 3 that this picture needs. diagonal_bijective is the main theorem: one walk of 48 steps, one visit to each cell, no repeats. every_corner_on_the_one_orbit states the corner-independence claim at the strength I could actually prove cleanly, surjectivity, every starting point sits somewhere on the one orbit, rather than reaching for a stronger bijectivity-of-the-shifted-map statement that would have needed hunting an uncertain Mathlib lemma name under time pressure.
 
-This is the formal grounding for what the Rust side now does: N is
-prime iff its digit-encoded IMASM word already holds. The ob3ect's own
-canonical word, cycled through its full ROTAT orbit, hits all three
-states that engine distinguishes on its own: six rotations already
-hold, five are exposed, and three are vacuous -- the same three-way
-split built into is_prime, present in the operator's own structure
-before I ever wrote the Rust.
+What I left out on purpose: the embedded torus-knot trigonometric parametrization and the horn-torus pinch condition from the fuller exposition this was drawn from. Those are geometric illustrations, not exact claims tied to SIXTEEN_3's own structure, and formalizing "R plus r cos(3t) equals zero when cos(3t) equals negative one and R equals r" adds no real content, it is generic trigebra with nothing SIXTEEN_3-specific in it.
+
+Verified: builds clean, sans sorry, axiom-checked at propext, Classical.choice, Quot.sound only, nothing beyond what the rest of this directory already carries. Registered in lakefile.toml's Imscribing.Paraconsistent list, next to DeMorganBooleanCentre.
