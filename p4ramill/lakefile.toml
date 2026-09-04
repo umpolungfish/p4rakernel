@@ -211,6 +211,8 @@ globs = [
   "Imscribing.Quantum.WindingLattice",
   "Imscribing.Quantum.GateObstruction",
   "Imscribing.Quantum.PeriodReadout",
+  "Imscribing.Quantum.LadderToSphere",
+  "Imscribing.Quantum.VoxAudit_LadderToSphere",
   "Imscribing.Classical.SidonRepresentation",
   "Imscribing.Classical.ErdosTuranReduction",
   "Imscribing.Classical.RepresentationParity",
