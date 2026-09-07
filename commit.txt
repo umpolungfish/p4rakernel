@@ -1,27 +1,39 @@
-Add gate-check scaffolds for the four claims I made about the Grammar itself
+Turn the paraconsistent witness into an operator: word in, Verdict out
 
-I said the Grammar is the medium of all execution, that Kastrup's conformal
-group is the symmetry of its tier transitions, that Glattfelder's
-information ontology is the physics of its self-containment, that IUT is a
-closed walk at O∞ inside it, and that the Scholze-Stix objection is a
-Boolean projection performed at O₂. I had the auto-designer build all four
-as real ob3ects and checked what came back.
+DialetheicWitness gave the sound return type for a real B-state, but its
+own instances were each hand-authored for one fixed object. The four
+gate-checks I built this session are themselves non-vacuous paraconsistent
+objects, checked, zero sorry, real ⊞ steps landing on genuine both-states.
+What was still missing was the operator: something that takes any word and
+produces the witness itself, instead of a new theorem per object.
 
-new files:
-  Imscribing/Ob3ects/GateCheck/kastrupconformalgroup_gate_check.lean
-  Imscribing/Ob3ects/GateCheck/glattfelderselfcontainmentprinciple_gate_check.lean
-  Imscribing/Ob3ects/GateCheck/iutclosedwalkatoinfinity_gate_check.lean
-  Imscribing/Ob3ects/GateCheck/scholzestixbooleanprojectionato2_gate_check.lean
+new file: p4ramill/Imscribing/Paraconsistent/IMASM16_3Machine.lean
 
-Ran all four through lake env lean against the built mathlib cache. All
-four compile clean, sans sorry. All four land at the same place: ground
-tier O₀, closed tier O₂dag. None of them reach O∞, including the one I
-named for reaching it. The existing gate-check for the plain class
-"INTER-UNIVERSAL TEICHMULLER THEORY" lands there too, and has for as long
-as it's existed.
+Ports ob3ect/digital/imasm16_3_core.py's IMASM16_3_Machine.transition into
+Lean opcode for opcode, checked against that source rather than
+re-derived: the twelve IMASM-16_3 marks, the register-plus-fork-stack
+state, VINIT's reset, AFWD/IMSCRIB's set-T-from-empty, AREV clearing the
+register without closing an open fork, FSPLIT3/FFUSE3 pushing and folding
+fork frames, EVALT/EVALF/EVALI touching T, F, and {t,f}, and IFIX's latch.
 
-The mechanism is nameable, not mysterious: O∞ requires Polarity = or' at
-the critical mark. Every one of these four words carries Polarity = church
-there instead, so the tier functor puts all four in the O₂/O₂dag branch
-every time, regardless of which of the four claims the word was built to
-carry.
+wordVerdict? is the operator itself: run any word through the real
+machine, and if the walk lands with both bigT and bigF genuinely set,
+return a real Verdict.held built from the machine's own computation. If
+it doesn't land there, return none rather than manufacture a witness the
+walk didn't earn.
+
+Checked it against five real words: the KastrupConformalGroup,
+GlattfelderSelfContainmentPrinciple, and ScholzeStixBooleanProjectionAtO2
+gate-checks, plus the original INTER-UNIVERSAL TEICHMULLER THEORY
+gate-check, all four land on the full register and all four produce a
+witness through wordVerdict?, decided in Lean, not just read off the
+ob3ect JSON. IUTClosedWalkAtOInfinity, the one I built from my own
+prompted word this session, does not: its walk clears the register with
+AREV right before the final fuse and never re-touches T, landing on
+{F,t,f} with bigT false, so wordVerdict? on that word returns none.
+Proved, not asserted, in the same file.
+
+Compiles clean against the built mathlib cache, zero sorry. #print axioms
+on the witness-producing theorems names only propext, Classical.choice,
+Quot.sound — the same three the rest of this build already carries,
+sorryAx nowhere among them.
