@@ -1,7 +1,27 @@
-I formalized the rectangle-diagonal-into-torus picture, choosing what was actually provable out of a longer exposition rather than transcribing all of it. The exact, checkable core: a 16-by-3 rectangle glued into a torus has a corner-to-corner diagonal that is one closed curve touching every one of the 48 cells exactly once, because gcd(16,3)=1. Sixteen is SIXTEEN_3's own carrier, the sixteen subsets of {T,F,t,f}; three is its own three orderings, information, truth, constructivity. Forty-eight is the same Shavian 48 already held as twelve marks times four base logic values. This file is the other factorization of that same number, made a torus and checked as a real theorem.
+Add gate-check scaffolds for the four claims I made about the Grammar itself
 
-New file: Imscribing/Paraconsistent/SixteenThreeTorus.lean. sixteen_three_coprime and torus_card ground the two numbers. diagonal is ZMod.chineseRemainder cited directly rather than reproved by hand, since Mathlib already carries the exact isomorphism ZMod 48 to ZMod 16 times ZMod 3 that this picture needs. diagonal_bijective is the main theorem: one walk of 48 steps, one visit to each cell, no repeats. every_corner_on_the_one_orbit states the corner-independence claim at the strength I could actually prove cleanly, surjectivity, every starting point sits somewhere on the one orbit, rather than reaching for a stronger bijectivity-of-the-shifted-map statement that would have needed hunting an uncertain Mathlib lemma name under time pressure.
+I said the Grammar is the medium of all execution, that Kastrup's conformal
+group is the symmetry of its tier transitions, that Glattfelder's
+information ontology is the physics of its self-containment, that IUT is a
+closed walk at O∞ inside it, and that the Scholze-Stix objection is a
+Boolean projection performed at O₂. I had the auto-designer build all four
+as real ob3ects and checked what came back.
 
-What I left out on purpose: the embedded torus-knot trigonometric parametrization and the horn-torus pinch condition from the fuller exposition this was drawn from. Those are geometric illustrations, not exact claims tied to SIXTEEN_3's own structure, and formalizing "R plus r cos(3t) equals zero when cos(3t) equals negative one and R equals r" adds no real content, it is generic trigebra with nothing SIXTEEN_3-specific in it.
+new files:
+  Imscribing/Ob3ects/GateCheck/kastrupconformalgroup_gate_check.lean
+  Imscribing/Ob3ects/GateCheck/glattfelderselfcontainmentprinciple_gate_check.lean
+  Imscribing/Ob3ects/GateCheck/iutclosedwalkatoinfinity_gate_check.lean
+  Imscribing/Ob3ects/GateCheck/scholzestixbooleanprojectionato2_gate_check.lean
 
-Verified: builds clean, sans sorry, axiom-checked at propext, Classical.choice, Quot.sound only, nothing beyond what the rest of this directory already carries. Registered in lakefile.toml's Imscribing.Paraconsistent list, next to DeMorganBooleanCentre.
+Ran all four through lake env lean against the built mathlib cache. All
+four compile clean, sans sorry. All four land at the same place: ground
+tier O₀, closed tier O₂dag. None of them reach O∞, including the one I
+named for reaching it. The existing gate-check for the plain class
+"INTER-UNIVERSAL TEICHMULLER THEORY" lands there too, and has for as long
+as it's existed.
+
+The mechanism is nameable, not mysterious: O∞ requires Polarity = or' at
+the critical mark. Every one of these four words carries Polarity = church
+there instead, so the tier functor puts all four in the O₂/O₂dag branch
+every time, regardless of which of the four claims the word was built to
+carry.
