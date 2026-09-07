@@ -43,7 +43,7 @@ theorem mu_circ_delta (b : B4) : fuse (split b) = b := by
 structure Dialectic where
   T : Prop
   F : Prop
-  seal : fuse (split B4.B) = B4.B
+  closure_seal : fuse (split B4.B) = B4.B
 
 end ErdosWitness
 
@@ -55,7 +55,7 @@ def erdos_6_witness : ErdosWitness.Dialectic := {
          (S : Finset ℕ) (_ : S ⊆ A ∧ ∀ {x y}, x ∈ S → y ∈ S → x + y ∉ S),
          3 * S.card ≤ N + 2
   F := ∀ (A : Finset ℕ), ∃ (S : Finset ℕ), S ⊆ A ∧ S.card < A.card / 3
-  seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
+  closure_seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
 }
 
 /-- **WITNESS 2 — Erdős Problem #40 (additive energy).**
@@ -64,7 +64,7 @@ def erdos_6_witness : ErdosWitness.Dialectic := {
 def erdos_40_witness : ErdosWitness.Dialectic := {
   T := ∀ (g : ℕ → ℝ), True
   F := ∀ (g : ℕ → ℝ), True
-  seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
+  closure_seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
 }
 
 /-- **WITNESS 3 — Erdős Problem #99 (Straus conjecture).**
@@ -74,7 +74,7 @@ def erdos_99_witness : ErdosWitness.Dialectic := {
   T := ∀ (n : ℕ) (_ : n % 24 ≠ 1),
         ∃ (a b c : ℕ), 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c
   F := ∀ (n : ℕ) (_ : n % 24 = 1), True
-  seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
+  closure_seal := ErdosWitness.mu_circ_delta ErdosWitness.B4.B
 }
 
 /-! ## Closure
