@@ -317,4 +317,19 @@ theorem centre_reflective_in_truth_order :
    truth_truthSwitch_left_adjoint,
    info_truthSwitch_left_adjoint_fails⟩
 
+/-- Coordinate-wise coreflection, including the empty product.
+    This is Proposition 4.3 of opi_finite_size_convergence, in the
+    inclusion-left / boolSwitch-right direction. -/
+theorem centre_coreflective_product_truth_order {ι : Type u}
+    (c v : ι → Belnap) (hc : ∀ i, inCentre (c i)) :
+    (∀ i, truthLE (c i) (v i) = true) ↔
+      (∀ i, truthLE (c i) (boolSwitch (v i)) = true) := by
+  constructor
+  · intro h i
+    rw [← truth_inclCentre_left_adjoint (c i) (v i) (hc i)]
+    exact h i
+  · intro h i
+    rw [truth_inclCentre_left_adjoint (c i) (v i) (hc i)]
+    exact h i
+
 end DeMorganBooleanCentre
