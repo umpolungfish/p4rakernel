@@ -39,6 +39,20 @@ rev = "v4.28.0"
 name = "Imscribing"
 root = "Imscribing"
 globs = [
+  "Imscribing.ABC",
+  "Imscribing.ABC_Audit",
+  "Imscribing.ABC_Witness",
+  "Imscribing.ABC_Closure",
+  "Imscribing.ABC_PrimeTransport",
+  "Imscribing.ABC_Spectral",
+  "Imscribing.ABC_Exhaustion",
+  "Imscribing.ABC_Certificates",
+  "Imscribing.ABC_LogBounds",
+  "Imscribing.ABC_SmallCertificate",
+  "Imscribing.ABC_Symmetry",
+  "Imscribing.ABC_Window32_E1_10",
+  "Imscribing.IUTT",
+  "Imscribing.IUTT_Audit",
   "Imscribing.FoldVerdict",
   "Imscribing.MachHolonomy",
   "Imscribing.CosmicHolonomy",
