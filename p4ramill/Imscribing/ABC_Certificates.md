@@ -16,7 +16,8 @@ c ≤ 9 window. The larger numerical readings below use the original reader.
   values approach zero. A family of tail certificates at these values
   constructs a held Witness containing arithmetic and spectral evidence.
 
-No tail certificate for the general arithmetic family is instantiated.
+The general arithmetic family has no instantiated tail Closure certificate
+yet; the finite certificate and its closure fields are fully concrete.
 
 ## Rational interval reader
 
@@ -40,8 +41,8 @@ the triples attaining the largest lower and upper endpoints.
 
 This is an analytic interval implementation, not a Lean certificate
 generator. The log-series remainder argument and Python execution are not
-yet connected by proof terms to `WindowEnclosure`. The script does not
-claim to certify the infinite tail or produce a `TailCertificate`.
+yet connected by Lean terms to `WindowEnclosure`. The script does not
+claim to close the infinite tail or produce a `TailCertificate`.
 
 ## Readings
 

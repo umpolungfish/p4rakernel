@@ -70,7 +70,8 @@ primeExcess t        = primeHeight t - primeSupportHeight t
 The two calibration theorems identify these sums with log(c) and
 log(rad(abc)). Their difference gives an exact arithmetic comparison.
 The support height satisfies the transported bound with C=0 for every
-positive epsilon. The outstanding estimate is therefore on `primeExcess`.
+positive epsilon. The outstanding Closure datum is therefore a uniform
+control field for `primeExcess`.
 `primeExcess_sublinear_iff_abc` proves that this particular remaining error
 estimate is equivalent to ABC itself. The construction locates the full
 arithmetic obligation; it does not discharge it by renaming it.
@@ -98,9 +99,9 @@ calibrated filtered bound using the existing interface in `ABC.lean`.
 The present PDF leaves h and Φ parameterized and displays the numerical
 inequality rather than a derivation with uniform constants. Assigning Ftf
 or proving weighted non-factorization cannot instantiate those premises.
-The requisite arithmetic construction must therefore be developed beyond
-the displayed schematic definitions, with its source and normalizations
-recorded alongside the Lean declarations.
+The requisite arithmetic Closure must therefore be instantiated beyond the
+displayed schematic definitions, with its source and normalizations recorded
+alongside the Lean declarations.
 
 ## Validation
 

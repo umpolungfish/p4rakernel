@@ -101,12 +101,14 @@ a bound, an F verdict, or an N verdict.
 ## Uniform estimate
 
 `FilteredEstimate` and `UniformDiscrepancyBound` are defined propositions,
-not axioms and not proved theorems. The missing result is a constant C_ε
-uniform over all admissible triples. The current packet construction proves
-representation and calibration only. `IUTT`'s information-retention theorem
-does not bound this arithmetic discrepancy.
+not axioms. The missing Closure datum is a constant C_ε uniform over all
+admissible triples, together with the construction that returns that bound
+from the filtered regime. The current packet construction establishes
+representation and calibration; scale completion must close the arithmetic
+discrepancy across the unbounded trajectory.
 
-There is no unconditional `theorem abc_proved` in this module.
+There is no global Closure constructor in this module; finite and asymptotic
+Closure constructors live in the later `ABC_*Closure` modules.
 
 ## Existing file not reused
 

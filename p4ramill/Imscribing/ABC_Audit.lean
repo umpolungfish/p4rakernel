@@ -1,5 +1,14 @@
 import Imscribing.ABC_SmallCertificate
 import Imscribing.ABC_Window32_E1_10
+import Imscribing.ABC_ScaleClosure
+import Imscribing.ABC_ScaleChain
+import Imscribing.ABC_AsymptoticClosure
+import Imscribing.ABC_TailRegime
+import Imscribing.ABC_IUTTClosure
+import Imscribing.ABC_IUTTAsymptotic
+import Imscribing.ABC_Measurement
+import Imscribing.ABC_MeasurementChain
+import Imscribing.ABC_MeasurementCompatibility
 
 /-! Axiom audit of arithmetic, quality, and Witness declarations. -/
 
@@ -112,6 +121,8 @@ import Imscribing.ABC_Window32_E1_10
 #print axioms Imscribing.ABC.certified_window_nine_upper
 #print axioms Imscribing.ABC.certified_window_nine_lower
 #print axioms Imscribing.ABC.certifiedWindowNine
+#print axioms Imscribing.ABC.certifiedWindowNineWitness
+#print axioms Imscribing.ABC.certifiedWindowNineWitness_is_B
 
 #print axioms Imscribing.ABC.discrepancy_swap
 #print axioms Imscribing.ABC.window_upper_of_ordered
@@ -120,3 +131,75 @@ import Imscribing.ABC_Window32_E1_10
 #print axioms Imscribing.ABC.Window32E1_10.enclosure
 #print axioms Imscribing.ABC.Window32E1_10.witness
 #print axioms Imscribing.ABC.Window32E1_10.witness_is_B
+#print axioms Imscribing.ABC.scaleLink_of_le
+#print axioms Imscribing.ABC.enclosure_cross_bound
+#print axioms Imscribing.ABC.enclosure_lower_monotone
+#print axioms Imscribing.ABC.scaleClosureWitness
+#print axioms Imscribing.ABC.scaleClosureWitness_is_B
+#print axioms Imscribing.ABC.certifiedNineToThirty
+#print axioms Imscribing.ABC.certifiedNineToThirty_cross
+#print axioms Imscribing.ABC.certifiedNineToThirtyWitness
+#print axioms Imscribing.ABC.certifiedNineToThirtyWitness_is_B
+#print axioms Imscribing.ABC.scaleLink_trans
+#print axioms Imscribing.ABC.ScaleChain.link
+#print axioms Imscribing.ABC.ScaleChain.cross_bound
+#print axioms Imscribing.ABC.ScaleChain.lower_or_cross
+#print axioms Imscribing.ABC.certifiedTwoScale
+#print axioms Imscribing.ABC.certifiedTwoScale_cross
+#print axioms Imscribing.ABC.certifiedTwoScaleWitness
+#print axioms Imscribing.ABC.certifiedTwoScaleWitness_is_B
+#print axioms Imscribing.ABC.AsymptoticClosure.bounded
+#print axioms Imscribing.ABC.AsymptoticClosure.maximum_le_limit
+#print axioms Imscribing.ABC.AsymptoticClosure.to_conjecture
+#print axioms Imscribing.ABC.asymptoticWitness
+#print axioms Imscribing.ABC.asymptoticWitness_is_B
+#print axioms Imscribing.ABC.chain_reading_below_asymptotic
+#print axioms Imscribing.ABC.asymptotic_lower_contains_finite
+#print axioms Imscribing.ABC.exactTailRegime
+#print axioms Imscribing.ABC.TailRegime.read_monotone
+#print axioms Imscribing.ABC.TailRegime.read_attained
+#print axioms Imscribing.ABC.TailRegime.read_dominates
+#print axioms Imscribing.ABC.tailClosureWitness
+#print axioms Imscribing.ABC.tailClosureWitness_is_B
+#print axioms Imscribing.ABC.tailClosure_preserves_finite_reading
+#print axioms Imscribing.ABC.tailClosure_preserves_triple
+#print axioms Imscribing.ABC.IUTTTailReading.select
+#print axioms Imscribing.ABC.IUTTTailReading.packet_radical
+#print axioms Imscribing.ABC.IUTTTailReading.packet_height
+#print axioms Imscribing.ABC.exactIUTTTailClosure
+#print axioms Imscribing.ABC.exactIUTTTailClosure_readout
+#print axioms Imscribing.ABC.iuttTailClosureWitness
+#print axioms Imscribing.ABC.iuttTailClosureWitness_is_B
+#print axioms Imscribing.ABC.IUTTAsymptoticReading.read_is_window
+#print axioms Imscribing.ABC.IUTTAsymptoticReading.toClosure
+#print axioms Imscribing.ABC.IUTTAsymptoticReading.maximum_le_limit
+#print axioms Imscribing.ABC.IUTTAsymptoticReading.triple_below_limit
+#print axioms Imscribing.ABC.iutt_asymptotic_to_conjecture
+#print axioms Imscribing.ABC.iuttAsymptoticWitness
+#print axioms Imscribing.ABC.iuttAsymptoticWitness_is_B
+#print axioms Imscribing.ABC.IUTTAsymptoticReading.ofWindowConvergence
+#print axioms Imscribing.ABC.iuttAsymptoticFamilyOfConvergence
+#print axioms Imscribing.ABC.iuttAsymptoticFamilyOfConvergence_to_conjecture
+#print axioms Imscribing.ABC.iuttAsymptoticWitnessOfConvergence
+#print axioms Imscribing.ABC.iuttAsymptoticWitnessOfConvergence_is_B
+#print axioms Imscribing.ABC.FiniteMeasurement.ofEnclosure
+#print axioms Imscribing.ABC.FiniteMeasurement.packet_height
+#print axioms Imscribing.ABC.FiniteMeasurement.packet_radical
+#print axioms Imscribing.ABC.FiniteMeasurement.readout
+#print axioms Imscribing.ABC.FiniteMeasurement.witness
+#print axioms Imscribing.ABC.FiniteMeasurement.witness_is_B
+#print axioms Imscribing.ABC.certifiedMeasurementNine
+#print axioms Imscribing.ABC.certifiedMeasurementThirty
+#print axioms Imscribing.ABC.MeasurementChain.fromScaleChain
+#print axioms Imscribing.ABC.MeasurementChain.link
+#print axioms Imscribing.ABC.MeasurementChain.cross_bound
+#print axioms Imscribing.ABC.MeasurementChain.witness
+#print axioms Imscribing.ABC.MeasurementChain.witness_is_B
+#print axioms Imscribing.ABC.certifiedMeasurementChain
+#print axioms Imscribing.ABC.certifiedMeasurementChain_cross
+#print axioms Imscribing.ABC.certifiedMeasurementChain_witness_is_B
+#print axioms Imscribing.ABC.MeasurementChain.lower_le_limit
+#print axioms Imscribing.ABC.MeasurementChain.triple_le_limit
+#print axioms Imscribing.ABC.MeasurementChain.packet_calibrated
+#print axioms Imscribing.ABC.MeasurementChain.compatibilityWitness
+#print axioms Imscribing.ABC.MeasurementChain.compatibilityWitness_is_B
