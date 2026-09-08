@@ -32,6 +32,9 @@ c≤9 window, but the new upper-bound theorem covers the larger domain.
 
 The final object is `Imscribing.ABC.Window32E1_10.enclosure`, an instance
 of the existing `WindowEnclosure` interface. The window index is cutoff−2.
+The generated `Window32E1_10.witness` is a concrete held Witness whose
+positive field is the lower reading and whose second field is the upper
+closure for that same window.
 
 ## Parameters and verification scope
 
@@ -54,7 +57,7 @@ Its enclosure is [−347/1000, −173/500], containing −log(2)/2.
 Generation is parameterized; compilation cost still grows with the number
 of representatives and the finite coverage table. The c≤5000 numerical
 readings are not yet Lean-certified by this development. None of these
-finite certificates supplies the infinite tail bound.
+finite certificates supplies the Closure field for the infinite tail.
 
 The emitted module raises `synthInstance.maxSize` to accommodate the
 decidability instance of the finite disjunction. Coverage still uses
@@ -80,6 +83,10 @@ with `cc -shared`. Vox reported:
 Artifacts and reports are in `/tmp/abc-window32-vox/`. These reports
 describe the compiled control flow; theorem dependencies are audited
 separately by `ABC_Audit.lean`.
+
+After instantiating the window Witness, the updated ELF reports 717
+functions, 8,796 instructions, T=8, B=5, N=873, F=0, and 100% coverage of
+38,253 code bytes. Report: `/tmp/abc-window32-vox/ABC_Window32_E1_10.audit.txt`.
 
 Verified 2026-09-08: the targeted Lake build passed (8045 jobs); the larger
 certificate module compiled in 210 seconds. The five new audited

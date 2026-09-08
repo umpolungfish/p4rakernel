@@ -38,7 +38,7 @@ are checked as part of the ordinary Lean build.
 This certificate covers the small window. The existing c ≤ 5000 JSON
 readings remain numerical interval results; they have not been converted
 into Lean certificates. Neither a finite enclosure nor this generator
-supplies the unobserved tail bound.
+supplies the unobserved tail Closure field.
 
 Regenerate and build from p4ramill:
 
