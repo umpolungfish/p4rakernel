@@ -41,7 +41,7 @@ alone establish a uniform bound is used as an assumption.
 
 The existence of a maximum for each finite family and one constant valid
 for all families are separately quantified statements. The latter is the
-remaining full ABC obligation, expressed here in operator language.
+full scale-Closure datum, expressed here in operator language.
 
 ## Validation
 

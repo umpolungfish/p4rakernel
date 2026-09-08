@@ -113,6 +113,13 @@ def main():
         '  lower_le := certified_window_nine_lower',
         '  le_upper := windowMaximum_le _ _ _ (fun t ht =>',
         '    certified_window_nine_upper t ((mem_arithmeticWindow 7 t).mp ht))', '',
+        'def certifiedWindowNineWitness :',
+        '    Imscribing.Paraconsistent.DialetheicWitness.Verdict',
+        '      ((226/1000 : ℝ) ≤ windowMaximum (1/10) 7) :=',
+        '  .held certified_window_nine_lower certifiedWindowNine.le_upper',
+        '',
+        'theorem certifiedWindowNineWitness_is_B :',
+        '    certifiedWindowNineWitness.classify = (true, true) := rfl', '',
         'end Imscribing.ABC', ''])
     output = Path(__file__).resolve().parents[1] / 'Imscribing' / 'ABC_SmallCertificate.lean'
     output.write_text('\n'.join(lines))
