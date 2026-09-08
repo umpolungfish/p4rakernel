@@ -57,7 +57,7 @@ private def kastrupconformalgroup_s11 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 private def kastrupconformalgroup_s12 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def kastrupconformalgroup_s13 : Imscription :=
+def kastrupconformalgroup_s13 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
 -- ── Label Imscriptions (per-node delta) ─────────────────────
@@ -118,3 +118,21 @@ def kastrupconformalgroup_tier : OuroboricityTier := TierFunctor.obj kastrupconf
 theorem kastrupconformalgroup_frobenius :
     igFrobeniusAlg.mul kastrupconformalgroup_s0 kastrupconformalgroup_s0 = kastrupconformalgroup_s0 :=
   igFrobAlg_self_fusion kastrupconformalgroup_s0
+
+-- ── What the closure actually is ──────────────────────────────
+
+/-- The closing state carries the critical mark O_inf's condition needs
+    (crit = monad) but not the polarity it needs alongside it (pol = or':
+    here pol = church instead) -- the precise, named reason this word
+    lands at O₂dag rather than O∞, per o_inf_iff_P_pm_sym_at_phi_c. -/
+theorem kastrupconformalgroup_is_not_O_inf :
+    imscriptionTier kastrupconformalgroup_s13 ≠ .O_inf := by decide
+
+/-- The closing state's real distance from the canonical self-containing
+    fiducial odotOperator ("⊙"): six of the twelve axes differ outright --
+    dim, top, pol, fid, kin, gran -- while rel, gram, crit, chir, stoi, prot
+    already agree. Every one of the four gate-checks in this directory
+    lands on this same six-axis gap; FourClaimsSameClosure.lean proves it
+    is in fact the identical closing tuple, not merely the same count. -/
+theorem kastrupconformalgroup_distance_from_odot :
+    primitiveMismatches kastrupconformalgroup_s13 odotOperator = 6 := by decide

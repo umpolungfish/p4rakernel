@@ -54,7 +54,7 @@ private def scholzestixbooleanprojectionato2_s10 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def scholzestixbooleanprojectionato2_s11 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def scholzestixbooleanprojectionato2_s12 : Imscription :=
+def scholzestixbooleanprojectionato2_s12 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
 -- ── Label Imscriptions (per-node delta) ─────────────────────
@@ -113,3 +113,36 @@ def scholzestixbooleanprojectionato2_tier : OuroboricityTier := TierFunctor.obj 
 theorem scholzestixbooleanprojectionato2_frobenius :
     igFrobeniusAlg.mul scholzestixbooleanprojectionato2_s0 scholzestixbooleanprojectionato2_s0 = scholzestixbooleanprojectionato2_s0 :=
   igFrobAlg_self_fusion scholzestixbooleanprojectionato2_s0
+
+-- ── What the closure actually is ──────────────────────────────
+
+/-- The claim this file is named for -- a Boolean projection landing at
+    O₂ -- lands one rung over, at O₂'s own dim-array sibling O₂dag: the
+    same critical, non-Frobenius branch (crit = monad, pol ≠ or'), but
+    with dim = array, exactly the one axis Core.lean's own case split
+    uses to tell O₂dag apart from plain O₂. The projection is real; the
+    tier it lands on is the dagger, not the bare O₂ the name reaches for. -/
+theorem scholzestixbooleanprojectionato2_is_O2dag_not_O2 :
+    imscriptionTier scholzestixbooleanprojectionato2_s12 = .O₂dag := by decide
+
+/-- Changing only the dim axis to something other than array flips this
+    exact tier from O₂dag to plain O₂ -- confirming dim is the one axis
+    responsible for the dagger here, checked directly rather than argued
+    from the case split alone. -/
+theorem scholzestixbooleanprojectionato2_would_be_O2_if_dim_were_not_array :
+    imscriptionTier { scholzestixbooleanprojectionato2_s12 with dim := ash } = .O₂ := by decide
+
+/-- And, as with the other three words in this directory: this word does
+    not reach O∞ either, for the same reason (pol = church, not or', at
+    the critical mark). -/
+theorem scholzestixbooleanprojectionato2_is_not_O_inf :
+    imscriptionTier scholzestixbooleanprojectionato2_s12 ≠ .O_inf := by decide
+
+/-- The closing state's real distance from the canonical self-containing
+    fiducial odotOperator ("⊙"): six of the twelve axes differ outright --
+    dim, top, pol, fid, kin, gran -- while rel, gram, crit, chir, stoi, prot
+    already agree. Every one of the four gate-checks in this directory
+    lands on this same six-axis gap; FourClaimsSameClosure.lean proves it
+    is in fact the identical closing tuple, not merely the same count. -/
+theorem scholzestixbooleanprojectionato2_distance_from_odot :
+    primitiveMismatches scholzestixbooleanprojectionato2_s12 odotOperator = 6 := by decide
