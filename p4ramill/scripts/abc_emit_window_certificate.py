@@ -124,6 +124,11 @@ def emit(cutoff, epsilon, terms, endpoint_digits, output):
         '  lower_le := certified_lower',
         '  le_upper := windowMaximum_le _ _ _ (fun t ht =>',
         f'    certified_upper t ((mem_arithmeticWindow {cutoff-2} t).mp ht))', '',
+        f'def witness : Imscribing.Paraconsistent.DialetheicWitness.Verdict',
+        f'    (({lit(lower)} : ℝ) ≤ windowMaximum {eps} {cutoff-2}) :=',
+        f'  .held certified_lower (enclosure.le_upper)',
+        '',
+        'theorem witness_is_B : witness.classify = (true, true) := rfl', '',
         f'end Imscribing.ABC.{namespace}', ''])
     output.write_text('\n'.join(lines))
     return {'cutoff': cutoff, 'epsilon': str(epsilon), 'log_certificates': len(numbers),

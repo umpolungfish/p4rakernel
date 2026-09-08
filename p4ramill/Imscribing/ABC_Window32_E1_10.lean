@@ -5052,4 +5052,10 @@ noncomputable def enclosure : WindowEnclosure (1 / 10) 30 where
   le_upper := windowMaximum_le _ _ _ (fun t ht =>
     certified_upper t ((mem_arithmeticWindow 30 t).mp ht))
 
+def witness : Imscribing.Paraconsistent.DialetheicWitness.Verdict
+    (((113 / 500) : ℝ) ≤ windowMaximum (1 / 10) 30) :=
+  .held certified_lower (enclosure.le_upper)
+
+theorem witness_is_B : witness.classify = (true, true) := rfl
+
 end Imscribing.ABC.Window32E1_10

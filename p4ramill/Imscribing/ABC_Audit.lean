@@ -118,3 +118,5 @@ import Imscribing.ABC_Window32_E1_10
 #print axioms Imscribing.ABC.Window32E1_10.certified_upper
 #print axioms Imscribing.ABC.Window32E1_10.certified_lower
 #print axioms Imscribing.ABC.Window32E1_10.enclosure
+#print axioms Imscribing.ABC.Window32E1_10.witness
+#print axioms Imscribing.ABC.Window32E1_10.witness_is_B
