@@ -60,7 +60,7 @@ private def iutclosedwalkatoinfinity_s12 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 private def iutclosedwalkatoinfinity_s13 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def iutclosedwalkatoinfinity_s14 : Imscription :=
+def iutclosedwalkatoinfinity_s14 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
 -- ── Label Imscriptions (per-node delta) ─────────────────────
@@ -123,3 +123,26 @@ def iutclosedwalkatoinfinity_tier : OuroboricityTier := TierFunctor.obj iutclose
 theorem iutclosedwalkatoinfinity_frobenius :
     igFrobeniusAlg.mul iutclosedwalkatoinfinity_s0 iutclosedwalkatoinfinity_s0 = iutclosedwalkatoinfinity_s0 :=
   igFrobAlg_self_fusion iutclosedwalkatoinfinity_s0
+
+-- ── What the closure actually is ──────────────────────────────
+
+/-- The claim this file is named for -- that IUT is a closed walk landing
+    at O∞ -- is false of this word specifically, checked, not assumed. The
+    closing state carries the critical mark O_inf needs (crit = monad) but
+    not the polarity it needs alongside it (pol = or': here pol = church),
+    so o_inf_iff_P_pm_sym_at_phi_c's conjunction fails on its second half.
+    The plain class gate-check for INTER-UNIVERSAL TEICHMULLER THEORY
+    (inter_universal_teichmuller_theory_gate_check.lean) lands at the same
+    O₂dag for the identical reason -- this isn't an artifact of how this
+    particular word was prompted, it's what the concept auto-designs to. -/
+theorem iutclosedwalkatoinfinity_is_not_O_inf :
+    imscriptionTier iutclosedwalkatoinfinity_s14 ≠ .O_inf := by decide
+
+/-- The closing state's real distance from the canonical self-containing
+    fiducial odotOperator ("⊙"): six of the twelve axes differ outright --
+    dim, top, pol, fid, kin, gran -- while rel, gram, crit, chir, stoi, prot
+    already agree. Every one of the four gate-checks in this directory
+    lands on this same six-axis gap; FourClaimsSameClosure.lean proves it
+    is in fact the identical closing tuple, not merely the same count. -/
+theorem iutclosedwalkatoinfinity_distance_from_odot :
+    primitiveMismatches iutclosedwalkatoinfinity_s14 odotOperator = 6 := by decide
