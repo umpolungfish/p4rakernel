@@ -81,6 +81,105 @@ theorem threeUnit_of_ladder (n r t a K : ℕ)
   refine ⟨ha, by positivity, by positivity, ?_⟩
   exact straus_general_ladder_identity n r t a K hn ha ht hr hK hladder hK_eq hta
 
+/-- **The master ladder congruence theorem.**
+    For any rung `r > 0` and multiplier `K > 0` with `1 < r * K`, setting `t = r * K - 1`,
+    any positive integer `n` satisfying `4 * t ∣ n + r` admits an unconditional
+    three-unit fraction representation:
+        4/n = 1/a + 1/(K * n * a) + 1/(K * n * (a / t))
+    where `a = (n + r) / 4`. -/
+theorem straus_cover_of_ladder_mod (n r K : ℕ)
+    (hn : 0 < n) (hr : 0 < r) (hK : 0 < K) (hrK : 1 < r * K)
+    (hmod : 4 * (r * K - 1) ∣ n + r) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  let t := r * K - 1
+  have ht_pos : 0 < t := by omega
+  have hK_eq : r * K = t + 1 := by omega
+  have h4_dvd : 4 ∣ n + r := by
+    have : 4 ∣ 4 * t := by omega
+    exact dvd_trans this hmod
+  let a := (n + r) / 4
+  have ha4 : 4 * a = n + r := Nat.mul_div_cancel' h4_dvd
+  have ha_pos : 0 < a := by omega
+  have ht_dvd : t ∣ a := by
+    obtain ⟨m, hm⟩ := hmod
+    have h4a : 4 * a = 4 * (t * m) := by
+      calc 4 * a = n + r := ha4
+        _ = 4 * (r * K - 1) * m := hm
+        _ = 4 * (t * m) := by ring
+    have ha_tm : a = t * m := Nat.eq_of_mul_eq_mul_left (by decide) h4a
+    exact ⟨m, ha_tm⟩
+  refine ⟨a, K * n * a, K * n * (a / t), ?_⟩
+  have hrep := threeUnit_of_ladder n r t a K hn ha_pos ht_pos hr hK ha4 hK_eq ht_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **The Schinzel-Mordell algebraic identity.**
+    Whenever `n = 4 * a * b - (u + v)` with `u ∣ a * b` and `v ∣ a * b`,
+    the fraction `4 / n` decomposes into three unit fractions:
+        4/n = 1/(a * b) + 1/(((a * b) / u) * n) + 1/(((a * b) / v) * n) -/
+theorem straus_schinzel_identity (a b u v n : ℕ)
+    (ha : 0 < a) (hb : 0 < b) (hu : 0 < u) (hv : 0 < v) (hn : 0 < n)
+    (hudvd : u ∣ a * b) (hvdvd : v ∣ a * b)
+    (heq : n + (u + v) = 4 * a * b) :
+    (4 : ℚ) / n = 1 / (a * b : ℚ) + 1 / (((a * b / u : ℕ) * n : ℕ) : ℚ) + 1 / (((a * b / v : ℕ) * n : ℕ) : ℚ) := by
+  obtain ⟨X, hX⟩ := hudvd
+  obtain ⟨Y, hY⟩ := hvdvd
+  have hXu : a * b / u = X := by rw [hX, Nat.mul_div_cancel_left X hu]
+  have hYv : a * b / v = Y := by rw [hY, Nat.mul_div_cancel_left Y hv]
+  rw [hXu, hYv]
+  have hab_pos : 0 < a * b := Nat.mul_pos ha hb
+  have hX_pos : 0 < X := by
+    rcases Nat.eq_zero_or_pos X with rfl | pos
+    · exfalso; simp [mul_zero] at hX; omega
+    · exact pos
+  have hY_pos : 0 < Y := by
+    rcases Nat.eq_zero_or_pos Y with rfl | pos
+    · exfalso; simp [mul_zero] at hY; omega
+    · exact pos
+  have hab_eq : (a * b : ℚ) = (u : ℚ) * (X : ℚ) := by exact_mod_cast hX
+  have hab_eq_Y : (a * b : ℚ) = (v : ℚ) * (Y : ℚ) := by exact_mod_cast hY
+  have heq_nat : n + u + v = 4 * (a * b) := by
+    calc n + u + v = n + (u + v) := add_assoc n u v
+      _ = 4 * a * b := heq
+      _ = 4 * (a * b) := mul_assoc 4 a b
+  have heq_q : (n : ℚ) + (u : ℚ) + (v : ℚ) = 4 * (a * b : ℚ) := by exact_mod_cast heq_nat
+  have h1 : 1 / ((X : ℚ) * n) = (u : ℚ) / ((a * b : ℚ) * n) := by
+    rw [hab_eq]
+    field_simp
+  have h2 : 1 / ((Y : ℚ) * n) = (v : ℚ) / ((a * b : ℚ) * n) := by
+    rw [hab_eq_Y]
+    field_simp
+  push_cast
+  rw [h1, h2]
+  calc (4 : ℚ) / n = (4 * (a * b : ℚ)) / ((a * b : ℚ) * n) := by field_simp
+    _ = ((n : ℚ) + (u : ℚ) + (v : ℚ)) / ((a * b : ℚ) * n) := by rw [heq_q]
+    _ = 1 / (a * b : ℚ) + (u : ℚ) / ((a * b : ℚ) * n) + (v : ℚ) / ((a * b : ℚ) * n) := by field_simp
+
+/-- **Mordell's first polynomial family: n = 4ab - a - b.** -/
+theorem straus_mordell_identity_one (a b n : ℕ)
+    (ha : 0 < a) (hb : 0 < b) (hn : 0 < n)
+    (heq : n + (a + b) = 4 * a * b) :
+    (4 : ℚ) / n = 1 / (a * b : ℚ) + 1 / ((b * n : ℕ) : ℚ) + 1 / ((a * n : ℕ) : ℚ) := by
+  have hadvd : a ∣ a * b := dvd_mul_right a b
+  have hbdvd : b ∣ a * b := dvd_mul_left b a
+  have hdiv_a : a * b / a = b := Nat.mul_div_cancel_left b ha
+  have hdiv_b : a * b / b = a := by rw [mul_comm a b]; exact Nat.mul_div_cancel_left a hb
+  have hrep := straus_schinzel_identity a b a b n ha hb ha hb hn hadvd hbdvd heq
+  rw [hdiv_a, hdiv_b] at hrep
+  exact hrep
+
+/-- **Mordell's second polynomial family: n = 4ab - b - 1.** -/
+theorem straus_mordell_identity_two (a b n : ℕ)
+    (ha : 0 < a) (hb : 0 < b) (hn : 0 < n)
+    (heq : n + (b + 1) = 4 * a * b) :
+    (4 : ℚ) / n = 1 / (a * b : ℚ) + 1 / ((a * n : ℕ) : ℚ) + 1 / ((a * b * n : ℕ) : ℚ) := by
+  have hbdvd : b ∣ a * b := dvd_mul_left b a
+  have h1dvd : 1 ∣ a * b := one_dvd (a * b)
+  have hdiv_b : a * b / b = a := by rw [mul_comm a b]; exact Nat.mul_div_cancel_left a hb
+  have hdiv_1 : a * b / 1 = a * b := Nat.div_one (a * b)
+  have hrep := straus_schinzel_identity a b b 1 n ha hb hb (by norm_num) hn hbdvd h1dvd heq
+  rw [hdiv_b, hdiv_1] at hrep
+  exact hrep
+
 /-- **The bridge theorem.**
     `NegMReachable (n * a) r` together with `4 * a = n + r` and coprimality
     yields a classical three-unit fraction representation on the Boolean Core. -/
@@ -591,6 +690,11 @@ theorem straus_337 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 337 = 1 / a + 1 / b + 1 / c := by
   refine ⟨85, 9550, 54711950, by positivity, by positivity, by positivity, by norm_num⟩
 
+/-- Frontier prime n = 1129 closes at rung 11. -/
+theorem straus_1129 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1129 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨285, 29260, 99103620, by positivity, by positivity, by positivity, by norm_num⟩
+
 /-- **Reduction of Erdős-Straus to primes congruent to 1 modulo 24.**
     By modular reduction, all integers with a prime factor not congruent to 1 (mod 24)
     are solved. By multiplicative descent, if every prime congruent to 1 (mod 24)
@@ -634,12 +738,12 @@ theorem straus_class_reduction_to_primes
 /-- Executable entry point for compilation to ELF and auditing via vox. -/
 def main : IO Unit := do
   IO.println "=== Erdos-Straus Boolean Core Verification ==="
-  IO.println "Unified ladder identity and generalized torus winding bridges verified."
+  IO.println "Unified ladder identity, master ladder congruence theorem, and Schinzel-Mordell identities verified."
   IO.println "Covering classes verified: mod 128, 40, 108, 120 (97), 168 (73), 240 (73), 264 (217), 264 (241), 360 (337), 552 (457)."
   IO.println "Frontier reduction verified: all n ≢ 1 (mod 24) solved unconditionally."
   IO.println "Multiplicative descent theorem and factor reduction verified."
   IO.println "Erdos-Straus reduction to prime frontier verified for all n ≥ 2."
-  IO.println "Frontier witnesses (73, 97, 193, 217, 241, 313, 337, 457, 673, 2521) verified."
+  IO.println "Frontier witnesses (73, 97, 193, 217, 241, 313, 337, 457, 673, 1129, 2521) verified."
   return ()
 
 end Erdos.StrausBooleanCore
