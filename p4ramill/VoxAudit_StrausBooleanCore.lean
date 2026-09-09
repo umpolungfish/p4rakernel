@@ -21,3 +21,9 @@ open Erdos.StrausBooleanCore
 #print axioms straus_div3
 #print axioms straus_mod24_seventeen
 #print axioms straus_of_ne_one_mod24
+#print axioms threeUnit_of_primitiveRoot
+#print axioms straus_193
+#print axioms straus_313
+#print axioms straus_457
+#print axioms straus_673
+#print axioms straus_2521
