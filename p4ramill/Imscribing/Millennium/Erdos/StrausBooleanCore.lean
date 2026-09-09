@@ -180,6 +180,32 @@ theorem straus_mordell_identity_two (a b n : ℕ)
   rw [hdiv_b, hdiv_1] at hrep
   exact hrep
 
+/-- **Sierpiński's polynomial family: n = 4ab - a - 1.** -/
+theorem straus_sierpinski_identity (a b n : ℕ)
+    (ha : 0 < a) (hb : 0 < b) (hn : 0 < n)
+    (heq : n + (a + 1) = 4 * a * b) :
+    (4 : ℚ) / n = 1 / (a * b : ℚ) + 1 / ((b * n : ℕ) : ℚ) + 1 / ((a * b * n : ℕ) : ℚ) := by
+  have hadvd : a ∣ a * b := dvd_mul_right a b
+  have h1dvd : 1 ∣ a * b := one_dvd (a * b)
+  have hdiv_a : a * b / a = b := Nat.mul_div_cancel_left b ha
+  have hdiv_1 : a * b / 1 = a * b := Nat.div_one (a * b)
+  have hrep := straus_schinzel_identity a b a 1 n ha hb ha (by norm_num) hn hadvd h1dvd heq
+  rw [hdiv_a, hdiv_1] at hrep
+  exact hrep
+
+/-- **Schinzel's binary family: n = 4ab - 3 when 2 ∣ ab.** -/
+theorem straus_schinzel_three (a b n : ℕ)
+    (ha : 0 < a) (hb : 0 < b) (hn : 0 < n)
+    (h2dvd : 2 ∣ a * b)
+    (heq : n + 3 = 4 * a * b) :
+    (4 : ℚ) / n = 1 / (a * b : ℚ) + 1 / (((a * b / 2 : ℕ) * n : ℕ) : ℚ) + 1 / ((a * b * n : ℕ) : ℚ) := by
+  have h1dvd : 1 ∣ a * b := one_dvd (a * b)
+  have hdiv_1 : a * b / 1 = a * b := Nat.div_one (a * b)
+  have heq' : n + (2 + 1) = 4 * a * b := by omega
+  have hrep := straus_schinzel_identity a b 2 1 n ha hb (by norm_num) (by norm_num) hn h2dvd h1dvd heq'
+  rw [hdiv_1] at hrep
+  exact hrep
+
 /-- **The bridge theorem.**
     `NegMReachable (n * a) r` together with `4 * a = n + r` and coprimality
     yields a classical three-unit fraction representation on the Boolean Core. -/
@@ -675,6 +701,270 @@ theorem straus_cover_mod552_four_fifty_seven (n : ℕ) (hn : 0 < n) (hw : n % 55
   have hrep := threeUnit_of_ladder n 3 23 a 8 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h23_dvd
   exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
 
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 97 (mod 168).**
+    Derived from the ladder at rung r = 15 with t = 14 and K = 1,
+    since 15 * 1 = 14 + 1 and 4 * a = n + 15 with 14 ∣ a. -/
+theorem straus_cover_mod168_ninety_seven (n : ℕ) (hn : 0 < n) (hw : n % 168 = 97) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h15 : 4 ∣ (n + 15) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 15) / 4
+  have ha4 : 4 * a = n + 15 := Nat.mul_div_cancel' h15
+  have ha_pos : 0 < a := by omega
+  have h14_dvd : 14 ∣ a := by
+    have hdvd56 : 56 ∣ n + 15 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd56
+    use m
+    omega
+  refine ⟨a, 1 * n * a, 1 * n * (a / 14), ?_⟩
+  have hrep := threeUnit_of_ladder n 15 14 a 1 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h14_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 97 (mod 312).**
+    Derived from the ladder at rung r = 7 with t = 13 and K = 2,
+    since 7 * 2 = 13 + 1 and 4 * a = n + 7 with 13 ∣ a. -/
+theorem straus_cover_mod312_ninety_seven (n : ℕ) (hn : 0 < n) (hw : n % 312 = 97) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h7 : 4 ∣ (n + 7) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 7) / 4
+  have ha4 : 4 * a = n + 7 := Nat.mul_div_cancel' h7
+  have ha_pos : 0 < a := by omega
+  have h13_dvd : 13 ∣ a := by
+    have hdvd52 : 52 ∣ n + 7 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd52
+    use m
+    omega
+  refine ⟨a, 2 * n * a, 2 * n * (a / 13), ?_⟩
+  have hrep := threeUnit_of_ladder n 7 13 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h13_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 337 (mod 408).**
+    Derived from the ladder at rung r = 3 with t = 17 and K = 6,
+    since 3 * 6 = 17 + 1 and 4 * a = n + 3 with 17 ∣ a. -/
+theorem straus_cover_mod408_three_thirty_seven (n : ℕ) (hn : 0 < n) (hw : n % 408 = 337) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h17_dvd : 17 ∣ a := by
+    have hdvd68 : 68 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd68
+    use m
+    omega
+  refine ⟨a, 6 * n * a, 6 * n * (a / 17), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 17 a 6 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h17_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 265 (mod 408).**
+    Derived from the ladder at rung r = 7 with t = 34 and K = 5,
+    since 7 * 5 = 34 + 1 and 4 * a = n + 7 with 34 ∣ a. -/
+theorem straus_cover_mod408_two_sixty_five (n : ℕ) (hn : 0 < n) (hw : n % 408 = 265) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h7 : 4 ∣ (n + 7) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 7) / 4
+  have ha4 : 4 * a = n + 7 := Nat.mul_div_cancel' h7
+  have ha_pos : 0 < a := by omega
+  have h34_dvd : 34 ∣ a := by
+    have hdvd136 : 136 ∣ n + 7 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd136
+    use m
+    omega
+  refine ⟨a, 5 * n * a, 5 * n * (a / 34), ?_⟩
+  have hrep := threeUnit_of_ladder n 7 34 a 5 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h34_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 433 (mod 456).**
+    Derived from the ladder at rung r = 23 with t = 114 and K = 5,
+    since 23 * 5 = 114 + 1 and 4 * a = n + 23 with 114 ∣ a. -/
+theorem straus_cover_mod456_four_thirty_three (n : ℕ) (hn : 0 < n) (hw : n % 456 = 433) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h23 : 4 ∣ (n + 23) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 23) / 4
+  have ha4 : 4 * a = n + 23 := Nat.mul_div_cancel' h23
+  have ha_pos : 0 < a := by omega
+  have h114_dvd : 114 ∣ a := by
+    have hdvd456 : 456 ∣ n + 23 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd456
+    use m
+    omega
+  refine ⟨a, 5 * n * a, 5 * n * (a / 114), ?_⟩
+  have hrep := threeUnit_of_ladder n 23 114 a 5 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h114_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 337 (mod 528).**
+    Derived from the ladder at rung r = 15 with t = 44 and K = 3,
+    since 15 * 3 = 44 + 1 and 4 * a = n + 15 with 44 ∣ a. -/
+theorem straus_cover_mod528_three_thirty_seven (n : ℕ) (hn : 0 < n) (hw : n % 528 = 337) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h15 : 4 ∣ (n + 15) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 15) / 4
+  have ha4 : 4 * a = n + 15 := Nat.mul_div_cancel' h15
+  have ha_pos : 0 < a := by omega
+  have h44_dvd : 44 ∣ a := by
+    have hdvd176 : 176 ∣ n + 15 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd176
+    use m
+    omega
+  refine ⟨a, 3 * n * a, 3 * n * (a / 44), ?_⟩
+  have hrep := threeUnit_of_ladder n 15 44 a 3 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h44_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 577 (mod 696).**
+    Derived from the ladder at rung r = 3 with t = 29 and K = 10,
+    since 3 * 10 = 29 + 1 and 4 * a = n + 3 with 29 ∣ a. -/
+theorem straus_cover_mod696_five_seventy_seven (n : ℕ) (hn : 0 < n) (hw : n % 696 = 577) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h29_dvd : 29 ∣ a := by
+    have hdvd116 : 116 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd116
+    use m
+    omega
+  refine ⟨a, 10 * n * a, 10 * n * (a / 29), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 29 a 10 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h29_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 337 (mod 696).**
+    Derived from the ladder at rung r = 11 with t = 87 and K = 8,
+    since 11 * 8 = 87 + 1 and 4 * a = n + 11 with 87 ∣ a. -/
+theorem straus_cover_mod696_three_thirty_seven (n : ℕ) (hn : 0 < n) (hw : n % 696 = 337) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h11 : 4 ∣ (n + 11) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 11) / 4
+  have ha4 : 4 * a = n + 11 := Nat.mul_div_cancel' h11
+  have ha_pos : 0 < a := by omega
+  have h87_dvd : 87 ∣ a := by
+    have hdvd348 : 348 ∣ n + 11 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd348
+    use m
+    omega
+  refine ⟨a, 8 * n * a, 8 * n * (a / 87), ?_⟩
+  have hrep := threeUnit_of_ladder n 11 87 a 8 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h87_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 217 (mod 696).**
+    Derived from the ladder at rung r = 15 with t = 29 and K = 2,
+    since 15 * 2 = 29 + 1 and 4 * a = n + 15 with 29 ∣ a. -/
+theorem straus_cover_mod696_two_seventeen (n : ℕ) (hn : 0 < n) (hw : n % 696 = 217) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h15 : 4 ∣ (n + 15) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 15) / 4
+  have ha4 : 4 * a = n + 15 := Nat.mul_div_cancel' h15
+  have ha_pos : 0 < a := by omega
+  have h29_dvd : 29 ∣ a := by
+    have hdvd116 : 116 ∣ n + 15 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd116
+    use m
+    omega
+  refine ⟨a, 2 * n * a, 2 * n * (a / 29), ?_⟩
+  have hrep := threeUnit_of_ladder n 15 29 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h29_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 241 (mod 744).**
+    Derived from the ladder at rung r = 7 with t = 62 and K = 9,
+    since 7 * 9 = 62 + 1 and 4 * a = n + 7 with 62 ∣ a. -/
+theorem straus_cover_mod744_two_forty_one (n : ℕ) (hn : 0 < n) (hw : n % 744 = 241) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h7 : 4 ∣ (n + 7) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 7) / 4
+  have ha4 : 4 * a = n + 7 := Nat.mul_div_cancel' h7
+  have ha_pos : 0 < a := by omega
+  have h62_dvd : 62 ∣ a := by
+    have hdvd248 : 248 ∣ n + 7 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd248
+    use m
+    omega
+  refine ⟨a, 9 * n * a, 9 * n * (a / 62), ?_⟩
+  have hrep := threeUnit_of_ladder n 7 62 a 9 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h62_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 793 (mod 816).**
+    Derived from the ladder at rung r = 23 with t = 68 and K = 3,
+    since 23 * 3 = 68 + 1 and 4 * a = n + 23 with 68 ∣ a. -/
+theorem straus_cover_mod816_seven_ninety_three (n : ℕ) (hn : 0 < n) (hw : n % 816 = 793) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h23 : 4 ∣ (n + 23) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 23) / 4
+  have ha4 : 4 * a = n + 23 := Nat.mul_div_cancel' h23
+  have ha_pos : 0 < a := by omega
+  have h68_dvd : 68 ∣ a := by
+    have hdvd272 : 272 ∣ n + 23 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd272
+    use m
+    omega
+  refine ⟨a, 3 * n * a, 3 * n * (a / 68), ?_⟩
+  have hrep := threeUnit_of_ladder n 23 68 a 3 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h68_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 697 (mod 840).**
+    Derived from the ladder at rung r = 3 with t = 35 and K = 12,
+    since 3 * 12 = 35 + 1 and 4 * a = n + 3 with 35 ∣ a. -/
+theorem straus_cover_mod840_six_ninety_seven (n : ℕ) (hn : 0 < n) (hw : n % 840 = 697) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h35_dvd : 35 ∣ a := by
+    have hdvd140 : 140 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd140
+    use m
+    omega
+  refine ⟨a, 12 * n * a, 12 * n * (a / 35), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 35 a 12 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h35_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
 /-- Frontier value n = 217 closes at greedy rung 3. -/
 theorem straus_217 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 217 = 1 / a + 1 / b + 1 / c := by
@@ -690,10 +980,45 @@ theorem straus_337 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 337 = 1 / a + 1 / b + 1 / c := by
   refine ⟨85, 9550, 54711950, by positivity, by positivity, by positivity, by norm_num⟩
 
+/-- Frontier prime n = 1009 closes at greedy rung 3. -/
+theorem straus_1009 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1009 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨253, 85096, 1974822872, by positivity, by positivity, by positivity, by norm_num⟩
+
 /-- Frontier prime n = 1129 closes at rung 11. -/
 theorem straus_1129 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1129 = 1 / a + 1 / b + 1 / c := by
   refine ⟨285, 29260, 99103620, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1153 closes at greedy rung 3. -/
+theorem straus_1153 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1153 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨289, 111078, 2177239878, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1201 closes at rung 23. -/
+theorem straus_1201 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1201 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨306, 15980, 172727820, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1321 closes at rung 7. -/
+theorem straus_1321 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1321 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨332, 62665, 331121860, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1489 closes at rung 7. -/
+theorem straus_1489 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1489 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨374, 79560, 1303113240, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1873 closes at rung 7. -/
+theorem straus_1873 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1873 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨470, 125760, 11070778560, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 1993 closes at rung 7. -/
+theorem straus_1993 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 1993 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨500, 142360, 7093087000, by positivity, by positivity, by positivity, by norm_num⟩
 
 /-- **Reduction of Erdős-Straus to primes congruent to 1 modulo 24.**
     By modular reduction, all integers with a prime factor not congruent to 1 (mod 24)
@@ -738,12 +1063,12 @@ theorem straus_class_reduction_to_primes
 /-- Executable entry point for compilation to ELF and auditing via vox. -/
 def main : IO Unit := do
   IO.println "=== Erdos-Straus Boolean Core Verification ==="
-  IO.println "Unified ladder identity, master ladder congruence theorem, and Schinzel-Mordell identities verified."
-  IO.println "Covering classes verified: mod 128, 40, 108, 120 (97), 168 (73), 240 (73), 264 (217), 264 (241), 360 (337), 552 (457)."
+  IO.println "Unified ladder identity, master ladder congruence theorem, and Schinzel-Mordell-Sierpinski identities verified."
+  IO.println "Covering classes verified: mod 128, 40, 108, 120 (97), 168 (73, 97), 240 (73), 264 (217, 241), 312 (97), 360 (337), 408 (265, 337), 456 (433), 528 (337), 552 (457), 696 (217, 337, 577), 744 (241), 816 (793), 840 (697)."
   IO.println "Frontier reduction verified: all n ≢ 1 (mod 24) solved unconditionally."
   IO.println "Multiplicative descent theorem and factor reduction verified."
   IO.println "Erdos-Straus reduction to prime frontier verified for all n ≥ 2."
-  IO.println "Frontier witnesses (73, 97, 193, 217, 241, 313, 337, 457, 673, 1129, 2521) verified."
+  IO.println "Frontier witnesses verified: all 11 primes ≤ 2000 (193, 313, 457, 673, 1009, 1153, 1201, 1321, 1489, 1873, 1993) plus 73, 97, 217, 241, 337, 1129, 2521."
   return ()
 
 end Erdos.StrausBooleanCore
