@@ -323,6 +323,41 @@ theorem threeUnit_of_primitiveRoot (n r a p : ℕ)
     negMReachable_of_primitiveRoot (n * a) r p hr0 hp hrM hprim hpow
   exact threeUnit_of_negMReachable n r a hn hr_pos ha0 ha hcop hreach
 
+/-- **Two-generator torus winding bridge.**
+    When two coprime primes `p, q` of `M = n * a` jointly cover `(ZMod r)ˣ`
+    and each carries enough power budget `p^(r-1), q^(r-1) ∣ M²`,
+    `-M` is reachable in `M²`, closing `4/n` into three unit fractions. -/
+theorem threeUnit_of_twoGen (n r a p q : ℕ)
+    (hn : 0 < n) (hr0 : 0 < r) (ha0 : 0 < a) (hp : 0 < p) (hq : 0 < q)
+    (ha : 4 * a = n + r) (hcop_rM : Nat.Coprime r (n * a))
+    (hcop_pq : Nat.Coprime p q) (hrM : ¬ (r ∣ (n * a)))
+    (hgen : ∀ x : ZMod r, x ≠ 0 →
+      ∃ i j : ℕ, i < r - 1 ∧ j < r - 1 ∧ (p : ZMod r) ^ i * (q : ZMod r) ^ j = x)
+    (hpM : (p : ℕ) ^ (r - 1) ∣ (n * a) * (n * a))
+    (hqM : (q : ℕ) ^ (r - 1) ∣ (n * a) * (n * a)) :
+    ∃ x y z : ℕ, 0 < x ∧ 0 < y ∧ 0 < z ∧ (4 : ℚ) / n = 1 / x + 1 / y + 1 / z := by
+  have hreach : NegMReachable (n * a) r :=
+    negMReachable_of_twoGen (n * a) r p q hp hq hcop_pq hrM hgen hpM hqM
+  exact threeUnit_of_negMReachable n r a hn hr0 ha0 ha hcop_rM hreach
+
+/-- **Multi-generator torus winding bridge (the pigeonhole step).**
+    A finite family `S` of pairwise-coprime prime powers dividing `M = n * a`,
+    whose powers jointly hit every nonzero residue mod `r` within budget,
+    closes `4/n` into three unit fractions. -/
+theorem threeUnit_of_multiGen (n r a : ℕ) (S : Finset ℕ)
+    (hn : 0 < n) (hr0 : 0 < r) (ha0 : 0 < a)
+    (ha : 4 * a = n + r) (hcop_rM : Nat.Coprime r (n * a))
+    (hpos : ∀ s ∈ S, 0 < s)
+    (hcop : ∀ x ∈ S, ∀ y ∈ S, x ≠ y → Nat.Coprime x y)
+    (hrM : ¬ (r ∣ (n * a)))
+    (hbud : ∀ s ∈ S, s ^ (r - 1) ∣ (n * a) * (n * a))
+    (hgen : ∀ x : ZMod r, x ≠ 0 → ∃ f : ℕ → ℕ, (∀ s ∈ S, f s < r - 1) ∧
+        ∏ s ∈ S, (s : ZMod r) ^ (f s) = x) :
+    ∃ x y z : ℕ, 0 < x ∧ 0 < y ∧ 0 < z ∧ (4 : ℚ) / n = 1 / x + 1 / y + 1 / z := by
+  have hreach : NegMReachable (n * a) r :=
+    negMReachable_of_multiGen (n * a) r S hpos hcop hrM hbud hgen
+  exact threeUnit_of_negMReachable n r a hn hr0 ha0 ha hcop_rM hreach
+
 /-- Frontier prime n = 193 closes at rung 7 via winding on the primitive root. -/
 theorem straus_193 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 193 = 1 / a + 1 / b + 1 / c := by
@@ -409,14 +444,202 @@ theorem straus_cover_mod120_ninety_seven (n : ℕ) (hn : 0 < n) (hw : n % 120 = 
   have hrep := threeUnit_of_ladder n 3 5 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h5_dvd
   exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
 
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 73 (mod 168).**
+    Derived from the ladder at rung r = 11 with t = 21 and K = 2,
+    since 11 * 2 = 21 + 1 and 4 * a = n + 11 with 21 ∣ a. -/
+theorem straus_cover_mod168_seventy_three (n : ℕ) (hn : 0 < n) (hw : n % 168 = 73) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h11 : 4 ∣ (n + 11) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 11) / 4
+  have ha4 : 4 * a = n + 11 := Nat.mul_div_cancel' h11
+  have ha_pos : 0 < a := by omega
+  have h21_dvd : 21 ∣ a := by
+    have hdvd84 : 84 ∣ n + 11 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd84
+    use m
+    omega
+  refine ⟨a, 2 * n * a, 2 * n * (a / 21), ?_⟩
+  have hrep := threeUnit_of_ladder n 11 21 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h21_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 73 (mod 240).**
+    Derived from the ladder at rung r = 7 with t = 20 and K = 3,
+    since 7 * 3 = 20 + 1 and 4 * a = n + 7 with 20 ∣ a. -/
+theorem straus_cover_mod240_seventy_three (n : ℕ) (hn : 0 < n) (hw : n % 240 = 73) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h7 : 4 ∣ (n + 7) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 7) / 4
+  have ha4 : 4 * a = n + 7 := Nat.mul_div_cancel' h7
+  have ha_pos : 0 < a := by omega
+  have h20_dvd : 20 ∣ a := by
+    have hdvd80 : 80 ∣ n + 7 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd80
+    use m
+    omega
+  refine ⟨a, 3 * n * a, 3 * n * (a / 20), ?_⟩
+  have hrep := threeUnit_of_ladder n 7 20 a 3 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h20_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 217 (mod 264).**
+    Derived from the ladder at rung r = 3 with t = 11 and K = 4,
+    since 3 * 4 = 11 + 1 and 4 * a = n + 3 with 11 ∣ a. -/
+theorem straus_cover_mod264_two_seventeen (n : ℕ) (hn : 0 < n) (hw : n % 264 = 217) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h11_dvd : 11 ∣ a := by
+    have hdvd44 : 44 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd44
+    use m
+    omega
+  refine ⟨a, 4 * n * a, 4 * n * (a / 11), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 11 a 4 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h11_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 241 (mod 264).**
+    Derived from the ladder at rung r = 23 with t = 22 and K = 1,
+    since 23 * 1 = 22 + 1 and 4 * a = n + 23 with 22 ∣ a. -/
+theorem straus_cover_mod264_two_forty_one (n : ℕ) (hn : 0 < n) (hw : n % 264 = 241) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h23 : 4 ∣ (n + 23) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 23) / 4
+  have ha4 : 4 * a = n + 23 := Nat.mul_div_cancel' h23
+  have ha_pos : 0 < a := by omega
+  have h22_dvd : 22 ∣ a := by
+    have hdvd88 : 88 ∣ n + 23 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd88
+    use m
+    omega
+  refine ⟨a, 1 * n * a, 1 * n * (a / 22), ?_⟩
+  have hrep := threeUnit_of_ladder n 23 22 a 1 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h22_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 337 (mod 360).**
+    Derived from the ladder at rung r = 23 with t = 45 and K = 2,
+    since 23 * 2 = 45 + 1 and 4 * a = n + 23 with 45 ∣ a. -/
+theorem straus_cover_mod360_three_thirty_seven (n : ℕ) (hn : 0 < n) (hw : n % 360 = 337) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h23 : 4 ∣ (n + 23) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 23) / 4
+  have ha4 : 4 * a = n + 23 := Nat.mul_div_cancel' h23
+  have ha_pos : 0 < a := by omega
+  have h45_dvd : 45 ∣ a := by
+    have hdvd180 : 180 ∣ n + 23 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd180
+    use m
+    omega
+  refine ⟨a, 2 * n * a, 2 * n * (a / 45), ?_⟩
+  have hrep := threeUnit_of_ladder n 23 45 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h45_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 457 (mod 552).**
+    Derived from the ladder at rung r = 3 with t = 23 and K = 8,
+    since 3 * 8 = 23 + 1 and 4 * a = n + 3 with 23 ∣ a. -/
+theorem straus_cover_mod552_four_fifty_seven (n : ℕ) (hn : 0 < n) (hw : n % 552 = 457) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h23_dvd : 23 ∣ a := by
+    have hdvd92 : 92 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd92
+    use m
+    omega
+  refine ⟨a, 8 * n * a, 8 * n * (a / 23), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 23 a 8 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h23_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
+/-- Frontier value n = 217 closes at greedy rung 3. -/
+theorem straus_217 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 217 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨55, 3980, 9500260, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 241 closes at rung 7. -/
+theorem straus_241 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 241 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨62, 2139, 1030998, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 337 closes at greedy rung 3. -/
+theorem straus_337 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 337 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨85, 9550, 54711950, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- **Reduction of Erdős-Straus to primes congruent to 1 modulo 24.**
+    By modular reduction, all integers with a prime factor not congruent to 1 (mod 24)
+    are solved. By multiplicative descent, if every prime congruent to 1 (mod 24)
+    admits a three-unit fraction representation, then EVERY integer n ≥ 2 admits one. -/
+theorem straus_reduction_to_primes
+    (hprime_frontier : ∀ p : ℕ, p.Prime → p % 24 = 1 →
+      ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / p = 1 / a + 1 / b + 1 / c) :
+    ∀ n : ℕ, 2 ≤ n →
+      ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  intro n hn
+  obtain ⟨p, hp_prime, hp_dvd⟩ := Nat.exists_prime_and_dvd (by omega : n ≠ 1)
+  obtain ⟨c, rfl⟩ := hp_dvd
+  have hp_pos : 0 < p := hp_prime.pos
+  have hc_pos : 0 < c := by
+    rcases Nat.eq_zero_or_pos c with rfl | pos
+    · exfalso; omega
+    · exact pos
+  by_cases hpeq : p % 24 = 1
+  · obtain ⟨a, b, d, ha, hb, hd, hrep⟩ := hprime_frontier p hp_prime hpeq
+    refine ⟨c * a, c * b, c * d, by positivity, by positivity, by positivity, ?_⟩
+    push_cast
+    rw [mul_comm (p : ℚ) (c : ℚ)]
+    exact straus_mul_descent p c a b d hp_pos hc_pos ha hb hd hrep
+  · obtain ⟨a, b, d, ha, hb, hd, hrep⟩ := straus_of_ne_one_mod24 p hp_pos hpeq
+    refine ⟨c * a, c * b, c * d, by positivity, by positivity, by positivity, ?_⟩
+    push_cast
+    rw [mul_comm (p : ℚ) (c : ℚ)]
+    exact straus_mul_descent p c a b d hp_pos hc_pos ha hb hd hrep
+
+/-- **Reduction of the surviving 1 mod 24 class to primes.**
+    Any integer n > 1 whose prime factors are all congruent to 1 modulo 24
+    admits a three-unit fraction representation provided primes congruent to 1 mod 24 do. -/
+theorem straus_class_reduction_to_primes
+    (hprime_frontier : ∀ p : ℕ, p.Prime → p % 24 = 1 →
+      ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / p = 1 / a + 1 / b + 1 / c)
+    (n : ℕ) (hn : 2 ≤ n)
+    (hall_prime : ∀ p : ℕ, p.Prime → p ∣ n → p % 24 = 1) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c :=
+  straus_reduction_to_primes hprime_frontier n hn
+
 /-- Executable entry point for compilation to ELF and auditing via vox. -/
 def main : IO Unit := do
   IO.println "=== Erdos-Straus Boolean Core Verification ==="
-  IO.println "Unified ladder identity and bridge theorems verified."
-  IO.println "Covering classes verified: mod 128, mod 40, mod 108, mod 120 (97)."
+  IO.println "Unified ladder identity and generalized torus winding bridges verified."
+  IO.println "Covering classes verified: mod 128, 40, 108, 120 (97), 168 (73), 240 (73), 264 (217), 264 (241), 360 (337), 552 (457)."
   IO.println "Frontier reduction verified: all n ≢ 1 (mod 24) solved unconditionally."
   IO.println "Multiplicative descent theorem and factor reduction verified."
-  IO.println "Frontier witnesses (73, 97, 193, 313, 457, 673, 2521) verified."
+  IO.println "Erdos-Straus reduction to prime frontier verified for all n ≥ 2."
+  IO.println "Frontier witnesses (73, 97, 193, 217, 241, 313, 337, 457, 673, 2521) verified."
   return ()
 
 end Erdos.StrausBooleanCore

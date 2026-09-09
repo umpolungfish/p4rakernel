@@ -22,8 +22,13 @@ open Erdos.StrausBooleanCore
 #print axioms straus_mod24_seventeen
 #print axioms straus_of_ne_one_mod24
 #print axioms threeUnit_of_primitiveRoot
+#print axioms threeUnit_of_twoGen
+#print axioms threeUnit_of_multiGen
 #print axioms straus_193
+#print axioms straus_217
+#print axioms straus_241
 #print axioms straus_313
+#print axioms straus_337
 #print axioms straus_457
 #print axioms straus_673
 #print axioms straus_2521
@@ -32,3 +37,12 @@ open Erdos.StrausBooleanCore
 #print axioms straus_mul_descent
 #print axioms straus_of_has_non1_factor
 #print axioms straus_cover_mod120_ninety_seven
+#print axioms straus_cover_mod168_seventy_three
+#print axioms straus_cover_mod240_seventy_three
+#print axioms straus_cover_mod264_two_seventeen
+#print axioms straus_cover_mod264_two_forty_one
+#print axioms straus_cover_mod360_three_thirty_seven
+#print axioms straus_cover_mod552_four_fifty_seven
+#print axioms straus_reduction_to_primes
+#print axioms straus_class_reduction_to_primes
+
