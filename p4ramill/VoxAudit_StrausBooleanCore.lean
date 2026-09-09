@@ -15,3 +15,9 @@ open Erdos.StrausBooleanCore
 #print axioms straus_cover_mod128
 #print axioms straus_cover_mod40
 #print axioms straus_cover_mod108
+#print axioms straus_even
+#print axioms straus_mod4_three
+#print axioms straus_mod8_five
+#print axioms straus_div3
+#print axioms straus_mod24_seventeen
+#print axioms straus_of_ne_one_mod24
