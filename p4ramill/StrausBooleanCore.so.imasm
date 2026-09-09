@@ -1,5 +1,10 @@
-; ⊙ /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/StrausBooleanCore.so
+; ⊙ module (elf x86-64)
 ; entry 0x0
+; bits 64
+; sym __do_fini 0x15a0
+; sym __do_init 0x1560
+; sym _fini 0x154c
+; sym _init 0x1534
 =0x4b8	011b033b1c00000002000000a810000038000000e810000058000000
 =0x4d8	1400000000000000017a5200017810011b0c0708900100001c0000001c000000681000003800000000410e108602430d06730c07080000001c0000003c000000881000004a00000000410e108602430d0602450c0708000000000000
 =0x2800	0000000000000000000000000000000000000000000000000000000000000000
@@ -14,9 +19,8 @@
 @0x1542
 ∈	e	i:0x1546
 @0x1544
-⊙	call	r:rax
+⊙	call	r:eax
 @0x1546
-∋
 ⊞	add	r:rsp	i:0x8
 @0x154a
 ⊣	ret
@@ -37,7 +41,7 @@
 @0x156d
 ≺	jmp	i:0x1596
 @0x156f
-⊡	mov	m:rip::1:0x22e2:1	i:0x1
+⋈	mov	m:rip::1:0x22e2:1	i:0x1
 @0x1576
 ⋈	mov	r:rax	m:rip::1:0x128b:8
 @0x157d
@@ -51,7 +55,6 @@
 @0x1591
 ≻	call	i:0x1600
 @0x1596
-∋
 ⋈	pop	r:rbp
 @0x1597
 ⊣	ret
@@ -82,7 +85,7 @@
 @0x15ad
 ≺	jmp	i:0x15e8
 @0x15af
-⊡	mov	m:rip::1:0x22ea:1	i:0x1
+⋈	mov	m:rip::1:0x22ea:1	i:0x1
 @0x15b6
 ⋈	mov	r:rax	m:rip::1:0x1253:8
 @0x15bd
@@ -94,7 +97,6 @@
 @0x15ca
 ≻	call	i:0x1610
 @0x15cf
-∋
 ⋈	mov	r:rax	m:rip::1:0x1242:8
 @0x15d6
 ⊤	cmp	r:rax	i:0x0
@@ -105,15 +107,30 @@
 @0x15e3
 ≻	call	i:0x1620
 @0x15e8
-∋
 ⋈	pop	r:rbp
 @0x15e9
 ⊣	ret
 @0x15f0
-⋈	push	m:rip::1:0x223a:8
+⋈	push	m:rip::1:0x223a:4
 @0x15f6
-⊙	jmp	m:rip::1:0x223c:8
+⊙	jmp	m:rip::1:0x223c:4
 @0x15fc
-⊞	nop	m:rax::1:0x0:4
+⊞	nop
 @0x1600
-⊙	external	__register_frame_info
+⊙	jmp	m:rip::1:0x223a:4
+@0x1606
+⋈	push	i:0x0
+@0x160b
+≺	jmp	i:0x15f0
+@0x1610
+⊙	jmp	m:rip::1:0x2232:4
+@0x1616
+⋈	push	i:0x1
+@0x161b
+≺	jmp	i:0x15f0
+@0x1620
+⊙	jmp	m:rip::1:0x222a:4
+@0x1626
+⋈	push	i:0x2
+@0x162b
+≺	jmp	i:0x15f0
