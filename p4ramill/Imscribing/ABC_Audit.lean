@@ -9,6 +9,10 @@ import Imscribing.ABC_IUTTAsymptotic
 import Imscribing.ABC_Measurement
 import Imscribing.ABC_MeasurementChain
 import Imscribing.ABC_MeasurementCompatibility
+import Imscribing.ABC_MeasurementStream
+import Imscribing.ABC_Champions
+import Imscribing.ABC_ChampionTraceNine
+import Imscribing.ABC_Window70_FromOS
 
 /-! Axiom audit of arithmetic, quality, and Witness declarations. -/
 
@@ -203,3 +207,18 @@ import Imscribing.ABC_MeasurementCompatibility
 #print axioms Imscribing.ABC.MeasurementChain.packet_calibrated
 #print axioms Imscribing.ABC.MeasurementChain.compatibilityWitness
 #print axioms Imscribing.ABC.MeasurementChain.compatibilityWitness_is_B
+#print axioms Imscribing.ABC.CertifiedMeasurementStream.measurement_readout
+#print axioms Imscribing.ABC.CertifiedMeasurementStream.prefix
+#print axioms Imscribing.ABC.CertifiedMeasurementStream.prefix_cross_bound
+#print axioms Imscribing.ABC.CertifiedMeasurementStream.witness
+#print axioms Imscribing.ABC.CertifiedMeasurementStream.witness_is_B
+#print axioms Imscribing.ABC.ChampionEvent.packet_calibrated
+#print axioms Imscribing.ABC.certifiedChampionTraceNine
+#print axioms Imscribing.ABC.champion_base_through_eight
+#print axioms Imscribing.ABC.champion_at_nine
+#print axioms Imscribing.ABC.displacement_through_nine_iff
+#print axioms Imscribing.ABC.certifiedChampionTraceNineWitness
+#print axioms Imscribing.ABC.certifiedChampionTraceNineWitness_is_B
+#print axioms Imscribing.ABC.Window70E1_10.enclosure
+#print axioms Imscribing.ABC.Window70E1_10.witness
+#print axioms Imscribing.ABC.Window70E1_10.witness_is_B
