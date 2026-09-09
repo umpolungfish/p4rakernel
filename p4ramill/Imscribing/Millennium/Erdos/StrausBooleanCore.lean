@@ -348,13 +348,75 @@ theorem straus_2521 :
     ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 2521 = 1 / a + 1 / b + 1 / c := by
   refine ⟨636, 69748, 131876031, by positivity, by positivity, by positivity, by norm_num⟩
 
+/-- Frontier prime n = 73 closes at rung 7. -/
+theorem straus_73 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 73 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨20, 210, 30660, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier value n = 97 closes at greedy rung 3. -/
+theorem straus_97 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 97 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨25, 810, 392850, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- **Multiplicative descent theorem.**
+    If `n = c * m` with `c > 0` and `4/m = 1/a + 1/b + 1/d`,
+    then `4/n = 1/(c * a) + 1/(c * b) + 1/(c * d)`. -/
+theorem straus_mul_descent (m c a b d : ℕ)
+    (hm : 0 < m) (hc : 0 < c) (ha : 0 < a) (hb : 0 < b) (hd : 0 < d)
+    (hrep : (4 : ℚ) / m = 1 / a + 1 / b + 1 / d) :
+    (4 : ℚ) / (c * m) = 1 / (c * a) + 1 / (c * b) + 1 / (c * d) := by
+  have hcq : (c : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hc.ne'
+  have hmq : (m : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hm.ne'
+  have haq : (a : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr ha.ne'
+  have hbq : (b : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hb.ne'
+  have hdq : (d : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr hd.ne'
+  have hdiv : (4 : ℚ) / ((c : ℚ) * m) = ((4 : ℚ) / m) * (1 / c) := by
+    field_simp
+  rw [hdiv, hrep]
+  field_simp
+
+/-- **Descent from any factor not congruent to 1 modulo 24.**
+    If `n` has any proper divisor `m` not congruent to 1 modulo 24,
+    then `4/n` admits an unconditional three-unit fraction solution. -/
+theorem straus_of_has_non1_factor (n c m : ℕ)
+    (hn : n = c * m) (hc : 0 < c) (hm : 0 < m) (hme : m % 24 ≠ 1) :
+    ∃ a b d : ℕ, 0 < a ∧ 0 < b ∧ 0 < d ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / d := by
+  obtain ⟨a, b, d, ha, hb, hd, hrep⟩ := straus_of_ne_one_mod24 m hm hme
+  refine ⟨c * a, c * b, c * d, by positivity, by positivity, by positivity, ?_⟩
+  rw [hn]
+  push_cast
+  exact straus_mul_descent m c a b d hm hc ha hb hd hrep
+
+/-- **New covering class inside n ≡ 1 (mod 24): n ≡ 97 (mod 120).**
+    Derived from the ladder at rung r = 3 with t = 5 and K = 2,
+    since 3 * 2 = 5 + 1 and 4 * a = n + 3 with 5 ∣ a. -/
+theorem straus_cover_mod120_ninety_seven (n : ℕ) (hn : 0 < n) (hw : n % 120 = 97) :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / n = 1 / a + 1 / b + 1 / c := by
+  have h3 : 4 ∣ (n + 3) := by
+    apply Nat.dvd_of_mod_eq_zero
+    omega
+  let a := (n + 3) / 4
+  have ha4 : 4 * a = n + 3 := Nat.mul_div_cancel' h3
+  have ha_pos : 0 < a := by omega
+  have h5_dvd : 5 ∣ a := by
+    have hdvd20 : 20 ∣ n + 3 := by
+      apply Nat.dvd_of_mod_eq_zero
+      omega
+    obtain ⟨m, hm⟩ := hdvd20
+    use m
+    omega
+  refine ⟨a, 2 * n * a, 2 * n * (a / 5), ?_⟩
+  have hrep := threeUnit_of_ladder n 3 5 a 2 hn ha_pos (by norm_num) (by norm_num) (by norm_num) ha4 rfl h5_dvd
+  exact ⟨hrep.1, hrep.2.1, hrep.2.2.1, hrep.2.2.2⟩
+
 /-- Executable entry point for compilation to ELF and auditing via vox. -/
 def main : IO Unit := do
   IO.println "=== Erdos-Straus Boolean Core Verification ==="
   IO.println "Unified ladder identity and bridge theorems verified."
-  IO.println "Covering classes verified: mod 128 (117), mod 40 (29), mod 108 (101)."
+  IO.println "Covering classes verified: mod 128, mod 40, mod 108, mod 120 (97)."
   IO.println "Frontier reduction verified: all n ≢ 1 (mod 24) solved unconditionally."
-  IO.println "Torus winding bridge and frontier witnesses (193, 313, 457, 673, 2521) verified."
+  IO.println "Multiplicative descent theorem and factor reduction verified."
+  IO.println "Frontier witnesses (73, 97, 193, 313, 457, 673, 2521) verified."
   return ()
 
 end Erdos.StrausBooleanCore

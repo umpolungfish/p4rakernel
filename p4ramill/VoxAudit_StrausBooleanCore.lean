@@ -27,3 +27,8 @@ open Erdos.StrausBooleanCore
 #print axioms straus_457
 #print axioms straus_673
 #print axioms straus_2521
+#print axioms straus_73
+#print axioms straus_97
+#print axioms straus_mul_descent
+#print axioms straus_of_has_non1_factor
+#print axioms straus_cover_mod120_ninety_seven
