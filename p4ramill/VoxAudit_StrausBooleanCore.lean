@@ -11,6 +11,10 @@ open Erdos.StrausBooleanCore
 
 #print axioms straus_general_ladder_identity
 #print axioms threeUnit_of_ladder
+#print axioms straus_cover_of_ladder_mod
+#print axioms straus_schinzel_identity
+#print axioms straus_mordell_identity_one
+#print axioms straus_mordell_identity_two
 #print axioms threeUnit_of_negMReachable
 #print axioms straus_cover_mod128
 #print axioms straus_cover_mod40
@@ -29,6 +33,7 @@ open Erdos.StrausBooleanCore
 #print axioms straus_241
 #print axioms straus_313
 #print axioms straus_337
+#print axioms straus_1129
 #print axioms straus_457
 #print axioms straus_673
 #print axioms straus_2521
