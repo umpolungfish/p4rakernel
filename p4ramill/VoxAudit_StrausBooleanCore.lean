@@ -15,6 +15,8 @@ open Erdos.StrausBooleanCore
 #print axioms straus_schinzel_identity
 #print axioms straus_mordell_identity_one
 #print axioms straus_mordell_identity_two
+#print axioms straus_sierpinski_identity
+#print axioms straus_schinzel_three
 #print axioms threeUnit_of_negMReachable
 #print axioms straus_cover_mod128
 #print axioms straus_cover_mod40
@@ -33,7 +35,14 @@ open Erdos.StrausBooleanCore
 #print axioms straus_241
 #print axioms straus_313
 #print axioms straus_337
+#print axioms straus_1009
 #print axioms straus_1129
+#print axioms straus_1153
+#print axioms straus_1201
+#print axioms straus_1321
+#print axioms straus_1489
+#print axioms straus_1873
+#print axioms straus_1993
 #print axioms straus_457
 #print axioms straus_673
 #print axioms straus_2521
@@ -43,11 +52,23 @@ open Erdos.StrausBooleanCore
 #print axioms straus_of_has_non1_factor
 #print axioms straus_cover_mod120_ninety_seven
 #print axioms straus_cover_mod168_seventy_three
+#print axioms straus_cover_mod168_ninety_seven
 #print axioms straus_cover_mod240_seventy_three
 #print axioms straus_cover_mod264_two_seventeen
 #print axioms straus_cover_mod264_two_forty_one
+#print axioms straus_cover_mod312_ninety_seven
 #print axioms straus_cover_mod360_three_thirty_seven
+#print axioms straus_cover_mod408_three_thirty_seven
+#print axioms straus_cover_mod408_two_sixty_five
+#print axioms straus_cover_mod456_four_thirty_three
+#print axioms straus_cover_mod528_three_thirty_seven
 #print axioms straus_cover_mod552_four_fifty_seven
+#print axioms straus_cover_mod696_five_seventy_seven
+#print axioms straus_cover_mod696_three_thirty_seven
+#print axioms straus_cover_mod696_two_seventeen
+#print axioms straus_cover_mod744_two_forty_one
+#print axioms straus_cover_mod816_seven_ninety_three
+#print axioms straus_cover_mod840_six_ninety_seven
 #print axioms straus_reduction_to_primes
 #print axioms straus_class_reduction_to_primes
 
