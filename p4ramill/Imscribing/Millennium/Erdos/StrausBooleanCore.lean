@@ -306,12 +306,55 @@ theorem straus_of_ne_one_mod24 (n : ℕ) (hn : 0 < n) (hne : n % 24 ≠ 1) :
   · exact straus_div3 n hn h
   · exact straus_mod24_seventeen n hn h
 
+/-- **Winding-order closure via primitive root on the torus.**
+    When a prime factor `p` of `M = n * a` is a primitive root modulo an odd prime rung `r`
+    (its winding loop wraps all `r - 1` non-zero residues) and carries enough budget
+    `p^(r-1) ∣ M²`, the winding midpoint reaches the antipodal coordinate `-M`,
+    closing `4/n` into three unit fractions. -/
+theorem threeUnit_of_primitiveRoot (n r a p : ℕ)
+    (hn : 0 < n) (hr0 : 1 < r) (ha0 : 0 < a) (hp : 0 < p)
+    (ha : 4 * a = n + r) (hcop : Nat.Coprime r (n * a))
+    (hrM : ¬ (r ∣ (n * a)))
+    (hprim : ∀ x : ZMod r, x ≠ 0 → ∃ j : ℕ, j < r - 1 ∧ (p : ZMod r) ^ j = x)
+    (hpow : (p : ℕ) ^ (r - 1) ∣ (n * a) * (n * a)) :
+    ∃ x y z : ℕ, 0 < x ∧ 0 < y ∧ 0 < z ∧ (4 : ℚ) / n = 1 / x + 1 / y + 1 / z := by
+  have hr_pos : 0 < r := by omega
+  have hreach : NegMReachable (n * a) r :=
+    negMReachable_of_primitiveRoot (n * a) r p hr0 hp hrM hprim hpow
+  exact threeUnit_of_negMReachable n r a hn hr_pos ha0 ha hcop hreach
+
+/-- Frontier prime n = 193 closes at rung 7 via winding on the primitive root. -/
+theorem straus_193 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 193 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨50, 1380, 1331700, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 313 closes at rung 7 via winding on the primitive root. -/
+theorem straus_313 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 313 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨80, 3580, 4482160, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 457 closes at greedy rung 3. -/
+theorem straus_457 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 457 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨115, 17520, 184152720, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier prime n = 673 closes at rung 7 via winding on the primitive root. -/
+theorem straus_673 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 673 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨170, 16345, 374006290, by positivity, by positivity, by positivity, by norm_num⟩
+
+/-- Frontier value n = 2521 closes at rung 23 on the squared budget M². -/
+theorem straus_2521 :
+    ∃ a b c : ℕ, 0 < a ∧ 0 < b ∧ 0 < c ∧ (4 : ℚ) / 2521 = 1 / a + 1 / b + 1 / c := by
+  refine ⟨636, 69748, 131876031, by positivity, by positivity, by positivity, by norm_num⟩
+
 /-- Executable entry point for compilation to ELF and auditing via vox. -/
 def main : IO Unit := do
   IO.println "=== Erdos-Straus Boolean Core Verification ==="
   IO.println "Unified ladder identity and bridge theorems verified."
   IO.println "Covering classes verified: mod 128 (117), mod 40 (29), mod 108 (101)."
   IO.println "Frontier reduction verified: all n ≢ 1 (mod 24) solved unconditionally."
+  IO.println "Torus winding bridge and frontier witnesses (193, 313, 457, 673, 2521) verified."
   return ()
 
 end Erdos.StrausBooleanCore
