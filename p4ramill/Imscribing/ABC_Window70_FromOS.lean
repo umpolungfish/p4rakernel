@@ -3498,7 +3498,7 @@ private noncomputable def logCertificate_85470 : LogEnclosure 85470 := by
   norm_num [logSeriesLower, logSeriesUpper, Finset.sum_range_succ] at h
   refine ⟨(11355917 / 1000000), (227119 / 20000), ?_, ?_⟩ <;> norm_num <;> linarith [h.1, h.2]
 
-private def sample_1_1 : Triple := ⟨1, 1, 2, by decide, by decide, by decide, by decide⟩
+private def sample_1_1 : Triple := ⟨1, 1, 2, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_1_interval :
     (logCertificate_2.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2.upper ≤
       discrepancy (1 / 10) sample_1_1 ∧
@@ -3519,7 +3519,7 @@ private theorem sample_1_1_upper : discrepancy (1 / 10) sample_1_1 ≤ (227 / 10
   norm_num [logCertificate_2, logCertificate_2] at h
   linarith
 
-private def sample_1_2 : Triple := ⟨1, 2, 3, by decide, by decide, by decide, by decide⟩
+private def sample_1_2 : Triple := ⟨1, 2, 3, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_2_interval :
     (logCertificate_3.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6.upper ≤
       discrepancy (1 / 10) sample_1_2 ∧
@@ -3540,7 +3540,7 @@ private theorem sample_1_2_upper : discrepancy (1 / 10) sample_1_2 ≤ (227 / 10
   norm_num [logCertificate_3, logCertificate_6] at h
   linarith
 
-private def sample_1_3 : Triple := ⟨1, 3, 4, by decide, by decide, by decide, by decide⟩
+private def sample_1_3 : Triple := ⟨1, 3, 4, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_3_interval :
     (logCertificate_4.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6.upper ≤
       discrepancy (1 / 10) sample_1_3 ∧
@@ -3561,7 +3561,7 @@ private theorem sample_1_3_upper : discrepancy (1 / 10) sample_1_3 ≤ (227 / 10
   norm_num [logCertificate_4, logCertificate_6] at h
   linarith
 
-private def sample_1_4 : Triple := ⟨1, 4, 5, by decide, by decide, by decide, by decide⟩
+private def sample_1_4 : Triple := ⟨1, 4, 5, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_4_interval :
     (logCertificate_5.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10.upper ≤
       discrepancy (1 / 10) sample_1_4 ∧
@@ -3582,7 +3582,7 @@ private theorem sample_1_4_upper : discrepancy (1 / 10) sample_1_4 ≤ (227 / 10
   norm_num [logCertificate_5, logCertificate_10] at h
   linarith
 
-private def sample_2_3 : Triple := ⟨2, 3, 5, by decide, by decide, by decide, by decide⟩
+private def sample_2_3 : Triple := ⟨2, 3, 5, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_3_interval :
     (logCertificate_5.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_2_3 ∧
@@ -3603,7 +3603,7 @@ private theorem sample_2_3_upper : discrepancy (1 / 10) sample_2_3 ≤ (227 / 10
   norm_num [logCertificate_5, logCertificate_30] at h
   linarith
 
-private def sample_1_5 : Triple := ⟨1, 5, 6, by decide, by decide, by decide, by decide⟩
+private def sample_1_5 : Triple := ⟨1, 5, 6, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_5_interval :
     (logCertificate_6.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_1_5 ∧
@@ -3624,7 +3624,7 @@ private theorem sample_1_5_upper : discrepancy (1 / 10) sample_1_5 ≤ (227 / 10
   norm_num [logCertificate_6, logCertificate_30] at h
   linarith
 
-private def sample_1_6 : Triple := ⟨1, 6, 7, by decide, by decide, by decide, by decide⟩
+private def sample_1_6 : Triple := ⟨1, 6, 7, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_6_interval :
     (logCertificate_7.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_1_6 ∧
@@ -3645,7 +3645,7 @@ private theorem sample_1_6_upper : discrepancy (1 / 10) sample_1_6 ≤ (227 / 10
   norm_num [logCertificate_7, logCertificate_42] at h
   linarith
 
-private def sample_2_5 : Triple := ⟨2, 5, 7, by decide, by decide, by decide, by decide⟩
+private def sample_2_5 : Triple := ⟨2, 5, 7, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_5_interval :
     (logCertificate_7.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_70.upper ≤
       discrepancy (1 / 10) sample_2_5 ∧
@@ -3666,7 +3666,7 @@ private theorem sample_2_5_upper : discrepancy (1 / 10) sample_2_5 ≤ (227 / 10
   norm_num [logCertificate_7, logCertificate_70] at h
   linarith
 
-private def sample_3_4 : Triple := ⟨3, 4, 7, by decide, by decide, by decide, by decide⟩
+private def sample_3_4 : Triple := ⟨3, 4, 7, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_4_interval :
     (logCertificate_7.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_3_4 ∧
@@ -3687,7 +3687,7 @@ private theorem sample_3_4_upper : discrepancy (1 / 10) sample_3_4 ≤ (227 / 10
   norm_num [logCertificate_7, logCertificate_42] at h
   linarith
 
-private def sample_1_7 : Triple := ⟨1, 7, 8, by decide, by decide, by decide, by decide⟩
+private def sample_1_7 : Triple := ⟨1, 7, 8, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_7_interval :
     (logCertificate_8.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14.upper ≤
       discrepancy (1 / 10) sample_1_7 ∧
@@ -3708,7 +3708,7 @@ private theorem sample_1_7_upper : discrepancy (1 / 10) sample_1_7 ≤ (227 / 10
   norm_num [logCertificate_8, logCertificate_14] at h
   linarith
 
-private def sample_3_5 : Triple := ⟨3, 5, 8, by decide, by decide, by decide, by decide⟩
+private def sample_3_5 : Triple := ⟨3, 5, 8, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_5_interval :
     (logCertificate_8.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_3_5 ∧
@@ -3729,7 +3729,7 @@ private theorem sample_3_5_upper : discrepancy (1 / 10) sample_3_5 ≤ (227 / 10
   norm_num [logCertificate_8, logCertificate_30] at h
   linarith
 
-private def sample_1_8 : Triple := ⟨1, 8, 9, by decide, by decide, by decide, by decide⟩
+private def sample_1_8 : Triple := ⟨1, 8, 9, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_8_interval :
     (logCertificate_9.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6.upper ≤
       discrepancy (1 / 10) sample_1_8 ∧
@@ -3750,7 +3750,7 @@ private theorem sample_1_8_upper : discrepancy (1 / 10) sample_1_8 ≤ (227 / 10
   norm_num [logCertificate_9, logCertificate_6] at h
   linarith
 
-private def sample_2_7 : Triple := ⟨2, 7, 9, by decide, by decide, by decide, by decide⟩
+private def sample_2_7 : Triple := ⟨2, 7, 9, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_7_interval :
     (logCertificate_9.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_2_7 ∧
@@ -3771,7 +3771,7 @@ private theorem sample_2_7_upper : discrepancy (1 / 10) sample_2_7 ≤ (227 / 10
   norm_num [logCertificate_9, logCertificate_42] at h
   linarith
 
-private def sample_4_5 : Triple := ⟨4, 5, 9, by decide, by decide, by decide, by decide⟩
+private def sample_4_5 : Triple := ⟨4, 5, 9, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_5_interval :
     (logCertificate_9.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_4_5 ∧
@@ -3792,7 +3792,7 @@ private theorem sample_4_5_upper : discrepancy (1 / 10) sample_4_5 ≤ (227 / 10
   norm_num [logCertificate_9, logCertificate_30] at h
   linarith
 
-private def sample_1_9 : Triple := ⟨1, 9, 10, by decide, by decide, by decide, by decide⟩
+private def sample_1_9 : Triple := ⟨1, 9, 10, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_9_interval :
     (logCertificate_10.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_1_9 ∧
@@ -3813,7 +3813,7 @@ private theorem sample_1_9_upper : discrepancy (1 / 10) sample_1_9 ≤ (227 / 10
   norm_num [logCertificate_10, logCertificate_30] at h
   linarith
 
-private def sample_3_7 : Triple := ⟨3, 7, 10, by decide, by decide, by decide, by decide⟩
+private def sample_3_7 : Triple := ⟨3, 7, 10, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_7_interval :
     (logCertificate_10.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_3_7 ∧
@@ -3834,7 +3834,7 @@ private theorem sample_3_7_upper : discrepancy (1 / 10) sample_3_7 ≤ (227 / 10
   norm_num [logCertificate_10, logCertificate_210] at h
   linarith
 
-private def sample_1_10 : Triple := ⟨1, 10, 11, by decide, by decide, by decide, by decide⟩
+private def sample_1_10 : Triple := ⟨1, 10, 11, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_10_interval :
     (logCertificate_11.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_110.upper ≤
       discrepancy (1 / 10) sample_1_10 ∧
@@ -3855,7 +3855,7 @@ private theorem sample_1_10_upper : discrepancy (1 / 10) sample_1_10 ≤ (227 / 
   norm_num [logCertificate_11, logCertificate_110] at h
   linarith
 
-private def sample_2_9 : Triple := ⟨2, 9, 11, by decide, by decide, by decide, by decide⟩
+private def sample_2_9 : Triple := ⟨2, 9, 11, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_9_interval :
     (logCertificate_11.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_66.upper ≤
       discrepancy (1 / 10) sample_2_9 ∧
@@ -3876,7 +3876,7 @@ private theorem sample_2_9_upper : discrepancy (1 / 10) sample_2_9 ≤ (227 / 10
   norm_num [logCertificate_11, logCertificate_66] at h
   linarith
 
-private def sample_3_8 : Triple := ⟨3, 8, 11, by decide, by decide, by decide, by decide⟩
+private def sample_3_8 : Triple := ⟨3, 8, 11, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_8_interval :
     (logCertificate_11.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_66.upper ≤
       discrepancy (1 / 10) sample_3_8 ∧
@@ -3897,7 +3897,7 @@ private theorem sample_3_8_upper : discrepancy (1 / 10) sample_3_8 ≤ (227 / 10
   norm_num [logCertificate_11, logCertificate_66] at h
   linarith
 
-private def sample_4_7 : Triple := ⟨4, 7, 11, by decide, by decide, by decide, by decide⟩
+private def sample_4_7 : Triple := ⟨4, 7, 11, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_7_interval :
     (logCertificate_11.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_154.upper ≤
       discrepancy (1 / 10) sample_4_7 ∧
@@ -3918,7 +3918,7 @@ private theorem sample_4_7_upper : discrepancy (1 / 10) sample_4_7 ≤ (227 / 10
   norm_num [logCertificate_11, logCertificate_154] at h
   linarith
 
-private def sample_5_6 : Triple := ⟨5, 6, 11, by decide, by decide, by decide, by decide⟩
+private def sample_5_6 : Triple := ⟨5, 6, 11, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_6_interval :
     (logCertificate_11.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_5_6 ∧
@@ -3939,7 +3939,7 @@ private theorem sample_5_6_upper : discrepancy (1 / 10) sample_5_6 ≤ (227 / 10
   norm_num [logCertificate_11, logCertificate_330] at h
   linarith
 
-private def sample_1_11 : Triple := ⟨1, 11, 12, by decide, by decide, by decide, by decide⟩
+private def sample_1_11 : Triple := ⟨1, 11, 12, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_11_interval :
     (logCertificate_12.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_66.upper ≤
       discrepancy (1 / 10) sample_1_11 ∧
@@ -3960,7 +3960,7 @@ private theorem sample_1_11_upper : discrepancy (1 / 10) sample_1_11 ≤ (227 / 
   norm_num [logCertificate_12, logCertificate_66] at h
   linarith
 
-private def sample_5_7 : Triple := ⟨5, 7, 12, by decide, by decide, by decide, by decide⟩
+private def sample_5_7 : Triple := ⟨5, 7, 12, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_7_interval :
     (logCertificate_12.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_5_7 ∧
@@ -3981,7 +3981,7 @@ private theorem sample_5_7_upper : discrepancy (1 / 10) sample_5_7 ≤ (227 / 10
   norm_num [logCertificate_12, logCertificate_210] at h
   linarith
 
-private def sample_1_12 : Triple := ⟨1, 12, 13, by decide, by decide, by decide, by decide⟩
+private def sample_1_12 : Triple := ⟨1, 12, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_12_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_78.upper ≤
       discrepancy (1 / 10) sample_1_12 ∧
@@ -4002,7 +4002,7 @@ private theorem sample_1_12_upper : discrepancy (1 / 10) sample_1_12 ≤ (227 / 
   norm_num [logCertificate_13, logCertificate_78] at h
   linarith
 
-private def sample_2_11 : Triple := ⟨2, 11, 13, by decide, by decide, by decide, by decide⟩
+private def sample_2_11 : Triple := ⟨2, 11, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_11_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_286.upper ≤
       discrepancy (1 / 10) sample_2_11 ∧
@@ -4023,7 +4023,7 @@ private theorem sample_2_11_upper : discrepancy (1 / 10) sample_2_11 ≤ (227 / 
   norm_num [logCertificate_13, logCertificate_286] at h
   linarith
 
-private def sample_3_10 : Triple := ⟨3, 10, 13, by decide, by decide, by decide, by decide⟩
+private def sample_3_10 : Triple := ⟨3, 10, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_10_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_3_10 ∧
@@ -4044,7 +4044,7 @@ private theorem sample_3_10_upper : discrepancy (1 / 10) sample_3_10 ≤ (227 / 
   norm_num [logCertificate_13, logCertificate_390] at h
   linarith
 
-private def sample_4_9 : Triple := ⟨4, 9, 13, by decide, by decide, by decide, by decide⟩
+private def sample_4_9 : Triple := ⟨4, 9, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_9_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_78.upper ≤
       discrepancy (1 / 10) sample_4_9 ∧
@@ -4065,7 +4065,7 @@ private theorem sample_4_9_upper : discrepancy (1 / 10) sample_4_9 ≤ (227 / 10
   norm_num [logCertificate_13, logCertificate_78] at h
   linarith
 
-private def sample_5_8 : Triple := ⟨5, 8, 13, by decide, by decide, by decide, by decide⟩
+private def sample_5_8 : Triple := ⟨5, 8, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_8_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_130.upper ≤
       discrepancy (1 / 10) sample_5_8 ∧
@@ -4086,7 +4086,7 @@ private theorem sample_5_8_upper : discrepancy (1 / 10) sample_5_8 ≤ (227 / 10
   norm_num [logCertificate_13, logCertificate_130] at h
   linarith
 
-private def sample_6_7 : Triple := ⟨6, 7, 13, by decide, by decide, by decide, by decide⟩
+private def sample_6_7 : Triple := ⟨6, 7, 13, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_7_interval :
     (logCertificate_13.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_6_7 ∧
@@ -4107,7 +4107,7 @@ private theorem sample_6_7_upper : discrepancy (1 / 10) sample_6_7 ≤ (227 / 10
   norm_num [logCertificate_13, logCertificate_546] at h
   linarith
 
-private def sample_1_13 : Triple := ⟨1, 13, 14, by decide, by decide, by decide, by decide⟩
+private def sample_1_13 : Triple := ⟨1, 13, 14, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_13_interval :
     (logCertificate_14.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_182.upper ≤
       discrepancy (1 / 10) sample_1_13 ∧
@@ -4128,7 +4128,7 @@ private theorem sample_1_13_upper : discrepancy (1 / 10) sample_1_13 ≤ (227 / 
   norm_num [logCertificate_14, logCertificate_182] at h
   linarith
 
-private def sample_3_11 : Triple := ⟨3, 11, 14, by decide, by decide, by decide, by decide⟩
+private def sample_3_11 : Triple := ⟨3, 11, 14, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_11_interval :
     (logCertificate_14.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_3_11 ∧
@@ -4149,7 +4149,7 @@ private theorem sample_3_11_upper : discrepancy (1 / 10) sample_3_11 ≤ (227 / 
   norm_num [logCertificate_14, logCertificate_462] at h
   linarith
 
-private def sample_5_9 : Triple := ⟨5, 9, 14, by decide, by decide, by decide, by decide⟩
+private def sample_5_9 : Triple := ⟨5, 9, 14, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_9_interval :
     (logCertificate_14.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_5_9 ∧
@@ -4170,7 +4170,7 @@ private theorem sample_5_9_upper : discrepancy (1 / 10) sample_5_9 ≤ (227 / 10
   norm_num [logCertificate_14, logCertificate_210] at h
   linarith
 
-private def sample_1_14 : Triple := ⟨1, 14, 15, by decide, by decide, by decide, by decide⟩
+private def sample_1_14 : Triple := ⟨1, 14, 15, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_14_interval :
     (logCertificate_15.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_1_14 ∧
@@ -4191,7 +4191,7 @@ private theorem sample_1_14_upper : discrepancy (1 / 10) sample_1_14 ≤ (227 / 
   norm_num [logCertificate_15, logCertificate_210] at h
   linarith
 
-private def sample_2_13 : Triple := ⟨2, 13, 15, by decide, by decide, by decide, by decide⟩
+private def sample_2_13 : Triple := ⟨2, 13, 15, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_13_interval :
     (logCertificate_15.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_2_13 ∧
@@ -4212,7 +4212,7 @@ private theorem sample_2_13_upper : discrepancy (1 / 10) sample_2_13 ≤ (227 / 
   norm_num [logCertificate_15, logCertificate_390] at h
   linarith
 
-private def sample_4_11 : Triple := ⟨4, 11, 15, by decide, by decide, by decide, by decide⟩
+private def sample_4_11 : Triple := ⟨4, 11, 15, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_11_interval :
     (logCertificate_15.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_4_11 ∧
@@ -4233,7 +4233,7 @@ private theorem sample_4_11_upper : discrepancy (1 / 10) sample_4_11 ≤ (227 / 
   norm_num [logCertificate_15, logCertificate_330] at h
   linarith
 
-private def sample_7_8 : Triple := ⟨7, 8, 15, by decide, by decide, by decide, by decide⟩
+private def sample_7_8 : Triple := ⟨7, 8, 15, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_8_interval :
     (logCertificate_15.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_7_8 ∧
@@ -4254,7 +4254,7 @@ private theorem sample_7_8_upper : discrepancy (1 / 10) sample_7_8 ≤ (227 / 10
   norm_num [logCertificate_15, logCertificate_210] at h
   linarith
 
-private def sample_1_15 : Triple := ⟨1, 15, 16, by decide, by decide, by decide, by decide⟩
+private def sample_1_15 : Triple := ⟨1, 15, 16, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_15_interval :
     (logCertificate_16.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_1_15 ∧
@@ -4275,7 +4275,7 @@ private theorem sample_1_15_upper : discrepancy (1 / 10) sample_1_15 ≤ (227 / 
   norm_num [logCertificate_16, logCertificate_30] at h
   linarith
 
-private def sample_3_13 : Triple := ⟨3, 13, 16, by decide, by decide, by decide, by decide⟩
+private def sample_3_13 : Triple := ⟨3, 13, 16, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_13_interval :
     (logCertificate_16.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_78.upper ≤
       discrepancy (1 / 10) sample_3_13 ∧
@@ -4296,7 +4296,7 @@ private theorem sample_3_13_upper : discrepancy (1 / 10) sample_3_13 ≤ (227 / 
   norm_num [logCertificate_16, logCertificate_78] at h
   linarith
 
-private def sample_5_11 : Triple := ⟨5, 11, 16, by decide, by decide, by decide, by decide⟩
+private def sample_5_11 : Triple := ⟨5, 11, 16, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_11_interval :
     (logCertificate_16.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_110.upper ≤
       discrepancy (1 / 10) sample_5_11 ∧
@@ -4317,7 +4317,7 @@ private theorem sample_5_11_upper : discrepancy (1 / 10) sample_5_11 ≤ (227 / 
   norm_num [logCertificate_16, logCertificate_110] at h
   linarith
 
-private def sample_7_9 : Triple := ⟨7, 9, 16, by decide, by decide, by decide, by decide⟩
+private def sample_7_9 : Triple := ⟨7, 9, 16, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_9_interval :
     (logCertificate_16.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_7_9 ∧
@@ -4338,7 +4338,7 @@ private theorem sample_7_9_upper : discrepancy (1 / 10) sample_7_9 ≤ (227 / 10
   norm_num [logCertificate_16, logCertificate_42] at h
   linarith
 
-private def sample_1_16 : Triple := ⟨1, 16, 17, by decide, by decide, by decide, by decide⟩
+private def sample_1_16 : Triple := ⟨1, 16, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_16_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_34.upper ≤
       discrepancy (1 / 10) sample_1_16 ∧
@@ -4359,7 +4359,7 @@ private theorem sample_1_16_upper : discrepancy (1 / 10) sample_1_16 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_34] at h
   linarith
 
-private def sample_2_15 : Triple := ⟨2, 15, 17, by decide, by decide, by decide, by decide⟩
+private def sample_2_15 : Triple := ⟨2, 15, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_15_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_2_15 ∧
@@ -4380,7 +4380,7 @@ private theorem sample_2_15_upper : discrepancy (1 / 10) sample_2_15 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_510] at h
   linarith
 
-private def sample_3_14 : Triple := ⟨3, 14, 17, by decide, by decide, by decide, by decide⟩
+private def sample_3_14 : Triple := ⟨3, 14, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_14_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_714.upper ≤
       discrepancy (1 / 10) sample_3_14 ∧
@@ -4401,7 +4401,7 @@ private theorem sample_3_14_upper : discrepancy (1 / 10) sample_3_14 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_714] at h
   linarith
 
-private def sample_4_13 : Triple := ⟨4, 13, 17, by decide, by decide, by decide, by decide⟩
+private def sample_4_13 : Triple := ⟨4, 13, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_13_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_442.upper ≤
       discrepancy (1 / 10) sample_4_13 ∧
@@ -4422,7 +4422,7 @@ private theorem sample_4_13_upper : discrepancy (1 / 10) sample_4_13 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_442] at h
   linarith
 
-private def sample_5_12 : Triple := ⟨5, 12, 17, by decide, by decide, by decide, by decide⟩
+private def sample_5_12 : Triple := ⟨5, 12, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_12_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_5_12 ∧
@@ -4443,7 +4443,7 @@ private theorem sample_5_12_upper : discrepancy (1 / 10) sample_5_12 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_510] at h
   linarith
 
-private def sample_6_11 : Triple := ⟨6, 11, 17, by decide, by decide, by decide, by decide⟩
+private def sample_6_11 : Triple := ⟨6, 11, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_11_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1122.upper ≤
       discrepancy (1 / 10) sample_6_11 ∧
@@ -4464,7 +4464,7 @@ private theorem sample_6_11_upper : discrepancy (1 / 10) sample_6_11 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_1122] at h
   linarith
 
-private def sample_7_10 : Triple := ⟨7, 10, 17, by decide, by decide, by decide, by decide⟩
+private def sample_7_10 : Triple := ⟨7, 10, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_10_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1190.upper ≤
       discrepancy (1 / 10) sample_7_10 ∧
@@ -4485,7 +4485,7 @@ private theorem sample_7_10_upper : discrepancy (1 / 10) sample_7_10 ≤ (227 / 
   norm_num [logCertificate_17, logCertificate_1190] at h
   linarith
 
-private def sample_8_9 : Triple := ⟨8, 9, 17, by decide, by decide, by decide, by decide⟩
+private def sample_8_9 : Triple := ⟨8, 9, 17, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_9_interval :
     (logCertificate_17.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_102.upper ≤
       discrepancy (1 / 10) sample_8_9 ∧
@@ -4506,7 +4506,7 @@ private theorem sample_8_9_upper : discrepancy (1 / 10) sample_8_9 ≤ (227 / 10
   norm_num [logCertificate_17, logCertificate_102] at h
   linarith
 
-private def sample_1_17 : Triple := ⟨1, 17, 18, by decide, by decide, by decide, by decide⟩
+private def sample_1_17 : Triple := ⟨1, 17, 18, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_17_interval :
     (logCertificate_18.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_102.upper ≤
       discrepancy (1 / 10) sample_1_17 ∧
@@ -4527,7 +4527,7 @@ private theorem sample_1_17_upper : discrepancy (1 / 10) sample_1_17 ≤ (227 / 
   norm_num [logCertificate_18, logCertificate_102] at h
   linarith
 
-private def sample_5_13 : Triple := ⟨5, 13, 18, by decide, by decide, by decide, by decide⟩
+private def sample_5_13 : Triple := ⟨5, 13, 18, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_13_interval :
     (logCertificate_18.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_5_13 ∧
@@ -4548,7 +4548,7 @@ private theorem sample_5_13_upper : discrepancy (1 / 10) sample_5_13 ≤ (227 / 
   norm_num [logCertificate_18, logCertificate_390] at h
   linarith
 
-private def sample_7_11 : Triple := ⟨7, 11, 18, by decide, by decide, by decide, by decide⟩
+private def sample_7_11 : Triple := ⟨7, 11, 18, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_11_interval :
     (logCertificate_18.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_7_11 ∧
@@ -4569,7 +4569,7 @@ private theorem sample_7_11_upper : discrepancy (1 / 10) sample_7_11 ≤ (227 / 
   norm_num [logCertificate_18, logCertificate_462] at h
   linarith
 
-private def sample_1_18 : Triple := ⟨1, 18, 19, by decide, by decide, by decide, by decide⟩
+private def sample_1_18 : Triple := ⟨1, 18, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_18_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_114.upper ≤
       discrepancy (1 / 10) sample_1_18 ∧
@@ -4590,7 +4590,7 @@ private theorem sample_1_18_upper : discrepancy (1 / 10) sample_1_18 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_114] at h
   linarith
 
-private def sample_2_17 : Triple := ⟨2, 17, 19, by decide, by decide, by decide, by decide⟩
+private def sample_2_17 : Triple := ⟨2, 17, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_17_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_646.upper ≤
       discrepancy (1 / 10) sample_2_17 ∧
@@ -4611,7 +4611,7 @@ private theorem sample_2_17_upper : discrepancy (1 / 10) sample_2_17 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_646] at h
   linarith
 
-private def sample_3_16 : Triple := ⟨3, 16, 19, by decide, by decide, by decide, by decide⟩
+private def sample_3_16 : Triple := ⟨3, 16, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_16_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_114.upper ≤
       discrepancy (1 / 10) sample_3_16 ∧
@@ -4632,7 +4632,7 @@ private theorem sample_3_16_upper : discrepancy (1 / 10) sample_3_16 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_114] at h
   linarith
 
-private def sample_4_15 : Triple := ⟨4, 15, 19, by decide, by decide, by decide, by decide⟩
+private def sample_4_15 : Triple := ⟨4, 15, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_15_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_4_15 ∧
@@ -4653,7 +4653,7 @@ private theorem sample_4_15_upper : discrepancy (1 / 10) sample_4_15 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_570] at h
   linarith
 
-private def sample_5_14 : Triple := ⟨5, 14, 19, by decide, by decide, by decide, by decide⟩
+private def sample_5_14 : Triple := ⟨5, 14, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_14_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1330.upper ≤
       discrepancy (1 / 10) sample_5_14 ∧
@@ -4674,7 +4674,7 @@ private theorem sample_5_14_upper : discrepancy (1 / 10) sample_5_14 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_1330] at h
   linarith
 
-private def sample_6_13 : Triple := ⟨6, 13, 19, by decide, by decide, by decide, by decide⟩
+private def sample_6_13 : Triple := ⟨6, 13, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_13_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1482.upper ≤
       discrepancy (1 / 10) sample_6_13 ∧
@@ -4695,7 +4695,7 @@ private theorem sample_6_13_upper : discrepancy (1 / 10) sample_6_13 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_1482] at h
   linarith
 
-private def sample_7_12 : Triple := ⟨7, 12, 19, by decide, by decide, by decide, by decide⟩
+private def sample_7_12 : Triple := ⟨7, 12, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_12_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_7_12 ∧
@@ -4716,7 +4716,7 @@ private theorem sample_7_12_upper : discrepancy (1 / 10) sample_7_12 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_798] at h
   linarith
 
-private def sample_8_11 : Triple := ⟨8, 11, 19, by decide, by decide, by decide, by decide⟩
+private def sample_8_11 : Triple := ⟨8, 11, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_11_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_418.upper ≤
       discrepancy (1 / 10) sample_8_11 ∧
@@ -4737,7 +4737,7 @@ private theorem sample_8_11_upper : discrepancy (1 / 10) sample_8_11 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_418] at h
   linarith
 
-private def sample_9_10 : Triple := ⟨9, 10, 19, by decide, by decide, by decide, by decide⟩
+private def sample_9_10 : Triple := ⟨9, 10, 19, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_10_interval :
     (logCertificate_19.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_9_10 ∧
@@ -4758,7 +4758,7 @@ private theorem sample_9_10_upper : discrepancy (1 / 10) sample_9_10 ≤ (227 / 
   norm_num [logCertificate_19, logCertificate_570] at h
   linarith
 
-private def sample_1_19 : Triple := ⟨1, 19, 20, by decide, by decide, by decide, by decide⟩
+private def sample_1_19 : Triple := ⟨1, 19, 20, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_19_interval :
     (logCertificate_20.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_190.upper ≤
       discrepancy (1 / 10) sample_1_19 ∧
@@ -4779,7 +4779,7 @@ private theorem sample_1_19_upper : discrepancy (1 / 10) sample_1_19 ≤ (227 / 
   norm_num [logCertificate_20, logCertificate_190] at h
   linarith
 
-private def sample_3_17 : Triple := ⟨3, 17, 20, by decide, by decide, by decide, by decide⟩
+private def sample_3_17 : Triple := ⟨3, 17, 20, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_17_interval :
     (logCertificate_20.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_3_17 ∧
@@ -4800,7 +4800,7 @@ private theorem sample_3_17_upper : discrepancy (1 / 10) sample_3_17 ≤ (227 / 
   norm_num [logCertificate_20, logCertificate_510] at h
   linarith
 
-private def sample_7_13 : Triple := ⟨7, 13, 20, by decide, by decide, by decide, by decide⟩
+private def sample_7_13 : Triple := ⟨7, 13, 20, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_13_interval :
     (logCertificate_20.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_910.upper ≤
       discrepancy (1 / 10) sample_7_13 ∧
@@ -4821,7 +4821,7 @@ private theorem sample_7_13_upper : discrepancy (1 / 10) sample_7_13 ≤ (227 / 
   norm_num [logCertificate_20, logCertificate_910] at h
   linarith
 
-private def sample_9_11 : Triple := ⟨9, 11, 20, by decide, by decide, by decide, by decide⟩
+private def sample_9_11 : Triple := ⟨9, 11, 20, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_11_interval :
     (logCertificate_20.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_9_11 ∧
@@ -4842,7 +4842,7 @@ private theorem sample_9_11_upper : discrepancy (1 / 10) sample_9_11 ≤ (227 / 
   norm_num [logCertificate_20, logCertificate_330] at h
   linarith
 
-private def sample_1_20 : Triple := ⟨1, 20, 21, by decide, by decide, by decide, by decide⟩
+private def sample_1_20 : Triple := ⟨1, 20, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_20_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_1_20 ∧
@@ -4863,7 +4863,7 @@ private theorem sample_1_20_upper : discrepancy (1 / 10) sample_1_20 ≤ (227 / 
   norm_num [logCertificate_21, logCertificate_210] at h
   linarith
 
-private def sample_2_19 : Triple := ⟨2, 19, 21, by decide, by decide, by decide, by decide⟩
+private def sample_2_19 : Triple := ⟨2, 19, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_19_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_2_19 ∧
@@ -4884,7 +4884,7 @@ private theorem sample_2_19_upper : discrepancy (1 / 10) sample_2_19 ≤ (227 / 
   norm_num [logCertificate_21, logCertificate_798] at h
   linarith
 
-private def sample_4_17 : Triple := ⟨4, 17, 21, by decide, by decide, by decide, by decide⟩
+private def sample_4_17 : Triple := ⟨4, 17, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_17_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_714.upper ≤
       discrepancy (1 / 10) sample_4_17 ∧
@@ -4905,7 +4905,7 @@ private theorem sample_4_17_upper : discrepancy (1 / 10) sample_4_17 ≤ (227 / 
   norm_num [logCertificate_21, logCertificate_714] at h
   linarith
 
-private def sample_5_16 : Triple := ⟨5, 16, 21, by decide, by decide, by decide, by decide⟩
+private def sample_5_16 : Triple := ⟨5, 16, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_16_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_5_16 ∧
@@ -4926,7 +4926,7 @@ private theorem sample_5_16_upper : discrepancy (1 / 10) sample_5_16 ≤ (227 / 
   norm_num [logCertificate_21, logCertificate_210] at h
   linarith
 
-private def sample_8_13 : Triple := ⟨8, 13, 21, by decide, by decide, by decide, by decide⟩
+private def sample_8_13 : Triple := ⟨8, 13, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_13_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_8_13 ∧
@@ -4947,7 +4947,7 @@ private theorem sample_8_13_upper : discrepancy (1 / 10) sample_8_13 ≤ (227 / 
   norm_num [logCertificate_21, logCertificate_546] at h
   linarith
 
-private def sample_10_11 : Triple := ⟨10, 11, 21, by decide, by decide, by decide, by decide⟩
+private def sample_10_11 : Triple := ⟨10, 11, 21, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_11_interval :
     (logCertificate_21.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_10_11 ∧
@@ -4968,7 +4968,7 @@ private theorem sample_10_11_upper : discrepancy (1 / 10) sample_10_11 ≤ (227 
   norm_num [logCertificate_21, logCertificate_2310] at h
   linarith
 
-private def sample_1_21 : Triple := ⟨1, 21, 22, by decide, by decide, by decide, by decide⟩
+private def sample_1_21 : Triple := ⟨1, 21, 22, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_21_interval :
     (logCertificate_22.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_1_21 ∧
@@ -4989,7 +4989,7 @@ private theorem sample_1_21_upper : discrepancy (1 / 10) sample_1_21 ≤ (227 / 
   norm_num [logCertificate_22, logCertificate_462] at h
   linarith
 
-private def sample_3_19 : Triple := ⟨3, 19, 22, by decide, by decide, by decide, by decide⟩
+private def sample_3_19 : Triple := ⟨3, 19, 22, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_19_interval :
     (logCertificate_22.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1254.upper ≤
       discrepancy (1 / 10) sample_3_19 ∧
@@ -5010,7 +5010,7 @@ private theorem sample_3_19_upper : discrepancy (1 / 10) sample_3_19 ≤ (227 / 
   norm_num [logCertificate_22, logCertificate_1254] at h
   linarith
 
-private def sample_5_17 : Triple := ⟨5, 17, 22, by decide, by decide, by decide, by decide⟩
+private def sample_5_17 : Triple := ⟨5, 17, 22, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_17_interval :
     (logCertificate_22.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1870.upper ≤
       discrepancy (1 / 10) sample_5_17 ∧
@@ -5031,7 +5031,7 @@ private theorem sample_5_17_upper : discrepancy (1 / 10) sample_5_17 ≤ (227 / 
   norm_num [logCertificate_22, logCertificate_1870] at h
   linarith
 
-private def sample_7_15 : Triple := ⟨7, 15, 22, by decide, by decide, by decide, by decide⟩
+private def sample_7_15 : Triple := ⟨7, 15, 22, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_15_interval :
     (logCertificate_22.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_7_15 ∧
@@ -5052,7 +5052,7 @@ private theorem sample_7_15_upper : discrepancy (1 / 10) sample_7_15 ≤ (227 / 
   norm_num [logCertificate_22, logCertificate_2310] at h
   linarith
 
-private def sample_9_13 : Triple := ⟨9, 13, 22, by decide, by decide, by decide, by decide⟩
+private def sample_9_13 : Triple := ⟨9, 13, 22, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_13_interval :
     (logCertificate_22.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_858.upper ≤
       discrepancy (1 / 10) sample_9_13 ∧
@@ -5073,7 +5073,7 @@ private theorem sample_9_13_upper : discrepancy (1 / 10) sample_9_13 ≤ (227 / 
   norm_num [logCertificate_22, logCertificate_858] at h
   linarith
 
-private def sample_1_22 : Triple := ⟨1, 22, 23, by decide, by decide, by decide, by decide⟩
+private def sample_1_22 : Triple := ⟨1, 22, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_22_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_506.upper ≤
       discrepancy (1 / 10) sample_1_22 ∧
@@ -5094,7 +5094,7 @@ private theorem sample_1_22_upper : discrepancy (1 / 10) sample_1_22 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_506] at h
   linarith
 
-private def sample_2_21 : Triple := ⟨2, 21, 23, by decide, by decide, by decide, by decide⟩
+private def sample_2_21 : Triple := ⟨2, 21, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_21_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_966.upper ≤
       discrepancy (1 / 10) sample_2_21 ∧
@@ -5115,7 +5115,7 @@ private theorem sample_2_21_upper : discrepancy (1 / 10) sample_2_21 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_966] at h
   linarith
 
-private def sample_3_20 : Triple := ⟨3, 20, 23, by decide, by decide, by decide, by decide⟩
+private def sample_3_20 : Triple := ⟨3, 20, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_20_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_3_20 ∧
@@ -5136,7 +5136,7 @@ private theorem sample_3_20_upper : discrepancy (1 / 10) sample_3_20 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_690] at h
   linarith
 
-private def sample_4_19 : Triple := ⟨4, 19, 23, by decide, by decide, by decide, by decide⟩
+private def sample_4_19 : Triple := ⟨4, 19, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_19_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_874.upper ≤
       discrepancy (1 / 10) sample_4_19 ∧
@@ -5157,7 +5157,7 @@ private theorem sample_4_19_upper : discrepancy (1 / 10) sample_4_19 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_874] at h
   linarith
 
-private def sample_5_18 : Triple := ⟨5, 18, 23, by decide, by decide, by decide, by decide⟩
+private def sample_5_18 : Triple := ⟨5, 18, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_18_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_5_18 ∧
@@ -5178,7 +5178,7 @@ private theorem sample_5_18_upper : discrepancy (1 / 10) sample_5_18 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_690] at h
   linarith
 
-private def sample_6_17 : Triple := ⟨6, 17, 23, by decide, by decide, by decide, by decide⟩
+private def sample_6_17 : Triple := ⟨6, 17, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_17_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2346.upper ≤
       discrepancy (1 / 10) sample_6_17 ∧
@@ -5199,7 +5199,7 @@ private theorem sample_6_17_upper : discrepancy (1 / 10) sample_6_17 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_2346] at h
   linarith
 
-private def sample_7_16 : Triple := ⟨7, 16, 23, by decide, by decide, by decide, by decide⟩
+private def sample_7_16 : Triple := ⟨7, 16, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_16_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_322.upper ≤
       discrepancy (1 / 10) sample_7_16 ∧
@@ -5220,7 +5220,7 @@ private theorem sample_7_16_upper : discrepancy (1 / 10) sample_7_16 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_322] at h
   linarith
 
-private def sample_8_15 : Triple := ⟨8, 15, 23, by decide, by decide, by decide, by decide⟩
+private def sample_8_15 : Triple := ⟨8, 15, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_15_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_8_15 ∧
@@ -5241,7 +5241,7 @@ private theorem sample_8_15_upper : discrepancy (1 / 10) sample_8_15 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_690] at h
   linarith
 
-private def sample_9_14 : Triple := ⟨9, 14, 23, by decide, by decide, by decide, by decide⟩
+private def sample_9_14 : Triple := ⟨9, 14, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_14_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_966.upper ≤
       discrepancy (1 / 10) sample_9_14 ∧
@@ -5262,7 +5262,7 @@ private theorem sample_9_14_upper : discrepancy (1 / 10) sample_9_14 ≤ (227 / 
   norm_num [logCertificate_23, logCertificate_966] at h
   linarith
 
-private def sample_10_13 : Triple := ⟨10, 13, 23, by decide, by decide, by decide, by decide⟩
+private def sample_10_13 : Triple := ⟨10, 13, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_13_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2990.upper ≤
       discrepancy (1 / 10) sample_10_13 ∧
@@ -5283,7 +5283,7 @@ private theorem sample_10_13_upper : discrepancy (1 / 10) sample_10_13 ≤ (227 
   norm_num [logCertificate_23, logCertificate_2990] at h
   linarith
 
-private def sample_11_12 : Triple := ⟨11, 12, 23, by decide, by decide, by decide, by decide⟩
+private def sample_11_12 : Triple := ⟨11, 12, 23, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_12_interval :
     (logCertificate_23.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1518.upper ≤
       discrepancy (1 / 10) sample_11_12 ∧
@@ -5304,7 +5304,7 @@ private theorem sample_11_12_upper : discrepancy (1 / 10) sample_11_12 ≤ (227 
   norm_num [logCertificate_23, logCertificate_1518] at h
   linarith
 
-private def sample_1_23 : Triple := ⟨1, 23, 24, by decide, by decide, by decide, by decide⟩
+private def sample_1_23 : Triple := ⟨1, 23, 24, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_23_interval :
     (logCertificate_24.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_138.upper ≤
       discrepancy (1 / 10) sample_1_23 ∧
@@ -5325,7 +5325,7 @@ private theorem sample_1_23_upper : discrepancy (1 / 10) sample_1_23 ≤ (227 / 
   norm_num [logCertificate_24, logCertificate_138] at h
   linarith
 
-private def sample_5_19 : Triple := ⟨5, 19, 24, by decide, by decide, by decide, by decide⟩
+private def sample_5_19 : Triple := ⟨5, 19, 24, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_19_interval :
     (logCertificate_24.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_5_19 ∧
@@ -5346,7 +5346,7 @@ private theorem sample_5_19_upper : discrepancy (1 / 10) sample_5_19 ≤ (227 / 
   norm_num [logCertificate_24, logCertificate_570] at h
   linarith
 
-private def sample_7_17 : Triple := ⟨7, 17, 24, by decide, by decide, by decide, by decide⟩
+private def sample_7_17 : Triple := ⟨7, 17, 24, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_17_interval :
     (logCertificate_24.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_714.upper ≤
       discrepancy (1 / 10) sample_7_17 ∧
@@ -5367,7 +5367,7 @@ private theorem sample_7_17_upper : discrepancy (1 / 10) sample_7_17 ≤ (227 / 
   norm_num [logCertificate_24, logCertificate_714] at h
   linarith
 
-private def sample_11_13 : Triple := ⟨11, 13, 24, by decide, by decide, by decide, by decide⟩
+private def sample_11_13 : Triple := ⟨11, 13, 24, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_13_interval :
     (logCertificate_24.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_858.upper ≤
       discrepancy (1 / 10) sample_11_13 ∧
@@ -5388,7 +5388,7 @@ private theorem sample_11_13_upper : discrepancy (1 / 10) sample_11_13 ≤ (227 
   norm_num [logCertificate_24, logCertificate_858] at h
   linarith
 
-private def sample_1_24 : Triple := ⟨1, 24, 25, by decide, by decide, by decide, by decide⟩
+private def sample_1_24 : Triple := ⟨1, 24, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_24_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_1_24 ∧
@@ -5409,7 +5409,7 @@ private theorem sample_1_24_upper : discrepancy (1 / 10) sample_1_24 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_30] at h
   linarith
 
-private def sample_2_23 : Triple := ⟨2, 23, 25, by decide, by decide, by decide, by decide⟩
+private def sample_2_23 : Triple := ⟨2, 23, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_23_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_230.upper ≤
       discrepancy (1 / 10) sample_2_23 ∧
@@ -5430,7 +5430,7 @@ private theorem sample_2_23_upper : discrepancy (1 / 10) sample_2_23 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_230] at h
   linarith
 
-private def sample_3_22 : Triple := ⟨3, 22, 25, by decide, by decide, by decide, by decide⟩
+private def sample_3_22 : Triple := ⟨3, 22, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_22_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_3_22 ∧
@@ -5451,7 +5451,7 @@ private theorem sample_3_22_upper : discrepancy (1 / 10) sample_3_22 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_330] at h
   linarith
 
-private def sample_4_21 : Triple := ⟨4, 21, 25, by decide, by decide, by decide, by decide⟩
+private def sample_4_21 : Triple := ⟨4, 21, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_21_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_4_21 ∧
@@ -5472,7 +5472,7 @@ private theorem sample_4_21_upper : discrepancy (1 / 10) sample_4_21 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_210] at h
   linarith
 
-private def sample_6_19 : Triple := ⟨6, 19, 25, by decide, by decide, by decide, by decide⟩
+private def sample_6_19 : Triple := ⟨6, 19, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_19_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_6_19 ∧
@@ -5493,7 +5493,7 @@ private theorem sample_6_19_upper : discrepancy (1 / 10) sample_6_19 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_570] at h
   linarith
 
-private def sample_7_18 : Triple := ⟨7, 18, 25, by decide, by decide, by decide, by decide⟩
+private def sample_7_18 : Triple := ⟨7, 18, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_18_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_7_18 ∧
@@ -5514,7 +5514,7 @@ private theorem sample_7_18_upper : discrepancy (1 / 10) sample_7_18 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_210] at h
   linarith
 
-private def sample_8_17 : Triple := ⟨8, 17, 25, by decide, by decide, by decide, by decide⟩
+private def sample_8_17 : Triple := ⟨8, 17, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_17_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_170.upper ≤
       discrepancy (1 / 10) sample_8_17 ∧
@@ -5535,7 +5535,7 @@ private theorem sample_8_17_upper : discrepancy (1 / 10) sample_8_17 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_170] at h
   linarith
 
-private def sample_9_16 : Triple := ⟨9, 16, 25, by decide, by decide, by decide, by decide⟩
+private def sample_9_16 : Triple := ⟨9, 16, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_16_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_9_16 ∧
@@ -5556,7 +5556,7 @@ private theorem sample_9_16_upper : discrepancy (1 / 10) sample_9_16 ≤ (227 / 
   norm_num [logCertificate_25, logCertificate_30] at h
   linarith
 
-private def sample_11_14 : Triple := ⟨11, 14, 25, by decide, by decide, by decide, by decide⟩
+private def sample_11_14 : Triple := ⟨11, 14, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_14_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_770.upper ≤
       discrepancy (1 / 10) sample_11_14 ∧
@@ -5577,7 +5577,7 @@ private theorem sample_11_14_upper : discrepancy (1 / 10) sample_11_14 ≤ (227 
   norm_num [logCertificate_25, logCertificate_770] at h
   linarith
 
-private def sample_12_13 : Triple := ⟨12, 13, 25, by decide, by decide, by decide, by decide⟩
+private def sample_12_13 : Triple := ⟨12, 13, 25, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_13_interval :
     (logCertificate_25.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_12_13 ∧
@@ -5598,7 +5598,7 @@ private theorem sample_12_13_upper : discrepancy (1 / 10) sample_12_13 ≤ (227 
   norm_num [logCertificate_25, logCertificate_390] at h
   linarith
 
-private def sample_1_25 : Triple := ⟨1, 25, 26, by decide, by decide, by decide, by decide⟩
+private def sample_1_25 : Triple := ⟨1, 25, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_25_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_130.upper ≤
       discrepancy (1 / 10) sample_1_25 ∧
@@ -5619,7 +5619,7 @@ private theorem sample_1_25_upper : discrepancy (1 / 10) sample_1_25 ≤ (227 / 
   norm_num [logCertificate_26, logCertificate_130] at h
   linarith
 
-private def sample_3_23 : Triple := ⟨3, 23, 26, by decide, by decide, by decide, by decide⟩
+private def sample_3_23 : Triple := ⟨3, 23, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_23_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1794.upper ≤
       discrepancy (1 / 10) sample_3_23 ∧
@@ -5640,7 +5640,7 @@ private theorem sample_3_23_upper : discrepancy (1 / 10) sample_3_23 ≤ (227 / 
   norm_num [logCertificate_26, logCertificate_1794] at h
   linarith
 
-private def sample_5_21 : Triple := ⟨5, 21, 26, by decide, by decide, by decide, by decide⟩
+private def sample_5_21 : Triple := ⟨5, 21, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_21_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_5_21 ∧
@@ -5661,7 +5661,7 @@ private theorem sample_5_21_upper : discrepancy (1 / 10) sample_5_21 ≤ (227 / 
   norm_num [logCertificate_26, logCertificate_2730] at h
   linarith
 
-private def sample_7_19 : Triple := ⟨7, 19, 26, by decide, by decide, by decide, by decide⟩
+private def sample_7_19 : Triple := ⟨7, 19, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_19_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3458.upper ≤
       discrepancy (1 / 10) sample_7_19 ∧
@@ -5682,7 +5682,7 @@ private theorem sample_7_19_upper : discrepancy (1 / 10) sample_7_19 ≤ (227 / 
   norm_num [logCertificate_26, logCertificate_3458] at h
   linarith
 
-private def sample_9_17 : Triple := ⟨9, 17, 26, by decide, by decide, by decide, by decide⟩
+private def sample_9_17 : Triple := ⟨9, 17, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_17_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1326.upper ≤
       discrepancy (1 / 10) sample_9_17 ∧
@@ -5703,7 +5703,7 @@ private theorem sample_9_17_upper : discrepancy (1 / 10) sample_9_17 ≤ (227 / 
   norm_num [logCertificate_26, logCertificate_1326] at h
   linarith
 
-private def sample_11_15 : Triple := ⟨11, 15, 26, by decide, by decide, by decide, by decide⟩
+private def sample_11_15 : Triple := ⟨11, 15, 26, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_15_interval :
     (logCertificate_26.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_11_15 ∧
@@ -5724,7 +5724,7 @@ private theorem sample_11_15_upper : discrepancy (1 / 10) sample_11_15 ≤ (227 
   norm_num [logCertificate_26, logCertificate_4290] at h
   linarith
 
-private def sample_1_26 : Triple := ⟨1, 26, 27, by decide, by decide, by decide, by decide⟩
+private def sample_1_26 : Triple := ⟨1, 26, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_26_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_78.upper ≤
       discrepancy (1 / 10) sample_1_26 ∧
@@ -5745,7 +5745,7 @@ private theorem sample_1_26_upper : discrepancy (1 / 10) sample_1_26 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_78] at h
   linarith
 
-private def sample_2_25 : Triple := ⟨2, 25, 27, by decide, by decide, by decide, by decide⟩
+private def sample_2_25 : Triple := ⟨2, 25, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_25_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_2_25 ∧
@@ -5766,7 +5766,7 @@ private theorem sample_2_25_upper : discrepancy (1 / 10) sample_2_25 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_30] at h
   linarith
 
-private def sample_4_23 : Triple := ⟨4, 23, 27, by decide, by decide, by decide, by decide⟩
+private def sample_4_23 : Triple := ⟨4, 23, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_23_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_138.upper ≤
       discrepancy (1 / 10) sample_4_23 ∧
@@ -5787,7 +5787,7 @@ private theorem sample_4_23_upper : discrepancy (1 / 10) sample_4_23 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_138] at h
   linarith
 
-private def sample_5_22 : Triple := ⟨5, 22, 27, by decide, by decide, by decide, by decide⟩
+private def sample_5_22 : Triple := ⟨5, 22, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_22_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_5_22 ∧
@@ -5808,7 +5808,7 @@ private theorem sample_5_22_upper : discrepancy (1 / 10) sample_5_22 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_330] at h
   linarith
 
-private def sample_7_20 : Triple := ⟨7, 20, 27, by decide, by decide, by decide, by decide⟩
+private def sample_7_20 : Triple := ⟨7, 20, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_20_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_7_20 ∧
@@ -5829,7 +5829,7 @@ private theorem sample_7_20_upper : discrepancy (1 / 10) sample_7_20 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_210] at h
   linarith
 
-private def sample_8_19 : Triple := ⟨8, 19, 27, by decide, by decide, by decide, by decide⟩
+private def sample_8_19 : Triple := ⟨8, 19, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_19_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_114.upper ≤
       discrepancy (1 / 10) sample_8_19 ∧
@@ -5850,7 +5850,7 @@ private theorem sample_8_19_upper : discrepancy (1 / 10) sample_8_19 ≤ (227 / 
   norm_num [logCertificate_27, logCertificate_114] at h
   linarith
 
-private def sample_10_17 : Triple := ⟨10, 17, 27, by decide, by decide, by decide, by decide⟩
+private def sample_10_17 : Triple := ⟨10, 17, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_17_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_10_17 ∧
@@ -5871,7 +5871,7 @@ private theorem sample_10_17_upper : discrepancy (1 / 10) sample_10_17 ≤ (227 
   norm_num [logCertificate_27, logCertificate_510] at h
   linarith
 
-private def sample_11_16 : Triple := ⟨11, 16, 27, by decide, by decide, by decide, by decide⟩
+private def sample_11_16 : Triple := ⟨11, 16, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_16_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_66.upper ≤
       discrepancy (1 / 10) sample_11_16 ∧
@@ -5892,7 +5892,7 @@ private theorem sample_11_16_upper : discrepancy (1 / 10) sample_11_16 ≤ (227 
   norm_num [logCertificate_27, logCertificate_66] at h
   linarith
 
-private def sample_13_14 : Triple := ⟨13, 14, 27, by decide, by decide, by decide, by decide⟩
+private def sample_13_14 : Triple := ⟨13, 14, 27, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_14_interval :
     (logCertificate_27.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_13_14 ∧
@@ -5913,7 +5913,7 @@ private theorem sample_13_14_upper : discrepancy (1 / 10) sample_13_14 ≤ (227 
   norm_num [logCertificate_27, logCertificate_546] at h
   linarith
 
-private def sample_1_27 : Triple := ⟨1, 27, 28, by decide, by decide, by decide, by decide⟩
+private def sample_1_27 : Triple := ⟨1, 27, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_27_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_1_27 ∧
@@ -5934,7 +5934,7 @@ private theorem sample_1_27_upper : discrepancy (1 / 10) sample_1_27 ≤ (227 / 
   norm_num [logCertificate_28, logCertificate_42] at h
   linarith
 
-private def sample_3_25 : Triple := ⟨3, 25, 28, by decide, by decide, by decide, by decide⟩
+private def sample_3_25 : Triple := ⟨3, 25, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_25_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_3_25 ∧
@@ -5955,7 +5955,7 @@ private theorem sample_3_25_upper : discrepancy (1 / 10) sample_3_25 ≤ (227 / 
   norm_num [logCertificate_28, logCertificate_210] at h
   linarith
 
-private def sample_5_23 : Triple := ⟨5, 23, 28, by decide, by decide, by decide, by decide⟩
+private def sample_5_23 : Triple := ⟨5, 23, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_23_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1610.upper ≤
       discrepancy (1 / 10) sample_5_23 ∧
@@ -5976,7 +5976,7 @@ private theorem sample_5_23_upper : discrepancy (1 / 10) sample_5_23 ≤ (227 / 
   norm_num [logCertificate_28, logCertificate_1610] at h
   linarith
 
-private def sample_9_19 : Triple := ⟨9, 19, 28, by decide, by decide, by decide, by decide⟩
+private def sample_9_19 : Triple := ⟨9, 19, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_19_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_9_19 ∧
@@ -5997,7 +5997,7 @@ private theorem sample_9_19_upper : discrepancy (1 / 10) sample_9_19 ≤ (227 / 
   norm_num [logCertificate_28, logCertificate_798] at h
   linarith
 
-private def sample_11_17 : Triple := ⟨11, 17, 28, by decide, by decide, by decide, by decide⟩
+private def sample_11_17 : Triple := ⟨11, 17, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_17_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2618.upper ≤
       discrepancy (1 / 10) sample_11_17 ∧
@@ -6018,7 +6018,7 @@ private theorem sample_11_17_upper : discrepancy (1 / 10) sample_11_17 ≤ (227 
   norm_num [logCertificate_28, logCertificate_2618] at h
   linarith
 
-private def sample_13_15 : Triple := ⟨13, 15, 28, by decide, by decide, by decide, by decide⟩
+private def sample_13_15 : Triple := ⟨13, 15, 28, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_15_interval :
     (logCertificate_28.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_13_15 ∧
@@ -6039,7 +6039,7 @@ private theorem sample_13_15_upper : discrepancy (1 / 10) sample_13_15 ≤ (227 
   norm_num [logCertificate_28, logCertificate_2730] at h
   linarith
 
-private def sample_1_28 : Triple := ⟨1, 28, 29, by decide, by decide, by decide, by decide⟩
+private def sample_1_28 : Triple := ⟨1, 28, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_28_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_406.upper ≤
       discrepancy (1 / 10) sample_1_28 ∧
@@ -6060,7 +6060,7 @@ private theorem sample_1_28_upper : discrepancy (1 / 10) sample_1_28 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_406] at h
   linarith
 
-private def sample_2_27 : Triple := ⟨2, 27, 29, by decide, by decide, by decide, by decide⟩
+private def sample_2_27 : Triple := ⟨2, 27, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_27_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_174.upper ≤
       discrepancy (1 / 10) sample_2_27 ∧
@@ -6081,7 +6081,7 @@ private theorem sample_2_27_upper : discrepancy (1 / 10) sample_2_27 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_174] at h
   linarith
 
-private def sample_3_26 : Triple := ⟨3, 26, 29, by decide, by decide, by decide, by decide⟩
+private def sample_3_26 : Triple := ⟨3, 26, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_26_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2262.upper ≤
       discrepancy (1 / 10) sample_3_26 ∧
@@ -6102,7 +6102,7 @@ private theorem sample_3_26_upper : discrepancy (1 / 10) sample_3_26 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_2262] at h
   linarith
 
-private def sample_4_25 : Triple := ⟨4, 25, 29, by decide, by decide, by decide, by decide⟩
+private def sample_4_25 : Triple := ⟨4, 25, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_25_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_290.upper ≤
       discrepancy (1 / 10) sample_4_25 ∧
@@ -6123,7 +6123,7 @@ private theorem sample_4_25_upper : discrepancy (1 / 10) sample_4_25 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_290] at h
   linarith
 
-private def sample_5_24 : Triple := ⟨5, 24, 29, by decide, by decide, by decide, by decide⟩
+private def sample_5_24 : Triple := ⟨5, 24, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_24_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_870.upper ≤
       discrepancy (1 / 10) sample_5_24 ∧
@@ -6144,7 +6144,7 @@ private theorem sample_5_24_upper : discrepancy (1 / 10) sample_5_24 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_870] at h
   linarith
 
-private def sample_6_23 : Triple := ⟨6, 23, 29, by decide, by decide, by decide, by decide⟩
+private def sample_6_23 : Triple := ⟨6, 23, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_23_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4002.upper ≤
       discrepancy (1 / 10) sample_6_23 ∧
@@ -6165,7 +6165,7 @@ private theorem sample_6_23_upper : discrepancy (1 / 10) sample_6_23 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_4002] at h
   linarith
 
-private def sample_7_22 : Triple := ⟨7, 22, 29, by decide, by decide, by decide, by decide⟩
+private def sample_7_22 : Triple := ⟨7, 22, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_22_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4466.upper ≤
       discrepancy (1 / 10) sample_7_22 ∧
@@ -6186,7 +6186,7 @@ private theorem sample_7_22_upper : discrepancy (1 / 10) sample_7_22 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_4466] at h
   linarith
 
-private def sample_8_21 : Triple := ⟨8, 21, 29, by decide, by decide, by decide, by decide⟩
+private def sample_8_21 : Triple := ⟨8, 21, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_21_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1218.upper ≤
       discrepancy (1 / 10) sample_8_21 ∧
@@ -6207,7 +6207,7 @@ private theorem sample_8_21_upper : discrepancy (1 / 10) sample_8_21 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_1218] at h
   linarith
 
-private def sample_9_20 : Triple := ⟨9, 20, 29, by decide, by decide, by decide, by decide⟩
+private def sample_9_20 : Triple := ⟨9, 20, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_20_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_870.upper ≤
       discrepancy (1 / 10) sample_9_20 ∧
@@ -6228,7 +6228,7 @@ private theorem sample_9_20_upper : discrepancy (1 / 10) sample_9_20 ≤ (227 / 
   norm_num [logCertificate_29, logCertificate_870] at h
   linarith
 
-private def sample_10_19 : Triple := ⟨10, 19, 29, by decide, by decide, by decide, by decide⟩
+private def sample_10_19 : Triple := ⟨10, 19, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_19_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5510.upper ≤
       discrepancy (1 / 10) sample_10_19 ∧
@@ -6249,7 +6249,7 @@ private theorem sample_10_19_upper : discrepancy (1 / 10) sample_10_19 ≤ (227 
   norm_num [logCertificate_29, logCertificate_5510] at h
   linarith
 
-private def sample_11_18 : Triple := ⟨11, 18, 29, by decide, by decide, by decide, by decide⟩
+private def sample_11_18 : Triple := ⟨11, 18, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_18_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1914.upper ≤
       discrepancy (1 / 10) sample_11_18 ∧
@@ -6270,7 +6270,7 @@ private theorem sample_11_18_upper : discrepancy (1 / 10) sample_11_18 ≤ (227 
   norm_num [logCertificate_29, logCertificate_1914] at h
   linarith
 
-private def sample_12_17 : Triple := ⟨12, 17, 29, by decide, by decide, by decide, by decide⟩
+private def sample_12_17 : Triple := ⟨12, 17, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_17_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2958.upper ≤
       discrepancy (1 / 10) sample_12_17 ∧
@@ -6291,7 +6291,7 @@ private theorem sample_12_17_upper : discrepancy (1 / 10) sample_12_17 ≤ (227 
   norm_num [logCertificate_29, logCertificate_2958] at h
   linarith
 
-private def sample_13_16 : Triple := ⟨13, 16, 29, by decide, by decide, by decide, by decide⟩
+private def sample_13_16 : Triple := ⟨13, 16, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_16_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_754.upper ≤
       discrepancy (1 / 10) sample_13_16 ∧
@@ -6312,7 +6312,7 @@ private theorem sample_13_16_upper : discrepancy (1 / 10) sample_13_16 ≤ (227 
   norm_num [logCertificate_29, logCertificate_754] at h
   linarith
 
-private def sample_14_15 : Triple := ⟨14, 15, 29, by decide, by decide, by decide, by decide⟩
+private def sample_14_15 : Triple := ⟨14, 15, 29, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_15_interval :
     (logCertificate_29.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6090.upper ≤
       discrepancy (1 / 10) sample_14_15 ∧
@@ -6333,7 +6333,7 @@ private theorem sample_14_15_upper : discrepancy (1 / 10) sample_14_15 ≤ (227 
   norm_num [logCertificate_29, logCertificate_6090] at h
   linarith
 
-private def sample_1_29 : Triple := ⟨1, 29, 30, by decide, by decide, by decide, by decide⟩
+private def sample_1_29 : Triple := ⟨1, 29, 30, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_29_interval :
     (logCertificate_30.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_870.upper ≤
       discrepancy (1 / 10) sample_1_29 ∧
@@ -6354,7 +6354,7 @@ private theorem sample_1_29_upper : discrepancy (1 / 10) sample_1_29 ≤ (227 / 
   norm_num [logCertificate_30, logCertificate_870] at h
   linarith
 
-private def sample_7_23 : Triple := ⟨7, 23, 30, by decide, by decide, by decide, by decide⟩
+private def sample_7_23 : Triple := ⟨7, 23, 30, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_23_interval :
     (logCertificate_30.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_7_23 ∧
@@ -6375,7 +6375,7 @@ private theorem sample_7_23_upper : discrepancy (1 / 10) sample_7_23 ≤ (227 / 
   norm_num [logCertificate_30, logCertificate_4830] at h
   linarith
 
-private def sample_11_19 : Triple := ⟨11, 19, 30, by decide, by decide, by decide, by decide⟩
+private def sample_11_19 : Triple := ⟨11, 19, 30, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_19_interval :
     (logCertificate_30.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6270.upper ≤
       discrepancy (1 / 10) sample_11_19 ∧
@@ -6396,7 +6396,7 @@ private theorem sample_11_19_upper : discrepancy (1 / 10) sample_11_19 ≤ (227 
   norm_num [logCertificate_30, logCertificate_6270] at h
   linarith
 
-private def sample_13_17 : Triple := ⟨13, 17, 30, by decide, by decide, by decide, by decide⟩
+private def sample_13_17 : Triple := ⟨13, 17, 30, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_17_interval :
     (logCertificate_30.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6630.upper ≤
       discrepancy (1 / 10) sample_13_17 ∧
@@ -6417,7 +6417,7 @@ private theorem sample_13_17_upper : discrepancy (1 / 10) sample_13_17 ≤ (227 
   norm_num [logCertificate_30, logCertificate_6630] at h
   linarith
 
-private def sample_1_30 : Triple := ⟨1, 30, 31, by decide, by decide, by decide, by decide⟩
+private def sample_1_30 : Triple := ⟨1, 30, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_30_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_930.upper ≤
       discrepancy (1 / 10) sample_1_30 ∧
@@ -6438,7 +6438,7 @@ private theorem sample_1_30_upper : discrepancy (1 / 10) sample_1_30 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_930] at h
   linarith
 
-private def sample_2_29 : Triple := ⟨2, 29, 31, by decide, by decide, by decide, by decide⟩
+private def sample_2_29 : Triple := ⟨2, 29, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_29_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1798.upper ≤
       discrepancy (1 / 10) sample_2_29 ∧
@@ -6459,7 +6459,7 @@ private theorem sample_2_29_upper : discrepancy (1 / 10) sample_2_29 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_1798] at h
   linarith
 
-private def sample_3_28 : Triple := ⟨3, 28, 31, by decide, by decide, by decide, by decide⟩
+private def sample_3_28 : Triple := ⟨3, 28, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_28_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1302.upper ≤
       discrepancy (1 / 10) sample_3_28 ∧
@@ -6480,7 +6480,7 @@ private theorem sample_3_28_upper : discrepancy (1 / 10) sample_3_28 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_1302] at h
   linarith
 
-private def sample_4_27 : Triple := ⟨4, 27, 31, by decide, by decide, by decide, by decide⟩
+private def sample_4_27 : Triple := ⟨4, 27, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_27_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_186.upper ≤
       discrepancy (1 / 10) sample_4_27 ∧
@@ -6501,7 +6501,7 @@ private theorem sample_4_27_upper : discrepancy (1 / 10) sample_4_27 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_186] at h
   linarith
 
-private def sample_5_26 : Triple := ⟨5, 26, 31, by decide, by decide, by decide, by decide⟩
+private def sample_5_26 : Triple := ⟨5, 26, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_26_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4030.upper ≤
       discrepancy (1 / 10) sample_5_26 ∧
@@ -6522,7 +6522,7 @@ private theorem sample_5_26_upper : discrepancy (1 / 10) sample_5_26 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_4030] at h
   linarith
 
-private def sample_6_25 : Triple := ⟨6, 25, 31, by decide, by decide, by decide, by decide⟩
+private def sample_6_25 : Triple := ⟨6, 25, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_25_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_930.upper ≤
       discrepancy (1 / 10) sample_6_25 ∧
@@ -6543,7 +6543,7 @@ private theorem sample_6_25_upper : discrepancy (1 / 10) sample_6_25 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_930] at h
   linarith
 
-private def sample_7_24 : Triple := ⟨7, 24, 31, by decide, by decide, by decide, by decide⟩
+private def sample_7_24 : Triple := ⟨7, 24, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_24_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1302.upper ≤
       discrepancy (1 / 10) sample_7_24 ∧
@@ -6564,7 +6564,7 @@ private theorem sample_7_24_upper : discrepancy (1 / 10) sample_7_24 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_1302] at h
   linarith
 
-private def sample_8_23 : Triple := ⟨8, 23, 31, by decide, by decide, by decide, by decide⟩
+private def sample_8_23 : Triple := ⟨8, 23, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_23_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1426.upper ≤
       discrepancy (1 / 10) sample_8_23 ∧
@@ -6585,7 +6585,7 @@ private theorem sample_8_23_upper : discrepancy (1 / 10) sample_8_23 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_1426] at h
   linarith
 
-private def sample_9_22 : Triple := ⟨9, 22, 31, by decide, by decide, by decide, by decide⟩
+private def sample_9_22 : Triple := ⟨9, 22, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_22_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2046.upper ≤
       discrepancy (1 / 10) sample_9_22 ∧
@@ -6606,7 +6606,7 @@ private theorem sample_9_22_upper : discrepancy (1 / 10) sample_9_22 ≤ (227 / 
   norm_num [logCertificate_31, logCertificate_2046] at h
   linarith
 
-private def sample_10_21 : Triple := ⟨10, 21, 31, by decide, by decide, by decide, by decide⟩
+private def sample_10_21 : Triple := ⟨10, 21, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_21_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6510.upper ≤
       discrepancy (1 / 10) sample_10_21 ∧
@@ -6627,7 +6627,7 @@ private theorem sample_10_21_upper : discrepancy (1 / 10) sample_10_21 ≤ (227 
   norm_num [logCertificate_31, logCertificate_6510] at h
   linarith
 
-private def sample_11_20 : Triple := ⟨11, 20, 31, by decide, by decide, by decide, by decide⟩
+private def sample_11_20 : Triple := ⟨11, 20, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_20_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3410.upper ≤
       discrepancy (1 / 10) sample_11_20 ∧
@@ -6648,7 +6648,7 @@ private theorem sample_11_20_upper : discrepancy (1 / 10) sample_11_20 ≤ (227 
   norm_num [logCertificate_31, logCertificate_3410] at h
   linarith
 
-private def sample_12_19 : Triple := ⟨12, 19, 31, by decide, by decide, by decide, by decide⟩
+private def sample_12_19 : Triple := ⟨12, 19, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_19_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3534.upper ≤
       discrepancy (1 / 10) sample_12_19 ∧
@@ -6669,7 +6669,7 @@ private theorem sample_12_19_upper : discrepancy (1 / 10) sample_12_19 ≤ (227 
   norm_num [logCertificate_31, logCertificate_3534] at h
   linarith
 
-private def sample_13_18 : Triple := ⟨13, 18, 31, by decide, by decide, by decide, by decide⟩
+private def sample_13_18 : Triple := ⟨13, 18, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_18_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2418.upper ≤
       discrepancy (1 / 10) sample_13_18 ∧
@@ -6690,7 +6690,7 @@ private theorem sample_13_18_upper : discrepancy (1 / 10) sample_13_18 ≤ (227 
   norm_num [logCertificate_31, logCertificate_2418] at h
   linarith
 
-private def sample_14_17 : Triple := ⟨14, 17, 31, by decide, by decide, by decide, by decide⟩
+private def sample_14_17 : Triple := ⟨14, 17, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_17_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7378.upper ≤
       discrepancy (1 / 10) sample_14_17 ∧
@@ -6711,7 +6711,7 @@ private theorem sample_14_17_upper : discrepancy (1 / 10) sample_14_17 ≤ (227 
   norm_num [logCertificate_31, logCertificate_7378] at h
   linarith
 
-private def sample_15_16 : Triple := ⟨15, 16, 31, by decide, by decide, by decide, by decide⟩
+private def sample_15_16 : Triple := ⟨15, 16, 31, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_16_interval :
     (logCertificate_31.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_930.upper ≤
       discrepancy (1 / 10) sample_15_16 ∧
@@ -6732,7 +6732,7 @@ private theorem sample_15_16_upper : discrepancy (1 / 10) sample_15_16 ≤ (227 
   norm_num [logCertificate_31, logCertificate_930] at h
   linarith
 
-private def sample_1_31 : Triple := ⟨1, 31, 32, by decide, by decide, by decide, by decide⟩
+private def sample_1_31 : Triple := ⟨1, 31, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_31_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_62.upper ≤
       discrepancy (1 / 10) sample_1_31 ∧
@@ -6753,7 +6753,7 @@ private theorem sample_1_31_upper : discrepancy (1 / 10) sample_1_31 ≤ (227 / 
   norm_num [logCertificate_32, logCertificate_62] at h
   linarith
 
-private def sample_3_29 : Triple := ⟨3, 29, 32, by decide, by decide, by decide, by decide⟩
+private def sample_3_29 : Triple := ⟨3, 29, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_29_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_174.upper ≤
       discrepancy (1 / 10) sample_3_29 ∧
@@ -6774,7 +6774,7 @@ private theorem sample_3_29_upper : discrepancy (1 / 10) sample_3_29 ≤ (227 / 
   norm_num [logCertificate_32, logCertificate_174] at h
   linarith
 
-private def sample_5_27 : Triple := ⟨5, 27, 32, by decide, by decide, by decide, by decide⟩
+private def sample_5_27 : Triple := ⟨5, 27, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_27_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30.upper ≤
       discrepancy (1 / 10) sample_5_27 ∧
@@ -6795,7 +6795,7 @@ private theorem sample_5_27_upper : discrepancy (1 / 10) sample_5_27 ≤ (227 / 
   norm_num [logCertificate_32, logCertificate_30] at h
   linarith
 
-private def sample_7_25 : Triple := ⟨7, 25, 32, by decide, by decide, by decide, by decide⟩
+private def sample_7_25 : Triple := ⟨7, 25, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_25_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_70.upper ≤
       discrepancy (1 / 10) sample_7_25 ∧
@@ -6816,7 +6816,7 @@ private theorem sample_7_25_upper : discrepancy (1 / 10) sample_7_25 ≤ (227 / 
   norm_num [logCertificate_32, logCertificate_70] at h
   linarith
 
-private def sample_9_23 : Triple := ⟨9, 23, 32, by decide, by decide, by decide, by decide⟩
+private def sample_9_23 : Triple := ⟨9, 23, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_23_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_138.upper ≤
       discrepancy (1 / 10) sample_9_23 ∧
@@ -6837,7 +6837,7 @@ private theorem sample_9_23_upper : discrepancy (1 / 10) sample_9_23 ≤ (227 / 
   norm_num [logCertificate_32, logCertificate_138] at h
   linarith
 
-private def sample_11_21 : Triple := ⟨11, 21, 32, by decide, by decide, by decide, by decide⟩
+private def sample_11_21 : Triple := ⟨11, 21, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_21_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_11_21 ∧
@@ -6858,7 +6858,7 @@ private theorem sample_11_21_upper : discrepancy (1 / 10) sample_11_21 ≤ (227 
   norm_num [logCertificate_32, logCertificate_462] at h
   linarith
 
-private def sample_13_19 : Triple := ⟨13, 19, 32, by decide, by decide, by decide, by decide⟩
+private def sample_13_19 : Triple := ⟨13, 19, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_19_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_494.upper ≤
       discrepancy (1 / 10) sample_13_19 ∧
@@ -6879,7 +6879,7 @@ private theorem sample_13_19_upper : discrepancy (1 / 10) sample_13_19 ≤ (227 
   norm_num [logCertificate_32, logCertificate_494] at h
   linarith
 
-private def sample_15_17 : Triple := ⟨15, 17, 32, by decide, by decide, by decide, by decide⟩
+private def sample_15_17 : Triple := ⟨15, 17, 32, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_17_interval :
     (logCertificate_32.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_15_17 ∧
@@ -6900,7 +6900,7 @@ private theorem sample_15_17_upper : discrepancy (1 / 10) sample_15_17 ≤ (227 
   norm_num [logCertificate_32, logCertificate_510] at h
   linarith
 
-private def sample_1_32 : Triple := ⟨1, 32, 33, by decide, by decide, by decide, by decide⟩
+private def sample_1_32 : Triple := ⟨1, 32, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_32_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_66.upper ≤
       discrepancy (1 / 10) sample_1_32 ∧
@@ -6921,7 +6921,7 @@ private theorem sample_1_32_upper : discrepancy (1 / 10) sample_1_32 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_66] at h
   linarith
 
-private def sample_2_31 : Triple := ⟨2, 31, 33, by decide, by decide, by decide, by decide⟩
+private def sample_2_31 : Triple := ⟨2, 31, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_31_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2046.upper ≤
       discrepancy (1 / 10) sample_2_31 ∧
@@ -6942,7 +6942,7 @@ private theorem sample_2_31_upper : discrepancy (1 / 10) sample_2_31 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_2046] at h
   linarith
 
-private def sample_4_29 : Triple := ⟨4, 29, 33, by decide, by decide, by decide, by decide⟩
+private def sample_4_29 : Triple := ⟨4, 29, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_29_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1914.upper ≤
       discrepancy (1 / 10) sample_4_29 ∧
@@ -6963,7 +6963,7 @@ private theorem sample_4_29_upper : discrepancy (1 / 10) sample_4_29 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_1914] at h
   linarith
 
-private def sample_5_28 : Triple := ⟨5, 28, 33, by decide, by decide, by decide, by decide⟩
+private def sample_5_28 : Triple := ⟨5, 28, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_28_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_5_28 ∧
@@ -6984,7 +6984,7 @@ private theorem sample_5_28_upper : discrepancy (1 / 10) sample_5_28 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_2310] at h
   linarith
 
-private def sample_7_26 : Triple := ⟨7, 26, 33, by decide, by decide, by decide, by decide⟩
+private def sample_7_26 : Triple := ⟨7, 26, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_26_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6006.upper ≤
       discrepancy (1 / 10) sample_7_26 ∧
@@ -7005,7 +7005,7 @@ private theorem sample_7_26_upper : discrepancy (1 / 10) sample_7_26 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_6006] at h
   linarith
 
-private def sample_8_25 : Triple := ⟨8, 25, 33, by decide, by decide, by decide, by decide⟩
+private def sample_8_25 : Triple := ⟨8, 25, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_25_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_8_25 ∧
@@ -7026,7 +7026,7 @@ private theorem sample_8_25_upper : discrepancy (1 / 10) sample_8_25 ≤ (227 / 
   norm_num [logCertificate_33, logCertificate_330] at h
   linarith
 
-private def sample_10_23 : Triple := ⟨10, 23, 33, by decide, by decide, by decide, by decide⟩
+private def sample_10_23 : Triple := ⟨10, 23, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_23_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7590.upper ≤
       discrepancy (1 / 10) sample_10_23 ∧
@@ -7047,7 +7047,7 @@ private theorem sample_10_23_upper : discrepancy (1 / 10) sample_10_23 ≤ (227 
   norm_num [logCertificate_33, logCertificate_7590] at h
   linarith
 
-private def sample_13_20 : Triple := ⟨13, 20, 33, by decide, by decide, by decide, by decide⟩
+private def sample_13_20 : Triple := ⟨13, 20, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_20_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_13_20 ∧
@@ -7068,7 +7068,7 @@ private theorem sample_13_20_upper : discrepancy (1 / 10) sample_13_20 ≤ (227 
   norm_num [logCertificate_33, logCertificate_4290] at h
   linarith
 
-private def sample_14_19 : Triple := ⟨14, 19, 33, by decide, by decide, by decide, by decide⟩
+private def sample_14_19 : Triple := ⟨14, 19, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_19_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8778.upper ≤
       discrepancy (1 / 10) sample_14_19 ∧
@@ -7089,7 +7089,7 @@ private theorem sample_14_19_upper : discrepancy (1 / 10) sample_14_19 ≤ (227 
   norm_num [logCertificate_33, logCertificate_8778] at h
   linarith
 
-private def sample_16_17 : Triple := ⟨16, 17, 33, by decide, by decide, by decide, by decide⟩
+private def sample_16_17 : Triple := ⟨16, 17, 33, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_17_interval :
     (logCertificate_33.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1122.upper ≤
       discrepancy (1 / 10) sample_16_17 ∧
@@ -7110,7 +7110,7 @@ private theorem sample_16_17_upper : discrepancy (1 / 10) sample_16_17 ≤ (227 
   norm_num [logCertificate_33, logCertificate_1122] at h
   linarith
 
-private def sample_1_33 : Triple := ⟨1, 33, 34, by decide, by decide, by decide, by decide⟩
+private def sample_1_33 : Triple := ⟨1, 33, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_33_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1122.upper ≤
       discrepancy (1 / 10) sample_1_33 ∧
@@ -7131,7 +7131,7 @@ private theorem sample_1_33_upper : discrepancy (1 / 10) sample_1_33 ≤ (227 / 
   norm_num [logCertificate_34, logCertificate_1122] at h
   linarith
 
-private def sample_3_31 : Triple := ⟨3, 31, 34, by decide, by decide, by decide, by decide⟩
+private def sample_3_31 : Triple := ⟨3, 31, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_31_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3162.upper ≤
       discrepancy (1 / 10) sample_3_31 ∧
@@ -7152,7 +7152,7 @@ private theorem sample_3_31_upper : discrepancy (1 / 10) sample_3_31 ≤ (227 / 
   norm_num [logCertificate_34, logCertificate_3162] at h
   linarith
 
-private def sample_5_29 : Triple := ⟨5, 29, 34, by decide, by decide, by decide, by decide⟩
+private def sample_5_29 : Triple := ⟨5, 29, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_29_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4930.upper ≤
       discrepancy (1 / 10) sample_5_29 ∧
@@ -7173,7 +7173,7 @@ private theorem sample_5_29_upper : discrepancy (1 / 10) sample_5_29 ≤ (227 / 
   norm_num [logCertificate_34, logCertificate_4930] at h
   linarith
 
-private def sample_7_27 : Triple := ⟨7, 27, 34, by decide, by decide, by decide, by decide⟩
+private def sample_7_27 : Triple := ⟨7, 27, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_27_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_714.upper ≤
       discrepancy (1 / 10) sample_7_27 ∧
@@ -7194,7 +7194,7 @@ private theorem sample_7_27_upper : discrepancy (1 / 10) sample_7_27 ≤ (227 / 
   norm_num [logCertificate_34, logCertificate_714] at h
   linarith
 
-private def sample_9_25 : Triple := ⟨9, 25, 34, by decide, by decide, by decide, by decide⟩
+private def sample_9_25 : Triple := ⟨9, 25, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_25_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_9_25 ∧
@@ -7215,7 +7215,7 @@ private theorem sample_9_25_upper : discrepancy (1 / 10) sample_9_25 ≤ (227 / 
   norm_num [logCertificate_34, logCertificate_510] at h
   linarith
 
-private def sample_11_23 : Triple := ⟨11, 23, 34, by decide, by decide, by decide, by decide⟩
+private def sample_11_23 : Triple := ⟨11, 23, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_23_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8602.upper ≤
       discrepancy (1 / 10) sample_11_23 ∧
@@ -7236,7 +7236,7 @@ private theorem sample_11_23_upper : discrepancy (1 / 10) sample_11_23 ≤ (227 
   norm_num [logCertificate_34, logCertificate_8602] at h
   linarith
 
-private def sample_13_21 : Triple := ⟨13, 21, 34, by decide, by decide, by decide, by decide⟩
+private def sample_13_21 : Triple := ⟨13, 21, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_21_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9282.upper ≤
       discrepancy (1 / 10) sample_13_21 ∧
@@ -7257,7 +7257,7 @@ private theorem sample_13_21_upper : discrepancy (1 / 10) sample_13_21 ≤ (227 
   norm_num [logCertificate_34, logCertificate_9282] at h
   linarith
 
-private def sample_15_19 : Triple := ⟨15, 19, 34, by decide, by decide, by decide, by decide⟩
+private def sample_15_19 : Triple := ⟨15, 19, 34, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_19_interval :
     (logCertificate_34.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9690.upper ≤
       discrepancy (1 / 10) sample_15_19 ∧
@@ -7278,7 +7278,7 @@ private theorem sample_15_19_upper : discrepancy (1 / 10) sample_15_19 ≤ (227 
   norm_num [logCertificate_34, logCertificate_9690] at h
   linarith
 
-private def sample_1_34 : Triple := ⟨1, 34, 35, by decide, by decide, by decide, by decide⟩
+private def sample_1_34 : Triple := ⟨1, 34, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_34_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1190.upper ≤
       discrepancy (1 / 10) sample_1_34 ∧
@@ -7299,7 +7299,7 @@ private theorem sample_1_34_upper : discrepancy (1 / 10) sample_1_34 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_1190] at h
   linarith
 
-private def sample_2_33 : Triple := ⟨2, 33, 35, by decide, by decide, by decide, by decide⟩
+private def sample_2_33 : Triple := ⟨2, 33, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_33_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_2_33 ∧
@@ -7320,7 +7320,7 @@ private theorem sample_2_33_upper : discrepancy (1 / 10) sample_2_33 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_2310] at h
   linarith
 
-private def sample_3_32 : Triple := ⟨3, 32, 35, by decide, by decide, by decide, by decide⟩
+private def sample_3_32 : Triple := ⟨3, 32, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_32_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_3_32 ∧
@@ -7341,7 +7341,7 @@ private theorem sample_3_32_upper : discrepancy (1 / 10) sample_3_32 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_210] at h
   linarith
 
-private def sample_4_31 : Triple := ⟨4, 31, 35, by decide, by decide, by decide, by decide⟩
+private def sample_4_31 : Triple := ⟨4, 31, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_31_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2170.upper ≤
       discrepancy (1 / 10) sample_4_31 ∧
@@ -7362,7 +7362,7 @@ private theorem sample_4_31_upper : discrepancy (1 / 10) sample_4_31 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_2170] at h
   linarith
 
-private def sample_6_29 : Triple := ⟨6, 29, 35, by decide, by decide, by decide, by decide⟩
+private def sample_6_29 : Triple := ⟨6, 29, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_29_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6090.upper ≤
       discrepancy (1 / 10) sample_6_29 ∧
@@ -7383,7 +7383,7 @@ private theorem sample_6_29_upper : discrepancy (1 / 10) sample_6_29 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_6090] at h
   linarith
 
-private def sample_8_27 : Triple := ⟨8, 27, 35, by decide, by decide, by decide, by decide⟩
+private def sample_8_27 : Triple := ⟨8, 27, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_27_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_8_27 ∧
@@ -7404,7 +7404,7 @@ private theorem sample_8_27_upper : discrepancy (1 / 10) sample_8_27 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_210] at h
   linarith
 
-private def sample_9_26 : Triple := ⟨9, 26, 35, by decide, by decide, by decide, by decide⟩
+private def sample_9_26 : Triple := ⟨9, 26, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_26_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_9_26 ∧
@@ -7425,7 +7425,7 @@ private theorem sample_9_26_upper : discrepancy (1 / 10) sample_9_26 ≤ (227 / 
   norm_num [logCertificate_35, logCertificate_2730] at h
   linarith
 
-private def sample_11_24 : Triple := ⟨11, 24, 35, by decide, by decide, by decide, by decide⟩
+private def sample_11_24 : Triple := ⟨11, 24, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_24_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_11_24 ∧
@@ -7446,7 +7446,7 @@ private theorem sample_11_24_upper : discrepancy (1 / 10) sample_11_24 ≤ (227 
   norm_num [logCertificate_35, logCertificate_2310] at h
   linarith
 
-private def sample_12_23 : Triple := ⟨12, 23, 35, by decide, by decide, by decide, by decide⟩
+private def sample_12_23 : Triple := ⟨12, 23, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_23_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_12_23 ∧
@@ -7467,7 +7467,7 @@ private theorem sample_12_23_upper : discrepancy (1 / 10) sample_12_23 ≤ (227 
   norm_num [logCertificate_35, logCertificate_4830] at h
   linarith
 
-private def sample_13_22 : Triple := ⟨13, 22, 35, by decide, by decide, by decide, by decide⟩
+private def sample_13_22 : Triple := ⟨13, 22, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_22_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10010.upper ≤
       discrepancy (1 / 10) sample_13_22 ∧
@@ -7488,7 +7488,7 @@ private theorem sample_13_22_upper : discrepancy (1 / 10) sample_13_22 ≤ (227 
   norm_num [logCertificate_35, logCertificate_10010] at h
   linarith
 
-private def sample_16_19 : Triple := ⟨16, 19, 35, by decide, by decide, by decide, by decide⟩
+private def sample_16_19 : Triple := ⟨16, 19, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_19_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1330.upper ≤
       discrepancy (1 / 10) sample_16_19 ∧
@@ -7509,7 +7509,7 @@ private theorem sample_16_19_upper : discrepancy (1 / 10) sample_16_19 ≤ (227 
   norm_num [logCertificate_35, logCertificate_1330] at h
   linarith
 
-private def sample_17_18 : Triple := ⟨17, 18, 35, by decide, by decide, by decide, by decide⟩
+private def sample_17_18 : Triple := ⟨17, 18, 35, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_18_interval :
     (logCertificate_35.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_17_18 ∧
@@ -7530,7 +7530,7 @@ private theorem sample_17_18_upper : discrepancy (1 / 10) sample_17_18 ≤ (227 
   norm_num [logCertificate_35, logCertificate_3570] at h
   linarith
 
-private def sample_1_35 : Triple := ⟨1, 35, 36, by decide, by decide, by decide, by decide⟩
+private def sample_1_35 : Triple := ⟨1, 35, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_35_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_1_35 ∧
@@ -7551,7 +7551,7 @@ private theorem sample_1_35_upper : discrepancy (1 / 10) sample_1_35 ≤ (227 / 
   norm_num [logCertificate_36, logCertificate_210] at h
   linarith
 
-private def sample_5_31 : Triple := ⟨5, 31, 36, by decide, by decide, by decide, by decide⟩
+private def sample_5_31 : Triple := ⟨5, 31, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_31_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_930.upper ≤
       discrepancy (1 / 10) sample_5_31 ∧
@@ -7572,7 +7572,7 @@ private theorem sample_5_31_upper : discrepancy (1 / 10) sample_5_31 ≤ (227 / 
   norm_num [logCertificate_36, logCertificate_930] at h
   linarith
 
-private def sample_7_29 : Triple := ⟨7, 29, 36, by decide, by decide, by decide, by decide⟩
+private def sample_7_29 : Triple := ⟨7, 29, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_29_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1218.upper ≤
       discrepancy (1 / 10) sample_7_29 ∧
@@ -7593,7 +7593,7 @@ private theorem sample_7_29_upper : discrepancy (1 / 10) sample_7_29 ≤ (227 / 
   norm_num [logCertificate_36, logCertificate_1218] at h
   linarith
 
-private def sample_11_25 : Triple := ⟨11, 25, 36, by decide, by decide, by decide, by decide⟩
+private def sample_11_25 : Triple := ⟨11, 25, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_25_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_11_25 ∧
@@ -7614,7 +7614,7 @@ private theorem sample_11_25_upper : discrepancy (1 / 10) sample_11_25 ≤ (227 
   norm_num [logCertificate_36, logCertificate_330] at h
   linarith
 
-private def sample_13_23 : Triple := ⟨13, 23, 36, by decide, by decide, by decide, by decide⟩
+private def sample_13_23 : Triple := ⟨13, 23, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_23_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1794.upper ≤
       discrepancy (1 / 10) sample_13_23 ∧
@@ -7635,7 +7635,7 @@ private theorem sample_13_23_upper : discrepancy (1 / 10) sample_13_23 ≤ (227 
   norm_num [logCertificate_36, logCertificate_1794] at h
   linarith
 
-private def sample_17_19 : Triple := ⟨17, 19, 36, by decide, by decide, by decide, by decide⟩
+private def sample_17_19 : Triple := ⟨17, 19, 36, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_19_interval :
     (logCertificate_36.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1938.upper ≤
       discrepancy (1 / 10) sample_17_19 ∧
@@ -7656,7 +7656,7 @@ private theorem sample_17_19_upper : discrepancy (1 / 10) sample_17_19 ≤ (227 
   norm_num [logCertificate_36, logCertificate_1938] at h
   linarith
 
-private def sample_1_36 : Triple := ⟨1, 36, 37, by decide, by decide, by decide, by decide⟩
+private def sample_1_36 : Triple := ⟨1, 36, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_36_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_222.upper ≤
       discrepancy (1 / 10) sample_1_36 ∧
@@ -7677,7 +7677,7 @@ private theorem sample_1_36_upper : discrepancy (1 / 10) sample_1_36 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_222] at h
   linarith
 
-private def sample_2_35 : Triple := ⟨2, 35, 37, by decide, by decide, by decide, by decide⟩
+private def sample_2_35 : Triple := ⟨2, 35, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_35_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2590.upper ≤
       discrepancy (1 / 10) sample_2_35 ∧
@@ -7698,7 +7698,7 @@ private theorem sample_2_35_upper : discrepancy (1 / 10) sample_2_35 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_2590] at h
   linarith
 
-private def sample_3_34 : Triple := ⟨3, 34, 37, by decide, by decide, by decide, by decide⟩
+private def sample_3_34 : Triple := ⟨3, 34, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_34_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3774.upper ≤
       discrepancy (1 / 10) sample_3_34 ∧
@@ -7719,7 +7719,7 @@ private theorem sample_3_34_upper : discrepancy (1 / 10) sample_3_34 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_3774] at h
   linarith
 
-private def sample_4_33 : Triple := ⟨4, 33, 37, by decide, by decide, by decide, by decide⟩
+private def sample_4_33 : Triple := ⟨4, 33, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_33_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2442.upper ≤
       discrepancy (1 / 10) sample_4_33 ∧
@@ -7740,7 +7740,7 @@ private theorem sample_4_33_upper : discrepancy (1 / 10) sample_4_33 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_2442] at h
   linarith
 
-private def sample_5_32 : Triple := ⟨5, 32, 37, by decide, by decide, by decide, by decide⟩
+private def sample_5_32 : Triple := ⟨5, 32, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_32_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_370.upper ≤
       discrepancy (1 / 10) sample_5_32 ∧
@@ -7761,7 +7761,7 @@ private theorem sample_5_32_upper : discrepancy (1 / 10) sample_5_32 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_370] at h
   linarith
 
-private def sample_6_31 : Triple := ⟨6, 31, 37, by decide, by decide, by decide, by decide⟩
+private def sample_6_31 : Triple := ⟨6, 31, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_31_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6882.upper ≤
       discrepancy (1 / 10) sample_6_31 ∧
@@ -7782,7 +7782,7 @@ private theorem sample_6_31_upper : discrepancy (1 / 10) sample_6_31 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_6882] at h
   linarith
 
-private def sample_7_30 : Triple := ⟨7, 30, 37, by decide, by decide, by decide, by decide⟩
+private def sample_7_30 : Triple := ⟨7, 30, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_30_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7770.upper ≤
       discrepancy (1 / 10) sample_7_30 ∧
@@ -7803,7 +7803,7 @@ private theorem sample_7_30_upper : discrepancy (1 / 10) sample_7_30 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_7770] at h
   linarith
 
-private def sample_8_29 : Triple := ⟨8, 29, 37, by decide, by decide, by decide, by decide⟩
+private def sample_8_29 : Triple := ⟨8, 29, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_29_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2146.upper ≤
       discrepancy (1 / 10) sample_8_29 ∧
@@ -7824,7 +7824,7 @@ private theorem sample_8_29_upper : discrepancy (1 / 10) sample_8_29 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_2146] at h
   linarith
 
-private def sample_9_28 : Triple := ⟨9, 28, 37, by decide, by decide, by decide, by decide⟩
+private def sample_9_28 : Triple := ⟨9, 28, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_28_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1554.upper ≤
       discrepancy (1 / 10) sample_9_28 ∧
@@ -7845,7 +7845,7 @@ private theorem sample_9_28_upper : discrepancy (1 / 10) sample_9_28 ≤ (227 / 
   norm_num [logCertificate_37, logCertificate_1554] at h
   linarith
 
-private def sample_10_27 : Triple := ⟨10, 27, 37, by decide, by decide, by decide, by decide⟩
+private def sample_10_27 : Triple := ⟨10, 27, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_27_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1110.upper ≤
       discrepancy (1 / 10) sample_10_27 ∧
@@ -7866,7 +7866,7 @@ private theorem sample_10_27_upper : discrepancy (1 / 10) sample_10_27 ≤ (227 
   norm_num [logCertificate_37, logCertificate_1110] at h
   linarith
 
-private def sample_11_26 : Triple := ⟨11, 26, 37, by decide, by decide, by decide, by decide⟩
+private def sample_11_26 : Triple := ⟨11, 26, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_26_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10582.upper ≤
       discrepancy (1 / 10) sample_11_26 ∧
@@ -7887,7 +7887,7 @@ private theorem sample_11_26_upper : discrepancy (1 / 10) sample_11_26 ≤ (227 
   norm_num [logCertificate_37, logCertificate_10582] at h
   linarith
 
-private def sample_12_25 : Triple := ⟨12, 25, 37, by decide, by decide, by decide, by decide⟩
+private def sample_12_25 : Triple := ⟨12, 25, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_25_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1110.upper ≤
       discrepancy (1 / 10) sample_12_25 ∧
@@ -7908,7 +7908,7 @@ private theorem sample_12_25_upper : discrepancy (1 / 10) sample_12_25 ≤ (227 
   norm_num [logCertificate_37, logCertificate_1110] at h
   linarith
 
-private def sample_13_24 : Triple := ⟨13, 24, 37, by decide, by decide, by decide, by decide⟩
+private def sample_13_24 : Triple := ⟨13, 24, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_24_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2886.upper ≤
       discrepancy (1 / 10) sample_13_24 ∧
@@ -7929,7 +7929,7 @@ private theorem sample_13_24_upper : discrepancy (1 / 10) sample_13_24 ≤ (227 
   norm_num [logCertificate_37, logCertificate_2886] at h
   linarith
 
-private def sample_14_23 : Triple := ⟨14, 23, 37, by decide, by decide, by decide, by decide⟩
+private def sample_14_23 : Triple := ⟨14, 23, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_23_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11914.upper ≤
       discrepancy (1 / 10) sample_14_23 ∧
@@ -7950,7 +7950,7 @@ private theorem sample_14_23_upper : discrepancy (1 / 10) sample_14_23 ≤ (227 
   norm_num [logCertificate_37, logCertificate_11914] at h
   linarith
 
-private def sample_15_22 : Triple := ⟨15, 22, 37, by decide, by decide, by decide, by decide⟩
+private def sample_15_22 : Triple := ⟨15, 22, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_22_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12210.upper ≤
       discrepancy (1 / 10) sample_15_22 ∧
@@ -7971,7 +7971,7 @@ private theorem sample_15_22_upper : discrepancy (1 / 10) sample_15_22 ≤ (227 
   norm_num [logCertificate_37, logCertificate_12210] at h
   linarith
 
-private def sample_16_21 : Triple := ⟨16, 21, 37, by decide, by decide, by decide, by decide⟩
+private def sample_16_21 : Triple := ⟨16, 21, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_21_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1554.upper ≤
       discrepancy (1 / 10) sample_16_21 ∧
@@ -7992,7 +7992,7 @@ private theorem sample_16_21_upper : discrepancy (1 / 10) sample_16_21 ≤ (227 
   norm_num [logCertificate_37, logCertificate_1554] at h
   linarith
 
-private def sample_17_20 : Triple := ⟨17, 20, 37, by decide, by decide, by decide, by decide⟩
+private def sample_17_20 : Triple := ⟨17, 20, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_20_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6290.upper ≤
       discrepancy (1 / 10) sample_17_20 ∧
@@ -8013,7 +8013,7 @@ private theorem sample_17_20_upper : discrepancy (1 / 10) sample_17_20 ≤ (227 
   norm_num [logCertificate_37, logCertificate_6290] at h
   linarith
 
-private def sample_18_19 : Triple := ⟨18, 19, 37, by decide, by decide, by decide, by decide⟩
+private def sample_18_19 : Triple := ⟨18, 19, 37, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_19_interval :
     (logCertificate_37.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4218.upper ≤
       discrepancy (1 / 10) sample_18_19 ∧
@@ -8034,7 +8034,7 @@ private theorem sample_18_19_upper : discrepancy (1 / 10) sample_18_19 ≤ (227 
   norm_num [logCertificate_37, logCertificate_4218] at h
   linarith
 
-private def sample_1_37 : Triple := ⟨1, 37, 38, by decide, by decide, by decide, by decide⟩
+private def sample_1_37 : Triple := ⟨1, 37, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_37_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1406.upper ≤
       discrepancy (1 / 10) sample_1_37 ∧
@@ -8055,7 +8055,7 @@ private theorem sample_1_37_upper : discrepancy (1 / 10) sample_1_37 ≤ (227 / 
   norm_num [logCertificate_38, logCertificate_1406] at h
   linarith
 
-private def sample_3_35 : Triple := ⟨3, 35, 38, by decide, by decide, by decide, by decide⟩
+private def sample_3_35 : Triple := ⟨3, 35, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_35_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_3_35 ∧
@@ -8076,7 +8076,7 @@ private theorem sample_3_35_upper : discrepancy (1 / 10) sample_3_35 ≤ (227 / 
   norm_num [logCertificate_38, logCertificate_3990] at h
   linarith
 
-private def sample_5_33 : Triple := ⟨5, 33, 38, by decide, by decide, by decide, by decide⟩
+private def sample_5_33 : Triple := ⟨5, 33, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_33_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6270.upper ≤
       discrepancy (1 / 10) sample_5_33 ∧
@@ -8097,7 +8097,7 @@ private theorem sample_5_33_upper : discrepancy (1 / 10) sample_5_33 ≤ (227 / 
   norm_num [logCertificate_38, logCertificate_6270] at h
   linarith
 
-private def sample_7_31 : Triple := ⟨7, 31, 38, by decide, by decide, by decide, by decide⟩
+private def sample_7_31 : Triple := ⟨7, 31, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_31_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8246.upper ≤
       discrepancy (1 / 10) sample_7_31 ∧
@@ -8118,7 +8118,7 @@ private theorem sample_7_31_upper : discrepancy (1 / 10) sample_7_31 ≤ (227 / 
   norm_num [logCertificate_38, logCertificate_8246] at h
   linarith
 
-private def sample_9_29 : Triple := ⟨9, 29, 38, by decide, by decide, by decide, by decide⟩
+private def sample_9_29 : Triple := ⟨9, 29, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_29_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3306.upper ≤
       discrepancy (1 / 10) sample_9_29 ∧
@@ -8139,7 +8139,7 @@ private theorem sample_9_29_upper : discrepancy (1 / 10) sample_9_29 ≤ (227 / 
   norm_num [logCertificate_38, logCertificate_3306] at h
   linarith
 
-private def sample_11_27 : Triple := ⟨11, 27, 38, by decide, by decide, by decide, by decide⟩
+private def sample_11_27 : Triple := ⟨11, 27, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_27_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1254.upper ≤
       discrepancy (1 / 10) sample_11_27 ∧
@@ -8160,7 +8160,7 @@ private theorem sample_11_27_upper : discrepancy (1 / 10) sample_11_27 ≤ (227 
   norm_num [logCertificate_38, logCertificate_1254] at h
   linarith
 
-private def sample_13_25 : Triple := ⟨13, 25, 38, by decide, by decide, by decide, by decide⟩
+private def sample_13_25 : Triple := ⟨13, 25, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_25_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2470.upper ≤
       discrepancy (1 / 10) sample_13_25 ∧
@@ -8181,7 +8181,7 @@ private theorem sample_13_25_upper : discrepancy (1 / 10) sample_13_25 ≤ (227 
   norm_num [logCertificate_38, logCertificate_2470] at h
   linarith
 
-private def sample_15_23 : Triple := ⟨15, 23, 38, by decide, by decide, by decide, by decide⟩
+private def sample_15_23 : Triple := ⟨15, 23, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_23_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13110.upper ≤
       discrepancy (1 / 10) sample_15_23 ∧
@@ -8202,7 +8202,7 @@ private theorem sample_15_23_upper : discrepancy (1 / 10) sample_15_23 ≤ (227 
   norm_num [logCertificate_38, logCertificate_13110] at h
   linarith
 
-private def sample_17_21 : Triple := ⟨17, 21, 38, by decide, by decide, by decide, by decide⟩
+private def sample_17_21 : Triple := ⟨17, 21, 38, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_21_interval :
     (logCertificate_38.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13566.upper ≤
       discrepancy (1 / 10) sample_17_21 ∧
@@ -8223,7 +8223,7 @@ private theorem sample_17_21_upper : discrepancy (1 / 10) sample_17_21 ≤ (227 
   norm_num [logCertificate_38, logCertificate_13566] at h
   linarith
 
-private def sample_1_38 : Triple := ⟨1, 38, 39, by decide, by decide, by decide, by decide⟩
+private def sample_1_38 : Triple := ⟨1, 38, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_38_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1482.upper ≤
       discrepancy (1 / 10) sample_1_38 ∧
@@ -8244,7 +8244,7 @@ private theorem sample_1_38_upper : discrepancy (1 / 10) sample_1_38 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_1482] at h
   linarith
 
-private def sample_2_37 : Triple := ⟨2, 37, 39, by decide, by decide, by decide, by decide⟩
+private def sample_2_37 : Triple := ⟨2, 37, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_37_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2886.upper ≤
       discrepancy (1 / 10) sample_2_37 ∧
@@ -8265,7 +8265,7 @@ private theorem sample_2_37_upper : discrepancy (1 / 10) sample_2_37 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_2886] at h
   linarith
 
-private def sample_4_35 : Triple := ⟨4, 35, 39, by decide, by decide, by decide, by decide⟩
+private def sample_4_35 : Triple := ⟨4, 35, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_35_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_4_35 ∧
@@ -8286,7 +8286,7 @@ private theorem sample_4_35_upper : discrepancy (1 / 10) sample_4_35 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_2730] at h
   linarith
 
-private def sample_5_34 : Triple := ⟨5, 34, 39, by decide, by decide, by decide, by decide⟩
+private def sample_5_34 : Triple := ⟨5, 34, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_34_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6630.upper ≤
       discrepancy (1 / 10) sample_5_34 ∧
@@ -8307,7 +8307,7 @@ private theorem sample_5_34_upper : discrepancy (1 / 10) sample_5_34 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_6630] at h
   linarith
 
-private def sample_7_32 : Triple := ⟨7, 32, 39, by decide, by decide, by decide, by decide⟩
+private def sample_7_32 : Triple := ⟨7, 32, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_32_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_7_32 ∧
@@ -8328,7 +8328,7 @@ private theorem sample_7_32_upper : discrepancy (1 / 10) sample_7_32 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_546] at h
   linarith
 
-private def sample_8_31 : Triple := ⟨8, 31, 39, by decide, by decide, by decide, by decide⟩
+private def sample_8_31 : Triple := ⟨8, 31, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_31_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2418.upper ≤
       discrepancy (1 / 10) sample_8_31 ∧
@@ -8349,7 +8349,7 @@ private theorem sample_8_31_upper : discrepancy (1 / 10) sample_8_31 ≤ (227 / 
   norm_num [logCertificate_39, logCertificate_2418] at h
   linarith
 
-private def sample_10_29 : Triple := ⟨10, 29, 39, by decide, by decide, by decide, by decide⟩
+private def sample_10_29 : Triple := ⟨10, 29, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_29_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11310.upper ≤
       discrepancy (1 / 10) sample_10_29 ∧
@@ -8370,7 +8370,7 @@ private theorem sample_10_29_upper : discrepancy (1 / 10) sample_10_29 ≤ (227 
   norm_num [logCertificate_39, logCertificate_11310] at h
   linarith
 
-private def sample_11_28 : Triple := ⟨11, 28, 39, by decide, by decide, by decide, by decide⟩
+private def sample_11_28 : Triple := ⟨11, 28, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_28_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6006.upper ≤
       discrepancy (1 / 10) sample_11_28 ∧
@@ -8391,7 +8391,7 @@ private theorem sample_11_28_upper : discrepancy (1 / 10) sample_11_28 ≤ (227 
   norm_num [logCertificate_39, logCertificate_6006] at h
   linarith
 
-private def sample_14_25 : Triple := ⟨14, 25, 39, by decide, by decide, by decide, by decide⟩
+private def sample_14_25 : Triple := ⟨14, 25, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_25_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_14_25 ∧
@@ -8412,7 +8412,7 @@ private theorem sample_14_25_upper : discrepancy (1 / 10) sample_14_25 ≤ (227 
   norm_num [logCertificate_39, logCertificate_2730] at h
   linarith
 
-private def sample_16_23 : Triple := ⟨16, 23, 39, by decide, by decide, by decide, by decide⟩
+private def sample_16_23 : Triple := ⟨16, 23, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_23_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1794.upper ≤
       discrepancy (1 / 10) sample_16_23 ∧
@@ -8433,7 +8433,7 @@ private theorem sample_16_23_upper : discrepancy (1 / 10) sample_16_23 ≤ (227 
   norm_num [logCertificate_39, logCertificate_1794] at h
   linarith
 
-private def sample_17_22 : Triple := ⟨17, 22, 39, by decide, by decide, by decide, by decide⟩
+private def sample_17_22 : Triple := ⟨17, 22, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_22_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14586.upper ≤
       discrepancy (1 / 10) sample_17_22 ∧
@@ -8454,7 +8454,7 @@ private theorem sample_17_22_upper : discrepancy (1 / 10) sample_17_22 ≤ (227 
   norm_num [logCertificate_39, logCertificate_14586] at h
   linarith
 
-private def sample_19_20 : Triple := ⟨19, 20, 39, by decide, by decide, by decide, by decide⟩
+private def sample_19_20 : Triple := ⟨19, 20, 39, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_20_interval :
     (logCertificate_39.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7410.upper ≤
       discrepancy (1 / 10) sample_19_20 ∧
@@ -8475,7 +8475,7 @@ private theorem sample_19_20_upper : discrepancy (1 / 10) sample_19_20 ≤ (227 
   norm_num [logCertificate_39, logCertificate_7410] at h
   linarith
 
-private def sample_1_39 : Triple := ⟨1, 39, 40, by decide, by decide, by decide, by decide⟩
+private def sample_1_39 : Triple := ⟨1, 39, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_39_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_1_39 ∧
@@ -8496,7 +8496,7 @@ private theorem sample_1_39_upper : discrepancy (1 / 10) sample_1_39 ≤ (227 / 
   norm_num [logCertificate_40, logCertificate_390] at h
   linarith
 
-private def sample_3_37 : Triple := ⟨3, 37, 40, by decide, by decide, by decide, by decide⟩
+private def sample_3_37 : Triple := ⟨3, 37, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_37_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1110.upper ≤
       discrepancy (1 / 10) sample_3_37 ∧
@@ -8517,7 +8517,7 @@ private theorem sample_3_37_upper : discrepancy (1 / 10) sample_3_37 ≤ (227 / 
   norm_num [logCertificate_40, logCertificate_1110] at h
   linarith
 
-private def sample_7_33 : Triple := ⟨7, 33, 40, by decide, by decide, by decide, by decide⟩
+private def sample_7_33 : Triple := ⟨7, 33, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_33_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_7_33 ∧
@@ -8538,7 +8538,7 @@ private theorem sample_7_33_upper : discrepancy (1 / 10) sample_7_33 ≤ (227 / 
   norm_num [logCertificate_40, logCertificate_2310] at h
   linarith
 
-private def sample_9_31 : Triple := ⟨9, 31, 40, by decide, by decide, by decide, by decide⟩
+private def sample_9_31 : Triple := ⟨9, 31, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_31_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_930.upper ≤
       discrepancy (1 / 10) sample_9_31 ∧
@@ -8559,7 +8559,7 @@ private theorem sample_9_31_upper : discrepancy (1 / 10) sample_9_31 ≤ (227 / 
   norm_num [logCertificate_40, logCertificate_930] at h
   linarith
 
-private def sample_11_29 : Triple := ⟨11, 29, 40, by decide, by decide, by decide, by decide⟩
+private def sample_11_29 : Triple := ⟨11, 29, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_29_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3190.upper ≤
       discrepancy (1 / 10) sample_11_29 ∧
@@ -8580,7 +8580,7 @@ private theorem sample_11_29_upper : discrepancy (1 / 10) sample_11_29 ≤ (227 
   norm_num [logCertificate_40, logCertificate_3190] at h
   linarith
 
-private def sample_13_27 : Triple := ⟨13, 27, 40, by decide, by decide, by decide, by decide⟩
+private def sample_13_27 : Triple := ⟨13, 27, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_27_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_13_27 ∧
@@ -8601,7 +8601,7 @@ private theorem sample_13_27_upper : discrepancy (1 / 10) sample_13_27 ≤ (227 
   norm_num [logCertificate_40, logCertificate_390] at h
   linarith
 
-private def sample_17_23 : Triple := ⟨17, 23, 40, by decide, by decide, by decide, by decide⟩
+private def sample_17_23 : Triple := ⟨17, 23, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_23_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3910.upper ≤
       discrepancy (1 / 10) sample_17_23 ∧
@@ -8622,7 +8622,7 @@ private theorem sample_17_23_upper : discrepancy (1 / 10) sample_17_23 ≤ (227 
   norm_num [logCertificate_40, logCertificate_3910] at h
   linarith
 
-private def sample_19_21 : Triple := ⟨19, 21, 40, by decide, by decide, by decide, by decide⟩
+private def sample_19_21 : Triple := ⟨19, 21, 40, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_21_interval :
     (logCertificate_40.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_19_21 ∧
@@ -8643,7 +8643,7 @@ private theorem sample_19_21_upper : discrepancy (1 / 10) sample_19_21 ≤ (227 
   norm_num [logCertificate_40, logCertificate_3990] at h
   linarith
 
-private def sample_1_40 : Triple := ⟨1, 40, 41, by decide, by decide, by decide, by decide⟩
+private def sample_1_40 : Triple := ⟨1, 40, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_40_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_410.upper ≤
       discrepancy (1 / 10) sample_1_40 ∧
@@ -8664,7 +8664,7 @@ private theorem sample_1_40_upper : discrepancy (1 / 10) sample_1_40 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_410] at h
   linarith
 
-private def sample_2_39 : Triple := ⟨2, 39, 41, by decide, by decide, by decide, by decide⟩
+private def sample_2_39 : Triple := ⟨2, 39, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_39_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3198.upper ≤
       discrepancy (1 / 10) sample_2_39 ∧
@@ -8685,7 +8685,7 @@ private theorem sample_2_39_upper : discrepancy (1 / 10) sample_2_39 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_3198] at h
   linarith
 
-private def sample_3_38 : Triple := ⟨3, 38, 41, by decide, by decide, by decide, by decide⟩
+private def sample_3_38 : Triple := ⟨3, 38, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_38_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4674.upper ≤
       discrepancy (1 / 10) sample_3_38 ∧
@@ -8706,7 +8706,7 @@ private theorem sample_3_38_upper : discrepancy (1 / 10) sample_3_38 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_4674] at h
   linarith
 
-private def sample_4_37 : Triple := ⟨4, 37, 41, by decide, by decide, by decide, by decide⟩
+private def sample_4_37 : Triple := ⟨4, 37, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_37_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3034.upper ≤
       discrepancy (1 / 10) sample_4_37 ∧
@@ -8727,7 +8727,7 @@ private theorem sample_4_37_upper : discrepancy (1 / 10) sample_4_37 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_3034] at h
   linarith
 
-private def sample_5_36 : Triple := ⟨5, 36, 41, by decide, by decide, by decide, by decide⟩
+private def sample_5_36 : Triple := ⟨5, 36, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_36_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1230.upper ≤
       discrepancy (1 / 10) sample_5_36 ∧
@@ -8748,7 +8748,7 @@ private theorem sample_5_36_upper : discrepancy (1 / 10) sample_5_36 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_1230] at h
   linarith
 
-private def sample_6_35 : Triple := ⟨6, 35, 41, by decide, by decide, by decide, by decide⟩
+private def sample_6_35 : Triple := ⟨6, 35, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_35_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8610.upper ≤
       discrepancy (1 / 10) sample_6_35 ∧
@@ -8769,7 +8769,7 @@ private theorem sample_6_35_upper : discrepancy (1 / 10) sample_6_35 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_8610] at h
   linarith
 
-private def sample_7_34 : Triple := ⟨7, 34, 41, by decide, by decide, by decide, by decide⟩
+private def sample_7_34 : Triple := ⟨7, 34, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_34_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9758.upper ≤
       discrepancy (1 / 10) sample_7_34 ∧
@@ -8790,7 +8790,7 @@ private theorem sample_7_34_upper : discrepancy (1 / 10) sample_7_34 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_9758] at h
   linarith
 
-private def sample_8_33 : Triple := ⟨8, 33, 41, by decide, by decide, by decide, by decide⟩
+private def sample_8_33 : Triple := ⟨8, 33, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_33_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2706.upper ≤
       discrepancy (1 / 10) sample_8_33 ∧
@@ -8811,7 +8811,7 @@ private theorem sample_8_33_upper : discrepancy (1 / 10) sample_8_33 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_2706] at h
   linarith
 
-private def sample_9_32 : Triple := ⟨9, 32, 41, by decide, by decide, by decide, by decide⟩
+private def sample_9_32 : Triple := ⟨9, 32, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_32_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_246.upper ≤
       discrepancy (1 / 10) sample_9_32 ∧
@@ -8832,7 +8832,7 @@ private theorem sample_9_32_upper : discrepancy (1 / 10) sample_9_32 ≤ (227 / 
   norm_num [logCertificate_41, logCertificate_246] at h
   linarith
 
-private def sample_10_31 : Triple := ⟨10, 31, 41, by decide, by decide, by decide, by decide⟩
+private def sample_10_31 : Triple := ⟨10, 31, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_31_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12710.upper ≤
       discrepancy (1 / 10) sample_10_31 ∧
@@ -8853,7 +8853,7 @@ private theorem sample_10_31_upper : discrepancy (1 / 10) sample_10_31 ≤ (227 
   norm_num [logCertificate_41, logCertificate_12710] at h
   linarith
 
-private def sample_11_30 : Triple := ⟨11, 30, 41, by decide, by decide, by decide, by decide⟩
+private def sample_11_30 : Triple := ⟨11, 30, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_30_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13530.upper ≤
       discrepancy (1 / 10) sample_11_30 ∧
@@ -8874,7 +8874,7 @@ private theorem sample_11_30_upper : discrepancy (1 / 10) sample_11_30 ≤ (227 
   norm_num [logCertificate_41, logCertificate_13530] at h
   linarith
 
-private def sample_12_29 : Triple := ⟨12, 29, 41, by decide, by decide, by decide, by decide⟩
+private def sample_12_29 : Triple := ⟨12, 29, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_29_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7134.upper ≤
       discrepancy (1 / 10) sample_12_29 ∧
@@ -8895,7 +8895,7 @@ private theorem sample_12_29_upper : discrepancy (1 / 10) sample_12_29 ≤ (227 
   norm_num [logCertificate_41, logCertificate_7134] at h
   linarith
 
-private def sample_13_28 : Triple := ⟨13, 28, 41, by decide, by decide, by decide, by decide⟩
+private def sample_13_28 : Triple := ⟨13, 28, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_28_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7462.upper ≤
       discrepancy (1 / 10) sample_13_28 ∧
@@ -8916,7 +8916,7 @@ private theorem sample_13_28_upper : discrepancy (1 / 10) sample_13_28 ≤ (227 
   norm_num [logCertificate_41, logCertificate_7462] at h
   linarith
 
-private def sample_14_27 : Triple := ⟨14, 27, 41, by decide, by decide, by decide, by decide⟩
+private def sample_14_27 : Triple := ⟨14, 27, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_27_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1722.upper ≤
       discrepancy (1 / 10) sample_14_27 ∧
@@ -8937,7 +8937,7 @@ private theorem sample_14_27_upper : discrepancy (1 / 10) sample_14_27 ≤ (227 
   norm_num [logCertificate_41, logCertificate_1722] at h
   linarith
 
-private def sample_15_26 : Triple := ⟨15, 26, 41, by decide, by decide, by decide, by decide⟩
+private def sample_15_26 : Triple := ⟨15, 26, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_26_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15990.upper ≤
       discrepancy (1 / 10) sample_15_26 ∧
@@ -8958,7 +8958,7 @@ private theorem sample_15_26_upper : discrepancy (1 / 10) sample_15_26 ≤ (227 
   norm_num [logCertificate_41, logCertificate_15990] at h
   linarith
 
-private def sample_16_25 : Triple := ⟨16, 25, 41, by decide, by decide, by decide, by decide⟩
+private def sample_16_25 : Triple := ⟨16, 25, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_25_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_410.upper ≤
       discrepancy (1 / 10) sample_16_25 ∧
@@ -8979,7 +8979,7 @@ private theorem sample_16_25_upper : discrepancy (1 / 10) sample_16_25 ≤ (227 
   norm_num [logCertificate_41, logCertificate_410] at h
   linarith
 
-private def sample_17_24 : Triple := ⟨17, 24, 41, by decide, by decide, by decide, by decide⟩
+private def sample_17_24 : Triple := ⟨17, 24, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_24_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4182.upper ≤
       discrepancy (1 / 10) sample_17_24 ∧
@@ -9000,7 +9000,7 @@ private theorem sample_17_24_upper : discrepancy (1 / 10) sample_17_24 ≤ (227 
   norm_num [logCertificate_41, logCertificate_4182] at h
   linarith
 
-private def sample_18_23 : Triple := ⟨18, 23, 41, by decide, by decide, by decide, by decide⟩
+private def sample_18_23 : Triple := ⟨18, 23, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_23_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5658.upper ≤
       discrepancy (1 / 10) sample_18_23 ∧
@@ -9021,7 +9021,7 @@ private theorem sample_18_23_upper : discrepancy (1 / 10) sample_18_23 ≤ (227 
   norm_num [logCertificate_41, logCertificate_5658] at h
   linarith
 
-private def sample_19_22 : Triple := ⟨19, 22, 41, by decide, by decide, by decide, by decide⟩
+private def sample_19_22 : Triple := ⟨19, 22, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_22_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17138.upper ≤
       discrepancy (1 / 10) sample_19_22 ∧
@@ -9042,7 +9042,7 @@ private theorem sample_19_22_upper : discrepancy (1 / 10) sample_19_22 ≤ (227 
   norm_num [logCertificate_41, logCertificate_17138] at h
   linarith
 
-private def sample_20_21 : Triple := ⟨20, 21, 41, by decide, by decide, by decide, by decide⟩
+private def sample_20_21 : Triple := ⟨20, 21, 41, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_21_interval :
     (logCertificate_41.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8610.upper ≤
       discrepancy (1 / 10) sample_20_21 ∧
@@ -9063,7 +9063,7 @@ private theorem sample_20_21_upper : discrepancy (1 / 10) sample_20_21 ≤ (227 
   norm_num [logCertificate_41, logCertificate_8610] at h
   linarith
 
-private def sample_1_41 : Triple := ⟨1, 41, 42, by decide, by decide, by decide, by decide⟩
+private def sample_1_41 : Triple := ⟨1, 41, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_41_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1722.upper ≤
       discrepancy (1 / 10) sample_1_41 ∧
@@ -9084,7 +9084,7 @@ private theorem sample_1_41_upper : discrepancy (1 / 10) sample_1_41 ≤ (227 / 
   norm_num [logCertificate_42, logCertificate_1722] at h
   linarith
 
-private def sample_5_37 : Triple := ⟨5, 37, 42, by decide, by decide, by decide, by decide⟩
+private def sample_5_37 : Triple := ⟨5, 37, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_37_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7770.upper ≤
       discrepancy (1 / 10) sample_5_37 ∧
@@ -9105,7 +9105,7 @@ private theorem sample_5_37_upper : discrepancy (1 / 10) sample_5_37 ≤ (227 / 
   norm_num [logCertificate_42, logCertificate_7770] at h
   linarith
 
-private def sample_11_31 : Triple := ⟨11, 31, 42, by decide, by decide, by decide, by decide⟩
+private def sample_11_31 : Triple := ⟨11, 31, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_31_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14322.upper ≤
       discrepancy (1 / 10) sample_11_31 ∧
@@ -9126,7 +9126,7 @@ private theorem sample_11_31_upper : discrepancy (1 / 10) sample_11_31 ≤ (227 
   norm_num [logCertificate_42, logCertificate_14322] at h
   linarith
 
-private def sample_13_29 : Triple := ⟨13, 29, 42, by decide, by decide, by decide, by decide⟩
+private def sample_13_29 : Triple := ⟨13, 29, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_29_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15834.upper ≤
       discrepancy (1 / 10) sample_13_29 ∧
@@ -9147,7 +9147,7 @@ private theorem sample_13_29_upper : discrepancy (1 / 10) sample_13_29 ≤ (227 
   norm_num [logCertificate_42, logCertificate_15834] at h
   linarith
 
-private def sample_17_25 : Triple := ⟨17, 25, 42, by decide, by decide, by decide, by decide⟩
+private def sample_17_25 : Triple := ⟨17, 25, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_25_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_17_25 ∧
@@ -9168,7 +9168,7 @@ private theorem sample_17_25_upper : discrepancy (1 / 10) sample_17_25 ≤ (227 
   norm_num [logCertificate_42, logCertificate_3570] at h
   linarith
 
-private def sample_19_23 : Triple := ⟨19, 23, 42, by decide, by decide, by decide, by decide⟩
+private def sample_19_23 : Triple := ⟨19, 23, 42, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_23_interval :
     (logCertificate_42.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_18354.upper ≤
       discrepancy (1 / 10) sample_19_23 ∧
@@ -9189,7 +9189,7 @@ private theorem sample_19_23_upper : discrepancy (1 / 10) sample_19_23 ≤ (227 
   norm_num [logCertificate_42, logCertificate_18354] at h
   linarith
 
-private def sample_1_42 : Triple := ⟨1, 42, 43, by decide, by decide, by decide, by decide⟩
+private def sample_1_42 : Triple := ⟨1, 42, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_42_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1806.upper ≤
       discrepancy (1 / 10) sample_1_42 ∧
@@ -9210,7 +9210,7 @@ private theorem sample_1_42_upper : discrepancy (1 / 10) sample_1_42 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_1806] at h
   linarith
 
-private def sample_2_41 : Triple := ⟨2, 41, 43, by decide, by decide, by decide, by decide⟩
+private def sample_2_41 : Triple := ⟨2, 41, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_41_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3526.upper ≤
       discrepancy (1 / 10) sample_2_41 ∧
@@ -9231,7 +9231,7 @@ private theorem sample_2_41_upper : discrepancy (1 / 10) sample_2_41 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_3526] at h
   linarith
 
-private def sample_3_40 : Triple := ⟨3, 40, 43, by decide, by decide, by decide, by decide⟩
+private def sample_3_40 : Triple := ⟨3, 40, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_40_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1290.upper ≤
       discrepancy (1 / 10) sample_3_40 ∧
@@ -9252,7 +9252,7 @@ private theorem sample_3_40_upper : discrepancy (1 / 10) sample_3_40 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_1290] at h
   linarith
 
-private def sample_4_39 : Triple := ⟨4, 39, 43, by decide, by decide, by decide, by decide⟩
+private def sample_4_39 : Triple := ⟨4, 39, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_39_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3354.upper ≤
       discrepancy (1 / 10) sample_4_39 ∧
@@ -9273,7 +9273,7 @@ private theorem sample_4_39_upper : discrepancy (1 / 10) sample_4_39 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_3354] at h
   linarith
 
-private def sample_5_38 : Triple := ⟨5, 38, 43, by decide, by decide, by decide, by decide⟩
+private def sample_5_38 : Triple := ⟨5, 38, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_38_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8170.upper ≤
       discrepancy (1 / 10) sample_5_38 ∧
@@ -9294,7 +9294,7 @@ private theorem sample_5_38_upper : discrepancy (1 / 10) sample_5_38 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_8170] at h
   linarith
 
-private def sample_6_37 : Triple := ⟨6, 37, 43, by decide, by decide, by decide, by decide⟩
+private def sample_6_37 : Triple := ⟨6, 37, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_37_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9546.upper ≤
       discrepancy (1 / 10) sample_6_37 ∧
@@ -9315,7 +9315,7 @@ private theorem sample_6_37_upper : discrepancy (1 / 10) sample_6_37 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_9546] at h
   linarith
 
-private def sample_7_36 : Triple := ⟨7, 36, 43, by decide, by decide, by decide, by decide⟩
+private def sample_7_36 : Triple := ⟨7, 36, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_36_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1806.upper ≤
       discrepancy (1 / 10) sample_7_36 ∧
@@ -9336,7 +9336,7 @@ private theorem sample_7_36_upper : discrepancy (1 / 10) sample_7_36 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_1806] at h
   linarith
 
-private def sample_8_35 : Triple := ⟨8, 35, 43, by decide, by decide, by decide, by decide⟩
+private def sample_8_35 : Triple := ⟨8, 35, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_35_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3010.upper ≤
       discrepancy (1 / 10) sample_8_35 ∧
@@ -9357,7 +9357,7 @@ private theorem sample_8_35_upper : discrepancy (1 / 10) sample_8_35 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_3010] at h
   linarith
 
-private def sample_9_34 : Triple := ⟨9, 34, 43, by decide, by decide, by decide, by decide⟩
+private def sample_9_34 : Triple := ⟨9, 34, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_34_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4386.upper ≤
       discrepancy (1 / 10) sample_9_34 ∧
@@ -9378,7 +9378,7 @@ private theorem sample_9_34_upper : discrepancy (1 / 10) sample_9_34 ≤ (227 / 
   norm_num [logCertificate_43, logCertificate_4386] at h
   linarith
 
-private def sample_10_33 : Triple := ⟨10, 33, 43, by decide, by decide, by decide, by decide⟩
+private def sample_10_33 : Triple := ⟨10, 33, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_33_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14190.upper ≤
       discrepancy (1 / 10) sample_10_33 ∧
@@ -9399,7 +9399,7 @@ private theorem sample_10_33_upper : discrepancy (1 / 10) sample_10_33 ≤ (227 
   norm_num [logCertificate_43, logCertificate_14190] at h
   linarith
 
-private def sample_11_32 : Triple := ⟨11, 32, 43, by decide, by decide, by decide, by decide⟩
+private def sample_11_32 : Triple := ⟨11, 32, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_32_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_946.upper ≤
       discrepancy (1 / 10) sample_11_32 ∧
@@ -9420,7 +9420,7 @@ private theorem sample_11_32_upper : discrepancy (1 / 10) sample_11_32 ≤ (227 
   norm_num [logCertificate_43, logCertificate_946] at h
   linarith
 
-private def sample_12_31 : Triple := ⟨12, 31, 43, by decide, by decide, by decide, by decide⟩
+private def sample_12_31 : Triple := ⟨12, 31, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_31_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7998.upper ≤
       discrepancy (1 / 10) sample_12_31 ∧
@@ -9441,7 +9441,7 @@ private theorem sample_12_31_upper : discrepancy (1 / 10) sample_12_31 ≤ (227 
   norm_num [logCertificate_43, logCertificate_7998] at h
   linarith
 
-private def sample_13_30 : Triple := ⟨13, 30, 43, by decide, by decide, by decide, by decide⟩
+private def sample_13_30 : Triple := ⟨13, 30, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_30_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16770.upper ≤
       discrepancy (1 / 10) sample_13_30 ∧
@@ -9462,7 +9462,7 @@ private theorem sample_13_30_upper : discrepancy (1 / 10) sample_13_30 ≤ (227 
   norm_num [logCertificate_43, logCertificate_16770] at h
   linarith
 
-private def sample_14_29 : Triple := ⟨14, 29, 43, by decide, by decide, by decide, by decide⟩
+private def sample_14_29 : Triple := ⟨14, 29, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_29_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17458.upper ≤
       discrepancy (1 / 10) sample_14_29 ∧
@@ -9483,7 +9483,7 @@ private theorem sample_14_29_upper : discrepancy (1 / 10) sample_14_29 ≤ (227 
   norm_num [logCertificate_43, logCertificate_17458] at h
   linarith
 
-private def sample_15_28 : Triple := ⟨15, 28, 43, by decide, by decide, by decide, by decide⟩
+private def sample_15_28 : Triple := ⟨15, 28, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_28_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9030.upper ≤
       discrepancy (1 / 10) sample_15_28 ∧
@@ -9504,7 +9504,7 @@ private theorem sample_15_28_upper : discrepancy (1 / 10) sample_15_28 ≤ (227 
   norm_num [logCertificate_43, logCertificate_9030] at h
   linarith
 
-private def sample_16_27 : Triple := ⟨16, 27, 43, by decide, by decide, by decide, by decide⟩
+private def sample_16_27 : Triple := ⟨16, 27, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_27_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_258.upper ≤
       discrepancy (1 / 10) sample_16_27 ∧
@@ -9525,7 +9525,7 @@ private theorem sample_16_27_upper : discrepancy (1 / 10) sample_16_27 ≤ (227 
   norm_num [logCertificate_43, logCertificate_258] at h
   linarith
 
-private def sample_17_26 : Triple := ⟨17, 26, 43, by decide, by decide, by decide, by decide⟩
+private def sample_17_26 : Triple := ⟨17, 26, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_26_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_19006.upper ≤
       discrepancy (1 / 10) sample_17_26 ∧
@@ -9546,7 +9546,7 @@ private theorem sample_17_26_upper : discrepancy (1 / 10) sample_17_26 ≤ (227 
   norm_num [logCertificate_43, logCertificate_19006] at h
   linarith
 
-private def sample_18_25 : Triple := ⟨18, 25, 43, by decide, by decide, by decide, by decide⟩
+private def sample_18_25 : Triple := ⟨18, 25, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_25_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1290.upper ≤
       discrepancy (1 / 10) sample_18_25 ∧
@@ -9567,7 +9567,7 @@ private theorem sample_18_25_upper : discrepancy (1 / 10) sample_18_25 ≤ (227 
   norm_num [logCertificate_43, logCertificate_1290] at h
   linarith
 
-private def sample_19_24 : Triple := ⟨19, 24, 43, by decide, by decide, by decide, by decide⟩
+private def sample_19_24 : Triple := ⟨19, 24, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_24_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4902.upper ≤
       discrepancy (1 / 10) sample_19_24 ∧
@@ -9588,7 +9588,7 @@ private theorem sample_19_24_upper : discrepancy (1 / 10) sample_19_24 ≤ (227 
   norm_num [logCertificate_43, logCertificate_4902] at h
   linarith
 
-private def sample_20_23 : Triple := ⟨20, 23, 43, by decide, by decide, by decide, by decide⟩
+private def sample_20_23 : Triple := ⟨20, 23, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_23_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9890.upper ≤
       discrepancy (1 / 10) sample_20_23 ∧
@@ -9609,7 +9609,7 @@ private theorem sample_20_23_upper : discrepancy (1 / 10) sample_20_23 ≤ (227 
   norm_num [logCertificate_43, logCertificate_9890] at h
   linarith
 
-private def sample_21_22 : Triple := ⟨21, 22, 43, by decide, by decide, by decide, by decide⟩
+private def sample_21_22 : Triple := ⟨21, 22, 43, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_22_interval :
     (logCertificate_43.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_19866.upper ≤
       discrepancy (1 / 10) sample_21_22 ∧
@@ -9630,7 +9630,7 @@ private theorem sample_21_22_upper : discrepancy (1 / 10) sample_21_22 ≤ (227 
   norm_num [logCertificate_43, logCertificate_19866] at h
   linarith
 
-private def sample_1_43 : Triple := ⟨1, 43, 44, by decide, by decide, by decide, by decide⟩
+private def sample_1_43 : Triple := ⟨1, 43, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_43_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_946.upper ≤
       discrepancy (1 / 10) sample_1_43 ∧
@@ -9651,7 +9651,7 @@ private theorem sample_1_43_upper : discrepancy (1 / 10) sample_1_43 ≤ (227 / 
   norm_num [logCertificate_44, logCertificate_946] at h
   linarith
 
-private def sample_3_41 : Triple := ⟨3, 41, 44, by decide, by decide, by decide, by decide⟩
+private def sample_3_41 : Triple := ⟨3, 41, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_41_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2706.upper ≤
       discrepancy (1 / 10) sample_3_41 ∧
@@ -9672,7 +9672,7 @@ private theorem sample_3_41_upper : discrepancy (1 / 10) sample_3_41 ≤ (227 / 
   norm_num [logCertificate_44, logCertificate_2706] at h
   linarith
 
-private def sample_5_39 : Triple := ⟨5, 39, 44, by decide, by decide, by decide, by decide⟩
+private def sample_5_39 : Triple := ⟨5, 39, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_39_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_5_39 ∧
@@ -9693,7 +9693,7 @@ private theorem sample_5_39_upper : discrepancy (1 / 10) sample_5_39 ≤ (227 / 
   norm_num [logCertificate_44, logCertificate_4290] at h
   linarith
 
-private def sample_7_37 : Triple := ⟨7, 37, 44, by decide, by decide, by decide, by decide⟩
+private def sample_7_37 : Triple := ⟨7, 37, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_37_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5698.upper ≤
       discrepancy (1 / 10) sample_7_37 ∧
@@ -9714,7 +9714,7 @@ private theorem sample_7_37_upper : discrepancy (1 / 10) sample_7_37 ≤ (227 / 
   norm_num [logCertificate_44, logCertificate_5698] at h
   linarith
 
-private def sample_9_35 : Triple := ⟨9, 35, 44, by decide, by decide, by decide, by decide⟩
+private def sample_9_35 : Triple := ⟨9, 35, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_35_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_9_35 ∧
@@ -9735,7 +9735,7 @@ private theorem sample_9_35_upper : discrepancy (1 / 10) sample_9_35 ≤ (227 / 
   norm_num [logCertificate_44, logCertificate_2310] at h
   linarith
 
-private def sample_13_31 : Triple := ⟨13, 31, 44, by decide, by decide, by decide, by decide⟩
+private def sample_13_31 : Triple := ⟨13, 31, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_31_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8866.upper ≤
       discrepancy (1 / 10) sample_13_31 ∧
@@ -9756,7 +9756,7 @@ private theorem sample_13_31_upper : discrepancy (1 / 10) sample_13_31 ≤ (227 
   norm_num [logCertificate_44, logCertificate_8866] at h
   linarith
 
-private def sample_15_29 : Triple := ⟨15, 29, 44, by decide, by decide, by decide, by decide⟩
+private def sample_15_29 : Triple := ⟨15, 29, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_29_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9570.upper ≤
       discrepancy (1 / 10) sample_15_29 ∧
@@ -9777,7 +9777,7 @@ private theorem sample_15_29_upper : discrepancy (1 / 10) sample_15_29 ≤ (227 
   norm_num [logCertificate_44, logCertificate_9570] at h
   linarith
 
-private def sample_17_27 : Triple := ⟨17, 27, 44, by decide, by decide, by decide, by decide⟩
+private def sample_17_27 : Triple := ⟨17, 27, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_27_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1122.upper ≤
       discrepancy (1 / 10) sample_17_27 ∧
@@ -9798,7 +9798,7 @@ private theorem sample_17_27_upper : discrepancy (1 / 10) sample_17_27 ≤ (227 
   norm_num [logCertificate_44, logCertificate_1122] at h
   linarith
 
-private def sample_19_25 : Triple := ⟨19, 25, 44, by decide, by decide, by decide, by decide⟩
+private def sample_19_25 : Triple := ⟨19, 25, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_25_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2090.upper ≤
       discrepancy (1 / 10) sample_19_25 ∧
@@ -9819,7 +9819,7 @@ private theorem sample_19_25_upper : discrepancy (1 / 10) sample_19_25 ≤ (227 
   norm_num [logCertificate_44, logCertificate_2090] at h
   linarith
 
-private def sample_21_23 : Triple := ⟨21, 23, 44, by decide, by decide, by decide, by decide⟩
+private def sample_21_23 : Triple := ⟨21, 23, 44, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_23_interval :
     (logCertificate_44.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10626.upper ≤
       discrepancy (1 / 10) sample_21_23 ∧
@@ -9840,7 +9840,7 @@ private theorem sample_21_23_upper : discrepancy (1 / 10) sample_21_23 ≤ (227 
   norm_num [logCertificate_44, logCertificate_10626] at h
   linarith
 
-private def sample_1_44 : Triple := ⟨1, 44, 45, by decide, by decide, by decide, by decide⟩
+private def sample_1_44 : Triple := ⟨1, 44, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_44_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_1_44 ∧
@@ -9861,7 +9861,7 @@ private theorem sample_1_44_upper : discrepancy (1 / 10) sample_1_44 ≤ (227 / 
   norm_num [logCertificate_45, logCertificate_330] at h
   linarith
 
-private def sample_2_43 : Triple := ⟨2, 43, 45, by decide, by decide, by decide, by decide⟩
+private def sample_2_43 : Triple := ⟨2, 43, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_43_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1290.upper ≤
       discrepancy (1 / 10) sample_2_43 ∧
@@ -9882,7 +9882,7 @@ private theorem sample_2_43_upper : discrepancy (1 / 10) sample_2_43 ≤ (227 / 
   norm_num [logCertificate_45, logCertificate_1290] at h
   linarith
 
-private def sample_4_41 : Triple := ⟨4, 41, 45, by decide, by decide, by decide, by decide⟩
+private def sample_4_41 : Triple := ⟨4, 41, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_41_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1230.upper ≤
       discrepancy (1 / 10) sample_4_41 ∧
@@ -9903,7 +9903,7 @@ private theorem sample_4_41_upper : discrepancy (1 / 10) sample_4_41 ≤ (227 / 
   norm_num [logCertificate_45, logCertificate_1230] at h
   linarith
 
-private def sample_7_38 : Triple := ⟨7, 38, 45, by decide, by decide, by decide, by decide⟩
+private def sample_7_38 : Triple := ⟨7, 38, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_38_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_7_38 ∧
@@ -9924,7 +9924,7 @@ private theorem sample_7_38_upper : discrepancy (1 / 10) sample_7_38 ≤ (227 / 
   norm_num [logCertificate_45, logCertificate_3990] at h
   linarith
 
-private def sample_8_37 : Triple := ⟨8, 37, 45, by decide, by decide, by decide, by decide⟩
+private def sample_8_37 : Triple := ⟨8, 37, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_37_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1110.upper ≤
       discrepancy (1 / 10) sample_8_37 ∧
@@ -9945,7 +9945,7 @@ private theorem sample_8_37_upper : discrepancy (1 / 10) sample_8_37 ≤ (227 / 
   norm_num [logCertificate_45, logCertificate_1110] at h
   linarith
 
-private def sample_11_34 : Triple := ⟨11, 34, 45, by decide, by decide, by decide, by decide⟩
+private def sample_11_34 : Triple := ⟨11, 34, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_34_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5610.upper ≤
       discrepancy (1 / 10) sample_11_34 ∧
@@ -9966,7 +9966,7 @@ private theorem sample_11_34_upper : discrepancy (1 / 10) sample_11_34 ≤ (227 
   norm_num [logCertificate_45, logCertificate_5610] at h
   linarith
 
-private def sample_13_32 : Triple := ⟨13, 32, 45, by decide, by decide, by decide, by decide⟩
+private def sample_13_32 : Triple := ⟨13, 32, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_32_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_13_32 ∧
@@ -9987,7 +9987,7 @@ private theorem sample_13_32_upper : discrepancy (1 / 10) sample_13_32 ≤ (227 
   norm_num [logCertificate_45, logCertificate_390] at h
   linarith
 
-private def sample_14_31 : Triple := ⟨14, 31, 45, by decide, by decide, by decide, by decide⟩
+private def sample_14_31 : Triple := ⟨14, 31, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_31_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6510.upper ≤
       discrepancy (1 / 10) sample_14_31 ∧
@@ -10008,7 +10008,7 @@ private theorem sample_14_31_upper : discrepancy (1 / 10) sample_14_31 ≤ (227 
   norm_num [logCertificate_45, logCertificate_6510] at h
   linarith
 
-private def sample_16_29 : Triple := ⟨16, 29, 45, by decide, by decide, by decide, by decide⟩
+private def sample_16_29 : Triple := ⟨16, 29, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_29_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_870.upper ≤
       discrepancy (1 / 10) sample_16_29 ∧
@@ -10029,7 +10029,7 @@ private theorem sample_16_29_upper : discrepancy (1 / 10) sample_16_29 ≤ (227 
   norm_num [logCertificate_45, logCertificate_870] at h
   linarith
 
-private def sample_17_28 : Triple := ⟨17, 28, 45, by decide, by decide, by decide, by decide⟩
+private def sample_17_28 : Triple := ⟨17, 28, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_28_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_17_28 ∧
@@ -10050,7 +10050,7 @@ private theorem sample_17_28_upper : discrepancy (1 / 10) sample_17_28 ≤ (227 
   norm_num [logCertificate_45, logCertificate_3570] at h
   linarith
 
-private def sample_19_26 : Triple := ⟨19, 26, 45, by decide, by decide, by decide, by decide⟩
+private def sample_19_26 : Triple := ⟨19, 26, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_26_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7410.upper ≤
       discrepancy (1 / 10) sample_19_26 ∧
@@ -10071,7 +10071,7 @@ private theorem sample_19_26_upper : discrepancy (1 / 10) sample_19_26 ≤ (227 
   norm_num [logCertificate_45, logCertificate_7410] at h
   linarith
 
-private def sample_22_23 : Triple := ⟨22, 23, 45, by decide, by decide, by decide, by decide⟩
+private def sample_22_23 : Triple := ⟨22, 23, 45, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_23_interval :
     (logCertificate_45.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7590.upper ≤
       discrepancy (1 / 10) sample_22_23 ∧
@@ -10092,7 +10092,7 @@ private theorem sample_22_23_upper : discrepancy (1 / 10) sample_22_23 ≤ (227 
   norm_num [logCertificate_45, logCertificate_7590] at h
   linarith
 
-private def sample_1_45 : Triple := ⟨1, 45, 46, by decide, by decide, by decide, by decide⟩
+private def sample_1_45 : Triple := ⟨1, 45, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_45_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_1_45 ∧
@@ -10113,7 +10113,7 @@ private theorem sample_1_45_upper : discrepancy (1 / 10) sample_1_45 ≤ (227 / 
   norm_num [logCertificate_46, logCertificate_690] at h
   linarith
 
-private def sample_3_43 : Triple := ⟨3, 43, 46, by decide, by decide, by decide, by decide⟩
+private def sample_3_43 : Triple := ⟨3, 43, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_43_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5934.upper ≤
       discrepancy (1 / 10) sample_3_43 ∧
@@ -10134,7 +10134,7 @@ private theorem sample_3_43_upper : discrepancy (1 / 10) sample_3_43 ≤ (227 / 
   norm_num [logCertificate_46, logCertificate_5934] at h
   linarith
 
-private def sample_5_41 : Triple := ⟨5, 41, 46, by decide, by decide, by decide, by decide⟩
+private def sample_5_41 : Triple := ⟨5, 41, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_41_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9430.upper ≤
       discrepancy (1 / 10) sample_5_41 ∧
@@ -10155,7 +10155,7 @@ private theorem sample_5_41_upper : discrepancy (1 / 10) sample_5_41 ≤ (227 / 
   norm_num [logCertificate_46, logCertificate_9430] at h
   linarith
 
-private def sample_7_39 : Triple := ⟨7, 39, 46, by decide, by decide, by decide, by decide⟩
+private def sample_7_39 : Triple := ⟨7, 39, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_39_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12558.upper ≤
       discrepancy (1 / 10) sample_7_39 ∧
@@ -10176,7 +10176,7 @@ private theorem sample_7_39_upper : discrepancy (1 / 10) sample_7_39 ≤ (227 / 
   norm_num [logCertificate_46, logCertificate_12558] at h
   linarith
 
-private def sample_9_37 : Triple := ⟨9, 37, 46, by decide, by decide, by decide, by decide⟩
+private def sample_9_37 : Triple := ⟨9, 37, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_37_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5106.upper ≤
       discrepancy (1 / 10) sample_9_37 ∧
@@ -10197,7 +10197,7 @@ private theorem sample_9_37_upper : discrepancy (1 / 10) sample_9_37 ≤ (227 / 
   norm_num [logCertificate_46, logCertificate_5106] at h
   linarith
 
-private def sample_11_35 : Triple := ⟨11, 35, 46, by decide, by decide, by decide, by decide⟩
+private def sample_11_35 : Triple := ⟨11, 35, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_35_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17710.upper ≤
       discrepancy (1 / 10) sample_11_35 ∧
@@ -10218,7 +10218,7 @@ private theorem sample_11_35_upper : discrepancy (1 / 10) sample_11_35 ≤ (227 
   norm_num [logCertificate_46, logCertificate_17710] at h
   linarith
 
-private def sample_13_33 : Triple := ⟨13, 33, 46, by decide, by decide, by decide, by decide⟩
+private def sample_13_33 : Triple := ⟨13, 33, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_33_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_19734.upper ≤
       discrepancy (1 / 10) sample_13_33 ∧
@@ -10239,7 +10239,7 @@ private theorem sample_13_33_upper : discrepancy (1 / 10) sample_13_33 ≤ (227 
   norm_num [logCertificate_46, logCertificate_19734] at h
   linarith
 
-private def sample_15_31 : Triple := ⟨15, 31, 46, by decide, by decide, by decide, by decide⟩
+private def sample_15_31 : Triple := ⟨15, 31, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_31_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_21390.upper ≤
       discrepancy (1 / 10) sample_15_31 ∧
@@ -10260,7 +10260,7 @@ private theorem sample_15_31_upper : discrepancy (1 / 10) sample_15_31 ≤ (227 
   norm_num [logCertificate_46, logCertificate_21390] at h
   linarith
 
-private def sample_17_29 : Triple := ⟨17, 29, 46, by decide, by decide, by decide, by decide⟩
+private def sample_17_29 : Triple := ⟨17, 29, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_29_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_22678.upper ≤
       discrepancy (1 / 10) sample_17_29 ∧
@@ -10281,7 +10281,7 @@ private theorem sample_17_29_upper : discrepancy (1 / 10) sample_17_29 ≤ (227 
   norm_num [logCertificate_46, logCertificate_22678] at h
   linarith
 
-private def sample_19_27 : Triple := ⟨19, 27, 46, by decide, by decide, by decide, by decide⟩
+private def sample_19_27 : Triple := ⟨19, 27, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_27_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2622.upper ≤
       discrepancy (1 / 10) sample_19_27 ∧
@@ -10302,7 +10302,7 @@ private theorem sample_19_27_upper : discrepancy (1 / 10) sample_19_27 ≤ (227 
   norm_num [logCertificate_46, logCertificate_2622] at h
   linarith
 
-private def sample_21_25 : Triple := ⟨21, 25, 46, by decide, by decide, by decide, by decide⟩
+private def sample_21_25 : Triple := ⟨21, 25, 46, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_25_interval :
     (logCertificate_46.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_21_25 ∧
@@ -10323,7 +10323,7 @@ private theorem sample_21_25_upper : discrepancy (1 / 10) sample_21_25 ≤ (227 
   norm_num [logCertificate_46, logCertificate_4830] at h
   linarith
 
-private def sample_1_46 : Triple := ⟨1, 46, 47, by decide, by decide, by decide, by decide⟩
+private def sample_1_46 : Triple := ⟨1, 46, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_46_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2162.upper ≤
       discrepancy (1 / 10) sample_1_46 ∧
@@ -10344,7 +10344,7 @@ private theorem sample_1_46_upper : discrepancy (1 / 10) sample_1_46 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_2162] at h
   linarith
 
-private def sample_2_45 : Triple := ⟨2, 45, 47, by decide, by decide, by decide, by decide⟩
+private def sample_2_45 : Triple := ⟨2, 45, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_45_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1410.upper ≤
       discrepancy (1 / 10) sample_2_45 ∧
@@ -10365,7 +10365,7 @@ private theorem sample_2_45_upper : discrepancy (1 / 10) sample_2_45 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_1410] at h
   linarith
 
-private def sample_3_44 : Triple := ⟨3, 44, 47, by decide, by decide, by decide, by decide⟩
+private def sample_3_44 : Triple := ⟨3, 44, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_44_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3102.upper ≤
       discrepancy (1 / 10) sample_3_44 ∧
@@ -10386,7 +10386,7 @@ private theorem sample_3_44_upper : discrepancy (1 / 10) sample_3_44 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_3102] at h
   linarith
 
-private def sample_4_43 : Triple := ⟨4, 43, 47, by decide, by decide, by decide, by decide⟩
+private def sample_4_43 : Triple := ⟨4, 43, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_43_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4042.upper ≤
       discrepancy (1 / 10) sample_4_43 ∧
@@ -10407,7 +10407,7 @@ private theorem sample_4_43_upper : discrepancy (1 / 10) sample_4_43 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_4042] at h
   linarith
 
-private def sample_5_42 : Triple := ⟨5, 42, 47, by decide, by decide, by decide, by decide⟩
+private def sample_5_42 : Triple := ⟨5, 42, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_42_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9870.upper ≤
       discrepancy (1 / 10) sample_5_42 ∧
@@ -10428,7 +10428,7 @@ private theorem sample_5_42_upper : discrepancy (1 / 10) sample_5_42 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_9870] at h
   linarith
 
-private def sample_6_41 : Triple := ⟨6, 41, 47, by decide, by decide, by decide, by decide⟩
+private def sample_6_41 : Triple := ⟨6, 41, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_41_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11562.upper ≤
       discrepancy (1 / 10) sample_6_41 ∧
@@ -10449,7 +10449,7 @@ private theorem sample_6_41_upper : discrepancy (1 / 10) sample_6_41 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_11562] at h
   linarith
 
-private def sample_7_40 : Triple := ⟨7, 40, 47, by decide, by decide, by decide, by decide⟩
+private def sample_7_40 : Triple := ⟨7, 40, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_40_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3290.upper ≤
       discrepancy (1 / 10) sample_7_40 ∧
@@ -10470,7 +10470,7 @@ private theorem sample_7_40_upper : discrepancy (1 / 10) sample_7_40 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_3290] at h
   linarith
 
-private def sample_8_39 : Triple := ⟨8, 39, 47, by decide, by decide, by decide, by decide⟩
+private def sample_8_39 : Triple := ⟨8, 39, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_39_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3666.upper ≤
       discrepancy (1 / 10) sample_8_39 ∧
@@ -10491,7 +10491,7 @@ private theorem sample_8_39_upper : discrepancy (1 / 10) sample_8_39 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_3666] at h
   linarith
 
-private def sample_9_38 : Triple := ⟨9, 38, 47, by decide, by decide, by decide, by decide⟩
+private def sample_9_38 : Triple := ⟨9, 38, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_38_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5358.upper ≤
       discrepancy (1 / 10) sample_9_38 ∧
@@ -10512,7 +10512,7 @@ private theorem sample_9_38_upper : discrepancy (1 / 10) sample_9_38 ≤ (227 / 
   norm_num [logCertificate_47, logCertificate_5358] at h
   linarith
 
-private def sample_10_37 : Triple := ⟨10, 37, 47, by decide, by decide, by decide, by decide⟩
+private def sample_10_37 : Triple := ⟨10, 37, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_37_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17390.upper ≤
       discrepancy (1 / 10) sample_10_37 ∧
@@ -10533,7 +10533,7 @@ private theorem sample_10_37_upper : discrepancy (1 / 10) sample_10_37 ≤ (227 
   norm_num [logCertificate_47, logCertificate_17390] at h
   linarith
 
-private def sample_11_36 : Triple := ⟨11, 36, 47, by decide, by decide, by decide, by decide⟩
+private def sample_11_36 : Triple := ⟨11, 36, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_36_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3102.upper ≤
       discrepancy (1 / 10) sample_11_36 ∧
@@ -10554,7 +10554,7 @@ private theorem sample_11_36_upper : discrepancy (1 / 10) sample_11_36 ≤ (227 
   norm_num [logCertificate_47, logCertificate_3102] at h
   linarith
 
-private def sample_12_35 : Triple := ⟨12, 35, 47, by decide, by decide, by decide, by decide⟩
+private def sample_12_35 : Triple := ⟨12, 35, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_35_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9870.upper ≤
       discrepancy (1 / 10) sample_12_35 ∧
@@ -10575,7 +10575,7 @@ private theorem sample_12_35_upper : discrepancy (1 / 10) sample_12_35 ≤ (227 
   norm_num [logCertificate_47, logCertificate_9870] at h
   linarith
 
-private def sample_13_34 : Triple := ⟨13, 34, 47, by decide, by decide, by decide, by decide⟩
+private def sample_13_34 : Triple := ⟨13, 34, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_34_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20774.upper ≤
       discrepancy (1 / 10) sample_13_34 ∧
@@ -10596,7 +10596,7 @@ private theorem sample_13_34_upper : discrepancy (1 / 10) sample_13_34 ≤ (227 
   norm_num [logCertificate_47, logCertificate_20774] at h
   linarith
 
-private def sample_14_33 : Triple := ⟨14, 33, 47, by decide, by decide, by decide, by decide⟩
+private def sample_14_33 : Triple := ⟨14, 33, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_33_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_21714.upper ≤
       discrepancy (1 / 10) sample_14_33 ∧
@@ -10617,7 +10617,7 @@ private theorem sample_14_33_upper : discrepancy (1 / 10) sample_14_33 ≤ (227 
   norm_num [logCertificate_47, logCertificate_21714] at h
   linarith
 
-private def sample_15_32 : Triple := ⟨15, 32, 47, by decide, by decide, by decide, by decide⟩
+private def sample_15_32 : Triple := ⟨15, 32, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_32_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1410.upper ≤
       discrepancy (1 / 10) sample_15_32 ∧
@@ -10638,7 +10638,7 @@ private theorem sample_15_32_upper : discrepancy (1 / 10) sample_15_32 ≤ (227 
   norm_num [logCertificate_47, logCertificate_1410] at h
   linarith
 
-private def sample_16_31 : Triple := ⟨16, 31, 47, by decide, by decide, by decide, by decide⟩
+private def sample_16_31 : Triple := ⟨16, 31, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_31_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2914.upper ≤
       discrepancy (1 / 10) sample_16_31 ∧
@@ -10659,7 +10659,7 @@ private theorem sample_16_31_upper : discrepancy (1 / 10) sample_16_31 ≤ (227 
   norm_num [logCertificate_47, logCertificate_2914] at h
   linarith
 
-private def sample_17_30 : Triple := ⟨17, 30, 47, by decide, by decide, by decide, by decide⟩
+private def sample_17_30 : Triple := ⟨17, 30, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_30_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23970.upper ≤
       discrepancy (1 / 10) sample_17_30 ∧
@@ -10680,7 +10680,7 @@ private theorem sample_17_30_upper : discrepancy (1 / 10) sample_17_30 ≤ (227 
   norm_num [logCertificate_47, logCertificate_23970] at h
   linarith
 
-private def sample_18_29 : Triple := ⟨18, 29, 47, by decide, by decide, by decide, by decide⟩
+private def sample_18_29 : Triple := ⟨18, 29, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_29_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8178.upper ≤
       discrepancy (1 / 10) sample_18_29 ∧
@@ -10701,7 +10701,7 @@ private theorem sample_18_29_upper : discrepancy (1 / 10) sample_18_29 ≤ (227 
   norm_num [logCertificate_47, logCertificate_8178] at h
   linarith
 
-private def sample_19_28 : Triple := ⟨19, 28, 47, by decide, by decide, by decide, by decide⟩
+private def sample_19_28 : Triple := ⟨19, 28, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_28_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12502.upper ≤
       discrepancy (1 / 10) sample_19_28 ∧
@@ -10722,7 +10722,7 @@ private theorem sample_19_28_upper : discrepancy (1 / 10) sample_19_28 ≤ (227 
   norm_num [logCertificate_47, logCertificate_12502] at h
   linarith
 
-private def sample_20_27 : Triple := ⟨20, 27, 47, by decide, by decide, by decide, by decide⟩
+private def sample_20_27 : Triple := ⟨20, 27, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_27_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1410.upper ≤
       discrepancy (1 / 10) sample_20_27 ∧
@@ -10743,7 +10743,7 @@ private theorem sample_20_27_upper : discrepancy (1 / 10) sample_20_27 ≤ (227 
   norm_num [logCertificate_47, logCertificate_1410] at h
   linarith
 
-private def sample_21_26 : Triple := ⟨21, 26, 47, by decide, by decide, by decide, by decide⟩
+private def sample_21_26 : Triple := ⟨21, 26, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_26_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_25662.upper ≤
       discrepancy (1 / 10) sample_21_26 ∧
@@ -10764,7 +10764,7 @@ private theorem sample_21_26_upper : discrepancy (1 / 10) sample_21_26 ≤ (227 
   norm_num [logCertificate_47, logCertificate_25662] at h
   linarith
 
-private def sample_22_25 : Triple := ⟨22, 25, 47, by decide, by decide, by decide, by decide⟩
+private def sample_22_25 : Triple := ⟨22, 25, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_25_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5170.upper ≤
       discrepancy (1 / 10) sample_22_25 ∧
@@ -10785,7 +10785,7 @@ private theorem sample_22_25_upper : discrepancy (1 / 10) sample_22_25 ≤ (227 
   norm_num [logCertificate_47, logCertificate_5170] at h
   linarith
 
-private def sample_23_24 : Triple := ⟨23, 24, 47, by decide, by decide, by decide, by decide⟩
+private def sample_23_24 : Triple := ⟨23, 24, 47, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_24_interval :
     (logCertificate_47.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6486.upper ≤
       discrepancy (1 / 10) sample_23_24 ∧
@@ -10806,7 +10806,7 @@ private theorem sample_23_24_upper : discrepancy (1 / 10) sample_23_24 ≤ (227 
   norm_num [logCertificate_47, logCertificate_6486] at h
   linarith
 
-private def sample_1_47 : Triple := ⟨1, 47, 48, by decide, by decide, by decide, by decide⟩
+private def sample_1_47 : Triple := ⟨1, 47, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_47_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_282.upper ≤
       discrepancy (1 / 10) sample_1_47 ∧
@@ -10827,7 +10827,7 @@ private theorem sample_1_47_upper : discrepancy (1 / 10) sample_1_47 ≤ (227 / 
   norm_num [logCertificate_48, logCertificate_282] at h
   linarith
 
-private def sample_5_43 : Triple := ⟨5, 43, 48, by decide, by decide, by decide, by decide⟩
+private def sample_5_43 : Triple := ⟨5, 43, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_43_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1290.upper ≤
       discrepancy (1 / 10) sample_5_43 ∧
@@ -10848,7 +10848,7 @@ private theorem sample_5_43_upper : discrepancy (1 / 10) sample_5_43 ≤ (227 / 
   norm_num [logCertificate_48, logCertificate_1290] at h
   linarith
 
-private def sample_7_41 : Triple := ⟨7, 41, 48, by decide, by decide, by decide, by decide⟩
+private def sample_7_41 : Triple := ⟨7, 41, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_41_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1722.upper ≤
       discrepancy (1 / 10) sample_7_41 ∧
@@ -10869,7 +10869,7 @@ private theorem sample_7_41_upper : discrepancy (1 / 10) sample_7_41 ≤ (227 / 
   norm_num [logCertificate_48, logCertificate_1722] at h
   linarith
 
-private def sample_11_37 : Triple := ⟨11, 37, 48, by decide, by decide, by decide, by decide⟩
+private def sample_11_37 : Triple := ⟨11, 37, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_37_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2442.upper ≤
       discrepancy (1 / 10) sample_11_37 ∧
@@ -10890,7 +10890,7 @@ private theorem sample_11_37_upper : discrepancy (1 / 10) sample_11_37 ≤ (227 
   norm_num [logCertificate_48, logCertificate_2442] at h
   linarith
 
-private def sample_13_35 : Triple := ⟨13, 35, 48, by decide, by decide, by decide, by decide⟩
+private def sample_13_35 : Triple := ⟨13, 35, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_35_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_13_35 ∧
@@ -10911,7 +10911,7 @@ private theorem sample_13_35_upper : discrepancy (1 / 10) sample_13_35 ≤ (227 
   norm_num [logCertificate_48, logCertificate_2730] at h
   linarith
 
-private def sample_17_31 : Triple := ⟨17, 31, 48, by decide, by decide, by decide, by decide⟩
+private def sample_17_31 : Triple := ⟨17, 31, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_31_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3162.upper ≤
       discrepancy (1 / 10) sample_17_31 ∧
@@ -10932,7 +10932,7 @@ private theorem sample_17_31_upper : discrepancy (1 / 10) sample_17_31 ≤ (227 
   norm_num [logCertificate_48, logCertificate_3162] at h
   linarith
 
-private def sample_19_29 : Triple := ⟨19, 29, 48, by decide, by decide, by decide, by decide⟩
+private def sample_19_29 : Triple := ⟨19, 29, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_29_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3306.upper ≤
       discrepancy (1 / 10) sample_19_29 ∧
@@ -10953,7 +10953,7 @@ private theorem sample_19_29_upper : discrepancy (1 / 10) sample_19_29 ≤ (227 
   norm_num [logCertificate_48, logCertificate_3306] at h
   linarith
 
-private def sample_23_25 : Triple := ⟨23, 25, 48, by decide, by decide, by decide, by decide⟩
+private def sample_23_25 : Triple := ⟨23, 25, 48, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_25_interval :
     (logCertificate_48.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_23_25 ∧
@@ -10974,7 +10974,7 @@ private theorem sample_23_25_upper : discrepancy (1 / 10) sample_23_25 ≤ (227 
   norm_num [logCertificate_48, logCertificate_690] at h
   linarith
 
-private def sample_1_48 : Triple := ⟨1, 48, 49, by decide, by decide, by decide, by decide⟩
+private def sample_1_48 : Triple := ⟨1, 48, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_48_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_1_48 ∧
@@ -10995,7 +10995,7 @@ private theorem sample_1_48_upper : discrepancy (1 / 10) sample_1_48 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_42] at h
   linarith
 
-private def sample_2_47 : Triple := ⟨2, 47, 49, by decide, by decide, by decide, by decide⟩
+private def sample_2_47 : Triple := ⟨2, 47, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_47_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_658.upper ≤
       discrepancy (1 / 10) sample_2_47 ∧
@@ -11016,7 +11016,7 @@ private theorem sample_2_47_upper : discrepancy (1 / 10) sample_2_47 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_658] at h
   linarith
 
-private def sample_3_46 : Triple := ⟨3, 46, 49, by decide, by decide, by decide, by decide⟩
+private def sample_3_46 : Triple := ⟨3, 46, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_46_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_966.upper ≤
       discrepancy (1 / 10) sample_3_46 ∧
@@ -11037,7 +11037,7 @@ private theorem sample_3_46_upper : discrepancy (1 / 10) sample_3_46 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_966] at h
   linarith
 
-private def sample_4_45 : Triple := ⟨4, 45, 49, by decide, by decide, by decide, by decide⟩
+private def sample_4_45 : Triple := ⟨4, 45, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_45_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_4_45 ∧
@@ -11058,7 +11058,7 @@ private theorem sample_4_45_upper : discrepancy (1 / 10) sample_4_45 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_210] at h
   linarith
 
-private def sample_5_44 : Triple := ⟨5, 44, 49, by decide, by decide, by decide, by decide⟩
+private def sample_5_44 : Triple := ⟨5, 44, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_44_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_770.upper ≤
       discrepancy (1 / 10) sample_5_44 ∧
@@ -11079,7 +11079,7 @@ private theorem sample_5_44_upper : discrepancy (1 / 10) sample_5_44 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_770] at h
   linarith
 
-private def sample_6_43 : Triple := ⟨6, 43, 49, by decide, by decide, by decide, by decide⟩
+private def sample_6_43 : Triple := ⟨6, 43, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_43_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1806.upper ≤
       discrepancy (1 / 10) sample_6_43 ∧
@@ -11100,7 +11100,7 @@ private theorem sample_6_43_upper : discrepancy (1 / 10) sample_6_43 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_1806] at h
   linarith
 
-private def sample_8_41 : Triple := ⟨8, 41, 49, by decide, by decide, by decide, by decide⟩
+private def sample_8_41 : Triple := ⟨8, 41, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_41_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_574.upper ≤
       discrepancy (1 / 10) sample_8_41 ∧
@@ -11121,7 +11121,7 @@ private theorem sample_8_41_upper : discrepancy (1 / 10) sample_8_41 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_574] at h
   linarith
 
-private def sample_9_40 : Triple := ⟨9, 40, 49, by decide, by decide, by decide, by decide⟩
+private def sample_9_40 : Triple := ⟨9, 40, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_40_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_9_40 ∧
@@ -11142,7 +11142,7 @@ private theorem sample_9_40_upper : discrepancy (1 / 10) sample_9_40 ≤ (227 / 
   norm_num [logCertificate_49, logCertificate_210] at h
   linarith
 
-private def sample_10_39 : Triple := ⟨10, 39, 49, by decide, by decide, by decide, by decide⟩
+private def sample_10_39 : Triple := ⟨10, 39, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_39_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_10_39 ∧
@@ -11163,7 +11163,7 @@ private theorem sample_10_39_upper : discrepancy (1 / 10) sample_10_39 ≤ (227 
   norm_num [logCertificate_49, logCertificate_2730] at h
   linarith
 
-private def sample_11_38 : Triple := ⟨11, 38, 49, by decide, by decide, by decide, by decide⟩
+private def sample_11_38 : Triple := ⟨11, 38, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_38_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2926.upper ≤
       discrepancy (1 / 10) sample_11_38 ∧
@@ -11184,7 +11184,7 @@ private theorem sample_11_38_upper : discrepancy (1 / 10) sample_11_38 ≤ (227 
   norm_num [logCertificate_49, logCertificate_2926] at h
   linarith
 
-private def sample_12_37 : Triple := ⟨12, 37, 49, by decide, by decide, by decide, by decide⟩
+private def sample_12_37 : Triple := ⟨12, 37, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_37_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1554.upper ≤
       discrepancy (1 / 10) sample_12_37 ∧
@@ -11205,7 +11205,7 @@ private theorem sample_12_37_upper : discrepancy (1 / 10) sample_12_37 ≤ (227 
   norm_num [logCertificate_49, logCertificate_1554] at h
   linarith
 
-private def sample_13_36 : Triple := ⟨13, 36, 49, by decide, by decide, by decide, by decide⟩
+private def sample_13_36 : Triple := ⟨13, 36, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_36_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_13_36 ∧
@@ -11226,7 +11226,7 @@ private theorem sample_13_36_upper : discrepancy (1 / 10) sample_13_36 ≤ (227 
   norm_num [logCertificate_49, logCertificate_546] at h
   linarith
 
-private def sample_15_34 : Triple := ⟨15, 34, 49, by decide, by decide, by decide, by decide⟩
+private def sample_15_34 : Triple := ⟨15, 34, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_34_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_15_34 ∧
@@ -11247,7 +11247,7 @@ private theorem sample_15_34_upper : discrepancy (1 / 10) sample_15_34 ≤ (227 
   norm_num [logCertificate_49, logCertificate_3570] at h
   linarith
 
-private def sample_16_33 : Triple := ⟨16, 33, 49, by decide, by decide, by decide, by decide⟩
+private def sample_16_33 : Triple := ⟨16, 33, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_33_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_16_33 ∧
@@ -11268,7 +11268,7 @@ private theorem sample_16_33_upper : discrepancy (1 / 10) sample_16_33 ≤ (227 
   norm_num [logCertificate_49, logCertificate_462] at h
   linarith
 
-private def sample_17_32 : Triple := ⟨17, 32, 49, by decide, by decide, by decide, by decide⟩
+private def sample_17_32 : Triple := ⟨17, 32, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_32_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_238.upper ≤
       discrepancy (1 / 10) sample_17_32 ∧
@@ -11289,7 +11289,7 @@ private theorem sample_17_32_upper : discrepancy (1 / 10) sample_17_32 ≤ (227 
   norm_num [logCertificate_49, logCertificate_238] at h
   linarith
 
-private def sample_18_31 : Triple := ⟨18, 31, 49, by decide, by decide, by decide, by decide⟩
+private def sample_18_31 : Triple := ⟨18, 31, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_31_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1302.upper ≤
       discrepancy (1 / 10) sample_18_31 ∧
@@ -11310,7 +11310,7 @@ private theorem sample_18_31_upper : discrepancy (1 / 10) sample_18_31 ≤ (227 
   norm_num [logCertificate_49, logCertificate_1302] at h
   linarith
 
-private def sample_19_30 : Triple := ⟨19, 30, 49, by decide, by decide, by decide, by decide⟩
+private def sample_19_30 : Triple := ⟨19, 30, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_30_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_19_30 ∧
@@ -11331,7 +11331,7 @@ private theorem sample_19_30_upper : discrepancy (1 / 10) sample_19_30 ≤ (227 
   norm_num [logCertificate_49, logCertificate_3990] at h
   linarith
 
-private def sample_20_29 : Triple := ⟨20, 29, 49, by decide, by decide, by decide, by decide⟩
+private def sample_20_29 : Triple := ⟨20, 29, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_29_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2030.upper ≤
       discrepancy (1 / 10) sample_20_29 ∧
@@ -11352,7 +11352,7 @@ private theorem sample_20_29_upper : discrepancy (1 / 10) sample_20_29 ≤ (227 
   norm_num [logCertificate_49, logCertificate_2030] at h
   linarith
 
-private def sample_22_27 : Triple := ⟨22, 27, 49, by decide, by decide, by decide, by decide⟩
+private def sample_22_27 : Triple := ⟨22, 27, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_27_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_462.upper ≤
       discrepancy (1 / 10) sample_22_27 ∧
@@ -11373,7 +11373,7 @@ private theorem sample_22_27_upper : discrepancy (1 / 10) sample_22_27 ≤ (227 
   norm_num [logCertificate_49, logCertificate_462] at h
   linarith
 
-private def sample_23_26 : Triple := ⟨23, 26, 49, by decide, by decide, by decide, by decide⟩
+private def sample_23_26 : Triple := ⟨23, 26, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_26_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4186.upper ≤
       discrepancy (1 / 10) sample_23_26 ∧
@@ -11394,7 +11394,7 @@ private theorem sample_23_26_upper : discrepancy (1 / 10) sample_23_26 ≤ (227 
   norm_num [logCertificate_49, logCertificate_4186] at h
   linarith
 
-private def sample_24_25 : Triple := ⟨24, 25, 49, by decide, by decide, by decide, by decide⟩
+private def sample_24_25 : Triple := ⟨24, 25, 49, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_25_interval :
     (logCertificate_49.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_24_25 ∧
@@ -11415,7 +11415,7 @@ private theorem sample_24_25_upper : discrepancy (1 / 10) sample_24_25 ≤ (227 
   norm_num [logCertificate_49, logCertificate_210] at h
   linarith
 
-private def sample_1_49 : Triple := ⟨1, 49, 50, by decide, by decide, by decide, by decide⟩
+private def sample_1_49 : Triple := ⟨1, 49, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_49_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_70.upper ≤
       discrepancy (1 / 10) sample_1_49 ∧
@@ -11436,7 +11436,7 @@ private theorem sample_1_49_upper : discrepancy (1 / 10) sample_1_49 ≤ (227 / 
   norm_num [logCertificate_50, logCertificate_70] at h
   linarith
 
-private def sample_3_47 : Triple := ⟨3, 47, 50, by decide, by decide, by decide, by decide⟩
+private def sample_3_47 : Triple := ⟨3, 47, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_47_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1410.upper ≤
       discrepancy (1 / 10) sample_3_47 ∧
@@ -11457,7 +11457,7 @@ private theorem sample_3_47_upper : discrepancy (1 / 10) sample_3_47 ≤ (227 / 
   norm_num [logCertificate_50, logCertificate_1410] at h
   linarith
 
-private def sample_7_43 : Triple := ⟨7, 43, 50, by decide, by decide, by decide, by decide⟩
+private def sample_7_43 : Triple := ⟨7, 43, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_43_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3010.upper ≤
       discrepancy (1 / 10) sample_7_43 ∧
@@ -11478,7 +11478,7 @@ private theorem sample_7_43_upper : discrepancy (1 / 10) sample_7_43 ≤ (227 / 
   norm_num [logCertificate_50, logCertificate_3010] at h
   linarith
 
-private def sample_9_41 : Triple := ⟨9, 41, 50, by decide, by decide, by decide, by decide⟩
+private def sample_9_41 : Triple := ⟨9, 41, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_41_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1230.upper ≤
       discrepancy (1 / 10) sample_9_41 ∧
@@ -11499,7 +11499,7 @@ private theorem sample_9_41_upper : discrepancy (1 / 10) sample_9_41 ≤ (227 / 
   norm_num [logCertificate_50, logCertificate_1230] at h
   linarith
 
-private def sample_11_39 : Triple := ⟨11, 39, 50, by decide, by decide, by decide, by decide⟩
+private def sample_11_39 : Triple := ⟨11, 39, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_39_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_11_39 ∧
@@ -11520,7 +11520,7 @@ private theorem sample_11_39_upper : discrepancy (1 / 10) sample_11_39 ≤ (227 
   norm_num [logCertificate_50, logCertificate_4290] at h
   linarith
 
-private def sample_13_37 : Triple := ⟨13, 37, 50, by decide, by decide, by decide, by decide⟩
+private def sample_13_37 : Triple := ⟨13, 37, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_37_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4810.upper ≤
       discrepancy (1 / 10) sample_13_37 ∧
@@ -11541,7 +11541,7 @@ private theorem sample_13_37_upper : discrepancy (1 / 10) sample_13_37 ≤ (227 
   norm_num [logCertificate_50, logCertificate_4810] at h
   linarith
 
-private def sample_17_33 : Triple := ⟨17, 33, 50, by decide, by decide, by decide, by decide⟩
+private def sample_17_33 : Triple := ⟨17, 33, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_33_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5610.upper ≤
       discrepancy (1 / 10) sample_17_33 ∧
@@ -11562,7 +11562,7 @@ private theorem sample_17_33_upper : discrepancy (1 / 10) sample_17_33 ≤ (227 
   norm_num [logCertificate_50, logCertificate_5610] at h
   linarith
 
-private def sample_19_31 : Triple := ⟨19, 31, 50, by decide, by decide, by decide, by decide⟩
+private def sample_19_31 : Triple := ⟨19, 31, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_31_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5890.upper ≤
       discrepancy (1 / 10) sample_19_31 ∧
@@ -11583,7 +11583,7 @@ private theorem sample_19_31_upper : discrepancy (1 / 10) sample_19_31 ≤ (227 
   norm_num [logCertificate_50, logCertificate_5890] at h
   linarith
 
-private def sample_21_29 : Triple := ⟨21, 29, 50, by decide, by decide, by decide, by decide⟩
+private def sample_21_29 : Triple := ⟨21, 29, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_29_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6090.upper ≤
       discrepancy (1 / 10) sample_21_29 ∧
@@ -11604,7 +11604,7 @@ private theorem sample_21_29_upper : discrepancy (1 / 10) sample_21_29 ≤ (227 
   norm_num [logCertificate_50, logCertificate_6090] at h
   linarith
 
-private def sample_23_27 : Triple := ⟨23, 27, 50, by decide, by decide, by decide, by decide⟩
+private def sample_23_27 : Triple := ⟨23, 27, 50, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_27_interval :
     (logCertificate_50.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_23_27 ∧
@@ -11625,7 +11625,7 @@ private theorem sample_23_27_upper : discrepancy (1 / 10) sample_23_27 ≤ (227 
   norm_num [logCertificate_50, logCertificate_690] at h
   linarith
 
-private def sample_1_50 : Triple := ⟨1, 50, 51, by decide, by decide, by decide, by decide⟩
+private def sample_1_50 : Triple := ⟨1, 50, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_50_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_510.upper ≤
       discrepancy (1 / 10) sample_1_50 ∧
@@ -11646,7 +11646,7 @@ private theorem sample_1_50_upper : discrepancy (1 / 10) sample_1_50 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_510] at h
   linarith
 
-private def sample_2_49 : Triple := ⟨2, 49, 51, by decide, by decide, by decide, by decide⟩
+private def sample_2_49 : Triple := ⟨2, 49, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_49_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_714.upper ≤
       discrepancy (1 / 10) sample_2_49 ∧
@@ -11667,7 +11667,7 @@ private theorem sample_2_49_upper : discrepancy (1 / 10) sample_2_49 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_714] at h
   linarith
 
-private def sample_4_47 : Triple := ⟨4, 47, 51, by decide, by decide, by decide, by decide⟩
+private def sample_4_47 : Triple := ⟨4, 47, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_47_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4794.upper ≤
       discrepancy (1 / 10) sample_4_47 ∧
@@ -11688,7 +11688,7 @@ private theorem sample_4_47_upper : discrepancy (1 / 10) sample_4_47 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_4794] at h
   linarith
 
-private def sample_5_46 : Triple := ⟨5, 46, 51, by decide, by decide, by decide, by decide⟩
+private def sample_5_46 : Triple := ⟨5, 46, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_46_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11730.upper ≤
       discrepancy (1 / 10) sample_5_46 ∧
@@ -11709,7 +11709,7 @@ private theorem sample_5_46_upper : discrepancy (1 / 10) sample_5_46 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_11730] at h
   linarith
 
-private def sample_7_44 : Triple := ⟨7, 44, 51, by decide, by decide, by decide, by decide⟩
+private def sample_7_44 : Triple := ⟨7, 44, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_44_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7854.upper ≤
       discrepancy (1 / 10) sample_7_44 ∧
@@ -11730,7 +11730,7 @@ private theorem sample_7_44_upper : discrepancy (1 / 10) sample_7_44 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_7854] at h
   linarith
 
-private def sample_8_43 : Triple := ⟨8, 43, 51, by decide, by decide, by decide, by decide⟩
+private def sample_8_43 : Triple := ⟨8, 43, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_43_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4386.upper ≤
       discrepancy (1 / 10) sample_8_43 ∧
@@ -11751,7 +11751,7 @@ private theorem sample_8_43_upper : discrepancy (1 / 10) sample_8_43 ≤ (227 / 
   norm_num [logCertificate_51, logCertificate_4386] at h
   linarith
 
-private def sample_10_41 : Triple := ⟨10, 41, 51, by decide, by decide, by decide, by decide⟩
+private def sample_10_41 : Triple := ⟨10, 41, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_41_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20910.upper ≤
       discrepancy (1 / 10) sample_10_41 ∧
@@ -11772,7 +11772,7 @@ private theorem sample_10_41_upper : discrepancy (1 / 10) sample_10_41 ≤ (227 
   norm_num [logCertificate_51, logCertificate_20910] at h
   linarith
 
-private def sample_11_40 : Triple := ⟨11, 40, 51, by decide, by decide, by decide, by decide⟩
+private def sample_11_40 : Triple := ⟨11, 40, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_40_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5610.upper ≤
       discrepancy (1 / 10) sample_11_40 ∧
@@ -11793,7 +11793,7 @@ private theorem sample_11_40_upper : discrepancy (1 / 10) sample_11_40 ≤ (227 
   norm_num [logCertificate_51, logCertificate_5610] at h
   linarith
 
-private def sample_13_38 : Triple := ⟨13, 38, 51, by decide, by decide, by decide, by decide⟩
+private def sample_13_38 : Triple := ⟨13, 38, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_38_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_25194.upper ≤
       discrepancy (1 / 10) sample_13_38 ∧
@@ -11814,7 +11814,7 @@ private theorem sample_13_38_upper : discrepancy (1 / 10) sample_13_38 ≤ (227 
   norm_num [logCertificate_51, logCertificate_25194] at h
   linarith
 
-private def sample_14_37 : Triple := ⟨14, 37, 51, by decide, by decide, by decide, by decide⟩
+private def sample_14_37 : Triple := ⟨14, 37, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_37_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_26418.upper ≤
       discrepancy (1 / 10) sample_14_37 ∧
@@ -11835,7 +11835,7 @@ private theorem sample_14_37_upper : discrepancy (1 / 10) sample_14_37 ≤ (227 
   norm_num [logCertificate_51, logCertificate_26418] at h
   linarith
 
-private def sample_16_35 : Triple := ⟨16, 35, 51, by decide, by decide, by decide, by decide⟩
+private def sample_16_35 : Triple := ⟨16, 35, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_35_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_16_35 ∧
@@ -11856,7 +11856,7 @@ private theorem sample_16_35_upper : discrepancy (1 / 10) sample_16_35 ≤ (227 
   norm_num [logCertificate_51, logCertificate_3570] at h
   linarith
 
-private def sample_19_32 : Triple := ⟨19, 32, 51, by decide, by decide, by decide, by decide⟩
+private def sample_19_32 : Triple := ⟨19, 32, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_32_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1938.upper ≤
       discrepancy (1 / 10) sample_19_32 ∧
@@ -11877,7 +11877,7 @@ private theorem sample_19_32_upper : discrepancy (1 / 10) sample_19_32 ≤ (227 
   norm_num [logCertificate_51, logCertificate_1938] at h
   linarith
 
-private def sample_20_31 : Triple := ⟨20, 31, 51, by decide, by decide, by decide, by decide⟩
+private def sample_20_31 : Triple := ⟨20, 31, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_31_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15810.upper ≤
       discrepancy (1 / 10) sample_20_31 ∧
@@ -11898,7 +11898,7 @@ private theorem sample_20_31_upper : discrepancy (1 / 10) sample_20_31 ≤ (227 
   norm_num [logCertificate_51, logCertificate_15810] at h
   linarith
 
-private def sample_22_29 : Triple := ⟨22, 29, 51, by decide, by decide, by decide, by decide⟩
+private def sample_22_29 : Triple := ⟨22, 29, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_29_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_32538.upper ≤
       discrepancy (1 / 10) sample_22_29 ∧
@@ -11919,7 +11919,7 @@ private theorem sample_22_29_upper : discrepancy (1 / 10) sample_22_29 ≤ (227 
   norm_num [logCertificate_51, logCertificate_32538] at h
   linarith
 
-private def sample_23_28 : Triple := ⟨23, 28, 51, by decide, by decide, by decide, by decide⟩
+private def sample_23_28 : Triple := ⟨23, 28, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_28_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16422.upper ≤
       discrepancy (1 / 10) sample_23_28 ∧
@@ -11940,7 +11940,7 @@ private theorem sample_23_28_upper : discrepancy (1 / 10) sample_23_28 ≤ (227 
   norm_num [logCertificate_51, logCertificate_16422] at h
   linarith
 
-private def sample_25_26 : Triple := ⟨25, 26, 51, by decide, by decide, by decide, by decide⟩
+private def sample_25_26 : Triple := ⟨25, 26, 51, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_26_interval :
     (logCertificate_51.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6630.upper ≤
       discrepancy (1 / 10) sample_25_26 ∧
@@ -11961,7 +11961,7 @@ private theorem sample_25_26_upper : discrepancy (1 / 10) sample_25_26 ≤ (227 
   norm_num [logCertificate_51, logCertificate_6630] at h
   linarith
 
-private def sample_1_51 : Triple := ⟨1, 51, 52, by decide, by decide, by decide, by decide⟩
+private def sample_1_51 : Triple := ⟨1, 51, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_51_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1326.upper ≤
       discrepancy (1 / 10) sample_1_51 ∧
@@ -11982,7 +11982,7 @@ private theorem sample_1_51_upper : discrepancy (1 / 10) sample_1_51 ≤ (227 / 
   norm_num [logCertificate_52, logCertificate_1326] at h
   linarith
 
-private def sample_3_49 : Triple := ⟨3, 49, 52, by decide, by decide, by decide, by decide⟩
+private def sample_3_49 : Triple := ⟨3, 49, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_49_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_546.upper ≤
       discrepancy (1 / 10) sample_3_49 ∧
@@ -12003,7 +12003,7 @@ private theorem sample_3_49_upper : discrepancy (1 / 10) sample_3_49 ≤ (227 / 
   norm_num [logCertificate_52, logCertificate_546] at h
   linarith
 
-private def sample_5_47 : Triple := ⟨5, 47, 52, by decide, by decide, by decide, by decide⟩
+private def sample_5_47 : Triple := ⟨5, 47, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_47_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6110.upper ≤
       discrepancy (1 / 10) sample_5_47 ∧
@@ -12024,7 +12024,7 @@ private theorem sample_5_47_upper : discrepancy (1 / 10) sample_5_47 ≤ (227 / 
   norm_num [logCertificate_52, logCertificate_6110] at h
   linarith
 
-private def sample_7_45 : Triple := ⟨7, 45, 52, by decide, by decide, by decide, by decide⟩
+private def sample_7_45 : Triple := ⟨7, 45, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_45_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_7_45 ∧
@@ -12045,7 +12045,7 @@ private theorem sample_7_45_upper : discrepancy (1 / 10) sample_7_45 ≤ (227 / 
   norm_num [logCertificate_52, logCertificate_2730] at h
   linarith
 
-private def sample_9_43 : Triple := ⟨9, 43, 52, by decide, by decide, by decide, by decide⟩
+private def sample_9_43 : Triple := ⟨9, 43, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_43_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3354.upper ≤
       discrepancy (1 / 10) sample_9_43 ∧
@@ -12066,7 +12066,7 @@ private theorem sample_9_43_upper : discrepancy (1 / 10) sample_9_43 ≤ (227 / 
   norm_num [logCertificate_52, logCertificate_3354] at h
   linarith
 
-private def sample_11_41 : Triple := ⟨11, 41, 52, by decide, by decide, by decide, by decide⟩
+private def sample_11_41 : Triple := ⟨11, 41, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_41_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11726.upper ≤
       discrepancy (1 / 10) sample_11_41 ∧
@@ -12087,7 +12087,7 @@ private theorem sample_11_41_upper : discrepancy (1 / 10) sample_11_41 ≤ (227 
   norm_num [logCertificate_52, logCertificate_11726] at h
   linarith
 
-private def sample_15_37 : Triple := ⟨15, 37, 52, by decide, by decide, by decide, by decide⟩
+private def sample_15_37 : Triple := ⟨15, 37, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_37_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14430.upper ≤
       discrepancy (1 / 10) sample_15_37 ∧
@@ -12108,7 +12108,7 @@ private theorem sample_15_37_upper : discrepancy (1 / 10) sample_15_37 ≤ (227 
   norm_num [logCertificate_52, logCertificate_14430] at h
   linarith
 
-private def sample_17_35 : Triple := ⟨17, 35, 52, by decide, by decide, by decide, by decide⟩
+private def sample_17_35 : Triple := ⟨17, 35, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_35_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15470.upper ≤
       discrepancy (1 / 10) sample_17_35 ∧
@@ -12129,7 +12129,7 @@ private theorem sample_17_35_upper : discrepancy (1 / 10) sample_17_35 ≤ (227 
   norm_num [logCertificate_52, logCertificate_15470] at h
   linarith
 
-private def sample_19_33 : Triple := ⟨19, 33, 52, by decide, by decide, by decide, by decide⟩
+private def sample_19_33 : Triple := ⟨19, 33, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_33_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16302.upper ≤
       discrepancy (1 / 10) sample_19_33 ∧
@@ -12150,7 +12150,7 @@ private theorem sample_19_33_upper : discrepancy (1 / 10) sample_19_33 ≤ (227 
   norm_num [logCertificate_52, logCertificate_16302] at h
   linarith
 
-private def sample_21_31 : Triple := ⟨21, 31, 52, by decide, by decide, by decide, by decide⟩
+private def sample_21_31 : Triple := ⟨21, 31, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_31_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16926.upper ≤
       discrepancy (1 / 10) sample_21_31 ∧
@@ -12171,7 +12171,7 @@ private theorem sample_21_31_upper : discrepancy (1 / 10) sample_21_31 ≤ (227 
   norm_num [logCertificate_52, logCertificate_16926] at h
   linarith
 
-private def sample_23_29 : Triple := ⟨23, 29, 52, by decide, by decide, by decide, by decide⟩
+private def sample_23_29 : Triple := ⟨23, 29, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_29_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17342.upper ≤
       discrepancy (1 / 10) sample_23_29 ∧
@@ -12192,7 +12192,7 @@ private theorem sample_23_29_upper : discrepancy (1 / 10) sample_23_29 ≤ (227 
   norm_num [logCertificate_52, logCertificate_17342] at h
   linarith
 
-private def sample_25_27 : Triple := ⟨25, 27, 52, by decide, by decide, by decide, by decide⟩
+private def sample_25_27 : Triple := ⟨25, 27, 52, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_27_interval :
     (logCertificate_52.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_25_27 ∧
@@ -12213,7 +12213,7 @@ private theorem sample_25_27_upper : discrepancy (1 / 10) sample_25_27 ≤ (227 
   norm_num [logCertificate_52, logCertificate_390] at h
   linarith
 
-private def sample_1_52 : Triple := ⟨1, 52, 53, by decide, by decide, by decide, by decide⟩
+private def sample_1_52 : Triple := ⟨1, 52, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_52_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1378.upper ≤
       discrepancy (1 / 10) sample_1_52 ∧
@@ -12234,7 +12234,7 @@ private theorem sample_1_52_upper : discrepancy (1 / 10) sample_1_52 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_1378] at h
   linarith
 
-private def sample_2_51 : Triple := ⟨2, 51, 53, by decide, by decide, by decide, by decide⟩
+private def sample_2_51 : Triple := ⟨2, 51, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_51_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5406.upper ≤
       discrepancy (1 / 10) sample_2_51 ∧
@@ -12255,7 +12255,7 @@ private theorem sample_2_51_upper : discrepancy (1 / 10) sample_2_51 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_5406] at h
   linarith
 
-private def sample_3_50 : Triple := ⟨3, 50, 53, by decide, by decide, by decide, by decide⟩
+private def sample_3_50 : Triple := ⟨3, 50, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_50_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1590.upper ≤
       discrepancy (1 / 10) sample_3_50 ∧
@@ -12276,7 +12276,7 @@ private theorem sample_3_50_upper : discrepancy (1 / 10) sample_3_50 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_1590] at h
   linarith
 
-private def sample_4_49 : Triple := ⟨4, 49, 53, by decide, by decide, by decide, by decide⟩
+private def sample_4_49 : Triple := ⟨4, 49, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_49_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_742.upper ≤
       discrepancy (1 / 10) sample_4_49 ∧
@@ -12297,7 +12297,7 @@ private theorem sample_4_49_upper : discrepancy (1 / 10) sample_4_49 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_742] at h
   linarith
 
-private def sample_5_48 : Triple := ⟨5, 48, 53, by decide, by decide, by decide, by decide⟩
+private def sample_5_48 : Triple := ⟨5, 48, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_48_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1590.upper ≤
       discrepancy (1 / 10) sample_5_48 ∧
@@ -12318,7 +12318,7 @@ private theorem sample_5_48_upper : discrepancy (1 / 10) sample_5_48 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_1590] at h
   linarith
 
-private def sample_6_47 : Triple := ⟨6, 47, 53, by decide, by decide, by decide, by decide⟩
+private def sample_6_47 : Triple := ⟨6, 47, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_47_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14946.upper ≤
       discrepancy (1 / 10) sample_6_47 ∧
@@ -12339,7 +12339,7 @@ private theorem sample_6_47_upper : discrepancy (1 / 10) sample_6_47 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_14946] at h
   linarith
 
-private def sample_7_46 : Triple := ⟨7, 46, 53, by decide, by decide, by decide, by decide⟩
+private def sample_7_46 : Triple := ⟨7, 46, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_46_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17066.upper ≤
       discrepancy (1 / 10) sample_7_46 ∧
@@ -12360,7 +12360,7 @@ private theorem sample_7_46_upper : discrepancy (1 / 10) sample_7_46 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_17066] at h
   linarith
 
-private def sample_8_45 : Triple := ⟨8, 45, 53, by decide, by decide, by decide, by decide⟩
+private def sample_8_45 : Triple := ⟨8, 45, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_45_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1590.upper ≤
       discrepancy (1 / 10) sample_8_45 ∧
@@ -12381,7 +12381,7 @@ private theorem sample_8_45_upper : discrepancy (1 / 10) sample_8_45 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_1590] at h
   linarith
 
-private def sample_9_44 : Triple := ⟨9, 44, 53, by decide, by decide, by decide, by decide⟩
+private def sample_9_44 : Triple := ⟨9, 44, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_44_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3498.upper ≤
       discrepancy (1 / 10) sample_9_44 ∧
@@ -12402,7 +12402,7 @@ private theorem sample_9_44_upper : discrepancy (1 / 10) sample_9_44 ≤ (227 / 
   norm_num [logCertificate_53, logCertificate_3498] at h
   linarith
 
-private def sample_10_43 : Triple := ⟨10, 43, 53, by decide, by decide, by decide, by decide⟩
+private def sample_10_43 : Triple := ⟨10, 43, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_43_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_22790.upper ≤
       discrepancy (1 / 10) sample_10_43 ∧
@@ -12423,7 +12423,7 @@ private theorem sample_10_43_upper : discrepancy (1 / 10) sample_10_43 ≤ (227 
   norm_num [logCertificate_53, logCertificate_22790] at h
   linarith
 
-private def sample_11_42 : Triple := ⟨11, 42, 53, by decide, by decide, by decide, by decide⟩
+private def sample_11_42 : Triple := ⟨11, 42, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_42_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_24486.upper ≤
       discrepancy (1 / 10) sample_11_42 ∧
@@ -12444,7 +12444,7 @@ private theorem sample_11_42_upper : discrepancy (1 / 10) sample_11_42 ≤ (227 
   norm_num [logCertificate_53, logCertificate_24486] at h
   linarith
 
-private def sample_12_41 : Triple := ⟨12, 41, 53, by decide, by decide, by decide, by decide⟩
+private def sample_12_41 : Triple := ⟨12, 41, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_41_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13038.upper ≤
       discrepancy (1 / 10) sample_12_41 ∧
@@ -12465,7 +12465,7 @@ private theorem sample_12_41_upper : discrepancy (1 / 10) sample_12_41 ≤ (227 
   norm_num [logCertificate_53, logCertificate_13038] at h
   linarith
 
-private def sample_13_40 : Triple := ⟨13, 40, 53, by decide, by decide, by decide, by decide⟩
+private def sample_13_40 : Triple := ⟨13, 40, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_40_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6890.upper ≤
       discrepancy (1 / 10) sample_13_40 ∧
@@ -12486,7 +12486,7 @@ private theorem sample_13_40_upper : discrepancy (1 / 10) sample_13_40 ≤ (227 
   norm_num [logCertificate_53, logCertificate_6890] at h
   linarith
 
-private def sample_14_39 : Triple := ⟨14, 39, 53, by decide, by decide, by decide, by decide⟩
+private def sample_14_39 : Triple := ⟨14, 39, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_39_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_28938.upper ≤
       discrepancy (1 / 10) sample_14_39 ∧
@@ -12507,7 +12507,7 @@ private theorem sample_14_39_upper : discrepancy (1 / 10) sample_14_39 ≤ (227 
   norm_num [logCertificate_53, logCertificate_28938] at h
   linarith
 
-private def sample_15_38 : Triple := ⟨15, 38, 53, by decide, by decide, by decide, by decide⟩
+private def sample_15_38 : Triple := ⟨15, 38, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_38_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30210.upper ≤
       discrepancy (1 / 10) sample_15_38 ∧
@@ -12528,7 +12528,7 @@ private theorem sample_15_38_upper : discrepancy (1 / 10) sample_15_38 ≤ (227 
   norm_num [logCertificate_53, logCertificate_30210] at h
   linarith
 
-private def sample_16_37 : Triple := ⟨16, 37, 53, by decide, by decide, by decide, by decide⟩
+private def sample_16_37 : Triple := ⟨16, 37, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_37_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3922.upper ≤
       discrepancy (1 / 10) sample_16_37 ∧
@@ -12549,7 +12549,7 @@ private theorem sample_16_37_upper : discrepancy (1 / 10) sample_16_37 ≤ (227 
   norm_num [logCertificate_53, logCertificate_3922] at h
   linarith
 
-private def sample_17_36 : Triple := ⟨17, 36, 53, by decide, by decide, by decide, by decide⟩
+private def sample_17_36 : Triple := ⟨17, 36, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_36_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5406.upper ≤
       discrepancy (1 / 10) sample_17_36 ∧
@@ -12570,7 +12570,7 @@ private theorem sample_17_36_upper : discrepancy (1 / 10) sample_17_36 ≤ (227 
   norm_num [logCertificate_53, logCertificate_5406] at h
   linarith
 
-private def sample_18_35 : Triple := ⟨18, 35, 53, by decide, by decide, by decide, by decide⟩
+private def sample_18_35 : Triple := ⟨18, 35, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_35_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11130.upper ≤
       discrepancy (1 / 10) sample_18_35 ∧
@@ -12591,7 +12591,7 @@ private theorem sample_18_35_upper : discrepancy (1 / 10) sample_18_35 ≤ (227 
   norm_num [logCertificate_53, logCertificate_11130] at h
   linarith
 
-private def sample_19_34 : Triple := ⟨19, 34, 53, by decide, by decide, by decide, by decide⟩
+private def sample_19_34 : Triple := ⟨19, 34, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_34_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_34238.upper ≤
       discrepancy (1 / 10) sample_19_34 ∧
@@ -12612,7 +12612,7 @@ private theorem sample_19_34_upper : discrepancy (1 / 10) sample_19_34 ≤ (227 
   norm_num [logCertificate_53, logCertificate_34238] at h
   linarith
 
-private def sample_20_33 : Triple := ⟨20, 33, 53, by decide, by decide, by decide, by decide⟩
+private def sample_20_33 : Triple := ⟨20, 33, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_33_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17490.upper ≤
       discrepancy (1 / 10) sample_20_33 ∧
@@ -12633,7 +12633,7 @@ private theorem sample_20_33_upper : discrepancy (1 / 10) sample_20_33 ≤ (227 
   norm_num [logCertificate_53, logCertificate_17490] at h
   linarith
 
-private def sample_21_32 : Triple := ⟨21, 32, 53, by decide, by decide, by decide, by decide⟩
+private def sample_21_32 : Triple := ⟨21, 32, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_32_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2226.upper ≤
       discrepancy (1 / 10) sample_21_32 ∧
@@ -12654,7 +12654,7 @@ private theorem sample_21_32_upper : discrepancy (1 / 10) sample_21_32 ≤ (227 
   norm_num [logCertificate_53, logCertificate_2226] at h
   linarith
 
-private def sample_22_31 : Triple := ⟨22, 31, 53, by decide, by decide, by decide, by decide⟩
+private def sample_22_31 : Triple := ⟨22, 31, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_31_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_36146.upper ≤
       discrepancy (1 / 10) sample_22_31 ∧
@@ -12675,7 +12675,7 @@ private theorem sample_22_31_upper : discrepancy (1 / 10) sample_22_31 ≤ (227 
   norm_num [logCertificate_53, logCertificate_36146] at h
   linarith
 
-private def sample_23_30 : Triple := ⟨23, 30, 53, by decide, by decide, by decide, by decide⟩
+private def sample_23_30 : Triple := ⟨23, 30, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_30_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_36570.upper ≤
       discrepancy (1 / 10) sample_23_30 ∧
@@ -12696,7 +12696,7 @@ private theorem sample_23_30_upper : discrepancy (1 / 10) sample_23_30 ≤ (227 
   norm_num [logCertificate_53, logCertificate_36570] at h
   linarith
 
-private def sample_24_29 : Triple := ⟨24, 29, 53, by decide, by decide, by decide, by decide⟩
+private def sample_24_29 : Triple := ⟨24, 29, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_29_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9222.upper ≤
       discrepancy (1 / 10) sample_24_29 ∧
@@ -12717,7 +12717,7 @@ private theorem sample_24_29_upper : discrepancy (1 / 10) sample_24_29 ≤ (227 
   norm_num [logCertificate_53, logCertificate_9222] at h
   linarith
 
-private def sample_25_28 : Triple := ⟨25, 28, 53, by decide, by decide, by decide, by decide⟩
+private def sample_25_28 : Triple := ⟨25, 28, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_28_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3710.upper ≤
       discrepancy (1 / 10) sample_25_28 ∧
@@ -12738,7 +12738,7 @@ private theorem sample_25_28_upper : discrepancy (1 / 10) sample_25_28 ≤ (227 
   norm_num [logCertificate_53, logCertificate_3710] at h
   linarith
 
-private def sample_26_27 : Triple := ⟨26, 27, 53, by decide, by decide, by decide, by decide⟩
+private def sample_26_27 : Triple := ⟨26, 27, 53, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_27_interval :
     (logCertificate_53.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4134.upper ≤
       discrepancy (1 / 10) sample_26_27 ∧
@@ -12759,7 +12759,7 @@ private theorem sample_26_27_upper : discrepancy (1 / 10) sample_26_27 ≤ (227 
   norm_num [logCertificate_53, logCertificate_4134] at h
   linarith
 
-private def sample_1_53 : Triple := ⟨1, 53, 54, by decide, by decide, by decide, by decide⟩
+private def sample_1_53 : Triple := ⟨1, 53, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_53_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_318.upper ≤
       discrepancy (1 / 10) sample_1_53 ∧
@@ -12780,7 +12780,7 @@ private theorem sample_1_53_upper : discrepancy (1 / 10) sample_1_53 ≤ (227 / 
   norm_num [logCertificate_54, logCertificate_318] at h
   linarith
 
-private def sample_5_49 : Triple := ⟨5, 49, 54, by decide, by decide, by decide, by decide⟩
+private def sample_5_49 : Triple := ⟨5, 49, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_49_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_5_49 ∧
@@ -12801,7 +12801,7 @@ private theorem sample_5_49_upper : discrepancy (1 / 10) sample_5_49 ≤ (227 / 
   norm_num [logCertificate_54, logCertificate_210] at h
   linarith
 
-private def sample_7_47 : Triple := ⟨7, 47, 54, by decide, by decide, by decide, by decide⟩
+private def sample_7_47 : Triple := ⟨7, 47, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_47_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1974.upper ≤
       discrepancy (1 / 10) sample_7_47 ∧
@@ -12822,7 +12822,7 @@ private theorem sample_7_47_upper : discrepancy (1 / 10) sample_7_47 ≤ (227 / 
   norm_num [logCertificate_54, logCertificate_1974] at h
   linarith
 
-private def sample_11_43 : Triple := ⟨11, 43, 54, by decide, by decide, by decide, by decide⟩
+private def sample_11_43 : Triple := ⟨11, 43, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_43_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2838.upper ≤
       discrepancy (1 / 10) sample_11_43 ∧
@@ -12843,7 +12843,7 @@ private theorem sample_11_43_upper : discrepancy (1 / 10) sample_11_43 ≤ (227 
   norm_num [logCertificate_54, logCertificate_2838] at h
   linarith
 
-private def sample_13_41 : Triple := ⟨13, 41, 54, by decide, by decide, by decide, by decide⟩
+private def sample_13_41 : Triple := ⟨13, 41, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_41_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3198.upper ≤
       discrepancy (1 / 10) sample_13_41 ∧
@@ -12864,7 +12864,7 @@ private theorem sample_13_41_upper : discrepancy (1 / 10) sample_13_41 ≤ (227 
   norm_num [logCertificate_54, logCertificate_3198] at h
   linarith
 
-private def sample_17_37 : Triple := ⟨17, 37, 54, by decide, by decide, by decide, by decide⟩
+private def sample_17_37 : Triple := ⟨17, 37, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_37_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3774.upper ≤
       discrepancy (1 / 10) sample_17_37 ∧
@@ -12885,7 +12885,7 @@ private theorem sample_17_37_upper : discrepancy (1 / 10) sample_17_37 ≤ (227 
   norm_num [logCertificate_54, logCertificate_3774] at h
   linarith
 
-private def sample_19_35 : Triple := ⟨19, 35, 54, by decide, by decide, by decide, by decide⟩
+private def sample_19_35 : Triple := ⟨19, 35, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_35_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_19_35 ∧
@@ -12906,7 +12906,7 @@ private theorem sample_19_35_upper : discrepancy (1 / 10) sample_19_35 ≤ (227 
   norm_num [logCertificate_54, logCertificate_3990] at h
   linarith
 
-private def sample_23_31 : Triple := ⟨23, 31, 54, by decide, by decide, by decide, by decide⟩
+private def sample_23_31 : Triple := ⟨23, 31, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_31_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4278.upper ≤
       discrepancy (1 / 10) sample_23_31 ∧
@@ -12927,7 +12927,7 @@ private theorem sample_23_31_upper : discrepancy (1 / 10) sample_23_31 ≤ (227 
   norm_num [logCertificate_54, logCertificate_4278] at h
   linarith
 
-private def sample_25_29 : Triple := ⟨25, 29, 54, by decide, by decide, by decide, by decide⟩
+private def sample_25_29 : Triple := ⟨25, 29, 54, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_29_interval :
     (logCertificate_54.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_870.upper ≤
       discrepancy (1 / 10) sample_25_29 ∧
@@ -12948,7 +12948,7 @@ private theorem sample_25_29_upper : discrepancy (1 / 10) sample_25_29 ≤ (227 
   norm_num [logCertificate_54, logCertificate_870] at h
   linarith
 
-private def sample_1_54 : Triple := ⟨1, 54, 55, by decide, by decide, by decide, by decide⟩
+private def sample_1_54 : Triple := ⟨1, 54, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_54_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_1_54 ∧
@@ -12969,7 +12969,7 @@ private theorem sample_1_54_upper : discrepancy (1 / 10) sample_1_54 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_330] at h
   linarith
 
-private def sample_2_53 : Triple := ⟨2, 53, 55, by decide, by decide, by decide, by decide⟩
+private def sample_2_53 : Triple := ⟨2, 53, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_53_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5830.upper ≤
       discrepancy (1 / 10) sample_2_53 ∧
@@ -12990,7 +12990,7 @@ private theorem sample_2_53_upper : discrepancy (1 / 10) sample_2_53 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_5830] at h
   linarith
 
-private def sample_3_52 : Triple := ⟨3, 52, 55, by decide, by decide, by decide, by decide⟩
+private def sample_3_52 : Triple := ⟨3, 52, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_52_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_3_52 ∧
@@ -13011,7 +13011,7 @@ private theorem sample_3_52_upper : discrepancy (1 / 10) sample_3_52 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_4290] at h
   linarith
 
-private def sample_4_51 : Triple := ⟨4, 51, 55, by decide, by decide, by decide, by decide⟩
+private def sample_4_51 : Triple := ⟨4, 51, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_51_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5610.upper ≤
       discrepancy (1 / 10) sample_4_51 ∧
@@ -13032,7 +13032,7 @@ private theorem sample_4_51_upper : discrepancy (1 / 10) sample_4_51 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_5610] at h
   linarith
 
-private def sample_6_49 : Triple := ⟨6, 49, 55, by decide, by decide, by decide, by decide⟩
+private def sample_6_49 : Triple := ⟨6, 49, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_49_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_6_49 ∧
@@ -13053,7 +13053,7 @@ private theorem sample_6_49_upper : discrepancy (1 / 10) sample_6_49 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_2310] at h
   linarith
 
-private def sample_7_48 : Triple := ⟨7, 48, 55, by decide, by decide, by decide, by decide⟩
+private def sample_7_48 : Triple := ⟨7, 48, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_48_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_7_48 ∧
@@ -13074,7 +13074,7 @@ private theorem sample_7_48_upper : discrepancy (1 / 10) sample_7_48 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_2310] at h
   linarith
 
-private def sample_8_47 : Triple := ⟨8, 47, 55, by decide, by decide, by decide, by decide⟩
+private def sample_8_47 : Triple := ⟨8, 47, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_47_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5170.upper ≤
       discrepancy (1 / 10) sample_8_47 ∧
@@ -13095,7 +13095,7 @@ private theorem sample_8_47_upper : discrepancy (1 / 10) sample_8_47 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_5170] at h
   linarith
 
-private def sample_9_46 : Triple := ⟨9, 46, 55, by decide, by decide, by decide, by decide⟩
+private def sample_9_46 : Triple := ⟨9, 46, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_46_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7590.upper ≤
       discrepancy (1 / 10) sample_9_46 ∧
@@ -13116,7 +13116,7 @@ private theorem sample_9_46_upper : discrepancy (1 / 10) sample_9_46 ≤ (227 / 
   norm_num [logCertificate_55, logCertificate_7590] at h
   linarith
 
-private def sample_12_43 : Triple := ⟨12, 43, 55, by decide, by decide, by decide, by decide⟩
+private def sample_12_43 : Triple := ⟨12, 43, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_43_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14190.upper ≤
       discrepancy (1 / 10) sample_12_43 ∧
@@ -13137,7 +13137,7 @@ private theorem sample_12_43_upper : discrepancy (1 / 10) sample_12_43 ≤ (227 
   norm_num [logCertificate_55, logCertificate_14190] at h
   linarith
 
-private def sample_13_42 : Triple := ⟨13, 42, 55, by decide, by decide, by decide, by decide⟩
+private def sample_13_42 : Triple := ⟨13, 42, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_42_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30030.upper ≤
       discrepancy (1 / 10) sample_13_42 ∧
@@ -13158,7 +13158,7 @@ private theorem sample_13_42_upper : discrepancy (1 / 10) sample_13_42 ≤ (227 
   norm_num [logCertificate_55, logCertificate_30030] at h
   linarith
 
-private def sample_14_41 : Triple := ⟨14, 41, 55, by decide, by decide, by decide, by decide⟩
+private def sample_14_41 : Triple := ⟨14, 41, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_41_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_31570.upper ≤
       discrepancy (1 / 10) sample_14_41 ∧
@@ -13179,7 +13179,7 @@ private theorem sample_14_41_upper : discrepancy (1 / 10) sample_14_41 ≤ (227 
   norm_num [logCertificate_55, logCertificate_31570] at h
   linarith
 
-private def sample_16_39 : Triple := ⟨16, 39, 55, by decide, by decide, by decide, by decide⟩
+private def sample_16_39 : Triple := ⟨16, 39, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_39_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_16_39 ∧
@@ -13200,7 +13200,7 @@ private theorem sample_16_39_upper : discrepancy (1 / 10) sample_16_39 ≤ (227 
   norm_num [logCertificate_55, logCertificate_4290] at h
   linarith
 
-private def sample_17_38 : Triple := ⟨17, 38, 55, by decide, by decide, by decide, by decide⟩
+private def sample_17_38 : Triple := ⟨17, 38, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_38_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_35530.upper ≤
       discrepancy (1 / 10) sample_17_38 ∧
@@ -13221,7 +13221,7 @@ private theorem sample_17_38_upper : discrepancy (1 / 10) sample_17_38 ≤ (227 
   norm_num [logCertificate_55, logCertificate_35530] at h
   linarith
 
-private def sample_18_37 : Triple := ⟨18, 37, 55, by decide, by decide, by decide, by decide⟩
+private def sample_18_37 : Triple := ⟨18, 37, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_37_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12210.upper ≤
       discrepancy (1 / 10) sample_18_37 ∧
@@ -13242,7 +13242,7 @@ private theorem sample_18_37_upper : discrepancy (1 / 10) sample_18_37 ≤ (227 
   norm_num [logCertificate_55, logCertificate_12210] at h
   linarith
 
-private def sample_19_36 : Triple := ⟨19, 36, 55, by decide, by decide, by decide, by decide⟩
+private def sample_19_36 : Triple := ⟨19, 36, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_36_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6270.upper ≤
       discrepancy (1 / 10) sample_19_36 ∧
@@ -13263,7 +13263,7 @@ private theorem sample_19_36_upper : discrepancy (1 / 10) sample_19_36 ≤ (227 
   norm_num [logCertificate_55, logCertificate_6270] at h
   linarith
 
-private def sample_21_34 : Triple := ⟨21, 34, 55, by decide, by decide, by decide, by decide⟩
+private def sample_21_34 : Triple := ⟨21, 34, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_34_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_39270.upper ≤
       discrepancy (1 / 10) sample_21_34 ∧
@@ -13284,7 +13284,7 @@ private theorem sample_21_34_upper : discrepancy (1 / 10) sample_21_34 ≤ (227 
   norm_num [logCertificate_55, logCertificate_39270] at h
   linarith
 
-private def sample_23_32 : Triple := ⟨23, 32, 55, by decide, by decide, by decide, by decide⟩
+private def sample_23_32 : Triple := ⟨23, 32, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_32_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2530.upper ≤
       discrepancy (1 / 10) sample_23_32 ∧
@@ -13305,7 +13305,7 @@ private theorem sample_23_32_upper : discrepancy (1 / 10) sample_23_32 ≤ (227 
   norm_num [logCertificate_55, logCertificate_2530] at h
   linarith
 
-private def sample_24_31 : Triple := ⟨24, 31, 55, by decide, by decide, by decide, by decide⟩
+private def sample_24_31 : Triple := ⟨24, 31, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_31_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10230.upper ≤
       discrepancy (1 / 10) sample_24_31 ∧
@@ -13326,7 +13326,7 @@ private theorem sample_24_31_upper : discrepancy (1 / 10) sample_24_31 ≤ (227 
   norm_num [logCertificate_55, logCertificate_10230] at h
   linarith
 
-private def sample_26_29 : Triple := ⟨26, 29, 55, by decide, by decide, by decide, by decide⟩
+private def sample_26_29 : Triple := ⟨26, 29, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_29_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_41470.upper ≤
       discrepancy (1 / 10) sample_26_29 ∧
@@ -13347,7 +13347,7 @@ private theorem sample_26_29_upper : discrepancy (1 / 10) sample_26_29 ≤ (227 
   norm_num [logCertificate_55, logCertificate_41470] at h
   linarith
 
-private def sample_27_28 : Triple := ⟨27, 28, 55, by decide, by decide, by decide, by decide⟩
+private def sample_27_28 : Triple := ⟨27, 28, 55, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_28_interval :
     (logCertificate_55.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_27_28 ∧
@@ -13368,7 +13368,7 @@ private theorem sample_27_28_upper : discrepancy (1 / 10) sample_27_28 ≤ (227 
   norm_num [logCertificate_55, logCertificate_2310] at h
   linarith
 
-private def sample_1_55 : Triple := ⟨1, 55, 56, by decide, by decide, by decide, by decide⟩
+private def sample_1_55 : Triple := ⟨1, 55, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_55_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_770.upper ≤
       discrepancy (1 / 10) sample_1_55 ∧
@@ -13389,7 +13389,7 @@ private theorem sample_1_55_upper : discrepancy (1 / 10) sample_1_55 ≤ (227 / 
   norm_num [logCertificate_56, logCertificate_770] at h
   linarith
 
-private def sample_3_53 : Triple := ⟨3, 53, 56, by decide, by decide, by decide, by decide⟩
+private def sample_3_53 : Triple := ⟨3, 53, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_53_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2226.upper ≤
       discrepancy (1 / 10) sample_3_53 ∧
@@ -13410,7 +13410,7 @@ private theorem sample_3_53_upper : discrepancy (1 / 10) sample_3_53 ≤ (227 / 
   norm_num [logCertificate_56, logCertificate_2226] at h
   linarith
 
-private def sample_5_51 : Triple := ⟨5, 51, 56, by decide, by decide, by decide, by decide⟩
+private def sample_5_51 : Triple := ⟨5, 51, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_51_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_5_51 ∧
@@ -13431,7 +13431,7 @@ private theorem sample_5_51_upper : discrepancy (1 / 10) sample_5_51 ≤ (227 / 
   norm_num [logCertificate_56, logCertificate_3570] at h
   linarith
 
-private def sample_9_47 : Triple := ⟨9, 47, 56, by decide, by decide, by decide, by decide⟩
+private def sample_9_47 : Triple := ⟨9, 47, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_47_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1974.upper ≤
       discrepancy (1 / 10) sample_9_47 ∧
@@ -13452,7 +13452,7 @@ private theorem sample_9_47_upper : discrepancy (1 / 10) sample_9_47 ≤ (227 / 
   norm_num [logCertificate_56, logCertificate_1974] at h
   linarith
 
-private def sample_11_45 : Triple := ⟨11, 45, 56, by decide, by decide, by decide, by decide⟩
+private def sample_11_45 : Triple := ⟨11, 45, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_45_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_11_45 ∧
@@ -13473,7 +13473,7 @@ private theorem sample_11_45_upper : discrepancy (1 / 10) sample_11_45 ≤ (227 
   norm_num [logCertificate_56, logCertificate_2310] at h
   linarith
 
-private def sample_13_43 : Triple := ⟨13, 43, 56, by decide, by decide, by decide, by decide⟩
+private def sample_13_43 : Triple := ⟨13, 43, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_43_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7826.upper ≤
       discrepancy (1 / 10) sample_13_43 ∧
@@ -13494,7 +13494,7 @@ private theorem sample_13_43_upper : discrepancy (1 / 10) sample_13_43 ≤ (227 
   norm_num [logCertificate_56, logCertificate_7826] at h
   linarith
 
-private def sample_15_41 : Triple := ⟨15, 41, 56, by decide, by decide, by decide, by decide⟩
+private def sample_15_41 : Triple := ⟨15, 41, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_41_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8610.upper ≤
       discrepancy (1 / 10) sample_15_41 ∧
@@ -13515,7 +13515,7 @@ private theorem sample_15_41_upper : discrepancy (1 / 10) sample_15_41 ≤ (227 
   norm_num [logCertificate_56, logCertificate_8610] at h
   linarith
 
-private def sample_17_39 : Triple := ⟨17, 39, 56, by decide, by decide, by decide, by decide⟩
+private def sample_17_39 : Triple := ⟨17, 39, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_39_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9282.upper ≤
       discrepancy (1 / 10) sample_17_39 ∧
@@ -13536,7 +13536,7 @@ private theorem sample_17_39_upper : discrepancy (1 / 10) sample_17_39 ≤ (227 
   norm_num [logCertificate_56, logCertificate_9282] at h
   linarith
 
-private def sample_19_37 : Triple := ⟨19, 37, 56, by decide, by decide, by decide, by decide⟩
+private def sample_19_37 : Triple := ⟨19, 37, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_37_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9842.upper ≤
       discrepancy (1 / 10) sample_19_37 ∧
@@ -13557,7 +13557,7 @@ private theorem sample_19_37_upper : discrepancy (1 / 10) sample_19_37 ≤ (227 
   norm_num [logCertificate_56, logCertificate_9842] at h
   linarith
 
-private def sample_23_33 : Triple := ⟨23, 33, 56, by decide, by decide, by decide, by decide⟩
+private def sample_23_33 : Triple := ⟨23, 33, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_33_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10626.upper ≤
       discrepancy (1 / 10) sample_23_33 ∧
@@ -13578,7 +13578,7 @@ private theorem sample_23_33_upper : discrepancy (1 / 10) sample_23_33 ≤ (227 
   norm_num [logCertificate_56, logCertificate_10626] at h
   linarith
 
-private def sample_25_31 : Triple := ⟨25, 31, 56, by decide, by decide, by decide, by decide⟩
+private def sample_25_31 : Triple := ⟨25, 31, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_31_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2170.upper ≤
       discrepancy (1 / 10) sample_25_31 ∧
@@ -13599,7 +13599,7 @@ private theorem sample_25_31_upper : discrepancy (1 / 10) sample_25_31 ≤ (227 
   norm_num [logCertificate_56, logCertificate_2170] at h
   linarith
 
-private def sample_27_29 : Triple := ⟨27, 29, 56, by decide, by decide, by decide, by decide⟩
+private def sample_27_29 : Triple := ⟨27, 29, 56, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_29_interval :
     (logCertificate_56.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1218.upper ≤
       discrepancy (1 / 10) sample_27_29 ∧
@@ -13620,7 +13620,7 @@ private theorem sample_27_29_upper : discrepancy (1 / 10) sample_27_29 ≤ (227 
   norm_num [logCertificate_56, logCertificate_1218] at h
   linarith
 
-private def sample_1_56 : Triple := ⟨1, 56, 57, by decide, by decide, by decide, by decide⟩
+private def sample_1_56 : Triple := ⟨1, 56, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_56_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_1_56 ∧
@@ -13641,7 +13641,7 @@ private theorem sample_1_56_upper : discrepancy (1 / 10) sample_1_56 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_798] at h
   linarith
 
-private def sample_2_55 : Triple := ⟨2, 55, 57, by decide, by decide, by decide, by decide⟩
+private def sample_2_55 : Triple := ⟨2, 55, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_55_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6270.upper ≤
       discrepancy (1 / 10) sample_2_55 ∧
@@ -13662,7 +13662,7 @@ private theorem sample_2_55_upper : discrepancy (1 / 10) sample_2_55 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_6270] at h
   linarith
 
-private def sample_4_53 : Triple := ⟨4, 53, 57, by decide, by decide, by decide, by decide⟩
+private def sample_4_53 : Triple := ⟨4, 53, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_53_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6042.upper ≤
       discrepancy (1 / 10) sample_4_53 ∧
@@ -13683,7 +13683,7 @@ private theorem sample_4_53_upper : discrepancy (1 / 10) sample_4_53 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_6042] at h
   linarith
 
-private def sample_5_52 : Triple := ⟨5, 52, 57, by decide, by decide, by decide, by decide⟩
+private def sample_5_52 : Triple := ⟨5, 52, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_52_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7410.upper ≤
       discrepancy (1 / 10) sample_5_52 ∧
@@ -13704,7 +13704,7 @@ private theorem sample_5_52_upper : discrepancy (1 / 10) sample_5_52 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_7410] at h
   linarith
 
-private def sample_7_50 : Triple := ⟨7, 50, 57, by decide, by decide, by decide, by decide⟩
+private def sample_7_50 : Triple := ⟨7, 50, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_50_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_7_50 ∧
@@ -13725,7 +13725,7 @@ private theorem sample_7_50_upper : discrepancy (1 / 10) sample_7_50 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_3990] at h
   linarith
 
-private def sample_8_49 : Triple := ⟨8, 49, 57, by decide, by decide, by decide, by decide⟩
+private def sample_8_49 : Triple := ⟨8, 49, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_49_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_8_49 ∧
@@ -13746,7 +13746,7 @@ private theorem sample_8_49_upper : discrepancy (1 / 10) sample_8_49 ≤ (227 / 
   norm_num [logCertificate_57, logCertificate_798] at h
   linarith
 
-private def sample_10_47 : Triple := ⟨10, 47, 57, by decide, by decide, by decide, by decide⟩
+private def sample_10_47 : Triple := ⟨10, 47, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_47_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_26790.upper ≤
       discrepancy (1 / 10) sample_10_47 ∧
@@ -13767,7 +13767,7 @@ private theorem sample_10_47_upper : discrepancy (1 / 10) sample_10_47 ≤ (227 
   norm_num [logCertificate_57, logCertificate_26790] at h
   linarith
 
-private def sample_11_46 : Triple := ⟨11, 46, 57, by decide, by decide, by decide, by decide⟩
+private def sample_11_46 : Triple := ⟨11, 46, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_46_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_28842.upper ≤
       discrepancy (1 / 10) sample_11_46 ∧
@@ -13788,7 +13788,7 @@ private theorem sample_11_46_upper : discrepancy (1 / 10) sample_11_46 ≤ (227 
   norm_num [logCertificate_57, logCertificate_28842] at h
   linarith
 
-private def sample_13_44 : Triple := ⟨13, 44, 57, by decide, by decide, by decide, by decide⟩
+private def sample_13_44 : Triple := ⟨13, 44, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_44_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16302.upper ≤
       discrepancy (1 / 10) sample_13_44 ∧
@@ -13809,7 +13809,7 @@ private theorem sample_13_44_upper : discrepancy (1 / 10) sample_13_44 ≤ (227 
   norm_num [logCertificate_57, logCertificate_16302] at h
   linarith
 
-private def sample_14_43 : Triple := ⟨14, 43, 57, by decide, by decide, by decide, by decide⟩
+private def sample_14_43 : Triple := ⟨14, 43, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_43_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_34314.upper ≤
       discrepancy (1 / 10) sample_14_43 ∧
@@ -13830,7 +13830,7 @@ private theorem sample_14_43_upper : discrepancy (1 / 10) sample_14_43 ≤ (227 
   norm_num [logCertificate_57, logCertificate_34314] at h
   linarith
 
-private def sample_16_41 : Triple := ⟨16, 41, 57, by decide, by decide, by decide, by decide⟩
+private def sample_16_41 : Triple := ⟨16, 41, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_41_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4674.upper ≤
       discrepancy (1 / 10) sample_16_41 ∧
@@ -13851,7 +13851,7 @@ private theorem sample_16_41_upper : discrepancy (1 / 10) sample_16_41 ≤ (227 
   norm_num [logCertificate_57, logCertificate_4674] at h
   linarith
 
-private def sample_17_40 : Triple := ⟨17, 40, 57, by decide, by decide, by decide, by decide⟩
+private def sample_17_40 : Triple := ⟨17, 40, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_40_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9690.upper ≤
       discrepancy (1 / 10) sample_17_40 ∧
@@ -13872,7 +13872,7 @@ private theorem sample_17_40_upper : discrepancy (1 / 10) sample_17_40 ≤ (227 
   norm_num [logCertificate_57, logCertificate_9690] at h
   linarith
 
-private def sample_20_37 : Triple := ⟨20, 37, 57, by decide, by decide, by decide, by decide⟩
+private def sample_20_37 : Triple := ⟨20, 37, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_37_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_21090.upper ≤
       discrepancy (1 / 10) sample_20_37 ∧
@@ -13893,7 +13893,7 @@ private theorem sample_20_37_upper : discrepancy (1 / 10) sample_20_37 ≤ (227 
   norm_num [logCertificate_57, logCertificate_21090] at h
   linarith
 
-private def sample_22_35 : Triple := ⟨22, 35, 57, by decide, by decide, by decide, by decide⟩
+private def sample_22_35 : Triple := ⟨22, 35, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_35_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_43890.upper ≤
       discrepancy (1 / 10) sample_22_35 ∧
@@ -13914,7 +13914,7 @@ private theorem sample_22_35_upper : discrepancy (1 / 10) sample_22_35 ≤ (227 
   norm_num [logCertificate_57, logCertificate_43890] at h
   linarith
 
-private def sample_23_34 : Triple := ⟨23, 34, 57, by decide, by decide, by decide, by decide⟩
+private def sample_23_34 : Triple := ⟨23, 34, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_34_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_44574.upper ≤
       discrepancy (1 / 10) sample_23_34 ∧
@@ -13935,7 +13935,7 @@ private theorem sample_23_34_upper : discrepancy (1 / 10) sample_23_34 ≤ (227 
   norm_num [logCertificate_57, logCertificate_44574] at h
   linarith
 
-private def sample_25_32 : Triple := ⟨25, 32, 57, by decide, by decide, by decide, by decide⟩
+private def sample_25_32 : Triple := ⟨25, 32, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_32_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_25_32 ∧
@@ -13956,7 +13956,7 @@ private theorem sample_25_32_upper : discrepancy (1 / 10) sample_25_32 ≤ (227 
   norm_num [logCertificate_57, logCertificate_570] at h
   linarith
 
-private def sample_26_31 : Triple := ⟨26, 31, 57, by decide, by decide, by decide, by decide⟩
+private def sample_26_31 : Triple := ⟨26, 31, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_31_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_45942.upper ≤
       discrepancy (1 / 10) sample_26_31 ∧
@@ -13977,7 +13977,7 @@ private theorem sample_26_31_upper : discrepancy (1 / 10) sample_26_31 ≤ (227 
   norm_num [logCertificate_57, logCertificate_45942] at h
   linarith
 
-private def sample_28_29 : Triple := ⟨28, 29, 57, by decide, by decide, by decide, by decide⟩
+private def sample_28_29 : Triple := ⟨28, 29, 57, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_29_interval :
     (logCertificate_57.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23142.upper ≤
       discrepancy (1 / 10) sample_28_29 ∧
@@ -13998,7 +13998,7 @@ private theorem sample_28_29_upper : discrepancy (1 / 10) sample_28_29 ≤ (227 
   norm_num [logCertificate_57, logCertificate_23142] at h
   linarith
 
-private def sample_1_57 : Triple := ⟨1, 57, 58, by decide, by decide, by decide, by decide⟩
+private def sample_1_57 : Triple := ⟨1, 57, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_57_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3306.upper ≤
       discrepancy (1 / 10) sample_1_57 ∧
@@ -14019,7 +14019,7 @@ private theorem sample_1_57_upper : discrepancy (1 / 10) sample_1_57 ≤ (227 / 
   norm_num [logCertificate_58, logCertificate_3306] at h
   linarith
 
-private def sample_3_55 : Triple := ⟨3, 55, 58, by decide, by decide, by decide, by decide⟩
+private def sample_3_55 : Triple := ⟨3, 55, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_55_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9570.upper ≤
       discrepancy (1 / 10) sample_3_55 ∧
@@ -14040,7 +14040,7 @@ private theorem sample_3_55_upper : discrepancy (1 / 10) sample_3_55 ≤ (227 / 
   norm_num [logCertificate_58, logCertificate_9570] at h
   linarith
 
-private def sample_5_53 : Triple := ⟨5, 53, 58, by decide, by decide, by decide, by decide⟩
+private def sample_5_53 : Triple := ⟨5, 53, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_53_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15370.upper ≤
       discrepancy (1 / 10) sample_5_53 ∧
@@ -14061,7 +14061,7 @@ private theorem sample_5_53_upper : discrepancy (1 / 10) sample_5_53 ≤ (227 / 
   norm_num [logCertificate_58, logCertificate_15370] at h
   linarith
 
-private def sample_7_51 : Triple := ⟨7, 51, 58, by decide, by decide, by decide, by decide⟩
+private def sample_7_51 : Triple := ⟨7, 51, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_51_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20706.upper ≤
       discrepancy (1 / 10) sample_7_51 ∧
@@ -14082,7 +14082,7 @@ private theorem sample_7_51_upper : discrepancy (1 / 10) sample_7_51 ≤ (227 / 
   norm_num [logCertificate_58, logCertificate_20706] at h
   linarith
 
-private def sample_9_49 : Triple := ⟨9, 49, 58, by decide, by decide, by decide, by decide⟩
+private def sample_9_49 : Triple := ⟨9, 49, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_49_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1218.upper ≤
       discrepancy (1 / 10) sample_9_49 ∧
@@ -14103,7 +14103,7 @@ private theorem sample_9_49_upper : discrepancy (1 / 10) sample_9_49 ≤ (227 / 
   norm_num [logCertificate_58, logCertificate_1218] at h
   linarith
 
-private def sample_11_47 : Triple := ⟨11, 47, 58, by decide, by decide, by decide, by decide⟩
+private def sample_11_47 : Triple := ⟨11, 47, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_47_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_29986.upper ≤
       discrepancy (1 / 10) sample_11_47 ∧
@@ -14124,7 +14124,7 @@ private theorem sample_11_47_upper : discrepancy (1 / 10) sample_11_47 ≤ (227 
   norm_num [logCertificate_58, logCertificate_29986] at h
   linarith
 
-private def sample_13_45 : Triple := ⟨13, 45, 58, by decide, by decide, by decide, by decide⟩
+private def sample_13_45 : Triple := ⟨13, 45, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_45_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11310.upper ≤
       discrepancy (1 / 10) sample_13_45 ∧
@@ -14145,7 +14145,7 @@ private theorem sample_13_45_upper : discrepancy (1 / 10) sample_13_45 ≤ (227 
   norm_num [logCertificate_58, logCertificate_11310] at h
   linarith
 
-private def sample_15_43 : Triple := ⟨15, 43, 58, by decide, by decide, by decide, by decide⟩
+private def sample_15_43 : Triple := ⟨15, 43, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_43_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_37410.upper ≤
       discrepancy (1 / 10) sample_15_43 ∧
@@ -14166,7 +14166,7 @@ private theorem sample_15_43_upper : discrepancy (1 / 10) sample_15_43 ≤ (227 
   norm_num [logCertificate_58, logCertificate_37410] at h
   linarith
 
-private def sample_17_41 : Triple := ⟨17, 41, 58, by decide, by decide, by decide, by decide⟩
+private def sample_17_41 : Triple := ⟨17, 41, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_41_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_40426.upper ≤
       discrepancy (1 / 10) sample_17_41 ∧
@@ -14187,7 +14187,7 @@ private theorem sample_17_41_upper : discrepancy (1 / 10) sample_17_41 ≤ (227 
   norm_num [logCertificate_58, logCertificate_40426] at h
   linarith
 
-private def sample_19_39 : Triple := ⟨19, 39, 58, by decide, by decide, by decide, by decide⟩
+private def sample_19_39 : Triple := ⟨19, 39, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_39_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42978.upper ≤
       discrepancy (1 / 10) sample_19_39 ∧
@@ -14208,7 +14208,7 @@ private theorem sample_19_39_upper : discrepancy (1 / 10) sample_19_39 ≤ (227 
   norm_num [logCertificate_58, logCertificate_42978] at h
   linarith
 
-private def sample_21_37 : Triple := ⟨21, 37, 58, by decide, by decide, by decide, by decide⟩
+private def sample_21_37 : Triple := ⟨21, 37, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_37_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_45066.upper ≤
       discrepancy (1 / 10) sample_21_37 ∧
@@ -14229,7 +14229,7 @@ private theorem sample_21_37_upper : discrepancy (1 / 10) sample_21_37 ≤ (227 
   norm_num [logCertificate_58, logCertificate_45066] at h
   linarith
 
-private def sample_23_35 : Triple := ⟨23, 35, 58, by decide, by decide, by decide, by decide⟩
+private def sample_23_35 : Triple := ⟨23, 35, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_35_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_46690.upper ≤
       discrepancy (1 / 10) sample_23_35 ∧
@@ -14250,7 +14250,7 @@ private theorem sample_23_35_upper : discrepancy (1 / 10) sample_23_35 ≤ (227 
   norm_num [logCertificate_58, logCertificate_46690] at h
   linarith
 
-private def sample_25_33 : Triple := ⟨25, 33, 58, by decide, by decide, by decide, by decide⟩
+private def sample_25_33 : Triple := ⟨25, 33, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_33_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9570.upper ≤
       discrepancy (1 / 10) sample_25_33 ∧
@@ -14271,7 +14271,7 @@ private theorem sample_25_33_upper : discrepancy (1 / 10) sample_25_33 ≤ (227 
   norm_num [logCertificate_58, logCertificate_9570] at h
   linarith
 
-private def sample_27_31 : Triple := ⟨27, 31, 58, by decide, by decide, by decide, by decide⟩
+private def sample_27_31 : Triple := ⟨27, 31, 58, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_31_interval :
     (logCertificate_58.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5394.upper ≤
       discrepancy (1 / 10) sample_27_31 ∧
@@ -14292,7 +14292,7 @@ private theorem sample_27_31_upper : discrepancy (1 / 10) sample_27_31 ≤ (227 
   norm_num [logCertificate_58, logCertificate_5394] at h
   linarith
 
-private def sample_1_58 : Triple := ⟨1, 58, 59, by decide, by decide, by decide, by decide⟩
+private def sample_1_58 : Triple := ⟨1, 58, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_58_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3422.upper ≤
       discrepancy (1 / 10) sample_1_58 ∧
@@ -14313,7 +14313,7 @@ private theorem sample_1_58_upper : discrepancy (1 / 10) sample_1_58 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_3422] at h
   linarith
 
-private def sample_2_57 : Triple := ⟨2, 57, 59, by decide, by decide, by decide, by decide⟩
+private def sample_2_57 : Triple := ⟨2, 57, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_57_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6726.upper ≤
       discrepancy (1 / 10) sample_2_57 ∧
@@ -14334,7 +14334,7 @@ private theorem sample_2_57_upper : discrepancy (1 / 10) sample_2_57 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_6726] at h
   linarith
 
-private def sample_3_56 : Triple := ⟨3, 56, 59, by decide, by decide, by decide, by decide⟩
+private def sample_3_56 : Triple := ⟨3, 56, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_56_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2478.upper ≤
       discrepancy (1 / 10) sample_3_56 ∧
@@ -14355,7 +14355,7 @@ private theorem sample_3_56_upper : discrepancy (1 / 10) sample_3_56 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_2478] at h
   linarith
 
-private def sample_4_55 : Triple := ⟨4, 55, 59, by decide, by decide, by decide, by decide⟩
+private def sample_4_55 : Triple := ⟨4, 55, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_55_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6490.upper ≤
       discrepancy (1 / 10) sample_4_55 ∧
@@ -14376,7 +14376,7 @@ private theorem sample_4_55_upper : discrepancy (1 / 10) sample_4_55 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_6490] at h
   linarith
 
-private def sample_5_54 : Triple := ⟨5, 54, 59, by decide, by decide, by decide, by decide⟩
+private def sample_5_54 : Triple := ⟨5, 54, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_54_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1770.upper ≤
       discrepancy (1 / 10) sample_5_54 ∧
@@ -14397,7 +14397,7 @@ private theorem sample_5_54_upper : discrepancy (1 / 10) sample_5_54 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_1770] at h
   linarith
 
-private def sample_6_53 : Triple := ⟨6, 53, 59, by decide, by decide, by decide, by decide⟩
+private def sample_6_53 : Triple := ⟨6, 53, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_53_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_18762.upper ≤
       discrepancy (1 / 10) sample_6_53 ∧
@@ -14418,7 +14418,7 @@ private theorem sample_6_53_upper : discrepancy (1 / 10) sample_6_53 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_18762] at h
   linarith
 
-private def sample_7_52 : Triple := ⟨7, 52, 59, by decide, by decide, by decide, by decide⟩
+private def sample_7_52 : Triple := ⟨7, 52, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_52_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10738.upper ≤
       discrepancy (1 / 10) sample_7_52 ∧
@@ -14439,7 +14439,7 @@ private theorem sample_7_52_upper : discrepancy (1 / 10) sample_7_52 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_10738] at h
   linarith
 
-private def sample_8_51 : Triple := ⟨8, 51, 59, by decide, by decide, by decide, by decide⟩
+private def sample_8_51 : Triple := ⟨8, 51, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_51_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6018.upper ≤
       discrepancy (1 / 10) sample_8_51 ∧
@@ -14460,7 +14460,7 @@ private theorem sample_8_51_upper : discrepancy (1 / 10) sample_8_51 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_6018] at h
   linarith
 
-private def sample_9_50 : Triple := ⟨9, 50, 59, by decide, by decide, by decide, by decide⟩
+private def sample_9_50 : Triple := ⟨9, 50, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_50_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1770.upper ≤
       discrepancy (1 / 10) sample_9_50 ∧
@@ -14481,7 +14481,7 @@ private theorem sample_9_50_upper : discrepancy (1 / 10) sample_9_50 ≤ (227 / 
   norm_num [logCertificate_59, logCertificate_1770] at h
   linarith
 
-private def sample_10_49 : Triple := ⟨10, 49, 59, by decide, by decide, by decide, by decide⟩
+private def sample_10_49 : Triple := ⟨10, 49, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_49_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4130.upper ≤
       discrepancy (1 / 10) sample_10_49 ∧
@@ -14502,7 +14502,7 @@ private theorem sample_10_49_upper : discrepancy (1 / 10) sample_10_49 ≤ (227 
   norm_num [logCertificate_59, logCertificate_4130] at h
   linarith
 
-private def sample_11_48 : Triple := ⟨11, 48, 59, by decide, by decide, by decide, by decide⟩
+private def sample_11_48 : Triple := ⟨11, 48, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_48_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3894.upper ≤
       discrepancy (1 / 10) sample_11_48 ∧
@@ -14523,7 +14523,7 @@ private theorem sample_11_48_upper : discrepancy (1 / 10) sample_11_48 ≤ (227 
   norm_num [logCertificate_59, logCertificate_3894] at h
   linarith
 
-private def sample_12_47 : Triple := ⟨12, 47, 59, by decide, by decide, by decide, by decide⟩
+private def sample_12_47 : Triple := ⟨12, 47, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_47_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16638.upper ≤
       discrepancy (1 / 10) sample_12_47 ∧
@@ -14544,7 +14544,7 @@ private theorem sample_12_47_upper : discrepancy (1 / 10) sample_12_47 ≤ (227 
   norm_num [logCertificate_59, logCertificate_16638] at h
   linarith
 
-private def sample_13_46 : Triple := ⟨13, 46, 59, by decide, by decide, by decide, by decide⟩
+private def sample_13_46 : Triple := ⟨13, 46, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_46_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_35282.upper ≤
       discrepancy (1 / 10) sample_13_46 ∧
@@ -14565,7 +14565,7 @@ private theorem sample_13_46_upper : discrepancy (1 / 10) sample_13_46 ≤ (227 
   norm_num [logCertificate_59, logCertificate_35282] at h
   linarith
 
-private def sample_14_45 : Triple := ⟨14, 45, 59, by decide, by decide, by decide, by decide⟩
+private def sample_14_45 : Triple := ⟨14, 45, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_45_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12390.upper ≤
       discrepancy (1 / 10) sample_14_45 ∧
@@ -14586,7 +14586,7 @@ private theorem sample_14_45_upper : discrepancy (1 / 10) sample_14_45 ≤ (227 
   norm_num [logCertificate_59, logCertificate_12390] at h
   linarith
 
-private def sample_15_44 : Triple := ⟨15, 44, 59, by decide, by decide, by decide, by decide⟩
+private def sample_15_44 : Triple := ⟨15, 44, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_44_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_19470.upper ≤
       discrepancy (1 / 10) sample_15_44 ∧
@@ -14607,7 +14607,7 @@ private theorem sample_15_44_upper : discrepancy (1 / 10) sample_15_44 ≤ (227 
   norm_num [logCertificate_59, logCertificate_19470] at h
   linarith
 
-private def sample_16_43 : Triple := ⟨16, 43, 59, by decide, by decide, by decide, by decide⟩
+private def sample_16_43 : Triple := ⟨16, 43, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_43_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5074.upper ≤
       discrepancy (1 / 10) sample_16_43 ∧
@@ -14628,7 +14628,7 @@ private theorem sample_16_43_upper : discrepancy (1 / 10) sample_16_43 ≤ (227 
   norm_num [logCertificate_59, logCertificate_5074] at h
   linarith
 
-private def sample_17_42 : Triple := ⟨17, 42, 59, by decide, by decide, by decide, by decide⟩
+private def sample_17_42 : Triple := ⟨17, 42, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_42_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42126.upper ≤
       discrepancy (1 / 10) sample_17_42 ∧
@@ -14649,7 +14649,7 @@ private theorem sample_17_42_upper : discrepancy (1 / 10) sample_17_42 ≤ (227 
   norm_num [logCertificate_59, logCertificate_42126] at h
   linarith
 
-private def sample_18_41 : Triple := ⟨18, 41, 59, by decide, by decide, by decide, by decide⟩
+private def sample_18_41 : Triple := ⟨18, 41, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_41_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14514.upper ≤
       discrepancy (1 / 10) sample_18_41 ∧
@@ -14670,7 +14670,7 @@ private theorem sample_18_41_upper : discrepancy (1 / 10) sample_18_41 ≤ (227 
   norm_num [logCertificate_59, logCertificate_14514] at h
   linarith
 
-private def sample_19_40 : Triple := ⟨19, 40, 59, by decide, by decide, by decide, by decide⟩
+private def sample_19_40 : Triple := ⟨19, 40, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_40_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11210.upper ≤
       discrepancy (1 / 10) sample_19_40 ∧
@@ -14691,7 +14691,7 @@ private theorem sample_19_40_upper : discrepancy (1 / 10) sample_19_40 ≤ (227 
   norm_num [logCertificate_59, logCertificate_11210] at h
   linarith
 
-private def sample_20_39 : Triple := ⟨20, 39, 59, by decide, by decide, by decide, by decide⟩
+private def sample_20_39 : Triple := ⟨20, 39, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_39_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23010.upper ≤
       discrepancy (1 / 10) sample_20_39 ∧
@@ -14712,7 +14712,7 @@ private theorem sample_20_39_upper : discrepancy (1 / 10) sample_20_39 ≤ (227 
   norm_num [logCertificate_59, logCertificate_23010] at h
   linarith
 
-private def sample_21_38 : Triple := ⟨21, 38, 59, by decide, by decide, by decide, by decide⟩
+private def sample_21_38 : Triple := ⟨21, 38, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_38_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_47082.upper ≤
       discrepancy (1 / 10) sample_21_38 ∧
@@ -14733,7 +14733,7 @@ private theorem sample_21_38_upper : discrepancy (1 / 10) sample_21_38 ≤ (227 
   norm_num [logCertificate_59, logCertificate_47082] at h
   linarith
 
-private def sample_22_37 : Triple := ⟨22, 37, 59, by decide, by decide, by decide, by decide⟩
+private def sample_22_37 : Triple := ⟨22, 37, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_37_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_48026.upper ≤
       discrepancy (1 / 10) sample_22_37 ∧
@@ -14754,7 +14754,7 @@ private theorem sample_22_37_upper : discrepancy (1 / 10) sample_22_37 ≤ (227 
   norm_num [logCertificate_59, logCertificate_48026] at h
   linarith
 
-private def sample_23_36 : Triple := ⟨23, 36, 59, by decide, by decide, by decide, by decide⟩
+private def sample_23_36 : Triple := ⟨23, 36, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_36_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8142.upper ≤
       discrepancy (1 / 10) sample_23_36 ∧
@@ -14775,7 +14775,7 @@ private theorem sample_23_36_upper : discrepancy (1 / 10) sample_23_36 ≤ (227 
   norm_num [logCertificate_59, logCertificate_8142] at h
   linarith
 
-private def sample_24_35 : Triple := ⟨24, 35, 59, by decide, by decide, by decide, by decide⟩
+private def sample_24_35 : Triple := ⟨24, 35, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_35_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12390.upper ≤
       discrepancy (1 / 10) sample_24_35 ∧
@@ -14796,7 +14796,7 @@ private theorem sample_24_35_upper : discrepancy (1 / 10) sample_24_35 ≤ (227 
   norm_num [logCertificate_59, logCertificate_12390] at h
   linarith
 
-private def sample_25_34 : Triple := ⟨25, 34, 59, by decide, by decide, by decide, by decide⟩
+private def sample_25_34 : Triple := ⟨25, 34, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_34_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10030.upper ≤
       discrepancy (1 / 10) sample_25_34 ∧
@@ -14817,7 +14817,7 @@ private theorem sample_25_34_upper : discrepancy (1 / 10) sample_25_34 ≤ (227 
   norm_num [logCertificate_59, logCertificate_10030] at h
   linarith
 
-private def sample_26_33 : Triple := ⟨26, 33, 59, by decide, by decide, by decide, by decide⟩
+private def sample_26_33 : Triple := ⟨26, 33, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_33_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_50622.upper ≤
       discrepancy (1 / 10) sample_26_33 ∧
@@ -14838,7 +14838,7 @@ private theorem sample_26_33_upper : discrepancy (1 / 10) sample_26_33 ≤ (227 
   norm_num [logCertificate_59, logCertificate_50622] at h
   linarith
 
-private def sample_27_32 : Triple := ⟨27, 32, 59, by decide, by decide, by decide, by decide⟩
+private def sample_27_32 : Triple := ⟨27, 32, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_32_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_354.upper ≤
       discrepancy (1 / 10) sample_27_32 ∧
@@ -14859,7 +14859,7 @@ private theorem sample_27_32_upper : discrepancy (1 / 10) sample_27_32 ≤ (227 
   norm_num [logCertificate_59, logCertificate_354] at h
   linarith
 
-private def sample_28_31 : Triple := ⟨28, 31, 59, by decide, by decide, by decide, by decide⟩
+private def sample_28_31 : Triple := ⟨28, 31, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_31_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_25606.upper ≤
       discrepancy (1 / 10) sample_28_31 ∧
@@ -14880,7 +14880,7 @@ private theorem sample_28_31_upper : discrepancy (1 / 10) sample_28_31 ≤ (227 
   norm_num [logCertificate_59, logCertificate_25606] at h
   linarith
 
-private def sample_29_30 : Triple := ⟨29, 30, 59, by decide, by decide, by decide, by decide⟩
+private def sample_29_30 : Triple := ⟨29, 30, 59, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_30_interval :
     (logCertificate_59.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_51330.upper ≤
       discrepancy (1 / 10) sample_29_30 ∧
@@ -14901,7 +14901,7 @@ private theorem sample_29_30_upper : discrepancy (1 / 10) sample_29_30 ≤ (227 
   norm_num [logCertificate_59, logCertificate_51330] at h
   linarith
 
-private def sample_1_59 : Triple := ⟨1, 59, 60, by decide, by decide, by decide, by decide⟩
+private def sample_1_59 : Triple := ⟨1, 59, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_59_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1770.upper ≤
       discrepancy (1 / 10) sample_1_59 ∧
@@ -14922,7 +14922,7 @@ private theorem sample_1_59_upper : discrepancy (1 / 10) sample_1_59 ≤ (227 / 
   norm_num [logCertificate_60, logCertificate_1770] at h
   linarith
 
-private def sample_7_53 : Triple := ⟨7, 53, 60, by decide, by decide, by decide, by decide⟩
+private def sample_7_53 : Triple := ⟨7, 53, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_53_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11130.upper ≤
       discrepancy (1 / 10) sample_7_53 ∧
@@ -14943,7 +14943,7 @@ private theorem sample_7_53_upper : discrepancy (1 / 10) sample_7_53 ≤ (227 / 
   norm_num [logCertificate_60, logCertificate_11130] at h
   linarith
 
-private def sample_11_49 : Triple := ⟨11, 49, 60, by decide, by decide, by decide, by decide⟩
+private def sample_11_49 : Triple := ⟨11, 49, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_49_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_11_49 ∧
@@ -14964,7 +14964,7 @@ private theorem sample_11_49_upper : discrepancy (1 / 10) sample_11_49 ≤ (227 
   norm_num [logCertificate_60, logCertificate_2310] at h
   linarith
 
-private def sample_13_47 : Triple := ⟨13, 47, 60, by decide, by decide, by decide, by decide⟩
+private def sample_13_47 : Triple := ⟨13, 47, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_47_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_18330.upper ≤
       discrepancy (1 / 10) sample_13_47 ∧
@@ -14985,7 +14985,7 @@ private theorem sample_13_47_upper : discrepancy (1 / 10) sample_13_47 ≤ (227 
   norm_num [logCertificate_60, logCertificate_18330] at h
   linarith
 
-private def sample_17_43 : Triple := ⟨17, 43, 60, by decide, by decide, by decide, by decide⟩
+private def sample_17_43 : Triple := ⟨17, 43, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_43_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_21930.upper ≤
       discrepancy (1 / 10) sample_17_43 ∧
@@ -15006,7 +15006,7 @@ private theorem sample_17_43_upper : discrepancy (1 / 10) sample_17_43 ≤ (227 
   norm_num [logCertificate_60, logCertificate_21930] at h
   linarith
 
-private def sample_19_41 : Triple := ⟨19, 41, 60, by decide, by decide, by decide, by decide⟩
+private def sample_19_41 : Triple := ⟨19, 41, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_41_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23370.upper ≤
       discrepancy (1 / 10) sample_19_41 ∧
@@ -15027,7 +15027,7 @@ private theorem sample_19_41_upper : discrepancy (1 / 10) sample_19_41 ≤ (227 
   norm_num [logCertificate_60, logCertificate_23370] at h
   linarith
 
-private def sample_23_37 : Triple := ⟨23, 37, 60, by decide, by decide, by decide, by decide⟩
+private def sample_23_37 : Triple := ⟨23, 37, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_37_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_25530.upper ≤
       discrepancy (1 / 10) sample_23_37 ∧
@@ -15048,7 +15048,7 @@ private theorem sample_23_37_upper : discrepancy (1 / 10) sample_23_37 ≤ (227 
   norm_num [logCertificate_60, logCertificate_25530] at h
   linarith
 
-private def sample_29_31 : Triple := ⟨29, 31, 60, by decide, by decide, by decide, by decide⟩
+private def sample_29_31 : Triple := ⟨29, 31, 60, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_31_interval :
     (logCertificate_60.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_26970.upper ≤
       discrepancy (1 / 10) sample_29_31 ∧
@@ -15069,7 +15069,7 @@ private theorem sample_29_31_upper : discrepancy (1 / 10) sample_29_31 ≤ (227 
   norm_num [logCertificate_60, logCertificate_26970] at h
   linarith
 
-private def sample_1_60 : Triple := ⟨1, 60, 61, by decide, by decide, by decide, by decide⟩
+private def sample_1_60 : Triple := ⟨1, 60, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_60_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1830.upper ≤
       discrepancy (1 / 10) sample_1_60 ∧
@@ -15090,7 +15090,7 @@ private theorem sample_1_60_upper : discrepancy (1 / 10) sample_1_60 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_1830] at h
   linarith
 
-private def sample_2_59 : Triple := ⟨2, 59, 61, by decide, by decide, by decide, by decide⟩
+private def sample_2_59 : Triple := ⟨2, 59, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_59_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7198.upper ≤
       discrepancy (1 / 10) sample_2_59 ∧
@@ -15111,7 +15111,7 @@ private theorem sample_2_59_upper : discrepancy (1 / 10) sample_2_59 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_7198] at h
   linarith
 
-private def sample_3_58 : Triple := ⟨3, 58, 61, by decide, by decide, by decide, by decide⟩
+private def sample_3_58 : Triple := ⟨3, 58, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_58_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10614.upper ≤
       discrepancy (1 / 10) sample_3_58 ∧
@@ -15132,7 +15132,7 @@ private theorem sample_3_58_upper : discrepancy (1 / 10) sample_3_58 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_10614] at h
   linarith
 
-private def sample_4_57 : Triple := ⟨4, 57, 61, by decide, by decide, by decide, by decide⟩
+private def sample_4_57 : Triple := ⟨4, 57, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_57_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6954.upper ≤
       discrepancy (1 / 10) sample_4_57 ∧
@@ -15153,7 +15153,7 @@ private theorem sample_4_57_upper : discrepancy (1 / 10) sample_4_57 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_6954] at h
   linarith
 
-private def sample_5_56 : Triple := ⟨5, 56, 61, by decide, by decide, by decide, by decide⟩
+private def sample_5_56 : Triple := ⟨5, 56, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_56_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4270.upper ≤
       discrepancy (1 / 10) sample_5_56 ∧
@@ -15174,7 +15174,7 @@ private theorem sample_5_56_upper : discrepancy (1 / 10) sample_5_56 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_4270] at h
   linarith
 
-private def sample_6_55 : Triple := ⟨6, 55, 61, by decide, by decide, by decide, by decide⟩
+private def sample_6_55 : Triple := ⟨6, 55, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_55_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20130.upper ≤
       discrepancy (1 / 10) sample_6_55 ∧
@@ -15195,7 +15195,7 @@ private theorem sample_6_55_upper : discrepancy (1 / 10) sample_6_55 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_20130] at h
   linarith
 
-private def sample_7_54 : Triple := ⟨7, 54, 61, by decide, by decide, by decide, by decide⟩
+private def sample_7_54 : Triple := ⟨7, 54, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_54_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2562.upper ≤
       discrepancy (1 / 10) sample_7_54 ∧
@@ -15216,7 +15216,7 @@ private theorem sample_7_54_upper : discrepancy (1 / 10) sample_7_54 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_2562] at h
   linarith
 
-private def sample_8_53 : Triple := ⟨8, 53, 61, by decide, by decide, by decide, by decide⟩
+private def sample_8_53 : Triple := ⟨8, 53, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_53_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6466.upper ≤
       discrepancy (1 / 10) sample_8_53 ∧
@@ -15237,7 +15237,7 @@ private theorem sample_8_53_upper : discrepancy (1 / 10) sample_8_53 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_6466] at h
   linarith
 
-private def sample_9_52 : Triple := ⟨9, 52, 61, by decide, by decide, by decide, by decide⟩
+private def sample_9_52 : Triple := ⟨9, 52, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_52_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4758.upper ≤
       discrepancy (1 / 10) sample_9_52 ∧
@@ -15258,7 +15258,7 @@ private theorem sample_9_52_upper : discrepancy (1 / 10) sample_9_52 ≤ (227 / 
   norm_num [logCertificate_61, logCertificate_4758] at h
   linarith
 
-private def sample_10_51 : Triple := ⟨10, 51, 61, by decide, by decide, by decide, by decide⟩
+private def sample_10_51 : Triple := ⟨10, 51, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_51_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_31110.upper ≤
       discrepancy (1 / 10) sample_10_51 ∧
@@ -15279,7 +15279,7 @@ private theorem sample_10_51_upper : discrepancy (1 / 10) sample_10_51 ≤ (227 
   norm_num [logCertificate_61, logCertificate_31110] at h
   linarith
 
-private def sample_11_50 : Triple := ⟨11, 50, 61, by decide, by decide, by decide, by decide⟩
+private def sample_11_50 : Triple := ⟨11, 50, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_50_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6710.upper ≤
       discrepancy (1 / 10) sample_11_50 ∧
@@ -15300,7 +15300,7 @@ private theorem sample_11_50_upper : discrepancy (1 / 10) sample_11_50 ≤ (227 
   norm_num [logCertificate_61, logCertificate_6710] at h
   linarith
 
-private def sample_12_49 : Triple := ⟨12, 49, 61, by decide, by decide, by decide, by decide⟩
+private def sample_12_49 : Triple := ⟨12, 49, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_49_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2562.upper ≤
       discrepancy (1 / 10) sample_12_49 ∧
@@ -15321,7 +15321,7 @@ private theorem sample_12_49_upper : discrepancy (1 / 10) sample_12_49 ≤ (227 
   norm_num [logCertificate_61, logCertificate_2562] at h
   linarith
 
-private def sample_13_48 : Triple := ⟨13, 48, 61, by decide, by decide, by decide, by decide⟩
+private def sample_13_48 : Triple := ⟨13, 48, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_48_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4758.upper ≤
       discrepancy (1 / 10) sample_13_48 ∧
@@ -15342,7 +15342,7 @@ private theorem sample_13_48_upper : discrepancy (1 / 10) sample_13_48 ≤ (227 
   norm_num [logCertificate_61, logCertificate_4758] at h
   linarith
 
-private def sample_14_47 : Triple := ⟨14, 47, 61, by decide, by decide, by decide, by decide⟩
+private def sample_14_47 : Triple := ⟨14, 47, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_47_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_40138.upper ≤
       discrepancy (1 / 10) sample_14_47 ∧
@@ -15363,7 +15363,7 @@ private theorem sample_14_47_upper : discrepancy (1 / 10) sample_14_47 ≤ (227 
   norm_num [logCertificate_61, logCertificate_40138] at h
   linarith
 
-private def sample_15_46 : Triple := ⟨15, 46, 61, by decide, by decide, by decide, by decide⟩
+private def sample_15_46 : Triple := ⟨15, 46, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_46_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42090.upper ≤
       discrepancy (1 / 10) sample_15_46 ∧
@@ -15384,7 +15384,7 @@ private theorem sample_15_46_upper : discrepancy (1 / 10) sample_15_46 ≤ (227 
   norm_num [logCertificate_61, logCertificate_42090] at h
   linarith
 
-private def sample_16_45 : Triple := ⟨16, 45, 61, by decide, by decide, by decide, by decide⟩
+private def sample_16_45 : Triple := ⟨16, 45, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_45_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1830.upper ≤
       discrepancy (1 / 10) sample_16_45 ∧
@@ -15405,7 +15405,7 @@ private theorem sample_16_45_upper : discrepancy (1 / 10) sample_16_45 ≤ (227 
   norm_num [logCertificate_61, logCertificate_1830] at h
   linarith
 
-private def sample_17_44 : Triple := ⟨17, 44, 61, by decide, by decide, by decide, by decide⟩
+private def sample_17_44 : Triple := ⟨17, 44, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_44_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_22814.upper ≤
       discrepancy (1 / 10) sample_17_44 ∧
@@ -15426,7 +15426,7 @@ private theorem sample_17_44_upper : discrepancy (1 / 10) sample_17_44 ≤ (227 
   norm_num [logCertificate_61, logCertificate_22814] at h
   linarith
 
-private def sample_18_43 : Triple := ⟨18, 43, 61, by decide, by decide, by decide, by decide⟩
+private def sample_18_43 : Triple := ⟨18, 43, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_43_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15738.upper ≤
       discrepancy (1 / 10) sample_18_43 ∧
@@ -15447,7 +15447,7 @@ private theorem sample_18_43_upper : discrepancy (1 / 10) sample_18_43 ≤ (227 
   norm_num [logCertificate_61, logCertificate_15738] at h
   linarith
 
-private def sample_19_42 : Triple := ⟨19, 42, 61, by decide, by decide, by decide, by decide⟩
+private def sample_19_42 : Triple := ⟨19, 42, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_42_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_48678.upper ≤
       discrepancy (1 / 10) sample_19_42 ∧
@@ -15468,7 +15468,7 @@ private theorem sample_19_42_upper : discrepancy (1 / 10) sample_19_42 ≤ (227 
   norm_num [logCertificate_61, logCertificate_48678] at h
   linarith
 
-private def sample_20_41 : Triple := ⟨20, 41, 61, by decide, by decide, by decide, by decide⟩
+private def sample_20_41 : Triple := ⟨20, 41, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_41_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_25010.upper ≤
       discrepancy (1 / 10) sample_20_41 ∧
@@ -15489,7 +15489,7 @@ private theorem sample_20_41_upper : discrepancy (1 / 10) sample_20_41 ≤ (227 
   norm_num [logCertificate_61, logCertificate_25010] at h
   linarith
 
-private def sample_21_40 : Triple := ⟨21, 40, 61, by decide, by decide, by decide, by decide⟩
+private def sample_21_40 : Triple := ⟨21, 40, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_40_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12810.upper ≤
       discrepancy (1 / 10) sample_21_40 ∧
@@ -15510,7 +15510,7 @@ private theorem sample_21_40_upper : discrepancy (1 / 10) sample_21_40 ≤ (227 
   norm_num [logCertificate_61, logCertificate_12810] at h
   linarith
 
-private def sample_22_39 : Triple := ⟨22, 39, 61, by decide, by decide, by decide, by decide⟩
+private def sample_22_39 : Triple := ⟨22, 39, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_39_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_52338.upper ≤
       discrepancy (1 / 10) sample_22_39 ∧
@@ -15531,7 +15531,7 @@ private theorem sample_22_39_upper : discrepancy (1 / 10) sample_22_39 ≤ (227 
   norm_num [logCertificate_61, logCertificate_52338] at h
   linarith
 
-private def sample_23_38 : Triple := ⟨23, 38, 61, by decide, by decide, by decide, by decide⟩
+private def sample_23_38 : Triple := ⟨23, 38, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_38_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_53314.upper ≤
       discrepancy (1 / 10) sample_23_38 ∧
@@ -15552,7 +15552,7 @@ private theorem sample_23_38_upper : discrepancy (1 / 10) sample_23_38 ≤ (227 
   norm_num [logCertificate_61, logCertificate_53314] at h
   linarith
 
-private def sample_24_37 : Triple := ⟨24, 37, 61, by decide, by decide, by decide, by decide⟩
+private def sample_24_37 : Triple := ⟨24, 37, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_37_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13542.upper ≤
       discrepancy (1 / 10) sample_24_37 ∧
@@ -15573,7 +15573,7 @@ private theorem sample_24_37_upper : discrepancy (1 / 10) sample_24_37 ≤ (227 
   norm_num [logCertificate_61, logCertificate_13542] at h
   linarith
 
-private def sample_25_36 : Triple := ⟨25, 36, 61, by decide, by decide, by decide, by decide⟩
+private def sample_25_36 : Triple := ⟨25, 36, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_36_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1830.upper ≤
       discrepancy (1 / 10) sample_25_36 ∧
@@ -15594,7 +15594,7 @@ private theorem sample_25_36_upper : discrepancy (1 / 10) sample_25_36 ≤ (227 
   norm_num [logCertificate_61, logCertificate_1830] at h
   linarith
 
-private def sample_26_35 : Triple := ⟨26, 35, 61, by decide, by decide, by decide, by decide⟩
+private def sample_26_35 : Triple := ⟨26, 35, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_35_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_55510.upper ≤
       discrepancy (1 / 10) sample_26_35 ∧
@@ -15615,7 +15615,7 @@ private theorem sample_26_35_upper : discrepancy (1 / 10) sample_26_35 ≤ (227 
   norm_num [logCertificate_61, logCertificate_55510] at h
   linarith
 
-private def sample_27_34 : Triple := ⟨27, 34, 61, by decide, by decide, by decide, by decide⟩
+private def sample_27_34 : Triple := ⟨27, 34, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_34_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6222.upper ≤
       discrepancy (1 / 10) sample_27_34 ∧
@@ -15636,7 +15636,7 @@ private theorem sample_27_34_upper : discrepancy (1 / 10) sample_27_34 ≤ (227 
   norm_num [logCertificate_61, logCertificate_6222] at h
   linarith
 
-private def sample_28_33 : Triple := ⟨28, 33, 61, by decide, by decide, by decide, by decide⟩
+private def sample_28_33 : Triple := ⟨28, 33, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_33_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_28182.upper ≤
       discrepancy (1 / 10) sample_28_33 ∧
@@ -15657,7 +15657,7 @@ private theorem sample_28_33_upper : discrepancy (1 / 10) sample_28_33 ≤ (227 
   norm_num [logCertificate_61, logCertificate_28182] at h
   linarith
 
-private def sample_29_32 : Triple := ⟨29, 32, 61, by decide, by decide, by decide, by decide⟩
+private def sample_29_32 : Triple := ⟨29, 32, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_32_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3538.upper ≤
       discrepancy (1 / 10) sample_29_32 ∧
@@ -15678,7 +15678,7 @@ private theorem sample_29_32_upper : discrepancy (1 / 10) sample_29_32 ≤ (227 
   norm_num [logCertificate_61, logCertificate_3538] at h
   linarith
 
-private def sample_30_31 : Triple := ⟨30, 31, 61, by decide, by decide, by decide, by decide⟩
+private def sample_30_31 : Triple := ⟨30, 31, 61, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_30_31_interval :
     (logCertificate_61.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_56730.upper ≤
       discrepancy (1 / 10) sample_30_31 ∧
@@ -15699,7 +15699,7 @@ private theorem sample_30_31_upper : discrepancy (1 / 10) sample_30_31 ≤ (227 
   norm_num [logCertificate_61, logCertificate_56730] at h
   linarith
 
-private def sample_1_61 : Triple := ⟨1, 61, 62, by decide, by decide, by decide, by decide⟩
+private def sample_1_61 : Triple := ⟨1, 61, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_61_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3782.upper ≤
       discrepancy (1 / 10) sample_1_61 ∧
@@ -15720,7 +15720,7 @@ private theorem sample_1_61_upper : discrepancy (1 / 10) sample_1_61 ≤ (227 / 
   norm_num [logCertificate_62, logCertificate_3782] at h
   linarith
 
-private def sample_3_59 : Triple := ⟨3, 59, 62, by decide, by decide, by decide, by decide⟩
+private def sample_3_59 : Triple := ⟨3, 59, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_59_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10974.upper ≤
       discrepancy (1 / 10) sample_3_59 ∧
@@ -15741,7 +15741,7 @@ private theorem sample_3_59_upper : discrepancy (1 / 10) sample_3_59 ≤ (227 / 
   norm_num [logCertificate_62, logCertificate_10974] at h
   linarith
 
-private def sample_5_57 : Triple := ⟨5, 57, 62, by decide, by decide, by decide, by decide⟩
+private def sample_5_57 : Triple := ⟨5, 57, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_57_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17670.upper ≤
       discrepancy (1 / 10) sample_5_57 ∧
@@ -15762,7 +15762,7 @@ private theorem sample_5_57_upper : discrepancy (1 / 10) sample_5_57 ≤ (227 / 
   norm_num [logCertificate_62, logCertificate_17670] at h
   linarith
 
-private def sample_7_55 : Triple := ⟨7, 55, 62, by decide, by decide, by decide, by decide⟩
+private def sample_7_55 : Triple := ⟨7, 55, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_55_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23870.upper ≤
       discrepancy (1 / 10) sample_7_55 ∧
@@ -15783,7 +15783,7 @@ private theorem sample_7_55_upper : discrepancy (1 / 10) sample_7_55 ≤ (227 / 
   norm_num [logCertificate_62, logCertificate_23870] at h
   linarith
 
-private def sample_9_53 : Triple := ⟨9, 53, 62, by decide, by decide, by decide, by decide⟩
+private def sample_9_53 : Triple := ⟨9, 53, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_53_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9858.upper ≤
       discrepancy (1 / 10) sample_9_53 ∧
@@ -15804,7 +15804,7 @@ private theorem sample_9_53_upper : discrepancy (1 / 10) sample_9_53 ≤ (227 / 
   norm_num [logCertificate_62, logCertificate_9858] at h
   linarith
 
-private def sample_11_51 : Triple := ⟨11, 51, 62, by decide, by decide, by decide, by decide⟩
+private def sample_11_51 : Triple := ⟨11, 51, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_51_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_34782.upper ≤
       discrepancy (1 / 10) sample_11_51 ∧
@@ -15825,7 +15825,7 @@ private theorem sample_11_51_upper : discrepancy (1 / 10) sample_11_51 ≤ (227 
   norm_num [logCertificate_62, logCertificate_34782] at h
   linarith
 
-private def sample_13_49 : Triple := ⟨13, 49, 62, by decide, by decide, by decide, by decide⟩
+private def sample_13_49 : Triple := ⟨13, 49, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_49_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5642.upper ≤
       discrepancy (1 / 10) sample_13_49 ∧
@@ -15846,7 +15846,7 @@ private theorem sample_13_49_upper : discrepancy (1 / 10) sample_13_49 ≤ (227 
   norm_num [logCertificate_62, logCertificate_5642] at h
   linarith
 
-private def sample_15_47 : Triple := ⟨15, 47, 62, by decide, by decide, by decide, by decide⟩
+private def sample_15_47 : Triple := ⟨15, 47, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_47_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_43710.upper ≤
       discrepancy (1 / 10) sample_15_47 ∧
@@ -15867,7 +15867,7 @@ private theorem sample_15_47_upper : discrepancy (1 / 10) sample_15_47 ≤ (227 
   norm_num [logCertificate_62, logCertificate_43710] at h
   linarith
 
-private def sample_17_45 : Triple := ⟨17, 45, 62, by decide, by decide, by decide, by decide⟩
+private def sample_17_45 : Triple := ⟨17, 45, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_45_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15810.upper ≤
       discrepancy (1 / 10) sample_17_45 ∧
@@ -15888,7 +15888,7 @@ private theorem sample_17_45_upper : discrepancy (1 / 10) sample_17_45 ≤ (227 
   norm_num [logCertificate_62, logCertificate_15810] at h
   linarith
 
-private def sample_19_43 : Triple := ⟨19, 43, 62, by decide, by decide, by decide, by decide⟩
+private def sample_19_43 : Triple := ⟨19, 43, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_43_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_50654.upper ≤
       discrepancy (1 / 10) sample_19_43 ∧
@@ -15909,7 +15909,7 @@ private theorem sample_19_43_upper : discrepancy (1 / 10) sample_19_43 ≤ (227 
   norm_num [logCertificate_62, logCertificate_50654] at h
   linarith
 
-private def sample_21_41 : Triple := ⟨21, 41, 62, by decide, by decide, by decide, by decide⟩
+private def sample_21_41 : Triple := ⟨21, 41, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_41_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_53382.upper ≤
       discrepancy (1 / 10) sample_21_41 ∧
@@ -15930,7 +15930,7 @@ private theorem sample_21_41_upper : discrepancy (1 / 10) sample_21_41 ≤ (227 
   norm_num [logCertificate_62, logCertificate_53382] at h
   linarith
 
-private def sample_23_39 : Triple := ⟨23, 39, 62, by decide, by decide, by decide, by decide⟩
+private def sample_23_39 : Triple := ⟨23, 39, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_39_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_55614.upper ≤
       discrepancy (1 / 10) sample_23_39 ∧
@@ -15951,7 +15951,7 @@ private theorem sample_23_39_upper : discrepancy (1 / 10) sample_23_39 ≤ (227 
   norm_num [logCertificate_62, logCertificate_55614] at h
   linarith
 
-private def sample_25_37 : Triple := ⟨25, 37, 62, by decide, by decide, by decide, by decide⟩
+private def sample_25_37 : Triple := ⟨25, 37, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_37_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11470.upper ≤
       discrepancy (1 / 10) sample_25_37 ∧
@@ -15972,7 +15972,7 @@ private theorem sample_25_37_upper : discrepancy (1 / 10) sample_25_37 ≤ (227 
   norm_num [logCertificate_62, logCertificate_11470] at h
   linarith
 
-private def sample_27_35 : Triple := ⟨27, 35, 62, by decide, by decide, by decide, by decide⟩
+private def sample_27_35 : Triple := ⟨27, 35, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_35_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6510.upper ≤
       discrepancy (1 / 10) sample_27_35 ∧
@@ -15993,7 +15993,7 @@ private theorem sample_27_35_upper : discrepancy (1 / 10) sample_27_35 ≤ (227 
   norm_num [logCertificate_62, logCertificate_6510] at h
   linarith
 
-private def sample_29_33 : Triple := ⟨29, 33, 62, by decide, by decide, by decide, by decide⟩
+private def sample_29_33 : Triple := ⟨29, 33, 62, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_33_interval :
     (logCertificate_62.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_59334.upper ≤
       discrepancy (1 / 10) sample_29_33 ∧
@@ -16014,7 +16014,7 @@ private theorem sample_29_33_upper : discrepancy (1 / 10) sample_29_33 ≤ (227 
   norm_num [logCertificate_62, logCertificate_59334] at h
   linarith
 
-private def sample_1_62 : Triple := ⟨1, 62, 63, by decide, by decide, by decide, by decide⟩
+private def sample_1_62 : Triple := ⟨1, 62, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_62_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1302.upper ≤
       discrepancy (1 / 10) sample_1_62 ∧
@@ -16035,7 +16035,7 @@ private theorem sample_1_62_upper : discrepancy (1 / 10) sample_1_62 ≤ (227 / 
   norm_num [logCertificate_63, logCertificate_1302] at h
   linarith
 
-private def sample_2_61 : Triple := ⟨2, 61, 63, by decide, by decide, by decide, by decide⟩
+private def sample_2_61 : Triple := ⟨2, 61, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_61_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2562.upper ≤
       discrepancy (1 / 10) sample_2_61 ∧
@@ -16056,7 +16056,7 @@ private theorem sample_2_61_upper : discrepancy (1 / 10) sample_2_61 ≤ (227 / 
   norm_num [logCertificate_63, logCertificate_2562] at h
   linarith
 
-private def sample_4_59 : Triple := ⟨4, 59, 63, by decide, by decide, by decide, by decide⟩
+private def sample_4_59 : Triple := ⟨4, 59, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_59_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2478.upper ≤
       discrepancy (1 / 10) sample_4_59 ∧
@@ -16077,7 +16077,7 @@ private theorem sample_4_59_upper : discrepancy (1 / 10) sample_4_59 ≤ (227 / 
   norm_num [logCertificate_63, logCertificate_2478] at h
   linarith
 
-private def sample_5_58 : Triple := ⟨5, 58, 63, by decide, by decide, by decide, by decide⟩
+private def sample_5_58 : Triple := ⟨5, 58, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_58_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6090.upper ≤
       discrepancy (1 / 10) sample_5_58 ∧
@@ -16098,7 +16098,7 @@ private theorem sample_5_58_upper : discrepancy (1 / 10) sample_5_58 ≤ (227 / 
   norm_num [logCertificate_63, logCertificate_6090] at h
   linarith
 
-private def sample_8_55 : Triple := ⟨8, 55, 63, by decide, by decide, by decide, by decide⟩
+private def sample_8_55 : Triple := ⟨8, 55, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_55_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2310.upper ≤
       discrepancy (1 / 10) sample_8_55 ∧
@@ -16119,7 +16119,7 @@ private theorem sample_8_55_upper : discrepancy (1 / 10) sample_8_55 ≤ (227 / 
   norm_num [logCertificate_63, logCertificate_2310] at h
   linarith
 
-private def sample_10_53 : Triple := ⟨10, 53, 63, by decide, by decide, by decide, by decide⟩
+private def sample_10_53 : Triple := ⟨10, 53, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_53_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11130.upper ≤
       discrepancy (1 / 10) sample_10_53 ∧
@@ -16140,7 +16140,7 @@ private theorem sample_10_53_upper : discrepancy (1 / 10) sample_10_53 ≤ (227 
   norm_num [logCertificate_63, logCertificate_11130] at h
   linarith
 
-private def sample_11_52 : Triple := ⟨11, 52, 63, by decide, by decide, by decide, by decide⟩
+private def sample_11_52 : Triple := ⟨11, 52, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_52_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6006.upper ≤
       discrepancy (1 / 10) sample_11_52 ∧
@@ -16161,7 +16161,7 @@ private theorem sample_11_52_upper : discrepancy (1 / 10) sample_11_52 ≤ (227 
   norm_num [logCertificate_63, logCertificate_6006] at h
   linarith
 
-private def sample_13_50 : Triple := ⟨13, 50, 63, by decide, by decide, by decide, by decide⟩
+private def sample_13_50 : Triple := ⟨13, 50, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_50_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_13_50 ∧
@@ -16182,7 +16182,7 @@ private theorem sample_13_50_upper : discrepancy (1 / 10) sample_13_50 ≤ (227 
   norm_num [logCertificate_63, logCertificate_2730] at h
   linarith
 
-private def sample_16_47 : Triple := ⟨16, 47, 63, by decide, by decide, by decide, by decide⟩
+private def sample_16_47 : Triple := ⟨16, 47, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_47_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1974.upper ≤
       discrepancy (1 / 10) sample_16_47 ∧
@@ -16203,7 +16203,7 @@ private theorem sample_16_47_upper : discrepancy (1 / 10) sample_16_47 ≤ (227 
   norm_num [logCertificate_63, logCertificate_1974] at h
   linarith
 
-private def sample_17_46 : Triple := ⟨17, 46, 63, by decide, by decide, by decide, by decide⟩
+private def sample_17_46 : Triple := ⟨17, 46, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_46_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_16422.upper ≤
       discrepancy (1 / 10) sample_17_46 ∧
@@ -16224,7 +16224,7 @@ private theorem sample_17_46_upper : discrepancy (1 / 10) sample_17_46 ≤ (227 
   norm_num [logCertificate_63, logCertificate_16422] at h
   linarith
 
-private def sample_19_44 : Triple := ⟨19, 44, 63, by decide, by decide, by decide, by decide⟩
+private def sample_19_44 : Triple := ⟨19, 44, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_44_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8778.upper ≤
       discrepancy (1 / 10) sample_19_44 ∧
@@ -16245,7 +16245,7 @@ private theorem sample_19_44_upper : discrepancy (1 / 10) sample_19_44 ≤ (227 
   norm_num [logCertificate_63, logCertificate_8778] at h
   linarith
 
-private def sample_20_43 : Triple := ⟨20, 43, 63, by decide, by decide, by decide, by decide⟩
+private def sample_20_43 : Triple := ⟨20, 43, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_43_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9030.upper ≤
       discrepancy (1 / 10) sample_20_43 ∧
@@ -16266,7 +16266,7 @@ private theorem sample_20_43_upper : discrepancy (1 / 10) sample_20_43 ≤ (227 
   norm_num [logCertificate_63, logCertificate_9030] at h
   linarith
 
-private def sample_22_41 : Triple := ⟨22, 41, 63, by decide, by decide, by decide, by decide⟩
+private def sample_22_41 : Triple := ⟨22, 41, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_41_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_18942.upper ≤
       discrepancy (1 / 10) sample_22_41 ∧
@@ -16287,7 +16287,7 @@ private theorem sample_22_41_upper : discrepancy (1 / 10) sample_22_41 ≤ (227 
   norm_num [logCertificate_63, logCertificate_18942] at h
   linarith
 
-private def sample_23_40 : Triple := ⟨23, 40, 63, by decide, by decide, by decide, by decide⟩
+private def sample_23_40 : Triple := ⟨23, 40, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_40_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_23_40 ∧
@@ -16308,7 +16308,7 @@ private theorem sample_23_40_upper : discrepancy (1 / 10) sample_23_40 ≤ (227 
   norm_num [logCertificate_63, logCertificate_4830] at h
   linarith
 
-private def sample_25_38 : Triple := ⟨25, 38, 63, by decide, by decide, by decide, by decide⟩
+private def sample_25_38 : Triple := ⟨25, 38, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_38_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3990.upper ≤
       discrepancy (1 / 10) sample_25_38 ∧
@@ -16329,7 +16329,7 @@ private theorem sample_25_38_upper : discrepancy (1 / 10) sample_25_38 ≤ (227 
   norm_num [logCertificate_63, logCertificate_3990] at h
   linarith
 
-private def sample_26_37 : Triple := ⟨26, 37, 63, by decide, by decide, by decide, by decide⟩
+private def sample_26_37 : Triple := ⟨26, 37, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_37_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20202.upper ≤
       discrepancy (1 / 10) sample_26_37 ∧
@@ -16350,7 +16350,7 @@ private theorem sample_26_37_upper : discrepancy (1 / 10) sample_26_37 ≤ (227 
   norm_num [logCertificate_63, logCertificate_20202] at h
   linarith
 
-private def sample_29_34 : Triple := ⟨29, 34, 63, by decide, by decide, by decide, by decide⟩
+private def sample_29_34 : Triple := ⟨29, 34, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_34_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20706.upper ≤
       discrepancy (1 / 10) sample_29_34 ∧
@@ -16371,7 +16371,7 @@ private theorem sample_29_34_upper : discrepancy (1 / 10) sample_29_34 ≤ (227 
   norm_num [logCertificate_63, logCertificate_20706] at h
   linarith
 
-private def sample_31_32 : Triple := ⟨31, 32, 63, by decide, by decide, by decide, by decide⟩
+private def sample_31_32 : Triple := ⟨31, 32, 63, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_32_interval :
     (logCertificate_63.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1302.upper ≤
       discrepancy (1 / 10) sample_31_32 ∧
@@ -16392,7 +16392,7 @@ private theorem sample_31_32_upper : discrepancy (1 / 10) sample_31_32 ≤ (227 
   norm_num [logCertificate_63, logCertificate_1302] at h
   linarith
 
-private def sample_1_63 : Triple := ⟨1, 63, 64, by decide, by decide, by decide, by decide⟩
+private def sample_1_63 : Triple := ⟨1, 63, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_63_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_42.upper ≤
       discrepancy (1 / 10) sample_1_63 ∧
@@ -16413,7 +16413,7 @@ private theorem sample_1_63_upper : discrepancy (1 / 10) sample_1_63 ≤ (227 / 
   norm_num [logCertificate_64, logCertificate_42] at h
   linarith
 
-private def sample_3_61 : Triple := ⟨3, 61, 64, by decide, by decide, by decide, by decide⟩
+private def sample_3_61 : Triple := ⟨3, 61, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_61_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_366.upper ≤
       discrepancy (1 / 10) sample_3_61 ∧
@@ -16434,7 +16434,7 @@ private theorem sample_3_61_upper : discrepancy (1 / 10) sample_3_61 ≤ (227 / 
   norm_num [logCertificate_64, logCertificate_366] at h
   linarith
 
-private def sample_5_59 : Triple := ⟨5, 59, 64, by decide, by decide, by decide, by decide⟩
+private def sample_5_59 : Triple := ⟨5, 59, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_59_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_590.upper ≤
       discrepancy (1 / 10) sample_5_59 ∧
@@ -16455,7 +16455,7 @@ private theorem sample_5_59_upper : discrepancy (1 / 10) sample_5_59 ≤ (227 / 
   norm_num [logCertificate_64, logCertificate_590] at h
   linarith
 
-private def sample_7_57 : Triple := ⟨7, 57, 64, by decide, by decide, by decide, by decide⟩
+private def sample_7_57 : Triple := ⟨7, 57, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_57_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_798.upper ≤
       discrepancy (1 / 10) sample_7_57 ∧
@@ -16476,7 +16476,7 @@ private theorem sample_7_57_upper : discrepancy (1 / 10) sample_7_57 ≤ (227 / 
   norm_num [logCertificate_64, logCertificate_798] at h
   linarith
 
-private def sample_9_55 : Triple := ⟨9, 55, 64, by decide, by decide, by decide, by decide⟩
+private def sample_9_55 : Triple := ⟨9, 55, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_55_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_330.upper ≤
       discrepancy (1 / 10) sample_9_55 ∧
@@ -16497,7 +16497,7 @@ private theorem sample_9_55_upper : discrepancy (1 / 10) sample_9_55 ≤ (227 / 
   norm_num [logCertificate_64, logCertificate_330] at h
   linarith
 
-private def sample_11_53 : Triple := ⟨11, 53, 64, by decide, by decide, by decide, by decide⟩
+private def sample_11_53 : Triple := ⟨11, 53, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_53_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1166.upper ≤
       discrepancy (1 / 10) sample_11_53 ∧
@@ -16518,7 +16518,7 @@ private theorem sample_11_53_upper : discrepancy (1 / 10) sample_11_53 ≤ (227 
   norm_num [logCertificate_64, logCertificate_1166] at h
   linarith
 
-private def sample_13_51 : Triple := ⟨13, 51, 64, by decide, by decide, by decide, by decide⟩
+private def sample_13_51 : Triple := ⟨13, 51, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_51_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1326.upper ≤
       discrepancy (1 / 10) sample_13_51 ∧
@@ -16539,7 +16539,7 @@ private theorem sample_13_51_upper : discrepancy (1 / 10) sample_13_51 ≤ (227 
   norm_num [logCertificate_64, logCertificate_1326] at h
   linarith
 
-private def sample_15_49 : Triple := ⟨15, 49, 64, by decide, by decide, by decide, by decide⟩
+private def sample_15_49 : Triple := ⟨15, 49, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_49_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_210.upper ≤
       discrepancy (1 / 10) sample_15_49 ∧
@@ -16560,7 +16560,7 @@ private theorem sample_15_49_upper : discrepancy (1 / 10) sample_15_49 ≤ (227 
   norm_num [logCertificate_64, logCertificate_210] at h
   linarith
 
-private def sample_17_47 : Triple := ⟨17, 47, 64, by decide, by decide, by decide, by decide⟩
+private def sample_17_47 : Triple := ⟨17, 47, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_47_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1598.upper ≤
       discrepancy (1 / 10) sample_17_47 ∧
@@ -16581,7 +16581,7 @@ private theorem sample_17_47_upper : discrepancy (1 / 10) sample_17_47 ≤ (227 
   norm_num [logCertificate_64, logCertificate_1598] at h
   linarith
 
-private def sample_19_45 : Triple := ⟨19, 45, 64, by decide, by decide, by decide, by decide⟩
+private def sample_19_45 : Triple := ⟨19, 45, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_45_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_570.upper ≤
       discrepancy (1 / 10) sample_19_45 ∧
@@ -16602,7 +16602,7 @@ private theorem sample_19_45_upper : discrepancy (1 / 10) sample_19_45 ≤ (227 
   norm_num [logCertificate_64, logCertificate_570] at h
   linarith
 
-private def sample_21_43 : Triple := ⟨21, 43, 64, by decide, by decide, by decide, by decide⟩
+private def sample_21_43 : Triple := ⟨21, 43, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_43_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1806.upper ≤
       discrepancy (1 / 10) sample_21_43 ∧
@@ -16623,7 +16623,7 @@ private theorem sample_21_43_upper : discrepancy (1 / 10) sample_21_43 ≤ (227 
   norm_num [logCertificate_64, logCertificate_1806] at h
   linarith
 
-private def sample_23_41 : Triple := ⟨23, 41, 64, by decide, by decide, by decide, by decide⟩
+private def sample_23_41 : Triple := ⟨23, 41, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_41_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_1886.upper ≤
       discrepancy (1 / 10) sample_23_41 ∧
@@ -16644,7 +16644,7 @@ private theorem sample_23_41_upper : discrepancy (1 / 10) sample_23_41 ≤ (227 
   norm_num [logCertificate_64, logCertificate_1886] at h
   linarith
 
-private def sample_25_39 : Triple := ⟨25, 39, 64, by decide, by decide, by decide, by decide⟩
+private def sample_25_39 : Triple := ⟨25, 39, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_39_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_390.upper ≤
       discrepancy (1 / 10) sample_25_39 ∧
@@ -16665,7 +16665,7 @@ private theorem sample_25_39_upper : discrepancy (1 / 10) sample_25_39 ≤ (227 
   norm_num [logCertificate_64, logCertificate_390] at h
   linarith
 
-private def sample_27_37 : Triple := ⟨27, 37, 64, by decide, by decide, by decide, by decide⟩
+private def sample_27_37 : Triple := ⟨27, 37, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_37_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_222.upper ≤
       discrepancy (1 / 10) sample_27_37 ∧
@@ -16686,7 +16686,7 @@ private theorem sample_27_37_upper : discrepancy (1 / 10) sample_27_37 ≤ (227 
   norm_num [logCertificate_64, logCertificate_222] at h
   linarith
 
-private def sample_29_35 : Triple := ⟨29, 35, 64, by decide, by decide, by decide, by decide⟩
+private def sample_29_35 : Triple := ⟨29, 35, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_35_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2030.upper ≤
       discrepancy (1 / 10) sample_29_35 ∧
@@ -16707,7 +16707,7 @@ private theorem sample_29_35_upper : discrepancy (1 / 10) sample_29_35 ≤ (227 
   norm_num [logCertificate_64, logCertificate_2030] at h
   linarith
 
-private def sample_31_33 : Triple := ⟨31, 33, 64, by decide, by decide, by decide, by decide⟩
+private def sample_31_33 : Triple := ⟨31, 33, 64, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_33_interval :
     (logCertificate_64.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2046.upper ≤
       discrepancy (1 / 10) sample_31_33 ∧
@@ -16728,7 +16728,7 @@ private theorem sample_31_33_upper : discrepancy (1 / 10) sample_31_33 ≤ (227 
   norm_num [logCertificate_64, logCertificate_2046] at h
   linarith
 
-private def sample_1_64 : Triple := ⟨1, 64, 65, by decide, by decide, by decide, by decide⟩
+private def sample_1_64 : Triple := ⟨1, 64, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_64_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_130.upper ≤
       discrepancy (1 / 10) sample_1_64 ∧
@@ -16749,7 +16749,7 @@ private theorem sample_1_64_upper : discrepancy (1 / 10) sample_1_64 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_130] at h
   linarith
 
-private def sample_2_63 : Triple := ⟨2, 63, 65, by decide, by decide, by decide, by decide⟩
+private def sample_2_63 : Triple := ⟨2, 63, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_63_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_2_63 ∧
@@ -16770,7 +16770,7 @@ private theorem sample_2_63_upper : discrepancy (1 / 10) sample_2_63 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_2730] at h
   linarith
 
-private def sample_3_62 : Triple := ⟨3, 62, 65, by decide, by decide, by decide, by decide⟩
+private def sample_3_62 : Triple := ⟨3, 62, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_62_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12090.upper ≤
       discrepancy (1 / 10) sample_3_62 ∧
@@ -16791,7 +16791,7 @@ private theorem sample_3_62_upper : discrepancy (1 / 10) sample_3_62 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_12090] at h
   linarith
 
-private def sample_4_61 : Triple := ⟨4, 61, 65, by decide, by decide, by decide, by decide⟩
+private def sample_4_61 : Triple := ⟨4, 61, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_61_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7930.upper ≤
       discrepancy (1 / 10) sample_4_61 ∧
@@ -16812,7 +16812,7 @@ private theorem sample_4_61_upper : discrepancy (1 / 10) sample_4_61 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_7930] at h
   linarith
 
-private def sample_6_59 : Triple := ⟨6, 59, 65, by decide, by decide, by decide, by decide⟩
+private def sample_6_59 : Triple := ⟨6, 59, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_59_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_23010.upper ≤
       discrepancy (1 / 10) sample_6_59 ∧
@@ -16833,7 +16833,7 @@ private theorem sample_6_59_upper : discrepancy (1 / 10) sample_6_59 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_23010] at h
   linarith
 
-private def sample_7_58 : Triple := ⟨7, 58, 65, by decide, by decide, by decide, by decide⟩
+private def sample_7_58 : Triple := ⟨7, 58, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_58_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_26390.upper ≤
       discrepancy (1 / 10) sample_7_58 ∧
@@ -16854,7 +16854,7 @@ private theorem sample_7_58_upper : discrepancy (1 / 10) sample_7_58 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_26390] at h
   linarith
 
-private def sample_8_57 : Triple := ⟨8, 57, 65, by decide, by decide, by decide, by decide⟩
+private def sample_8_57 : Triple := ⟨8, 57, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_57_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7410.upper ≤
       discrepancy (1 / 10) sample_8_57 ∧
@@ -16875,7 +16875,7 @@ private theorem sample_8_57_upper : discrepancy (1 / 10) sample_8_57 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_7410] at h
   linarith
 
-private def sample_9_56 : Triple := ⟨9, 56, 65, by decide, by decide, by decide, by decide⟩
+private def sample_9_56 : Triple := ⟨9, 56, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_56_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2730.upper ≤
       discrepancy (1 / 10) sample_9_56 ∧
@@ -16896,7 +16896,7 @@ private theorem sample_9_56_upper : discrepancy (1 / 10) sample_9_56 ≤ (227 / 
   norm_num [logCertificate_65, logCertificate_2730] at h
   linarith
 
-private def sample_11_54 : Triple := ⟨11, 54, 65, by decide, by decide, by decide, by decide⟩
+private def sample_11_54 : Triple := ⟨11, 54, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_54_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_11_54 ∧
@@ -16917,7 +16917,7 @@ private theorem sample_11_54_upper : discrepancy (1 / 10) sample_11_54 ≤ (227 
   norm_num [logCertificate_65, logCertificate_4290] at h
   linarith
 
-private def sample_12_53 : Triple := ⟨12, 53, 65, by decide, by decide, by decide, by decide⟩
+private def sample_12_53 : Triple := ⟨12, 53, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_53_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20670.upper ≤
       discrepancy (1 / 10) sample_12_53 ∧
@@ -16938,7 +16938,7 @@ private theorem sample_12_53_upper : discrepancy (1 / 10) sample_12_53 ≤ (227 
   norm_num [logCertificate_65, logCertificate_20670] at h
   linarith
 
-private def sample_14_51 : Triple := ⟨14, 51, 65, by decide, by decide, by decide, by decide⟩
+private def sample_14_51 : Triple := ⟨14, 51, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_51_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_46410.upper ≤
       discrepancy (1 / 10) sample_14_51 ∧
@@ -16959,7 +16959,7 @@ private theorem sample_14_51_upper : discrepancy (1 / 10) sample_14_51 ≤ (227 
   norm_num [logCertificate_65, logCertificate_46410] at h
   linarith
 
-private def sample_16_49 : Triple := ⟨16, 49, 65, by decide, by decide, by decide, by decide⟩
+private def sample_16_49 : Triple := ⟨16, 49, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_49_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_910.upper ≤
       discrepancy (1 / 10) sample_16_49 ∧
@@ -16980,7 +16980,7 @@ private theorem sample_16_49_upper : discrepancy (1 / 10) sample_16_49 ≤ (227 
   norm_num [logCertificate_65, logCertificate_910] at h
   linarith
 
-private def sample_17_48 : Triple := ⟨17, 48, 65, by decide, by decide, by decide, by decide⟩
+private def sample_17_48 : Triple := ⟨17, 48, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_48_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6630.upper ≤
       discrepancy (1 / 10) sample_17_48 ∧
@@ -17001,7 +17001,7 @@ private theorem sample_17_48_upper : discrepancy (1 / 10) sample_17_48 ≤ (227 
   norm_num [logCertificate_65, logCertificate_6630] at h
   linarith
 
-private def sample_18_47 : Triple := ⟨18, 47, 65, by decide, by decide, by decide, by decide⟩
+private def sample_18_47 : Triple := ⟨18, 47, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_47_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_18330.upper ≤
       discrepancy (1 / 10) sample_18_47 ∧
@@ -17022,7 +17022,7 @@ private theorem sample_18_47_upper : discrepancy (1 / 10) sample_18_47 ≤ (227 
   norm_num [logCertificate_65, logCertificate_18330] at h
   linarith
 
-private def sample_19_46 : Triple := ⟨19, 46, 65, by decide, by decide, by decide, by decide⟩
+private def sample_19_46 : Triple := ⟨19, 46, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_46_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_56810.upper ≤
       discrepancy (1 / 10) sample_19_46 ∧
@@ -17043,7 +17043,7 @@ private theorem sample_19_46_upper : discrepancy (1 / 10) sample_19_46 ≤ (227 
   norm_num [logCertificate_65, logCertificate_56810] at h
   linarith
 
-private def sample_21_44 : Triple := ⟨21, 44, 65, by decide, by decide, by decide, by decide⟩
+private def sample_21_44 : Triple := ⟨21, 44, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_44_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30030.upper ≤
       discrepancy (1 / 10) sample_21_44 ∧
@@ -17064,7 +17064,7 @@ private theorem sample_21_44_upper : discrepancy (1 / 10) sample_21_44 ≤ (227 
   norm_num [logCertificate_65, logCertificate_30030] at h
   linarith
 
-private def sample_22_43 : Triple := ⟨22, 43, 65, by decide, by decide, by decide, by decide⟩
+private def sample_22_43 : Triple := ⟨22, 43, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_43_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_61490.upper ≤
       discrepancy (1 / 10) sample_22_43 ∧
@@ -17085,7 +17085,7 @@ private theorem sample_22_43_upper : discrepancy (1 / 10) sample_22_43 ≤ (227 
   norm_num [logCertificate_65, logCertificate_61490] at h
   linarith
 
-private def sample_23_42 : Triple := ⟨23, 42, 65, by decide, by decide, by decide, by decide⟩
+private def sample_23_42 : Triple := ⟨23, 42, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_42_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_62790.upper ≤
       discrepancy (1 / 10) sample_23_42 ∧
@@ -17106,7 +17106,7 @@ private theorem sample_23_42_upper : discrepancy (1 / 10) sample_23_42 ≤ (227 
   norm_num [logCertificate_65, logCertificate_62790] at h
   linarith
 
-private def sample_24_41 : Triple := ⟨24, 41, 65, by decide, by decide, by decide, by decide⟩
+private def sample_24_41 : Triple := ⟨24, 41, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_41_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_15990.upper ≤
       discrepancy (1 / 10) sample_24_41 ∧
@@ -17127,7 +17127,7 @@ private theorem sample_24_41_upper : discrepancy (1 / 10) sample_24_41 ≤ (227 
   norm_num [logCertificate_65, logCertificate_15990] at h
   linarith
 
-private def sample_27_38 : Triple := ⟨27, 38, 65, by decide, by decide, by decide, by decide⟩
+private def sample_27_38 : Triple := ⟨27, 38, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_38_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7410.upper ≤
       discrepancy (1 / 10) sample_27_38 ∧
@@ -17148,7 +17148,7 @@ private theorem sample_27_38_upper : discrepancy (1 / 10) sample_27_38 ≤ (227 
   norm_num [logCertificate_65, logCertificate_7410] at h
   linarith
 
-private def sample_28_37 : Triple := ⟨28, 37, 65, by decide, by decide, by decide, by decide⟩
+private def sample_28_37 : Triple := ⟨28, 37, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_37_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_33670.upper ≤
       discrepancy (1 / 10) sample_28_37 ∧
@@ -17169,7 +17169,7 @@ private theorem sample_28_37_upper : discrepancy (1 / 10) sample_28_37 ≤ (227 
   norm_num [logCertificate_65, logCertificate_33670] at h
   linarith
 
-private def sample_29_36 : Triple := ⟨29, 36, 65, by decide, by decide, by decide, by decide⟩
+private def sample_29_36 : Triple := ⟨29, 36, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_36_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11310.upper ≤
       discrepancy (1 / 10) sample_29_36 ∧
@@ -17190,7 +17190,7 @@ private theorem sample_29_36_upper : discrepancy (1 / 10) sample_29_36 ≤ (227 
   norm_num [logCertificate_65, logCertificate_11310] at h
   linarith
 
-private def sample_31_34 : Triple := ⟨31, 34, 65, by decide, by decide, by decide, by decide⟩
+private def sample_31_34 : Triple := ⟨31, 34, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_34_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_68510.upper ≤
       discrepancy (1 / 10) sample_31_34 ∧
@@ -17211,7 +17211,7 @@ private theorem sample_31_34_upper : discrepancy (1 / 10) sample_31_34 ≤ (227 
   norm_num [logCertificate_65, logCertificate_68510] at h
   linarith
 
-private def sample_32_33 : Triple := ⟨32, 33, 65, by decide, by decide, by decide, by decide⟩
+private def sample_32_33 : Triple := ⟨32, 33, 65, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_32_33_interval :
     (logCertificate_65.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_32_33 ∧
@@ -17232,7 +17232,7 @@ private theorem sample_32_33_upper : discrepancy (1 / 10) sample_32_33 ≤ (227 
   norm_num [logCertificate_65, logCertificate_4290] at h
   linarith
 
-private def sample_1_65 : Triple := ⟨1, 65, 66, by decide, by decide, by decide, by decide⟩
+private def sample_1_65 : Triple := ⟨1, 65, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_65_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4290.upper ≤
       discrepancy (1 / 10) sample_1_65 ∧
@@ -17253,7 +17253,7 @@ private theorem sample_1_65_upper : discrepancy (1 / 10) sample_1_65 ≤ (227 / 
   norm_num [logCertificate_66, logCertificate_4290] at h
   linarith
 
-private def sample_5_61 : Triple := ⟨5, 61, 66, by decide, by decide, by decide, by decide⟩
+private def sample_5_61 : Triple := ⟨5, 61, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_61_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20130.upper ≤
       discrepancy (1 / 10) sample_5_61 ∧
@@ -17274,7 +17274,7 @@ private theorem sample_5_61_upper : discrepancy (1 / 10) sample_5_61 ≤ (227 / 
   norm_num [logCertificate_66, logCertificate_20130] at h
   linarith
 
-private def sample_7_59 : Triple := ⟨7, 59, 66, by decide, by decide, by decide, by decide⟩
+private def sample_7_59 : Triple := ⟨7, 59, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_59_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_27258.upper ≤
       discrepancy (1 / 10) sample_7_59 ∧
@@ -17295,7 +17295,7 @@ private theorem sample_7_59_upper : discrepancy (1 / 10) sample_7_59 ≤ (227 / 
   norm_num [logCertificate_66, logCertificate_27258] at h
   linarith
 
-private def sample_13_53 : Triple := ⟨13, 53, 66, by decide, by decide, by decide, by decide⟩
+private def sample_13_53 : Triple := ⟨13, 53, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_53_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_45474.upper ≤
       discrepancy (1 / 10) sample_13_53 ∧
@@ -17316,7 +17316,7 @@ private theorem sample_13_53_upper : discrepancy (1 / 10) sample_13_53 ≤ (227 
   norm_num [logCertificate_66, logCertificate_45474] at h
   linarith
 
-private def sample_17_49 : Triple := ⟨17, 49, 66, by decide, by decide, by decide, by decide⟩
+private def sample_17_49 : Triple := ⟨17, 49, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_49_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7854.upper ≤
       discrepancy (1 / 10) sample_17_49 ∧
@@ -17337,7 +17337,7 @@ private theorem sample_17_49_upper : discrepancy (1 / 10) sample_17_49 ≤ (227 
   norm_num [logCertificate_66, logCertificate_7854] at h
   linarith
 
-private def sample_19_47 : Triple := ⟨19, 47, 66, by decide, by decide, by decide, by decide⟩
+private def sample_19_47 : Triple := ⟨19, 47, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_47_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_58938.upper ≤
       discrepancy (1 / 10) sample_19_47 ∧
@@ -17358,7 +17358,7 @@ private theorem sample_19_47_upper : discrepancy (1 / 10) sample_19_47 ≤ (227 
   norm_num [logCertificate_66, logCertificate_58938] at h
   linarith
 
-private def sample_23_43 : Triple := ⟨23, 43, 66, by decide, by decide, by decide, by decide⟩
+private def sample_23_43 : Triple := ⟨23, 43, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_43_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_65274.upper ≤
       discrepancy (1 / 10) sample_23_43 ∧
@@ -17379,7 +17379,7 @@ private theorem sample_23_43_upper : discrepancy (1 / 10) sample_23_43 ≤ (227 
   norm_num [logCertificate_66, logCertificate_65274] at h
   linarith
 
-private def sample_25_41 : Triple := ⟨25, 41, 66, by decide, by decide, by decide, by decide⟩
+private def sample_25_41 : Triple := ⟨25, 41, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_41_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13530.upper ≤
       discrepancy (1 / 10) sample_25_41 ∧
@@ -17400,7 +17400,7 @@ private theorem sample_25_41_upper : discrepancy (1 / 10) sample_25_41 ≤ (227 
   norm_num [logCertificate_66, logCertificate_13530] at h
   linarith
 
-private def sample_29_37 : Triple := ⟨29, 37, 66, by decide, by decide, by decide, by decide⟩
+private def sample_29_37 : Triple := ⟨29, 37, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_37_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_70818.upper ≤
       discrepancy (1 / 10) sample_29_37 ∧
@@ -17421,7 +17421,7 @@ private theorem sample_29_37_upper : discrepancy (1 / 10) sample_29_37 ≤ (227 
   norm_num [logCertificate_66, logCertificate_70818] at h
   linarith
 
-private def sample_31_35 : Triple := ⟨31, 35, 66, by decide, by decide, by decide, by decide⟩
+private def sample_31_35 : Triple := ⟨31, 35, 66, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_35_interval :
     (logCertificate_66.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_71610.upper ≤
       discrepancy (1 / 10) sample_31_35 ∧
@@ -17442,7 +17442,7 @@ private theorem sample_31_35_upper : discrepancy (1 / 10) sample_31_35 ≤ (227 
   norm_num [logCertificate_66, logCertificate_71610] at h
   linarith
 
-private def sample_1_66 : Triple := ⟨1, 66, 67, by decide, by decide, by decide, by decide⟩
+private def sample_1_66 : Triple := ⟨1, 66, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_66_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4422.upper ≤
       discrepancy (1 / 10) sample_1_66 ∧
@@ -17463,7 +17463,7 @@ private theorem sample_1_66_upper : discrepancy (1 / 10) sample_1_66 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_4422] at h
   linarith
 
-private def sample_2_65 : Triple := ⟨2, 65, 67, by decide, by decide, by decide, by decide⟩
+private def sample_2_65 : Triple := ⟨2, 65, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_65_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8710.upper ≤
       discrepancy (1 / 10) sample_2_65 ∧
@@ -17484,7 +17484,7 @@ private theorem sample_2_65_upper : discrepancy (1 / 10) sample_2_65 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_8710] at h
   linarith
 
-private def sample_3_64 : Triple := ⟨3, 64, 67, by decide, by decide, by decide, by decide⟩
+private def sample_3_64 : Triple := ⟨3, 64, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_64_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_402.upper ≤
       discrepancy (1 / 10) sample_3_64 ∧
@@ -17505,7 +17505,7 @@ private theorem sample_3_64_upper : discrepancy (1 / 10) sample_3_64 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_402] at h
   linarith
 
-private def sample_4_63 : Triple := ⟨4, 63, 67, by decide, by decide, by decide, by decide⟩
+private def sample_4_63 : Triple := ⟨4, 63, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_63_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2814.upper ≤
       discrepancy (1 / 10) sample_4_63 ∧
@@ -17526,7 +17526,7 @@ private theorem sample_4_63_upper : discrepancy (1 / 10) sample_4_63 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_2814] at h
   linarith
 
-private def sample_5_62 : Triple := ⟨5, 62, 67, by decide, by decide, by decide, by decide⟩
+private def sample_5_62 : Triple := ⟨5, 62, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_62_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20770.upper ≤
       discrepancy (1 / 10) sample_5_62 ∧
@@ -17547,7 +17547,7 @@ private theorem sample_5_62_upper : discrepancy (1 / 10) sample_5_62 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_20770] at h
   linarith
 
-private def sample_6_61 : Triple := ⟨6, 61, 67, by decide, by decide, by decide, by decide⟩
+private def sample_6_61 : Triple := ⟨6, 61, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_6_61_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_24522.upper ≤
       discrepancy (1 / 10) sample_6_61 ∧
@@ -17568,7 +17568,7 @@ private theorem sample_6_61_upper : discrepancy (1 / 10) sample_6_61 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_24522] at h
   linarith
 
-private def sample_7_60 : Triple := ⟨7, 60, 67, by decide, by decide, by decide, by decide⟩
+private def sample_7_60 : Triple := ⟨7, 60, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_60_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14070.upper ≤
       discrepancy (1 / 10) sample_7_60 ∧
@@ -17589,7 +17589,7 @@ private theorem sample_7_60_upper : discrepancy (1 / 10) sample_7_60 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_14070] at h
   linarith
 
-private def sample_8_59 : Triple := ⟨8, 59, 67, by decide, by decide, by decide, by decide⟩
+private def sample_8_59 : Triple := ⟨8, 59, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_59_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7906.upper ≤
       discrepancy (1 / 10) sample_8_59 ∧
@@ -17610,7 +17610,7 @@ private theorem sample_8_59_upper : discrepancy (1 / 10) sample_8_59 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_7906] at h
   linarith
 
-private def sample_9_58 : Triple := ⟨9, 58, 67, by decide, by decide, by decide, by decide⟩
+private def sample_9_58 : Triple := ⟨9, 58, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_58_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11658.upper ≤
       discrepancy (1 / 10) sample_9_58 ∧
@@ -17631,7 +17631,7 @@ private theorem sample_9_58_upper : discrepancy (1 / 10) sample_9_58 ≤ (227 / 
   norm_num [logCertificate_67, logCertificate_11658] at h
   linarith
 
-private def sample_10_57 : Triple := ⟨10, 57, 67, by decide, by decide, by decide, by decide⟩
+private def sample_10_57 : Triple := ⟨10, 57, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_57_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_38190.upper ≤
       discrepancy (1 / 10) sample_10_57 ∧
@@ -17652,7 +17652,7 @@ private theorem sample_10_57_upper : discrepancy (1 / 10) sample_10_57 ≤ (227 
   norm_num [logCertificate_67, logCertificate_38190] at h
   linarith
 
-private def sample_11_56 : Triple := ⟨11, 56, 67, by decide, by decide, by decide, by decide⟩
+private def sample_11_56 : Triple := ⟨11, 56, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_56_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_10318.upper ≤
       discrepancy (1 / 10) sample_11_56 ∧
@@ -17673,7 +17673,7 @@ private theorem sample_11_56_upper : discrepancy (1 / 10) sample_11_56 ≤ (227 
   norm_num [logCertificate_67, logCertificate_10318] at h
   linarith
 
-private def sample_12_55 : Triple := ⟨12, 55, 67, by decide, by decide, by decide, by decide⟩
+private def sample_12_55 : Triple := ⟨12, 55, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_12_55_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_22110.upper ≤
       discrepancy (1 / 10) sample_12_55 ∧
@@ -17694,7 +17694,7 @@ private theorem sample_12_55_upper : discrepancy (1 / 10) sample_12_55 ≤ (227 
   norm_num [logCertificate_67, logCertificate_22110] at h
   linarith
 
-private def sample_13_54 : Triple := ⟨13, 54, 67, by decide, by decide, by decide, by decide⟩
+private def sample_13_54 : Triple := ⟨13, 54, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_54_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5226.upper ≤
       discrepancy (1 / 10) sample_13_54 ∧
@@ -17715,7 +17715,7 @@ private theorem sample_13_54_upper : discrepancy (1 / 10) sample_13_54 ≤ (227 
   norm_num [logCertificate_67, logCertificate_5226] at h
   linarith
 
-private def sample_14_53 : Triple := ⟨14, 53, 67, by decide, by decide, by decide, by decide⟩
+private def sample_14_53 : Triple := ⟨14, 53, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_53_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_49714.upper ≤
       discrepancy (1 / 10) sample_14_53 ∧
@@ -17736,7 +17736,7 @@ private theorem sample_14_53_upper : discrepancy (1 / 10) sample_14_53 ≤ (227 
   norm_num [logCertificate_67, logCertificate_49714] at h
   linarith
 
-private def sample_15_52 : Triple := ⟨15, 52, 67, by decide, by decide, by decide, by decide⟩
+private def sample_15_52 : Triple := ⟨15, 52, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_52_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_26130.upper ≤
       discrepancy (1 / 10) sample_15_52 ∧
@@ -17757,7 +17757,7 @@ private theorem sample_15_52_upper : discrepancy (1 / 10) sample_15_52 ≤ (227 
   norm_num [logCertificate_67, logCertificate_26130] at h
   linarith
 
-private def sample_16_51 : Triple := ⟨16, 51, 67, by decide, by decide, by decide, by decide⟩
+private def sample_16_51 : Triple := ⟨16, 51, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_51_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6834.upper ≤
       discrepancy (1 / 10) sample_16_51 ∧
@@ -17778,7 +17778,7 @@ private theorem sample_16_51_upper : discrepancy (1 / 10) sample_16_51 ≤ (227 
   norm_num [logCertificate_67, logCertificate_6834] at h
   linarith
 
-private def sample_17_50 : Triple := ⟨17, 50, 67, by decide, by decide, by decide, by decide⟩
+private def sample_17_50 : Triple := ⟨17, 50, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_50_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11390.upper ≤
       discrepancy (1 / 10) sample_17_50 ∧
@@ -17799,7 +17799,7 @@ private theorem sample_17_50_upper : discrepancy (1 / 10) sample_17_50 ≤ (227 
   norm_num [logCertificate_67, logCertificate_11390] at h
   linarith
 
-private def sample_18_49 : Triple := ⟨18, 49, 67, by decide, by decide, by decide, by decide⟩
+private def sample_18_49 : Triple := ⟨18, 49, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_18_49_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2814.upper ≤
       discrepancy (1 / 10) sample_18_49 ∧
@@ -17820,7 +17820,7 @@ private theorem sample_18_49_upper : discrepancy (1 / 10) sample_18_49 ≤ (227 
   norm_num [logCertificate_67, logCertificate_2814] at h
   linarith
 
-private def sample_19_48 : Triple := ⟨19, 48, 67, by decide, by decide, by decide, by decide⟩
+private def sample_19_48 : Triple := ⟨19, 48, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_48_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7638.upper ≤
       discrepancy (1 / 10) sample_19_48 ∧
@@ -17841,7 +17841,7 @@ private theorem sample_19_48_upper : discrepancy (1 / 10) sample_19_48 ≤ (227 
   norm_num [logCertificate_67, logCertificate_7638] at h
   linarith
 
-private def sample_20_47 : Triple := ⟨20, 47, 67, by decide, by decide, by decide, by decide⟩
+private def sample_20_47 : Triple := ⟨20, 47, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_47_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_31490.upper ≤
       discrepancy (1 / 10) sample_20_47 ∧
@@ -17862,7 +17862,7 @@ private theorem sample_20_47_upper : discrepancy (1 / 10) sample_20_47 ≤ (227 
   norm_num [logCertificate_67, logCertificate_31490] at h
   linarith
 
-private def sample_21_46 : Triple := ⟨21, 46, 67, by decide, by decide, by decide, by decide⟩
+private def sample_21_46 : Triple := ⟨21, 46, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_46_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_64722.upper ≤
       discrepancy (1 / 10) sample_21_46 ∧
@@ -17883,7 +17883,7 @@ private theorem sample_21_46_upper : discrepancy (1 / 10) sample_21_46 ≤ (227 
   norm_num [logCertificate_67, logCertificate_64722] at h
   linarith
 
-private def sample_22_45 : Triple := ⟨22, 45, 67, by decide, by decide, by decide, by decide⟩
+private def sample_22_45 : Triple := ⟨22, 45, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_45_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_22110.upper ≤
       discrepancy (1 / 10) sample_22_45 ∧
@@ -17904,7 +17904,7 @@ private theorem sample_22_45_upper : discrepancy (1 / 10) sample_22_45 ≤ (227 
   norm_num [logCertificate_67, logCertificate_22110] at h
   linarith
 
-private def sample_23_44 : Triple := ⟨23, 44, 67, by decide, by decide, by decide, by decide⟩
+private def sample_23_44 : Triple := ⟨23, 44, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_44_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_33902.upper ≤
       discrepancy (1 / 10) sample_23_44 ∧
@@ -17925,7 +17925,7 @@ private theorem sample_23_44_upper : discrepancy (1 / 10) sample_23_44 ≤ (227 
   norm_num [logCertificate_67, logCertificate_33902] at h
   linarith
 
-private def sample_24_43 : Triple := ⟨24, 43, 67, by decide, by decide, by decide, by decide⟩
+private def sample_24_43 : Triple := ⟨24, 43, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_24_43_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_17286.upper ≤
       discrepancy (1 / 10) sample_24_43 ∧
@@ -17946,7 +17946,7 @@ private theorem sample_24_43_upper : discrepancy (1 / 10) sample_24_43 ≤ (227 
   norm_num [logCertificate_67, logCertificate_17286] at h
   linarith
 
-private def sample_25_42 : Triple := ⟨25, 42, 67, by decide, by decide, by decide, by decide⟩
+private def sample_25_42 : Triple := ⟨25, 42, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_42_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14070.upper ≤
       discrepancy (1 / 10) sample_25_42 ∧
@@ -17967,7 +17967,7 @@ private theorem sample_25_42_upper : discrepancy (1 / 10) sample_25_42 ≤ (227 
   norm_num [logCertificate_67, logCertificate_14070] at h
   linarith
 
-private def sample_26_41 : Triple := ⟨26, 41, 67, by decide, by decide, by decide, by decide⟩
+private def sample_26_41 : Triple := ⟨26, 41, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_41_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_71422.upper ≤
       discrepancy (1 / 10) sample_26_41 ∧
@@ -17988,7 +17988,7 @@ private theorem sample_26_41_upper : discrepancy (1 / 10) sample_26_41 ≤ (227 
   norm_num [logCertificate_67, logCertificate_71422] at h
   linarith
 
-private def sample_27_40 : Triple := ⟨27, 40, 67, by decide, by decide, by decide, by decide⟩
+private def sample_27_40 : Triple := ⟨27, 40, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_40_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2010.upper ≤
       discrepancy (1 / 10) sample_27_40 ∧
@@ -18009,7 +18009,7 @@ private theorem sample_27_40_upper : discrepancy (1 / 10) sample_27_40 ≤ (227 
   norm_num [logCertificate_67, logCertificate_2010] at h
   linarith
 
-private def sample_28_39 : Triple := ⟨28, 39, 67, by decide, by decide, by decide, by decide⟩
+private def sample_28_39 : Triple := ⟨28, 39, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_39_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_36582.upper ≤
       discrepancy (1 / 10) sample_28_39 ∧
@@ -18030,7 +18030,7 @@ private theorem sample_28_39_upper : discrepancy (1 / 10) sample_28_39 ≤ (227 
   norm_num [logCertificate_67, logCertificate_36582] at h
   linarith
 
-private def sample_29_38 : Triple := ⟨29, 38, 67, by decide, by decide, by decide, by decide⟩
+private def sample_29_38 : Triple := ⟨29, 38, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_38_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_73834.upper ≤
       discrepancy (1 / 10) sample_29_38 ∧
@@ -18051,7 +18051,7 @@ private theorem sample_29_38_upper : discrepancy (1 / 10) sample_29_38 ≤ (227 
   norm_num [logCertificate_67, logCertificate_73834] at h
   linarith
 
-private def sample_30_37 : Triple := ⟨30, 37, 67, by decide, by decide, by decide, by decide⟩
+private def sample_30_37 : Triple := ⟨30, 37, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_30_37_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_74370.upper ≤
       discrepancy (1 / 10) sample_30_37 ∧
@@ -18072,7 +18072,7 @@ private theorem sample_30_37_upper : discrepancy (1 / 10) sample_30_37 ≤ (227 
   norm_num [logCertificate_67, logCertificate_74370] at h
   linarith
 
-private def sample_31_36 : Triple := ⟨31, 36, 67, by decide, by decide, by decide, by decide⟩
+private def sample_31_36 : Triple := ⟨31, 36, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_36_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12462.upper ≤
       discrepancy (1 / 10) sample_31_36 ∧
@@ -18093,7 +18093,7 @@ private theorem sample_31_36_upper : discrepancy (1 / 10) sample_31_36 ≤ (227 
   norm_num [logCertificate_67, logCertificate_12462] at h
   linarith
 
-private def sample_32_35 : Triple := ⟨32, 35, 67, by decide, by decide, by decide, by decide⟩
+private def sample_32_35 : Triple := ⟨32, 35, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_32_35_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4690.upper ≤
       discrepancy (1 / 10) sample_32_35 ∧
@@ -18114,7 +18114,7 @@ private theorem sample_32_35_upper : discrepancy (1 / 10) sample_32_35 ≤ (227 
   norm_num [logCertificate_67, logCertificate_4690] at h
   linarith
 
-private def sample_33_34 : Triple := ⟨33, 34, 67, by decide, by decide, by decide, by decide⟩
+private def sample_33_34 : Triple := ⟨33, 34, 67, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_33_34_interval :
     (logCertificate_67.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_75174.upper ≤
       discrepancy (1 / 10) sample_33_34 ∧
@@ -18135,7 +18135,7 @@ private theorem sample_33_34_upper : discrepancy (1 / 10) sample_33_34 ≤ (227 
   norm_num [logCertificate_67, logCertificate_75174] at h
   linarith
 
-private def sample_1_67 : Triple := ⟨1, 67, 68, by decide, by decide, by decide, by decide⟩
+private def sample_1_67 : Triple := ⟨1, 67, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_67_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2278.upper ≤
       discrepancy (1 / 10) sample_1_67 ∧
@@ -18156,7 +18156,7 @@ private theorem sample_1_67_upper : discrepancy (1 / 10) sample_1_67 ≤ (227 / 
   norm_num [logCertificate_68, logCertificate_2278] at h
   linarith
 
-private def sample_3_65 : Triple := ⟨3, 65, 68, by decide, by decide, by decide, by decide⟩
+private def sample_3_65 : Triple := ⟨3, 65, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_65_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6630.upper ≤
       discrepancy (1 / 10) sample_3_65 ∧
@@ -18177,7 +18177,7 @@ private theorem sample_3_65_upper : discrepancy (1 / 10) sample_3_65 ≤ (227 / 
   norm_num [logCertificate_68, logCertificate_6630] at h
   linarith
 
-private def sample_5_63 : Triple := ⟨5, 63, 68, by decide, by decide, by decide, by decide⟩
+private def sample_5_63 : Triple := ⟨5, 63, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_63_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_3570.upper ≤
       discrepancy (1 / 10) sample_5_63 ∧
@@ -18198,7 +18198,7 @@ private theorem sample_5_63_upper : discrepancy (1 / 10) sample_5_63 ≤ (227 / 
   norm_num [logCertificate_68, logCertificate_3570] at h
   linarith
 
-private def sample_7_61 : Triple := ⟨7, 61, 68, by decide, by decide, by decide, by decide⟩
+private def sample_7_61 : Triple := ⟨7, 61, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_61_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14518.upper ≤
       discrepancy (1 / 10) sample_7_61 ∧
@@ -18219,7 +18219,7 @@ private theorem sample_7_61_upper : discrepancy (1 / 10) sample_7_61 ≤ (227 / 
   norm_num [logCertificate_68, logCertificate_14518] at h
   linarith
 
-private def sample_9_59 : Triple := ⟨9, 59, 68, by decide, by decide, by decide, by decide⟩
+private def sample_9_59 : Triple := ⟨9, 59, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_59_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_6018.upper ≤
       discrepancy (1 / 10) sample_9_59 ∧
@@ -18240,7 +18240,7 @@ private theorem sample_9_59_upper : discrepancy (1 / 10) sample_9_59 ≤ (227 / 
   norm_num [logCertificate_68, logCertificate_6018] at h
   linarith
 
-private def sample_11_57 : Triple := ⟨11, 57, 68, by decide, by decide, by decide, by decide⟩
+private def sample_11_57 : Triple := ⟨11, 57, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_57_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_21318.upper ≤
       discrepancy (1 / 10) sample_11_57 ∧
@@ -18261,7 +18261,7 @@ private theorem sample_11_57_upper : discrepancy (1 / 10) sample_11_57 ≤ (227 
   norm_num [logCertificate_68, logCertificate_21318] at h
   linarith
 
-private def sample_13_55 : Triple := ⟨13, 55, 68, by decide, by decide, by decide, by decide⟩
+private def sample_13_55 : Triple := ⟨13, 55, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_55_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_24310.upper ≤
       discrepancy (1 / 10) sample_13_55 ∧
@@ -18282,7 +18282,7 @@ private theorem sample_13_55_upper : discrepancy (1 / 10) sample_13_55 ≤ (227 
   norm_num [logCertificate_68, logCertificate_24310] at h
   linarith
 
-private def sample_15_53 : Triple := ⟨15, 53, 68, by decide, by decide, by decide, by decide⟩
+private def sample_15_53 : Triple := ⟨15, 53, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_15_53_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_27030.upper ≤
       discrepancy (1 / 10) sample_15_53 ∧
@@ -18303,7 +18303,7 @@ private theorem sample_15_53_upper : discrepancy (1 / 10) sample_15_53 ≤ (227 
   norm_num [logCertificate_68, logCertificate_27030] at h
   linarith
 
-private def sample_19_49 : Triple := ⟨19, 49, 68, by decide, by decide, by decide, by decide⟩
+private def sample_19_49 : Triple := ⟨19, 49, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_49_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4522.upper ≤
       discrepancy (1 / 10) sample_19_49 ∧
@@ -18324,7 +18324,7 @@ private theorem sample_19_49_upper : discrepancy (1 / 10) sample_19_49 ≤ (227 
   norm_num [logCertificate_68, logCertificate_4522] at h
   linarith
 
-private def sample_21_47 : Triple := ⟨21, 47, 68, by decide, by decide, by decide, by decide⟩
+private def sample_21_47 : Triple := ⟨21, 47, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_21_47_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_33558.upper ≤
       discrepancy (1 / 10) sample_21_47 ∧
@@ -18345,7 +18345,7 @@ private theorem sample_21_47_upper : discrepancy (1 / 10) sample_21_47 ≤ (227 
   norm_num [logCertificate_68, logCertificate_33558] at h
   linarith
 
-private def sample_23_45 : Triple := ⟨23, 45, 68, by decide, by decide, by decide, by decide⟩
+private def sample_23_45 : Triple := ⟨23, 45, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_45_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_11730.upper ≤
       discrepancy (1 / 10) sample_23_45 ∧
@@ -18366,7 +18366,7 @@ private theorem sample_23_45_upper : discrepancy (1 / 10) sample_23_45 ≤ (227 
   norm_num [logCertificate_68, logCertificate_11730] at h
   linarith
 
-private def sample_25_43 : Triple := ⟨25, 43, 68, by decide, by decide, by decide, by decide⟩
+private def sample_25_43 : Triple := ⟨25, 43, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_43_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7310.upper ≤
       discrepancy (1 / 10) sample_25_43 ∧
@@ -18387,7 +18387,7 @@ private theorem sample_25_43_upper : discrepancy (1 / 10) sample_25_43 ≤ (227 
   norm_num [logCertificate_68, logCertificate_7310] at h
   linarith
 
-private def sample_27_41 : Triple := ⟨27, 41, 68, by decide, by decide, by decide, by decide⟩
+private def sample_27_41 : Triple := ⟨27, 41, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_41_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4182.upper ≤
       discrepancy (1 / 10) sample_27_41 ∧
@@ -18408,7 +18408,7 @@ private theorem sample_27_41_upper : discrepancy (1 / 10) sample_27_41 ≤ (227 
   norm_num [logCertificate_68, logCertificate_4182] at h
   linarith
 
-private def sample_29_39 : Triple := ⟨29, 39, 68, by decide, by decide, by decide, by decide⟩
+private def sample_29_39 : Triple := ⟨29, 39, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_39_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_38454.upper ≤
       discrepancy (1 / 10) sample_29_39 ∧
@@ -18429,7 +18429,7 @@ private theorem sample_29_39_upper : discrepancy (1 / 10) sample_29_39 ≤ (227 
   norm_num [logCertificate_68, logCertificate_38454] at h
   linarith
 
-private def sample_31_37 : Triple := ⟨31, 37, 68, by decide, by decide, by decide, by decide⟩
+private def sample_31_37 : Triple := ⟨31, 37, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_37_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_38998.upper ≤
       discrepancy (1 / 10) sample_31_37 ∧
@@ -18450,7 +18450,7 @@ private theorem sample_31_37_upper : discrepancy (1 / 10) sample_31_37 ≤ (227 
   norm_num [logCertificate_68, logCertificate_38998] at h
   linarith
 
-private def sample_33_35 : Triple := ⟨33, 35, 68, by decide, by decide, by decide, by decide⟩
+private def sample_33_35 : Triple := ⟨33, 35, 68, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_33_35_interval :
     (logCertificate_68.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_39270.upper ≤
       discrepancy (1 / 10) sample_33_35 ∧
@@ -18471,7 +18471,7 @@ private theorem sample_33_35_upper : discrepancy (1 / 10) sample_33_35 ≤ (227 
   norm_num [logCertificate_68, logCertificate_39270] at h
   linarith
 
-private def sample_1_68 : Triple := ⟨1, 68, 69, by decide, by decide, by decide, by decide⟩
+private def sample_1_68 : Triple := ⟨1, 68, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_68_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_2346.upper ≤
       discrepancy (1 / 10) sample_1_68 ∧
@@ -18492,7 +18492,7 @@ private theorem sample_1_68_upper : discrepancy (1 / 10) sample_1_68 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_2346] at h
   linarith
 
-private def sample_2_67 : Triple := ⟨2, 67, 69, by decide, by decide, by decide, by decide⟩
+private def sample_2_67 : Triple := ⟨2, 67, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_2_67_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9246.upper ≤
       discrepancy (1 / 10) sample_2_67 ∧
@@ -18513,7 +18513,7 @@ private theorem sample_2_67_upper : discrepancy (1 / 10) sample_2_67 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_9246] at h
   linarith
 
-private def sample_4_65 : Triple := ⟨4, 65, 69, by decide, by decide, by decide, by decide⟩
+private def sample_4_65 : Triple := ⟨4, 65, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_4_65_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8970.upper ≤
       discrepancy (1 / 10) sample_4_65 ∧
@@ -18534,7 +18534,7 @@ private theorem sample_4_65_upper : discrepancy (1 / 10) sample_4_65 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_8970] at h
   linarith
 
-private def sample_5_64 : Triple := ⟨5, 64, 69, by decide, by decide, by decide, by decide⟩
+private def sample_5_64 : Triple := ⟨5, 64, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_5_64_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_690.upper ≤
       discrepancy (1 / 10) sample_5_64 ∧
@@ -18555,7 +18555,7 @@ private theorem sample_5_64_upper : discrepancy (1 / 10) sample_5_64 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_690] at h
   linarith
 
-private def sample_7_62 : Triple := ⟨7, 62, 69, by decide, by decide, by decide, by decide⟩
+private def sample_7_62 : Triple := ⟨7, 62, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_7_62_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_29946.upper ≤
       discrepancy (1 / 10) sample_7_62 ∧
@@ -18576,7 +18576,7 @@ private theorem sample_7_62_upper : discrepancy (1 / 10) sample_7_62 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_29946] at h
   linarith
 
-private def sample_8_61 : Triple := ⟨8, 61, 69, by decide, by decide, by decide, by decide⟩
+private def sample_8_61 : Triple := ⟨8, 61, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_8_61_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_8418.upper ≤
       discrepancy (1 / 10) sample_8_61 ∧
@@ -18597,7 +18597,7 @@ private theorem sample_8_61_upper : discrepancy (1 / 10) sample_8_61 ≤ (227 / 
   norm_num [logCertificate_69, logCertificate_8418] at h
   linarith
 
-private def sample_10_59 : Triple := ⟨10, 59, 69, by decide, by decide, by decide, by decide⟩
+private def sample_10_59 : Triple := ⟨10, 59, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_10_59_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_40710.upper ≤
       discrepancy (1 / 10) sample_10_59 ∧
@@ -18618,7 +18618,7 @@ private theorem sample_10_59_upper : discrepancy (1 / 10) sample_10_59 ≤ (227 
   norm_num [logCertificate_69, logCertificate_40710] at h
   linarith
 
-private def sample_11_58 : Triple := ⟨11, 58, 69, by decide, by decide, by decide, by decide⟩
+private def sample_11_58 : Triple := ⟨11, 58, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_58_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_44022.upper ≤
       discrepancy (1 / 10) sample_11_58 ∧
@@ -18639,7 +18639,7 @@ private theorem sample_11_58_upper : discrepancy (1 / 10) sample_11_58 ≤ (227 
   norm_num [logCertificate_69, logCertificate_44022] at h
   linarith
 
-private def sample_13_56 : Triple := ⟨13, 56, 69, by decide, by decide, by decide, by decide⟩
+private def sample_13_56 : Triple := ⟨13, 56, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_56_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12558.upper ≤
       discrepancy (1 / 10) sample_13_56 ∧
@@ -18660,7 +18660,7 @@ private theorem sample_13_56_upper : discrepancy (1 / 10) sample_13_56 ≤ (227 
   norm_num [logCertificate_69, logCertificate_12558] at h
   linarith
 
-private def sample_14_55 : Triple := ⟨14, 55, 69, by decide, by decide, by decide, by decide⟩
+private def sample_14_55 : Triple := ⟨14, 55, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_14_55_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_53130.upper ≤
       discrepancy (1 / 10) sample_14_55 ∧
@@ -18681,7 +18681,7 @@ private theorem sample_14_55_upper : discrepancy (1 / 10) sample_14_55 ≤ (227 
   norm_num [logCertificate_69, logCertificate_53130] at h
   linarith
 
-private def sample_16_53 : Triple := ⟨16, 53, 69, by decide, by decide, by decide, by decide⟩
+private def sample_16_53 : Triple := ⟨16, 53, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_16_53_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7314.upper ≤
       discrepancy (1 / 10) sample_16_53 ∧
@@ -18702,7 +18702,7 @@ private theorem sample_16_53_upper : discrepancy (1 / 10) sample_16_53 ≤ (227 
   norm_num [logCertificate_69, logCertificate_7314] at h
   linarith
 
-private def sample_17_52 : Triple := ⟨17, 52, 69, by decide, by decide, by decide, by decide⟩
+private def sample_17_52 : Triple := ⟨17, 52, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_52_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_30498.upper ≤
       discrepancy (1 / 10) sample_17_52 ∧
@@ -18723,7 +18723,7 @@ private theorem sample_17_52_upper : discrepancy (1 / 10) sample_17_52 ≤ (227 
   norm_num [logCertificate_69, logCertificate_30498] at h
   linarith
 
-private def sample_19_50 : Triple := ⟨19, 50, 69, by decide, by decide, by decide, by decide⟩
+private def sample_19_50 : Triple := ⟨19, 50, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_50_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_13110.upper ≤
       discrepancy (1 / 10) sample_19_50 ∧
@@ -18744,7 +18744,7 @@ private theorem sample_19_50_upper : discrepancy (1 / 10) sample_19_50 ≤ (227 
   norm_num [logCertificate_69, logCertificate_13110] at h
   linarith
 
-private def sample_20_49 : Triple := ⟨20, 49, 69, by decide, by decide, by decide, by decide⟩
+private def sample_20_49 : Triple := ⟨20, 49, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_20_49_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_20_49 ∧
@@ -18765,7 +18765,7 @@ private theorem sample_20_49_upper : discrepancy (1 / 10) sample_20_49 ≤ (227 
   norm_num [logCertificate_69, logCertificate_4830] at h
   linarith
 
-private def sample_22_47 : Triple := ⟨22, 47, 69, by decide, by decide, by decide, by decide⟩
+private def sample_22_47 : Triple := ⟨22, 47, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_22_47_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_71346.upper ≤
       discrepancy (1 / 10) sample_22_47 ∧
@@ -18786,7 +18786,7 @@ private theorem sample_22_47_upper : discrepancy (1 / 10) sample_22_47 ≤ (227 
   norm_num [logCertificate_69, logCertificate_71346] at h
   linarith
 
-private def sample_25_44 : Triple := ⟨25, 44, 69, by decide, by decide, by decide, by decide⟩
+private def sample_25_44 : Triple := ⟨25, 44, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_25_44_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_7590.upper ≤
       discrepancy (1 / 10) sample_25_44 ∧
@@ -18807,7 +18807,7 @@ private theorem sample_25_44_upper : discrepancy (1 / 10) sample_25_44 ≤ (227 
   norm_num [logCertificate_69, logCertificate_7590] at h
   linarith
 
-private def sample_26_43 : Triple := ⟨26, 43, 69, by decide, by decide, by decide, by decide⟩
+private def sample_26_43 : Triple := ⟨26, 43, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_26_43_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_77142.upper ≤
       discrepancy (1 / 10) sample_26_43 ∧
@@ -18828,7 +18828,7 @@ private theorem sample_26_43_upper : discrepancy (1 / 10) sample_26_43 ≤ (227 
   norm_num [logCertificate_69, logCertificate_77142] at h
   linarith
 
-private def sample_28_41 : Triple := ⟨28, 41, 69, by decide, by decide, by decide, by decide⟩
+private def sample_28_41 : Triple := ⟨28, 41, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_28_41_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_39606.upper ≤
       discrepancy (1 / 10) sample_28_41 ∧
@@ -18849,7 +18849,7 @@ private theorem sample_28_41_upper : discrepancy (1 / 10) sample_28_41 ≤ (227 
   norm_num [logCertificate_69, logCertificate_39606] at h
   linarith
 
-private def sample_29_40 : Triple := ⟨29, 40, 69, by decide, by decide, by decide, by decide⟩
+private def sample_29_40 : Triple := ⟨29, 40, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_40_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_20010.upper ≤
       discrepancy (1 / 10) sample_29_40 ∧
@@ -18870,7 +18870,7 @@ private theorem sample_29_40_upper : discrepancy (1 / 10) sample_29_40 ≤ (227 
   norm_num [logCertificate_69, logCertificate_20010] at h
   linarith
 
-private def sample_31_38 : Triple := ⟨31, 38, 69, by decide, by decide, by decide, by decide⟩
+private def sample_31_38 : Triple := ⟨31, 38, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_38_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_81282.upper ≤
       discrepancy (1 / 10) sample_31_38 ∧
@@ -18891,7 +18891,7 @@ private theorem sample_31_38_upper : discrepancy (1 / 10) sample_31_38 ≤ (227 
   norm_num [logCertificate_69, logCertificate_81282] at h
   linarith
 
-private def sample_32_37 : Triple := ⟨32, 37, 69, by decide, by decide, by decide, by decide⟩
+private def sample_32_37 : Triple := ⟨32, 37, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_32_37_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_5106.upper ≤
       discrepancy (1 / 10) sample_32_37 ∧
@@ -18912,7 +18912,7 @@ private theorem sample_32_37_upper : discrepancy (1 / 10) sample_32_37 ≤ (227 
   norm_num [logCertificate_69, logCertificate_5106] at h
   linarith
 
-private def sample_34_35 : Triple := ⟨34, 35, 69, by decide, by decide, by decide, by decide⟩
+private def sample_34_35 : Triple := ⟨34, 35, 69, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_34_35_interval :
     (logCertificate_69.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_82110.upper ≤
       discrepancy (1 / 10) sample_34_35 ∧
@@ -18933,7 +18933,7 @@ private theorem sample_34_35_upper : discrepancy (1 / 10) sample_34_35 ≤ (227 
   norm_num [logCertificate_69, logCertificate_82110] at h
   linarith
 
-private def sample_1_69 : Triple := ⟨1, 69, 70, by decide, by decide, by decide, by decide⟩
+private def sample_1_69 : Triple := ⟨1, 69, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_1_69_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_4830.upper ≤
       discrepancy (1 / 10) sample_1_69 ∧
@@ -18954,7 +18954,7 @@ private theorem sample_1_69_upper : discrepancy (1 / 10) sample_1_69 ≤ (227 / 
   norm_num [logCertificate_70, logCertificate_4830] at h
   linarith
 
-private def sample_3_67 : Triple := ⟨3, 67, 70, by decide, by decide, by decide, by decide⟩
+private def sample_3_67 : Triple := ⟨3, 67, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_3_67_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_14070.upper ≤
       discrepancy (1 / 10) sample_3_67 ∧
@@ -18975,7 +18975,7 @@ private theorem sample_3_67_upper : discrepancy (1 / 10) sample_3_67 ≤ (227 / 
   norm_num [logCertificate_70, logCertificate_14070] at h
   linarith
 
-private def sample_9_61 : Triple := ⟨9, 61, 70, by decide, by decide, by decide, by decide⟩
+private def sample_9_61 : Triple := ⟨9, 61, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_9_61_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_12810.upper ≤
       discrepancy (1 / 10) sample_9_61 ∧
@@ -18996,7 +18996,7 @@ private theorem sample_9_61_upper : discrepancy (1 / 10) sample_9_61 ≤ (227 / 
   norm_num [logCertificate_70, logCertificate_12810] at h
   linarith
 
-private def sample_11_59 : Triple := ⟨11, 59, 70, by decide, by decide, by decide, by decide⟩
+private def sample_11_59 : Triple := ⟨11, 59, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_11_59_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_45430.upper ≤
       discrepancy (1 / 10) sample_11_59 ∧
@@ -19017,7 +19017,7 @@ private theorem sample_11_59_upper : discrepancy (1 / 10) sample_11_59 ≤ (227 
   norm_num [logCertificate_70, logCertificate_45430] at h
   linarith
 
-private def sample_13_57 : Triple := ⟨13, 57, 70, by decide, by decide, by decide, by decide⟩
+private def sample_13_57 : Triple := ⟨13, 57, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_13_57_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_51870.upper ≤
       discrepancy (1 / 10) sample_13_57 ∧
@@ -19038,7 +19038,7 @@ private theorem sample_13_57_upper : discrepancy (1 / 10) sample_13_57 ≤ (227 
   norm_num [logCertificate_70, logCertificate_51870] at h
   linarith
 
-private def sample_17_53 : Triple := ⟨17, 53, 70, by decide, by decide, by decide, by decide⟩
+private def sample_17_53 : Triple := ⟨17, 53, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_17_53_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_63070.upper ≤
       discrepancy (1 / 10) sample_17_53 ∧
@@ -19059,7 +19059,7 @@ private theorem sample_17_53_upper : discrepancy (1 / 10) sample_17_53 ≤ (227 
   norm_num [logCertificate_70, logCertificate_63070] at h
   linarith
 
-private def sample_19_51 : Triple := ⟨19, 51, 70, by decide, by decide, by decide, by decide⟩
+private def sample_19_51 : Triple := ⟨19, 51, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_19_51_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_67830.upper ≤
       discrepancy (1 / 10) sample_19_51 ∧
@@ -19080,7 +19080,7 @@ private theorem sample_19_51_upper : discrepancy (1 / 10) sample_19_51 ≤ (227 
   norm_num [logCertificate_70, logCertificate_67830] at h
   linarith
 
-private def sample_23_47 : Triple := ⟨23, 47, 70, by decide, by decide, by decide, by decide⟩
+private def sample_23_47 : Triple := ⟨23, 47, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_23_47_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_75670.upper ≤
       discrepancy (1 / 10) sample_23_47 ∧
@@ -19101,7 +19101,7 @@ private theorem sample_23_47_upper : discrepancy (1 / 10) sample_23_47 ≤ (227 
   norm_num [logCertificate_70, logCertificate_75670] at h
   linarith
 
-private def sample_27_43 : Triple := ⟨27, 43, 70, by decide, by decide, by decide, by decide⟩
+private def sample_27_43 : Triple := ⟨27, 43, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_27_43_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_9030.upper ≤
       discrepancy (1 / 10) sample_27_43 ∧
@@ -19122,7 +19122,7 @@ private theorem sample_27_43_upper : discrepancy (1 / 10) sample_27_43 ≤ (227 
   norm_num [logCertificate_70, logCertificate_9030] at h
   linarith
 
-private def sample_29_41 : Triple := ⟨29, 41, 70, by decide, by decide, by decide, by decide⟩
+private def sample_29_41 : Triple := ⟨29, 41, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_29_41_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_83230.upper ≤
       discrepancy (1 / 10) sample_29_41 ∧
@@ -19143,7 +19143,7 @@ private theorem sample_29_41_upper : discrepancy (1 / 10) sample_29_41 ≤ (227 
   norm_num [logCertificate_70, logCertificate_83230] at h
   linarith
 
-private def sample_31_39 : Triple := ⟨31, 39, 70, by decide, by decide, by decide, by decide⟩
+private def sample_31_39 : Triple := ⟨31, 39, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_31_39_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_84630.upper ≤
       discrepancy (1 / 10) sample_31_39 ∧
@@ -19164,7 +19164,7 @@ private theorem sample_31_39_upper : discrepancy (1 / 10) sample_31_39 ≤ (227 
   norm_num [logCertificate_70, logCertificate_84630] at h
   linarith
 
-private def sample_33_37 : Triple := ⟨33, 37, 70, by decide, by decide, by decide, by decide⟩
+private def sample_33_37 : Triple := ⟨33, 37, 70, by native_decide, by native_decide, by native_decide, by native_decide⟩
 private theorem sample_33_37_interval :
     (logCertificate_70.lower : ℝ) - (1 + ((1 / 10) : ℝ)) * logCertificate_85470.upper ≤
       discrepancy (1 / 10) sample_33_37 ∧
@@ -19196,7 +19196,7 @@ theorem certified_upper (t : Triple) (hc : t.c ≤ 70) :
   have h_b : b < 70 := by omega
   have cover : ∀ a b : Fin 70, 0 < a.val → 0 < b.val → a.val ≤ b.val →
       a.val + b.val ≤ 70 → Nat.Coprime a.val b.val →
-      (a.val = 1 ∧ b.val = 1) ∨ (a.val = 1 ∧ b.val = 2) ∨ (a.val = 1 ∧ b.val = 3) ∨ (a.val = 1 ∧ b.val = 4) ∨ (a.val = 2 ∧ b.val = 3) ∨ (a.val = 1 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 6) ∨ (a.val = 2 ∧ b.val = 5) ∨ (a.val = 3 ∧ b.val = 4) ∨ (a.val = 1 ∧ b.val = 7) ∨ (a.val = 3 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 8) ∨ (a.val = 2 ∧ b.val = 7) ∨ (a.val = 4 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 9) ∨ (a.val = 3 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 10) ∨ (a.val = 2 ∧ b.val = 9) ∨ (a.val = 3 ∧ b.val = 8) ∨ (a.val = 4 ∧ b.val = 7) ∨ (a.val = 5 ∧ b.val = 6) ∨ (a.val = 1 ∧ b.val = 11) ∨ (a.val = 5 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 12) ∨ (a.val = 2 ∧ b.val = 11) ∨ (a.val = 3 ∧ b.val = 10) ∨ (a.val = 4 ∧ b.val = 9) ∨ (a.val = 5 ∧ b.val = 8) ∨ (a.val = 6 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 13) ∨ (a.val = 3 ∧ b.val = 11) ∨ (a.val = 5 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 14) ∨ (a.val = 2 ∧ b.val = 13) ∨ (a.val = 4 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 8) ∨ (a.val = 1 ∧ b.val = 15) ∨ (a.val = 3 ∧ b.val = 13) ∨ (a.val = 5 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 16) ∨ (a.val = 2 ∧ b.val = 15) ∨ (a.val = 3 ∧ b.val = 14) ∨ (a.val = 4 ∧ b.val = 13) ∨ (a.val = 5 ∧ b.val = 12) ∨ (a.val = 6 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 10) ∨ (a.val = 8 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 17) ∨ (a.val = 5 ∧ b.val = 13) ∨ (a.val = 7 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 18) ∨ (a.val = 2 ∧ b.val = 17) ∨ (a.val = 3 ∧ b.val = 16) ∨ (a.val = 4 ∧ b.val = 15) ∨ (a.val = 5 ∧ b.val = 14) ∨ (a.val = 6 ∧ b.val = 13) ∨ (a.val = 7 ∧ b.val = 12) ∨ (a.val = 8 ∧ b.val = 11) ∨ (a.val = 9 ∧ b.val = 10) ∨ (a.val = 1 ∧ b.val = 19) ∨ (a.val = 3 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 13) ∨ (a.val = 9 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 20) ∨ (a.val = 2 ∧ b.val = 19) ∨ (a.val = 4 ∧ b.val = 17) ∨ (a.val = 5 ∧ b.val = 16) ∨ (a.val = 8 ∧ b.val = 13) ∨ (a.val = 10 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 21) ∨ (a.val = 3 ∧ b.val = 19) ∨ (a.val = 5 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 15) ∨ (a.val = 9 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 22) ∨ (a.val = 2 ∧ b.val = 21) ∨ (a.val = 3 ∧ b.val = 20) ∨ (a.val = 4 ∧ b.val = 19) ∨ (a.val = 5 ∧ b.val = 18) ∨ (a.val = 6 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 16) ∨ (a.val = 8 ∧ b.val = 15) ∨ (a.val = 9 ∧ b.val = 14) ∨ (a.val = 10 ∧ b.val = 13) ∨ (a.val = 11 ∧ b.val = 12) ∨ (a.val = 1 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 19) ∨ (a.val = 7 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 24) ∨ (a.val = 2 ∧ b.val = 23) ∨ (a.val = 3 ∧ b.val = 22) ∨ (a.val = 4 ∧ b.val = 21) ∨ (a.val = 6 ∧ b.val = 19) ∨ (a.val = 7 ∧ b.val = 18) ∨ (a.val = 8 ∧ b.val = 17) ∨ (a.val = 9 ∧ b.val = 16) ∨ (a.val = 11 ∧ b.val = 14) ∨ (a.val = 12 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 25) ∨ (a.val = 3 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 21) ∨ (a.val = 7 ∧ b.val = 19) ∨ (a.val = 9 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 26) ∨ (a.val = 2 ∧ b.val = 25) ∨ (a.val = 4 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 22) ∨ (a.val = 7 ∧ b.val = 20) ∨ (a.val = 8 ∧ b.val = 19) ∨ (a.val = 10 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 16) ∨ (a.val = 13 ∧ b.val = 14) ∨ (a.val = 1 ∧ b.val = 27) ∨ (a.val = 3 ∧ b.val = 25) ∨ (a.val = 5 ∧ b.val = 23) ∨ (a.val = 9 ∧ b.val = 19) ∨ (a.val = 11 ∧ b.val = 17) ∨ (a.val = 13 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 28) ∨ (a.val = 2 ∧ b.val = 27) ∨ (a.val = 3 ∧ b.val = 26) ∨ (a.val = 4 ∧ b.val = 25) ∨ (a.val = 5 ∧ b.val = 24) ∨ (a.val = 6 ∧ b.val = 23) ∨ (a.val = 7 ∧ b.val = 22) ∨ (a.val = 8 ∧ b.val = 21) ∨ (a.val = 9 ∧ b.val = 20) ∨ (a.val = 10 ∧ b.val = 19) ∨ (a.val = 11 ∧ b.val = 18) ∨ (a.val = 12 ∧ b.val = 17) ∨ (a.val = 13 ∧ b.val = 16) ∨ (a.val = 14 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 29) ∨ (a.val = 7 ∧ b.val = 23) ∨ (a.val = 11 ∧ b.val = 19) ∨ (a.val = 13 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 30) ∨ (a.val = 2 ∧ b.val = 29) ∨ (a.val = 3 ∧ b.val = 28) ∨ (a.val = 4 ∧ b.val = 27) ∨ (a.val = 5 ∧ b.val = 26) ∨ (a.val = 6 ∧ b.val = 25) ∨ (a.val = 7 ∧ b.val = 24) ∨ (a.val = 8 ∧ b.val = 23) ∨ (a.val = 9 ∧ b.val = 22) ∨ (a.val = 10 ∧ b.val = 21) ∨ (a.val = 11 ∧ b.val = 20) ∨ (a.val = 12 ∧ b.val = 19) ∨ (a.val = 13 ∧ b.val = 18) ∨ (a.val = 14 ∧ b.val = 17) ∨ (a.val = 15 ∧ b.val = 16) ∨ (a.val = 1 ∧ b.val = 31) ∨ (a.val = 3 ∧ b.val = 29) ∨ (a.val = 5 ∧ b.val = 27) ∨ (a.val = 7 ∧ b.val = 25) ∨ (a.val = 9 ∧ b.val = 23) ∨ (a.val = 11 ∧ b.val = 21) ∨ (a.val = 13 ∧ b.val = 19) ∨ (a.val = 15 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 32) ∨ (a.val = 2 ∧ b.val = 31) ∨ (a.val = 4 ∧ b.val = 29) ∨ (a.val = 5 ∧ b.val = 28) ∨ (a.val = 7 ∧ b.val = 26) ∨ (a.val = 8 ∧ b.val = 25) ∨ (a.val = 10 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 20) ∨ (a.val = 14 ∧ b.val = 19) ∨ (a.val = 16 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 33) ∨ (a.val = 3 ∧ b.val = 31) ∨ (a.val = 5 ∧ b.val = 29) ∨ (a.val = 7 ∧ b.val = 27) ∨ (a.val = 9 ∧ b.val = 25) ∨ (a.val = 11 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 21) ∨ (a.val = 15 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 34) ∨ (a.val = 2 ∧ b.val = 33) ∨ (a.val = 3 ∧ b.val = 32) ∨ (a.val = 4 ∧ b.val = 31) ∨ (a.val = 6 ∧ b.val = 29) ∨ (a.val = 8 ∧ b.val = 27) ∨ (a.val = 9 ∧ b.val = 26) ∨ (a.val = 11 ∧ b.val = 24) ∨ (a.val = 12 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 22) ∨ (a.val = 16 ∧ b.val = 19) ∨ (a.val = 17 ∧ b.val = 18) ∨ (a.val = 1 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 31) ∨ (a.val = 7 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 25) ∨ (a.val = 13 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 36) ∨ (a.val = 2 ∧ b.val = 35) ∨ (a.val = 3 ∧ b.val = 34) ∨ (a.val = 4 ∧ b.val = 33) ∨ (a.val = 5 ∧ b.val = 32) ∨ (a.val = 6 ∧ b.val = 31) ∨ (a.val = 7 ∧ b.val = 30) ∨ (a.val = 8 ∧ b.val = 29) ∨ (a.val = 9 ∧ b.val = 28) ∨ (a.val = 10 ∧ b.val = 27) ∨ (a.val = 11 ∧ b.val = 26) ∨ (a.val = 12 ∧ b.val = 25) ∨ (a.val = 13 ∧ b.val = 24) ∨ (a.val = 14 ∧ b.val = 23) ∨ (a.val = 15 ∧ b.val = 22) ∨ (a.val = 16 ∧ b.val = 21) ∨ (a.val = 17 ∧ b.val = 20) ∨ (a.val = 18 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 37) ∨ (a.val = 3 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 33) ∨ (a.val = 7 ∧ b.val = 31) ∨ (a.val = 9 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 27) ∨ (a.val = 13 ∧ b.val = 25) ∨ (a.val = 15 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 38) ∨ (a.val = 2 ∧ b.val = 37) ∨ (a.val = 4 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 34) ∨ (a.val = 7 ∧ b.val = 32) ∨ (a.val = 8 ∧ b.val = 31) ∨ (a.val = 10 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 28) ∨ (a.val = 14 ∧ b.val = 25) ∨ (a.val = 16 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 22) ∨ (a.val = 19 ∧ b.val = 20) ∨ (a.val = 1 ∧ b.val = 39) ∨ (a.val = 3 ∧ b.val = 37) ∨ (a.val = 7 ∧ b.val = 33) ∨ (a.val = 9 ∧ b.val = 31) ∨ (a.val = 11 ∧ b.val = 29) ∨ (a.val = 13 ∧ b.val = 27) ∨ (a.val = 17 ∧ b.val = 23) ∨ (a.val = 19 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 40) ∨ (a.val = 2 ∧ b.val = 39) ∨ (a.val = 3 ∧ b.val = 38) ∨ (a.val = 4 ∧ b.val = 37) ∨ (a.val = 5 ∧ b.val = 36) ∨ (a.val = 6 ∧ b.val = 35) ∨ (a.val = 7 ∧ b.val = 34) ∨ (a.val = 8 ∧ b.val = 33) ∨ (a.val = 9 ∧ b.val = 32) ∨ (a.val = 10 ∧ b.val = 31) ∨ (a.val = 11 ∧ b.val = 30) ∨ (a.val = 12 ∧ b.val = 29) ∨ (a.val = 13 ∧ b.val = 28) ∨ (a.val = 14 ∧ b.val = 27) ∨ (a.val = 15 ∧ b.val = 26) ∨ (a.val = 16 ∧ b.val = 25) ∨ (a.val = 17 ∧ b.val = 24) ∨ (a.val = 18 ∧ b.val = 23) ∨ (a.val = 19 ∧ b.val = 22) ∨ (a.val = 20 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 41) ∨ (a.val = 5 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 31) ∨ (a.val = 13 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 25) ∨ (a.val = 19 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 42) ∨ (a.val = 2 ∧ b.val = 41) ∨ (a.val = 3 ∧ b.val = 40) ∨ (a.val = 4 ∧ b.val = 39) ∨ (a.val = 5 ∧ b.val = 38) ∨ (a.val = 6 ∧ b.val = 37) ∨ (a.val = 7 ∧ b.val = 36) ∨ (a.val = 8 ∧ b.val = 35) ∨ (a.val = 9 ∧ b.val = 34) ∨ (a.val = 10 ∧ b.val = 33) ∨ (a.val = 11 ∧ b.val = 32) ∨ (a.val = 12 ∧ b.val = 31) ∨ (a.val = 13 ∧ b.val = 30) ∨ (a.val = 14 ∧ b.val = 29) ∨ (a.val = 15 ∧ b.val = 28) ∨ (a.val = 16 ∧ b.val = 27) ∨ (a.val = 17 ∧ b.val = 26) ∨ (a.val = 18 ∧ b.val = 25) ∨ (a.val = 19 ∧ b.val = 24) ∨ (a.val = 20 ∧ b.val = 23) ∨ (a.val = 21 ∧ b.val = 22) ∨ (a.val = 1 ∧ b.val = 43) ∨ (a.val = 3 ∧ b.val = 41) ∨ (a.val = 5 ∧ b.val = 39) ∨ (a.val = 7 ∧ b.val = 37) ∨ (a.val = 9 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 31) ∨ (a.val = 15 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 27) ∨ (a.val = 19 ∧ b.val = 25) ∨ (a.val = 21 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 44) ∨ (a.val = 2 ∧ b.val = 43) ∨ (a.val = 4 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 38) ∨ (a.val = 8 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 34) ∨ (a.val = 13 ∧ b.val = 32) ∨ (a.val = 14 ∧ b.val = 31) ∨ (a.val = 16 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 28) ∨ (a.val = 19 ∧ b.val = 26) ∨ (a.val = 22 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 45) ∨ (a.val = 3 ∧ b.val = 43) ∨ (a.val = 5 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 39) ∨ (a.val = 9 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 33) ∨ (a.val = 15 ∧ b.val = 31) ∨ (a.val = 17 ∧ b.val = 29) ∨ (a.val = 19 ∧ b.val = 27) ∨ (a.val = 21 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 46) ∨ (a.val = 2 ∧ b.val = 45) ∨ (a.val = 3 ∧ b.val = 44) ∨ (a.val = 4 ∧ b.val = 43) ∨ (a.val = 5 ∧ b.val = 42) ∨ (a.val = 6 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 40) ∨ (a.val = 8 ∧ b.val = 39) ∨ (a.val = 9 ∧ b.val = 38) ∨ (a.val = 10 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 36) ∨ (a.val = 12 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 34) ∨ (a.val = 14 ∧ b.val = 33) ∨ (a.val = 15 ∧ b.val = 32) ∨ (a.val = 16 ∧ b.val = 31) ∨ (a.val = 17 ∧ b.val = 30) ∨ (a.val = 18 ∧ b.val = 29) ∨ (a.val = 19 ∧ b.val = 28) ∨ (a.val = 20 ∧ b.val = 27) ∨ (a.val = 21 ∧ b.val = 26) ∨ (a.val = 22 ∧ b.val = 25) ∨ (a.val = 23 ∧ b.val = 24) ∨ (a.val = 1 ∧ b.val = 47) ∨ (a.val = 5 ∧ b.val = 43) ∨ (a.val = 7 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 37) ∨ (a.val = 13 ∧ b.val = 35) ∨ (a.val = 17 ∧ b.val = 31) ∨ (a.val = 19 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 48) ∨ (a.val = 2 ∧ b.val = 47) ∨ (a.val = 3 ∧ b.val = 46) ∨ (a.val = 4 ∧ b.val = 45) ∨ (a.val = 5 ∧ b.val = 44) ∨ (a.val = 6 ∧ b.val = 43) ∨ (a.val = 8 ∧ b.val = 41) ∨ (a.val = 9 ∧ b.val = 40) ∨ (a.val = 10 ∧ b.val = 39) ∨ (a.val = 11 ∧ b.val = 38) ∨ (a.val = 12 ∧ b.val = 37) ∨ (a.val = 13 ∧ b.val = 36) ∨ (a.val = 15 ∧ b.val = 34) ∨ (a.val = 16 ∧ b.val = 33) ∨ (a.val = 17 ∧ b.val = 32) ∨ (a.val = 18 ∧ b.val = 31) ∨ (a.val = 19 ∧ b.val = 30) ∨ (a.val = 20 ∧ b.val = 29) ∨ (a.val = 22 ∧ b.val = 27) ∨ (a.val = 23 ∧ b.val = 26) ∨ (a.val = 24 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 49) ∨ (a.val = 3 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 43) ∨ (a.val = 9 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 39) ∨ (a.val = 13 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 33) ∨ (a.val = 19 ∧ b.val = 31) ∨ (a.val = 21 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 50) ∨ (a.val = 2 ∧ b.val = 49) ∨ (a.val = 4 ∧ b.val = 47) ∨ (a.val = 5 ∧ b.val = 46) ∨ (a.val = 7 ∧ b.val = 44) ∨ (a.val = 8 ∧ b.val = 43) ∨ (a.val = 10 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 40) ∨ (a.val = 13 ∧ b.val = 38) ∨ (a.val = 14 ∧ b.val = 37) ∨ (a.val = 16 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 32) ∨ (a.val = 20 ∧ b.val = 31) ∨ (a.val = 22 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 28) ∨ (a.val = 25 ∧ b.val = 26) ∨ (a.val = 1 ∧ b.val = 51) ∨ (a.val = 3 ∧ b.val = 49) ∨ (a.val = 5 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 45) ∨ (a.val = 9 ∧ b.val = 43) ∨ (a.val = 11 ∧ b.val = 41) ∨ (a.val = 15 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 33) ∨ (a.val = 21 ∧ b.val = 31) ∨ (a.val = 23 ∧ b.val = 29) ∨ (a.val = 25 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 52) ∨ (a.val = 2 ∧ b.val = 51) ∨ (a.val = 3 ∧ b.val = 50) ∨ (a.val = 4 ∧ b.val = 49) ∨ (a.val = 5 ∧ b.val = 48) ∨ (a.val = 6 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 46) ∨ (a.val = 8 ∧ b.val = 45) ∨ (a.val = 9 ∧ b.val = 44) ∨ (a.val = 10 ∧ b.val = 43) ∨ (a.val = 11 ∧ b.val = 42) ∨ (a.val = 12 ∧ b.val = 41) ∨ (a.val = 13 ∧ b.val = 40) ∨ (a.val = 14 ∧ b.val = 39) ∨ (a.val = 15 ∧ b.val = 38) ∨ (a.val = 16 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 36) ∨ (a.val = 18 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 34) ∨ (a.val = 20 ∧ b.val = 33) ∨ (a.val = 21 ∧ b.val = 32) ∨ (a.val = 22 ∧ b.val = 31) ∨ (a.val = 23 ∧ b.val = 30) ∨ (a.val = 24 ∧ b.val = 29) ∨ (a.val = 25 ∧ b.val = 28) ∨ (a.val = 26 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 49) ∨ (a.val = 7 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 43) ∨ (a.val = 13 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 37) ∨ (a.val = 19 ∧ b.val = 35) ∨ (a.val = 23 ∧ b.val = 31) ∨ (a.val = 25 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 54) ∨ (a.val = 2 ∧ b.val = 53) ∨ (a.val = 3 ∧ b.val = 52) ∨ (a.val = 4 ∧ b.val = 51) ∨ (a.val = 6 ∧ b.val = 49) ∨ (a.val = 7 ∧ b.val = 48) ∨ (a.val = 8 ∧ b.val = 47) ∨ (a.val = 9 ∧ b.val = 46) ∨ (a.val = 12 ∧ b.val = 43) ∨ (a.val = 13 ∧ b.val = 42) ∨ (a.val = 14 ∧ b.val = 41) ∨ (a.val = 16 ∧ b.val = 39) ∨ (a.val = 17 ∧ b.val = 38) ∨ (a.val = 18 ∧ b.val = 37) ∨ (a.val = 19 ∧ b.val = 36) ∨ (a.val = 21 ∧ b.val = 34) ∨ (a.val = 23 ∧ b.val = 32) ∨ (a.val = 24 ∧ b.val = 31) ∨ (a.val = 26 ∧ b.val = 29) ∨ (a.val = 27 ∧ b.val = 28) ∨ (a.val = 1 ∧ b.val = 55) ∨ (a.val = 3 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 45) ∨ (a.val = 13 ∧ b.val = 43) ∨ (a.val = 15 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 39) ∨ (a.val = 19 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 33) ∨ (a.val = 25 ∧ b.val = 31) ∨ (a.val = 27 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 56) ∨ (a.val = 2 ∧ b.val = 55) ∨ (a.val = 4 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 52) ∨ (a.val = 7 ∧ b.val = 50) ∨ (a.val = 8 ∧ b.val = 49) ∨ (a.val = 10 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 46) ∨ (a.val = 13 ∧ b.val = 44) ∨ (a.val = 14 ∧ b.val = 43) ∨ (a.val = 16 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 40) ∨ (a.val = 20 ∧ b.val = 37) ∨ (a.val = 22 ∧ b.val = 35) ∨ (a.val = 23 ∧ b.val = 34) ∨ (a.val = 25 ∧ b.val = 32) ∨ (a.val = 26 ∧ b.val = 31) ∨ (a.val = 28 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 57) ∨ (a.val = 3 ∧ b.val = 55) ∨ (a.val = 5 ∧ b.val = 53) ∨ (a.val = 7 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 49) ∨ (a.val = 11 ∧ b.val = 47) ∨ (a.val = 13 ∧ b.val = 45) ∨ (a.val = 15 ∧ b.val = 43) ∨ (a.val = 17 ∧ b.val = 41) ∨ (a.val = 19 ∧ b.val = 39) ∨ (a.val = 21 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 35) ∨ (a.val = 25 ∧ b.val = 33) ∨ (a.val = 27 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 58) ∨ (a.val = 2 ∧ b.val = 57) ∨ (a.val = 3 ∧ b.val = 56) ∨ (a.val = 4 ∧ b.val = 55) ∨ (a.val = 5 ∧ b.val = 54) ∨ (a.val = 6 ∧ b.val = 53) ∨ (a.val = 7 ∧ b.val = 52) ∨ (a.val = 8 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 50) ∨ (a.val = 10 ∧ b.val = 49) ∨ (a.val = 11 ∧ b.val = 48) ∨ (a.val = 12 ∧ b.val = 47) ∨ (a.val = 13 ∧ b.val = 46) ∨ (a.val = 14 ∧ b.val = 45) ∨ (a.val = 15 ∧ b.val = 44) ∨ (a.val = 16 ∧ b.val = 43) ∨ (a.val = 17 ∧ b.val = 42) ∨ (a.val = 18 ∧ b.val = 41) ∨ (a.val = 19 ∧ b.val = 40) ∨ (a.val = 20 ∧ b.val = 39) ∨ (a.val = 21 ∧ b.val = 38) ∨ (a.val = 22 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 36) ∨ (a.val = 24 ∧ b.val = 35) ∨ (a.val = 25 ∧ b.val = 34) ∨ (a.val = 26 ∧ b.val = 33) ∨ (a.val = 27 ∧ b.val = 32) ∨ (a.val = 28 ∧ b.val = 31) ∨ (a.val = 29 ∧ b.val = 30) ∨ (a.val = 1 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 49) ∨ (a.val = 13 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 43) ∨ (a.val = 19 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 60) ∨ (a.val = 2 ∧ b.val = 59) ∨ (a.val = 3 ∧ b.val = 58) ∨ (a.val = 4 ∧ b.val = 57) ∨ (a.val = 5 ∧ b.val = 56) ∨ (a.val = 6 ∧ b.val = 55) ∨ (a.val = 7 ∧ b.val = 54) ∨ (a.val = 8 ∧ b.val = 53) ∨ (a.val = 9 ∧ b.val = 52) ∨ (a.val = 10 ∧ b.val = 51) ∨ (a.val = 11 ∧ b.val = 50) ∨ (a.val = 12 ∧ b.val = 49) ∨ (a.val = 13 ∧ b.val = 48) ∨ (a.val = 14 ∧ b.val = 47) ∨ (a.val = 15 ∧ b.val = 46) ∨ (a.val = 16 ∧ b.val = 45) ∨ (a.val = 17 ∧ b.val = 44) ∨ (a.val = 18 ∧ b.val = 43) ∨ (a.val = 19 ∧ b.val = 42) ∨ (a.val = 20 ∧ b.val = 41) ∨ (a.val = 21 ∧ b.val = 40) ∨ (a.val = 22 ∧ b.val = 39) ∨ (a.val = 23 ∧ b.val = 38) ∨ (a.val = 24 ∧ b.val = 37) ∨ (a.val = 25 ∧ b.val = 36) ∨ (a.val = 26 ∧ b.val = 35) ∨ (a.val = 27 ∧ b.val = 34) ∨ (a.val = 28 ∧ b.val = 33) ∨ (a.val = 29 ∧ b.val = 32) ∨ (a.val = 30 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 61) ∨ (a.val = 3 ∧ b.val = 59) ∨ (a.val = 5 ∧ b.val = 57) ∨ (a.val = 7 ∧ b.val = 55) ∨ (a.val = 9 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 51) ∨ (a.val = 13 ∧ b.val = 49) ∨ (a.val = 15 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 45) ∨ (a.val = 19 ∧ b.val = 43) ∨ (a.val = 21 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 39) ∨ (a.val = 25 ∧ b.val = 37) ∨ (a.val = 27 ∧ b.val = 35) ∨ (a.val = 29 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 62) ∨ (a.val = 2 ∧ b.val = 61) ∨ (a.val = 4 ∧ b.val = 59) ∨ (a.val = 5 ∧ b.val = 58) ∨ (a.val = 8 ∧ b.val = 55) ∨ (a.val = 10 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 52) ∨ (a.val = 13 ∧ b.val = 50) ∨ (a.val = 16 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 46) ∨ (a.val = 19 ∧ b.val = 44) ∨ (a.val = 20 ∧ b.val = 43) ∨ (a.val = 22 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 40) ∨ (a.val = 25 ∧ b.val = 38) ∨ (a.val = 26 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 34) ∨ (a.val = 31 ∧ b.val = 32) ∨ (a.val = 1 ∧ b.val = 63) ∨ (a.val = 3 ∧ b.val = 61) ∨ (a.val = 5 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 57) ∨ (a.val = 9 ∧ b.val = 55) ∨ (a.val = 11 ∧ b.val = 53) ∨ (a.val = 13 ∧ b.val = 51) ∨ (a.val = 15 ∧ b.val = 49) ∨ (a.val = 17 ∧ b.val = 47) ∨ (a.val = 19 ∧ b.val = 45) ∨ (a.val = 21 ∧ b.val = 43) ∨ (a.val = 23 ∧ b.val = 41) ∨ (a.val = 25 ∧ b.val = 39) ∨ (a.val = 27 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 35) ∨ (a.val = 31 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 64) ∨ (a.val = 2 ∧ b.val = 63) ∨ (a.val = 3 ∧ b.val = 62) ∨ (a.val = 4 ∧ b.val = 61) ∨ (a.val = 6 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 58) ∨ (a.val = 8 ∧ b.val = 57) ∨ (a.val = 9 ∧ b.val = 56) ∨ (a.val = 11 ∧ b.val = 54) ∨ (a.val = 12 ∧ b.val = 53) ∨ (a.val = 14 ∧ b.val = 51) ∨ (a.val = 16 ∧ b.val = 49) ∨ (a.val = 17 ∧ b.val = 48) ∨ (a.val = 18 ∧ b.val = 47) ∨ (a.val = 19 ∧ b.val = 46) ∨ (a.val = 21 ∧ b.val = 44) ∨ (a.val = 22 ∧ b.val = 43) ∨ (a.val = 23 ∧ b.val = 42) ∨ (a.val = 24 ∧ b.val = 41) ∨ (a.val = 27 ∧ b.val = 38) ∨ (a.val = 28 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 36) ∨ (a.val = 31 ∧ b.val = 34) ∨ (a.val = 32 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 61) ∨ (a.val = 7 ∧ b.val = 59) ∨ (a.val = 13 ∧ b.val = 53) ∨ (a.val = 17 ∧ b.val = 49) ∨ (a.val = 19 ∧ b.val = 47) ∨ (a.val = 23 ∧ b.val = 43) ∨ (a.val = 25 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 37) ∨ (a.val = 31 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 66) ∨ (a.val = 2 ∧ b.val = 65) ∨ (a.val = 3 ∧ b.val = 64) ∨ (a.val = 4 ∧ b.val = 63) ∨ (a.val = 5 ∧ b.val = 62) ∨ (a.val = 6 ∧ b.val = 61) ∨ (a.val = 7 ∧ b.val = 60) ∨ (a.val = 8 ∧ b.val = 59) ∨ (a.val = 9 ∧ b.val = 58) ∨ (a.val = 10 ∧ b.val = 57) ∨ (a.val = 11 ∧ b.val = 56) ∨ (a.val = 12 ∧ b.val = 55) ∨ (a.val = 13 ∧ b.val = 54) ∨ (a.val = 14 ∧ b.val = 53) ∨ (a.val = 15 ∧ b.val = 52) ∨ (a.val = 16 ∧ b.val = 51) ∨ (a.val = 17 ∧ b.val = 50) ∨ (a.val = 18 ∧ b.val = 49) ∨ (a.val = 19 ∧ b.val = 48) ∨ (a.val = 20 ∧ b.val = 47) ∨ (a.val = 21 ∧ b.val = 46) ∨ (a.val = 22 ∧ b.val = 45) ∨ (a.val = 23 ∧ b.val = 44) ∨ (a.val = 24 ∧ b.val = 43) ∨ (a.val = 25 ∧ b.val = 42) ∨ (a.val = 26 ∧ b.val = 41) ∨ (a.val = 27 ∧ b.val = 40) ∨ (a.val = 28 ∧ b.val = 39) ∨ (a.val = 29 ∧ b.val = 38) ∨ (a.val = 30 ∧ b.val = 37) ∨ (a.val = 31 ∧ b.val = 36) ∨ (a.val = 32 ∧ b.val = 35) ∨ (a.val = 33 ∧ b.val = 34) ∨ (a.val = 1 ∧ b.val = 67) ∨ (a.val = 3 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 63) ∨ (a.val = 7 ∧ b.val = 61) ∨ (a.val = 9 ∧ b.val = 59) ∨ (a.val = 11 ∧ b.val = 57) ∨ (a.val = 13 ∧ b.val = 55) ∨ (a.val = 15 ∧ b.val = 53) ∨ (a.val = 19 ∧ b.val = 49) ∨ (a.val = 21 ∧ b.val = 47) ∨ (a.val = 23 ∧ b.val = 45) ∨ (a.val = 25 ∧ b.val = 43) ∨ (a.val = 27 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 39) ∨ (a.val = 31 ∧ b.val = 37) ∨ (a.val = 33 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 68) ∨ (a.val = 2 ∧ b.val = 67) ∨ (a.val = 4 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 64) ∨ (a.val = 7 ∧ b.val = 62) ∨ (a.val = 8 ∧ b.val = 61) ∨ (a.val = 10 ∧ b.val = 59) ∨ (a.val = 11 ∧ b.val = 58) ∨ (a.val = 13 ∧ b.val = 56) ∨ (a.val = 14 ∧ b.val = 55) ∨ (a.val = 16 ∧ b.val = 53) ∨ (a.val = 17 ∧ b.val = 52) ∨ (a.val = 19 ∧ b.val = 50) ∨ (a.val = 20 ∧ b.val = 49) ∨ (a.val = 22 ∧ b.val = 47) ∨ (a.val = 25 ∧ b.val = 44) ∨ (a.val = 26 ∧ b.val = 43) ∨ (a.val = 28 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 40) ∨ (a.val = 31 ∧ b.val = 38) ∨ (a.val = 32 ∧ b.val = 37) ∨ (a.val = 34 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 69) ∨ (a.val = 3 ∧ b.val = 67) ∨ (a.val = 9 ∧ b.val = 61) ∨ (a.val = 11 ∧ b.val = 59) ∨ (a.val = 13 ∧ b.val = 57) ∨ (a.val = 17 ∧ b.val = 53) ∨ (a.val = 19 ∧ b.val = 51) ∨ (a.val = 23 ∧ b.val = 47) ∨ (a.val = 27 ∧ b.val = 43) ∨ (a.val = 29 ∧ b.val = 41) ∨ (a.val = 31 ∧ b.val = 39) ∨ (a.val = 33 ∧ b.val = 37) := by decide
+      (a.val = 1 ∧ b.val = 1) ∨ (a.val = 1 ∧ b.val = 2) ∨ (a.val = 1 ∧ b.val = 3) ∨ (a.val = 1 ∧ b.val = 4) ∨ (a.val = 2 ∧ b.val = 3) ∨ (a.val = 1 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 6) ∨ (a.val = 2 ∧ b.val = 5) ∨ (a.val = 3 ∧ b.val = 4) ∨ (a.val = 1 ∧ b.val = 7) ∨ (a.val = 3 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 8) ∨ (a.val = 2 ∧ b.val = 7) ∨ (a.val = 4 ∧ b.val = 5) ∨ (a.val = 1 ∧ b.val = 9) ∨ (a.val = 3 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 10) ∨ (a.val = 2 ∧ b.val = 9) ∨ (a.val = 3 ∧ b.val = 8) ∨ (a.val = 4 ∧ b.val = 7) ∨ (a.val = 5 ∧ b.val = 6) ∨ (a.val = 1 ∧ b.val = 11) ∨ (a.val = 5 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 12) ∨ (a.val = 2 ∧ b.val = 11) ∨ (a.val = 3 ∧ b.val = 10) ∨ (a.val = 4 ∧ b.val = 9) ∨ (a.val = 5 ∧ b.val = 8) ∨ (a.val = 6 ∧ b.val = 7) ∨ (a.val = 1 ∧ b.val = 13) ∨ (a.val = 3 ∧ b.val = 11) ∨ (a.val = 5 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 14) ∨ (a.val = 2 ∧ b.val = 13) ∨ (a.val = 4 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 8) ∨ (a.val = 1 ∧ b.val = 15) ∨ (a.val = 3 ∧ b.val = 13) ∨ (a.val = 5 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 16) ∨ (a.val = 2 ∧ b.val = 15) ∨ (a.val = 3 ∧ b.val = 14) ∨ (a.val = 4 ∧ b.val = 13) ∨ (a.val = 5 ∧ b.val = 12) ∨ (a.val = 6 ∧ b.val = 11) ∨ (a.val = 7 ∧ b.val = 10) ∨ (a.val = 8 ∧ b.val = 9) ∨ (a.val = 1 ∧ b.val = 17) ∨ (a.val = 5 ∧ b.val = 13) ∨ (a.val = 7 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 18) ∨ (a.val = 2 ∧ b.val = 17) ∨ (a.val = 3 ∧ b.val = 16) ∨ (a.val = 4 ∧ b.val = 15) ∨ (a.val = 5 ∧ b.val = 14) ∨ (a.val = 6 ∧ b.val = 13) ∨ (a.val = 7 ∧ b.val = 12) ∨ (a.val = 8 ∧ b.val = 11) ∨ (a.val = 9 ∧ b.val = 10) ∨ (a.val = 1 ∧ b.val = 19) ∨ (a.val = 3 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 13) ∨ (a.val = 9 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 20) ∨ (a.val = 2 ∧ b.val = 19) ∨ (a.val = 4 ∧ b.val = 17) ∨ (a.val = 5 ∧ b.val = 16) ∨ (a.val = 8 ∧ b.val = 13) ∨ (a.val = 10 ∧ b.val = 11) ∨ (a.val = 1 ∧ b.val = 21) ∨ (a.val = 3 ∧ b.val = 19) ∨ (a.val = 5 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 15) ∨ (a.val = 9 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 22) ∨ (a.val = 2 ∧ b.val = 21) ∨ (a.val = 3 ∧ b.val = 20) ∨ (a.val = 4 ∧ b.val = 19) ∨ (a.val = 5 ∧ b.val = 18) ∨ (a.val = 6 ∧ b.val = 17) ∨ (a.val = 7 ∧ b.val = 16) ∨ (a.val = 8 ∧ b.val = 15) ∨ (a.val = 9 ∧ b.val = 14) ∨ (a.val = 10 ∧ b.val = 13) ∨ (a.val = 11 ∧ b.val = 12) ∨ (a.val = 1 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 19) ∨ (a.val = 7 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 24) ∨ (a.val = 2 ∧ b.val = 23) ∨ (a.val = 3 ∧ b.val = 22) ∨ (a.val = 4 ∧ b.val = 21) ∨ (a.val = 6 ∧ b.val = 19) ∨ (a.val = 7 ∧ b.val = 18) ∨ (a.val = 8 ∧ b.val = 17) ∨ (a.val = 9 ∧ b.val = 16) ∨ (a.val = 11 ∧ b.val = 14) ∨ (a.val = 12 ∧ b.val = 13) ∨ (a.val = 1 ∧ b.val = 25) ∨ (a.val = 3 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 21) ∨ (a.val = 7 ∧ b.val = 19) ∨ (a.val = 9 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 26) ∨ (a.val = 2 ∧ b.val = 25) ∨ (a.val = 4 ∧ b.val = 23) ∨ (a.val = 5 ∧ b.val = 22) ∨ (a.val = 7 ∧ b.val = 20) ∨ (a.val = 8 ∧ b.val = 19) ∨ (a.val = 10 ∧ b.val = 17) ∨ (a.val = 11 ∧ b.val = 16) ∨ (a.val = 13 ∧ b.val = 14) ∨ (a.val = 1 ∧ b.val = 27) ∨ (a.val = 3 ∧ b.val = 25) ∨ (a.val = 5 ∧ b.val = 23) ∨ (a.val = 9 ∧ b.val = 19) ∨ (a.val = 11 ∧ b.val = 17) ∨ (a.val = 13 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 28) ∨ (a.val = 2 ∧ b.val = 27) ∨ (a.val = 3 ∧ b.val = 26) ∨ (a.val = 4 ∧ b.val = 25) ∨ (a.val = 5 ∧ b.val = 24) ∨ (a.val = 6 ∧ b.val = 23) ∨ (a.val = 7 ∧ b.val = 22) ∨ (a.val = 8 ∧ b.val = 21) ∨ (a.val = 9 ∧ b.val = 20) ∨ (a.val = 10 ∧ b.val = 19) ∨ (a.val = 11 ∧ b.val = 18) ∨ (a.val = 12 ∧ b.val = 17) ∨ (a.val = 13 ∧ b.val = 16) ∨ (a.val = 14 ∧ b.val = 15) ∨ (a.val = 1 ∧ b.val = 29) ∨ (a.val = 7 ∧ b.val = 23) ∨ (a.val = 11 ∧ b.val = 19) ∨ (a.val = 13 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 30) ∨ (a.val = 2 ∧ b.val = 29) ∨ (a.val = 3 ∧ b.val = 28) ∨ (a.val = 4 ∧ b.val = 27) ∨ (a.val = 5 ∧ b.val = 26) ∨ (a.val = 6 ∧ b.val = 25) ∨ (a.val = 7 ∧ b.val = 24) ∨ (a.val = 8 ∧ b.val = 23) ∨ (a.val = 9 ∧ b.val = 22) ∨ (a.val = 10 ∧ b.val = 21) ∨ (a.val = 11 ∧ b.val = 20) ∨ (a.val = 12 ∧ b.val = 19) ∨ (a.val = 13 ∧ b.val = 18) ∨ (a.val = 14 ∧ b.val = 17) ∨ (a.val = 15 ∧ b.val = 16) ∨ (a.val = 1 ∧ b.val = 31) ∨ (a.val = 3 ∧ b.val = 29) ∨ (a.val = 5 ∧ b.val = 27) ∨ (a.val = 7 ∧ b.val = 25) ∨ (a.val = 9 ∧ b.val = 23) ∨ (a.val = 11 ∧ b.val = 21) ∨ (a.val = 13 ∧ b.val = 19) ∨ (a.val = 15 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 32) ∨ (a.val = 2 ∧ b.val = 31) ∨ (a.val = 4 ∧ b.val = 29) ∨ (a.val = 5 ∧ b.val = 28) ∨ (a.val = 7 ∧ b.val = 26) ∨ (a.val = 8 ∧ b.val = 25) ∨ (a.val = 10 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 20) ∨ (a.val = 14 ∧ b.val = 19) ∨ (a.val = 16 ∧ b.val = 17) ∨ (a.val = 1 ∧ b.val = 33) ∨ (a.val = 3 ∧ b.val = 31) ∨ (a.val = 5 ∧ b.val = 29) ∨ (a.val = 7 ∧ b.val = 27) ∨ (a.val = 9 ∧ b.val = 25) ∨ (a.val = 11 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 21) ∨ (a.val = 15 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 34) ∨ (a.val = 2 ∧ b.val = 33) ∨ (a.val = 3 ∧ b.val = 32) ∨ (a.val = 4 ∧ b.val = 31) ∨ (a.val = 6 ∧ b.val = 29) ∨ (a.val = 8 ∧ b.val = 27) ∨ (a.val = 9 ∧ b.val = 26) ∨ (a.val = 11 ∧ b.val = 24) ∨ (a.val = 12 ∧ b.val = 23) ∨ (a.val = 13 ∧ b.val = 22) ∨ (a.val = 16 ∧ b.val = 19) ∨ (a.val = 17 ∧ b.val = 18) ∨ (a.val = 1 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 31) ∨ (a.val = 7 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 25) ∨ (a.val = 13 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 36) ∨ (a.val = 2 ∧ b.val = 35) ∨ (a.val = 3 ∧ b.val = 34) ∨ (a.val = 4 ∧ b.val = 33) ∨ (a.val = 5 ∧ b.val = 32) ∨ (a.val = 6 ∧ b.val = 31) ∨ (a.val = 7 ∧ b.val = 30) ∨ (a.val = 8 ∧ b.val = 29) ∨ (a.val = 9 ∧ b.val = 28) ∨ (a.val = 10 ∧ b.val = 27) ∨ (a.val = 11 ∧ b.val = 26) ∨ (a.val = 12 ∧ b.val = 25) ∨ (a.val = 13 ∧ b.val = 24) ∨ (a.val = 14 ∧ b.val = 23) ∨ (a.val = 15 ∧ b.val = 22) ∨ (a.val = 16 ∧ b.val = 21) ∨ (a.val = 17 ∧ b.val = 20) ∨ (a.val = 18 ∧ b.val = 19) ∨ (a.val = 1 ∧ b.val = 37) ∨ (a.val = 3 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 33) ∨ (a.val = 7 ∧ b.val = 31) ∨ (a.val = 9 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 27) ∨ (a.val = 13 ∧ b.val = 25) ∨ (a.val = 15 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 38) ∨ (a.val = 2 ∧ b.val = 37) ∨ (a.val = 4 ∧ b.val = 35) ∨ (a.val = 5 ∧ b.val = 34) ∨ (a.val = 7 ∧ b.val = 32) ∨ (a.val = 8 ∧ b.val = 31) ∨ (a.val = 10 ∧ b.val = 29) ∨ (a.val = 11 ∧ b.val = 28) ∨ (a.val = 14 ∧ b.val = 25) ∨ (a.val = 16 ∧ b.val = 23) ∨ (a.val = 17 ∧ b.val = 22) ∨ (a.val = 19 ∧ b.val = 20) ∨ (a.val = 1 ∧ b.val = 39) ∨ (a.val = 3 ∧ b.val = 37) ∨ (a.val = 7 ∧ b.val = 33) ∨ (a.val = 9 ∧ b.val = 31) ∨ (a.val = 11 ∧ b.val = 29) ∨ (a.val = 13 ∧ b.val = 27) ∨ (a.val = 17 ∧ b.val = 23) ∨ (a.val = 19 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 40) ∨ (a.val = 2 ∧ b.val = 39) ∨ (a.val = 3 ∧ b.val = 38) ∨ (a.val = 4 ∧ b.val = 37) ∨ (a.val = 5 ∧ b.val = 36) ∨ (a.val = 6 ∧ b.val = 35) ∨ (a.val = 7 ∧ b.val = 34) ∨ (a.val = 8 ∧ b.val = 33) ∨ (a.val = 9 ∧ b.val = 32) ∨ (a.val = 10 ∧ b.val = 31) ∨ (a.val = 11 ∧ b.val = 30) ∨ (a.val = 12 ∧ b.val = 29) ∨ (a.val = 13 ∧ b.val = 28) ∨ (a.val = 14 ∧ b.val = 27) ∨ (a.val = 15 ∧ b.val = 26) ∨ (a.val = 16 ∧ b.val = 25) ∨ (a.val = 17 ∧ b.val = 24) ∨ (a.val = 18 ∧ b.val = 23) ∨ (a.val = 19 ∧ b.val = 22) ∨ (a.val = 20 ∧ b.val = 21) ∨ (a.val = 1 ∧ b.val = 41) ∨ (a.val = 5 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 31) ∨ (a.val = 13 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 25) ∨ (a.val = 19 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 42) ∨ (a.val = 2 ∧ b.val = 41) ∨ (a.val = 3 ∧ b.val = 40) ∨ (a.val = 4 ∧ b.val = 39) ∨ (a.val = 5 ∧ b.val = 38) ∨ (a.val = 6 ∧ b.val = 37) ∨ (a.val = 7 ∧ b.val = 36) ∨ (a.val = 8 ∧ b.val = 35) ∨ (a.val = 9 ∧ b.val = 34) ∨ (a.val = 10 ∧ b.val = 33) ∨ (a.val = 11 ∧ b.val = 32) ∨ (a.val = 12 ∧ b.val = 31) ∨ (a.val = 13 ∧ b.val = 30) ∨ (a.val = 14 ∧ b.val = 29) ∨ (a.val = 15 ∧ b.val = 28) ∨ (a.val = 16 ∧ b.val = 27) ∨ (a.val = 17 ∧ b.val = 26) ∨ (a.val = 18 ∧ b.val = 25) ∨ (a.val = 19 ∧ b.val = 24) ∨ (a.val = 20 ∧ b.val = 23) ∨ (a.val = 21 ∧ b.val = 22) ∨ (a.val = 1 ∧ b.val = 43) ∨ (a.val = 3 ∧ b.val = 41) ∨ (a.val = 5 ∧ b.val = 39) ∨ (a.val = 7 ∧ b.val = 37) ∨ (a.val = 9 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 31) ∨ (a.val = 15 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 27) ∨ (a.val = 19 ∧ b.val = 25) ∨ (a.val = 21 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 44) ∨ (a.val = 2 ∧ b.val = 43) ∨ (a.val = 4 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 38) ∨ (a.val = 8 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 34) ∨ (a.val = 13 ∧ b.val = 32) ∨ (a.val = 14 ∧ b.val = 31) ∨ (a.val = 16 ∧ b.val = 29) ∨ (a.val = 17 ∧ b.val = 28) ∨ (a.val = 19 ∧ b.val = 26) ∨ (a.val = 22 ∧ b.val = 23) ∨ (a.val = 1 ∧ b.val = 45) ∨ (a.val = 3 ∧ b.val = 43) ∨ (a.val = 5 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 39) ∨ (a.val = 9 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 33) ∨ (a.val = 15 ∧ b.val = 31) ∨ (a.val = 17 ∧ b.val = 29) ∨ (a.val = 19 ∧ b.val = 27) ∨ (a.val = 21 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 46) ∨ (a.val = 2 ∧ b.val = 45) ∨ (a.val = 3 ∧ b.val = 44) ∨ (a.val = 4 ∧ b.val = 43) ∨ (a.val = 5 ∧ b.val = 42) ∨ (a.val = 6 ∧ b.val = 41) ∨ (a.val = 7 ∧ b.val = 40) ∨ (a.val = 8 ∧ b.val = 39) ∨ (a.val = 9 ∧ b.val = 38) ∨ (a.val = 10 ∧ b.val = 37) ∨ (a.val = 11 ∧ b.val = 36) ∨ (a.val = 12 ∧ b.val = 35) ∨ (a.val = 13 ∧ b.val = 34) ∨ (a.val = 14 ∧ b.val = 33) ∨ (a.val = 15 ∧ b.val = 32) ∨ (a.val = 16 ∧ b.val = 31) ∨ (a.val = 17 ∧ b.val = 30) ∨ (a.val = 18 ∧ b.val = 29) ∨ (a.val = 19 ∧ b.val = 28) ∨ (a.val = 20 ∧ b.val = 27) ∨ (a.val = 21 ∧ b.val = 26) ∨ (a.val = 22 ∧ b.val = 25) ∨ (a.val = 23 ∧ b.val = 24) ∨ (a.val = 1 ∧ b.val = 47) ∨ (a.val = 5 ∧ b.val = 43) ∨ (a.val = 7 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 37) ∨ (a.val = 13 ∧ b.val = 35) ∨ (a.val = 17 ∧ b.val = 31) ∨ (a.val = 19 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 48) ∨ (a.val = 2 ∧ b.val = 47) ∨ (a.val = 3 ∧ b.val = 46) ∨ (a.val = 4 ∧ b.val = 45) ∨ (a.val = 5 ∧ b.val = 44) ∨ (a.val = 6 ∧ b.val = 43) ∨ (a.val = 8 ∧ b.val = 41) ∨ (a.val = 9 ∧ b.val = 40) ∨ (a.val = 10 ∧ b.val = 39) ∨ (a.val = 11 ∧ b.val = 38) ∨ (a.val = 12 ∧ b.val = 37) ∨ (a.val = 13 ∧ b.val = 36) ∨ (a.val = 15 ∧ b.val = 34) ∨ (a.val = 16 ∧ b.val = 33) ∨ (a.val = 17 ∧ b.val = 32) ∨ (a.val = 18 ∧ b.val = 31) ∨ (a.val = 19 ∧ b.val = 30) ∨ (a.val = 20 ∧ b.val = 29) ∨ (a.val = 22 ∧ b.val = 27) ∨ (a.val = 23 ∧ b.val = 26) ∨ (a.val = 24 ∧ b.val = 25) ∨ (a.val = 1 ∧ b.val = 49) ∨ (a.val = 3 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 43) ∨ (a.val = 9 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 39) ∨ (a.val = 13 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 33) ∨ (a.val = 19 ∧ b.val = 31) ∨ (a.val = 21 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 50) ∨ (a.val = 2 ∧ b.val = 49) ∨ (a.val = 4 ∧ b.val = 47) ∨ (a.val = 5 ∧ b.val = 46) ∨ (a.val = 7 ∧ b.val = 44) ∨ (a.val = 8 ∧ b.val = 43) ∨ (a.val = 10 ∧ b.val = 41) ∨ (a.val = 11 ∧ b.val = 40) ∨ (a.val = 13 ∧ b.val = 38) ∨ (a.val = 14 ∧ b.val = 37) ∨ (a.val = 16 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 32) ∨ (a.val = 20 ∧ b.val = 31) ∨ (a.val = 22 ∧ b.val = 29) ∨ (a.val = 23 ∧ b.val = 28) ∨ (a.val = 25 ∧ b.val = 26) ∨ (a.val = 1 ∧ b.val = 51) ∨ (a.val = 3 ∧ b.val = 49) ∨ (a.val = 5 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 45) ∨ (a.val = 9 ∧ b.val = 43) ∨ (a.val = 11 ∧ b.val = 41) ∨ (a.val = 15 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 33) ∨ (a.val = 21 ∧ b.val = 31) ∨ (a.val = 23 ∧ b.val = 29) ∨ (a.val = 25 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 52) ∨ (a.val = 2 ∧ b.val = 51) ∨ (a.val = 3 ∧ b.val = 50) ∨ (a.val = 4 ∧ b.val = 49) ∨ (a.val = 5 ∧ b.val = 48) ∨ (a.val = 6 ∧ b.val = 47) ∨ (a.val = 7 ∧ b.val = 46) ∨ (a.val = 8 ∧ b.val = 45) ∨ (a.val = 9 ∧ b.val = 44) ∨ (a.val = 10 ∧ b.val = 43) ∨ (a.val = 11 ∧ b.val = 42) ∨ (a.val = 12 ∧ b.val = 41) ∨ (a.val = 13 ∧ b.val = 40) ∨ (a.val = 14 ∧ b.val = 39) ∨ (a.val = 15 ∧ b.val = 38) ∨ (a.val = 16 ∧ b.val = 37) ∨ (a.val = 17 ∧ b.val = 36) ∨ (a.val = 18 ∧ b.val = 35) ∨ (a.val = 19 ∧ b.val = 34) ∨ (a.val = 20 ∧ b.val = 33) ∨ (a.val = 21 ∧ b.val = 32) ∨ (a.val = 22 ∧ b.val = 31) ∨ (a.val = 23 ∧ b.val = 30) ∨ (a.val = 24 ∧ b.val = 29) ∨ (a.val = 25 ∧ b.val = 28) ∨ (a.val = 26 ∧ b.val = 27) ∨ (a.val = 1 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 49) ∨ (a.val = 7 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 43) ∨ (a.val = 13 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 37) ∨ (a.val = 19 ∧ b.val = 35) ∨ (a.val = 23 ∧ b.val = 31) ∨ (a.val = 25 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 54) ∨ (a.val = 2 ∧ b.val = 53) ∨ (a.val = 3 ∧ b.val = 52) ∨ (a.val = 4 ∧ b.val = 51) ∨ (a.val = 6 ∧ b.val = 49) ∨ (a.val = 7 ∧ b.val = 48) ∨ (a.val = 8 ∧ b.val = 47) ∨ (a.val = 9 ∧ b.val = 46) ∨ (a.val = 12 ∧ b.val = 43) ∨ (a.val = 13 ∧ b.val = 42) ∨ (a.val = 14 ∧ b.val = 41) ∨ (a.val = 16 ∧ b.val = 39) ∨ (a.val = 17 ∧ b.val = 38) ∨ (a.val = 18 ∧ b.val = 37) ∨ (a.val = 19 ∧ b.val = 36) ∨ (a.val = 21 ∧ b.val = 34) ∨ (a.val = 23 ∧ b.val = 32) ∨ (a.val = 24 ∧ b.val = 31) ∨ (a.val = 26 ∧ b.val = 29) ∨ (a.val = 27 ∧ b.val = 28) ∨ (a.val = 1 ∧ b.val = 55) ∨ (a.val = 3 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 45) ∨ (a.val = 13 ∧ b.val = 43) ∨ (a.val = 15 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 39) ∨ (a.val = 19 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 33) ∨ (a.val = 25 ∧ b.val = 31) ∨ (a.val = 27 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 56) ∨ (a.val = 2 ∧ b.val = 55) ∨ (a.val = 4 ∧ b.val = 53) ∨ (a.val = 5 ∧ b.val = 52) ∨ (a.val = 7 ∧ b.val = 50) ∨ (a.val = 8 ∧ b.val = 49) ∨ (a.val = 10 ∧ b.val = 47) ∨ (a.val = 11 ∧ b.val = 46) ∨ (a.val = 13 ∧ b.val = 44) ∨ (a.val = 14 ∧ b.val = 43) ∨ (a.val = 16 ∧ b.val = 41) ∨ (a.val = 17 ∧ b.val = 40) ∨ (a.val = 20 ∧ b.val = 37) ∨ (a.val = 22 ∧ b.val = 35) ∨ (a.val = 23 ∧ b.val = 34) ∨ (a.val = 25 ∧ b.val = 32) ∨ (a.val = 26 ∧ b.val = 31) ∨ (a.val = 28 ∧ b.val = 29) ∨ (a.val = 1 ∧ b.val = 57) ∨ (a.val = 3 ∧ b.val = 55) ∨ (a.val = 5 ∧ b.val = 53) ∨ (a.val = 7 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 49) ∨ (a.val = 11 ∧ b.val = 47) ∨ (a.val = 13 ∧ b.val = 45) ∨ (a.val = 15 ∧ b.val = 43) ∨ (a.val = 17 ∧ b.val = 41) ∨ (a.val = 19 ∧ b.val = 39) ∨ (a.val = 21 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 35) ∨ (a.val = 25 ∧ b.val = 33) ∨ (a.val = 27 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 58) ∨ (a.val = 2 ∧ b.val = 57) ∨ (a.val = 3 ∧ b.val = 56) ∨ (a.val = 4 ∧ b.val = 55) ∨ (a.val = 5 ∧ b.val = 54) ∨ (a.val = 6 ∧ b.val = 53) ∨ (a.val = 7 ∧ b.val = 52) ∨ (a.val = 8 ∧ b.val = 51) ∨ (a.val = 9 ∧ b.val = 50) ∨ (a.val = 10 ∧ b.val = 49) ∨ (a.val = 11 ∧ b.val = 48) ∨ (a.val = 12 ∧ b.val = 47) ∨ (a.val = 13 ∧ b.val = 46) ∨ (a.val = 14 ∧ b.val = 45) ∨ (a.val = 15 ∧ b.val = 44) ∨ (a.val = 16 ∧ b.val = 43) ∨ (a.val = 17 ∧ b.val = 42) ∨ (a.val = 18 ∧ b.val = 41) ∨ (a.val = 19 ∧ b.val = 40) ∨ (a.val = 20 ∧ b.val = 39) ∨ (a.val = 21 ∧ b.val = 38) ∨ (a.val = 22 ∧ b.val = 37) ∨ (a.val = 23 ∧ b.val = 36) ∨ (a.val = 24 ∧ b.val = 35) ∨ (a.val = 25 ∧ b.val = 34) ∨ (a.val = 26 ∧ b.val = 33) ∨ (a.val = 27 ∧ b.val = 32) ∨ (a.val = 28 ∧ b.val = 31) ∨ (a.val = 29 ∧ b.val = 30) ∨ (a.val = 1 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 49) ∨ (a.val = 13 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 43) ∨ (a.val = 19 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 60) ∨ (a.val = 2 ∧ b.val = 59) ∨ (a.val = 3 ∧ b.val = 58) ∨ (a.val = 4 ∧ b.val = 57) ∨ (a.val = 5 ∧ b.val = 56) ∨ (a.val = 6 ∧ b.val = 55) ∨ (a.val = 7 ∧ b.val = 54) ∨ (a.val = 8 ∧ b.val = 53) ∨ (a.val = 9 ∧ b.val = 52) ∨ (a.val = 10 ∧ b.val = 51) ∨ (a.val = 11 ∧ b.val = 50) ∨ (a.val = 12 ∧ b.val = 49) ∨ (a.val = 13 ∧ b.val = 48) ∨ (a.val = 14 ∧ b.val = 47) ∨ (a.val = 15 ∧ b.val = 46) ∨ (a.val = 16 ∧ b.val = 45) ∨ (a.val = 17 ∧ b.val = 44) ∨ (a.val = 18 ∧ b.val = 43) ∨ (a.val = 19 ∧ b.val = 42) ∨ (a.val = 20 ∧ b.val = 41) ∨ (a.val = 21 ∧ b.val = 40) ∨ (a.val = 22 ∧ b.val = 39) ∨ (a.val = 23 ∧ b.val = 38) ∨ (a.val = 24 ∧ b.val = 37) ∨ (a.val = 25 ∧ b.val = 36) ∨ (a.val = 26 ∧ b.val = 35) ∨ (a.val = 27 ∧ b.val = 34) ∨ (a.val = 28 ∧ b.val = 33) ∨ (a.val = 29 ∧ b.val = 32) ∨ (a.val = 30 ∧ b.val = 31) ∨ (a.val = 1 ∧ b.val = 61) ∨ (a.val = 3 ∧ b.val = 59) ∨ (a.val = 5 ∧ b.val = 57) ∨ (a.val = 7 ∧ b.val = 55) ∨ (a.val = 9 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 51) ∨ (a.val = 13 ∧ b.val = 49) ∨ (a.val = 15 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 45) ∨ (a.val = 19 ∧ b.val = 43) ∨ (a.val = 21 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 39) ∨ (a.val = 25 ∧ b.val = 37) ∨ (a.val = 27 ∧ b.val = 35) ∨ (a.val = 29 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 62) ∨ (a.val = 2 ∧ b.val = 61) ∨ (a.val = 4 ∧ b.val = 59) ∨ (a.val = 5 ∧ b.val = 58) ∨ (a.val = 8 ∧ b.val = 55) ∨ (a.val = 10 ∧ b.val = 53) ∨ (a.val = 11 ∧ b.val = 52) ∨ (a.val = 13 ∧ b.val = 50) ∨ (a.val = 16 ∧ b.val = 47) ∨ (a.val = 17 ∧ b.val = 46) ∨ (a.val = 19 ∧ b.val = 44) ∨ (a.val = 20 ∧ b.val = 43) ∨ (a.val = 22 ∧ b.val = 41) ∨ (a.val = 23 ∧ b.val = 40) ∨ (a.val = 25 ∧ b.val = 38) ∨ (a.val = 26 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 34) ∨ (a.val = 31 ∧ b.val = 32) ∨ (a.val = 1 ∧ b.val = 63) ∨ (a.val = 3 ∧ b.val = 61) ∨ (a.val = 5 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 57) ∨ (a.val = 9 ∧ b.val = 55) ∨ (a.val = 11 ∧ b.val = 53) ∨ (a.val = 13 ∧ b.val = 51) ∨ (a.val = 15 ∧ b.val = 49) ∨ (a.val = 17 ∧ b.val = 47) ∨ (a.val = 19 ∧ b.val = 45) ∨ (a.val = 21 ∧ b.val = 43) ∨ (a.val = 23 ∧ b.val = 41) ∨ (a.val = 25 ∧ b.val = 39) ∨ (a.val = 27 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 35) ∨ (a.val = 31 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 64) ∨ (a.val = 2 ∧ b.val = 63) ∨ (a.val = 3 ∧ b.val = 62) ∨ (a.val = 4 ∧ b.val = 61) ∨ (a.val = 6 ∧ b.val = 59) ∨ (a.val = 7 ∧ b.val = 58) ∨ (a.val = 8 ∧ b.val = 57) ∨ (a.val = 9 ∧ b.val = 56) ∨ (a.val = 11 ∧ b.val = 54) ∨ (a.val = 12 ∧ b.val = 53) ∨ (a.val = 14 ∧ b.val = 51) ∨ (a.val = 16 ∧ b.val = 49) ∨ (a.val = 17 ∧ b.val = 48) ∨ (a.val = 18 ∧ b.val = 47) ∨ (a.val = 19 ∧ b.val = 46) ∨ (a.val = 21 ∧ b.val = 44) ∨ (a.val = 22 ∧ b.val = 43) ∨ (a.val = 23 ∧ b.val = 42) ∨ (a.val = 24 ∧ b.val = 41) ∨ (a.val = 27 ∧ b.val = 38) ∨ (a.val = 28 ∧ b.val = 37) ∨ (a.val = 29 ∧ b.val = 36) ∨ (a.val = 31 ∧ b.val = 34) ∨ (a.val = 32 ∧ b.val = 33) ∨ (a.val = 1 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 61) ∨ (a.val = 7 ∧ b.val = 59) ∨ (a.val = 13 ∧ b.val = 53) ∨ (a.val = 17 ∧ b.val = 49) ∨ (a.val = 19 ∧ b.val = 47) ∨ (a.val = 23 ∧ b.val = 43) ∨ (a.val = 25 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 37) ∨ (a.val = 31 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 66) ∨ (a.val = 2 ∧ b.val = 65) ∨ (a.val = 3 ∧ b.val = 64) ∨ (a.val = 4 ∧ b.val = 63) ∨ (a.val = 5 ∧ b.val = 62) ∨ (a.val = 6 ∧ b.val = 61) ∨ (a.val = 7 ∧ b.val = 60) ∨ (a.val = 8 ∧ b.val = 59) ∨ (a.val = 9 ∧ b.val = 58) ∨ (a.val = 10 ∧ b.val = 57) ∨ (a.val = 11 ∧ b.val = 56) ∨ (a.val = 12 ∧ b.val = 55) ∨ (a.val = 13 ∧ b.val = 54) ∨ (a.val = 14 ∧ b.val = 53) ∨ (a.val = 15 ∧ b.val = 52) ∨ (a.val = 16 ∧ b.val = 51) ∨ (a.val = 17 ∧ b.val = 50) ∨ (a.val = 18 ∧ b.val = 49) ∨ (a.val = 19 ∧ b.val = 48) ∨ (a.val = 20 ∧ b.val = 47) ∨ (a.val = 21 ∧ b.val = 46) ∨ (a.val = 22 ∧ b.val = 45) ∨ (a.val = 23 ∧ b.val = 44) ∨ (a.val = 24 ∧ b.val = 43) ∨ (a.val = 25 ∧ b.val = 42) ∨ (a.val = 26 ∧ b.val = 41) ∨ (a.val = 27 ∧ b.val = 40) ∨ (a.val = 28 ∧ b.val = 39) ∨ (a.val = 29 ∧ b.val = 38) ∨ (a.val = 30 ∧ b.val = 37) ∨ (a.val = 31 ∧ b.val = 36) ∨ (a.val = 32 ∧ b.val = 35) ∨ (a.val = 33 ∧ b.val = 34) ∨ (a.val = 1 ∧ b.val = 67) ∨ (a.val = 3 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 63) ∨ (a.val = 7 ∧ b.val = 61) ∨ (a.val = 9 ∧ b.val = 59) ∨ (a.val = 11 ∧ b.val = 57) ∨ (a.val = 13 ∧ b.val = 55) ∨ (a.val = 15 ∧ b.val = 53) ∨ (a.val = 19 ∧ b.val = 49) ∨ (a.val = 21 ∧ b.val = 47) ∨ (a.val = 23 ∧ b.val = 45) ∨ (a.val = 25 ∧ b.val = 43) ∨ (a.val = 27 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 39) ∨ (a.val = 31 ∧ b.val = 37) ∨ (a.val = 33 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 68) ∨ (a.val = 2 ∧ b.val = 67) ∨ (a.val = 4 ∧ b.val = 65) ∨ (a.val = 5 ∧ b.val = 64) ∨ (a.val = 7 ∧ b.val = 62) ∨ (a.val = 8 ∧ b.val = 61) ∨ (a.val = 10 ∧ b.val = 59) ∨ (a.val = 11 ∧ b.val = 58) ∨ (a.val = 13 ∧ b.val = 56) ∨ (a.val = 14 ∧ b.val = 55) ∨ (a.val = 16 ∧ b.val = 53) ∨ (a.val = 17 ∧ b.val = 52) ∨ (a.val = 19 ∧ b.val = 50) ∨ (a.val = 20 ∧ b.val = 49) ∨ (a.val = 22 ∧ b.val = 47) ∨ (a.val = 25 ∧ b.val = 44) ∨ (a.val = 26 ∧ b.val = 43) ∨ (a.val = 28 ∧ b.val = 41) ∨ (a.val = 29 ∧ b.val = 40) ∨ (a.val = 31 ∧ b.val = 38) ∨ (a.val = 32 ∧ b.val = 37) ∨ (a.val = 34 ∧ b.val = 35) ∨ (a.val = 1 ∧ b.val = 69) ∨ (a.val = 3 ∧ b.val = 67) ∨ (a.val = 9 ∧ b.val = 61) ∨ (a.val = 11 ∧ b.val = 59) ∨ (a.val = 13 ∧ b.val = 57) ∨ (a.val = 17 ∧ b.val = 53) ∨ (a.val = 19 ∧ b.val = 51) ∨ (a.val = 23 ∧ b.val = 47) ∨ (a.val = 27 ∧ b.val = 43) ∨ (a.val = 29 ∧ b.val = 41) ∨ (a.val = 31 ∧ b.val = 39) ∨ (a.val = 33 ∧ b.val = 37) := by native_decide
   have cases_all := cover ⟨a, h_a⟩ ⟨b, h_b⟩ ha hb hab hc hcop
   rcases cases_all with h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h | h
   · rcases h with ⟨h1, h2⟩
@@ -22939,7 +22939,7 @@ theorem certified_lower : ((113 / 500) : ℝ) ≤ windowMaximum (1 / 10) 68 := b
   have h := sample_1_8_interval.1
   norm_num [logCertificate_9, logCertificate_6] at h
   have hw : sample_1_8 ∈ arithmeticWindow 68 :=
-    (mem_arithmeticWindow 68 sample_1_8).mpr (by decide)
+    (mem_arithmeticWindow 68 sample_1_8).mpr (by native_decide)
   exact (by linarith : ((113 / 500) : ℝ) ≤ discrepancy (1 / 10) sample_1_8).trans
     (discrepancy_le_windowMaximum _ _ _ hw)
 
