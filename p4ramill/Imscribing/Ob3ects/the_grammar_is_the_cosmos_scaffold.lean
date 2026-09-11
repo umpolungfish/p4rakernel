@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -146,3 +147,54 @@ def the_grammar_is_the_cosmos_tier : OuroboricityTier := TierFunctor.obj the_gra
 theorem the_grammar_is_the_cosmos_frobenius :
     igFrobeniusAlg.mul the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 = the_grammar_is_the_cosmos_s0 :=
   igFrobAlg_self_fusion the_grammar_is_the_cosmos_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Grammar Is The Cosmos)
+--   Word: ⊢∈≻⋈⋈⊙⊡≻∈⊤⊥⊞∋⊙⊡⋈≻⊞⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_grammar_is_the_cosmos_opcodes : List String := ["VINIT", "FSPLIT", "AFWD", "CLINK", "CLINK", "IMSCRIB", "IFIX", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "IFIX", "CLINK", "AFWD", "ENGAGR", "IMSCRIB", "TANCH"]
+
+def the_grammar_is_the_cosmos_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_grammar_is_the_cosmos_opcodes
+
+def the_grammar_is_the_cosmos_glyph_word : String := glyphWordOf the_grammar_is_the_cosmos_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_grammar_is_the_cosmos_register_length : the_grammar_is_the_cosmos_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_grammar_is_the_cosmos_register_matches_word : the_grammar_is_the_cosmos_glyph_word = "⊢∈≻⋈⋈⊙⊡≻∈⊤⊥⊞∋⊙⊡⋈≻⊞⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_grammar_is_the_cosmos_conventional_protocol : IGProtocol the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- VINIT
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- FSPLIT
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- AFWD
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- CLINK
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- CLINK
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- IMSCRIB
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- IFIX
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- AFWD
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- FSPLIT
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- EVALT
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- EVALF
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- ENGAGR
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- FFUSE
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- IMSCRIB
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- IFIX
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- CLINK
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- AFWD
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- ENGAGR
+  (.seq (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0)  -- IMSCRIB
+  (.arrow the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0 the_grammar_is_the_cosmos_s0))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem the_grammar_is_the_cosmos_conventional_protocol_depth : the_grammar_is_the_cosmos_conventional_protocol.depth = 20 := by
+  native_decide
+

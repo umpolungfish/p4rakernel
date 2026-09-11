@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -251,3 +252,76 @@ noncomputable def er_epr_false_arm : IGProtocol er_epr_s0 er_epr_s41 :=
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def er_epr_tier : OuroboricityTier := TierFunctor.obj er_epr_s0
 #eval er_epr_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: ER=EPR)
+--   Word: ⊢⊣≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def er_epr_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "EVALF", "ENGAGR", "IFIX", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "EVALF", "ENGAGR", "IFIX", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "EVALF", "ENGAGR", "IFIX", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "EVALF", "ENGAGR", "IFIX"]
+
+def er_epr_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf er_epr_opcodes
+
+def er_epr_glyph_word : String := glyphWordOf er_epr_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem er_epr_register_length : er_epr_conventional_register.length = 42 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem er_epr_register_matches_word : er_epr_glyph_word = "⊢⊣≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡≻≺⋈⊙∈⊤∋⊥⊞⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def er_epr_conventional_protocol : IGProtocol er_epr_s0 er_epr_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- VINIT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- TANCH
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AFWD
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AREV
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- CLINK
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IMSCRIB
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FSPLIT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FFUSE
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALF
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- ENGAGR
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IFIX
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AFWD
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AREV
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- CLINK
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IMSCRIB
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FSPLIT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FFUSE
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALF
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- ENGAGR
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IFIX
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AFWD
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AREV
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- CLINK
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IMSCRIB
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FSPLIT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FFUSE
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALF
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- ENGAGR
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IFIX
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AFWD
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- AREV
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- CLINK
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- IMSCRIB
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FSPLIT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALT
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- FFUSE
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- EVALF
+  (.seq (.arrow er_epr_s0 er_epr_s0 er_epr_s0)  -- ENGAGR
+  (.arrow er_epr_s0 er_epr_s0 er_epr_s0))))))))))))))))))))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 42 arrows. -/
+theorem er_epr_conventional_protocol_depth : er_epr_conventional_protocol.depth = 42 := by
+  native_decide
+

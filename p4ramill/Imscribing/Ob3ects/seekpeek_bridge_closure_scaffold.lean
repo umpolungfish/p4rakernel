@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -85,3 +86,38 @@ theorem seekpeek_bridge_closure_not_dagger :
   simp [seekpeek_bridge_closure_protocol, IGProtocol.isDagger,
         seekpeek_bridge_closure_l0, seekpeek_bridge_closure_l1,
         seekpeek_bridge_closure_l2]
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: seekpeek_bridge_closure)
+--   Word: ⊙∈∋⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def seekpeek_bridge_closure_opcodes : List String := ["IMSCRIB", "FSPLIT", "FFUSE", "IMSCRIB"]
+
+def seekpeek_bridge_closure_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf seekpeek_bridge_closure_opcodes
+
+def seekpeek_bridge_closure_glyph_word : String := glyphWordOf seekpeek_bridge_closure_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem seekpeek_bridge_closure_register_length : seekpeek_bridge_closure_conventional_register.length = 4 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem seekpeek_bridge_closure_register_matches_word : seekpeek_bridge_closure_glyph_word = "⊙∈∋⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def seekpeek_bridge_closure_conventional_protocol : IGProtocol seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0)  -- IMSCRIB
+  (.seq (.arrow seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0)  -- FSPLIT
+  (.seq (.arrow seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0)  -- FFUSE
+  (.arrow seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0 seekpeek_bridge_closure_s0))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 4 arrows. -/
+theorem seekpeek_bridge_closure_conventional_protocol_depth : seekpeek_bridge_closure_conventional_protocol.depth = 4 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,53 @@ def brocards_theorem_tier : OuroboricityTier := TierFunctor.obj brocards_theorem
 theorem brocards_theorem_frobenius :
     igFrobeniusAlg.mul brocards_theorem_s0 brocards_theorem_s0 = brocards_theorem_s0 :=
   igFrobAlg_self_fusion brocards_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Brocard's Theorem)
+--   Word: ⊢⊣≻≻≻⋈⊙∈⊤≺≺≺⊥∋⊞⊙⊡⋈⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def brocards_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AFWD", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AREV", "AREV", "AREV", "EVALF", "FFUSE", "ENGAGR", "IMSCRIB", "IFIX", "CLINK", "IMSCRIB"]
+
+def brocards_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf brocards_theorem_opcodes
+
+def brocards_theorem_glyph_word : String := glyphWordOf brocards_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem brocards_theorem_register_length : brocards_theorem_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem brocards_theorem_register_matches_word : brocards_theorem_glyph_word = "⊢⊣≻≻≻⋈⊙∈⊤≺≺≺⊥∋⊞⊙⊡⋈⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def brocards_theorem_conventional_protocol : IGProtocol brocards_theorem_s0 brocards_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- VINIT
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- TANCH
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AFWD
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AFWD
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AFWD
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- CLINK
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- FSPLIT
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- EVALT
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AREV
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AREV
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- AREV
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- EVALF
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- FFUSE
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- ENGAGR
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- IFIX
+  (.seq (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)  -- CLINK
+  (.arrow brocards_theorem_s0 brocards_theorem_s0 brocards_theorem_s0)))))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem brocards_theorem_conventional_protocol_depth : brocards_theorem_conventional_protocol.depth = 19 := by
+  native_decide
+

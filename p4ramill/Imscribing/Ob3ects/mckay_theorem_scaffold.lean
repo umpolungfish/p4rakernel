@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def mckay_theorem_tier : OuroboricityTier := TierFunctor.obj mckay_theorem_s0
 theorem mckay_theorem_frobenius :
     igFrobeniusAlg.mul mckay_theorem_s0 mckay_theorem_s0 = mckay_theorem_s0 :=
   igFrobAlg_self_fusion mckay_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: McKay Theorem)
+--   Word: ⊢⊣⊙∈≻⊤⋈≺⊥⋈∋⊡⊞⊙⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def mckay_theorem_opcodes : List String := ["VINIT", "TANCH", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "CLINK", "AREV", "EVALF", "CLINK", "FFUSE", "IFIX", "ENGAGR", "IMSCRIB", "CLINK", "TANCH"]
+
+def mckay_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf mckay_theorem_opcodes
+
+def mckay_theorem_glyph_word : String := glyphWordOf mckay_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem mckay_theorem_register_length : mckay_theorem_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem mckay_theorem_register_matches_word : mckay_theorem_glyph_word = "⊢⊣⊙∈≻⊤⋈≺⊥⋈∋⊡⊞⊙⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def mckay_theorem_conventional_protocol : IGProtocol mckay_theorem_s0 mckay_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- VINIT
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- TANCH
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- FSPLIT
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- AFWD
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- EVALT
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- CLINK
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- AREV
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- EVALF
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- CLINK
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- FFUSE
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- IFIX
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- ENGAGR
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0)  -- CLINK
+  (.arrow mckay_theorem_s0 mckay_theorem_s0 mckay_theorem_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem mckay_theorem_conventional_protocol_depth : mckay_theorem_conventional_protocol.depth = 16 := by
+  native_decide
+

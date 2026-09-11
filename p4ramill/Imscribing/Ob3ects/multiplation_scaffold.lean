@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def multiplation_tier : OuroboricityTier := TierFunctor.obj multiplation_s0
 theorem multiplation_frobenius :
     igFrobeniusAlg.mul multiplation_s0 multiplation_s0 = multiplation_s0 :=
   igFrobAlg_self_fusion multiplation_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: multiplation)
+--   Word: ⊢⊙∈⊤≻⋈⊥≺⊞∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def multiplation_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+
+def multiplation_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf multiplation_opcodes
+
+def multiplation_glyph_word : String := glyphWordOf multiplation_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem multiplation_register_length : multiplation_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem multiplation_register_matches_word : multiplation_glyph_word = "⊢⊙∈⊤≻⋈⊥≺⊞∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def multiplation_conventional_protocol : IGProtocol multiplation_s0 multiplation_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- VINIT
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- IMSCRIB
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- FSPLIT
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- EVALT
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- AFWD
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- CLINK
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- EVALF
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- AREV
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- ENGAGR
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- FFUSE
+  (.seq (.arrow multiplation_s0 multiplation_s0 multiplation_s0)  -- IFIX
+  (.arrow multiplation_s0 multiplation_s0 multiplation_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem multiplation_conventional_protocol_depth : multiplation_conventional_protocol.depth = 12 := by
+  native_decide
+

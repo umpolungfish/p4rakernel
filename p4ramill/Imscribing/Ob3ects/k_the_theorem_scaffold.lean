@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def k_the_theorem_tier : OuroboricityTier := TierFunctor.obj k_the_theorem_s0
 theorem k_the_theorem_frobenius :
     igFrobeniusAlg.mul k_the_theorem_s0 k_the_theorem_s0 = k_the_theorem_s0 :=
   igFrobAlg_self_fusion k_the_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Köthe Theorem)
+--   Word: ⊢⊣≻∈⊤⋈⊙⊥≺⋈⊞∋⊡⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def k_the_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "EVALT", "CLINK", "IMSCRIB", "EVALF", "AREV", "CLINK", "ENGAGR", "FFUSE", "IFIX", "IMSCRIB", "TANCH"]
+
+def k_the_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf k_the_theorem_opcodes
+
+def k_the_theorem_glyph_word : String := glyphWordOf k_the_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem k_the_theorem_register_length : k_the_theorem_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem k_the_theorem_register_matches_word : k_the_theorem_glyph_word = "⊢⊣≻∈⊤⋈⊙⊥≺⋈⊞∋⊡⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def k_the_theorem_conventional_protocol : IGProtocol k_the_theorem_s0 k_the_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- VINIT
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- TANCH
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- AFWD
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- FSPLIT
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- EVALT
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- CLINK
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- EVALF
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- AREV
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- CLINK
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- ENGAGR
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- FFUSE
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- IFIX
+  (.seq (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)  -- IMSCRIB
+  (.arrow k_the_theorem_s0 k_the_theorem_s0 k_the_theorem_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem k_the_theorem_conventional_protocol_depth : k_the_theorem_conventional_protocol.depth = 15 := by
+  native_decide
+

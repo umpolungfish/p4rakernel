@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,53 @@ def fermat_number_compositeness_theorem_tier : OuroboricityTier := TierFunctor.o
 theorem fermat_number_compositeness_theorem_frobenius :
     igFrobeniusAlg.mul fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 = fermat_number_compositeness_theorem_s0 :=
   igFrobAlg_self_fusion fermat_number_compositeness_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Fermat Number Compositeness Theorem)
+--   Word: ⊢⊣⊙≻⋈⋈⋈∈⊤⊡∋≺⊥⊡∋⊞⊙⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def fermat_number_compositeness_theorem_opcodes : List String := ["VINIT", "TANCH", "IMSCRIB", "AFWD", "CLINK", "CLINK", "CLINK", "FSPLIT", "EVALT", "IFIX", "FFUSE", "AREV", "EVALF", "IFIX", "FFUSE", "ENGAGR", "IMSCRIB", "CLINK", "TANCH"]
+
+def fermat_number_compositeness_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf fermat_number_compositeness_theorem_opcodes
+
+def fermat_number_compositeness_theorem_glyph_word : String := glyphWordOf fermat_number_compositeness_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem fermat_number_compositeness_theorem_register_length : fermat_number_compositeness_theorem_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem fermat_number_compositeness_theorem_register_matches_word : fermat_number_compositeness_theorem_glyph_word = "⊢⊣⊙≻⋈⋈⋈∈⊤⊡∋≺⊥⊡∋⊞⊙⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def fermat_number_compositeness_theorem_conventional_protocol : IGProtocol fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- VINIT
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- TANCH
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- AFWD
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- CLINK
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- CLINK
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- CLINK
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- FSPLIT
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- EVALT
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- IFIX
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- FFUSE
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- AREV
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- EVALF
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- IFIX
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- FFUSE
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- ENGAGR
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)  -- CLINK
+  (.arrow fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0 fermat_number_compositeness_theorem_s0)))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem fermat_number_compositeness_theorem_conventional_protocol_depth : fermat_number_compositeness_theorem_conventional_protocol.depth = 19 := by
+  native_decide
+

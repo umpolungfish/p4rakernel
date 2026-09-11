@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -186,3 +187,63 @@ noncomputable def hadamard_theorem_false_arm : IGProtocol hadamard_theorem_s0 ha
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def hadamard_theorem_tier : OuroboricityTier := TierFunctor.obj hadamard_theorem_s0
 #eval hadamard_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Hadamard Theorem)
+--   Word: ⊢⊙≻∈⊤≻≻≻⊡⋈∋⊥∋≻∈⊤≻≻≻⊡⋈∋≻⊞⋈⊙≺⊣⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def hadamard_theorem_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "AFWD", "AFWD", "AFWD", "IFIX", "CLINK", "FFUSE", "EVALF", "FFUSE", "AFWD", "FSPLIT", "EVALT", "AFWD", "AFWD", "AFWD", "IFIX", "CLINK", "FFUSE", "AFWD", "ENGAGR", "CLINK", "IMSCRIB", "AREV", "TANCH", "IFIX"]
+
+def hadamard_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf hadamard_theorem_opcodes
+
+def hadamard_theorem_glyph_word : String := glyphWordOf hadamard_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem hadamard_theorem_register_length : hadamard_theorem_conventional_register.length = 29 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem hadamard_theorem_register_matches_word : hadamard_theorem_glyph_word = "⊢⊙≻∈⊤≻≻≻⊡⋈∋⊥∋≻∈⊤≻≻≻⊡⋈∋≻⊞⋈⊙≺⊣⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def hadamard_theorem_conventional_protocol : IGProtocol hadamard_theorem_s0 hadamard_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- VINIT
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- FSPLIT
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- EVALT
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- IFIX
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- CLINK
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- FFUSE
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- EVALF
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- FFUSE
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- FSPLIT
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- EVALT
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- IFIX
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- CLINK
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- FFUSE
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- ENGAGR
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- CLINK
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- AREV
+  (.seq (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)  -- TANCH
+  (.arrow hadamard_theorem_s0 hadamard_theorem_s0 hadamard_theorem_s0)))))))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 29 arrows. -/
+theorem hadamard_theorem_conventional_protocol_depth : hadamard_theorem_conventional_protocol.depth = 29 := by
+  native_decide
+

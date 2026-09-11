@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem necromantic_bone_oracle_casting_c736fd_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Necromantic bone oracle: casting ancestral bones, teeth, and grave-earth tokens for divination with the dead. FSPLIT: the bones are cast onto the ancestor cloth, splitting the question into positional meanings — skull fragment=ancestor's voice, tooth=warning, finger bone=direction, grave-earth=the answer lies buried. FFUSE: the necromancer reads all bones together, reconstituting the dead's answer from the scattered fragments. VINIT: the uncast bag of bones. TANCH: the ancestor cloth as the boundary between living and dead. AFWD: bone falling face-up (the dead speak clearly). AREV: bone falling face-down (the dead are silent). ENGAGR: a bone that lands on edge — the dead speak and are silent simultaneously.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def necromantic_bone_oracle_casting_c736fd_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def necromantic_bone_oracle_casting_c736fd_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf necromantic_bone_oracle_casting_c736fd_opcodes
+
+def necromantic_bone_oracle_casting_c736fd_glyph_word : String := glyphWordOf necromantic_bone_oracle_casting_c736fd_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem necromantic_bone_oracle_casting_c736fd_register_length : necromantic_bone_oracle_casting_c736fd_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem necromantic_bone_oracle_casting_c736fd_register_matches_word : necromantic_bone_oracle_casting_c736fd_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def necromantic_bone_oracle_casting_c736fd_conventional_protocol : IGProtocol necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- IMSCRIB
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- AREV
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- FSPLIT
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- AFWD
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- FFUSE
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- CLINK
+  (.seq (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0)  -- IFIX
+  (.arrow necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0 necromantic_bone_oracle_casting_c736fd_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem necromantic_bone_oracle_casting_c736fd_conventional_protocol_depth : necromantic_bone_oracle_casting_c736fd_conventional_protocol.depth = 8 := by
+  native_decide
+

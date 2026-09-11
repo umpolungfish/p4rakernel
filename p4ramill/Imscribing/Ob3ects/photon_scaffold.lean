@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -96,3 +97,44 @@ def photon_tier : OuroboricityTier := TierFunctor.obj photon_s0
 theorem photon_frobenius :
     igFrobeniusAlg.mul photon_s0 photon_s0 = photon_s0 :=
   igFrobAlg_self_fusion photon_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: photon)
+--   Word: ⊢≻⊙∈⊤⊥⊞∋⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def photon_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IFIX"]
+
+def photon_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf photon_opcodes
+
+def photon_glyph_word : String := glyphWordOf photon_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem photon_register_length : photon_conventional_register.length = 10 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem photon_register_matches_word : photon_glyph_word = "⊢≻⊙∈⊤⊥⊞∋⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def photon_conventional_protocol : IGProtocol photon_s0 photon_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- VINIT
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- AFWD
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- IMSCRIB
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- FSPLIT
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- EVALT
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- EVALF
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- ENGAGR
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- FFUSE
+  (.seq (.arrow photon_s0 photon_s0 photon_s0)  -- CLINK
+  (.arrow photon_s0 photon_s0 photon_s0))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 10 arrows. -/
+theorem photon_conventional_protocol_depth : photon_conventional_protocol.depth = 10 := by
+  native_decide
+

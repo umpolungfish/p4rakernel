@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,53 @@ def hadamards_maximal_determinant_theorem_tier : OuroboricityTier := TierFunctor
 theorem hadamards_maximal_determinant_theorem_frobenius :
     igFrobeniusAlg.mul hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 = hadamards_maximal_determinant_theorem_s0 :=
   igFrobAlg_self_fusion hadamards_maximal_determinant_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Hadamard's Maximal Determinant Theorem)
+--   Word: ⊢⊣≻⋈∈⊤≻⊥≺∋⊙⋈⊤⊡⊞≺⊙⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def hadamards_maximal_determinant_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "IMSCRIB", "CLINK", "EVALT", "IFIX", "ENGAGR", "AREV", "IMSCRIB", "CLINK", "TANCH"]
+
+def hadamards_maximal_determinant_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf hadamards_maximal_determinant_theorem_opcodes
+
+def hadamards_maximal_determinant_theorem_glyph_word : String := glyphWordOf hadamards_maximal_determinant_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem hadamards_maximal_determinant_theorem_register_length : hadamards_maximal_determinant_theorem_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem hadamards_maximal_determinant_theorem_register_matches_word : hadamards_maximal_determinant_theorem_glyph_word = "⊢⊣≻⋈∈⊤≻⊥≺∋⊙⋈⊤⊡⊞≺⊙⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def hadamards_maximal_determinant_theorem_conventional_protocol : IGProtocol hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- VINIT
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- TANCH
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- CLINK
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- FSPLIT
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- EVALT
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- AFWD
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- EVALF
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- AREV
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- FFUSE
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- CLINK
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- EVALT
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- IFIX
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- ENGAGR
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- AREV
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)  -- CLINK
+  (.arrow hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0 hadamards_maximal_determinant_theorem_s0)))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem hadamards_maximal_determinant_theorem_conventional_protocol_depth : hadamards_maximal_determinant_theorem_conventional_protocol.depth = 19 := by
+  native_decide
+

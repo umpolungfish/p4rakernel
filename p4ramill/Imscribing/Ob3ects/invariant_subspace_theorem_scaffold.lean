@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -156,3 +157,56 @@ def invariant_subspace_theorem_tier : OuroboricityTier := TierFunctor.obj invari
 theorem invariant_subspace_theorem_frobenius :
     igFrobeniusAlg.mul invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 = invariant_subspace_theorem_s0 :=
   igFrobAlg_self_fusion invariant_subspace_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Invariant Subspace Theorem)
+--   Word: ⊢⊣∈⊤≻⋈⊥≺∈⊤≻⋈⊥≺⊙∋⊡⊡⊡⊞⋈⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def invariant_subspace_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "IMSCRIB", "FFUSE", "IFIX", "IFIX", "IFIX", "ENGAGR", "CLINK", "IMSCRIB"]
+
+def invariant_subspace_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf invariant_subspace_theorem_opcodes
+
+def invariant_subspace_theorem_glyph_word : String := glyphWordOf invariant_subspace_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem invariant_subspace_theorem_register_length : invariant_subspace_theorem_conventional_register.length = 22 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem invariant_subspace_theorem_register_matches_word : invariant_subspace_theorem_glyph_word = "⊢⊣∈⊤≻⋈⊥≺∈⊤≻⋈⊥≺⊙∋⊡⊡⊡⊞⋈⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def invariant_subspace_theorem_conventional_protocol : IGProtocol invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- VINIT
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- TANCH
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- FSPLIT
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- EVALT
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- AFWD
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- CLINK
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- EVALF
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- AREV
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- FSPLIT
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- EVALT
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- AFWD
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- CLINK
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- EVALF
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- AREV
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- FFUSE
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- IFIX
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- IFIX
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- IFIX
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- ENGAGR
+  (.seq (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0)  -- CLINK
+  (.arrow invariant_subspace_theorem_s0 invariant_subspace_theorem_s0 invariant_subspace_theorem_s0))))))))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 22 arrows. -/
+theorem invariant_subspace_theorem_conventional_protocol_depth : invariant_subspace_theorem_conventional_protocol.depth = 22 := by
+  native_decide
+

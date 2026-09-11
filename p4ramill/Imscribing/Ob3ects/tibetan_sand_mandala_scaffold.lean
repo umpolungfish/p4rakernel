@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem tibetan_sand_mandala_a_intricate_34e6ff_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Tibetan sand mandala: a intricate geometric painting made of colored sand, ritually destroyed upon completion. FSPLIT: the monks construct the mandala by placing individual grains, splitting the unified void into the elaborate palace of the deity with its four gates, concentric rings, and central lotus. FFUSE: the destruction ceremony sweeps the mandala into a single pile of mixed sand — reconstituting the multiplicity back into undifferentiated matter, which is then poured into a river. VINIT: the empty platform. TANCH: the outer ring of the mandala — the boundary of the sacred cosmos. AFWD: adding sand (creation). AREV: sweeping sand (dissolution). ENGAGR: the mandala is simultaneously a permanent spiritual reality and a transient material object.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def tibetan_sand_mandala_a_intricate_34e6ff_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def tibetan_sand_mandala_a_intricate_34e6ff_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf tibetan_sand_mandala_a_intricate_34e6ff_opcodes
+
+def tibetan_sand_mandala_a_intricate_34e6ff_glyph_word : String := glyphWordOf tibetan_sand_mandala_a_intricate_34e6ff_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem tibetan_sand_mandala_a_intricate_34e6ff_register_length : tibetan_sand_mandala_a_intricate_34e6ff_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem tibetan_sand_mandala_a_intricate_34e6ff_register_matches_word : tibetan_sand_mandala_a_intricate_34e6ff_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def tibetan_sand_mandala_a_intricate_34e6ff_conventional_protocol : IGProtocol tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- IMSCRIB
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- AREV
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- FSPLIT
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- AFWD
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- FFUSE
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- CLINK
+  (.seq (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0)  -- IFIX
+  (.arrow tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0 tibetan_sand_mandala_a_intricate_34e6ff_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem tibetan_sand_mandala_a_intricate_34e6ff_conventional_protocol_depth : tibetan_sand_mandala_a_intricate_34e6ff_conventional_protocol.depth = 8 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -122,3 +123,50 @@ def operation_tier : OuroboricityTier := TierFunctor.obj operation_s0
 theorem operation_frobenius :
     igFrobeniusAlg.mul operation_s0 operation_s0 = operation_s0 :=
   igFrobAlg_self_fusion operation_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Operation)
+--   Word: ⊢⊙≻⋈⋈⋈⊡∈⊤≺⊞∋⊙⋈⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def operation_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "CLINK", "CLINK", "CLINK", "IFIX", "FSPLIT", "EVALT", "AREV", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "TANCH"]
+
+def operation_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf operation_opcodes
+
+def operation_glyph_word : String := glyphWordOf operation_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem operation_register_length : operation_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem operation_register_matches_word : operation_glyph_word = "⊢⊙≻⋈⋈⋈⊡∈⊤≺⊞∋⊙⋈⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def operation_conventional_protocol : IGProtocol operation_s0 operation_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- VINIT
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- IMSCRIB
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- AFWD
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- CLINK
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- CLINK
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- CLINK
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- IFIX
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- FSPLIT
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- EVALT
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- AREV
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- ENGAGR
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- FFUSE
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- IMSCRIB
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- CLINK
+  (.seq (.arrow operation_s0 operation_s0 operation_s0)  -- IFIX
+  (.arrow operation_s0 operation_s0 operation_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem operation_conventional_protocol_depth : operation_conventional_protocol.depth = 16 := by
+  native_decide
+

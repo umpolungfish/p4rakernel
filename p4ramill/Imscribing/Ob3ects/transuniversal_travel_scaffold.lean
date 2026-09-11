@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def transuniversal_travel_tier : OuroboricityTier := TierFunctor.obj transuniver
 theorem transuniversal_travel_frobenius :
     igFrobeniusAlg.mul transuniversal_travel_s0 transuniversal_travel_s0 = transuniversal_travel_s0 :=
   igFrobAlg_self_fusion transuniversal_travel_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: transuniversal travel)
+--   Word: ⊢⊙≻⋈∈⊤⊥⊞∋⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def transuniversal_travel_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "CLINK", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "IFIX", "TANCH"]
+
+def transuniversal_travel_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf transuniversal_travel_opcodes
+
+def transuniversal_travel_glyph_word : String := glyphWordOf transuniversal_travel_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem transuniversal_travel_register_length : transuniversal_travel_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem transuniversal_travel_register_matches_word : transuniversal_travel_glyph_word = "⊢⊙≻⋈∈⊤⊥⊞∋⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def transuniversal_travel_conventional_protocol : IGProtocol transuniversal_travel_s0 transuniversal_travel_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- VINIT
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- IMSCRIB
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- AFWD
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- CLINK
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- FSPLIT
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- EVALT
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- EVALF
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- ENGAGR
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- FFUSE
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- IMSCRIB
+  (.seq (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0)  -- IFIX
+  (.arrow transuniversal_travel_s0 transuniversal_travel_s0 transuniversal_travel_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem transuniversal_travel_conventional_protocol_depth : transuniversal_travel_conventional_protocol.depth = 12 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -107,3 +108,47 @@ def death_to_rebirth_mystery_attractor_tier : OuroboricityTier := TierFunctor.ob
 theorem death_to_rebirth_mystery_attractor_frobenius :
     igFrobeniusAlg.mul death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 = death_to_rebirth_mystery_attractor_s0 :=
   igFrobAlg_self_fusion death_to_rebirth_mystery_attractor_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: DEATH-TO-REBIRTH MYSTERY ATTRACTOR)
+--   Word: ⊢∈≻⋈⊙⊞⊡⊤≺⋈∋⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def death_to_rebirth_mystery_attractor_opcodes : List String := ["VINIT", "FSPLIT", "AFWD", "CLINK", "IMSCRIB", "ENGAGR", "IFIX", "EVALT", "AREV", "CLINK", "FFUSE", "TANCH", "IMSCRIB"]
+
+def death_to_rebirth_mystery_attractor_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf death_to_rebirth_mystery_attractor_opcodes
+
+def death_to_rebirth_mystery_attractor_glyph_word : String := glyphWordOf death_to_rebirth_mystery_attractor_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem death_to_rebirth_mystery_attractor_register_length : death_to_rebirth_mystery_attractor_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem death_to_rebirth_mystery_attractor_register_matches_word : death_to_rebirth_mystery_attractor_glyph_word = "⊢∈≻⋈⊙⊞⊡⊤≺⋈∋⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def death_to_rebirth_mystery_attractor_conventional_protocol : IGProtocol death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- VINIT
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- FSPLIT
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- AFWD
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- CLINK
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- IMSCRIB
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- ENGAGR
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- IFIX
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- EVALT
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- AREV
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- CLINK
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- FFUSE
+  (.seq (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)  -- TANCH
+  (.arrow death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0 death_to_rebirth_mystery_attractor_s0)))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem death_to_rebirth_mystery_attractor_conventional_protocol_depth : death_to_rebirth_mystery_attractor_conventional_protocol.depth = 13 := by
+  native_decide
+

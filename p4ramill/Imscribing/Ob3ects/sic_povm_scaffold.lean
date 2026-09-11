@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,3 +117,49 @@ noncomputable def sic_povm_false_arm : IGProtocol sic_povm_s0 sic_povm_s14 :=
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def sic_povm_tier : OuroboricityTier := TierFunctor.obj sic_povm_s0
 #eval sic_povm_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: SIC-POVM)
+--   Word: ⊢≻∈⊤⊙∋⋈≺⊞∈⊤⊥∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def sic_povm_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "IMSCRIB", "FFUSE", "CLINK", "AREV", "ENGAGR", "FSPLIT", "EVALT", "EVALF", "FFUSE", "IFIX", "TANCH"]
+
+def sic_povm_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf sic_povm_opcodes
+
+def sic_povm_glyph_word : String := glyphWordOf sic_povm_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem sic_povm_register_length : sic_povm_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem sic_povm_register_matches_word : sic_povm_glyph_word = "⊢≻∈⊤⊙∋⋈≺⊞∈⊤⊥∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def sic_povm_conventional_protocol : IGProtocol sic_povm_s0 sic_povm_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- VINIT
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- AFWD
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- FSPLIT
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- EVALT
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- IMSCRIB
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- FFUSE
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- CLINK
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- AREV
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- ENGAGR
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- FSPLIT
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- EVALT
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- EVALF
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- FFUSE
+  (.seq (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)  -- IFIX
+  (.arrow sic_povm_s0 sic_povm_s0 sic_povm_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem sic_povm_conventional_protocol_depth : sic_povm_conventional_protocol.depth = 15 := by
+  native_decide
+

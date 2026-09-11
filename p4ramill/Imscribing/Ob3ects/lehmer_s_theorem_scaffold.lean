@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -211,3 +212,67 @@ def lehmers_theorem_tier : OuroboricityTier := TierFunctor.obj lehmers_theorem_s
 theorem lehmers_theorem_frobenius :
     igFrobeniusAlg.mul lehmers_theorem_s0 lehmers_theorem_s0 = lehmers_theorem_s0 :=
   igFrobAlg_self_fusion lehmers_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Lehmer's Theorem)
+--   Word: ⊢⊙∈⊤≻⊡≺⊥⋈∈⊤≻⊡≺⊥⋈∈⊤≻⊡≺⊥⋈⊞∈⊤≻⊡≺⊥∋⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def lehmers_theorem_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "CLINK", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "CLINK", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "CLINK", "ENGAGR", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "FFUSE", "IMSCRIB", "TANCH"]
+
+def lehmers_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf lehmers_theorem_opcodes
+
+def lehmers_theorem_glyph_word : String := glyphWordOf lehmers_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem lehmers_theorem_register_length : lehmers_theorem_conventional_register.length = 33 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem lehmers_theorem_register_matches_word : lehmers_theorem_glyph_word = "⊢⊙∈⊤≻⊡≺⊥⋈∈⊤≻⊡≺⊥⋈∈⊤≻⊡≺⊥⋈⊞∈⊤≻⊡≺⊥∋⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def lehmers_theorem_conventional_protocol : IGProtocol lehmers_theorem_s0 lehmers_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- VINIT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AFWD
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IFIX
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AREV
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALF
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- CLINK
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AFWD
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IFIX
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AREV
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALF
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- CLINK
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AFWD
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IFIX
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AREV
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALF
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- CLINK
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- ENGAGR
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALT
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AFWD
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IFIX
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- AREV
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- EVALF
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- FFUSE
+  (.seq (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)  -- IMSCRIB
+  (.arrow lehmers_theorem_s0 lehmers_theorem_s0 lehmers_theorem_s0)))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 33 arrows. -/
+theorem lehmers_theorem_conventional_protocol_depth : lehmers_theorem_conventional_protocol.depth = 33 := by
+  native_decide
+

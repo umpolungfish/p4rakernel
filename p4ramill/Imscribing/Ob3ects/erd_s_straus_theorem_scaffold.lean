@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -177,3 +178,61 @@ def erd_s_straus_theorem_tier : OuroboricityTier := TierFunctor.obj erd_s_straus
 theorem erd_s_straus_theorem_frobenius :
     igFrobeniusAlg.mul erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 = erd_s_straus_theorem_s0 :=
   igFrobAlg_self_fusion erd_s_straus_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Erdős–Straus Theorem)
+--   Word: ⊢⊣∈≻⊤⊡∋≺⋈⊤⊡∋≺⋈⊤⊡∋≺⋈⊤⊡∋∋⊙⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def erd_s_straus_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "AFWD", "EVALT", "IFIX", "FFUSE", "AREV", "CLINK", "EVALT", "IFIX", "FFUSE", "AREV", "CLINK", "EVALT", "IFIX", "FFUSE", "AREV", "CLINK", "EVALT", "IFIX", "FFUSE", "FFUSE", "IMSCRIB", "ENGAGR", "IFIX", "TANCH"]
+
+def erd_s_straus_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf erd_s_straus_theorem_opcodes
+
+def erd_s_straus_theorem_glyph_word : String := glyphWordOf erd_s_straus_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem erd_s_straus_theorem_register_length : erd_s_straus_theorem_conventional_register.length = 27 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem erd_s_straus_theorem_register_matches_word : erd_s_straus_theorem_glyph_word = "⊢⊣∈≻⊤⊡∋≺⋈⊤⊡∋≺⋈⊤⊡∋≺⋈⊤⊡∋∋⊙⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def erd_s_straus_theorem_conventional_protocol : IGProtocol erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- VINIT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- TANCH
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FSPLIT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- AFWD
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- EVALT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IFIX
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FFUSE
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- AREV
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- CLINK
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- EVALT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IFIX
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FFUSE
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- AREV
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- CLINK
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- EVALT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IFIX
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FFUSE
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- AREV
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- CLINK
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- EVALT
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IFIX
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FFUSE
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- FFUSE
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- ENGAGR
+  (.seq (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)  -- IFIX
+  (.arrow erd_s_straus_theorem_s0 erd_s_straus_theorem_s0 erd_s_straus_theorem_s0)))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 27 arrows. -/
+theorem erd_s_straus_theorem_conventional_protocol_depth : erd_s_straus_theorem_conventional_protocol.depth = 27 := by
+  native_decide
+

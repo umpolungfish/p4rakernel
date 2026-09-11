@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem witching_hour_liminal_time_ob3ect_the_1b4142_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Witching hour liminal time-ob3ect: the threshold moment (3 AM, Samhain, solstices) when the veil between worlds thins. FSPLIT: the liminal moment splits time into the ordinary flow and the timeless interval where past/present/future coexist. FFUSE: the moment passes, reconstituting ordinary time — but with something carried across the threshold. VINIT: time before the thinning. TANCH: the clock striking the hour. AFWD: the veil opens. AREV: the veil closes. ENGAGR: the moment is simultaneously within time (it has a clock position) and outside time (it touches eternity).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def witching_hour_liminal_time_ob3ect_the_1b4142_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def witching_hour_liminal_time_ob3ect_the_1b4142_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf witching_hour_liminal_time_ob3ect_the_1b4142_opcodes
+
+def witching_hour_liminal_time_ob3ect_the_1b4142_glyph_word : String := glyphWordOf witching_hour_liminal_time_ob3ect_the_1b4142_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem witching_hour_liminal_time_ob3ect_the_1b4142_register_length : witching_hour_liminal_time_ob3ect_the_1b4142_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem witching_hour_liminal_time_ob3ect_the_1b4142_register_matches_word : witching_hour_liminal_time_ob3ect_the_1b4142_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def witching_hour_liminal_time_ob3ect_the_1b4142_conventional_protocol : IGProtocol witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- IMSCRIB
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- AREV
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- FSPLIT
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- AFWD
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- FFUSE
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- CLINK
+  (.seq (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0)  -- IFIX
+  (.arrow witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0 witching_hour_liminal_time_ob3ect_the_1b4142_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem witching_hour_liminal_time_ob3ect_the_1b4142_conventional_protocol_depth : witching_hour_liminal_time_ob3ect_the_1b4142_conventional_protocol.depth = 8 := by
+  native_decide
+

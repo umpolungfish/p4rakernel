@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -236,3 +237,73 @@ noncomputable def goldbachs_theorem_false_arm : IGProtocol goldbachs_theorem_s0 
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def goldbachs_theorem_tier : OuroboricityTier := TierFunctor.obj goldbachs_theorem_s0
 #eval goldbachs_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Goldbach's Theorem)
+--   Word: ⊢⊣≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def goldbachs_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "AFWD", "EVALT", "IFIX", "CLINK", "IMSCRIB", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "AFWD", "FSPLIT", "AFWD", "EVALT", "IFIX", "CLINK", "IMSCRIB", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "AFWD", "FSPLIT", "AFWD", "EVALT", "IFIX", "CLINK", "IMSCRIB", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "TANCH"]
+
+def goldbachs_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf goldbachs_theorem_opcodes
+
+def goldbachs_theorem_glyph_word : String := glyphWordOf goldbachs_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem goldbachs_theorem_register_length : goldbachs_theorem_conventional_register.length = 39 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem goldbachs_theorem_register_matches_word : goldbachs_theorem_glyph_word = "⊢⊣≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈≻∈≻⊤⊡⋈⊙≺⊥⊞∋⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def goldbachs_theorem_conventional_protocol : IGProtocol goldbachs_theorem_s0 goldbachs_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- VINIT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- TANCH
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FSPLIT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IFIX
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AREV
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALF
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- ENGAGR
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FFUSE
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FSPLIT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IFIX
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AREV
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALF
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- ENGAGR
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FFUSE
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FSPLIT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AFWD
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALT
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IFIX
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- AREV
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- EVALF
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- ENGAGR
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- FFUSE
+  (.seq (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)  -- CLINK
+  (.arrow goldbachs_theorem_s0 goldbachs_theorem_s0 goldbachs_theorem_s0)))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 39 arrows. -/
+theorem goldbachs_theorem_conventional_protocol_depth : goldbachs_theorem_conventional_protocol.depth = 39 := by
+  native_decide
+

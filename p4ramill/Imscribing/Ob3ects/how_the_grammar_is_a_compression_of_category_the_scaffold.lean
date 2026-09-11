@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def how_the_grammar_is_a_compression_of_c50c1c_tier : OuroboricityTier := TierFu
 theorem how_the_grammar_is_a_compression_of_c50c1c_frobenius :
     igFrobeniusAlg.mul how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 = how_the_grammar_is_a_compression_of_c50c1c_s0 :=
   igFrobAlg_self_fusion how_the_grammar_is_a_compression_of_c50c1c_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: how the Grammar is a compression of category theory)
+--   Word: ⊢≻∈⊤⊥⋈⋈⋈⋈⊞∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def how_the_grammar_is_a_compression_of_c50c1c_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "CLINK", "CLINK", "CLINK", "CLINK", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def how_the_grammar_is_a_compression_of_c50c1c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf how_the_grammar_is_a_compression_of_c50c1c_opcodes
+
+def how_the_grammar_is_a_compression_of_c50c1c_glyph_word : String := glyphWordOf how_the_grammar_is_a_compression_of_c50c1c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem how_the_grammar_is_a_compression_of_c50c1c_register_length : how_the_grammar_is_a_compression_of_c50c1c_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem how_the_grammar_is_a_compression_of_c50c1c_register_matches_word : how_the_grammar_is_a_compression_of_c50c1c_glyph_word = "⊢≻∈⊤⊥⋈⋈⋈⋈⊞∋⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def how_the_grammar_is_a_compression_of_c50c1c_conventional_protocol : IGProtocol how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- VINIT
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- AFWD
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- FSPLIT
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- EVALT
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- EVALF
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- CLINK
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- CLINK
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- CLINK
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- CLINK
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- ENGAGR
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- FFUSE
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- IMSCRIB
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- AREV
+  (.seq (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)  -- IFIX
+  (.arrow how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0 how_the_grammar_is_a_compression_of_c50c1c_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem how_the_grammar_is_a_compression_of_c50c1c_conventional_protocol_depth : how_the_grammar_is_a_compression_of_c50c1c_conventional_protocol.depth = 15 := by
+  native_decide
+

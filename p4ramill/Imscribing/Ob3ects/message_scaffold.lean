@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -151,3 +152,55 @@ def message_tier : OuroboricityTier := TierFunctor.obj message_s0
 theorem message_frobenius :
     igFrobeniusAlg.mul message_s0 message_s0 = message_s0 :=
   igFrobAlg_self_fusion message_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Message)
+--   Word: ⊢≻⊡⋈≺∈⊤⊥⊞∋⊙⊣⋈≻⊡⋈≺⊙⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def message_opcodes : List String := ["VINIT", "AFWD", "IFIX", "CLINK", "AREV", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "TANCH", "CLINK", "AFWD", "IFIX", "CLINK", "AREV", "IMSCRIB", "ENGAGR", "IFIX", "TANCH"]
+
+def message_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf message_opcodes
+
+def message_glyph_word : String := glyphWordOf message_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem message_register_length : message_conventional_register.length = 21 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem message_register_matches_word : message_glyph_word = "⊢≻⊡⋈≺∈⊤⊥⊞∋⊙⊣⋈≻⊡⋈≺⊙⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def message_conventional_protocol : IGProtocol message_s0 message_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- VINIT
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- AFWD
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- IFIX
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- CLINK
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- AREV
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- FSPLIT
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- EVALT
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- EVALF
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- ENGAGR
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- FFUSE
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- IMSCRIB
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- TANCH
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- CLINK
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- AFWD
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- IFIX
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- CLINK
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- AREV
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- IMSCRIB
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- ENGAGR
+  (.seq (.arrow message_s0 message_s0 message_s0)  -- IFIX
+  (.arrow message_s0 message_s0 message_s0)))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 21 arrows. -/
+theorem message_conventional_protocol_depth : message_conventional_protocol.depth = 21 := by
+  native_decide
+

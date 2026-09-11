@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem goetic_seal_invocation_the_72_seals_of_680c49_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Goetic seal invocation: the 72 seals of the Ars Goetia, each a sigil binding a specific spirit. FSPLIT: the magician inscribes the seal, splitting the spirit's essence from the void into constrained manifestation within the triangle of art. FFUSE: the license to depart reconstitutes the spirit back into the void — the seal is broken. VINIT: blank parchment. TANCH: the protective circle. AFWD: conjuration (spirit appears). AREV: license to depart (spirit dissipates). ENGAGR: the spirit is simultaneously bound (in the triangle) and free (its nature cannot be constrained) — the paradox of invocation.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def goetic_seal_invocation_the_72_seals_of_680c49_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def goetic_seal_invocation_the_72_seals_of_680c49_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf goetic_seal_invocation_the_72_seals_of_680c49_opcodes
+
+def goetic_seal_invocation_the_72_seals_of_680c49_glyph_word : String := glyphWordOf goetic_seal_invocation_the_72_seals_of_680c49_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem goetic_seal_invocation_the_72_seals_of_680c49_register_length : goetic_seal_invocation_the_72_seals_of_680c49_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem goetic_seal_invocation_the_72_seals_of_680c49_register_matches_word : goetic_seal_invocation_the_72_seals_of_680c49_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def goetic_seal_invocation_the_72_seals_of_680c49_conventional_protocol : IGProtocol goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- IMSCRIB
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- AREV
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- FSPLIT
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- AFWD
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- FFUSE
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- CLINK
+  (.seq (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0)  -- IFIX
+  (.arrow goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0 goetic_seal_invocation_the_72_seals_of_680c49_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem goetic_seal_invocation_the_72_seals_of_680c49_conventional_protocol_depth : goetic_seal_invocation_the_72_seals_of_680c49_conventional_protocol.depth = 8 := by
+  native_decide
+

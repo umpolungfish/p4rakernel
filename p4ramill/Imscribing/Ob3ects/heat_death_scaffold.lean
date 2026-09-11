@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def heat_death_tier : OuroboricityTier := TierFunctor.obj heat_death_s0
 theorem heat_death_frobenius :
     igFrobeniusAlg.mul heat_death_s0 heat_death_s0 = heat_death_s0 :=
   igFrobAlg_self_fusion heat_death_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Heat Death)
+--   Word: ⊢≻≺∈⊤⊤⋈⊙≺≺⊥⊥∋∋⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def heat_death_opcodes : List String := ["VINIT", "AFWD", "AREV", "FSPLIT", "EVALT", "EVALT", "CLINK", "IMSCRIB", "AREV", "AREV", "EVALF", "EVALF", "FFUSE", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+
+def heat_death_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf heat_death_opcodes
+
+def heat_death_glyph_word : String := glyphWordOf heat_death_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem heat_death_register_length : heat_death_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem heat_death_register_matches_word : heat_death_glyph_word = "⊢≻≺∈⊤⊤⋈⊙≺≺⊥⊥∋∋⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def heat_death_conventional_protocol : IGProtocol heat_death_s0 heat_death_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- VINIT
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- AFWD
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- AREV
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- FSPLIT
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- EVALT
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- EVALT
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- CLINK
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- IMSCRIB
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- AREV
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- AREV
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- EVALF
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- EVALF
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- FFUSE
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- FFUSE
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- ENGAGR
+  (.seq (.arrow heat_death_s0 heat_death_s0 heat_death_s0)  -- IFIX
+  (.arrow heat_death_s0 heat_death_s0 heat_death_s0)))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem heat_death_conventional_protocol_depth : heat_death_conventional_protocol.depth = 17 := by
+  native_decide
+

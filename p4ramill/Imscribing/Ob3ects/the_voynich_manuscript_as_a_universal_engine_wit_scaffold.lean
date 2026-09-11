@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -110,5 +111,49 @@ def the_voynich_manuscript_as_a_universal_e2fbce_tier : OuroboricityTier := Tier
 theorem the_voynich_manuscript_as_a_universal_e2fbce_frobenius :
     igFrobeniusAlg.mul the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 = the_voynich_manuscript_as_a_universal_e2fbce_s0 :=
   igFrobAlg_self_fusion the_voynich_manuscript_as_a_universal_e2fbce_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the Voynich manuscript as a Universal Engine with only the ADDR gate resolved becomes a fully-resolved seven-gate session yielding a coherent botanical-liturgical output stream)
+--   Word: ⊢⊙≻∈⊤≺⊥⊞∋⋈⊡⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_voynich_manuscript_as_a_universal_e2fbce_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IFIX", "IMSCRIB", "TANCH"]
+
+def the_voynich_manuscript_as_a_universal_e2fbce_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_voynich_manuscript_as_a_universal_e2fbce_opcodes
+
+def the_voynich_manuscript_as_a_universal_e2fbce_glyph_word : String := glyphWordOf the_voynich_manuscript_as_a_universal_e2fbce_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_voynich_manuscript_as_a_universal_e2fbce_register_length : the_voynich_manuscript_as_a_universal_e2fbce_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_voynich_manuscript_as_a_universal_e2fbce_register_matches_word : the_voynich_manuscript_as_a_universal_e2fbce_glyph_word = "⊢⊙≻∈⊤≺⊥⊞∋⋈⊡⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_voynich_manuscript_as_a_universal_e2fbce_conventional_protocol : IGProtocol the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- VINIT
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- IMSCRIB
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- AFWD
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- FSPLIT
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- EVALT
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- AREV
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- EVALF
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- ENGAGR
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- FFUSE
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- CLINK
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- IFIX
+  (.seq (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)  -- IMSCRIB
+  (.arrow the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0 the_voynich_manuscript_as_a_universal_e2fbce_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem the_voynich_manuscript_as_a_universal_e2fbce_conventional_protocol_depth : the_voynich_manuscript_as_a_universal_e2fbce_conventional_protocol.depth = 13 := by
+  native_decide
 
 end Imscribing
