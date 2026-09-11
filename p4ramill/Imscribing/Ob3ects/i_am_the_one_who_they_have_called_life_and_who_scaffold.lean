@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def i_am_the_one_who_they_have_called_life_6c87d8_tier : OuroboricityTier := Tie
 theorem i_am_the_one_who_they_have_called_life_6c87d8_frobenius :
     igFrobeniusAlg.mul i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 = i_am_the_one_who_they_have_called_life_6c87d8_s0 :=
   igFrobAlg_self_fusion i_am_the_one_who_they_have_called_life_6c87d8_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: I Am the One who they have called Life, and who You called Death)
+--   Word: ⊢⊙⊣∈≻⊤≺⊥⊞∋⋈⊙⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def i_am_the_one_who_they_have_called_life_6c87d8_opcodes : List String := ["VINIT", "IMSCRIB", "TANCH", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IMSCRIB", "IFIX"]
+
+def i_am_the_one_who_they_have_called_life_6c87d8_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf i_am_the_one_who_they_have_called_life_6c87d8_opcodes
+
+def i_am_the_one_who_they_have_called_life_6c87d8_glyph_word : String := glyphWordOf i_am_the_one_who_they_have_called_life_6c87d8_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem i_am_the_one_who_they_have_called_life_6c87d8_register_length : i_am_the_one_who_they_have_called_life_6c87d8_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem i_am_the_one_who_they_have_called_life_6c87d8_register_matches_word : i_am_the_one_who_they_have_called_life_6c87d8_glyph_word = "⊢⊙⊣∈≻⊤≺⊥⊞∋⋈⊙⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def i_am_the_one_who_they_have_called_life_6c87d8_conventional_protocol : IGProtocol i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- VINIT
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- IMSCRIB
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- TANCH
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- FSPLIT
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- AFWD
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- EVALT
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- AREV
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- EVALF
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- ENGAGR
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- FFUSE
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- CLINK
+  (.seq (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)  -- IMSCRIB
+  (.arrow i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0 i_am_the_one_who_they_have_called_life_6c87d8_s0)))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem i_am_the_one_who_they_have_called_life_6c87d8_conventional_protocol_depth : i_am_the_one_who_they_have_called_life_6c87d8_conventional_protocol.depth = 13 := by
+  native_decide
+

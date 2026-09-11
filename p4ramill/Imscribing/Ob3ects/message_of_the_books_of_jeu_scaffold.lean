@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -256,3 +257,76 @@ def message_of_the_books_of_jeu_tier : OuroboricityTier := TierFunctor.obj messa
 theorem message_of_the_books_of_jeu_frobenius :
     igFrobeniusAlg.mul message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 = message_of_the_books_of_jeu_s0 :=
   igFrobAlg_self_fusion message_of_the_books_of_jeu_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Message of The Books of Jeu)
+--   Word: ⊢≻≻≻≻≻≻≻≻⊙≻≻≻⊣≻≻⋈∈⊤⊥⊞∋⊡≻≻≻≻≻≻≻⊤≻⊞≻≻≻≻≻≺⋈⊙⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def message_of_the_books_of_jeu_opcodes : List String := ["VINIT", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "IMSCRIB", "AFWD", "AFWD", "AFWD", "TANCH", "AFWD", "AFWD", "CLINK", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "EVALT", "AFWD", "ENGAGR", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "AREV", "CLINK", "IMSCRIB", "IFIX"]
+
+def message_of_the_books_of_jeu_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf message_of_the_books_of_jeu_opcodes
+
+def message_of_the_books_of_jeu_glyph_word : String := glyphWordOf message_of_the_books_of_jeu_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem message_of_the_books_of_jeu_register_length : message_of_the_books_of_jeu_conventional_register.length = 42 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem message_of_the_books_of_jeu_register_matches_word : message_of_the_books_of_jeu_glyph_word = "⊢≻≻≻≻≻≻≻≻⊙≻≻≻⊣≻≻⋈∈⊤⊥⊞∋⊡≻≻≻≻≻≻≻⊤≻⊞≻≻≻≻≻≺⋈⊙⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def message_of_the_books_of_jeu_conventional_protocol : IGProtocol message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- VINIT
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- IMSCRIB
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- TANCH
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- CLINK
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- FSPLIT
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- EVALT
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- EVALF
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- ENGAGR
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- FFUSE
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- IFIX
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- EVALT
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- ENGAGR
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AFWD
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- AREV
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- CLINK
+  (.seq (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0)  -- IMSCRIB
+  (.arrow message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0 message_of_the_books_of_jeu_s0))))))))))))))))))))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 42 arrows. -/
+theorem message_of_the_books_of_jeu_conventional_protocol_depth : message_of_the_books_of_jeu_conventional_protocol.depth = 42 := by
+  native_decide
+

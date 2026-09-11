@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -151,3 +152,56 @@ noncomputable def message_of_the_untitled_texts_false_arm : IGProtocol message_o
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def message_of_the_untitled_texts_tier : OuroboricityTier := TierFunctor.obj message_of_the_untitled_texts_s0
 #eval message_of_the_untitled_texts_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Message of The Untitled Texts)
+--   Word: ⊢≻∈⊤⊥⊞≺⋈∋⊙⊡≻∈⊤⊥⊞≺⋈⊡⊙≻⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def message_of_the_untitled_texts_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "AREV", "CLINK", "FFUSE", "IMSCRIB", "IFIX", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "AREV", "CLINK", "IFIX", "IMSCRIB", "AFWD", "TANCH"]
+
+def message_of_the_untitled_texts_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf message_of_the_untitled_texts_opcodes
+
+def message_of_the_untitled_texts_glyph_word : String := glyphWordOf message_of_the_untitled_texts_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem message_of_the_untitled_texts_register_length : message_of_the_untitled_texts_conventional_register.length = 22 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem message_of_the_untitled_texts_register_matches_word : message_of_the_untitled_texts_glyph_word = "⊢≻∈⊤⊥⊞≺⋈∋⊙⊡≻∈⊤⊥⊞≺⋈⊡⊙≻⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def message_of_the_untitled_texts_conventional_protocol : IGProtocol message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- VINIT
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- AFWD
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- FSPLIT
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- EVALT
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- EVALF
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- ENGAGR
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- AREV
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- CLINK
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- FFUSE
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- IMSCRIB
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- IFIX
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- AFWD
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- FSPLIT
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- EVALT
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- EVALF
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- ENGAGR
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- AREV
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- CLINK
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- IFIX
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- IMSCRIB
+  (.seq (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0)  -- AFWD
+  (.arrow message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0 message_of_the_untitled_texts_s0))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 22 arrows. -/
+theorem message_of_the_untitled_texts_conventional_protocol_depth : message_of_the_untitled_texts_conventional_protocol.depth = 22 := by
+  native_decide
+

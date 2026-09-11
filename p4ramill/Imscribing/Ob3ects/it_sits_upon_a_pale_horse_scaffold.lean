@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def it_sits_upon_a_pale_horse_tier : OuroboricityTier := TierFunctor.obj it_sits
 theorem it_sits_upon_a_pale_horse_frobenius :
     igFrobeniusAlg.mul it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 = it_sits_upon_a_pale_horse_s0 :=
   igFrobAlg_self_fusion it_sits_upon_a_pale_horse_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: It Sits Upon A Pale Horse)
+--   Word: ⊢≻≺⋈⊙∈⊤≻∋⊥≺∋⊞⊣⊡⊙⋈
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def it_sits_upon_a_pale_horse_opcodes : List String := ["VINIT", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "FFUSE", "EVALF", "AREV", "FFUSE", "ENGAGR", "TANCH", "IFIX", "IMSCRIB", "CLINK"]
+
+def it_sits_upon_a_pale_horse_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf it_sits_upon_a_pale_horse_opcodes
+
+def it_sits_upon_a_pale_horse_glyph_word : String := glyphWordOf it_sits_upon_a_pale_horse_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem it_sits_upon_a_pale_horse_register_length : it_sits_upon_a_pale_horse_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem it_sits_upon_a_pale_horse_register_matches_word : it_sits_upon_a_pale_horse_glyph_word = "⊢≻≺⋈⊙∈⊤≻∋⊥≺∋⊞⊣⊡⊙⋈" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def it_sits_upon_a_pale_horse_conventional_protocol : IGProtocol it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- VINIT
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- AFWD
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- AREV
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- CLINK
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- IMSCRIB
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- FSPLIT
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- EVALT
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- AFWD
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- FFUSE
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- EVALF
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- AREV
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- FFUSE
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- ENGAGR
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- TANCH
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- IFIX
+  (.seq (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)  -- IMSCRIB
+  (.arrow it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0 it_sits_upon_a_pale_horse_s0)))))))))))))))))  -- CLINK
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem it_sits_upon_a_pale_horse_conventional_protocol_depth : it_sits_upon_a_pale_horse_conventional_protocol.depth = 17 := by
+  native_decide
+

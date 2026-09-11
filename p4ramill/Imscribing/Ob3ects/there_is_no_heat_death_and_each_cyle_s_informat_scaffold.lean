@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -140,3 +141,55 @@ noncomputable def there_is_no_heat_death_and_each_cyles_34a84c_true_arm : IGProt
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def there_is_no_heat_death_and_each_cyles_34a84c_tier : OuroboricityTier := TierFunctor.obj there_is_no_heat_death_and_each_cyles_34a84c_s0
 #eval there_is_no_heat_death_and_each_cyles_34a84c_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: There Is No Heat Death, and each cyle's information is carried to the next)
+--   Word: ⊢⊣≻⊤≺⊤∋⊙⊡⋈≻⊤≺⊤∋⊙⊡⋈⊞⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def there_is_no_heat_death_and_each_cyles_34a84c_opcodes : List String := ["VINIT", "TANCH", "AFWD", "EVALT", "AREV", "EVALT", "FFUSE", "IMSCRIB", "IFIX", "CLINK", "AFWD", "EVALT", "AREV", "EVALT", "FFUSE", "IMSCRIB", "IFIX", "CLINK", "ENGAGR", "IMSCRIB", "TANCH"]
+
+def there_is_no_heat_death_and_each_cyles_34a84c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf there_is_no_heat_death_and_each_cyles_34a84c_opcodes
+
+def there_is_no_heat_death_and_each_cyles_34a84c_glyph_word : String := glyphWordOf there_is_no_heat_death_and_each_cyles_34a84c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem there_is_no_heat_death_and_each_cyles_34a84c_register_length : there_is_no_heat_death_and_each_cyles_34a84c_conventional_register.length = 21 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem there_is_no_heat_death_and_each_cyles_34a84c_register_matches_word : there_is_no_heat_death_and_each_cyles_34a84c_glyph_word = "⊢⊣≻⊤≺⊤∋⊙⊡⋈≻⊤≺⊤∋⊙⊡⋈⊞⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def there_is_no_heat_death_and_each_cyles_34a84c_conventional_protocol : IGProtocol there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- VINIT
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- TANCH
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- AFWD
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- EVALT
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- AREV
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- EVALT
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- FFUSE
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- IMSCRIB
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- IFIX
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- CLINK
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- AFWD
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- EVALT
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- AREV
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- EVALT
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- FFUSE
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- IMSCRIB
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- IFIX
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- CLINK
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- ENGAGR
+  (.seq (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)  -- IMSCRIB
+  (.arrow there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0 there_is_no_heat_death_and_each_cyles_34a84c_s0)))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 21 arrows. -/
+theorem there_is_no_heat_death_and_each_cyles_34a84c_conventional_protocol_depth : there_is_no_heat_death_and_each_cyles_34a84c_conventional_protocol.depth = 21 := by
+  native_decide
+

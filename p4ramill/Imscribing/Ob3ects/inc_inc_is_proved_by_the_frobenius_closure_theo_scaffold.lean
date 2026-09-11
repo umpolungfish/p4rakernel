@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -137,3 +138,54 @@ noncomputable def inc_inc_is_proved_by_the_frobenius_60bdb0_true_arm : IGProtoco
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def inc_inc_is_proved_by_the_frobenius_60bdb0_tier : OuroboricityTier := TierFunctor.obj inc_inc_is_proved_by_the_frobenius_60bdb0_s0
 #eval inc_inc_is_proved_by_the_frobenius_60bdb0_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Inc²≃Inc is proved by the frobenius_closure theorem)
+--   Word: ⊢≻⊣≻⊙≻≺⋈∈∈⊤⊤∋∈⊤⊞⊤∋∋⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def inc_inc_is_proved_by_the_frobenius_60bdb0_opcodes : List String := ["VINIT", "AFWD", "TANCH", "AFWD", "IMSCRIB", "AFWD", "AREV", "CLINK", "FSPLIT", "FSPLIT", "EVALT", "EVALT", "FFUSE", "FSPLIT", "EVALT", "ENGAGR", "EVALT", "FFUSE", "FFUSE", "IFIX"]
+
+def inc_inc_is_proved_by_the_frobenius_60bdb0_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf inc_inc_is_proved_by_the_frobenius_60bdb0_opcodes
+
+def inc_inc_is_proved_by_the_frobenius_60bdb0_glyph_word : String := glyphWordOf inc_inc_is_proved_by_the_frobenius_60bdb0_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem inc_inc_is_proved_by_the_frobenius_60bdb0_register_length : inc_inc_is_proved_by_the_frobenius_60bdb0_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem inc_inc_is_proved_by_the_frobenius_60bdb0_register_matches_word : inc_inc_is_proved_by_the_frobenius_60bdb0_glyph_word = "⊢≻⊣≻⊙≻≺⋈∈∈⊤⊤∋∈⊤⊞⊤∋∋⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def inc_inc_is_proved_by_the_frobenius_60bdb0_conventional_protocol : IGProtocol inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- VINIT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- AFWD
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- TANCH
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- AFWD
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- IMSCRIB
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- AFWD
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- AREV
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- CLINK
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FSPLIT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FSPLIT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- EVALT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- EVALT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FFUSE
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FSPLIT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- EVALT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- ENGAGR
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- EVALT
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FFUSE
+  (.seq (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0)  -- FFUSE
+  (.arrow inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0 inc_inc_is_proved_by_the_frobenius_60bdb0_s0))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem inc_inc_is_proved_by_the_frobenius_60bdb0_conventional_protocol_depth : inc_inc_is_proved_by_the_frobenius_60bdb0_conventional_protocol.depth = 20 := by
+  native_decide
+

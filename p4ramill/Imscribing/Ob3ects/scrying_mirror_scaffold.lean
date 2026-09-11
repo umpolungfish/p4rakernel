@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem scrying_mirror_a_black_obsidian_mirror_6014f3_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Scrying mirror: a black obsidian mirror used for remote viewing and spirit communication. FSPLIT: the scryer's gaze enters the mirror, splitting perception from ordinary reality into the visionary realm. FFUSE: the visions, symbols, and messages coalesce into a coherent revelation, reconstituting the scryer's understanding. VINIT: empty dark mirror before first use. TANCH: the mirror's rim — the boundary between worlds. AFWD: vision emerges. AREV: vision recedes. ENGAGR: seeing and not-seeing simultaneously — the mirror shows truth and illusion at once.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def scrying_mirror_a_black_obsidian_mirror_6014f3_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def scrying_mirror_a_black_obsidian_mirror_6014f3_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf scrying_mirror_a_black_obsidian_mirror_6014f3_opcodes
+
+def scrying_mirror_a_black_obsidian_mirror_6014f3_glyph_word : String := glyphWordOf scrying_mirror_a_black_obsidian_mirror_6014f3_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem scrying_mirror_a_black_obsidian_mirror_6014f3_register_length : scrying_mirror_a_black_obsidian_mirror_6014f3_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem scrying_mirror_a_black_obsidian_mirror_6014f3_register_matches_word : scrying_mirror_a_black_obsidian_mirror_6014f3_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def scrying_mirror_a_black_obsidian_mirror_6014f3_conventional_protocol : IGProtocol scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- IMSCRIB
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- AREV
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- FSPLIT
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- AFWD
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- FFUSE
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- CLINK
+  (.seq (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0)  -- IFIX
+  (.arrow scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0 scrying_mirror_a_black_obsidian_mirror_6014f3_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem scrying_mirror_a_black_obsidian_mirror_6014f3_conventional_protocol_depth : scrying_mirror_a_black_obsidian_mirror_6014f3_conventional_protocol.depth = 8 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -99,3 +100,45 @@ def the_zeros_of_s_correspond_to_the_015c97_tier : OuroboricityTier := TierFunct
 theorem the_zeros_of_s_correspond_to_the_015c97_frobenius :
     igFrobeniusAlg.mul the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 = the_zeros_of_s_correspond_to_the_015c97_s0 :=
   igFrobAlg_self_fusion the_zeros_of_s_correspond_to_the_015c97_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the zeros of ζ(s) correspond to the eigenvalues of a SIC-POVM-driven Hamiltonian)
+--   Word: ⊢∈≻≺⊤⋈⊙⊞∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_zeros_of_s_correspond_to_the_015c97_opcodes : List String := ["VINIT", "FSPLIT", "AFWD", "AREV", "EVALT", "CLINK", "IMSCRIB", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+
+def the_zeros_of_s_correspond_to_the_015c97_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_zeros_of_s_correspond_to_the_015c97_opcodes
+
+def the_zeros_of_s_correspond_to_the_015c97_glyph_word : String := glyphWordOf the_zeros_of_s_correspond_to_the_015c97_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_zeros_of_s_correspond_to_the_015c97_register_length : the_zeros_of_s_correspond_to_the_015c97_conventional_register.length = 11 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_zeros_of_s_correspond_to_the_015c97_register_matches_word : the_zeros_of_s_correspond_to_the_015c97_glyph_word = "⊢∈≻≺⊤⋈⊙⊞∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_zeros_of_s_correspond_to_the_015c97_conventional_protocol : IGProtocol the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- VINIT
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- FSPLIT
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- AFWD
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- AREV
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- EVALT
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- CLINK
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- IMSCRIB
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- ENGAGR
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- FFUSE
+  (.seq (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)  -- IFIX
+  (.arrow the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0 the_zeros_of_s_correspond_to_the_015c97_s0)))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 11 arrows. -/
+theorem the_zeros_of_s_correspond_to_the_015c97_conventional_protocol_depth : the_zeros_of_s_correspond_to_the_015c97_conventional_protocol.depth = 11 := by
+  native_decide
+

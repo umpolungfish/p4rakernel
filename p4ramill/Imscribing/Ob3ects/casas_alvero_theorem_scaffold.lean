@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -146,3 +147,54 @@ def casas_alvero_theorem_tier : OuroboricityTier := TierFunctor.obj casas_alvero
 theorem casas_alvero_theorem_frobenius :
     igFrobeniusAlg.mul casas_alvero_theorem_s0 casas_alvero_theorem_s0 = casas_alvero_theorem_s0 :=
   igFrobAlg_self_fusion casas_alvero_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Casas-Alvero Theorem)
+--   Word: ⊢≻≻≻⋈⋈⋈⋈∈⊤≻⊡∋⊥≺⊡∋⊞⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def casas_alvero_theorem_opcodes : List String := ["VINIT", "AFWD", "AFWD", "AFWD", "CLINK", "CLINK", "CLINK", "CLINK", "FSPLIT", "EVALT", "AFWD", "IFIX", "FFUSE", "EVALF", "AREV", "IFIX", "FFUSE", "ENGAGR", "IMSCRIB", "TANCH"]
+
+def casas_alvero_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf casas_alvero_theorem_opcodes
+
+def casas_alvero_theorem_glyph_word : String := glyphWordOf casas_alvero_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem casas_alvero_theorem_register_length : casas_alvero_theorem_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem casas_alvero_theorem_register_matches_word : casas_alvero_theorem_glyph_word = "⊢≻≻≻⋈⋈⋈⋈∈⊤≻⊡∋⊥≺⊡∋⊞⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def casas_alvero_theorem_conventional_protocol : IGProtocol casas_alvero_theorem_s0 casas_alvero_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- VINIT
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- AFWD
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- AFWD
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- AFWD
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- CLINK
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- CLINK
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- CLINK
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- CLINK
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- FSPLIT
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- EVALT
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- AFWD
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- IFIX
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- FFUSE
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- EVALF
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- AREV
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- IFIX
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- FFUSE
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- ENGAGR
+  (.seq (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0)  -- IMSCRIB
+  (.arrow casas_alvero_theorem_s0 casas_alvero_theorem_s0 casas_alvero_theorem_s0))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem casas_alvero_theorem_conventional_protocol_depth : casas_alvero_theorem_conventional_protocol.depth = 20 := by
+  native_decide
+

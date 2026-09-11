@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,3 +117,48 @@ def document_lift_tier : OuroboricityTier := TierFunctor.obj document_lift_s0
 theorem document_lift_frobenius :
     igFrobeniusAlg.mul document_lift_s0 document_lift_s0 = document_lift_s0 :=
   igFrobAlg_self_fusion document_lift_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: document lift)
+--   Word: ⊢⊙≻⊡∈⊤⋈⊞⊥≺∋⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def document_lift_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IFIX", "FSPLIT", "EVALT", "CLINK", "ENGAGR", "EVALF", "AREV", "FFUSE", "IMSCRIB", "IFIX", "TANCH"]
+
+def document_lift_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf document_lift_opcodes
+
+def document_lift_glyph_word : String := glyphWordOf document_lift_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem document_lift_register_length : document_lift_conventional_register.length = 14 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem document_lift_register_matches_word : document_lift_glyph_word = "⊢⊙≻⊡∈⊤⋈⊞⊥≺∋⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def document_lift_conventional_protocol : IGProtocol document_lift_s0 document_lift_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- VINIT
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- IMSCRIB
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- AFWD
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- IFIX
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- FSPLIT
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- EVALT
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- CLINK
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- ENGAGR
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- EVALF
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- AREV
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- FFUSE
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- IMSCRIB
+  (.seq (.arrow document_lift_s0 document_lift_s0 document_lift_s0)  -- IFIX
+  (.arrow document_lift_s0 document_lift_s0 document_lift_s0))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 14 arrows. -/
+theorem document_lift_conventional_protocol_depth : document_lift_conventional_protocol.depth = 14 := by
+  native_decide
+

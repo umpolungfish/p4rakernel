@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -256,3 +257,76 @@ def lonely_runner_theorem_tier : OuroboricityTier := TierFunctor.obj lonely_runn
 theorem lonely_runner_theorem_frobenius :
     igFrobeniusAlg.mul lonely_runner_theorem_s0 lonely_runner_theorem_s0 = lonely_runner_theorem_s0 :=
   igFrobAlg_self_fusion lonely_runner_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Lonely Runner Theorem)
+--   Word: ⊢⊣≻≻≻⋈⋈∈⊤⊥≺⋈⊞≻⋈∈⊤⊥⊡⊙≺⋈∈⊤⊥≻⋈⊡⊙⋈∈⊤⊥≻⋈⊞≺⋈⊡∋⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def lonely_runner_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AFWD", "AFWD", "CLINK", "CLINK", "FSPLIT", "EVALT", "EVALF", "AREV", "CLINK", "ENGAGR", "AFWD", "CLINK", "FSPLIT", "EVALT", "EVALF", "IFIX", "IMSCRIB", "AREV", "CLINK", "FSPLIT", "EVALT", "EVALF", "AFWD", "CLINK", "IFIX", "IMSCRIB", "CLINK", "FSPLIT", "EVALT", "EVALF", "AFWD", "CLINK", "ENGAGR", "AREV", "CLINK", "IFIX", "FFUSE", "IMSCRIB", "TANCH"]
+
+def lonely_runner_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf lonely_runner_theorem_opcodes
+
+def lonely_runner_theorem_glyph_word : String := glyphWordOf lonely_runner_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem lonely_runner_theorem_register_length : lonely_runner_theorem_conventional_register.length = 42 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem lonely_runner_theorem_register_matches_word : lonely_runner_theorem_glyph_word = "⊢⊣≻≻≻⋈⋈∈⊤⊥≺⋈⊞≻⋈∈⊤⊥⊡⊙≺⋈∈⊤⊥≻⋈⊡⊙⋈∈⊤⊥≻⋈⊞≺⋈⊡∋⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def lonely_runner_theorem_conventional_protocol : IGProtocol lonely_runner_theorem_s0 lonely_runner_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- VINIT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- TANCH
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALF
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AREV
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- ENGAGR
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALF
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IFIX
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AREV
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALF
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IFIX
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- FSPLIT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALT
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- EVALF
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AFWD
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- ENGAGR
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- AREV
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- CLINK
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IFIX
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- FFUSE
+  (.seq (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0)  -- IMSCRIB
+  (.arrow lonely_runner_theorem_s0 lonely_runner_theorem_s0 lonely_runner_theorem_s0))))))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 42 arrows. -/
+theorem lonely_runner_theorem_conventional_protocol_depth : lonely_runner_theorem_conventional_protocol.depth = 42 := by
+  native_decide
+

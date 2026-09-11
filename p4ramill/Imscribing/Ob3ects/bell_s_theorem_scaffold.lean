@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -136,3 +137,52 @@ def bells_theorem_tier : OuroboricityTier := TierFunctor.obj bells_theorem_s0
 theorem bells_theorem_frobenius :
     igFrobeniusAlg.mul bells_theorem_s0 bells_theorem_s0 = bells_theorem_s0 :=
   igFrobAlg_self_fusion bells_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Bell's Theorem)
+--   Word: ⊢≻∈≻≻∈∈⊞⊥⊤⋈⋈⋈∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def bells_theorem_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "AFWD", "AFWD", "FSPLIT", "FSPLIT", "ENGAGR", "EVALF", "EVALT", "CLINK", "CLINK", "CLINK", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def bells_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf bells_theorem_opcodes
+
+def bells_theorem_glyph_word : String := glyphWordOf bells_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem bells_theorem_register_length : bells_theorem_conventional_register.length = 18 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem bells_theorem_register_matches_word : bells_theorem_glyph_word = "⊢≻∈≻≻∈∈⊞⊥⊤⋈⋈⋈∋⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def bells_theorem_conventional_protocol : IGProtocol bells_theorem_s0 bells_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- VINIT
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- AFWD
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- FSPLIT
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- AFWD
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- AFWD
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- FSPLIT
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- FSPLIT
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- ENGAGR
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- EVALF
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- EVALT
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- CLINK
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- CLINK
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- CLINK
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- FFUSE
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- AREV
+  (.seq (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0)  -- IFIX
+  (.arrow bells_theorem_s0 bells_theorem_s0 bells_theorem_s0))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 18 arrows. -/
+theorem bells_theorem_conventional_protocol_depth : bells_theorem_conventional_protocol.depth = 18 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem witchs_familiar_a_spirit_animal_bond_48870e_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Witch's familiar: a spirit-animal bond between practitioner and a tutelary entity. FSPLIT: the familiar departs the witch's body, splitting awareness into the witch's perspective and the familiar's remote perception. FFUSE: the familiar returns, merging the two streams of experience into one enriched awareness. VINIT: the unbonded practitioner. TANCH: the bond itself as the container. AFWD: the familiar ventures forth. AREV: the familiar returns home. ENGAGR: the familiar is simultaneously an extension of the witch and an independent being — the paradox of the familiar bond.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def witchs_familiar_a_spirit_animal_bond_48870e_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def witchs_familiar_a_spirit_animal_bond_48870e_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf witchs_familiar_a_spirit_animal_bond_48870e_opcodes
+
+def witchs_familiar_a_spirit_animal_bond_48870e_glyph_word : String := glyphWordOf witchs_familiar_a_spirit_animal_bond_48870e_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem witchs_familiar_a_spirit_animal_bond_48870e_register_length : witchs_familiar_a_spirit_animal_bond_48870e_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem witchs_familiar_a_spirit_animal_bond_48870e_register_matches_word : witchs_familiar_a_spirit_animal_bond_48870e_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def witchs_familiar_a_spirit_animal_bond_48870e_conventional_protocol : IGProtocol witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- IMSCRIB
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- AREV
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- FSPLIT
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- AFWD
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- FFUSE
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- CLINK
+  (.seq (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0)  -- IFIX
+  (.arrow witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0 witchs_familiar_a_spirit_animal_bond_48870e_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem witchs_familiar_a_spirit_animal_bond_48870e_conventional_protocol_depth : witchs_familiar_a_spirit_animal_bond_48870e_conventional_protocol.depth = 8 := by
+  native_decide
+

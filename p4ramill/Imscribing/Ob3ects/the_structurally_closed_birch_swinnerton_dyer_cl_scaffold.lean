@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,5 +117,51 @@ def the_structurally_closed_birch_537e15_tier : OuroboricityTier := TierFunctor.
 theorem the_structurally_closed_birch_537e15_frobenius :
     igFrobeniusAlg.mul the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 = the_structurally_closed_birch_537e15_s0 :=
   igFrobAlg_self_fusion the_structurally_closed_birch_537e15_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the structurally-closed Birch-Swinnerton-Dyer Clay type whose Lean witness still carries a sorry becomes a *sans* sorry Lean witness aligned with its T_CEILING cross-universe closure via five existing gate-universes)
+--   Word: ⊢⊙∈≻⋈⋈⊤≺⊤∋⊞⋈⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_structurally_closed_birch_537e15_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "CLINK", "CLINK", "EVALT", "AREV", "EVALT", "FFUSE", "ENGAGR", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+
+def the_structurally_closed_birch_537e15_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_structurally_closed_birch_537e15_opcodes
+
+def the_structurally_closed_birch_537e15_glyph_word : String := glyphWordOf the_structurally_closed_birch_537e15_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_structurally_closed_birch_537e15_register_length : the_structurally_closed_birch_537e15_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_structurally_closed_birch_537e15_register_matches_word : the_structurally_closed_birch_537e15_glyph_word = "⊢⊙∈≻⋈⋈⊤≺⊤∋⊞⋈⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_structurally_closed_birch_537e15_conventional_protocol : IGProtocol the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- VINIT
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- IMSCRIB
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- FSPLIT
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- AFWD
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- CLINK
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- CLINK
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- EVALT
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- AREV
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- EVALT
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- FFUSE
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- ENGAGR
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- CLINK
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- IMSCRIB
+  (.seq (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)  -- IFIX
+  (.arrow the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0 the_structurally_closed_birch_537e15_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem the_structurally_closed_birch_537e15_conventional_protocol_depth : the_structurally_closed_birch_537e15_conventional_protocol.depth = 15 := by
+  native_decide
 
 end Imscribing

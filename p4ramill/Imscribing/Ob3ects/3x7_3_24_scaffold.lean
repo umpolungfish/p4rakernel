@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -97,3 +98,26 @@ def 3x7_3_24_tier : OuroboricityTier := TierFunctor.obj 3x7_3_24_s0
 theorem 3x7_3_24_frobenius :
     igFrobeniusAlg.mul 3x7_3_24_s0 3x7_3_24_s0 = 3x7_3_24_s0 :=
   igFrobAlg_self_fusion 3x7_3_24_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: 3x7+3=24)
+--   Word: ⊢∈⊙≻⋈≻⊙⊤∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ob_3x7_3_24_opcodes : List String := ["VINIT", "FSPLIT", "IMSCRIB", "AFWD", "CLINK", "AFWD", "IMSCRIB", "EVALT", "FFUSE", "IFIX", "TANCH"]
+
+def ob_3x7_3_24_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ob_3x7_3_24_opcodes
+
+def ob_3x7_3_24_glyph_word : String := glyphWordOf ob_3x7_3_24_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ob_3x7_3_24_register_length : ob_3x7_3_24_conventional_register.length = 11 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ob_3x7_3_24_register_matches_word : ob_3x7_3_24_glyph_word = "⊢∈⊙≻⋈≻⊙⊤∋⊡⊣" := by
+  native_decide
+
+-- protocol omitted: ground stage identifier is not a valid Lean identifier
+

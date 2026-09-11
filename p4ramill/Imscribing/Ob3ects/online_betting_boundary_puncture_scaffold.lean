@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def online_betting_boundary_puncture_tier : OuroboricityTier := TierFunctor.obj 
 theorem online_betting_boundary_puncture_frobenius :
     igFrobeniusAlg.mul online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 = online_betting_boundary_puncture_s0 :=
   igFrobAlg_self_fusion online_betting_boundary_puncture_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Online Betting Boundary Puncture)
+--   Word: ⊢⊣≻≺⋈⊙∈⊤⊥⊞∋⊡⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def online_betting_boundary_puncture_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "CLINK", "IMSCRIB", "TANCH"]
+
+def online_betting_boundary_puncture_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf online_betting_boundary_puncture_opcodes
+
+def online_betting_boundary_puncture_glyph_word : String := glyphWordOf online_betting_boundary_puncture_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem online_betting_boundary_puncture_register_length : online_betting_boundary_puncture_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem online_betting_boundary_puncture_register_matches_word : online_betting_boundary_puncture_glyph_word = "⊢⊣≻≺⋈⊙∈⊤⊥⊞∋⊡⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def online_betting_boundary_puncture_conventional_protocol : IGProtocol online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- VINIT
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- TANCH
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- AFWD
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- AREV
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- CLINK
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- IMSCRIB
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- FSPLIT
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- EVALT
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- EVALF
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- ENGAGR
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- FFUSE
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- IFIX
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- CLINK
+  (.seq (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)  -- IMSCRIB
+  (.arrow online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0 online_betting_boundary_puncture_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem online_betting_boundary_puncture_conventional_protocol_depth : online_betting_boundary_puncture_conventional_protocol.depth = 15 := by
+  native_decide
+

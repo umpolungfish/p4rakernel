@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def a_hermetic_poem_for_daily_gnosis_tier : OuroboricityTier := TierFunctor.obj 
 theorem a_hermetic_poem_for_daily_gnosis_frobenius :
     igFrobeniusAlg.mul a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 = a_hermetic_poem_for_daily_gnosis_s0 :=
   igFrobAlg_self_fusion a_hermetic_poem_for_daily_gnosis_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: A hermetic poem for daily Gnosis)
+--   Word: ⊢≻⋈⊙∈≻⊤∋≺⊥∋⊞⋈⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def a_hermetic_poem_for_daily_gnosis_opcodes : List String := ["VINIT", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "FFUSE", "AREV", "EVALF", "FFUSE", "ENGAGR", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+
+def a_hermetic_poem_for_daily_gnosis_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf a_hermetic_poem_for_daily_gnosis_opcodes
+
+def a_hermetic_poem_for_daily_gnosis_glyph_word : String := glyphWordOf a_hermetic_poem_for_daily_gnosis_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem a_hermetic_poem_for_daily_gnosis_register_length : a_hermetic_poem_for_daily_gnosis_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem a_hermetic_poem_for_daily_gnosis_register_matches_word : a_hermetic_poem_for_daily_gnosis_glyph_word = "⊢≻⋈⊙∈≻⊤∋≺⊥∋⊞⋈⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def a_hermetic_poem_for_daily_gnosis_conventional_protocol : IGProtocol a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- VINIT
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- AFWD
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- CLINK
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- IMSCRIB
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- FSPLIT
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- AFWD
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- EVALT
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- FFUSE
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- AREV
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- EVALF
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- FFUSE
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- ENGAGR
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- CLINK
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- IMSCRIB
+  (.seq (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0)  -- IFIX
+  (.arrow a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0 a_hermetic_poem_for_daily_gnosis_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem a_hermetic_poem_for_daily_gnosis_conventional_protocol_depth : a_hermetic_poem_for_daily_gnosis_conventional_protocol.depth = 16 := by
+  native_decide
+

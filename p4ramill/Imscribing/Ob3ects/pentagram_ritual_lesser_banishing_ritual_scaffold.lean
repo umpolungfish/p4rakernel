@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem pentagram_ritual_lesser_banishing_bca0ee_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Pentagram ritual (Lesser Banishing Ritual of the Pentagram): the ceremonial magic ritual that establishes sacred space. FSPLIT: the magician draws the pentagrams in the four quarters, splitting mundane space into consecrated ritual space with four elemental guardians. FFUSE: the closing reunites the sacred space with mundane space — the circle is opened, the guardians are released, but the magician retains the charge. VINIT: profane space before the ritual. TANCH: the magic circle. AFWD: invoking pentagram (spirit drawn down). AREV: banishing pentagram (spirit sent away). ENGAGR: the magician stands at the intersection of all four quarters — simultaneously in all elements and none.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def pentagram_ritual_lesser_banishing_bca0ee_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def pentagram_ritual_lesser_banishing_bca0ee_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf pentagram_ritual_lesser_banishing_bca0ee_opcodes
+
+def pentagram_ritual_lesser_banishing_bca0ee_glyph_word : String := glyphWordOf pentagram_ritual_lesser_banishing_bca0ee_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem pentagram_ritual_lesser_banishing_bca0ee_register_length : pentagram_ritual_lesser_banishing_bca0ee_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem pentagram_ritual_lesser_banishing_bca0ee_register_matches_word : pentagram_ritual_lesser_banishing_bca0ee_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def pentagram_ritual_lesser_banishing_bca0ee_conventional_protocol : IGProtocol pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- IMSCRIB
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- AREV
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- FSPLIT
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- AFWD
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- FFUSE
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- CLINK
+  (.seq (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0)  -- IFIX
+  (.arrow pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0 pentagram_ritual_lesser_banishing_bca0ee_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem pentagram_ritual_lesser_banishing_bca0ee_conventional_protocol_depth : pentagram_ritual_lesser_banishing_bca0ee_conventional_protocol.depth = 8 := by
+  native_decide
+

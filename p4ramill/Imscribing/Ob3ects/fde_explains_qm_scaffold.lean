@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -101,3 +102,45 @@ def fde_explains_qm_tier : OuroboricityTier := TierFunctor.obj fde_explains_qm_s
 theorem fde_explains_qm_frobenius :
     igFrobeniusAlg.mul fde_explains_qm_s0 fde_explains_qm_s0 = fde_explains_qm_s0 :=
   igFrobAlg_self_fusion fde_explains_qm_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: FDE explains QM)
+--   Word: ⊢≻∈⊤⊥⊞∋⊙⋈⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def fde_explains_qm_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "TANCH"]
+
+def fde_explains_qm_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf fde_explains_qm_opcodes
+
+def fde_explains_qm_glyph_word : String := glyphWordOf fde_explains_qm_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem fde_explains_qm_register_length : fde_explains_qm_conventional_register.length = 11 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem fde_explains_qm_register_matches_word : fde_explains_qm_glyph_word = "⊢≻∈⊤⊥⊞∋⊙⋈⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def fde_explains_qm_conventional_protocol : IGProtocol fde_explains_qm_s0 fde_explains_qm_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- VINIT
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- AFWD
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- FSPLIT
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- EVALT
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- EVALF
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- ENGAGR
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- FFUSE
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- IMSCRIB
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- CLINK
+  (.seq (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)  -- IFIX
+  (.arrow fde_explains_qm_s0 fde_explains_qm_s0 fde_explains_qm_s0)))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 11 arrows. -/
+theorem fde_explains_qm_conventional_protocol_depth : fde_explains_qm_conventional_protocol.depth = 11 := by
+  native_decide
+

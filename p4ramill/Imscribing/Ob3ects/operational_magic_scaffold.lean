@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -107,3 +108,47 @@ def operational_magic_tier : OuroboricityTier := TierFunctor.obj operational_mag
 theorem operational_magic_frobenius :
     igFrobeniusAlg.mul operational_magic_s0 operational_magic_s0 = operational_magic_s0 :=
   igFrobAlg_self_fusion operational_magic_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Operational Magic)
+--   Word: ⊢⊙⊣≻∈⋈⊞∋⊡⊤≺⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def operational_magic_opcodes : List String := ["VINIT", "IMSCRIB", "TANCH", "AFWD", "FSPLIT", "CLINK", "ENGAGR", "FFUSE", "IFIX", "EVALT", "AREV", "CLINK", "IFIX"]
+
+def operational_magic_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf operational_magic_opcodes
+
+def operational_magic_glyph_word : String := glyphWordOf operational_magic_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem operational_magic_register_length : operational_magic_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem operational_magic_register_matches_word : operational_magic_glyph_word = "⊢⊙⊣≻∈⋈⊞∋⊡⊤≺⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def operational_magic_conventional_protocol : IGProtocol operational_magic_s0 operational_magic_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- VINIT
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- IMSCRIB
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- TANCH
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- AFWD
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- FSPLIT
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- CLINK
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- ENGAGR
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- FFUSE
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- IFIX
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- EVALT
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- AREV
+  (.seq (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)  -- CLINK
+  (.arrow operational_magic_s0 operational_magic_s0 operational_magic_s0)))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem operational_magic_conventional_protocol_depth : operational_magic_conventional_protocol.depth = 13 := by
+  native_decide
+
