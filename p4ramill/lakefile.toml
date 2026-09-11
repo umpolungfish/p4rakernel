@@ -61,6 +61,7 @@ globs = [
   "Imscribing.ABC_MeasurementChain",
   "Imscribing.ABC_MeasurementCompatibility",
   "Imscribing.ABC_MeasurementStream",
+  "Imscribing.FullyNestedFactorMachine",
   "Imscribing.ABC_Champions",
   "Imscribing.ABC_ChampionNineBounds",
   "Imscribing.ABC_ChampionTraceNine",
