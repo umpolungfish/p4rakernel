@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -246,3 +247,75 @@ noncomputable def andrews_curtis_theorem_false_arm : IGProtocol andrews_curtis_t
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def andrews_curtis_theorem_tier : OuroboricityTier := TierFunctor.obj andrews_curtis_theorem_s0
 #eval andrews_curtis_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Andrews–Curtis Theorem)
+--   Word: ⊢⊣≻≻⊙∈⊤≻⋈⊡≺⊥⊞∋⊙≻≻∈⊤⋈⊡≺⊥⊞∋⊙≻≻∈⊤⋈⊡≺⊥⊞∋⊙⋈⊡⊞⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def andrews_curtis_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AFWD", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "AFWD", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "AFWD", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "ENGAGR", "TANCH"]
+
+def andrews_curtis_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf andrews_curtis_theorem_opcodes
+
+def andrews_curtis_theorem_glyph_word : String := glyphWordOf andrews_curtis_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem andrews_curtis_theorem_register_length : andrews_curtis_theorem_conventional_register.length = 41 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem andrews_curtis_theorem_register_matches_word : andrews_curtis_theorem_glyph_word = "⊢⊣≻≻⊙∈⊤≻⋈⊡≺⊥⊞∋⊙≻≻∈⊤⋈⊡≺⊥⊞∋⊙≻≻∈⊤⋈⊡≺⊥⊞∋⊙⋈⊡⊞⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def andrews_curtis_theorem_conventional_protocol : IGProtocol andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- VINIT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- TANCH
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- CLINK
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IFIX
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AREV
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALF
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FFUSE
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- CLINK
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IFIX
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AREV
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALF
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FFUSE
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AFWD
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALT
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- CLINK
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IFIX
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- AREV
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- EVALF
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- FFUSE
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- CLINK
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- IFIX
+  (.seq (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)  -- ENGAGR
+  (.arrow andrews_curtis_theorem_s0 andrews_curtis_theorem_s0 andrews_curtis_theorem_s0)))))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 41 arrows. -/
+theorem andrews_curtis_theorem_conventional_protocol_depth : andrews_curtis_theorem_conventional_protocol.depth = 41 := by
+  native_decide
+

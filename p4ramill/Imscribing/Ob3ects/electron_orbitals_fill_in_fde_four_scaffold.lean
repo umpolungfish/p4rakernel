@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def electron_orbitals_fill_in_fde_four_tier : OuroboricityTier := TierFunctor.ob
 theorem electron_orbitals_fill_in_fde_four_frobenius :
     igFrobeniusAlg.mul electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 = electron_orbitals_fill_in_fde_four_s0 :=
   igFrobAlg_self_fusion electron_orbitals_fill_in_fde_four_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: electron orbitals fill in FDE FOUR)
+--   Word: ⊢⊙≻∈⊤⊥∋⊞⊙⋈⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def electron_orbitals_fill_in_fde_four_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "EVALF", "FFUSE", "ENGAGR", "IMSCRIB", "CLINK", "IFIX", "TANCH"]
+
+def electron_orbitals_fill_in_fde_four_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf electron_orbitals_fill_in_fde_four_opcodes
+
+def electron_orbitals_fill_in_fde_four_glyph_word : String := glyphWordOf electron_orbitals_fill_in_fde_four_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem electron_orbitals_fill_in_fde_four_register_length : electron_orbitals_fill_in_fde_four_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem electron_orbitals_fill_in_fde_four_register_matches_word : electron_orbitals_fill_in_fde_four_glyph_word = "⊢⊙≻∈⊤⊥∋⊞⊙⋈⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def electron_orbitals_fill_in_fde_four_conventional_protocol : IGProtocol electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- VINIT
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- IMSCRIB
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- AFWD
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- FSPLIT
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- EVALT
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- EVALF
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- FFUSE
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- ENGAGR
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- IMSCRIB
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- CLINK
+  (.seq (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0)  -- IFIX
+  (.arrow electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0 electron_orbitals_fill_in_fde_four_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem electron_orbitals_fill_in_fde_four_conventional_protocol_depth : electron_orbitals_fill_in_fde_four_conventional_protocol.depth = 12 := by
+  native_decide
+

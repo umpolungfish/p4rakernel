@@ -313,6 +313,8 @@ globs = [
   "Imscribing.Millennium.Collatz",
   "Imscribing.Millennium.ImaginaryNumbers",
   "Imscribing.IGMorphism",
+  "Imscribing.ConventionalRegister",
+  "Imscribing.GravityFixedPointWinding",
   "Imscribing.IGFunctor",
   "Imscribing.Millennium.EilenbergGanea",
   "Imscribing.Millennium.GrothendieckA",

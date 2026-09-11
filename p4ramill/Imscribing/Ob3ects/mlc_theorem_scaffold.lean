@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -326,3 +327,91 @@ noncomputable def mlc_theorem_false_arm : IGProtocol mlc_theorem_s0 mlc_theorem_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def mlc_theorem_tier : OuroboricityTier := TierFunctor.obj mlc_theorem_s0
 #eval mlc_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: MLC Theorem)
+--   Word: ⊢⊣⋈∈⊤≻⋈∈⊤≻⊡⋈⊤⊞≺⊥≻⋈⊤⊡∋⊙⋈⊤≻∈⊤≻⋈⊤⊡≺⊥≻⋈⊤⊞⊡∋⊙⋈⊤≻∈⊤≻⊙⊡⊥≺⋈⊤⊞∋⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def mlc_theorem_opcodes : List String := ["VINIT", "TANCH", "CLINK", "FSPLIT", "EVALT", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "IFIX", "CLINK", "EVALT", "ENGAGR", "AREV", "EVALF", "AFWD", "CLINK", "EVALT", "IFIX", "FFUSE", "IMSCRIB", "CLINK", "EVALT", "AFWD", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALT", "IFIX", "AREV", "EVALF", "AFWD", "CLINK", "EVALT", "ENGAGR", "IFIX", "FFUSE", "IMSCRIB", "CLINK", "EVALT", "AFWD", "FSPLIT", "EVALT", "AFWD", "IMSCRIB", "IFIX", "EVALF", "AREV", "CLINK", "EVALT", "ENGAGR", "FFUSE", "IMSCRIB", "IFIX", "TANCH"]
+
+def mlc_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf mlc_theorem_opcodes
+
+def mlc_theorem_glyph_word : String := glyphWordOf mlc_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem mlc_theorem_register_length : mlc_theorem_conventional_register.length = 57 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem mlc_theorem_register_matches_word : mlc_theorem_glyph_word = "⊢⊣⋈∈⊤≻⋈∈⊤≻⊡⋈⊤⊞≺⊥≻⋈⊤⊡∋⊙⋈⊤≻∈⊤≻⋈⊤⊡≺⊥≻⋈⊤⊞⊡∋⊙⋈⊤≻∈⊤≻⊙⊡⊥≺⋈⊤⊞∋⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def mlc_theorem_conventional_protocol : IGProtocol mlc_theorem_s0 mlc_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- VINIT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- TANCH
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FSPLIT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FSPLIT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- ENGAGR
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AREV
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALF
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FFUSE
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FSPLIT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AREV
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALF
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- ENGAGR
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FFUSE
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FSPLIT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AFWD
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALF
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- AREV
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- CLINK
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- EVALT
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- ENGAGR
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- FFUSE
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)  -- IFIX
+  (.arrow mlc_theorem_s0 mlc_theorem_s0 mlc_theorem_s0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 57 arrows. -/
+theorem mlc_theorem_conventional_protocol_depth : mlc_theorem_conventional_protocol.depth = 57 := by
+  native_decide
+

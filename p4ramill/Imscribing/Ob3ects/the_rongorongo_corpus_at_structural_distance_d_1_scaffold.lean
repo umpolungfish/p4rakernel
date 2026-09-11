@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -110,5 +111,50 @@ noncomputable def the_rongorongo_corpus_at_structural_7d8a67_false_arm : IGProto
 
 -- Tier: apply the Grammar to the object (self-application). Fingerprint heuristic suggested .O₂.
 def the_rongorongo_corpus_at_structural_7d8a67_tier : OuroboricityTier := TierFunctor.obj the_rongorongo_corpus_at_structural_7d8a67_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the Rongorongo corpus at distance d=1.87 from the Great Law of Peace becomes a T-consistent reduction of that distance in the O₂† liturgical register)
+--   Word: ⊢⊙∈⊥≺∋∈≻⊤∋⋈⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_rongorongo_corpus_at_structural_7d8a67_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALF", "AREV", "FFUSE", "FSPLIT", "AFWD", "EVALT", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+
+def the_rongorongo_corpus_at_structural_7d8a67_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_rongorongo_corpus_at_structural_7d8a67_opcodes
+
+def the_rongorongo_corpus_at_structural_7d8a67_glyph_word : String := glyphWordOf the_rongorongo_corpus_at_structural_7d8a67_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_rongorongo_corpus_at_structural_7d8a67_register_length : the_rongorongo_corpus_at_structural_7d8a67_conventional_register.length = 14 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_rongorongo_corpus_at_structural_7d8a67_register_matches_word : the_rongorongo_corpus_at_structural_7d8a67_glyph_word = "⊢⊙∈⊥≺∋∈≻⊤∋⋈⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_rongorongo_corpus_at_structural_7d8a67_conventional_protocol : IGProtocol the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- VINIT
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- IMSCRIB
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- FSPLIT
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- EVALF
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- AREV
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- FFUSE
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- FSPLIT
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- AFWD
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- EVALT
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- FFUSE
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- CLINK
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- ENGAGR
+  (.seq (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0)  -- IFIX
+  (.arrow the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0 the_rongorongo_corpus_at_structural_7d8a67_s0))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 14 arrows. -/
+theorem the_rongorongo_corpus_at_structural_7d8a67_conventional_protocol_depth : the_rongorongo_corpus_at_structural_7d8a67_conventional_protocol.depth = 14 := by
+  native_decide
 
 end Imscribing

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -221,3 +222,70 @@ noncomputable def rotas_basis_theorem_false_arm : IGProtocol rotas_basis_theorem
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def rotas_basis_theorem_tier : OuroboricityTier := TierFunctor.obj rotas_basis_theorem_s0
 #eval rotas_basis_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Rota's Basis Theorem)
+--   Word: ⊢⊣∈⊤≻⊥≺⋈∋⊙⊡⊞⋈⊙⊡≻≺∈⊤⊥⊞∋⋈⊙⊡≻≺∈⊤⊥⊞∋⋈⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def rotas_basis_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "CLINK", "FFUSE", "IMSCRIB", "IFIX", "ENGAGR", "CLINK", "IMSCRIB", "IFIX", "AFWD", "AREV", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IMSCRIB", "IFIX", "AFWD", "AREV", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+
+def rotas_basis_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf rotas_basis_theorem_opcodes
+
+def rotas_basis_theorem_glyph_word : String := glyphWordOf rotas_basis_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem rotas_basis_theorem_register_length : rotas_basis_theorem_conventional_register.length = 36 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem rotas_basis_theorem_register_matches_word : rotas_basis_theorem_glyph_word = "⊢⊣∈⊤≻⊥≺⋈∋⊙⊡⊞⋈⊙⊡≻≺∈⊤⊥⊞∋⋈⊙⊡≻≺∈⊤⊥⊞∋⋈⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def rotas_basis_theorem_conventional_protocol : IGProtocol rotas_basis_theorem_s0 rotas_basis_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- VINIT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- TANCH
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AFWD
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALF
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AREV
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- CLINK
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FFUSE
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IFIX
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- CLINK
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IFIX
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AFWD
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AREV
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALF
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FFUSE
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- CLINK
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IFIX
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AFWD
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- AREV
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALT
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- EVALF
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- FFUSE
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- CLINK
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0)  -- IFIX
+  (.arrow rotas_basis_theorem_s0 rotas_basis_theorem_s0 rotas_basis_theorem_s0))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 36 arrows. -/
+theorem rotas_basis_theorem_conventional_protocol_depth : rotas_basis_theorem_conventional_protocol.depth = 36 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def he_sits_upon_a_pale_horse_and_his_name_fdbfe2_tier : OuroboricityTier := Tie
 theorem he_sits_upon_a_pale_horse_and_his_name_fdbfe2_frobenius :
     igFrobeniusAlg.mul he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 = he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 :=
   igFrobAlg_self_fusion he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: He Sits Upon A Pale Horse, and His Name is Death)
+--   Word: ⊢⊣⊙≻∈⊤⋈⊡≺⊥⊞∋⊙⋈≻⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def he_sits_upon_a_pale_horse_and_his_name_fdbfe2_opcodes : List String := ["VINIT", "TANCH", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "AFWD", "TANCH", "IMSCRIB"]
+
+def he_sits_upon_a_pale_horse_and_his_name_fdbfe2_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf he_sits_upon_a_pale_horse_and_his_name_fdbfe2_opcodes
+
+def he_sits_upon_a_pale_horse_and_his_name_fdbfe2_glyph_word : String := glyphWordOf he_sits_upon_a_pale_horse_and_his_name_fdbfe2_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem he_sits_upon_a_pale_horse_and_his_name_fdbfe2_register_length : he_sits_upon_a_pale_horse_and_his_name_fdbfe2_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem he_sits_upon_a_pale_horse_and_his_name_fdbfe2_register_matches_word : he_sits_upon_a_pale_horse_and_his_name_fdbfe2_glyph_word = "⊢⊣⊙≻∈⊤⋈⊡≺⊥⊞∋⊙⋈≻⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def he_sits_upon_a_pale_horse_and_his_name_fdbfe2_conventional_protocol : IGProtocol he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- VINIT
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- TANCH
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- IMSCRIB
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- AFWD
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- FSPLIT
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- EVALT
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- CLINK
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- IFIX
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- AREV
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- EVALF
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- ENGAGR
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- FFUSE
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- IMSCRIB
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- CLINK
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- AFWD
+  (.seq (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)  -- TANCH
+  (.arrow he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0 he_sits_upon_a_pale_horse_and_his_name_fdbfe2_s0)))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem he_sits_upon_a_pale_horse_and_his_name_fdbfe2_conventional_protocol_depth : he_sits_upon_a_pale_horse_and_his_name_fdbfe2_conventional_protocol.depth = 17 := by
+  native_decide
+

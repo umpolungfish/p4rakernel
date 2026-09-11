@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem dream_incubation_temple_an_oneiric_fbe898_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Dream incubation temple: an oneiric chamber where the sleeper receives oracular dreams. FSPLIT: sleep splits consciousness into the waking self (body on the temple floor) and the dream self (wandering the oneiric realm). FFUSE: awakening reconstitutes the two selves — the dream memory integrates into waking knowledge. VINIT: the empty temple before the sleeper enters. TANCH: the temple walls — the boundary of incubation. AFWD: falling asleep (descent into dream). AREV: waking (ascent from dream). ENGAGR: lucid dreaming — simultaneously awake and asleep, the dreamer knows they dream.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def dream_incubation_temple_an_oneiric_fbe898_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def dream_incubation_temple_an_oneiric_fbe898_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf dream_incubation_temple_an_oneiric_fbe898_opcodes
+
+def dream_incubation_temple_an_oneiric_fbe898_glyph_word : String := glyphWordOf dream_incubation_temple_an_oneiric_fbe898_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem dream_incubation_temple_an_oneiric_fbe898_register_length : dream_incubation_temple_an_oneiric_fbe898_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem dream_incubation_temple_an_oneiric_fbe898_register_matches_word : dream_incubation_temple_an_oneiric_fbe898_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def dream_incubation_temple_an_oneiric_fbe898_conventional_protocol : IGProtocol dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- IMSCRIB
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- AREV
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- FSPLIT
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- AFWD
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- FFUSE
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- CLINK
+  (.seq (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0)  -- IFIX
+  (.arrow dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0 dream_incubation_temple_an_oneiric_fbe898_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem dream_incubation_temple_an_oneiric_fbe898_conventional_protocol_depth : dream_incubation_temple_an_oneiric_fbe898_conventional_protocol.depth = 8 := by
+  native_decide
+

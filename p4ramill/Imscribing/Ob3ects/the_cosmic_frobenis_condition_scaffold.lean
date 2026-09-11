@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def the_cosmic_frobenis_condition_tier : OuroboricityTier := TierFunctor.obj the
 theorem the_cosmic_frobenis_condition_frobenius :
     igFrobeniusAlg.mul the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 = the_cosmic_frobenis_condition_s0 :=
   igFrobAlg_self_fusion the_cosmic_frobenis_condition_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Cosmic Frobenis Condition)
+--   Word: ⊢⊙≻∈⊤⊥⊞≺⋈⋈∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_cosmic_frobenis_condition_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "AREV", "CLINK", "CLINK", "FFUSE", "IFIX", "TANCH"]
+
+def the_cosmic_frobenis_condition_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_cosmic_frobenis_condition_opcodes
+
+def the_cosmic_frobenis_condition_glyph_word : String := glyphWordOf the_cosmic_frobenis_condition_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_cosmic_frobenis_condition_register_length : the_cosmic_frobenis_condition_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_cosmic_frobenis_condition_register_matches_word : the_cosmic_frobenis_condition_glyph_word = "⊢⊙≻∈⊤⊥⊞≺⋈⋈∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_cosmic_frobenis_condition_conventional_protocol : IGProtocol the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- VINIT
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- IMSCRIB
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- AFWD
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- FSPLIT
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- EVALT
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- EVALF
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- ENGAGR
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- AREV
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- CLINK
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- CLINK
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- FFUSE
+  (.seq (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)  -- IFIX
+  (.arrow the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0 the_cosmic_frobenis_condition_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem the_cosmic_frobenis_condition_conventional_protocol_depth : the_cosmic_frobenis_condition_conventional_protocol.depth = 13 := by
+  native_decide
+

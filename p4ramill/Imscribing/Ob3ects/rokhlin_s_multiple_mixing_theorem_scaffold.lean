@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -136,3 +137,52 @@ def rokhlins_multiple_mixing_theorem_tier : OuroboricityTier := TierFunctor.obj 
 theorem rokhlins_multiple_mixing_theorem_frobenius :
     igFrobeniusAlg.mul rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 = rokhlins_multiple_mixing_theorem_s0 :=
   igFrobAlg_self_fusion rokhlins_multiple_mixing_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Rokhlin's Multiple Mixing Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⊡≺⊥⊡⊞⋈∋⊙⊣⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def rokhlins_multiple_mixing_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "IFIX", "ENGAGR", "CLINK", "FFUSE", "IMSCRIB", "TANCH", "IFIX"]
+
+def rokhlins_multiple_mixing_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf rokhlins_multiple_mixing_theorem_opcodes
+
+def rokhlins_multiple_mixing_theorem_glyph_word : String := glyphWordOf rokhlins_multiple_mixing_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem rokhlins_multiple_mixing_theorem_register_length : rokhlins_multiple_mixing_theorem_conventional_register.length = 18 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem rokhlins_multiple_mixing_theorem_register_matches_word : rokhlins_multiple_mixing_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⊡≺⊥⊡⊞⋈∋⊙⊣⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def rokhlins_multiple_mixing_theorem_conventional_protocol : IGProtocol rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- VINIT
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- TANCH
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- AFWD
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- CLINK
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- FSPLIT
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- EVALT
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- AFWD
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- IFIX
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- AREV
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- EVALF
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- IFIX
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- ENGAGR
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- CLINK
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- FFUSE
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0)  -- TANCH
+  (.arrow rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0 rokhlins_multiple_mixing_theorem_s0))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 18 arrows. -/
+theorem rokhlins_multiple_mixing_theorem_conventional_protocol_depth : rokhlins_multiple_mixing_theorem_conventional_protocol.depth = 18 := by
+  native_decide
+

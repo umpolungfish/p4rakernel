@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def the_great_attractor_repeller_tier : OuroboricityTier := TierFunctor.obj the_
 theorem the_great_attractor_repeller_frobenius :
     igFrobeniusAlg.mul the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 = the_great_attractor_repeller_s0 :=
   igFrobAlg_self_fusion the_great_attractor_repeller_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Great Attractor & Repeller)
+--   Word: ⊢⊙≻∈⊤⊥⊞∋⋈≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_great_attractor_repeller_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "CLINK", "AREV", "IFIX", "TANCH"]
+
+def the_great_attractor_repeller_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_great_attractor_repeller_opcodes
+
+def the_great_attractor_repeller_glyph_word : String := glyphWordOf the_great_attractor_repeller_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_great_attractor_repeller_register_length : the_great_attractor_repeller_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_great_attractor_repeller_register_matches_word : the_great_attractor_repeller_glyph_word = "⊢⊙≻∈⊤⊥⊞∋⋈≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_great_attractor_repeller_conventional_protocol : IGProtocol the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- VINIT
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- IMSCRIB
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- AFWD
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- FSPLIT
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- EVALT
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- EVALF
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- ENGAGR
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- FFUSE
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- CLINK
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- AREV
+  (.seq (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0)  -- IFIX
+  (.arrow the_great_attractor_repeller_s0 the_great_attractor_repeller_s0 the_great_attractor_repeller_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem the_great_attractor_repeller_conventional_protocol_depth : the_great_attractor_repeller_conventional_protocol.depth = 12 := by
+  native_decide
+

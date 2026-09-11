@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem automatic_writing_psychography_ob3ect_362a82_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Automatic writing / psychography ob3ect: the spiritualist practice where a medium's hand writes messages from spirits, the subconscious, or the collective unconscious without conscious control. FSPLIT: the medium enters trance, splitting consciousness into the observing self (watching the hand move) and the writing self (the hand producing text autonomously). FFUSE: the medium reads the written text, reconstituting the two streams — the message integrates into conscious awareness. VINIT: the blank page and still hand. TANCH: the filled page. AFWD: the pen moves forward across the page. AREV: the pen retraces or crosses out — spirit editing. ENGAGR: the writing is simultaneously from the medium (their hand wrote it) and not from the medium (they did not consciously author it).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def automatic_writing_psychography_ob3ect_362a82_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def automatic_writing_psychography_ob3ect_362a82_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf automatic_writing_psychography_ob3ect_362a82_opcodes
+
+def automatic_writing_psychography_ob3ect_362a82_glyph_word : String := glyphWordOf automatic_writing_psychography_ob3ect_362a82_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem automatic_writing_psychography_ob3ect_362a82_register_length : automatic_writing_psychography_ob3ect_362a82_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem automatic_writing_psychography_ob3ect_362a82_register_matches_word : automatic_writing_psychography_ob3ect_362a82_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def automatic_writing_psychography_ob3ect_362a82_conventional_protocol : IGProtocol automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- IMSCRIB
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- AREV
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- FSPLIT
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- AFWD
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- FFUSE
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- CLINK
+  (.seq (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0)  -- IFIX
+  (.arrow automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0 automatic_writing_psychography_ob3ect_362a82_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem automatic_writing_psychography_ob3ect_362a82_conventional_protocol_depth : automatic_writing_psychography_ob3ect_362a82_conventional_protocol.depth = 8 := by
+  native_decide
+

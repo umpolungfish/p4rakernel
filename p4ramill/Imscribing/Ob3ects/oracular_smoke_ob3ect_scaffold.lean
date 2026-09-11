@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem oracular_smoke_ob3ect_capnomancy_7f9cc9_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Oracular smoke ob3ect: capnomancy — divination by reading smoke patterns rising from a sacred fire or incense. FSPLIT: the fire splits the solid offering (herbs, resins, woods) into smoke (the visible message) and ash (the spent residue). FFUSE: the seer interprets the smoke's shape, direction, thickness, and color, reconstituting the scattered visual signals into a prophetic message. VINIT: the unlit kindling and unburned incense. TANCH: the brazier or censer as container. AFWD: smoke rising straight and strong (auspicious). AREV: smoke descending or blowing back toward the seer (warning, blockage). ENGAGR: smoke that forms a shape recognizable as two contradictory omens simultaneously.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def oracular_smoke_ob3ect_capnomancy_7f9cc9_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def oracular_smoke_ob3ect_capnomancy_7f9cc9_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf oracular_smoke_ob3ect_capnomancy_7f9cc9_opcodes
+
+def oracular_smoke_ob3ect_capnomancy_7f9cc9_glyph_word : String := glyphWordOf oracular_smoke_ob3ect_capnomancy_7f9cc9_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem oracular_smoke_ob3ect_capnomancy_7f9cc9_register_length : oracular_smoke_ob3ect_capnomancy_7f9cc9_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem oracular_smoke_ob3ect_capnomancy_7f9cc9_register_matches_word : oracular_smoke_ob3ect_capnomancy_7f9cc9_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def oracular_smoke_ob3ect_capnomancy_7f9cc9_conventional_protocol : IGProtocol oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- IMSCRIB
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- AREV
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- FSPLIT
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- AFWD
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- FFUSE
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- CLINK
+  (.seq (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0)  -- IFIX
+  (.arrow oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0 oracular_smoke_ob3ect_capnomancy_7f9cc9_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem oracular_smoke_ob3ect_capnomancy_7f9cc9_conventional_protocol_depth : oracular_smoke_ob3ect_capnomancy_7f9cc9_conventional_protocol.depth = 8 := by
+  native_decide
+

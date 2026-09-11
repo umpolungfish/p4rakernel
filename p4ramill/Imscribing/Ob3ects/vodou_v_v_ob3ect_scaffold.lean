@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem vodou_v_v_ob3ect_the_ritual_ground_bbefef_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Vodou vèvè ob3ect: the ritual ground drawing made with cornmeal or powder that calls the lwa (spirits) to possess the ceremony. FSPLIT: the drawing of the vèvè splits the mundane ground into sacred space — each line and symbol is a letter in a spiritual alphabet calling a specific lwa. FFUSE: when the lwa arrives (possession), the vèvè's scattered symbols reconstitute as a living presence — the drawing becomes the spirit. VINIT: the unswept, unconsecrated ground. TANCH: the outer border of the vèvè. AFWD: a line drawn outward (invitation). AREV: a line erased or scattered (dismissal). ENGAGR: the possessed person is simultaneously themselves (their body) and the lwa (their consciousness displaced) — the paradox of mounted possession.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def vodou_v_v_ob3ect_the_ritual_ground_bbefef_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def vodou_v_v_ob3ect_the_ritual_ground_bbefef_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf vodou_v_v_ob3ect_the_ritual_ground_bbefef_opcodes
+
+def vodou_v_v_ob3ect_the_ritual_ground_bbefef_glyph_word : String := glyphWordOf vodou_v_v_ob3ect_the_ritual_ground_bbefef_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem vodou_v_v_ob3ect_the_ritual_ground_bbefef_register_length : vodou_v_v_ob3ect_the_ritual_ground_bbefef_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem vodou_v_v_ob3ect_the_ritual_ground_bbefef_register_matches_word : vodou_v_v_ob3ect_the_ritual_ground_bbefef_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def vodou_v_v_ob3ect_the_ritual_ground_bbefef_conventional_protocol : IGProtocol vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- IMSCRIB
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- AREV
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- FSPLIT
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- AFWD
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- FFUSE
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- CLINK
+  (.seq (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0)  -- IFIX
+  (.arrow vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0 vodou_v_v_ob3ect_the_ritual_ground_bbefef_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem vodou_v_v_ob3ect_the_ritual_ground_bbefef_conventional_protocol_depth : vodou_v_v_ob3ect_the_ritual_ground_bbefef_conventional_protocol.depth = 8 := by
+  native_decide
+

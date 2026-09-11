@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def conventional_formal_expressions_9cc149_tier : OuroboricityTier := TierFuncto
 theorem conventional_formal_expressions_9cc149_frobenius :
     igFrobeniusAlg.mul conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 = conventional_formal_expressions_9cc149_s0 :=
   igFrobAlg_self_fusion conventional_formal_expressions_9cc149_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Conventional Formal Expressions Undeniably Demonstrating the Crystal of Types to be a Lossless Compression of Category Theory)
+--   Word: ⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def conventional_formal_expressions_9cc149_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "CLINK", "CLINK", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def conventional_formal_expressions_9cc149_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf conventional_formal_expressions_9cc149_opcodes
+
+def conventional_formal_expressions_9cc149_glyph_word : String := glyphWordOf conventional_formal_expressions_9cc149_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem conventional_formal_expressions_9cc149_register_length : conventional_formal_expressions_9cc149_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem conventional_formal_expressions_9cc149_register_matches_word : conventional_formal_expressions_9cc149_glyph_word = "⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def conventional_formal_expressions_9cc149_conventional_protocol : IGProtocol conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- VINIT
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- AFWD
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- FSPLIT
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- EVALT
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- EVALF
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- CLINK
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- CLINK
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- ENGAGR
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- FFUSE
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- IMSCRIB
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- AREV
+  (.seq (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)  -- IFIX
+  (.arrow conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0 conventional_formal_expressions_9cc149_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem conventional_formal_expressions_9cc149_conventional_protocol_depth : conventional_formal_expressions_9cc149_conventional_protocol.depth = 13 := by
+  native_decide
+

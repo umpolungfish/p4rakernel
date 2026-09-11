@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -181,3 +182,62 @@ noncomputable def gnostic_magic_false_arm : IGProtocol gnostic_magic_s0 gnostic_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def gnostic_magic_tier : OuroboricityTier := TierFunctor.obj gnostic_magic_s0
 #eval gnostic_magic_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Gnostic Magic)
+--   Word: ⊢≻≻≻⊙⊣⋈∈⊤⊥⊞∋⊡≻≻≻≻∈⊤∋≻⊞≻≻≺⋈⊙⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def gnostic_magic_opcodes : List String := ["VINIT", "AFWD", "AFWD", "AFWD", "IMSCRIB", "TANCH", "CLINK", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "AFWD", "AFWD", "AFWD", "AFWD", "FSPLIT", "EVALT", "FFUSE", "AFWD", "ENGAGR", "AFWD", "AFWD", "AREV", "CLINK", "IMSCRIB", "IFIX"]
+
+def gnostic_magic_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf gnostic_magic_opcodes
+
+def gnostic_magic_glyph_word : String := glyphWordOf gnostic_magic_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem gnostic_magic_register_length : gnostic_magic_conventional_register.length = 28 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem gnostic_magic_register_matches_word : gnostic_magic_glyph_word = "⊢≻≻≻⊙⊣⋈∈⊤⊥⊞∋⊡≻≻≻≻∈⊤∋≻⊞≻≻≺⋈⊙⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def gnostic_magic_conventional_protocol : IGProtocol gnostic_magic_s0 gnostic_magic_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- VINIT
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- IMSCRIB
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- TANCH
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- CLINK
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- FSPLIT
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- EVALT
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- EVALF
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- ENGAGR
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- FFUSE
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- IFIX
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- FSPLIT
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- EVALT
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- FFUSE
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- ENGAGR
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AFWD
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- AREV
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- CLINK
+  (.seq (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0)  -- IMSCRIB
+  (.arrow gnostic_magic_s0 gnostic_magic_s0 gnostic_magic_s0))))))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 28 arrows. -/
+theorem gnostic_magic_conventional_protocol_depth : gnostic_magic_conventional_protocol.depth = 28 := by
+  native_decide
+

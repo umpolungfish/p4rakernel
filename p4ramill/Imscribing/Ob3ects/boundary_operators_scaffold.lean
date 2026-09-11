@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def boundary_operators_tier : OuroboricityTier := TierFunctor.obj boundary_opera
 theorem boundary_operators_frobenius :
     igFrobeniusAlg.mul boundary_operators_s0 boundary_operators_s0 = boundary_operators_s0 :=
   igFrobAlg_self_fusion boundary_operators_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Boundary Operators)
+--   Word: ⊢⊣≻≺⋈⊙∈⊤⊥⊞∋⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def boundary_operators_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX"]
+
+def boundary_operators_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf boundary_operators_opcodes
+
+def boundary_operators_glyph_word : String := glyphWordOf boundary_operators_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem boundary_operators_register_length : boundary_operators_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem boundary_operators_register_matches_word : boundary_operators_glyph_word = "⊢⊣≻≺⋈⊙∈⊤⊥⊞∋⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def boundary_operators_conventional_protocol : IGProtocol boundary_operators_s0 boundary_operators_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- VINIT
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- TANCH
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- AFWD
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- AREV
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- CLINK
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- IMSCRIB
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- FSPLIT
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- EVALT
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- EVALF
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- ENGAGR
+  (.seq (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0)  -- FFUSE
+  (.arrow boundary_operators_s0 boundary_operators_s0 boundary_operators_s0))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem boundary_operators_conventional_protocol_depth : boundary_operators_conventional_protocol.depth = 12 := by
+  native_decide
+

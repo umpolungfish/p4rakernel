@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -146,3 +147,54 @@ def kaplanskys_theorems_tier : OuroboricityTier := TierFunctor.obj kaplanskys_th
 theorem kaplanskys_theorems_frobenius :
     igFrobeniusAlg.mul kaplanskys_theorems_s0 kaplanskys_theorems_s0 = kaplanskys_theorems_s0 :=
   igFrobAlg_self_fusion kaplanskys_theorems_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Kaplansky's Theorems)
+--   Word: ⊢⊣∈⊤≻⋈⊙⊥≺⋈∈⊤⋈⊡⊡⊡⊞∋⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def kaplanskys_theorems_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "EVALF", "AREV", "CLINK", "FSPLIT", "EVALT", "CLINK", "IFIX", "IFIX", "IFIX", "ENGAGR", "FFUSE", "IMSCRIB", "TANCH"]
+
+def kaplanskys_theorems_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf kaplanskys_theorems_opcodes
+
+def kaplanskys_theorems_glyph_word : String := glyphWordOf kaplanskys_theorems_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem kaplanskys_theorems_register_length : kaplanskys_theorems_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem kaplanskys_theorems_register_matches_word : kaplanskys_theorems_glyph_word = "⊢⊣∈⊤≻⋈⊙⊥≺⋈∈⊤⋈⊡⊡⊡⊞∋⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def kaplanskys_theorems_conventional_protocol : IGProtocol kaplanskys_theorems_s0 kaplanskys_theorems_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- VINIT
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- TANCH
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- FSPLIT
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- EVALT
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- AFWD
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- CLINK
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- IMSCRIB
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- EVALF
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- AREV
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- CLINK
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- FSPLIT
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- EVALT
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- CLINK
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- IFIX
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- IFIX
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- IFIX
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- ENGAGR
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- FFUSE
+  (.seq (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0)  -- IMSCRIB
+  (.arrow kaplanskys_theorems_s0 kaplanskys_theorems_s0 kaplanskys_theorems_s0))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem kaplanskys_theorems_conventional_protocol_depth : kaplanskys_theorems_conventional_protocol.depth = 20 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -142,3 +143,55 @@ noncomputable def the_witness_vessel_protocol_culminates_518f70_true_arm : IGPro
 -- Tier: apply the Grammar to the object (self-application). Fingerprint heuristic suggested .O₀.
 def the_witness_vessel_protocol_culminates_518f70_tier : OuroboricityTier := TierFunctor.obj the_witness_vessel_protocol_culminates_518f70_s0
 #eval the_witness_vessel_protocol_culminates_518f70_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the witness-vessel protocol culminates in a transport lemma in p4rakernel riding the frozen d12 machinery without re-deriving it: the BSD and Hodge closure payloads (tuples sourced from clay_witness.rs) and the YM U10 dialetheic gate result are re-expressed as identities in an existence-ring analog, pushed through a star-compatible homomorphism, and read back with the half-angle pattern, with the lemma asserting that the U8-U11 gate verdicts computed after the round trip equal the gate verdicts computed before it, Frobenius closure mu-after-delta equal to the identity on the boarding split (Witness splits to modulus-plus-phase, fuses back to Witness), Delta-S approximately zero, and the whole plank decidable by the same native_decide standard as the d=12 capstone so that vessel losslessness becomes a machine-checked theorem rather than a design claim)
+--   Word: ⊢⊙∈≻≺∋⊤⊡∈≻≺∋⊤⊡∈⊞∋⊤⊡⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_witness_vessel_protocol_culminates_518f70_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "AREV", "FFUSE", "EVALT", "IFIX", "FSPLIT", "AFWD", "AREV", "FFUSE", "EVALT", "IFIX", "FSPLIT", "ENGAGR", "FFUSE", "EVALT", "IFIX", "CLINK", "TANCH"]
+
+def the_witness_vessel_protocol_culminates_518f70_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_witness_vessel_protocol_culminates_518f70_opcodes
+
+def the_witness_vessel_protocol_culminates_518f70_glyph_word : String := glyphWordOf the_witness_vessel_protocol_culminates_518f70_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_witness_vessel_protocol_culminates_518f70_register_length : the_witness_vessel_protocol_culminates_518f70_conventional_register.length = 21 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_witness_vessel_protocol_culminates_518f70_register_matches_word : the_witness_vessel_protocol_culminates_518f70_glyph_word = "⊢⊙∈≻≺∋⊤⊡∈≻≺∋⊤⊡∈⊞∋⊤⊡⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_witness_vessel_protocol_culminates_518f70_conventional_protocol : IGProtocol the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- VINIT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- IMSCRIB
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FSPLIT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- AFWD
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- AREV
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FFUSE
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- EVALT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- IFIX
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FSPLIT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- AFWD
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- AREV
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FFUSE
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- EVALT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- IFIX
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FSPLIT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- ENGAGR
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- FFUSE
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- EVALT
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- IFIX
+  (.seq (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)  -- CLINK
+  (.arrow the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0 the_witness_vessel_protocol_culminates_518f70_s0)))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 21 arrows. -/
+theorem the_witness_vessel_protocol_culminates_518f70_conventional_protocol_depth : the_witness_vessel_protocol_culminates_518f70_conventional_protocol.depth = 21 := by
+  native_decide
+

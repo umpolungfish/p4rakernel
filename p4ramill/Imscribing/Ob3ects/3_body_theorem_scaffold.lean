@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,26 @@ def 3_body_theorem_tier : OuroboricityTier := TierFunctor.obj 3_body_theorem_s0
 theorem 3_body_theorem_frobenius :
     igFrobeniusAlg.mul 3_body_theorem_s0 3_body_theorem_s0 = 3_body_theorem_s0 :=
   igFrobAlg_self_fusion 3_body_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: 3-Body Theorem)
+--   Word: ⊢⊙≻∈⊤≻⊥∈⊤≻⊥≺∋⊞⋈⊡∋⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ob_3_body_theorem_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "AFWD", "EVALF", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "ENGAGR", "CLINK", "IFIX", "FFUSE", "IMSCRIB", "TANCH"]
+
+def ob_3_body_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ob_3_body_theorem_opcodes
+
+def ob_3_body_theorem_glyph_word : String := glyphWordOf ob_3_body_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ob_3_body_theorem_register_length : ob_3_body_theorem_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ob_3_body_theorem_register_matches_word : ob_3_body_theorem_glyph_word = "⊢⊙≻∈⊤≻⊥∈⊤≻⊥≺∋⊞⋈⊡∋⊙⊣" := by
+  native_decide
+
+-- protocol omitted: ground stage identifier is not a valid Lean identifier
+

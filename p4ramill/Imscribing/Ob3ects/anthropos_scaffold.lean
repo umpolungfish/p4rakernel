@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -146,3 +147,54 @@ def anthropos_tier : OuroboricityTier := TierFunctor.obj anthropos_s0
 theorem anthropos_frobenius :
     igFrobeniusAlg.mul anthropos_s0 anthropos_s0 = anthropos_s0 :=
   igFrobAlg_self_fusion anthropos_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Anthropos)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⋈⊥≺⋈∋⊞≺⊡⊡≺⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def anthropos_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "CLINK", "FFUSE", "ENGAGR", "AREV", "IFIX", "IFIX", "AREV", "TANCH", "IMSCRIB"]
+
+def anthropos_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf anthropos_opcodes
+
+def anthropos_glyph_word : String := glyphWordOf anthropos_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem anthropos_register_length : anthropos_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem anthropos_register_matches_word : anthropos_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⋈⊥≺⋈∋⊞≺⊡⊡≺⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def anthropos_conventional_protocol : IGProtocol anthropos_s0 anthropos_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- VINIT
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- TANCH
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- AFWD
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- CLINK
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- IMSCRIB
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- FSPLIT
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- EVALT
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- AFWD
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- CLINK
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- EVALF
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- AREV
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- CLINK
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- FFUSE
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- ENGAGR
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- AREV
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- IFIX
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- IFIX
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- AREV
+  (.seq (.arrow anthropos_s0 anthropos_s0 anthropos_s0)  -- TANCH
+  (.arrow anthropos_s0 anthropos_s0 anthropos_s0))))))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem anthropos_conventional_protocol_depth : anthropos_conventional_protocol.depth = 20 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,3 +117,48 @@ def abundance_theorem_tier : OuroboricityTier := TierFunctor.obj abundance_theor
 theorem abundance_theorem_frobenius :
     igFrobeniusAlg.mul abundance_theorem_s0 abundance_theorem_s0 = abundance_theorem_s0 :=
   igFrobAlg_self_fusion abundance_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Abundance Theorem)
+--   Word: ⊢⊣≻∈⊤⋈⊙⊥≺⋈⊞∋⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def abundance_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "EVALT", "CLINK", "IMSCRIB", "EVALF", "AREV", "CLINK", "ENGAGR", "FFUSE", "IFIX", "IMSCRIB"]
+
+def abundance_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf abundance_theorem_opcodes
+
+def abundance_theorem_glyph_word : String := glyphWordOf abundance_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem abundance_theorem_register_length : abundance_theorem_conventional_register.length = 14 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem abundance_theorem_register_matches_word : abundance_theorem_glyph_word = "⊢⊣≻∈⊤⋈⊙⊥≺⋈⊞∋⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def abundance_theorem_conventional_protocol : IGProtocol abundance_theorem_s0 abundance_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- VINIT
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- TANCH
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- AFWD
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- FSPLIT
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- EVALT
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- CLINK
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- EVALF
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- AREV
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- CLINK
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- ENGAGR
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- FFUSE
+  (.seq (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0)  -- IFIX
+  (.arrow abundance_theorem_s0 abundance_theorem_s0 abundance_theorem_s0))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 14 arrows. -/
+theorem abundance_theorem_conventional_protocol_depth : abundance_theorem_conventional_protocol.depth = 14 := by
+  native_decide
+

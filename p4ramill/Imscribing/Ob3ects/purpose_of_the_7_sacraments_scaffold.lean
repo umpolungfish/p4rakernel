@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -196,3 +197,65 @@ noncomputable def purpose_of_the_7_sacraments_false_arm : IGProtocol purpose_of_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def purpose_of_the_7_sacraments_tier : OuroboricityTier := TierFunctor.obj purpose_of_the_7_sacraments_s0
 #eval purpose_of_the_7_sacraments_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Purpose of the 7 Sacraments)
+--   Word: ⊢≺∈⊤⊥∋≻⋈∈⊞∋⊤≺∈⊥⊤∋≻⋈∈⊤∋≺∈⊞∋⊙⋈⊡⊤⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def purpose_of_the_7_sacraments_opcodes : List String := ["VINIT", "AREV", "FSPLIT", "EVALT", "EVALF", "FFUSE", "AFWD", "CLINK", "FSPLIT", "ENGAGR", "FFUSE", "EVALT", "AREV", "FSPLIT", "EVALF", "EVALT", "FFUSE", "AFWD", "CLINK", "FSPLIT", "EVALT", "FFUSE", "AREV", "FSPLIT", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "EVALT", "TANCH"]
+
+def purpose_of_the_7_sacraments_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf purpose_of_the_7_sacraments_opcodes
+
+def purpose_of_the_7_sacraments_glyph_word : String := glyphWordOf purpose_of_the_7_sacraments_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem purpose_of_the_7_sacraments_register_length : purpose_of_the_7_sacraments_conventional_register.length = 31 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem purpose_of_the_7_sacraments_register_matches_word : purpose_of_the_7_sacraments_glyph_word = "⊢≺∈⊤⊥∋≻⋈∈⊞∋⊤≺∈⊥⊤∋≻⋈∈⊤∋≺∈⊞∋⊙⋈⊡⊤⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def purpose_of_the_7_sacraments_conventional_protocol : IGProtocol purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- VINIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALF
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- ENGAGR
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALF
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- ENGAGR
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- IMSCRIB
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- IFIX
+  (.seq (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)  -- EVALT
+  (.arrow purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0 purpose_of_the_7_sacraments_s0)))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 31 arrows. -/
+theorem purpose_of_the_7_sacraments_conventional_protocol_depth : purpose_of_the_7_sacraments_conventional_protocol.depth = 31 := by
+  native_decide
+

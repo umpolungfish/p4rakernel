@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def margulis_theorem_tier : OuroboricityTier := TierFunctor.obj margulis_theorem
 theorem margulis_theorem_frobenius :
     igFrobeniusAlg.mul margulis_theorem_s0 margulis_theorem_s0 = margulis_theorem_s0 :=
   igFrobAlg_self_fusion margulis_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Margulis Theorem)
+--   Word: ⊢≻⋈⊙∈⊤≺⊥⊞∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def margulis_theorem_opcodes : List String := ["VINIT", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AREV", "EVALF", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+
+def margulis_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf margulis_theorem_opcodes
+
+def margulis_theorem_glyph_word : String := glyphWordOf margulis_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem margulis_theorem_register_length : margulis_theorem_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem margulis_theorem_register_matches_word : margulis_theorem_glyph_word = "⊢≻⋈⊙∈⊤≺⊥⊞∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def margulis_theorem_conventional_protocol : IGProtocol margulis_theorem_s0 margulis_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- VINIT
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- AFWD
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- CLINK
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- FSPLIT
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- EVALT
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- AREV
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- EVALF
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- ENGAGR
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- FFUSE
+  (.seq (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0)  -- IFIX
+  (.arrow margulis_theorem_s0 margulis_theorem_s0 margulis_theorem_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem margulis_theorem_conventional_protocol_depth : margulis_theorem_conventional_protocol.depth = 12 := by
+  native_decide
+

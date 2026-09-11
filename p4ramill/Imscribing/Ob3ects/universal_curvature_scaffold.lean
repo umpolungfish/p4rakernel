@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def universal_curvature_tier : OuroboricityTier := TierFunctor.obj universal_cur
 theorem universal_curvature_frobenius :
     igFrobeniusAlg.mul universal_curvature_s0 universal_curvature_s0 = universal_curvature_s0 :=
   igFrobAlg_self_fusion universal_curvature_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: universal curvature)
+--   Word: ⊢≻⋈⊙∈⊤⊥⊞∋⊡≺⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def universal_curvature_opcodes : List String := ["VINIT", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "AREV", "TANCH"]
+
+def universal_curvature_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf universal_curvature_opcodes
+
+def universal_curvature_glyph_word : String := glyphWordOf universal_curvature_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem universal_curvature_register_length : universal_curvature_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem universal_curvature_register_matches_word : universal_curvature_glyph_word = "⊢≻⋈⊙∈⊤⊥⊞∋⊡≺⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def universal_curvature_conventional_protocol : IGProtocol universal_curvature_s0 universal_curvature_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- VINIT
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- AFWD
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- CLINK
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- IMSCRIB
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- FSPLIT
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- EVALT
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- EVALF
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- ENGAGR
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- FFUSE
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- IFIX
+  (.seq (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0)  -- AREV
+  (.arrow universal_curvature_s0 universal_curvature_s0 universal_curvature_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem universal_curvature_conventional_protocol_depth : universal_curvature_conventional_protocol.depth = 12 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem natal_chart_ob3ect_the_astrological_7e616c_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Natal chart ob3ect: the astrological birth chart — a snapshot of planetary positions at the moment of birth, forming the 12 houses, aspects, and sign placements. FSPLIT: the birth moment splits the unified sky into 12 houses (the mundane sphere) and the planets into their sign dignities and debilities. FFUSE: aspect integration reconstitutes the chart — the trines, squares, conjunctions, and oppositions weave the scattered placements into one coherent personality signature. VINIT: the sky before the birth moment. TANCH: the 360-degree circle of the ecliptic. AFWD: a planet in direct motion. AREV: a planet in retrograde. ENGAGR: a planet on the cusp — simultaneously in two houses or two signs.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def natal_chart_ob3ect_the_astrological_7e616c_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def natal_chart_ob3ect_the_astrological_7e616c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf natal_chart_ob3ect_the_astrological_7e616c_opcodes
+
+def natal_chart_ob3ect_the_astrological_7e616c_glyph_word : String := glyphWordOf natal_chart_ob3ect_the_astrological_7e616c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem natal_chart_ob3ect_the_astrological_7e616c_register_length : natal_chart_ob3ect_the_astrological_7e616c_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem natal_chart_ob3ect_the_astrological_7e616c_register_matches_word : natal_chart_ob3ect_the_astrological_7e616c_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def natal_chart_ob3ect_the_astrological_7e616c_conventional_protocol : IGProtocol natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- IMSCRIB
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- AREV
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- FSPLIT
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- AFWD
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- FFUSE
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- CLINK
+  (.seq (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0)  -- IFIX
+  (.arrow natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0 natal_chart_ob3ect_the_astrological_7e616c_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem natal_chart_ob3ect_the_astrological_7e616c_conventional_protocol_depth : natal_chart_ob3ect_the_astrological_7e616c_conventional_protocol.depth = 8 := by
+  native_decide
+

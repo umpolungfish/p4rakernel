@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -146,3 +147,54 @@ def barnettes_theorem_tier : OuroboricityTier := TierFunctor.obj barnettes_theor
 theorem barnettes_theorem_frobenius :
     igFrobeniusAlg.mul barnettes_theorem_s0 barnettes_theorem_s0 = barnettes_theorem_s0 :=
   igFrobAlg_self_fusion barnettes_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Barnette's Theorem)
+--   Word: ⊢⊣≻⋈∈⊤⋈⊡≺⊥⋈⊞≺∈⊤⋈⊙∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def barnettes_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "CLINK", "ENGAGR", "AREV", "FSPLIT", "EVALT", "CLINK", "IMSCRIB", "FFUSE", "IFIX", "TANCH"]
+
+def barnettes_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf barnettes_theorem_opcodes
+
+def barnettes_theorem_glyph_word : String := glyphWordOf barnettes_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem barnettes_theorem_register_length : barnettes_theorem_conventional_register.length = 20 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem barnettes_theorem_register_matches_word : barnettes_theorem_glyph_word = "⊢⊣≻⋈∈⊤⋈⊡≺⊥⋈⊞≺∈⊤⋈⊙∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def barnettes_theorem_conventional_protocol : IGProtocol barnettes_theorem_s0 barnettes_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- VINIT
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- TANCH
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- AFWD
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- CLINK
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- FSPLIT
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- EVALT
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- CLINK
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- IFIX
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- AREV
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- EVALF
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- CLINK
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- ENGAGR
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- AREV
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- FSPLIT
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- EVALT
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- CLINK
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- FFUSE
+  (.seq (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0)  -- IFIX
+  (.arrow barnettes_theorem_s0 barnettes_theorem_s0 barnettes_theorem_s0))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 20 arrows. -/
+theorem barnettes_theorem_conventional_protocol_depth : barnettes_theorem_conventional_protocol.depth = 20 := by
+  native_decide
+

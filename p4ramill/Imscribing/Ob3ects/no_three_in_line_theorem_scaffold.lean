@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def no_three_in_line_theorem_tier : OuroboricityTier := TierFunctor.obj no_three
 theorem no_three_in_line_theorem_frobenius :
     igFrobeniusAlg.mul no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 = no_three_in_line_theorem_s0 :=
   igFrobAlg_self_fusion no_three_in_line_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: No-Three-in-Line Theorem)
+--   Word: ⊢⊣⊙≻∈⊤⋈⊡≺⊥⋈⊙∈⊞∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def no_three_in_line_theorem_opcodes : List String := ["VINIT", "TANCH", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "CLINK", "IMSCRIB", "FSPLIT", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+
+def no_three_in_line_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf no_three_in_line_theorem_opcodes
+
+def no_three_in_line_theorem_glyph_word : String := glyphWordOf no_three_in_line_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem no_three_in_line_theorem_register_length : no_three_in_line_theorem_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem no_three_in_line_theorem_register_matches_word : no_three_in_line_theorem_glyph_word = "⊢⊣⊙≻∈⊤⋈⊡≺⊥⋈⊙∈⊞∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def no_three_in_line_theorem_conventional_protocol : IGProtocol no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- VINIT
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- TANCH
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- AFWD
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- FSPLIT
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- EVALT
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- CLINK
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- IFIX
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- AREV
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- EVALF
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- CLINK
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- FSPLIT
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- ENGAGR
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- FFUSE
+  (.seq (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)  -- IFIX
+  (.arrow no_three_in_line_theorem_s0 no_three_in_line_theorem_s0 no_three_in_line_theorem_s0)))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem no_three_in_line_theorem_conventional_protocol_depth : no_three_in_line_theorem_conventional_protocol.depth = 17 := by
+  native_decide
+

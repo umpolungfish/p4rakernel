@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def the_exact_induction_in_only_logical_69d3f4_tier : OuroboricityTier := TierFu
 theorem the_exact_induction_in_only_logical_69d3f4_frobenius :
     igFrobeniusAlg.mul the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 = the_exact_induction_in_only_logical_69d3f4_s0 :=
   igFrobAlg_self_fusion the_exact_induction_in_only_logical_69d3f4_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The exact Induction, in only logical operators and connectives, showing the crystal of types to be a lossless compression of category theory)
+--   Word: ⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_exact_induction_in_only_logical_69d3f4_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "CLINK", "CLINK", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def the_exact_induction_in_only_logical_69d3f4_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_exact_induction_in_only_logical_69d3f4_opcodes
+
+def the_exact_induction_in_only_logical_69d3f4_glyph_word : String := glyphWordOf the_exact_induction_in_only_logical_69d3f4_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_exact_induction_in_only_logical_69d3f4_register_length : the_exact_induction_in_only_logical_69d3f4_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_exact_induction_in_only_logical_69d3f4_register_matches_word : the_exact_induction_in_only_logical_69d3f4_glyph_word = "⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_exact_induction_in_only_logical_69d3f4_conventional_protocol : IGProtocol the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- VINIT
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- AFWD
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- FSPLIT
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- EVALT
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- EVALF
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- CLINK
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- CLINK
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- ENGAGR
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- FFUSE
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- IMSCRIB
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- AREV
+  (.seq (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)  -- IFIX
+  (.arrow the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0 the_exact_induction_in_only_logical_69d3f4_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem the_exact_induction_in_only_logical_69d3f4_conventional_protocol_depth : the_exact_induction_in_only_logical_69d3f4_conventional_protocol.depth = 13 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem the_alchemical_vessel_of_the_serpent_9b9b41_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Alchemical Vessel of the Serpent-Rod Bridge — derives 3D protein geometry from IG grammar. FSPLIT: grammar splits into 12 primitives mapping to promoted amino acids. FFUSE: 12 primitives reconstitute as folded protein topological contact signature.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_alchemical_vessel_of_the_serpent_9b9b41_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def the_alchemical_vessel_of_the_serpent_9b9b41_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_alchemical_vessel_of_the_serpent_9b9b41_opcodes
+
+def the_alchemical_vessel_of_the_serpent_9b9b41_glyph_word : String := glyphWordOf the_alchemical_vessel_of_the_serpent_9b9b41_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_alchemical_vessel_of_the_serpent_9b9b41_register_length : the_alchemical_vessel_of_the_serpent_9b9b41_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_alchemical_vessel_of_the_serpent_9b9b41_register_matches_word : the_alchemical_vessel_of_the_serpent_9b9b41_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_alchemical_vessel_of_the_serpent_9b9b41_conventional_protocol : IGProtocol the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- IMSCRIB
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- AREV
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- FSPLIT
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- AFWD
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- FFUSE
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- CLINK
+  (.seq (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0)  -- IFIX
+  (.arrow the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0 the_alchemical_vessel_of_the_serpent_9b9b41_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem the_alchemical_vessel_of_the_serpent_9b9b41_conventional_protocol_depth : the_alchemical_vessel_of_the_serpent_9b9b41_conventional_protocol.depth = 8 := by
+  native_decide
+

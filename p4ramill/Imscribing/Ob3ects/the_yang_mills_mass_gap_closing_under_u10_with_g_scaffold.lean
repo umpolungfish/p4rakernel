@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -105,5 +106,48 @@ def the_yang_mills_mass_gap_closing_under_94c2d6_tier : OuroboricityTier := Tier
 theorem the_yang_mills_mass_gap_closing_under_94c2d6_frobenius :
     igFrobeniusAlg.mul the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 = the_yang_mills_mass_gap_closing_under_94c2d6_s0 :=
   igFrobAlg_self_fusion the_yang_mills_mass_gap_closing_under_94c2d6_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the Yang-Mills mass gap closing under U10 with GATE=B but T=F becomes a ceiling-generalized T-constitution under which Yang-Mills reaches full gate+T closure)
+--   Word: ⊢≻⊞∈⊥≺⋈∋⊤⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_yang_mills_mass_gap_closing_under_94c2d6_opcodes : List String := ["VINIT", "AFWD", "ENGAGR", "FSPLIT", "EVALF", "AREV", "CLINK", "FFUSE", "EVALT", "IMSCRIB", "IFIX", "TANCH"]
+
+def the_yang_mills_mass_gap_closing_under_94c2d6_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_yang_mills_mass_gap_closing_under_94c2d6_opcodes
+
+def the_yang_mills_mass_gap_closing_under_94c2d6_glyph_word : String := glyphWordOf the_yang_mills_mass_gap_closing_under_94c2d6_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_yang_mills_mass_gap_closing_under_94c2d6_register_length : the_yang_mills_mass_gap_closing_under_94c2d6_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_yang_mills_mass_gap_closing_under_94c2d6_register_matches_word : the_yang_mills_mass_gap_closing_under_94c2d6_glyph_word = "⊢≻⊞∈⊥≺⋈∋⊤⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_yang_mills_mass_gap_closing_under_94c2d6_conventional_protocol : IGProtocol the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- VINIT
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- AFWD
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- ENGAGR
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- FSPLIT
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- EVALF
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- AREV
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- CLINK
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- FFUSE
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- EVALT
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- IMSCRIB
+  (.seq (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0)  -- IFIX
+  (.arrow the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0 the_yang_mills_mass_gap_closing_under_94c2d6_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem the_yang_mills_mass_gap_closing_under_94c2d6_conventional_protocol_depth : the_yang_mills_mass_gap_closing_under_94c2d6_conventional_protocol.depth = 12 := by
+  native_decide
 
 end Imscribing

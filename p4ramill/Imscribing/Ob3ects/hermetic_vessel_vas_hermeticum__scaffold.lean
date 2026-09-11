@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem hermetic_vessel_vas_hermeticum_the_f71191_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Hermetic vessel (vas hermeticum): the sealed flask of alchemical transformation, where the prima materia undergoes nigredo, albedo, citrinitas, and rubedo. FSPLIT: the sealed vessel splits the prima materia into volatile (spirit that rises) and fixed (body that remains). FFUSE: circulation reunites the volatile and fixed as the Stone. VINIT: empty vessel. TANCH: the hermetic seal. AFWD: sublimation (ascent). AREV: condensation (descent). ENGAGR: the ouroboros stage — the serpent eating its tail where beginning and end are simultaneous.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def hermetic_vessel_vas_hermeticum_the_f71191_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def hermetic_vessel_vas_hermeticum_the_f71191_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf hermetic_vessel_vas_hermeticum_the_f71191_opcodes
+
+def hermetic_vessel_vas_hermeticum_the_f71191_glyph_word : String := glyphWordOf hermetic_vessel_vas_hermeticum_the_f71191_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem hermetic_vessel_vas_hermeticum_the_f71191_register_length : hermetic_vessel_vas_hermeticum_the_f71191_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem hermetic_vessel_vas_hermeticum_the_f71191_register_matches_word : hermetic_vessel_vas_hermeticum_the_f71191_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def hermetic_vessel_vas_hermeticum_the_f71191_conventional_protocol : IGProtocol hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- IMSCRIB
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- AREV
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- FSPLIT
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- AFWD
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- FFUSE
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- CLINK
+  (.seq (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0)  -- IFIX
+  (.arrow hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0 hermetic_vessel_vas_hermeticum_the_f71191_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem hermetic_vessel_vas_hermeticum_the_f71191_conventional_protocol_depth : hermetic_vessel_vas_hermeticum_the_f71191_conventional_protocol.depth = 8 := by
+  native_decide
+

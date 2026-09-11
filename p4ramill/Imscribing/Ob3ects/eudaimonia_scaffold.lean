@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -161,3 +162,58 @@ noncomputable def eudaimonia_false_arm : IGProtocol eudaimonia_s0 eudaimonia_s23
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def eudaimonia_tier : OuroboricityTier := TierFunctor.obj eudaimonia_s0
 #eval eudaimonia_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Eudaimonia)
+--   Word: ⊢⊣≻∈⊤⊥∋≺⋈⊙⊞⊡≻∈⊤⊥∋⋈⊙⊞⊡⋈≺⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def eudaimonia_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "EVALT", "EVALF", "FFUSE", "AREV", "CLINK", "IMSCRIB", "ENGAGR", "IFIX", "AFWD", "FSPLIT", "EVALT", "EVALF", "FFUSE", "CLINK", "IMSCRIB", "ENGAGR", "IFIX", "CLINK", "AREV", "TANCH"]
+
+def eudaimonia_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf eudaimonia_opcodes
+
+def eudaimonia_glyph_word : String := glyphWordOf eudaimonia_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem eudaimonia_register_length : eudaimonia_conventional_register.length = 24 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem eudaimonia_register_matches_word : eudaimonia_glyph_word = "⊢⊣≻∈⊤⊥∋≺⋈⊙⊞⊡≻∈⊤⊥∋⋈⊙⊞⊡⋈≺⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def eudaimonia_conventional_protocol : IGProtocol eudaimonia_s0 eudaimonia_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- VINIT
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- TANCH
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- AFWD
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- FSPLIT
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- EVALT
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- EVALF
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- FFUSE
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- AREV
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- CLINK
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- IMSCRIB
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- ENGAGR
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- IFIX
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- AFWD
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- FSPLIT
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- EVALT
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- EVALF
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- FFUSE
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- CLINK
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- IMSCRIB
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- ENGAGR
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- IFIX
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- CLINK
+  (.seq (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0)  -- AREV
+  (.arrow eudaimonia_s0 eudaimonia_s0 eudaimonia_s0))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 24 arrows. -/
+theorem eudaimonia_conventional_protocol_depth : eudaimonia_conventional_protocol.depth = 24 := by
+  native_decide
+

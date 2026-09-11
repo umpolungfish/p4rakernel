@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -132,3 +133,53 @@ noncomputable def voynich_purpose_true_arm : IGProtocol voynich_purpose_s0 voyni
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def voynich_purpose_tier : OuroboricityTier := TierFunctor.obj voynich_purpose_s0
 #eval voynich_purpose_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Voynich Purpose)
+--   Word: ⊢⊞≻⊙≺⋈∈⊤∋⊡≻⊙⋈≻∈⊤∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def voynich_purpose_opcodes : List String := ["VINIT", "ENGAGR", "AFWD", "IMSCRIB", "AREV", "CLINK", "FSPLIT", "EVALT", "FFUSE", "IFIX", "AFWD", "IMSCRIB", "CLINK", "AFWD", "FSPLIT", "EVALT", "FFUSE", "IFIX", "TANCH"]
+
+def voynich_purpose_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf voynich_purpose_opcodes
+
+def voynich_purpose_glyph_word : String := glyphWordOf voynich_purpose_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem voynich_purpose_register_length : voynich_purpose_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem voynich_purpose_register_matches_word : voynich_purpose_glyph_word = "⊢⊞≻⊙≺⋈∈⊤∋⊡≻⊙⋈≻∈⊤∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def voynich_purpose_conventional_protocol : IGProtocol voynich_purpose_s0 voynich_purpose_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- VINIT
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- ENGAGR
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- AFWD
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- IMSCRIB
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- AREV
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- CLINK
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- FSPLIT
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- EVALT
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- FFUSE
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- IFIX
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- AFWD
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- IMSCRIB
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- CLINK
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- AFWD
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- FSPLIT
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- EVALT
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- FFUSE
+  (.seq (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)  -- IFIX
+  (.arrow voynich_purpose_s0 voynich_purpose_s0 voynich_purpose_s0)))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem voynich_purpose_conventional_protocol_depth : voynich_purpose_conventional_protocol.depth = 19 := by
+  native_decide
+

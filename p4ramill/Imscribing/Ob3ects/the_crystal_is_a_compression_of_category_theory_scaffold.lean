@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def the_crystal_is_a_compression_of_6f519c_tier : OuroboricityTier := TierFuncto
 theorem the_crystal_is_a_compression_of_6f519c_frobenius :
     igFrobeniusAlg.mul the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 = the_crystal_is_a_compression_of_6f519c_s0 :=
   igFrobAlg_self_fusion the_crystal_is_a_compression_of_6f519c_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The crystal is a compression of category theory)
+--   Word: ⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_crystal_is_a_compression_of_6f519c_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "CLINK", "CLINK", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def the_crystal_is_a_compression_of_6f519c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_crystal_is_a_compression_of_6f519c_opcodes
+
+def the_crystal_is_a_compression_of_6f519c_glyph_word : String := glyphWordOf the_crystal_is_a_compression_of_6f519c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_crystal_is_a_compression_of_6f519c_register_length : the_crystal_is_a_compression_of_6f519c_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_crystal_is_a_compression_of_6f519c_register_matches_word : the_crystal_is_a_compression_of_6f519c_glyph_word = "⊢≻∈⊤⊥⋈⋈⊞∋⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_crystal_is_a_compression_of_6f519c_conventional_protocol : IGProtocol the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- VINIT
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- AFWD
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- FSPLIT
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- EVALT
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- EVALF
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- CLINK
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- CLINK
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- ENGAGR
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- FFUSE
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- IMSCRIB
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- AREV
+  (.seq (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)  -- IFIX
+  (.arrow the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0 the_crystal_is_a_compression_of_6f519c_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem the_crystal_is_a_compression_of_6f519c_conventional_protocol_depth : the_crystal_is_a_compression_of_6f519c_conventional_protocol.depth = 13 := by
+  native_decide
+

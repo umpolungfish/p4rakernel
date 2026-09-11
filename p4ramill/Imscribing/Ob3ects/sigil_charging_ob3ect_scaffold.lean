@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem sigil_charging_ob3ect_chaos_magic_9770a3_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Sigil charging ob3ect: chaos magic sigilization where intention is encoded into an abstract glyph, charged with gnosis, then forgotten. FSPLIT: the statement of desire is decomposed into its constituent letters, stripped of repeating letters, and the remaining letters are abstracted into a graphic sigil — the intention splits into pure symbolic essence. FFUSE: gnostic charging (orgasm, meditation, pain, or exhaustion) fires the sigil, reconstituting the original intention into reality. VINIT: unformed desire. TANCH: the completed sigil. AFWD: charging with gnosis. AREV: forgetting (the sigil must be forgotten to fire). ENGAGR: the sigil is simultaneously a meaningless squiggle and a container of potent will.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def sigil_charging_ob3ect_chaos_magic_9770a3_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def sigil_charging_ob3ect_chaos_magic_9770a3_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf sigil_charging_ob3ect_chaos_magic_9770a3_opcodes
+
+def sigil_charging_ob3ect_chaos_magic_9770a3_glyph_word : String := glyphWordOf sigil_charging_ob3ect_chaos_magic_9770a3_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem sigil_charging_ob3ect_chaos_magic_9770a3_register_length : sigil_charging_ob3ect_chaos_magic_9770a3_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem sigil_charging_ob3ect_chaos_magic_9770a3_register_matches_word : sigil_charging_ob3ect_chaos_magic_9770a3_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def sigil_charging_ob3ect_chaos_magic_9770a3_conventional_protocol : IGProtocol sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- IMSCRIB
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- AREV
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- FSPLIT
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- AFWD
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- FFUSE
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- CLINK
+  (.seq (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0)  -- IFIX
+  (.arrow sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0 sigil_charging_ob3ect_chaos_magic_9770a3_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem sigil_charging_ob3ect_chaos_magic_9770a3_conventional_protocol_depth : sigil_charging_ob3ect_chaos_magic_9770a3_conventional_protocol.depth = 8 := by
+  native_decide
+

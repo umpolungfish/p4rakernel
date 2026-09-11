@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def herzog_sch_nheim_theorem_tier : OuroboricityTier := TierFunctor.obj herzog_s
 theorem herzog_sch_nheim_theorem_frobenius :
     igFrobeniusAlg.mul herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 = herzog_sch_nheim_theorem_s0 :=
   igFrobAlg_self_fusion herzog_sch_nheim_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Herzog–Schönheim Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤∋≺⋈⊥⊞⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def herzog_sch_nheim_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "AREV", "CLINK", "EVALF", "ENGAGR", "IFIX"]
+
+def herzog_sch_nheim_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf herzog_sch_nheim_theorem_opcodes
+
+def herzog_sch_nheim_theorem_glyph_word : String := glyphWordOf herzog_sch_nheim_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem herzog_sch_nheim_theorem_register_length : herzog_sch_nheim_theorem_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem herzog_sch_nheim_theorem_register_matches_word : herzog_sch_nheim_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤∋≺⋈⊥⊞⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def herzog_sch_nheim_theorem_conventional_protocol : IGProtocol herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- VINIT
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- TANCH
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- AFWD
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- CLINK
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- FSPLIT
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- EVALT
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- FFUSE
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- AREV
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- CLINK
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- EVALF
+  (.seq (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)  -- ENGAGR
+  (.arrow herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0 herzog_sch_nheim_theorem_s0)))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem herzog_sch_nheim_theorem_conventional_protocol_depth : herzog_sch_nheim_theorem_conventional_protocol.depth = 13 := by
+  native_decide
+

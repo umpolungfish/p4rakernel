@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem alchemical_alembic_ob3ect_the_great_778f82_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Alchemical alembic ob3ect: the Great Work of solve et coagula — the dissolution and reconstitution of the prima materia through the four stages of nigredo, albedo, citrinitas, and rubedo. FSPLIT: solve (dissolution) breaks the prima materia into its three principles — Sulfur (soul), Mercury (spirit), Salt (body). FFUSE: coagula (coagulation) reunites the purified principles as the Philosopher's Stone. VINIT: the unworked prima materia. TANCH: the hermetic vessel sealed with the seal of Hermes. AFWD: sublimation. AREV: precipitation. ENGAGR: nigredo — the black stage where the matter is simultaneously putrefying (dying) and germinating (being reborn).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def alchemical_alembic_ob3ect_the_great_778f82_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def alchemical_alembic_ob3ect_the_great_778f82_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf alchemical_alembic_ob3ect_the_great_778f82_opcodes
+
+def alchemical_alembic_ob3ect_the_great_778f82_glyph_word : String := glyphWordOf alchemical_alembic_ob3ect_the_great_778f82_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem alchemical_alembic_ob3ect_the_great_778f82_register_length : alchemical_alembic_ob3ect_the_great_778f82_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem alchemical_alembic_ob3ect_the_great_778f82_register_matches_word : alchemical_alembic_ob3ect_the_great_778f82_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def alchemical_alembic_ob3ect_the_great_778f82_conventional_protocol : IGProtocol alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- IMSCRIB
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- AREV
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- FSPLIT
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- AFWD
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- FFUSE
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- CLINK
+  (.seq (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0)  -- IFIX
+  (.arrow alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0 alchemical_alembic_ob3ect_the_great_778f82_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem alchemical_alembic_ob3ect_the_great_778f82_conventional_protocol_depth : alchemical_alembic_ob3ect_the_great_778f82_conventional_protocol.depth = 8 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def perfect_cuboid_theorem_tier : OuroboricityTier := TierFunctor.obj perfect_cu
 theorem perfect_cuboid_theorem_frobenius :
     igFrobeniusAlg.mul perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 = perfect_cuboid_theorem_s0 :=
   igFrobAlg_self_fusion perfect_cuboid_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Perfect Cuboid Theorem)
+--   Word: ⊢≻≻≻≻≻∈⊤⊥∋⊞⊙≺⋈⊤⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def perfect_cuboid_theorem_opcodes : List String := ["VINIT", "AFWD", "AFWD", "AFWD", "AFWD", "AFWD", "FSPLIT", "EVALT", "EVALF", "FFUSE", "ENGAGR", "IMSCRIB", "AREV", "CLINK", "EVALT", "IFIX", "TANCH"]
+
+def perfect_cuboid_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf perfect_cuboid_theorem_opcodes
+
+def perfect_cuboid_theorem_glyph_word : String := glyphWordOf perfect_cuboid_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem perfect_cuboid_theorem_register_length : perfect_cuboid_theorem_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem perfect_cuboid_theorem_register_matches_word : perfect_cuboid_theorem_glyph_word = "⊢≻≻≻≻≻∈⊤⊥∋⊞⊙≺⋈⊤⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def perfect_cuboid_theorem_conventional_protocol : IGProtocol perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- VINIT
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AFWD
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AFWD
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AFWD
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AFWD
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AFWD
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- FSPLIT
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- EVALT
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- EVALF
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- FFUSE
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- ENGAGR
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- AREV
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- CLINK
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- EVALT
+  (.seq (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)  -- IFIX
+  (.arrow perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0 perfect_cuboid_theorem_s0)))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem perfect_cuboid_theorem_conventional_protocol_depth : perfect_cuboid_theorem_conventional_protocol.depth = 17 := by
+  native_decide
+

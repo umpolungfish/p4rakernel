@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def boundary_puncture_tier : OuroboricityTier := TierFunctor.obj boundary_punctu
 theorem boundary_puncture_frobenius :
     igFrobeniusAlg.mul boundary_puncture_s0 boundary_puncture_s0 = boundary_puncture_s0 :=
   igFrobAlg_self_fusion boundary_puncture_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Boundary Puncture)
+--   Word: ⊢≻∈⊤≻⋈⊥≺⋈⊞∋⊤⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def boundary_puncture_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "CLINK", "ENGAGR", "FFUSE", "EVALT", "IMSCRIB", "IFIX", "TANCH"]
+
+def boundary_puncture_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf boundary_puncture_opcodes
+
+def boundary_puncture_glyph_word : String := glyphWordOf boundary_puncture_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem boundary_puncture_register_length : boundary_puncture_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem boundary_puncture_register_matches_word : boundary_puncture_glyph_word = "⊢≻∈⊤≻⋈⊥≺⋈⊞∋⊤⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def boundary_puncture_conventional_protocol : IGProtocol boundary_puncture_s0 boundary_puncture_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- VINIT
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- AFWD
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- FSPLIT
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- EVALT
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- AFWD
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- CLINK
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- EVALF
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- AREV
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- CLINK
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- ENGAGR
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- FFUSE
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- EVALT
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- IMSCRIB
+  (.seq (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)  -- IFIX
+  (.arrow boundary_puncture_s0 boundary_puncture_s0 boundary_puncture_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem boundary_puncture_conventional_protocol_depth : boundary_puncture_conventional_protocol.depth = 15 := by
+  native_decide
+

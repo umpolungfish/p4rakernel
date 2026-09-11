@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -156,3 +157,57 @@ noncomputable def the_virgin_mary_false_arm : IGProtocol the_virgin_mary_s0 the_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def the_virgin_mary_tier : OuroboricityTier := TierFunctor.obj the_virgin_mary_s0
 #eval the_virgin_mary_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Virgin Mary)
+--   Word: ⊢≻∈⊤⋈⊙⊞⊥∋⊡≺⋈⊙≻∈⊤⊥⊞∋⊡⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_virgin_mary_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "CLINK", "IMSCRIB", "ENGAGR", "EVALF", "FFUSE", "IFIX", "AREV", "CLINK", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "CLINK", "IMSCRIB", "TANCH"]
+
+def the_virgin_mary_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_virgin_mary_opcodes
+
+def the_virgin_mary_glyph_word : String := glyphWordOf the_virgin_mary_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_virgin_mary_register_length : the_virgin_mary_conventional_register.length = 23 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_virgin_mary_register_matches_word : the_virgin_mary_glyph_word = "⊢≻∈⊤⋈⊙⊞⊥∋⊡≺⋈⊙≻∈⊤⊥⊞∋⊡⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_virgin_mary_conventional_protocol : IGProtocol the_virgin_mary_s0 the_virgin_mary_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- VINIT
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- AFWD
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- FSPLIT
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- EVALT
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- CLINK
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- IMSCRIB
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- ENGAGR
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- EVALF
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- FFUSE
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- IFIX
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- AREV
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- CLINK
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- IMSCRIB
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- AFWD
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- FSPLIT
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- EVALT
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- EVALF
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- ENGAGR
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- FFUSE
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- IFIX
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- CLINK
+  (.seq (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)  -- IMSCRIB
+  (.arrow the_virgin_mary_s0 the_virgin_mary_s0 the_virgin_mary_s0)))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 23 arrows. -/
+theorem the_virgin_mary_conventional_protocol_depth : the_virgin_mary_conventional_protocol.depth = 23 := by
+  native_decide
+

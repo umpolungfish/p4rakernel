@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem enochian_tablet_the_elemental_tablets_b0055d_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Enochian tablet: the elemental tablets of Dr. John Dee's Enochian magic, 12x13 grids of letters encoding angelic names and powers. FSPLIT: the tablet is read by scanning rows, columns, and diagonals, splitting the unified tablet surface into individual angelic names. FFUSE: the names are called in their hierarchical order, reconstituting the tablet's full authority. VINIT: blank wax tablet. TANCH: the outer border of the tablet (the 12x13 grid). AFWD: reading a name forward. AREV: reading a name in reverse (the angels of wrath). ENGAGR: the black cross — the center of the tablet where all directions meet and a name reads the same in all directions.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def enochian_tablet_the_elemental_tablets_b0055d_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def enochian_tablet_the_elemental_tablets_b0055d_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf enochian_tablet_the_elemental_tablets_b0055d_opcodes
+
+def enochian_tablet_the_elemental_tablets_b0055d_glyph_word : String := glyphWordOf enochian_tablet_the_elemental_tablets_b0055d_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem enochian_tablet_the_elemental_tablets_b0055d_register_length : enochian_tablet_the_elemental_tablets_b0055d_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem enochian_tablet_the_elemental_tablets_b0055d_register_matches_word : enochian_tablet_the_elemental_tablets_b0055d_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def enochian_tablet_the_elemental_tablets_b0055d_conventional_protocol : IGProtocol enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- IMSCRIB
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- AREV
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- FSPLIT
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- AFWD
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- FFUSE
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- CLINK
+  (.seq (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0)  -- IFIX
+  (.arrow enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0 enochian_tablet_the_elemental_tablets_b0055d_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem enochian_tablet_the_elemental_tablets_b0055d_conventional_protocol_depth : enochian_tablet_the_elemental_tablets_b0055d_conventional_protocol.depth = 8 := by
+  native_decide
+

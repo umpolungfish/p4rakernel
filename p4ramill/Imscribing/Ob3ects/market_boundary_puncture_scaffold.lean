@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def market_boundary_puncture_tier : OuroboricityTier := TierFunctor.obj market_b
 theorem market_boundary_puncture_frobenius :
     igFrobeniusAlg.mul market_boundary_puncture_s0 market_boundary_puncture_s0 = market_boundary_puncture_s0 :=
   igFrobAlg_self_fusion market_boundary_puncture_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Market Boundary Puncture)
+--   Word: ⊢⊣≻⋈⊙∈⊤⊥⊞∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def market_boundary_puncture_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+
+def market_boundary_puncture_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf market_boundary_puncture_opcodes
+
+def market_boundary_puncture_glyph_word : String := glyphWordOf market_boundary_puncture_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem market_boundary_puncture_register_length : market_boundary_puncture_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem market_boundary_puncture_register_matches_word : market_boundary_puncture_glyph_word = "⊢⊣≻⋈⊙∈⊤⊥⊞∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def market_boundary_puncture_conventional_protocol : IGProtocol market_boundary_puncture_s0 market_boundary_puncture_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- VINIT
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- TANCH
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- AFWD
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- CLINK
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- IMSCRIB
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- FSPLIT
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- EVALT
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- EVALF
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- ENGAGR
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- FFUSE
+  (.seq (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0)  -- IFIX
+  (.arrow market_boundary_puncture_s0 market_boundary_puncture_s0 market_boundary_puncture_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem market_boundary_puncture_conventional_protocol_depth : market_boundary_puncture_conventional_protocol.depth = 12 := by
+  native_decide
+

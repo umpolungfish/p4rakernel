@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def distinction_tier : OuroboricityTier := TierFunctor.obj distinction_s0
 theorem distinction_frobenius :
     igFrobeniusAlg.mul distinction_s0 distinction_s0 = distinction_s0 :=
   igFrobAlg_self_fusion distinction_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Distinction)
+--   Word: ⊢≻∈⊤⊙⊡≺⊥⊞∋⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def distinction_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "IMSCRIB", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "CLINK", "TANCH"]
+
+def distinction_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf distinction_opcodes
+
+def distinction_glyph_word : String := glyphWordOf distinction_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem distinction_register_length : distinction_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem distinction_register_matches_word : distinction_glyph_word = "⊢≻∈⊤⊙⊡≺⊥⊞∋⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def distinction_conventional_protocol : IGProtocol distinction_s0 distinction_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- VINIT
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- AFWD
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- FSPLIT
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- EVALT
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- IMSCRIB
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- IFIX
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- AREV
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- EVALF
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- ENGAGR
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- FFUSE
+  (.seq (.arrow distinction_s0 distinction_s0 distinction_s0)  -- CLINK
+  (.arrow distinction_s0 distinction_s0 distinction_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem distinction_conventional_protocol_depth : distinction_conventional_protocol.depth = 12 := by
+  native_decide
+

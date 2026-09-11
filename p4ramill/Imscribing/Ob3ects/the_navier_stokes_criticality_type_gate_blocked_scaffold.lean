@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -105,5 +106,48 @@ def the_navier_stokes_criticality_type_gate_83f148_tier : OuroboricityTier := Ti
 theorem the_navier_stokes_criticality_type_gate_83f148_frobenius :
     igFrobeniusAlg.mul the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 = the_navier_stokes_criticality_type_gate_83f148_s0 :=
   igFrobAlg_self_fusion the_navier_stokes_criticality_type_gate_83f148_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the Navier-Stokes criticality type gate-blocked under all 29 existing universes becomes an independently-motivated new gate-universe carrying it to idempotent_terminal and T_CEILING-consistency without tailoring)
+--   Word: ⊢⊙⋈∈≻⊤≺⊥∋⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_navier_stokes_criticality_type_gate_83f148_opcodes : List String := ["VINIT", "IMSCRIB", "CLINK", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+
+def the_navier_stokes_criticality_type_gate_83f148_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_navier_stokes_criticality_type_gate_83f148_opcodes
+
+def the_navier_stokes_criticality_type_gate_83f148_glyph_word : String := glyphWordOf the_navier_stokes_criticality_type_gate_83f148_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_navier_stokes_criticality_type_gate_83f148_register_length : the_navier_stokes_criticality_type_gate_83f148_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_navier_stokes_criticality_type_gate_83f148_register_matches_word : the_navier_stokes_criticality_type_gate_83f148_glyph_word = "⊢⊙⋈∈≻⊤≺⊥∋⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_navier_stokes_criticality_type_gate_83f148_conventional_protocol : IGProtocol the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- VINIT
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- IMSCRIB
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- CLINK
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- FSPLIT
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- AFWD
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- EVALT
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- AREV
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- EVALF
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- FFUSE
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- ENGAGR
+  (.seq (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0)  -- IFIX
+  (.arrow the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0 the_navier_stokes_criticality_type_gate_83f148_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem the_navier_stokes_criticality_type_gate_83f148_conventional_protocol_depth : the_navier_stokes_criticality_type_gate_83f148_conventional_protocol.depth = 12 := by
+  native_decide
 
 end Imscribing

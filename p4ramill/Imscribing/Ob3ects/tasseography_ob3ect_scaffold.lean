@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem tasseography_ob3ect_tea_leaf_reading_e9d119_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Tasseography ob3ect: tea leaf reading — loose tea leaves swirled in a cup, then inverted onto a saucer, leaving patterns on the cup walls. FSPLIT: the inverting of the cup splits the wet leaves into scattered clusters and trails across the cup's interior surface. FFUSE: the reader synthesizes the scattered leaf formations into a coherent narrative — the rim=present, middle=near future, bottom=distant future. VINIT: the empty cup. TANCH: the cup's rim as boundary. AFWD: a leaf cluster near the rim (imminent event). AREV: a leaf cluster at the bottom (distant, delayed). ENGAGR: a leaf formation that can be read as two contradictory symbols simultaneously (e.g., a bird and a snake from the same cluster).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def tasseography_ob3ect_tea_leaf_reading_e9d119_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def tasseography_ob3ect_tea_leaf_reading_e9d119_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf tasseography_ob3ect_tea_leaf_reading_e9d119_opcodes
+
+def tasseography_ob3ect_tea_leaf_reading_e9d119_glyph_word : String := glyphWordOf tasseography_ob3ect_tea_leaf_reading_e9d119_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem tasseography_ob3ect_tea_leaf_reading_e9d119_register_length : tasseography_ob3ect_tea_leaf_reading_e9d119_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem tasseography_ob3ect_tea_leaf_reading_e9d119_register_matches_word : tasseography_ob3ect_tea_leaf_reading_e9d119_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def tasseography_ob3ect_tea_leaf_reading_e9d119_conventional_protocol : IGProtocol tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- IMSCRIB
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- AREV
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- FSPLIT
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- AFWD
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- FFUSE
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- CLINK
+  (.seq (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0)  -- IFIX
+  (.arrow tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0 tasseography_ob3ect_tea_leaf_reading_e9d119_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem tasseography_ob3ect_tea_leaf_reading_e9d119_conventional_protocol_depth : tasseography_ob3ect_tea_leaf_reading_e9d119_conventional_protocol.depth = 8 := by
+  native_decide
+

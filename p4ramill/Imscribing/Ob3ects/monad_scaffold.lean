@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def monad_tier : OuroboricityTier := TierFunctor.obj monad_s0
 theorem monad_frobenius :
     igFrobeniusAlg.mul monad_s0 monad_s0 = monad_s0 :=
   igFrobAlg_self_fusion monad_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Monad)
+--   Word: ⊢⊣≻∈⊤⋈⊥∋⊙≺⊞⋈⊡⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def monad_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "EVALT", "CLINK", "EVALF", "FFUSE", "IMSCRIB", "AREV", "ENGAGR", "CLINK", "IFIX", "IMSCRIB", "TANCH"]
+
+def monad_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf monad_opcodes
+
+def monad_glyph_word : String := glyphWordOf monad_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem monad_register_length : monad_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem monad_register_matches_word : monad_glyph_word = "⊢⊣≻∈⊤⋈⊥∋⊙≺⊞⋈⊡⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def monad_conventional_protocol : IGProtocol monad_s0 monad_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- VINIT
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- TANCH
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- AFWD
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- FSPLIT
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- EVALT
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- CLINK
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- EVALF
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- FFUSE
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- IMSCRIB
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- AREV
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- ENGAGR
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- CLINK
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- IFIX
+  (.seq (.arrow monad_s0 monad_s0 monad_s0)  -- IMSCRIB
+  (.arrow monad_s0 monad_s0 monad_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem monad_conventional_protocol_depth : monad_conventional_protocol.depth = 15 := by
+  native_decide
+

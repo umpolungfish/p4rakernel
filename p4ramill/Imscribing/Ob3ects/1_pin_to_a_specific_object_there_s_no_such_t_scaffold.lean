@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,26 @@ def 1_pin_to_a_specific_object_theres_no_4e7623_tier : OuroboricityTier := TierF
 theorem 1_pin_to_a_specific_object_theres_no_4e7623_frobenius :
     igFrobeniusAlg.mul 1_pin_to_a_specific_object_theres_no_4e7623_s0 1_pin_to_a_specific_object_theres_no_4e7623_s0 = 1_pin_to_a_specific_object_theres_no_4e7623_s0 :=
   igFrobAlg_self_fusion 1_pin_to_a_specific_object_theres_no_4e7623_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: 1. Pin ℂ to a specific object. There's no such thing as the bare abstract category — a category is a structure, not a unique thing, so ℂ/~ has no referent until ℂ is named. 2. Make  compute the tuple from ℂ's data, not from a tuple you wrote by hand. 3. Show the 17.28M addresses are realized, not merely available. 3³×4⁵×5⁴ is the size of the grid — the codomain. For Crystal = ℂ/~ you need the projection onto: every address inhabited by a real object of ℂ. 4. Resolve the decode∘encode dilemma — the keystone. Fix only this and the centerpiece becomes a real theorem. Turn the folding/unfolding table into one proof. Force the value-counts, or name the ouroboros decoration.)
+--   Word: ⊢≻∈⊤⋈⊥⋈⊞∋⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ob_1_pin_to_a_specific_object_there_s_no_such_t_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "CLINK", "EVALF", "CLINK", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def ob_1_pin_to_a_specific_object_there_s_no_such_t_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ob_1_pin_to_a_specific_object_there_s_no_such_t_opcodes
+
+def ob_1_pin_to_a_specific_object_there_s_no_such_t_glyph_word : String := glyphWordOf ob_1_pin_to_a_specific_object_there_s_no_such_t_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ob_1_pin_to_a_specific_object_there_s_no_such_t_register_length : ob_1_pin_to_a_specific_object_there_s_no_such_t_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ob_1_pin_to_a_specific_object_there_s_no_such_t_register_matches_word : ob_1_pin_to_a_specific_object_there_s_no_such_t_glyph_word = "⊢≻∈⊤⋈⊥⋈⊞∋⊙≺⊡⊣" := by
+  native_decide
+
+-- protocol omitted: ground stage identifier is not a valid Lean identifier
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def dialetheic_saturation_heat_death_tier : OuroboricityTier := TierFunctor.obj 
 theorem dialetheic_saturation_heat_death_frobenius :
     igFrobeniusAlg.mul dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 = dialetheic_saturation_heat_death_s0 :=
   igFrobAlg_self_fusion dialetheic_saturation_heat_death_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Dialetheic Saturation >>> Heat Death)
+--   Word: ⊢≻⋈∈⊤⊥⊞≺∋⊙⋈⊣⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def dialetheic_saturation_heat_death_opcodes : List String := ["VINIT", "AFWD", "CLINK", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "AREV", "FFUSE", "IMSCRIB", "CLINK", "TANCH", "IFIX"]
+
+def dialetheic_saturation_heat_death_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf dialetheic_saturation_heat_death_opcodes
+
+def dialetheic_saturation_heat_death_glyph_word : String := glyphWordOf dialetheic_saturation_heat_death_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem dialetheic_saturation_heat_death_register_length : dialetheic_saturation_heat_death_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem dialetheic_saturation_heat_death_register_matches_word : dialetheic_saturation_heat_death_glyph_word = "⊢≻⋈∈⊤⊥⊞≺∋⊙⋈⊣⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def dialetheic_saturation_heat_death_conventional_protocol : IGProtocol dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- VINIT
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- AFWD
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- CLINK
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- FSPLIT
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- EVALT
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- EVALF
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- ENGAGR
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- AREV
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- FFUSE
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- IMSCRIB
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- CLINK
+  (.seq (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)  -- TANCH
+  (.arrow dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0 dialetheic_saturation_heat_death_s0)))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem dialetheic_saturation_heat_death_conventional_protocol_depth : dialetheic_saturation_heat_death_conventional_protocol.depth = 13 := by
+  native_decide
+

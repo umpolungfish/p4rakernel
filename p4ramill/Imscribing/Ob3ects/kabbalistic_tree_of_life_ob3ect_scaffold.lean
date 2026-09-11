@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem kabbalistic_tree_of_life_ob3ect_10_5d966a_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Kabbalistic Tree of Life ob3ect: 10 Sephirot (Kether, Chokmah, Binah, Chesed, Geburah, Tiferet, Netzach, Hod, Yesod, Malkuth) and 22 connecting paths. FSPLIT: the Lightning Flash emanates from Kether down through all 10 Sephirot — Ein Sof splits into the tree of manifestation. FFUSE: the Serpent Path ascends from Malkuth back to Kether — multiplicity reconstitutes original unity. VINIT: Ain Soph Aur (limitless light before emanation). TANCH: the complete Tree diagram. AFWD: the lightning flash descent. AREV: the serpent path ascent. ENGAGR: Daath — the hidden sephirah that simultaneously IS and IS NOT on the tree.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def kabbalistic_tree_of_life_ob3ect_10_5d966a_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def kabbalistic_tree_of_life_ob3ect_10_5d966a_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf kabbalistic_tree_of_life_ob3ect_10_5d966a_opcodes
+
+def kabbalistic_tree_of_life_ob3ect_10_5d966a_glyph_word : String := glyphWordOf kabbalistic_tree_of_life_ob3ect_10_5d966a_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem kabbalistic_tree_of_life_ob3ect_10_5d966a_register_length : kabbalistic_tree_of_life_ob3ect_10_5d966a_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem kabbalistic_tree_of_life_ob3ect_10_5d966a_register_matches_word : kabbalistic_tree_of_life_ob3ect_10_5d966a_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def kabbalistic_tree_of_life_ob3ect_10_5d966a_conventional_protocol : IGProtocol kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- IMSCRIB
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- AREV
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- FSPLIT
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- AFWD
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- FFUSE
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- CLINK
+  (.seq (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0)  -- IFIX
+  (.arrow kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0 kabbalistic_tree_of_life_ob3ect_10_5d966a_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem kabbalistic_tree_of_life_ob3ect_10_5d966a_conventional_protocol_depth : kabbalistic_tree_of_life_ob3ect_10_5d966a_conventional_protocol.depth = 8 := by
+  native_decide
+

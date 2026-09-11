@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,53 @@ def landaus_theorems_tier : OuroboricityTier := TierFunctor.obj landaus_theorems
 theorem landaus_theorems_frobenius :
     igFrobeniusAlg.mul landaus_theorems_s0 landaus_theorems_s0 = landaus_theorems_s0 :=
   igFrobAlg_self_fusion landaus_theorems_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Landau's Theorems)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⊡⊥≺≻⊞∋⊙⋈⊡⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def landaus_theorems_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "EVALF", "AREV", "AFWD", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "TANCH", "IMSCRIB"]
+
+def landaus_theorems_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf landaus_theorems_opcodes
+
+def landaus_theorems_glyph_word : String := glyphWordOf landaus_theorems_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem landaus_theorems_register_length : landaus_theorems_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem landaus_theorems_register_matches_word : landaus_theorems_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⊡⊥≺≻⊞∋⊙⋈⊡⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def landaus_theorems_conventional_protocol : IGProtocol landaus_theorems_s0 landaus_theorems_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- VINIT
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- TANCH
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- AFWD
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- CLINK
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- IMSCRIB
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- FSPLIT
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- EVALT
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- AFWD
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- IFIX
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- EVALF
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- AREV
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- AFWD
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- ENGAGR
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- FFUSE
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- IMSCRIB
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- CLINK
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- IFIX
+  (.seq (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)  -- TANCH
+  (.arrow landaus_theorems_s0 landaus_theorems_s0 landaus_theorems_s0)))))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem landaus_theorems_conventional_protocol_depth : landaus_theorems_conventional_protocol.depth = 19 := by
+  native_decide
+

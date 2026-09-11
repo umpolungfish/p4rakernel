@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -156,3 +157,56 @@ def artins_theorem_on_primitive_roots_tier : OuroboricityTier := TierFunctor.obj
 theorem artins_theorem_on_primitive_roots_frobenius :
     igFrobeniusAlg.mul artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 = artins_theorem_on_primitive_roots_s0 :=
   igFrobAlg_self_fusion artins_theorem_on_primitive_roots_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Artin's Theorem on Primitive Roots)
+--   Word: ⊢⊣≻⋈⊙∈≻⊤≺⊥∋⊤⊡⋈⊙⊞≺⋈≻⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def artins_theorem_on_primitive_roots_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "EVALT", "IFIX", "CLINK", "IMSCRIB", "ENGAGR", "AREV", "CLINK", "AFWD", "IMSCRIB", "IFIX", "TANCH"]
+
+def artins_theorem_on_primitive_roots_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf artins_theorem_on_primitive_roots_opcodes
+
+def artins_theorem_on_primitive_roots_glyph_word : String := glyphWordOf artins_theorem_on_primitive_roots_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem artins_theorem_on_primitive_roots_register_length : artins_theorem_on_primitive_roots_conventional_register.length = 22 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem artins_theorem_on_primitive_roots_register_matches_word : artins_theorem_on_primitive_roots_glyph_word = "⊢⊣≻⋈⊙∈≻⊤≺⊥∋⊤⊡⋈⊙⊞≺⋈≻⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def artins_theorem_on_primitive_roots_conventional_protocol : IGProtocol artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- VINIT
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- TANCH
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- AFWD
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- CLINK
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- IMSCRIB
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- FSPLIT
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- AFWD
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- EVALT
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- AREV
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- EVALF
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- FFUSE
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- EVALT
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- IFIX
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- CLINK
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- IMSCRIB
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- ENGAGR
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- AREV
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- CLINK
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- AFWD
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- IMSCRIB
+  (.seq (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0)  -- IFIX
+  (.arrow artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0 artins_theorem_on_primitive_roots_s0))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 22 arrows. -/
+theorem artins_theorem_on_primitive_roots_conventional_protocol_depth : artins_theorem_on_primitive_roots_conventional_protocol.depth = 22 := by
+  native_decide
+

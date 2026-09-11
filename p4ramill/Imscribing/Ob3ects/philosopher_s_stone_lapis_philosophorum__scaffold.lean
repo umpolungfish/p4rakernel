@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem philosophers_stone_lapis_philosophorum_6a004e_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Philosopher's stone (lapis philosophorum): the completed alchemical agent that transmutes base metals to gold and confers immortality. FSPLIT: the stone projects its virtue onto base metal, splitting the metal's nature into its pure essence and its dross. FFUSE: the pure essence reconstitutes as gold — the original metal perfected. VINIT: undifferentiated prima materia. TANCH: the stone itself as terminal object. AFWD: transmutation. AREV: the stone's self-regeneration — it is not consumed. ENGAGR: the stone is simultaneously a powder (physical) and a spirit (non-physical) — it is and is not material.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def philosophers_stone_lapis_philosophorum_6a004e_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def philosophers_stone_lapis_philosophorum_6a004e_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf philosophers_stone_lapis_philosophorum_6a004e_opcodes
+
+def philosophers_stone_lapis_philosophorum_6a004e_glyph_word : String := glyphWordOf philosophers_stone_lapis_philosophorum_6a004e_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem philosophers_stone_lapis_philosophorum_6a004e_register_length : philosophers_stone_lapis_philosophorum_6a004e_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem philosophers_stone_lapis_philosophorum_6a004e_register_matches_word : philosophers_stone_lapis_philosophorum_6a004e_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def philosophers_stone_lapis_philosophorum_6a004e_conventional_protocol : IGProtocol philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- IMSCRIB
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- AREV
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- FSPLIT
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- AFWD
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- FFUSE
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- CLINK
+  (.seq (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0)  -- IFIX
+  (.arrow philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0 philosophers_stone_lapis_philosophorum_6a004e_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem philosophers_stone_lapis_philosophorum_6a004e_conventional_protocol_depth : philosophers_stone_lapis_philosophorum_6a004e_conventional_protocol.depth = 8 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def dark_matter_tier : OuroboricityTier := TierFunctor.obj dark_matter_s0
 theorem dark_matter_frobenius :
     igFrobeniusAlg.mul dark_matter_s0 dark_matter_s0 = dark_matter_s0 :=
   igFrobAlg_self_fusion dark_matter_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: dark matter)
+--   Word: ⊢⊙∈⊤≻≺⊥∋⋈⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def dark_matter_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "AREV", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+
+def dark_matter_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf dark_matter_opcodes
+
+def dark_matter_glyph_word : String := glyphWordOf dark_matter_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem dark_matter_register_length : dark_matter_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem dark_matter_register_matches_word : dark_matter_glyph_word = "⊢⊙∈⊤≻≺⊥∋⋈⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def dark_matter_conventional_protocol : IGProtocol dark_matter_s0 dark_matter_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- VINIT
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- IMSCRIB
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- FSPLIT
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- EVALT
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- AFWD
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- AREV
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- EVALF
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- FFUSE
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- CLINK
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- ENGAGR
+  (.seq (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0)  -- IFIX
+  (.arrow dark_matter_s0 dark_matter_s0 dark_matter_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem dark_matter_conventional_protocol_depth : dark_matter_conventional_protocol.depth = 12 := by
+  native_decide
+

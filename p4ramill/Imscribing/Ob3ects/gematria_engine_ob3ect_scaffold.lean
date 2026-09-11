@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem gematria_engine_ob3ect_the_hebrew_6924eb_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Gematria engine ob3ect: the Hebrew letter-number correspondence where each letter has a numerical value, and words with equal values share a mystical connection. FSPLIT: a word is decomposed into its constituent letters, splitting unity into numerical values (e.g., Chai = Chet(8) + Yod(10) = 18). FFUSE: the numerical sum reconstitutes the word's essence, and words sharing the same sum (e.g., Chai=18 and Echad(One)=13... wait, finding a genuine pair requires same gematria). The genuine pair: Aleph(1)+Mem(40)+Tav(400)=441 = Emet (Truth), and the same sum 441 is also the square of 21 which is Eheyeh — Truth and Being share a numerical identity. ENGAGR: a word that has two different gematria values depending on whether final letters are counted — simultaneously one number and another.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def gematria_engine_ob3ect_the_hebrew_6924eb_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def gematria_engine_ob3ect_the_hebrew_6924eb_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf gematria_engine_ob3ect_the_hebrew_6924eb_opcodes
+
+def gematria_engine_ob3ect_the_hebrew_6924eb_glyph_word : String := glyphWordOf gematria_engine_ob3ect_the_hebrew_6924eb_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem gematria_engine_ob3ect_the_hebrew_6924eb_register_length : gematria_engine_ob3ect_the_hebrew_6924eb_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem gematria_engine_ob3ect_the_hebrew_6924eb_register_matches_word : gematria_engine_ob3ect_the_hebrew_6924eb_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def gematria_engine_ob3ect_the_hebrew_6924eb_conventional_protocol : IGProtocol gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- IMSCRIB
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- AREV
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- FSPLIT
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- AFWD
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- FFUSE
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- CLINK
+  (.seq (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0)  -- IFIX
+  (.arrow gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0 gematria_engine_ob3ect_the_hebrew_6924eb_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem gematria_engine_ob3ect_the_hebrew_6924eb_conventional_protocol_depth : gematria_engine_ob3ect_the_hebrew_6924eb_conventional_protocol.depth = 8 := by
+  native_decide
+

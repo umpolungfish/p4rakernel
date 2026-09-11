@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem shamanic_journey_drum_the_frame_drum_99ac1f_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Shamanic journey drum: the frame drum used to enter trance states, its steady beat carrying the shaman to the lower, middle, or upper worlds. FSPLIT: the drumbeat splits the shaman's consciousness — the body remains in the ritual space while the soul travels to the spirit realm. FFUSE: the callback beat (a distinct rhythm shift) reconstitutes the shaman — soul returns to body with the healing, vision, or power animal. VINIT: silence before the first drumbeat. TANCH: the drum's rim — the boundary circle. AFWD: the beat that propels the soul outward. AREV: the callback beat that draws the soul home. ENGAGR: the shaman is simultaneously in the ritual tent (observers see the body) and in the spirit world (the soul acts there).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def shamanic_journey_drum_the_frame_drum_99ac1f_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def shamanic_journey_drum_the_frame_drum_99ac1f_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf shamanic_journey_drum_the_frame_drum_99ac1f_opcodes
+
+def shamanic_journey_drum_the_frame_drum_99ac1f_glyph_word : String := glyphWordOf shamanic_journey_drum_the_frame_drum_99ac1f_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem shamanic_journey_drum_the_frame_drum_99ac1f_register_length : shamanic_journey_drum_the_frame_drum_99ac1f_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem shamanic_journey_drum_the_frame_drum_99ac1f_register_matches_word : shamanic_journey_drum_the_frame_drum_99ac1f_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def shamanic_journey_drum_the_frame_drum_99ac1f_conventional_protocol : IGProtocol shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- IMSCRIB
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- AREV
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- FSPLIT
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- AFWD
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- FFUSE
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- CLINK
+  (.seq (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0)  -- IFIX
+  (.arrow shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0 shamanic_journey_drum_the_frame_drum_99ac1f_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem shamanic_journey_drum_the_frame_drum_99ac1f_conventional_protocol_depth : shamanic_journey_drum_the_frame_drum_99ac1f_conventional_protocol.depth = 8 := by
+  native_decide
+

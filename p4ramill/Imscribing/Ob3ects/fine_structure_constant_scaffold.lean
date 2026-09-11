@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def fine_structure_constant_tier : OuroboricityTier := TierFunctor.obj fine_stru
 theorem fine_structure_constant_frobenius :
     igFrobeniusAlg.mul fine_structure_constant_s0 fine_structure_constant_s0 = fine_structure_constant_s0 :=
   igFrobAlg_self_fusion fine_structure_constant_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Fine Structure Constant)
+--   Word: ⊢≻∈⊤⊥⊞∋⋈⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def fine_structure_constant_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "CLINK", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def fine_structure_constant_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf fine_structure_constant_opcodes
+
+def fine_structure_constant_glyph_word : String := glyphWordOf fine_structure_constant_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem fine_structure_constant_register_length : fine_structure_constant_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem fine_structure_constant_register_matches_word : fine_structure_constant_glyph_word = "⊢≻∈⊤⊥⊞∋⋈⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def fine_structure_constant_conventional_protocol : IGProtocol fine_structure_constant_s0 fine_structure_constant_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- VINIT
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- AFWD
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- FSPLIT
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- EVALT
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- EVALF
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- ENGAGR
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- FFUSE
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- CLINK
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- IMSCRIB
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- AREV
+  (.seq (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0)  -- IFIX
+  (.arrow fine_structure_constant_s0 fine_structure_constant_s0 fine_structure_constant_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem fine_structure_constant_conventional_protocol_depth : fine_structure_constant_conventional_protocol.depth = 12 := by
+  native_decide
+
