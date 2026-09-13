@@ -1,18 +1,15 @@
-Strengthened vox_elf_audit.sh's repair pass. It only ever tried a
-single-glyph insert on the word as compiled, the shallow check. Today's
-manual work on three real B-verdict objects (DialetheicWitness.o,
-CosmicHolonomy.o, OuroboricHolomorphicAutomeshedWindingSpectrum.o) went
-further: combo2 across every distinct rotation of the word, weight |
-banked | insert | repair each, then a second pass on whatever the first
-pass repaired. Every one of those five distinct words, checked that way,
-came back with no rotation producing a repair -- a real, exhaustive
-negative result, not a shallow one. The script now runs combo2 too, and
-keeps the output compact: one line when nothing is found (the common
-case, checked automatically now rather than by hand), the full second-
-pass output when something actually is, since that would be rare enough
-to be worth reading in full.
+I split the window-70 ABC certificate into its own compiled modules
 
-Verified against the known case before trusting it for a wider run:
-called repair_flagged_functions directly on DialetheicWitness.o, same
-one addressable B, same "no rotation produced a repair" result the
-manual combo2 run gave, automatically now.
+One file held all 498 log certificates and all 1494 sample interval/upper
+theorems for the c<=70 arithmetic window, and elaborating that many
+norm_num/ring/field_simp proofs in a single Lean process OOMed before it
+ever reached the covering-disjunction check. I chunk the certificates into
+eight files and the samples into ten, each importing the previous by
+module rather than holding it as live text, so every compile unit loads
+its predecessors as compact .olean data instead of re-carrying their
+tactic search state. I also raise synthInstance.maxHeartbeats alongside
+the existing maxHeartbeats bump, since the covering disjunction's
+Decidable synthesis has its own separate heartbeat budget.
+
+Registered the new modules in lakefile.toml. Full build: 8061 jobs, every
+new chunk under a minute, no OOM.
