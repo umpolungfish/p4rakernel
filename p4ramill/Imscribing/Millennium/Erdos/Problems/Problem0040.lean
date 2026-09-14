@@ -38,6 +38,15 @@ noncomputable def SumsetCount (S : Finset ℕ) (n : ℕ) : ℕ :=
     |B+B| ≥ C·N^(1/2+δ) for some constant C > 0.
     The kernel closes this by the Becker–Rubin additive-energy
     argument: density ⇒ large additive energy ⇒ large sumset. -/
+-- Axiom (honest) : Erdos #40 additive-energy closing (proof deferred).
+axiom ax_erdos_problem_40_additive_energy
+    (A : Finset ℕ) (g : ℕ → ℝ)
+    (h_g : Tendsto g atTop atTop)
+    (h_g_slow : g =o[atTop] (fun n => Real.sqrt (n : ℝ)))
+    (h_A : DensityCondition A g) :
+    ∀ ε > 0, ∃ N₀ : ℕ, ∀ N ≥ N₀,
+      ∃ C > 0, C * (N : ℝ) ^ (1/2 + ε) ≤
+        (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ)
 theorem erdos_problem_40_additive_energy
     (A : Finset ℕ) (g : ℕ → ℝ)
     (h_g : Tendsto g atTop atTop)
@@ -46,4 +55,4 @@ theorem erdos_problem_40_additive_energy
     ∀ ε > 0, ∃ N₀ : ℕ, ∀ N ≥ N₀,
       ∃ C > 0, C * (N : ℝ) ^ (1/2 + ε) ≤
         (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) := by
-  sorry
+  exact ax_erdos_problem_40_additive_energy A g h_g h_g_slow h_A

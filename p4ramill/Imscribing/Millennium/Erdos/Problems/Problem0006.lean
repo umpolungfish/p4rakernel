@@ -27,14 +27,31 @@ def IsSumFree (A : Finset ℕ) (S : Finset ℕ) : Prop :=
 
 end Erdos6
 
-/-- **Kernel theorem (Erdős #6).**  For any A ⊆ {1,…,N} and any
-    sum-free S ⊆ A, one has 3·|S| ≤ N + 2. -/
-theorem erdos_problem_6_sumfree_bound
+/-- **Kernel theorem (Erdős #6), corrected.**  The bound as previously
+    stated here (`3·|S| ≤ N + 2`) is FALSE: `N = 11`, `S = {6,…,11}` is
+    sum-free (`x,y ≥ 6 → x+y ≥ 12 > 11`) with `3·6 = 18 > 13 = N+2`.
+    What holds trivially from `S ⊆ A ⊆ [1,N]` is `|S| ≤ N`. The sharp
+    upper bound `2·|S| ≤ N+1` (attained by `(N/2,N]`) is kept as an
+    explicit axiom; the Erdős–1965 `|S| ≥ |A|/3` existence theorem is
+    the open/formalization-gap marker. -/
+theorem erdos_problem_6_sumfree_bound_trivial
     (N : ℕ) (hN : 1 ≤ N)
     (A : Finset ℕ)
     (h_sub : A ⊆ Finset.Icc 1 N)
     (S : Finset ℕ)
     (hS : Erdos6.IsSumFree A S) :
-    3 * S.card ≤ N + 2 := by
-  obtain ⟨_, _⟩ := hS
-  sorry
+    S.card ≤ N := by
+  obtain ⟨hSA, _⟩ := hS
+  calc S.card ≤ A.card := Finset.card_le_card hSA
+    _ ≤ (Finset.Icc 1 N).card := Finset.card_le_card h_sub
+    _ = N := by simp
+
+/-- Sharp upper bound `2·|S| ≤ N+1` for sum-free `S ⊆ [1,N]`
+    (axiom: honest marker; the pigeonhole/pairing proof is not formalized). -/
+axiom erdos_problem_6_sumfree_bound_sharp
+    (N : ℕ) (hN : 1 ≤ N)
+    (A : Finset ℕ)
+    (h_sub : A ⊆ Finset.Icc 1 N)
+    (S : Finset ℕ)
+    (hS : Erdos6.IsSumFree A S) :
+    2 * S.card ≤ N + 1

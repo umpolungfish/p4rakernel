@@ -300,8 +300,7 @@ axiom primitive_hodge_is_algebraic (X : SmoothProjectiveVariety) (p : ℕ)
     chaining logic (how 31 → 331 → 36631 fits together) is straightforward. -/
 theorem descent_step (n p : ℕ) (hp : 2 ≤ p) (hnp : p ≤ n) :
     DescentPredicate (n-1) (p-1) → DescentPredicate n p := by
-  intro hind
-  intro X hdim α
+  intro hind X hdim α
   -- By primitive_hodge_is_algebraic (axiom): every primitive Hodge class
   -- of degree ≥ 2 is algebraic. The Lefschetz decomposition expresses
   -- α = Σ_{j=0}^p L^j α_j where each α_j ∈ H^{p-j,p-j}_prim(X).
@@ -556,7 +555,7 @@ theorem griffiths_is_structural_obstruction : True := by
     coefficient inequality, this step IS the conjecture. -/
 theorem descent_p2 (n : ℕ) (hn : 2 ≤ n) :
     DescentPredicate (n-1) 1 → DescentPredicate n 2 := by
-  intro hbase
+  intro hbase X hdim α
   -- hbase: P(n-1, 1) holds (all (1,1)-classes on dim≤n-1 varieties are algebraic).
   -- We need P(n, 2): all (2,2)-classes on dim≤n varieties are algebraic.
   --
@@ -571,7 +570,6 @@ theorem descent_p2 (n : ℕ) (hn : 2 ≤ n) :
   -- H^{2,2}_prim(X) ≅ H^{2,2}(Y) for hyperplane Y (dim n-1). But P(n-1,1) only
   -- covers degree 1, not degree 2. The primitive (2,2)-block is exactly where the
   -- Hodge conjecture lives — axiomatized here as primitive_hodge_is_algebraic.
-  intro X hdim α
   have h_prim : IsAlgebraicClass X 2 α :=
     primitive_hodge_is_algebraic X 2 (by omega) α (by trivial)
   exact h_prim
@@ -593,7 +591,7 @@ theorem descent_p2 (n : ℕ) (hn : 2 ≤ n) :
     sections. The Griffiths group at each level accumulates. -/
 theorem descent_p3 (n : ℕ) (hn : 3 ≤ n) :
     DescentPredicate (n-1) 2 → DescentPredicate n 3 := by
-  intro hind
+  intro hind X hdim α
   -- hind: P(n-1, 2) holds (all (2,2)-classes on dim≤n-1 varieties are algebraic).
   -- We need P(n, 3): all (3,3)-classes on dim≤n varieties are algebraic.
   --
@@ -609,7 +607,6 @@ theorem descent_p3 (n : ℕ) (hn : 3 ≤ n) :
   --
   -- The key: primitive_hodge_is_algebraic (axiom) provides all primitive
   -- degrees ≥ 2 universally. This subsumes hind for the primitive blocks.
-  intro X hdim α
   have h_prim : IsAlgebraicClass X 3 α :=
     primitive_hodge_is_algebraic X 3 (by omega) α (by trivial)
   exact h_prim
@@ -643,7 +640,7 @@ theorem descent_p3 (n : ℕ) (hn : 3 ≤ n) :
     positivity but not algebraicity. -/
 theorem descent_general (n k : ℕ) (hk : 2 ≤ k) (hkn : k ≤ n) :
     DescentPredicate (n-1) (k-1) → DescentPredicate n k := by
-  intro hind
+  intro hind X hdim α
   -- hind: P(n-1, k-1) holds (all (k-1)-classes on dim≤n-1 varieties are algebraic).
   -- We need P(n, k): all (k,k)-classes on dim≤n varieties are algebraic.
   --
@@ -666,7 +663,6 @@ theorem descent_general (n k : ℕ) (hk : 2 ≤ k) (hkn : k ≤ n) :
   -- Hodge conjecture reduces to the primitive case (axiomatized here). If
   -- primitive_hodge_is_algebraic were ever proved (rather than axiomatized),
   -- this lemma would instantiate the full descent chain.
-  intro X hdim α
   have h_prim : IsAlgebraicClass X k α :=
     primitive_hodge_is_algebraic X k hk α (by trivial)
   exact h_prim
