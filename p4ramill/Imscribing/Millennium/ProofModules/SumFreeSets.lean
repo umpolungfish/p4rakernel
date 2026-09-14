@@ -67,7 +67,7 @@ theorem card_odds_below (N : ℕ) :
   induction N with
   | zero => rfl
   | succ m ih =>
-      rw [Finset.range_succ, Finset.filter_insert]
+      rw [Finset.range_add_one, Finset.filter_insert]
       by_cases h : m % 2 = 1
       · rw [if_pos h, Finset.card_insert_of_notMem (by simp), ih]
         omega

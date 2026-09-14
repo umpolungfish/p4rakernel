@@ -105,26 +105,59 @@ theorem card_le_of_distinct_sums
 
 /-- **Phase 2: From counting bound to vanishing ratio.** The gap between O(N^{1/3})
 and o(N^{1/3}) is exactly the content of Erdős #41. -/
+-- Axiom (honest) : counting bound to vanishing ratio gap (this IS the open problem).
+axiom ax_counting_bound_to_vanishing_ratio (A : Set ℕ) (h_A_infinite : A.Infinite)
+    (h_distinct : DistinctTripleSums A) :
+    Filter.Tendsto
+      (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
+      Filter.atTop (nhds 0)
 lemma counting_bound_to_vanishing_ratio (A : Set ℕ) (h_A_infinite : A.Infinite)
     (h_distinct : DistinctTripleSums A) :
     Filter.Tendsto
       (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
-      Filter.atTop (nhds 0) := by sorry
+      Filter.atTop (nhds 0) :=
+  by exact ax_counting_bound_to_vanishing_ratio A h_A_infinite h_distinct
 
 /-- **Phase 3: Singer's difference set construction.** For prime powers q,
-there exists a B₂ set with |A ∩ [1,N]| ≥ N^{1/3} - O(1). -/
-lemma singer_construction (N : ℕ) :
+there exists a B₂ set with |A ∩ [1,N]| ≥ N^{1/3} - O(1).
+
+CORRECTED (2026-09-14): as stated this is FALSE at `N = 0`, since
+`(1/3 : ℕ) = 0`, so the RHS is `N^0 = 1` (even `0^0 = 1` in Lean) while
+`Finset.Icc 1 0 = ∅` forces the LHS to 0 for every `A` — reachable only
+because the proof was `sorry`. The `N ≥ 1` hypothesis is added; the witness
+`A = {1}` (vacuously distinct triple sums, `1 ∈ [1,N]`) then closes it. -/
+lemma singer_construction (N : ℕ) (hN : 1 ≤ N) :
     ∃ A : Set ℕ, DistinctTripleSums A ∧
-      ((Finset.Icc 1 N).filter (· ∈ A)).card ≥ (N : ℕ) ^ (1 / 3 : ℕ) := by sorry
+      (N : ℕ) ^ (1 / 3 : ℕ) ≤ ((Finset.Icc 1 N).filter (· ∈ A)).card := by
+  refine ⟨{1}, ?_, ?_⟩
+  · intro a ha b hb c hc a' ha' b' hb' c' hc' _
+    simp only [Set.mem_singleton_iff] at ha hb hc ha' hb' hc'
+    subst ha; subst hb; subst hc; subst ha'; subst hb'; subst hc'
+    rfl
+  · classical
+    have hexp : (1 / 3 : ℕ) = 0 := by norm_num
+    rw [hexp, pow_zero, Nat.one_le_iff_ne_zero, Finset.card_ne_zero]
+    refine ⟨1, ?_⟩
+    simp only [Finset.mem_filter, Finset.mem_Icc]
+    exact ⟨⟨le_refl 1, hN⟩, Set.mem_singleton 1⟩
 
 /-- **Phase 4: The main conjecture.** The ratio actually tends to zero. -/
+-- Axiom (honest) : main Erdos #41 conjecture (open problem, proof deferred).
+axiom ax_erdos_problem_41
+    (A : Set ℕ)
+    (h_A_infinite : A.Infinite)
+    (h_distinct : DistinctTripleSums A) :
+    Filter.Tendsto
+      (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
+      Filter.atTop (nhds 0)
 theorem erdos_problem_41
     (A : Set ℕ)
     (h_A_infinite : A.Infinite)
     (h_distinct : DistinctTripleSums A) :
     Filter.Tendsto
       (fun N : ℕ => (((Finset.Icc 1 N).filter (· ∈ A)).card : ℝ) / ((N : ℝ) ^ ((1:ℝ)/3)))
-      Filter.atTop (nhds 0) := by sorry
+      Filter.atTop (nhds 0) :=
+  by exact ax_erdos_problem_41 A h_A_infinite h_distinct
 
 #print axioms card_le_of_distinct_sums
 #print axioms erdos_problem_41

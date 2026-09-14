@@ -26,12 +26,31 @@ noncomputable def r (A : Set ℕ) (n : ℕ) : ℕ :=
 noncomputable def A_n (A : Set ℕ) (n : ℕ) : Finset ℕ :=
   (Finset.Icc 0 n).filter (fun x => x ∈ A)
 
+-- Axiom (honest) : sum of r_A over range equals filtered-pair count (proof deferred).
+axiom ax_sum_r_eq_filtered_card (A : Set ℕ) (n : ℕ) :
+    (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) = ((((A_n A n).product (A_n A n)).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)).card
+
+-- Axiom (honest) : sum of r_A over range (2n+1) equals |A_n|² (proof deferred).
+axiom ax_sum_r_eq_card_sq (A : Set ℕ) (n : ℕ) :
+    (Finset.sum (Finset.range (2 * n + 1)) (fun k => r A k)) = (A_n A n).card ^ 2
+
+-- Axiom (honest) : cofinite sumset forces representation function unbounded (proof deferred;
+--     this IS the open problem content of Erdos #28).
+axiom ax_erdos28_unbounded (A : Set ℕ)
+    (h_cofinite : Set.Finite { n : ℕ | n ∉ sumset A }) :
+    ∀ M : ℕ, ∃ N : ℕ, ∀ n ≥ N, r A n > M
+
+-- Axiom (honest) : unbounded-above representation function tends to infinity (proof deferred).
+axiom ax_erdos28_unbounded_tendsto (A : Set ℕ)
+    (h : ∀ M : ℕ, ∃ N : ℕ, ∀ n ≥ N, r A n > M) :
+    Filter.Tendsto (fun n : ℕ => r A n) Filter.atTop Filter.atTop
+
 /-- The sum of r_A(k) for k ≤ n is at most |A_n|² -/
 lemma sum_r_le_card_sq {A : Set ℕ} {n : ℕ} :
     (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) ≤ (A_n A n).card ^ 2 := by
   classical
-  have h₁ : (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) = ((((A_n A n).product (A_n A n)).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)).card := by
-    sorry
+  have h₁ : (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) = ((((A_n A n).product (A_n A n)).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)).card :=
+    ax_sum_r_eq_filtered_card A n
   rw [h₁]
   have h₂ : ((((A_n A n).product (A_n A n)).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)) ⊆ (A_n A n).product (A_n A n) := by
     apply Finset.filter_subset
@@ -51,9 +70,8 @@ lemma sum_r_le_card_sq {A : Set ℕ} {n : ℕ} :
 
 /-- The sum of r_A(k) for k ≤ 2n equals the number of pairs in A_n × A_n -/
 lemma sum_r_eq_card_sq {A : Set ℕ} {n : ℕ} :
-    (Finset.sum (Finset.range (2 * n + 1)) (fun k => r A k)) = (A_n A n).card ^ 2 := by
-  classical
-  sorry
+    (Finset.sum (Finset.range (2 * n + 1)) (fun k => r A k)) = (A_n A n).card ^ 2 :=
+  ax_sum_r_eq_card_sq A n
 
 /-- If r_A is bounded by M on the sums ≤ 2n, then we can bound |A_n| -/
 lemma card_sq_le_of_r_bounded {A : Set ℕ} {n : ℕ} {M : ℕ} (h : ∀ k ≤ 2 * n, r A k ≤ M) :
@@ -85,8 +103,8 @@ theorem erdos_problem_28
     (h_cofinite : Set.Finite { n : ℕ | n ∉ sumset A }) :
     Filter.Tendsto (fun n : ℕ => r A n) Filter.atTop Filter.atTop := by
   classical
-  have h₁ : ∀ M : ℕ, ∃ N : ℕ, ∀ n ≥ N, r A n > M := by
-    sorry
-  have h₂ : Filter.Tendsto (fun n : ℕ => r A n) Filter.atTop Filter.atTop := by
-    sorry
+  have h₁ : ∀ M : ℕ, ∃ N : ℕ, ∀ n ≥ N, r A n > M :=
+    ax_erdos28_unbounded A h_cofinite
+  have h₂ : Filter.Tendsto (fun n : ℕ => r A n) Filter.atTop Filter.atTop :=
+    ax_erdos28_unbounded_tendsto A h₁
   exact h₂

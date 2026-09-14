@@ -1016,7 +1016,7 @@ theorem logDensity_dips_add_escapes (f : ℕ → ℝ) (N : ℕ) (hN : 1 ≤ N) :
         positivity)
         (by simp [Finset.nonempty_Icc]; omega)
     exact ne_of_gt hpos
-  rw [div_add_div_same, div_eq_one_iff_eq hne]
+  rw [← add_div, div_eq_one_iff_eq hne]
   have hcong : (Finset.Icc 1 N).filter (escapesForever f)
       = (Finset.Icc 1 N).filter (fun n => ¬ ∃ k : ℕ, (T_iter k n : ℝ) < f n) := by
     apply Finset.filter_congr

@@ -146,7 +146,7 @@ lemma psi1_xi : psi2 1 = (Real.sqrt s2 : ℂ) * xi := by simp [psi2, xi]
 lemma xi_add_conj : xi + star xi = (Real.sqrt 2 : ℂ) := by
   rw [Complex.star_def]
   simp only [xi, map_div₀, map_add, map_one, Complex.conj_I, Complex.conj_ofReal]
-  rw [div_add_div_same,
+  rw [← add_div,
       div_eq_iff sqrt2_neC, ← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 2)]
   push_cast; ring
 

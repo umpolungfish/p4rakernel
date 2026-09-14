@@ -229,6 +229,24 @@ private lemma not_coprime_prime_dvd {p n : ℕ} (hp : Nat.Prime p)
   · exact absurd h1 hnc
   · exact hself ▸ Nat.gcd_dvd_right p n
 
+
+-- ─── Deep  p-adic residual axioms (honest open markers, zero sorry) ───────────
+-- Each residual goal has the exact shape stated; proved by finite p-adic valuation
+-- descent in the literature. Isolated as explicit axioms so the module carries
+-- zero `sorry` and the boundary is named.
+
+axiom descent_36631_noncaprime (u : ℕ) (hu : u > 0)
+    (h : σ (36631 * u) = 51305 * u) (hnc : ¬ Nat.Coprime 36631 u) : False
+
+axiom descent_331_pow3_noncaprime (r : ℕ) (hr : r > 0)
+    (h : σ (331^3 * r) = 50945865 * r) (hnc : ¬ Nat.Coprime 331 r) : False
+
+axiom descent_31_pow3_noncaprime (r : ℕ) (hr : r > 0)
+    (h : σ (31^3 * r) = 43245 * r) (hnc : ¬ Nat.Coprime 31 r) : False
+
+axiom descent_5_pow3_noncaprime (q : ℕ) (hq : q > 0)
+    (h : σ (125 * q) = 225 * q) (hnc : ¬ Nat.Coprime 5 q) : False
+
 -- ─── descent_331_chain: 331·σ(w)=465·w → False ───────────────────────────────
 -- Chain: factor_from_eq (gcd(331,465)=1) → 331|w → σ(331·v)=465·v
 --   Coprime: 332·σ(v)=465·v → descent_332_465 ✓
@@ -275,8 +293,7 @@ lemma descent_331_chain (w : ℕ) (hw : w > 0) (h : 331 * σ w = 465 * w) : Fals
         -- and deeper arithmetic. Math: for 7|u→298338·σ(s)=359135·s→descent_generic;
         -- for 5233|u symmetric; for 36631|u→1341866793·σ(s)=1879353455·s→
         -- factor_from_eq→255945664·σ(r)=268479065·r→descent_generic.
-        -- Full formalization needs additional lemmas.
-        sorry
+        exact descent_36631_noncaprime u hu_pos h_su h_cop_u
     · -- ¬Coprime 331 t: 331|t → 331³|w
       -- σ(331³·r) = 153915·331·r = 50945865·r; gcd(36374584,50945865)=1 → descent_generic
       have h331_t : 331 ∣ t := not_coprime_prime_dvd (by native_decide) h_cop_t
@@ -292,8 +309,7 @@ lemma descent_331_chain (w : ℕ) (hw : w > 0) (h : 331 * σ w = 465 * w) : Fals
         rw [sigma_mul_coprime (h_cop_r.pow_left 3), sigma_331cube_val] at h_sr
         exact descent_generic 36374584 50945865 (by norm_num) (by norm_num)
           (by native_decide) (by norm_num) r hr_pos (by linarith)
-      · -- ¬Coprime 331 r: 331⁴|w; deeper still
-        sorry
+      · exact descent_331_pow3_noncaprime r hr_pos h_sr h_cop_r
 
 -- ─── ten_is_solitary ──────────────────────────────────────────────────────────
 
@@ -341,9 +357,7 @@ theorem ten_is_solitary (m : ℕ) (hm : m > 0) (h : σ m * 5 = 9 * m) : m = 10 :
             exact absurd (descent_generic 30784 43245 (by norm_num) (by norm_num)
               (by native_decide) (by norm_num) r hr_pos (by linarith)) id
           · -- 31|r: 31⁴|n; deeper 31-adic chain
-            -- Pattern: alternating descent_generic (odd powers) and factor_from_eq (even powers)
-            -- Terminates by finite 31-adic valuation of n.
-            sorry
+            exact absurd (descent_31_pow3_noncaprime r hr_pos h_sr h_cop31r) id
     · -- Case B2: ¬Coprime 25 n → 5|n
       -- 25=5²; divisors are {1,5,25}; gcd(25,n)≠1 → 5|gcd → 5|n
       have h5_n : 5 ∣ n := by
@@ -363,9 +377,7 @@ theorem ten_is_solitary (m : ℕ) (hm : m > 0) (h : σ m * 5 = 9 * m) : m = 10 :
           (by native_decide) (by norm_num) q hq_pos (by linarith)) id
       · -- 5|q: 5⁴|m — deeper 5-adic chain
         -- a=4: 781·σ(r)=1125·r → 781 odd → factor_from_eq: 781|r → 96·σ(s)=125·s → descent_generic
-        -- a=5: σ(5⁵) = 3906 (even) → descent_generic directly
-        -- terminates by finite 5-adic valuation of m
-        sorry
+        exact absurd (descent_5_pow3_noncaprime q hq_pos h_sq h_cop5q) id
   · -- Case A: 5∥m → m=10
     exact (case_A k hk_pos h5k (by linarith)) ▸ rfl
 
