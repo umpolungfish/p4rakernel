@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def eilenberg_ganea_theorem_tier : OuroboricityTier := TierFunctor.obj eilenberg
 theorem eilenberg_ganea_theorem_frobenius :
     igFrobeniusAlg.mul eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 = eilenberg_ganea_theorem_s0 :=
   igFrobAlg_self_fusion eilenberg_ganea_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Eilenberg–Ganea Theorem)
+--   Word: ⊢⊣≻≺⋈⊙∈⊤≻∋⊥≺⊞⊡⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def eilenberg_ganea_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AREV", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "FFUSE", "EVALF", "AREV", "ENGAGR", "IFIX", "CLINK", "IMSCRIB", "TANCH"]
+
+def eilenberg_ganea_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf eilenberg_ganea_theorem_opcodes
+
+def eilenberg_ganea_theorem_glyph_word : String := glyphWordOf eilenberg_ganea_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem eilenberg_ganea_theorem_register_length : eilenberg_ganea_theorem_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem eilenberg_ganea_theorem_register_matches_word : eilenberg_ganea_theorem_glyph_word = "⊢⊣≻≺⋈⊙∈⊤≻∋⊥≺⊞⊡⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def eilenberg_ganea_theorem_conventional_protocol : IGProtocol eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- VINIT
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- TANCH
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- AFWD
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- AREV
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- CLINK
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- FSPLIT
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- EVALT
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- AFWD
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- FFUSE
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- EVALF
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- AREV
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- ENGAGR
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- IFIX
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- CLINK
+  (.seq (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)  -- IMSCRIB
+  (.arrow eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0 eilenberg_ganea_theorem_s0)))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem eilenberg_ganea_theorem_conventional_protocol_depth : eilenberg_ganea_theorem_conventional_protocol.depth = 17 := by
+  native_decide
+

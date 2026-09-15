@@ -31,8 +31,12 @@ def francis_bacon_making_of_gold : Imscription :=
 #eval francis_bacon_making_of_gold
 
 -- Tier
+-- Namespaced. Four scaffolds each declared a bare root-level `tier`, so any
+-- two of them were mutually unimportable: the environment refuses the second.
+-- Each module compiled ALONE, which is why `lake build` never said so.
+namespace Imscribing.FrancisBaconGold
 def tier : String := "O₁"
-
+end Imscribing.FrancisBaconGold
 -- Key invariants:
 -- P=𐑗: asymmetry — Bacon breaks irrevocably with alchemical tradition
 -- F=𐑞: heat as primary operator ("Temperate Heat")

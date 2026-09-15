@@ -131,6 +131,35 @@ def the_primitive_type_called_yea_tier : OuroboricityTier := TierFunctor.obj the
 /-- 'yea' belongs to the KineticChar family at ordinal 0 -/
 def the_primitive_type_called_yea_family : String := "KineticChar"
 def the_primitive_type_called_yea_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'yea' (⊤ = 𐑘), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_yea_clinkFragmentL8 : String := "τ ≪ T ∧ ∂_t x = f(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_yea_proximityL8 : String := "distant"
+def the_primitive_type_called_yea_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_yea_clinkFragmentL9 : String := "τ ≪ T ∧ ∂_t x = f(x)"
+def the_primitive_type_called_yea_proximityL9 : String := "distant"
+def the_primitive_type_called_yea_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_yea_conventionalReading : String := "instantaneous relaxation governed by an autonomous ordinary differential equation."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_yea_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_yea_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_yea_bootstrapSteps : Nat := 13
 
 end Imscribing.Primitives.Types

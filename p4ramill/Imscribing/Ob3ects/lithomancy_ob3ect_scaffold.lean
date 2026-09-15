@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem lithomancy_ob3ect_divination_by_casting_99dc02_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Lithomancy ob3ect: divination by casting stones, crystals, or pebbles — each stone type carries a specific meaning (rose quartz=love, obsidian=protection, amethyst=intuition, citrine=abundance). FSPLIT: the stones are cast onto a cloth divided into zones (past, present, future, hidden), splitting the question across stone meanings and zone placements. FFUSE: the reader integrates stone type + zone position + proximity relationships, reconstituting the scattered stones into a coherent divinatory answer. VINIT: the bag of undrawn stones. TANCH: the casting cloth with its zonal boundaries. AFWD: a stone landing in the future zone. AREV: a stone landing in the past zone. ENGAGR: two stones of opposite meaning (e.g., rose quartz and obsidian) landing in the same zone.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def lithomancy_ob3ect_divination_by_casting_99dc02_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def lithomancy_ob3ect_divination_by_casting_99dc02_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf lithomancy_ob3ect_divination_by_casting_99dc02_opcodes
+
+def lithomancy_ob3ect_divination_by_casting_99dc02_glyph_word : String := glyphWordOf lithomancy_ob3ect_divination_by_casting_99dc02_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem lithomancy_ob3ect_divination_by_casting_99dc02_register_length : lithomancy_ob3ect_divination_by_casting_99dc02_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem lithomancy_ob3ect_divination_by_casting_99dc02_register_matches_word : lithomancy_ob3ect_divination_by_casting_99dc02_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def lithomancy_ob3ect_divination_by_casting_99dc02_conventional_protocol : IGProtocol lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- IMSCRIB
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- AREV
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- FSPLIT
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- AFWD
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- FFUSE
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- CLINK
+  (.seq (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0)  -- IFIX
+  (.arrow lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0 lithomancy_ob3ect_divination_by_casting_99dc02_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem lithomancy_ob3ect_divination_by_casting_99dc02_conventional_protocol_depth : lithomancy_ob3ect_divination_by_casting_99dc02_conventional_protocol.depth = 8 := by
+  native_decide
+

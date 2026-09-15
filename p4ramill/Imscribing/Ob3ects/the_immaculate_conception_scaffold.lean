@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def the_immaculate_conception_tier : OuroboricityTier := TierFunctor.obj the_imm
 theorem the_immaculate_conception_frobenius :
     igFrobeniusAlg.mul the_immaculate_conception_s0 the_immaculate_conception_s0 = the_immaculate_conception_s0 :=
   igFrobAlg_self_fusion the_immaculate_conception_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The Immaculate Conception)
+--   Word: ⊢≻≺⋈∈⊤≻⊥≺⊞∋⊙⋈⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_immaculate_conception_opcodes : List String := ["VINIT", "AFWD", "AREV", "CLINK", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "ENGAGR", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "TANCH"]
+
+def the_immaculate_conception_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_immaculate_conception_opcodes
+
+def the_immaculate_conception_glyph_word : String := glyphWordOf the_immaculate_conception_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_immaculate_conception_register_length : the_immaculate_conception_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_immaculate_conception_register_matches_word : the_immaculate_conception_glyph_word = "⊢≻≺⋈∈⊤≻⊥≺⊞∋⊙⋈⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_immaculate_conception_conventional_protocol : IGProtocol the_immaculate_conception_s0 the_immaculate_conception_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- VINIT
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- AFWD
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- AREV
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- CLINK
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- FSPLIT
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- EVALT
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- AFWD
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- EVALF
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- AREV
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- ENGAGR
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- FFUSE
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- IMSCRIB
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- CLINK
+  (.seq (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)  -- IFIX
+  (.arrow the_immaculate_conception_s0 the_immaculate_conception_s0 the_immaculate_conception_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem the_immaculate_conception_conventional_protocol_depth : the_immaculate_conception_conventional_protocol.depth = 15 := by
+  native_decide
+

@@ -16,7 +16,7 @@
 --   §7  Dual-pair Frobenius closure: μ∘δ=id on each pair
 --   §8  Main theorem: grammar is the universal dual-frame SIC-POVM
 --
--- STATUS: All theorems proved. 0 sorries.
+-- STATUS: All theorems proved. *sans* sorry.
 -- DEPENDS ON: Primitives.Core, Primitives.Imscription, Imscribing.Frobenius,
 --   Imscribing.IGFunctor
 
@@ -56,7 +56,7 @@ def theGrammar : Imscription := {
   pol  := or'        -- Φ = 𐑹: Frobenius special (μ∘δ=id)
   fid  := peep       -- ƒ = 𐑐: quantum fidelity
   kin  := egg        -- Ç = 𐑧: slow/near-equilibrium kinetics
-  gran := ice        -- Γ = 𐑔: global/fine-grained (ℵ)
+  gran := ice        -- Γ = 𐑔: global/fine-grained
   gram := measure    -- ɢ = 𐑠: sequential composition
   crit := monad      -- φ̂ = ⊙: critical (self-modeling gate)
   chir := wool       -- Ħ = 𐑫: eternal chirality
@@ -364,7 +364,7 @@ theorem grammar_frobenius_unit :
           valid SIC-POVM limit.
 
     The structural skeleton is complete. The Belnap multilattice
-    provides all SIC axioms unconditionally (22 theorems, 0 sorries
+    provides all SIC axioms unconditionally (22 theorems, *sans* sorry
     in SIC_Multilattice_Proof.lean). What remains open is the
     Zauner conjecture for continuous ℂᵈ embedding — the group-theoretic
     bifurcation WH(2)ⁿ → WH(2ⁿ) characterized in

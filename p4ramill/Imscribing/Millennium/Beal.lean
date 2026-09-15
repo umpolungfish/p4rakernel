@@ -158,7 +158,7 @@ inductive Primitive_F where | ell | eth | hbar
 inductive Primitive_K where | fast | mod | slow | trap | MBL
   deriving Repr, DecidableEq
 
-inductive Primitive_G where | beth | gimel | aleph
+inductive Primitive_G where | bib | thigh | ice
   deriving Repr, DecidableEq
 
 inductive Primitive_Gamma where | and' | or' | seq | broad
@@ -194,7 +194,7 @@ structure StructuralType where
 def beal_structural_type : StructuralType :=
   { D := Primitive_D.infty, T := Primitive_T.bowtie, R := Primitive_R.lr
   , P := Primitive_P.pm, F := Primitive_F.ell, K := Primitive_K.slow
-  , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
+  , G := Primitive_G.ice, Gamma := Primitive_Gamma.seq
   , Phi := Primitive_Phi.c, H := Primitive_H.sure
   , S := Primitive_S.up, Omega := Primitive_Omega.awe }
 
@@ -202,7 +202,7 @@ def flt_proven_structural_type : StructuralType :=
   { D := Primitive_D.infty, T := Primitive_T.odot
   , R := Primitive_R.dagger, P := Primitive_P.psi
   , F := Primitive_F.hbar, K := Primitive_K.slow
-  , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
+  , G := Primitive_G.ice, Gamma := Primitive_Gamma.seq
   , Phi := Primitive_Phi.c_complex, H := Primitive_H.wool
   , S := Primitive_S.up, Omega := Primitive_Omega.oak }
 
@@ -242,9 +242,9 @@ def structural_meet (a b : StructuralType) : StructuralType :=
     | .mod, _ | _, .mod => .mod
     | .slow, .slow => .slow
   let minG : Primitive_G → Primitive_G → Primitive_G
-    | .beth, _ | _, .beth => .beth
-    | .gimel, _ | _, .gimel => .gimel
-    | .aleph, .aleph => .aleph
+    | .bib, _ | _, .bib => .bib
+    | .thigh, _ | _, .thigh => .thigh
+    | .ice, .ice => .ice
   let minGamma : Primitive_Gamma → Primitive_Gamma → Primitive_Gamma
     | .and', _ | _, .and' => .and'
     | .or', _ | _, .or' => .or'
@@ -285,7 +285,7 @@ def expected_meet : StructuralType :=
   { D := Primitive_D.infty, T := Primitive_T.bowtie
   , R := Primitive_R.dagger, P := Primitive_P.psi
   , F := Primitive_F.ell, K := Primitive_K.slow
-  , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
+  , G := Primitive_G.ice, Gamma := Primitive_Gamma.seq
   , Phi := Primitive_Phi.c, H := Primitive_H.sure
   , S := Primitive_S.up, Omega := Primitive_Omega.awe }
 
@@ -405,7 +405,7 @@ axiom beal_prime_mixed_exponents (p q r : Nat)
 def beal_resolved_type : StructuralType :=
   { D := Primitive_D.odot, T := Primitive_T.odot, R := Primitive_R.lr
   , P := Primitive_P.pm_sym, F := Primitive_F.hbar, K := Primitive_K.slow
-  , G := Primitive_G.aleph, Gamma := Primitive_Gamma.seq
+  , G := Primitive_G.ice, Gamma := Primitive_Gamma.seq
   , Phi := Primitive_Phi.c, H := Primitive_H.wool
   , S := Primitive_S.up, Omega := Primitive_Omega.ah }
 

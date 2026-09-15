@@ -124,6 +124,35 @@ theorem the_primitive_type_called_are_frobenius :
 /-- 'are' belongs to the Topology family at ordinal 4 -/
 def the_primitive_type_called_are_family : String := "Topology"
 def the_primitive_type_called_are_ordinal : Nat := 4
+
+/-- The CLINK L8 fragment for 'are' (⊣ = 𐑸), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_are_clinkFragmentL8 : String := "bound_⊙(a, f) ∧ Refl(a, f) ∧ holo(x, a)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_are_proximityL8 : String := "match"
+def the_primitive_type_called_are_promotedAtomL8 : String := "HOLOBOUND"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_are_clinkFragmentL9 : String := "bound_⊙(a, f) ∧ Refl(a, f) ∧ holo(x, a)"
+def the_primitive_type_called_are_proximityL9 : String := "distant"
+def the_primitive_type_called_are_promotedAtomL9 : String := "HOLOBOUND"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_are_conventionalReading : String := "an entropy bound of Bekenstein type, S(x) ≤ Area(∂x)/4, with the boundary data determining the interior: a surjection ∂x ↠ x under which no information in x is independent of a."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_are_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_are_fragmentIsStatementEvidence : String := "starred in none of the 3 sampled theorem(s) that carry it"
 def the_primitive_type_called_are_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

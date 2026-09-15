@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -171,3 +172,60 @@ noncomputable def union_closed_sets_theorem_false_arm : IGProtocol union_closed_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def union_closed_sets_theorem_tier : OuroboricityTier := TierFunctor.obj union_closed_sets_theorem_s0
 #eval union_closed_sets_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Union-Closed Sets Theorem)
+--   Word: ⊢⊣≻≻⋈∈⊤≻⋈⊥≺⊙∋⋈∈⊤≻⊥≺∋⋈⊙⊞⊡⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def union_closed_sets_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "IMSCRIB", "FFUSE", "CLINK", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "CLINK", "IMSCRIB", "ENGAGR", "IFIX", "IFIX", "TANCH"]
+
+def union_closed_sets_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf union_closed_sets_theorem_opcodes
+
+def union_closed_sets_theorem_glyph_word : String := glyphWordOf union_closed_sets_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem union_closed_sets_theorem_register_length : union_closed_sets_theorem_conventional_register.length = 26 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem union_closed_sets_theorem_register_matches_word : union_closed_sets_theorem_glyph_word = "⊢⊣≻≻⋈∈⊤≻⋈⊥≺⊙∋⋈∈⊤≻⊥≺∋⋈⊙⊞⊡⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def union_closed_sets_theorem_conventional_protocol : IGProtocol union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- VINIT
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- TANCH
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AFWD
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AFWD
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- CLINK
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- FSPLIT
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- EVALT
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AFWD
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- CLINK
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- EVALF
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AREV
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- FFUSE
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- CLINK
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- FSPLIT
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- EVALT
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AFWD
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- EVALF
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- AREV
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- FFUSE
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- CLINK
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- ENGAGR
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- IFIX
+  (.seq (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0)  -- IFIX
+  (.arrow union_closed_sets_theorem_s0 union_closed_sets_theorem_s0 union_closed_sets_theorem_s0))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 26 arrows. -/
+theorem union_closed_sets_theorem_conventional_protocol_depth : union_closed_sets_theorem_conventional_protocol.depth = 26 := by
+  native_decide
+

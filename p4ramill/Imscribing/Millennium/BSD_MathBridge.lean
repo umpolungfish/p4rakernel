@@ -46,40 +46,12 @@ set_option linter.unusedVariables false
 namespace Millennium.BSDMathBridge
 
 -- ============================================================
--- SECTION 1: MATHEMATICAL AXIOMS (all MathlibGaps, PROVED in literature)
+-- SECTION 1: MATHEMATICAL AXIOMS
 -- ============================================================
-
-/-- MODULARITY THEOREM (Wiles, Taylor-Wiles, Diamond, Conrad, Breuil, 1995-2001).
-    Every elliptic curve E over Q is modular: there exists a newform f of weight 2
-    on Gamma_0(N) such that L(E,s) = L(f,s).
-
-    Consequence: L(E,s) is entire, satisfies a functional equation, and the
-    elliptic curve (bulk) is holographically encoded by its L-function (boundary).
-    This is the mathematical content of if' for BSD.
-
-    MathlibGap: proved, not in Mathlib. Requires modular forms, Hecke algebras,
-    Galois representations, and the Taylor-Wiles patching method. -/
-axiom modularity_axiom : True
-
-/-- FUNCTIONAL EQUATION (Hecke 1930s modular forms; Weil 1960s elliptic curves).
-    The completed L-function Lambda(E,s) = N^{s/2} (2pi)^{-s} Gamma(s) L(E,s)
-    satisfies Lambda(E,s) = w_E * Lambda(E,2-s) with root number w_E = +-1.
-
-    This crossing symmetry (s <-> 2-s) is the mime structure.
-    Combined with modularity (encoding is lossless), this lifts to are.
-
-    MathlibGap: proved, not in Mathlib. Requires Mellin transforms,
-    Atkin-Lehner theory, conductor and root number computations. -/
-axiom functional_equation_axiom : True
-
-/-- MORDELL-WEIL THEOREM (Mordell 1922 elliptic curves; Weil 1928 abelian varieties).
-    E(Q) is finitely generated: E(Q) = Z^r x E(Q)_tors.
-    The rank r in Z_{>=0} is an integer -- this is ah.
-
-    MathlibGap: proved, not in Mathlib. Requires weak Mordell-Weil
-    (Galois cohomology + Kummer theory), Neron-Tate canonical height,
-    and infinite descent. -/
-axiom mordell_weil_axiom : True
+-- The three pillars live in BSD.lean, where they are stated once:
+-- `Millennium.BSD.modularity_axiom`, `functional_equation_axiom` and
+-- `mordell_weil_axiom`. This module used to re-declare all three as
+-- `axiom _ : True`; a second copy of an axiom is a second axiom.
 
 -- ============================================================
 -- SECTION 2: PRIMITIVE CORRECTNESS

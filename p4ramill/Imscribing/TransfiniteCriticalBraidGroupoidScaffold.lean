@@ -36,5 +36,5 @@ open Dimensionality Topology Relational Polarity Grammar
 --   [9] IFIX      prot   := 𐑭               𐑚 → 𐑙  | lock counter-braid — irreversible
 --   [10] FFUSE     stoi   := 𐑙               𐑙 → 𐑠  | braid closure μ — σ_i∘σ_i^{-1}=id
 --   [11] IMSCRIB   gram   := 𐑠               𐑙 → 𐑡  | self-modeling groupoid — identity
---   [12] TANCH     top    := 𐑡               𐑠 → 𐑭  | transfinite limit ℵ_α — boundary
+--   [12] TANCH     top    := 𐑡               𐑠 → 𐑭  | transfinite limit — boundary
 --   [13] IFIX      prot   := 𐑭               𐑡 → 𐑼  | permanent fixation — groupoid frozen

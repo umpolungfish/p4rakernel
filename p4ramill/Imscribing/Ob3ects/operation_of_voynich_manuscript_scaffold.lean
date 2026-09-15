@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -122,3 +123,50 @@ def operation_of_voynich_manuscript_tier : OuroboricityTier := TierFunctor.obj o
 theorem operation_of_voynich_manuscript_frobenius :
     igFrobeniusAlg.mul operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 = operation_of_voynich_manuscript_s0 :=
   igFrobAlg_self_fusion operation_of_voynich_manuscript_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Operation of Voynich Manuscript)
+--   Word: ⊢⊞≻≺⋈∈⊤∋⋈≻⊙≻⊤⊡⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def operation_of_voynich_manuscript_opcodes : List String := ["VINIT", "ENGAGR", "AFWD", "AREV", "CLINK", "FSPLIT", "EVALT", "FFUSE", "CLINK", "AFWD", "IMSCRIB", "AFWD", "EVALT", "IFIX", "IMSCRIB", "TANCH"]
+
+def operation_of_voynich_manuscript_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf operation_of_voynich_manuscript_opcodes
+
+def operation_of_voynich_manuscript_glyph_word : String := glyphWordOf operation_of_voynich_manuscript_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem operation_of_voynich_manuscript_register_length : operation_of_voynich_manuscript_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem operation_of_voynich_manuscript_register_matches_word : operation_of_voynich_manuscript_glyph_word = "⊢⊞≻≺⋈∈⊤∋⋈≻⊙≻⊤⊡⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def operation_of_voynich_manuscript_conventional_protocol : IGProtocol operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- VINIT
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- ENGAGR
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- AFWD
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- AREV
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- CLINK
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- FSPLIT
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- EVALT
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- FFUSE
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- CLINK
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- AFWD
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- IMSCRIB
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- AFWD
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- EVALT
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- IFIX
+  (.seq (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0)  -- IMSCRIB
+  (.arrow operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0 operation_of_voynich_manuscript_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem operation_of_voynich_manuscript_conventional_protocol_depth : operation_of_voynich_manuscript_conventional_protocol.depth = 16 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -105,5 +106,48 @@ def the_unclosed_p_versus_np_separation_5dff6b_tier : OuroboricityTier := TierFu
 theorem the_unclosed_p_versus_np_separation_5dff6b_frobenius :
     igFrobeniusAlg.mul the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 = the_unclosed_p_versus_np_separation_5dff6b_s0 :=
   igFrobAlg_self_fusion the_unclosed_p_versus_np_separation_5dff6b_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the unclosed P-versus-NP separation lacking a structural certificate ceiling becomes a gate+T closure separating the verification arm from the search arm under the crystal ceiling)
+--   Word: ⊢∈⊤≻≺⊥∋⋈⊙⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_unclosed_p_versus_np_separation_5dff6b_opcodes : List String := ["VINIT", "FSPLIT", "EVALT", "AFWD", "AREV", "EVALF", "FFUSE", "CLINK", "IMSCRIB", "ENGAGR", "IFIX", "TANCH"]
+
+def the_unclosed_p_versus_np_separation_5dff6b_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_unclosed_p_versus_np_separation_5dff6b_opcodes
+
+def the_unclosed_p_versus_np_separation_5dff6b_glyph_word : String := glyphWordOf the_unclosed_p_versus_np_separation_5dff6b_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_unclosed_p_versus_np_separation_5dff6b_register_length : the_unclosed_p_versus_np_separation_5dff6b_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_unclosed_p_versus_np_separation_5dff6b_register_matches_word : the_unclosed_p_versus_np_separation_5dff6b_glyph_word = "⊢∈⊤≻≺⊥∋⋈⊙⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_unclosed_p_versus_np_separation_5dff6b_conventional_protocol : IGProtocol the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- VINIT
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- FSPLIT
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- EVALT
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- AFWD
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- AREV
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- EVALF
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- FFUSE
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- CLINK
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- IMSCRIB
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- ENGAGR
+  (.seq (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0)  -- IFIX
+  (.arrow the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0 the_unclosed_p_versus_np_separation_5dff6b_s0))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem the_unclosed_p_versus_np_separation_5dff6b_conventional_protocol_depth : the_unclosed_p_versus_np_separation_5dff6b_conventional_protocol.depth = 12 := by
+  native_decide
 
 end Imscribing

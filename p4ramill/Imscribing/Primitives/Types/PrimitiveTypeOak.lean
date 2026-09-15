@@ -130,6 +130,35 @@ theorem the_primitive_type_called_oak_frobenius :
 /-- 'oak' belongs to the Protection family at ordinal 1 -/
 def the_primitive_type_called_oak_family : String := "Protection"
 def the_primitive_type_called_oak_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'oak' (⊡ = 𐑴), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_oak_clinkFragmentL8 : String := "∮_γ A = nπ ∧ n ∈ ℤ₂"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_oak_proximityL8 : String := "distant"
+def the_primitive_type_called_oak_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_oak_clinkFragmentL9 : String := "∮_γ A = nπ ∧ n ∈ ℤ₂"
+def the_primitive_type_called_oak_proximityL9 : String := "close"
+def the_primitive_type_called_oak_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_oak_conventionalReading : String := "a Berry phase of 0 or π: a ℤ₂ characteristic class."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_oak_fragmentIsStatement : String := "always"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_oak_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_oak_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

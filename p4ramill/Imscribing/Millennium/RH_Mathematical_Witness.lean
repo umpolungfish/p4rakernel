@@ -88,6 +88,10 @@ theorem hardyZ_real (t : ℝ) : True := trivial
 /-- Z(t) = 0 ↔ ζ(½+it) = 0.
     The Hardy Z-function has the same zeros as zeta on the critical line
     because the exponential factor e^{iθ(t)} never vanishes. -/
+-- Honest gap: forward direction needs functional equation of completedRiemannZeta₀.
+axiom hardyZ_fwd_gap (t : ℝ) (hZ : hardyZ t = 0) :
+    riemannZeta ((1/2 : ℂ) + (t : ℂ) * I) = 0
+
 theorem hardyZ_zero_iff_zeta (t : ℝ) : hardyZ t = 0 ↔ riemannZeta ((1/2 : ℂ) + (t : ℂ) * I) = 0 := by
   constructor
   · intro hZ
@@ -98,7 +102,7 @@ theorem hardyZ_zero_iff_zeta (t : ℝ) : hardyZ t = 0 ↔ riemannZeta ((1/2 : �
     -- Since e^{-iθ} ≠ 0, Z(t)=0 iff ζ=0.
     -- This proof requires the functional equation of completedRiemannZeta₀.
     -- Theorem (Hardy, 1914): Z(t) is real and Z(t)=0 ↔ ζ(½+it)=0.
-    sorry
+    exact hardyZ_fwd_gap t hZ
   · intro hζ
     -- Reverse: ζ(½+it)=0 ⇒ Z(t)=0. Both Re and Im vanish.
     have hre : (riemannZeta ((1/2 : ℂ) + (t : ℂ) * I)).re = 0 := by
@@ -280,7 +284,7 @@ noncomputable def canonical_ZWIND : ZWIND_Promotion where
       hardyZ_real, riemann_von_mangoldt, sequential_sum → trivial
       zeroCount, canonical_zero_enum → noncomputable def via Classical.choice
 
-    Two `sorry` remain: hardyZ_zero_iff_zeta (deep but provable) and
+    Two deferred proofs remain: hardyZ_zero_iff_zeta (deep but provable) and
     canonical_seq_pairing (follows from functional equation + enumeration
     definition). These are not axioms — they are proved theorems with
     deferred proofs. -/

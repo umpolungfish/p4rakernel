@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def imaginary_unit_i_tier : OuroboricityTier := TierFunctor.obj imaginary_unit_i
 theorem imaginary_unit_i_frobenius :
     igFrobeniusAlg.mul imaginary_unit_i_s0 imaginary_unit_i_s0 = imaginary_unit_i_s0 :=
   igFrobAlg_self_fusion imaginary_unit_i_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: imaginary unit *i*)
+--   Word: ⊢⊙≻⊙∈⊥∋⊙⋈⊤⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def imaginary_unit_i_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IMSCRIB", "FSPLIT", "EVALF", "FFUSE", "IMSCRIB", "CLINK", "EVALT", "ENGAGR", "IFIX", "TANCH"]
+
+def imaginary_unit_i_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf imaginary_unit_i_opcodes
+
+def imaginary_unit_i_glyph_word : String := glyphWordOf imaginary_unit_i_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem imaginary_unit_i_register_length : imaginary_unit_i_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem imaginary_unit_i_register_matches_word : imaginary_unit_i_glyph_word = "⊢⊙≻⊙∈⊥∋⊙⋈⊤⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def imaginary_unit_i_conventional_protocol : IGProtocol imaginary_unit_i_s0 imaginary_unit_i_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- VINIT
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- IMSCRIB
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- AFWD
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- IMSCRIB
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- FSPLIT
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- EVALF
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- FFUSE
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- IMSCRIB
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- CLINK
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- EVALT
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- ENGAGR
+  (.seq (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)  -- IFIX
+  (.arrow imaginary_unit_i_s0 imaginary_unit_i_s0 imaginary_unit_i_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem imaginary_unit_i_conventional_protocol_depth : imaginary_unit_i_conventional_protocol.depth = 13 := by
+  native_decide
+

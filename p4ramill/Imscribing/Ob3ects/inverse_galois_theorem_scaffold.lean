@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -161,3 +162,58 @@ noncomputable def inverse_galois_theorem_false_arm : IGProtocol inverse_galois_t
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def inverse_galois_theorem_tier : OuroboricityTier := TierFunctor.obj inverse_galois_theorem_s0
 #eval inverse_galois_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Inverse Galois Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≺⊥∋⊞⊡⋈≺∈⊤∋⊡⊞⊙⊣≺⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def inverse_galois_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "CLINK", "AREV", "FSPLIT", "EVALT", "FFUSE", "IFIX", "ENGAGR", "IMSCRIB", "TANCH", "AREV", "CLINK", "IFIX"]
+
+def inverse_galois_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf inverse_galois_theorem_opcodes
+
+def inverse_galois_theorem_glyph_word : String := glyphWordOf inverse_galois_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem inverse_galois_theorem_register_length : inverse_galois_theorem_conventional_register.length = 24 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem inverse_galois_theorem_register_matches_word : inverse_galois_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≺⊥∋⊞⊡⋈≺∈⊤∋⊡⊞⊙⊣≺⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def inverse_galois_theorem_conventional_protocol : IGProtocol inverse_galois_theorem_s0 inverse_galois_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- VINIT
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- TANCH
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- AFWD
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- CLINK
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- FSPLIT
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- EVALT
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- AREV
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- EVALF
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- FFUSE
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- ENGAGR
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- IFIX
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- CLINK
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- AREV
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- FSPLIT
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- EVALT
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- FFUSE
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- IFIX
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- ENGAGR
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- TANCH
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- AREV
+  (.seq (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0)  -- CLINK
+  (.arrow inverse_galois_theorem_s0 inverse_galois_theorem_s0 inverse_galois_theorem_s0))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 24 arrows. -/
+theorem inverse_galois_theorem_conventional_protocol_depth : inverse_galois_theorem_conventional_protocol.depth = 24 := by
+  native_decide
+

@@ -25,9 +25,16 @@ Belnap Verdict: T (True) — established via Schmidt's discrepancy theorem
   on the circle and Wagner's void theorem. The proof combines harmonic
   analysis (potential theory) with discrepancy theory.
 -/
-axiom erdos_lax_axiom : True
+axiom erdos_lax_axiom :
+    ∀ z : ℕ → ℂ, (∀ i, ‖z i‖ = 1) →
+      ∀ R : ℝ, ∃ (n : ℕ) (w : ℂ), ‖w‖ = 1 ∧
+        R < ‖∏ i ∈ Finset.range n, (w - z i)‖
 
-theorem erdos_lax_divergence : True :=
-  erdos_lax_axiom
+/-- The maximum modulus `M_n = max_{|w|=1} |∏_{i<n} (w - z_i)|` is unbounded:
+    for every `R` some `n` and some point of the unit circle exceed it. -/
+theorem erdos_lax_divergence (z : ℕ → ℂ) (hz : ∀ i, ‖z i‖ = 1) (R : ℝ) :
+    ∃ (n : ℕ) (w : ℂ), ‖w‖ = 1 ∧
+      R < ‖∏ i ∈ Finset.range n, (w - z i)‖ :=
+  erdos_lax_axiom z hz R
 
 end Classical.ErdosLaxDivergence

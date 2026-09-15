@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem tarot_spread_ob3ect_the_78_card_tarot_cc0585_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Tarot spread ob3ect: the 78-card tarot deck as a self-imscribing divination system. FSPLIT: the Celtic Cross spread splits the querent's situation into ten positional meanings — present, challenge, past, future, above, below, advice, external influences, hopes/fears, outcome. FFUSE: the reader synthesizes all ten positions back into a coherent narrative that reconstitutes the original question with insight. VINIT: the shuffled but undrawn deck. TANCH: the completed spread layout. AFWD: a card drawn upright. AREV: a card drawn reversed. ENGAGR: two cards in the same spread that flatly contradict each other yet must both be true — the Tower and the Star together.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def tarot_spread_ob3ect_the_78_card_tarot_cc0585_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def tarot_spread_ob3ect_the_78_card_tarot_cc0585_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf tarot_spread_ob3ect_the_78_card_tarot_cc0585_opcodes
+
+def tarot_spread_ob3ect_the_78_card_tarot_cc0585_glyph_word : String := glyphWordOf tarot_spread_ob3ect_the_78_card_tarot_cc0585_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem tarot_spread_ob3ect_the_78_card_tarot_cc0585_register_length : tarot_spread_ob3ect_the_78_card_tarot_cc0585_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem tarot_spread_ob3ect_the_78_card_tarot_cc0585_register_matches_word : tarot_spread_ob3ect_the_78_card_tarot_cc0585_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def tarot_spread_ob3ect_the_78_card_tarot_cc0585_conventional_protocol : IGProtocol tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- IMSCRIB
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- AREV
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- FSPLIT
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- AFWD
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- FFUSE
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- CLINK
+  (.seq (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0)  -- IFIX
+  (.arrow tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0 tarot_spread_ob3ect_the_78_card_tarot_cc0585_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem tarot_spread_ob3ect_the_78_card_tarot_cc0585_conventional_protocol_depth : tarot_spread_ob3ect_the_78_card_tarot_cc0585_conventional_protocol.depth = 8 := by
+  native_decide
+

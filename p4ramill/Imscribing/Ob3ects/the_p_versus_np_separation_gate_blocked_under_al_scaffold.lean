@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -110,5 +111,49 @@ def the_p_versus_np_separation_gate_blocked_fdc1a7_tier : OuroboricityTier := Ti
 theorem the_p_versus_np_separation_gate_blocked_fdc1a7_frobenius :
     igFrobeniusAlg.mul the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 = the_p_versus_np_separation_gate_blocked_fdc1a7_s0 :=
   igFrobAlg_self_fusion the_p_versus_np_separation_gate_blocked_fdc1a7_s0
+
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the P-versus-NP separation gate-blocked under all 29 existing universes becomes an independently-motivated new gate-universe carrying it to idempotent_terminal and T_CEILING-consistency without tailoring)
+--   Word: ⊢≻∈⊥≺⊙⋈≻⊤∋⊞⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_p_versus_np_separation_gate_blocked_fdc1a7_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALF", "AREV", "IMSCRIB", "CLINK", "AFWD", "EVALT", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+
+def the_p_versus_np_separation_gate_blocked_fdc1a7_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_p_versus_np_separation_gate_blocked_fdc1a7_opcodes
+
+def the_p_versus_np_separation_gate_blocked_fdc1a7_glyph_word : String := glyphWordOf the_p_versus_np_separation_gate_blocked_fdc1a7_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_p_versus_np_separation_gate_blocked_fdc1a7_register_length : the_p_versus_np_separation_gate_blocked_fdc1a7_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_p_versus_np_separation_gate_blocked_fdc1a7_register_matches_word : the_p_versus_np_separation_gate_blocked_fdc1a7_glyph_word = "⊢≻∈⊥≺⊙⋈≻⊤∋⊞⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_p_versus_np_separation_gate_blocked_fdc1a7_conventional_protocol : IGProtocol the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- VINIT
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- AFWD
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- FSPLIT
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- EVALF
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- AREV
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- IMSCRIB
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- CLINK
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- AFWD
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- EVALT
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- FFUSE
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- ENGAGR
+  (.seq (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)  -- IFIX
+  (.arrow the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0 the_p_versus_np_separation_gate_blocked_fdc1a7_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem the_p_versus_np_separation_gate_blocked_fdc1a7_conventional_protocol_depth : the_p_versus_np_separation_gate_blocked_fdc1a7_conventional_protocol.depth = 13 := by
+  native_decide
 
 end Imscribing

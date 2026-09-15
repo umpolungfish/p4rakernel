@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem geomantic_shield_16_figures_formed_from_a08e18_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Geomantic shield: 16 figures formed from four lines of single or double dots, cast by marking random lines in earth or sand. FSPLIT: the random marking of dots splits the querent's unconscious intention into four Mothers, which generate four Daughters, then four Nephews. FFUSE: the Judge and two Witnesses reconstitute the original question into a final verdict. VINIT: untouched sand. TANCH: the complete shield of 16 figures. AREV: the Daughters derived by reversal of Mothers. ENGAGR: Populus and Via — the figures of pure gatheredness and pure dispersal, simultaneously stationary and moving.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def geomantic_shield_16_figures_formed_from_a08e18_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def geomantic_shield_16_figures_formed_from_a08e18_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf geomantic_shield_16_figures_formed_from_a08e18_opcodes
+
+def geomantic_shield_16_figures_formed_from_a08e18_glyph_word : String := glyphWordOf geomantic_shield_16_figures_formed_from_a08e18_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem geomantic_shield_16_figures_formed_from_a08e18_register_length : geomantic_shield_16_figures_formed_from_a08e18_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem geomantic_shield_16_figures_formed_from_a08e18_register_matches_word : geomantic_shield_16_figures_formed_from_a08e18_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def geomantic_shield_16_figures_formed_from_a08e18_conventional_protocol : IGProtocol geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- IMSCRIB
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- AREV
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- FSPLIT
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- AFWD
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- FFUSE
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- CLINK
+  (.seq (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0)  -- IFIX
+  (.arrow geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0 geomantic_shield_16_figures_formed_from_a08e18_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem geomantic_shield_16_figures_formed_from_a08e18_conventional_protocol_depth : geomantic_shield_16_figures_formed_from_a08e18_conventional_protocol.depth = 8 := by
+  native_decide
+

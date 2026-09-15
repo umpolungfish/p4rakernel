@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -166,3 +167,58 @@ def smooth_four_dimensional_poincar_theorem_tier : OuroboricityTier := TierFunct
 theorem smooth_four_dimensional_poincar_theorem_frobenius :
     igFrobeniusAlg.mul smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 = smooth_four_dimensional_poincar_theorem_s0 :=
   igFrobAlg_self_fusion smooth_four_dimensional_poincar_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Smooth Four-Dimensional Poincaré Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⋈⊙⊥≺⋈⊙∋⊞⊡⋈⊙⊡≺⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def smooth_four_dimensional_poincar_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "EVALF", "AREV", "CLINK", "IMSCRIB", "FFUSE", "ENGAGR", "IFIX", "CLINK", "IMSCRIB", "IFIX", "AREV", "CLINK", "IMSCRIB", "TANCH"]
+
+def smooth_four_dimensional_poincar_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf smooth_four_dimensional_poincar_theorem_opcodes
+
+def smooth_four_dimensional_poincar_theorem_glyph_word : String := glyphWordOf smooth_four_dimensional_poincar_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem smooth_four_dimensional_poincar_theorem_register_length : smooth_four_dimensional_poincar_theorem_conventional_register.length = 24 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem smooth_four_dimensional_poincar_theorem_register_matches_word : smooth_four_dimensional_poincar_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⋈⊙⊥≺⋈⊙∋⊞⊡⋈⊙⊡≺⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def smooth_four_dimensional_poincar_theorem_conventional_protocol : IGProtocol smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- VINIT
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- TANCH
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- AFWD
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- CLINK
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- FSPLIT
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- EVALT
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- AFWD
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- CLINK
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- EVALF
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- AREV
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- CLINK
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- FFUSE
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- ENGAGR
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IFIX
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- CLINK
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IFIX
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- AREV
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- CLINK
+  (.seq (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0)  -- IMSCRIB
+  (.arrow smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0 smooth_four_dimensional_poincar_theorem_s0))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 24 arrows. -/
+theorem smooth_four_dimensional_poincar_theorem_conventional_protocol_depth : smooth_four_dimensional_poincar_theorem_conventional_protocol.depth = 24 := by
+  native_decide
+

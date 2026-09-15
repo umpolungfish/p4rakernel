@@ -1,17 +1,3 @@
-README: record what counts as a clean build, and what stands in the way
+I restore the development branch to the primary p4rakernel checkout
 
-No errors is not clean. Clean means no warnings and none silenced: a
-set_option disabling a linter does not clear a finding, it hides it.
-
-The note lists the categories standing between the tree and a clean build,
-heaviest first, and says which are mechanical and which are not. Line length
-and layout are safe to reflow. native_decide is not mechanical, since the
-objection is that it trusts the compiler rather than the kernel, so each site
-is a decision about what the proof rests on. Unused variables and unused simp
-arguments each mark a hypothesis a statement asks for and its proof never
-touches, which is worth reading before deleting.
-
-Sorries are named separately because they are not defects to be cleared. Each
-is an original claim standing unproven, and the warning reports that
-correctly. They close by being proven, never by suppression and never by
-weakening the statement until it goes through.
+I merge crystalline/millennium-ovms-2026-08-23 into p4rakernel, retaining both histories and the latest README.md and README.md.bak from p4rakernel. I restore the development modules and artifacts omitted from the earlier main/p4rakernel reconciliation. I preserve main's additions and keep this merge local.

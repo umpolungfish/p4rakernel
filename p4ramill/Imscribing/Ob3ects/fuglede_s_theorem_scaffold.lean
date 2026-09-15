@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def fugledes_theorem_tier : OuroboricityTier := TierFunctor.obj fugledes_theorem
 theorem fugledes_theorem_frobenius :
     igFrobeniusAlg.mul fugledes_theorem_s0 fugledes_theorem_s0 = fugledes_theorem_s0 :=
   igFrobAlg_self_fusion fugledes_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Fuglede's Theorem)
+--   Word: ⊢⊣∈⊤≻⋈⊙⊡∋⊥≺⋈⊞⊙⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def fugledes_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "IFIX", "FFUSE", "EVALF", "AREV", "CLINK", "ENGAGR", "IMSCRIB", "CLINK", "TANCH"]
+
+def fugledes_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf fugledes_theorem_opcodes
+
+def fugledes_theorem_glyph_word : String := glyphWordOf fugledes_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem fugledes_theorem_register_length : fugledes_theorem_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem fugledes_theorem_register_matches_word : fugledes_theorem_glyph_word = "⊢⊣∈⊤≻⋈⊙⊡∋⊥≺⋈⊞⊙⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def fugledes_theorem_conventional_protocol : IGProtocol fugledes_theorem_s0 fugledes_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- VINIT
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- TANCH
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- FSPLIT
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- EVALT
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- AFWD
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- CLINK
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- IFIX
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- FFUSE
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- EVALF
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- AREV
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- CLINK
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- ENGAGR
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0)  -- CLINK
+  (.arrow fugledes_theorem_s0 fugledes_theorem_s0 fugledes_theorem_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem fugledes_theorem_conventional_protocol_depth : fugledes_theorem_conventional_protocol.depth = 16 := by
+  native_decide
+

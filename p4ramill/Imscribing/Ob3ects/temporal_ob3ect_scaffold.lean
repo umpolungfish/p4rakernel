@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem temporal_ob3ect_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: temporal_ob3ect)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def temporal_ob3ect_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def temporal_ob3ect_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf temporal_ob3ect_opcodes
+
+def temporal_ob3ect_glyph_word : String := glyphWordOf temporal_ob3ect_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem temporal_ob3ect_register_length : temporal_ob3ect_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem temporal_ob3ect_register_matches_word : temporal_ob3ect_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def temporal_ob3ect_conventional_protocol : IGProtocol temporal_ob3ect_s0 temporal_ob3ect_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- IMSCRIB
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- AREV
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- FSPLIT
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- AFWD
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- FFUSE
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- CLINK
+  (.seq (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0)  -- IFIX
+  (.arrow temporal_ob3ect_s0 temporal_ob3ect_s0 temporal_ob3ect_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem temporal_ob3ect_conventional_protocol_depth : temporal_ob3ect_conventional_protocol.depth = 8 := by
+  native_decide
+

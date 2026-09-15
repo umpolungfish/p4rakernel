@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem elder_futhark_rune_casting_ob3ect_24_5e845c_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Elder Futhark rune casting ob3ect: 24 runes of the Elder Futhark cast onto a white cloth. FSPLIT: the casting of the handful scatters runes across the cloth, splitting the querent's situation into positional meanings — center=present, periphery=influences, face-down=hidden, face-up=manifest. FFUSE: the rune-reader weaves all landed runes into a single narrative, reconstituting the original question with the Norns' voice. VINIT: the rune bag with 24 stones. TANCH: the white cloth's circular border. AFWD: a rune drawn upright. AREV: a rune drawn merkstave (inverted). ENGAGR: a rune that can be read as simultaneously upright and merkstave depending on the reader's angle.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def elder_futhark_rune_casting_ob3ect_24_5e845c_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def elder_futhark_rune_casting_ob3ect_24_5e845c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf elder_futhark_rune_casting_ob3ect_24_5e845c_opcodes
+
+def elder_futhark_rune_casting_ob3ect_24_5e845c_glyph_word : String := glyphWordOf elder_futhark_rune_casting_ob3ect_24_5e845c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem elder_futhark_rune_casting_ob3ect_24_5e845c_register_length : elder_futhark_rune_casting_ob3ect_24_5e845c_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem elder_futhark_rune_casting_ob3ect_24_5e845c_register_matches_word : elder_futhark_rune_casting_ob3ect_24_5e845c_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def elder_futhark_rune_casting_ob3ect_24_5e845c_conventional_protocol : IGProtocol elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- IMSCRIB
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- AREV
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- FSPLIT
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- AFWD
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- FFUSE
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- CLINK
+  (.seq (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0)  -- IFIX
+  (.arrow elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0 elder_futhark_rune_casting_ob3ect_24_5e845c_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem elder_futhark_rune_casting_ob3ect_24_5e845c_conventional_protocol_depth : elder_futhark_rune_casting_ob3ect_24_5e845c_conventional_protocol.depth = 8 := by
+  native_decide
+

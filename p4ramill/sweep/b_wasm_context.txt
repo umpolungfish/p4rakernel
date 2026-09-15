@@ -1,0 +1,36 @@
+The machine has an ordered scratch region, a separate addressable store, and a
+set of named cells that are neither. Control flow is structured: certain
+operations open a region that a closing operation later shuts, regions nest, and
+a transfer names an enclosing region by how many levels out it sits rather than
+by any position. A transfer out of a region leaves that region permanently. The
+whole array of operations is checked before it runs, and the check rejects any
+transfer that would leave the outermost region.
+
+  W01  opens a region that is left by transferring to its end
+  W02  opens a region that is left by transferring to its start
+  W03  takes an indicator from the scratch region and opens a region whose two
+       halves are entered according to the indicator, the second half beginning
+       at a marked point
+  W04  marks the point between the two halves of a W03 region
+  W05  closes the region most recently opened by W01, W02 or W03
+  W06  transfers out of the region N levels out, unconditionally
+  W07  takes an indicator and transfers out of the region N levels out only when
+       the indicator is set
+  W08  takes an index and transfers out of one of a listed set of regions
+  W09  leaves the whole array of operations at once
+  W10  suspends here, runs another array named directly, and resumes
+  W11  suspends here, runs another array named by a value taken from the scratch
+       region, and resumes
+  W12  removes the top scratch value
+  W13  takes three scratch values and keeps one of the first two by the third
+  W14  reads a named cell local to this run
+  W15  writes a named cell local to this run
+  W16  reads a named cell shared across runs
+  W17  writes a named cell shared across runs
+  W18  reads the addressable store at an offset
+  W19  writes the addressable store at an offset
+  W20  places a constant onto the scratch region
+  W21  combines scratch values arithmetically
+  W22  compares scratch values and leaves an indicator
+  W23  does nothing
+  W24  ends the run as failed

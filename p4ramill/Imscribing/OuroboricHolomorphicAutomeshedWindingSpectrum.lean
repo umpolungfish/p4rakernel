@@ -22,11 +22,13 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Frobenius
+import Mathlib
 
 namespace Imscribing.OuroboricHolomorphicAutomeshedWindingSpectrum
 
 open Imscribing.Primitives
 open Imscribing.Frobenius
+open Real
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection
      Stoichiometry Chirality
@@ -88,13 +90,16 @@ theorem closed_under_composition (w1 w2 : NamedWinding) : True :=
 
 /-- The exponential map w → exp(2πiw) sends each winding to a point on S¹ ⊆ ℂ.
     This map is holomorphic (complex-differentiable) on the entire circle. -/
-def expMap (w : ℚ) : ℂ :=
+noncomputable def expMap (w : ℚ) : ℂ :=
   Complex.exp (2 * π * Complex.I * (w : ℂ))
 
 /-- The winding addition law corresponds to composition of rotations.
     exp(2πi·w₁) · exp(2πi·w₂) = exp(2πi·(w₁+w₂)) -/
 theorem winding_composition (w1 w2 : ℚ) : expMap w1 * expMap w2 = expMap (w1 + w2) := by
-  simp [expMap, Complex.exp_add, mul_comm, add_comm]
+  simp only [expMap, ← Complex.exp_add]
+  congr 1
+  push_cast
+  ring
 
 -- ─────────────────────────────────────────────────────────
 -- Ouroboric bootstrap word

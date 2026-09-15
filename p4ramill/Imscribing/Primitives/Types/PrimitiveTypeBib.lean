@@ -126,6 +126,35 @@ theorem the_primitive_type_called_bib_frobenius :
 /-- 'bib' belongs to the Granularity family at ordinal 0 -/
 def the_primitive_type_called_bib_family : String := "Granularity"
 def the_primitive_type_called_bib_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'bib' (∈ = 𐑚), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_bib_clinkFragmentL8 : String := "∀y∈x( |y| < |x| )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_bib_proximityL8 : String := "distant"
+def the_primitive_type_called_bib_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_bib_clinkFragmentL9 : String := "∀y∈x( |y| < |x| )"
+def the_primitive_type_called_bib_proximityL9 : String := "distant"
+def the_primitive_type_called_bib_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_bib_conventionalReading : String := "every member strictly smaller than x: x is a regular cardinal."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_bib_fragmentIsStatement : String := "always"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_bib_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_bib_bootstrapSteps : Nat := 11
 
 end Imscribing.Primitives.Types

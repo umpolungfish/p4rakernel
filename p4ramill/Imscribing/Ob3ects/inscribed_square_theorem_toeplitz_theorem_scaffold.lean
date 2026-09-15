@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -276,3 +277,81 @@ noncomputable def inscribed_square_theorem_toeplitz_9f051b_false_arm : IGProtoco
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def inscribed_square_theorem_toeplitz_9f051b_tier : OuroboricityTier := TierFunctor.obj inscribed_square_theorem_toeplitz_9f051b_s0
 #eval inscribed_square_theorem_toeplitz_9f051b_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Inscribed Square Theorem (Toeplitz' Theorem))
+--   Word: ⊢⊣≻⋈⊡≻⋈⊡≻⋈⊡≻⋈⊡∈⊤⊙⊡∋⊥≺≻⋈⊡∈⊤⊙⊡∋⊥≺≻⋈⊡≻⋈⊡∈⊤⊙⊡∋⊞⊙⊡∋⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def inscribed_square_theorem_toeplitz_9f051b_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IFIX", "AFWD", "CLINK", "IFIX", "AFWD", "CLINK", "IFIX", "AFWD", "CLINK", "IFIX", "FSPLIT", "EVALT", "IMSCRIB", "IFIX", "FFUSE", "EVALF", "AREV", "AFWD", "CLINK", "IFIX", "FSPLIT", "EVALT", "IMSCRIB", "IFIX", "FFUSE", "EVALF", "AREV", "AFWD", "CLINK", "IFIX", "AFWD", "CLINK", "IFIX", "FSPLIT", "EVALT", "IMSCRIB", "IFIX", "FFUSE", "ENGAGR", "IMSCRIB", "IFIX", "FFUSE", "TANCH"]
+
+def inscribed_square_theorem_toeplitz_9f051b_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf inscribed_square_theorem_toeplitz_9f051b_opcodes
+
+def inscribed_square_theorem_toeplitz_9f051b_glyph_word : String := glyphWordOf inscribed_square_theorem_toeplitz_9f051b_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem inscribed_square_theorem_toeplitz_9f051b_register_length : inscribed_square_theorem_toeplitz_9f051b_conventional_register.length = 47 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem inscribed_square_theorem_toeplitz_9f051b_register_matches_word : inscribed_square_theorem_toeplitz_9f051b_glyph_word = "⊢⊣≻⋈⊡≻⋈⊡≻⋈⊡≻⋈⊡∈⊤⊙⊡∋⊥≺≻⋈⊡∈⊤⊙⊡∋⊥≺≻⋈⊡≻⋈⊡∈⊤⊙⊡∋⊞⊙⊡∋⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def inscribed_square_theorem_toeplitz_9f051b_conventional_protocol : IGProtocol inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- VINIT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- TANCH
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FSPLIT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- EVALT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IMSCRIB
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FFUSE
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- EVALF
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AREV
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FSPLIT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- EVALT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IMSCRIB
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FFUSE
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- EVALF
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AREV
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- AFWD
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- CLINK
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FSPLIT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- EVALT
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IMSCRIB
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FFUSE
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- ENGAGR
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IMSCRIB
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- IFIX
+  (.seq (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)  -- FFUSE
+  (.arrow inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0 inscribed_square_theorem_toeplitz_9f051b_s0)))))))))))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 47 arrows. -/
+theorem inscribed_square_theorem_toeplitz_9f051b_conventional_protocol_depth : inscribed_square_theorem_toeplitz_9f051b_conventional_protocol.depth = 47 := by
+  native_decide
+

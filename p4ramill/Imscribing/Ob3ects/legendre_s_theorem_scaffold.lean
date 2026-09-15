@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def legendres_theorem_tier : OuroboricityTier := TierFunctor.obj legendres_theor
 theorem legendres_theorem_frobenius :
     igFrobeniusAlg.mul legendres_theorem_s0 legendres_theorem_s0 = legendres_theorem_s0 :=
   igFrobAlg_self_fusion legendres_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Legendre's Theorem)
+--   Word: ⊢⊣∈⊤≻⋈⊡⊥≺⊡⊞⊙∋⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def legendres_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "CLINK", "IFIX", "EVALF", "AREV", "IFIX", "ENGAGR", "IMSCRIB", "FFUSE", "CLINK", "IMSCRIB", "TANCH"]
+
+def legendres_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf legendres_theorem_opcodes
+
+def legendres_theorem_glyph_word : String := glyphWordOf legendres_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem legendres_theorem_register_length : legendres_theorem_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem legendres_theorem_register_matches_word : legendres_theorem_glyph_word = "⊢⊣∈⊤≻⋈⊡⊥≺⊡⊞⊙∋⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def legendres_theorem_conventional_protocol : IGProtocol legendres_theorem_s0 legendres_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- VINIT
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- TANCH
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- FSPLIT
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- EVALT
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- AFWD
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- CLINK
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- IFIX
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- EVALF
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- AREV
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- IFIX
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- ENGAGR
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- FFUSE
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- CLINK
+  (.seq (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0)  -- IMSCRIB
+  (.arrow legendres_theorem_s0 legendres_theorem_s0 legendres_theorem_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem legendres_theorem_conventional_protocol_depth : legendres_theorem_conventional_protocol.depth = 16 := by
+  native_decide
+

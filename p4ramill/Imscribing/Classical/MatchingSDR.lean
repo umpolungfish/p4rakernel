@@ -16,7 +16,7 @@ import Mathlib
 
 namespace Classical.MatchingSDR
 
-/--
+/-!
 Axiom (Matching SDR Growth): The minimal f(n) such that the family
 {S_k(n,f)}_{k=1}^n has an SDR satisfies f(n) ∼ n, i.e.,
 lim_{n→∞} f(n)/n = 1.
@@ -30,9 +30,24 @@ Combined with Jacobsthal function bounds → f(n) ∼ n.
 Belnap Verdict: T (True) — established via Hall's marriage theorem,
   PNT, and Jacobsthal bounds.
 -/
-axiom matching_sdr_growth : True
 
-theorem main : True :=
+/-- `S_k` for the window `(n, n + m]`: the multiples of `k` it contains. -/
+def S (n m k : ℕ) : Finset ℕ := (Finset.Ioc n (n + m)).filter (k ∣ ·)
+
+/-- The family `{S_k}_{k=1}^n` over the window `(n, n + m]` has a system of
+    distinct representatives. -/
+def HasSDR (n m : ℕ) : Prop :=
+    ∃ r : ℕ → ℕ, Set.InjOn r (Set.Icc 1 n) ∧
+      ∀ k, 1 ≤ k → k ≤ n → r k ∈ S n m k
+
+axiom matching_sdr_growth :
+    ∃ f : ℕ → ℕ, (∀ n, IsLeast {m | HasSDR n m} (f n)) ∧
+      Filter.Tendsto (fun n => (f n : ℝ) / n) Filter.atTop (nhds 1)
+
+/-- The minimal window admitting an SDR satisfies `f(n) ∼ n`. -/
+theorem main :
+    ∃ f : ℕ → ℕ, (∀ n, IsLeast {m | HasSDR n m} (f n)) ∧
+      Filter.Tendsto (fun n => (f n : ℝ) / n) Filter.atTop (nhds 1) :=
   matching_sdr_growth
 
 end Classical.MatchingSDR

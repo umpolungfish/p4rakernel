@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem bibliomancy_ob3ect_divination_by_random_621298_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Bibliomancy ob3ect: divination by random opening of a sacred or significant book, letting the finger fall on a passage. FSPLIT: the opening of the book splits the unified text into the single passage revealed — the universe selects one fragment from the whole. FFUSE: the querent interprets the passage in the context of their question, reconstituting the random fragment as meaningful answer. VINIT: the closed book. TANCH: the book's covers — the boundary of all possible answers. AFWD: opening the book (forward in the text). AREV: flipping pages backward. ENGAGR: the passage is simultaneously random (stochastic selection) and destined (the universe chose it).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def bibliomancy_ob3ect_divination_by_random_621298_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def bibliomancy_ob3ect_divination_by_random_621298_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf bibliomancy_ob3ect_divination_by_random_621298_opcodes
+
+def bibliomancy_ob3ect_divination_by_random_621298_glyph_word : String := glyphWordOf bibliomancy_ob3ect_divination_by_random_621298_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem bibliomancy_ob3ect_divination_by_random_621298_register_length : bibliomancy_ob3ect_divination_by_random_621298_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem bibliomancy_ob3ect_divination_by_random_621298_register_matches_word : bibliomancy_ob3ect_divination_by_random_621298_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def bibliomancy_ob3ect_divination_by_random_621298_conventional_protocol : IGProtocol bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- IMSCRIB
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- AREV
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- FSPLIT
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- AFWD
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- FFUSE
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- CLINK
+  (.seq (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0)  -- IFIX
+  (.arrow bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0 bibliomancy_ob3ect_divination_by_random_621298_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem bibliomancy_ob3ect_divination_by_random_621298_conventional_protocol_depth : bibliomancy_ob3ect_divination_by_random_621298_conventional_protocol.depth = 8 := by
+  native_decide
+

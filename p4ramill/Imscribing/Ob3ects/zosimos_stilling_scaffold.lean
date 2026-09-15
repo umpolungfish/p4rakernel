@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -162,3 +163,58 @@ def zosimos_stilling_tier : OuroboricityTier := TierFunctor.obj zosimos_stilling
 theorem zosimos_stilling_frobenius :
     igFrobeniusAlg.mul zosimos_stilling_s0 zosimos_stilling_s0 = zosimos_stilling_s0 :=
   igFrobAlg_self_fusion zosimos_stilling_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Zosimos' Stilling)
+--   Word: ⊢⊣∈≻⊤≺⋈⊙⊡∈≻⊤≺⋈⊙⊡⊞∈≻⊤∋⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def zosimos_stilling_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "AFWD", "EVALT", "AREV", "CLINK", "IMSCRIB", "IFIX", "FSPLIT", "AFWD", "EVALT", "AREV", "CLINK", "IMSCRIB", "IFIX", "ENGAGR", "FSPLIT", "AFWD", "EVALT", "FFUSE", "IMSCRIB", "IFIX", "TANCH"]
+
+def zosimos_stilling_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf zosimos_stilling_opcodes
+
+def zosimos_stilling_glyph_word : String := glyphWordOf zosimos_stilling_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem zosimos_stilling_register_length : zosimos_stilling_conventional_register.length = 24 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem zosimos_stilling_register_matches_word : zosimos_stilling_glyph_word = "⊢⊣∈≻⊤≺⋈⊙⊡∈≻⊤≺⋈⊙⊡⊞∈≻⊤∋⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def zosimos_stilling_conventional_protocol : IGProtocol zosimos_stilling_s0 zosimos_stilling_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- VINIT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- TANCH
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- FSPLIT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- AFWD
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- EVALT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- AREV
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- CLINK
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IMSCRIB
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IFIX
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- FSPLIT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- AFWD
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- EVALT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- AREV
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- CLINK
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IMSCRIB
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IFIX
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- ENGAGR
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- FSPLIT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- AFWD
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- EVALT
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- FFUSE
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IMSCRIB
+  (.seq (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0)  -- IFIX
+  (.arrow zosimos_stilling_s0 zosimos_stilling_s0 zosimos_stilling_s0))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 24 arrows. -/
+theorem zosimos_stilling_conventional_protocol_depth : zosimos_stilling_conventional_protocol.depth = 24 := by
+  native_decide
+

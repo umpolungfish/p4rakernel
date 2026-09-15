@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem i_ching_hexagram_ob3ect_the_64_793327_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: I Ching hexagram ob3ect: the 64 hexagrams of the Book of Changes, each composed of 6 lines that may be solid (yang) or broken (yin), with moving lines that transform. FSPLIT: yarrow stalk sorting splits the moment into moving lines (old yin, old yang) and static lines (young yin, young yang) — the moving lines generate a second hexagram from the first. FFUSE: the present hexagram and approaching hexagram are read together, reconstituting the original moment of consultation with the wisdom of change. VINIT: the uncut bundle of 50 yarrow stalks. TANCH: the completed hexagram of 6 lines. AFWD: a yang line (solid). AREV: a yin line (broken). ENGAGR: the moment of change where a line is simultaneously old yang and young yin.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def i_ching_hexagram_ob3ect_the_64_793327_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def i_ching_hexagram_ob3ect_the_64_793327_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf i_ching_hexagram_ob3ect_the_64_793327_opcodes
+
+def i_ching_hexagram_ob3ect_the_64_793327_glyph_word : String := glyphWordOf i_ching_hexagram_ob3ect_the_64_793327_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem i_ching_hexagram_ob3ect_the_64_793327_register_length : i_ching_hexagram_ob3ect_the_64_793327_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem i_ching_hexagram_ob3ect_the_64_793327_register_matches_word : i_ching_hexagram_ob3ect_the_64_793327_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def i_ching_hexagram_ob3ect_the_64_793327_conventional_protocol : IGProtocol i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- IMSCRIB
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- AREV
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- FSPLIT
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- AFWD
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- FFUSE
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- CLINK
+  (.seq (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0)  -- IFIX
+  (.arrow i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0 i_ching_hexagram_ob3ect_the_64_793327_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem i_ching_hexagram_ob3ect_the_64_793327_conventional_protocol_depth : i_ching_hexagram_ob3ect_the_64_793327_conventional_protocol.depth = 8 := by
+  native_decide
+

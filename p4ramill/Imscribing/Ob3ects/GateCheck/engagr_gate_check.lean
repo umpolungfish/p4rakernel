@@ -1,10 +1,10 @@
--- IGProtocol scaffold: VINIT → IMSCRIB → AFWD → FSPLIT → EVALT → EVALF → ENGAGR → AREV → FFUSE → CLINK → IFIX → TANCH
+-- IGProtocol scaffold: VINIT → TANCH → AFWD → AREV → CLINK → IMSCRIB → FSPLIT → FFUSE → EVALT → EVALF → ENGAGR → IFIX
 -- Class: ENGAGR
 -- Fingerprint: sig=(6,2,3,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=True | period=12
 -- Expected tier: O₂dag
--- FSPLIT/FFUSE pairs: [(3, 8)]
+-- FSPLIT/FFUSE pairs: [(6, 7)]
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
@@ -15,76 +15,76 @@ open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
 
 -- ── Token → IG field mapping ──────────────────────────────────────────────
---   [0] VINIT     dim    := 𐑼               𐑼 → 𐑠  | initial object — ground of distinction
---   [1] IMSCRIB   gram   := 𐑠               𐑼 → 𐑾  | identity — self-imscription
---   [2] AFWD      rel    := 𐑾               𐑠 → 𐑚  | forward morphism — bidirectional arrow
---   [3] FSPLIT    gran   := 𐑚               𐑚 → 𐑚  | split δ — range decomposition
---   [4] EVALT     crit   := ⊙               𐑚 → 𐑙  | evaluate-true — criticality gate open
---   [5] EVALF     chir   := 𐑖               𐑚 → 𐑙  | evaluate-false — chirality check
---   [6] ENGAGR    stoi   := 𐑳               𐑚 → 𐑙  | engage paradox — B-state, both arms
---   [7] AREV      pol    := 𐑗               𐑚 → 𐑙  | reverse morphism — parity flip
---   [8] FFUSE     stoi   := 𐑙               𐑙 → 𐑱  | fuse μ — assembly mode
---   [9] CLINK     fid    := 𐑱               𐑙 → 𐑭  | composition — regime coherence
---   [10] IFIX      prot   := 𐑭               𐑱 → 𐑡  | irreversible fixation — winding number
---   [11] TANCH     top    := 𐑡               𐑭 → 𐑼  | terminal object — connectivity boundary
+--   [0] VINIT     dim    := 𐑼               𐑼 → 𐑡  | initial object — ground of distinction
+--   [1] TANCH     top    := 𐑡               𐑼 → 𐑾  | terminal object — connectivity boundary
+--   [2] AFWD      rel    := 𐑾               𐑡 → 𐑗  | forward morphism — bidirectional arrow
+--   [3] AREV      pol    := 𐑗               𐑾 → 𐑱  | reverse morphism — parity flip
+--   [4] CLINK     fid    := 𐑱               𐑗 → 𐑠  | composition — regime coherence
+--   [5] IMSCRIB   gram   := 𐑠               𐑱 → 𐑚  | identity — self-imscription
+--   [6] FSPLIT    gran   := 𐑚               𐑚 → 𐑚  | split δ — range decomposition
+--   [7] FFUSE     stoi   := 𐑙               𐑙 → ⊙  | fuse μ — assembly mode
+--   [8] EVALT     crit   := ⊙               𐑙 → 𐑖  | evaluate-true — criticality gate open
+--   [9] EVALF     chir   := 𐑖               ⊙ → 𐑳  | evaluate-false — chirality check
+--   [10] ENGAGR    stoi   := 𐑳               𐑖 → 𐑭  | engage paradox — B-state, both arms
+--   [11] IFIX      prot   := 𐑭               𐑳 → 𐑼  | irreversible fixation — winding number
 
 -- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def engagr_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s1 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s2 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s3 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def engagr_s9 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def engagr_s10 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := awe }
 private def engagr_s11 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
 
 -- ── Label Imscriptions (per-node delta) ─────────────────────
 private def engagr_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l1 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l2 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l3 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l4 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l5 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l6 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l7 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def engagr_l8 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def engagr_l9 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
 private def engagr_l10 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
 private def engagr_l11 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
 
 -- ── Main IGProtocol term ────────────────────────────────────
 noncomputable def engagr_protocol : IGProtocol engagr_s0 engagr_s11 :=
   .withGram Grammar.measure <|
-  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct engagr_s8 engagr_s8 = engagr_s8 (idempotent)
-  (.seq (.arrow engagr_l0 engagr_s0 engagr_s1) (.seq (.arrow engagr_l1 engagr_s1 engagr_s2) (.seq (.arrow engagr_l2 engagr_s2 engagr_s3) (.seq (.prod (.arrow engagr_l3 engagr_s3 engagr_s8) (.arrow engagr_l3 engagr_s3 engagr_s8)) (.seq (.arrow engagr_l8 engagr_s8 engagr_s8) (.seq (.arrow engagr_l8 engagr_s8 engagr_s9) (.seq (.arrow engagr_l9 engagr_s9 engagr_s10) (.arrow engagr_l10 engagr_s10 engagr_s11))))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct engagr_s7 engagr_s7 = engagr_s7 (idempotent)
+  (.seq (.arrow engagr_l0 engagr_s0 engagr_s1) (.seq (.arrow engagr_l1 engagr_s1 engagr_s2) (.seq (.arrow engagr_l2 engagr_s2 engagr_s3) (.seq (.arrow engagr_l3 engagr_s3 engagr_s4) (.seq (.arrow engagr_l4 engagr_s4 engagr_s5) (.seq (.arrow engagr_l5 engagr_s5 engagr_s6) (.seq (.prod (.arrow engagr_l6 engagr_s6 engagr_s7) (.arrow engagr_l6 engagr_s6 engagr_s7)) (.seq (.arrow engagr_l7 engagr_s7 engagr_s7) (.seq (.arrow engagr_l7 engagr_s7 engagr_s8) (.seq (.arrow engagr_l8 engagr_s8 engagr_s9) (.seq (.arrow engagr_l9 engagr_s9 engagr_s10) (.arrow engagr_l10 engagr_s10 engagr_s11))))))))))))
 
 -- ── Evaluation arm sub-defs ───────────────────────────────────
 

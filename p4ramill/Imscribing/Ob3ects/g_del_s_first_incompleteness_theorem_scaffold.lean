@@ -1,1 +1,1 @@
-../../../ob3ect/digital/.vault/g_del_s_first_incompleteness_theorem/g_del_s_first_incompleteness_theorem_scaffold.lean
+../../../../ob3ect/digital/.vault/g_del_s_first_incompleteness_theorem/g_del_s_first_incompleteness_theorem_scaffold.lean

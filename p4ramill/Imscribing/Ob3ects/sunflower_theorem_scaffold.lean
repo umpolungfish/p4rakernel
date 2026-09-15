@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -241,3 +242,73 @@ def sunflower_theorem_tier : OuroboricityTier := TierFunctor.obj sunflower_theor
 theorem sunflower_theorem_frobenius :
     igFrobeniusAlg.mul sunflower_theorem_s0 sunflower_theorem_s0 = sunflower_theorem_s0 :=
   igFrobAlg_self_fusion sunflower_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Sunflower Theorem)
+--   Word: ⊢⊣≻⋈≻⋈≻⋈≻⋈≻⋈∈⊤≻⋈⊥≺⋈⊞⊙∋⊤⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⋈⊙⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def sunflower_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "AFWD", "CLINK", "AFWD", "CLINK", "AFWD", "CLINK", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "CLINK", "EVALF", "AREV", "CLINK", "ENGAGR", "IMSCRIB", "FFUSE", "EVALT", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "IFIX", "CLINK", "IMSCRIB", "TANCH", "IMSCRIB"]
+
+def sunflower_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf sunflower_theorem_opcodes
+
+def sunflower_theorem_glyph_word : String := glyphWordOf sunflower_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem sunflower_theorem_register_length : sunflower_theorem_conventional_register.length = 39 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem sunflower_theorem_register_matches_word : sunflower_theorem_glyph_word = "⊢⊣≻⋈≻⋈≻⋈≻⋈≻⋈∈⊤≻⋈⊥≺⋈⊞⊙∋⊤⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⊡⋈⊙⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def sunflower_theorem_conventional_protocol : IGProtocol sunflower_theorem_s0 sunflower_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- VINIT
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- TANCH
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- FSPLIT
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- EVALT
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AFWD
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- EVALF
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- AREV
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- ENGAGR
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- FFUSE
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- EVALT
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IFIX
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- CLINK
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)  -- TANCH
+  (.arrow sunflower_theorem_s0 sunflower_theorem_s0 sunflower_theorem_s0)))))))))))))))))))))))))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 39 arrows. -/
+theorem sunflower_theorem_conventional_protocol_depth : sunflower_theorem_conventional_protocol.depth = 39 := by
+  native_decide
+

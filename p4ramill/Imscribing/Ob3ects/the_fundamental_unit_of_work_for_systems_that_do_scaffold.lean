@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,3 +117,49 @@ noncomputable def the_fundamental_unit_of_work_for_d1c1da_false_arm : IGProtocol
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₀.
 def the_fundamental_unit_of_work_for_d1c1da_tier : OuroboricityTier := TierFunctor.obj the_fundamental_unit_of_work_for_d1c1da_s0
 #eval the_fundamental_unit_of_work_for_d1c1da_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: the fundamental unit of work for systems that do not dissipate is the paradox-unit, the 'paradice')
+--   Word: ⊢⊙∈⊤⊥⊞∋⊡⋈∈⊞∋⊡≺⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_fundamental_unit_of_work_for_d1c1da_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "CLINK", "FSPLIT", "ENGAGR", "FFUSE", "IFIX", "AREV", "TANCH"]
+
+def the_fundamental_unit_of_work_for_d1c1da_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_fundamental_unit_of_work_for_d1c1da_opcodes
+
+def the_fundamental_unit_of_work_for_d1c1da_glyph_word : String := glyphWordOf the_fundamental_unit_of_work_for_d1c1da_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_fundamental_unit_of_work_for_d1c1da_register_length : the_fundamental_unit_of_work_for_d1c1da_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_fundamental_unit_of_work_for_d1c1da_register_matches_word : the_fundamental_unit_of_work_for_d1c1da_glyph_word = "⊢⊙∈⊤⊥⊞∋⊡⋈∈⊞∋⊡≺⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_fundamental_unit_of_work_for_d1c1da_conventional_protocol : IGProtocol the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- VINIT
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- IMSCRIB
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- FSPLIT
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- EVALT
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- EVALF
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- ENGAGR
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- FFUSE
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- IFIX
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- CLINK
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- FSPLIT
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- ENGAGR
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- FFUSE
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- IFIX
+  (.seq (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)  -- AREV
+  (.arrow the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0 the_fundamental_unit_of_work_for_d1c1da_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem the_fundamental_unit_of_work_for_d1c1da_conventional_protocol_depth : the_fundamental_unit_of_work_for_d1c1da_conventional_protocol.depth = 15 := by
+  native_decide
+

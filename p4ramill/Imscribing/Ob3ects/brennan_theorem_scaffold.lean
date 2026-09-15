@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def brennan_theorem_tier : OuroboricityTier := TierFunctor.obj brennan_theorem_s
 theorem brennan_theorem_frobenius :
     igFrobeniusAlg.mul brennan_theorem_s0 brennan_theorem_s0 = brennan_theorem_s0 :=
   igFrobAlg_self_fusion brennan_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Brennan Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤⊥⊞≺∋⊙⊡⋈⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def brennan_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "AREV", "FFUSE", "IMSCRIB", "IFIX", "CLINK", "TANCH"]
+
+def brennan_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf brennan_theorem_opcodes
+
+def brennan_theorem_glyph_word : String := glyphWordOf brennan_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem brennan_theorem_register_length : brennan_theorem_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem brennan_theorem_register_matches_word : brennan_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤⊥⊞≺∋⊙⊡⋈⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def brennan_theorem_conventional_protocol : IGProtocol brennan_theorem_s0 brennan_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- VINIT
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- TANCH
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- AFWD
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- CLINK
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- FSPLIT
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- EVALT
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- EVALF
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- ENGAGR
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- AREV
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- FFUSE
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- IFIX
+  (.seq (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)  -- CLINK
+  (.arrow brennan_theorem_s0 brennan_theorem_s0 brennan_theorem_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem brennan_theorem_conventional_protocol_depth : brennan_theorem_conventional_protocol.depth = 15 := by
+  native_decide
+

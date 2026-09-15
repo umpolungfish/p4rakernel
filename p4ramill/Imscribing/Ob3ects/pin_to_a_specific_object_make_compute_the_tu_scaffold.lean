@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def pin_to_a_specific_object_make_compute_8c3e9c_tier : OuroboricityTier := Tier
 theorem pin_to_a_specific_object_make_compute_8c3e9c_frobenius :
     igFrobeniusAlg.mul pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 = pin_to_a_specific_object_make_compute_8c3e9c_s0 :=
   igFrobAlg_self_fusion pin_to_a_specific_object_make_compute_8c3e9c_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Pin ℂ to a specific object. Make  compute the tuple from ℂ's data. Show the 17.28M addresses are realized, not merely available. 3³×4⁵×5⁴ is the size of the grid — the codomain. For Crystal = ℂ/~ you need the projection onto: every address inhabited by a real object of ℂ. Resolve the decode∘encode dilemma — the keystone. Fix only this and the centerpiece becomes a real theorem. Turn the folding/unfolding table into one proof. Force the value-counts, or name the ouroboros decoration.)
+--   Word: ⊢≻∈⊤⊥⋈⋈⊞∋≺⊙⊣⊡≻⊤⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def pin_to_a_specific_object_make_compute_8c3e9c_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "EVALF", "CLINK", "CLINK", "ENGAGR", "FFUSE", "AREV", "IMSCRIB", "TANCH", "IFIX", "AFWD", "EVALT", "IFIX"]
+
+def pin_to_a_specific_object_make_compute_8c3e9c_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf pin_to_a_specific_object_make_compute_8c3e9c_opcodes
+
+def pin_to_a_specific_object_make_compute_8c3e9c_glyph_word : String := glyphWordOf pin_to_a_specific_object_make_compute_8c3e9c_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem pin_to_a_specific_object_make_compute_8c3e9c_register_length : pin_to_a_specific_object_make_compute_8c3e9c_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem pin_to_a_specific_object_make_compute_8c3e9c_register_matches_word : pin_to_a_specific_object_make_compute_8c3e9c_glyph_word = "⊢≻∈⊤⊥⋈⋈⊞∋≺⊙⊣⊡≻⊤⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def pin_to_a_specific_object_make_compute_8c3e9c_conventional_protocol : IGProtocol pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- VINIT
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- AFWD
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- FSPLIT
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- EVALT
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- EVALF
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- CLINK
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- CLINK
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- ENGAGR
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- FFUSE
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- AREV
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- IMSCRIB
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- TANCH
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- IFIX
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- AFWD
+  (.seq (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0)  -- EVALT
+  (.arrow pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0 pin_to_a_specific_object_make_compute_8c3e9c_s0))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem pin_to_a_specific_object_make_compute_8c3e9c_conventional_protocol_depth : pin_to_a_specific_object_make_compute_8c3e9c_conventional_protocol.depth = 16 := by
+  native_decide
+

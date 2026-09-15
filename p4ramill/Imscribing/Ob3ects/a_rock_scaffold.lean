@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -116,3 +117,48 @@ def a_rock_tier : OuroboricityTier := TierFunctor.obj a_rock_s0
 theorem a_rock_frobenius :
     igFrobeniusAlg.mul a_rock_s0 a_rock_s0 = a_rock_s0 :=
   igFrobAlg_self_fusion a_rock_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: a rock)
+--   Word: ⊢⊙≻⊡∈⊤⋈⊞⊥≺∋⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def a_rock_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IFIX", "FSPLIT", "EVALT", "CLINK", "ENGAGR", "EVALF", "AREV", "FFUSE", "IMSCRIB", "IFIX", "TANCH"]
+
+def a_rock_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf a_rock_opcodes
+
+def a_rock_glyph_word : String := glyphWordOf a_rock_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem a_rock_register_length : a_rock_conventional_register.length = 14 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem a_rock_register_matches_word : a_rock_glyph_word = "⊢⊙≻⊡∈⊤⋈⊞⊥≺∋⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def a_rock_conventional_protocol : IGProtocol a_rock_s0 a_rock_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- VINIT
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- IMSCRIB
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- AFWD
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- IFIX
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- FSPLIT
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- EVALT
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- CLINK
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- ENGAGR
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- EVALF
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- AREV
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- FFUSE
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- IMSCRIB
+  (.seq (.arrow a_rock_s0 a_rock_s0 a_rock_s0)  -- IFIX
+  (.arrow a_rock_s0 a_rock_s0 a_rock_s0))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 14 arrows. -/
+theorem a_rock_conventional_protocol_depth : a_rock_conventional_protocol.depth = 14 := by
+  native_decide
+

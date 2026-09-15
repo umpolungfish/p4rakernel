@@ -168,6 +168,35 @@ theorem the_primitive_type_called_out_frobenius :
 /-- 'out' belongs to the Polarity family at ordinal 2 -/
 def the_primitive_type_called_out_family : String := "Polarity"
 def the_primitive_type_called_out_ordinal : Nat := 2
+
+/-- The CLINK L8 fragment for 'out' (≺ = 𐑬), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_out_clinkFragmentL8 : String := "ℤ₂(x) ∧ ¬(x = -x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_out_proximityL8 : String := "close"
+def the_primitive_type_called_out_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_out_clinkFragmentL9 : String := "ℤ₂(x) ∧ ¬(x = -x) — parity of moat"
+def the_primitive_type_called_out_proximityL9 : String := "match"
+def the_primitive_type_called_out_promotedAtomL9 : String := "MOAT_PARITY"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_out_conventionalReading : String := "a nonzero element of a ℤ₂-graded module in characteristic ≠ 2."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_out_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_out_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_out_bootstrapSteps : Nat := 22
 
 end Imscribing.Primitives.Types

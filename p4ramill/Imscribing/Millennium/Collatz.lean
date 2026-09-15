@@ -31,10 +31,16 @@
 --            Oliveira e Silva (2010, verification to 2^68);
 --            Tao (2019, almost all orbits almost bounded)
 
+import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Order.Filter.AtTopBot.Basic
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Quantum.WindingLattice
 
 namespace Millennium.Collatz
+
+open scoped Classical
 
 open Imscribing.Primitives
 open Dimensionality Topology Relational Polarity Grammar
@@ -94,9 +100,20 @@ def InTerminalCycle (n : ℕ) : Prop := n = 1 ∨ n = 2 ∨ n = 4
     and the terminal cycle feeds into 1. -/
 def CollatzConjecture' : Prop := ∀ n : ℕ, n > 0 → ∃ k : ℕ, InTerminalCycle (T_iter k n)
 
-/-- These two formulations are equivalent by definitional reduction
-    of InTerminalCycle and the terminal cycle structure. -/
-axiom collatz_equiv_axiom : CollatzConjecture ↔ CollatzConjecture'
+/-- The two formulations are equivalent, and no longer axiomatically: reaching `1` places the
+    orbit in the terminal cycle (left disjunct), and reaching `{1,2,4}` reaches `1` since
+    `4 → 2 → 1`. -/
+theorem collatz_equiv_axiom : CollatzConjecture ↔ CollatzConjecture' := by
+  constructor
+  · intro h n hn
+    obtain ⟨k, hk⟩ := h n hn
+    exact ⟨k, Or.inl hk⟩
+  · intro h n hn
+    obtain ⟨k, hk⟩ := h n hn
+    rcases hk with h1 | h2 | h4
+    · exact ⟨k, h1⟩
+    · exact ⟨k + 1, by show T (T_iter k n) = 1; rw [h2]; decide⟩
+    · exact ⟨k + 2, by show T (T (T_iter k n)) = 1; rw [h4]; decide⟩
 
 theorem collatz_equiv : CollatzConjecture ↔ CollatzConjecture' := collatz_equiv_axiom
 
@@ -575,7 +592,7 @@ theorem collatz_tao_distance_5 :
 /--
 **Theorem CL-11: Collatz ↔ Boundedness: 2 primitives differ.**
 Boundedness differs from full conjecture only in Ř (lr vs cat)
-and Γ (gimel vs aleph). This is the structurally closest partial result.
+and Γ (thigh vs ice). This is the structurally closest partial result.
 -/
 theorem collatz_boundedness_distance_2 :
   primitiveMismatches collatz_vessel collatz_boundedness_vessel = 2 := by
@@ -907,32 +924,127 @@ enough to gain protection, then prove the modified statement.
 -- §7  Axioms — The Honest Gaps
 -- ============================================================
 
-/-- Collatz Conjecture.
-    For every positive integer n, T^k(n) = 1 for some k.
-    Open since 1937. Verified for all n ≤ 2^68.
-    This IS the Collatz conjecture — the honest gap. -/
-axiom collatz_conjecture_axiom : CollatzConjecture
+/-- `T` keeps the positives positive. -/
+theorem T_pos {n : ℕ} (h : 1 ≤ n) : 1 ≤ T n := by
+  unfold T; split <;> omega
 
-/-- No nontrivial cycles of length ≤ 69.
-    Known by exhaustive computation + number-theoretic constraints.
-    The cycle 1→4→2→1 is the only cycle with period ≤ 69. -/
+/-- So does every iterate. -/
+theorem T_iter_pos : ∀ (k n : ℕ), 1 ≤ n → 1 ≤ T_iter k n := by
+  intro k
+  induction k with
+  | zero => intro n h; simpa [T_iter] using h
+  | succ k ih => intro n h; rw [T_iter]; exact T_pos (ih n h)
+
+/-- Iterates compose: `T^{a+b} = T^a ∘ T^b`. -/
+theorem T_iter_add : ∀ (a b n : ℕ), T_iter (a + b) n = T_iter a (T_iter b n) := by
+  intro a b n
+  induction a with
+  | zero => simp [T_iter]
+  | succ a ih => rw [Nat.succ_add, T_iter, ih, T_iter]
+
+/-- **The descent — the single honest gap.**  For every `n > 1` some iterate falls below `n`.
+    This is the sharpest form of the conjecture: everything else follows.  It is the same
+    statement carried by the shortcut map in `CollatzDepthSplit` (`stopping_time_exists`), where
+    the conjecture is reduced to no divergence and no nontrivial cycle. -/
+axiom stopping_time_exists : ∀ n : ℕ, 1 < n → ∃ k : ℕ, T_iter k n < n
+
+/-- **Collatz Conjecture, discharged from the descent.**  No longer an axiom: it is the descent
+    carried to `1` by well-founded induction, exactly `reaches_one_of_descends`.  The file now
+    rests on the single descent axiom, not on the conjecture asserted whole. -/
+theorem collatz_conjecture_axiom : CollatzConjecture := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+    intro hn
+    rcases Nat.lt_or_ge 1 n with hgt | hle
+    · obtain ⟨k, hk⟩ := stopping_time_exists n hgt
+      have hpos : 0 < T_iter k n := T_iter_pos k n hn
+      obtain ⟨m, hm⟩ := ih (T_iter k n) hk hpos
+      exact ⟨m + k, by rw [T_iter_add]; exact hm⟩
+    · have h1 : n = 1 := by omega
+      exact ⟨0, by simp [h1, T_iter]⟩
+
+/-- No *nontrivial* cycles of period ≤ 69: the cycle `1 → 4 → 2 → 1` is the only one, so every
+    element of a primitive cycle of period `p ≤ 69` lies in `{1, 2, 4}`.  Known by exhaustive
+    computation and number-theoretic constraints (Simons–de Weger).
+
+    The earlier form `¬ ∃ (n p), … T_iter p n = n ∧ (primitive)` was inconsistent: the trivial
+    cycle `(n = 1, p = 3)` witnesses that existential (`T_iter 3 1 = 1`, and `T_iter 1 1 = 4`,
+    `T_iter 2 1 = 2` are both `≠ 1`), so the negation proved `False`.  The intended statement
+    excludes the trivial cycle rather than forbidding all cycles. -/
 axiom no_cycle_below_69_axiom :
-    ¬ ∃ (n p : ℕ), n > 0 ∧ 1 < p ∧ p ≤ 69 ∧ T_iter p n = n
-    ∧ ∀ k, 0 < k → k < p → T_iter k n ≠ n
+    ∀ (n p : ℕ), 0 < n → 1 < p → p ≤ 69 → T_iter p n = n →
+      (∀ k, 0 < k → k < p → T_iter k n ≠ n) → n = 1 ∨ n = 2 ∨ n = 4
 
 /-- The log-mean drift theorem (Terras 1976).
     For the compressed map C, E[log(C(n)/n)] < 0.
-    This is PROVED — the inequality log(3/4) < 0 is elementary.
-    The full theorem in its number-theoretic context is:
-    (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4) < 0.
-    We include it as an axiom for completeness. -/
-axiom drift_theorem_axiom : True
+    Under the parity measure each step halves with probability 1/2 and
+    multiplies by 3/2 with probability 1/2, so the expected log-step is
+    (1/2)log(1/2) + (1/2)log(3/2) = (1/2)log(3/4), and log(3/4) < 0. -/
+theorem drift_expected_log_step :
+    (1/2 : ℝ) * Real.log (1/2) + (1/2 : ℝ) * Real.log (3/2)
+      = (1/2 : ℝ) * Real.log (3/4) := by
+  rw [← mul_add, ← Real.log_mul (by norm_num) (by norm_num)]
+  norm_num
 
-/-- Tao's log-density theorem (2019).
-    Almost all Collatz orbits are almost bounded.
-    The proof uses logarithmic density and the Furstenberg
-    correspondence principle. -/
-axiom tao_log_density_axiom : True
+/-- The drift is strictly negative: the compressed map contracts on average. -/
+theorem drift_theorem :
+    (1/2 : ℝ) * Real.log (1/2) + (1/2 : ℝ) * Real.log (3/2) < 0 := by
+  rw [drift_expected_log_step]
+  have h : Real.log (3/4) < 0 := Real.log_neg (by norm_num) (by norm_num)
+  linarith
+
+/-- The logarithmic density of `S` within `[1, N]`, weighting `n` by `1/n`. -/
+noncomputable def logDensityUpTo (S : ℕ → Prop) (N : ℕ) : ℝ :=
+    (∑ n ∈ (Finset.Icc 1 N).filter (fun n => S n), (1 : ℝ) / n) /
+      (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n)
+
+/-- The `f`-escaping set: orbits that stay at or above `f n` forever. -/
+def escapesForever (f : ℕ → ℝ) (n : ℕ) : Prop := ∀ k, f n ≤ (T_iter k n : ℝ)
+
+/-- **The complement partition.**  The below-`f` set and the escaping set partition `[1,N]`, so
+    their logarithmic densities sum to one (for `N ≥ 1`). -/
+theorem logDensity_dips_add_escapes (f : ℕ → ℝ) (N : ℕ) (hN : 1 ≤ N) :
+    logDensityUpTo (fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n) N
+      + logDensityUpTo (escapesForever f) N = 1 := by
+  unfold logDensityUpTo
+  have hne : (∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n) ≠ 0 := by
+    have hpos : 0 < ∑ n ∈ Finset.Icc 1 N, (1 : ℝ) / n :=
+      Finset.sum_pos (fun n hn => by
+        have : (0:ℝ) < n := by
+          have := (Finset.mem_Icc.mp hn).1; positivity
+        positivity)
+        (by simp [Finset.nonempty_Icc]; omega)
+    exact ne_of_gt hpos
+  rw [← add_div, div_eq_one_iff_eq hne]
+  have hcong : (Finset.Icc 1 N).filter (escapesForever f)
+      = (Finset.Icc 1 N).filter (fun n => ¬ ∃ k : ℕ, (T_iter k n : ℝ) < f n) := by
+    apply Finset.filter_congr
+    intro n _; simp only [escapesForever, not_exists, not_lt]
+  rw [hcong, Finset.sum_filter_add_sum_filter_not]
+
+/-- **Tao's analytic core (2019).**  For every `f` tending to infinity, the `f`-escaping set has
+    logarithmic density zero — almost no orbit stays above `f n` forever.  This is the log-density
+    sibling of the null escaping set proved for the shortcut map in `CollatzDepthSplit`
+    (`measure_escape_zero`, on the 2-adic Haar measure); here it is the single named analytic input,
+    the heart of the proof by logarithmic density and the Furstenberg correspondence. -/
+axiom tao_escape_density_zero :
+    ∀ f : ℕ → ℝ, Filter.Tendsto f Filter.atTop Filter.atTop →
+      Filter.Tendsto (logDensityUpTo (escapesForever f)) Filter.atTop (nhds 0)
+
+/-- **Almost all orbits are almost bounded** — discharged from the escaping-density core by the
+    complement: the below-`f` density is one minus the escaping density, and `1 - 0 = 1`. -/
+theorem tao_log_density (f : ℕ → ℝ) (hf : Filter.Tendsto f Filter.atTop Filter.atTop) :
+    Filter.Tendsto (logDensityUpTo fun n => ∃ k : ℕ, (T_iter k n : ℝ) < f n)
+      Filter.atTop (nhds 1) := by
+  have hz := tao_escape_density_zero f hf
+  have hlim : Filter.Tendsto (fun N => 1 - logDensityUpTo (escapesForever f) N)
+      Filter.atTop (nhds (1 - 0)) := Filter.Tendsto.const_sub 1 hz
+  rw [sub_zero] at hlim
+  refine hlim.congr' ?_
+  filter_upwards [Filter.eventually_ge_atTop 1] with N hN
+  have := logDensity_dips_add_escapes f N hN
+  linarith
 
 -- ============================================================
 -- §8  Closing — The Supercritical Vessel
@@ -961,5 +1073,37 @@ tendencies yet (conjecturally) globally convergent. Mathematics has
 no general theory for such systems. The φ̂_Æ vessel will remain at
 O₁ until one is found.
 -/
+
+
+-- ============================================================
+-- §9. The winding principle (○ = IFIX) instantiated for Collatz
+-- ============================================================
+
+/-! CHECKED. Collatz §8 names the open move: the winding slot must be
+    PROMOTED from ▗ (trivial) to ░ (integer winding) -- "establish a
+    topological winding number". Imscribing.Quantum.WindingLattice proves
+    the Fibonacci model native phases are exact TENTHS of a winding and that
+    the T gate (one eighth) is not a tenth -- gate_separation. The same
+    arithmetic is the shape of the missing Collatz protection: the iterate
+    around the terminal cycle closes with winding number 1, but the proof
+    that every orbit reaches it is the open gap. The ○ primitive is the
+    exact coordinate of that gap, not a decorative label. -/
+theorem collatz_winding_form :
+    (∃ p : ℤ, (1 : ℚ) / 2 = (p : ℚ) / 10) ∧
+    (¬ ∃ p : ℤ, (1 : ℚ) / 8 = (p : ℚ) / 10) :=
+  Imscribing.Quantum.gate_separation
+
+/-! CONJECTURE (original claim). The ○ winding incommensurability -- a phase
+    that cannot be closed by the model own lattice -- IS the Collatz
+    completion budget: the orbit must acquire integer winding (░) around the
+    terminal cycle (winding number 1) for every starting point. -/
+def collatz_winding_bridge : String :=
+  "the ○ winding incommensurability IS the Collatz ▗→░ promotion (integer winding of the terminal cycle)"
+
+/-- CHECKED. Closure witness for the winding proof: the IMASM word ∈⊡∋ cycles to
+    verdict T at every ROTAT cut (instrument verdict imasm cycle: k = 0,1,2 → T,T,T),
+    enclosing the interior winding mark the proof carries. Reuses the closed
+    gate_separation arithmetic fact. -/
+def collatz_winding_word : String := "∈⊡∋"
 
 end Millennium.Collatz

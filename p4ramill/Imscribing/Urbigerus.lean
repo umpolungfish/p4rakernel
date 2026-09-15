@@ -31,8 +31,9 @@ def urbigerus_aphorisms : Imscription :=
 #eval urbigerus_aphorisms
 
 -- Tier verification
+namespace Imscribing.Urbigerus
 def tier : String := "O₁"
-
+end Imscribing.Urbigerus
 -- Key invariant: three ways from one first matter
 -- T=𐑶 captures the box-product topology of parallel paths
 -- F=𐑐 captures the undetermined (superposed) nature of the first matter

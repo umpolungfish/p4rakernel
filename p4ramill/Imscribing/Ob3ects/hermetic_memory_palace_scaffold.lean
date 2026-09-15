@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem hermetic_memory_palace_the_ars_memoria_0b6817_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Hermetic memory palace: the ars memoria where a practitioner constructs an imaginary building and places vivid images in its rooms to encode knowledge. FSPLIT: the orator walks through the palace, splitting a unified argument into loci — each room holds one image encoding one point. FFUSE: walking the palace in reverse order reconstitutes the loci back into the complete argument for delivery. VINIT: the empty, unbuilt palace. TANCH: the palace walls — the boundary containing all memory. AFWD: walking forward (encoding). AREV: walking backward (retrieval). ENGAGR: the memory image is simultaneously the thing itself (vivid presence) and a symbol for something else — the paradox of mnemonic representation.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def hermetic_memory_palace_the_ars_memoria_0b6817_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def hermetic_memory_palace_the_ars_memoria_0b6817_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf hermetic_memory_palace_the_ars_memoria_0b6817_opcodes
+
+def hermetic_memory_palace_the_ars_memoria_0b6817_glyph_word : String := glyphWordOf hermetic_memory_palace_the_ars_memoria_0b6817_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem hermetic_memory_palace_the_ars_memoria_0b6817_register_length : hermetic_memory_palace_the_ars_memoria_0b6817_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem hermetic_memory_palace_the_ars_memoria_0b6817_register_matches_word : hermetic_memory_palace_the_ars_memoria_0b6817_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def hermetic_memory_palace_the_ars_memoria_0b6817_conventional_protocol : IGProtocol hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- IMSCRIB
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- AREV
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- FSPLIT
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- AFWD
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- FFUSE
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- CLINK
+  (.seq (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0)  -- IFIX
+  (.arrow hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0 hermetic_memory_palace_the_ars_memoria_0b6817_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem hermetic_memory_palace_the_ars_memoria_0b6817_conventional_protocol_depth : hermetic_memory_palace_the_ars_memoria_0b6817_conventional_protocol.depth = 8 := by
+  native_decide
+

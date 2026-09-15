@@ -29,7 +29,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 /-- G2 (the Vessel) IG imscribing:
 $\langle D_\triangle;\ T_\bowtie;\ R_\leftrightarrow;\ P_\pm;$
-$F_\hbar;\ K_\text{slow};\ G_\gimel;\ \Gamma_\wedge;\ \monad;$
+$F_\hbar;\ K_\text{slow};\ G_\thigh;\ \Gamma_\wedge;\ \monad;$
 $H_0;\ 1{:}1;\ \awe \rangle$
 
 Justification:
@@ -40,7 +40,7 @@ Justification:
 - $P_\pm$: $\mathbb{Z}_2$ duality (short/long root symmetry)
 - $F_\hbar$: Quantum coherence (non-associativity is phase interference)
 - $K_\text{slow}$: Near-equilibrium stabilizer
-- $G_\gimel$: Mesoscale (octonion automorphism scope)
+- $G_\thigh$: Mesoscale (octonion automorphism scope)
 - $\Gamma_\wedge$: Conjunctive (all 12 roots simultaneous)
 - $\monad$: Critical boundary between classical/exceptional
 - $H_0$: Atemporal static symmetry
@@ -66,7 +66,7 @@ def g2_vessel : Imscription := {
 
 /-- E8 (the Aether) IG imscribing:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\psi;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
+$K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Justification (from Aether_Vessel.md):
@@ -78,7 +78,7 @@ Justification (from Aether_Vessel.md):
 - $P_\psi$: Quantum superposition (112 integer + 128 half-integer weights)
 - $F_\hbar$: Quantum coherence
 - $K_\text{slow}$: Near-equilibrium algebraic definition
-- $G_\aleph$: Maximal scope (terminal object in exceptional category)
+- $ice$: Maximal scope (terminal object in exceptional category)
 - $\Gamma_\text{seq}$: Sequential construction
   ($G_2 \to F_4 \to E_6 \to E_7 \to E_8$ chain)
 - $\monad$: Exact criticality (shared with G2)
@@ -116,7 +116,7 @@ from bare E8 only in the P primitive: $P_\psi \to P_\pm$.
 
 Structure:
 $\langle D_\infty;\ T_\bowtie;\ R_\leftrightarrow;\ P_\pm;\ F_\hbar;$
-$K_\text{slow};\ G_\aleph;\ \Gamma_\text{seq};\ \monad;\ H_2;$
+$K_\text{slow};\ ice;\ \Gamma_\text{seq};\ \monad;\ H_2;$
 $n{:}m;\ \Omega_\mathbb{Z} \rangle$
 
 Distance from bare E8: exactly 1 (solely P primitive).
@@ -153,7 +153,7 @@ the Aether without residue. P is the bottleneck: $G2$'s $P_\pm$
 bottlenecks down to E8's $P_\psi$ (weaker partner wins under $\otimes$).
 
 - Union primitives ($\max$): $D=\infty$, $T=\bowtie$, $R=\leftrightarrow$,
-  $G=\aleph$, $\Gamma=\text{seq}$, $H=2$, $S=n{:}m$, $\Omega=\mathbb{Z}$
+  $G=\ice$, $\Gamma=\text{seq}$, $H=2$, $S=n{:}m$, $\Omega=\mathbb{Z}$
 - Bottleneck ($\min$): $P=\min(P_\pm, P_\psi) = P_\psi$ (E8 dominates)
 - Result is structurally identical to E8 -/
 theorem tensor_G2_E8_eq_E8 :

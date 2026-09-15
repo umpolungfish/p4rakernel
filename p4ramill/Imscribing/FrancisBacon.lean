@@ -31,8 +31,12 @@ def francis_bacon_sulphur_mercury : Imscription :=
 #eval francis_bacon_sulphur_mercury
 
 -- Tier
+-- Namespaced. Four scaffolds each declared a bare root-level `tier`, so any
+-- two of them were mutually unimportable: the environment refuses the second.
+-- Each module compiled ALONE, which is why `lake build` never said so.
+namespace Imscribing.FrancisBacon
 def tier : String := "O₁"
-
+end Imscribing.FrancisBacon
 -- Key invariants:
 -- T=𐑥: two families cross-classifying phenomena at four levels
 -- P=𐑬: partial symmetry between Sulphur and Mercury

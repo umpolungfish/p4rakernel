@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -96,3 +97,44 @@ def superposition_tier : OuroboricityTier := TierFunctor.obj superposition_s0
 theorem superposition_frobenius :
     igFrobeniusAlg.mul superposition_s0 superposition_s0 = superposition_s0 :=
   igFrobAlg_self_fusion superposition_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: superposition)
+--   Word: ⊢≻⊞∈⊤⊥⊙∋⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def superposition_opcodes : List String := ["VINIT", "AFWD", "ENGAGR", "FSPLIT", "EVALT", "EVALF", "IMSCRIB", "FFUSE", "CLINK", "IFIX"]
+
+def superposition_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf superposition_opcodes
+
+def superposition_glyph_word : String := glyphWordOf superposition_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem superposition_register_length : superposition_conventional_register.length = 10 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem superposition_register_matches_word : superposition_glyph_word = "⊢≻⊞∈⊤⊥⊙∋⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def superposition_conventional_protocol : IGProtocol superposition_s0 superposition_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- VINIT
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- AFWD
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- ENGAGR
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- FSPLIT
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- EVALT
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- EVALF
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- IMSCRIB
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- FFUSE
+  (.seq (.arrow superposition_s0 superposition_s0 superposition_s0)  -- CLINK
+  (.arrow superposition_s0 superposition_s0 superposition_s0))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 10 arrows. -/
+theorem superposition_conventional_protocol_depth : superposition_conventional_protocol.depth = 10 := by
+  native_decide
+

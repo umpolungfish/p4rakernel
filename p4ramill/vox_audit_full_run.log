@@ -1,0 +1,800 @@
+── vox ELF audit: 610 Lean module(s) compiled and swept
+   compiled+audited: 610   compile failures: 0   non-elf results: 0
+   T=1152  B=13167  N=109688  F=0
+   full per-module report: /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/vox_native/report.tsv
+
+── repair pass: 610 flagged module(s), capped at 40 function(s) (VOX_AUDIT_REPAIR_MAX to change)
+  Imscribing/AFDMC_MBL_Cohomology.o:
+  -- 0x0  verdict B --
+  word: ⊢⋈⋈⊞⋈⋈⊤∈⊞⋈≻⋈≻⋈≺⋈⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⊞⋈≻⋈≻⋈∋⋈⊞⋈⊣
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊣ TANCH   terminal anchor ⊤ — the closed boundary containing the whole system
+  repair (insert, via mOMonadOS):
+    word   : ⊢⋈⋈⊞⋈⋈⊤∈⊞⋈≻⋈≻⋈≺⋈⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⊞⋈≻⋈≻⋈∋⋈⊞⋈⊣   length 148
+      already holds — nothing to repair
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  -- 0x3a  verdict B --
+  word: ⊢∈
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+  repair (insert, via mOMonadOS):
+    word   : ⊢∈   length 2
+      vacuous: no clear ever fired, so nothing is at risk
+      insertions that hold:
+        none — no single glyph repairs this word without breaking tri-ancestral closure
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  -- 0x5d  verdict B --
+  word: ⊢⊡⊡∈
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⊡ IFIX    ROM fixation — permanent, append-only, cannot be undone
+    ⊡ IFIX    ROM fixation — permanent, append-only, cannot be undone
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+  repair (insert, via mOMonadOS):
+    word   : ⊢⊡⊡∈   length 4
+      vacuous: no clear ever fired, so nothing is at risk
+      insertions that hold:
+        none — no single glyph repairs this word without breaking tri-ancestral closure
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  -- 0xf6  verdict B --
+  word: ⊢⊡∈
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⊡ IFIX    ROM fixation — permanent, append-only, cannot be undone
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+  repair (insert, via mOMonadOS):
+    word   : ⊢⊡∈   length 3
+      vacuous: no clear ever fired, so nothing is at risk
+      insertions that hold:
+        none — no single glyph repairs this word without breaking tri-ancestral closure
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  Imscribing/Agricola.o:
+  -- 0x0  verdict B --
+  word: ⊢⋈⋈⊞⋈⋈⊤∈⊞⋈≻⋈≻⋈≺⋈⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻⊞⋈≻⋈≻⋈∋⋈⊞⋈⊣
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊣ TANCH   terminal anchor ⊤ — the closed boundary containing the whole system
+  repair (insert, via mOMonadOS):
+    word   : ⊢⋈⋈⊞⋈⋈⊤∈⊞⋈≻⋈≻⋈≺⋈⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻⋈≻⋈⋈≻⊤∈≺⋈⋈≺⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻≻⋈⋈≻⊞⋈≻⋈≻⋈∋⋈⊞⋈⊣   length 82
+      already holds — nothing to repair
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  -- 0x3a  verdict B --
+  word: ⊢∈
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+  repair (insert, via mOMonadOS):
+    word   : ⊢∈   length 2
+      vacuous: no clear ever fired, so nothing is at risk
+      insertions that hold:
+        none — no single glyph repairs this word without breaking tri-ancestral closure
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  -- 0x8f  verdict B --
+  word: ⊢⊡⊡∈
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⊡ IFIX    ROM fixation — permanent, append-only, cannot be undone
+    ⊡ IFIX    ROM fixation — permanent, append-only, cannot be undone
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+  repair (insert, via mOMonadOS):
+    word   : ⊢⊡⊡∈   length 4
+      vacuous: no clear ever fired, so nothing is at risk
+      insertions that hold:
+        none — no single glyph repairs this word without breaking tri-ancestral closure
+    
+  repair (combo2, every rotation, via mOMonadOS):
+    no rotation produced a repair (checked every distinct rotation)
+  Imscribing/Algebra.o:
+  -- 0x0  verdict B --
+  word: ⊢⋈⋈⊞⋈⋈⋈⋈≻⋈⋈⊤∈⋈⊞≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⊞≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈≺⋈⊤∈⊞⋈≻⋈⋈⋈≺≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈≻⋈⋈⋈≺⊞⋈≻⋈⋈⋈≻⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈∋⋈⊞⋈⊣
+  decompose:
+    ⊢ VINIT   initial object ∅ — void/uninitialized state before anything is named
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊤ EVALT   touches constructive truth T (the affirmative arm)
+    ∈ FSPLIT  co-multiplication δ — one state opens into two or more arms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≺ AREV    contravariant ← — reverse/descent transformation
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ≻ AFWD    forward morphism → — directed transformation toward a target
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ∋ FFUSE   multiplication μ — the arms rejoin into one B4 verdict
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊞ ENGAGR  holds BOTH at once — the B state, a contradiction kept live
+    ⋈ CLINK   composition ∘ — sequential chaining of morphisms
+    ⊣ TANCH   terminal anchor ⊤ — the closed boundary containing the whole system
+  repair (insert, via mOMonadOS):
+    word   : ⊢⋈⋈⊞⋈⋈⋈⋈≻⋈⋈⊤∈⋈⊞≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⊞≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈≺⋈⊤∈⊞⋈≻⋈⋈⋈≺≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈≻⋈⋈⋈≺⊞⋈≻⋈⋈⋈≻⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈≻⋈⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈⋈≻⋈⋈⊤∈⋈⋈⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈⋈⋈≺∋⋈⋈⋈⋈≺⊞⋈≻⋈⋈⋈∋⋈⊞⋈⊣   length 465
+      already holds — nothing to repair
+    
+  repair (combo2, every rotation, via mOMonadOS):

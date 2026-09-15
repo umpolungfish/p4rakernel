@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -121,3 +122,49 @@ def muon_g2_anomaly_tier : OuroboricityTier := TierFunctor.obj muon_g2_anomaly_s
 theorem muon_g2_anomaly_frobenius :
     igFrobeniusAlg.mul muon_g2_anomaly_s0 muon_g2_anomaly_s0 = muon_g2_anomaly_s0 :=
   igFrobAlg_self_fusion muon_g2_anomaly_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: muon g2 anomaly)
+--   Word: ⊢⊙≻⋈⋈⋈⋈∈⊤⊥⊞∋⊡≺⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def muon_g2_anomaly_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "CLINK", "CLINK", "CLINK", "CLINK", "FSPLIT", "EVALT", "EVALF", "ENGAGR", "FFUSE", "IFIX", "AREV", "TANCH"]
+
+def muon_g2_anomaly_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf muon_g2_anomaly_opcodes
+
+def muon_g2_anomaly_glyph_word : String := glyphWordOf muon_g2_anomaly_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem muon_g2_anomaly_register_length : muon_g2_anomaly_conventional_register.length = 15 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem muon_g2_anomaly_register_matches_word : muon_g2_anomaly_glyph_word = "⊢⊙≻⋈⋈⋈⋈∈⊤⊥⊞∋⊡≺⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def muon_g2_anomaly_conventional_protocol : IGProtocol muon_g2_anomaly_s0 muon_g2_anomaly_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- VINIT
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- IMSCRIB
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- AFWD
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- CLINK
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- CLINK
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- CLINK
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- CLINK
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- FSPLIT
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- EVALT
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- EVALF
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- ENGAGR
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- FFUSE
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- IFIX
+  (.seq (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)  -- AREV
+  (.arrow muon_g2_anomaly_s0 muon_g2_anomaly_s0 muon_g2_anomaly_s0)))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 15 arrows. -/
+theorem muon_g2_anomaly_conventional_protocol_depth : muon_g2_anomaly_conventional_protocol.depth = 15 := by
+  native_decide
+

@@ -347,4 +347,75 @@ def fdeTowerImscription : Imscription :=
 theorem fdeTower_tier : imscriptionTier fdeTowerImscription = OuroboricityTier.O_inf := by
   native_decide
 
+-- ============================================================================
+-- §9  DESCENT — the retraction paired with fdeEmbed
+-- ============================================================================
+--
+-- §4 gives the ascent: fdeEmbed k n hkn : FDEN k → FDEN n, injective, proper
+-- for adjacent steps. It has no partner going the other way. This section
+-- gives one: fdeRestrict cuts a deeper tier's register down to a shallower
+-- one, and the two compose to the identity on the shallow side — μ∘δ = id
+-- for the FDE tower, concretely, at any depth k ≤ n, not just asserted of
+-- the twelve-opcode fork/fuse dyad in the abstract.
+
+/-- Restrict FDE(n) down to FDE(k) for k ≤ n. A middle value already inside
+    range k keeps its index; a middle value only reachable at the deeper
+    tier (index ≥ k) collapses to top — the "cannot distinguish beyond this
+    depth" pole. This is the partition fdeEmbed's image and non-image split
+    into, read off the register itself rather than declared separately. -/
+def fdeRestrict (n k : ℕ) (hkn : k ≤ n) (x : FDEN n) : FDEN k :=
+  match x with
+  | .bot => .bot
+  | .mid i => if h : i.val < k then .mid ⟨i.val, h⟩ else .top
+  | .top => .top
+
+theorem fdeRestrict_bot (n k : ℕ) (hkn : k ≤ n) : fdeRestrict n k hkn .bot = .bot := rfl
+theorem fdeRestrict_top (n k : ℕ) (hkn : k ≤ n) : fdeRestrict n k hkn .top = .top := rfl
+
+/-- The round trip: descend after ascending recovers the input, at any depth.
+    fdeRestrict ∘ (fdeEmbed k n) = id on FDEN k. fdeEmbed is the ascent
+    (more information, deeper scale); fdeRestrict is the descent (the arm
+    rejoining what it came from). This is μ∘δ = id, instantiated. -/
+theorem fdeRestrict_fdeEmbed_id (n k : ℕ) (hkn : k ≤ n) (x : FDEN k) :
+    fdeRestrict n k hkn (fdeEmbed k n hkn x) = x := by
+  cases x with
+  | bot => rfl
+  | mid i =>
+    simp only [fdeEmbed, fdeRestrict, Fin.val_castLE]
+    rw [dif_pos i.is_lt]
+  | top => rfl
+
+/-- The descent is a genuine coarsening, not a second bijection: for k < n,
+    top and the deepest reachable middle value both restrict to top. The
+    round trip only holds starting from the shallow side; descent alone
+    loses exactly what the deeper tier added. -/
+theorem fdeRestrict_not_injective (n k : ℕ) (hkn : k < n) :
+    ¬ Function.Injective (fdeRestrict n k (le_of_lt hkn)) := by
+  intro hinj
+  have heq : fdeRestrict n k (le_of_lt hkn) FDEN.top
+           = fdeRestrict n k (le_of_lt hkn) (FDEN.mid (⟨k, hkn⟩ : Fin n)) := by
+    show (FDEN.top : FDEN k)
+       = (if h : (⟨k, hkn⟩ : Fin n).val < k then FDEN.mid ⟨(⟨k, hkn⟩ : Fin n).val, h⟩ else FDEN.top)
+    rw [dif_neg (lt_irrefl k)]
+  have hcontra := hinj heq
+  simp at hcontra
+
+/-- Composite descent across several tiers is the single descent by
+    transitivity of the arity order: restricting from n to k directly is the
+    same as restricting from n to any intermediate j and then to k. This is
+    what makes an arbitrary-depth walk well defined — the route taken
+    through intermediate tiers does not matter, only the endpoints. -/
+theorem fdeRestrict_trans (n j k : ℕ) (hjn : j ≤ n) (hkj : k ≤ j) (x : FDEN n) :
+    fdeRestrict j k hkj (fdeRestrict n j hjn x) = fdeRestrict n k (le_trans hkj hjn) x := by
+  cases x with
+  | bot => rfl
+  | top => rfl
+  | mid i =>
+    by_cases hik : i.val < k
+    · have hij : i.val < j := lt_of_lt_of_le hik hkj
+      simp only [fdeRestrict, dif_pos hij, dif_pos hik]
+    · by_cases hij : i.val < j
+      · simp only [fdeRestrict, dif_pos hij, dif_neg hik]
+      · simp only [fdeRestrict, dif_neg hij, dif_neg hik]
+
 end Imscribing.Paraconsistent.FDEAsymptotic

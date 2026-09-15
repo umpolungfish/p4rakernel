@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem chaos_magic_servitor_an_artificial_84ab23_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Chaos magic servitor: an artificial spirit created by the magician from their own psychic energy, given a specific task and a finite lifespan. FSPLIT: the magician expels the servitor from their psyche, splitting one consciousness into the magician's waking awareness and the servitor's autonomous mission-awareness. FFUSE: when the servitor completes its task or its lifespan expires, it is reabsorbed — the magician's psyche reconstitutes with the servitor's experience integrated. VINIT: the magician before any creation. TANCH: the servitor's sigil as its life-boundary. AFWD: servitor dispatched to its task. AREV: servitor recalled for absorption. ENGAGR: the servitor is simultaneously part of the magician (same psychic substance) and independent (has its own apparent agency).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def chaos_magic_servitor_an_artificial_84ab23_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def chaos_magic_servitor_an_artificial_84ab23_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf chaos_magic_servitor_an_artificial_84ab23_opcodes
+
+def chaos_magic_servitor_an_artificial_84ab23_glyph_word : String := glyphWordOf chaos_magic_servitor_an_artificial_84ab23_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem chaos_magic_servitor_an_artificial_84ab23_register_length : chaos_magic_servitor_an_artificial_84ab23_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem chaos_magic_servitor_an_artificial_84ab23_register_matches_word : chaos_magic_servitor_an_artificial_84ab23_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def chaos_magic_servitor_an_artificial_84ab23_conventional_protocol : IGProtocol chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- IMSCRIB
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- AREV
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- FSPLIT
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- AFWD
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- FFUSE
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- CLINK
+  (.seq (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0)  -- IFIX
+  (.arrow chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0 chaos_magic_servitor_an_artificial_84ab23_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem chaos_magic_servitor_an_artificial_84ab23_conventional_protocol_depth : chaos_magic_servitor_an_artificial_84ab23_conventional_protocol.depth = 8 := by
+  native_decide
+

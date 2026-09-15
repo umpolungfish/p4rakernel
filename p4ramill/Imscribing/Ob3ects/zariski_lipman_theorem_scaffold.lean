@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def zariski_lipman_theorem_tier : OuroboricityTier := TierFunctor.obj zariski_li
 theorem zariski_lipman_theorem_frobenius :
     igFrobeniusAlg.mul zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 = zariski_lipman_theorem_s0 :=
   igFrobAlg_self_fusion zariski_lipman_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Zariski–Lipman Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⊡⊥≺⊡⊞∋⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def zariski_lipman_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "EVALF", "AREV", "IFIX", "ENGAGR", "FFUSE", "CLINK", "IMSCRIB", "TANCH"]
+
+def zariski_lipman_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf zariski_lipman_theorem_opcodes
+
+def zariski_lipman_theorem_glyph_word : String := glyphWordOf zariski_lipman_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem zariski_lipman_theorem_register_length : zariski_lipman_theorem_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem zariski_lipman_theorem_register_matches_word : zariski_lipman_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⊡⊥≺⊡⊞∋⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def zariski_lipman_theorem_conventional_protocol : IGProtocol zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- VINIT
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- TANCH
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- AFWD
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- CLINK
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- FSPLIT
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- EVALT
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- AFWD
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- IFIX
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- EVALF
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- AREV
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- IFIX
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- ENGAGR
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- FFUSE
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- CLINK
+  (.seq (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)  -- IMSCRIB
+  (.arrow zariski_lipman_theorem_s0 zariski_lipman_theorem_s0 zariski_lipman_theorem_s0)))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem zariski_lipman_theorem_conventional_protocol_depth : zariski_lipman_theorem_conventional_protocol.depth = 17 := by
+  native_decide
+

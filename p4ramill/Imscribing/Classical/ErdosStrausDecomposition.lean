@@ -159,8 +159,17 @@ theorem class_three_exists (n : ℕ) (hn : n % 4 = 3) (hn2 : n ≥ 2) : Nonempty
 
 -- ── One congruence class open (F-face) ───────────────────
 
-theorem class_one_exists (n : ℕ) (hn : n % 4 = 1) (hn2 : n ≥ 2) : Nonempty (EgyptianDecomposition n) :=
-  sorry
+/-- **The open case, as a statement.** `n ≡ 1 (mod 4)` is the standing gap, and
+it was a `sorry` here. A `sorry` asserts what it stands under, so this one
+asserted the open conjecture and put every result in the file on `sorryAx` —
+including the three classes that are genuinely proved. As a Prop it claims
+nothing and the proved classes stand on their own. -/
+def ClassOneExists : Prop :=
+  ∀ n : ℕ, n % 4 = 1 → n ≥ 2 → Nonempty (EgyptianDecomposition n)
+
+theorem class_one_exists (hcited : ClassOneExists) (n : ℕ) (hn : n % 4 = 1) (hn2 : n ≥ 2) :
+    Nonempty (EgyptianDecomposition n) :=
+  hcited n hn hn2
 
 -- ── Structural cover (no sorries — the T-face) ────────────
 
@@ -170,6 +179,16 @@ theorem congruence_classes_cover (n : ℕ) : n % 4 = 0 ∨ n % 4 = 1 ∨ n % 4 =
 
 theorem structural_cover_is_complete (n : ℕ) (hn : n ≥ 2) : n % 4 = 0 ∨ n % 4 = 1 ∨ n % 4 = 2 ∨ n % 4 = 3 :=
   congruence_classes_cover n
+
+/-- And the conjecture is exactly that class away. -/
+theorem conjecture_of_class_one (hcited : ClassOneExists) : erdosStrausConjecture := by
+  intro n hn
+  rcases congruence_classes_cover n with h | h | h | h
+  · exact class_zero_exists n h hn
+  · exact hcited n h hn
+  · exact class_two_exists n h hn
+  · exact class_three_exists n h hn
+
 
 -- ── Incompleteness witness (the F-face) ──────────────────
 
@@ -182,10 +201,11 @@ theorem decomposition_mod4_two (n : ℕ) (hn : n % 4 = 2) (hn2 : n ≥ 2) : None
 theorem decomposition_mod4_three (n : ℕ) (hn : n % 4 = 3) (hn2 : n ≥ 2) : Nonempty (EgyptianDecomposition n) :=
   class_three_exists n hn hn2
 
--- Sorry count: 1 (class_one_exists — genuinely open)
--- Three of four congruence classes resolved: n≡0,2,3 mod 4 ✓
--- n≡1 mod 4 remains the open heart of the conjecture.
--- This file captures the structural boundary: case analysis is complete (T)
--- but the n≡1 construction is not (F), yielding the dialetheic TF state.
+-- Sorry count: 0. Three of four congruence classes are proved outright —
+-- n ≡ 0, 2, 3 (mod 4) — and n ≡ 1 (mod 4) is the open heart of the conjecture,
+-- carried as ClassOneExists rather than asserted. conjecture_of_class_one
+-- shows the whole conjecture follows from that one class, so the gap is
+-- located exactly. The case analysis is complete (T) and the construction for
+-- n ≡ 1 is absent (N, not F: it is unknown, not refuted).
 
 end Imscribing.Classical.ErdosStrausDecomposition

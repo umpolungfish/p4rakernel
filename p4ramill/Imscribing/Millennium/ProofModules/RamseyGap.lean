@@ -26,47 +26,44 @@ noncomputable def R3k (k : ℕ) : ℕ :=
     (∃ t : Finset (Fin N), Gᶜ.IsNClique (k + 1) t) }
 
 /-- Kim's lower bound (1995): R(3,k) ≥ c₁ k² / log(k) -/
-theorem kim_lower_bound : ∃ (c₁ : ℝ), c₁ > 0 ∧
+def KimLowerBound : Prop := ∃ c₁ : ℝ, 0 < c₁ ∧
   Tendsto (fun k : ℕ => (c₁ * (k : ℝ)^2 / Real.log (k : ℝ))) atTop atTop ∧
-  ∀ᶠ (k : ℕ) in atTop, (R3k k : ℝ) ≥ c₁ * (k : ℝ)^2 / Real.log (k : ℝ) := by
-  -- Uses the triangle removal lemma and random graph techniques
-  sorry
+  ∀ᶠ (k : ℕ) in atTop, (R3k k : ℝ) ≥ c₁ * (k : ℝ)^2 / Real.log (k : ℝ)
 
 /-- AKS upper bound (1980): R(3,k) ≤ c₂ k² / log(k) -/
-theorem aks_upper_bound : ∃ (c₂ : ℝ), c₂ > 0 ∧
-  ∀ᶠ (k : ℕ) in atTop, (R3k k : ℝ) ≤ c₂ * (k : ℝ)^2 / Real.log (k : ℝ) := by
-  -- Probabilistic deletion method applied to random graph G(n,p)
-  sorry
+def AksUpperBound : Prop := ∃ c₂ : ℝ, 0 < c₂ ∧
+  ∀ᶠ (k : ℕ) in atTop, (R3k k : ℝ) ≤ c₂ * (k : ℝ)^2 / Real.log (k : ℝ)
 
 /-- The asymptotic: R(3,k) = Θ(k² / log k) -/
-theorem ramsey_3k_asymptotic : ∃ (c₁ c₂ : ℝ), c₁ > 0 ∧ c₂ > 0 ∧
+theorem ramsey_3k_asymptotic (hkim : KimLowerBound) (haks : AksUpperBound) :
+  ∃ (c₁ c₂ : ℝ), c₁ > 0 ∧ c₂ > 0 ∧
   ∀ᶠ (k : ℕ) in atTop,
     c₁ * (k : ℝ)^2 / Real.log (k : ℝ) ≤ (R3k k : ℝ) ∧
     (R3k k : ℝ) ≤ c₂ * (k : ℝ)^2 / Real.log (k : ℝ) := by
-  obtain ⟨c₁, hc₁, _, ha⟩ := kim_lower_bound
-  obtain ⟨c₂, hc₂, hb⟩ := aks_upper_bound
+  obtain ⟨c₁, hc₁, _, ha⟩ := hkim
+  obtain ⟨c₂, hc₂, hb⟩ := haks
   refine ⟨c₁, c₂, hc₁, hc₂, ?_⟩
   filter_upwards [ha, hb] with k h1 h2
   exact ⟨h1, h2⟩
 
-/-- Main theorem: gaps between consecutive R(3,k) diverge -/
-theorem ramsey_3k_gap_diverges :
-  Tendsto (fun k : ℕ => (R3k (k+1) : ℝ) - (R3k k : ℝ)) atTop atTop := by
-  -- From R(3,k) = Θ(k²/log k), we get:
-  -- R(3,k+1) - R(3,k) ∼ (k+1)²/log(k+1) - k²/log(k)
-  -- The derivative of x²/log(x) is (2x·log(x) - x)/log²(x) → ∞ as x → ∞
-  -- So the gap grows as approximately 2k/log k → ∞
-  sorry
+/-- Gaps between consecutive R(3,k) diverge, as a statement. -/
+def RamseyGapDiverges : Prop :=
+  Tendsto (fun k : ℕ => (R3k (k+1) : ℝ) - (R3k k : ℝ)) atTop atTop
 
 /-- Effective gap computation for any given threshold -/
 noncomputable def gap_growth_rate (k : ℕ) : ℝ :=
   (2 * (k : ℝ)) / Real.log (k : ℝ)
 
-/-- The gap grows without bound -/
-theorem gap_unbounded : ∀ M : ℝ, ∃ K : ℕ, ∀ k ≥ K,
-  (R3k (k+1) : ℝ) - (R3k k : ℝ) > M := by
+/-- **This one is a consequence, not a second citation.** Divergence to `atTop`
+unfolds to exactly the eventual bound, so given `RamseyGapDiverges` the
+unbounded-gap statement is a theorem. -/
+theorem gap_unbounded (hcited : RamseyGapDiverges) : ∀ M : ℝ, ∃ K : ℕ, ∀ k ≥ K,
+    (R3k (k+1) : ℝ) - (R3k k : ℝ) > M := by
   intro M
-  -- By the asymptotic bound, gap ∼ 2k/log k → ∞
-  sorry
+  have h : ∀ᶠ k in Filter.atTop, (R3k (k+1) : ℝ) - (R3k k : ℝ) > M :=
+    hcited (Filter.eventually_gt_atTop M)
+  rw [Filter.eventually_atTop] at h
+  obtain ⟨K, hK⟩ := h
+  exact ⟨K, hK⟩
 
 end Millennium.ProofModules.RamseyGap
