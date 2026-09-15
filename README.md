@@ -6,7 +6,7 @@ The paraconsistent formalization layer of the **Imscribing Grammar**. Comprised 
 
 Self-referential Belnap FOUR $\cong$ $SIXTEEN_3$
 
-{$N,T,F,B$} $\mapsto$ {$4\odot4$} $\cong$ $16_3$
+$N,T,F,B$ $\mapsto$ $4\odot4$ $\cong$ $16_3$
 
 The closure condition  is $\mu\circ\delta = \mathrm{id}$
 
