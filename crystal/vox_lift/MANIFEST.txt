@@ -1,0 +1,27 @@
+crystal: vox_lift
+branch:  crystalline/vox-lift-2026-08-08
+date:    2026-08-08
+
+implementation
+  vox, single Rust crate, no external crates
+  source commit: 6e82809
+  contents: src/, corpus.c, build_corpus.sh, measure.py, and the two generators
+
+verdict engine, independently exercised
+  repo:   https://github.com/umpolungfish/momonad_os
+  commit: 3626769
+  verb:   fibqc verify   (the closure law as a boot-time check)
+
+generated, never retyped
+  gen_genetic_table.py  reads the formal development, emits the codon and
+                        amino-acid tables both the implementation and its
+                        checks use
+  gen_pyc_table.py      reads the running interpreter, emits opcode numbers,
+                        jump sets and inline-cache widths
+
+verification at crystallization
+  execution   130 function-input pairs against native, 13 functions,
+              5 optimisation levels, 2 widths, 0 disagreements
+  verdict     411 words against an independent engine, 0 disagreements
+  cpython     every code object of a stdlib module against dis, 0 differing words
+  self        the instrument on its own image, F = 0

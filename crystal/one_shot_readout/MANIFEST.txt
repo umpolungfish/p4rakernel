@@ -1,0 +1,18 @@
+crystal: one_shot_readout
+branch:  crystalline/one-shot-readout-2026-08-08
+date:    2026-08-08
+
+instantiation
+  repo:   https://github.com/umpolungfish/momonad_os
+  commit: 3626769
+  verbs:  oneshots | fibqc verify | bi <generators>
+
+verification surface at crystallization
+  oneshots       11 one-shots computed, of which the readout ones are
+    #1  ord_N(a) = r via winding_order: a=7, N=15, r=4, found
+    #7  Jones-invariant phase for a real ModExp braid: winding 137/250,
+        residual 4.78e-2, off_lattice, period 4
+    #8  the off-lattice phase behind the floor: no finite braid word lands
+        on it exactly
+    #9  Shor factoring via winding_period::factor: N=15, a=4, r=2, 3x5=15
+  fibqc verify   22 PASS

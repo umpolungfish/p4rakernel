@@ -1,0 +1,27 @@
+crystal: sic_moduli_conductor
+branch:  crystalline/sic-moduli-conductor-2026-08-08
+date:    2026-08-08
+
+instantiation
+  repo:   https://github.com/umpolungfish/momonad_os
+  commit: 3626769
+  module: src/d2048_exact_sic.rs
+  verbs:  d2048 exact | scaling | crossover | welch
+  dispatch: src/repl.rs, the "d2048" subcommand table
+
+data
+  d12_psi_uhi.pkl   recovered d=12 SIC fiducial, 12 coordinates as
+                    high-precision decimal string pairs (real, imaginary),
+                    unnormalised; normalise before use. All 143
+                    Weyl-Heisenberg overlaps saturate 1/(d+1) past 1e-200.
+
+lean
+  p4ramill/Imscribing/Millennium/SIC_D2048_Moduli.lean    zero axioms, zero sorries
+  p4ramill/Imscribing/Millennium/SIC_Moduli_Report.lean
+  verify_sic_moduli.sh
+
+verification surface at crystallization
+  fibqc verify         22 PASS
+  d2048 exact          monomial 0.000488281016884806, levels within 1.5e-13,
+                       product recovers sqrt(m_d) to 1.3e-11
+  d2048 welch          143/143 overlaps, worst deviation 6.4e-16 in f64
