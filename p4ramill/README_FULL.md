@@ -1,4 +1,4 @@
-# p4ramill — Paraconsistent MillenniumAnkh
+# p4ramill - Paraconsistent MillenniumAnkh
 
 **Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 
@@ -8,18 +8,18 @@ A complete port of the MillenniumAnkh formalization (Imscribing Grammar + 7 Clay
 
 ```
 p4ramill/
-├── Primitives/          — 14 files: Core, Crystal, Catalog, TierCrossing, ZFCt, etc.
+├── Primitives/          - 14 files: Core, Crystal, Catalog, TierCrossing, ZFCt, etc.
 ├── Imscribing/
-│   ├── Core/            — Algebra, Consciousness, AgentSelf, Frobenius, etc.
-│   ├── Classical/       — 18 files: combinatorial / number-theoretic results (see below)
-│   ├── Millennium/      — 91 files: RH, YM, Hodge, NS, PvsNP, BSD, OPN + proofs
-│   └── Paraconsistent/  — 34 files: Belnap logic, kernel bridge, Shor, QCI
-├── kernel_patches/      — The 4 C++ kernel modifications (reference copies)
-├── ParaconsistentMillennium.lean  — All 7 Clay + OPN at O_∞
-├── ParaconsistentKernelTest.lean  — Kernel behavior verification
-├── lakefile.toml        — Lake project config (165 modules)
-├── build_paraconsistent.sh        — Build script
-└── README.md            — This file
+│   ├── Core/            - Algebra, Consciousness, AgentSelf, Frobenius, etc.
+│   ├── Classical/       - 18 files: combinatorial / number-theoretic results (see below)
+│   ├── Millennium/      - 91 files: RH, YM, Hodge, NS, PvsNP, BSD, OPN + proofs
+│   └── Paraconsistent/  - 34 files: Belnap logic, kernel bridge, Shor, QCI
+├── kernel_patches/      - The 4 C++ kernel modifications (reference copies)
+├── ParaconsistentMillennium.lean  - All 7 Clay + OPN at O_∞
+├── ParaconsistentKernelTest.lean  - Kernel behavior verification
+├── lakefile.toml        - Lake project config (165 modules)
+├── build_paraconsistent.sh        - Build script
+└── README.md            - This file
 ```
 
 ## Build
@@ -133,19 +133,19 @@ Combinatorial and number-theoretic theorems formalized in `Imscribing/Classical/
 | N ≠ 5,6 | C(N,2)+1 | N(N−1)/2 + 1 |
 | N = 5,6 | C(N,2)+2 | N(N−1)/2 + 2 |
 
-**Definition of AP:** Strictly increasing arithmetic progression with positive difference d ≥ 1. Sets of size 1 or 2 are automatically APs. Constant progressions (d=0) are excluded — this matches the external BK computation used for upper bounds.
+**Definition of AP:** Strictly increasing arithmetic progression with positive difference d ≥ 1. Sets of size 1 or 2 are automatically APs. Constant progressions (d=0) are excluded - this matches the external BK computation used for upper bounds.
 
 **Status:** Lower bound fully verified (12 explicit constructions by `native_decide`).
 Upper bound: 5 axioms. 304 lines, *sans* sorry.  Builds clean (`lake build Imscribing.Classical.APIntersectingFamily`).
 
 **Proof structure:**
 - **Lower bound:** Star families (all subsets containing center c, size ≤3) achieve C(N,2)+1 for all N. N=5,6 have exceptional constructions (star at c=3 plus 3 size-4/5 sets, minus 2 conflicting size-3 sets) achieving the +2.
-- **Upper bound (N≤10):** Single axiom `upper_bound_small_N` — Bron–Kerbosch max-clique on the 2^N−1 intersection graph, verified in Python.
+- **Upper bound (N≤10):** Single axiom `upper_bound_small_N` - Bron–Kerbosch max-clique on the 2^N−1 intersection graph, verified in Python.
 - **Upper bound (N>10, hence N≥7):**
-  1. `exists_maximal_extension` — extend F to a maximal family G (finiteness of the power set)
-  2. `star_reduction` (maximal G) — shifting/compression (Erdős–Ko–Rado style) produces a star family F' with |F'| ≥ |G|
-  3. `star_size_bound` (N≥7) — the key combinatorial fact: when N≥7, any AP-intersecting star family can only have sets of size ≤3. (N=5,6 are the only cases where size-4/5 sets through a common center can all pairwise-intersect in APs.)
-  4. `star_max_size` (with size hypothesis) — counting: 1 + (N−1) + C(N−1,2) = C(N,2)+1
+  1. `exists_maximal_extension` - extend F to a maximal family G (finiteness of the power set)
+  2. `star_reduction` (maximal G) - shifting/compression (Erdős–Ko–Rado style) produces a star family F' with |F'| ≥ |G|
+  3. `star_size_bound` (N≥7) - the key combinatorial fact: when N≥7, any AP-intersecting star family can only have sets of size ≤3. (N=5,6 are the only cases where size-4/5 sets through a common center can all pairwise-intersect in APs.)
+  4. `star_max_size` (with size hypothesis) - counting: 1 + (N−1) + C(N−1,2) = C(N,2)+1
 
 **Axiom inventory:**
 
@@ -157,9 +157,9 @@ Upper bound: 5 axioms. 304 lines, *sans* sorry.  Builds clean (`lake build Imscr
 | 4 | `star_size_bound` | N≥7: any AP-intersecting star family has all sets of size ≤3 |
 | 5 | `star_max_size` | A star family with all sets of size ≤3 has size ≤ C(N,2)+1 |
 
-**Why N=5,6 are exceptional:** The ground set {1,…,5} (resp. {1,…,6}) is small enough that adding specific size‑4 and size‑5 sets through c=3 preserves AP‑intersections. For N≥7, `star_size_bound` blocks this — the extra elements force two distinct size‑≥4 sets through a common center to have an intersection that is not an AP.
+**Why N=5,6 are exceptional:** The ground set {1,…,5} (resp. {1,…,6}) is small enough that adding specific size‑4 and size‑5 sets through c=3 preserves AP‑intersections. For N≥7, `star_size_bound` blocks this - the extra elements force two distinct size‑≥4 sets through a common center to have an intersection that is not an AP.
 
-**Catalog status:** Pending registration via `imscribe_system` — the grammar tuple must be derived through Tetractys convergence, not hand‑inscribed.
+**Catalog status:** Pending registration via `imscribe_system` - the grammar tuple must be derived through Tetractys convergence, not hand‑inscribed.
 
 ### Other Classical Results
 

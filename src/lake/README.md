@@ -341,7 +341,7 @@ name = "«target-name»"
 
 The following options augment the package's corresponding configuration option.
 
-* `buildType`: Minimum of the two settings — lowest is `debug`, highest is `release`.
+* `buildType`: Minimum of the two settings - lowest is `debug`, highest is `release`.
 * `precompileModules`: `true` if either are `true`.
 * `platformIndependent`: Falls back to the package's setting on `none`.
 * `leanOptions`, `moreServerOptions`: Merges them and the library's takes precedence.
@@ -375,7 +375,7 @@ name = "«target-name»"
 
 The following options augment the package's corresponding configuration option.
 
-* `buildType`: Minimum of the two settings — lowest is `debug`, highest is `release`.
+* `buildType`: Minimum of the two settings - lowest is `debug`, highest is `release`.
 * `precompileModules`: `true` if either are `true`.
 * `platformIndependent`: Falls back to the package's setting on `none`.
 * `leanOptions`, `moreServerOptions`: Merges them and the executable's takes precedence.
