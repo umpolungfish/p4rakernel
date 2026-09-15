@@ -1,5 +1,7 @@
 # p4rakernel
 
+![language](https://img.shields.io/badge/language-Lean%204-2E7D32?style=for-the-badge) ![logic](https://img.shields.io/badge/logic-paraconsistent-C1440E?style=for-the-badge) ![tier](https://img.shields.io/badge/tier-O%E2%88%9E-8A2BE2?style=for-the-badge) ![μ∘δ](https://img.shields.io/badge/%CE%BC%E2%88%98%CE%B4-id-00A86B?style=for-the-badge) ![licence](https://img.shields.io/badge/licence-LUNLICENSE-1A1A1A?style=for-the-badge)
+
 Paraconsistent computation layer of the **Imscribing Grammar**: Lean 4 kernel fork + `p4ramill` formalization + Python mirror. Belnap FOUR ($N, T, F, B$); closure test $\mu\circ\delta = \mathrm{id}$. Unlicense.
 
 | `src/` | Lean 4 v4.28.0 fork, explosion disabled at kernel level |
