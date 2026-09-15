@@ -1,0 +1,17 @@
+crystal: winding_lattice
+branch:  crystalline/winding-lattice-2026-08-08
+date:    2026-08-08
+
+instantiation
+  repo:   https://github.com/umpolungfish/momonad_os
+  commit: 40803b7
+  verbs:  fibqc verify | fibqc algebra | bi <generators>
+
+verification surface at crystallization
+  fibqc verify   22 PASS, including:
+    Phase lattice = tenths of a winding: PASS
+    Constants derivable from PHI:        PASS
+    F unitary, Pentagon form, Braid relation (Y-B): PASS
+    Spin-statistics, S unitary, S^2=I:   PASS
+    TQFT identities, Verlinde formula:   PASS
+    Braid Artin B_n<=8:                  PASS
