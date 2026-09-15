@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem crystal_grid_lattice_ob3ect_sacred_ba8814_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Crystal grid lattice ob3ect: sacred geometry arrangement of crystals, each placed at a node of a geometric pattern (flower of life, platonic solid, or spiral) to amplify and direct subtle energy. FSPLIT: the central intention stone is activated, splitting its unified purpose through the lattice along geometric pathways to each peripheral crystal. FFUSE: the peripheral crystals reflect the energy back to the center, reconstituting the original intention now amplified by resonance. VINIT: the empty geometric template. TANCH: the outer boundary of the grid. AFWD: energy flowing from center to periphery. AREV: energy returning from periphery to center. ENGAGR: a crystal that is simultaneously a receiver (passive) and transmitter (active) — the quartz oscillator paradox.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def crystal_grid_lattice_ob3ect_sacred_ba8814_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def crystal_grid_lattice_ob3ect_sacred_ba8814_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf crystal_grid_lattice_ob3ect_sacred_ba8814_opcodes
+
+def crystal_grid_lattice_ob3ect_sacred_ba8814_glyph_word : String := glyphWordOf crystal_grid_lattice_ob3ect_sacred_ba8814_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem crystal_grid_lattice_ob3ect_sacred_ba8814_register_length : crystal_grid_lattice_ob3ect_sacred_ba8814_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem crystal_grid_lattice_ob3ect_sacred_ba8814_register_matches_word : crystal_grid_lattice_ob3ect_sacred_ba8814_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def crystal_grid_lattice_ob3ect_sacred_ba8814_conventional_protocol : IGProtocol crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- IMSCRIB
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- AREV
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- FSPLIT
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- AFWD
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- FFUSE
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- CLINK
+  (.seq (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0)  -- IFIX
+  (.arrow crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0 crystal_grid_lattice_ob3ect_sacred_ba8814_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem crystal_grid_lattice_ob3ect_sacred_ba8814_conventional_protocol_depth : crystal_grid_lattice_ob3ect_sacred_ba8814_conventional_protocol.depth = 8 := by
+  native_decide
+

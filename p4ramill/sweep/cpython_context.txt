@@ -1,0 +1,15 @@
+Operations include: RESUME, NOP, CACHE, PUSH_NULL, POP_TOP, COPY, SWAP,
+LOAD_CONST, LOAD_FAST, LOAD_GLOBAL, LOAD_NAME, LOAD_DEREF, LOAD_ATTR,
+STORE_FAST, STORE_GLOBAL, STORE_NAME, STORE_DEREF, STORE_ATTR, STORE_SUBSCR,
+DELETE_FAST, BINARY_OP, COMPARE_OP, IS_OP, CONTAINS_OP, UNARY_NEGATIVE,
+UNARY_NOT, CALL, CALL_FUNCTION_EX, CALL_INTRINSIC_1, RETURN_VALUE,
+RETURN_CONST, YIELD_VALUE, SEND, JUMP_FORWARD, JUMP_BACKWARD, POP_JUMP_IF_TRUE,
+POP_JUMP_IF_FALSE, POP_JUMP_IF_NONE, POP_JUMP_IF_NOT_NONE, FOR_ITER, GET_ITER,
+END_FOR, RAISE_VARARGS, RERAISE, PUSH_EXC_INFO, CHECK_EXC_MATCH, CLEANUP_THROW,
+BEFORE_WITH, MAKE_FUNCTION, BUILD_LIST, BUILD_MAP, LIST_APPEND, IMPORT_NAME.
+
+Execution is a stack machine over a code object, one instruction at a time, with
+jumps by relative offset within that code object. Local variables live in an
+array on the frame, not on the value stack. A code object may contain other code
+objects, each executed on its own frame. An exception unwinds to a handler table
+entry rather than to any jump target.

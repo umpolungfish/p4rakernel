@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -97,3 +98,45 @@ def planck_domain_tier : OuroboricityTier := TierFunctor.obj planck_domain_s0
 theorem planck_domain_frobenius :
     igFrobeniusAlg.mul planck_domain_s0 planck_domain_s0 = planck_domain_s0 :=
   igFrobAlg_self_fusion planck_domain_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Planck Domain)
+--   Word: ⊢≻⊙∈⊞⊤≺∋⋈⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def planck_domain_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "FSPLIT", "ENGAGR", "EVALT", "AREV", "FFUSE", "CLINK", "IFIX", "TANCH"]
+
+def planck_domain_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf planck_domain_opcodes
+
+def planck_domain_glyph_word : String := glyphWordOf planck_domain_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem planck_domain_register_length : planck_domain_conventional_register.length = 11 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem planck_domain_register_matches_word : planck_domain_glyph_word = "⊢≻⊙∈⊞⊤≺∋⋈⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def planck_domain_conventional_protocol : IGProtocol planck_domain_s0 planck_domain_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- VINIT
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- AFWD
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- IMSCRIB
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- FSPLIT
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- ENGAGR
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- EVALT
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- AREV
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- FFUSE
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- CLINK
+  (.seq (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)  -- IFIX
+  (.arrow planck_domain_s0 planck_domain_s0 planck_domain_s0)))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 11 arrows. -/
+theorem planck_domain_conventional_protocol_depth : planck_domain_conventional_protocol.depth = 11 := by
+  native_decide
+

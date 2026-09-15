@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -256,3 +257,77 @@ noncomputable def serres_theorem_ii_false_arm : IGProtocol serres_theorem_ii_s0 
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def serres_theorem_ii_tier : OuroboricityTier := TierFunctor.obj serres_theorem_ii_s0
 #eval serres_theorem_ii_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Serre's Theorem II)
+--   Word: ⊢⊣≻⋈⊙∈⊤⊥∋≺⊞⊡⋈⊙≻≺∈⊤⊥∋⊡⋈⊙≻⊤⊥⊡⋈⊙∈⊤⊥∋⊡⊞≺⋈⊙≻⊡⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def serres_theorem_ii_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "FFUSE", "AREV", "ENGAGR", "IFIX", "CLINK", "IMSCRIB", "AFWD", "AREV", "FSPLIT", "EVALT", "EVALF", "FFUSE", "IFIX", "CLINK", "IMSCRIB", "AFWD", "EVALT", "EVALF", "IFIX", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "FFUSE", "IFIX", "ENGAGR", "AREV", "CLINK", "IMSCRIB", "AFWD", "IFIX", "CLINK", "IMSCRIB", "TANCH"]
+
+def serres_theorem_ii_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf serres_theorem_ii_opcodes
+
+def serres_theorem_ii_glyph_word : String := glyphWordOf serres_theorem_ii_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem serres_theorem_ii_register_length : serres_theorem_ii_conventional_register.length = 43 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem serres_theorem_ii_register_matches_word : serres_theorem_ii_glyph_word = "⊢⊣≻⋈⊙∈⊤⊥∋≺⊞⊡⋈⊙≻≺∈⊤⊥∋⊡⋈⊙≻⊤⊥⊡⋈⊙∈⊤⊥∋⊡⊞≺⋈⊙≻⊡⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def serres_theorem_ii_conventional_protocol : IGProtocol serres_theorem_ii_s0 serres_theorem_ii_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- VINIT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- TANCH
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AFWD
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FSPLIT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALF
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FFUSE
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AREV
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- ENGAGR
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IFIX
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AFWD
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AREV
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FSPLIT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALF
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FFUSE
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IFIX
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AFWD
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALF
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IFIX
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FSPLIT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALT
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- EVALF
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- FFUSE
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IFIX
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- ENGAGR
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AREV
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- AFWD
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IFIX
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- CLINK
+  (.seq (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)  -- IMSCRIB
+  (.arrow serres_theorem_ii_s0 serres_theorem_ii_s0 serres_theorem_ii_s0)))))))))))))))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 43 arrows. -/
+theorem serres_theorem_ii_conventional_protocol_depth : serres_theorem_ii_conventional_protocol.depth = 43 := by
+  native_decide
+

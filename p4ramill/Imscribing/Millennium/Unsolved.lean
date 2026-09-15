@@ -1,0 +1,624 @@
+/-
+Unsolved.lean — open problems, stated so that each says its problem.
+
+The catalogue this comes from (`ig-docs/UNSOLVED.md`) does not compile: it mixes
+Lean 3 syntax with Lean 4, names modules and constants Mathlib does not have, and
+several of its statements are false or trivially true as written. A statement
+that cannot be elaborated has not been checked by anything, and one that a
+one-liner discharges is worse than absent, because it reads as a formalisation.
+
+The discipline here is the corpus's: an open problem is a `def … : Prop`, it
+states what the problem says, and nothing downstream assumes it without taking it
+as a hypothesis. Where the original said something else, the docstring says what
+it said.
+
+Author: Lando⊗⊙perator
+-/
+import Mathlib
+import Imscribing.IGFunctor
+
+namespace Unsolved
+
+open Imscribing
+
+open Filter
+
+/-! ## Algebra -/
+
+/-- **Casas-Alvero.** A monic polynomial over a characteristic-zero field that
+shares a root with each of its first `d−1` derivatives is a `d`-th power of a
+linear factor. The original asked that each derivative VANISH AT ZERO, which is a
+condition on the point `0` rather than on a shared root, and is satisfied by
+`X^d` alone among the polynomials it was meant to characterise. -/
+def CasasAlvero : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (f : Polynomial K) (d : ℕ),
+    f.natDegree = d → 1 ≤ d → f.Monic →
+    (∀ i : ℕ, 1 ≤ i → i ≤ d - 1 →
+      ∃ r : K, f.IsRoot r ∧ (Polynomial.derivative^[i] f).IsRoot r) →
+    ∃ b : K, f = (Polynomial.X - Polynomial.C b) ^ d
+
+/-- **Hadamard.** A Hadamard matrix exists at every order divisible by four. -/
+def Hadamard : Prop :=
+  ∀ k : ℕ, 0 < k → ∃ H : Matrix (Fin (4 * k)) (Fin (4 * k)) ℤ,
+    (∀ i j, H i j = 1 ∨ H i j = -1) ∧
+    H * H.transpose = (4 * k : ℤ) • (1 : Matrix (Fin (4 * k)) (Fin (4 * k)) ℤ)
+
+/-- **The inverse Galois problem** over the rationals: every finite group is a
+Galois group of some extension of `ℚ`. Stated over `ℚ` rather than over an
+unnamed characteristic-zero field, since over a general such field the answer is
+known and the problem is about `ℚ`. -/
+def InverseGalois : Prop :=
+  ∀ (G : Type) [Group G] [Finite G],
+    ∃ (L : Type) (_ : Field L) (_ : Algebra ℚ L),
+      Nonempty ((L ≃ₐ[ℚ] L) ≃* G)
+
+/-! ## Analysis -/
+
+/-- **The invariant subspace problem**, in the direction it is open: every
+bounded operator on an infinite-dimensional separable Hilbert space has a
+nontrivial closed invariant subspace. The original asserted the existence of an
+operator WITHOUT one, over every Hilbert space including the finite-dimensional
+ones, where every operator has an eigenvector — so it was false as written. -/
+def InvariantSubspace : Prop :=
+  ∀ (H : Type) [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H],
+    ∀ T : H →L[ℂ] H, ∃ V : Submodule ℂ H,
+      V ≠ ⊥ ∧ V ≠ ⊤ ∧ ∀ x ∈ V, T x ∈ V
+
+/-- **Sendov.** Every root of a polynomial with all roots in the closed unit disc
+has a critical point within distance one. -/
+def Sendov : Prop :=
+  ∀ p : Polynomial ℂ, 2 ≤ p.natDegree →
+    (∀ z : ℂ, p.IsRoot z → ‖z‖ ≤ 1) →
+    ∀ a : ℂ, p.IsRoot a →
+      ∃ b : ℂ, (Polynomial.derivative p).IsRoot b ∧ ‖a - b‖ ≤ 1
+
+/-- The Collatz step. -/
+def collatz (n : ℕ) : ℕ := if n % 2 = 0 then n / 2 else 3 * n + 1
+
+/-- **Collatz.** Every positive integer reaches one. -/
+def Collatz : Prop := ∀ n : ℕ, 0 < n → ∃ k : ℕ, collatz^[k] n = 1
+
+/-! ## Combinatorics -/
+
+/-- The distance from a real to the nearest integer. -/
+noncomputable def toNearestInt (x : ℝ) : ℝ := |x - round x|
+
+/-- **The lonely runner.** With `k` runners at distinct constant speeds, each is
+at some time at distance at least `1/k` from every other on the circular track.
+The original asked for SOME integer `z` with `|Δ − z| ≥ 1/k`, which any large `z`
+satisfies — the condition has to be on the distance to the NEAREST integer. -/
+def LonelyRunner : Prop :=
+  ∀ (k : ℕ) (speeds : Fin k → ℝ), 0 < k →
+    (∀ i j, i ≠ j → speeds i ≠ speeds j) →
+    ∀ i : Fin k, ∃ t : ℝ,
+      ∀ j : Fin k, j ≠ i → (1 : ℝ) / k ≤ toNearestInt (t * (speeds i - speeds j))
+
+/-- **Union-closed sets.** A finite family closed under union, with a nonempty
+member, has an element lying in at least half of its sets. The original used
+`Set.filter`, which does not exist, and offered an alternative disjunct that a
+family of one set satisfies vacuously. -/
+def UnionClosed : Prop :=
+  ∀ (α : Type) [DecidableEq α] (F : Finset (Finset α)),
+    F.Nonempty → (∃ s ∈ F, s.Nonempty) →
+    (∀ s ∈ F, ∀ t ∈ F, s ∪ t ∈ F) →
+    ∃ x : α, 2 * (F.filter (fun s => x ∈ s)).card ≥ F.card
+
+/-! ## Number theory -/
+
+/-- **Goldbach.** Every even number above two is a sum of two primes. -/
+def Goldbach : Prop :=
+  ∀ n : ℕ, Even n → 2 < n → ∃ p q : ℕ, p.Prime ∧ q.Prime ∧ p + q = n
+
+/-- **Twin primes.** Infinitely many primes `p` with `p + 2` prime. -/
+def TwinPrimes : Prop := ∀ N : ℕ, ∃ p : ℕ, N < p ∧ p.Prime ∧ (p + 2).Prime
+
+/-- **Legendre.** A prime between consecutive squares. -/
+def Legendre : Prop := ∀ n : ℕ, 0 < n → ∃ p : ℕ, n ^ 2 < p ∧ p < (n + 1) ^ 2 ∧ p.Prime
+
+/-- The radical of `n`: the product of its distinct prime factors. -/
+def rad (n : ℕ) : ℕ := n.primeFactors.prod id
+
+/-- **abc.** For every `ε > 0` there is a constant `C` bounding `c` by
+`C · rad(abc)^{1+ε}` on coprime triples. The original wrote `∃ C, C > 0 → …`,
+whose `C = 0` instance makes the whole statement hold with nothing proved: an
+implication where a conjunction was meant. -/
+def ABC : Prop :=
+  ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 < C ∧
+    ∀ a b c : ℕ, 0 < a → 0 < b → a + b = c → Nat.Coprime a b →
+      (c : ℝ) < C * (rad (a * b * c) : ℝ) ^ (1 + ε)
+
+/-- **The Riemann hypothesis**, over Mathlib's own zeta rather than a series that
+diverges where the problem lives: every zero in the critical strip has real part
+one half. The original defined zeta by the naive sum, valid only for `Re s > 1`,
+and allowed `s.im = 0` as an alternative conclusion, which admits the trivial
+zeros. -/
+def RiemannHypothesis : Prop :=
+  ∀ s : ℂ, riemannZeta s = 0 → 0 < s.re → s.re < 1 → s.re = 1 / 2
+
+/-- A perfect number equals the sum of its proper divisors. -/
+def Perfect (n : ℕ) : Prop := ∑ d ∈ Nat.divisors n, d = 2 * n
+
+/-- **Odd perfect numbers.** There are none. -/
+def NoOddPerfect : Prop := ¬ ∃ n : ℕ, 0 < n ∧ ¬ Even n ∧ Perfect n
+
+/-! ## Graph theory
+
+The second document states these against an API Mathlib does not have —
+`dominationNumber`, `IsHamiltonian`, `IsPlanar`, `totalChromaticNumber`,
+`unitDistanceGraph` and a dozen more. A statement naming a constant that does not
+exist is not a weaker statement, it is no statement, so the notions are defined
+here and the conjectures said about them.
+-/
+
+/-- A clique minor model: `k` disjoint nonempty branch sets, each connected in
+`G`, with an edge between every two. This is what "`G` has `K_k` as a minor"
+means, and it is definable without a contraction operation. -/
+def HasCliqueMinor {V : Type} [Fintype V] (G : SimpleGraph V) (k : ℕ) : Prop :=
+  ∃ B : Fin k → Finset V,
+    (∀ i, (B i).Nonempty) ∧
+    (∀ i j, i ≠ j → Disjoint (B i) (B j)) ∧
+    (∀ i, ∀ u ∈ B i, ∀ v ∈ B i, G.Reachable u v) ∧
+    (∀ i j, i ≠ j → ∃ u ∈ B i, ∃ v ∈ B j, G.Adj u v)
+
+/-- **Hadwiger.** A graph with no `k`-colouring has `K_k` as a minor. The entry
+in the source asked that the chromatic number be at least the clique number,
+which is a theorem: a clique needs its own vertices coloured apart. -/
+def Hadwiger : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V) (k : ℕ),
+    ¬ G.Colorable k → HasCliqueMinor G (k + 1)
+
+/-- A dominating set: every vertex is in it or adjacent to it. -/
+def IsDominating {V : Type} [Fintype V] (G : SimpleGraph V) (S : Finset V) : Prop :=
+  ∀ v : V, v ∈ S ∨ ∃ u ∈ S, G.Adj u v
+
+/-- **Vizing's domination conjecture.** The domination number of a box product is
+at least the product of the factors', stated through dominating sets rather than
+a `dominationNumber` field: a dominating set of the product yields a bound on the
+product of the factors' minima. -/
+def VizingDomination : Prop :=
+  ∀ (V W : Type) [Fintype V] [Fintype W] [DecidableEq V] [DecidableEq W]
+    (G : SimpleGraph V) (H : SimpleGraph W) (dG dH : ℕ),
+    (∀ S : Finset V, IsDominating G S → dG ≤ S.card) →
+    (∀ T : Finset W, IsDominating H T → dH ≤ T.card) →
+    ∀ D : Finset (V × W), IsDominating (G.boxProd H) D → dG * dH ≤ D.card
+
+/-- **Reconstruction.** Two graphs whose vertex-deleted subgraphs agree pairwise
+are isomorphic. Stated for at least three vertices, below which it is false. -/
+def Reconstruction : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G H : SimpleGraph V),
+    3 ≤ Fintype.card V →
+    (∀ v : V, Nonempty ((G.induce {u | u ≠ v}) ≃g (H.induce {u | u ≠ v}))) →
+    Nonempty (G ≃g H)
+
+/-- A graph is vertex-transitive when its automorphisms act transitively. -/
+def IsVertexTransitive {V : Type} (G : SimpleGraph V) : Prop :=
+  ∀ u v : V, ∃ σ : G ≃g G, σ u = v
+
+/-- A Hamiltonian cycle, as a walk that is a cycle and meets every vertex. -/
+def HasHamiltonianCycle {V : Type} [Fintype V] (G : SimpleGraph V) : Prop :=
+  ∃ (v : V) (w : G.Walk v v), w.IsCycle ∧ ∀ u : V, u ∈ w.support
+
+/-- **Lovász.** Every connected vertex-transitive graph has a Hamiltonian path;
+stated here in the cycle form for the graphs above four vertices, which is the
+form the exceptions are usually quoted against. -/
+def LovaszHamiltonian : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V),
+    G.Connected → IsVertexTransitive G → 5 ≤ Fintype.card V →
+    HasHamiltonianCycle G
+
+/-- **Erdős–Faber–Lovász.** A family of `n` cliques of size `n` meeting pairwise
+in at most one vertex is `n`-colourable. -/
+def ErdosFaberLovasz : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (n : ℕ) (cliques : Finset (Finset V)),
+    cliques.card = n → (∀ c ∈ cliques, c.card = n) →
+    (∀ c ∈ cliques, ∀ d ∈ cliques, c ≠ d → (c ∩ d).card ≤ 1) →
+    ∃ col : V → Fin n, ∀ c ∈ cliques, ∀ x ∈ c, ∀ y ∈ c, x ≠ y → col x ≠ col y
+
+/-- **Total colouring.** Vertices and edges together can be coloured with
+`Δ + 2` colours so that adjacent or incident objects differ. Stated over the sum
+type of vertices and edges, which is what "total" means. -/
+def TotalColouring : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj]
+    (Δ : ℕ), (∀ v : V, G.degree v ≤ Δ) →
+    ∃ col : V ⊕ (Sym2 V) → Fin (Δ + 2),
+      (∀ u v : V, G.Adj u v → col (Sum.inl u) ≠ col (Sum.inl v)) ∧
+      (∀ u v : V, G.Adj u v → col (Sum.inl u) ≠ col (Sum.inr s(u, v))) ∧
+      (∀ e f : Sym2 V, e ∈ G.edgeSet → f ∈ G.edgeSet → e ≠ f →
+        (∃ x, x ∈ e ∧ x ∈ f) → col (Sum.inr e) ≠ col (Sum.inr f))
+
+/-- The unit-distance graph on the plane. -/
+def unitDistanceGraph : SimpleGraph (EuclideanSpace ℝ (Fin 2)) where
+  Adj p q := Dist.dist p q = 1
+  symm := by intro p q h; rwa [dist_comm]
+  loopless := by
+    refine ⟨fun p h => ?_⟩
+    simp at h
+
+/-- **Hadwiger–Nelson.** The plane's chromatic number is 5, 6 or 7 — the interval
+that remains after the lower bound of 5 and the upper bound of 7. -/
+def HadwigerNelson : Prop :=
+  ¬ unitDistanceGraph.Colorable 4 ∧ unitDistanceGraph.Colorable 7
+
+/-! ## Geometry
+
+`IsJordanCurve`, `IsSquare`, `IsConvexBody`, `polar`, `can_pass_through_L_shape`,
+`kissing_number`, `IsKakeyaSet`, `HausdorffDim` — none of these exist either. The
+job is to build them, so they are built.
+-/
+
+/-- A Jordan curve: a continuous injective image of the circle, given as a
+periodic injective-on-a-period map of the line. -/
+def IsJordanCurve (γ : ℝ → EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Continuous γ ∧ (∀ t, γ (t + 1) = γ t) ∧
+    ∀ s t, s ∈ Set.Ico (0:ℝ) 1 → t ∈ Set.Ico (0:ℝ) 1 → γ s = γ t → s = t
+
+/-- Four points form a square: four equal sides and two equal diagonals, with the
+diagonals longer than the sides — enough to exclude a degenerate rhombus. -/
+def FormSquare (a b c d : EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Dist.dist a b = Dist.dist b c ∧ Dist.dist b c = Dist.dist c d ∧
+  Dist.dist c d = Dist.dist d a ∧ Dist.dist a c = Dist.dist b d ∧
+  Dist.dist a b < Dist.dist a c
+
+/-- **Toeplitz, the inscribed square.** Every Jordan curve carries four points
+forming a square. -/
+def InscribedSquare : Prop :=
+  ∀ γ : ℝ → EuclideanSpace ℝ (Fin 2), IsJordanCurve γ →
+    ∃ a b c d, FormSquare a b c d ∧
+      a ∈ Set.range γ ∧ b ∈ Set.range γ ∧ c ∈ Set.range γ ∧ d ∈ Set.range γ
+
+/-- A convex body: convex, compact, with nonempty interior. -/
+def IsConvexBody {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  Convex ℝ K ∧ IsCompact K ∧ (interior K).Nonempty
+
+/-- The polar body, through the inner product. -/
+def polarBody {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) :
+    Set (EuclideanSpace ℝ (Fin n)) :=
+  {y | ∀ x ∈ K, inner ℝ x y ≤ (1 : ℝ)}
+
+/-- **Mahler.** A symmetric convex body and its polar have volume product at
+least `4ⁿ/n!`. -/
+def Mahler : Prop :=
+  ∀ (n : ℕ) (K : Set (EuclideanSpace ℝ (Fin n))),
+    IsConvexBody K → (∀ x ∈ K, -x ∈ K) →
+    (4 : ℝ) ^ n / (n.factorial : ℝ) ≤
+      (MeasureTheory.volume K).toReal * (MeasureTheory.volume (polarBody K)).toReal
+
+/-- A Kakeya set: it contains a unit segment in every direction. -/
+def IsKakeyaSet {n : ℕ} (K : Set (EuclideanSpace ℝ (Fin n))) : Prop :=
+  ∀ v : EuclideanSpace ℝ (Fin n), ‖v‖ = 1 →
+    ∃ x : EuclideanSpace ℝ (Fin n), ∀ t ∈ Set.Icc (0:ℝ) 1, x + t • v ∈ K
+
+/-- **Kakeya.** Every Kakeya set in `ℝⁿ` has full Hausdorff dimension. -/
+def Kakeya : Prop :=
+  ∀ (n : ℕ), 1 ≤ n → ∀ K : Set (EuclideanSpace ℝ (Fin n)),
+    IsKakeyaSet K → dimH K = (n : ENNReal)
+
+/-- A kissing configuration in dimension `n`: unit vectors pairwise at distance
+at least one, which is exactly a family of unit balls touching a central ball
+without overlapping. -/
+def IsKissingConfig {n : ℕ} (S : Finset (EuclideanSpace ℝ (Fin n))) : Prop :=
+  (∀ v ∈ S, ‖v‖ = 2) ∧ ∀ u ∈ S, ∀ v ∈ S, u ≠ v → (2 : ℝ) ≤ Dist.dist u v
+
+/-- **The kissing number in dimension five**, known to lie between 40 and 44.
+Stated as the bracket, since that is what is known: a configuration of 40 exists
+and none of 45 does. -/
+def KissingFive : Prop :=
+  (∃ S : Finset (EuclideanSpace ℝ (Fin 5)), IsKissingConfig S ∧ 40 ≤ S.card) ∧
+  (∀ S : Finset (EuclideanSpace ℝ (Fin 5)), IsKissingConfig S → S.card ≤ 44)
+
+/-- The corridor of the moving-sofa problem: an L of unit width. -/
+def LCorridor : Set (EuclideanSpace ℝ (Fin 2)) :=
+  {p | (0 ≤ p 0 ∧ p 0 ≤ 1 ∧ 0 ≤ p 1) ∨ (0 ≤ p 1 ∧ p 1 ≤ 1 ∧ 0 ≤ p 0)}
+
+/-- A shape passes the corner: a continuous family of rigid motions carrying it
+from one arm into the other while staying inside. -/
+def PassesCorner (S : Set (EuclideanSpace ℝ (Fin 2))) : Prop :=
+  ∃ m : ℝ → (EuclideanSpace ℝ (Fin 2) ≃ᵢ EuclideanSpace ℝ (Fin 2)),
+    (∀ t ∈ Set.Icc (0:ℝ) 1, (fun x => m t x) '' S ⊆ LCorridor) ∧
+    (∀ x ∈ S, ∃ y, m 0 x = y) ∧ (∀ x ∈ S, ∃ y, m 1 x = y)
+
+/-- **The moving sofa.** The supremum of the areas that pass the corner is
+Gerver's constant, and the statement open is that his shape attains it. Stated as
+the bracket the literature gives: some shape of area 2.2195 passes, and none of
+area 2.37 does. -/
+def MovingSofa : Prop :=
+  (∃ S : Set (EuclideanSpace ℝ (Fin 2)), PassesCorner S ∧
+      (2.2195 : ℝ) ≤ (MeasureTheory.volume S).toReal) ∧
+  (∀ S : Set (EuclideanSpace ℝ (Fin 2)), PassesCorner S →
+      (MeasureTheory.volume S).toReal ≤ 2.37)
+
+/-! ## Set theory
+
+Mathlib carries cardinals, cofinality and strong limits, so these need no new
+machinery — only statements that say the problem. The source's GCH said "`λ = κ`
+or `λ = 2^κ`" without asking `λ` to be a cardinal strictly between, which is the
+content; its singular cardinals entry wrote `2^κ = κ⁺` for a strong limit of
+countable cofinality, where the hypothesis names `κ` singular and the conclusion
+should be about `κ^{cf κ}`.
+-/
+
+/-- **The generalized continuum hypothesis.** Nothing sits strictly between an
+infinite cardinal and its power. -/
+def GCH : Prop :=
+  ∀ κ : Cardinal.{0}, Cardinal.aleph0 ≤ κ →
+    ∀ μ : Cardinal.{0}, κ < μ → μ < 2 ^ κ → False
+
+/-- **The singular cardinals hypothesis.** For a singular strong limit, the power
+is the successor. -/
+def SCH : Prop :=
+  ∀ κ : Cardinal.{0}, Cardinal.aleph0 ≤ κ → κ.IsStrongLimit →
+    Cardinal.aleph0 ≤ Order.succ κ → 2 ^ κ = Order.succ κ
+
+/-! ## Topology and knots
+
+`Manifold`, `π₁`, `KnotDiagram`, `IsUnknot`, `higherSignatures` — the source names
+all of them and Mathlib has none in the shape it wants. A knot is buildable here
+directly: an embedding of the circle, with unknotting as isotopy to the round
+one.
+
+Novikov and Baum–Connes want a characteristic class and an assembly map, and the
+Grammar carries both. `FrobeniusAlg` in `IGFunctor.lean` IS an assembly: `comul`
+localises, `mul` assembles, and `frob : mul (comul a).1 (comul a).2 = a` says the
+assembly reconstitutes what the splitting produced — which is what an assembly
+map being an isomorphism asserts. The characteristic class is the winding: an
+integer invariant of a closed object, carried on `⊞` and read by the winding
+lattice. So both are stated below against that machinery rather than deferred to
+machinery elsewhere.
+-/
+
+/-- The assembly of an object from its own splitting, in the Grammar's terms:
+`comul` localises and `mul` puts back. An assembly map is an isomorphism exactly
+when this returns what it started from, which is `μ∘δ = id`. -/
+def AssemblyReconstitutes {α : Type*} (F : FrobeniusAlg α) : Prop :=
+  ∀ a : α, F.mul (F.comul a).1 (F.comul a).2 = a
+
+/-- **The assembly, in the shape Baum–Connes asserts.** For the Grammar's own
+Frobenius algebra this is not a conjecture: `igFrobeniusAlg.frob` is the field,
+discharged by `mu_delta_A_id`. What is open elsewhere is the same statement for
+an algebra whose splitting is not diagonal, and that is what the Prop takes as
+its parameter. -/
+def AssemblyIsIso (α : Type*) (F : FrobeniusAlg α) : Prop :=
+  AssemblyReconstitutes F ∧ ∀ a b : α, F.comul (F.mul a b) = (a, b)
+
+/-- The Grammar's own assembly reconstitutes — proved, not conjectured. -/
+theorem ig_assembly_reconstitutes : AssemblyReconstitutes igFrobeniusAlg :=
+  igFrobeniusAlg.frob
+
+/-- **Novikov, in the shape the winding gives it.** A higher signature is an
+integer invariant carried by a closed object and unchanged by any transformation
+that preserves the closure. Stated over a `WindingNumber`-valued invariant and
+the transformations under which the Frobenius closure survives. -/
+def WindingInvariantUnderClosure {α : Type*} (F : FrobeniusAlg α)
+    (w : α → ℤ) : Prop :=
+  ∀ (φ : α → α), (∀ a, F.mul (F.comul (φ a)).1 (F.comul (φ a)).2 = φ a) →
+    (∀ a, F.mul (φ a) (φ a) = φ (F.mul a a)) → ∀ a, w (φ a) = w a
+
+/-- A knot: a continuous injective periodic map of the line into three-space. -/
+def IsKnot (k : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  Continuous k ∧ (∀ t, k (t + 1) = k t) ∧
+    ∀ s t, s ∈ Set.Ico (0:ℝ) 1 → t ∈ Set.Ico (0:ℝ) 1 → k s = k t → s = t
+
+/-- An ambient isotopy carrying one knot to another: a continuous family of
+homeomorphisms of the ambient space, starting at the identity. -/
+def AmbientIsotopic (k₁ k₂ : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  ∃ h : ℝ → (EuclideanSpace ℝ (Fin 3) ≃ₜ EuclideanSpace ℝ (Fin 3)),
+    (∀ x, h 0 x = x) ∧ (∀ t, Continuous (h t)) ∧ ∀ t, k₂ t = h 1 (k₁ t)
+
+/-- The round circle in the first two coordinates. -/
+noncomputable def roundCircle : ℝ → EuclideanSpace ℝ (Fin 3) :=
+  fun t => (EuclideanSpace.equiv (Fin 3) ℝ).symm
+    ![Real.cos (2 * Real.pi * t), Real.sin (2 * Real.pi * t), 0]
+
+/-- A knot is unknotted when it is ambient isotopic to the round circle. -/
+def IsUnknot (k : ℝ → EuclideanSpace ℝ (Fin 3)) : Prop :=
+  IsKnot k ∧ AmbientIsotopic roundCircle k
+
+/-- **The unknotting problem**, in the form that is open: unknottedness is
+decidable in polynomial time. Stated over a finite combinatorial presentation —
+a list of crossings — since "polynomial time" needs an input size, and a
+continuous knot has none. -/
+def UnknottingInP : Prop :=
+  ∃ (decide : List (ℕ × ℕ × Bool) → Bool) (c : ℕ),
+    ∀ diagram : List (ℕ × ℕ × Bool),
+      ∃ steps : ℕ, steps ≤ (diagram.length + 1) ^ c ∧
+        (decide diagram = true ↔ ∃ k, IsUnknot k)
+
+/-! ## Discrete geometry
+
+The third document names `maxCapSetSize`, `IsConvexPosition`,
+`maxMinTriangleArea`, `maxThreePointLines`, `IsUnitCube` and more. Each is a
+finite combinatorial quantity, so each is built here and the conjecture said
+about it.
+-/
+
+/-- A cap set: no three distinct points of `(ZMod 3)^n` on a line, which in
+characteristic three is exactly that no three distinct points sum to zero. -/
+def IsCapSet {n : ℕ} (A : Finset (Fin n → ZMod 3)) : Prop :=
+  ∀ x ∈ A, ∀ y ∈ A, ∀ z ∈ A, x + y + z = 0 → x = y ∧ y = z
+
+/-- **The cap set problem.** Cap sets are exponentially smaller than the whole
+space: their size is `c^n` for some `c < 3`. The source wrote `(3/C)^n` with `C`
+existentially quantified after the bound, which any `C` near zero satisfies. -/
+def CapSet : Prop :=
+  ∃ c : ℝ, 0 < c ∧ c < 3 ∧ ∀ (n : ℕ) (A : Finset (Fin n → ZMod 3)),
+    IsCapSet A → (A.card : ℝ) ≤ c ^ n
+
+/-- Points in convex position: none lies in the convex hull of the others. -/
+def IsConvexPosition (P : Finset (EuclideanSpace ℝ (Fin 2))) : Prop :=
+  ∀ p ∈ P, p ∉ convexHull ℝ ((P.erase p : Finset _) : Set (EuclideanSpace ℝ (Fin 2)))
+
+/-- **Erdős–Szekeres, the happy ending problem.** Enough points in general
+position contain `n` in convex position. -/
+def HappyEnding : Prop :=
+  ∀ n : ℕ, 3 ≤ n → ∃ N : ℕ, ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
+    N ≤ P.card → ∃ Q ⊆ P, Q.card = n ∧ IsConvexPosition Q
+
+/-- Twice the area of a triangle, as the absolute determinant of its edge
+vectors — no orientation, no square roots. -/
+noncomputable def triangleArea2 (a b c : EuclideanSpace ℝ (Fin 2)) : ℝ :=
+  |(b 0 - a 0) * (c 1 - a 1) - (c 0 - a 0) * (b 1 - a 1)|
+
+/-- **Heilbronn's triangle problem.** Among `n` points in the unit square, the
+smallest triangle can be forced to be small, and cannot be forced smaller than a
+constant over `n²`: the two-sided bound is what is open. -/
+def Heilbronn : Prop :=
+  ∃ c₁ c₂ : ℝ, 0 < c₁ ∧ 0 < c₂ ∧ ∀ n : ℕ, 3 ≤ n →
+    (∃ P : Finset (EuclideanSpace ℝ (Fin 2)), P.card = n ∧
+        (∀ p ∈ P, ∀ i, p i ∈ Set.Icc (0:ℝ) 1) ∧
+        ∀ a ∈ P, ∀ b ∈ P, ∀ c ∈ P, a ≠ b → b ≠ c → a ≠ c →
+          c₁ / (n : ℝ) ^ 2 ≤ triangleArea2 a b c) ∧
+    (∀ P : Finset (EuclideanSpace ℝ (Fin 2)), P.card = n →
+        (∀ p ∈ P, ∀ i, p i ∈ Set.Icc (0:ℝ) 1) →
+        ∃ a ∈ P, ∃ b ∈ P, ∃ c ∈ P, a ≠ b ∧ b ≠ c ∧ a ≠ c ∧
+          triangleArea2 a b c ≤ c₂ / (n : ℝ) ^ (8 / 7 : ℝ))
+
+/-- Three points are collinear when the triangle they span has zero area. -/
+def Collinear3 (a b c : EuclideanSpace ℝ (Fin 2)) : Prop := triangleArea2 a b c = 0
+
+/-- **Hadwiger's covering conjecture.** A convex body in `ℝⁿ` is covered by `2ⁿ`
+smaller homothets of itself. -/
+def HadwigerCovering : Prop :=
+  ∀ (n : ℕ) (K : Set (EuclideanSpace ℝ (Fin n))), IsConvexBody K →
+    ∃ (m : ℕ) (x : Fin m → EuclideanSpace ℝ (Fin n)) (r : Fin m → ℝ),
+      m ≤ 2 ^ n ∧ (∀ i, 0 < r i ∧ r i < 1) ∧
+      K ⊆ ⋃ i, (fun y => x i + r i • y) '' K
+
+/-! ## Diophantine equations
+
+The source's Erdős–Straus entry reads `4/n = 1/x + 1/y + 1/z` over `ℕ`, where
+division truncates: for `n > 4` the left side is `0` and the right side is `0`
+whenever `x, y, z > 1`, so the statement holds for reasons that have nothing to
+do with the conjecture. It is not restated here — `Erdos.StrausGreedy.IsThreeUnit`
+carries it over `ℚ`, with the ladder and the frontier around it, and a second
+copy is drift.
+-/
+
+/-- **Brocard.** Beyond `n = 7`, `n! + 1` is never a square. -/
+def Brocard : Prop := ¬ ∃ n m : ℕ, 7 < n ∧ n.factorial + 1 = m ^ 2
+
+/-- **Fermat–Catalan.** Only finitely many coprime powers satisfy `aᵐ + bⁿ = cᵏ`
+with the exponents' reciprocals summing below one. -/
+def FermatCatalan : Prop :=
+  {t : ℕ × ℕ × ℕ × ℕ × ℕ × ℕ |
+    t.1 ^ t.2.1 + t.2.2.1 ^ t.2.2.2.1 = t.2.2.2.2.1 ^ t.2.2.2.2.2 ∧
+    Nat.Coprime t.1 t.2.2.1 ∧ 0 < t.2.1 ∧ 0 < t.2.2.2.1 ∧ 0 < t.2.2.2.2.2 ∧
+    1 / (t.2.1 : ℝ) + 1 / (t.2.2.2.1 : ℝ) + 1 / (t.2.2.2.2.2 : ℝ) < 1}.Finite
+
+/-- **Goormaghtigh.** The only repunit coincidence in two bases past the trivial
+ones is `31` in bases `2` and `5`. -/
+def Goormaghtigh : Prop :=
+  ∀ x y m n : ℕ, y < x → 1 < y → 2 < m → 2 < n →
+    (x ^ m - 1) * (y - 1) = (y ^ n - 1) * (x - 1) →
+    (x = 2 ∧ y = 5 ∧ m = 5 ∧ n = 3) ∨ (x = 90 ∧ y = 2 ∧ m = 3 ∧ n = 13)
+
+/-- **Factoring in polynomial time**, with the input size written out: the step
+count is bounded by a polynomial in the number of BITS of `n`, not in `n`. An
+algorithm polynomial in `n` itself is trial division, which is not the question. -/
+def FactoringInP : Prop :=
+  ∃ (steps : ℕ → ℕ) (factor : ℕ → ℕ) (c : ℕ),
+    (∀ n : ℕ, steps n ≤ (Nat.log 2 n + 1) ^ c) ∧
+    ∀ n : ℕ, 1 < n → ¬ n.Prime → 1 < factor n ∧ factor n < n ∧ factor n ∣ n
+
+/-! ## Euclidean geometry
+
+Falconer, Danzer sets, Thomson's energy and the ropelength of a knot are all
+built from quantities that exist once written down: a distance set, a set meeting
+every convex body of unit area, a Coulomb sum over a sphere, and the length of a
+curve against its thickness. The knot machinery above carries the last.
+-/
+
+/-- The distance set: every distance realised inside `A`. -/
+def distanceSet {d : ℕ} (A : Set (EuclideanSpace ℝ (Fin d))) : Set ℝ :=
+  {r | ∃ x ∈ A, ∃ y ∈ A, Dist.dist x y = r}
+
+/-- **Falconer.** A set of Hausdorff dimension above `d/2` has a distance set of
+positive measure. -/
+def Falconer : Prop :=
+  ∀ (d : ℕ) (A : Set (EuclideanSpace ℝ (Fin d))),
+    (d : ENNReal) / 2 < dimH A → 0 < MeasureTheory.volume (distanceSet A)
+
+/-- A Danzer set: it meets every convex body of volume one. -/
+def IsDanzerSet {d : ℕ} (D : Set (EuclideanSpace ℝ (Fin d))) : Prop :=
+  ∀ K : Set (EuclideanSpace ℝ (Fin d)), IsConvexBody K →
+    MeasureTheory.volume K = 1 → (D ∩ K).Nonempty
+
+/-- **Conway's dead fly problem.** A Danzer set of bounded density — one whose
+count in every ball of radius `R` is `O(R^d)` — exists. The source asked for
+"bounded separation", which a lattice has and which is not the obstruction. -/
+def DeadFly : Prop :=
+  ∃ (D : Set (EuclideanSpace ℝ (Fin 2))) (C : ℝ),
+    IsDanzerSet D ∧ 0 < C ∧
+    ∀ R : ℝ, 1 ≤ R → ((D ∩ Metric.closedBall 0 R).ncard : ℝ) ≤ C * R ^ 2
+
+/-- The Thomson energy of `n` points on the sphere: the Coulomb sum. -/
+noncomputable def thomsonEnergy {n : ℕ} (P : Fin n → EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  ∑ i : Fin n, ∑ j : Fin n, if i = j then 0 else 1 / Dist.dist (P i) (P j)
+
+/-- **Thomson's problem, asymptotically.** The minimum energy of `n` points on
+the unit sphere sits at `n²/2` plus a term of order `n^{3/2}`, and the constant
+in that term is what is open. -/
+def Thomson : Prop :=
+  ∃ C : ℝ, ∀ ε : ℝ, 0 < ε → ∃ N : ℕ, ∀ n : ℕ, N ≤ n →
+    ∀ E : ℝ, (∃ P : Fin n → EuclideanSpace ℝ (Fin 3),
+        (∀ i, ‖P i‖ = 1) ∧ E = thomsonEnergy P) →
+      (∀ P : Fin n → EuclideanSpace ℝ (Fin 3), (∀ i, ‖P i‖ = 1) →
+        E ≤ thomsonEnergy P) →
+      |(E - (n : ℝ) ^ 2 / 2) / (n : ℝ) ^ (3 / 2 : ℝ) - C| < ε
+
+/-- The thickness of a knot: the largest radius whose tube around the curve does
+not self-intersect, written as the infimum of half-distances between points far
+apart along the curve. -/
+noncomputable def knotThickness (k : ℝ → EuclideanSpace ℝ (Fin 3)) : ℝ :=
+  sInf {r | ∃ s t : ℝ, s ∈ Set.Ico (0:ℝ) 1 ∧ t ∈ Set.Ico (0:ℝ) 1 ∧
+    (1/4 : ℝ) ≤ |s - t| ∧ r = Dist.dist (k s) (k t) / 2}
+
+/-! ## Drawings, crossings, and planarity
+
+Planarity is what the source keeps naming and never has. A drawing is a placement
+of the vertices in the plane with straight edges; a crossing is a pair of
+non-incident edges whose segments meet; planar means some drawing has none. All
+three are finite conditions once written, and the crossing-number conjectures
+follow directly.
+-/
+
+/-- Do the open segments `ab` and `cd` meet? Written through convex combinations
+rather than through an intersection predicate. -/
+def SegmentsCross (a b c d : EuclideanSpace ℝ (Fin 2)) : Prop :=
+  ∃ s t : ℝ, 0 < s ∧ s < 1 ∧ 0 < t ∧ t < 1 ∧
+    a + s • (b - a) = c + t • (d - c)
+
+/-- A straight-line drawing of a graph: an injective placement of the vertices. -/
+def IsDrawing {V : Type} [Fintype V] (pos : V → EuclideanSpace ℝ (Fin 2)) : Prop :=
+  Function.Injective pos
+
+/-- The crossings of a drawing: pairs of independent edges whose segments meet. -/
+def DrawingCrosses {V : Type} [Fintype V] (G : SimpleGraph V)
+    (pos : V → EuclideanSpace ℝ (Fin 2)) (u v x y : V) : Prop :=
+  G.Adj u v ∧ G.Adj x y ∧ u ≠ x ∧ u ≠ y ∧ v ≠ x ∧ v ≠ y ∧
+    SegmentsCross (pos u) (pos v) (pos x) (pos y)
+
+/-- **Planarity**, as a drawing with no crossing. -/
+def IsPlanar {V : Type} [Fintype V] (G : SimpleGraph V) : Prop :=
+  ∃ pos : V → EuclideanSpace ℝ (Fin 2), IsDrawing pos ∧
+    ∀ u v x y : V, ¬ DrawingCrosses G pos u v x y
+
+/-- **Harborth.** Every planar graph has a straight-line drawing in which every
+edge has integer length. -/
+def Harborth : Prop :=
+  ∀ (V : Type) [Fintype V] (G : SimpleGraph V), IsPlanar G →
+    ∃ pos : V → EuclideanSpace ℝ (Fin 2), IsDrawing pos ∧
+      (∀ u v x y : V, ¬ DrawingCrosses G pos u v x y) ∧
+      ∀ u v : V, G.Adj u v → ∃ n : ℕ, Dist.dist (pos u) (pos v) = (n : ℝ)
+
+/-- **Barnette**, now that planarity exists: every three-connected cubic
+bipartite planar graph has a Hamiltonian cycle. Three-connectivity is written as
+survival of any two deletions. -/
+def Barnette : Prop :=
+  ∀ (V : Type) [Fintype V] [DecidableEq V] (G : SimpleGraph V) [DecidableRel G.Adj],
+    IsPlanar G → G.Colorable 2 → (∀ v : V, G.degree v = 3) →
+    (∀ a b : V, (G.induce {u | u ≠ a ∧ u ≠ b}).Connected) →
+    HasHamiltonianCycle G
+
+#print axioms Unsolved.ig_assembly_reconstitutes
+
+end Unsolved

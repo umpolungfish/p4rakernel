@@ -45,7 +45,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑹  pol  = or'      — Frobenius-special: ℤ₂ sheet-exchange, μ∘δ=id
 --   ƒ=𐑞  fid  = they     — thermal: Dyson gas at inverse temperature β
 --   Ç=𐑧  kin  = egg      — slow: logarithmic gas dynamics
---   Γ=𐑔  gran = ice      — aleph: all scales gap→density
+--   Γ=𐑔  gran = ice      — all scales gap→density
 --   ɢ=𐑠  gram = measure  — sequential: DR hierarchy commuting flows
 --   ⊙=⊙  crit = monad    — critical: β=2 transition, boundary of moduli space
 --   Ħ=𐑖  chir = sure     — two-step: sheet-exchange involution

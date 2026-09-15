@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -126,3 +127,50 @@ def message_of_bruce_codex_tier : OuroboricityTier := TierFunctor.obj message_of
 theorem message_of_bruce_codex_frobenius :
     igFrobeniusAlg.mul message_of_bruce_codex_s0 message_of_bruce_codex_s0 = message_of_bruce_codex_s0 :=
   igFrobAlg_self_fusion message_of_bruce_codex_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Message of Bruce Codex)
+--   Word: ⊢≻⊙∈⋈⊡⊞≺∈⊥∋⋈⊤∋⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def message_of_bruce_codex_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "FSPLIT", "CLINK", "IFIX", "ENGAGR", "AREV", "FSPLIT", "EVALF", "FFUSE", "CLINK", "EVALT", "FFUSE", "IMSCRIB", "TANCH"]
+
+def message_of_bruce_codex_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf message_of_bruce_codex_opcodes
+
+def message_of_bruce_codex_glyph_word : String := glyphWordOf message_of_bruce_codex_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem message_of_bruce_codex_register_length : message_of_bruce_codex_conventional_register.length = 16 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem message_of_bruce_codex_register_matches_word : message_of_bruce_codex_glyph_word = "⊢≻⊙∈⋈⊡⊞≺∈⊥∋⋈⊤∋⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def message_of_bruce_codex_conventional_protocol : IGProtocol message_of_bruce_codex_s0 message_of_bruce_codex_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- VINIT
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- AFWD
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- IMSCRIB
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- FSPLIT
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- CLINK
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- IFIX
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- ENGAGR
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- AREV
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- FSPLIT
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- EVALF
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- FFUSE
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- CLINK
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- EVALT
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- FFUSE
+  (.seq (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0)  -- IMSCRIB
+  (.arrow message_of_bruce_codex_s0 message_of_bruce_codex_s0 message_of_bruce_codex_s0))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 16 arrows. -/
+theorem message_of_bruce_codex_conventional_protocol_depth : message_of_bruce_codex_conventional_protocol.depth = 16 := by
+  native_decide
+

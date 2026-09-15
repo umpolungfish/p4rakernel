@@ -34,6 +34,67 @@ structure Imscription : Type where
   prot  : Protection       -- Ω
   deriving DecidableEq, Repr
 
+-- STATED AS A PREDICATE, NOT AN AXIOM, AND THE REASON MATTERS.
+--
+-- This was an axiom of the form
+--
+--   axiom holographic_closure_forces_frobenius (d) (t) (p) (pol) :
+--     d = if' → t = are → p ≥ ah → pol = or'
+--
+-- with `pol` universally quantified and unconstrained. Instantiating it at
+-- pol := yew and discharging the three hypotheses by rfl and le_refl yields
+-- `yew = or'`, and Polarity.noConfusion turns that into False. The axiom did
+-- not state that a holographically closed system carries or'; it stated that
+-- EVERY polarity is or', so it proved anything at all.
+--
+-- Named imscriptive, not holographic: holographic is the static subset, the
+-- case where a boundary encodes a bulk it does not write. Imscriptive is the
+-- general condition and is what these constraints are about.
+--
+-- The content the axiom was reaching for is a constraint on an imscription, so
+-- that is what it is now: a predicate that reads the polarity off the structure
+-- instead of quantifying over it freely. Every field of a concrete imscription
+-- is a constructor, so the predicate is decidable and each instance is
+-- discharged by `decide` — no axiom, and the theorem says something, because it
+-- can fail for an imscription that does not satisfy it.
+def ImscriptiveClosure (i : Imscription) : Prop :=
+  i.dim = Dimensionality.if' → i.top = Topology.are →
+  i.prot ≥ Protection.ah → i.pol = Polarity.or'
+
+/-- Axiom C: an imscriptive topology requires imscriptive dimensionality.
+
+    Named imscriptive rather than holographic on purpose. Holographic is the
+    STATIC subset — a boundary that encodes a bulk it does not write. Imscriptive
+    is the general condition, in which the encoding writes what it encodes, and
+    the static case is one way for that to hold. The constraint here is the
+    general one, so it takes the general name.
+
+    The axiom form quantified over the dimensionality it was constraining, so it
+    proved `d = if'` for every `d`. Reading the field off the imscription is the
+    difference between a constraint and a contradiction. -/
+def ImscriptiveTopology (i : Imscription) : Prop :=
+  i.top = Topology.are → i.dim = Dimensionality.if'
+
+instance : DecidablePred ImscriptiveTopology := fun i => by
+  unfold ImscriptiveTopology; infer_instance
+
+/-- Axiom B: integer winding requires persistent chirality. Same repair. -/
+def WindingNeedsChirality (i : Imscription) : Prop :=
+  i.prot ≥ Protection.ah → i.chir ≥ Chirality.sure
+
+instance : DecidablePred WindingNeedsChirality := fun i => by
+  unfold WindingNeedsChirality; infer_instance
+
+instance : DecidablePred ImscriptiveClosure := fun i => by
+  unfold ImscriptiveClosure; infer_instance
+
+/-- Axiom D, demoted. For any concrete imscription the predicate is decided by
+    computation, so what used to need an axiom now needs nothing: the claim is
+    checked rather than assumed. -/
+theorem imscriptiveClosure_of_decide (i : Imscription)
+    (h : decide (ImscriptiveClosure i) = true) : ImscriptiveClosure i :=
+  of_decide_eq_true h
+
 -- ============================================================
 -- HAMMING DISTANCE
 -- Count of component mismatches. Zero iff tuples are identical.
@@ -243,7 +304,7 @@ def yang_mills_classical : Imscription := {
 
 -- ── Yang-Mills (quantum target) ─────────────────────────────
 -- The target tuple if the path integral measure existed.
--- Gap from classical: F(eth→hbar), K(mod→trap), G(beth→aleph), Φ(sub→c) = 4 mismatches.
+-- Gap from classical: F(eth→hbar), K(mod→trap), G(bib→ice), Φ(sub→c) = 4 mismatches.
 def yang_mills_quantum_target : Imscription := {
   dim  := array
   top  := judge

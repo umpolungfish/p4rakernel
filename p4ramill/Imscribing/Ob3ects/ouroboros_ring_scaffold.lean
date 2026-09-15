@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem ouroboros_ring_the_serpent_eating_its_5e6232_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Ouroboros ring: the serpent eating its own tail, the most ancient alchemical and mystical symbol. FSPLIT: the serpent bites its tail, splitting the circle into head (consumer) and tail (consumed). FFUSE: the swallowing reconstitutes the circle — head and tail are identical, the serpent feeds on itself and is fed by itself in perfect closure. VINIT: the unformed circle. TANCH: the completed ring. AFWD: the head advances. AREV: the tail retreats. ENGAGR: the serpent is simultaneously devouring and being devoured — the paradox of self-consumption. This is THE ob3ect of self-reference itself.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ouroboros_ring_the_serpent_eating_its_5e6232_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def ouroboros_ring_the_serpent_eating_its_5e6232_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ouroboros_ring_the_serpent_eating_its_5e6232_opcodes
+
+def ouroboros_ring_the_serpent_eating_its_5e6232_glyph_word : String := glyphWordOf ouroboros_ring_the_serpent_eating_its_5e6232_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ouroboros_ring_the_serpent_eating_its_5e6232_register_length : ouroboros_ring_the_serpent_eating_its_5e6232_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ouroboros_ring_the_serpent_eating_its_5e6232_register_matches_word : ouroboros_ring_the_serpent_eating_its_5e6232_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def ouroboros_ring_the_serpent_eating_its_5e6232_conventional_protocol : IGProtocol ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- IMSCRIB
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- AREV
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- FSPLIT
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- AFWD
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- FFUSE
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- CLINK
+  (.seq (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0)  -- IFIX
+  (.arrow ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0 ouroboros_ring_the_serpent_eating_its_5e6232_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem ouroboros_ring_the_serpent_eating_its_5e6232_conventional_protocol_depth : ouroboros_ring_the_serpent_eating_its_5e6232_conventional_protocol.depth = 8 := by
+  native_decide
+

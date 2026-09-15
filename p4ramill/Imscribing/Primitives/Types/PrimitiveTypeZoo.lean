@@ -138,6 +138,35 @@ theorem the_primitive_type_called_zoo_frobenius :
 /-- 'zoo' belongs to the Protection family at ordinal 3 -/
 def the_primitive_type_called_zoo_family : String := "Protection"
 def the_primitive_type_called_zoo_ordinal : Nat := 3
+
+/-- The CLINK L8 fragment for 'zoo' (⊡ = 𐑟), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_zoo_clinkFragmentL8 : String := "Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_zoo_proximityL8 : String := "match"
+def the_primitive_type_called_zoo_promotedAtomL8 : String := "BRAID_TRANSCENDENCE"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_zoo_clinkFragmentL9 : String := "Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)"
+def the_primitive_type_called_zoo_proximityL9 : String := "distant"
+def the_primitive_type_called_zoo_promotedAtomL9 : String := "BRAID_TRANSCENDENCE"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_zoo_conventionalReading : String := "a braid group representation with nontrivial R-matrix and non-commuting monodromy: non-abelian statistics."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_zoo_fragmentIsStatement : String := "always"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_zoo_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_zoo_bootstrapSteps : Nat := 14
 
 end Imscribing.Primitives.Types

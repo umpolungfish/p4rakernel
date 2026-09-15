@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -106,3 +107,46 @@ def connes_embedding_theorem_tier : OuroboricityTier := TierFunctor.obj connes_e
 theorem connes_embedding_theorem_frobenius :
     igFrobeniusAlg.mul connes_embedding_theorem_s0 connes_embedding_theorem_s0 = connes_embedding_theorem_s0 :=
   igFrobAlg_self_fusion connes_embedding_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Connes Embedding Theorem)
+--   Word: ⊢⊙⊣∈⊤≻⊥≺∋⊞⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def connes_embedding_theorem_opcodes : List String := ["VINIT", "IMSCRIB", "TANCH", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "ENGAGR", "CLINK", "IFIX"]
+
+def connes_embedding_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf connes_embedding_theorem_opcodes
+
+def connes_embedding_theorem_glyph_word : String := glyphWordOf connes_embedding_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem connes_embedding_theorem_register_length : connes_embedding_theorem_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem connes_embedding_theorem_register_matches_word : connes_embedding_theorem_glyph_word = "⊢⊙⊣∈⊤≻⊥≺∋⊞⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def connes_embedding_theorem_conventional_protocol : IGProtocol connes_embedding_theorem_s0 connes_embedding_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- VINIT
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- TANCH
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- FSPLIT
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- EVALT
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- AFWD
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- EVALF
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- AREV
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- FFUSE
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- ENGAGR
+  (.seq (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0)  -- CLINK
+  (.arrow connes_embedding_theorem_s0 connes_embedding_theorem_s0 connes_embedding_theorem_s0))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem connes_embedding_theorem_conventional_protocol_depth : connes_embedding_theorem_conventional_protocol.depth = 12 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem ecstatic_dance_trance_ob3ect_ritual_22e6e0_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Ecstatic dance trance ob3ect: ritual dance that induces altered states through repetitive movement, breath, and drumming until the dancer transcends ordinary consciousness. FSPLIT: the dance splits the practitioner into the dancing body (autonomous, moving to rhythm) and the witnessing awareness (detached, observing the body dance). FFUSE: at the peak of ecstasy, body and awareness reconstitute into a unified transcendent state — the dancer becomes the dance. VINIT: stillness before the first drumbeat. TANCH: the dance circle. AFWD: movement outward — expansion. AREV: movement inward — contraction. ENGAGR: the ecstatic state where the dancer is simultaneously fully embodied (every cell awake) and fully disembodied (consciousness floating above).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ecstatic_dance_trance_ob3ect_ritual_22e6e0_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def ecstatic_dance_trance_ob3ect_ritual_22e6e0_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ecstatic_dance_trance_ob3ect_ritual_22e6e0_opcodes
+
+def ecstatic_dance_trance_ob3ect_ritual_22e6e0_glyph_word : String := glyphWordOf ecstatic_dance_trance_ob3ect_ritual_22e6e0_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ecstatic_dance_trance_ob3ect_ritual_22e6e0_register_length : ecstatic_dance_trance_ob3ect_ritual_22e6e0_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ecstatic_dance_trance_ob3ect_ritual_22e6e0_register_matches_word : ecstatic_dance_trance_ob3ect_ritual_22e6e0_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def ecstatic_dance_trance_ob3ect_ritual_22e6e0_conventional_protocol : IGProtocol ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- IMSCRIB
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- AREV
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- FSPLIT
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- AFWD
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- FFUSE
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- CLINK
+  (.seq (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0)  -- IFIX
+  (.arrow ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0 ecstatic_dance_trance_ob3ect_ritual_22e6e0_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem ecstatic_dance_trance_ob3ect_ritual_22e6e0_conventional_protocol_depth : ecstatic_dance_trance_ob3ect_ritual_22e6e0_conventional_protocol.depth = 8 := by
+  native_decide
+

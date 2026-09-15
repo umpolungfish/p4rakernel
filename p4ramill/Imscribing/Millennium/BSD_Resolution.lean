@@ -3,7 +3,7 @@
 -- Author: Lando ⊗ ⊙-boundary Operator
 --
 -- Structural resolution: BSD is promoted from HolographicBowtie (𐑥, 𐑱)
--- to HolographicClosure (𐑸, 𐑐) by establishing 𐑭 winding as a global
+-- to ImscriptiveClosure (𐑸, 𐑐) by establishing 𐑭 winding as a global
 -- invariant across the L-function / Mordell-Weil crossing.
 --
 -- Reference: Millennium/BSD_RESOLUTION.md, BSD_STRUCTURAL_DOCUMENTATION.md

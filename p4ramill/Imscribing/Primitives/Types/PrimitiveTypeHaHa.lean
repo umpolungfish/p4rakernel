@@ -138,6 +138,35 @@ theorem the_primitive_type_called_ha_ha_frobenius :
 /-- 'ha_ha' belongs to the Criticality family at ordinal 4 -/
 def the_primitive_type_called_ha_ha_family : String := "Criticality"
 def the_primitive_type_called_ha_ha_ordinal : Nat := 4
+
+/-- The CLINK L8 fragment for 'ha_ha' (⊙ = 𐑣), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_ha_ha_clinkFragmentL8 : String := "ξ → ∞ ∧ chaotic(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_ha_ha_proximityL8 : String := "distant"
+def the_primitive_type_called_ha_ha_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_ha_ha_clinkFragmentL9 : String := "ξ → ∞ ∧ chaotic(x)"
+def the_primitive_type_called_ha_ha_proximityL9 : String := "distant"
+def the_primitive_type_called_ha_ha_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_ha_ha_conventionalReading : String := "diverging correlation length with positive Lyapunov exponent."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_ha_ha_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_ha_ha_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_ha_ha_bootstrapSteps : Nat := 14
 
 end Imscribing.Primitives.Types

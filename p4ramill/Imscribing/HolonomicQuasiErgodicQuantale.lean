@@ -46,7 +46,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id (parallel transport round-trip)
 --   ƒ=𐑐  fid  = peep    — quantum: holonomies are unitary Berry phases
 --   Ç=𐑘  kin  = air     — MBL (frozen-disorder): slow, non-ergodic
---   Γ=𐑔  gran = ice     — aleph: complete lattice over all holonomy sectors
+--   Γ=𐑔  gran = ice     — complete lattice over all holonomy sectors
 --   ɢ=𐑝  gram = vow     — conjunctive: tensor product ⊗ (multiplicative composition)
 --   ⊙=⊙  crit = monad   — critical: RG fixed point, MBL transition scale-invariant
 --   Ħ=𐑫  chir = wool    — eternal: infinite holonomy path memory

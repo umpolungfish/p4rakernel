@@ -20,6 +20,7 @@
 --   the Einstein equations for the whole universe: geometry IS matter
 --   at the cosmic scale. μ∘δ=id as the cosmic sum rule Ω_total = 1.
 
+import Mathlib.Tactic
 import Imscribing.Paraconsistent.GeneralRelativity
 import Imscribing.Consciousness
 
@@ -56,8 +57,91 @@ inductive SpatialCurvature where
   | negative  -- k = -1: open universe (infinite, hyperbolic)
   deriving Inhabited, Repr, DecidableEq
 
-theorem observed_flatness : SpatialCurvature.zero = SpatialCurvature.zero := rfl
-  -- Observation (Planck 2018): Ω_k = 0.001 ± 0.002 — consistent with flat
+/--
+Gauss-Bonnet on a surface of constant Gaussian curvature K: a geodesic
+triangle of area A has angle excess exactly K·A. A probe of linear scale
+ℓ spans area ℓ² in these units, so the deviation from flat that ANY
+embedded observer can measure is quadratic in the scale it probes at.
+
+Curvature is intrinsic (Theorema Egregium), so embedding hides nothing.
+What is bounded is ℓ: an observer's probe scale cannot exceed their
+horizon. Flatness is therefore a statement about a residual sitting under
+a noise floor, not about curvature being invisible.
+-/
+def angleExcess (K l : ℚ) : ℚ := K * l ^ 2
+
+theorem angleExcess_flat (l : ℚ) : angleExcess 0 l = 0 := by
+  simp [angleExcess]
+
+/-- The unwinding is monotone in the probe scale: a larger probe recovers
+    at least as much residual. -/
+theorem angleExcess_mono {K l₁ l₂ : ℚ} (hK : 0 ≤ K) (h0 : 0 ≤ l₁) (h : l₁ ≤ l₂) :
+    angleExcess K l₁ ≤ angleExcess K l₂ := by
+  unfold angleExcess
+  have hsq : l₁ ^ 2 ≤ l₂ ^ 2 := by nlinarith [sq_nonneg (l₂ - l₁)]
+  exact mul_le_mul_of_nonneg_left hsq hK
+
+/-- And strictly, when the curvature is nonzero — so two probes at
+    different scales do NOT measure the same residual. -/
+theorem angleExcess_strict {K l₁ l₂ : ℚ} (hK : 0 < K) (h0 : 0 ≤ l₁) (h : l₁ < l₂) :
+    angleExcess K l₁ < angleExcess K l₂ := by
+  unfold angleExcess
+  have hsq : l₁ ^ 2 < l₂ ^ 2 := by nlinarith [sq_nonneg (l₂ - l₁)]
+  exact mul_lt_mul_of_pos_left hsq hK
+
+/-- `Resolves eps K l` — a probe at scale `l` against noise floor `eps`
+    separates the excess from zero. -/
+def Resolves (eps K l : ℚ) : Prop := eps ≤ angleExcess K l
+
+/-- Detection is monotone in the probe: what a small probe resolves, a
+    larger one resolves too. The ordering is by scale, not by luck. -/
+theorem resolves_mono {eps K l₁ l₂ : ℚ} (hK : 0 ≤ K) (h0 : 0 ≤ l₁) (h : l₁ ≤ l₂)
+    (hr : Resolves eps K l₁) : Resolves eps K l₂ :=
+  le_trans hr (angleExcess_mono hK h0 h)
+
+/-- What an observer reads off, given a noise floor. The curvature is a
+    function of the PROBE and the floor, not a constant of the universe. -/
+def readCurvature (eps K l : ℚ) : SpatialCurvature :=
+  if eps ≤ K * l ^ 2 then SpatialCurvature.positive
+  else if eps ≤ (-K) * l ^ 2 then SpatialCurvature.negative
+  else SpatialCurvature.zero
+
+/--
+OBSERVED FLATNESS. If the curvature radius exceeds the horizon — stated
+here as |K|·L² below the noise floor — then every probe within the
+horizon reads flat, whatever K actually is. Not a tautology: the
+hypothesis is a real inequality relating curvature, horizon and floor,
+and the conclusion is what the instrument reports.
+
+Observation (Planck 2018): Ω_k = 0.001 ± 0.002 — consistent with flat.
+-/
+theorem observed_flatness {eps K l L : ℚ} (hl : 0 ≤ l) (hlL : l ≤ L)
+    (hbound : |K| * L ^ 2 < eps) : readCurvature eps K l = SpatialCurvature.zero := by
+  have hl2 : l ^ 2 ≤ L ^ 2 := by nlinarith [sq_nonneg (L - l)]
+  have hK : (0:ℚ) ≤ |K| := abs_nonneg K
+  have h1 : |K| * l ^ 2 ≤ |K| * L ^ 2 := by nlinarith
+  have h2 : |K| * l ^ 2 < eps := lt_of_le_of_lt h1 hbound
+  have hle : K * l ^ 2 ≤ |K| * l ^ 2 := by
+    nlinarith [le_abs_self K, sq_nonneg l]
+  have hle' : (-K) * l ^ 2 ≤ |K| * l ^ 2 := by
+    nlinarith [neg_le_abs K, sq_nonneg l]
+  unfold readCurvature
+  rw [if_neg (by linarith), if_neg (by linarith)]
+
+/-- A reading of flat is NOT a measurement of K = 0. Concrete witness: a
+    positively curved universe read as flat by every probe inside the
+    horizon. -/
+theorem flat_reading_is_not_flat_universe :
+    (0:ℚ) < 1 / 1000000 ∧ readCurvature (1/1000) (1/1000000) 1 = SpatialCurvature.zero := by
+  refine ⟨by norm_num, ?_⟩
+  exact observed_flatness (by norm_num) (le_refl (1:ℚ)) (by norm_num)
+
+/-- The prediction. Raise the probe scale enough and the same curvature
+    resolves — the residual is suppressed, never absent. -/
+theorem larger_probe_resolves :
+    Resolves (1/1000) (1/1000000) 1000 := by
+  unfold Resolves angleExcess
+  norm_num
 
 /--
 The scale factor a(t) encodes the expansion history.

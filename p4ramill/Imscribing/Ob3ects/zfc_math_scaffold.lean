@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,47 @@ def zfc_math_tier : OuroboricityTier := TierFunctor.obj zfc_math_s0
 theorem zfc_math_frobenius :
     igFrobeniusAlg.mul zfc_math_s0 zfc_math_s0 = zfc_math_s0 :=
   igFrobAlg_self_fusion zfc_math_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: zfc math)
+--   Word: ⊢⊡≻⋈⊡∈⊤⊞∋⊙≺⊥⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def zfc_math_opcodes : List String := ["VINIT", "IFIX", "AFWD", "CLINK", "IFIX", "FSPLIT", "EVALT", "ENGAGR", "FFUSE", "IMSCRIB", "AREV", "EVALF", "TANCH"]
+
+def zfc_math_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf zfc_math_opcodes
+
+def zfc_math_glyph_word : String := glyphWordOf zfc_math_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem zfc_math_register_length : zfc_math_conventional_register.length = 13 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem zfc_math_register_matches_word : zfc_math_glyph_word = "⊢⊡≻⋈⊡∈⊤⊞∋⊙≺⊥⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def zfc_math_conventional_protocol : IGProtocol zfc_math_s0 zfc_math_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- VINIT
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- IFIX
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- AFWD
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- CLINK
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- IFIX
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- FSPLIT
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- EVALT
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- ENGAGR
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- FFUSE
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- IMSCRIB
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- AREV
+  (.seq (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)  -- EVALF
+  (.arrow zfc_math_s0 zfc_math_s0 zfc_math_s0)))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 13 arrows. -/
+theorem zfc_math_conventional_protocol_depth : zfc_math_conventional_protocol.depth = 13 := by
+  native_decide
+

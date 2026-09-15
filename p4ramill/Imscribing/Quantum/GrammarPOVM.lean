@@ -14,7 +14,7 @@ The Grammar as POVM: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙𐑒𐑙𐑭⟩
   Φ=𐑹 (Frob-special) — complete positivity of measurements
   ƒ=𐑐 (quantum)   — quantum fidelity of measurement outcomes
   Ç=𐑧 (slow)      — measurement collapse is near-equilibrium
-  Γ=𐑔 (aleph)     — maximal cardinality (all type values)
+  Γ=𐑔 (ice)     — maximal cardinality (all type values)
   ɢ=𐑠 (sequential) — sequential composition of primitive measurements
   ⊙=⊙ (critical)   — self-modeling: the grammar measures itself
   Ħ=𐑒 (1-step)    — single measurement step per primitive
@@ -131,7 +131,7 @@ structure PrimitiveMeasurement (d : ℕ) [NeZero d] where
     informationally complete measurement.
 
     Combined outcome space: MeasurementOutcome^12 = 2^12 = 4096 outcomes.
-    This matches the Γ=𐑔 (aleph) cardinality: maximal resolution.
+    This matches the Γ=𐑔 (ice) cardinality: maximal resolution.
 
     In the Σ=1:1 limit, the grammar IS the measured system — the measurement
     outcomes ARE the type values. -/
@@ -177,7 +177,15 @@ axiom grammar_is_info_complete (d : ℕ) [NeZero d] :
     separation between "measuring apparatus" and "measured system."
 
     Tuple of this limit: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙𐑒𐑙𐑭⟩ -/
-axiom sigma_one_to_one_limit : True
+axiom sigma_one_to_one_limit :
+    ∃ g : GrammarPOVM 8, Function.Injective g.combined.effects
+
+/-- At Σ=1:1 the 4096 outcomes are exactly 4096 distinct effects: the
+    grammar's measurement operators are its own type distinctions, with no
+    two outcomes collapsing to the same effect. -/
+theorem grammar_outcomes_are_distinctions :
+    ∃ g : GrammarPOVM 8, Function.Injective g.combined.effects :=
+  sigma_one_to_one_limit
 
 end -- noncomputable section
 

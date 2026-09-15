@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -191,3 +192,63 @@ def baum_connes_theorem_tier : OuroboricityTier := TierFunctor.obj baum_connes_t
 theorem baum_connes_theorem_frobenius :
     igFrobeniusAlg.mul baum_connes_theorem_s0 baum_connes_theorem_s0 = baum_connes_theorem_s0 :=
   igFrobAlg_self_fusion baum_connes_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Baum–Connes Theorem)
+--   Word: ⊢≻≻⋈≻≻∈∈⊤⊤⊤⊤⊥⊥⊥⊥∋∋⊙⊙⊞⊡⊡⊡⊡≺⋈⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def baum_connes_theorem_opcodes : List String := ["VINIT", "AFWD", "AFWD", "CLINK", "AFWD", "AFWD", "FSPLIT", "FSPLIT", "EVALT", "EVALT", "EVALT", "EVALT", "EVALF", "EVALF", "EVALF", "EVALF", "FFUSE", "FFUSE", "IMSCRIB", "IMSCRIB", "ENGAGR", "IFIX", "IFIX", "IFIX", "IFIX", "AREV", "CLINK", "IMSCRIB", "TANCH"]
+
+def baum_connes_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf baum_connes_theorem_opcodes
+
+def baum_connes_theorem_glyph_word : String := glyphWordOf baum_connes_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem baum_connes_theorem_register_length : baum_connes_theorem_conventional_register.length = 29 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem baum_connes_theorem_register_matches_word : baum_connes_theorem_glyph_word = "⊢≻≻⋈≻≻∈∈⊤⊤⊤⊤⊥⊥⊥⊥∋∋⊙⊙⊞⊡⊡⊡⊡≺⋈⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def baum_connes_theorem_conventional_protocol : IGProtocol baum_connes_theorem_s0 baum_connes_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- VINIT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- AFWD
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- AFWD
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- CLINK
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- AFWD
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- AFWD
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- FSPLIT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- FSPLIT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALT
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALF
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALF
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALF
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- EVALF
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- FFUSE
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- FFUSE
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- ENGAGR
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IFIX
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IFIX
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IFIX
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IFIX
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- AREV
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- CLINK
+  (.seq (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)  -- IMSCRIB
+  (.arrow baum_connes_theorem_s0 baum_connes_theorem_s0 baum_connes_theorem_s0)))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 29 arrows. -/
+theorem baum_connes_theorem_conventional_protocol_depth : baum_connes_theorem_conventional_protocol.depth = 29 := by
+  native_decide
+

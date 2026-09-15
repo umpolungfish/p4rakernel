@@ -51,7 +51,7 @@ def mechane_tuple : Imscription :=
     pol  := Polarity.or'           -- Φ=𐑹 Frobenius-special
     fid  := Fidelity.peep          -- ƒ=𐑞 thermal/dialetheic paradox energy
     kin  := KineticChar.egg        -- Ç=𐑪 moderate, 8,485 jobs
-    gran := Granularity.ice        -- Γ=𐑔 aleph/maximal catalog
+    gran := Granularity.ice        -- Γ=𐑔 maximal catalog
     gram := Grammar.measure        -- ɢ=𐑠 sequential IMASM
     crit := Criticality.monad      -- ⊙=⊙ self-modeling gate
     chir := Chirality.sure         -- Ħ=𐑒 one-step per winding

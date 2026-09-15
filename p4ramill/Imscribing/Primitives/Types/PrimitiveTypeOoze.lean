@@ -134,6 +134,35 @@ theorem the_primitive_type_called_ooze_frobenius :
 /-- 'ooze' belongs to the Grammar family at ordinal 3 -/
 def the_primitive_type_called_ooze_family : String := "Grammar"
 def the_primitive_type_called_ooze_ordinal : Nat := 3
+
+/-- The CLINK L8 fragment for 'ooze' (∋ = 𐑵), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_ooze_clinkFragmentL8 : String := "f → all(x) ∧ broadcast(x, f)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_ooze_proximityL8 : String := "match"
+def the_primitive_type_called_ooze_promotedAtomL8 : String := "BROADCAST_TRANSCENDENCE"
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_ooze_clinkFragmentL9 : String := "f → all(x) ∧ broadcast(x, f)"
+def the_primitive_type_called_ooze_proximityL9 : String := "distant"
+def the_primitive_type_called_ooze_promotedAtomL9 : String := "BROADCAST_TRANSCENDENCE"
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_ooze_conventionalReading : String := "one state copied to every party. Forbidden for non-commuting states by the no-broadcasting theorem, which is why the navigator flags it as a transcendence: it is available classically and unavailable quantum-mechanically."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_ooze_fragmentIsStatement : String := "always"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_ooze_fragmentIsStatementEvidence : String := "starred in 3 of the 3 sampled theorem(s) that carry it"
 def the_primitive_type_called_ooze_bootstrapSteps : Nat := 13
 
 end Imscribing.Primitives.Types

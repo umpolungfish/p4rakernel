@@ -56,18 +56,22 @@ namespace Belnap
 def band (a b : Belnap) : Belnap :=
   match a, b with
   | .F, _ | _, .F => .F
-  | .N, _ | _, .N => .N
-  | .B, _ | _, .B => .B
-  | .T, .T => .T
+  | .N, .B | .B, .N => .F
+  | .T, x => x
+  | x, .T => x
+  | .N, .N => .N
+  | .B, .B => .B
 
 /-- Belnap disjunction (least upper bound in the truth lattice).
     T-dominant → B-dominant → N-dominant. -/
 def bor (a b : Belnap) : Belnap :=
   match a, b with
   | .T, _ | _, .T => .T
-  | .B, _ | _, .B => .B
-  | .N, _ | _, .N => .N
-  | .F, .F => .F
+  | .N, .B | .B, .N => .T
+  | .F, x => x
+  | x, .F => x
+  | .N, .N => .N
+  | .B, .B => .B
 
 /-- Belnap negation: swap T↔F, N and B are fixed points. -/
 def bnot : Belnap → Belnap
@@ -241,28 +245,33 @@ theorem fsplit_bor_N_B_counterexample :
      Belnap.bor (fsplit .N).2 (fsplit .B).2) := by
   native_decide
 
-/-- The B-state is self-absorbing under ffuse EXCEPT when the
-    other component is T (which dominates in bor).
-    ffuse(B, T) = T, but for s ∈ {N, F, B}: ffuse(B, s) = B. -/
-theorem ffuse_B_left_N (s : Belnap) (hs : s ≠ .T) : ffuse (.B, s) = .B := by
+/-- The B-state is self-absorbing under ffuse exactly when the other component
+    is F or B. It is not absorbing against N: B and N are lattice complements,
+    so their join is the top. -/
+theorem ffuse_B_left (s : Belnap) (hs : s ≠ .T) (hn : s ≠ .N) : ffuse (.B, s) = .B := by
   cases s
-  · rfl                          -- N: ffuse(B,N) = bor(B,N) = B
-  · exfalso; exact hs rfl        -- T: excluded
+  · exact absurd rfl hn          -- N: ffuse(B,N) = bor(B,N) = T, the complement joins to top
+  · exact absurd rfl hs          -- T: excluded
   · rfl                          -- F: ffuse(B,F) = bor(B,F) = B
   · rfl                          -- B: ffuse(B,B) = bor(B,B) = B
+
+/-- Against its complement, B joins to the top. -/
+theorem ffuse_B_N : ffuse (.B, .N) = .T := rfl
 
 /-- ffuse(B, T) = T, not B — T dominates in the Belnap join. -/
 theorem ffuse_B_T : ffuse (.B, .T) = .T := by
   rfl
 
-/-- ffuse(s, B) = B EXCEPT when s = T (T dominates in bor).
-    For s ∈ {N, F, B}: ffuse(s, B) = B. -/
-theorem ffuse_B_right_N (s : Belnap) (hs : s ≠ .T) : ffuse (s, .B) = .B := by
+/-- ffuse(s, B) = B exactly when s is F or B, by the same complementarity. -/
+theorem ffuse_B_right (s : Belnap) (hs : s ≠ .T) (hn : s ≠ .N) : ffuse (s, .B) = .B := by
   cases s
-  · rfl                          -- N: ffuse(N,B) = bor(N,B) = B
-  · exfalso; exact hs rfl        -- T: excluded
+  · exact absurd rfl hn          -- N: ffuse(N,B) = bor(N,B) = T
+  · exact absurd rfl hs          -- T: excluded
   · rfl                          -- F: ffuse(F,B) = bor(F,B) = B
   · rfl                          -- B: ffuse(B,B) = bor(B,B) = B
+
+/-- And symmetrically. -/
+theorem ffuse_N_B : ffuse (.N, .B) = .T := rfl
 
 /-- ffuse(T, B) = T, not B — T dominates in the Belnap join. -/
 theorem ffuse_T_B : ffuse (.T, .B) = .T := by

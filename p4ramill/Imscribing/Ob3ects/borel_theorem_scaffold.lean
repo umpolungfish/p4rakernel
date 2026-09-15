@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -166,3 +167,58 @@ def borel_theorem_tier : OuroboricityTier := TierFunctor.obj borel_theorem_s0
 theorem borel_theorem_frobenius :
     igFrobeniusAlg.mul borel_theorem_s0 borel_theorem_s0 = borel_theorem_s0 :=
   igFrobAlg_self_fusion borel_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Borel Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≺⊥∋⊡⋈⊞⊙⊡≻⋈⊤⊡≺⊥∋⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def borel_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AREV", "EVALF", "FFUSE", "IFIX", "CLINK", "ENGAGR", "IMSCRIB", "IFIX", "AFWD", "CLINK", "EVALT", "IFIX", "AREV", "EVALF", "FFUSE", "IFIX", "TANCH"]
+
+def borel_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf borel_theorem_opcodes
+
+def borel_theorem_glyph_word : String := glyphWordOf borel_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem borel_theorem_register_length : borel_theorem_conventional_register.length = 24 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem borel_theorem_register_matches_word : borel_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≺⊥∋⊡⋈⊞⊙⊡≻⋈⊤⊡≺⊥∋⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def borel_theorem_conventional_protocol : IGProtocol borel_theorem_s0 borel_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- VINIT
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- TANCH
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- AFWD
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- CLINK
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- FSPLIT
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- EVALT
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- AREV
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- EVALF
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- FFUSE
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IFIX
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- CLINK
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- ENGAGR
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IFIX
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- AFWD
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- CLINK
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- EVALT
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IFIX
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- AREV
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- EVALF
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- FFUSE
+  (.seq (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0)  -- IFIX
+  (.arrow borel_theorem_s0 borel_theorem_s0 borel_theorem_s0))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 24 arrows. -/
+theorem borel_theorem_conventional_protocol_depth : borel_theorem_conventional_protocol.depth = 24 := by
+  native_decide
+

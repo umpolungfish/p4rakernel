@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -96,3 +97,46 @@ def ceremony_as_closure_tier : OuroboricityTier := TierFunctor.obj ceremony_as_c
 theorem ceremony_as_closure_frobenius :
     igFrobeniusAlg.mul ceremony_as_closure_s0 ceremony_as_closure_s0 = ceremony_as_closure_s0 :=
   igFrobAlg_self_fusion ceremony_as_closure_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Ceremony-as-Closure)
+--   Word: ⊢≻⊙⋈≺∈∈∈⊞∋⊣⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def ceremony_as_closure_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "CLINK", "AREV", "FSPLIT", "FSPLIT", "FSPLIT", "ENGAGR", "FFUSE", "TANCH", "IFIX"]
+
+def ceremony_as_closure_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf ceremony_as_closure_opcodes
+
+def ceremony_as_closure_glyph_word : String := glyphWordOf ceremony_as_closure_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem ceremony_as_closure_register_length : ceremony_as_closure_conventional_register.length = 12 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem ceremony_as_closure_register_matches_word : ceremony_as_closure_glyph_word = "⊢≻⊙⋈≺∈∈∈⊞∋⊣⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def ceremony_as_closure_conventional_protocol : IGProtocol ceremony_as_closure_s0 ceremony_as_closure_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- VINIT
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- AFWD
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- IMSCRIB
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- CLINK
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- AREV
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- FSPLIT
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- FSPLIT
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- FSPLIT
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- ENGAGR
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- FFUSE
+  (.seq (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0)  -- TANCH
+  (.arrow ceremony_as_closure_s0 ceremony_as_closure_s0 ceremony_as_closure_s0))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 12 arrows. -/
+theorem ceremony_as_closure_conventional_protocol_depth : ceremony_as_closure_conventional_protocol.depth = 12 := by
+  native_decide
+

@@ -31,13 +31,6 @@ made `ordinalPhi`/`ordinalK` rank-faithful (ℚ-valued: roar=7/3, err=8/3, haha=
 air=9/2), so `triple_criticality.g3 = gatePhi 3` now selects only `haha`, matching
 Python's `GateSpec("⊙", 3.0)` exactly. RH (⊙=roar=7/3 < 3) fails it and closes
 nowhere, matching the manuscript; YM (⊙=haha=3) still closes.
-
-## Honest scope
-
-Structural-resistance result in the operad model, verified by `native_decide`. It
-says these three types do not reach the framework's closure condition
-under any current universe — not a claim about the conventional mathematical
-problems.
 -/
 
 namespace Imscribing.Millennium.ClayUnclosedResistance

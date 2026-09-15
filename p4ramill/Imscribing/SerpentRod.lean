@@ -81,15 +81,15 @@ structure FoldedProtein where
 -- ════════════════════════════════════════════════════════════════════════════
 
 /-- Direct RNA → Amino Acid Sequence (via standard genetic code). -/
+def transcribeGo : List Nucleotide → List AminoAcid
+  | p1 :: p2 :: p3 :: rest =>
+    match geneticCode (p1, p2, p3) with
+    | CodonMeaning.aa aa => aa :: transcribeGo rest
+    | CodonMeaning.stop _ => []
+  | _ => []
+
 def transcribeToAA (rna : RNASequence) : List AminoAcid :=
-  let rec go (l : List Nucleotide) : List AminoAcid :=
-    match l with
-    | p1 :: p2 :: p3 :: rest =>
-      match geneticCode (p1, p2, p3) with
-      | CodonMeaning.aa aa => aa :: go rest
-      | CodonMeaning.stop _ => []
-    | _ => []
-  go rna.seq
+  transcribeGo rna.seq
 
 /-- The 12↔12 activation pattern: sequence of promoted AAs with their
     IG primitives, in order of appearance. This determines the fold. -/
@@ -138,16 +138,28 @@ def predictedContacts (aas : List AminoAcid) : Nat :=
       scan rest (pos + 1) 0 + countContacts rest (pos + 1)
   countContacts pattern 0
 
-/-- THE SERPENT-ROD THEOREM: The winding number of the RNA (serpent)
-    bounds the number of contacts in the folded protein (rod).
-    Each complete B₄ cycle (N→T→B→F→N) creates at least one contact. -/
-theorem serpent_winding_bounds_contacts (rna : RNASequence) :
-    windingNumber rna ≤ predictedContacts (transcribeToAA rna) + 1 := by
-  -- The winding number counts B₄ cycles; each cycle generates at least one
-  -- complementary pair contact in the folded structure.
-  -- Proof by induction on RNA length: each complete B₄ cycle activates
-  -- at least one IG primitive pair that forms a contact.
-  sorry
+/-- The witness that separates winding from contacts: three Ser codons.
+    Ser is ground layer, so it activates no primitive and the fold has no
+    contacts, while the nucleotide path still winds. -/
+def serSerSer : RNASequence := ⟨[.U, .C, .U, .U, .C, .U, .U, .C, .U]⟩
+
+theorem serSerSer_winds : windingNumber serSerSer = 3 := by decide
+
+theorem serSerSer_has_no_contacts :
+    predictedContacts (transcribeToAA serSerSer) = 0 := by decide
+
+/-- **Winding does not bound contacts.** The winding number is read off the raw
+    nucleotide path; contacts are counted between promoted amino acids at
+    sequence distance four or more. A sequence made entirely of ground-layer
+    residues winds freely and contacts nothing, so no inequality in this
+    direction holds. -/
+theorem winding_does_not_bound_contacts :
+    ¬ ∀ rna : RNASequence,
+        windingNumber rna ≤ predictedContacts (transcribeToAA rna) + 1 := by
+  intro h
+  have := h serSerSer
+  rw [serSerSer_winds, serSerSer_has_no_contacts] at this
+  omega
 -- ════════════════════════════════════════════════════════════════════════════
 -- §4  FROBENIUS KERNEL — μ∘δ in the Serpent-Rod correspondence
 -- ════════════════════════════════════════════════════════════════════════════
@@ -155,24 +167,24 @@ theorem serpent_winding_bounds_contacts (rna : RNASequence) :
 /-- δ (comultiplication): Forget position 3 of each codon.
     For exact-stratum boxes, this loses no information.
     For split-stratum boxes, this collapses the purine/pyrimidine choice. -/
+def deltaGo : List Nucleotide → List (Nucleotide × Nucleotide)
+  | p1 :: p2 :: _ :: rest => (p1, p2) :: deltaGo rest
+  | _ => []
+
 def delta_forget (rna : RNASequence) : List (Nucleotide × Nucleotide) :=
-  let rec go (l : List Nucleotide) : List (Nucleotide × Nucleotide) :=
-    match l with
-    | p1 :: p2 :: _ :: rest => (p1, p2) :: go rest
-    | _ => []
-  go rna.seq
+  deltaGo rna.seq
 
 /-- μ (multiplication): Reconstruct the folded protein from codon pairs.
     Uses U as default for forgotten position 3 — exact boxes are invariant. -/
+def muToAA : List (Nucleotide × Nucleotide) → List AminoAcid
+  | [] => []
+  | (p1, p2) :: rest =>
+    match geneticCode (p1, p2, .U) with
+    | CodonMeaning.aa aa => aa :: muToAA rest
+    | CodonMeaning.stop _ => []
+
 def mu_reconstruct (pairs : List (Nucleotide × Nucleotide)) : FoldedProtein :=
-  let rec toAA (ps : List (Nucleotide × Nucleotide)) : List AminoAcid :=
-    match ps with
-    | [] => []
-    | (p1, p2) :: rest =>
-      match geneticCode (p1, p2, .U) with
-      | CodonMeaning.aa aa => aa :: toAA rest
-      | CodonMeaning.stop _ => []
-  let aas := toAA pairs
+  let aas := muToAA pairs
   let pattern := activationPattern aas
   let contacts := predictedContacts aas
   { aaSequence := aas
@@ -180,19 +192,73 @@ def mu_reconstruct (pairs : List (Nucleotide × Nucleotide)) : FoldedProtein :=
     longRangeContacts := contacts
     subunitCount := if contacts > 5 then 2 else 1 }
 
-/-- Frobenius: μ ∘ δ = id (structural-level).
-    For exact-stratum codons, position 3 is genuinely forgotten.
-    For split-stratum codons, .U default gives the pyrimidine variant,
-    which is always in the same amino acid family as the purine variant.
-    The only exceptions are stop codons (UAA, UAG) — 3 out of 64. -/
-theorem frobenius_serpent_rod (rna : RNASequence) :
-    (mu_reconstruct (delta_forget rna)).aaSequence = transcribeToAA rna := by
-  -- This is true for exact-stratum codons (where position 3 is forgotten)
-  -- by frobenius_at_codon_level. For split-stratum codons, using .U as
-  -- default selects the pyrimidine family, which is consistent with the
-  -- genetic code's structure (same AA family, different specific AA).
-  -- The proof requires induction on RNA length.
-  sorry
+/-- Every codon of the sequence sits in an exact box, so position 3 is
+    genuinely redundant and δ forgets nothing. -/
+def AllExact : List Nucleotide → Prop
+  | p1 :: p2 :: _ :: rest => isExactBox p1 p2 = true ∧ AllExact rest
+  | _ => True
+
+/-- On an exact box, refilling position 3 with U returns the same amino acid
+    the original codon carried. This is `frobenius_at_codon_level` read in the
+    direction μ needs it. -/
+theorem mu_restores_exact (p1 p2 p3 : Nucleotide) (h : isExactBox p1 p2 = true) :
+    geneticCode (p1, p2, .U) = geneticCode (p1, p2, p3) :=
+  frobenius_at_codon_level p1 p2 .U p3 h
+
+/-- **Frobenius on the exact stratum: μ ∘ δ = id.**
+    Where every codon is four-fold degenerate, forgetting position 3 and
+    refilling it with U is the identity on the amino acid sequence. -/
+theorem frobenius_serpent_rod_exact (l : List Nucleotide) (h : AllExact l) :
+    muToAA (deltaGo l) = transcribeGo l := by
+  induction l using deltaGo.induct with
+  | case1 p1 p2 p3 rest ih =>
+    obtain ⟨hbox, hrest⟩ := h
+    rw [deltaGo, muToAA, transcribeGo, mu_restores_exact p1 p2 p3 hbox]
+    cases hg : geneticCode (p1, p2, p3) with
+    | aa a => simp [ih hrest]
+    | stop s => simp
+  | case2 l hne =>
+    cases l with
+    | nil => rfl
+    | cons a t => cases t with
+      | nil => rfl
+      | cons b u => cases u with
+        | nil => rfl
+        | cons c v => exact (hne a b c v rfl).elim
+
+/-- **And μ ∘ δ is NOT the identity off the exact stratum.**
+    A split box splits on the third position, and refilling with U selects the
+    pyrimidine member. AUG carries Met; δ forgets the G and μ returns AUU, which
+    carries Ile. The two are not the same amino acid, so the unrestricted
+    equality is false. -/
+theorem frobenius_serpent_rod_fails_split :
+    muToAA (deltaGo [.A, .U, .G]) ≠ transcribeGo [.A, .U, .G] := by decide
+
+/-- The collapse, named. Each split box whose two halves carry different amino
+    acids sends its purine member to its pyrimidine member under μ ∘ δ. These
+    are the promoted amino acids, which is to say the twelve that carry IG
+    primitives: the Frobenius fails exactly where the Grammar's primitives live. -/
+theorem split_collapse_pairs :
+    geneticCode (.A, .U, .U) = CodonMeaning.aa .Ile ∧
+    geneticCode (.A, .U, .G) = CodonMeaning.aa .Met ∧
+    geneticCode (.U, .G, .U) = CodonMeaning.aa .Cys ∧
+    geneticCode (.U, .G, .G) = CodonMeaning.aa .Trp ∧
+    geneticCode (.A, .A, .U) = CodonMeaning.aa .Asn ∧
+    geneticCode (.A, .A, .A) = CodonMeaning.aa .Lys ∧
+    geneticCode (.C, .A, .U) = CodonMeaning.aa .His ∧
+    geneticCode (.C, .A, .A) = CodonMeaning.aa .Gln ∧
+    geneticCode (.G, .A, .U) = CodonMeaning.aa .Asp ∧
+    geneticCode (.G, .A, .A) = CodonMeaning.aa .Glu := by decide
+
+/-- Both members of every collapsing pair are promoted, hence both carry a
+    primitive. μ ∘ δ therefore maps twelve primitive-bearing amino acids onto
+    a strictly smaller set. -/
+theorem collapsing_pairs_are_promoted :
+    (.Met ∈ promotedAAs ∧ .Ile ∈ promotedAAs) ∧
+    (.Trp ∈ promotedAAs ∧ .Cys ∈ promotedAAs) ∧
+    (.Lys ∈ promotedAAs ∧ .Asn ∈ promotedAAs) ∧
+    (.Gln ∈ promotedAAs ∧ .His ∈ promotedAAs) ∧
+    (.Glu ∈ promotedAAs ∧ .Asp ∈ promotedAAs) := by decide
 
 -- ════════════════════════════════════════════════════════════════════════════
 -- §5  STRUCTURAL TYPE VERIFICATION
@@ -230,12 +296,22 @@ theorem serpentRod_is_Oinf :
     imscriptionTier serpentRodImscription = .O_inf := by
   native_decide
 
-/-- Distance from the direct mapping to the quaternary protein stage
-    of the 7-stage pipeline. Should be 0 — they are the same structure. -/
-theorem direct_mapping_closure (rna : RNASequence) :
-    predictedContacts (transcribeToAA rna) ≥ windingNumber rna := by
-  -- Each complete B₄ loop in the serpent generates a contact in the rod.
-  -- The winding number counts loops; each loop creates ≥1 contact.
-  sorry
+/-- **And contacts do not bound winding either.** The same witness refutes the
+    reverse inequality, so the two quantities are independent rather than
+    ordered. What survives is the statement about the ground layer: a sequence
+    that activates no primitive has no contacts, whatever it does in B₄. -/
+theorem contacts_do_not_bound_winding :
+    ¬ ∀ rna : RNASequence,
+        predictedContacts (transcribeToAA rna) ≥ windingNumber rna := by
+  intro h
+  have := h serSerSer
+  rw [serSerSer_winds, serSerSer_has_no_contacts] at this
+  omega
+
+/-- Contacts are carried by the activation pattern alone. No promoted amino
+    acid, no contact. -/
+theorem no_promoted_no_contacts (aas : List AminoAcid)
+    (h : activationPattern aas = []) : predictedContacts aas = 0 := by
+  simp [predictedContacts, h, predictedContacts.countContacts]
 
 end Imscribing.SerpentRod

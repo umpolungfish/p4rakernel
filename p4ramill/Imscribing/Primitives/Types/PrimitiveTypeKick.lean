@@ -130,6 +130,35 @@ theorem the_primitive_type_called_kick_frobenius :
 /-- 'kick' belongs to the Chirality family at ordinal 1 -/
 def the_primitive_type_called_kick_family : String := "Chirality"
 def the_primitive_type_called_kick_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'kick' (⊥ = 𐑒), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_kick_clinkFragmentL8 : String := "∃y( P(y) ↔ P(S²(y)) )"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_kick_proximityL8 : String := "distant"
+def the_primitive_type_called_kick_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_kick_clinkFragmentL9 : String := "∃y( P(y) ↔ P(S²(y)) )"
+def the_primitive_type_called_kick_proximityL9 : String := "distant"
+def the_primitive_type_called_kick_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_kick_conventionalReading : String := "a property invariant under the square of the successor: period 2."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_kick_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_kick_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_kick_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

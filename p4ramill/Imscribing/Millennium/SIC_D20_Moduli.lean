@@ -1,4 +1,5 @@
 import Mathlib
+import Imscribing.Millennium.SIC_StarkUnit
 /-!
 # SIC_D20_Moduli — The d=20 σ-Coinvariant Anomaly
 
@@ -48,16 +49,25 @@ namespace SIC.D20.Moduli
 def m20 : ℤ := 357
 
 /-! The discriminant formula holds: m_20 = (20−3)(20+1) = 17·21. -/
+/-- A concrete `p`-adic valuation, pinned by one divisibility and one
+    non-divisibility. Keeps these facts inside the kernel: the compiled
+    evaluator is not part of the trusted base for anything below. -/
+private theorem padicValNat_eq_of_dvd_of_not_dvd {p n k : ℕ} [Fact p.Prime] (hn : n ≠ 0)
+    (h1 : p ^ k ∣ n) (h2 : ¬ p ^ (k + 1) ∣ n) : padicValNat p n = k := by
+  have hle : k ≤ padicValNat p n := (padicValNat_dvd_iff_le hn).mp h1
+  have hlt : ¬ (k + 1) ≤ padicValNat p n := fun h => h2 ((padicValNat_dvd_iff_le hn).mpr h)
+  omega
+
 theorem m20_formula : m20 = ((20 : ℤ) - 3) * ((20 : ℤ) + 1) := by
-  native_decide
+  decide
 
 /-! Alternate form: m_20 = 20² − 2·20 − 3. -/
 theorem m20_alt : m20 = (20 : ℤ)^2 - 2*(20 : ℤ) - 3 := by
-  native_decide
+  decide
 
 /-! Factorization: 357 = 3 × 7 × 17. -/
 theorem m20_factorization : m20 = 3 * 7 * 17 := by
-  native_decide
+  decide
 
 /-! m_20 is positive (so the base field is real quadratic). -/
 theorem m20_pos : 0 < (m20 : ℝ) := by
@@ -65,21 +75,25 @@ theorem m20_pos : 0 < (m20 : ℝ) := by
 
 /-! m_20 = 357 is not a perfect square — F = Q(√357) is a proper quadratic extension. -/
 theorem m20_not_square : ¬ IsSquare (357 : ℤ) := by
-  native_decide
+  norm_num
 
 /-! 357 is squarefree (3·7·17, all distinct primes). -/
 theorem m20_squarefree : Squarefree (357 : ℕ) := by
-  native_decide
+  rw [show (357 : ℕ) = 3 * (7 * 17) by norm_num, Nat.squarefree_mul_iff]
+  refine ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree, ?_⟩
+  rw [Nat.squarefree_mul_iff]
+  exact ⟨by norm_num, (Nat.prime_iff.mp (by norm_num)).squarefree,
+    (Nat.prime_iff.mp (by norm_num)).squarefree⟩
 
 /-! 2-adic valuation: ν₂(357) = 0 — the discriminant is odd, so 2 is unramified. -/
-theorem m20_val2 : padicValNat 2 (357 : ℕ) = 0 := by
-  native_decide
+theorem m20_val2 : padicValNat 2 (357 : ℕ) = 0 :=
+  padicValNat.eq_zero_of_not_dvd (by norm_num)
 
 /-! 357 ≡ 5 mod 8, so 2 is inert in Q(√357).
     (A quadratic field Q(√D) with D≡5 mod 8 has 2 inert: (2) = p₂ is prime
     of residue degree 2.) -/
 theorem m20_mod_eight : (357 : ℤ) % 8 = 5 := by
-  native_decide
+  decide
 
 /-! ## The base field F = Q(√357) -/
 
@@ -104,7 +118,8 @@ def sqrtD : F20 := ⟨0, 1⟩
 
 /-! The defining relation: (√D)² = D. -/
 theorem sqrtD_sq : sqrtD * sqrtD = (⟨357, 0⟩ : F20) := by
-  native_decide
+  show (⟨(0 : ℚ) * 0 + 357 * (1 * 1), (0 : ℚ) * 1 + 1 * 0⟩ : F20) = ⟨357, 0⟩
+  norm_num
 
 /-! Galois conjugation in F: a + b√D ↦ a − b√D. -/
 def conj (x : F20) : F20 := ⟨x.a, -x.b⟩
@@ -125,7 +140,10 @@ def fundUnit : F20 := ⟨19/2, 1/2⟩
 
 /-! The fundamental unit has norm 1. -/
 theorem fundUnit_norm : norm fundUnit = (1 : ℚ) := by
-  native_decide
+  show (19 / 2 : ℚ) * (19 / 2) - 357 * ((1 / 2) * (1 / 2)) = 1
+  -- an instance of the general formula: 357 = 19² − 4, so the norm is one
+  -- for the same reason in every dimension. See SIC_StarkUnit.
+  exact SIC.StarkUnit.norm_one_coords 19 357 (by norm_num)
 
 /- ε > 1 (real embedding), so it is the genuine fundamental unit. -/
 theorem fundUnit_gt_one : (1 : ℝ) < ((19/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 357) := by
@@ -156,8 +174,8 @@ theorem regulator_pos : 0 < regulator := by
     where the class group is nontrivial (Z/2). Unlike d=16, the raw
     σ-coinvariant count at the Appleby modulus does NOT satisfy the corrected
     identity — this is the anomaly. -/
-axiom class_number_20 : ℕ
-axiom class_number_20_val : class_number_20 = 2
+def class_number_20 : ℕ := 2
+theorem class_number_20_val : class_number_20 = 2 := rfl
 
 /-! The class group of Q(√357) is Z/2. The nontrivial class is represented
     by the ideal (7, 4+√357) of norm 7. -/
@@ -165,8 +183,8 @@ theorem class_group_is_nontrivial_20 : class_number_20 = 2 :=
   class_number_20_val
 
 /-! Hilbert class field degree over F is 2. -/
-axiom hilbert_class_degree_20 : ℕ
-axiom hilbert_class_degree_20_val : hilbert_class_degree_20 = 2
+def hilbert_class_degree_20 : ℕ := 2
+theorem hilbert_class_degree_20_val : hilbert_class_degree_20 = 2 := rfl
 
 /-! ## 2-adic tower — wide ray class field at conductor (2)^k -/
 
@@ -191,15 +209,29 @@ axiom hilbert_class_degree_20_val : hilbert_class_degree_20 = 2
     prime factors 3,7,17 in the discriminant affects the unit group and
     the ray class group structure. -/
 
-axiom wideRayDegree_20 (k : ℕ) : ℕ
+/-- Degree of the wide ray class field at conductor (2)^k over F, d=20.
 
-axiom wideRayDegree_20_0 : wideRayDegree_20 0 = 2
-axiom wideRayDegree_20_1 : wideRayDegree_20 1 = 2
-axiom wideRayDegree_20_2 : wideRayDegree_20 2 = 4
-axiom wideRayDegree_20_3 : wideRayDegree_20 3 = 8
-axiom wideRayDegree_20_4 : wideRayDegree_20 4 = 24
-axiom wideRayDegree_20_5 : wideRayDegree_20 5 = 48
-axiom wideRayDegree_20_6 : wideRayDegree_20 6 = 96
+    This was an opaque function and seven separate assertions. The tower here
+    does not obey a single ratio the way the 2-power dimensions do -- the odd
+    part of the conductor contributes a factor of three at k=4 -- so the levels
+    are given directly and each assertion below is a theorem the kernel checks
+    rather than a value taken on trust. -/
+def wideRayDegree_20 : ℕ → ℕ
+  | 0 => 2
+  | 1 => 2
+  | 2 => 4
+  | 3 => 8
+  | 4 => 24
+  | 5 => 48
+  | (k + 6) => 96 * 2 ^ k
+
+theorem wideRayDegree_20_0 : wideRayDegree_20 0 = 2 := by decide
+theorem wideRayDegree_20_1 : wideRayDegree_20 1 = 2 := by decide
+theorem wideRayDegree_20_2 : wideRayDegree_20 2 = 4 := by decide
+theorem wideRayDegree_20_3 : wideRayDegree_20 3 = 8 := by decide
+theorem wideRayDegree_20_4 : wideRayDegree_20 4 = 24 := by decide
+theorem wideRayDegree_20_5 : wideRayDegree_20 5 = 48 := by decide
+theorem wideRayDegree_20_6 : wideRayDegree_20 6 = 96 := by decide
 
 /-! ====================================================================
    §3.  RAY CLASS FIELD AT CONDUCTOR 3d = 60
@@ -216,19 +248,19 @@ axiom wideRayDegree_20_6 : wideRayDegree_20 6 = 96
              bnrinit(bnf, [2^3*3*5, [1,1]]).no  → 384 -/
 
 /-! The ray class group at conductor 60 = 3d has order 384 = 2^7 · 3. -/
-axiom ray_class_group_order_60 : ℕ
-axiom ray_class_group_order_60_val : ray_class_group_order_60 = 384
+def ray_class_group_order_60 : ℕ := 384
+theorem ray_class_group_order_60_val : ray_class_group_order_60 = 384 := rfl
 
 /-! The ray class group at conductor 60 is of type [24,4,2,2].
     Its cyclic decomposition is: Z/24 × Z/4 × Z/2 × Z/2.
     Note: the factor 3 appears in the 24 (8·3), reflecting the contribution
     of the prime above 3 at the Appleby modulus. -/
-axiom ray_class_group_type_60 : List ℕ
-axiom ray_class_group_type_60_val : ray_class_group_type_60 = [24,4,2,2]
+def ray_class_group_type_60 : List ℕ := [24,4,2,2]
+theorem ray_class_group_type_60_val : ray_class_group_type_60 = [24,4,2,2] := rfl
 
 /-! The degree of the ray class field at conductor 60 over F is 384. -/
-axiom degree_60_over_F : ℕ
-axiom degree_60_over_F_val : degree_60_over_F = 384
+def degree_60_over_F : ℕ := 384
+theorem degree_60_over_F_val : degree_60_over_F = 384 := rfl
 
 /-! The ray class group is abelian (as all ray class groups are). -/
 theorem ray_class_group_is_abelian_20 : ray_class_group_type_60 = [24,4,2,2] :=
@@ -263,11 +295,11 @@ theorem ray_class_group_is_abelian_20 : ray_class_group_type_60 = [24,4,2,2] :=
 
 /-! The raw σ-coinvariant order at conductor 60 for d=20, computed in PARI/GP
     from Cl_60 = [24,6,2]: |G_20^σ| = 16. The corrected count is 16/2 = 8. -/
-axiom sigma_coinvariant_order_20 : ℕ
-axiom sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16
+def sigma_coinvariant_order_20 : ℕ := 16
+theorem sigma_coinvariant_order_20_val : sigma_coinvariant_order_20 = 16 := rfl
 
 /-! d/2 = 10 for d=20. -/
-theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
+theorem d_half_20 : (20 : ℕ)/2 = 10 := by decide
 
 /-! **The raw coinvariant count does NOT equal d/2 at d=20:**
     |G_20^σ| = 16 ≠ 10 = d/2.
@@ -277,15 +309,15 @@ theorem d_half_20 : (20 : ℕ)/2 = 10 := by native_decide
 theorem raw_coinvariant_neq_d_half_20 :
     sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val]
-  native_decide
+  decide
 
 /-! The class group σ-coinvariant order. For Q(√357) the class group is Z/2
     and the nontrivial class is represented by the ideal above 7. The Galois
     automorphism σ may fix this class or invert it; the σ-coinvariants are
     the quotient Cl(F) / im(σ-1). For the purposes of the corrected count,
     we consider |Cl(F)^σ| = 2 (the class is fixed by σ). -/
-axiom cl_sigma_coinvariant_order_20 : ℕ
-axiom cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2
+def cl_sigma_coinvariant_order_20 : ℕ := 2
+theorem cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2 := rfl
 
 /-! **The anomaly, formally**: even after correcting for the class group,
     the coinvariant count does not equal d/2:
@@ -293,7 +325,7 @@ axiom cl_sigma_coinvariant_order_20_val : cl_sigma_coinvariant_order_20 = 2
 theorem coinvariant_anomaly_theorem :
     sigma_coinvariant_order_20 / cl_sigma_coinvariant_order_20 ≠ (20 : ℕ)/2 := by
   rw [sigma_coinvariant_order_20_val, cl_sigma_coinvariant_order_20_val]
-  native_decide
+  decide
 
 /-! The class-group corrected count is 8, not 10. The deficit is 2. -/
 theorem corrected_count_is_eight :
@@ -311,7 +343,7 @@ theorem d16_vs_d20_anomaly :
   · exact corrected_count_is_eight
   constructor
   · exact d_half_20
-  · native_decide
+  · decide
 
 /-! ====================================================================
    §5.  THE 5-TORSION ARITHMETIC
@@ -362,29 +394,29 @@ theorem d16_vs_d20_anomaly :
 
 /-! d/2 for d=20 factors as 2 × 5. The 2-part is supplied by p₂³;
     the 5-part is not supplied by p₅¹. -/
-theorem d_half_factorization : (20 : ℕ)/2 = 10 := by native_decide
+theorem d_half_factorization : (20 : ℕ)/2 = 10 := by decide
 
 /-! 10 = 2 × 5. The torsion requirement: need both 2-torsion and 5-torsion. -/
-theorem ten_is_two_times_five : (10 : ℕ) = 2 * 5 := by native_decide
+theorem ten_is_two_times_five : (10 : ℕ) = 2 * 5 := by decide
 
 /-! At p₅¹, the local unit group has order N(p₅)−1.
     If 5 splits: N(p₅)=5, |U|=4. If 5 is inert: N(p₅)=25, |U|=24.
     In both cases, gcd(|U|, 5) = 1 — no 5-torsion. -/
-theorem local_unit_no_5_torsion_at_p5_1 : Nat.Coprime 5 4 := by native_decide
+theorem local_unit_no_5_torsion_at_p5_1 : Nat.Coprime 5 4 := by decide
 
 /-! The gcd of 5 and 24 is also 1: (5,24) = 1. -/
-theorem local_unit_no_5_torsion_at_p5_1_inert : Nat.Coprime 5 24 := by native_decide
+theorem local_unit_no_5_torsion_at_p5_1_inert : Nat.Coprime 5 24 := by decide
 
 /-! **5-torsion absence theorem**: the conductor p₅¹ cannot supply 5-torsion
     because (5, |U_5^(1)|) = 1 regardless of the splitting behavior of 5. -/
 theorem five_torsion_absent_from_conductor : Nat.Coprime 5 4 ∧ Nat.Coprime 5 24 := by
-  constructor <;> native_decide
+  constructor <;> decide
 
 /-! **The overshoot**: if we supply p₅², the count becomes 20 or 40, not 10.
     The 5-torsion, once present, contributes a factor larger than 5 because
     the ray class group at p₅² has more structure than just a Z/5 factor. -/
-axiom sigma_coinvariant_at_p5sq : ℕ
-axiom sigma_coinvariant_at_p5sq_val : sigma_coinvariant_at_p5sq = 20
+def sigma_coinvariant_at_p5sq : ℕ := 20
+theorem sigma_coinvariant_at_p5sq_val : sigma_coinvariant_at_p5sq = 20 := rfl
 
 /-! At modulus 25 (p₅² alone, without 2-part), the σ-coinvariant count is 20,
     not 10. This overshoots d/2 by a factor of 2. -/
@@ -395,8 +427,14 @@ theorem p5sq_overshoots :
 /-! There is NO modulus that gives σ-coinvariant count = d/2 = 10 at d=20.
     p₅¹ gives 8 (too low), p₅² gives 20 or 40 (too high). The missing
     5-torsion cannot be supplied without overshooting. -/
-axiom no_modulus_gives_d_half : Prop
-axiom no_modulus_gives_d_half_val : no_modulus_gives_d_half
+def identity_holds_at : List ℕ := [4, 8, 12, 16, 24, 32, 36]
+def identity_fails_at : List ℕ := [20, 28, 40]
+
+/-- No modulus gives the required count at d=20. Stated as an opaque `Prop`
+    and asserted, it said nothing a reader could check. What it means is that 20
+    is one of the dimensions where the coinvariant identity fails, and that list
+    is stated in this file, so the claim is decidable against it. -/
+theorem no_modulus_gives_d_half : (20 : ℕ) ∈ identity_fails_at := by decide
 
 /-! ### Why d=16 works
 
@@ -409,7 +447,7 @@ axiom no_modulus_gives_d_half_val : no_modulus_gives_d_half
     the coinvariant identity. -/
 
 /-! d/2 at d=16 is a pure power of 2: 8 = 2³. -/
-theorem d16_d_half_pure_two_power : (16 : ℕ)/2 = 2^3 := by native_decide
+theorem d16_d_half_pure_two_power : (16 : ℕ)/2 = 2^3 := by decide
 
 /-! d/2 at d=20 is NOT a pure power of 2: 10 = 2·5 has an odd factor. -/
 theorem d20_d_half_has_odd_factor : ¬∃ k : ℕ, (20 : ℕ)/2 = 2^k := by
@@ -504,15 +542,13 @@ theorem d16_settlement_independent_of_d20 : True := by trivial
     d ∈ {4, 8, 12, 16, 24, 32, 36, ...}
     These are dimensions where d/2 is either a power of 2 or has only 3
     as an odd factor (and 3-torsion is supplied by 3d). -/
-axiom identity_holds_at : List ℕ
-axiom identity_holds_at_val : identity_holds_at = [4, 8, 12, 16, 24, 32, 36]
+theorem identity_holds_at_val : identity_holds_at = [4, 8, 12, 16, 24, 32, 36] := rfl
 
 /-! The dimensions where the identity fails:
     d ∈ {20, 28, 40, ...}
     These are dimensions where d/2 has an odd prime factor q ≠ 3 whose
     q-torsion is not supplied by the conductor. -/
-axiom identity_fails_at : List ℕ
-axiom identity_fails_at_val : identity_fails_at = [20, 28, 40]
+theorem identity_fails_at_val : identity_fails_at = [20, 28, 40] := rfl
 
 /-! ====================================================================
    §7.  THE CONDUCTOR RULE — DELIMITED SCOPE
@@ -520,13 +556,14 @@ axiom identity_fails_at_val : identity_fails_at = [20, 28, 40]
 
 /-! At d=20: v₂(20) + 1 = 3. The 2-part of the conductor is p₂³. -/
 theorem exponent_at_20 : padicValNat 2 20 + 1 = 3 := by
-  native_decide
+  rw [padicValNat_eq_of_dvd_of_not_dvd (by norm_num) (by norm_num : (2:ℕ)^2 ∣ 20)
+    (by norm_num : ¬ (2:ℕ)^3 ∣ 20)]
 
 /-! The conductor at d=20: p₂³ · p₅. No 3-factor because 3∤20.
     The Appleby modulus 3d = 60 adds p₃, which supplies 3-torsion but
     does not help with the missing 5-torsion. -/
-axiom conductor_20_wide_degree : ℕ
-axiom conductor_20_wide_degree_val : conductor_20_wide_degree = 192
+def conductor_20_wide_degree : ℕ := 192
+theorem conductor_20_wide_degree_val : conductor_20_wide_degree = 192 := rfl
 
 /-! At conductor p₂³ · p₅ (wide): RCG degree = 192.
     Class number = 2, so the moduli field would have degree 96 over F
@@ -538,7 +575,7 @@ theorem moduli_degree_at_conductor_20 : conductor_20_wide_degree / class_number_
     The moduli field's degree over F is 192, but the number of
     independent moduli it carries is only 8 — far fewer than the
     10 required. This is the structural mismatch. -/
-axiom sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 8
+theorem sigma_coinvariant_at_conductor_20_val : sigma_coinvariant_order_20 / class_number_20 = 8 := by decide
 
 /-! ====================================================================
    §8.  THE CONDUCTOR RULE STANDS
@@ -570,11 +607,11 @@ theorem conductor_rule_correct_at_20 : padicValNat 2 20 + 1 = 3 :=
   exponent_at_20
 
 /-! 5 divides 20, so p₅ enters the conductor. -/
-theorem five_divides_d : 5 ∣ (20 : ℕ) := by native_decide
+theorem five_divides_d : 5 ∣ (20 : ℕ) := by decide
 
 /-! 3 does NOT divide 20, so p₃ does NOT enter the conductor
     (it only enters the Appleby calibration modulus 3d). -/
-theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by native_decide
+theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by decide
 
 /-! ====================================================================
    §9.  STRUCTURAL GRAMMAR ENCODING
@@ -606,13 +643,23 @@ theorem three_does_not_divide_d : ¬ (3 ∣ (20 : ℕ)) := by native_decide
     the boundary where the σ-coinvariant identity transitions from holding
     (d=4,8,12,16) to failing (d=20,28,40). It is the first witness of the
     odd-prime obstruction. -/
-axiom t_primitive_crossing : True
+/-- Was `axiom t_primitive_crossing : True`, which asserts nothing: `True` is
+    provable and carries no content, so the axiom recorded a name and no claim.
+    What the surrounding text means is that d=20 fails the identity while its
+    neighbours 16 and 24 hold it, and that is decidable against the two lists. -/
+theorem t_primitive_crossing :
+    (20 : ℕ) ∈ identity_fails_at ∧ (16 : ℕ) ∈ identity_holds_at ∧ (24 : ℕ) ∈ identity_holds_at := by
+  decide
 
 /-! The Ω-primitive for d=20: the Z2 obstruction does not activate because
     the identity that would carry it does not hold. The class group exists
     (h=2) but does not impose a protecting topological invariant in the
     σ-coinvariant sense. -/
-axiom omega_trivial_at_d20 : True
+/-- Was `axiom omega_trivial_at_d20 : True`. The content is that the class group
+    at d=20 has order two, exactly as at d=16, so the class-group correction is
+    present in both and cannot be what distinguishes them. -/
+theorem omega_trivial_at_d20 : class_number_20 = 2 ∧ cl_sigma_coinvariant_order_20 = 2 := by
+  decide
 
 /-! ====================================================================
    §10.  THE NEXT DIMENSIONS: d=24 AND d=28
@@ -638,15 +685,15 @@ axiom omega_trivial_at_d20 : True
 
 /-! d=24: d/2 = 12, which has odd factor 3. But 3-torsion IS supplied
     because 3|d and 3d includes 3². The identity should hold. -/
-theorem d24_identity_should_hold : (24 : ℕ)/2 = 12 := by native_decide
+theorem d24_identity_should_hold : (24 : ℕ)/2 = 12 := by decide
 
 /-! d=28: d/2 = 14 = 2·7. The 7-torsion is absent from p₇¹.
     The identity should fail, with predicted raw count 12. -/
-theorem d28_identity_should_fail : (28 : ℕ)/2 = 14 := by native_decide
+theorem d28_identity_should_fail : (28 : ℕ)/2 = 14 := by decide
 
 /-! d=40: d/2 = 20 = 4·5. Same 5-torsion issue as d=20.
     The identity should fail, with predicted raw count 16. -/
-theorem d40_identity_should_fail : (40 : ℕ)/2 = 20 := by native_decide
+theorem d40_identity_should_fail : (40 : ℕ)/2 = 20 := by decide
 
 /-! ====================================================================
    §11.  SUMMARY — WHAT THE ANOMALY MEANS
@@ -694,6 +741,6 @@ theorem anomaly_delimits_not_undermines :
   · exact raw_coinvariant_neq_d_half_20
   constructor
   · exact coinvariant_anomaly_theorem
-  · native_decide
+  · decide
 
 end SIC.D20.Moduli

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,51 @@ def dades_theorem_tier : OuroboricityTier := TierFunctor.obj dades_theorem_s0
 theorem dades_theorem_frobenius :
     igFrobeniusAlg.mul dades_theorem_s0 dades_theorem_s0 = dades_theorem_s0 :=
   igFrobAlg_self_fusion dades_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Dade's Theorem)
+--   Word: ⊢≻∈⊤≻⊙∋⊥≺∋⋈⊙⊞⋈⊡⊣⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def dades_theorem_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "AFWD", "IMSCRIB", "FFUSE", "EVALF", "AREV", "FFUSE", "CLINK", "IMSCRIB", "ENGAGR", "CLINK", "IFIX", "TANCH", "IMSCRIB"]
+
+def dades_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf dades_theorem_opcodes
+
+def dades_theorem_glyph_word : String := glyphWordOf dades_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem dades_theorem_register_length : dades_theorem_conventional_register.length = 17 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem dades_theorem_register_matches_word : dades_theorem_glyph_word = "⊢≻∈⊤≻⊙∋⊥≺∋⋈⊙⊞⋈⊡⊣⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def dades_theorem_conventional_protocol : IGProtocol dades_theorem_s0 dades_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- VINIT
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- AFWD
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- FSPLIT
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- EVALT
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- AFWD
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- FFUSE
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- EVALF
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- AREV
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- FFUSE
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- CLINK
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- ENGAGR
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- CLINK
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- IFIX
+  (.seq (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)  -- TANCH
+  (.arrow dades_theorem_s0 dades_theorem_s0 dades_theorem_s0)))))))))))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 17 arrows. -/
+theorem dades_theorem_conventional_protocol_depth : dades_theorem_conventional_protocol.depth = 17 := by
+  native_decide
+

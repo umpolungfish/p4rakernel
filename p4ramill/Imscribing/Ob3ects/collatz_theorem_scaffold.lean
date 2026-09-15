@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -111,3 +112,48 @@ noncomputable def collatz_theorem_false_arm : IGProtocol collatz_theorem_s0 coll
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def collatz_theorem_tier : OuroboricityTier := TierFunctor.obj collatz_theorem_s0
 #eval collatz_theorem_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Collatz Theorem)
+--   Word: ⊢⊙∈∋∈⊤≻⊥≺∋⊡⋈⊣⊞
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def collatz_theorem_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "FFUSE", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "IFIX", "CLINK", "TANCH", "ENGAGR"]
+
+def collatz_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf collatz_theorem_opcodes
+
+def collatz_theorem_glyph_word : String := glyphWordOf collatz_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem collatz_theorem_register_length : collatz_theorem_conventional_register.length = 14 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem collatz_theorem_register_matches_word : collatz_theorem_glyph_word = "⊢⊙∈∋∈⊤≻⊥≺∋⊡⋈⊣⊞" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def collatz_theorem_conventional_protocol : IGProtocol collatz_theorem_s0 collatz_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- VINIT
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- FSPLIT
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- FFUSE
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- FSPLIT
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- EVALT
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- AFWD
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- EVALF
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- AREV
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- FFUSE
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- IFIX
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- CLINK
+  (.seq (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0)  -- TANCH
+  (.arrow collatz_theorem_s0 collatz_theorem_s0 collatz_theorem_s0))))))))))))))  -- ENGAGR
+
+/-- The conventional protocol carries all 14 arrows. -/
+theorem collatz_theorem_conventional_protocol_depth : collatz_theorem_conventional_protocol.depth = 14 := by
+  native_decide
+

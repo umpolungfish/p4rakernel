@@ -6,8 +6,29 @@ defaultTargets = ["Imscribing"]
 [leanOptions]
 pp.unicode.fun = true
 relaxedAutoImplicit = false
-weak.linter.mathlibStandardSet = true
 maxSynthPendingDepth = 3
+
+# Linters off. The build carried 5,152 warnings across 26 linters, which is not
+# a signal — it is a wall that hides the one warning that would matter. The
+# `weak.` prefix means an option Lean does not recognise is ignored rather than
+# fatal, so this survives a toolchain bump.
+#
+# The mathlib standard set is the bulk of it: longLine, whitespace, emptyLine,
+# docString, show, induction, cases, refine, multiGoal, setOption, lambdaSyntax,
+# maxHeartbeats, missingEnd, openClassical.
+weak.linter.mathlibStandardSet = false
+
+# The rest are core Lean linters, which the set above does not govern.
+weak.linter.unusedVariables = false
+weak.linter.unusedSimpArgs = false
+weak.linter.unusedTactic = false
+weak.linter.unreachableTactic = false
+weak.linter.unnecessarySimpa = false
+weak.linter.unnecessarySeqFocus = false
+weak.linter.unusedSectionVars = false
+weak.linter.unusedDecidableInType = false
+weak.linter.dupNamespace = false
+weak.linter.flexible = false
 
 [[require]]
 name = "mathlib"
@@ -18,6 +39,60 @@ rev = "v4.28.0"
 name = "Imscribing"
 root = "Imscribing"
 globs = [
+  "Imscribing.ABC",
+  "Imscribing.ABC_Audit",
+  "Imscribing.ABC_Witness",
+  "Imscribing.ABC_Closure",
+  "Imscribing.ABC_PrimeTransport",
+  "Imscribing.ABC_Spectral",
+  "Imscribing.ABC_Exhaustion",
+  "Imscribing.ABC_Certificates",
+  "Imscribing.ABC_LogBounds",
+  "Imscribing.ABC_SmallCertificate",
+  "Imscribing.ABC_Symmetry",
+  "Imscribing.ABC_Window32_E1_10",
+  "Imscribing.ABC_ScaleClosure",
+  "Imscribing.ABC_ScaleChain",
+  "Imscribing.ABC_AsymptoticClosure",
+  "Imscribing.ABC_TailRegime",
+  "Imscribing.ABC_IUTTClosure",
+  "Imscribing.ABC_IUTTAsymptotic",
+  "Imscribing.ABC_Measurement",
+  "Imscribing.ABC_MeasurementChain",
+  "Imscribing.ABC_MeasurementCompatibility",
+  "Imscribing.ABC_MeasurementStream",
+  "Imscribing.FullyNestedFactorMachine",
+  "Imscribing.ABC_Champions",
+  "Imscribing.ABC_ChampionNineBounds",
+  "Imscribing.ABC_ChampionTraceNine",
+  "Imscribing.ABC_NativeChampions",
+  "Imscribing.ABC_ThetaTransport",
+  "Imscribing.ABC_Window70_FromOS_Certs1",
+  "Imscribing.ABC_Window70_FromOS_Certs2",
+  "Imscribing.ABC_Window70_FromOS_Certs3",
+  "Imscribing.ABC_Window70_FromOS_Certs4",
+  "Imscribing.ABC_Window70_FromOS_Certs5",
+  "Imscribing.ABC_Window70_FromOS_Certs6",
+  "Imscribing.ABC_Window70_FromOS_Certs7",
+  "Imscribing.ABC_Window70_FromOS_Certs8",
+  "Imscribing.ABC_Window70_FromOS_Samples1",
+  "Imscribing.ABC_Window70_FromOS_Samples2",
+  "Imscribing.ABC_Window70_FromOS_Samples3",
+  "Imscribing.ABC_Window70_FromOS_Samples4",
+  "Imscribing.ABC_Window70_FromOS_Samples5",
+  "Imscribing.ABC_Window70_FromOS_Samples6",
+  "Imscribing.ABC_Window70_FromOS_Samples7",
+  "Imscribing.ABC_Window70_FromOS_Samples8",
+  "Imscribing.ABC_Window70_FromOS_Samples9",
+  "Imscribing.ABC_Window70_FromOS_Samples10",
+  "Imscribing.ABC_Window70_FromOS",
+  "Imscribing.IUTT",
+  "Imscribing.IUTT_Audit",
+  "Imscribing.FoldVerdict",
+  "Imscribing.MachHolonomy",
+  "Imscribing.CosmicHolonomy",
+  "Imscribing.OuroboricHolomorphicAutomeshedWindingSpectrum",
+  "Imscribing.RGEquations",
   "Imscribing.Primitives.Core",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
@@ -91,18 +166,29 @@ globs = [
   "Imscribing.RotatOpOpcode",
   "Imscribing.Millennium.RohoncCodexBraiding",
   "Imscribing.Millennium.RohoncCodexJarlskog",
+  "Imscribing.Millennium.ConventionalDelta",
+  "Imscribing.DecompositionTable",
   "Imscribing.Millennium.RH",
+  "Imscribing.Millennium.RH_ABC_ThetaBridge",
   "Imscribing.Millennium.RiemannSIC",
   "Imscribing.Millennium.RiemannSIC_FullProof",
   "Imscribing.Millennium.YM",
+  "Imscribing.Millennium.YM_ABC_ThetaBridge",
+"Imscribing.Millennium.BiochemicalMassGapUnification",
   "Imscribing.Millennium.Hodge",
+  "Imscribing.Millennium.Hodge_ABC_ThetaBridge",
   "Imscribing.Millennium.NS",
+  "Imscribing.Millennium.NS_ABC_ThetaBridge",
+  "Imscribing.Millennium.HornTorusGeometry",
   "Imscribing.Millennium.PvsNP",
   "Imscribing.Millennium.PvsNP_Structural",
   "Imscribing.Millennium.PvsNP_Certificates",
   "Imscribing.Millennium.OPN",
+  "Imscribing.Millennium.OPN_ABC_ThetaBridge",
   "Imscribing.Millennium.OPN_PsiGraph",
   "Imscribing.Millennium.BSD",
+  "Imscribing.Millennium.Goldbach_ABC_ThetaBridge",
+  "Imscribing.Millennium.BSD_ABC_ThetaBridge",
   "Imscribing.Millennium.Thresholds",
   "Imscribing.Millennium.ThresholdFrobenius",
   "Imscribing.Millennium.UnifiedForcing",
@@ -112,10 +198,59 @@ globs = [
   "Imscribing.Millennium.FrobeniusStructure",
   "Imscribing.Millennium.E8G2_Vessel",
   "Imscribing.Millennium.E8G2_Vessel_Witnesses",
+  "Imscribing.Millennium.Unsolved",
+  "Imscribing.Millennium.Erdos.Base",
+  "Imscribing.Millennium.Erdos.CollatzDepthSplit",
+  "Imscribing.Millennium.Erdos.Collatz_Unified_Closure",
+  "Imscribing.Millennium.Erdos.Collatz_Escape_Measure",
+  "Imscribing.Millennium.Erdos.ErdosTuranAP",
+  "Imscribing.Millennium.Erdos.AntiRamseyOddCycles",
+  "Imscribing.Millennium.Erdos.SubgroupOrders",
+  "Imscribing.Millennium.Erdos.ErdosKacInterval",
+  "Imscribing.Millennium.Erdos.RamseyAsymptotics",
+  "Imscribing.Millennium.Erdos.PolynomAsymptotics",
+  "Imscribing.Millennium.Erdos.UnitDistance",
+  "Imscribing.Millennium.Erdos.DifferenceSets",
+  "Imscribing.Millennium.Erdos.PomeranceSDR",
+  "Imscribing.Millennium.Erdos.TrianglePartition",
+  "Imscribing.Millennium.Erdos.SumsetAvoidingAP",
+  "Imscribing.Millennium.Erdos.BinomialGCD",
+  "Imscribing.Millennium.Erdos.ChromaticOddCycle",
+  "Imscribing.Millennium.Erdos.MonochromaticOddCycle",
+  "Imscribing.Millennium.Erdos.SchutteTournament",
+  "Imscribing.Millennium.Erdos.SchutteTClose",
+  "Imscribing.Millennium.Erdos.SidonCounting",
+  "Imscribing.Millennium.Erdos.RatioSetSharp",
+  "Imscribing.Millennium.Erdos.SquarefreePlusPowerOfTwo",
+  "Imscribing.Millennium.Erdos.StrausGreedyFamily",
+  "Imscribing.Millennium.Erdos.StrausBooleanCore",
   "Imscribing.Millennium.ErdosProblems",
+  "Imscribing.Millennium.Erdos.Problems.Problem0001",
+  "Imscribing.Millennium.Erdos.Problems.Problem0006",
+  "Imscribing.Millennium.Erdos.Problems.Problem0099",
+  "Imscribing.Millennium.Erdos.Problems.Problem0040",
+  "Imscribing.Millennium.Erdos.Problems.ProblemWitnesses",
+  "Imscribing.Millennium.Erdos.Problems.Problem0003",
+  "Imscribing.Millennium.Erdos.Problems.Problem0019",
+  "Imscribing.Millennium.Erdos.Problems.Problem0021",
+  "Imscribing.Millennium.Erdos.Problems.Problem0028",
+  "Imscribing.Millennium.Erdos.Problems.Problem0041",
+  "Imscribing.Millennium.Erdos.Problems.Problem0083",
+  "Imscribing.Millennium.Erdos.Problems.Problem0500",
+  "Imscribing.Millennium.Erdos.Problems.Problem0564",
+  "Imscribing.Millennium.Erdos.Problems.Problem0593",
+  "Imscribing.Millennium.Erdos.Problems.Problem1135",
+  "Imscribing.Millennium.Erdos.Collatz_Proof_Skeleton",
+  "Imscribing.Millennium.Erdos.APFreeReduction",
+  "Imscribing.Millennium.Erdos.AdditiveEnergy",
   "Imscribing.MoDoT.ManuscriptSpine",
   "Imscribing.Millennium.DualLinkVessel",
   "Imscribing.Nuclear.IslandOfStability",
+  "Imscribing.Quantum.OVM",
+  "Imscribing.Millennium.OVMCatalog",
+  "Imscribing.Quantum.OVMTaxonomy",
+  "Imscribing.Quantum.GrammarPOVM",
+  "Imscribing.Quantum.FrobeniusDualPOVM",
   "Imscribing.Quantum.ExcitedStates",
   "Imscribing.Quantum.FibonacciAnyon",
   "Imscribing.NumberTheory.TwoThreeSierpinski",
@@ -133,6 +268,8 @@ globs = [
   "Imscribing.Quantum.WindingLattice",
   "Imscribing.Quantum.GateObstruction",
   "Imscribing.Quantum.PeriodReadout",
+  "Imscribing.Quantum.LadderToSphere",
+  "Imscribing.Quantum.VoxAudit_LadderToSphere",
   "Imscribing.Classical.SidonRepresentation",
   "Imscribing.Classical.ErdosTuranReduction",
   "Imscribing.Classical.RepresentationParity",
@@ -154,6 +291,7 @@ globs = [
   "Imscribing.Classical.ErdosTuranBound",
   "Imscribing.Classical.ErdosStrausDecomposition",
   "Imscribing.Classical.APIntersectingFamily",
+  "Imscribing.Barriers",
   "Imscribing.Basic",
   "Imscribing.ArsFungiglyphica",
   "Imscribing.ArsAnimaglyphica",
@@ -174,6 +312,7 @@ globs = [
   "Imscribing.Millennium.SIC_D2048_Unconditional",
   "Imscribing.Millennium.SIC_D2048_A0Stratum",
   "Imscribing.Millennium.SIC_D2048_Moduli",
+  "Imscribing.Millennium.SIC_StarkUnit",
   "Imscribing.Millennium.SIC_D16_Moduli",
   "Imscribing.Millennium.SIC_D20_Moduli",
   "Imscribing.Millennium.SIC_Moduli_Report",
@@ -192,6 +331,8 @@ globs = [
   "Imscribing.Millennium.Collatz",
   "Imscribing.Millennium.ImaginaryNumbers",
   "Imscribing.IGMorphism",
+  "Imscribing.ConventionalRegister",
+  "Imscribing.GravityFixedPointWinding",
   "Imscribing.IGFunctor",
   "Imscribing.Millennium.EilenbergGanea",
   "Imscribing.Millennium.GrothendieckA",
@@ -230,6 +371,9 @@ globs = [
   "Imscribing.Paraconsistent.Portal",
   "Imscribing.Paraconsistent.Belnap",
   "Imscribing.Paraconsistent.BelnapSplitFuse",
+  "Imscribing.Paraconsistent.SixteenThreeTrilattice",
+  "Imscribing.Paraconsistent.DialetheicWitness",
+  "Imscribing.Paraconsistent.BelnapAgreement",
   "Imscribing.Paraconsistent.Paradice",
   "Imscribing.Paraconsistent.Betting",
   "Imscribing.Paraconsistent.OrbitalBelnap",
@@ -422,6 +566,7 @@ globs = [
   "Imscribing.VitalNecrosis",
   "Imscribing.UsableZeroPointEnergy",
   "Imscribing.IGScaffold",
+  "Imscribing.Ob3ects.unified_observers_machine_scaffold",
   "Imscribing.Ob3ects.apply_criticality_absorbing_element_entering_b_scaffold",
   "Imscribing.Ob3ects.classical_non_commutative_complement_to_the_quan_scaffold",
   "Imscribing.Ob3ects.descent_to_stark_unit_bottleneck_for_the_d_19_br_scaffold",
@@ -486,8 +631,6 @@ globs = [
   "Imscribing.Millennium.ClayCandidateTuples",
   "Imscribing.Millennium.ClayCandidateProfile",
   "Imscribing.Millennium.Clay_TransportedClosure",
-  "Imscribing.Scratch.ProverScratch",
-  "Imscribing.Scratch.ProverScratchB",
 
   "Imscribing.Millennium.MacrocyclicClosure",
   "Imscribing.Millennium.FieldTheoreticMacrocycle",
@@ -531,7 +674,18 @@ globs = [
   "Imscribing.Millennium.SumsetImprovedBounds",
   "Imscribing.Millennium.SumsetNo3AP",
   "Imscribing.NumberTheory.PrattOb3ectProtocol",
+  "Imscribing.NumberTheory.ErdosStrausProof",
+  "Imscribing.Classical.ErdosProblem16",
+  "Imscribing.Millennium.ErdosFormalize",
+  "Imscribing.Millennium.ErdosFormalize2",
+  "Imscribing.Millennium.ErdosFormalize3",
   "Imscribing.Paraconsistent.Paraconsistent",
+  "Imscribing.Paraconsistent.ParaconsistentCore",
+  "Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure",
+  "Imscribing.Paraconsistent.ClassicalRestriction",
+  "Imscribing.Paraconsistent.DeMorganBooleanCentre",
+  "Imscribing.Paraconsistent.SixteenThreeTorus",
+  "Imscribing.Paraconsistent.SixteenThreeTorusKnot",
   "Imscribing.TheGrammarAppliedToTheGrammar",
   "Imscribing.VaeVitaScaffold",
   "Imscribing.Millennium.PMNSFullDerivation",
@@ -569,4 +723,20 @@ globs = [
   "Imscribing.Millennium.ProofModules.HypergraphRamsey",
   "Imscribing.Millennium.ProofModules.LCMSieve",
   "Imscribing.Millennium.ProofModules.VerifiedConjectures",
+
+  # The proof lifter. One copy, in the library, so the sweep files import it
+  # instead of restating it — every restatement of it was a generation behind.
+  "Imscribing.Paraconsistent.IncompletenessClosure",
+  "Imscribing.Vox.ProofLift",
 ]
+
+# The prover's scratch modules live in their own library, OUTSIDE the default
+# target. The kernel-gated prover writes candidate proofs into them and builds
+# them by name; while it works they hold whatever the model just proposed, which
+# is usually broken Lean. Inside the `Imscribing` glob that made every prover run
+# turn `lake build` red until the file was restored by hand — a red library that
+# means nothing, which is worse than no signal. `lake build` now ignores them and
+# `lake build Imscribing.Scratch.ProverScratch` still resolves.
+[[lean_lib]]
+name = "ProverScratch"
+roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"]

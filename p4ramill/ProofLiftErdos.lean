@@ -1,0 +1,10 @@
+import Imscribing.Millennium.Erdos.Problems.Problem1135
+import Imscribing.Vox.ProofLift
+open Imscribing.Vox.ProofLift
+#lift Erdos1135.erdos_problem_1135
+#lift Erdos1135.stopping_time_exists
+#lift Erdos1135.n_mod_8_is_3_contract
+#lift Erdos1135.n_mod_8_is_7_contract
+#lift Erdos1135.odd_n_mod_3_contract
+#lift Erdos1135.even_contracts
+#lift Erdos1135.odd_mod_four_contracts

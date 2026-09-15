@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem apotropaic_ward_ob3ect_a_protective_ce86f5_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Apotropaic ward ob3ect: a protective magical object (horseshoe, nazar, hamsa, witch bottle, or threshold mark) that deflects malevolent forces. FSPLIT: the ward intercepts the incoming curse or evil eye, splitting the malicious intention from its target — the ward catches what was meant for the protected person. FFUSE: the ward neutralizes and grounds the intercepted malice, reconstituting the situation as safety — the threat is dissolved, not merely deflected. VINIT: the unprotected threshold. TANCH: the ward itself as boundary object. AFWD: the curse approaches. AREV: the curse is turned back. ENGAGR: the ward is simultaneously a physical object (glass, iron, herbs) and a spiritual agent (it acts with apparent intention).)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def apotropaic_ward_ob3ect_a_protective_ce86f5_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def apotropaic_ward_ob3ect_a_protective_ce86f5_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf apotropaic_ward_ob3ect_a_protective_ce86f5_opcodes
+
+def apotropaic_ward_ob3ect_a_protective_ce86f5_glyph_word : String := glyphWordOf apotropaic_ward_ob3ect_a_protective_ce86f5_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem apotropaic_ward_ob3ect_a_protective_ce86f5_register_length : apotropaic_ward_ob3ect_a_protective_ce86f5_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem apotropaic_ward_ob3ect_a_protective_ce86f5_register_matches_word : apotropaic_ward_ob3ect_a_protective_ce86f5_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def apotropaic_ward_ob3ect_a_protective_ce86f5_conventional_protocol : IGProtocol apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- IMSCRIB
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- AREV
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- FSPLIT
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- AFWD
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- FFUSE
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- CLINK
+  (.seq (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0)  -- IFIX
+  (.arrow apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0 apotropaic_ward_ob3ect_a_protective_ce86f5_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem apotropaic_ward_ob3ect_a_protective_ce86f5_conventional_protocol_depth : apotropaic_ward_ob3ect_a_protective_ce86f5_conventional_protocol.depth = 8 := by
+  native_decide
+

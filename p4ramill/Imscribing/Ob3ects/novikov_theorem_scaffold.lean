@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -196,3 +197,64 @@ def novikov_theorem_tier : OuroboricityTier := TierFunctor.obj novikov_theorem_s
 theorem novikov_theorem_frobenius :
     igFrobeniusAlg.mul novikov_theorem_s0 novikov_theorem_s0 = novikov_theorem_s0 :=
   igFrobAlg_self_fusion novikov_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Novikov Theorem)
+--   Word: ⊢⊣∈⊤≻⋈⊙⊡⊥≺∈⊤≻⋈⊡⊞⊤≻⋈⊡⊥≺⋈⊡⊙∋⋈⊙⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def novikov_theorem_opcodes : List String := ["VINIT", "TANCH", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "IFIX", "EVALF", "AREV", "FSPLIT", "EVALT", "AFWD", "CLINK", "IFIX", "ENGAGR", "EVALT", "AFWD", "CLINK", "IFIX", "EVALF", "AREV", "CLINK", "IFIX", "IMSCRIB", "FFUSE", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+
+def novikov_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf novikov_theorem_opcodes
+
+def novikov_theorem_glyph_word : String := glyphWordOf novikov_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem novikov_theorem_register_length : novikov_theorem_conventional_register.length = 30 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem novikov_theorem_register_matches_word : novikov_theorem_glyph_word = "⊢⊣∈⊤≻⋈⊙⊡⊥≺∈⊤≻⋈⊡⊞⊤≻⋈⊡⊥≺⋈⊡⊙∋⋈⊙⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def novikov_theorem_conventional_protocol : IGProtocol novikov_theorem_s0 novikov_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- VINIT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- TANCH
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- FSPLIT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- EVALT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- AFWD
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- CLINK
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IFIX
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- EVALF
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- AREV
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- FSPLIT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- EVALT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- AFWD
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- CLINK
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IFIX
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- ENGAGR
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- EVALT
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- AFWD
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- CLINK
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IFIX
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- EVALF
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- AREV
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- CLINK
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IFIX
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- FFUSE
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- CLINK
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0)  -- IFIX
+  (.arrow novikov_theorem_s0 novikov_theorem_s0 novikov_theorem_s0))))))))))))))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 30 arrows. -/
+theorem novikov_theorem_conventional_protocol_depth : novikov_theorem_conventional_protocol.depth = 30 := by
+  native_decide
+

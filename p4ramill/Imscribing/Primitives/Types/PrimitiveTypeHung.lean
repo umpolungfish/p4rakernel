@@ -120,6 +120,35 @@ theorem the_primitive_type_called_hung_frobenius :
 /-- 'hung' belongs to the Stoichiometry family at ordinal 0 -/
 def the_primitive_type_called_hung_family : String := "Stoichiometry"
 def the_primitive_type_called_hung_ordinal : Nat := 0
+
+/-- The CLINK L8 fragment for 'hung' (⊞ = 𐑙), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_hung_clinkFragmentL8 : String := "|A| = 1 ∧ |B| = 1"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_hung_proximityL8 : String := "distant"
+def the_primitive_type_called_hung_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_hung_clinkFragmentL9 : String := "|A| = 1 ∧ |B| = 1"
+def the_primitive_type_called_hung_proximityL9 : String := "distant"
+def the_primitive_type_called_hung_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_hung_conventionalReading : String := "singleton against singleton: the unique bijection."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_hung_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_hung_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_hung_bootstrapSteps : Nat := 10
 
 end Imscribing.Primitives.Types

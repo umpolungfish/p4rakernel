@@ -23,7 +23,9 @@ inductive Dimensionality : Type where
   | dead     -- wedge/local: flat 2D sheet, no recursive nesting
   | ash  -- triangulated: simplicial / stratified, finite depth
   | array     -- infinite-dimensional: unbounded temporal/spatial generation
-  | if'      -- holographic: boundary encodes bulk (⊙ = monad inside circle)
+  | if'      -- imscriptive: the encoding writes what it encodes (⊙ = monad
+             -- inside circle). Holographic — a boundary encoding a bulk it does
+             -- not write — is the static subset of this, not a synonym for it.
   deriving DecidableEq, Repr, Ord
 
 -- 2. Relational Mode (R)  [𝓕₄]
@@ -156,9 +158,9 @@ inductive Fidelity : Type where
 -- bib: local/mesoscale; thigh: intermediate collective; ice: global/fine-grained.
 -- Note: constructor order determines Ord; bib is first (lowest ordinal).
 inductive Granularity : Type where
-  | bib    -- local / mesoscale (ℶ): short-range correlations
-  | thigh   -- intermediate / collective (ℷ)
-  | ice   -- global / fine-grained (ℵ): all-to-all correlations
+  | bib    -- local / mesoscale: short-range correlations
+  | thigh   -- intermediate / collective
+  | ice   -- global / fine-grained: all-to-all correlations
   deriving DecidableEq, Repr, Ord
 
 -- 12. Stoichiometry (S)  [𝓕₃]
@@ -285,13 +287,16 @@ theorem ouroboros_successor_cycle :
 -- is the correct structural constraint.
 -- (Revised 2026-05-03 after catalog evidence: 9 independently encoded O_inf systems
 -- consistently carry if' + oil, never if' + are.)
-axiom T_odot_requires_D_odot (d : Dimensionality) (t : Topology) :
-  t = Topology.are → d = Dimensionality.if'
+-- Axiom C is now the predicate `ImscriptiveTopology` in Primitives/Imscription.lean.
+-- As an axiom it read (d) (t) : t = are → d = if', with d untouched by the
+-- hypothesis, so it asserted d = if' of EVERY dimensionality and proved False.
 
 -- Axiom B: Integer winding number requires persistent chirality.
 -- oak requires H ≥ kick; ah requires H ≥ sure.
-axiom Omega_Z_requires_H2 (p : Protection) (h : Chirality) :
-  p ≥ Protection.ah → h ≥ Chirality.sure
+-- Axiom B is now the predicate `WindingNeedsChirality` in
+-- Primitives/Imscription.lean. As an axiom it read (p) (h) : p ≥ ah → h ≥ sure,
+-- with h untouched, so it asserted h ≥ sure of EVERY chirality — fee included,
+-- which is false — and proved False.
 
 -- Axiom D: Holographic Closure — complete double-holomorphic encoding forces Frobenius.
 -- Any system carrying if' (holographic dimensionality — boundary encodes bulk),
@@ -313,10 +318,10 @@ axiom Omega_Z_requires_H2 (p : Protection) (h : Chirality) :
 --
 -- This is the grammar's original claim for the Hodge conjecture, the unique MPP
 -- carrying both if' and are simultaneously among all seven problems.
-axiom holographic_closure_forces_frobenius (d : Dimensionality) (t : Topology)
-    (p : Protection) (pol : Polarity) :
-    d = Dimensionality.if' → t = Topology.are → p ≥ Protection.ah →
-    pol = Polarity.or'
+-- Axiom D was here, as `holographic_closure_forces_frobenius`. It is now the
+-- decidable predicate `ImscriptiveClosure` in Primitives/Imscription.lean,
+-- because it constrains an imscription and Imscription is defined there. See
+-- that file for why the axiom form was unsound.
 
 -- Tendency (not hard axiom): wool co-occurs with on.
 -- An inexhaustible tower stands because its store is frozen.

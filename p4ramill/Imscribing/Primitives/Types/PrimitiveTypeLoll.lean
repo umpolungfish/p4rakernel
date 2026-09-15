@@ -2,7 +2,7 @@
   Imscribing.Primitives.Types.PrimitiveTypeLoll
 
   Formalization of the primitive value type 'loll'
-  Family: KineticChar (ordinal 4)
+  Family: KineticChar (ordinal 1)
   Surface tokens: viscosity, activation energy, kinetic threshold
   Author: Lando⊗⊙perator
 -/
@@ -127,9 +127,38 @@ theorem the_primitive_type_called_loll_frobenius :
 
 #eval the_primitive_type_called_loll_tier  -- the Grammar's own verdict on its tier
 
-/-- 'loll' belongs to the KineticChar family at ordinal 4 -/
+/-- 'loll' belongs to the KineticChar family at ordinal 1 -/
 def the_primitive_type_called_loll_family : String := "KineticChar"
 def the_primitive_type_called_loll_ordinal : Nat := 1
+
+/-- The CLINK L8 fragment for 'loll' (⊤ = 𐑤), as the organism-layer
+    navigator emits it. Not authored here: the string is the navigator's. -/
+def the_primitive_type_called_loll_clinkFragmentL8 : String := "τ ∼ T ∧ noisy(x)"
+
+/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
+def the_primitive_type_called_loll_proximityL8 : String := "close"
+def the_primitive_type_called_loll_promotedAtomL8 : String := ""
+
+/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
+    Where L9 annotates, the annotation is the transcendence content. -/
+def the_primitive_type_called_loll_clinkFragmentL9 : String := "τ ∼ T ∧ noisy(x)"
+def the_primitive_type_called_loll_proximityL9 : String := "close"
+def the_primitive_type_called_loll_promotedAtomL9 : String := ""
+
+/-- The fragment in ordinary mathematics, which is what a reader outside the
+    Grammar reads. -/
+def the_primitive_type_called_loll_conventionalReading : String := "relaxation and observation on one timescale: the critical regime."
+
+/-- Whether the fragment IS the conventional statement rather than a picture of
+    it: "always", "contextual" or "never". Read off the ★ marks in
+    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
+    carry the value rather than assumed from one appearance. "contextual" means
+    the same fragment is the statement in some domains and not in others, which
+    the coordinate alone does not settle. -/
+def the_primitive_type_called_loll_fragmentIsStatement : String := "never"
+
+/-- The count behind that verdict, so its strength is visible. -/
+def the_primitive_type_called_loll_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_loll_bootstrapSteps : Nat := 12
 
 end Imscribing.Primitives.Types

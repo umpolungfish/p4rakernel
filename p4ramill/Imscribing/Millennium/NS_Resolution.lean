@@ -162,7 +162,7 @@ theorem ns_resolved_consciousness : consciousnessScore navierStokesResolved = (0
 /-- The promotion from source to resolved has Hamming distance 8.
     Changed: D (infty→odot), T (bowtie→odot), R (lr→cat), P (asym→pm_sym),
              F (ell→hbar), K (slow→trap), Γ-gram (seq→broad), Ω (Z→Z2).
-    Unchanged: G (aleph), ⊙ (monad), Ħ (wool), Σ (up).
+    Unchanged: G (ice), ⊙ (monad), Ħ (wool), Σ (up).
     The "6-channel promotion signature" in NS_RESOLUTION_FINAL.md highlights the
     6 principal structural channels; R and Ω also change in the full tuple. -/
 theorem ns_promotion_hamming :

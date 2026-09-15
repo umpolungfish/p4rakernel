@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -256,3 +257,77 @@ noncomputable def the_7_sacraments_false_arm : IGProtocol the_7_sacraments_s0 th
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def the_7_sacraments_tier : OuroboricityTier := TierFunctor.obj the_7_sacraments_s0
 #eval the_7_sacraments_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: The 7 Sacraments)
+--   Word: ⊢≻∈⊤⊡⋈≻⊤⊡⋈⊙⊞⊤≻⋈≺⊥∈≺⊤∋≻⋈≻∈⊤⊡≻⋈∈⊤≻⋈≻≺≻⊤≻≺⊣⊙⋈⊡
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def the_7_sacraments_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "IFIX", "CLINK", "AFWD", "EVALT", "IFIX", "CLINK", "IMSCRIB", "ENGAGR", "EVALT", "AFWD", "CLINK", "AREV", "EVALF", "FSPLIT", "AREV", "EVALT", "FFUSE", "AFWD", "CLINK", "AFWD", "FSPLIT", "EVALT", "IFIX", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "CLINK", "AFWD", "AREV", "AFWD", "EVALT", "AFWD", "AREV", "TANCH", "IMSCRIB", "CLINK", "IFIX"]
+
+def the_7_sacraments_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf the_7_sacraments_opcodes
+
+def the_7_sacraments_glyph_word : String := glyphWordOf the_7_sacraments_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem the_7_sacraments_register_length : the_7_sacraments_conventional_register.length = 43 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem the_7_sacraments_register_matches_word : the_7_sacraments_glyph_word = "⊢≻∈⊤⊡⋈≻⊤⊡⋈⊙⊞⊤≻⋈≺⊥∈≺⊤∋≻⋈≻∈⊤⊡≻⋈∈⊤≻⋈≻≺≻⊤≻≺⊣⊙⋈⊡" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def the_7_sacraments_conventional_protocol : IGProtocol the_7_sacraments_s0 the_7_sacraments_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- VINIT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- IFIX
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- IFIX
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- IMSCRIB
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- ENGAGR
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALF
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- FFUSE
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- IFIX
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- FSPLIT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- EVALT
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AFWD
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- AREV
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- TANCH
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- IMSCRIB
+  (.seq (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)  -- CLINK
+  (.arrow the_7_sacraments_s0 the_7_sacraments_s0 the_7_sacraments_s0)))))))))))))))))))))))))))))))))))))))))))  -- IFIX
+
+/-- The conventional protocol carries all 43 arrows. -/
+theorem the_7_sacraments_conventional_protocol_depth : the_7_sacraments_conventional_protocol.depth = 43 := by
+  native_decide
+

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem pendulum_dowsing_ob3ect_a_weighted_35173d_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Pendulum dowsing ob3ect: a weighted pendulum suspended from a chain, used to answer yes/no questions through unconscious micromovements. FSPLIT: the dowser asks a question, splitting their own unconscious knowledge into directional signals — the pendulum's swing encodes what the conscious mind cannot access. FFUSE: the dowser interprets the swing pattern, reconstituting the unconscious signal into conscious answer. VINIT: the still pendulum. TANCH: the full arc of possible swing. AFWD: clockwise swing (yes/affirmation). AREV: counterclockwise swing (no/negation). ENGAGR: the pendulum oscillates in a straight line that is simultaneously clockwise and counterclockwise when viewed from opposite sides — the neutral/ambiguous answer.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def pendulum_dowsing_ob3ect_a_weighted_35173d_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def pendulum_dowsing_ob3ect_a_weighted_35173d_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf pendulum_dowsing_ob3ect_a_weighted_35173d_opcodes
+
+def pendulum_dowsing_ob3ect_a_weighted_35173d_glyph_word : String := glyphWordOf pendulum_dowsing_ob3ect_a_weighted_35173d_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem pendulum_dowsing_ob3ect_a_weighted_35173d_register_length : pendulum_dowsing_ob3ect_a_weighted_35173d_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem pendulum_dowsing_ob3ect_a_weighted_35173d_register_matches_word : pendulum_dowsing_ob3ect_a_weighted_35173d_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def pendulum_dowsing_ob3ect_a_weighted_35173d_conventional_protocol : IGProtocol pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- IMSCRIB
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- AREV
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- FSPLIT
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- AFWD
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- FFUSE
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- CLINK
+  (.seq (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0)  -- IFIX
+  (.arrow pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0 pendulum_dowsing_ob3ect_a_weighted_35173d_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem pendulum_dowsing_ob3ect_a_weighted_35173d_conventional_protocol_depth : pendulum_dowsing_ob3ect_a_weighted_35173d_conventional_protocol.depth = 8 := by
+  native_decide
+

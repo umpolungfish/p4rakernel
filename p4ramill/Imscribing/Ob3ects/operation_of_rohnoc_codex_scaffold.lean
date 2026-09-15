@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -131,3 +132,52 @@ noncomputable def operation_of_rohnoc_codex_false_arm : IGProtocol operation_of_
 -- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₁.
 def operation_of_rohnoc_codex_tier : OuroboricityTier := TierFunctor.obj operation_of_rohnoc_codex_s0
 #eval operation_of_rohnoc_codex_tier  -- the Grammar's own verdict on its tier
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Operation of Rohnoc Codex)
+--   Word: ⊢⋈∈⊥⊤∋⊙⊞≻∈≻∋⊡⋈⊙≺⊡⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def operation_of_rohnoc_codex_opcodes : List String := ["VINIT", "CLINK", "FSPLIT", "EVALF", "EVALT", "FFUSE", "IMSCRIB", "ENGAGR", "AFWD", "FSPLIT", "AFWD", "FFUSE", "IFIX", "CLINK", "IMSCRIB", "AREV", "IFIX", "TANCH"]
+
+def operation_of_rohnoc_codex_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf operation_of_rohnoc_codex_opcodes
+
+def operation_of_rohnoc_codex_glyph_word : String := glyphWordOf operation_of_rohnoc_codex_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem operation_of_rohnoc_codex_register_length : operation_of_rohnoc_codex_conventional_register.length = 18 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem operation_of_rohnoc_codex_register_matches_word : operation_of_rohnoc_codex_glyph_word = "⊢⋈∈⊥⊤∋⊙⊞≻∈≻∋⊡⋈⊙≺⊡⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def operation_of_rohnoc_codex_conventional_protocol : IGProtocol operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- VINIT
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- CLINK
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- FSPLIT
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- EVALF
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- EVALT
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- FFUSE
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- IMSCRIB
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- ENGAGR
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- AFWD
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- FSPLIT
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- AFWD
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- FFUSE
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- IFIX
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- CLINK
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- IMSCRIB
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- AREV
+  (.seq (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0)  -- IFIX
+  (.arrow operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0 operation_of_rohnoc_codex_s0))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 18 arrows. -/
+theorem operation_of_rohnoc_codex_conventional_protocol_depth : operation_of_rohnoc_codex_conventional_protocol.depth = 18 := by
+  native_decide
+

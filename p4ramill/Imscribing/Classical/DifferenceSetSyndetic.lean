@@ -17,7 +17,7 @@ import Mathlib
 
 namespace Classical.DifferenceSetSyndetic
 
-/--
+/-!
 Axiom (Furstenberg–Sárközy): For A ⊆ ℕ with positive upper Banach
 density, the difference set D(A) is syndetic.
 
@@ -26,9 +26,27 @@ Belnap Verdict: T (True) — a cornerstone of ergodic Ramsey theory.
   a measure-preserving system; the Bogolyubov–Bergelson theorem then
   guarantees syndetic return times.
 -/
-axiom difference_set_syndetic : True
 
-theorem main : True :=
-  difference_set_syndetic
+
+/-- Positive upper Banach density: arbitrarily long windows in which `A`
+    occupies at least a fixed proportion `δ`. -/
+def PosUpperBanachDensity (A : Set ℕ) : Prop :=
+    ∃ δ : ℝ, 0 < δ ∧ ∀ N : ℕ, ∃ (M : ℕ) (a : ℕ),
+      N ≤ M ∧ δ * M ≤ ((Finset.Ico a (a + M)).filter (· ∈ A)).card
+
+/-- The difference set: those `d` returning `A` to itself infinitely often. -/
+def differenceSet (A : Set ℕ) : Set ℕ := {d | {n | n ∈ A ∧ n + d ∈ A}.Infinite}
+
+/-- Syndetic: bounded gaps. -/
+def Syndetic (D : Set ℕ) : Prop := ∃ B : ℕ, ∀ x : ℕ, ∃ d ∈ D, x ≤ d ∧ d ≤ x + B
+
+axiom difference_set_syndetic :
+    ∀ A : Set ℕ, PosUpperBanachDensity A → Syndetic (differenceSet A)
+
+/-- Furstenberg–Sárközy: a set of positive upper Banach density has a
+    syndetic difference set. -/
+theorem main (A : Set ℕ) (hA : PosUpperBanachDensity A) :
+    Syndetic (differenceSet A) :=
+  difference_set_syndetic A hA
 
 end Classical.DifferenceSetSyndetic

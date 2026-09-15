@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -100,3 +101,42 @@ theorem sufi_dhikr_ob3ect_the_ritual_af1972_loop_closure :
   --
 -- igProtoCopy_isDagger licenses IMSCRIB→IFIX burn
 -- CLINK→IMSCRIB weighted edge: .seq continuation
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Sufi dhikr ob3ect: the ritual remembrance chant where the name of God is repeated on the breath in a cyclic rhythm. FSPLIT: the dhikr splits the practitioner's consciousness into the outer self (the chanter, the body breathing) and the inner self (the heart where the Name resonates silently). FFUSE: when the dhikr deepens into fana (annihilation), the two selves reconstitute as one — the chanter disappears and only the Chanted remains. VINIT: silence before the first utterance. TANCH: the cycle of one complete breath (in and out). AFWD: the outward breath carrying the Name. AREV: the inward breath drawing the Name back into the heart. ENGAGR: the station of baqa after fana — the mystic is simultaneously annihilated in God and present in the world.)
+--   Word: ⊙≺∈≻∋⋈⊡⊙
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def sufi_dhikr_ob3ect_the_ritual_af1972_opcodes : List String := ["IMSCRIB", "AREV", "FSPLIT", "AFWD", "FFUSE", "CLINK", "IFIX", "IMSCRIB"]
+
+def sufi_dhikr_ob3ect_the_ritual_af1972_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf sufi_dhikr_ob3ect_the_ritual_af1972_opcodes
+
+def sufi_dhikr_ob3ect_the_ritual_af1972_glyph_word : String := glyphWordOf sufi_dhikr_ob3ect_the_ritual_af1972_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem sufi_dhikr_ob3ect_the_ritual_af1972_register_length : sufi_dhikr_ob3ect_the_ritual_af1972_conventional_register.length = 8 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem sufi_dhikr_ob3ect_the_ritual_af1972_register_matches_word : sufi_dhikr_ob3ect_the_ritual_af1972_glyph_word = "⊙≺∈≻∋⋈⊡⊙" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def sufi_dhikr_ob3ect_the_ritual_af1972_conventional_protocol : IGProtocol sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- IMSCRIB
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- AREV
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- FSPLIT
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- AFWD
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- FFUSE
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- CLINK
+  (.seq (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0)  -- IFIX
+  (.arrow sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0 sufi_dhikr_ob3ect_the_ritual_af1972_s0))))))))  -- IMSCRIB
+
+/-- The conventional protocol carries all 8 arrows. -/
+theorem sufi_dhikr_ob3ect_the_ritual_af1972_conventional_protocol_depth : sufi_dhikr_ob3ect_the_ritual_af1972_conventional_protocol.depth = 8 := by
+  native_decide
+

@@ -49,17 +49,15 @@ noncomputable def L4_poly : Polynomial ℚ :=
   p1 * p2 * p3 * p3 * p3
 
 
+-- Honest gap: degree-32 redRule awaits PARI polcompositum+polredbest computation.
+axiom L4_redRule_gap : NF
 /-- Reduction rule for the degree-32 field (placeholder). -/
-def L4_redRule : NF := by
-  -- TODO: Compute from L4_poly coefficients
-  -- For degree n, redRule = [-a₀, -a₁, ..., -a_{n-1}] where
-  -- poly = xⁿ + a_{n-1}x^{n-1} + ... + a₀
-  sorry
+noncomputable def L4_redRule : NF := L4_redRule_gap
 
 /-- The degree-32 field L4 as a NumberField. -/
 def L4_NF (n : ℕ) := n
-def L4_mul (a b : NF) : NF := mulNF 32 L4_redRule a b
-def L4_pow (a : NF) (k : ℕ) : NF := powNF 32 L4_redRule a k
+noncomputable def L4_mul (a b : NF) : NF := mulNF 32 L4_redRule a b
+noncomputable def L4_pow (a : NF) (k : ℕ) : NF := powNF 32 L4_redRule a k
 
 -- ================================================================
 -- §2. The cubic layer p₅: x³ − 3x − 1 over L4
@@ -70,29 +68,33 @@ def L4_pow (a : NF) (k : ℕ) : NF := powNF 32 L4_redRule a k
     generates L4. The minimal polynomial is the characteristic polynomial
     of β acting on the 96-dimensional ℚ-vector space.
     Placeholder: actual degree-96 polynomial from PARI. -/
-def C5_poly : Polynomial ℚ := by
-  -- TODO: Actual degree-96 polynomial from PARI
-  -- For type-checking, use (x³ - 3x - 1) composed with degree-32 poly
-  sorry
+-- Honest gap: degree-96 C5 polynomial awaits PARI resultant computation.
+axiom C5_poly_gap : Polynomial ℚ
+noncomputable def C5_poly : Polynomial ℚ := C5_poly_gap
 
+-- Honest gap: degree-96 redRule awaits PARI computation.
+axiom C5_redRule_gap : NF
 /-- Reduction rule for the degree-96 field. -/
-def C5_redRule : NF := by sorry
+noncomputable def C5_redRule : NF := C5_redRule_gap
 
 /-- The degree-96 field C5 as a NumberField. -/
-def C5_mul (a b : NF) : NF := mulNF 96 C5_redRule a b
-def C5_pow (a : NF) (k : ℕ) : NF := powNF 96 C5_redRule a k
+noncomputable def C5_mul (a b : NF) : NF := mulNF 96 C5_redRule a b
+noncomputable def C5_pow (a : NF) (k : ℕ) : NF := powNF 96 C5_redRule a k
 
 -- ================================================================
 -- §3. The cubic layer p₆ over C5 (full ray class field, degree 288)
 -- ================================================================
 
+-- Honest gap: degree-288 polynomial and redRule await PARI computation.
+axiom RC288_poly_gap : Polynomial ℚ
+axiom RC288_redRule_gap : NF
 /-- Minimal polynomial for the full ray class field (degree 288).
     Placeholder from PARI. -/
-def RC288_poly : Polynomial ℚ := by sorry
-def RC288_redRule : NF := by sorry
+noncomputable def RC288_poly : Polynomial ℚ := RC288_poly_gap
+noncomputable def RC288_redRule : NF := RC288_redRule_gap
 
-def RC288_mul (a b : NF) : NF := mulNF 288 RC288_redRule a b
-def RC288_pow (a : NF) (k : ℕ) : NF := powNF 288 RC288_redRule a k
+noncomputable def RC288_mul (a b : NF) : NF := mulNF 288 RC288_redRule a b
+noncomputable def RC288_pow (a : NF) (k : ℕ) : NF := powNF 288 RC288_redRule a k
 
 -- ================================================================
 -- §4. Verification theorems (using native_decide on flat arrays)

@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -141,3 +142,53 @@ def weinstein_theorem_tier : OuroboricityTier := TierFunctor.obj weinstein_theor
 theorem weinstein_theorem_frobenius :
     igFrobeniusAlg.mul weinstein_theorem_s0 weinstein_theorem_s0 = weinstein_theorem_s0 :=
   igFrobAlg_self_fusion weinstein_theorem_s0
+
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Conventional-expression register (Class: Weinstein Theorem)
+--   Word: ⊢⊣≻⋈⊙∈⊤≻⋈⊙∋⊥≺⊞⊡∋≺⊙⊣
+-- ─────────────────────────────────────────────────────────────────────────────
+
+def weinstein_theorem_opcodes : List String := ["VINIT", "TANCH", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "FFUSE", "EVALF", "AREV", "ENGAGR", "IFIX", "FFUSE", "AREV", "IMSCRIB", "TANCH"]
+
+def weinstein_theorem_conventional_register : List ConventionalExpr :=
+  conventionalRegisterOf weinstein_theorem_opcodes
+
+def weinstein_theorem_glyph_word : String := glyphWordOf weinstein_theorem_opcodes
+
+/-- The register has exactly one entry per opcode. -/
+theorem weinstein_theorem_register_length : weinstein_theorem_conventional_register.length = 19 := by
+  native_decide
+
+/-- The register's opcode column reproduces the glyph word exactly. -/
+theorem weinstein_theorem_register_matches_word : weinstein_theorem_glyph_word = "⊢⊣≻⋈⊙∈⊤≻⋈⊙∋⊥≺⊞⊡∋≺⊙⊣" := by
+  native_decide
+
+/-- The conventional protocol: a fixed-point walk over the ground imscription,
+    each arrow annotated by its conventional expression. -/
+def weinstein_theorem_conventional_protocol : IGProtocol weinstein_theorem_s0 weinstein_theorem_s0 :=
+  .withGram Grammar.measure <|
+  .withMem wool <|
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- VINIT
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- TANCH
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- AFWD
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- CLINK
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- FSPLIT
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- EVALT
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- AFWD
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- CLINK
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- IMSCRIB
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- FFUSE
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- EVALF
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- AREV
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- ENGAGR
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- IFIX
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- FFUSE
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- AREV
+  (.seq (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)  -- IMSCRIB
+  (.arrow weinstein_theorem_s0 weinstein_theorem_s0 weinstein_theorem_s0)))))))))))))))))))  -- TANCH
+
+/-- The conventional protocol carries all 19 arrows. -/
+theorem weinstein_theorem_conventional_protocol_depth : weinstein_theorem_conventional_protocol.depth = 19 := by
+  native_decide
+

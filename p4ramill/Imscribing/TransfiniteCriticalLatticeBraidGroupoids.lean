@@ -49,7 +49,7 @@ open Dimensionality Topology Relational Polarity Grammar
 --   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at RG fixed point
 --   ƒ=𐑐  fid  = peep    — quantum: Fibonacci anyon braids = unitary channels
 --   Ç=𐑧  kin  = egg     — slow: critical slowing down at phase transition
---   Γ=𐑔  gran = ice     — aleph: transfinite extension to κ = ℵ_α
+--   Γ=𐑔  gran = ice     — transfinite extension to κ = ℵ_α
 --   ɢ=𐑵  gram = ooze    — broadcast: ξ→∞, all sites affect all others
 --   ⊙=⊙  crit = monad   — critical: RG fixed point where R∘R ≅ R
 --   Ħ=𐑖  chir = sure    — two-step: Yang-Baxter σ_iσ_{i+1}σ_i = σ_{i+1}σ_iσ_{i+1}
