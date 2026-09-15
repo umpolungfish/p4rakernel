@@ -17,8 +17,8 @@ on residues mod `3^r`, and `‖e‖ = Σ_r 3^(-r) e(r)` over the finite tower `3
   `cross_decompose`.
 - Its negativity has a source: a mean-zero function's autocorrelations sum to zero
   over all lags, `autocorr_sum_zero`, so the nonzero lags cannot all be positive.
-- At conductor 3 the doubling permutation is an involution — `double_swaps_classes`,
-  `double_involution`, `two_order_mod_three` — and the identity is exact:
+- At conductor 3 the doubling permutation is an involution - `double_swaps_classes`,
+  `double_involution`, `two_order_mod_three` - and the identity is exact:
   `I_{d+1} = −I_d + (m₂ − m₈)`, verified in integers at every level to depth 30.
 - At conductor 9 the permutation is a six-cycle, `two_order_mod_nine`, and the
   identity is exact there too: `even_child_mod_nine`, `odd_child_mod_nine`,
@@ -32,12 +32,12 @@ at `9/16, 1/16, 6/16`; cross term negative in 20 of 24 levels at conductor 3; me
 `c` negative at every tower depth.
 
 **The gap, and why the enumerated structure does not close it.**
-- `sup c < 1/4` is FALSE — the oracle found level 25, `N = 885`, `c = +0.3565`.
+- `sup c < 1/4` is FALSE - the oracle found level 25, `N = 885`, `c = +0.3565`.
 - `E[c] < 1/4` is TRUE and is the decay itself: the log-ratios telescope, so the
   geometric mean over a window is the endpoint ratio, `0.72761` against a measured
   `0.72645`. Proving it is not a reduction.
 - Cauchy–Schwarz gives `|cross(r)| ≤ (3/8)√(e_even e_odd)`, hence `c ≤ 1.30`,
-  where `0.25` is needed. It is TIGHT at conductor 3 — `|cos|` reaching `0.998` —
+  where `0.25` is needed. It is TIGHT at conductor 3 - `|cos|` reaching `0.998` -
   and loose at conductor 27, so no single constant covers both regimes.
 
 So what is wanted is an input to the *average* of the cross correlation which the

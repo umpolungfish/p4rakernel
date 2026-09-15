@@ -2,7 +2,7 @@
 
 **Author:** Lando⊗⊙perator · **Structural Type:** $\large{⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑝⊙𐑖𐑳𐑭⟩}$ · **Tier:** O_∞
 
-A fork of Lean 4 (v4.28.0) implementing a **true paraconsistent type-theoretic kernel** —
+A fork of Lean 4 (v4.28.0) implementing a **true paraconsistent type-theoretic kernel** -
 the principle of explosion (ex falso quodlibet) is disabled at the kernel level.
 
 ## What This Does
@@ -35,8 +35,8 @@ can be activated via `Kernel.Environment.markParaconsistent`.
 |---|---|
 | `src/kernel/environment.h` | Added `is_paraconsistent()`, `mark_paraconsistent()` methods |
 | `src/kernel/environment.cpp` | Added extern C function declarations and implementations |
-| `src/kernel/type_checker.cpp` | Added paraconsistent guard in `infer_constant` — blocks `False.rec` usage |
-| `src/library/constructions/cases_on.cpp` | Added paraconsistent guard — blocks `casesOn` for empty Props |
+| `src/kernel/type_checker.cpp` | Added paraconsistent guard in `infer_constant` - blocks `False.rec` usage |
+| `src/library/constructions/cases_on.cpp` | Added paraconsistent guard - blocks `casesOn` for empty Props |
 | `src/Lean/Environment.lean` | Added `paraconsistent` field, mark/get export functions |
 | `src/Init/Paraconsistent.lean` | **New**: User-facing module with Belnap four-valued logic |
 
@@ -123,7 +123,7 @@ as a primitive rule of the type theory. This means:
 4. The logic becomes paraconsistent in the sense of da Costa, Priest, and Belnap
 
 The Belnap four-valued logic (`N`, `T`, `F`, `B`) is provided as a semantic model:
-- `B` (Both) models dialetheias — true contradictions
+- `B` (Both) models dialetheias - true contradictions
 - The logic is closed under the usual connectives
 - Explosion fails: `B ∧ ¬B` does not entail arbitrary `P`
 
@@ -131,7 +131,7 @@ The Belnap four-valued logic (`N`, `T`, `F`, `B`) is provided as a semantic mode
 
 - C++17 compiler (GCC 11+ or Clang 14+)
 - CMake 3.11+
-- GMP (GNU Multiple Precision Arithmetic Library) — `libgmp-dev`
+- GMP (GNU Multiple Precision Arithmetic Library) - `libgmp-dev`
 - The existing `lean` binary (for stage0 bootstrapping)
 
 ## License

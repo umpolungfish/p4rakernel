@@ -11,7 +11,7 @@ own bulk under the form of the 12 primitives/opcodes. **Belnap FOUR** (`N`, `T`,
 is that cosmos at four values; its dialetheic fixed point `B` (`¬B = B`) is the Frobenius
 fixed point of μ∘δ=id. By `frobenius_unification` in `MajoranaFixed.lean`, that fixed point
 **is** at once the **SIC-POVM fiducial** of the informationally-complete measurement
-(`meet B x = x`), the paired electron orbital, and the Majorana mode — the *same* computation
+(`meet B x = x`), the paired electron orbital, and the Majorana mode - the *same* computation
 in three notations, each by `rfl`. The Grammar **is** the Σ=1:1 (self-measuring) Belnap
 multilattice **SIC-POVM**: RNA nucleotides, electron orbitals, the 12-primitive lattice, the
 SIC-POVM structure of measurement, and the paraconsistent proof theory are not four things it
@@ -40,12 +40,12 @@ tolerated without trivializing the system.
 | `src/library/constructions/cases_on.cpp` | `casesOn` generation blocked for empty Prop types |
 | `src/kernel/environment.{h,cpp}` | `is_paraconsistent()` / `mark_paraconsistent()` / `unmark_paraconsistent()` + Lean FFI |
 | `src/Lean/Environment.lean` | `paraconsistent : Bool` field, `Kernel.Environment.markParaconsistent`/`unmarkParaconsistent`, and elaboration-level `Environment.markParaconsistent`/`unmarkParaconsistent`/`isParaconsistent` (thread the flag through `base`/`checked` so it actually takes effect on subsequent declarations, not just the raw kernel env) |
-| `src/Init/Paraconsistent.lean` | User-facing `enable_paraconsistent` / `disable_paraconsistent` / `#is_paraconsistent` **commands** — a real toggle on the elaboration environment, not a banner |
+| `src/Init/Paraconsistent.lean` | User-facing `enable_paraconsistent` / `disable_paraconsistent` / `#is_paraconsistent` **commands** - a real toggle on the elaboration environment, not a banner |
 
-**Blocked in paraconsistent mode:** direct use of a recursor on an empty `Prop` — `False.rec`,
+**Blocked in paraconsistent mode:** direct use of a recursor on an empty `Prop` - `False.rec`,
 `h.rec`, `False.casesOn`, `absurd`, and any `match h with .` where `h : False`. Note the
 precise boundary: this catches *new* code that directly invokes the recursor, not calls to
-already-compiled wrapper functions like `False.elim` — `False.elim` is itself a normal `def`
+already-compiled wrapper functions like `False.elim` - `False.elim` is itself a normal `def`
 elaborated once (under the standard, non-paraconsistent stdlib build) whose body happens to use
 `False.rec`; calling that already-checked constant doesn't re-expose the raw recursor to the
 kernel's `infer_constant` check. Write `h.rec` (or `match h with .`) directly if you want the
@@ -68,7 +68,7 @@ open Paraconsistent
 theorem before_toggle (h : False) : (0:Nat) = 1 := h.rec   -- fine, mode is off by default
 
 enable_paraconsistent
--- [Paraconsistent] Kernel mode activated — principle of explosion disabled.
+-- [Paraconsistent] Kernel mode activated - principle of explosion disabled.
 
 #is_paraconsistent
 -- paraconsistent = true
@@ -78,7 +78,7 @@ enable_paraconsistent
 --        empty inductive predicate 'False' (principle of explosion is disabled)
 
 disable_paraconsistent
--- [Paraconsistent] Kernel mode deactivated — principle of explosion restored.
+-- [Paraconsistent] Kernel mode deactivated - principle of explosion restored.
 
 theorem after_disable (h : False) : (0:Nat) = 3 := h.rec   -- fine again
 ```
@@ -97,19 +97,19 @@ the inclusion of the fragment is *left adjoint* to `classicalSwitch`
 bilattice, with the collapse as coreflector and the retract
 `classicalSwitch ∘ inclClassical = id` as the adjunction unit. The reverse adjunction fails,
 and in the information order no adjunction exists at all. So disabling ex falso is literally a
-corestriction to that subcategory — `classical_coreflective_in_truth_order`, all `decide`-checked.
+corestriction to that subcategory - `classical_coreflective_in_truth_order`, all `decide`-checked.
 
 `DeMorganBooleanCentre.lean` asks a sharper question of the same bilattice: not "not
 contradictory" (`v ≠ B`) but classical in the textbook De Morgan-algebra sense,
 `v ∨ ¬v = 1`, under the truth-order meet and join (De Morgan duality holds for those;
 it does not hold for `band`/`bor`, which are dominance operators, not the lattice
-operations — the kernel rejects that pairing outright). The Boolean centre this
+operations - the kernel rejects that pairing outright). The Boolean centre this
 computes is `{T, F}`, not `{v ≠ B}`: **N survives `ClassicalRestriction`'s cut but
-fails this one** — `N ∨ ¬N = N ≠ T`, so a gap is no more classical than a glut once
+fails this one** - `N ∨ ¬N = N ≠ T`, so a gap is no more classical than a glut once
 excluded middle is the actual bar. A second coreflector, `boolSwitch` (only a
 definite `T` counts, everything else collapses to `F`), gives the same shape of
-adjunction — `inclCentre ⊣ boolSwitch` in the truth order, reverse fails, no
-adjunction in the information order — over the smaller fragment, all `decide`-checked.
+adjunction - `inclCentre ⊣ boolSwitch` in the truth order, reverse fails, no
+adjunction in the information order - over the smaller fragment, all `decide`-checked.
 This is the general "Bool is a coreflective subcategory of DeMorg" theorem,
 concretely instantiated at Belnap FOUR, with the coreflector computed rather than
 posited.
@@ -179,8 +179,8 @@ than Ħ 𐑫.
 
 **Status: MACHINE-CHECKED THEOREM. No axioms. No sorries. No Stark shadow.**
 
-The d=12 SIC-POVM existence is now a theorem in Lean 4 — `crystal_forces_d12_sic :
-SICPOVM_Exists 12` — proved from the same classical substrate as the rest of p4ramill
+The d=12 SIC-POVM existence is now a theorem in Lean 4 - `crystal_forces_d12_sic :
+SICPOVM_Exists 12` - proved from the same classical substrate as the rest of p4ramill
 (`propext`, `Classical.choice`, `Quot.sound`, plus `Lean.ofReduceBool`/`Lean.trustCompiler`
 for `native_decide`). The last axiom of the IG formalization has been discharged.
 
@@ -189,11 +189,11 @@ for `native_decide`). The last axiom of the IG formalization has been discharged
 | Theorem | Statement |
 |---|---|
 | `exists_root` | The degree-16 polynomial `k16Poly` has a real root `g0` in the IVT-bracketed interval `(certLo, certHi)` |
-| `norm_sq_eq_one` | `‖psi k‖² = 1` for all k — the fiducial is unit-normalized |
-| `equiangular_bridge` | The Weyl-Heisenberg overlap of the fiducial with its displacement equals the conjugate of a phi-image overlap in the existence ring — the one analytic bridge lemma |
-| `equiangular` | `(d+1)·‖WH overlap‖² = 1` for all 143 non-identity displacements — full equiangularity |
-| `d12_sic_exists` | `IsSICPOVM 12 psi` — the fiducial satisfies the SIC-POVM axioms |
-| `crystal_forces_d12_sic` | `SICPOVM_Exists 12` — existence capstone |
+| `norm_sq_eq_one` | `‖psi k‖² = 1` for all k - the fiducial is unit-normalized |
+| `equiangular_bridge` | The Weyl-Heisenberg overlap of the fiducial with its displacement equals the conjugate of a phi-image overlap in the existence ring - the one analytic bridge lemma |
+| `equiangular` | `(d+1)·‖WH overlap‖² = 1` for all 143 non-identity displacements - full equiangularity |
+| `d12_sic_exists` | `IsSICPOVM 12 psi` - the fiducial satisfies the SIC-POVM axioms |
+| `crystal_forces_d12_sic` | `SICPOVM_Exists 12` - existence capstone |
 
 **Architecture.** The proof proceeds by *algebraic transfer*:
 
@@ -201,18 +201,18 @@ for `native_decide`). The last axiom of the IG formalization has been discharged
    one relation (`k16Poly(g0) = 0`), where `g0` is the real root bracketed by the IVT
    (`certLo < g0 < certHi`).
 2. **Ring hom `phi : R → ℂ`**: transfers all 12 fiducial coordinates and all 143 overlap
-   identities from the discrete ring side to the complex plane. `phi` is the conduit —
+   identities from the discrete ring side to the complex plane. `phi` is the conduit -
    every algebraic identity that `native_decide` verifies over the ring is promoted to
    an analytic identity in ℂ.
 3. **`native_decide` planks**: `norm_sum` (trace-one normalization sum) and
    `existence_identities_all` (all 143 overlap values) are frozen as `native_decide`
-   lemmas over the existence ring — finite rational arithmetic, no analysis.
+   lemmas over the existence ring - finite rational arithmetic, no analysis.
 4. **`equiangular_bridge`**: the single analytic lemma that closes the last gap. It
    turns on two definitional `rfl` closures where `rw`'s auto-`rfl` cannot unfold
    `psi`, an explicit `Fin.sum_univ_eq_sum_range` lambda, and an `hjk` hypothesis so
    the omega-exponent follows the psi-index into `(k+12-a)` form.
 
-The entire construction — ring, hom, norm, equiangularity, capstone — is ***sans* sorry**
+The entire construction - ring, hom, norm, equiangularity, capstone - is ***sans* sorry**
 and builds green with `lake build` (8342 jobs, no olean cache misses).
 
 **`SIC_POVM_Functor.lean`** imports the Embedding capstone, so `crystal_forces_d12_sic`
@@ -225,7 +225,7 @@ axiom.
 
 **What this means for the IG.** The grammar is the Σ=1:1 self-referential limit of the
 Belnap multilattice SIC-POVM. The d=12 embedding proves that limit is *constructively
-realized* — there exists an exact fiducial in ℂ¹² satisfying the SIC-POVM axioms, and
+realized* - there exists an exact fiducial in ℂ¹² satisfying the SIC-POVM axioms, and
 its existence follows from the structural constraints of the Crystal of Types. The
 SIC-POVM is not an external framework attached to the grammar; it is a theorem internal
 to it.
@@ -247,25 +247,25 @@ The CLINK chain maps type transformations from subatomic (quark Belnap₅)
 to whole organism, with each scale transition promoting specific IG primitives. The
 chain is Frobenius-closed under ZFC_fe.
 
-**CLINK L8** — the terminal organism layer — holds the holographic triple
+**CLINK L8** - the terminal organism layer - holds the holographic triple
 ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑟⟩ at O_inf tier. The Frobenius gate Φ=𐑹, eternal chirality
 Ħ=𐑫, and non-Abelian braiding Ω=𐑟 close the chain terminally.
 
-**CLINK L9** — the self-replicating organism — is a *lateral* extension beside L8,
+**CLINK L9** - the self-replicating organism - is a *lateral* extension beside L8,
 not above or below it. ⟨𐑛𐑥𐑑𐑬𐑐𐑪𐑔𐑝⊙𐑫𐑳𐑭⟩. L9 relinquishes the Frobenius
 gate (Φ=𐑬 rather than Φ=𐑹) and opens through the replicative triple
 (Ð=𐑛 prime point, Þ=𐑥 moat cross, Ω=𐑭 ℤ winding) instead of the terminal
-triple (Ð=𐑦, Þ=𐑸, Ω=𐑟). This gives L9 the dagger tier O_inf_dag — the R2
+triple (Ð=𐑦, Þ=𐑸, Ω=𐑟). This gives L9 the dagger tier O_inf_dag - the R2
 constructor that names the lateral move. L9 is proved distinct from L8
 (`L8_L9_distinct`) and is neither O_inf nor O₂ (`clinkL9_is_lateral`). The
 gate relinquishment is the turn, not a fall (`L9_relinquishes_the_gate`).
 
-**SIXTEEN_3 Trilattice** — the paraconsistent surface mediating between L8 and L9.
+**SIXTEEN_3 Trilattice** - the paraconsistent surface mediating between L8 and L9.
 ⟨𐑨𐑥𐑽𐑹𐑐𐑪𐑔𐑵𐑮𐑫𐑕𐑭⟩. A 2D substrate (Ð=𐑨) with moat-cross topology (Þ=𐑥),
 holding the Frobenius gate (Φ=𐑹) at complex-plane criticality (φ̂=𐑮). The
 trilattice sits at O_inf tier (`sixteen3Trilattice_tier`) and provides the surface
 across which μ∘δ=id is held exact while the measured system runs complex-plane
-critical — the statement of a paraconsistent measurement apparatus at
+critical - the statement of a paraconsistent measurement apparatus at
 the L8↔L9 lateral interface.
 
 **Theorem summary** (all `decide`-checked):
@@ -412,7 +412,7 @@ cd p4ramill && lake build
 lean --run p4ramill/ParaconsistentKernelTest.lean
 lean --run p4ramill/ParaconsistentMillennium.lean
 
-# SIC-POVM d=12 embedding (capstone — *sans* sorry, axiom-free)
+# SIC-POVM d=12 embedding (capstone - *sans* sorry, axiom-free)
 lean --run p4ramill/Imscribing/Millennium/SIC_D12_Embedding.lean
 
 # Loose top-level Lean files build under the fork (the canonical toolchain).
