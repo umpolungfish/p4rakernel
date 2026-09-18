@@ -94,6 +94,9 @@ globs = [
   "Imscribing.OuroboricHolomorphicAutomeshedWindingSpectrum",
   "Imscribing.RGEquations",
   "Imscribing.Primitives.Core",
+  "Imscribing.VoxResident",
+  "Imscribing.VoxResidentGrammar",
+  "Imscribing.VoxReconcile",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
