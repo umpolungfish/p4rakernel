@@ -6,7 +6,10 @@ import Imscribing.Paraconsistent.ParaconsistentCore
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.Finset.Sum
 import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+import Mathlib.Algebra.BigOperators.Ring.Finset
 import Mathlib.Data.Nat.Choose.Basic
+import Mathlib.Data.Nat.Choose.Sum
+import Mathlib.Order.Interval.Finset.Nat
 
 namespace Imscribing.CircumPunctum
 
@@ -347,23 +350,87 @@ theorem F_fibre_two   : F_fibre 2 = 10 := by decide
 theorem F_fibre_three : F_fibre 3 = 218 := by decide
 theorem F_fibre_four  : F_fibre 4 = 64594 := by decide
 
+/- The alternating binomial column collapses to a Kronecker delta:
+   ∑ₖ (-1)^(k-i) C(m,k) C(k,i) = [i = m], for i ≤ m. This is the heart of binomial
+   inversion, from the trinomial revision C(m,k)C(k,i)=C(m,i)C(m-i,k-i) and the
+   vanishing alternating row sum ∑ⱼ (-1)^j C(m-i,j). -/
+private lemma alt_choose_column (m i : ℕ) (hi : i ≤ m) :
+    (∑ k ∈ Finset.range (m + 1),
+        (-1 : ℤ) ^ (k - i) * (m.choose k : ℤ) * (k.choose i : ℤ)) = if i = m then 1 else 0 := by
+  have hterm : ∀ k ∈ Finset.range (m + 1),
+      (-1 : ℤ) ^ (k - i) * (m.choose k : ℤ) * (k.choose i : ℤ)
+        = (m.choose i : ℤ) *
+            (if i ≤ k then (-1 : ℤ) ^ (k - i) * ((m - i).choose (k - i) : ℤ) else 0) := by
+    intro k _
+    by_cases hik : i ≤ k
+    · rw [if_pos hik]
+      have hcast : (m.choose k : ℤ) * (k.choose i : ℤ)
+          = (m.choose i : ℤ) * ((m - i).choose (k - i) : ℤ) := by
+        exact_mod_cast Nat.choose_mul hik
+      rw [mul_assoc, hcast]; ring
+    · rw [if_neg hik]
+      have : (k.choose i) = 0 := Nat.choose_eq_zero_of_lt (not_le.mp hik)
+      simp [this]
+  rw [Finset.sum_congr rfl hterm, ← Finset.mul_sum, ← Finset.sum_filter]
+  have hfilter : (Finset.range (m + 1)).filter (fun k => i ≤ k) = Finset.Ico i (m + 1) := by
+    ext k; simp only [Finset.mem_filter, Finset.mem_range, Finset.mem_Ico]; omega
+  rw [hfilter, Finset.sum_Ico_eq_sum_range]
+  have hsimp : ∀ j : ℕ,
+      (-1 : ℤ) ^ ((i + j) - i) * ((m - i).choose ((i + j) - i) : ℤ)
+        = (-1 : ℤ) ^ j * ((m - i).choose j : ℤ) := by
+    intro j; rw [Nat.add_sub_cancel_left]
+  rw [Finset.sum_congr rfl (fun j _ => hsimp j)]
+  have hlen : m + 1 - i = (m - i) + 1 := by omega
+  rw [hlen, Int.alternating_sum_range_choose]
+  by_cases him : i = m
+  · subst him; simp
+  · have hne : m - i ≠ 0 := by omega
+    simp [if_neg him, if_neg hne]
+
+/- Binomial inversion: summing the alternating transform back against the
+   binomials recovers the original sequence. -/
+private lemma binomial_inversion (a : ℕ → ℤ) (m : ℕ) :
+    (∑ k ∈ Finset.range (m + 1), (m.choose k : ℤ) *
+        (∑ i ∈ Finset.range (k + 1), (-1 : ℤ) ^ (k - i) * (k.choose i : ℤ) * a i)) = a m := by
+  have e1 : ∀ k ∈ Finset.range (m + 1), (m.choose k : ℤ) *
+      (∑ i ∈ Finset.range (k + 1), (-1 : ℤ) ^ (k - i) * (k.choose i : ℤ) * a i)
+      = ∑ i ∈ Finset.range (m + 1),
+          (m.choose k : ℤ) * ((-1 : ℤ) ^ (k - i) * (k.choose i : ℤ) * a i) := by
+    intro k _
+    rw [Finset.mul_sum]
+    apply Finset.sum_subset
+    · intro x hx; simp only [Finset.mem_range] at *; omega
+    · intro x _ hx2
+      simp only [Finset.mem_range, not_lt] at hx2
+      have : (k.choose x) = 0 := Nat.choose_eq_zero_of_lt (by omega)
+      simp [this]
+  rw [Finset.sum_congr rfl e1, Finset.sum_comm]
+  have e2 : ∀ i ∈ Finset.range (m + 1),
+      (∑ k ∈ Finset.range (m + 1),
+        (m.choose k : ℤ) * ((-1 : ℤ) ^ (k - i) * (k.choose i : ℤ) * a i))
+      = a i * (if i = m then 1 else 0) := by
+    intro i hi
+    simp only [Finset.mem_range] at hi
+    have hfactor : (∑ k ∈ Finset.range (m + 1),
+          (m.choose k : ℤ) * ((-1 : ℤ) ^ (k - i) * (k.choose i : ℤ) * a i))
+        = a i * ∑ k ∈ Finset.range (m + 1),
+            ((-1 : ℤ) ^ (k - i) * (m.choose k : ℤ) * (k.choose i : ℤ)) := by
+      rw [Finset.mul_sum]; apply Finset.sum_congr rfl; intro k _; ring
+    rw [hfactor, alt_choose_column m i (by omega)]
+  rw [Finset.sum_congr rfl e2]
+  have e3 : ∀ i ∈ Finset.range (m + 1),
+      a i * (if i = m then (1 : ℤ) else 0) = if i = m then a i else 0 := by
+    intro i _; by_cases h : i = m <;> simp [h]
+  rw [Finset.sum_congr rfl e3, Finset.sum_ite_eq']
+  simp
+
 /-
-Fibre identity: ∑ₖ (m choose k) F(k) = 2^{2ᵐ}. The weighted fibre counts sum to
-the full next powerset level. This is binomial inversion of `F_fibre`: summing the
-alternating transform back against the binomials recovers `2 ^ (2 ^ m)`.
-Verified here on the concrete levels the construction uses; the general statement
-is the named obligation `fibre_identity_general` below.
+Fibre identity: ∑ₖ (m choose k) F(k) = 2^{2ᵐ}. The weighted fibre counts sum to the
+full next powerset level, for every m.
 -/
-theorem fibre_identity_zero :
-    (∑ k ∈ Finset.range 1, (Nat.choose 0 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 0) := by decide
-theorem fibre_identity_one :
-    (∑ k ∈ Finset.range 2, (Nat.choose 1 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 1) := by decide
-theorem fibre_identity_two :
-    (∑ k ∈ Finset.range 3, (Nat.choose 2 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 2) := by decide
-theorem fibre_identity_three :
-    (∑ k ∈ Finset.range 4, (Nat.choose 3 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 3) := by decide
-theorem fibre_identity_four :
-    (∑ k ∈ Finset.range 5, (Nat.choose 4 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 4) := by decide
+theorem fibre_identity (m : ℕ) :
+    (∑ k ∈ Finset.range (m + 1), (m.choose k : ℤ) * F_fibre k) = 2 ^ (2 ^ m) := by
+  simpa [F_fibre] using binomial_inversion (fun i => (2 : ℤ) ^ (2 ^ i)) m
 
 /-
 ===============================================================================

@@ -1,31 +1,19 @@
-Complete CircumPunctum: the file now builds green, sans sorry
+Prove the general fibre identity in CircumPunctum
 
-CircumPunctum.lean never built. It is now green with no sorry, 34 theorems, and the
-paraconsistent spine real rather than placeholder.
+The fibre identity ∑ₖ C(m,k) F(k) = 2^(2^m) now holds for every m, not just the
+concrete levels. F_fibre is the alternating binomial transform of 2^(2^i), and the
+identity is binomial inversion.
 
-Fixed:
-  - Imports and notation: the bigop module moved in this Mathlib; ∑ … in → ∑ … ∈.
-  - The order relations TruthLE/TruthLEBool were undecidable and one theorem was
-    stated in the wrong order. Added the information order InfoLE, restated
-    Inc_extensive and Inc_monotone there (B is the info-top), and proved the
-    adjoints r ⊣ i ⊣ c, the retractions, fix_i_r/c, the trichotomy, the union/
-    intersection frame collapses, and boolean_impossibility by explicit case
-    analysis. boolean_impossibility depends on propext alone; the rest are clean.
-  - The re-entry tower was a V := Unit placeholder that made ρ_ne_id false. Replaced
-    with a genuine marker retraction: V 0 = Unit, V (n+1) = V n × Bool, η carries a
-    value up with a marker, μ reads it down. μ∘η = id, ρ = η∘μ idempotent, and
-    ρ ≠ id all hold truthfully (axiom-free). The powerset cardinalities stay in §9.
-  - The classical-physics retract closed by rfl once the Boolean core reduced.
+Proof structure, all in the kernel:
+  - alt_choose_column: ∑ₖ (-1)^(k-i) C(m,k) C(k,i) = [i = m], from the trinomial
+    revision C(m,k)C(k,i) = C(m,i)C(m-i,k-i) (Nat.choose_mul) and the vanishing
+    alternating row sum ∑ⱼ (-1)^j C(m-i,j) (Int.alternating_sum_range_choose).
+  - binomial_inversion: push C(m,k) inside, extend the inner range (C(k,i)=0 above
+    the diagonal), swap the double sum, apply the column collapse, and read off the
+    diagonal term a m.
+  - fibre_identity: instantiate the inversion at a i = 2^(2^i).
 
-Corrected math, not just tactics:
-  - F_fibre had the wrong sign: ∑ C(k,i)·2^(2^i) gives F(1)=6, not 2. It is the
-    alternating (inclusion–exclusion) binomial transform, so it lives in ℤ:
-    F_fibre k = ∑ (-1)^(k-i) C(k,i) 2^(2^i). The five values 2,2,10,218,64594 now
-    hold by decide, and the fibre identity ∑ C(m,k) F(k) = 2^(2^m) is proven for
-    m = 0..4 by decide.
-
-Two limits stated plainly: the general fibre identity (∀ m) is binomial inversion
-and is not yet proven, only the concrete levels are; and the tower is the marker
-model of the section/retraction, not the literal iterated powerset.
+CircumPunctum builds green, sans sorry; fibre_identity rests on the standard Mathlib
+base (propext, Classical.choice, Quot.sound).
 
 Whole-tree snapshot.
