@@ -1,27 +1,31 @@
-Audit the Gödel-completeness proof with Vox, and record the control
+Complete CircumPunctum: the file now builds green, sans sorry
 
-Add Imscribing/GodelCompletenessAudit.lean: lift each proof term of
-GodelCompleteness to its IMASM structure word with #lift, so vox verdict reads
-whether the proof closes.
+CircumPunctum.lean never built. It is now green with no sorry, 34 theorems, and the
+paraconsistent spine real rather than placeholder.
 
-The ELF route was a decoy and the control caught it: compiling the module to a
-shared object and auditing it read T0 B2 N18 F0, but a different module
-(ParaconsistentCore) compiled byte-identical with the same verdicts, because Lean
-erases Prop and the binary holds only module-init glue. The binary is not the word.
+Fixed:
+  - Imports and notation: the bigop module moved in this Mathlib; ∑ … in → ∑ … ∈.
+  - The order relations TruthLE/TruthLEBool were undecidable and one theorem was
+    stated in the wrong order. Added the information order InfoLE, restated
+    Inc_extensive and Inc_monotone there (B is the info-top), and proved the
+    adjoints r ⊣ i ⊣ c, the retractions, fix_i_r/c, the trichotomy, the union/
+    intersection frame collapses, and boolean_impossibility by explicit case
+    analysis. boolean_impossibility depends on propext alone; the rest are clean.
+  - The re-entry tower was a V := Unit placeholder that made ρ_ne_id false. Replaced
+    with a genuine marker retraction: V 0 = Unit, V (n+1) = V n × Bool, η carries a
+    value up with a marker, μ reads it down. μ∘η = id, ρ = η∘μ idempotent, and
+    ρ ≠ id all hold truthfully (axiom-free). The powerset cardinalities stay in §9.
+  - The classical-physics retract closed by rfl once the Boolean core reduced.
 
-The real audit is the proof-lift. vox verdict on the lifted words:
-  godel_absent_from_classical  T   (fork closes)
-  boolean_impossibility        T   (fork closes)
-  grammar_godel_complete       N   (forkless bundling)
-  godel_fixed_point_in_ambient N
-  no_ex_falso                  N
-  grammar_self_imscribes       N
-None reads B or F. The control fixes the meaning: a holed proof, ∃ n, n = n+1 by
-sorry, lifts to ⊢∈⊣ and reads B, the fork opened and never rejoined. So the
-instrument does separate a closed proof from an open one, and every real theorem
-here is closed or forkless, none open, none ill-typed.
+Corrected math, not just tactics:
+  - F_fibre had the wrong sign: ∑ C(k,i)·2^(2^i) gives F(1)=6, not 2. It is the
+    alternating (inclusion–exclusion) binomial transform, so it lives in ℤ:
+    F_fibre k = ∑ (-1)^(k-i) C(k,i) 2^(2^i). The five values 2,2,10,218,64594 now
+    hold by decide, and the fibre identity ∑ C(m,k) F(k) = 2^(2^m) is proven for
+    m = 0..4 by decide.
 
-Corroborated by the kernel: #print axioms grammar_godel_complete reports it depends
-on no axioms at all, no sorry, no Classical, no propext.
+Two limits stated plainly: the general fibre identity (∀ m) is binomial inversion
+and is not yet proven, only the concrete levels are; and the tower is the marker
+model of the section/retraction, not the literal iterated powerset.
 
 Whole-tree snapshot.
