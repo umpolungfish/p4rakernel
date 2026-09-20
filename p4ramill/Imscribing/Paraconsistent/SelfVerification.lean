@@ -6,6 +6,7 @@ import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.Kernel
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Imscribing.Paraconsistent
 
@@ -71,5 +72,18 @@ theorem complete_self_verification (n : Nat) :
   have hneT : (run initialState n).r0 ≠ Belnap.T := by
     rw [hr0]; exact hmT
   exact ⟨hr0, hr1, hr2, hp, hc, hneF, hneT, htier⟩
+
+-- The self-verifying kernel's register as a first-class dialetheic verdict: it is
+-- held at B (both) together with being neither pole (≠ F and ≠ T), the two facts
+-- that make it a sustained paraconsistent state rather than a collapse.
+open Imscribing.Paraconsistent.DialetheicWitness in
+def kernelBothVerdict (n : Nat) : Verdict ((run initialState n).r0 = Belnap.B) :=
+  let h := complete_self_verification n
+  .held (Q := (run initialState n).r0 ≠ Belnap.F ∧ (run initialState n).r0 ≠ Belnap.T)
+        h.1 ⟨h.2.2.2.2.2.1, h.2.2.2.2.2.2.1⟩
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+theorem kernelBothVerdict_is_B (n : Nat) :
+    (kernelBothVerdict n).classify = (true, true) := rfl
 
 end Imscribing.Paraconsistent

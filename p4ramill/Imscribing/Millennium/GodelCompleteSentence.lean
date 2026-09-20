@@ -38,6 +38,7 @@ import Imscribing.IGFunctor
 import Imscribing.Consciousness
 import Imscribing.Millennium.Cosmogeny
 import Imscribing.Paraconsistent.Belnap
+import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Imscribing.Millennium.GodelCompleteSentence
 
@@ -535,5 +536,22 @@ theorem completeness_as_circularity :
     godel_complete_sentence_tuple
   refine ⟨by native_decide, by native_decide, by native_decide,
     by ext <;> native_decide⟩
+
+-- ============================================================
+-- §6  THE DIALETHEIC VERDICT (first-class, Vox-auditable)
+-- ============================================================
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+/-- The Gödel-complete sentence as a first-class dialetheic verdict: it is both
+    true and false (join T F = B) held together with its stability under negation
+    (bnot B = B), neither fact exploding the other. The `held` constructor carries
+    two independently real proofs; its classifier reads B. -/
+def godelSentenceVerdict : Verdict (join Belnap.T Belnap.F = Belnap.B) :=
+  .held godel_complete_sentence_is_b_state b_state_paraconsistent
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+/-- The classifier reads the Gödel sentence as B, mechanically. -/
+theorem godelSentenceVerdict_is_B :
+    godelSentenceVerdict.classify = (true, true) := rfl
 
 end Imscribing.Millennium.GodelCompleteSentence

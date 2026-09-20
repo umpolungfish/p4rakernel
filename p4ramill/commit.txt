@@ -1,29 +1,23 @@
-Tie Gödel-completeness to the primitives, types, and the crystal arithmetic
+Apply the dialetheic verdict to the Gödel sentence and the self-verifying kernel
 
-Extend the Gödel-completeness file from the Belnap ambient to the primitive and type
-layer, so the self-modeling gate is named in the twelve-primitive structure and the
-crystal it defines.
+DialetheicWitness's `held` verdict fits any site where two independently real facts
+about one object are held together though they look opposed. The classifier reads
+that as B, and unlike a Prop it compiles, so Vox can audit the both-state. It was
+already applied across the ABC and Millennium theta-bridges. Two strong sites had
+genuine both-states and no witness.
 
-Added:
-  - godel_gate_reaches_O_inf: the ⊙ self-modeling gate is the Criticality value
-    monad, and μ∘δ = id is the Polarity value or'. Together they reach terminal
-    self-referential closure O_inf, for any protection, dimension, topology
-    (r1_dominates).
-  - self_reference_requires_gate: reaching O_inf forces the Criticality primitive to
-    the ⊙ gate, monad or roar; nothing sub-, super-, or exceptional-critical closes
-    on itself (o_inf_requires_phi_c).
-  - the arithmetic ouroborus: the twelve primitives split into three families, three
-    with three values, five with four, four with five, giving 3·3 + 5·4 + 4·5 = 49
-    value-types and a crystal of 3^3 · 4^5 · 5^4 = 17,280,000 addresses
-    (crystal_type_count, crystal_cardinality).
-  - grammar_godel_complete_typed: the two layers held together. The Belnap ambient
-    decides the Gödel sentence at B, the unique rest point of the augmentation; the
-    primitive tower closes on itself at the ⊙ monad gate with the or' Frobenius
-    polarity, O_inf; the kernel's split then fuse returns the input; over a crystal
-    of 3^3 · 4^5 · 5^4 addresses. One gate, two layers.
+  - GodelCompleteSentence: the Gödel-complete sentence is both true and false
+    (join T F = B) and stable under negation (bnot B = B). godelSentenceVerdict
+    holds the two, and godelSentenceVerdict_is_B reads it B by rfl.
+  - SelfVerification: the self-verifying kernel's register is held at B and is
+    neither pole (≠ F and ≠ T), the pair that makes it a sustained paraconsistent
+    state rather than a collapse. kernelBothVerdict holds them; classify reads B.
 
-Both bundles depend on propext alone, sans sorry. Vox re-audit: the typed theorems
-lift and verdict N as direct constructions, none open or ill-typed; the sorry
-control still reads B.
+Both files build green.
+
+Further genuine both-state sites, grounded, not yet witnessed: RiemannSIC
+(dialetheia_structural), DialetheicUniverse (dialetheia_is_stable, B_double_neg),
+CircumPunctum (the ambient B fixed point with no explosion), and the horn-torus
+pinch. Named for the next pass.
 
 Whole-tree snapshot.
