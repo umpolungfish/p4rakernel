@@ -39,6 +39,7 @@ import Imscribing.IGFunctor
 import Imscribing.Millennium.RH
 import Imscribing.Millennium.SIC_POVM_Stark
 import Imscribing.Millennium.PrimitiveBridge
+import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Imscribing.Millennium.RiemannSIC
 
@@ -323,5 +324,17 @@ theorem depth_narrative_mismatch :
   simp [protocol, IGProtocol.depth]
 
 end -- noncomputable section
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+/-- The Riemann spectral dialetheia as a first-class verdict: the ground
+    imscription holds Frobenius closure (μ∘δ = id) together with the
+    Hilbert-Pólya spectral correspondence, two interpretations of one object held
+    without collapse. The classifier reads B. -/
+def riemannDialetheiaVerdict : Verdict (igFrobeniusAlg.mul s0 s0 = s0) :=
+  .held dialetheia_structural.1 dialetheia_structural.2
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+theorem riemannDialetheiaVerdict_is_B :
+    riemannDialetheiaVerdict.classify = (true, true) := rfl
 
 end Imscribing.Millennium.RiemannSIC
