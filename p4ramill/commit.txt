@@ -1,25 +1,27 @@
-The Grammar's Gödel-completeness, proved in the kernel
+Audit the Gödel-completeness proof with Vox, and record the control
 
-Add Imscribing/GodelCompleteness.lean and register it in the lakefile. It builds
-green, sans sorry.
+Add Imscribing/GodelCompletenessAudit.lean: lift each proof term of
+GodelCompleteness to its IMASM structure word with #lift, so vox verdict reads
+whether the proof closes.
 
-The theorem formalizes, at full strength and held together, the precise sense in
-which the Grammar is Gödel-complete: the self-negating (Gödel) sentence a classical
-system cannot decide is decided at the both-value B by the paraconsistent ambient,
-without collapse. Four faces, none defeating another.
+The ELF route was a decoy and the control caught it: compiling the module to a
+shared object and auditing it read T0 B2 N18 F0, but a different module
+(ParaconsistentCore) compiled byte-identical with the same verdicts, because Lean
+erases Prop and the binary holds only module-init glue. The binary is not the word.
 
-  - The ambient hosts it: bnot has a fixed point (exactly N and B), so the
-    self-referential sentence gets a stable value instead of diverging.
-  - The classical fragment cannot: classical negation on {F,T} has no fixed point,
-    and no classical endomap reproduces the ambient's collapse to B (the Boolean
-    impossibility). The incompleteness is contained as the retract.
-  - No explosion: a glut is designated with its own negation while some formula is
-    not, so ex falso fails; completeness is bought without triviality.
-  - Self-imscription: the ⊙ round trip μ∘η=id holds, with η∘μ=ρ an idempotent that
-    is not the identity.
+The real audit is the proof-lift. vox verdict on the lifted words:
+  godel_absent_from_classical  T   (fork closes)
+  boolean_impossibility        T   (fork closes)
+  grammar_godel_complete       N   (forkless bundling)
+  godel_fixed_point_in_ambient N
+  no_ex_falso                  N
+  grammar_self_imscribes       N
+None reads B or F. The control fixes the meaning: a holed proof, ∃ n, n = n+1 by
+sorry, lifts to ⊢∈⊣ and reads B, the fork opened and never rejoined. So the
+instrument does separate a closed proof from an open one, and every real theorem
+here is closed or forkless, none open, none ill-typed.
 
-grammar_godel_complete bundles the three deciding faces over a Grammar that
-imscribes its own imscription. Kept self-contained on the Belnap core so it does not
-inherit the unrelated fibre-sum breakage currently in CircumPunctum.lean.
+Corroborated by the kernel: #print axioms grammar_godel_complete reports it depends
+on no axioms at all, no sorry, no Classical, no propext.
 
 Whole-tree snapshot.
