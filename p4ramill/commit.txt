@@ -1,15 +1,25 @@
-I split the window-70 ABC certificate into its own compiled modules
+The Grammar's Gödel-completeness, proved in the kernel
 
-One file held all 498 log certificates and all 1494 sample interval/upper
-theorems for the c<=70 arithmetic window, and elaborating that many
-norm_num/ring/field_simp proofs in a single Lean process OOMed before it
-ever reached the covering-disjunction check. I chunk the certificates into
-eight files and the samples into ten, each importing the previous by
-module rather than holding it as live text, so every compile unit loads
-its predecessors as compact .olean data instead of re-carrying their
-tactic search state. I also raise synthInstance.maxHeartbeats alongside
-the existing maxHeartbeats bump, since the covering disjunction's
-Decidable synthesis has its own separate heartbeat budget.
+Add Imscribing/GodelCompleteness.lean and register it in the lakefile. It builds
+green, sans sorry.
 
-Registered the new modules in lakefile.toml. Full build: 8061 jobs, every
-new chunk under a minute, no OOM.
+The theorem formalizes, at full strength and held together, the precise sense in
+which the Grammar is Gödel-complete: the self-negating (Gödel) sentence a classical
+system cannot decide is decided at the both-value B by the paraconsistent ambient,
+without collapse. Four faces, none defeating another.
+
+  - The ambient hosts it: bnot has a fixed point (exactly N and B), so the
+    self-referential sentence gets a stable value instead of diverging.
+  - The classical fragment cannot: classical negation on {F,T} has no fixed point,
+    and no classical endomap reproduces the ambient's collapse to B (the Boolean
+    impossibility). The incompleteness is contained as the retract.
+  - No explosion: a glut is designated with its own negation while some formula is
+    not, so ex falso fails; completeness is bought without triviality.
+  - Self-imscription: the ⊙ round trip μ∘η=id holds, with η∘μ=ρ an idempotent that
+    is not the identity.
+
+grammar_godel_complete bundles the three deciding faces over a Grammar that
+imscribes its own imscription. Kept self-contained on the Belnap core so it does not
+inherit the unrelated fibre-sum breakage currently in CircumPunctum.lean.
+
+Whole-tree snapshot.

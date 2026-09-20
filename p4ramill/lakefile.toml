@@ -97,6 +97,11 @@ globs = [
   "Imscribing.VoxResident",
   "Imscribing.VoxResidentGrammar",
   "Imscribing.VoxReconcile",
+  "Imscribing.Stage171_180",
+  "Imscribing.Stage301_315",
+  "Imscribing.Stage301_315",
+  "Imscribing.CircumPunctum",
+  "Imscribing.GodelCompleteness",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
