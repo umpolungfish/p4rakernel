@@ -39,10 +39,12 @@
 import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.IncompletenessClosure
 import Imscribing.Paraconsistent.SelfVerification
+import Imscribing.Primitives.Core
 
 namespace Imscribing.GodelCompleteness
 
 open Imscribing.Paraconsistent
+open Imscribing.Primitives
 
 /- ── (1) The ambient hosts the Gödel sentence ─────────────────────────────── -/
 
@@ -127,5 +129,46 @@ theorem grammar_godel_complete :
    godel_absent_from_classical,
    no_ex_falso,
    grammar_self_imscribes⟩
+
+/- ── Primitives and types: the ⊙ gate, and the arithmetic ouroborus ───────── -/
+
+/-- The self-modeling gate at the primitive layer. The ⊙ is the Criticality value
+    `monad`; μ∘δ = id is the Polarity value `or'`. Together they reach terminal
+    self-referential closure O_inf, for any protection, dimension, topology. -/
+theorem godel_gate_reaches_O_inf
+    (prot : Protection) (dim : Dimensionality) (top : Topology) :
+    ouroboricityTier .monad .or' prot dim top = .O_inf :=
+  r1_dominates prot dim top
+
+/-- Self-reference forces the gate: reaching O_inf requires the Criticality
+    primitive at ⊙ (monad or roar); nothing sub-, super-, or exceptional-critical
+    closes on itself. -/
+theorem self_reference_requires_gate (phi : Criticality) (pol : Polarity)
+    (prot : Protection) (dim : Dimensionality) (top : Topology)
+    (h : ouroboricityTier phi pol prot dim top = .O_inf) :
+    phi = .monad ∨ phi = .roar :=
+  o_inf_requires_phi_c phi pol prot dim top h
+
+/-- The arithmetic ouroborus. The twelve primitives split into three families:
+    three primitives with three values (𝓕₃), five with four (𝓕₄), four with five
+    (𝓕₅). That is 3·3 + 5·4 + 4·5 = 49 value-types, and the crystal of structural
+    types has 3^3 · 4^5 · 5^4 = 17,280,000 addresses. -/
+theorem crystal_type_count : 3 * 3 + 5 * 4 + 4 * 5 = 49 := by decide
+
+theorem crystal_cardinality : 3 ^ 3 * 4 ^ 5 * 5 ^ 4 = 17280000 := by decide
+
+/-- Gödel-completeness across both layers. On the Belnap ambient the Gödel
+    sentence is decided at the both-value B, the unique rest point of the
+    augmentation `inc`. On the primitive tower the same ⊙ gate is the Criticality
+    `monad` with the μ∘δ = id Polarity `or'`, reaching terminal self-referential
+    closure O_inf, and the kernel's split then fuse returns the input. One gate,
+    two layers, over a crystal of 3^3 · 4^5 · 5^4 addresses. -/
+theorem grammar_godel_complete_typed
+    (prot : Protection) (dim : Dimensionality) (top : Topology) :
+    (∀ v : Belnap, inc v = v ↔ v = .B)
+    ∧ (ouroboricityTier .monad .or' prot dim top = .O_inf)
+    ∧ (∀ r : Belnap, (ffuse (fsplit r).1 (fsplit r).2.1).1 = r)
+    ∧ (3 ^ 3 * 4 ^ 5 * 5 ^ 4 = 17280000) :=
+  ⟨inc_fixed_point_iff, r1_dominates prot dim top, split_fuse_identity, by decide⟩
 
 end Imscribing.GodelCompleteness

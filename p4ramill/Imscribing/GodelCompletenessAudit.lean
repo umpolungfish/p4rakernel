@@ -15,6 +15,9 @@ open Imscribing.GodelCompleteness
 #lift no_ex_falso
 #lift boolean_impossibility
 #lift grammar_self_imscribes
+#lift godel_gate_reaches_O_inf
+#lift crystal_cardinality
+#lift grammar_godel_complete_typed
 
 -- CONTROL (run once, recorded here so the library carries no live `sorry`):
 --   theorem control_holed : ∃ n, n = n + 1 := by sorry
@@ -22,3 +25,4 @@ open Imscribing.GodelCompleteness
 -- The holed proof reads B; the real theorems below read T (fork closes) or N
 -- (forkless direct term). None reads B or F. Corroborated by the kernel:
 #print axioms grammar_godel_complete
+#print axioms grammar_godel_complete_typed
