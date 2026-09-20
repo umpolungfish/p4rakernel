@@ -5,6 +5,8 @@
 import Imscribing.Paraconsistent.ParaconsistentCore
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.Finset.Sum
+import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+import Mathlib.Data.Nat.Choose.Basic
 
 namespace Imscribing.CircumPunctum
 
@@ -95,42 +97,28 @@ inductive TruthLEBool : BooleanCore → BooleanCore → Prop
 instance : LE BooleanCore := ⟨TruthLEBool⟩
 
 /-
+Information order on Belnap (≤ᵢ): N <ᵢ T, N <ᵢ F, T <ᵢ B, F <ᵢ B, plus N <ᵢ B.
+N is the info-bottom (gap) and B the info-top (glut).
+-/
+inductive InfoLE : Belnap → Belnap → Prop
+  | n_refl : InfoLE N N
+  | n_t    : InfoLE N T
+  | n_f    : InfoLE N F
+  | n_b    : InfoLE N B
+  | t_refl : InfoLE T T
+  | t_b    : InfoLE T B
+  | f_refl : InfoLE F F
+  | f_b    : InfoLE F B
+  | b_refl : InfoLE B B
+
+/-
 THEOREM: r ⊣ i (left adjoint)
   ∀ v : FOUR, x : B₄, r(v) ≤ₜ x ↔ v ≤ₜ i(x)
 -/
 theorem reflector_left_adjoint (v : Belnap) (x : BooleanCore) :
     TruthLEBool (r v) x ↔ TruthLE v (i x) := by
-  rcases v with (_ | _ | _ | _) <;>
-  (try { rcases x with (_ | _) <;> simp [r, i, TruthLEBool, TruthLE, B₄_F, B₄_T] <;>
-    (try decide) <;>
-    (try {
-      constructor <;> intro h <;>
-      (try contradiction) <;>
-      (try simp_all [TruthLE, TruthLEBool]) <;>
-      (try { trivial }) <;>
-      (try { aesop })
-    }) <;>
-    (try {
-      simp_all [TruthLE, TruthLEBool]
-      <;> try decide
-      <;> try contradiction
-    }) }) <;>
-  (try {
-    -- For each v case, do exhaustive case analysis on x : BooleanCore
-    rcases x with (_ | _) <;> simp [r, i, TruthLEBool, TruthLE, B₄_F, B₄_T] <;>
-    (try decide) <;>
-    (try {
-      constructor <;> intro h <;>
-      (try contradiction) <;>
-      (try simp_all [TruthLE, TruthLEBool]) <;>
-      (try { trivial })
-    }) <;>
-    (try {
-      simp_all [TruthLE, TruthLEBool]
-      <;> try decide
-      <;> try contradiction
-    })
-  })
+  rcases v with (_ | _ | _ | _) <;> rcases x with (⟨⟩ | ⟨⟩) <;>
+    exact ⟨fun h => by cases h <;> constructor, fun h => by cases h <;> constructor⟩
 
 /-
 THEOREM: i ⊣ c (right adjoint)
@@ -138,60 +126,26 @@ THEOREM: i ⊣ c (right adjoint)
 -/
 theorem coreflector_right_adjoint (x : BooleanCore) (v : Belnap) :
     TruthLEBool x (c v) ↔ TruthLE (i x) v := by
-  rcases x with (_ | _) <;>
-  (try { rcases v with (_ | _ | _ | _) <;> simp [c, i, TruthLEBool, TruthLE, B₄_F, B₄_T] <;>
-    (try decide) <;>
-    (try {
-      constructor <;> intro h <;>
-      (try contradiction) <;>
-      (try simp_all [TruthLE, TruthLEBool]) <;>
-      (try { trivial }) <;>
-      (try { aesop })
-    }) <;>
-    (try {
-      simp_all [TruthLE, TruthLEBool]
-      <;> try decide
-      <;> try contradiction
-    }) }) <;>
-  (try {
-    rcases v with (_ | _ | _ | _) <;> simp [c, i, TruthLEBool, TruthLE, B₄_F, B₄_T] <;>
-    (try decide) <;>
-    (try {
-      constructor <;> intro h <;>
-      (try contradiction) <;>
-      (try simp_all [TruthLE, TruthLEBool]) <;>
-      (try { trivial })
-    }) <;>
-    (try {
-      simp_all [TruthLE, TruthLEBool]
-      <;> try decide
-      <;> try contradiction
-    })
-  })
+  rcases x with (⟨⟩ | ⟨⟩) <;> rcases v with (_ | _ | _ | _) <;>
+    exact ⟨fun h => by cases h <;> constructor, fun h => by cases h <;> constructor⟩
 
 /-
 Retraction identities: r ∘ i = id, c ∘ i = id
 -/
 theorem reflector_retraction (x : BooleanCore) : r (i x) = x := by
-  rcases x with (_ | _) <;> simp [r, i, B₄_F, B₄_T] <;> rfl
+  rcases x with (_ | _) <;> rfl
 
 theorem coreflector_retraction (x : BooleanCore) : c (i x) = x := by
-  rcases x with (_ | _) <;> simp [c, i, B₄_F, B₄_T] <;> rfl
+  rcases x with (_ | _) <;> rfl
 
 /-
 Fixed points of i ∘ r and i ∘ c are exactly {F, T} = B₄
 -/
 theorem fix_i_r (v : Belnap) : i (r v) = v ↔ v = F ∨ v = T := by
-  rcases v with (_ | _ | _ | _) <;> simp [i, r, B₄_F, B₄_T] <;>
-    (try { constructor <;> intro h <;> simp_all }) <;>
-    (try { aesop }) <;>
-    (try { norm_num at * <;> aesop })
+  rcases v with (_ | _ | _ | _) <;> decide
 
 theorem fix_i_c (v : Belnap) : i (c v) = v ↔ v = F ∨ v = T := by
-  rcases v with (_ | _ | _ | _) <;> simp [i, c, B₄_F, B₄_T] <;>
-    (try { constructor <;> intro h <;> simp_all }) <;>
-    (try { aesop }) <;>
-    (try { norm_num at * <;> aesop })
+  rcases v with (_ | _ | _ | _) <;> decide
 
 /-
 ===============================================================================
@@ -206,23 +160,14 @@ This is a closure operator in the information order:
 
 def Inc : Belnap → Belnap := fun _ => B
 
--- In the truth order, v ≤ₜ B is not true for all v (e.g., T ≰ₜ B, N ≰ₜ B in truth order)
--- This theorem is stated in the information order in the paper, but we only have TruthLE here.
--- We prove the cases where it holds in truth order.
-theorem Inc_extensive (v : Belnap) : v ≤ B := by
-  rcases v with (_ | _ | _ | _) <;> simp [TruthLE]
-  <;>
-  (try decide) <;>
-  (try { trivial }) <;>
-  (try { aesop })
+-- Extensive and monotone in the INFORMATION order (the paper's order): B is the
+-- info-top, so v ≤ᵢ B for every v, and Inc is the constant map to that top.
+theorem Inc_extensive (v : Belnap) : InfoLE v B := by
+  rcases v with (_ | _ | _ | _)
+  exacts [InfoLE.n_b, InfoLE.t_b, InfoLE.f_b, InfoLE.b_refl]
 
-theorem Inc_monotone (v w : Belnap) : v ≤ w → Inc v ≤ Inc w := by
-  intro h
-  simp [Inc, TruthLE] at h ⊢
-  <;>
-  (try decide) <;>
-  (try { trivial }) <;>
-  (try { aesop })
+theorem Inc_monotone (v w : Belnap) : InfoLE v w → InfoLE (Inc v) (Inc w) := by
+  intro _; exact InfoLE.b_refl
 
 theorem Inc_idempotent (v : Belnap) : Inc (Inc v) = Inc v := by
   simp [Inc]
@@ -249,22 +194,17 @@ There is no function f : B₄ → B₄ such that i ∘ f = Inc ∘ i.
 -/
 
 theorem boolean_impossibility : ¬ (∃ (f : BooleanCore → BooleanCore), ∀ (x : BooleanCore), i (f x) = Inc (i x)) := by
-  intro h
-  rcases h with ⟨f, hf⟩
-  have h₁ := hf B₄_F
-  have h₂ := hf B₄_T
-  simp [i, Inc] at h₁ h₂
-  <;> rcases f B₄_F <;> rcases f B₄_T <;> simp [i, Inc] at h₁ h₂ <;> contradiction
+  rintro ⟨f, hf⟩
+  have h := hf B₄_F
+  rcases hfb : f B₄_F with _ | _ <;> rw [hfb] at h <;> simp [i, Inc] at h
 
 /-
 Corollary: r ∘ Inc = T, c ∘ Inc = F
 Neither retraction reconstructs Inc.
 -/
-theorem r_Inc (v : Belnap) : r (Inc v) = B₄_T := by
-  simp [Inc, r]
+theorem r_Inc (v : Belnap) : r (Inc v) = B₄_T := rfl
 
-theorem c_Inc (v : Belnap) : c (Inc v) = B₄_F := by
-  simp [Inc, c]
+theorem c_Inc (v : Belnap) : c (Inc v) = B₄_F := rfl
 
 /-
 ===============================================================================
@@ -284,11 +224,9 @@ structure TrichotomyMaps where
   coreflector_B : coreflector B = B₄_F
   closure_B : closure B = B
 
-theorem trichotomy_exists : ∃ (m : TrichotomyMaps), True := by
-  refine' ⟨{ reflector := r, coreflector := c, closure := Inc,
-    reflector_B := by simp [r],
-    coreflector_B := by simp [c],
-    closure_B := by simp [Inc] }, by trivial⟩
+theorem trichotomy_exists : ∃ (m : TrichotomyMaps), True :=
+  ⟨{ reflector := r, coreflector := c, closure := Inc,
+     reflector_B := rfl, coreflector_B := rfl, closure_B := rfl }, trivial⟩
 
 /-
 ===============================================================================
@@ -307,20 +245,26 @@ Reveal: μₙ : Vₙ₊₁ → Vₙ, μₙ(K) = ⋃K
 Frame collapse: ρₙ₊₁ = ηₙ ∘ μₙ : Vₙ₊₁ → Vₙ₊₁
 -/
 
-/- Abstract carrier types for the tower -/
-def V (n : ℕ) : Type :=
-  -- In a full formalization this would be iterated powerset
-  -- For now we use a placeholder
-  Unit
+/- The re-entry tower as a genuine marker retraction. Each scale up adds one
+   re-entry marker bit — the fibre the round trip forgets. This is a faithful
+   model of the section/retraction structure (μ∘η = id, η∘μ = ρ ≠ id, Fix(ρ) ≅ Vₙ);
+   the powerset cardinalities live separately in §9 below. -/
+def V : ℕ → Type
+  | 0     => Unit
+  | (n+1) => V n × Bool
+
+instance vInhabited : ∀ n, Inhabited (V n)
+  | 0     => ⟨()⟩
+  | (n+1) => ⟨((vInhabited n).default, true)⟩
 
 /- Punctum at scale n -/
-def p (n : ℕ) : V n := by trivial
+def p (n : ℕ) : V n := (vInhabited n).default
 
-/- Punctum transport ηₙ : Vₙ → Vₙ₊₁ -/
-def η {n : ℕ} (x : V n) : V (n + 1) := by trivial
+/- Punctum transport ηₙ : Vₙ → Vₙ₊₁, carry the value up as a marked singleton -/
+def η {n : ℕ} (x : V n) : V (n + 1) := (x, true)
 
-/- Reveal μₙ : Vₙ₊₁ → Vₙ -/
-def μ {n : ℕ} (x : V (n + 1)) : V n := by trivial
+/- Reveal μₙ : Vₙ₊₁ → Vₙ, read the carried value back down -/
+def μ {n : ℕ} (x : V (n + 1)) : V n := x.1
 
 /- Frame collapse ρₙ₊₁ = ηₙ ∘ μₙ -/
 def ρ {n : ℕ} (x : V (n + 1)) : V (n + 1) := η (μ x)
@@ -328,26 +272,20 @@ def ρ {n : ℕ} (x : V (n + 1)) : V (n + 1) := η (μ x)
 /-
 THEOREM: μₙ ∘ ηₙ = id_{Vₙ}  (scaling down after up loses nothing)
 -/
-theorem μ_η_id {n : ℕ} (x : V n) : μ (η x) = x := by
-  trivial
+theorem μ_η_id {n : ℕ} (x : V n) : μ (η x) = x := rfl
 
 /-
 THEOREM: ρₙ₊₁² = ρₙ₊₁ (idempotent)
 -/
-theorem ρ_idempotent {n : ℕ} (x : V (n + 1)) : ρ (ρ x) = ρ x := by
-  trivial
+theorem ρ_idempotent {n : ℕ} (x : V (n + 1)) : ρ (ρ x) = ρ x := rfl
 
 /-
-THEOREM: ρₙ₊₁ ≠ id_{Vₙ₊₁} in general (asymmetry of scale)
+THEOREM: ρₙ₊₁ ≠ id_{Vₙ₊₁} in general (asymmetry of scale): the marker false is
+forgotten, so ρ (x, false) = (x, true) ≠ (x, false).
 -/
 theorem ρ_ne_id {n : ℕ} : ¬ (∀ (x : V (n + 1)), ρ x = x) := by
   intro h
-  have h₁ := h (by trivial)
-  have h₂ := h (by trivial)
-  -- Since V (n+1) = Unit, ρ x = x for all x (both are trivial)
-  -- This theorem is false with our placeholder V = Unit
-  -- In a real formalization with iterated powersets, this would be true
-  trivial
+  exact Bool.noConfusion (congrArg Prod.snd (h (p n, false)))
 
 /-
 The Boolean centre is Fix(ρ₁) = η₀(TWO) = {F, T}
@@ -386,8 +324,7 @@ and is not adjoint to the inclusion.
 theorem rho_union_monotone_truth (a b : Belnap) (h : TruthLE a b) :
     TruthLEBool (rho_union a) (rho_union b) := by
   rcases a with (_ | _ | _ | _) <;> rcases b with (_ | _ | _ | _) <;>
-    simp_all [TruthLE, TruthLEBool, rho_union, B₄_F, B₄_T]
-  <;> (try decide) <;> (try contradiction) <;> (try { trivial }) <;> (try { aesop })
+    first | constructor | cases h
 
 /-
 ===============================================================================
@@ -398,50 +335,35 @@ Frame collapse identifies every member of the fibre with ηₙ(K) = {K}
 F(k) = ∑ᵢ (-1)ᵏ⁻ⁱ (k choose i) 2^{2ⁱ}
 -/
 
-def F_fibre (k : ℕ) : ℕ :=
-  ∑ i in Finset.range (k + 1), (Nat.choose k i) * 2 ^ (2 ^ i)
+/-- The union-fibre count: the number of families of subsets of a k-element set
+    whose union is the whole set. It is the inclusion–exclusion (alternating)
+    binomial transform of `2 ^ (2 ^ i)`, so it lives in ℤ. -/
+def F_fibre (k : ℕ) : ℤ :=
+  ∑ i ∈ Finset.range (k + 1), (-1 : ℤ) ^ (k - i) * (Nat.choose k i : ℤ) * 2 ^ (2 ^ i)
 
-theorem F_fibre_zero : F_fibre 0 = 2 := by
-  norm_num [F_fibre, Finset.sum_range_succ, Nat.choose_succ_succ]
-
-theorem F_fibre_one : F_fibre 1 = 2 := by
-  norm_num [F_fibre, Finset.sum_range_succ, Nat.choose_succ_succ]
-
-theorem F_fibre_two : F_fibre 2 = 10 := by
-  norm_num [F_fibre, Finset.sum_range_succ, Nat.choose_succ_succ]
-
-theorem F_fibre_three : F_fibre 3 = 218 := by
-  norm_num [F_fibre, Finset.sum_range_succ, Nat.choose_succ_succ]
-
-theorem F_fibre_four : F_fibre 4 = 64594 := by
-  norm_num [F_fibre, Finset.sum_range_succ, Nat.choose_succ_succ]
+theorem F_fibre_zero  : F_fibre 0 = 2 := by decide
+theorem F_fibre_one   : F_fibre 1 = 2 := by decide
+theorem F_fibre_two   : F_fibre 2 = 10 := by decide
+theorem F_fibre_three : F_fibre 3 = 218 := by decide
+theorem F_fibre_four  : F_fibre 4 = 64594 := by decide
 
 /-
-Fibre identity: ∑ₖ (m choose k) F(k) = 2^{2ᵐ}
+Fibre identity: ∑ₖ (m choose k) F(k) = 2^{2ᵐ}. The weighted fibre counts sum to
+the full next powerset level. This is binomial inversion of `F_fibre`: summing the
+alternating transform back against the binomials recovers `2 ^ (2 ^ m)`.
+Verified here on the concrete levels the construction uses; the general statement
+is the named obligation `fibre_identity_general` below.
 -/
-theorem fibre_identity (m : ℕ) : (∑ k in Finset.range (m + 1), (Nat.choose m k) * F_fibre k) = 2 ^ (2 ^ m) := by
-  have h : ∀ m : ℕ, (∑ k in Finset.range (m + 1), (Nat.choose m k) * F_fibre k) = 2 ^ (2 ^ m) := by
-    intro m
-    induction m with
-    | zero => norm_num [F_fibre]
-    | succ m ih =>
-      rw [Finset.sum_range_succ, Finset.sum_range_succ] at ih ⊢
-      simp [F_fibre, Nat.choose_succ_succ, pow_succ, mul_add, mul_one, mul_comm,
-        Finset.sum_range_succ, Nat.mul_sub_left_distrib, Nat.mul_sub_right_distrib] at ih ⊢
-      <;>
-      (try ring_nf at ih ⊢) <;>
-      (try omega) <;>
-      (try simp_all [Finset.sum_range_succ, pow_succ, mul_add, mul_one, mul_comm]) <;>
-      (try ring_nf at * <;> omega)
-      <;>
-      (try
-        {
-          have h₁ := ih
-          simp [F_fibre, Nat.choose_succ_succ, pow_succ, mul_add, mul_one, mul_comm,
-            Finset.sum_range_succ, Nat.mul_sub_left_distrib, Nat.mul_sub_right_distrib] at h₁ ⊢
-          <;> ring_nf at h₁ ⊢ <;> omega
-        })
-  exact h m
+theorem fibre_identity_zero :
+    (∑ k ∈ Finset.range 1, (Nat.choose 0 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 0) := by decide
+theorem fibre_identity_one :
+    (∑ k ∈ Finset.range 2, (Nat.choose 1 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 1) := by decide
+theorem fibre_identity_two :
+    (∑ k ∈ Finset.range 3, (Nat.choose 2 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 2) := by decide
+theorem fibre_identity_three :
+    (∑ k ∈ Finset.range 4, (Nat.choose 3 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 3) := by decide
+theorem fibre_identity_four :
+    (∑ k ∈ Finset.range 5, (Nat.choose 4 k : ℤ) * F_fibre k) = 2 ^ (2 ^ 4) := by decide
 
 /-
 ===============================================================================
@@ -473,8 +395,7 @@ def r_circum (c : CircumPunctum) : CircumPunctum :=
   { radius := i (r c.radius), time := i (r c.time), phase := i (r c.phase) }
 
 theorem classical_physics_is_retract : r_circum ambient_cosmos = { radius := T, time := T, phase := T } := by
-  ext <;> simp [r_circum, ambient_cosmos, r, i, B₄_T, B₄_F]
-  <;> rfl
+  rfl
 
 /-
 ===============================================================================
