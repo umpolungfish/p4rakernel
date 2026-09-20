@@ -102,6 +102,7 @@ globs = [
   "Imscribing.Stage301_315",
   "Imscribing.CircumPunctum",
   "Imscribing.GodelCompleteness",
+  "Imscribing.GodelCompletenessAudit",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
