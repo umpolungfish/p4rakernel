@@ -26,12 +26,12 @@
   Tier:   O_∞
 -/
 
-import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure
 
 namespace ClassicalRestriction
 
-open Belnap ParaconsistentFrobeniusClosure
+open Imscribing.Paraconsistent Imscribing.Paraconsistent.Belnap ParaconsistentFrobeniusClosure
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §1  THE CLASSICAL CONSTRAINT

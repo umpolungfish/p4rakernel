@@ -17,6 +17,8 @@ explicit non-explosive object-language consequence relation.
 -/
 namespace Imscribing.IUTT
 
+open Imscribing.Paraconsistent
+
 abbrev State := Reg16_3
 def empty : State := (false, false, false, false)
 def truth : State := (true, false, false, false)

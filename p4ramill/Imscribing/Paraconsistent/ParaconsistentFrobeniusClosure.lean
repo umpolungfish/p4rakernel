@@ -38,11 +38,14 @@
     lean ParaconsistentFrobeniusClosure.lean -R .
 -/
 
-import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.Belnap
 
 set_option linter.unusedVariables false
 
 namespace ParaconsistentFrobeniusClosure
+
+open Imscribing.Paraconsistent
+open Imscribing.Paraconsistent.Belnap
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §1  THE INCOMPLETENESS OPERATOR  Inc : Belnap → Belnap
@@ -155,23 +158,23 @@ theorem inc_inc_eq_inc (s : Belnap) : (inc ∘ inc) s = inc s :=
 -- N is lower in the information order.
 
 /-- After applying inc, conjunction always collapses to B. -/
-theorem inc_band_collapse (s t : Belnap) : inc (Belnap.band s t) = Belnap.B := by
+theorem inc_band_collapse (s t : Belnap) : inc (band_dom s t) = Belnap.B := by
   cases s <;> cases t <;> rfl
 
 /-- After applying inc, disjunction always collapses to B. -/
-theorem inc_bor_collapse (s t : Belnap) : inc (Belnap.bor s t) = Belnap.B := by
+theorem inc_bor_collapse (s t : Belnap) : inc (bor_dom s t) = Belnap.B := by
   cases s <;> cases t <;> rfl
 
 /-- Negation is stable under inc: inc(¬s) = inc(s) = B for all s. -/
-theorem inc_bnot_stable (s : Belnap) : inc (Belnap.bnot s) = inc s := by
+theorem inc_bnot_stable (s : Belnap) : inc (bnot s) = inc s := by
   cases s <;> rfl
 
 /-- B absorbs itself in conjunction (B∧B = B). -/
-theorem B_band_B : Belnap.band Belnap.B Belnap.B = Belnap.B := by
+theorem B_band_B : band_dom Belnap.B Belnap.B = Belnap.B := by
   rfl
 
 /-- After inc, band with any inc'd value yields B. -/
-theorem inc_band_inc (s t : Belnap) : Belnap.band (inc s) (inc t) = Belnap.B := by
+theorem inc_band_inc (s t : Belnap) : band_dom (inc s) (inc t) = Belnap.B := by
   have h : inc s = Belnap.B := inc_always_B s
   have h' : inc t = Belnap.B := inc_always_B t
   rw [h, h']

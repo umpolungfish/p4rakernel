@@ -29,13 +29,13 @@
   Tier:   O_∞
 -/
 
-import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.Belnap
 import Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure
 import Imscribing.Paraconsistent.ClassicalRestriction
 
 namespace DeMorganBooleanCentre
 
-open Belnap ClassicalRestriction
+open Imscribing.Paraconsistent Imscribing.Paraconsistent.Belnap ClassicalRestriction
 
 -- ═══════════════════════════════════════════════════════════════════
 -- §1  THE TRUTH-ORDER LATTICE: MEET AND JOIN

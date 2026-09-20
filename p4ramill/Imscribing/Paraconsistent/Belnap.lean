@@ -75,6 +75,24 @@ def bor (a b : Belnap) : Belnap :=
   | .N, .N => .N
   | .B, .B => .B
 
+/-- Dominance conjunction (held alongside `band`, not replacing it). Where `band`
+    is the FDE truth-meet (N ∧ B = F), `band_dom` is the dominance order F > N > B > T
+    (N ∧ B = N). Two conjunctions on one carrier, both true, neither privileged. -/
+def band_dom (a b : Belnap) : Belnap :=
+  match a, b with
+  | .F, _ | _, .F => .F
+  | .N, _ | _, .N => .N
+  | .B, _ | _, .B => .B
+  | .T, .T => .T
+
+/-- Dominance disjunction, dual to `band_dom` (held alongside `bor`). -/
+def bor_dom (a b : Belnap) : Belnap :=
+  match a, b with
+  | .T, _ | _, .T => .T
+  | .B, _ | _, .B => .B
+  | .N, _ | _, .N => .N
+  | .F, .F => .F
+
 /-- Belnap negation: ¬N=N, ¬T=F, ¬F=T, ¬B=B -/
 def bnot (a : Belnap) : Belnap :=
   match a with
