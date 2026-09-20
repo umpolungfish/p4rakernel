@@ -17,6 +17,7 @@ import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Paraconsistent.Belnap
 import Mathlib
+import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Millennium.DialetheicUniverse
 
@@ -166,5 +167,16 @@ theorem universe_alchemical_dialetheic_complete_sealed :
       exact universe_is_belnap_complete (S : Type) v
     · intro U ops
       exact hermetic_seal_is_tautological U ops
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+/-- The universe's dialetheia B as a first-class verdict: self-dual under negation
+    (¬B = B) held with double-negation invariance (¬¬B = B), two facts about the
+    frontier state held without collapse. The classifier reads B. -/
+def universeDialetheiaVerdict : Verdict (belnap_neg BelnapVal.B = BelnapVal.B) :=
+  .held dialetheia_is_stable B_double_neg
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+theorem universeDialetheiaVerdict_is_B :
+    universeDialetheiaVerdict.classify = (true, true) := rfl
 
 end Millennium.DialetheicUniverse

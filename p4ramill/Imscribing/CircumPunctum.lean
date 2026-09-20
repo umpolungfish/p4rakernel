@@ -10,6 +10,7 @@ import Mathlib.Algebra.BigOperators.Ring.Finset
 import Mathlib.Data.Nat.Choose.Basic
 import Mathlib.Data.Nat.Choose.Sum
 import Mathlib.Order.Interval.Finset.Nat
+import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Imscribing.CircumPunctum
 
@@ -516,5 +517,18 @@ def CompleteChain : Prop := True  -- Summary statement
 ===============================================================================
 -/
 theorem final_statement : True := by trivial
+
+/- ── The paraconsistent ambient B as a first-class dialetheic verdict ─────── -/
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+/-- The ambient both-value B as a verdict: it is the fixed point of the closure
+    (Inc B = B) held together with the Boolean impossibility, that no classical
+    endomap reproduces the collapse to B. Stable inside, unreachable from the
+    Boolean core; the classifier reads B. -/
+def ambientBVerdict : Verdict (Inc B = B) :=
+  .held Inc_fixed_point_B boolean_impossibility
+
+open Imscribing.Paraconsistent.DialetheicWitness in
+theorem ambientBVerdict_is_B : ambientBVerdict.classify = (true, true) := rfl
 
 end Imscribing.CircumPunctum

@@ -1,23 +1,21 @@
-Apply the dialetheic verdict to the Gödel sentence and the self-verifying kernel
+Extend the dialetheic verdict to Riemann, the dialetheic universe, and the ambient
 
-DialetheicWitness's `held` verdict fits any site where two independently real facts
-about one object are held together though they look opposed. The classifier reads
-that as B, and unlike a Prop it compiles, so Vox can audit the both-state. It was
-already applied across the ABC and Millennium theta-bridges. Two strong sites had
-genuine both-states and no witness.
+Continue applying DialetheicWitness's held verdict to the genuine both-states, in
+value order.
 
-  - GodelCompleteSentence: the Gödel-complete sentence is both true and false
-    (join T F = B) and stable under negation (bnot B = B). godelSentenceVerdict
-    holds the two, and godelSentenceVerdict_is_B reads it B by rfl.
-  - SelfVerification: the self-verifying kernel's register is held at B and is
-    neither pole (≠ F and ≠ T), the pair that makes it a sustained paraconsistent
-    state rather than a collapse. kernelBothVerdict holds them; classify reads B.
+  - RiemannSIC: the ground imscription holds Frobenius closure (μ∘δ = id) together
+    with the Hilbert-Pólya spectral correspondence, the zeta-zero and the
+    Hamiltonian-eigenvalue readings of one object. riemannDialetheiaVerdict holds
+    both; classify reads B.
+  - DialetheicUniverse: the frontier state B is self-dual under negation (¬B = B)
+    and invariant under double negation (¬¬B = B). universeDialetheiaVerdict holds
+    both; classify reads B.
+  - CircumPunctum: the ambient B is the fixed point of the closure (Inc B = B) and
+    unreachable from the Boolean core (the Boolean impossibility). Stable inside,
+    unreachable from outside. ambientBVerdict holds both; classify reads B.
 
-Both files build green.
-
-Further genuine both-state sites, grounded, not yet witnessed: RiemannSIC
-(dialetheia_structural), DialetheicUniverse (dialetheia_is_stable, B_double_neg),
-CircumPunctum (the ambient B fixed point with no explosion), and the horn-torus
-pinch. Named for the next pass.
+Each classify = B by rfl. All three files build green, and CircumPunctum takes the
+witness without the two-Belnap drift causing any ambiguity, since its open is the
+root Belnap and the witness carrier stays fully qualified.
 
 Whole-tree snapshot.
