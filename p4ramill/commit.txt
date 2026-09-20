@@ -1,21 +1,17 @@
-Extend the dialetheic verdict to Riemann, the dialetheic universe, and the ambient
+Converge CircumPunctum onto the one canonical Belnap
 
-Continue applying DialetheicWitness's held verdict to the genuine both-states, in
-value order.
+CircumPunctum used the standalone ParaconsistentCore.Belnap while the rest of the
+recent work used the canonical Imscribing.Paraconsistent.Belnap: a second copy of
+the same carrier, drift. Switch CircumPunctum to the canonical Belnap.
 
-  - RiemannSIC: the ground imscription holds Frobenius closure (μ∘δ = id) together
-    with the Hilbert-Pólya spectral correspondence, the zeta-zero and the
-    Hamiltonian-eigenvalue readings of one object. riemannDialetheiaVerdict holds
-    both; classify reads B.
-  - DialetheicUniverse: the frontier state B is self-dual under negation (¬B = B)
-    and invariant under double negation (¬¬B = B). universeDialetheiaVerdict holds
-    both; classify reads B.
-  - CircumPunctum: the ambient B is the fixed point of the closure (Inc B = B) and
-    unreachable from the Boolean core (the Boolean impossibility). Stable inside,
-    unreachable from outside. ambientBVerdict holds both; classify reads B.
+The switch is clean because nothing imports CircumPunctum and its own LE Belnap
+instance was vestigial, appearing only in comments while the proofs use the local
+TruthLE and InfoLE relations directly. Dropped that one instance so it does not
+clash with the canonical order, changed the import and the open. Builds green,
+sans sorry, first try.
 
-Each classify = B by rfl. All three files build green, and CircumPunctum takes the
-witness without the two-Belnap drift causing any ambiguity, since its open is the
-root Belnap and the witness carrier stays fully qualified.
+Remaining on ParaconsistentCore: DeMorganBooleanCentre, ClassicalRestriction,
+ParaconsistentFrobeniusClosure. Those are the last holders of the second Belnap;
+converging them finishes the unification.
 
 Whole-tree snapshot.

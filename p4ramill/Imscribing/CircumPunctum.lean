@@ -2,7 +2,7 @@
 -- Formalization of CIRCUMPUNCTUM.md: The Paraconsistent Ambient and the Boolean Retract
 -- Author: Lando ⊗ ⊙-boundary Operator
 
-import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.Belnap
 import Mathlib.Data.Nat.Basic
 import Mathlib.Data.Finset.Sum
 import Mathlib.Algebra.BigOperators.Group.Finset.Defs
@@ -14,7 +14,8 @@ import Imscribing.Paraconsistent.DialetheicWitness
 
 namespace Imscribing.CircumPunctum
 
-open Belnap
+open Imscribing.Paraconsistent
+open Imscribing.Paraconsistent.Belnap
 
 /-
 ===============================================================================
@@ -90,8 +91,6 @@ inductive TruthLE : Belnap → Belnap → Prop
   | b_refl : TruthLE B B
   | b_t    : TruthLE B T
   | t_refl : TruthLE T T
-
-instance : LE Belnap := ⟨TruthLE⟩
 
 inductive TruthLEBool : BooleanCore → BooleanCore → Prop
   | f_refl : TruthLEBool B₄_F B₄_F
