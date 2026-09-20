@@ -1,29 +1,29 @@
-Extend Gödel-completeness onto the corpus Belnap and wire in its theorems
+Tie Gödel-completeness to the primitives, types, and the crystal arithmetic
 
-The Gödel-completeness file reinvented a minimal Belnap. Rebuild it on the corpus's
-own carrier, Imscribing.Paraconsistent.Belnap, and reuse the proven machinery so
-the faces connect to the rest of the kernel instead of a private copy.
+Extend the Gödel-completeness file from the Belnap ambient to the primitive and type
+layer, so the self-modeling gate is named in the twelve-primitive structure and the
+crystal it defines.
 
-Five faces, now corpus-grounded:
-  - Ambient hosts it: bnot has a fixed point B (B_fixed_point_negation), fixed set
-    exactly {N, B}.
-  - Unique rest point: that value is forced. inc, the operator that augments a
-    system with its own Gödel sentence, drives every state up the information order
-    to B, whose only fixed point is B (inc_fixed_point_iff). This is the new,
-    stronger face over the earlier standalone Inc.
-  - Classical cannot: classical negation on {F,T} has no fixed point, and no
-    classical endomap reproduces inc, whose image is B (inc_image_is_B).
-  - No explosion: the glut is designated with its negation while some formula is
-    not, and B ∧ ¬B = B not F (no_explosion), so ex falso fails.
-  - Self-imscription: μ∘δ = id is now the kernel's real split_fuse_identity, not a
-    toy marker tower.
+Added:
+  - godel_gate_reaches_O_inf: the ⊙ self-modeling gate is the Criticality value
+    monad, and μ∘δ = id is the Polarity value or'. Together they reach terminal
+    self-referential closure O_inf, for any protection, dimension, topology
+    (r1_dominates).
+  - self_reference_requires_gate: reaching O_inf forces the Criticality primitive to
+    the ⊙ gate, monad or roar; nothing sub-, super-, or exceptional-critical closes
+    on itself (o_inf_requires_phi_c).
+  - the arithmetic ouroborus: the twelve primitives split into three families, three
+    with three values, five with four, four with five, giving 3·3 + 5·4 + 4·5 = 49
+    value-types and a crystal of 3^3 · 4^5 · 5^4 = 17,280,000 addresses
+    (crystal_type_count, crystal_cardinality).
+  - grammar_godel_complete_typed: the two layers held together. The Belnap ambient
+    decides the Gödel sentence at B, the unique rest point of the augmentation; the
+    primitive tower closes on itself at the ⊙ monad gate with the or' Frobenius
+    polarity, O_inf; the kernel's split then fuse returns the input; over a crystal
+    of 3^3 · 4^5 · 5^4 addresses. One gate, two layers.
 
-grammar_godel_complete bundles the five. Depends on propext alone, sans sorry. Vox
-re-audit of the lifted proof words: T for the two forking proofs, N for the four
-direct terms, none B or F, and the sorry control still reads B.
-
-One drift noted, not fixed here: CircumPunctum still uses the standalone
-ParaconsistentCore.Belnap while this file now uses the canonical one; the two Belnap
-copies want unifying.
+Both bundles depend on propext alone, sans sorry. Vox re-audit: the typed theorems
+lift and verdict N as direct constructions, none open or ill-typed; the sorry
+control still reads B.
 
 Whole-tree snapshot.
