@@ -689,7 +689,6 @@ globs = [
   "Imscribing.Millennium.ErdosFormalize2",
   "Imscribing.Millennium.ErdosFormalize3",
   "Imscribing.Paraconsistent.Paraconsistent",
-  "Imscribing.Paraconsistent.ParaconsistentCore",
   "Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure",
   "Imscribing.Paraconsistent.ClassicalRestriction",
   "Imscribing.Paraconsistent.DeMorganBooleanCentre",
