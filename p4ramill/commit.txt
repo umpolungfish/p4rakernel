@@ -1,19 +1,29 @@
-Prove the general fibre identity in CircumPunctum
+Extend Gödel-completeness onto the corpus Belnap and wire in its theorems
 
-The fibre identity ∑ₖ C(m,k) F(k) = 2^(2^m) now holds for every m, not just the
-concrete levels. F_fibre is the alternating binomial transform of 2^(2^i), and the
-identity is binomial inversion.
+The Gödel-completeness file reinvented a minimal Belnap. Rebuild it on the corpus's
+own carrier, Imscribing.Paraconsistent.Belnap, and reuse the proven machinery so
+the faces connect to the rest of the kernel instead of a private copy.
 
-Proof structure, all in the kernel:
-  - alt_choose_column: ∑ₖ (-1)^(k-i) C(m,k) C(k,i) = [i = m], from the trinomial
-    revision C(m,k)C(k,i) = C(m,i)C(m-i,k-i) (Nat.choose_mul) and the vanishing
-    alternating row sum ∑ⱼ (-1)^j C(m-i,j) (Int.alternating_sum_range_choose).
-  - binomial_inversion: push C(m,k) inside, extend the inner range (C(k,i)=0 above
-    the diagonal), swap the double sum, apply the column collapse, and read off the
-    diagonal term a m.
-  - fibre_identity: instantiate the inversion at a i = 2^(2^i).
+Five faces, now corpus-grounded:
+  - Ambient hosts it: bnot has a fixed point B (B_fixed_point_negation), fixed set
+    exactly {N, B}.
+  - Unique rest point: that value is forced. inc, the operator that augments a
+    system with its own Gödel sentence, drives every state up the information order
+    to B, whose only fixed point is B (inc_fixed_point_iff). This is the new,
+    stronger face over the earlier standalone Inc.
+  - Classical cannot: classical negation on {F,T} has no fixed point, and no
+    classical endomap reproduces inc, whose image is B (inc_image_is_B).
+  - No explosion: the glut is designated with its negation while some formula is
+    not, and B ∧ ¬B = B not F (no_explosion), so ex falso fails.
+  - Self-imscription: μ∘δ = id is now the kernel's real split_fuse_identity, not a
+    toy marker tower.
 
-CircumPunctum builds green, sans sorry; fibre_identity rests on the standard Mathlib
-base (propext, Classical.choice, Quot.sound).
+grammar_godel_complete bundles the five. Depends on propext alone, sans sorry. Vox
+re-audit of the lifted proof words: T for the two forking proofs, N for the four
+direct terms, none B or F, and the sorry control still reads B.
+
+One drift noted, not fixed here: CircumPunctum still uses the standalone
+ParaconsistentCore.Belnap while this file now uses the canonical one; the two Belnap
+copies want unifying.
 
 Whole-tree snapshot.

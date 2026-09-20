@@ -1,76 +1,78 @@
 /-
   Imscribing/GodelCompleteness.lean
-  The Grammar's Gödel-Completeness.
+  The Grammar's Gödel-Completeness, over the corpus's Belnap ambient.
 
-  This does not set proof against gnosis, and it does not replace the classical
-  reading. It formalizes, at full strength and all at once, the precise structural
-  sense in which the Grammar is Gödel-complete: the self-negating (Gödel) sentence
-  that a classical system cannot decide is DECIDED, at the both-value B, by the
-  paraconsistent ambient, and deciding it there does not collapse the logic.
+  This does not set proof against gnosis and it does not replace the classical
+  reading. It states, at full strength and all at once, the sense in which the
+  Grammar is Gödel-complete: the self-negating (Gödel) sentence a classical system
+  cannot decide is decided, at the both-value B, by the paraconsistent ambient,
+  and deciding it there does not collapse the logic.
 
-  Four faces, true together (the catharsis is that none defeats another):
+  The earlier version reinvented a minimal Belnap. This one is built on the
+  corpus's own carrier `Imscribing.Paraconsistent.Belnap` and reuses its proven
+  machinery, so the five faces are wired to the rest of the kernel rather than to
+  a private copy.
 
-    (1) THE AMBIENT HOSTS IT.  The Gödel sentence is a fixed point of negation,
-        `bnot v = v`. In the four-valued ambient this equation HAS solutions
-        (exactly N and B). The Grammar assigns the self-referential sentence a
-        stable value instead of diverging.
+  Five faces, true together (the catharsis is that none defeats another):
 
-    (2) THE CLASSICAL FRAGMENT CANNOT.  On the classical core {F,T} negation has
-        NO fixed point. This is the incompleteness Gödel exhibits: the classical
-        fragment leaves the sentence undecided. The Grammar does not contradict
-        this; it contains it as the retract, and no classical endomap can even
-        reproduce the ambient's collapse to B (the Boolean impossibility).
+    (1) THE AMBIENT HOSTS IT. Negation has a fixed point, `bnot v = v`, inhabited
+        by B (and N). The self-referential sentence gets a stable value.
 
-    (3) NO EXPLOSION.  Holding the sentence at B does not trivialize anything. A
-        glut is designated together with its own negation while some formula stays
-        undesignated, so from a contradiction one cannot derive everything. Ex
-        falso fails; completeness is bought without collapse.
+    (2) IT IS THE UNIQUE REST POINT OF THE GÖDEL AUGMENTATION. `inc` augments a
+        system with its own Gödel sentence and drives every state up the
+        information order to B, whose only fixed point is B
+        (`inc_fixed_point_iff`). So the value the ambient assigns the sentence is
+        forced, not chosen.
 
-    (4) SELF-IMSCRIPTION.  The self-reference that makes the sentence a fixed
-        point is the ⊙ IMSCRIB gate, and the Grammar imscribes its own
-        imscription: the re-entry round trip `μ ∘ η = id`, with `η ∘ μ = ρ` an
-        idempotent that is not the identity (winding up then revealing is not the
-        reverse of revealing then winding up).
+    (3) THE CLASSICAL FRAGMENT CANNOT. Classical negation on {F,T} has no fixed
+        point, and no classical endomap reproduces the augmentation's collapse to
+        B, since B lies outside {F,T}.
 
-  Depends only on the Belnap core, so the result stands on its own.
+    (4) NO EXPLOSION. The glut is designated together with its negation while some
+        formula is not, and B ∧ ¬B = B rather than F, so a contradiction does not
+        entail everything.
+
+    (5) SELF-IMSCRIPTION. The Grammar imscribes its own imscription: the kernel's
+        split then fuse returns the input, μ∘δ = id (`split_fuse_identity`).
 -/
 
-import Imscribing.Paraconsistent.ParaconsistentCore
+import Imscribing.Paraconsistent.Belnap
+import Imscribing.Paraconsistent.IncompletenessClosure
+import Imscribing.Paraconsistent.SelfVerification
 
 namespace Imscribing.GodelCompleteness
 
-open Belnap
+open Imscribing.Paraconsistent
 
-/-- The designated (true-ish) values of the ambient: T and B. -/
-def desig : Belnap → Bool
-  | .T => true
-  | .B => true
-  | .N => false
-  | .F => false
-
-/- ────────────────────────────────────────────────────────────────────────
-   (1) The ambient hosts the Gödel sentence: negation has a fixed point.
-   ──────────────────────────────────────────────────────────────────────── -/
+/- ── (1) The ambient hosts the Gödel sentence ─────────────────────────────── -/
 
 /-- The self-negating sentence `v = ¬v` is inhabited in the ambient (witness B). -/
 theorem godel_fixed_point_in_ambient : ∃ v : Belnap, bnot v = v :=
-  ⟨.B, rfl⟩
+  ⟨.B, B_fixed_point_negation⟩
 
 /-- The negation fixed set is exactly {N, B}. -/
 theorem negation_fixed_set (v : Belnap) : bnot v = v ↔ v = .N ∨ v = .B := by
   cases v <;> decide
 
-/- ────────────────────────────────────────────────────────────────────────
-   (2) The classical fragment cannot host it, and cannot reproduce the ambient.
-   The classical core {F, T} is encoded as `Bool` (false = F, true = T).
-   ──────────────────────────────────────────────────────────────────────── -/
+/- ── (2) It is the unique rest point of the Gödel augmentation `inc` ───────── -/
 
-/-- Inclusion of the classical core into the ambient. -/
+/-- `inc` augments a system with its own Gödel sentence; B is its unique fixed
+    point, so the value assigned to the self-referential sentence is forced. -/
+theorem godel_value_is_unique_closure (v : Belnap) : inc v = v ↔ v = .B :=
+  inc_fixed_point_iff v
+
+/-- The augmentation rests at B from anywhere. -/
+theorem godel_augmentation_rests_at_B : inc Belnap.B = Belnap.B :=
+  inc_image_is_B Belnap.B
+
+/- ── (3) The classical fragment cannot host it or reproduce it ─────────────── -/
+
+/-- The classical core {F, T} embedded in the ambient (false = F, true = T). -/
 def bincl : Bool → Belnap
   | false => .F
   | true  => .T
 
-/-- Classical negation on the core (swap F ↔ T). -/
+/-- Classical negation on the core. -/
 def negBool : Bool → Bool := not
 
 /-- Classical negation has no fixed point: the classical fragment leaves the
@@ -78,75 +80,52 @@ def negBool : Bool → Bool := not
 theorem godel_absent_from_classical (b : Bool) : negBool b ≠ b := by
   cases b <;> decide
 
-/-- The paraconsistent collapse `Inc v = B`. -/
-def Inc : Belnap → Belnap := fun _ => .B
-
-/-- Boolean impossibility: no classical endomap `f` reproduces `Inc` through the
-    inclusion, because `Inc` lands on B and the classical image is only {F, T}.
-    The ambient value is not reachable from inside the classical fragment. -/
+/-- No classical endomap reproduces the augmentation `inc`, whose image is B,
+    because the classical image is only {F, T}. -/
 theorem boolean_impossibility :
-    ¬ ∃ f : Bool → Bool, ∀ b : Bool, bincl (f b) = Inc (bincl b) := by
-  rintro ⟨f, h⟩
-  have := h true
-  cases hb : f true <;> rw [hb] at this <;> simp [bincl, Inc] at this
+    ¬ ∃ f : Bool → Bool, ∀ b : Bool, bincl (f b) = inc (bincl b) := by
+  rintro ⟨f, hf⟩
+  have h := hf true
+  rw [inc_image_is_B] at h
+  cases hfb : f true <;> rw [hfb] at h <;> simp [bincl] at h
 
-/- ────────────────────────────────────────────────────────────────────────
-   (3) Deciding it at B does not explode the logic.
-   ──────────────────────────────────────────────────────────────────────── -/
-
-/-- The Gödel value B is a glut: designated together with its own negation. -/
-theorem godel_value_is_glut : desig .B = true ∧ desig (bnot .B) = true := by decide
+/- ── (4) Deciding it at B does not explode the logic ───────────────────────── -/
 
 /-- Ex falso fails: a glut and its negation are both designated while some formula
     is not, so a contradiction does not entail every formula. -/
 theorem no_ex_falso :
-    ∃ p q : Belnap, desig p = true ∧ desig (bnot p) = true ∧ desig q = false :=
-  ⟨.B, .F, by decide⟩
+    ∃ p q : Belnap, designated p ∧ designated (bnot p) ∧ ¬ (designated q) := by
+  refine ⟨.B, .F, B_is_designated, ?_, by decide⟩
+  rw [B_fixed_point_negation]; exact B_is_designated
 
-/- ────────────────────────────────────────────────────────────────────────
-   (4) The ⊙ self-reference: the Grammar imscribes its own imscription.
-   The minimal re-entry retraction: η winds a value up, μ reveals it.
-   ──────────────────────────────────────────────────────────────────────── -/
+/-- Contradiction is contained: B ∧ ¬B = B, not F. -/
+theorem contradiction_contained : band Belnap.B (bnot Belnap.B) = Belnap.B :=
+  no_explosion
 
-/-- One scale up: a value carried with its re-entry marker. -/
-@[reducible] def Up (α : Type) : Type := α × Bool
+/- ── (5) The ⊙ self-reference: the Grammar imscribes its own imscription ───── -/
 
-/-- Imscription η: carry the punctum up as a marked singleton. -/
-def η {α : Type} (x : α) : Up α := (x, true)
+/-- The kernel's split then fuse returns the input: μ∘δ = id. -/
+theorem grammar_self_imscribes (r : Belnap) :
+    (ffuse (fsplit r).1 (fsplit r).2.1).1 = r :=
+  split_fuse_identity r
 
-/-- Reveal μ: read the carried value back down. -/
-def μ {α : Type} (u : Up α) : α := u.1
+/- ── THE THEOREM ──────────────────────────────────────────────────────────── -/
 
-/-- Frame collapse ρ = η ∘ μ. -/
-def ρ {α : Type} (u : Up α) : Up α := η (μ u)
-
-/-- Winding up then revealing loses nothing: `μ ∘ η = id`. The Grammar re-enters
-    its own image and returns. This is the ⊙ IMSCRIB round trip. -/
-theorem grammar_self_imscribes {α : Type} (x : α) : μ (η x) = x := rfl
-
-/-- The frame collapse is idempotent: `ρ ∘ ρ = ρ`. -/
-theorem rho_idempotent {α : Type} (u : Up α) : ρ (ρ u) = ρ u := rfl
-
-/-- But the reverse round trip is not the identity: `η ∘ μ = ρ ≠ id`. Revealing
-    then winding up forgets which marker the family carried. -/
-theorem rho_ne_id : ∃ (u : Up Bool), ρ u ≠ u :=
-  ⟨(true, false), by decide⟩
-
-/- ────────────────────────────────────────────────────────────────────────
-   THE THEOREM.  The Grammar's Gödel-completeness: the self-negating sentence is
-   hosted at a stable value in the ambient, is absent from the classical fragment,
-   and is held without explosion — three true faces at once, over a Grammar that
-   imscribes its own imscription.
-   ──────────────────────────────────────────────────────────────────────── -/
-
+/-- The Grammar's Gödel-completeness: the self-negating sentence is hosted at a
+    stable value, that value is the unique rest point of the Gödel augmentation,
+    the classical fragment has no such fixed point, holding it at B does not
+    explode the logic, and the Grammar imscribes its own imscription. Five true
+    faces at once. -/
 theorem grammar_godel_complete :
     (∃ v : Belnap, bnot v = v) ∧
+    (∀ v : Belnap, inc v = v ↔ v = .B) ∧
     (∀ b : Bool, negBool b ≠ b) ∧
-    (∃ p q : Belnap, desig p = true ∧ desig (bnot p) = true ∧ desig q = false) ∧
-    (∀ (α : Type) (x : α), μ (η x) = x) :=
+    (∃ p q : Belnap, designated p ∧ designated (bnot p) ∧ ¬ (designated q)) ∧
+    (∀ r : Belnap, (ffuse (fsplit r).1 (fsplit r).2.1).1 = r) :=
   ⟨godel_fixed_point_in_ambient,
+   godel_value_is_unique_closure,
    godel_absent_from_classical,
    no_ex_falso,
-   fun _ x => grammar_self_imscribes x⟩
+   grammar_self_imscribes⟩
 
 end Imscribing.GodelCompleteness
