@@ -10,17 +10,18 @@
   to a world-indexed truth. Positiveness `P` is itself world-indexed, as in
   Gödel: what counts as a positive property may vary by world.
 
-  The frame is S5: accessibility is reflexive, symmetric and transitive. The
-  final theorem is the one that needs the full strength. Th4 lifts `◇□∃x G(x)`
-  to `□∃x G(x)`, and that lift is exactly where symmetry and transitivity of
-  accessibility are spent. Reflexivity is carried for the S5 frame; the chain
-  does not spend it, which states plainly what the proof costs.
+  The frame is S5: accessibility is reflexive, symmetric and transitive. Th4
+  lifts `◇□∃x G(x)` to `□∃x G(x)`, and that lift is where symmetry and
+  transitivity are spent; Th1 through Th4 never use reflexivity. Reflexivity is
+  spent by `modal_collapse` below, which reads the necessary existence back at
+  the world where it holds.
 
   The known feature of this argument is modal collapse: everything true is
-  necessarily true. That is not patched here. It is the Frobenius fixed point
-  read in modal dress, the same μ∘δ = id closure the kernel states elsewhere:
-  once the God-like essence necessitates its own instantiation, the accessible
-  worlds fuse and the split back is the identity.
+  necessarily true. It is not left as a remark here. `modal_collapse` states and
+  proves it `valid (mimp φ (box r φ))` from the same five premises. Read through
+  the Grammar it is the Frobenius fixed point in modal dress, the same μ∘δ = id
+  closure the kernel states elsewhere: the God-like essence necessitates its own
+  instantiation, the accessible worlds fuse, and the split back is the identity.
 -/
 import Mathlib.Tactic
 
@@ -174,6 +175,34 @@ theorem th4
   intro t hrwt
   exact hboxAv t (htrans (hsymm hrwv) hrwt)
 
+/-- Modal collapse: from the same five premises, everything true is necessarily
+    true. This is the known feature of the argument, here stated and proved
+    rather than left as a remark. At this world a God-like being exists (Th.4
+    with reflexivity to read the necessity back at the world it holds), its
+    essence is being God-like (Th.3), and feeding that essence the constant
+    property φ makes φ hold at every world where a God-like being is, which S5
+    places everywhere. Reflexivity is spent exactly here, and nowhere in Th.1
+    through Th.4. -/
+theorem modal_collapse
+    (h1 : Ax1 r P) (h2 : Ax2 P) (h3 : Ax3 P) (h4 : Ax4 r P) (h5 : Ax5 r P)
+    (hrefl : Reflexive r) (hsymm : Symmetric r) (htrans : Transitive r)
+    (φ : MProp w) :
+    valid (mimp φ (box r φ)) := by
+  intro world hφ
+  -- A God-like being necessarily exists (Th.4); reflexivity reads that back here.
+  have hbe : box r (fun v => ∃ x, God P x v) world :=
+    th4 r P h1 h2 h3 h4 h5 hsymm htrans world
+  obtain ⟨g, hGg⟩ := hbe world (hrefl world)
+  -- g's essence is being God-like (Th.3).
+  have hess : ess r (God P) g world := th3 r P h2 h4 g world hGg
+  -- Feed the essence the constant property φ, true here by assumption.
+  have hentail : box r (fun v => ∀ y, God P y v → φ v) world :=
+    hess.2 (fun _ => φ) hφ
+  -- At each accessible world a God-like being is, and it carries φ, so □φ.
+  intro v hrv
+  obtain ⟨y, hGyv⟩ := hbe v hrv
+  exact hentail v hrv y hGyv
+
 end Argument
 
 /-- Consistency of the premises. Th4 is an implication from Ax1..Ax5, so it
@@ -207,6 +236,7 @@ theorem axioms_consistent :
 #print axioms th2
 #print axioms th3
 #print axioms th4
+#print axioms modal_collapse
 #print axioms axioms_consistent
 
 end Imscribing.GodelOntological
