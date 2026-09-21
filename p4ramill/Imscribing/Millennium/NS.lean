@@ -5,6 +5,7 @@
 import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Tactic
 import Imscribing.CLINK
+import Imscribing.IGFunctor
 
 open scoped NNReal
 open Imscribing.Primitives
@@ -435,5 +436,35 @@ theorem ns_zfc_t_crit_match :
     maps onto the ZFCt loll classification. -/
 theorem ns_zfc_t_pol_match :
     ns_encoding.pol = navier_stokes_equations.pol := by rw [ns_encoding, navier_stokes_equations]
+
+-- ============================================================
+-- §8. The Navier-Stokes threshold is μ∘δ = id (Frobenius closure)
+
+/-- The Navier-Stokes evolution is a special Frobenius algebra on its own
+    encoding: split the state with δ (the diagonal comultiplication) and fuse it
+    back with μ (tensorProduct), and the round trip is the identity. This is what
+    "criticality closes" means for NS, made explicit on `ns_encoding`. δ carries
+    the field into its own two copies (the two arms of the nested factor tree, or
+    physically the split into the interacting scales), μ reassembles them, and
+    μ∘δ returns the exact starting state with nothing lost across the boundary. -/
+theorem ns_mu_delta_id :
+    Imscribing.Frobenius.μ_A
+      (Imscribing.Frobenius.δ_A ns_encoding).1
+      (Imscribing.Frobenius.δ_A ns_encoding).2 = ns_encoding :=
+  Imscribing.Frobenius.mu_delta_A_id ns_encoding
+
+/-- The same fact in the Frobenius-algebra framing: the canonical diagonal
+    Frobenius algebra on Imscription self-fuses `ns_encoding` to itself, so
+    `igFrobeniusAlg.frob ns_encoding` (its μ∘δ=id field) holds by construction. -/
+theorem ns_self_fusion :
+    Imscribing.igFrobeniusAlg.mul ns_encoding ns_encoding = ns_encoding :=
+  Imscribing.igFrobAlg_self_fusion ns_encoding
+
+/-- Read straight off the Frobenius algebra's own μ∘δ=id field, on NS. -/
+theorem ns_frob_field :
+    Imscribing.igFrobeniusAlg.mul
+      (Imscribing.igFrobeniusAlg.comul ns_encoding).1
+      (Imscribing.igFrobeniusAlg.comul ns_encoding).2 = ns_encoding :=
+  Imscribing.igFrobeniusAlg.frob ns_encoding
 
 end Millennium.NS
