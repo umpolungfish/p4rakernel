@@ -103,6 +103,7 @@ globs = [
   "Imscribing.CircumPunctum",
   "Imscribing.GodelCompleteness",
   "Imscribing.GodelCompletenessAudit",
+  "Imscribing.GodelOntological",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
