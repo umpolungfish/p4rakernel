@@ -176,4 +176,37 @@ theorem th4
 
 end Argument
 
+/-- Consistency of the premises. Th4 is an implication from Ax1..Ax5, so it
+    would be empty if those five could not hold together. They can: one world,
+    one individual, and "positive" read as "held by that individual" satisfies
+    all five at once. This is a model, so the axiom set is satisfiable and Th4 is
+    not vacuously true over contradictory hypotheses. -/
+theorem axioms_consistent :
+    ∃ (r : Unit → Unit → Prop) (P : (Unit → MProp Unit) → MProp Unit),
+      Ax1 r P ∧ Ax2 P ∧ Ax3 P ∧ Ax4 r P ∧ Ax5 r P := by
+  refine ⟨fun _ _ => True, fun φ world => φ () world, ?_, ?_, ?_, ?_, ?_⟩
+  · -- Ax1: a positive property that entails ψ everywhere hands ψ its value here.
+    intro φ ψ world h
+    exact h.2 world trivial () h.1
+  · -- Ax2: ¬φ held by the individual iff φ is not, definitionally.
+    intro φ world; exact Iff.rfl
+  · -- Ax3: God-like collects the positives, and each positive is self-entailing.
+    intro world φ h; exact h
+  · -- Ax4: one world, so necessity of positiveness is positiveness itself.
+    intro φ world hPφ y _
+    have hy : y = world := Subsingleton.elim y world
+    subst hy; exact hPφ
+  · -- Ax5: an essence is instantiated by the individual that carries it.
+    intro world φ hess z _
+    have hz : z = world := Subsingleton.elim z world
+    subst hz; exact ⟨(), hess.1⟩
+
+-- Dependency audit: each theorem rests only on Lean's standard axioms
+-- (propext, Classical.choice, Quot.sound). No sorryAx, no extra axiom.
+#print axioms th1
+#print axioms th2
+#print axioms th3
+#print axioms th4
+#print axioms axioms_consistent
+
 end Imscribing.GodelOntological
