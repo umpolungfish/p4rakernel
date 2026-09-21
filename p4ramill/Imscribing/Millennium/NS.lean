@@ -6,6 +6,7 @@ import Mathlib.Analysis.InnerProductSpace.PiL2
 import Mathlib.Tactic
 import Imscribing.CLINK
 import Imscribing.IGFunctor
+import Imscribing.Paraconsistent.DialetheicWitness
 
 open scoped NNReal
 open Imscribing.Primitives
@@ -466,5 +467,27 @@ theorem ns_frob_field :
       (Imscribing.igFrobeniusAlg.comul ns_encoding).1
       (Imscribing.igFrobeniusAlg.comul ns_encoding).2 = ns_encoding :=
   Imscribing.igFrobeniusAlg.frob ns_encoding
+
+-- ============================================================
+-- §9. The status of NS as a value-level verdict, not an axiom
+
+/-- `ns_certificate` is an axiom: it asserts `NavierStokesRegularity` is true and
+    enters Lean's trusted base, so every downstream theorem that leans on it
+    carries it in `#print axioms`. Global regularity is open, so asserting it is
+    an overclaim. The paraconsistent alternative states the status instead of
+    asserting the result: a `Verdict NavierStokesRegularity`, value-level data
+    Vox can audit, whose `admitted` case is the Belnap N reading — a real
+    constructor of a four-case inductive, not an axiom and not a `sorry`.
+
+    `#print axioms ns_verdict` names nothing, so this reading of the NS status
+    adds nothing to the trusted base, unlike `ns_certificate`. -/
+def ns_verdict : Imscribing.Paraconsistent.DialetheicWitness.Verdict NavierStokesRegularity :=
+  .admitted
+
+/-- The classifier reads the NS verdict as N (open), mechanically: neither the
+    T lane nor the F lane is set. -/
+theorem ns_verdict_is_N : ns_verdict.classify = (false, false) := rfl
+
+#print axioms ns_verdict
 
 end Millennium.NS
