@@ -104,6 +104,7 @@ globs = [
   "Imscribing.GodelCompleteness",
   "Imscribing.GodelCompletenessAudit",
   "Imscribing.GodelOntological",
+  "Imscribing.SHIABOperator",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
