@@ -622,4 +622,128 @@ theorem desc_unique {W : Type*} (g : (n : ℕ) → V n → W)
     the scale depth the ⊡ mark fixes. -/
 theorem winding_step (n : ℕ) : winding_number (n + 1) = winding_number n + 1 := rfl
 
+/-
+===============================================================================
+§17  THE DIALETHEIC RE-ENTRY CYCLE
+===============================================================================
+The seven stages of dialetheic re-entry, drawn as the closing loop:
+
+  1 Punctum        pure being, no distinction
+  2 Boundary       inside ≠ outside, distinction drawn
+  3 Re-entry       the centre sees itself, self-reference
+  4 Trilattice     three truth poles
+  5 Contained      the imscription wraps the trilattice
+  6 Four values    the square frames truth, Belnap FOUR
+  7 Closure        imscription, FOUR truth values, trilattice and punctum, one
+
+The double arrow from Closure back to the Punctum is the re-entry: the cycle
+advances through all seven and returns, and the return is what makes it a cycle
+rather than a ladder.
+-/
+
+/-- The seven stages of the dialetheic re-entry. -/
+inductive ReEntry : Type where
+  | punctum | boundary | reEntry | trilattice | contained | fourValues | closure
+  deriving DecidableEq, Repr
+
+namespace ReEntry
+
+/-- Advance one stage; Closure re-enters the Punctum, closing the loop. -/
+def advance : ReEntry → ReEntry
+  | punctum    => boundary
+  | boundary   => reEntry
+  | reEntry    => trilattice
+  | trilattice => contained
+  | contained  => fourValues
+  | fourValues => closure
+  | closure    => punctum
+
+/-- The winding depth the ⊡ mark fixes at each stage, rising from the punctum. -/
+def depth : ReEntry → ℕ
+  | punctum    => 0
+  | boundary   => 1
+  | reEntry    => 2
+  | trilattice => 3
+  | contained  => 4
+  | fourValues => 5
+  | closure    => 6
+
+/-- CLOSURE: seven advances return every stage to itself. The re-entry cycle is
+    a genuine loop of period seven, not an open chain. -/
+theorem cycle_closes (s : ReEntry) : advance^[7] s = s := by
+  cases s <;> rfl
+
+/-- The loop has no shorter period: one advance moves every stage. -/
+theorem advance_moves (s : ReEntry) : advance s ≠ s := by
+  cases s <;> decide
+
+/-- Stage 3, re-entry, is the centre seeing itself: the dialetheic self-reference
+    is the closure fixed point Inc B = B, the both-value holding itself. -/
+theorem reEntry_is_self_reference : Inc B = B := Inc_fixed_point_B
+
+/-- Stage 6, four values, is Belnap's FOUR: the four truths are pairwise
+    distinct, the square framing exactly {N, T, F, B}. -/
+theorem fourValues_distinct :
+    N ≠ T ∧ N ≠ F ∧ N ≠ B ∧ T ≠ F ∧ T ≠ B ∧ F ≠ B := by decide
+
+/-- Closure is reached from the punctum in six advances, one per form drawn:
+    boundary, re-entry, trilattice, the containing imscription, the four values,
+    and the closing frame. -/
+theorem punctum_reaches_closure : advance^[6] punctum = closure := by rfl
+
+/-- And closure re-enters the punctum, the double arrow. Unifying the four forms
+    (imscription, FOUR truth values, trilattice, punctum) is that return: the
+    whole is fed back into the point it started from. -/
+theorem closure_reenters : advance closure = punctum := rfl
+
+end ReEntry
+
+/-
+===============================================================================
+§18  SELF-SIMILAR ZOOM: THE PUNCTUM–IMSCRIPTION HOLONOMY
+===============================================================================
+Zoom in on a punctum and it expands into a new imscription together with a new
+punctum at once; zoom out and the bounding imscription itself becomes the
+punctum of a larger imscription. The two moves are the tower's transport, and
+their asymmetry is a holonomy: one round trip is flat, the other is not.
+
+  zoomOut = η : Vₙ → Vₙ₊₁   the punctum gains a bounding imscription, the old
+                             content is now what the boundary contains
+  zoomIn  = μ : Vₙ₊₁ → Vₙ   descend into the inner punctum
+
+`zoomIn ∘ zoomOut = id` is local flatness — magnifying a fresh boundary and
+coming back loses nothing. `zoomOut ∘ zoomIn = ρ ≠ id` is the non-trivial
+holonomy — zoom into a boundary and back and the marker bit is gone, the
+boundary and punctum have swapped roles. This is the CircumPunctum instance of
+`CosmicHolonomy`'s locally-flat-yet-globally-non-trivial connection; the choice
+of which cut to call the punctum is the basepoint `MachHolonomy` shows only
+conjugates the holonomy, never trivialises it.
+-/
+
+/-- Zoom out: wrap the punctum in a new bounding imscription. -/
+def zoomOut {n : ℕ} (x : V n) : V (n + 1) := η x
+
+/-- Zoom in: descend to the inner punctum. -/
+def zoomIn {n : ℕ} (x : V (n + 1)) : V n := μ x
+
+/-- Every scale has the same shape: a punctum wrapped by one boundary bit. The
+    structure is scale-invariant, which is what makes the zoom self-similar. -/
+theorem scale_self_similar (n : ℕ) : V (n + 1) = (V n × Bool) := rfl
+
+/-- Local flatness: zoom out then in and nothing is lost. -/
+theorem zoom_flat {n : ℕ} (x : V n) : zoomIn (zoomOut x) = x := rfl
+
+/-- Non-trivial holonomy: zoom into a boundary and back does not return. The
+    marker bit is forgotten, so the boundary that was outside comes back as the
+    marked punctum — the punctum–imscription swap. -/
+theorem zoom_holonomy {n : ℕ} : ∃ x : V (n + 1), zoomOut (zoomIn x) ≠ x :=
+  ⟨(p n, false), by
+    intro h
+    exact Bool.noConfusion (congrArg Prod.snd h)⟩
+
+/-- The two readings are one map at the fixed point: on a marked value zoom-out
+    after zoom-in is the frame collapse ρ, idempotent, so the holonomy is a
+    genuine retraction and not noise. -/
+theorem zoom_is_collapse {n : ℕ} (x : V (n + 1)) : zoomOut (zoomIn x) = ρ x := rfl
+
 end Imscribing.CircumPunctum
