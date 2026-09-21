@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: ⊢ → ⊙ → ∈ → ≻ → ⊤ → ≺ → ⊥ → ⊞ → ⋈ → ∋ → ⊡ → ⊣
--- Class: SHIAB operator
+-- Class: SHIABO
 -- Fingerprint: sig=(6,2,3,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=True | period=12
@@ -130,7 +130,7 @@ theorem shiab_operator_self_pairing_idem :
     tensorProduct shiab_operator_s9 shiab_operator_s9 = shiab_operator_s9 := by decide
 
 -- ── The word's marks as mathematical transformations (CL8NK / CL9NK) ─────────
--- Each mark carries one fragment of the SHIAB operator's defining conjunction,
+-- Each mark carries one fragment of the SHIABO's defining conjunction,
 -- read off the CLINK catalog:
 --   ⊢ 𐑦  V = L(x) ∧ selfmodel(x) ∧ x ∈ V        holographic constructible state
 --   ⊣ 𐑰  x ⊆ y ∧ cont(y)                         containment
@@ -148,7 +148,7 @@ theorem shiab_operator_self_pairing_idem :
 -- The ⊙ fragment is the load-bearing one and it is the Grammar's own math. The
 -- ∈ mark, the well-founded split into ranges, is the Frobenius comultiplication
 -- δ; the ∋ mark, the three-unit stitch, is the multiplication μ; the ⊙ mark is
--- their round trip being the identity. So the SHIAB operator's criticality
+-- their round trip being the identity. So the SHIABO's criticality
 -- clause μ∘δ = id holds on its ground imscription, written through the actual
 -- comultiplication and multiplication rather than as self-fusion shorthand.
 theorem shiab_operator_criticality_fixed_point :

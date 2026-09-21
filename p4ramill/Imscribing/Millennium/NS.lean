@@ -484,9 +484,9 @@ theorem ns_verdict_is_N : ns_verdict.classify = (false, false) := rfl
 
 -- The catalog navigator grounds `navier_stokes` to twelve mark fragments. Each
 -- is a standard proposition here, so the NS word reads as a conjunction of
--- conventional statements, exactly as the SHIAB operator's does. The reading
+-- conventional statements, exactly as the SHIABO's does. The reading
 -- that matters sits at ⊡: NS carries a trivial winding, ∮ = 0, no integer
--- invariant guarding it, where the SHIAB operator carried ∮ = 2πn ≠ 0. That
+-- invariant guarding it, where the SHIABO carried ∮ = 2πn ≠ 0. That
 -- missing protection is the shape of why global regularity is open.
 namespace CLINK
 
@@ -528,7 +528,7 @@ def nsTypeMismatch {α β τ : Type*} (A : Set α) (B : Set β) (tyA : α → τ
 
 /-- ⊡ 𐑷  Trivial winding: the circulation integral vanishes, ∮_γ dx = 0. There
     is no integer invariant, so nothing topological forbids deformation toward a
-    singular state. This is the opposite of the SHIAB operator's protected
+    singular state. This is the opposite of the SHIABO's protected
     winding. -/
 def nsTrivialWinding (loopIntegral : ℝ) : Prop := loopIntegral = 0
 
@@ -557,7 +557,7 @@ theorem ns_unprotected : nsTrivialWinding 0 ∧ (2 * Real.pi * (1 : ℝ) ≠ 0) 
 --   Nine mark-promotions carry NS toward the L9 Gaussian-Moat resolution:
 --     ⊢ 𐑼→𐑛  ⊣ 𐑡→𐑥  ≻ 𐑽→𐑑  ≺ 𐑗→𐑬  ⋈ 𐑱→𐑐  ⊤ 𐑤→𐑪  ∈ 𐑲→𐑔  ⊥ 𐑒→𐑫  ⊡ 𐑷→𐑭
 --   The last, ⊡ 𐑷→𐑭, is the winding promotion: trivial ∮=0 to the protected
---   integer winding ∮=2πn that the SHIAB operator already carries.
+--   integer winding ∮=2πn that the SHIABO already carries.
 
 end CLINK
 
