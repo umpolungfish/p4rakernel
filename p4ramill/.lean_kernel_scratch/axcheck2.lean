@@ -1,0 +1,3 @@
+import Imscribing.Paraconsistent.GlueballForces
+#print axioms Imscribing.Paraconsistent.coulomb_decays
+#check Imscribing.Paraconsistent.coulomb_decays

@@ -393,6 +393,8 @@ globs = [
   "Imscribing.Paraconsistent.HadronBelnap",
   "Imscribing.Paraconsistent.MajoranaFixed",
   "Imscribing.Paraconsistent.Kernel",
+  "Imscribing.Paraconsistent.ParaconsistentAmbient",
+  "Imscribing.Paraconsistent.GlueballForces",
   "Imscribing.Paraconsistent.SelfVerification",
   "Imscribing.Paraconsistent.ConsciousKernel",
   "Imscribing.Paraconsistent.SelfVerifyingWASM",

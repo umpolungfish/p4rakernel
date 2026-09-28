@@ -2,12 +2,20 @@
 -- BELNAP FOUR-VALUED LOGIC — The logical substrate of the paraconsistent kernel.
 -- Author: Lando ⊗ ⊙-boundary Operator
 
+import Mathlib.Data.Fintype.Basic
+import Mathlib.Data.Fintype.Card
+
 namespace Imscribing.Paraconsistent
 
 /-- Belnap four-valued logic: N(neither), T(true), F(false), B(both/contradiction) -/
 inductive Belnap : Type where
   | N | T | F | B
   deriving DecidableEq, Repr, Inhabited
+
+/-- Fintype instance for Belnap FOUR -/
+instance : Fintype Belnap where
+  elems := {Belnap.N, Belnap.T, Belnap.F, Belnap.B}
+  complete := fun x => by cases x <;> simp [Finset.mem_insert]
 
 /-- Discriminator mapping each constructor to a distinct Nat -/
 def belnapToNat (b : Belnap) : Nat :=
@@ -210,5 +218,9 @@ theorem approxLE_antisymm {a b : Belnap} (hab : a ≤ b) (hba : b ≤ a) : a = b
 /-- The approximation order is reflexive -/
 theorem approxLE_refl (a : Belnap) : a ≤ a := by
   cases a <;> constructor
+
+/-- Cardinality of Belnap FOUR -/
+theorem belnap_cardinality : Fintype.card Belnap = 4 := by
+  rfl
 
 end Imscribing.Paraconsistent
