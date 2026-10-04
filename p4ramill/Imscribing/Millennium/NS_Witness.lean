@@ -71,4 +71,4 @@ theorem ns_global_regularity_proved : NavierStokesRegularity := by
   -- ns_from_frobenius_structure in NS_ZFCt_Bridge.lean.
   exact ns_from_frobenius_structure
 
-end Millennium.NS_Witness
+  end Millennium.NS_Witness

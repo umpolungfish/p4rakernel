@@ -1,0 +1,6 @@
+import Imscribing.Millennium.NS_Witness
+import Imscribing.Millennium.NS_CriticalBound
+
+#print axioms Millennium.NS_Witness.ns_global_regularity_proved
+#print axioms Millennium.NS_CriticalBound.critical_norm_non_increasing
+#print axioms Millennium.NS.ns_verdict
