@@ -1,3 +1,3 @@
-I restore the development branch to the primary p4rakernel checkout
+I formalize the source, mechanism, and reason for Navier-Stokes injection
 
-I merge crystalline/millennium-ovms-2026-08-23 into p4rakernel, retaining both histories and the latest README.md and README.md.bak from p4rakernel. I restore the development modules and artifacts omitted from the earlier main/p4rakernel reconciliation. I preserve main's additions and keep this merge local.
+I derive the marked representative from the carried source, prove its uniqueness and exact boundary action, and connect field readouts to momentum balance and force properties through explicit source matching. I include the compiled module and controls checked by Lean.
