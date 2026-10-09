@@ -547,7 +547,16 @@ else()
     execute_process(
         COMMAND git ls-tree HEAD "${CMAKE_CURRENT_SOURCE_DIR}/../../stage0" --object-only
         OUTPUT_VARIABLE GIT_SHA1
-        OUTPUT_STRIP_TRAILING_WHITESPACE)
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE GIT_TREE_OK
+        ERROR_QUIET)
+    if(NOT ${GIT_TREE_OK} EQUAL 0 OR "${GIT_SHA1}" STREQUAL "")
+      # older git (e.g. 2.34) lacks --object-only: fall back to tree-ish
+      execute_process(
+          COMMAND git ls-tree HEAD "${CMAKE_CURRENT_SOURCE_DIR}/../../stage0" --name-only
+          OUTPUT_VARIABLE GIT_SHA1
+          OUTPUT_STRIP_TRAILING_WHITESPACE)
+    endif()
     message(STATUS "stage0 sha1: ${GIT_SHA1}")
     # Now that we've prepared the information for the next stage, we can forget that we will use
     # Lake in the future as we won't use it in this stage
