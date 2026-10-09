@@ -1,3 +1,3 @@
-I formalize the source, mechanism, and reason for Navier-Stokes injection
+I derive Navier-Stokes injection from its differential source
 
-I derive the marked representative from the carried source, prove its uniqueness and exact boundary action, and connect field readouts to momentum balance and force properties through explicit source matching. I include the compiled module and controls checked by Lean.
+I carry the computed momentum residual through the marker tower and prove the return identity without independent source-matching or balance premises. I instantiate the terms with spatial and temporal derivatives, derive injection smoothness from smooth velocity and pressure, and verify zero and time-linear incompressible controls. I include the compiled modules and snapshot my current declaration, environment, and sixteen-valued kernel edits.
