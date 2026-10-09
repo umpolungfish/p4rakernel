@@ -201,7 +201,7 @@ def MomentumTerms.residual {Domain Value : Type*} [Add Value]
     terms.negativeViscosity point + terms.pressureGradient point
 
 /-- The forced equation with the force's source and internal mechanism explicit. -/
-theorem navier_stokes_injection_connection {n : ℕ} {Domain Value : Type*} [Add Value]
+theorem navier_stokes_injection_from_matching {n : ℕ} {Domain Value : Type*} [Add Value]
     (readout : V n → Domain → Value) (overflow : V (n + 1))
     (terms : MomentumTerms Domain Value) (force : Domain → Value)
     (hsource : SourceMatching readout overflow force)
@@ -210,6 +210,72 @@ theorem navier_stokes_injection_connection {n : ℕ} {Domain Value : Type*} [Add
       terms.negativeViscosity point + terms.pressureGradient point =
         readout (cascadeStep (collapseStep overflow)) point :=
   congrFun (momentum_balance_internal readout overflow terms.residual force hsource hNS) point
+
+/-- Extend the marker tower by a carried object. Projection to the original tower
+    retains its scale maps, while the object travels through the round trip. -/
+abbrev CarriedScale (Carrier : Type*) (n : ℕ) := V n × Carrier
+
+def carriedLift {Carrier : Type*} {n : ℕ} (source : CarriedScale Carrier n) :
+    CarriedScale Carrier (n + 1) := (η source.1, source.2)
+
+def carriedCascade {Carrier : Type*} {n : ℕ} (overflow : CarriedScale Carrier (n + 1)) :
+    CarriedScale Carrier n := (cascadeStep overflow.1, overflow.2)
+
+def carriedCollapse {Carrier : Type*} {n : ℕ} (overflow : CarriedScale Carrier (n + 1)) :
+    CarriedScale Carrier (n + 1) := (collapseStep overflow.1, overflow.2)
+
+def carriedReEntry {Carrier : Type*} {n : ℕ} (overflow : CarriedScale Carrier (n + 1)) :
+    CarriedScale Carrier n := carriedCascade (carriedCollapse overflow)
+
+/-- The extension uses the original frame collapse on its marker coordinate. -/
+theorem carried_collapse_projects {Carrier : Type*} {n : ℕ}
+    (overflow : CarriedScale Carrier (n + 1)) :
+    (carriedCollapse overflow).1 = collapseStep overflow.1 := rfl
+
+/-- The same section/retraction law holds with an arbitrary carried object. -/
+theorem carried_round_trip {Carrier : Type*} {n : ℕ} (source : CarriedScale Carrier n) :
+    carriedReEntry (carriedLift source) = source := by
+  apply Prod.ext <;> rfl
+
+theorem carried_collapse_idempotent {Carrier : Type*} {n : ℕ}
+    (overflow : CarriedScale Carrier (n + 1)) :
+    carriedCollapse (carriedCollapse overflow) = carriedCollapse overflow := by
+  apply Prod.ext
+  · exact reEntry_fixed_under_collapse overflow.1
+  · rfl
+
+/-- Canonical source: the signed momentum residual computed from the supplied
+    terms. It is carried as a field, alongside the home-scale marker state. -/
+def MomentumTerms.injectionSource {Domain Value : Type*} [Add Value]
+    (terms : MomentumTerms Domain Value) (n : ℕ) : CarriedScale (Domain → Value) n :=
+  (p n, terms.residual)
+
+/-- Lift the computed source into the next scale; the force is not an independent
+    argument. Its value is determined by the four signed momentum terms. -/
+def MomentumTerms.injectionOverflow {Domain Value : Type*} [Add Value]
+    (terms : MomentumTerms Domain Value) (n : ℕ) : CarriedScale (Domain → Value) (n + 1) :=
+  carriedLift (terms.injectionSource n)
+
+/-- Read the field coordinate after the collapse-cascade mechanism. -/
+def MomentumTerms.derivedInjection {Domain Value : Type*} [Add Value]
+    (terms : MomentumTerms Domain Value) (n : ℕ) : Domain → Value :=
+  (carriedReEntry (terms.injectionOverflow n)).2
+
+/-- Source matching is derived from the carrier round trip. -/
+theorem MomentumTerms.derived_injection_eq_residual {Domain Value : Type*} [Add Value]
+    (terms : MomentumTerms Domain Value) (n : ℕ) :
+    terms.derivedInjection n = terms.residual :=
+  congrArg Prod.snd (carried_round_trip (terms.injectionSource n))
+
+/-- The derived connection has no independently specified force, source-matching
+    premise, or momentum-balance premise. The source is computed from the terms,
+    and the carrier round trip proves its return through collapse and cascade. -/
+theorem navier_stokes_injection_connection {Domain Value : Type*} [Add Value]
+    (terms : MomentumTerms Domain Value) (n : ℕ) (point : Domain) :
+    terms.acceleration point + terms.transport point +
+      terms.negativeViscosity point + terms.pressureGradient point =
+        terms.derivedInjection n point :=
+  congrFun (terms.derived_injection_eq_residual n).symm point
 
 /-- Smoothness, compact support, bounds, and other field predicates are preserved
     when the specified force is realized as the tower's internal injection. -/

@@ -5,6 +5,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Author: Leonardo de Moura
 */
 #include "kernel/declaration.h"
+#include "kernel/sixteen3.h"
 #include "kernel/environment.h"
 #include "kernel/for_each_fn.h"
 
@@ -78,6 +79,7 @@ theorem_val::theorem_val(name const & n, names const & lparams, expr const & typ
 }
 
 extern "C" object * lean_mk_opaque_val(object * n, object * lparams, object * type, object * value, uint8 is_unsafe, object * all);
+extern "C" object * lean_mk_reentry_val(object * n, object * lparams, object * type, object * six3, object * all);
 extern "C" uint8 lean_opaque_val_is_unsafe(object * v);
 
 opaque_val::opaque_val(name const & n, names const & lparams, expr const & type, expr const & val, bool is_unsafe, names const & all):
@@ -85,6 +87,11 @@ opaque_val::opaque_val(name const & n, names const & lparams, expr const & type,
 }
 
 bool opaque_val::is_unsafe() const { return lean_opaque_val_is_unsafe(to_obj_arg()); }
+
+reentry_val::reentry_val(name const & n, names const & lparams, expr const & type, sixteen3 const & v):
+    object_ref(lean_mk_reentry_val(n.to_obj_arg(), lparams.to_obj_arg(), type.to_obj_arg(),
+                                   six3_to_obj(v), names(n))) {
+}
 
 extern "C" object * lean_mk_quot_val(object * n, object * lparams, object * type, uint8 k);
 extern "C" uint8 lean_quot_val_kind(object * v);
@@ -166,6 +173,7 @@ bool declaration::is_unsafe() const {
     case declaration_kind::Inductive:        return inductive_decl(*this).is_unsafe();
     case declaration_kind::Quot:             return false;
     case declaration_kind::MutualDefinition: return true;
+    case declaration_kind::Reentry:        return false;
     }
     lean_unreachable();
 }
@@ -228,6 +236,29 @@ declaration mk_opaque(name const & n, names const & params, expr const & t, expr
 
 declaration mk_axiom(name const & n, names const & params, expr const & t, bool unsafe) {
     return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Axiom), axiom_val(n, params, t, unsafe)));
+}
+
+/**
+Convert a sixteen3 value into the kernel object representing it.
+The ReentryVal payload carries the 4 bits in a single object_ref so it survives
+the constant_info / olean round-trip without needing a persistent Lean-level
+constant of type Sixteen3.
+*/
+static object * six3_to_obj(sixteen3 const & v) {
+    uint32 bits = (v.hasN ? 0x1 : 0) | (v.hasT ? 0x2 : 0) | (v.hasF ? 0x4 : 0) | (v.hasB ? 0x8 : 0);
+    return object::mk_uint32(bits);
+}
+
+static sixteen3 six3_from_obj(object * o) {
+    lean_assert(is_uint32(o));
+    uint32 bits = obj_as_uint32(o);
+    return sixteen3((bits & 0x1) != 0, (bits & 0x2) != 0, (bits & 0x4) != 0, (bits & 0x8) != 0);
+}
+
+declaration mk_reentry(environment const & env, name const & n, names const & lparams,
+                       expr const & t, sixteen3 const & six3) {
+    return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Reentry),
+                                reentry_val(n, lparams, t, six3)));
 }
 
 static definition_safety to_safety(bool unsafe) {

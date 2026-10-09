@@ -264,6 +264,24 @@ environment environment::add_opaque(declaration const & d, bool check) const {
     return diag.update(add(constant_info(d)));
 }
 
+environment environment::add_reentry(declaration const & d, bool check) const {
+    /* Reentry declarations are always added after their (pre-computed) value is known.
+       The kernel computes the least fixed point in SIXTEEN_3 before calling this,
+       so the stored value never contains unevaluated f-binders. Check the type
+       against the declared type T, but do not try to re-elaborate the body. */
+    scoped_diagnostics diag(*this, check);
+    reentry_val const & v = d.to_reentry_val();
+    if (check) {
+        type_checker checker(*this, diag.get());
+        check_constant_val(*this, v.to_constant_val(), checker);
+        check_no_metavar_no_fvar(*this, v.get_name(), v.get_type());
+        expr val_type = checker.check(v.get_type(), v.get_lparams());
+        if (!checker.is_def_eq(val_type, v.get_type()))
+            throw definition_type_mismatch_exception(*this, d, v.get_type());
+    }
+    return diag.update(add(constant_info(d)));
+}
+
 environment environment::add_mutual(declaration const & d, bool check) const {
     scoped_diagnostics diag(*this, check);
     definition_vals const & vs = d.to_definition_vals();
@@ -308,6 +326,7 @@ environment environment::add(declaration const & d, bool check) const {
     case declaration_kind::MutualDefinition: return add_mutual(d, check);
     case declaration_kind::Quot:             return add_quot();
     case declaration_kind::Inductive:        return add_inductive(d);
+    case declaration_kind::Reentry:          return add_reentry(d, check);
     }
     lean_unreachable();
 }

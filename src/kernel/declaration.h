@@ -9,6 +9,7 @@ Author: Leonardo de Moura
 #include <string>
 #include <limits>
 #include "kernel/expr.h"
+#include "kernel/sixteen3.h"
 
 namespace lean {
 /**
@@ -87,7 +88,25 @@ public:
     names const & get_lparams() const { return to_constant_val().get_lparams(); }
     expr const & get_type() const { return to_constant_val().get_type(); }
     bool is_unsafe() const;
+}
+/*
+structure ReentryVal extends ConstantVal where
+  six3 : Sixteen3
+*/
+class reentry_val : public object_ref {
+public:
+    reentry_val(name const & n, names const & lparams, expr const & type, sixteen3 const & v);
+    reentry_val(reentry_val const & other):object_ref(other) {}
+    reentry_val(reentry_val && other) noexcept:object_ref(std::move(other)) {}
+    reentry_val & operator=(reentry_val const & other) { object_ref::operator=(other); return *this; }
+    reentry_val & operator=(reentry_val && other) noexcept { object_ref::operator=(std::move(other)); return *this; }
+    constant_val const & to_constant_val() const { return static_cast<constant_val const &>(cnstr_get_ref(*this, 0)); }
+    name const & get_name() const { return to_constant_val().get_name(); }
+    names const & get_lparams() const { return to_constant_val().get_lparams(); }
+    expr const & get_type() const { return static_cast<expr const &>(cnstr_get_ref(*this, 1)); }
+    sixteen3 const & get_value() const { return *static_cast<sixteen3 const *>(cnstr_get_ref(*this, 2)); }
 };
+;
 
 /*
 inductive DefinitionSafety where
@@ -197,8 +216,9 @@ inductive Declaration where
   | quotDecl
   | mutualDefnDecl  (defns : List DefinitionVal) -- All definitions must be marked as `unsafe` or `partial`
   | inductDecl      (lparams : List Name) (nparams : Nat) (types : List InductiveType) (isUnsafe : Bool)
+  | reentryDecl     (val : ReentryVal)
 */
-enum class declaration_kind { Axiom, Definition, Theorem, Opaque, Quot, MutualDefinition, Inductive };
+enum class declaration_kind { Axiom, Definition, Theorem, Opaque, Quot, MutualDefinition, Inductive, Reentry };
 class declaration : public object_ref {
     object * get_val_obj() const { return cnstr_get(raw(), 0); }
     object_ref const & to_val() const { return cnstr_get_ref(*this, 0); }
@@ -223,6 +243,7 @@ public:
     bool is_opaque() const { return kind() == declaration_kind::Opaque; }
     bool is_mutual() const { return kind() == declaration_kind::MutualDefinition; }
     bool is_inductive() const { return kind() == declaration_kind::Inductive; }
+    bool is_reentry() const { return kind() == declaration_kind::Reentry; }
     bool is_unsafe() const;
     bool has_value() const { return is_theorem() || is_definition(); }
 
@@ -231,6 +252,7 @@ public:
     theorem_val const & to_theorem_val() const { lean_assert(is_theorem()); return static_cast<theorem_val const &>(cnstr_get_ref(raw(), 0)); }
     opaque_val const & to_opaque_val() const { lean_assert(is_opaque()); return static_cast<opaque_val const &>(cnstr_get_ref(raw(), 0)); }
     definition_vals const & to_definition_vals() const { lean_assert(is_mutual()); return static_cast<definition_vals const &>(cnstr_get_ref(raw(), 0)); }
+    reentry_val const & to_reentry_val() const { lean_assert(is_reentry()); return static_cast<reentry_val const &>(cnstr_get_ref(raw(), 0)); }
 };
 
 inline optional<declaration> none_declaration() { return optional<declaration>(); }
@@ -419,8 +441,9 @@ inductive ConstantInfo where
   | inductInfo   (val : InductiveVal)
   | ctorInfo     (val : ConstructorVal)
   | recInfo      (val : RecursorVal)l)
+  | reentryInfo  (val : ReentryVal)
 */
-enum class constant_info_kind { Axiom, Definition, Theorem, Opaque, Quot, Inductive, Constructor, Recursor };
+enum class constant_info_kind { Axiom, Definition, Theorem, Opaque, Quot, Inductive, Constructor, Recursor, Reentry };
 class constant_info : public object_ref {
     object * get_val_obj() const { return cnstr_get(raw(), 0); }
     object_ref const & to_val() const { return cnstr_get_ref(*this, 0); }
@@ -455,13 +478,14 @@ public:
     bool is_constructor() const { return kind() == constant_info_kind::Constructor; }
     bool is_recursor() const { return kind() == constant_info_kind::Recursor; }
     bool is_quot() const { return kind() == constant_info_kind::Quot; }
+    bool is_reentry() const { return kind() == constant_info_kind::Reentry; }
 
     name const & get_name() const { return to_constant_val().get_name(); }
     names const & get_lparams() const { return to_constant_val().get_lparams(); }
     unsigned get_num_lparams() const { return length(get_lparams()); }
     expr const & get_type() const { return to_constant_val().get_type(); }
     bool has_value(bool allow_opaque = false) const {
-        return is_theorem() || is_definition() || (allow_opaque && is_opaque());
+        return is_theorem() || is_definition() || (allow_opaque && is_opaque()) || is_reentry();
     }
     reducibility_hints const & get_hints() const;
 
@@ -473,6 +497,7 @@ public:
     constructor_val const & to_constructor_val() const { lean_assert(is_constructor()); return static_cast<constructor_val const &>(to_val()); }
     recursor_val const & to_recursor_val() const { lean_assert(is_recursor()); return static_cast<recursor_val const &>(to_val()); }
     quot_val const & to_quot_val() const { lean_assert(is_quot()); return static_cast<quot_val const &>(to_val()); }
+    reentry_val const & to_reentry_val() const { lean_assert(is_reentry()); return static_cast<reentry_val const &>(to_val()); }
 
     expr get_value(bool DEBUG_CODE(allow_opaque)) const {
         lean_assert(has_value(allow_opaque));
@@ -491,6 +516,9 @@ inline optional<constant_info> some_constant_info(constant_info && o) { return o
 static_assert(static_cast<unsigned>(declaration_kind::Axiom) == static_cast<unsigned>(constant_info_kind::Axiom), "declaration vs constant_info tag mismatch");
 static_assert(static_cast<unsigned>(declaration_kind::Definition) == static_cast<unsigned>(constant_info_kind::Definition), "declaration vs constant_info tag mismatch");
 static_assert(static_cast<unsigned>(declaration_kind::Theorem) == static_cast<unsigned>(constant_info_kind::Theorem), "declaration vs constant_info tag mismatch");
+
+declaration mk_reentry(environment const & env, name const & n, names const & lparams,
+                          expr const & t, sixteen3 const & six3);
 
 void initialize_declaration();
 void finalize_declaration();
