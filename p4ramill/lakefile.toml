@@ -39,6 +39,7 @@ rev = "v4.28.0"
 name = "Imscribing"
 root = "Imscribing"
 globs = [
+  "Imscribing.NS_Reentry",
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",
@@ -85,6 +86,9 @@ globs = [
   "Imscribing.ABC_Window70_FromOS_Samples8",
   "Imscribing.ABC_Window70_FromOS_Samples9",
   "Imscribing.ABC_Window70_FromOS_Samples10",
+  "Imscribing.BealProof",
+  "Imscribing.MillenniumParaconsistent",
+  "Imscribing.perfect_cuboid",
   "Imscribing.ABC_Window70_FromOS",
   "Imscribing.IUTT",
   "Imscribing.IUTT_Audit",
@@ -310,6 +314,7 @@ globs = [
   "Imscribing.ArsCrossDomain",
   "Imscribing.Millennium.PrimitiveConventionalBridge",
   "Imscribing.Millennium.PerfectCuboid",
+  "Imscribing.Millennium.PerfectCuboid_Descent_Proof",
   "Imscribing.Millennium.PerfectCuboid.PerfectCuboidWitness",
   "Imscribing.Millennium.PerfectCuboid.FactorizationLemma",
   "Imscribing.Millennium.PerfectCuboid.PrerequisiteLemmasL5_L7",

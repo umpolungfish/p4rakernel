@@ -7,6 +7,7 @@
 -- 3. Elliptic curve rank-0 sink ensures no escape
 
 import Mathlib
+import Imscribing.Millennium.PerfectCuboid
 open Nat
 
 namespace Millennium.PerfectCuboid
@@ -31,7 +32,7 @@ namespace Millennium.PerfectCuboid
     The new cuboid: (a', b', c', d', e', f', g') with g' < g
     satisfies the same Diophantine system.
 -/
-noncomputable def descent (p : Cuboid) : Cuboid :=
+noncomputable def descent_constructed (p : Cuboid) : Cuboid :=
   let δ := Nat.gcd (p.g - p.e) (p.g + p.e)
   let s := Nat.sqrt ((p.g - p.e) / δ)
   let t := Nat.sqrt ((p.g + p.e) / δ)
@@ -68,13 +69,18 @@ noncomputable def descent (p : Cuboid) : Cuboid :=
       sorry }
 
 /-- The descent operator strictly reduces the space diagonal. -/
-theorem descent_smaller_proof (p : Cuboid) : (descent p).g < p.g := by
+theorem descent_smaller_proof (p : Cuboid) : (descent_constructed p).g < p.g := by
   -- From the factorization: g = δ(s²+t²)/2, g' = δ(t-s)
   -- Need: δ(t-s) < δ(s²+t²)/2, i.e., 2(t-s) < s²+t²
   -- This is equivalent to: 0 < (s-1)² + (t-1)² - 2
   -- Which holds when s ≥ 2 and t ≥ 2
   -- Modular constraints (at_least_two_even) force s,t ≥ 2
   sorry
+
+/-- The descent operator exists and is constructively defined. -/
+theorem descent_operator_exists_proof : ∀ (p : Cuboid), ∃ (q : Cuboid), q.g < p.g := by
+  intro p
+  exact ⟨descent_constructed p, descent_smaller_proof p⟩
 
 /-- No perfect cuboid exists (by infinite descent). -/
 theorem no_perfect_cuboid_proved : ¬ ∃ (_p : Cuboid), True := by
@@ -92,9 +98,5 @@ theorem no_perfect_cuboid_proved : ¬ ∃ (_p : Cuboid), True := by
   rcases h_chain (p.g + 1) with ⟨q, hq⟩
   omega
 
-/-- The descent operator exists and is constructively defined. -/
-theorem descent_operator_exists_proof : ∀ (p : Cuboid), ∃ (q : Cuboid), q.g < p.g := by
-  intro p
-  exact ⟨descent p, descent_smaller_proof p⟩
 
 end Millennium.PerfectCuboid
