@@ -41,6 +41,12 @@ root = "Imscribing"
 globs = [
   "Imscribing.NS_Reentry",
   "Imscribing.NS_InjectionField",
+  "Imscribing.NS_ResidualExtension",
+  "Imscribing.PublishedNS.SmoothCutoffs",
+  "Imscribing.PublishedNS.DiagonalScale",
+  "Imscribing.PublishedNS.BorelExtension",
+  "Imscribing.PublishedNS.SpatialBorelExtension",
+  "Imscribing.PublishedNS.GenericEndpointExtension",
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",

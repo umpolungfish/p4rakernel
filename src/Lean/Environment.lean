@@ -422,7 +422,7 @@ end Kernel.Environment
 
 
 inductive ConstantKind where
-  | defn | thm | «axiom» | «opaque» | quot | induct | ctor | recursor
+| defn | thm | «axiom» | «opaque» | quot | induct | ctor | recursor | reentry
 deriving Inhabited, BEq, Repr
 
 def ConstantKind.ofConstantInfo : ConstantInfo → ConstantKind
@@ -434,6 +434,7 @@ def ConstantKind.ofConstantInfo : ConstantInfo → ConstantKind
   | .inductInfo _ => .induct
   | .ctorInfo   _ => .ctor
   | .recInfo    _ => .recursor
+  | .reentryInfo  _ => .reentry
 
 /-- `ConstantInfo` variant that allows for asynchronous filling of components via tasks. -/
 structure AsyncConstantInfo where
@@ -2588,6 +2589,7 @@ where
       let decl ← match info with
         | .thmInfo thm   => pure <| .thmDecl thm
         | .defnInfo defn => pure <| .defnDecl defn
+        | .reentryInfo reentry => pure <| .reentryDecl reentry
         | _              =>
           return panic! s!"{c.constInfo.name} must be definition/theorem"
       -- realized kernel additions cannot be interrupted - which would be bad anyway as they can be

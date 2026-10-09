@@ -93,6 +93,20 @@ reentry_val::reentry_val(name const & n, names const & lparams, expr const & typ
                                    six3_to_obj(v), names(n))) {
 }
 
+/**
+Create a `ReentryVal`: (name, levelParams, type, six3) with no level params in the
+`all` list.  The `six3` argument is the pre-computed least fixed point in the
+SIXTEEN_3 trilattice — `mk_reentry` is the kernel's fixed-point solver, so by
+the time this is called the re-entry value is fully evaluated and contains no
+unevaluated `f`-binder applications.
+*/
+extern "C" object * lean_mk_reentry_val(object * n, object * lparams, object * type,
+                                        object * six3, object * all) {
+    return mk_cnstr(1, name::of_obj_arg(n), names::of_obj_arg(lparams),
+                    expr::of_obj_arg(type), object::of_obj_arg(six3));
+}
+
+
 extern "C" object * lean_mk_quot_val(object * n, object * lparams, object * type, uint8 k);
 extern "C" uint8 lean_quot_val_kind(object * v);
 

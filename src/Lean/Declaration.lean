@@ -102,6 +102,26 @@ def mkAxiomValEx (name : Name) (levelParams : List Name) (type : Expr) (isUnsafe
   isUnsafe := isUnsafe
 }
 
+/-- A re-entry declaration: the value is the least fixed point computed by the
+kernel in the SIXTEEN_3 trilattice. Mirrors the C++ `ReentryVal` class and
+`lean_mk_reentry_val` kernel constructor. The `six3` payload is the fully
+evaluated lfp; the kernel does not store a re-usable expression for the body,
+so the stored value is not unfoldable as a term -- only `whnf` on the name
+returns it. --/
+@[export lean_mk_reentry_val]
+structure ReentryVal extends ConstantVal where
+  six3 : Sixteen3
+  deriving Inhabited, BEq
+
+@[export lean_reentry_val_get_value]
+def ReentryVal.getValueEx (v : ReentryVal) : Sixteen3 := v.six3
+
+@[export lean_reentry_val_six3]
+def ReentryVal.getSix3 (v : ReentryVal) : Expr :=
+  let bits := v.six3.toExpr
+  mkConst ``Kernel.Sixteen3.toExpr :: [bits]
+
+
 @[export lean_axiom_val_is_unsafe] def AxiomVal.isUnsafeEx (v : AxiomVal) : Bool :=
   v.isUnsafe
 
@@ -182,6 +202,7 @@ inductive Declaration where
   | quotDecl
   | mutualDefnDecl  (defns : List DefinitionVal) -- All definitions must be marked as `unsafe` or `partial`
   | inductDecl      (lparams : List Name) (nparams : Nat) (types : List InductiveType) (isUnsafe : Bool)
+  | reentryDecl     (val : ReentryVal)
   deriving Inhabited, BEq
 
 @[export lean_mk_inductive_decl]
@@ -191,6 +212,15 @@ def mkInductiveDeclEs (lparams : List Name) (nparams : Nat) (types : List Induct
 @[export lean_is_unsafe_inductive_decl]
 def Declaration.isUnsafeInductiveDeclEx : Declaration → Bool
   | .inductDecl _ _ _ isUnsafe => isUnsafe
+  | _ => false
+
+@[export lean_mk_reentry_decl]
+def mkReentryDecl (val : ReentryVal) : Declaration :=
+  Declaration.reentryDecl val
+
+@[export lean_declaration_is_reentry]
+def Declaration.isReentryEx : Declaration → Bool
+  | .reentryDecl _ => true
   | _ => false
 
 def Declaration.definitionVal! : Declaration → DefinitionVal
@@ -209,6 +239,8 @@ def Declaration.getTopLevelNames : Declaration → List Name
   | .quotDecl               => [``Quot]
   | .mutualDefnDecl defns   => defns.map (·.name)
   | .inductDecl _ _ types _ => types.map (·.name)
+  | .reentryDecl val        => [val.name]
+
 
 /--
 Returns all names to be defined by adding this declaration to the environment. This does not include
@@ -223,6 +255,8 @@ def Declaration.getNames : Declaration → List Name
   | .quotDecl               => [``Quot, ``Quot.mk, ``Quot.lift, ``Quot.ind]
   | .mutualDefnDecl defns   => defns.map (·.name)
   | .inductDecl _ _ types _ => types.flatMap fun t => t.name :: (t.name.appendCore `rec) :: t.ctors.map (·.name)
+  | .reentryDecl val        => [val.name]
+
 
 @[specialize] def Declaration.foldExprM {α} {m : Type → Type} [Monad m] (d : Declaration) (f : α → Expr → m α) (a : α) : m α :=
   match d with
@@ -232,6 +266,8 @@ def Declaration.getNames : Declaration → List Name
   | .opaqueDecl { type := type, value := value, .. } => do let a ← f a type; f a value
   | .thmDecl { type := type, value := value, .. }    => do let a ← f a type; f a value
   | .mutualDefnDecl vals                             => vals.foldlM (fun a v => do let a ← f a v.type; f a v.value) a
+  | .reentryDecl { type := type, .. } => f a type
+
   | .inductDecl _ _ inductTypes _                    =>
     inductTypes.foldlM (init := a) fun a inductType => do
       let a ← f a inductType.type
@@ -427,6 +463,7 @@ inductive ConstantInfo where
   | inductInfo   (val : InductiveVal)
   | ctorInfo     (val : ConstructorVal)
   | recInfo      (val : RecursorVal)
+  | reentryInfo  (val : ReentryVal)
   deriving Inhabited
 
 namespace ConstantInfo
@@ -440,6 +477,7 @@ def toConstantVal : ConstantInfo → ConstantVal
   | .inductInfo   {toConstantVal := d, ..} => d
   | .ctorInfo     {toConstantVal := d, ..} => d
   | .recInfo      {toConstantVal := d, ..} => d
+  | .reentryInfo  {toConstantVal := d, ..} => d
 
 def isUnsafe : ConstantInfo → Bool
   | .defnInfo   v => v.safety == .unsafe
@@ -450,9 +488,11 @@ def isUnsafe : ConstantInfo → Bool
   | .inductInfo v => v.isUnsafe
   | .ctorInfo   v => v.isUnsafe
   | .recInfo    v => v.isUnsafe
+  | .reentryInfo v => v.isUnsafe
 
 def isPartial : ConstantInfo → Bool
   | .defnInfo v => v.safety == .partial
+  | .reentryInfo {safety := .partial, ..} => true
   | _ => false
 
 def name (d : ConstantInfo) : Name :=
@@ -472,6 +512,7 @@ def value? (info : ConstantInfo) (allowOpaque := false) : Option Expr :=
   | .defnInfo {value, ..}   => some value
   | .thmInfo  {value, ..}   => some value
   | .opaqueInfo {value, ..} => if allowOpaque then some value else none
+  | .reentryInfo {value, ..} => some value
   | _                       => none
 
 def hasValue (info : ConstantInfo) (allowOpaque := false) : Bool :=
@@ -479,6 +520,7 @@ def hasValue (info : ConstantInfo) (allowOpaque := false) : Bool :=
   | .defnInfo _   => true
   | .thmInfo  _   => true
   | .opaqueInfo _ => allowOpaque
+  | .reentryInfo _ => true
   | _             => false
 
 def value! (info : ConstantInfo) (allowOpaque := false) : Expr :=
@@ -486,6 +528,7 @@ def value! (info : ConstantInfo) (allowOpaque := false) : Expr :=
   | .defnInfo {value, ..}   => value
   | .thmInfo  {value, ..}   => value
   | .opaqueInfo {value, ..} => if allowOpaque then value else panic! "declaration with value expected"
+  | .reentryInfo {value, ..} => value
   | _                       => panic! s!"declaration with value expected, but {info.name} has none"
 
 def hints : ConstantInfo → ReducibilityHints

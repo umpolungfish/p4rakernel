@@ -1,0 +1,10 @@
+import Imscribing.NS_ResidualExtension
+#print axioms Imscribing.NSResidualExtension.bounded_residual_jets
+#print axioms Imscribing.NSResidualExtension.cancellation_jets_tendsto_zero
+#print axioms Imscribing.NSResidualExtension.extended_residual_smooth
+#print axioms Imscribing.NSResidualExtension.extended_residual_eq_injection
+#print axioms Imscribing.NSResidualExtension.extended_residual_preserves_jets
+#print axioms Imscribing.NSResidualExtension.extended_residual_zero_fiber
+#print axioms Imscribing.NSResidualExtension.extended_residual_zero_time
+#print axioms Imscribing.NSResidualExtension.zero_extension_control
+#print axioms Imscribing.NSResidualExtension.nonzero_extension_control

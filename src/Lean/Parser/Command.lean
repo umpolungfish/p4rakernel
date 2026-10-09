@@ -199,6 +199,9 @@ def «opaque»         := leading_parser
 def «instance»       := leading_parser
   Term.attrKind >> "instance" >> optNamedPrio >>
   optional (ppSpace >> declId) >> ppIndent declSig >> declVal
+def «reentry»          := leading_parser
+  "reentry " >> recover declId skipUntilWsOrDelim >> ppIndent declSig >> declVal
+
 def «axiom»          := leading_parser
   "axiom " >> recover declId skipUntilWsOrDelim >> ppIndent declSig
 /- As `declSig` starts with a space, "example" does not need a trailing space. -/
@@ -279,7 +282,7 @@ def «structure»          := leading_parser
 @[builtin_command_parser] def declaration := leading_parser
   declModifiers false >>
   («abbrev» <|> definition <|> «theorem» <|> «opaque» <|> «instance» <|> «axiom» <|> «example» <|>
-   «inductive» <|> «coinductive» <|> classInductive <|> «structure»)
+   «reentry» <|> «inductive» <|> «coinductive» <|> classInductive <|> «structure»)
 @[builtin_command_parser] def «deriving»     := leading_parser
   "deriving " >> "instance " >> derivingClasses >> " for " >> sepBy1 (recover termParser skip) ", "
 def sectionHeader := leading_parser

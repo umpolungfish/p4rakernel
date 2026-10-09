@@ -1,3 +1,1 @@
-I derive Navier-Stokes injection from its differential source
-
-I carry the computed momentum residual through the marker tower and prove the return identity without independent source-matching or balance premises. I instantiate the terms with spatial and temporal derivatives, derive injection smoothness from smooth velocity and pressure, and verify zero and time-linear incompressible controls. I include the compiled modules and snapshot my current declaration, environment, and sixteen-valued kernel edits.
+I construct smooth residual extension from cancellation estimates
