@@ -1,0 +1,21 @@
+name = "MillenniumParaconsistent"
+version = "0.1.0"
+defaultTargets = ["MillenniumParaconsistent"]
+
+# Reconnected (2025): standard core toolchain v4.28.0.
+# The paraconsistent substrate `Init.Paraconsistent` is now provided locally
+# (Init/Paraconsistent.lean), faithful to p4ramill Imscribing.Paraconsistent.Belnap.
+# `native_decide` is a built-in core tactic.
+
+[leanOptions]
+pp.unicode.fun = true
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.28.0"
+
+[[lean_lib]]
+name = "MillenniumParaconsistent"
+roots = ["MillenniumParaconsistent"]
+globs = ["**/*.lean"]

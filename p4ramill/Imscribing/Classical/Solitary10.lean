@@ -381,4 +381,15 @@ theorem ten_is_solitary (m : ℕ) (hm : m > 0) (h : σ m * 5 = 9 * m) : m = 10 :
   · -- Case A: 5∥m → m=10
     exact (case_A k hk_pos h5k (by linarith)) ▸ rfl
 
+
+-- ── folded from DescentTest.lean (subsumed after this) ──────────────────
+lemma coprime_41872_51305 : Nat.Coprime 41872 51305 := by native_decide
+lemma coprime_52_75 : Nat.Coprime 52 75 := by native_decide
+
+lemma descent_41872_51305 (z : ℕ) (hz : z > 0) (h : 41872 * σ z = 51305 * z) : False :=
+  descent_generic 41872 51305 (by norm_num) (by norm_num) coprime_41872_51305 (by norm_num) z hz h
+
+lemma descent_52_75 (z : ℕ) (hz : z > 0) (h : 52 * σ z = 75 * z) : False :=
+  descent_generic 52 75 (by norm_num) (by norm_num) coprime_52_75 (by norm_num) z hz h
+
 end Imscribing.Classical.Solitary10

@@ -1,0 +1,3 @@
+import ParaconsistentMaster
+
+#check fundamental_dialetheic_identity
