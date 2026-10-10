@@ -206,6 +206,8 @@ private def printIdCore (sigOnly : Bool) (id : Name) : CommandElabM Unit := do
   | ConstantInfo.defnInfo  { levelParams := us, type := t, value := v, safety := s, .. } => printDefLike sigOnly "def" id us t v s
   | ConstantInfo.thmInfo  { levelParams := us, type := t, value := v, .. } => printDefLike sigOnly "theorem" id us t v
   | ConstantInfo.opaqueInfo  { levelParams := us, type := t, isUnsafe := u, .. } => printAxiomLike "opaque" id us t (if u then .unsafe else .safe)
+  | ConstantInfo.reentryInfo v =>
+    printDefLike sigOnly "reentry def" id v.levelParams v.type v.getSix3
   | ConstantInfo.quotInfo  { levelParams := us, type := t, .. } => printQuot id us t
   | ConstantInfo.ctorInfo { levelParams := us, type := t, isUnsafe := u, .. } => printAxiomLike "constructor" id us t (if u then .unsafe else .safe)
   | ConstantInfo.recInfo recInfo => printRecursor recInfo

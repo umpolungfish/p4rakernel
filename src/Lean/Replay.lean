@@ -86,6 +86,8 @@ partial def replayConstant (name : Name) : M Unit := do
         addDecl (Declaration.axiomDecl  info)
       | .opaqueInfo info =>
         addDecl (Declaration.opaqueDecl info)
+      | .reentryInfo info =>
+        addDecl (Declaration.reentryDecl info)
       | .inductInfo info =>
         let lparams := info.levelParams
         let nparams := info.numParams

@@ -35,6 +35,7 @@ partial def collect (c : Name) : M Unit := do
     | some (ConstantInfo.defnInfo v)   => collectExpr v.type *> collectExpr v.value
     | some (ConstantInfo.thmInfo v)    => collectExpr v.type *> collectExpr v.value
     | some (ConstantInfo.opaqueInfo v) => collectExpr v.type *> collectExpr v.value
+    | some (ConstantInfo.reentryInfo v) => collectExpr v.type *> collectExpr v.getSix3
     | some (ConstantInfo.quotInfo _)   => pure ()
     | some (ConstantInfo.ctorInfo v)   => collectExpr v.type
     | some (ConstantInfo.recInfo v)    => collectExpr v.type

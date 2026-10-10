@@ -28,9 +28,8 @@ endif()
 
 set(LEAN_PLATFORM_TARGET "" CACHE STRING "LLVM triple of the target platform")
 if (NOT LEAN_PLATFORM_TARGET)
-  # this may fail when the compiler is not clang, but this should only happen in local builds where
-  # the value of the variable is not of immediate relevance
-  execute_process(COMMAND ${CMAKE_C_COMPILER} --print-target-triple
+  # Both GCC and Clang support this target query.
+  execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpmachine
     OUTPUT_VARIABLE LEAN_PLATFORM_TARGET OUTPUT_STRIP_TRAILING_WHITESPACE)
 endif()
 
@@ -545,7 +544,7 @@ else()
   if(USE_LAKE AND ${STAGE} EQUAL 0)
     # we need to embed *some* hash for Lake to invalidate stage 1 on stage 0 changes
     execute_process(
-        COMMAND git ls-tree HEAD "${CMAKE_CURRENT_SOURCE_DIR}/../../stage0" --object-only
+        COMMAND git -C "${CMAKE_CURRENT_SOURCE_DIR}" rev-parse HEAD:stage0
         OUTPUT_VARIABLE GIT_SHA1
         OUTPUT_STRIP_TRAILING_WHITESPACE)
     message(STATUS "stage0 sha1: ${GIT_SHA1}")

@@ -12,6 +12,11 @@ The Reentry command elaborator uses this to build lfp values and to fold the
 Kleene iteration; the kernel stores each Sixteen3 as a single object_ref.
 -/
 
+module
+prelude
+public import Init
+public section
+
 namespace Lean
 
 /-- The sixteenth-three trilattice. A Sixteen3 is a set of Belnap FOUR values,
@@ -22,12 +27,9 @@ structure Sixteen3 where
   hasF : Bool -- contains F (false)
   hasB : Bool -- contains B (both / dialetheia)
 
-deriving BEq
+deriving Inhabited, BEq
 
 namespace Sixteen3
-
-/-- Construct from the four membership bits. -/
-def mk (n t f b : Bool) : Sixteen3 := { hasN := n, hasT := t, hasF := f, hasB := b }
 
 /-- The bottom element of ≤_i: asserts nothing. Starting point of Kleene iteration. -/
 def none : Sixteen3 := { hasN := false, hasT := false, hasF := false, hasB := false }
@@ -40,7 +42,7 @@ def ofBelnap (n t f b : Bool) : Sixteen3 := { hasN := n, hasT := t, hasF := f, h
 
 /-- Membership of a Belnap FOUR value in this SIXTEEN_3 value. -/
 def mem (n t f b : Bool) (s : Sixteen3) : Bool :=
-  ((n → s.hasN) ∧ (t → s.hasT) ∧ (f → s.hasF) ∧ (b → s.hasB)).asBool
+  (!n || s.hasN) && (!t || s.hasT) && (!f || s.hasF) && (!b || s.hasB)
 
 /-- Does this value assert TRUTH? The T-pole: it contains a truth-carrying member. -/
 def assertsTrue (s : Sixteen3) : Bool := s.hasT || s.hasB
