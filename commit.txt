@@ -1,3 +1,3 @@
-I add SKI and tick-indexed fixed-point combinators
+I establish Y by untyped beta re-entry
 
-I formalize typed S, K, and identity combinators and a computable Y-style unfolding whose stable consecutive stages prove a fixed-point equation.
+I formalize the untyped Curry Y term and prove its two-step beta unfolding for closed functionals. I expose the chain-complete Y fixed-point equation, connect B-valued recursion to FDE over SIXTEEN_3, and verify the least B re-entry through the native kernel declaration.
