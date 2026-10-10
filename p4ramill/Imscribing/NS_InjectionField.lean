@@ -141,7 +141,7 @@ theorem time_linear_acceleration (v : Space) (z : Domain) :
     timeDerivative (timeLinearVelocity v) z = v := by
   have h := (hasFDerivAt_id (𝕜 := ℝ) z.1).smul_const v
   have heval := congrArg (fun L : ℝ →L[ℝ] Space => L 1) h.fderiv
-  simpa only [timeDerivative, timeLinearVelocity, ContinuousLinearMap.smulRight_apply,
+  simpa only [timeDerivative, timeLinearVelocity, id_eq, ContinuousLinearMap.smulRight_apply,
     ContinuousLinearMap.id_apply, one_smul] using heval
 
 /-- CONTROL: actual differentiation of u(t,x)=t v yields injection v at every

@@ -43,6 +43,59 @@ disable_paraconsistent
 
 Build: `mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make stage0 stage1 -j$(nproc)`
 
+## Re-entry and Navier–Stokes injection
+
+The native re-entry declaration carries a `Sixteen3` membership value through
+the Lean declaration and constant interfaces. Its expression is the
+constructor `Sixteen3.mk` applied to the four Boolean memberships. The native
+control exercises all 16 masks, declaration metadata, and environment storage:
+
+```sh
+build/stage1/bin/lean tests/lean/run/reentryValue.lean
+```
+
+In `p4ramill`, the carried re-entry construction returns the differential
+Navier–Stokes residual at every carrier level:
+
+$$
+F_n[u,p]=\partial_tu+(u\cdot\nabla)u-\nu\Delta u+\nabla p.
+$$
+
+`NS_Reentry.lean` proves the carrier round trip and derives the injection
+identity. `NS_InjectionField.lean` supplies the actual time and spatial
+derivatives, with zero and time-linear controls. `NS_ResidualExtension.lean`
+constructs a smooth continuation of the residual from all-order cancellation
+and exterior derivative bounds, preserving its interior derivative tensors
+and spatial support.
+
+```sh
+cd p4ramill
+lake build Imscribing.NS_Reentry Imscribing.NS_InjectionField \
+  Imscribing.NS_DifferentialConvention Imscribing.NS_ResidualExtension
+```
+
+The [published-profile bridge](p4ramill/PublishedProfile/README.md) imports
+the [published construction](https://github.com/openai/NavierStokesAndEuler)
+under its pinned Lean 4.34.0-rc2 toolchain. The operator comparison equates
+the local coordinate residual with the published Fréchet-derivative residual.
+The actual-profile theorem selects the published candidate and identifies
+its globally smooth force with the carried injection for every level and
+every spacetime point with $0<t<1$. This supplies a smooth continuation of
+the injection through $t=1$, while retaining the candidate's velocity
+blowup, compact force support, incompressibility, and finite energy.
+
+From the local upstream checkout:
+
+```sh
+cd /home/mrnob0dy666/imsgct/research/NavierStokesAndEuler
+lake build OperatorConnection InjectionConnection
+lake build ProfileAudit
+```
+
+The [conventional exposition](../ig-docs/ns_reentry_injection.md) expands
+the carrier, differential, cancellation, extension, and published-profile
+statements into mathematical expressions.
+
 ## Classical restriction is a retract
 
 `ClassicalRestriction.lean` makes "restriction, not extension" machine-checked and it makes the classical fragment the B-excluding subtype `{ v // v ≠ B }`, and `classicalSwitch` collapses `B ↦ F` (ex falso for B) 
