@@ -10,7 +10,8 @@ carrier into complete value tables with reduction witnesses. The native solver
 computes candidate fixed points, and Lean certificates establish their least
 and greatest bounds, settled feedback traces, and enclosure of every fixed
 state. Arbitrary starting states produce certified transients and primitive
-cycles with reduction evidence at every tick. The corpus also supplies domain
+cycles with reduction evidence at every tick. Finite clocks read distant ticks
+from cached native states and preserve the same feedback signal. The corpus also supplies domain
 constructions and typed transport interfaces.
 
 ## Select the fork and check a focused target
@@ -131,6 +132,38 @@ passed directly to `findCycle`, so endpoint and interior feedback share one
 program computation. Retained negation can oscillate from an interior seed
 even when its empty-start feedback settles.
 
+### Read a distant phase directly
+
+```lean
+import Imscribing.Paraconsistent.CombinatoryDynamics
+
+open Imscribing.Paraconsistent.CombinatoryDynamics
+open Imscribing.Paraconsistent.CombinatoryReentry
+open Imscribing.Paraconsistent.Temporal.Semantics
+
+#eval (analyzeOrbit 32 (seededOperator (FDE.singleton .N)) (FDE.singleton .T)).map
+  fun cycle =>
+    let clock := cycle.clock
+    (clock.read 0,
+      clock.read 1_000_000_000_000_000_001,
+      clock.read 1_000_000_000_000_000_002)
+```
+
+The observations are singleton T, the N/F subset, and the N/T subset. The
+initial T remains a transient observation. Later ticks retain N and alternate
+between the cycle phases.
+
+`Cycle.clock` materializes an array of native states. Reuse the resulting
+clock across observations. `Cycle.phaseTick` preserves ticks before the entry
+and reduces later offsets modulo the period; `Cycle.phaseTick_lt` proves
+every read stays inside the cache. Reading a distant tick performs phase
+arithmetic and an array lookup.
+
+`Clock.read_eq_orbit` proves agreement with the original signal at every tick.
+`Clock.program_tick` gives the original program's reduction between consecutive
+cached observations. `Clock.restart` proves that feedback resumed from a cached
+observation has the same future readout.
+
 ## Where to look
 
 | Directory or module | Contents |
@@ -141,7 +174,7 @@ even when its empty-start feedback settles.
 | `Imscribing/Paraconsistent/TrilatticePrograms.lean` | Six native operations, seeded and diagonal maps, injection/retention composition |
 | `Imscribing/Paraconsistent/CombinatoryFixedPoint.lean` | Certified tables and least information fixed points |
 | `Imscribing/Paraconsistent/CombinatoryFixedPointBounds.lean` | Greatest points, endpoint bounds, enclosure and uniqueness |
-| `Imscribing/Paraconsistent/CombinatoryDynamics.lean` | Arbitrary-seed transients, primitive cycles, periodic continuation and restart |
+| `Imscribing/Paraconsistent/CombinatoryDynamics.lean` | Arbitrary-seed transients, primitive cycles, cached phase lookup, periodic continuation and restart |
 | `Imscribing/Paraconsistent/` | Belnap FOUR, SIXTEEN_3, Frobenius, Witness values |
 | `Imscribing/IUTT.lean` | Packets, state decomposition, transport, Closure laws |
 | `Imscribing/ABC*.lean` | Arithmetic calibration, measurements, Θ transport |
@@ -180,13 +213,16 @@ The cycle audit follows every native starting state through the same program
 families and checks periodic continuation and restart. Its rejection controls
 cover zero periods, nonclosing candidates, repeated laps, late entries,
 oversized cycles, insufficient fuel, and unfinished data computations.
+Cached-read controls cover every native starting state, transient boundaries,
+distant phases, restart, and preservation of alternating and retained evidence.
 
 Compiler output identifies declarations that use axioms or `sorry`. Those
 dependencies belong to each theorem statement and audit. Endpoint enclosure,
 uniqueness, greatest-point program reduction, and settled feedback theorems
-print no axiom dependencies. Program-tick reduction, periodic continuation,
+print no axiom dependencies. `Cycle.program_tick`, periodic continuation,
 primitive return, restart, and the fixed/moving cycle theorems also print no
-axiom dependencies.
+axiom dependencies. `Clock.read_eq_orbit`, `Clock.program_tick`, and
+`Clock.restart` print `propext`, inherited from phase normalization.
 
 ## License
 

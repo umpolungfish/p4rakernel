@@ -10,8 +10,9 @@ Re-entry makes a monotone carrier map available as a stored fixed value in
 proofs and executable code. The combinator interface retains the computation
 that produced each table entry and certifies both endpoints of the map's
 fixed-state space. Feedback from an arbitrary starting state carries a certified
-transient and primitive period. An experiment can follow individual contractions,
-resume feedback at a chosen tick, or inspect fixed and oscillating memberships.
+transient and primitive period. Its finite clock reads arbitrary ticks by phase
+lookup. An experiment can follow individual contractions, resume feedback at a
+chosen tick, or inspect fixed and oscillating memberships.
 
 | Component | Role |
 |---|---|
@@ -111,7 +112,7 @@ Candidate endpoints are validated against that table before certificates are ret
 | [`TrilatticePrograms.lean`](p4ramill/Imscribing/Paraconsistent/TrilatticePrograms.lean) | Seeded and diagonal programs, injection, retention, ordered composition, endpoint laws |
 | [`CombinatoryFixedPoint.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryFixedPoint.lean) | Certified tables, least fixed points, feedback from empty |
 | [`CombinatoryFixedPointBounds.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryFixedPointBounds.lean) | Greatest fixed points, feedback from full, enclosure, uniqueness from equal endpoints |
-| [`CombinatoryDynamics.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryDynamics.lean) | Arbitrary-seed feedback, certified transient and primitive period, periodic continuation, restart |
+| [`CombinatoryDynamics.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryDynamics.lean) | Arbitrary-seed feedback, certified transient and primitive period, cached phase lookup, periodic continuation, restart |
 
 Lifted FOUR negation exchanges T and F memberships while preserving N and B.
 Raw negation unfolds a two-tick signal. `hold` computes the information union
@@ -175,6 +176,29 @@ open Imscribing.Paraconsistent.Temporal.Semantics
 Raw negation returns entry zero and period two, alternating singleton T and F.
 Retaining singleton N gives one transient tick followed by the N/F and N/T
 cycle. Both signals retain their states and their reduction witnesses.
+
+Build `cycle.clock` once to cache native states, then use `clock.read tick` for
+direct observations. Transient ticks keep their original positions; later
+ticks use their offset from the cycle entry modulo its primitive period.
+`Clock.read_eq_orbit` proves every cached read equals the original feedback.
+`Clock.program_tick` and `Clock.restart` retain reduction and continuation
+proofs for the cached interface.
+
+```lean
+import Imscribing.Paraconsistent.CombinatoryDynamics
+
+open Imscribing.Paraconsistent.CombinatoryDynamics
+open Imscribing.Paraconsistent.Temporal.Semantics
+
+#eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map
+  fun cycle =>
+    let clock := cycle.clock
+    (clock.read 1_000_000_000_000_000_001,
+      clock.read 1_000_000_000_000_000_002)
+```
+
+These consecutive observations return singleton F and singleton T through the
+cached clock.
 
 Every seeded native join or meet is supported. Its endpoints are obtained by
 applying the seeded operation to information bottom and top. Constant maps,
@@ -260,5 +284,6 @@ uniqueness, greatest-point program reduction, and feedback-settlement theorems
 have no axiom dependencies. The cycle audit checks every native starting state
 for the lattice, combinator, and retained-negation families, with controls for
 nonclosing and nonprimitive cycle candidates. Periodic continuation, primitive
-return, restart, and the program-tick and fixed/moving cycle theorems also have
-no axiom dependencies.
+return, restart, and `Cycle.program_tick` and the fixed/moving cycle theorems
+also have no axiom dependencies. Phase-normalized clock agreement, program
+reduction, and restart depend on `propext` through the arithmetic normalization.

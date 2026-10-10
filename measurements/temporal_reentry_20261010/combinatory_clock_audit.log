@@ -1,0 +1,41 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.CombinatoryDynamics.feedback_restart' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.feedback_equal_future' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.program_tick' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.periodic' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.orbit_mod' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.phaseTick_lt' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.orbit_phaseTick' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryDynamics.Clock.read_eq_orbit' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryDynamics.Clock.program_tick' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryDynamics.Clock.restart' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.no_earlier_return' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.fixed_of_period_one' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.moves_of_period_gt_one' does not depend on any axioms
+base feedback passed: all native seeds for identity, hold, and negation
+lattice feedback passed: all native seeds for 96 seeded maps, 6 diagonals, and 512 compositions
+recursive feedback passed: all native seeds for 16 constants, 16 Y maps, and 16 retained-negation maps
+controls passed: retained-seed oscillator, delayed settlement, shared endpoint table, zero/nonclosing/nonprimitive/late/oversized cycles, fuel and residual rejection
+clock controls passed: cached reads and restart, distant parity, entry-relative phase, transient preservation, retained evidence
+some (0,
+ 2,
+ [],
+ [{ hasN := false, hasT := true, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := true, hasB := false }])
+some (1,
+ 1,
+ [{ hasN := false, hasT := true, hasF := false, hasB := false }],
+ [{ hasN := false, hasT := true, hasF := true, hasB := false }])
+some (1,
+ 2,
+ [{ hasN := false, hasT := true, hasF := false, hasB := false }],
+ [{ hasN := true, hasT := false, hasF := true, hasB := false },
+  { hasN := true, hasT := true, hasF := false, hasB := false }])
+some ({ hasN := false, hasT := false, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false })

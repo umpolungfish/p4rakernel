@@ -14,6 +14,12 @@ local infixl:70 " @@ " => Term.app
 #print axioms feedback_equal_future
 #print axioms Cycle.program_tick
 #print axioms Cycle.periodic
+#print axioms Cycle.orbit_mod
+#print axioms Cycle.phaseTick_lt
+#print axioms Cycle.orbit_phaseTick
+#print axioms Clock.read_eq_orbit
+#print axioms Clock.program_tick
+#print axioms Clock.restart
 #print axioms Cycle.no_earlier_return
 #print axioms Cycle.fixed_of_period_one
 #print axioms Cycle.moves_of_period_gt_one
@@ -36,16 +42,29 @@ private def requireCycle {program : Term} {seed : Lean.Sixteen3} (label : String
     throw <| IO.userError s!"{label}: transient mismatch"
   unless cycle.isStationary == (period == 1) do
     throw <| IO.userError s!"{label}: stationary flag"
+  let clock := cycle.clock
   for tick in [0:32] do
     unless cycle.orbit tick == feedback reference seed tick do
       throw <| IO.userError s!"{label}: reference feedback mismatch at {tick}"
     unless cycle.orbit (entry + tick + period) == cycle.orbit (entry + tick) do
       throw <| IO.userError s!"{label}: periodic continuation at {tick}"
+    unless clock.read tick == feedback reference seed tick do
+      throw <| IO.userError s!"{label}: cached read mismatch at {tick}"
+    unless cycle.phaseTick tick < 16 do
+      throw <| IO.userError s!"{label}: phase outside native cache"
   for start in [0:4] do
     for tick in [0:4] do
       unless feedback cycle.table.interpret (cycle.orbit start) tick ==
           cycle.orbit (start + tick) do
         throw <| IO.userError s!"{label}: restart mismatch"
+      unless feedback cycle.table.interpret (clock.read start) tick ==
+          clock.read (start + tick) do
+        throw <| IO.userError s!"{label}: cached restart mismatch"
+  let distant : Nat := 1_000_000_000_000_000_000_000_000_000_001
+  unless clock.read distant == clock.read (distant + period) do
+    throw <| IO.userError s!"{label}: distant cached lap mismatch"
+  unless clock.read distant == loop[(distant - entry) % period]! do
+    throw <| IO.userError s!"{label}: distant cached phase mismatch"
 
 private def requireIdempotent (label : String) (fuel : Nat) (program : Term)
     (reference : Lean.Sixteen3 → Lean.Sixteen3) : IO Unit := do
@@ -133,9 +152,37 @@ private def requireIdempotent (label : String) (fuel : Nat) (program : Term)
     throw <| IO.userError "unfinished program accepted"
   IO.println "controls passed: retained-seed oscillator, delayed settlement, shared endpoint table, zero/nonclosing/nonprimitive/late/oversized cycles, fuel and residual rejection"
 
+#eval show IO Unit from do
+  let truth := FDE.singleton .T
+  let falsity := FDE.singleton .F
+  let unknown := FDE.singleton .N
+  let some raw := analyzeOrbit 1 .negation truth
+    | throw <| IO.userError "clock negation certificate"
+  let some delayed := analyzeOrbit 32 (seededOperator unknown) truth
+    | throw <| IO.userError "clock retained-N certificate"
+  let rawClock := raw.clock
+  let delayedClock := delayed.clock
+  let distant : Nat := 1_000_000_000_000_000_000_000_000_000_001
+  unless rawClock.read distant == falsity && rawClock.read (distant + 1) == truth do
+    throw <| IO.userError "clock negation parity"
+  unless rawClock.read distant != rawClock.read (distant + 1) do
+    throw <| IO.userError "clock collapsed an oscillator"
+  unless delayedClock.read 0 == truth &&
+      delayedClock.read distant == Lean.Sixteen3.join_i unknown falsity &&
+      delayedClock.read (distant + 1) == Lean.Sixteen3.join_i unknown truth do
+    throw <| IO.userError "clock lost transient or entry-relative phase"
+  unless delayedClock.read 0 != delayedClock.read 2 do
+    throw <| IO.userError "clock wrapped transient into the cycle"
+  unless delayedClock.read distant != delayedClock.read 0 do
+    throw <| IO.userError "clock erased retained evidence"
+  IO.println "clock controls passed: cached reads and restart, distant parity, entry-relative phase, transient preservation, retained evidence"
+
 #eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map
   fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
 #eval (analyzeOrbit 3 hold (FDE.singleton .T)).map
   fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
 #eval (analyzeOrbit 32 (seededOperator (FDE.singleton .N)) (FDE.singleton .T)).map
   fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
+#eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map fun cycle =>
+  let clock := cycle.clock
+  (clock.read 1_000_000_000_000_000_001, clock.read 1_000_000_000_000_000_002)

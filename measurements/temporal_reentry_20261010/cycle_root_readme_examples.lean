@@ -32,6 +32,15 @@ open Imscribing.Paraconsistent.Temporal.Semantics
 #eval (analyzeOrbit 32 (seededOperator (FDE.singleton .N)) (FDE.singleton .T)).map
   fun cycle => (cycle.entry, cycle.period, cycle.loop)
 
+open Imscribing.Paraconsistent.CombinatoryDynamics
+open Imscribing.Paraconsistent.Temporal.Semantics
+
+#eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map
+  fun cycle =>
+    let clock := cycle.clock
+    (clock.read 1_000_000_000_000_000_001,
+      clock.read 1_000_000_000_000_000_002)
+
 enable_paraconsistent
 #is_paraconsistent
 -- A direct h.rec with h : False is rejected while this mode is enabled.

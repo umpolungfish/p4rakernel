@@ -98,6 +98,94 @@ theorem Cycle.periodic {program : Term} {seed : Lean.Sixteen3}
     _ = cycle.orbit (cycle.entry + tick) :=
       feedback_equal_future cycle.table.interpret seed _ _ cycle.closes tick
 
+/-- Reduce a future offset to one primitive lap of the certified cycle. -/
+theorem Cycle.orbit_mod {program : Term} {seed : Lean.Sixteen3}
+    (cycle : Cycle program seed) (offset : Nat) :
+    cycle.orbit (cycle.entry + offset) =
+      cycle.orbit (cycle.entry + offset % cycle.period) := by
+  induction offset using Nat.strongRecOn with
+  | ind offset ih =>
+      if h : offset < cycle.period then
+        rw [Nat.mod_eq_of_lt h]
+      else
+        have hle : cycle.period ≤ offset := Nat.le_of_not_gt h
+        calc
+          cycle.orbit (cycle.entry + offset) =
+              cycle.orbit (cycle.entry + (offset - cycle.period) + cycle.period) := by
+                rw [Nat.add_assoc, Nat.sub_add_cancel hle]
+          _ = cycle.orbit (cycle.entry + (offset - cycle.period)) :=
+            cycle.periodic (offset - cycle.period)
+          _ = cycle.orbit (cycle.entry + (offset - cycle.period) % cycle.period) :=
+            ih _ (Nat.sub_lt_of_pos_le cycle.positive hle)
+          _ = cycle.orbit (cycle.entry + offset % cycle.period) := by
+            rw [Nat.mod_eq_sub_mod hle]
+
+/-- Preserve transient ticks and reduce later ticks to the stored cycle phase. -/
+def Cycle.phaseTick {program : Term} {seed : Lean.Sixteen3}
+    (cycle : Cycle program seed) (tick : Nat) : Nat :=
+  if tick < cycle.entry then tick
+  else cycle.entry + (tick - cycle.entry) % cycle.period
+
+theorem Cycle.phaseTick_lt {program : Term} {seed : Lean.Sixteen3}
+    (cycle : Cycle program seed) (tick : Nat) : cycle.phaseTick tick < 16 := by
+  unfold Cycle.phaseTick
+  split
+  · rename_i h
+    exact Nat.lt_of_lt_of_le (Nat.lt_trans h (Nat.lt_add_of_pos_right cycle.positive))
+      cycle.bounded
+  · exact Nat.lt_of_lt_of_le
+      (Nat.add_lt_add_left (Nat.mod_lt _ cycle.positive) cycle.entry) cycle.bounded
+
+theorem Cycle.orbit_phaseTick {program : Term} {seed : Lean.Sixteen3}
+    (cycle : Cycle program seed) (tick : Nat) :
+    cycle.orbit (cycle.phaseTick tick) = cycle.orbit tick := by
+  unfold Cycle.phaseTick
+  split
+  · rfl
+  · rename_i h
+    have hle : cycle.entry ≤ tick := Nat.le_of_not_gt h
+    calc
+      cycle.orbit (cycle.entry + (tick - cycle.entry) % cycle.period) =
+          cycle.orbit (cycle.entry + (tick - cycle.entry)) :=
+        (cycle.orbit_mod (tick - cycle.entry)).symm
+      _ = cycle.orbit tick := congrArg cycle.orbit (Nat.add_sub_of_le hle)
+
+/-- A finite readout of a certified feedback signal. The constructor caches the
+    native states in an array; arbitrary ticks use a phase and one array lookup. -/
+structure Clock (program : Term) (seed : Lean.Sixteen3) where
+  cycle : Cycle program seed
+  value : Fin 16 → Lean.Sixteen3
+  agrees : ∀ i, value i = cycle.orbit i.val
+
+def Cycle.clock {program : Term} {seed : Lean.Sixteen3}
+    (cycle : Cycle program seed) : Clock program seed :=
+  let states := Array.ofFn (fun i : Fin 16 => cycle.orbit i.val)
+  { cycle := cycle
+    value := fun i => states[i.val]'(by rw [Array.size_ofFn]; exact i.isLt)
+    agrees := fun i => Array.getElem_ofFn _ }
+
+def Clock.read {program : Term} {seed : Lean.Sixteen3}
+    (clock : Clock program seed) (tick : Nat) : Lean.Sixteen3 :=
+  clock.value ⟨clock.cycle.phaseTick tick, clock.cycle.phaseTick_lt tick⟩
+
+theorem Clock.read_eq_orbit {program : Term} {seed : Lean.Sixteen3}
+    (clock : Clock program seed) (tick : Nat) :
+    clock.read tick = clock.cycle.orbit tick :=
+  (clock.agrees _).trans (clock.cycle.orbit_phaseTick tick)
+
+theorem Clock.program_tick {program : Term} {seed : Lean.Sixteen3}
+    (clock : Clock program seed) (tick : Nat) :
+    Steps (program @@ .datum (clock.read tick)) (.datum (clock.read (tick + 1))) := by
+  rw [clock.read_eq_orbit, clock.read_eq_orbit]
+  exact clock.cycle.program_tick tick
+
+theorem Clock.restart {program : Term} {seed : Lean.Sixteen3}
+    (clock : Clock program seed) (start tick : Nat) :
+    feedback clock.cycle.table.interpret (clock.read start) tick =
+      clock.read (start + tick) := by
+  rw [clock.read_eq_orbit, clock.read_eq_orbit]
+  exact feedback_restart clock.cycle.table.interpret seed start tick
+
 theorem Cycle.no_earlier_return {program : Term} {seed : Lean.Sixteen3}
     (cycle : Cycle program seed) (phase : Fin cycle.period) (hphase : 0 < phase.val) :
     cycle.orbit (cycle.entry + phase.val) ≠ cycle.orbit cycle.entry := by
