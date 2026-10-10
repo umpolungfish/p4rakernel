@@ -1,0 +1,52 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+✔ [8022/8034] Built ProofWidgets.Component.HtmlDisplay (3.7s)
+✔ [8023/8034] Built ProofWidgets.Component.Panel.Basic (4.4s)
+✔ [8024/8034] Built ProofWidgets.Component.PenroseDiagram (4.6s)
+✔ [8025/8034] Built ProofWidgets.Presentation.Expr (5.3s)
+✔ [8029/8034] Built Mathlib.Util.Export (8.7s)
+ℹ [8032/8034] Built Imscribing.Paraconsistent.TensorFiltration (45s)
+info: Imscribing/Paraconsistent/TensorFiltration.lean:33:0: [SIXTEEN_3] Trilattice mode activated — 16 values, three orders; explosion disabled.
+info: Imscribing/Paraconsistent/TensorFiltration.lean:39:0: [SIXTEEN_3] Trilattice mode deactivated.
+ℹ [8033/8034] Built Imscribing.Paraconsistent.TensorFiltrationAudit (32s)
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:5:0: 'Imscribing.Paraconsistent.TensorFiltration.native_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:6:0: 'Imscribing.Paraconsistent.TensorFiltration.theta_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:7:0: 'Imscribing.Paraconsistent.TensorFiltration.theta_fixed_count' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:8:0: 'Imscribing.Paraconsistent.TensorFiltration.trace_does_not_factor_through_erasure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:9:0: 'Imscribing.Paraconsistent.TensorFiltration.phase_operator_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:10:0: 'Imscribing.Paraconsistent.TensorFiltration.carrier_operator_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:11:0: 'Imscribing.Paraconsistent.TensorFiltration.compiled_theta_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:12:0: 'Imscribing.Paraconsistent.TensorFiltration.audited_extracted_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:13:0: 'Imscribing.Paraconsistent.TensorFiltration.ladder_symmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:14:0: 'Imscribing.Paraconsistent.TensorFiltration.ladder_off_diagonal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:15:0: 'Imscribing.Paraconsistent.TensorFiltration.ladder_tridiagonal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:16:0: 'Imscribing.Paraconsistent.TensorFiltration.raised_weight_square' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:18:0: 650
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:19:0: 24
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:20:0: true
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:21:0: 650
+info: Imscribing/Paraconsistent/TensorFiltrationAudit.lean:22:0: 0
+Build completed successfully (8034 jobs).
