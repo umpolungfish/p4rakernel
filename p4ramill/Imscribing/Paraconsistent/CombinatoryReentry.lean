@@ -4,19 +4,35 @@ import Imscribing.Paraconsistent.TemporalSemantics
 S/K/I programs with native SIXTEEN_3 data. Bracket abstraction compiles a
 variable out of a term and is verified by reduction. A certified reducer
 executes finite prefixes of unrestricted combinatory recursion. Native
-negation and information join give an executable combinator for holding
-an observation together with its negation.
+negation and all six lattice operations execute on the fork's carrier.
+Composition joins programs by certified reduction.
 -/
 
 namespace Imscribing.Paraconsistent.CombinatoryReentry
 
 open Temporal.Semantics
 
+/-- The fork's join and meet operations in each of its three native orders. -/
+inductive LatticeOp where
+  | joinInformation | meetInformation
+  | joinTruth | meetTruth
+  | joinFalsity | meetFalsity
+  deriving DecidableEq, Repr
+
+def LatticeOp.apply : LatticeOp → Lean.Sixteen3 → Lean.Sixteen3 → Lean.Sixteen3
+  | .joinInformation => Lean.Sixteen3.join_i
+  | .meetInformation => Lean.Sixteen3.meet_i
+  | .joinTruth => Lean.Sixteen3.join_t
+  | .meetTruth => Lean.Sixteen3.meet_t
+  | .joinFalsity => Lean.Sixteen3.join_f
+  | .meetFalsity => Lean.Sixteen3.meet_f
+
 inductive Term where
   | var : Nat → Term
   | i | k | s
   | datum : Lean.Sixteen3 → Term
   | negation | informationJoin
+  | lattice : LatticeOp → Term
   | app : Term → Term → Term
   deriving DecidableEq, Repr
 
@@ -31,6 +47,8 @@ inductive Step : Term → Term → Prop where
   | informationJoin (x y) :
       Step (.informationJoin @@ .datum x @@ .datum y)
         (.datum (Lean.Sixteen3.join_i x y))
+  | lattice (op x y) :
+      Step (.lattice op @@ .datum x @@ .datum y) (.datum (op.apply x y))
   | left {f g} (h : Step f g) (x) : Step (f @@ x) (g @@ x)
   | right (f) {x y} (h : Step x y) : Step (f @@ x) (f @@ y)
 
@@ -88,6 +106,25 @@ theorem abstract_apply (target : Nat) (argument body : Term) :
   | datum x => exact Steps.single (Step.constant (.datum x) argument)
   | negation => exact Steps.single (Step.constant .negation argument)
   | informationJoin => exact Steps.single (Step.constant .informationJoin argument)
+  | lattice op => exact Steps.single (Step.constant (.lattice op) argument)
+
+theorem lattice_apply (op : LatticeOp) (x y : Lean.Sixteen3) :
+    Steps (.lattice op @@ .datum x @@ .datum y) (.datum (op.apply x y)) :=
+  Steps.single (.lattice op x y)
+
+/-- Compose an outer program with an inner program using S and K. -/
+def after (outer inner : Term) : Term := .s @@ (.k @@ outer) @@ inner
+
+theorem after_unfold (outer inner argument : Term) :
+    Steps (after outer inner @@ argument) (outer @@ (inner @@ argument)) :=
+  .cons (.substitution (.k @@ outer) inner argument)
+    (.cons (.left (.constant outer argument) (inner @@ argument)) (.refl _))
+
+theorem after_apply (outer inner : Term) (x y z : Lean.Sixteen3)
+    (hinner : Steps (inner @@ .datum x) (.datum y))
+    (houter : Steps (outer @@ .datum y) (.datum z)) :
+    Steps (after outer inner @@ .datum x) (.datum z) :=
+  (after_unfold outer inner (.datum x)).trans ((Steps.right outer hinner).trans houter)
 
 def duplicate : Term := .s @@ .i @@ .i
 
@@ -166,6 +203,8 @@ def rootStep : (t : Term) → Option {u : Term // Step t u}
   | .app .negation (.datum x) => some ⟨.datum (FDE.liftNegation x), .negation x⟩
   | .app (.app .informationJoin (.datum x)) (.datum y) =>
       some ⟨.datum (Lean.Sixteen3.join_i x y), .informationJoin x y⟩
+  | .app (.app (.lattice op) (.datum x)) (.datum y) =>
+      some ⟨.datum (op.apply x y), .lattice op x y⟩
   | _ => none
 
 /-- Contract the first available redex, visiting the left arm before the right. -/

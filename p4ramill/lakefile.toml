@@ -437,6 +437,8 @@ globs = [
   "Imscribing.Paraconsistent.CombinatoryReentryAudit",
   "Imscribing.Paraconsistent.CombinatoryFixedPoint",
   "Imscribing.Paraconsistent.CombinatoryFixedPointAudit",
+  "Imscribing.Paraconsistent.TrilatticePrograms",
+  "Imscribing.Paraconsistent.TrilatticeProgramsAudit",
   "Imscribing.Paraconsistent.BelnapCategory",
   "Imscribing.Paraconsistent.MultiAgentBelnap",
   "Imscribing.Paraconsistent.BelnapLL",
