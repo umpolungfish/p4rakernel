@@ -1,0 +1,42 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.TensorFiltration.native_theta' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.theta_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.theta_fixed_count' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.trace_does_not_factor_through_erasure' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.phase_operator_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.carrier_operator_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.compiled_theta_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.audited_extracted_trace' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.ladder_symmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.ladder_off_diagonal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.ladder_tridiagonal' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.TensorFiltration.raised_weight_square' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+650
+24
+true
+650
+0
