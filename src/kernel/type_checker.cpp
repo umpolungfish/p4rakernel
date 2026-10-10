@@ -113,7 +113,7 @@ expr type_checker::infer_constant(expr const & e, bool infer_only) {
            allowing the prelude to compile with the definitions in place.
 
            Asks `holds_contradictions()`, not `is_paraconsistent()`: SIXTEEN_3 is the
-           POWERSET of Belnap FOUR, twelve of whose sixteen values contain B, so a
+           POWERSET of Belnap FOUR, eight of whose sixteen values contain B, so a
            kernel that explodes cannot carry them. Trilattice therefore entails
            paraconsistent, and `enable_trilattice` on its own is a real toggle rather
            than a field nothing reads. */
@@ -126,6 +126,7 @@ expr type_checker::infer_constant(expr const & e, bool infer_only) {
                     if (ind_val.get_ncnstrs() == 0) {
                         /* Check if the inductive type lives in Prop (Sort 0) */
                         expr ind_type = whnf(ind_info->get_type());
+                        while (is_pi(ind_type)) ind_type = binding_body(ind_type);
                         if (is_sort(ind_type) && is_zero(sort_level(ind_type))) {
                             throw kernel_exception(env(), sstream()
                                 << (env().is_trilattice()

@@ -13,6 +13,7 @@ Kleene iteration converges to the least fixed point.
 */
 #pragma once
 #include "kernel/expr.h"
+#include <array>
 
 namespace lean {
 
@@ -30,6 +31,13 @@ struct sixteen3 {
     sixteen3() : hasN(false), hasT(false), hasF(false), hasB(false) {}
     sixteen3(bool n, bool t, bool f, bool b) : hasN(n), hasT(t), hasF(f), hasB(b) {}
 
+    unsigned mask() const {
+        return hasN | (hasT << 1) | (hasF << 2) | (hasB << 3);
+    }
+    static sixteen3 from_mask(unsigned m) {
+        return sixteen3(m & 1, m & 2, m & 4, m & 8);
+    }
+
     bool operator==(sixteen3 const & o) const {
         return hasN == o.hasN && hasT == o.hasT && hasF == o.hasF && hasB == o.hasB;
     }
@@ -46,13 +54,27 @@ struct sixteen3 {
         truth value; in SIXTEEN_3 it is INDEPENDENT, and that independence is the split. */
     bool assertsFalse() const { return hasF || hasB; }
 
-    /** Truth order ≤_t: more truth asserted, no more falsity. */
+    /** Truth order: inclusion on T/B, reverse inclusion on N/F. */
     bool le_t(sixteen3 const & y) const {
-        return (!assertsTrue() || y.assertsTrue()) && (!y.assertsFalse() || assertsFalse());
+        return (!y.hasN || hasN) && (!hasT || y.hasT) &&
+               (!y.hasF || hasF) && (!hasB || y.hasB);
     }
-    /** Falsity order ≤_f: more falsity asserted, no more truth. */
+    /** Falsity order: inclusion on F/B, reverse inclusion on N/T. */
     bool le_f(sixteen3 const & y) const {
-        return (!assertsFalse() || y.assertsFalse()) && (!y.assertsTrue() || assertsTrue());
+        return (!y.hasN || hasN) && (!y.hasT || hasT) &&
+               (!hasF || y.hasF) && (!hasB || y.hasB);
+    }
+    sixteen3 join_t(sixteen3 const & y) const {
+        return sixteen3(hasN && y.hasN, hasT || y.hasT, hasF && y.hasF, hasB || y.hasB);
+    }
+    sixteen3 meet_t(sixteen3 const & y) const {
+        return sixteen3(hasN || y.hasN, hasT && y.hasT, hasF || y.hasF, hasB && y.hasB);
+    }
+    sixteen3 join_f(sixteen3 const & y) const {
+        return sixteen3(hasN && y.hasN, hasT && y.hasT, hasF || y.hasF, hasB || y.hasB);
+    }
+    sixteen3 meet_f(sixteen3 const & y) const {
+        return sixteen3(hasN || y.hasN, hasT || y.hasT, hasF && y.hasF, hasB && y.hasB);
     }
     /** Information order ≤_i: subset inclusion. More is known, nothing retracted. */
     bool le_i(sixteen3 const & y) const {
@@ -76,6 +98,27 @@ static inline sixteen3 sixteen3_all()  { return sixteen3(true, true, true, true)
 /** The image of a Belnap value as a singleton SIXTEEN_3 subset. */
 static inline sixteen3 sixteen3_ofBelnap(bool n, bool t, bool f, bool b) {
     return sixteen3(n, t, f, b);
+}
+
+/** Validate a map on the complete carrier and compute its information least fixed point. */
+static inline bool sixteen3_fixed_point(std::array<sixteen3, 16> const & table, sixteen3 & result) {
+    for (unsigned x = 0; x < 16; ++x) {
+        for (unsigned y = 0; y < 16; ++y) {
+            if (sixteen3::from_mask(x).le_i(sixteen3::from_mask(y)) && !table[x].le_i(table[y]))
+                return false;
+        }
+    }
+    sixteen3 current;
+    // Four memberships may be added, followed by one evaluation proving stability.
+    for (unsigned step = 0; step < 5; ++step) {
+        sixteen3 next = table[current.mask()];
+        if (next == current) {
+            result = current;
+            return true;
+        }
+        current = next;
+    }
+    return false;
 }
 
 }

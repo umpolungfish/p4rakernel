@@ -991,7 +991,8 @@ struct elim_nested_inductive_fn {
             auxI      = mk_app(auxI, As);
             return some_expr(mk_app(auxI, args.size() - I_nparams, args.data() + I_nparams));
         } else {
-            optional<expr> result;
+            expr result;
+            bool found_result = false;
             /* We should copy all inductive datatypes `J` in the mutual declaration containing `I` to
                the `m_new_types` mutual declaration as new auxiliary types. */
             for (name const & J_name : I_val->get_all()) {
@@ -1009,6 +1010,7 @@ struct elim_nested_inductive_fn {
                     expr auxI = mk_constant(auxJ_name, m_lvls);
                     auxI      = mk_app(auxI, As);
                     result    = mk_app(auxI, args.size() - I_nparams, args.data() + I_nparams);
+                    found_result = true;
                 }
                 buffer<constructor> auxJ_constructors;
                 for (name const & J_cnstr_name : J_info.to_inductive_val().get_cnstrs()) {
@@ -1022,8 +1024,8 @@ struct elim_nested_inductive_fn {
                 }
                 m_new_types.push_back(inductive_type(auxJ_name, auxJ_type, constructors(auxJ_constructors)));
             }
-            lean_assert(result);
-            return result;
+            lean_assert(found_result);
+            return found_result ? some_expr(result) : none_expr();
         }
     }
 

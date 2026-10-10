@@ -57,10 +57,11 @@ def add : Expr ctx (Ty.fn Ty.int (Ty.fn Ty.int Ty.int)) :=
 
 #guard add.interp Env.nil 10 20 == 30
 
-def fact : Expr ctx (Ty.fn Ty.int Ty.int) :=
+instance : Nonempty (Expr ctx (Ty.fn Ty.int Ty.int)) := ⟨lam (val 0)⟩
+
+partial def fact : Expr ctx (Ty.fn Ty.int Ty.int) :=
   lam (ife (op (.==.) (var stop) (val 0))
            (val 1)
            (op (.*.) (delay fun _ => app fact (op (.-.) (var stop) (val 1))) (var stop)))
-  decreasing_by sorry
 
 #guard fact.interp Env.nil 10 == 3628800

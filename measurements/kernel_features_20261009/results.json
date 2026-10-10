@@ -1,0 +1,187 @@
+[
+  {
+    "name": "native_build",
+    "command": [
+      "c++",
+      "-std=c++17",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "src",
+      "-I",
+      "build/stage1/include",
+      "tests/lean/run/sixteen3_native.cpp",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/sixteen3_native"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "native_lattice_and_fixed_point",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/sixteen3_native"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "command_module_build",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--root=src",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/lib/lean/Init/Paraconsistent.olean",
+      "src/Init/Paraconsistent.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "sixteen3",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/sixteen3.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "reentryValue",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/reentryValue.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "reentry",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/reentry.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "trilatticeMode",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/trilatticeMode.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "kernel1",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/kernel1.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "kernel2",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/kernel2.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "interp",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/interp.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "interp2",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/interp2.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "closure1",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/closure1.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "nestedInductiveConstructions",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "tests/lean/run/nestedInductiveConstructions.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "module_export",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--root=tests/kernel_features",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/ReentryExport.olean",
+      "-c",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/export.c",
+      "tests/kernel_features/ReentryExport.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "module_import",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--root=tests/kernel_features",
+      "-c",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/import.c",
+      "tests/kernel_features/ReentryImport.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "interpreted_import",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--run",
+      "tests/kernel_features/ReentryImport.lean"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "compiled_import_build",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/leanc",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/export.c",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/import.c",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/reentry_runtime"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "compiled_import",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/kernel_features_20261009/reentry_runtime"
+    ],
+    "exit_code": 0,
+    "diagnostics": []
+  }
+]

@@ -50,6 +50,7 @@ private def isNamedDecl (stx : Syntax) : Bool :=
     k == ``Lean.Parser.Command.theorem ||
     k == ``Lean.Parser.Command.opaque ||
     k == ``Lean.Parser.Command.axiom ||
+    k == ``Lean.Parser.Command.«reentry» ||
     k == ``Lean.Parser.Command.inductive ||
     k == ``Lean.Parser.Command.classInductive ||
     k == ``Lean.Parser.Command.structure
@@ -145,34 +146,6 @@ def elabAxiom (modifiers : Modifiers) (stx : Syntax) : CommandElabM Unit := do
         withSaveInfoContext do  -- save new env with docstring and decl
           Term.addTermInfo' declId (← mkConstWithLevelParams declName) (isBinder := true)
         enableRealizationsForConst declName
-open Lean.Parser.Command.InternalSyntax in
-private structure ReentryCheck where
-  usesParameter : Bool := false
-  allowed : Bool := true
-
-private def combineReentryCheck (x y : ReentryCheck) : ReentryCheck :=
-  ⟨x.usesParameter || y.usesParameter, x.allowed && y.allowed⟩
-
-private partial def checkReentryExpr (parameter : FVarId) (e : Expr) : MetaM ReentryCheck := do
-  match e with
-  | .fvar id =>
-    if id == parameter then pure ⟨true, true⟩ else pure ⟨false, false⟩
-  | .const .. => pure ⟨false, true⟩
-  | .app .. =>
-    let (fn, args) := e.getAppFnArgs
-    if fn == ``Lean.Sixteen3.join_i || fn == ``Lean.Sixteen3.meet_i then
-      if args.size != 2 then return ⟨false, false⟩
-      let lhs ← checkReentryExpr parameter args[0]!
-      let rhs ← checkReentryExpr parameter args[1]!
-      return combineReentryCheck lhs rhs
-    let argChecks ← args.mapM (checkReentryExpr parameter)
-    let nested := argChecks.foldl combineReentryCheck ⟨false, true⟩
-    if nested.usesParameter then return ⟨true, false⟩
-    return nested
-  | .proj .. => pure ⟨false, false⟩
-  | .mdata _ body => checkReentryExpr parameter body
-  | _ => pure ⟨false, false⟩
-
 private def decodeSixteen3 (e : Expr) : MetaM Sixteen3 := do
   let e ← reduce e
   let (fn, args) := e.getAppFnArgs
@@ -185,12 +158,14 @@ private def decodeSixteen3 (e : Expr) : MetaM Sixteen3 := do
     else throwError "re-entry iteration produced a non-literal SIXTEEN_3 bit"
   return ⟨bits[0]!, bits[1]!, bits[2]!, bits[3]!⟩
 
-private def elabReentryDecl (stx : Syntax) : CommandElabM Unit := do
+private def elabReentryDecl (modifiers : Modifiers) (stx : Syntax) : CommandElabM Unit := do
+  if modifiers.isUnsafe || modifiers.isPartial || modifiers.computeKind != .regular then
+    throwError "re-entry declarations must be safe, total, and computable"
   let (bindersStx, resultTypeStx) := expandDeclSig stx[2]
   let bodyStx := stx[3][1]
   let currNamespace ← getCurrNamespace
   let nameInfo ← runTermElabM fun _ => do
-    Term.expandDeclId currNamespace (← Term.getLevelNames) stx[1] {}
+    Term.expandDeclId currNamespace (← Term.getLevelNames) stx[1] modifiers
   let env ← getEnv
   unless env.holdsContradictions do
     throwError "re-entry declarations require paraconsistent or SIXTEEN_3 mode"
@@ -208,26 +183,22 @@ private def elabReentryDecl (stx : Syntax) : CommandElabM Unit := do
       let bodyExpr ← Term.elabTermEnsuringType bodyStx sixType
       Term.synthesizeSyntheticMVarsNoPostponing
       let bodyExpr ← instantiateMVars bodyExpr
-      let analysis ← checkReentryExpr parameter.fvarId! bodyExpr
-      unless analysis.allowed do
-        throwErrorAt bodyStx "the body must use only `join_i`, `meet_i`, and closed SIXTEEN_3 values"
-      unless analysis.usesParameter do
+      unless bodyExpr.containsFVar parameter.fvarId! do
         throwErrorAt bodyStx "the body must depend on its re-entry parameter"
       let bodyExpr ← mkLambdaFVars #[parameter] bodyExpr
-      let mut current := Sixteen3.none
-      let mut converged := false
-      for _ in [:16] do
-        unless converged do
-          let boolExpr (b : Bool) := mkConst (if b then ``Bool.true else ``Bool.false)
-          let currentExpr := mkApp4 (mkConst ``Lean.Sixteen3.mk)
-            (boolExpr current.hasN) (boolExpr current.hasT)
-            (boolExpr current.hasF) (boolExpr current.hasB)
-          let nextExpr ← reduce (bodyExpr.beta #[currentExpr])
-          let next ← decodeSixteen3 nextExpr
-          if next == current then converged := true else current := next
-      unless converged do
-        throwError "re-entry fixed-point iteration exceeded the SIXTEEN_3 height"
-      let declType ← mkForallFVars sectionVars resultType
+      if bodyExpr.hasFVar then
+        throwErrorAt bodyStx "the re-entry map must be closed apart from its parameter"
+      let mut table : Array Sixteen3 := #[]
+      for mask in [:16] do
+        let current := Sixteen3.ofMask mask
+        let boolExpr (b : Bool) := mkConst (if b then ``Bool.true else ``Bool.false)
+        let currentExpr := mkApp4 (mkConst ``Lean.Sixteen3.mk)
+          (boolExpr current.hasN) (boolExpr current.hasT)
+          (boolExpr current.hasF) (boolExpr current.hasB)
+        table := table.push (← decodeSixteen3 (bodyExpr.beta #[currentExpr]))
+      let some current := Sixteen3.fixedPoint table
+        | throwErrorAt bodyStx "the re-entry map must be monotone in the information order"
+      let declType ← mkForallFVars sectionVars resultType (usedOnly := true)
       let declType ← Term.levelMVarToParam declType
       return (declType, current)
   let (declType, value) := value
@@ -243,6 +214,8 @@ private def elabReentryDecl (stx : Syntax) : CommandElabM Unit := do
   runTermElabM fun _ => do
     if let some (doc, isVerso) := nameInfo.docString? then
       addDocStringOf isVerso nameInfo.declName bindersStx doc
+    Term.applyAttributesAt nameInfo.declName modifiers.attrs AttributeApplicationTime.afterTypeChecking
+    Term.applyAttributesAt nameInfo.declName modifiers.attrs AttributeApplicationTime.afterCompilation
 
 open Lean.Parser.Command.InternalSyntax in
 /--
@@ -279,7 +252,7 @@ def elabDeclaration : CommandElab := fun stx => do
       if declKind == ``Lean.Parser.Command.«axiom» then
         elabAxiom modifiers decl
       else if declKind == ``Lean.Parser.Command.«reentry» then
-        elabReentryDecl decl
+        elabReentryDecl modifiers decl
       else if declKind == ``Lean.Parser.Command.«inductive»
           || declKind == ``Lean.Parser.Command.«coinductive»
           || declKind == ``Lean.Parser.Command.classInductive

@@ -27,7 +27,7 @@ structure Sixteen3 where
   hasF : Bool -- contains F (false)
   hasB : Bool -- contains B (both / dialetheia)
 
-deriving Inhabited, BEq
+deriving Inhabited, BEq, DecidableEq, Repr
 
 namespace Sixteen3
 
@@ -51,13 +51,27 @@ def assertsTrue (s : Sixteen3) : Bool := s.hasT || s.hasB
     are independent axes. -/
 def assertsFalse (s : Sixteen3) : Bool := s.hasF || s.hasB
 
-/-- Truth order ≤_t: more truth asserted, no more falsity. -/
+/-- Truth order: inclusion on T/B memberships, reverse inclusion on N/F. -/
 def le_t (x y : Sixteen3) : Bool :=
-  (!x.assertsTrue || y.assertsTrue) && (!y.assertsFalse || x.assertsFalse)
+  (!y.hasN || x.hasN) && (!x.hasT || y.hasT) &&
+  (!y.hasF || x.hasF) && (!x.hasB || y.hasB)
 
-/-- Falsity order ≤_f: more falsity asserted, no more truth. -/
+/-- Falsity order: inclusion on F/B memberships, reverse inclusion on N/T. -/
 def le_f (x y : Sixteen3) : Bool :=
-  (!x.assertsFalse || y.assertsFalse) && (!y.assertsTrue || x.assertsTrue)
+  (!y.hasN || x.hasN) && (!y.hasT || x.hasT) &&
+  (!x.hasF || y.hasF) && (!x.hasB || y.hasB)
+
+/-- Join and meet in the truth order. -/
+def join_t (x y : Sixteen3) : Sixteen3 :=
+  ⟨x.hasN && y.hasN, x.hasT || y.hasT, x.hasF && y.hasF, x.hasB || y.hasB⟩
+def meet_t (x y : Sixteen3) : Sixteen3 :=
+  ⟨x.hasN || y.hasN, x.hasT && y.hasT, x.hasF || y.hasF, x.hasB && y.hasB⟩
+
+/-- Join and meet in the falsity order. -/
+def join_f (x y : Sixteen3) : Sixteen3 :=
+  ⟨x.hasN && y.hasN, x.hasT && y.hasT, x.hasF || y.hasF, x.hasB || y.hasB⟩
+def meet_f (x y : Sixteen3) : Sixteen3 :=
+  ⟨x.hasN || y.hasN, x.hasT || y.hasT, x.hasF && y.hasF, x.hasB && y.hasB⟩
 
 /-- Information order ≤_i: subset inclusion. More is known, nothing retracted. -/
 def le_i (x y : Sixteen3) : Bool :=
@@ -72,6 +86,14 @@ def join_i (x y : Sixteen3) : Sixteen3 :=
 def meet_i (x y : Sixteen3) : Sixteen3 :=
   { hasN := x.hasN && y.hasN, hasT := x.hasT && y.hasT,
     hasF := x.hasF && y.hasF, hasB := x.hasB && y.hasB }
+
+/-- Enumerate the carrier in native membership-mask order. -/
+def ofMask (m : Nat) : Sixteen3 :=
+  ⟨m % 2 == 1, m / 2 % 2 == 1, m / 4 % 2 == 1, m / 8 % 2 == 1⟩
+
+/-- Native kernel solver: reject malformed or nonmonotone tables, otherwise return the least fixed point. -/
+@[extern "lean_sixteen3_fixed_point"]
+opaque fixedPoint (table : @& Array Sixteen3) : Option Sixteen3
 
 end Sixteen3
 
