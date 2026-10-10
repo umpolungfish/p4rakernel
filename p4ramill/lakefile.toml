@@ -1,7 +1,7 @@
 name = "imscribing-lean"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["Imscribing", "NSKernelReentry", "TensorFiltration"]
+defaultTargets = ["Imscribing", "NSKernelReentry", "TensorFiltration", "ZetaSICDualFrame"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -774,3 +774,7 @@ roots = ["Imscribing.NS_KernelReentry", "Imscribing.NS_KernelReentryAudit"]
 [[lean_lib]]
 name = "TensorFiltration"
 roots = ["Imscribing.Paraconsistent.TensorFiltration", "Imscribing.Paraconsistent.TensorFiltrationAudit"]
+
+[[lean_lib]]
+name = "ZetaSICDualFrame"
+roots = ["Imscribing.Millennium.ZetaSICDualFrame", "Imscribing.Millennium.ZetaSICDualFrameAudit"]

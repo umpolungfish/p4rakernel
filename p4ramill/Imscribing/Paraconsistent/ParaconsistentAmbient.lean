@@ -41,12 +41,12 @@ def imscription : DiagramForm → DiagramForm
   | _ => .circled
 
 -- Re-entry: placing a punctum within the field
-def reentry : DiagramForm → DiagramForm
+def «reentry» : DiagramForm → DiagramForm
   | .circled => .reentered
   | _ => .reentered
 
 -- The ambient as diagrammatic form
-theorem ambient_is_reentered : reentry (imscription DiagramForm.punctum) = DiagramForm.reentered := by
+theorem ambient_is_reentered : «reentry» (imscription DiagramForm.punctum) = DiagramForm.reentered := by
   rfl
 
 -- ============================================================================
