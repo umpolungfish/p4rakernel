@@ -1,6 +1,11 @@
-I characterize SIXTEEN_3 negation re-entry
+I hold negation through lattice closure and tick feedback
 
-I prove that lifted negation is an involution and identify its entire fixed
-state space with three independent Boolean coordinates. I add a native
-re-entry declaration whose least information fixed point is the empty subset,
-alongside the existing B-seeded re-entry whose least fixed point is singleton B.
+I implement the information closure that retains each state and its negation,
+and prove its monotonicity, idempotence, and universal leastness. I compute the
+least fixed point of every retained-seed negation map and connect it to a tick
+trace that settles after two unfoldings. I retain the raw period-two orbit and
+prove that every adjacent observation pair recovers the same closure.
+
+I add native T and N re-entry declarations, register the audit in my library,
+and retain the successful build and runtime audit. The audited closure and
+tick laws have no axiom dependencies.

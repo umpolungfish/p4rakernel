@@ -432,6 +432,7 @@ globs = [
   "Imscribing.Paraconsistent.QCI_nRegister",
   "Imscribing.Paraconsistent.BelnapTemporal",
   "Imscribing.Paraconsistent.TemporalSemantics",
+  "Imscribing.Paraconsistent.TemporalSemanticsAudit",
   "Imscribing.Paraconsistent.BelnapCategory",
   "Imscribing.Paraconsistent.MultiAgentBelnap",
   "Imscribing.Paraconsistent.BelnapLL",

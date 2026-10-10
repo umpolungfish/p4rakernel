@@ -10,6 +10,8 @@ and exposes Lean's chain-complete fixed-point construction as a Y combinator
 for monotone functionals over partial values. Undefined computation is `none`;
 the equation theorem is part of Lean's logic. The FDE layer below carries
 dialetheic fixed points through the kernel's SIXTEEN_3 powerset representation.
+Negation closure retains both poles, computes every seeded negation fixed point,
+and connects periodic observations with feedback that settles after two ticks.
 -/
 
 namespace Imscribing.Paraconsistent.Temporal.Semantics
@@ -221,6 +223,74 @@ def negationFixedEquiv : (Bool × Bool × Bool) ≃
       simpa using (liftNegation_fixed_iff _).mp hfixed
     simp [negationFixedState, hpair]
 
+/-- Hold each observation together with its negation by information join. -/
+def negationClosure (x : Lean.Sixteen3) : Lean.Sixteen3 :=
+  Lean.Sixteen3.join_i x (liftNegation x)
+
+theorem negationClosure_fixed (x : Lean.Sixteen3) :
+    liftNegation (negationClosure x) = negationClosure x := by
+  rcases x with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem negationClosure_idempotent (x : Lean.Sixteen3) :
+    negationClosure (negationClosure x) = negationClosure x := by
+  rcases x with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem negationClosure_negation (x : Lean.Sixteen3) :
+    negationClosure (liftNegation x) = negationClosure x := by
+  rcases x with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem negationClosure_extensive (x : Lean.Sixteen3) :
+    Lean.Sixteen3.le_i x (negationClosure x) = true := by
+  rcases x with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem negationClosure_monotone (x y : Lean.Sixteen3) :
+    Lean.Sixteen3.le_i x y = true →
+      Lean.Sixteen3.le_i (negationClosure x) (negationClosure y) = true := by
+  rcases x with ⟨xn, xt, xf, xb⟩
+  rcases y with ⟨yn, yt, yf, yb⟩
+  cases xn <;> cases xt <;> cases xf <;> cases xb <;>
+    cases yn <;> cases yt <;> cases yf <;> cases yb <;> decide
+
+/-- Closure is the least negation-fixed state containing its input. -/
+theorem negationClosure_le_iff (x y : Lean.Sixteen3)
+    (hy : liftNegation y = y) :
+    Lean.Sixteen3.le_i (negationClosure x) y = true ↔
+      Lean.Sixteen3.le_i x y = true := by
+  revert hy
+  rcases x with ⟨xn, xt, xf, xb⟩
+  rcases y with ⟨yn, yt, yf, yb⟩
+  cases xn <;> cases xt <;> cases xf <;> cases xb <;>
+    cases yn <;> cases yt <;> cases yf <;> cases yb <;> decide
+
+/-- Feed negation back while retaining a fixed seed at each unfolding. -/
+def negationSeededStep (seed x : Lean.Sixteen3) : Lean.Sixteen3 :=
+  Lean.Sixteen3.join_i (liftNegation x) seed
+
+theorem negationSeededStep_closure_fixed (seed : Lean.Sixteen3) :
+    negationSeededStep seed (negationClosure seed) = negationClosure seed := by
+  rcases seed with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem negationSeededStep_fixed_iff (seed x : Lean.Sixteen3) :
+    negationSeededStep seed x = x ↔
+      liftNegation x = x ∧ Lean.Sixteen3.le_i seed x = true := by
+  rcases seed with ⟨sn, st, sf, sb⟩
+  rcases x with ⟨xn, xt, xf, xb⟩
+  cases sn <;> cases st <;> cases sf <;> cases sb <;>
+    cases xn <;> cases xt <;> cases xf <;> cases xb <;> decide
+
+/-- A closed formula for the least information fixed point of every seeded
+    negation map, available directly as a computable function. -/
+theorem negationSeededStep_least (seed y : Lean.Sixteen3)
+    (hy : negationSeededStep seed y = y) :
+    Lean.Sixteen3.le_i (negationClosure seed) y = true := by
+  have hfixed := (negationSeededStep_fixed_iff seed y).mp hy
+  exact (negationClosure_le_iff seed y hfixed.1).mpr hfixed.2
+
 def singleton (x : Value) : Lean.Sixteen3 :=
   match x with
   | .N => ⟨true, false, false, false⟩
@@ -262,6 +332,58 @@ theorem SIXTEEN_3_contradiction_contained :
 
 end FDE
 
+namespace NegationSignals
+
+/-- Read each successive negation as its own tick. -/
+def orbit (seed : Lean.Sixteen3) : Signal Lean.Sixteen3 :=
+  feedback FDE.liftNegation seed
+
+theorem orbit_period_two (seed : Lean.Sixteen3) (n : Nat) :
+    orbit seed (n + 2) = orbit seed n := by
+  change FDE.liftNegation (FDE.liftNegation (orbit seed n)) = orbit seed n
+  exact FDE.liftNegation_involutive _
+
+theorem orbit_closure (seed : Lean.Sixteen3) (n : Nat) :
+    FDE.negationClosure (orbit seed n) = FDE.negationClosure seed := by
+  induction n with
+  | zero => rfl
+  | succ n ih =>
+      change FDE.negationClosure (FDE.liftNegation (orbit seed n)) =
+        FDE.negationClosure seed
+      rw [FDE.negationClosure_negation, ih]
+
+/-- Holding any two adjacent ticks recovers the same negation closure. -/
+theorem adjacent_ticks_hold_closure (seed : Lean.Sixteen3) (n : Nat) :
+    Lean.Sixteen3.join_i (orbit seed n) (orbit seed (n + 1)) =
+      FDE.negationClosure seed := by
+  exact orbit_closure seed n
+
+/-- Unfold the retained-seed feedback map from information bottom. -/
+def seededFeedback (seed : Lean.Sixteen3) : Signal Lean.Sixteen3 :=
+  feedback (FDE.negationSeededStep seed) Lean.Sixteen3.none
+
+theorem seededFeedback_one (seed : Lean.Sixteen3) :
+    seededFeedback seed 1 = seed := by
+  rcases seed with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+theorem seededFeedback_two (seed : Lean.Sixteen3) :
+    seededFeedback seed 2 = FDE.negationClosure seed := by
+  rcases seed with ⟨n, t, f, b⟩
+  cases n <;> cases t <;> cases f <;> cases b <;> rfl
+
+/-- Every retained-seed feedback trace settles after at most two unfoldings. -/
+theorem seededFeedback_settled (seed : Lean.Sixteen3) (n : Nat) :
+    seededFeedback seed (n + 2) = FDE.negationClosure seed := by
+  induction n with
+  | zero => exact seededFeedback_two seed
+  | succ n ih =>
+      change FDE.negationSeededStep seed (seededFeedback seed (n + 2)) =
+        FDE.negationClosure seed
+      rw [ih, FDE.negationSeededStep_closure_fixed]
+
+end NegationSignals
+
 namespace KernelReentry
 
 open Lean
@@ -278,6 +400,14 @@ reentry negationReentry (x : Sixteen3) : Sixteen3 :=
 reentry dialetheicNegationReentry (x : Sixteen3) : Sixteen3 :=
   Sixteen3.join_i (FDE.liftNegation x) (FDE.singleton .B)
 
+/-- A T seed re-enters as the subset containing both T and F. -/
+reentry truthNegationReentry (x : Sixteen3) : Sixteen3 :=
+  FDE.negationSeededStep (FDE.singleton .T) x
+
+/-- The unknown FOUR member stays present as its own negation-fixed singleton. -/
+reentry unknownNegationReentry (x : Sixteen3) : Sixteen3 :=
+  FDE.negationSeededStep (FDE.singleton .N) x
+
 disable_trilattice
 
 theorem negationReentry_value :
@@ -292,6 +422,18 @@ theorem dialetheicNegationReentry_value :
 theorem dialetheicNegationReentry_fixed :
     Sixteen3.join_i (FDE.liftNegation dialetheicNegationReentry)
       (FDE.singleton .B) = dialetheicNegationReentry := rfl
+
+theorem truthNegationReentry_value :
+    truthNegationReentry = Sixteen3.ofBelnap false true true false := rfl
+
+theorem truthNegationReentry_is_closure :
+    truthNegationReentry = FDE.negationClosure (FDE.singleton .T) := rfl
+
+theorem unknownNegationReentry_is_closure :
+    unknownNegationReentry = FDE.negationClosure (FDE.singleton .N) := rfl
+
+theorem dialetheicNegationReentry_is_closure :
+    dialetheicNegationReentry = FDE.negationClosure (FDE.singleton .B) := rfl
 
 end KernelReentry
 
