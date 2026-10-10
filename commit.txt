@@ -1,5 +1,3 @@
-I certify both fixed-point endpoints and integrate my re-entry guides
+I render my integrated READMEs with the canonical fonts
 
-I compute greatest information fixed points through the native solver on the dual table, validate them against the original program, and certify endpoint enclosure, uniqueness, and descending feedback. I share the table helpers with the least-point bridge and prove seeded ceilings for all native lattice operations.
-
-I rewrite the kernel and corpus READMEs around the current architecture, executable examples, and sequential single-worker checks. I retain passing endpoint, regression, and README example records.
+I generate both README PDFs from their canonical Markdown sources, select Trabajo for Shavian catalog addresses, and supply the primitive glyph mappings. I retain the successful render log, embedded font inventory, and visual control.
