@@ -60,6 +60,48 @@ theorem compose_assoc {α : Type u} {β : Type v} {γ : Type w} {δ : Type _}
     (f : Signal γ → Signal δ) (g : Signal β → Signal γ) (h : Signal α → Signal β) :
     compose (compose f g) h = compose f (compose g h) := rfl
 
+namespace Combinators
+
+/-- The identity combinator. -/
+def I {α : Type u} (x : α) : α := x
+
+/-- The constant-function combinator. -/
+def K {α : Type u} {β : Type v} (x : α) (_ : β) : α := x
+
+/-- The substitution combinator. -/
+def S {α : Type u} {β : Type v} {γ : Type w}
+    (f : α → β → γ) (g : α → β) (x : α) : γ := f x (g x)
+
+theorem I_apply {α : Type u} (x : α) : I x = x := rfl
+
+theorem K_apply {α : Type u} {β : Type v} (x : α) (y : β) : K x y = x := rfl
+
+theorem S_apply {α : Type u} {β : Type v} {γ : Type w}
+    (f : α → β → γ) (g : α → β) (x : α) : S f g x = f x (g x) := rfl
+
+theorem S_K_K_identity {α : Type u} (x : α) :
+    S (K (α := α) (β := α → α))
+      (K (α := α → α) (β := α) I) x = x := rfl
+
+/-- A Y-style fixed-point unfolding indexed by ticks. Each stage applies the
+    functional once to the preceding approximation. -/
+def yUnfolding {α : Type u} (f : α → α) (seed : α) : Signal α :=
+  feedback f seed
+
+theorem yUnfolding_step {α : Type u} (f : α → α) (seed : α) (n : Nat) :
+    yUnfolding f seed (n + 1) = f (yUnfolding f seed n) := rfl
+
+/-- If adjacent approximants agree, their shared value is a fixed point. -/
+theorem yUnfolding_stable_is_fixed {α : Type u} (f : α → α) (seed : α) (n : Nat)
+    (h : yUnfolding f seed (n + 1) = yUnfolding f seed n) :
+    f (yUnfolding f seed n) = yUnfolding f seed n := by
+  calc
+    f (yUnfolding f seed n) = yUnfolding f seed (n + 1) :=
+      (yUnfolding_step f seed n).symm
+    _ = yUnfolding f seed n := h
+
+end Combinators
+
 /-- An oscillator started at true and negated once on every tick. -/
 def liarOscillator : Signal Belnap := feedback bnot Belnap.T
 

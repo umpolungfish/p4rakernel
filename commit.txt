@@ -1,3 +1,3 @@
-I generalize the tick combinators over value types
+I add SKI and tick-indexed fixed-point combinators
 
-I make signals, mapping, composition, delay, feedback, and bisimulation polymorphic so the clocked fixed-point construction is reusable beyond Belnap FOUR.
+I formalize typed S, K, and identity combinators and a computable Y-style unfolding whose stable consecutive stages prove a fixed-point equation.
