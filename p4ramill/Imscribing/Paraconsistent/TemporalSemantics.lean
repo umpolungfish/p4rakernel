@@ -1,12 +1,15 @@
 import Imscribing.Paraconsistent.Belnap
+import Init.Internal.Order.Basic
+import Init.Paraconsistent
 
 /-!
 # Tick-indexed semantics for paraconsistent observations
 
-This module models a recursive observation as a signal indexed by natural
-ticks. It does not change Lean's kernel or make unguarded recursion logically
-transparent. `feedback` is guarded by one tick: each value depends only on the
-previous value.
+This module models recursive observations as signals indexed by natural ticks
+and exposes Lean's chain-complete fixed-point construction as a Y combinator
+for monotone functionals over partial values. Undefined computation is `none`;
+the equation theorem is part of Lean's logic. The FDE layer below carries
+dialetheic fixed points through the kernel's SIXTEEN_3 powerset representation.
 -/
 
 namespace Imscribing.Paraconsistent.Temporal.Semantics
@@ -62,6 +65,27 @@ theorem compose_assoc {α : Type u} {β : Type v} {γ : Type w} {δ : Type _}
 
 namespace Combinators
 
+/-- Scott's least-fixed-point combinator for partial functions. A functional
+    needs only to preserve the approximation order; no structural recursion
+    measure is supplied. The chain-complete function space includes `none` as
+    the undefined approximation. -/
+noncomputable def Y {α : Type u} {β : Type v}
+    (F : (α → Option β) → α → Option β)
+    (hF : Lean.Order.monotone F) : α → Option β :=
+  Lean.Order.fix F hF
+
+theorem Y_unfold {α : Type u} {β : Type v}
+    (F : (α → Option β) → α → Option β)
+    (hF : Lean.Order.monotone F) :
+    Y F hF = F (Y F hF) :=
+  Lean.Order.fix_eq hF
+
+theorem Y_unfold_apply {α : Type u} {β : Type v}
+    (F : (α → Option β) → α → Option β)
+    (hF : Lean.Order.monotone F) (x : α) :
+    Y F hF x = F (Y F hF) x :=
+  congrFun (Y_unfold F hF) x
+
 /-- The identity combinator. -/
 def I {α : Type u} (x : α) : α := x
 
@@ -101,6 +125,256 @@ theorem yUnfolding_stable_is_fixed {α : Type u} (f : α → α) (seed : α) (n 
     _ = yUnfolding f seed n := h
 
 end Combinators
+
+namespace FDE
+
+/-- The kernel's Belnap FOUR values, used as the atoms of SIXTEEN_3. -/
+abbrev Value := _root_.Paraconsistent.Belnap
+
+def implication (p q : Value) : Value := _root_.Paraconsistent.Belnap.bimply p q
+
+def designated (p : Value) : Bool :=
+  match p with
+  | .T | .B => true
+  | .N | .F => false
+
+theorem B_implies_B : implication .B .B = .B := by decide
+
+theorem B_modus_ponens_B :
+    _root_.Paraconsistent.Belnap.band .B (implication .B .B) = .B := by decide
+
+/-- Under the fork's material implication `¬p ∨ q`, designated premises at
+    `p = B`, `q = F` do not designate the conclusion. -/
+theorem material_implication_MP_counterexample :
+    designated .B = true ∧
+    designated (implication .B .F) = true ∧
+    designated .F = false := by decide
+
+theorem contradiction_is_contained :
+    _root_.Paraconsistent.Belnap.band .B (_root_.Paraconsistent.Belnap.bnot .B) = .B ∧
+    _root_.Paraconsistent.Belnap.B ≠ _root_.Paraconsistent.Belnap.F := by decide
+
+private def atoms : List Value := [.N, .T, .F, .B]
+
+def contains (x : Lean.Sixteen3) : Value → Bool
+  | .N => x.hasN
+  | .T => x.hasT
+  | .F => x.hasF
+  | .B => x.hasB
+
+/-- Lift a FOUR operation to SIXTEEN_3 by taking the direct image of the
+    cartesian product of the two evidence sets. -/
+def liftBinary (op : Value → Value → Value)
+    (x y : Lean.Sixteen3) : Lean.Sixteen3 := Id.run do
+  let hasResult (r : Value) := atoms.any fun a =>
+    contains x a && atoms.any (fun b => contains y b && op a b == r)
+  return ⟨hasResult .N, hasResult .T, hasResult .F, hasResult .B⟩
+
+def liftNegation (x : Lean.Sixteen3) : Lean.Sixteen3 :=
+  ⟨x.hasN, x.hasF, x.hasT, x.hasB⟩
+
+def singleton (x : Value) : Lean.Sixteen3 :=
+  match x with
+  | .N => ⟨true, false, false, false⟩
+  | .T => ⟨false, true, false, false⟩
+  | .F => ⟨false, false, true, false⟩
+  | .B => ⟨false, false, false, true⟩
+
+def designated16 (x : Lean.Sixteen3) : Bool := x.hasT || x.hasB
+
+theorem liftNegation_singleton (p : Value) :
+    liftNegation (singleton p) = singleton (_root_.Paraconsistent.Belnap.bnot p) := by
+  cases p <;> decide
+
+theorem liftBimply_B_B :
+    liftBinary _root_.Paraconsistent.Belnap.bimply (singleton .B) (singleton .B) =
+      singleton .B := by decide
+
+theorem liftBimply_B_F :
+    liftBinary _root_.Paraconsistent.Belnap.bimply (singleton .B) (singleton .F) =
+      singleton .B := by decide
+
+theorem B_modus_ponens_in_SIXTEEN_3 :
+    liftBinary _root_.Paraconsistent.Belnap.band (singleton .B)
+      (liftBinary _root_.Paraconsistent.Belnap.bimply (singleton .B) (singleton .B)) =
+        singleton .B := by decide
+
+theorem material_implication_MP_counterexample_in_SIXTEEN_3 :
+    designated16 (singleton .B) = true ∧
+    designated16 (liftBinary _root_.Paraconsistent.Belnap.bimply
+      (singleton .B) (singleton .F)) = true ∧
+    designated16 (singleton .F) = false := by
+  decide
+
+theorem SIXTEEN_3_contradiction_contained :
+    liftBinary _root_.Paraconsistent.Belnap.band (singleton .B)
+      (liftNegation (singleton .B)) = singleton .B ∧
+    singleton .B ≠ singleton .F := by
+  decide
+
+end FDE
+
+namespace KernelReentry
+
+open Lean
+
+enable_trilattice
+
+/-- Kernel-native re-entry feeds SIXTEEN_3 negation back together with the
+    B evidence. The least information fixed point is the singleton B state. -/
+reentry dialetheicNegationReentry (x : Sixteen3) : Sixteen3 :=
+  Sixteen3.join_i (FDE.liftNegation x) (FDE.singleton .B)
+
+disable_trilattice
+
+theorem dialetheicNegationReentry_value :
+    dialetheicNegationReentry = FDE.singleton .B := rfl
+
+theorem dialetheicNegationReentry_fixed :
+    Sixteen3.join_i (FDE.liftNegation dialetheicNegationReentry)
+      (FDE.singleton .B) = dialetheicNegationReentry := rfl
+
+end KernelReentry
+
+namespace DialetheicY
+
+open Lean.Order
+
+/-- A recursive stream functional that seeds the first tick with the FDE glut
+    and obtains every later tick from its predecessor. -/
+def BStreamFunctional (s : Nat → Option FDE.Value) : Nat → Option FDE.Value
+  | 0 => some .B
+  | n + 1 => s n
+
+theorem BStreamFunctional_monotone : monotone BStreamFunctional := by
+  intro s t h n
+  cases n with
+  | zero => exact PartialOrder.rel_refl
+  | succ n => exact h n
+
+/-- The Y-combinator fixed point of the B-seeded recursive stream. -/
+noncomputable def BStream : Nat → Option FDE.Value :=
+  Combinators.Y BStreamFunctional BStreamFunctional_monotone
+
+theorem BStream_unfold :
+    BStream = BStreamFunctional BStream :=
+  Combinators.Y_unfold BStreamFunctional BStreamFunctional_monotone
+
+theorem BStream_zero : BStream 0 = some .B := by
+  calc
+    BStream 0 = BStreamFunctional BStream 0 := congrFun BStream_unfold 0
+    _ = some .B := rfl
+
+theorem BStream_succ (n : Nat) : BStream (n + 1) = BStream n := by
+  calc
+    BStream (n + 1) = BStreamFunctional BStream (n + 1) :=
+      congrFun BStream_unfold (n + 1)
+    _ = BStream n := rfl
+
+theorem BStream_all_B (n : Nat) : BStream n = some .B := by
+  induction n with
+  | zero => exact BStream_zero
+  | succ n ih => rw [BStream_succ, ih]
+
+end DialetheicY
+
+namespace UntypedLambda
+
+/-- Terms of the untyped lambda calculus, represented with named variables. -/
+inductive Term where
+  | var : Nat → Term
+  | app : Term → Term → Term
+  | lam : Nat → Term → Term
+  deriving DecidableEq, Repr
+
+open Term
+
+/-- Free occurrence of a variable. A binder removes its name from the body. -/
+def HasFree (name : Nat) : Term → Prop
+  | .var other => name = other
+  | .app f x => HasFree name f ∨ HasFree name x
+  | .lam binder body => binder ≠ name ∧ HasFree name body
+
+def Closed (t : Term) : Prop := ∀ name, ¬ HasFree name t
+
+/-- Substitution with shadowing. The Y laws below apply to closed arguments,
+    for which substitution cannot capture a free variable. -/
+def subst (target : Nat) (replacement : Term) : Term → Term
+  | .var name => if name = target then replacement else .var name
+  | .app f x => .app (subst target replacement f) (subst target replacement x)
+  | .lam binder body =>
+      if binder = target then .lam binder body
+      else .lam binder (subst target replacement body)
+
+theorem subst_irrelevant (target : Nat) (replacement : Term) (t : Term)
+    (h : ¬ HasFree target t) : subst target replacement t = t := by
+  induction t with
+  | var name =>
+      by_cases heq : name = target
+      · simp [HasFree, heq] at h
+      · simp [subst, heq]
+  | app f x ihf ihx =>
+      have hf : ¬ HasFree target f := by
+        intro hfree
+        exact h (Or.inl hfree)
+      have hx : ¬ HasFree target x := by
+        intro hfree
+        exact h (Or.inr hfree)
+      simp [subst, ihf hf, ihx hx]
+  | lam binder body ih =>
+      by_cases heq : binder = target
+      · simp [subst, heq]
+      · have hbody : ¬ HasFree target body := by
+          intro hfree
+          exact h ⟨heq, hfree⟩
+        simp [subst, heq, ih hbody]
+
+/-- Contract a beta-redex at the root of a term. -/
+def beta : Term → Option Term
+  | .app (.lam binder body) argument => some (subst binder argument body)
+  | _ => none
+
+/-- The self-application seed `λx. f (x x)`, with `f` at name zero and
+    `x` at name one. -/
+def seed : Term :=
+  .lam 1 (.app (.var 0) (.app (.var 1) (.var 1)))
+
+/-- The untyped Curry fixed-point combinator `λf. D D`. -/
+def Y : Term := .lam 0 (.app seed seed)
+
+def recursiveHalf (F : Term) : Term :=
+  .lam 1 (.app F (.app (.var 1) (.var 1)))
+
+def unfoldState (F : Term) : Term :=
+  .app (recursiveHalf F) (recursiveHalf F)
+
+theorem Y_first_beta (F : Term) :
+    beta (.app Y F) = some (unfoldState F) := by
+  simp [beta, Y, seed, unfoldState, recursiveHalf, subst]
+
+theorem Y_second_beta (F : Term) (hF : Closed F) :
+    beta (unfoldState F) = some (.app F (unfoldState F)) := by
+  have hstable : subst 1 (recursiveHalf F) F = F :=
+    subst_irrelevant 1 (recursiveHalf F) F (hF 1)
+  have hcontract :
+      subst 1 (recursiveHalf F)
+        (.app F (.app (.var 1) (.var 1))) =
+        .app (subst 1 (recursiveHalf F) F)
+          (.app (recursiveHalf F) (recursiveHalf F)) := rfl
+  change some (subst 1 (recursiveHalf F)
+      (.app F (.app (.var 1) (.var 1)))) =
+    some (.app F (unfoldState F))
+  rw [hcontract, hstable]
+  rfl
+
+/-- Every closed untyped functional unfolds through Y's self-application to
+    the equation `Y F ↦ F (Y F)` in two root beta steps. -/
+theorem Y_unfolds (F : Term) (hF : Closed F) :
+    ∃ middle, beta (.app Y F) = some middle ∧
+      beta middle = some (.app F middle) := by
+  exact ⟨unfoldState F, Y_first_beta F, Y_second_beta F hF⟩
+
+end UntypedLambda
 
 /-- An oscillator started at true and negated once on every tick. -/
 def liarOscillator : Signal Belnap := feedback bnot Belnap.T
