@@ -15,6 +15,7 @@
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Millennium.JacobianCounterexample
 import Mathlib.Algebra.Field.Basic
 import Mathlib.Algebra.CharZero.Defs
 
@@ -53,13 +54,11 @@ We define this axiomatically — the Weyl algebra as a concrete Ore extension
 of k[x₁,…,xₙ] is not yet available in Mathlib v4.28. -/
 axiom DixmierConjecture (k : Type) (n : ℕ) [Field k] [CharZero k] : Prop
 
-/-- The Jacobian Conjecture statement (also an axiom here — MathlibGap). -/
-axiom JacobianConjecture (k : Type) (n : ℕ) [Field k] [CharZero k] : Prop
-
-/-- Tsuchimoto / Belov-Kanel–Kontsevich: Dixmier (stable) ↔ Jacobian.
-    Status: proved in the literature; not formalized in Mathlib. -/
+/-- The literature relates Dixmier and Jacobian conjectures through stable
+equivalence. This project has not formalized that equivalence; in particular,
+do not infer a Dixmier result from the dimension-three Jacobian counterexample. -/
 axiom dixmier_equiv_jacobian (k : Type) (n : ℕ) [Field k] [CharZero k] :
-  DixmierConjecture k n ↔ JacobianConjecture k n
+  DixmierConjecture k n ↔ JacobianCounterexample.JacobianConjecture k n
 -- ============================================================
 -- §2  The Vessel — Structural Imscription
 -- ============================================================
@@ -250,13 +249,14 @@ HONEST SORRY / GAP MARKERS:
 1. **DixmierConjecture (axiom)**: The conjecture is stated as an `axiom` because
    no proof exists. Status: OpenProblem (since 1968).
 
-2. **JacobianConjecture (axiom)**: Also open; stated axiomatically.
-   Status: OpenProblem.
+2. **JacobianConjecture**: Formalized as the injectivity consequence of a
+   nonzero constant Jacobian condition. It is refuted in dimension three by
+   `Millennium.JacobianCounterexample.jacobianConjecture_false`.
 
-3. **dixmier_equiv_jacobian (axiom)**: Tsuchimoto (2005) and Belov-Kanel–Kontsevich
-   (2007) proved the stable equivalence. This is a theorem in the literature but
-   not formalized here — requires Ore extensions + algebraic geometry in Mathlib.
-   Status: MathlibGap.
+3. **dixmier_equiv_jacobian (axiom)**: This same-rank biconditional remains an
+   unproved placeholder. The literature proves stable equivalences, which do
+   not justify this axiom as written. Do not use it to infer a dimension-three
+   Dixmier counterexample.
 
 4. **Weyl algebra construction**: The Weyl algebra as a concrete Ore extension of
    k[x₁,…,xₙ] by derivations ∂ᵢ = ∂/∂xᵢ is not available in Mathlib v4.28.
