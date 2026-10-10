@@ -17,10 +17,10 @@
     "command": [
       "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
       "-o",
-      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Lean/Expr/Basic.olean",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/ns_kernel_reentry_20261009/lib/lean/Mathlib/Lean/Expr/Basic.olean",
       "Mathlib/Lean/Expr/Basic.lean"
     ],
-    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib",
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/measurements/ns_kernel_reentry_20261009/native_source",
     "exit_code": 0,
     "diagnostics": []
   },
@@ -29,7 +29,7 @@
     "command": [
       "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
       "-o",
-      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_Reentry.olean",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/ns_kernel_reentry_20261009/lib/lean/Imscribing/NS_Reentry.olean",
       "Imscribing/NS_Reentry.lean"
     ],
     "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
@@ -41,7 +41,7 @@
     "command": [
       "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
       "-o",
-      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_InjectionField.olean",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/ns_kernel_reentry_20261009/lib/lean/Imscribing/NS_InjectionField.olean",
       "Imscribing/NS_InjectionField.lean"
     ],
     "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
@@ -53,7 +53,7 @@
     "command": [
       "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
       "-o",
-      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_KernelReentry.olean",
+      "/home/mrnob0dy666/imsgct/p4rakernel/measurements/ns_kernel_reentry_20261009/lib/lean/Imscribing/NS_KernelReentry.olean",
       "Imscribing/NS_KernelReentry.lean"
     ],
     "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",

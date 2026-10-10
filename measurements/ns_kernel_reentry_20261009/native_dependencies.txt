@@ -1,0 +1,2 @@
+mathlib cdcb2305cfbfcd748fd4a3a7c92fb00183e05e6c I integrate my native re-entry declarations into mathlib
+batteries 01a7fb463280088418cdf2969a9bb6301799bb64 I traverse my native re-entry payloads in Batteries utilities

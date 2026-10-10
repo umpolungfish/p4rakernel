@@ -1,0 +1,57 @@
+diff --git a/Mathlib/Lean/Expr/Basic.lean b/Mathlib/Lean/Expr/Basic.lean
+index 23ad81fe00..9efde06113 100644
+--- a/Mathlib/Lean/Expr/Basic.lean
++++ b/Mathlib/Lean/Expr/Basic.lean
+@@ -129,6 +129,7 @@ def updateConstantVal : ConstantInfo → ConstantVal → ConstantInfo
+   | inductInfo info, v => inductInfo {info with toConstantVal := v}
+   | ctorInfo   info, v => ctorInfo   {info with toConstantVal := v}
+   | recInfo    info, v => recInfo    {info with toConstantVal := v}
++  | reentryInfo info, v => reentryInfo {info with toConstantVal := v}
+ 
+ /-- Update the name of a `ConstantInfo`. -/
+ def updateName (c : ConstantInfo) (name : Name) : ConstantInfo :=
+@@ -156,6 +157,7 @@ def toDeclaration! : ConstantInfo → Declaration
+   | thmInfo    info => Declaration.thmDecl     info
+   | axiomInfo  info => Declaration.axiomDecl   info
+   | opaqueInfo info => Declaration.opaqueDecl  info
++  | reentryInfo info => Declaration.reentryDecl info
+   | quotInfo   _ => panic! "toDeclaration for quotInfo not implemented"
+   | inductInfo _ => panic! "toDeclaration for inductInfo not implemented"
+   | ctorInfo   _ => panic! "toDeclaration for ctorInfo not implemented"
+diff --git a/Mathlib/Util/Export.lean b/Mathlib/Util/Export.lean
+index f948bf6242..268c73026e 100644
+--- a/Mathlib/Util/Export.lean
++++ b/Mathlib/Util/Export.lean
+@@ -154,6 +154,7 @@ partial def exportDef (n : Name) : ExportM Unit := do
+   | defnInfo    val => defn "#DEF" val.name val.type val.value val.levelParams
+   | thmInfo     val => defn "#THM" val.name val.type val.value val.levelParams
+   | opaqueInfo  val => defn "#CN" val.name val.type val.value val.levelParams
++  | reentryInfo val => defn "#DEF" val.name val.type val.getSix3 val.levelParams
+   | quotInfo    _ =>
+     IO.println "#QUOT"
+     for n in [``Quot, ``Quot.mk, ``Quot.lift, ``Quot.ind] do
+diff --git a/Mathlib/Util/PrintSorries.lean b/Mathlib/Util/PrintSorries.lean
+index 24d72cc680..62d5000285 100644
+--- a/Mathlib/Util/PrintSorries.lean
++++ b/Mathlib/Util/PrintSorries.lean
+@@ -101,6 +101,7 @@ partial def collect (c : Name) : StateT State MetaM Unit := do
+     | some (.defnInfo v)   => collectExpr v.type *> collectExpr v.value
+     | some (.thmInfo v)    => collectExpr v.type *> collectExpr v.value
+     | some (.opaqueInfo v) => collectExpr v.type *> collectExpr v.value
++    | some (.reentryInfo v) => collectExpr v.type *> collectExpr v.getSix3
+     | some (.quotInfo _)   => pure ()
+     | some (.ctorInfo v)   => collectExpr v.type
+     | some (.recInfo v)    => collectExpr v.type
+diff --git a/Mathlib/Util/WhatsNew.lean b/Mathlib/Util/WhatsNew.lean
+index fa72c33203..1232f494b2 100644
+--- a/Mathlib/Util/WhatsNew.lean
++++ b/Mathlib/Util/WhatsNew.lean
+@@ -74,6 +74,8 @@ private def printIdCore (id : Name) : ConstantInfo → CoreM MessageData
+     printDefLike "def" id us t v s
+   | ConstantInfo.thmInfo { levelParams := us, type := t, value := v, .. } =>
+     printDefLike "theorem" id us t v
++  | ConstantInfo.reentryInfo v =>
++    printDefLike "reentry" id v.levelParams v.type v.getSix3
+   | ConstantInfo.opaqueInfo { levelParams := us, type := t, isUnsafe := u, .. } =>
+     mkHeader' "constant" id us t u
+   | ConstantInfo.quotInfo { levelParams := us, type := t, .. } =>
