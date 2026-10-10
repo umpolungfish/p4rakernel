@@ -11,13 +11,9 @@ namespace Imscribing.NSReentry
 
 open Lean Imscribing.CircumPunctum
 
-enable_trilattice
-
 /-- Native least fixed point of information feedback retaining the B member. -/
 reentry nativeHeld (f : Sixteen3) : Sixteen3 :=
   Sixteen3.join_i f (Sixteen3.ofBelnap false false false true)
-
-disable_trilattice
 
 theorem nativeHeld_value :
     nativeHeld = Sixteen3.ofBelnap false false false true := rfl

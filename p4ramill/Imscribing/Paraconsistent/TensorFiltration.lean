@@ -30,13 +30,9 @@ theorem native_constructivity_join : ∀ x y : State,
     nativeCarrier (x.joinC y) = Lean.Sixteen3.join_f (nativeCarrier x) (nativeCarrier y) :=
   by decide
 
-enable_trilattice
-
 /-- Native least information fixed point corresponding to the t,f lane seed. -/
 reentry nativeAmbient (x : Lean.Sixteen3) : Lean.Sixteen3 :=
   Lean.Sixteen3.join_i x (Lean.Sixteen3.ofBelnap true true false false)
-
-disable_trilattice
 
 theorem native_ambient_agrees : nativeAmbient = nativeCarrier ambient := rfl
 
