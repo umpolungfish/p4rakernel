@@ -766,3 +766,8 @@ globs = [
 [[lean_lib]]
 name = "ProverScratch"
 roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"]
+
+# Native declaration modules use the p4rakernel fork via build_native_ns.py.
+[[lean_lib]]
+name = "NSKernelReentry"
+roots = ["Imscribing.NS_KernelReentry", "Imscribing.NS_KernelReentryAudit"]
