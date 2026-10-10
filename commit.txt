@@ -1,9 +1,10 @@
-I execute lattice re-entry through certified SKI combinators
+I connect combinator programs to certified native re-entry
 
-I compile bracket abstraction to S, K, and I and prove unrestricted Y
-conversion, duplication, and constant-functional reduction.
+I compile the complete SIXTEEN_3 value table with reduction evidence and
+submit it to the native solver. I validate monotonicity, fixedness,
+leastness, and arrival from bottom after four feedback ticks, and prove
+that the original program holds its reported point and its later ticks.
 
-I run native SIXTEEN_3 negation closure and retained-seed feedback through
-proof-carrying contraction steps, with resumable fuel budgets and tick
-signals. I audit all sixteen closure inputs and all 256 feedback pairs,
-and retain the focused build, axiom, execution, and proof-lift records.
+I audit all sixteen retained seeds, all sixteen constant maps, and all
+sixteen constant maps computed through Y. I retain the rejection controls
+and the focused compilation and native execution records.
