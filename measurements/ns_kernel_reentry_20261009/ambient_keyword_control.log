@@ -1,0 +1,12 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+ℹ [617/619] Replayed Imscribing.Primitives.Imscription
+info: Imscribing/Primitives/Imscription.lean:476:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+info: Imscribing/Primitives/Imscription.lean:670:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+✔ [619/619] Built Imscribing.Paraconsistent.ParaconsistentAmbient (8.4s)
+Build completed successfully (619 jobs).

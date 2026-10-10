@@ -1,0 +1,48 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+ℹ [3349/3367] Replayed Imscribing.Primitives.Imscription
+info: Imscribing/Primitives/Imscription.lean:476:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+info: Imscribing/Primitives/Imscription.lean:670:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+✔ [3365/3367] Built Imscribing.Millennium.ZetaSICDualFrame (31s)
+ℹ [3366/3367] Built Imscribing.Millennium.ZetaSICDualFrameAudit (124s)
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:5:0: 'Imscribing.Millennium.ZetaSICDualFrame.zeta_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:6:0: 'Imscribing.Millennium.ZetaSICDualFrame.tetra_dual_left_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:7:0: 'Imscribing.Millennium.ZetaSICDualFrame.tetra_dual_right_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:8:0: 'Imscribing.Millennium.ZetaSICDualFrame.tetra_coordinate_reconstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:9:0: 'Imscribing.Millennium.ZetaSICDualFrame.analytic_dual_frame_witness' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:10:0: 'Imscribing.Millennium.ZetaSICDualFrame.twelve_dual_left_inverse' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:11:0: 'Imscribing.Millennium.ZetaSICDualFrame.twelve_coordinate_reconstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:12:0: 'Imscribing.Millennium.ZetaSICDualFrame.stranded_frame_weight' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:13:0: 'Imscribing.Millennium.ZetaSICDualFrame.final_fuse_recovers_four' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:14:0: 'Imscribing.Millennium.ZetaSICDualFrame.enclosing_repair_preserves_total' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:16:0: "⊢≻⊤⋈∈⊤⊥⊞∋≺⊙⊡⊣"
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:17:0: "⊢∋⊤⋈∈⊤⊥⊞≻≺⊙⊡⊣"
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:18:0: [2, 1, 1, 1]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:19:0: [0, 0, 0, 0]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:20:0: some [1, 1, 1, 1]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:21:0: [1, 1, 1, 1]
+info: Imscribing/Millennium/ZetaSICDualFrameAudit.lean:22:0: [2, 1, 1, 1]
+Build completed successfully (3367 jobs).
