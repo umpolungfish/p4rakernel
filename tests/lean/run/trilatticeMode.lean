@@ -2,8 +2,14 @@ import Init.Paraconsistent
 
 open Lean
 
+run_cmd do
+  unless (← getEnv).isTrilattice do
+    throwError "SIXTEEN_3 must be the default kernel mode"
+
+disable_trilattice
 inductive EmptyParameter (n : Nat) : Prop
 inductive EmptyIndex : Nat → Prop
+enable_trilattice
 
 -- Check the native kernel with the same raw False recursor in all four flag states.
 run_elab do
@@ -61,6 +67,8 @@ run_elab do
           !env.unmarkParaconsistent.isParaconsistent &&
           env.unmarkParaconsistent.holdsContradictions == tri do
         throwError "kernel mode disable round trip failed"
+
+disable_trilattice
 
 /-- error: re-entry declarations require paraconsistent or SIXTEEN_3 mode -/
 #guard_msgs in

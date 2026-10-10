@@ -254,7 +254,7 @@ structure Environment where
   -/
   paraconsistent : Bool := false
   /--
-  When `trilattice = true`, the kernel operates in SIXTEEN_3 trilattice mode:
+  The default `trilattice = true` makes the kernel operate in SIXTEEN_3 mode:
   Shramko-Wansing's trilattice on the POWERSET of Belnap FOUR — sixteen values
   carrying three interlocking orders (truth ≤_t, falsity ≤_f, information ≤_i).
   FOUR's single truth order SPLITS: truth and falsity become independent axes
@@ -265,9 +265,9 @@ structure Environment where
   cannot carry them. `trilattice` therefore ENTAILS `paraconsistent` at every
   enforcement point (see `holds_contradictions` / `environment::holds_contradictions`
   in the C++ kernel); the two are separate flags, not a ladder, so an environment
-  may hold contradictions in FOUR without being in SIXTEEN_3.
+  may explicitly hold contradictions in FOUR after opting out of SIXTEEN_3.
   -/
-  trilattice : Bool := false
+  trilattice : Bool := true
   /--
   Diagnostic information collected during kernel execution.
 
@@ -723,7 +723,7 @@ def markParaconsistent (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.markParaconsistent
   { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.markParaconsistent }
 
-/-- Deactivates paraconsistent mode: restores ordinary ex falso for subsequent declarations. -/
+/-- Clears the separate paraconsistent flag; SIXTEEN_3 still entails the guard. -/
 def unmarkParaconsistent (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.unmarkParaconsistent
   { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.unmarkParaconsistent }

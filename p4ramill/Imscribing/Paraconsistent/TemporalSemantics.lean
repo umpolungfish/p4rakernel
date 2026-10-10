@@ -388,8 +388,6 @@ namespace KernelReentry
 
 open Lean
 
-enable_trilattice
-
 /-- Native re-entry computes the least information fixed point of negation on
     the SIXTEEN_3 powerset. Its value is the empty subset. -/
 reentry negationReentry (x : Sixteen3) : Sixteen3 :=
@@ -407,8 +405,6 @@ reentry truthNegationReentry (x : Sixteen3) : Sixteen3 :=
 /-- The unknown FOUR member stays present as its own negation-fixed singleton. -/
 reentry unknownNegationReentry (x : Sixteen3) : Sixteen3 :=
   FDE.negationSeededStep (FDE.singleton .N) x
-
-disable_trilattice
 
 theorem negationReentry_value :
     negationReentry = Sixteen3.none := rfl

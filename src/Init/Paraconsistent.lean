@@ -16,11 +16,12 @@ Usage:
   enable_paraconsistent    -- toggles the *elaboration environment*, not just a banner
   -- False.elim / False.rec / absurd on `False` now rejected by the kernel
   -- for every declaration elaborated from here on in this file.
-  disable_paraconsistent   -- toggle back to ordinary ex falso
+  disable_paraconsistent   -- clear this flag; SIXTEEN_3 still blocks explosion
 
-  enable_trilattice        -- SIXTEEN_3: the trilattice on the powerset of FOUR
+  -- SIXTEEN_3 is active by default in every new kernel environment.
+  enable_trilattice        -- explicitly restore SIXTEEN_3 after an opt-out
   -- entails paraconsistent at the kernel (eight of the sixteen contain B)
-  disable_trilattice       -- back to FOUR
+  disable_trilattice       -- explicit opt-out to FOUR
   #is_trilattice           -- query the mode
 
 The kernel rejects, while paraconsistent mode is on:
@@ -33,7 +34,7 @@ negation can be held without everything becoming provable.
 
 SIXTEEN_3 TRILATTICE MODE
 
-`enable_trilattice` puts the kernel in Shramko-Wansing's SIXTEEN_3: the trilattice
+The default kernel environment uses Shramko-Wansing's SIXTEEN_3: the trilattice
 on P(FOUR), sixteen values carrying three interlocking orders — truth ≤_t, falsity
 ≤_f, information ≤_i. FOUR's single truth order SPLITS: truth and falsity stop being
 each other's complement and become independent axes. That split is what the extra
@@ -63,10 +64,10 @@ elab "enable_paraconsistent" : command => do
   modifyEnv Lean.Environment.markParaconsistent
   logInfo "[Paraconsistent] Kernel mode activated — principle of explosion disabled."
 
-/-- Deactivate paraconsistent mode: restores ordinary ex falso for declarations elaborated after this point. -/
+/-- Clear the separate paraconsistent flag; SIXTEEN_3 still blocks explosion while active. -/
 elab "disable_paraconsistent" : command => do
   modifyEnv Lean.Environment.unmarkParaconsistent
-  logInfo "[Paraconsistent] Kernel mode deactivated — principle of explosion restored."
+  logInfo "[Paraconsistent] Separate flag deactivated; SIXTEEN_3 still blocks explosion if active."
 
 /-- Report whether the current environment is in paraconsistent mode. -/
 elab "#is_paraconsistent" : command => do
@@ -74,7 +75,7 @@ elab "#is_paraconsistent" : command => do
   logInfo s!"paraconsistent = {env.isParaconsistent}"
 
 /--
-Activate SIXTEEN_3 trilattice mode on the current elaboration environment: marks it
+Restore SIXTEEN_3 trilattice mode on the current elaboration environment: marks it
 via `Lean.Environment.markTrilattice`, so subsequent declarations are kernel-checked
 with `trilattice = true`. Entails paraconsistent at the kernel's enforcement points.
 A real toggle, not a banner — `src/kernel/type_checker.cpp` asks
@@ -84,7 +85,7 @@ elab "enable_trilattice" : command => do
   modifyEnv Lean.Environment.markTrilattice
   logInfo "[SIXTEEN_3] Trilattice mode activated — 16 values, three orders; explosion disabled."
 
-/-- Deactivate SIXTEEN_3 trilattice mode. Paraconsistent mode, if separately set, survives. -/
+/-- Explicitly opt out of SIXTEEN_3 mode. Paraconsistent mode, if separately set, survives. -/
 elab "disable_trilattice" : command => do
   modifyEnv Lean.Environment.unmarkTrilattice
   logInfo "[SIXTEEN_3] Trilattice mode deactivated."
