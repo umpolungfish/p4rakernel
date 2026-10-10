@@ -1,3 +1,8 @@
+import Mathlib.Algebra.MvPolynomial.PDeriv
+import Mathlib.Algebra.MvPolynomial.CommRing
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.Tactic
+
 /-!
 An explicit dimension-three counterexample to the Jacobian injectivity claim.
 
@@ -6,11 +11,6 @@ Fable 5 (announced July 2026). This file formalizes the determinant and the
 collision calculation over `ℚ`; it does not formalize the wider geometric
 analysis of the map.
 -/
-
-import Mathlib.Algebra.MvPolynomial.PDeriv
-import Mathlib.Algebra.MvPolynomial.CommRing
-import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
-import Mathlib.Tactic
 
 open MvPolynomial
 
@@ -112,9 +112,16 @@ theorem jacobianConjecture_false : ¬ JacobianConjecture ℚ 3 := by
       fin_cases i <;> fin_cases j <;> rfl
     rw [hmatrix, jacobian_det_eq_neg_two]
   have hinj := hJC F ⟨-2, by norm_num, hdet⟩
+  have h12 := points_collide.1.trans points_collide.2.1.symm
+  have h12' : eval p1 F1 = eval p2 F1 ∧
+      eval p1 F2 = eval p2 F2 ∧ eval p1 F3 = eval p2 F3 := by
+    simpa only [Prod.mk.injEq] using h12
   have hcollision : (fun p i => eval p (F i)) p1 = (fun p i => eval p (F i)) p2 := by
-    change polynomialMap p1 = polynomialMap p2
-    exact map_collision
+    funext i
+    fin_cases i
+    · simpa [F] using h12'.1
+    · simpa [F] using h12'.2.1
+    · simpa [F] using h12'.2.2
   have hp : p1 = p2 := hinj hcollision
   exact points_pairwise_distinct.1 hp
 
