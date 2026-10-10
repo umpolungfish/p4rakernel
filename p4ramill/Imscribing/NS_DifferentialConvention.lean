@@ -9,7 +9,7 @@ open scoped BigOperators
 theorem basis_decomposition (v : Space) :
     ∑ i : Fin 3, v i • basisVector i = v := by
   ext j
-  simp [basisVector, EuclideanSpace.single_apply, Pi.single_apply]
+  simp [basisVector, Pi.single_apply]
 
 /-- The coordinate sum is the full spatial derivative applied to velocity. -/
 theorem transport_eq_spatial_fderiv (u : Velocity) (z : Domain) :
