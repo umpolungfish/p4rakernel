@@ -1009,9 +1009,7 @@ private:
         });
     }
 
-    // python3 -c 'for i in range(1,17): print(f"    static object * stub_{i}_aux(" + ", ".join([f"object * x_{j}" for j in range(1,i+1)]) + ") { object * args[] = { " + ", ".join([f"x_{j}" for j in range(1,i+1)]) + " }; return interpreter::stub_m_aux(args); }")'
-    static object * stub_1_aux(object * x_1) { object * args[] = { x_1 }; return interpreter::stub_m_aux(args); }
-    static object * stub_2_aux(object * x_1, object * x_2) { object * args[] = { x_1, x_2 }; return interpreter::stub_m_aux(args); }
+    // python3 -c 'for i in range(3,17): print(f"    static object * stub_{i}_aux(" + ", ".join([f"object * x_{j}" for j in range(1,i+1)]) + ") { object * args[] = { " + ", ".join([f"x_{j}" for j in range(1,i+1)]) + " }; return interpreter::stub_m_aux(args); }")'
     static object * stub_3_aux(object * x_1, object * x_2, object * x_3) { object * args[] = { x_1, x_2, x_3 }; return interpreter::stub_m_aux(args); }
     static object * stub_4_aux(object * x_1, object * x_2, object * x_3, object * x_4) { object * args[] = { x_1, x_2, x_3, x_4 }; return interpreter::stub_m_aux(args); }
     static object * stub_5_aux(object * x_1, object * x_2, object * x_3, object * x_4, object * x_5) { object * args[] = { x_1, x_2, x_3, x_4, x_5 }; return interpreter::stub_m_aux(args); }
@@ -1029,9 +1027,8 @@ private:
 
     void * get_stub(unsigned params) {
         switch (params) {
-            case 0: lean_unreachable();
-            case 1: return reinterpret_cast<void *>(stub_1_aux);
-            case 2: return reinterpret_cast<void *>(stub_2_aux);
+            // Every interpreter closure captures environment, options, and declaration.
+            case 0: case 1: case 2: lean_unreachable();
             case 3: return reinterpret_cast<void *>(stub_3_aux);
             case 4: return reinterpret_cast<void *>(stub_4_aux);
             case 5: return reinterpret_cast<void *>(stub_5_aux);

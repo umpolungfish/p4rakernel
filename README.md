@@ -51,22 +51,30 @@ bits record whether `N`, `T`, `F`, and `B` occur, giving exactly 16 values.
 The subscript `3` denotes its three interlocking lattice orders; the carrier
 has 16 members.
 The implementation provides truth, falsity, and information orders, with
-information join and meet acting bitwise on the four memberships.
+each order having its own join and meet. Truth compares T/B memberships by
+inclusion and N/F memberships by reverse inclusion. Falsity compares F/B by
+inclusion and N/T by reverse inclusion. Information compares all memberships
+by inclusion. The Lean command module uses the same carrier as the kernel. Mode toggles
+preserve declarations awaiting asynchronous kernel checks. Both recursor
+checking and `casesOn` generation protect empty predicates, including
+predicates with parameters and indices.
+These are the membership orders of [Shramko and Wansing](https://kdpu.edu.ua/shramko/files/2005_JPL_Some_Useful_16-valued_Logics.pdf).
 
 | Implementation | Role |
 |---|---|
 | `src/Lean/Sixteen3.lean` | Lean carrier, memberships, orders, and information operations |
 | `src/Init/Paraconsistent.lean` | Trilattice-mode commands and Lean-level FOUR/SIXTEEN_3 definitions |
-| `src/kernel/sixteen3.h` | Native four-bit value and lattice operations |
-| `src/Lean/Elab/Declaration.lean` | Re-entry elaboration, monotonicity check, and Kleene iteration inside Lean's declaration path |
+| `src/kernel/sixteen3.h` | Native four-bit value, lattice operations, monotonicity check, and fixed-point solver |
+| `src/Lean/Elab/Declaration.lean` | Re-entry elaboration and complete map reduction inside Lean's declaration path |
 | `src/Lean/Meta/GetUnfoldableConst.lean` | Re-entry payload unfolding during Lean reduction and definitional equality |
 | `src/kernel/declaration.{h,cpp}` | Native re-entry value and declaration/constant representation |
 | `src/kernel/environment.{h,cpp}` | Re-entry declaration insertion into the environment |
 
-The re-entry elaborator computes a least fixed point in the information
-order, beginning at the empty value and iterating the declared map over
-`SIXTEEN_3`. It stores the resulting four memberships as the re-entry
-constant's value while preserving its declared type.
+The re-entry elaborator reduces the declared map on every `SIXTEEN_3` value.
+The native C++ kernel solver checks information monotonicity on the complete
+carrier and computes the least fixed point from the empty value. The kernel
+stores the resulting memberships as a checked re-entry constant. A map may
+use any reducible total expression whose complete table is monotone.
 
 This declaration adds the truth singleton at every iteration. The kernel
 reduces the stored fixed point and its truth membership directly:
@@ -81,16 +89,24 @@ example : injectedTruth = Sixteen3.ofBelnap false true false false := rfl
 example : injectedTruth.hasT = true := rfl
 ```
 
-Run the declaration proof and the native payload round-trip controls with:
+Run the exhaustive lattice laws, declaration proofs, runtime evaluation, and
+native payload controls with:
 
 ```sh
+LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean tests/lean/run/sixteen3.lean
 LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean tests/lean/run/reentry.lean
 LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean tests/lean/run/reentryValue.lean
+LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean tests/lean/run/trilatticeMode.lean
+python3 tests/kernel_features/verify.py
 ```
 
-Re-entry constants participate in kernel reduction and proof checking. Lean's
-code generator does not compile re-entry declarations, so the example exercises
-them through reduction rather than `#eval`.
+Re-entry constants participate in kernel reduction and proof checking. The
+compiler inlines their stored constructor payload, so they also work in
+`#eval` and compiled definitions. Iteration begins at information bottom and
+checks convergence within five evaluations, the height bound of this carrier.
+The verification script also checks module serialization, imported reduction,
+interpreted execution, and a compiled executable. Its records and executables
+live in `measurements/kernel_features_20261009`.
 
 ## Re-entry and Navier–Stokes injection
 

@@ -1,0 +1,26 @@
+Internal ctest changing into directory: /home/mrnob0dy666/imsgct/p4rakernel/build/stage1
+Test project /home/mrnob0dy666/imsgct/p4rakernel/build/stage1
+      Start 1312: tests/lean/run/closure1.lean
+ 1/10 Test #1312: tests/lean/run/closure1.lean .......................   Passed    1.54 sec
+      Start 2101: tests/lean/run/interp.lean
+ 2/10 Test #2101: tests/lean/run/interp.lean .........................   Passed    0.80 sec
+      Start 2102: tests/lean/run/interp2.lean
+ 3/10 Test #2102: tests/lean/run/interp2.lean ........................   Passed    0.75 sec
+      Start 2240: tests/lean/run/kernel1.lean
+ 4/10 Test #2240: tests/lean/run/kernel1.lean ........................   Passed    2.77 sec
+      Start 2241: tests/lean/run/kernel2.lean
+ 5/10 Test #2241: tests/lean/run/kernel2.lean ........................   Passed    4.67 sec
+      Start 2436: tests/lean/run/nestedInductiveConstructions.lean
+ 6/10 Test #2436: tests/lean/run/nestedInductiveConstructions.lean ...   Passed    0.34 sec
+      Start 2581: tests/lean/run/reentry.lean
+ 7/10 Test #2581: tests/lean/run/reentry.lean ........................   Passed    1.44 sec
+      Start 2582: tests/lean/run/reentryValue.lean
+ 8/10 Test #2582: tests/lean/run/reentryValue.lean ...................   Passed    1.49 sec
+      Start 2723: tests/lean/run/sixteen3.lean
+ 9/10 Test #2723: tests/lean/run/sixteen3.lean .......................   Passed    1.67 sec
+      Start 2910: tests/lean/run/trilatticeMode.lean
+10/10 Test #2910: tests/lean/run/trilatticeMode.lean .................   Passed    1.97 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Total Test time (real) =  17.55 sec

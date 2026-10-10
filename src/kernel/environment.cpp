@@ -106,8 +106,8 @@ void environment::unmark_trilattice() {
 }
 
 /* SIXTEEN_3 is the POWERSET of Belnap FOUR: every one of its sixteen values is a
-   set of FOUR's values, and twelve of them contain B. A kernel that explodes on a
-   contradiction cannot carry any of those twelve, so trilattice mode entails
+   set of FOUR's values, and eight of them contain B. A kernel that explodes on a
+   contradiction cannot carry any of those eight, so trilattice mode entails
    paraconsistent mode. Enforcement points ask this, not the raw flags — otherwise
    `enable_trilattice` alone would set a field nothing reads. */
 bool environment::holds_contradictions() const {
@@ -266,7 +266,7 @@ environment environment::add_opaque(declaration const & d, bool check) const {
 
 environment environment::add_reentry(declaration const & d, bool check) const {
     /* Reentry declarations are always added after their (pre-computed) value is known.
-       The kernel computes the least fixed point in SIXTEEN_3 before calling this,
+       The elaborator computes the least fixed point in SIXTEEN_3 before calling this,
        so the stored value never contains unevaluated f-binders. Check the type
        against the declared type T, but do not try to re-elaborate the body. */
     scoped_diagnostics diag(*this, check);
@@ -277,7 +277,7 @@ environment environment::add_reentry(declaration const & d, bool check) const {
         check_no_metavar_no_fvar(*this, v.get_name(), v.get_type());
         expr val_type = checker.check(v.get_expr(), v.get_lparams());
         if (!checker.is_def_eq(val_type, v.get_type()))
-            throw definition_type_mismatch_exception(*this, d, v.get_type());
+            throw definition_type_mismatch_exception(*this, d, val_type);
     }
     return diag.update(add(constant_info(d)));
 }

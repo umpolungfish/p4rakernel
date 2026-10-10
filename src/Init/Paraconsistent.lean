@@ -19,7 +19,7 @@ Usage:
   disable_paraconsistent   -- toggle back to ordinary ex falso
 
   enable_trilattice        -- SIXTEEN_3: the trilattice on the powerset of FOUR
-  -- entails paraconsistent at the kernel (twelve of the sixteen contain B)
+  -- entails paraconsistent at the kernel (eight of the sixteen contain B)
   disable_trilattice       -- back to FOUR
   #is_trilattice           -- query the mode
 
@@ -40,7 +40,7 @@ each other's complement and become independent axes. That split is what the extr
 twelve values are for, and it is why SIXTEEN_3 is not "FOUR with more room" — a
 bilattice (two orders) cannot hold it.
 
-Trilattice ENTAILS paraconsistent at every kernel enforcement point: twelve of the
+Trilattice ENTAILS paraconsistent at every kernel enforcement point: eight of the
 sixteen values contain B, and a kernel that explodes cannot carry any of them. The
 two remain separate flags rather than a ladder, so an environment may hold
 contradictions in FOUR without entering SIXTEEN_3.
@@ -179,12 +179,7 @@ cannot express and a trilattice's three can.
 
 /-- A SIXTEEN_3 value: a subset of Belnap FOUR, given by its membership bits.
 Sixteen inhabitants by construction (2^4), so the type IS the powerset. -/
-structure Sixteen3 where
-  hasN : Bool
-  hasT : Bool
-  hasF : Bool
-  hasB : Bool
-  deriving DecidableEq, Repr, Inhabited
+abbrev Sixteen3 := Lean.Sixteen3
 
 namespace Sixteen3
 
@@ -202,18 +197,16 @@ def assertsTrue (x : Sixteen3) : Bool := x.hasT || x.hasB
 truth value; in SIXTEEN_3 it is INDEPENDENT, and that independence is the split. -/
 def assertsFalse (x : Sixteen3) : Bool := x.hasF || x.hasB
 
-/-- Truth order ≤_t: more truth asserted, no more falsity. -/
-def le_t (x y : Sixteen3) : Bool :=
-  (!x.assertsTrue || y.assertsTrue) && (!y.assertsFalse || x.assertsFalse)
-
-/-- Falsity order ≤_f: more falsity asserted, no more truth. The MIRROR of ≤_t, and
-an order in its own right — this is the axis FOUR does not have. -/
-def le_f (x y : Sixteen3) : Bool :=
-  (!x.assertsFalse || y.assertsFalse) && (!y.assertsTrue || x.assertsTrue)
-
-/-- Information order ≤_i: subset inclusion. More is known, nothing retracted. -/
-def le_i (x y : Sixteen3) : Bool :=
-  (!x.hasN || y.hasN) && (!x.hasT || y.hasT) && (!x.hasF || y.hasF) && (!x.hasB || y.hasB)
+/-- The three orders and their lattice operations use the kernel carrier. -/
+abbrev le_t := Lean.Sixteen3.le_t
+abbrev le_f := Lean.Sixteen3.le_f
+abbrev le_i := Lean.Sixteen3.le_i
+abbrev join_t := Lean.Sixteen3.join_t
+abbrev meet_t := Lean.Sixteen3.meet_t
+abbrev join_f := Lean.Sixteen3.join_f
+abbrev meet_f := Lean.Sixteen3.meet_f
+abbrev join_i := Lean.Sixteen3.join_i
+abbrev meet_i := Lean.Sixteen3.meet_i
 
 /-- The empty value: asserts nothing. Bottom of ≤_i. -/
 def none : Sixteen3 := ⟨false, false, false, false⟩

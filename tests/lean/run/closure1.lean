@@ -29,7 +29,7 @@ let u := mkLevelParam `u
 let v := mkLevelMVar  `v
 let m1 ← mkFreshExprMVar (mkSort levelOne)
 withLocalDeclD `α (mkSort u) $ fun α => do
-withLocalDeclD `β (mkSort v) $ fun β => do
+withLocalDeclD `β (mkSort v) $ fun _ => do
 let m2 ← mkFreshExprMVar (← mkArrow α m1)
 withLocalDeclD `a α $ fun a => do
 withLocalDeclD `f (← mkArrow α α) $ fun f => do

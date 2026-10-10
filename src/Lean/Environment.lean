@@ -721,12 +721,12 @@ per `Kernel.Environment.markParaconsistent`. Toggle back off with `unmarkParacon
 -/
 def markParaconsistent (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.markParaconsistent
-  { env with base := base', checked := .pure base'.private }
+  { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.markParaconsistent }
 
 /-- Deactivates paraconsistent mode: restores ordinary ex falso for subsequent declarations. -/
 def unmarkParaconsistent (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.unmarkParaconsistent
-  { env with base := base', checked := .pure base'.private }
+  { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.unmarkParaconsistent }
 
 /-- Whether this environment is currently in paraconsistent mode (private branch). -/
 def isParaconsistent (env : Environment) : Bool :=
@@ -740,12 +740,12 @@ with `unmarkTrilattice`.
 -/
 def markTrilattice (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.markTrilattice
-  { env with base := base', checked := .pure base'.private }
+  { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.markTrilattice }
 
 /-- Deactivates SIXTEEN_3 trilattice mode for subsequent declarations. -/
 def unmarkTrilattice (env : Environment) : Environment :=
   let base' := env.base.map Kernel.Environment.unmarkTrilattice
-  { env with base := base', checked := .pure base'.private }
+  { env with base := base', checked := env.checked.map (sync := true) Kernel.Environment.unmarkTrilattice }
 
 /-- Whether this environment is currently in SIXTEEN_3 trilattice mode (private branch). -/
 def isTrilattice (env : Environment) : Bool :=

@@ -268,6 +268,16 @@ static sixteen3 six3_from_obj(object * o) {
                     cnstr_get_uint8(o, 2), cnstr_get_uint8(o, 3));
 }
 
+extern "C" LEAN_EXPORT object * lean_sixteen3_fixed_point(object * table) {
+    if (lean_array_size(table) != 16) return box(0);
+    std::array<sixteen3, 16> values;
+    for (unsigned i = 0; i < values.size(); ++i)
+        values[i] = six3_from_obj(lean_array_get_core(table, i));
+    sixteen3 result;
+    if (!sixteen3_fixed_point(values, result)) return box(0);
+    return mk_cnstr(1, object_ref(six3_to_obj(result))).steal();
+}
+
 declaration mk_reentry(environment const & env, name const & n, names const & lparams,
                        expr const & t, sixteen3 const & six3) {
     return declaration(mk_cnstr(static_cast<unsigned>(declaration_kind::Reentry),

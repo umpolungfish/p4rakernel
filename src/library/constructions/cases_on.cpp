@@ -46,15 +46,16 @@ declaration mk_cases_on(environment const & env, name const & n) {
     /* PARACONSISTENT KERNEL FORK:
        When paraconsistent mode OR SIXTEEN_3 trilattice mode is active,
        do not generate casesOn for empty inductive predicates (like False).
-       SIXTEEN_3 = Shramko-Wansing's powerset of FOUR; 12/16 values contain B,
+       SIXTEEN_3 = Shramko-Wansing's powerset of FOUR; 8/16 values contain B,
        so a kernel that explodes on a contradiction cannot carry trilattice
        values. Guards on holds_contradictions() to match infer_constant. */
     if (env.holds_contradictions()) {
         inductive_val ind_val = ind_info.to_inductive_val();
         if (ind_val.get_ncnstrs() == 0) {
-            /* Direct check: the type of an inductive predicate (like False : Prop)
-               is Sort 0 in the kernel representation */
-            if (is_sort(ind_info.get_type()) && is_zero(sort_level(ind_info.get_type()))) {
+            /* Strip parameters and indices before inspecting the resulting sort. */
+            expr ind_type = ind_info.get_type();
+            while (is_pi(ind_type)) ind_type = binding_body(ind_type);
+            if (is_sort(ind_type) && is_zero(sort_level(ind_type))) {
                 throw exception(sstream() << (env.is_trilattice() ? "SIXTEEN_3 trilattice mode: cannot generate '" : "paraconsistent mode: cannot generate '") << g_cases_on
                     << "' for empty inductive predicate '" << n << "' (principle of explosion is disabled)");
             }

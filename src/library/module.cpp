@@ -152,8 +152,9 @@ extern "C" LEAN_EXPORT object * lean_save_module_data_parts(b_obj_arg mod, b_obj
             olean_header header = {};
             // see/sync with file format description above
             header.base_addr = base_addr + file_offset;
-            strncpy(header.lean_version, get_short_version_string().c_str(), sizeof(header.lean_version));
-            strncpy(header.githash, LEAN_GITHASH, sizeof(header.githash));
+            auto version = get_short_version_string();
+            memcpy(header.lean_version, version.data(), std::min(version.size(), sizeof(header.lean_version)));
+            memcpy(header.githash, LEAN_GITHASH, std::min(strlen(LEAN_GITHASH), sizeof(header.githash)));
             out.write(reinterpret_cast<char *>(&header), sizeof(header));
 
             compactor(part.snd().raw());

@@ -1,4 +1,4 @@
-import Lean.Environment
+import Lean
 
 open Lean
 
@@ -29,3 +29,21 @@ open Lean
       | throw <| IO.userError s!"native reentry disappeared at mask {mask}"
     unless stored.type == storedVal.type && stored.value? == some expected do
       throw <| IO.userError s!"native reentry round-trip mismatch at mask {mask}"
+
+-- The real native kernel checks each payload, and rejects a mismatched declared type.
+run_elab do
+  let mut env ← Lean.getEnv
+  for mask in [0:16] do
+    let bit (n : Nat) : Bool := mask / (2 ^ n) % 2 == 1
+    let val : ReentryVal := {
+      name := Name.num `checkedReentryControl mask
+      levelParams := []
+      type := mkConst ``Sixteen3
+      six3 := ⟨bit 0, bit 1, bit 2, bit 3⟩ }
+    match env.addDeclCore 0 (.reentryDecl val) none (doCheck := true) with
+    | .error _ => throwError "checked native insertion failed at mask {mask}"
+    | .ok next => env := next
+    let bad := { val with name := Name.num `invalidReentryControl mask, type := mkConst ``Nat }
+    match env.addDeclCore 0 (.reentryDecl bad) none (doCheck := true) with
+    | .error _ => pure ()
+    | .ok _ => throwError "native kernel accepted a SIXTEEN_3 payload as Nat"

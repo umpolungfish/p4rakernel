@@ -103,12 +103,10 @@ def mkAxiomValEx (name : Name) (levelParams : List Name) (type : Expr) (isUnsafe
   isUnsafe := isUnsafe
 }
 
-/-- A re-entry declaration: the value is the least fixed point computed by the
-kernel in the SIXTEEN_3 trilattice. Mirrors the C++ `ReentryVal` class and
-`lean_mk_reentry_val` kernel constructor. The `six3` payload is the fully
-evaluated lfp; the kernel does not store a re-usable expression for the body,
-so the stored value is not unfoldable as a term -- only `whnf` on the name
-returns it. --/
+/-- A re-entry declaration stores the evaluated SIXTEEN_3 least fixed point.
+The elaborator reduces the map on the complete carrier; the native kernel solver
+checks information monotonicity and computes its least fixed point. The stored
+payload unfolds to its constructor expression in reduction and compilation. -/
 structure ReentryVal extends ConstantVal where
   six3 : Sixteen3
   deriving Inhabited, BEq
