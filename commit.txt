@@ -1,7 +1,3 @@
-I connect my ququart reconstruction to certified re-entry clocks
+I connect hosted commands to my Lean kernel re-entry, SIXTEEN_3 and Y features
 
-I prove both dimension-four SIC Gram inverse identities and recover all
-sixteen complex coordinates using my checked zeta value. I reuse my existing
-lane/native carrier equivalence, prove the outcome label round trips, and
-carry clock observations and original program reductions through that map.
-I pair coordinate recovery with logical observations and register the module.
+I add a shared hosted bridge and a Lean evaluator using certified combinatory tables, native least/greatest solvers and feedback clocks. I expose arbitrary finite S/K/I/Y programs and runtime transition-table checks. I add cross-frontend regression checks and document the carrier mapping and certificate scope.
