@@ -107,7 +107,26 @@ private def rawTable (args : List String) : IO UInt32 := do
     err.putStrLn "sixteen-state orbit did not close"
     return 2
 
+private def verifyProduct (source left right : String) : IO UInt32 := do
+  let out ← IO.getStdout
+  let err ← IO.getStderr
+  let some n := source.toNat? | err.putStrLn "invalid source natural"; return 2
+  let some p := left.toNat? | err.putStrLn "invalid left natural"; return 2
+  let some q := right.toNat? | err.putStrLn "invalid right natural"; return 2
+  -- This dependent value retains the full arithmetic equality and both
+  -- nontriviality proofs. No source bits are projected into the status carrier.
+  let certificate : Option { pair : Nat × Nat //
+      pair.1 * pair.2 = n ∧ 1 < pair.1 ∧ 1 < pair.2 } :=
+    if h : p * q = n ∧ 1 < p ∧ 1 < q then some ⟨(p, q), h⟩ else none
+  let evidence := Lean.Sixteen3.ofMask (if certificate.isSome then 8 else 4)
+  let some bounds := solveBounds 4096 (withSeed .joinInformation evidence) |
+    err.putStrLn "arithmetic evidence failed native lattice certification"; return 2
+  out.putStrLn s!"source={n}\nleft={p}\nright={q}\nproduct={p*q}"
+  out.putStrLn s!"product-certificate={certificate.isSome} evidence={(maskIndex bounds.lower.point).val} evidence-certified=true"
+  return if certificate.isSome then 0 else 2
+
 def main (args : List String) : IO UInt32 := do
+  if let ["product", n, p, q] := args then return ← verifyProduct n p q
   if let "table" :: rest := args then return ← rawTable rest
   let out ← IO.getStdout
   let err ← IO.getStderr
