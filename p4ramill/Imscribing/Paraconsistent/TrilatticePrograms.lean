@@ -40,6 +40,22 @@ theorem seedPoint_least (op : LatticeOp) (seed x : Lean.Sixteen3) :
   cases op <;> cases n <;> cases t <;> cases f <;> cases b <;>
     cases xn <;> cases xt <;> cases xf <;> cases xb <;> decide
 
+/-- The same seeded operation descends from information top in one tick. -/
+def seedCeiling (op : LatticeOp) (seed : Lean.Sixteen3) : Lean.Sixteen3 :=
+  op.apply seed Lean.Sixteen3.all
+
+theorem seedCeiling_fixed (op : LatticeOp) (seed : Lean.Sixteen3) :
+    op.apply seed (seedCeiling op seed) = seedCeiling op seed := by
+  rcases seed with ⟨n, t, f, b⟩
+  cases op <;> cases n <;> cases t <;> cases f <;> cases b <;> decide
+
+theorem seedCeiling_greatest (op : LatticeOp) (seed x : Lean.Sixteen3) :
+    op.apply seed x = x → Lean.Sixteen3.le_i x (seedCeiling op seed) = true := by
+  rcases seed with ⟨n, t, f, b⟩
+  rcases x with ⟨xn, xt, xf, xb⟩
+  cases op <;> cases n <;> cases t <;> cases f <;> cases b <;>
+    cases xn <;> cases xt <;> cases xf <;> cases xb <;> decide
+
 /-- Duplicate a state across the two arguments of a native lattice operation. -/
 def diagonal (op : LatticeOp) : Term := .s @@ .lattice op @@ .i
 

@@ -77,6 +77,23 @@ def MonotoneTable {program : Term} (table : ProgramTable program) : Prop :=
     (Lean.Sixteen3.ofMask j.val) = true →
     Lean.Sixteen3.le_i (table.entry i) (table.entry j) = true
 
+theorem ProgramTable.monotone_of_table {program : Term} (table : ProgramTable program)
+    (hmono : MonotoneTable table) (x y : Lean.Sixteen3)
+    (hxy : Lean.Sixteen3.le_i x y = true) :
+    Lean.Sixteen3.le_i (table.interpret x) (table.interpret y) = true := by
+  have horder : Lean.Sixteen3.le_i
+      (Lean.Sixteen3.ofMask (maskIndex x).val)
+      (Lean.Sixteen3.ofMask (maskIndex y).val) = true := by
+    rw [ofMask_maskIndex, ofMask_maskIndex]
+    exact hxy
+  exact hmono (maskIndex x) (maskIndex y) horder
+
+theorem ProgramTable.fixed_at_mask {program : Term} (table : ProgramTable program)
+    (x : Lean.Sixteen3) (hx : table.interpret x = x) :
+    table.entry (maskIndex x) = Lean.Sixteen3.ofMask (maskIndex x).val := by
+  rw [ofMask_maskIndex]
+  exact hx
+
 def LeastTable {program : Term} (table : ProgramTable program)
     (point : Lean.Sixteen3) : Prop :=
   ∀ i : Fin 16, table.entry i = Lean.Sixteen3.ofMask i.val →
@@ -113,22 +130,12 @@ def certify {program : Term} (table : ProgramTable program) (point : Lean.Sixtee
         some {
           table := table
           point := point
-          monotone := by
-            intro x y hxy
-            have horder : Lean.Sixteen3.le_i
-                (Lean.Sixteen3.ofMask (maskIndex x).val)
-                (Lean.Sixteen3.ofMask (maskIndex y).val) = true := by
-              rw [ofMask_maskIndex, ofMask_maskIndex]
-              exact hxy
-            exact hmono (maskIndex x) (maskIndex y) horder
+          monotone := table.monotone_of_table hmono
           fixed := hfixed
           least := by
             intro x hx
-            have hentry : table.entry (maskIndex x) =
-                Lean.Sixteen3.ofMask (maskIndex x).val := by
-              rw [ofMask_maskIndex]
-              exact hx
-            simpa only [ofMask_maskIndex] using hfinal.1 (maskIndex x) hentry
+            simpa only [ofMask_maskIndex] using
+              hfinal.1 (maskIndex x) (table.fixed_at_mask x hx)
           reached := hfinal.2
         }
       else none
