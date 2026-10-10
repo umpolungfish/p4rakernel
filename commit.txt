@@ -1,6 +1,6 @@
-I model Y reduction as a period-two signal
+I characterize SIXTEEN_3 negation re-entry
 
-I add the identity functional to the untyped lambda calculus model and prove
-its Y unfolding cycles through two distinct root beta-redex states. The
-tick-indexed signal advances by valid beta steps, repeats every two ticks, and
-is not constant.
+I prove that lifted negation is an involution and identify its entire fixed
+state space with three independent Boolean coordinates. I add a native
+re-entry declaration whose least information fixed point is the empty subset,
+alongside the existing B-seeded re-entry whose least fixed point is singleton B.
