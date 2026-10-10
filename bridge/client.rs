@@ -9,7 +9,7 @@ pub fn run(args: &[String]) -> i32 {
 
 pub fn run_to(args: &[String], emit: impl FnOnce(&[u8])) -> i32 {
     if args.is_empty() || matches!(args[0].as_str(), "help" | "--help" | "-h") {
-        emit(b"reentry [orbit SEED TICK] identity|negation|hold|seeded MASK|constant MASK|Y MASK|OP MASK\nreentry [orbit SEED TICK] program TOKEN ... (@ applies the two preceding terms)\nreentry word GLYPHS [SEED TICK]\nreentry table SEED TICK OUTPUT0 ... OUTPUT15\nOP: join_i meet_i join_t meet_t join_f meet_f; native mask bits: N=1 T=2 F=4 B=8\n");
+        emit(b"reentry [orbit SEED TICK] identity|negation|hold|seeded MASK|constant MASK|Y MASK|OP MASK\nreentry [orbit SEED TICK] program TOKEN ... (@ applies the two preceding terms)\nreentry word GLYPHS [SEED TICK]\nreentry table SEED TICK OUTPUT0 ... OUTPUT15\nreentry product SOURCE LEFT RIGHT (full-width arithmetic certificate)\nOP: join_i meet_i join_t meet_t join_f meet_f; native mask bits: N=1 T=2 F=4 B=8\n");
         return 0;
     }
     let mut command = match evaluator() {

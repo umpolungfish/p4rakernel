@@ -16,6 +16,7 @@ vox reentry orbit 2 1000000000001 negation
 vox reentry join_t 5
 vox reentry retain-after-inject 7 10
 vox reentry program Y K K data:6 @ @ @
+vox reentry product SOURCE LEFT RIGHT
 vox reentry word '⊢∈≻⋈⊙⊤≻⋈⊥≺⋈⊞∋⊡⋈⊙⊣' 0 1000000000000
 g-momonados reentry help
 ```
@@ -39,6 +40,14 @@ closure. Those checks concern the supplied transition table. They do not prove
 that Rust payload arithmetic or an external binary implements that map. A
 nonmonotone table can have a valid cycle while lacking a native monotone fixed
 point certificate; the report states that explicitly.
+
+`product SOURCE LEFT RIGHT` retains each entire natural number in Lean and
+constructs a dependent certificate of `LEFT * RIGHT = SOURCE`, with both
+operands greater than one. Its numerical equality and operands remain outside
+the four-bit status carrier. The verified outcome is then carried through the
+native lattice bounds solver: constructive support has mask 8, failed closure
+has mask 4. A rejected pair returns status 2. This is the arithmetic closure
+interface for source-derived candidate producers.
 
 The primary CLI admission is shared by all its command branches, including
 direct routes. Standalone Cargo binaries and the no_std libraries do not spawn
