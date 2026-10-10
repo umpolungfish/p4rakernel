@@ -13,8 +13,10 @@ state. The corpus also supplies domain constructions and typed transport interfa
 
 ## Select the fork and check a focused target
 
+From the kernel repository root:
+
 ```sh
-cd /home/mrnob0dy666/imsgct/p4rakernel/p4ramill
+cd p4ramill
 export PATH="$PWD/../build/stage1/bin:$PATH"
 lake env lean --version
 ```

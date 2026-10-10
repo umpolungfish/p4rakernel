@@ -22,19 +22,20 @@ feedback as ticks, or inspect the settled memberships.
 
 ## Use the local kernel
 
-The built fork lives in `build/stage1/bin`. Select it before working in the corpus:
+The built fork lives in `build/stage1/bin`. From the repository root, select it
+before working in the corpus:
 
 ```sh
-cd /home/mrnob0dy666/imsgct/p4rakernel/p4ramill
+cd p4ramill
 export PATH="$PWD/../build/stage1/bin:$PATH"
 lake env lean --version
 ```
 
 The [corpus README](p4ramill/README.md) gives sequential, single-worker checks
-for the executable re-entry modules. Rebuild the kernel with its native CMake targets:
+for the executable re-entry modules. From the repository root, rebuild the
+kernel with its native CMake targets:
 
 ```sh
-cd /home/mrnob0dy666/imsgct/p4rakernel
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --target stage1 -j2
 ```
