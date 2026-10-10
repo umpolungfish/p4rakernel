@@ -14,6 +14,12 @@ transient and primitive period. Its finite clock reads arbitrary ticks by phase
 lookup. An experiment can follow individual contractions, resume feedback at a
 chosen tick, or inspect fixed and oscillating memberships.
 
+The ququart membrane interface carries those clock observations through an
+explicit runtime/native label equivalence. It pairs the feedback state with
+sixteen complex SIC coordinates and proves their dual-frame reconstruction
+using coefficients derived from the analytic value at minus one. The corpus
+also distinguishes weight held in a frame from weight recovered by its fuse.
+
 | Component | Role |
 |---|---|
 | [`src/`](src/) | Lean kernel fork, native trilattice operations, re-entry declarations, mode controls |

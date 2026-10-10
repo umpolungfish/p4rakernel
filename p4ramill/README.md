@@ -164,6 +164,13 @@ arithmetic and an array lookup.
 cached observations. `Clock.restart` proves that feedback resumed from a cached
 observation has the same future readout.
 
+The ququart membrane interface transports runtime outcome labels through the
+existing lane/native carrier equivalence. `runtimeTick` preserves a clock's
+original feedback state and its program reduction at each tick. Complex SIC
+coordinates remain a separate field of the observation. The dimension-four
+dual Gram matrix reconstructs all sixteen coordinates, with its coefficients
+expressed through the checked analytic value `riemannZeta (-1)`.
+
 ## Where to look
 
 | Directory or module | Contents |
@@ -175,6 +182,8 @@ observation has the same future readout.
 | `Imscribing/Paraconsistent/CombinatoryFixedPoint.lean` | Certified tables and least information fixed points |
 | `Imscribing/Paraconsistent/CombinatoryFixedPointBounds.lean` | Greatest points, endpoint bounds, enclosure and uniqueness |
 | `Imscribing/Paraconsistent/CombinatoryDynamics.lean` | Arbitrary-seed transients, primitive cycles, cached phase lookup, periodic continuation and restart |
+| `Imscribing/Paraconsistent/QuquartMembraneReentry.lean` | Runtime/native outcome equivalence, clock tick reductions, paired coordinate recovery |
+| `Imscribing/Millennium/ZetaSICDualFrame.lean` | Analytic value, tetrahedral/ququart/dimension-twelve Gram inverses, enclosing-frame weight recovery |
 | `Imscribing/Paraconsistent/` | Belnap FOUR, SIXTEEN_3, Frobenius, Witness values |
 | `Imscribing/IUTT.lean` | Packets, state decomposition, transport, Closure laws |
 | `Imscribing/ABC*.lean` | Arithmetic calibration, measurements, Θ transport |

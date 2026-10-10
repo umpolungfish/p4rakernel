@@ -62,6 +62,41 @@ theorem uniform_square (n : Nat) :
   ext i j
   simp [uniformMatrix, Matrix.mul_apply, Matrix.smul_apply]
 
+/-- A dimension-four SIC has sixteen projector coordinates. -/
+noncomputable def ququartGram : Matrix (Fin 16) (Fin 16) ℂ :=
+  (4 / 5 : ℂ) • 1 + (1 / 5 : ℂ) • uniformMatrix 16
+
+/-- The same analytic value, with the dimension-four normalization. -/
+noncomputable def ququartDualGram : Matrix (Fin 16) (Fin 16) ℂ :=
+  (1 - 3 * riemannZeta (-1)) • 1 +
+    ((3 / 4 : ℂ) * riemannZeta (-1)) • uniformMatrix 16
+
+theorem ququart_coefficients :
+    (5 / 4 : ℂ) = 1 - 3 * riemannZeta (-1) ∧
+    (-1 / 16 : ℂ) = (3 / 4 : ℂ) * riemannZeta (-1) := by
+  rw [zeta_neg_one]
+  constructor <;> norm_num
+
+theorem ququart_dual_left_inverse : ququartDualGram * ququartGram = 1 := by
+  simp only [ququartDualGram, ququartGram, zeta_neg_one, add_mul, mul_add,
+    Matrix.smul_mul, Matrix.mul_smul, smul_smul, Matrix.one_mul, Matrix.mul_one,
+    uniform_square]
+  ext i j
+  by_cases h : i = j <;>
+    norm_num [Matrix.add_apply, Matrix.smul_apply, Matrix.one_apply, uniformMatrix, h]
+
+theorem ququart_dual_right_inverse : ququartGram * ququartDualGram = 1 := by
+  simp only [ququartDualGram, ququartGram, zeta_neg_one, add_mul, mul_add,
+    Matrix.smul_mul, Matrix.mul_smul, smul_smul, Matrix.one_mul, Matrix.mul_one,
+    uniform_square]
+  ext i j
+  by_cases h : i = j <;>
+    norm_num [Matrix.add_apply, Matrix.smul_apply, Matrix.one_apply, uniformMatrix, h]
+
+theorem ququart_coordinate_reconstruction (c : Fin 16 → ℂ) :
+    ququartDualGram.mulVec (ququartGram.mulVec c) = c := by
+  rw [Matrix.mulVec_mulVec, ququart_dual_left_inverse, Matrix.one_mulVec]
+
 noncomputable def twelveGram : Matrix (Fin 144) (Fin 144) ℂ :=
   (12 / 13 : ℂ) • 1 + (1 / 13 : ℂ) • uniformMatrix 144
 

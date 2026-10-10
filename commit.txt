@@ -1,10 +1,7 @@
-I read feedback phases directly from my certified clock
+I connect my ququart reconstruction to certified re-entry clocks
 
-I cache native states and normalize arbitrary ticks relative to the first
-cycle entry. I prove agreement with the original signal, preserve program
-reduction between cached observations, and retain restart semantics.
-
-I check cached reads across every native starting state in my program
-families and exercise distant phase, transient, alternation, and retained
-evidence controls. I integrate executable clock examples and their theorem
-dependencies into both public READMEs.
+I prove both dimension-four SIC Gram inverse identities and recover all
+sixteen complex coordinates using my checked zeta value. I reuse my existing
+lane/native carrier equivalence, prove the outcome label round trips, and
+carry clock observations and original program reductions through that map.
+I pair coordinate recovery with logical observations and register the module.

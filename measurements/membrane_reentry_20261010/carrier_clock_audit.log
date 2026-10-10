@@ -1,0 +1,18 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.QuquartMembraneReentry.runtime_native_roundtrip' depends on axioms: [propext, Quot.sound]
+'Imscribing.Paraconsistent.QuquartMembraneReentry.native_runtime_roundtrip' depends on axioms: [propext, Quot.sound]
+'Imscribing.Paraconsistent.QuquartMembraneReentry.runtime_tick_agrees' depends on axioms: [propext, Quot.sound]
+'Imscribing.Paraconsistent.QuquartMembraneReentry.runtime_program_tick' depends on axioms: [propext, Quot.sound]
+'Imscribing.Paraconsistent.QuquartMembraneReentry.observation_coordinates' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'Imscribing.Paraconsistent.QuquartMembraneReentry.observation_control' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+[0, 2, 1, 3, 8, 10, 9, 11, 4, 6, 5, 7, 12, 14, 13, 15]
