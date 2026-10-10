@@ -173,6 +173,54 @@ def liftBinary (op : Value → Value → Value)
 def liftNegation (x : Lean.Sixteen3) : Lean.Sixteen3 :=
   ⟨x.hasN, x.hasF, x.hasT, x.hasB⟩
 
+/-- Lifted negation is an involution on the powerset carrier. -/
+theorem liftNegation_involutive (x : Lean.Sixteen3) :
+    liftNegation (liftNegation x) = x := by
+  cases x
+  rfl
+
+/-- A powerset state is fixed by lifted negation exactly when it contains T and
+    F together or omits both. The N and B memberships remain independent. -/
+theorem liftNegation_fixed_iff (x : Lean.Sixteen3) :
+    liftNegation x = x ↔ x.hasT = x.hasF := by
+  cases x with
+  | mk hasN hasT hasF hasB =>
+    cases hasN <;> cases hasT <;> cases hasF <;> cases hasB <;> decide
+
+/-- Every choice of N membership, paired T/F membership, and B membership gives
+    a fixed point. These three independent bits describe the whole fixed set. -/
+def negationFixedState (hasN hasPair hasB : Bool) : Lean.Sixteen3 :=
+  ⟨hasN, hasPair, hasPair, hasB⟩
+
+theorem negationFixedState_fixed (hasN hasPair hasB : Bool) :
+    liftNegation (negationFixedState hasN hasPair hasB) =
+      negationFixedState hasN hasPair hasB := by
+  cases hasN <;> cases hasPair <;> cases hasB <;> rfl
+
+theorem every_negation_fixed_state_has_form (x : Lean.Sixteen3)
+    (h : liftNegation x = x) :
+    x = negationFixedState x.hasN x.hasT x.hasB := by
+  have hpair := (liftNegation_fixed_iff x).mp h
+  cases x with
+  | mk hasN hasT hasF hasB => simp_all [negationFixedState]
+
+/-- The fixed states of SIXTEEN_3 negation are exactly three independent bits:
+    N membership, the paired T/F membership, and B membership. -/
+def negationFixedEquiv : (Bool × Bool × Bool) ≃
+    {x : Lean.Sixteen3 // liftNegation x = x} where
+  toFun bits :=
+    ⟨negationFixedState bits.1 bits.2.1 bits.2.2,
+      negationFixedState_fixed bits.1 bits.2.1 bits.2.2⟩
+  invFun x := (x.1.hasN, x.1.hasT, x.1.hasB)
+  left_inv bits := by
+    cases bits with
+    | mk hasN rest => cases rest with | mk hasPair hasB => rfl
+  right_inv x := by
+    rcases x with ⟨⟨hasN, hasT, hasF, hasB⟩, hfixed⟩
+    have hpair : hasT = hasF := by
+      simpa using (liftNegation_fixed_iff _).mp hfixed
+    simp [negationFixedState, hpair]
+
 def singleton (x : Value) : Lean.Sixteen3 :=
   match x with
   | .N => ⟨true, false, false, false⟩
@@ -220,12 +268,23 @@ open Lean
 
 enable_trilattice
 
+/-- Native re-entry computes the least information fixed point of negation on
+    the SIXTEEN_3 powerset. Its value is the empty subset. -/
+reentry negationReentry (x : Sixteen3) : Sixteen3 :=
+  FDE.liftNegation x
+
 /-- Kernel-native re-entry feeds SIXTEEN_3 negation back together with the
     B evidence. The least information fixed point is the singleton B state. -/
 reentry dialetheicNegationReentry (x : Sixteen3) : Sixteen3 :=
   Sixteen3.join_i (FDE.liftNegation x) (FDE.singleton .B)
 
 disable_trilattice
+
+theorem negationReentry_value :
+    negationReentry = Sixteen3.none := rfl
+
+theorem negationReentry_fixed :
+    FDE.liftNegation negationReentry = negationReentry := rfl
 
 theorem dialetheicNegationReentry_value :
     dialetheicNegationReentry = FDE.singleton .B := rfl
