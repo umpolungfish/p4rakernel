@@ -1,0 +1,6 @@
+Imported native NS feedback: all registers preserve the field and stabilize.
+'Imscribing.NSReentry.heldClosure_least' depends on axioms: [propext]
+'Imscribing.NSReentry.registeredCollapse_idempotent' does not depend on any axioms
+'Imscribing.NSReentry.registered_round_trip_fixed' does not depend on any axioms
+'Imscribing.NSInjectionField.registered_injection_connection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Imscribing.NSInjectionField.registered_injection_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]

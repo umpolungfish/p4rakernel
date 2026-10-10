@@ -1,0 +1,73 @@
+[
+  {
+    "name": "command_module",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--root=src",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/lib/lean/Init/Paraconsistent.olean",
+      "src/Init/Paraconsistent.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "mathlib_native_declarations",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Lean/Expr/Basic.olean",
+      "Mathlib/Lean/Expr/Basic.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib",
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "NS_Reentry",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_Reentry.olean",
+      "Imscribing/NS_Reentry.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "NS_InjectionField",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_InjectionField.olean",
+      "Imscribing/NS_InjectionField.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "NS_KernelReentry",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/NS_KernelReentry.olean",
+      "Imscribing/NS_KernelReentry.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 0,
+    "diagnostics": []
+  },
+  {
+    "name": "imported_controls",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "Imscribing/NS_KernelReentryAudit.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 0,
+    "diagnostics": []
+  }
+]
