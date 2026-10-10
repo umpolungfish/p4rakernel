@@ -1,0 +1,34 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationClosure_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationClosure_idempotent' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationClosure_extensive' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationClosure_monotone' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationClosure_le_iff' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationSeededStep_closure_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationSeededStep_fixed_iff' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.FDE.negationSeededStep_least' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.NegationSignals.orbit_period_two' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.NegationSignals.adjacent_ticks_hold_closure' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.NegationSignals.seededFeedback_settled' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.KernelReentry.truthNegationReentry_is_closure' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.KernelReentry.unknownNegationReentry_is_closure' does not depend on any axioms
+'Imscribing.Paraconsistent.Temporal.Semantics.KernelReentry.dialetheicNegationReentry_is_closure' does not depend on any axioms
+[{ hasN := false, hasT := true, hasF := false, hasB := false },
+ { hasN := false, hasT := false, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false },
+ { hasN := false, hasT := false, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false }]
+[{ hasN := false, hasT := false, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false }]
+{ hasN := false, hasT := true, hasF := true, hasB := false }
+{ hasN := true, hasT := false, hasF := false, hasB := false }
+{ hasN := false, hasT := false, hasF := false, hasB := true }

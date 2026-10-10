@@ -3,14 +3,15 @@
 p4rakernel is the Lean kernel and formalization layer of the **Imscribing
 Grammar**. The modified kernel supplies the native SIXTEEN_3 carrier and
 checked re-entry declarations. The `p4ramill` corpus builds executable lattice
-programs, temporal signals, S/K/I combinators, and fixed-point certificates on
+programs, temporal signals, S/K/I combinators, fixed-point bounds, and certified cycles on
 that carrier, alongside the Grammar's arithmetic and geometric constructions.
 
 Re-entry makes a monotone carrier map available as a stored fixed value in
 proofs and executable code. The combinator interface retains the computation
 that produced each table entry and certifies both endpoints of the map's
-fixed-state space. An experiment can follow individual contractions, unfold
-feedback as ticks, or inspect the settled memberships.
+fixed-state space. Feedback from an arbitrary starting state carries a certified
+transient and primitive period. An experiment can follow individual contractions,
+resume feedback at a chosen tick, or inspect fixed and oscillating memberships.
 
 | Component | Role |
 |---|---|
@@ -97,7 +98,7 @@ The resulting declaration stores its `Sixteen3.mk` payload. Kernel reduction
 unfolds this value; the compiler inlines it for `#eval` and compiled execution.
 Module export and import retain the same memberships.
 
-## Execute programs and inspect both fixed-point endpoints
+## Execute programs and inspect fixed points and cycles
 
 The corpus connects combinator execution and native solving through a complete
 value table. Each entry carries a proof of reduction from the original program.
@@ -110,11 +111,12 @@ Candidate endpoints are validated against that table before certificates are ret
 | [`TrilatticePrograms.lean`](p4ramill/Imscribing/Paraconsistent/TrilatticePrograms.lean) | Seeded and diagonal programs, injection, retention, ordered composition, endpoint laws |
 | [`CombinatoryFixedPoint.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryFixedPoint.lean) | Certified tables, least fixed points, feedback from empty |
 | [`CombinatoryFixedPointBounds.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryFixedPointBounds.lean) | Greatest fixed points, feedback from full, enclosure, uniqueness from equal endpoints |
+| [`CombinatoryDynamics.lean`](p4ramill/Imscribing/Paraconsistent/CombinatoryDynamics.lean) | Arbitrary-seed feedback, certified transient and primitive period, periodic continuation, restart |
 
 Lifted FOUR negation exchanges T and F memberships while preserving N and B.
 Raw negation unfolds a two-tick signal. `hold` computes the information union
 of a state and its negation. `seededOperator` retains a seed through each
-negation tick, settling at that held closure. The evaluator exposes contractions
+negation tick; feedback from empty settles at the seed's held closure. The evaluator exposes contractions
 and proves that splitting a reduction budget preserves the result. Y has an
 explicit conversion theorem in this term language.
 
@@ -148,6 +150,31 @@ T/F/B. Composition order determines which memberships persist.
 `Bounds.unique_of_equal` proves uniqueness when they coincide. `Bounds.isFixed`
 checks the map equation; `Bounds.contains` checks interval membership. A state
 inside the interval can still move under the program.
+
+`analyzeOrbit fuel program seed` compiles the same reduction-certified table
+and searches for its first repeated state. A returned `Cycle` proves closure,
+distinctness before the repeat, periodicity of all subsequent ticks, and a
+program reduction at each tick. Period one certifies a fixed state; a longer
+primitive period certifies movement. `findCycle table seed` reuses a table
+already obtained from an endpoint certificate.
+
+```lean
+import Imscribing.Paraconsistent.CombinatoryDynamics
+
+open Imscribing.Paraconsistent.CombinatoryDynamics
+open Imscribing.Paraconsistent.CombinatoryReentry
+open Imscribing.Paraconsistent.Temporal.Semantics
+
+#eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map
+  fun cycle => (cycle.entry, cycle.period, cycle.loop)
+
+#eval (analyzeOrbit 32 (seededOperator (FDE.singleton .N)) (FDE.singleton .T)).map
+  fun cycle => (cycle.entry, cycle.period, cycle.loop)
+```
+
+Raw negation returns entry zero and period two, alternating singleton T and F.
+Retaining singleton N gives one transient tick followed by the N/F and N/T
+cycle. Both signals retain their states and their reduction witnesses.
 
 Every seeded native join or meet is supported. Its endpoints are obtained by
 applying the seeded operation to information bottom and top. Constant maps,
@@ -227,7 +254,11 @@ LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean -j1 tests/lean/run/trilatt
 ```
 
 The corpus audit modules check ticks, contractions, all six operations,
-composition, native solving, and fixed-point bounds. They print theorem
+composition, native solving, fixed-point bounds, and arbitrary-seed cycles. They print theorem
 dependencies and check rejection of invalid candidates. The enclosure,
 uniqueness, greatest-point program reduction, and feedback-settlement theorems
-have no axiom dependencies.
+have no axiom dependencies. The cycle audit checks every native starting state
+for the lattice, combinator, and retained-negation families, with controls for
+nonclosing and nonprimitive cycle candidates. Periodic continuation, primitive
+return, restart, and the program-tick and fixed/moving cycle theorems also have
+no axiom dependencies.

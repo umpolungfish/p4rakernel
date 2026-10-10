@@ -1,0 +1,3 @@
+import Imscribing.Vox.ProofLift
+import Imscribing.Paraconsistent.CombinatoryDynamics
+#lift Imscribing.Paraconsistent.CombinatoryDynamics.Cycle.periodic

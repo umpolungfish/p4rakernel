@@ -1,3 +1,11 @@
-I remove internal references from my public READMEs
+I certify primitive feedback cycles on my native carrier
 
-I remove measurement directories, internal report citations, private document links, and PDF references from both READMEs. I describe the code, APIs, build commands, and executable checks directly. I verify that the remaining repository links resolve and refresh the README render controls.
+I expose arbitrary-seed transients, primitive periods, periodic continuation,
+and restart through the reduction-certified program table. I retain the
+original program reduction at every tick and prove the cycle laws without
+axiom dependencies.
+
+I check every native starting state across the lattice and combinator
+families, including retained-seed oscillation and cycle rejection controls.
+I integrate runnable cycle examples into both public READMEs and keep their
+commands portable and their references confined to public source.
