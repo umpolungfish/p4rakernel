@@ -275,7 +275,7 @@ environment environment::add_reentry(declaration const & d, bool check) const {
         type_checker checker(*this, diag.get());
         check_constant_val(*this, v.to_constant_val(), checker);
         check_no_metavar_no_fvar(*this, v.get_name(), v.get_type());
-        expr val_type = checker.check(v.get_type(), v.get_lparams());
+        expr val_type = checker.check(v.get_expr(), v.get_lparams());
         if (!checker.is_def_eq(val_type, v.get_type()))
             throw definition_type_mismatch_exception(*this, d, v.get_type());
     }

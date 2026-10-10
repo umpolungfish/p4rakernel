@@ -499,6 +499,10 @@ def isPartial : ConstantInfo → Bool
   | .defnInfo v => v.safety == .partial
   | _ => false
 
+def isReentry : ConstantInfo → Bool
+  | .reentryInfo _ => true
+  | _ => false
+
 def name (d : ConstantInfo) : Name :=
   d.toConstantVal.name
 
@@ -537,6 +541,7 @@ def value! (info : ConstantInfo) (allowOpaque := false) : Expr :=
 
 def hints : ConstantInfo → ReducibilityHints
   | .defnInfo {hints, ..} => hints
+  | .reentryInfo _ => .regular 1
   | _                     => .opaque
 
 def isCtor : ConstantInfo → Bool

@@ -12,3 +12,4 @@ tests/lean/docparse/* eol=lf
 tests/lean/docparse/*.lean eol=auto
 tests/lean/docparse/*.sh eol=auto
 *.tsv filter=lfs diff=lfs merge=lfs -text
+measurements/kernel_features_20261009/reentry_runtime filter=lfs diff=lfs merge=lfs -text

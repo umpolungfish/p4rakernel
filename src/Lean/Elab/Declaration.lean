@@ -8,6 +8,10 @@ module
 prelude
 public import Lean.Elab.MutualDef
 public import Lean.Elab.MutualInductive
+public import Lean.Sixteen3
+public import Lean.Elab.Term
+public import Lean.Meta
+public import Lean.Elab.DeclUtil
 import Lean.Parser.Command
 
 public section
@@ -142,6 +146,105 @@ def elabAxiom (modifiers : Modifiers) (stx : Syntax) : CommandElabM Unit := do
           Term.addTermInfo' declId (← mkConstWithLevelParams declName) (isBinder := true)
         enableRealizationsForConst declName
 open Lean.Parser.Command.InternalSyntax in
+private structure ReentryCheck where
+  usesParameter : Bool := false
+  allowed : Bool := true
+
+private def combineReentryCheck (x y : ReentryCheck) : ReentryCheck :=
+  ⟨x.usesParameter || y.usesParameter, x.allowed && y.allowed⟩
+
+private partial def checkReentryExpr (parameter : FVarId) (e : Expr) : MetaM ReentryCheck := do
+  match e with
+  | .fvar id =>
+    if id == parameter then pure ⟨true, true⟩ else pure ⟨false, false⟩
+  | .const .. => pure ⟨false, true⟩
+  | .app .. =>
+    let (fn, args) := e.getAppFnArgs
+    if fn == ``Lean.Sixteen3.join_i || fn == ``Lean.Sixteen3.meet_i then
+      if args.size != 2 then return ⟨false, false⟩
+      let lhs ← checkReentryExpr parameter args[0]!
+      let rhs ← checkReentryExpr parameter args[1]!
+      return combineReentryCheck lhs rhs
+    let argChecks ← args.mapM (checkReentryExpr parameter)
+    let nested := argChecks.foldl combineReentryCheck ⟨false, true⟩
+    if nested.usesParameter then return ⟨true, false⟩
+    return nested
+  | .proj .. => pure ⟨false, false⟩
+  | .mdata _ body => checkReentryExpr parameter body
+  | _ => pure ⟨false, false⟩
+
+private def decodeSixteen3 (e : Expr) : MetaM Sixteen3 := do
+  let e ← reduce e
+  let (fn, args) := e.getAppFnArgs
+  unless fn == ``Lean.Sixteen3.mk && args.size == 4 do
+    throwError "re-entry iteration did not reduce to a SIXTEEN_3 value"
+  let bits ← args.mapM fun bit => do
+    let bit ← reduce bit
+    if bit.isConstOf ``Bool.true then pure true
+    else if bit.isConstOf ``Bool.false then pure false
+    else throwError "re-entry iteration produced a non-literal SIXTEEN_3 bit"
+  return ⟨bits[0]!, bits[1]!, bits[2]!, bits[3]!⟩
+
+private def elabReentryDecl (stx : Syntax) : CommandElabM Unit := do
+  let (bindersStx, resultTypeStx) := expandDeclSig stx[2]
+  let bodyStx := stx[3][1]
+  let currNamespace ← getCurrNamespace
+  let nameInfo ← runTermElabM fun _ => do
+    Term.expandDeclId currNamespace (← Term.getLevelNames) stx[1] {}
+  let env ← getEnv
+  unless env.holdsContradictions do
+    throwError "re-entry declarations require paraconsistent or SIXTEEN_3 mode"
+  let value ← runTermElabM fun sectionVars => do
+    Term.elabBinders bindersStx.getArgs fun binders => do
+      unless binders.size == 1 do
+        throwErrorAt bindersStx "re-entry must bind exactly one parameter of type `Lean.Sixteen3`"
+      let sixType := mkConst ``Lean.Sixteen3
+      let parameter := binders[0]!
+      unless ← isDefEq (← inferType parameter) sixType do
+        throwErrorAt bindersStx "the re-entry parameter must have type `Lean.Sixteen3`"
+      let resultType ← Term.elabType resultTypeStx
+      unless ← isDefEq resultType sixType do
+        throwErrorAt resultTypeStx "a re-entry declaration must have type `Lean.Sixteen3`"
+      let bodyExpr ← Term.elabTermEnsuringType bodyStx sixType
+      Term.synthesizeSyntheticMVarsNoPostponing
+      let bodyExpr ← instantiateMVars bodyExpr
+      let analysis ← checkReentryExpr parameter.fvarId! bodyExpr
+      unless analysis.allowed do
+        throwErrorAt bodyStx "the body must use only `join_i`, `meet_i`, and closed SIXTEEN_3 values"
+      unless analysis.usesParameter do
+        throwErrorAt bodyStx "the body must depend on its re-entry parameter"
+      let bodyExpr ← mkLambdaFVars #[parameter] bodyExpr
+      let mut current := Sixteen3.none
+      let mut converged := false
+      for _ in [:16] do
+        unless converged do
+          let boolExpr (b : Bool) := mkConst (if b then ``Bool.true else ``Bool.false)
+          let currentExpr := mkApp4 (mkConst ``Lean.Sixteen3.mk)
+            (boolExpr current.hasN) (boolExpr current.hasT)
+            (boolExpr current.hasF) (boolExpr current.hasB)
+          let nextExpr ← reduce (bodyExpr.beta #[currentExpr])
+          let next ← decodeSixteen3 nextExpr
+          if next == current then converged := true else current := next
+      unless converged do
+        throwError "re-entry fixed-point iteration exceeded the SIXTEEN_3 height"
+      let declType ← mkForallFVars sectionVars resultType
+      let declType ← Term.levelMVarToParam declType
+      return (declType, current)
+  let (declType, value) := value
+  let usedParams := (collectLevelParams {} declType |>.params).toList
+  let decl := Declaration.reentryDecl {
+    name := nameInfo.declName
+    levelParams := usedParams
+    type := declType
+    six3 := value
+  }
+  liftCoreM <| addDecl decl
+  liftCoreM <| Lean.compileDecl decl
+  runTermElabM fun _ => do
+    if let some (doc, isVerso) := nameInfo.docString? then
+      addDocStringOf isVerso nameInfo.declName bindersStx doc
+
+open Lean.Parser.Command.InternalSyntax in
 /--
 Macro that expands a declaration with a complex name into an explicit `namespace` block.
 Implementing this step as a macro means that reuse checking is handled by `elabCommand`.
@@ -175,13 +278,15 @@ def elabDeclaration : CommandElab := fun stx => do
     withExporting (isExporting := modifiers.isInferredPublic (← getEnv)) do
       if declKind == ``Lean.Parser.Command.«axiom» then
         elabAxiom modifiers decl
+      else if declKind == ``Lean.Parser.Command.«reentry» then
+        elabReentryDecl decl
       else if declKind == ``Lean.Parser.Command.«inductive»
           || declKind == ``Lean.Parser.Command.«coinductive»
           || declKind == ``Lean.Parser.Command.classInductive
           || declKind == ``Lean.Parser.Command.«structure» then
         elabInductive modifiers decl
       else
-        throwError "unexpected declaration"
+        throwError s!"unexpected declaration {declKind}"
 
 /-- Return true if all elements of the mutual-block are definitions/theorems/abbrevs. -/
 private def isMutualDefLike (stx : Syntax) : Bool :=

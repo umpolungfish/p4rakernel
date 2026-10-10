@@ -486,6 +486,8 @@ Auxiliary predicate for `whnfMatcher`.
 See comment above.
 -/
 def canUnfoldAtMatcher (cfg : Config) (info : ConstantInfo) : CoreM Bool := do
+  if info.isReentry then
+    return cfg.transparency != .none
   match cfg.transparency with
   | .all     => return true
   | .default => return !(← isIrreducible info.name)
