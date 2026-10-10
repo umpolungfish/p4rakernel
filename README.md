@@ -43,6 +43,30 @@ disable_paraconsistent
 
 Build: `mkdir -p build && cd build && cmake .. -DCMAKE_BUILD_TYPE=Release && make stage0 stage1 -j$(nproc)`
 
+## SIXTEEN_# and re-entry implementations
+
+`SIXTEEN_#` is the family notation used here; the implemented instance is
+`SIXTEEN_3`, the powerset $\mathcal P(\mathrm{FOUR})$. Its four membership
+bits record whether `N`, `T`, `F`, and `B` occur, giving exactly 16 values.
+The subscript `3` denotes its three interlocking lattice orders; the carrier
+has 16 members.
+The implementation provides truth, falsity, and information orders, with
+information join and meet acting bitwise on the four memberships.
+
+| Implementation | Role |
+|---|---|
+| `src/Lean/Sixteen3.lean` | Lean carrier, memberships, orders, and information operations |
+| `src/Init/Paraconsistent.lean` | Trilattice-mode commands and Lean-level FOUR/SIXTEEN_3 definitions |
+| `src/kernel/sixteen3.h` | Native four-bit value and lattice operations |
+| `src/Lean/Elab/Reentry.lean` | Re-entry command elaborator, monotonicity check, and Kleene iteration |
+| `src/kernel/declaration.{h,cpp}` | Native re-entry value and declaration/constant representation |
+| `src/kernel/environment.{h,cpp}` | Re-entry declaration insertion into the environment |
+
+The re-entry elaborator computes a least fixed point in the information
+order, beginning at the empty value and iterating the declared map over
+`SIXTEEN_3`. It stores the resulting four memberships as the re-entry
+constant's value while preserving its declared type.
+
 ## Re-entry and Navier–Stokes injection
 
 The native re-entry declaration carries a `Sixteen3` membership value through
