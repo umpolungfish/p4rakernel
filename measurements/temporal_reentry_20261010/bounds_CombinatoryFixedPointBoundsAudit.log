@@ -1,0 +1,39 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.informationComplement_involutive' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.informationComplement_order' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.dual_involutive' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.dual_monotone' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.dual_fixed_iff' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.GreatestCertificate.program_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.GreatestCertificate.orbit_settled' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.Bounds.ordered' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.Bounds.encloses_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPointBounds.Bounds.unique_of_equal' does not depend on any axioms
+'Imscribing.Paraconsistent.TrilatticePrograms.seedCeiling_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.TrilatticePrograms.seedCeiling_greatest' does not depend on any axioms
+endpoint checks passed: 96 seeded lattice maps and 6 diagonal maps
+recursive endpoint checks passed: 3 base maps, 16 constants, 16 Y maps, 16 retained seeds
+composed endpoint checks passed: 512 maps with all fixed states enclosed
+controls passed: 15 non-greatest candidates rejected, non-fixed and low-fuel rejection, non-fixed interior state
+some ({ hasN := false, hasT := false, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false })
+some ({ hasN := false, hasT := false, hasF := false, hasB := true },
+ { hasN := false, hasT := true, hasF := true, hasB := true })
+some ([{ hasN := false, hasT := false, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := false, hasB := false }],
+ [{ hasN := true, hasT := true, hasF := true, hasB := true },
+  { hasN := false, hasT := true, hasF := true, hasB := false },
+  { hasN := false, hasT := true, hasF := true, hasB := false },
+  { hasN := false, hasT := true, hasF := true, hasB := false },
+  { hasN := false, hasT := true, hasF := true, hasB := false },
+  { hasN := false, hasT := true, hasF := true, hasB := false }])

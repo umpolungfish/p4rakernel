@@ -1,0 +1,27 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.ofMask_maskIndex' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.maskIndex_ofMask' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.ProgramTable.toArray_size' depends on axioms: [propext]
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.ProgramTable.reduces_at' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.ProgramTable.interpret_ofMask' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.Certificate.program_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.Certificate.least_of_table_fixed' does not depend on any axioms
+'Imscribing.Paraconsistent.CombinatoryFixedPoint.Certificate.orbit_settled' does not depend on any axioms
+native solver checks passed: identity, negation, hold, 16 seeds, 16 constants, 16 Y maps
+candidate controls passed: 15 fixed but non-least candidates rejected, non-fixed candidate rejected
+compilation controls passed: insufficient fuel and non-data results rejected
+native ABI controls passed: malformed, off-path nonmonotone, and complement tables rejected
+some { hasN := false, hasT := true, hasF := true, hasB := false }
+some { hasN := false, hasT := false, hasF := false, hasB := true }
+some [{ hasN := false, hasT := false, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false }]

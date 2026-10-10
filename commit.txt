@@ -1,10 +1,5 @@
-I execute all native trilattice operations and compose their programs
+I certify both fixed-point endpoints and integrate my re-entry guides
 
-I extend the certified combinator language with all six native joins and
-meets and prove composition, diagonal reduction, and the least information
-points of seeded operations without axiom dependencies in these laws.
+I compute greatest information fixed points through the native solver on the dual table, validate them against the original program, and certify endpoint enclosure, uniqueness, and descending feedback. I share the table helpers with the least-point bridge and prove seeded ceilings for all native lattice operations.
 
-I compose injection and retention in both orders and audit every frame,
-seed, and input. I retain checks for 1536 binary inputs, 96 seeded maps,
-8192 composition inputs, 512 composed solver maps, and the existing
-combinator and native solver regressions.
+I rewrite the kernel and corpus READMEs around the current architecture, executable examples, and sequential single-worker checks. I retain passing endpoint, regression, and README example records.
