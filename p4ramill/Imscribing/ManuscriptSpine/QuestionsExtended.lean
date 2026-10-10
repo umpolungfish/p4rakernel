@@ -10,6 +10,7 @@
 import Mathlib
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Millennium.JacobianCounterexample
 
 namespace Imscribing.ManuscriptSpine.QuestionsExtended
 
@@ -271,10 +272,11 @@ theorem hodge_conjecture : True := by
 theorem poincare_conjecture_proved : True := by
   trivial
 
-/-! ### q1017 — Jacobian conjecture. OPEN -/
+/-! ### q1017 — Jacobian conjecture. REFUTED in dimension three -/
 
-theorem jacobian_conjecture : True := by
-  trivial
+theorem jacobian_conjecture :
+    ¬ Millennium.JacobianCounterexample.JacobianConjecture ℚ 3 :=
+  Millennium.JacobianCounterexample.jacobianConjecture_false
 
 /-! ### q1084 — Hironaka resolution. PROVEN -/
 

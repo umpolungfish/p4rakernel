@@ -488,6 +488,7 @@ globs = [
   "Imscribing.Millennium.BSD_MathBridge",
   "Imscribing.Millennium.BanachMeasure",
   "Imscribing.Millennium.Dixmier",
+  "Imscribing.Millennium.JacobianCounterexample",
   "Imscribing.Millennium.TwinPrime",
   "Imscribing.Millennium.LonelyRunner",
   "Imscribing.Millennium.Goldbach",
