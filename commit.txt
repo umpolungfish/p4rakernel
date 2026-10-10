@@ -1,11 +1,9 @@
-I hold negation through lattice closure and tick feedback
+I execute lattice re-entry through certified SKI combinators
 
-I implement the information closure that retains each state and its negation,
-and prove its monotonicity, idempotence, and universal leastness. I compute the
-least fixed point of every retained-seed negation map and connect it to a tick
-trace that settles after two unfoldings. I retain the raw period-two orbit and
-prove that every adjacent observation pair recovers the same closure.
+I compile bracket abstraction to S, K, and I and prove unrestricted Y
+conversion, duplication, and constant-functional reduction.
 
-I add native T and N re-entry declarations, register the audit in my library,
-and retain the successful build and runtime audit. The audited closure and
-tick laws have no axiom dependencies.
+I run native SIXTEEN_3 negation closure and retained-seed feedback through
+proof-carrying contraction steps, with resumable fuel budgets and tick
+signals. I audit all sixteen closure inputs and all 256 feedback pairs,
+and retain the focused build, axiom, execution, and proof-lift records.

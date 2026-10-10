@@ -433,6 +433,8 @@ globs = [
   "Imscribing.Paraconsistent.BelnapTemporal",
   "Imscribing.Paraconsistent.TemporalSemantics",
   "Imscribing.Paraconsistent.TemporalSemanticsAudit",
+  "Imscribing.Paraconsistent.CombinatoryReentry",
+  "Imscribing.Paraconsistent.CombinatoryReentryAudit",
   "Imscribing.Paraconsistent.BelnapCategory",
   "Imscribing.Paraconsistent.MultiAgentBelnap",
   "Imscribing.Paraconsistent.BelnapLL",
