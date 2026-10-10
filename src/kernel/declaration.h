@@ -88,7 +88,7 @@ public:
     names const & get_lparams() const { return to_constant_val().get_lparams(); }
     expr const & get_type() const { return to_constant_val().get_type(); }
     bool is_unsafe() const;
-}
+};
 /*
 structure ReentryVal extends ConstantVal where
   six3 : Sixteen3
@@ -103,10 +103,10 @@ public:
     constant_val const & to_constant_val() const { return static_cast<constant_val const &>(cnstr_get_ref(*this, 0)); }
     name const & get_name() const { return to_constant_val().get_name(); }
     names const & get_lparams() const { return to_constant_val().get_lparams(); }
-    expr const & get_type() const { return static_cast<expr const &>(cnstr_get_ref(*this, 1)); }
-    sixteen3 const & get_value() const { return *static_cast<sixteen3 const *>(cnstr_get_ref(*this, 2)); }
+    expr const & get_type() const { return to_constant_val().get_type(); }
+    sixteen3 get_value() const;
+    expr get_expr() const;
 };
-;
 
 /*
 inductive DefinitionSafety where
@@ -503,6 +503,8 @@ public:
         lean_assert(has_value(allow_opaque));
         if (is_theorem())
             return to_theorem_val().get_value();
+        else if (is_reentry())
+            return to_reentry_val().get_expr();
         else
             return static_cast<expr const &>(cnstr_get_ref(to_val(), 1));
     }

@@ -7,6 +7,7 @@ module
 
 prelude
 public import Lean.Expr
+public import Lean.Sixteen3
 
 public section
 
@@ -108,18 +109,22 @@ kernel in the SIXTEEN_3 trilattice. Mirrors the C++ `ReentryVal` class and
 evaluated lfp; the kernel does not store a re-usable expression for the body,
 so the stored value is not unfoldable as a term -- only `whnf` on the name
 returns it. --/
-@[export lean_mk_reentry_val]
 structure ReentryVal extends ConstantVal where
   six3 : Sixteen3
   deriving Inhabited, BEq
+
+@[export lean_mk_reentry_val]
+def mkReentryValEx (name : Name) (levelParams : List Name) (type : Expr)
+    (six3 : Sixteen3) (_all : List Name) : ReentryVal := { name, levelParams, type, six3 }
 
 @[export lean_reentry_val_get_value]
 def ReentryVal.getValueEx (v : ReentryVal) : Sixteen3 := v.six3
 
 @[export lean_reentry_val_six3]
 def ReentryVal.getSix3 (v : ReentryVal) : Expr :=
-  let bits := v.six3.toExpr
-  mkConst ``Kernel.Sixteen3.toExpr :: [bits]
+  let boolExpr (b : Bool) := mkConst (if b then ``Bool.true else ``Bool.false)
+  mkApp4 (mkConst ``Sixteen3.mk) (boolExpr v.six3.hasN) (boolExpr v.six3.hasT)
+    (boolExpr v.six3.hasF) (boolExpr v.six3.hasB)
 
 
 @[export lean_axiom_val_is_unsafe] def AxiomVal.isUnsafeEx (v : AxiomVal) : Bool :=
@@ -488,11 +493,10 @@ def isUnsafe : ConstantInfo → Bool
   | .inductInfo v => v.isUnsafe
   | .ctorInfo   v => v.isUnsafe
   | .recInfo    v => v.isUnsafe
-  | .reentryInfo v => v.isUnsafe
+  | .reentryInfo _ => false
 
 def isPartial : ConstantInfo → Bool
   | .defnInfo v => v.safety == .partial
-  | .reentryInfo {safety := .partial, ..} => true
   | _ => false
 
 def name (d : ConstantInfo) : Name :=
@@ -512,7 +516,7 @@ def value? (info : ConstantInfo) (allowOpaque := false) : Option Expr :=
   | .defnInfo {value, ..}   => some value
   | .thmInfo  {value, ..}   => some value
   | .opaqueInfo {value, ..} => if allowOpaque then some value else none
-  | .reentryInfo {value, ..} => some value
+  | .reentryInfo v           => some v.getSix3
   | _                       => none
 
 def hasValue (info : ConstantInfo) (allowOpaque := false) : Bool :=
@@ -528,7 +532,7 @@ def value! (info : ConstantInfo) (allowOpaque := false) : Expr :=
   | .defnInfo {value, ..}   => value
   | .thmInfo  {value, ..}   => value
   | .opaqueInfo {value, ..} => if allowOpaque then value else panic! "declaration with value expected"
-  | .reentryInfo {value, ..} => value
+  | .reentryInfo v           => v.getSix3
   | _                       => panic! s!"declaration with value expected, but {info.name} has none"
 
 def hints : ConstantInfo → ReducibilityHints

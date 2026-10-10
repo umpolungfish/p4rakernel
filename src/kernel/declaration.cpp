@@ -11,6 +11,9 @@ Author: Leonardo de Moura
 
 namespace lean {
 
+static object * six3_to_obj(sixteen3 const & v);
+static sixteen3 six3_from_obj(object * o);
+
 extern "C" object * lean_mk_reducibility_hints_regular(uint32 h);
 extern "C" uint32 lean_reducibility_hints_get_height(object * o);
 
@@ -80,6 +83,7 @@ theorem_val::theorem_val(name const & n, names const & lparams, expr const & typ
 
 extern "C" object * lean_mk_opaque_val(object * n, object * lparams, object * type, object * value, uint8 is_unsafe, object * all);
 extern "C" object * lean_mk_reentry_val(object * n, object * lparams, object * type, object * six3, object * all);
+extern "C" object * lean_reentry_val_six3(object * v);
 extern "C" uint8 lean_opaque_val_is_unsafe(object * v);
 
 opaque_val::opaque_val(name const & n, names const & lparams, expr const & type, expr const & val, bool is_unsafe, names const & all):
@@ -90,22 +94,16 @@ bool opaque_val::is_unsafe() const { return lean_opaque_val_is_unsafe(to_obj_arg
 
 reentry_val::reentry_val(name const & n, names const & lparams, expr const & type, sixteen3 const & v):
     object_ref(lean_mk_reentry_val(n.to_obj_arg(), lparams.to_obj_arg(), type.to_obj_arg(),
-                                   six3_to_obj(v), names(n))) {
+                                   six3_to_obj(v), names(n).to_obj_arg())) {
 }
 
-/**
-Create a `ReentryVal`: (name, levelParams, type, six3) with no level params in the
-`all` list.  The `six3` argument is the pre-computed least fixed point in the
-SIXTEEN_3 trilattice — `mk_reentry` is the kernel's fixed-point solver, so by
-the time this is called the re-entry value is fully evaluated and contains no
-unevaluated `f`-binder applications.
-*/
-extern "C" object * lean_mk_reentry_val(object * n, object * lparams, object * type,
-                                        object * six3, object * all) {
-    return mk_cnstr(1, name::of_obj_arg(n), names::of_obj_arg(lparams),
-                    expr::of_obj_arg(type), object::of_obj_arg(six3));
+sixteen3 reentry_val::get_value() const {
+    return six3_from_obj(cnstr_get(raw(), 1));
 }
 
+expr reentry_val::get_expr() const {
+    return expr(lean_reentry_val_six3(to_obj_arg()));
+}
 
 extern "C" object * lean_mk_quot_val(object * n, object * lparams, object * type, uint8 k);
 extern "C" uint8 lean_quot_val_kind(object * v);
@@ -253,20 +251,21 @@ declaration mk_axiom(name const & n, names const & params, expr const & t, bool 
 }
 
 /**
-Convert a sixteen3 value into the kernel object representing it.
-The ReentryVal payload carries the 4 bits in a single object_ref so it survives
-the constant_info / olean round-trip without needing a persistent Lean-level
-constant of type Sixteen3.
+Convert a sixteen3 value using Lean.Sixteen3's runtime constructor layout:
+no object fields and four Bool scalar fields, in membership-bit order.
 */
 static object * six3_to_obj(sixteen3 const & v) {
-    uint32 bits = (v.hasN ? 0x1 : 0) | (v.hasT ? 0x2 : 0) | (v.hasF ? 0x4 : 0) | (v.hasB ? 0x8 : 0);
-    return object::mk_uint32(bits);
+    object * result = lean_alloc_ctor(0, 0, 4);
+    cnstr_set_uint8(result, 0, v.hasN);
+    cnstr_set_uint8(result, 1, v.hasT);
+    cnstr_set_uint8(result, 2, v.hasF);
+    cnstr_set_uint8(result, 3, v.hasB);
+    return result;
 }
 
 static sixteen3 six3_from_obj(object * o) {
-    lean_assert(is_uint32(o));
-    uint32 bits = obj_as_uint32(o);
-    return sixteen3((bits & 0x1) != 0, (bits & 0x2) != 0, (bits & 0x4) != 0, (bits & 0x8) != 0);
+    return sixteen3(cnstr_get_uint8(o, 0), cnstr_get_uint8(o, 1),
+                    cnstr_get_uint8(o, 2), cnstr_get_uint8(o, 3));
 }
 
 declaration mk_reentry(environment const & env, name const & n, names const & lparams,
@@ -310,6 +309,12 @@ bool inductive_decl::is_unsafe() const { return lean_is_unsafe_inductive_decl(to
 constant_info::constant_info():constant_info(*g_dummy) {}
 
 constant_info::constant_info(declaration const & d):object_ref(d.raw()) {
+    if (d.is_reentry()) {
+        inc_ref(d.raw());
+        object_ref::operator=(mk_cnstr(static_cast<unsigned>(constant_info_kind::Reentry),
+                                      d.to_reentry_val()));
+        return;
+    }
     lean_assert(d.is_definition() || d.is_theorem() || d.is_axiom() || d.is_opaque());
     inc_ref(d.raw());
 }
@@ -353,6 +358,7 @@ bool constant_info::is_unsafe() const {
     case constant_info_kind::Inductive:   return to_inductive_val().is_unsafe();
     case constant_info_kind::Constructor: return to_constructor_val().is_unsafe();
     case constant_info_kind::Recursor:    return to_recursor_val().is_unsafe();
+    case constant_info_kind::Reentry:     return false;
     }
     lean_unreachable();
 }
