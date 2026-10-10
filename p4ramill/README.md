@@ -9,7 +9,9 @@ The executable re-entry interface compiles S/K/I programs over the native
 carrier into complete value tables with reduction witnesses. The native solver
 computes candidate fixed points, and Lean certificates establish their least
 and greatest bounds, settled feedback traces, and enclosure of every fixed
-state. The corpus also supplies domain constructions and typed transport interfaces.
+state. Arbitrary starting states produce certified transients and primitive
+cycles with reduction evidence at every tick. The corpus also supplies domain
+constructions and typed transport interfaces.
 
 ## Select the fork and check a focused target
 
@@ -26,7 +28,7 @@ and one compiler process at a time. These commands use the existing project depe
 
 ```sh
 for module in TemporalSemantics CombinatoryReentry CombinatoryFixedPoint \
-  TrilatticePrograms CombinatoryFixedPointBounds; do
+  TrilatticePrograms CombinatoryFixedPointBounds CombinatoryDynamics; do
   lake env lean -j1 "Imscribing/Paraconsistent/$module.lean" \
     -o ".lake/build/lib/lean/Imscribing/Paraconsistent/$module.olean" || exit "$?"
 done
@@ -37,7 +39,7 @@ Then execute the audit modules sequentially:
 ```sh
 for module in TemporalSemanticsAudit CombinatoryReentryAudit \
   CombinatoryFixedPointAudit TrilatticeProgramsAudit \
-  CombinatoryFixedPointBoundsAudit; do
+  CombinatoryFixedPointBoundsAudit CombinatoryDynamicsAudit; do
   lake env lean -j1 "Imscribing/Paraconsistent/$module.lean" || exit "$?"
 done
 ```
@@ -85,6 +87,50 @@ Lifted FOUR negation exchanges T/F memberships. The information complement
 used to compute the greatest point toggles all four memberships. Singleton B
 and the T/F subset remain distinct native states throughout these interfaces.
 
+## Inspect feedback from any starting state
+
+```lean
+import Imscribing.Paraconsistent.CombinatoryDynamics
+
+open Imscribing.Paraconsistent.CombinatoryDynamics
+open Imscribing.Paraconsistent.CombinatoryReentry
+open Imscribing.Paraconsistent.Temporal.Semantics
+
+#eval (analyzeOrbit 1 .negation (FDE.singleton .T)).map
+  fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
+
+#eval (analyzeOrbit 3 hold (FDE.singleton .T)).map
+  fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
+
+#eval (analyzeOrbit 32 (seededOperator (FDE.singleton .N)) (FDE.singleton .T)).map
+  fun cycle => (cycle.entry, cycle.period, cycle.transient, cycle.loop)
+```
+
+These programs start at singleton T:
+
+| Program | Transient | Repeating states | Primitive period |
+|---|---|---|---|
+| Raw negation | None | `{T}`, `{F}` | 2 |
+| `hold` | `{T}` | `{T,F}` | 1 |
+| Negation retaining singleton N | `{T}` | `{N,F}`, `{N,T}` | 2 |
+
+`analyzeOrbit` tabulates the program and inspects ticks zero through sixteen.
+Each returned `Cycle` carries the complete certified table, first-repeat entry,
+positive period, closing equation, and distinctness before the repeat.
+`Cycle.periodic` proves continuation for every future tick.
+`Cycle.no_earlier_return` proves the period is primitive.
+`Cycle.program_tick` retains reduction of the original program at every step.
+`feedback_restart` proves that resuming from a reached state gives the same
+future signal.
+
+`Cycle.transient`, `Cycle.loop`, and `Cycle.isStationary` expose these results
+to executable code. Period one gives a fixed state through
+`Cycle.fixed_of_period_one`; larger periods give movement through
+`Cycle.moves_of_period_gt_one`. A completed table from `solveBounds` can be
+passed directly to `findCycle`, so endpoint and interior feedback share one
+program computation. Retained negation can oscillate from an interior seed
+even when its empty-start feedback settles.
+
 ## Where to look
 
 | Directory or module | Contents |
@@ -95,6 +141,7 @@ and the T/F subset remain distinct native states throughout these interfaces.
 | `Imscribing/Paraconsistent/TrilatticePrograms.lean` | Six native operations, seeded and diagonal maps, injection/retention composition |
 | `Imscribing/Paraconsistent/CombinatoryFixedPoint.lean` | Certified tables and least information fixed points |
 | `Imscribing/Paraconsistent/CombinatoryFixedPointBounds.lean` | Greatest points, endpoint bounds, enclosure and uniqueness |
+| `Imscribing/Paraconsistent/CombinatoryDynamics.lean` | Arbitrary-seed transients, primitive cycles, periodic continuation and restart |
 | `Imscribing/Paraconsistent/` | Belnap FOUR, SIXTEEN_3, Frobenius, Witness values |
 | `Imscribing/IUTT.lean` | Packets, state decomposition, transport, Closure laws |
 | `Imscribing/ABC*.lean` | Arithmetic calibration, measurements, Θ transport |
@@ -129,11 +176,17 @@ bounds audit checks seeded maps, diagonals, constants, Y-computed constants,
 retained negation, and both composition orders. It rejects non-greatest and
 non-fixed candidates and insufficient reduction fuel. The least-point and
 trilattice audits check the shared table helpers and native operations.
+The cycle audit follows every native starting state through the same program
+families and checks periodic continuation and restart. Its rejection controls
+cover zero periods, nonclosing candidates, repeated laps, late entries,
+oversized cycles, insufficient fuel, and unfinished data computations.
 
 Compiler output identifies declarations that use axioms or `sorry`. Those
 dependencies belong to each theorem statement and audit. Endpoint enclosure,
 uniqueness, greatest-point program reduction, and settled feedback theorems
-print no axiom dependencies.
+print no axiom dependencies. Program-tick reduction, periodic continuation,
+primitive return, restart, and the fixed/moving cycle theorems also print no
+axiom dependencies.
 
 ## License
 

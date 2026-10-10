@@ -1,0 +1,23 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+[SIXTEEN_3] Trilattice mode activated — 16 values, three orders; explosion disabled.
+some ({ hasN := false, hasT := false, hasF := false, hasB := false },
+ { hasN := false, hasT := true, hasF := true, hasB := false })
+some ({ hasN := false, hasT := false, hasF := false, hasB := true },
+ { hasN := false, hasT := true, hasF := true, hasB := true })
+some (0,
+ 2,
+ [{ hasN := false, hasT := true, hasF := false, hasB := false },
+  { hasN := false, hasT := false, hasF := true, hasB := false }])
+some (1,
+ 2,
+ [{ hasN := true, hasT := false, hasF := true, hasB := false },
+  { hasN := true, hasT := true, hasF := false, hasB := false }])
+[Paraconsistent] Kernel mode activated — principle of explosion disabled.
+paraconsistent = true
+[Paraconsistent] Kernel mode deactivated — principle of explosion restored.

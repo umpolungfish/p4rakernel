@@ -3,15 +3,27 @@ name                                 type              encoding         emb sub 
 IIHDIJ+LMRoman17-Regular             CID Type 0C       Identity-H       yes yes yes     43  0
 BYYWOE+LMRoman12-Regular             CID Type 0C       Identity-H       yes yes yes     44  0
 UUUAAI+LMRoman12-Bold                CID Type 0C       Identity-H       yes yes yes     45  0
-PFMPQV+LMMono12-Regular              CID Type 0C       Identity-H       yes yes yes     46  0
+PVAWII+LMMono12-Regular              CID Type 0C       Identity-H       yes yes yes     46  0
 WPVNZS+CMSY10                        Type 1            Builtin          yes yes no      47  0
-GYDNGW+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes     48  0
+PPZOIK+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes     48  0
 CNTEIK+LMRoman10-Bold                CID Type 0C       Identity-H       yes yes yes     49  0
 HGZAEH+LMMonoLt10-Bold               CID Type 0C       Identity-H       yes yes yes     52  0
-TOWCUU+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     53  0
+AJUCLA+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     53  0
 UHOWLU+CMMI12                        Type 1            Builtin          yes yes no      64  0
 FERSUF+CMR8                          Type 1            Builtin          yes yes no      65  0
 OHVHPT+CMR12                         Type 1            Builtin          yes yes no      66  0
-GVLOWW+EversonMono                   CID TrueType      Identity-H       yes yes yes    106  0
-AJBAKY+Trabajo                       CID Type 0C       Identity-H       yes yes yes    107  0
-VNYVGK+CMMI8                         Type 1            Builtin          yes yes no     112  0
+GVLOWW+EversonMono                   CID TrueType      Identity-H       yes yes yes    122  0
+AJBAKY+Trabajo                       CID Type 0C       Identity-H       yes yes yes    123  0
+VNYVGK+CMMI8                         Type 1            Builtin          yes yes no     124  0
+name                                 type              encoding         emb sub uni object ID
+------------------------------------ ----------------- ---------------- --- --- --- ---------
+GGJNTX+LMRoman12-Regular             CID Type 0C       Identity-H       yes yes yes     38  0
+WAWCHH+LMRoman17-Regular             CID Type 0C       Identity-H       yes yes yes     45  0
+PUGYDD+LMRoman12-Bold                CID Type 0C       Identity-H       yes yes yes     46  0
+BFGLHQ+LMMonoLt10-Bold               CID Type 0C       Identity-H       yes yes yes     49  0
+PJQMDG+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     50  0
+SEGDXZ+LMMono12-Regular              CID Type 0C       Identity-H       yes yes yes     69  0
+WFYJUK+CMSY10                        Type 1            Builtin          yes yes no     110  0
+MWMITZ+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes    111  0
+ENNAGY+LMRoman10-Bold                CID Type 0C       Identity-H       yes yes yes    112  0
+AGTGHI+CMR10                         Type 1            Builtin          yes yes no     117  0
