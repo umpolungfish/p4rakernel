@@ -1,0 +1,44 @@
+diff --git a/Batteries/Tactic/PrintDependents.lean b/Batteries/Tactic/PrintDependents.lean
+index dd456ebb..f424e59c 100644
+--- a/Batteries/Tactic/PrintDependents.lean
++++ b/Batteries/Tactic/PrintDependents.lean
+@@ -54,6 +54,7 @@ partial def collect (c : Name) : M Bool := do
+     | some (ConstantInfo.defnInfo v)   => collectExpr v.type <||> collectExpr v.value
+     | some (ConstantInfo.thmInfo v)    => collectExpr v.type <||> collectExpr v.value
+     | some (ConstantInfo.opaqueInfo v) => collectExpr v.type <||> collectExpr v.value
++    | some (ConstantInfo.reentryInfo v) => collectExpr v.type <||> collectExpr v.getSix3
+     | some (ConstantInfo.quotInfo _)   => pure false
+     | some (ConstantInfo.ctorInfo v)   => collectExpr v.type
+     | some (ConstantInfo.recInfo v)    => collectExpr v.type
+@@ -110,6 +111,7 @@ elab tk:"#print" &"dependents" ids:(ppSpace colGt ident)* : command => do
+       | some (ConstantInfo.defnInfo v)   => v.type.getUsedConstants ++ v.value.getUsedConstants
+       | some (ConstantInfo.thmInfo v)    => v.type.getUsedConstants ++ v.value.getUsedConstants
+       | some (ConstantInfo.opaqueInfo v) => v.type.getUsedConstants ++ v.value.getUsedConstants
++      | some (ConstantInfo.reentryInfo v) => v.type.getUsedConstants ++ v.getSix3.getUsedConstants
+       | some (ConstantInfo.ctorInfo v)   => v.type.getUsedConstants
+       | some (ConstantInfo.recInfo v)    => v.type.getUsedConstants
+       | some (ConstantInfo.inductInfo v) => v.type.getUsedConstants ++ v.ctors
+diff --git a/Batteries/Tactic/PrintOpaques.lean b/Batteries/Tactic/PrintOpaques.lean
+index 399c8936..77a6463b 100644
+--- a/Batteries/Tactic/PrintOpaques.lean
++++ b/Batteries/Tactic/PrintOpaques.lean
+@@ -32,6 +32,7 @@ partial def collect (c : Name) : M Unit := do
+     modify fun s => { s with visited := s.visited.insert c }
+     let env ← read
+     match env.find? c with
++    | some (ConstantInfo.reentryInfo v) => collectExpr v.getSix3
+     | some (ConstantInfo.ctorInfo _)
+     | some (ConstantInfo.recInfo _)
+     | some (ConstantInfo.inductInfo _)
+diff --git a/Batteries/Tactic/ShowUnused.lean b/Batteries/Tactic/ShowUnused.lean
+index ea9ba995..6d701358 100644
+--- a/Batteries/Tactic/ShowUnused.lean
++++ b/Batteries/Tactic/ShowUnused.lean
+@@ -31,6 +31,7 @@ private partial def visit (n : Name) : StateM NameSet Unit := do
+     | some (ConstantInfo.defnInfo v)   => visitExpr v.type *> visitExpr v.value
+     | some (ConstantInfo.thmInfo v)    => visitExpr v.type *> visitExpr v.value
+     | some (ConstantInfo.opaqueInfo v) => visitExpr v.type *> visitExpr v.value
++    | some (ConstantInfo.reentryInfo v) => visitExpr v.type *> visitExpr v.getSix3
+     | some (ConstantInfo.quotInfo _)   => pure ()
+     | some (ConstantInfo.ctorInfo v)   => visitExpr v.type
+     | some (ConstantInfo.recInfo v)    => visitExpr v.type

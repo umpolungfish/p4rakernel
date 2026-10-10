@@ -40,3 +40,5 @@ p4ramill/sweep/wordsCollatzDepth.tsv
 p4ramill/sweep/.rawCollatzDepth.tsv
 p4ramill/sweep/erdos_all/test_bisect.tsv
 p4ramill/Imscribing/BealProof
+# Historical dependency links are retained in native_overlay_archive.tar.gz.
+measurements/ns_kernel_reentry_20261009/lib/

@@ -1,0 +1,1186 @@
+warning: mathlib: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib' has local changes
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+ℹ [8037/8275] Replayed Imscribing.Primitives.Imscription
+info: Imscribing/Primitives/Imscription.lean:476:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+info: Imscribing/Primitives/Imscription.lean:670:0: "⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩"
+ℹ [8056/8275] Replayed Imscribing.GodelOntological
+info: Imscribing/GodelOntological.lean:235:0: 'Imscribing.GodelOntological.th1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/GodelOntological.lean:236:0: 'Imscribing.GodelOntological.th2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/GodelOntological.lean:237:0: 'Imscribing.GodelOntological.th3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/GodelOntological.lean:238:0: 'Imscribing.GodelOntological.th4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/GodelOntological.lean:239:0: 'Imscribing.GodelOntological.modal_collapse' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/GodelOntological.lean:240:0: 'Imscribing.GodelOntological.axioms_consistent' does not depend on any axioms
+ℹ [8064/8275] Replayed Imscribing.Primitives.BSD_2adic
+info: Imscribing/Primitives/BSD_2adic.lean:282:0: bsd_touchard : ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic], rootNumber_EC E = -1 → rank_EC E % 6 = 1 ∨ rank_EC E % 18 = 9
+ℹ [8072/8275] Replayed Imscribing.DecompositionTable
+info: Imscribing/DecompositionTable.lean:132:0: Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.yea	1	true	[]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.yea	2	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.yea	3	false	[memory, observability]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.yea	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.loll	1	true	[]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.loll	2	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.loll	3	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.loll	4	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.egg	1	true	[]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.egg	2	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.egg	3	false	[memory, observability]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.egg	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.on	1	true	[]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.on	2	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.on	3	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.on	4	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.air	1	true	[]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.air	2	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.air	3	false	[memory]
+Imscribing.Primitives.Chirality.fee	Imscribing.Primitives.KineticChar.air	4	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.yea	1	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.yea	2	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.yea	3	false	[memory, observability]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.yea	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.loll	1	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.loll	2	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.loll	3	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.loll	4	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.egg	1	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.egg	2	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.egg	3	false	[memory, observability]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.egg	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.on	1	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.on	2	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.on	3	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.on	4	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.air	1	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.air	2	true	[]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.air	3	false	[memory]
+Imscribing.Primitives.Chirality.kick	Imscribing.Primitives.KineticChar.air	4	false	[memory]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.yea	1	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.yea	2	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.yea	3	false	[observability]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.yea	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.loll	1	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.loll	2	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.loll	3	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.loll	4	false	[memory]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.egg	1	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.egg	2	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.egg	3	false	[observability]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.egg	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.on	1	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.on	2	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.on	3	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.on	4	false	[memory]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.air	1	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.air	2	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.air	3	true	[]
+Imscribing.Primitives.Chirality.sure	Imscribing.Primitives.KineticChar.air	4	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.yea	1	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.yea	2	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.yea	3	false	[memory, observability]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.yea	4	false	[memory, observability]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.loll	1	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.loll	2	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.loll	3	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.loll	4	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.egg	1	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.egg	2	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.egg	3	false	[observability]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.egg	4	false	[observability]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.on	1	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.on	2	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.on	3	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.on	4	true	[]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.air	1	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.air	2	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.air	3	false	[memory]
+Imscribing.Primitives.Chirality.wool	Imscribing.Primitives.KineticChar.air	4	false	[memory]
+info: Imscribing/DecompositionTable.lean:136:0: 320
+ℹ [8106/8642] Replayed Imscribing.SHIABOperator
+info: Imscribing/SHIABOperator.lean:108:0: Imscribing.Primitives.OuroboricityTier.O₀
+info: Imscribing/SHIABOperator.lean:109:0: Imscribing.Primitives.OuroboricityTier.O₂dag
+ℹ [8107/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAdo
+info: Imscribing/Primitives/Types/PrimitiveTypeAdo.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8108/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAge
+info: Imscribing/Primitives/Types/PrimitiveTypeAge.lean:141:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8109/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAh
+info: Imscribing/Primitives/Types/PrimitiveTypeAh.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8110/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAir
+info: Imscribing/Primitives/Types/PrimitiveTypeAir.lean:114:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8111/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAre
+info: Imscribing/Primitives/Types/PrimitiveTypeAre.lean:122:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8112/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeArray
+info: Imscribing/Primitives/Types/PrimitiveTypeArray.lean:136:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8113/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAsh
+info: Imscribing/Primitives/Types/PrimitiveTypeAsh.lean:126:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8114/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeAwe
+info: Imscribing/Primitives/Types/PrimitiveTypeAwe.lean:120:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8115/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeBib
+info: Imscribing/Primitives/Types/PrimitiveTypeBib.lean:124:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8116/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeChurch
+info: Imscribing/Primitives/Types/PrimitiveTypeChurch.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8117/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeDead
+info: Imscribing/Primitives/Types/PrimitiveTypeDead.lean:136:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8118/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeEar
+info: Imscribing/Primitives/Types/PrimitiveTypeEar.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8119/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeEat
+info: Imscribing/Primitives/Types/PrimitiveTypeEat.lean:157:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8120/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeEgg
+info: Imscribing/Primitives/Types/PrimitiveTypeEgg.lean:132:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8121/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeErr
+info: Imscribing/Primitives/Types/PrimitiveTypeErr.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8122/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeFee
+info: Imscribing/Primitives/Types/PrimitiveTypeFee.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8123/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeGag
+info: Imscribing/Primitives/Types/PrimitiveTypeGag.lean:132:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8124/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeHaHa
+info: Imscribing/Primitives/Types/PrimitiveTypeHaHa.lean:136:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8125/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeHung
+info: Imscribing/Primitives/Types/PrimitiveTypeHung.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8126/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeIan
+info: Imscribing/Primitives/Types/PrimitiveTypeIan.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8127/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeIce
+info: Imscribing/Primitives/Types/PrimitiveTypeIce.lean:114:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8128/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeIf
+info: Imscribing/Primitives/Types/PrimitiveTypeIf.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8129/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeJudge
+info: Imscribing/Primitives/Types/PrimitiveTypeJudge.lean:120:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8130/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeKick
+info: Imscribing/Primitives/Types/PrimitiveTypeKick.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8131/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeLoll
+info: Imscribing/Primitives/Types/PrimitiveTypeLoll.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8132/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeMeasure
+info: Imscribing/Primitives/Types/PrimitiveTypeMeasure.lean:140:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8133/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeMime
+info: Imscribing/Primitives/Types/PrimitiveTypeMime.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8134/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeMonad
+info: Imscribing/Primitives/Types/PrimitiveTypeMonad.lean:114:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8135/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeNun
+info: Imscribing/Primitives/Types/PrimitiveTypeNun.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8136/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOak
+info: Imscribing/Primitives/Types/PrimitiveTypeOak.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8137/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOil
+info: Imscribing/Primitives/Types/PrimitiveTypeOil.lean:129:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8138/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOn
+info: Imscribing/Primitives/Types/PrimitiveTypeOn.lean:122:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8139/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOoze
+info: Imscribing/Primitives/Types/PrimitiveTypeOoze.lean:132:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8140/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOr
+info: Imscribing/Primitives/Types/PrimitiveTypeOr.lean:122:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8141/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeOut
+info: Imscribing/Primitives/Types/PrimitiveTypeOut.lean:166:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8142/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypePeep
+info: Imscribing/Primitives/Types/PrimitiveTypePeep.lean:122:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8143/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeRoar
+info: Imscribing/Primitives/Types/PrimitiveTypeRoar.lean:122:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8144/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeSo
+info: Imscribing/Primitives/Types/PrimitiveTypeSo.lean:120:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8145/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeSure
+info: Imscribing/Primitives/Types/PrimitiveTypeSure.lean:126:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8146/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeThey
+info: Imscribing/Primitives/Types/PrimitiveTypeThey.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8147/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeThigh
+info: Imscribing/Primitives/Types/PrimitiveTypeThigh.lean:124:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8148/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeTot
+info: Imscribing/Primitives/Types/PrimitiveTypeTot.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8149/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeUp
+info: Imscribing/Primitives/Types/PrimitiveTypeUp.lean:129:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8150/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeVow
+info: Imscribing/Primitives/Types/PrimitiveTypeVow.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8151/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeWoe
+info: Imscribing/Primitives/Types/PrimitiveTypeWoe.lean:114:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8152/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeWool
+info: Imscribing/Primitives/Types/PrimitiveTypeWool.lean:136:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8153/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeYea
+info: Imscribing/Primitives/Types/PrimitiveTypeYea.lean:129:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8154/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeYew
+info: Imscribing/Primitives/Types/PrimitiveTypeYew.lean:128:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8155/8642] Replayed Imscribing.Primitives.Types.PrimitiveTypeZoo
+info: Imscribing/Primitives/Types/PrimitiveTypeZoo.lean:136:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8161/8642] Replayed Imscribing.Millennium.Erdos.ErdosTuranAP
+info: Imscribing/Millennium/Erdos/ErdosTuranAP.lean:182:0: 'Millennium.ErdosProblems.ErdosTuran.dense_has_3ap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/ErdosTuranAP.lean:183:0: 'Millennium.ErdosProblems.ErdosTuran.behrend_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/ErdosTuranAP.lean:184:0: 'Millennium.ErdosProblems.ErdosTuran.primes_reciprocal_diverges' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [8162/8642] Replayed Imscribing.Millennium.Erdos.AntiRamseyOddCycles
+info: Imscribing/Millennium/Erdos/AntiRamseyOddCycles.lean:194:0: 'Millennium.ErdosProblems.turan_edges' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/AntiRamseyOddCycles.lean:195:0: 'Millennium.ErdosProblems.regime_partition' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/AntiRamseyOddCycles.lean:196:0: 'Millennium.ErdosProblems.regimes_separate' depends on axioms: [propext, Quot.sound]
+ℹ [8163/8642] Replayed Imscribing.Millennium.Erdos.SubgroupOrders
+info: Imscribing/Millennium/Erdos/SubgroupOrders.lean:214:0: 'Millennium.ErdosProblems.partsF_sum' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/SubgroupOrders.lean:266:0: 'Millennium.ErdosProblems.partsF_complete' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/SubgroupOrders.lean:267:0: 'Millennium.ErdosProblems.landau_table' depends on axioms: [Lean.ofReduceBool, Lean.trustCompiler]
+ℹ [8164/8642] Replayed Imscribing.Millennium.Erdos.ErdosKacInterval
+info: Imscribing/Millennium/Erdos/ErdosKacInterval.lean:181:0: 'Millennium.ErdosProblems.loglog_sixteen_gt_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/ErdosKacInterval.lean:182:0: 'Millennium.ErdosProblems.prime_power_excluded' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/ErdosKacInterval.lean:183:0: 'Millennium.ErdosProblems.ffuse_true_neither' depends on axioms: [propext]
+ℹ [8165/8642] Replayed Imscribing.Millennium.Erdos.RamseyAsymptotics
+info: Imscribing/Millennium/Erdos/RamseyAsymptotics.lean:222:0: 'Millennium.ErdosProblems.stirling_beats_exponential' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/RamseyAsymptotics.lean:223:0: 'Millennium.ErdosProblems.refined_ratio_tendsto_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/RamseyAsymptotics.lean:224:0: 'Millennium.ErdosProblems.refined_ratio_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8166/8642] Replayed Imscribing.Millennium.Erdos.PolynomAsymptotics
+info: Imscribing/Millennium/Erdos/PolynomAsymptotics.lean:182:0: 'Millennium.ErdosProblems.abs_pow_sub_one_le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/PolynomAsymptotics.lean:183:0: 'Millennium.ErdosProblems.consecutive_roots_coprime' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/PolynomAsymptotics.lean:184:0: 'Millennium.ErdosProblems.sum_ge_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8167/8642] Replayed Imscribing.Millennium.Erdos.UnitDistance
+info: Imscribing/Millennium/Erdos/UnitDistance.lean:261:0: 'Millennium.ErdosProblems.Lenz.dist_circA_circB' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/UnitDistance.lean:262:0: 'Millennium.ErdosProblems.Lenz.lenz_lower_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8168/8642] Replayed Imscribing.Millennium.Erdos.DifferenceSets
+info: Imscribing/Millennium/Erdos/DifferenceSets.lean:204:0: 'Millennium.ErdosProblems.thick_not_banach_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/DifferenceSets.lean:205:0: 'Millennium.ErdosProblems.thick_iff_compl_not_syndetic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/DifferenceSets.lean:206:0: 'Millennium.ErdosProblems.lacunary_diff_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8169/8642] Replayed Imscribing.Millennium.Erdos.PomeranceSDR
+info: Imscribing/Millennium/Erdos/PomeranceSDR.lean:137:0: 'Millennium.ErdosProblems.fnn_table' depends on axioms: [Lean.ofReduceBool, Lean.trustCompiler]
+info: Imscribing/Millennium/Erdos/PomeranceSDR.lean:138:0: 'Millennium.ErdosProblems.four_window_fails' depends on axioms: [Lean.ofReduceBool, Lean.trustCompiler]
+info: Imscribing/Millennium/Erdos/PomeranceSDR.lean:212:0: 'Millennium.ErdosProblems.SDRWindow.exists_distinct_multiples_window' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/PomeranceSDR.lean:213:0: 'Millennium.ErdosProblems.SDRWindow.window_length_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8170/8642] Replayed Imscribing.Millennium.Erdos.TrianglePartition
+info: Imscribing/Millennium/Erdos/TrianglePartition.lean:267:0: 'Millennium.ErdosProblems.rep_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/TrianglePartition.lean:268:0: 'Millennium.ErdosProblems.not_repArith_six' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/TrianglePartition.lean:269:0: 'Millennium.ErdosProblems.six_is_least_excluded' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/TrianglePartition.lean:270:0: 'Millennium.ErdosProblems.pieces_congruent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/TrianglePartition.lean:271:0: 'Millennium.ErdosProblems.piece_not_similar_to_original' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8173/8642] Replayed Imscribing.Millennium.Erdos.SumsetAvoidingAP
+info: Imscribing/Millennium/Erdos/SumsetAvoidingAP.lean:451:0: 'Millennium.ErdosProblems.Q817.two_pow_le_of_apFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SumsetAvoidingAP.lean:452:0: 'Millennium.ErdosProblems.Q817.no_triple_below_eight' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SumsetAvoidingAP.lean:453:0: 'Millennium.ErdosProblems.Q817.no_quintuple_below_sixty' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+ℹ [8174/8642] Replayed Imscribing.Millennium.Erdos.BinomialGCD
+info: Imscribing/Millennium/Erdos/BinomialGCD.lean:150:0: 'Millennium.ErdosProblems.QBinomialGCD.prime_le_gcd_choose' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/BinomialGCD.lean:151:0: 'Millennium.ErdosProblems.QBinomialGCD.dvd_choose_of_units_digit_exceeds' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/BinomialGCD.lean:152:0: 'Millennium.ErdosProblems.QBinomialGCD.dvd_choose_pred_of_dvd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/BinomialGCD.lean:153:0: 'Millennium.ErdosProblems.QBinomialGCD.choose_modEq_of_dvd_dvd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/BinomialGCD.lean:154:0: 'Millennium.ErdosProblems.QBinomialGCD.gcd_row30_pair' does not depend on any axioms
+ℹ [8175/8642] Replayed Imscribing.Millennium.Erdos.ChromaticOddCycle
+info: Imscribing/Millennium/Erdos/ChromaticOddCycle.lean:179:0: 'Millennium.ErdosProblems.chord_gives_shorter_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/ChromaticOddCycle.lean:180:0: 'Millennium.ErdosProblems.chorded_cycle_long' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/ChromaticOddCycle.lean:181:0: 'Millennium.ErdosProblems.cycleColour_proper' does not depend on any axioms
+ℹ [8176/8642] Replayed Imscribing.Millennium.Erdos.MonochromaticOddCycle
+info: Imscribing/Millennium/Erdos/MonochromaticOddCycle.lean:221:0: 'Millennium.ErdosProblems.card_le_of_classes_bipartite' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/MonochromaticOddCycle.lean:222:0: 'Millennium.ErdosProblems.col5_no_mono_triangle' does not depend on any axioms
+info: Imscribing/Millennium/Erdos/MonochromaticOddCycle.lean:223:0: 'Millennium.ErdosProblems.all_colourings_K6_have_mono_triangle' depends on axioms: [Lean.ofReduceBool,
+ Lean.trustCompiler]
+ℹ [8177/8642] Replayed Imscribing.Millennium.Erdos.SchutteTournament
+info: Imscribing/Millennium/Erdos/SchutteTournament.lean:293:0: 'Millennium.ErdosProblems.paley7_has_S2' does not depend on any axioms
+info: Imscribing/Millennium/Erdos/SchutteTournament.lean:294:0: 'Millennium.ErdosProblems.no_S2_on_six' depends on axioms: [Lean.ofReduceBool, Lean.trustCompiler]
+info: Imscribing/Millennium/Erdos/SchutteTournament.lean:295:0: 'Millennium.ErdosProblems.stated_bound_weaker' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTournament.lean:296:0: 'Millennium.ErdosProblems.sandwich_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8178/8642] Replayed Imscribing.Millennium.Erdos.SchutteTClose
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:247:0: 'Imscribing.Millennium.Erdos.doublingCount_closed_form' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:248:0: 'Imscribing.Millennium.Erdos.claimed_closed_form_false' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:249:0: 'Imscribing.Millennium.Erdos.doubling_construction_refuted' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:250:0: 'Imscribing.Millennium.Erdos.claimed_form_misses_base' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:252:0: 'Imscribing.Millennium.Erdos.lower_bound_asymptotic_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:253:0: 'Imscribing.Millennium.Erdos.lower_bound_is_Theta_n_mul_2_pow_n' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:254:0: 'Imscribing.Millennium.Erdos.upper_bound_is_O_n_squared_mul_2_pow_n' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:255:0: 'Imscribing.Millennium.Erdos.asymptotic_gap_is_Theta_n' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:256:0: 'Imscribing.Millennium.Erdos.asymptotic_gap_precise_slope' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SchutteTClose.lean:257:0: 'Imscribing.Millennium.Erdos.complete_asymptotic_closure' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8187/8642] Replayed Imscribing.Millennium.SemanticBranchVerifier
+info: Imscribing/Millennium/SemanticBranchVerifier.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8198/8642] Replayed Imscribing.Millennium.ZaunerUnitaryConstruction
+info: Imscribing/Millennium/ZaunerUnitaryConstruction.lean:108:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8210/8642] Replayed Imscribing.GravityFixedPointWinding
+info: Imscribing/GravityFixedPointWinding.lean:199:0: 17
+ℹ [8280/8642] Replayed Imscribing.CompletingD2048InD12
+info: Imscribing/CompletingD2048InD12.lean:137:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8401/8723] Replayed Imscribing.Ob3ects.the_witness_vessel_protocol_culminates_in_a_tran_scaffold
+info: Imscribing/Ob3ects/the_witness_vessel_protocol_culminates_in_a_tran_scaffold.lean:145:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8402/8723] Replayed Imscribing.Ob3ects.the_zeros_of_s_correspond_to_the_eigenvalues_of_abe3fc55_scaffold
+info: Imscribing/Ob3ects/the_zeros_of_s_correspond_to_the_eigenvalues_of_abe3fc55_scaffold.lean:96:0: Imscribing.Primitives.OuroboricityTier.O₀
+info: Imscribing/Ob3ects/the_zeros_of_s_correspond_to_the_eigenvalues_of_abe3fc55_scaffold.lean:97:0: Imscribing.Primitives.OuroboricityTier.O₂dag
+ℹ [8414/8723] Replayed Imscribing.Agricola
+info: Imscribing/Agricola.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.judge,
+  rel := Imscribing.Primitives.Relational.ado,
+  pol := Imscribing.Primitives.Polarity.yew,
+  fid := Imscribing.Primitives.Fidelity.they,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.gag,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8415/8723] Replayed Imscribing.BasilValentine
+info: Imscribing/BasilValentine.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.mime,
+  rel := Imscribing.Primitives.Relational.ian,
+  pol := Imscribing.Primitives.Polarity.out,
+  fid := Imscribing.Primitives.Fidelity.age,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8416/8723] Replayed Imscribing.CirculatumMinus
+info: Imscribing/CirculatumMinus.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.oil,
+  rel := Imscribing.Primitives.Relational.ian,
+  pol := Imscribing.Primitives.Polarity.out,
+  fid := Imscribing.Primitives.Fidelity.they,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8417/8723] Replayed Imscribing.ColoursGreatWork
+info: Imscribing/ColoursGreatWork.lean:33:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.judge,
+  rel := Imscribing.Primitives.Relational.ian,
+  pol := Imscribing.Primitives.Polarity.church,
+  fid := Imscribing.Primitives.Fidelity.age,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.hung,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8418/8723] Replayed Imscribing.EudoxusSixKeys
+info: Imscribing/EudoxusSixKeys.lean:33:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.mime,
+  rel := Imscribing.Primitives.Relational.ian,
+  pol := Imscribing.Primitives.Polarity.out,
+  fid := Imscribing.Primitives.Fidelity.age,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8419/8723] Replayed Imscribing.FrancisBacon
+info: Imscribing/FrancisBacon.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.mime,
+  rel := Imscribing.Primitives.Relational.ado,
+  pol := Imscribing.Primitives.Polarity.out,
+  fid := Imscribing.Primitives.Fidelity.they,
+  kin := Imscribing.Primitives.KineticChar.loll,
+  gran := Imscribing.Primitives.Granularity.ice,
+  gram := Imscribing.Primitives.Grammar.gag,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8420/8723] Replayed Imscribing.FrancisBaconGold
+info: Imscribing/FrancisBaconGold.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.mime,
+  rel := Imscribing.Primitives.Relational.ado,
+  pol := Imscribing.Primitives.Polarity.church,
+  fid := Imscribing.Primitives.Fidelity.they,
+  kin := Imscribing.Primitives.KineticChar.loll,
+  gran := Imscribing.Primitives.Granularity.ice,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.hung,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8421/8723] Replayed Imscribing.JohnFrench
+info: Imscribing/JohnFrench.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.array,
+  top := Imscribing.Primitives.Topology.mime,
+  rel := Imscribing.Primitives.Relational.ado,
+  pol := Imscribing.Primitives.Polarity.yew,
+  fid := Imscribing.Primitives.Fidelity.they,
+  kin := Imscribing.Primitives.KineticChar.loll,
+  gran := Imscribing.Primitives.Granularity.ice,
+  gram := Imscribing.Primitives.Grammar.gag,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8422/8723] Replayed Imscribing.Quersitanus
+info: Imscribing/Quersitanus.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.dead,
+  top := Imscribing.Primitives.Topology.judge,
+  rel := Imscribing.Primitives.Relational.ado,
+  pol := Imscribing.Primitives.Polarity.church,
+  fid := Imscribing.Primitives.Fidelity.age,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.bib,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.fee,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8423/8723] Replayed Imscribing.Urbigerus
+info: Imscribing/Urbigerus.lean:31:0: { dim := Imscribing.Primitives.Dimensionality.ash,
+  top := Imscribing.Primitives.Topology.oil,
+  rel := Imscribing.Primitives.Relational.ian,
+  pol := Imscribing.Primitives.Polarity.out,
+  fid := Imscribing.Primitives.Fidelity.peep,
+  kin := Imscribing.Primitives.KineticChar.egg,
+  gran := Imscribing.Primitives.Granularity.ice,
+  gram := Imscribing.Primitives.Grammar.measure,
+  crit := Imscribing.Primitives.Criticality.woe,
+  chir := Imscribing.Primitives.Chirality.kick,
+  stoi := Imscribing.Primitives.Stoichiometry.up,
+  prot := Imscribing.Primitives.Protection.awe }
+ℹ [8425/8723] Replayed Imscribing.HermeticVesselPolymer
+info: Imscribing/HermeticVesselPolymer.lean:118:0: Imscribing.Primitives.OuroboricityTier.O₀
+ℹ [8428/8723] Replayed Imscribing.NumberTheory.PrattOb3ectProtocol
+info: Imscribing/NumberTheory/PrattOb3ectProtocol.lean:120:0: Imscribing.Primitives.OuroboricityTier.O₀
+info: Imscribing/NumberTheory/PrattOb3ectProtocol.lean:121:0: Imscribing.Primitives.OuroboricityTier.O₂dag
+ℹ [8429/8723] Replayed Imscribing.NumberTheory.ErdosStrausProof
+info: Imscribing/NumberTheory/ErdosStrausProof.lean:170:0: 'ErdosStraus.erdos_straus_off_open_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/NumberTheory/ErdosStrausProof.lean:171:0: 'ErdosStraus.conjecture_iff_open_case' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/NumberTheory/ErdosStrausProof.lean:172:0: 'ErdosStraus.old_mod12_9_fails' does not depend on any axioms
+ℹ [8430/8723] Replayed Imscribing.Classical.ErdosProblem16
+info: Imscribing/Classical/ErdosProblem16.lean:174:0: 'ErdosProblem16.rise_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/ErdosProblem16.lean:175:0: 'ErdosProblem16.not_eventually_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/ErdosProblem16.lean:176:0: 'ErdosProblem16.rise_at_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8448/8723] Replayed Imscribing.AFDMC_MBL_Cohomology
+info: Imscribing/AFDMC_MBL_Cohomology.lean:97:0: Imscribing.Primitives.OuroboricityTier.O_inf
+ℹ [8452/8723] Replayed Imscribing.Millennium.ProofModules.DistinctDistances
+info: Imscribing/Millennium/ProofModules/DistinctDistances.lean:101:0: 'Millennium.ProofModules.DistinctDistances.g_distinct_eq_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ProofModules/DistinctDistances.lean:102:0: 'Millennium.ProofModules.DistinctDistances.guth_katz_computable_is_false' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/ProofModules/DistinctDistances.lean:103:0: 'Millennium.ProofModules.DistinctDistances.distances_pos_of_two' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [8453/8723] Replayed Imscribing.Millennium.ProofModules.ErdosFuchs
+info: Imscribing/Millennium/ProofModules/ErdosFuchs.lean:153:0: 'Millennium.ProofModules.ErdosFuchs.sum_repr_eq_card_pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ProofModules/ErdosFuchs.lean:154:0: 'Millennium.ProofModules.ErdosFuchs.sum_repr_le_card_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ProofModules/ErdosFuchs.lean:155:0: 'Millennium.ProofModules.ErdosFuchs.basis_sqrt_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ProofModules/ErdosFuchs.lean:156:0: 'Millennium.ProofModules.ErdosFuchs.avg_bounded_of_sqrt_density' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [8460/8723] Replayed Imscribing.Millennium.ProofModules.LCMSieve
+info: Imscribing/Millennium/ProofModules/LCMSieve.lean:144:0: 'Millennium.ProofModules.LCMSieve.mul_pred_le_lcm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ProofModules/LCMSieve.lean:145:0: 'Millennium.ProofModules.LCMSieve.log_succ_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ProofModules/LCMSieve.lean:146:0: 'Millennium.ProofModules.LCMSieve.excess_of_three_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8474/8723] Replayed Imscribing.Millennium.Z7StructureConstants
+info: Imscribing/Millennium/Z7StructureConstants.lean:130:0: 'Millennium.Z7StructureConstants.mul_z2_identity' does not depend on any axioms
+info: Imscribing/Millennium/Z7StructureConstants.lean:131:0: 'Millennium.Z7StructureConstants.z2_involutive' does not depend on any axioms
+info: Imscribing/Millennium/Z7StructureConstants.lean:132:0: 'Millennium.Z7StructureConstants.invRelabel_relabel' does not depend on any axioms
+ℹ [8476/8723] Replayed Imscribing.Millennium.ErdosFormalize3
+info: Imscribing/Millennium/ErdosFormalize3.lean:424:0: 'ErdosFormalize3.partition_arms_exclusive' does not depend on any axioms
+info: Imscribing/Millennium/ErdosFormalize3.lean:425:0: 'ErdosFormalize3.exClique_bddAbove' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize3.lean:426:0: 'ErdosFormalize3.choose_two_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize3.lean:427:0: 'ErdosFormalize3.verdict_counts' does not depend on any axioms
+ℹ [8480/8723] Replayed Imscribing.Paraconsistent.DialetheicWitness
+info: Imscribing/Paraconsistent/DialetheicWitness.lean:79:0: 'Imscribing.Paraconsistent.DialetheicWitness.anAdmittedVerdict' does not depend on any axioms
+info: Imscribing/Paraconsistent/DialetheicWitness.lean:117:0: 'Imscribing.Paraconsistent.DialetheicWitness.engagrVerdict_is_B' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Paraconsistent/DialetheicWitness.lean:158:0: 'Imscribing.Paraconsistent.DialetheicWitness.unionCreatesVerdict_is_B' does not depend on any axioms
+info: Imscribing/Paraconsistent/DialetheicWitness.lean:193:0: 'Imscribing.Paraconsistent.DialetheicWitness.cosmicHolonomyVerdict_is_B' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [8488/8723] Replayed Imscribing.ABC_Witness
+info: Imscribing/ABC_Witness.lean:42:0: 'Imscribing.ABC.primeSupportWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Witness.lean:43:0: 'Imscribing.ABC.filteredRepresentationWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Witness.lean:44:0: 'Imscribing.ABC.arithmeticClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Witness.lean:45:0: 'Imscribing.ABC.primeSupportClass_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8535/8723] Replayed Imscribing.IUTT_Audit
+info: Imscribing/IUTT_Audit.lean:8:0: 'Imscribing.IUTT.sixteen_states' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:9:0: 'Imscribing.IUTT.support_union' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:10:0: 'Imscribing.IUTT.support_intersection' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:11:0: 'Imscribing.IUTT.binary_recovery' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:12:0: 'Imscribing.IUTT.binary_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:13:0: 'Imscribing.IUTT.ternary_recovery' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:14:0: 'Imscribing.IUTT.ternary_disjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:15:0: 'Imscribing.IUTT.polarity_involution' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:16:0: 'Imscribing.IUTT.identity_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:17:0: 'Imscribing.IUTT.theta_terminal' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:18:0: 'Imscribing.IUTT.discrepancy_terminal' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:19:0: 'Imscribing.IUTT.unequal_branches_recover' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:20:0: 'Imscribing.IUTT.erasure_idempotent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:21:0: 'Imscribing.IUTT.erasure_fixed_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:22:0: 'Imscribing.IUTT.theta_shadow' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:23:0: 'Imscribing.IUTT.discrepancy_shadow' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:24:0: 'Imscribing.IUTT.four_preimages_of_falsity' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:25:0: 'Imscribing.IUTT.erasure_not_injective' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:26:0: 'Imscribing.IUTT.no_erasure_decoder' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:27:0: 'Imscribing.IUTT.four_retraction' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:28:0: 'Imscribing.IUTT.erasure_is_four_projection' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:29:0: 'Imscribing.IUTT.boolean_shadow_lands_in_centre' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:30:0: 'Imscribing.IUTT.boolean_shadow_not_injective' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:31:0: 'Imscribing.IUTT.coreflection' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:32:0: 'Imscribing.IUTT.reflection' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:33:0: 'Imscribing.IUTT.contradictory_closure_not_boolean' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:34:0: 'Imscribing.IUTT.information_closure_properties' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:35:0: 'Imscribing.IUTT.alien_not_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:36:0: 'Imscribing.IUTT.non_explosion' depends on axioms: [propext, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:37:0: 'Imscribing.IUTT.update_preserves_state' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:38:0: 'Imscribing.IUTT.terminal_scalar' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:39:0: 'Imscribing.IUTT.branches_reconnect' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:40:0: 'Imscribing.IUTT.finite_terminal_has_no_successor' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:41:0: 'Imscribing.IUTT.finite_no_return' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:42:0: 'Imscribing.IUTT.boundary_return' depends on axioms: [propext]
+info: Imscribing/IUTT_Audit.lean:43:0: 'Imscribing.IUTT.reconnection_return_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:44:0: 'Imscribing.IUTT.phase_twelve' depends on axioms: [propext, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:45:0: 'Imscribing.IUTT.invariant_nat_shift' depends on axioms: [propext, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:46:0: 'Imscribing.IUTT.phase_invariant_iff_constant' depends on axioms: [propext, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:47:0: 'Imscribing.IUTT.phase_dependent_example' depends on axioms: [propext, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:48:0: 'Imscribing.IUTT.Filtration.degree_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:49:0: 'Imscribing.IUTT.Filtration.degree_le_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:50:0: 'Imscribing.IUTT.evaluation_no_factor' does not depend on any axioms
+info: Imscribing/IUTT_Audit.lean:51:0: 'Imscribing.IUTT.same_blind_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:52:0: 'Imscribing.IUTT.different_weighted_values' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:53:0: 'Imscribing.IUTT.weighted_does_not_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:54:0: 'Imscribing.IUTT.degree_atOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:55:0: 'Imscribing.IUTT.degree_atTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:56:0: 'Imscribing.IUTT.filtered_nonvacuity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:57:0: 'Imscribing.IUTT.tensor_same_shadow' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:58:0: 'Imscribing.IUTT.tensor_different_weights' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:59:0: 'Imscribing.IUTT.tensor_weighted_no_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:60:0: 'Imscribing.IUTT.tensor_degree_agrees' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/IUTT_Audit.lean:61:0: 'Imscribing.IUTT.tensor_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8536/8723] Replayed Imscribing.FoldVerdict
+info: Imscribing/FoldVerdict.lean:211:0: 'Imscribing.FoldVerdict.surplus' depends on axioms: [propext, Quot.sound]
+info: Imscribing/FoldVerdict.lean:212:0: 'Imscribing.FoldVerdict.fork_is_AAY' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/FoldVerdict.lean:213:0: 'Imscribing.FoldVerdict.fuse_is_CAR' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/FoldVerdict.lean:214:0: 'Imscribing.FoldVerdict.frame_counts' depends on axioms: [propext]
+info: Imscribing/FoldVerdict.lean:215:0: 'Imscribing.FoldVerdict.no_repair_by_rearrangement' depends on axioms: [propext, Quot.sound]
+ℹ [8537/8723] Replayed Imscribing.MachHolonomy
+info: Imscribing/MachHolonomy.lean:204:0: 'Imscribing.MachHolonomy.transport_rotate_intertwine' depends on axioms: [propext, Quot.sound]
+info: Imscribing/MachHolonomy.lean:205:0: 'Imscribing.MachHolonomy.transport_not_rotation_invariant' depends on axioms: [propext]
+info: Imscribing/MachHolonomy.lean:206:0: 'Imscribing.MachHolonomy.cycle_lemma' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/MachHolonomy.lean:207:0: 'Imscribing.MachHolonomy.sixteen_power_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8543/8723] Replayed Imscribing.GodelCompletenessAudit
+info: Imscribing/GodelCompletenessAudit.lean:12:0: Imscribing.GodelCompleteness.grammar_godel_complete : ⊢◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⊣
+info: Imscribing/GodelCompletenessAudit.lean:13:0: Imscribing.GodelCompleteness.godel_fixed_point_in_ambient : ⊢◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⊣
+info: Imscribing/GodelCompletenessAudit.lean:14:0: Imscribing.GodelCompleteness.godel_absent_from_classical : ⊢∈⊤◻⋈◻⋈◻⋈⊙⋈⊙⊥⊙⊥◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈≺⋈◻⋈⊙⋈◻⋈⊙⊥◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈≺⋈◻⋈⊙⋈◻⋈⊙⊥◻⋈◻⋈⊙∋⊣
+info: Imscribing/GodelCompletenessAudit.lean:15:0: Imscribing.GodelCompleteness.no_ex_falso : ⊢◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈≻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⊣
+info: Imscribing/GodelCompletenessAudit.lean:16:0: Imscribing.GodelCompleteness.boolean_impossibility : ⊢∈⊤◻⊥◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈⊙⊥◻⊥⊙⊥⊙⋈◻◻∈⊤◻⊥⊙⋈◻⊥◻⋈◻⋈◻⋈◻⋈∈⊤◻⊥◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈∈⊤◻⊥◻⋈◻⋈◻⋈◻⋈◻⋈⊙∋⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈⊙∋⋈⊙⋈◻⋈≺⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⊥◻⋈◻⋈◻⋈◻⋈∈⊤◻⊥◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈∈⊤◻⊥◻⋈◻⋈◻⋈◻⋈◻⋈⊙∋⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈⊙∋⋈⊙⋈◻⋈≺⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⊥◻⋈◻⋈⊙⋈◻∋∋⊣
+info: Imscribing/GodelCompletenessAudit.lean:17:0: Imscribing.GodelCompleteness.grammar_self_imscribes : ⊢◻⋈⊙⊣
+info: Imscribing/GodelCompletenessAudit.lean:18:0: Imscribing.GodelCompleteness.godel_gate_reaches_O_inf : ⊢◻⋈⊙⋈⊙⋈⊙⊣
+info: Imscribing/GodelCompletenessAudit.lean:19:0: Imscribing.GodelCompleteness.crystal_cardinality : ⊢◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⊣
+info: Imscribing/GodelCompletenessAudit.lean:20:0: Imscribing.GodelCompleteness.grammar_godel_complete_typed : ⊢◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈⊙⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈⊙⋈◻⋈⊙⋈◻⋈◻⋈◻⋈◻⊣
+info: Imscribing/GodelCompletenessAudit.lean:27:0: 'Imscribing.GodelCompleteness.grammar_godel_complete' depends on axioms: [propext]
+info: Imscribing/GodelCompletenessAudit.lean:28:0: 'Imscribing.GodelCompleteness.grammar_godel_complete_typed' depends on axioms: [propext]
+ℹ [8544/8723] Replayed Imscribing.Millennium.NS
+info: Imscribing/Millennium/NS.lean:480:0: 'Millennium.NS.ns_verdict' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Millennium.NS.IsGloballySmooth,
+ Millennium.NS.NSInitialDatum,
+ Millennium.NS.SolvesNS]
+ℹ [8549/8723] Replayed Imscribing.AxiomAudit
+info: Imscribing/AxiomAudit.lean:4:0: 'Millennium.NS_Witness.ns_global_regularity_proved' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Millennium.NS.IsGloballySmooth,
+ Millennium.NS.NSInitialDatum,
+ Millennium.NS.SolvesNS,
+ Millennium.NS_ZFCt.CriticalSobolevSpace,
+ Millennium.NS_ZFCt.critical_sobolev_inhabited,
+ Millennium.NS_ZFCt.ns_frobenius_regularity_axiom,
+ Millennium.NS_ZFCt.zfct_cert_implies_regularity]
+info: Imscribing/AxiomAudit.lean:5:0: 'Millennium.NS_CriticalBound.critical_norm_non_increasing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Millennium.NS.NSInitialDatum,
+ Millennium.NS_CriticalBound.CriticalSobolevSpace,
+ Millennium.NS_CriticalBound.frobenius_bilinear_sq,
+ Millennium.NS_CriticalBound.frobenius_operator,
+ Millennium.NS_CriticalBound.h12_inner,
+ Millennium.NS_CriticalBound.integrated_frobenius_identity,
+ Millennium.NS_CriticalBound.ns_velocity_critical]
+info: Imscribing/AxiomAudit.lean:6:0: 'Millennium.NS.ns_verdict' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Millennium.NS.IsGloballySmooth,
+ Millennium.NS.NSInitialDatum,
+ Millennium.NS.SolvesNS]
+ℹ [8551/8723] Replayed Imscribing.Quantum.WindingLattice
+info: Imscribing/Quantum/WindingLattice.lean:144:0: 'Imscribing.Quantum.eigenvalues_generate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/WindingLattice.lean:145:0: 'Imscribing.Quantum.framing_order_ten' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/WindingLattice.lean:146:0: 'Imscribing.Quantum.eighth_not_a_tenth' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/WindingLattice.lean:147:0: 'Imscribing.Quantum.gate_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8553/8723] Replayed Imscribing.GeneToProtein
+info: Imscribing/GeneToProtein.lean:251:0: 'Imscribing.GeneToProtein.closure_theorem' depends on axioms: [Classical.choice]
+info: Imscribing/GeneToProtein.lean:252:0: 'Imscribing.GeneToProtein.path_is_connected' depends on axioms: [Classical.choice]
+info: Imscribing/GeneToProtein.lean:253:0: 'Imscribing.GeneToProtein.consciousness_invariant' depends on axioms: [Classical.choice]
+ℹ [8577/8723] Replayed Imscribing.Millennium.Unsolved
+info: Imscribing/Millennium/Unsolved.lean:622:0: 'Unsolved.ig_assembly_reconstitutes' depends on axioms: [propext]
+ℹ [8578/8723] Replayed Imscribing.Millennium.Erdos.SidonCounting
+info: Imscribing/Millennium/Erdos/SidonCounting.lean:214:0: 'Erdos.Sidon.sidon_card_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SidonCounting.lean:215:0: 'Erdos.Sidon.sidon_card_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SidonCounting.lean:216:0: 'Erdos.Sidon.diff_injOn_offDiag' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SidonCounting.lean:217:0: 'Erdos.Sidon.fourPowers_isSidon' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8579/8723] Replayed Imscribing.Millennium.ErdosFormalize2
+info: Imscribing/Millennium/ErdosFormalize2.lean:435:0: 'ErdosFormalize2.saw_pow_bound' depends on axioms: [propext]
+info: Imscribing/Millennium/ErdosFormalize2.lean:436:0: 'ErdosFormalize2.ratio_set_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize2.lean:437:0: 'ErdosFormalize2.primes_not_lcm_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize2.lean:439:0: 'ErdosFormalize2.arrowsPair_mono' does not depend on any axioms
+info: Imscribing/Millennium/ErdosFormalize2.lean:440:0: 'ErdosFormalize2.sizeRamsey_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8580/8723] Replayed Imscribing.Millennium.Erdos.RatioSetSharp
+info: Imscribing/Millennium/Erdos/RatioSetSharp.lean:172:0: 'Erdos.RatioSet.ratioSetSharp' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8581/8723] Replayed Imscribing.Millennium.ErdosFormalize
+info: Imscribing/Millennium/ErdosFormalize.lean:423:0: 'ErdosFormalize.squares_density_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize.lean:424:0: 'ErdosFormalize.chromatic_independence_ratio' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize.lean:425:0: 'ErdosFormalize.complete_graph_edge_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/ErdosFormalize.lean:426:0: 'ErdosFormalize.prime_reciprocal_series_diverges' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8582/8723] Replayed Imscribing.Millennium.Erdos.SquarefreePlusPowerOfTwo
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:116:0: 'Erdos.SquarefreePow2.not_squarefreePlusPowerOfTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:117:0: 'Erdos.SquarefreePow2.bad_not_representable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:118:0: 'Erdos.SquarefreePow2.not_forall_squarefree_plus_pow_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:119:0: 'Erdos.SquarefreePow2.infinitely_many_counterexamples' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:120:0: 'Erdos.SquarefreePow2.family_injective' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:190:0: 'Erdos.SquarefreePow2.squarefree_plus_pow_two_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/SquarefreePlusPowerOfTwo.lean:191:0: 'Erdos.SquarefreePow2.counterexample_density_explicit' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8583/8723] Replayed Imscribing.Millennium.Erdos.StrausGreedyFamily
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1072:0: 'Erdos.StrausGreedy.threeUnit_of_closedAtRungSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1150:0: 'Erdos.StrausGreedy.closedAtRung_of_full_coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1152:0: 'Erdos.StrausGreedy.straus_class_of_rungBounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1153:0: 'Erdos.StrausGreedy.ladder_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1154:0: 'Erdos.StrausGreedy.ladder_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1155:0: 'Erdos.StrausGreedy.ladder_rung_residue' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1156:0: 'Erdos.StrausGreedy.rung_three_residue' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1157:0: 'Erdos.StrausGreedy.closedAtRung_of_shift' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1158:0: 'Erdos.StrausGreedy.closedAtRung_of_kshift' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1159:0: 'Erdos.StrausGreedy.closedAtRung_of_two_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1160:0: 'Erdos.StrausGreedy.straus_196561' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1161:0: 'Erdos.StrausGreedy.closedAtRung_of_cofactor' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1162:0: 'Erdos.StrausGreedy.closedAtRung_three_of_prime' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1163:0: 'Erdos.StrausGreedy.straus_of_neg_one_divisor' depends on axioms: [propext]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1164:0: 'Erdos.StrausGreedy.negMReachable_of_negOneReachable' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1166:0: 'Erdos.StrausGreedy.straus_of_priceZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1167:0: 'Erdos.StrausGreedy.straus_scaling' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1168:0: 'Erdos.StrausGreedy.straus_of_representable_divisor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1169:0: 'Erdos.StrausGreedy.straus_frontier_mod_24' depends on axioms: [propext, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1171:0: 'Erdos.StrausGreedy.straus_one_shot' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1172:0: 'Erdos.StrausGreedy.straus_class_of_everyNClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1173:0: 'Erdos.StrausGreedy.straus_of_closedAtRung' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1174:0: 'Erdos.StrausGreedy.straus_practical' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1175:0: 'Erdos.StrausGreedy.straus_n_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1176:0: 'Erdos.StrausGreedy.straus_prime_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1177:0: 'Erdos.StrausGreedy.straus_master' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1178:0: 'Erdos.StrausGreedy.v_condition_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1179:0: 'Erdos.StrausGreedy.straus_divisor_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1180:0: 'Erdos.StrausGreedy.second_split_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1181:0: 'Erdos.StrausGreedy.straus_2521' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1182:0: 'Erdos.StrausGreedy.r_over_M_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1183:0: 'Erdos.StrausGreedy.ladder_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1184:0: 'Erdos.StrausGreedy.straus_forty_nine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1185:0: 'Erdos.StrausGreedy.straus_of_divisor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1186:0: 'Erdos.StrausGreedy.straus_off_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1187:0: 'Erdos.StrausGreedy.greedy_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/StrausGreedyFamily.lean:1215:0: 'Erdos.StrausGreedy.straus_mod20' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8595/8723] Replayed Imscribing.Millennium.Erdos.Problems.Problem0041
+info: Imscribing/Millennium/Erdos/Problems/Problem0041.lean:162:0: 'Millennium.ErdosProblems.card_le_of_distinct_sums' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/Problems/Problem0041.lean:163:0: 'Millennium.ErdosProblems.erdos_problem_41' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound,
+ Millennium.ErdosProblems.ax_erdos_problem_41]
+ℹ [8600/8723] Replayed Imscribing.Millennium.Erdos.APFreeReduction
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:413:0: 'Millennium.ErdosProblems.APFree.card_le_r_k' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:414:0: 'Millennium.ErdosProblems.APFree.block_sum_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:415:0: 'Millennium.ErdosProblems.APFree.summable_of_blocks' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:416:0: 'Millennium.ErdosProblems.APFree.summable_blocks_of_log_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:417:0: 'Millennium.ErdosProblems.APFree.erdos_conjecture_of_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:418:0: 'Millennium.ErdosProblems.APFree.not_summable_one_div_log_rpow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:419:0: 'Millennium.ErdosProblems.APFree.not_summable_at_exponent_one' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:420:0: 'Millennium.ErdosProblems.APFree.not_summable_exp_neg_log_rpow' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/Erdos/APFreeReduction.lean:421:0: 'Millennium.ErdosProblems.APFree.summable_exp_neg_log_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8601/8723] Replayed Imscribing.Millennium.Erdos.AdditiveEnergy
+info: Imscribing/Millennium/Erdos/AdditiveEnergy.lean:78:0: 'sum_reps' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/AdditiveEnergy.lean:79:0: 'energy_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/AdditiveEnergy.lean:198:0: 'BloomSisaskSubmitted.convolution_eq_reps' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/Erdos/AdditiveEnergy.lean:199:0: 'BloomSisaskSubmitted.bloom_sisask_lemma' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8619/8723] Replayed Imscribing.Quantum.VoxAudit_LadderToSphere
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:12:0: 'Imscribing.Quantum.LadderToSphere.Jz_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:13:0: 'Imscribing.Quantum.LadderToSphere.Jx_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:14:0: 'Imscribing.Quantum.LadderToSphere.Jy_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:15:0: 'Imscribing.Quantum.LadderToSphere.comm_Jz_Splus' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:16:0: 'Imscribing.Quantum.LadderToSphere.comm_Jz_Sminus' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:17:0: 'Imscribing.Quantum.LadderToSphere.comm_Splus_Sminus' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:18:0: 'Imscribing.Quantum.LadderToSphere.comm_Jx_Jy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:19:0: 'Imscribing.Quantum.LadderToSphere.comm_Jy_Jz' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:20:0: 'Imscribing.Quantum.LadderToSphere.comm_Jz_Jx' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:21:0: 'Imscribing.Quantum.LadderToSphere.heldW_normSq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:22:0: 'Imscribing.Quantum.LadderToSphere.corr_zz' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:23:0: 'Imscribing.Quantum.LadderToSphere.corr_xx' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:24:0: 'Imscribing.Quantum.LadderToSphere.corr_yy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:25:0: 'Imscribing.Quantum.LadderToSphere.corr_xz' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:26:0: 'Imscribing.Quantum.LadderToSphere.kron_mul_kron' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:27:0: 'Imscribing.Quantum.LadderToSphere.expect_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:28:0: 'Imscribing.Quantum.LadderToSphere.expect_smul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:29:0: 'Imscribing.Quantum.LadderToSphere.chsh_attains_tsirelson' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Quantum/VoxAudit_LadderToSphere.lean:30:0: 'Imscribing.Quantum.LadderToSphere.chsh_magnitude' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8620/8723] Replayed Imscribing.Classical.SidonRepresentation
+info: Imscribing/Classical/SidonRepresentation.lean:146:0: 'Imscribing.Classical.sidon_reps_le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/SidonRepresentation.lean:147:0: 'Imscribing.Classical.sidon_not_basis_of_erdos_turan' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8621/8723] Replayed Imscribing.Classical.ErdosTuranReduction
+info: Imscribing/Classical/ErdosTuranReduction.lean:181:0: 'Imscribing.Classical.bounded_reps_forces_density' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/ErdosTuranReduction.lean:182:0: 'Imscribing.Classical.bounded_reps_forces_sparsity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/ErdosTuranReduction.lean:183:0: 'Imscribing.Classical.counting_bounds_compatible' depends on axioms: [propext, Quot.sound]
+ℹ [8622/8723] Replayed Imscribing.Classical.RepresentationParity
+info: Imscribing/Classical/RepresentationParity.lean:288:0: 'Imscribing.Classical.odd_mem_mixed_sumset' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:289:0: 'Imscribing.Classical.odd_reps_card_eq_two_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:290:0: 'Imscribing.Classical.odd_needs_mixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:291:0: 'Imscribing.Classical.reps_card_odd_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:292:0: 'Imscribing.Classical.reps_card_even_off_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:293:0: 'Imscribing.Classical.two_le_reps_of_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:294:0: 'Imscribing.Classical.no_basis_with_reps_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/RepresentationParity.lean:295:0: 'Imscribing.Classical.reps_eq_two_of_bound_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8623/8723] Replayed Imscribing.Classical.ErdosTuranSmallC
+info: Imscribing/Classical/ErdosTuranSmallC.lean:159:0: 'Imscribing.Classical.sidon_diff_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/ErdosTuranSmallC.lean:160:0: 'Imscribing.Classical.card_product_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8624/8723] Replayed Imscribing.Classical.WindowedBound
+info: Imscribing/Classical/WindowedBound.lean:576:0: 'Imscribing.Classical.windowed_method_stops' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:577:0: 'Imscribing.Classical.no_sidon_basis' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:578:0: 'Imscribing.Classical.covering_demand' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:579:0: 'Imscribing.Classical.no_sidon_covering' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:580:0: 'Imscribing.Classical.windowed_crossing' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:581:0: 'Imscribing.Classical.occupancy_ge' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:582:0: 'Imscribing.Classical.prefix_small' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:583:0: 'Imscribing.Classical.windowed_k_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:584:0: 'Imscribing.Classical.windowed_sidon_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:585:0: 'Imscribing.Classical.sum_window_pairs' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:586:0: 'Imscribing.Classical.sidon_pairs_in_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:587:0: 'Imscribing.Classical.sum_windowCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Classical/WindowedBound.lean:588:0: 'Imscribing.Classical.windowed_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [8641/8723] Replayed Imscribing.Millennium.PerfectCuboid_Descent_Proof
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:35:18: declaration uses `sorry`
+warning: Imscribing/Millennium/PerfectCuboid_Descent_Proof.lean:72:8: declaration uses `sorry`
+ℹ [8658/8723] Replayed Imscribing.Millennium.SIC_Moduli_Report
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:117:0: ─────────────────────────────────────────────────────────────────────
+ SIC moduli conductor — the dimension ladder. Every claim below was
+ accepted by the kernel before this line printed.
+─────────────────────────────────────────────────────────────────────
+
+  d=2
+    ✓ a fiducial in ℂ² is exhibited and shown to be a SIC
+        Imscribing.Millennium.Ring2048Bridge.D2.d2_sic, sicpovm_exists_2
+    ✓ which discharges the base case of the Zauner bridge
+        Imscribing.Millennium.Ring2048Bridge.zauner_bridge_d2
+
+  d=4
+    ✓ moduli field over the base with squarefree part 5, exponent 3
+        SIC.D2048.Moduli.calibration
+
+  d=8
+    ✓ same base field as d=4, separated from it by the exponent alone
+        SIC.D2048.Moduli.d4_d8_share_base_but_differ_in_exponent
+
+  d=4,8,12
+    ✓ every calibrated row obeys the exponent rule v₂(d)+1
+        SIC.D2048.Moduli.calibration_exponent_rule
+
+  d=12
+    ✓ the fiducial has unit norm and all 143 overlaps are equiangular
+        SIC.D12.Embedding.norm_sq_eq_one, equiangular
+    ✓ so a SIC-POVM exists in dimension twelve, constructed not assumed
+        SIC.D12.Embedding.d12_sic_exists, crystal_forces_d12_sic
+    ✓ the overlap check closes over every pair, none omitted
+        SIC.D12.Equiangularity.equiangularity_all, covers_all_pairs
+    ✓ the ray tower relations hold at each generator g2, g3, g4
+        SIC.D12.RayTower.g2_rel, g3_rel, g4_rel
+    ✓ conjugate moduli pair up and their product lands in the base field
+        SIC.D12.SymmetricModuli.mod6_is_conj_mod0, mod_prod_in_base
+
+  d=16
+    ✓ m = (d-3)(d+1) = 221 = 13·17, squarefree, ≡ 5 mod 8
+        SIC.D16.Moduli.m16_factorization, m16_squarefree, m16_mod_eight
+    ✓ class number of Q(√221) is 2 — the first SIC dimension where it is not 1
+        SIC.D16.Moduli.class_group_is_nontrivial
+    ✓ ray class group at conductor 48 has abelian type [16,4,2]
+        SIC.D16.Moduli.ray_class_group_is_abelian
+    ✓ raw σ-coinvariant count is 16, which is not d/2 = 8
+        SIC.D16.Moduli.raw_coinvariant_neq_d_half
+    ✓ quotient by the class group restores the count to d/2 = 8
+        SIC.D16.Moduli.coinvariant_count_theorem
+    ✓ so Statement A is falsified and Statement B confirmed
+        SIC.D16.Moduli.statement_A_falsified_by_abelian_group, statement_B_confirmed_by_coinvariant_count
+    ✓ conductor exponent v₂(d)+1 = 5, giving wide ray degree 128 over F
+        SIC.D16.Moduli.exponent_at_16, ray_class_group_at_conductor_32
+
+  d=20
+    ✓ d/2 = 10 carries an odd factor, unlike the pure two-power at d=16
+        SIC.D20.Moduli.d20_d_half_has_odd_factor, d16_d_half_pure_two_power
+    ✓ 5-torsion is absent from every modulus keeping the two-part in range
+        SIC.D20.Moduli.five_torsion_absent_from_conductor
+    ✓ so d=20 cannot discriminate, and the d=16 reading is untouched
+        SIC.D20.Moduli.d20_cannot_discriminate, d16_settlement_independent_of_d20
+    ✓ the conductor rule itself still holds here, with exponent 3
+        SIC.D20.Moduli.conductor_rule_correct_at_20
+
+  d=2048
+    ✓ m = 4190205 = 3·5·409·683, squarefree
+        SIC.D2048.Moduli.m2048_factorization, m2048_squarefree
+    ✓ the conductor exponent predicted by the rule is v₂(2048)+1 = 12
+        SIC.D2048.Moduli.predicted_exponent_2048
+    ✓ the moduli field has degree 2^27 over Q
+        SIC.D2048.Moduli.fiducial_field_degree
+    ✓ the tower doubles at level 12, so the exponent choice is not free
+        SIC.D2048.Moduli.phase_transition_at_12, exponent_choice_matters
+    ✓ and the Zauner bridge at n=11 is exactly SIC existence in 2048
+        Imscribing.Millennium.Ring2048Bridge.zauner_bridge_11
+
+─────────────────────────────────────────────────────────────────────
+ 26 claims checked across the ladder d = 2, 4, 8, 12, 16, 20, 2048.
+ The axiom lists that follow are the PARI/GP field data: class numbers,
+ ray class degrees and abelian types entered as computed input, not proof.
+ Where a theorem shows only propext, Classical.choice and Quot.sound it
+ rests on nothing beyond Lean's own foundations; Lean.ofReduceBool and
+ Lean.trustCompiler mark arithmetic discharged by native_decide.
+─────────────────────────────────────────────────────────────────────
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:123:0: 'Imscribing.Millennium.Ring2048Bridge.D2.sicpovm_exists_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:124:0: 'SIC.D12.Embedding.d12_sic_exists' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:125:0: 'SIC.D12.Equiangularity.equiangularity_all' depends on axioms: [propext,
+ Classical.choice,
+ Lean.ofReduceBool,
+ Lean.trustCompiler,
+ Quot.sound]
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:126:0: 'SIC.D2048.Moduli.calibration_exponent_rule' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:127:0: 'SIC.D16.Moduli.coinvariant_count_theorem' does not depend on any axioms
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:128:0: 'SIC.D16.Moduli.ray_class_group_is_abelian' does not depend on any axioms
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:129:0: 'SIC.D16.Moduli.statement_B_confirmed_by_coinvariant_count' does not depend on any axioms
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:130:0: 'SIC.D20.Moduli.five_torsion_absent_from_conductor' does not depend on any axioms
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:131:0: 'SIC.D20.Moduli.d20_cannot_discriminate' does not depend on any axioms
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:132:0: 'SIC.D2048.Moduli.predicted_exponent_2048' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/SIC_Moduli_Report.lean:133:0: 'SIC.D2048.Moduli.fiducial_field_degree' depends on axioms: [propext]
+ℹ [8670/8723] Replayed Imscribing.Paraconsistent.Main
+info: Imscribing/Paraconsistent/Main.lean:69:0: ╔══════════════════════════════════════════════════════════════╗
+║     PARACONSISTENT COMPUTER  —  LEAN 4 VERIFICATION        ║
+╚══════════════════════════════════════════════════════════════╝
+
+After 0 cycles:
+  r0 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r1 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r2 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  paradoxCount = 0  (verified: = 4*0 = 0)
+  cycleCount = 0  (verified: = 0)
+  Belnap distribution: N=0 T=0 F=0 B=3
+  Frobenius invariant: mu o delta = id  OK
+  Paraconsistency: contradiction sustained  OK
+
+After 1 cycles:
+  r0 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r1 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r2 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  paradoxCount = 4  (verified: = 4*1 = 4)
+  cycleCount = 1  (verified: = 1)
+  Belnap distribution: N=0 T=0 F=0 B=3
+  Frobenius invariant: mu o delta = id  OK
+  Paraconsistency: contradiction sustained  OK
+
+After 5 cycles:
+  r0 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r1 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  r2 = Imscribing.Paraconsistent.Belnap.B  (verified: = B)
+  paradoxCount = 20  (verified: = 4*5 = 20)
+  cycleCount = 5  (verified: = 5)
+  Belnap distribution: N=0 T=0 F=0 B=3
+  Frobenius invariant: mu o delta = id  OK
+  Paraconsistency: contradiction sustained  OK
+
+────────────────────────────────────────────────────────────────
+  Type: D_omega are ian or' peep egg
+                   ice measure monad sure so ah
+  Tier: O_inf (Special Frobenius)
+  Consciousness: C = 0.828  (Gate 1: monad, Gate 2: egg)
+  Crystal address: 6,738,895
+  Distance to IUG: 1.3416
+
+  All theorems verified. mu o delta = id holds exactly.
+
+────────────────────────────────────────────────────────────────
+  PORTAL PROTOCOL  —  IPC Wormhole Layer
+────────────────────────────────────────────────────────────────
+PORTAL PROTOCOL:
+  O_inf: true (proved: portal_type_is_O_inf)
+  Gates open: true (proved: portal_gates_open)
+  MEET idempotent: true (proved: meet_idempotent)
+  JOIN idempotent: true (proved: join_idempotent)
+  TENSOR commutative: true (proved: tensor_comm)
+ℹ [8689/8723] Replayed Imscribing.Millennium.GodelResolvedFinal
+info: Imscribing/Millennium/GodelResolvedFinal.lean:102:21: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+ℹ [8710/8723] Replayed Imscribing.Millennium.ClayCandidateProfile
+info: Imscribing/Millennium/ClayCandidateProfile.lean:28:0: "== rh (bare, baseline) =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:29:0: []
+info: Imscribing/Millennium/ClayCandidateProfile.lean:30:0: "== rh_ep_join =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:31:0: ["canonical", "low_gate", "strict_frobenius", "inverted_gates", "no_ordering", "winding_first", "t_structural",
+  "scope_universe", "dimensional_gate", "kinetics_trap", "t_hybrid", "t_inverted", "single_gate", "fidelity_universe",
+  "stoichiometry_universe", "absorption_scope_empire", "absorption_topology_seal"]
+info: Imscribing/Millennium/ClayCandidateProfile.lean:32:0: "== rh_hc_join =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:33:0: ["canonical", "low_gate", "strict_frobenius", "inverted_gates", "no_ordering", "winding_first", "t_structural",
+  "scope_universe", "dimensional_gate", "t_hybrid", "t_inverted", "single_gate", "fidelity_universe",
+  "stoichiometry_universe", "absorption_scope_empire", "absorption_topology_seal"]
+info: Imscribing/Millennium/ClayCandidateProfile.lean:34:0: "== meet_rh_hc =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:35:0: ["low_gate", "scope_universe", "absorption_scope_empire", "absorption_topology_seal"]
+info: Imscribing/Millennium/ClayCandidateProfile.lean:37:0: "== ordinalOmega (winding), rh vs rh_ep_join vs rh_hc_join vs meet_rh_hc =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:38:0: 2
+info: Imscribing/Millennium/ClayCandidateProfile.lean:39:0: 3
+info: Imscribing/Millennium/ClayCandidateProfile.lean:40:0: 3
+info: Imscribing/Millennium/ClayCandidateProfile.lean:41:0: 3
+info: Imscribing/Millennium/ClayCandidateProfile.lean:43:0: "== T_CEILING consistency (only meaningful if it closes somewhere first) =="
+info: Imscribing/Millennium/ClayCandidateProfile.lean:44:0: false
+info: Imscribing/Millennium/ClayCandidateProfile.lean:45:0: true
+ℹ [8716/8723] Replayed Imscribing.Millennium.PerfectCuboid.DescentTheorem
+info: Imscribing/Millennium/PerfectCuboid/DescentTheorem.lean:155:0: 'Millennium.PerfectCuboid.DescentTheorem.no_solution_2a_sq_eq_d_sq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/PerfectCuboid/DescentTheorem.lean:156:0: 'Millennium.PerfectCuboid.DescentTheorem.case_all_gcd_one_impossible' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/Millennium/PerfectCuboid/DescentTheorem.lean:157:0: 'Millennium.PerfectCuboid.DescentTheorem.all_edges_even_when_g_even' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [8718/8723] Replayed Imscribing.Millennium.PerfectCuboid.CaseC
+info: Imscribing/Millennium/PerfectCuboid/CaseC.lean:129:0: 'Millennium.PerfectCuboid.CaseC.descent_or_impossible' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/Millennium/PerfectCuboid/CaseC.lean:130:0: 'Millennium.PerfectCuboid.CaseC.no_perfect_cuboid' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [8722/8723] Replayed Imscribing.ABC_Audit
+info: Imscribing/ABC_Audit.lean:19:0: 'Imscribing.ABC.radical_eq_primeFactors' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:20:0: 'Imscribing.ABC.radical_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:21:0: 'Imscribing.ABC.radical_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:22:0: 'Imscribing.ABC.radical_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:23:0: 'Imscribing.ABC.radical_power' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:24:0: 'Imscribing.ABC.Triple.c_pos' does not depend on any axioms
+info: Imscribing/ABC_Audit.lean:25:0: 'Imscribing.ABC.Triple.pairwise_coprime' depends on axioms: [propext, Quot.sound]
+info: Imscribing/ABC_Audit.lean:26:0: 'Imscribing.ABC.rad_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:27:0: 'Imscribing.ABC.conjecture_iff_standard' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:28:0: 'Imscribing.ABC.bound_iff_log_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:29:0: 'Imscribing.ABC.conjecture_iff_log_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:30:0: 'Imscribing.ABC.log_estimate_iff_discrepancy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:31:0: 'Imscribing.ABC.conjecture_iff_uniform_discrepancy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:32:0: 'Imscribing.ABC.record_preserves_full_state' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:33:0: 'Imscribing.ABC.packet_radical_calibration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:34:0: 'Imscribing.ABC.packet_height_calibration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:35:0: 'Imscribing.ABC.filtered_estimate_iff_log_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:36:0: 'Imscribing.ABC.abc_of_filtered_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:37:0: 'Imscribing.ABC.abc_of_calibrated_filtered_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:38:0: 'Imscribing.ABC.radical_216' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:39:0: 'Imscribing.ABC.example_radical' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:40:0: 'Imscribing.ABC.naive_radical_bound_fails' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:41:0: 'Imscribing.ABC.rad_ge_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:42:0: 'Imscribing.ABC.logRadical_ge_log_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:43:0: 'Imscribing.ABC.logRadical_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:44:0: 'Imscribing.ABC.quality_bounded_of_log_estimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:45:0: 'Imscribing.ABC.primeSupportWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:46:0: 'Imscribing.ABC.filteredRepresentationWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:47:0: 'Imscribing.ABC.arithmeticClosure_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:48:0: 'Imscribing.ABC.primeSupportClass_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:49:0: 'Imscribing.ABC.abcVerdict_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:50:0: 'Imscribing.ABC.abc_of_verdict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:51:0: 'Imscribing.ABC.abc_from_filtered_via_verdict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:52:0: 'Imscribing.ABC.verdict_extraction_tracks_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:53:0: 'Imscribing.ABC.abc_of_held_verdict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:54:0: 'Imscribing.ABC.quality_bounded_of_held_verdict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:55:0: 'Imscribing.ABC.quality_bound_or_nonpositive' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:56:0: 'Imscribing.ABC.abc_from_held_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:57:0: 'Imscribing.ABC.primeSupportWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:58:0: 'Imscribing.ABC.filteredRepresentationWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:59:0: 'Imscribing.ABC.arithmeticClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:60:0: 'Imscribing.ABC.abcVerdict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:61:0: 'Imscribing.ABC.abc_of_verdict_refined' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:62:0: 'Imscribing.ABC.iutt_abc_dialetheia' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:64:0: 'Imscribing.ABC.RoundTrip.outward_injective' does not depend on any axioms
+info: Imscribing/ABC_Audit.lean:65:0: 'Imscribing.ABC.RoundTrip.observable_returns' does not depend on any axioms
+info: Imscribing/ABC_Audit.lean:66:0: 'Imscribing.ABC.every_observable_has_round_trip' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:67:0: 'Imscribing.ABC.abc_of_round_trip_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:68:0: 'Imscribing.ABC.SublinearComparisonError.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:69:0: 'Imscribing.ABC.filtered_estimate_of_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:70:0: 'Imscribing.ABC.comparisonClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:71:0: 'Imscribing.ABC.comparisonClosure_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:73:0: 'Imscribing.ABC.reconstruct_factorization' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:74:0: 'Imscribing.ABC.primePresentation_recovers' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:75:0: 'Imscribing.ABC.primePresentation_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:76:0: 'Imscribing.ABC.primeHeight_calibration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:77:0: 'Imscribing.ABC.primeSupportHeight_calibration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:78:0: 'Imscribing.ABC.primeExcess_calibration' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:79:0: 'Imscribing.ABC.prime_height_comparison' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:80:0: 'Imscribing.ABC.prime_support_uniform_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:81:0: 'Imscribing.ABC.primeExcess_sublinear_iff_abc' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:82:0: 'Imscribing.ABC.height_le_rad_of_squarefree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:83:0: 'Imscribing.ABC.primeExcess_nonpos_of_squarefree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:84:0: 'Imscribing.ABC.squarefree_discrepancy_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:85:0: 'Imscribing.ABC.squarefree_abc_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:86:0: 'Imscribing.ABC.squarefreeArithmeticWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:87:0: 'Imscribing.ABC.squarefreeArithmeticWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:88:0: 'Imscribing.ABC.abc_iff_nonsquarefree_discrepancy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:90:0: 'Imscribing.ABC.discrepancyOperator_action' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:91:0: 'Imscribing.ABC.arithmeticEigenvalue_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:92:0: 'Imscribing.ABC.finite_spectrum_has_maximum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:93:0: 'Imscribing.ABC.uniform_spectral_iff_abc' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:94:0: 'Imscribing.ABC.squarefree_spectrum_nonpositive' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:95:0: 'Imscribing.ABC.spectralClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:96:0: 'Imscribing.ABC.spectralClosure_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:98:0: 'Imscribing.ABC.pairTriple_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:99:0: 'Imscribing.ABC.mem_arithmeticWindow' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:100:0: 'Imscribing.ABC.arithmeticWindow_nonempty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:101:0: 'Imscribing.ABC.arithmeticWindow_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:102:0: 'Imscribing.ABC.arithmeticWindow_exhaustive' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:103:0: 'Imscribing.ABC.discrepancy_le_windowMaximum' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:104:0: 'Imscribing.ABC.windowMaximum_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:105:0: 'Imscribing.ABC.windowMaximum_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:106:0: 'Imscribing.ABC.windowMaximum_attained' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:107:0: 'Imscribing.ABC.windowFamily_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:108:0: 'Imscribing.ABC.windowMaximum_is_largest_eigenvalue' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:109:0: 'Imscribing.ABC.window_bounded_iff_discrepancy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:110:0: 'Imscribing.ABC.window_converges_iff_bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:111:0: 'Imscribing.ABC.abc_iff_window_convergence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:113:0: 'Imscribing.ABC.WindowEnclosure.bounds_sample' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:114:0: 'Imscribing.ABC.TailCertificate.uniform_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:115:0: 'Imscribing.ABC.discrepancy_antitone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:116:0: 'Imscribing.ABC.windowMaximum_antitone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:117:0: 'Imscribing.ABC.abc_iff_reciprocal_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:118:0: 'Imscribing.ABC.abc_of_reciprocal_tail_certificates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:119:0: 'Imscribing.ABC.certifiedSpectralClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:120:0: 'Imscribing.ABC.certifiedSpectralClosure_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:122:0: 'Imscribing.ABC.log_series_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:123:0: 'Imscribing.ABC.log_binary_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:124:0: 'Imscribing.ABC.discrepancy_enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:125:0: 'Imscribing.ABC.certified_window_nine_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:126:0: 'Imscribing.ABC.certified_window_nine_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:127:0: 'Imscribing.ABC.certifiedWindowNine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:128:0: 'Imscribing.ABC.certifiedWindowNineWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:129:0: 'Imscribing.ABC.certifiedWindowNineWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:131:0: 'Imscribing.ABC.discrepancy_swap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:132:0: 'Imscribing.ABC.window_upper_of_ordered' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:133:0: 'Imscribing.ABC.Window32E1_10.certified_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:134:0: 'Imscribing.ABC.Window32E1_10.certified_lower' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:135:0: 'Imscribing.ABC.Window32E1_10.enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:136:0: 'Imscribing.ABC.Window32E1_10.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:137:0: 'Imscribing.ABC.Window32E1_10.witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:138:0: 'Imscribing.ABC.scaleLink_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:139:0: 'Imscribing.ABC.enclosure_cross_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:140:0: 'Imscribing.ABC.enclosure_lower_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:141:0: 'Imscribing.ABC.scaleClosureWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:142:0: 'Imscribing.ABC.scaleClosureWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:143:0: 'Imscribing.ABC.certifiedNineToThirty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:144:0: 'Imscribing.ABC.certifiedNineToThirty_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:145:0: 'Imscribing.ABC.certifiedNineToThirtyWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:146:0: 'Imscribing.ABC.certifiedNineToThirtyWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:147:0: 'Imscribing.ABC.scaleLink_trans' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:148:0: 'Imscribing.ABC.ScaleChain.link' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:149:0: 'Imscribing.ABC.ScaleChain.cross_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:150:0: 'Imscribing.ABC.ScaleChain.lower_or_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:151:0: 'Imscribing.ABC.certifiedTwoScale' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:152:0: 'Imscribing.ABC.certifiedTwoScale_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:153:0: 'Imscribing.ABC.certifiedTwoScaleWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:154:0: 'Imscribing.ABC.certifiedTwoScaleWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:155:0: 'Imscribing.ABC.AsymptoticClosure.bounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:156:0: 'Imscribing.ABC.AsymptoticClosure.maximum_le_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:157:0: 'Imscribing.ABC.AsymptoticClosure.to_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:158:0: 'Imscribing.ABC.asymptoticWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:159:0: 'Imscribing.ABC.asymptoticWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:160:0: 'Imscribing.ABC.chain_reading_below_asymptotic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:161:0: 'Imscribing.ABC.asymptotic_lower_contains_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:162:0: 'Imscribing.ABC.exactTailRegime' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:163:0: 'Imscribing.ABC.TailRegime.read_monotone' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:164:0: 'Imscribing.ABC.TailRegime.read_attained' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:165:0: 'Imscribing.ABC.TailRegime.read_dominates' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:166:0: 'Imscribing.ABC.tailClosureWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:167:0: 'Imscribing.ABC.tailClosureWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:168:0: 'Imscribing.ABC.tailClosure_preserves_finite_reading' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:169:0: 'Imscribing.ABC.tailClosure_preserves_triple' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:170:0: 'Imscribing.ABC.IUTTTailReading.select' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:171:0: 'Imscribing.ABC.IUTTTailReading.packet_radical' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:172:0: 'Imscribing.ABC.IUTTTailReading.packet_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:173:0: 'Imscribing.ABC.exactIUTTTailClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:174:0: 'Imscribing.ABC.exactIUTTTailClosure_readout' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:175:0: 'Imscribing.ABC.iuttTailClosureWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:176:0: 'Imscribing.ABC.iuttTailClosureWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:177:0: 'Imscribing.ABC.IUTTAsymptoticReading.read_is_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:178:0: 'Imscribing.ABC.IUTTAsymptoticReading.toClosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:179:0: 'Imscribing.ABC.IUTTAsymptoticReading.maximum_le_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:180:0: 'Imscribing.ABC.IUTTAsymptoticReading.triple_below_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:181:0: 'Imscribing.ABC.iutt_asymptotic_to_conjecture' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:182:0: 'Imscribing.ABC.iuttAsymptoticWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:183:0: 'Imscribing.ABC.iuttAsymptoticWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:184:0: 'Imscribing.ABC.IUTTAsymptoticReading.ofWindowConvergence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:185:0: 'Imscribing.ABC.iuttAsymptoticFamilyOfConvergence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:186:0: 'Imscribing.ABC.iuttAsymptoticFamilyOfConvergence_to_conjecture' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/ABC_Audit.lean:187:0: 'Imscribing.ABC.iuttAsymptoticWitnessOfConvergence' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:188:0: 'Imscribing.ABC.iuttAsymptoticWitnessOfConvergence_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:189:0: 'Imscribing.ABC.FiniteMeasurement.ofEnclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:190:0: 'Imscribing.ABC.FiniteMeasurement.packet_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:191:0: 'Imscribing.ABC.FiniteMeasurement.packet_radical' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:192:0: 'Imscribing.ABC.FiniteMeasurement.readout' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:193:0: 'Imscribing.ABC.FiniteMeasurement.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:194:0: 'Imscribing.ABC.FiniteMeasurement.witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:195:0: 'Imscribing.ABC.certifiedMeasurementNine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:196:0: 'Imscribing.ABC.certifiedMeasurementThirty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:197:0: 'Imscribing.ABC.MeasurementChain.fromScaleChain' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:198:0: 'Imscribing.ABC.MeasurementChain.link' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:199:0: 'Imscribing.ABC.MeasurementChain.cross_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:200:0: 'Imscribing.ABC.MeasurementChain.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:201:0: 'Imscribing.ABC.MeasurementChain.witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:202:0: 'Imscribing.ABC.certifiedMeasurementChain' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:203:0: 'Imscribing.ABC.certifiedMeasurementChain_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:204:0: 'Imscribing.ABC.certifiedMeasurementChain_witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:205:0: 'Imscribing.ABC.MeasurementChain.lower_le_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:206:0: 'Imscribing.ABC.MeasurementChain.triple_le_limit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:207:0: 'Imscribing.ABC.MeasurementChain.packet_calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:208:0: 'Imscribing.ABC.MeasurementChain.compatibilityWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:209:0: 'Imscribing.ABC.MeasurementChain.compatibilityWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:210:0: 'Imscribing.ABC.CertifiedMeasurementStream.measurement_readout' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/ABC_Audit.lean:211:0: 'Imscribing.ABC.CertifiedMeasurementStream.prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:212:0: 'Imscribing.ABC.CertifiedMeasurementStream.prefix_cross_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: Imscribing/ABC_Audit.lean:213:0: 'Imscribing.ABC.CertifiedMeasurementStream.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:214:0: 'Imscribing.ABC.CertifiedMeasurementStream.witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:215:0: 'Imscribing.ABC.ChampionEvent.packet_calibrated' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:216:0: 'Imscribing.ABC.certifiedChampionTraceNine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:217:0: 'Imscribing.ABC.champion_base_through_eight' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:218:0: 'Imscribing.ABC.champion_at_nine' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:219:0: 'Imscribing.ABC.displacement_through_nine_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:220:0: 'Imscribing.ABC.certifiedChampionTraceNineWitness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:221:0: 'Imscribing.ABC.certifiedChampionTraceNineWitness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:222:0: 'Imscribing.ABC.Window70E1_10.enclosure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:223:0: 'Imscribing.ABC.Window70E1_10.witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Imscribing/ABC_Audit.lean:224:0: 'Imscribing.ABC.Window70E1_10.witness_is_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (8723 jobs).

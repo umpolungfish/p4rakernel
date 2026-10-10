@@ -1,7 +1,7 @@
 name = "imscribing-lean"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["Imscribing"]
+defaultTargets = ["Imscribing", "NSKernelReentry"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -767,7 +767,7 @@ globs = [
 name = "ProverScratch"
 roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"]
 
-# Native declaration modules use the p4rakernel fork via build_native_ns.py.
+# Native declaration modules are checked by the local p4rakernel toolchain.
 [[lean_lib]]
 name = "NSKernelReentry"
 roots = ["Imscribing.NS_KernelReentry", "Imscribing.NS_KernelReentryAudit"]
