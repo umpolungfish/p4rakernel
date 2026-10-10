@@ -1,3 +1,3 @@
-I fold the perfect cuboid status into its module
+I record the merged Beal proof history in the kernel
 
-I remove the sorry-based descent construction, add an explicit admitted DialetheicWitness verdict for the open existence question, and keep the legacy module as a compatibility import. I build both affected Lean targets.
+I update the nested BealProof_math pointer to the history-preserving merge that includes both proof checkouts.
