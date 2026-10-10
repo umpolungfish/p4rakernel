@@ -1,3 +1,6 @@
-I establish Y by untyped beta re-entry
+I model Y reduction as a period-two signal
 
-I formalize the untyped Curry Y term and prove its two-step beta unfolding for closed functionals. I expose the chain-complete Y fixed-point equation, connect B-valued recursion to FDE over SIXTEEN_3, and verify the least B re-entry through the native kernel declaration.
+I add the identity functional to the untyped lambda calculus model and prove
+its Y unfolding cycles through two distinct root beta-redex states. The
+tick-indexed signal advances by valid beta steps, repeats every two ticks, and
+is not constant.

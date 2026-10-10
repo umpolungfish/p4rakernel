@@ -374,6 +374,61 @@ theorem Y_unfolds (F : Term) (hF : Closed F) :
       beta middle = some (.app F middle) := by
   exact ⟨unfoldState F, Y_first_beta F, Y_second_beta F hF⟩
 
+/-- The closed identity functional `λx. x`. Its Y unfolding has a genuine
+    two-state root-reduction cycle: the recursive application unfolds to the
+    functional applied to itself, then the identity returns that unfolding. -/
+def identityFunctional : Term := .lam 2 (.var 2)
+
+theorem identityFunctional_closed : Closed identityFunctional := by
+  intro name hfree
+  change 2 ≠ name ∧ name = 2 at hfree
+  exact hfree.1 hfree.2.symm
+
+theorem identity_beta (t : Term) :
+    beta (.app identityFunctional t) = some t := by
+  simp [beta, identityFunctional, subst]
+
+def identityYState : Term := unfoldState identityFunctional
+
+def identityYNext : Term := .app identityFunctional identityYState
+
+theorem identityYState_step : beta identityYState = some identityYNext :=
+  Y_second_beta identityFunctional identityFunctional_closed
+
+theorem identityYNext_step : beta identityYNext = some identityYState :=
+  identity_beta identityYState
+
+/-- A tick-indexed signal alternating between the two root-redex states of
+    the untyped Y unfolding. This records divergence as a periodic signal. -/
+def identityYLoop : Signal Term
+  | 0 => identityYState
+  | 1 => identityYNext
+  | n + 2 => identityYLoop n
+
+theorem identityYLoop_period_two (n : Nat) :
+    identityYLoop (n + 2) = identityYLoop n := rfl
+
+theorem identityYLoop_step (n : Nat) :
+    beta (identityYLoop n) = some (identityYLoop (n + 1)) := by
+  cases n with
+  | zero => exact identityYState_step
+  | succ n =>
+      cases n with
+      | zero => exact identityYNext_step
+      | succ n =>
+          simpa [identityYLoop] using identityYLoop_step n
+
+def StableTerm (s : Signal Term) : Prop := ∃ t, ∀ n, s n = t
+
+theorem identityYLoop_not_stable : ¬ StableTerm identityYLoop := by
+  rintro ⟨t, ht⟩
+  have h0 : t = identityYState := (ht 0).symm
+  have h1 : t = identityYNext := (ht 1).symm
+  have heq : identityYState = identityYNext := h0.symm.trans h1
+  have hne : identityYState ≠ identityYNext := by
+    decide
+  exact hne heq
+
 end UntypedLambda
 
 /-- An oscillator started at true and negated once on every tick. -/
