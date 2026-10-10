@@ -199,7 +199,7 @@ def «opaque»         := leading_parser
 def «instance»       := leading_parser
   Term.attrKind >> "instance" >> optNamedPrio >>
   optional (ppSpace >> declId) >> ppIndent declSig >> declVal
-def «reentry»          := leading_parser
+def «reentry» := leading_parser
   "reentry " >> recover declId skipUntilWsOrDelim >> ppIndent declSig >> declVal
 
 def «axiom»          := leading_parser

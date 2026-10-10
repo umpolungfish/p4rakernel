@@ -1,1 +1,3 @@
-I construct smooth residual extension from cancellation estimates
+I put SIXTEEN_3 re-entry to use
+
+I route re-entry declarations through Lean's declaration elaborator, validate and compute their information-order fixed points, and store checked SIXTEEN_3 payloads as reducible constants. I add an example that proves the resulting value and truth membership, and document both runnable controls.

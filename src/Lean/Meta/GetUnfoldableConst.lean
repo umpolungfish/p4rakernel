@@ -10,6 +10,8 @@ public section
 namespace Lean.Meta
 
 private def canUnfoldDefault (cfg : Config) (info : ConstantInfo) : CoreM Bool := do
+  if info.isReentry then
+    return cfg.transparency != .none
   match cfg.transparency with
   | .none => return false
   | .all  => return true
@@ -47,6 +49,7 @@ def getUnfoldableConst? (constName : Name) : MetaM (Option ConstantInfo) := do
     else
       return none
   | .defn => if (← canUnfold ainfo.toConstantInfo) then return ainfo.toConstantInfo else return none
+  | .reentry => if (← canUnfold ainfo.toConstantInfo) then return ainfo.toConstantInfo else return none
   | _ => return none
 
 /--
@@ -56,6 +59,7 @@ def getUnfoldableConstNoEx? (constName : Name) : MetaM (Option ConstantInfo) := 
   match (← getEnv).find? constName with
   | some (info@(.thmInfo _))  => getTheoremInfo info
   | some (info@(.defnInfo _)) => if (← canUnfold info) then return info else return none
+  | some (info@(.reentryInfo _)) => if (← canUnfold info) then return info else return none
   | some (.axiomInfo _)       => recordUnfoldAxiom constName; return none
   | _                         => return none
 

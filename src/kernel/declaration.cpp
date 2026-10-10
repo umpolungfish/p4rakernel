@@ -340,10 +340,13 @@ constant_info::constant_info(recursor_val const & v):
 }
 
 static reducibility_hints * g_opaque = nullptr;
+static reducibility_hints * g_reentry = nullptr;
 
 reducibility_hints const & constant_info::get_hints() const {
     if (is_definition())
         return static_cast<reducibility_hints const &>(cnstr_get_ref(to_val(), 2));
+    else if (is_reentry())
+        return *g_reentry;
     else
         return *g_opaque;
 }
@@ -366,6 +369,8 @@ bool constant_info::is_unsafe() const {
 void initialize_declaration() {
     g_opaque = new reducibility_hints(reducibility_hints::mk_opaque());
     mark_persistent(g_opaque->raw());
+    g_reentry = new reducibility_hints(reducibility_hints::mk_regular(1));
+    mark_persistent(g_reentry->raw());
     g_dummy  = new declaration(mk_axiom(name(), names(), expr()));
     mark_persistent(g_dummy->raw());
 }
@@ -373,5 +378,6 @@ void initialize_declaration() {
 void finalize_declaration() {
     delete g_dummy;
     delete g_opaque;
+    delete g_reentry;
 }
 }
