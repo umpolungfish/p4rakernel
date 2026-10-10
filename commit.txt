@@ -1,3 +1,3 @@
-I render my integrated READMEs with the canonical fonts
+I make my README commands portable
 
-I generate both README PDFs from their canonical Markdown sources, select Trabajo for Shavian catalog addresses, and supply the primitive glyph mappings. I retain the successful render log, embedded font inventory, and visual control.
+I replace my machine's absolute checkout paths with commands relative to the repository root in both READMEs. I regenerate their PDFs and refresh the render controls.
