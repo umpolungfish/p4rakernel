@@ -1,3 +1,3 @@
-I make my README commands portable
+I remove internal references from my public READMEs
 
-I replace my machine's absolute checkout paths with commands relative to the repository root in both READMEs. I regenerate their PDFs and refresh the render controls.
+I remove measurement directories, internal report citations, private document links, and PDF references from both READMEs. I describe the code, APIs, build commands, and executable checks directly. I verify that the remaining repository links resolve and refresh the README render controls.

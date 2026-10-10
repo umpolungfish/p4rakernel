@@ -17,7 +17,6 @@ feedback as ticks, or inspect the settled memberships.
 | [`src/`](src/) | Lean kernel fork, native trilattice operations, re-entry declarations, mode controls |
 | [`p4ramill/`](p4ramill/README.md) | Lean corpus, executable combinators, certified fixed points, domain applications |
 | [`tests/`](tests/) | Native carrier, declaration, mode, module, and execution controls |
-| [`measurements/`](measurements/) | Retained build and audit records |
 | [`p4ramill_py/`](p4ramill_py/) | Runtime mirror and genetics pipeline |
 
 ## Use the local kernel
@@ -31,9 +30,7 @@ export PATH="$PWD/../build/stage1/bin:$PATH"
 lake env lean --version
 ```
 
-The [corpus README](p4ramill/README.md) gives sequential, single-worker checks
-for the executable re-entry modules. From the repository root, rebuild the
-kernel with its native CMake targets:
+From the repository root, rebuild the kernel with its native CMake targets:
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -46,7 +43,7 @@ full library build.
 
 ## The native carrier and its three orders
 
-The implemented member of the SIXTEEN_# family is
+The implemented member of the ${SIXTEEN}_3$ family is
 
 $$
 \mathrm{SIXTEEN}_3=\mathcal P(\{N,T,F,B\}).
@@ -64,8 +61,6 @@ from the subset containing T and F.
 | Truth `le_t` | T, B | N, F | `join_t`, `meet_t` |
 | Falsity `le_f` | F, B | N, T | `join_f`, `meet_f` |
 
-These are the membership orders of
-[Shramko and Wansing](https://kdpu.edu.ua/shramko/files/2005_JPL_Some_Useful_16-valued_Logics.pdf).
 The command module and corpus use the same `Lean.Sixteen3` as the kernel.
 
 | Implementation | Responsibility |
@@ -190,8 +185,7 @@ The twelve primitives are ⊢ ⊣ ≻ ≺ ⋈ ⊤ ∈ ∋ ⊙ ⊥ ⊞ ⊡. Their
 has size $3^3\cdot4^5\cdot5^4=17{,}280{,}000$, and split/fuse closure is
 $\mu\circ\delta=\mathrm{id}$. The corpus includes Belnap and trilattice laws,
 Frobenius constructions, orbital/Majorana readings, genetics, SIC-POVM
-constructions, arithmetic transport, and Millennium witnesses. The
-[corpus guide](p4ramill/README.md) identifies entry points and audits.
+constructions, arithmetic transport, and Millennium witnesses.
 
 The canonical catalog addresses include CL8NK
 ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑔𐑵⊙𐑫𐑳𐑟⟩ and CL9NK
@@ -212,23 +206,18 @@ time-linear controls. `NS_ResidualExtension.lean` constructs a smooth
 continuation from all-order cancellation and exterior derivative bounds,
 preserving interior derivative tensors and spatial support.
 
-The [published-profile bridge](p4ramill/PublishedProfile/README.md) imports the
+[`InjectionConnection.lean`](p4ramill/PublishedProfile/InjectionConnection.lean) imports the
 [published construction](https://github.com/openai/NavierStokesAndEuler) under
 its pinned Lean 4.34.0-rc2 toolchain. Its operator comparison equates the local
 coordinate residual with the published Fréchet residual. The actual-profile
 theorem identifies the published candidate's globally smooth force with the
 carried injection at every level for $0<t<1$, continuing through $t=1$ while
-retaining velocity blowup, compact force support, incompressibility, and finite
-energy. The [mathematical exposition](../ig-docs/ns_reentry_injection.md)
-develops the carrier, derivative, cancellation, and continuation statements.
+retaining velocity blowup, compact force support, incompressibility, and finite energy.
 
-## Verification and documentation
+## Run the native checks
 
-Native declaration and runtime controls are retained in
-[`measurements/kernel_features_20261009/`](measurements/kernel_features_20261009/).
-They cover all states, lattice laws, malformed and nonmonotone maps, modes,
-metadata, module serialization, imported reduction, interpreted execution,
-and compiled execution. Direct controls use the built fork:
+The native tests check carrier states, lattice laws, declaration payloads, and
+mode controls. Run them from the repository root using the built fork:
 
 ```sh
 LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean -j1 tests/lean/run/sixteen3.lean
@@ -237,15 +226,8 @@ LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean -j1 tests/lean/run/reentry
 LEAN_PATH=build/stage1/lib/lean build/stage1/bin/lean -j1 tests/lean/run/trilatticeMode.lean
 ```
 
-Executable audits live beside their modules. Records in
-[`measurements/temporal_reentry_20261010/`](measurements/temporal_reentry_20261010/)
-cover ticks, contractions, all six operations, composition, native solving,
-and bounds. The endpoint audit checks 665 program maps, every fixed state in
-each table, both settled feedback directions, and candidate rejection controls.
-It also checks a moving state inside a valid interval. The audits print theorem
-dependencies; enclosure, uniqueness, greatest-point program reduction, and
-feedback-settlement theorems have no axioms.
-
-The integrated implementation guide is
-[`trilattice_reentry_kernel.md`](../ig-docs/trilattice_reentry_kernel.md), with
-its [rendered PDF](../ig-docs/trilattice_reentry_kernel.pdf).
+The corpus audit modules check ticks, contractions, all six operations,
+composition, native solving, and fixed-point bounds. They print theorem
+dependencies and check rejection of invalid candidates. The enclosure,
+uniqueness, greatest-point program reduction, and feedback-settlement theorems
+have no axiom dependencies.

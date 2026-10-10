@@ -122,25 +122,18 @@ their mathematical scope in their types.
 reading and classifies as Belnap B. `IUTT.State` retains the larger trilattice
 ambient and its truth, falsity, and information lanes.
 
-## Read the checks and the documentation
+## Check theorem dependencies
 
 Audit modules print axiom dependencies and execute concrete controls. The
 bounds audit checks seeded maps, diagonals, constants, Y-computed constants,
 retained negation, and both composition orders. It rejects non-greatest and
-non-fixed candidates and insufficient reduction fuel. Earlier least-point and
-trilattice audits also pass with the shared table helpers. Records are retained in
-[`../measurements/temporal_reentry_20261010/`](../measurements/temporal_reentry_20261010/).
+non-fixed candidates and insufficient reduction fuel. The least-point and
+trilattice audits check the shared table helpers and native operations.
 
 Compiler output identifies declarations that use axioms or `sorry`. Those
 dependencies belong to each theorem statement and audit. Endpoint enclosure,
 uniqueness, greatest-point program reduction, and settled feedback theorems
 print no axiom dependencies.
-
-The [kernel README](../README.md) explains native declarations and mode
-boundaries. The [implementation guide](../../ig-docs/trilattice_reentry_kernel.md)
-develops the carrier, executable calculus, solver, and bounds, with a
-[rendered PDF](../../ig-docs/trilattice_reentry_kernel.pdf). The historical
-inventory and domain theorem details remain in [`README_FULL.md`](README_FULL.md).
 
 ## License
 
