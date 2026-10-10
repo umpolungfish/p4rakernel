@@ -1,11 +1,10 @@
-I certify primitive feedback cycles on my native carrier
+I read feedback phases directly from my certified clock
 
-I expose arbitrary-seed transients, primitive periods, periodic continuation,
-and restart through the reduction-certified program table. I retain the
-original program reduction at every tick and prove the cycle laws without
-axiom dependencies.
+I cache native states and normalize arbitrary ticks relative to the first
+cycle entry. I prove agreement with the original signal, preserve program
+reduction between cached observations, and retain restart semantics.
 
-I check every native starting state across the lattice and combinator
-families, including retained-seed oscillation and cycle rejection controls.
-I integrate runnable cycle examples into both public READMEs and keep their
-commands portable and their references confined to public source.
+I check cached reads across every native starting state in my program
+families and exercise distant phase, transient, alternation, and retained
+evidence controls. I integrate executable clock examples and their theorem
+dependencies into both public READMEs.

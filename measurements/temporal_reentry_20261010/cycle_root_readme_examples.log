@@ -18,6 +18,8 @@ some (1,
  2,
  [{ hasN := true, hasT := false, hasF := true, hasB := false },
   { hasN := true, hasT := true, hasF := false, hasB := false }])
+some ({ hasN := false, hasT := false, hasF := true, hasB := false },
+ { hasN := false, hasT := true, hasF := false, hasB := false })
 [Paraconsistent] Kernel mode activated — principle of explosion disabled.
 paraconsistent = true
 [Paraconsistent] Kernel mode deactivated — principle of explosion restored.

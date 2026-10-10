@@ -8,22 +8,22 @@ WPVNZS+CMSY10                        Type 1            Builtin          yes yes 
 PPZOIK+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes     48  0
 CNTEIK+LMRoman10-Bold                CID Type 0C       Identity-H       yes yes yes     49  0
 HGZAEH+LMMonoLt10-Bold               CID Type 0C       Identity-H       yes yes yes     52  0
-AJUCLA+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     53  0
+XBFQAK+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     53  0
 UHOWLU+CMMI12                        Type 1            Builtin          yes yes no      64  0
 FERSUF+CMR8                          Type 1            Builtin          yes yes no      65  0
 OHVHPT+CMR12                         Type 1            Builtin          yes yes no      66  0
-GVLOWW+EversonMono                   CID TrueType      Identity-H       yes yes yes    122  0
-AJBAKY+Trabajo                       CID Type 0C       Identity-H       yes yes yes    123  0
-VNYVGK+CMMI8                         Type 1            Builtin          yes yes no     124  0
+GVLOWW+EversonMono                   CID TrueType      Identity-H       yes yes yes    133  0
+AJBAKY+Trabajo                       CID Type 0C       Identity-H       yes yes yes    134  0
+VNYVGK+CMMI8                         Type 1            Builtin          yes yes no     139  0
 name                                 type              encoding         emb sub uni object ID
 ------------------------------------ ----------------- ---------------- --- --- --- ---------
-GGJNTX+LMRoman12-Regular             CID Type 0C       Identity-H       yes yes yes     38  0
-WAWCHH+LMRoman17-Regular             CID Type 0C       Identity-H       yes yes yes     45  0
-PUGYDD+LMRoman12-Bold                CID Type 0C       Identity-H       yes yes yes     46  0
-BFGLHQ+LMMonoLt10-Bold               CID Type 0C       Identity-H       yes yes yes     49  0
-PJQMDG+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     50  0
-SEGDXZ+LMMono12-Regular              CID Type 0C       Identity-H       yes yes yes     69  0
-WFYJUK+CMSY10                        Type 1            Builtin          yes yes no     110  0
-MWMITZ+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes    111  0
-ENNAGY+LMRoman10-Bold                CID Type 0C       Identity-H       yes yes yes    112  0
-AGTGHI+CMR10                         Type 1            Builtin          yes yes no     117  0
+XYNSOA+LMRoman12-Regular             CID Type 0C       Identity-H       yes yes yes     42  0
+WAWCHH+LMRoman17-Regular             CID Type 0C       Identity-H       yes yes yes     49  0
+VRZGXT+LMRoman12-Bold                CID Type 0C       Identity-H       yes yes yes     50  0
+BFGLHQ+LMMonoLt10-Bold               CID Type 0C       Identity-H       yes yes yes     53  0
+CQNECC+LMMono10-Regular              CID Type 0C       Identity-H       yes yes yes     54  0
+SEGDXZ+LMMono12-Regular              CID Type 0C       Identity-H       yes yes yes     73  0
+WFYJUK+CMSY10                        Type 1            Builtin          yes yes no     114  0
+MWMITZ+LMRoman10-Regular             CID Type 0C       Identity-H       yes yes yes    115  0
+ENNAGY+LMRoman10-Bold                CID Type 0C       Identity-H       yes yes yes    116  0
+AGTGHI+CMR10                         Type 1            Builtin          yes yes no     139  0

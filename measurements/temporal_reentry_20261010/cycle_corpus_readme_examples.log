@@ -24,3 +24,6 @@ some (1,
  [{ hasN := false, hasT := true, hasF := false, hasB := false }],
  [{ hasN := true, hasT := false, hasF := true, hasB := false },
   { hasN := true, hasT := true, hasF := false, hasB := false }])
+some ({ hasN := false, hasT := true, hasF := false, hasB := false },
+ { hasN := true, hasT := false, hasF := true, hasB := false },
+ { hasN := true, hasT := true, hasF := false, hasB := false })
