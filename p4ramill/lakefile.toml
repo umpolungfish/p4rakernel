@@ -1,7 +1,7 @@
 name = "imscribing-lean"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["Imscribing", "NSKernelReentry"]
+defaultTargets = ["Imscribing", "NSKernelReentry", "TensorFiltration"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -32,8 +32,7 @@ weak.linter.flexible = false
 
 [[require]]
 name = "mathlib"
-scope = "leanprover-community"
-rev = "v4.28.0"
+path = ".lake/packages/mathlib"
 
 [[lean_lib]]
 name = "Imscribing"
@@ -771,3 +770,7 @@ roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"
 [[lean_lib]]
 name = "NSKernelReentry"
 roots = ["Imscribing.NS_KernelReentry", "Imscribing.NS_KernelReentryAudit"]
+
+[[lean_lib]]
+name = "TensorFiltration"
+roots = ["Imscribing.Paraconsistent.TensorFiltration", "Imscribing.Paraconsistent.TensorFiltrationAudit"]
