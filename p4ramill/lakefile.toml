@@ -321,6 +321,7 @@ globs = [
   "Imscribing.ArsCrossDomain",
   "Imscribing.Millennium.PrimitiveConventionalBridge",
   "Imscribing.Millennium.PerfectCuboid",
+  "Imscribing.Millennium.PerfectCuboid.DialetheicStatus",
   "Imscribing.Millennium.PerfectCuboid_Descent_Proof",
   "Imscribing.Millennium.PerfectCuboid.PerfectCuboidWitness",
   "Imscribing.Millennium.PerfectCuboid.FactorizationLemma",
