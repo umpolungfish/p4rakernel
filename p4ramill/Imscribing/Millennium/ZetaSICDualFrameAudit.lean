@@ -6,6 +6,10 @@ open Imscribing.Millennium.ZetaSICDualFrame
 #print axioms tetra_dual_left_inverse
 #print axioms tetra_dual_right_inverse
 #print axioms tetra_coordinate_reconstruction
+#print axioms ququart_coefficients
+#print axioms ququart_dual_left_inverse
+#print axioms ququart_dual_right_inverse
+#print axioms ququart_coordinate_reconstruction
 #print axioms analytic_dual_frame_witness
 #print axioms twelve_dual_left_inverse
 #print axioms twelve_coordinate_reconstruction

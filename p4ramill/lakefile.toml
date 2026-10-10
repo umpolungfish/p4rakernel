@@ -1,7 +1,7 @@
 name = "imscribing-lean"
 version = "0.1.0"
 keywords = ["math"]
-defaultTargets = ["Imscribing", "NSKernelReentry", "TensorFiltration", "ZetaSICDualFrame"]
+defaultTargets = ["Imscribing", "NSKernelReentry", "TensorFiltration", "ZetaSICDualFrame", "QuquartMembraneReentry"]
 
 [leanOptions]
 pp.unicode.fun = true
@@ -792,3 +792,7 @@ roots = ["Imscribing.Paraconsistent.TensorFiltration", "Imscribing.Paraconsisten
 [[lean_lib]]
 name = "ZetaSICDualFrame"
 roots = ["Imscribing.Millennium.ZetaSICDualFrame", "Imscribing.Millennium.ZetaSICDualFrameAudit"]
+
+[[lean_lib]]
+name = "QuquartMembraneReentry"
+roots = ["Imscribing.Paraconsistent.QuquartMembraneReentry", "Imscribing.Paraconsistent.QuquartMembraneReentryAudit"]
