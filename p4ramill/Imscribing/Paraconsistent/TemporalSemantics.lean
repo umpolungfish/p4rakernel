@@ -13,49 +13,55 @@ namespace Imscribing.Paraconsistent.Temporal.Semantics
 
 open Imscribing.Paraconsistent
 
+universe u v w
+
 /-- A discrete-time stream of four-valued observations. -/
-abbrev Signal := Nat → Belnap
+abbrev Signal (α : Type u) := Nat → α
 
 /-- Read the next tick. -/
-def next (s : Signal) : Signal := fun n => s (n + 1)
+def next {α : Type u} (s : Signal α) : Signal α := fun n => s (n + 1)
 
 /-- Apply a truth-value operation at every tick. -/
-def map (f : Belnap → Belnap) (s : Signal) : Signal := fun n => f (s n)
+def map {α : Type u} {β : Type v} (f : α → β) (s : Signal α) : Signal β :=
+  fun n => f (s n)
 
 /-- A one-tick delay with an explicit initial observation. -/
-def delay (initial : Belnap) (s : Signal) : Signal
+def delay {α : Type u} (initial : α) (s : Signal α) : Signal α
   | 0 => initial
   | n + 1 => s n
 
 /-- Compose signal transformers. -/
-def compose (f g : Signal → Signal) : Signal → Signal := fun s => f (g s)
+def compose {α : Type u} {β : Type v} {γ : Type w}
+    (f : Signal β → Signal γ) (g : Signal α → Signal β) :
+    Signal α → Signal γ := fun s => f (g s)
 
 /-- Guarded feedback: the next output is computed from the previous tick. -/
-def feedback (step : Belnap → Belnap) (initial : Belnap) : Signal
+def feedback {α : Type u} (step : α → α) (initial : α) : Signal α
   | 0 => initial
   | n + 1 => step (feedback step initial n)
 
 /-- The guarded fixed-point equation: expose the seed now and feed the
     transformed trace back only after one tick of delay. -/
-theorem feedback_unfold (step : Belnap → Belnap) (initial : Belnap) :
+theorem feedback_unfold {α : Type u} (step : α → α) (initial : α) :
     feedback step initial = delay initial (map step (feedback step initial)) := by
   funext n
   cases n <;> rfl
 
-theorem next_delay (initial : Belnap) (s : Signal) :
+theorem next_delay {α : Type u} (initial : α) (s : Signal α) :
     next (delay initial s) = s := by
   funext n
   rfl
 
-theorem map_compose (f g : Belnap → Belnap) (s : Signal) :
+theorem map_compose (f g : Belnap → Belnap) (s : Signal Belnap) :
     map f (map g s) = map (f ∘ g) s := by
   rfl
 
-theorem compose_assoc (f g h : Signal → Signal) :
+theorem compose_assoc {α : Type u} {β : Type v} {γ : Type w} {δ : Type _}
+    (f : Signal γ → Signal δ) (g : Signal β → Signal γ) (h : Signal α → Signal β) :
     compose (compose f g) h = compose f (compose g h) := rfl
 
 /-- An oscillator started at true and negated once on every tick. -/
-def liarOscillator : Signal := feedback bnot Belnap.T
+def liarOscillator : Signal Belnap := feedback bnot Belnap.T
 
 theorem liarOscillator_step (n : Nat) :
     liarOscillator (n + 1) = bnot (liarOscillator n) := rfl
@@ -69,7 +75,7 @@ theorem liarOscillator_period_two (n : Nat) :
   exact bnot_involutive _
 
 /-- The liar trace stays on the classical true/false slice while it oscillates. -/
-def Oscillating (s : Signal) : Prop :=
+def Oscillating (s : Signal Belnap) : Prop :=
   ∀ n, (s n = .T ∨ s n = .F) ∧ s (n + 1) = bnot (s n)
 
 theorem liarOscillator_values (n : Nat) :
@@ -88,7 +94,7 @@ theorem liarOscillator_oscillates : Oscillating liarOscillator := by
   intro n
   exact ⟨liarOscillator_values n, liarOscillator_step n⟩
 
-def Stable (s : Signal) : Prop := ∃ v, ∀ n, s n = v
+def Stable (s : Signal Belnap) : Prop := ∃ v, ∀ n, s n = v
 
 theorem liarOscillator_not_stable : ¬ Stable liarOscillator := by
   rintro ⟨v, hv⟩
@@ -100,7 +106,7 @@ theorem liarOscillator_not_stable : ¬ Stable liarOscillator := by
   exact (by decide : Belnap.T ≠ Belnap.F) this
 
 /-- Stable unknown evidence is distinct from an alternating classical trace. -/
-def undetermined : Signal := fun _ => .N
+def undetermined : Signal Belnap := fun _ => .N
 
 theorem undetermined_stable : Stable undetermined :=
   ⟨.N, fun _ => rfl⟩
@@ -109,7 +115,7 @@ theorem undetermined_negation_fixed (n : Nat) :
     bnot (undetermined n) = undetermined n := rfl
 
 /-- Belnap's glut is a stable, self-negating observation. -/
-def glut : Signal := fun _ => .B
+def glut : Signal Belnap := fun _ => .B
 
 theorem glut_stable : Stable glut := ⟨.B, fun _ => rfl⟩
 
@@ -117,11 +123,11 @@ theorem glut_negation_fixed (n : Nat) : bnot (glut n) = glut n := rfl
 
 /-- A relation is a tick bisimulation when it matches the current readout and
     remains related after both signals advance by one tick. -/
-def IsBisimulation (R : Signal → Signal → Prop) : Prop :=
+def IsBisimulation {α : Type u} (R : Signal α → Signal α → Prop) : Prop :=
   ∀ ⦃s t⦄, R s t → s 0 = t 0 ∧ R (next s) (next t)
 
-theorem bisimilar_signals_agree (R : Signal → Signal → Prop)
-    (hstep : IsBisimulation R) {s t : Signal} (hrel : R s t) :
+theorem bisimilar_signals_agree {α : Type u} (R : Signal α → Signal α → Prop)
+    (hstep : IsBisimulation R) {s t : Signal α} (hrel : R s t) :
     ∀ n, s n = t n := by
   intro n
   induction n generalizing s t hrel with
