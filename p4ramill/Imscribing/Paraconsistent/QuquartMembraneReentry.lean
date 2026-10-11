@@ -7,6 +7,7 @@ certified feedback ticks. Coordinate recovery retains complex coordinates. -/
 namespace Imscribing.Paraconsistent.QuquartMembraneReentry
 
 open CombinatoryReentry CombinatoryDynamics
+open Temporal.Semantics
 open Imscribing.Millennium.ZetaSICDualFrame
 local infixl:70 " @@ " => Term.app
 
@@ -38,6 +39,24 @@ def outcomeEquivalence : Fin 16 ≃ Lean.Sixteen3 where
   invFun := runtimeOutcome
   left_inv := runtime_native_roundtrip
   right_inv := native_runtime_roundtrip
+
+/-- Runtime negation swaps the t and F bits under the existing equivalence.
+The measured retained evidence is joined after each negation. -/
+def retainedRuntimeStep (retained state : Fin 16) : Fin 16 :=
+  runtimeOutcome (Lean.Sixteen3.join_i
+    (FDE.liftNegation (nativeOutcome state)) (nativeOutcome retained))
+
+theorem retained_runtime_program (retained state : Fin 16) :
+    Steps (seededOperator (nativeOutcome retained) @@ .datum (nativeOutcome state))
+      (.datum (nativeOutcome (retainedRuntimeStep retained state))) := by
+  rw [retainedRuntimeStep, native_runtime_roundtrip]
+  exact seededOperator_apply _ _
+
+/-- Integer implementation used by the native membrane clock leaf. -/
+theorem retained_runtime_bits : ∀ retained state : Fin 16,
+    (retainedRuntimeStep retained state).val =
+      (state.val &&& 6) ||| ((state.val &&& 1) <<< 3) |||
+        ((state.val &&& 8) >>> 3) ||| retained.val := by decide
 
 /-- The runtime label of a certified native clock observation. -/
 def runtimeTick {program : Term} {seed : Lean.Sixteen3}

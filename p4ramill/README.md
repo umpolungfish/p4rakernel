@@ -170,6 +170,10 @@ original feedback state and its program reduction at each tick. Complex SIC
 coordinates remain a separate field of the observation. The dimension-four
 dual Gram matrix reconstructs all sixteen coordinates, with its coefficients
 expressed through the checked analytic value `riemannZeta (-1)`.
+`retained_runtime_program` connects the runtime feedback update to the original
+seeded combinator reduction. `retained_runtime_bits` proves the integer bit
+operation used by the membrane, and the audit exports certified transient,
+period, table, and cached states for every retained value and initial state.
 
 ## Where to look
 
