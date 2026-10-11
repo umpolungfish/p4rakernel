@@ -1,4 +1,5 @@
 import Imscribing.Paraconsistent.QuquartMembraneReentry
+import Imscribing.Paraconsistent.CertifiedModularResidue
 
 open Imscribing.Paraconsistent.QuquartMembraneReentry
 open Imscribing.Paraconsistent.CombinatoryFixedPoint
@@ -11,6 +12,10 @@ open Imscribing.Paraconsistent.CombinatoryFixedPoint
 #print axioms observation_control
 #print axioms retained_runtime_program
 #print axioms retained_runtime_bits
+#print axioms Imscribing.Paraconsistent.CertifiedModularResidue.step_correct
+#print axioms Imscribing.Paraconsistent.CertifiedModularResidue.residue_index_bound
+#print axioms Imscribing.Paraconsistent.CertifiedModularResidue.same_residue_same_step
+#print axioms Imscribing.Paraconsistent.CertifiedModularResidue.period_multiple_preserves_step
 
 #eval (List.finRange 16).map (fun i => (maskIndex (nativeOutcome i)).val)
 

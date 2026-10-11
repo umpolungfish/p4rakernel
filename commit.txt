@@ -1,5 +1,1 @@
-I preserve retained reentry clocks and isolate my Lean bridge captures
-
-I relate the native retained-state bit operation to my executable Lean reentry term and certify its clock observations. The QuquartMembraneReentry audit elaborates successfully with the active kernel.
-
-I reserve bridge capture pairs exclusively across hosted frontends and PID namespaces, retain exact exit status, and close admission through the kernel certificate.
+I prove certified modular residue steps for arbitrary ticks
