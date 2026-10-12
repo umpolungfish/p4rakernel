@@ -1,15 +1,20 @@
 import Init.Paraconsistent
 import Imscribing.Paraconsistent.CombinatoryFixedPointBounds
 import Imscribing.Paraconsistent.CombinatoryDynamics
+import Imscribing.Paraconsistent.DivisorReentry
+import Imscribing.Paraconsistent.DialecticResident
 
 open Imscribing.Paraconsistent
 open CombinatoryReentry CombinatoryFixedPoint CombinatoryFixedPointBounds
 open CombinatoryDynamics TrilatticePrograms
+open Imscribing.Paraconsistent.DivisorReentry
 local infixl:70 " @@ " => Term.app
+
+enable_trilattice
 
 run_cmd do
   unless (← Lean.getEnv).isTrilattice do
-    throwError "the kernel bridge requires default SIXTEEN_3"
+    throwError "the kernel bridge requires active SIXTEEN_3"
 
 reentry bridgeHold (state : Lean.Sixteen3) : Lean.Sixteen3 :=
   Lean.Sixteen3.join_i state ⟨false, true, true, false⟩
@@ -125,7 +130,71 @@ private def verifyProduct (source left right : String) : IO UInt32 := do
   out.putStrLn s!"product-certificate={certificate.isSome} evidence={(maskIndex bounds.lower.point).val} evidence-certified=true"
   return if certificate.isSome then 0 else 2
 
+private def runDivisor (args : List String) : IO UInt32 := do
+  let out ← IO.getStdout
+  let err ← IO.getStderr
+  let parse (s : String) : Except String Nat :=
+    match s.toNat? with
+    | some n => .ok n
+    | none => .error s!"invalid natural numeral: {s}"
+  let report (N k : Nat) (both : Bool) : IO UInt32 := do
+    if 1 < k && k < N then
+      unless N % k == 0 do
+        err.putStrLn s!"Y divisor output {k} failed exact divisibility check for {N}"
+        return 2
+      out.putStrLn s!"factor={k} cofactor={N / k} product={k * (N / k)} evidence={repr (δ N k both)}"
+    else
+      out.putStrLn s!"sentinel={k}"
+    return 0
+  match args with
+  | ["factor", n] =>
+      match parse n with
+      | .ok N => return ← report N (factor N) false
+      | .error e => err.putStrLn e; return 2
+  | ["factor", n, "both"] =>
+      match parse n with
+      | .ok N => return ← report N (factor N true) true
+      | .error e => err.putStrLn e; return 2
+  | ["factors", n] =>
+      match parse n with
+      | .ok N => out.putStrLn s!"factors={factors N}"; return 0
+      | .error e => err.putStrLn e; return 2
+  | ["factors", n, "both"] =>
+      match parse n with
+      | .ok N => out.putStrLn s!"factors={factors N true}"; return 0
+      | .error e => err.putStrLn e; return 2
+  | ["from", n, d] =>
+      match parse n, parse d with
+      | .ok N, .ok seed => return ← report N (factorFrom N seed) false
+      | .error e, _ | _, .error e => err.putStrLn e; return 2
+  | ["from", n, d, "both"] =>
+      match parse n, parse d with
+      | .ok N, .ok seed => return ← report N (factorFrom N seed true) true
+      | .error e, _ | _, .error e => err.putStrLn e; return 2
+  | ["profile", n] =>
+      match parse n with
+      | .error e => err.putStrLn e; return 2
+      | .ok N =>
+          let (steps, samples, result) := evaluateProfile (factorProgram N 2)
+          out.putStrLn s!"contractions={steps} sampled-term-sizes={samples} result={repr result}"
+          return 0
+  | _ =>
+      err.putStrLn "y_divisor factor N [both] | factors N [both] | from N D [both] | profile N"
+      return 2
+
 def main (args : List String) : IO UInt32 := do
+  if args == ["dialectic-plan"] then
+    let out ← IO.getStdout
+    out.putStrLn s!"Y-postfix={String.intercalate " " (DialecticResident.emitPostfix CombinatoryReentry.Y)}"
+    out.putStrLn s!"Y-prefix-contractions={DialecticResident.residentPrefixContractions.getD 0}"
+    for (term, index) in DialecticResident.residentPrefixTrace.zipIdx do
+      out.putStrLn s!"Y-prefix-{index}={String.intercalate " " term}"
+    out.putStrLn s!"square-support={(List.finRange 256).map (fun r => if DialecticResident.squareSupport256 r then 1 else 0)}"
+    out.putStrLn s!"negation={(List.finRange 16).map (fun r => (maskIndex (Temporal.Semantics.FDE.liftNegation (Lean.Sixteen3.ofMask r.val))).val)}"
+    out.putStrLn s!"join-information={(List.finRange 16).flatMap (fun a => (List.finRange 16).map (fun b => (maskIndex (Lean.Sixteen3.join_i (Lean.Sixteen3.ofMask a.val) (Lean.Sixteen3.ofMask b.val))).val))}"
+    out.putStrLn "dialectic-plan=Lean-certified"
+    return 0
+  if let "divisor" :: rest := args then return ← runDivisor rest
   if let ["product", n, p, q] := args then return ← verifyProduct n p q
   if let "table" :: rest := args then return ← rawTable rest
   let out ← IO.getStdout

@@ -27,7 +27,22 @@ def LatticeOp.apply : LatticeOp → Lean.Sixteen3 → Lean.Sixteen3 → Lean.Six
   | .joinFalsity => Lean.Sixteen3.join_f
   | .meetFalsity => Lean.Sixteen3.meet_f
 
+/-- Divisibility evidence retains an independent contradictory falsity pole. -/
+def divisorEvidence (N k : Nat) (contradictory : Bool := false) : Lean.Sixteen3 :=
+  if k ∣ N then
+    if contradictory then ⟨false, false, false, true⟩ else ⟨false, true, false, false⟩
+  else ⟨false, false, true, false⟩
+
+def acceptsDivisor (N k : Nat) (contradictory : Bool) : Bool :=
+  Lean.Sixteen3.assertsTrue (divisorEvidence N k contradictory)
+
 inductive Term where
+  | number : Nat → Term
+  | numbers : List Nat → Term
+  | divisor : Nat → Bool → Term
+  | divisors : Nat → Bool → Term
+  | divisorScan : Nat → Bool → Nat → Term
+  | divisorsScan : Nat → Bool → Nat → List Nat → Term
   | var : Nat → Term
   | i | k | s
   | datum : Lean.Sixteen3 → Term
@@ -38,8 +53,51 @@ inductive Term where
 
 local infixl:70 " @@ " => Term.app
 
+/-- One unfolding of the requested factor functional. -/
+def factorBody (N : Nat) (contradictory : Bool) (self : Term) (k : Nat) : Term :=
+  if k ≥ N then .number N
+  else if 1 < k ∧ acceptsDivisor N k contradictory = true then .number k
+  else self @@ .number (k + 1)
+
+/-- The accumulator carries every designated nontrivial divisor. -/
+def factorsBody (N : Nat) (contradictory : Bool) (self : Term)
+    (k : Nat) (acc : List Nat) : Term :=
+  if k ≥ N then .numbers acc
+  else self @@ .number (k + 1) @@ .numbers
+    (if 1 < k ∧ acceptsDivisor N k contradictory = true then k :: acc else acc)
+
+/-- Compact tail states keep Y re-entry from rebuilding its combinator spine. -/
+def divisorScanBody (N : Nat) (contradictory : Bool) (k : Nat) : Term :=
+  if k ≥ N then .number N
+  else if 1 < k ∧ acceptsDivisor N k contradictory = true then .number k
+  else .divisorScan N contradictory (k + 1)
+
+def divisorsScanBody (N : Nat) (contradictory : Bool) (k : Nat)
+    (acc : List Nat) : Term :=
+  if k ≥ N then .numbers acc
+  else .divisorsScan N contradictory (k + 1)
+    (if 1 < k ∧ acceptsDivisor N k contradictory = true then k :: acc else acc)
+
 /-- Combinator contraction and reduction inside either application arm. -/
 inductive Step : Term → Term → Prop where
+  | factor (N contradictory self k) :
+      Step (.divisor N contradictory @@ self @@ .number k)
+        (factorBody N contradictory self k)
+  | factors (N contradictory self k acc) :
+      Step (.divisors N contradictory @@ self @@ .number k @@ .numbers acc)
+        (factorsBody N contradictory self k acc)
+  | divisorStart (N contradictory self k) :
+      Step (.divisor N contradictory @@ self @@ .number k)
+        (.divisorScan N contradictory k)
+  | divisorScan (N contradictory k) :
+      Step (.divisorScan N contradictory k)
+        (divisorScanBody N contradictory k)
+  | divisorsStart (N contradictory self k acc) :
+      Step (.divisors N contradictory @@ self @@ .number k @@ .numbers acc)
+        (.divisorsScan N contradictory k acc)
+  | divisorsScan (N contradictory k acc) :
+      Step (.divisorsScan N contradictory k acc)
+        (divisorsScanBody N contradictory k acc)
   | identity (x) : Step (.i @@ x) x
   | constant (x y) : Step (.k @@ x @@ y) x
   | substitution (f g x) : Step (.s @@ f @@ g @@ x) (f @@ x @@ (g @@ x))
@@ -100,6 +158,12 @@ theorem abstract_apply (target : Nat) (argument body : Term) :
   | app f x ihf ihx =>
       exact (Steps.single (Step.substitution _ _ argument)).trans
         ((ihf.left _).trans (Steps.right _ ihx))
+  | number n => exact Steps.single (Step.constant (.number n) argument)
+  | numbers ns => exact Steps.single (Step.constant (.numbers ns) argument)
+  | divisor n b => exact Steps.single (Step.constant (.divisor n b) argument)
+  | divisors n b => exact Steps.single (Step.constant (.divisors n b) argument)
+  | divisorScan n b k => exact Steps.single (Step.constant (.divisorScan n b k) argument)
+  | divisorsScan n b k acc => exact Steps.single (Step.constant (.divisorsScan n b k acc) argument)
   | i => exact Steps.single (Step.constant .i argument)
   | k => exact Steps.single (Step.constant .k argument)
   | s => exact Steps.single (Step.constant .s argument)
@@ -196,6 +260,13 @@ theorem seededOperator_apply (seed x : Lean.Sixteen3) :
 
 /-- Every returned contraction carries its reduction proof. -/
 def rootStep : (t : Term) → Option {u : Term // Step t u}
+  | .app (.app (.divisor N b) self) (.number k) =>
+      some ⟨.divisorScan N b k, .divisorStart N b self k⟩
+  | .app (.app (.app (.divisors N b) self) (.number k)) (.numbers acc) =>
+      some ⟨.divisorsScan N b k acc, .divisorsStart N b self k acc⟩
+  | .divisorScan N b k => some ⟨divisorScanBody N b k, .divisorScan N b k⟩
+  | .divisorsScan N b k acc =>
+      some ⟨divisorsScanBody N b k acc, .divisorsScan N b k acc⟩
   | .app .i x => some ⟨x, .identity x⟩
   | .app (.app .k x) y => some ⟨x, .constant x y⟩
   | .app (.app (.app .s f) g) x =>

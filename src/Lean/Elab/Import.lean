@@ -16,6 +16,11 @@ public section
 
 namespace Lean.Elab
 
+register_builtin_option kernel.trilattice : Bool := {
+  defValue := true
+  descr := "enable SIXTEEN_3 kernel mode; upstream dependency builds may explicitly opt out"
+}
+
 abbrev HeaderSyntax := TSyntax ``Parser.Module.header
 
 def HeaderSyntax.startPos (header : HeaderSyntax) : String.Pos.Raw :=
@@ -65,6 +70,7 @@ def processHeaderCore
     let env ← mkEmptyEnvironment
     let pos := inputCtx.fileMap.toPosition startPos
     pure (env, messages.add { fileName := inputCtx.fileName, data := toString e, pos := pos })
+  let env := if kernel.trilattice.get opts then env.markTrilattice else env.unmarkTrilattice
   let env := env.setMainModule mainModule |>.setModulePackage package?
   return (env, messages)
 

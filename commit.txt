@@ -1,1 +1,3 @@
-I prove certified modular residue steps for arbitrary ticks
+I close the excluded Prima Logica carrier cases
+
+I apply each carrier exclusion to reflexivity after case analysis in the gap and glut exhaustiveness proofs. I verify the complete p4ramill lake build succeeds. The build log is retained in p4ramill/measurements/prima_logica_build_20261012.log.
