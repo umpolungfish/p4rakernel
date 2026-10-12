@@ -1,6 +1,8 @@
 import Imscribing.NS_InjectionField
 import Init.Paraconsistent
 
+enable_trilattice
+
 /-!
 Native SIXTEEN_3 closure carried through the Navier–Stokes re-entry tower.
 The differential field and its information register travel together. Feedback

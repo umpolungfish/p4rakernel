@@ -1,0 +1,256 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+ℹ [615/629] Replayed Imscribing.Paraconsistent.TemporalSemantics
+info: Imscribing/Paraconsistent/TemporalSemantics.lean:5:0: [SIXTEEN_3] Trilattice mode activated — 16 values, three orders; explosion disabled.
+✔ [617/1224] Built Mathlib.Lean.Linter:c.o (351ms)
+✔ [618/1224] Built Mathlib.Tactic.Linter.DocPrime:c.o (2.4s)
+✔ [619/1224] Built Mathlib.Tactic.Linter.GlobalAttributeIn:c.o (2.2s)
+✔ [620/1224] Built Mathlib.Tactic.Linter.DeprecatedSyntaxLinter:c.o (3.9s)
+✔ [621/1224] Built Mathlib.Tactic.Linter.DocString:c.o (4.5s)
+✖ [622/1224] Building Imscribing.Paraconsistent.DivisorReentry (5.9s)
+trace: .> LEAN_PATH=/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/mathlib/.lake/build/lib/lean:/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean /home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/Paraconsistent/DivisorReentry.lean -o /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/Paraconsistent/DivisorReentry.olean -i /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/lib/lean/Imscribing/Paraconsistent/DivisorReentry.ilean -c /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/ir/Imscribing/Paraconsistent/DivisorReentry.c --setup /home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/build/ir/Imscribing/Paraconsistent/DivisorReentry.setup.json --json
+error: Imscribing/Paraconsistent/DivisorReentry.lean:39:9: Function expected at
+  δ N k
+but this term has type
+  Lean.Sixteen3
+
+Note: Expected a function because this term is being applied to the argument
+  b
+error: Imscribing/Paraconsistent/DivisorReentry.lean:41:2: unsolved goals
+case pos.false
+N k : ℕ
+h : k ∣ N
+⊢ (sorry ()).hasT = true ∨ (sorry ()).hasB = true
+
+case pos.true
+N k : ℕ
+h : k ∣ N
+⊢ (sorry ()).hasT = true ∨ (sorry ()).hasB = true
+error: Imscribing/Paraconsistent/DivisorReentry.lean:42:2: unsolved goals
+case neg
+N k : ℕ
+b : Bool
+h : ¬k ∣ N
+⊢ (sorry ()).hasT = false ∧ (sorry ()).hasB = false
+error: Imscribing/Paraconsistent/DivisorReentry.lean:45:9: Function expected at
+  δ N k
+but this term has type
+  Lean.Sixteen3
+
+Note: Expected a function because this term is being applied to the argument
+  true
+error: Imscribing/Paraconsistent/DivisorReentry.lean:45:35: Function expected at
+  δ N k
+but this term has type
+  Lean.Sixteen3
+
+Note: Expected a function because this term is being applied to the argument
+  true
+error: Imscribing/Paraconsistent/DivisorReentry.lean:45:57: unsolved goals
+N k : ℕ
+h : k ∣ N
+⊢ ((sorry ()).hasT = true ∨ (sorry ()).hasB = true) ∧ ((sorry ()).hasF = true ∨ (sorry ()).hasB = true)
+warning: Imscribing/Paraconsistent/DivisorReentry.lean:55:8: declaration uses `sorry`
+error: Lean exited with code 1
+✔ [623/1224] Built Mathlib.Tactic.Linter.HashCommandLinter:c.o (4.0s)
+✔ [624/1224] Built Mathlib.Tactic.Linter.EmptyLine:c.o (7.5s)
+✔ [625/1224] Built Mathlib.Tactic.Linter.Header:c.o (9.7s)
+✔ [626/1224] Built Batteries.Tactic.Lint.Basic:c.o (5.0s)
+✔ [627/1224] Built Batteries.Util.LibraryNote:c.o (3.5s)
+✔ [628/1224] Built Mathlib.Tactic.Linter.DirectoryDependency:c.o (10s)
+✔ [629/1224] Built Batteries.Tactic.Lint:c.o (114ms)
+✔ [630/1224] Built Mathlib.Tactic.DeclarationNames:c.o (616ms)
+✔ [631/1224] Built Batteries.Tactic.Lint.TypeClass:c.o (1.0s)
+✔ [632/1224] Built Batteries.Tactic.Lint.Misc:c.o (8.3s)
+✔ [633/1224] Built Mathlib.Tactic.Linter.OldObtain:c.o (1.9s)
+✔ [634/1224] Built Mathlib.Tactic.Linter.TacticDocumentation:c.o (700ms)
+✔ [635/1224] Built Batteries.Tactic.OpenPrivate:c.o (8.5s)
+✔ [636/1224] Built Mathlib.Tactic.Linter.Lint:c.o (4.8s)
+✔ [637/1224] Built Batteries.Tactic.Unreachable:c.o (566ms)
+✔ [638/1224] Built Mathlib.Tactic.Linter.FlexibleLinter:c.o (13s)
+✔ [639/1224] Built Mathlib.Tactic.Linter.PrivateModule:c.o (3.1s)
+✔ [640/1224] Built Mathlib.Lean.Environment:c.o (278ms)
+✔ [641/1224] Built Mathlib.Tactic.Linter.Multigoal:c.o (5.8s)
+✔ [642/1224] Built Mathlib.Tactic.Linter.UnusedTacticExtension:c.o (2.2s)
+✔ [643/1224] Built Mathlib.Lean.Elab.InfoTree:c.o (3.1s)
+✔ [644/1224] Built Mathlib.Tactic.Linter.UnusedInstancesInType:c.o (4.3s)
+✔ [645/1224] Built ImportGraph.Imports.Redundant:c.o (649ms)
+✔ [646/1224] Built ImportGraph.Lean.Environment:c.o (454ms)
+✔ [647/1224] Built Mathlib.Tactic.Linter.UnusedTactic:c.o (6.9s)
+✔ [648/1224] Built Mathlib.Tactic.Linter.Whitespace:c.o (8.7s)
+✔ [649/1224] Built Mathlib.Lean.Expr.Basic:c.o (10s)
+✔ [650/1224] Built ImportGraph.Imports.ImportGraph:c.o (6.9s)
+✔ [651/1224] Built Batteries.Tactic.Lint.Frontend:c.o (16s)
+✔ [652/1224] Built Batteries.Tactic.Lint.Simp:c.o (18s)
+✔ [653/1224] Built Batteries.Lean.Meta.Inaccessible:c.o (2.0s)
+✔ [654/1224] Built Mathlib.Lean.ContextInfo:c.o (3.7s)
+✔ [655/1224] Built Mathlib.Lean.Elab.Tactic.Meta:c.o (4.2s)
+✔ [656/1224] Built Mathlib.Util.ParseCommand:c.o (1.1s)
+✔ [657/1224] Built Mathlib.Init:c.o (336ms)
+✔ [658/1224] Built Batteries.Util.ExtendedBinder:c.o (1.6s)
+✔ [659/1224] Built Mathlib.Data.Set.CoeSort:c.o (126ms)
+✔ [660/1224] Built Mathlib.Data.Set.Defs:c.o (3.5s)
+✔ [661/1224] Built Mathlib.Tactic.AdaptationNote:c.o (1.0s)
+✔ [662/1224] Built Mathlib.Tactic.Linter.Style:c.o (16s)
+✔ [663/1224] Built Mathlib.Tactic.Lemma:c.o (571ms)
+✔ [664/1224] Built Mathlib.Tactic.ExtendDoc:c.o (1.2s)
+✔ [665/1224] Built Mathlib.Lean.Elab.Term:c.o (500ms)
+✔ [666/1224] Built Mathlib.Tactic.TypeStar:c.o (271ms)
+✔ [667/1224] Built Mathlib.Tactic.TacticAnalysis:c.o (9.2s)
+✔ [668/1224] Built ImportGraph.Imports.RequiredModules:c.o (14s)
+✔ [669/1224] Built Batteries.Logic:c.o (213ms)
+✔ [670/1224] Built Mathlib.Tactic.ExtractGoal:c.o (11s)
+✔ [671/1224] Built Mathlib.Tactic.MinImports:c.o (16s)
+✔ [672/1224] Built Mathlib.Logic.Basic:c.o (229ms)
+✔ [673/1224] Built Mathlib.Tactic.Attr.Register:c.o (2.4s)
+✔ [674/1224] Built Mathlib.Logic.Function.Defs:c.o (663ms)
+✔ [675/1224] Built Mathlib.Logic.Nonempty:c.o (146ms)
+✔ [676/1224] Built Mathlib.Tactic.PPWithUniv:c.o (5.8s)
+✔ [677/1224] Built Mathlib.Logic.Nontrivial.Defs:c.o (130ms)
+✔ [678/1224] Built Mathlib.Data.Array.Defs:c.o (407ms)
+✔ [679/1224] Built Mathlib.Logic.ExistsUnique:c.o (1.6s)
+✔ [680/1224] Built Batteries.CodeAction.Deprecated:c.o (6.2s)
+✔ [681/1224] Built Mathlib.Tactic.Basic:c.o (7.9s)
+✔ [682/1224] Built Mathlib.Tactic.TacticAnalysis.Declarations:c.o (14s)
+✔ [683/1224] Built Mathlib.Lean.Meta.Simp:c.o (4.9s)
+✔ [684/1224] Built Batteries.Lean.NameMapAttribute:c.o (3.9s)
+✔ [685/1224] Built Mathlib.Tactic.Push.Attr:c.o (6.1s)
+✔ [686/1224] Built Mathlib.Tactic.Simps.NotationClass:c.o (3.0s)
+✔ [687/1224] Built Mathlib.Tactic.Eqns:c.o (810ms)
+✔ [688/1224] Built Mathlib.Data.String.Defs:c.o (563ms)
+✔ [689/1224] Built Batteries.Tactic.Init:c.o (6.7s)
+✔ [690/1224] Built Mathlib.Tactic.Translate.GuessName:c.o (3.5s)
+✔ [691/1224] Built Mathlib.Util.AddRelatedDecl:c.o (10s)
+✔ [692/1224] Built Mathlib.Tactic.ToDual:c.o (219ms)
+✔ [693/1224] Built Mathlib.Order.Defs.Unbundled:c.o (348ms)
+✔ [694/1224] Built Mathlib.Logic.Function.Basic:c.o (514ms)
+✔ [695/1224] Built Mathlib.Logic.IsEmpty.Defs:c.o (113ms)
+✔ [696/1224] Built Mathlib.Tactic.Inhabit:c.o (1.0s)
+✔ [697/1224] Built Mathlib.Tactic.Translate.ToDual:c.o (4.3s)
+✔ [698/1224] Built Mathlib.Logic.Unique:c.o (450ms)
+✔ [699/1224] Built Batteries.Lean.Expr:c.o (1.5s)
+✔ [700/1224] Built Mathlib.Tactic.Translate.TagUnfoldBoundary:c.o (9.5s)
+✔ [701/1224] Built Batteries.Tactic.Alias:c.o (20s)
+✔ [702/1224] Built Mathlib.Data.FunLike.Basic:c.o (186ms)
+✔ [703/1224] Built Mathlib.Data.FunLike.Embedding:c.o (163ms)
+✔ [704/1224] Built Mathlib.Data.FunLike.Equiv:c.o (155ms)
+✔ [705/1224] Built Mathlib.Logic.Relator:c.o (470ms)
+✔ [706/1224] Built Mathlib.Tactic.SplitIfs:c.o (8.2s)
+✔ [707/1224] Built Mathlib.Tactic.Core:c.o (12s)
+✔ [708/1224] Built Mathlib.Tactic.Translate.UnfoldBoundary:c.o (21s)
+✔ [709/1224] Built Mathlib.Lean.Meta:c.o (3.8s)
+✔ [710/1224] Built Mathlib.Lean.Name:c.o (2.8s)
+✔ [711/1224] Built Mathlib.Logic.Relation:c.o (538ms)
+✔ [712/1224] Built Mathlib.Tactic.SimpRw:c.o (3.2s)
+✔ [713/1224] Built Batteries.Lean.Syntax:c.o (199ms)
+✔ [714/1224] Built Mathlib.Lean.PrettyPrinter.Delaborator:c.o (5.4s)
+✔ [715/1224] Built Mathlib.Tactic.Use:c.o (19s)
+✔ [716/1224] Built Mathlib.Util.WithWeakNamespace:c.o (1.2s)
+✔ [717/1224] Built Batteries.Linter.UnreachableTactic:c.o (6.5s)
+✔ [718/1224] Built Mathlib.Util.CompileInductive:c.o (26s)
+✔ [719/1224] Built Mathlib.Data.Quot:c.o (2.0s)
+✔ [720/1224] Built Mathlib.Data.Subtype:c.o (239ms)
+✔ [721/1224] Built Mathlib.Tactic.Substs:c.o (687ms)
+✔ [722/1224] Built Mathlib.Data.Nat.Notation:c.o (396ms)
+✔ [723/1224] Built Mathlib.Data.Finite.Defs:c.o (164ms)
+✔ [724/1224] Built Batteries.Control.ForInStep.Basic:c.o (463ms)
+✔ [725/1224] Built Batteries.Control.ForInStep.Lemmas:c.o (187ms)
+✔ [726/1224] Built Mathlib.Logic.Equiv.Defs:c.o (2.0s)
+✔ [727/1224] Built Batteries.Data.List.Lemmas:c.o (932ms)
+✔ [728/1224] Built Batteries.Data.List.Count:c.o (372ms)
+✔ [729/1224] Built Mathlib.Tactic.ScopedNS:c.o (8.9s)
+✔ [730/1224] Built Batteries.Data.List.Perm:c.o (295ms)
+✔ [731/1224] Built Batteries.Util.ProofWanted:c.o (1.5s)
+✔ [732/1224] Built Mathlib.Control.Functor:c.o (889ms)
+✔ [733/1224] Built Mathlib.Tactic.ToExpr:c.o (1.4s)
+✔ [734/1224] Built Mathlib.Data.SProd:c.o (494ms)
+✔ [735/1224] Built Batteries.Tactic.Trans:c.o (46s)
+✔ [736/1224] Built Mathlib.Tactic.MkIffOfInductiveProp:c.o (23s)
+✔ [737/1224] Built Batteries.Control.Lemmas:c.o (190ms)
+✔ [738/1224] Built Batteries.Control.LawfulMonadState:c.o (198ms)
+✔ [739/1224] Built Batteries.Control.OptionT:c.o (185ms)
+✔ [740/1224] Built Batteries.Control.AlternativeMonad:c.o (409ms)
+✔ [741/1224] Built Mathlib.Logic.OpClass:c.o (148ms)
+✔ [742/1224] Built Mathlib.Data.List.Defs:c.o (3.7s)
+✔ [743/1224] Built Mathlib.Data.List.Monad:c.o (486ms)
+✔ [744/1224] Built Aesop.Options.Internal:c.o (386ms)
+✔ [745/1224] Built Aesop.Options:c.o (216ms)
+✔ [746/1224] Built Aesop.Forward.PremiseIndex:c.o (310ms)
+✔ [747/1224] Built Aesop.Forward.SlotIndex:c.o (266ms)
+✔ [748/1224] Built Batteries.Data.List.Basic:c.o (10s)
+✔ [749/1224] Built Aesop.Forward.LevelIndex:c.o (258ms)
+✔ [750/1224] Built Aesop.Index.DiscrTreeConfig:c.o (565ms)
+✔ [751/1224] Built Aesop.Check:c.o (2.0s)
+✔ [752/1224] Built Aesop.Options.Public:c.o (2.0s)
+✔ [753/1224] Built Aesop.Nanos:c.o (563ms)
+✔ [754/1224] Built Batteries.Data.String.Basic:c.o (479ms)
+✔ [755/1224] Built Batteries.Data.Array.Merge:c.o (1.1s)
+✔ [756/1224] Built Aesop.Util.UnorderedArraySet:c.o (1.6s)
+✔ [757/1224] Built Batteries.Lean.TagAttribute:c.o (202ms)
+✔ [758/1224] Built Batteries.Lean.AttributeExtra:c.o (1.4s)
+✔ [759/1224] Built Aesop.Rule.Name:c.o (2.8s)
+✔ [760/1224] Built Batteries.Linter:c.o (205ms)
+✔ [761/1224] Built Aesop.Forward.Substitution:c.o (4.0s)
+✔ [762/1224] Built Batteries.Tactic.Basic:c.o (168ms)
+✔ [763/1224] Built Batteries.Classes.Order:c.o (240ms)
+✔ [764/1224] Built Batteries.Data.UInt:c.o (224ms)
+✔ [765/1224] Built Batteries.Linter.UnnecessarySeqFocus:c.o (4.2s)
+✔ [766/1224] Built Batteries.Tactic.SeqFocus:c.o (3.8s)
+✔ [767/1224] Built Batteries.Data.Array.Basic:c.o (3.8s)
+✔ [768/1224] Built Aesop.RulePattern.Cache:c.o (179ms)
+✔ [769/1224] Built Aesop.BaseM:c.o (2.2s)
+✔ [770/1224] Built Aesop.Tracing:c.o (5.0s)
+✔ [771/1224] Built Aesop.Util.Basic:c.o (15s)
+✔ [772/1224] Built Aesop.Util.UnionFind:c.o (1.9s)
+✔ [773/1224] Built Aesop.Percent:c.o (579ms)
+✔ [774/1224] Built Aesop.RuleTac.RuleTerm:c.o (684ms)
+✔ [775/1224] Built Aesop.Stats.Basic:c.o (9.6s)
+✔ [776/1224] Built Aesop.Rule.Forward:c.o (1.1s)
+✔ [777/1224] Built Aesop.Forward.Match.Types:c.o (1.8s)
+✔ [778/1224] Built Aesop.Index.Basic:c.o (3.6s)
+✔ [779/1224] Built Aesop.RuleTac.FVarIdSubst:c.o (2.8s)
+✔ [780/1224] Built Mathlib.Tactic.FBinop:c.o (30s)
+✔ [781/1224] Built Aesop.Script.CtorNames:c.o (3.5s)
+✔ [782/1224] Built Mathlib.Tactic.Translate.Core:c.o (75s)
+✔ [783/1224] Built Batteries.Lean.Meta.Basic:c.o (4.2s)
+✔ [784/1224] Built Aesop.Script.Tactic:c.o (251ms)
+✔ [785/1224] Built Aesop.Script.GoalWithMVars:c.o (581ms)
+✔ [786/1224] Built Batteries.Lean.MonadBacktrack:c.o (292ms)
+✔ [787/1224] Built Aesop.Forward.RuleInfo:c.o (14s)
+✔ [788/1224] Built Aesop.RulePattern:c.o (17s)
+✔ [789/1224] Built Aesop.Script.TacticState:c.o (2.6s)
+✔ [790/1224] Built Batteries.Lean.Meta.SavedState:c.o (1.0s)
+✔ [791/1224] Built Aesop.Script.Util:c.o (1.5s)
+✔ [792/1224] Built Aesop.RuleTac.Descr:c.o (528ms)
+✔ [793/1224] Built Batteries.Tactic.PermuteGoals:c.o (2.5s)
+✔ [794/1224] Built Aesop.Rule.Basic:c.o (970ms)
+✔ [795/1224] Built Aesop.Rule:c.o (2.4s)
+✔ [796/1224] Built Aesop.ElabM:c.o (3.3s)
+✔ [797/1224] Built Aesop.RuleTac.Basic:c.o (5.9s)
+✔ [798/1224] Built Aesop.Util.Tactic:c.o (1.4s)
+✔ [799/1224] Built Aesop.RuleTac.ElabRuleTerm:c.o (4.7s)
+✔ [800/1224] Built Aesop.Util.Tactic.Ext:c.o (6.7s)
+✔ [801/1224] Built Aesop.RuleTac.Forward.Basic:c.o (9.8s)
+✔ [802/1224] Built Aesop.Script.Step:c.o (15s)
+✔ [803/1224] Built Aesop.Script.ScriptM:c.o (1.6s)
+✔ [804/1224] Built Mathlib.Tactic.Simps.Basic:c.o (97s)
+✔ [805/1224] Built Batteries.Lean.Meta.UnusedNames:c.o (2.8s)
+✔ [806/1224] Built Aesop.Util.Unfold:c.o (11s)
+✔ [807/1224] Built Batteries.Lean.Meta.Expr:c.o (280ms)
+✔ [808/1224] Built Aesop.Util.OrderedHashSet:c.o (1.3s)
+✔ [809/1224] Built Batteries.Lean.PersistentHashMap:c.o (961ms)
+✔ [810/1224] Built Batteries.Lean.Meta.DiscrTree:c.o (777ms)
+✔ [811/1224] Built Aesop.Util.Tactic.Unfold:c.o (8.4s)
+✔ [812/1224] Built Batteries.Lean.Meta.InstantiateMVars:c.o (1.3s)
+✔ [813/1224] Built Batteries.Lean.PersistentHashSet:c.o (1.8s)
+✔ [814/1224] Built Aesop.Index.Forward:c.o (6.9s)
+✔ [815/1224] Built Aesop.RuleSet.Name:c.o (387ms)
+✔ [816/1224] Built Aesop.RuleSet.Filter:c.o (700ms)
+✔ [817/1224] Built Aesop.Index.RulePattern:c.o (11s)
+✔ [818/1224] Built Aesop.RuleSet.Member:c.o (792ms)

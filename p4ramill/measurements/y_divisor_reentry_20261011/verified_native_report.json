@@ -1,0 +1,104 @@
+{
+  "results": [
+    {
+      "args": [],
+      "exit": 0,
+      "stdout": "Y/SIXTEEN_3 re-entry: first factor, all divisors, prime sentinel, seeded return, and contradictory evidence pass for N=0..100\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factor",
+        "91"
+      ],
+      "exit": 0,
+      "stdout": "factor=7 cofactor=13 product=91 evidence={ hasN := false, hasT := true, hasF := false, hasB := false }\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factor",
+        "91",
+        "both"
+      ],
+      "exit": 0,
+      "stdout": "factor=7 cofactor=13 product=91 evidence={ hasN := false, hasT := false, hasF := false, hasB := true }\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factors",
+        "36",
+        "both"
+      ],
+      "exit": 0,
+      "stdout": "[18, 12, 9, 6, 4, 3, 2]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "from",
+        "91",
+        "13",
+        "both"
+      ],
+      "exit": 0,
+      "stdout": "factor=13 cofactor=7 product=91 evidence={ hasN := false, hasT := false, hasF := false, hasB := true }\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "from",
+        "91",
+        "8",
+        "both"
+      ],
+      "exit": 0,
+      "stdout": "factor=13 cofactor=7 product=91 evidence={ hasN := false, hasT := false, hasF := false, hasB := true }\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factor",
+        "97"
+      ],
+      "exit": 0,
+      "stdout": "sentinel=97\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factors",
+        "97"
+      ],
+      "exit": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factor",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "sentinel=0\n",
+      "stderr": ""
+    },
+    {
+      "args": [
+        "factor",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "sentinel=1\n",
+      "stderr": ""
+    }
+  ],
+  "sha256": {
+    "Imscribing/Paraconsistent/CombinatoryReentry.lean": "7c4044921605c9b011cb97f2b3b02d3400cdc613dfb6e9647502020266bf7da4",
+    "Imscribing/Paraconsistent/DivisorReentry.lean": "185f053822eb570074f6f7a68302e5320d1b84adf8713e2642864bb118081b69",
+    "Imscribing/Paraconsistent/DivisorReentryAudit.lean": "0b25670d65a36b12bcfc0abb84c8ff8707cb053cafd637cfff390b5c39ff7e47",
+    "lakefile.toml": "1b2496c0c6ad61f1f33add1417f0e4888a73c0173fdc516c1fb83bb774f61dd8",
+    ".lake/build/bin/divisor_reentry": "5f348b80a36581e5f9719d119caaec6a27247bb4eaf3a56c1030fdf8615472cb"
+  }
+}

@@ -254,7 +254,7 @@ structure Environment where
   -/
   paraconsistent : Bool := false
   /--
-  The default `trilattice = true` makes the kernel operate in SIXTEEN_3 mode:
+  When `trilattice = true`, the kernel operates in SIXTEEN_3 mode:
   Shramko-Wansing's trilattice on the POWERSET of Belnap FOUR — sixteen values
   carrying three interlocking orders (truth ≤_t, falsity ≤_f, information ≤_i).
   FOUR's single truth order SPLITS: truth and falsity become independent axes

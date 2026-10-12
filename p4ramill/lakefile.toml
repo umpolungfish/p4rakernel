@@ -434,6 +434,8 @@ globs = [
   "Imscribing.Paraconsistent.TemporalSemantics",
   "Imscribing.Paraconsistent.TemporalSemanticsAudit",
   "Imscribing.Paraconsistent.CombinatoryReentry",
+  "Imscribing.Paraconsistent.DivisorReentry",
+  "Imscribing.Paraconsistent.DivisorReentryAudit",
   "Imscribing.Paraconsistent.CombinatoryReentryAudit",
   "Imscribing.Paraconsistent.CombinatoryFixedPoint",
   "Imscribing.Paraconsistent.CombinatoryFixedPointAudit",
@@ -442,6 +444,7 @@ globs = [
   "Imscribing.Paraconsistent.CombinatoryFixedPointBounds",
   "Imscribing.Paraconsistent.CombinatoryFixedPointBoundsAudit",
   "Imscribing.Paraconsistent.CombinatoryDynamics",
+  "Imscribing.Paraconsistent.DialecticResident",
   "Imscribing.Paraconsistent.CombinatoryDynamicsAudit",
   "Imscribing.Paraconsistent.BelnapCategory",
   "Imscribing.Paraconsistent.MultiAgentBelnap",
@@ -550,6 +553,10 @@ globs = [
   "Imscribing.Paraconsistent.NeutrinoOscillation",
   "Imscribing.Paraconsistent.HiggsMechanism",
   "Imscribing.Paraconsistent.StandardModelBelnap",
+  "Imscribing.Paraconsistent.PrimaLogicaAudit",
+  "Imscribing.Paraconsistent.PrimaLogicaFragments",
+  "Imscribing.Paraconsistent.PrimaLogicaWinding",
+  "Imscribing.Paraconsistent.PrimaLogicaWork",
 
   "Imscribing.Paraconsistent.GeneralRelativity",
   "Imscribing.Paraconsistent.GravitationalWaves",
@@ -796,3 +803,11 @@ roots = ["Imscribing.Millennium.ZetaSICDualFrame", "Imscribing.Millennium.ZetaSI
 [[lean_lib]]
 name = "QuquartMembraneReentry"
 roots = ["Imscribing.Paraconsistent.QuquartMembraneReentry", "Imscribing.Paraconsistent.QuquartMembraneReentryAudit"]
+
+[[lean_exe]]
+name = "divisor_reentry"
+root = "Imscribing.Paraconsistent.DivisorReentryAudit"
+
+[[lean_exe]]
+name = "kernel_bridge"
+root = "KernelBridge"

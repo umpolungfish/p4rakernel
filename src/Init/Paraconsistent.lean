@@ -34,7 +34,7 @@ negation can be held without everything becoming provable.
 
 SIXTEEN_3 TRILATTICE MODE
 
-The default kernel environment uses Shramko-Wansing's SIXTEEN_3: the trilattice
+The kernel provides Shramko-Wansing's SIXTEEN_3: the trilattice
 on P(FOUR), sixteen values carrying three interlocking orders — truth ≤_t, falsity
 ≤_f, information ≤_i. FOUR's single truth order SPLITS: truth and falsity stop being
 each other's complement and become independent axes. That split is what the extra

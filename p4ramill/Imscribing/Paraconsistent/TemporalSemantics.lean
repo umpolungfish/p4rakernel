@@ -2,6 +2,8 @@ import Imscribing.Paraconsistent.Belnap
 import Init.Internal.Order.Basic
 import Init.Paraconsistent
 
+enable_trilattice
+
 /-!
 # Tick-indexed semantics for paraconsistent observations
 

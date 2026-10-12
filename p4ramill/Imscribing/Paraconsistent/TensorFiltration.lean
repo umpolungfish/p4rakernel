@@ -1,6 +1,8 @@
 import Imscribing.IUTT
 import Init.Paraconsistent
 
+enable_trilattice
+
 /-!
 Finite tensor filtration: lane closure, native re-entry, projection readouts,
 the phase-weighted trace compiler, and the symmetric sector ladder.

@@ -1,0 +1,25 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+ℹ [616/619] Replayed Imscribing.Paraconsistent.TemporalSemantics
+info: Imscribing/Paraconsistent/TemporalSemantics.lean:5:0: [SIXTEEN_3] Trilattice mode activated — 16 values, three orders; explosion disabled.
+✔ [618/619] Built Imscribing.Paraconsistent.DivisorReentry (5.4s)
+ℹ [619/619] Built Imscribing.Paraconsistent.DivisorReentryAudit (15s)
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:5:0: 'Imscribing.Paraconsistent.DivisorReentry.designation_iff' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:6:0: 'Imscribing.Paraconsistent.DivisorReentry.contradictory_divisor_retains_both' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:7:0: 'Imscribing.Paraconsistent.DivisorReentry.falsity_join_preserves_truth' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:8:0: 'Imscribing.Paraconsistent.DivisorReentry.factor_fixedpoint' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:9:0: 'Imscribing.Paraconsistent.DivisorReentry.seeded_reduces' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:10:0: 'Imscribing.Paraconsistent.DivisorReentry.terminal_reduces' depends on axioms: [propext]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:12:0: 7
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:13:0: 97
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:14:0: [18, 12, 9, 6, 4, 3, 2]
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:15:0: 13
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:16:0: 7
+info: Imscribing/Paraconsistent/DivisorReentryAudit.lean:17:0: [18, 12, 9, 6, 4, 3, 2]
+Build completed successfully (619 jobs).
