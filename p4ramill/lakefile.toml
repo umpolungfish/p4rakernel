@@ -53,6 +53,9 @@ globs = [
   "Imscribing.CheapB_Control",
   "Imscribing.ExtensionRegister",
   "Imscribing.CancellationNecessity",
+  "Imscribing.SeparableNoGo",
+  "Imscribing.WitnessedClosure",
+  "Imscribing.NativeDomainCancellation",
 
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
