@@ -47,6 +47,13 @@ globs = [
   "Imscribing.PublishedNS.BorelExtension",
   "Imscribing.PublishedNS.SpatialBorelExtension",
   "Imscribing.PublishedNS.GenericEndpointExtension",
+  "Imscribing.NS_RegularityWitness",
+  "Imscribing.FalsifierRegister",
+  "Imscribing.StrengthenedRegister",
+  "Imscribing.CheapB_Control",
+  "Imscribing.ExtensionRegister",
+  "Imscribing.CancellationNecessity",
+
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",
