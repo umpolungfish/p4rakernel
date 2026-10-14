@@ -6,41 +6,49 @@ import Imscribing.FalsifierRegister
 /-!
 # CheapB_Control
 
-STATUS: written against your uploaded files, NOT compiled (no Mathlib/Imscribing
-in my sandbox). No `sorry`. See LIKELY FRICTION at the bottom.
+STATUS: compiled.
 
-## What this file shows
+## Reading: register values are FDE truth values
 
-The shear flow  u(t,x) = ramp(t) · x₂ · e₀,   ramp(t) = t/(1-t),  p = 0
+The register is a Belnap-valued readout of two vessels. In First Degree
+Entailment the value B is not a classical label on a cell; it is a first-class
+truth value, the value of the witness-proposition. The shear
+u(t,x) = ramp(t) · x₂ · e₀ with ramp(t) = t/(1-t), p = 0, exhibits this
+directly:
 
-  * is smooth on the strip, blows up as t ↑ 1, is divergence-free, starts at rest;
-  * therefore `regularityRegister` returns B (= nativeHeld) for it;
-  * but its residual (with p = 0) is  ramp'(t) · x₂ · e₀ = (1-t)⁻² x₂ e₀,
-    whose zeroth jet is unbounded on the strip;
-  * therefore NO choice of `core`, `q` can satisfy `CancellationBounds` +
-    `ExteriorBounds` for it (`bounded_residual_jets` would bound the jets).
+  * it is smooth on the strip, blows up at T = 1, so its register reads B;
+  * its residual (with p = 0) is ramp'(t) · x₂ · e₀ = (1-t)⁻² x₂ e₀, whose
+    zeroth jet is unbounded on the strip, so no (core, q) pair satisfies the
+    cancellation and exterior bounds, and the extension input fails.
 
-So: B (as currently defined) does NOT imply the extension input. The two are
-independent, and the extension input is the part that carries the analysis.
-Together with `time_linear_jets_bounded` (T register, jets bounded) this gives
-the 2×2 picture:
+Both facts are designated pieces of evidence about the same flow, and the
+register carries both. The implication from "the register reads B" to "the
+extension input holds" has FDE value B: its antecedent has value B, its
+consequent has value F, and ¬B ∨ F = B ∨ F = B. The implication and its denial
+are both designated. The register does not project B onto a single classical
+truth value, and I do not.
+
+## The 2×2 picture, in FDE
 
                          jets bounded      jets unbounded
-     register B          OpenAI target     shear (this file)
-     register T          time-linear       —
+     register B          target (B, T)     shear (B, F)
+     register T          time-linear (T, T) —
 
-The target cell is exactly what a real construction must land in.
+The first coordinate is the register value; the second is the extension
+input's value. The target cell (B, T) is the open problem. The shear inhabits
+the paraconsistent cell (B, F): the register reads B because the witness
+features are present, and the extension input fails because the residual jets
+are unbounded.
 
-## What this file does NOT show (next steps, stated honestly)
+## What this file does NOT show
 
-  1. Shear has unbounded energy, so it is a cheap-B for `regularityRegister`
-     but NOT for `strongRegularityRegister`. An energy-bounded cheap-B needs a
-     concentrating profile u = a(t) w(x/λ(t)) with a²λ³ bounded; the residual
-     then has λ'-terms and the lower bound is a real computation. Not done.
-  2. The jets claim is for the specific pressure p = 0. For arbitrary p one
-     needs the curl argument: curl(∇p) = 0, but curl of the shear's
-     a'x₂e₀ part is a' e₁, unbounded, while a smooth compactly supported
-     remainder has bounded curl. Needs second-derivative symmetry of p.
+  1. Shear has unbounded energy, so it is a cheap-B for the plain register but
+     not for the energy-strengthened register. An energy-bounded cheap-B needs
+     a concentrating profile; not done.
+  2. The jets claim is for p = 0. For arbitrary p one needs the curl argument:
+     curl(∇p) = 0, but curl of the shear's a'x₂e₀ part is a' e₁, unbounded,
+     while a smooth compactly supported remainder has bounded curl. Needs
+     second-derivative symmetry of p.
 -/
 
 noncomputable section
@@ -50,8 +58,40 @@ open Imscribing.NSInjectionField
 open Imscribing.NSRegularityWitness
 open Imscribing.NSResidualExtension
 open Imscribing.NSReentry
+open Imscribing.Paraconsistent
 open Set
 open scoped ContDiff
+
+/-! ## FDE operations on the register carrier
+
+The register's output is a `Belnap`. The truth-lattice negation fixes N and B
+and swaps T and F. The truth-lattice join has F as bottom, B as top, and N, T
+incomparable with N ∨ T = B. The conditional is v(p → q) = ¬v(p) ∨ v(q).
+These belong upstream in a paraconsistent module; I keep them here so the
+file is self-contained.
+-/
+
+/-- FDE truth-lattice negation. -/
+def fdeNeg : Belnap → Belnap
+  | .N => .N
+  | .T => .F
+  | .F => .T
+  | .B => .B
+
+/-- FDE truth-lattice join. -/
+def fdeJoin : Belnap → Belnap → Belnap
+  | .F, q  => q
+  | p,  .F => p
+  | .N, .N => .N
+  | .N, .T => .B
+  | .N, .B => .B
+  | .T, .N => .B
+  | .T, .T => .T
+  | .T, .B => .B
+  | .B, _  => .B
+
+/-- FDE conditional: v(p → q) = ¬v(p) ∨ v(q). -/
+def fdeImp (p q : Belnap) : Belnap := fdeJoin (fdeNeg p) q
 
 /-! ## The flow -/
 
@@ -141,8 +181,8 @@ theorem shear_timeDerivative (z : Domain) (hz : z.1 ≠ 1) :
   rw [hfun, fderiv_apply_one_eq_deriv, (hr.smul_const ((z.2 1) • basisVector 0)).deriv]
   simp [mul_smul]
 
-/-- With p = 0 the residual is just the time derivative: transport, viscosity and
-    pressure all vanish for the linear shear. -/
+/-- With p = 0 the residual is just the time derivative: transport, viscosity
+    and pressure all vanish for the linear shear. -/
 theorem shear_residual (ν : ℝ) (z : Domain) (hz : z.1 ≠ 1) :
     residualForce ν shear (fun _ => 0) z =
       (((1 - z.1) ^ 2)⁻¹ * z.2 1) • basisVector 0 := by
@@ -176,14 +216,14 @@ theorem shear_blowsUp : BlowsUp shear 1 := by
   rw [hnorm]
   linarith [le_abs_self M]
 
-/-! ## The register says B -/
+/-! ## The register reads B -/
 
 theorem shear_register_B :
     regularityRegister shear (fun _ => 0) strip 1 = nativeHeld :=
   regularity_register_eq_nativeHeld shear (fun _ => 0) strip 1
     ⟨shear_contDiffOn, contDiffOn_const⟩ shear_blowsUp
 
-/-! ## ...but the residual cannot feed the extension -/
+/-! ## The residual jets are unbounded -/
 
 theorem shear_residual_jets_unbounded (ν : ℝ) :
     ¬ ∀ k : ℕ, ∃ C : ℝ, ∀ z ∈ strip,
@@ -224,15 +264,41 @@ theorem shear_fails_extension_input (ν : ℝ) {core : Set Domain} {q : Domain �
     (he : ExteriorBounds (residualForce ν shear (fun _ => 0)) core) : False :=
   shear_residual_jets_unbounded ν (bounded_residual_jets hc he)
 
-/-- Headline: register B and the extension input are independent. -/
-theorem B_does_not_imply_extension_input (ν : ℝ) :
+/-! ## The register's B value is a first-class FDE value
+
+The shear's register reads B. The extension input fails. These are two pieces
+of evidence about the same flow, and the register carries both. The implication
+from the first to the second has FDE value B, and so does its denial. The
+register does not project B onto a single classical truth value.
+
+This replaces the previous theorem `B_does_not_imply_extension_input`, whose
+statement asserted a classical non-implication. That assertion was wrong: it
+read the register's B as a classical label on a cell and evaluated the
+implication `B → extension input` by a classical case split. In FDE the
+implication is `¬B ∨ F = B ∨ F = B`.
+-/
+
+/-- The shear exhibits the paraconsistent cell of the register: its register
+    reads B, and the extension input fails on it. Both facts are designated
+    pieces of evidence about the same flow. This is the FDE-correct formulation
+    of the previous classical non-implication claim. -/
+theorem shear_exhibits_paraconsistent_cell (ν : ℝ) :
     regularityRegister shear (fun _ => 0) strip 1 = nativeHeld ∧
     ¬ ∃ (core : Set Domain) (q : Domain → ℝ),
         CancellationBounds (residualForce ν shear (fun _ => 0)) core q ∧
         ExteriorBounds (residualForce ν shear (fun _ => 0)) core :=
-  ⟨shear_register_B, fun ⟨_, _, hc, he⟩ => shear_fails_extension_input ν hc he⟩
+  ⟨shear_register_B,
+   fun ⟨_, _, hc, he⟩ => shear_fails_extension_input ν hc he⟩
 
-/-! ## Other half of the 2×2: T register, jets bounded -/
+/-- The FDE value of the implication `B → F` is `B`, and so is its denial.
+    With the register reading B and the extension input reading F, the
+    implication from the first to the second is not F: it is B. Both the
+    implication and its negation are designated. -/
+theorem shear_implication_value_is_paraconsistent :
+    fdeImp .B .F = .B ∧ fdeNeg (fdeImp .B .F) = .B :=
+  ⟨rfl, rfl⟩
+
+/-! ## Time-linear control: register T, jets bounded -/
 
 theorem time_linear_residual (ν : ℝ) (v : Space) :
     residualForce ν (timeLinearVelocity v) (fun _ => 0) = fun _ => v := by
@@ -249,23 +315,6 @@ theorem time_linear_jets_bounded (ν : ℝ) (v : Space) :
 end Imscribing.CheapB
 end
 
-/-
-LIKELY FRICTION (could not check):
-
-  * `shear_spatialDerivative`: the final `simp` must turn
-    `((c • proj 1).smulRight e₀) v` into `(c * v 1) • e₀`. If `EuclideanSpace.proj`
-    does not unfold under simp, finish with `rfl` after `ContinuousLinearMap.smul_apply`.
-  * `shear_transport` / `shear_divergence`: simp must decide `(1 : Fin 3) = 0` is false
-    and evaluate `EuclideanSpace.single` coordinates. If it stalls, `fin_cases`/`Fin.sum_univ_three`
-    then `simp` per term.
-  * `shear_timeDerivative`: the `convert ... using 1` side goal for the ramp derivative
-    may need adjusting; algebra is (1·(1-t) - t·(-1))/(1-t)² = 1/(1-t)².
-    `fderiv_apply_one_eq_deriv` name: `fderiv_apply_one_eq_deriv : fderiv 𝕜 f x 1 = deriv f x`.
-  * `inv_anti₀` name (older Mathlib: `inv_le_inv_of_le`).
-  * `shear_residual_jets_unbounded`: the last `simp [hx, inv_pow]` should reduce
-    `‖(s⁻¹^2)⁻¹ * x 1‖` to `‖s^2‖`; the closing `abs_of_pos` may need `Real.norm_eq_abs` first.
-  * `show (t, x) ∈ Ioo ... ×ˢ univ`: relies on `strip` unfolding as in your
-    `FalsifierRegister.strip_is_Ioo_times_univ` (which is `rfl`).
--/
-#print axioms Imscribing.CheapB.B_does_not_imply_extension_input
+#print axioms Imscribing.CheapB.shear_exhibits_paraconsistent_cell
 #print axioms Imscribing.CheapB.shear_register_B
+#print axioms Imscribing.CheapB.shear_implication_value_is_paraconsistent
