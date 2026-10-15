@@ -1,5 +1,3 @@
-4
-import Mathlib
 set_option linter.style.setOption false
 set_option linter.style.whitespace false
 set_option linter.style.commandStart false
@@ -20,5 +18,4 @@ set_option linter.style.missingEnd false
 set_option linter.style.openClassical false
 set_option linter.style.nativeDecide false
 set_option linter.style.admit false
-
-theorem trivial_true : True := by trivial
+[LLM empty: empty content, 11948 chars of reasoning (finish_reason=length) — the budget went to reasoning; pass --max-tokens 0 to uncap]

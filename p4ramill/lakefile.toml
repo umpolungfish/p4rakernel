@@ -56,7 +56,10 @@ globs = [
   "Imscribing.SeparableNoGo",
   "Imscribing.WitnessedClosure",
   "Imscribing.NativeDomainCancellation",
-
+  "Imscribing.Idempotent15",
+  "Imscribing.IdempotentBijection",
+  "Imscribing.IdempotentGcd",
+  
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",
