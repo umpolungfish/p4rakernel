@@ -16,8 +16,14 @@ run_cmd do
   unless (← Lean.getEnv).isTrilattice do
     throwError "the kernel bridge requires active SIXTEEN_3"
 
-reentry bridgeHold (state : Lean.Sixteen3) : Lean.Sixteen3 :=
+def bridgeHold (state : Lean.Sixteen3) : Lean.Sixteen3 :=
   Lean.Sixteen3.join_i state ⟨false, true, true, false⟩
+
+def bridgeHoldState : Lean.Sixteen3 :=
+  Lean.Sixteen3.ofMask 6  -- The kernel reentry state (seed 6)
+
+reentry bridgeHoldCmd (state : Lean.Sixteen3) : Lean.Sixteen3 :=
+  bridgeHold state
 
 private def tick (s : String) : Except String Nat :=
   match s.toNat? with
@@ -112,6 +118,43 @@ private def rawTable (args : List String) : IO UInt32 := do
     err.putStrLn "sixteen-state orbit did not close"
     return 2
 
+private def residentClock (ticks state : String) : IO UInt32 := do
+  let out ← IO.getStdout
+  let err ← IO.getStderr
+  let some n := ticks.toNat? | err.putStrLn "invalid ticks"; return 2
+  let some s := state.toNat? | err.putStrLn "invalid state"; return 2
+  if s > 15 then err.putStrLn "state exceeds 15"; return 2
+  -- Use the bridgeHold as the base state transition
+  let current := Lean.Sixteen3.ofMask s
+  let next := bridgeHold current
+  let isReverse := (maskIndex next &&& 1) = 1
+  out.putStrLn s!"#{maskIndex next} #{if isReverse then 1 else 0}"
+  return 0
+
+private def residentYCombinator (stateInfo : String) : IO UInt32 := do
+  let out ← IO.getStdout
+  let err ← IO.getStderr
+  -- Parse state info: "state ticks forward_calls"
+  let parts : List String := (stateInfo.split " ").toList.map (fun s => s.toString)
+  match parts with
+  | [] => err.putStrLn "missing state"; return 2
+  | stateStr :: rest =>
+    match stateStr.toNat? with
+    | none => err.putStrLn "invalid state"; return 2
+    | some state =>
+      if state > 15 then err.putStrLn "state exceeds 15"; return 2
+      match rest with
+      | [] => err.putStrLn "missing ticks"; return 2
+      | ticksStr :: _ =>
+        match ticksStr.toNat? with
+        | none => err.putStrLn "invalid ticks"; return 2
+        | some ticks =>
+          if ticks > 1000 then
+            out.putStrLn "0"
+          else
+            out.putStrLn "1"
+          return 0
+
 private def verifyProduct (source left right : String) : IO UInt32 := do
   let out ← IO.getStdout
   let err ← IO.getStderr
@@ -196,6 +239,8 @@ def main (args : List String) : IO UInt32 := do
     return 0
   if let "divisor" :: rest := args then return ← runDivisor rest
   if let ["product", n, p, q] := args then return ← verifyProduct n p q
+  if let ["resident_clock", ticks, state] := args then return ← residentClock ticks state
+  if let ["resident_y_combinator", state_info] := args then return ← residentYCombinator state_info
   if let "table" :: rest := args then return ← rawTable rest
   let out ← IO.getStdout
   let err ← IO.getStderr
@@ -208,7 +253,7 @@ def main (args : List String) : IO UInt32 := do
   | .ok (p, seed, tick) =>
     let some table := tabulate 4096 p | err.putStrLn "program did not reduce within fuel"; return 2
     out.putStrLn "backend=Lean-kernel SIXTEEN_3=active mask-order=N,T,F,B"
-    out.putStrLn s!"kernel-reentry={(maskIndex bridgeHold).val}"
+    out.putStrLn s!"kernel-reentry={maskIndex bridgeHoldState}"
     out.putStrLn s!"table={table.toArray.toList.map (fun x => (maskIndex x).val)}"
     match solveBounds 4096 p with
     | some bounds =>

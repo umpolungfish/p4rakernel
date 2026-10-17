@@ -59,7 +59,8 @@ globs = [
   "Imscribing.Idempotent15",
   "Imscribing.IdempotentBijection",
   "Imscribing.IdempotentGcd",
-  
+  "Imscribing.IdempotentArev",
+
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",
