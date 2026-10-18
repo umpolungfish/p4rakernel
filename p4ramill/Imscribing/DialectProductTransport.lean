@@ -142,6 +142,15 @@ theorem newton_correction (coefficients : List R) (x inverse : R)
 #print axioms difference
 #print axioms diagonal_derivative
 #print axioms source_root_return
+theorem secant_correction (coefficients : List R) (x y inverse : R)
+    (h : inverse * divided coefficients x y = 1) :
+    divided coefficients x y *
+        (x - (x - evaluate coefficients x * inverse)) = evaluate coefficients x := by
+  calc
+    _ = evaluate coefficients x * (inverse * divided coefficients x y) := by ring
+    _ = evaluate coefficients x := by rw [h]; ring
+
+#print axioms secant_correction
 #print axioms newton_correction
 
 end SourceSupport

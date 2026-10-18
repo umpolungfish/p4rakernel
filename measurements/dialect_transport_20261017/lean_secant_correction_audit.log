@@ -1,0 +1,20 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+'Imscribing.DialectProductTransport.act_compose' depends on axioms: [propext]
+'Imscribing.DialectProductTransport.determinant_compose' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.residual_transport' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.recover_unit' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.source_boundary_return' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.promotion_point_return' depends on axioms: [propext]
+'Imscribing.DialectProductTransport.promotion_frame_return' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.SourceSupport.difference' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.SourceSupport.diagonal_derivative' depends on axioms: [propext]
+'Imscribing.DialectProductTransport.SourceSupport.source_root_return' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.SourceSupport.secant_correction' depends on axioms: [propext, Quot.sound]
+'Imscribing.DialectProductTransport.SourceSupport.newton_correction' depends on axioms: [propext, Quot.sound]

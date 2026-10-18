@@ -8,11 +8,11 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 | Compound | O_∞ | Traced | Frob | Plain | % Access | Tier |
 |----------|-------|--------|------|-------|----------|------|
-| **Verticullum** | 89 | 1 | 3 | 16 | 81.7% | O_∞ |
-| **Chimerium** | 100 | 1 | 0 | 8 | 91.7% | O₀ |
-| **Apertix** | 16 | 27 | 3 | 63 | 14.7% | O₂ |
-| **Retiarius** | 13 | 12 | 1 | 83 | 11.9% | O₁ |
-| **Praxeum** | 85 | 2 | 2 | 20 | 78.0% | O₀ |
+| **Verticullum** | 10 | 65 | 3 | 31 | 9.2% | O_∞ |
+| **Chimerium** | 15 | 72 | 0 | 22 | 13.8% | O₀ |
+| **Apertix** | 4 | 37 | 3 | 65 | 3.7% | O₂ |
+| **Retiarius** | 1 | 23 | 1 | 84 | 0.9% | O₁ |
+| **Praxeum** | 10 | 66 | 2 | 31 | 9.2% | O₀ |
 
 ## 2. Per-Compound Detail
 
@@ -20,23 +20,23 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 **Tuple:** ⟨𐑦𐑥𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑫𐑳𐑟>  
 **Tier (canonical):** O_∞  
-**O_∞ universes:** 89 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `broadcast_universe`, `canonical`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_∈_half`, `g1_∈_max`, `g1_∈_min`, `g1_∋_half`, `g1_∋_min`, `g1_≺_half`, `g1_≺_max`, `g1_≺_min`, `g1_≻_half`, `g1_≻_max`, `g1_≻_min`, `g1_⊙_half`, `g1_⊙_min`, `g1_⊞_half`, `g1_⊞_max`, `g1_⊞_min`, `g1_⊢_half`, `g1_⊢_max`, `g1_⊢_min`, `g1_⊣_half`, `g1_⊣_min`, `g1_⊤_half`, `g1_⊤_min`, `g1_⊥_half`, `g1_⊥_max`, `g1_⊥_min`, `g1_⋈_half`, `g1_⋈_max`, `g1_⋈_min`, `g1_⊡_half`, `g1_⊡_max`, `g1_⊡_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_∈`, `parallel_≺`, `parallel_≻`, `parallel_⊞`, `parallel_⊢`, `parallel_⊥`, `parallel_⋈`, `parallel_⊡`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_universe`, `single_gate`, `single_gate_∈`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊥`, `single_gate_⋈`, `single_gate_⊡`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_∈`, `t_single_∋`, `t_single_≺`, `t_single_≻`, `t_single_⊙`, `t_single_⊞`, `t_single_⊢`, `t_single_⊣`, `t_single_⊤`, `t_single_⊥`, `t_single_⋈`, `t_single_⊡`, `t_structural`, `winding_chirality`, `winding_first`
+**O_∞ universes:** 10 — `dimensional_gate`, `fidelity_universe`, `single_gate`, `single_gate_∈`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊥`, `single_gate_⋈`
 
-**Key blockers:** `g1_⊙_max`, `kinetics_criticality`, `parallel_⊙`, `single_gate_⊙`, `topology_universe`
+**Key blockers:** `g1_⊙_max`, `kinetics_criticality`, `parallel_⊙`, `single_gate_⊙`, `topology_universe`, `winding_chirality`
 
 ### Chimerium
 
 **Tuple:** ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵𐑣𐑫𐑳𐑭>  
 **Tier (canonical):** O₀  
-**O_∞ universes:** 100 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `absorption_topology_seal`, `broadcast_universe`, `canonical`, `chirality_criticality`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_∈_half`, `g1_∈_max`, `g1_∈_min`, `g1_∋_half`, `g1_∋_max`, `g1_∋_min`, `g1_≺_half`, `g1_≺_max`, `g1_≺_min`, `g1_≻_half`, `g1_≻_max`, `g1_≻_min`, `g1_⊙_half`, `g1_⊙_max`, `g1_⊙_min`, `g1_⊞_half`, `g1_⊞_max`, `g1_⊞_min`, `g1_⊢_half`, `g1_⊢_max`, `g1_⊢_min`, `g1_⊣_half`, `g1_⊣_max`, `g1_⊣_min`, `g1_⊤_half`, `g1_⊤_min`, `g1_⊥_half`, `g1_⊥_max`, `g1_⊥_min`, `g1_⋈_half`, `g1_⋈_max`, `g1_⋈_min`, `g1_⊡_half`, `g1_⊡_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_∈`, `parallel_∋`, `parallel_≺`, `parallel_≻`, `parallel_⊙`, `parallel_⊞`, `parallel_⊢`, `parallel_⊣`, `parallel_⊥`, `parallel_⋈`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_grammar`, `scope_universe`, `single_gate`, `single_gate_∈`, `single_gate_∋`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊙`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊣`, `single_gate_⊥`, `single_gate_⋈`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_∈`, `t_single_∋`, `t_single_≺`, `t_single_≻`, `t_single_⊙`, `t_single_⊞`, `t_single_⊢`, `t_single_⊣`, `t_single_⊤`, `t_single_⊥`, `t_single_⋈`, `t_single_⊡`, `t_structural`, `topology_dimensionality`, `topology_universe`, `triple_criticality`, `winding_first`
+**O_∞ universes:** 15 — `dimensional_gate`, `fidelity_universe`, `single_gate`, `single_gate_∈`, `single_gate_∋`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊙`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊣`, `single_gate_⊥`, `single_gate_⋈`, `topology_universe`, `triple_criticality`
 
-**Key blockers:** `kinetics_criticality`, `winding_chirality`
+**Key blockers:** `kinetics_criticality`, `parallel_⊙`, `winding_chirality`
 
 ### Apertix
 
 **Tuple:** ⟨𐑦𐑥𐑽𐑬𐑐𐑧𐑲𐑠⊙𐑖𐑳𐑴>  
 **Tier (canonical):** O₂  
-**O_∞ universes:** 16 — `g1_∈_min`, `g1_∋_min`, `g1_≺_min`, `g1_≻_min`, `g1_⊙_min`, `g1_⊞_min`, `g1_⊢_min`, `g1_⊣_min`, `g1_⊤_min`, `g1_⊥_min`, `g1_⋈_min`, `g1_⊡_min`, `single_gate_∈`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⋈`
+**O_∞ universes:** 4 — `single_gate_∈`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⋈`
 
 **Key blockers:** `canonical`, `chirality_criticality`, `g1_⊙_max`, `high_gate`, `kinetics_criticality`, `parallel_⊙`, `single_gate_⊙`, `t_hybrid`, `topology_universe`, `winding_chirality`
 
@@ -44,7 +44,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 **Tuple:** ⟨𐑼𐑡𐑾𐑿𐑞𐑺𐑚𐑜𐑮𐑒𐑕𐑷>  
 **Tier (canonical):** O₁  
-**O_∞ universes:** 13 — `g1_∈_min`, `g1_∋_min`, `g1_≺_min`, `g1_≻_min`, `g1_⊙_min`, `g1_⊞_min`, `g1_⊢_min`, `g1_⊣_min`, `g1_⊤_min`, `g1_⊥_min`, `g1_⋈_min`, `g1_⊡_min`, `single_gate_≻`
+**O_∞ universes:** 1 — `single_gate_≻`
 
 **Key blockers:** `canonical`, `chirality_criticality`, `g1_⊙_max`, `high_gate`, `kinetics_criticality`, `parallel_⊙`, `single_gate_⊙`, `strict_frobenius`, `t_hybrid`, `topology_universe`, `winding_chirality`
 
@@ -52,7 +52,7 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 **Tuple:** ⟨𐑦𐑶𐑾𐑹𐑐𐑧𐑲𐑠𐑻𐑫𐑳𐑭>  
 **Tier (canonical):** O₀  
-**O_∞ universes:** 85 — `absorption_chirality_first`, `absorption_democracy`, `absorption_inverted`, `absorption_monarchy`, `absorption_scope_empire`, `absorption_tensor_only`, `broadcast_universe`, `canonical`, `chirality_first`, `dimensional_gate`, `fidelity_universe`, `g1_∈_half`, `g1_∈_max`, `g1_∈_min`, `g1_∋_half`, `g1_∋_min`, `g1_≺_half`, `g1_≺_max`, `g1_≺_min`, `g1_≻_half`, `g1_≻_max`, `g1_≻_min`, `g1_⊙_half`, `g1_⊙_min`, `g1_⊞_half`, `g1_⊞_max`, `g1_⊞_min`, `g1_⊢_half`, `g1_⊢_max`, `g1_⊢_min`, `g1_⊣_half`, `g1_⊣_min`, `g1_⊤_half`, `g1_⊤_min`, `g1_⊥_half`, `g1_⊥_max`, `g1_⊥_min`, `g1_⋈_half`, `g1_⋈_max`, `g1_⋈_min`, `g1_⊡_half`, `g1_⊡_min`, `inverted_gates`, `kinetics_trap`, `low_gate`, `no_ordering`, `parallel_∈`, `parallel_≺`, `parallel_≻`, `parallel_⊞`, `parallel_⊢`, `parallel_⊥`, `parallel_⋈`, `parity_fidelity`, `predator_universe`, `prey_universe`, `scope_universe`, `single_gate`, `single_gate_∈`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊥`, `single_gate_⋈`, `stoichiometry_universe`, `strict_frobenius`, `t_all_dynamics`, `t_all_structure`, `t_hybrid`, `t_inverted`, `t_single_∈`, `t_single_∋`, `t_single_≺`, `t_single_≻`, `t_single_⊙`, `t_single_⊞`, `t_single_⊢`, `t_single_⊣`, `t_single_⊤`, `t_single_⊥`, `t_single_⋈`, `t_single_⊡`, `t_structural`, `winding_first`
+**O_∞ universes:** 10 — `dimensional_gate`, `fidelity_universe`, `single_gate`, `single_gate_∈`, `single_gate_≺`, `single_gate_≻`, `single_gate_⊞`, `single_gate_⊢`, `single_gate_⊥`, `single_gate_⋈`
 
 **Key blockers:** `g1_⊙_max`, `kinetics_criticality`, `parallel_⊙`, `single_gate_⊙`, `topology_universe`, `winding_chirality`
 
@@ -60,33 +60,33 @@ Each compound's 12-primitive type is evaluated against 109 universes. Access bre
 
 | Universe | Verticullum | Chimerium | Apertix | Retiarius | Praxeum |
 |----------|------------|-----------|---------|-----------|---------|
-| `canonical` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `low_gate` | O∞ | O∞ | trc | ✗ | O∞ |
-| `strict_frobenius` | O∞ | O∞ | frb | ✗ | O∞ |
+| `canonical` | trc | trc | ✗ | ✗ | trc |
+| `low_gate` | trc | trc | trc | ✗ | trc |
+| `strict_frobenius` | trc | trc | frb | ✗ | trc |
 | `high_gate` | frb | trc | ✗ | ✗ | trc |
-| `winding_first` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `chirality_first` | O∞ | O∞ | trc | ✗ | O∞ |
+| `winding_first` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `chirality_first` | trc | trc | trc | ✗ | trc |
 | `topology_universe` | ✗ | O∞ | ✗ | ✗ | ✗ |
-| `scope_universe` | O∞ | O∞ | trc | ✗ | O∞ |
+| `scope_universe` | trc | trc | trc | ✗ | trc |
 | `dimensional_gate` | O∞ | O∞ | trc | trc | O∞ |
-| `kinetics_trap` | O∞ | O∞ | trc | trc | O∞ |
+| `kinetics_trap` | trc | trc | trc | trc | trc |
 | `triple_criticality` | trc | O∞ | trc | trc | trc |
-| `broadcast_universe` | O∞ | O∞ | trc | ✗ | O∞ |
+| `broadcast_universe` | trc | trc | trc | ✗ | trc |
 | `fidelity_universe` | O∞ | O∞ | trc | ✗ | O∞ |
-| `stoichiometry_universe` | O∞ | O∞ | trc | ✗ | O∞ |
-| `absorption_democracy` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `absorption_monarchy` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `absorption_inverted` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `predator_universe` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `prey_universe` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `chirality_criticality` | frb | O∞ | ✗ | ✗ | frb |
-| `winding_chirality` | O∞ | ✗ | ✗ | ✗ | ✗ |
-| `scope_grammar` | frb | O∞ | frb | ✗ | frb |
+| `stoichiometry_universe` | trc | trc | trc | ✗ | trc |
+| `absorption_democracy` | trc | trc | ✗ | ✗ | trc |
+| `absorption_monarchy` | trc | trc | ✗ | ✗ | trc |
+| `absorption_inverted` | trc | trc | ✗ | ✗ | trc |
+| `predator_universe` | trc | trc | ✗ | ✗ | trc |
+| `prey_universe` | trc | trc | ✗ | ✗ | trc |
+| `chirality_criticality` | frb | trc | ✗ | ✗ | frb |
+| `winding_chirality` | ✗ | ✗ | ✗ | ✗ | ✗ |
+| `scope_grammar` | frb | trc | frb | ✗ | frb |
 | `single_gate` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `t_hybrid` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `t_inverted` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `t_all_dynamics` | O∞ | O∞ | ✗ | ✗ | O∞ |
-| `t_all_structure` | O∞ | O∞ | ✗ | ✗ | O∞ |
+| `t_hybrid` | trc | trc | ✗ | ✗ | trc |
+| `t_inverted` | trc | trc | ✗ | ✗ | trc |
+| `t_all_dynamics` | trc | trc | ✗ | ✗ | trc |
+| `t_all_structure` | trc | trc | ✗ | ✗ | trc |
 
 ## 4. Key Findings
 
