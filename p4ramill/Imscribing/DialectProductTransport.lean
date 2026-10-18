@@ -155,4 +155,23 @@ theorem secant_correction (coefficients : List R) (x y inverse : R)
 
 end SourceSupport
 
+namespace ParityReturn
+
+variable {Cell : Type*}
+
+def even (word : ℕ → Cell) (i : ℕ) : Cell := word (2 * i)
+def odd (word : ℕ → Cell) (i : ℕ) : Cell := word (2 * i + 1)
+def interlace (left right : ℕ → Cell) (i : ℕ) : Cell :=
+  if i % 2 = 0 then left (i / 2) else right (i / 2)
+
+/-- Both correlated cell arms recover the complete original numeral. -/
+theorem split_return (word : ℕ → Cell) : interlace (even word) (odd word) = word := by
+  funext i
+  simp only [interlace, even, odd]
+  split <;> congr 1 <;> omega
+
+#print axioms split_return
+
+end ParityReturn
+
 end Imscribing.DialectProductTransport

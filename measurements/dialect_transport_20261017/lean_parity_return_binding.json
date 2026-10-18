@@ -1,0 +1,8 @@
+{
+  "source": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/Imscribing/DialectProductTransport.lean",
+  "source_sha256": "ba9569c8905f46e0dfc280031cf41364cfbc6307514bb56219efc303f58777c5",
+  "audit_sha256": "83472849326c29e5c683470b1367a73fb1aa9a9416ecd20d4f4273ee290f1cbf",
+  "exit_code": 0,
+  "theorem": "Imscribing.DialectProductTransport.ParityReturn.split_return",
+  "domain": "generic numeral-cell stream; interlace(even(word),odd(word)) = word"
+}
