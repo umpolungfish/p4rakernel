@@ -830,3 +830,11 @@ root = "Imscribing.Paraconsistent.DivisorReentryAudit"
 [[lean_exe]]
 name = "kernel_bridge"
 root = "KernelBridge"
+
+[[lean_exe]]
+name = "lean_only_membrane"
+root = "LeanOnlyMembraneMain"
+
+[[lean_lib]]
+name = "LeanOnlyMembrane"
+roots = ["Imscribing.Paraconsistent.LeanOnlyMembrane", "Imscribing.Paraconsistent.MultiplicativeReentry", "Imscribing.Paraconsistent.SourceBoundSplit"]

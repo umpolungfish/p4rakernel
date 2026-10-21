@@ -1,4 +1,7 @@
 import Imscribing.Paraconsistent.TemporalSemantics
+import Imscribing.FullyNestedFactorMachine
+import Imscribing.Paraconsistent.MultiplicativeReentry
+import Imscribing.Paraconsistent.SourceBoundSplit
 
 /-!
 S/K/I programs with native SIXTEEN_3 data. Bracket abstraction compiles a
@@ -37,12 +40,20 @@ def acceptsDivisor (N k : Nat) (contradictory : Bool) : Bool :=
   Lean.Sixteen3.assertsTrue (divisorEvidence N k contradictory)
 
 inductive Term where
+  | sourceSplit : Term
+  | sourceState : (N : Nat) → SourceBoundSplit.State N → Term
+  | multiplicativeSplit : Nat → Term
+  | productFamily : Nat → MultiplicativeReentry.Family → Term
   | number : Nat → Term
   | numbers : List Nat → Term
   | divisor : Nat → Bool → Term
   | divisors : Nat → Bool → Term
   | divisorScan : Nat → Bool → Nat → Term
   | divisorsScan : Nat → Bool → Nat → List Nat → Term
+  | nestedFactor : Nat → Term
+  | nestedFactorScan : Nat → Nat → Term
+  | residentFactor : Nat → Nat → Term
+  | residentFactorScan : Nat → Nat → Nat → Nat → Nat → Nat → Nat → Term
   | var : Nat → Term
   | i | k | s
   | datum : Lean.Sixteen3 → Term
@@ -52,6 +63,48 @@ inductive Term where
   deriving DecidableEq, Repr
 
 local infixl:70 " @@ " => Term.app
+
+/-- The certified Y continuation acts on the entire correlated source carrier. -/
+def sourceSplitBody (self : Term) (N : Nat) (state : SourceBoundSplit.State N) : Term :=
+  if state.failure.isSome || state.pc ≥ SourceBoundSplit.ops.size then .sourceState N state
+  else self @@ .sourceState N (SourceBoundSplit.step state)
+
+/-- Re-entry transforms the complete paired family and returns through the
+same Y continuation. The source product is the readout boundary. -/
+def multiplicativeBody (N : Nat) (self : Term) (modulus : Nat)
+    (family : MultiplicativeReentry.Family) : Term :=
+  match MultiplicativeReentry.read N family with
+  | some d => .number d
+  | none =>
+    if family = ∅ ∨ N < modulus then .numbers []
+    else self @@ .productFamily (2*modulus)
+      (MultiplicativeReentry.reenter N modulus family)
+
+/-- The existing paired square machine on arbitrary-precision retained state. -/
+def nestedFactorBody (N a : Nat) : Term :=
+  match FullyNestedFactorMachine.stepNat N a with
+  | some d => .number d
+  | none => .nestedFactorScan N (a + 1)
+
+/-- The recovered dialectic's source, residual, multiplier and cell remain in
+one compact return. The support mask is prepared by the existing Lean program. -/
+def residentFactorStart (N mask : Nat) : Term :=
+  let a := FullyNestedFactorMachine.initialNat N
+  .residentFactorScan N mask 0 N a (a*a-N) 0
+
+def residentFactorBody (N mask k source a residual cell : Nat) : Term := Id.run do
+  if mask.testBit (residual % 256) then
+    let b := Nat.sqrt residual
+    if b*b == residual then
+      for candidate in [a+b, a-b] do
+        let d := Nat.gcd candidate N
+        if 1 < d && d < N && N % d == 0 then return .number d
+  let limit := if k == 0 then 4096 else 64
+  if cell+1 < limit then
+    return .residentFactorScan N mask k source (a+1) (residual+2*a+1) (cell+1)
+  let nextSource := if k == 0 then 4*N else source+4*N
+  let nextA := FullyNestedFactorMachine.initialNat nextSource
+  return .residentFactorScan N mask (k+1) nextSource nextA (nextA*nextA-nextSource) 0
 
 /-- One unfolding of the requested factor functional. -/
 def factorBody (N : Nat) (contradictory : Bool) (self : Term) (k : Nat) : Term :=
@@ -80,6 +133,20 @@ def divisorsScanBody (N : Nat) (contradictory : Bool) (k : Nat)
 
 /-- Combinator contraction and reduction inside either application arm. -/
 inductive Step : Term → Term → Prop where
+  | sourceSplit (self N state) :
+      Step (.sourceSplit @@ self @@ .sourceState N state) (sourceSplitBody self N state)
+  | multiplicativeSplit (N self modulus family) :
+      Step (.multiplicativeSplit N @@ self @@ .productFamily modulus family)
+        (multiplicativeBody N self modulus family)
+  | residentFactorStart (N mask self payload) :
+      Step (.residentFactor N mask @@ self @@ payload) (residentFactorStart N mask)
+  | residentFactorScan (N mask k source a residual cell) :
+      Step (.residentFactorScan N mask k source a residual cell)
+        (residentFactorBody N mask k source a residual cell)
+  | nestedFactorStart (N self a) :
+      Step (.nestedFactor N @@ self @@ .number a) (.nestedFactorScan N a)
+  | nestedFactorScan (N a) :
+      Step (.nestedFactorScan N a) (nestedFactorBody N a)
   | factor (N contradictory self k) :
       Step (.divisor N contradictory @@ self @@ .number k)
         (factorBody N contradictory self k)
@@ -158,12 +225,21 @@ theorem abstract_apply (target : Nat) (argument body : Term) :
   | app f x ihf ihx =>
       exact (Steps.single (Step.substitution _ _ argument)).trans
         ((ihf.left _).trans (Steps.right _ ihx))
+  | sourceSplit => exact Steps.single (Step.constant .sourceSplit argument)
+  | sourceState n state => exact Steps.single (Step.constant (.sourceState n state) argument)
+  | multiplicativeSplit n => exact Steps.single (Step.constant (.multiplicativeSplit n) argument)
+  | productFamily modulus family => exact Steps.single (Step.constant (.productFamily modulus family) argument)
   | number n => exact Steps.single (Step.constant (.number n) argument)
   | numbers ns => exact Steps.single (Step.constant (.numbers ns) argument)
   | divisor n b => exact Steps.single (Step.constant (.divisor n b) argument)
   | divisors n b => exact Steps.single (Step.constant (.divisors n b) argument)
   | divisorScan n b k => exact Steps.single (Step.constant (.divisorScan n b k) argument)
   | divisorsScan n b k acc => exact Steps.single (Step.constant (.divisorsScan n b k acc) argument)
+  | nestedFactor n => exact Steps.single (Step.constant (.nestedFactor n) argument)
+  | nestedFactorScan n a => exact Steps.single (Step.constant (.nestedFactorScan n a) argument)
+  | residentFactor n mask => exact Steps.single (Step.constant (.residentFactor n mask) argument)
+  | residentFactorScan n mask k source a residual cell =>
+      exact Steps.single (Step.constant (.residentFactorScan n mask k source a residual cell) argument)
   | i => exact Steps.single (Step.constant .i argument)
   | k => exact Steps.single (Step.constant .k argument)
   | s => exact Steps.single (Step.constant .s argument)
@@ -260,6 +336,19 @@ theorem seededOperator_apply (seed x : Lean.Sixteen3) :
 
 /-- Every returned contraction carries its reduction proof. -/
 def rootStep : (t : Term) → Option {u : Term // Step t u}
+  | .app (.app .sourceSplit self) (.sourceState N state) =>
+      some ⟨sourceSplitBody self N state, .sourceSplit self N state⟩
+  | .app (.app (.multiplicativeSplit N) self) (.productFamily modulus family) =>
+      some ⟨multiplicativeBody N self modulus family,
+        .multiplicativeSplit N self modulus family⟩
+  | .app (.app (.residentFactor N mask) self) payload =>
+      some ⟨residentFactorStart N mask, .residentFactorStart N mask self payload⟩
+  | .residentFactorScan N mask k source a residual cell =>
+      some ⟨residentFactorBody N mask k source a residual cell,
+        .residentFactorScan N mask k source a residual cell⟩
+  | .app (.app (.nestedFactor N) self) (.number a) =>
+      some ⟨.nestedFactorScan N a, .nestedFactorStart N self a⟩
+  | .nestedFactorScan N a => some ⟨nestedFactorBody N a, .nestedFactorScan N a⟩
   | .app (.app (.divisor N b) self) (.number k) =>
       some ⟨.divisorScan N b k, .divisorStart N b self k⟩
   | .app (.app (.app (.divisors N b) self) (.number k)) (.numbers acc) =>

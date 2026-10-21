@@ -1,3 +1,5 @@
+import Mathlib.Data.Nat.Sqrt
+
 namespace Imscribing.FullyNestedFactorMachine
 
 /-! The executable path is deliberately unboxed. Every definition below
@@ -35,5 +37,21 @@ partial def phase (n a fuel : UInt64) : UInt64 :=
 
 @[export nested_factor_u64]
 def nestedFactorU64 (n start fuel : UInt64) : UInt64 := phase n (start - 1) fuel
+
+/-- Arbitrary-precision lift of the same paired square-return construction.
+The source alone determines the first enclosing square. -/
+def initialNat (n : Nat) : Nat :=
+  let root := Nat.sqrt n
+  if root * root == n then root else root + 1
+
+/-- Forward square, reverse square root, paired arms, exact product anchor.
+Natural arithmetic avoids the UInt64 production boundary. -/
+def stepNat (n a : Nat) : Option Nat :=
+  if a * a < n then none else
+    let delta := a * a - n
+    let b := Nat.sqrt delta
+    let p := a - b
+    let q := a + b
+    if b * b == delta && 1 < p && p < n && p * q == n then some p else none
 
 end Imscribing.FullyNestedFactorMachine
