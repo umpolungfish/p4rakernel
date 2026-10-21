@@ -60,6 +60,10 @@ globs = [
   "Imscribing.IdempotentBijection",
   "Imscribing.IdempotentGcd",
   "Imscribing.IdempotentArev",
+  "Imscribing.PrimeWells",
+  "Imscribing.BCReentryBounded",
+  "Imscribing.BCReentryNativeAdapter",
+  "Imscribing.ReEntryConstructionsMinimal",
 
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
@@ -788,6 +792,7 @@ globs = [
   # instead of restating it — every restatement of it was a generation behind.
   "Imscribing.Paraconsistent.IncompletenessClosure",
   "Imscribing.Vox.ProofLift",
+  "Imscribing.ReEntryConstructions",
 ]
 
 # The prover's scratch modules live in their own library, OUTSIDE the default

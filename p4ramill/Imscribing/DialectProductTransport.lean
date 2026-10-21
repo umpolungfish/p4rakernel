@@ -94,6 +94,37 @@ theorem promotion_frame_return (m : Frame R) (inverse : R)
 #print axioms promotion_point_return
 #print axioms promotion_frame_return
 
+/-- Translate a selected coordinate of the already transformed joint frame. -/
+def translateCoordinate (point : R × R) (right : Bool) (shift : R) : R × R :=
+  if right then (point.1, point.2 + shift) else (point.1 + shift, point.2)
+
+def untranslateCoordinate (point : R × R) (right : Bool) (shift : R) : R × R :=
+  if right then (point.1, point.2 - shift) else (point.1 - shift, point.2)
+
+theorem coordinate_translation_return (point : R × R) (right : Bool) (shift : R) :
+    untranslateCoordinate (translateCoordinate point right shift) right shift = point := by
+  cases right <;> simp [translateCoordinate, untranslateCoordinate]
+
+/-- Recover the actual transformed coordinates, as in terminal frame readout. -/
+def returnFrame (m : Frame R) (inverse : R) (point : R × R) : R × R :=
+  (inverse * (act (adjugate m) point).1, inverse * (act (adjugate m) point).2)
+
+theorem returnFrame_act (m : Frame R) (inverse : R) (point : R × R)
+    (h : inverse * determinant m = 1) : returnFrame m inverse (act m point) = point := by
+  exact recover_unit m inverse point h
+
+theorem frame_coordinate_promotion_return (m : Frame R) (inverse : R)
+    (point : R × R) (right : Bool) (shift : R) (h : inverse * determinant m = 1) :
+    returnFrame m inverse
+      (untranslateCoordinate (translateCoordinate (act m point) right shift) right shift) =
+      point := by
+  rw [coordinate_translation_return]
+  exact returnFrame_act m inverse point h
+
+#print axioms coordinate_translation_return
+#print axioms returnFrame_act
+#print axioms frame_coordinate_promotion_return
+
 namespace SourceSupport
 
 /-- Low coefficient first, matching the ordered source numeral. -/
