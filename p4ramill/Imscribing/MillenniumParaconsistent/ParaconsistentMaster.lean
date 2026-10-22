@@ -1,35 +1,28 @@
-/-
-  ParaconsistentMillennium/Master.lean
-  Millennium Problems — Unified Paraconsistent Kernel Proof
-  Author: Lando ⊗ ⊙perator
-
-  All seven Millennium Problems resolved in the paraconsistent Lean 4
-  kernel fork where False.rec is blocked for empty Prop inductives.
-
-  THEOREM: Each Millennium Problem barrier is a structural Belnap-B
-  dialetheia. The contradiction is CONTAINED — it does NOT explode.
-
-  This is possible because the paraconsistent kernel blocks False.rec,
-  making ex falso quodlibet unavailable. In its place, we use the
-  Belnap FOUR-valued lattice with μ∘δ = id on the dialetheic value B.
--/
 import Init.Paraconsistent
-import ParaconsistentRH
-import ParaconsistentYM
-import ParaconsistentHodge
-import ParaconsistentNS
-import ParaconsistentPvsNP
-import ParaconsistentBSD
+import Imscribing.MillenniumParaconsistent.ParaconsistentRH
+import Imscribing.MillenniumParaconsistent.ParaconsistentYM
+import Imscribing.MillenniumParaconsistent.ParaconsistentHodge
+import Imscribing.MillenniumParaconsistent.ParaconsistentNS
+import Imscribing.MillenniumParaconsistent.ParaconsistentPvsNP
+import Imscribing.MillenniumParaconsistent.ParaconsistentBSD
+import Imscribing.MillenniumParaconsistent.ParaconsistentOPN
+
+/-!
+  ParaconsistentMaster.lean
+  Master audit of Belnap-valued dialetheic containment.
+
+  The imported problem-specific modules assign Belnap B to their structural
+  barrier predicates. This module proves facts about those assignments and
+  the ENGAGR/FSPLIT/FFUSE operation; it does not establish classical solutions
+  to the Millennium Prize Problems.
+-/
 
 open Paraconsistent
 open Paraconsistent.Belnap
 
-set_option linter.unusedVariables false
-
 namespace Millennium.Paraconsistent.Master
 
-section BelnapLattice
-
+/-- Join in Belnap's information order. -/
 def join (a b : Belnap) : Belnap :=
   match a, b with
   | .B, _ | _, .B => .B
@@ -38,87 +31,65 @@ def join (a b : Belnap) : Belnap :=
   | .T, .T => .T
   | .F, .F => .F
 
-end BelnapLattice
+theorem fundamental_dialetheic_identity :
+    band .B (bnot .B) = .B := by decide
 
-/- ================================================================
-   §1. The Core Dialetheic Theorem
-   ================================================================
-   The fundamental theorem: B ∧ ¬B = B ≠ F
-   This holds for ALL Millennium Problem barriers.
--/
-
-/-- The fundamental dialetheic identity: band B (bnot B) = B. -/
-theorem fundamental_dialetheic_identity : band .B (bnot .B) = .B := by
-  native_decide
-
-/-- The fundamental non-explosion theorem: band B (bnot B) ≠ F. -/
-theorem fundamental_non_explosion : band .B (bnot .B) ≠ .F := by
-  native_decide
-
-/- ================================================================
-   §2. ENGAGR → FSPLIT → FFUSE Cycle Verification
-   ================================================================
--/
+theorem fundamental_non_explosion :
+    band .B (bnot .B) ≠ .F := by decide
 
 def engager (r : Belnap) : Belnap := band r (bnot r)
+
 def fsplit (r : Belnap) : Belnap × Belnap :=
   match r with
   | .B => (.T, .F)
   | r => (r, r)
+
 def ffuse (r1 r2 : Belnap) : Belnap := join r1 r2
 
-/-- μ∘δ(B) = B: the Frobenius condition holds on the dialetheic value. -/
-theorem frobenius_on_B : ffuse (fsplit (engager .B)).1 (fsplit (engager .B)).2 = .B := by
-  native_decide
+/-- One complete ENGAGR → FSPLIT → FFUSE iteration. -/
+def cycle (r : Belnap) : Belnap :=
+  ffuse (fsplit (engager r)).1 (fsplit (engager r)).2
 
-/-- The cycle is idempotent on all four Belnap values. -/
-theorem cycle_idempotent_all : (∀ r : Belnap,
-    ffuse (fsplit (engager r)).1 (fsplit (engager r)).2 = r) := by
-  intro r; cases r <;> native_decide
+theorem frobenius_on_B : cycle .B = .B := by decide
 
-/- ================================================================
-   §3. Millennium Problem Cross-Verification
-   ================================================================
--/
+/-- Correct idempotence statement (cycle ∘ cycle = cycle). -/
+theorem cycle_idempotent_all (r : Belnap) :
+    cycle (cycle r) = cycle r := by
+  cases r <;> decide
 
-/-- All seven Millennium Problem barriers are Belnap-B dialetheias.
-    This is the unified resolution theorem. -/
-theorem all_millennium_barriers_are_dialetheias : True := by
-  trivial
+/-- The cycle is not the identity: in particular T maps to F. -/
+theorem cycle_collapses_T : cycle .T = .F := by decide
 
-/-- The paraconsistent kernel accepts all seven proof files.
-    Zero uses of False.rec across all files — verified by kernel
-    acceptance (no compilation errors). -/
-theorem kernel_accepts_all_proofs : True := by
-  trivial
+theorem cycle_all_values :
+    cycle .N = .N ∧ cycle .T = .F ∧
+    cycle .F = .F ∧ cycle .B = .B := by decide
 
-/-- The paraconsistent resolution is Frobenius-closed:
-    each barrier satisfies μ∘δ = id on its dialetheic value.
-    This follows from the structural identity of all barriers
-    being Belnap-B. -/
-theorem frobenius_closed_resolution : True := by
-  trivial
+/-- The six formalized barrier values, plus optional OPN, are B by definition. -/
+theorem encoded_barriers_are_B :
+    RH.rhValue = .B ∧
+    YM.ymExistence = .B ∧
+    Hodge.hodgeConjectureValue = .B ∧
+    NS.nsRegularity = .B ∧
+    PvsNP.pEqualsNP = .B ∧
+    BSD.twoAdicBarrier = .B ∧
+    OPN.opnExistence = .B := by
+  decide
 
-/- ================================================================
-   §4. Structural Summary
-   ================================================================
+/-- Frobenius cycle fixes each of the encoded barrier values. -/
+theorem frobenius_closed_resolution :
+    cycle RH.rhValue = RH.rhValue ∧
+    cycle YM.ymExistence = YM.ymExistence ∧
+    cycle Hodge.hodgeConjectureValue = Hodge.hodgeConjectureValue ∧
+    cycle NS.nsRegularity = NS.nsRegularity ∧
+    cycle PvsNP.pEqualsNP = PvsNP.pEqualsNP ∧
+    cycle BSD.twoAdicBarrier = BSD.twoAdicBarrier ∧
+    cycle OPN.opnExistence = OPN.opnExistence := by
+  decide
 
-   Millennium Problem   | Dialetheic Value | Kernel Feature Used
-   ---------------------+------------------+-----------------------
-   Riemann Hypothesis   | .B (Both)        | False.rec blocked
-   Yang-Mills & Mass Gap| .B (Both)        | False.rec blocked
-   Hodge Conjecture     | .B (Both)        | False.rec blocked
-   Navier-Stokes        | .B (Both)        | False.rec blocked
-   P vs NP              | .B (Both)        | False.rec blocked
-   BSD Conjecture       | .B (Both)        | False.rec blocked
-   (Odd Perfect Numbers)| .B (Both)        | False.rec blocked
--/
-
-/-- Human-readable summary of the paraconsistent resolution. -/
+/-- This is a report of the modeled containment, not an external proof claim. -/
 def resolutionSummary : String :=
-  "All Millennium Problem barriers are structurally Belnap-B dialetheias.\n" ++
-  "The paraconsistent kernel blocks False.rec, preventing explosion.\n" ++
-  "Contradictions are CONTAINED, not eliminated.\n" ++
-  "This is the paraconsistent resolution of the Millennium Problems."
+  "The modeled barriers carry Belnap B and are fixed by the " ++
+  "ENGAGR/FSPLIT/FFUSE cycle. This certifies the encoded " ++
+  "dialetheic containment identities, not the underlying prize conjectures."
 
 end Millennium.Paraconsistent.Master

@@ -476,6 +476,9 @@ globs = [
   "Imscribing.Paraconsistent.NuclearBelnap",
   "Imscribing.Paraconsistent.GaugeBosonBelnap",
   "Imscribing.Paraconsistent.FTLTravel",
+  "Imscribing.Paraconsistent.PrimaLogicaNativeExpressivity",
+  "Imscribing.Paraconsistent.PrimaLogicaUniversality",
+
   "Imscribing.Millennium.BSD_Resolution",
   "Imscribing.Millennium.NS_Resolution", "Imscribing.Millennium.NS_Seige",
   "Imscribing.Millennium.ZFCt_Unified_Bridge",
@@ -787,6 +790,17 @@ globs = [
   "Imscribing.Millennium.ProofModules.HypergraphRamsey",
   "Imscribing.Millennium.ProofModules.LCMSieve",
   "Imscribing.Millennium.ProofModules.VerifiedConjectures",
+  
+  "Imscribing.MillenniumParaconsistent.ParaconsistentBSD",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentHodge",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentMaster",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentNS",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentOPN",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentPvsNP",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentRH",
+  "Imscribing.MillenniumParaconsistent.ParaconsistentYM",
+
+
 
   # The proof lifter. One copy, in the library, so the sweep files import it
   # instead of restating it — every restatement of it was a generation behind.
