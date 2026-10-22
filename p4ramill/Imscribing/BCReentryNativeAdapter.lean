@@ -9,7 +9,7 @@ This file IS compiled; the sorry is eliminated.
 
 namespace BCReentry
 
-/-- Provisional mapping of native Lean.Sixteen3 fields to four binary selections. -/
+/-- Exact mapping of native Lean.Sixteen3 fields to four binary selections. -/
 def nativeMembership (v : Lean.Sixteen3) : Fin 4 → Bool
   | ⟨0, _⟩ => v.hasN
   | ⟨1, _⟩ => v.hasT

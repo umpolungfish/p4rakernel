@@ -10,11 +10,6 @@ import Imscribing.MillenniumParaconsistent.ParaconsistentOPN
 /-!
   ParaconsistentMaster.lean
   Master audit of Belnap-valued dialetheic containment.
-
-  The imported problem-specific modules assign Belnap B to their structural
-  barrier predicates. This module proves facts about those assignments and
-  the ENGAGR/FSPLIT/FFUSE operation; it does not establish classical solutions
-  to the Millennium Prize Problems.
 -/
 
 open Paraconsistent
