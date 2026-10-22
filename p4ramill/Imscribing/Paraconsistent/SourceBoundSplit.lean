@@ -24,7 +24,7 @@ def scale (z : G) (x : Amp) : Amp := ⟨z*x.a,z*x.b,z*x.c,z*x.d⟩
 def truth (x : Amp) : Amp := ⟨x.a,0,x.c,0⟩
 def falsity (x : Amp) : Amp := ⟨0,x.b,0,x.d⟩
 def flip (x : Amp) : Amp := ⟨x.b,x.a,x.d,x.c⟩
-def get (x : Amp) (i : Nat) : G := if i==0 then x.a else if i==1 then x.b else if i==2 then x.c else x.d
+def get (x : Amp) (i : Nat) : G := if i==0 then x.a else if i==1 then x.b else if i==2 then x.c else if i==3 then x.d else 0
 
 theorem split_fuse (x : Amp) : add (truth x) (falsity x) = x := by
   cases x; simp [add, truth, falsity]
@@ -116,6 +116,7 @@ structure Chart (N : Nat) where
   residual : Quad N
   amplitude : Amp
   ancestry : Option Bool
+  zeroOnly : Bool := false
   deriving DecidableEq
 
 namespace Chart
@@ -153,7 +154,8 @@ The source interval and its four residue sectors are retained explicitly. -/
 def amplitudeAt {N} (c : Chart N) (e r : ZMod N) (coordinate : Nat) : G :=
   let parameter := if c.flipped then 1-e else e
   if 2 ≤ parameter.val ∧ parameter.val < N ∧ parameter.val % 4 = c.sector ∧
-      c.residual.eval parameter = r then c.amplitude.get coordinate else 0
+      c.residual.eval parameter = r ∧ (c.zeroOnly = false ∨ r = 0) then
+    c.amplitude.get coordinate else 0
 
 end Chart
 
@@ -298,12 +300,15 @@ def step {N} (s : State N) : State N := Id.run do
     s := {s with falsity:=changed,live:=changed}
   | .engagr => s := bank {s with live:=s.truth++s.falsity} [0,3,9] (s.truth++s.falsity)
   | .ifix =>
-    let before := s.falsity
+    -- Fix the zero-residual fibre on the executed charts. Keep the original
+    -- unprojected state in its existing enclosing and reversal banks.
+    let truth := s.truth.map fun c => {c with zeroOnly:=true}
+    let before := s.falsity.map fun c => {c with zeroOnly:=true}
     let measured := scaleCharts (phaseUnit N) before
     let returned := scaleCharts (phaseUnit N) measured
     if returned != before then return {s with failure:=some "Z2 phase cycle failed"}
-    let observation := Observation.mk s.truth measured (N%2) [before,measured,returned]
-    s := bank {s with falsity:=measured,live:=measured,observation:=some observation} [0,3,10] measured
+    let observation := Observation.mk truth measured (N%2) [before,measured,returned]
+    s := bank {s with truth:=truth,falsity:=measured,live:=measured,observation:=some observation} [0,3,10] measured
   | .ffuse =>
     if s.openFrames.head? != some [0,3] || s.observation.isNone then
       return {s with failure:=some "fuse lost its frame or fixed observation"}
@@ -318,5 +323,16 @@ def step {N} (s : State N) : State N := Id.run do
 /-- Untagged return: amplitudes add coherently across overlapping chart images. -/
 def amplitudeAt {N} (charts : List (Chart N)) (e r : ZMod N) (coordinate : Nat) : G :=
   charts.foldl (fun total c => total+c.amplitudeAt e r coordinate) 0
+
+/-- The product boundary consumes a point actually supported by the fixed
+joint carrier. A symbolic zero-fibre without a selected point remains held. -/
+def readDivisorAt {N} (s : State N) (e : ZMod N) : Option Nat := do
+  if !s.fused || s.observation.isNone || !s.openFrames.isEmpty then none
+  else if !s.joint.all (fun c => c.zeroOnly) then none
+  else if !(List.range 4).any (fun i => amplitudeAt s.joint e 0 i != 0) then none
+  else if e*e != e then none
+  else
+    let d := Nat.gcd e.val N
+    if 1 < d && d < N && N % d == 0 && d*(N/d) == N then some d else none
 
 end Imscribing.Paraconsistent.SourceBoundSplit

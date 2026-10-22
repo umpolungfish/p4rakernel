@@ -2,6 +2,7 @@ import Imscribing.Paraconsistent.TemporalSemantics
 import Imscribing.FullyNestedFactorMachine
 import Imscribing.Paraconsistent.MultiplicativeReentry
 import Imscribing.Paraconsistent.SourceBoundSplit
+import Imscribing.Paraconsistent.SourceBoundSelection
 
 /-!
 S/K/I programs with native SIXTEEN_3 data. Bracket abstraction compiles a
@@ -40,6 +41,8 @@ def acceptsDivisor (N k : Nat) (contradictory : Bool) : Bool :=
   Lean.Sixteen3.assertsTrue (divisorEvidence N k contradictory)
 
 inductive Term where
+  | sourceSelect : Term
+  | selectionState : (N : Nat) → SourceBoundSelection.State N → Term
   | sourceSplit : Term
   | sourceState : (N : Nat) → SourceBoundSplit.State N → Term
   | multiplicativeSplit : Nat → Term
@@ -63,6 +66,16 @@ inductive Term where
   deriving DecidableEq, Repr
 
 local infixl:70 " @@ " => Term.app
+
+/-- Normalize identity wrappers captured by call-by-name self application.
+The Y operator and all source-carrying payloads remain in the term. -/
+def stripIdentities : Term → Term
+  | .app f x => if f = .i then stripIdentities x else stripIdentities f @@ stripIdentities x
+  | t => t
+
+def sourceSelectBody (self : Term) (N : Nat) (state : SourceBoundSelection.State N) : Term :=
+  if SourceBoundSelection.finished state then .selectionState N state
+  else stripIdentities self @@ .selectionState N (SourceBoundSelection.step state)
 
 /-- The certified Y continuation acts on the entire correlated source carrier. -/
 def sourceSplitBody (self : Term) (N : Nat) (state : SourceBoundSplit.State N) : Term :=
@@ -133,6 +146,8 @@ def divisorsScanBody (N : Nat) (contradictory : Bool) (k : Nat)
 
 /-- Combinator contraction and reduction inside either application arm. -/
 inductive Step : Term → Term → Prop where
+  | sourceSelect (self N state) :
+      Step (.sourceSelect @@ self @@ .selectionState N state) (sourceSelectBody self N state)
   | sourceSplit (self N state) :
       Step (.sourceSplit @@ self @@ .sourceState N state) (sourceSplitBody self N state)
   | multiplicativeSplit (N self modulus family) :
@@ -200,6 +215,18 @@ theorem Steps.right (f) {a b} (h : Steps a b) : Steps (f @@ a) (f @@ b) :=
   | .refl _ => .refl _
   | .cons step tail => .cons (.right f step) (tail.right f)
 
+/-- Captured-self normalization consists only of valid identity contractions
+and reductions under application. It introduces no new arithmetic rule. -/
+theorem stripIdentities_reduces (t : Term) : Steps t (stripIdentities t) := by
+  induction t with
+  | app f x ihf ihx =>
+    change Steps (f @@ x) (if f = .i then stripIdentities x else stripIdentities f @@ stripIdentities x)
+    split_ifs with h
+    · subst f
+      exact (Steps.single (Step.identity x)).trans ihx
+    · exact (ihf.left x).trans (Steps.right _ ihx)
+  | _ => exact .refl _
+
 /-- Substitution into combinatory syntax has no binders to capture variables. -/
 def subst (target : Nat) (replacement : Term) : Term → Term
   | .var name => if name = target then replacement else .var name
@@ -226,6 +253,8 @@ theorem abstract_apply (target : Nat) (argument body : Term) :
       exact (Steps.single (Step.substitution _ _ argument)).trans
         ((ihf.left _).trans (Steps.right _ ihx))
   | sourceSplit => exact Steps.single (Step.constant .sourceSplit argument)
+  | sourceSelect => exact Steps.single (Step.constant .sourceSelect argument)
+  | selectionState n state => exact Steps.single (Step.constant (.selectionState n state) argument)
   | sourceState n state => exact Steps.single (Step.constant (.sourceState n state) argument)
   | multiplicativeSplit n => exact Steps.single (Step.constant (.multiplicativeSplit n) argument)
   | productFamily modulus family => exact Steps.single (Step.constant (.productFamily modulus family) argument)
@@ -336,6 +365,8 @@ theorem seededOperator_apply (seed x : Lean.Sixteen3) :
 
 /-- Every returned contraction carries its reduction proof. -/
 def rootStep : (t : Term) → Option {u : Term // Step t u}
+  | .app (.app .sourceSelect self) (.selectionState N state) =>
+      some ⟨sourceSelectBody self N state, .sourceSelect self N state⟩
   | .app (.app .sourceSplit self) (.sourceState N state) =>
       some ⟨sourceSplitBody self N state, .sourceSplit self N state⟩
   | .app (.app (.multiplicativeSplit N) self) (.productFamily modulus family) =>

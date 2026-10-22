@@ -1,4 +1,5 @@
 import Imscribing.Paraconsistent.CombinatoryDynamics
+import Mathlib.Tactic.Ring
 
 namespace Imscribing.Paraconsistent.DialecticResident
 open CombinatoryReentry CombinatoryDynamics Temporal.Semantics
@@ -106,6 +107,12 @@ theorem residual_retreat (a n residual : Nat) (ha : 1 ≤ a)
   have hstep : a - 1 + 1 = a := by omega
   rw [hstep] at hnext
   omega
+
+/-- The retained factor supports and the weighted square frame are coordinates
+    of the same product relation. Both exchanged orientations use this identity. -/
+theorem weighted_factor_frame (k p q : Int) :
+    (k * p + q) ^ 2 - 4 * k * (p * q) = (k * p - q) ^ 2 := by
+  ring
 
 /-- Resident payloads are parameters to the existing certified Y equation. -/
 theorem resident_unfold (operator payload : Term) :

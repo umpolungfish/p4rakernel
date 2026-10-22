@@ -837,4 +837,4 @@ root = "LeanOnlyMembraneMain"
 
 [[lean_lib]]
 name = "LeanOnlyMembrane"
-roots = ["Imscribing.Paraconsistent.LeanOnlyMembrane", "Imscribing.Paraconsistent.MultiplicativeReentry", "Imscribing.Paraconsistent.SourceBoundSplit"]
+roots = ["Imscribing.Paraconsistent.LeanOnlyMembrane", "Imscribing.Paraconsistent.MultiplicativeReentry", "Imscribing.Paraconsistent.SourceBoundSplit", "Imscribing.Paraconsistent.SourceBoundSplitLaws", "Imscribing.Paraconsistent.SourceBoundSelection", "Imscribing.Paraconsistent.CongruenceSelection"]

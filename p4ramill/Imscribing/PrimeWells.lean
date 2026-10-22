@@ -3,9 +3,10 @@ import Mathlib
 /-!
 # Prime wells: prime-exponent coordinates as the primary arithmetic space
 
-Target: Lean 4 + Mathlib. This is a source draft, not a compiled certificate.
 `WellAddress` stores finitely many positive prime exponents. The restriction
 is enforced by a subtype, not by a comment about arbitrary natural bases.
+Executable entrance search retains its source exclusions through Y. The
+total coordinate equivalence and its evaluation laws are separate definitions.
 -/
 
 namespace PrimeWells
@@ -60,6 +61,78 @@ theorem origin_depth : depth origin = 0 := by simp [depth, origin]
 
 theorem origin_value : value origin = 1 := by simp [value, origin]
 
+/-- The source-only inverse supplied by the prime-coordinate equivalence.
+Its executable arithmetic is `Nat.factorization`; evaluating this definition
+includes the work of discovering the occupied prime labels. -/
+def ofPositive (n : ℕ+) : WellAddress := Nat.factorizationEquiv n
+
+theorem value_ofPositive (n : ℕ+) : value (ofPositive n) = n.val :=
+  Nat.factorization_prod_pow_eq_self (ne_of_gt n.property)
+
+/-- An executable finite-support reading of the actual address. -/
+def coordinates (w : WellAddress) : List (ℕ × ℕ) :=
+  (w.val.support.sort (· ≤ ·)).map fun p => (p,w.val p)
+
+theorem address_unique (w : WellAddress) : (value w).factorization = w.val :=
+  Nat.prod_pow_factorization_eq_self w.property
+
+theorem value_injective : Function.Injective value := by
+  intro w v h
+  apply Subtype.ext
+  rw [←address_unique w, ←address_unique v, h]
+
+/-- Executable representation of the canonical exponent-one entrance. -/
+def enter (p : ℕ) (hp : Nat.Prime p) : WellAddress :=
+  ⟨{support:={p}, toFun:=fun q => if q=p then 1 else 0,
+    mem_support_toFun:=by intro q; simp}, by
+    intro q hq
+    have h : q=p := by simpa using hq
+    simpa [h] using hp⟩
+
+theorem enter_eq_mouth (p : ℕ) (hp : Nat.Prime p) : enter p hp = mouth p hp := by
+  apply Subtype.ext
+  ext q
+  simp [enter, mouth, Finsupp.single_apply, eq_comm]
+
+theorem value_enter (p : ℕ) (hp : Nat.Prime p) : value (enter p hp) = p := by
+  simp [value, enter, Finsupp.prod]
+
+theorem depth_enter (p : ℕ) (hp : Nat.Prime p) : depth (enter p hp) = 1 := by
+  simp [depth, enter, Finsupp.sum]
+
+theorem enter_eq_descend_origin (p : ℕ) (hp : Nat.Prime p) :
+    enter p hp = descend p hp origin := by
+  apply Subtype.ext
+  ext q
+  simp [enter, descend, origin, Finsupp.add_apply, Finsupp.single_apply, eq_comm]
+
+/-- An unresolved entrance search carries its exclusion evidence. Every
+candidate smaller than the current one was tested against this same source. -/
+structure Search (N : ℕ) where
+  candidate : ℕ
+  lower : 2 ≤ candidate
+  excluded : ∀ k, 2 ≤ k → k < candidate → ¬k ∣ N
+  deriving DecidableEq
+
+def startSearch (N : ℕ) : Search N := ⟨2,by omega,by intros; omega⟩
+
+inductive SearchReturn (N : ℕ) where
+  | held : Search N → SearchReturn N
+  | entered : (p : ℕ) → (hp : Nat.Prime p) → p ∣ N → SearchReturn N
+
+/-- One source-bound operation. The surrounding Y owns the continuation. -/
+def searchStep {N : ℕ} (s : Search N) : SearchReturn N :=
+  if divides : s.candidate ∣ N then
+    .entered s.candidate
+      (Nat.prime_def_lt'.mpr ⟨s.lower, fun k hk hlt hdiv =>
+        s.excluded k hk hlt (dvd_trans hdiv divides)⟩) divides
+  else
+    .held ⟨s.candidate+1,by have := s.lower; omega,by
+      intro k hk hlt hdiv
+      by_cases same : k=s.candidate
+      · exact divides (same ▸ hdiv)
+      · exact s.excluded k hk (by omega) hdiv⟩
+
 /-!
 Proof obligations for the full module, deliberately NOT asserted as theorems
 until compiled and checked against the actual Mathlib version:
@@ -68,12 +141,14 @@ until compiled and checked against the actual Mathlib version:
 * depth (mouth p hp) = 1
 * value (descend p hp w) = p * value w
 * depth (descend p hp w) = depth w + 1
-* unique address for each n > 0 via `Nat.factorization n`
 * (arithmeticAtom w ∧ binaryAtom w) ↔ value w = 2
 * depth (p-well k) = k; value (p-well k) = p^k
 * binaryCount of the 2-well is 1 at each positive depth
 
 These are implementation targets, not assumed axioms or `sorry` proofs.
+The positive-integer inverse, uniqueness, and executable entrance evaluation
+and depth are proved above. `enter_eq_descend_origin` identifies the native
+entrance with the canonical well descent from the shared origin.
 -/
 
 end PrimeWells

@@ -90,33 +90,137 @@ def sourceProtocol (N : Nat) : IO Unit := do
       throw (IO.userError "nested bank did not carry the reversal")
     IO.println s!"source={N} artifact={artifactId} word={word}"
     IO.println s!"source_bank_return=true native_inputs={state.nodeInputs} Y_reduction_witness=true"
-    IO.println s!"closed=true charts={state.joint.length} banks={state.banks.length} clears={state.clears} phase_class={observation.phaseClass}"
+    unless state.joint.all (fun c => c.zeroOnly) do
+      throw (IO.userError "fixed residual observation was not retained through fusion")
+    IO.println s!"graph_returned=true factor_status=held_zero_fibre charts={state.joint.length} banks={state.banks.length} clears={state.clears} phase_class={observation.phaseClass}"
     let some t := state.truth.head? | throw (IO.userError "truth arm missing")
     let some f := state.falsity.head? | throw (IO.userError "falsity arm missing")
     IO.println s!"T_coefficients={t.residual.c0.val},{t.residual.c1.val},{t.residual.c2.val}"
     IO.println s!"F_coefficients={f.residual.c0.val},{f.residual.c1.val},{f.residual.c2.val} F_parity=true"
     let e : ZMod source := 2
     let r := h e
-    IO.println s!"T_physical_amplitudes={(List.range 4).map (amplitudeAt state.joint e r)}"
-    IO.println s!"F_physical_amplitudes={(List.range 4).map (amplitudeAt state.joint e (-r))}"
+    unless (List.range 4).all (fun i => amplitudeAt state.joint e r i == 0) do
+      throw (IO.userError "fixed zero fibre retained a nonzero residual")
+    unless (List.range 4).any (fun i => amplitudeAt state.original e 0 i != 0) do
+      throw (IO.userError "zero-fibre fixation destroyed the original source bank")
+    unless (readDivisorAt state e).isNone do
+      throw (IO.userError "non-idempotent point crossed the factor boundary")
+    IO.println s!"T_physical_amplitudes={repr ((List.range 4).map (amplitudeAt state.joint e r))}"
+    IO.println s!"F_physical_amplitudes={repr ((List.range 4).map (amplitudeAt state.joint e (-r)))}"
     IO.println s!"phase_cycle_return={observation.phaseCycle.head? == observation.phaseCycle.getLast?} fixed_observation_retained=true"
+    IO.println "zero_residual_projection=true original_source_preserved=true selected_nontrivial_point=none"
     IO.println s!"trigger_to_return_ns={(←IO.monoNanosNow)-started}"
   | _ => throw (IO.userError "Y did not return its source-bound carrier")
 
+structure SelectionExecution (initial : Term) where
+  continuation : Term
+  reduced : Steps initial continuation
+  budget : Nat
+
+instance (initial : Term) : Nonempty (SelectionExecution initial) :=
+  ⟨⟨initial,.refl initial,0⟩⟩
+
+partial def selectUntil {initial : Term} (deadline : Nat)
+    (execution : SelectionExecution initial) : IO (SelectionExecution initial) := do
+  match execution.continuation with
+  | .selectionState _ _ => return execution
+  | _ =>
+    if (← IO.monoNanosNow) ≥ deadline then return execution
+    selectUntil deadline
+      ⟨run 256 execution.continuation,
+       execution.reduced.trans (run_reduces 256 execution.continuation),
+       execution.budget+256⟩
+
+def selectionPayload : Term → Option ((N : Nat) × Imscribing.Paraconsistent.SourceBoundSelection.State N)
+  | .selectionState n s => some ⟨n,s⟩
+  | .app f x => (selectionPayload x).orElse (fun _ => selectionPayload f)
+  | _ => none
+
+open Imscribing.Paraconsistent.SourceBoundSelection in
+def selectionProtocol (N seconds : Nat) (usePrimeWell : Bool := true)
+    (useCongruence : Bool := false) : IO Unit := do
+  unless N ≥ 2^199 do throw (IO.userError "source requires at least 200 bits")
+  let started ← IO.monoNanosNow
+  let sourceReturn := run 4096 (sourceProgram N)
+  let .sourceState source carrier := sourceReturn |
+    throw (IO.userError "source graph did not return its carrier")
+  unless source == N && carrier.failure.isNone && carrier.fused do
+    throw (IO.userError "source preparation failed")
+  let prepared := Imscribing.Paraconsistent.SourceBoundSelection.prepare carrier usePrimeWell useCongruence
+  if useCongruence then
+    unless prepared.congruence.base.size > 0 do
+      throw (IO.userError "congruence preparation produced an empty factor base")
+  let program := Term.app (Term.app Y .sourceSelect) (.selectionState source prepared)
+  let ready ← IO.monoNanosNow
+  let execution ← selectUntil (ready+seconds*1000000000)
+    (⟨program,.refl program,0⟩ : SelectionExecution program)
+  let returned := execution.continuation
+  let readout ← IO.monoNanosNow
+  let some ⟨returnedSource,state⟩ := selectionPayload returned |
+    throw (IO.userError "selection lost its retained state")
+  unless returnedSource == N && binEval state.carrier.sourceWell == N do
+    throw (IO.userError "selection source boundary changed")
+  if let some failure := state.failure then throw (IO.userError failure)
+  IO.println s!"source={N} selection_artifact={artifactId} word={word}"
+  IO.println s!"Y_reduction_witness=true reducer_budget={execution.budget}"
+  IO.println s!"selection_pc={state.pc} attempts={state.attempts} next_residual_multiple={state.cursor} selected={state.selected}"
+  IO.println s!"source_banks={state.carrier.banks.length} phase_observation_retained={state.carrier.observation.isSome} numerical_point_banks={state.pointBanks}"
+  if state.useCongruence then
+    let c := state.congruence
+    IO.println s!"producer=lean-congruence-squares base_size={c.base.size} sieved_positions={c.positions} smooth_relations={c.relations} paired_relations={c.paired} dependencies={c.dependencies} eliminations={c.eliminations} prime_index={c.primeIndex} square_witness={c.witness}"
+  if let some address := state.primeWell then
+    unless PrimeWells.value address*state.wellRemainder == N do
+      throw (IO.userError "partial Prime Well source product changed")
+    IO.println s!"prime_well_coordinates={PrimeWells.coordinates address} prime_well_depth={PrimeWells.depth address} prime_well_value={PrimeWells.value address} unresolved_remainder={state.wellRemainder} next_prime_candidate={state.primeSearch.candidate}"
+  unless state.phaseCuts == cutLandings do throw (IO.userError "selection lost its cut labels")
+  IO.println s!"cycle_cut_landings={state.phaseCuts} native_graph_inputs={state.nodeInputs}"
+  if state.fixed && state.pc == ops.size then
+    unless state.nodeInputs == expectedInputs do throw (IO.userError "selection native flow mismatch")
+    let some d := state.truthFactor | throw (IO.userError "terminal divisor missing")
+    let some q := state.truthQuotient | throw (IO.userError "terminal quotient missing")
+    unless 1 < d && d < N && N%d == 0 && d*q == N && primeEval [d,q] == N do
+      throw (IO.userError "exact terminal product failed")
+    let verified ← IO.monoNanosNow
+    IO.println s!"factor={d} quotient={q} remainder={N%d} product={d*q} paired_boundary=true prime_well_product=true"
+    IO.println s!"trigger_to_verified_factor_ns={verified-ready}"
+  else
+    IO.println "factor_status=held_selection continuation_retained=true"
+  IO.println s!"preparation_ns={ready-started} trigger_to_readout_ns={readout-ready}"
+
 def main (args : List String) : IO Unit := do
   match args with
-  | [] => sourceProtocol lockedSource
+  | [] => selectionProtocol lockedSource 300 false true
+  | ["congruence", seconds] =>
+    match seconds.toNat? with
+    | some bound => selectionProtocol lockedSource bound false true
+    | none => throw (IO.userError "invalid congruence boundary")
+  | ["congruence", source, seconds] =>
+    match source.toNat?, seconds.toNat? with
+    | some n, some bound => selectionProtocol n bound false true
+    | _, _ => throw (IO.userError "invalid congruence source or boundary")
+  | ["select", seconds] =>
+    match seconds.toNat? with
+    | some bound => selectionProtocol lockedSource bound false
+    | none => throw (IO.userError "invalid selection boundary")
+  | ["select", source, seconds] =>
+    match source.toNat?, seconds.toNat? with
+    | some n, some bound => selectionProtocol n bound false
+    | _, _ => throw (IO.userError "invalid source or selection boundary")
   | ["source-split"] => sourceProtocol lockedSource
   | ["source-split", source] =>
     match source.toNat? with
     | some n => sourceProtocol n
     | none => throw (IO.userError "invalid source")
-  | ["prime-well"] => primeWell lockedSource
+  | ["prime-well"] => selectionProtocol lockedSource 300
+  | ["prime-well", source, seconds] =>
+    match source.toNat?, seconds.toNat? with
+    | some n, some bound => selectionProtocol n bound
+    | _, _ => throw (IO.userError "invalid Prime Well source or execution boundary")
   | ["prime-well-control", source] =>
     match source.toNat? with
     | some n =>
       unless n ≥ 2^199 do throw (IO.userError "control requires at least 200 bits")
-      primeWell n
+      selectionProtocol n 300
     | none => throw (IO.userError "invalid source")
   | ["source-bounded", source, seconds] =>
     match source.toNat?, seconds.toNat? with
@@ -143,4 +247,4 @@ def main (args : List String) : IO Unit := do
       IO.println "same_state_resume=true"
       execute n (steps+steps)
     | _, _ => throw (IO.userError "invalid source or contraction budget")
-  | _ => throw (IO.userError "usage: lean_only_membrane FUEL | bounded SECONDS | control N FUEL | prime-well | prime-well-control N")
+  | _ => throw (IO.userError "usage: lean_only_membrane congruence [N] SECONDS | prime-well [N SECONDS] | select [N] SECONDS | source-split [N] | bounded SECONDS | control N FUEL")
