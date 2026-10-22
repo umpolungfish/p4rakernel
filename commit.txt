@@ -1,13 +1,3 @@
-I connect my Lean Curry Y to arbitrary-precision paired-square and resident multiplier factor construction.
+I restore conventional statement catalog compatibility
 
-I retain the binary source bank and proof-carrying continuation, use the existing square-support implementation, and check the returned source/residual equations. I preserve the original scan, square-frontier and multiplier executables and receipts. The exact source remains unresolved after the 300-second frontier and 600-second multiplier runs. The binary-well-to-factor-producing split remains unimplemented.
-
-I connect the binary-well return to the existing minimum-prime-coordinate operation through the actual Y resident call. I retain its exact source checks and proper-divisor/product boundary. The direct exact-source call reached 300 seconds without returning; the separately authorized 600-second rerun preserves that method and source.
-
-I record the paused rerun and add a zero-reduction Lean readback of the actual carrier declaration and prepared search operator for Grammar-guided debugging.
-
-I replace the default resident search dispatch with a Lean powerset relation of paired multiplicative prefixes. I retain the same source and certified Y continuation through binary re-entry, prove the actual unit/bind laws and the disjoint-union implementation equality, and accept only an exact proper source product at readout. I preserve the earlier runs separately and retain the integrated hard-source execution receipts.
-
-I debug my compiled Lean ELF with Vox register sampling, fuse the mapped split/flatten and readout traversals with proved equality, and specialize the two-leaf well product through a proved compiler simplification before its callers. I retain before/after ELF bindings and actual hard-source runs. The fixed-budget relation returns unchanged; factors remain unresolved.
-
-I retain the full-bound locked-source run: the rebuilt ELF exhausts its 8-GiB allocation boundary after 226.195 seconds without a divisor. I distinguish this failure from a timed-out run.
+I read the configured main catalog and accept both wrapped imscriptions and flat lists. I verify the polymer and Hodge statements against the main catalog and retain flat-format compatibility.

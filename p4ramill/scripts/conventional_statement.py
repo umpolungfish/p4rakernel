@@ -35,7 +35,7 @@ PRIMITIVES = os.path.join(P4RAMILL, "Imscribing", "Primitives")
 TYPES = os.path.join(PRIMITIVES, "Types")
 GRAMMAR = os.path.expanduser("~/imsgct/imscribing_grammar")
 MOMONADOS = os.path.expanduser("~/imsgct/mOMonadOS")
-CATALOG = os.path.join(GRAMMAR, "IG_catalog.json")
+CATALOG = os.path.expanduser(os.environ.get("IG_CATALOG", "~/.imscrbgrmr/catalog.json"))
 
 MARKS = ["⊢", "⊣", "≻", "≺", "⋈", "⊤", "∈", "∋", "⊙", "⊥", "⊞", "⊡"]
 
@@ -109,7 +109,10 @@ def load_records() -> dict[tuple[str, str], dict]:
 
 
 def load_catalog() -> dict[str, dict]:
-    return {e["name"]: e for e in json.load(io.open(CATALOG, encoding="utf-8"))}
+    with io.open(CATALOG, encoding="utf-8") as stream:
+        raw = json.load(stream)
+    entries = raw.get("imscriptions", []) if isinstance(raw, dict) else raw
+    return {entry["name"]: entry for entry in entries if isinstance(entry, dict) and "name" in entry}
 
 
 def kernel(cmds: list[str], timeout: int = 900) -> str:
