@@ -62,6 +62,83 @@ theorem uniform_square (n : Nat) :
   ext i j
   simp [uniformMatrix, Matrix.mul_apply, Matrix.smul_apply]
 
+private theorem uniform_affine_product (n : Nat) (a b c e : ℂ) :
+    (a • (1 : Matrix (Fin n) (Fin n) ℂ) + b • uniformMatrix n) *
+      (c • (1 : Matrix (Fin n) (Fin n) ℂ) + e • uniformMatrix n) =
+    (a * c) • (1 : Matrix (Fin n) (Fin n) ℂ) +
+      (a * e + b * c + b * e * (n : ℂ)) • uniformMatrix n := by
+  simp only [add_mul, mul_add, Matrix.smul_mul, Matrix.mul_smul, smul_smul,
+    Matrix.one_mul, Matrix.mul_one, uniform_square]
+  module
+
+noncomputable def sicGramGeneral (d : ℕ+) :
+    Matrix (Fin ((d : ℕ) ^ 2)) (Fin ((d : ℕ) ^ 2)) ℂ :=
+  (((d : ℕ) : ℂ) / (((d : ℕ) : ℂ) + 1)) • 1 +
+    (1 / (((d : ℕ) : ℂ) + 1)) • uniformMatrix ((d : ℕ) ^ 2)
+
+noncomputable def sicDualGeneral (d : ℕ+) :
+    Matrix (Fin ((d : ℕ) ^ 2)) (Fin ((d : ℕ) ^ 2)) ℂ :=
+  (1 - 12 / ((d : ℕ) : ℂ) * riemannZeta (-1)) • 1 +
+    (12 / (((d : ℕ) : ℂ) ^ 2) * riemannZeta (-1)) •
+      uniformMatrix ((d : ℕ) ^ 2)
+
+/-- The zeta-derived dual inverts the isotropic SIC Gram matrix in every
+positive dimension. Its two inverse identities are the rank-one cancellation
+using the exact `d^2` all-ones eigenvalue. -/
+theorem sic_inverse_general (d : ℕ+) :
+    sicDualGeneral d * sicGramGeneral d = 1 ∧
+    sicGramGeneral d * sicDualGeneral d = 1 := by
+  let D : ℂ := (d : ℕ)
+  let n : ℕ := (d : ℕ) ^ 2
+  have hD : D ≠ 0 := by
+    dsimp [D]
+    exact_mod_cast d.ne_zero
+  have hD1 : D + 1 ≠ 0 := by
+    have hnat : ((d : ℕ) + 1 : ℕ) ≠ 0 := by omega
+    change ((d : ℕ) : ℂ) + 1 ≠ 0
+    exact_mod_cast hnat
+  have hn : (n : ℂ) = D ^ 2 := by
+    simp [n, D, Nat.cast_pow]
+  let a : ℂ := 1 - 12 / D * riemannZeta (-1)
+  let b : ℂ := 12 / D ^ 2 * riemannZeta (-1)
+  let c : ℂ := D / (D + 1)
+  let e : ℂ := 1 / (D + 1)
+  have ha : a = (D + 1) / D := by
+    dsimp [a]
+    rw [zeta_neg_one]
+    field_simp [hD]
+    <;> ring
+  have hb : b = -(1 / D ^ 2) := by
+    dsimp [b]
+    rw [zeta_neg_one]
+    ring
+  have hdiag : a * c = 1 := by rw [ha]; dsimp [c]; field_simp [hD, hD1]
+  have hoff : a * e + b * c + b * e * (n : ℂ) = 0 := by
+    rw [ha, hb, hn]
+    dsimp [c, e]
+    field_simp [hD, hD1]
+    <;> ring
+  have hleft :
+      (a • (1 : Matrix (Fin n) (Fin n) ℂ) + b • uniformMatrix n) *
+        (c • (1 : Matrix (Fin n) (Fin n) ℂ) + e • uniformMatrix n) = 1 := by
+    rw [uniform_affine_product]
+    rw [hdiag, hoff]
+    simp
+  have hdiag' : c * a = 1 := by simpa [mul_comm] using hdiag
+  have hoff' : c * b + e * a + e * b * (n : ℂ) = 0 := by
+    calc
+      c * b + e * a + e * b * (n : ℂ) = a * e + b * c + b * e * (n : ℂ) := by ring
+      _ = 0 := hoff
+  have hright :
+      (c • (1 : Matrix (Fin n) (Fin n) ℂ) + e • uniformMatrix n) *
+        (a • (1 : Matrix (Fin n) (Fin n) ℂ) + b • uniformMatrix n) = 1 := by
+    rw [uniform_affine_product]
+    rw [hdiag', hoff']
+    simp
+  constructor
+  · simpa [sicDualGeneral, sicGramGeneral, D, n, a, b, c, e] using hleft
+  · simpa [sicDualGeneral, sicGramGeneral, D, n, a, b, c, e] using hright
+
 /-- A dimension-four SIC has sixteen projector coordinates. -/
 noncomputable def ququartGram : Matrix (Fin 16) (Fin 16) ℂ :=
   (4 / 5 : ℂ) • 1 + (1 / 5 : ℂ) • uniformMatrix 16

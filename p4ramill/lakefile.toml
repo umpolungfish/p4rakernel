@@ -578,7 +578,8 @@ globs = [
   "Imscribing.Paraconsistent.PrimaLogicaFragments",
   "Imscribing.Paraconsistent.PrimaLogicaWinding",
   "Imscribing.Paraconsistent.PrimaLogicaWork",
-
+  "Imscribing.Paraconsistent.SICInverse",
+  
   "Imscribing.Paraconsistent.GeneralRelativity",
   "Imscribing.Paraconsistent.GravitationalWaves",
   "Imscribing.Paraconsistent.BlackHoleBelnap",
@@ -790,7 +791,7 @@ globs = [
   "Imscribing.Millennium.ProofModules.HypergraphRamsey",
   "Imscribing.Millennium.ProofModules.LCMSieve",
   "Imscribing.Millennium.ProofModules.VerifiedConjectures",
-  
+
   "Imscribing.MillenniumParaconsistent.ParaconsistentBSD",
   "Imscribing.MillenniumParaconsistent.ParaconsistentHodge",
   "Imscribing.MillenniumParaconsistent.ParaconsistentMaster",
