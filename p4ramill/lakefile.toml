@@ -64,6 +64,7 @@ globs = [
   "Imscribing.BCReentryBounded",
   "Imscribing.BCReentryNativeAdapter",
   "Imscribing.ReEntryConstructionsMinimal",
+  "Imscribing.OntologicalDerivation",
 
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
@@ -556,14 +557,15 @@ globs = [
   "Imscribing.PhilosophicalSystem",
   "Imscribing.ObjWitnessVessel",
   "Imscribing.ObjWitnessCosmos",
-"Imscribing.HowNaturalNumbersArise",
-"Imscribing.HowInductionArise",
-"Imscribing.HowProbabilityArise",
-"Imscribing.HowHilbertQMArise",
-"Imscribing.HowDiracEquationArise",
-"Imscribing.OddRingIndex",
-"Imscribing.ParityIndex",
+  "Imscribing.HowNaturalNumbersArise",
+  "Imscribing.HowInductionArise",
+  "Imscribing.HowProbabilityArise",
+  "Imscribing.HowHilbertQMArise",
+  "Imscribing.HowDiracEquationArise",
+  "Imscribing.OddRingIndex",
+  "Imscribing.ParityIndex",
   "Imscribing.Tier2.CLU_GPM",
+  "Imscribing.ABCNSReentry",
 
   "Imscribing.Paraconsistent.FDEAsymptotic",
   "Imscribing.Paraconsistent.QCDColorFrustration",
@@ -579,7 +581,7 @@ globs = [
   "Imscribing.Paraconsistent.PrimaLogicaWinding",
   "Imscribing.Paraconsistent.PrimaLogicaWork",
   "Imscribing.Paraconsistent.SICInverse",
-  
+
   "Imscribing.Paraconsistent.GeneralRelativity",
   "Imscribing.Paraconsistent.GravitationalWaves",
   "Imscribing.Paraconsistent.BlackHoleBelnap",
@@ -801,7 +803,7 @@ globs = [
   "Imscribing.MillenniumParaconsistent.ParaconsistentRH",
   "Imscribing.MillenniumParaconsistent.ParaconsistentYM",
 
-
+  "Imscribing.Cryptography.OuroboricKeyExchange",
 
   # The proof lifter. One copy, in the library, so the sweep files import it
   # instead of restating it — every restatement of it was a generation behind.

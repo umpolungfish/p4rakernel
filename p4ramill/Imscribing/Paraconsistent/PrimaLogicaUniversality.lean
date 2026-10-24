@@ -3,23 +3,9 @@ import Imscribing.Paraconsistent.CombinatoryReentry
 
 /-!
 # Prima Logica: native carrier and represented logical fragments
-
-Revision grounded in p4rakernel's actual SIXTEEN_3 kernel carrier,
-FDE.liftNegation, FDE.singleton, and certified combinatory language.
-
-The proven claims below are: (1) SIXTEEN_3 is the sixteen-element powerset
-of the FOUR evidence alphabet; (2) negation preserves the singleton embedding;
-(3) a Boolean centre can be represented using singleton T/F; and (4) the
-combinatory reduction language can execute its native negation and lattice
-connectives with explicit proofs of reduction.
-
-The separate arbitrary-carrier representation in the earlier module transports
-connectives and is NOT a native-term universality theorem. In particular,
-this file does not assert that every possible logic is definable from the
-kernel's existing primitives. Requires the repository's forked Lean.
 -/
 
-namespace Imscribing.PrimaLogica.UniversalityRevised
+namespace Imscribing.PrimaLogica.Universality
 
 open Lean
 open Imscribing.Paraconsistent.Temporal.Semantics
@@ -83,4 +69,4 @@ theorem unifiedB_absorbs_i (x : Sixteen3) :
   rcases x with ⟨n,t,f,b⟩
   cases n <;> cases t <;> cases f <;> cases b <;> rfl
 
-end Imscribing.PrimaLogica.UniversalityRevised
+end Imscribing.PrimaLogica.Universality
