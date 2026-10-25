@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_fee_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_fee_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_fee_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_fee_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "AREV", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_fee_domainActions : List String := ["initialize the system in a state of zero temporal bias", "identify the current moment as the sole operational frame", "branch the current state into potential forward and backward morphisms", "validate the forward morphism as a memoryless transition", "execute the forward step", "execute the backward step on the opposing branch", "check for the presence of temporal memory or chirality", "fuse the branches to confirm the identity of the forward and backward paths", "compose the result into a continuous but memoryless sequence", "hold the forward and backward vectors in a state of simultaneous indifference", "record the successful erasure of temporal history to maintain the fee state", "close the system within the achiral boundary"]
+def the_primitive_type_called_fee_forkFusePairs : List (Nat × Nat) := [(2, 7)]
+def the_primitive_type_called_fee_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_fee_opcodes
+
+theorem the_primitive_type_called_fee_program_length :
+    the_primitive_type_called_fee_opcodes.length = the_primitive_type_called_fee_bootstrapSteps := by decide
+theorem the_primitive_type_called_fee_actions_cover_program :
+    the_primitive_type_called_fee_domainActions.length = the_primitive_type_called_fee_opcodes.length := by decide
+theorem the_primitive_type_called_fee_program_uses_native_opcodes :
+    (the_primitive_type_called_fee_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_fee_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_fee_forkFusePairs.all fun p =>
+      (the_primitive_type_called_fee_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_fee_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

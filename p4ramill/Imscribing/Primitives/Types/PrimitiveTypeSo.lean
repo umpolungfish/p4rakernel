@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -152,5 +153,22 @@ def the_primitive_type_called_so_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_so_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_so_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_so_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "AREV", "EVALT", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_so_domainActions : List String := ["initialize the stoichiometric register for the S-primitive", "identify the interaction as a self-consistent computational unit", "branch the interaction into parallel input and output channel sets", "verify that the cardinality of the input set equals n", "map the input set to the output set through the stoichiometric operator", "verify the return path from the output set back to the input set", "confirm the cardinality of the output set also equals n", "reconstitute the parallel channels into a single matched many-to-many relation", "compose the matched relation with the 'so' constructor in the S-type", "fix the 'so' value in the crystal arithmetic record", "close the stoichiometry definition for this instance"]
+def the_primitive_type_called_so_forkFusePairs : List (Nat × Nat) := [(2, 7)]
+def the_primitive_type_called_so_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_so_opcodes
+
+theorem the_primitive_type_called_so_program_length :
+    the_primitive_type_called_so_opcodes.length = the_primitive_type_called_so_bootstrapSteps := by decide
+theorem the_primitive_type_called_so_actions_cover_program :
+    the_primitive_type_called_so_domainActions.length = the_primitive_type_called_so_opcodes.length := by decide
+theorem the_primitive_type_called_so_program_uses_native_opcodes :
+    (the_primitive_type_called_so_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_so_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_so_forkFusePairs.all fun p =>
+      (the_primitive_type_called_so_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_so_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

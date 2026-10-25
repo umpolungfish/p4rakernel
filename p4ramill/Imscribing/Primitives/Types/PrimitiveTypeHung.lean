@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -150,5 +151,22 @@ def the_primitive_type_called_hung_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_hung_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_hung_bootstrapSteps : Nat := 10
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_hung_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "EVALT", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_hung_domainActions : List String := ["initialize the stoichiometric environment for the hung primitive", "identify the base unit of the 1:1 relation", "project the unit toward its potential partner", "branch the relation to verify both the source and the target", "confirm the source is unique and available", "link the source to the target address", "confirm the target is unique and available", "fuse the verified source and target into a single stoichiometric bond", "record the 1:1 mapping permanently in the allocation table", "close the stoichiometric operation and seal the boundary"]
+def the_primitive_type_called_hung_forkFusePairs : List (Nat × Nat) := [(3, 7)]
+def the_primitive_type_called_hung_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_hung_opcodes
+
+theorem the_primitive_type_called_hung_program_length :
+    the_primitive_type_called_hung_opcodes.length = the_primitive_type_called_hung_bootstrapSteps := by decide
+theorem the_primitive_type_called_hung_actions_cover_program :
+    the_primitive_type_called_hung_domainActions.length = the_primitive_type_called_hung_opcodes.length := by decide
+theorem the_primitive_type_called_hung_program_uses_native_opcodes :
+    (the_primitive_type_called_hung_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_hung_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_hung_forkFusePairs.all fun p =>
+      (the_primitive_type_called_hung_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_hung_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

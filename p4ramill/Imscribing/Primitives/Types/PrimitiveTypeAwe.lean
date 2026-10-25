@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -152,5 +153,22 @@ def the_primitive_type_called_awe_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_awe_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_awe_bootstrapSteps : Nat := 10
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_awe_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_awe_domainActions : List String := ["initialize system with null topological constraints", "identify the system as a candidate for protection evaluation", "branch the system to evaluate for topological invariants", "identify potential integer winding or symmetry protection", "fail to find persistent chirality required for protection", "confirm the absence of any topological protection (awe)", "reconstitute the system state as a unified topological description", "compose the result with the protection primitive registry", "permanently record the protection level as awe in the type system", "close the evaluation within the awe boundary"]
+def the_primitive_type_called_awe_forkFusePairs : List (Nat × Nat) := [(2, 6)]
+def the_primitive_type_called_awe_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_awe_opcodes
+
+theorem the_primitive_type_called_awe_program_length :
+    the_primitive_type_called_awe_opcodes.length = the_primitive_type_called_awe_bootstrapSteps := by decide
+theorem the_primitive_type_called_awe_actions_cover_program :
+    the_primitive_type_called_awe_domainActions.length = the_primitive_type_called_awe_opcodes.length := by decide
+theorem the_primitive_type_called_awe_program_uses_native_opcodes :
+    (the_primitive_type_called_awe_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_awe_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_awe_forkFusePairs.all fun p =>
+      (the_primitive_type_called_awe_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_awe_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

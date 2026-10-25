@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -161,5 +162,22 @@ def the_primitive_type_called_yea_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_yea_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_yea_bootstrapSteps : Nat := 13
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_yea_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "FFUSE", "FSPLIT", "EVALF", "AREV", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_yea_domainActions : List String := ["initialize the kinetic state of the primitive", "identify the primitive as a candidate for the yea character", "branch the state to test for kinetic barriers", "confirm the absence of ordering traps (not 'on')", "propagate the state through the unconstrained lattice", "reunite the test branch with the primary kinetic identity", "branch the state to test for disorder traps", "reject the presence of many-body localization (not 'air')", "verify that the state can return from any local fluctuation", "reunite the second test branch to confirm total ergodicity", "compose the verified unconstrained movements into a diffusion profile", "record the 'yea' status in the permanent structural type of the crystal", "seal the kinetic character within the ergodic boundary"]
+def the_primitive_type_called_yea_forkFusePairs : List (Nat × Nat) := [(2, 5), (6, 9)]
+def the_primitive_type_called_yea_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_yea_opcodes
+
+theorem the_primitive_type_called_yea_program_length :
+    the_primitive_type_called_yea_opcodes.length = the_primitive_type_called_yea_bootstrapSteps := by decide
+theorem the_primitive_type_called_yea_actions_cover_program :
+    the_primitive_type_called_yea_domainActions.length = the_primitive_type_called_yea_opcodes.length := by decide
+theorem the_primitive_type_called_yea_program_uses_native_opcodes :
+    (the_primitive_type_called_yea_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_yea_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_yea_forkFusePairs.all fun p =>
+      (the_primitive_type_called_yea_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_yea_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

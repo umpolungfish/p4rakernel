@@ -53,6 +53,31 @@ def safe_name(name):
     return name.capitalize()
 
 
+def executable_declarations(lean_name, steps, pairs):
+    """Keep the original ordered construction executable in its Lean module."""
+    names = [step["opcode"] for step in steps]
+    actions = [step.get("domain_action", "") for step in steps]
+    encoded_pairs = "[" + ", ".join(f"({a}, {b})" for a, b in pairs) + "]"
+    dump = lambda value: json.dumps(value, ensure_ascii=False)
+    return f'''/-- Ordered executable construction retained alongside the typed protocol. -/
+def {lean_name}_opcodes : List String := {dump(names)}
+def {lean_name}_domainActions : List String := {dump(actions)}
+def {lean_name}_forkFusePairs : List (Nat × Nat) := {encoded_pairs}
+def {lean_name}_glyphWord : String := Imscribing.glyphWordOf {lean_name}_opcodes
+
+theorem {lean_name}_program_length :
+    {lean_name}_opcodes.length = {lean_name}_bootstrapSteps := by decide
+theorem {lean_name}_actions_cover_program :
+    {lean_name}_domainActions.length = {lean_name}_opcodes.length := by decide
+theorem {lean_name}_program_uses_native_opcodes :
+    ({lean_name}_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem {lean_name}_pairs_name_fork_and_fuse :
+    ({lean_name}_forkFusePairs.all fun p =>
+      ({lean_name}_opcodes[p.1]? == some "FSPLIT") &&
+      ({lean_name}_opcodes[p.2]? == some "FFUSE")) = true := by decide
+'''
+
+
 def process_json(json_path):
     with open(json_path) as f:
         d = json.load(f)
@@ -92,6 +117,7 @@ def process_json(json_path):
         "registers": registers,
         "scaffold": scaffold,
         "fingerprint": fingerprint,
+        "pairs": d.get("topology_report", {}).get("pair_list", []),
     }
 
 def generate_module(data):
@@ -123,6 +149,7 @@ def generate_module(data):
     lines.append(f"import Imscribing.Primitives.TierCrossing")
     lines.append(f"import Imscribing.IGMorphism")
     lines.append(f"import Imscribing.IGFunctor")
+    lines.append(f"import Imscribing.ConventionalRegister")
     lines.append(f"")
     lines.append(f"namespace Imscribing.Primitives.Types")
     lines.append(f"open Primitives")
@@ -251,6 +278,7 @@ def generate_module(data):
     lines.append(f"def {lean_name}_family : String := {json.dumps(family)}")
     lines.append(f"def {lean_name}_ordinal : Nat := {ordinal}")
     lines.append(f"def {lean_name}_bootstrapSteps : Nat := {len(data['steps'])}")
+    lines.append(executable_declarations(lean_name, data["steps"], data["pairs"]))
     lines.append(f"")
     lines.append(f"end Imscribing.Primitives.Types")
     lines.append(f"")

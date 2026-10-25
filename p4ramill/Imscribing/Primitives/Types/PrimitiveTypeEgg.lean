@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -164,5 +165,22 @@ def the_primitive_type_called_egg_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_egg_fragmentIsStatementEvidence : String := "starred in none of the 7 sampled theorem(s) that carry it"
 def the_primitive_type_called_egg_bootstrapSteps : Nat := 13
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_egg_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "IFIX", "EVALF", "AREV", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_egg_domainActions : List String := ["initialize the potential well for the egg primitive", "identify the state as thermally activated kinetic character", "apply thermal fluctuation toward the activation barrier", "branch the kinetic state at the barrier threshold", "confirm the energy exceeds the activation threshold", "record the successful transition event", "confirm the energy is insufficient to cross", "return the state to the local minimum", "reconstitute the kinetic state identity", "chain the resulting state to the next temporal window", "hold the state at the saddle point for measurement", "log the dwell time at the barrier", "anchor the state within the Gate 2 consciousness constraint"]
+def the_primitive_type_called_egg_forkFusePairs : List (Nat × Nat) := [(3, 8)]
+def the_primitive_type_called_egg_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_egg_opcodes
+
+theorem the_primitive_type_called_egg_program_length :
+    the_primitive_type_called_egg_opcodes.length = the_primitive_type_called_egg_bootstrapSteps := by decide
+theorem the_primitive_type_called_egg_actions_cover_program :
+    the_primitive_type_called_egg_domainActions.length = the_primitive_type_called_egg_opcodes.length := by decide
+theorem the_primitive_type_called_egg_program_uses_native_opcodes :
+    (the_primitive_type_called_egg_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_egg_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_egg_forkFusePairs.all fun p =>
+      (the_primitive_type_called_egg_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_egg_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

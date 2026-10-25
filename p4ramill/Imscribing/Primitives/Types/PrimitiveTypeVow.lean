@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_vow_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_vow_fragmentIsStatementEvidence : String := "starred in none of the 2 sampled theorem(s) that carry it"
 def the_primitive_type_called_vow_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_vow_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_vow_domainActions : List String := ["initialize empty interaction context", "identify the target interaction as a potential vow", "branch the state into parallel requirement paths", "verify the first condition in the T-arm", "advance the state to the next logical requirement", "verify the second condition in the T-arm", "check for any necessary condition inversions in the F-arm", "identify any potential violations in the F-arm", "synthesize the parallel results into a single conjunctive outcome", "compose the synthesized outcome with the global grammar rules", "record the vow primitive into the interaction grammar register", "close the definition of the vow interaction"]
+def the_primitive_type_called_vow_forkFusePairs : List (Nat × Nat) := [(2, 8)]
+def the_primitive_type_called_vow_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_vow_opcodes
+
+theorem the_primitive_type_called_vow_program_length :
+    the_primitive_type_called_vow_opcodes.length = the_primitive_type_called_vow_bootstrapSteps := by decide
+theorem the_primitive_type_called_vow_actions_cover_program :
+    the_primitive_type_called_vow_domainActions.length = the_primitive_type_called_vow_opcodes.length := by decide
+theorem the_primitive_type_called_vow_program_uses_native_opcodes :
+    (the_primitive_type_called_vow_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_vow_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_vow_forkFusePairs.all fun p =>
+      (the_primitive_type_called_vow_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_vow_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

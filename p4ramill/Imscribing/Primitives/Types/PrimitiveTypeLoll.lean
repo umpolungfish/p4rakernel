@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_loll_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_loll_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_loll_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_loll_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_loll_domainActions : List String := ["initialize potential energy surface", "identify the loll ordinal rank within F5", "apply thermal activation toward the moderate threshold", "bifurcate the flux at the activation barrier", "confirm the crossing of the moderate threshold", "chain the successful crossing to the next kinetic state", "descend from the barrier peak to the new local minimum", "record the reflection of sub-threshold particles", "reconstitute the total kinetic energy flux", "hold the metastable state at the threshold peak", "record the kinetic transition event in the state log", "anchor the system within the loll boundary"]
+def the_primitive_type_called_loll_forkFusePairs : List (Nat × Nat) := [(3, 8)]
+def the_primitive_type_called_loll_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_loll_opcodes
+
+theorem the_primitive_type_called_loll_program_length :
+    the_primitive_type_called_loll_opcodes.length = the_primitive_type_called_loll_bootstrapSteps := by decide
+theorem the_primitive_type_called_loll_actions_cover_program :
+    the_primitive_type_called_loll_domainActions.length = the_primitive_type_called_loll_opcodes.length := by decide
+theorem the_primitive_type_called_loll_program_uses_native_opcodes :
+    (the_primitive_type_called_loll_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_loll_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_loll_forkFusePairs.all fun p =>
+      (the_primitive_type_called_loll_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_loll_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -158,5 +159,22 @@ def the_primitive_type_called_ash_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ash_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_ash_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_ash_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "CLINK", "FSPLIT", "EVALT", "AFWD", "IFIX", "FFUSE", "AREV", "ENGAGR", "TANCH"]
+def the_primitive_type_called_ash_domainActions : List String := ["initialize the unorganized point set", "identify the base points as 0-simplices", "extend 0-simplices into 1-simplex edges", "compose edges into a closed loop", "branch the loop into potential interior faces", "confirm the face satisfies the ash finite-depth limit", "promote the face to a 2-simplex", "record the 2-simplex in the simplicial registry", "join the faces to reconstitute the original loop boundary", "project the 2-simplex back to its 1-simplex boundary for verification", "hold the boundary state as both edge and face-limit", "seal the complex at the maximal stratification depth"]
+def the_primitive_type_called_ash_forkFusePairs : List (Nat × Nat) := [(4, 8)]
+def the_primitive_type_called_ash_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ash_opcodes
+
+theorem the_primitive_type_called_ash_program_length :
+    the_primitive_type_called_ash_opcodes.length = the_primitive_type_called_ash_bootstrapSteps := by decide
+theorem the_primitive_type_called_ash_actions_cover_program :
+    the_primitive_type_called_ash_domainActions.length = the_primitive_type_called_ash_opcodes.length := by decide
+theorem the_primitive_type_called_ash_program_uses_native_opcodes :
+    (the_primitive_type_called_ash_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_ash_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_ash_forkFusePairs.all fun p =>
+      (the_primitive_type_called_ash_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_ash_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

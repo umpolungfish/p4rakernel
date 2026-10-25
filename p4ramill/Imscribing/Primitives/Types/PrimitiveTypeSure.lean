@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -158,5 +159,22 @@ def the_primitive_type_called_sure_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_sure_fragmentIsStatementEvidence : String := "starred in none of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_sure_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_sure_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+def the_primitive_type_called_sure_domainActions : List String := ["initialize the achiral vacuum state", "identify the potential for temporal memory", "branch the signal into parity-distinct paths", "propagate the right-handed signal forward in time", "confirm the presence of strong temporal asymmetry", "propagate the left-handed signal as a parity flip", "detect the loss of directionality in the reverse path", "reunite the parity paths to verify signal integrity", "chain the resulting state to the next temporal cycle", "recognize the persistent identity of the sure type", "record the persistent chirality into the permanent type register", "anchor the sure type within the interaction grammar boundary"]
+def the_primitive_type_called_sure_forkFusePairs : List (Nat × Nat) := [(2, 7)]
+def the_primitive_type_called_sure_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_sure_opcodes
+
+theorem the_primitive_type_called_sure_program_length :
+    the_primitive_type_called_sure_opcodes.length = the_primitive_type_called_sure_bootstrapSteps := by decide
+theorem the_primitive_type_called_sure_actions_cover_program :
+    the_primitive_type_called_sure_domainActions.length = the_primitive_type_called_sure_opcodes.length := by decide
+theorem the_primitive_type_called_sure_program_uses_native_opcodes :
+    (the_primitive_type_called_sure_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_sure_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_sure_forkFusePairs.all fun p =>
+      (the_primitive_type_called_sure_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_sure_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_yew_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_yew_fragmentIsStatementEvidence : String := "starred in none of the 2 sampled theorem(s) that carry it"
 def the_primitive_type_called_yew_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_yew_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_yew_domainActions : List String := ["establish the unpolarized vacuum state", "identify the base phase reference", "apply a continuous phase rotation", "bifurcate the signal into dual paths", "verify constructive alignment on the primary path", "compose the primary path with a secondary rotation", "apply a parity flip to the secondary path", "verify destructive alignment on the secondary path", "recombine paths into a single interference result", "hold the resulting phase in superposition", "record the final phase lock to the ledger", "seal the operation within the U(1) boundary"]
+def the_primitive_type_called_yew_forkFusePairs : List (Nat × Nat) := [(3, 8)]
+def the_primitive_type_called_yew_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_yew_opcodes
+
+theorem the_primitive_type_called_yew_program_length :
+    the_primitive_type_called_yew_opcodes.length = the_primitive_type_called_yew_bootstrapSteps := by decide
+theorem the_primitive_type_called_yew_actions_cover_program :
+    the_primitive_type_called_yew_domainActions.length = the_primitive_type_called_yew_opcodes.length := by decide
+theorem the_primitive_type_called_yew_program_uses_native_opcodes :
+    (the_primitive_type_called_yew_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_yew_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_yew_forkFusePairs.all fun p =>
+      (the_primitive_type_called_yew_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_yew_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

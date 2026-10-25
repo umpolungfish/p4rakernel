@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -189,5 +190,22 @@ def the_primitive_type_called_eat_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_eat_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_eat_bootstrapSteps : Nat := 20
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_eat_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IFIX", "FSPLIT", "EVALT", "AFWD", "CLINK", "IMSCRIB", "IFIX", "FFUSE", "FSPLIT", "EVALF", "AREV", "FFUSE", "FSPLIT", "ENGAGR", "IFIX", "FFUSE", "TANCH"]
+def the_primitive_type_called_eat_domainActions : List String := ["establish the empty topological space", "identify the space as a self-consistent domain", "inject the first level of containment", "record the primary container boundary", "branch the container into potential sub-regions", "confirm the existence of a nested subset", "perform deep nesting of a secondary element", "chain the primary and secondary inclusion relations", "verify the identity of the nested element", "fix the nested position in the hierarchy", "reunite the sub-regions into the primary container", "branch to check for external elements", "identify an element that is not contained", "reverse the inclusion attempt for the external element", "return to the primary container state", "evaluate a boundary condition", "hold the state of an element intersecting the boundary", "record the boundary intersection event", "resolve the topological state", "close the universal set boundary"]
+def the_primitive_type_called_eat_forkFusePairs : List (Nat × Nat) := [(4, 10), (11, 14), (15, 18)]
+def the_primitive_type_called_eat_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_eat_opcodes
+
+theorem the_primitive_type_called_eat_program_length :
+    the_primitive_type_called_eat_opcodes.length = the_primitive_type_called_eat_bootstrapSteps := by decide
+theorem the_primitive_type_called_eat_actions_cover_program :
+    the_primitive_type_called_eat_domainActions.length = the_primitive_type_called_eat_opcodes.length := by decide
+theorem the_primitive_type_called_eat_program_uses_native_opcodes :
+    (the_primitive_type_called_eat_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_eat_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_eat_forkFusePairs.all fun p =>
+      (the_primitive_type_called_eat_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_eat_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

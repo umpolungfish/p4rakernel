@@ -29,6 +29,12 @@ also distinguishes weight held in a frame from weight recovered by its fuse.
 
 ## Use the local kernel
 
+The [native dialetheic organism](organism/README.md) uses the kernel's retained
+B-to-B bodies and VGI learner to grow branches, judge observations and revise
+its transformation, judgment and generation programs. Its README covers the
+complete build, execution, state return and testing workflow. Factoring is on
+hiatus while the organism is exercised.
+
 The built fork lives in `build/stage1/bin`. From the repository root, select it
 before working in the corpus:
 

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -173,5 +174,22 @@ def the_primitive_type_called_age_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_age_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_age_bootstrapSteps : Nat := 16
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_age_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "FFUSE", "CLINK", "IFIX", "FSPLIT", "EVALF", "AREV", "FFUSE", "ENGAGR", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_age_domainActions : List String := ["initialize the search space for the age primitive", "identify the system as a classical lossy search environment", "begin the forward search morphism toward the target data", "branch the search to evaluate current fidelity against the age threshold", "confirm the search step remains within classical fidelity limits", "reunite the search path with the confirmed fidelity state", "compose the current search step with the previous state", "record the search step and its fidelity metric in the permanent log", "branch to check for potential information loss", "identify a lossy transition that exceeds the age primitive's tolerance", "reverse the search step to recover from the lossy state", "reconstitute the search state after the recovery attempt", "hold the search in a state of stochastic uncertainty where signal and noise coexist", "chain the uncertain state into the search history", "commit the final search result to the append-only record", "close the search boundary and terminate the process"]
+def the_primitive_type_called_age_forkFusePairs : List (Nat × Nat) := [(3, 5), (8, 11)]
+def the_primitive_type_called_age_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_age_opcodes
+
+theorem the_primitive_type_called_age_program_length :
+    the_primitive_type_called_age_opcodes.length = the_primitive_type_called_age_bootstrapSteps := by decide
+theorem the_primitive_type_called_age_actions_cover_program :
+    the_primitive_type_called_age_domainActions.length = the_primitive_type_called_age_opcodes.length := by decide
+theorem the_primitive_type_called_age_program_uses_native_opcodes :
+    (the_primitive_type_called_age_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_age_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_age_forkFusePairs.all fun p =>
+      (the_primitive_type_called_age_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_age_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

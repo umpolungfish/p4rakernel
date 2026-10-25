@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -150,5 +151,22 @@ def the_primitive_type_called_church_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_church_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_church_bootstrapSteps : Nat := 10
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_church_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "IFIX", "FFUSE", "CLINK", "AREV", "TANCH"]
+def the_primitive_type_called_church_domainActions : List String := ["initialize the polarity register to null", "identify the church primitive as a unique singleton within F5", "apply the church constructor to the uninitialized state", "fork the process to validate the absence of symmetry axes", "confirm the lack of phase or discrete symmetry", "record the church assignment to the permanent type-log", "merge the validation branch back into the main type flow", "compose the church instance with the ordinal comparison logic", "verify that church cannot be reduced to a simpler symmetric form", "seal the church instance within the Polarity boundary"]
+def the_primitive_type_called_church_forkFusePairs : List (Nat × Nat) := [(3, 6)]
+def the_primitive_type_called_church_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_church_opcodes
+
+theorem the_primitive_type_called_church_program_length :
+    the_primitive_type_called_church_opcodes.length = the_primitive_type_called_church_bootstrapSteps := by decide
+theorem the_primitive_type_called_church_actions_cover_program :
+    the_primitive_type_called_church_domainActions.length = the_primitive_type_called_church_opcodes.length := by decide
+theorem the_primitive_type_called_church_program_uses_native_opcodes :
+    (the_primitive_type_called_church_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_church_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_church_forkFusePairs.all fun p =>
+      (the_primitive_type_called_church_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_church_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -161,5 +162,22 @@ def the_primitive_type_called_oil_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_oil_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_oil_bootstrapSteps : Nat := 13
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_oil_opcodes : List String := ["VINIT", "IMSCRIB", "IFIX", "FSPLIT", "AFWD", "EVALT", "FFUSE", "CLINK", "FSPLIT", "EVALF", "AREV", "FFUSE", "TANCH"]
+def the_primitive_type_called_oil_domainActions : List String := ["initialize the empty topological manifold", "identify the fundamental unit cell as the self-referential base", "fix the lattice constants to define the grid spacing", "branch the position into orthogonal basis vectors", "translate along the primary axis to the next node", "confirm the arrival at a valid lattice site", "recombine the axes to verify the global coordinate", "chain multiple translations to form the extended lattice", "branch to check for boundary conditions", "identify a path that exits the local cell", "apply inverse translation to wrap around the boundary", "reconstitute the position within the periodic manifold", "seal the lattice into a closed toroidal topology"]
+def the_primitive_type_called_oil_forkFusePairs : List (Nat × Nat) := [(3, 6), (8, 11)]
+def the_primitive_type_called_oil_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_oil_opcodes
+
+theorem the_primitive_type_called_oil_program_length :
+    the_primitive_type_called_oil_opcodes.length = the_primitive_type_called_oil_bootstrapSteps := by decide
+theorem the_primitive_type_called_oil_actions_cover_program :
+    the_primitive_type_called_oil_domainActions.length = the_primitive_type_called_oil_opcodes.length := by decide
+theorem the_primitive_type_called_oil_program_uses_native_opcodes :
+    (the_primitive_type_called_oil_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_oil_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_oil_forkFusePairs.all fun p =>
+      (the_primitive_type_called_oil_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_oil_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

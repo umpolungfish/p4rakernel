@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -146,5 +147,22 @@ def the_primitive_type_called_monad_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_monad_fragmentIsStatementEvidence : String := "starred in none of the 6 sampled theorem(s) that carry it"
 def the_primitive_type_called_monad_bootstrapSteps : Nat := 9
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_monad_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "IMSCRIB", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_monad_domainActions : List String := ["initialize system in the subcritical woe state", "apply renormalization flow toward the critical threshold", "branch the flow to evaluate for real-axis or complex-axis fixed points", "identify the real-axis Hermitian fixed point as monad", "verify the absorbing property where meet(monad, woe) returns monad", "reunify the evaluation branches into the monad primitive", "compose the monad with the Polarity primitive or'", "record the resulting O_inf tier assignment in the crystal lattice", "anchor the system within the holographic boundary of the grammar"]
+def the_primitive_type_called_monad_forkFusePairs : List (Nat × Nat) := [(2, 5)]
+def the_primitive_type_called_monad_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_monad_opcodes
+
+theorem the_primitive_type_called_monad_program_length :
+    the_primitive_type_called_monad_opcodes.length = the_primitive_type_called_monad_bootstrapSteps := by decide
+theorem the_primitive_type_called_monad_actions_cover_program :
+    the_primitive_type_called_monad_domainActions.length = the_primitive_type_called_monad_opcodes.length := by decide
+theorem the_primitive_type_called_monad_program_uses_native_opcodes :
+    (the_primitive_type_called_monad_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_monad_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_monad_forkFusePairs.all fun p =>
+      (the_primitive_type_called_monad_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_monad_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

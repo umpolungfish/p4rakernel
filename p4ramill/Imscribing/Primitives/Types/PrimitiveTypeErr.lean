@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_err_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_err_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_err_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_err_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "AREV", "EVALF", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_err_domainActions : List String := ["initialize the system Hamiltonian in a Hermitian state", "identify the base operator as a self-referential matrix", "apply non-Hermitian perturbation to shift parameters", "branch the eigenvalue trajectory into two Riemann sheets", "track the stable upper-sheet trajectory", "compose the stable mode with a phase-shift operator", "apply dissipative cooling to the lower-sheet trajectory", "track the unstable lower-sheet trajectory", "reach the exceptional point where sheets intersect and modes are held simultaneously", "coalesce the eigenvectors into a single degenerate state", "record the permanent topological winding number of the encounter", "seal the spectral manifold within the defined parameter boundary"]
+def the_primitive_type_called_err_forkFusePairs : List (Nat × Nat) := [(3, 9)]
+def the_primitive_type_called_err_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_err_opcodes
+
+theorem the_primitive_type_called_err_program_length :
+    the_primitive_type_called_err_opcodes.length = the_primitive_type_called_err_bootstrapSteps := by decide
+theorem the_primitive_type_called_err_actions_cover_program :
+    the_primitive_type_called_err_domainActions.length = the_primitive_type_called_err_opcodes.length := by decide
+theorem the_primitive_type_called_err_program_uses_native_opcodes :
+    (the_primitive_type_called_err_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_err_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_err_forkFusePairs.all fun p =>
+      (the_primitive_type_called_err_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_err_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

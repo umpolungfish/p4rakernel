@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -156,5 +157,22 @@ def the_primitive_type_called_bib_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_bib_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_bib_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_bib_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "FSPLIT", "EVALT", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_bib_domainActions : List String := ["initialize the raw field for granularity assignment", "project the field into a local coordinate frame", "identify the central point of the bib neighborhood", "branch the local signal into pattern and noise", "confirm the presence of short-range correlations", "isolate the uncorrelated background noise", "reconstitute the original local signal from the branches", "chain the local signal to adjacent mesoscale neighbors", "hold the overlap between neighboring bib regions", "record the bib granularity as a fixed type attribute", "close the system within the mesoscale boundary"]
+def the_primitive_type_called_bib_forkFusePairs : List (Nat × Nat) := [(3, 6)]
+def the_primitive_type_called_bib_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_bib_opcodes
+
+theorem the_primitive_type_called_bib_program_length :
+    the_primitive_type_called_bib_opcodes.length = the_primitive_type_called_bib_bootstrapSteps := by decide
+theorem the_primitive_type_called_bib_actions_cover_program :
+    the_primitive_type_called_bib_domainActions.length = the_primitive_type_called_bib_opcodes.length := by decide
+theorem the_primitive_type_called_bib_program_uses_native_opcodes :
+    (the_primitive_type_called_bib_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_bib_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_bib_forkFusePairs.all fun p =>
+      (the_primitive_type_called_bib_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_bib_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

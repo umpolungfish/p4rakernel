@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_kick_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_kick_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_kick_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_kick_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "CLINK", "IMSCRIB", "FFUSE", "AREV", "EVALF", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_kick_domainActions : List String := ["initialize the achiral fee state as the baseline", "introduce a directed temporal perturbation", "branch the perturbation into potential chiral orientations", "anchor the T-branch with a soft temporal bias", "compose the bias with a weak memory function", "identify the resulting state as the kick primitive", "verify the branch against the original symmetry group", "test the stability of the bias against parity reversal", "anchor the F-branch with the possibility of thermal erasure", "hold the racemic state to ensure type bounds are respected", "fix the kick value into the Chirality inductive type", "close the definition within the Imscribing.Primitives namespace"]
+def the_primitive_type_called_kick_forkFusePairs : List (Nat × Nat) := [(2, 6)]
+def the_primitive_type_called_kick_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_kick_opcodes
+
+theorem the_primitive_type_called_kick_program_length :
+    the_primitive_type_called_kick_opcodes.length = the_primitive_type_called_kick_bootstrapSteps := by decide
+theorem the_primitive_type_called_kick_actions_cover_program :
+    the_primitive_type_called_kick_domainActions.length = the_primitive_type_called_kick_opcodes.length := by decide
+theorem the_primitive_type_called_kick_program_uses_native_opcodes :
+    (the_primitive_type_called_kick_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_kick_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_kick_forkFusePairs.all fun p =>
+      (the_primitive_type_called_kick_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_kick_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

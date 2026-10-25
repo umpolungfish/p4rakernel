@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_tot_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_tot_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_tot_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_tot_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_tot_domainActions : List String := ["Initialize the relational space for the tot primitive.", "Define the identity morphism for the base type.", "Branch the type into a product for parallel morphism application.", "Apply the first morphism to the primary branch.", "Verify the first morphism application is valid.", "Apply a contravariant mapping to the secondary branch.", "Check for potential type mismatches in the reverse mapping.", "Recombine the branches into the original type structure.", "Chain the resulting morphism with the next sequential operation.", "Hold the adjunction between the composed functors.", "Commit the verified composition to the permanent type record.", "Anchor the system within the terminal object boundary."]
+def the_primitive_type_called_tot_forkFusePairs : List (Nat × Nat) := [(2, 7)]
+def the_primitive_type_called_tot_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_tot_opcodes
+
+theorem the_primitive_type_called_tot_program_length :
+    the_primitive_type_called_tot_opcodes.length = the_primitive_type_called_tot_bootstrapSteps := by decide
+theorem the_primitive_type_called_tot_actions_cover_program :
+    the_primitive_type_called_tot_domainActions.length = the_primitive_type_called_tot_opcodes.length := by decide
+theorem the_primitive_type_called_tot_program_uses_native_opcodes :
+    (the_primitive_type_called_tot_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_tot_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_tot_forkFusePairs.all fun p =>
+      (the_primitive_type_called_tot_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_tot_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

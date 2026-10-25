@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -154,5 +155,22 @@ def the_primitive_type_called_peep_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_peep_fragmentIsStatementEvidence : String := "starred in 7 of the 7 sampled theorem(s) that carry it"
 def the_primitive_type_called_peep_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_peep_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "FFUSE", "AREV", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_peep_domainActions : List String := ["initialize the computational manifold for fidelity assessment", "identify the target state as a candidate for the peep primitive", "apply unitary evolution to prepare the high-fidelity encoding", "branch the state into parallel evaluation paths for fidelity verification", "confirm the state maintains quantum lossless characteristics (ℏ)", "compose the verified state with the global fidelity lattice", "reconstitute the branched state into a unified coherent object", "perform a reverse check to ensure no information was lost during fusion", "hold the state in a paradice of potentiality before final fixation", "record the peep primitive assignment into the permanent type registry", "seal the coherence volume to prevent external decoherence"]
+def the_primitive_type_called_peep_forkFusePairs : List (Nat × Nat) := [(3, 6)]
+def the_primitive_type_called_peep_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_peep_opcodes
+
+theorem the_primitive_type_called_peep_program_length :
+    the_primitive_type_called_peep_opcodes.length = the_primitive_type_called_peep_bootstrapSteps := by decide
+theorem the_primitive_type_called_peep_actions_cover_program :
+    the_primitive_type_called_peep_domainActions.length = the_primitive_type_called_peep_opcodes.length := by decide
+theorem the_primitive_type_called_peep_program_uses_native_opcodes :
+    (the_primitive_type_called_peep_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_peep_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_peep_forkFusePairs.all fun p =>
+      (the_primitive_type_called_peep_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_peep_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

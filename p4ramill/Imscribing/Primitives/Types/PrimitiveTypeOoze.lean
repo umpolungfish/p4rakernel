@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -164,5 +165,22 @@ def the_primitive_type_called_ooze_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ooze_fragmentIsStatementEvidence : String := "starred in 3 of the 3 sampled theorem(s) that carry it"
 def the_primitive_type_called_ooze_bootstrapSteps : Nat := 13
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_ooze_opcodes : List String := ["VINIT", "CLINK", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "IFIX", "AREV", "EVALF", "ENGAGR", "FFUSE", "IMSCRIB", "TANCH"]
+def the_primitive_type_called_ooze_domainActions : List String := ["initialize the unlinked node set", "bind the first node to the interaction grammar", "establish the node identity within the field", "initiate the ooze broadcast signal", "diverge the signal into the all-to-all coupling matrix", "confirm coherent signal reception on the primary branch", "record the successful primary coupling event", "process the back-propagation from the secondary branch", "detect interference or loss on the secondary branch", "hold the state of partial coherence across the network", "reconstitute the universal signal from the matrix", "verify the integrity of the fused signal", "seal the broadcast domain within the terminal anchor"]
+def the_primitive_type_called_ooze_forkFusePairs : List (Nat × Nat) := [(4, 10)]
+def the_primitive_type_called_ooze_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ooze_opcodes
+
+theorem the_primitive_type_called_ooze_program_length :
+    the_primitive_type_called_ooze_opcodes.length = the_primitive_type_called_ooze_bootstrapSteps := by decide
+theorem the_primitive_type_called_ooze_actions_cover_program :
+    the_primitive_type_called_ooze_domainActions.length = the_primitive_type_called_ooze_opcodes.length := by decide
+theorem the_primitive_type_called_ooze_program_uses_native_opcodes :
+    (the_primitive_type_called_ooze_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_ooze_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_ooze_forkFusePairs.all fun p =>
+      (the_primitive_type_called_ooze_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_ooze_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

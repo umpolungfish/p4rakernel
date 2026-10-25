@@ -16,7 +16,9 @@ Author: Leonardo de Moura
 #include "kernel/trace.h"
 
 namespace lean {
+void initialize_inclosure();
 void initialize_kernel_module() {
+    initialize_inclosure();
     initialize_level();
     initialize_expr();
     initialize_declaration();

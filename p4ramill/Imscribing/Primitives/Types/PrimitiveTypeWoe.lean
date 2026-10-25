@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -146,5 +147,22 @@ def the_primitive_type_called_woe_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_woe_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_woe_bootstrapSteps : Nat := 9
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_woe_opcodes : List String := ["VINIT", "AFWD", "IMSCRIB", "FSPLIT", "EVALT", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_woe_domainActions : List String := ["initialize the criticality register to null", "apply the ordering morphism to move toward stability", "identify the current state as a candidate for woe", "branch the state to evaluate internal stability", "confirm the presence of a stable ordered phase", "reunite the evaluation branches into the base state", "compose the confirmed state with the primitive definition", "permanently fix the type as woe in the 17,280,000-type crystal", "anchor the state within the subcritical phase boundary"]
+def the_primitive_type_called_woe_forkFusePairs : List (Nat × Nat) := [(3, 5)]
+def the_primitive_type_called_woe_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_woe_opcodes
+
+theorem the_primitive_type_called_woe_program_length :
+    the_primitive_type_called_woe_opcodes.length = the_primitive_type_called_woe_bootstrapSteps := by decide
+theorem the_primitive_type_called_woe_actions_cover_program :
+    the_primitive_type_called_woe_domainActions.length = the_primitive_type_called_woe_opcodes.length := by decide
+theorem the_primitive_type_called_woe_program_uses_native_opcodes :
+    (the_primitive_type_called_woe_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_woe_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_woe_forkFusePairs.all fun p =>
+      (the_primitive_type_called_woe_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_woe_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -154,5 +155,22 @@ def the_primitive_type_called_are_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_are_fragmentIsStatementEvidence : String := "starred in none of the 3 sampled theorem(s) that carry it"
 def the_primitive_type_called_are_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_are_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IFIX", "FSPLIT", "EVALT", "CLINK", "AREV", "FFUSE", "ENGAGR", "TANCH"]
+def the_primitive_type_called_are_domainActions : List String := ["initialize the unmapped bulk manifold", "identify the manifold as a self-contained computational object", "project the bulk interior onto the lower-dimensional boundary", "record the initial boundary state as a permanent reference", "bifurcate the system into boundary data and bulk interior", "verify the boundary data contains the complete bulk information", "compose boundary operators to evolve the bulk state", "reconstruct the bulk interior from the evolved boundary data", "synthesize the boundary and bulk into a unified holographic state", "hold the bulk and boundary in simultaneous entangled correspondence", "anchor the system within the holographic screen boundary"]
+def the_primitive_type_called_are_forkFusePairs : List (Nat × Nat) := [(4, 8)]
+def the_primitive_type_called_are_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_are_opcodes
+
+theorem the_primitive_type_called_are_program_length :
+    the_primitive_type_called_are_opcodes.length = the_primitive_type_called_are_bootstrapSteps := by decide
+theorem the_primitive_type_called_are_actions_cover_program :
+    the_primitive_type_called_are_domainActions.length = the_primitive_type_called_are_opcodes.length := by decide
+theorem the_primitive_type_called_are_program_uses_native_opcodes :
+    (the_primitive_type_called_are_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_are_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_are_forkFusePairs.all fun p =>
+      (the_primitive_type_called_are_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_are_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

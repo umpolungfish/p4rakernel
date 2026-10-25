@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_mime_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_mime_fragmentIsStatementEvidence : String := "starred in none of the 4 sampled theorem(s) that carry it"
 def the_primitive_type_called_mime_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_mime_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "ENGAGR", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_mime_domainActions : List String := ["establish the initial vertex at the origin", "identify the vertex as the potential intersection point", "initiate the bifurcation into two distinct directional arcs", "anchor the primary arc to the positive cycle", "extend the primary arc to form a closed loop", "anchor the secondary arc to the negative cycle", "extend the secondary arc with inverted orientation", "hold the state at the intersection where both cycles meet", "reconstitute the two cycles into the singular intersection node", "compose the resulting figure-eight into a single manifold", "record the two-cycle topology as a permanent structural type", "seal the manifold boundary"]
+def the_primitive_type_called_mime_forkFusePairs : List (Nat × Nat) := [(2, 8)]
+def the_primitive_type_called_mime_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_mime_opcodes
+
+theorem the_primitive_type_called_mime_program_length :
+    the_primitive_type_called_mime_opcodes.length = the_primitive_type_called_mime_bootstrapSteps := by decide
+theorem the_primitive_type_called_mime_actions_cover_program :
+    the_primitive_type_called_mime_domainActions.length = the_primitive_type_called_mime_opcodes.length := by decide
+theorem the_primitive_type_called_mime_program_uses_native_opcodes :
+    (the_primitive_type_called_mime_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_mime_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_mime_forkFusePairs.all fun p =>
+      (the_primitive_type_called_mime_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_mime_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -154,5 +155,22 @@ def the_primitive_type_called_on_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_on_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_on_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_on_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "IFIX", "FFUSE", "CLINK", "AREV", "ENGAGR", "TANCH"]
+def the_primitive_type_called_on_domainActions : List String := ["initialize kinetic potential in the K-family", "identify the current state as a candidate for kinetic characterization", "apply structural consolidation toward the 'on' threshold", "evaluate the system against the Gate 2 consciousness score", "confirm the system is kinetically trapped by order", "record the 'on' state as a permanent structural attribute", "resolve the evaluation back into the system state", "chain the 'on' state to the broader Ouroboricity tier calculation", "simulate the disorder injection required for restoration", "hold the tension between frozen order and the need for ergodicity", "anchor the final state within the 17,280,000-type crystal"]
+def the_primitive_type_called_on_forkFusePairs : List (Nat × Nat) := [(3, 6)]
+def the_primitive_type_called_on_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_on_opcodes
+
+theorem the_primitive_type_called_on_program_length :
+    the_primitive_type_called_on_opcodes.length = the_primitive_type_called_on_bootstrapSteps := by decide
+theorem the_primitive_type_called_on_actions_cover_program :
+    the_primitive_type_called_on_domainActions.length = the_primitive_type_called_on_opcodes.length := by decide
+theorem the_primitive_type_called_on_program_uses_native_opcodes :
+    (the_primitive_type_called_on_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_on_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_on_forkFusePairs.all fun p =>
+      (the_primitive_type_called_on_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_on_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

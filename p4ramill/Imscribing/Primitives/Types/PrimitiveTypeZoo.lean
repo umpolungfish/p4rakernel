@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -168,5 +169,22 @@ def the_primitive_type_called_zoo_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_zoo_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_zoo_bootstrapSteps : Nat := 14
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_zoo_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "CLINK", "FSPLIT", "EVALT", "ENGAGR", "EVALF", "FFUSE", "AREV", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_zoo_domainActions : List String := ["initialize the topological ground state", "identify the global topological invariants", "create an anyon pair from the vacuum", "perform a non-Abelian braiding operation on the first anyon", "compose the braid with a subsequent exchange", "branch the fusion path to check for non-Abelian interference", "track the identity fusion path", "hold the non-Abelian superposition of possible fusion outcomes", "track the non-trivial charge path", "reunite the sub-fusion paths into a coherent anyon state", "apply the inverse braid to test topological stability", "annihilate the anyon pair to attempt vacuum recovery", "record the final topological charge state", "anchor the state to the manifold boundary"]
+def the_primitive_type_called_zoo_forkFusePairs : List (Nat × Nat) := [(5, 9), (2, 11)]
+def the_primitive_type_called_zoo_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_zoo_opcodes
+
+theorem the_primitive_type_called_zoo_program_length :
+    the_primitive_type_called_zoo_opcodes.length = the_primitive_type_called_zoo_bootstrapSteps := by decide
+theorem the_primitive_type_called_zoo_actions_cover_program :
+    the_primitive_type_called_zoo_domainActions.length = the_primitive_type_called_zoo_opcodes.length := by decide
+theorem the_primitive_type_called_zoo_program_uses_native_opcodes :
+    (the_primitive_type_called_zoo_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_zoo_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_zoo_forkFusePairs.all fun p =>
+      (the_primitive_type_called_zoo_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_zoo_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

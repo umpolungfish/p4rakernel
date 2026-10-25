@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_nun_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_nun_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_nun_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_nun_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "IFIX", "AREV", "EVALF", "FFUSE", "ENGAGR", "TANCH"]
+def the_primitive_type_called_nun_domainActions : List String := ["initialize the raw coordinate manifold", "identify the base identity state of the manifold", "decompose the initial state into potential transformation paths", "verify the path maintains continuous symmetry", "apply a generator of the Lie algebra to rotate the state", "compose the rotation with a secondary symmetry operation", "record the resulting orientation in the permanent trace", "apply the inverse generator to test reversibility", "check for any accumulated metric drift or error", "reconstitute the original state from the transformation components", "hold the transformed and original states in a paradice of invariance", "seal the operation within the SO(n) boundary"]
+def the_primitive_type_called_nun_forkFusePairs : List (Nat × Nat) := [(2, 9)]
+def the_primitive_type_called_nun_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_nun_opcodes
+
+theorem the_primitive_type_called_nun_program_length :
+    the_primitive_type_called_nun_opcodes.length = the_primitive_type_called_nun_bootstrapSteps := by decide
+theorem the_primitive_type_called_nun_actions_cover_program :
+    the_primitive_type_called_nun_domainActions.length = the_primitive_type_called_nun_opcodes.length := by decide
+theorem the_primitive_type_called_nun_program_uses_native_opcodes :
+    (the_primitive_type_called_nun_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_nun_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_nun_forkFusePairs.all fun p =>
+      (the_primitive_type_called_nun_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_nun_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

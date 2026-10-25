@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -168,5 +169,22 @@ def the_primitive_type_called_ha_ha_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ha_ha_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_ha_ha_bootstrapSteps : Nat := 14
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_ha_ha_opcodes : List String := ["VINIT", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_ha_ha_domainActions : List String := ["establish the baseline subcritical phase woe", "apply gain to the system parameters", "chain the gain cycles to increase energy density", "recognize the self-reinforcing nature of the feedback", "reach the bifurcation point where stability is lost", "select the branch of unbounded exponential growth", "accelerate the growth toward the haha ordinal", "record the crossing of the supercritical threshold", "attempt to reverse the gain through damping", "select the branch of rapid energy dissipation", "reunite the branches into a state of total volatility", "hold the system in a state of metastable oscillation", "commit the final state of the runaway to the permanent log", "close the system as it reaches the boundary of collapse"]
+def the_primitive_type_called_ha_ha_forkFusePairs : List (Nat × Nat) := [(4, 10)]
+def the_primitive_type_called_ha_ha_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ha_ha_opcodes
+
+theorem the_primitive_type_called_ha_ha_program_length :
+    the_primitive_type_called_ha_ha_opcodes.length = the_primitive_type_called_ha_ha_bootstrapSteps := by decide
+theorem the_primitive_type_called_ha_ha_actions_cover_program :
+    the_primitive_type_called_ha_ha_domainActions.length = the_primitive_type_called_ha_ha_opcodes.length := by decide
+theorem the_primitive_type_called_ha_ha_program_uses_native_opcodes :
+    (the_primitive_type_called_ha_ha_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_ha_ha_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_ha_ha_forkFusePairs.all fun p =>
+      (the_primitive_type_called_ha_ha_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_ha_ha_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

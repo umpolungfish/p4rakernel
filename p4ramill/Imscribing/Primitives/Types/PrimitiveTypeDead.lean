@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -168,5 +169,22 @@ def the_primitive_type_called_dead_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_dead_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_dead_bootstrapSteps : Nat := 14
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_dead_opcodes : List String := ["VINIT", "IMSCRIB", "IFIX", "AFWD", "FSPLIT", "EVALT", "AFWD", "AREV", "EVALF", "FFUSE", "CLINK", "IMSCRIB", "IFIX", "TANCH"]
+def the_primitive_type_called_dead_domainActions : List String := ["initialize the unmapped coordinate space", "identify the origin point on the 2D sheet", "record the origin point permanently", "translate from origin to the first local coordinate", "branch the trajectory into two parallel planar paths", "confirm the primary path remains within the 2D boundary", "extend the primary path toward the target", "reverse the secondary path for parity check", "detect if the secondary path approaches the boundary limit", "reunite the paths at the destination coordinate", "compose the total translation into a single affine map", "verify the final coordinate identity", "fix the final coordinate in the permanent record", "close the planar boundary and terminate the operation"]
+def the_primitive_type_called_dead_forkFusePairs : List (Nat × Nat) := [(4, 9)]
+def the_primitive_type_called_dead_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_dead_opcodes
+
+theorem the_primitive_type_called_dead_program_length :
+    the_primitive_type_called_dead_opcodes.length = the_primitive_type_called_dead_bootstrapSteps := by decide
+theorem the_primitive_type_called_dead_actions_cover_program :
+    the_primitive_type_called_dead_domainActions.length = the_primitive_type_called_dead_opcodes.length := by decide
+theorem the_primitive_type_called_dead_program_uses_native_opcodes :
+    (the_primitive_type_called_dead_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_dead_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_dead_forkFusePairs.all fun p =>
+      (the_primitive_type_called_dead_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_dead_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -152,5 +153,22 @@ def the_primitive_type_called_judge_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_judge_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_judge_bootstrapSteps : Nat := 10
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_judge_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "CLINK", "FSPLIT", "EVALT", "EVALF", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_judge_domainActions : List String := ["Initialize the null graph state.", "Identify the first vertex as a self-referential node.", "Extend a morphism to create a second vertex.", "Compose the relationship between the two vertices to form an edge.", "Branch the edge into two potential local paths.", "Confirm the validity of the primary path.", "Confirm the validity of the secondary path.", "Reconstitute the two paths into the original vertex connectivity.", "Record the resulting adjacency matrix entry permanently.", "Close the graph boundary to finalize the judge topology."]
+def the_primitive_type_called_judge_forkFusePairs : List (Nat × Nat) := [(4, 7)]
+def the_primitive_type_called_judge_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_judge_opcodes
+
+theorem the_primitive_type_called_judge_program_length :
+    the_primitive_type_called_judge_opcodes.length = the_primitive_type_called_judge_bootstrapSteps := by decide
+theorem the_primitive_type_called_judge_actions_cover_program :
+    the_primitive_type_called_judge_domainActions.length = the_primitive_type_called_judge_opcodes.length := by decide
+theorem the_primitive_type_called_judge_program_uses_native_opcodes :
+    (the_primitive_type_called_judge_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_judge_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_judge_forkFusePairs.all fun p =>
+      (the_primitive_type_called_judge_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_judge_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

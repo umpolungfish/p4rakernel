@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -172,5 +173,22 @@ def the_primitive_type_called_measure_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_measure_fragmentIsStatementEvidence : String := "starred in none of the 2 sampled theorem(s) that carry it"
 def the_primitive_type_called_measure_bootstrapSteps : Nat := 15
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_measure_opcodes : List String := ["VINIT", "IMSCRIB", "IFIX", "CLINK", "AFWD", "FSPLIT", "EVALT", "AFWD", "EVALF", "AREV", "FFUSE", "IMSCRIB", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_measure_domainActions : List String := ["initialize the empty causal thread", "identify the first discrete operation in the measure", "record the start of the sequential chain", "link the first operation to the subsequent transition", "move forward to the next temporal slot", "branch the sequence to evaluate parallel dependencies", "confirm the primary dependency is satisfied in order", "advance the primary branch", "detect if the secondary branch violates causal constraints", "reverse the secondary branch to the last known valid state", "synchronize the branches back into a single execution context", "verify the integrity of the fused state", "compose the fused result with the final operation", "commit the completed measure to the permanent log", "seal the causal horizon of the measure"]
+def the_primitive_type_called_measure_forkFusePairs : List (Nat × Nat) := [(5, 10)]
+def the_primitive_type_called_measure_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_measure_opcodes
+
+theorem the_primitive_type_called_measure_program_length :
+    the_primitive_type_called_measure_opcodes.length = the_primitive_type_called_measure_bootstrapSteps := by decide
+theorem the_primitive_type_called_measure_actions_cover_program :
+    the_primitive_type_called_measure_domainActions.length = the_primitive_type_called_measure_opcodes.length := by decide
+theorem the_primitive_type_called_measure_program_uses_native_opcodes :
+    (the_primitive_type_called_measure_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_measure_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_measure_forkFusePairs.all fun p =>
+      (the_primitive_type_called_measure_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_measure_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

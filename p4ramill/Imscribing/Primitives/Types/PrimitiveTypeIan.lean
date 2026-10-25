@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_ian_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ian_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_ian_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_ian_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_ian_domainActions : List String := ["initialize local node state", "verify local peer identity", "initiate discovery probe to lateral neighbor", "open duplex communication channel", "confirm transmit path availability", "receive acknowledgment from neighbor", "detect potential collision or latency", "unify paths into a stable symmetric link", "bind link to the active session", "hold unverified packets in the asynchronous buffer", "record the successful handshake in the transaction log", "anchor the session within the ian relational boundary"]
+def the_primitive_type_called_ian_forkFusePairs : List (Nat × Nat) := [(3, 7)]
+def the_primitive_type_called_ian_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ian_opcodes
+
+theorem the_primitive_type_called_ian_program_length :
+    the_primitive_type_called_ian_opcodes.length = the_primitive_type_called_ian_bootstrapSteps := by decide
+theorem the_primitive_type_called_ian_actions_cover_program :
+    the_primitive_type_called_ian_domainActions.length = the_primitive_type_called_ian_opcodes.length := by decide
+theorem the_primitive_type_called_ian_program_uses_native_opcodes :
+    (the_primitive_type_called_ian_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_ian_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_ian_forkFusePairs.all fun p =>
+      (the_primitive_type_called_ian_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_ian_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

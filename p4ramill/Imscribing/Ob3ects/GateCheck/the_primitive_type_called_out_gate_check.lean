@@ -6,6 +6,7 @@
 -- Expected tier: O₂dag
 -- ∈/∋ pairs: [(2, 9)]
 
+import Imscribing.ConventionalRegister
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
 
@@ -108,3 +109,12 @@ def the_primitive_type_called_out_tier : OuroboricityTier := TierFunctor.obj the
 theorem the_primitive_type_called_out_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_out_s0 the_primitive_type_called_out_s0 = the_primitive_type_called_out_s0 :=
   igFrobAlg_self_fusion the_primitive_type_called_out_s0
+
+/-- Ordered program of this checked gate construction. -/
+def the_primitive_type_called_out_opcodes : List String := ["VINIT", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "EVALF", "AREV", "ENGAGR", "FFUSE", "IMSCRIB", "TANCH"]
+def the_primitive_type_called_out_domainActions : List String := ["initial object — ground of distinction", "forward morphism — bidirectional arrow", "split δ — range decomposition", "evaluate-true — criticality gate open", "composition — regime coherence", "irreversible fixation — winding number", "evaluate-false — chirality check", "reverse morphism — parity flip", "engage paradox — B-state, both arms", "fuse μ — assembly mode", "identity — self-imscription", "terminal object — connectivity boundary"]
+def the_primitive_type_called_out_forkFusePairs : List (Nat × Nat) := [(2, 9)]
+def the_primitive_type_called_out_glyphWord : String := glyphWordOf the_primitive_type_called_out_opcodes
+
+/-- The ground carried by the checked primitive protocol. -/
+def the_primitive_type_called_out_ground : Imscription := the_primitive_type_called_out_s0

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_oak_fragmentIsStatement : String := "always"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_oak_fragmentIsStatementEvidence : String := "starred in 1 of the 1 sampled theorem(s) that carry it"
 def the_primitive_type_called_oak_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_oak_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "IFIX", "FFUSE", "TANCH"]
+def the_primitive_type_called_oak_domainActions : List String := ["initialize the field in a trivial vacuum state", "identify the field as a candidate for topological protection", "apply Z2 symmetry constraints to the field", "branch the field into distinct parity sectors", "validate the even-parity sector as the primary vacuum", "compose the even-parity state with a local perturbation", "record the local topological charge in the invariant log", "apply a parity flip to the secondary branch", "validate the odd-parity sector as a topological excitation", "record the excitation charge in the invariant log", "recombine the sectors into a unified protected manifold", "anchor the manifold within the Z2 invariant boundary"]
+def the_primitive_type_called_oak_forkFusePairs : List (Nat × Nat) := [(3, 10)]
+def the_primitive_type_called_oak_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_oak_opcodes
+
+theorem the_primitive_type_called_oak_program_length :
+    the_primitive_type_called_oak_opcodes.length = the_primitive_type_called_oak_bootstrapSteps := by decide
+theorem the_primitive_type_called_oak_actions_cover_program :
+    the_primitive_type_called_oak_domainActions.length = the_primitive_type_called_oak_opcodes.length := by decide
+theorem the_primitive_type_called_oak_program_uses_native_opcodes :
+    (the_primitive_type_called_oak_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_oak_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_oak_forkFusePairs.all fun p =>
+      (the_primitive_type_called_oak_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_oak_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

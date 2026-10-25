@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -168,5 +169,22 @@ def the_primitive_type_called_array_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_array_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_array_bootstrapSteps : Nat := 14
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_array_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "IFIX", "FSPLIT", "EVALT", "AFWD", "CLINK", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
+def the_primitive_type_called_array_domainActions : List String := ["initialize the pre-dimensional vacuum for the array", "identify the primary unit cell of the infinite-dimensional space", "extend the first axis to establish the initial dimension", "record the origin point as a permanent reference", "branch the coordinate into two orthogonal sub-spaces", "confirm the validity of the primary orthogonal path", "generate an infinite sequence of indices along the primary path", "compose the generated indices into a continuous tensor", "contract the secondary path to verify its boundary conditions", "identify the limit where the secondary path becomes unreachable", "integrate the primary and secondary paths back into the unified manifold", "hold the state of unbounded generation and finite boundary simultaneously", "commit the current dimensional state to the permanent array record", "anchor the entire infinite-dimensional system within its manifold boundary"]
+def the_primitive_type_called_array_forkFusePairs : List (Nat × Nat) := [(4, 10)]
+def the_primitive_type_called_array_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_array_opcodes
+
+theorem the_primitive_type_called_array_program_length :
+    the_primitive_type_called_array_opcodes.length = the_primitive_type_called_array_bootstrapSteps := by decide
+theorem the_primitive_type_called_array_actions_cover_program :
+    the_primitive_type_called_array_domainActions.length = the_primitive_type_called_array_opcodes.length := by decide
+theorem the_primitive_type_called_array_program_uses_native_opcodes :
+    (the_primitive_type_called_array_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_array_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_array_forkFusePairs.all fun p =>
+      (the_primitive_type_called_array_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_array_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

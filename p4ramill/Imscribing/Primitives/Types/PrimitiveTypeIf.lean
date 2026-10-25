@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_if_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_if_fragmentIsStatementEvidence : String := "starred in none of the 7 sampled theorem(s) that carry it"
 def the_primitive_type_called_if_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_if_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "CLINK", "IFIX", "AREV", "EVALF", "FFUSE", "IMSCRIB", "TANCH"]
+def the_primitive_type_called_if_domainActions : List String := ["Initialize the raw information potential before dimensional assignment.", "Establish the identity of the information as a coherent manifold.", "Bifurcate the manifold into a bulk volume and a boundary surface.", "Affirm the lossless nature of the dimensional split.", "Project the bulk degrees of freedom onto the boundary manifold.", "Compose the projection with the boundary constraints.", "Record the initial holographic encoding state to the topological store.", "Attempt to reconstruct the bulk volume from the boundary data.", "Identify any discrepancies or information loss during reconstruction.", "Reintegrate the bulk and boundary into the original unified manifold.", "Verify the self-consistency of the reconstructed manifold.", "Anchor the system within the holographic screen boundary."]
+def the_primitive_type_called_if_forkFusePairs : List (Nat × Nat) := [(2, 9)]
+def the_primitive_type_called_if_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_if_opcodes
+
+theorem the_primitive_type_called_if_program_length :
+    the_primitive_type_called_if_opcodes.length = the_primitive_type_called_if_bootstrapSteps := by decide
+theorem the_primitive_type_called_if_actions_cover_program :
+    the_primitive_type_called_if_domainActions.length = the_primitive_type_called_if_opcodes.length := by decide
+theorem the_primitive_type_called_if_program_uses_native_opcodes :
+    (the_primitive_type_called_if_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_if_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_if_forkFusePairs.all fun p =>
+      (the_primitive_type_called_if_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_if_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -1,3 +1,1 @@
-I keep measurements local and remove their files from Git tracking.
-
-I ignore measurement directories at every depth while preserving their local contents.
+I document the native organism comprehensively and test its build, all source masks, retained continuation, repeated execution and longer growth. I preserve existing receipts through fresh verification output directories.

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -160,5 +161,22 @@ def the_primitive_type_called_they_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_they_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_they_bootstrapSteps : Nat := 12
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_they_opcodes : List String := ["VINIT", "IMSCRIB", "CLINK", "AFWD", "FSPLIT", "EVALT", "IFIX", "AREV", "EVALF", "IFIX", "FFUSE", "TANCH"]
+def the_primitive_type_called_they_domainActions : List String := ["initialize raw signal stream", "identify signal source signature", "compose signal with temporal window", "amplify signal for threshold comparison", "compare signal against η threshold", "confirm signal exceeds η threshold", "record successful HotSwap event", "return to baseline noise floor", "confirm signal below η threshold", "record signal loss event", "integrate signal components for total energy verification", "fix state as Fidelity.they"]
+def the_primitive_type_called_they_forkFusePairs : List (Nat × Nat) := [(4, 10)]
+def the_primitive_type_called_they_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_they_opcodes
+
+theorem the_primitive_type_called_they_program_length :
+    the_primitive_type_called_they_opcodes.length = the_primitive_type_called_they_bootstrapSteps := by decide
+theorem the_primitive_type_called_they_actions_cover_program :
+    the_primitive_type_called_they_domainActions.length = the_primitive_type_called_they_opcodes.length := by decide
+theorem the_primitive_type_called_they_program_uses_native_opcodes :
+    (the_primitive_type_called_they_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_they_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_they_forkFusePairs.all fun p =>
+      (the_primitive_type_called_they_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_they_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -150,5 +151,22 @@ def the_primitive_type_called_ado_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ado_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_ado_bootstrapSteps : Nat := 10
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_ado_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "AREV", "FFUSE", "CLINK", "IFIX", "TANCH"]
+def the_primitive_type_called_ado_domainActions : List String := ["initialize unranked entity", "identify entity as supervisor", "project authority toward target subordinate", "branch command into execution and monitoring streams", "confirm subordinate compliance in execution stream", "return monitoring data to supervisor", "reconstitute command status from execution and monitoring", "compose status into a higher level report", "record the supervisory event in the audit log", "close the hierarchical transaction"]
+def the_primitive_type_called_ado_forkFusePairs : List (Nat × Nat) := [(3, 6)]
+def the_primitive_type_called_ado_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ado_opcodes
+
+theorem the_primitive_type_called_ado_program_length :
+    the_primitive_type_called_ado_opcodes.length = the_primitive_type_called_ado_bootstrapSteps := by decide
+theorem the_primitive_type_called_ado_actions_cover_program :
+    the_primitive_type_called_ado_domainActions.length = the_primitive_type_called_ado_opcodes.length := by decide
+theorem the_primitive_type_called_ado_program_uses_native_opcodes :
+    (the_primitive_type_called_ado_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_ado_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_ado_forkFusePairs.all fun p =>
+      (the_primitive_type_called_ado_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_ado_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

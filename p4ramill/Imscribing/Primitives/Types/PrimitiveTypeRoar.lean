@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -154,5 +155,22 @@ def the_primitive_type_called_roar_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_roar_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
 def the_primitive_type_called_roar_bootstrapSteps : Nat := 11
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_roar_opcodes : List String := ["VINIT", "AFWD", "CLINK", "FSPLIT", "EVALT", "IMSCRIB", "IFIX", "FFUSE", "AREV", "ENGAGR", "TANCH"]
+def the_primitive_type_called_roar_domainActions : List String := ["initialize the system in the subcritical phase", "apply complex coupling constant to shift from the real axis", "compose successive renormalization group transformations", "branch the flow into distinct Riemann sheets of the complex plane", "verify convergence on the primary sheet", "identify the roar fixed point as a self-referential state", "record the complex critical exponents to the universal library", "reunite the branched flows via contour integration", "project the complex results back toward the real-axis observables", "hold the non-Hermitian coalescence at the roar singularity", "anchor the system at the terminal boundary of the complex phase space"]
+def the_primitive_type_called_roar_forkFusePairs : List (Nat × Nat) := [(3, 7)]
+def the_primitive_type_called_roar_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_roar_opcodes
+
+theorem the_primitive_type_called_roar_program_length :
+    the_primitive_type_called_roar_opcodes.length = the_primitive_type_called_roar_bootstrapSteps := by decide
+theorem the_primitive_type_called_roar_actions_cover_program :
+    the_primitive_type_called_roar_domainActions.length = the_primitive_type_called_roar_opcodes.length := by decide
+theorem the_primitive_type_called_roar_program_uses_native_opcodes :
+    (the_primitive_type_called_roar_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_roar_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_roar_forkFusePairs.all fun p =>
+      (the_primitive_type_called_roar_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_roar_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types

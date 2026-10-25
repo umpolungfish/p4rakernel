@@ -12,6 +12,7 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -168,5 +169,22 @@ def the_primitive_type_called_wool_fragmentIsStatement : String := "never"
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_wool_fragmentIsStatementEvidence : String := "starred in none of the 6 sampled theorem(s) that carry it"
 def the_primitive_type_called_wool_bootstrapSteps : Nat := 14
+
+/-- Ordered executable construction retained alongside the typed protocol. -/
+def the_primitive_type_called_wool_opcodes : List String := ["VINIT", "IMSCRIB", "AFWD", "FSPLIT", "EVALT", "CLINK", "IFIX", "AREV", "EVALF", "FFUSE", "ENGAGR", "IMSCRIB", "IFIX", "TANCH"]
+def the_primitive_type_called_wool_domainActions : List String := ["initialize the achiral vacuum state", "establish the identity of the temporal thread", "propagate the thread forward to begin winding", "bifurcate the thread into potential chiral orientations", "anchor the T-branch with persistent asymmetry", "compose the winding into a complex braid", "record the specific braid configuration to memory", "introduce a parity flip on the F-branch", "anchor the F-branch with symmetry restoration", "recombine the branches to verify topological consistency", "hold the resulting state in a superposed non-Abelian protection", "recognize the self-referential nature of the wool type", "permanently fix the topological memory into the kinetic structure", "seal the system within the inexhaustible chirality boundary"]
+def the_primitive_type_called_wool_forkFusePairs : List (Nat × Nat) := [(3, 9)]
+def the_primitive_type_called_wool_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_wool_opcodes
+
+theorem the_primitive_type_called_wool_program_length :
+    the_primitive_type_called_wool_opcodes.length = the_primitive_type_called_wool_bootstrapSteps := by decide
+theorem the_primitive_type_called_wool_actions_cover_program :
+    the_primitive_type_called_wool_domainActions.length = the_primitive_type_called_wool_opcodes.length := by decide
+theorem the_primitive_type_called_wool_program_uses_native_opcodes :
+    (the_primitive_type_called_wool_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
+theorem the_primitive_type_called_wool_pairs_name_fork_and_fuse :
+    (the_primitive_type_called_wool_forkFusePairs.all fun p =>
+      (the_primitive_type_called_wool_opcodes[p.1]? == some "FSPLIT") &&
+      (the_primitive_type_called_wool_opcodes[p.2]? == some "FFUSE")) = true := by decide
 
 end Imscribing.Primitives.Types
