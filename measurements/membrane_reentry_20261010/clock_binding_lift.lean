@@ -1,3 +1,0 @@
-import Imscribing.Vox.ProofLift
-import Imscribing.Paraconsistent.QuquartMembraneReentry
-#lift Imscribing.Paraconsistent.QuquartMembraneReentry.native_runtime_roundtrip
