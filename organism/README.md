@@ -11,9 +11,8 @@ in deciding what to probe and how to change its machinery. Build and exercise
 the complete path with the integrated verifier in the workspace instructions
 below.
 
-Factoring remains on hiatus. The current execution domain is the native
-sixteen-state register with recursively growing compartments and the bound VGI
-learner.
+Factoring has resumed through the organism. The native sixteen-state body and
+bound VGI learner now carry a retained source-bound factor/product task.
 
 ## Constitutive cycle
 
@@ -354,3 +353,72 @@ arguments are rejected by the compiled entry.
 Retained snapshots include growing ancestry and full neural state. Longer runs
 increase both computation and output size. Preserve their complete receipts
 when comparing behavior or extending the execution boundary.
+
+
+## Factoring through the organism
+
+Build from the workspace root into a fresh directory:
+
+```sh
+python3 p4rakernel/organism/build_factor.py --out /tmp/organism-factor-build
+python3 p4rakernel/organism/run_factor.py \
+  --runtime /tmp/organism-factor-build \
+  --source path/to/decimal-N-only.txt \
+  --out /tmp/organism-factor-run --seconds 300
+```
+
+The builder runs the integrated native/Lean/VGI checks, builds the Rust task
+bridge offline and links `RunOrganismFactor.lean`. The task requires an odd
+source of at least 128 bits. Keep reference factors outside the production
+input. A closed receipt requires an emitted proper divisor, its derived
+quotient, zero remainder, exact native multiplication, the resident powerset
+law checks, inverse recovery and the banked paired return. Read `verified` in
+`receipt.json`; an open boundary or process timeout is not factor production.
+
+The native body owns the task through `organism_task`. Its source numeral is
+transported as its complete native nibble stream into VGI's retained context.
+Each learned body action selects the starting component of a full retained
+producer cycle. Frames, square relations, admission, correlation, masks,
+verification and quantum return act on the same resident carrier. Native task
+observations enter the action's FDE feedback and a full neural update, so the
+next body action consumes the resulting experience. The JSON return retains
+source bindings, operation order, costs, task observations, action ancestry,
+neural state and the returned mathematical carrier.
+
+The Rust bridge uses Vox's existing `FactorSynthesis` and prepared glut carrier,
+the producer machinery also used by the direct `y_divisor` route. It does not
+invoke an external factor program. The actual producing port is recorded
+separately from subsequent Y verification and return operations. Definite
+numerical arithmetic is an explicit checked restriction: N and B cells retain
+the full evidence operations, and immutable input operands remain available.
+Both rails are reconstructed at the definite arithmetic return.
+
+The current entry prepares its source-bound task at process execution time.
+It is not yet a source-baked static membrane. Build time, native preparation,
+native task-operation time and total process time are distinct measurements;
+no trigger-only timing is claimed.
+
+### Factor receipts, 2026-10-25
+
+The retained runtime and complete returns are under
+`measurements/organism_factor_20261025/retained_producer`.
+
+| N-only case | Exact product verified | Process seconds | Body actions | Producing port |
+| --- | --- | --- | --- | --- |
+| Target, 128 bits | yes | 66.2581 | 17 | square |
+| Fresh independent control, 128 bits | yes | 34.5221 | 12 | square |
+
+Each return retained the same resident identity through the banked return,
+with seven cleared and restored banks, six deposits, eight surviving branches
+and zero exposed deposits. The direct installed `y_divisor` baseline on the
+same target took 2.4719 seconds. These controls establish integrated production;
+they also expose an arithmetic performance regression. The next bound is the
+previously stalled random balanced 150-bit source. Preserve its bounded receipt
+before drawing a conclusion about that bound.
+
+The factor sources are `src/kernel/organism_factor.h`,
+`p4ramill/RunOrganismFactor.lean`, `organism/factor_bridge/src/lib.rs`,
+`../Vox/src/factor_synthesis.rs`, `../Vox/src/glut_carrier.rs`, and
+`../Vox/src/packed_belnap_word.rs`. The latter retains full dual-rail arithmetic
+and checked definite specializations. Build and run scripts bind source and
+image hashes in their JSON receipts.

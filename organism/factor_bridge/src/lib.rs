@@ -89,7 +89,7 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     let body=&mut*(body as *mut Body);
     if body.returned.is_some(){return 2;}
     let before=body.resident.resident_stats();let started=Instant::now();
-    let result=std::panic::catch_unwind(std::panic::AssertUnwindSafe(||body.resident.advance_component(port)));
+    let result=std::panic::catch_unwind(std::panic::AssertUnwindSafe(||body.resident.advance_component_cycle(port)));
     match result {
         Ok(Ok(value))=>body.returned=value,
         Ok(Err(error))=>body.error=Some(error),
@@ -102,7 +102,9 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     let conflict=after.correlation_conflicts>before.correlation_conflicts || body.error.is_some();
     let produced=body.returned.is_some();
     if let Some(r)=&body.returned {body.identity=r.membrane.as_ref().map(|m|m.resident_identity());}
-    body.events.push(json!({"port":port,"seconds":started.elapsed().as_secs_f64(),"before":before_json,
+    let count=PreparedGlutMembrane::component_names().len();
+    body.events.push(json!({"port":port,"executed_components":(0..count).map(|i|(port+i)%count).collect::<Vec<_>>(),
+        "seconds":started.elapsed().as_secs_f64(),"before":before_json,
         "after":after_json,"changed":changed,"conflict":conflict,"produced":produced}));
     if produced{2}else if conflict{if changed{8}else{4}}else if changed{2}else{1}
 }
@@ -115,4 +117,25 @@ pub unsafe extern "C" fn organism_factor_observation(body:*mut c_void)->*const c
     let body=&mut*(body as *mut Body);
     body.json=CString::new(json!({"source":mf::dec_of(&body.source),"operation":body.events.last()}).to_string()).unwrap();
     body.json.as_ptr()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use vox::{belnap::B4,belnap_word::BelnapWord};
+    #[test]
+    fn native_source_survives_zero_carry_at_full_word_boundaries() {
+        for width in [128,192,256,512] {
+            let mut cells=vec![B4::T;width];cells[0]=B4::F;
+            let value=BelnapWord::new(cells);
+            let zero=BelnapWord::new(Vec::new());
+            assert_eq!(value.add(&zero),value);
+            assert_eq!(zero.add(&value),value);
+            let (back,borrow)=value.add(&BelnapWord::new(vec![B4::T])).subtract(&BelnapWord::new(vec![B4::T]));
+            assert_eq!(back,value);assert_eq!(borrow,B4::F);
+        }
+        let source="211060082272597355141159798675733025589";
+        let tape=mf::decimal_to_tape(source).unwrap();
+        assert_eq!(tape.len(),128);assert_eq!(mf::dec_of(&tape),source);
+    }
 }

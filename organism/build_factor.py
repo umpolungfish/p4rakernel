@@ -41,7 +41,9 @@ files=[ROOT/p for p in ['src/kernel/inclosure.h','src/kernel/inclosure.cpp','src
     'src/kernel/organism_vgi.h','p4ramill/RunOrganismFactor.lean','p4ramill/NativeDialetheicOrganism.lean',
     'organism/factor_bridge/src/lib.rs','organism/factor_bridge/Cargo.toml','organism/factor_bridge/Cargo.lock']]
 files += [ROOT.parent/'Vox/src/glut_carrier.rs',ROOT.parent/'Vox/src/factor_synthesis.rs',
-          ROOT.parent/'Vox/src/glut_fold.rs',ROOT.parent/'Vox/src/glut_square_phase.rs',ROOT.parent/'Vox/src/packed_belnap_word.rs']
+          ROOT.parent/'Vox/src/glut_fold.rs',ROOT.parent/'Vox/src/glut_square_phase.rs',
+          ROOT.parent/'Vox/src/belnap_word.rs',ROOT.parent/'Vox/src/morphism_factor.rs',
+          ROOT.parent/'Vox/src/packed_belnap_word.rs']
 images=[out/'organism-factor',out/'factor_bridge.so',out/'organism/vgi_organism.so']
 report={'status':'built','compilation_seconds':sum(x['seconds'] for x in steps),
         'sources':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
