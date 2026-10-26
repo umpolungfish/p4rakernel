@@ -52,6 +52,7 @@ try:
             assert torus['carrier']=='BelnapWord' and numeral(torus['source'])==n
             if 'resident_identity' in torus:assert torus['resident_identity']==task['resident_identity']
             modulus=1<<torus['modulus_exponent']
+            projected_views=0
             for arm in torus['arms']:
                 left=numeral(arm['p']);right=numeral(arm['q'])
                 height=arm['signed_product_height'];sign=height['negative']
@@ -77,6 +78,26 @@ try:
                     assert numeral(previous['p'])*numeral(previous['q'])==n+delta*modulus
                     delta=numeral(transition['after_height'])*(-1 if transition['negative']=='T' else 1)
                     assert numeral(transition['after_p'])*numeral(transition['after_q'])==n+delta*modulus
+                    if transition.get('zero_extended_view'):
+                        assert transition['operation']=='native-view-reentry'
+                        view=torus['native_views'][transition['native_view_index']]
+                        old_p=numeral(previous['p']);old_q=numeral(previous['q'])
+                        left,right=((old_p+old_q)//2,abs(old_p-old_q)//2) if view['conjugate']=='T' else (old_p,old_q)
+                        values=[]
+                        for value,coordinate in [(left,view['left']),(right,view['right'])]:
+                            cells=coordinate['cells']
+                            for i in range(max(value.bit_length(),len(cells))):
+                                cell=cells[i] if i<len(cells) else 'F'
+                                if cell=='T':value|=1<<i
+                                elif cell=='F':value&=~(1<<i)
+                                else:assert cell in ('N','B')
+                            values.append(value)
+                        left,right=values
+                        expected=(abs(left-right) if old_p<=old_q else left+right) if view['conjugate']=='T' else left
+                        expected=((expected&~7)|(old_p&7))%modulus
+                        assert numeral(transition['after_p'])==expected
+                        assert numeral(transition['after_q'])==n*pow(expected,-1,modulus)%modulus
+                        projected_views+=1
                     if 'poloidal_pinch_half_turns' in transition:
                         at=numeral(transition['poloidal_pinch_half_turns'])
                         assert at%2==1
@@ -88,6 +109,9 @@ try:
             report['joint_coordinate_views']=len(torus.get('native_views',[]))
             report['native_view_reentries']=sum(t['operation']=='native-view-reentry'
                 for arm in torus['arms'] for t in arm['ancestry'])
+            if projected_views:
+                assert projected_views==report['native_view_reentries']
+                report.update(native_view_projection_verified=True,zero_extended_native_views=projected_views)
             if 'reentry_state' in torus:
                 events=[event for operation in task['operations'] for event in operation.get('logical_reentry',[])]
                 events+=task.get('pending_logical_reentry',[])
