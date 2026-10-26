@@ -9,6 +9,8 @@ struct Body {
     resident: FactorSynthesis,
     returned: Option<FactorReturn>,
     events: Vec<Value>,
+    reentry_events: Vec<Value>,
+    reentry_feedback: vox::belnap::B4,
     json: CString,
     preparation: f64,
     identity: Option<usize>,
@@ -61,6 +63,7 @@ impl Body {
                 json!({"cell":d.cell,"preference":d.preference.name(),"selected":d.selected.name(),
                     "evidence":d.evidence.name(),"hypothesis":d.hypothesis})).collect::<Vec<_>>(),
             "stats":stats(&self.resident.resident_stats()),"result":result,"operations":self.events,
+            "pending_logical_reentry":self.reentry_events,
             "resident_identity":self.identity,"error":self.error,
             "boundary":if self.returned.is_some(){"closed"}else{"held"}});
         self.json = CString::new(report.to_string()).unwrap();
@@ -79,7 +82,8 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
         let identity=resident.resident_identity();
         let deadline=std::env::var("ORGANISM_FACTOR_BUDGET_SECONDS").ok()
             .and_then(|s|s.parse::<u64>().ok()).map(|s|Instant::now()+Duration::from_secs(s));
-        Ok(Body {source:tape,resident,returned:None,events:Vec::new(),json:CString::new("{}").unwrap(),
+        Ok(Body {source:tape,resident,returned:None,events:Vec::new(),reentry_events:Vec::new(),json:CString::new("{}").unwrap(),
+            reentry_feedback:vox::belnap::B4::N,
             preparation:started.elapsed().as_secs_f64(),identity,error:None,deadline,budget_exhausted:false})
     });
     match outcome {Ok(Ok(body))=>Box::into_raw(Box::new(body)) as *mut c_void,
@@ -94,6 +98,22 @@ pub unsafe extern "C" fn organism_factor_source_token(body:*mut c_void,index:usi
     let body=&*(body as *mut Body);
     let big:Vec<_>=body.source.iter().rev().copied().collect();
     match big.chunks(4).nth(index) {Some(chunk)=>chunk.iter().fold(0,|n,c|2*n+i32::from(*c=='⊥')),None=>-1}
+}
+#[no_mangle]
+pub unsafe extern "C" fn organism_factor_reentry(body:*mut c_void,before:u32,permuted:u32,next:u32,kind:u32)->i32 {
+    let body=&mut*(body as *mut Body);
+    if body.deadline.is_some_and(|d|Instant::now()>=d){body.budget_exhausted=true;return 1;}
+    if before>15 || permuted>15 || next>15 || !matches!(kind,1|2){return -1;}
+    let outcome=std::panic::catch_unwind(std::panic::AssertUnwindSafe(||->Result<(),String>{
+        for (a,b,k) in [(before,permuted,0),(permuted,before,0),(before,next,kind)] {
+            let event=body.resident.reenter_toroidal_division(a as u8,b as u8,k as u8)?;
+            body.reentry_events.push(event);
+        }
+        body.reentry_feedback=vox::belnap::B4::from_u8(((next>>1)&3) as u8);
+        Ok(())
+    }));
+    match outcome{Ok(Ok(()))=>0,Ok(Err(error))=>{body.error=Some(error);-1},Err(_)=>{
+        body.error=Some("native re-entry panic retained".into());-1}}
 }
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i32 {
@@ -125,11 +145,12 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     let produced=body.returned.is_some();
     if let Some(r)=&body.returned {body.identity=r.membrane.as_ref().map(|m|m.resident_identity());}
     body.events.push(json!({"port":port,"toroidal_operation":torus_event,
+        "logical_reentry":std::mem::take(&mut body.reentry_events),
         "executed_components":PreparedGlutMembrane::component_names(),
         "seconds":started.elapsed().as_secs_f64(),"before":before_json,
         "after":after_json,"changed":changed,"conflict":conflict,"produced":produced}));
     use vox::belnap::B4;
-    let mut feedback=torus_feedback;
+    let mut feedback=torus_feedback.join(body.reentry_feedback);
     if changed || produced {feedback=feedback.join(B4::T);}
     if conflict {feedback=feedback.join(B4::F);}
     if let Some(event)=body.events.last_mut(){event["feedback"]=json!(feedback.name());}

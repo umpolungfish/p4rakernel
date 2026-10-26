@@ -37,6 +37,14 @@ struct sixteen3 {
     static sixteen3 from_mask(unsigned m) {
         return sixteen3(m & 1, m & 2, m & 4, m & 8);
     }
+    /** P1 exchanges N/T and F/B. Membership and designation stay distinct. */
+    sixteen3 reentry_permutation() const {
+        return sixteen3(hasT, hasN, hasB, hasF);
+    }
+    /** Information conflation: complement after exchanging N/B and T/F. */
+    sixteen3 conflation() const {
+        return sixteen3(!hasB, !hasF, !hasT, !hasN);
+    }
 
     bool operator==(sixteen3 const & o) const {
         return hasN == o.hasN && hasT == o.hasT && hasF == o.hasF && hasB == o.hasB;

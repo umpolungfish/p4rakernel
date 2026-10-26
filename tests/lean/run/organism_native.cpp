@@ -10,6 +10,24 @@ static void require(bool p, char const * message) {
 
 int main(int argc, char ** argv) {
     using namespace lean;
+    unsigned c_fixed=0,p_fixed=0;
+    for(unsigned mask=0;mask<16;++mask){
+        auto x=sixteen3::from_mask(mask);
+        require(x.conflation().conflation()==x,"conflation must be involutive");
+        require(x.reentry_permutation().reentry_permutation()==x,"P1 must be involutive");
+        c_fixed+=x.conflation()==x;p_fixed+=x.reentry_permutation()==x;
+        for(unsigned other=0;other<16;++other){
+            auto y=sixteen3::from_mask(other);
+            if(x.le_i(y))require(y.conflation().le_i(x.conflation()),"conflation reverses information order");
+        }
+    }
+    require(c_fixed==4 && p_fixed==4,"re-entry fixed point counts");
+    unsigned chain[]={0,1,3,7,15};
+    for(unsigned i=0;i<5;++i){
+        auto x=sixteen3::from_mask(chain[i]);
+        require(x.conflation().mask()==chain[4-i],"C-palindromic native ascent");
+        require(x.hasT==(i>=2),"TF designation precedes glut");
+    }
     if (argc == 2) {
         std::ifstream oracle(argv[1]);
         require(static_cast<bool>(oracle), "canonical Lean oracle missing");

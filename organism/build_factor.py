@@ -38,7 +38,7 @@ run('factor_entry_compile',[ROOT/'build/stage1/bin/lean','-c',out/'factor.c','Ru
     cwd=ROOT/'p4ramill',env=environment)
 run('factor_entry_link',[ROOT/'build/stage1/bin/leanc',out/'organism/NativeDialetheicOrganism.c',out/'factor.c',
     '-o',out/'organism-factor'])
-files=[ROOT/p for p in ['src/kernel/inclosure.h','src/kernel/inclosure.cpp','src/kernel/organism_factor.h',
+files=[ROOT/p for p in ['src/kernel/sixteen3.h','src/kernel/inclosure.h','src/kernel/inclosure.cpp','src/kernel/organism_factor.h',
     'src/kernel/organism_vgi.h','p4ramill/RunOrganismFactor.lean','p4ramill/NativeDialetheicOrganism.lean',
     'organism/factor_bridge/src/lib.rs',
     'organism/factor_bridge/Cargo.toml','organism/factor_bridge/Cargo.lock']]

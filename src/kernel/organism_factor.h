@@ -9,11 +9,14 @@ class organism_factor_task : public organism_task {
     using create_fn = void * (*)(char const *);
     using destroy_fn = void (*)(void *);
     using advance_fn = int (*)(void *, size_t);
+    using reentry_fn = int (*)(void *, unsigned, unsigned, unsigned, unsigned);
     using closed_fn = bool (*)(void *);
     using snapshot_fn = char const * (*)(void *);
     using source_fn = int (*)(void *, size_t);
     destroy_fn m_destroy;
     advance_fn m_advance;
+    reentry_fn m_reenter;
+    sixteen3 m_reentry;
     closed_fn m_closed;
     snapshot_fn m_snapshot;
     snapshot_fn m_observation;
@@ -31,6 +34,7 @@ public:
         try {
             m_destroy=symbol<destroy_fn>("organism_factor_destroy");
             m_advance=symbol<advance_fn>("organism_factor_advance");
+            m_reenter=symbol<reentry_fn>("organism_factor_reentry");
             m_closed=symbol<closed_fn>("organism_factor_closed");
             m_snapshot=symbol<snapshot_fn>("organism_factor_snapshot");
             m_observation=symbol<snapshot_fn>("organism_factor_observation");
@@ -50,6 +54,12 @@ public:
         return result;
     }
     organism_task_observation advance(size_t component) override {
+        auto permutation=m_reentry.reentry_permutation();
+        bool returning=m_reentry==sixteen3_all();
+        auto next=returning ? m_reentry.conflation() : inclosure::wind(m_reentry);
+        int gate=m_reenter(m_body,m_reentry.mask(),permutation.mask(),next.mask(),returning ? 2u : 1u);
+        if(gate<0)throw std::runtime_error("native factor re-entry transport failed");
+        if(gate==0)m_reentry=next;
         int result=m_advance(m_body,component);
         if(result<0 || result>15)throw std::runtime_error("native factor operation returned invalid evidence");
         return {component,sixteen3::from_mask(result),closed(),m_observation(m_body)};

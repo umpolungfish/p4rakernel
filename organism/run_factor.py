@@ -83,6 +83,29 @@ try:
             report['joint_coordinate_views']=len(torus.get('native_views',[]))
             report['native_view_reentries']=sum(t['operation']=='native-view-reentry'
                 for arm in torus['arms'] for t in arm['ancestry'])
+            if 'reentry_state' in torus:
+                events=[event for operation in task['operations'] for event in operation.get('logical_reentry',[])]
+                events+=task.get('pending_logical_reentry',[])
+                state=0
+                for event in events:
+                    before=numeral(event['before']);after=numeral(event['after'])
+                    assert before==state and 0<=after<16 and event['inverse_verified']
+                    kind=event['operation']
+                    if kind=='permutation-reentry':expected=((before&5)<<1)|((before&10)>>1)
+                    elif kind=='conflation-return':expected=15^(((before&1)<<3)|((before&2)<<1)|((before&4)>>1)|((before&8)>>3))
+                    else:
+                        assert kind=='inc-ascent'
+                        expected=before
+                        for bit in [1,2,4,8]:
+                            if not expected&bit:expected|=bit;break
+                    assert after==expected and event['atom_order']==['N','T','F','B']
+                    assert event['TF_shadow']==['N','T','F','B'][(after>>1)&3]
+                    assert event['designated']==bool(after&2)
+                    state=after
+                assert numeral(torus['reentry_state'])==state
+                report['logical_reentries']=len(events)
+                report['conflation_returns']=sum(e['operation']=='conflation-return' for e in events)
+                report['logical_reentry_return_verified']=True
         for action in body['actions']:
             for operation in action['task_operations']:
                 assert int(operation['retained_state']['source'])==n
