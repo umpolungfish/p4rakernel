@@ -173,7 +173,10 @@ std::string snapshot(dialetheic_organism const & o) {
             if(k)s<<",";
             auto const & task=action.task_operations[k];
             s<<"{\"component\":"<<task.component<<",\"feedback\":"<<task.feedback.mask()
-             <<",\"closed\":"<<(task.closed?"true":"false")<<",\"retained_state\":"<<task.state<<"}";
+             <<",\"closed\":"<<(task.closed?"true":"false")<<",\"retained_state\":"<<task.state
+             <<",\"learning_context_tokens\":[";
+            for(size_t j=0;j<task.learning_context.size();++j){if(j)s<<",";s<<task.learning_context[j];}
+            s<<"]}";
         }
         s<<"]";
         s << "}";

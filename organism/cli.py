@@ -169,6 +169,8 @@ def summary(report):
         text += f"\n{report['p']} × {report['q']} (exact product and return verified)"
     if 'logical_reentries' in report:
         text += f"\nLogical re-entries {report['logical_reentries']}; C returns {report['conflation_returns']}"
+    if report.get('paired_learning_context_verified'):
+        text += f"\nVGI paired-state frames {report['task_context_records']}; exact context tokens {report['task_context_tokens']} verified"
     if report.get('application') == 'native-growth':
         text += f"\nGrowth steps {report.get('completed_steps', 0)}; source mask {report['source_mask']}; VGI={report['vgi']}"
     if report['status'] == 'unverified':

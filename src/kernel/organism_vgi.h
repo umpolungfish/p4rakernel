@@ -27,6 +27,7 @@ class vgi_organism_learner : public organism_learner {
     scalar_fn m_parameter;
     reset_fn m_context_begin, m_context_end;
     bool m_learning;
+    size_t m_task_context_records = 0, m_task_context_tokens = 0, m_task_context_updates = 0;
     template<typename T> T symbol(char const * name) {
         auto address = dlsym(m_library, name);
         if (!address) throw std::runtime_error(std::string("VGI symbol missing: ") + name);
@@ -93,6 +94,22 @@ public:
             throw std::runtime_error("VGI task learning failed");
         m_context_end();
     }
+    void observe_task_context(unsigned component, sixteen3 value,
+                              std::vector<unsigned> const & context) override {
+        if(context.empty()){observe_task(component,value);return;}
+        std::vector<long> query{256,84,static_cast<long>(component),266+organism_vgi_transport(value.mask())};
+        query.insert(query.end(),context.begin(),context.end());
+        query.push_back(257);
+        for(size_t i=0;i<query.size();++i)
+            if(m_token(i,query[i])<0)throw std::runtime_error("VGI paired state context rejected");
+        auto before=m_optimizer(0,0);
+        m_context_begin();
+        auto result=m_update(query.size(),0,2,organism_vgi_transport(value.mask()),m_learning?1:0,1);
+        m_context_end();
+        if(result<0)throw std::runtime_error("VGI paired state learning failed");
+        ++m_task_context_records;m_task_context_tokens+=context.size();
+        if(m_optimizer(0,0)>before)++m_task_context_updates;
+    }
     organism_neural_observation act(organism_op op, sixteen3 input, sixteen3 operand,
                                     sixteen3 expected) override {
         // Marker K (75) distinguishes kernel-operation queries from VGI's
@@ -122,6 +139,9 @@ public:
     std::string snapshot() const override {
         std::ostringstream s;
         s << std::setprecision(17) << "{\"backend\":\"VGI-native-retained\",\"optimizer_clock\":" << m_optimizer(0, 0);
+        s << ",\"task_context_records\":" << m_task_context_records
+          << ",\"task_context_tokens\":" << m_task_context_tokens
+          << ",\"task_context_optimizer_updates\":" << m_task_context_updates;
         for (unsigned kind = 0; kind < 3; ++kind) {
             s << (kind == 0 ? ",\"parameters\":[" : kind == 1 ? ",\"adam_m\":[" : ",\"adam_v\":[");
             for (size_t i = 0; i < m_parameters; ++i) {

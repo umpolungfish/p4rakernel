@@ -21,6 +21,7 @@ class organism_factor_task : public organism_task {
     snapshot_fn m_snapshot;
     snapshot_fn m_observation;
     source_fn m_source;
+    source_fn m_state;
     size_t m_components;
     template<typename T> T symbol(char const * name) {
         auto address = dlsym(m_library, name);
@@ -39,6 +40,7 @@ public:
             m_snapshot=symbol<snapshot_fn>("organism_factor_snapshot");
             m_observation=symbol<snapshot_fn>("organism_factor_observation");
             m_source=symbol<source_fn>("organism_factor_source_token");
+            m_state=symbol<source_fn>("organism_factor_state_token");
             m_components=symbol<size_t(*)()>("organism_factor_components")();
             m_body=symbol<create_fn>("organism_factor_create")(source.c_str());
             if (!m_body) throw std::runtime_error("native N-only factor preparation rejected; see its retained diagnostic");
@@ -62,7 +64,9 @@ public:
         if(gate==0)m_reentry=next;
         int result=m_advance(m_body,component);
         if(result<0 || result>15)throw std::runtime_error("native factor operation returned invalid evidence");
-        return {component,sixteen3::from_mask(result),closed(),m_observation(m_body)};
+        std::vector<unsigned> context;
+        for(size_t i=0;;++i){int token=m_state(m_body,i);if(token<0)break;context.push_back(token);}
+        return {component,sixteen3::from_mask(result),closed(),m_observation(m_body),std::move(context)};
     }
 };
 }

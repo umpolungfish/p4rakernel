@@ -36,6 +36,13 @@ Belnap residue lifting, torus operations and VGI feedback execute inside the
 factor command. See [the complete CLI guide](../../ig-docs/organism_cli.md)
 for all options, component checks, source boundaries and returned-state fields.
 
+The factor task supplies VGI with the selected paired numerical state as well
+as its feedback mark. Exact source, pair, signed carry height, turns, clock,
+membership, evidence and grid enter the same retained learner. `status` reports
+verified frame/token counts. `return.json` retains the consumed frames and
+learner update counters; the runner decodes them and checks their exact
+source/product/carry relation.
+
 ## Constitutive cycle
 
 **⌈B⌋ → ⌈∅ → N → N,T → N,T,F → N,T,F,B⌋ → ⌈B⌋**

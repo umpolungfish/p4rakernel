@@ -17,6 +17,7 @@ struct Body {
     error: Option<String>,
     deadline: Option<Instant>,
     budget_exhausted: bool,
+    learning_tokens: Vec<u16>,
 }
 fn stats(s: &FoldStats) -> Value {
     json!({"dialectic_descents":s.dialectic_descents,"dialectic_contractions":s.dialectic_contractions,
@@ -84,7 +85,8 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
             .and_then(|s|s.parse::<u64>().ok()).map(|s|Instant::now()+Duration::from_secs(s));
         Ok(Body {source:tape,resident,returned:None,events:Vec::new(),reentry_events:Vec::new(),json:CString::new("{}").unwrap(),
             reentry_feedback:vox::belnap::B4::N,
-            preparation:started.elapsed().as_secs_f64(),identity,error:None,deadline,budget_exhausted:false})
+            preparation:started.elapsed().as_secs_f64(),identity,error:None,deadline,budget_exhausted:false,
+            learning_tokens:Vec::new()})
     });
     match outcome {Ok(Ok(body))=>Box::into_raw(Box::new(body)) as *mut c_void,
         other=>{eprintln!("organism factor preparation rejected: {}", match other {Ok(Err(e))=>e,_=>"native panic".into()});std::ptr::null_mut()}}
@@ -154,10 +156,35 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     if changed || produced {feedback=feedback.join(B4::T);}
     if conflict {feedback=feedback.join(B4::F);}
     if let Some(event)=body.events.last_mut(){event["feedback"]=json!(feedback.name());}
+    let context=body.resident.toroidal_learning_context();
+    // Exact frame: arm, ordered field ID, eight little-endian length bytes,
+    // then pairs of full FOUR cells packed into the existing 16 token values.
+    let mut tokens=vec![256,85,context["arm"].as_u64().unwrap() as u16];
+    for (field,value) in context["fields"].as_array().unwrap().iter().enumerate(){
+        tokens.push(field as u16);
+        let cells=value["word"]["cells"].as_array().unwrap();
+        tokens.extend((cells.len() as u64).to_le_bytes().iter().map(|&b|b as u16));
+        for pair in cells.chunks(2){
+            let mut packed=0u16;
+            for (position,cell) in pair.iter().enumerate(){
+                let value=match cell.as_str().unwrap(){"N"=>0,"T"=>1,"F"=>2,"B"=>3,_=>unreachable!()};
+                packed|=value<<(2*position);
+            }
+            tokens.push(266+packed);
+        }
+    }
+    tokens.push(257);
+    body.learning_tokens=tokens;
+    if let Some(event)=body.events.last_mut(){event["learning_context"]=context;}
     match feedback {B4::N=>1,B4::T=>2,B4::F=>4,B4::B=>8}
 }
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_closed(body:*mut c_void)->bool {(*(body as *mut Body)).returned.is_some()}
+#[no_mangle]
+pub unsafe extern "C" fn organism_factor_state_token(body:*mut c_void,index:usize)->i32 {
+    let body=&*(body as *mut Body);
+    body.learning_tokens.get(index).map_or(-1,|&token|token as i32)
+}
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_snapshot(body:*mut c_void)->*const c_char {(&mut*(body as *mut Body)).snapshot()}
 #[no_mangle]

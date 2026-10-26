@@ -133,12 +133,15 @@ struct organism_learner {
     virtual std::string snapshot() const = 0;
     virtual void bind_source(std::vector<unsigned> const &) {}
     virtual void observe_task(unsigned, sixteen3) {}
+    virtual void observe_task_context(unsigned component, sixteen3 feedback,
+                                      std::vector<unsigned> const &) { observe_task(component, feedback); }
 };
 struct organism_task_observation {
     size_t component;
     sixteen3 feedback;
     bool closed;
     std::string state;
+    std::vector<unsigned> learning_context{};
 };
 struct organism_task {
     virtual ~organism_task() = default;
@@ -317,7 +320,7 @@ public:
                 // of the retained task. Its result enters this same body.
                 size_t component = (after.mask() + r) % m_task->components();
                 auto task = m_task->advance(component);
-                if (m_learner) m_learner->observe_task(component, task.feedback);
+                if (m_learner) m_learner->observe_task_context(component, task.feedback, task.learning_context);
                 after = after.join_i(task.feedback);
                 task_operations.push_back(std::move(task));
             }

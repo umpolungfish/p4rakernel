@@ -111,9 +111,42 @@ try:
                 report['logical_reentries']=len(events)
                 report['conflation_returns']=sum(e['operation']=='conflation-return' for e in events)
                 report['logical_reentry_return_verified']=True
+        context_records=0;context_tokens=0
         for action in body['actions']:
             for operation in action['task_operations']:
                 assert int(operation['retained_state']['source'])==n
+                event=operation['retained_state'].get('operation') or {}
+                context=event.get('learning_context')
+                if context is not None:
+                    tokens=operation['learning_context_tokens'];at=3
+                    assert tokens[:3]==[256,85,context['arm']]
+                    expected_names=['source','p','q','height','negative','positive_turns','negative_turns',
+                                    'clock','membership','evidence','grid']
+                    assert [f['name'] for f in context['fields']]==expected_names
+                    decoded={}
+                    for index,field in enumerate(context['fields']):
+                        assert tokens[at]==index;at+=1
+                        width=int.from_bytes(bytes(tokens[at:at+8]),'little');at+=8
+                        cells=[]
+                        for _ in range((width+1)//2):
+                            value=tokens[at]-266;at+=1
+                            assert 0<=value<16
+                            cells.extend(['N','T','F','B'][(value>>shift)&3] for shift in [0,2])
+                        assert cells[:width]==field['word']['cells']
+                        decoded[field['name']]=field['word']
+                    assert tokens[at:]==[257]
+                    assert numeral(decoded['source'])==n
+                    left=numeral(decoded['p']);right=numeral(decoded['q'])
+                    sign=numeral(decoded['negative']);assert sign in (0,1)
+                    assert left*right==n+(-1 if sign else 1)*numeral(decoded['height'])*(1<<n.bit_length())
+                    context_records+=1;context_tokens+=len(tokens)
+        if context_records:
+            learner=body['learner']
+            assert learner['task_context_records']==context_records
+            assert learner['task_context_tokens']==context_tokens
+            assert learner['task_context_optimizer_updates']==context_records
+            report.update(paired_learning_context_verified=True,task_context_records=context_records,
+                          task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
         if factor:
             d=int(factor['p']);q=int(factor['q'])
             assert 1<d<n and n%d==0 and n//d==q and d*q==n
