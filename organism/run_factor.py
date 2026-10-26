@@ -180,6 +180,7 @@ try:
                         x=multiply(x,x);k>>=1
                     return out
                 state=(0,1);positive=1;negative=0;by_clock={}
+                retained=[(state,1)];retained_comparisons=0
                 for event in stark['events']:
                     assert unit(event['before'])==state
                     assert (numeral(event['before_positive']),numeral(event['before_negative']))==(positive,negative)
@@ -205,6 +206,45 @@ try:
                         expected=b_value if readout['kind']=='epsilon_coefficient' else (2*a_value+trace*b_value-2)%n
                         assert numeral(readout['value'])==expected
                         assert numeral(readout['gcd'])==gcd(expected,n)
+                    if 'retained_units' in stark:
+                        if observation:=event.get('retained_readout'):
+                            assert observation['comparisons']==len(retained)
+                            product=1;norms=[];zero=0;same=0;distinct=0
+                            for index,(old,winding) in enumerate(retained):
+                                a_delta=(a_value-old[0])%n;b_delta=(b_value-old[1])%n
+                                norm=(a_delta*a_delta+trace*a_delta*b_delta+b_delta*b_delta)%n
+                                relative=multiply(after,conjugate(old))
+                                assert norm==(2-2*relative[0]-trace*relative[1])%n
+                                if norm:
+                                    product=product*norm%n;norms.append((index,norm))
+                                else:
+                                    zero+=1
+                                    if after==old:
+                                        if positive-negative==winding:same+=1
+                                        else:distinct+=1
+                            assert observation['zero_norms']==zero
+                            assert observation['nonzero_norms']==len(norms)
+                            assert observation['same_unit_same_winding']==same
+                            assert observation['same_unit_distinct_winding']==distinct
+                            divisor=gcd(product,n)
+                            assert numeral(observation['product_residue'])==product
+                            assert numeral(observation['gcd'])==divisor
+                            split=observation['split_readouts']
+                            for position,readout in enumerate(split):
+                                index,norm=norms[position]
+                                assert readout['index']==index
+                                assert numeral(readout['gcd'])==gcd(norm,n)
+                                if position+1<len(split):assert gcd(norm,n)==1
+                            if divisor==n:
+                                assert split and 1<numeral(split[-1]['gcd'])<n
+                                divisor=numeral(split[-1]['gcd'])
+                            else:assert not split
+                            if divisor>1:
+                                assert factor and divisor in (int(factor['p']),int(factor['q']))
+                            retained_comparisons+=len(retained)
+                        else:
+                            assert any(1<numeral(r['gcd'])<n for r in event['readouts'])
+                        retained.append((after,positive-negative))
                     by_clock[numeral(event['clock'])]=after;state=after
                 paired=0;frames=[9]*len(torus['arms']);products=[1]*len(frames)
                 for operation in task['operations']:
@@ -236,6 +276,9 @@ try:
                     report['stark_frame_transport_verified']=True
                 assert unit(stark['state'])==state
                 report.update(stark_rotation_verified=True,stark_paired_rotations=paired)
+                if 'retained_units' in stark:
+                    assert stark['retained_units']==len(retained)
+                    report.update(retained_unit_readout_verified=True,retained_unit_comparisons=retained_comparisons)
             if 'reentry_state' in torus:
                 events=[event for operation in task['operations'] for event in operation.get('logical_reentry',[])]
                 events+=task.get('pending_logical_reentry',[])
