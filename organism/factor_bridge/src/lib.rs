@@ -153,11 +153,27 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
         "seconds":started.elapsed().as_secs_f64(),"before":before_json,
         "after":after_json,"changed":changed,"conflict":conflict,"produced":produced}));
     use vox::belnap::B4;
-    let mut feedback=torus_feedback.join(body.reentry_feedback);
-    if changed || produced {feedback=feedback.join(B4::T);}
+    // Task progress is observed on the arithmetic relation. Execution and
+    // logical re-entry remain independently available in the learned context.
+    let mut feedback=torus_feedback;
+    if produced {feedback=feedback.join(B4::T);}
     if conflict {feedback=feedback.join(B4::F);}
-    if let Some(event)=body.events.last_mut(){event["feedback"]=json!(feedback.name());}
-    let context=body.resident.toroidal_learning_context();
+    let observations=[("execution_changed",if changed{B4::T}else{B4::N}),
+        ("logical_reentry",body.reentry_feedback),("paired_progress",torus_feedback),
+        ("relation_conflict",if conflict{B4::F}else{B4::N}),
+        ("produced",if produced{B4::T}else{B4::N}),("task_feedback",feedback)];
+    if let Some(event)=body.events.last_mut(){
+        event["feedback"]=json!(feedback.name());
+        event["feedback_basis"]=json!("source-arithmetic-v1");
+        event["feedback_observations"]=json!(observations.iter()
+            .map(|(name,value)|(*name,value.name())).collect::<std::collections::BTreeMap<_,_>>());
+    }
+    let mut context=body.resident.toroidal_learning_context();
+    context["schema"]=json!("toroidal-learning-context-v2");
+    for (name,value) in observations {
+        context["fields"].as_array_mut().unwrap().push(json!({"name":name,
+            "word":torus::word(&vox::belnap_word::BelnapWord(vec![value]))}));
+    }
     // Exact frame: arm, ordered field ID, eight little-endian length bytes,
     // then pairs of full FOUR cells packed into the existing 16 token values.
     let mut tokens=vec![256,85,context["arm"].as_u64().unwrap() as u16];

@@ -1,3 +1,3 @@
-I preserve my organism return after production has stopped.
+I preserve exact logical feedback through the native organism
 
-I mark the native execution boundary before snapshot construction, give the retained return its own bounded allowance, expose both clocks through the CLI, and bind the quadratic-unit source in the build manifest.
+I carry execution, reentry, arithmetic progress, conflicts and production as separate learned observations. I retain an explicit F cell and independently replay compound arithmetic feedback and exact paired context.

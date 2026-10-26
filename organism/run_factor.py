@@ -313,6 +313,9 @@ try:
                     assert tokens[:3]==[256,85,context['arm']]
                     expected_names=['source','p','q','height','negative','positive_turns','negative_turns',
                                     'clock','membership','evidence','grid']
+                    if context['schema']=='toroidal-learning-context-v2':
+                        expected_names+=['execution_changed','logical_reentry','paired_progress',
+                                         'relation_conflict','produced','task_feedback']
                     assert [f['name'] for f in context['fields']]==expected_names
                     decoded={}
                     for index,field in enumerate(context['fields']):
@@ -330,13 +333,37 @@ try:
                     left=numeral(decoded['p']);right=numeral(decoded['q'])
                     sign=numeral(decoded['negative']);assert sign in (0,1)
                     assert left*right==n+(-1 if sign else 1)*numeral(decoded['height'])*(1<<n.bit_length())
+                    if event.get('feedback_basis')=='source-arithmetic-v1':
+                        observations=event['feedback_observations']
+                        rails={'N':0,'T':1,'F':2,'B':3}
+                        def joined(*values):
+                            value=0
+                            for v in values:value|=rails[v]
+                            return ['N','T','F','B'][value]
+                        torus_event=event['toroidal_operation']
+                        assert observations['execution_changed']==('T' if event['changed'] else 'N')
+                        assert observations['paired_progress']==joined(
+                            torus_event.get('evidence','N'),
+                            torus_event.get('native_view_reentry',{}).get('evidence','N'))
+                        assert observations['relation_conflict']==('F' if event['conflict'] else 'N')
+                        assert observations['produced']==('T' if event['produced'] else 'N')
+                        logical=event.get('logical_reentry',[])
+                        if logical:
+                            mask=numeral(logical[-1]['after'])
+                            assert observations['logical_reentry']==['N','T','F','B'][(mask>>1)&3]
+                        assert event['feedback']==joined(observations['paired_progress'],
+                            observations['relation_conflict'],observations['produced'])
+                        assert observations['task_feedback']==event['feedback']
+                        for name,value in observations.items():
+                            assert decoded[name]['cells']==[value]
                     context_records+=1;context_tokens+=len(tokens)
         if context_records:
             learner=body['learner']
             assert learner['task_context_records']==context_records
             assert learner['task_context_tokens']==context_tokens
             assert learner['task_context_optimizer_updates']==context_records
-            report.update(paired_learning_context_verified=True,task_context_records=context_records,
+            report.update(arithmetic_feedback_verified=all(e.get('feedback_basis')=='source-arithmetic-v1' for e in task['operations']),
+                          paired_learning_context_verified=True,task_context_records=context_records,
                           task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
         polynomial_actions=task.get('square_polynomial_actions',[])
         if polynomial_actions:
