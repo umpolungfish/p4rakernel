@@ -178,12 +178,21 @@ try:
                         assert numeral(readout['value'])==expected
                         assert numeral(readout['gcd'])==gcd(expected,n)
                     by_clock[numeral(event['clock'])]=after;state=after
-                paired=0
+                paired=0;frames=[9]*len(torus['arms']);products=[1]*len(frames)
                 for operation in task['operations']:
                     event=operation.get('toroidal_operation',{})
                     if transition:=event.get('stark_paired_transition'):
                         after=by_clock[numeral(event['clock'])-1]
-                        multiplier=(1+8*sum(after))%modulus
+                        frame=(1+8*sum(after))%modulus
+                        multiplier=frame
+                        if torus.get('stark_frame_transport'):
+                            arm=event['arm']
+                            assert numeral(transition['before_unit_frame'])==frames[arm]
+                            assert numeral(transition['after_unit_frame'])==frame
+                            multiplier=frame*pow(frames[arm],-1,modulus)%modulus
+                            products[arm]=products[arm]*multiplier%modulus
+                            assert products[arm]==frame*pow(9,-1,modulus)%modulus
+                            frames[arm]=frame
                         inverse=pow(multiplier,-1,modulus)
                         assert numeral(transition['multiplier'])==multiplier
                         assert numeral(transition['inverse_multiplier'])==inverse
@@ -194,6 +203,9 @@ try:
                         assert numeral(transition['after_q'])==numeral(before['q'])*inverse%modulus
                         paired+=1
                 assert paired==len(stark['events'])
+                if torus.get('stark_frame_transport'):
+                    assert [numeral(a['stark_frame']) for a in torus['arms']]==frames
+                    report['stark_frame_transport_verified']=True
                 assert unit(stark['state'])==state
                 report.update(stark_rotation_verified=True,stark_paired_rotations=paired)
             if 'reentry_state' in torus:

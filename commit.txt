@@ -1,3 +1,3 @@
-I verify my organism quadratic unit and its paired action.
+I verify cumulative unit-frame transport on each organism arm.
 
-I replay the unit multiplication, conjugation, winding counts, norm carry and divisor readouts, then verify the resulting multiplier acts on the same carried pair. I report these checks through the CLI.
+I replay the retained frame ratios, their telescoping products and the final stored frames alongside the exact pair transitions.
