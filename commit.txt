@@ -1,3 +1,3 @@
-I execute ascent, permutation and conflation inside my native organism.
+I verify my organism command line through live stop and rebuild/restart.
 
-I keep the complete membership state distinct from its TF shadow, feed the shadow into VGI feedback, retain the native arithmetic re-entry trace, and verify it through the complete organism return.
+I provide build, N-only factor, growth, status, trace inspection and component checks through one CLI. I preserve process start identities and image/source bindings, and exercise actual native target/control closure and VGI growth in the lifecycle check.

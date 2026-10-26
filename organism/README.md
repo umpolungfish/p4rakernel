@@ -14,6 +14,28 @@ below.
 Factoring has resumed through the organism. The native sixteen-state body and
 bound VGI learner now carry a retained source-bound factor/product task.
 
+## Unified command line
+
+From the workspace root:
+
+```bash
+./organism build
+./organism factor --source path/to/source.N.txt --seconds 600
+./organism status
+./organism inspect --trace
+./organism restart --seconds 600
+./organism grow --steps 12 --mask 8
+./organism check --component reentry
+./organism check --component cli
+```
+
+The CLI is also available as `python3 p4rakernel/organism/cli.py`. It selects
+and verifies a built runtime, prints the actual native PID, preserves each
+run, and provides stop/rebuild/restart as one operation. Inc/P1/C re-entry,
+Belnap residue lifting, torus operations and VGI feedback execute inside the
+factor command. See [the complete CLI guide](../../ig-docs/organism_cli.md)
+for all options, component checks, source boundaries and returned-state fields.
+
 ## Constitutive cycle
 
 **⌈B⌋ → ⌈∅ → N → N,T → N,T,F → N,T,F,B⌋ → ⌈B⌋**
@@ -461,6 +483,23 @@ directory. The preceding reflective 175-bit attempts returned held at
 309.4006 and 612.0029 seconds; the coordinate campaign retries that source
 before advancing. Its baseline comparison allows the same 300-second first
 boundary as organism execution.
+
+The packed-power image closes target128 in 4.6921 seconds and a fresh control
+in 4.2676 seconds. The preceding inverse-coordinate image closes retained175
+in 187.6807 seconds. The packed-power 200-bit stage closes in 328.9889 seconds,
+including 287.2115 seconds of native math. It emits
+1106654490390374536067958674809 × 1210349459461299299389393761149 with exact
+product and zero remainder, 287 verified torus transitions and 143 native-view
+reentries. The producing port is square. Pinned same-source y_divisor takes
+185.1668 seconds. The correctly recompiled 300-bit image reaches its 600-second
+boundary without output; `forced_300_600` records the terminal timeout at
+630.3859 seconds, including the wrapper's return allowance.
+
+After repairing a running membrane, stop that process, rebuild and restart
+with a fresh authorized timeout. Confirm actual dependency recompilation and
+image binding. Preserved modification times can cause Cargo to reuse an
+earlier library despite changed source contents. The current residue repair
+and restart workflow is `run_residue_repaired.py` in the measurement directory.
 
 `run_factor.py` writes `active.json` with the executing PID and replaces it
 with a terminal receipt reference when complete. A native task budget is

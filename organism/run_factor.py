@@ -20,8 +20,13 @@ try:
     environment=os.environ.copy();environment['ORGANISM_FACTOR_BUDGET_SECONDS']=str(a.seconds)
     with (out/'stdout').open('wb') as stdout,(out/'stderr').open('wb') as stderr:
         process=subprocess.Popen(command,stdout=stdout,stderr=stderr,env=environment)
+        identity={}
+        try:
+            identity={'process_start_ticks':Path(f'/proc/{process.pid}/stat').read_text().rsplit(')',1)[1].split()[19],
+                      'pid_namespace':os.readlink('/proc/self/ns/pid')}
+        except (OSError,IndexError):pass
         (out/'active.json').write_text(json.dumps({'status':'running_at_record','pid':process.pid,
-            'command':command,'execution_limit_seconds':a.seconds},indent=2)+'\n')
+            'command':command,'execution_limit_seconds':a.seconds,**identity},indent=2)+'\n')
         try:code=process.wait(timeout=a.seconds+30)
         except subprocess.TimeoutExpired:
             process.kill();process.wait();raise
