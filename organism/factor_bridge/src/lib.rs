@@ -59,6 +59,7 @@ impl Body {
             "source":mf::dec_of(&self.source),"source_word":mf::emit_numeral(&self.source),
             "preparation_seconds":self.preparation,"component_names":torus::OPERATIONS,
             "toroidal_division":self.resident.toroidal_snapshot(),
+            "square_polynomial_actions":self.resident.square_polynomial_actions(),
             "budget_exhausted":self.budget_exhausted,
             "toroidal_cell_decisions":self.resident.toroidal_decisions().iter().map(|d|
                 json!({"cell":d.cell,"preference":d.preference.name(),"selected":d.selected.name(),

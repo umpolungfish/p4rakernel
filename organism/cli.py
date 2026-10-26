@@ -171,6 +171,8 @@ def summary(report):
         text += f"\nLogical re-entries {report['logical_reentries']}; C returns {report['conflation_returns']}"
     if report.get('paired_learning_context_verified'):
         text += f"\nVGI paired-state frames {report['task_context_records']}; exact context tokens {report['task_context_tokens']} verified"
+    if report.get('root_sign_transport_verified'):
+        text += f"\nRoot-sign actions {report['root_sign_actions']}; changed polynomials {report['root_sign_changed_polynomials']}; inverse/source checks verified"
     if report.get('application') == 'native-growth':
         text += f"\nGrowth steps {report.get('completed_steps', 0)}; source mask {report['source_mask']}; VGI={report['vgi']}"
     if report['status'] == 'unverified':
@@ -344,6 +346,7 @@ def main(argv=None):
             detail=p.add_mutually_exclusive_group()
             detail.add_argument('--trace', action='store_true', help='show actual Inc/P1/C events')
             detail.add_argument('--stats', action='store_true', help='show retained native factor/phase statistics')
+            detail.add_argument('--polynomials', action='store_true', help='show executed torus actions on root-sign polynomials')
             p.add_argument('--limit', type=positive, default=12)
         if name == 'restart':
             p.add_argument('--seconds', type=positive, default=600);p.add_argument('--workers', type=int, choices=range(1, 9), default=8)
@@ -384,6 +387,16 @@ def main(argv=None):
                 return factor(args, selected=selected, source_override=source)
         else:
             path = run_path(args.run);report = state(path)
+            if args.command == 'inspect' and args.polynomials:
+                task = read(path / 'return.json').get('task')
+                if task is None:raise RuntimeError('This growth run has no root-sign polynomials.')
+                actions = task.get('square_polynomial_actions', [])[-args.limit:]
+                if args.json:print(json.dumps(actions, indent=2))
+                else:
+                    print(summary(report))
+                    for action in actions:
+                        print(f"Family {action['family']}: B {action['before_b']} -> {action['after_b']}; changed={action['changed_b']}; inverse={action['inverse_verified']}")
+                return 0
             if args.command == 'inspect' and args.stats:
                 task = read(path / 'return.json').get('task')
                 if task is None:raise RuntimeError('This growth run has no factor-phase statistics.')

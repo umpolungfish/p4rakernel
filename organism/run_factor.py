@@ -147,6 +147,64 @@ try:
             assert learner['task_context_optimizer_updates']==context_records
             report.update(paired_learning_context_verified=True,task_context_records=context_records,
                           task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
+        polynomial_actions=task.get('square_polynomial_actions',[])
+        if polynomial_actions:
+            paired_states=set()
+            for arm in task['toroidal_division']['arms']:
+                paired_states.add((numeral(arm['origin_p']),numeral(arm['origin_q'])))
+                paired_states.update((numeral(t['after_p']),numeral(t['after_q'])) for t in arm['ancestry'])
+            clocks={numeral(o['clock']) for o in task['toroidal_division']['observations']}
+            families={};previous_signs={};changed=0;held=0
+            for action in polynomial_actions:
+                assert int(action['source'])==n
+                a=int(action['a']);before=int(action['before_b']);after=int(action['after_b'])
+                terms=list(map(int,action['terms']));signs=action['counter_signs'];width=len(terms)
+                frame=action['frame'];family=action['family']
+                assert family not in families or families[family]==frame
+                families[family]=frame
+                if family in previous_signs:
+                    expected=previous_signs[family].copy();position=1
+                    while position<len(expected) and expected[position]:expected[position]=False;position+=1
+                    assert position<len(expected);expected[position]=True
+                    assert signs==expected
+                else:assert signs==[False]*width
+                previous_signs[family]=signs
+                left=numeral(frame['p']);right=numeral(frame['q'])
+                assert (left,right) in paired_states and left*right%(1<<n.bit_length())==n
+                assert numeral(frame['clock']) in clocks
+                permutation=list(range(width))
+                assert sorted(frame['axes'])==list(range(12))
+                for i,axis in enumerate(frame['axes']):
+                    first=i%width;second=axis%width
+                    permutation[first],permutation[second]=permutation[second],permutation[first]
+                assert action['permutation']==permutation
+                product=1;flips=[]
+                for field in action['fields']:
+                    prime=field['prime'];product*=prime
+                    assert field['p_residue']==left%prime and field['q_residue']==right%prime
+                    if field['inverse'] is None:
+                        assert right%prime==0 and field['unit'] is None and field['character'] is None
+                        nonunit=True;flip=False
+                    else:
+                        assert right*field['inverse']%prime==1
+                        assert field['unit']==left*field['inverse']%prime
+                        character=pow(field['unit'],(prime-1)//2,prime)
+                        assert field['character']==character
+                        nonunit=character==0;flip=character==prime-1
+                    assert field['held_nonunit']==nonunit and field['flip']==flip
+                    flips.append(flip);held+=nonunit
+                assert product==a and action['flips']==flips
+                transported=[signs[at]^flip for at,flip in zip(permutation,flips)]
+                assert action['after_signs']==transported and action['recovered_signs']==signs
+                assert sum((-term if sign else term) for term,sign in zip(terms,signs))%a==before
+                assert sum((-term if sign else term) for term,sign in zip(terms,transported))%a==after
+                assert before*before%a==after*after%a==n%a
+                assert action['changed_b']==(before!=after)
+                assert action['inverse_verified'] and action['source_congruence_verified']
+                changed+=before!=after
+            report.update(root_sign_transport_verified=True,root_sign_actions=len(polynomial_actions),
+                          root_sign_families=len(families),root_sign_changed_polynomials=changed,
+                          root_sign_held_field_observations=held)
         if factor:
             d=int(factor['p']);q=int(factor['q'])
             assert 1<d<n and n%d==0 and n//d==q and d*q==n
