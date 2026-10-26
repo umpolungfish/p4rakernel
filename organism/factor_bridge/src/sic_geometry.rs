@@ -76,6 +76,22 @@ impl SicGeometry {
         let numerator=((&raw%&denominator)+&denominator)%&denominator;
         let numerator=numerator.to_biguint().ok_or("negative normalized winding")?;
         let inverse=(&field(context,"clock")?%2u8)==BigInt::one();
+        let fibre=&context["source_fibre"];
+        if fibre["enclosure"]!="B" {return Err("SIC source fibre lost its enclosing B".into());}
+        let rows=fibre["rows"].as_array().ok_or("SIC source fibre lost alternatives")?;
+        if rows.len()!=4{return Err("SIC source fibre requires all four alternatives".into());}
+        let mut source_marked=[false;4];
+        for (k,row) in rows.iter().enumerate(){
+            source_marked[k]=match row["evidence"].as_str(){
+                Some("T")=>true,Some("F")=>false,
+                _=>return Err("source phase requires an explicit definite congruence boundary".into()),
+            };
+        }
+        if source_marked.iter().filter(|v|**v).count()!=2{
+            return Err("odd source fibre lost its two correlated lifts".into());
+        }
+        self.state.phase_quarter_target(source_marked,false);
+        let marked=values(&self.state);
         let phases=self.state.feedback_target_recorded(&numerator,digits)?;
         self.state.fourier_target(inverse);
         let after=values(&self.state);
@@ -84,6 +100,7 @@ impl SicGeometry {
         let negative=if numerator.is_zero(){BigUint::zero()}else{
             denominator.to_biguint().unwrap()-&numerator};
         returned.feedback_target(&negative,digits)?;
+        returned.phase_quarter_target(source_marked,true);
         let inverse_state=values(&returned);
         let inverse_residual=before.iter().zip(&inverse_state).flat_map(|(a,b)|
             [(&a.re-&b.re).abs(),(&a.im-&b.im).abs()]).max().unwrap();
@@ -107,8 +124,10 @@ impl SicGeometry {
         let tape=mf::decimal_to_tape(&lift.to_string()).ok_or("SIC lift numeral conversion failed")?;
         self.ticks+=1;
         Ok((BelnapWord::from_parity(&tape),reverse,json!({
-            "schema":"retained-sic-coherence-rotation-v1","tick":self.ticks,
+            "schema":"retained-sic-source-fibre-quarter-rotation-v3","tick":self.ticks,
             "arm":context["arm"],"before":amplitudes(&before),"after":amplitudes(&after),
+            "source_fibre":fibre,"source_phase_marked":source_marked,"source_phase_quarter_turns":1,
+            "source_phase_after":amplitudes(&marked),
             "inverse_return":amplitudes(&inverse_state),"inverse_residual":inverse_residual.to_string(),
             "inverse_tolerance":inverse_tolerance.to_string(),"fourier_inverse":inverse,
             "winding_numerator":numerator.to_string(),"winding_denominator":denominator.to_string(),

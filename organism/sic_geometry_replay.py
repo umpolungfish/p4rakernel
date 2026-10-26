@@ -36,8 +36,38 @@ def verify(task, n):
                 assert abs(im-int(mp.nint(scale*mp.sin(angle))))<=2
         def rounded(value):
             return (-1 if value<0 else 1)*((abs(value)+(scale>>1))//scale)
+        phase_state=state
+        if 'source_fibre' in data:
+            fibre=data['source_fibre'];assert fibre==context['source_fibre']
+            assert fibre['enclosure']=='B'
+            level=3+numeral('clock')%(width-3);assert fibre['level']==level
+            mask=(1<<(level+1))-1;lowmask=(1<<level)-1
+            assert int(fibre['source']['numeral'])==n&mask
+            for name,origin in [('p_alternatives',numeral('p')),('q_alternatives',numeral('q'))]:
+                cells=fibre[name]['cells'];assert cells[level]=='B'
+                assert all(cell in ('T','F') for cell in cells[:level])
+                assert sum((cell=='T')<<i for i,cell in enumerate(cells[:level]))==origin&lowmask
+            signs=[]
+            for label,row in enumerate(fibre['rows']):
+                assert row['label']==label
+                left=(numeral('p')&lowmask)|((label//2)<<level)
+                right=(numeral('q')&lowmask)|((label%2)<<level)
+                assert int(row['p']['numeral'])==left and int(row['q']['numeral'])==right
+                product=left*right&mask;assert int(row['product']['numeral'])==product
+                admitted=product==(n&mask);assert row['evidence']==('T' if admitted else 'F')
+                signs.append(admitted)
+            assert sum(signs)==2
+            if 'source_phase_quarter_turns' in data:
+                assert data['source_phase_quarter_turns']==1 and signs==data['source_phase_marked']
+                phase_state=[(-b,a) if sign else (a,b) for (a,b),sign in zip(state,signs)]
+                assert [(b,-a) if sign else (a,b) for (a,b),sign in zip(phase_state,signs)]==state
+            else:
+                assert signs==data['source_phase_negative']
+                phase_state=[(-a,-b) if sign else (a,b) for (a,b),sign in zip(state,signs)]
+                assert [(-a,-b) if sign else (a,b) for (a,b),sign in zip(phase_state,signs)]==state
+            assert vector(data['source_phase_after'])==phase_state
         wound=[(rounded(a*c-b*d),rounded(a*d+b*c))
-               for (a,b),(c,d) in zip(state,coefficients)]
+               for (a,b),(c,d) in zip(phase_state,coefficients)]
         after=[]
         for row in range(4):
             re=im=0
