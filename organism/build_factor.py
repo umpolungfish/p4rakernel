@@ -45,7 +45,7 @@ files=[ROOT/p for p in ['src/kernel/sixteen3.h','src/kernel/inclosure.h','src/ke
 files += [ROOT.parent/'Vox/src/lib.rs',ROOT.parent/'Vox/src/glut_carrier.rs',ROOT.parent/'Vox/src/factor_synthesis.rs',
           ROOT.parent/'Vox/src/glut_fold.rs',ROOT.parent/'Vox/src/glut_square_phase.rs',
           ROOT.parent/'Vox/src/glut_correlation.rs',ROOT.parent/'Vox/src/glut_system.rs',
-          ROOT.parent/'Vox/src/toroidal_division.rs',ROOT.parent/'Vox/src/glut_root_reentry.rs',
+          ROOT.parent/'Vox/src/toroidal_division.rs',ROOT.parent/'Vox/src/stark_rotation.rs',ROOT.parent/'Vox/src/glut_root_reentry.rs',
           ROOT.parent/'Vox/src/belnap_word.rs',ROOT.parent/'Vox/src/morphism_factor.rs',
           ROOT.parent/'Vox/src/packed_belnap_word.rs']
 images=[out/'organism-factor',out/'factor_bridge.so',out/'vgi_organism.so']

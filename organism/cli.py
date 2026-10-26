@@ -163,8 +163,13 @@ def summary(report):
     text = f"{report['status']}: {report['run']}"
     if report.get('live_pid'):
         text += f"\nPID {report['live_pid']}; limit {report['execution_limit_seconds']} seconds"
+        if report.get('phase')=='return':text += "\nProduction stopped; writing retained return"
     if 'process_seconds' in report:
         text += f"\nElapsed {report['process_seconds']:.3f}s"
+    if 'native_execution_seconds' in report:
+        text += f"\nNative execution {report['native_execution_seconds']:.3f}s"
+    if 'native_return_seconds' in report:
+        text += f"\nNative return {report['native_return_seconds']:.3f}s"
     if report.get('verified'):
         text += f"\n{report['p']} × {report['q']} (exact product and return verified)"
     if 'logical_reentries' in report:

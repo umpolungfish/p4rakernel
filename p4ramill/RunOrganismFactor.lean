@@ -15,4 +15,7 @@ def main (args : List String) : IO Unit := do
     if (← taskClosed body) then break
     if (← IO.monoMsNow) - started >= limit*1000 then break
     step body
+  let returning ← IO.monoMsNow
+  IO.eprintln s!"ORGANISM_RETURN_BEGIN {returning - started} {limit*1000}"
   IO.println (← snapshot body)
+  IO.eprintln s!"ORGANISM_RETURN_END {(← IO.monoMsNow) - returning}"

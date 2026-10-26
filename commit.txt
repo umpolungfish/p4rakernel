@@ -1,3 +1,3 @@
-I verify cumulative unit-frame transport on each organism arm.
+I preserve my organism return after production has stopped.
 
-I replay the retained frame ratios, their telescoping products and the final stored frames alongside the exact pair transitions.
+I mark the native execution boundary before snapshot construction, give the retained return its own bounded allowance, expose both clocks through the CLI, and bind the quadratic-unit source in the build manifest.

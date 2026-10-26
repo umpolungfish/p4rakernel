@@ -12,8 +12,21 @@ a=p.parse_args();runtime=a.runtime.resolve();source=a.source.resolve();out=a.out
 out.mkdir(parents=True,exist_ok=False)
 command=[str(runtime/'organism-factor'),str(source),str(runtime/'vgi_organism.so'),str(runtime/'factor_bridge.so'),str(a.seconds)]
 started=time.monotonic()
+return_limit_seconds=300
+def return_markers():
+    markers={}
+    for line in (out/'stderr').read_text(errors='replace').splitlines(keepends=True):
+        if not line.endswith('\n'):continue
+        fields=line.split()
+        if len(fields)==3 and fields[0]=='ORGANISM_RETURN_BEGIN':
+            elapsed,limit=map(int,fields[1:])
+            assert elapsed>=0 and limit==a.seconds*1000
+            markers['native_execution_seconds']=elapsed/1000
+        elif len(fields)==2 and fields[0]=='ORGANISM_RETURN_END':
+            markers['native_return_seconds']=int(fields[1])/1000
+    return markers
 report={'command':command,'input_boundary':'N alone','source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
-        'execution_limit_seconds':a.seconds,'verified':False,
+        'execution_limit_seconds':a.seconds,'return_limit_seconds':return_limit_seconds,'verified':False,
         'images':{str(f):hashlib.sha256(f.read_bytes()).hexdigest() for f in
                   [runtime/'organism-factor',runtime/'factor_bridge.so',runtime/'vgi_organism.so']}}
 try:
@@ -25,11 +38,26 @@ try:
             identity={'process_start_ticks':Path(f'/proc/{process.pid}/stat').read_text().rsplit(')',1)[1].split()[19],
                       'pid_namespace':os.readlink('/proc/self/ns/pid')}
         except (OSError,IndexError):pass
-        (out/'active.json').write_text(json.dumps({'status':'running_at_record','pid':process.pid,
-            'command':command,'execution_limit_seconds':a.seconds,**identity},indent=2)+'\n')
-        try:code=process.wait(timeout=a.seconds+30)
+        active={'status':'running_at_record','pid':process.pid,'phase':'execution',
+            'command':command,'execution_limit_seconds':a.seconds,**identity}
+        (out/'active.json').write_text(json.dumps(active,indent=2)+'\n')
+        returning=None
+        try:
+            while True:
+                markers=return_markers()
+                if returning is None and 'native_execution_seconds' in markers:
+                    returning=time.monotonic()
+                    active.update(phase='return',return_limit_seconds=return_limit_seconds,**markers)
+                    (out/'active.json').write_text(json.dumps(active,indent=2)+'\n')
+                deadline=(returning+return_limit_seconds) if returning is not None else started+a.seconds+30
+                remaining=deadline-time.monotonic()
+                if remaining<=0:raise subprocess.TimeoutExpired(command,a.seconds if returning is None else return_limit_seconds)
+                try:
+                    code=process.wait(timeout=min(1,remaining));break
+                except subprocess.TimeoutExpired:pass
         except subprocess.TimeoutExpired:
             process.kill();process.wait();raise
+        report.update(return_markers())
     report['exit_code']=code
     if code==0:
         body=json.loads((out/'stdout').read_bytes());task=body['task'];factor=task.get('result')
