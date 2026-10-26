@@ -177,6 +177,8 @@ def summary(report):
         text += f"\nNative-view projections {report['zero_extended_native_views']} verified"
     if report.get('native_view_action_same_arm_verified'):
         text += f"\nSame-arm continuations {report['continued_native_view_actions']} verified"
+    if report.get('stark_rotation_verified'):
+        text += f"\nStark unit paired rotations {report['stark_paired_rotations']} verified"
     if report.get('application') == 'native-growth':
         text += f"\nGrowth steps {report.get('completed_steps', 0)}; source mask {report['source_mask']}; VGI={report['vgi']}"
     if report['status'] == 'unverified':

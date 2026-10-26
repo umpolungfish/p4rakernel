@@ -1,3 +1,3 @@
-I verify the pair carried between my organism torus actions.
+I verify my organism quadratic unit and its paired action.
 
-I check same-arm projection continuity and clock succession, distinguish the final closed-pair context, and report verified continuation counts through the CLI.
+I replay the unit multiplication, conjugation, winding counts, norm carry and divisor readouts, then verify the resulting multiplier acts on the same carried pair. I report these checks through the CLI.

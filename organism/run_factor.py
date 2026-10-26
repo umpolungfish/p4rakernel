@@ -134,6 +134,68 @@ try:
                             assert 1<p_value<n and p_value*q_value==n
                         else:assert context['arm']==event['arm']
                 report.update(native_view_action_same_arm_verified=True,continued_native_view_actions=continued)
+            if stark:=torus.get('stark_rotation'):
+                from math import gcd
+                dimension=stark['dimension'];trace=numeral(stark['trace'])
+                assert dimension==n.bit_length() and trace==dimension-1
+                def unit(value):return (numeral(value['a']),numeral(value['b']))
+                def multiply(x,y):
+                    a,b=x;c,d=y
+                    return ((a*c-b*d)%n,(a*d+b*c+trace*b*d)%n)
+                def conjugate(x):
+                    a,b=x
+                    return ((a+trace*b)%n,(-b)%n)
+                def power(x,k):
+                    out=(1,0)
+                    while k:
+                        if k&1:out=multiply(out,x)
+                        x=multiply(x,x);k>>=1
+                    return out
+                state=(0,1);positive=1;negative=0;by_clock={}
+                for event in stark['events']:
+                    assert unit(event['before'])==state
+                    assert (numeral(event['before_positive']),numeral(event['before_negative']))==(positive,negative)
+                    k=numeral(event['power']);port=event['port'];reverse=port in (0,4)
+                    assert event['reverse']==reverse
+                    if port in (2,5):
+                        expected=power(state,k-1);positive*=k;negative*=k
+                    else:
+                        assert k==1
+                        expected=conjugate((0,1)) if reverse else (0,1)
+                        if reverse:negative+=k
+                        else:positive+=k
+                    operator=unit(event['operator']);inverse=unit(event['inverse'])
+                    assert operator==expected and inverse==conjugate(operator)
+                    assert multiply(operator,inverse)==(1,0)
+                    after=unit(event['after'])
+                    assert after==multiply(state,operator)
+                    assert unit(event['recovered'])==state==multiply(after,inverse)
+                    a_value,b_value=after
+                    assert a_value*a_value+trace*a_value*b_value+b_value*b_value==n*numeral(event['norm_carry'])+1
+                    assert (numeral(event['positive']),numeral(event['negative']))==(positive,negative)
+                    for readout in event['readouts']:
+                        expected=b_value if readout['kind']=='epsilon_coefficient' else (2*a_value+trace*b_value-2)%n
+                        assert numeral(readout['value'])==expected
+                        assert numeral(readout['gcd'])==gcd(expected,n)
+                    by_clock[numeral(event['clock'])]=after;state=after
+                paired=0
+                for operation in task['operations']:
+                    event=operation.get('toroidal_operation',{})
+                    if transition:=event.get('stark_paired_transition'):
+                        after=by_clock[numeral(event['clock'])-1]
+                        multiplier=(1+8*sum(after))%modulus
+                        inverse=pow(multiplier,-1,modulus)
+                        assert numeral(transition['multiplier'])==multiplier
+                        assert numeral(transition['inverse_multiplier'])==inverse
+                        before=transition['before'];selected=event['transition']
+                        assert numeral(before['p'])==numeral(selected['after_p'])
+                        assert numeral(before['q'])==numeral(selected['after_q'])
+                        assert numeral(transition['after_p'])==numeral(before['p'])*multiplier%modulus
+                        assert numeral(transition['after_q'])==numeral(before['q'])*inverse%modulus
+                        paired+=1
+                assert paired==len(stark['events'])
+                assert unit(stark['state'])==state
+                report.update(stark_rotation_verified=True,stark_paired_rotations=paired)
             if 'reentry_state' in torus:
                 events=[event for operation in task['operations'] for event in operation.get('logical_reentry',[])]
                 events+=task.get('pending_logical_reentry',[])
