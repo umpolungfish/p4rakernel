@@ -11,6 +11,9 @@ crate-type = ["cdylib"]
 [dependencies]
 vox = { path = "../../../Vox" }
 serde_json = "1"
+g-momonados = { path = "../../../G-mOMonadOS" }
+num-bigint = "0.4"
+num-traits = "0.2"
 
 [profile.release]
 opt-level = 3

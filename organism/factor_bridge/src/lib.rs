@@ -3,6 +3,7 @@ use std::time::{Instant,Duration};
 use serde_json::{json, Value};
 use vox::{factor_synthesis::{FactorSynthesis, FactorReturn}, glut_system::{FoldStats, PreparedGlutMembrane}, morphism_factor as mf};
 use vox::toroidal_division as torus;
+mod sic_geometry;
 
 struct Body {
     source: Vec<char>,
@@ -18,6 +19,7 @@ struct Body {
     deadline: Option<Instant>,
     budget_exhausted: bool,
     learning_tokens: Vec<u16>,
+    geometry:sic_geometry::SicGeometry,
 }
 fn stats(s: &FoldStats) -> Value {
     json!({"dialectic_descents":s.dialectic_descents,"dialectic_contractions":s.dialectic_contractions,
@@ -58,6 +60,7 @@ impl Body {
         let report = json!({"schema":"organism-resident-factor-v1","input_boundary":"N alone",
             "source":mf::dec_of(&self.source),"source_word":mf::emit_numeral(&self.source),
             "preparation_seconds":self.preparation,"component_names":torus::OPERATIONS,
+            "sic_geometry_preparation":self.geometry.preparation(),
             "toroidal_division":self.resident.toroidal_snapshot(),
             "square_polynomial_actions":self.resident.square_polynomial_actions(),
             "budget_exhausted":self.budget_exhausted,
@@ -81,13 +84,14 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
         if tape.len()<128 || tape.first()!=Some(&'⊥') {return Err("requires odd N of at least128bits".into());}
         let mut resident = FactorSynthesis::new(&tape)?;
         resident.prepare_toroidal_division()?;
+        let geometry=sic_geometry::SicGeometry::prepare(tape.len(),resident.circuit_braid_state())?;
         let identity=resident.resident_identity();
         let deadline=std::env::var("ORGANISM_FACTOR_BUDGET_SECONDS").ok()
             .and_then(|s|s.parse::<u64>().ok()).map(|s|Instant::now()+Duration::from_secs(s));
         Ok(Body {source:tape,resident,returned:None,events:Vec::new(),reentry_events:Vec::new(),json:CString::new("{}").unwrap(),
             reentry_feedback:vox::belnap::B4::N,
             preparation:started.elapsed().as_secs_f64(),identity,error:None,deadline,budget_exhausted:false,
-            learning_tokens:Vec::new()})
+            learning_tokens:Vec::new(),geometry})
     });
     match outcome {Ok(Ok(body))=>Box::into_raw(Box::new(body)) as *mut c_void,
         other=>{eprintln!("organism factor preparation rejected: {}", match other {Ok(Err(e))=>e,_=>"native panic".into()});std::ptr::null_mut()}}
@@ -130,7 +134,8 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     let mut torus_event=Value::Null;
     let mut torus_feedback=vox::belnap::B4::N;
     let result=std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| -> Result<Option<FactorReturn>,String> {
-        let (returned,event,evidence)=body.resident.advance_toroidal_division(port)?;
+        let geometry=&mut body.geometry;
+        let (returned,event,evidence)=body.resident.advance_toroidal_with_sic(port,|context|geometry.observe(context))?;
         torus_event=event;
         torus_feedback=evidence;
         Ok(returned)
@@ -174,6 +179,8 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
         context["fields"].as_array_mut().unwrap().push(json!({"name":name,
             "word":torus::word(&vox::belnap_word::BelnapWord(vec![value]))}));
     }
+    context["schema"]=json!("toroidal-learning-context-v3");
+    context["fields"].as_array_mut().unwrap().extend(body.geometry.learning_fields());
     // Exact frame: arm, ordered field ID, eight little-endian length bytes,
     // then pairs of full FOUR cells packed into the existing 16 token values.
     let mut tokens=vec![256,85,context["arm"].as_u64().unwrap() as u16];

@@ -313,9 +313,13 @@ try:
                     assert tokens[:3]==[256,85,context['arm']]
                     expected_names=['source','p','q','height','negative','positive_turns','negative_turns',
                                     'clock','membership','evidence','grid']
-                    if context['schema']=='toroidal-learning-context-v2':
+                    if context['schema'] in ('toroidal-learning-context-v2','toroidal-learning-context-v3'):
                         expected_names+=['execution_changed','logical_reentry','paired_progress',
                                          'relation_conflict','produced','task_feedback']
+                    if context['schema']=='toroidal-learning-context-v3':
+                        for i in range(4):
+                            expected_names += [f'sic_re_{i}',f'sic_im_{i}',f'sic_re_negative_{i}',f'sic_im_negative_{i}']
+                        expected_names += ['sic_tick','sic_fractional_bits']
                     assert [f['name'] for f in context['fields']]==expected_names
                     decoded={}
                     for index,field in enumerate(context['fields']):
@@ -344,7 +348,8 @@ try:
                         assert observations['execution_changed']==('T' if event['changed'] else 'N')
                         assert observations['paired_progress']==joined(
                             torus_event.get('evidence','N'),
-                            torus_event.get('native_view_reentry',{}).get('evidence','N'))
+                            torus_event.get('native_view_reentry',{}).get('evidence','N'),
+                            torus_event.get('geometric_sic',{}).get('rotation',{}).get('evidence','N'))
                         assert observations['relation_conflict']==('F' if event['conflict'] else 'N')
                         assert observations['produced']==('T' if event['produced'] else 'N')
                         logical=event.get('logical_reentry',[])
@@ -423,6 +428,8 @@ try:
             report.update(root_sign_transport_verified=True,root_sign_actions=len(polynomial_actions),
                           root_sign_families=len(families),root_sign_changed_polynomials=changed,
                           root_sign_held_field_observations=held)
+        from sic_geometry_replay import verify as verify_sic_geometry
+        report.update(verify_sic_geometry(task,n))
         if factor:
             d=int(factor['p']);q=int(factor['q'])
             assert 1<d<n and n%d==0 and n//d==q and d*q==n
