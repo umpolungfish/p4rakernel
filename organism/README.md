@@ -23,6 +23,7 @@ From the workspace root:
 ./organism factor --source path/to/source.N.txt --seconds 600
 ./organism status
 ./organism inspect --trace
+./organism inspect --polynomials
 ./organism restart --seconds 600
 ./organism grow --steps 12 --mask 8
 ./organism check --component reentry
@@ -42,6 +43,12 @@ membership, evidence and grid enter the same retained learner. `status` reports
 verified frame/token counts. `return.json` retains the consumed frames and
 learner update counters; the runner decodes them and checks their exact
 source/product/carry relation.
+
+The carried torus also acts inside the root-sign polynomial used to generate
+square witnesses. Its source-bound field signs and braid permutation are
+frozen for each coefficient family, with the full counter and inverse retained.
+`inspect --polynomials` displays the executed before/after B. The return checks
+source congruence, field projections, inverse recovery and pair ancestry.
 
 ## Constitutive cycle
 

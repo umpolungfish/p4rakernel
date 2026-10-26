@@ -1,3 +1,3 @@
-I verify my executed torus action on the producing polynomial.
+I document my executed root-sign transport in the organism CLI.
 
-I retain polynomial actions in the native organism return and verify pair ancestry, field projections, inverses, sign-counter continuation and source congruence alongside exact factor closure. I expose the actions with organism inspect --polynomials and report their verified counts.
+I describe the frozen coefficient-family frame and exact before/after polynomial inspection alongside the retained counter, inverse, field and source checks.
