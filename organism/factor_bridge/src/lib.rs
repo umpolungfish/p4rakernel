@@ -1,7 +1,8 @@
 use std::ffi::{c_char, c_void, CStr, CString};
-use std::time::Instant;
+use std::time::{Instant,Duration};
 use serde_json::{json, Value};
 use vox::{factor_synthesis::{FactorSynthesis, FactorReturn}, glut_system::{FoldStats, PreparedGlutMembrane}, morphism_factor as mf};
+use vox::toroidal_division as torus;
 
 struct Body {
     source: Vec<char>,
@@ -12,6 +13,8 @@ struct Body {
     preparation: f64,
     identity: Option<usize>,
     error: Option<String>,
+    deadline: Option<Instant>,
+    budget_exhausted: bool,
 }
 fn stats(s: &FoldStats) -> Value {
     json!({"dialectic_descents":s.dialectic_descents,"dialectic_contractions":s.dialectic_contractions,
@@ -51,7 +54,12 @@ impl Body {
         });
         let report = json!({"schema":"organism-resident-factor-v1","input_boundary":"N alone",
             "source":mf::dec_of(&self.source),"source_word":mf::emit_numeral(&self.source),
-            "preparation_seconds":self.preparation,"component_names":PreparedGlutMembrane::component_names(),
+            "preparation_seconds":self.preparation,"component_names":torus::OPERATIONS,
+            "toroidal_division":self.resident.toroidal_snapshot(),
+            "budget_exhausted":self.budget_exhausted,
+            "toroidal_cell_decisions":self.resident.toroidal_decisions().iter().map(|d|
+                json!({"cell":d.cell,"preference":d.preference.name(),"selected":d.selected.name(),
+                    "evidence":d.evidence.name(),"hypothesis":d.hypothesis})).collect::<Vec<_>>(),
             "stats":stats(&self.resident.resident_stats()),"result":result,"operations":self.events,
             "resident_identity":self.identity,"error":self.error,
             "boundary":if self.returned.is_some(){"closed"}else{"held"}});
@@ -66,10 +74,13 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
         let raw = CStr::from_ptr(source).to_str().map_err(|_|"invalid source")?;
         let tape = mf::decimal_to_tape(raw.trim()).ok_or("invalid N-only decimal")?;
         if tape.len()<128 || tape.first()!=Some(&'⊥') {return Err("requires odd N of at least128bits".into());}
-        let resident = FactorSynthesis::new(&tape)?;
+        let mut resident = FactorSynthesis::new(&tape)?;
+        resident.prepare_toroidal_division()?;
         let identity=resident.resident_identity();
+        let deadline=std::env::var("ORGANISM_FACTOR_BUDGET_SECONDS").ok()
+            .and_then(|s|s.parse::<u64>().ok()).map(|s|Instant::now()+Duration::from_secs(s));
         Ok(Body {source:tape,resident,returned:None,events:Vec::new(),json:CString::new("{}").unwrap(),
-            preparation:started.elapsed().as_secs_f64(),identity,error:None})
+            preparation:started.elapsed().as_secs_f64(),identity,error:None,deadline,budget_exhausted:false})
     });
     match outcome {Ok(Ok(body))=>Box::into_raw(Box::new(body)) as *mut c_void,
         other=>{eprintln!("organism factor preparation rejected: {}", match other {Ok(Err(e))=>e,_=>"native panic".into()});std::ptr::null_mut()}}
@@ -77,7 +88,7 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_destroy(body:*mut c_void) {drop(Box::from_raw(body as *mut Body));}
 #[no_mangle]
-pub extern "C" fn organism_factor_components()->usize {PreparedGlutMembrane::component_names().len()}
+pub extern "C" fn organism_factor_components()->usize {torus::OPERATIONS.len()}
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_source_token(body:*mut c_void,index:usize)->i32 {
     let body=&*(body as *mut Body);
@@ -88,8 +99,19 @@ pub unsafe extern "C" fn organism_factor_source_token(body:*mut c_void,index:usi
 pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i32 {
     let body=&mut*(body as *mut Body);
     if body.returned.is_some(){return 2;}
+    if body.deadline.is_some_and(|d|Instant::now()>=d) {
+        body.budget_exhausted=true;
+        return 1;
+    }
     let before=body.resident.resident_stats();let started=Instant::now();
-    let result=std::panic::catch_unwind(std::panic::AssertUnwindSafe(||body.resident.advance_component_cycle(port)));
+    let mut torus_event=Value::Null;
+    let mut torus_feedback=vox::belnap::B4::N;
+    let result=std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| -> Result<Option<FactorReturn>,String> {
+        let (returned,event,evidence)=body.resident.advance_toroidal_division(port)?;
+        torus_event=event;
+        torus_feedback=evidence;
+        Ok(returned)
+    }));
     match result {
         Ok(Ok(value))=>body.returned=value,
         Ok(Err(error))=>body.error=Some(error),
@@ -102,11 +124,16 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
     let conflict=after.correlation_conflicts>before.correlation_conflicts || body.error.is_some();
     let produced=body.returned.is_some();
     if let Some(r)=&body.returned {body.identity=r.membrane.as_ref().map(|m|m.resident_identity());}
-    let count=PreparedGlutMembrane::component_names().len();
-    body.events.push(json!({"port":port,"executed_components":(0..count).map(|i|(port+i)%count).collect::<Vec<_>>(),
+    body.events.push(json!({"port":port,"toroidal_operation":torus_event,
+        "executed_components":PreparedGlutMembrane::component_names(),
         "seconds":started.elapsed().as_secs_f64(),"before":before_json,
         "after":after_json,"changed":changed,"conflict":conflict,"produced":produced}));
-    if produced{2}else if conflict{if changed{8}else{4}}else if changed{2}else{1}
+    use vox::belnap::B4;
+    let mut feedback=torus_feedback;
+    if changed || produced {feedback=feedback.join(B4::T);}
+    if conflict {feedback=feedback.join(B4::F);}
+    if let Some(event)=body.events.last_mut(){event["feedback"]=json!(feedback.name());}
+    match feedback {B4::N=>1,B4::T=>2,B4::F=>4,B4::B=>8}
 }
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_closed(body:*mut c_void)->bool {(*(body as *mut Body)).returned.is_some()}
@@ -115,7 +142,8 @@ pub unsafe extern "C" fn organism_factor_snapshot(body:*mut c_void)->*const c_ch
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_observation(body:*mut c_void)->*const c_char {
     let body=&mut*(body as *mut Body);
-    body.json=CString::new(json!({"source":mf::dec_of(&body.source),"operation":body.events.last()}).to_string()).unwrap();
+    body.json=CString::new(json!({"source":mf::dec_of(&body.source),"operation":body.events.last(),
+        "budget_exhausted":body.budget_exhausted}).to_string()).unwrap();
     body.json.as_ptr()
 }
 

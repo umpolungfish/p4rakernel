@@ -360,11 +360,11 @@ when comparing behavior or extending the execution boundary.
 Build from the workspace root into a fresh directory:
 
 ```sh
-python3 p4rakernel/organism/build_factor.py --out /tmp/organism-factor-build
+python3 p4rakernel/organism/build_factor.py --out p4rakernel/measurements/my-factor-build
 python3 p4rakernel/organism/run_factor.py \
-  --runtime /tmp/organism-factor-build \
+  --runtime p4rakernel/measurements/my-factor-build \
   --source path/to/decimal-N-only.txt \
-  --out /tmp/organism-factor-run --seconds 300
+  --out p4rakernel/measurements/my-factor-run --seconds 300
 ```
 
 The builder runs the integrated native/Lean/VGI checks, builds the Rust task
@@ -375,10 +375,33 @@ quotient, zero remainder, exact native multiplication, the resident powerset
 law checks, inverse recovery and the banked paired return. Read `verified` in
 `receipt.json`; an open boundary or process timeout is not factor production.
 
-The native body owns the task through `organism_task`. Its source numeral is
+The native body owns the task through `organism_task`. The torus lives inside
+the same shared GLUT resident as the square, correlation and phase state.
+Cloned membrane handles observe that same executing object. Its source numeral is
 transported as its complete native nibble stream into VGI's retained context.
-Each learned body action selects the starting component of a full retained
-producer cycle. Frames, square relations, admission, correlation, masks,
+Each learned body action selects an operation on the retained toroidal
+division state: inverse or forward rotation, source jump, forward or reverse
+pinch braid, winding, evidence re-entry, or source-center probing. Source,
+paired arms, signed product height, winding counters and clock are
+`BelnapWord` values. The four odd cosets retain exact `pq=N+h*2^m` with
+`m` derived from the source width. The operation history retains both inputs,
+outputs and evidence. Full turns and residual phases remain separately
+available in the return.
+
+The native FDE grid glues both coordinates. Height observations revise its
+fusion rule and accumulate support and refutation. Both rails act separately
+on the next live correlation priority map, including when the evidence is B.
+The native correlation view returns its complete FOUR cells to that same
+torus. View re-entry changes the paired state before the selected operation;
+the hypothesis then acts on live factor cells. Factor and midpoint/gap
+coordinates retain their exact transport and orientation.
+This feedback enters VGI before the next organism action. A torus-produced
+divisor closes through the existing native resident; a divisor produced by
+the resident retains its actual producing port and is consumed by exact
+Belnap division into the joint height-zero return before verification/fixation.
+
+The complete resident producer uses its ordinary component order. Frames,
+square relations, admission, correlation, masks,
 verification and quantum return act on the same resident carrier. Native task
 observations enter the action's FDE feedback and a full neural update, so the
 next body action consumes the resulting experience. The JSON return retains
@@ -386,7 +409,9 @@ source bindings, operation order, costs, task observations, action ancestry,
 neural state and the returned mathematical carrier.
 
 The Rust bridge uses Vox's existing `FactorSynthesis` and prepared glut carrier,
-the producer machinery also used by the direct `y_divisor` route. It does not
+also called by the native arm of the hosted `y_divisor` route. That hosted
+entry additionally executes its source-carrier dispatcher and phase arm;
+the organism does not invoke that whole hosted command. It does not
 invoke an external factor program. The actual producing port is recorded
 separately from subsequent Y verification and return operations. Definite
 numerical arithmetic is an explicit checked restriction: N and B cells retain
@@ -412,12 +437,42 @@ Each return retained the same resident identity through the banked return,
 with seven cleared and restored banks, six deposits, eight surviving branches
 and zero exposed deposits. The direct installed `y_divisor` baseline on the
 same target took 2.4719 seconds. These controls establish integrated production;
-they also expose an arithmetic performance regression. The next bound is the
-previously stalled random balanced 150-bit source. Preserve its bounded receipt
-before drawing a conclusion about that bound.
+they also expose an arithmetic performance regression. The random balanced
+150-bit source in the normalized-division runtime closed in
+420.7534 seconds through the square port. That receipt remains under
+`measurements/organism_factor_20261025/normalized_division/target150_600`.
+These measurements precede the toroidal-division integration. New builds,
+tests and production comparisons are retained under
+`measurements/organism_toroidal_division_20261025`.
+
+The reflective image returned target128 in 26.5164 seconds and a fresh
+independent control128 in 26.9521 seconds. Every native view executed re-entry:
+12/12 and 11/11, respectively. Reflective150 closed in 137.7014 seconds with
+28/28 native-view reentries. Exact products and paired banked returns pass.
+The actual producing port in these runs is square. The pinned installed
+y_divisor image returned the same target128 in 2.1632 seconds; preserve that
+image distinction in comparisons.
+
+The fixed-size dual-rail coordinate runtime closes the same target/control
+in 23.4443 and 23.7546 seconds. Both retain every native-view reentry and
+pass exact product, inverse and banked-return checks. Its complete build
+and source/image bindings are in `runtime_coordinates` under the measurement
+directory. The preceding reflective 175-bit attempts returned held at
+309.4006 and 612.0029 seconds; the coordinate campaign retries that source
+before advancing. Its baseline comparison allows the same 300-second first
+boundary as organism execution.
+
+`run_factor.py` writes `active.json` with the executing PID and replaces it
+with a terminal receipt reference when complete. A native task budget is
+checked between operations so an unfinished run can return its held body.
+An atomic operation can finish after the requested boundary. The conditional
+bound runner preserves 300 and 600-second attempts in separate directories
+and advances only after verified production. Read its PREFIX_bounds_state.json
+and validate the handle before assuming an observation remains active.
 
 The factor sources are `src/kernel/organism_factor.h`,
 `p4ramill/RunOrganismFactor.lean`, `organism/factor_bridge/src/lib.rs`,
+`../Vox/src/toroidal_division.rs`,
 `../Vox/src/factor_synthesis.rs`, `../Vox/src/glut_carrier.rs`, and
 `../Vox/src/packed_belnap_word.rs`. The latter retains full dual-rail arithmetic
 and checked definite specializations. Build and run scripts bind source and
