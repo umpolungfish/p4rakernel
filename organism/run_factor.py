@@ -112,6 +112,28 @@ try:
             if projected_views:
                 assert projected_views==report['native_view_reentries']
                 report.update(native_view_projection_verified=True,zero_extended_native_views=projected_views)
+            if torus.get('native_view_action_same_arm'):
+                continued=0
+                for operation in task['operations']:
+                    event=operation.get('toroidal_operation',{})
+                    if projection:=event.get('native_view_reentry'):
+                        assert event['arm']==projection['arm']
+                        before=event['transition']['before']
+                        after=projection['transition']
+                        assert numeral(before['p'])==numeral(after['after_p'])
+                        assert numeral(before['q'])==numeral(after['after_q'])
+                        assert numeral(event['clock'])==numeral(projection['clock'])+1
+                        continued+=1
+                    if 'arm' in event and 'learning_context' in operation:
+                        context=operation['learning_context']
+                        if operation.get('produced'):
+                            # Closure installs the emitted divisor in its own
+                            # odd coset before the final learner observation.
+                            fields={f['name']:f['word'] for f in context['fields']}
+                            p_value=numeral(fields['p']);q_value=numeral(fields['q'])
+                            assert 1<p_value<n and p_value*q_value==n
+                        else:assert context['arm']==event['arm']
+                report.update(native_view_action_same_arm_verified=True,continued_native_view_actions=continued)
             if 'reentry_state' in torus:
                 events=[event for operation in task['operations'] for event in operation.get('logical_reentry',[])]
                 events+=task.get('pending_logical_reentry',[])

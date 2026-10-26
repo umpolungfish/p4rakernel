@@ -1,3 +1,3 @@
-I verify my organism native-view projections at their actual boundary.
+I verify the pair carried between my organism torus actions.
 
-I replay the returned projection with its declared numerical extent, retain unresolved in-range cells, check the resulting arm and exact source-bound inverse, and expose verified projection counts through organism status.
+I check same-arm projection continuity and clock succession, distinguish the final closed-pair context, and report verified continuation counts through the CLI.
