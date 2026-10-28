@@ -61,6 +61,7 @@ impl Body {
             "source":mf::dec_of(&self.source),"source_word":mf::emit_numeral(&self.source),
             "preparation_seconds":self.preparation,"component_names":torus::OPERATIONS,
             "sic_geometry_preparation":self.geometry.preparation(),
+            "factoring_controller":self.resident.controller_snapshot(),
             "toroidal_division":self.resident.toroidal_snapshot(),
             "square_polynomial_actions":self.resident.square_polynomial_actions(),
             "budget_exhausted":self.budget_exhausted,

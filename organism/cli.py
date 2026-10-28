@@ -362,6 +362,7 @@ def main(argv=None):
             detail.add_argument('--trace', action='store_true', help='show actual Inc/P1/C events')
             detail.add_argument('--stats', action='store_true', help='show retained native factor/phase statistics')
             detail.add_argument('--polynomials', action='store_true', help='show executed torus actions on root-sign polynomials')
+            detail.add_argument('--controller', action='store_true', help='show the actual overall factoring word, active instruction and bindings')
             p.add_argument('--limit', type=positive, default=12)
         if name == 'restart':
             p.add_argument('--seconds', type=positive, default=600);p.add_argument('--workers', type=int, choices=range(1, 9), default=8)
@@ -402,6 +403,17 @@ def main(argv=None):
                 return factor(args, selected=selected, source_override=source)
         else:
             path = run_path(args.run);report = state(path)
+            if args.command == 'inspect' and args.controller:
+                task=read(path/'return.json').get('task',{})
+                controller=task.get('factoring_controller')
+                if controller is None:raise RuntimeError('This return has no recorded overall factoring controller.')
+                if args.json:print(json.dumps(controller,indent=2))
+                else:
+                    print(controller['word'])
+                    print(f"Cursor {controller['cursor']}; active {controller['active_opcode']}; AFWD work entries {controller['work_entries']}")
+                    for op in controller['applications']:
+                        print(f"{op['position']:2}: {op['glyph']} {op['operator']}")
+                return 0
             if args.command == 'inspect' and args.polynomials:
                 task = read(path / 'return.json').get('task')
                 if task is None:raise RuntimeError('This growth run has no root-sign polynomials.')

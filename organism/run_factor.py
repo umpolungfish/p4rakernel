@@ -70,6 +70,30 @@ try:
             task_feedback_updates=sum(len(x['task_operations']) for x in body['actions']))
         n=int(source.read_text())
         assert int(task['source'])==n
+        if controller:=task.get('factoring_controller'):
+            word=controller['word']
+            assert word in ('⊥∋∋⊣⊣⊙∈∈≻⊙⊞≺⊤','⊥∋∋⊣⊣⊙∈∈≻⊙⊞≺⊤⊡')
+            assert controller['word']==word and controller['production_binding']==8
+            assert controller['source_bank_retained'] and controller['resident_bank_retained']
+            assert controller['monad_laws_verified'] and controller['leaf_ids']==[2,3,4]
+            assert len(controller['nested_bank_ids'])==1
+            assert {frozenset(xs) for xs in controller['nested_bank_ids'][0]}=={frozenset([2]),frozenset([3,4])}
+            applications=controller['applications']
+            assert [op['position'] for op in applications]==list(range(len(applications)))
+            assert ''.join(op['glyph'] for op in applications)==word[:len(applications)]
+            assert controller['work_entries']>=len(task['operations'])+1
+            if factor:
+                assert controller['cursor']==len(word) and controller['support'] is True
+                truth=applications[12]
+                assert truth['glyph']=='⊤' and truth['observation'] is True
+                if word.endswith('⊡'):
+                    assert controller['fixed'] is True and applications[-1]['glyph']=='⊡'
+            else:
+                assert controller['cursor']==8 and controller['active_opcode']=='≻'
+                assert controller['support'] is None and len(applications)==9
+                if word.endswith('⊡'):assert controller['fixed'] is False
+            report.update(overall_factoring_word=word,overall_controller_verified=True,
+                overall_controller_cursor=controller['cursor'],overall_controller_work_entries=controller['work_entries'])
         if torus:=task.get('toroidal_division'):
             def numeral(value):
                 cells=value['cells']
