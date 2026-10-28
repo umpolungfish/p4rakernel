@@ -303,23 +303,42 @@ try:
                 report['conflation_returns']=sum(e['operation']=='conflation-return' for e in events)
                 report['logical_reentry_return_verified']=True
         context_records=0;context_tokens=0
+        last_carried_frame=None
         for action in body['actions']:
             for operation in action['task_operations']:
                 assert int(operation['retained_state']['source'])==n
                 event=operation['retained_state'].get('operation') or {}
                 context=event.get('learning_context')
+                current_frame=event.get('toroidal_operation',{}).get('geometric_sic',{}).get('carried_torus_frame')
+                if current_frame is not None:last_carried_frame=current_frame
                 if context is not None:
                     tokens=operation['learning_context_tokens'];at=3
                     assert tokens[:3]==[256,85,context['arm']]
                     expected_names=['source','p','q','height','negative','positive_turns','negative_turns',
                                     'clock','membership','evidence','grid']
-                    if context['schema'] in ('toroidal-learning-context-v2','toroidal-learning-context-v3'):
+                    if context['schema'] in ('toroidal-learning-context-v2','toroidal-learning-context-v3','toroidal-learning-context-v4','toroidal-learning-context-v5','toroidal-learning-context-v6'):
                         expected_names+=['execution_changed','logical_reentry','paired_progress',
                                          'relation_conflict','produced','task_feedback']
-                    if context['schema']=='toroidal-learning-context-v3':
+                    if context['schema'] in ('toroidal-learning-context-v3','toroidal-learning-context-v4','toroidal-learning-context-v5','toroidal-learning-context-v6'):
                         for i in range(4):
                             expected_names += [f'sic_re_{i}',f'sic_im_{i}',f'sic_re_negative_{i}',f'sic_im_negative_{i}']
                         expected_names += ['sic_tick','sic_fractional_bits']
+                    if context['schema'] in ('toroidal-learning-context-v4','toroidal-learning-context-v5','toroidal-learning-context-v6'):
+                        for i in range(4):
+                            expected_names += [f'sic_banked_re_{i}',f'sic_banked_im_{i}',f'sic_banked_re_negative_{i}',f'sic_banked_im_negative_{i}']
+                        expected_names += ['sic_banked_denominator']
+                    if (last_carried_frame is not None and last_carried_frame['schema']=='carried-source-height-torus-frame-v2'
+                            and last_carried_frame['stage']=='frame-return'):
+                        for channel in ['normal','outer','miniature','centreline']:
+                            expected_names += [f'frame_{channel}_{i}' for i in range(3)]
+                        expected_names += ['frame_exact_height_zero']
+                    if context['schema']=='toroidal-learning-context-v6':
+                        expected_names += ['return_exponent','return_bound']
+                        for i in range(4):expected_names += [f'return_re_{i}',f'return_im_{i}']
+                    if context['schema'] in ('toroidal-learning-context-v5','toroidal-learning-context-v6'):
+                        expected_names += ['fibre_source','fibre_p_alternatives','fibre_q_alternatives']
+                        for i in range(4):
+                            expected_names += [f'fibre_{i}_p',f'fibre_{i}_q',f'fibre_{i}_product',f'fibre_{i}_congruence']
                     assert [f['name'] for f in context['fields']]==expected_names
                     decoded={}
                     for index,field in enumerate(context['fields']):
@@ -333,6 +352,33 @@ try:
                         assert cells[:width]==field['word']['cells']
                         decoded[field['name']]=field['word']
                     assert tokens[at:]==[257]
+                    if (last_carried_frame is not None and last_carried_frame['schema']=='carried-source-height-torus-frame-v2'
+                            and last_carried_frame['stage']=='frame-return'):
+                        spindle=last_carried_frame['frames'][1]
+                        for channel in ['normal','outer','miniature','centreline']:
+                            for i,value in enumerate(spindle[channel]):
+                                assert int(decoded[f'frame_{channel}_{i}']['numeral'])==int(value)
+                        assert int(decoded['frame_exact_height_zero']['numeral'])==int(last_carried_frame['exact_height_zero'])
+                    if context['schema'] in ('toroidal-learning-context-v5','toroidal-learning-context-v6'):
+                        fibre=context['source_fibre'];level=fibre['level'];mask=(1<<(level+1))-1
+                        assert fibre['enclosure']=='B'
+                        assert decoded['fibre_source']==fibre['source']
+                        assert numeral(decoded['fibre_source'])==n&mask
+                        for name in ['p','q']:
+                            assert decoded[f'fibre_{name}_alternatives']==fibre[f'{name}_alternatives']
+                            assert decoded[f'fibre_{name}_alternatives']['cells'][level]=='B'
+                        for i,row in enumerate(fibre['rows']):
+                            for name in ['p','q','product']:
+                                assert decoded[f'fibre_{i}_{name}']==row[name]
+                            p_low=numeral(decoded[f'fibre_{i}_p']);q_low=numeral(decoded[f'fibre_{i}_q'])
+                            assert p_low==((numeral(decoded['p'])&((1<<level)-1))|((i//2)<<level))
+                            assert q_low==((numeral(decoded['q'])&((1<<level)-1))|((i%2)<<level))
+                            product=(p_low*q_low)&mask
+                            assert numeral(decoded[f'fibre_{i}_product'])==product
+                            expected='T' if product==(n&mask) else 'F'
+                            assert row['evidence']==expected
+                            assert decoded[f'fibre_{i}_congruence']['cells']==[expected]
+                        report['source_congruence_learning_verified']=True
                     assert numeral(decoded['source'])==n
                     left=numeral(decoded['p']);right=numeral(decoded['q'])
                     sign=numeral(decoded['negative']);assert sign in (0,1)

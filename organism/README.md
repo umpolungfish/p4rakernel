@@ -393,6 +393,16 @@ when comparing behavior or extending the execution boundary.
 
 ## Factoring through the organism
 
+The carried miniature/normal frame now executes in the same arithmetic observer.
+`Vox/src/carried_torus_frame.rs` checks the exact source/product/signed-height
+relation, winds its retained source-ring directions and reads them through the
+spindle's normal-subtracted centreline. Its tube chart maps exact height zero
+to the source horn throat. The returned coordinates feed the actual SIC phase
+operation and paired rotation; 13 geometric fields also enter the consumed VGI
+context. Frame, normal, inverse and source checks remain in the complete return.
+See [the implementation and measured returns](../../ig-docs/resident_torus_frames_20261027.md).
+
+
 Build from the workspace root into a fresh directory:
 
 ```sh

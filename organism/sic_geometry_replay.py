@@ -11,7 +11,7 @@ def verify(task, n):
     rays=[vector(ray) for ray in preparation['rays']]
     projectors=[gram(ray) for ray in rays]
     state=vector(preparation['amplitudes'])
-    count=changed=0;maximum_inverse=0
+    count=changed=banked_actions=0;maximum_inverse=0
     for operation in task['operations']:
         event=operation['toroidal_operation']
         data=event.get('geometric_sic')
@@ -23,7 +23,22 @@ def verify(task, n):
         assert numeral('source')==n
         width=n.bit_length();denominator=1<<(2*((width+1)//2))
         turns=numeral('positive_turns')-numeral('negative_turns')
-        numerator=(numeral('p')-numeral('q')+turns)%denominator
+        phase_p,phase_q=numeral('p'),numeral('q')
+        if 'carried_torus_frame' in data:
+            from torus_frames_replay import verify as verify_carried_frame
+            phase_p,phase_q,frame_divisor=verify_carried_frame(data,context,n)
+            frame=data['carried_torus_frame']
+            assert frame['tick']==data['tick']
+            if frame['schema']=='carried-source-height-torus-frame-v2' and frame['stage']=='frame-return':
+                learned={f['name']:f['word'] for f in operation['learning_context']['fields']}
+                spindle=frame['frames'][1]
+                for channel in ['normal','outer','miniature','centreline']:
+                    for i,value in enumerate(spindle[channel]):
+                        assert int(learned[f'frame_{channel}_{i}']['numeral'])==int(value)
+                assert int(learned['frame_exact_height_zero']['numeral'])==int(frame['exact_height_zero'])
+            if frame_divisor is not None:
+                assert int(data['source_divisor']['numeral'])==frame_divisor and n%frame_divisor==0
+        numerator=(phase_p-phase_q+turns)%denominator
         assert int(data['winding_numerator'])==numerator
         assert int(data['winding_denominator'])==denominator
         assert int(data['signed_turns'])==turns
@@ -31,6 +46,7 @@ def verify(task, n):
         coefficients=vector(data['winding_coefficients'])
         with mp.workprec(bits+80):
             for k,(re,im) in enumerate(coefficients):
+                if data.get('cyclic_source_phase',{}).get('marked_channels',[False]*4)[k]:re,im=im,-re
                 angle=-2*mp.pi*((numerator*k)%denominator)/denominator
                 assert abs(re-int(mp.nint(scale*mp.cos(angle))))<=2
                 assert abs(im-int(mp.nint(scale*mp.sin(angle))))<=2
@@ -66,17 +82,63 @@ def verify(task, n):
                 phase_state=[(-a,-b) if sign else (a,b) for (a,b),sign in zip(state,signs)]
                 assert [(-a,-b) if sign else (a,b) for (a,b),sign in zip(phase_state,signs)]==state
             assert vector(data['source_phase_after'])==phase_state
-        wound=[(rounded(a*c-b*d),rounded(a*d+b*c))
-               for (a,b),(c,d) in zip(phase_state,coefficients)]
-        after=[]
-        for row in range(4):
-            re=im=0
-            for col,(a,b) in enumerate(wound):
-                phase=(-row*col if data['fourier_inverse'] else row*col)%4
-                x,y=[(a,b),(-b,a),(-a,-b),(b,-a)][phase]
-                re+=x;im+=y
-            def half(v):return (-1 if v<0 else 1)*(abs(v)//2)
-            after.append((half(re),half(im)))
+        exact_output=None
+        if 'banked_frame' in data:
+            banked_actions+=1
+            bank=data['banked_frame'];w=bank['frame']
+            assert bank['register_cells']==3*width
+            assert bank['wires']==[level,width+level]
+            address_base=numeral('q')|(numeral('p')<<width)|(n<<(2*width))
+            address_base &= ~(1<<level);address_base &= ~(1<<(width+level))
+            addresses=[address_base|((label&1)<<level)|((label//2)<<(width+level)) for label in range(4)]
+            assert list(map(int,bank['addresses']))==addresses
+            matrix=vector(bank['matrix']);dual=vector(bank['dual'])
+            diagonal=[(-b,a) if sign else(a,b) for (a,b),sign in zip(coefficients,signs)]
+            def rotate(z,k):
+                a,b=z;return [(a,b),(-b,a),(-a,-b),(b,-a)][k%4]
+            def product(z,v):
+                a,b=z;c,d=v;return a*c-b*d,a*d+b*c
+            def action(matrix,state):
+                return [tuple(sum(product(matrix[4*row+col],state[col])[k] for col in range(4)) for k in range(2)) for row in range(4)]
+            expected_matrix=[rotate(diagonal[col],(-row*col if data['fourier_inverse'] else row*col)) for row in range(4) for col in range(4)]
+            assert matrix==expected_matrix
+            norms=[a*a+b*b for a,b in diagonal];total=1
+            for norm in norms:total*=norm
+            normalization=(4*total,0)
+            assert tuple(map(int,bank['dual_normalization']))==normalization
+            for row in range(4):
+                for col in range(4):
+                    value=tuple(sum(product(dual[4*row+i],matrix[4*i+col])[k] for i in range(4)) for k in range(2))
+                    assert value==(normalization if row==col else (0,0))
+            exact_output=action(matrix,state)
+            assert vector(bank['exact_output'])==exact_output
+            assert action(dual,exact_output)==[(a*normalization[0],b*normalization[0]) for a,b in state]
+            assert w['partition_masks']==[1,2,12] and w['ancestry_pair']==[1,6]
+            assert w['exact_split_return'] and w['live_register_cleared'] and w['exact_banked_return']
+            assert w['exact_transformed_return'] and w['exact_dual_return_after_determinant_normalization']
+            split=[[(a,b) if mask&(1<<i) else (0,0) for i,(a,b) in enumerate(state)] for mask in w['partition_masks']]
+            assert list(map(int,w['split_mass']))==[sum(a*a+b*b for a,b in z) for z in split]
+            banks=[action(matrix,z) for z in split];banks.append([(0,0)]*4)
+            fused=[tuple(sum(z[i][k] for z in banks) for k in range(2)) for i in range(4)]
+            assert fused==exact_output
+            cross=[(sum(a*c+b*d for (a,b),(c,d) in zip(left,right)),sum(a*d-b*c for (a,b),(c,d) in zip(left,right))) for left in banks for right in banks]
+            assert cross==[(int(v['re']),int(v['im'])) for v in w['cross_arm_gram']]
+            if any(a or b for a,b in split[2]):assert w['information_arm_loss_detected']
+            action_den=2*scale;assert int(data['action_denominator'])==action_den
+            def terminal(v):return (-1 if v<0 else 1)*((abs(v)+action_den//2)//action_den)
+            after=[(terminal(a),terminal(b)) for a,b in exact_output]
+        else:
+            wound=[(rounded(a*c-b*d),rounded(a*d+b*c))
+                   for (a,b),(c,d) in zip(phase_state,coefficients)]
+            after=[]
+            for row in range(4):
+                re=im=0
+                for col,(a,b) in enumerate(wound):
+                    phase=(-row*col if data['fourier_inverse'] else row*col)%4
+                    x,y=[(a,b),(-b,a),(-a,-b),(b,-a)][phase]
+                    re+=x;im+=y
+                def half(v):return (-1 if v<0 else 1)*(abs(v)//2)
+                after.append((half(re),half(im)))
         assert vector(data['after'])==after
         learned={f['name']:f['word'] for f in operation['learning_context']['fields']}
         for i,(re,im) in enumerate(after):
@@ -85,7 +147,13 @@ def verify(task, n):
                 assert int(learned[name]['numeral'])==value
         assert int(learned['sic_tick']['numeral'])==count
         assert int(learned['sic_fractional_bits']['numeral'])==bits
-        observed=gram(after);assert vector(data['gram'])==observed
+        if exact_output is not None:
+            for i,(re,im) in enumerate(exact_output):
+                for name,value in [(f'sic_banked_re_{i}',abs(re)),(f'sic_banked_im_{i}',abs(im)),
+                                   (f'sic_banked_re_negative_{i}',int(re<0)),(f'sic_banked_im_negative_{i}',int(im<0))]:
+                    assert int(learned[name]['numeral'])==value
+            assert int(learned['sic_banked_denominator']['numeral'])==2*scale
+        observed=gram(exact_output if exact_output is not None else after);assert vector(data['gram'])==observed
         masses=[sum(a*c+b*d for (a,b),(c,d) in zip(projector,observed))
                 for projector in projectors]
         assert masses==list(map(int,data['mass_numerators']))
@@ -120,7 +188,10 @@ def verify(task, n):
         back=int(torus['step' if data['reverse'] else 'inverse_step']['numeral'])
         assert int(transition['after_p']['numeral'])==numeral('p')*pow(step,lift,modulus)%modulus
         assert int(transition['after_q']['numeral'])==numeral('q')*pow(back,lift,modulus)%modulus
-        assert data['coherence_changed']==(gram(state)!=observed)
+        assert data['coherence_changed']==(gram(state)!=gram(after))
         changed+=data['coherence_changed'];state=after
-    return dict(geometric_sic_verified=True,geometric_sic_actions=count,
-                geometric_sic_changed_states=changed,geometric_sic_maximum_inverse_residual=maximum_inverse)
+    from source_return_replay import verify as verify_source_return
+    return dict(**verify_source_return(task,n),geometric_sic_verified=True,geometric_sic_actions=count,
+                geometric_sic_changed_states=changed,geometric_sic_maximum_inverse_residual=maximum_inverse,
+                carried_torus_frame_actions=sum('carried_torus_frame' in o['toroidal_operation'].get('geometric_sic',{}) for o in task['operations']),
+                banked_sic_frame_actions=banked_actions,banked_sic_frame_exact_returns=banked_actions)

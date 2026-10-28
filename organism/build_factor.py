@@ -48,8 +48,8 @@ files += [ROOT.parent/'Vox/src/lib.rs',ROOT.parent/'Vox/src/glut_carrier.rs',ROO
           ROOT.parent/'Vox/src/toroidal_division.rs',ROOT.parent/'Vox/src/stark_rotation.rs',ROOT.parent/'Vox/src/glut_root_reentry.rs',
           ROOT.parent/'Vox/src/belnap_word.rs',ROOT.parent/'Vox/src/morphism_factor.rs',
           ROOT.parent/'Vox/src/packed_belnap_word.rs']
-files += [ROOT/'organism/factor_bridge/src/sic_geometry.rs',ROOT/'organism/run_factor.py',
-          ROOT/'organism/sic_geometry_replay.py',ROOT.parent/'G-mOMonadOS/Cargo.toml',
+files += [ROOT.parent/'Vox/src/carried_torus_frame.rs',ROOT.parent/'Vox/src/geometric_return.rs',ROOT/'organism/source_return_replay.py',ROOT/'organism/factor_bridge/src/sic_geometry.rs',ROOT/'organism/run_factor.py',
+          ROOT/'organism/torus_frames_replay.py',ROOT/'organism/sic_geometry_replay.py',ROOT.parent/'G-mOMonadOS/Cargo.toml',
           ROOT.parent/'G-mOMonadOS/build.rs']
 files += sorted((ROOT.parent/'G-mOMonadOS/src').rglob('*.rs'))
 images=[out/'organism-factor',out/'factor_bridge.so',out/'vgi_organism.so']

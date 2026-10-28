@@ -84,7 +84,7 @@ pub unsafe extern "C" fn organism_factor_create(source: *const c_char) -> *mut c
         if tape.len()<128 || tape.first()!=Some(&'⊥') {return Err("requires odd N of at least128bits".into());}
         let mut resident = FactorSynthesis::new(&tape)?;
         resident.prepare_toroidal_division()?;
-        let geometry=sic_geometry::SicGeometry::prepare(tape.len(),resident.circuit_braid_state())?;
+        let geometry=sic_geometry::SicGeometry::prepare(tape.len(),resident.circuit_braid_state(),&tape)?;
         let identity=resident.resident_identity();
         let deadline=std::env::var("ORGANISM_FACTOR_BUDGET_SECONDS").ok()
             .and_then(|s|s.parse::<u64>().ok()).map(|s|Instant::now()+Duration::from_secs(s));
@@ -179,8 +179,27 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
         context["fields"].as_array_mut().unwrap().push(json!({"name":name,
             "word":torus::word(&vox::belnap_word::BelnapWord(vec![value]))}));
     }
-    context["schema"]=json!("toroidal-learning-context-v3");
+    context["schema"]=json!("toroidal-learning-context-v4");
     context["fields"].as_array_mut().unwrap().extend(body.geometry.learning_fields());
+    // Feed the existing source-bound judgments themselves to VGI. They remain
+    // separate from height progress and never mint positive task feedback.
+    let fibre=context["source_fibre"].clone();
+    let fields=context["fields"].as_array_mut().unwrap();
+    for (name,key) in [("fibre_source","source"),("fibre_p_alternatives","p_alternatives"),
+                       ("fibre_q_alternatives","q_alternatives")] {
+        fields.push(json!({"name":name,"word":fibre[key]}));
+    }
+    for (i,row) in fibre["rows"].as_array().unwrap().iter().enumerate() {
+        for key in ["p","q","product"] {
+            fields.push(json!({"name":format!("fibre_{i}_{key}"),"word":row[key]}));
+        }
+        let evidence=match row["evidence"].as_str().unwrap() {
+            "T"=>B4::T,"F"=>B4::F,"B"=>B4::B,_=>B4::N,
+        };
+        fields.push(json!({"name":format!("fibre_{i}_congruence"),
+            "word":torus::word(&vox::belnap_word::BelnapWord(vec![evidence]))}));
+    }
+    context["schema"]=json!("toroidal-learning-context-v6");
     // Exact frame: arm, ordered field ID, eight little-endian length bytes,
     // then pairs of full FOUR cells packed into the existing 16 token values.
     let mut tokens=vec![256,85,context["arm"].as_u64().unwrap() as u16];
