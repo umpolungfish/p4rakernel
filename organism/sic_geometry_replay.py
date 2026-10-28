@@ -44,12 +44,20 @@ def verify(task, n):
         assert int(data['signed_turns'])==turns
         assert data['fourier_inverse']==bool(numeral('clock')%2)
         coefficients=vector(data['winding_coefficients'])
+        braid_roots=None
+        if 'prime_braid' in data:
+            from prime_braid_replay import verify as verify_prime_braid
+            braid_roots=verify_prime_braid(data,context,n,bits)
         with mp.workprec(bits+80):
             for k,(re,im) in enumerate(coefficients):
                 if data.get('cyclic_source_phase',{}).get('marked_channels',[False]*4)[k]:re,im=im,-re
                 angle=-2*mp.pi*((numerator*k)%denominator)/denominator
-                assert abs(re-int(mp.nint(scale*mp.cos(angle))))<=2
-                assert abs(im-int(mp.nint(scale*mp.sin(angle))))<=2
+                expected=mp.mpc(mp.cos(angle),mp.sin(angle))*scale
+                if braid_roots is not None:
+                    expected*=mp.mpc(*braid_roots[k])/scale
+                tolerance=4 if braid_roots is not None else 2
+                assert abs(re-int(mp.nint(expected.real)))<=tolerance
+                assert abs(im-int(mp.nint(expected.imag)))<=tolerance
         def rounded(value):
             return (-1 if value<0 else 1)*((abs(value)+(scale>>1))//scale)
         phase_state=state
@@ -266,6 +274,7 @@ def verify(task, n):
                 geometric_sic_changed_states=changed,geometric_sic_maximum_inverse_residual=maximum_inverse,
                 carried_torus_frame_actions=sum('carried_torus_frame' in o['toroidal_operation'].get('geometric_sic',{}) for o in task['operations']),
                 banked_sic_frame_actions=banked_actions,banked_sic_frame_exact_returns=banked_actions)
+    result['prime_braid_actions']=sum('prime_braid' in o['toroidal_operation'].get('geometric_sic',{}) for o in task['operations'])
     if metric_actions:result.update(source_metric_return_verified=True,source_metric_actions=metric_actions,
         signed_source_copy_returns=2*metric_actions,anchored_output_port_actions=anchored_actions)
     return result

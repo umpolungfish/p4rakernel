@@ -9,6 +9,8 @@ use serde_json::{json,Value};
 use vox::{belnap_word::BelnapWord,morphism_factor as mf};
 #[path="source_metric.rs"]
 mod source_metric;
+#[path="prime_braid.rs"]
+mod prime_braid;
 
 pub struct SicGeometry {
     state:QuquartCarrier,frame:FixedQuquartSic,dual:PreparedSicDual,
@@ -231,6 +233,8 @@ impl SicGeometry {
         let cyclic_marked=core::array::from_fn(|i|landing&(1<<i)!=0);
         self.state.phase_quarter_target(cyclic_marked,false);
         for i in 0..4{if cyclic_marked[i]{phases[i]=quarter(&phases[i],1);}}
+        let (braid_roots,prime_braid)=prime_braid::observe(context,&self.format)?;
+        for i in 0..4 {phases[i]=phases[i].mul(&braid_roots[i],&self.format);}
         let (exact_output,banked_frame,pending)=banked_transform(context,self.width,&before,&phases,source_marked,inverse)?;
         self.pending_frames.push(pending);
         let action_denominator=(BigInt::one()<<self.format.w_bits as usize)*2u8;
@@ -287,6 +291,11 @@ impl SicGeometry {
         self.state=QuquartCarrier::from_control_amplitudes(self.format.clone(),after.clone());
         let mut returned=self.state.clone();
         returned.fourier_target(!inverse);
+        let unwound=values(&returned);
+        returned=QuquartCarrier::from_control_amplitudes(self.format.clone(),core::array::from_fn(|i|{
+            let root=FixedComplex{re:braid_roots[i].re.clone(),im:-&braid_roots[i].im};
+            unwound[i].mul(&root,&self.format)
+        }));
         let negative=if numerator.is_zero(){BigUint::zero()}else{
             denominator.to_biguint().unwrap()-&numerator};
         returned.feedback_target(&negative,digits)?;
@@ -343,6 +352,7 @@ impl SicGeometry {
             "orbit_period":period.to_string(),"projection_remainder":remainder.to_string(),
             "lift":lift.to_string(),"reverse":reverse,
             "coherence_changed":gram(&before)!=gram(&after),"leakage_retained":true});
+        report["prime_braid"]=prime_braid;
         report["resumed_leading_fuses"]=json!(leading_fuses);
         report["pending_leading_fuses"]=json!(self.pending_frames.len());
         Ok((BelnapWord::from_parity(&tape),reverse,report))
