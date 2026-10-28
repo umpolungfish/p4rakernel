@@ -224,6 +224,16 @@ pub unsafe extern "C" fn organism_factor_advance(body:*mut c_void,port:usize)->i
 #[no_mangle]
 pub unsafe extern "C" fn organism_factor_closed(body:*mut c_void)->bool {(*(body as *mut Body)).returned.is_some()}
 #[no_mangle]
+pub unsafe extern "C" fn organism_factor_should_yield(body:*mut c_void)->bool {
+    let body=&mut*(body as *mut Body);
+    if body.deadline.is_some_and(|d|Instant::now()>=d){body.budget_exhausted=true;}
+    body.budget_exhausted
+}
+#[no_mangle]
+pub unsafe extern "C" fn organism_factor_operation_count(body:*mut c_void)->usize {
+    (*(body as *mut Body)).events.len()
+}
+#[no_mangle]
 pub unsafe extern "C" fn organism_factor_state_token(body:*mut c_void,index:usize)->i32 {
     let body=&*(body as *mut Body);
     body.learning_tokens.get(index).map_or(-1,|&token|token as i32)

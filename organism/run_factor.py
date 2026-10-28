@@ -327,7 +327,7 @@ try:
                         for i in range(4):
                             expected_names += [f'sic_banked_re_{i}',f'sic_banked_im_{i}',f'sic_banked_re_negative_{i}',f'sic_banked_im_negative_{i}']
                         expected_names += ['sic_banked_denominator']
-                    if (last_carried_frame is not None and last_carried_frame['schema']=='carried-source-height-torus-frame-v2'
+                    if (last_carried_frame is not None and last_carried_frame['schema'] in ('carried-source-height-torus-frame-v2','carried-source-height-torus-frame-v3')
                             and last_carried_frame['stage']=='frame-return'):
                         for channel in ['normal','outer','miniature','centreline']:
                             expected_names += [f'frame_{channel}_{i}' for i in range(3)]
@@ -352,7 +352,7 @@ try:
                         assert cells[:width]==field['word']['cells']
                         decoded[field['name']]=field['word']
                     assert tokens[at:]==[257]
-                    if (last_carried_frame is not None and last_carried_frame['schema']=='carried-source-height-torus-frame-v2'
+                    if (last_carried_frame is not None and last_carried_frame['schema'] in ('carried-source-height-torus-frame-v2','carried-source-height-torus-frame-v3')
                             and last_carried_frame['stage']=='frame-return'):
                         spindle=last_carried_frame['frames'][1]
                         for channel in ['normal','outer','miniature','centreline']:
@@ -476,6 +476,13 @@ try:
                           root_sign_held_field_observations=held)
         from sic_geometry_replay import verify as verify_sic_geometry
         report.update(verify_sic_geometry(task,n))
+        if pending:=body.get('pending_growth'):
+            assert 0<=pending['tip']<len(body['nodes'])
+            assert 0<=pending['next_rule']<pending['rule_count']
+            completed=[op['rule'] for op in body['actions'] if op['tip']==pending['tip']]
+            assert completed==list(range(pending['next_rule']))
+            assert task['budget_exhausted']
+            report.update(growth_continuation_retained=True,pending_growth=pending)
         if factor:
             d=int(factor['p']);q=int(factor['q'])
             assert 1<d<n and n%d==0 and n//d==q and d*q==n
@@ -484,9 +491,13 @@ try:
             assert all(dot['product_closed'] for dot in factor['braid_dots'])
             report.update(verified=True,p=str(d),q=str(q),producer=factor['producer'],
                 actual_producing_port=factor['actual_producing_port'],banked_return=factor['banked_return'])
+        report['return_replay_passed']=True
     else:report['error']=(out/'stderr').read_text(errors='replace')[-3000:]
 except subprocess.TimeoutExpired:
     report['timeout']=True
+except Exception as error:
+    report['verification_error']=type(error).__name__+': '+str(error)
+    raise
 finally:
     report['process_seconds']=time.monotonic()-started
     (out/'receipt.json').write_text(json.dumps(report,indent=2)+'\n')

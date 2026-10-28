@@ -10,6 +10,13 @@ def verify(task, n):
         source=(root/'Vox/src/combined_factor.rs').read_text()
         table=re.findall(r'"([⊢⊣≻≺⋈⊙∈∋⊤⊥⊞⊡]+)"',re.search(r'pub const HEX_WORDS:.*?= \[(.*?)\];',source,re.S)[1])
         expected='⊢'+''.join(table[int(d,16)][1:-1] for d in format(n,'x'))+'⊣'
+        if 'cyclic_source_boundary_edit' in prep:
+            assert prep['cyclic_source_origin_word']==expected
+            assert prep['cyclic_source_boundary_edit']==dict(position=0,**{'from':'⊢','to':'⊣'},
+                rotate_right=1,rotation_cut=len(expected)-1)
+            rewritten='⊣'+expected[1:]
+            expected=rewritten[-1]+rewritten[:-1]
+            assert expected.startswith('⊣⊣') and '⊢' not in expected
         assert prep['cyclic_source_word']==expected
         result=subprocess.run([str(root/'MoDoT/ask_native/target/x86_64-unknown-linux-gnu/release/ask'),'--rotat',expected],capture_output=True,text=True,check=True,timeout=60)
         rows=re.findall(r'^\s+(\d+)\s+(\S+)\s+([TNBF])\s+',result.stdout,re.M)

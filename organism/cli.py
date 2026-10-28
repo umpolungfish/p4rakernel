@@ -139,6 +139,7 @@ def state(path):
     if receipt.exists():
         report = read(receipt)
         status = (report['status'] if report.get('application') == 'native-growth' else
+                  'verification-failed' if report.get('verification_error') else
                   'closed' if report.get('verified') else
                   'timeout' if report.get('timeout') else
                   'stopped' if report.get('exit_code', 0) < 0 else report.get('boundary', 'failed'))
@@ -161,6 +162,7 @@ def state(path):
 
 def summary(report):
     text = f"{report['status']}: {report['run']}"
+    if report.get('verification_error'):text+='\n'+report['verification_error']
     if report.get('live_pid'):
         text += f"\nPID {report['live_pid']}; limit {report['execution_limit_seconds']} seconds"
         if report.get('phase')=='return':text += "\nProduction stopped; writing retained return"

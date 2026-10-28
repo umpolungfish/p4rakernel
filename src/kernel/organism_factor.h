@@ -13,11 +13,14 @@ class organism_factor_task : public organism_task {
     using closed_fn = bool (*)(void *);
     using snapshot_fn = char const * (*)(void *);
     using source_fn = int (*)(void *, size_t);
+    using count_fn = size_t (*)(void *);
     destroy_fn m_destroy;
     advance_fn m_advance;
     reentry_fn m_reenter;
     sixteen3 m_reentry;
     closed_fn m_closed;
+    closed_fn m_should_yield;
+    count_fn m_operation_count;
     snapshot_fn m_snapshot;
     snapshot_fn m_observation;
     source_fn m_source;
@@ -37,6 +40,8 @@ public:
             m_advance=symbol<advance_fn>("organism_factor_advance");
             m_reenter=symbol<reentry_fn>("organism_factor_reentry");
             m_closed=symbol<closed_fn>("organism_factor_closed");
+            m_should_yield=symbol<closed_fn>("organism_factor_should_yield");
+            m_operation_count=symbol<count_fn>("organism_factor_operation_count");
             m_snapshot=symbol<snapshot_fn>("organism_factor_snapshot");
             m_observation=symbol<snapshot_fn>("organism_factor_observation");
             m_source=symbol<source_fn>("organism_factor_source_token");
@@ -49,6 +54,7 @@ public:
     ~organism_factor_task() override { if(m_body)m_destroy(m_body);dlclose(m_library); }
     size_t components() const override {return m_components;}
     bool closed() const override {return m_closed(m_body);}
+    bool should_yield() const override {return m_should_yield(m_body);}
     std::string snapshot() const override {return m_snapshot(m_body);}
     std::vector<unsigned> source_tokens() const override {
         std::vector<unsigned> result;
@@ -56,14 +62,17 @@ public:
         return result;
     }
     organism_task_observation advance(size_t component) override {
+        if (should_yield()) return {component,sixteen3_none(),false,"null",{},false};
         auto permutation=m_reentry.reentry_permutation();
         bool returning=m_reentry==sixteen3_all();
         auto next=returning ? m_reentry.conflation() : inclosure::wind(m_reentry);
         int gate=m_reenter(m_body,m_reentry.mask(),permutation.mask(),next.mask(),returning ? 2u : 1u);
         if(gate<0)throw std::runtime_error("native factor re-entry transport failed");
         if(gate==0)m_reentry=next;
+        auto count=m_operation_count(m_body);
         int result=m_advance(m_body,component);
         if(result<0 || result>15)throw std::runtime_error("native factor operation returned invalid evidence");
+        if(m_operation_count(m_body)==count) return {component,sixteen3_none(),false,"null",{},false};
         std::vector<unsigned> context;
         for(size_t i=0;;++i){int token=m_state(m_body,i);if(token<0)break;context.push_back(token);}
         return {component,sixteen3::from_mask(result),closed(),m_observation(m_body),std::move(context)};

@@ -6,7 +6,7 @@ def verify(data, context, n):
     r=data['carried_torus_frame']
     fields={f['name']:f['word'] for f in context['fields']}
     raw_p,raw_q=(int(fields[k]['numeral']) for k in ('p','q'))
-    height_frame=r['schema']=='carried-source-height-torus-frame-v2'
+    height_frame=r['schema'] in ('carried-source-height-torus-frame-v2','carried-source-height-torus-frame-v3')
     p,q=raw_p%n,raw_q%n
     if height_frame:
         height=int(fields['height']['numeral']);negative=int(fields['negative']['numeral'])
@@ -77,6 +77,21 @@ def verify(data, context, n):
             azimuth=tuple(centre[:2]);tube=((normal[0]*azimuth[0]+normal[1]*azimuth[1])%n,normal[2])
             readout=[azimuth,tube]
     assert readout==after==[tuple(map(int,x)) for x in r['normal_readout']]
+    if r['schema']=='carried-source-height-torus-frame-v3':
+        split=r['sphere_split'];direction=[ca,sa,0]
+        plus=[(a+b)%n for a,b in zip(normal,direction)]
+        minus=[(a-b)%n for a,b in zip(normal,direction)]
+        half=pow(2,-1,n)
+        fused_normal=[(a+b)*half%n for a,b in zip(plus,minus)]
+        fused_direction=[(a-b)*half%n for a,b in zip(plus,minus)]
+        for key,expected in [('outer',[2*a%n for a in normal]),
+                ('inner_plus',plus),('inner_minus',minus),
+                ('fused_normal',fused_normal),('fused_direction',fused_direction)]:
+            assert list(map(int,split[key]))==expected
+        assert sum(a*b for a,b in zip(plus,minus))%n==0
+        assert fused_normal==normal and fused_direction==direction
+        assert [tuple(map(int,x)) for x in split['readout']]==readout
+        assert split['source_lifts_retained']
     parameters=[]
     for i,((c,s),seam) in enumerate(zip(readout,r['chart_seams'])):
         den=(1-c if height_frame and i==1 else 1+c)%n;g=gcd(den,n)

@@ -7,6 +7,8 @@ use num_bigint::{BigInt,BigUint};
 use num_traits::{One,Zero,Signed};
 use serde_json::{json,Value};
 use vox::{belnap_word::BelnapWord,morphism_factor as mf};
+#[path="source_metric.rs"]
+mod source_metric;
 
 pub struct SicGeometry {
     state:QuquartCarrier,frame:FixedQuquartSic,dual:PreparedSicDual,
@@ -15,6 +17,23 @@ pub struct SicGeometry {
     source_return:vox::geometric_return::SourceRingReturn,
     cyclic_word:Vec<char>,cyclic_landings:Vec<u8>,
     last_carried_frame:Option<Value>,
+    pending_frames:Vec<RetainedBanks>,
+}
+struct RetainedBanks {
+    arena:g_momonados::ququart_decision::DecisionArena,
+    banks:[usize;3],addresses:[BigUint;4],expected:[FixedComplex;4],
+}
+impl RetainedBanks {
+    fn leading_fuse(mut self)->Result<Value,String>{
+        let mut live=self.arena.zero();
+        for bank in self.banks{live=self.arena.sum(live,bank);}
+        for (address,z) in self.addresses.iter().zip(&self.expected){
+            let(re,im)=self.arena.amplitude(live,address);
+            if re!=z.re||im!=z.im{return Err("leading fuse lost the retained banked continuation".into());}
+        }
+        Ok(json!({"operation":"leading FFUSE","banks":self.banks,"returned_root":live,
+            "same_arena":true,"exact_amplitude_return":true}))
+    }
 }
 fn values(state:&QuquartCarrier)->[FixedComplex;4]{
     core::array::from_fn(|i|state.amplitudes()[COMPUTATIONAL_CHANNELS[i]].clone())
@@ -46,7 +65,7 @@ fn quarter(z:&FixedComplex,k:usize)->FixedComplex{
 /// product relation. Their control cells are the selected p/q cells themselves.
 fn banked_transform(context:&Value,width:usize,before:&[FixedComplex;4],
     phases:&[FixedComplex;4],marked:[bool;4],inverse:bool)
-    ->Result<([FixedComplex;4],Value),String>{
+    ->Result<([FixedComplex;4],Value,RetainedBanks),String>{
     use g_momonados::{ququart_decision::DecisionArena,resident_frame};
     let level=context["source_fibre"]["level"].as_u64().ok_or("missing source fibre level")? as usize;
     let p=field(context,"p")?.to_biguint().ok_or("negative p")?;
@@ -78,19 +97,29 @@ fn banked_transform(context:&Value,width:usize,before:&[FixedComplex;4],
         let branch=arena.scale_complex_numerator(basis,&(z.re.clone(),z.im.clone()));
         root=arena.sum(root,branch);
     }
-    let (returned,witness)=resident_frame::apply_full(&mut arena,root,wires,&matrix,&dual,&normalization)?;
+    let mut port=resident_frame::apply_full_anchored(&mut arena,root,wires,&matrix,&dual,
+        &normalization,2*width,width,&source)?;
+    let banks=port.take_banks()?;
+    let witness=port.witness;
     let output=core::array::from_fn(|i|{
-        let(re,im)=arena.amplitude(returned,&addresses[i]);FixedComplex{re,im}});
-    let observed=arena.belnap_gram(returned,arena.belnap_coordinate(wires)?);
-    if observed!=gram(&output){return Err("banked SIC output lost factor-cell coherence".into());}
+        let(re,im)=banks.iter().map(|&root|arena.amplitude(root,&addresses[i]))
+            .fold((BigInt::zero(),BigInt::zero()),|(a,b),(c,d)|(a+c,b+d));FixedComplex{re,im}});
+    let cut=vox::phase_word::execute("≺∋⊣⊣∈⊤≺≻≻≻",&source.to_string())?;
+    if cut.register!=1||cut.seeded!=1||cut.deposits!=1||cut.cleared!=1||cut.restored!=0||!cut.surviving.is_empty(){
+        return Err("forward cut failed its T landing and retained banked payload".into());
+    }
     let output_record=amplitudes(&output);
-    Ok((output,json!({"frame":witness.record(),"register_cells":3*width,
+    let record=json!({"frame":witness.record(),"register_cells":3*width,
         "payload_layout":"q[0:w],p[w:2w],source[2w:3w]","wires":wires,
         "addresses":addresses.iter().map(ToString::to_string).collect::<Vec<_>>(),
         "matrix":coordinates(&matrix),"dual":coordinates(&dual),
         "dual_normalization":[normalization.0.to_string(),"0"],
         "operator_denominator":"2*fixed_point_scale","exact_output":output_record,
-        "input_context_retained":true})))
+        "cut_execution":{"word":"≺∋⊣⊣∈⊤≺≻≻≻","register":cut.register,
+            "deposits":cut.deposits,"cleared":cut.cleared,"restored":cut.restored,"seeded":cut.seeded},
+        "input_context_retained":true,"output_port_consumed":true});
+    let retained=RetainedBanks{arena,banks,addresses,expected:output.clone()};
+    Ok((output,record,retained))
 }
 impl SicGeometry {
     pub fn prepare(width:usize,braid:&vox::gfe_circuit_braid::GfeCircuitBraidState,source:&[char])->Result<Self,String>{
@@ -99,6 +128,11 @@ impl SicGeometry {
         let mut cyclic_word=vec!['⊢'];
         cyclic_word.extend(packets.chars().filter(|c| !matches!(c,'⊢'|'⊣')));
         cyclic_word.push('⊣');
+        let origin_word=cyclic_word.iter().collect::<String>();
+        // Reopen the source cut as an anchor, then move the original terminal
+        // anchor to the front: the executing cycle starts TANCH TANCH.
+        cyclic_word[0]='⊣';
+        cyclic_word.rotate_right(1);
         let mut cyclic_landings=Vec::with_capacity(cyclic_word.len());
         for cut in 0..cyclic_word.len(){
             let rotated:String=cyclic_word.iter().cycle().skip(cut).take(cyclic_word.len()).collect();
@@ -115,11 +149,15 @@ impl SicGeometry {
             "braid_word":braid.braid_word});
         let frame=FixedQuquartSic::new(&format)?;
         initial["cyclic_source_word"]=json!(cyclic_word.iter().collect::<String>());
+        initial["resident_frame_word"]=json!("≺∋⊣⊣∈⊤≺≻≻≻");
+        initial["cyclic_source_origin_word"]=json!(origin_word);
+        initial["cyclic_source_boundary_edit"]=json!({"position":0,"from":"⊢","to":"⊣",
+            "rotate_right":1,"rotation_cut":cyclic_word.len()-1});
         initial["cyclic_source_landings"]=json!(cyclic_landings);
         initial["rays"]=json!(frame.rays().iter().map(|ray|amplitudes(ray)).collect::<Vec<_>>());
         let dual=frame.prepare_exact_dual()?;
         Ok(Self{state:QuquartCarrier::from_control_amplitudes(format.clone(),z),
-            frame,dual,width,format,initial,ticks:0,last_exact_output:None,source_return:vox::geometric_return::SourceRingReturn::prepare(source),cyclic_word,cyclic_landings,last_carried_frame:None})
+            frame,dual,width,format,initial,ticks:0,last_exact_output:None,source_return:vox::geometric_return::SourceRingReturn::prepare(source),cyclic_word,cyclic_landings,last_carried_frame:None,pending_frames:Vec::new()})
     }
     pub fn preparation(&self)->Value{self.initial.clone()}
     pub fn learning_fields(&self)->Vec<Value>{
@@ -157,6 +195,8 @@ impl SicGeometry {
         fields
     }
     pub fn observe(&mut self,context:&Value)->Result<(BelnapWord,bool,Value),String>{
+        let leading_fuses=self.pending_frames.drain(..).map(RetainedBanks::leading_fuse)
+            .collect::<Result<Vec<_>,_>>()?;
         let before=values(&self.state);
 
         let signed_turns=field(context,"positive_turns")?-field(context,"negative_turns")?;
@@ -191,7 +231,8 @@ impl SicGeometry {
         let cyclic_marked=core::array::from_fn(|i|landing&(1<<i)!=0);
         self.state.phase_quarter_target(cyclic_marked,false);
         for i in 0..4{if cyclic_marked[i]{phases[i]=quarter(&phases[i],1);}}
-        let (exact_output,banked_frame)=banked_transform(context,self.width,&before,&phases,source_marked,inverse)?;
+        let (exact_output,banked_frame,pending)=banked_transform(context,self.width,&before,&phases,source_marked,inverse)?;
+        self.pending_frames.push(pending);
         let action_denominator=(BigInt::one()<<self.format.w_bits as usize)*2u8;
         let read_pairs=|key:&str|->[(BigInt,BigInt);16]{core::array::from_fn(|i|(
             banked_frame[key][i][0].as_str().unwrap().parse().unwrap(),
@@ -200,8 +241,42 @@ impl SicGeometry {
         let before_pairs=core::array::from_fn(|i|(before[i].re.clone(),before[i].im.clone()));
         let (ring_divisor,source_return)=self.source_return.advance(
             &read_pairs("matrix"),&read_pairs("dual"),&normalization,&action_denominator,&before_pairs)?;
-
-        let source_divisor=frame_divisor.or(ring_divisor);
+        // The same operator acts on both signed source payloads inside their
+        // half-sum/difference copies. Their full Gram returns with this state.
+        let source_n=field(context,"source")?;
+        let mut metric_branches=Vec::new();let mut metric_readouts=Vec::new();
+        let mut metric_divisor=None;
+        for mut branch in source_metric::prepare(context,self.width)? {
+            let (inner_after,bank,pending)=banked_transform(context,self.width,&branch.inner,&phases,source_marked,inverse)?;
+            self.pending_frames.push(pending);
+            let (candidate,returned)=source_metric::observe(&self.frame,&self.dual,&source_n,
+                &inner_after,&action_denominator)?;
+            if metric_divisor.is_none(){metric_divisor=candidate;}
+            metric_readouts.push(source_metric::rotation_readout(&inner_after,&action_denominator,&source_n)?);
+            branch.record["banked_frame"]=bank;branch.record["return"]=returned;
+            metric_branches.push(branch.record);
+        }
+        let metric_branch=if (&field(context,"clock")?%2u8).is_zero(){0}else{1};
+        let metric_rotation=metric_readouts[metric_branch].to_string();
+        let metric_selected=frame_divisor.is_none()&&ring_divisor.is_none()&&metric_divisor.is_some();
+        let metric_candidate=metric_divisor.as_ref().map(|d|{
+            let tape=mf::decimal_to_tape(&d.to_string()).expect("source metric divisor numeral");
+            BelnapWord::from_parity(&tape)});
+        let source_metric=json!({"schema":"paired-source-metric-inner-return-v1",
+            "branches":metric_branches,"rotation_branch":metric_branch,"rotation_readout":metric_rotation,
+            "divisor":metric_divisor.as_ref().map(ToString::to_string),"input_context_retained":true});
+        // Emit the actual fused coordinates at the open port, before the
+        // enclosing organism's eventual factor/product fixation or snapshot.
+        eprintln!("ORGANISM_INNER_RETURN {}",json!({"schema":"anchored-inner-output-v1",
+            "tick":self.ticks+1,"source":source_n.to_string(),"clock":field(context,"clock")?.to_string(),
+            "signed_turns":signed_turns.to_string(),"rotation_readout":metric_rotation,
+            "rotation_branch":metric_branch,"branches":source_metric["branches"].as_array().unwrap().iter()
+                .map(|b|json!({"lift":b["lift"],"p":b["p"],"q":b["q"],
+                    "product_defect":b["product_defect"],"anchors":b["banked_frame"]["frame"]["anchored_return"],
+                    "fused_after":b["return"]["fused_after"],
+                    "amplitude_denominator":b["return"]["amplitude_denominator"],
+                    "weighted_product_gram":b["return"]["weighted_product_gram"]})).collect::<Vec<_>>()}));
+        let source_divisor=frame_divisor.or(ring_divisor).or(metric_candidate);
 
         let rounded=|v:&BigInt|{
             let magnitude=(v.abs()+(&action_denominator/2u8))/&action_denominator;
@@ -241,8 +316,8 @@ impl SicGeometry {
         self.last_exact_output=Some((exact_output.clone(),action_denominator.clone()));
         self.last_carried_frame=Some(carried_frame.clone());
         self.ticks+=1;
-        Ok((BelnapWord::from_parity(&tape),reverse,json!({
-            "schema":"retained-sic-banked-factor-cell-rotation-v4","tick":self.ticks,
+        let mut report=json!({
+            "schema":"retained-sic-banked-factor-cell-rotation-v5","tick":self.ticks,
             "arm":context["arm"],"before":amplitudes(&before),"after":amplitudes(&after),
             "source_fibre":fibre,"source_phase_marked":source_marked,"source_phase_quarter_turns":1,
             "source_phase_after":amplitudes(&marked),
@@ -250,6 +325,8 @@ impl SicGeometry {
                 "landing_runtime_mask":landing,"marked_channels":cyclic_marked,"quarter_turns":1},
             "banked_frame":banked_frame,"action_denominator":action_denominator.to_string(),
             "carried_torus_frame":carried_frame,
+            "source_metric":source_metric,"source_metric_rotation_readout":metric_rotation,
+            "source_divisor_origin":if metric_selected{Some("source-metric-inner-return")}else{None},
             "source_return":source_return,"source_divisor":source_divisor.as_ref().map(vox::toroidal_division::word),
             "inverse_return":amplitudes(&inverse_state),"inverse_residual":inverse_residual.to_string(),
             "inverse_tolerance":inverse_tolerance.to_string(),"fourier_inverse":inverse,
@@ -265,6 +342,9 @@ impl SicGeometry {
             "readout":"floor(orbit_period*abs(Im Gram[0,1])/trace Gram)",
             "orbit_period":period.to_string(),"projection_remainder":remainder.to_string(),
             "lift":lift.to_string(),"reverse":reverse,
-            "coherence_changed":gram(&before)!=gram(&after),"leakage_retained":true})))
+            "coherence_changed":gram(&before)!=gram(&after),"leakage_retained":true});
+        report["resumed_leading_fuses"]=json!(leading_fuses);
+        report["pending_leading_fuses"]=json!(self.pending_frames.len());
+        Ok((BelnapWord::from_parity(&tape),reverse,report))
     }
 }

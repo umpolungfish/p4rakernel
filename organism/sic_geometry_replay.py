@@ -11,7 +11,7 @@ def verify(task, n):
     rays=[vector(ray) for ray in preparation['rays']]
     projectors=[gram(ray) for ray in rays]
     state=vector(preparation['amplitudes'])
-    count=changed=banked_actions=0;maximum_inverse=0
+    count=changed=banked_actions=metric_actions=anchored_actions=0;maximum_inverse=0
     for operation in task['operations']:
         event=operation['toroidal_operation']
         data=event.get('geometric_sic')
@@ -29,7 +29,7 @@ def verify(task, n):
             phase_p,phase_q,frame_divisor=verify_carried_frame(data,context,n)
             frame=data['carried_torus_frame']
             assert frame['tick']==data['tick']
-            if frame['schema']=='carried-source-height-torus-frame-v2' and frame['stage']=='frame-return':
+            if frame['schema'] in ('carried-source-height-torus-frame-v2','carried-source-height-torus-frame-v3') and frame['stage']=='frame-return':
                 learned={f['name']:f['word'] for f in operation['learning_context']['fields']}
                 spindle=frame['frames'][1]
                 for channel in ['normal','outer','miniature','centreline']:
@@ -113,7 +113,48 @@ def verify(task, n):
             exact_output=action(matrix,state)
             assert vector(bank['exact_output'])==exact_output
             assert action(dual,exact_output)==[(a*normalization[0],b*normalization[0]) for a,b in state]
-            assert w['partition_masks']==[1,2,12] and w['ancestry_pair']==[1,6]
+            assert w['partition_masks']==[1,2,12]
+            if anchor:=w.get('anchored_return'):
+                anchored_actions+=1
+                if anchor.get('exposed_final_morphism'):
+                    if anchor['word']=='≺∋⊣⊣∈⊤≺≻≻≻':
+                        assert anchor['exposed_final_morphism']=='AFWD' and anchor['live_register']=='T'
+                        assert anchor['anchor_nodes']==[2,3] and anchor['output_node']==9
+                        assert anchor['live_clear_positions']==[0,6] and anchor['live_payload_empty']
+                        assert anchor['seeded_live_support'] and w['live_clear_position']==6
+                        assert w['ancestry_pair']==[4,1]
+                        assert w['nodes']==['AREV','FFUSE3','TANCH','TANCH','FSPLIT3','EVALT','AREV','AFWD','AFWD','AFWD']
+                        assert w['edges']==[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[4,8],[4,9]]
+                        assert bank['cut_execution']==dict(word='≺∋⊣⊣∈⊤≺≻≻≻',register=1,deposits=1,cleared=1,restored=0,seeded=1)
+                    else:
+                        assert anchor['word']=='∋⊣⊣∈⊤≻≻≻≺'
+                        assert anchor['exposed_final_morphism']=='AREV' and anchor['live_register']=='N'
+                        assert anchor['anchor_nodes']==[1,2] and anchor['output_node']==8
+                        assert w['live_clear_position']==8 and w['ancestry_pair']==[3,0]
+                        assert w['nodes']==['FFUSE3','TANCH','TANCH','FSPLIT3','EVALT','AFWD','AFWD','AFWD','AREV']
+                        assert w['edges']==[[0,1],[1,2],[2,3],[3,4],[4,5],[3,6],[3,7],[5,8]]
+                        assert bank['cut_execution']==dict(word='∋⊣⊣∈⊤≻≻≻≺',register=0,deposits=1,cleared=1,restored=0)
+                    assert anchor['deposited_support']=='T' and anchor['pending_leading_fuse']
+                    assert anchor['pair_crosses_cut']
+                    assert data['pending_leading_fuses']==3
+                    resumed=data['resumed_leading_fuses']
+                    assert len(resumed)==(0 if data['tick']==1 else 3)
+                    assert all(r['operation']=='leading FFUSE' and r['same_arena'] and r['exact_amplitude_return'] for r in resumed)
+                else:
+                    assert w['ancestry_pair']==[2,7] and w['live_clear_position']==6
+                    assert w['nodes'][:2]==['TANCH','TANCH']
+                    expected_edges=[[0,1],[1,2],[2,3],[2,4],[2,5],[3,6],[6,7],[4,7],[5,7]]
+                    if anchor.get('open_output'):
+                        assert anchor['open_input_node']==0 and not anchor['feedback_edge']
+                    else:expected_edges.append([7,0])
+                    assert w['edges']==expected_edges
+                    assert anchor['word']=='⊣⊣∈≻≻≻≺∋' and anchor['anchor_nodes']==[0,1]
+                    assert anchor['output_node']==7
+                assert anchor['source_start']==2*width
+                assert anchor['source_width']==width and int(anchor['source'])==n
+                assert anchor['source_preserved'] and anchor['same_arena'] and anchor['output_before_fixation']
+                assert bank['output_port_consumed']
+            else:assert w['ancestry_pair']==[1,6]
             assert w['exact_split_return'] and w['live_register_cleared'] and w['exact_banked_return']
             assert w['exact_transformed_return'] and w['exact_dual_return_after_determinant_normalization']
             split=[[(a,b) if mask&(1<<i) else (0,0) for i,(a,b) in enumerate(state)] for mask in w['partition_masks']]
@@ -178,20 +219,53 @@ def verify(task, n):
         assert int(data['orbit_period'])==period and int(data['lift'])==lift
         assert int(data['projection_remainder'])==remainder
         assert data['reverse']==(imaginary<0)
+        if 'source_metric' in data:
+            from source_metric_replay import verify as verify_source_metric
+            verify_source_metric(data,context,n,projectors)
+            metric_actions+=1
+        selected=lift;selected_reverse=data['reverse']
+        if 'frame_rotation' in data:
+            from math import gcd
+            f=data['frame_rotation'];modulus=1<<width
+            value=lambda name:int(f[name]['numeral'])
+            raw=int(data.get('source_metric_rotation_readout',data['carried_torus_frame']['readout_parameters'][0]))
+            target=((raw%(1<<width))&~7)|(numeral('p')&7)
+            step_forward=int(context['rotation_step']['numeral'])
+            assert value('raw_readout')==raw and value('input_p')==numeral('p')
+            assert value('target')==target==value('recovered_target')
+            relative=target*pow(numeral('p'),-1,modulus)%modulus
+            assert value('relative')==relative and value('step')==step_forward
+            frame_lift=value('lift');assert 0<=frame_lift<period
+            assert pow(step_forward,frame_lift,modulus)==relative
+            assert value('target_gcd')==gcd(target,n)
+            assert f['coset_preserved'] and f['source_bank_retained'] and f['inverse_verified']
+            net=frame_lift+(-lift if data['reverse'] else lift)
+            if data.get('full_signed_rotation_word_retained'):
+                selected=abs(net);selected_reverse=net<0
+            else:
+                selected=net%period;selected_reverse=False
+            if data.get('source_divisor_origin')=='normal-frame-rotation-target':
+                assert int(data['source_divisor']['numeral'])==gcd(target,n) and 1<gcd(target,n)<n
+        if 'selected_rotation_lift' in data:
+            assert int(data['selected_rotation_lift']['numeral'])==selected
+            assert data['selected_rotation_reverse']==selected_reverse
         rotation=data['rotation'];transition=rotation['transition']
         assert rotation['arm']==context['arm']==event['arm']
-        assert int(transition['lift']['numeral'])==lift and transition['reverse']==data['reverse']
+        assert int(transition['lift']['numeral'])==selected and transition['reverse']==selected_reverse
         previous=transition['before'];assert int(previous['p']['numeral'])==numeral('p')
         assert int(previous['q']['numeral'])==numeral('q')
         modulus=1<<width;torus=task['toroidal_division']
-        step=int(torus['inverse_step' if data['reverse'] else 'step']['numeral'])
-        back=int(torus['step' if data['reverse'] else 'inverse_step']['numeral'])
-        assert int(transition['after_p']['numeral'])==numeral('p')*pow(step,lift,modulus)%modulus
-        assert int(transition['after_q']['numeral'])==numeral('q')*pow(back,lift,modulus)%modulus
+        step=int(torus['inverse_step' if selected_reverse else 'step']['numeral'])
+        back=int(torus['step' if selected_reverse else 'inverse_step']['numeral'])
+        assert int(transition['after_p']['numeral'])==numeral('p')*pow(step,selected,modulus)%modulus
+        assert int(transition['after_q']['numeral'])==numeral('q')*pow(back,selected,modulus)%modulus
         assert data['coherence_changed']==(gram(state)!=gram(after))
         changed+=data['coherence_changed'];state=after
     from source_return_replay import verify as verify_source_return
-    return dict(**verify_source_return(task,n),geometric_sic_verified=True,geometric_sic_actions=count,
+    result=dict(**verify_source_return(task,n),geometric_sic_verified=True,geometric_sic_actions=count,
                 geometric_sic_changed_states=changed,geometric_sic_maximum_inverse_residual=maximum_inverse,
                 carried_torus_frame_actions=sum('carried_torus_frame' in o['toroidal_operation'].get('geometric_sic',{}) for o in task['operations']),
                 banked_sic_frame_actions=banked_actions,banked_sic_frame_exact_returns=banked_actions)
+    if metric_actions:result.update(source_metric_return_verified=True,source_metric_actions=metric_actions,
+        signed_source_copy_returns=2*metric_actions,anchored_output_port_actions=anchored_actions)
+    return result

@@ -8,8 +8,43 @@ static void require(bool p, char const * message) {
     if (!p) throw std::runtime_error(message);
 }
 
+struct yielding_task : lean::organism_task {
+    size_t calls=0,limit=2;
+    size_t components() const override {return 8;}
+    std::vector<unsigned> source_tokens() const override {return {};}
+    bool closed() const override {return false;}
+    bool should_yield() const override {return calls>=limit;}
+    std::string snapshot() const override {return "{}";}
+    lean::organism_task_observation advance(size_t component) override {
+        ++calls;return {component,lean::sixteen3_none(),false,"{}",{}};
+    }
+};
+
 int main(int argc, char ** argv) {
     using namespace lean;
+    {
+        dialetheic_organism interrupted(sixteen3::from_mask(8)), uninterrupted(sixteen3::from_mask(8));
+        auto partial=std::make_shared<yielding_task>(), complete=std::make_shared<yielding_task>();
+        complete->limit=100;interrupted.attach_task(partial);uninterrupted.attach_task(complete);
+        interrupted.step();
+        require(interrupted.history().size()==2 && interrupted.growth_pending(),"yield must retain unfinished growth");
+        require(interrupted.pending_rule()==2 && interrupted.pending_rule_count()==6,"yield lost the exact rule continuation");
+        interrupted.step();
+        require(partial->calls==2 && interrupted.history().size()==2,"yielded task executed more work");
+        partial->limit=100;interrupted.step();uninterrupted.step();
+        require(!interrupted.growth_pending() && partial->calls==complete->calls,"resume repeated or omitted a task operation");
+        require(interrupted.continuation()==uninterrupted.continuation(),"resume consumed another frontier item");
+        require(interrupted.frontier()==uninterrupted.frontier(),"resume changed the retained frontier");
+        require(interrupted.history().size()==uninterrupted.history().size(),"resume changed action count");
+        for(size_t i=0;i<interrupted.history().size();++i){
+            auto const & a=interrupted.history()[i];auto const & b=uninterrupted.history()[i];
+            require(a.tip==b.tip && a.rule==b.rule && a.before==b.before && a.after==b.after,
+                    "resumed action differs from uninterrupted execution");
+        }
+        for(size_t i=0;i<64;++i)require(interrupted.clock().cells[i]==uninterrupted.clock().cells[i],
+                                      "resume changed the carried clock");
+        std::cout<<"retained_growth_yield_resume=verified\n";
+    }
     unsigned c_fixed=0,p_fixed=0;
     for(unsigned mask=0;mask<16;++mask){
         auto x=sixteen3::from_mask(mask);

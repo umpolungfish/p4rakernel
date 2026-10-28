@@ -142,6 +142,7 @@ struct organism_task_observation {
     bool closed;
     std::string state;
     std::vector<unsigned> learning_context{};
+    bool executed = true;
 };
 struct organism_task {
     virtual ~organism_task() = default;
@@ -149,6 +150,7 @@ struct organism_task {
     virtual std::vector<unsigned> source_tokens() const = 0;
     virtual organism_task_observation advance(size_t) = 0;
     virtual bool closed() const = 0;
+    virtual bool should_yield() const { return false; }
     virtual std::string snapshot() const = 0;
 };
 struct organism_instruction {
@@ -265,6 +267,9 @@ class dialetheic_organism {
         organism_judge_op::change, organism_judge_op::novelty, organism_judge_op::band};
     std::vector<organism_op> m_generator{organism_op::join_i, organism_op::negation};
     size_t m_continuation = 0;
+    bool m_growth_pending = false;
+    size_t m_pending_tip = 0, m_pending_rule = 0, m_pending_rule_count = 0;
+    bool m_pending_feedback = true, m_pending_model_feedback = true;
 public:
     explicit dialetheic_organism(sixteen3 source) : m_source(source) {
         for (auto op : {organism_op::join_i, organism_op::meet_i,
@@ -294,7 +299,19 @@ public:
         if (tip >= m_tips.size()) throw std::out_of_range("organism tip");
         auto before = m_tips[tip].state;
         auto rule_count = m_rules.size();
-        for (size_t r = 0; r < rule_count; ++r) {
+        size_t start_rule = 0;
+        if (m_growth_pending) {
+            if (tip != m_pending_tip) throw std::logic_error("resume the retained growth before another tip");
+            start_rule=m_pending_rule;rule_count=m_pending_rule_count;
+            feedback=m_pending_feedback;model_feedback=m_pending_model_feedback;
+            m_growth_pending=false;
+        }
+        for (size_t r = start_rule; r < rule_count; ++r) {
+            if (m_task && m_task->should_yield()) {
+                m_growth_pending=true;m_pending_tip=tip;m_pending_rule=r;m_pending_rule_count=rule_count;
+                m_pending_feedback=feedback;m_pending_model_feedback=model_feedback;
+                return;
+            }
             auto old_rule = m_rules[r];
             auto judge_before = m_judge;
             auto generator_before = m_generator;
@@ -315,14 +332,16 @@ public:
                 }
                 m_clock.tick();
             }
-            if (m_task && !m_task->closed()) {
+            if (m_task && !m_task->closed() && !m_task->should_yield()) {
                 // The learned register and current rule select a real port
                 // of the retained task. Its result enters this same body.
                 size_t component = (after.mask() + r) % m_task->components();
                 auto task = m_task->advance(component);
-                if (m_learner) m_learner->observe_task_context(component, task.feedback, task.learning_context);
-                after = after.join_i(task.feedback);
-                task_operations.push_back(std::move(task));
+                if (task.executed) {
+                    if (m_learner) m_learner->observe_task_context(component, task.feedback, task.learning_context);
+                    after = after.join_i(task.feedback);
+                    task_operations.push_back(std::move(task));
+                }
             }
             auto obs = observe_order(before, after);
             auto change = witnessed(before != after);
@@ -422,7 +441,8 @@ public:
 
     /** Resume the body's stored frontier. No external branch-choice schedule. */
     void step(bool feedback = true, bool model_feedback = true) {
-        if (m_task && m_task->closed()) return;
+        if (m_task && (m_task->closed() || m_task->should_yield())) return;
+        if (m_growth_pending) {grow(m_pending_tip,m_pending_feedback,m_pending_model_feedback);return;}
         // Designated truth directs growth first. Refuted tips remain in the
         // body and receive exploratory work when no truth-supported tip waits.
         // B participates in either pass, and N stays open in the frontier.
@@ -442,6 +462,12 @@ public:
     sixteen3 source() const { return m_source; }
     inclosure const & body() const { return *m_body; }
     size_t continuation() const { return m_continuation; }
+    bool growth_pending() const { return m_growth_pending; }
+    size_t pending_tip() const { return m_pending_tip; }
+    size_t pending_rule() const { return m_pending_rule; }
+    size_t pending_rule_count() const { return m_pending_rule_count; }
+    bool pending_feedback() const { return m_pending_feedback; }
+    bool pending_model_feedback() const { return m_pending_model_feedback; }
     std::vector<size_t> const & frontier() const { return m_frontier; }
     organism_clock const & clock() const { return m_clock; }
     std::string learner_snapshot() const { return m_learner ? m_learner->snapshot() : "null"; }

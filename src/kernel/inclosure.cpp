@@ -76,7 +76,12 @@ std::string snapshot(dialetheic_organism const & o) {
         if (i) s << ",";
         s << o.frontier()[i];
     }
-    s << "],\"clock\":"; clock(s, o.clock());
+    s << "],\"pending_growth\":";
+    if(o.growth_pending())s<<"{\"tip\":"<<o.pending_tip()<<",\"next_rule\":"<<o.pending_rule()
+        <<",\"rule_count\":"<<o.pending_rule_count()<<",\"feedback\":"<<(o.pending_feedback()?"true":"false")
+        <<",\"model_feedback\":"<<(o.pending_model_feedback()?"true":"false")<<"}";
+    else s<<"null";
+    s << ",\"clock\":"; clock(s, o.clock());
     s << ",\"judge_program\":"; operations(s, o.judge_program());
     s << ",\"generator_program\":"; operations(s, o.generator_program());
     s << ",\"nodes\":[";
