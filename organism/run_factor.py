@@ -498,6 +498,8 @@ try:
             report.update(root_sign_transport_verified=True,root_sign_actions=len(polynomial_actions),
                           root_sign_families=len(families),root_sign_changed_polynomials=changed,
                           root_sign_held_field_observations=held)
+        from horn_constraint_replay import verify as verify_horn_contraction
+        report.update(verify_horn_contraction(task,n))
         from sic_geometry_replay import verify as verify_sic_geometry
         report.update(verify_sic_geometry(task,n))
         if pending:=body.get('pending_growth'):

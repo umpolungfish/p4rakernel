@@ -52,6 +52,8 @@ files += [ROOT.parent/'Vox/src/carried_torus_frame.rs',ROOT.parent/'Vox/src/geom
           ROOT/'organism/torus_frames_replay.py',ROOT/'organism/sic_geometry_replay.py',ROOT.parent/'G-mOMonadOS/Cargo.toml',
           ROOT.parent/'G-mOMonadOS/build.rs']
 files += [ROOT/'organism/factor_bridge/src/source_metric.rs',ROOT/'organism/source_metric_replay.py']
+files += [ROOT.parent/'Vox/src/glut_horn.rs',ROOT/'organism/horn_constraint_replay.py',
+          ROOT/'organism/factor_bridge/src/prime_braid.rs',ROOT/'organism/prime_braid_replay.py']
 files += sorted((ROOT.parent/'G-mOMonadOS/src').rglob('*.rs'))
 images=[out/'organism-factor',out/'factor_bridge.so',out/'vgi_organism.so']
 report={'status':'built','compilation_seconds':sum(x['seconds'] for x in steps),
