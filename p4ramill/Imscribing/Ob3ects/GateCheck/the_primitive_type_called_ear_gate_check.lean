@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -133,3 +134,10 @@ def the_primitive_type_called_ear_tier : OuroboricityTier := TierFunctor.obj the
 theorem the_primitive_type_called_ear_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_ear_s0 the_primitive_type_called_ear_s0 = the_primitive_type_called_ear_s0 :=
   igFrobAlg_self_fusion the_primitive_type_called_ear_s0
+
+/-- Executable program of this gate-check construction. -/
+def the_primitive_type_called_ear_opcodes : List String := ["VINIT", "TANCH", "AFWD", "FSPLIT", "AFWD", "EVALT", "CLINK", "IMSCRIB", "AFWD", "EVALF", "CLINK", "IMSCRIB", "ENGAGR", "AREV", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_ear_domainActions : List String := ["initial object — ground of distinction", "terminal object — connectivity boundary", "forward morphism — bidirectional arrow", "split δ — range decomposition", "forward morphism — bidirectional arrow", "evaluate-true — criticality gate open", "composition — regime coherence", "identity — self-imscription", "forward morphism — bidirectional arrow", "evaluate-false — chirality check", "composition — regime coherence", "identity — self-imscription", "engage paradox — B-state, both arms", "reverse morphism — parity flip", "fuse μ — assembly mode", "irreversible fixation — winding number", "terminal object — connectivity boundary"]
+def the_primitive_type_called_ear_forkFusePairs : List (Nat × Nat) := [(3, 14)]
+def the_primitive_type_called_ear_glyphWord : String := glyphWordOf the_primitive_type_called_ear_opcodes
+theorem the_primitive_type_called_ear_gate_word : the_primitive_type_called_ear_glyphWord = "⊢⊣≻∈≻⊤⋈⊙≻⊥⋈⊙⊞≺∋⊡⊣" := by decide

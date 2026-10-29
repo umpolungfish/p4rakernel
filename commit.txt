@@ -1,5 +1,3 @@
-I prove native creation and finite filling bounds
+I prove coherent recovery and live release for the retained ensemble.
 
-I repair the residue Glut import. I extend NativeOrbitalTransfer with guarded creation, spin-slot conservation, complete native pair transfer, indexed shell accounting and finite Glut-minimum attainment through four orbitals. I retain the earlier spatial force and measured productive-release proof domains.
-
-I compile the targeted modules and preserve their axiom reports and unchanged native pair export.
+I preserve the native two-preference release identity and prove scalar pairing, shared-anchor recovery, cross-frame coherence, phase distinction and conservation of payment from the actual returned release coordinate.

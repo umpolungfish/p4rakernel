@@ -8,6 +8,7 @@
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
+import Imscribing.ConventionalRegister
 
 namespace Imscribing
 open Primitives Frobenius IGProtocol
@@ -108,3 +109,10 @@ def the_primitive_type_called_tot_tier : OuroboricityTier := TierFunctor.obj the
 theorem the_primitive_type_called_tot_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_tot_s0 the_primitive_type_called_tot_s0 = the_primitive_type_called_tot_s0 :=
   igFrobAlg_self_fusion the_primitive_type_called_tot_s0
+
+/-- Executable program of this gate-check construction. -/
+def the_primitive_type_called_tot_opcodes : List String := ["VINIT", "FSPLIT", "AFWD", "EVALT", "CLINK", "IMSCRIB", "AREV", "EVALF", "ENGAGR", "FFUSE", "IFIX", "TANCH"]
+def the_primitive_type_called_tot_domainActions : List String := ["initial object — ground of distinction", "split δ — range decomposition", "forward morphism — bidirectional arrow", "evaluate-true — criticality gate open", "composition — regime coherence", "identity — self-imscription", "reverse morphism — parity flip", "evaluate-false — chirality check", "engage paradox — B-state, both arms", "fuse μ — assembly mode", "irreversible fixation — winding number", "terminal object — connectivity boundary"]
+def the_primitive_type_called_tot_forkFusePairs : List (Nat × Nat) := [(1, 9)]
+def the_primitive_type_called_tot_glyphWord : String := glyphWordOf the_primitive_type_called_tot_opcodes
+theorem the_primitive_type_called_tot_gate_word : the_primitive_type_called_tot_glyphWord = "⊢∈≻⊤⋈⊙≺⊥⊞∋⊡⊣" := by decide

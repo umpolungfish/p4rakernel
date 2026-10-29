@@ -415,6 +415,8 @@ globs = [
   "Imscribing.Primitives.LinearOrder",
   "Imscribing.Primitives.SacredVessel",
   "Imscribing.Paraconsistent.Init",
+  "Imscribing.Paraconsistent.NonexistenceOfProbability",
+
   "Imscribing.Paraconsistent.ParadoxFS",
   "Imscribing.Paraconsistent.CrystalScheduler",
   "Imscribing.Paraconsistent.ParaconsistentShell",

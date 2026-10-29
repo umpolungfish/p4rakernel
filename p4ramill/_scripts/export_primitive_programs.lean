@@ -63,7 +63,7 @@ def primitiveProgramRows : List (String × String × String × List String × Li
   ("bib", "Imscribing/Primitives/Types/PrimitiveTypeBib.lean", the_primitive_type_called_bib_glyphWord, the_primitive_type_called_bib_opcodes, the_primitive_type_called_bib_domainActions, the_primitive_type_called_bib_forkFusePairs),
   ("church", "Imscribing/Primitives/Types/PrimitiveTypeChurch.lean", the_primitive_type_called_church_glyphWord, the_primitive_type_called_church_opcodes, the_primitive_type_called_church_domainActions, the_primitive_type_called_church_forkFusePairs),
   ("dead", "Imscribing/Primitives/Types/PrimitiveTypeDead.lean", the_primitive_type_called_dead_glyphWord, the_primitive_type_called_dead_opcodes, the_primitive_type_called_dead_domainActions, the_primitive_type_called_dead_forkFusePairs),
-  ("ear", "Imscribing/Primitives/Types/PrimitiveTypeEar.lean", the_primitive_type_called_ear_glyphWord, the_primitive_type_called_ear_opcodes, the_primitive_type_called_ear_domainActions, the_primitive_type_called_ear_forkFusePairs),
+  ("ear", "Imscribing/Primitives/Types/PrimitiveTypeEar.lean", Imscribing.Primitives.Types.the_primitive_type_called_ear_glyphWord, Imscribing.Primitives.Types.the_primitive_type_called_ear_opcodes, Imscribing.Primitives.Types.the_primitive_type_called_ear_domainActions, Imscribing.Primitives.Types.the_primitive_type_called_ear_forkFusePairs),
   ("eat", "Imscribing/Primitives/Types/PrimitiveTypeEat.lean", the_primitive_type_called_eat_glyphWord, the_primitive_type_called_eat_opcodes, the_primitive_type_called_eat_domainActions, the_primitive_type_called_eat_forkFusePairs),
   ("egg", "Imscribing/Primitives/Types/PrimitiveTypeEgg.lean", the_primitive_type_called_egg_glyphWord, the_primitive_type_called_egg_opcodes, the_primitive_type_called_egg_domainActions, the_primitive_type_called_egg_forkFusePairs),
   ("err", "Imscribing/Primitives/Types/PrimitiveTypeErr.lean", the_primitive_type_called_err_glyphWord, the_primitive_type_called_err_opcodes, the_primitive_type_called_err_domainActions, the_primitive_type_called_err_forkFusePairs),
@@ -93,7 +93,7 @@ def primitiveProgramRows : List (String × String × String × List String × Li
   ("sure", "Imscribing/Primitives/Types/PrimitiveTypeSure.lean", the_primitive_type_called_sure_glyphWord, the_primitive_type_called_sure_opcodes, the_primitive_type_called_sure_domainActions, the_primitive_type_called_sure_forkFusePairs),
   ("they", "Imscribing/Primitives/Types/PrimitiveTypeThey.lean", the_primitive_type_called_they_glyphWord, the_primitive_type_called_they_opcodes, the_primitive_type_called_they_domainActions, the_primitive_type_called_they_forkFusePairs),
   ("thigh", "Imscribing/Primitives/Types/PrimitiveTypeThigh.lean", the_primitive_type_called_thigh_glyphWord, the_primitive_type_called_thigh_opcodes, the_primitive_type_called_thigh_domainActions, the_primitive_type_called_thigh_forkFusePairs),
-  ("tot", "Imscribing/Primitives/Types/PrimitiveTypeTot.lean", the_primitive_type_called_tot_glyphWord, the_primitive_type_called_tot_opcodes, the_primitive_type_called_tot_domainActions, the_primitive_type_called_tot_forkFusePairs),
+  ("tot", "Imscribing/Primitives/Types/PrimitiveTypeTot.lean", Imscribing.Primitives.Types.the_primitive_type_called_tot_glyphWord, Imscribing.Primitives.Types.the_primitive_type_called_tot_opcodes, Imscribing.Primitives.Types.the_primitive_type_called_tot_domainActions, Imscribing.Primitives.Types.the_primitive_type_called_tot_forkFusePairs),
   ("up", "Imscribing/Primitives/Types/PrimitiveTypeUp.lean", the_primitive_type_called_up_glyphWord, the_primitive_type_called_up_opcodes, the_primitive_type_called_up_domainActions, the_primitive_type_called_up_forkFusePairs),
   ("vow", "Imscribing/Primitives/Types/PrimitiveTypeVow.lean", the_primitive_type_called_vow_glyphWord, the_primitive_type_called_vow_opcodes, the_primitive_type_called_vow_domainActions, the_primitive_type_called_vow_forkFusePairs),
   ("woe", "Imscribing/Primitives/Types/PrimitiveTypeWoe.lean", the_primitive_type_called_woe_glyphWord, the_primitive_type_called_woe_opcodes, the_primitive_type_called_woe_domainActions, the_primitive_type_called_woe_forkFusePairs),
@@ -108,6 +108,6 @@ def main : IO Unit := do
     Json.mkObj [("name", toJson name), ("source", toJson source),
       ("word", toJson word), ("opcodes", toJson opcodes),
       ("actions", toJson actions), ("pairs", toJson pairs),
-      ("dependencies", toJson (if name == "out" then
-        ["Imscribing/Ob3ects/GateCheck/the_primitive_type_called_out_gate_check.lean"] else ([] : List String)))]
+      ("dependencies", toJson (if name == "out" || name == "ear" || name == "tot" then
+        ["Imscribing/Ob3ects/GateCheck/the_primitive_type_called_" ++ name ++ "_gate_check.lean"] else ([] : List String)))]
   IO.println (Json.mkObj [("schema", toJson (1 : Nat)), ("programs", toJson programs)]).compress

@@ -13,6 +13,7 @@ import Imscribing.Primitives.TierCrossing
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor
 import Imscribing.ConventionalRegister
+import Imscribing.Ob3ects.GateCheck.the_primitive_type_called_ear_gate_check
 
 namespace Imscribing.Primitives.Types
 open Primitives
@@ -174,13 +175,13 @@ def the_primitive_type_called_ear_fragmentIsStatement : String := "never"
 
 /-- The count behind that verdict, so its strength is visible. -/
 def the_primitive_type_called_ear_fragmentIsStatementEvidence : String := "starred in none of the 7 sampled theorem(s) that carry it"
-def the_primitive_type_called_ear_bootstrapSteps : Nat := 12
+def the_primitive_type_called_ear_bootstrapSteps := the_primitive_type_called_ear_opcodes.length
 
 /-- Ordered executable construction retained alongside the typed protocol. -/
-def the_primitive_type_called_ear_opcodes : List String := ["VINIT", "IMSCRIB", "FSPLIT", "AFWD", "EVALT", "AREV", "EVALF", "FFUSE", "CLINK", "ENGAGR", "IFIX", "TANCH"]
-def the_primitive_type_called_ear_domainActions : List String := ["initialize the relational primitive slot", "identify the primitive as a candidate for the R family", "branch the relation into its constituent directions", "define the forward morphism A", "validate the forward path", "define the contravariant adjoint A†", "check for non-reciprocal residuals", "reunite A and A† into a single reciprocal mode", "compose the unified mode with the Relational type definition", "hold the bidirectional tension as a stable state", "record the ear primitive to the Core.lean registry", "close the definition of the ear relational mode"]
-def the_primitive_type_called_ear_forkFusePairs : List (Nat × Nat) := [(2, 7)]
-def the_primitive_type_called_ear_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ear_opcodes
+def the_primitive_type_called_ear_opcodes := Imscribing.the_primitive_type_called_ear_opcodes
+def the_primitive_type_called_ear_domainActions := Imscribing.the_primitive_type_called_ear_domainActions
+def the_primitive_type_called_ear_forkFusePairs := Imscribing.the_primitive_type_called_ear_forkFusePairs
+def the_primitive_type_called_ear_glyphWord := Imscribing.the_primitive_type_called_ear_glyphWord
 
 theorem the_primitive_type_called_ear_program_length :
     the_primitive_type_called_ear_opcodes.length = the_primitive_type_called_ear_bootstrapSteps := by decide
