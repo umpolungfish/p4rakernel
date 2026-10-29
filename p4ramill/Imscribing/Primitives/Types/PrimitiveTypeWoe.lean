@@ -57,56 +57,60 @@ def the_primitive_type_called_woe_registerBoth : String := "metastable phase coe
 -- VINIT: untyped vacuum
 --   the state before the assignment of criticality values
 
--- Stage Imscriptions (per-node cumulative)
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def the_primitive_type_called_woe_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s1 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s2 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s3 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s5 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := awe }
 private def the_primitive_type_called_woe_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_woe_s9 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def the_primitive_type_called_woe_s10 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
--- Label Imscriptions (per-node delta)
+-- ── Label Imscriptions (per-node delta) ─────────────────────
 private def the_primitive_type_called_woe_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l1 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l2 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l3 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l4 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l5 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l6 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_woe_l7 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
 private def the_primitive_type_called_woe_l8 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_woe_l9 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+private def the_primitive_type_called_woe_l10 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
-noncomputable def the_primitive_type_called_woe_protocol : IGProtocol the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s8 :=
+-- ── Main IGProtocol term ────────────────────────────────────
+noncomputable def the_primitive_type_called_woe_protocol : IGProtocol the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s10 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_woe_l0 the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s1) (.seq (.arrow the_primitive_type_called_woe_l1 the_primitive_type_called_woe_s1 the_primitive_type_called_woe_s2) (.seq (.arrow the_primitive_type_called_woe_l2 the_primitive_type_called_woe_s2 the_primitive_type_called_woe_s3) (.seq (.prod (.arrow the_primitive_type_called_woe_l3 the_primitive_type_called_woe_s3 the_primitive_type_called_woe_s5) (.arrow the_primitive_type_called_woe_l3 the_primitive_type_called_woe_s3 the_primitive_type_called_woe_s5)) (.seq (.arrow the_primitive_type_called_woe_l5 the_primitive_type_called_woe_s5 the_primitive_type_called_woe_s5) (.seq (.arrow the_primitive_type_called_woe_l5 the_primitive_type_called_woe_s5 the_primitive_type_called_woe_s6) (.seq (.arrow the_primitive_type_called_woe_l6 the_primitive_type_called_woe_s6 the_primitive_type_called_woe_s7) (.arrow the_primitive_type_called_woe_l7 the_primitive_type_called_woe_s7 the_primitive_type_called_woe_s8))))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_woe_s8 the_primitive_type_called_woe_s8 = the_primitive_type_called_woe_s8 (idempotent)
+  (.seq (.arrow the_primitive_type_called_woe_l0 the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s1) (.seq (.arrow the_primitive_type_called_woe_l1 the_primitive_type_called_woe_s1 the_primitive_type_called_woe_s2) (.seq (.arrow the_primitive_type_called_woe_l2 the_primitive_type_called_woe_s2 the_primitive_type_called_woe_s3) (.seq (.arrow the_primitive_type_called_woe_l3 the_primitive_type_called_woe_s3 the_primitive_type_called_woe_s4) (.seq (.prod (.arrow the_primitive_type_called_woe_l4 the_primitive_type_called_woe_s4 the_primitive_type_called_woe_s8) (.arrow the_primitive_type_called_woe_l4 the_primitive_type_called_woe_s4 the_primitive_type_called_woe_s8)) (.seq (.arrow the_primitive_type_called_woe_l8 the_primitive_type_called_woe_s8 the_primitive_type_called_woe_s8) (.seq (.arrow the_primitive_type_called_woe_l8 the_primitive_type_called_woe_s8 the_primitive_type_called_woe_s9) (.arrow the_primitive_type_called_woe_l9 the_primitive_type_called_woe_s9 the_primitive_type_called_woe_s10))))))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_woe_true_arm : IGProtocol the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s8 :=
-  (the_primitive_type_called_woe_protocol).restrictToEVALT
-
--- Verification theorems
 def the_primitive_type_called_woe_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_woe_s0
 theorem the_primitive_type_called_woe_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_woe_s0 the_primitive_type_called_woe_s0 = the_primitive_type_called_woe_s0 :=

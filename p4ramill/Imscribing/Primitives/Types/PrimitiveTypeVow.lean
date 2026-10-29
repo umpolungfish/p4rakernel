@@ -57,25 +57,25 @@ def the_primitive_type_called_vow_registerBoth : String := "conflicting simultan
 -- VINIT: unconstrained state
 --   The initial state before any conjunctive requirements are imposed.
 
--- Stage Imscriptions (per-node cumulative)
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def the_primitive_type_called_vow_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s1 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s2 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s3 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := up, prot := awe }
 private def the_primitive_type_called_vow_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s9 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_s10 : Imscription :=
@@ -83,44 +83,38 @@ private def the_primitive_type_called_vow_s10 : Imscription :=
 private def the_primitive_type_called_vow_s11 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
--- Label Imscriptions (per-node delta)
+-- ── Label Imscriptions (per-node delta) ─────────────────────
 private def the_primitive_type_called_vow_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_l1 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_vow_l2 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_vow_l2 : Imscription :=
+  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_l3 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_l4 : Imscription :=
-  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_vow_l5 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_vow_l6 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_vow_l7 : Imscription :=
+private def the_primitive_type_called_vow_l5 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_vow_l6 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_vow_l7 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
 private def the_primitive_type_called_vow_l8 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_l9 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_vow_l10 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_vow_l11 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
+-- ── Main IGProtocol term ────────────────────────────────────
 noncomputable def the_primitive_type_called_vow_protocol : IGProtocol the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s11 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_vow_l0 the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s1) (.seq (.arrow the_primitive_type_called_vow_l1 the_primitive_type_called_vow_s1 the_primitive_type_called_vow_s2) (.seq (.prod (.arrow the_primitive_type_called_vow_l2 the_primitive_type_called_vow_s2 the_primitive_type_called_vow_s8) (.arrow the_primitive_type_called_vow_l2 the_primitive_type_called_vow_s2 the_primitive_type_called_vow_s8)) (.seq (.arrow the_primitive_type_called_vow_l8 the_primitive_type_called_vow_s8 the_primitive_type_called_vow_s8) (.seq (.arrow the_primitive_type_called_vow_l8 the_primitive_type_called_vow_s8 the_primitive_type_called_vow_s9) (.seq (.arrow the_primitive_type_called_vow_l9 the_primitive_type_called_vow_s9 the_primitive_type_called_vow_s10) (.arrow the_primitive_type_called_vow_l10 the_primitive_type_called_vow_s10 the_primitive_type_called_vow_s11)))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_vow_s8 the_primitive_type_called_vow_s8 = the_primitive_type_called_vow_s8 (idempotent)
+  (.seq (.arrow the_primitive_type_called_vow_l0 the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s1) (.seq (.prod (.arrow the_primitive_type_called_vow_l1 the_primitive_type_called_vow_s1 the_primitive_type_called_vow_s8) (.arrow the_primitive_type_called_vow_l1 the_primitive_type_called_vow_s1 the_primitive_type_called_vow_s8)) (.seq (.arrow the_primitive_type_called_vow_l8 the_primitive_type_called_vow_s8 the_primitive_type_called_vow_s8) (.seq (.arrow the_primitive_type_called_vow_l8 the_primitive_type_called_vow_s8 the_primitive_type_called_vow_s9) (.seq (.arrow the_primitive_type_called_vow_l9 the_primitive_type_called_vow_s9 the_primitive_type_called_vow_s10) (.arrow the_primitive_type_called_vow_l10 the_primitive_type_called_vow_s10 the_primitive_type_called_vow_s11))))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_vow_true_arm : IGProtocol the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s11 :=
-  (the_primitive_type_called_vow_protocol).restrictToEVALT
-noncomputable def the_primitive_type_called_vow_false_arm : IGProtocol the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s11 :=
-  (the_primitive_type_called_vow_protocol).restrictToEVALF
-
--- Verification theorems
 def the_primitive_type_called_vow_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_vow_s0
 theorem the_primitive_type_called_vow_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_vow_s0 the_primitive_type_called_vow_s0 = the_primitive_type_called_vow_s0 :=

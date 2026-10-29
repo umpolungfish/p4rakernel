@@ -57,64 +57,60 @@ def the_primitive_type_called_or_registerBoth : String := "Frobenius singularity
 -- VINIT: untyped vacuum
 --   The state before any polarity or symmetry assignment exists.
 
--- Stage Imscriptions (per-node cumulative)
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def the_primitive_type_called_or_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s1 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s2 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s3 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := up, prot := awe }
 private def the_primitive_type_called_or_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := up, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_s9 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := up, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 private def the_primitive_type_called_or_s10 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := up, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
--- Label Imscriptions (per-node delta)
+-- ── Label Imscriptions (per-node delta) ─────────────────────
 private def the_primitive_type_called_or_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l1 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_or_l2 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_or_l3 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_or_l2 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_or_l3 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l4 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l5 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
 private def the_primitive_type_called_or_l6 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l7 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l8 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_or_l9 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_or_l10 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
+-- ── Main IGProtocol term ────────────────────────────────────
 noncomputable def the_primitive_type_called_or_protocol : IGProtocol the_primitive_type_called_or_s0 the_primitive_type_called_or_s10 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_or_l0 the_primitive_type_called_or_s0 the_primitive_type_called_or_s1) (.seq (.prod (.arrow the_primitive_type_called_or_l1 the_primitive_type_called_or_s1 the_primitive_type_called_or_s7) (.arrow the_primitive_type_called_or_l1 the_primitive_type_called_or_s1 the_primitive_type_called_or_s7)) (.seq (.arrow the_primitive_type_called_or_l7 the_primitive_type_called_or_s7 the_primitive_type_called_or_s7) (.seq (.arrow the_primitive_type_called_or_l7 the_primitive_type_called_or_s7 the_primitive_type_called_or_s8) (.seq (.arrow the_primitive_type_called_or_l8 the_primitive_type_called_or_s8 the_primitive_type_called_or_s9) (.arrow the_primitive_type_called_or_l9 the_primitive_type_called_or_s9 the_primitive_type_called_or_s10))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_or_s6 the_primitive_type_called_or_s6 = the_primitive_type_called_or_s6 (idempotent)
+  (.seq (.arrow the_primitive_type_called_or_l0 the_primitive_type_called_or_s0 the_primitive_type_called_or_s1) (.seq (.arrow the_primitive_type_called_or_l1 the_primitive_type_called_or_s1 the_primitive_type_called_or_s2) (.seq (.prod (.arrow the_primitive_type_called_or_l2 the_primitive_type_called_or_s2 the_primitive_type_called_or_s6) (.arrow the_primitive_type_called_or_l2 the_primitive_type_called_or_s2 the_primitive_type_called_or_s6)) (.seq (.arrow the_primitive_type_called_or_l6 the_primitive_type_called_or_s6 the_primitive_type_called_or_s6) (.seq (.arrow the_primitive_type_called_or_l6 the_primitive_type_called_or_s6 the_primitive_type_called_or_s7) (.seq (.arrow the_primitive_type_called_or_l7 the_primitive_type_called_or_s7 the_primitive_type_called_or_s8) (.seq (.arrow the_primitive_type_called_or_l8 the_primitive_type_called_or_s8 the_primitive_type_called_or_s9) (.arrow the_primitive_type_called_or_l9 the_primitive_type_called_or_s9 the_primitive_type_called_or_s10))))))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_or_true_arm : IGProtocol the_primitive_type_called_or_s0 the_primitive_type_called_or_s10 :=
-  (the_primitive_type_called_or_protocol).restrictToEVALT
-
--- Verification theorems
 def the_primitive_type_called_or_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_or_s0
 theorem the_primitive_type_called_or_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_or_s0 the_primitive_type_called_or_s0 = the_primitive_type_called_or_s0 :=

@@ -1,4 +1,5 @@
 import Imscribing.Biochem.PrimaLogicaMechanicalGlut
+import Imscribing.Biochem.NativeOrbitalTransfer
 
 /-!
 # Mechanical-glut bridge audit (requires Mathlib + the Imscribing fork)

@@ -57,86 +57,64 @@ def the_primitive_type_called_age_registerBoth : String := "a state of partial i
 -- VINIT: uninitialized search space
 --   The state before any search parameters or fidelity constraints are defined.
 
--- Stage Imscriptions (per-node cumulative)
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def the_primitive_type_called_age_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s1 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s2 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s3 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := up, prot := awe }
 private def the_primitive_type_called_age_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s9 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_s10 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 private def the_primitive_type_called_age_s11 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def the_primitive_type_called_age_s12 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
-private def the_primitive_type_called_age_s13 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
-private def the_primitive_type_called_age_s14 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
-private def the_primitive_type_called_age_s15 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
 
--- Label Imscriptions (per-node delta)
+-- ── Label Imscriptions (per-node delta) ─────────────────────
 private def the_primitive_type_called_age_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_l1 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l2 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l3 : Imscription :=
+private def the_primitive_type_called_age_l2 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l4 : Imscription :=
+private def the_primitive_type_called_age_l3 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_age_l4 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_l5 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
 private def the_primitive_type_called_age_l6 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_age_l7 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_age_l8 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l9 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l10 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_age_l8 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_age_l9 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_age_l10 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_age_l11 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l12 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
-private def the_primitive_type_called_age_l13 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_age_l14 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_age_l15 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
-noncomputable def the_primitive_type_called_age_protocol : IGProtocol the_primitive_type_called_age_s0 the_primitive_type_called_age_s15 :=
+-- ── Main IGProtocol term ────────────────────────────────────
+noncomputable def the_primitive_type_called_age_protocol : IGProtocol the_primitive_type_called_age_s0 the_primitive_type_called_age_s11 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_age_l0 the_primitive_type_called_age_s0 the_primitive_type_called_age_s1) (.seq (.arrow the_primitive_type_called_age_l1 the_primitive_type_called_age_s1 the_primitive_type_called_age_s2) (.seq (.arrow the_primitive_type_called_age_l2 the_primitive_type_called_age_s2 the_primitive_type_called_age_s3) (.seq (.prod (.arrow the_primitive_type_called_age_l3 the_primitive_type_called_age_s3 the_primitive_type_called_age_s5) (.arrow the_primitive_type_called_age_l3 the_primitive_type_called_age_s3 the_primitive_type_called_age_s5)) (.seq (.arrow the_primitive_type_called_age_l5 the_primitive_type_called_age_s5 the_primitive_type_called_age_s5) (.seq (.arrow the_primitive_type_called_age_l5 the_primitive_type_called_age_s5 the_primitive_type_called_age_s6) (.seq (.arrow the_primitive_type_called_age_l6 the_primitive_type_called_age_s6 the_primitive_type_called_age_s7) (.seq (.arrow the_primitive_type_called_age_l7 the_primitive_type_called_age_s7 the_primitive_type_called_age_s8) (.seq (.arrow the_primitive_type_called_age_l8 the_primitive_type_called_age_s8 the_primitive_type_called_age_s9) (.seq (.arrow the_primitive_type_called_age_l9 the_primitive_type_called_age_s9 the_primitive_type_called_age_s10) (.seq (.arrow the_primitive_type_called_age_l10 the_primitive_type_called_age_s10 the_primitive_type_called_age_s11) (.seq (.arrow the_primitive_type_called_age_l11 the_primitive_type_called_age_s11 the_primitive_type_called_age_s12) (.seq (.arrow the_primitive_type_called_age_l12 the_primitive_type_called_age_s12 the_primitive_type_called_age_s13) (.seq (.arrow the_primitive_type_called_age_l13 the_primitive_type_called_age_s13 the_primitive_type_called_age_s14) (.arrow the_primitive_type_called_age_l14 the_primitive_type_called_age_s14 the_primitive_type_called_age_s15)))))))))))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_age_s6 the_primitive_type_called_age_s6 = the_primitive_type_called_age_s6 (idempotent)
+  (.seq (.arrow the_primitive_type_called_age_l0 the_primitive_type_called_age_s0 the_primitive_type_called_age_s1) (.seq (.arrow the_primitive_type_called_age_l1 the_primitive_type_called_age_s1 the_primitive_type_called_age_s2) (.seq (.prod (.arrow the_primitive_type_called_age_l2 the_primitive_type_called_age_s2 the_primitive_type_called_age_s6) (.arrow the_primitive_type_called_age_l2 the_primitive_type_called_age_s2 the_primitive_type_called_age_s6)) (.seq (.arrow the_primitive_type_called_age_l6 the_primitive_type_called_age_s6 the_primitive_type_called_age_s6) (.seq (.arrow the_primitive_type_called_age_l6 the_primitive_type_called_age_s6 the_primitive_type_called_age_s7) (.seq (.arrow the_primitive_type_called_age_l7 the_primitive_type_called_age_s7 the_primitive_type_called_age_s8) (.seq (.arrow the_primitive_type_called_age_l8 the_primitive_type_called_age_s8 the_primitive_type_called_age_s9) (.seq (.arrow the_primitive_type_called_age_l9 the_primitive_type_called_age_s9 the_primitive_type_called_age_s10) (.arrow the_primitive_type_called_age_l10 the_primitive_type_called_age_s10 the_primitive_type_called_age_s11)))))))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_age_true_arm : IGProtocol the_primitive_type_called_age_s0 the_primitive_type_called_age_s15 :=
-  (the_primitive_type_called_age_protocol).restrictToEVALT
-noncomputable def the_primitive_type_called_age_false_arm : IGProtocol the_primitive_type_called_age_s0 the_primitive_type_called_age_s15 :=
-  (the_primitive_type_called_age_protocol).restrictToEVALF
-
--- Verification theorems
 def the_primitive_type_called_age_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_age_s0
 
 #eval the_primitive_type_called_age_tier  -- the Grammar's own verdict on its tier

@@ -57,19 +57,19 @@ def the_primitive_type_called_array_registerBoth : String := "entangled indices 
 -- VINIT: pre-dimensional vacuum
 --   the state before any spatial or temporal axes are defined
 
--- Stage Imscriptions (per-node cumulative)
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
 private def the_primitive_type_called_array_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s1 : Imscription :=
-  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s2 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s3 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_s6 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s7 : Imscription :=
@@ -77,58 +77,60 @@ private def the_primitive_type_called_array_s7 : Imscription :=
 private def the_primitive_type_called_array_s8 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s9 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s10 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s11 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s12 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_s13 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def the_primitive_type_called_array_s14 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+private def the_primitive_type_called_array_s15 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
 
--- Label Imscriptions (per-node delta)
+-- ── Label Imscriptions (per-node delta) ─────────────────────
 private def the_primitive_type_called_array_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_l1 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l2 : Imscription :=
-  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l3 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_array_l4 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l5 : Imscription :=
+private def the_primitive_type_called_array_l2 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l6 : Imscription :=
+private def the_primitive_type_called_array_l3 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l4 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l5 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l6 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
 private def the_primitive_type_called_array_l7 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_l8 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l9 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l10 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_array_l11 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
-private def the_primitive_type_called_array_l12 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+private def the_primitive_type_called_array_l9 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l10 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+private def the_primitive_type_called_array_l11 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l12 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
 private def the_primitive_type_called_array_l13 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_array_l14 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
+private def the_primitive_type_called_array_l15 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
-noncomputable def the_primitive_type_called_array_protocol : IGProtocol the_primitive_type_called_array_s0 the_primitive_type_called_array_s13 :=
+-- ── Main IGProtocol term ────────────────────────────────────
+noncomputable def the_primitive_type_called_array_protocol : IGProtocol the_primitive_type_called_array_s0 the_primitive_type_called_array_s15 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_array_l0 the_primitive_type_called_array_s0 the_primitive_type_called_array_s1) (.seq (.arrow the_primitive_type_called_array_l1 the_primitive_type_called_array_s1 the_primitive_type_called_array_s2) (.seq (.arrow the_primitive_type_called_array_l2 the_primitive_type_called_array_s2 the_primitive_type_called_array_s3) (.seq (.arrow the_primitive_type_called_array_l3 the_primitive_type_called_array_s3 the_primitive_type_called_array_s4) (.seq (.prod (.arrow the_primitive_type_called_array_l4 the_primitive_type_called_array_s4 the_primitive_type_called_array_s10) (.arrow the_primitive_type_called_array_l4 the_primitive_type_called_array_s4 the_primitive_type_called_array_s10)) (.seq (.arrow the_primitive_type_called_array_l10 the_primitive_type_called_array_s10 the_primitive_type_called_array_s10) (.seq (.arrow the_primitive_type_called_array_l10 the_primitive_type_called_array_s10 the_primitive_type_called_array_s11) (.seq (.arrow the_primitive_type_called_array_l11 the_primitive_type_called_array_s11 the_primitive_type_called_array_s12) (.arrow the_primitive_type_called_array_l12 the_primitive_type_called_array_s12 the_primitive_type_called_array_s13)))))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_array_s13 the_primitive_type_called_array_s13 = the_primitive_type_called_array_s13 (idempotent)
+  (.seq (.arrow the_primitive_type_called_array_l0 the_primitive_type_called_array_s0 the_primitive_type_called_array_s1) (.seq (.prod (.arrow the_primitive_type_called_array_l1 the_primitive_type_called_array_s1 the_primitive_type_called_array_s13) (.arrow the_primitive_type_called_array_l1 the_primitive_type_called_array_s1 the_primitive_type_called_array_s13)) (.seq (.arrow the_primitive_type_called_array_l13 the_primitive_type_called_array_s13 the_primitive_type_called_array_s13) (.seq (.arrow the_primitive_type_called_array_l13 the_primitive_type_called_array_s13 the_primitive_type_called_array_s14) (.arrow the_primitive_type_called_array_l14 the_primitive_type_called_array_s14 the_primitive_type_called_array_s15)))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_array_true_arm : IGProtocol the_primitive_type_called_array_s0 the_primitive_type_called_array_s13 :=
-  (the_primitive_type_called_array_protocol).restrictToEVALT
-noncomputable def the_primitive_type_called_array_false_arm : IGProtocol the_primitive_type_called_array_s0 the_primitive_type_called_array_s13 :=
-  (the_primitive_type_called_array_protocol).restrictToEVALF
-
--- Verification theorems
 def the_primitive_type_called_array_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_array_s0
 theorem the_primitive_type_called_array_frobenius :
     igFrobeniusAlg.mul the_primitive_type_called_array_s0 the_primitive_type_called_array_s0 = the_primitive_type_called_array_s0 :=

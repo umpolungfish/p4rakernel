@@ -70,6 +70,7 @@ globs = [
   "Imscribing.Biochem.PrimaLogicaMechanicalGlutAudit",
   "Imscribing.Biochem.PrimaLogicaMechanicalGlutAudit",
   "Imscribing.Biochem.PrimaLogicaResidueGlut",
+  "Imscribing.Biochem.NativeOrbitalTransfer",
 
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",

@@ -1,7 +1,7 @@
 /-
   Imscribing.Primitives.Types.PrimitiveTypeHaHa
 
-  Formalization of the primitive value type 'ha_ha'
+  Formalization of the primitive value type 'haha'
   Family: Criticality (ordinal 4)
   Surface tokens: supercriticality, runaway, instability
   Author: Lando⊗⊙perator
@@ -19,17 +19,17 @@ open Primitives
 open Dimensionality Topology Relational Polarity Grammar
      Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
 
-/-- Surface tokens for 'ha_ha' -/
-def the_primitive_type_called_ha_ha_surfaceTokens : List String := ["supercriticality", "runaway", "instability"]
+/-- Surface tokens for 'haha' -/
+def the_primitive_type_called_haha_surfaceTokens : List String := ["supercriticality", "runaway", "instability"]
 
-/-- Boundary condition for 'ha_ha' -/
-def the_primitive_type_called_ha_ha_boundaryCondition : String := "The runaway threshold of the criticality lattice"
+/-- Boundary condition for 'haha' -/
+def the_primitive_type_called_haha_boundaryCondition : String := "The runaway threshold of the criticality lattice"
 
 /-- Belnap FOUR register descriptions -/
-def the_primitive_type_called_ha_ha_registerVoid : String := "pre-critical equilibrium"
-def the_primitive_type_called_ha_ha_registerTrue : String := "supercritical runaway"
-def the_primitive_type_called_ha_ha_registerFalse : String := "subcritical collapse"
-def the_primitive_type_called_ha_ha_registerBoth : String := "chaotic turbulence"
+def the_primitive_type_called_haha_registerVoid : String := "pre-critical equilibrium"
+def the_primitive_type_called_haha_registerTrue : String := "supercritical runaway"
+def the_primitive_type_called_haha_registerFalse : String := "subcritical collapse"
+def the_primitive_type_called_haha_registerBoth : String := "chaotic turbulence"
 
 /-- Opcode domain-semantic mapping -/
 -- AFWD: divergent scaling
@@ -57,134 +57,91 @@ def the_primitive_type_called_ha_ha_registerBoth : String := "chaotic turbulence
 -- VINIT: subcritical order
 --   The stable phase before the injection of runaway energy.
 
--- Stage Imscriptions (per-node cumulative)
-private def the_primitive_type_called_ha_ha_s0 : Imscription :=
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
+private def the_primitive_type_called_haha_s0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s1 : Imscription :=
+private def the_primitive_type_called_haha_s1 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s2 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s3 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s4 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s5 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s6 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_s7 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_s8 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_s9 : Imscription :=
+private def the_primitive_type_called_haha_s2 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s3 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s4 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s5 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s6 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s7 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s8 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := up, prot := awe }
+private def the_primitive_type_called_haha_s9 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s10 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_s11 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_s10 : Imscription :=
+private def the_primitive_type_called_haha_s12 : Imscription :=
   { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_s11 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
-private def the_primitive_type_called_ha_ha_s12 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
-private def the_primitive_type_called_ha_ha_s13 : Imscription :=
-  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+private def the_primitive_type_called_haha_s13 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
 
--- Label Imscriptions (per-node delta)
-private def the_primitive_type_called_ha_ha_l0 : Imscription :=
+-- ── Label Imscriptions (per-node delta) ─────────────────────
+private def the_primitive_type_called_haha_l0 : Imscription :=
   { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l1 : Imscription :=
+private def the_primitive_type_called_haha_l1 : Imscription :=
   { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l2 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l3 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l4 : Imscription :=
+private def the_primitive_type_called_haha_l2 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l5 : Imscription :=
+private def the_primitive_type_called_haha_l3 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l6 : Imscription :=
-  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l7 : Imscription :=
-  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_l8 : Imscription :=
+private def the_primitive_type_called_haha_l4 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l9 : Imscription :=
+private def the_primitive_type_called_haha_l5 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_l6 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l10 : Imscription :=
+private def the_primitive_type_called_haha_l7 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
-private def the_primitive_type_called_ha_ha_l11 : Imscription :=
+private def the_primitive_type_called_haha_l8 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
-private def the_primitive_type_called_ha_ha_l12 : Imscription :=
+private def the_primitive_type_called_haha_l9 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_l10 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_l11 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
-private def the_primitive_type_called_ha_ha_l13 : Imscription :=
+private def the_primitive_type_called_haha_l12 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def the_primitive_type_called_haha_l13 : Imscription :=
   { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
 
--- Main IGProtocol term
-noncomputable def the_primitive_type_called_ha_ha_protocol : IGProtocol the_primitive_type_called_ha_ha_s0 the_primitive_type_called_ha_ha_s13 :=
+-- ── Main IGProtocol term ────────────────────────────────────
+noncomputable def the_primitive_type_called_haha_protocol : IGProtocol the_primitive_type_called_haha_s0 the_primitive_type_called_haha_s13 :=
   .withGram Grammar.measure <|
-  (.seq (.arrow the_primitive_type_called_ha_ha_l0 the_primitive_type_called_ha_ha_s0 the_primitive_type_called_ha_ha_s1) (.seq (.arrow the_primitive_type_called_ha_ha_l1 the_primitive_type_called_ha_ha_s1 the_primitive_type_called_ha_ha_s2) (.seq (.arrow the_primitive_type_called_ha_ha_l2 the_primitive_type_called_ha_ha_s2 the_primitive_type_called_ha_ha_s3) (.seq (.arrow the_primitive_type_called_ha_ha_l3 the_primitive_type_called_ha_ha_s3 the_primitive_type_called_ha_ha_s4) (.seq (.prod (.arrow the_primitive_type_called_ha_ha_l4 the_primitive_type_called_ha_ha_s4 the_primitive_type_called_ha_ha_s10) (.arrow the_primitive_type_called_ha_ha_l4 the_primitive_type_called_ha_ha_s4 the_primitive_type_called_ha_ha_s10)) (.seq (.arrow the_primitive_type_called_ha_ha_l10 the_primitive_type_called_ha_ha_s10 the_primitive_type_called_ha_ha_s10) (.seq (.arrow the_primitive_type_called_ha_ha_l10 the_primitive_type_called_ha_ha_s10 the_primitive_type_called_ha_ha_s11) (.seq (.arrow the_primitive_type_called_ha_ha_l11 the_primitive_type_called_ha_ha_s11 the_primitive_type_called_ha_ha_s12) (.arrow the_primitive_type_called_ha_ha_l12 the_primitive_type_called_ha_ha_s12 the_primitive_type_called_ha_ha_s13)))))))))
+  -- Dual-Link self-pairing: .prod arms fuse via tensorProduct the_primitive_type_called_haha_s9 the_primitive_type_called_haha_s9 = the_primitive_type_called_haha_s9 (idempotent)
+  (.seq (.arrow the_primitive_type_called_haha_l0 the_primitive_type_called_haha_s0 the_primitive_type_called_haha_s1) (.seq (.arrow the_primitive_type_called_haha_l1 the_primitive_type_called_haha_s1 the_primitive_type_called_haha_s2) (.seq (.prod (.arrow the_primitive_type_called_haha_l2 the_primitive_type_called_haha_s2 the_primitive_type_called_haha_s9) (.arrow the_primitive_type_called_haha_l2 the_primitive_type_called_haha_s2 the_primitive_type_called_haha_s9)) (.seq (.arrow the_primitive_type_called_haha_l9 the_primitive_type_called_haha_s9 the_primitive_type_called_haha_s9) (.seq (.arrow the_primitive_type_called_haha_l9 the_primitive_type_called_haha_s9 the_primitive_type_called_haha_s10) (.seq (.arrow the_primitive_type_called_haha_l10 the_primitive_type_called_haha_s10 the_primitive_type_called_haha_s11) (.seq (.arrow the_primitive_type_called_haha_l11 the_primitive_type_called_haha_s11 the_primitive_type_called_haha_s12) (.arrow the_primitive_type_called_haha_l12 the_primitive_type_called_haha_s12 the_primitive_type_called_haha_s13))))))))
 
--- Evaluation arm sub-defs
-noncomputable def the_primitive_type_called_ha_ha_true_arm : IGProtocol the_primitive_type_called_ha_ha_s0 the_primitive_type_called_ha_ha_s13 :=
-  (the_primitive_type_called_ha_ha_protocol).restrictToEVALT
-noncomputable def the_primitive_type_called_ha_ha_false_arm : IGProtocol the_primitive_type_called_ha_ha_s0 the_primitive_type_called_ha_ha_s13 :=
-  (the_primitive_type_called_ha_ha_protocol).restrictToEVALF
+-- ── Evaluation arm sub-defs ───────────────────────────────────
 
--- Verification theorems
-def the_primitive_type_called_ha_ha_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_ha_ha_s0
-theorem the_primitive_type_called_ha_ha_frobenius :
-    igFrobeniusAlg.mul the_primitive_type_called_ha_ha_s0 the_primitive_type_called_ha_ha_s0 = the_primitive_type_called_ha_ha_s0 :=
-  igFrobAlg_self_fusion the_primitive_type_called_ha_ha_s0
+-- truth arm
+noncomputable def the_primitive_type_called_haha_true_arm : IGProtocol the_primitive_type_called_haha_s0 the_primitive_type_called_haha_s13 :=
+  (the_primitive_type_called_haha_protocol).restrictToEVALT
 
-#eval the_primitive_type_called_ha_ha_tier  -- the Grammar's own verdict on its tier
+-- false arm
+noncomputable def the_primitive_type_called_haha_false_arm : IGProtocol the_primitive_type_called_haha_s0 the_primitive_type_called_haha_s13 :=
+  (the_primitive_type_called_haha_protocol).restrictToEVALF
 
-/-- 'ha_ha' belongs to the Criticality family at ordinal 4 -/
-def the_primitive_type_called_ha_ha_family : String := "Criticality"
-def the_primitive_type_called_ha_ha_ordinal : Nat := 4
+-- ── Verification theorems ─────────────────────────────────────
 
-/-- The CLINK L8 fragment for 'ha_ha' (⊙ = 𐑣), as the organism-layer
-    navigator emits it. Not authored here: the string is the navigator's. -/
-def the_primitive_type_called_ha_ha_clinkFragmentL8 : String := "ξ → ∞ ∧ chaotic(x)"
+-- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₂dag.
+def the_primitive_type_called_haha_tier_ground : OuroboricityTier := TierFunctor.obj the_primitive_type_called_haha_s0
+def the_primitive_type_called_haha_tier : OuroboricityTier := TierFunctor.obj the_primitive_type_called_haha_s13
+#eval the_primitive_type_called_haha_tier_ground  -- tier of the ground (pre-transformation)
+#eval the_primitive_type_called_haha_tier  -- the Grammar's own verdict on the closed object
 
-/-- Its L8 proximity to the reference layer, and the atom it promotes. -/
-def the_primitive_type_called_ha_ha_proximityL8 : String := "distant"
-def the_primitive_type_called_ha_ha_promotedAtomL8 : String := ""
-
-/-- The CLINK L9 fragment — the replicative-lateral reading of the same value.
-    Where L9 annotates, the annotation is the transcendence content. -/
-def the_primitive_type_called_ha_ha_clinkFragmentL9 : String := "ξ → ∞ ∧ chaotic(x)"
-def the_primitive_type_called_ha_ha_proximityL9 : String := "distant"
-def the_primitive_type_called_ha_ha_promotedAtomL9 : String := ""
-
-/-- The fragment in ordinary mathematics, which is what a reader outside the
-    Grammar reads. -/
-def the_primitive_type_called_ha_ha_conventionalReading : String := "diverging correlation length with positive Lyapunov exponent."
-
-/-- Whether the fragment IS the conventional statement rather than a picture of
-    it: "always", "contextual" or "never". Read off the ★ marks in
-    ig-docs/OVMs/conventional_statements.md, counted against the theorems that
-    carry the value rather than assumed from one appearance. "contextual" means
-    the same fragment is the statement in some domains and not in others, which
-    the coordinate alone does not settle. -/
-def the_primitive_type_called_ha_ha_fragmentIsStatement : String := "never"
-
-/-- The count behind that verdict, so its strength is visible. -/
-def the_primitive_type_called_ha_ha_fragmentIsStatementEvidence : String := "not carried by any of the seven sampled theorems"
-def the_primitive_type_called_ha_ha_bootstrapSteps : Nat := 14
-
-/-- Ordered executable construction retained alongside the typed protocol. -/
-def the_primitive_type_called_ha_ha_opcodes : List String := ["VINIT", "AFWD", "CLINK", "IMSCRIB", "FSPLIT", "EVALT", "AFWD", "IFIX", "AREV", "EVALF", "FFUSE", "ENGAGR", "IFIX", "TANCH"]
-def the_primitive_type_called_ha_ha_domainActions : List String := ["establish the baseline subcritical phase woe", "apply gain to the system parameters", "chain the gain cycles to increase energy density", "recognize the self-reinforcing nature of the feedback", "reach the bifurcation point where stability is lost", "select the branch of unbounded exponential growth", "accelerate the growth toward the haha ordinal", "record the crossing of the supercritical threshold", "attempt to reverse the gain through damping", "select the branch of rapid energy dissipation", "reunite the branches into a state of total volatility", "hold the system in a state of metastable oscillation", "commit the final state of the runaway to the permanent log", "close the system as it reaches the boundary of collapse"]
-def the_primitive_type_called_ha_ha_forkFusePairs : List (Nat × Nat) := [(4, 10)]
-def the_primitive_type_called_ha_ha_glyphWord : String := Imscribing.glyphWordOf the_primitive_type_called_ha_ha_opcodes
-
-theorem the_primitive_type_called_ha_ha_program_length :
-    the_primitive_type_called_ha_ha_opcodes.length = the_primitive_type_called_ha_ha_bootstrapSteps := by decide
-theorem the_primitive_type_called_ha_ha_actions_cover_program :
-    the_primitive_type_called_ha_ha_domainActions.length = the_primitive_type_called_ha_ha_opcodes.length := by decide
-theorem the_primitive_type_called_ha_ha_program_uses_native_opcodes :
-    (the_primitive_type_called_ha_ha_opcodes.all fun op => Imscribing.glyphOf op != "?") = true := by decide
-theorem the_primitive_type_called_ha_ha_pairs_name_fork_and_fuse :
-    (the_primitive_type_called_ha_ha_forkFusePairs.all fun p =>
-      (the_primitive_type_called_ha_ha_opcodes[p.1]? == some "FSPLIT") &&
-      (the_primitive_type_called_ha_ha_opcodes[p.2]? == some "FFUSE")) = true := by decide
-
-end Imscribing.Primitives.Types
+-- Frobenius (split → fuse): μ∘δ = id on the ground imscription
+theorem the_primitive_type_called_haha_frobenius :
+    igFrobeniusAlg.mul the_primitive_type_called_haha_s0 the_primitive_type_called_haha_s0 = the_primitive_type_called_haha_s0 :=
+  igFrobAlg_self_fusion the_primitive_type_called_haha_s0

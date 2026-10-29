@@ -1,5 +1,5 @@
-I fix the residue Glut module import and native type scope
+I prove native creation and finite filling bounds
 
-I import the mechanical realization from Imscribing.Biochem and open Lean for Sixteen3.
+I repair the residue Glut import. I extend NativeOrbitalTransfer with guarded creation, spin-slot conservation, complete native pair transfer, indexed shell accounting and finite Glut-minimum attainment through four orbitals. I retain the earlier spatial force and measured productive-release proof domains.
 
-I verify lake build Imscribing.Biochem.PrimaLogicaResidueGlut succeeds. I preserve the Lake configuration and existing build artifacts.
+I compile the targeted modules and preserve their axiom reports and unchanged native pair export.
