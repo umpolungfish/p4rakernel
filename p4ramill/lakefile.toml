@@ -66,6 +66,11 @@ globs = [
   "Imscribing.ReEntryConstructionsMinimal",
   "Imscribing.OntologicalDerivation",
 
+  "Imscribing.Biochem.PrimaLogicaMechanicalGlut",
+  "Imscribing.Biochem.PrimaLogicaMechanicalGlutAudit",
+  "Imscribing.Biochem.PrimaLogicaMechanicalGlutAudit",
+  "Imscribing.Biochem.PrimaLogicaResidueGlut",
+
   "Imscribing.ABC",
   "Imscribing.ABC_Audit",
   "Imscribing.ABC_Witness",
@@ -810,6 +815,11 @@ globs = [
   "Imscribing.Paraconsistent.IncompletenessClosure",
   "Imscribing.Vox.ProofLift",
   "Imscribing.ReEntryConstructions",
+  "Imscribing.Millennium.SourceBraidSquareCollision",
+  "Imscribing.Millennium.SourceBraidTapeReturn",
+  "Imscribing.Millennium.SourceBraidSICContraction",
+  "Imscribing.Millennium.SourceBraidPrimeArmProjection",
+  "Imscribing.Millennium.SourceBraidRetainedWinding",
 ]
 
 # The prover's scratch modules live in their own library, OUTSIDE the default

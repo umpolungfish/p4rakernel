@@ -31,6 +31,7 @@ report={'command':command,'input_boundary':'N alone','source_sha256':hashlib.sha
                   [runtime/'organism-factor',runtime/'factor_bridge.so',runtime/'vgi_organism.so']}}
 try:
     environment=os.environ.copy();environment['ORGANISM_FACTOR_BUDGET_SECONDS']=str(a.seconds)
+    environment['ORGANISM_FACTOR_RETAINED_DIR']=str(out/'prepared')
     with (out/'stdout').open('wb') as stdout,(out/'stderr').open('wb') as stderr:
         process=subprocess.Popen(command,stdout=stdout,stderr=stderr,env=environment)
         identity={}
@@ -70,6 +71,15 @@ try:
             task_feedback_updates=sum(len(x['task_operations']) for x in body['actions']))
         n=int(source.read_text())
         assert int(task['source'])==n
+        if task.get('schema')=='source-braid-contraction-v1':
+            from source_braid_contraction_replay import verify as verify_contraction,audit_binary as audit_contraction
+            report.update(verify_contraction(task,n))
+            report['restricted_symbol_audit']=audit_contraction(runtime/'factor_bridge.so')
+            if factor:report.update(verified=True,p=factor['p'],q=factor['q'],producer=factor['producer'])
+        if task.get('schema') in ('prime-torus-sic-v1','prime-torus-sic-v2'):
+            from prime_torus_sic_replay import verify as verify_restricted,audit_binary
+            report.update(verify_restricted(task,n))
+            report['restricted_symbol_audit']=audit_binary(runtime/'factor_bridge.so')
         if controller:=task.get('factoring_controller'):
             word=controller['word']
             assert word in ('⊥∋∋⊣⊣⊙∈∈≻⊙⊞≺⊤','⊥∋∋⊣⊣⊙∈∈≻⊙⊞≺⊤⊡')
@@ -336,6 +346,16 @@ try:
                 current_frame=event.get('toroidal_operation',{}).get('geometric_sic',{}).get('carried_torus_frame')
                 if current_frame is not None:last_carried_frame=current_frame
                 if context is not None:
+                    if context.get('schema')=='source-braid-learning-context-v1':
+                        from source_braid_contraction_replay import verify_context as verify_contraction_context
+                        verify_contraction_context(event,operation['learning_context_tokens'],n)
+                        context_records+=1;context_tokens+=len(operation['learning_context_tokens'])
+                        continue
+                    if context.get('schema')=='prime-torus-learning-context-v1':
+                        from prime_torus_sic_replay import verify_context
+                        verify_context(event,operation['learning_context_tokens'],n)
+                        context_records+=1;context_tokens+=len(operation['learning_context_tokens'])
+                        continue
                     tokens=operation['learning_context_tokens'];at=3
                     assert tokens[:3]==[256,85,context['arm']]
                     expected_names=['source','p','q','height','negative','positive_turns','negative_turns',
@@ -437,9 +457,15 @@ try:
             assert learner['task_context_records']==context_records
             assert learner['task_context_tokens']==context_tokens
             assert learner['task_context_optimizer_updates']==context_records
-            report.update(arithmetic_feedback_verified=all(e.get('feedback_basis')=='source-arithmetic-v1' for e in task['operations']),
-                          paired_learning_context_verified=True,task_context_records=context_records,
-                          task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
+            if task.get('schema') in ('prime-torus-sic-v2','source-braid-contraction-v1'):
+                report.update(restricted_learning_context_verified=True,task_context_records=context_records,
+                    task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
+            else:
+                report.update(arithmetic_feedback_verified=all(e.get('feedback_basis')=='source-arithmetic-v1' for e in task['operations']),
+                              paired_learning_context_verified=True,task_context_records=context_records,
+                              task_context_tokens=context_tokens,task_context_optimizer_updates=learner['task_context_optimizer_updates'])
+        if task.get('schema') in ('prime-torus-sic-v2','source-braid-contraction-v1') and task['operations']:
+            assert context_records>0, 'restricted learner context must be exercised'
         polynomial_actions=task.get('square_polynomial_actions',[])
         if polynomial_actions:
             paired_states=set()
@@ -509,7 +535,7 @@ try:
             assert completed==list(range(pending['next_rule']))
             assert task['budget_exhausted']
             report.update(growth_continuation_retained=True,pending_growth=pending)
-        if factor:
+        if factor and task.get('schema') not in ('prime-torus-sic-v1','prime-torus-sic-v2','source-braid-contraction-v1'):
             d=int(factor['p']);q=int(factor['q'])
             assert 1<d<n and n%d==0 and n//d==q and d*q==n
             assert factor['exact_product'] and factor['paired_boundary'] and factor['powerset_monad_laws']

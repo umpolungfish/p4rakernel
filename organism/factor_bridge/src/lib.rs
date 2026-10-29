@@ -1,9 +1,20 @@
+#[cfg(all(feature="prime-torus-sic",feature="source-braid-contraction"))]
+compile_error!("select one retained source construction");
+#[cfg(feature="source-braid-contraction")]
+mod source_braid_contraction;
+#[cfg(feature="prime-torus-sic")]
+#[path="prime_torus_sic.rs"]
+mod prime_torus_sic;
+#[cfg(not(any(feature="prime-torus-sic",feature="source-braid-contraction")))]
+mod sic_geometry;
+#[cfg(not(any(feature="prime-torus-sic",feature="source-braid-contraction")))]
+mod legacy {
 use std::ffi::{c_char, c_void, CStr, CString};
 use std::time::{Instant,Duration};
 use serde_json::{json, Value};
 use vox::{factor_synthesis::{FactorSynthesis, FactorReturn}, glut_system::{FoldStats, PreparedGlutMembrane}, morphism_factor as mf};
 use vox::toroidal_division as torus;
-mod sic_geometry;
+use super::sic_geometry;
 
 struct Body {
     source: Vec<char>,
@@ -268,4 +279,6 @@ mod tests {
         let tape=mf::decimal_to_tape(source).unwrap();
         assert_eq!(tape.len(),128);assert_eq!(mf::dec_of(&tape),source);
     }
+}
+
 }

@@ -1,0 +1,166 @@
+-- IGProtocol scaffold: ⊢ → ⊙ → ∈ → ≻ → ⋈ → ⊤ → ≺ → ⊞ → ⊥ → ∋ → ⊙ → ⊡ → ⊣ → ∈ → ≻ → ⋈ → ⊤ → ≺ → ⊞ → ⊥ → ∋ → ⊡ → ⊣
+-- Class: up_quark
+-- Fingerprint: sig=(11,4,6,2)
+--   self_ref=False | frobenius_order=3
+--   dialetheia_complete=True | period=23
+-- Expected tier: O₂dag
+-- ∈/∋ pairs: [(2, 9), (13, 20)]
+
+import Imscribing.IGMorphism
+import Imscribing.IGFunctor
+
+namespace Imscribing
+open Primitives Frobenius IGProtocol
+open Dimensionality Topology Relational Polarity Grammar
+     Fidelity KineticChar Granularity Criticality Protection Stoichiometry Chirality
+
+-- ── Token → IG field mapping ──────────────────────────────────────────────
+--   [0] ⊢     dim    := 𐑼               𐑼 → 𐑼  | initial object — ground of distinction
+--   [1] ⊙   gram   := 𐑠               𐑠 → 𐑠  | identity — self-imscription
+--   [2] ∈    gran   := 𐑚               𐑚 → 𐑚  | split δ — range decomposition
+--   [3] ≻      rel    := 𐑾               𐑾 → 𐑾  | forward morphism — bidirectional arrow
+--   [4] ⋈     fid    := 𐑱               𐑱 → 𐑱  | composition — regime coherence
+--   [5] ⊤     crit   := ⊙               ⊙ → ⊙  | evaluate-true — criticality gate open
+--   [6] ≺      pol    := 𐑗               𐑗 → 𐑗  | reverse morphism — parity flip
+--   [7] ⊞    stoi   := 𐑳               𐑳 → 𐑳  | engage paradox — B-state, both arms
+--   [8] ⊥     chir   := 𐑖               𐑖 → 𐑖  | evaluate-false — chirality check
+--   [9] ∋     stoi   := 𐑙               𐑙 → 𐑙  | fuse μ — assembly mode
+--   [10] ⊙   gram   := 𐑠               𐑠 → 𐑠  | identity — self-imscription
+--   [11] ⊡      prot   := 𐑭               𐑭 → 𐑭  | irreversible fixation — winding number
+--   [12] ⊣     top    := 𐑡               𐑡 → 𐑡  | terminal object — connectivity boundary
+--   [13] ∈    gran   := 𐑚               𐑚 → 𐑚  | split δ — range decomposition
+--   [14] ≻      rel    := 𐑾               𐑾 → 𐑾  | forward morphism — bidirectional arrow
+--   [15] ⋈     fid    := 𐑱               𐑱 → 𐑱  | composition — regime coherence
+--   [16] ⊤     crit   := ⊙               ⊙ → ⊙  | evaluate-true — criticality gate open
+--   [17] ≺      pol    := 𐑗               𐑗 → 𐑗  | reverse morphism — parity flip
+--   [18] ⊞    stoi   := 𐑳               𐑳 → 𐑳  | engage paradox — B-state, both arms
+--   [19] ⊥     chir   := 𐑖               𐑖 → 𐑖  | evaluate-false — chirality check
+--   [20] ∋     stoi   := 𐑙               𐑙 → 𐑙  | fuse μ — assembly mode
+--   [21] ⊡      prot   := 𐑭               𐑭 → 𐑭  | irreversible fixation — winding number
+--   [22] ⊣     top    := 𐑡               𐑡 → 𐑡  | terminal object — connectivity boundary
+
+-- ── Stage Imscriptions (per-node cumulative) ────────────────
+private def up_quark_initial : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s0 : Imscription :=
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s1 : Imscription :=
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s2 : Imscription :=
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s3 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s4 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s5 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s6 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def up_quark_s7 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := fee, stoi := up, prot := awe }
+private def up_quark_s8 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := awe }
+private def up_quark_s9 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def up_quark_s10 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := awe }
+private def up_quark_s11 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s12 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s13 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s14 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s15 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s16 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s17 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s18 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+private def up_quark_s19 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := up, prot := ah }
+private def up_quark_s20 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s21 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+private def up_quark_s22 : Imscription :=
+  { dim := array, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := thigh, gram := measure, crit := monad, chir := sure, stoi := hung, prot := ah }
+
+-- ── Label Imscriptions (per-node delta) ─────────────────────
+private def up_quark_l0 : Imscription :=
+  { dim := array, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l1 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l2 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l3 : Imscription :=
+  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l4 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l5 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l6 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l7 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
+private def up_quark_l8 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
+private def up_quark_l9 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l10 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := measure, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l11 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+private def up_quark_l12 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l13 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := thigh, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l14 : Imscription :=
+  { dim := dead, top := judge, rel := ian, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l15 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l16 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := monad, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l17 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l18 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := up, prot := awe }
+private def up_quark_l19 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := sure, stoi := hung, prot := awe }
+private def up_quark_l20 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+private def up_quark_l21 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := ah }
+private def up_quark_l22 : Imscription :=
+  { dim := dead, top := judge, rel := ado, pol := church, fid := age, kin := yea, gran := bib, gram := vow, crit := woe, chir := fee, stoi := hung, prot := awe }
+
+-- ── Main IGProtocol term ────────────────────────────────────
+noncomputable def up_quark_protocol : IGProtocol up_quark_initial up_quark_s22 :=
+  .withGram Grammar.measure <|
+  (.seq (.arrow up_quark_l0 up_quark_initial up_quark_s0) (.seq (.arrow up_quark_l1 up_quark_s0 up_quark_s1) (.seq (.arrow up_quark_l2 up_quark_s1 up_quark_s2) (.seq (.prod (.seq (.arrow up_quark_l3 up_quark_s2 up_quark_s3) (.seq (.arrow up_quark_l4 up_quark_s3 up_quark_s4) (.seq (.arrow up_quark_l5 up_quark_s4 up_quark_s5) (.seq (.arrow up_quark_l6 up_quark_s5 up_quark_s6) (.arrow up_quark_l7 up_quark_s6 up_quark_s7))))) (.arrow up_quark_l8 up_quark_s2 up_quark_s8)) (.seq (.arrow up_quark_l9 (tensorProduct up_quark_s7 up_quark_s8) up_quark_s9) (.seq (.arrow up_quark_l10 up_quark_s9 up_quark_s10) (.seq (.arrow up_quark_l11 up_quark_s10 up_quark_s11) (.seq (.arrow up_quark_l12 up_quark_s11 up_quark_s12) (.seq (.arrow up_quark_l13 up_quark_s12 up_quark_s13) (.seq (.prod (.seq (.arrow up_quark_l14 up_quark_s13 up_quark_s14) (.seq (.arrow up_quark_l15 up_quark_s14 up_quark_s15) (.seq (.arrow up_quark_l16 up_quark_s15 up_quark_s16) (.seq (.arrow up_quark_l17 up_quark_s16 up_quark_s17) (.arrow up_quark_l18 up_quark_s17 up_quark_s18))))) (.arrow up_quark_l19 up_quark_s13 up_quark_s19)) (.seq (.arrow up_quark_l20 (tensorProduct up_quark_s18 up_quark_s19) up_quark_s20) (.seq (.arrow up_quark_l21 up_quark_s20 up_quark_s21) (.arrow up_quark_l22 up_quark_s21 up_quark_s22)))))))))))))
+
+-- ── Evaluation arm sub-defs ───────────────────────────────────
+
+-- truth arm
+noncomputable def up_quark_true_arm : IGProtocol up_quark_initial up_quark_s22 :=
+  (up_quark_protocol).restrictToEVALT
+
+-- false arm
+noncomputable def up_quark_false_arm : IGProtocol up_quark_initial up_quark_s22 :=
+  (up_quark_protocol).restrictToEVALF
+
+-- ── Verification theorems ─────────────────────────────────────
+
+-- Tier: apply the Grammar to the object (self-application). assess_tier verdict on the imscribed tuple: .O₂dag.
+def up_quark_tier_ground : OuroboricityTier := TierFunctor.obj up_quark_initial
+def up_quark_tier : OuroboricityTier := TierFunctor.obj up_quark_s22
+#eval up_quark_tier_ground  -- tier of the ground (pre-transformation)
+#eval up_quark_tier  -- the Grammar's tuple-tier verdict
+
+theorem up_quark_protocol_depth :
+    up_quark_protocol.depth = 21 := by rfl
+
+end Imscribing

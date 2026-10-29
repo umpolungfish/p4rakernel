@@ -11,6 +11,7 @@ import time
 ROOT=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--out',type=Path,required=True)
+parser.add_argument('--construction',choices=['resident','prime-torus-sic','source-braid-contraction'],default='resident')
 args=parser.parse_args()
 out=args.out.resolve()
 out.mkdir(parents=True,exist_ok=False)
@@ -27,7 +28,7 @@ def run(name,command,cwd=ROOT,env=None):
 
 run('organism_build',["python3",ROOT/'tests/kernel_features/verify_organism.py','--out',out/'organism'])
 environment=os.environ.copy();environment['RUSTFLAGS']='-C target-feature=-crt-static'
-run('factor_bridge_build',['cargo','build','--offline','--release','--target','x86_64-unknown-linux-gnu'],
+run('factor_bridge_build',['cargo','build','--offline','--release','--target','x86_64-unknown-linux-gnu']+(['--features',args.construction] if args.construction!='resident' else []),
     cwd=ROOT/'organism/factor_bridge',env=environment)
 library=ROOT/'organism/factor_bridge/target/x86_64-unknown-linux-gnu/release/liborganism_factor_bridge.so'
 import shutil
@@ -54,9 +55,11 @@ files += [ROOT.parent/'Vox/src/carried_torus_frame.rs',ROOT.parent/'Vox/src/geom
 files += [ROOT/'organism/factor_bridge/src/source_metric.rs',ROOT/'organism/source_metric_replay.py']
 files += [ROOT.parent/'Vox/src/glut_horn.rs',ROOT/'organism/horn_constraint_replay.py',
           ROOT/'organism/factor_bridge/src/prime_braid.rs',ROOT/'organism/prime_braid_replay.py']
+files += [ROOT/'organism/factor_bridge/src/prime_torus_sic.rs',ROOT/'organism/prime_torus_sic_replay.py']
+files += [ROOT/'organism/factor_bridge/src/source_braid_contraction.rs',ROOT/'organism/source_braid_contraction_replay.py']
 files += sorted((ROOT.parent/'G-mOMonadOS/src').rglob('*.rs'))
 images=[out/'organism-factor',out/'factor_bridge.so',out/'vgi_organism.so']
-report={'status':'built','compilation_seconds':sum(x['seconds'] for x in steps),
+report={'status':'built','construction':args.construction,'compilation_seconds':sum(x['seconds'] for x in steps),
         'sources':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
         'images':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in images}}
 (out/'build.json').write_text(json.dumps(report,indent=2)+'\n')

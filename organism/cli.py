@@ -94,7 +94,9 @@ def runtime(path=None):
     return selected
 
 
-def build(out=None, stream=None):
+def build(out=None, stream=None, construction=None):
+    if construction is None:
+        construction=read(Path(read(CURRENT)["runtime"])/"build.json").get("construction","resident") if CURRENT.exists() else "resident"
     destination = Path(out).expanduser().resolve() if out else fresh('builds')
     if destination.exists():
         raise RuntimeError(f'Preserving existing build: {destination}. Choose a fresh --out.')
@@ -103,7 +105,7 @@ def build(out=None, stream=None):
                     '-p', 'vox', '-p', 'organism-factor-bridge'],
                    cwd=KERNEL / 'organism/factor_bridge', stdout=stream, check=True)
     subprocess.run([sys.executable, str(KERNEL / 'organism/build_factor.py'),
-                    '--out', str(destination)], cwd=WORK, stdout=stream, check=True)
+                    '--out', str(destination),'--construction',construction], cwd=WORK, stdout=stream, check=True)
     runtime(destination)
     manifest = read(destination / 'build.json')
     for source, digest in manifest['sources'].items():
@@ -222,7 +224,9 @@ def factor(args, selected=None, source_override=None):
     if not raw or any(c not in '0123456789' for c in raw):
         raise RuntimeError('Supply N as a decimal integer or an N-only decimal file.')
     n = int(raw)
-    if n.bit_length() < 128 or not n & 1:
+    minimum_bits=2 if read(selected/'build.json').get('construction')=='source-braid-contraction' else 128
+    if n.bit_length() < minimum_bits or not n & 1:
+        if minimum_bits==2:raise RuntimeError('The source-braid task requires an odd non-unit N.')
         raise RuntimeError('The native toroidal task requires an odd N of at least 128 bits.')
     if source is None:
         source = out.with_name(out.name + '.N.txt')
@@ -341,7 +345,7 @@ def positive(value):
 def main(argv=None):
     parser = argparse.ArgumentParser(prog='organism', description=__doc__, epilog='Inc/P1/C re-entry, residue lifting, torus operations and VGI feedback execute inside factor. No separate producer is invoked.')
     sub = parser.add_subparsers(dest='command', required=True)
-    p = sub.add_parser('build', help='cleanly build and select the complete native organism');p.add_argument('--out', type=Path)
+    p = sub.add_parser('build', help='cleanly build and select the complete native organism');p.add_argument('--out', type=Path);p.add_argument('--construction',choices=['resident','prime-torus-sic','source-braid-contraction'])
     p = sub.add_parser('factor', help='run the organism from N alone', formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     p.add_argument('N', nargs='?', help='odd decimal N, at least 128 bits');p.add_argument('--source', type=Path, help='N-only decimal file')
     p.add_argument('--runtime', type=Path, help='built runtime; otherwise use selected/latest runtime');p.add_argument('--out', type=Path, help='fresh output directory; otherwise timestamped')
@@ -372,7 +376,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.command == 'build':
-            with exclusive():build(args.out)
+            with exclusive():build(args.out,construction=args.construction)
         elif args.command == 'factor':
             if bool(args.N) == bool(args.source):parser.error('factor requires exactly one of N or --source')
             with exclusive():return factor(args)
@@ -396,7 +400,11 @@ def main(argv=None):
             stream=sys.stderr if args.json else None
             stop(path,stream=stream)
             with exclusive(wait=10):
-                selected = build(stream=stream)
+                construction="resident"
+                if report.get("application")!="native-growth":
+                    previous_runtime=Path(report["command"][0]).parent
+                    construction=read(previous_runtime/"build.json").get("construction","resident")
+                selected = build(stream=stream,construction=construction)
                 if report.get('application')=='native-growth':
                     return grow(argparse.Namespace(runtime=selected,steps=report['requested_steps'],mask=report['source_mask'],
                                                    exact=not report['vgi'],out=args.out,json=args.json))

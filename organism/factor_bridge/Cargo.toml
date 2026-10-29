@@ -18,3 +18,7 @@ num-traits = "0.2"
 [profile.release]
 opt-level = 3
 panic = "unwind"
+
+[features]
+prime-torus-sic = []
+source-braid-contraction = []

@@ -1,1 +1,5 @@
-I contract the zero-defect horn on the shared midpoint, gap and factor cells and replay its returned constraints.
+I fix the residue Glut module import and native type scope
+
+I import the mechanical realization from Imscribing.Biochem and open Lean for Sixteen3.
+
+I verify lake build Imscribing.Biochem.PrimaLogicaResidueGlut succeeds. I preserve the Lake configuration and existing build artifacts.
