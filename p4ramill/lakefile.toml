@@ -142,6 +142,7 @@ globs = [
   "Imscribing.GodelOntological",
   "Imscribing.SHIABOperator",
   "Imscribing.AxiomAudit",
+  "Imscribing.Millennium.WhorlSICTransport",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",
   "Imscribing.Primitives.Types.PrimitiveTypeAge",
