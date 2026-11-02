@@ -451,18 +451,23 @@ def winding_number (n : ℕ) : ℕ := n + 1
 r applied coordinatewise to radius, time, phase gives classical physics.
 -/
 
+/-- TIME AS DERIVED OBJECT: time is the winding number of the re-entry tower,
+    not a primitive Belnap value. Each η-step (punctum transport) advances the
+    winding number by one: w(Vₙ) = n + 1. The ⊡ mark fixes this at each stage. -/
+
 structure CircumPunctum where
   radius : Belnap
-  time : Belnap
+  time : ℕ          -- winding number: time = re-entry depth
   phase : Belnap
 
 def ambient_cosmos : CircumPunctum :=
-  { radius := B, time := B, phase := B }
+  { radius := B, time := 1, phase := B }  -- V₀ has winding number 1
 
 def r_circum (c : CircumPunctum) : CircumPunctum :=
-  { radius := i (r c.radius), time := i (r c.time), phase := i (r c.phase) }
+  { radius := i (r c.radius), time := c.time + 1, phase := i (r c.phase) }
+  -- each application of r advances the re-entry winding by one η-step
 
-theorem classical_physics_is_retract : r_circum ambient_cosmos = { radius := T, time := T, phase := T } := by
+theorem classical_physics_is_retract : r_circum ambient_cosmos = { radius := T, time := 2, phase := T } := by
   rfl
 
 /-

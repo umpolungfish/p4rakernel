@@ -37,7 +37,7 @@ inductive MathematicalDomain : Type where
   | pde
   | category_theory
   | combinatorics
-  | probability
+  | glut
   | logic_foundations
   | dynamical_systems
   | gauge_theory
@@ -223,9 +223,10 @@ def domainKeywords : MathematicalDomain → List String
   | .combinatorics => [
       "graph", "chromatic", "planar", "matching", "partition",
       "enumeration", "generating function", "poset", "lattice" ]
-  | .probability => [
-      "random variable", "expectation", "martingale", "markov",
-      "brownian motion", "stochastic", "large deviation", "concentration" ]
+  | .glut => [
+      "glut", "contradiction", "dialetheia", "paraconsistent",
+      "self-reference", "fixed point", "bifurcation", "split", "fuse",
+      "overlap", "both", "dialetheic" ]
   | .logic_foundations => [
       "axiom", "consistent", "complete", "decidable", "forcing",
       "large cardinal", "inner model", "constructible", "generic",
@@ -343,8 +344,9 @@ def domainImports : MathematicalDomain → List String
       "Mathlib.CategoryTheory.Adjunction.Basic" ]
   | .combinatorics => [
       "Mathlib.Combinatorics.SimpleGraph.Basic" ]
-  | .probability => [
-      "Mathlib.Probability.Martingale" ]
+  | .glut => [
+      "Imscribing.Paraconsistent.NonexistenceOfProbability",
+      "Imscribing.CircumPunctum" ]
   | .logic_foundations => [
       "Mathlib.SetTheory.Cardinal.Basic" ]
   | .dynamical_systems => [

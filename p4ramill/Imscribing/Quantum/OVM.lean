@@ -36,6 +36,7 @@ Author: Math⊙perator (Lando⊗⊙perator)
 import Mathlib
 import Imscribing.Millennium.SIC_POVM_Stark
 import Imscribing.IGFunctor
+import Imscribing.Paraconsistent.Belnap
 
 namespace Imscribing.Quantum.OVM
 
@@ -161,7 +162,14 @@ structure POVM (d : ℕ) [NeZero d] (ι : Type*) [Fintype ι] where
   sum_to_id : ∀ (x : Fin d → ℂ) (k : Fin d),
     (Finset.sum Finset.univ fun i => (effects i).operator x k) = x k
 
-/-- The probability of outcome i when measuring state ψ: prob_i = ⟨ψ|E_i|ψ⟩. -/
+/-- LEGACY: Primitive probability metric (NOT fundamental).
+    
+    `povm_prob` computes ⟨ψ|E_i|ψ⟩ as if probability were primitive.
+    Per NonexistenceOfProbability.lean, probability does NOT exist as primitive —
+    it is derived from the glut information measure via the Born rule:
+      p_T = info(meet(T, ψ)) / info(ψ)
+    
+    Use `glut_metric` instead for the fundamental, glut-based computation. -/
 def povm_prob {d : ℕ} [NeZero d] {ι : Type*} [Fintype ι]
     (p : POVM d ι) (ψ : Fin d → ℂ) (hψ : wh_normSq d ψ = 1) (i : ι) : ℝ :=
   (wh_inner d ψ ((p.effects i).operator ψ)).re
@@ -186,6 +194,116 @@ theorem povm_prob_sum_to_one {d : ℕ} [NeZero d] {ι : Type*} [Fintype ι]
           simpa using p.sum_to_id ψ k]
     _ = 1 := by
       simpa [wh_normSq] using hψ
+
+/-- GLUT METRIC — the fundamental replacement for primitive probability.
+    
+    Per NonexistenceOfProbability.lean, probability does NOT exist as primitive.
+    The glut (Belnap.B) is the primitive dialetheic state, and probability arises
+    only as a derived information-measure ratio:
+    
+      p_T = info(meet(T, ψ)) / info(ψ)     (Born rule for T-measurement)
+      p_F = info(meet(F, ψ)) / info(ψ)     (Born rule for F-measurement)
+    
+    Information measure: N=0, T=1, F=1, B=2 (Glut has maximal information 2).
+    
+    For Glut (B): info(B) = 2, info(meet(T, B)) = info(T) = 1, giving Born rule = 1/2.
+    For pure T: info(T) = 1, info(meet(T, T)) = info(T) = 1, giving Born rule = 1.
+    For pure N: info(N) = 0, giving Born rule = 0.
+    
+    The Frobenius round-trip μ∘δ = id (split_fuse_id) is structurally lossless,
+    so probability 0 in the lossless case. Probability 1/2 appears only when
+    there IS a fidelity mismatch (peep → age).
+    
+    This replaces `povm_prob` everywhere probability is used as a metric. -/
+
+-- GLUT METRIC — the fundamental replacement for primitive probability.
+-- Per NonexistenceOfProbability.lean, probability does NOT exist as primitive.
+-- The glut (Belnap.B) is the primitive dialetheic state, and probability arises
+-- only as a derived information-measure ratio:
+--   p_T = info(meet(T, ψ)) / info(ψ)     (Born rule for T-measurement)
+--   p_F = info(meet(F, ψ)) / info(ψ)     (Born rule for F-measurement)
+--
+-- Information measure encoded as Nat: N=0, T=1, F=1, B=2 (Glut has maximal info 2).
+-- For Glut (B=3): info(3) = 2, info(meet(T, 3)) = info(1) = 1, giving Born rule = 1/2.
+-- For pure T (1): info(1) = 1, info(meet(T, 1)) = info(1) = 1, giving Born rule = 1.
+-- For pure N (0): info(0) = 0, giving Born rule = 0.
+--
+-- The Frobenius round-trip μ∘δ = id (split_fuse_id) is structurally lossless,
+-- so probability 0 in the lossless case. Probability 1/2 appears only when
+-- there IS a fidelity mismatch (peep → age).
+--
+-- This replaces `povm_prob` everywhere probability is used as a metric.
+def glutInfo (b : Nat) : Nat :=
+  match b with
+  | 0 => 0   -- N
+  | 1 => 1   -- T
+  | 2 => 1   -- F
+  | 3 => 2   -- B (glut)
+  | _ => 0
+
+def glutMeetT (b : Nat) : Nat :=
+  match b with
+  | 0 => 0   -- meet(T, N) = N
+  | 1 => 1   -- meet(T, T) = T
+  | 2 => 0   -- meet(T, F) = N
+  | 3 => 1   -- meet(T, B) = T
+  | _ => 0
+
+def glutMeetF (b : Nat) : Nat :=
+  match b with
+  | 0 => 0   -- meet(F, N) = N
+  | 1 => 0   -- meet(F, T) = N
+  | 2 => 1   -- meet(F, F) = F
+  | 3 => 1   -- meet(F, B) = F
+  | _ => 0
+
+def glutBornT (psi : Nat) : Rat :=
+  if glutInfo psi = 0 then 0 else (glutInfo (glutMeetT psi) : Rat) / (glutInfo psi : Rat)
+
+def glutBornF (psi : Nat) : Rat :=
+  if glutInfo psi = 0 then 0 else (glutInfo (glutMeetF psi) : Rat) / (glutInfo psi : Rat)
+
+def glut_metric (psi : Nat) (target : Nat) : Rat :=
+  match target with
+  | 1 => glutBornT psi      -- T-measurement
+  | 2 => glutBornF psi      -- F-measurement
+  | 3 => if psi = 3 then 1 else 0   -- B-measurement
+  | 0 => if psi = 0 then 1 else 0   -- N-measurement
+  | _ => 0
+
+-- Glut metric for Glut (B=3): glutBornT 3 = 1/2
+theorem glut_metric_glut_T : glut_metric 3 1 = (1 : Rat) / 2 := by
+  rw [glut_metric, glutBornT]
+  <;> norm_num [glutInfo, glutMeetT]
+
+-- Glut metric for Glut (B=3): glutBornF 3 = 1/2
+theorem glut_metric_glut_F : glut_metric 3 2 = (1 : Rat) / 2 := by
+  rw [glut_metric, glutBornF]
+  <;> norm_num [glutInfo, glutMeetF]
+
+-- Glut metric for pure T (1): glutBornT 1 = 1
+theorem glut_metric_T_T : glut_metric 1 1 = 1 := by
+  rw [glut_metric, glutBornT]
+  <;> norm_num [glutInfo, glutMeetT]
+
+-- Glut metric for pure F (2): glutBornF 2 = 1
+theorem glut_metric_F_F : glut_metric 2 2 = 1 := by
+  rw [glut_metric, glutBornF]
+  <;> norm_num [glutInfo, glutMeetF]
+
+-- Frobenius probability: structurally lossless (μ∘δ=id preserves exact identity)
+def frobenius_prob (s t : Nat) : Rat :=
+  if s = t then 1 else 0
+
+theorem frobenius_prob_self : ∀ (s : Nat), frobenius_prob s s = 1 := by
+  intro s
+  simp [frobenius_prob]
+  <;> split_ifs <;> decide
+
+theorem frobenius_prob_diff : ∀ {s t : Nat}, s ≠ t → frobenius_prob s t = 0 := by
+  intro s t h
+  rw [frobenius_prob]
+  split_ifs <;> simp_all (config := { decide := true })
 
 /- ====================================================================
    4.  OVM AS A FUNCTOR — operator-valued measure as categorical structure

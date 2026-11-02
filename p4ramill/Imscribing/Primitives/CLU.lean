@@ -11,8 +11,9 @@
 -- where ⊕ denotes the sum over distinct metric types (not scalar addition).
 --
 -- Key theorem: CLU(b) is invariant per Ç-tier boundary crossing regardless
--- of ordinal spacing non-uniformities. The ratio d_geometric(Ç) / CLU(b) = 2.0/ln(b)
--- for uniform steps, encoding the conversion factor between geometric and information fiber.
+-- of ordinal spacing non-uniformities. For the defined unit K-step,
+-- d_geometric(Ç) / CLU(b) = 1/ln(b). The separate C1 conversion records a
+-- two-geometric-unit peel and is therefore 2/ln(b).
 --
 -- Author: Lando ⊗ ⊙perator
 
