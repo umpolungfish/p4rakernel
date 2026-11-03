@@ -101,7 +101,7 @@ def activationPattern (aas : List AminoAcid) : List (AminoAcid × IGPrimitive) :
 
 /-- Complementary IG primitive pairs that create long-range contacts.
     Each complementary pair at sequence distance ≥4 forms a contact.
-    Pairing: Ð↔Ω, Þ↔Ħ, Ř↔Σ, Φ↔ƒ, Ç↔Γ, ɢ↔⊙ -/
+    Pairing: ⊢↔Ω, ⊣↔Ħ, ≻↔Σ, ≺↔ƒ, Ç↔Γ, ɢ↔⊙ -/
 def complementaryPrimitivePair (p q : IGPrimitive) : Bool :=
   match p, q with
   | .Dimensionality, .Winding => true

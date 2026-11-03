@@ -13,19 +13,19 @@
 -- Distance (diagonal): 5.2544, (Mahalanobis): 3.5059
 -- C-scores: SM=0.536, UGT=0.920
 --
--- The core problem is the Φ-bottleneck: the tensor product SM⊗UGT leaves Φ
+-- The core problem is the Φ-bottleneck: the tensor product SM⊗UGT leaves ≺
 -- stuck at yew because the path-integral formulation lacks Frobenius closure.
--- The consummation bridge resolves this by promoting Φ yew→or' (μ∘δ=id).
+-- The consummation bridge resolves this by promoting ≺ yew→or' (μ∘δ=id).
 --
 -- 6 primitives differ (5 promotions + 1 ⊙ upgrade):
---   Promotions: Ð (wedge→holographic), Þ (network→self-ref),
---               Φ (ψ→Frobenius-special), Ħ (2-step→eternal),
---               Ω (Z→non-Abelian braiding)
+--   Promotions: ⊢ (wedge→holographic), ⊣ (network→self-ref),
+--               ≺ (ψ→Frobenius-special), ⊥ (2-step→eternal),
+--               ⊡ (Z→non-Abelian braiding)
 --   ⊙ upgrade:  complex-critical → self-modeling
---   Shared (6): Ř, ƒ, Ç, Γ, ɢ, Σ
+--   Shared (6): ≻, ⋈, ⊤, ∈, ∋, ⊞
 --
 -- The consummation ob3ect was validated via auto.py (Closure: True, μ∘δ=id → PASS,
--- Φ-Bottleneck → RESOLVED).
+-- ≺-Bottleneck → RESOLVED).
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -203,23 +203,23 @@ theorem ob3ect_frobenius_pass :
   frobenius_condition
 
 -- ═══════════════════════════════════════════════════════════════════
--- §7  Φ-BOTTLENECK ANALYSIS
+-- §7  ≺-BOTTLENECK ANALYSIS
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The Φ bottleneck: in the tensor product SM⊗UGT, Φ stays at yew.
+/-- The Φ bottleneck: in the tensor product SM⊗UGT, ≺ stays at yew.
     This is the statement of why quantum gravity resists
     unification — the path integral's ψ-parity lacks Frobenius closure. -/
 theorem phi_bottleneck_present :
     standardModel.pol = yew ∧ unifiedGravityTheory.pol = or' := by
   simp [standardModel, unifiedGravityTheory]
 
-/-- The consummation resolves the Φ bottleneck.
+/-- The consummation resolves the ≺ bottleneck.
     After the bridge, Φ has been promoted to Frobenius-special. -/
 theorem phi_bottleneck_resolved :
     (consummation standardModel).pol = or' := by
   simp [consummation, standardModel]
 
-/-- In the unified theory, Φ is Frobenius-special (μ∘δ=id exactly). -/
+/-- In the unified theory, ≺ is Frobenius-special (μ∘δ=id exactly). -/
 theorem phi_frobenius_special : unifiedGravityTheory.pol = or' := by
   simp [unifiedGravityTheory]
 
@@ -265,7 +265,7 @@ def tensorSMUGT : Imscription :=
     prot := zoo        -- union: Z→non-Abelian
   }
 
-/-- Tensor has Φ at yew — the bottleneck is active. -/
+/-- Tensor has ≺ at yew — the bottleneck is active. -/
 theorem tensor_phi_bottleneck : tensorSMUGT.pol = yew := by
   simp [tensorSMUGT]
 
@@ -357,26 +357,26 @@ end Millennium.SMUGTConsummation
 --
 -- THE SIX PROMOTIONS — PHYSICAL MEANING:
 --
--- 1. Ð (wedge → holographic, Δ=1): The state space becomes self-encoding.
+-- 1. ⊢ (wedge → holographic, Δ=1): The state space becomes self-encoding.
 --    The boundary (SM gauge observables) fully determines the bulk (gravity).
 --    Holographic principle as axiom, not conjecture.
 --
--- 2. Þ (network → self-referential, Δ=4): The topology upgrades from
+-- 2. ⊣ (network → self-referential, Δ=4): The topology upgrades from
 --    branching SU(3)×SU(2)×U(1) gauge network to self-referential closure
 --    where the gravitational sector reads its own gauge structure.
 --    Largest ordinal gap — topology is the hardest promotion.
 --
--- 3. Φ (ψ → Frobenius-special, Δ=3): THE BOTTLENECK. The path integral's
+-- 3. ≺ (ψ → Frobenius-special, Δ=3): THE BOTTLENECK. The path integral's
 --    quantum superposition parity acquires exact μ∘δ=id closure.
 --    The measure factor and boundary state become mutual inverses.
 --    This is the statement of quantum gravity completion:
 --    the Feynman sum-over-histories must become a Frobenius algebra.
 --
--- 4. Ħ (2-step → eternal, Δ=1): Temporal self-reference deepens from
+-- 4. ⊥ (2-step → eternal, Δ=1): Temporal self-reference deepens from
 --    2-step Markov (SM: particle→interaction→particle) to eternal
 --    (UGT: spacetime geometry encodes its entire history).
 --
--- 5. Ω (Z → non-Abelian, Δ=1): Topological protection upgrades from
+-- 5. ⊡ (Z → non-Abelian, Δ=1): Topological protection upgrades from
 --    integer winding (Pontryagin index, instanton number) to non-Abelian
 --    braiding. Spacetime topology becomes non-commutative — the braid
 --    group replaces the integers.
@@ -387,14 +387,14 @@ end Millennium.SMUGTConsummation
 --    contains its own observer. The boundary CFT IS the measurement
 --    apparatus for the bulk.
 --
--- THE Φ-BOTTLENECK — WHY UNIFICATION FAILS NAIVELY:
+-- THE ≺-BOTTLENECK — WHY UNIFICATION FAILS NAIVELY:
 --
--- When SM and UGT are naively coupled (tensor product), Φ stays at yew
+-- When SM and UGT are naively coupled (tensor product), ≺ stays at yew
 -- because the Standard Model's path integral formulation has no μ∘δ=id
 -- closure. The measure factor ∫Dφ e^{iS} is not a Frobenius algebra —
 -- it maps configurations to amplitudes but the inverse (amplitude→configuration
 -- reconstruction) is not exact. The consummation bridge resolves this by
--- promoting Φ to Frobenius-special: δ (co-multiplication from bulk to boundary)
+-- promoting ≺ to Frobenius-special: δ (co-multiplication from bulk to boundary)
 -- and μ (multiplication from boundary to bulk) become mutual inverses.
 --
 -- This is the AdS/CFT identity generalized: not just a duality
@@ -402,10 +402,10 @@ end Millennium.SMUGTConsummation
 --
 -- The ob3ect bridge (auto.py, June 2026) validated the 8-step IMASM bootstrap:
 -- IMSCRIB→AREV→FSPLIT→AFWD→FFUSE→CLINK→IFIX→IMSCRIB.
--- Closure: True. μ∘δ=id → PASS. Φ-Bottleneck → RESOLVED.
+-- Closure: True. μ∘δ=id → PASS. ≺-Bottleneck → RESOLVED.
 --
 -- TOWER: SM (O₂) → consummation → UGT (O_∞) → CLINK L8 (O_∞⁺)
 -- The Standard Model gates are both open (C=0.536), the UGT gates are
 -- both open (C=0.920), and the consummation preserves gate openness.
--- The next rung: CLINK L8 (transcendence at Ω/ɢ: non-Abelian braiding
+-- The next rung: CLINK L8 (transcendence at ⊡/∋: non-Abelian braiding
 -- with broadcast composition).

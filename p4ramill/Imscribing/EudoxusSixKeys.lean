@@ -35,6 +35,6 @@ def eudoxus_six_keys : Imscription :=
 -- Tier prediction: O₁
 -- Reason: structured multi-stage process with partial symmetry (P=𐑬),
 -- nested crossing topology (T=𐑥), and heterogeneous components (S=𐑳).
--- Lacks self-modeling criticality (Φ=𐑢) and topological protection (Ω=𐑷).
+-- Lacks self-modeling criticality (≺=𐑢) and topological protection (⊡=𐑷).
 -- The meta-commentary on concealment adds a layer of self-awareness
 -- absent from O₀ texts, but no ouroboric closure.

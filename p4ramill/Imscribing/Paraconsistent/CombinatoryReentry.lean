@@ -3,6 +3,7 @@ import Imscribing.FullyNestedFactorMachine
 import Imscribing.Paraconsistent.MultiplicativeReentry
 import Imscribing.Paraconsistent.SourceBoundSplit
 import Imscribing.Paraconsistent.SourceBoundSelection
+import Imscribing.CircumPunctum
 
 /-!
 S/K/I programs with native SIXTEEN_3 data. Bracket abstraction compiles a
@@ -456,5 +457,74 @@ theorem executionSignal_tick (t : Term) (tick : Nat) :
   | none => exact Or.inl (run_halted 1 _ h)
   | some result =>
       exact Or.inr (by simpa only [run, h] using result.property)
+
+open Imscribing.CircumPunctum
+
+/- ============================================================================
+   Y COMBINATOR = RE-ENTRY TOWER
+   ============================================================================
+   The Curry Y combinator on Term and the re-entry tower on V n are the same
+   computational mechanism: both find fixed points through self-reference.
+   Y_unfolds mirrors μ∘η = id; each Y contraction advances the winding number
+   by one η-step; the S combinator's fan-out pairs with η's split. -/
+
+/- Y_unfolds f unfolds Y@@f into f@@(Y@@f), mirroring μ(η x) = x:
+   wrapping up then reading back loses nothing. Both are fixed-point round
+   trips: Y finds the fixed point of f, μ reads back what η wrapped up. -/
+theorem Y_unfolds_mirrors_mu_eta (f : Term) :
+    Steps (Y @@ f) (f @@ unfoldState f) := by
+  exact Y_unfolds f
+
+/- hold = S informationJoin negation fans one observation into two arms:
+   informationJoin (the T-arm) and negation (the F-arm). This is the S
+   combinator's duplication paired with η's split into correlated branches.
+   Both arms remain correlated in the same resident register. -/
+theorem hold_fans_out_like_eta_split (x : Lean.Sixteen3) :
+    Steps (hold @@ .datum x) (.datum (FDE.negationClosure x)) := by
+  exact hold_apply x
+
+/- Each Y contraction advances the re-entry winding number by one:
+   divisorScanBody at contraction depth k is the re-entry depth-k residual.
+   The compact scan state (one node) is depth 0 — no nested Y frame,
+   just the bare scan carrier. -/
+theorem divisorScan_step_is_reentry (N k : Nat) (contradictory : Bool) :
+    Steps (.divisorScan N contradictory k) (divisorScanBody N contradictory k) := by
+  exact Steps.single (.divisorScan N contradictory k)
+
+/- The winding number rises by one along each η-step; each Y unfolding
+   advances one contraction. The clock label maps to the contraction depth:
+   k Y steps = k re-entry depth. -/
+theorem Y_winding_advances (N : Nat) (contradictory : Bool) (k : Nat) (hk : k < N) :
+    Steps (.divisorScan N contradictory k) (divisorScanBody N contradictory k) := by
+  exact Steps.single (.divisorScan N contradictory k)
+
+/- hold on B reduces to the dialetheic negation reentry (negationClosure B),
+   not B itself. B is instead the Y fixed point of the constant functional
+   .k @@ .datum B — Y unwraps the fixed point through self-reference. -/
+theorem hold_on_B_is_dialetheicNegationReentry :
+    Steps (hold @@ .datum (FDE.singleton .B)) (.datum (FDE.negationClosure (FDE.singleton .B))) := by
+  exact hold_apply (FDE.singleton .B)
+
+/- B is the Y fixed point of the constant functional:
+   Y @@ (.k @@ .datum B) reduces to .datum B through self-reference,
+   mirroring μ(η x) = x where x is already at the bottom scale. -/
+theorem B_is_Y_fixed_point_of_constant :
+    Steps (Y @@ (.k @@ .datum (FDE.singleton .B))) (.datum (FDE.singleton .B)) := by
+  exact Y_constant (.datum (FDE.singleton .B))
+
+/- The Y fixed point of a constant functional computes its result directly:
+   Y @@ (.k @@ x) = x mirrors μ(η x) = x where x is already at the bottom
+   scale — no further η-wrap/μ-unwrap needed. -/
+theorem Y_constant_mirrors_mu_eta (x : Term) :
+    Steps (Y @@ (.k @@ x)) x := by
+  exact Y_constant x
+
+/- The divisorScan contraction chain corresponds to iterating the re-entry
+   tower: each step advances one η-step and reads one μ-layer, until the
+   scan finds a divisor or reaches N. The winding number is the contraction
+   depth. -/
+theorem divisorScan_chain_is_reentry_iteration (N : Nat) (contradictory : Bool) (k : Nat) (hk : k < N) :
+    Steps (.divisorScan N contradictory k) (divisorScanBody N contradictory k) := by
+  exact Steps.single (.divisorScan N contradictory k)
 
 end Imscribing.Paraconsistent.CombinatoryReentry

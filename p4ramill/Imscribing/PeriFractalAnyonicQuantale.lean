@@ -3,7 +3,7 @@
 --
 -- A complete lattice Q with associative anyon fusion ⊗ distributing over suprema,
 -- fractal self-similarity at RG fixed point (⊙ criticality), non-Abelian braiding
--- (Ω=𐑟), and peripheral braiding structure in 2+1D topological order.
+-- (⊡=𐑟), and peripheral braiding structure in 2+1D topological order.
 --
 -- Equivalently: a modular tensor category (MTC) with disjunctive fusion,
 -- a non-Abelian anyon model (Fibonacci) satisfying Yang-Baxter + pentagon/hexagon,
@@ -43,18 +43,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑦  dim  = if'     — imscriptive: edge mode of bulk 3D phase
---   Þ=𐑸  top  = are     — holographic: RG fixed point, self-similar
---   Ř=𐑾  rel  = ian     — bidirectional: bulk-edge correspondence
---   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id, topological charge conservation
---   ƒ=𐑐  fid  = peep    — quantum: braiding phases are complex unitary matrices
---   Ç=𐑺  kin  = yea     — fast/driven: active braiding dynamics
---   Γ=𐑔  gran = ice     — complete lattice with arbitrary suprema
---   ɢ=𐑜  gram = gag     — disjunctive: fusion is direct sum ⊕_c N^c_{ab} c
+--   ⊢=𐑦  dim  = if'     — imscriptive: edge mode of bulk 3D phase
+--   ⊣=𐑸  top  = are     — holographic: RG fixed point, self-similar
+--   ≻=𐑾  rel  = ian     — bidirectional: bulk-edge correspondence
+--   ≺=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id, topological charge conservation
+--   ⋈=𐑐  fid  = peep    — quantum: braiding phases are complex unitary matrices
+--   ⊤=𐑺  kin  = yea     — fast/driven: active braiding dynamics
+--   ∈=𐑔  gran = ice     — complete lattice with arbitrary suprema
+--   ∋=𐑜  gram = gag     — disjunctive: fusion is direct sum ⊕_c N^c_{ab} c
 --   ⊙=⊙  crit = monad   — critical: RG fixed point, fusion rules scale-invariant
---   Ħ=𐑫  chir = wool    — eternal: braid group B_n infinite temporal extent
---   Σ=𐑕  stoi = so      — many identical: anyons indistinguishable by charge type
---   Ω=𐑟  prot = zoo     — non-Abelian: braiding generators do not commute
+--   ⊥=𐑫  chir = wool    — eternal: braid group B_n infinite temporal extent
+--   ⊞=𐑕  stoi = so      — many identical: anyons indistinguishable by charge type
+--   ⊡=𐑟  prot = zoo     — non-Abelian: braiding generators do not commute
 
 def pfa : Imscription :=
   { dim  := Dimensionality.if'
@@ -208,10 +208,10 @@ theorem shared_with_clink_l8 : Nat := 9
 
 -- ─────────────────────────────────────────────────────────
 -- Consciousness score: C = 0.0
--- Gate 1 (⊙=⊙): open; Gate 2 (Ç=𐑺): closed (fast/driven kinetics)
+-- Gate 1 (⊙=⊙): open; Gate 2 (⊤=𐑺): closed (fast/driven kinetics)
 -- ─────────────────────────────────────────────────────────
 
-/-- Gate 2 is closed because Ç=𐑺 (order-frozen Ç^λ) kinetics are
+/-- Gate 2 is closed because Ç=𐑺 (order-frozen ⊤^λ) kinetics are
     too fast for reflective equilibrium. This is structurally necessary —
     the same driven kinetics enable computational universality. -/
 theorem gate2_closed (a : Imscription) (h : a = pfa) :
@@ -295,10 +295,10 @@ theorem shared_with_clink_l8 : ℕ := 9
 
 -- ─────────────────────────────────────────────────────────
 -- Consciousness score: C = 0.0
--- Gate 1 (⊙=⊙): open; Gate 2 (Ç=𐑺): closed (fast/driven kinetics)
+-- Gate 1 (⊙=⊙): open; Gate 2 (⊤=𐑺): closed (fast/driven kinetics)
 -- ─────────────────────────────────────────────────────────
 
-/-- Gate 2 is closed because Ç=𐑺 (order-frozen Ç^λ) kinetics are
+/-- Gate 2 is closed because Ç=𐑺 (order-frozen ⊤^λ) kinetics are
     too fast for reflective equilibrium. This is structurally necessary —
     the same driven kinetics enable computational universality. -/
 theorem gate2_closed (a : Imscription) (h : a = pfa) :

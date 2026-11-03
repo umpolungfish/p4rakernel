@@ -96,11 +96,11 @@ def schutte_tournament_domination : Imscription :=
     (.age)     -- F: classical (probabilistic method, Erdős 1963)
     (.egg)     -- K: non-equilibrium (probabilistic construction)
     (.ice)     -- G: maximal/global (tournament is a complete orientation)
-    (.measure) -- Γ: sequential (domination check is sequential)
+    (.measure) -- ∈: sequential (domination check is sequential)
     (.roar)    -- φ̂: complex-critical (n²·2ⁿ vs (n+2)·2ⁿ⁻¹ threshold)
     (.kick)    -- H: Markov order 1 (single-step domination)
-    (.hung)    -- Σ: 1:1 (each pair has exactly one directed edge)
-    (.awe)     -- Ω: trivial protection (counting, no topological invariant)
+    (.hung)    -- ⊞: 1:1 (each pair has exactly one directed edge)
+    (.awe)     -- ⊡: trivial protection (counting, no topological invariant)
 
 theorem schutte_tournament_tier_is_O1 : imscriptionTier schutte_tournament_domination = .O₁ := by
   unfold schutte_tournament_domination; native_decide

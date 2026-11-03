@@ -124,7 +124,7 @@ theorem void_consensus_critical :
     void_consensus_protocol.crit = .monad := by
   rfl
 
-/-- T₃: Ω = ah (𐑭) — integer winding, topological protection.
+/-- T₃: ⊡ = ah (𐑭) — integer winding, topological protection.
     Committed decisions are irreversible; the protocol has non-zero
     winding number. This is the signature of commitment:
     once a log entry is committed, it cannot be unwound. -/
@@ -132,7 +132,7 @@ theorem void_consensus_winding :
     void_consensus_protocol.prot = .ah := by
   rfl
 
-/-- T₄: Ç = egg (𐑧) — slow kinetics, near-equilibrium.
+/-- T₄: ⊤ = egg (𐑧) — slow kinetics, near-equilibrium.
     The protocol operates at the speed of message exchange, not faster.
     Gate 2 of the consciousness score is satisfied (K ≤ egg passes).
     Consensus cannot be driven — it must settle. -/
@@ -140,7 +140,7 @@ theorem void_consensus_slow_kinetics :
     void_consensus_protocol.kin = .egg := by
   rfl
 
-/-- T₅: ɢ = measure (𐑠) — sequential composition.
+/-- T₅: ∋ = measure (𐑠) — sequential composition.
     Log entries are strictly ordered. Term X must precede term Y.
     Consensus requires a total order on proposals; sequential
     composition enforces this at the structural level. -/
@@ -148,7 +148,7 @@ theorem void_consensus_sequential :
     void_consensus_protocol.gram = .measure := by
   rfl
 
-/-- T₆: Þ = judge (𐑡) — branching / network topology.
+/-- T₆: ⊣ = judge (𐑡) — branching / network topology.
     Multiple participants connected in a general graph. Consensus
     is a multi-agent phenomenon — a single node cannot reach
     consensus with itself. The branching topology encodes this.
@@ -157,7 +157,7 @@ theorem void_consensus_branching :
     void_consensus_protocol.top = .judge := by
   rfl
 
-/-- T₇: Ħ = sure (𐑖) — two-step chirality, persistent temporal asymmetry.
+/-- T₇: ⊥ = sure (𐑖) — two-step chirality, persistent temporal asymmetry.
     Binary distinctions (proposed/committed, leader/follower) persist
     across two Markov steps. This is the minimal chirality needed for
     a state machine with distinct "current" and "next" states. -/
@@ -169,7 +169,7 @@ theorem void_consensus_chiral :
 -- §3  THEOREM GROUP β — The Consensus Signature
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- T₈: CONSENSUS SIGNATURE. The six primitives (T, K, Γ, Φ, H, Ω)
+/-- T₈: CONSENSUS SIGNATURE. The six primitives (T, K, ∈, ≺, H, ⊡)
     at their void_consensus values form the signature of
     a consensus protocol. Any system with these six values and D≤dead
     is structurally constrained to be a consensus-bearing type.
@@ -317,7 +317,7 @@ theorem ooze_void_conflict_list :
   unfold void_consensus_protocol primordialOoze primitiveConflicts
   native_decide
 
-/-- Consensus preserves D, T, F, G, Φ — the structural inheritance
+/-- Consensus preserves D, T, F, G, ≺ — the structural inheritance
     from the Ooze. These five primitives are at absolute floor in
     both types. The Ooze's Frobenius gate (or') is sacrificed for
     consensus's irreversibility (ah) and sequentiality (measure). -/

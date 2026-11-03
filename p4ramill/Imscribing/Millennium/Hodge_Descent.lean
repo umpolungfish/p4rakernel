@@ -17,8 +17,8 @@
 -- STRUCTURAL VESSEL (from Hodge_Grammar.lean):
 --   Lefschetz (1,1): O_inf, or', mime, monad, 1:1
 --   Hodge (all p):   O₂,   yew,    are,   roar, n:m
---   Gap: 8 primitives. Promotions: Þ (bowtie→odot), Σ (1:1→n:m).
---        Demotions: Ř, Φ, ƒ, ɢ, ⊙, Ħ. Shared: Ð, Ç, Γ, Ω.
+--   Gap: 8 primitives. Promotions: ⊣ (bowtie→odot), ⊞ (1:1→n:m).
+--        Demotions: ≻, ≺, ⋈, ∋, ⊙, ⊥. Shared: ⊢, ⊤, ∈, ⊡.
 --   Join: O_inf (or' + monad restored). The join EXISTS; proving
 --         Hodge means reaching it constructively.
 --   Obstruction: Griffiths group at err — tensor(CCM, Griffiths) = err.
@@ -303,7 +303,7 @@ theorem descent_step (n p : ℕ) (hp : 2 ≤ p) (hnp : p ≤ n) :
   intro hind X hdim α
   -- By primitive_hodge_is_algebraic (axiom): every primitive Hodge class
   -- of degree ≥ 2 is algebraic. The Lefschetz decomposition expresses
-  -- α = Σ_{j=0}^p L^j α_j where each α_j ∈ H^{p-j,p-j}_prim(X).
+  -- α = ⊞_{j=0}^p L^j α_j where each α_j ∈ H^{p-j,p-j}_prim(X).
   -- For each j:
   --   • If p-j ≥ 2: α_j algebraic by primitive_hodge_is_algebraic
   --   • If p-j = 1: α_j algebraic by descent_base_p1 (Lefschetz (1,1))
@@ -777,20 +777,20 @@ theorem descent_chain_compose (n k : ℕ) (hk : 1 ≤ k) (hkn : k ≤ n)
 theorem grammar_descent_bridge : True := by
   -- The 8 primitive gaps and their mathematical correspondents:
   --
-  -- 1. Þ: mime → are
+  -- 1. ⊣: mime → are
   --    Math: The (1,1) case uses the exponential sequence on X itself
   --          (the crossing point topology). The general case needs a
   --          holographic mechanism spanning all degrees.
   --
-  -- 2. Σ: 1:1 → n:m
+  -- 2. ⊞: 1:1 → n:m
   --    Math: p=1 is a single degree. p≥2 requires handling all degrees
   --          simultaneously → the Lefschetz decomposition mixes degrees.
   --
-  -- 3. Φ: or' → yew
+  -- 3. ≺: or' → yew
   --    Math: The exponential sequence provides Frobenius closure (δ∘μ=id)
   --          for p=1. No such exact sequence exists for p≥2.
   --
-  -- 4. Ř: ian → ear
+  -- 4. ≻: ian → ear
   --    Math: The (1,1) case is bidirectional: algebraic ↔ Hodge via
   --          c1 and the exponential sequence. For p≥2, the cycle class
   --          map is a one-way adjoint: algebraic → Hodge is easy;
@@ -803,17 +803,17 @@ theorem grammar_descent_bridge : True := by
   --          classes exist and have structure, but can't construct
   --          algebraic representatives).
   --
-  -- 6. ƒ: peep → age
+  -- 6. ⋈: peep → age
   --    Math: The (1,1) proof uses quantum/coherent methods (Dolbeault
   --          isomorphism, harmonic forms). The general case might need
   --          only classical data but this is not known.
   --
-  -- 7. ɢ: measure → vow
+  -- 7. ∋: measure → vow
   --    Math: The exponential sequence is sequential (sheaf → cohomology →
   --          Chern class). The general case might need simultaneous
   --          (conjunctive) use of all degrees, but no mechanism is known.
   --
-  -- 8. Ħ: sure → fee
+  -- 8. ⊥: sure → fee
   --    Math: The p=1 case uses 2-step memory (sheaf + cohomology).
   --          For p≥2, no analogous mechanism is known → memoryless.
   trivial

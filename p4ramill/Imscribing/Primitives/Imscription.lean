@@ -13,7 +13,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- ============================================================
 -- IMSCRIPTION STRUCT
--- An Imscription is a 12-tuple ⟨D; T; R; P; F; K; G; Γ; Φ; H; S; Ω⟩.
+-- An Imscription is a 12-tuple ⟨D; T; R; P; F; K; G; ∈; ≺; H; S; ⊡⟩.
 -- Field name 'rel' used for Relational (R) since 'rec' is reserved in Lean 4.
 -- @[ext] generates Imscription.ext for pointwise equality.
 -- ============================================================
@@ -27,11 +27,11 @@ structure Imscription : Type where
   fid   : Fidelity         -- F
   kin   : KineticChar      -- K
   gran  : Granularity      -- G
-  gram  : Grammar          -- Γ
-  crit  : Criticality      -- Φ
+  gram  : Grammar          -- ∈
+  crit  : Criticality      -- ≺
   chir  : Chirality        -- H
   stoi  : Stoichiometry    -- S
-  prot  : Protection       -- Ω
+  prot  : Protection       -- ⊡
   deriving DecidableEq, Repr
 
 -- STATED AS A PREDICATE, NOT AN AXIOM, AND THE REASON MATTERS.
@@ -156,7 +156,7 @@ theorem primitiveMismatches_zero_iff (a b : Imscription) :
 
 -- ============================================================
 -- TENSOR PRODUCT (structural composition)
--- Union primitives: max (D, T, R, G, Γ, Φ, H, S, Ω)
+-- Union primitives: max (D, T, R, G, ∈, ≺, H, S, ⊡)
 -- Bottleneck primitives: min (P, F) — weaker partner wins
 -- ============================================================
 
@@ -304,7 +304,7 @@ def yang_mills_classical : Imscription := {
 
 -- ── Yang-Mills (quantum target) ─────────────────────────────
 -- The target tuple if the path integral measure existed.
--- Gap from classical: F(eth→hbar), K(mod→trap), G(bib→ice), Φ(sub→c) = 4 mismatches.
+-- Gap from classical: F(eth→hbar), K(mod→trap), G(bib→ice), ≺(sub→c) = 4 mismatches.
 def yang_mills_quantum_target : Imscription := {
   dim  := array
   top  := judge

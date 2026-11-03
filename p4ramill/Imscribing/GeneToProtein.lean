@@ -154,15 +154,15 @@ theorem folding_moves_more_than_splicing :
     CORRECTED 2025: Added Ð trace (tri→odot at folding stages).
     Shows which primitives transform at each morphism. -/
 def primitive_trace (p : String) : List String :=
-  -- Ð: DNA=tri → Transcript=tri → Spliced=tri → Poly=tri
+  -- ⊢: DNA=tri → Transcript=tri → Spliced=tri → Poly=tri
   --    → Secondary=odot → Tertiary=odot → Quaternary=odot
   -- T: DNA=oil → Transcript=eat → Spliced=eat → Poly=judge
   --    → Secondary=are → Tertiary=are → Quaternary=are
   -- R: DNA=ian → Transcript=tot → Spliced=ear → Poly=tot
   --    → Secondary=ear → Tertiary=ian → Quaternary=ian
-  -- Φ: DNA=out → Transcript=church → Spliced=church → Poly=church
+  -- ≺: DNA=out → Transcript=church → Spliced=church → Poly=church
   --    → Secondary=out → Tertiary=church → Quaternary=out
-  -- ɢ: DNA=Gm_seq → Transcript=Gm_seq → Spliced=Gm_seq → Poly=Gm_seq
+  -- ∋: DNA=Gm_seq → Transcript=Gm_seq → Spliced=Gm_seq → Poly=Gm_seq
   --    → Secondary=Gm_seq → Tertiary=Gm_and → Quaternary=Gm_and
   match p with
   | "Ð" => ["D_tri", "D_tri", "D_tri", "D_tri", "if'", "if'", "if'"]

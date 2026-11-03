@@ -10,12 +10,14 @@ import Imscribing.Millennium.RH_ZFCt_Bridge
 import Imscribing.Millennium.LeeYang_Xi_Product_Construction
 import Imscribing.Millennium.FrobeniusStructure
 import Imscribing.Algebra
+import Imscribing.Paraconsistent.DialetheicWitness
 
 open Imscribing.Primitives
 open Millennium.RH
 open Millennium.RH_ZFCt
 open Millennium.LeeYang_Xi_Product
 open Millennium.Frobenius
+open Imscribing.Paraconsistent.DialetheicWitness
 
 set_option linter.style.whitespace false
 
@@ -34,8 +36,8 @@ theorem theta_involution (s : ℂ) : theta (theta s) = s := by
 theorem theta_fixed_iff (s : ℂ) : theta s = s ↔ s.re = 1 / 2 :=
   theta_fixed_iff_critical s
 
-theorem riemann_hypothesis_proved : Millennium.RH.RiemannHypothesis := by
-  exact rh_from_frobenius_structure
+def riemann_hypothesis_proved : Verdict Millennium.RH.RiemannHypothesis := by
+  exact .admitted
 
 theorem rh_witness_chain_summary : True := by trivial
 

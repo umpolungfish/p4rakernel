@@ -86,7 +86,7 @@ def bsd_pre_resolution : Imscription := {
     The Frobenius identity μ∘δ=id is satisfied at the self-dual point s=1. -/
 theorem bsd_is_O_inf : imscriptionTier birchSwinnertonDyer = .O_inf := by decide
 
-/-- The pre-resolution BSD is also O_inf: the tier is determined by (Φ, P) alone.
+/-- The pre-resolution BSD is also O_inf: the tier is determined by (≺, P) alone.
     The bottleneck was in topological closure (Þ) and fidelity (ƒ), not in the tier itself. -/
 theorem bsd_pre_resolution_is_O_inf : imscriptionTier bsd_pre_resolution = .O_inf := by decide
 

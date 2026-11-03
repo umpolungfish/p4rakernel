@@ -137,7 +137,7 @@ theorem bruce_book1_opening_sub_critical : bruceBook1OpeningTuple.crit = woe := 
 -- ================================================================
 
 -- compute_distance bruce_codex → bruce_baptism_seals: d=2.19
--- Conflicts: Φ(out→or'), Ħ(wool→sure)
+-- Conflicts: ≺(out→or'), ⊥(wool→sure)
 theorem dist_codex_baptism : hammingDistance bruceCodexTuple bruceBaptismSealsTuple = 2 := by
   native_decide
 
@@ -146,7 +146,7 @@ theorem dist_codex_baptism_conflicts :
   native_decide
 
 -- compute_distance bruce_codex → bruce_book1_opening: d=6.08
--- Conflicts: Þ,Ř,Φ,ƒ,Ç,Γ,ɢ,⊙,Ħ,Ω — 10 of 12 primitives differ
+-- Conflicts: ⊣,≻,≺,⋈,⊤,∈,∋,⊙,⊥,⊡ — 10 of 12 primitives differ
 theorem dist_codex_opening : hammingDistance bruceCodexTuple bruceBook1OpeningTuple = 10 := by
   native_decide
 
@@ -206,7 +206,7 @@ theorem baptism_parity_is_frobenius_special :
 -- ================================================================
 
 -- imscribe("consciousness_score", {"name":"bruce_codex"}) → C=0.682
--- Gate 1: ⊙=⊙ open, Gate 2: Ç=𐑧 open
+-- Gate 1: ⊙=⊙ open, Gate 2: ⊤=𐑧 open
 
 noncomputable def bruceCodexCScore : ℝ := consciousnessScore bruceCodexTuple
 

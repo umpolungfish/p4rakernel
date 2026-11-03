@@ -94,7 +94,7 @@ def nuclideImscription (z n : ℕ) : Imscription :=
     if dm then thigh               -- mesoscale: valence only
     else if a ≥ 100 then ice       -- all nucleons via strong force
     else thigh
-  -- [8] Γ — Composition
+  -- [8] ∈ — Composition
   let gram : Grammar :=
     if dm then vow                 -- conjunctive: all shells closed
     else if a ≥ 240 then measure   -- sequential decay chain
@@ -113,13 +113,13 @@ def nuclideImscription (z n : ℕ) : Imscription :=
     else if kin = egg then sure    -- persistent
     else if kin = loll then kick   -- soft
     else fee                       -- memoryless
-  -- [11] Σ — Stoichiometry
+  -- [11] ⊞ — Stoichiometry
   let stoi : Stoichiometry :=
     if dm then hung                -- unique identity
     else if nzRatio ≥ (95 : ℚ) / (100 : ℚ) && nzRatio ≤ (105 : ℚ) / (100 : ℚ) then hung
     else if nzRatio ≥ (140 : ℚ) / (100 : ℚ) && nzRatio ≤ (160 : ℚ) / (100 : ℚ) then so
     else up
-  -- [12] Ω — Topological invariant
+  -- [12] ⊡ — Topological invariant
   let prot : Protection :=
     if dm then ah                  -- integer winding
     else if isMagicZ z || isMagicN n then oak  -- Z₂
@@ -192,7 +192,7 @@ theorem pb208_stoichiometry_is_hung : pb208.stoi = hung := by
 theorem pb208_symmetry_is_nun : pb208.pol = nun := by
   native_decide
 
-/-- Pb-208 is O₂ tier: critical, Ω-protected, finite-dimensional. -/
+/-- Pb-208 is O₂ tier: critical, ⊡-protected, finite-dimensional. -/
 theorem pb208_is_O2 : imscriptionTier pb208 = .O₂ := by
   native_decide
 -- Pb-208 has C ≈ 0.5 (both gates open, kinetics trapped).

@@ -84,7 +84,7 @@ theorem B_double_neg :
 -- §3. Completeness Theorem
 -- -------------------------
 
-/-- A formal system Σ is Belnap-complete if every sentence expressible
+/-- A formal system ⊞ is Belnap-complete if every sentence expressible
     in the language of Σ has a truth value in {T, F, B, N}. -/
 def belnap_complete (sys : Type) (truth_val : sys → BelnapVal) : Prop :=
   Function.Surjective truth_val ∨

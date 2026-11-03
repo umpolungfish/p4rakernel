@@ -80,7 +80,7 @@ theorem ym_one_bump_short :
     ruleset_triple_criticality.operadLayer ym = .idempotent_terminal ∧
     tCeilingConsistent ym = false := by native_decide
 
-/-- Precise blocker: it is exactly the Ç (kinetics) ceiling that YM violates —
+/-- Precise blocker: it is exactly the ⊤ (kinetics) ceiling that YM violates —
     every other T_CEILING primitive is satisfied. -/
 theorem ym_blocker_is_kinetics :
     (ordinalK ym.kin ≤ 3) = False ∧

@@ -68,7 +68,7 @@ theorem thirteen_arith_not_binary : arithAtomic 13 ∧ ¬binaryAtomic 13 := by
     have h₁ : popcount 13 = 1 := h.2
     norm_num [popcount] at h₁
 
--- Ω(6) = popcount 6 = 2 but atoms differ.
+-- ⊡(6) = popcount 6 = 2 but atoms differ.
 theorem counts_equal_atoms_differ : omega 6 = popcount 6 := by
   have factors : (Nat.primeFactorsList 6).length = 2 := by
     have lengths := (Nat.perm_primeFactorsList_mul

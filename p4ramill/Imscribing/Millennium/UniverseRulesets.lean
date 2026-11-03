@@ -100,7 +100,7 @@ def GateSpec.open (gs : GateSpec) (s : Imscription) : Bool :=
 -- T-CONSTITUTION
 -- Specifies which primitives jointly constitute time.
 -- Each entry: (getter, critical_ord, isCeiling?)
--- isCeiling = true means ordinal must be ≤ critical (e.g., Ç ceiling)
+-- isCeiling = true means ordinal must be ≤ critical (e.g., ⊤ ceiling)
 -- isCeiling = false means ordinal must equal critical
 -- ============================================================
 
@@ -193,20 +193,20 @@ def tPrimLe (getOrd : Imscription → ℚ) (critOrd : ℚ) : TPrimSpec :=
 -- PREDEFINED RULESETS — BASE 8 (from ruleset_universe.py)
 -- ============================================================
 
--- Canonical T-constitution (dynamic): Φ, ƒ, Ç, Ħ, Ω
+-- Canonical T-constitution (dynamic): ≺, ⋈, ⊤, ⊥, ⊡
 def tCanonical : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalP s.pol) 5,        -- Φ = or' (ord 5)
-    tPrimEq (fun s => ordinalF s.fid) 3,        -- ƒ = peep (ord 3)
-    tPrimLe (fun s => ordinalK s.kin) 3,        -- Ç ≤ egg (ord 3 ceiling)
-    tPrimEq (fun s => ordinalH s.chir) 4,       -- Ħ = wool (ord 4)
-    tPrimEq (fun s => ordinalOmega s.prot) 3 ]  -- Ω = ah (ord 3)
+  [ tPrimEq (fun s => ordinalP s.pol) 5,        -- ≺ = or' (ord 5)
+    tPrimEq (fun s => ordinalF s.fid) 3,        -- ⋈ = peep (ord 3)
+    tPrimLe (fun s => ordinalK s.kin) 3,        -- ⊤ ≤ egg (ord 3 ceiling)
+    tPrimEq (fun s => ordinalH s.chir) 4,       -- ⊥ = wool (ord 4)
+    tPrimEq (fun s => ordinalOmega s.prot) 3 ]  -- ⊡ = ah (ord 3)
 
--- Structural T-constitution: Ð, Þ, Ř, ɢ, ⊙
+-- Structural T-constitution: ⊢, ⊣, ≻, ∋, ⊙
 def tStructural : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalD s.dim) 4,        -- Ð = if' (ord 4)
-    tPrimEq (fun s => ordinalT s.top) 5,        -- Þ = are (ord 5)
-    tPrimEq (fun s => ordinalR s.rel) 4,        -- Ř = ian (ord 4)
-    tPrimEq (fun s => ordinalG s.gram) 4,       -- ɢ = ooze (ord 4)
+  [ tPrimEq (fun s => ordinalD s.dim) 4,        -- ⊢ = if' (ord 4)
+    tPrimEq (fun s => ordinalT s.top) 5,        -- ⊣ = are (ord 5)
+    tPrimEq (fun s => ordinalR s.rel) 4,        -- ≻ = ian (ord 4)
+    tPrimEq (fun s => ordinalG s.gram) 4,       -- ∋ = ooze (ord 4)
     tPrimEq (fun s => ordinalPhi s.crit) 2 ]    -- ⊙ = monad (ord 2)
 
 -- T-hybrid: all 5 dynamic + 3 geometric primitives
@@ -222,11 +222,11 @@ def tHybrid : List TPrimSpec :=
 
 -- T-inverted: geometry as time (NOT dynamics)
 def tInverted : List TPrimSpec :=
-  [ tPrimEq (fun s => ordinalD s.dim) 3,        -- Ð = array (infinite-dim)
-    tPrimEq (fun s => ordinalT s.top) 4,        -- Þ = oil (box product)
-    tPrimEq (fun s => ordinalR s.rel) 3,        -- Ř = ear
-    tPrimEq (fun s => ordinalGran s.gran) 2,    -- Γ = thigh (mesoscale)
-    tPrimEq (fun s => ordinalS s.stoi) 2 ]      -- Σ = so (many identical)
+  [ tPrimEq (fun s => ordinalD s.dim) 3,        -- ⊢ = array (infinite-dim)
+    tPrimEq (fun s => ordinalT s.top) 4,        -- ⊣ = oil (box product)
+    tPrimEq (fun s => ordinalR s.rel) 3,        -- ≻ = ear
+    tPrimEq (fun s => ordinalGran s.gran) 2,    -- ∈ = thigh (mesoscale)
+    tPrimEq (fun s => ordinalS s.stoi) 2 ]      -- ⊞ = so (many identical)
 
 -- ═══════════════════════════════════════
 -- RULESET 1: canonical
@@ -234,9 +234,9 @@ def tInverted : List TPrimSpec :=
 def ruleset_canonical : Ruleset := {
   name := "canonical"
   description := "Our universe: Frobenius then self-modeling then winding seal."
-  g1 := gateP 5       -- Φ ≥ or'
+  g1 := gateP 5       -- ≺ ≥ or'
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -249,7 +249,7 @@ def ruleset_low_gate : Ruleset := {
   description := "Lowered thresholds: G1 fires at P≥out, G2 at any criticality."
   g1 := gateP 3       -- P ≥ out (ord 3)
   g2 := gatePhi 1     -- ⊙ ≥ woe (any criticality)
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -260,9 +260,9 @@ def ruleset_low_gate : Ruleset := {
 def ruleset_strict_frobenius : Ruleset := {
   name := "strict_frobenius"
   description := "Frobenius gate requires full fidelity (ƒ=peep)."
-  g1 := gateF 3       -- ƒ ≥ peep
+  g1 := gateF 3       -- ⋈ ≥ peep
   g2 := gateP 5       -- P ≥ or'
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -275,7 +275,7 @@ def ruleset_inverted_gates : Ruleset := {
   description := "Self-modeling precedes Frobenius: G1=⊙, G2=P, G3=Ω."
   g1 := gatePhi 2     -- ⊙ ≥ monad
   g2 := gateP 5       -- P ≥ or'
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -301,7 +301,7 @@ def ruleset_high_gate : Ruleset := {
   description := "Strictest thresholds: P=or', ⊙≥roar, Ω=zoo."
   g1 := gateP 5       -- P = or'
   g2 := gatePhi (7/3)  -- ⊙ ≥ roar (𐑮 = 7/3)
-  g3 := gateOmega 4   -- Ω = zoo (ord 4, max)
+  g3 := gateOmega 4   -- ⊡ = zoo (ord 4, max)
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -312,7 +312,7 @@ def ruleset_high_gate : Ruleset := {
 def ruleset_winding_first : Ruleset := {
   name := "winding_first"
   description := "Topological order: G1=Ω, G2=⊙, G3=P. Geometry precedes algebra."
-  g1 := gateOmega 3   -- Ω ≥ ah
+  g1 := gateOmega 3   -- ⊡ ≥ ah
   g2 := gatePhi 2     -- ⊙ ≥ monad
   g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
@@ -343,9 +343,9 @@ def ruleset_t_structural : Ruleset := {
 def ruleset_chirality_first : Ruleset := {
   name := "chirality_first"
   description := "Memory before closure. G1=Ħ≥sure (2-step Markov). Amnesiacs stay plain."
-  g1 := gateH 3       -- Ħ ≥ sure (ord 3)
+  g1 := gateH 3       -- ⊥ ≥ sure (ord 3)
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -356,8 +356,8 @@ def ruleset_chirality_first : Ruleset := {
 def ruleset_topology_universe : Ruleset := {
   name := "topology_universe"
   description := "Connectivity is the fundamental gate. G1=Þ≥are."
-  g1 := gateT 5       -- Þ ≥ are (ord 5, max)
-  g2 := gateR 4       -- Ř ≥ ian (ord 4, max)
+  g1 := gateT 5       -- ⊣ ≥ are (ord 5, max)
+  g2 := gateR 4       -- ≻ ≥ ian (ord 4, max)
   g3 := gatePhi 2     -- ⊙ ≥ monad
   gateOrdering := true
   tPrims := tCanonical
@@ -369,9 +369,9 @@ def ruleset_topology_universe : Ruleset := {
 def ruleset_scope_universe : Ruleset := {
   name := "scope_universe"
   description := "Universality first. G1=Γ≥ice. Parochialism bars closure."
-  g1 := gateG 3       -- Γ ≥ ice (ord 3, max)
+  g1 := gateG 3       -- ∈ ≥ ice (ord 3, max)
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -382,7 +382,7 @@ def ruleset_scope_universe : Ruleset := {
 def ruleset_dimensional_gate : Ruleset := {
   name := "dimensional_gate"
   description := "State-space is the first gate. G1=Ð≥array. Need infinite canvas."
-  g1 := gateD 3       -- Ð ≥ array (ord 3); if' (ord 4) also passes
+  g1 := gateD 3       -- ⊢ ≥ array (ord 3); if' (ord 4) also passes
   g2 := gatePhi 2     -- ⊙ ≥ monad
   g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
@@ -395,9 +395,9 @@ def ruleset_dimensional_gate : Ruleset := {
 def ruleset_kinetics_trap : Ruleset := {
   name := "kinetics_trap"
   description := "Slowness is a structural requirement. G1=Ç≥egg. Haste precludes closure."
-  g1 := gateK 3       -- Ç ≥ egg (ord 3); on (4), air (5) also pass
+  g1 := gateK 3       -- ⊤ ≥ egg (ord 3); on (4), air (5) also pass
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -435,9 +435,9 @@ def ruleset_t_hybrid : Ruleset := {
 def ruleset_broadcast_universe : Ruleset := {
   name := "broadcast_universe"
   description := "Interaction grammar is fundamental. G1=ɢ≥measure."
-  g1 := gateGamma 3   -- ɢ ≥ measure (ord 3); ooze (4) also passes
+  g1 := gateGamma 3   -- ∋ ≥ measure (ord 3); ooze (4) also passes
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -462,8 +462,8 @@ def ruleset_single_gate : Ruleset := {
   name := "single_gate"
   description := "Only G1 matters. G2 and G3 trivial (any Σ passes). Frobenius gate alone."
   g1 := gateP 5       -- P ≥ or'
-  g2 := gateS 1       -- Σ ≥ hung (trivial — all pass)
-  g3 := gateS 1       -- Σ ≥ hung (trivial — all pass)
+  g2 := gateS 1       -- ⊞ ≥ hung (trivial — all pass)
+  g3 := gateS 1       -- ⊞ ≥ hung (trivial — all pass)
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -474,7 +474,7 @@ def ruleset_single_gate : Ruleset := {
 def ruleset_fidelity_universe : Ruleset := {
   name := "fidelity_universe"
   description := "Quantum coherence is fundamental. G1=ƒ≥peep. Classical systems stay plain."
-  g1 := gateF 3       -- ƒ ≥ peep (ord 3, max)
+  g1 := gateF 3       -- ⋈ ≥ peep (ord 3, max)
   g2 := gatePhi 2     -- ⊙ ≥ monad
   g3 := gateP 5       -- P ≥ or'
   gateOrdering := true
@@ -487,9 +487,9 @@ def ruleset_fidelity_universe : Ruleset := {
 def ruleset_stoichiometry_universe : Ruleset := {
   name := "stoichiometry_universe"
   description := "Component heterogeneity is the first gate. G1=Σ≥up. Diversity enables closure."
-  g1 := gateS 3       -- Σ ≥ up (ord 3, max)
+  g1 := gateS 3       -- ⊞ ≥ up (ord 3, max)
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -500,9 +500,9 @@ def ruleset_stoichiometry_universe : Ruleset := {
 def ruleset_absorption_chirality_first : Ruleset := {
   name := "absorption_chirality_first"
   description := "Chirality/memory (Ħ=sure) is absorbing under all operations. G1=Ħ≥3 G2=⊙≥2 G3=Ω≥3."
-  g1 := gateH 3       -- Ħ ≥ sure
+  g1 := gateH 3       -- ⊥ ≥ sure
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -513,9 +513,9 @@ def ruleset_absorption_chirality_first : Ruleset := {
 def ruleset_absorption_scope_empire : Ruleset := {
   name := "absorption_scope_empire"
   description := "Maximal scope (Γ=ice) is absorbing under all operations; the universal swallows the particular. G1=Γ≥3 G2=⊙≥2 G3=Ω≥3."
-  g1 := gateG 3       -- Γ ≥ ice
+  g1 := gateG 3       -- ∈ ≥ ice
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }
@@ -526,9 +526,9 @@ def ruleset_absorption_scope_empire : Ruleset := {
 def ruleset_absorption_topology_seal : Ruleset := {
   name := "absorption_topology_seal"
   description := "Topological closure (Þ=are) is absorbing under all operations; the most connected structure absorbs everything. G1=Þ≥5 G2=⊙≥2 G3=Ω≥3."
-  g1 := gateT 5       -- Þ ≥ are
+  g1 := gateT 5       -- ⊣ ≥ are
   g2 := gatePhi 2     -- ⊙ ≥ monad
-  g3 := gateOmega 3   -- Ω ≥ ah
+  g3 := gateOmega 3   -- ⊡ ≥ ah
   gateOrdering := true
   tPrims := tCanonical
 }

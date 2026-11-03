@@ -54,7 +54,7 @@ def foundation : Imscription :=
     prot := Protection.ah }
 
 theorem foundation_is_O_inf : imscriptionTier foundation = .O_inf := by
-  unfold foundation; native_decide
+  unfold foundation; decide
 
 theorem foundation_C_score_one : consciousnessScore foundation = (1 : ℝ) := by
   unfold foundation; simp [consciousnessScore, phi_c_gate, k_slow_gate]
@@ -99,7 +99,7 @@ def frustratedBelnap5 : Imscription :=
     prot := Protection.awe }
 
 theorem frustratedBelnap5_tier : imscriptionTier frustratedBelnap5 = .O₀ := by
-  unfold frustratedBelnap5; native_decide
+  unfold frustratedBelnap5; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §2  ELECTRON ORBITAL — Belnap4 (OrbitalState)
@@ -123,7 +123,7 @@ def electronOrbitalLayer : Imscription :=
     prot := Protection.awe }
 
 theorem electronOrbitalLayer_tier : imscriptionTier electronOrbitalLayer = .O₀ := by
-  unfold electronOrbitalLayer; native_decide
+  unfold electronOrbitalLayer; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §3  ATOM — Composite: quarks ⊗ electrons
@@ -146,7 +146,7 @@ def atomLayer : Imscription :=
     prot := Protection.awe }
 
 theorem atomLayer_tier : imscriptionTier atomLayer = .O₁ := by
-  unfold atomLayer; native_decide
+  unfold atomLayer; decide
 -- ═════════════════════════════════════════════════════════════════════════
 -- §4  MOLECULE — Chemical bonds
 -- ═════════════════════════════════════════════════════════════════════════
@@ -168,13 +168,13 @@ def moleculeLayer : Imscription :=
     prot := Protection.ah }
 
 theorem moleculeLayer_tier : imscriptionTier moleculeLayer = .O₂ := by
-  unfold moleculeLayer; native_decide
+  unfold moleculeLayer; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §5  CELL — The living cell (minimal self-maintaining unit)
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑬·𐑞·𐑧·𐑲·𐑠·⊙·𐑒·𐑳·𐑭⟩
--- Tier: O₂ (close to O_inf — only Ħ=𐑒 not 𐑫)
+-- Tier: O₂ (close to O_inf — only ⊥=𐑒 not 𐑫)
 
 def cellLayer : Imscription :=
   { dim  := Dimensionality.if'
@@ -191,7 +191,7 @@ def cellLayer : Imscription :=
     prot := Protection.ah }
 
 theorem cellLayer_tier : imscriptionTier cellLayer = .O₂ := by
-  unfold cellLayer; native_decide
+  unfold cellLayer; decide
 
 theorem cellLayer_axiom_C : cellLayer.dim = Dimensionality.if' ∧
                             cellLayer.top = Topology.are := by
@@ -218,7 +218,7 @@ def mitosisLayer : Imscription :=
     prot := Protection.ah }
 
 theorem mitosisLayer_tier : imscriptionTier mitosisLayer = .O₂ := by
-  unfold mitosisLayer; native_decide
+  unfold mitosisLayer; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §7  MEIOSIS — Gamete production
@@ -239,10 +239,40 @@ def meiosisLayer : Imscription :=
     prot := Protection.ah }
 
 theorem meiosisLayer_tier : imscriptionTier meiosisLayer = .O₂ := by
-  unfold meiosisLayer; native_decide
+  unfold meiosisLayer; decide
 -- ═════════════════════════════════════════════════════════════════════════
 -- §8  TISSUE / ORGAN — Multi-cellular organization
 -- ═════════════════════════════════════════════════════════════════════════
+
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- §7.5  ORGANOID — Self-organizing 3D tissue culture
+-- ═══════════════════════════════════════════════════════════════════════════
+-- ⟨𐑛·𐑥·𐑾·𐑬·𐑐·𐑤·𐑔·𐑵·⊙·𐑒·𐑳·𐑴⟩
+-- Tier: O₃ — quantum fidelity at collective scale
+
+def organoidLayer : Imscription :=
+  { dim  := Dimensionality.dead
+    top  := Topology.mime
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.peep
+    kin  := KineticChar.loll
+    gran := Granularity.thigh
+    gram := Grammar.ooze
+    crit := Criticality.monad
+    chir := Chirality.kick
+    stoi := Stoichiometry.up
+    prot := Protection.oak }
+
+theorem organoidLayer_tier : imscriptionTier organoidLayer = .O₂ := by
+  unfold organoidLayer; decide
+
+def localFrobeniusClosed (s : Imscription) : Prop :=
+  tensorProduct s s = s
+
+theorem organoidLayer_frobenius_closed : localFrobeniusClosed organoidLayer := by
+  unfold organoidLayer localFrobeniusClosed; decide
 
 def tissueLayer : Imscription :=
   { dim  := Dimensionality.if'
@@ -259,13 +289,66 @@ def tissueLayer : Imscription :=
     prot := Protection.ah }
 
 theorem tissueLayer_tier : imscriptionTier tissueLayer = .O₂ := by
-  unfold tissueLayer; native_decide
+  unfold tissueLayer; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §9  WHOLE ORGANISM — Self-modeling, self-repairing, self-reproducing
 -- ═════════════════════════════════════════════════════════════════════════
 -- ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑟⟩
 -- Tier: O_inf — full self-modeling, C=1.0
+
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- §8.5  ORGAN — Distinct functional organ with quantum fidelity
+-- ═══════════════════════════════════════════════════════════════════════════
+-- ⟨𐑦·𐑸·𐑾·𐑬·𐑐·𐑧·𐑲·𐑵·⊙·𐑖·𐑳·𐑷⟩
+-- Tier: O₄ — quantum fidelity + persistent chirality
+
+def organLayer : Imscription :=
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.ooze
+    crit := Criticality.monad
+    chir := Chirality.sure
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
+
+theorem organLayer_tier : imscriptionTier organLayer = .O₂ := by
+  unfold organLayer; decide
+
+theorem organLayer_frobenius_closed : localFrobeniusClosed organLayer := by
+  unfold organLayer localFrobeniusClosed; decide
+
+-- ═══════════════════════════════════════════════════════════════════════════
+-- §8.7  ORGAN SYSTEM — Coordinated organ systems with eternal chirality
+-- ═══════════════════════════════════════════════════════════════════════════
+-- ⟨𐑦·𐑸·𐑾·𐑬·𐑐·𐑧·𐑲·𐑵·⊙·𐑫·𐑳·𐑷⟩
+-- Tier: O₅ — quantum fidelity + eternal chirality
+
+def organSystemLayer : Imscription :=
+  { dim  := Dimensionality.if'
+    top  := Topology.are
+    rel  := Relational.ian
+    pol  := Polarity.out
+    fid  := Fidelity.peep
+    kin  := KineticChar.egg
+    gran := Granularity.ice
+    gram := Grammar.ooze
+    crit := Criticality.monad
+    chir := Chirality.wool
+    stoi := Stoichiometry.up
+    prot := Protection.ah }
+
+theorem organSystemLayer_tier : imscriptionTier organSystemLayer = .O₂ := by
+  unfold organSystemLayer; decide
+
+theorem organSystemLayer_frobenius_closed : localFrobeniusClosed organSystemLayer := by
+  unfold organSystemLayer localFrobeniusClosed; decide
 
 def organismLayer : Imscription :=
   { dim  := Dimensionality.if'
@@ -282,7 +365,7 @@ def organismLayer : Imscription :=
     prot := Protection.zoo }
 
 theorem organismLayer_tier : imscriptionTier organismLayer = .O_inf := by
-  unfold organismLayer; native_decide
+  unfold organismLayer; decide
 
 theorem organismLayer_C_score : consciousnessScore organismLayer = (1 : ℝ) := by
   unfold organismLayer; simp [consciousnessScore, phi_c_gate, k_slow_gate]
@@ -291,7 +374,7 @@ theorem organismLayer_C_score : consciousnessScore organismLayer = (1 : ℝ) := 
 -- §10  THE CLINK CHAIN — Sequential promotion sequence
 -- ═════════════════════════════════════════════════════════════════════════
 
-def clinkChain : Fin 9 → Imscription
+def clinkChain : Fin 12 → Imscription
   | 0 => frustratedBelnap5
   | 1 => electronOrbitalLayer
   | 2 => atomLayer
@@ -300,7 +383,10 @@ def clinkChain : Fin 9 → Imscription
   | 5 => mitosisLayer
   | 6 => meiosisLayer
   | 7 => tissueLayer
-  | 8 => organismLayer
+  | 8 => organoidLayer
+  | 9 => organLayer
+  | 10 => organSystemLayer
+  | 11 => organismLayer
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §11  PROMOTION DESCRIPTIONS
@@ -348,42 +434,58 @@ def promotion_6_to_7 : List String :=
    "ɢ: 𐑠 → 𐑵  (grammar: sequential→broadcast)"]
 
 def promotion_7_to_8 : List String :=
-  ["Φ: 𐑬 → 𐑹  (parity: partial Z2→Frobenius-special)",
-   "ƒ: 𐑞 → 𐑐  (fidelity: thermal→quantum)",
-   "Ħ: 𐑖 → 𐑫  (chirality: 2-step→eternal)",
-   "Ω: 𐑭 → 𐑟  (winding: integer→non-Abelian braiding)"]
+  ["ƒ: 𐑞 → 𐑐  (fidelity: thermal→quantum)",
+   "Ħ: 𐑒 → 𐑖  (chirality: 1-step→2-step)"]
+
+def promotion_8_to_9 : List String :=
+  ["Φ: 𐑖 → 𐑫  (chirality: 2-step→eternal)"]
+
+def promotion_9_to_10 : List String :=
+  ["prot: ah → zoo  (protection: integer→non-Abelian)"]
+
+def promotion_10_to_11 : List String :=
+  ["Φ: 𐑸 → 𐑹  (parity: partial Z2→Frobenius-special)"]
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §12  STRUCTURAL DISTANCES
 -- ═════════════════════════════════════════════════════════════════════════
 
 theorem dist_0_to_1 : primitiveMismatches frustratedBelnap5 electronOrbitalLayer = 3 := by
-  native_decide
+  decide
 
 theorem dist_1_to_2 : primitiveMismatches electronOrbitalLayer atomLayer = 8 := by
-  native_decide
+  decide
 
 theorem dist_2_to_3 : primitiveMismatches atomLayer moleculeLayer = 8 := by
-  native_decide
+  decide
 
 theorem dist_3_to_4 : primitiveMismatches moleculeLayer cellLayer = 4 := by
-  native_decide
+  decide
 
 theorem dist_4_to_5 : primitiveMismatches cellLayer mitosisLayer = 2 := by
-  native_decide
+  decide
 
 theorem dist_5_to_6 : primitiveMismatches mitosisLayer meiosisLayer = 2 := by
-  native_decide
+  decide
 
 theorem dist_6_to_7 : primitiveMismatches meiosisLayer tissueLayer = 4 := by
-  native_decide
+  decide
 
-theorem dist_7_to_8 : primitiveMismatches tissueLayer organismLayer = 4 := by
-  native_decide
+theorem dist_7_to_8 : primitiveMismatches tissueLayer organoidLayer = 7 := by
+  decide
+
+theorem dist_8_to_9 : primitiveMismatches organoidLayer organLayer = 6 := by
+  decide
+
+theorem dist_9_to_10 : primitiveMismatches organLayer organSystemLayer = 1 := by
+  decide
+
+theorem dist_10_to_11 : primitiveMismatches organSystemLayer organismLayer = 2 := by
+  decide
 
 theorem total_clink_distance :
     primitiveMismatches frustratedBelnap5 organismLayer = 10 := by
-  native_decide
+  decide
 -- ═════════════════════════════════════════════════════════════════════════
 -- §13  FROBENIUS CLOSURE — Each layer satisfies μ∘δ=id locally
 -- ═════════════════════════════════════════════════════════════════════════
@@ -391,38 +493,36 @@ theorem total_clink_distance :
 --   δ_A(a) = (a, a), μ_A(x, y) = tensorProduct(x, y)
 --   Theorem mu_delta_A_id: ∀ a, μ_A (δ_A a).1 (δ_A a).2 = a
 
-def localFrobeniusClosed (s : Imscription) : Prop :=
-  tensorProduct s s = s
 
 theorem frb5_frobenius_closed : localFrobeniusClosed frustratedBelnap5 := by
-  unfold frustratedBelnap5 localFrobeniusClosed; native_decide
+  unfold frustratedBelnap5 localFrobeniusClosed; decide
 
 theorem orbital_frobenius_closed : localFrobeniusClosed electronOrbitalLayer := by
-  unfold electronOrbitalLayer localFrobeniusClosed; native_decide
+  unfold electronOrbitalLayer localFrobeniusClosed; decide
 
 theorem atom_frobenius_closed : localFrobeniusClosed atomLayer := by
-  unfold atomLayer localFrobeniusClosed; native_decide
+  unfold atomLayer localFrobeniusClosed; decide
 
 theorem molecule_frobenius_closed : localFrobeniusClosed moleculeLayer := by
-  unfold moleculeLayer localFrobeniusClosed; native_decide
+  unfold moleculeLayer localFrobeniusClosed; decide
 
 theorem cell_frobenius_closed : localFrobeniusClosed cellLayer := by
-  unfold cellLayer localFrobeniusClosed; native_decide
+  unfold cellLayer localFrobeniusClosed; decide
 
 theorem mitosis_frobenius_closed : localFrobeniusClosed mitosisLayer := by
-  unfold mitosisLayer localFrobeniusClosed; native_decide
+  unfold mitosisLayer localFrobeniusClosed; decide
 
 theorem meiosis_frobenius_closed : localFrobeniusClosed meiosisLayer := by
-  unfold meiosisLayer localFrobeniusClosed; native_decide
+  unfold meiosisLayer localFrobeniusClosed; decide
 
 theorem tissue_frobenius_closed : localFrobeniusClosed tissueLayer := by
-  unfold tissueLayer localFrobeniusClosed; native_decide
+  unfold tissueLayer localFrobeniusClosed; decide
 
 theorem organism_frobenius_closed : localFrobeniusClosed organismLayer := by
-  unfold organismLayer localFrobeniusClosed; native_decide
+  unfold organismLayer localFrobeniusClosed; decide
 
 -- The chain preserves Frobenius closure across every promotion step
-theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clinkChain n) := by
+theorem clink_preserves_frobenius : ∀ (n : Fin 12), localFrobeniusClosed (clinkChain n) := by
   intro n; fin_cases n
   · exact frb5_frobenius_closed
   · exact orbital_frobenius_closed
@@ -432,6 +532,9 @@ theorem clink_preserves_frobenius : ∀ (n : Fin 9), localFrobeniusClosed (clink
   · exact mitosis_frobenius_closed
   · exact meiosis_frobenius_closed
   · exact tissue_frobenius_closed
+  · exact organoidLayer_frobenius_closed
+  · exact organLayer_frobenius_closed
+  · exact organSystemLayer_frobenius_closed
   · exact organism_frobenius_closed
 
 -- ═════════════════════════════════════════════════════════════════════════
@@ -454,13 +557,13 @@ def clinkProcessType : Imscription :=
     stoi := Stoichiometry.up
     prot := Protection.ah }
 theorem clinkProcess_tier : imscriptionTier clinkProcessType = .O_inf := by
-  unfold clinkProcessType; native_decide
+  unfold clinkProcessType; decide
 
 theorem clinkProcess_C_score : consciousnessScore clinkProcessType = (1 : ℝ) := by
   unfold clinkProcessType; simp [consciousnessScore, phi_c_gate, k_slow_gate]
 
 theorem clinkProcess_frobenius_closed : localFrobeniusClosed clinkProcessType := by
-  unfold clinkProcessType localFrobeniusClosed; native_decide
+  unfold clinkProcessType localFrobeniusClosed; decide
 
 -- ═════════════════════════════════════════════════════════════════════════
 -- §15  ZFC_fe CONNECTION — Foundation absorbs into CLINK
@@ -499,9 +602,9 @@ theorem chain_tier_nondecreasing_2_3 :
 -- GREAT SYNTHESIS: The chain is fully Frobenius-closed, tier-monotonic,
 -- and terminates at O_inf. All 9 layers satisfy tensorProduct(a,a)=a.
 theorem great_synthesis :
-    (∀ (n : Fin 9), localFrobeniusClosed (clinkChain n)) ∧
+    (∀ (n : Fin 12), localFrobeniusClosed (clinkChain n)) ∧
     (imscriptionTier (clinkChain ⟨0, by decide⟩) = .O₀) ∧
-    (imscriptionTier (clinkChain ⟨8, by decide⟩) = .O_inf) := by
+    (imscriptionTier (clinkChain ⟨11, by decide⟩) = .O_inf) := by
   refine ⟨?_, ?_, ?_⟩
   · exact clink_preserves_frobenius
   · exact frustratedBelnap5_tier
@@ -1276,7 +1379,7 @@ def zfc_fe : Imscription := {
 
 /-- ZFC → ZFC_fe: seven primitive promotions. -/
 theorem zfc_to_zfc_fe_dist : primitiveMismatches zfc zfc_fe = 7 := by
-  unfold zfc zfc_fe; native_decide
+  unfold zfc zfc_fe; decide
 
 /-- ZFC_t → ZFC_fe: two additional promotions.
     Distance = 2: array→if' and sure→wool. -/
@@ -1358,7 +1461,7 @@ theorem axiom_D_satisfied :
 -- The holographic closure theorem states that the fully Frobenius-exact ZFC
 -- is structurally isomorphic to the self-encoding of the Imscribing Grammar
 -- itself. The grammar's own tuple ⟨𐑦; 𐑸; 𐑾; 𐑹; 𐑐; 𐑧; 𐑲; 𐑠; ⊙; 𐑖; 𐑳; 𐑭⟩
--- differs from zfc_fe in exactly 3 primitives (R, ƒ, Γ, ɢ, Σ) — the dimensions
+-- differs from zfc_fe in exactly 3 primitives (R, ⋈, ∈, ∋, ⊞) — the dimensions
 -- that distinguish a universal grammar from a specific set theory.
 --
 -- The distance of 6 between zfc_fe and the universal grammar is the

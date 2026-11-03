@@ -59,7 +59,7 @@ theorem phi_gate_involution :
     (pPrims, pVals) = (tVals, tPrims) := ⟨rfl, rfl⟩
 
 -- ============================================================
--- §3.  Φ gate preserves dimension and slot count
+-- §3.  ≺ gate preserves dimension and slot count
 -- ============================================================
 
 /-- Exchanging T and P families leaves d = 12 invariant. -/
@@ -75,7 +75,7 @@ theorem phi_gate_slot_invariant :
 -- §4.  The nested d=7 SIC from the {D,P} family subset
 -- ============================================================
 
-/-- The Φ gate lives in the P-family.  Combined with D, the {D,P} subset
+/-- The ≺ gate lives in the P-family.  Combined with D, the {D,P} subset
     has d_{D,P} = dPrims + pPrims = 7 primitives, giving a nested SIC-POVM
     in dimension 7 (the Shavian root). -/
 theorem d_DP_from_phi_family : dPrims + pPrims = 7 := rfl
@@ -84,7 +84,7 @@ theorem d_DP_from_phi_family : dPrims + pPrims = 7 := rfl
     Only {D,P} (giving 7) and the full {D,T,P} (giving 12) sit on the lattice. -/
 theorem d_DT_not_in_sic_lattice : dPrims + tPrims = 8 := rfl
 
-/-- The Φ gate selects d=7 (not d=8) because P-family is its home. -/
+/-- The ≺ gate selects d=7 (not d=8) because P-family is its home. -/
 theorem phi_selects_d7_not_d8 : dPrims + pPrims < dPrims + tPrims := by norm_num
 
 -- ============================================================
@@ -129,7 +129,7 @@ theorem phi_orbit84_eq_shavian_times_sic_orbit :
     (dSlots + tSlots + pSlots) * (dPrims + tPrims + pPrims) ^ 2 := by norm_num
 
 -- ============================================================
--- §7.  Main theorem: Φ gate identities
+-- §7.  Main theorem: ≺ gate identities
 -- ============================================================
 
 /-- The Parity gate theorem: T↔P duality forces the Shavian count, d=7, d=12,
@@ -142,7 +142,7 @@ theorem phi_gate_theorem :
     tVals = pPrims ∧
     -- d=7 from {D,P}
     dPrims + pPrims = 7 ∧
-    -- d=12 from full Crystal (invariant under Φ)
+    -- d=12 from full Crystal (invariant under ≺)
     dPrims + tPrims + pPrims = 12 ∧
     -- Shavian count = 49 = 7²
     dSlots + tSlots + pSlots = 49 ∧

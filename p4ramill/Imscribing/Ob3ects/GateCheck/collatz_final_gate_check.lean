@@ -114,7 +114,7 @@ theorem collatz_final_frobenius :
 theorem collatz_final_tier_ground_eq : collatz_final_tier_ground = OuroboricityTier.O₀ := by
   decide
 
-/-- The closed object sits at `O₂dag` — critical, Ω-protected, `dim = array`: the
+/-- The closed object sits at `O₂dag` — critical, ⊡-protected, `dim = array`: the
     lateral self-replicative closure the descent's designed protocol lands on. -/
 theorem collatz_final_tier_eq : collatz_final_tier = OuroboricityTier.O₂dag := by
   decide

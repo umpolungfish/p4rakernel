@@ -158,7 +158,7 @@ def w_stone : Imscription :=
     Witnesses frobenius ⊊ traced. -/
 def w_frob : Imscription := { w_stone with crit := woe }
 
-/-- Trace closes (special class) but no protective winding (Ω = awe), so the
+/-- Trace closes (special class) but no protective winding (⊡ = awe), so the
     terminal does not seal. Witnesses traced ⊊ terminal. -/
 def w_traced : Imscription := { w_stone with prot := awe }
 
@@ -226,7 +226,7 @@ theorem gate_ordering_theorem :
 -- §8  THE GATE-FREE STAGES 5–8 ARE ORDER-FREE
 -- ============================================================
 -- Stages 5 (Putrefaction, F), 6 (Congelation, K), 7 (Cibation, G) and
--- 8 (Sublimation, Γ) carry no gate. Each is a single-axis projection toward the
+-- 8 (Sublimation, ∈) carry no gate. Each is a single-axis projection toward the
 -- Stone value on an axis that no unlock predicate reads. Two facts make
 -- "order-free" precise and distinguish these stages from the gates:
 --   (i)  the four projections pairwise COMMUTE (updates on disjoint axes);

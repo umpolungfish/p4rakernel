@@ -12,6 +12,7 @@
 
 import Imscribing.Millennium.PrimitiveBridge
 import Imscribing.Millennium.CompositionRules
+import Imscribing.Millennium.Collatz
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Algebra
@@ -23,6 +24,7 @@ open Dimensionality Topology Relational Polarity Grammar
      Stoichiometry Chirality
 open Millennium.PrimitiveBridge
 open Millennium.CompositionRules
+open Millennium.Collatz
 
 namespace Millennium.CrossMPPElaboration
 
@@ -239,6 +241,63 @@ theorem ym_cannot_reach_O_inf_via_frobenius :
 theorem ym_schwinger_cannot_reach_O_inf_via_frobenius :
     (compute_join ym_quantum_target schwinger_encoding).pol ≠ or' :=
   ym_schwinger_join_not_or
+
+/- §9b. YM ↔ COLLAZ: SHARED COMPLETENESS (λ_C = ∈)
+   Both YM and Collatz sit on completeness (λ_C split shell), not on
+   criticality (⊙). Their encodings both have pol = out. Joining them
+   preserves pol = out — they share completeness but cannot synthesize
+   or' (Frobenius) together. This is the manuscript's key structural
+   observation: YM and Collatz are linked by completeness, not by
+   Frobenius closure. -/
+
+theorem ym_collatz_share_completeness :
+    (compute_join ym_quantum_target collatz_vessel).pol = out := by
+  -- Both ym_quantum_target.pol = out and collatz_vessel.pol = out,
+  -- so compute_join takes max = out (since out < or', and both are out,
+  -- the max is out).
+  rw [compute_join]
+  <;>
+  (try
+    {
+      have h : compare out out = Ordering.eq := rfl
+      simp [ym_quantum_target, collatz_vessel, h]
+      <;> decide
+    })
+
+theorem ym_collatz_cannot_reach_O_inf :
+    (compute_join ym_quantum_target collatz_vessel).pol ≠ or' := by
+  intro h
+  rw [compute_join] at h
+  <;>
+  (try
+    {
+      have h₁ : compare out out = Ordering.eq := rfl
+      simp [ym_quantum_target, collatz_vessel, h₁] at h
+      <;> decide
+    })
+
+/- §9c. LEE-YANG PLUGS INTO YM: OR' ELEVATES OUT TO OR'
+   Lee-Yang has pol = or'. Joining Lee-Yang with YM (pol = out) via
+   compute_join takes max = or'. This elevates YM's out polarity to
+   or', crossing the Frobenius gate (P_pm_sym). YM's crit = monad
+   already passes Φ_c. Both O_inf gates pass — YM plugged into Lee-Yang
+   reaches O_inf grammar. -/
+
+theorem lee_yang_join_ym_reaches_O_inf_gates :
+    ((compute_join lee_yang_encoding ym_quantum_target).crit = roar ∨
+     (compute_join lee_yang_encoding ym_quantum_target).crit = monad) ∧
+    (compute_join lee_yang_encoding ym_quantum_target).pol = or' := by
+  have h₁ : (compute_join lee_yang_encoding ym_quantum_target).crit = roar ∨
+      (compute_join lee_yang_encoding ym_quantum_target).crit = monad := by
+    dsimp [compute_join, lee_yang_encoding, ym_quantum_target]
+    <;> by_cases h : compare roar monad = Ordering.lt <;> simp_all [compare]
+    <;> tauto
+  have h₂ : compare or' out = Ordering.gt := by decide
+  have h₂' : (compute_join lee_yang_encoding ym_quantum_target).pol = or' := by
+    rw [compute_join]
+    <;> simp [lee_yang_encoding, ym_quantum_target, h₂]
+    <;> decide
+  exact ⟨h₁, h₂'⟩
 
 /- §10. P < NP — POLARITY ORDERING IS THE SEPARATION
    P encodes at pol = nun (ordinal 3), NP encodes at pol = or' (ordinal 4).

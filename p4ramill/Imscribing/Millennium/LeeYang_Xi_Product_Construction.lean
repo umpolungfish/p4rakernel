@@ -31,12 +31,14 @@ import Imscribing.Millennium.RH
 import Imscribing.Millennium.RH_ZFCt_Bridge
 import Imscribing.Millennium.RH_LeeYang_Bridge
 import Imscribing.Millennium.FrobeniusStructure
+import Imscribing.Paraconsistent.DialetheicWitness
 
 open Imscribing.Primitives
 open Millennium.RH
 open Millennium.RH_ZFCt
 open Millennium.RH_LeeYang_Bridge
 open Millennium.Frobenius
+open Imscribing.Paraconsistent.DialetheicWitness
 
 set_option linter.style.whitespace false
 
@@ -109,11 +111,11 @@ structure Z2Grading (V : Type) where
   even : V
   odd : V
 
-/-- The grading involution Γ. -/
+/-- The grading involution ∈. -/
 def gammaOp (x : Z2Grading ℂ) : Z2Grading ℂ :=
   Z2Grading.mk x.even (-x.odd)
 
-/-- Γ is an involution: Γ² = id. -/
+/-- Γ is an involution: ∈² = id. -/
 theorem gamma_sq_id (x : Z2Grading ℂ) : gammaOp (gammaOp x) = x := by
   simp [gammaOp, neg_neg]
 
@@ -158,9 +160,8 @@ def rhForcingQuestion : Prop :=
     Promoting P_neutral → P_doublebarpipe closes RH via the Lee-Yang template.
     The ℤ₂ grading operator Γ = theta_combined provides this promotion
     by encoding the Z₂ symmetry as a coercive product structure. -/
-theorem polarity_promotion_closes_c13_gap :
-    RiemannHypothesis_as_C13 :=
-  rh_from_zfct
+def polarity_promotion_closes_c13_gap : Verdict RiemannHypothesis_as_C13 := by
+  exact rh_from_zfct
 
 /-!
   # §6. Summary

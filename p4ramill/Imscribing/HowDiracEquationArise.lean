@@ -398,7 +398,7 @@ theorem dirac_baseline_distance :
 --   ξ → ∞ ∧ μ∘δ = id ∧                               -- ⊙  [PHI_C]
 --   ∃y∃z( y ∈ x ∧ z ∈ y ∧ ¬ z ∈ x ∧ rank(z) < rank(y) ) ∧ -- H=𐑖  [TEMPD2]
 --   ∃a∈A∃b∈B( type(a) ≠ type(b) ) ∧                 -- S=𐑳
---   ∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0               -- Ω=𐑭  [ZWIND]
+--   ∮_γ A = 2πn ∧ n ∈ ℤ ∧ wind(γ) ≠ 0               -- ⊡=𐑭  [ZWIND]
 --
 -- 5 promoted atoms: LR_DUAL, SEQAX, PHI_C, TEMPD2, ZWIND
 -- d(ZFC_fe) = 3.16

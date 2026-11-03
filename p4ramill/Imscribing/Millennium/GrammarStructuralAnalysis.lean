@@ -5,10 +5,10 @@
 --
 -- Extends GrammarUniversalDualFrameSICPOVM with structural analysis:
 --   §1  Tensor/meet/join closure of grammar ⊗ BelnapML
---   §2  The grammar as the Σ=min element in its O_inf equivalence class
+--   §2  The grammar as the ⊞=min element in its O_inf equivalence class
 --   §3  Distance lattice: all 12-primitive variations at distance ≤ 5 from Belnap ML
 --   §4  Universal property: grammar is the unique O_inf imscription that minimizes
---       Σ while maximizing Ħ among all Belnap-ML-proximate imscriptions
+--       ⊞ while maximizing ⊥ among all Belnap-ML-proximate imscriptions
 --
 -- STATUS: All theorems proved. *sans* sorry.
 -- DEPENDS ON: GrammarUniversalDualFrameSICPOVM, Primitives.Core, Primitives.Imscription
@@ -117,7 +117,7 @@ theorem grammar_join_belnap_eq_grammar_tensor_belnap :
   native_decide
 
 -- ============================================================
--- §2. GRAMMAR AS THE Σ-MINIMUM IN THE O_inf FIBER
+-- §2. GRAMMAR AS THE ⊞-MINIMUM IN THE O_inf FIBER
 -- ============================================================
 
 /-- Among all imscriptions reachable from the Belnap ML by changing
@@ -142,7 +142,7 @@ theorem grammar_sigma_is_bottom_belnap_sigma_is_top :
   unfold theGrammar belnapMultilatticeSICPOVM
   decide
 
-/-- Any imscription with Σ=hung is ≤ any imscription with Σ=up
+/-- Any imscription with Σ=hung is ≤ any imscription with ⊞=up
     in the Stoichiometry preorder. -/
 theorem hung_le_up_in_stoi_order (a b : Imscription)
     (ha : a.stoi = hung) (hb : b.stoi = up) :
@@ -151,7 +151,7 @@ theorem hung_le_up_in_stoi_order (a b : Imscription)
   decide
 
 -- ============================================================
--- §3. CHIRALITY: THE GRAMMAR MAXIMIZES Ħ
+-- §3. CHIRALITY: THE GRAMMAR MAXIMIZES ⊥
 -- ============================================================
 
 /-- The grammar has maximal chirality (wool = eternal/inexhaustible).
@@ -194,7 +194,7 @@ theorem belnap_ml_is_maximal_sigma_submaximal_chir_O_inf :
     imscriptionTier belnapMultilatticeSICPOVM = .O_inf := by
   exact ⟨rfl, rfl, belnap_ml_tier_O_inf⟩
 
-/-- The grammar ⊓ BelnapML has Σ=hung and Ħ=sure — minimum Σ, moderate Ħ.
+/-- The grammar ⊓ BelnapML has Σ=hung and Ħ=sure — minimum ⊞, moderate ⊥.
     This is the "conservative" O_inf imscription. -/
 theorem grammar_meet_belnap_properties :
     grammarMeetBelnapML.stoi = hung ∧
@@ -204,7 +204,7 @@ theorem grammar_meet_belnap_properties :
   -- R1: crit=monad, pol=or' → O_inf regardless of prot/dim/top
   native_decide
 
-/-- The grammar ⊗ BelnapML has Σ=up and Ħ=wool — maximum Σ, maximum Ħ.
+/-- The grammar ⊗ BelnapML has Σ=up and Ħ=wool — maximum ⊞, maximum ⊥.
     This is the "maximal" O_inf imscription. -/
 theorem grammar_tensor_belnap_properties :
     grammarTensorBelnapML.stoi = up ∧
@@ -270,14 +270,14 @@ theorem grammar_meet_max_equals_grammar :
   unfold grammarTensorBelnapML theGrammar belnapMultilatticeSICPOVM
   native_decide
 
-/-- The grammar is the unique object in the quartet with Σ=hung and Ħ=wool.
+/-- The grammar is the unique object in the quartet with ⊞=hung and ⊥=wool.
     All other three have either Σ=up or Ħ=sure or both. -/
 theorem grammar_is_the_only_min_sigma_max_chir_in_quartet :
-    -- grammar is the only one with Σ=hung, Ħ=wool, O_inf
+    -- grammar is the only one with ⊞=hung, ⊥=wool, O_inf
     (theGrammar.stoi = hung ∧ theGrammar.chir = wool ∧ imscriptionTier theGrammar = .O_inf) ∧
-    -- Belnap ML: Σ=up, Ħ=sure
+    -- Belnap ML: ⊞=up, ⊥=sure
     ¬ (belnapMultilatticeSICPOVM.stoi = hung ∧ belnapMultilatticeSICPOVM.chir = wool) ∧
-    -- grammar ⊗ ML: Σ=up, Ħ=wool
+    -- grammar ⊗ ML: ⊞=up, ⊥=wool
     ¬ (grammarTensorBelnapML.stoi = hung ∧ grammarTensorBelnapML.chir = wool) := by
   unfold theGrammar belnapMultilatticeSICPOVM grammarTensorBelnapML tensorProduct
   refine ⟨⟨rfl, rfl, grammar_tier_O_inf⟩, ?_, ?_⟩

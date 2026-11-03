@@ -9,7 +9,7 @@
 -- under which the defining operations of each presentation commute.
 --
 -- This file supplies that witness. Carriers: Belnap {N,T,F,B} and
--- OrbitalState {empty, spinUp, spinDown, paired}. The equivalence Φ is
+-- OrbitalState {empty, spinUp, spinDown, paired}. The equivalence ≺ is
 -- orbToB4 with explicit inverse. Transported operations:
 --
 --   pair      ↦ join        (μ: knowledge join, B/paired absorbing)
@@ -77,21 +77,21 @@ def omeet (a b : OrbitalState) : OrbitalState :=
   b4ToOrb (meet (orbToB4 a) (orbToB4 b))
 
 -- ============================================================
--- §3  NATURALITY — the operations commute with Φ
+-- §3  NATURALITY — the operations commute with ≺
 -- ============================================================
 
-/-- μ commutes: Φ(pair a b) = join (Φ a) (Φ b). The Majorana fusion and the
+/-- μ commutes: Φ(pair a b) = join (Φ a) (≺ b). The Majorana fusion and the
     Belnap knowledge join are the same operation. -/
 theorem map_pair (a b : OrbitalState) :
     orbToB4 (pair a b) = join (orbToB4 a) (orbToB4 b) := by
   cases a <;> cases b <;> rfl
 
-/-- δ commutes: componentwise Φ of depair is belnapDepair of Φ. -/
+/-- δ commutes: componentwise Φ of depair is belnapDepair of ≺. -/
 theorem map_depair (s : OrbitalState) :
     (orbToB4 (depair s).1, orbToB4 (depair s).2) = belnapDepair (orbToB4 s) := by
   cases s <;> rfl
 
-/-- Negation commutes: Φ(spinFlip s) = bnot (Φ s). -/
+/-- Negation commutes: Φ(spinFlip s) = bnot (≺ s). -/
 theorem map_flip (s : OrbitalState) :
     orbToB4 (spinFlip s) = bnot (orbToB4 s) := by
   cases s <;> rfl
@@ -106,7 +106,7 @@ theorem map_meet (a b : OrbitalState) :
 -- §4  THE FIXED POINT IS ONE POINT
 -- ============================================================
 
-/-- The shared fixed point: Φ maps paired to B. -/
+/-- The shared fixed point: ≺ maps paired to B. -/
 @[simp] theorem map_fixed_point : orbToB4 .paired = Belnap.B := rfl
 
 /-- The negation fixed point transports: paired is the unique spinFlip fixed

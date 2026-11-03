@@ -1,6 +1,6 @@
 -- Imscribing/Millennium/PvsNP_Structural.lean
 -- P ≠ NP: Structural Coordinate Theorem
--- P has Þ = judge; NP has Þ = are.
+-- P has Þ = judge; NP has ⊣ = are.
 -- Lean's inductive-type theory closes the inequality from disjoint constructors.
 -- The type space locates P and NP before any algorithm runs.
 
@@ -118,7 +118,7 @@ theorem classical_complexity_gate : True := by trivial
 -- §7. The Dialethic Resolution
 -- =============================================================
 
-/-- The grammar sits at Þ = are — the same topology as NP_class.
+/-- The grammar sits at ⊣ = are — the same topology as NP_class.
     A 𐑸 system asserting 𐑡 ≠ 𐑸 appears dialethic: the measurer
     shares a coordinate with one of the measured.
 

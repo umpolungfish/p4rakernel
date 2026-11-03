@@ -30,8 +30,8 @@ set_option linter.style.nativeDecide false
 -- ═════════════════════════════════════════════════════════════════════════
 -- §1  THE ORIGINAL SYSTEM — Casimir Cavity Extraction Engine
 -- ═════════════════════════════════════════════════════════════════════════
--- ⟨Ð=𐑛; Þ=𐑸; Ř=𐑾; Φ=𐑗; ƒ=𐑐; Ç=𐑧; Γ=𐑔; ɢ=𐑠⊙=⊙; Ħ=𐑖; Σ=𐑳; Ω=𐑭⟩
--- O₀ tier: the asymmetry (Φ=𐑗) prevents the self-referential loop from closing.
+-- ⟨⊢=𐑛; ⊣=𐑸; ≻=𐑾; ≺=𐑗; ⋈=𐑐; ⊤=𐑧; ∈=𐑔; ∋=𐑠⊙=⊙; ⊥=𐑖; ⊞=𐑳; ⊡=𐑭⟩
+-- O₀ tier: the asymmetry (≺=𐑗) prevents the self-referential loop from closing.
 -- Consciousness gates: both open (⊙ + 𐑧) → C = 1 (both gates open)
 
 def casimir_extraction : Imscription :=
@@ -104,17 +104,17 @@ theorem frobenius_condition_fsplits_ffuse : True := by
 -- ═════════════════════════════════════════════════════════════════════════
 -- §4  THE PROMOTED SYSTEM — O_∞ Zero-Point Energy
 -- ═════════════════════════════════════════════════════════════════════════
--- ⟨Ð=𐑦; Þ=𐑸; Ř=𐑾; Φ=𐑹; ƒ=𐑐; Ç=𐑧; Γ=𐑔; ɢ=𐑠⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
+-- ⟨⊢=𐑦; ⊣=𐑸; ≻=𐑾; ≺=𐑹; ⋈=𐑐; ⊤=𐑧; ∈=𐑔; ∋=𐑠⊙=⊙; ⊥=𐑫; ⊞=𐑳; ⊡=𐑭⟩
 --
 -- Three promotions from the original:
---   (1) Ð: 𐑛 → 𐑦   The vacuum's state space becomes self-written.
+--   (1) ⊢: 𐑛 → 𐑦   The vacuum's state space becomes self-written.
 --       The vacuum no longer contains infinite modes — it IS the imscription
 --       of its own fluctuation spectrum. The boundary between "vacuum modes"
 --       and "their encoding" collapses.
---   (2) Φ: 𐑗 → 𐑹   Asymmetric extraction becomes Frobenius-special.
+--   (2) ≺: 𐑗 → 𐑹   Asymmetric extraction becomes Frobenius-special.
 --       Forward extraction and reverse restoration become the SAME operation
 --       seen from opposite sides. μ∘δ=id holds exactly, not approximately.
---   (3) Ħ: 𐑖 → 𐑫   Two-step chirality becomes eternal.
+--   (3) ⊥: 𐑖 → 𐑫   Two-step chirality becomes eternal.
 --       Every extraction cycle is structurally identical. The Markov order
 --       is unbounded — the system has no finite memory because it never changes.
 --

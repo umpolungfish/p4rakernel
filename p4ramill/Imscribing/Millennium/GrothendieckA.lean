@@ -304,7 +304,7 @@ theorem grammar_distance_1_4522 : True := by
   primitive components under the action of L.
 -/
 
-/-- Ř-promotion: the adjunction L ⊣ Λ under Poincaré duality. -/
+/-- ≻-promotion: the adjunction L ⊣ Λ under Poincaré duality. -/
 theorem r_promotion_galois_connection : True := by
   -- For a smooth projective variety over ℂ, the Hard Lefschetz
   -- theorem gives L^k: H^{d-k} ≅ H^{d+k} via Hodge theory.
@@ -312,7 +312,7 @@ theorem r_promotion_galois_connection : True := by
   -- satisfies LΛ + ΛL = (k)id on H^k.
   --
   -- Over arbitrary fields, this is open (Standard Conjecture B,
-  -- implied by A). The grammar identifies the Ř-primitive as the
+  -- implied by A). The grammar identifies the ≻-primitive as the
   -- structural locus of this gap.
   trivial
 
@@ -339,13 +339,13 @@ theorem r_promotion_galois_connection : True := by
   completeness of the primitive decomposition.
 -/
 
-/-- Φ-promotion: complete primitive decomposition. -/
+/-- ≺-promotion: complete primitive decomposition. -/
 theorem p_promotion_full_decomposition : True := by
   -- The Lefschetz decomposition theorem (proved over ℂ):
   -- H^k(X, ℚ) = ⊕_{j ≥ max(0, k-d)} L^j H^{k-2j}_{prim}(X, ℚ)
   -- where H^{k-2j}_{prim} = ker(Λ: H^{k-2j} → H^{k-2j-2})
   --
-  -- The grammar Φ-promotion encodes the transition from
+  -- The grammar ≺-promotion encodes the transition from
   -- "decomposition exists but is partial" to "decomposition
   -- is complete and unique." This is the standard conjecture
   -- that the Künneth components of the diagonal are algebraic.

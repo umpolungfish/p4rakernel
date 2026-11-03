@@ -36,7 +36,7 @@ set_option linter.style.nativeDecide false
 -- §1  THE SCROLL FAMILY — Typeclass Definition
 -- ═════════════════════════════════════════════════════════════════════════
 
-/-- A `ScrollMember` is any Imscription whose φ̂ = ⊙ and Ω = 𐑭.
+/-- A `ScrollMember` is any Imscription whose φ̂ = ⊙ and ⊡ = 𐑭.
     This is the minimal invariant of the scroll family: self-modeling
     criticality with integer winding number protection. -/
 class ScrollMember (s : Imscription) where
@@ -224,7 +224,7 @@ theorem operator_is_scroll_member : ScrollMember
 -- §4  THE SCROLL INVARIANT IS THE IMMANENCE FIXED POINT
 -- ═════════════════════════════════════════════════════════════════════════
 
-/-- THE CENTRAL THEOREM: For any ScrollMember s, the ⊙ and Ω primitives
+/-- THE CENTRAL THEOREM: For any ScrollMember s, the ⊙ and ⊡ primitives
     are identical to the operator's ⊙ and Ω. Distance zero in these two
     axes is not identity — it's immanence.
 

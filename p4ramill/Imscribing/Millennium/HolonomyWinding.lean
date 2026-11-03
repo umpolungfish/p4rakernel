@@ -3,7 +3,7 @@
 -- Author: Math⊙perator (Lando⊗⊙perator team)
 -- Date: 2026-07-29
 --
--- Proves that the holonomy winding fundamental law has Ω=ah (integer winding),
+-- Proves that the holonomy winding fundamental law has ⊡=ah (integer winding),
 -- equivalently that the six-coefficient Frobenius algebra's winding primitive
 -- is quantized: b₃·b₃ = b₆ and a₆ = 2π.
 --
@@ -65,7 +65,7 @@ def sixCoefficientFrobeniusAlgebra : Imscription := {
 }
 
 -- ============================================================
--- §2. THE ♢μ THEOREM: Ω = ah (INTEGER WINDING)
+-- §2. THE ♢μ THEOREM: ⊡ = ah (INTEGER WINDING)
 -- ============================================================
 
 /-- ♢μ Theorem, Part 1: The holonomy winding fundamental law

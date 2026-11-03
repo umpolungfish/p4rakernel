@@ -12,11 +12,11 @@ import Mathlib
 --   • Bond strengths: Δ₁₂=3/2, Δ₂₃=5/3, Δ₃₄=4/3, Δ₄₁=7/6
 --   • Isotactic stereochemistry (uniform chirality fee throughout)
 --   • Regioregular backbone (all bonds on R↔S)
---   • Cyclic closure: genus g=1, Ω-invariant satisfied
---   • Insulating: Ω-saturated (no conductive circulation)
+--   • Cyclic closure: genus g=1, ⊡-invariant satisfied
+--   • Insulating: ⊡-saturated (no conductive circulation)
 --   • 8/24 permutations cyclize (order-robust, not unique)
 --
--- Total bond energy: Σ Δ = 3/2 + 5/3 + 4/3 + 7/6 = 34/6 = 17/3
+-- Total bond energy: ⊞ Δ = 3/2 + 5/3 + 4/3 + 7/6 = 34/6 = 17/3
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription

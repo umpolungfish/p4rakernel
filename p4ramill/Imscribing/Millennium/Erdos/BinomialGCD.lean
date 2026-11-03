@@ -164,11 +164,11 @@ def binomial_coefficient_gcd : Imscription :=
     (.age)     -- F: classical
     (.egg)     -- K: non-equilibrium
     (.thigh)   -- G: intermediate (prime-power global, GCD local)
-    (.measure) -- Γ: sequential
+    (.measure) -- ∈: sequential
     (.roar)    -- φ̂: complex critical (Kummer carries)
     (.kick)    -- H: Markov order 1
-    (.hung)    -- Σ: 1:1
-    (.awe)     -- Ω: trivial protection
+    (.hung)    -- ⊞: 1:1
+    (.awe)     -- ⊡: trivial protection
 
 theorem binomial_gcd_tier_is_O1 : imscriptionTier binomial_coefficient_gcd = .O₁ := by
   unfold binomial_coefficient_gcd; native_decide

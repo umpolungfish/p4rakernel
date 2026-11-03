@@ -211,7 +211,7 @@ of bound that are actually known for `k ≥ 4` fail it, and fail it provably rat
 than merely failing to be strong enough for a proof anyone has written.
 -/
 
-/-- For every `c > 0`, the series `Σ 1/(log j)^c` diverges. -/
+/-- For every `c > 0`, the series `⊞ 1/(log j)^c` diverges. -/
 theorem not_summable_one_div_log_rpow (c : ℝ) (hc : 0 < c) :
     ¬ Summable (fun j : ℕ => 1 / (Real.log j) ^ c) := by
   intro hsum

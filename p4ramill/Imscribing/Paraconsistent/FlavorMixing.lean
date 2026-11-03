@@ -141,7 +141,7 @@ inductive NeutrinoMass where
   | m1 | m2 | m3
   deriving Inhabited, Repr, DecidableEq
 
--- PMNS mixing: |ν_α⟩ = Σ_i U_{αi} |ν_i⟩
+-- PMNS mixing: |ν_α⟩ = ⊞_i U_{αi} |ν_i⟩
 -- We encode this as a structural relation: the flavor basis and mass basis
 -- are related by a non-diagonal transformation.
 

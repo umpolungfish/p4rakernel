@@ -192,7 +192,7 @@ For a solar mass BH: T_H ≈ 6×10⁻⁸ K — colder than the CMB!
 
 inductive BlackHoleThermodynamicLaw where
   | zeroth   -- κ constant on horizon
-  | first    -- dM = (κ/8π) dA + Ω dJ + Φ dQ
+  | first    -- dM = (κ/8π) dA + ⊡ dJ + ≺ dQ
   | second   -- dA/dt ≥ 0 (generalized: d(S_BH + S_matter)/dt ≥ 0)
   | third    -- κ → 0 unreachable
   deriving Inhabited, Repr, DecidableEq

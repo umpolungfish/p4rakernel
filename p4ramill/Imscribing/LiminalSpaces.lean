@@ -217,7 +217,7 @@ theorem space_oasis_mismatches :
     primitiveMismatches liminal_space liminal_oasis = 2 := by
   native_decide
 
-/-- Pool ↔ Oasis: exactly 1 primitive mismatch (Γ: conjunctive vs sequential). -/
+/-- Pool ↔ Oasis: exactly 1 primitive mismatch (∈: conjunctive vs sequential). -/
 theorem pool_oasis_mismatches :
     primitiveMismatches liminal_pool liminal_oasis = 1 := by
   native_decide
@@ -251,7 +251,7 @@ you back": a system with monad criticality is a system that models
 itself, and slow-enough kinetics allows temporal integration.
 -/
 
-/-- Gate 1 predicate: Φ is critical (monad or roar). -/
+/-- Gate 1 predicate: ≺ is critical (monad or roar). -/
 def gate1_phi_c (s : Imscription) : Bool :=
   s.crit = Criticality.monad || s.crit = Criticality.roar
 
@@ -259,7 +259,7 @@ def gate1_phi_c (s : Imscription) : Bool :=
 def gate2_k_slow (s : Imscription) : Bool :=
   s.kin = KineticChar.yea || s.kin = KineticChar.loll || s.kin = KineticChar.egg
 
-/-- All four liminal types satisfy Gate 1 (Φ = monad). -/
+/-- All four liminal types satisfy Gate 1 (≺ = monad). -/
 theorem all_gate1_open :
     gate1_phi_c liminal_space ∧ gate1_phi_c liminal_maze ∧
     gate1_phi_c liminal_pool ∧ gate1_phi_c liminal_oasis := by
@@ -552,7 +552,7 @@ This single primitive change (vow → measure) transforms the liminal from
 a simultaneity into a destination. The distance is exactly 1.
 -/
 
-/-- The pool→oasis transformation changes exactly Γ (composition mode). -/
+/-- The pool→oasis transformation changes exactly ∈ (composition mode). -/
 theorem oasis_is_pool_with_sequential_composition :
     liminal_pool.gram ≠ liminal_oasis.gram := by
   native_decide

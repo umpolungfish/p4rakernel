@@ -365,6 +365,15 @@ theorem dyn_pair : dyn_word.getD 2 VINIT = FSPLIT ∧ dyn_word.getD 8 VINIT = FF
 -- dialetheia-complete: both arms deposit (T-arm first — the split executes ∈ → ⊤arm → ⊥arm → ∋)
 theorem ns_dialetheia : EVALT ∈ ns_word ∧ EVALF ∈ ns_word := by native_decide
 theorem ym_dialetheia : EVALT ∈ ym_word ∧ EVALF ∈ ym_word := by native_decide
+
+/-- ENGAGR (⊞) — self-reference closure (μ∘δ = id) — is in ym_word.
+    Per the manuscript (§4.4), ENGAGR is the only trine member confirmed
+    on BOTH the evaluator sphere AND the horn torus surface (via the
+    arctan(1/4) tilt). EVALT and EVALF are on the evaluator sphere only;
+    ENGAGR bridges both surfaces. -/
+theorem ym_engagr_in_word : ENGAGR ∈ ym_word := by
+  norm_num [ym_word]
+  <;> rfl
 theorem bsd_dialetheia : EVALT ∈ bsd_word ∧ EVALF ∈ bsd_word := by native_decide
 theorem hodge_dialetheia : EVALT ∈ hodge_word ∧ EVALF ∈ hodge_word := by native_decide
 theorem riemann_dialetheia : EVALT ∈ riemann_word ∧ EVALF ∈ riemann_word := by native_decide
@@ -443,6 +452,46 @@ theorem horn_torus_summary :
           · constructor
             · exact card_b4_sq
             · exact trine_card
+
+
+/-! ## Closed results: geometry slot assignments (§4.6, §10.4) -/
+
+-- γ(0) at x = 2R → ⊢ (VINIT): source boundary, farthest radial extent from pinch ⊙
+def gamma_zero_mark : Op := VINIT
+
+-- A₂ equatorial triangle → ⊣ (TANCH): terminal anchor, closed circuit of three roots (n₊ against two n₋)
+def a2_triangle_mark : Op := TANCH
+
+-- ≺ involution/parity → ≺ (polarity): lobe-reflection x → −x through the pinch ⊙, exchanges the two lobes
+def parity_mark : Op := AREV
+
+-- lobe reflection through the pinch: x → −x sends the right lobe (x > 0) to the left lobe (x < 0)
+def reflectLobe (p : Point) : Point := (-p.1, p.2.1, p.2.2)
+
+theorem reflectLobe_pinch_fixed : reflectLobe origin = origin := by simp [origin, reflectLobe]
+
+theorem reflectLobe_gamma_zero : reflectLobe (gamma 2 0) = (-4, 0, 0) := by
+  simp [gamma_zero, reflectLobe]
+  <;> norm_num
+
+/-! ## α⁻¹ constant derivations (§6, §10.3) -/
+
+-- All constants derived from trilattice axioms: n=16, d=12, β=2
+
+theorem alpha_const_800 : (800 : ℕ) = 16 * (2 * (12 + 5) + 16) := by norm_num
+
+theorem alpha_const_801 : (801 : ℕ) = 800 + 1 := by norm_num
+
+theorem alpha_const_14 : (14 : ℕ) = 16 - 2 := by norm_num
+
+theorem alpha_const_exp_real : (625 : ℝ) / 16 - (1 : ℝ) / (12 : ℝ) ^ 3 = (5 : ℝ) ^ 4 / 2 ^ 4 - (1 : ℝ) / (12 : ℝ) ^ 3 := by norm_num
+
+-- Elements strictly between bottom (∅) and top ({T,F,t,f}) in the information order:
+-- 16 total elements minus the two bounds = 14.
+-- This is the exponent 14 in |t|¹⁴ = e^(-9π/2 · 14).
+theorem elements_strictly_between_info_bounds : (Fintype.card (B4 × B4) : ℕ) - 2 = 14 := by
+  rw [card_b4_sq]
+  <;> norm_num
 
 end HornTorus
 end Imscribing

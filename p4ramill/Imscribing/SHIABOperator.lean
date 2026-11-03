@@ -135,7 +135,7 @@ theorem shiab_operator_self_pairing_idem :
 --   ⊢ 𐑦  V = L(x) ∧ selfmodel(x) ∧ x ∈ V        holographic constructible state
 --   ⊣ 𐑰  x ⊆ y ∧ cont(y)                         containment
 --   ≻ 𐑽  f ⊣ g ∧ L Adj(f, g)                     left adjunction
---   ≺ 𐑿  |ψ⟩ = Σ cᵢ |eᵢ⟩                          superposition
+--   ≺ 𐑿  |ψ⟩ = ⊞ cᵢ |eᵢ⟩                          superposition
 --   ⋈ 𐑐  ℏ(x) ∧ [x, p] = iℏ                       canonical commutator (bridge)
 --   ⊤ 𐑧  τ ≫ T ∧ eq(x) ∧ gate_open(x)            equilibrium gate
 --   ∈ 𐑚  ∀ y ∈ x, |y| < |x|                       well-founded range split  = δ
@@ -176,7 +176,7 @@ def shiabContainment {α : Type*} (x y : Set α) : Prop := x ⊆ y
 def shiabAdjunction {α β : Type*} [Preorder α] [Preorder β] (f : α → β) (g : β → α) : Prop :=
   GaloisConnection f g
 
-/-- ≺ 𐑿  Superposition: a vector as a finite expansion Σ cᵢ eᵢ. -/
+/-- ≺ 𐑿  Superposition: a vector as a finite expansion ⊞ cᵢ eᵢ. -/
 def shiabSuperposition {ι E : Type*} [Fintype ι] [AddCommMonoid E] [Module ℝ E]
     (x : E) (c : ι → ℝ) (e : ι → E) : Prop := x = ∑ i, c i • e i
 

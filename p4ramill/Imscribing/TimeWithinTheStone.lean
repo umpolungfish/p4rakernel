@@ -37,7 +37,7 @@ def timeConceptImscription : Imscription := {
 def lucaImscription : Imscription := Imscribing.CLINK.organismLayer
 
 /-- An imscription is a *compound* boundary operator when it inhabits all three
-    gate primitives simultaneously: the ⊙/Φ criticality gate (`monad`), the
+    gate primitives simultaneously: the ⊙/≺ criticality gate (`monad`), the
     Special-Frobenius parity gate (`or'`, μ∘δ = id), and the Ω protection gate
     (`zoo`, non-Abelian winding). A single boundary operator crosses one seam;
     the organism holds all three at once — hence *compound*. -/
@@ -99,7 +99,7 @@ theorem bergson_gap_is_odot_seam :
 
 /--
 Only the ⊙ gate seam is crossed directly from temps to durée.
-The Φ gate seam requires out → or', but temps has church.
+The ≺ gate seam requires out → or', but temps has church.
 The Ω gate seam requires oak → ah, but temps has awe.
 Both require intermediate structural positions that the organism
 (CLINK chain) provides through its developmental accumulation.

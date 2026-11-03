@@ -242,7 +242,7 @@ def pnt_vessel : Imscription := {
   prot := awe
 }
 
-/-- The Twin Prime vessel and Bounded Gaps vessel differ at exactly 2 primitives (G + Ω). -/
+/-- The Twin Prime vessel and Bounded Gaps vessel differ at exactly 2 primitives (G + ⊡). -/
 theorem twin_prime_bounded_gaps_distance_2 :
     primitiveMismatches twin_prime_vessel bounded_gaps_vessel = 2 := by
   native_decide
@@ -352,7 +352,7 @@ def rh_vessel : Imscription := {
   prot := ah
 }
 
-/-- The Twin Prime vessel and RH vessel differ at 4 primitives (P, F, H, Ω). -/
+/-- The Twin Prime vessel and RH vessel differ at 4 primitives (P, F, H, ⊡). -/
 theorem twin_prime_rh_distance_4 :
     primitiveMismatches twin_prime_vessel rh_vessel = 4 := by
   native_decide

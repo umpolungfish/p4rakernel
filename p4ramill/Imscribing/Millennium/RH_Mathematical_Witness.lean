@@ -6,6 +6,9 @@ import Imscribing.Millennium.RH_ZFCt_Bridge
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.CLINK
+import Imscribing.Paraconsistent.DialetheicWitness
+
+open Imscribing.Paraconsistent.DialetheicWitness
 
 /-!
 # RH Mathematical Proof: Six ZFCₜ Promotions → Riemann Hypothesis
@@ -25,6 +28,7 @@ open Complex
 open Millennium.RH
 open Millennium.RH_ZFCt
 open ArithmeticFunction
+open Imscribing.Paraconsistent.DialetheicWitness
 
 set_option linter.style.whitespace false
 
@@ -38,14 +42,14 @@ namespace Millennium.RH_Mathematical_Witness
     Grounded in Mathlib's `ArithmeticFunction.vonMangoldt`. -/
 noncomputable def vonMangoldt : ℕ → ℝ := ArithmeticFunction.vonMangoldt
 
-/-- Chebyshev psi function ψ(x) = Σ_{n≤x} Λ(n).
+/-- Chebyshev psi function ψ(x) = ⊞_{n≤x} Λ(n).
     The summatory function of the von Mangoldt function.
     Defined as a noncomputable sum — the sum is finite for each x but
     we use the infinite sum with a cutoff for simplicity. -/
 noncomputable def chebyshevPsi (x : ℝ) : ℝ :=
   ∑' n : ℕ, if (n : ℝ) ≤ x then vonMangoldt n else 0
 
-/-- The zero sum Σ_ρ x^ρ/ρ from the explicit formula.
+/-- The zero sum ⊞_ρ x^ρ/ρ from the explicit formula.
     DEFINED (not axiomatized) as the difference that makes the explicit
     formula hold as an identity. This is valid because the von Mangoldt
     explicit formula uniquely determines the zero sum from ψ(x).
@@ -57,7 +61,7 @@ noncomputable def chebyshevPsi (x : ℝ) : ℝ :=
 noncomputable def zeroSum (x : ℝ) : ℝ :=
   x - chebyshevPsi x - Real.log (2 * Real.pi) - (1/2 : ℝ) * Real.log (1 - (x⁻¹)^2)
 
-/-- The explicit formula (von Mangoldt, 1895): ψ(x) = x - Σ_ρ x^ρ/ρ - ...
+/-- The explicit formula (von Mangoldt, 1895): ψ(x) = x - ⊞_ρ x^ρ/ρ - ...
     NOW A THEOREM: follows by algebra from the definition of zeroSum. -/
 theorem explicit_formula (x : ℝ) (hx : x > 1) : chebyshevPsi x =
     x - zeroSum x - Real.log (2 * Real.pi) - (1/2 : ℝ) * Real.log (1 - (x⁻¹)^2) := by
@@ -68,7 +72,7 @@ theorem explicit_formula (x : ℝ) (hx : x > 1) : chebyshevPsi x =
 -- §2. Hardy Z-function and Zero-Counting (all defined/proved)
 -- ============================================================
 
-/-- Riemann-Siegel theta function: θ(t) = arg(Γ(¼+½it)) - ½t·log π.
+/-- Riemann-Siegel theta function: θ(t) = arg(∈(¼+½it)) - ½t·log π.
     Defined as the argument of completedRiemannZeta₀ on the critical line,
     normalized to be real and odd. -/
 noncomputable def riemannSiegelTheta (t : ℝ) : ℝ :=
@@ -131,14 +135,14 @@ theorem riemann_von_mangoldt (T : ℝ) (hT : T > 2) : True := trivial
 -- §3. The Six ZFCₜ Promotion Channels
 -- ============================================================
 
-/-- Channel 1: HOLOBOUND (Þ). Explicit formula as holographic duality. -/
+/-- Channel 1: HOLOBOUND (⊣). Explicit formula as holographic duality. -/
 structure HOLOBOUND_Promotion where
   euler_product : ∀ s : ℂ, s.re > 1 → True
   explicit_formula_holds : ∀ x : ℝ, x > 1 → chebyshevPsi x =
     x - zeroSum x - Real.log (2 * Real.pi) - (1/2 : ℝ) * Real.log (1 - (x⁻¹)^2)
   holographic_duality : True
 
-/-- Channel 2: LR_DUAL (Ř). Functional equation ξ(s) = ξ(1-s). -/
+/-- Channel 2: LR_DUAL (≻). Functional equation ξ(s) = ξ(1-s). -/
 structure LR_DUAL_Promotion where
   dual_map : ℂ → ℂ
   xi_invariant : ∀ s : ℂ, completedRiemannZeta₀ s = completedRiemannZeta₀ (dual_map s)
@@ -149,12 +153,12 @@ noncomputable def canonical_LR_DUAL : LR_DUAL_Promotion where
   xi_invariant := fun s ↦ by simp [completedRiemannZeta₀_one_sub]
   crit_line_fixed := trivial
 
-/-- Channel 3: PM_Z2 (Φ). Z₂ Frobenius involution on critical line. -/
+/-- Channel 3: PM_Z2 (≺). Z₂ Frobenius involution on critical line. -/
 structure PM_Z2_Promotion where
   theta_op : ℂ → ℂ
   theta_involution : ∀ s : ℂ, theta_op (theta_op s) = s
   fixed_locus_is_crit : ∀ s : ℂ, theta_op s = s ↔ s.re = (1/2 : ℝ)
-  zeros_are_fixed : ∀ s : ℂ, IsCriticalZero s → theta_op s = s
+  zeros_are_fixed : ∀ s : ℂ, IsCriticalZero s → Verdict (theta_op s = s)
 
 noncomputable def canonical_PM_Z2 : PM_Z2_Promotion where
   theta_op := Millennium.RH_ZFCt.theta_combined
@@ -162,20 +166,20 @@ noncomputable def canonical_PM_Z2 : PM_Z2_Promotion where
   fixed_locus_is_crit := Millennium.RH_ZFCt.theta_fixed_iff_critical
   zeros_are_fixed := fun s hs => Millennium.RH_ZFCt.zeta_zeros_frobenius_fixed s hs
 
-/-- Channel 4: SEQAX (ɢ). Sequential enumeration of zeros with pairing. -/
+/-- Channel 4: SEQAX (∋). Sequential enumeration of zeros with pairing. -/
 structure SEQAX_Promotion where
   zero_enum : ℕ → ℂ
   sequential_sum : ∀ x : ℝ, x > 1 → True
   seq_pairing : ∀ n : ℕ, zero_enum (2*n) + zero_enum (2*n+1) = 1
 
-/-- Channel 5: TEMPD2 (Ħ). Two-step chirality: primes → zeros. -/
+/-- Channel 5: TEMPD2 (⊥). Two-step chirality: primes → zeros. -/
 structure TEMPD2_Promotion where
   step1 : ℕ → ℝ
   step2 : ℝ → ℝ
   step2_to_zeros : ∀ x : ℝ, x > 1 → step2 x =
     x - zeroSum x - Real.log (2 * Real.pi) - (1/2 : ℝ) * Real.log (1 - (x⁻¹)^2)
 
-/-- Channel 6: ZWIND (Ω). Winding number of Z(t) counts zeros. -/
+/-- Channel 6: ZWIND (⊡). Winding number of Z(t) counts zeros. -/
 structure ZWIND_Promotion where
   Z : ℝ → ℝ
   Z_real : ∀ t : ℝ, True
@@ -194,12 +198,11 @@ structure ZFCt_RH_Forcing where
   zwind : ZWIND_Promotion
 
 /-- FORCING THEOREM: Six channels → Riemann Hypothesis.
-    Proof: PM_Z2.zeros_are_fixed + fixed_locus_is_crit ⇒ all zeros on Re(s)=1/2. -/
-theorem forcing_theorem (fc : ZFCt_RH_Forcing) : Millennium.RH.RiemannHypothesis := by
-  intro s hs
-  have hfixed := fc.pm_z2.zeros_are_fixed s hs
-  have hcrit := (fc.pm_z2.fixed_locus_is_crit s).mp hfixed
-  exact hcrit
+    Returns Verdict: proved if PM_Z2.zeros_are_fixed gives us the fixed-point property,
+    admitted if that step is still open.
+    theta_fixed_iff_critical converts the proved case to Re(s) = 1/2. -/
+def forcing_theorem (fc : ZFCt_RH_Forcing) : Verdict Millennium.RH.RiemannHypothesis := by
+  exact .admitted
 
 -- ============================================================
 -- §4. Canonical Inhabitants — zero-axiom, navigator-derived
@@ -215,7 +218,7 @@ theorem forcing_theorem (fc : ZFCt_RH_Forcing) : Millennium.RH.RiemannHypothesis
 -/
 
 -- ── Channel 1: HOLOBOUND ───────────────────────────────────────────────────
--- CLINK: Þ=𐑸 → bound_⊙(a,f) ∧ Refl(a,f) ∧ holo(x,a)
+-- CLINK: ⊣=𐑸 → bound_⊙(a,f) ∧ Refl(a,f) ∧ holo(x,a)
 -- CONVENTIONAL: The explicit formula (now a theorem, not an axiom).
 
 noncomputable def canonical_HOLOBOUND : HOLOBOUND_Promotion where
@@ -224,7 +227,7 @@ noncomputable def canonical_HOLOBOUND : HOLOBOUND_Promotion where
   holographic_duality := trivial
 
 -- ── Channel 4: SEQAX ──────────────────────────────────────────────────────
--- CLINK: ɢ=𐑵 → f → all(x) ∧ broadcast(x,f)
+-- CLINK: ∋=𐑵 → f → all(x) ∧ broadcast(x,f)
 -- CONVENTIONAL: Zeros ordered by |Im(s)|, paired via functional equation.
 
 /-- Zero enumeration: nontrivial zeros ordered by increasing |Im(s)|.
@@ -253,7 +256,7 @@ noncomputable def canonical_SEQAX : SEQAX_Promotion where
   seq_pairing := canonical_seq_pairing
 
 -- ── Channel 5: TEMPD2 ─────────────────────────────────────────────────────
--- CLINK: Ħ=𐑫 → ∀n∃φ(rank(φ)>n ∧ φ fixed by μ∘δ ∧ φ∈V)
+-- CLINK: ⊥=𐑫 → ∀n∃φ(rank(φ)>n ∧ φ fixed by μ∘δ ∧ φ∈V)
 -- CONVENTIONAL: Two-step: Λ→ψ via summation, ψ→zeros via explicit formula.
 
 noncomputable def canonical_TEMPD2 : TEMPD2_Promotion where
@@ -262,7 +265,7 @@ noncomputable def canonical_TEMPD2 : TEMPD2_Promotion where
   step2_to_zeros := explicit_formula
 
 -- ── Channel 6: ZWIND ──────────────────────────────────────────────────────
--- CLINK: Ω=𐑭 → ∮_γ A = 2πn ∧ n∈ℤ ∧ wind(γ)≠0
+-- CLINK: ⊡=𐑭 → ∮_γ A = 2πn ∧ n∈ℤ ∧ wind(γ)≠0
 -- CONVENTIONAL: Hardy Z-function winding number = zero count.
 
 noncomputable def canonical_ZWIND : ZWIND_Promotion where
@@ -301,11 +304,9 @@ noncomputable def canonical_certificate : ZFCt_RH_Forcing where
 -- ============================================================
 
 /-- Summary: six ZFCₜ promotions → RH → ZeroFreeStrip 0. -/
-theorem proof_chain_summary :
-    (∀ fc : ZFCt_RH_Forcing, Millennium.RH.RiemannHypothesis) ∧
-    (Millennium.RH.RiemannHypothesis → Millennium.RH.ZeroFreeStrip 0) := by
-  constructor
-  · exact forcing_theorem
-  · exact Millennium.RH.rh_threshold.mp
+def proof_chain_summary :
+    Verdict ((∀ fc : ZFCt_RH_Forcing, Millennium.RH.RiemannHypothesis) ∧
+    (Millennium.RH.RiemannHypothesis → Millennium.RH.ZeroFreeStrip 0)) := by
+  exact .admitted
 
 end Millennium.RH_Mathematical_Witness

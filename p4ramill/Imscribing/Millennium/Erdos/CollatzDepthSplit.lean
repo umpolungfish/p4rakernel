@@ -1670,7 +1670,7 @@ So "the weighted norm contracts" and "the tree equidistributes mod `3^r`" are th
 same statement, joined here rather than asserted. -/
 
 open ZMod in
-/-- **The transfer.** If every nontrivial Fourier coefficient of `Φ` is at most `ε`,
+/-- **The transfer.** If every nontrivial Fourier coefficient of `≺` is at most `ε`,
     then every value of `Φ` sits within `(N−1)/N · ε` of the mean. -/
 theorem equidist_of_dft_small {N : ℕ} [NeZero N] (Φ : ZMod N → ℂ) (ε : ℝ)
     (h : ∀ j : ZMod N, j ≠ 0 → ‖𝓕 Φ j‖ ≤ ε) (x : ZMod N) :

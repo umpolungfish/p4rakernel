@@ -7,12 +7,12 @@ measurements: measuring one collapses information about the other.
 
 ## The 6 Dual Pairs
 
-  Ð↔Þ  (Dimensionality ↔ Topology)        — site/space duality
-  Ř↔Φ  (Coupling ↔ Parity)                — adjunction/symmetry duality
-  ƒ↔Ç  (Fidelity ↔ Kinetics)              — information/energy duality
-  Γ↔ɢ  (Cardinality ↔ Composition)        — size/structure duality
-  ⊙↔Ħ  (Criticality ↔ Chirality)          — fixed-point/orientation duality
-  Σ↔Ω  (Stoichiometry ↔ Winding)          — self-reference/topology duality
+  ⊢↔⊣  (VINIT ↔ TANCH)        — Dimensionality ↔ Topology
+  ≻↔≺  (AFWD ↔ AREV)          — Coupling ↔ Parity
+  ⋈↔⊤  (CLINK ↔ EVALT)        — Fidelity ↔ Kinetics
+  ∈↔∋  (FSPLIT ↔ FFUSE)       — Cardinality ↔ Composition
+  ⊙↔⊥  (IMSCRIB ↔ EVALF)      — Criticality ↔ Chirality
+  ⊞↔⊡  (ENGAGR ↔ IFIX)        — Stoichiometry ↔ Winding
 
 Each pair forms a 2-outcome POVM on the Crystal of Types. The pair is
 Frobenius-dual: each primitive is the complement of the other in the
@@ -76,7 +76,7 @@ structure FrobeniusDualMeasurement (d : ℕ) [NeZero d] where
 
     Each pair is named by the two primitives it couples.
     The pairs are exactly those listed in the domain knowledge:
-    Ð↔Þ, Ř↔Φ, ƒ↔Ç, Γ↔ɢ, ⊙↔Ħ, Σ↔Ω. -/
+    ⊢↔⊣, ≻↔≺, ⋈↔⊤, ∈↔∋, ⊙↔⊥, ⊞↔⊡. -/
 
 def pair_D_T : FrobeniusDualPair :=
   ⟨GrammarPrimitive.D_, GrammarPrimitive.T_, true⟩

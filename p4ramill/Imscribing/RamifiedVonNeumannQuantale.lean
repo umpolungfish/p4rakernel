@@ -13,7 +13,7 @@
 --   Inaccessible cardinal κ: regular, strong limit, κ = κ^κ
 --   Set-theoretic quantale: (V_κ, ∪, ∩) with ∩ distributing over ∪
 --   Frobenius closure: μ∘δ=id at κ (the self-referential fixed point)
---   Winding 0 (Ω=𐑷): no topological protection (classical foundation)
+--   Winding 0 (⊡=𐑷): no topological protection (classical foundation)
 --
 -- Author: Math⊙perator (Lando⊗⊙perator Team)
 -- Date: 2025-07-29
@@ -35,18 +35,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑼  dim  = array    — infinite-dim: unbounded von Neumann ranks
---   Þ=𐑰  top  = eat      — inclusion: V_α ⊂ V_{α+1} nested hierarchy
---   Ř=𐑑  rel  = tot      — categorical: functorial rank-to-rank embeddings
---   Φ=𐑬  pol  = out      — ℤ₂: powerset operation as symmetry
---   ƒ=𐑐  fid  = peep     — quantum: set-theoretic truth as quantum observable
---   Ç=𐑧  kin  = egg      — slow: cumulative hierarchy builds slowly
---   Γ=𐑔  gran = ice      — inaccessible cardinal κ
---   ɢ=𐑠  gram = measure   — sequential: rank-by-rank construction
+--   ⊢=𐑼  dim  = array    — infinite-dim: unbounded von Neumann ranks
+--   ⊣=𐑰  top  = eat      — inclusion: V_α ⊂ V_{α+1} nested hierarchy
+--   ≻=𐑑  rel  = tot      — categorical: functorial rank-to-rank embeddings
+--   ≺=𐑬  pol  = out      — ℤ₂: powerset operation as symmetry
+--   ⋈=𐑐  fid  = peep     — quantum: set-theoretic truth as quantum observable
+--   ⊤=𐑧  kin  = egg      — slow: cumulative hierarchy builds slowly
+--   ∈=𐑔  gran = ice      — inaccessible cardinal κ
+--   ∋=𐑠  gram = measure   — sequential: rank-by-rank construction
 --   ⊙=⊙  crit = monad     — critical: κ = κ^κ fixed point
---   Ħ=𐑖  chir = sure     — two-step: successor/limit alternation
---   Σ=𐑳  stoi = up       — many heterogeneous: each rank has distinct sets
---   Ω=𐑷  prot = awe      — trivial: no topological protection
+--   ⊥=𐑖  chir = sure     — two-step: successor/limit alternation
+--   ⊞=𐑳  stoi = up       — many heterogeneous: each rank has distinct sets
+--   ⊡=𐑷  prot = awe      — trivial: no topological protection
 
 def rvnq : Imscription :=
   { dim  := Dimensionality.array

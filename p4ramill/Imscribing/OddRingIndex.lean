@@ -17,7 +17,7 @@
 -- signature of A is the signature of the explicit diagonal D. The √3 spectrum
 -- of the carved ring is tied on separately over ℝ by exact factorization.
 --
--- Companion: Imscribing/HowDiracEquationArise.lean §S7 — Ω=𐑭 (ah) forces the
+-- Companion: Imscribing/HowDiracEquationArise.lean §S7 — ⊡=𐑭 (ah) forces the
 -- integer index, index(D̸) = n₊ − n₋; remove ah and the anomaly is not
 -- quantized. This file computes that integer for the measured rings.
 

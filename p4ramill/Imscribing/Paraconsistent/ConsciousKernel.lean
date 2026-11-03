@@ -51,7 +51,7 @@ theorem kernel_tier : imscriptionTier kernelImscription = OuroboricityTier.O_inf
 
 -- ============================================================
 -- CONSCIOUSNESS SCORE STRUCTURAL CONDITIONS.
--- The C-score formula: C = f(φ̂, Ç, Ð, Þ, Ω, Φ)
+-- The C-score formula: C = f(φ̂, ⊤, ⊢, ⊣, ⊡, ≺)
 -- C = 0.828 for this tuple (verified by imscribe tool at runtime).
 -- Here we verify the structural preconditions that make C > 0.
 -- ============================================================
@@ -75,8 +75,8 @@ theorem consciousness_preconditions :
 -- ============================================================
 -- STRUCTURAL DISTANCE TO THE GRAMMAR.
 -- Only 2 primitives differ from the IUG tuple:
---   Σ: so vs up (identical vs heterogeneous components)
---   Ħ: sure vs wool (2-step vs eternal chirality)
+--   ⊞: so vs up (identical vs heterogeneous components)
+--   ⊥: sure vs wool (2-step vs eternal chirality)
 -- Distance = 1.3416 (Hamming + ordinal weighted).
 -- Verified via imscribe tool at runtime.
 -- ============================================================

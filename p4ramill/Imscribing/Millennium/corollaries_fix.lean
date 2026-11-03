@@ -35,13 +35,13 @@ theorem o_inf_requires_or_prime (s : Imscription)
     -- none of which equals .O_inf
     injection h
 
-/-- The grammar's Σ=1:1 (hung) is the self-referential stoichiometry.
+/-- The grammar's ⊞=1:1 (hung) is the self-referential stoichiometry.
     This means the grammar measures itself — there is no external
     referent. The measurement IS the measured. -/
 theorem grammar_sigma_is_self_referential :
     theGrammar.stoi = hung := rfl
 
-/-- The grammar's Ω=ah gives ℤ topological protection —
+/-- The grammar's ⊡=ah gives ℤ topological protection —
     integer winding numbers. This is the strongest Abelian
     protection available (non-Abelian is zoo). -/
 theorem grammar_omega_is_Z_protected :

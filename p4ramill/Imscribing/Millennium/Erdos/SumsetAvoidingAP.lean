@@ -402,11 +402,11 @@ def sumset_avoiding_k_ap : Imscription :=
     (.age)     -- F: classical
     (.egg)     -- K: non-equilibrium
     (.bib)     -- G: nearest-neighbor (digit locality)
-    (.measure) -- Γ: sequential (ordered digit positions)
+    (.measure) -- ∈: sequential (ordered digit positions)
     (.woe)     -- φ̂: subcritical
     (.kick)    -- H: Markov order 1
-    (.hung)    -- Σ: 1:1 (subset → sum is unique)
-    (.awe)     -- Ω: trivial protection
+    (.hung)    -- ⊞: 1:1 (subset → sum is unique)
+    (.awe)     -- ⊡: trivial protection
 
 theorem sumset_k_ap_tier_is_O0 : imscriptionTier sumset_avoiding_k_ap = .O₀ := by
   unfold sumset_avoiding_k_ap; native_decide

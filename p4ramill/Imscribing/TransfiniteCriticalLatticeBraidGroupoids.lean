@@ -3,8 +3,8 @@
 --
 -- Lattice braid groupoid ℬ(Λ) at the renormalization fixed point, with
 -- transfinite extension to κ = ℵ_α.  Frobenius algebra in the category of
--- groupoids: μ∘δ=id at criticality.  Non-Abelian braiding (Ω=𐑟) with
--- broadcast composition (ɢ=𐑵).
+-- groupoids: μ∘δ=id at criticality.  Non-Abelian braiding (⊡=𐑟) with
+-- broadcast composition (∋=𐑵).
 --
 -- Grammar tuple: ⟨𐑦𐑸𐑽𐑹𐑐𐑧𐑔𐑵⊙𐑖𐑕𐑟⟩  (O_inf tier — R1: or' at monad)
 --
@@ -43,18 +43,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑦  dim  = if'     — imscriptive: braid groupoid models config space
---   Þ=𐑸  top  = are     — holographic: lattice adjacency defines closure
---   Ř=𐑽  rel  = ear     — dagger: every braid β has inverse β†
---   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at RG fixed point
---   ƒ=𐑐  fid  = peep    — quantum: Fibonacci anyon braids = unitary channels
---   Ç=𐑧  kin  = egg     — slow: critical slowing down at phase transition
---   Γ=𐑔  gran = ice     — transfinite extension to κ = ℵ_α
---   ɢ=𐑵  gram = ooze    — broadcast: ξ→∞, all sites affect all others
+--   ⊢=𐑦  dim  = if'     — imscriptive: braid groupoid models config space
+--   ⊣=𐑸  top  = are     — holographic: lattice adjacency defines closure
+--   ≻=𐑽  rel  = ear     — dagger: every braid β has inverse β†
+--   ≺=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at RG fixed point
+--   ⋈=𐑐  fid  = peep    — quantum: Fibonacci anyon braids = unitary channels
+--   ⊤=𐑧  kin  = egg     — slow: critical slowing down at phase transition
+--   ∈=𐑔  gran = ice     — transfinite extension to κ = ℵ_α
+--   ∋=𐑵  gram = ooze    — broadcast: ξ→∞, all sites affect all others
 --   ⊙=⊙  crit = monad   — critical: RG fixed point where R∘R ≅ R
---   Ħ=𐑖  chir = sure    — two-step: Yang-Baxter σ_iσ_{i+1}σ_i = σ_{i+1}σ_iσ_{i+1}
---   Σ=𐑕  stoi = so      — many identical: homogeneous lattice
---   Ω=𐑟  prot = zoo     — non-Abelian: Fibonacci braid group in SU(2)_3
+--   ⊥=𐑖  chir = sure    — two-step: Yang-Baxter σ_iσ_{i+1}σ_i = σ_{i+1}σ_iσ_{i+1}
+--   ⊞=𐑕  stoi = so      — many identical: homogeneous lattice
+--   ⊡=𐑟  prot = zoo     — non-Abelian: Fibonacci braid group in SU(2)_3
 
 def tclbg : Imscription :=
   { dim  := Dimensionality.if'

@@ -64,7 +64,7 @@ theorem pnp_closes_nowhere :
     universes.any (fun r => decide (r.operadLayer pnp = .idempotent_terminal)) = false := by
   native_decide
 
-/-- The shared blocker: all three carry winding Ω below the terminal anchor `ah` (3). -/
+/-- The shared blocker: all three carry winding ⊡ below the terminal anchor `ah` (3). -/
 theorem rh_ns_pnp_low_winding :
     (ordinalOmega rh.prot < 3) ∧ (ordinalOmega ns.prot < 3) ∧ (ordinalOmega pnp.prot < 3) := by
   decide

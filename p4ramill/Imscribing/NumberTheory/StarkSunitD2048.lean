@@ -108,9 +108,9 @@ theorem ramification_e_f_product₂ :
 -- The grammar gap between d2048_sic_closed_ring and stark_unit_monomial
 --     encodes the S-unit exponents directly:
 -- 
---     ɢ δ=3.0 (𐑵→𐑝) → e₁ = 3  (three conjunctive generators)
+--     ∋ δ=3.0 (𐑵→𐑝) → e₁ = 3  (three conjunctive generators)
 --     ⊙ δ=0.67 (⊙→𐑻) → e₂/e₁ = 2/3 → e₂ = 2
---     Ř δ=1.0 (𐑾→𐑽) → e_fund = -1 (one ramified layer)
+--     ≻ δ=1.0 (𐑾→𐑽) → e_fund = -1 (one ramified layer)
 -- 
 --     All other 9 primitives match exactly.
 

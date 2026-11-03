@@ -282,7 +282,7 @@ noncomputable def distinctDistances (P : Finset (EuclideanSpace ℝ (Fin 2))) : 
 /-! A `NoThreeInLineSqrt` entry stood here comparing `c₁·√n` with `n` and `n` with
 `c₂·n`, naming no point set. -/
 
-/-- **[B]** Guth–Katz from a single point: `Ω(n / log n)`. -/
+/-- **[B]** Guth–Katz from a single point: `⊡(n / log n)`. -/
 def DistinctDistancesSinglePoint : Prop :=
   ∃ c : ℝ, 0 < c ∧ ∀ᶠ n : ℕ in atTop, ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
     P.card = n → c * (n : ℝ) / Real.log n ≤ (distinctDistances P : ℝ)

@@ -266,7 +266,7 @@ def UnitDistanceUpper2D : Prop :=
   ∃ c : ℝ, 0 < c ∧ ∀ P : Finset (EuclideanSpace ℝ (Fin 2)),
     (unitDistances P : ℝ) ≤ c * (P.card : ℝ) ^ ((4 : ℝ) / 3)
 
-/-- **[T]** Guth–Katz: `n` points determine `Ω(n / log n)` distinct distances.
+/-- **[T]** Guth–Katz: `n` points determine `⊡(n / log n)` distinct distances.
 The old statement compared `c·n/log n` with `n`, which holds for small `c` and
 mentions no point set. -/
 def GuthKatzDistinctDistances : Prop :=

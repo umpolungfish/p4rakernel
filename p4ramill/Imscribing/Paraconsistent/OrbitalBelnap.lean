@@ -13,8 +13,8 @@
 -- The pairing/depairing morphisms (Cooper pair) satisfy pair ∘ depair = id:
 -- the Frobenius condition holds at the orbital level.
 --
--- Governing primitives: Ħ (Chirality) determines the T/F labeling of spin;
--- Φ (Parity) enforces the two-electron ceiling.
+-- Governing primitives: ⊥ (Chirality) determines the T/F labeling of spin;
+-- ≺ (Parity) enforces the two-electron ceiling.
 
 import Imscribing.Paraconsistent.Belnap
 import Mathlib.Logic.Function.Defs
@@ -30,9 +30,9 @@ open Imscribing.Paraconsistent
 /-- The four occupancy states of an atomic orbital. -/
 inductive OrbitalState : Type where
   | empty     -- no electrons       → N (neither)
-  | spinUp    -- one electron ↑     → T (true,  positive Ħ-chirality)
-  | spinDown  -- one electron ↓     → F (false, negative Ħ-chirality)
-  | paired    -- two electrons ↑↓   → B (both,  Φ-sealed at lattice top)
+  | spinUp    -- one electron ↑     → T (true,  positive ⊥-chirality)
+  | spinDown  -- one electron ↓     → F (false, negative ⊥-chirality)
+  | paired    -- two electrons ↑↓   → B (both,  ≺-sealed at lattice top)
   deriving DecidableEq, Repr, Inhabited
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -111,11 +111,11 @@ theorem pauli_exclusion {s : OrbitalState} (h : OrbitalState.paired ≤ s) :
   cases h; rfl
 
 -- ════════════════════════════════════════════════════════════════════════════
--- §5  TRUTH ORDER (chirality / Ħ-axis)
+-- §5  TRUTH ORDER (chirality / ⊥-axis)
 --     spinDown <_t {empty, paired} <_t spinUp — mirrors F <_t N, B <_t T
 -- ════════════════════════════════════════════════════════════════════════════
 
-/-- Truth order: how much positive Ħ-chirality is asserted. -/
+/-- Truth order: how much positive ⊥-chirality is asserted. -/
 inductive ChiralityLE : OrbitalState → OrbitalState → Prop
   | sd_bot      : ∀ {s}, ChiralityLE .spinDown s
   | empty_refl  : ChiralityLE .empty   .empty

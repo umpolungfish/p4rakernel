@@ -163,7 +163,7 @@ def L9₃ : Imscription :=
     stoi := .up        -- 𐑳
     prot := .ah }      -- 𐑭
 
-/-- Correction class 3: Pulse train — Γ promoted from 𐑝 to 𐑵.
+/-- Correction class 3: Pulse train — ∈ promoted from 𐑝 to 𐑵.
     The heartbeat establishes broadcast composition: every measurement
     pulse reaches all system components simultaneously. This is the
     content of neural synchrony, cardiac rhythm, and the

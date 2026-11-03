@@ -81,17 +81,17 @@ theorem ftlQuantum_tier_O2dag : imscriptionTier ftlQuantum = OuroboricityTier.O�
 
 -- §4  PROMOTION ANALYSIS
 
-/-- Photon → Wormhole: exactly 2 primitives change (T and Ω). -/
+/-- Photon → Wormhole: exactly 2 primitives change (T and ⊡). -/
 theorem photon_to_wormhole_mismatches_2 :
     primitiveMismatches photon ftlWormhole = 2 := by
   native_decide
 
-/-- Photon → Tachyon: only 1 primitive changes (Φ). -/
+/-- Photon → Tachyon: only 1 primitive changes (≺). -/
 theorem photon_to_tachyon_mismatches_1 :
     primitiveMismatches photon ftlTachyon = 1 := by
   native_decide
 
-/-- Photon → Quantum FTL: exactly 2 primitives change (P and Ω). -/
+/-- Photon → Quantum FTL: exactly 2 primitives change (P and ⊡). -/
 theorem photon_to_quantum_mismatches_2 :
     primitiveMismatches photon ftlQuantum = 2 := by
   native_decide
@@ -107,15 +107,15 @@ theorem omega_constraint :
     ftlTachyon.prot = Protection.awe ∧ ftlWormhole.prot = Protection.ah := by
   exact ⟨rfl, rfl⟩
 
-/-- Tachyon (Ω=𐑷, Φ=𐑣) is tier O₀ — structurally a paradox. -/
+/-- Tachyon (⊡=𐑷, ≺=𐑣) is tier O₀ — structurally a paradox. -/
 theorem tachyon_is_paradox : imscriptionTier ftlTachyon = OuroboricityTier.O₀ :=
   ftlTachyon_tier_O0
 
-/-- Wormhole (Ω=𐑭) is tier O₂dag — causally consistent. -/
+/-- Wormhole (⊡=𐑭) is tier O₂dag — causally consistent. -/
 theorem wormhole_is_consistent : imscriptionTier ftlWormhole = OuroboricityTier.O₂dag :=
   ftlWormhole_tier_O2dag
 
-/-- Quantum FTL (Ω=𐑭) is tier O₂dag — causally consistent. -/
+/-- Quantum FTL (⊡=𐑭) is tier O₂dag — causally consistent. -/
 theorem quantum_ftl_is_consistent : imscriptionTier ftlQuantum = OuroboricityTier.O₂dag :=
   ftlQuantum_tier_O2dag
 
@@ -176,7 +176,7 @@ theorem photon_tachyon_share_K_fast :
     photon.kin = ftlTachyon.kin := by
   rfl
 
-/-- Photon and tachyon differ at Φ: photon is ⊙, tachyon is 𐑣. -/
+/-- Photon and tachyon differ at ≺: photon is ⊙, tachyon is 𐑣. -/
 theorem photon_tachyon_differ_at_Phi :
     photon.crit ≠ ftlTachyon.crit := by
   native_decide

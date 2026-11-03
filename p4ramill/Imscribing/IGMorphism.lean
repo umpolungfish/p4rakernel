@@ -2,7 +2,7 @@
 -- Typed morphisms, sequential protocols, and paralogical extension.
 --
 -- Directly formalizes the condensation notation:
---   ɢ^ˌ[ A —(label)→ B —(label)→ C | D ]_H
+--   ∋^ˌ[ A —(label)→ B —(label)→ C | D ]_H
 -- where each arrow label is itself a Imscription annotating the transition character.
 --
 -- Three paralogical axioms extend the classical sequent calculus with rules
@@ -51,12 +51,12 @@ inductive IGProtocol : Imscription → Imscription → Type where
   | refl   : (s : Imscription) → IGProtocol s s
   /-- Labeled arrow: src —(label)→ tgt. -/
   | arrow  : (label src tgt : Imscription) → IGProtocol src tgt
-  /-- Sequential composition: A→B then B→C  (the ɢ^ˌ chain). -/
+  /-- Sequential composition: A→B then B→C  (the ∋^ˌ chain). -/
   | seq    : IGProtocol a b → IGProtocol b c → IGProtocol a c
   /-- Parallel split: (A→B) and (A→C) give A → (B ⊗ C).
       The | operator lifts to tensorProduct on both targets. -/
   | prod   : IGProtocol a b → IGProtocol a c → IGProtocol a (tensorProduct b c)
-  /-- Grammar annotation: ɢ^g[…] wrapper. -/
+  /-- Grammar annotation: ∋^g[…] wrapper. -/
   | withGram : Grammar  → IGProtocol a b → IGProtocol a b
   /-- Memory annotation: […]_H wrapper. -/
   | withMem  : Chirality → IGProtocol a b → IGProtocol a b
@@ -95,7 +95,7 @@ def IGProtocol.isFrobenius : IGProtocol a b → Bool
 -- ─────────────────────────────────────────────────────────────────────────────
 -- SECTION 3: LITANY AGAINST FEAR
 -- Canonical IGProtocol encoding.
--- Reading: ɢ^ˌ[ 𐑣 —(𐑾)→ 𐑥 —(𐑦)→ { 𐑷 | 𐑯 } ]_𐑫
+-- Reading: ∋^ˌ[ 𐑣 —(𐑾)→ 𐑥 —(𐑦)→ { 𐑷 | 𐑯 } ]_𐑫
 -- ─────────────────────────────────────────────────────────────────────────────
 
 private def litanyBase : Imscription := {

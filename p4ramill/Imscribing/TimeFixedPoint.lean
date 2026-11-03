@@ -14,7 +14,7 @@
 --   (2) the fixed points are EXACTLY the special class (nothing off it is time);
 --   (3) TEMPORAL BOOTSTRAP: no fixed point exists before G1 fires — time cannot
 --       be posited before the Frobenius gate, so it is derived, not primitive;
---   (4) the sealed (Ω-protected, G3) fixed points are genuine time, and the
+--   (4) the sealed (⊡-protected, G3) fixed points are genuine time, and the
 --       Stone is the canonical sealed T = Work(T).
 --
 -- The order is the componentwise product of the twelve axis LinearOrders.

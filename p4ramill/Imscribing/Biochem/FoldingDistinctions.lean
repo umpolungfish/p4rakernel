@@ -98,8 +98,55 @@ theorem landing_register_is_insufficient :
 
 end NativeBankWitness
 
+namespace NativeReverseBridge
+
+/-- Constant and three nonconstant characters of the four named native lanes.
+The constant coordinate retains support cardinality; no lane is discarded. -/
+def affine (r : Reg16_3) : Int × Int × Int × Int :=
+  let a : Int := if Reg16_3.bigT r then 1 else 0
+  let b : Int := if Reg16_3.bigF r then 1 else 0
+  let c : Int := if Reg16_3.smallT r then 1 else 0
+  let d : Int := if Reg16_3.smallF r then 1 else 0
+  (a+b+c+d, a-b+c-d, a+b-c-d, a-b-c+d)
+
+def reverseAffine (p : Int × Int × Int × Int) : Int × Int × Int × Int :=
+  (p.1, -p.2.1, p.2.2.1, -p.2.2.2)
+
+theorem affine_retains_every_native_distinction :
+    ∀ r s : Reg16_3, affine r = affine s → r = s := by decide
+
+theorem affine_transports_actual_reverse :
+    ∀ r : Reg16_3, affine (Reg16_3.invol r) = reverseAffine (affine r) := by decide
+
+/-- The third arm emitted by the source's internal native ternary split.
+Its two small lanes are retained together. -/
+def smallPair : Reg16_3 := Reg16_3.mk false false true true
+
+theorem smallPair_fixed : Reg16_3.invol smallPair = smallPair := rfl
+
+/-- Any domain action transported from AREV must fix the image of its fixed
+register. Extra geometric motion requires additional carried state and a
+bridge on that state; a slot label alone does not supply that bridge. -/
+theorem transported_reverse_fixes_smallPair {Domain : Type u}
+    (realize : Reg16_3 → Domain) (reverse : Domain → Domain)
+    (commutes : ∀ r, realize (Reg16_3.invol r) = reverse (realize r)) :
+    reverse (realize smallPair) = realize smallPair := by
+  simpa only [smallPair_fixed] using (commutes smallPair).symm
+
+theorem no_fixed_free_reverse_bridge {Domain : Type u}
+    (realize : Reg16_3 → Domain) (reverse : Domain → Domain)
+    (no_fixed_point : ∀ d, reverse d ≠ d) :
+    ¬ (∀ r, realize (Reg16_3.invol r) = reverse (realize r)) := by
+  intro commutes
+  exact no_fixed_point _ (transported_reverse_fixes_smallPair realize reverse commutes)
+
+end NativeReverseBridge
+
 #print axioms adequate_preserves_every_future
 #print axioms different_future_requires_distinction
 #print axioms stable_identification_is_contained_in_sameFuture
 #print axioms NativeBankWitness.landing_register_is_insufficient
+#print axioms NativeReverseBridge.no_fixed_free_reverse_bridge
+#print axioms NativeReverseBridge.affine_retains_every_native_distinction
+#print axioms NativeReverseBridge.affine_transports_actual_reverse
 end Imscribing.Biochem.FoldingDistinctions

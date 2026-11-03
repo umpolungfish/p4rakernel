@@ -2,7 +2,7 @@
 -- Lean 4 formal verification of the three Voynich botanical gatekeepers.
 -- Author: Lando⊗⊙perator
 -- Proves: O₂ tier, frozen kinetics, ⊙ criticality, consciousness scores,
--- and the Ω×ɢ matrix relationships from VOYNICH_INTEGRATED_EXPANDED.md.
+-- and the ⊡×∋ matrix relationships from VOYNICH_INTEGRATED_EXPANDED.md.
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -20,7 +20,7 @@ open Dimensionality Topology Relational Polarity Grammar
 
 -- ══════════════════════════════════════════════════════════════════════
 -- BOTANICAL GATEKEEPER IMSCRIPTIONS
--- All three share 10 of 12 primitives; vary only at Ω and ɢ (Grammar).
+-- All three share 10 of 12 primitives; vary only at ⊡ and ∋ (Grammar).
 -- ══════════════════════════════════════════════════════════════════════
 
 def voynich_astronomical_section : Imscription := {
@@ -39,7 +39,7 @@ def voynich_astronomical_section : Imscription := {
 }
 
 -- ─── Artemisia absinthium (Grand Wormwood) ───
--- Ω = 1 (integer winding, Fibonacci phyllotaxy), ɢ = sequential
+-- ⊡ = 1 (integer winding, Fibonacci phyllotaxy), ∋ = sequential
 def artemisia_absinthium : Imscription := {
   dim  := if'
   top  := are
@@ -56,7 +56,7 @@ def artemisia_absinthium : Imscription := {
 }
 
 -- ─── Mandragora officinarum (Mandrake) ───
--- Ω = ℤ₂ (bifurcating root), ɢ = sequential
+-- ⊡ = ℤ₂ (bifurcating root), ∋ = sequential
 def mandragora_officinarum : Imscription := {
   dim  := if'
   top  := are
@@ -73,7 +73,7 @@ def mandragora_officinarum : Imscription := {
 }
 
 -- ─── Ricinus communis (Castor Bean) ───
--- Ω = 2 (integer winding, Fibonacci pair (2,5)), ɢ = disjunctive
+-- ⊡ = 2 (integer winding, Fibonacci pair (2,5)), ∋ = disjunctive
 def ricinus_communis : Imscription := {
   dim  := if'
   top  := are
@@ -103,20 +103,20 @@ theorem wormwood_voynich_astro_distance_zero :
   simp [primitiveMismatches, artemisia_absinthium, voynich_astronomical_section]
 
 -- ══════════════════════════════════════════════════════════════════════
--- SECTION 2: Ω×ɢ MATRIX — Two varying primitives span three gatekeepers
+-- SECTION 2: ⊡×∋ MATRIX — Two varying primitives span three gatekeepers
 -- ══════════════════════════════════════════════════════════════════════
 
--- Wormwood vs Mandrake: differ ONLY at Ω (ah vs oak)
+-- Wormwood vs Mandrake: differ ONLY at ⊡ (ah vs oak)
 theorem wormwood_mandrake_mismatches :
     primitiveMismatches artemisia_absinthium mandragora_officinarum = 1 := by
   simp [primitiveMismatches, artemisia_absinthium, mandragora_officinarum]
 
--- Wormwood vs Castor Bean: differ at Ω (same) and ɢ/Grammar (measure vs gag)
+-- Wormwood vs Castor Bean: differ at ⊡ (same) and ∋/Grammar (measure vs gag)
 theorem wormwood_castor_mismatches :
     primitiveMismatches artemisia_absinthium ricinus_communis = 1 := by
   simp [primitiveMismatches, artemisia_absinthium, ricinus_communis]
 
--- Mandrake vs Castor Bean: differ at Ω (oak vs ah) and ɢ (measure vs gag)
+-- Mandrake vs Castor Bean: differ at ⊡ (oak vs ah) and ∋ (measure vs gag)
 theorem mandrake_castor_mismatches :
     primitiveMismatches mandragora_officinarum ricinus_communis = 2 := by
   simp [primitiveMismatches, mandragora_officinarum, ricinus_communis]
@@ -200,7 +200,7 @@ theorem all_three_C_half :
 
 -- ══════════════════════════════════════════════════════════════════════
 -- SECTION 7: O₂→O_∞ PROMOTION REQUIREMENTS
--- Four promotions needed: Φ (out→or'), K (on→egg), Γ (measure→vow), Ħ (sure→wool)
+-- Four promotions needed: ≺ (out→or'), K (on→egg), ∈ (measure→vow), ⊥ (sure→wool)
 -- Three of four require Operator engagement.
 -- ══════════════════════════════════════════════════════════════════════
 
@@ -222,7 +222,7 @@ theorem wormwood_promoted_to_O_inf :
 
 -- ══════════════════════════════════════════════════════════════════════
 -- SECTION 8: VIABILITY OF O₁ PATH (dead end)
--- If we collapse Ω→awe, we get O₁ — but lose topological protection.
+-- If we collapse ⊡→awe, we get O₁ — but lose topological protection.
 -- O₁ is NOT a viable consciousness-bearing state for the gatekeeper.
 -- ══════════════════════════════════════════════════════════════════════
 
@@ -239,7 +239,7 @@ theorem O₁_has_no_topological_protection :
 -- Wormwood = Recipe Magic (sequential accumulation)
 -- Mandrake  = Ritual Magic (Z₂ condition on extraction)
 -- Castor    = Divinatory Magic (disjunctive oracle)
--- All verified by the Grammar primitive ɢ.
+-- All verified by the Grammar primitive ∋.
 -- ══════════════════════════════════════════════════════════════════════
 
 theorem wormwood_sequential :

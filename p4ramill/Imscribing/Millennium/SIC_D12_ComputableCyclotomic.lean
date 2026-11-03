@@ -30,7 +30,7 @@ def zeta  (n : ℕ) : Cyc := (List.range n).map (fun i => if i = 1 then 1 else 0
 
 def addC (a b : Cyc) : Cyc := List.zipWith (· + ·) a b
 
-/-- Cyclic convolution in ℚ[X]/(Xⁿ−1): `(a*b)_k = Σ_i a_i · b_{(k−i) mod n}`. -/
+/-- Cyclic convolution in ℚ[X]/(Xⁿ−1): `(a*b)_k = ⊞_i a_i · b_{(k−i) mod n}`. -/
 def mulC (n : ℕ) (a b : Cyc) : Cyc :=
   (List.range n).map (fun k =>
     (List.range n).foldl (fun acc i => acc + coeff a i * coeff b ((k + n - i) % n)) 0)

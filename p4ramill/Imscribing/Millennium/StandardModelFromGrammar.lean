@@ -366,7 +366,7 @@ theorem sin2_theta_13_sm_value : sin2_theta_13_sm = (1 : ℚ) / 48 := by native_
 --   m_ν1 : m_ν2 : m_ν3 = 1 : gear : gear² = 1 : 4 : 16
 -- Absolute scale: m_ν1 ~ (m_e)·α²·(d+1)/gear²
 -- This gives m_ν1 ~ 0.002 eV, m_ν2 ~ 0.008 eV, m_ν3 ~ 0.033 eV.
--- Σ m_ν ~ 0.043 eV, consistent with cosmological bounds Σ < 0.12 eV.
+-- Σ m_ν ~ 0.043 eV, consistent with cosmological bounds ⊞ < 0.12 eV.
 --
 -- The mass-squared differences:
 --   Δm²_21 = m_ν2² − m_ν1² = (16−1)·m_ν1² = 15·m_ν1²
@@ -492,8 +492,8 @@ def dark_energy_exponent : ℕ := 2 * d + d_sic  -- 36
 
 theorem dark_energy_exponent_value : dark_energy_exponent = 36 := by native_decide
 
--- §VII.4  Ω_corr — RESOLVED via 744 Decomposition
--- Ω_corr = 1/744, derived from the d=12 SIC-POVM orbit structure:
+-- §VII.4  ⊡_corr — RESOLVED via 744 Decomposition
+-- ⊡_corr = 1/744, derived from the d=12 SIC-POVM orbit structure:
 --   744 = 6(d² − d − 6) − d = 6×126 − 12 = 756 − 12
 --   = N_orbits × 2d = 31 × 24
 --
@@ -501,14 +501,14 @@ theorem dark_energy_exponent_value : dark_energy_exponent = 36 := by native_deci
 -- the Hilbert space projective gauge d=12. Equivalently: 31 HW group
 -- orbits × 24 = 2d modular discriminant weight.
 --
--- Ω_corr = 6/(d²·N_orbits) = 6/4464 = 1/744 ≈ 0.001344.
+-- ⊡_corr = 6/(d²·N_orbits) = 6/4464 = 1/744 ≈ 0.001344.
 --
--- IMPORTANT: Ω_corr is NOT the Burau trace of the FFUSE3 coupler
+-- IMPORTANT: ⊡_corr is NOT the Burau trace of the FFUSE3 coupler
 -- loop at q=e^(2πi/12). That trace = 0.632088 (order 1, real).
--- Ω_corr = 1/744 is a PURE STRUCTURAL ratio, fixed by the orbit
+-- ⊡_corr = 1/744 is a PURE STRUCTURAL ratio, fixed by the orbit
 -- decomposition. No free parameters remain.
 
-/-- Ω_corr = 1/744 — structural closure gate.
+/-- ⊡_corr = 1/744 — structural closure gate.
     Derived from the SIC orbit decomposition: 744 = 6(d²-d-6)−d.
     This gate closes ρ_Λ/ρ_Pl and H₀ exactly.
     Status: CLOSED. All 23 Standard Model parameters are now structural. -/
@@ -548,7 +548,7 @@ inductive DerivationClass where
   | structural     -- ★ Exact rational or algebraic; zero free parameters
   | real_exact     -- ◈ Exact ℝ expression (π, √, arctan); zero free parameters
   | uv_boundary    -- ◇ Structural form known; RG running needed for IR match
-  | open_gate      -- □ Form known; closure awaits Ω_corr (non-Abelian braiding)
+  | open_gate      -- □ Form known; closure awaits ⊡_corr (non-Abelian braiding)
 deriving Repr, DecidableEq
 
 /-- A single unified parameter entry: name, grammar formula, classification, and PDG value -/
@@ -879,7 +879,7 @@ open StandardModelFromGrammar
 inductive ResidualSource where
   | curvature  (order : ℕ)   -- O(1/d^order)
   | rgRunning  (scale : String)  -- SIC → M_Z, SIC → m_t, etc.
-  | omegaCorr               -- Ω_corr = 1/744 (CLOSED via 744 decomposition)
+  | omegaCorr               -- ⊡_corr = 1/744 (CLOSED via 744 decomposition)
 deriving Repr, DecidableEq
 
 /-- A residual entry: parameter, grammar value, measured value, residual,
@@ -989,7 +989,7 @@ def residualAnalysis : List ResidualEntry := [
   , source := ResidualSource.rgRunning "SIC → M_Z"
   , explanation := "QCD asymptotic freedom; UV boundary condition gear·α" },
 
-  -- MECHANISM C: Ω_corr gate
+  -- MECHANISM C: ⊡_corr gate
   { param := "H₀"
   , grammarValue := "d/gear = 3 (ratio); ∝ α_G^(3/2)"
   , measuredValue := "73.04 (SH0ES) / 67.4 (Planck)"
@@ -1028,7 +1028,7 @@ def countRgRunning : ℕ :=
 theorem rgRunningResidualCount : countRgRunning = 10 := by
   native_decide
 
-/-- Ω_corr residuals: 2 parameters (cosmological closure) -/
+/-- ⊡_corr residuals: 2 parameters (cosmological closure) -/
 theorem omegaCorrResidualCount : countBySource ResidualSource.omegaCorr = 2 := by
   native_decide
 

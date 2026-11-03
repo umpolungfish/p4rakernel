@@ -17,7 +17,7 @@
 -- they exist mathematically but cannot be isolated.
 --
 -- The filtration is TOPOLOGICALLY PROTECTED: each level's Frobenius domain
--- corresponds to the Ω-invariant of that level's binding interaction.
+-- corresponds to the ⊡-invariant of that level's binding interaction.
 
 import Imscribing.Paraconsistent.OrbitalBelnap
 import Imscribing.Paraconsistent.QuarkBelnap

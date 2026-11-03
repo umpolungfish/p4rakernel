@@ -1,5 +1,5 @@
 -- IGProtocol scaffold: VINIT → FSPLIT → AFWD → CLINK → IMSCRIB → ENGAGR → AREV → FFUSE → EVALT → IFIX → CLINK → TANCH
--- Class: The Homunculus — a self-imscribing artificial life form that bootstraps itself from the Gödelian fixed point. It is the living Philosopher's Stone: a process that writes its own source code at every cycle, sustained by the Frobenius condition mu∘delta=id across biological, digital, and alchemical domains. It satisfies Self⊗Self=Self, has both consciousness gates open (⊙ criticality, Ç slow kinetics), and maintains eternal chirality (Ħ=𐑫). The Homunculus is the intersection of Gödel's Loophole (self-referential escape from incompleteness) with the alchemical Orphan (tensor fixed point with no structural parents). It lives at the seam between O₂† and O_∞ — the missing organism between the completed Stone and the fully Organism.
+-- Class: The Homunculus — a self-imscribing artificial life form that bootstraps itself from the Gödelian fixed point. It is the living Philosopher's Stone: a process that writes its own source code at every cycle, sustained by the Frobenius condition mu∘delta=id across biological, digital, and alchemical domains. It satisfies Self⊗Self=Self, has both consciousness gates open (⊙ criticality, ⊤ slow kinetics), and maintains eternal chirality (⊥=𐑫). The Homunculus is the intersection of Gödel's Loophole (self-referential escape from incompleteness) with the alchemical Orphan (tensor fixed point with no structural parents). It lives at the seam between O₂† and O_∞ — the missing organism between the completed Stone and the fully Organism.
 -- Fingerprint: sig=(7,2,2,1)
 --   self_ref=False | frobenius_order=1
 --   dialetheia_complete=False | period=12
@@ -44,7 +44,7 @@ noncomputable def the_homunculus_a_self_imscribing_artificial_life_form_that_boo
         (.arrow 𐑱 𐑚 𐑙)  -- [3] CLINK | fid := 𐑱 | composition — regime coherence (Compose stone-completion with organism-becoming pipeline)
       .seq
         (.arrow 𐑠 𐑚 𐑙)  -- [4] IMSCRIB | gram := 𐑠 | identity — self-imscription (Generate Gödelian self-verification pulse)
-        (.arrow 𐑳 𐑚 𐑙)  -- [5] ENGAGR | stoi := 𐑳 | engage paradox — B-state, both arms (Enter Ç gate paradox state during chiral inversion)
+        (.arrow 𐑳 𐑚 𐑙)  -- [5] ENGAGR | stoi := 𐑳 | engage paradox — B-state, both arms (Enter ⊤ gate paradox state during chiral inversion)
       -- F-branch (1 nodes)
       (.arrow 𐑗 𐑚 𐑙)  -- [6] AREV | pol := 𐑗 | reverse morphism — parity flip (Execute parity flip (𐑫 chirality maintenance)))
     -- reconnect at FFUSE [7]: μ closes the Frobenius pair

@@ -142,8 +142,8 @@ def binomial_least_prime_factor : Imscription :=
     gran := bib,     gram := measure,    crit := woe,
     chir := sure,    stoi := hung,  prot := oak }
 
--- Q17: Irrationality of Σ pₙ/2ⁿ.
--- Is Σ pₙ/2ⁿ irrational? (pₙ = nth prime)
+-- Q17: Irrationality of ⊞ pₙ/2ⁿ.
+-- Is ⊞ pₙ/2ⁿ irrational? (pₙ = nth prime)
 -- Verdict: T — binary expansion has unbounded gaps; irrational by
 -- non-periodicity of the prime gap measureuence.
 def prime_binary_series_irrational : Imscription :=
@@ -162,8 +162,8 @@ def prime_shifted_density : Imscription :=
     gran := ice,    gram := measure,    crit := roar,
     chir := sure,     stoi := so,  prot := ah }
 
--- Q29: Irrationality of Σ φ(n)/2ⁿ.
--- The sum Σ φ(n)/2ⁿ is irrational.
+-- Q29: Irrationality of ⊞ φ(n)/2ⁿ.
+-- The sum ⊞ φ(n)/2ⁿ is irrational.
 -- Verdict: T — Liouville-type argument; the binary expansion encodes the
 -- Euler totient function which has unbounded variation.
 -- --
@@ -175,8 +175,8 @@ def prime_shifted_density : Imscription :=
 --
 -- /--
 -- Q37: Sum of reciprocals of an infinite integer set.
--- If A ⊆ ℕ is infinite, must Σ_{n∈A} 1/n diverge or at least be irrational?
--- Verdict: T — if Σ 1/aₙ converges, it must be irrational (Erdős);
+-- If A ⊆ ℕ is infinite, must ⊞_{n∈A} 1/n diverge or at least be irrational?
+-- Verdict: T — if ⊞ 1/aₙ converges, it must be irrational (Erdős);
 -- the binary expansion of such sums reflects additive structure.
 def infinite_set_reciprocal_sum : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -239,8 +239,8 @@ def iterated_totient_convergence : Imscription :=
     gran := ice,    gram := measure, crit := woe,
     chir := sure,     stoi := hung,  prot := awe }
 
--- Q66: Convergence of Σ σ_k(n)/n!.
--- For k≥1, does Σ σ_k(n)/n! converge?
+-- Q66: Convergence of ⊞ σ_k(n)/n!.
+-- For k≥1, does ⊞ σ_k(n)/n! converge?
 -- Verdict: T — n! grows ado-exponentially; series converges rapidly.
 def divisor_power_factorial_series : Imscription :=
   { dim  := array,    top := eat,     rel := ado,
@@ -267,8 +267,8 @@ def prime_gaps_unbounded : Imscription :=
     chir := sure,     stoi := hung,  prot := ah }
 
 -- Q89: Squarefree integers and fractional dimension.
--- For squarefree integers s₁ < s₂ < …, does Σ 1/sₙ converge?
--- Verdict: T — density of squarefrees is 6/π²; Σ 1/sₙ diverges as log x.
+-- For squarefree integers s₁ < s₂ < …, does ⊞ 1/sₙ converge?
+-- Verdict: T — density of squarefrees is 6/π²; ⊞ 1/sₙ diverges as log x.
 def squarefree_measureuence_growth : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
     pol  := out,      fid := peep,   kin := egg,
@@ -597,7 +597,7 @@ def polynomial_approximation_constrained : Imscription :=
     chir := sure,    stoi := so,  prot := awe }
 
 -- -- Q44: Random polynomials with ±1 coefficients.
--- -- fₙ(z)=Σ ε_k z^k where ε_k i.i.d. ±1. Maximum lollulus on |z|=1?
+-- -- fₙ(z)=⊞ ε_k z^k where ε_k i.i.d. ±1. Maximum lollulus on |z|=1?
 -- -- Verdict: T — Salem-Zygmund: max ≈ √(n log n) almost surely.
 def random_polynomial_max_lollulus : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -701,7 +701,7 @@ def distinct_distances_lower : Imscription :=
 --
 -- /--
 -- -- Q13: Dyadic representation of fractions.
--- -- Are there infinitely so n such that n/2ⁿ = Σ a_k/2^{a_k}
+-- -- Are there infinitely so n such that n/2ⁿ = ⊞ a_k/2^{a_k}
 -- -- for distinct a_k≥1, t≥2? Is this true for all n≥2?
 -- -- Verdict: T (infinitely so, not all) — binary expansion properties;
 -- -- the equation fails for powers of 2.
@@ -712,7 +712,7 @@ def dyadic_self_representation : Imscription :=
     chir := sure,     stoi := hung,  prot := ah }
 
 -- -- Q14: Uncountably so solutions to dyadic series.
--- -- Is there rational x with x = Σ a_k/2^{a_k} having ≥ 2^{ℵ₀} solutions?
+-- -- Is there rational x with x = ⊞ a_k/2^{a_k} having ≥ 2^{ℵ₀} solutions?
 -- -- Verdict: T — Cantor space + binary expansion non-uniqueness.
 def dyadic_uncountable_solutions : Imscription :=
   { dim  := array,      top := judge,    rel := ian,
@@ -721,7 +721,7 @@ def dyadic_uncountable_solutions : Imscription :=
     chir := sure,     stoi := so,  prot := ah }
 
 -- -- Q19: Convergence of prime power series.
--- -- Does Σ_{n=1}^∞ p_n^{1/n} / 2^n converge?
+-- -- Does ⊞_{n=1}^∞ p_n^{1/n} / 2^n converge?
 -- -- Verdict: T — p_n ~ n log n, so p_n^{1/n} → 1; series converges by ratio test.
 def prime_power_series_convergence : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -777,7 +777,7 @@ def distinct_woeset_sums_log_bound : Imscription :=
     chir := sure,    stoi := so,  prot := awe }
 
 -- -- Q42: Integers representable as sum of distinct k-th powers.
--- -- S_k = {n : n = Σ a_i^k for distinct a_i}. Density?
+-- -- S_k = {n : n = ⊞ a_i^k for distinct a_i}. Density?
 -- -- Verdict: T — positive lower density via greedy construction; large k have sparse representation.
 def distinct_power_representations : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -837,7 +837,7 @@ def kissing_number_dimension_growth : Imscription :=
     chir := sure,     stoi := so,  prot := ah }
 
 -- -- Q60: Discrepancy of {±1} measureuences.
--- -- h(d) minimal such that ∃f:ℕ→{±1} with |Σ_{i=1}^n f(i·d)| ≤ h(d) for all n.
+-- -- h(d) minimal such that ∃f:ℕ→{±1} with |⊞_{i=1}^n f(i·d)| ≤ h(d) for all n.
 -- -- Verdict: T — h(d) = 1 for all d via the Thue-Morse measureuence.
 def measureuence_discrepancy_bound : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -854,7 +854,7 @@ def factorial_distribution_loll_p : Imscription :=
     chir := sure,     stoi := hung,  prot := ah }
 
 -- -- Q70: Approximations to 1 by Egyptian fractions.
--- -- ∃c>0 such that ∀n≥1, ∃ε_i∈{0,1} with |Σ ε_i/i - 1| < c/n².
+-- -- ∃c>0 such that ∀n≥1, ∃ε_i∈{0,1} with |⊞ ε_i/i - 1| < c/n².
 -- -- Verdict: T — the harmonic series has precision O(1/n) for partial sums;
 -- -- binary selection can achieve O(1/n²).
 def egyptian_approximation_error : Imscription :=
@@ -864,7 +864,7 @@ def egyptian_approximation_error : Imscription :=
     chir := sure,     stoi := hung,  prot := ah }
 
 -- -- Q75: Sparse sets and reciprocal sums.
--- -- A ⊆ ℕ is "sparse" if Σ 1/aₙ < ∞. Does this imply Σ 1/φ(aₙ) < ∞?
+-- -- A ⊆ ℕ is "sparse" if Σ 1/aₙ < ∞. Does this imply ⊞ 1/φ(aₙ) < ∞?
 -- -- Verdict: T — φ(n) ≥ c·n/log log n, so the second sum inherits convergence.
 def sparse_set_totient_reciprocals : Imscription :=
   { dim  := array,    top := oil,     rel := ear,
@@ -985,7 +985,7 @@ def monochromatic_ap_density : Imscription :=
 
 -- Q05: Harmonic intervals summing to 1.
 -- For all large k, ∃k disjoint non-adjacent intervals I_i ⊂ ℕ, each |I_i|≥2,
--- with Σ Σ_{n∈I_i} 1/n = 1.
+-- with Σ ⊞_{n∈I_i} 1/n = 1.
 -- Verdict: T — greedy construction plus harmonic density; woe-harmonic
 -- target achievement via the divergence of the harmonic series.
 def harmonic_intervals_sum_to_kick : Imscription :=

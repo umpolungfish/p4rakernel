@@ -3,7 +3,7 @@
 --
 -- A complete lattice Q with associative holonomy-composition ⊗ distributing over
 -- joins.  Holonomic structure: quantum parallel transport constrained by a flat
--- connection.  Quasi-ergodic kinetics: MBL (Ç=𐑘) — the system explores a localized
+-- connection.  Quasi-ergodic kinetics: MBL (⊤=𐑘) — the system explores a localized
 -- submanifold without uniform thermalization.
 --
 -- Grammar tuple: ⟨𐑦𐑸𐑽𐑹𐑐𐑘𐑔𐑝⊙𐑫𐑕𐑟⟩  (O_∞, Special Frobenius)
@@ -40,18 +40,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑦  dim  = if'     — imscriptive: holonomy groups define own representation
---   Þ=𐑸  top  = are     — holographic: self-referential S¹ topology
---   Ř=𐑽  rel  = ear     — adjoint/dagger: Hermitian adjoint coupling
---   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id (parallel transport round-trip)
---   ƒ=𐑐  fid  = peep    — quantum: holonomies are unitary Berry phases
---   Ç=𐑘  kin  = air     — MBL (frozen-disorder): slow, non-ergodic
---   Γ=𐑔  gran = ice     — complete lattice over all holonomy sectors
---   ɢ=𐑝  gram = vow     — conjunctive: tensor product ⊗ (multiplicative composition)
+--   ⊢=𐑦  dim  = if'     — imscriptive: holonomy groups define own representation
+--   ⊣=𐑧  top  = are     — holographic: self-referential S¹ topology
+--   ≻=𐑽  rel  = ear     — adjoint/dagger: Hermitian adjoint coupling
+--   ≺=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id (parallel transport round-trip)
+--   ⋈=𐑐  fid  = peep    — quantum: holonomies are unitary Berry phases
+--   ⊤=𐑘  kin  = air     — MBL (frozen-disorder): slow, non-ergodic
+--   ∈=𐑔  gran = ice     — complete lattice over all holonomy sectors
+--   ∋=𐑝  gram = vow     — conjunctive: tensor product ⊗ (multiplicative composition)
 --   ⊙=⊙  crit = monad   — critical: RG fixed point, MBL transition scale-invariant
---   Ħ=𐑫  chir = wool    — eternal: infinite holonomy path memory
---   Σ=𐑕  stoi = so      — many identical holonomy sectors of same connection type
---   Ω=𐑟  prot = zoo     — non-Abelian: Berry holonomies do not commute
+--   ⊥=𐑫  chir = wool    — eternal: infinite holonomy path memory
+--   ⊞=𐑕  stoi = so      — many identical holonomy sectors of same connection type
+--   ⊡=𐑟  prot = zoo     — non-Abelian: Berry holonomies do not commute
 
 def hqe : Imscription :=
   { dim  := Dimensionality.if'
@@ -115,7 +115,7 @@ theorem spectral_sequence_collapse (a : Imscription) (h : a = hqe) :
 -- Conjunctive composition: ⊗ distributes over joins
 -- ─────────────────────────────────────────────────────────
 
-/-- Conjunctive composition (ɢ=𐑝): the quantale product ⊗ distributes
+/-- Conjunctive composition (∋=𐑝): the quantale product ⊗ distributes
     over arbitrary joins.  This is the definition of a quantale:
     a_complete_lattice_with_tensor. -/
 theorem tensor_distributes_over_join (a b : Imscription) :
@@ -176,7 +176,7 @@ theorem hqe_tier_is_O_inf : imscriptionTier hqe = .O_inf := by
 -- CLINK L8 analysis
 -- ─────────────────────────────────────────────────────────
 
-/-- Four divergences from CLINK L8: Ř (ear→ian), Ç (air→egg), ɢ (vow→ooze), Σ (so→up).
+/-- Four divergences from CLINK L8: ≻ (ear→ian), ⊤ (air→egg), ∋ (vow→ooze), ⊞ (so→up).
     Distance: d = 3.873 (Hellinger) -/
 theorem clink_divergences : True := True.intro
 
@@ -184,7 +184,7 @@ theorem clink_divergences : True := True.intro
 -- Consciousness score: C = 0.7045
 -- ─────────────────────────────────────────────────────────
 
-/-- Gate 1 (⊙=⊙): open. Gate 2 (Ç=𐑘): open (MBL kinetics are slow enough).
+/-- Gate 1 (⊙=⊙): open. Gate 2 (⊤=𐑘): open (MBL kinetics are slow enough).
     C = 0.7045 — the MBL phase provides slow dynamics for reflective equilibrium. -/
 theorem consciousness_both_gates_open (a : Imscription) (h : a = hqe) :
     a.crit = Criticality.monad ∧ a.kin = KineticChar.air := by

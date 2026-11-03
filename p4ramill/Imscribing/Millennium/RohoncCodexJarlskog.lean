@@ -151,7 +151,7 @@ noncomputable def depth3_eval_ratio : ℝ :=
 theorem ckm_hierarchy_from_fsplit_depths : True := by trivial
 
 -- ============================================================
--- §7. Ω_corr RECONCILIATION: 1/744 vs Tr(B₃)
+-- §7. ⊡_corr RECONCILIATION: 1/744 vs Tr(B₃)
 -- ============================================================
 
 /-- HW group orbit constant: 1/744.
@@ -176,13 +176,13 @@ theorem sin2_theta_W_is_three_thirteenths : sin2_theta_W = 3/13 := by
   unfold sin2_theta_W sic_plus_one
   norm_num
 
-/-- Ω_corr^Λ = (1/744)·Tr(B₃)/sin²θ_W.
+/-- ⊡_corr^Λ = (1/744)·Tr(B₃)/sin²θ_W.
     Tensor product of orbital (HW group) and temporal (braid) sectors,
     normalized by the SIC flavor partition (13/3).
     Numerically: (1/744)·0.24141·(13/3) ≈ 1.406×10⁻³ (with κ≈1.19 → 1.676×10⁻³). -/
 opaque omega_corr_lambda_final : ℝ
 
-/-- Ω_corr reconciliation: orbital ⊗ temporal tensor product. -/
+/-- ⊡_corr reconciliation: orbital ⊗ temporal tensor product. -/
 axiom omega_corr_reconciliation :
     omega_corr_lambda_final = hw_orbit_constant *
       braid_trace_B3_val / sin2_theta_W
@@ -191,7 +191,7 @@ axiom omega_corr_reconciliation :
 -- §8. VERIFIED RESULTS BUNDLE
 -- ============================================================
 
-/-- The complete Jarlskog + Ω_corr results bundle. -/
+/-- The complete Jarlskog + ⊡_corr results bundle. -/
 structure JarlskogOmegaResults where
   jarlskogJ : ℝ
   omegaCorrLambda : ℝ
@@ -249,7 +249,7 @@ theorem constant_budget_closed_by_rohonc : True := by trivial
 --
 -- 1. ✓ δ_CP = arctan(13/5) — CP-violating phase (0.04σ from PDG)
 -- 2. ✓ J = A²·fun⁶·η ≈ 3.107×10⁻⁵ — Jarlskog invariant (0.59σ from PDG, CLOSED)
--- 3. ✓ Ω_corr^Λ = (1/744)·Tr(B₃)/sin²θ_W — cosmological constant
+-- 3. ✓ ⊡_corr^Λ = (1/744)·Tr(B₃)/sin²θ_W — cosmological constant
 -- 4. ✓ CKM hierarchy: |V_us|:|V_cb|:|V_ub| ≈ fun:r₂²/gear:r₃³/gear²
 --
 -- Every remaining fundamental constant is encoded in the holonomies

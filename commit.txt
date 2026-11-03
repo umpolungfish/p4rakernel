@@ -1,3 +1,7 @@
 I prove the coupled potential read by the ensemble successor.
 
 I prove the radial, internal and simultaneous increments, normalized torsion and projected release directions, and retention of added force in trilattice mode. I preserve the existing Lean build and export its corrected native primitive declarations for folding preparation.
+
+I prove that any transported AREV action fixes the image of a fixed native register. I prove lossless four-lane affine addresses and exact AREV transport, preserving the criterion that every retained distinction needs a native continuation witness.
+
+I prove the directional mixed Gram is exactly its transported source potential, and prove the shared stationary equation and mechanical minimum from the same completed quadratic.

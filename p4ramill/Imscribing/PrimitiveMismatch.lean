@@ -23,7 +23,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- Catalog entries (verified via encode_system)
 -- ============================================================
 
-/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; 𐑠; 𐑢; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; eat; tot; P_ψ; F_ℏ; egg; ice; 𐑠; 𐑢; H₁; 1:1; ⊡₀⟩ -/
 def schrodingerDynamics : Imscription := {
   dim  := ash
   top  := eat
@@ -39,7 +39,7 @@ def schrodingerDynamics : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_†; church; F_ℓ; yea; bib; 𐑠; ⊙; H₀; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_†; church; F_ℓ; yea; bib; 𐑠; ⊙; H₀; 1:1; ⊡₀⟩ -/
 def measurementOutcome : Imscription := {
   dim  := ash
   top  := mime
@@ -55,7 +55,7 @@ def measurementOutcome : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; egg; ice; 𐑠; ⊙; H₁; 1:1; Ω₀⟩ -/
+/-- ⟨D_△; T_⋈; R_↔; P_±; F_ϑ; egg; ice; 𐑠; ⊙; H₁; 1:1; ⊡₀⟩ -/
 def wickRotation : Imscription := {
   dim  := ash
   top  := mime
@@ -103,7 +103,7 @@ def tqft : Imscription := {
   prot := ah
 }
 
-/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; loll; thigh; 𐑠; ⊙; H_∞; n:m; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_↔; P_ψ; F_ϑ; loll; thigh; 𐑠; ⊙; H_∞; n:m; ⊡₀⟩ -/
 def nonmarkovianOpenSystems : Imscription := {
   dim  := array
   top  := judge
@@ -119,7 +119,7 @@ def nonmarkovianOpenSystems : Imscription := {
   prot := awe
 }
 
-/-- ⟨D_∞; T_net; R_sup; church; F_ϑ; egg; ice; 𐑝; ⊙; H₁; n:n; Ω₀⟩ -/
+/-- ⟨D_∞; T_net; R_sup; church; F_ϑ; egg; ice; 𐑝; ⊙; H₁; n:n; ⊡₀⟩ -/
 def statisticalMechanics : Imscription := {
   dim  := array
   top  := judge

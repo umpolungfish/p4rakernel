@@ -380,7 +380,7 @@ structure EGMonad where
   /-- μ is idempotent (temporal-depth-2: stabilizes immediately). -/
   mu_idempotent : ∀ (G : Group) (x : (fundamentalGroup (T G)).carrier), μ G (μ G x) = μ G x
 
-/-- The monad idempotence encodes temporal-depth-2 (Ħ-promotion). -/
+/-- The monad idempotence encodes temporal-depth-2 (⊥-promotion). -/
 theorem monad_encodes_promotions (M : EGMonad) :
     (∀ G x, M.μ G (M.μ G x) = M.μ G x) :=
   M.mu_idempotent
@@ -394,8 +394,8 @@ theorem monad_encodes_promotions (M : EGMonad) :
 theorem grammar_distance_1_3416 : True := by
   have h_mismatches : primitiveMismatches
     eilenberg_ganea_conjecture_vessel eilenberg_ganea_proven_vessel = 2 := by native_decide
-  -- The weighted distance formula from Crystal.lean gives d = √(w_ɢ² + w_Ħ²)
-  -- where w_ɢ = 1.0 and w_Ħ = √0.8
+  -- The weighted distance formula from Crystal.lean gives d = √(w_∋² + w_⊥²)
+  -- where w_∋ = 1.0 and w_⊥ = √0.8
   trivial
 
 -- ============================================================
@@ -478,7 +478,7 @@ axiom eilenberg_ganea_proved : EilenbergGaneaConjecture
 /-- Eilenberg-Ganea sits at tier O_∞ (Special Frobenius).
     Verified by Crystal: φ̂=⊙ + Φ=𐑹 → O_∞. -/
 theorem eilenberg_ganea_tier_O_inf : True := by
-  -- Grammar computation: the tuple at φ̂=⊙ and Φ=𐑹 forces
+  -- Grammar computation: the tuple at φ̂=⊙ and ≺=𐑹 forces
   -- tier O_∞ in the Crystal lattice
   trivial
 

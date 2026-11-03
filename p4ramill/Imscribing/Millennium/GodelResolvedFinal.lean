@@ -99,7 +99,7 @@ theorem eps_sq_eq_zero : eps * eps = (0 : DualNumber) := by
   calc
     eps * eps = (⟨0, 1⟩ : DualNumber) * ⟨0, 1⟩ := rfl
     _ = ⟨(0 : ℝ) * (0 : ℝ), (0 : ℝ) * (1 : ℝ) + (1 : ℝ) * (0 : ℝ)⟩ := rfl
-    _ = ⟨0, 0⟩ := by ring
+    _ = ⟨0, 0⟩ := by norm_num
     _ = (0 : DualNumber) := rfl
 
 /-- ε is a zero divisor but not zero.  This is the structural correlate of

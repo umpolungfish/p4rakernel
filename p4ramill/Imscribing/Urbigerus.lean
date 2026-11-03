@@ -37,4 +37,4 @@ end Imscribing.Urbigerus
 -- Key invariant: three ways from one first matter
 -- T=𐑶 captures the box-product topology of parallel paths
 -- F=𐑐 captures the undetermined (superposed) nature of the first matter
--- Φ=𐑢 captures the controlled, sub-critical process regime
+-- ≺=𐑢 captures the controlled, sub-critical process regime

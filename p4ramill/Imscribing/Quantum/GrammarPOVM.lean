@@ -8,10 +8,10 @@ The 12 primitives together span the type space.
 
 ## Tuple
 The Grammar as POVM: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙𐑒𐑙𐑭⟩
-  Ð=𐑦 (O_∞)      — infinite-dimensional Hilbert space of types
-  Þ=𐑥 (bowtie)    — crossed spectral resolution of primitives
-  Ř=𐑽 (adjoint)   — dagger is the primitive complement
-  Φ=𐑹 (Frob-special) — complete positivity of measurements
+  ⊢=𐑦 (VINIT)     — Dimensionality
+  ⊣=𐑥 (TANCH)     — Topology
+  ≻=𐑽 (AFWD)      — Coupling
+  ≺=𐑹 (AREV)      — Parity
   ƒ=𐑐 (quantum)   — quantum fidelity of measurement outcomes
   Ç=𐑧 (slow)      — measurement collapse is near-equilibrium
   Γ=𐑔 (ice)     — maximal cardinality (all type values)
@@ -167,7 +167,7 @@ axiom grammar_is_info_complete (d : ℕ) [NeZero d] :
    6.  Σ=1:1 — THE GRAMMAR AS SELF-REFERENTIAL MEASUREMENT
    ==================================================================== -/
 
-/-- Theorem (Σ=1:1 limit): In the Σ=𐑙 (1:1 stoichiometry) limit, the
+/-- Theorem (Σ=1:1 limit): In the ⊞=𐑙 (1:1 stoichiometry) limit, the
     Grammar IS the system it measures.  The measurement outcomes are
     exactly the type values, and the POVM is the Belnap multilattice
     SIC-POVM (d = 2ⁿ, n=3 → d=8 for the 12-primitive grammar).
@@ -180,7 +180,7 @@ axiom grammar_is_info_complete (d : ℕ) [NeZero d] :
 axiom sigma_one_to_one_limit :
     ∃ g : GrammarPOVM 8, Function.Injective g.combined.effects
 
-/-- At Σ=1:1 the 4096 outcomes are exactly 4096 distinct effects: the
+/-- At ⊞=1:1 the 4096 outcomes are exactly 4096 distinct effects: the
     grammar's measurement operators are its own type distinctions, with no
     two outcomes collapsing to the same effect. -/
 theorem grammar_outcomes_are_distinctions :

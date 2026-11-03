@@ -41,4 +41,4 @@ end Imscribing.FrancisBacon
 -- T=𐑥: two families cross-classifying phenomena at four levels
 -- P=𐑬: partial symmetry between Sulphur and Mercury
 -- F=𐑞: heat as primary operator ("Digestion is principally by Heat")
--- Γ=𐑜: four parallel kinds of instances (not sequential)
+-- ∈=𐑜: four parallel kinds of instances (not sequential)

@@ -47,7 +47,7 @@ noncomputable def initialize_empty_c_d_hilbert_space_before_basis_selection_prot
   .withGram .measure <|
   -- Seq chain:
   (.arrow 𐑼 𐑼 𐑱)  -- [0] VINIT | dim := 𐑼 | initial object — ground of distinction (Initialize empty C^12 Hilbert space before any basis or measurement structure...)
-  ▷ (.arrow 𐑱 𐑼 𐑚)  -- [1] CLINK | fid := 𐑱 | composition — regime coherence (Chain 12 primitive axes together - (Ð,Þ,Φ) + (Ħ,Σ,ɢ,ƒ,Ç) + (Ř,Γ,⊙,Ω) forming ...)
+  ▷ (.arrow 𐑱 𐑼 𐑚)  -- [1] CLINK | fid := 𐑱 | composition — regime coherence (Chain 12 primitive axes together - (⊢,⊣,≺) + (⊥,⊞,∋,⋈,⊤) + (≻,∈,⊙,⊡) forming ...)
   -- FSPLIT [2] (gran := 𐑚) (Branch 12-primitive assignment into D-family (3 values each) vs combined (T,P)-family (4,5 values)) / FFUSE [7] (stoi := 𐑙)
   ▷ mkFSplit
       -- T-branch (4 nodes)

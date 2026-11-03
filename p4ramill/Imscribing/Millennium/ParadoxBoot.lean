@@ -85,7 +85,7 @@ theorem paradox_fs_satisfies_axiom_C :
   simp [paradox_fs]
 
 theorem paradox_fs_satisfies_axiom_B :
-    -- Axiom B: 𐑭 requires Ħ ≥ 𐑖
+    -- Axiom B: 𐑭 requires ⊥ ≥ 𐑖
     paradox_fs.prot = ah → paradox_fs.chir ≥ sure := by
   intro _hprot
   have hchir : paradox_fs.chir = sure := by simp [paradox_fs]

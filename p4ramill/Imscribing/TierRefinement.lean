@@ -1,7 +1,7 @@
 -- Imscribing/TierRefinement.lean
--- COMPLETING THE CLASSIFIER: Ω refines O_inf into sealed / unsealed
+-- COMPLETING THE CLASSIFIER: ⊡ refines O_inf into sealed / unsealed
 -- ============================================================
--- `ouroboricityTier` (Core.lean) leaves Protection Ω irrelevant to O_inf: any
+-- `ouroboricityTier` (Core.lean) leaves Protection ⊡ irrelevant to O_inf: any
 -- Frobenius-critical tuple lands O_inf regardless of its winding. That is the
 -- gap flagged as mismatch #2 — the tier says nothing about whether the terminal
 -- (G3) actually SEALS. This file closes it additively (Core is left untouched,
@@ -30,19 +30,19 @@ open Dimensionality Topology Relational Polarity Grammar Fidelity KineticChar
 -- §1  THE REFINED TIER
 -- ============================================================
 
-/-- The refined ouroboricity tier: O_inf is split by whether Ω provides a
+/-- The refined ouroboricity tier: O_inf is split by whether ⊡ provides a
     protective winding. -/
 inductive SealedTier where
   | sub       -- below O_inf: the gate structure is not complete
-  | unsealed  -- O_inf reached (loop closes) but Ω gives no winding: not sealed
-  | sealed    -- O_inf AND Ω ∈ {ah, zoo}: the terminal seals (G3 fires)
+  | unsealed  -- O_inf reached (loop closes) but ⊡ gives no winding: not sealed
+  | sealed    -- O_inf AND ⊡ ∈ {ah, zoo}: the terminal seals (G3 fires)
   deriving DecidableEq, Repr
 
 /-- The tuple sits at the O_inf tier. -/
 def isOInf (a : Imscription) : Prop :=
   ouroboricityTier a.crit a.pol a.prot a.dim a.top = OuroboricityTier.O_inf
 
-/-- Ω provides an integer (ah) or non-Abelian (zoo) winding. -/
+/-- ⊡ provides an integer (ah) or non-Abelian (zoo) winding. -/
 def hasWinding (a : Imscription) : Prop :=
   a.prot = Protection.ah ∨ a.prot = Protection.zoo
 
@@ -71,7 +71,7 @@ theorem sub_iff (a : Imscription) :
     sealedTier a = .sub ↔ ¬ isOInf a := by
   unfold sealedTier; split_ifs with h1 h2 <;> simp_all
 
-/-- Ω refines O_inf EXACTLY: the two new tiers together cover precisely the
+/-- ⊡ refines O_inf EXACTLY: the two new tiers together cover precisely the
     O_inf locus. This is the resolution of mismatch #2 — protection is no longer
     silent inside O_inf. -/
 theorem refines_O_inf (a : Imscription) :
@@ -144,7 +144,7 @@ theorem sealed_at_roar_need_not_close :
 -- ============================================================
 
 /-- THE COMPLETED CLASSIFIER.
-    (i)   Ω refines O_inf exactly into sealed ∪ unsealed;
+    (i)   ⊡ refines O_inf exactly into sealed ∪ unsealed;
     (ii)  sealing requires the Frobenius gate G1;
     (iii) G3 (unlockTerminal) always lands sealed, and on the Hermitian branch
           sealed IS G3;

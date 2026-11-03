@@ -123,8 +123,8 @@ theorem fiber_times_codons : 270000 * 64 = 17280000 := by decide
     Promoted (12): one per IG primitive. -/
 inductive AminoAcid : Type where
   | Leu | Pro | Arg | Thr | Ala | Ser | Val | Gly  -- ground layer
-  | Met | Trp | Cys | Tyr | Phe | Ile               -- promoted (Ð Þ Ř Φ ƒ Ç)
-  | His | Asn | Gln | Asp | Lys | Glu               -- promoted (Γ ɢ ⊙ Ħ Σ Ω)
+  | Met | Trp | Cys | Tyr | Phe | Ile               -- promoted (⊢ ⊣ ≻ ≺ ⋈ ⊤)
+  | His | Asn | Gln | Asp | Lys | Glu               -- promoted (∈ ∋ ⊙ ⊥ ⊞ ⊡)
   deriving DecidableEq, Repr, Fintype, Inhabited
 
 inductive Stop : Type where | UAA | UAG | UGA
@@ -251,7 +251,7 @@ theorem ground_promoted_cover :
 theorem twenty_eq_eight_plus_twelve :
     Fintype.card AminoAcid = 8 + 12 := by decide
 
-/-- Stop codons are exactly 3: UAA, UAG, UGA (Ω closure). -/
+/-- Stop codons are exactly 3: UAA, UAG, UGA (⊡ closure). -/
 theorem stop_card : Fintype.card Stop = 3 := by decide
 
 -- ════════════════════════════════════════════════════════════════════════════
@@ -260,18 +260,18 @@ theorem stop_card : Fintype.card Stop = 3 := by decide
 
 /-- The 12 IG primitive families. -/
 inductive IGPrimitive : Type where
-  | Dimensionality  -- Ð  Met : translation start / scope
-  | Topology        -- Þ  Trp : indole ring topology
-  | Recognition     -- Ř  Cys : disulfide recognition
-  | Parity          -- Φ  Tyr : phosphorylation / symmetry
-  | Fidelity        -- ƒ  Phe : hydrophobic fidelity
-  | Kinetics        -- Ç  Ile : β-branching / kinetics
-  | Granularity     -- Γ  His : pH-gated granularity
-  | Coupling        -- ɢ  Asn : glycosylation coupling
+  | Dimensionality  -- ⊢  Met : translation start / scope
+  | Topology        -- ⊣  Trp : indole ring topology
+  | Recognition     -- ≻  Cys : disulfide recognition
+  | Parity          -- ≺  Tyr : phosphorylation / symmetry
+  | Fidelity        -- ⋈  Phe : hydrophobic fidelity
+  | Kinetics        -- ⊤  Ile : β-branching / kinetics
+  | Granularity     -- ∈  His : pH-gated granularity
+  | Coupling        -- ∋  Asn : glycosylation coupling
   | Criticality     -- ⊙  Gln : metabolic critical point
-  | Chirality       -- Ħ  Asp : chiral specificity
-  | Stoichiometry   -- Σ  Lys : stoichiometric balance
-  | Winding         -- Ω  Glu : C-terminal winding closure
+  | Chirality       -- ⊥  Asp : chiral specificity
+  | Stoichiometry   -- ⊞  Lys : stoichiometric balance
+  | Winding         -- ⊡  Glu : C-terminal winding closure
   deriving DecidableEq, Repr, Fintype, Inhabited
 
 /-- The bijection: each promoted AA activates exactly one IG primitive. -/
@@ -328,7 +328,7 @@ theorem all_primitives_covered :
 /-- Stratum of a codon: exact (position 3 forgotten), split, or stop. -/
 def codonStratum (c : Codon) : Option Bool :=
   match geneticCode c with
-  | .stop _ => none          -- stop: Ω closure
+  | .stop _ => none          -- stop: ⊡ closure
   | .aa _   => some (isExactBox c.1 c.2.1)  -- true = exact, false = split
 
 /-- Exactly 32 codons are in the exact stratum (8 boxes × 4). -/

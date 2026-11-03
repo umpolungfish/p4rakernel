@@ -13,14 +13,14 @@ build. Regenerate only when the canonical ORDINALS table itself changes.
 namespace Imscribing.Millennium.CanonicalOrdinalFaithfulness
 open Imscribing.Primitives Millennium.UniverseRulesets
 
-/-- `ordinalD` matches canonical ranks for `Ð` (4 values). -/
+/-- `ordinalD` matches canonical ranks for `⊢` (4 values). -/
 theorem ordinalD_faithful :
     ordinalD Dimensionality.dead = 1 ∧
     ordinalD Dimensionality.ash = 2 ∧
     ordinalD Dimensionality.array = 3 ∧
     ordinalD Dimensionality.if' = 4 := by native_decide
 
-/-- `ordinalT` matches canonical ranks for `Þ` (5 values). -/
+/-- `ordinalT` matches canonical ranks for `⊣` (5 values). -/
 theorem ordinalT_faithful :
     ordinalT Topology.judge = 1 ∧
     ordinalT Topology.eat = 2 ∧
@@ -28,14 +28,14 @@ theorem ordinalT_faithful :
     ordinalT Topology.oil = 4 ∧
     ordinalT Topology.are = 5 := by native_decide
 
-/-- `ordinalR` matches canonical ranks for `Ř` (4 values). -/
+/-- `ordinalR` matches canonical ranks for `≻` (4 values). -/
 theorem ordinalR_faithful :
     ordinalR Relational.ado = 1 ∧
     ordinalR Relational.tot = 2 ∧
     ordinalR Relational.ear = 3 ∧
     ordinalR Relational.ian = 4 := by native_decide
 
-/-- `ordinalP` matches canonical ranks for `Φ` (5 values). -/
+/-- `ordinalP` matches canonical ranks for `≺` (5 values). -/
 theorem ordinalP_faithful :
     ordinalP Polarity.church = 1 ∧
     ordinalP Polarity.yew = 2 ∧
@@ -43,13 +43,13 @@ theorem ordinalP_faithful :
     ordinalP Polarity.nun = 4 ∧
     ordinalP Polarity.or' = 5 := by native_decide
 
-/-- `ordinalF` matches canonical ranks for `ƒ` (3 values). -/
+/-- `ordinalF` matches canonical ranks for `⋈` (3 values). -/
 theorem ordinalF_faithful :
     ordinalF Fidelity.age = 1 ∧
     ordinalF Fidelity.they = 2 ∧
     ordinalF Fidelity.peep = 3 := by native_decide
 
-/-- `ordinalK` matches canonical ranks for `Ç` (5 values). -/
+/-- `ordinalK` matches canonical ranks for `⊤` (5 values). -/
 theorem ordinalK_faithful :
     ordinalK KineticChar.yea = 1 ∧
     ordinalK KineticChar.loll = 2 ∧
@@ -57,13 +57,13 @@ theorem ordinalK_faithful :
     ordinalK KineticChar.on = 4 ∧
     ordinalK KineticChar.air = 9/2 := by native_decide
 
-/-- `ordinalGran` matches canonical ranks for `Γ` (3 values). -/
+/-- `ordinalGran` matches canonical ranks for `∈` (3 values). -/
 theorem ordinalGran_faithful :
     ordinalGran Granularity.bib = 1 ∧
     ordinalGran Granularity.thigh = 2 ∧
     ordinalGran Granularity.ice = 3 := by native_decide
 
-/-- `ordinalG` matches canonical ranks for `ɢ` (4 values). -/
+/-- `ordinalG` matches canonical ranks for `∋` (4 values). -/
 theorem ordinalG_faithful :
     ordinalG Grammar.vow = 1 ∧
     ordinalG Grammar.gag = 2 ∧
@@ -78,20 +78,20 @@ theorem ordinalPhi_faithful :
     ordinalPhi Criticality.err = 8/3 ∧
     ordinalPhi Criticality.haha = 3 := by native_decide
 
-/-- `ordinalH` matches canonical ranks for `Ħ` (4 values). -/
+/-- `ordinalH` matches canonical ranks for `⊥` (4 values). -/
 theorem ordinalH_faithful :
     ordinalH Chirality.fee = 1 ∧
     ordinalH Chirality.kick = 2 ∧
     ordinalH Chirality.sure = 3 ∧
     ordinalH Chirality.wool = 4 := by native_decide
 
-/-- `ordinalS` matches canonical ranks for `Σ` (3 values). -/
+/-- `ordinalS` matches canonical ranks for `⊞` (3 values). -/
 theorem ordinalS_faithful :
     ordinalS Stoichiometry.hung = 1 ∧
     ordinalS Stoichiometry.so = 2 ∧
     ordinalS Stoichiometry.up = 3 := by native_decide
 
-/-- `ordinalOmega` matches canonical ranks for `Ω` (4 values). -/
+/-- `ordinalOmega` matches canonical ranks for `⊡` (4 values). -/
 theorem ordinalOmega_faithful :
     ordinalOmega Protection.awe = 1 ∧
     ordinalOmega Protection.oak = 2 ∧

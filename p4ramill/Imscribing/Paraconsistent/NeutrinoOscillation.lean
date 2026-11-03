@@ -7,7 +7,7 @@
 --   2. Mass eigenstates ≠ flavor eigenstates (νₑ, ν_μ, ν_τ)
 --   3. The mismatch is encoded in the PMNS matrix U_{αi}
 --
--- Oscillation probability: P(ν_α → ν_β) = |Σᵢ U_{βi} U*_{αi} e^{-i m_i²L/2E}|²
+-- Oscillation probability: P(ν_α → ν_β) = |⊞ᵢ U_{βi} U*_{αi} e^{-i m_i²L/2E}|²
 --
 -- Structural insight: This is a quantum beat phenomenon — the phase
 -- evolution of different mass components causes the observed flavor
@@ -41,7 +41,7 @@ inductive NeutrinoMass where
   | m1 | m2 | m3
   deriving Inhabited, Repr, DecidableEq
 
--- The PMNS mixing matrix: |ν_α⟩ = Σ_i U_{αi} |ν_i⟩
+-- The PMNS mixing matrix: |ν_α⟩ = ⊞_i U_{αi} |ν_i⟩
 -- All 9 entries are non-zero (large mixing angles, unlike CKM)
 def pmnsEntry (f : NeutrinoFlavor) (m : NeutrinoMass) : Prop :=
   True

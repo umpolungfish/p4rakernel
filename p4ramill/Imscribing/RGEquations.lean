@@ -32,7 +32,7 @@ open Imscribing
 -- §0  SHARED CRYSTAL CONSTANTS & GROUND/TERMINAL STATES
 -- ============================================================
 
-/-- Cardinalities: [D, T, R, P, F, K, G, C, ⊙, H, S, Ω] = [4,5,4,5,3,5,3,4,5,4,3,4] -/
+/-- Cardinalities: [D, T, R, P, F, K, G, C, ⊙, H, S, ⊡] = [4,5,4,5,3,5,3,4,5,4,3,4] -/
 def primitiveCardinalities : List ℕ := [4, 5, 4, 5, 3, 5, 3, 4, 5, 4, 3, 4]
 
 /-- Strides for mixed-radix crystal address encoding -/

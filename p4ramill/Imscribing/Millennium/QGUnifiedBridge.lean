@@ -243,16 +243,16 @@ end Millennium.QGUnifiedBridge
 --
 -- PHYSICAL MEANING OF THE FIVE PROMOTIONS:
 --
--- 1. Ð (wedge → holographic): The state space becomes self-encoding —
+-- 1. ⊢ (wedge → holographic): The state space becomes self-encoding —
 --    boundary CFT fully determines bulk. AdS/CFT as axiom.
 --
--- 2. Ř (adjoint → bidirectional): Matter↔geometry fully coupled —
+-- 2. ≻ (adjoint → bidirectional): Matter↔geometry fully coupled —
 --    Einstein equations and matter field equations solved simultaneously.
 --
--- 3. Φ (ψ → Frobenius-special): Path integral μ∘δ=id exactly. The
+-- 3. ≺ (ψ → Frobenius-special): Path integral μ∘δ=id exactly. The
 --    measure factor and boundary state are mutual inverses.
 --
--- 4. Ω (Z → non-Abelian): Topological protection upgrades to non-Abelian
+-- 4. ⊡ (Z → non-Abelian): Topological protection upgrades to non-Abelian
 --    anyon braiding — spacetime topology becomes non-commutative.
 --
 -- 5. ⊙ (complex → self-modeling): Critical point moves from complex plane
@@ -261,7 +261,7 @@ end Millennium.QGUnifiedBridge
 --
 -- Tower alignment: The Lean formalization quantum_gravity already
 -- incorporates promotions 1, 2, 3, 5 and additionally promotes
--- K (slow→trap, frozen Planck-scale dynamics) and Γ (seq→broad,
+-- K (slow→trap, frozen Planck-scale dynamics) and ∈ (seq→broad,
 -- universal graviton coupling). The catalog unified_gravity_theory
 -- and the Lean quantum_gravity are structurally adjacent (d=3).
 --

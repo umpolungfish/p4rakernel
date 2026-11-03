@@ -1,8 +1,8 @@
 /-
 Imscribing/NumberTheory/PrattCertificateMonad.lean
 Pratt Certificate Monad in Lean 4 — buildable core.
-Catalog: ⟨Ð=𐑼; Þ=𐑡; Ř=𐑑; Φ=𐑗; ƒ=𐑞; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
-Ob3ect:  ⟨Ð=𐑦; Þ=𐑰; Ř=𐑽; Φ=𐑬; ƒ=𐑐; Ç=𐑧; Γ=𐑔; ɢ=𐑜; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
+Catalog: ⟨⊢=𐑼; ⊣=𐑡; ≻=𐑑; ≺=𐑗; ƒ=𐑞; Ç=𐑧; Γ=𐑲; ɢ=𐑠; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
+Ob3ect:  ⟨⊢=𐑦; ⊣=𐑰; ≻=𐑽; ≺=𐑬; ƒ=𐑐; Ç=𐑧; Γ=𐑔; ɢ=𐑜; ⊙=⊙; Ħ=𐑫; Σ=𐑳; Ω=𐑭⟩
 -/
 
 import Imscribing.Primitives.Core

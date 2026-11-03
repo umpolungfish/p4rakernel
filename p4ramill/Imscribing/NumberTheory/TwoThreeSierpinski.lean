@@ -65,7 +65,7 @@ axiom exists_two_three_sierpinski : ∃ (m : ℕ), IsTwoThreeSierpinski m
     [6] K=egg: deliberate construction, not random search.
     [7] G=ice: finite primes cover infinite grid (global reach).
     [8] Γ=vow: all m-conditions conjunctive via CRT.
-    [9] Φ=roar: complex-plane tiling structure (periodic lattice).
+    [9]  ≺=roar: complex-plane tiling structure (periodic lattice).
     [10] H=kick: one-step finite verification (fundamental domain).
     [11] S=hung: unique m modulo product of primes.
     [12] Ω=awe: no topological invariant; purely combinatorial. -/

@@ -178,7 +178,7 @@ theorem ooze_stone_conflict_list :
     primitiveConflicts primordialOoze stone = ["D","T","R","F","K","Γ","H","S","Ω"] := by
   unfold primordialOoze stone primitiveConflicts; decide
 
-/-- Auxiliary: the three identical primitives are P, Φ, G. -/
+/-- Auxiliary: the three identical primitives are P, ≺, G. -/
 theorem ooze_stone_shared_primitives :
     primordialOoze.pol = stone.pol ∧
     primordialOoze.crit = stone.crit ∧
@@ -210,7 +210,7 @@ theorem promote_H_preserves_O_inf :
     imscriptionTier ({ primordialOoze with chir := .sure } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide
 
-/-- Promoting Ω (awe → ah) from the Ooze preserves O_inf. -/
+/-- Promoting ⊡ (awe → ah) from the Ooze preserves O_inf. -/
 theorem promote_Omega_preserves_O_inf :
     imscriptionTier ({ primordialOoze with prot := .ah } : Imscription) = .O_inf := by
   unfold primordialOoze imscriptionTier ouroboricityTier; decide

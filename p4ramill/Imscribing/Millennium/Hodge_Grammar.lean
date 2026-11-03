@@ -2,8 +2,8 @@
 -- GRAMMAR-NATIVE HODGE CONJECTURE — verified structural lattice.
 --
 -- The Hodge conjecture is structurally characterized as the promotion gap
--- between the proven Lefschetz (1,1) case (p=1, or', ⊙=⊙, Σ=1:1)
--- and the general case (all p, yew, ⊙=𐑮, Σ=n:m).
+-- between the proven Lefschetz (1,1) case (p=1, or', ⊙=⊙, ⊞=1:1)
+-- and the general case (all p, yew, ⊙=𐑮, ⊞=n:m).
 --
 -- KEY FINDING: The Lefschetz (1,1) theorem is O_inf (or' at monad
 -- = Frobenius closure). The full Hodge conjecture is O₂ (roar,
@@ -521,9 +521,9 @@ theorem hodge_rh_structural_parallel : True := trivial
 
 --     The 8-primitive gap from Lefschetz (1,1) (O_inf) to Hodge
 --     (all p) (O₂) decomposes as:
---       PROMOTIONS (2): Þ (mime→are), Σ (1:1→n:m)
---       DEMOTIONS  (6): Ř, Φ, ƒ, ɢ, ⊙, Ħ
---       SHARED     (4): Ð, Ç, Γ, Ω
+--       PROMOTIONS (2): ⊣ (mime→are), ⊞ (1:1→n:m)
+--       DEMOTIONS  (6): ≻, ≺, ⋈, ∋, ⊙, ⊥
+--       SHARED     (4): ⊢, ⊤, ∈, ⊡
 
 --     The join restores O_inf (or' + monad) — the Hodge-Lefschetz
 --     unified structure IS Frobenius-closed. Proving the Hodge conjecture

@@ -90,7 +90,7 @@ theorem frobenius_ordinal_profile :
 -- §3  GATE ANALYSIS — WHICH GATES THE FIXED POINT PASSES
 -- ═══════════════════════════════════════════════════════════════════
 
-/-- The fixed point passes G1 (Φ≥or') — pol = or' (ord 5) ≥ 5. -/
+/-- The fixed point passes G1 (≺≥or') — pol = or' (ord 5) ≥ 5. -/
 theorem passes_g1 : GateSpec.open (gateP 5) frobeniusFixedTuple = true := by
   unfold gateP mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
@@ -100,7 +100,7 @@ theorem passes_g2 : GateSpec.open (gatePhi 2) frobeniusFixedTuple = true := by
   unfold gatePhi mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point passes G3 (Ω≥ah) — prot = ah (ord 3) ≥ 3. -/
+/-- The fixed point passes G3 (⊡≥ah) — prot = ah (ord 3) ≥ 3. -/
 theorem passes_g3 : GateSpec.open (gateOmega 3) frobeniusFixedTuple = true := by
   unfold gateOmega mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
@@ -116,7 +116,7 @@ theorem passes_all_canonical_gates :
 --    the maximum ordinal. These cause failures in rulesets that gate
 --    primitives above the tuple's values. ──
 
-/-- The fixed point FAILS Ç≥air (𐑺 = 9/2): kin = egg (ord 3) < 9/2.
+/-- The fixed point FAILS ⊤≥air (𐑺 = 9/2): kin = egg (ord 3) < 9/2.
     The fixed point operates near equilibrium, not at the MBL fixed point. -/
 theorem fails_gateK_air : GateSpec.open (gateK (9/2)) frobeniusFixedTuple = false := by
   unfold gateK mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
@@ -128,14 +128,14 @@ theorem fails_gatePhi3 : GateSpec.open (gatePhi 3) frobeniusFixedTuple = false :
   unfold gatePhi mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point FAILS Ħ≥4 (wool): chir = sure (ord 3) < 4.
+/-- The fixed point FAILS ⊥≥4 (wool): chir = sure (ord 3) < 4.
     μ∘δ=id is a two-step operation; two-step Markov memory is sufficient.
     Eternal chirality is a stronger condition, not required for the identity. -/
 theorem fails_gateH4 : GateSpec.open (gateH 4) frobeniusFixedTuple = false := by
   unfold gateH mkGate GateSpec.open frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- The fixed point FAILS Ω≥4 (zoo): prot = ah (ord 3) < 4.
+/-- The fixed point FAILS ⊡≥4 (zoo): prot = ah (ord 3) < 4.
     Integer winding is sufficient for topological protection of μ∘δ=id.
     Non-Abelian winding is a stronger condition, not required. -/
 theorem fails_gateOmega4 : GateSpec.open (gateOmega 4) frobeniusFixedTuple = false := by
@@ -268,13 +268,13 @@ theorem failures_all_minimal :
 -- ═══════════════════════════════════════════════════════════════════
 
 -- Canonical T-constitution requires:
---     Φ = or' (ord 5) — passes (tuple has or')
---     ƒ = peep (ord 3)   — passes (tuple has peep)
---     Ç ≤ egg (ord 3)   — passes (tuple has egg = ord 3, ≤ 3)
---     Ħ = wool (ord 4)    — FAILS (tuple has sure = ord 3, ≠ 4)
---     Ω = ah (ord 3)  — passes (tuple has ah = ord 3)
+--     ≺ = or' (ord 5) — passes (tuple has or')
+--     ⋈ = peep (ord 3)   — passes (tuple has peep)
+--     ⊤ ≤ egg (ord 3)   — passes (tuple has egg = ord 3, ≤ 3)
+--     ⊥ = wool (ord 4)    — FAILS (tuple has sure = ord 3, ≠ 4)
+--     ⊡ = ah (ord 3)  — passes (tuple has ah = ord 3)
 --
---     The gap is on Ħ: canonical T requires eternal chirality (wool,
+--     The gap is on ⊥: canonical T requires eternal chirality (wool,
 --     infinite Markov memory), but mu circ delta=id only requires two-step memory
 --     (sure). The Frobenius identity is a two-step operation and two-step
 --     memory is sufficient for it. The fixed point doesn't need eternal
@@ -287,13 +287,13 @@ theorem failures_all_minimal :
 --     exist in universes with weaker time constitutions too. The identity
 --     is more primitive than time.
 
-/-- Canonical T-consistency: the fixed point fails because Ħ=sure (ord 3) ≠ wool (ord 4). -/
+/-- Canonical T-consistency: the fixed point fails because ⊥=sure (ord 3) ≠ wool (ord 4). -/
 theorem t_consistency_canonical_fails :
     ruleset_canonical.tConsistent frobeniusFixedTuple = false := by
   unfold ruleset_canonical frobeniusFixedTuple majoranaFixedImscription tCanonical
   native_decide
 
-/-- T-consistency without the Ħ requirement: the fixed point passes all
+/-- T-consistency without the ⊥ requirement: the fixed point passes all
     other canonical T-primitive specs. -/
 theorem t_consistency_canonical_without_H :
     (tPrimEq (fun s => ordinalP s.pol) 5).consistent frobeniusFixedTuple ∧
@@ -303,7 +303,7 @@ theorem t_consistency_canonical_without_H :
   unfold frobeniusFixedTuple majoranaFixedImscription
   native_decide
 
-/-- T-consistency with structural T (Ð, Þ, Ř, ɢ, ⊙): the fixed point
+/-- T-consistency with structural T (⊢, ⊣, ≻, ∋, ⊙): the fixed point
     FAILS because ɢ=measure (ord 3) ≠ ooze (ord 4).
     The fixed point's grammar is sequential (sufficient for two-step μ∘δ=id)
     but structural T requires broadcast grammar. -/
@@ -312,7 +312,7 @@ theorem t_consistency_structural_fails :
   unfold ruleset_t_structural frobeniusFixedTuple majoranaFixedImscription tStructural
   native_decide
 
-/-- The T-consistency gap statement: canonical T fails on Ħ (needs wool)
+/-- The T-consistency gap statement: canonical T fails on ⊥ (needs wool)
     AND structural T fails on ɢ (needs ooze).
 
     The fixed point is more primitive than both T-constitutions:

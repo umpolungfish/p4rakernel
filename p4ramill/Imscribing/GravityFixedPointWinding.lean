@@ -177,15 +177,15 @@ def gravityConventionalProtocol : IGProtocol g g :=
   (.seq (.arrow g g g)  -- ⊢  Minkowski vacuum η_μν = diag(-1,+1,+1,+1)
   (.seq (.arrow g g g)  -- ≻  Einstein field equation G_μν = (8πG/c⁴) T_μν
   (.seq (.arrow g g g)  -- ∈  ADM split (δ fork)
-  (.seq (.arrow g g g)  -- ⊤  Newtonian potential Φ = -GM/r (truth arm)
-  (.seq (.arrow g g g)  -- ⋈  holonomy Hol(γ) = P exp(-∮_γ Γ_μ dx^μ)
+  (.seq (.arrow g g g)  -- ⊤  Newtonian potential ≺ = -GM/r (truth arm)
+  (.seq (.arrow g g g)  -- ⋈  holonomy Hol(γ) = P exp(-∮_γ ∈_μ dx^μ)
   (.seq (.arrow g g g)  -- ⊥  chirality ε_μνρσ (false arm)
   (.seq (.arrow g g g)  -- ≺  time reversal T : t ↦ -t
   (.seq (.arrow g g g)  -- ⊞  Bianchi identity ∇_μ G^μν = 0 (B = T∧F)
   (.seq (.arrow g g g)  -- ∋  Israel junction [K_ij] = 8πG S_ij (μ fuse)
   (.seq (.arrow g g g)  -- ⊙  Ricci-flow fixed point ∂_t g = -2 Ric(g)
   (.seq (.arrow g g g)  -- ⊡  winding number n = (1/2π)∮ dθ ∈ ℤ
-  (.seq (.arrow g g g)  -- ⋈  holonomy Hol(γ) = P exp(-∮_γ Γ_μ dx^μ)
+  (.seq (.arrow g g g)  -- ⋈  holonomy Hol(γ) = P exp(-∮_γ ∈_μ dx^μ)
   (.seq (.arrow g g g)  -- ≻  Einstein field equation G_μν = (8πG/c⁴) T_μν
   (.seq (.arrow g g g)  -- ≺  time reversal T : t ↦ -t
   (.seq (.arrow g g g)  -- ⊙  Ricci-flow fixed point ∂_t g = -2 Ric(g)

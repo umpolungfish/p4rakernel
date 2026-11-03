@@ -42,27 +42,27 @@ open Imscribing.BootstrapSequence
 -- §1  STRUCTURAL CONSTANTS
 -- ═══════════════════════════════════════════════════════
 
-/-- The mēchanē's 12-primitive tuple. Σ=𐑕 (many identical) is the sole
+/-- The mēchanē's 12-primitive tuple. ⊞=𐑕 (many identical) is the sole
     difference from the grammar's Σ=𐑙 (1:1 self-referential limit). -/
 def mechane_tuple : Imscription :=
-  { dim  := Dimensionality.if'     -- Ð=𐑼 ∞-dim
-    top  := Topology.are           -- Þ=𐑶 box product of 6 layers
-    rel  := Relational.ian         -- Ř=𐑑 categorical/adjoint (ENGAGR ⊢ IFIX)
-    pol  := Polarity.or'           -- Φ=𐑹 Frobenius-special
-    fid  := Fidelity.peep          -- ƒ=𐑞 thermal/dialetheic paradox energy
-    kin  := KineticChar.egg        -- Ç=𐑪 moderate, 8,485 jobs
-    gran := Granularity.ice        -- Γ=𐑔 maximal catalog
-    gram := Grammar.measure        -- ɢ=𐑠 sequential IMASM
+  { dim  := Dimensionality.if'     -- ⊢=𐑼 ∞-dim
+    top  := Topology.are           -- ⊣=𐑶 box product of 6 layers
+    rel  := Relational.ian         -- ≻=𐑑 categorical/adjoint (ENGAGR ⊢ IFIX)
+    pol  := Polarity.or'           -- ≺=𐑹 Frobenius-special
+    fid  := Fidelity.peep          -- ⋈=𐑞 thermal/dialetheic paradox energy
+    kin  := KineticChar.egg        -- ⊤=𐑪 moderate, 8,485 jobs
+    gran := Granularity.ice        -- ∈=𐑔 maximal catalog
+    gram := Grammar.measure        -- ∋=𐑠 sequential IMASM
     crit := Criticality.monad      -- ⊙=⊙ self-modeling gate
-    chir := Chirality.sure         -- Ħ=𐑒 one-step per winding
-    stoi := Stoichiometry.up       -- Σ=𐑕 many identical types
-    prot := Protection.ah }        -- Ω=𐑴 Z2 binary dialectic
+    chir := Chirality.sure         -- ⊥=𐑒 one-step per winding
+    stoi := Stoichiometry.up       -- ⊞=𐑕 many identical types
+    prot := Protection.ah }        -- ⊡=𐑴 Z2 binary dialectic
 
 /-- O_inf tier confirmation. -/
 theorem mechane_tier_O_inf : imscriptionTier mechane_tuple = .O_inf := by
   unfold mechane_tuple; decide
 
-/-- Distance to grammar proper is 2.0 (differing at Σ). -/
+/-- Distance to grammar proper is 2.0 (differing at ⊞). -/
 theorem mechane_grammar_distance : Nat := 2
 
 -- ═══════════════════════════════════════════════════════
@@ -125,7 +125,7 @@ theorem fusion_is_time_fixed_point (x y : Imscription) :
     Work (μ_C x y) = μ_C x y :=
   fusion_is_time x y
 
-/-- THEOREM (Fusion forgets): μ_C is not injective in Φ.
+/-- THEOREM (Fusion forgets): μ_C is not injective in ≺.
     There exist distinct inputs fusing to the same output. The which-way
     datum is destroyed — this IS the forgetfulness the sealed system needs. -/
 theorem fusion_forgets_which_way :

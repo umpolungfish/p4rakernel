@@ -412,7 +412,7 @@ theorem tc_es_distance :
 
 -- §5.3 Shared Primitives
 
-/-- All four monomers have Σ=hung (1:1 stoichiometry).
+/-- All four monomers have ⊞=hung (1:1 stoichiometry).
     This shared primitive is what enables uniform R↔S bonding. -/
 theorem all_have_stoi_hung :
     erdos_szekeres_lattice.stoi = Stoichiometry.hung ∧
@@ -430,7 +430,7 @@ theorem all_have_fid_age :
     time_concept.fid = Fidelity.age := by
   native_decide
 
-/-- Shared primitive summary: Σ and F are unanimous across all four
+/-- Shared primitive summary: ⊞ and F are unanimous across all four
     monomers. The remaining 10 primitives have at least two distinct
     values across the set, providing the structural tension that
     makes the macrocycle non-trivial but the shared Σ/F substrate

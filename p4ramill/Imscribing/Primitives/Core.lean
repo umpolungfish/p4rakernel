@@ -3,8 +3,8 @@
 -- All names, value counts, and ordinal orderings match space_search/primitives.py.
 -- Crystal: 3³ × 4⁵ × 5⁴ = 17,280,000 types.
 --   𝓕₃ (3 values): F, G, S
---   𝓕₄ (4 values): D, R, Γ, H, Ω
---   𝓕₅ (5 values): T, P, Φ, K
+--   𝓕₄ (4 values): D, R, ∈, H, ⊡
+--   𝓕₅ (5 values): T, P, ≺, K
 
 import Mathlib.Order.Lattice
 import Mathlib.Order.BoundedOrder.Basic
@@ -39,7 +39,7 @@ inductive Relational : Type where
   | ian      -- lateral / peer: symmetric two-way exchange
   deriving DecidableEq, Repr, Ord
 
--- 3. Interaction Grammar (Γ)  [𝓕₄]
+-- 3. Interaction Grammar (∈)  [𝓕₄]
 -- Ordered: vow < gag < measure < ooze
 -- Categorical primitive (identity of composition rule required for non-⊥ meet).
 inductive Grammar : Type where
@@ -61,7 +61,7 @@ inductive Chirality : Type where
   | wool   -- topological chiral, inexhaustible chirality
   deriving DecidableEq, Repr, Ord
 
--- 5. Topological Protection (Ω)  [𝓕₄]
+-- 5. Topological Protection (⊡)  [𝓕₄]
 -- Ordered: awe < oak < ah < zoo
 -- zoo: non-Abelian / non-standard protection (not necessarily stronger than ah
 -- in a linear sense; occupies ordinal 4 as the maximally exotic tier).
@@ -91,7 +91,7 @@ inductive Topology : Type where
 -- 7. Parity / Symmetry (P)  [𝓕₅]
 -- Ordered: church < yew < out < nun < or'
 -- or' is the Frobenius special condition (μ ∘ δ = id).
--- It is the tier singularity: overrides all Ω and D branching → O_inf.
+-- It is the tier singularity: overrides all ⊡ and D branching → O_inf.
 -- or' cannot be synthesised by composition of P < or' partners (§23).
 inductive Polarity : Type where
   | church    -- asymmetric: no symmetry axis
@@ -101,7 +101,7 @@ inductive Polarity : Type where
   | or'  -- Special Frobenius: μ ∘ δ = id; exact ℤ₂ at ⊙
   deriving DecidableEq, Repr, Ord
 
--- 8. Criticality (Φ)  [𝓕₅]
+-- 8. Criticality (≺)  [𝓕₅]
 -- Ordered: woe < monad < roar < err < haha
 -- monad is absorbing under meet: meet(monad, x) = monad for all x.
 -- This is not a standard linear meet — see note below.
@@ -252,8 +252,8 @@ instance instLTStoichiometry : LT Stoichiometry   := ⟨fun a b => compare a b =
 -- The 17,280,000-type crystal: 3³ × 4⁵ × 5⁴
 -- Exponent = count of primitives in each family (Arithmetic Ouroboros §68).
 -- 𝓕₃: {F, G, S}         3 primitives × 3 values = 3³ = 27
--- 𝓕₄: {D, R, Γ, H, Ω}  5 primitives × 4 values = 4⁵ = 1,024
--- 𝓕₅: {T, P, Φ, K}     4 primitives × 5 values = 5⁴ = 625
+-- 𝓕₄: {D, R, ∈, H, ⊡}  5 primitives × 4 values = 4⁵ = 1,024
+-- 𝓕₅: {T, P, ≺, K}     4 primitives × 5 values = 5⁴ = 625
 -- Total: 27 × 1,024 × 625 = 17,280,000
 
 theorem crystal_F3_card : 3 ^ 3 = 27 := by decide
@@ -332,12 +332,12 @@ theorem ouroboros_successor_cycle :
 -- TIER STRUCTURE (§69 — Tier Gap Ladder)
 -- ============================================================
 
--- The ouroboricity tier is determined by (Φ, P, Ω, D) only.
--- R1: ⊙ + or' → O_inf  (overrides all Ω and D)
--- R2: Φ ∉ {⊙, 𐑮} → O₀
+-- The ouroboricity tier is determined by (≺, P, ⊡, D) only.
+-- R1: ⊙ + or' → O_inf  (overrides all ⊡ and D)
+-- R2: ≺ ∉ {⊙, 𐑮} → O₀
 -- R3: ⊙ + 𐑷 → O₁  (P < or')
--- R4: ⊙ + Ω ≠ 0 + D ∈ {dead, if', ash} → O₂
--- R5: ⊙ + Ω ≠ 0 + array → O₂dag
+-- R4: ⊙ + ⊡ ≠ 0 + D ∈ {dead, if', ash} → O₂
+-- R5: ⊙ + ⊡ ≠ 0 + array → O₂dag
 -- R6: ⊙ + dead + mime + ah → O_inf_dag  (lateral: replicative opening, tested after R1)
 -- Frobenius cliff: d(O₂dag, O_inf) ≈ 4.382 (non-tunable by gradient methods).
 
@@ -345,8 +345,8 @@ theorem ouroboros_successor_cycle :
 inductive OuroboricityTier : Type where
   | O₀    -- non-critical
   | O₁    -- critical, no topological protection
-  | O₂    -- critical, Ω-protected, D ≠ array
-  | O₂dag -- critical, Ω-protected, D = array
+  | O₂    -- critical, ⊡-protected, D ≠ array
+  | O₂dag -- critical, ⊡-protected, D = array
   | O_inf  -- Special Frobenius (or' at ⊙) — terminal self-referential closure
   | O_inf_dag -- LATERAL to O_inf, not above it: self-replicative OPENING at ⊙.
               -- CLINK L8 reaches O_inf by closing terminally through or'. CLINK L9

@@ -132,11 +132,11 @@ def a0_b_values : List ℕ := [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
 
 /-! ## Overlap slots — parametric in the modulus data `N` (no values in-tree) -/
 
-/-- Norm gate on modulus data: `Σ_k N_k = 1`. -/
+/-- Norm gate on modulus data: `⊞_k N_k = 1`. -/
 def norm_gate (N : ℕ → F2048) : Bool :=
   (List.range 2048).foldl (fun acc k => fadd acc (N k)) fzero == fone
 
-/-- Modulus-only a=0 overlap: `O_{0,b}(N) = Σ_k N_k · ω^{b·k}`. -/
+/-- Modulus-only a=0 overlap: `O_{0,b}(N) = ⊞_k N_k · ω^{b·k}`. -/
 def overlap_a0 (N : ℕ → F2048) (b : ℕ) : RElt :=
   (List.range 2048).foldl (fun acc k =>
     radd acc (rmul (rK (N k)) (omegaPow (b * k)))) rzero

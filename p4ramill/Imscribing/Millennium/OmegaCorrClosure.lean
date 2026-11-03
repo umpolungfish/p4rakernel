@@ -1,10 +1,10 @@
 -- Imscribing/Millennium/OmegaCorrClosure.lean
--- Ω_corr = 6/(d²·N_orbits) = 1/744 — the non-Abelian braiding correction.
+-- ⊡_corr = 6/(d²·N_orbits) = 1/744 — the non-Abelian braiding correction.
 -- Closes both ρ_Λ/ρ_Pl and H₀ from the emission architecture.
 --
 -- The braid group B₁₂ acts on the 31-orbit SIC-POVM overlap space.
 -- The Burau representation at q = e^(2πi/12) yields the trace:
---   Ω_corr = Tr(ρ_Burau(σ₁...σ₁₁))|_(q=e^(2πi/12)) = 6/(d²·N_orbits) = 1/744.
+--   ⊡_corr = Tr(ρ_Burau(σ₁...σ₁₁))|_(q=e^(2πi/12)) = 6/(d²·N_orbits) = 1/744.
 --
 -- Verified (Python, 2026-07-22):
 --   ρ_Λ/ρ_Pl predicted: 1.15693225×10⁻¹²³ (observed: 1.15688649×10⁻¹²³, Δ=0.004%)
@@ -55,10 +55,10 @@ def identity_orbit_count : Nat := 1
 theorem total_orbit_count : non_identity_orbit_count + identity_orbit_count = n_orbits := rfl
 
 -- ============================================================
--- §2. Ω_corr — THE NON-ABELIAN BRAIDING CORRECTION
+-- §2. ⊡_corr — THE NON-ABELIAN BRAIDING CORRECTION
 -- ============================================================
 
-/-- Ω_corr = 6 / (d² · N_orbits) = 6 / 4464 = 1/744.
+/-- ⊡_corr = 6 / (d² · N_orbits) = 6 / 4464 = 1/744.
     Numerator 6: the 6 emission-invariant primitives shared between
     horn_torus and CLINK_L8 (Ř, Φ, Ç, Γ, ⊙, Ħ).
     Denominator d²·N_orbits = 144·31 = 4464: total SIC-POVM phase
@@ -250,7 +250,7 @@ theorem omega_lambda_structural_value : omega_lambda_structural = (6 : Rat)/17 :
 -- §8. COMPLETENESS THEOREM
 -- ============================================================
 
-/-- With Ω_corr = 1/744 closed, the emission architecture now
+/-- With ⊡_corr = 1/744 closed, the emission architecture now
     predicts all 17 dimensionless constants of the Standard Model
     + cosmology:
 

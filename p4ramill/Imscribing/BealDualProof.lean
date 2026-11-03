@@ -356,7 +356,7 @@ def proof_complete (system proven : StructuralType) : Prop :=
 example : beal_structural_type.Omega = Primitive_Omega.Omega_closeepsilon := by
   rfl
 
-/-- The promotion from Ω_0 to Ω_Z2 requires constructing a parity-protected
+/-- The promotion from Ω_0 to ⊡_Z2 requires constructing a parity-protected
     invariant I(A,B,C,x,y,z) ∈ {0,1} that forbids coprime mixed-exponent
     solutions while being testable on a witness triple. -/
 def omega_Z2_invariant : Prop :=

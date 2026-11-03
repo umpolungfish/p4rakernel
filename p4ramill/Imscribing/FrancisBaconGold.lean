@@ -40,6 +40,6 @@ end Imscribing.FrancisBaconGold
 -- Key invariants:
 -- P=𐑗: asymmetry — Bacon breaks irrevocably with alchemical tradition
 -- F=𐑞: heat as primary operator ("Temperate Heat")
--- Γ=𐑠: sequential axioms → experimental design
+-- ∈=𐑠: sequential axioms → experimental design
 -- S=𐑙: single experiment, single goal
 -- Operational definition of gold: the most significant feature

@@ -8,10 +8,13 @@ import Imscribing.Millennium.YM
 import Imscribing.Millennium.Hodge
 import Imscribing.Millennium.NS
 import Imscribing.Millennium.PvsNP
+import Imscribing.Paraconsistent.DialetheicWitness
 import Imscribing.Millennium.OPN
 import Imscribing.Millennium.BSD
 import Imscribing.Millennium.FrobeniusStructure
 import Imscribing.Millennium.RH_ZFCt_Bridge
+
+open Imscribing.Paraconsistent.DialetheicWitness
 
 /-!
 # Millennium Problem Threshold Taxonomy
@@ -99,8 +102,8 @@ inductive MillenniumProblem
 
     Derived from the semantic bridge (PrimitiveBridge.lean §12)
     via RH_ZFCt_Bridge.rh_from_frobenius_structure. -/
-theorem rh_sorry_boundary : Millennium.RH.RiemannHypothesis :=
-  Millennium.RH_ZFCt.rh_from_frobenius_structure
+def rh_sorry_boundary : Verdict Millennium.RH.RiemannHypothesis := by
+  exact .admitted
 
 /-- Hodge threshold: every rational Hodge class on a smooth projective variety is algebraic.
     The missing type: `AlgebraicCycleRep X p α` — a proof that α ∈ H^{2p}(X,ℚ) ∩ H^{p,p}

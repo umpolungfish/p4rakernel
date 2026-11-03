@@ -1,7 +1,7 @@
 -- ImscribingLean4/Primitives/Crystal.lean
 -- Crystal arithmetic: full encode/decode Imscription ↔ Nat (0..17279999).
 -- Frobenius address: 𝓕₃³ × 𝓕₄⁵ × 𝓕₅⁴ numbering.
--- 𝓕₃ = 27 (F,G,S), 𝓕₄=1024 (D,R,Γ,H,Ω), 𝓕₅=625 (T,P,Φ,K)
+-- 𝓕₃ = 27 (F,G,S), 𝓕₄=1024 (D,R,∈,H,⊡), 𝓕₅=625 (T,P,≺,K)
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription

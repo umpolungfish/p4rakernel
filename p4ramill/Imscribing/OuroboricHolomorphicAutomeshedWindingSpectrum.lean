@@ -6,7 +6,7 @@
 -- structure preserving the word's topological invariants across rotation cuts.
 --
 -- Four conditions:
---   1. Ouroboric — word closes on itself (Σ=𐑙 self-referential limit)
+--   1. Ouroboric — word closes on itself (⊞=𐑙 self-referential limit)
 --   2. Holomorphic — each winding is a point on S¹ ⊆ ℂ, map w→exp(2πiw)
 --   3. Automeshed — word weaves its own topology (rotation preserves invariants)
 --   4. Winding Spectrum — complete set of distinct rational windings

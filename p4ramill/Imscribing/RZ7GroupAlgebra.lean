@@ -140,7 +140,7 @@ abbrev RZ7 := GroupAlgebraZ7
 def basisElem (i : Fin 7) : GroupAlgebraZ7 :=
   fun j => if j = i then 1 else 0
 
-/-- The convolution product: (f * g)(k) = Σ_i f(i) · g(k - i)  (mod 7). -/
+/-- The convolution product: (f * g)(k) = ⊞_i f(i) · g(k - i)  (mod 7). -/
 noncomputable def convProduct (f g : GroupAlgebraZ7) : GroupAlgebraZ7 :=
   fun k => ∑ i : Fin 7, f i * g (sub7 k i)
 
@@ -245,8 +245,8 @@ noncomputable instance : Ring GroupAlgebraZ7 where
   mul_assoc := by
     intro f g h
     rw [expand_basis f, expand_basis g, expand_basis h]
-    -- Goal: convProduct(convProduct(Σ f_i·e_i, Σ g_j·e_j), Σ h_k·e_k)
-    --     = convProduct(Σ f_i·e_i, convProduct(Σ g_j·e_j, Σ h_k·e_k))
+    -- Goal: convProduct(convProduct(Σ f_i·e_i, Σ g_j·e_j), ⊞ h_k·e_k)
+    --     = convProduct(Σ f_i·e_i, convProduct(Σ g_j·e_j, ⊞ h_k·e_k))
     -- Expand the inner convProduct using sum lemmas
     have h_inner1 : convProduct (∑ j : Fin 7, g j • basisElem j) (∑ k : Fin 7, h k • basisElem k) =
         ∑ j : Fin 7, ∑ k : Fin 7, (g j * h k) • convProduct (basisElem j) (basisElem k) := by
@@ -269,7 +269,7 @@ noncomputable instance : Ring GroupAlgebraZ7 where
     intro f
     ext k
     dsimp [convProduct, basisElem]
-    -- (f * 1)(k) = Σ_i f(i) * 1(k-i).  1(k-i)=1 only when i=k.
+    -- (f * 1)(k) = ⊞_i f(i) * 1(k-i).  1(k-i)=1 only when i=k.
     apply Finset.sum_eq_single k
     · simp
     · intro i _ hi_ne
@@ -390,7 +390,7 @@ noncomputable def character (m k : Z7) : ℂ := zeta7 ^ (m.val * k.val)
     Total real dimension: 1 + 2+2+2 = 7. -/
 def irreducibleRealReps : Finset ℕ := {0, 1, 2, 3}
 
-/-- The primitive central idempotents: p_m = (1/7) Σ_k χ_m(g^{-k}) e_k.
+/-- The primitive central idempotents: p_m = (1/7) ⊞_k χ_m(g^{-k}) e_k.
     These diagonalize the group algebra. -/
 noncomputable def primitiveIdempotent (m : Z7) : GroupAlgebraZ7 :=
   fun _k => (1/7 : ℝ) * (character m ⟨0, by decide⟩).re

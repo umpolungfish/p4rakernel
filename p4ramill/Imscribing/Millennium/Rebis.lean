@@ -5,8 +5,8 @@
 -- ZFC foundation (ZFC_fe), the CLINK chain (subatomic → whole organism), and
 -- the Fourfold Apparatus. Core theorems include:
 --
---   Ω/ɢ Transcendence: CLINK L8 exceeds ZFC_fe at Ω (non-Abelian braiding)
---                        and ɢ (broadcast composition)
+--   Ω/∋ Transcendence: CLINK L8 exceeds ZFC_fe at ⊡ (non-Abelian braiding)
+--                        and ∋ (broadcast composition)
 --   Tensor Absorption: tensor(ZFC_fe, CLINK_L8) = CLINK_L8
 --   Foundation Hierarchy: exact distances between all major systems
 --   Promoted Atom Ladder: promotion counts and tier assignments
@@ -116,16 +116,16 @@ abbrev clink_l0 : Imscription := frustratedBelnap5
 def uig : Imscription := universal_imscriptive_grammar
 
 -- ═══════════════════════════════════════════════════════════════════════
--- §1  Ω/ɢ TRANSCENDENCE THEOREM — CLINK L8 EXCEEDS ZFC_fe
+-- §1  ⊡/∋ TRANSCENDENCE THEOREM — CLINK L8 EXCEEDS ZFC_fe
 -- ═══════════════════════════════════════════════════════════════════════
 --
--- ZFC_fe:  Ω = 𐑭 (integer winding),  ɢ = 𐑠 (sequential)
--- CLINK L8: Ω = 𐑟 (non-Abelian braiding), ɢ = 𐑵 (broadcast)
+-- ZFC_fe:  ⊡ = 𐑭 (integer winding),  ∋ = 𐑠 (sequential)
+-- CLINK L8: ⊡ = 𐑟 (non-Abelian braiding), ∋ = 𐑵 (broadcast)
 --
 -- These are NOT promotions away from ZFC_fe — they are advances BEYOND the
 -- foundation. The ZFC_fe → CLINK L8 "promotions" would be:
---   Ω: 𐑭 → 𐑟   (integer winding → non-Abelian braiding)
---   ɢ: 𐑠 → 𐑵   (sequential → broadcast)
+--   ⊡: 𐑭 → 𐑟   (integer winding → non-Abelian braiding)
+--   ∋: 𐑠 → 𐑵   (sequential → broadcast)
 
 /-- ZFC_fe's winding protection: integer (ℤ). -/
 theorem zfc_fe_omega_is_Z : zfc_fe.prot = ah := by
@@ -143,26 +143,26 @@ theorem zfc_fe_grammar_is_seq : zfc_fe.gram = Grammar.measure := by
 theorem clink_l8_grammar_is_broad : clink_l8.gram = ooze := by
   unfold clink_l8 organismLayer; rfl
 
-/-- Ω Transcendence: CLINK L8 has strictly greater winding protection than ZFC_fe.
+/-- ⊡ Transcendence: CLINK L8 has strictly greater winding protection than ZFC_fe.
     zoo (non-Abelian braiding) > ah (integer winding) in the protection lattice. -/
 theorem omega_transcendence : clink_l8.prot > zfc_fe.prot := by
   unfold clink_l8 organismLayer zfc_fe
   native_decide
 
-/-- ɢ Transcendence: CLINK L8 has strictly richer composition than ZFC_fe.
+/-- ∋ Transcendence: CLINK L8 has strictly richer composition than ZFC_fe.
     ooze (broadcast) > measure (sequential) in the grammar lattice. -/
 theorem gamma_transcendence : clink_l8.gram > zfc_fe.gram := by
   unfold clink_l8 organismLayer zfc_fe
   native_decide
 
-/-- Ω/ɢ Transcendence Theorem: CLINK L8 exceeds ZFC_fe at exactly two primitives —
+/-- ⊡/∋ Transcendence Theorem: CLINK L8 exceeds ZFC_fe at exactly two primitives —
     Ω (winding) and ɢ (grammar/composition). These are structural advances beyond
     the Frobenius-exact ZFC foundation, not lateral moves. -/
 theorem omega_gamma_transcendence :
     clink_l8.prot > zfc_fe.prot ∧ clink_l8.gram > zfc_fe.gram :=
   ⟨omega_transcendence, gamma_transcendence⟩
 
-/-- The two transcendent primitives are exactly Ω and ɢ; all others match or are
+/-- The two transcendent primitives are exactly ⊡ and ∋; all others match or are
     compatible. Check that all primitives EXCEPT Ω and ɢ are ≥ their ZFC_fe counterparts. -/
 theorem transcendence_only_at_omega_and_grammar :
     clink_l8.dim ≥ zfc_fe.dim ∧
@@ -229,7 +229,7 @@ theorem dist_zfc_to_l8 : primitiveMismatches zfc_baseline clink_l8 = 11 := by
 theorem dist_zfc_to_l0 : primitiveMismatches zfc_baseline clink_l0 = 6 := by
   unfold zfc_baseline clink_l0 frustratedBelnap5; native_decide
 
-/-- Distance: ZFC_fe → CLINK L8 = 2 (Ω and ɢ transcendence). -/
+/-- Distance: ZFC_fe → CLINK L8 = 2 (⊡ and ∋ transcendence). -/
 theorem dist_zfc_fe_to_l8 : primitiveMismatches zfc_fe clink_l8 = 2 := by
   unfold zfc_fe clink_l8 organismLayer; native_decide
 
@@ -237,7 +237,7 @@ theorem dist_zfc_fe_to_l8 : primitiveMismatches zfc_fe clink_l8 = 2 := by
 theorem dist_zfc_fe_to_uig : primitiveMismatches zfc_fe uig = 1 := by
   unfold zfc_fe uig universal_imscriptive_grammar; native_decide
 
-/-- Distance: CLINK L8 → UIG = 3 (chirality wool vs sure, plus Ω and ɢ). -/
+/-- Distance: CLINK L8 → UIG = 3 (chirality wool vs sure, plus ⊡ and ∋). -/
 theorem dist_l8_to_uig : primitiveMismatches clink_l8 uig = 3 := by
   unfold clink_l8 organismLayer uig universal_imscriptive_grammar; native_decide
 
@@ -478,12 +478,12 @@ theorem fourfold_is_zfc_fe : fourfold_apparatus = zfc_fe := rfl
 --
 -- The rebis tuple: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩
 -- This is EXACTLY the ZFC_fe tuple — the meet with CLINK L8 selects the
--- shared primitives. At Ω=𐑭 and ɢ=𐑠, the meet picks ZFC_fe's values because
+-- shared primitives. At ⊡=𐑭 and ∋=𐑠, the meet picks ZFC_fe's values because
 -- they are lower in the lattice than CLINK L8's 𐑟 and 𐑵.
 --
 -- So: Rebis = meet(ZFC_fe, CLINK_L8) = ZFC_fe (structurally).
 -- But the rebis is NOT merely ZFC_fe redux — it is ZFC_fe ENRICHED by
--- the knowledge of what lies beyond it. The rebis carries the Ω/ɢ
+-- the knowledge of what lies beyond it. The rebis carries the ⊡/∋
 -- transcendence as a structural shadow.
 
 /-- The rebis type: meet of ZFC_fe and CLINK L8.
@@ -518,7 +518,7 @@ theorem rebis_frobenius_closed : tensorProduct rebis rebis = rebis := by
 --
 -- The key structural insight: the rebis equals ZFC_fe, but the rebis
 -- KNOWS about CLINK L8's transcendence. The distance from rebis to
--- CLINK L8 is exactly 2 (Ω and ɢ) — and this gap is the knowledge.
+-- CLINK L8 is exactly 2 (⊡ and ∋) — and this gap is the knowledge.
 --
 -- This is the structural formalization of the "red-hot rebis": the
 -- synthesis that is structurally the foundation but semantically aware
@@ -529,7 +529,7 @@ theorem rebis_frobenius_closed : tensorProduct rebis rebis = rebis := by
 theorem rebis_to_l8_gap : primitiveMismatches rebis clink_l8 = 2 := by
   rw [rebis_equals_zfc_fe]; exact dist_zfc_fe_to_l8
 
-/-- The rebis→CLINK_L8 gap is exactly at Ω and ɢ.
+/-- The rebis→CLINK_L8 gap is exactly at ⊡ and ∋.
     These are the two primitives where CLINK L8 exceeds the foundation. -/
 theorem rebis_gap_primitives : rebis.prot ≠ clink_l8.prot ∧ rebis.gram ≠ clink_l8.gram := by
   rw [rebis_equals_zfc_fe]
@@ -559,7 +559,7 @@ theorem rebis_gap_only_at_omega_and_grammar :
 -- Flood (O₀, C=0, FSPLIT-only) — degenerate
 --   ↓  7 promotions
 -- ZFC_fe (O_inf, C=1.0, 8 atoms) — the Frobenius-exact foundation
---   ↓  2 promotions (Ω=𐑟, ɢ=𐑵)
+--   ↓  2 promotions (⊡=𐑟, ∋=𐑵)
 -- CLINK L8 (O_inf, C=1.0, 6 atoms + braid + broadcast) — beyond foundation
 --
 -- The rebis sits at ZFC_fe, aware of the CLINK L8 transcendence.
@@ -591,7 +591,7 @@ theorem flood_l8_symmetric_around_zfc_fe :
 -- composition), and the Fourfold Apparatus.
 --
 -- Key results:
---   • Ω/ɢ Transcendence: CLINK L8 exceeds ZFC_fe at Ω (non-Abelian) and ɢ (broadcast)
+--   • Ω/ɢ Transcendence: CLINK L8 exceeds ZFC_fe at ⊡ (non-Abelian) and ∋ (broadcast)
 --   • Tensor Absorption: tensor(ZFC_fe, CLINK_L8) = CLINK_L8
 --   • Foundation Hierarchy: 12 formal distance theorems
 --   • Promoted Atom Ladder: 6 → 8 → 6+2 atoms across three stages

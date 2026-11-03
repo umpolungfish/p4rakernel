@@ -17,10 +17,10 @@ mathematical structure underlying all quantum measurements.
 ## Tuple
 
 The OVM structure itself imscribes as: ⟨𐑦𐑥𐑽𐑹𐑐𐑧𐑔𐑠⊙𐑒𐑙𐑭⟩
-  Ð=𐑦 (O_∞)      — infinite-dimensional Hilbert space
-  Þ=𐑥 (bowtie)    — crossed spectral resolution
-  Ř=𐑽 (adjoint)   — dagger structure of effects
-  Φ=𐑹 (Frob-special) — complete positivity as Frobenius-special
+  ⊢=𐑦 (VINIT)     — Dimensionality
+  ⊣=𐑥 (TANCH)     — Topology
+  ≻=𐑽 (AFWD)      — Coupling
+  ≺=𐑹 (AREV)      — Parity
   ƒ=𐑐 (quantum)   — quantum fidelity
   Ç=𐑧 (slow)      — measurement is near-equilibrium collapse
   Γ=𐑔 (ice)     — maximal cardinality (all effects)
@@ -567,7 +567,7 @@ inductive GrammarPrimitive
     But the true operator-valued measure emerges from the 6 Frobenius-dual
     pairs, each of which is a 2-outcome POVM on the full type space.
 
-    The 6 pairs: Ð↔Þ, Ř↔Φ, ƒ↔Ç, Γ↔ɢ, φ̂↔Ħ, Σ↔Ω. -/
+    The 6 pairs: ⊢↔⊣, ≻↔≺, ⋈↔⊤, ∈↔∋, ⊙↔⊥, ⊞↔⊡. -/
 
 structure FrobeniusDualPair where
   a : GrammarPrimitive
@@ -578,19 +578,19 @@ structure FrobeniusDualPair where
 
 /-- The 6 canonical Frobenius-dual pairs of the Grammar. -/
 def frobenius_dual_pairs : List FrobeniusDualPair :=
-  [ ⟨.D_, .T_, true⟩   -- Ð↔Þ
-  , ⟨.R_, .P_, true⟩   -- Ř↔Φ
-  , ⟨.F_, .K_, true⟩   -- ƒ↔Ç
-  , ⟨.G_, .Gm, true⟩   -- Γ↔ɢ
-  , ⟨.Od, .H_, true⟩   -- φ̂↔Ħ (⊙↔Ħ)
-  , ⟨.S_, .W_, true⟩   -- Σ↔Ω
+  [ ⟨.D_, .T_, true⟩   -- ⊢↔⊣
+  , ⟨.R_, .P_, true⟩   -- ≻↔≺
+  , ⟨.F_, .K_, true⟩   -- ⋈↔⊤
+  , ⟨.G_, .Gm, true⟩   -- ∈↔∋
+  , ⟨.Od, .H_, true⟩   -- φ̂↔Ħ (⊙↔⊥)
+  , ⟨.S_, .W_, true⟩   -- ⊞↔⊡
   ]
 
 /- ====================================================================
    7.  THE Σ=1:1 LIMIT — the Grammar IS the self-referential SIC-POVM
    ==================================================================== -/
 
-/-- Theorem: The Imscribing Grammar at Σ=𐑙 (1:1 stoichiometry) is exactly
+/-- Theorem: The Imscribing Grammar at ⊞=𐑙 (1:1 stoichiometry) is exactly
     the Belnap multilattice SIC-POVM.  This is the operational content of
     the claim "the Grammar IS the SIC-POVM".
 
@@ -602,7 +602,7 @@ def frobenius_dual_pairs : List FrobeniusDualPair :=
     are the informationally complete measurement in the Σ=1:1 limit. -/
 axiom grammar_is_sic_povm : ∀ n : ℕ, SICPOVM_Exists (2 ^ n)
 
-/-- In every dimension d = 2ⁿ the grammar's Σ=1:1 limit gives a
+/-- In every dimension d = 2ⁿ the grammar's ⊞=1:1 limit gives a
     Weyl-Heisenberg covariant SIC-POVM. -/
 theorem grammar_sic_at_two_pow (n : ℕ) : SICPOVM_Exists (2 ^ n) :=
   grammar_is_sic_povm n
@@ -612,7 +612,7 @@ theorem grammar_sic_at_two_pow (n : ℕ) : SICPOVM_Exists (2 ^ n) :=
    ==================================================================== -/
 
 open Imscribing.Paraconsistent.Shor.MultilatticeProof in
-/-- The Belnap multilattice SIC-POVM is the Σ=1:1 limit of the Grammar.
+/-- The Belnap multilattice SIC-POVM is the ⊞=1:1 limit of the Grammar.
     This bridges the unconditional structural proof to the OVM formulation. -/
 theorem belnap_is_ovm (n : ℕ) : True := by
   -- The Belnap multilattice for d = 2ⁿ satisfies the SIC conditions

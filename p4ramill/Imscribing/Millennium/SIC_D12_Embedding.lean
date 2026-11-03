@@ -1079,7 +1079,7 @@ theorem phi_rconj (A : RElt) (hA : ∀ p ∈ A, p.1 < 128) :
 `stratum` in the ExistenceRing computes these inside local lets; the transfer needs
 them as named defs so phi can be pushed through. Shapes mirror `stratum` exactly. -/
 
-/-- O_{a,b} = Σ_j z̄_j · z_{(j−a) mod 12} · ζ^{((j−a)·b) mod 12} in R. -/
+/-- O_{a,b} = ⊞_j z̄_j · z_{(j−a) mod 12} · ζ^{((j−a)·b) mod 12} in R. -/
 def Oab (a b : ℕ) : RElt :=
   (List.range 12).foldl (fun acc j =>
     radd acc (rmul (rmul (rZB j) (rZ ((j + 12 - a) % 12)))

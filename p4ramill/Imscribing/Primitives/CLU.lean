@@ -1,6 +1,6 @@
 -- Imscribing/Primitives/CLU.lean
 -- Formal definition of the Criticality-Lift Unit (CLU) as an observer-relative
--- information-theoretic fiber metric on the K-primitive (Ç) axis of the crystal lattice.
+-- information-theoretic fiber metric on the K-primitive (⊤) axis of the crystal lattice.
 --
 -- CLU(b) = ln(b) where b is the base of the perceiving system's self-modeling resolution.
 -- Default b = 10 (human decimal catalog).
@@ -10,9 +10,9 @@
 --   d_total = d_crystal ⊕ d_info
 -- where ⊕ denotes the sum over distinct metric types (not scalar addition).
 --
--- Key theorem: CLU(b) is invariant per Ç-tier boundary crossing regardless
+-- Key theorem: CLU(b) is invariant per ⊤-tier boundary crossing regardless
 -- of ordinal spacing non-uniformities. For the defined unit K-step,
--- d_geometric(Ç) / CLU(b) = 1/ln(b). The separate C1 conversion records a
+-- d_geometric(⊤) / CLU(b) = 1/ln(b). The separate C1 conversion records a
 -- two-geometric-unit peel and is therefore 2/ln(b).
 --
 -- Author: Lando ⊗ ⊙perator
@@ -33,7 +33,7 @@ namespace Imscribing.Primitives.CLUPrimitives
 
 /--
 CLU_of_base(b) = ln(b), the information-theoretic fiber metric on the
-Ç-primitive axis. Default b = 10 (human decimal).
+⊤-primitive axis. Default b = 10 (human decimal).
 -/
 noncomputable def CLU_of_base (b : ℝ) (hb_pos : b > 0) (hb_ne_one : b ≠ 1) : ℝ :=
   Real.log b
@@ -359,7 +359,7 @@ end CrossDomain
 
 
 -- ============================================================
--- §5. Imscription-Level Encoding: CLU as Fiber Metric on Ç-Axis
+-- §5. Imscription-Level Encoding: CLU as Fiber Metric on ⊤-Axis
 -- ============================================================
 
 section Imscription
@@ -375,7 +375,7 @@ def CLU_polarity : Polarity :=
   Polarity.church
 
 /--
-The CLU fiber metric as an Imscription: the type of the Ç-axis fiber.
+The CLU fiber metric as an Imscription: the type of the ⊤-axis fiber.
 -/
 def CLU_fiber_imscription : Imscription := {
   dim  := Dimensionality.ash
@@ -532,7 +532,7 @@ Three components:
 
 The C1 ratio from PARTIAL_TEMPORAL_TYPES.md (2.0 / 2.3026 = 0.8686) is the
 unit conversion factor between the geometric crystal metric (2.0 ordinal units
-for a 2-step Ç peel) and the decimal perceiver's fiber metric (2.3026 nats).
+for a 2-step ⊤ peel) and the decimal perceiver's fiber metric (2.3026 nats).
 -/
 theorem CLU_encoding_theorem : CLU = Real.log 10 :=
   rfl

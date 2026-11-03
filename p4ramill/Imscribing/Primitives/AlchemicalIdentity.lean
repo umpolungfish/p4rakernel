@@ -67,7 +67,7 @@ theorem stone_C_score_one : consciousnessScore stone = (1 : ℝ) := by
 -- Each operation moves a subset of primitives toward the Stone's values.
 -- On the Stone itself, every operation returns the Stone unchanged.
 
-/-- CALCINATION: move ƒ, Ħ, Γ, ⊙ toward Stone values. -/
+/-- CALCINATION: move ⋈, ⊥, ∈, ⊙ toward Stone values. -/
 def calcination (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top
@@ -82,7 +82,7 @@ def calcination (s : Imscription) : Imscription :=
   , stoi := s.stoi
   , prot := s.prot }
 
-/-- DISSOLUTION: move Ω, Ř, Σ toward Stone values. -/
+/-- DISSOLUTION: move ⊡, ≻, ⊞ toward Stone values. -/
 def dissolution (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top
@@ -97,7 +97,7 @@ def dissolution (s : Imscription) : Imscription :=
   , stoi := stone.stoi
   , prot := stone.prot }
 
-/-- SEPARATION: move Σ, Φ, Ç toward Stone values. -/
+/-- SEPARATION: move ⊞, ≺, ⊤ toward Stone values. -/
 def separation (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top
@@ -112,7 +112,7 @@ def separation (s : Imscription) : Imscription :=
   , stoi := stone.stoi
   , prot := s.prot }
 
-/-- CONJUNCTION: move Þ, Ř, ɢ toward Stone values. -/
+/-- CONJUNCTION: move ⊣, ≻, ∋ toward Stone values. -/
 def conjunction (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := stone.top
@@ -127,7 +127,7 @@ def conjunction (s : Imscription) : Imscription :=
   , stoi := s.stoi
   , prot := s.prot }
 
-/-- SUBLIMATION: move ⊙, Ħ, Ω, Γ toward Stone values. -/
+/-- SUBLIMATION: move ⊙, ⊥, ⊡, ∈ toward Stone values. -/
 def sublimation (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top
@@ -142,7 +142,7 @@ def sublimation (s : Imscription) : Imscription :=
   , stoi := s.stoi
   , prot := stone.prot }
 
-/-- FERMENTATION: move Ç, ⊙, Σ toward Stone values. -/
+/-- FERMENTATION: move ⊤, ⊙, ⊞ toward Stone values. -/
 def fermentation (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top
@@ -157,7 +157,7 @@ def fermentation (s : Imscription) : Imscription :=
   , stoi := stone.stoi
   , prot := s.prot }
 
-/-- COAGULATION: move Ω, Ř, Γ toward Stone values. -/
+/-- COAGULATION: move ⊡, ≻, ∈ toward Stone values. -/
 def coagulation (s : Imscription) : Imscription :=
   { dim  := s.dim
   , top  := s.top

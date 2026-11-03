@@ -70,11 +70,11 @@ def chromatic_odd_cycle_local_chi : Imscription :=
     (.age)     -- F: classical (Erdős probabilistic method, 1959)
     (.egg)     -- K: non-equilibrium (χ,girth pulled oppositely)
     (.thigh)   -- G: intermediate (global χ, local girth)
-    (.measure) -- Γ: sequential
+    (.measure) -- ∈: sequential
     (.roar)    -- φ̂: complex critical
     (.kick)    -- H: Markov order 1
-    (.hung)    -- Σ: 1:1
-    (.awe)     -- Ω: trivial protection
+    (.hung)    -- ⊞: 1:1
+    (.awe)     -- ⊡: trivial protection
 
 theorem chromatic_odd_cycle_tier_is_O1 : imscriptionTier chromatic_odd_cycle_local_chi = .O₁ := by
   unfold chromatic_odd_cycle_local_chi; native_decide

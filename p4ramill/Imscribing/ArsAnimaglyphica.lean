@@ -1,8 +1,8 @@
 /-
   ArsAnimaglyphica — Canonical Imscriptions (Lean 4 Formalization)
   Generated with SNS_PRIME canonical constructor mappings per Core.lean.
-  14 types, invariants: Ð=𐑦, Ř=𐑾, Φ=𐑯, ƒ=𐑞
-  Discriminants: Þ, Ç, Γ, ɢ, ⊙, Ħ, Σ, Ω
+  14 types, invariants: ⊢=𐑦, ≻=𐑾, ≺=𐑯, ƒ=𐑞
+  Discriminants: ⊣, Ç, Γ, ɢ, ⊙, Ħ, Σ, Ω
   Author: Lando⊗⊙perator
 -/
 

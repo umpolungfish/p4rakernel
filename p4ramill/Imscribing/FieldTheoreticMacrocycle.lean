@@ -4,7 +4,7 @@
 --
 -- Proposition: The 4 field-theoretic monomers, arranged as σ = (DM → W → P → G → DM),
 -- form a stable, closed-loop, isotactic, insulating macrocycle with R↔S condensation
--- and Ω topological closure (weakest bond Δ_41 = 1.17 > threshold 1.0).
+-- and ⊡ topological closure (weakest bond Δ_41 = 1.17 > threshold 1.0).
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -80,8 +80,8 @@ def closureStable : Prop := delta_41 > 1.0
 /-- Weakest-link bound on macrocycle stability. -/
 def weakestLink : ℝ := delta_41
 
--- §4: Isotactic Tacticity (uniform Ħ chirality)
-/-- All 4 monomers share Ħ = fee (memoryless): isotactic (𐑓𐑓𐑓𐑓) configuration. -/
+-- §4: Isotactic Tacticity (uniform ⊥ chirality)
+/-- All 4 monomers share ⊥ = fee (memoryless): isotactic (𐑓𐑓𐑓𐑓) configuration. -/
 theorem isotactic_config :
     darkMatter.chir = fee ∧ wowSignal.chir = fee ∧
     pentaquark.chir = fee ∧ graviton.chir = fee := by

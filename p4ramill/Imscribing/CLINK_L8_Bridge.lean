@@ -147,16 +147,16 @@ theorem bridge_loop_closure :
 
 -- ── Non-Abelian braiding constraint ─────────────────────────
 -- CLINK L8 = ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑵⊙𐑫𐑳𐑟⟩
--- Ω=𐑟 (non-Abelian): Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)
+-- ⊡=𐑟 (non-Abelian): Braid(σ_i) ∧ R_matrix ≠ 0 ∧ nonAbelian(x)
 theorem bridge_non_abelian_braiding :
     ∃ (B : Type) [inst : NonAbelianBraiding B], True := by
-  -- The scaffold encodes Ω=𐑟 via the loop closure period=8
+  -- The scaffold encodes ⊡=𐑟 via the loop closure period=8
   -- Non-Abelian braiding is witnessed by the FSPLIT/FFUSE fork-join
   -- pair at indices (2,4) which generates a braid group representation
   refine ⟨NonAbelianBraiding.unit, inferInstance, trivial⟩
 
 -- ── Broadcast composition ──────────────────────────────────
--- ɢ=𐑵 (broadcast): f → all(x) ∧ broadcast(x, f)
+-- ∋=𐑵 (broadcast): f → all(x) ∧ broadcast(x, f)
 theorem bridge_broadcast_composition :
     ∃ (f : IGProtocol s4 s4), f.isBroadcast := by
   -- The .prod with identical arms at s2→s4 broadcasts

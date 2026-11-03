@@ -211,9 +211,9 @@ theorem fib_qc_all_nine_prop : ∀ p ∈ fibQCWitnesses, isFibonacciQC p.1 := by
 -- §3.  S-UNIT EXPONENT DECOMPOSITION (GENERALIZED)
 --      For each dimension d, the grammar gap vector G(d) encodes
 --      the S-unit exponent vector via three encoding rules:
---        Ř gap → e_0   (fundamental unit exponent)
---        ɢ gap → e_1   (number of visible S-unit generators)
---        ⊙ gap / ɢ gap → e_2 / e_1 (criticality-encoded ratio)
+--        ≻ gap → e_0   (fundamental unit exponent)
+--        ∋ gap → e_1   (number of visible S-unit generators)
+--        ⊙ gap / ∋ gap → e_2 / e_1 (criticality-encoded ratio)
 -- ================================================================
 
 /-- The grammar-gap-encoded S-unit exponents for a dimension d.
@@ -255,8 +255,8 @@ theorem compression_d2048_maximal :
 -- ================================================================
 
 /-- The d=12 S-unit encoding: 10 grammar gaps → 13 exponents.
-    Gap vector primitives: Ð,Þ,Ř,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω.
-    Matching primitives: Φ, Ç.
+    Gap vector primitives: ⊢,⊣,≻,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω.
+    Matching primitives: ≺, Ç.
     Compression ratio: 10/13 ≈ 0.77 — partial, tower level 1. -/
 def d12_encoding : SUnitEncoding 12 := {
   closedRing     := sic_d12_existence_proof
@@ -279,7 +279,7 @@ theorem d12_gap_cardinality_calibrated : gap_d12.length = 10 :=
 theorem d12_exponent_count_calibrated : d12SunitExponents.length = 13 := by
   native_decide
 
-/-- The 10 gap primitives at d=12: Ð,Þ,Ř,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω. -/
+/-- The 10 gap primitives at d=12: ⊢,⊣,≻,⋈,∈,∋,⊙,⊥,⊞,⊡. -/
 theorem d12_gap_primitives_calibrated :
     ((gap_d12.map (·.primitive)).mergeSort (· ≤ ·)) =
     ((["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).mergeSort (· ≤ ·)) :=
@@ -290,12 +290,12 @@ theorem d12_Od_ordinal_gap_calibrated :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "⊙" = 2 :=
   gap_d12_Od_ordinal
 
-/-- d=12 ɢ ordinal gap: measure→vow, δ = |2-0| = 2. -/
+/-- d=12 ∋ ordinal gap: measure→vow, δ = |2-0| = 2. -/
 theorem d12_Gm_ordinal_gap_calibrated :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "ɢ" = 2 :=
   gap_d12_Gm_ordinal
 
-/-- d=12 criticality ratio: ⊙ gap / ɢ gap = 2/2 = 1.
+/-- d=12 criticality ratio: ⊙ gap / ∋ gap = 2/2 = 1.
     At d=12, ⊙ and ɢ gaps are equal, so criticality does not
     introduce a distinct exponent ratio (unlike d=2048 where ratio=2/3).
     The partial compression means information is spread across all
@@ -337,15 +337,15 @@ theorem d2048_exponent_form :
   native_decide
 
 -- ================================================================
--- ENCODING RULE 1: Ř → e_0 (fundamental unit exponent)
+-- ENCODING RULE 1: ≻ → e_0 (fundamental unit exponent)
 -- ================================================================
 
-/-- **Encoding Rule 1 (Ř → e_0).**
-    The Ř (Relational) gap magnitude bounds |e_0|, the exponent
+/-- **Encoding Rule 1 (≻ → e_0).**
+    The ≻ (Relational) gap magnitude bounds |e_0|, the exponent
     of the fundamental unit.
-    d=2048: Ř gap=1, |e_0|=|-1|=1. Gap equals |e_0| (tight bound).
-    d=12:   Ř gap=1, |e_0|=5. Gap ≤ |e_0| (weak bound at low tower level).
-    At maximal compression: Ř gap = |e_0|. -/
+    d=2048: ≻ gap=1, |e_0|=|-1|=1. Gap equals |e_0| (tight bound).
+    d=12:   ≻ gap=1, |e_0|=5. Gap ≤ |e_0| (weak bound at low tower level).
+    At maximal compression: ≻ gap = |e_0|. -/
 def encoding_rule_R (gap_R : ℕ) (e0 : ℤ) : Prop :=
   (gap_R : ℤ) ≤ |e0|
 
@@ -354,16 +354,16 @@ theorem d2048_rule_R : encoding_rule_R 1 (-1) := by
   unfold encoding_rule_R
   norm_num
 
-/-- d=12 satisfies encoding rule 1: 1 ≤ |5|. Weak bound (Ř gap=1, |e0|=5). -/
+/-- d=12 satisfies encoding rule 1: 1 ≤ |5|. Weak bound (≻ gap=1, |e0|=5). -/
 theorem d12_rule_R : encoding_rule_R 1 5 := by
   unfold encoding_rule_R
   norm_num
 
 -- ================================================================
--- ENCODING RULE 2: ɢ → e_1 (generator count)
+-- ENCODING RULE 2: ∋ → e_1 (generator count)
 -- ================================================================
 
-/-- **Encoding Rule 2 (ɢ → e_1).**
+/-- **Encoding Rule 2 (∋ → e_1).**
     The ɢ (Composition) gap divides e_1, the exponent of the first
     uniformizer (or the count of visible S-unit generators).
     d=2048: ɢ gap=3, e_1=3. 3 | 3 (tight: gap = e_1).
@@ -384,10 +384,10 @@ theorem d12_rule_Gm : encoding_rule_Gm 2 (-6) := by
   exact ⟨(-3), by ring⟩
 
 -- ================================================================
--- ENCODING RULE 3: ⊙/ɢ → e_2/e_1 (criticality-encoded ratio)
+-- ENCODING RULE 3: ⊙/∋ → e_2/e_1 (criticality-encoded ratio)
 -- ================================================================
 
-/-- **Encoding Rule 3 (⊙/ɢ → e_2/e_1).**
+/-- **Encoding Rule 3 (⊙/∋ → e_2/e_1).**
     The criticality ratio ⊙ gap / ɢ gap encodes the exponent ratio
     e_2 / e_1, provided e_1 ≠ 0.
     d=2048: ⊙/ɢ = 2/3, e_2/e_1 = 2/3 → e_2 = 2 (since e_1 = 3).
@@ -404,7 +404,7 @@ theorem d2048_rule_Od : encoding_rule_Od 2 3 3 2 := by
   intro _
   norm_num
 
-/-- d=12: ⊙/ɢ ratio = 2/2 = 1.
+/-- d=12: ⊙/∋ ratio = 2/2 = 1.
     For any e1≠0, e2/e1 = 1 iff e1 = e2.
     At d=12 the ⊙ gap and ɢ gap are equal, so the criticality ratio
     imposes the constraint e_i = e_j for the corresponding exponents,
@@ -434,7 +434,7 @@ theorem d12_all_rules :
 
 /-- **Consistency of the d=2048 encoding.**
     The exponent vector [-1, 3, 2] satisfies all three rules at the
-    d=2048 gaps (Ř=1, ɢ=3, ⊙=2).
+    d=2048 gaps (≻=1, ɢ=3, ⊙=2).
 
     This is consistency, not uniqueness, and the difference matters:
     rule 1 is a bound (gap_R ≤ |e_0|) and rule 2 is a divisibility

@@ -13,7 +13,7 @@
 --   𐑳 (up)       — heterogeneous stoichiometry; source ≠ AST ≠ text
 --
 -- These four are the type of the representable witness functor.
--- The eight remaining primitives (Ð, Þ, Ř, Φ, ƒ, Γ, φ̂, Ω) are what domain layers lack
+-- The eight remaining primitives (⊢, ⊣, ≻, ≺, ⋈, ∈, φ̂, ⊡) are what domain layers lack
 -- and canonical already possesses.  Distance from canonical to any domain layer = 8
 -- primitive mismatches; the lattice point at distance 0 is the grammar itself.
 --
@@ -58,7 +58,7 @@ def canonical : Imscription where
   stoi := .up
   prot := .ah
 
--- R1 gate: monad + or' → O_inf regardless of Ω, Ð.
+-- R1 gate: monad + or' → O_inf regardless of ⊡, ⊢.
 theorem canonical_tier_is_O_inf :
     ouroboricityTier canonical.crit canonical.pol canonical.prot canonical.dim canonical.top = .O_inf := by
   decide

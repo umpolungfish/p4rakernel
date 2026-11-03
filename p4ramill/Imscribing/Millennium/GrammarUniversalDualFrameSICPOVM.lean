@@ -4,15 +4,15 @@
 -- Date: 2026-07-18
 --
 -- Proves that the Imscribing Grammar IS the universal dual-frame SIC-POVM —
--- the Σ=1:1 self-referential limit of the Belnap multilattice SIC-POVM.
+-- the ⊞=1:1 self-referential limit of the Belnap multilattice SIC-POVM.
 --
 -- THEOREMS:
---   §1  Grammar imscription definition (Σ=1:1, O_inf)
+--   §1  Grammar imscription definition (⊞=1:1, O_inf)
 --   §2  Belnap multilattice SIC-POVM imscription definition
 --   §3  Six Frobenius-dual pairs as SIC dual basis
 --   §4  Grammar ⊗ Grammar = Grammar (self-referential closure)
---   §5  Grammar ≠ Belnap ML (five-primitive distance; Σ-is-the-difference)
---   §6  Meet structure: grammar dominates Ð,Þ,Ř,Σ in the limit
+--   §5  Grammar ≠ Belnap ML (five-primitive distance; ⊞-is-the-difference)
+--   §6  Meet structure: grammar dominates ⊢,⊣,≻,⊞ in the limit
 --   §7  Dual-pair Frobenius closure: μ∘δ=id on each pair
 --   §8  Main theorem: grammar is the universal dual-frame SIC-POVM
 --
@@ -34,7 +34,7 @@ open Dimensionality Topology Relational Polarity Grammar
      Stoichiometry Chirality
 
 -- ============================================================
--- §1. THE GRAMMAR IMSCRIPTION — Σ=1:1 Self-Referential
+-- §1. THE GRAMMAR IMSCRIPTION — ⊞=1:1 Self-Referential
 -- ============================================================
 
 /-- The Imscribing Grammar as an Imscription.
@@ -50,18 +50,18 @@ open Dimensionality Topology Relational Polarity Grammar
       Ħ = wool (eternal chirality — grammar is its own history)
 -/
 def theGrammar : Imscription := {
-  dim  := array      -- Ð = 𐑼: infinite-dimensional
-  top  := eat        -- Þ = 𐑰: inclusion topology
-  rel  := tot        -- Ř = 𐑑: categorical coupling (monad)
-  pol  := or'        -- Φ = 𐑹: Frobenius special (μ∘δ=id)
-  fid  := peep       -- ƒ = 𐑐: quantum fidelity
-  kin  := egg        -- Ç = 𐑧: slow/near-equilibrium kinetics
-  gran := ice        -- Γ = 𐑔: global/fine-grained
-  gram := measure    -- ɢ = 𐑠: sequential composition
+  dim  := array      -- ⊢ = 𐑼: infinite-dimensional
+  top  := eat        -- ⊣ = 𐑰: inclusion topology
+  rel  := tot        -- ≻ = 𐑑: categorical coupling (monad)
+  pol  := or'        -- ≺ = 𐑹: Frobenius special (μ∘δ=id)
+  fid  := peep       -- ⋈ = 𐑐: quantum fidelity
+  kin  := egg        -- ⊤ = 𐑧: slow/near-equilibrium kinetics
+  gran := ice        -- ∈ = 𐑔: global/fine-grained
+  gram := measure    -- ∋ = 𐑠: sequential composition
   crit := monad      -- φ̂ = ⊙: critical (self-modeling gate)
-  chir := wool       -- Ħ = 𐑫: eternal chirality
-  stoi := hung       -- Σ = 𐑙: 1:1 self-referential
-  prot := ah         -- Ω = 𐑭: integer ℤ winding (topological)
+  chir := wool       -- ⊥ = 𐑫: eternal chirality
+  stoi := hung       -- ⊞ = 𐑙: 1:1 self-referential
+  prot := ah         -- ⊡ = 𐑭: integer ℤ winding (topological)
 }
 
 -- ============================================================
@@ -84,18 +84,18 @@ def theGrammar : Imscription := {
     where the measurement collapses to identity.
 -/
 def belnapMultilatticeSICPOVM : Imscription := {
-  dim  := if'        -- Ð = 𐑦: imscriptive/holographic
-  top  := are        -- Þ = 𐑸: imscriptive closure
-  rel  := ian        -- Ř = 𐑾: bidirectional coupling
-  pol  := or'        -- Φ = 𐑹: Frobenius special
-  fid  := peep       -- ƒ = 𐑐: quantum fidelity
-  kin  := egg        -- Ç = 𐑧: slow kinetics
-  gran := ice        -- Γ = 𐑔: global
-  gram := measure    -- ɢ = 𐑠: sequential
+  dim  := if'        -- ⊢ = 𐑦: imscriptive/holographic
+  top  := are        -- ⊣ = 𐑸: imscriptive closure
+  rel  := ian        -- ≻ = 𐑾: bidirectional coupling
+  pol  := or'        -- ≺ = 𐑹: Frobenius special
+  fid  := peep       -- ⋈ = 𐑐: quantum fidelity
+  kin  := egg        -- ⊤ = 𐑧: slow kinetics
+  gran := ice        -- ∈ = 𐑔: global
+  gram := measure    -- ∋ = 𐑠: sequential
   crit := monad      -- φ̂ = ⊙: critical
-  chir := sure       -- Ħ = 𐑖: two-step chirality
-  stoi := up         -- Σ = 𐑳: n:m heterogeneous
-  prot := ah         -- Ω = 𐑭: integer winding
+  chir := sure       -- ⊥ = 𐑖: two-step chirality
+  stoi := up         -- ⊞ = 𐑳: n:m heterogeneous
+  prot := ah         -- ⊡ = 𐑭: integer winding
 }
 
 -- ============================================================
@@ -106,17 +106,17 @@ def belnapMultilatticeSICPOVM : Imscription := {
 -- Each pair forms a Frobenius algebra where the dual basis
 -- condition μ∘δ = id mirrors the SIC-POVM dual basis Ẽᵢ = d·Eᵢ.
 --
--- Pair 1: Ð ↔ Þ   (Dimension ↔ Topology)
--- Pair 2: Ř ↔ Φ   (Coupling ↔ Parity)
--- Pair 3: ƒ ↔ Ç   (Fidelity ↔ Kinetics)
--- Pair 4: Γ ↔ ɢ   (Cardinality ↔ Composition)
--- Pair 5: φ̂ ↔ Ħ   (Criticality ↔ Chirality)
--- Pair 6: Σ ↔ Ω   (Stoichiometry ↔ Winding)
+-- Pair 1: ⊢ ↔ ⊣   (Dimension ↔ Topology)
+-- Pair 2: ≻ ↔ ≺   (Coupling ↔ Parity)
+-- Pair 3: ⋈ ↔ ⊤   (Fidelity ↔ Kinetics)
+-- Pair 4: ∈ ↔ ∋   (Cardinality ↔ Composition)
+-- Pair 5: φ̂ ↔ ⊥   (Criticality ↔ Chirality)
+-- Pair 6: ⊞ ↔ ⊡   (Stoichiometry ↔ Winding)
 
 -- The six Frobenius-dual pairs are:
---   Ð↔Þ (Dimension↔Topology),    Ř↔Φ (Coupling↔Parity),
---   ƒ↔Ç (Fidelity↔Kinetics),     Γ↔ɢ (Cardinality↔Composition),
---   φ̂↔Ħ (Criticality↔Chirality), Σ↔Ω (Stoichiometry↔Winding)
+--   ⊢↔⊣ (Dimension↔Topology),    ≻↔≺ (Coupling↔Parity),
+--   ⋈↔⊤ (Fidelity↔Kinetics),     ∈↔∋ (Cardinality↔Composition),
+--   φ̂↔⊥ (Criticality↔Chirality), ⊞↔⊡ (Stoichiometry↔Winding)
 -- Each pair is a Frobenius algebra; their dual-basis condition
 -- μ∘δ=id is proved below via tensor idempotence.
 
@@ -185,7 +185,7 @@ theorem belnap_ml_tier_O_inf :
   simp [ouroboricityTier]
 
 -- ============================================================
--- §6. THE Σ=1:1 LIMIT: GRAMMAR ≠ BELNAP ML
+-- §6. THE ⊞=1:1 LIMIT: GRAMMAR ≠ BELNAP ML
 -- ============================================================
 
 /-- The grammar differs from the Belnap multilattice SIC-POVM
@@ -205,43 +205,43 @@ theorem grammar_belnap_ml_distance_5 :
   unfold primitiveMismatches theGrammar belnapMultilatticeSICPOVM
   native_decide
 
-/-- The Σ primitive differs between grammar and Belnap ML:
+/-- The ⊞ primitive differs between grammar and Belnap ML:
     hung (1:1) vs up (n:m). This IS the self-referential limit. -/
 theorem sigma_is_the_difference :
     theGrammar.stoi ≠ belnapMultilatticeSICPOVM.stoi := by
   unfold theGrammar belnapMultilatticeSICPOVM
   decide
 
-/-- The five primitives that change in the Σ=1:1 limit. -/
+/-- The five primitives that change in the ⊞=1:1 limit. -/
 theorem five_primitives_differ :
-    theGrammar.dim  ≠ belnapMultilatticeSICPOVM.dim  ∧   -- Ð
-    theGrammar.top  ≠ belnapMultilatticeSICPOVM.top  ∧   -- Þ
-    theGrammar.rel  ≠ belnapMultilatticeSICPOVM.rel  ∧   -- Ř
-    theGrammar.chir ≠ belnapMultilatticeSICPOVM.chir ∧   -- Ħ
-    theGrammar.stoi ≠ belnapMultilatticeSICPOVM.stoi := by -- Σ
+    theGrammar.dim  ≠ belnapMultilatticeSICPOVM.dim  ∧   -- ⊢
+    theGrammar.top  ≠ belnapMultilatticeSICPOVM.top  ∧   -- ⊣
+    theGrammar.rel  ≠ belnapMultilatticeSICPOVM.rel  ∧   -- ≻
+    theGrammar.chir ≠ belnapMultilatticeSICPOVM.chir ∧   -- ⊥
+    theGrammar.stoi ≠ belnapMultilatticeSICPOVM.stoi := by -- ⊞
   unfold theGrammar belnapMultilatticeSICPOVM
   exact ⟨by decide, by decide, by decide, by decide, by decide⟩
 
-/-- The seven primitives that are INVARIANT under the Σ=1:1 limit. -/
+/-- The seven primitives that are INVARIANT under the ⊞=1:1 limit. -/
 theorem seven_primitives_invariant :
-    theGrammar.pol  = belnapMultilatticeSICPOVM.pol  ∧   -- Φ
-    theGrammar.fid  = belnapMultilatticeSICPOVM.fid  ∧   -- ƒ
-    theGrammar.kin  = belnapMultilatticeSICPOVM.kin  ∧   -- Ç
-    theGrammar.gran = belnapMultilatticeSICPOVM.gran ∧   -- Γ
-    theGrammar.gram = belnapMultilatticeSICPOVM.gram ∧   -- ɢ
+    theGrammar.pol  = belnapMultilatticeSICPOVM.pol  ∧   -- ≺
+    theGrammar.fid  = belnapMultilatticeSICPOVM.fid  ∧   -- ⋈
+    theGrammar.kin  = belnapMultilatticeSICPOVM.kin  ∧   -- ⊤
+    theGrammar.gran = belnapMultilatticeSICPOVM.gran ∧   -- ∈
+    theGrammar.gram = belnapMultilatticeSICPOVM.gram ∧   -- ∋
     theGrammar.crit = belnapMultilatticeSICPOVM.crit ∧   -- φ̂
-    theGrammar.prot = belnapMultilatticeSICPOVM.prot := by -- Ω
+    theGrammar.prot = belnapMultilatticeSICPOVM.prot := by -- ⊡
   unfold theGrammar belnapMultilatticeSICPOVM
   exact ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
 
-/-- Two dual pairs are fully invariant: ƒ↔Ç and Γ↔ɢ.
+/-- Two dual pairs are fully invariant: ⋈↔⊤ and ∈↔∋.
     These are the structural invariants — information flow
     and compositional scope are preserved in any valid SIC-POVM limit. -/
 theorem invariant_dual_pairs :
     (theGrammar.fid = belnapMultilatticeSICPOVM.fid ∧
-     theGrammar.kin = belnapMultilatticeSICPOVM.kin) ∧     -- ƒ↔Ç
+     theGrammar.kin = belnapMultilatticeSICPOVM.kin) ∧     -- ⋈↔⊤
     (theGrammar.gran = belnapMultilatticeSICPOVM.gran ∧
-     theGrammar.gram = belnapMultilatticeSICPOVM.gram) := by -- Γ↔ɢ
+     theGrammar.gram = belnapMultilatticeSICPOVM.gram) := by -- ∈↔∋
   unfold theGrammar belnapMultilatticeSICPOVM
   exact ⟨⟨rfl, rfl⟩, ⟨rfl, rfl⟩⟩
 
@@ -274,7 +274,7 @@ def grammarMeetBelnapML : Imscription := {
   prot := ah         -- shared
 }
 
-/-- The meet differs from the grammar at exactly ONE primitive: Ħ. -/
+/-- The meet differs from the grammar at exactly ONE primitive: ⊥. -/
 theorem grammar_meet_differs_at_chir_only :
     primitiveMismatches theGrammar grammarMeetBelnapML = 1 := by
   unfold primitiveMismatches theGrammar grammarMeetBelnapML
@@ -375,13 +375,13 @@ theorem grammar_is_universal_dual_frame_SIC_POVM :
     imscriptionTier theGrammar = .O_inf ∧
     -- (ii) Self-referential closure: Grammar ⊗ Grammar = Grammar
     tensorProduct theGrammar theGrammar = theGrammar ∧
-    -- (iii) Σ=1:1 limit: exactly 5 primitives differ from Belnap ML
+    -- (iii) ⊞=1:1 limit: exactly 5 primitives differ from Belnap ML
     primitiveMismatches theGrammar belnapMultilatticeSICPOVM = 5 ∧
     theGrammar.stoi ≠ belnapMultilatticeSICPOVM.stoi ∧
     -- (iv) Dual-frame: 6 Frobenius-dual pairs with μ∘δ=id
     (theGrammar.pol = or' ∧ theGrammar.crit = monad) ∧
     (μ_A theGrammar theGrammar = theGrammar) ∧
-    -- (v) Invariant substructure: ƒ↔Ç and Γ↔ɢ preserved
+    -- (v) Invariant substructure: ⋈↔⊤ and ∈↔∋ preserved
     (theGrammar.fid = belnapMultilatticeSICPOVM.fid ∧
      theGrammar.kin = belnapMultilatticeSICPOVM.kin) ∧
     (theGrammar.gran = belnapMultilatticeSICPOVM.gran ∧
@@ -396,10 +396,10 @@ theorem grammar_is_universal_dual_frame_SIC_POVM :
     ?_,
     ?_
   ⟩
-  · -- invariant pair ƒ↔Ç
+  · -- invariant pair ⋈↔⊤
     unfold theGrammar belnapMultilatticeSICPOVM
     exact ⟨rfl, rfl⟩
-  · -- invariant pair Γ↔ɢ
+  · -- invariant pair ∈↔∋
     unfold theGrammar belnapMultilatticeSICPOVM
     exact ⟨rfl, rfl⟩
 
@@ -450,13 +450,13 @@ theorem o_inf_requires_or_prime (s : Imscription)
   unfold imscriptionTier at h_tier
   exact h_not_inf h_tier
 
-/-- The grammar's Σ=1:1 (hung) is the self-referential stoichiometry.
+/-- The grammar's ⊞=1:1 (hung) is the self-referential stoichiometry.
     This means the grammar measures itself — there is no external
     referent. The measurement IS the measured. -/
 theorem grammar_sigma_is_self_referential :
     theGrammar.stoi = hung := rfl
 
-/-- The grammar's Ω=ah gives ℤ topological protection —
+/-- The grammar's ⊡=ah gives ℤ topological protection —
     integer winding numbers. This is the strongest Abelian
     protection available (non-Abelian is zoo). -/
 theorem grammar_omega_is_Z_protected :

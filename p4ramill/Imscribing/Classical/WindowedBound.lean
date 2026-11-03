@@ -222,7 +222,7 @@ theorem sum_window_pairs (B : Finset ℕ) (u N : ℕ) :
   congr 1
   exact hcard.symm
 
-/-- The window budget: `Σ_{d=1}^{u-1} (u - d) = u(u-1)/2`, so twice it is
+/-- The window budget: `⊞_{d=1}^{u-1} (u - d) = u(u-1)/2`, so twice it is
     `u(u-1)`, below `u²`. -/
 lemma two_mul_window_budget (u : ℕ) :
     2 * (∑ d ∈ Ico 1 u, (u - d)) = u * (u - 1) := by

@@ -148,12 +148,12 @@ The exponent is independent of the observer's base b.
     in the 3D (K,H,W) lattice. -/
 def AvalancheSize := ℕ
 
-/-- The 3D lattice dimensions: Ç (5 values), Ħ (4 values), Ω (4 values).
+/-- The 3D lattice dimensions: ⊤ (5 values), ⊥ (4 values), ⊡ (4 values).
     Total: 5×4×4 = 80 sites. -/
 structure Lattice3D where
-  k : Fin 5   -- Ç-primitive: 5 regimes
-  h : Fin 4   -- Ħ-primitive: 4 memory orders
-  w : Fin 4   -- Ω-primitive: 4 topological regimes
+  k : Fin 5   -- ⊤-primitive: 5 regimes
+  h : Fin 4   -- ⊥-primitive: 4 memory orders
+  w : Fin 4   -- ⊡-primitive: 4 topological regimes
 deriving Repr, DecidableEq, Fintype
 
 /-- The origin of the 3D lattice: (0,0,0) corresponding to minimal values. -/
@@ -231,18 +231,18 @@ and reality emerge.
 /-- The 12 primitive dimensions — ontological preconditions for any formal system.
     Every mathematical object implicitly occupies a position in the 17.28M-type crystal. -/
 structure OntologicalPrecondition where
-  dimensionality : String   -- Ð: how many degrees of freedom
-  topology : String         -- Þ: how distinctions connect
-  coupling : String         -- Ř: how system relates to environment
-  parity : String           -- Φ: symmetry group
-  fidelity : String         -- ƒ: physical regime
-  kinetics : String         -- Ç: relaxation rate vs observation
-  scope : String            -- Γ: interaction range
-  composition : String      -- ɢ: how components compose
+  dimensionality : String   -- ⊢: how many degrees of freedom
+  topology : String         -- ⊣: how distinctions connect
+  coupling : String         -- ≻: how system relates to environment
+  parity : String           -- ≺: symmetry group
+  fidelity : String         -- ⋈: physical regime
+  kinetics : String         -- ⊤: relaxation rate vs observation
+  scope : String            -- ∈: interaction range
+  composition : String      -- ∋: how components compose
   criticality : String      -- φ̂: distance from critical point
-  chirality : String        -- Ħ: Markov order / memory depth
-  stoichiometry : String    -- Σ: component type multiplicity
-  winding : String          -- Ω: topological invariant
+  chirality : String        -- ⊥: Markov order / memory depth
+  stoichiometry : String    -- ⊞: component type multiplicity
+  winding : String          -- ⊡: topological invariant
 deriving Repr
 
 /-- The claim: every formal system can be assigned a 12-tuple.
@@ -273,7 +273,7 @@ deriving Repr
 /-- ZFC_fe satisfies all four grammar axioms simultaneously. -/
 theorem ZFC_fe_all_axioms : True := by
   -- Axiom A: 𐑫 requires 𐑪 (eternal chirality needs frozen kinetics)
-  -- Axiom B: 𐑴 requires Ħ₂ or 𐑫 (parity protection needs memory)
+  -- Axiom B: 𐑴 requires ⊥₂ or 𐑫 (parity protection needs memory)
   -- Axiom C: 𐑦 ↔ 𐑸 (self-written state-space ↔ self-referential topology)
   -- Axiom D: Frobenius condition μ∘δ=id at P_special
   trivial

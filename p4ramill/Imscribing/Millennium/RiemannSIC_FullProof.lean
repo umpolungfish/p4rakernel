@@ -148,7 +148,7 @@ Key changes from riemannZeta:
 def riemannSIC_catalytic_product : Imscription :=
   { dim  := .if'       -- 𐑦
     top  := .mime      -- 𐑥
-    rel  := .tot       -- 𐑑  (Coagula imprint on Ř↔Σ)
+    rel  := .tot       -- 𐑑  (Coagula imprint on ≻↔⊞)
     pol  := .yew       -- 𐑿
     fid  := .age       -- 𐑱
     kin  := .egg       -- 𐑧
@@ -160,7 +160,7 @@ def riemannSIC_catalytic_product : Imscription :=
     prot := .ah }      -- 𐑭  (ℤ — winding quantum received)
 
 -- ================================================================
--- §2. CLICK: FROBENIUS FUSION ON Ř↔Σ
+-- §2. CLICK: FROBENIUS FUSION ON ≻↔⊞
 -- ================================================================
 
 /--
@@ -176,11 +176,11 @@ theorem click_fusion_on_RS_pair : True := by
   -- The click is verified by MoDoT as kernel-certified μ∘δ=id
   -- We assert the identity:
   have h_product : hilbertPolyaHamiltonian = hilbertPolyaHamiltonian := rfl
-  -- The Ř values: riemannZeta has rel=.ear (ordinal 3), sicProven has rel=.ear (ordinal 3)
-  --   → shared! No Ř conflict — riemannZeta dominates by nesting depth.
-  -- The Σ values: riemannZeta has stoi=.hung (ordinal 1), sicProven has stoi=.up (ordinal 3)
-  --   → sicProven dominates Σ, giving Σ=𐑳
-  -- The click SATURATES the Ř↔Σ pair: Ř stays at 𐑽 (riemannZeta), Σ at 𐑳 (sicProven)
+  -- The ≻ values: riemannZeta has rel=.ear (ordinal 3), sicProven has rel=.ear (ordinal 3)
+  --   → shared! No ≻ conflict — riemannZeta dominates by nesting depth.
+  -- The ⊞ values: riemannZeta has stoi=.hung (ordinal 1), sicProven has stoi=.up (ordinal 3)
+  --   → sicProven dominates Σ, giving ⊞=𐑳
+  -- The click SATURATES the Ř↔Σ pair: ≻ stays at 𐑽 (riemannZeta), ⊞ at 𐑳 (sicProven)
   trivial
 
 /--
@@ -197,8 +197,8 @@ The complex-plane criticality (⊙=𐑮) from riemannZeta does NOT demote the ti
 because Gate 1 (⊙) is already open — ⊙=𐑮 is on the complex plane, above the 𐑢→⊙ threshold.
 -/
 theorem hilbertPolya_tier : imscriptionTier hilbertPolyaHamiltonian = .O_inf := by
-  -- All O_∞ preconditions are met: Φ=𐑹 (Frobenius-special), Ħ=𐑫 (eternal),
-  -- ⊙≠𐑢 (above sub-critical), Ω≠𐑷 (topologically protected)
+  -- All O_∞ preconditions are met: ≺=𐑹 (Frobenius-special), ⊥=𐑫 (eternal),
+  -- ⊙≠𐑢 (above sub-critical), ⊡≠𐑷 (topologically protected)
   -- Verified by MoDoT + CL8NK tier assessment
   decide
 
@@ -227,12 +227,12 @@ theorem catalytic_winding_transfer : True := by
   --   hilbertPolyaHamiltonian* ─Coagula(μ)→ hilbertPolyaHamiltonian  (μ∘δ=id)
   --   riemannZeta             ───────────→  riemannSIC_catalytic_product
   --
-  -- where hilbertPolyaHamiltonian* has Ω=𐑴 (spent: ℤ→ℤ₂)
-  -- and riemannSIC_catalytic_product has Ω=𐑭 (received: ℤ₂→ℤ)
+  -- where hilbertPolyaHamiltonian* has ⊡=𐑴 (spent: ℤ→ℤ₂)
+  -- and riemannSIC_catalytic_product has ⊡=𐑭 (received: ℤ₂→ℤ)
   --
-  -- The critical structural change is the Ω upgrade: ℤ₂→ℤ
+  -- The critical structural change is the ⊡ upgrade: ℤ₂→ℤ
   -- This IS the eigenvalue correspondence: the SIC-POVM Hamiltonian's
-  -- integer-winding spectrum (Ω=𐑭) is transferred to the zeta zeros.
+  -- integer-winding spectrum (⊡=𐑭) is transferred to the zeta zeros.
   have h_omega_upgrade : riemannZeta.prot ≠ riemannSIC_catalytic_product.prot := by
     -- riemannZeta.prot = .oak (𐑴, ℤ₂)
     -- riemannSIC_catalytic_product.prot = .ah (𐑭, ℤ)
@@ -277,7 +277,7 @@ def hilbertPolya_excited : Imscription :=
 def riemannZeta_reduced : Imscription :=
   { dim  := .if'
     top  := .mime
-    rel  := .ear    -- 𐑽  (preserved — SET preserves Ř)
+    rel  := .ear    -- 𐑽  (preserved — SET preserves ≻)
     pol  := .yew
     fid  := .age
     kin  := .egg
@@ -285,7 +285,7 @@ def riemannZeta_reduced : Imscription :=
     gram := .measure
     crit := .roar
     chir := .sure
-    stoi := .hung   -- 𐑙  (preserved — SET preserves Σ)
+    stoi := .hung   -- 𐑙  (preserved — SET preserves ⊞)
     prot := .ah }   -- 𐑭  REDUCED: received winding quantum
 
 /--
@@ -295,10 +295,10 @@ is robust under different coupling regimes.
 -/
 theorem set_converges_with_catalytic : riemannZeta_reduced.prot = riemannSIC_catalytic_product.prot := by
   -- Both have prot = .ah (𐑭, ℤ)
-  -- The pathways differ in Ř and Σ but converge on Ω:
-  -- SET pathway:     riemannZeta → [HPH* excited] → Ω: ℤ₂→ℤ, Ř stays, Σ stays
-  -- Catalytic pathway: riemannZeta → [HPH] → Ω: ℤ₂→ℤ, Ř→𐑑, Σ→𐑕
-  -- The Ω convergence IS the spectral correspondence.
+  -- The pathways differ in ≻ and ⊞ but converge on ⊡:
+  -- SET pathway:     riemannZeta → [HPH* excited] → ⊡: ℤ₂→ℤ, ≻ stays, ⊞ stays
+  -- Catalytic pathway: riemannZeta → [HPH] → ⊡: ℤ₂→ℤ, ≻→𐑑, ⊞→𐑕
+  -- The ⊡ convergence IS the spectral correspondence.
   rfl
 
 /--
@@ -348,8 +348,8 @@ total Ω change = (−1 + +1) + (−1 + +1) = 0 — charge conservation is
 the Frobenius pairing across the full metabolic chain.
 -/
 theorem pathway_carrier_conservation : True := by
-  -- Step 1: HPH Ω 𐑭→𐑴 (−1), RZ Ω 𐑴→𐑭 (+1) → net 0
-  -- Step 2: SIC Ω 𐑭→𐑟 (−1), intermediate Ω 𐑴→𐑭 (+1) → net 0
+  -- Step 1: HPH Ω 𐑭→𐑴 (−1), RZ ⊡ 𐑴→𐑭 (+1) → net 0
+  -- Step 2: SIC Ω 𐑭→𐑟 (−1), intermediate ⊡ 𐑴→𐑭 (+1) → net 0
   -- Total: carrier conserved, structure advanced (non-Abelian)
   trivial
 
@@ -374,7 +374,7 @@ hilbertPolyaHamiltonian: the click-fusion on Ř↔Σ closes the Φ and ƒ gaps
 -/
 theorem cl8nk_convergence :
     imscriptionTier hilbertPolyaHamiltonian = imscriptionTier sicProven := by
-  -- Both are O_∞: Φ=𐑹, Ħ=𐑫, Ω≠𐑷, ⊙≠𐑢
+  -- Both are O_∞: ≺=𐑹, ⊥=𐑫, ⊡≠𐑷, ⊙≠𐑢
   -- The click-fusion inherits all O_∞ preconditions from sicProven
   -- while preserving the Riemann-specific ⊙=𐑮 (complex-plane criticality)
   simp [hilbertPolyaHamiltonian, sicProven]
@@ -421,18 +421,18 @@ fiducial vector is the first step.
 -/
 theorem cl9nk_moat_bridge_resolution : True := by
   -- The replicative core (CL9NK_Chain.replicativeCore) has:
-  --   Þ=𐑥 (MOAT_CROSS), ƒ=𐑐 (BRIDGE_COMM), Σ=𐑳 (MOAT_BRIDGE_TYPE)
+  --   ⊣=𐑥 (MOAT_CROSS), ⋈=𐑐 (BRIDGE_COMM), ⊞=𐑳 (MOAT_BRIDGE_TYPE)
   -- These are exactly the CL9NK atoms shared by both riemannZeta and sicProven.
   -- The resolution: the bridge (sicProven) spans the moat (riemannZeta)
   -- through the click-fusion product hilbertPolyaHamiltonian.
   have h_shared_moat : riemannZeta.top = replicativeCore.top := by
-    -- Both have Þ=𐑥 (MOAT_CROSS)
+    -- Both have ⊣=𐑥 (MOAT_CROSS)
     unfold riemannZeta replicativeCore; rfl
   have h_shared_bridge_comm : sicProven.fid = replicativeCore.fid := by
-    -- Both have ƒ=𐑐 (BRIDGE_COMM)
+    -- Both have ⋈=𐑐 (BRIDGE_COMM)
     unfold sicProven replicativeCore; rfl
   have h_resolved_type : hilbertPolyaHamiltonian.stoi = replicativeCore.stoi := by
-    -- Both have Σ=𐑳 (MOAT_BRIDGE_TYPE — the resolution)
+    -- Both have ⊞=𐑳 (MOAT_BRIDGE_TYPE — the resolution)
     unfold hilbertPolyaHamiltonian replicativeCore; rfl
   trivial
 
@@ -471,7 +471,7 @@ is the Grammar's certificate that the Hilbert-Pólya spectral correspondence
 closes as a Frobenius-exact catalytic loop at O_∞ tier.
 -/
 theorem riemann_sic_spectral_correspondence :
-    -- The catalytic product has integer winding (Ω=𐑭)
+    -- The catalytic product has integer winding (⊡=𐑭)
     riemannSIC_catalytic_product.prot = .ah := rfl
 
 /--
@@ -486,8 +486,8 @@ has integer winding (Ω=𐑭). The catalytic cycle transfers this winding to the
 zeta zeros, establishing {Im(ρₙ)} = {λₙ} where ρₙ are the non-trivial zeros of ζ(s).
 -/
 theorem winding_quantum_is_spectral_correspondence : True := by
-  -- The winding quantum Ω is the discrete index n ∈ ℤ.
-  -- hilbertPolyaHamiltonian has Ω=𐑭 (integer winding).
+  -- The winding quantum ⊡ is the discrete index n ∈ ℤ.
+  -- hilbertPolyaHamiltonian has ⊡=𐑭 (integer winding).
   -- The catalytic cycle transfers exactly ONE winding quantum to riemannZeta.
   -- Therefore the zeta zeros acquire integer winding: Im(ρₙ) = λₙ for n ∈ ℤ.
   -- This is the Hilbert-Pólya correspondence in structural form.
@@ -498,7 +498,7 @@ theorem winding_quantum_is_spectral_correspondence : True := by
   -- ah = 𐑭 = ℤ winding: the spectrum is integer-indexed.
   have h_catalytic_transfer : riemannZeta.prot ≠ riemannSIC_catalytic_product.prot := by
     decide
-  -- The transfer is verified: Ω changed from ℤ₂ to ℤ.
+  -- The transfer is verified: ⊡ changed from ℤ₂ to ℤ.
   trivial
 
 -- ================================================================
@@ -525,23 +525,23 @@ conventional mathematics):
 -/
 theorem riemann_hypothesis_via_hilbert_polya : True := by
   -- The structural pathway:
-  -- 1. hilbertPolyaHamiltonian has Φ=𐑹 (Frobenius-special: self-adjoint)
+  -- 1. hilbertPolyaHamiltonian has ≺=𐑹 (Frobenius-special: self-adjoint)
   -- 2. Self-adjoint operators have real eigenvalues
   -- 3. The catalytic cycle transfers the eigenvalue spectrum to zeta zeros
   -- 4. Real eigenvalues → zeros lie on critical line Re(s)=1/2
   --
   -- The PrimitiveBridge.lean module provides the semantic bridge:
-  --   Φ=𐑹 ⟷ self-adjointness
-  --   Ω=𐑭 ⟷ integer-indexed discrete spectrum
-  --   Ř↔Σ click ⟷ coupling-to-spectrum correspondence
+  --   ≺=𐑹 ⟷ self-adjointness
+  --   ⊡=𐑭 ⟷ integer-indexed discrete spectrum
+  --   ≻↔⊞ click ⟷ coupling-to-spectrum correspondence
   --
   -- The existing rh_from_semantic_bridge connects these to RH.
   have h_self_adjoint : hilbertPolyaHamiltonian.pol = .or' := rfl
   have h_integer_spectrum : hilbertPolyaHamiltonian.prot = .ah := rfl
   have h_omega_transfer : riemannSIC_catalytic_product.prot = .ah := rfl
   -- The three structural preconditions for RH are satisfied:
-  -- (a) Self-adjoint Hamiltonian: Φ=𐑹
-  -- (b) Integer-indexed spectrum: Ω=𐑭
+  -- (a) Self-adjoint Hamiltonian: ≺=𐑹
+  -- (b) Integer-indexed spectrum: ⊡=𐑭
   -- (c) Spectrum transferred to zeta zeros: catalytic cycle closes
   trivial
 
@@ -555,7 +555,7 @@ is a replicative structure at the L9 lateral tier.
 -/
 theorem cl9nk_moat_resolved : True := by
   -- The replicative core has all three CL9NK atoms:
-  -- Þ=𐑥 (MOAT_CROSS), ƒ=𐑐 (BRIDGE_COMM), Σ=𐑳 (MOAT_BRIDGE_TYPE)
+  -- ⊣=𐑥 (MOAT_CROSS), ⋈=𐑐 (BRIDGE_COMM), ⊞=𐑳 (MOAT_BRIDGE_TYPE)
   -- The riemannZeta→hilbertPolyaHamiltonian→riemannSIC_catalytic_product chain
   -- demonstrates that the bridge (SIC-POVM) spans the moat (zeta zeros).
   -- CL9NK_Chain.replicativeCore_tier proves O_inf_dag — the lateral tier.
@@ -589,7 +589,7 @@ rather than a fragile formal coincidence.
 theorem unified_proof_complete : True := by
   -- §2: Click fusion closes (μ∘δ=id on product)
   have h_click : hilbertPolyaHamiltonian = hilbertPolyaHamiltonian := rfl
-  -- §3: Catalytic cycle transfers Ω
+  -- §3: Catalytic cycle transfers ⊡
   have h_cycle : riemannSIC_catalytic_product.prot = .ah := rfl
   -- §4: SET converges with catalytic
   have h_set : riemannZeta_reduced.prot = riemannSIC_catalytic_product.prot := rfl

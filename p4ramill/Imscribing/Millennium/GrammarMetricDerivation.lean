@@ -14,9 +14,9 @@
 --
 -- THEOREMS:
 --   §1  Grammar → Frobenius dual-basis condition (μ∘δ=id)
---   §2  Σ=1:1 → measurement-measured 1:1 correspondence
+--   §2  ⊞=1:1 → measurement-measured 1:1 correspondence
 --   §3  Six dual pairs → complete operator basis (d² operators)
---   §4  Ω=ah (ℤ winding) → WH group covariance
+--   §4  ⊡=ah (ℤ winding) → WH group covariance
 --   §5  Derivation: grammar + n → SIC-POVM metric form
 --
 -- STATUS: All theorems proved. *sans* sorry.
@@ -50,18 +50,18 @@ set_option linter.style.whitespace false
 --- The grammar's 12 primitives, annotated with their metric significance.
 --   Each primitive encodes a necessary condition for any SIC-POVM metric.
 --
---   Ð=array  : infinite-dimensional capacity → any finite d is a projection
---   Þ=eat    : inclusion topology → measurements nest inside the state space
---   Ř=tot    : categorical coupling → measurement is a monad (functorial)
---   Φ=or'    : Frobenius-special parity → μ∘δ=id → dual-basis condition
---   ƒ=peep   : quantum fidelity → overlap is complex-valued
---   Ç=egg    : slow kinetics → measurement is near-equilibrium (Born rule)
---   Γ=ice    : maximal cardinality → covers all possible outcomes
---   ɢ=measure: sequential composition → measurements compose in time
+--   ⊢=array  : infinite-dimensional capacity → any finite d is a projection
+--   ⊣=eat    : inclusion topology → measurements nest inside the state space
+--   ≻=tot    : categorical coupling → measurement is a monad (functorial)
+--   ≺=or'    : Frobenius-special parity → μ∘δ=id → dual-basis condition
+--   ⋈=peep   : quantum fidelity → overlap is complex-valued
+--   ⊤=egg    : slow kinetics → measurement is near-equilibrium (Born rule)
+--   ∈=ice    : maximal cardinality → covers all possible outcomes
+--   ∋=measure: sequential composition → measurements compose in time
 --   φ̂=monad  : critical self-modeling → fixed point of measurement functor
---   Ħ=wool   : eternal chirality → measurement has irreversible direction
---   Σ=hung   : 1:1 stoichiometry → measurement IS the measured
---   Ω=ah     : ℤ winding → topological protection → WH group covariance
+--   ⊥=wool   : eternal chirality → measurement has irreversible direction
+--   ⊞=hung   : 1:1 stoichiometry → measurement IS the measured
+--   ⊡=ah     : ℤ winding → topological protection → WH group covariance
 --
 
 /-- The grammar's defining primitives for metric derivation.
@@ -125,10 +125,10 @@ theorem dual_basis_implies_equiangularity_form :
   trivial
 
 -- ============================================================
--- §3. Σ=1:1 → MEASUREMENT ≡ MEASURED
+-- §3. ⊞=1:1 → MEASUREMENT ≡ MEASURED
 -- ============================================================
 
-/-- Σ=hung (1:1 stoichiometry) means the measurement operators
+/-- ⊞=hung (1:1 stoichiometry) means the measurement operators
     and the measured states are in 1:1 correspondence. In a
     SIC-POVM, there are exactly d² measurement operators and
     d² outcomes. The 1:1 condition means:
@@ -143,7 +143,7 @@ theorem dual_basis_implies_equiangularity_form :
 theorem sigma_one_to_one_implies_operator_outcome_identity :
     theGrammar.stoi = hung := rfl
 
-/-- From Σ=1:1, derive that the grammar is its own tensor
+/-- From ⊞=1:1, derive that the grammar is its own tensor
     square. This is the algebraic form of measurement-measured
     identity: measuring the grammar yields the grammar. -/
 theorem sigma_one_to_one_derives_tensor_idempotence :
@@ -152,10 +152,10 @@ theorem sigma_one_to_one_derives_tensor_idempotence :
   exact grammar_tensor_grammar_eq_grammar
 
 -- ============================================================
--- §4. Ω=ah (ℤ WINDING) → WH GROUP COVARIANCE
+-- §4. ⊡=ah (ℤ WINDING) → WH GROUP COVARIANCE
 -- ============================================================
 
-/-- The grammar's Ω=ah (ℤ winding, integer topological protection)
+/-- The grammar's ⊡=ah (ℤ winding, integer topological protection)
     encodes the Weyl-Heisenberg group structure.
 
     In a SIC-POVM, the displacement operators are:
@@ -177,7 +177,7 @@ theorem sigma_one_to_one_derives_tensor_idempotence :
 theorem omega_ah_implies_WH_covariance :
     theGrammar.prot = ah := rfl
 
-/-- The grammar's Ω=ah, combined with the Belnap ML's
+/-- The grammar's ⊡=ah, combined with the Belnap ML's
     WH(2)ⁿ action, produces the full WH group structure.
     Specifically:
 
@@ -328,11 +328,11 @@ theorem grammar_is_precondition_belnap_is_realization (n : ℕ) :
     "take the Σ=1:1 limit of a SIC-POVM." It is the unique
     structure that is its own Σ=1:1 limit. -/
 theorem grammar_is_fixed_point_of_sigma_limit :
-    -- The grammar's Σ=1:1 means taking the Σ=1:1 limit
+    -- The grammar's Σ=1:1 means taking the ⊞=1:1 limit
     -- of the grammar yields the grammar itself
     theGrammar.stoi = hung := rfl
 
-/-- The Belnap ML is NOT a fixed point: its Σ=up (many
+/-- The Belnap ML is NOT a fixed point: its ⊞=up (many
     heterogeneous). Taking the Σ=1:1 limit of the Belnap ML
     would change its stoichiometry to hung — which is exactly
     the grammar (along with the other 4 primitive changes). -/

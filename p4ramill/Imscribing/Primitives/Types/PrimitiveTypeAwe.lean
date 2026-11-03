@@ -51,7 +51,7 @@ def the_primitive_type_called_awe_registerBoth : String := "system is at a topol
 -- IFIX: protection record
 --   The permanent fixation of the system's protection level in the type registry.
 -- IMSCRIB: identity of awe
---   The self-recognition of the system as being explicitly unprotected (Ω = 0).
+--   The self-recognition of the system as being explicitly unprotected (⊡ = 0).
 -- TANCH: awe boundary
 --   The terminal limit of the protection primitive where no topological invariants are conserved.
 -- VINIT: unprotected state

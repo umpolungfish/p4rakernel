@@ -2,9 +2,9 @@
 -- Homogeneous Critical Broadcast Ensemble (HCBE/HCB)
 --
 -- A crystalline lattice of identical self-modeling units at criticality.
--- Each unit is quantum-coherent (ƒ=𐑐), near-equilibrium (Ç=𐑧),
--- Frobenius-special (Φ=𐑹), and communicates via broadcast (ɢ=𐑵).
--- The lattice has integer topological protection (Ω=𐑭) with exact
+-- Each unit is quantum-coherent (⋈=𐑐), near-equilibrium (⊤=𐑧),
+-- Frobenius-special (≺=𐑹), and communicates via broadcast (∋=𐑵).
+-- The lattice has integer topological protection (⊡=𐑭) with exact
 -- total winding 4.0 from non-Abelian Berry holonomy.
 --
 -- Grammar tuple: ⟨𐑦𐑸𐑽𐑹𐑐𐑧𐑔𐑵⊙𐑖𐑕𐑭⟩  (O_∞, Special Frobenius)
@@ -46,18 +46,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑦  dim  = if'     — imscriptive: self-modeling state space
---   Þ=𐑸  top  = are     — holographic: holobound bulk/boundary encoding
---   Ř=𐑽  rel  = ear     — dagger: adjoint pair f⊣g, L Adj(f,g)
---   Φ=𐑹  pol  = or'     — Frobenius-special: ℤ₂ parity, μ∘δ=id
---   ƒ=𐑐  fid  = peep    — quantum: coherent channel, [x,p]=iℏ
---   Ç=𐑧  kin  = egg     — slow: MBL-localized, τ≫T, near-equilibrium
---   Γ=𐑔  gran = ice     — maximal, ∃y∈x(|y|∼|x|)
---   ɢ=𐑵  gram = ooze    — broadcast: BROADCAST_TRANSCENDENCE
+--   ⊢=𐑦  dim  = if'     — imscriptive: self-modeling state space
+--   ⊣=𐑸  top  = are     — holographic: holobound bulk/boundary encoding
+--   ≻=𐑽  rel  = ear     — dagger: adjoint pair f⊣g, L Adj(f,g)
+--   ≺=𐑹  pol  = or'     — Frobenius-special: ℤ₂ parity, μ∘δ=id
+--   ⋈=𐑐  fid  = peep    — quantum: coherent channel, [x,p]=iℏ
+--   ⊤=𐑧  kin  = egg     — slow: MBL-localized, τ≫T, near-equilibrium
+--   ∈=𐑔  gran = ice     — maximal, ∃y∈x(|y|∼|x|)
+--   ∋=𐑵  gram = ooze    — broadcast: BROADCAST_TRANSCENDENCE
 --   ⊙=⊙  crit = monad   — critical: ξ→∞, μ∘δ=id self-modeling
---   Ħ=𐑖  chir = sure    — two-step: broadcast and echo are distinguishable
---   Σ=𐑕  stoi = so      — many identical: lattice of identical units
---   Ω=𐑭  prot = ah      — integer winding: ∮_γ A = 2πn, n∈ℤ, total 4.0
+--   ⊥=𐑖  chir = sure    — two-step: broadcast and echo are distinguishable
+--   ⊞=𐑕  stoi = so      — many identical: lattice of identical units
+--   ⊡=𐑭  prot = ah      — integer winding: ∮_γ A = 2πn, n∈ℤ, total 4.0
 
 def hcb : Imscription :=
   { dim  := Dimensionality.if'

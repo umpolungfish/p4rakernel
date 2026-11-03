@@ -40,16 +40,16 @@ def d2048_sic_closed_ring : Imscription := {
 
 /-- The Stark unit monomial at d=2048 (conductor 16, tower level 4).
     Notation: ⟨𐑦𐑥𐑽𐑬𐑐𐑪𐑔𐑝𐑻𐑫𐑳𐑭⟩
-    Three primitives differ from the closed ring: Ř, ɢ, ⊙. -/
+    Three primitives differ from the closed ring: ≻, ɢ, ⊙. -/
 def stark_unit_monomial : Imscription := {
   dim  := Dimensionality.if'     -- 𐑦 (match)
   top  := Topology.mime           -- 𐑥 (match)
-  rel  := Relational.ear          -- 𐑽 (Ř: ian→ear, δ=1)
+  rel  := Relational.ear          -- 𐑽 (≻: ian→ear, δ=1)
   pol  := Polarity.out            -- 𐑬 (match)
   fid  := Fidelity.peep           -- 𐑐 (match)
   kin  := KineticChar.on          -- 𐑪 (match)
   gran := Granularity.ice         -- 𐑔 (match)
-  gram := Grammar.vow             -- 𐑝 (ɢ: ooze→vow, δ=3)
+  gram := Grammar.vow             -- 𐑝 (∋: ooze→vow, δ=3)
   crit := Criticality.err         -- 𐑻 (⊙: monad→err, weighted δ=2/3)
   chir := Chirality.wool          -- 𐑫 (match)
   stoi := Stoichiometry.up        -- 𐑳 (match)
@@ -130,7 +130,7 @@ def ordinalGapAt (a b : Imscription) (primitive : String) : ℕ :=
   | "Ω" => Nat.dist (ordinalW a.prot) (ordinalW b.prot)
   | _   => 0
 
-/-- The ⊙ encoding ratio: ⊙_ordinal_gap / ɢ_ordinal_gap.
+/-- The ⊙ encoding ratio: ⊙_ordinal_gap / ∋_ordinal_gap.
     This encodes the exponent ratio e₂/e₁ using ONLY Lean integer ordinals.
     No weighted ordinals needed — the fraction emerges from the ratio
     of two integer gaps, which the Lean Core.lean explicitly states
@@ -159,23 +159,23 @@ def gapVector (a b : Imscription) : List PrimitiveGap :=
 --      Compute and verify the gap between the two catalog entries.
 -- ============================================================
 
-/-- The gap vector for d=2048: Ř, ɢ, ⊙. All other 9 primitives match. -/
+/-- The gap vector for d=2048: ≻, ∋, ⊙. All other 9 primitives match. -/
 def gap_d2048 : List PrimitiveGap := gapVector d2048_sic_closed_ring stark_unit_monomial
 
 /-- Theorem: the gap vector at d=2048 has exactly 3 non-zero entries. -/
 theorem gap_d2048_cardinality : gap_d2048.length = 3 := by
   native_decide
 
-/-- Theorem: the gap primitives at d=2048 are exactly Ř, ɢ, and ⊙. -/
+/-- Theorem: the gap primitives at d=2048 are exactly ≻, ∋, and ⊙. -/
 theorem gap_d2048_primitives :
     ((gap_d2048.map (·.primitive)).mergeSort (· ≤ ·)) = ((["⊙","Ř","ɢ"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
-/-- Theorem: Ř ordinal gap is exactly 1 (ian=3 → ear=2). -/
+/-- Theorem: ≻ ordinal gap is exactly 1 (ian=3 → ear=2). -/
 theorem gap_R_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "Ř" = 1 := by
   native_decide
 
-/-- Theorem: ɢ ordinal gap is exactly 3 (ooze=3 → vow=0). -/
+/-- Theorem: ∋ ordinal gap is exactly 3 (ooze=3 → vow=0). -/
 theorem gap_Gm_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "ɢ" = 3 := by
   native_decide
 
@@ -183,7 +183,7 @@ theorem gap_Gm_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial 
 theorem gap_Od_ordinal : ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "⊙" = 2 := by
   native_decide
 
-/-- Theorem: ⊙/ɢ ratio is exactly 2/3.
+/-- Theorem: ⊙/∋ ratio is exactly 2/3.
     Using ONLY Lean integer ordinals:
     ⊙ gap = |monad - err| = |1 - 3| = 2 (Lean ranks per Core.lean),
     ɢ gap = |ooze - vow| = |3 - 0| = 3.
@@ -203,15 +203,15 @@ theorem matching_primitives_zero_gap :
 --      These prove that the grammar gap IS the S-unit exponent vector.
 -- ============================================================
 
-/-- **Encoding Rule 1 (Ř → e₀).**
-    The Ř (Coupling/Relational) gap from ian to ear encodes one
+/-- **Encoding Rule 1 (≻ → e₀).**
+    The ≻ (Coupling/Relational) gap from ian to ear encodes one
     ramified layer transition: the fundamental unit is inverted.
-    e₀ = -δ_Ř = -1. -/
+    e₀ = -δ_≻ = -1. -/
 theorem encoding_rule_R :
     starkSunitExponents[0]? = some (-1) := by
   native_decide
 
-/-- The Ř gap magnitude (1) equals |e₀|. -/
+/-- The ≻ gap magnitude (1) equals |e₀|. -/
 theorem encoding_rule_R_magnitude :
     ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "Ř" = 1 ∧
     (starkSunitExponents[0]? = some (-1)) := by
@@ -219,7 +219,7 @@ theorem encoding_rule_R_magnitude :
   · native_decide
   · native_decide
 
-/-- **Encoding Rule 2 (ɢ → e₁).**
+/-- **Encoding Rule 2 (∋ → e₁).**
     The ɢ (Composition/Grammar) gap from ooze to vow encodes the
     number of independent S-unit generators visible at this conductor.
     e₁ = ⌊δ_ɢ⌋ = 3. -/
@@ -227,7 +227,7 @@ theorem encoding_rule_Gm :
     starkSunitExponents[1]? = some 3 := by
   native_decide
 
-/-- The ɢ gap magnitude (3) equals e₁. -/
+/-- The ∋ gap magnitude (3) equals e₁. -/
 theorem encoding_rule_Gm_magnitude :
     ordinalGapAt d2048_sic_closed_ring stark_unit_monomial "ɢ" = 3 ∧
     (starkSunitExponents[1]? = some 3) := by
@@ -235,7 +235,7 @@ theorem encoding_rule_Gm_magnitude :
   · native_decide
   · native_decide
 
-/-- **Encoding Rule 3 (⊙/ɢ → exponent ratio).**
+/-- **Encoding Rule 3 (⊙/∋ → exponent ratio).**
     The ratio of ⊙ ordinal gap to ɢ ordinal gap encodes e₂/e₁ = 2/3.
     ⊙ gap = |monad - err| = 2 (Lean integer ordinals).
     ɢ gap = |ooze - vow| = 3.
@@ -249,7 +249,7 @@ theorem encoding_rule_Od_exponent :
     starkSunitExponents[2]? = some 2 := by
   native_decide
 
-/-- The complete encoding: (Ř,ɢ,⊙) → [-1, 3, 2]. -/
+/-- The complete encoding: (≻,∋,⊙) → [-1, 3, 2]. -/
 theorem encoding_rules_complete :
     (starkSunitExponents[0]? = some (-1)) ∧
     (starkSunitExponents[1]? = some 3) ∧
@@ -455,7 +455,7 @@ def sic_d12_stark_instance : Imscription := {
 
 -- ============================================================
 -- §11. D=12 GAP COMPUTATION
---      10 primitives differ; 2 match (Φ, Ç).
+--      10 primitives differ; 2 match (≺, ⊤).
 --      Gap cardinality ≈ S-unit rank at conductor 2.
 -- ============================================================
 
@@ -466,40 +466,40 @@ def gap_d12 : List PrimitiveGap := gapVector sic_d12_existence_proof sic_d12_sta
 theorem gap_d12_cardinality : gap_d12.length = 10 := by
   native_decide
 
-/-- Theorem: the 10 gap primitives at d=12 are Ð,Þ,Ř,ƒ,Γ,ɢ,⊙,Ħ,Σ,Ω. -/
+/-- Theorem: the 10 gap primitives at d=12 are ⊢,⊣,≻,⋈,∈,∋,⊙,⊥,⊞,⊡. -/
 theorem gap_d12_primitives :
     ((gap_d12.map (·.primitive)).mergeSort (· ≤ ·)) =
     ((["Ð","Þ","Ř","ƒ","Γ","ɢ","⊙","Ħ","Σ","Ω"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
-/-- Theorem: the 2 matching primitives at d=12 are Φ and Ç. -/
+/-- Theorem: the 2 matching primitives at d=12 are ≺ and ⊤. -/
 theorem d12_matching_primitives :
     (["Ð","Þ","Ř","Φ","ƒ","Ç","Γ","ɢ","⊙","Ħ","Σ","Ω"].filter
       (fun p => ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance p = 0)).mergeSort (· ≤ ·) =
     ((["Φ","Ç"] : List String).mergeSort (· ≤ ·)) := by
   native_decide
 
-/-- Theorem: Ð (dimensionality) gap at d=12 is 2 (ash→if'). -/
+/-- Theorem: ⊢ (dimensionality) gap at d=12 is 2 (ash→if'). -/
 theorem gap_d12_D_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Ð" = 2 := by
   native_decide
 
-/-- Theorem: Þ (topology) gap at d=12 is 2 (mime→are). -/
+/-- Theorem: ⊣ (topology) gap at d=12 is 2 (mime→are). -/
 theorem gap_d12_T_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Þ" = 2 := by
   native_decide
 
-/-- Theorem: ƒ (fidelity) gap at d=12 is 2 (age→peep). -/
+/-- Theorem: ⋈ (fidelity) gap at d=12 is 2 (age→peep). -/
 theorem gap_d12_F_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "ƒ" = 2 := by
   native_decide
 
-/-- Theorem: ɢ (grammar) gap at d=12 is 2 (measure→vow). -/
+/-- Theorem: ∋ (grammar) gap at d=12 is 2 (measure→vow). -/
 theorem gap_d12_Gm_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "ɢ" = 2 := by
   native_decide
 
-/-- Theorem: Ω (protection) gap at d=12 is 2 (awe→ah). -/
+/-- Theorem: ⊡ (protection) gap at d=12 is 2 (awe→ah). -/
 theorem gap_d12_W_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Ω" = 2 := by
   native_decide
@@ -509,7 +509,7 @@ theorem gap_d12_Od_ordinal :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "⊙" = 2 := by
   native_decide
 
-/-- Theorem: Ř, Γ, Σ, Ħ each have ordinal gap 1 at d=12. -/
+/-- Theorem: ≻, ∈, ⊞, ⊥ each have ordinal gap 1 at d=12. -/
 theorem gap_d12_unit_primitives :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Ř" = 1 ∧
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Γ" = 1 ∧
@@ -517,7 +517,7 @@ theorem gap_d12_unit_primitives :
     ordinalGapAt sic_d12_existence_proof sic_d12_stark_instance "Ħ" = 1 := by
   constructor <;> native_decide
 
-/-- The ⊙/ɢ ratio at d=12: woe→roar gives ⊙ gap = 2, measure→vow gives ɢ gap = 2.
+/-- The ⊙/ɢ ratio at d=12: woe→roar gives ⊙ gap = 2, measure→vow gives ∋ gap = 2.
     Ratio = 2/2 = 1. Uses ONLY Lean integer ordinals.
     At d=12, ⊙ and ɢ gaps are equal → no ⊙-specific exponent ratio distinct from ɢ. -/
 theorem gap_d12_Od_ratio :

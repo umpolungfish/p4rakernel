@@ -1,6 +1,6 @@
 -- Imscribing/SixCoeffFrobenius.lean
 -- Six-coefficient Frobenius algebra
--- Fourier coefficients a₁..a₆ of horn torus modular form f_HT (weight 6 on Γ₀(4))
+-- Fourier coefficients a₁..a₆ of horn torus modular form f_HT (weight 6 on ∈₀(4))
 -- Forms a 7-dimensional special Frobenius algebra with μ∘δ = id
 --
 -- Catalog entry: six_coefficient_frobenius_algebra
@@ -31,18 +31,18 @@ set_option linter.style.nativeDecide false
     encodes universal constants as emission-ranked coefficients.
     Tier: O_∞ (Frobenius-exact, ZFC_fe level). -/
 def sixCoeffFrobenius : Imscription := {
-  dim  := .if'     -- Ð = 𐑦: imscriptive (self-modeling via Fourier coefficients)
-  top  := .are     -- Þ = 𐑸: holographic (boundary↔bulk closure under Γ₀(4))
-  rel  := .ian     -- Ř = 𐑾: bidirectional (Fourier transform duality)
-  pol  := .or'     -- Φ = 𐑹: PM_Z2 Frobenius-special (μ∘δ = id exactly)
-  fid  := .peep    -- ƒ = 𐑐: quantum fidelity (universal constants encoded)
-  kin  := .egg     -- Ç = 𐑧: near-equilibrium (holomorphic modular form)
-  gran := .ice     -- Γ = 𐑔: maximal cardinality (ℝ coefficient field)
-  gram := .measure -- ɢ = 𐑠: sequential composition (μ∘δ ordered)
+  dim  := .if'     -- ⊢ = 𐑦: imscriptive (self-modeling via Fourier coefficients)
+  top  := .are     -- ⊣ = 𐑧: holographic (boundary↔bulk closure under ∈₀(4))
+  rel  := .ian     -- ≻ = 𐑾: bidirectional (Fourier transform duality)
+  pol  := .or'     -- ≺ = 𐑹: PM_Z2 Frobenius-special (μ∘δ = id exactly)
+  fid  := .peep    -- ⋈ = 𐑐: quantum fidelity (universal constants encoded)
+  kin  := .egg     -- ⊤ = 𐑧: near-equilibrium (holomorphic modular form)
+  gran := .ice     -- ∈ = 𐑔: maximal cardinality (ℝ coefficient field)
+  gram := .measure -- ∋ = 𐑠: sequential composition (μ∘δ ordered)
   crit := .monad   -- ⊙ = ⊙: critical (μ∘δ = id, self-modeling gate)
-  chir := .wool    -- Ħ = 𐑫: eternal chirality (fixed points of μ∘δ)
-  stoi := .up      -- Σ = 𐑳: heterogeneous (mixed algebraic/transcendental basis)
-  prot := .ah      -- Ω = 𐑭: integer winding (ℤ-valued from 7th roots of unity)
+  chir := .wool    -- ⊥ = 𐑫: eternal chirality (fixed points of μ∘δ)
+  stoi := .up      -- ⊞ = 𐑳: heterogeneous (mixed algebraic/transcendental basis)
+  prot := .ah      -- ⊡ = 𐑭: integer winding (ℤ-valued from 7th roots of unity)
 }
 
 -- ============================================================
@@ -93,7 +93,7 @@ theorem frobenius_mu_after_delta_id : True := by
   -- The condition holds by construction: the special coproduct δ(b_i) = b_i ⊗ b₀
   -- and the ℤ₇ product μ(b_i ⊗ bⱼ) = b_{i+j mod 7} together give:
   --   μ(δ(b_i)) = μ(b_i ⊗ b₀) = b_{i+0} = b_i = id(b_i)
-  -- This is the definition of Φ = 𐑹 (PM_Z2: Frobenius-special with μ∘δ = id).
+  -- This is the definition of ≺ = 𐑹 (PM_Z2: Frobenius-special with μ∘δ = id).
   trivial
 
 /-- The algebra is at criticality (⊙): the Frobenius condition μ∘δ = id.

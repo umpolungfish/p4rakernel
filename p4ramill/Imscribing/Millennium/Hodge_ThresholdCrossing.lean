@@ -17,14 +17,14 @@
 --   ⟨𐑦; 𐑸; 𐑽; 𐑿; 𐑱; 𐑧; 𐑲; 𐑝; 𐑮; 𐑓; 𐑳; 𐑭⟩
 --
 -- THE 8 PROMOTIONS (Lefschetz → Hodge, reversed as Hodge → Join):
---   [P1] Φ: yew → or'    (Frobenius closure — THE KEY PROMOTION)
---   [P2] Ř: ear → ian     (bidirectionality restored via Frobenius)
+--   [P1] ≺: yew → or'    (Frobenius closure — THE KEY PROMOTION)
+--   [P2] ≻: ear → ian     (bidirectionality restored via Frobenius)
 --   [P3] ⊙: roar → monad (full self-modeling restored)
---   [P4] ƒ: age → peep      (quantum mechanism for primitive classes)
---   [P5] ɢ: vow → measure (sequential necessity restored)
---   [P6] Ħ: H₀ → H₂            (2-step memory restored)
---   [P7] Σ: n:m → 1:1           (single-degree focus — structural, not mathematical)
---   [P8] Þ: are → mime   (crossing-point topology — structural, not mathematical)
+--   [P4] ⋈: age → peep      (quantum mechanism for primitive classes)
+--   [P5] ∋: vow → measure (sequential necessity restored)
+--   [P6] ⊥: H₀ → H₂            (2-step memory restored)
+--   [P7] ⊞: n:m → 1:1           (single-degree focus — structural, not mathematical)
+--   [P8] ⊣: are → mime   (crossing-point topology — structural, not mathematical)
 --
 -- KEY THEOREM: [P1] (restoring Frobenius closure) automatically triggers
 --   [P2] (bidirectionality) and [P3] (self-modeling). The remaining 5
@@ -91,7 +91,7 @@ set_option linter.style.nativeDecide false
     THIS IS THE HODGE CONJECTURE. The other 7 promotions follow from it.
 -/
 
-/-- The promotion from Φ=yew to Φ=or'.
+/-- The promotion from Φ=yew to ≺=or'.
     This is the type of "proving the Hodge conjecture" —
     restoring Frobenius closure to the primitive-degree ≥ 2 case.
 
@@ -115,7 +115,7 @@ structure Promotion_Phi_closure where
       Hodge class is algebraic by definition. -/
   frobenius_implies_hodge : True
 
-/-- PROMOTION [P2]: Ř: ear → ian.
+/-- PROMOTION [P2]: ≻: ear → ian.
     Restoring bidirectionality between algebraic cycles and Hodge classes.
 
     ear (adjoint) means: algebraic → Hodge is easy (cycleClass exists),
@@ -128,7 +128,7 @@ structure Promotion_Phi_closure where
     Restoring or' (Frobenius closure) automatically restores ian,
     because the section μ gives the reverse direction. -/
 structure Promotion_R_bidirectionality where
-  /-- If Φ = or' (Frobenius closure), then Ř = ian follows.
+  /-- If ≺ = or' (Frobenius closure), then ≻ = ian follows.
       Proof: μ∘δ = id gives δ a left inverse, hence injective.
       Combined with δ surjective (the Hodge conjecture), δ is an isomorphism.
       An isomorphism is bidirectional (ian). -/
@@ -196,14 +196,14 @@ theorem phi_closure_triggers_chain_reaction :
   section, would give a quantum-coherent proof for all degrees.
 -/
 
-/-- PROMOTION [P4]: ƒ: age → peep.
+/-- PROMOTION [P4]: ⋈: age → peep.
     Follows from [P1] because the Hodge-Riemann bilinear relations
     (which underpin the Frobenius closure) are themselves quantum/
     coherent — they depend on the Kähler metric and Hodge star. -/
 structure Promotion_F_quantum where
   hodge_riemann_is_quantum : True
 
-/-- PROMOTION [P5]: ɢ: vow → measure.
+/-- PROMOTION [P5]: ∋: vow → measure.
     vow (conjunctive) means all degrees are handled simultaneously.
     measure (sequential) means the descent chain handles them one at a time.
 
@@ -216,7 +216,7 @@ structure Promotion_F_quantum where
 structure Promotion_Gamma_sequential where
   descent_chain_is_sequential : True
 
-/-- PROMOTION [P6]: Ħ: H₀ → H₂.
+/-- PROMOTION [P6]: ⊥: H₀ → H₂.
     H₀ (memoryless) means no persistence across degrees.
     H₂ (2-step memory) means the system remembers the previous degree
     while processing the next.
@@ -233,7 +233,7 @@ structure Promotion_H_2step where
   descent_uses_2step : True
   hodge_riemann_gives_H2 : True
 
-/-- PROMOTION [P7]: Σ: n:m → 1:1.
+/-- PROMOTION [P7]: ⊞: n:m → 1:1.
     n:m (many heterogeneous) means multiple degrees simultaneously.
     1:1 (single instance) means a single mechanism covers all.
 
@@ -247,7 +247,7 @@ structure Promotion_H_2step where
 structure Promotion_Sigma_unity where
   single_mechanism_unifies : True
 
-/-- PROMOTION [P8]: Þ: are → mime.
+/-- PROMOTION [P8]: ⊣: are → mime.
     are (holographic) means the system spans all degrees simultaneously.
     mime (crossing point) means a specific intersection mechanism applies.
 
@@ -332,7 +332,7 @@ theorem promotion_path_length : promotionOrder.length = 8 := by
   promotion needed to reach O_inf is [P1] (Φ: yew → or').
 -/
 
-/-- The single structurally independent promotion is [P1] (Φ: yew → or').
+/-- The single structurally independent promotion is [P1] (≺: yew → or').
     P2–P8 either follow from the descent architecture or are already at their
     join values. Once pol = or' (Frobenius closure), the tier is O_inf. -/
 theorem promotion_path_is_valid : True := by

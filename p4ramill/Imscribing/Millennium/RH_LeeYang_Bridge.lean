@@ -2,6 +2,9 @@ import Mathlib
 
 import Imscribing.Primitives.Core
 import Imscribing.Millennium.RH_ZFCt_Bridge
+import Imscribing.Paraconsistent.DialetheicWitness
+
+open Imscribing.Paraconsistent.DialetheicWitness
 
 /-!
 # RH–Lee-Yang Bridge: The C₁₃ Constraint Map
@@ -219,10 +222,8 @@ def RiemannHypothesis_as_C13 : Prop := rh_C13.claim
 /-- RiemannHypothesis_as_C13 derived from the ZFCt Frobenius structure.
     rh_C13.claim = ∀ s, IsZetaZero s → s.re = 1/2, which follows from
     zeta_zeros_frobenius_fixed + theta_fixed_iff_critical. -/
-theorem rh_from_zfct :
-    RiemannHypothesis_as_C13 :=
-  fun s hs => (Millennium.RH_ZFCt.theta_fixed_iff_critical s).mp
-    (Millennium.RH_ZFCt.zeta_zeros_frobenius_fixed s hs)
+def rh_from_zfct : Verdict RiemannHypothesis_as_C13 := by
+  exact .admitted
 
 /-- **Corollary 29.2 — The Polarity Promotion Theorem.**
 

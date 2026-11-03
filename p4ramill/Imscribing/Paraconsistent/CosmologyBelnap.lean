@@ -18,7 +18,7 @@
 --   the largest scales. The universe IS the system — no external
 --   observer, no boundary conditions. The Friedmann equations are
 --   the Einstein equations for the whole universe: geometry IS matter
---   at the cosmic scale. μ∘δ=id as the cosmic sum rule Ω_total = 1.
+--   at the cosmic scale. μ∘δ=id as the cosmic sum rule ⊡_total = 1.
 
 import Mathlib.Tactic
 import Imscribing.Paraconsistent.GeneralRelativity

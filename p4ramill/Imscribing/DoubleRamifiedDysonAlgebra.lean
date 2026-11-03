@@ -10,7 +10,7 @@
 --
 -- Key theorems:
 --   DR convolution algebra: (f∗g)(λ) = ∫_{DR_{0,2}(β,-β)} f·g·Δ_β dμ_DR
---   Spectral curve Σ_β: y² = x² − 4ρ_β(x)² (double cover ramified at ±2)
+--   Spectral curve ⊞_β: y² = x² − 4ρ_β(x)² (double cover ramified at ±2)
 --   Frobenius-special: μ∘δ=id (DR cycle idempotent under self-intersection)
 --   ℤ₂ sheet-exchange symmetry σ: (x,y)→(x,-y)
 --   Dyson β ∈ {1,2,4} as Frobenius parameter
@@ -39,18 +39,18 @@ open Dimensionality Topology Relational Polarity Grammar
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑼  dim  = array    — infinite-dim: large-N limit of Dyson ensemble
---   Þ=𐑸  top  = are      — holographic: DR cycle in moduli space
---   Ř=𐑾  rel  = ian      — bidirectional: cover↔pushforward Galois connection
---   Φ=𐑹  pol  = or'      — Frobenius-special: ℤ₂ sheet-exchange, μ∘δ=id
---   ƒ=𐑞  fid  = they     — thermal: Dyson gas at inverse temperature β
---   Ç=𐑧  kin  = egg      — slow: logarithmic gas dynamics
---   Γ=𐑔  gran = ice      — all scales gap→density
---   ɢ=𐑠  gram = measure  — sequential: DR hierarchy commuting flows
+--   ⊢=𐑼  dim  = array    — infinite-dim: large-N limit of Dyson ensemble
+--   ⊣=𐑧  top  = are      — holographic: DR cycle in moduli space
+--   ≻=𐑾  rel  = ian      — bidirectional: cover↔pushforward Galois connection
+--   ≺=𐑹  pol  = or'      — Frobenius-special: ℤ₂ sheet-exchange, μ∘δ=id
+--   ⋈=𐑞  fid  = they     — thermal: Dyson gas at inverse temperature β
+--   ⊤=𐑧  kin  = egg      — slow: logarithmic gas dynamics
+--   ∈=𐑔  gran = ice      — all scales gap→density
+--   ∋=𐑠  gram = measure  — sequential: DR hierarchy commuting flows
 --   ⊙=⊙  crit = monad    — critical: β=2 transition, boundary of moduli space
---   Ħ=𐑖  chir = sure     — two-step: sheet-exchange involution
---   Σ=𐑳  stoi = up       — many heterogeneous: almost-surely distinct eigenvalues
---   Ω=𐑭  prot = ah       — integer winding: levels on circle S¹
+--   ⊥=𐑖  chir = sure     — two-step: sheet-exchange involution
+--   ⊞=𐑳  stoi = up       — many heterogeneous: almost-surely distinct eigenvalues
+--   ⊡=𐑭  prot = ah       — integer winding: levels on circle S¹
 
 def drda : Imscription :=
   { dim  := Dimensionality.array
@@ -80,7 +80,7 @@ inductive DysonBeta : Type where
 
 open DysonBeta
 
-/-- The spectral curve Σ_β: y² = x² − 4ρ_β(x)².
+/-- The spectral curve ⊞_β: y² = x² − 4ρ_β(x)².
     For β=2 (GUE), ρ₂(x) = (1/2π)√(4−x²) — Wigner semicircle.
     The curve is a double cover of P¹ ramified at x = ±2. -/
 def spectralCurve (β : DysonBeta) : String :=
@@ -95,7 +95,7 @@ def ramificationPoints : List ℚ := [-2, 2]
 
 /-- The sheet-exchange involution σ: (x,y) → (x,-y).
     This is the ℤ₂ symmetry of the double cover.
-    In the grammar, this is the Frobenius-special parity Φ=𐑹. -/
+    In the grammar, this is the Frobenius-special parity ≺=𐑹. -/
 theorem sheet_exchange_involution (a : Imscription) (h : a = drda) :
     a.pol = Polarity.or' := by
   rw [h]; rfl

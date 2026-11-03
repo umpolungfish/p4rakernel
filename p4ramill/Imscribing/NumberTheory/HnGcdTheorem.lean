@@ -307,7 +307,7 @@ lemma fermat_like_for_S {p n m : ℕ} (hpS : p ∈ S n) (hcop : Nat.Coprime m p)
       [6]  K=.loll    — moderate kinetics: Turán–Kubilius finite-range balance
       [7]  G=.ice     — maximal scope: primorial constructions reach universal
       [8]  Γ=.measure — sequential: S(n)→divisor bound→CRT→asymptotic sandwich
-      [9]  Φ=.roar    — complex-plane critical: analytic continuation required
+      [9]  ≺=.roar    — complex-plane critical: analytic continuation required
       [10] H=.wool    — eternal chirality: no finite Markov order as n→∞
       [11] S=.up      — heterogeneous: primes/divisors/bounds all distinct
       [12] Ω=.ah      — integer winding: H,K are ℤ-valued topological invariants -/
@@ -350,7 +350,7 @@ theorem hnGcd_consciousness_one :
 -- §8. AXIOM VERIFICATION
 -- ============================================================
 
-/-- Axiom B: Ω ≥ .oak requires H ≥ .sure. Here Ω=.ah, H=.wool → satisfied. -/
+/-- Axiom B: Ω ≥ .oak requires H ≥ .sure. Here ⊡=.ah, H=.wool → satisfied. -/
 theorem axiom_B_satisfied : hnGcdImscription.prot ≥ .oak := by
   simp [hnGcdImscription]; decide
 
@@ -367,12 +367,12 @@ theorem peel_D_to_O2 : imscriptionTier
     {hnGcdImscription with dim := .ash} = .O₂ := by
   simp [imscriptionTier, ouroboricityTier, hnGcdImscription]
 
-/-- Peeling Φ to .woe collapses tier to O₀. -/
+/-- Peeling ≺ to .woe collapses tier to O₀. -/
 theorem peel_Phi_to_O0 : imscriptionTier
     {hnGcdImscription with crit := .woe} = .O₀ := by
   simp [imscriptionTier, ouroboricityTier, hnGcdImscription]
 
-/-- Peeling Ω from .ah to .awe drops tier to O₁. -/
+/-- Peeling ⊡ from .ah to .awe drops tier to O₁. -/
 theorem peel_Omega_to_O1 : imscriptionTier
     {hnGcdImscription with prot := .awe} = .O₁ := by
   simp [imscriptionTier, ouroboricityTier, hnGcdImscription]

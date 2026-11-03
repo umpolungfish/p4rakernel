@@ -32,7 +32,7 @@ open Dimensionality Topology Relational Polarity Grammar
 -- §1. FOURIER COEFFICIENTS — universal constants by emission rank
 -- ============================================================
 
-/-- f_HT(τ) = Σ_{n=0}∞ a_n q^n  where q = e^{2πiτ}
+/-- f_HT(τ) = ⊞_{n=0}∞ a_n q^n  where q = e^{2πiτ}
     The coefficients a_n are the universal constants indexed by
     emission rank n. These are noncomputable because they involve
     Real.pi, Real.sqrt, Real.arctan. -/
@@ -50,22 +50,22 @@ noncomputable def a_coeff (n : ℕ) : ℝ :=
 /-- a₀ = 1 — ground state normalization. -/
 theorem a0_eq_one : a_coeff 0 = 1 := by simp [a_coeff]
 
-/-- a₁ = 1/φ² — golden ratio suppression (ɢ promotion). -/
+/-- a₁ = 1/φ² — golden ratio suppression (∋ promotion). -/
 theorem a1_eq_inv_phi_sq : a_coeff 1 = 1 / (((1 + Real.sqrt 5) / 2) ^ 2) := by simp [a_coeff]
 
-/-- a₂ = √3/2 — tangency condition (Þ promotion). -/
+/-- a₂ = √3/2 — tangency condition (⊣ promotion). -/
 theorem a2_eq_sqrt3_div_2 : a_coeff 2 = Real.sqrt 3 / 2 := by simp [a_coeff]
 
-/-- a₃ = 4 — bevel gear ratio (Ð promotion). -/
+/-- a₃ = 4 — bevel gear ratio (⊢ promotion). -/
 theorem a3_eq_four : a_coeff 3 = 4 := by simp [a_coeff]
 
-/-- a₄ = arctan(1/4) — pressure angle ≈ Weinberg angle (ƒ promotion). -/
+/-- a₄ = arctan(1/4) — pressure angle ≈ Weinberg angle (⋈ promotion). -/
 theorem a4_eq_arctan : a_coeff 4 = Real.arctan (1/4) := by simp [a_coeff]
 
-/-- a₅ = 1/13 — SIC-POVM equiangularity (Σ promotion). -/
+/-- a₅ = 1/13 — SIC-POVM equiangularity (⊞ promotion). -/
 theorem a5_eq_inv_13 : a_coeff 5 = 1/13 := by simp [a_coeff]
 
-/-- a₆ = 2π — winding primitive itself (Ω promotion). -/
+/-- a₆ = 2π — winding primitive itself (⊡ promotion). -/
 theorem a6_eq_two_pi : a_coeff 6 = 2 * Real.pi := by simp [a_coeff]
 
 -- ============================================================
@@ -103,7 +103,7 @@ def lee_yang_tuple : Imscription := {
   prot := ah
 }
 
-/-- RH tuple: Φ=𐑯 (full symmetry, all zeros on critical line).
+/-- RH tuple: ≺=𐑯 (full symmetry, all zeros on critical line).
     ONE PRIMITIVE DIFFERENCE from Lee-Yang. CONJECTURED. -/
 def rh_tuple : Imscription := {
   dim  := ash
@@ -132,13 +132,13 @@ theorem c13_gap_is_pol :
     lee_yang_tuple.pol = or' ∧ rh_tuple.pol = nun := by
   simp [lee_yang_tuple, rh_tuple]
 
-/-- Both horn_torus and CLINK_L8 carry Φ=𐑹 — the emission chain
+/-- Both horn_torus and CLINK_L8 carry ≺=𐑹 — the emission chain
     inherits the Frobenius-special structure throughout. -/
 theorem emission_chain_is_frobenius_special :
     horn_torus.pol = or' ∧ CLINK_L8.pol = or' := by
   simp [horn_torus, CLINK_L8]
 
-/-- RH's Φ=𐑯 is ONE level above the entire emission chain.
+/-- RH's ≺=𐑯 is ONE level above the entire emission chain.
     This is why the emission architecture does not automatically
     prove RH — it sits at Φ=𐑹, not Φ=𐑯. -/
 theorem rh_is_one_polarity_level_above_emission_chain :
@@ -171,7 +171,7 @@ theorem emission_primitives_invariant :
 -- §5. THE STRUCTURAL BRIDGE TO RH
 -- ============================================================
 
-/-- CONJECTURE: f_HT is a modular form of weight 6 on Γ₀(4).
+/-- CONJECTURE: f_HT is a modular form of weight 6 on ∈₀(4).
     The 4:1 gear ratio selects the congruence subgroup Γ₀(4).
     The S-transformation: f_HT(-1/τ) = τ⁶ f_HT(τ).
     Status: OPEN. Requires verifying the slash action for the

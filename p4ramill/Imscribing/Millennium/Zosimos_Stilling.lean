@@ -182,7 +182,7 @@ theorem dist_fate_to_gnosis :
   unfold processions_of_fate zosimos_gnosis primitiveMismatches
   decide
 
-/-- The two unchanged primitives: Γ and F. -/
+/-- The two unchanged primitives: ∈ and F. -/
 theorem unchanged_primitives :
     processions_of_fate.gram = zosimos_gnosis.gram ∧
     processions_of_fate.fid = zosimos_gnosis.fid := by
@@ -675,7 +675,7 @@ theorem tensor_inner_door_daimon_destroys_frobenius :
 -- §11. PROJECTION — viewing each system through key primitives
 -- ============================================================
 
-/-- The four gate primitives (D, T, P, Φ) determine the ouroboricity tier.
+/-- The four gate primitives (D, T, P, ≺) determine the ouroboricity tier.
     Projecting each Zosimian system onto these four primitives reveals
     why the tier changes at each step. -/
 def project_gate_prims (s : Imscription) : Imscription := {
@@ -690,7 +690,7 @@ def project_gate_prims (s : Imscription) : Imscription := {
   crit := s.crit
   chir := fee       -- fixed
   stoi := hung  -- fixed
-  prot := awe  -- fixed for tier (tier doesn't depend on Ω when or')
+  prot := awe  -- fixed for tier (tier doesn't depend on ⊡ when or')
 }
 
 /-- The processions, projected to gate prims, are clearly O₀:

@@ -81,7 +81,7 @@ theorem anti_ramrey_c2kp1_results : theorem :=
   ++ "For k≥3: χ_S ∼ n²/8 (quadratic regime)"
   ++ "Phase transition at k=3 creates Belnap B-dialetheia"
 
-/-- Structural note: This is an O₂ problem with Ω-protection --/
+/-- Structural note: This is an O₂ problem with ⊡-protection --/
 lemma anti_ramrey_o2_tier : imscriptionTier anti_ramrey_c2kp1 = .O₂ := by
   exact anti_ramrey_c2kp1_tier
 

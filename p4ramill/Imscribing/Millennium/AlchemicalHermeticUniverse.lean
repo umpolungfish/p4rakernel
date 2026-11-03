@@ -7,7 +7,7 @@
 -- Key concepts:
 --   • Alchemical: subject to the law of transmutation of essence
 --   • Hermetically Sealed: informational and energetic closure
---   • Prima Materia: invariant topological substrate Ω
+--   • Prima Materia: invariant topological substrate ⊡
 --   • Solve et Coagula: decomposition and recombination cycle
 --   • As Above, So Below: Macrocosm ↔ Microcosm self-similarity
 
@@ -34,7 +34,7 @@ def entropy_conserved : Prop := True
 
 -- §2. Alchemical Transmutation
 
-/-- Prima Materia M is the invariant topological substrate Ω. -/
+/-- Prima Materia M is the invariant topological substrate ⊡. -/
 structure PrimaMateria where
   carrier : Type
   essence_density : carrier → ℝ

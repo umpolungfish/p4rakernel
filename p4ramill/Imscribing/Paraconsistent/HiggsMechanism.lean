@@ -49,7 +49,7 @@ inductive HiggsComponent where
   | phi_zero   -- neutral component (real part = Higgs boson h)
   deriving Inhabited, Repr, DecidableEq
 
--- The vacuum expectation value: ⟨0|Φ|0⟩ = (0, v/√2)ᵀ
+-- The vacuum expectation value: ⟨0|≺|0⟩ = (0, v/√2)ᵀ
 def vevNonzero : Prop := True  -- v ≈ 246 GeV ≠ 0
 
 theorem ssb_requires_vev : vevNonzero := trivial

@@ -21,7 +21,7 @@ open Imscribing.IGProtocol
 -- 12 steps, one ∈/∋ pair at positions (3,6): ∈ splits factor+depth,
 -- ∋ fuses them back.
 
--- The OuroboricityTier verdict: O₂dag (critical, Ω-protected, D=array)
+-- The OuroboricityTier verdict: O₂dag (critical, ⊡-protected, D=array)
 -- Consistent with the ob3ect's banked_count_check and rotat_audit.
 
 -- ── Protocol structure ───────────────────────────────────────

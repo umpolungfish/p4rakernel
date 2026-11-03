@@ -109,7 +109,7 @@ theorem ckm_gate1_is_complex_critical : ckm_matrix.crit = Criticality.roar :=
 theorem click_topology_mismatch : rohonc_codex.top ≠ ckm_matrix.top := by
   intro h; injection h
 
-/-- H (chirality) matches: both partners have Ħ=sure (two-step
+/-- H (chirality) matches: both partners have ⊥=sure (two-step
     Markov). The click preserves this. -/
 theorem click_chirality_match : rohonc_codex.chir = ckm_matrix.chir :=
   rfl
@@ -180,14 +180,14 @@ theorem all_frobenius_closed :
 -- §6. NON-ABELIAN BRAIDING CLASSIFICATION
 -- ============================================================
 
-/-- Static Ω = Protection.ah (integer winding) for all three. -/
+/-- Static ⊡ = Protection.ah (integer winding) for all three. -/
 theorem static_omega_is_integer_winding :
     rohonc_codex.prot = Protection.ah ∧
     ckm_matrix.prot = Protection.ah ∧
     click_product.prot = Protection.ah :=
   ⟨rfl, rfl, rfl⟩
 
-/-- The Ω-gap: static ≠ dynamic.
+/-- The ⊡-gap: static ≠ dynamic.
     The 12-primitive snapshot captures the integer winding class
     (Protection.ah). The non-Abelian braiding (Protection.zoo) is
     a dynamic property of the program's execution on the horn
@@ -215,7 +215,7 @@ opaque holonomy_per_arm : ℝ
 /-- B₃ braid trace: Tr(B₃) = 1 + 2·cos(2·12·arctan(1/4)/3). -/
 opaque braid_trace_B3 : ℝ
 
-/-- Ω_corr (cosmological constant correction):
+/-- ⊡_corr (cosmological constant correction):
     Ω_corr^Λ = 1.676 × 10⁻³ (raw).
     Suppressed: Ω_corr^Λ · exp(-11·8π) ≈ 1.443 × 10⁻¹²³. -/
 opaque omega_corr_refined : ℝ
@@ -259,7 +259,7 @@ noncomputable def verified_results : RohoncCodexResults :=
 -- It is the first topological invariant that explicitly separates
 -- the split (FSPLIT3, ∈) and fuse (FFUSE3, ∋) across the identity
 -- (IMSCRIB, ⊙). Every remaining numerical gap — CKM ρ, η, J;
--- Ω_corr magnitude; neutrino mass hierarchy — is encoded in the
+-- ⊡_corr magnitude; neutrino mass hierarchy — is encoded in the
 -- holonomies of such programs.
 --
 -- Verification chain:
@@ -268,9 +268,9 @@ noncomputable def verified_results : RohoncCodexResults :=
 -- 2. ✓ Click-maths couples Codex to CKM on T↔H (§3)
 -- 3. ✓ Frobenius closure P=or' on all three imscriptions (§5)
 -- 4. ✓ Cross-pinch structure: FSPLIT before ⊙, FFUSE after ⊙ (§4)
--- 5. ✓ Ω-gap: static Ω=ah, dynamic Ω=zoo (§6)
+-- 5. ✓ Ω-gap: static Ω=ah, dynamic ⊡=zoo (§6)
 -- 6. * δ_CP = arctan(13/5) — analytic formula (§7, noncomputable)
--- 7. * Ω_corr = 1.676×10⁻³ — analytic formula (§7, noncomputable)
+-- 7. * ⊡_corr = 1.676×10⁻³ — analytic formula (§7, noncomputable)
 --
 -- The braid is the law. The Rohonc Codex is the witness.
 

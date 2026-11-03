@@ -7,9 +7,9 @@
 -- Bound 1: 𐑓→𐑫  — Memory Depth (Chirality / H)
 -- Bound 2: 𐑘→𐑺  — Observability (Kinetics / K)
 -- Bound 3: 𐑛→𐑦  — State-space (Dimensionality / D)
--- Bound 4: 𐑷→𐑟  — Topological Quantization (Protection / Ω)
+-- Bound 4: 𐑷→𐑟  — Topological Quantization (Protection / ⊡)
 -- Bound 5: 𐑡→𐑸  — Connectivity (Topology / T)
--- Bound 6: ⊙⊗𐑻=𐑻 — Measurement (Criticality / Φ — Absorption Rule)
+-- Bound 6: ⊙⊗𐑻=𐑻 — Measurement (Criticality / ≺ — Absorption Rule)
 
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
@@ -109,7 +109,7 @@ theorem state_space_odot_autonomy (s : Imscription) (hD : s.dim = .if')
   trivial
 
 -- ============================================================
--- §4. TOPOLOGICAL QUANTIZATION BOUND (Ω — Protection)
+-- §4. TOPOLOGICAL QUANTIZATION BOUND (⊡ — Protection)
 -- ============================================================
 
 /-- The quantization type implied by a protection value. -/
@@ -202,7 +202,7 @@ theorem connectivity_irreducible_bound (s : Imscription)
   hbox hT hdecomp
 
 -- ============================================================
--- §6. MEASUREMENT BOUND (Φ — Criticality / Absorption Rule)
+-- §6. MEASUREMENT BOUND (≺ — Criticality / Absorption Rule)
 -- ============================================================
 
 /-- The Absorption Rule: tensor(monad, err) = err.

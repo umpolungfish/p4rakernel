@@ -9,7 +9,7 @@ abbrev δ (N k : Nat) (contradictory : Bool := false) : Lean.Sixteen3 :=
 abbrev π_T := Lean.Sixteen3.assertsTrue
 abbrev π_F := Lean.Sixteen3.assertsFalse
 
-/-- The recursive program is the existing unrestricted Curry Y applied to Φ_N. -/
+/-- The recursive program is the existing unrestricted Curry Y applied to ≺_N. -/
 def factorProgram (N k : Nat) (contradictory : Bool := false) : Term :=
   Y @@ .divisor N contradictory @@ .number k
 

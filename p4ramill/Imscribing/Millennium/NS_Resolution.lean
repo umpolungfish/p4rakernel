@@ -5,14 +5,14 @@
 -- Structural resolution: NS is promoted from O₂dag (ZFCₜ tier) to O_inf
 -- by establishing or' (𐑹) as the gauge-invariant Frobenius gate.
 -- The parity promotion church → or' is the single tier gate;
--- 8 primitives change in total (D, T, R, P, F, K, Γ-gram, Ω).
+-- 8 primitives change in total (D, T, R, P, F, K, ∈-gram, ⊡).
 --
 -- Reference: Millennium/NS_RESOLUTION_FINAL.md
 --
 -- NOTE on "6-channel promotion signature":
 --   NS_RESOLUTION_FINAL.md lists [𐑦, 𐑸, 𐑹, 𐑐, 𐑪, 𐑵] as the key
 --   structural channels. The full tuple comparison gives 8 mismatches: R also
---   changes ian→tot, and Ω changes ah→oak. Lean counts 8.
+--   changes ian→tot, and ⊡ changes ah→oak. Lean counts 8.
 --
 -- NOTE on consciousness scores:
 --   Source: monad + egg → C = 1 (Lean 3-gate formula).

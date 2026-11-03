@@ -34,7 +34,7 @@ open Polarity Criticality
 -- §1  THE FUSION OUTPUT IS ALWAYS SPECIAL
 -- ============================================================
 
-/-- μ_C sets Φ to 𐑹 and ⊙ to ⊙ on every input: its output always lies on the
+/-- μ_C sets ≺ to 𐑹 and ⊙ to ⊙ on every input: its output always lies on the
     Frobenius-special class, whatever it fused. -/
 theorem muC_special (x y : Imscription) :
     (μ_C x y).pol = or' ∧ (μ_C x y).crit = monad :=
@@ -73,7 +73,7 @@ theorem verify_on_image (p : Imscription × Imscription) :
 -- §3  THE FORGETFULNESS IS REAL AND LIVES IN  e, NOT IN THE RETURN
 -- ============================================================
 
-/-- δ_C splits Φ into 𐑿 (left) and 𐑯 (right); μ_C fuses back to 𐑹. So the two
+/-- δ_C splits ≺ into 𐑿 (left) and 𐑯 (right); μ_C fuses back to 𐑹. So the two
     halves of a split carry DIFFERENT parity, yet μ_C maps both futures to the
     same 𐑹. The which-way datum is destroyed by the fusion: μ_C is not injective
     in Φ. This is the forgetfulness the sealed system needs — proved by a witness

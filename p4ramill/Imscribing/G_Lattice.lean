@@ -1,13 +1,13 @@
 -- Imscribing/G_Lattice.lean
--- The ɢ Lattice: Composition from Conjunction to Broadcast
+-- The ∋ Lattice: Composition from Conjunction to Broadcast
 --
--- The composition primitive ɢ ranges over four values forming a lattice:
+-- The composition primitive ∋ ranges over four values forming a lattice:
 --   𐑝 (vow)   — conjunctive / AND      — all conditions required
 --   𐑜 (gag)   — disjunctive / OR       — any condition sufficient
 --   𐑠 (measure) — sequential / THEN    — strict temporal ordering
 --   𐑵 (ooze)  — broadcast / ONE-TO-ALL — universal coupling
 --
--- The ɢ lattice is the backbone of categorical composition: it determines how
+-- The ∋ lattice is the backbone of categorical composition: it determines how
 -- morphisms combine.  Conjunction ↔ product, disjunction ↔ coproduct,
 -- sequential ↔ composition, broadcast ↔ universal natural transformation.
 --
@@ -15,7 +15,7 @@
 -- This forms a diamond lattice (D₂).
 --
 -- CLINK L8 requires 𐑵 (broadcast) as the organism-level composition primitive.
--- Systems with 𐑝, 𐑜, or 𐑠 are below the organism threshold in ɢ.
+-- Systems with 𐑝, 𐑜, or 𐑠 are below the organism threshold in ∋.
 --
 -- Author: Math⊙perator (Lando⊗⊙perator Team)
 -- Date: 2025-07-29
@@ -31,7 +31,7 @@ open Imscribing.Frobenius
 open Grammar
 
 -- ─────────────────────────────────────────────────────────
--- The ɢ lattice
+-- The ∋ lattice
 -- ─────────────────────────────────────────────────────────
 
 /-- The four composition modes as a diamond lattice.
@@ -79,7 +79,7 @@ def sequentialComposition (f g : Imscription) : Imscription :=
     one source, all targets simultaneously. -/
 def broadcastComposition (a : Imscription) : Imscription := a
 
-/-- The ɢ lattice is a distributive lattice.
+/-- The ∋ lattice is a distributive lattice.
     meet(vow, gag) = vow, join(vow, gag) = gag, etc. -/
 theorem g_lattice_distributive (a b c : Grammar) : True := True.intro
 

@@ -11,7 +11,7 @@
 --   - Q ≅ End(Q) requires inaccessible cardinal κ = κ^κ (beyond ZFC)
 --   - The triple ramification is a 3-cycle of adjoint pairs
 --   - μ∘δ=id at the ouroboric fixed point
---   - Tier O_∞ via R1: ⊙=monad, Φ=or'
+--   - Tier O_∞ via R1: ⊙=monad, ≺=or'
 --
 -- Author: Math⊙perator (Lando⊗⊙perator Team)
 -- Date: 2025-07-29
@@ -32,18 +32,18 @@ open Imscribing.Frobenius
 -- ─────────────────────────────────────────────────────────
 --
 -- Slot mapping:
---   Ð=𐑦  dim  = if'     — imscriptive: Q ≅ End(Q) self-models
---   Þ=𐑸  top  = are     — holographic: Scott topology on complete lattice
---   Ř=𐑽  rel  = ear     — dagger: γ∘β∘α=id 3-cycle adjoint
---   Φ=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at fixed point
---   ƒ=𐑐  fid  = peep    — quantum: non-commutative C*-algebra projections
---   Ç=𐑧  kin  = egg     — near-equilibrium: at ouroboric fixed point
---   Γ=𐑔  gran = ice     — inaccessible cardinal for Q ≅ End(Q)
---   ɢ=𐑝  gram = vow     — conjunctive: quantale ⊗ distributes over joins
+--   ⊢=𐑦  dim  = if'     — imscriptive: Q ≅ End(Q) self-models
+--   ⊣=𐑧  top  = are     — holographic: Scott topology on complete lattice
+--   ≻=𐑽  rel  = ear     — dagger: γ∘β∘α=id 3-cycle adjoint
+--   ≺=𐑹  pol  = or'     — Frobenius-special: μ∘δ=id at fixed point
+--   ⋈=𐑐  fid  = peep    — quantum: non-commutative C*-algebra projections
+--   ⊤=𐑧  kin  = egg     — near-equilibrium: at ouroboric fixed point
+--   ∈=𐑔  gran = ice     — inaccessible cardinal for Q ≅ End(Q)
+--   ∋=𐑝  gram = vow     — conjunctive: quantale ⊗ distributes over joins
 --   ⊙=⊙  crit = monad   — critical: ouroboric fixed point
---   Ħ=𐑖  chir = sure    — two-step: 3-cycle triangular identity
---   Σ=𐑕  stoi = so      — many identical: three isomorphic sub-quantales
---   Ω=𐑭  prot = ah      — integer winding: winding number 3 around 3-cycle
+--   ⊥=𐑖  chir = sure    — two-step: 3-cycle triangular identity
+--   ⊞=𐑕  stoi = so      — many identical: three isomorphic sub-quantales
+--   ⊡=𐑭  prot = ah      — integer winding: winding number 3 around 3-cycle
 
 def troq : Imscription :=
   { dim  := Dimensionality.if'
@@ -220,12 +220,12 @@ theorem troq_tensor_tier_preserved :
     independent of ZFC (Gödel).
 
     In the grammar: Γ=𐑔 (ice/Aleph) signals the inaccessible cardinal
-    requirement. The ZFC formula for the TROQ collapses Ð from 𐑦 to 𐑼
-    and Þ from 𐑸 to 𐑰 because ZFC cannot fully express the imscriptive
+    requirement. The ZFC formula for the TROQ collapses ⊢ from 𐑦 to 𐑼
+    and ⊣ from 𐑸 to 𐑰 because ZFC cannot fully express the imscriptive
     structure. This collapse is a FEATURE — the grammar detects that the
     TROQ transcends ZFC. -/
 
-/-- The TROQ's cardinality condition is grammatically signaled by Γ=𐑔 (ice).
+/-- The TROQ's cardinality condition is grammatically signaled by ∈=𐑔 (ice).
     The ouroboric condition Q ≅ End(Q) requires |Q| = |Q|^|Q|, which forces
     |Q| to be an inaccessible cardinal (independent of ZFC).  We do NOT assert
     the existence of inaccessible cardinals; we prove only that the grammar
@@ -251,7 +251,7 @@ def tripleFrame : Imscription :=
     pol := Polarity.out    -- partial Frobenius (𐑬)
   }
 
-/-- Distance from Triple Frame to TROQ: exactly 1 primitive (Φ only).
+/-- Distance from Triple Frame to TROQ: exactly 1 primitive (≺ only).
     Hamming distance = 1, weighted distance = 2.0. -/
 theorem tripleFrame_to_troq_hamming_distance :
     primitiveMismatches tripleFrame troq = 1 := by

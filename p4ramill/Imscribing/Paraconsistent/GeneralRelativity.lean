@@ -11,7 +11,7 @@
 --   2. Riemann curvature R^ρ_σμν — the tensor of tidal forces
 --   3. Einstein tensor G_μν = R_μν - ½Rg_μν — conserved geometry
 --   4. Field equations: G_μν + Λg_μν = (8πG/c⁴)T_μν
---   5. Geodesic equation: d²x^μ/dτ² + Γ^μ_αβ (dx^α/dτ)(dx^β/dτ) = 0
+--   5. Geodesic equation: d²x^μ/dτ² + ∈^μ_αβ (dx^α/dτ)(dx^β/dτ) = 0
 --
 -- Structural insight: GR is a FROBENIUS DUALITY —
 --   Geometry (δ: metric → curvature) and Matter (μ: energy → geometry)
@@ -95,7 +95,7 @@ The Levi-Civita connection is the unique torsion-free,
 metric-compatible connection: Γ^ρ_μν = Γ^ρ_νμ, ∇_ρ g_μν = 0.
 -/
 inductive ConnectionProperty where
-  | torsionFree     -- Γ^ρ_μν = Γ^ρ_νμ
+  | torsionFree     -- Γ^ρ_μν = ∈^ρ_νμ
   | metricCompatible -- ∇_ρ g_μν = 0
   | leviCivita      -- torsionFree ∧ metricCompatible
   deriving Inhabited, Repr, DecidableEq
@@ -369,7 +369,7 @@ inductive CosmologicalConstantProblem where
   | geometric   -- Λ as integration constant (fine, but why this value?)
   | vacuumEnergy -- QFT vacuum predicts ρ_vac ~ M_Pl⁴
   | observed    -- Λ_obs ~ 10^-52 m^-2 — 120 orders smaller
-  | coincidence  -- Why now? Ω_Λ ≈ Ω_m at present epoch
+  | coincidence  -- Why now? Ω_Λ ≈ ⊡_m at present epoch
   deriving Inhabited, Repr, DecidableEq
 
 theorem cc_problem_magnitude : True := by
@@ -396,7 +396,7 @@ well-posed variational principle on manifolds with boundary.
 -/
 inductive GravitationalAction where
   | einsteinHilbert    -- S = (1/2κ)∫√(-g)(R-2Λ)
-  | palatini           -- Independent variation of g and Γ
+  | palatini           -- Independent variation of g and ∈
   | teleparallel       -- Torsion-based (Weitzenböck connection)
   deriving Inhabited, Repr, DecidableEq
 

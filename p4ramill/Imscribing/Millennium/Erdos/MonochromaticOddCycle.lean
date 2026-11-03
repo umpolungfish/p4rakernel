@@ -69,11 +69,11 @@ def monochromatic_odd_cycle_k2n1 : Imscription :=
     (.age)     -- F: classical (Bondy-Erdős, 1971)
     (.egg)     -- K: non-equilibrium
     (.ice)     -- G: maximal/global (complete graph K_N)
-    (.measure) -- Γ: sequential
+    (.measure) -- ∈: sequential
     (.roar)    -- φ̂: complex critical (Bondy threshold)
     (.kick)    -- H: Markov order 1
-    (.hung)    -- Σ: 1:1
-    (.awe)     -- Ω: trivial protection
+    (.hung)    -- ⊞: 1:1
+    (.awe)     -- ⊡: trivial protection
 
 theorem monochromatic_odd_cycle_tier_is_O1 : imscriptionTier monochromatic_odd_cycle_k2n1 = .O₁ := by
   unfold monochromatic_odd_cycle_k2n1; native_decide

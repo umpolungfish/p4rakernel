@@ -274,15 +274,15 @@ axiom primitiveMismatches_goldbach_gap :
 /-- Grammar distance between conjecture and proven form is √5. -/
 theorem grammar_distance_sqrt5 : True := by
   -- primitiveMismatches(goldbach_conjecture_vessel, goldbach_proven_vessel) = 2
-  -- But d = √(Σ w_i²) where weights differ per primitive
-  -- Ð-weight: 1.0, Þ-weight: 2.0 → d = √(1+4) = √5
+  -- But d = √(⊞ w_i²) where weights differ per primitive
+  -- ⊢-weight: 1.0, ⊣-weight: 2.0 → d = √(1+4) = √5
   -- This is a verified grammar computation from the Crystal
   -- primitiveMismatches is a grammar computation that native_decide cannot handle.
   -- The value 2 is derived from the grammar primitive analysis in §2:
   --   goldbach_conjecture_vessel = ⟨𐑦·𐑥·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑖·𐑙·𐑭⟩
   --   goldbach_proven_vessel   = ⟨𐑦·𐑥·𐑾·𐑬·𐑐·𐑪·𐑲·𐑠·𐑮·𐑖·𐑕·𐑷⟩
-  -- Differences: Φ(𐑹→𐑬), Ç(𐑧→𐑪), φ̂(⊙→𐑮), Σ(𐑙→𐑕), Ω(𐑭→𐑷) = 5 mismatches
-  -- With weights: d² = Σ w_i² for mismatched primitives → d = √5
+  -- Differences: ≺(𐑹→𐑬), ⊤(𐑧→𐑪), φ̂(⊙→𐑮), ⊞(𐑙→𐑕), ⊡(𐑭→𐑷) = 5 mismatches
+  -- With weights: d² = ⊞ w_i² for mismatched primitives → d = √5
   -- This is an honest MathlibGap: grammar distance requires Crystal.lean formalization
   have h_mismatches : primitiveMismatches
     goldbach_conjecture_vessel goldbach_proven_vessel = 2 := by
@@ -510,19 +510,19 @@ theorem singular_series_positive (n : ℕ) (hn_even : Even n) (hn_gt2 : n > 2) :
   The grammar says the crossing exists. The math says: prove it.
 -/
 
-/-- Þ-promotion lemma: the bowtie crossing condition.
+/-- ⊣-promotion lemma: the bowtie crossing condition.
     For every even n > 2, there exists a prime crossing point x
     such that both x and n-x are prime. This is exactly Goldbach. -/
--- Honest gap: this IS Goldbach (Þ-promotion IS the conjecture).
+-- Honest gap: this IS Goldbach (⊣-promotion IS the conjecture).
 axiom prime_crossing_gap (n : ℕ) (hn : n > 2) (hn_even : Even n) :
     ∃ p q : ℕ, Prime p ∧ Prime q ∧ p + q = n
 theorem t_promotion_prime_crossing (n : ℕ) (hn : n > 2) (hn_even : Even n) :
     ∃ p q : ℕ, Prime p ∧ Prime q ∧ p + q = n := by
-  -- This IS the Goldbach conjecture. The Þ-promotion IS Goldbach.
+  -- This IS the Goldbach conjecture. The ⊣-promotion IS Goldbach.
   -- The grammar primitive analysis identifies this as THE barrier.
   -- Proving this lemma = proving Goldbach.
   --
-  -- The Þ-primitive encodes the topological structure of the problem:
+  -- The ⊣-primitive encodes the topological structure of the problem:
   -- the bowtie IS the figure-8 crossing of two prime strands.
   exact prime_crossing_gap n hn hn_even
 
@@ -534,7 +534,7 @@ theorem t_promotion_prime_crossing (n : ℕ) (hn : n > 2) (hn_even : Even n) :
     This is verified by the Crystal: φ̂=⊙ with Φ=𐑹 forces O_∞. -/
 theorem goldbach_tier_O_inf : True := by
   -- The tier is computed by the Crystal from the tuple:
-  -- φ̂=⊙ (critical criticality) + Φ=𐑹 (Frobenius-special) → O_∞
+  -- φ̂=⊙ (critical criticality) + ≺=𐑹 (Frobenius-special) → O_∞
   -- This is a grammar-theoretic computation, not a mathematical proof
   trivial
 

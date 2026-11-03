@@ -86,7 +86,7 @@ theorem rh_ep_join_gate_closure :
     tCeilingConsistent rhEpJoin = false := by
   native_decide
 
-/-- The blocker is Ç (kinetics) — same axis, same ceiling, as `ym_blocker_is_kinetics`. -/
+/-- The blocker is ⊤ (kinetics) — same axis, same ceiling, as `ym_blocker_is_kinetics`. -/
 theorem rh_ep_join_blocker_is_kinetics :
     (ordinalK rhEpJoin.kin ≤ 3) = False ∧
     ordinalP rhEpJoin.pol ≤ 5 ∧ ordinalF rhEpJoin.fid ≤ 3 ∧

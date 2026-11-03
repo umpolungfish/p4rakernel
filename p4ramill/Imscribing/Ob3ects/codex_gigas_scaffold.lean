@@ -1,7 +1,7 @@
 -- Codex Gigas (Devil's Bible) — IGProtocol scaffold
 -- Type verified via imscribe: O₀ at crystal address 11,359,784
--- Full tuple from imscribe commit: ⟨Ð=𐑼; Þ=𐑸; Ř=𐑾; Φ=𐑿; ƒ=𐑱; Ç=𐑧; Γ=𐑔; ɢ=𐑝⊙=𐑻; Ħ=𐑖; Σ=𐑳; Ω=𐑴⟩
--- Tier: O₀ | Load-bearing: Þ(4.0) > Ř(3.0) > Ð(2.0) = Ç(2.0) = Ħ(2.0) = Σ(2.0)
+-- Full tuple from imscribe commit: ⟨⊢=𐑼; ⊣=𐑸; ≻=𐑾; ≺=𐑿; ⋈=𐑱; ⊤=𐑧; ∈=𐑔; ∋=𐑝⊙=𐑻; ⊥=𐑖; ⊞=𐑳; ⊡=𐑴⟩
+-- Tier: O₀ | Load-bearing: ⊣(4.0) > ≻(3.0) > ⊢(2.0) = ⊤(2.0) = ⊥(2.0) = ⊞(2.0)
 
 import Imscribing.IGMorphism
 import Imscribing.IGFunctor

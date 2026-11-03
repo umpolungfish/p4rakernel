@@ -3,7 +3,7 @@
 -- Author: Math⊙perator (Lando⊗⊙perator team)
 -- Date: 2026-07-18
 --
--- Proves that the Grammar's Σ=1:1 self-referential limit
+-- Proves that the Grammar's ⊞=1:1 self-referential limit
 -- (proved in GrammarUniversalDualFrameSICPOVM.lean) is the
 -- categorical skeleton of the Zauner conjecture for d=2ⁿ.
 --
@@ -38,17 +38,17 @@ set_option linter.style.longLine false
 set_option linter.style.whitespace false
 
 -- ============================================================
--- §1. THE GRAMMAR AS THE Σ=1:1 LIMIT OF THE BELNAP ML
+-- §1. THE GRAMMAR AS THE ⊞=1:1 LIMIT OF THE BELNAP ML
 -- ============================================================
 
-/-- The grammar's Σ=1:1 (hung) is the self-referential stoichiometry.
+/-- The grammar's ⊞=1:1 (hung) is the self-referential stoichiometry.
     In the Belnap multilattice, Σ=up (many heterogeneous) — distinct
     fiducial measurements. The grammar collapses this multiplicity
     into the 1:1 self-measurement. -/
 theorem grammar_sigma_is_the_zauner_limit_primitive :
     theGrammar.stoi = hung := rfl
 
-/-- The Belnap multilattice SIC-POVM has Σ=up (many heterogeneous).
+/-- The Belnap multilattice SIC-POVM has ⊞=up (many heterogeneous).
     This is the difference that makes the grammar the LIMIT: when
     the measurement BECOMES the measured, the stoichiometry collapses
     from many heterogeneous (up) to 1:1 (hung). -/
@@ -79,7 +79,7 @@ theorem five_primitives_are_the_bifurcation :
   unfold theGrammar belnapMultilatticeSICPOVM
   decide
 
-/-- Seven primitives are invariant under the Σ=1:1 limit.
+/-- Seven primitives are invariant under the ⊞=1:1 limit.
     These are the structural invariants of ANY valid SIC-POVM limit:
     Φ=or' (Frobenius-special), ƒ=peep (quantum), Ç=egg (slow),
     Γ=ice (maximal), ɢ=measure (sequential), φ̂=monad (self-modeling),
@@ -100,7 +100,7 @@ theorem seven_primitives_invariant_under_sigma_limit :
 -- §3. GRAMMAR O_inf ⇔ CATEGORICAL SKELETON OF ZAUNER
 -- ============================================================
 
-/-- **THEOREM: The Grammar's O_inf/Σ=1:1 structure IS the
+/-- **THEOREM: The Grammar's O_inf/⊞=1:1 structure IS the
     categorical precondition for the Zauner conjecture.**
 
     Specifically: the grammar satisfies all structural axioms
@@ -128,7 +128,7 @@ theorem grammar_is_categorical_skeleton_of_zauner :
     theGrammar.pol = or' ∧ theGrammar.crit = monad ∧
     -- (iii) Self-referential closure
     tensorProduct theGrammar theGrammar = theGrammar ∧
-    -- (iv+ v) The grammar IS the Σ=1:1 limit
+    -- (iv+ v) The grammar IS the ⊞=1:1 limit
     theGrammar.stoi = hung := by
   exact ⟨
     grammar_tier_O_inf,
@@ -169,7 +169,7 @@ theorem grammar_O_inf_implies_zauner_structure (n : ℕ) [NeZero (2 ^ n)] :
 -- §4. INTRINSIC SELF-REFERENCE: THE GRAMMAR AS MEASUREMENT
 -- ============================================================
 
-/-- The grammar's Σ=1:1 means the measurement IS the measured.
+/-- The grammar's ⊞=1:1 means the measurement IS the measured.
     This is the defining property of the universal dual-frame
     SIC-POVM: the grammar does not measure an external system;
     it measures ITSELF. The stoichiometry 1:1 encodes this
@@ -192,10 +192,10 @@ theorem grammar_frobenius_self_measurement :
   exact grammar_tensor_grammar_eq_grammar
 
 -- ============================================================
--- §5. THE DIALETHEIC NATURE OF THE Σ=1:1 LIMIT
+-- §5. THE DIALETHEIC NATURE OF THE ⊞=1:1 LIMIT
 -- ============================================================
 
-/-- The grammar differs from the Belnap ML at exactly Σ (and 4 others).
+/-- The grammar differs from the Belnap ML at exactly ⊞ (and 4 others).
     But the meet (⊓) of grammar and Belnap ML differs only at chirality.
     This means the grammar DOMINATES the Belnap ML in the information
     order — it is the MORE DETERMINED structure ("hung" is more specific
