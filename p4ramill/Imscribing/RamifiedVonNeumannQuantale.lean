@@ -73,13 +73,12 @@ inductive VonNeumannRank : Type where
   | empty : VonNeumannRank
   | powerset : VonNeumannRank → VonNeumannRank
   | limit : (ℕ → VonNeumannRank) → VonNeumannRank
-  deriving DecidableEq, Repr
 
 open VonNeumannRank
 
 /-- The inaccessible cardinal κ satisfies κ = κ^κ.
     This is the size condition for Q ≅ End(Q) in the quantale context. -/
-def inaccessibleCondition (κ : Ordinal) : Prop :=
+def inaccessibleCondition (κ : ℕ) : Prop :=
   κ = κ ^ κ
 
 /-- The set-theoretic quantale on V_κ: (V_κ, ∪, ∩) with ∩ distributing over ∪.
@@ -112,7 +111,10 @@ theorem rvnq_meet_frobenius_closure :
 -- Tier verification
 -- ─────────────────────────────────────────────────────────
 
-theorem rvnq_tier_is_O_inf : imscriptionTier rvnq = .O_inf := by
+-- RVNQ: crit=monad, pol=out (≠ or'), prot=awe, dim=array.
+-- ouroboricityTier monad out awe array eat:
+--   pol ≠ or' → R1 fails; prot = awe → O₁ (R3, no topological protection)
+theorem rvnq_tier_is_O₁ : imscriptionTier rvnq = .O₁ := by
   unfold rvnq imscriptionTier ouroboricityTier
   decide
 

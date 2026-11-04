@@ -9,29 +9,33 @@ import Imscribing.Primitives.Imscription
 import Imscribing.Consciousness
 import Imscribing.Primitives.TierCrossing
 import Imscribing.Primitives.Catalog
+import Imscribing.Frobenius
+import Imscribing.IMASM.OpcodeMapping
 
 open Imscribing.Primitives
+open Imscribing.Frobenius
+open Imscribing.IMASM
 
 /-- Three-body problem: nested CM/relative and Jacobi coordinate splits. The nesting pattern δ-before-δ, μ-after-μ ensures perturbation calculations survive coordinate frame reversal. -/
 def ThreeBodyNestedDecomposition : Imscription :=
   { dim := Dimensionality.dead,
-     top := Topology.judge,
-     rel := Relational.ado,
-     pol := Polarity.church,
-     fid := Fidelity.age,
-     kin := KineticChar.yea,
-     gram := Grammar.vow,
-     gran := Granularity.bib,
-     crit := Criticality.woe,
-     chir := Chirality.fee,
-     stoi := Stoichiometry.hung,
-     prot := Protection.awe }
+    top := Topology.judge,
+    rel := Relational.ado,
+    pol := Polarity.church,
+    fid := Fidelity.age,
+    kin := KineticChar.yea,
+    gram := Grammar.vow,
+    gran := Granularity.bib,
+    crit := Criticality.woe,
+    chir := Chirality.fee,
+    stoi := Stoichiometry.hung,
+    prot := Protection.awe }
 
 /-- IMASM program for ThreeBodyNestedDecomposition -/
-def ThreeBodyNestedDecomposition_program : List IMASMOp :=
-  [ vinit, imscrib, fsplit, fsplit, evalf, ffuse, ffuse, tanch ]
+def ThreeBodyNestedDecomposition_program : List IMASMOpcode :=
+  [ .VINIT, .IMSCRIB, .FSPLIT, .FSPLIT, .EVALF, .FFUSE, .FFUSE, .TANCH ]
 
 /-- Frobenius closure: μ∘δ=id for ThreeBodyNestedDecomposition -/
-theorem ThreeBodyNestedDecomposition_frobenius : frobeniusClosure ThreeBodyNestedDecomposition := by
+theorem ThreeBodyNestedDecomposition_frobenius : μ_A (δ_A ThreeBodyNestedDecomposition).1 (δ_A ThreeBodyNestedDecomposition).2 = ThreeBodyNestedDecomposition := by
   -- Frobenius closure holds by construction
-  native_decide
+  exact mu_delta_A_id ThreeBodyNestedDecomposition

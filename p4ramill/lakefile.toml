@@ -895,6 +895,22 @@ globs = [
   "Imscribing.PeriFractalAnyonicQuantale",
   "Imscribing.PrimeWhorlTheory",
   "Imscribing.RZ7GroupAlgebra",
+  "Imscribing.RamifiedVonNeumannQuantale",
+  "Imscribing.Rosarium_20Step_Ladder",
+  "Imscribing.ThreeBodyNestedDecomposition",
+  "Imscribing.TransfiniteCriticalBraidGroupoidScaffold",
+  "Imscribing.TransfiniteCriticalLatticeBraidGroupoids",
+  "Imscribing.TripleRamifiedOuroboricQuantale",
+  "Imscribing.btc_secret_key_oneshot_operator",
+  "Imscribing.cuboid_lift",
+  "Imscribing.Classical.descent_7_5",
+  "Imscribing.Conjectures.ErdosStrausDecomposition",
+  "Imscribing.Paraconsistent.CertifiedModularResidue",
+  "Imscribing.Paraconsistent.FalsifiabilityDegenerate",
+  "Imscribing.Paraconsistent.IMASM16_3Machine",
+  "Imscribing.Paraconsistent.Shor.IG_ParaconsistentCompShor",
+  "Imscribing.Quantum.FrameLadderObstruction",
+  "Imscribing.Vox.lifts.MachHolonomy",
 ]
 
 # The prover's scratch modules live in their own library, OUTSIDE the default
