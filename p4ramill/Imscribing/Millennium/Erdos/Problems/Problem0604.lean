@@ -10,9 +10,10 @@ Prize: $500.  Status as catalogued: **OPEN**.
 
 open scoped BigOperators
 open Finset
+open Classical
 
 theorem erdos_problem_604
     (A : Finset (ℝ × ℝ))
-    (h_distinct : A.card = A.ncard) :
-    ∃ x ∈ A, ∃ C > 0, C * (A.card / Real.sqrt (Real.log A.card)) ≤ (distancesFrom x A).card := by
+    (h_distinct : A.card = (A : Set (ℝ × ℝ)).ncard) :
+    ∃ x ∈ A, ∃ C > 0, C * (A.card / Real.sqrt (Real.log A.card)) ≤ ((A.image (fun y => dist x y)).filter (· ≠ 0)).card := by
   sorry

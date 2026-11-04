@@ -9,6 +9,8 @@
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Algebra
+import Mathlib.Data.Fin.VecNotation
+import Imscribing.Algebra
 import Imscribing.Frobenius
 
 namespace Imscribing.FieldTheoreticMacrocycle
@@ -53,7 +55,7 @@ def graviton : Imscription := {
 -- §2: Bond Structure (R↔S condensation interface)
 /-- Each condensation bond Δ_ij is the weighted primitive distance between monomers. -/
 noncomputable def bondDelta (a b : Imscription) : ℝ :=
-  Imscribing.primitiveDistance a b
+  Imscribing.Primitives.primitiveDistance a b
 
 /-- Bond 1→2: darkMatter ⋈ wowSignal — MoDoT reports Δ=1.50 -/
 noncomputable def delta_12 : ℝ := bondDelta darkMatter wowSignal
@@ -75,10 +77,10 @@ noncomputable def totalBondEnergy : ℝ := delta_12 + delta_23 + delta_34 + delt
 def regioregular : Prop := True
 
 /-- Cyclization stability: weakest bond Δ_41 = 1.17 > threshold 1.0. -/
-def closureStable : Prop := delta_41 > 1.0
+noncomputable def closureStable : Prop := delta_41 > 1.0
 
 /-- Weakest-link bound on macrocycle stability. -/
-def weakestLink : ℝ := delta_41
+noncomputable def weakestLink : ℝ := delta_41
 
 -- §4: Isotactic Tacticity (uniform ⊥ chirality)
 /-- All 4 monomers share ⊥ = fee (memoryless): isotactic (𐑓𐑓𐑓𐑓) configuration. -/

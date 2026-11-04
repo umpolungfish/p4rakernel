@@ -1,3 +1,9 @@
+import Imscribing.Millennium.Dixmier
+
+namespace Millennium.Dixmier
+
+open Imscribing.Primitives Polarity
+
 
 -- ============================================================
 -- §6  Tier Analysis

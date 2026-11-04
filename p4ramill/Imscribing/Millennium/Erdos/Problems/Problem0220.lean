@@ -21,5 +21,6 @@ theorem erdos_problem_220
     (n : ℕ)
     (A : Finset ℕ)
     (h_A : A = (Finset.Icc 1 n).filter (fun m => Nat.Coprime m n)) :
-    ∃ C > 0, (∑ i in A, (i.2 - i.1)^2) ≤ C * n^2 / A.card := by
+    ∃ C > 0, (∑ i ∈ Finset.range (A.sort (· ≤ ·)).length,
+      ((A.sort (· ≤ ·))[i + 1]?.getD n - (A.sort (· ≤ ·))[i]?.getD 0)^2) ≤ C * n^2 / A.card := by
   sorry

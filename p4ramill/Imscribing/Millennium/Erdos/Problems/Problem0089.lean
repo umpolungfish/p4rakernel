@@ -13,6 +13,8 @@ This is equivalent to Problem #95 in a different formulation.
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
 def distances (A : Finset (ℝ × ℝ)) : Finset ℝ :=
   (A.product A).filter (fun p => p.1 ≠ p.2) |>.image (fun p => dist p.1 p.2)
@@ -26,6 +28,6 @@ theorem guth_katz_implies_erdos89 :
 /-- The original Erdős problem #89 statement. -/
 theorem erdos_problem_89
     (A : Finset (ℝ × ℝ))
-    (h_distinct : A.card = A.ncard) :
+    (h_distinct : A.card = (A : Set (ℝ × ℝ)).ncard) :
     ∃ C > 0, ∀ᶠ n in Filter.atTop, A.card = n → C * (n / Real.sqrt (Real.log n)) ≤ (distances A).card := by
   sorry

@@ -12,6 +12,8 @@ which gives ~|A|^(1 + c/√log |A|) unit distances.
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
 def unit_distances (A : Finset (ℝ × ℝ)) : ℕ :=
   (A.product A).filter (fun p => p.1 ≠ p.2 ∧ dist p.1 p.2 = 1) |>.card
@@ -19,11 +21,11 @@ def unit_distances (A : Finset (ℝ × ℝ)) : ℕ :=
 /-- The square grid construction: A = [√N] × [√N] gives many unit distances. -/
 lemma grid_unit_distances :
     ∃ c > 0, ∀ᶠ N in Filter.atTop, ∃ A : Finset (ℝ × ℝ),
-      A.card = N ∧ unit_distances A ≥ N ^ (1 + c / Real.sqrt (Real.log N)) := by sorry
+      A.card = N ∧ (unit_distances A : ℝ) ≥ (N : ℝ) ^ (1 + c / Real.sqrt (Real.log N)) := by sorry
 
 /-- The original Erdős conjecture was false: unit distances can exceed C·N. -/
 theorem erdos_problem_90 :
-    ¬ (∀ A : Finset (ℝ × ℝ), A.card = A.ncard →
+    ¬ (∀ A : Finset (ℝ × ℝ), A.card = (A : Set (ℝ × ℝ)).ncard →
       ∃ C > 0, unit_distances A ≤ C * (A.card : ℝ) ^ (1 + 1 / Real.log (Real.log (A.card : ℝ)))) := by sorry
 
 /-- Erdős' own counterexample: the square grid gives N^(1 + c/√log N) unit distances. -/

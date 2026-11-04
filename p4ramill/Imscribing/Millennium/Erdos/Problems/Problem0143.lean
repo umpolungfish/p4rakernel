@@ -1,14 +1,15 @@
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-import Mathlib.Analysis.SpecialFunctions.Log.ENNReal
-import Mathlib.Analysis.NormedSpace.Basic
-import Mathlib.Topology.Instances.Real
-import Mathlib.Data.Real.ENNReal
+import Mathlib.Analysis.SpecialFunctions.Log.ENNRealLog
+import Mathlib.Analysis.Normed.Module.Basic
+import Mathlib.Topology.Instances.Real.Lemmas
+import Mathlib.Data.ENNReal.Real
 import Mathlib.Order.Filter.Basic
-import Mathlib.Data.Set.Finite
+import Mathlib.Data.Set.Finite.Basic
 import Mathlib.Data.Finset.Basic
 import Mathlib.Data.Finset.Interval
 
-open scoped BigOperators
+open scoped BigOperators Topology
+open Classical
 open Filter Finset Set Real
 
 /-!
@@ -39,7 +40,7 @@ noncomputable def logSeries (A : Set ℕ) : ℕ → ℝ :=
 
 /-- The partial harmonic sum over A ∩ [1,n] -/
 noncomputable def harmonicPartialSum (A : Set ℕ) (n : ℕ) : ℝ :=
-  ∑ x in (A ∩ Icc 1 n).toFinset, (1 / (x : ℝ))
+  ∑ x ∈ (Finset.Icc 1 n).filter (· ∈ A), (1 / (x : ℝ))
 
 /-! ## Phase 2: Frobenius Split -/
 

@@ -531,3 +531,7 @@ noncomputable def IGProtocol.restrictToEVALF : IGProtocol a b → IGProtocol a b
 
 -- ─────────────────────────────────────────────────────────────────────────────
 end Imscribing
+
+namespace Imscribing.IGMorphism
+abbrev IGProtocol := Imscribing.IGProtocol
+end Imscribing.IGMorphism

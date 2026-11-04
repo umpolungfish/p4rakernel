@@ -18,8 +18,9 @@ import Mathlib
 
 namespace Imscribing.Millennium.LeanEdifice
 
-open Belnap
-open Inc Winding
+open Imscribing.Primitives Imscribing.Paraconsistent Imscribing.Consciousness
+open _root_.Millennium.Cosmogeny
+open Imscribing.Millennium.EntropyAsGlutPersistence
 open HowProbabilityArise
 open CLINK
 open CollatzOperationalized
@@ -60,36 +61,30 @@ theorem status_void_is_neither : status_to_belnap Status.void = Belnap.N := by r
 theorem status_odd_is_true : status_to_belnap Status.odd = Belnap.T := by rfl
 theorem status_even_is_false : status_to_belnap Status.even = Belnap.F := by rfl
 
-/-- statusTransition preserves the glut mapping. -/
+/-- STATUS retains paradox; other states follow the input parity. -/
 theorem status_transition_preserves_glut (s : Status) (n : ℕ) :
     status_to_belnap (statusTransition s n) =
-    match s with
-    | Status.paradox => Belnap.B
-    | Status.void => Belnap.N
-    | Status.odd => Belnap.T
-    | Status.even => Belnap.F
-    end := by
-  cases s <;> simp [statusTransition, status_to_belnap] <;>
-    (try { by_cases h : n % 2 = 1 <;> simp_all [Status.odd, Status.even] }) <;>
-    (try { aesop })
+      if s = Status.paradox then Belnap.B
+      else if n % 2 = 1 then Belnap.T else Belnap.F := by
+  cases s <;> by_cases h : n % 2 = 1 <;>
+    simp [statusTransition, status_to_belnap, h]
 
 /-- engagr produces paradox (glut) exactly when TANCH fires. -/
 theorem engagr_paradox_equiv_tanch (n : ℕ) :
     engagr n = Status.paradox ∧ tanch n = true ↔ n = 1 := by
   constructor
-  · intro h; exact engagr_paradox_condition n
-  · intro h; exact tanch_characterization n
+  · intro h; exact (tanch_characterization n).mp h.2
+  · intro h
+    exact ⟨engagr_paradox_condition n, (tanch_characterization n).mpr h⟩
 
 /-- BRIDGE 4: CLINK layers are Frobenius-closed because glut is fixed under self-reference. -/
 
-theorem clink_layers_frobenius_closed (n : Fin 9) : localFrobeniusClosed (clinkChain n) := by
+theorem clink_layers_frobenius_closed (n : Fin 12) : localFrobeniusClosed (clinkChain n) := by
   exact clink_preserves_frobenius n
 
 theorem clink_process_frobenius_and_consciousness :
     localFrobeniusClosed clinkProcessType ∧ consciousnessScore clinkProcessType = 1 := by
-  refine ⟨_, _⟩
-  · exact clinkProcess_frobenius_closed
-  · exact clinkProcess_C_score
+  exact ⟨clinkProcess_frobenius_closed, clinkProcess_C_score⟩
 
 /-- BRIDGE 5: tanch (TANCH) ≡ reaching a fixed point under winding. -/
 
@@ -106,7 +101,7 @@ theorem bottom_type_has_zero_prob : prob bottom_type = 0 := by
 theorem top_type_has_prob_one : prob top_type = 1 := by
   exact prob_top_one
 
-/-- Summary: the edifice is built on one Grammar — μ∘δ=id, B4 lattice, glut-persistence.
+/- Summary: the edifice is built on one Grammar — μ∘δ=id, B4 lattice, glut-persistence.
     All four formalizations are instances of this one structure:
     - Collatz: ffuse ∘ fsplit = id on ℕ
     - Belnap: inc² = inc, glut fixed at B
@@ -115,3 +110,5 @@ theorem top_type_has_prob_one : prob top_type = 1 := by
     - Entropy: > 0 ⟺ x = B measures glut persistence
 
     There is no probability — only glut-persistence, measured on the same Grammar. -/
+
+end Imscribing.Millennium.LeanEdifice

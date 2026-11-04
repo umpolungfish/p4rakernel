@@ -69,6 +69,22 @@ theorem fixed_point_is_mechanical_minimum (m : Symmetric) (b root x : Point) (co
   have nonnegative := positive (sub x root)
   linarith
 
+/-- Identifying the proton operands of retained candidate alternatives adds
+exactly their quadratic root dispersion. The source alternative index therefore
+cannot be erased without changing the same mechanical response. -/
+theorem conditional_roots_retain_response {ι : Type*} (indices : Finset ι)
+    (m : Symmetric) (b : ι → Point) (constant : ι → ℝ)
+    (roots : ι → Point) (shared : Point)
+    (stationary : ∀ i ∈ indices, act m (roots i) = b i) :
+    (∑ i ∈ indices, energy m (b i) (constant i) shared) -
+      (∑ i ∈ indices, energy m (b i) (constant i) (roots i)) =
+      ∑ i ∈ indices, dot (sub shared (roots i)) (act m (sub shared (roots i))) := by
+  rw [← Finset.sum_sub_distrib]
+  apply Finset.sum_congr rfl
+  intro i hi
+  exact complete_square m (b i) (roots i) shared (constant i) (stationary i hi)
+
+#print axioms conditional_roots_retain_response
 /-- A rejected squared-distance predicate supplies a tangent normal on the
 same retained coordinates. This is the exact boundary action used by each
 halfspace contraction, without an added distance threshold. -/
@@ -81,6 +97,41 @@ theorem rejected_predicate_tangent (normal force : Point)
     ring
   rw [linear, div_mul_cancel₀ _ nonzero, sub_self]
 
+/-- A rejected native inequality retains its actual clearance, rather than
+being silently replaced by a zero-clearance tangent condition. -/
+theorem rejected_predicate_affine_boundary (normal step : Point) (clearance : ℝ)
+    (nonzero : dot normal normal ≠ 0) :
+    clearance + dot normal
+      (add step (scale ((-clearance-dot normal step)/dot normal normal) normal)) = 0 := by
+  have linear : dot normal
+      (add step (scale ((-clearance-dot normal step)/dot normal normal) normal)) =
+      dot normal step + ((-clearance-dot normal step)/dot normal normal)*dot normal normal := by
+    simp only [dot,add,scale]
+    ring
+  rw [linear, div_mul_cancel₀ _ nonzero]
+  ring
+
+/-- The same clearance-preserving contraction on the complete finite native
+coordinate register, including every backbone and sidechain generator. -/
+theorem finite_coordinate_affine_boundary {n : ℕ} (row step : Fin n → ℝ)
+    (clearance : ℝ) (nonzero : (∑ i, row i * row i) ≠ 0) :
+    clearance + (∑ i, row i * (step i +
+      ((-clearance-(∑ j, row j * step j))/(∑ j, row j * row j))*row i)) = 0 := by
+  let delta := (-clearance-(∑ j, row j * step j))/(∑ j, row j * row j)
+  have linear : (∑ i, row i * (step i + delta*row i)) =
+      (∑ i, row i*step i) + delta*(∑ i, row i*row i) := by
+    rw [Finset.mul_sum, ← Finset.sum_add_distrib]
+    apply Finset.sum_congr rfl
+    intro i _
+    ring
+  change clearance + (∑ i, row i * (step i + delta*row i)) = 0
+  rw [linear]
+  dsimp [delta]
+  rw [div_mul_cancel₀ _ nonzero]
+  ring
+
+#print axioms finite_coordinate_affine_boundary
+#print axioms rejected_predicate_affine_boundary
 #print axioms rejected_predicate_tangent
 #print axioms transported_source_gram
 #print axioms complete_square

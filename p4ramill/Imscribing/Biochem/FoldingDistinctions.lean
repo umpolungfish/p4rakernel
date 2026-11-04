@@ -1,3 +1,4 @@
+import Mathlib.Logic.Function.Iterate
 import Imscribing.Paraconsistent.TemporalSemantics
 import Imscribing.Paraconsistent.IMASM16_3Machine
 
@@ -14,6 +15,25 @@ They do not assert that a particular machine already characterizes protein foldi
 namespace Imscribing.Biochem.FoldingDistinctions
 
 universe u v w z
+
+/-- A repeated two-state future can be skipped only with its terminal parity.
+The two states are not identified, and a cycle is not declared a fixed point. -/
+theorem two_step_return {State : Type u} (step : State → State) (s : State)
+    (cycle : step (step s) = s) (k : ℕ) : (step^[2*k]) s = s := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    rw [Nat.mul_succ, Function.iterate_add_apply]
+    have closed : (step^[2]) s = s := by
+      simpa only [Function.iterate_succ_apply, Function.iterate_zero_apply] using cycle
+    rw [closed, ih]
+
+theorem two_step_odd_return {State : Type u} (step : State → State) (s : State)
+    (cycle : step (step s) = s) (k : ℕ) : (step^[2*k+1]) s = step s := by
+  rw [Function.iterate_succ_apply', two_step_return step s cycle k]
+
+#print axioms two_step_return
+#print axioms two_step_odd_return
 
 def runFrom {State : Type u} {Action : Type v}
     (step : State → Action → State) : List Action → State → State

@@ -10,11 +10,12 @@ Prize: $500.  Status as catalogued: **OPEN**.
 
 open scoped BigOperators
 open Finset
+open Classical
 
 theorem erdos_problem_74
     (f : ℕ → ℕ)
     (h_f : Filter.Tendsto f Filter.atTop Filter.atTop) :
     ∃ G : SimpleGraph ℕ, G.chromaticNumber = Cardinal.aleph0 ∧
-      ∀ n, ∀ H : SimpleGraph (Fin n), H ≤ G → ∃ H' : SimpleGraph (Fin n), H' ≤ H ∧ H'.Bipartite ∧
+      ∀ n, ∀ H : SimpleGraph (Fin n), Nonempty (H ↪g G) → ∃ H' : SimpleGraph (Fin n), H' ≤ H ∧ H'.IsBipartite ∧
         (H.edgeFinset.card - H'.edgeFinset.card) ≤ f n := by
   sorry

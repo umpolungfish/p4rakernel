@@ -4,6 +4,7 @@
   Author: Lando⊗⊙perator
 -/
 
+import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Consciousness
 import Imscribing.Primitives.TierCrossing

@@ -12,6 +12,8 @@ has many distances.
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
 /-- The number of distances from x to other points in A. -/
 def distances_from (x : ℝ × ℝ) (A : Finset (ℝ × ℝ)) : Finset ℝ :=
@@ -19,13 +21,13 @@ def distances_from (x : ℝ × ℝ) (A : Finset (ℝ × ℝ)) : Finset ℝ :=
 
 /-- The minimum over x ∈ A of |distances_from x A|. -/
 def min_distances (A : Finset (ℝ × ℝ)) : ℕ :=
-  A.image (fun x => distances_from x A) |>.image Finset.card |>.min' (by sorry)
+  (A.image (fun x => (distances_from x A).card)).min.getD 0
 
 /-- Erdős' conjecture was false: there exist configurations where the minimum is large. -/
 theorem erdos_problem_92 :
-    ¬ (∀ A : Finset (ℝ × ℝ), ∃ x ∈ A, min_distances A ≤ (A.card : ℕ) ^ (1 / Real.log (Real.log (A.card : ℕ)))) := by sorry
+    ¬ (∀ A : Finset (ℝ × ℝ), ∃ x ∈ A, (min_distances A : ℝ) ≤ (A.card : ℝ) ^ (1 / Real.log (Real.log (A.card : ℕ)))) := by sorry
 
 /-- Counterexample using a regular polygon or grid. -/
 lemma erdos_problem_92_counterexample :
     ∃ (A : Finset (ℝ × ℝ)), ∀ C > 0, ∀ᶠ N in Filter.atTop, (A.card : ℕ) = N →
-      min_distances A > C * N ^ (1 / Real.log (Real.log N)) := by sorry
+      (min_distances A : ℝ) > C * (N : ℝ) ^ (1 / Real.log (Real.log N)) := by sorry

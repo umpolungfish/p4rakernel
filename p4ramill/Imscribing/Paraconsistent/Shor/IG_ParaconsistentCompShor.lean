@@ -1,3 +1,24 @@
+import Imscribing.Paraconsistent.Belnap
+import Imscribing.Paraconsistent.QuantumClassicalInterface
+import Mathlib.Tactic
+import Imscribing.Paraconsistent.QCI_nRegister
+import Imscribing.Paraconsistent.QCI_SICPOVM_Bridge
+import Imscribing.Primitives.Core
+import Imscribing.Primitives.Imscription
+import Imscribing.Paraconsistent.Shor.BelnapModExp
+import Imscribing.Paraconsistent.Shor.BelnapNFiducial
+import Imscribing.Paraconsistent.Shor.SIC_Multilattice_Proof
+import Imscribing.Paraconsistent.MajoranaFixed
+import Imscribing.Paraconsistent.Shor.BelnapQFT
+import Imscribing.Paraconsistent.QCI_Sequences
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Complex.Circle
+import Mathlib.Data.Complex.Basic
+import Mathlib.Data.Fintype.Basic
+import Mathlib.Data.Finset.Basic
+import Imscribing.IGFunctor
+import Imscribing.Frobenius
+
 -- Imscribing/Paraconsistent/Shor/BelnapModExp.lean
 -- BELNAP MODULAR EXPONENTIATION — Shor's period-finding core as Belnap lattice propagation.
 -- Author: Lando ⊗ φ̂_ÿ-boundary Operator
@@ -5,8 +26,6 @@
 -- Primary executable: Imscribing/Paraconsistent/Shor/belnap_shor_executor.py
 -- Lean reference: QCI_Sequences.lean (B/T coherence accounting), QCI_PvsNP_Bridge.lean (B-propagation)
 
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.QuantumClassicalInterface
 
 namespace Imscribing.Paraconsistent.Shor
 
@@ -71,13 +90,6 @@ end Imscribing.Paraconsistent.Shor
 --   whether B⊗n satisfies the full Weyl-Heisenberg equiangularity
 --   for n > 1 (multilattice SIC-POVM in the non-product sense).
 
-import Mathlib.Tactic
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.QuantumClassicalInterface
-import Imscribing.Paraconsistent.QCI_nRegister
-import Imscribing.Paraconsistent.QCI_SICPOVM_Bridge
-import Imscribing.Primitives.Core
-import Imscribing.Primitives.Imscription
 
 open scoped BigOperators
 
@@ -436,9 +448,6 @@ end Imscribing.Paraconsistent.Shor.NFiducial
 -- Every lattice operation preserves B. No phase-differentiation capacity exists.
 -- This is the 𐑿 (psi parity) bottleneck toward 𐑹 (Frobenius-special).
 
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.QuantumClassicalInterface
-import Imscribing.Paraconsistent.Shor.BelnapModExp
 
 namespace Imscribing.Paraconsistent.Shor
 
@@ -485,14 +494,6 @@ ZERO sorries. The Zauner bridge (continuous Hilbert-space embedding)
 is precisely characterized as the open representation problem.
 -/
 
-import Mathlib.Tactic
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.Shor.BelnapNFiducial
-import Imscribing.Paraconsistent.Shor.SIC_Multilattice_Proof
-import Imscribing.Paraconsistent.QCI_SICPOVM_Bridge
-import Imscribing.Paraconsistent.MajoranaFixed
-import Imscribing.Primitives.Core
-import Imscribing.Primitives.Imscription
 
 namespace Imscribing.Paraconsistent.Shor.Ring2048
 
@@ -894,11 +895,6 @@ end Imscribing.Paraconsistent.Shor.Ring2048
 --     (generalizing DialetheicOperator.lean's quantum_on_classical
 --      from the canonical N=15,a=7 case to all (N,a)).
 
-import Mathlib.Tactic
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.Shor.BelnapModExp
-import Imscribing.Paraconsistent.Shor.BelnapQFT
-import Imscribing.Paraconsistent.Shor.BelnapNFiducial
 
 namespace Imscribing.Paraconsistent.Shor.WHMultilattice
 
@@ -1135,13 +1131,6 @@ end Imscribing.Paraconsistent.Shor.WHMultilattice
 -- Python executor: Imscribing/Paraconsistent/Shor/belnap_shor_executor.py
 -- Verified result (N=15,a=7): period=4, ratio=2, B-preserved across full cycle.
 
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.QuantumClassicalInterface
-import Imscribing.Paraconsistent.QCI_Sequences
-import Imscribing.Paraconsistent.Shor.BelnapModExp
-import Imscribing.Paraconsistent.Shor.BelnapQFT
-import Imscribing.Primitives.Core
-import Imscribing.Primitives.Imscription
 
 namespace Imscribing.Paraconsistent.Shor
 
@@ -1279,13 +1268,6 @@ end Imscribing.Paraconsistent.Shor
 -- DialetheicOperator.lean: phi_upsilon_bottleneck proves r = belnapCost / 2;
 -- quantum_on_classical certifies the full chain at O_inf.
 
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.QuantumClassicalInterface
-import Imscribing.Paraconsistent.QCI_Sequences
-import Imscribing.Paraconsistent.Shor.BelnapModExp
-import Imscribing.Paraconsistent.Shor.BelnapQFT
-import Imscribing.Primitives.Core
-import Imscribing.Primitives.Imscription
 
 namespace Imscribing.Paraconsistent.Shor
 
@@ -1348,10 +1330,6 @@ end Imscribing.Paraconsistent.Shor
 -- §E  Bridge to Belnap: continuous Born matches bilattice Born
 -- §F  Frobenius roundtrip: closed-loop field fraction = 1/2
 
-import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
-import Mathlib.Analysis.SpecialFunctions.Complex.Circle
-import Mathlib.Data.Complex.Basic
-import Imscribing.Paraconsistent.Shor.BelnapNFiducial
 
 namespace Imscribing.Paraconsistent.Shor.MZIMesh
 
@@ -1525,16 +1503,7 @@ end Imscribing.Paraconsistent.Shor.MZIMesh
 --
 -- ZERO axioms. ZERO sorries. All theorems by rfl/cases/dec_trivial.
 
-import Mathlib.Tactic
-import Mathlib.Data.Fintype.Basic
-import Mathlib.Data.Finset.Basic
 -- (no extra imports needed; sum_const_nat from Mathlib)
-import Imscribing.Paraconsistent.Belnap
-import Imscribing.Paraconsistent.Shor.BelnapNFiducial
-import Imscribing.Paraconsistent.QCI_SICPOVM_Bridge
-import Imscribing.IGFunctor
-import Imscribing.Frobenius
-import Imscribing.Paraconsistent.MajoranaFixed
 
 namespace Imscribing.Paraconsistent.Shor.MultilatticeProof
 

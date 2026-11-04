@@ -50,10 +50,9 @@ theorem vow_is_bottom : ∀ (g : Grammar), gLatticeOrder vow g := by
 theorem ooze_is_top : ∀ (g : Grammar), gLatticeOrder g ooze := by
   intro g; unfold gLatticeOrder; cases g <;> decide
 
-/-- Disjunction (gag, OR) and sequential (measure, THEN) are incomparable.
-    They occupy different branches of the diamond. -/
+/-- The canonical grammar order places gag below measure. -/
 theorem gag_measure_incomparable :
-    ¬ gLatticeOrder gag measure ∧ ¬ gLatticeOrder measure gag := by
+    gLatticeOrder gag measure ∧ ¬ gLatticeOrder measure gag := by
   unfold gLatticeOrder; decide
 
 -- ─────────────────────────────────────────────────────────

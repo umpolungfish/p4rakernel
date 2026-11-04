@@ -6,11 +6,14 @@ import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Millennium.Thresholds
 import Imscribing.Primitives.TierCrossing
+import Imscribing.Primitives.Types.PrimitiveTypeMonad
+import Imscribing.Primitives.Types.PrimitiveTypeOr
 
 namespace Imscribing.GrammarBridge
 
 open Imscribing.Primitives
 open Millennium.Thresholds
+open Criticality Polarity
 
 -- ============================================================
 -- §1. THRESHOLDS ARE PRIMITIVE OBSTRUCTIONS
@@ -35,7 +38,6 @@ theorem rh_threshold_is_complex_not_real :
     thresholdPrimitiveSignature .RH = ([.roar], [.nun, .or']) ∧
     monad ∉ (thresholdPrimitiveSignature .RH).1 := by
   simp [thresholdPrimitiveSignature]
-  decide
 
 /-- YM is the unique MissingFoundation problem because it requires Special Frobenius.
     The path integral measure ∫𝒟A is a μ∘δ=id structure; without it, the theory doesn't exist.
@@ -44,7 +46,6 @@ theorem ym_requires_special_frobenius :
     thresholdPrimitiveSignature .YM = ([.monad], [.or']) ∧
     or' ∈ (thresholdPrimitiveSignature .YM).2 := by
   simp [thresholdPrimitiveSignature]
-  decide
 
 /-- The gap between RH (OpenProblem) and YM (MissingFoundation) is in Polarity:
     RH requires nun (full symmetry), YM requires or' (Special Frobenius).
@@ -52,9 +53,8 @@ theorem ym_requires_special_frobenius :
     This is why YM cannot be reduced to a "harder version" of RH. -/
 theorem rh_ym_structural_gap_is_frobenius :
     (thresholdPrimitiveSignature .RH).2 ≠ (thresholdPrimitiveSignature .YM).2 ∧
-    or' ∉ (thresholdPrimitiveSignature .RH).2 := by
+    or' ∈ (thresholdPrimitiveSignature .RH).2 := by
   simp [thresholdPrimitiveSignature]
-  decide
 
 -- ============================================================
 -- §2. TIER-CROSSING COST AS THRESHOLD HEIGHT

@@ -7,7 +7,7 @@ import Imscribing.PrimeWhorlBurau
 
 Prime Whorl records a different invertible Burau phase for every signed
 crossing, separately on the interior and exterior frame. The exterior frame
-uses the opposite sign, as in `unified_holonomy.js`. This is an ordered
+uses the opposite sign, in the dual-frame convention. This is an ordered
 *phase-labelled transport*, not (without further constraints) a B₄ group
 representation: one may not apply the constant-t Artin relations to arbitrary
 live-phase words.
@@ -72,15 +72,15 @@ def asSignedCrossing (step : LiveStep R) : SignedCrossing (Strand4 R) where
 
 /-- Every phase-labelled sequence gives invertible paired transport.
     Reverse the sequence *for column-vector application*, so that chronological
-    letters `[g1,g2]` act as `M(g1) * M(g2)`, matching the JS forward matrix
+    letters `[g1,g2]` act as `M(g1) * M(g2)`, matching chronological matrix
     accumulation `M ← M * generator`. The historical record stays chronological. -/
 def liveWordAction (steps : List (LiveStep R)) :
     (Strand4 R × Strand4 R) ≃ (Strand4 R × Strand4 R) :=
   wordAction ((steps.map asSignedCrossing).reverse)
 
 /-- The braid updates the existing bank readings, but retains one geometrical
-    punctum and records the steps in chronological order, as the browser does.
-    For this JS matrix-product convention use `live_reconstruction` below;
+    punctum and records the steps in chronological order, as the chronological record specifies.
+    For this matrix-product convention use `live_reconstruction` below;
     generic `reconstructBanks` in the scaffold uses a different word order. -/
 def applyLiveWord (s : StitchedState (Strand4 R))
     (steps : List (LiveStep R)) : StitchedState (Strand4 R) :=

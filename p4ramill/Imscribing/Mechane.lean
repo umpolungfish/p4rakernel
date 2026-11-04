@@ -24,6 +24,8 @@
 -/
 import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
+import Imscribing.Primitives.Types.PrimitiveTypeOr
+import Imscribing.Primitives.Types.PrimitiveTypeMonad
 import Imscribing.Frobenius
 import Imscribing.LiarIdempotent
 import Imscribing.BootstrapSequence
@@ -37,6 +39,8 @@ open Imscribing.Primitives
 open Imscribing.Frobenius
 open Imscribing.LiarIdempotent
 open Imscribing.BootstrapSequence
+open Imscribing.TimeFixedPoint
+open Polarity Criticality
 
 -- ═══════════════════════════════════════════════════════
 -- §1  STRUCTURAL CONSTANTS
@@ -63,7 +67,7 @@ theorem mechane_tier_O_inf : imscriptionTier mechane_tuple = .O_inf := by
   unfold mechane_tuple; decide
 
 /-- Distance to grammar proper is 2.0 (differing at ⊞). -/
-theorem mechane_grammar_distance : Nat := 2
+def mechane_grammar_distance : Nat := 2
 
 -- ═══════════════════════════════════════════════════════
 -- §2  FROBENIUS CLOSURE — ALL 4 STRUCTURES

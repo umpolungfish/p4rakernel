@@ -8,6 +8,8 @@
 set -uo pipefail
 cd "$(dirname "$0")"
 
+python3 scripts/build_state_guard.py check || exit $?
+
 echo "== lake build =="
 lake build "$@"; lake_rc=$?
 echo "   lake build exit: $lake_rc"

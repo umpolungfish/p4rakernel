@@ -1,11 +1,12 @@
 import Mathlib.Data.Real.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
-import Mathlib.MeasureTheory.Integral.IntervalIntegral
+import Mathlib.MeasureTheory.Integral.IntervalIntegral.Basic
 import Mathlib.Probability.Independence.Basic
-import Mathlib.Probability.IdentDistributions
-import Mathlib.Analysis.SpecialFunctions.Integrals
+import Mathlib.Probability.IdentDistrib
+import Mathlib.Analysis.SpecialFunctions.Integrals.Basic
 import Mathlib.MeasureTheory.Measure.Lebesgue.Basic
 import Mathlib.MeasureTheory.Constructions.Pi
+import Mathlib.Data.Finset.Basic
 
 open scoped BigOperators Topology MeasureTheory ProbabilityTheory ENNReal
 open Finset Set Real MeasureTheory ProbabilityTheory Filter
@@ -17,49 +18,45 @@ noncomputable def p (c : ℝ) (n : ℕ) : ℝ :=
   min 1 (c * Real.sqrt (Real.log (n + 1) / ((n + 1 : ℕ) : ℝ)))
 
 /-- The r_A(n) counting function. -/
-def r (A : Set ℕ) (n : ℕ) : ℕ :=
-  (((A ×ˢ A).filter (fun (ab : ℕ × ℕ) => ab.1 + ab.2 = n))).ncard
+noncomputable def r (A : Set ℕ) (n : ℕ) : ℕ :=
+  {ab : ℕ × ℕ | ab.1 ∈ A ∧ ab.2 ∈ A ∧ ab.1 + ab.2 = n}.ncard
 
-/-- A useful preliminary: p_c(a) · p_c(n-a) ≤ c² · log(n+1) / √(a(n-a)). -/
+lemma p_bound (c : ℝ) (hc : 0 ≤ c) (n b : ℕ) (hb : 0 < b) (hbn : b ≤ n) :
+    p c b ≤ c * Real.sqrt (Real.log (n + 1) / (b : ℝ)) := by
+  have hlog : 0 ≤ Real.log ((b : ℝ) + 1) := Real.log_nonneg (by linarith [Nat.cast_nonneg (α := ℝ) b])
+  have hratio : Real.log ((b : ℝ) + 1) / ((b : ℝ) + 1) ≤
+      Real.log ((n : ℝ) + 1) / (b : ℝ) := by
+    apply div_le_div₀ (Real.log_nonneg (by linarith [Nat.cast_nonneg (α := ℝ) n]))
+    · apply Real.log_le_log (by positivity)
+      exact_mod_cast (Nat.add_le_add_right hbn 1)
+    · exact_mod_cast hb
+    · linarith
+  calc
+    p c b ≤ c * Real.sqrt (Real.log ((b : ℝ) + 1) / ((b : ℝ) + 1)) := by
+      simpa [p, Nat.cast_add, Nat.cast_one] using
+        (min_le_right (1 : ℝ) (c * Real.sqrt (Real.log ((b : ℝ) + 1) / ((b : ℝ) + 1))))
+    _ ≤ _ := mul_le_mul_of_nonneg_left (Real.sqrt_le_sqrt hratio) hc
 lemma p_mul_le (c : ℝ) (hc : 0 ≤ c) (n a : ℕ) (ha : 1 ≤ a) (han : a < n) :
     p c a * p c (n - a) ≤ c^2 * Real.log (n + 1) / Real.sqrt ((a : ℝ) * (n - a : ℝ)) := by
-  have ha' : (a : ℝ) > 0 := by norm_cast; linarith
-  have hna' : (n - a : ℝ) > 0 := by norm_cast; linarith [ha, han]
-  have hlog1 : Real.log (a + 1) ≤ Real.log (n + 1) := by
-    refine Real.log_le_log ?_ ?_ <;> linarith
-  have hlog2 : Real.log (n - a + 1) ≤ Real.log (n + 1) := by
-    refine Real.log_le_log ?_ ?_ <;> linarith [ha, han]
-  have hpa : p c a ≤ c * Real.sqrt (Real.log (a + 1) / (a + 1)) := by
-    simp [p, min_le_iff]; left; exact le_refl _
-  have hpna : p c (n - a) ≤ c * Real.sqrt (Real.log (n - a + 1) / (n - a + 1)) := by
-    simp [p, min_le_iff]; left; exact le_refl _
-  calc p c a * p c (n - a)
-    ≤ c^2 * Real.sqrt (Real.log (a + 1) * Real.log (n - a + 1) / ((a + 1) * (n - a + 1))) := by
-      gcongr <;> (try norm_num [hc])
-      · apply Real.sqrt_nonneg
-      · apply Real.sqrt_nonneg
-      · exact hpa
-      · exact hpna
-    ≤ c^2 * Real.log (n + 1) / Real.sqrt ((a : ℝ) * (n - a : ℝ)) := by
-      have h1 : Real.sqrt (Real.log (a + 1) * Real.log (n - a + 1) / ((a + 1) * (n - a + 1)))
-          ≤ Real.log (n + 1) / Real.sqrt ((a : ℝ) * (n - a : ℝ)) := by
-        rw [div_div, Real.sqrt_div (by positivity) (by positivity)]
-        have hsqrt : Real.sqrt (Real.log (a + 1) * Real.log (n - a + 1)) ≤ Real.log (n + 1) := by
-          have hprod : Real.log (a + 1) * Real.log (n - a + 1) ≤ Real.log (n + 1) ^ 2 := by
-            apply mul_le_sq
-            · exact hlog1
-            · exact hlog2
-          rw [Real.sqrt_le_sqrt_iff (by positivity) (by positivity)]
-          simp [hprod]
-        have hden : Real.sqrt ((a + 1 : ℝ) * (n - a + 1 : ℝ)) ≥ Real.sqrt ((a : ℝ) * (n - a : ℝ)) := by
-          refine Real.sqrt_le_sqrt.2 ?_
-          have : (a + 1) * (n - a + 1) ≥ a * (n - a) := by linarith [ha', hna']
-          exact this
-        rw [div_mul_comm]
-        gcongr
-      gcongr
-      · apply mul_nonneg (sq_nonneg c) (by positivity)
-      · exact h1
+  have hna : 0 < n - a := by omega
+  have hlog : 0 ≤ Real.log ((n : ℝ) + 1) := Real.log_nonneg (by linarith [Nat.cast_nonneg (α := ℝ) n])
+  have hp0 : 0 ≤ p c (n - a) := by unfold p; positivity
+  have hprod := mul_le_mul (p_bound c hc n a ha (by omega))
+    (p_bound c hc n (n-a) hna (by omega)) hp0 (by positivity)
+  have hcast : ((n - a : ℕ) : ℝ) = (n : ℝ) - a := Nat.cast_sub (by omega)
+  calc
+    p c a * p c (n - a) ≤
+        (c * Real.sqrt (Real.log ((n : ℝ) + 1) / (a : ℝ))) *
+        (c * Real.sqrt (Real.log ((n : ℝ) + 1) / ((n - a : ℕ) : ℝ))) := hprod
+    _ = c^2 * Real.log (n + 1) / Real.sqrt ((a : ℝ) * (n - a : ℝ)) := by
+      rw [hcast, Real.sqrt_div hlog, Real.sqrt_div hlog, Real.sqrt_mul (by positivity)]
+      have hs := Real.mul_self_sqrt hlog
+      have ha0 : Real.sqrt (a : ℝ) ≠ 0 := ne_of_gt (Real.sqrt_pos.mpr (by exact_mod_cast ha))
+      have hb0 : Real.sqrt ((n : ℝ) - a) ≠ 0 := ne_of_gt (Real.sqrt_pos.mpr (by
+        have : (a : ℝ) < n := by exact_mod_cast han
+        linarith))
+      field_simp [ha0, hb0]
+      nlinarith only [hs]
 
 /-- Riemann sum approximation to π. -/
 lemma riemann_sum_pi :

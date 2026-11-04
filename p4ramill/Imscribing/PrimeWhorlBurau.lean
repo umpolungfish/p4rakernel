@@ -4,7 +4,7 @@ import Imscribing.PrimeWhorlCore
 /-!
 # Four-strand unreduced Burau braids
 
-This is the actual Burau block used by `whorl_full_exec/braid_trilattice.js`:
+This is the unreduced Burau two-coordinate block:
 
   positive: [[1-t,t],[1,0]]
   inverse:  [[0,1],[t⁻¹,1-t⁻¹]].
@@ -21,7 +21,7 @@ namespace Burau
 variable {R : Type*} [CommRing R]
 
 /-- A phase and an explicitly certified inverse. For `ZMod N`, a phase is
-    admissible exactly when it is a unit; the production JS engine checks
+    admissible exactly when it is a unit; the nonunit-phase obstruction checks
     `gcd(t,N)=1` and otherwise records the GCD witness instead of inverting. -/
 structure UnitPhase (R : Type*) [CommRing R] where
   t : R

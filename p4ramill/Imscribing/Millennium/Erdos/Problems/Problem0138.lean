@@ -13,6 +13,6 @@ open Finset
 
 theorem erdos_problem_138
     (W : ℕ → ℕ)
-    (h_W : ∀ k, W k = sInf { N | ∀ c : Fin N → Fin 2, ∃ a d : ℕ, d ≥ 1 ∧ a + k * d ≤ N ∧ ∀ i < k, c (a + i * d) = c a }) :
-    Filter.Tendsto (fun k => (W k)^(1/k : ℝ)) Filter.atTop Filter.atTop := by
+    (h_W : ∀ k, W k = sInf { N | ∀ c : ℕ → Fin 2, ∃ a d : ℕ, d ≥ 1 ∧ a + k * d ≤ N ∧ ∀ i < k, c (a + i * d) = c a }) :
+    Filter.Tendsto (fun k => (W k : ℝ)^(1/(k : ℝ) : ℝ)) Filter.atTop Filter.atTop := by
   sorry

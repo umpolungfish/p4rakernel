@@ -32,9 +32,11 @@ Key lemmas:
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
 def is_3AP_free (A : Finset ℕ) : Prop :=
-  ∀ a b c ∈ A, a + b = 2 * c → a = b
+  ∀ a ∈ A, ∀ b ∈ A, ∀ c ∈ A, a + b = 2 * c → a = b
 
 def r3 (N : ℕ) : ℕ :=
   sSup { n | ∃ A : Finset ℕ, A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A }
@@ -42,7 +44,7 @@ def r3 (N : ℕ) : ℕ :=
 /-- **Phase 1: Density increment lemma.** If A ⊆ [1,N] has density δ and no 3-AP,
 there exists a subprogression where A has density δ + c·δ². -/
 lemma density_increment (A : Finset ℕ) (hA : is_3AP_free A) (N : ℕ) (hA_sub : A ⊆ Finset.Icc 1 N) :
-    ∃ δ > 0, ∃ N' ≤ N, ∃ A' : Finset ℕ, A' ⊆ Finset.Icc 1 N' ∧ is_3AP_free A' ∧
+    ∃ δ : ℚ, δ > 0 ∧ ∃ N' ≤ N, ∃ A' : Finset ℕ, A' ⊆ Finset.Icc 1 N' ∧ is_3AP_free A' ∧
       A'.card ≥ (A.card : ℚ) / N * N' + (A.card : ℚ)^2 / N^2 := by sorry
 
 /-- **Phase 2: Roth's theorem.** r₃(N) = o(N). -/
@@ -61,4 +63,4 @@ theorem kelley_meka_bound :
 theorem erdos_problem_140
     (r3_func : ℕ → ℕ)
     (h_r3 : ∀ N, r3_func N = sSup { n | ∃ A : Finset ℕ, A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A }) :
-    ∀ C > 0, ∀ᶠ N in Filter.atTop, r3_func N ≤ C * N / (Real.log N) ^ C := by sorry
+    ∀ C > 0, ∀ᶠ N in Filter.atTop, (r3_func N : ℝ) ≤ C * N / (Real.log N) ^ C := by sorry

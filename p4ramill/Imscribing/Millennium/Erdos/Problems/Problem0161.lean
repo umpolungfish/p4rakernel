@@ -16,9 +16,9 @@ theorem erdos_problem_161
     (α : ℝ)
     (h_α : 0 ≤ α ∧ α < 1/2)
     (F : ℝ → ℕ → ℕ)
-    (h_F : ∀ α m, F α m = sInf { M | ∃ c : Fin (M.choose t) → Fin 2,
-      ∀ X : Finset (Fin M), X.card ≥ m → (∃ S : Finset (Fin M), S.card = t ∧ S ⊆ X ∧ ∀ i ∈ S, c i = 0) ∧
-      (∃ S : Finset (Fin M), S.card = t ∧ S ⊆ X ∧ ∀ i ∈ S, c i = 1) }) :
+    (h_F : ∀ α m, F α m = sInf { M | ∃ c : {S : Finset (Fin M) // S.card = t} → Fin 2,
+      ∀ X : Finset (Fin M), X.card ≥ m → (∃ S : Finset (Fin M), ∃ hS : S.card = t, S ⊆ X ∧ c ⟨S, hS⟩ = 0) ∧
+      (∃ S : Finset (Fin M), ∃ hS : S.card = t, S ⊆ X ∧ c ⟨S, hS⟩ = 1) }) :
     (ContinuousOn (fun α' => F α' n) {x : ℝ | 0 ≤ x ∧ x < 1/2}) ∨
       ∃ α' : ℝ, 0 ≤ α' ∧ α' < 1/2 ∧ F α' n ≠ F α n := by
   sorry

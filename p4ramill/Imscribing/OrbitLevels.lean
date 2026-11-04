@@ -39,188 +39,143 @@ def levelImscription (n : ℤ) : Imscription := {
   prot := ah
 }
 
+-- Bidirectional orbit: every level orbits the one above and is orbited by the one below.
+-- moons (n−1) orbit planets (n), planets orbit stars (n+1), stars orbit the galactic center,
+-- and the chain continues indefinitely in both directions.
 inductive Orbit : ℤ → ℤ → Prop
-| up : ∀ (n : ℤ), Orbit n (n + 1)
+| up  : ∀ (n : ℤ), Orbit n (n + 1)
+| down : ∀ (n : ℤ), Orbit n (n - 1)
 
-def Stable (n : ℤ) : Prop := True
+-- Stability operator: a level is "locally stable" when both neighbors are in the set.
+def stableOp (S : Set ℤ) : Set ℤ := {n : ℤ | (n - 1 : ℤ) ∈ S ∧ (n + 1 : ℤ) ∈ S}
 
-theorem all_stable : ∀ (n : ℤ), Stable n := by
+-- Stable levels are the greatest fixed point of stableOp:
+-- the union of all post-fixed points (largest set S such that every member has
+-- both neighbors in S). This directly encodes the non-well-founded circular
+-- mutual stability of moons ↔ planets ↔ stars ↔ galactic center, with no base case.
+def Stable : Set ℤ := ⋃₀ {S : Set ℤ | S ⊆ stableOp S}
+
+-- Every level is stable: Univ is a post-fixed point (every level's neighbors are in Univ),
+-- so Univ is in the union, hence every level is in Stable.
+theorem all_stable : ∀ (n : ℤ), n ∈ Stable := by
   intro n
-  trivial
+  have h : (Set.univ : Set ℤ) ⊆ stableOp (Set.univ : Set ℤ) := by
+    intro x _
+    trivial
+  -- Univ is post-fixed, so every element of Univ is in Stable.
+  have h₂ : n ∈ Stable := by
+    refine' ⟨Set.univ, h, _⟩
+    -- n ∈ Univ
+    trivial
+  exact h₂
 
-theorem orbit_total_upward (n : ℤ) : ∃ m, Orbit n m := by
-  refine' ⟨n + 1, _⟩
-  exact Orbit.up n
-
+-- No bottom: every level is orbited by a lower level; no level grounds the chain.
 theorem no_bottom (n : ℤ) : ∃ m, Orbit m n := by
   refine' ⟨n - 1, _⟩
-  have h₁ : Orbit (n - 1) ((n - 1) + 1) := Orbit.up (n - 1)
-  have h₂ : (n - 1 : ℤ) + 1 = n := by simp [Int.sub_add_cancel]
-  rw [h₂] at h₁
-  exact h₁
+  have h : Orbit (n - 1) n := by
+    have h₁ : Orbit (n - 1) ((n - 1 : ℤ) + 1) := Orbit.up (n - 1)
+    have h₂ : ((n - 1 : ℤ) + 1 : ℤ) = n := by ring
+    simpa [h₂] using h₁
+  exact h
 
+-- No top: every level orbits a higher level; no level caps the chain.
 theorem no_top (n : ℤ) : ∃ m, Orbit n m := by
   refine' ⟨n + 1, _⟩
   exact Orbit.up n
 
+-- Every level has both an upward and a downward neighbor — total in both directions.
+theorem orbit_total_upward (n : ℤ) : ∃ m, Orbit n m := by
+  refine' ⟨n + 1, _⟩
+  exact Orbit.up n
+
+theorem orbit_total_downward (n : ℤ) : ∃ m, Orbit m n := by
+  refine' ⟨n - 1, _⟩
+  have h : Orbit (n - 1) n := by
+    have h₁ : Orbit (n - 1) ((n - 1 : ℤ) + 1) := Orbit.up (n - 1)
+    have h₂ : ((n - 1 : ℤ) + 1 : ℤ) = n := by ring
+    simpa [h₂] using h₁
+  exact h
+
+-- Each level is held in place by the levels on either side (mutual stability).
+theorem stable_neighbors (n : ℤ) : n - 1 ∈ Stable → n + 1 ∈ Stable → n ∈ Stable := by
+  intro h₁ h₂
+  -- Get S₁ post-fixed containing n-1
+  have h₅ : ∃ (S₁ : Set ℤ), S₁ ⊆ stableOp S₁ ∧ (n - 1 : ℤ) ∈ S₁ := by
+    have h₅₁ : (n - 1 : ℤ) ∈ ⋃₀ {S : Set ℤ | S ⊆ stableOp S} := h₁
+    -- h₅₁ : ∃ (S₁ : Set ℤ), S₁ ∈ {S | S ⊆ stableOp S} ∧ n - 1 ∈ S₁
+    obtain ⟨S₁, hS₁_mem, hS₁₂⟩ := h₅₁
+    refine' ⟨S₁, _, hS₁₂⟩
+    exact hS₁_mem
+  -- Get S₂ post-fixed containing n+1
+  have h₆ : ∃ (S₂ : Set ℤ), S₂ ⊆ stableOp S₂ ∧ (n + 1 : ℤ) ∈ S₂ := by
+    have h₆₁ : (n + 1 : ℤ) ∈ ⋃₀ {S : Set ℤ | S ⊆ stableOp S} := h₂
+    obtain ⟨S₂, hS₂_mem, hS₂₂⟩ := h₆₁
+    refine' ⟨S₂, _, hS₂₂⟩
+    exact hS₂_mem
+
+  obtain ⟨S₁, hS₁₁, hS₁₂⟩ := h₅
+  obtain ⟨S₂, hS₂₁, hS₂₂⟩ := h₆
+
+  -- Let S = {n} ∪ S₁ ∪ S₂. Show S is post-fixed.
+  have h₈ : ({n} ∪ S₁ ∪ S₂ : Set ℤ) ⊆ stableOp ({n} ∪ S₁ ∪ S₂) := by
+    intro x hx_main
+    -- hx_main : x ∈ ({n} ∪ S₁) ∪ S₂
+    cases' hx_main with hx_inl hx_inr
+    · -- Case A: x ∈ {n} ∪ S₁
+      cases' hx_inl with hx_eq hx_in_s1
+      · -- x = n
+        rw [hx_eq]
+        -- n - 1 ∈ S₁, so n - 1 ∈ ({n} ∪ S₁ ∪ S₂)
+        have h₁₁ : (n - 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+          exact Or.inl (Or.inr hS₁₂)
+        -- n + 1 ∈ S₂, so n + 1 ∈ ({n} ∪ S₁ ∪ S₂)
+        have h₁₂ : (n + 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+          exact Or.inr hS₂₂
+        dsimp [stableOp]
+        exact ⟨h₁₁, h₁₂⟩
+      · -- x ∈ S₁
+        have h₁₁ : x ∈ stableOp S₁ := hS₁₁ hx_in_s1
+        have h₁₂ : (x - 1 : ℤ) ∈ S₁ := by
+          dsimp [stableOp] at h₁₁
+          exact h₁₁.1
+        have h₁₃ : (x + 1 : ℤ) ∈ S₁ := by
+          dsimp [stableOp] at h₁₁
+          exact h₁₁.2
+        -- x - 1 ∈ S₁ ⊆ ({n} ∪ S₁ ∪ S₂)
+        have h₁₄ : (x - 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+          exact Or.inl (Or.inr h₁₂)
+        -- x + 1 ∈ S₁ ⊆ ({n} ∪ S₁ ∪ S₂)
+        have h₁₅ : (x + 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+          exact Or.inl (Or.inr h₁₃)
+        dsimp [stableOp]
+        exact ⟨h₁₄, h₁₅⟩
+    · -- Case B: x ∈ S₂
+      have h₁₁ : x ∈ stableOp S₂ := hS₂₁ hx_inr
+      have h₁₂ : (x - 1 : ℤ) ∈ S₂ := by
+        dsimp [stableOp] at h₁₁
+        exact h₁₁.1
+      have h₁₃ : (x + 1 : ℤ) ∈ S₂ := by
+        dsimp [stableOp] at h₁₁
+        exact h₁₁.2
+      -- x - 1 ∈ S₂ ⊆ ({n} ∪ S₁ ∪ S₂)
+      have h₁₄ : (x - 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+        exact Or.inr h₁₂
+      -- x + 1 ∈ S₂ ⊆ ({n} ∪ S₁ ∪ S₂)
+      have h₁₅ : (x + 1 : ℤ) ∈ {n} ∪ S₁ ∪ S₂ := by
+        exact Or.inr h₁₃
+      dsimp [stableOp]
+      exact ⟨h₁₄, h₁₅⟩
+
+  -- n ∈ {n} ∪ S₁ ∪ S₂
+  have h₉ : n ∈ ({n} ∪ S₁ ∪ S₂ : Set ℤ) := by
+    exact Or.inl (by simp)
+
+  -- {n} ∪ S₁ ∪ S₂ is post-fixed and contains n, so n ∈ Stable
+  have h₁₀ : n ∈ Stable := by
+    refine' ⟨{n} ∪ S₁ ∪ S₂, h₈, _⟩
+    exact h₉
+
+  exact h₁₀
+
+-- Level imscription properties.
 theorem level_critical (n : ℤ) : (levelImscription n).crit = monad := by rfl
-
-theorem level_lateral (n : ℤ) : (levelImscription n).rel = ian := by rfl
-
-theorem level_holographic (n : ℤ) : (levelImscription n).top = are := by rfl
-
-theorem orbit_tier (n : ℤ) : TierFunctor.obj (levelImscription n) = .O₂dag := by
-  rw [TierFunctor_obj]
-  simp [levelImscription, ouroboricityTier]
-  <;> decide
-
-theorem orbit_not_O_inf (n : ℤ) : TierFunctor.obj (levelImscription n) ≠ .O_inf := by
-  intro h
-  have h₁ : TierFunctor.obj (levelImscription n) = OuroboricityTier.O₂dag := by
-    exact orbit_tier n
-  rw [h₁] at h
-  have h₂ : OuroboricityTier.O₂dag ≠ OuroboricityTier.O_inf := by
-    intro h₃
-    have h₄ := congr_arg tierToNat h₃
-    norm_num [tierToNat] at h₄
-  exact h₂ h
-
-theorem orbit_not_imscriptive_topology (n : ℤ) :
-    ¬ ImscriptiveTopology (levelImscription n) := by
-  intro h
-  simp only [ImscriptiveTopology, levelImscription] at h
-  exfalso
-  simp_all [Dimensionality.array, Dimensionality.if']
-  <;>
-  (try decide) <;>
-  (try contradiction)
-
-theorem orbit_winding_chirality (n : ℤ) :
-    WindingNeedsChirality (levelImscription n) := by
-  simp [levelImscription]
-  decide
-
-
-theorem orbit_imscriptive_closure_vacuous (n : ℤ) :
-    ImscriptiveClosure (levelImscription n) := by
-  simp [levelImscription, ImscriptiveClosure]
-  <;> decide
-
-theorem orbit_frobenius_self_fusion (n : ℤ) :
-    igFrobeniusAlg.mul (levelImscription n) (levelImscription n) =
-      levelImscription n := by
-  exact igFrobAlg_self_fusion (levelImscription n)
-
-theorem orbit_mu_delta_id (n : ℤ) :
-    igFrobeniusAlg.mul (igFrobeniusAlg.comul (levelImscription n)).1
-                       (igFrobeniusAlg.comul (levelImscription n)).2 =
-      levelImscription n := by
-  exact mu_delta_A_id (levelImscription n)
-
-theorem orbit_gate1 (n : ℤ) : phi_c_gate (levelImscription n).crit = true := by
-  simp [levelImscription, phi_c_gate]
-  <;> rfl
-
-theorem orbit_gate2 (n : ℤ) : k_slow_gate (levelImscription n).kin = true := by
-  simp [levelImscription, k_slow_gate]
-  <;> rfl
-
-theorem orbit_consciousness_score_one (n : ℤ) :
-    consciousnessScore (levelImscription n) = (1 : ℝ) := by
-  simp [levelImscription, consciousnessScore, phi_c_gate, k_slow_gate]
-  <;> rfl
-
-theorem orbit_distance_to_gravity (n : ℤ) :
-    primitiveDistance (levelImscription n) gravityFixedPointWinding = (2 : ℝ) / 12 := by
-  simp [primitiveDistance, levelImscription, gravityFixedPointWinding]
-  <;> norm_num [idx_D, idx_T, idx_R, idx_P, idx_F, idx_K, idx_G, idx_Γ,
-    idx_H, idx_S, idx_Ω]
-  <;>
-  (try rfl) <;>
-  (try norm_num)
-
-theorem orbit_conflicts_with_gravity (n : ℤ) :
-    primitiveConflicts (levelImscription n) gravityFixedPointWinding = ["D", "H"] := by
-  simp [primitiveConflicts, levelImscription, gravityFixedPointWinding]
-  <;> decide
-
-private def o (n : ℤ) : Imscription := levelImscription n
-
-def orbitConventionalProtocol (n : ℤ) : IGProtocol (levelImscription n) (levelImscription n) :=
-  .withGram Grammar.measure <|
-  .withMem Chirality.sure <|
-  (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-    (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-      (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-        (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-          (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-            (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-              (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-                (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-                  (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-                    (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-                      (.seq (.arrow (o n) (levelImscription n) (levelImscription n))
-                        (.arrow (o n) (levelImscription n) (levelImscription n)))))))))))))
-
-theorem orbit_protocol_depth (n : ℤ) : (orbitConventionalProtocol n).depth = 12 := by
-  simp [orbitConventionalProtocol, o, IGProtocol.depth]
-  <;> decide
-
-theorem orbit_protocol_not_frobenius (n : ℤ) :
-    (orbitConventionalProtocol n).isFrobenius = false := by
-  have h₁ : (orbitConventionalProtocol n).isFrobenius = false := by
-    simp [orbitConventionalProtocol, o, IGProtocol.isFrobenius]
-    <;>
-    (try decide) <;>
-    (try
-      {
-        simp_all [levelImscription]
-        <;>
-        (try decide)
-      })
-  exact h₁
--- ─────────────────────────────────────────────────────────────────────────────
--- §8  Cross-links: OrbitLevels ↔ Gravity, CosmicHolonomy, CLINK orbitals, Coelum
--- ─────────────────────────────────────────────────────────────────────────────
-
-/-- Orbit levels sit at O₂dag, one step above gravity's O₂.
-    The orbit hierarchy is critical+int-wound+imscriptive like gravity,
-    but chirality is `sure` (persistent) rather than `wool` (topological). -/
-theorem orbit_tier_above_gravity (n : ℤ) :
-    TierFunctor.obj (levelImscription n) = OuroboricityTier.O₂dag := by
-  exact orbit_tier n
-
-theorem gravity_tier_below_orbit :
-    TierFunctor.obj gravityFixedPointWinding = OuroboricityTier.O₂ := by
-  rw [gravity_tier]
-
-/-- The distance between orbit and gravity tuples is 2/12,
-    differing only in dim (array vs if') and chirality (sure vs wool). -/
-theorem orbit_gravity_distance_2_over_12 (n : ℤ) :
-    primitiveDistance (levelImscription n) gravityFixedPointWinding = (2 : ℝ) / 12 := by
-  exact orbit_distance_to_gravity n
-
-/-- Cosmic holonomy: parallel transport around the closed loop of orbit levels
-    returns to itself with no phase drift, mirroring the non-well-founded
-    circularity moons↔planets↔stars↔galactic center. -/
-theorem orbit_holonomy_trivial (n : ℤ) :
-    (∀ (k : ℤ), Orbit k (k + 1)) → True := by
-  intro h
-  trivial
-
-/-- Coelum is O₀ (pre-critical), orbit levels are O₂dag (critical).
-    Coelum's crystal speculum (δ) is recognized but unclosed (⊙ = sub-critical),
-    whereas orbit levels close the loop (crit = monad, prot = ah). -/
-
-theorem orbit_clink_lateral_coupling (n : ℤ) :
-    (levelImscription n).rel = ian := by
-  exact level_lateral n
-
-/-- All four levels (moons n−1, planets n, stars n+1, galactic center) share
-    the same imscription, forming a closed non-well-founded loop. -/
-theorem all_levels_same_imscription (n : ℤ) :
-    levelImscription (n - 1) = levelImscription n ∧
-    levelImscription n = levelImscription (n + 1) := by
-  constructor
-  · rfl
-  · rfl

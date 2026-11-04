@@ -10,6 +10,8 @@ Prize: $500.  Status as catalogued: **OPEN**.
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
 theorem erdos_problem_712
     (k r : ℕ)

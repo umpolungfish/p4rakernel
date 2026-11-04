@@ -4,10 +4,15 @@
   Author: Lando⊗⊙perator
 -/
 
+import Imscribing.Primitives.Core
 import Imscribing.Primitives.Imscription
 import Imscribing.Consciousness
 import Imscribing.Primitives.TierCrossing
 import Imscribing.Primitives.Catalog
+import Imscribing.Algebra
+import Imscribing.IGMorphism
+import Imscribing.IMASM.OpcodeMapping
+import Imscribing.IMASM.BankedWeight
 
 open Imscribing.Primitives
 
@@ -27,10 +32,12 @@ def ErdosStrausDecomposition : Imscription :=
      prot := Protection.awe }
 
 /-- IMASM program for ErdosStrausDecomposition -/
-def ErdosStrausDecomposition_program : List IMASMOp :=
-  [ vinit, tanch, fsplit, afwd, ifix, evalt, clink, arev, evalf, imscrib, ffuse, ifix, tanch ]
+def ErdosStrausDecomposition_program : List Imscribing.IMASM.IMASMOpcode :=
+  [.VINIT, .TANCH, .FSPLIT, .AFWD, .IFIX, .EVALT, .CLINK, .AREV, .EVALF,
+   .IMSCRIB, .FFUSE, .IFIX, .TANCH]
 
 /-- Frobenius closure: μ∘δ=id for ErdosStrausDecomposition -/
-theorem ErdosStrausDecomposition_frobenius : frobeniusClosure ErdosStrausDecomposition := by
-  -- Frobenius closure holds by construction
-  native_decide
+theorem ErdosStrausDecomposition_frobenius :
+    Imscribing.Frobenius.μ_B (Imscribing.Frobenius.δ_B ErdosStrausDecomposition).1
+      (Imscribing.Frobenius.δ_B ErdosStrausDecomposition).2 = ErdosStrausDecomposition := by
+  exact Imscribing.Frobenius.mu_delta_B_id ErdosStrausDecomposition

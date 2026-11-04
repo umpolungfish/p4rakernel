@@ -12,16 +12,16 @@ counterexamples where the exponent is smaller.
 
 open scoped BigOperators
 open Finset
+open scoped Topology
+noncomputable section
 
-def ex (H : SimpleGraph ℕ) (n : ℕ) : ℕ :=
-  sSup { m | ∃ G : Finset (Finset ℕ), G.card = m ∧ (∀ S ∈ G, S.card = 2) ∧ ∀ S ∈ G, S ⊆ (H.edgeFinset : Finset (ℕ × ℕ)) }
 
 /-- The conjecture was false: there are bipartite graphs with min degree r but ex(H, n) = O(n^{2-1/r}). -/
 theorem erdos_problem_147 :
-    ¬ (∀ r : ℕ, ∀ H : SimpleGraph ℕ, H.Bipartite → (∀ v : ℕ, r ≤ H.degree v) →
-      ∃ ε > 0, ∀ n, ∃ C > 0, C * (n : ℝ) ^ (2 - 1 / ((r - 1 : ℕ) : ℝ) + ε) ≤ (ex H n : ℝ)) := by sorry
+    ¬ (∀ r : ℕ, ∀ H : SimpleGraph ℕ, H.IsBipartite → (∀ v : ℕ, r ≤ (H.neighborSet v).encard) →
+      ∃ ε > 0, ∀ n : ℕ, ∃ C > 0, C * (n : ℝ) ^ (2 - 1 / ((r - 1 : ℕ) : ℝ) + ε) ≤ (SimpleGraph.extremalNumber n H : ℝ)) := by sorry
 
 /-- Counterexample: the complete bipartite graph K_{r,r} has min degree r but ex(K_{r,r}, n) = Θ(n^{2-1/r}). -/
 lemma erdos_problem_147_counterexample :
-    ∃ (r : ℕ) (H : SimpleGraph ℕ), H.Bipartite ∧ (∀ v : ℕ, r ≤ H.degree v) ∧
-      ¬ (∃ ε > 0, ∀ n, ∃ C > 0, C * (n : ℝ) ^ (2 - 1 / ((r - 1 : ℕ) : ℝ) + ε) ≤ (ex H n : ℝ)) := by sorry
+    ∃ (r : ℕ) (H : SimpleGraph ℕ), H.IsBipartite ∧ (∀ v : ℕ, r ≤ (H.neighborSet v).encard) ∧
+      ¬ (∃ ε > 0, ∀ n : ℕ, ∃ C > 0, C * (n : ℝ) ^ (2 - 1 / ((r - 1 : ℕ) : ℝ) + ε) ≤ (SimpleGraph.extremalNumber n H : ℝ)) := by sorry

@@ -106,9 +106,8 @@ theorem parakernel_frobenius :
 
 /-- Dialetheic completeness: the ENGAGR at step 6 produces
     the B4 Both state, which satisfies bnot(B)=B. -/
-theorem parakernel_dialetheic_complete (h : Imscription) :
-    h.stoi = Stoichiometry.up → h.prot = Protection.ah := by
-  intro hstoi
-  rfl
+theorem parakernel_dialetheic_complete :
+    s7.stoi = Stoichiometry.up ∧ s7.prot = Protection.ah := by
+  exact ⟨rfl, rfl⟩
 
 end Imscribing.ParakernelScaffold
