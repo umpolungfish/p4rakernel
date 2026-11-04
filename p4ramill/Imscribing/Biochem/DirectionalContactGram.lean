@@ -69,6 +69,19 @@ theorem fixed_point_is_mechanical_minimum (m : Symmetric) (b root x : Point) (co
   have nonnegative := positive (sub x root)
   linarith
 
+/-- A rejected squared-distance predicate supplies a tangent normal on the
+same retained coordinates. This is the exact boundary action used by each
+halfspace contraction, without an added distance threshold. -/
+theorem rejected_predicate_tangent (normal force : Point)
+    (nonzero : dot normal normal ≠ 0) :
+    dot normal (sub force (scale (dot normal force / dot normal normal) normal)) = 0 := by
+  have linear : dot normal (sub force (scale (dot normal force / dot normal normal) normal)) =
+      dot normal force - (dot normal force / dot normal normal) * dot normal normal := by
+    simp only [dot,sub,scale]
+    ring
+  rw [linear, div_mul_cancel₀ _ nonzero, sub_self]
+
+#print axioms rejected_predicate_tangent
 #print axioms transported_source_gram
 #print axioms complete_square
 #print axioms fixed_point_is_mechanical_minimum

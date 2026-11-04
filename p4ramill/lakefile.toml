@@ -65,6 +65,7 @@ globs = [
   "Imscribing.BCReentryNativeAdapter",
   "Imscribing.ReEntryConstructionsMinimal",
   "Imscribing.OntologicalDerivation",
+  "Imscribing.OrbitLevels",
 
   "Imscribing.Biochem.PrimaLogicaMechanicalGlut",
   "Imscribing.Biochem.NativePairFoldOperator",
