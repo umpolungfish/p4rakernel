@@ -253,12 +253,12 @@ def GrammaticWitnessOfClosure : SIC12 := {
 }
 
 /-- Axiom (honest) : The closure property μ ∘ δ = id verified through imscription in the d=12 SIC-POVM. -/
-axiom ax_closure_property_verification {α β : Type*} (μ : β → α) (δ : α → β) : (μ ∘ δ) = id
+axiom ax_closure_property_verification : (μ ∘ δ) = id
 
 /-- The closure property: μ∘δ = id -/
 theorem closure_property_verification : 
   (μ ∘ δ) = id :=
-  ax_closure_property_verification μ δ
+  ax_closure_property_verification
 
 /-! 
   # Conventional Proof

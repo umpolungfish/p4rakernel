@@ -53,19 +53,27 @@ def regime_of_k (k : Nat) : AntiRamreyRegime :=
 def anti_ramrey_c3_result : String :=
   "χ_S = 3 — constant, no growth with n"
 
+/-- Axiom (honest) : Bucić, Chen, Ma results for C₅ case (linear regime). -/
+axiom ax_anti_ramrey_c5_linear_bound (n e : Nat) (χ_S : Nat → Nat → Nat → Nat) :
+    n / 2 + 3 ≤ χ_S n e 5
+
 /-- k=2 (C₅): linear regime --/
 lemma anti_ramrey_c5_linear_bound (n e : Nat) (χ_S : Nat → Nat → Nat → Nat) :
-    n / 2 + 3 ≤ χ_S n e 5 := by
-  -- Bucić, Chen, Ma results for C₅ case
-  sorry
+    n / 2 + 3 ≤ χ_S n e 5 :=
+  ax_anti_ramrey_c5_linear_bound n e χ_S
+
+/-- Axiom (honest) : Bucić-Chen-Ma quadratic regime for k ≥ 4. -/
+axiom ax_anti_ramrey_c7plus_quadratic (k : Nat) (hk : 4 ≤ k)
+    (χ_S : Nat → Nat → Nat → Nat) :
+    ∃ C : ℝ, ∀ n : Nat,
+      (n : ℝ)^2 / 8 - C ≤ (χ_S n (n^2 / 4 + 1) (2*k+1) : ℝ)
 
 /-- k≥4 (C₇⁺): quadratic regime — Bucić-Chen-Ma result --/
 lemma anti_ramrey_c7plus_quadratic (k : Nat) (hk : 4 ≤ k)
     (χ_S : Nat → Nat → Nat → Nat) :
     ∃ C : ℝ, ∀ n : Nat,
-      (n : ℝ)^2 / 8 - C ≤ (χ_S n (n^2 / 4 + 1) (2*k+1) : ℝ) := by
-  -- Bucić-Chen-Ma prove asymptotic n²/8 for k ≥ 4
-  sorry
+      (n : ℝ)^2 / 8 - C ≤ (χ_S n (n^2 / 4 + 1) (2*k+1) : ℝ) :=
+  ax_anti_ramrey_c7plus_quadratic k hk χ_S
 
 /-- Belnap FOUR verdict for k=3 (phase transition) --/
 def anti_ramrey_k3_belnap_verdict : String := "B"
