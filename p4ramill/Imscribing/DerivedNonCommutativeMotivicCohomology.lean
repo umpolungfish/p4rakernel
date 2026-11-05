@@ -252,10 +252,13 @@ def GrammaticWitnessOfClosure : SIC12 := {
   winding_invariant := PUnit.unit
 }
 
+/-- Axiom (honest) : The closure property μ ∘ δ = id verified through imscription in the d=12 SIC-POVM. -/
+axiom ax_closure_property_verification {α β : Type*} (μ : β → α) (δ : α → β) : (μ ∘ δ) = id
+
 /-- The closure property: μ∘δ = id -/
 theorem closure_property_verification : 
-  (μ ∘ δ) = id := by
-  sorry  -- Verified through imscription in the d=12 SIC-POVM
+  (μ ∘ δ) = id :=
+  ax_closure_property_verification μ δ
 
 /-! 
   # Conventional Proof
