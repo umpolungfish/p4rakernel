@@ -21,4 +21,16 @@ theorem erdos_problem_161
       (∃ S : Finset (Fin M), ∃ hS : S.card = t, S ⊆ X ∧ c ⟨S, hS⟩ = 1) }) :
     (ContinuousOn (fun α' => F α' n) {x : ℝ | 0 ≤ x ∧ x < 1/2}) ∨
       ∃ α' : ℝ, 0 ≤ α' ∧ α' < 1/2 ∧ F α' n ≠ F α n := by
-  sorry
+  by_cases h : ContinuousOn (fun α' => F α' n) {x : ℝ | 0 ≤ x ∧ x < 1/2}
+  · exact Or.inl h
+  · have h_not_constant : ¬ ∀ x : ℝ, 0 ≤ x → x < 1/2 → F x n = F α n := by
+      intro hconst
+      apply h
+      apply ContinuousOn.congr continuousOn_const
+      intro x hx
+      exact hconst x hx.1 hx.2
+    have hex : ∃ x : ℝ, 0 ≤ x ∧ x < 1/2 ∧ F x n ≠ F α n := by
+      by_contra hn
+      push_neg at hn
+      exact h_not_constant (fun x hx₀ hx₁ => hn x hx₀ hx₁)
+    exact Or.inr hex

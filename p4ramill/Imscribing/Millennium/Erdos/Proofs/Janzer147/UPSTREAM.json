@@ -1,0 +1,51 @@
+{
+  "repository": "https://github.com/plby/lean-proofs",
+  "commit": "8822f7ddef30fadbd92e1c6ab4ed897af356af5e",
+  "upstream_toolchain": "leanprover/lean4:v4.33.0",
+  "port_toolchain": "p4rakernel / Lean 4.28.0",
+  "files": [
+    {
+      "upstream_module": "ErdosProblems.Erdos147",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.Main",
+      "upstream_sha256": "8c7d4f3447c065d7ce3dd422f5b3f017061a37437a3046726b2ee756a82e4ead",
+      "ported_sha256": "576ba39ad58667c5c7eed3e67d9d1196f4627fb94e8d13dafe45553c7547e2b6"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos147.Basic",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.Basic",
+      "upstream_sha256": "5898c7e7903ded4af55bdb527be045dcc43aac5234d6814c7fcdeca6180c382f",
+      "ported_sha256": "535555aa58302abece89b24e48685e9352c571eb8109a748872ea3cd760d94a1"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos147.Conflict",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.Conflict",
+      "upstream_sha256": "bd9c9102ed36ace70752ff39ffa3d42f9ac7d57583776709ec85f75646cfd8de",
+      "ported_sha256": "314e811dc1fbef258d7689f536a0e9f61e34d580740101204293d21650b6cf7d"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos147.Core",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.Core",
+      "upstream_sha256": "5d321930e8d7f88369983f489be91e09571d645fddd7d626d444d187548cc600",
+      "ported_sha256": "8a7c74af3b2d39edc6a3d3644b79e9b2a648e16095ab998fcfcc5db005e87063"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos147.Regularization",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.Regularization",
+      "upstream_sha256": "76d14cd8f11c15a85914acc1a3c05cbb3a7d9ee4487e1eac912aaa99310bee1a",
+      "ported_sha256": "2ee6975df0149c9e677d7d64a8048ea22f9f50ed4fc443520ff30655514cd2d5"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos888.ColoredGraph",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.Janzer147.ColoredGraph",
+      "upstream_sha256": "364c5ef23cad08de8392dc1283efbb71d64a05d4fe8a81a4d2f5f1309788ebf6",
+      "ported_sha256": "91cbe8878ebb540d0f4b7afedadb4ebd5b443fbcb19fd87fedbc6cc7251b13de"
+    }
+  ],
+  "port_notes": [
+    "Adjusted Mathlib import paths for Lean 4.28",
+    "Adapted graph symmetry, colouring and minimum-degree APIs",
+    "Proved walk/list compatibility steps with the pinned List API",
+    "Made fiberwise counting types explicit",
+    "Raised tactic heartbeats for the polynomial inequality; kernel checking remains enabled"
+  ]
+}

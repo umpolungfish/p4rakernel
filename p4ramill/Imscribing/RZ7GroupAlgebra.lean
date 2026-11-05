@@ -149,11 +149,13 @@ lemma basisElem_mul (a b : Fin 7) :
     convProduct (basisElem a) (basisElem b) = basisElem (add7 a b) := by
   ext k
   dsimp [convProduct, basisElem]
-  rw [Finset.sum_eq_single a (by
-    intro i _ hia
-    simp [hia]) (by simp)]
-  have hab : sub7 k a = b ↔ k = add7 a b := sub7_eq_iff_add7_eq k a b
-  simp [hab]
+  rw [Finset.sum_eq_single a]
+  · simp [sub7_eq_iff_add7_eq]
+  · intro i _ hia
+    by_cases hia' : i = a
+    · exact (hia hia').elim
+    · simp [hia']
+  · simp
 
 lemma basisElem_mul_assoc (a b c : Fin 7) :
     convProduct (convProduct (basisElem a) (basisElem b)) (basisElem c) =

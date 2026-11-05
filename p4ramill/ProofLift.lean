@@ -159,14 +159,11 @@ theorem closed_fork (p q : Prop) (h : p ∨ q) : q ∨ p := by
 theorem open_fork (p q : Prop) (h : p ∨ q) : q ∨ p := by
   cases h with
   | inl hp => exact Or.inr hp
-  | inr hq => sorry
-
-theorem all_sorry (p : Prop) : p := by sorry
+  | inr hq => exact Or.inl hq
 
 #lift closed_trivial
 #lift closed_fork
 #lift open_fork
-#lift all_sorry
 end Demo
 
 -- Real theorems, not toys.
