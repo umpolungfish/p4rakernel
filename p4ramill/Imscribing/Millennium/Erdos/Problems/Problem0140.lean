@@ -1,34 +1,13 @@
 import Mathlib
 
 /-!
-# Erdős problem #140 (Roth's theorem for 3-AP-free sets)
+# Three-term arithmetic progression density bounds
 
-Prize: $500.  Status as catalogued: **PROVED**.
-
-Let r₃(N) be the maximum size of a subset of {1, ..., N} with no 3-term arithmetic progression.
-Roth's theorem: r₃(N) = o(N). Best known bound: r₃(N) ≤ C·N / (log N)^(1+o(1)) (Bloom–Sisask, 2020; Kelley–Meka, 2023).
-
-## Grammatic closure decomposition for Erdős #140.
-
-The IMASM word: `⊢∈≻⊤∋⊡⋈⊣` (Roth density increment) → `⊢∈≻⊤⊥∋⊡⋈⊣` (Bloom-Sisask).
-
-Phase structure:
-1. VINIT (⊢): The set A ⊆ [1,N] given at ground
-2. FSPLIT (∈): Split into 3-AP-free subsets
-3. AFWD (≻): Advance to density increment
-4. EVALT (⊤): Evaluate the density increment step
-6. FFUSE (∋): Fuse the iteration → o(N)
-7. EVALF (⊥): Evaluate the gap between o(N) and C·N/(log N)^{1+c}
-8. FFUSE (∋): Fuse the logarithmic improvement
-9. IFIX (⊡): Commit the C·N/(log N)^{1+c} bound
-10. CLINK (⋈): Compose density increment + log improvement
-11. TANCH (⊣): Anchor the final bound
-
-Key lemmas:
-- `three_ap_of_dense`: Dense window forces 3-AP (Roth)
-- `roth_theorem`: r₃(N) = o(N) (Roth 1953)
-- `bloom_sisask_bound`: r₃(N) ≤ C·N/(log N)^{1+c} (Bloom–Sisask 2020)
-- `kelley_meka_bound`: r₃(N) ≤ C·N/(log N)^{1+o(1)} (Kelley–Meka 2023) -/
+The checked quantitative conclusion here is Roth's density decay `r3(N)=o(N)`.
+`three_ap_of_dense` transfers it to sufficiently large dense intervals.
+The legacy Bloom–Sisask and Kelley–Meka declarations below state only linear
+bounds; their logarithmic improvements are not formalized by those declarations.
+-/
 
 open scoped BigOperators
 open Finset
@@ -73,86 +52,65 @@ theorem roth_theorem :
     exact_mod_cast r3_le_rothNumberNat N
   exact hb.trans (by simpa using hN)
 
-/-- **Phase 3: Bloom–Sisask bound.** r₃(N) ≤ C·N / (log N)^{1+c}. -/
+/-- An admissible set is below the finite extremum. -/
+lemma card_le_r3 {A : Finset ℕ} {N : ℕ}
+    (hsub : A ⊆ Finset.Icc 1 N) (hfree : is_3AP_free A) : A.card ≤ r3 N := by
+  have hbdd : BddAbove { n : ℕ | ∃ B : Finset ℕ,
+      B.card = n ∧ B ⊆ Finset.Icc 1 N ∧ is_3AP_free B } := by
+    refine ⟨N, ?_⟩
+    rintro k ⟨B, hcard, hB, _⟩
+    rw [← hcard]
+    have h := Finset.card_le_card hB
+    simpa using h
+  exact le_csSup hbdd ⟨A, rfl, hsub, hfree⟩
+
+/-- A fixed positive density forces a nontrivial progression in every
+sufficiently large interval. -/
+theorem three_ap_of_dense (ε : ℝ) (hε : 0 < ε) :
+    ∀ᶠ N : ℕ in Filter.atTop, ∀ A : Finset ℕ,
+      A ⊆ Finset.Icc 1 N → ε * N < A.card →
+      ∃ a ∈ A, ∃ b ∈ A, ∃ c ∈ A, a + b = 2 * c ∧ a ≠ b := by
+  filter_upwards [roth_theorem ε hε] with N hN
+  intro A hsub hdense
+  by_contra h
+  have hfree : is_3AP_free A := by
+    intro a ha b hb c hc heq
+    by_contra hne
+    exact h ⟨a, ha, b, hb, c, hc, heq, hne⟩
+  have hb : (A.card : ℝ) ≤ (r3 N : ℝ) := by
+    exact_mod_cast card_le_r3 hsub hfree
+  linarith
+
+/-- Pointwise elementary bound. This declaration does not express the
+quantitative logarithmic Bloom–Sisask estimate. -/
+lemma r3_le_interval_length (N : ℕ) : (r3 N : ℝ) ≤ N := by
+  have h := (r3_le_rothNumberNat N).trans (rothNumberNat_le N)
+  exact_mod_cast h
+
+/-- Legacy linear bound; the witness `c` is unused in this statement. -/
 theorem bloom_sisask_bound :
-    ∃ C > 0, ∃ c > 0, ∀ᶠ N in Filter.atTop, (r3 N : ℝ) ≤ C * N := by
-  use 1
-  use 1
-  constructor
-  · norm_num
-  · intro N hN
-    have h₁ : (r3 N : ℝ) ≤ (N : ℝ) := by
-      have h₂ : (r3 N : ℕ) ≤ (rothNumberNat N : ℕ) := r3_le_rothNumberNat N
-      have h₃ : (rothNumberNat N : ℕ) ≤ N := by
-        apply rothNumberNat_le_id
-      exact_mod_cast (h₂.trans h₃)
-    have h₄ : (1 : ℝ) * N / (Real.log N) ^ (1 + 1 : ℝ) ≤ (N : ℝ) := by
-      have h₅ : (Real.log N : ℝ) ≥ 1 := by
-        have h₆ : N ≥ 1 := by exact_mod_cast hN
-        have h₇ : Real.log N ≥ Real.log 1 := Real.log_le_log (by linarith) (by norm_num)
-        have h₈ : Real.log (1 : ℝ) = 0 := by norm_num [Real.log_one]
-        linarith
-      have h₆ : (Real.log N : ℝ) ^ (2 : ℝ) ≥ 1 := by
-        exact pow_one_le pow_one_le (by linarith)
-      calc
-        (1 : ℝ) * N / (Real.log N) ^ (1 + 1 : ℝ) = N / (Real.log N) ^ 2 := by ring_nf
-        _ ≤ N / 1 := by
-          apply div_le_div_of_le_left (by positivity)
-          nlinarith
-        _ = N := by ring
-    calc
-      (r3 N : ℝ) ≤ N := h₁
-      _ ≤ (1 : ℝ) * N / (Real.log N) ^ (1 + 1 : ℝ) := h₄
+    ∃ C : ℝ, 0 < C ∧ ∃ c : ℝ, 0 < c ∧
+      ∀ᶠ N in Filter.atTop, (r3 N : ℝ) ≤ C * N := by
+  refine ⟨1, by norm_num, 1, by norm_num, ?_⟩
+  filter_upwards [] with N
+  simpa using r3_le_interval_length N
 
-/-- **Phase 4: Kelley–Meka bound.** r₃(N) ≤ C·N / (log N)^{1+o(1)}. -/
+/-- Legacy linear bound, independent of the quantitative Kelley–Meka estimate. -/
 theorem kelley_meka_bound :
-    ∀ ε > 0, ∃ C > 0, ∀ᶠ N in Filter.atTop, (r3 N : ℝ) ≤ C * N := by
+    ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, 0 < C ∧
+      ∀ᶠ N in Filter.atTop, (r3 N : ℝ) ≤ C * N := by
   intro ε hε
-  use 1
-  constructor
-  · norm_num
-  · intro N hN
-    have h₁ : (r3 N : ℝ) ≤ (N : ℝ) := by
-      have h₂ : (r3 N : ℕ) ≤ (rothNumberNat N : ℕ) := r3_le_rothNumberNat N
-      have h₃ : (rothNumberNat N : ℕ) ≤ N := by
-        apply rothNumberNat_le_id
-      exact_mod_cast (h₂.trans h₃)
-    linarith
+  refine ⟨1, by norm_num, ?_⟩
+  filter_upwards [] with N
+  simpa using r3_le_interval_length N
 
-/-- **Phase 5: Original problem #140 statement.** -/
+/-- Roth density decay for the supplied extremal function. -/
 theorem erdos_problem_140
     (r3_func : ℕ → ℕ)
-    (h_r3 : ∀ N, r3_func N = sSup { n | ∃ A : Finset ℕ, A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A }) :
+    (h_r3 : ∀ N, r3_func N = sSup { n | ∃ A : Finset ℕ,
+      A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A }) :
     ∀ C > 0, ∀ᶠ N in Filter.atTop, (r3_func N : ℝ) ≤ C * N := by
   intro C hC
-  intro N hN
-  have h₁ : r3_func N = sSup { n | ∃ A : Finset ℕ, A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A } := h_r3 N
-  rw [h₁]
-  have h₂ : (sSup { n : ℕ | ∃ (A : Finset ℕ), A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A } : ℝ) ≤ (N : ℝ) := by
-    apply csSup_le
-    · -- Nonempty: empty set has size 0
-      refine' ⟨0, _, _, _⟩
-      use ∅
-      constructor
-      · simp
-      · intro S hs _ _ <;> simp_all [is_3AP_free]
-        <;> aesop
-    · -- Every element is ≤ N
-      intro hm hmem
-      obtain ⟨A, hcard, hsub, hfree⟩ := hmem
-      have h₃ : A.card ≤ N := by
-        have h₄ : A ⊆ Finset.Icc 1 N := hsub
-        have h₅ : A.card ≤ (Finset.Icc 1 N : Finset ℕ).card := by
-          apply Finset.card_le_of_subset h₄
-        have h₆ : (Finset.Icc 1 N : Finset ℕ).card = N := by
-          simp [Finset.card_Icc]
-          <;> omega
-        linarith
-      norm_cast at h₃ ⊢
-      <;> linarith
-  calc
-    (sSup { n : ℕ | ∃ (A : Finset ℕ), A.card = n ∧ A ⊆ Finset.Icc 1 N ∧ is_3AP_free A } : ℝ) ≤ (N : ℝ) := h₂
-    _ ≤ C * N := by
-      have h₃ : 0 < C := hC
-      have h₄ : (N : ℝ) ≥ 0 := by positivity
-      nlinarith
+  filter_upwards [roth_theorem C hC] with N hN
+  have h_eq : r3_func N = r3 N := h_r3 N
+  simpa only [h_eq] using hN

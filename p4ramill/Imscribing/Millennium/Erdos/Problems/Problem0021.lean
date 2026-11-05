@@ -44,10 +44,39 @@ def AdmissibleFamily (n : ℕ) (F : Finset (Finset ℕ)) : Prop :=
 noncomputable def f (n : ℕ) : ℕ :=
   sInf { m | ∃ (F : Finset (Finset ℕ)), AdmissibleFamily n F ∧ F.card = m }
 
-/-- **Phase 1: Admissible sizes are nonempty for n ≥ 2.** -/
--- Axiom (honest) : admissible sizes nonempty (proof deferred).
-axiom ax_admissible_sizes_nonempty (n : ℕ) (hn : 2 ≤ n) :
-    { m | ∃ (F : Finset (Finset ℕ)), AdmissibleFamily n F ∧ F.card = m }.Nonempty
+/-- Complete family of `n`-subsets of `2n-1` points. Intersections are forced
+by cardinality; any `n-1` forbidden points leave an `n`-subset available. -/
+theorem ax_admissible_sizes_nonempty (n : ℕ) (hn : 2 ≤ n) :
+    { m | ∃ (F : Finset (Finset ℕ)), AdmissibleFamily n F ∧ F.card = m }.Nonempty := by
+  classical
+  let U := Finset.range (2 * n - 1)
+  let F := U.powersetCard n
+  have hU : U.card = 2 * n - 1 := Finset.card_range _
+  have hF : AdmissibleFamily n F := by
+    constructor
+    · intro A hA
+      exact (Finset.mem_powersetCard.mp hA).2
+    constructor
+    · intro A hA B hB
+      obtain ⟨hAU, hAn⟩ := Finset.mem_powersetCard.mp hA
+      obtain ⟨hBU, hBn⟩ := Finset.mem_powersetCard.mp hB
+      by_contra h
+      have he : A ∩ B = ∅ := Finset.not_nonempty_iff_eq_empty.mp h
+      have hd : Disjoint A B := Finset.disjoint_iff_inter_eq_empty.mpr he
+      have hc := Finset.card_le_card (Finset.union_subset hAU hBU)
+      rw [Finset.card_union_of_disjoint hd, hAn, hBn, hU] at hc
+      omega
+    · intro S hS
+      have hb := Finset.le_card_sdiff S U
+      have hc : n ≤ (U \ S).card := by rw [hU] at hb; omega
+      obtain ⟨A, hAsub, hAn⟩ := (U \ S).exists_subset_card_eq hc
+      refine ⟨A, Finset.mem_powersetCard.mpr ⟨?_, hAn⟩, ?_⟩
+      · exact hAsub.trans (Finset.sdiff_subset)
+      · apply Finset.disjoint_left.mpr
+        intro x hxS hxA
+        exact (Finset.mem_sdiff.mp (hAsub hxA)).2 hxS
+  exact ⟨F.card, F, hF, rfl⟩
+
 lemma admissible_sizes_nonempty (n : ℕ) (hn : 2 ≤ n) :
     { m | ∃ (F : Finset (Finset ℕ)), AdmissibleFamily n F ∧ F.card = m }.Nonempty :=
   by exact ax_admissible_sizes_nonempty n hn
