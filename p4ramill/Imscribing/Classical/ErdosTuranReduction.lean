@@ -3,9 +3,10 @@
 
 The conjecture: if `A ⊆ ℕ` is an asymptotic basis of order two, its
 representation function `r_A(n) = #{(a,b) ∈ A × A : a + b = n}` is unbounded.
-Open since 1941. This file does not prove it. It proves the counting half
-exactly, and states the remaining half in the sharpest form I can reach, so the
-gap is a named proposition rather than a gesture.
+Open since 1941. This file does not prove it. It proves lower and upper counting
+bounds under a global representation cap, then proves those bounds compatible
+for every fixed cap. The counting argument therefore does not close the
+conjecture.
 
 **What is proved here.** Suppose `A` is an asymptotic basis of order two whose
 representation function is bounded by `C`. Then `A` is dense: the counting
@@ -19,16 +20,21 @@ is a pair drawn from `A ∩ [0,N]`. Counting the pairs both ways gives the bound
 So a counterexample must be a set of counting function at least `√(N/C)`, which
 is to say of maximal order.
 
-**What is not proved.** That such a set cannot exist. The gap is stated as
-`BoundedRepBasisIsSidonLike`: a basis of bounded representation function has, in
-every window, a sub-structure whose sums are almost injective. Given that, the
-Erdős–Turán upper bound for Sidon sets in `ErdosTuranBound.lean` caps the same
-counting function from above, and `bounded_reps_impossible` closes the argument.
-Without it, nothing here settles anything.
+**What is not proved.** That such a set cannot exist. The two counting
+inequalities only force the window size to have order `√N`; both are compatible
+for every fixed representation cap. A further argument must use structure
+beyond the number of pairs.
 
-I state the missing step as a hypothesis rather than assume it silently. It is
-the whole conjecture in one line, and naming it is the honest form of a
-reduction: everything else in the chain is proved.
+The coefficient-level parity input is formalized in
+`ErdosTuranParitySIC.lean`: on a finite window, odd representation coefficients
+are exactly the doubles of source elements, and the established ZetaSIC dual
+reconstructs that complete coefficient vector. This preserves the parity data
+needed by the generating-function route; it does not by itself prove the missing
+unboundedness assertion.
+
+The exact limsup statement is recorded in `Problem0028.lean`; these counting
+lemmas remain partial consequences, not a reduction equivalent to the full
+conjecture.
 -/
 
 import Mathlib

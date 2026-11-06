@@ -13,7 +13,13 @@ open Finset
 open scoped Topology
 noncomputable section
 
-theorem erdos_problem_712
+/-- The Turán density whose numerical value #712 asks us to determine. -/
+noncomputable def turanDensity (k r : ℕ) (h_conds : 2 < r ∧ r < k) : ℝ :=
+  Classical.choose (Erdos712.density_limit k r (by omega))
+
+/-- Existing prerequisite: the normalized extremal numbers converge.
+This is not the requested determination of `turanDensity k r`. -/
+theorem erdos_problem_712_density_limit
     (k r : ℕ)
     (h_conds : 2 < r ∧ r < k)
     (ex_r : ℕ → ℕ)
@@ -25,3 +31,7 @@ theorem erdos_problem_712
     exact h_ex n
   subst ex_r
   simpa only [Erdos712.density] using Erdos712.density_limit k r (by omega)
+
+theorem turanDensity_is_limit (k r : ℕ) (h_conds : 2 < r ∧ r < k) :
+    Filter.Tendsto (Erdos712.density k r) Filter.atTop (𝓝 (turanDensity k r h_conds)) := by
+  exact (Classical.choose_spec (Erdos712.density_limit k r (by omega)))

@@ -9,8 +9,8 @@ If A+A has finite complement, the representation counts are unbounded.
 The referenced problem asks for unbounded limsup, not convergence to infinity:
 https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/ErdosProblems/28.lean
 
-The finite counting lemmas below are proved. The remaining conjectural
-unboundedness assumption is kept explicit.
+The finite counting lemmas below are proved. The actual open assertion is
+recorded as a proposition and is not introduced as an axiom.
 -/
 
 open scoped BigOperators
@@ -65,7 +65,7 @@ lemma finite_r_le_r (A : Set ℕ) (n k : ℕ) : finite_r A n k ≤ r A k := by
   exact ⟨⟨⟨⟨by omega, by omega⟩, ha⟩, ⟨⟨by omega, by omega⟩, hb⟩⟩, hs⟩
 
 /-- Summing fibres retains exactly the pairs below the sum boundary. -/
-theorem ax_sum_r_eq_filtered_card (A : Set ℕ) (n : ℕ) :
+theorem sum_r_eq_filtered_card (A : Set ℕ) (n : ℕ) :
     (∑ k ∈ Finset.range (n + 1), r A k) =
       ((((A_n A n) ×ˢ (A_n A n))).filter (fun p => p.1 + p.2 ≤ n)).card := by
   calc
@@ -78,7 +78,7 @@ theorem ax_sum_r_eq_filtered_card (A : Set ℕ) (n : ℕ) :
 
 /-- Summing the fixed-frame count through `2n` counts each retained pair once.
 The unrestricted `r A k` cannot replace `finite_r A n k` in this identity. -/
-theorem ax_sum_r_eq_card_sq (A : Set ℕ) (n : ℕ) :
+theorem sum_finite_r_eq_card_sq (A : Set ℕ) (n : ℕ) :
     (∑ k ∈ Finset.range (2 * n + 1), finite_r A n k) = (A_n A n).card ^ 2 := by
   classical
   rw [finite_r_sum]
@@ -100,13 +100,14 @@ theorem unrestricted_sum_identity_counterexample :
     Finset.filter_insert, Finset.filter_singleton, Finset.product,
     Finset.singleton_product]
 
-/-- Remaining Erdős–Turán unboundedness obligation. -/
-axiom ax_erdos28_unbounded (A : Set ℕ)
-    (h_cofinite : Set.Finite { n : ℕ | n ∉ sumset A }) :
-    ∀ M : ℕ, ∃ n : ℕ, r A n > M
+/-! The exact Erdős–Turán assertion, matching the formalized problem: a cofinite
+sumset makes the limsup of the ordered representation counts infinite. -/
+def ErdosProblem28Statement : Prop :=
+  ∀ A : Set ℕ, Set.Finite { n : ℕ | n ∉ sumset A } →
+    Filter.limsup (fun n : ℕ => (r A n : ℕ∞)) Filter.atTop = ⊤
 
 /-- Eventual growth above every bound is the filter definition of divergence. -/
-theorem ax_erdos28_unbounded_tendsto (A : Set ℕ)
+theorem unbounded_representation_counts_tendsto (A : Set ℕ)
     (h : ∀ M : ℕ, ∃ N : ℕ, ∀ n ≥ N, r A n > M) :
     Filter.Tendsto (fun n : ℕ => r A n) Filter.atTop Filter.atTop := by
   apply Filter.tendsto_atTop.mpr
@@ -119,7 +120,7 @@ lemma sum_r_le_card_sq {A : Set ℕ} {n : ℕ} :
     (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) ≤ (A_n A n).card ^ 2 := by
   classical
   have h₁ : (Finset.sum (Finset.range (n + 1)) (fun k => r A k)) = (((((A_n A n) ×ˢ (A_n A n))).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)).card :=
-    ax_sum_r_eq_filtered_card A n
+    sum_r_eq_filtered_card A n
   rw [h₁]
   have h₂ : (((((A_n A n) ×ˢ (A_n A n))).filter (fun p : ℕ × ℕ => p.1 + p.2 ≤ n)) : Finset (ℕ × ℕ)) ⊆ ((A_n A n) ×ˢ (A_n A n)) := by
     apply Finset.filter_subset
@@ -140,11 +141,11 @@ lemma sum_r_le_card_sq {A : Set ℕ} {n : ℕ} :
 /-- The square identity applies to the fixed finite-frame representation count. -/
 lemma sum_r_eq_card_sq {A : Set ℕ} {n : ℕ} :
     (∑ k ∈ Finset.range (2 * n + 1), finite_r A n k) = (A_n A n).card ^ 2 :=
-  ax_sum_r_eq_card_sq A n
+  sum_finite_r_eq_card_sq A n
 
 lemma card_sq_le_sum_r (A : Set ℕ) (n : ℕ) :
     (A_n A n).card ^ 2 ≤ ∑ k ∈ Finset.range (2 * n + 1), r A k := by
-  rw [← ax_sum_r_eq_card_sq A n]
+  rw [← sum_finite_r_eq_card_sq A n]
   exact Finset.sum_le_sum (fun k _ => finite_r_le_r A n k)
 
 /-- A bound on the unrestricted representation counts bounds the retained pairs. -/
@@ -199,14 +200,18 @@ theorem cofinite_sumset_counting_lower_bound (A : Set ℕ)
     _ ≤ ∑ k ∈ Finset.range (N + 1), r A k := Finset.sum_le_sum_of_subset hsub
     _ ≤ (A_n A N).card ^ 2 := sum_r_le_card_sq
 
-/-- The referenced conjecture states unboundedness, rather than a limit
-of every representation count. Its mathematical content remains in the
-explicit unboundedness assumption above. -/
-theorem erdos_problem_28
-    (A : Set ℕ)
-    (h_cofinite : Set.Finite { n : ℕ | n ∉ sumset A }) :
-    ¬ BddAbove (Set.range (r A)) := by
-  rintro ⟨M, hM⟩
-  obtain ⟨n, hn⟩ := ax_erdos28_unbounded A h_cofinite M
-  have hb := hM ⟨n, rfl⟩
-  omega
+/-- Under a bounded-representation counterassumption, a cofinite sumset pins
+the square of the counting function between linear bounds. This records the
+scale forced by the elementary pair count; it does not prove the open
+unboundedness conclusion. -/
+theorem cofinite_bounded_representations_counting_scale (A : Set ℕ)
+    (h_cofinite : Set.Finite {n : ℕ | n ∉ sumset A}) (M : ℕ)
+    (h_bounded : ∀ k : ℕ, r A k ≤ M) :
+    ∃ B : ℕ, ∀ N : ℕ,
+      N - B ≤ (A_n A N).card ^ 2 ∧
+      (A_n A N).card ^ 2 ≤ M * (2 * N + 1) := by
+  obtain ⟨B, h_lower⟩ := cofinite_sumset_counting_lower_bound A h_cofinite
+  refine ⟨B, fun N => ⟨h_lower N, ?_⟩⟩
+  apply card_sq_le_of_r_bounded
+  intro k _
+  exact h_bounded k

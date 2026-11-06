@@ -104,6 +104,91 @@ theorem sidon_reps_le_two (B : Finset ℕ) (hB : isSidonFinset B) (n : ℕ) :
       ≤ ({(a, b), (b, a)} : Finset (ℕ × ℕ)).card := Finset.card_le_card hsub
     _ ≤ 2 := Finset.card_insert_le _ _ |>.trans (by simp)
 
+/-- **The finite-fiber converse.** If every sum has at most two ordered
+    representations from `B`, then `B` is Sidon. Two different unordered
+    pairs with the same sum would contribute at least three ordered pairs:
+    both orientations of one off-diagonal pair and one orientation of the
+    other, or one diagonal pair and both orientations of the off-diagonal pair.
+    This is the direction needed to feed a representation bound into the
+    windowed Sidon argument. -/
+theorem isSidon_of_reps_card_le_two (B : Finset ℕ)
+    (hB : ∀ n : ℕ, (reps B n).card ≤ 2) : isSidonFinset B := by
+  classical
+  intro a b c d ha hb hc hd hsum
+  by_contra hpair
+  let x : ℕ × ℕ := (a, b)
+  let y : ℕ × ℕ := (b, a)
+  let z : ℕ × ℕ := (c, d)
+  let w : ℕ × ℕ := (d, c)
+  have hx : x ∈ reps B (a + b) := by
+    simp [x, reps, ha, hb]
+  have hy : y ∈ reps B (a + b) := by
+    simp [y, reps, ha, hb, Nat.add_comm]
+  have hz : z ∈ reps B (a + b) := by
+    simp [z, reps, hc, hd, hsum]
+  have hw : w ∈ reps B (a + b) := by
+    simp [w, reps, hc, hd, Nat.add_comm, hsum]
+  have hzx : z ≠ x := by
+    intro h
+    apply hpair
+    have ⟨rfl, rfl⟩ := Prod.mk.inj h
+    rfl
+  have hzy : z ≠ y := by
+    intro h
+    apply hpair
+    have ⟨rfl, rfl⟩ := Prod.mk.inj h
+    exact Finset.pair_comm _ _
+  by_cases hab : a = b
+  · subst b
+    have hcd : c ≠ d := by
+      intro h
+      apply hpair
+      have hac : a = c := by omega
+      simp [hac, h]
+    have hxz : x ≠ z := by
+      intro h
+      apply hpair
+      have ⟨rfl, rfl⟩ := Prod.mk.inj h
+      rfl
+    have hxw : x ≠ w := by
+      intro h
+      apply hpair
+      have ⟨rfl, rfl⟩ := Prod.mk.inj h
+      rfl
+    have hthree : 3 ≤ ({x, z, w} : Finset (ℕ × ℕ)).card := by
+      rw [Finset.card_insert_of_notMem]
+      · rw [Finset.card_insert_of_notMem]
+        · simp
+        · simp [z, w, hcd]
+      · simp [hxz, hxw]
+    have hsub : ({x, z, w} : Finset (ℕ × ℕ)) ⊆ reps B (a + a) := by
+      intro p hp
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hp
+      rcases hp with rfl | rfl | rfl
+      · exact hx
+      · exact hz
+      · exact hw
+    have := Finset.card_le_card hsub
+    have := hB (a + a)
+    omega
+  · have hxy : x ≠ y := by simp [x, y, hab]
+    have hthree : 3 ≤ ({x, y, z} : Finset (ℕ × ℕ)).card := by
+      rw [Finset.card_insert_of_notMem]
+      · rw [Finset.card_insert_of_notMem]
+        · simp
+        · simp [Ne.symm hzy]
+      · simp [hxy, Ne.symm hzx]
+    have hsub : ({x, y, z} : Finset (ℕ × ℕ)) ⊆ reps B (a + b) := by
+      intro p hp
+      simp only [Finset.mem_insert, Finset.mem_singleton] at hp
+      rcases hp with rfl | rfl | rfl
+      · exact hx
+      · exact hy
+      · exact hz
+    have := Finset.card_le_card hsub
+    have := hB (a + b)
+    omega
+
 /-- The bound is attained, so two is the right constant and not merely an upper
     bound one could improve. -/
 theorem sidon_reps_eq_two_example :
@@ -144,6 +229,7 @@ theorem sidon_not_basis_of_erdos_turan
   exact absurd (sidon_reps_le_two B (hSidon B hBA) n) (by omega)
 
 #print axioms sidon_reps_le_two
+#print axioms isSidon_of_reps_card_le_two
 #print axioms sidon_not_basis_of_erdos_turan
 
 end Imscribing.Classical

@@ -1,4 +1,5 @@
 import Mathlib
+set_option maxHeartbeats 1000000
 
 /-!
 # Erdős problem #713
@@ -13,24 +14,31 @@ open Finset
 open scoped Topology
 noncomputable section
 
-/- Trivial upper bound: ex(n, G) ≤ n² for any graph G. -/
-lemma trivial_upper_bound (H : SimpleGraph ℕ) (n : ℕ) :
-    (SimpleGraph.extremalNumber n H : ℝ) ≤ (n : ℝ) ^ 2 := by
-  have h : SimpleGraph.extremalNumber n H ≤ n ^ 2 := by
-    rw [← Fintype.card_fin n, SimpleGraph.extremalNumber_le_iff]
-    intro G _ _
-    exact G.card_edgeFinset_le_card_choose_two.trans (by simpa using Nat.choose_le_pow n 2)
-  exact_mod_cast h
+/-! The literal universal assertion in #713 asks for a positive power-law
+asymptotic for every bipartite graph. -/
 
-/-- Trivial upper bound: ex(n, G) ≤ n² for any bipartite graph G. -/
-theorem erdos_problem_713
-    (G : SimpleGraph ℕ)
-    (h_bip : G.IsBipartite) :
-    ∃ C > 0, ∀ (n : ℕ), (SimpleGraph.extremalNumber n G : ℝ) ≤ C * (n : ℝ) ^ 2 := by
-  use 1
-  constructor
-  · norm_num
-  · intro n
-    have h₁ : (SimpleGraph.extremalNumber n G : ℝ) ≤ (n : ℝ) ^ 2 := by
-      exact_mod_cast trivial_upper_bound G n
-    linarith
+def HasErdos713PowerLaw {V : Type*} (G : SimpleGraph V) : Prop :=
+  ∃ α c : ℝ, 1 ≤ α ∧ α < 2 ∧ 0 < c ∧
+    Filter.Tendsto
+      (fun n : ℕ => (SimpleGraph.extremalNumber n G : ℝ) / (c * (n : ℝ) ^ α))
+      Filter.atTop (𝓝 1)
+
+def ErdosProblem713Statement : Prop :=
+  ∀ (q : ℕ) (G : SimpleGraph (Fin q)),
+    G.IsBipartite → 2 ≤ G.edgeFinset.card → HasErdos713PowerLaw G
+
+abbrev K2 : SimpleGraph (Fin 2) := ⊤
+
+lemma K2_bipartite : K2.IsBipartite := by
+  unfold SimpleGraph.IsBipartite SimpleGraph.Colorable
+  refine ⟨⟨fun i => i, ?_⟩⟩
+  intro a b hab heq
+  exact (K2.ne_of_adj hab) heq
+
+lemma K2_has_only_one_edge : K2.edgeFinset.card = 1 := by
+  simpa [K2] using
+    (SimpleGraph.card_edgeFinset_top_eq_card_choose_two (V := Fin 2))
+
+theorem K2_is_excluded_from_erdos713 : ¬ 2 ≤ K2.edgeFinset.card := by
+  rw [K2_has_only_one_edge]
+  omega

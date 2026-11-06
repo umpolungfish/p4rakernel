@@ -5,7 +5,7 @@ The sum count gives a Sidon set `k(k+1)/2 ≤ 2N`, so `k ≲ 2√N`. The differe
 count gives `k(k-1)/2 ≤ N`, so `k ≲ √(2N)`. Neither is sharp, and neither
 crosses the covering demand a basis imposes, which is also `√(2N)`.
 
-The windowed count is sharp. Slide a window of length `u` along `[1,N]` and let
+The windowed count is sharp. Slide a window of length `u` along `[0,N]` and let
 `w t` be how many elements of `B` it holds. Then
 
   * the windows collectively see each element `u` times, so `Σ w t` is large;
@@ -17,10 +17,12 @@ The windowed count is sharp. Slide a window of length `u` along `[1,N]` and let
 The result is `W² ≤ (N+1)(u² + W)` with `W = Σ_{a ∈ B} min u a`, and optimizing
 `u` turns it into `k ≲ √N`: leading constant `1` rather than `√2`. That is the
 constant the covering demand cannot match, which is what closes `C = 2` and,
-through the parity theorems, `C = 3` with it.
+through the Sidon characterization, the uniform bound `C ≤ 2` with it.
 
-This file proves the windowed inequality itself. The two counts it rests on are
-where the work is; the Cauchy–Schwarz step is one lemma.
+This file proves the windowed inequality itself and the contradiction for a
+uniform representation bound of two. Parity makes a bound of three rigid away
+from doubled elements, but a doubled target may still have three ordered
+representations; that exceptional case is not discharged by the Sidon proof.
 -/
 
 import Mathlib
@@ -40,13 +42,13 @@ def windowCount (B : Finset ℕ) (u t : ℕ) : ℕ :=
     `a` once for every window containing it, and there are `min u a` of those:
     the windows start at `t = a - u` and end at `t = a - 1`, clipped below at
     zero. -/
-lemma sum_windowCount (B : Finset ℕ) (u N : ℕ) (hB : ∀ b ∈ B, 1 ≤ b ∧ b ≤ N) :
+lemma sum_windowCount (B : Finset ℕ) (u N : ℕ) (hB : ∀ b ∈ B, b ≤ N) :
     ∑ t ∈ range (N + 1), windowCount B u t = ∑ a ∈ B, min u a := by
   classical
   simp only [windowCount, Finset.card_filter]
   rw [Finset.sum_comm]
   refine Finset.sum_congr rfl (fun a ha => ?_)
-  obtain ⟨ha1, haN⟩ := hB a ha
+  have haN := hB a ha
   -- the windows containing `a` are indexed by `t ∈ [a - u, a - 1]`
   have : (range (N + 1)).filter (fun t => t < a ∧ a ≤ t + u) = Ico (a - u) a := by
     ext t
@@ -75,7 +77,7 @@ lemma windowed_cauchy (B : Finset ℕ) (u N : ℕ) :
 
     The content is that `Q` is small on a Sidon set: it does not grow with `k`,
     only with `u`. That is `sidon_pairs_in_windows` below. -/
-theorem windowed_bound (B : Finset ℕ) (u N : ℕ) (hB : ∀ b ∈ B, 1 ≤ b ∧ b ≤ N) :
+theorem windowed_bound (B : Finset ℕ) (u N : ℕ) (hB : ∀ b ∈ B, b ≤ N) :
     ((∑ a ∈ B, min u a : ℕ) : ℝ) ^ 2
       ≤ (N + 1) * ((∑ t ∈ range (N + 1),
           (windowCount B u t * (windowCount B u t - 1) : ℕ) : ℝ)
@@ -257,7 +259,7 @@ lemma two_mul_window_budget (u : ℕ) :
     `W² ≤ (N+1)(u(u-1) + W)` with `W = Σ_{a ∈ B} min u a`. The pair term does not
     mention `k`: that is what makes the leading constant `1` instead of `√2`. -/
 theorem windowed_sidon_bound (B : Finset ℕ) (u N : ℕ)
-    (hB : ∀ b ∈ B, 1 ≤ b ∧ b ≤ N) (hS : isSidonFinset B) :
+    (hB : ∀ b ∈ B, b ≤ N) (hS : isSidonFinset B) :
     ((∑ a ∈ B, min u a : ℕ) : ℝ) ^ 2
       ≤ (N + 1) * ((u * (u - 1) : ℕ) + ((∑ a ∈ B, min u a : ℕ) : ℝ)) := by
   have hmain := windowed_bound B u N hB
@@ -280,7 +282,7 @@ theorem windowed_sidon_bound (B : Finset ℕ) (u N : ℕ)
 
     `W` is nearly `u * k`: every element at or above `u` contributes the full
     `u`, and the elements below `u` are few, because they form a Sidon set inside
-    `[1, u)` and `sidon_diff_bound` already caps such a set. -/
+    `[0, u)` and `sidon_diff_bound` already caps such a set. -/
 
 /-- The window occupancy is at least `u` times the count of large elements. -/
 lemma occupancy_ge (B : Finset ℕ) (u : ℕ) :
@@ -296,7 +298,7 @@ lemma occupancy_ge (B : Finset ℕ) (u : ℕ) :
     _ ≤ ∑ a ∈ B, min u a :=
         Finset.sum_le_sum_of_subset (Finset.filter_subset _ _)
 
-/-- The elements below `u` are a Sidon set inside `[1, u)`, so there are few of
+/-- The elements below `u` are a Sidon set inside `[0, u)`, so there are few of
     them: `p² ≤ 2u + p`. This is `sidon_diff_bound` on the prefix. -/
 lemma prefix_small (B : Finset ℕ) (u : ℕ) (hS : isSidonFinset B) :
     (B.filter (fun a => a < u)).card * (B.filter (fun a => a < u)).card
@@ -320,7 +322,7 @@ lemma card_split_at (B : Finset ℕ) (u : ℕ) :
   exact this
 
 /-- **The assembled inequality.** Writing `k` for `|B|` and `p` for the count of
-    elements below `u`, every Sidon set in `[1,N]` satisfies
+    elements below `u`, every Sidon set in `[0,N]` satisfies
 
         (u(k - p))² ≤ (N+1)(u(u-1) + u·k)     and     p² ≤ 2u + p
 
@@ -328,7 +330,7 @@ lemma card_split_at (B : Finset ℕ) (u : ℕ) :
     small. Dividing by `u²` and choosing `u` of order `N^{3/4}` gives
     `k ≤ √N + O(N^{3/8})`: leading constant `1`. -/
 theorem windowed_k_bound (B : Finset ℕ) (u N : ℕ)
-    (hB : ∀ b ∈ B, 1 ≤ b ∧ b ≤ N) (hS : isSidonFinset B) :
+    (hB : ∀ b ∈ B, b ≤ N) (hS : isSidonFinset B) :
     ((u * (B.filter (fun a => u ≤ a)).card : ℕ) : ℝ) ^ 2
       ≤ (N + 1) * ((u * (u - 1) : ℕ) + ((∑ a ∈ B, min u a : ℕ) : ℝ)) := by
   have hocc := occupancy_ge B u
@@ -392,19 +394,20 @@ lemma occupancy_le (B : Finset ℕ) (u : ℕ) : ∑ a ∈ B, min u a ≤ u * B.c
   calc ∑ a ∈ B, min u a ≤ ∑ _a ∈ B, u := Finset.sum_le_sum (fun a _ => min_le_left _ _)
     _ = u * B.card := by rw [Finset.sum_const, smul_eq_mul, Nat.mul_comm]
 
-/-- **No Sidon set in `[1,N]` meets the covering demand.**
+/-- **No Sidon set in `[0,N]` meets the covering demand.**
 
     Taking the window `u = 8k`, the prefix below `u` is a Sidon set inside
-    `[1, 8k)` so it has at most about `4√k` elements, which is below `k/8` once
+    `[0, 8k)` so it has at most about `4√k` elements, which is below `k/8` once
     `k ≥ 1024`. That is exactly what `windowed_crossing` needs, and the two
     inequalities then have no common solution.
 
     The covering demand `2N ≤ k(k+1)` is what an asymptotic basis of order two
     forces on its window: each of the `N` targets consumes an unordered pair. So
-    a Sidon set cannot be such a basis, which is `C = 2`, and by
-    `reps_card_even_off_diagonal` also `C = 3`. -/
+    a Sidon set cannot be such a basis, which excludes a uniform ordered
+    representation bound of two. The bound-three diagonal exception is handled
+    separately in the #28 phase analysis. -/
 theorem no_sidon_covering (B : Finset ℕ) (N : ℕ)
-    (hB : ∀ b ∈ B, 1 ≤ b ∧ b ≤ N) (hS : isSidonFinset B)
+    (hB : ∀ b ∈ B, b ≤ N) (hS : isSidonFinset B)
     (c : ℕ) (hcov : 2 * N ≤ B.card * (B.card + 1) + c) (hcN : 4 * c ≤ N)
     (hN : 100 ≤ N) (hk : 2048 ≤ B.card) : False := by
   classical
@@ -490,7 +493,7 @@ lemma two_mul_card_sortedPairs (B : Finset ℕ) :
     This is the demand the windowed bound cannot meet. -/
 theorem covering_demand (A : Set ℕ) (N₀ N : ℕ)
     (hbasis : ∀ n, N₀ ≤ n → ∃ a ∈ A, ∃ b ∈ A, a + b = n)
-    (_hpos : ∀ a ∈ A, 1 ≤ a) (_hle : N₀ ≤ N) :
+    (_hle : N₀ ≤ N) :
     2 * (N + 1 - N₀) ≤ (window A N).card * (window A N).card + (window A N).card := by
   classical
   set W := window A N with hW
@@ -516,26 +519,23 @@ theorem covering_demand (A : Set ℕ) (N₀ N : ℕ)
     Combining the covering demand with the windowed bound. The threshold is
     explicit rather than asymptotic: past it, the two are inconsistent.
 
-    With `reps_card_even_off_diagonal` this covers `C = 3` as well, since a
-    representation bound of three forces two off the diagonal, and that is the
-    Sidon condition. -/
+    A bound of two makes every finite window Sidon. A bound of three does not:
+    a doubled target may have one diagonal pair and one off-diagonal pair. -/
 theorem no_sidon_basis (A : Set ℕ) (N₀ N : ℕ)
     (hbasis : ∀ n, N₀ ≤ n → ∃ a ∈ A, ∃ b ∈ A, a + b = n)
-    (hpos : ∀ a ∈ A, 1 ≤ a)
     (hS : isSidonFinset (window A N))
     (hN : 8 * N₀ + 3000000 ≤ N) : False := by
   classical
   set W := window A N with hW
   set k := W.card with hk
   have hle : N₀ ≤ N := by omega
-  have hcov := covering_demand A N₀ N hbasis hpos hle
+  have hcov := covering_demand A N₀ N hbasis hle
   rw [← hW, ← hk] at hcov
   have hexp : k * (k + 1) = k * k + k := by ring
-  -- the window sits in [1, N]
-  have hB : ∀ b ∈ W, 1 ≤ b ∧ b ≤ N := by
+  -- Every element of the finite window lies below its endpoint. Zero is allowed.
+  have hB : ∀ b ∈ W, b ≤ N := by
     intro b hb
-    obtain ⟨hbN, hbA⟩ := mem_window.mp hb
-    exact ⟨hpos b hbA, hbN⟩
+    exact (mem_window.mp hb).1
   -- the covering demand forces the window to be large
   have hk2048 : 2048 ≤ k := by
     by_contra hlt
@@ -544,6 +544,32 @@ theorem no_sidon_basis (A : Set ℕ) (N₀ N : ℕ)
     omega
   exact no_sidon_covering W N hB hS (2 * N₀) (by rw [← hk]; omega) (by omega)
     (by omega) (by rw [← hk]; exact hk2048)
+
+/-- **An asymptotic basis cannot have representation multiplicity at
+    most two.** A uniform bound on every finite subfamily makes each finite
+    window Sidon by `isSidon_of_reps_card_le_two`; the windowed covering
+    contradiction then applies at a sufficiently large endpoint, including
+    source sets that contain zero. -/
+theorem no_basis_with_reps_le_two (A : Set ℕ) (N₀ : ℕ)
+    (hbasis : ∀ n, N₀ ≤ n → ∃ a ∈ A, ∃ b ∈ A, a + b = n)
+    (hbound : ∀ (n : ℕ) (B : Finset ℕ), (↑B : Set ℕ) ⊆ A →
+      (reps B n).card ≤ 2) : False := by
+  classical
+  let N := 8 * N₀ + 3000000
+  have hwindow_subset : (↑(window A N) : Set ℕ) ⊆ A := by
+    intro a ha
+    exact (mem_window.mp (Finset.mem_coe.mp ha)).2
+  have hsidon : isSidonFinset (window A N) :=
+    isSidon_of_reps_card_le_two (window A N) (fun n => hbound n _ hwindow_subset)
+  exact no_sidon_basis A N₀ N hbasis hsidon (by omega)
+
+/-- Positive-domain compatibility name for the zero-inclusive theorem above. -/
+theorem no_positive_basis_with_reps_le_two (A : Set ℕ) (N₀ : ℕ)
+    (hbasis : ∀ n, N₀ ≤ n → ∃ a ∈ A, ∃ b ∈ A, a + b = n)
+    (_hpos : ∀ a ∈ A, 1 ≤ a)
+    (hbound : ∀ (n : ℕ) (B : Finset ℕ), (↑B : Set ℕ) ⊆ A →
+      (reps B n).card ≤ 2) : False :=
+  no_basis_with_reps_le_two A N₀ hbasis hbound
 
 /-! ## Where this method stops
 
@@ -575,6 +601,8 @@ theorem windowed_method_stops (N : ℝ) (hN : 100 ≤ N) :
 
 #print axioms windowed_method_stops
 #print axioms no_sidon_basis
+#print axioms no_basis_with_reps_le_two
+#print axioms no_positive_basis_with_reps_le_two
 #print axioms covering_demand
 #print axioms no_sidon_covering
 #print axioms windowed_crossing

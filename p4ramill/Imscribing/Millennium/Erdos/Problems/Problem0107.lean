@@ -1,28 +1,42 @@
 import Mathlib
 
 /-!
-# Erdős problem #107
+# Erdős problem #107 — the Happy Ending problem
 
-Prize: $500.  Status as catalogued: **FALSIFIABLE**.
+Prize: $500. The statement is open; the database calls it falsifiable because
+a finite counterexample could refute it. No theorem below is claimed to solve
+the general problem.
 
-"FALSIFIABLE" is the status of the MATHEMATICS in the literature, not of this file.
-The Happy Ending Problem: for every n, there exists N such that any N points in general
-position in ℝ² contain an n-element subset in convex position (Erdős-Szekeres 1935).
+For `n ≥ 3`, the target is the exact equality `f n = 2^(n - 2) + 1`. The
+previous file used an axiom to prove only `f n ≥ n`, which is not the target.
 -/
 
 open scoped BigOperators
 open Finset
+open EuclideanGeometry
 
-/-- Axiom (honest) : Erdős problem #107 (Happy Ending problem / Klein-Erdős-Szekeres bound). -/
-axiom ax_erdos_problem_107
-    (n : ℕ)
-    (f : ℕ → ℕ)
-    (h_f : ∀ n, f n = sInf { m | ∀ A : Finset (ℝ × ℝ), A.card ≥ m → (∀ x ∈ A, ∀ y ∈ A, ∀ z ∈ A, x ≠ y → y ≠ z → x ≠ z → ¬ Collinear ℝ ({x, y, z} : Set (ℝ × ℝ))) → ∃ B ⊆ A, B.card = n ∧ ConvexIndependent ℝ (fun b : B => (b : ℝ × ℝ)) }) :
-    (f n : ℕ) ≥ n
+namespace Erdos107
 
-theorem erdos_problem_107
-    (n : ℕ)
-    (f : ℕ → ℕ)
-    (h_f : ∀ n, f n = sInf { m | ∀ A : Finset (ℝ × ℝ), A.card ≥ m → (∀ x ∈ A, ∀ y ∈ A, ∀ z ∈ A, x ≠ y → y ≠ z → x ≠ z → ¬ Collinear ℝ ({x, y, z} : Set (ℝ × ℝ))) → ∃ B ⊆ A, B.card = n ∧ ConvexIndependent ℝ (fun b : B => (b : ℝ × ℝ)) }) :
-    (f n : ℕ) ≥ n :=
-  ax_erdos_problem_107 n f h_f
+/-- A finite point set has no three distinct collinear points. -/
+def GeneralPosition (A : Finset (ℝ × ℝ)) : Prop :=
+  ∀ x ∈ A, ∀ y ∈ A, ∀ z ∈ A,
+    x ≠ y → y ≠ z → x ≠ z → ¬ Collinear ℝ ({x, y, z} : Set (ℝ × ℝ))
+
+/-- The point set contains an `n`-point convex polygon. -/
+def HasConvexNGon (n : ℕ) (A : Finset (ℝ × ℝ)) : Prop :=
+  ∃ B : Finset (ℝ × ℝ), B ⊆ A ∧ B.card = n ∧
+    ConvexIndependent ℝ (fun b : B => (b : ℝ × ℝ))
+
+/-- Point counts for which every general-position configuration contains an
+`n`-gon. -/
+def cardSet (n : ℕ) : Set ℕ :=
+  {N | ∀ A : Finset (ℝ × ℝ), A.card = N → GeneralPosition A → HasConvexNGon n A}
+
+/-- The least number of points forcing a convex `n`-gon. -/
+noncomputable def f (n : ℕ) : ℕ := sInf (cardSet n)
+
+/-- The exact Erdős–Szekeres assertion in problem #107. -/
+def ErdosProblem107Statement : Prop :=
+  ∀ n : ℕ, 3 ≤ n → f n = 2 ^ (n - 2) + 1
+
+end Erdos107

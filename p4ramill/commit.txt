@@ -1,1 +1,17 @@
 I restore conventional-statement catalog compatibility for wrapped and flat inputs and respect the configured main catalog.
+I register temporal truth support for Erdős problem 83, state the exact Ahlswede–Khachatrian bound, and prove a supported n=1 instance; the complementary-pair argument remains labeled as a weaker bound.
+I align Erdős problem 28's registered proposition with the exact infinite-limsup statement and retain the proved counting-scale consequence as a partial result.
+I align Erdős problem 713 with its actual nondegeneracy condition, excluding K₂ from the conjecture instead of presenting it as a disproof.
+I carry every Erdős–Turán representation through its PrimeWhorl phase and fiber-sized ZetaSIC reconstruction.
+I connect a uniform two-representation bound to windowed Sidon structure and exclude it for positive asymptotic bases through the verified covering argument.
+I formalize the finite odd-coefficient support as the doubled source set, reconstruct its parity vector through ZetaSIC, and correct the Erdős–Turán reduction notes to match the exact open limsup statement.
+I remove the unnecessary positivity assumption from the windowed Sidon contradiction, so the uniform-two exclusion now covers basis sets containing zero as required by the nonnegative-integer statement.
+I embed each Erdős–Turán representation phase on the radius-two horn torus, prove an exact coordinate-ratio readout, and verify the horn/PrimeWhorl/ZetaSIC transport preserves each finite representation fiber.
+I correct the Erdős–Turán windowed notes so they no longer claim the Sidon argument settles a bound of three, and I prove that under a global bound of three every represented non-doubled target has exactly two ordered representations.
+I also remove the remaining stale C=3 claim from the windowed-covering documentation; the formal result now records C=3 only as the exact two-representation constraint off doubled targets.
+I carry the full finite ordered representation coefficient vector through the ZetaSIC Gram and exact zeta-derived dual, identify each recovered coordinate with the actual representation count, and document that this exact recovery preserves data without supplying the open unboundedness step.
+I identify every ZetaSIC-recovered coefficient in the lower finite sum window with the actual ambient Erdős–Turán representation count, and update the reduction notes to preserve that exact connection.
+I carry asymptotic-basis coverage and a hypothetical global representation cap into the ZetaSIC readout, proving that every sufficiently large coefficient in the lower window is positive and bounded by that cap.
+I identify the parity of every lower-window ZetaSIC coefficient with the ambient doubled-element condition, placing basis coverage, a hypothetical cap, and the involution parity law on the same recovered representation sequence.
+I prove the parity-refined pair-capacity bound for finite covered target families and instantiate it on the actual eventual-basis window, with the diagonal term identified by the ZetaSIC parity coordinate.
+I prove that under a global representation cap of three, every represented non-doubled target has exactly two ordered representations, while a doubled target has three exactly when its basis center belongs to a nontrivial three-term progression; this refines the cap-three structure without claiming the Erdős–Turán conjecture is settled.

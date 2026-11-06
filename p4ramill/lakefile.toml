@@ -296,6 +296,8 @@ globs = [
   "Imscribing.Millennium.Erdos.Problems.Problem0019",
   "Imscribing.Millennium.Erdos.Problems.Problem0021",
   "Imscribing.Millennium.Erdos.Problems.Problem0028",
+  "Imscribing.Classical.ErdosTuranParitySIC",
+  "Imscribing.Millennium.Erdos.Problem0028HornWhorlSIC",
   "Imscribing.Millennium.Erdos.Problems.Problem0041",
   "Imscribing.Millennium.Erdos.Problems.Problem0083",
   "Imscribing.Millennium.Erdos.Problems.Problem0500",
@@ -961,6 +963,10 @@ globs = [
   "Imscribing.Biochem.RetainedReturnClosure",
   "Imscribing.Paraconsistent.NonexistenceOfProbability",
 ]
+
+[[lean_lib]]
+name = "PinnedDistances"
+roots = ["Imscribing.OAI.Geometry.PinnedDistances.BoundedRates", "Imscribing.OAI.Geometry.PinnedDistances.BoundedContradiction", "Imscribing.OAI.Geometry.PinnedDistances.Model", "Imscribing.OAI.Geometry.PinnedDistances.ArithmeticContradiction", "Imscribing.OAI.Geometry.PinnedDistances.FiniteObstruction", "Imscribing.OAI.Geometry.PinnedDistances.MobiusObstruction", "Imscribing.OAI.Geometry.PinnedDistances.GlobalPotentials", "Imscribing.OAI.Geometry.PinnedDistances.Hierarchy", "Imscribing.OAI.Geometry.PinnedDistances.NormalizedGraphs", "Imscribing.OAI.Geometry.PinnedDistances.ArithmeticHierarchy", "Imscribing.OAI.Geometry.PinnedDistances.Main", "Imscribing.OAI.Geometry.PinnedDistances.FiniteMixtures", "Imscribing.OAI.Geometry.PinnedDistances.FiberOverlap", "Imscribing.OAI.Geometry.PinnedDistances.IncomingFibers", "Imscribing.OAI.Geometry.PinnedDistances.OverlapRates", "Imscribing.OAI.Geometry.PinnedDistances.LimitObstruction", "Imscribing.OAI.Geometry.PinnedDistances.ProductFormula", "Imscribing.OAI.Geometry.PinnedDistances.Pins", "Imscribing.OAI.Geometry.PinnedDistances.LogBounds", "Imscribing.OAI.Geometry.PinnedDistances.FiberTransport", "Imscribing.OAI.Geometry.PinnedDistances.MixtureLaw", "Imscribing.OAI.Geometry.PinnedDistances.FiniteLaw", "Imscribing.OAI.Geometry.PinnedDistances.EnergyLaw", "Imscribing.OAI.Geometry.PinnedDistances.VarianceRates", "Imscribing.OAI.Geometry.PinnedDistances.ArithmeticGraphs", "Imscribing.OAI.Geometry.PinnedDistances.ProductLimits", "Imscribing.OAI.Geometry.PinnedDistances.RandomGrids", "Imscribing.OAI.Geometry.PinnedDistances.CutApproximation", "Imscribing.OAI.Geometry.PinnedDistances.ExtremalFractions", "Imscribing.OAI.Geometry.PinnedDistances.ExtremalCore", "Imscribing.OAI.Geometry.PinnedDistances.WeightedSelection", "Imscribing.OAI.Geometry.PinnedDistances.TreeContradiction", "Imscribing.OAI.Geometry.PinnedDistances.SmallCells", "Imscribing.OAI.Geometry.PinnedDistances.PartitionIntegrals", "Imscribing.OAI.Geometry.PinnedDistances.UnboundedContradiction", "Imscribing.OAI.Geometry.PinnedDistances.ConditionalIntegral", "Imscribing.OAI.Geometry.PinnedDistances.Variance", "Imscribing.OAI.Geometry.PinnedDistances.GridBounds", "Imscribing.OAI.Geometry.PinnedDistances.CutGeometry", "Imscribing.OAI.Geometry.PinnedDistances.ChartLimits", "Imscribing.OAI.Geometry.PinnedDistances.GlobalOverlap", "Imscribing.OAI.Geometry.PinnedDistances.ArithmeticSequence", "Imscribing.OAI.Geometry.PinnedDistances.EmpiricalCompactness", "Imscribing.OAI.Geometry.PinnedDistances.MinPotentials", "Imscribing.OAI.Geometry.PinnedDistances.UniformCore", "Imscribing.OAI.Geometry.PinnedDistances.ArithmeticVariance", "Imscribing.OAI.Geometry.PinnedDistances.TreeTransport", "Imscribing.OAI.Geometry.PinnedDistances.MeasureLimits"]
 
 # The prover's scratch modules live in their own library, OUTSIDE the default
 # target. The kernel-gated prover writes candidate proofs into them and builds
