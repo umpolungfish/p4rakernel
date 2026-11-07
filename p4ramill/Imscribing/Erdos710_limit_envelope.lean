@@ -229,6 +229,34 @@ theorem normalized_ratio_finite_limit_or_atTop :
     push_neg at hb
     exact hb
 
+/-- The normalized lengths tend to infinity exactly when the finite-scale
+endpoint slopes are unbounded. The displayed slope agrees with
+`(f m - 1) / m` because `endpoint m = m + f m - 1`. -/
+theorem normalized_ratio_atTop_iff_unbounded_slopes :
+    Tendsto (fun n : ℕ => (f n : ℝ) / (n : ℝ)) atTop atTop ↔
+      ∀ B : ℝ, ∃ m : ℕ, 0 < m ∧
+        B < ((f m : ℝ) - 1) / (m : ℝ) := by
+  rw [ratio_tendsto_atTop_iff_finite_witnesses]
+  have hslope (m : ℕ) (hm : 0 < m) :
+      ((f m : ℝ) - 1) / (m : ℝ) =
+        (endpoint m : ℝ) / (m : ℝ) - 1 := by
+    have hmpos : (0 : ℝ) < (m : ℝ) := by exact_mod_cast hm
+    have hmne : (m : ℝ) ≠ 0 := ne_of_gt hmpos
+    have hratio := ratio_eq_endpoint_slope m hm
+    calc
+      ((f m : ℝ) - 1) / (m : ℝ) =
+          (f m : ℝ) / (m : ℝ) - 1 / (m : ℝ) := by
+            field_simp [hmne]
+            <;> ring
+      _ = (endpoint m : ℝ) / (m : ℝ) - 1 := by linarith
+  constructor
+  · intro h B
+    obtain ⟨m, hm, hB⟩ := h B
+    exact ⟨m, hm, by rw [hslope m hm]; exact hB⟩
+  · intro h B
+    obtain ⟨m, hm, hB⟩ := h B
+    exact ⟨m, hm, by rw [← hslope m hm]; exact hB⟩
+
 #print axioms endpoint_add_one
 #print axioms ratio_eq_endpoint_slope
 #print axioms eventually_ratio_ge_finite_slope_sub
@@ -236,5 +264,6 @@ theorem normalized_ratio_finite_limit_or_atTop :
 #print axioms ratio_tendsto_atTop_iff_finite_witnesses
 #print axioms ratio_tendsto_sup_of_bounded_slopes
 #print axioms normalized_ratio_finite_limit_or_atTop
+#print axioms normalized_ratio_atTop_iff_unbounded_slopes
 
 end Erdos710

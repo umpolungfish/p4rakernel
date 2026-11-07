@@ -57,7 +57,7 @@ theorem smooth_violator {n k y : ℕ}
   refine absurd h (not_lt.mpr ?_)
   apply Finset.card_le_card_of_injOn a
   · intro j hj
-    simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Icc] at hj ⊢
+    simp only [Finset.mem_coe, Finset.mem_filter, Finset.mem_Icc] at hj
     obtain ⟨⟨hj1, hjn⟩, hjy, hjs⟩ := hj
     have hjI : j ∈ Icc 1 n := mem_Icc.mpr ⟨hj1, hjn⟩
     obtain ⟨hl, hr, hd⟩ := hmem j hjI
@@ -73,7 +73,9 @@ theorem smooth_violator {n k y : ℕ}
       · rw [h0, mul_zero] at hc
         omega
       · exact h0
-    refine ⟨⟨hl, by omega⟩, ?_⟩
+    change a j ∈ (Ioc n (n * k)).filter (Smooth y)
+    apply Finset.mem_filter.mpr
+    refine ⟨Finset.mem_Ioc.mpr ⟨hl, by omega⟩, ?_⟩
     intro p hp hpd
     rw [hc] at hpd
     rcases (Nat.Prime.dvd_mul hp).mp hpd with h1 | h1

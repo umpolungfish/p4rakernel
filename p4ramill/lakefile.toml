@@ -1028,6 +1028,7 @@ globs = [
   "Imscribing.Ob3ects.GateCheck.the_primitive_type_called_tot_gate_check",
   "Imscribing.Erdos3",
   "Imscribing.Erdos3Bridge",
+  "Imscribing.Primitives.CLUCircumPunctum",
 ]
 
 [[lean_lib]]
