@@ -45,10 +45,11 @@ lemma incoming_limit (T : ℕ → ℝ) (hT : ∀ n,0<T n)
   let Qn := fun n => edgeProbability (G n) (U₁ n) (U₂ n) (hG n) (hB n)
   have hc : Continuous (fun q : Quad Sphere => (q.1,q.2.2)) := by fun_prop
   have ht : Continuous (fun q : Quad Sphere => q.2.2) := by fun_prop
-  apply weak_pair_product_limit (fun n => (Qn n).map (fun q => (q.1,q.2.2)))
-    (Q.map (fun q => (q.1,q.2.2)))
+  apply weak_pair_product_limit (fun n => (Qn n).map (f := fun q => (q.1,q.2.2)) hc.measurable.aemeasurable)
+    (Q.map (f := fun q => (q.1,q.2.2)) hc.measurable.aemeasurable)
     (fun n => uniformProbability (U₁ n) (by have:=hn n;omega)) β
-    (fun n => (Qn n).map (fun q => q.2.2)) (Q.map (fun q => q.2.2))
+    (fun n => (Qn n).map (f := fun q => q.2.2) ht.measurable.aemeasurable)
+    (Q.map (f := fun q => q.2.2) ht.measurable.aemeasurable)
     (ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous Qn Q hQ hc) hα
     (ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous Qn Q hQ ht)
   intro f g
@@ -70,7 +71,6 @@ lemma edge_ac_limit (β₁ β₂ : ProbabilityMeasure Sphere) (Q : ProbabilityMe
   let c : ℝ≥0 := ⟨2*M,by positivity⟩
   have hc : (c:ℝ≥0∞)=ENNReal.ofReal (2*M) := by
     rw [ENNReal.ofReal_eq_coe_nnreal (by positivity)]
-    rfl
   constructor
   · apply weak_map_domination
       (fun n => edgeProbability (G n) (U₁ n) (U₂ n) (hG n) (hB n)) Q

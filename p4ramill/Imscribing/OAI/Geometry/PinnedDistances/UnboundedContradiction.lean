@@ -77,7 +77,7 @@ lemma edgeCell_le_one (w : I → ℝ) (B : I → Finset P) (src : I → P)
   apply Finset.sum_le_sum
   intro i _
   by_cases hi : src i ∈ C
-  · simp only [ite_eq_left hi,SmallFiber.mass,sum_prob_cell]
+  · simp only [if_pos hi,SmallFiber.mass,sum_prob_cell]
     nlinarith [mul_le_mul_of_nonneg_left (cellProb_le_one (B i) C) (hw i)]
   · simp [hi,hw i]
 
@@ -335,7 +335,7 @@ include h₁ in
 lemma integrable_weighted_left (hn : 2≤Fintype.card P) (f : Finset P → ℝ) :
     AverageIntegrable Z₁ Z₂ (fun d _ => weightedIntegral d.mass f) := by
   intro v
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro C _
   exact (integrable_mass_left Z₁ Z₂ h₁ hn C v).mul_const (f C)
 
@@ -344,7 +344,7 @@ include h₂ in
 lemma integrable_weighted_right (hn : 2≤Fintype.card P) (f : Finset P → ℝ) :
     AverageIntegrable Z₁ Z₂ (fun _ d' => weightedIntegral d'.mass f) := by
   intro v
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro C _
   exact (integrable_mass_right Z₁ Z₂ h₂ hn C v).mul_const (f C)
 
@@ -481,7 +481,8 @@ lemma PreparedGraph.omitted_bound {G : Core.Fibers V I} {θ γ c η : ℝ}
   have hEl : (θ/4)*n^2≤G.edgeCount := by
     have hp : 0≤(n-1)*n := mul_nonneg (by linarith) hn0.le
     have hh := mul_nonneg (show 0≤θ-η-θ/2 by linarith) hp
-    have hh' := mul_nonneg (show 0≤θ/4 by positivity) (show 0≤n*(n-2) by positivity)
+    have hn2 : 0≤n-2 := by linarith
+    have hh' := mul_nonneg (show 0≤θ/4 by positivity) (mul_nonneg hn0.le hn2)
     dsimp [n] at *
     nlinarith [hG.lower]
   apply (G.small_incoming_mass _ (Real.rpow_nonneg hn0.le γ)).trans

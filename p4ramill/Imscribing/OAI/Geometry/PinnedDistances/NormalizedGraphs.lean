@@ -65,10 +65,10 @@ theorem normalized_graph_impossible
     (continuous_fst.comp (continuous_snd.comp continuous_snd)).tendsto l |>.comp hl
   have hr : Tendsto (Rn ∘ φ) atTop (𝓝 l.2.2.2) :=
     (continuous_snd.comp (continuous_snd.comp continuous_snd)).tendsto l |>.comp hl
-  let : NullSingletonClass (l.1:Measure Sphere) := normalized_empirical_nonatomic
+  let : NoAtoms (l.1:Measure Sphere) := normalized_empirical_nonatomic
     (fun n => u₁ (φ n)) (fun n => x₁ (φ n)) (fun n => hu₁ (φ n)) (fun n => hn (φ n))
     (hcard.comp hφ.tendsto_atTop) C hC (fun n => hlog₁ (φ n)) (fun n => hx₁ (φ n)) l.1 ha₁
-  let : NullSingletonClass (l.2.1:Measure Sphere) := normalized_empirical_nonatomic
+  let : NoAtoms (l.2.1:Measure Sphere) := normalized_empirical_nonatomic
     (fun n => u₂ (φ n)) (fun n => x₂ (φ n)) (fun n => hu₂ (φ n)) (fun n => hn (φ n))
     (hcard.comp hφ.tendsto_atTop) C hC (fun n => hlog₂ (φ n)) (fun n => hx₂ (φ n)) l.2.1 ha₂
   apply graph_limit_impossible (fun n => G (φ n)) (fun n => U₁ (φ n)) (fun n => U₂ (φ n))

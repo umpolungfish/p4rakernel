@@ -66,19 +66,32 @@ lemma crossKernel_tendsto (c : ℂ) (zw : ℂ × ℂ)
     mul_ne_zero (sub_ne_zero.mpr hz) (sub_ne_zero.mpr hw.symm)
   have hc : ContinuousAt (fun a : ℂ => crossKernel a c zw) c := by
     unfold crossKernel
-    fun_prop
-  simpa [crossKernel] using hc.tendsto
+    have h1 : ContinuousAt (fun a : ℂ => (c - a) * (zw.2 - zw.1)) c := by fun_prop
+    have h2 : ContinuousAt (fun a : ℂ => (zw.1 - a) * (c - zw.2)) c := by fun_prop
+    exact continuousAt_const.min (h1.div h2 hd).norm
+  have hv : crossKernel c c zw = 0 := by
+    unfold crossKernel
+    rw [sub_self, zero_mul, zero_div, norm_zero]
+    exact min_eq_right zero_le_one
+  have ht := hc.tendsto
+  first
+    | (rwa [hv] at ht)
+    | simpa [hv] using ht
 
-lemma ae_pair_ne (μ : Measure ℂ) [NullSingletonClass μ] [SFinite μ] (c : ℂ) :
+lemma ae_ne_noAtoms (μ : Measure ℂ) [NoAtoms μ] (c : ℂ) : ∀ᵐ z ∂ μ, z ≠ c := by
+  rw [ae_iff]
+  simpa using measure_singleton (μ := μ) c
+
+lemma ae_pair_ne (μ : Measure ℂ) [NoAtoms μ] [SFinite μ] (c : ℂ) :
     ∀ᵐ zw ∂ μ.prod μ, zw.1 ≠ c ∧ zw.2 ≠ c := by
   rw [Measure.ae_prod_iff_ae_ae]
-  · filter_upwards [μ.ae_ne c] with z hz
-    filter_upwards [μ.ae_ne c] with w hw
+  · filter_upwards [ae_ne_noAtoms μ c] with z hz
+    filter_upwards [ae_ne_noAtoms μ c] with w hw
     exact ⟨hz, hw⟩
   · exact ((measurableSet_eq_fun measurable_fst measurable_const).compl).inter
       ((measurableSet_eq_fun measurable_snd measurable_const).compl)
 
-lemma crossEnergy_tendsto (μ : Measure ℂ) [IsFiniteMeasure μ] [NullSingletonClass μ] (c : ℂ) :
+lemma crossEnergy_tendsto (μ : Measure ℂ) [IsFiniteMeasure μ] [NoAtoms μ] (c : ℂ) :
     Tendsto (fun a => crossEnergy μ a c) (nhds c) (nhds 0) := by
   have h := tendsto_integral_filter_of_dominated_convergence
     (μ := μ.prod μ) (l := nhds c) (F := fun a zw => crossKernel a c zw)
@@ -91,14 +104,14 @@ lemma crossEnergy_tendsto (μ : Measure ℂ) [IsFiniteMeasure μ] [NullSingleton
     ((ae_pair_ne μ c).mono fun zw hzw => crossKernel_tendsto c zw hzw.1 hzw.2)
   simpa [crossEnergy] using h
 
-lemma ae_distinct_pair (μ : Measure ℂ) [NullSingletonClass μ] [SFinite μ] :
+lemma ae_distinct_pair (μ : Measure ℂ) [NoAtoms μ] [SFinite μ] :
     ∀ᵐ zw ∂ μ.prod μ, zw.1 ≠ zw.2 := by
   apply (Measure.ae_prod_iff_ae_ae (p := fun zw : ℂ × ℂ => zw.1 ≠ zw.2)
     (measurableSet_eq_fun measurable_fst measurable_snd).compl).mpr
   exact Filter.Eventually.of_forall fun z =>
-    (μ.ae_ne z).mono fun w hw => hw.symm
+    (ae_ne_noAtoms μ z).mono fun w hw => hw.symm
 
-lemma targetEnergy_pos (ν : Measure ℂ) [IsProbabilityMeasure ν] [NullSingletonClass ν]
+lemma targetEnergy_pos (ν : Measure ℂ) [IsProbabilityMeasure ν] [NoAtoms ν]
     (d : ℂ) : 0 < targetEnergy ν d := by
   have hp : ∀ᵐ zw ∂ ν.prod ν, 0 < targetKernel d zw := by
     filter_upwards [ae_distinct_pair ν, ae_pair_ne ν d] with zw hzw hd
@@ -110,12 +123,13 @@ lemma targetEnergy_pos (ν : Measure ℂ) [IsProbabilityMeasure ν] [NullSinglet
   have hz : targetKernel d =ᵐ[ν.prod ν] 0 :=
     (integral_eq_zero_iff_of_nonneg (targetKernel_nonneg d)
       (integrable_targetKernel ν d)).mp he.symm
-  have hf : ∀ᵐ zw ∂ ν.prod ν, False := hp.and hz |>.mono fun zw h => by
-    simpa [h.2] using h.1
-  simpa using (ae_iff.mp hf)
+  obtain ⟨zw, h1, h2⟩ := (hp.and hz).exists
+  have h3 : targetKernel d zw = 0 := h2
+  rw [h3] at h1
+  exact lt_irrefl _ h1
 
 lemma not_ae_energy_eq (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure ν] [NullSingletonClass μ] [NullSingletonClass ν]
+    [IsProbabilityMeasure ν] [NoAtoms μ] [NoAtoms ν]
     (c d : ℂ) (hc : c ∈ μ.support) :
     ¬ (∀ᵐ a ∂ μ, crossEnergy μ a c = targetEnergy ν d) := by
   intro he
@@ -126,7 +140,7 @@ lemma not_ae_energy_eq (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
   have hzero : μ {a | crossEnergy μ a c < targetEnergy ν d} = 0 := by
     have hnot : ∀ᵐ a ∂ μ, ¬ crossEnergy μ a c < targetEnergy ν d :=
       he.mono fun a ha => by simp [ha]
-    simpa only [ae_iff, not_not, Set.ofPred_mem_eq] using hnot
+    simpa only [ae_iff, not_not] using hnot
   exact (ne_of_gt hpos) hzero
 
 lemma measurable_crossEnergy (μ : Measure ℂ) [SFinite μ] :
@@ -153,6 +167,7 @@ lemma measurable_mobius (a b c d : ℂ) : Measurable (mobius a b c d) := by
 lemma mobius_sub_target (a b c d z : ℂ) (hz : z ≠ a) :
     mobius a b c d z - d = (d - b) * (c - z) / (z - a) := by
   unfold mobius
+  have h : z - a ≠ 0 := sub_ne_zero.mpr hz
   field_simp
   ring
 
@@ -179,10 +194,10 @@ lemma kernel_mobius (a b c d : ℂ) (zw : ℂ × ℂ) (hbd : b ≠ d)
   ring
 
 lemma energy_of_mobius_map (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [NullSingletonClass μ] (a b c d : ℂ) (hbd : b ≠ d)
+    [NoAtoms μ] (a b c d : ℂ) (hbd : b ≠ d)
     (hmap : Measure.map (mobius a b c d) μ = ν) :
     crossEnergy μ a c = targetEnergy ν d := by
-  unfold targetEnergy
+  unfold crossEnergy targetEnergy
   rw [← hmap, Measure.map_prod_map μ μ (measurable_mobius a b c d)
     (measurable_mobius a b c d)]
   rw [integral_map_of_stronglyMeasurable
@@ -208,7 +223,7 @@ lemma measurableSet_energy_eq (μ ν : Measure ℂ) [SFinite μ] [SFinite ν] :
 /-- The finite-plane non-atomic obstruction. -/
 
 theorem no_finite_law (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure ν] [NullSingletonClass μ] [NullSingletonClass ν]
+    [IsProbabilityMeasure ν] [NoAtoms μ] [NoAtoms ν]
     (Q : Measure (ℂ × ℂ × ℂ × ℂ)) [IsProbabilityMeasure Q]
     (hlaw : Q.map (fun q => q.1) = μ)
     (hind : ProbabilityTheory.IndepFun (fun q => q.1) (fun q => q.2.2) Q)
@@ -216,7 +231,10 @@ theorem no_finite_law (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
     (hbd : ∀ᵐ q ∂ Q, q.2.1 ≠ q.2.2.2)
     (hmap : ∀ᵐ q ∂ Q, μ.map (mobius q.1 q.2.1 q.2.2.1 q.2.2.2) = ν) : False := by
   let τ : Measure (ℂ × ℂ) := Q.map (fun q => q.2.2)
-  have : IsProbabilityMeasure τ := inferInstance
+  have hτ : IsProbabilityMeasure τ := by
+    first
+      | exact Measure.isProbabilityMeasure_map (measurable_snd.comp measurable_snd).aemeasurable
+      | infer_instance
   have hp : MeasurableSet {v : ℂ × (ℂ × ℂ) |
       crossEnergy μ v.1 v.2.1 = targetEnergy ν v.2.2} :=
     measurableSet_energy_eq μ ν
@@ -225,7 +243,12 @@ theorem no_finite_law (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
     filter_upwards [hbd, hmap] with q hd hm
     exact energy_of_mobius_map μ ν q.1 q.2.1 q.2.2.1 q.2.2.2 hd hm
   have hj : Q.map (fun q => (q.1, q.2.2)) = μ.prod τ := by
-    rw [hind.map_prod_eq_prod_map_map (by fun_prop) (by fun_prop), hlaw]
+    have h := (ProbabilityTheory.indepFun_iff_map_prod_eq_prod_map_map
+      (show AEMeasurable (fun q : ℂ × ℂ × ℂ × ℂ => q.1) Q from measurable_fst.aemeasurable)
+      (show AEMeasurable (fun q : ℂ × ℂ × ℂ × ℂ => q.2.2) Q from
+        (measurable_snd.comp measurable_snd).aemeasurable)).mp hind
+    refine h.trans ?_
+    rw [hlaw]
   have he' : ∀ᵐ v ∂ μ.prod τ, crossEnergy μ v.1 v.2.1 = targetEnergy ν v.2.2 := by
     rw [← hj]
     exact (ae_map_iff (by fun_prop) hp).mpr he
@@ -262,12 +285,12 @@ def sphereMobius (a b c d : ℂ) : Sphere → Sphere :=
 @[simp] lemma sphereMobius_infty (a b c d : ℂ) :
     sphereMobius a b c d OnePoint.infty = (b : Sphere) := rfl
 
-lemma map_sphereMobius (μ : Measure ℂ) [NullSingletonClass μ] (a b c d : ℂ) :
+lemma map_sphereMobius (μ : Measure ℂ) [NoAtoms μ] (a b c d : ℂ) :
     (μ.map ((↑) : ℂ → Sphere)).map (sphereMobius a b c d) =
       (μ.map (mobius a b c d)).map ((↑) : ℂ → Sphere) := by
   have he : ((fun z : ℂ => (mobius a b c d z : Sphere))) =ᵐ[μ]
       (sphereMobius a b c d ∘ ((↑) : ℂ → Sphere)) := by
-    filter_upwards [μ.ae_ne a] with z hz
+    filter_upwards [ae_ne_noAtoms μ a] with z hz
     exact (sphereMobius_coe a b c d z hz).symm
   have hm0 : Measurable (fun z : ℂ => (mobius a b c d z : Sphere)) :=
     measurableEmbedding_sphere_coe.measurable.comp (measurable_mobius a b c d)
@@ -278,7 +301,7 @@ lemma map_sphereMobius (μ : Measure ℂ) [NullSingletonClass μ] (a b c d : ℂ
   rw [Measure.map_map measurableEmbedding_sphere_coe.measurable (measurable_mobius a b c d)]
   exact Measure.map_congr he.symm
 
-lemma finite_map_of_sphere_map (μ ν : Measure ℂ) [NullSingletonClass μ] (a b c d : ℂ)
+lemma finite_map_of_sphere_map (μ ν : Measure ℂ) [NoAtoms μ] (a b c d : ℂ)
     (hmap : (μ.map ((↑) : ℂ → Sphere)).map (sphereMobius a b c d) =
       ν.map ((↑) : ℂ → Sphere)) : μ.map (mobius a b c d) = ν := by
   apply measurableEmbedding_sphere_coe.map_injective
@@ -288,7 +311,7 @@ lemma finite_map_of_sphere_map (μ ν : Measure ℂ) [NullSingletonClass μ] (a 
 /-- The non-atomic Möbius obstruction with its pushforward identity on the Riemann sphere. -/
 
 theorem bounded_mobius (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure ν] [NullSingletonClass μ] [NullSingletonClass ν]
+    [IsProbabilityMeasure ν] [NoAtoms μ] [NoAtoms ν]
     (Q : Measure (ℂ × ℂ × ℂ × ℂ)) [IsProbabilityMeasure Q]
     (hsep : ∀ᵐ q ∂ Q, q.1 ≠ q.2.2.1 ∧ q.2.1 ≠ q.2.2.2)
     (hsupp : ∀ᵐ q ∂ Q, q.2.2.1 ∈ μ.support ∧ q.2.2.2 ∈ ν.support)
@@ -364,7 +387,7 @@ lemma weak_singleton_zero {α : ℕ → ProbabilityMeasure Sphere} {β : Probabi
     (hsmall : ∀ ε : ℝ, 0 < ε → ∃ U : Set Sphere, IsOpen U ∧ z ∈ U ∧
       ∀ᶠ n in atTop, (α n : Measure Sphere) U ≤ ENNReal.ofReal ε) :
     (β : Measure Sphere) {z}=0 := by
-  apply le_antisymm _ zero_le
+  refine le_antisymm ?_ (zero_le _)
   apply ENNReal.le_of_forall_pos_le_add
   intro ε hε hεtop
   have hεR : (0:ℝ) < ε := by exact_mod_cast hε
@@ -381,7 +404,7 @@ theorem weak_limit_nonatomic {α : ℕ → ProbabilityMeasure Sphere} {β : Prob
       (α n : Measure Sphere) (OnePoint.some '' Metric.closedBall (0:ℂ) R)ᶜ ≤ ENNReal.ofReal ε)
     (hball : ∀ z : ℂ, ∀ ε : ℝ, 0 < ε → ∃ r : ℝ, 0 < r ∧ ∀ᶠ n in atTop,
       (α n : Measure Sphere) (OnePoint.some '' Metric.ball z r) ≤ ENNReal.ofReal ε) :
-    NullSingletonClass (β : Measure Sphere) := by
+    NoAtoms (β : Measure Sphere) := by
   constructor
   intro z
   apply weak_singleton_zero hT z
@@ -406,10 +429,14 @@ lemma finitePart_probability (β : ProbabilityMeasure Sphere)
   rw [finitePart,measurableEmbedding_sphere_coe.comap_apply,Set.image_univ]
   have hh : (β : Measure Sphere) (Set.range ((↑) : ℂ → Sphere))ᶜ=0 := by
     simpa only [OnePoint.compl_range_coe] using hinfty
-  exact measure_eq_measure_of_null_sdiff (Set.subset_univ _) (by simpa only [← Set.compl_eq_univ_sdiff] using hh) |>.trans (measure_univ)
+  have hmeas : MeasurableSet (Set.range ((↑) : ℂ → Sphere)) :=
+    measurableEmbedding_sphere_coe.measurableSet_range
+  have hsum := measure_add_measure_compl (μ := (β : Measure Sphere)) hmeas
+  rw [hh, add_zero, measure_univ] at hsum
+  exact hsum
 
-lemma finitePart_nonatomic (β : ProbabilityMeasure Sphere) [NullSingletonClass (β : Measure Sphere)] :
-    NullSingletonClass (finitePart β) := by
+lemma finitePart_nonatomic (β : ProbabilityMeasure Sphere) [NoAtoms (β : Measure Sphere)] :
+    NoAtoms (finitePart β) := by
   constructor
   intro z
   rw [finitePart,measurableEmbedding_sphere_coe.comap_apply,Set.image_singleton,measure_singleton]

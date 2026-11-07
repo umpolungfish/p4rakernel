@@ -35,10 +35,38 @@ lemma log_product_formula (z : K) (hz : z ≠ 0) :
       ∑ᶠ v : FinitePlace K, Real.log (v z) = 0 := by
   have hi : ∀ v : InfinitePlace K, 0 < v z := fun _ => InfinitePlace.pos_iff.mpr hz
   have hf : ∀ v : FinitePlace K, 0 < v z := fun _ => FinitePlace.pos_iff.mpr hz
+  have hfin : (Function.mulSupport fun v : FinitePlace K => v z).Finite := by
+    first
+      | exact FinitePlace.mulSupport_finite hz
+      | exact FinitePlace.hasFiniteMulSupport hz
+  have hprod : (∏ᶠ v : FinitePlace K, v z) = ∏ v ∈ hfin.toFinset, v z :=
+    finprod_eq_prod _ hfin
+  have hsum : (∑ᶠ v : FinitePlace K, Real.log (v z)) =
+      ∑ v ∈ hfin.toFinset, Real.log (v z) := by
+    apply finsum_eq_sum_of_support_subset
+    intro v hv
+    simp only [Function.mem_support, ne_eq] at hv
+    rw [Set.Finite.coe_toFinset, Function.mem_mulSupport]
+    intro h1
+    have h1' : v z = 1 := h1
+    exact hv (by rw [h1', Real.log_one])
+  have hA : (∏ w : InfinitePlace K, w z ^ w.mult) ≠ 0 :=
+    Finset.prod_ne_zero_iff.mpr fun v _ => pow_ne_zero _ (hi v).ne'
+  have hB : (∏ v ∈ hfin.toFinset, v z) ≠ 0 :=
+    Finset.prod_ne_zero_iff.mpr fun v _ => (hf v).ne'
+  have e1 : Real.log (∏ w : InfinitePlace K, w z ^ w.mult) =
+      ∑ w : InfinitePlace K, Real.log (w z ^ w.mult) := by
+    first
+      | exact Real.log_prod (fun v _ => pow_ne_zero _ (hi v).ne')
+      | exact Real.log_prod _ _ (fun v _ => pow_ne_zero _ (hi v).ne')
+  have e2 : Real.log (∏ v ∈ hfin.toFinset, v z) =
+      ∑ v ∈ hfin.toFinset, Real.log (v z) := by
+    first
+      | exact Real.log_prod (fun v _ => (hf v).ne')
+      | exact Real.log_prod _ _ (fun v _ => (hf v).ne')
   have h := congrArg Real.log (NumberField.prod_abs_eq_one hz)
-  rw [Real.log_mul (Finset.prod_ne_zero_iff.mpr fun v _ => pow_ne_zero _ (hi v).ne')
-    (finprod_ne_zero fun v => (hf v).ne'), Real.log_prod (fun v _ => pow_ne_zero _ (hi v).ne'),
-    Real.log_finprod hf, Real.log_one] at h
+  rw [hprod, Real.log_mul hA hB, e1, e2, Real.log_one] at h
+  rw [hsum]
   simpa only [Real.log_pow] using h
 
 def archWeight (v : InfinitePlace K) : ℝ :=
@@ -63,7 +91,10 @@ lemma finite_nonunit_places {ι : Type u2} [Finite ι] (z : ι → K)
     ext v
     simp
   rw [he]
-  exact Set.finite_iUnion (fun i => FinitePlace.hasFiniteMulSupport (hz i))
+  exact Set.finite_iUnion (fun i => by
+    first
+      | exact FinitePlace.mulSupport_finite (hz i)
+      | exact FinitePlace.hasFiniteMulSupport (hz i))
 
 omit [NumberField K] in
 /-- Multiplicativity gives the constant depth sum on each nonzero fiber at
@@ -86,6 +117,8 @@ lemma paired_difference {F : Type u4} [Field F] (a b c d z w t : F)
     (hc : c ≠ a) (hz : z ≠ a)
     (hcd : (c-a)*(d-b)=t) (hzw : (z-a)*(w-b)=t) :
     w-d = t * (c-z) / ((z-a)*(c-a)) := by
+  have hca : c - a ≠ 0 := sub_ne_zero.mpr hc
+  have hza : z - a ≠ 0 := sub_ne_zero.mpr hz
   rw [paired_coordinate a b c d t hc hcd, paired_coordinate a b z w t hz hzw]
   field_simp
   ring

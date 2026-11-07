@@ -121,7 +121,7 @@ private def rawTable (args : List String) : IO UInt32 := do
 private def residentClock (ticks state : String) : IO UInt32 := do
   let out ← IO.getStdout
   let err ← IO.getStderr
-  let some n := ticks.toNat? | err.putStrLn "invalid ticks"; return 2
+  let some _ := ticks.toNat? | err.putStrLn "invalid ticks"; return 2
   let some s := state.toNat? | err.putStrLn "invalid state"; return 2
   if s > 15 then err.putStrLn "state exceeds 15"; return 2
   -- Use the bridgeHold as the base state transition

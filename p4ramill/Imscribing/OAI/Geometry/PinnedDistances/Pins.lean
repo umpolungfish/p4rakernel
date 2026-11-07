@@ -19,7 +19,7 @@ lemma light_card_le (P : Finset Plane) (s : ℝ) (x : Plane) :
   classical
   have hmap : (↑(lightTargets P s x) : Set Plane).MapsTo (fun y => dist y x) (distances P x) := by
     intro y hy
-    exact Finset.mem_image_of_mem _ (Finset.mem_filter.mp hy).1
+    exact Finset.mem_image_of_mem (fun y => dist y x) (Finset.mem_filter.mp hy).1
   have hcard := Finset.card_eq_sum_card_fiberwise hmap
   rw [hcard, Nat.cast_sum]
   calc
@@ -140,7 +140,7 @@ lemma bad_values_bddAbove (n : ℕ) (ε : ℝ) :
 
 lemma badPinFraction_le_B (P : Finset Plane) (ε : ℝ) (hn : 0<P.card) :
     badPinFraction P ε ≤ B P.card ε := by
-  rw [B,ite_eq_left hn]
+  rw [B,if_pos hn]
   exact le_csSup (bad_values_bddAbove _ _) ⟨P,rfl,rfl⟩
 
 lemma B_nonneg (n : ℕ) (ε : ℝ) : 0 ≤ B n ε := by
@@ -152,7 +152,7 @@ lemma B_nonneg (n : ℕ) (ε : ℝ) : 0 ≤ B n ε := by
 
 lemma B_bound (n : ℕ) (hn : 2≤n) (ε : ℝ) :
     B n ε ≤ 2*F n (ε/2)+2*((n : ℝ)^(1-ε/2)/(n : ℝ)) := by
-  rw [B,ite_eq_left (by omega : 0<n)]
+  rw [B,if_pos (by omega : 0<n)]
   apply csSup_le (bad_values_nonempty _ _)
   rintro a ⟨P,hP,rfl⟩
   have hPn : 2≤P.card := by omega

@@ -21,7 +21,7 @@ theorem graph_limit_impossible
     (hn : ∀ n,2≤Fintype.card (V n))
     (β₁ β₂ : ProbabilityMeasure Sphere) (Q : ProbabilityMeasure (Quad Sphere))
     (R : ProbabilityMeasure (Expanded Sphere))
-    [NullSingletonClass (β₁:Measure Sphere)] [NullSingletonClass (β₂:Measure Sphere)]
+    [NoAtoms (β₁:Measure Sphere)] [NoAtoms (β₂:Measure Sphere)]
     (hα₁ : Tendsto (fun n => uniformProbability (fun x => (U₁ n x:Sphere)) (by have:=hn n;omega)) atTop (𝓝 β₁))
     (hα₂ : Tendsto (fun n => uniformProbability (fun x => (U₂ n x:Sphere)) (by have:=hn n;omega)) atTop (𝓝 β₂))
     (hQ : Tendsto (fun n => edgeProbability (G n) (fun x => (U₁ n x:Sphere))

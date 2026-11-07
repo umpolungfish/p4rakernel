@@ -46,7 +46,8 @@ lemma finiteLaw_mono (w v : I → ℝ) (U : I → X) (hle : ∀ i,w i≤v i) :
     finiteLaw w U≤finiteLaw v U := by
   apply Measure.le_iff.mpr
   intro s hs
-  simp only [finiteLaw,Measure.finsetSum_apply,Measure.smul_apply,smul_eq_mul]
+  simp only [finiteLaw,Measure.finset_sum_apply,Measure.smul_apply,smul_eq_mul,
+    Measure.dirac_apply,Set.indicator_apply,Pi.one_apply,mul_ite,mul_one,mul_zero]
   apply Finset.sum_le_sum
   intro i _
   gcongr

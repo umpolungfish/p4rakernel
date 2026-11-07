@@ -52,7 +52,7 @@ omit [Fintype P] in
 lemma log_cost_large (u : P → ℂ) (R : ℝ) (hR : 1 < R) (x y : P) (hxy : R < ‖u x-u y‖) :
     Real.log R ≤ logCost u x y := by
   have hne : x ≠ y := by intro he; subst y; simp at hxy; linarith
-  rw [logCost,ite_eq_right hne]
+  rw [logCost,if_neg hne]
   have hl := Real.log_le_log (by linarith : 0<R) hxy.le
   exact hl.trans (le_abs_self _)
 
@@ -88,7 +88,7 @@ lemma log_cost_close (u : P → ℂ) (hu : Function.Injective u) (z : ℂ) (r : 
     rw [norm_sub_rev z] at hh
     linarith
   have hh := Real.log_le_log hp hd.le
-  rw [logCost,ite_eq_right hxy]
+  rw [logCost,if_neg hxy]
   have habs := neg_le_abs (Real.log ‖u x-u y‖)
   linarith
 
@@ -121,7 +121,7 @@ lemma small_ball_card (u : P → ℂ) (hu : Function.Injective u) (C : ℝ)
     have hrw (x : P) : (∑ y : P, if x∈A ∧ y∈A ∧ x≠y then T else 0) =
         if x∈A then ((A.card : ℝ)-1)*T else 0 := by
       by_cases hx : x∈A
-      · simp only [hx,true_and,ite_eq_left]
+      · simp only [hx,true_and,if_true]
         have hf : Finset.univ.filter (fun y => y∈A ∧ x≠y)=A.erase x := by
           ext y; simp [ne_comm, and_comm]
         rw [← Finset.sum_filter,hf,Finset.sum_const,Finset.card_erase_of_mem hx,nsmul_eq_mul]
@@ -279,7 +279,7 @@ lemma raw_center_grid_bound (u : P → ℂ) (d : Depth P) (ω : Grid.FullSample)
     rw [← pairMean_add]
     apply pairMean_mono hn
     intro x y hxy
-    simp only [pairGridError,ite_eq_right hxy]
+    simp only [pairGridError,if_neg hxy]
     have he : rawDepth u x y-d.M=(d.value x y-d.M)-Grid.error ω (u x) (u y) := by
       rw [hd x y hxy]; simp only [rawDepth,Grid.error]; ring
     rw [he]
@@ -292,13 +292,13 @@ lemma raw_center_grid_bound (u : P → ℂ) (d : Depth P) (ω : Grid.FullSample)
 
 lemma pairGridError_integrable (u : P → ℂ) (hu : Function.Injective u) :
     Integrable (fun ω => pairMean (pairGridError u ω)) Grid.fullLaw := by
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro x _
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro y _
   by_cases hxy : x=y
   · simp only [pairGridError,hxy,ite_true,mul_zero]; exact integrable_zero _ _ _
-  · simpa only [pairGridError,ite_eq_right hxy] using
+  · simpa only [pairGridError,if_neg hxy] using
       ((Grid.error_integrable_full (hu.ne hxy)).abs.const_mul (pairProb Finset.univ x y))
 
 lemma mean_pairGridError (u : P → ℂ) (hu : Function.Injective u) (hn : 2≤ Fintype.card P) :
@@ -306,11 +306,11 @@ lemma mean_pairGridError (u : P → ℂ) (hu : Function.Injective u) (hn : 2≤ 
   have hi (x y : P) : Integrable (fun ω => pairProb Finset.univ x y*pairGridError u ω x y) Grid.fullLaw := by
     by_cases hxy : x=y
     · simp only [pairGridError,hxy,ite_true,mul_zero]; exact integrable_zero _ _ _
-    · simpa only [pairGridError,ite_eq_right hxy] using
+    · simpa only [pairGridError,if_neg hxy] using
         ((Grid.error_integrable_full (hu.ne hxy)).abs.const_mul (pairProb Finset.univ x y))
   simp only [pairMean]
-  rw [integral_finsetSum _ (fun x _ => integrable_finsetSum _ (fun y _ => hi x y))]
-  simp_rw [integral_finsetSum _ (fun y _ => hi _ y),integral_const_mul]
+  rw [integral_finset_sum _ (fun x _ => integrable_finset_sum _ (fun y _ => hi x y))]
+  simp_rw [integral_finset_sum _ (fun y _ => hi _ y),integral_const_mul]
   calc
     _ ≤ ∑ x,∑ y,pairProb Finset.univ x y*4 := by
       apply Finset.sum_le_sum; intro x _
@@ -318,7 +318,7 @@ lemma mean_pairGridError (u : P → ℂ) (hu : Function.Injective u) (hn : 2≤ 
       apply mul_le_mul_of_nonneg_left _ (pairWeight_nonneg hn x y)
       by_cases hxy : x=y
       · simp only [pairGridError,hxy,ite_true,integral_zero]; norm_num
-      · simpa only [pairGridError,ite_eq_right hxy] using Grid.mean_abs_error_full (hu.ne hxy)
+      · simpa only [pairGridError,if_neg hxy] using Grid.mean_abs_error_full (hu.ne hxy)
     _ = 4 := by
       have h := pairMean_one (P:=P) hn
       simp only [pairMean,mul_one] at h

@@ -35,7 +35,7 @@ lemma weak_product_limit
   have hRf := ProbabilityMeasure.tendsto_iff_forall_integral_tendsto.mp hR F
   have hQf := ProbabilityMeasure.tendsto_iff_forall_integral_tendsto.mp hQ f
   have hβg (j) := ProbabilityMeasure.tendsto_iff_forall_integral_tendsto.mp (hα j) (g j)
-  have ht := hRf.sub (hQf.mul (tendsto_finsetProd Finset.univ (fun j _ => hβg j)))
+  have ht := hRf.sub (hQf.mul (tendsto_finset_prod Finset.univ (fun j _ => hβg j)))
   have hF (p : E × (J → X)) : F p=f p.1 * ∏ j,g j (p.2 j) := by simp [F]
   simp only [hF] at ht
   have he := tendsto_nhds_unique ht (herr f g)
@@ -80,7 +80,7 @@ lemma pair_of_pi_map {T : Type u6} {E : Type u7} {X : Type u8} [MeasurableSpace 
     R.map (fun r => (e r,(z r,w r)))=Q.prod (μ.prod μ) := by
   have hp : Measurable (fun r => (e r,![z r,w r])) := by
     apply he.prodMk
-    apply Measurable.of_eval
+    apply measurable_pi_iff.mpr
     intro j
     fin_cases j
     · exact hz
@@ -88,6 +88,8 @@ lemma pair_of_pi_map {T : Type u6} {E : Type u7} {X : Type u8} [MeasurableSpace 
   let hme := MeasurableEquiv.finTwoArrow (α:=X)
   have hm2 : Measurable (Prod.map (id : E → E) hme) := measurable_id.prodMap hme.measurable
   have hh := congrArg (fun m : Measure (E × (Fin 2 → X)) => m.map (Prod.map id hme)) hm
+  change Measure.map (Prod.map id hme) (Measure.map (fun r => (e r,![z r,w r])) R) =
+    Measure.map (Prod.map id hme) (Q.prod (Measure.pi (fun _ : Fin 2 => μ))) at hh
   rw [Measure.map_map hm2 hp,← Measure.map_prod_map _ _ measurable_id hme.measurable,
     Measure.map_id,(measurePreserving_finTwoArrow μ).map_eq] at hh
   exact hh
@@ -127,14 +129,14 @@ lemma weak_double_product_limit (Rn : ℕ → ProbabilityMeasure T) (R : Probabi
     · exact hz
     · exact hw
   have hRm := ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous Rn R hR hk
-  have hh := weak_product_limit (fun n => (Rn n).map k)
-    (R.map k) Qn Q (fun n _ => αn n) (fun _ : Fin 2 => β) hRm hQ (fun _ => hα) ?_
+  have hh := weak_product_limit (fun n => (Rn n).map (f := k) hk.measurable.aemeasurable)
+    (R.map (f := k) hk.measurable.aemeasurable) Qn Q (fun n _ => αn n) (fun _ : Fin 2 => β) hRm hQ (fun _ => hα) ?_
   · exact pair_of_pi_map (R:Measure T) (Q:Measure E) (β:Measure X) e z w he.measurable hz.measurable hw.measurable hh
   · intro f g
     have hl := herr f (g 0) (g 1)
     convert hl using 1
     funext n
-    rw [show ((Rn n).map k : Measure (E × (Fin 2 → X)))=(Rn n:Measure T).map k from rfl]
+    rw [show ((Rn n).map (f := k) hk.measurable.aemeasurable : Measure (E × (Fin 2 → X)))=(Rn n:Measure T).map k from rfl]
     rw [integral_map_of_stronglyMeasurable hk.measurable (by fun_prop)]
     simp only [Fin.prod_univ_two,k,Matrix.cons_val_zero,Matrix.cons_val_one,Matrix.cons_val_fin_one,mul_assoc]
 
@@ -196,7 +198,7 @@ lemma weak_map_eq (αn : ℕ → ProbabilityMeasure X) (α : ProbabilityMeasure 
     (f : X → Y) (hf : Continuous f) (hα : Tendsto αn atTop (𝓝 α))
     (hβ : Tendsto βn atTop (𝓝 β)) (hm : ∀ n,(αn n:Measure X).map f=(βn n:Measure Y)) :
     (α:Measure X).map f=(β:Measure Y) := by
-  have he (n) : (αn n).map f=βn n := ProbabilityMeasure.toMeasure_injective (hm n)
+  have he (n) : (αn n).map (f := f) hf.measurable.aemeasurable=βn n := ProbabilityMeasure.toMeasure_injective (hm n)
   have hl := ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous αn α hα hf
   simp only [he] at hl
   exact congrArg ProbabilityMeasure.toMeasure (tendsto_nhds_unique hl hβ)
@@ -209,8 +211,8 @@ lemma weak_map_domination [TopologicalSpace.PseudoMetrizableSpace Y]
     (hβ : Tendsto βn atTop (𝓝 β)) (c : ℝ≥0)
     (hm : ∀ n,(αn n:Measure X).map f≤(c:ℝ≥0∞) • (βn n:Measure Y)) :
     (α:Measure X).map f≪(β:Measure Y) := by
-  have hl := weak_domination (fun n => (αn n).map f)
-    βn (α.map f) β
+  have hl := weak_domination (fun n => (αn n).map (f := f) hf.measurable.aemeasurable)
+    βn (α.map (f := f) hf.measurable.aemeasurable) β
     (ProbabilityMeasure.tendsto_map_of_tendsto_of_continuous αn α hα hf) hβ c hm
   exact Measure.absolutelyContinuous_of_le_smul hl
 

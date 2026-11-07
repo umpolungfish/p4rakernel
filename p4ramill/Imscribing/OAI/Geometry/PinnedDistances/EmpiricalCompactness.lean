@@ -29,12 +29,11 @@ def uniformProbability (U : V → X) (hn : 0<Fintype.card V) : ProbabilityMeasur
 
 lemma uniformLaw_apply (U : V → X) (s : Set X) [DecidablePred (fun x => U x∈s)] :
     uniformLaw U s=ENNReal.ofReal (((Finset.univ.filter (fun x => U x∈s)).card:ℝ)/(Fintype.card V:ℝ)) := by
-  simp only [uniformLaw,finiteLaw,Measure.finsetSum_apply,Measure.smul_apply,
+  simp only [uniformLaw,finiteLaw,Measure.finset_sum_apply,Measure.smul_apply,
     smul_eq_mul,Measure.dirac_apply,Set.indicator_apply,Pi.one_apply,mul_ite,mul_one,mul_zero]
   rw [← Finset.sum_filter,Finset.sum_const,nsmul_eq_mul]
   rw [div_eq_mul_inv,ENNReal.ofReal_mul (Nat.cast_nonneg _),ENNReal.ofReal_natCast]
 
-omit [MeasurableSingletonClass X] in
 lemma uniformLaw_map {Y : Type u3} [MeasurableSpace Y] (U : V → X) (f : X → Y) (hf : Measurable f) :
     (uniformLaw U).map f=uniformLaw (f ∘ U) := finiteLaw_map _ _ _ hf
 
@@ -48,7 +47,7 @@ lemma normalized_empirical_nonatomic (u : ∀ n,P n → ℂ) (x : ∀ n,P n)
     (β : ProbabilityMeasure Sphere)
     (ht : Tendsto (fun n => uniformProbability (fun y => ((u n y-u n (x n)):Sphere))
       (by have := hn n; omega)) atTop (𝓝 β)) :
-    NullSingletonClass (β:Measure Sphere) := by
+    NoAtoms (β:Measure Sphere) := by
   apply weak_limit_nonatomic ht
   · intro ε hε
     let R := Real.exp (C/ε+1)

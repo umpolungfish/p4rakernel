@@ -9,7 +9,7 @@ noncomputable section
 open MeasureTheory Filter
 namespace WeakPinned.Bounded
 lemma no_finite_expanded (μ ν : Measure ℂ) [IsProbabilityMeasure μ] [IsProbabilityMeasure ν]
-    [NullSingletonClass μ] [NullSingletonClass ν]
+    [NoAtoms μ] [NoAtoms ν]
     (Q : Measure (Quad ℂ)) (R : Measure (Expanded ℂ))
     [IsProbabilityMeasure Q] [IsProbabilityMeasure R]
     (he : R.map Prod.fst=Q)
@@ -46,7 +46,7 @@ local instance : MeasurableSpace Sphere := borel Sphere
 local instance : BorelSpace Sphere := ⟨rfl⟩
 
 lemma no_sphere_expanded (β₁ β₂ : ProbabilityMeasure Sphere)
-    [NullSingletonClass (β₁ : Measure Sphere)] [NullSingletonClass (β₂ : Measure Sphere)]
+    [NoAtoms (β₁ : Measure Sphere)] [NoAtoms (β₂ : Measure Sphere)]
     (Q : Measure (Quad Sphere)) (R : Measure (Expanded Sphere))
     [IsProbabilityMeasure Q] [IsProbabilityMeasure R]
     (he : R.map Prod.fst=Q)
@@ -65,8 +65,8 @@ lemma no_sphere_expanded (β₁ β₂ : ProbabilityMeasure Sphere)
   have hν : ν.map OnePoint.some=(β₂:Measure Sphere) := finitePart_map β₂ (measure_singleton _)
   let : IsProbabilityMeasure μ := finitePart_probability β₁ (measure_singleton _)
   let : IsProbabilityMeasure ν := finitePart_probability β₂ (measure_singleton _)
-  let : NullSingletonClass μ := finitePart_nonatomic β₁
-  let : NullSingletonClass ν := finitePart_nonatomic β₂
+  let : NoAtoms μ := finitePart_nonatomic β₁
+  let : NoAtoms ν := finitePart_nonatomic β₂
   have hQfin : ∀ᵐ q ∂ Q,q∈range quadCoe := sphere_quad_finite μ ν Q
     (by simpa only [hμ] using hac₁) (by simpa only [hν] using hac₂)
   let Qc := Q.comap quadCoe
@@ -187,7 +187,7 @@ lemma expanded_chart_zero (U₁ U₂ : V → ℂ) (hG : 0<G.edgeCount)
       exact hq (hs r hr)
     change (finiteLaw (tripleWeight G.fiberWeight (fun e => prob (G.targets e)))
       (tripleValue G.source (fun x => (U₁ x:Sphere)) (fun x => (U₂ x:Sphere)))) (expandedCoe '' sᶜ)=0
-    simpa only [not_not, Set.ofPred_mem_eq] using ae_iff.mp hh
+    simpa only [not_not, Set.mem_setOf_eq] using ae_iff.mp hh
   constructor
   · apply hzero
     intro r hr

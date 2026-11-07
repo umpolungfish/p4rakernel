@@ -17,7 +17,7 @@ lemma chart_probability (j : X → Y) (hj : MeasurableEmbedding j)
     IsProbabilityMeasure (μ.comap j) := by
   constructor
   rw [hj.comap_apply,image_univ]
-  exact measure_eq_measure_of_null_sdiff (subset_univ _) (by
+  exact measure_eq_measure_of_null_diff (subset_univ _) (by
     convert ae_iff.mp hfin using 2
     ext y
     simp) |>.trans measure_univ
@@ -40,7 +40,7 @@ lemma weak_chart_closed (j : X → Y) (hj : Topology.IsOpenEmbedding j)
     (hα : ∀ n,(α n : Measure Y) (j '' sᶜ)=0) :
     ∀ᵐ x ∂  (β : Measure Y).comap j,x∈s := by
   rw [chart_ae_iff j hj.measurableEmbedding]
-  apply le_antisymm _ zero_le
+  apply le_antisymm _ bot_le
   apply (ProbabilityMeasure.le_liminf_measure_open_of_tendsto ht
     (hj.isOpenMap _ hs.isOpen_compl)).trans
   apply liminf_le_of_frequently_le'

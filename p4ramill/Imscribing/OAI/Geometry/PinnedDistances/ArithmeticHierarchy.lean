@@ -38,7 +38,7 @@ lemma embedding_ne (v : InfinitePlace K) {x y : P} (hne : x ≠ y) :
 
 omit [DecidableEq P] [NumberField K] in
 lemma measurableSet_good (v : InfinitePlace K) : MeasurableSet {ω | good Z v ω} := by
-  simp only [good, Set.ofPred_forall]
+  simp only [good, Set.setOf_forall]
   apply MeasurableSet.iInter
   intro x
   apply MeasurableSet.iInter
@@ -131,7 +131,13 @@ def finite (v : FinitePlace K) : Depth P where
     by_cases hxy : x = y
     · subst y; rfl
     · simp only [hxy,Ne.symm hxy,reduceIte]
-      rw [← neg_sub (Z x) (Z y), map_neg_eq_map]
+      rw [← neg_sub (Z x) (Z y)]
+      have hneg : v (-(Z x - Z y)) = v (Z x - Z y) := by
+        first
+          | exact map_neg_eq_map v _
+          | exact AbsoluteValue.map_neg v.1 _
+          | simpa using AbsoluteValue.map_neg v.1 (Z x - Z y)
+      rw [hneg]
   ultra x y z hxy hyz hxz := by
     simp only [hxy,hyz,hxz,reduceIte]
     exact Arithmetic.finite_raw_ultra v (hZ.ne hxy) (hZ.ne hyz) (hZ.ne hxz)
@@ -288,7 +294,7 @@ lemma mass_le_overlap (hn : 2 ≤ Fintype.card P) (C : Finset P) (x y : P)
     (hxy : x ≠ y) (hx : x ∈ C) (hy : y ∈ C) :
     d.mass C ≤ d.overlapLength x y hxy := by
   have hC : 2 ≤ C.card := Finset.one_lt_card.mpr ⟨x,hx,y,hy,hxy⟩
-  rw [mass, ite_eq_left hC, overlapLength]
+  rw [mass, if_pos hC, overlapLength]
   exact integral_mono (d.integrable_count hn C hC) (d.integrable_pairOverlap hn x y hxy)
     (fun r => d.count_le_overlap r C x y hx hy)
 
@@ -300,7 +306,7 @@ lemma integral_sumCells (hn : 2 ≤ Fintype.card P) (f : Finset P → ℝ)
     · exact (d.integrable_count hn C hC).mul_const _
     · simp [hf C (by omega)]
   simp_rw [d.sumCells_count]
-  rw [integral_finsetSum _ (fun C _ => hi C)]
+  rw [integral_finset_sum _ (fun C _ => hi C)]
   apply Finset.sum_congr rfl
   intro C _
   by_cases hC : 2 ≤ C.card
@@ -364,7 +370,7 @@ lemma averaged_mass_overlap {μ : Measure Ω}
     (∑ C, (∫ ω, (D ω).mass C ∂μ) * (if x ∈ C ∧ y ∈ C then (1 : ℝ) else 0)) =
       ∫ ω, (D ω).overlapLength x y hxy ∂μ := by
   simp_rw [← integral_mul_const]
-  rw [← integral_finsetSum _ (fun C _ => (integrable_mass_param D hD hi hn C).mul_const _)]
+  rw [← integral_finset_sum _ (fun C _ => (integrable_mass_param D hD hi hn C).mul_const _)]
   exact integral_congr_ae (Filter.Eventually.of_forall (fun ω => (D ω).mass_overlap hn x y hxy))
 end Param
 end WeakPinned.Hierarchy.Depth

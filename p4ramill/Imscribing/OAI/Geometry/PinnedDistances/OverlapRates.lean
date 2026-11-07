@@ -94,13 +94,19 @@ theorem small_overlap_rate (n η U A D : ℕ → ℝ) (θ : ℝ) (hθ : 0 < θ)
       (Real.tendsto_log_atTop.comp hn).eventually (eventually_gt_atTop (0:ℝ))] with j hj hjlt hjη hjlog
     have ha0 : 0 ≤ a j := by
       have hr : 1 ≤ (θ+η j)/(θ-η j) := (one_le_div (sub_pos.mpr hjη)).mpr (by linarith [hη0 j])
+      have hrec : 0 < 1/Real.log (n j) := one_div_pos.mpr hjlog
+      have hden : 0 < θ-η j := sub_pos.mpr hjη
+      have hfirst : 0 ≤ 2*(1/Real.log (n j))/τ^2 := by positivity
+      have hsecond : 0 ≤ 2*(1/Real.log (n j))/(θ-η j) := by positivity
       dsimp [a]
-      positivity
+      linarith
     have hb0 : 0 ≤ b j := by
       have hr : (θ-η j)/(θ+η j/8) ≤ 1 := (div_le_one (by linarith [hη0 j] : 0<θ+η j/8)).mpr (by linarith [hη0 j])
       have hr0 : 0 ≤ 2-2*((θ-η j)/(θ+η j/8)) := by linarith
+      have hden : 0 < θ-η j := sub_pos.mpr hjη
+      have hfirst : 0 ≤ 2*τ/(θ-η j) := by positivity
       dsimp [b]
-      positivity
+      linarith
     have he0 : 0 ≤ e j := by dsimp [e]; positivity
     have hden : 0 < U j+A j+1 := by linarith [hU j,hA j]
     have hupper : D j ≤ (a j+b j+e j)*(U j+A j+1) := by

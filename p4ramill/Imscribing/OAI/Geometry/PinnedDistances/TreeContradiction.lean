@@ -192,7 +192,7 @@ lemma incomingWeight_nonneg (y : V) : 0≤G.incomingWeight y := by unfold incomi
 omit [Fintype I] in
 lemma sampling_conditional (y x : V) : G.incomingWeight y*G.conditionalSource y x=G.edgeLaw x y := by
   by_cases h : (G.incoming y).Nonempty
-  · simpa only [conditionalSource,ite_eq_left h] using G.sampling_incoming x y
+  · simpa only [conditionalSource,if_pos h] using G.sampling_incoming x y
   · have he : G.incoming y=∅ := Finset.not_nonempty_iff_eq_empty.mp h
     have hh := G.sampling_incoming x y
     have hw : G.incomingWeight y=0 := by simp [incomingWeight,he]
@@ -246,17 +246,17 @@ lemma retained_cost (d : Depth V) (δ T : ℝ) (hδ : 0≤δ) (hT : 0<T)
   intro y _
   by_cases hs : T≤((G.incoming y).card:ℝ)
   · have hy : (G.incoming y).Nonempty := Finset.card_pos.mp (by exact_mod_cast hT.trans_le hs)
-    have he : G.retainedSet T y=G.incoming y := by simp only [retainedSet,ite_eq_left hs]
+    have he : G.retainedSet T y=G.incoming y := by simp only [retainedSet,if_pos hs]
     have hh := cost_le_charge d δ hδ (prob (G.retainedSet T y)) (prob Finset.univ)
       (sum_prob _ (hrn y)) ha (hrs y) has
     simp only [he] at hh
-    simpa only [retainedWeight,ite_eq_left hs,conditionalSource,ite_eq_left hy,not_lt_of_ge hs,ite_false,zero_mul,add_zero,he]
+    simpa only [retainedWeight,if_pos hs,conditionalSource,if_pos hy,not_lt_of_ge hs,ite_false,zero_mul,add_zero,he]
       using mul_le_mul_of_nonneg_left hh (G.incomingWeight_nonneg y)
   · have hh := cost_bound d.allCuts (d.cutLength (fun B => tent δ (mass (prob Finset.univ) B)))
       (fun C _ => d.cutLength_nonneg _ (fun B => tent_nonneg _ _) C)
       (G.conditionalSource y) (prob Finset.univ) (G.conditionalSource_nonneg y) (prob_nn _)
       (G.conditionalSource_sum hn y) ha
-    simpa only [retainedWeight,ite_eq_right hs,lt_of_not_ge hs,ite_true,zero_mul,zero_add] using
+    simpa only [retainedWeight,if_neg hs,lt_of_not_ge hs,ite_true,zero_mul,zero_add] using
       mul_le_mul_of_nonneg_left hh (G.incomingWeight_nonneg y)
 
 lemma graph_length_upper (d d' : Depth V) (δ T : ℝ) (hδ : 0≤δ) (hT : 0<T)

@@ -183,32 +183,31 @@ lemma translate_restrict_Ioc (l : ℝ) :
 
 open ProbabilityTheory in
 /-- A fair binary step of length `l`. -/
-def binaryStep (l : ℝ) : Measure ℝ := bernoulliMeasure 0 l ⟨1/2, by norm_num⟩
+def binaryStep (l : ℝ) : Measure ℝ :=
+  (2 : ℝ≥0∞)⁻¹ • Measure.dirac 0 + (2 : ℝ≥0∞)⁻¹ • Measure.dirac l
 
 instance binaryStep_probability (l : ℝ) : IsProbabilityMeasure (binaryStep l) := by
-  unfold binaryStep
-  infer_instance
+  constructor
+  simp only [binaryStep, Measure.add_apply, Measure.smul_apply, measure_univ, smul_eq_mul,
+    mul_one]
+  exact ENNReal.inv_two_add_inv_two
 
 lemma binaryStep_eq (l : ℝ) :
-    binaryStep l = (2 : ℝ≥0∞)⁻¹ • Measure.dirac 0 + (2 : ℝ≥0∞)⁻¹ • Measure.dirac l := by
-  simp only [binaryStep, ProbabilityTheory.bernoulliMeasure_def]
-  rw [← Measure.coe_nnreal_smul, ← Measure.coe_nnreal_smul]
-  congr 2
-  · rw [← ENNReal.ofReal_coe_nnreal]
-    change ENNReal.ofReal ((1:ℝ)/2) = _
-    rw [ENNReal.ofReal_div_of_pos (by norm_num)]
-    norm_num
-  · rw [← ENNReal.ofReal_coe_nnreal]
-    change ENNReal.ofReal (1-(1:ℝ)/2) = _
-    norm_num only [show (1-(1:ℝ)/2) = 1/2 by norm_num]
-    rw [ENNReal.ofReal_div_of_pos (by norm_num)]
-    norm_num
+    binaryStep l = (2 : ℝ≥0∞)⁻¹ • Measure.dirac 0 + (2 : ℝ≥0∞)⁻¹ • Measure.dirac l := rfl
 
 lemma uniform_double {l : ℝ} (hl : 0 < l) :
     (uniformInterval l).conv (binaryStep l) = uniformInterval (2*l) := by
   rw [binaryStep_eq, Measure.conv_add, Measure.conv_smul_right,
     Measure.conv_smul_right, Measure.conv_dirac_zero, Measure.conv_dirac]
-  rw [uniformInterval, Measure.map_smul _ (by fun_prop), translate_restrict_Ioc]
+  have hmap : ∀ (c : ℝ≥0∞) (μ : Measure ℝ),
+      Measure.map (fun y : ℝ => y + l) (c • μ) = c • Measure.map (fun y : ℝ => y + l) μ := by
+    intro c μ
+    first
+      | exact Measure.map_smul c μ _
+      | (ext s hs
+         rw [Measure.map_apply (measurable_add_const l) hs, Measure.smul_apply,
+           Measure.smul_apply, Measure.map_apply (measurable_add_const l) hs])
+  rw [uniformInterval, hmap, translate_restrict_Ioc]
   have hu : Set.Ioc 0 l ∪ Set.Ioc l (l+l) = Set.Ioc 0 (2*l) := by
     rw [Set.Ioc_union_Ioc_eq_Ioc hl.le (by linarith)]
     congr 1; linarith
@@ -228,7 +227,7 @@ def incrementLaw : ℕ → Measure ℝ
 instance incrementLaw_probability (n : ℕ) : IsProbabilityMeasure (incrementLaw n) := by
   cases n with
   | zero => exact uniformInterval_probability zero_lt_one
-  | succ n => exact binaryStep_probability _
+  | succ n => exact binaryStep_probability ((2:ℝ)^n)
 
 def axisLaw : Measure (ℕ → ℝ) := Measure.infinitePi incrementLaw
 instance axisLaw_probability : IsProbabilityMeasure axisLaw := by
@@ -253,8 +252,16 @@ lemma map_shift (n : ℕ) : axisLaw.map (shift n) = uniformInterval (2^n) := by
   | succ n ih =>
       have hind := ProbabilityTheory.iIndepFun_infinitePi
         (P := incrementLaw) (X := fun _ => id) (fun _ => measurable_id)
-      have hi := hind.indepFun_finsetSum_of_notMem
-        (fun i => measurable_pi_apply i) (s := Finset.range (n+1)) (i := n+1) (by simp)
+      have hi : ProbabilityTheory.IndepFun
+          (∑ j ∈ Finset.range (n+1), fun ω : ℕ → ℝ => id (ω j))
+          (fun ω : ℕ → ℝ => id (ω (n+1))) (Measure.infinitePi incrementLaw) := by
+        first
+          | exact ProbabilityTheory.iIndepFun.indepFun_finset_sum_of_notMem hind
+              (fun i => measurable_pi_apply i) (s := Finset.range (n+1)) (i := n+1) (by simp)
+          | exact ProbabilityTheory.iIndepFun.indepFun_finset_sum_of_not_mem hind
+              (fun i => measurable_pi_apply i) (s := Finset.range (n+1)) (i := n+1) (by simp)
+          | exact ProbabilityTheory.iIndepFun.indepFun_finsetSum_of_notMem hind
+              (fun i => measurable_pi_apply i) (s := Finset.range (n+1)) (i := n+1) (by simp)
       have he : (∑ j ∈ Finset.range (n+1), (fun ω : ℕ → ℝ => id (ω j))) = shift n := by
         funext ω
         simp [shift]
@@ -381,7 +388,7 @@ lemma sharing_probability (m : ℤ) (x y : ℝ × ℝ) :
       (fun ω => shares ((2:ℝ)^m) (shiftZ m ω.1) x.1 y.1 *
         shares ((2:ℝ)^m) (shiftZ m ω.2) x.2 y.2) := by
     funext ω
-    simp only [Set.indicator, Set.mem_ofPred_eq, shareAt, shares, Pi.one_apply]
+    simp only [Set.indicator, Set.mem_setOf_eq, shareAt, shares, Pi.one_apply]
     by_cases h₁ : bin ((2:ℝ)^m) (shiftZ m ω.1) x.1 = bin ((2:ℝ)^m) (shiftZ m ω.1) y.1 <;>
       by_cases h₂ : bin ((2:ℝ)^m) (shiftZ m ω.2) x.2 = bin ((2:ℝ)^m) (shiftZ m ω.2) y.2 <;>
       simp [h₁,h₂]
@@ -512,7 +519,7 @@ lemma minScale_eq_iff {ω : GridSample} {x y : ℝ × ℝ} (hxy : x ≠ y) (m : 
       · exact False.elim (hn he)
   · have hz : minScale ω x y = 0 := by
       unfold minScale
-      rw [show {m | shareAt m ω x y} = ∅ by ext m; simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false]; exact iff_false_intro (fun h => he ⟨m,h⟩)]
+      rw [show {m | shareAt m ω x y} = ∅ by ext m; simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false]; exact iff_false_intro (fun h => he ⟨m,h⟩)]
       exact Int.csInf_empty
     simp only [hz]
     constructor
@@ -644,7 +651,8 @@ lemma error_abs_tail {x y : ℝ × ℝ} (hxy : x ≠ y) {R : ℝ} (hR : 0 < R)
       intro hh
       rcases lt_abs.mp hh with hh | hh
       · exact False.elim (hsmall (hh.le.trans hω))
-      · linarith
+      · show gridDepth ω x y + Real.log R < -u
+        linarith
     exact hle.trans (error_lower_tail hxy hR hgap₂ u)
 
 lemma error_abs_lintegral_le {x y : ℝ × ℝ} (hxy : x ≠ y) {R : ℝ} (hR : 0 < R)
@@ -746,7 +754,7 @@ lemma minScale_law_double {x y : ℝ × ℝ} (hxy : x ≠ y) :
   apply (ENNReal.toReal_eq_toReal_iff' (measure_ne_top _ _) (measure_ne_top _ _)).mp
   change squareLaw.real {ω | minScale ω (2*x.1,2*x.2) (2*y.1,2*y.2) ≤ m} =
     squareLaw.real {ω | minScale ω x y + 1 ≤ m}
-  rw [show {ω | minScale ω x y + 1 ≤ m} = {ω | minScale ω x y ≤ m-1} by ext ω; simp only [Set.mem_ofPred_eq]; omega,
+  rw [show {ω | minScale ω x y + 1 ≤ m} = {ω | minScale ω x y ≤ m-1} by ext ω; simp only [Set.mem_setOf_eq]; omega,
     minScale_cdf hd, minScale_cdf hxy]
   have hpow : (2:ℝ)^(m-1) = (2:ℝ)^m / 2 := by rw [zpow_sub₀ (by norm_num), zpow_one]
   have hq (a b : ℝ) : |2*a-2*b| / (2:ℝ)^m = |a-b| / ((2:ℝ)^m/2) := by
@@ -819,7 +827,7 @@ lemma measurable_minScale_param {T : Type u2} [MeasurableSpace T]
         ⋂ k : ℤ, ⋂ (_ : k < m), {t | shareAt k (W t) (X t) (Y t)}ᶜ) ∪
       ({t | m = 0} ∩ (⋃ k : ℤ, {t | shareAt k (W t) (X t) (Y t)})ᶜ) := by
     ext t
-    simp only [Set.mem_ofPred_eq, Set.mem_union, Set.mem_inter_iff, Set.mem_iInter,
+    simp only [Set.mem_setOf_eq, Set.mem_union, Set.mem_inter_iff, Set.mem_iInter,
       Set.mem_compl_iff, Set.mem_iUnion]
     exact minScale_eq_iff (hne t) m
   rw [he]

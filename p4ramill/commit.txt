@@ -15,3 +15,6 @@ I carry asymptotic-basis coverage and a hypothetical global representation cap i
 I identify the parity of every lower-window ZetaSIC coefficient with the ambient doubled-element condition, placing basis coverage, a hypothetical cap, and the involution parity law on the same recovered representation sequence.
 I prove the parity-refined pair-capacity bound for finite covered target families and instantiate it on the actual eventual-basis window, with the diagonal term identified by the ZetaSIC parity coordinate.
 I prove that under a global representation cap of three, every represented non-doubled target has exactly two ordered representations, while a doubled target has three exactly when its basis center belongs to a nontrivial three-term progression; this refines the cap-three structure without claiming the Erdős–Turán conjecture is settled.
+I connect the k=3 AP-free extremal count to Mathlib's Roth number, close Erdős problem 3 at three terms through the Bloom–Sisak bound, and record the remaining axiom dependency.
+I discard the parsed tick value in `residentClock` explicitly, removing its unused-variable warning without changing the clock transition.
+I repair the pinned-core degree proof by matching subtype-filter images to base-filtered edges and remove the duplicate namespace close.

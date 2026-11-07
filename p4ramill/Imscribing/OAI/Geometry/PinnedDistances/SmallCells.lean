@@ -1,5 +1,23 @@
 import Imscribing.OAI.Geometry.PinnedDistances.ArithmeticVariance
 
+theorem Set.ofPred_and {α} {p q : α → Prop} : {x | p x ∧ q x} = {x | p x} ∩ {x | q x} := by
+  apply Set.ext
+  intro x
+  simp [Set.mem_inter_iff]
+  <;> aesop
+
+theorem Set.ofPred_forall {α β} {p : α → β → Prop} : {x | ∀ y, p x y} = ⋂ y, {x | p x y} := by
+  apply Set.ext
+  intro x
+  simp [Set.mem_iInter]
+  <;> aesop
+
+theorem Set.ofPred_exists {α β} {p : α → β → Prop} : {x | ∃ y, p x y} = ⋃ y, {x | p x y} := by
+  apply Set.ext
+  intro x
+  simp [Set.mem_iUnion]
+  <;> aesop
+
 namespace OAI
 
 universe u1 u2 u3 u4 u5 u6 u7 u8 u9
@@ -139,10 +157,17 @@ lemma straddle_integral (hn : 2 ≤ Fintype.card P) (x : P) (h H : ℝ) (hH : 0 
     congr 1
     apply propext
     constructor <;> rintro ⟨h₁,h₂⟩ <;> constructor <;> linarith
-  rw [he,integral_indicator measurableSet_Ico]
-  rw [integral_Ico_eq_integral_Ioc, ← intervalIntegral.integral_of_le (by linarith : h-H-d.sourceM x ≤ h+H-d.sourceM x), intervalIntegral.integral_const]
-  simp
-  ring
+  rw [he, integral_indicator measurableSet_Ico]
+  rw [← integral_Icc_eq_integral_Ico]
+  rw [integral_Icc_eq_integral_Ioc]
+  simp [integral_const, Real.volume_Ioc]
+  <;>
+  (by_cases h₁ : 0 ≤ H + H
+   · simp [max_eq_left h₁, max_eq_right h₁]
+     <;> ring_nf
+     <;> linarith [hH]
+   · exfalso
+     linarith [hH])
 
 def smallCells (y : P) (T : ℝ) : Finset (Finset P) := by
   classical
@@ -323,7 +348,8 @@ lemma nongiant_share_overlap {r : ℝ} {x y : P} (hg : ¬ d.sourceGiant x r)
     (hy : y ∈ d.cell r x) : 1 ≤ d.pairOverlap r x y := by
   classical
   have hs := (d.mem_cell r x y).mp hy
-  rw [d.pairOverlap_formula, ite_eq_left hs]
+  rw [d.pairOverlap_formula]
+  split_ifs <;> simp_all [hs]
   by_cases he : (d.giants r).Nonempty
   · have hx : x ∉ d.giant r := by
       intro hx
@@ -447,19 +473,19 @@ lemma minusError_integrable (d d' : Depth P) (p : P → ℝ) (x : P) (hx : p x =
     (h H : ℝ) : Integrable (minusError d d' p x h H) := by
   change Integrable (fun r => minusError d d' p x h H r)
   simp_rw [minusError_formula d d' p x hx]
-  exact integrable_finsetSum _ (fun y _ => (integrable_open_interval _ _).const_mul (p y))
+  exact integrable_finset_sum _ (fun y _ => (integrable_open_interval _ _).const_mul (p y))
 
 lemma plusError_integrable (d d' : Depth P) (p : P → ℝ) (x : P) (hx : p x = 0)
     (h H : ℝ) : Integrable (plusError d d' p x h H) := by
   change Integrable (fun r => plusError d d' p x h H r)
   simp_rw [plusError_formula d d' p x hx]
-  exact integrable_finsetSum _ (fun y _ => (integrable_closed_interval _ _).const_mul (p y))
+  exact integrable_finset_sum _ (fun y _ => (integrable_closed_interval _ _).const_mul (p y))
 
 lemma minusError_integral (d d' : Depth P) (p : P → ℝ) (x : P) (hx : p x = 0)
     (h H : ℝ) : (∫ r, minusError d d' p x h H r) =
       ∑ y, p y * max (h-d.value x y-d'.value x y-H) 0 := by
   simp_rw [minusError_formula d d' p x hx]
-  rw [integral_finsetSum _ (fun y _ => (integrable_open_interval _ _).const_mul (p y))]
+  rw [integral_finset_sum _ (fun y _ => (integrable_open_interval _ _).const_mul (p y))]
   simp_rw [integral_const_mul,integral_open_interval]
   apply Finset.sum_congr rfl
   intro y _
@@ -469,7 +495,7 @@ lemma plusError_integral (d d' : Depth P) (p : P → ℝ) (x : P) (hx : p x = 0)
     (h H : ℝ) : (∫ r, plusError d d' p x h H r) =
       ∑ y, p y * max (d.value x y+d'.value x y-h-H) 0 := by
   simp_rw [plusError_formula d d' p x hx]
-  rw [integral_finsetSum _ (fun y _ => (integrable_closed_interval _ _).const_mul (p y))]
+  rw [integral_finset_sum _ (fun y _ => (integrable_closed_interval _ _).const_mul (p y))]
   simp_rw [integral_const_mul,integral_closed_interval]
   apply Finset.sum_congr rfl
   intro y _
@@ -663,7 +689,7 @@ lemma neighborMass_integrable (d d' : Depth P) (hn : 2 ≤ Fintype.card P)
     (p : P → ℝ) (x : P) (T : ℝ) : Integrable (neighborMass d d' p x T) := by
   classical
   unfold neighborMass
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro y _
   apply Integrable.const_mul
   by_cases h : x ∈ (d.smallNeighbors y T).erase y
@@ -677,7 +703,7 @@ lemma neighborMass_integral (d d' : Depth P) (hn : 2 ≤ Fintype.card P)
       ∑ y, p y * (if x ∈ (d.smallNeighbors y T).erase y then d'.potential y else 0) := by
   classical
   unfold neighborMass
-  rw [integral_finsetSum]
+  rw [integral_finset_sum]
   · apply Finset.sum_congr rfl
     intro y _
     rw [integral_const_mul]
@@ -699,7 +725,7 @@ variable {P : Type u7} [Fintype P] [DecidableEq P]
 lemma pairMass_integrable (d : Depth P) (hn : 2 ≤ Fintype.card P)
     (p : P → ℝ) (x : P) (hx : p x = 0) :
     Integrable (fun r => ∑ y, p y * d.pairOverlap r x y) := by
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro y _
   by_cases hxy : x = y
   · subst y; simp only [hx,zero_mul]; exact integrable_zero _ _ _
@@ -713,7 +739,7 @@ lemma integral_nongiantMass_bound (d : Depth P) (hn : 2 ≤ Fintype.card P)
       integral_mono (nongiantMass_integrable d hn p hp h1 x hx) (pairMass_integrable d hn p x hx)
         (fun r => nongiant_mass_bound d p hp x r)
     _ = _ := by
-      rw [integral_finsetSum]
+      rw [integral_finset_sum]
       · exact Finset.sum_congr rfl (fun y _ => integral_const_mul (p y) _)
       · intro y _
         by_cases hxy : x = y

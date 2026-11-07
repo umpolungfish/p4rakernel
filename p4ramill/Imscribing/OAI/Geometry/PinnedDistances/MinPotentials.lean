@@ -264,13 +264,13 @@ lemma tail_product (p a b : P → ℝ) :
 
 lemma integrable_tail_product (p a b : P → ℝ) : Integrable (fun r => tail p a r*tail p b r) := by
   rw [tail_product]
-  exact integrable_finsetSum _ fun x _ => integrable_finsetSum _ fun y _ =>
+  exact integrable_finset_sum _ fun x _ => integrable_finset_sum _ fun y _ =>
     (integrable_step _).const_mul _
 
 lemma energy_integral (p a b : P → ℝ) (ha : ∀ x, 0≤a x) (hb : ∀ x, 0≤b x) :
     energy p a b = ∫ r, tail p a r*tail p b r := by
-  rw [tail_product,integral_finsetSum _ (fun x _ => integrable_finsetSum _ fun y _ => (integrable_step _).const_mul _)]
-  simp_rw [integral_finsetSum _ (fun y _ => (integrable_step _).const_mul _),integral_const_mul]
+  rw [tail_product,integral_finset_sum _ (fun x _ => integrable_finset_sum _ fun y _ => (integrable_step _).const_mul _)]
+  simp_rw [integral_finset_sum _ (fun y _ => (integrable_step _).const_mul _),integral_const_mul]
   simp only [integral_step _ (le_min (ha _) (hb _)),energy]
 
 lemma energy_cross (p a b : P → ℝ) (ha : ∀ x, 0≤a x) (hb : ∀ x, 0≤b x) :
@@ -330,8 +330,8 @@ lemma outsideMass_square (p : P → ℝ) (r : ℝ) :
 lemma iid_min_potential (hn : 2 ≤ Fintype.card P) (p : P → ℝ) :
     MinKernel.energy p d.potential d.potential = ∫ r, (d.outsideMass p r)^2 := by
   simp only [d.outsideMass_square]
-  rw [integral_finsetSum _ (fun x _ => integrable_finsetSum _ fun y _ => (d.integrable_outside_product hn x y).const_mul _)]
-  simp_rw [integral_finsetSum _ (fun y _ => (d.integrable_outside_product hn _ y).const_mul _),integral_const_mul]
+  rw [integral_finset_sum _ (fun x _ => integrable_finset_sum _ fun y _ => (d.integrable_outside_product hn x y).const_mul _)]
+  simp_rw [integral_finset_sum _ (fun y _ => (d.integrable_outside_product hn _ y).const_mul _),integral_const_mul]
   simp only [MinKernel.energy,d.min_potential hn]
 
 /-- The source min-potential upper bound before averaging places and grids. -/
@@ -394,13 +394,13 @@ lemma outside_square_bound (w : I → ℝ) (B : I → Finset P) (T M κ : ℝ)
 lemma integrable_outsideMass_square (hn : 2≤Fintype.card P) (p : P → ℝ) :
     Integrable (fun r => (d.outsideMass p r)^2) := by
   simp only [d.outsideMass_square]
-  exact integrable_finsetSum _ fun x _ => integrable_finsetSum _ fun y _ =>
+  exact integrable_finset_sum _ fun x _ => integrable_finset_sum _ fun y _ =>
     (d.integrable_outside_product hn x y).const_mul _
 
 lemma integral_outsideMass (hn : 2≤Fintype.card P) (p : P → ℝ) :
     (∫ r, d.outsideMass p r)=∑ x, p x*d.potential x := by
   simp only [outsideMass]
-  rw [integral_finsetSum _ (fun x _ => (d.integrable_outsideIndicator hn x).const_mul _)]
+  rw [integral_finset_sum _ (fun x _ => (d.integrable_outsideIndicator hn x).const_mul _)]
   simp only [integral_const_mul,potential]
 
 /-- The integrable complement second moment estimate. All singleton terms
@@ -419,13 +419,13 @@ theorem integrated_outside_square (hn : 2≤Fintype.card P)
     intro C hC
     simp [f,varianceCell_singleton w B T hT hB C hC,singleton_pairCell Finset.univ C hC]
   have hi₁ : Integrable (fun r => ∑ i, w i*(d.outsideMass (prob (B i)) r)^2) :=
-    integrable_finsetSum _ (fun i _ => (d.integrable_outsideMass_square hn _).const_mul _)
+    integrable_finset_sum _ (fun i _ => (d.integrable_outsideMass_square hn _).const_mul _)
   have hi₂ : Integrable (fun r => d.sumCells f r) := d.integrable_sumCells hn f hf
   have hi₃ : Integrable (fun r => κ*M*d.outsideMass (prob Finset.univ) r) :=
-    (integrable_finsetSum _ (fun x _ => (d.integrable_outsideIndicator hn x).const_mul _)).const_mul _
+    (integrable_finset_sum _ (fun x _ => (d.integrable_outsideIndicator hn x).const_mul _)).const_mul _
   have hh := integral_mono hi₁ (hi₂.add hi₃) (d.outside_square_bound w B T M κ hw hW hT hκ hk hdom)
   simp only [Pi.add_apply] at hh
-  rw [integral_finsetSum _ (fun i _ => (d.integrable_outsideMass_square hn _).const_mul _),
+  rw [integral_finset_sum _ (fun i _ => (d.integrable_outsideMass_square hn _).const_mul _),
     integral_add hi₂ hi₃,integral_const_mul,d.integral_outsideMass hn _,d.integral_sumCells hn f hf] at hh
   try simp only [integral_const_mul] at hh
   have he : (∑ C, d.mass C*f C)=
@@ -537,8 +537,8 @@ lemma local_potential_fiber_bound (d d' : Depth P) (hn : 2≤Fintype.card P)
       have hxy : src i≠y := fun h => hsrc i (h ▸ hs i y hy)
       have hx := d.depth_identity hn (src i) y hxy
       have hx' := d'.depth_identity hn (src i) y hxy
-      rw [hv d i y hy,hv d' i y hy]
       simp only [Pi.add_apply]
+      rw [hv d i y hy,hv d' i y hy]
       linarith)
   have hh := Finset.sum_le_sum (s:=Finset.univ) (fun i _ => mul_le_mul_of_nonneg_left (he i) (hw i))
   have hu := min_upper_family d d' hn w B T M κ hw hW hT hκ hB hk hdom

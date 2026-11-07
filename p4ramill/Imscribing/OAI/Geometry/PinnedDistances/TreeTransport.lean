@@ -99,7 +99,7 @@ lemma signed_lipschitz_bound (s : Finset (Finset P)) (hs : Laminar s)
           g (value (s.erase C) d a x)+(if x ∈ C then Δ else 0) := by
         rw [value_erase C hC]
         by_cases hx : x ∈ C
-        · rw [ite_eq_left hx,ite_eq_left hx,minimal_constant hs C hC hmin d a x hx]
+        · rw [if_pos hx,if_pos hx,minimal_constant hs C hC hmin d a x hx]
           dsimp only [Δ,q]
           ring
         · simp [hx]
@@ -227,11 +227,11 @@ lemma expected_cut (p : P → ℝ) (hp : ∑ x, p x=1) (C : Finset P) (y : P) :
       by_cases hx : x ∈ C <;> simp [ind,hx,hy]
     simp_rw [he]
     simp only [Finset.sum_sub_distrib,hp,← Finset.sum_filter,
-      Finset.filter_mem_eq_inter,Finset.univ_inter,ite_eq_left hy,mass]
+      Finset.filter_mem_eq_inter,Finset.univ_inter,mass,if_pos hy]
   · have he (x : P) : p x*|ind C x-ind C y|=if x ∈ C then p x else 0 := by
       by_cases hx : x ∈ C <;> simp [ind,hx,hy]
     simp_rw [he]
-    simp only [← Finset.sum_filter,Finset.filter_mem_eq_inter,Finset.univ_inter,ite_eq_right hy,mass]
+    simp only [← Finset.sum_filter,Finset.filter_mem_eq_inter,Finset.univ_inter,mass,if_neg hy]
 
 lemma expected_distance_ge (s : Finset (Finset P)) (l : Finset P → ℝ)
     (hl : ∀ C ∈ s, 0 ≤ l C) (p : P → ℝ) (hp : ∑ x, p x=1) (η : ℝ)

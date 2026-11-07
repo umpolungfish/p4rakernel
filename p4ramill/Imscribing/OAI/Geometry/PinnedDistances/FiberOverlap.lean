@@ -90,7 +90,10 @@ lemma edgeLaw_diag (w : I → ℝ) (p : I → P → ℝ) (x : I → P)
   apply Finset.sum_eq_zero
   intro i _
   by_cases h : x i = a
-  · rw [ite_eq_left h,← h,hx i,mul_zero]
+  · simp [h]
+    rw [← h]
+    rw [hx i]
+    <;> simp [mul_zero]
   · simp [h]
 
 lemma edgeCell_dom (w : I → ℝ) (p : I → P → ℝ) (x : I → P)
@@ -296,7 +299,7 @@ lemma integrable_sumCells (hn : 2 ≤ Fintype.card P) (f : Finset P → ℝ)
     (hf : ∀ C, C.card ≤ 1 → f C = 0) : Integrable (d.sumCells f) := by
   change Integrable (fun r => d.sumCells f r)
   simp_rw [d.sumCells_count]
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro C _
   by_cases hC : 2 ≤ C.card
   · exact (d.integrable_count hn C hC).mul_const _
@@ -320,8 +323,8 @@ lemma integral_split (d : Depth P) (w : I → ℝ) (p : I → P → ℝ) (x : I 
       ∑ i, w i*(∫ r, activeMass d (p i) (x i) (τ*Fintype.card P) lam r) := by
   classical
   have hi₁ := (d.integrable_sumCells hn (pairCell Finset.univ) (singleton_pairCell _)).const_mul (2*lam/τ^2)
-  have hi₂ := (integrable_finsetSum (s:=Finset.univ) (fun y _ => d.integrable_outsideIndicator hn y)).const_mul (B*τ/Fintype.card P)
-  have hi₃ := integrable_finsetSum (s:=Finset.univ) (fun i _ =>
+  have hi₂ := (integrable_finset_sum (s:=Finset.univ) (fun y _ => d.integrable_outsideIndicator hn y)).const_mul (B*τ/Fintype.card P)
+  have hi₃ := integrable_finset_sum (s:=Finset.univ) (fun i _ =>
     (activeMass_integrable d hn (p i) (hp i) (hp1 i) (x i) (hx i) (τ*Fintype.card P) lam).const_mul (w i))
   have hb := integral_mono (d.integrable_sumCells hn _ (slice_singleton w p x hx lam))
     ((hi₁.add hi₂).add hi₃) (fun r => pointwise_split d w p x hw hW hp hx hn B τ lam r hB hlam hτ hτn hdom)
@@ -331,8 +334,8 @@ lemma integral_split (d : Depth P) (w : I → ℝ) (p : I → P → ℝ) (x : I 
   rw [ha,hb',integral_const_mul,integral_const_mul,
     d.integral_sumCells hn _ (singleton_pairCell _),
     d.integral_sumCells hn _ (slice_singleton w p x hx lam),
-    integral_finsetSum _ (fun y _ => d.integrable_outsideIndicator hn y),
-    integral_finsetSum _ (fun i _ =>
+    integral_finset_sum _ (fun y _ => d.integrable_outsideIndicator hn y),
+    integral_finset_sum _ (fun i _ =>
       (activeMass_integrable d hn (p i) (hp i) (hp1 i) (x i) (hx i) (τ*Fintype.card P) lam).const_mul (w i))] at hb
   simpa only [integral_const_mul,Depth.potential] using hb
 

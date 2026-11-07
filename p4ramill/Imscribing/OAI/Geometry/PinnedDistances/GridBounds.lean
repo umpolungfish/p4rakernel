@@ -118,7 +118,7 @@ lemma arch_label_ae : ∀ᵐ ω ∂ Grid.fullLaw, ∀ r x y,
   · subst y; simp [Depth.share]
   · rw [Depth.share,or_iff_right hxy]
     change (r ≤ if good Z v ω ∧ x≠y then Grid.depth ω (v.embedding (Z x)) (v.embedding (Z y)) else 0) ↔ _
-    rw [ite_eq_left ⟨hg,hxy⟩]
+    rw [if_pos ⟨hg,hxy⟩]
     exact (Grid.label_eq_iff (embedding_ne Z hZ v hxy) (hr x y).1 (hr x y).2 r).symm
 
 end WeakPinned.Global

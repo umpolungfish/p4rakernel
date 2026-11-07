@@ -14,13 +14,16 @@ abbrev Quad (X : Type u1) := X × X × X × X
 abbrev Expanded (X : Type u2) := Quad X × ((X × X) × (X × X))
 
 lemma no_energy_law (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure ν] [NullSingletonClass μ] [NullSingletonClass ν]
+    [IsProbabilityMeasure ν] [NoAtoms μ] [NoAtoms ν]
     (Q : Measure (Quad ℂ)) [IsProbabilityMeasure Q]
     (hind : Q.map (fun q => (q.1,q.2.2))=μ.prod (Q.map (fun q => q.2.2)))
     (hsupp : ∀ᵐ q ∂ Q,q.2.2.1∈μ.support)
     (he : ∀ᵐ q ∂ Q,crossEnergy μ q.1 q.2.2.1=targetEnergy ν q.2.2.2) : False := by
   let τ : Measure (ℂ × ℂ) := Q.map (fun q => q.2.2)
-  have : IsProbabilityMeasure τ := inferInstance
+  have hτ : IsProbabilityMeasure τ := by
+    first
+      | exact Measure.isProbabilityMeasure_map (measurable_snd.comp measurable_snd).aemeasurable
+      | infer_instance
   have hp := measurableSet_energy_eq μ ν
   have he' : ∀ᵐ v ∂ μ.prod τ,crossEnergy μ v.1 v.2.1=targetEnergy ν v.2.2 := by
     rw [← hind]
@@ -39,7 +42,7 @@ lemma mobius_of_product (a b c d z v : ℂ) (hz : z≠a)
   linear_combination hh
 
 lemma expanded_kernel_eq (μ ν : Measure ℂ) [IsProbabilityMeasure μ]
-    [IsProbabilityMeasure ν] [NullSingletonClass μ]
+    [IsProbabilityMeasure ν] [NoAtoms μ]
     (Q : Measure (Quad ℂ)) (R : Measure (Expanded ℂ))
     [IsProbabilityMeasure Q] [IsProbabilityMeasure R]
     (he : R.map Prod.fst=Q)

@@ -132,7 +132,7 @@ lemma integrable_cutSum_param {μ : Measure Ω}
     (f g : Finset P → ℝ) (hfu : f Finset.univ=0) (hfs : ∀ x, f {x}=0) :
     Integrable (fun ω => ∑ C ∈ (D ω).allCuts, (D ω).cutLength f C*g C) μ := by
   simp only [sum_cutLength_univ]
-  exact integrable_finsetSum _ (fun C _ => (integrable_cutLength_param D hD hi f hfu hfs C).mul_const (g C))
+  exact integrable_finset_sum _ (fun C _ => (integrable_cutLength_param D hD hi f hfu hfs C).mul_const (g C))
 
 lemma integrable_cutDistance_param {μ : Measure Ω}
     (hi : ∀ x y, Integrable (fun ω => (D ω).value x y) μ)
@@ -223,14 +223,14 @@ lemma arch_fiber_cut (v : NumberField.InfinitePlace K) (p : P → ℝ)
     |(arch Z₁ v ω).value y z-(arch Z₁ v ω).value x z-((arch Z₂ v ω).value y z+c)|) Grid.fullLaw :=
     ((((arch_integrable Z₁ h₁ v y z).sub (arch_integrable Z₁ h₁ v x z)).sub
       ((arch_integrable Z₂ h₂ v y z).add (integrable_const c))).abs.const_mul _)
-  have hi : Integrable E Grid.fullLaw := integrable_finsetSum _ (fun z _ => hEi z)
+  have hi : Integrable E Grid.fullLaw := integrable_finset_sum _ (fun z _ => hEi z)
   have hh := integral_mono (hl.sub hr).abs hi (fun ω => by
     simpa only [f,E,Pi.sub_apply,NNReal.coe_one,one_mul] using Tail.fiber_cut_error
       (arch Z₁ v ω) (arch Z₂ v ω) p hp0 hp (tent δ) 1 (tent_lipschitzWith δ)
       (tent_zero_right (by linarith)) (fun z => tent_zero_left (hps z)) (tent_symm δ) x y hpx hxy c)
   apply hh.trans
   unfold E
-  rw [integral_finsetSum Finset.univ (fun z _ => hEi z)]
+  rw [integral_finset_sum Finset.univ (fun z _ => hEi z)]
   simp only [integral_const_mul]
   apply le_trans (Finset.sum_le_sum (fun z _ => show Tail.offTwo p x y z* _≤12*p z from ?_))
     (by rw [← Finset.mul_sum,hp,mul_one])
@@ -283,7 +283,7 @@ lemma finite_fiber_cut (v : NumberField.FinitePlace K) (p : P → ℝ)
       -Real.log (v (Z₁ x-Z₁ z)) - Real.log (v t) - -Real.log (v (Z₁ x-Z₁ y)) at he
     suffices (finite Z₁ h₁ v).value y z-(finite Z₁ h₁ v).value x z-
       ((finite Z₂ h₂ v).value y z+c)=0 by rw [this,abs_zero,mul_zero]
-    simp only [finite,ite_eq_right hyz,ite_eq_right hxz,c]
+    simp only [finite,if_neg hyz,if_neg hxz,c]
     linarith
 
 omit [NumberField K] in
@@ -308,10 +308,10 @@ lemma fiber_cut_discrepancy_integrable (w : I → ℝ) (p : I → P → ℝ) (sr
     (hp : ∀ i, ∑ z, p i z=1) (δ : ℝ) (hδ : 0≤δ) (hps : ∀ i z, p i z≤δ) :
     AverageIntegrable Z₁ Z₂ (fiberCutDiscrepancy w p src δ) := by
   intro v
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro i _
   apply Integrable.const_mul
-  apply integrable_finsetSum
+  apply integrable_finset_sum
   intro y _
   apply Integrable.const_mul
   exact integrable_arch_cut_error Z₁ Z₂ h₁ h₂ v (p i) δ
@@ -334,12 +334,12 @@ lemma arithmetic_fiber_cut (w : I → ℝ) (p : I → P → ℝ) (src : I → P)
   have ha (v : NumberField.InfinitePlace K) :
       (∫ ω, fiberCutDiscrepancy w p src δ (arch Z₁ v ω) (arch Z₂ v ω) ∂Grid.fullLaw)≤12 := by
     unfold fiberCutDiscrepancy
-    rw [integral_finsetSum _ (fun i _ => (integrable_finsetSum _ (fun y _ => (hi v i y).const_mul (p i y))).const_mul (w i))]
+    rw [integral_finset_sum _ (fun i _ => (integrable_finset_sum _ (fun y _ => (hi v i y).const_mul (p i y))).const_mul (w i))]
     simp only [integral_const_mul]
     have he (i : I) : (∫ ω, ∑ y, p i y*|distance (arch Z₁ v ω).allCuts
         ((arch Z₁ v ω).cutLength (fun C => tent δ (mass (p i) C))) (src i) y-
         rootDistance (arch Z₂ v ω).allCuts ((arch Z₂ v ω).cutLength (fun C => tent δ (mass (p i) C))) y| ∂Grid.fullLaw)≤12 := by
-      rw [integral_finsetSum _ (fun y _ => (hi v i y).const_mul (p i y))]
+      rw [integral_finset_sum _ (fun y _ => (hi v i y).const_mul (p i y))]
       simp only [integral_const_mul]
       calc
         _ ≤ ∑ y, p i y*12 := Finset.sum_le_sum (fun y _ => by

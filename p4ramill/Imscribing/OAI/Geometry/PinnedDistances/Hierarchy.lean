@@ -16,6 +16,43 @@ open MeasureTheory
 open scoped Topology
 
 namespace WeakPinned.Hierarchy
+
+/-- The discrete σ-algebra on `Finset α`. -/
+instance finsetMeasurableSpaceTop {α : Type*} : MeasurableSpace (Finset α) := ⊤
+
+instance finsetMeasurableSingletonClassTop {α : Type*} : MeasurableSingletonClass (Finset α) :=
+  ⟨fun _ => MeasurableSpace.measurableSet_top⟩
+
+lemma measurable_of_fin {α : Type*} {β : Type*} [Finite α] [MeasurableSpace α]
+    [MeasurableSingletonClass α] [MeasurableSpace β] (f : α → β) : Measurable f := by
+  first
+    | exact measurable_of_finite f
+    | exact measurable_of_countable f
+    | exact Measurable.of_discrete
+
+lemma measurable_of_mem_finset {P : Type u1} [Fintype P] {Ω : Type u3} [MeasurableSpace Ω]
+    (f : Ω → Finset P) (h : ∀ y, MeasurableSet {ω | y ∈ f ω}) : Measurable f := by
+  classical
+  have hm : Measurable (fun ω => fun y : P => if y ∈ f ω then true else false) :=
+    measurable_pi_iff.mpr fun y => Measurable.ite (h y) measurable_const measurable_const
+  have hc := (measurable_of_fin
+    (fun g : P → Bool => Finset.univ.filter (fun y => g y = true))).comp hm
+  have he : f = (fun g : P → Bool => Finset.univ.filter (fun y => g y = true)) ∘
+      (fun ω => fun y : P => if y ∈ f ω then true else false) := by
+    funext ω
+    ext y
+    by_cases hy : y ∈ f ω <;> simp [Function.comp, hy]
+  rw [he]
+  exact hc
+
+lemma measurableSet_eq_or_le {Ω : Type u3} [MeasurableSpace Ω] {R v : Ω → ℝ}
+    (hR : Measurable R) (hv : Measurable v) (b : Prop) :
+    MeasurableSet {ω | b ∨ R ω ≤ v ω} := by
+  by_cases hb : b
+  · simp [hb]
+  · simp only [hb, false_or]
+    exact measurableSet_le hR hv
+
 variable {P : Type u1} [Fintype P] [DecidableEq P]
 
 structure Depth (P : Type u2) where
@@ -197,15 +234,15 @@ lemma giants_mono {r t : ℝ} (htr : t ≤ r) (hr : (d.giants r).Nonempty) :
   exact ⟨x,C,hc,fun y hy => d.share_mono htr (hC y hy)⟩
 
 lemma isClosed_giants : IsClosed {r : ℝ | (d.giants r).Nonempty} := by
-  simp_rw [d.giants_nonempty_iff, Set.ofPred_exists]
+  simp_rw [d.giants_nonempty_iff, Set.setOf_exists]
   apply isClosed_iUnion_of_finite
   intro x
   apply isClosed_iUnion_of_finite
   intro C
-  simp only [Set.ofPred_and]
+  simp only [Set.setOf_and]
   apply IsClosed.inter
   · by_cases h : Fintype.card P < 2*C.card <;> simp [h]
-  · simp_rw [Set.ofPred_forall]
+  · simp_rw [Set.setOf_forall]
     apply isClosed_iInter
     intro y
     apply isClosed_iInter
@@ -275,38 +312,41 @@ lemma M_bounds (hn : 2 ≤ Fintype.card P) : -d.radius ≤ d.M ∧ d.M ≤ d.rad
 
 omit [DecidableEq P] in
 lemma measurable_cell (x : P) : Measurable (fun r : ℝ => d.cell r x) := by
-  apply measurable_finset_iff.mpr
+  apply measurable_of_mem_finset
   intro y
   simp only [mem_cell, share]
-  exact measurable_const.or (measurableSet_setOfPred.mp (measurableSet_le measurable_id measurable_const))
+  exact measurableSet_eq_or_le (R := fun r : ℝ => r) (v := fun _ => d.value x y)
+    measurable_id measurable_const (x = y)
 
 lemma measurable_cells : Measurable d.cells := by
   have hm : Measurable (fun r : ℝ => fun x : P => d.cell r x) :=
     measurable_pi_iff.mpr (d.measurable_cell)
-  exact (measurable_of_finite (fun f : P → Finset P => Finset.univ.image f)).comp hm
+  exact (measurable_of_fin (fun f : P → Finset P => Finset.univ.image f)).comp hm
 
 lemma measurable_giants : Measurable d.giants :=
-  (measurable_of_finite (fun s : Finset (Finset P) =>
+  (measurable_of_fin (fun s : Finset (Finset P) =>
     s.filter (fun C : Finset P => Fintype.card P < 2*C.card))).comp d.measurable_cells
 
 lemma measurable_giant : Measurable d.giant :=
-  (measurable_of_finite (fun s : Finset (Finset P) => s.biUnion id)).comp d.measurable_giants
+  (measurable_of_fin (fun s : Finset (Finset P) => s.biUnion id)).comp d.measurable_giants
 
 lemma measurable_giantIndicator : Measurable d.giantIndicator :=
-  (measurable_of_finite (fun s : Finset (Finset P) => if s.Nonempty then (1 : ℝ) else 0)).comp
+  (measurable_of_fin (fun s : Finset (Finset P) => if s.Nonempty then (1 : ℝ) else 0)).comp
     d.measurable_giants
 
 lemma measurable_outsideIndicator (x : P) : Measurable (fun r => d.outsideIndicator r x) := by
   have hm : Measurable (fun r : ℝ => (d.giants r, d.giant r)) :=
     d.measurable_giants.prodMk d.measurable_giant
-  exact (measurable_of_finite
+  exact (measurable_of_fin
     (fun st : Finset (Finset P) × Finset P => if st.1.Nonempty ∧ x ∉ st.2 then (1 : ℝ) else 0)).comp hm
 
 lemma measurable_pairOverlap (x y : P) : Measurable (fun r => d.pairOverlap r x y) := by
   have hm : Measurable (fun r : ℝ => if d.share r x y then (1 : ℝ) else 0) := by
-    apply Measurable.ite _ measurable_const measurable_const
-    apply measurableSet_setOfPred.mpr
-    exact measurable_const.or (measurableSet_setOfPred.mp (measurableSet_le measurable_id measurable_const))
+    exact Measurable.ite
+      (show MeasurableSet {r : ℝ | d.share r x y} from
+        measurableSet_eq_or_le (R := fun r : ℝ => r) (v := fun _ => d.value x y)
+          measurable_id measurable_const (x = y))
+      measurable_const measurable_const
   have ht : Measurable (fun r =>
       (if d.share r x y then (1 : ℝ) else 0) - d.giantIndicator r +
         d.outsideIndicator r x + d.outsideIndicator r y) :=
@@ -518,39 +558,40 @@ include hD hR
 
 omit [DecidableEq P] in
 lemma measurable_cell_param (x : P) : Measurable (fun ω => (D ω).cell (R ω) x) := by
-  apply measurable_finset_iff.mpr
+  apply measurable_of_mem_finset
   intro y
   simp only [mem_cell, share]
-  exact measurable_const.or (measurableSet_setOfPred.mp (measurableSet_le hR (hD x y)))
+  exact measurableSet_eq_or_le hR (hD x y) (x = y)
 
 lemma measurable_cells_param : Measurable (fun ω => (D ω).cells (R ω)) := by
   have hm : Measurable (fun ω => fun x : P => (D ω).cell (R ω) x) :=
     measurable_pi_iff.mpr (measurable_cell_param D hD R hR)
-  exact (measurable_of_finite (fun f : P → Finset P => Finset.univ.image f)).comp hm
+  exact (measurable_of_fin (fun f : P → Finset P => Finset.univ.image f)).comp hm
 
 lemma measurable_giants_param : Measurable (fun ω => (D ω).giants (R ω)) :=
-  (measurable_of_finite (fun s : Finset (Finset P) =>
+  (measurable_of_fin (fun s : Finset (Finset P) =>
     s.filter (fun C : Finset P => Fintype.card P < 2*C.card))).comp
       (measurable_cells_param D hD R hR)
 
 lemma measurable_giant_param : Measurable (fun ω => (D ω).giant (R ω)) :=
-  (measurable_of_finite (fun s : Finset (Finset P) => s.biUnion id)).comp
+  (measurable_of_fin (fun s : Finset (Finset P) => s.biUnion id)).comp
     (measurable_giants_param D hD R hR)
 
 lemma measurable_giantIndicator_param : Measurable (fun ω => (D ω).giantIndicator (R ω)) :=
-  (measurable_of_finite (fun s : Finset (Finset P) => if s.Nonempty then (1 : ℝ) else 0)).comp
+  (measurable_of_fin (fun s : Finset (Finset P) => if s.Nonempty then (1 : ℝ) else 0)).comp
     (measurable_giants_param D hD R hR)
 
 lemma measurable_outsideIndicator_param (x : P) : Measurable (fun ω => (D ω).outsideIndicator (R ω) x) := by
   have hm := (measurable_giants_param D hD R hR).prodMk (measurable_giant_param D hD R hR)
-  exact (measurable_of_finite
+  exact (measurable_of_fin
     (fun st : Finset (Finset P) × Finset P => if st.1.Nonempty ∧ x ∉ st.2 then (1 : ℝ) else 0)).comp hm
 
 lemma measurable_pairOverlap_param (x y : P) : Measurable (fun ω => (D ω).pairOverlap (R ω) x y) := by
   have hm : Measurable (fun ω => if (D ω).share (R ω) x y then (1:ℝ) else 0) := by
-    apply Measurable.ite _ measurable_const measurable_const
-    apply measurableSet_setOfPred.mpr
-    exact measurable_const.or (measurableSet_setOfPred.mp (measurableSet_le hR (hD x y)))
+    exact Measurable.ite
+      (show MeasurableSet {ω | (D ω).share (R ω) x y} from
+        measurableSet_eq_or_le hR (hD x y) (x = y))
+      measurable_const measurable_const
   have hh : Measurable (fun ω => (if (D ω).share (R ω) x y then (1:ℝ) else 0) -
       (D ω).giantIndicator (R ω) + (D ω).outsideIndicator (R ω) x + (D ω).outsideIndicator (R ω) y) :=
     ((hm.sub (measurable_giantIndicator_param D hD R hR)).add
@@ -592,7 +633,9 @@ omit [DecidableEq P] in
 omit hD in
 lemma integrable_radius_param : Integrable (fun ω => (D ω).radius) μ := by
   unfold radius
-  exact integrable_finsetSum _ (fun x _ => integrable_finsetSum _ (fun y _ => (hi x y).abs))
+  first
+    | exact integrable_finset_sum _ (fun x _ => integrable_finset_sum _ (fun y _ => (hi x y).abs))
+    | exact integrable_finset_sum _ (fun x _ => integrable_finset_sum _ (fun y _ => (hi x y).abs))
 
 lemma integrable_potential_param (hn : 2 ≤ Fintype.card P) (x : P) :
     Integrable (fun ω => (D ω).potential x) μ := by

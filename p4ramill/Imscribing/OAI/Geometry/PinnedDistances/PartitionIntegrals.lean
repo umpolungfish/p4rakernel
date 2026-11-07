@@ -18,8 +18,7 @@ lemma sum_by_cells (r : ℝ) (f : P → ℝ) :
     rw [Finset.sum_eq_single (d.cell r x)]
     · simp [d.share_refl]
     · intro C hC hne
-      rw [ite_eq_right]
-      exact fun hx => hne (d.cell_of_mem hC hx)
+      rw [if_neg (fun hx => hne (d.cell_of_mem hC hx))]
     · simp
   calc
     _ = ∑ C ∈ d.cells r, ∑ x, if x∈C then f x else 0 := by simp
@@ -131,7 +130,7 @@ lemma meanCellDiscrep_young (w : I → ℝ) (B : I → Finset P) (M T δ : ℝ)
         _ ≤ (t^2+δ*δ)/δ := div_le_div_of_nonneg_right hh hδ.le
         _ = _ := by field_simp
     have hh : meanCellDiscrep w B C ≤ varianceCell w B T C/δ+δ := by
-      rw [varianceCell,ite_eq_left hC]
+      rw [varianceCell,if_pos hC]
       calc
         _  ≤  ∑ i,w i*((cellProb (B i) C-cellProb Finset.univ C)^2/δ+δ) :=
           Finset.sum_le_sum (fun i _ => mul_le_mul_of_nonneg_left (hy _) (hw i))
@@ -287,7 +286,7 @@ lemma grid_test_data (d : Depth P) (u : P → ℂ) (ω : Grid.FullSample) (r m :
   let A := D.image (d.cell r)
   let rep (C : Finset P) : P := if h : C∈A then (Finset.mem_image.mp h).choose else Classical.arbitrary P
   have hr (C : Finset P) (hC : C∈A) : rep C∈D ∧ d.cell r (rep C)=C := by
-    simpa only [rep,dite_eq_left hC] using (Finset.mem_image.mp hC).choose_spec
+    simpa only [rep,dif_pos hC] using (Finset.mem_image.mp hC).choose_spec
   have hAc : A⊆d.cells r := Finset.image_subset_image (Finset.filter_subset _ _)
   have hcount : A.card≤(2*M+1)^2 := by
     apply le_trans (Finset.card_le_card_of_injOn (fun C => Grid.label ω r (u (rep C)))
@@ -304,7 +303,7 @@ lemma grid_test_data (d : Depth P) (u : P → ℂ) (ω : Grid.FullSample) (r m :
   refine ⟨A,v,hAc,hcount,?_,?_⟩
   · intro x
     by_cases hx : d.cell r x∈A
-    · simp only [v,ite_eq_left hx]
+    · simp only [v,if_pos hx]
       apply hcont
       have he : d.share r x (rep (d.cell r x)) := by
         rw [← d.mem_cell]
@@ -315,15 +314,15 @@ lemma grid_test_data (d : Depth P) (u : P → ℂ) (ω : Grid.FullSample) (r m :
           (Real.exp m:ℂ)*u x-(Real.exp m:ℂ)*u (rep (d.cell r x)) := by ring
       rw [heq]
       exact hd.trans_le (by linarith)
-    · simp only [v,ite_eq_right hx,sub_zero]
+    · simp only [v,if_neg hx,sub_zero]
       apply hout
       by_contra hh
       have hxD : x∈D := Finset.mem_filter.mpr ⟨Finset.mem_univ x,le_of_not_gt hh⟩
       exact hx (Finset.mem_image.mpr ⟨x,hxD,rfl⟩)
   · intro C _
     by_cases hC : C∈A
-    · simpa only [v,ite_eq_left hC] using hbound ((Real.exp m:ℂ)*u (rep C)+b)
-    · simp only [v,ite_eq_right hC,abs_zero,le_refl]
+    · simpa only [v,if_pos hC] using hbound ((Real.exp m:ℂ)*u (rep C)+b)
+    · simp only [v,if_neg hC,abs_zero,le_refl]
 
 end WeakPinned.Bounded
 

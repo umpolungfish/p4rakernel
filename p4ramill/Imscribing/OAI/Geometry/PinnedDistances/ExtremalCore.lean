@@ -93,47 +93,75 @@ lemma contribution_nonneg (K : ℝ) (C : Finset V) (e : I) : 0 ≤ G.contributio
 omit [Fintype V] [Fintype I] in
 lemma contribution_mono (K : ℝ) {C D : Finset V} (h : C ⊆ D) (e : I) :
     G.contribution K C e ≤ G.contribution K D e := by
-  unfold contribution
   by_cases hs : G.source e ∈ C
-  · simp only [ite_eq_left hs,ite_eq_left (h hs)]
-    exact max_le_max (sub_le_sub_right (by exact_mod_cast G.size_mono h e) K) le_rfl
-  · simp only [ite_eq_right hs]
-    split_ifs <;> positivity
+  · have hsrcD : G.source e ∈ D := h hs
+    unfold contribution
+    rw [if_pos hs, if_pos hsrcD]
+    have hsize : (G.size C e : ℝ) ≤ (G.size D e : ℝ) := by
+      norm_cast
+      exact G.size_mono h e
+    exact max_le_max (sub_le_sub_right hsize K) le_rfl
+  · have hz : G.contribution K C e = 0 := by
+      unfold contribution
+      rw [if_neg hs]
+    rw [hz]
+    exact G.contribution_nonneg K D e
 
 omit [Fintype V] [Fintype I] in
 lemma contribution_erase_loss (K : ℝ) (hK : 0 ≤ K) (C : Finset V) (v : V) (e : I) :
     G.contribution K C e-G.contribution K (C.erase v) e ≤ G.fiberDegree K C v e := by
   by_cases ha : G.active K C e
-  · obtain ⟨hs,hk⟩ := ha
-    rw [fiberDegree,ite_eq_left ⟨hs,hk⟩]
+  · unfold fiberDegree
+    rw [if_pos ha]
+    obtain ⟨hs,hk⟩ := ha
     by_cases hv : G.source e=v
     · have hno : v ∉ G.targets e ∩ C := by
         intro hh
         exact G.no_loop e (hv ▸ (Finset.mem_inter.mp hh).1)
       have he1 : G.contribution K C e=(G.size C e : ℝ)-K := by
-        simp [contribution,hs,max_eq_left (le_of_lt (sub_pos.mpr hk))]
-      have he0 : G.contribution K (C.erase v) e=0 := by simp [contribution,hv]
-      rw [he1,he0,ite_eq_left hv,ite_eq_right hno]
+        unfold contribution
+        rw [if_pos hs, max_eq_left (le_of_lt (sub_pos.mpr hk))]
+      have he0 : G.contribution K (C.erase v) e=0 := by
+        unfold contribution
+        have hse : G.source e ∉ C.erase v := fun hh => (Finset.mem_erase.mp hh).1 hv
+        rw [if_neg hse]
+      rw [if_pos hv, if_neg hno, add_zero, he1, he0, sub_zero]
       linarith
     · have hse : G.source e ∈ C.erase v := Finset.mem_erase.mpr ⟨hv,hs⟩
-      simp only [contribution,ite_eq_left hs,ite_eq_left hse,ite_eq_right hv,zero_add,
-        max_eq_left (le_of_lt (sub_pos.mpr hk))]
+      rw [if_neg hv, zero_add]
+      have he1 : G.contribution K C e=(G.size C e : ℝ)-K := by
+        unfold contribution
+        rw [if_pos hs, max_eq_left (le_of_lt (sub_pos.mpr hk))]
+      have he0 : G.contribution K (C.erase v) e=max ((G.size (C.erase v) e : ℝ)-K) 0 := by
+        unfold contribution
+        rw [if_pos hse]
+      rw [he1, he0]
       by_cases hm : v ∈ G.targets e ∩ C
-      · rw [ite_eq_left hm,G.size_erase,ite_eq_left hm]
+      · rw [if_pos hm]
+        rw [G.size_erase]
+        have hm' : (if v ∈ G.targets e ∩ C then 1 else 0) = 1 := if_pos hm
+        rw [hm']
         have hpos : 1 ≤ G.size C e := Finset.one_le_card.mpr ⟨v,hm⟩
         rw [Nat.cast_sub hpos]
         have hh := le_max_left ((G.size C e : ℝ)-1-K) 0
         norm_num only [Nat.cast_one]
         linarith
-      · rw [ite_eq_right hm,G.size_erase,ite_eq_right hm,Nat.sub_zero,max_eq_left (le_of_lt (sub_pos.mpr hk))]
-        simp
+      · rw [if_neg hm]
+        rw [G.size_erase]
+        have hm' : (if v ∈ G.targets e ∩ C then 1 else 0) = 0 := if_neg hm
+        rw [hm', Nat.sub_zero]
+        have heq : max ((G.size C e : ℝ)-K) 0 = (G.size C e : ℝ)-K := max_eq_left (le_of_lt (sub_pos.mpr hk))
+        rw [heq]
+        linarith
   · have hz : G.contribution K C e=0 := by
       unfold contribution
       by_cases hs : G.source e ∈ C
-      · rw [ite_eq_left hs,max_eq_right]
-        exact sub_nonpos.mpr (le_of_not_gt (fun hk => ha ⟨hs,hk⟩))
-      · rw [ite_eq_right hs]
-    rw [hz,fiberDegree,ite_eq_right ha,zero_sub]
+      · rw [if_pos hs, max_eq_right (sub_nonpos.mpr (le_of_not_gt (fun hk => ha ⟨hs,hk⟩)))]
+      · rw [if_neg hs]
+    have hdeg : G.fiberDegree K C v e = 0 := by
+      unfold fiberDegree
+      rw [if_neg ha]
+    rw [hz, hdeg, zero_sub]
     exact neg_nonpos.mpr (G.contribution_nonneg K _ e)
 
 omit [Fintype V] [Fintype I] in
@@ -163,18 +191,21 @@ lemma sum_fiberDegree (K : ℝ) (C : Finset V) (v : V) :
   have hone (x y : V) : (∑ e, if G.active K C e ∧ G.source e=x ∧ y ∈ G.targets e ∩ C then (1:ℝ) else 0)=
       if G.edge K C x y then 1 else 0 := by
     by_cases hh : G.edge K C x y
-    · obtain ⟨e,he,hs,hy⟩ := hh
-      rw [ite_eq_left ⟨e,he,hs,hy⟩]
+    · rw [if_pos hh]
+      obtain ⟨e,he,hs,hy⟩ := hh
       rw [Finset.sum_eq_single e]
       · simp [he,hs,hy]
       · intro f _ hfe
-        rw [ite_eq_right]
-        rintro ⟨_,hfs,hfy⟩
-        exact hfe (G.edge_unique K C x y hfs hs (Finset.mem_inter.mp hfy).1 (Finset.mem_inter.mp hy).1)
-      · simp
-    · have hn : ∀ e, ¬(G.active K C e ∧ G.source e=x ∧ y ∈ G.targets e ∩ C) :=
+        split_ifs with hf
+        · obtain ⟨_,hfs,hfy⟩ := hf
+          exact False.elim (hfe (G.edge_unique K C x y hfs hs (Finset.mem_inter.mp hfy).1 (Finset.mem_inter.mp hy).1))
+        · rfl
+      · intro he_univ
+        exact False.elim (he_univ (Finset.mem_univ e))
+    · rw [if_neg hh]
+      have hn : ∀ e, ¬(G.active K C e ∧ G.source e=x ∧ y ∈ G.targets e ∩ C) :=
         fun e he => hh ⟨e,he⟩
-      simp only [ite_eq_right (hn _),Finset.sum_const_zero,ite_eq_right hh]
+      exact Finset.sum_eq_zero (fun e _ => if_neg (hn e))
   have hs (e : I) : G.fiberDegree K C v e =
       (if G.active K C e then (if G.source e=v then (G.size C e : ℝ) else 0) else 0)+
       (if G.active K C e then (if v ∈ G.targets e ∩ C then (1:ℝ) else 0) else 0) := by
@@ -243,17 +274,21 @@ lemma edge_indicator (K : ℝ) (C : Finset V) (x y : V) :
       if G.edge K C x y then 1 else 0 := by
   classical
   by_cases hh : G.edge K C x y
-  · obtain ⟨e,he,hs,hy⟩ := hh
-    rw [ite_eq_left ⟨e,he,hs,hy⟩,Finset.sum_eq_single e]
+  · rw [if_pos hh]
+    obtain ⟨e,he,hs,hy⟩ := hh
+    rw [Finset.sum_eq_single e]
     · simp [he,hs,hy]
     · intro f _ hfe
-      rw [ite_eq_right]
-      rintro ⟨_,hfs,hfy⟩
-      exact hfe (G.edge_unique K C x y hfs hs (Finset.mem_inter.mp hfy).1 (Finset.mem_inter.mp hy).1)
-    · simp
-  · have hn : ∀ e, ¬(G.active K C e ∧ G.source e=x ∧ y ∈ G.targets e ∩ C) :=
+      split_ifs with hf
+      · obtain ⟨_,hfs,hfy⟩ := hf
+        exact False.elim (hfe (G.edge_unique K C x y hfs hs (Finset.mem_inter.mp hfy).1 (Finset.mem_inter.mp hy).1))
+      · rfl
+    · intro he_univ
+      exact False.elim (he_univ (Finset.mem_univ e))
+  · rw [if_neg hh]
+    have hn : ∀ e, ¬(G.active K C e ∧ G.source e = x ∧ y ∈ G.targets e ∩ C) :=
       fun e he => hh ⟨e,he⟩
-    simp only [ite_eq_right (hn _),Finset.sum_const_zero,ite_eq_right hh]
+    exact Finset.sum_eq_zero (fun e _ => if_neg (hn e))
 
 lemma edgeSet_card (K : ℝ) (C : Finset V) :
     ((G.edgeSet K C).card : ℝ)=∑ e, if G.active K C e then (G.size C e : ℝ) else 0 := by

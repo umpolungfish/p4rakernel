@@ -128,7 +128,7 @@ lemma familyCutError_bound (w : I → ℝ) (B : I → Finset P) (T δ ε : ℝ)
     change familyCutError w B δ C≤_ at he
     simp only [mul_add,Finset.sum_add_distrib,← Finset.sum_mul,← mul_div_assoc,← Finset.sum_div] at he
     have hvf : varianceCell w B T C=∑ i, w i*(cellProb (B i) C-cellProb Finset.univ C)^2 := by
-      simp only [varianceCell,ite_eq_left (hlarge ha)]
+      simp only [varianceCell,if_pos (hlarge ha)]
     rw [← hvf] at he
     have he2 : (∑ i, w i)*ε≤ε := by nlinarith
     have he3 : ε≤(8*ε/δ^2)*pairCell Finset.univ C := by
@@ -155,11 +155,11 @@ lemma familyCutError_bound (w : I → ℝ) (B : I → Finset P) (T δ ε : ℝ)
         apply Finset.sum_le_sum
         intro i _
         by_cases hpk : 2/((B i).card:ℝ)≤cellProb (B i) C
-        · rw [ite_eq_left hpk]
+        · rw [if_pos hpk]
           have hh := (cutError_tiny hδ hat (cellProb_le_one (B i) C)).2
           have hm := mul_le_mul_of_nonneg_left hh (hw i)
           convert hm using 1; ring
-        · rw [ite_eq_right hpk]
+        · rw [if_neg hpk]
           have hp : cellProb (B i) C≤δ := (le_of_lt (lt_of_not_ge hpk)).trans (hk i)
           simp only [cutError,tent_zero_left hp,tent_zero_left (show cellProb Finset.univ C≤δ by linarith),
             sub_self,abs_zero,zero_mul,add_zero,mul_zero]

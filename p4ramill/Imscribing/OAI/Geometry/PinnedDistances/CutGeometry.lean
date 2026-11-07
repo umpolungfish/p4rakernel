@@ -119,7 +119,7 @@ lemma integral_cut_sum (f : Finset P → ℝ) (hfu : f Finset.univ=0)
     simp only [Finset.mem_filter]
     exact ⟨fun hc => ⟨d.cells_subset_allCuts r hc,hc⟩,fun hc => hc.2⟩
   simp only [he]
-  rw [integral_finsetSum _ (fun C _ => (d.integrable_cutAt f hfu hfs C).mul_const (g C))]
+  rw [integral_finset_sum _ (fun C _ => (d.integrable_cutAt f hfu hfs C).mul_const (g C))]
   exact Finset.sum_congr rfl (fun C _ => by rw [integral_mul_const]; rfl)
 
 lemma symmetric_integral_cut_sum (hn : 2 ≤ Fintype.card P) (f : Finset P → ℝ)
@@ -241,8 +241,8 @@ lemma ae_differenceTail_formula (p : P → ℝ) (hp : ∑ x, p x=1) (w : ℝ →
   · have he := d.differenceTail_neg_compl x y hxy u hu hne
     have hm := mass_compl p hp (d.differenceTail x y u)
     rw [he] at hm
-    rw [ite_eq_right (by linarith),ite_eq_left (by linarith),zero_add,hm,hw]
-  · rw [d.differenceTail_pos x y hxy u hu,ite_eq_left (by linarith),ite_eq_right (by linarith),add_zero]
+    rw [if_neg (by linarith),if_pos (by linarith),zero_add,hm,hw]
+  · rw [d.differenceTail_pos x y hxy u hu,if_pos (by linarith),if_neg (by linarith),add_zero]
 
 end WeakPinned.Hierarchy.Depth
 
@@ -303,11 +303,11 @@ lemma sum_cut_separation (f : Finset P → ℝ) (r : ℝ) (x y : P) (hxy : x ≠
         exact (hns hh).elim
       · have hc := (hmem x C hC).mp hx
         have hn : C ≠ d.cell r y := fun h => hy ((hmem y C hC).mpr h)
-        simp only [Cuts.ind,ite_eq_left hx,ite_eq_right hy,sub_zero,abs_one,mul_one,ite_eq_left hc,ite_eq_right hn,add_zero]
+        simp only [Cuts.ind,if_pos hx,if_neg hy,sub_zero,abs_one,mul_one,if_pos hc,if_neg hn,add_zero]
         rw [hc]
       · have hc := (hmem y C hC).mp hy
         have hn : C ≠ d.cell r x := fun h => hx ((hmem x C hC).mpr h)
-        simp only [Cuts.ind,ite_eq_right hx,ite_eq_left hy,zero_sub,abs_neg,abs_one,mul_one,ite_eq_left hc,ite_eq_right hn,zero_add]
+        simp only [Cuts.ind,if_neg hx,if_pos hy,zero_sub,abs_neg,abs_one,mul_one,if_neg hn,if_pos hc,zero_add]
         rw [hc]
       · have hn1 : C ≠ d.cell r x := fun h => hx ((hmem x C hC).mpr h)
         have hn2 : C ≠ d.cell r y := fun h => hy ((hmem y C hC).mpr h)
@@ -419,7 +419,7 @@ lemma lipschitz_tail_bound (b : ℝ) (p f g : P → ℝ) (hp : ∀ z, 0 ≤ p z)
     (w : ℝ → ℝ) (Λ : ℝ≥0) (hw : LipschitzWith Λ w) :
     (∫ u, |w (law b p f u)-w (law b p g u)|) ≤ (Λ:ℝ)*∑ z, p z*|f z-g z| := by
   let h : ℝ → ℝ := fun u => (Λ:ℝ)*∑ z, p z*|step (f z) u-step (g z) u|
-  have hi : Integrable h := (integrable_finsetSum (s:=Finset.univ)
+  have hi : Integrable h := (integrable_finset_sum (s:=Finset.univ)
     (fun z _ => (integrable_step_difference (f z) (g z)).const_mul (p z))).const_mul _
   have hb (u : ℝ) : |w (law b p f u)-w (law b p g u)| ≤ h u := by
     have hh := hw.norm_sub_le (law b p f u) (law b p g u)
@@ -434,7 +434,7 @@ lemma lipschitz_tail_bound (b : ℝ) (p f g : P → ℝ) (hp : ∀ z, 0 ≤ p z)
     _ ≤ ∫ u, h u := integral_mono hi' hi hb
     _ = _ := by
       simp only [h,integral_const_mul]
-      rw [integral_finsetSum _ (fun z _ => (integrable_step_difference (f z) (g z)).const_mul (p z))]
+      rw [integral_finset_sum _ (fun z _ => (integrable_step_difference (f z) (g z)).const_mul (p z))]
       simp only [integral_const_mul,integral_step_difference]
 
 end WeakPinned.Tail

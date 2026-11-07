@@ -1515,3 +1515,4 @@ theorem crystal_forces_d12_sic : SICPOVM_Exists 12 := by
 
 end
 end SIC.D12.Embedding
+#print SIC.D12.Embedding.d12_sic_exists

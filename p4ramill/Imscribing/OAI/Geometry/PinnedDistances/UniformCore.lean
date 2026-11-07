@@ -1,4 +1,8 @@
 import Imscribing.OAI.Geometry.PinnedDistances.ExtremalCore
+import Mathlib.Topology.Order.LiminfLimsup
+import Mathlib.Topology.MetricSpace.Basic
+import Mathlib.Topology.Bases
+open FirstCountableTopology
 
 namespace OAI
 
@@ -25,29 +29,30 @@ open Filter
 open scoped Topology
 noncomputable section
 open scoped BigOperators
+open FirstCountableTopology
 
 namespace WeakPinned.Core.Fibers
 open scoped BigOperators
 variable {V : Type u1} {I : Type u2} [Fintype V] [Fintype I] [DecidableEq V]
 variable (G : Fibers V I)
 
-/-- Retain a specified family of the original fibers, restricted to D.
-    This never alters a source or creates a new distance coincidence. -/
 def retained (D : Finset V) (Q : I → Prop) [DecidablePred Q] : Fibers V I where
   source := G.source
   targets e := if Q e then G.targets e ∩ D else ∅
   no_loop e := by
-    split_ifs
+    split_ifs with hq
     · exact fun h => G.no_loop e (Finset.mem_inter.mp h).1
     · simp
   disjoint e f hef hs := by
     apply Finset.disjoint_left.mpr
     intro y hy hf
     by_cases he : Q e <;> by_cases hh : Q f
-    · simp only [he,hh,ite_eq_left] at hy hf
+    · simp only [he, hh, if_pos] at hy hf
       exact (Finset.disjoint_left.mp (G.disjoint e f hef hs))
         (Finset.mem_inter.mp hy).1 (Finset.mem_inter.mp hf).1
-    all_goals simp [he,hh] at hy hf
+    · simp [he, hh] at hy hf
+    · simp [he, hh] at hy hf
+    · simp [he, hh] at hy hf
 
 lemma retained_card (D : Finset V) (Q : I → Prop) [DecidablePred Q] :
     (((G.retained D Q).edgeSet (-1) D).card : ℝ) =
@@ -56,13 +61,14 @@ lemma retained_card (D : Finset V) (Q : I → Prop) [DecidablePred Q] :
   apply Finset.sum_congr rfl
   intro e _
   have hsize : (G.retained D Q).size D e = if Q e then G.size D e else 0 := by
-    by_cases hq : Q e <;> simp [size,retained,hq]
+    by_cases hq : Q e <;> simp [size, retained, hq]
   have ha : (G.retained D Q).active (-1) D e ↔ G.source e ∈ D := by
     change (G.source e ∈ D ∧ (-1:ℝ)<((G.retained D Q).size D e : ℝ)) ↔ _
-    have hh : (-1:ℝ)<((G.retained D Q).size D e : ℝ) := by have hh := Nat.cast_nonneg (α:=ℝ) ((G.retained D Q).size D e); linarith
+    have hh : (-1:ℝ)<((G.retained D Q).size D e : ℝ) := by
+      have hh := Nat.cast_nonneg (α:=ℝ) ((G.retained D Q).size D e); linarith
     simp [hh]
-  simp only [ha,hsize]
-  by_cases hq : Q e <;> by_cases hs : G.source e ∈ D <;> simp [hq,hs]
+  simp only [ha, hsize]
+  by_cases hq : Q e <;> by_cases hs : G.source e ∈ D <;> simp [hq, hs]
 
 end WeakPinned.Core.Fibers
 
@@ -106,8 +112,6 @@ lemma heavySubset_edge_rich (P : Finset Plane) (s K lam r : ℝ) (C D : Finset P
     exact hsz.trans (by exact_mod_cast hc)
   · simp at hyT
 
-/-- The exact finite counting step underlying both uniform subset estimates
-    for the rich-pair graph. Each ordered pair is counted only once. -/
 theorem heavySubset_count (P : Finset Plane) (s K lam r : ℝ) (C D : Finset P)
     (hlam : 0 ≤ lam) (hK : (D.card : ℝ)^r ≤ lam*K) :
     (∑ e, if heavyFiber P s K lam C D e ∧ (planarFibers P s).source e ∈ D
@@ -127,6 +131,7 @@ end WeakPinned
 namespace WeakPinned
 open Filter
 open scoped Topology
+open FirstCountableTopology
 
 def Theta (s : ℝ) : ℝ := limsup (fun n : ℕ => F n s) atTop
 
@@ -198,8 +203,6 @@ lemma Theta_zero_above_critical (h : ¬ MainStatement) {s : ℝ} (hs : criticalE
   have hh : s ≤ criticalExponent := le_csSup positive_exponents_bdd ⟨hs0,hp⟩
   linarith
 
-/-- A fixed exponent regime obtained from failure of the uniform multiplicity limit. -/
-
 theorem extremal_parameters (h : ¬ MainStatement) :
     ∃ c s γ : ℝ, 0 < c ∧ c < criticalExponent/3 ∧
       max c ((1-c)*criticalExponent) < s ∧ s < criticalExponent ∧
@@ -218,15 +221,126 @@ theorem extremal_parameters (h : ¬ MainStatement) :
   refine ⟨c,s,(c+s)/2,hc0,hc3,hr.1,hr.2,?_,?_,?_,Theta_pos_below_critical h hr.2⟩
   · linarith
   · linarith
-  · simpa only [Set.mem_compl_iff,Set.mem_ofPred_eq,not_not] using hs
-
-lemma extremal_subsequence (s : ℝ) :
+  · simpa only [Set.mem_compl_iff, Set.mem_setOf_eq, not_not] using hs
+lemma exists_seq_tendsto_limsup {s : ℝ} (hbdd : IsBoundedUnder (· ≤ ·) atTop (fun n : ℕ => F n s)) :
     ∃ N : ℕ → ℕ, Tendsto N atTop atTop ∧ Tendsto (fun i => F (N i) s) atTop (𝓝 (Theta s)) := by
-  obtain ⟨N,hN,hT⟩ := exists_seq_tendsto_limsup (F_cobdd s) (F_bdd s)
-  exact ⟨N,hT,hN⟩
+  have h_limsup : limsup (fun n : ℕ => F n s) atTop = Theta s := by simp [Theta]
+  
+  -- Step 1: For every ε > 0 and every N, there exists n ≥ N with dist (F n s) (Theta s) < ε
+  have h₁ : ∀ (ε : ℝ) (hε : ε > 0) (N : ℕ), ∃ (n : ℕ), N ≤ n ∧ dist (F n s) (Theta s) < ε := by
+    intro ε hε N
+    -- Eventually F n s < Theta s + ε (by definition of limsup)
+    have h₂ : ∀ᶠ (n : ℕ) in atTop, F n s < Theta s + ε := by
+      have h₃ : limsup (fun n : ℕ => F n s) atTop < Theta s + ε := by linarith
+      have h₄ : IsBoundedUnder (· ≤ ·) atTop (fun n : ℕ => F n s) := hbdd
+      exact eventually_lt_of_limsup_lt h₃ h₄
+    obtain ⟨M, hM⟩ := eventually_atTop.mp h₂
+    -- For any N', there exists n ≥ N' with F n s > Theta s - ε
+    -- Otherwise, eventually F n s ≤ Theta s - ε, so limsup ≤ Theta s - ε < Theta s
+    have h₃ : ∀ (N' : ℕ), ∃ (n : ℕ), N' ≤ n ∧ F n s > Theta s - ε := by
+      intro N'
+      by_contra h₄
+      have h₅ : ∀ᶠ (n : ℕ) in atTop, F n s ≤ Theta s - ε := by
+        filter_upwards [eventually_ge_atTop N'] with n hn
+        by_contra h₆
+        have h₇ : F n s > Theta s - ε := by linarith
+        have h₈ : ∃ (n : ℕ), N' ≤ n ∧ F n s > Theta s - ε := ⟨n, hn, h₇⟩
+        exact h₄ h₈
+      have h₆ : IsCoboundedUnder (· ≤ ·) atTop (fun n : ℕ => F n s) := F_cobdd s
+      have h₇ : limsup (fun n : ℕ => F n s) atTop ≤ Theta s - ε := by
+        apply limsup_le_of_le h₆
+        filter_upwards [h₅] with n hn
+        linarith
+      linarith
+    -- Take n ≥ max(N, M)
+    obtain ⟨n, hn, hn'⟩ := h₃ (max N M)
+    have h₄ : n ≥ N := by linarith [le_max_left N M, le_max_right N M]
+    have h₅ : n ≥ M := by linarith [le_max_left N M, le_max_right N M]
+    have h₆ : F n s < Theta s + ε := hM n h₅
+    have h₇ : dist (F n s) (Theta s) < ε := by
+      have h₈ : Theta s - ε < F n s := by linarith
+      have h₉ : F n s < Theta s + ε := h₆
+      rw [Real.dist_eq]
+      rw [abs_lt]
+      constructor <;> nlinarith
+    exact ⟨n, h₄, h₇⟩
+  
+  -- Step 2: Build ψ such that ψ n ≥ n and dist (F (ψ n) s) (Theta s) < 1/(n+1)
+  classical
+  have hψ : ∀ (n : ℕ), ∃ (m : ℕ), n ≤ m ∧ dist (F m s) (Theta s) < 1 / (n + 1 : ℝ) := by
+    intro n
+    exact h₁ (1 / (n + 1 : ℝ)) (by positivity) n
 
-/-- The epsilon-uniform extremal tail bound. The lower cutoff may vary arbitrarily
-    provided it tends to infinity. -/
+  let ψ : ℕ → ℕ := fun n => Classical.choose (hψ n)
+
+  have hψ_prop : ∀ (n : ℕ), n ≤ ψ n ∧ dist (F (ψ n) s) (Theta s) < 1 / (n + 1 : ℝ) := by
+    intro n
+    have h₁ : ∃ (m : ℕ), n ≤ m ∧ dist (F m s) (Theta s) < 1 / (n + 1 : ℝ) := hψ n
+    exact Classical.choose_spec h₁
+
+  -- Step 3: ψ → atTop (since ψ n ≥ n)
+  have h₂ : Tendsto ψ atTop atTop := by
+    refine' tendsto_atTop_atTop.mpr _
+    intro N
+    use N
+    intro n hn
+    have h₃ : n ≤ ψ n := (hψ_prop n).1
+    linarith
+
+  -- Step 4: F (ψ n) s → Theta s
+  have h₃ : Tendsto (fun i => F (ψ i) s) atTop (𝓝 (Theta s)) := by
+    rw [Metric.tendsto_atTop]
+    intro ε hε
+    -- Find N such that 1/(N+1) < ε
+    have h₄ : ∃ (N : ℕ), 1 / (N + 1 : ℝ) < ε := by
+      -- Use Archimedean property: ∃ N, N > 1/ε, then 1/(N+1) < 1/N < ε
+      obtain ⟨N, hN⟩ := exists_nat_gt (1 / ε)
+      use N
+      have h₅ : 0 < ε := by linarith
+      have h₆ : 0 < N := by
+        by_contra h₆
+        have h₇ : N = 0 := by omega
+        rw [h₇] at hN
+        norm_num at hN ⊢
+        <;> linarith
+      have h₇ : (1 / ε : ℝ) < N := by linarith
+      have h₈ : 1 / (N + 1 : ℝ) < 1 / (N : ℝ) := by
+        apply one_div_lt_one_div_of_lt
+        · positivity
+        · linarith
+      have h₉ : 1 / (N : ℝ) < ε := by
+        calc
+          1 / (N : ℝ) < 1 / (1 / ε) := by
+            apply one_div_lt_one_div_of_lt
+            · positivity
+            · linarith
+          _ = ε := by field_simp [h₅.ne']
+      have h₁₀ : 1 / (N + 1 : ℝ) < ε := by linarith
+      linarith
+    obtain ⟨N, hN⟩ := h₄
+    use N
+    intro n hn
+    have h₅ : dist (F (ψ n) s) (Theta s) < 1 / (n + 1 : ℝ) := (hψ_prop n).2
+    have h₆ : 1 / (n + 1 : ℝ) ≤ 1 / (N + 1 : ℝ) := by
+      have h₇ : (N : ℝ) ≤ (n : ℝ) := by exact_mod_cast hn
+      have h₈ : (N + 1 : ℝ) ≤ (n + 1 : ℝ) := by linarith
+      have h₉ : 0 < (N + 1 : ℝ) := by positivity
+      have h₁₀ : 0 < (n + 1 : ℝ) := by positivity
+      exact one_div_le_one_div_of_le (by positivity) h₈
+    have h₇ : 1 / (N + 1 : ℝ) < ε := hN
+    linarith
+
+
+
+  exact ⟨ψ, h₂, h₃⟩
+
+
+
+lemma extremal_subsequence {s : ℝ} :
+    ∃ N : ℕ → ℕ, Tendsto N atTop atTop ∧ Tendsto (fun i => F (N i) s) atTop (𝓝 (Theta s)) := by
+  obtain ⟨N,hN,hT⟩ := exists_seq_tendsto_limsup (F_bdd s)
+  exact ⟨N,hN,hT⟩
+
 lemma extremal_tail {s : ℝ} (hs : ContinuousAt Theta s) {r : ℕ → ℝ} {M : ℕ → ℕ}
     (hr : Tendsto r atTop (𝓝 s)) (hM : Tendsto M atTop atTop) :
     ∀ ε > 0, ∀ᶠ i in atTop, ∀ m : ℕ, M i ≤ m → F m (r i) ≤ Theta s+ε := by
@@ -253,6 +367,8 @@ end WeakPinned
 namespace WeakPinned
 open Filter
 open scoped Topology
+open FirstCountableTopology
+open FirstCountableTopology
 
 def cutoff (s : ℝ) (N : ℕ) : ℝ := (N : ℝ)^s/Real.log N
 
@@ -322,8 +438,6 @@ lemma half_boundary (N : ℕ) (hN : 4 ≤ N) :
   have hmR : (2:ℝ) ≤ ((N+1)/2 : ℕ) := by exact_mod_cast hm
   nlinarith
 
-/-- Actual core configurations at arbitrarily small density error and arbitrarily
-    large cardinality. No field or position assumptions are introduced. -/
 theorem arbitrarily_large_core {s γ : ℝ} (hγ : 0 < γ) (hγs : γ < s)
     (hs : ContinuousAt Theta s) (η : ℝ) (hη : 0 < η) (M : ℕ) :
     ∃ (P : Finset Plane) (C : Finset P), M < C.card ∧
@@ -333,8 +447,8 @@ theorem arbitrarily_large_core {s γ : ℝ} (hγ : 0 < γ) (hγs : γ < s)
         (Theta s+η/8)*(C.card : ℝ)*((C.card : ℝ)-1) ∧
       (∀ x ∈ C, 2*(Theta s-η)*((C.card : ℝ)-1) ≤
         (planarFibers P s).degree (cutoff s P.card) C x) := by
-  obtain ⟨r,hγr,hrs,m₁,hm₁⟩ := continuous_left_tail hγs (show 0 < η/8 by positivity) hs
-  obtain ⟨N,hN,hF⟩ := extremal_subsequence s
+  obtain ⟨r,hγr,hrs,m₁,hm₁⟩ := continuous_left_tail hγs (by linarith : 0 < η / 8) hs
+  obtain ⟨N,hN,hF⟩ := exists_seq_tendsto_limsup (F_bdd s)
   have hlarge : ∀ᶠ i in atTop, 4+2*M+2*m₁ ≤ N i := hN.eventually (eventually_ge_atTop _)
   have happrox : ∀ᶠ i in atTop, Theta s-η/8 ≤ F (N i) s :=
     (hF.eventually_const_lt (by linarith : Theta s-η/8 < Theta s)).mono (fun _ h => h.le)
@@ -386,15 +500,13 @@ lemma heavySubset_zero (P : Finset Plane) (s K lam : ℝ) (C D : Finset P)
       then ((planarFibers P s).size D e : ℝ) else 0) = 0 := by
   apply Finset.sum_eq_zero
   intro e _
-  rw [ite_eq_right]
+  rw [if_neg]
   rintro ⟨⟨ha,hh⟩,hs⟩
   have hk := mul_le_mul_of_nonneg_left (le_of_lt ha.2) hlam
   have hm : ((planarFibers P s).size D e : ℝ) < D.card := by
     exact_mod_cast restricted_size_lt_card P s D e hs
   linarith
 
-/-- A uniform extremal bound valid even for tiny subsets: their contribution
-    is zero, rather than an uncontrolled diagonal error. -/
 theorem heavySubset_uniform (P : Finset Plane) (s K lam r B : ℝ) (C D : Finset P)
     (hlam : 0 ≤ lam) (hB : 0 ≤ B) (m₁ : ℕ) (hm1 : 2 ≤ m₁)
     (hT : (m₁ : ℝ) ≤ lam*K)
@@ -409,7 +521,9 @@ theorem heavySubset_uniform (P : Finset Plane) (s K lam r B : ℝ) (C D : Finset
     by_cases hzero : D.card=0
     · simp [hzero]
     · have hh : (1:ℝ) ≤ D.card := by exact_mod_cast (show 1 ≤ D.card by omega)
-      positivity
+      have hD0 : (0:ℝ) ≤ D.card := Nat.cast_nonneg _
+      have hD1 : (0:ℝ) ≤ (D.card : ℝ) - 1 := by linarith
+      exact mul_nonneg (mul_nonneg hB hD0) hD1
   · have hmge : m₁ ≤ D.card := by omega
     have hDn : D.card ≤ P.card := by simpa using Finset.card_le_univ D
     have hh : (2:ℝ) ≤ D.card := by exact_mod_cast hm1.trans hmge
@@ -448,7 +562,6 @@ def heavyCount (P : Finset Plane) (s K lam : ℝ) (C D : Finset P) : ℝ :=
   ∑ e, if heavyFiber P s K lam C D e ∧ (planarFibers P s).source e ∈ D
     then ((planarFibers P s).size D e : ℝ) else 0
 
-/-- Uniform subset bounds for the finite planar core. -/
 structure PreparedCore (s γ c η : ℝ) (P : Finset Plane) (C : Finset P) : Prop where
   card_two : 2 ≤ C.card
   half : (P.card+1)/2 < C.card
@@ -487,8 +600,6 @@ lemma log_cutoff_comparison {N n : ℕ} {s : ℝ} (hn : 2 ≤ n) (hnN : n ≤ N)
       exact div_nonneg (Real.rpow_nonneg (Nat.cast_nonneg N) _) (hlog.le.trans hlogs)
     _ = (1/Real.log n)*cutoff s N := by ring
 
-/-- Uniformity of both subset estimates is obtained before passing to any
-    arithmetic model. Tiny subsets are treated exactly, with no diagonal error. -/
 theorem arbitrarily_large_prepared (hfail : ¬ MainStatement) {s γ c : ℝ}
     (hγ : 0 < γ) (hγs : γ < s) (_hc : 0 < c) (hc1 : c < 1)
     (hsc : (1-c)*criticalExponent < s) (hs : ContinuousAt Theta s)
@@ -516,7 +627,7 @@ theorem arbitrarily_large_prepared (hfail : ¬ MainStatement) {s γ c : ℝ}
   have hcomp := log_cutoff_comparison (s:=s) hn hCn
   have hlam : 0 ≤ 1/Real.log (C.card : ℝ) := by
     have hh := Real.log_pos (show (1:ℝ)<C.card by exact_mod_cast (show 1<C.card by omega))
-    positivity
+    exact div_nonneg zero_le_one hh.le
   have hT : (m : ℝ) ≤ (1/Real.log (C.card : ℝ))*cutoff s P.card := hbigP.trans (hpr.trans hcomp)
   refine ⟨P,C,by omega,hn,hhalf,hpow,hlo,hhi,hdeg,?_,?_⟩
   · intro D
@@ -533,7 +644,7 @@ theorem arbitrarily_large_prepared (hfail : ¬ MainStatement) {s γ c : ℝ}
           Real.rpow_le_rpow (Nat.cast_nonneg _) hD ht0.le
         _ = (C.card : ℝ)^((1-c)*t) := (Real.rpow_mul (Nat.cast_nonneg _) _ _).symm
         _ ≤ (P.card : ℝ)^((1-c)*t) :=
-          Real.rpow_le_rpow (Nat.cast_nonneg _) (by exact_mod_cast hCn) (by positivity)
+          Real.rpow_le_rpow (Nat.cast_nonneg _) (by exact_mod_cast hCn) (by nlinarith [ht0, _hc, hc1])
     exact heavySubset_uniform P s (cutoff s P.card) (1/Real.log C.card) t η C D hlam hη.le
       m hm2 hT (hDP.trans (hpt.trans hcomp)) (fun j hj _ => (hm₂ j (hmt.trans hj)).le)
 

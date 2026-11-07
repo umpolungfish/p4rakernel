@@ -49,9 +49,15 @@ lemma truncated_error_mean {z w : ℂ} (hne : z ≠ w) {t : ℝ} (ht : 0 ≤ t) 
         have hs : {ω : FullSample | u < max (|error ω z w|-t) 0} =
             {ω : FullSample | u+t < |error ω z w|} := by
           ext ω
-          simp only [Set.mem_ofPred_eq,lt_max_iff]
+          simp only [Set.mem_setOf_eq,lt_max_iff]
           constructor
-          · rintro (h | h) <;> linarith
+          · rintro (h | h)
+            · -- |error ω z w| - t ≥ 0
+              have h₂ : u + t < |error ω z w| := by linarith
+              exact h₂
+            · -- |error ω z w| - t < 0
+              exfalso
+              linarith
           · intro h; exact Or.inl (by linarith)
         rw [hs, ← ENNReal.ofReal_toReal (measure_ne_top fullLaw _)]
         have hh := abs_error_tail_full hne (add_nonneg hu.le ht)
@@ -146,9 +152,9 @@ lemma arch_weighted_defect (v : InfinitePlace K) (w : I → ℝ) (p : I → P �
       (arch Z₂ v ω).value (x i) y+Real.log (v (t i))|-H) 0) Grid.fullLaw :=
     ((((arch_integrable Z₁ h₁ v _ _).add (arch_integrable Z₂ h₂ v _ _)).add (integrable_const _)).abs.sub
       (integrable_const H)).sup (integrable_zero _ _ _)
-  rw [integral_finsetSum _ (fun i _ => (integrable_finsetSum (s:=Finset.univ)
+  rw [integral_finset_sum _ (fun i _ => (integrable_finset_sum (s:=Finset.univ)
     (fun y _ => (hi i y).const_mul _)).const_mul _)]
-  simp_rw [integral_const_mul,integral_finsetSum _ (fun y _ => (hi _ y).const_mul _),integral_const_mul]
+  simp_rw [integral_const_mul,integral_finset_sum _ (fun y _ => (hi _ y).const_mul _),integral_const_mul]
   calc
     _ ≤ ∑ i, w i * ∑ y, p i y*(16*Real.exp (-H/2)) := by
       apply Finset.sum_le_sum
@@ -189,13 +195,13 @@ lemma arch_small_fiber (hn : 2 ≤ Fintype.card P) (v : InfinitePlace K)
     have hd := ((arch_integrable Z₁ h₁ v (x i) y).add (arch_integrable Z₂ h₂ v (x i) y)).add
       (integrable_const (Real.log (v (t i))))
     exact (hd.abs.sub (integrable_const H)).sup (integrable_zero _ _ _)
-  have hA := (integrable_finsetSum (s:=Finset.univ) (fun C _ => (hiM₁ C).mul_const (pairCell Finset.univ C))).const_mul (2*lam/τ^2)
-  have hS := ((integrable_finsetSum (s:=Finset.univ) (fun y _ => hiS₁ y)).add
-    (integrable_finsetSum (s:=Finset.univ) (fun y _ => hiS₂ y))).const_mul (B*τ/Fintype.card P)
-  have hA' := (integrable_finsetSum (s:=Finset.univ) (fun C _ => (hiM₂ C).mul_const (pairCell Finset.univ C))).const_mul (2*lam*B)
-  have hE := integrable_finsetSum (s:=Finset.univ) (fun i _ =>
-    (integrable_finsetSum (s:=Finset.univ) (fun y _ => (hiE i y).const_mul (p i y))).const_mul (w i))
-  have hb := integral_mono (integrable_finsetSum (s:=Finset.univ) (fun C _ => (hiM₁ C).mul_const (slice w p x lam C)))
+  have hA := (integrable_finset_sum (s:=Finset.univ) (fun C _ => (hiM₁ C).mul_const (pairCell Finset.univ C))).const_mul (2*lam/τ^2)
+  have hS := ((integrable_finset_sum (s:=Finset.univ) (fun y _ => hiS₁ y)).add
+    (integrable_finset_sum (s:=Finset.univ) (fun y _ => hiS₂ y))).const_mul (B*τ/Fintype.card P)
+  have hA' := (integrable_finset_sum (s:=Finset.univ) (fun C _ => (hiM₂ C).mul_const (pairCell Finset.univ C))).const_mul (2*lam*B)
+  have hE := integrable_finset_sum (s:=Finset.univ) (fun i _ =>
+    (integrable_finset_sum (s:=Finset.univ) (fun y _ => (hiE i y).const_mul (p i y))).const_mul (w i))
+  have hb := integral_mono (integrable_finset_sum (s:=Finset.univ) (fun C _ => (hiM₁ C).mul_const (slice w p x lam C)))
     ((((hA.add hS).add hA').add (integrable_const (2*lam*H))).add hE)
     (fun ω => by
       simpa only [Pi.add_apply,sub_neg_eq_add] using
@@ -205,16 +211,16 @@ lemma arch_small_fiber (hn : 2 ≤ Fintype.card P) (v : InfinitePlace K)
   have hI₂ := integral_add ((hA.add hS).add hA') (integrable_const (2*lam*H))
   have hI₃ := integral_add (hA.add hS) hA'
   have hI₄ := integral_add hA hS
-  have hI₅ := integral_add (integrable_finsetSum (s:=Finset.univ) (fun y _ => hiS₁ y))
-    (integrable_finsetSum (s:=Finset.univ) (fun y _ => hiS₂ y))
+  have hI₅ := integral_add (integrable_finset_sum (s:=Finset.univ) (fun y _ => hiS₁ y))
+    (integrable_finset_sum (s:=Finset.univ) (fun y _ => hiS₂ y))
   simp only [Pi.add_apply] at hb hI₁ hI₂ hI₃ hI₄ hI₅
   rw [hI₁,hI₂,hI₃,hI₄] at hb
   simp only [integral_const,probReal_univ,one_smul,integral_const_mul] at hb
   rw [hI₅] at hb
-  rw [integral_finsetSum _ (fun C _ => (hiM₁ C).mul_const (slice w p x lam C)),
-    integral_finsetSum _ (fun C _ => (hiM₁ C).mul_const (pairCell Finset.univ C)),
-    integral_finsetSum _ (fun C _ => (hiM₂ C).mul_const (pairCell Finset.univ C)),
-    integral_finsetSum _ (fun y _ => hiS₁ y),integral_finsetSum _ (fun y _ => hiS₂ y)] at hb
+  rw [integral_finset_sum _ (fun C _ => (hiM₁ C).mul_const (slice w p x lam C)),
+    integral_finset_sum _ (fun C _ => (hiM₁ C).mul_const (pairCell Finset.univ C)),
+    integral_finset_sum _ (fun C _ => (hiM₂ C).mul_const (pairCell Finset.univ C)),
+    integral_finset_sum _ (fun y _ => hiS₁ y),integral_finset_sum _ (fun y _ => hiS₂ y)] at hb
   simp only [integral_mul_const] at hb
   have he := arch_weighted_defect Z₁ Z₂ h₁ h₂ v w p x t hw hW hp hp1 hx ht H hH
   linarith

@@ -615,10 +615,10 @@ lemma integral_signedCell (C : Ω → Finset P) (μ : Measure Ω)
         change signedCell B (C ω) = _
         rw [signedCell_eq, cell_sum_eq _ (signedPair_diag B)]
     _ = ∑ x, ∑ y, ∫ ω, signedPair B x y * offDiagonalCell (C ω) x y ∂μ := by
-      rw [integral_finsetSum _ (fun x _ => integrable_finsetSum _ (fun y _ => hi x y))]
+      rw [integral_finset_sum _ (fun x _ => integrable_finset_sum _ (fun y _ => hi x y))]
       apply Finset.sum_congr rfl
       intro x _
-      exact integral_finsetSum _ (fun y _ => hi x y)
+      exact integral_finset_sum _ (fun y _ => hi x y)
     _ = _ := by simp only [overlap, integral_const_mul]
 
 lemma integrated_cancel (C : Ω → Finset P) (μ : Measure Ω)
@@ -710,9 +710,9 @@ theorem integrated_variance (C : Ω → Finset P) (μ : Measure Ω)
     intro D hD
     simp [singleton_pairCell _ _ hD]
   have hsum : Integrable (fun ω => ∑ i, w i * signedCell (B i) (C ω)) μ :=
-    integrable_finsetSum _ fun i _ => (hs i).const_mul _
+    integrable_finset_sum _ fun i _ => (hs i).const_mul _
   have hzero : (∫ ω, ∑ i, w i * signedCell (B i) (C ω) ∂μ) = 0 := by
-    rw [integral_finsetSum _ fun i _ => (hs i).const_mul _]
+    rw [integral_finset_sum _ fun i _ => (hs i).const_mul _]
     simp only [integral_const_mul,
       integrated_cancel C μ hC hq b S hL _ (hB _), mul_zero, Finset.sum_const_zero]
   have hh := integral_mono hv

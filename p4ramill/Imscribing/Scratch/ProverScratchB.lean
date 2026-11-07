@@ -18,4 +18,4 @@ set_option linter.style.missingEnd false
 set_option linter.style.openClassical false
 set_option linter.style.nativeDecide false
 set_option linter.style.admit false
-[LLM empty: empty content, 11948 chars of reasoning (finish_reason=length) — the budget went to reasoning; pass --max-tokens 0 to uncap]
+[LLM empty: empty content (finish_reason=length)]

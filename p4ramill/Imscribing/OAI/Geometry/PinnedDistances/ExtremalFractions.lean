@@ -66,7 +66,8 @@ lemma fraction_values_bddAbove (n : ℕ) (s : ℝ) :
   exact pairFraction_le_one P s
 
 lemma fraction_le_F (P : Finset Plane) (s : ℝ) (hn : 2 ≤ P.card) : pairFraction P s ≤ F P.card s := by
-  rw [F,ite_eq_left hn]
+  rw [F]
+  simp [hn]
   exact le_csSup (fraction_values_bddAbove _ _) ⟨P,rfl,rfl⟩
 
 lemma F_nonneg (n : ℕ) (s : ℝ) : 0 ≤ F n s := by
@@ -96,7 +97,8 @@ lemma F_attained (n : ℕ) (hn : 2 ≤ n) (s : ℝ) :
   obtain ⟨k,hk,hmax⟩ := Finset.exists_max_image A id ⟨_,hA⟩
   obtain ⟨Q,hQ,hkQ⟩ := (Finset.mem_filter.mp hk).2
   refine ⟨Q,hQ,le_antisymm ?_ ?_⟩
-  · rw [F,ite_eq_left hn]
+  · rw [F]
+    simp [hn]
     apply csSup_le (fraction_values_nonempty _ _)
     rintro a ⟨R,hR,rfl⟩
     have hm : (richPairs R s).card ∈ A := by

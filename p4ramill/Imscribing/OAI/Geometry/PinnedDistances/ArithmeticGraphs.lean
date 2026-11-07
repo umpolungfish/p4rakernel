@@ -53,7 +53,8 @@ lemma PreparedGraph.edge_domination (h : PreparedGraph V I G θ γ c η) (hη : 
       calc
         1 / G.edgeCount ≤ 1 / ((θ-η)*((Fintype.card V : ℝ)*((Fintype.card V : ℝ)-1))) := hh
         _ = _ := by rw [one_div_mul_one_div]
-    · positivity
+    · have hθ : 0 ≤ θ-η := le_of_lt (sub_pos.mpr hη)
+      positivity
 
 lemma PreparedGraph.degree_law (h : PreparedGraph V I G θ γ c η) (hη : η<θ) (hη0 : 0≤η) (x : V) :
     2*((θ-η)/(θ+η/8))*prob Finset.univ x ≤ (∑ y, G.edgeLaw x y)+(∑ y, G.edgeLaw y x) := by
@@ -83,7 +84,8 @@ lemma PreparedGraph.heavy_bound (h : PreparedGraph V I G θ γ c η) (hη : η<�
     by_cases hz : D.card=0
     · simp [hz]
     · have hh : (1:ℝ)≤D.card := by exact_mod_cast (show 1≤D.card by omega)
-      positivity
+      have hsub : 0 ≤ (D.card : ℝ)-1 := by linarith
+      exact mul_nonneg (by positivity) hsub
   have hb := h.subset D
   have hcmp : G.heavyCount (1/Real.log (Fintype.card V : ℝ)) D / G.edgeCount ≤
       ((θ+η)*(D.card : ℝ)*((D.card : ℝ)-1))/((θ-η)*(Fintype.card V : ℝ)*((Fintype.card V : ℝ)-1)) := by
@@ -103,7 +105,8 @@ lemma PreparedGraph.small_heavy_bound (h : PreparedGraph V I G θ γ c η) (hη 
     by_cases hz : D.card=0
     · simp [hz]
     · have hh : (1:ℝ)≤D.card := by exact_mod_cast (show 1≤D.card by omega)
-      positivity
+      have hsub : 0 ≤ (D.card : ℝ)-1 := by linarith
+      exact mul_nonneg (by positivity) hsub
   have hcmp : G.heavyCount (1/Real.log (Fintype.card V : ℝ)) D / G.edgeCount ≤
       (η*(D.card : ℝ)*((D.card : ℝ)-1))/((θ-η)*(Fintype.card V : ℝ)*((Fintype.card V : ℝ)-1)) := by
     apply div_le_div₀ _ (h.small D hDsz) (mul_pos (mul_pos (sub_pos.mpr hη) (by linarith)) (by linarith)) h.lower
@@ -267,13 +270,13 @@ lemma PreparedGraph.small_overlap (h : PreparedGraph V I G θ γ c η) (hη : η
       (θ/(θ-η))*(if (C.card : ℝ)≤(Fintype.card V : ℝ)^(1-c) then pairCell Finset.univ C else 0) := by
     rw [G.qCell_split hne (1/Real.log (Fintype.card V : ℝ)) C]
     by_cases hC : (C.card : ℝ)≤(Fintype.card V : ℝ)^(1-c)
-    · rw [ite_eq_left hC]
+    · rw [if_pos hC]
       have hh := h.small_heavy_bound hη hη0 C hC
       have he : (θ+η)/(θ-η)-θ/(θ-η)=η/(θ-η) := by ring
       calc
         _ ≤ slice G.fiberWeight (fun e => prob (G.targets e)) G.source (1/Real.log (Fintype.card V : ℝ)) C + (η/(θ-η))*pairCell Finset.univ C := add_le_add_right hh _
         _ = _ := by rw [← he]; ring
-    · simp only [ite_eq_right hC,mul_zero,sub_zero]
+    · simp only [if_neg hC,mul_zero,sub_zero]
       exact add_le_add_right (h.heavy_bound hη hη0 C) _
   have hint := Finset.sum_le_sum (s:=Finset.univ) (fun C _ => mul_le_mul_of_nonneg_left (hpoint C) (hm C))
   change weightedIntegral m G.qCell ≤ _ at hint
@@ -345,7 +348,7 @@ lemma PreparedGraph.arithmetic_slice (h : PreparedGraph V I G θ γ c η) (hη :
     simpa [SmallFiber.edgeLaw,G.sampling_fiber,pairProb,hab, div_eq_mul_inv,mul_assoc,mul_comm,mul_left_comm] using hh
   have hh := arithmetic_small_fiber Z₁ Z₂ h₁ h₂ h.card_ge G.fiberWeight (fun e => prob (G.targets e)) G.source t
     G.fiberWeight_nonneg (G.sum_fiberWeight (h.edgeCount_pos hη)) hp (fun e => sum_prob _ (hne e)) hx ht'
-    (1/(θ-η)) τ lam H (by positivity) hlam hlam2 hτ hτ1 hτn hH hdom
+    (1/(θ-η)) τ lam H (le_of_lt (one_div_pos.mpr (sub_pos.mpr hη))) hlam hlam2 hτ hτ1 hτn hH hdom
   have he : (∑ x : V, totalPotential Z₁ Z₂ h₁ h₂ x)/(Fintype.card V:ℝ) = potentialScale Z₁ Z₂ h₁ h₂ := by
     simp only [potentialScale,prob,Finset.mem_univ,ite_true,Finset.card_univ,Finset.sum_div]
     exact Finset.sum_congr rfl (fun x _ => by ring)

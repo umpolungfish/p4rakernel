@@ -81,8 +81,10 @@ lemma fiberWeight_prob (e : I) (y : V) :
   by_cases hy : y ∈ G.targets e
   · have hk : ((G.targets e).card : ℝ) ≠ 0 := by
       exact_mod_cast (Finset.card_ne_zero.mpr ⟨y,hy⟩)
-    simp only [fiberWeight,prob,ite_eq_left hy]
-    field_simp
+    simp only [fiberWeight,prob]
+    <;> split_ifs <;> simp_all [hy]
+    <;> field_simp [hk]
+    <;> ring
   · simp [prob,hy]
 
 lemma sampling_fiber (x y : V) :
@@ -118,8 +120,9 @@ lemma sampling_incoming (x y : V) :
   by_cases he : (x,y) ∈ G.edges
   · have hm : x ∈ G.incoming y := by simp [incoming,he]
     have hk : ((G.incoming y).card : ℝ) ≠ 0 := by exact_mod_cast (Finset.card_ne_zero.mpr ⟨x,hm⟩)
-    simp only [incomingWeight,prob,ite_eq_left hm,edgeLaw,ite_eq_left he]
-    field_simp
+    simp only [incomingWeight,prob,edgeLaw]
+    <;> split_ifs <;> simp_all [hm, he]
+    <;> field_simp [hk]
   · have hm : x ∉ G.incoming y := by simp [incoming,he]
     simp [prob,hm,edgeLaw,he]
 
@@ -242,22 +245,70 @@ lemma onCore_card (K : ℝ) (C : Finset V) :
   exact Prod.ext (Subtype.ext (congrArg Prod.fst h)) (Subtype.ext (congrArg Prod.snd h))
 
 omit [Fintype I] in
+omit [Fintype I] in
 lemma onCore_degree (K : ℝ) (C : Finset V) (x : C) :
-    (G.onCore K C).degree (-1) Finset.univ x=G.degree K C x.val := by
-  simp only [degree,G.onCore_edge]
-  have hsum (f : V → ℝ) (hf : ∀ y, y ∉ C → f y=0) : (∑ y : C, f y.val)=∑ y, f y := by
-    rw [Finset.sum_coe_sort]
-    apply Finset.sum_subset (Finset.subset_univ _) (fun y _ hy => hf y hy)
-  simp only [← Finset.sum_boole,← Finset.sum_add_distrib]
-  apply hsum (fun y => (if G.edge K C x.val y then 1 else 0)+(if G.edge K C y x.val then 1 else 0))
-  intro y hy
-  have h1 : ¬ G.edge K C x.val y := by
-    rintro ⟨e,ha,hs,he⟩
-    exact hy (Finset.mem_inter.mp he).2
-  have h2 : ¬ G.edge K C y x.val := by
-    rintro ⟨e,ha,hs,he⟩
-    exact hy (hs ▸ ha.1)
-  simp [h1,h2]
+    (G.onCore K C).degree (-1) Finset.univ x = G.degree K C x.val := by
+  have h₁ : (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ x y)).card =
+      (Finset.univ.filter (fun y : V => G.edge K C x.val y)).card := by
+    calc
+      (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ x y)).card =
+          ((Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ x y)).image Subtype.val).card := by
+        rw [← Finset.card_image_of_injective _ Subtype.val_injective]
+      _ = (Finset.univ.filter (fun y : V => G.edge K C x.val y)).card := by
+        have h₁₁ : (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ x y)).image Subtype.val =
+            (Finset.univ.filter (fun y : V => G.edge K C x.val y)) := by
+          apply Finset.ext
+          intro y
+          constructor
+          · intro hy
+            obtain ⟨z, hz, rfl⟩ := Finset.mem_image.mp hy
+            obtain ⟨_, hEdge⟩ := Finset.mem_filter.mp hz
+            exact Finset.mem_filter.mpr
+              ⟨Finset.mem_univ _, (G.onCore_edge K C x z).mp hEdge⟩
+          · intro hy
+            obtain ⟨_, hEdge⟩ := Finset.mem_filter.mp hy
+            rcases hEdge with ⟨e, ha, hs, htarget⟩
+            have hyC : y ∈ C := (Finset.mem_inter.mp htarget).2
+            refine Finset.mem_image.mpr ⟨⟨y, hyC⟩, ?_, rfl⟩
+            exact Finset.mem_filter.mpr
+              ⟨Finset.mem_univ _, (G.onCore_edge K C x ⟨y, hyC⟩).mpr ⟨e, ha, hs, htarget⟩⟩
+        rw [h₁₁]
+
+  have h₂ : (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ y x)).card =
+      (Finset.univ.filter (fun y : V => G.edge K C y x.val)).card := by
+    calc
+      (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ y x)).card =
+          ((Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ y x)).image Subtype.val).card := by
+        rw [← Finset.card_image_of_injective _ Subtype.val_injective]
+      _ = (Finset.univ.filter (fun y : V => G.edge K C y x.val)).card := by
+        have h₂₁ : (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ y x)).image Subtype.val =
+            (Finset.univ.filter (fun y : V => G.edge K C y x.val)) := by
+          apply Finset.ext
+          intro y
+          constructor
+          · intro hy
+            obtain ⟨z, hz, rfl⟩ := Finset.mem_image.mp hy
+            obtain ⟨_, hEdge⟩ := Finset.mem_filter.mp hz
+            exact Finset.mem_filter.mpr
+              ⟨Finset.mem_univ _, (G.onCore_edge K C z x).mp hEdge⟩
+          · intro hy
+            obtain ⟨_, hEdge⟩ := Finset.mem_filter.mp hy
+            rcases hEdge with ⟨e, ha, hs, htarget⟩
+            have hyC : y ∈ C := hs ▸ ha.1
+            refine Finset.mem_image.mpr ⟨⟨y, hyC⟩, ?_, rfl⟩
+            exact Finset.mem_filter.mpr
+              ⟨Finset.mem_univ _, (G.onCore_edge K C ⟨y, hyC⟩ x).mpr ⟨e, ha, hs, htarget⟩⟩
+        rw [h₂₁]
+
+  calc
+    (G.onCore K C).degree (-1) Finset.univ x =
+        (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ x y)).card +
+        (Finset.univ.filter (fun y : C => (G.onCore K C).edge (-1) Finset.univ y x)).card := by
+      simp [degree]
+    _ = (Finset.univ.filter (fun y : V => G.edge K C x.val y)).card +
+        (Finset.univ.filter (fun y : V => G.edge K C y x.val)).card := by rw [h₁, h₂]
+    _ = G.degree K C x.val := by
+      simp [degree]
 
 end WeakPinned.Core.Fibers
 

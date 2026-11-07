@@ -90,7 +90,7 @@ lemma average_sum {J : Type u3} [Fintype J] (f : J → Depth P → Depth P → �
       ∑ j, average Z₁ Z₂ h₁ h₂ (f j)  := by
   classical
   unfold average
-  simp_rw [integral_finsetSum _ (fun j _ => hi j _),Finset.mul_sum]
+  simp_rw [integral_finset_sum _ (fun j _ => hi j _),Finset.mul_sum]
   rw [Finset.sum_comm,Finset.sum_comm (s:=placeUnion Z₁ Z₂ h₁ h₂)]
   simp only [Finset.sum_add_distrib]
 
@@ -170,7 +170,7 @@ include h₁ h₂ in
 lemma integrable_potentialEval (hn : 2≤Fintype.card P) (p : P → ℝ) :
     AverageIntegrable Z₁ Z₂ (potentialEval p) := by
   intro v
-  exact integrable_finsetSum (s:=Finset.univ) (fun y _ =>
+  exact integrable_finset_sum (s:=Finset.univ) (fun y _ =>
     ((integrable_potential_left Z₁ Z₂ h₁ hn y v).add
       (integrable_potential_right Z₁ Z₂ h₂ hn y v)).const_mul (p y))
 
@@ -179,9 +179,9 @@ include h₁ h₂ in
 lemma integrable_massEval (hn : 2≤Fintype.card P) (q : Finset P → ℝ) :
     AverageIntegrable Z₁ Z₂ (massEval q) := by
   intro v
-  exact (integrable_finsetSum (s:=Finset.univ) (fun C _ =>
+  exact (integrable_finset_sum (s:=Finset.univ) (fun C _ =>
       (integrable_mass_left Z₁ Z₂ h₁ hn C v).mul_const (q C))).add
-    (integrable_finsetSum (s:=Finset.univ) (fun C _ =>
+    (integrable_finset_sum (s:=Finset.univ) (fun C _ =>
       (integrable_mass_right Z₁ Z₂ h₂ hn C v).mul_const (q C)))
 
 lemma average_potentialEval (hn : 2≤Fintype.card P) (p : P → ℝ) :
@@ -307,8 +307,8 @@ lemma arithmetic_potential_fiber_bound (hn : 2≤Fintype.card P)
       (∫ ω, f (arch Z₁ v ω) (arch Z₂ v ω) ∂Grid.fullLaw)≤16 := by
     let E : Grid.FullSample → ℝ := fun ω => ∑ i, w i*∑ y, p i y*
       |(arch Z₁ v ω).value (src i) y+(arch Z₂ v ω).value (src i) y+Real.log (v (t i))|
-    have hi : Integrable E Grid.fullLaw := integrable_finsetSum (s:=Finset.univ) (fun i _ =>
-      (integrable_finsetSum (s:=Finset.univ) (fun y _ =>
+    have hi : Integrable E Grid.fullLaw := integrable_finset_sum (s:=Finset.univ) (fun i _ =>
+      (integrable_finset_sum (s:=Finset.univ) (fun y _ =>
         ((((arch_integrable Z₁ h₁ v _ _).add (arch_integrable Z₂ h₂ v _ _)).add
           (integrable_const _)).abs.const_mul (p i y)))).const_mul (w i))
     have hu : (∫ ω, E ω ∂Grid.fullLaw)≤16 := by
@@ -327,7 +327,7 @@ lemma arithmetic_potential_fiber_bound (hn : 2≤Fintype.card P)
           (sub_ne_zero.mpr (h₁.ne hxy)) (sub_ne_zero.mpr (h₂.ne hxy))
         rw [ht' i y hy] at hh
         change -Real.log (v (Z₁ (src i)-Z₁ y)) + -Real.log (v (Z₂ (src i)-Z₂ y)) = -Real.log (v (t i)) at hh
-        simp only [finite,ite_eq_right hxy,hh,sub_self,abs_zero,mul_zero]
+        simp only [finite,if_neg hxy,hh,sub_self,abs_zero,mul_zero]
     simpa only [he,Finset.sum_const_zero,mul_zero] using
       hb (finite Z₁ h₁ v) (finite Z₂ h₂ v) (fun i => -Real.log (v (t i)))
   have hg : average Z₁ Z₂ h₁ h₂ f≤16 := by

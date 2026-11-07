@@ -178,12 +178,12 @@ lemma incoming_discrep_bound (T H : ℝ) (hT : 0<T) (hn : 2≤Fintype.card V)
   by_cases hy : T≤((G.incoming y).card:ℝ)
   · have hne : (G.incoming y).Nonempty := Finset.card_pos.mp (by exact_mod_cast hT.trans_le hy)
     simp only [Core.Fibers.retainedWeight,Core.Fibers.retainedSet,Core.Fibers.conditionalSource,
-      ite_eq_left hy,ite_eq_left hne,not_lt_of_ge hy,ite_false,mul_zero,add_zero]
+      if_pos hy,if_pos hne,not_lt_of_ge hy,ite_false,mul_zero,add_zero]
     exact le_rfl
   · have hbound : |(∑ x,G.conditionalSource y x*f x)-∑ x,prob Finset.univ x*f x|≤2*H := by
       have hh := avg_abs_bound _ _ _ (G.conditionalSource_nonneg y) (G.conditionalSource_sum hn y) hf
       exact (abs_sub _ _).trans (by linarith)
-    simp only [Core.Fibers.retainedWeight,ite_eq_right hy,lt_of_not_ge hy,ite_true,zero_mul,zero_add]
+    simp only [Core.Fibers.retainedWeight,if_neg hy,lt_of_not_ge hy,ite_true,zero_mul,zero_add]
     nlinarith [mul_le_mul_of_nonneg_left hbound (G.incomingWeight_nonneg y)]
 
 lemma incoming_test_bound (T H C : ℝ) (hT : 0<T) (hn : 2≤Fintype.card V)
