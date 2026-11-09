@@ -1,0 +1,13 @@
+[
+  {
+    "name": "organism_build",
+    "command": [
+      "python3",
+      "/home/mrnob0dy666/imsgct/p4rakernel/tests/kernel_features/verify_organism.py",
+      "--out",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism"
+    ],
+    "exit_code": 1,
+    "seconds": 9.124220982004772
+  }
+]

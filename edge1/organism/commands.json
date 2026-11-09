@@ -1,0 +1,194 @@
+[
+  {
+    "name": "kernel_build",
+    "command": [
+      "cmake",
+      "--build",
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1",
+      "--target",
+      "leanshared",
+      "-j2"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 1.27968638400489
+  },
+  {
+    "name": "lean_oracle",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "--run",
+      "OrganismKernelOracle.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 0,
+    "seconds": 0.9640927879954688
+  },
+  {
+    "name": "vgi_orders",
+    "command": [
+      "cargo",
+      "run",
+      "--offline",
+      "--release",
+      "--features",
+      "host",
+      "--bin",
+      "kernel_orders"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/VGI/sources/graph_flow_oracle",
+    "exit_code": 0,
+    "seconds": 0.026216198995825835
+  },
+  {
+    "name": "native_build",
+    "command": [
+      "c++",
+      "-std=c++14",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "/home/mrnob0dy666/imsgct/p4rakernel/src",
+      "-I",
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/include",
+      "/home/mrnob0dy666/imsgct/p4rakernel/tests/lean/run/organism_native.cpp",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/organism_native"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 1.3967166829970665
+  },
+  {
+    "name": "native_controls",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/organism_native",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/lean_oracle.txt"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 0.17010379799467046
+  },
+  {
+    "name": "vgi_adapter_build",
+    "command": [
+      "c++",
+      "-std=c++20",
+      "-O2",
+      "-fno-builtin",
+      "-fno-stack-protector",
+      "-fno-tree-vectorize",
+      "-ffp-contract=off",
+      "-mno-avx",
+      "-mno-fma",
+      "-fno-exceptions",
+      "-fno-rtti",
+      "-fno-threadsafe-statics",
+      "-fno-use-cxa-atexit",
+      "-ffunction-sections",
+      "-fdata-sections",
+      "-Wl,--gc-sections",
+      "-Wl,-u,vgi_check_continue",
+      "-Wl,-u,vgi_check_enter",
+      "-Wl,-u,vgi_check_execute",
+      "-Wl,-u,vgi_check_observe",
+      "-Wl,-u,vgi_check_reference",
+      "-Wl,-u,vgi_check_return",
+      "-Wl,-u,vgi_check_stream",
+      "-Wl,-u,vgi_check_train_return",
+      "-Wl,-u,vgi_corpus_find",
+      "-Wl,-u,vgi_corpus_learn",
+      "-Wl,-u,vgi_corpus_metadata",
+      "-Wl,-u,vgi_corpus_retrieve",
+      "-Wl,-u,vgi_corpus_select",
+      "-Wl,-u,vgi_corpus_train",
+      "-Wl,-u,vgi_full_export",
+      "-Wl,-u,vgi_full_gradient",
+      "-Wl,-u,vgi_full_learn",
+      "-Wl,-u,vgi_full_parameter",
+      "-Wl,-u,vgi_graph_continue",
+      "-Wl,-u,vgi_graph_edge",
+      "-Wl,-u,vgi_graph_node",
+      "-Wl,-u,vgi_graph_observe",
+      "-Wl,-u,vgi_graph_reset",
+      "-Wl,-u,vgi_graph_run",
+      "-Wl,-u,vgi_graph_save",
+      "-Wl,-u,vgi_graph_stream",
+      "-Wl,-u,vgi_optimizer_observe",
+      "-Wl,-u,vgi_retained_first",
+      "-Wl,-u,vgi_retained_memory",
+      "-Wl,-u,vgi_retained_nodes",
+      "-Wl,-u,vgi_retained_oracle",
+      "-Wl,-u,vgi_retained_oracle_observe",
+      "-Wl,-u,vgi_retained_reset",
+      "-Wl,-u,vgi_retained_retrieve",
+      "-Wl,-u,vgi_retained_settle",
+      "-Wl,-u,vgi_retained_token",
+      "-Wl,-u,vgi_retained_train",
+      "-Wl,-u,vgi_retained_update",
+      "-Wl,-u,vgi_stream_norm",
+      "-Wl,-u,vgi_stream_reset",
+      "-Wl,-u,vgi_stream_token",
+      "-Wl,-u,vgi_stream_train",
+      "-Wl,-u,vgi_stream_update",
+      "-Wl,-u,vgi_write_current",
+      "-shared",
+      "-fPIC",
+      "/home/mrnob0dy666/imsgct/VGI/sources/grammar_training_v1/organism_adapter.cpp",
+      "/home/mrnob0dy666/imsgct/VGI/graph_flow_oracle_build_20261016/bare/x86_64-unknown-linux-gnu/release/libig_graph_flow_oracle.a",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/vgi_organism.so",
+      "-I",
+      "/home/mrnob0dy666/imsgct/VGI/composed_source_joint_native_r2_20261017/runtime"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 1.825308675004635
+  },
+  {
+    "name": "vgi_native_build",
+    "command": [
+      "c++",
+      "-std=c++14",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I",
+      "/home/mrnob0dy666/imsgct/p4rakernel/src",
+      "-I",
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/include",
+      "/home/mrnob0dy666/imsgct/p4rakernel/tests/lean/run/organism_vgi_native.cpp",
+      "-ldl",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/organism_vgi_native"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 1.5286984800040955
+  },
+  {
+    "name": "vgi_controls",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/organism_vgi_native",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/vgi_organism.so"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel",
+    "exit_code": 0,
+    "seconds": 1.0922214849997545
+  },
+  {
+    "name": "lean_api",
+    "command": [
+      "/home/mrnob0dy666/imsgct/p4rakernel/build/stage1/bin/lean",
+      "-o",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/NativeDialetheicOrganism.olean",
+      "-c",
+      "/home/mrnob0dy666/imsgct/p4rakernel/edge1/organism/NativeDialetheicOrganism.c",
+      "NativeDialetheicOrganism.lean"
+    ],
+    "cwd": "/home/mrnob0dy666/imsgct/p4rakernel/p4ramill",
+    "exit_code": 1,
+    "seconds": 0.8005204899964156
+  }
+]

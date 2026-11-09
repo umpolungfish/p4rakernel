@@ -1,0 +1,10 @@
+[
+  {
+    "label": "help",
+    "command": [
+      "/home/mrnob0dy666/imsgct/organism",
+      "--help"
+    ],
+    "exit_code": 1
+  }
+]

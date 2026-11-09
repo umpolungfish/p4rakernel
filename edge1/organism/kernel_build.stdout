@@ -1,0 +1,15 @@
+[ 34%] Built target leanrt_initial-exec
+[ 34%] Built target initialize
+[ 36%] Built target leanshell
+[ 38%] Built target constructions
+[ 56%] Built target util
+[ 76%] Built target kernel
+[ 97%] Built target library
+[ 97%] Built target copy-cadical
+[ 98%] Built target leaninitialize
+[ 98%] Built target leancpp_1
+[100%] Built target leancpp
+Build completed successfully (4283 jobs).
+[100%] Built target make_stdlib
+[100%] Built target Init_shared
+[100%] Built target leanshared

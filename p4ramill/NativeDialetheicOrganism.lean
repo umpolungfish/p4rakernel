@@ -1,3 +1,4 @@
+import Init.Data.String.Basic
 import Lean
 import Lean.Sixteen3
 import Init.Paraconsistent
@@ -7,6 +8,9 @@ kernel body; snapshots read its actual source, nested frames, frontier,
 programs, predictions, observations and action ancestry. -/
 
 namespace Lean.DialetheicOrganism
+
+-- Only Nat instance needed: OfNat Nat 0 (for numeral 0 in loop n)
+instance : OfNat Nat 0 := ⟨Nat.zero⟩
 
 private opaque BodyImpl : NonemptyType
 def Body := BodyImpl.type
@@ -32,23 +36,25 @@ opaque snapshot (body : @& Body) : IO String
 
 -- Derived: run exactly N steps, then return the snapshot
 def runNSteps (body : @& Body) (n : ℕ) : IO String :=
-  let rec loop (i : ℕ) : IO String :=
-    if i ≥ n then ← snapshot body
-    else do
+  let rec loop (remaining : ℕ) : IO String :=
+    match remaining with
+    | Nat.zero => ← snapshot body
+    | Nat.succ remaining' => do
       step body
-      loop (i + 1)
-  loop 0
+      loop remaining'
+  loop n
 
 -- Derived: run until closure or step limit, returning the final snapshot
 def runToClosure (body : @& Body) (stepLimit : ℕ) : IO String :=
   let rec loop (n : ℕ) : IO String :=
-    if n = 0 then ← snapshot body
-    else do
+    match n with
+    | Nat.zero => ← snapshot body
+    | Nat.succ n' => do
       closed ← taskClosed body
       if closed then ← snapshot body
       else do
         step body
-        loop (n - 1)
+        loop n'
   loop stepLimit
 
 -- Derived: create an organism from a source mask and immediately attach VGI

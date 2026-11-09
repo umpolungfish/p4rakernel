@@ -7,56 +7,52 @@ open Lean Paraconsistent
 providing the dialetheic truth-value machinery for the organism's decision
 procedures. All operations run on Four-valued Belnap logic (N, T, F, B). -/
 
--- Derived: check if a Sixteen3 state is dialetheic (both true and false)
-def isDialetheic (s : Lean.Sixteen3) : Bool :=
-  s.hasB
+def maskToSixteen3 (m : Nat) : Lean.Sixteen3 :=
+  ⟨m % 2 == 1, m / 2 % 2 == 1, m / 4 % 2 == 1, m / 8 % 2 == 1⟩
 
--- Derived: check if a Sixteen3 state is void (neither true nor false)
-def isVoid (s : Lean.Sixteen3) : Bool :=
-  s.hasN && ¬s.hasT && ¬s.hasF && ¬s.hasB
+def sixteen3ToMask (s : Lean.Sixteen3) : Nat :=
+  (if s.hasN then 1 else 0) +
+  (if s.hasT then 2 else 0) +
+  (if s.hasF then 4 else 0) +
+  (if s.hasB then 8 else 0)
 
--- Derived: check if a Sixteen3 state is purely true (T only)
-def isTrue (s : Lean.Sixteen3) : Bool :=
-  s.hasT && ¬s.hasF && ¬s.hasB && ¬s.hasN
-
--- Derived: check if a Sixteen3 state is purely false (F only)
-def isFalse (s : Lean.Sixteen3) : Bool :=
-  s.hasF && ¬s.hasT && ¬s.hasB && ¬s.hasN
-
--- Derived: check if a Sixteen3 state is contradictory-or-true (has T, possibly B)
-def isTrueish (s : Lean.Sixteen3) : Bool :=
-  s.hasT || s.hasB
-
--- Derived: check if a Sixteen3 state is contradictory-or-false (has F, possibly B)
-def isFalseish (s : Lean.Sixteen3) : Bool :=
-  s.hasF || s.hasB
-
--- Derived: check if a Sixteen3 state is unknown-or-null (has N, possibly B)
-def isNullish (s : Lean.Sixteen3) : Bool :=
-  s.hasN || s.hasB
-
--- Derived: Belnap negation on Sixteen3 (swap T and F)
-def negateOf (s : Lean.Sixteen3) : Lean.Sixteen3 :=
-  { hasN := s.hasN, hasT := s.hasF, hasF := s.hasT, hasB := s.hasB }
-
--- Derived: classify a Sixteen3 state into one of 5 Belnap classes
-def classifyState (s : Lean.Sixteen3) : String :=
-  if isVoid s then "VOID"
-  else if isTrue s then "TRUE"
-  else if isFalse s then "FALSE"
-  else if isDialetheic s then "DIALETHEIC"
-  else "MIXED"
-
--- Derived: compute the Belnap meet of two Sixteen3 states (componentwise min)
-def meetOf (a b : Lean.Sixteen3) : Lean.Sixteen3 :=
-  { hasN := a.hasN && b.hasN, hasT := a.hasT && b.hasT,
-    hasF := a.hasF && b.hasF, hasB := a.hasB && b.hasB }
-
--- Derived: compute the Belnap join of two Sixteen3 states (componentwise max)
-def joinOf (a b : Lean.Sixteen3) : Lean.Sixteen3 :=
-  { hasN := a.hasN || b.hasN, hasT := a.hasT || b.hasT,
-    hasF := a.hasF || b.hasF, hasB := a.hasB || b.hasB }
-
--- Derived: check if two Sixteen3 states are Belnap-equivalent
-def belnapEq (a b : Lean.Sixteen3) : Bool :=
-  a = b
+def main : IO Unit := do
+  -- Lattice rows: all 256 pairs (x,y) in 0..15×0..15
+  for x in List.range 16 do
+    for y in List.range 16 do
+      let a := maskToSixteen3 x
+      let b := maskToSixteen3 y
+      let join_i := a.join_i b
+      let meet_i := a.meet_i b
+      let join_t := a.join_t b
+      let meet_t := a.meet_t b
+      let join_f := a.join_f b
+      let meet_f := a.meet_f b
+      let leq_t := a.le_t b
+      let leq_f := a.le_f b
+      let leq_i := a.le_i b
+      IO.println ("lattice " ++ toString x ++ " " ++ toString y ++ " " ++
+                  toString (sixteen3ToMask join_i) ++ " " ++
+                  toString (sixteen3ToMask meet_i) ++ " " ++
+                  toString (sixteen3ToMask join_t) ++ " " ++
+                  toString (sixteen3ToMask meet_t) ++ " " ++
+                  toString (sixteen3ToMask join_f) ++ " " ++
+                  toString (sixteen3ToMask meet_f) ++ " " ++
+                  (if leq_t then "true" else "false") ++ " " ++
+                  (if leq_f then "true" else "false") ++ " " ++
+                  (if leq_i then "true" else "false"))
+  -- Evidence rows: FDE conjunction/disjunction for x,y in 0..3
+  for x in List.range 4 do
+    for y in List.range 4 do
+      let aT := (x % 2 == 1)
+      let aF := (x / 2 % 2 == 1)
+      let bT := (y % 2 == 1)
+      let bF := (y / 2 % 2 == 1)
+      let andT := aT && bT
+      let andF := aF || bF
+      let orT := aT || bT
+      let orF := aF && bF
+      let band := (if andT then 1 else 0) + 2 * (if andF then 1 else 0)
+      let bor := (if orT then 1 else 0) + 2 * (if orF then 1 else 0)
+      IO.println ("evidence " ++ toString x ++ " " ++ toString y ++ " " ++
+                  toString band ++ " " ++ toString bor)

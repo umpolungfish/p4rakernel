@@ -1,0 +1,12 @@
+NativeDialetheicOrganism.lean:41:6: error: Type mismatch
+  Nat.zero
+has type
+  Nat
+but is expected to have type
+  ℕ
+NativeDialetheicOrganism.lean:51:6: error: Type mismatch
+  Nat.zero
+has type
+  Nat
+but is expected to have type
+  ℕ

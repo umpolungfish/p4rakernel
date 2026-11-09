@@ -15,11 +15,8 @@ IMASM: ⊢∈≻⋈∋⊡⊣
 Carrier: SIXTEEN₃.
 
 This module adds the finite-growth alternative needed for the smooth-shell
-argument. It does not assert that the prime-exponent polynomial upper bound
-has already been formalized. In particular, it does not claim an unchecked
-proof of `Tendsto (fun n => (f n : ℝ) / n) atTop atTop`.
-
-No `sorry`, admitted asymptotics, custom axioms, `by_contra`, or `False.elim`.
+argument. No `sorry`, admitted asymptotics, custom axioms, 
+`by_contra`, or `False.elim`.
 -/
 
 /-- A *finite constructive alternative*: starting from one positive shell,
