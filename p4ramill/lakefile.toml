@@ -472,7 +472,7 @@ globs = [
   "Imscribing.Primitives.SacredVessel",
   "Imscribing.Paraconsistent.Init",
   "Imscribing.Paraconsistent.NonexistenceOfProbability",
-
+  "Imscribing.Paraconsistent.Monism",
   "Imscribing.Paraconsistent.ParadoxFS",
   "Imscribing.Paraconsistent.CrystalScheduler",
   "Imscribing.Paraconsistent.ParaconsistentShell",

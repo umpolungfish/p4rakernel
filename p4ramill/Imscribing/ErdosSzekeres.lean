@@ -1,363 +1,305 @@
+/-
+The Erdős–Szekeres monotone subsequence theorem, proved via the
+(p_i, q_i) grid-coloring argument.
+
+Import note: `Mathlib.Data.Finset.Lattice` was split into `Lattice/`.
+We import `Lattice.Lemmas` (transitively pulls in Basic/Fold/Pi/Prod/Union)
+so that `Finset.sup` is available.
+-/
+
 import Mathlib.Data.Real.Basic
 import Mathlib.Data.Nat.Basic
-import Mathlib.Data.Finset.Card
-import Mathlib.Data.Finset.Prod
-import Mathlib.Data.Finset.Lattice.Fold
-import Mathlib.Order.Interval.Finset.Nat
-import Mathlib.Data.Fintype.Card
 import Mathlib.Logic.Function.Basic
 import Mathlib.Order.Monotone.Basic
-
-open Classical
+import Mathlib.Data.Finset.Card
+import Mathlib.Combinatorics.Pigeonhole
+import Mathlib.Data.Fin.Basic
+import Mathlib.Data.Finset.Lattice.Lemmas
 
 namespace ErdosSzekeres
 
+/-- A strictly-increasing subsequence of `f : Fin n → ℝ` of length `k`. -/
 def HasIncrSubseq (n k : ℕ) (f : Fin n → ℝ) : Prop :=
   ∃ (idx : Fin k → Fin n),
     StrictMono (fun (i : Fin k) => (idx i : ℕ)) ∧
     StrictMono (fun (i : Fin k) => f (idx i))
 
+/-- A strictly-decreasing subsequence of `f : Fin n → ℝ` of length `k`. -/
 def HasDecrSubseq (n k : ℕ) (f : Fin n → ℝ) : Prop :=
   ∃ (idx : Fin k → Fin n),
     StrictMono (fun (i : Fin k) => (idx i : ℕ)) ∧
     StrictAnti (fun (i : Fin k) => f (idx i))
 
-def IsIncrSubseqEndingAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) (len : ℕ) : Prop :=
-  ∃ (idx : Fin len → Fin n),
-    (∀ a, (idx a).val ≤ i.val) ∧
-    StrictMono (fun a => (idx a).val) ∧
-    StrictMono (fun a => f (idx a)) ∧
-    (∃ a, idx a = i)
+/-- Length of the longest strictly-increasing subsequence ending at `i`. -/
+noncomputable def incrLen {n : ℕ} (f : Fin n → ℝ) : Fin n → ℕ
+  | i => 1 + ((Finset.univ.filter (fun j : Fin n => j < i ∧ f j < f i)).attach).sup
+           (fun j => incrLen f j.1)
+termination_by i => i.val
+decreasing_by
+  rename_i j
+  have h := j.2
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and] at h
+  exact Fin.lt_def.mp h.1
 
-def IsDecrSubseqEndingAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) (len : ℕ) : Prop :=
-  ∃ (idx : Fin len → Fin n),
-    (∀ a, (idx a).val ≤ i.val) ∧
-    StrictMono (fun a => (idx a).val) ∧
-    StrictAnti (fun a => f (idx a)) ∧
-    (∃ a, idx a = i)
+/-- Length of the longest strictly-decreasing subsequence ending at `i`. -/
+noncomputable def decrLen {n : ℕ} (f : Fin n → ℝ) : Fin n → ℕ
+  | i => 1 + ((Finset.univ.filter (fun j : Fin n => j < i ∧ f j > f i)).attach).sup
+           (fun j => decrLen f j.1)
+termination_by i => i.val
+decreasing_by
+  rename_i j
+  have h := j.2
+  simp only [Finset.mem_filter, Finset.mem_univ, true_and] at h
+  exact Fin.lt_def.mp h.1
 
-noncomputable def lisAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : ℕ :=
-  (Finset.Icc 1 (i.val + 1)).sup
-    (fun len => if IsIncrSubseqEndingAt f i len then len else 0)
+lemma incrLen_pos {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : 1 ≤ incrLen f i := by
+  rw [incrLen]; omega
 
-noncomputable def ldsAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : ℕ :=
-  (Finset.Icc 1 (i.val + 1)).sup
-    (fun len => if IsDecrSubseqEndingAt f i len then len else 0)
+lemma decrLen_pos {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : 1 ≤ decrLen f i := by
+  rw [decrLen]; omega
 
-/-! ## Basic facts -/
+lemma incrLen_lt_of_lt {n : ℕ} (f : Fin n → ℝ) {i j : Fin n}
+    (hij : j < i) (hfj : f j < f i) : incrLen f j < incrLen f i := by
+  have hmem : j ∈ Finset.univ.filter (fun k : Fin n => k < i ∧ f k < f i) := by
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]; exact ⟨hij, hfj⟩
+  have hle : incrLen f j ≤
+      ((Finset.univ.filter (fun k : Fin n => k < i ∧ f k < f i)).attach).sup
+        (fun k => incrLen f k.1) := by
+    apply Finset.le_sup; simp
+  have h_i : incrLen f i = 1 +
+      ((Finset.univ.filter (fun k : Fin n => k < i ∧ f k < f i)).attach).sup
+        (fun k => incrLen f k.1) := by rw [incrLen]
+  rw [h_i]; omega
 
-lemma isIncr_one {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
-    IsIncrSubseqEndingAt f i 1 := by
-  refine ⟨fun _ => i, ?_, ?_, ?_, ⟨⟨0, Nat.one_pos⟩, rfl⟩⟩
-  · intro a; exact Nat.le_refl _
-  · intro a b hab; exact absurd hab (by omega)
-  · intro a b hab; exact absurd hab (by omega)
+lemma decrLen_lt_of_lt {n : ℕ} (f : Fin n → ℝ) {i j : Fin n}
+    (hij : j < i) (hfj : f j > f i) : decrLen f j < decrLen f i := by
+  have hmem : j ∈ Finset.univ.filter (fun k : Fin n => k < i ∧ f k > f i) := by
+    simp only [Finset.mem_filter, Finset.mem_univ, true_and]; exact ⟨hij, hfj⟩
+  have hle : decrLen f j ≤
+      ((Finset.univ.filter (fun k : Fin n => k < i ∧ f k > f i)).attach).sup
+        (fun k => decrLen f k.1) := by
+    apply Finset.le_sup; simp
+  have h_i : decrLen f i = 1 +
+      ((Finset.univ.filter (fun k : Fin n => k < i ∧ f k > f i)).attach).sup
+        (fun k => decrLen f k.1) := by rw [decrLen]
+  rw [h_i]; omega
 
-lemma isDecr_one {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
-    IsDecrSubseqEndingAt f i 1 := by
-  refine ⟨fun _ => i, ?_, ?_, ?_, ⟨⟨0, Nat.one_pos⟩, rfl⟩⟩
-  · intro a; exact Nat.le_refl _
-  · intro a b hab; exact absurd hab (by omega)
-  · intro a b hab; exact absurd hab (by omega)
-
-lemma lisAt_ge_one {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : 1 ≤ lisAt f i := by
-  unfold lisAt
-  have h1 : 1 ∈ Finset.Icc 1 (i.val + 1) :=
-    Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩
-  have hv : (if IsIncrSubseqEndingAt f i 1 then (1 : ℕ) else 0) = 1 := by
-    simp [isIncr_one f i]
-  calc (1 : ℕ) = _ := hv.symm
-    _ ≤ _ := Finset.le_sup
-      (f := fun l => if IsIncrSubseqEndingAt f i l then l else 0) h1
-
-lemma ldsAt_ge_one {n : ℕ} (f : Fin n → ℝ) (i : Fin n) : 1 ≤ ldsAt f i := by
-  unfold ldsAt
-  have h1 : 1 ∈ Finset.Icc 1 (i.val + 1) :=
-    Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩
-  have hv : (if IsDecrSubseqEndingAt f i 1 then (1 : ℕ) else 0) = 1 := by
-    simp [isDecr_one f i]
-  calc (1 : ℕ) = _ := hv.symm
-    _ ≤ _ := Finset.le_sup
-      (f := fun l => if IsDecrSubseqEndingAt f i l then l else 0) h1
-
-lemma exists_isIncr_of_lisAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
-    ∃ len, len ∈ Finset.Icc 1 (i.val + 1) ∧
-           IsIncrSubseqEndingAt f i len ∧ lisAt f i = len := by
-  unfold lisAt
-  have hne : (Finset.Icc 1 (i.val + 1)).Nonempty :=
-    ⟨1, Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩⟩
-  obtain ⟨len, hmem, heq⟩ :=
-    Finset.exists_mem_eq_sup (Finset.Icc 1 (i.val + 1)) hne
-      (fun len => if IsIncrSubseqEndingAt f i len then len else 0)
-  have hvalid : IsIncrSubseqEndingAt f i len := by
-    by_contra h
-    rw [if_neg h] at heq
-    have h1 : 1 ≤ (Finset.Icc 1 (i.val + 1)).sup
-        (fun l => if IsIncrSubseqEndingAt f i l then l else 0) := by
-      have hv : (if IsIncrSubseqEndingAt f i 1 then (1 : ℕ) else 0) = 1 := by
-        simp [isIncr_one f i]
-      calc (1 : ℕ) = _ := hv.symm
-        _ ≤ _ := Finset.le_sup
-            (f := fun l => if IsIncrSubseqEndingAt f i l then l else 0)
-            (Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩)
-    omega
-  refine ⟨len, hmem, hvalid, ?_⟩
-  rw [if_pos hvalid] at heq
-  exact heq
-
-lemma exists_isDecr_of_ldsAt {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
-    ∃ len, len ∈ Finset.Icc 1 (i.val + 1) ∧
-           IsDecrSubseqEndingAt f i len ∧ ldsAt f i = len := by
-  unfold ldsAt
-  have hne : (Finset.Icc 1 (i.val + 1)).Nonempty :=
-    ⟨1, Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩⟩
-  obtain ⟨len, hmem, heq⟩ :=
-    Finset.exists_mem_eq_sup (Finset.Icc 1 (i.val + 1)) hne
-      (fun len => if IsDecrSubseqEndingAt f i len then len else 0)
-  have hvalid : IsDecrSubseqEndingAt f i len := by
-    by_contra h
-    rw [if_neg h] at heq
-    have h1 : 1 ≤ (Finset.Icc 1 (i.val + 1)).sup
-        (fun l => if IsDecrSubseqEndingAt f i l then l else 0) := by
-      have hv : (if IsDecrSubseqEndingAt f i 1 then (1 : ℕ) else 0) = 1 := by
-        simp [isDecr_one f i]
-      calc (1 : ℕ) = _ := hv.symm
-        _ ≤ _ := Finset.le_sup
-            (f := fun l => if IsDecrSubseqEndingAt f i l then l else 0)
-            (Finset.mem_Icc.mpr ⟨le_refl _, by omega⟩)
-    omega
-  refine ⟨len, hmem, hvalid, ?_⟩
-  rw [if_pos hvalid] at heq
-  exact heq
-
-/-! ## The extension lemmas -/
-
-lemma lisAt_incr_step {n : ℕ} (f : Fin n → ℝ) {i j : Fin n}
-    (hij : j.val < i.val) (hfi : f j < f i) :
-    lisAt f i ≥ lisAt f j + 1 := by
-  obtain ⟨L, hLmem, hL_valid, hL_eq⟩ := exists_isIncr_of_lisAt f j
-  rw [hL_eq]
-  obtain ⟨idx, hle, hidx, hf_mono, ⟨a₀, ha₀⟩⟩ := hL_valid
-  have h_fidx_le : ∀ a : Fin L, f (idx a) ≤ f j := by
-    intro a
-    rcases lt_trichotomy a a₀ with h | h | h
-    · have hlt : f (idx a) < f (idx a₀) := hf_mono h
-      rw [ha₀] at hlt
-      exact le_of_lt hlt
-    · rw [h, ha₀]
-    · exfalso
-      have hlt : (idx a₀).val < (idx a).val := hidx h
-      rw [ha₀] at hlt
-      have := hle a
+/-- For every `i`, there is an increasing subsequence of length `incrLen f i`
+    whose last index is exactly `i`. -/
+lemma exists_incr_subseq_ending {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
+    ∃ idx : Fin (incrLen f i) → Fin n,
+      StrictMono (fun k => (idx k : ℕ)) ∧
+      StrictMono (fun k => f (idx k)) ∧
+      idx ⟨incrLen f i - 1, by have := incrLen_pos f i; omega⟩ = i := by
+  suffices H : ∀ m, ∀ i : Fin n, i.val = m →
+      ∃ idx : Fin (incrLen f i) → Fin n,
+        StrictMono (fun k => (idx k : ℕ)) ∧
+        StrictMono (fun k => f (idx k)) ∧
+        idx ⟨incrLen f i - 1, by have := incrLen_pos f i; omega⟩ = i from
+    H i.val i rfl
+  intro m
+  refine Nat.strongRec m ?_
+  intro m' ih i hi
+  by_cases hk : incrLen f i = 1
+  · refine ⟨fun _ => i, ?_, ?_, ?_⟩
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · simp [hk]
+  · have hk2 : 2 ≤ incrLen f i := by have := incrLen_pos f i; omega
+    have hsup : 1 ≤ ((Finset.univ.filter (fun j : Fin n => j < i ∧ f j < f i)).attach).sup
+        (fun j => incrLen f j.1) := by
+      have h := incrLen_pos f i
+      rw [incrLen] at h; omega
+    have hne : (Finset.univ.filter (fun j : Fin n => j < i ∧ f j < f i)).attach.Nonempty := by
+      rw [Finset.nonempty_iff_ne_empty]; intro hemp
+      rw [hemp] at hsup; simp at hsup
+    obtain ⟨j, _, hj_eq⟩ := Finset.exists_mem_eq_sup _ hne (fun j => incrLen f j.1)
+    have hji : j.1 < i := by
+      have := j.2; simp only [Finset.mem_filter, Finset.mem_univ, true_and] at this
+      exact this.1
+    have hfj : f j.1 < f i := by
+      have := j.2; simp only [Finset.mem_filter, Finset.mem_univ, true_and] at this
+      exact this.2
+    have hjsup : incrLen f j.1 = incrLen f i - 1 := by
+      rw [hj_eq]
+      have : incrLen f i = 1 + incrLen f j.1 := by rw [incrLen, hj_eq]
       omega
-  let idx' : Fin (L + 1) → Fin n := fun a =>
-    if ha : a.val < L then idx ⟨a.val, ha⟩ else i
-  have hidx'_mono : StrictMono (fun a : Fin (L + 1) => (idx' a).val) := by
-    intro a b hab
-    simp only [idx']
-    by_cases ha : a.val < L <;> by_cases hb : b.val < L
-    · simp only [dif_pos ha, dif_pos hb]; exact hidx hab
-    · simp only [dif_pos ha, dif_neg hb]
-      have hle_ab : (idx ⟨a.val, ha⟩).val ≤ j.val := hle _
-      have : b.val = L := by have := b.isLt; omega
+    have hjlt : j.1.val < m' := by rw [← hi]; exact Fin.lt_def.mp hji
+    obtain ⟨idx', hmono', hfmono', hend'⟩ := ih j.1.val hjlt j.1 rfl
+    let last' : Fin (incrLen f j.1) :=
+      ⟨incrLen f j.1 - 1, by have := incrLen_pos f j.1; omega⟩
+    let idx : Fin (incrLen f i) → Fin n := fun k =>
+      if h : (k : ℕ) < incrLen f j.1 then idx' ⟨(k : ℕ), h⟩ else i
+    refine ⟨idx, ?_, ?_, ?_⟩
+    · intro a b hab
+      by_cases ha : (a : ℕ) < incrLen f j.1
+      · by_cases hb : (b : ℕ) < incrLen f j.1
+        · show (idx' ⟨(a : ℕ), ha⟩ : ℕ) < (idx' ⟨(b : ℕ), hb⟩ : ℕ)
+          exact hmono' (by simp only [Fin.lt_iff_val_lt_val]; exact hab)
+        · show (idx' ⟨(a : ℕ), ha⟩ : ℕ) < (i : ℕ)
+          have hle' : (⟨(a : ℕ), ha⟩ : Fin (incrLen f j.1)) ≤ last' := by
+            simp only [Fin.le_iff_val_le_val]; omega
+          have h1 : (idx' ⟨(a : ℕ), ha⟩ : ℕ) ≤ (idx' last' : ℕ) := hmono'.monotone hle'
+          rw [hend'] at h1; omega
+      · exfalso; have hb' : (b : ℕ) < incrLen f i := b.isLt; omega
+    · intro a b hab
+      by_cases ha : (a : ℕ) < incrLen f j.1
+      · by_cases hb : (b : ℕ) < incrLen f j.1
+        · show f (idx' ⟨(a : ℕ), ha⟩) < f (idx' ⟨(b : ℕ), hb⟩)
+          exact hfmono' (by simp only [Fin.lt_iff_val_lt_val]; exact hab)
+        · show f (idx' ⟨(a : ℕ), ha⟩) < f i
+          have hle' : (⟨(a : ℕ), ha⟩ : Fin (incrLen f j.1)) ≤ last' := by
+            simp only [Fin.le_iff_val_le_val]; omega
+          have h1 : f (idx' ⟨(a : ℕ), ha⟩) ≤ f (idx' last') := hfmono'.monotone hle'
+          rw [hend'] at h1; omega
+      · exfalso; have hb' : (b : ℕ) < incrLen f i := b.isLt; omega
+    · simp only [idx]
+      have : ¬((⟨incrLen f i - 1, by have := incrLen_pos f i; omega⟩ : Fin (incrLen f i) : ℕ)
+          < incrLen f j.1) := by
+        simp only [Fin.val_mk]; omega
+      simp [this]
+
+lemma hasIncrSubseq_of_incrLen_ge {n r : ℕ} (f : Fin n → ℝ) (i : Fin n)
+    (hr : 1 ≤ r) (h : r ≤ incrLen f i) : HasIncrSubseq n r f := by
+  obtain ⟨idx, hmono, hfmono, _⟩ := exists_incr_subseq_ending f i
+  refine ⟨fun k => idx (Fin.castLE h k), ?_, ?_⟩
+  · intro a b hab; exact hmono (by simpa using hab)
+  · intro a b hab; exact hfmono (by simpa using hab)
+
+/-- Mirror of `exists_incr_subseq_ending` for decreasing subsequences. -/
+lemma exists_decr_subseq_ending {n : ℕ} (f : Fin n → ℝ) (i : Fin n) :
+    ∃ idx : Fin (decrLen f i) → Fin n,
+      StrictMono (fun k => (idx k : ℕ)) ∧
+      StrictAnti (fun k => f (idx k)) ∧
+      idx ⟨decrLen f i - 1, by have := decrLen_pos f i; omega⟩ = i := by
+  suffices H : ∀ m, ∀ i : Fin n, i.val = m →
+      ∃ idx : Fin (decrLen f i) → Fin n,
+        StrictMono (fun k => (idx k : ℕ)) ∧
+        StrictAnti (fun k => f (idx k)) ∧
+        idx ⟨decrLen f i - 1, by have := decrLen_pos f i; omega⟩ = i from
+    H i.val i rfl
+  intro m
+  refine Nat.strongRec m ?_
+  intro m' ih i hi
+  by_cases hk : decrLen f i = 1
+  · refine ⟨fun _ => i, ?_, ?_, ?_⟩
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · simp [hk]
+  · have hk2 : 2 ≤ decrLen f i := by have := decrLen_pos f i; omega
+    have hsup : 1 ≤ ((Finset.univ.filter (fun j : Fin n => j < i ∧ f j > f i)).attach).sup
+        (fun j => decrLen f j.1) := by
+      have h := decrLen_pos f i
+      rw [decrLen] at h; omega
+    have hne : (Finset.univ.filter (fun j : Fin n => j < i ∧ f j > f i)).attach.Nonempty := by
+      rw [Finset.nonempty_iff_ne_empty]; intro hemp
+      rw [hemp] at hsup; simp at hsup
+    obtain ⟨j, _, hj_eq⟩ := Finset.exists_mem_eq_sup _ hne (fun j => decrLen f j.1)
+    have hji : j.1 < i := by
+      have := j.2; simp only [Finset.mem_filter, Finset.mem_univ, true_and] at this
+      exact this.1
+    have hfj : f j.1 > f i := by
+      have := j.2; simp only [Finset.mem_filter, Finset.mem_univ, true_and] at this
+      exact this.2
+    have hjsup : decrLen f j.1 = decrLen f i - 1 := by
+      rw [hj_eq]
+      have : decrLen f i = 1 + decrLen f j.1 := by rw [decrLen, hj_eq]
       omega
-    · exfalso; have := a.isLt; omega
-    · exfalso; have := a.isLt; have := b.isLt; omega
-  have hf'_mono : StrictMono (fun a : Fin (L + 1) => f (idx' a)) := by
-    intro a b hab
-    simp only [idx']
-    by_cases ha : a.val < L <;> by_cases hb : b.val < L
-    · simp only [dif_pos ha, dif_pos hb]; exact hf_mono hab
-    · simp only [dif_pos ha, dif_neg hb]
-      have h1 := h_fidx_le ⟨a.val, ha⟩
-      exact lt_of_le_of_lt h1 hfi
-    · exfalso; have := a.isLt; omega
-    · exfalso; have := a.isLt; have := b.isLt; omega
-  have h_ext_valid : IsIncrSubseqEndingAt f i (L + 1) := by
-    refine ⟨idx', ?_, hidx'_mono, hf'_mono, ⟨⟨L, Nat.lt_succ_self L⟩, ?_⟩⟩
-    · intro a
-      simp only [idx']
-      split_ifs with h
-      · exact le_trans (hle ⟨a.val, h⟩) (le_of_lt hij)
-      · exact le_refl _
-    · simp only [idx']
-      rw [dif_neg (Nat.lt_irrefl L)]
-  have h_mem : L + 1 ∈ Finset.Icc 1 (i.val + 1) := by
-    rw [Finset.mem_Icc]
-    refine ⟨by omega, ?_⟩
-    have hL_le : L ≤ j.val + 1 := (Finset.mem_Icc.mp hLmem).2
-    omega
-  unfold lisAt
-  calc L + 1
-      = (if IsIncrSubseqEndingAt f i (L + 1) then (L + 1 : ℕ) else 0) := by
-        rw [if_pos h_ext_valid]
-    _ ≤ (Finset.Icc 1 (i.val + 1)).sup
-          (fun l => if IsIncrSubseqEndingAt f i l then l else 0) :=
-        Finset.le_sup
-          (f := fun l => if IsIncrSubseqEndingAt f i l then l else 0) h_mem
+    have hjlt : j.1.val < m' := by rw [← hi]; exact Fin.lt_def.mp hji
+    obtain ⟨idx', hmono', hfmono', hend'⟩ := ih j.1.val hjlt j.1 rfl
+    let last' : Fin (decrLen f j.1) :=
+      ⟨decrLen f j.1 - 1, by have := decrLen_pos f j.1; omega⟩
+    let idx : Fin (decrLen f i) → Fin n := fun k =>
+      if h : (k : ℕ) < decrLen f j.1 then idx' ⟨(k : ℕ), h⟩ else i
+    refine ⟨idx, ?_, ?_, ?_⟩
+    · intro a b hab
+      by_cases ha : (a : ℕ) < decrLen f j.1
+      · by_cases hb : (b : ℕ) < decrLen f j.1
+        · show (idx' ⟨(a : ℕ), ha⟩ : ℕ) < (idx' ⟨(b : ℕ), hb⟩ : ℕ)
+          exact hmono' (by simp only [Fin.lt_iff_val_lt_val]; exact hab)
+        · show (idx' ⟨(a : ℕ), ha⟩ : ℕ) < (i : ℕ)
+          have hle' : (⟨(a : ℕ), ha⟩ : Fin (decrLen f j.1)) ≤ last' := by
+            simp only [Fin.le_iff_val_le_val]; omega
+          have h1 : (idx' ⟨(a : ℕ), ha⟩ : ℕ) ≤ (idx' last' : ℕ) := hmono'.monotone hle'
+          rw [hend'] at h1; omega
+      · exfalso; have hb' : (b : ℕ) < decrLen f i := b.isLt; omega
+    · intro a b hab
+      by_cases ha : (a : ℕ) < decrLen f j.1
+      · by_cases hb : (b : ℕ) < decrLen f j.1
+        · show f (idx' ⟨(a : ℕ), ha⟩) > f (idx' ⟨(b : ℕ), hb⟩)
+          exact hfmono' (by simp only [Fin.lt_iff_val_lt_val]; exact hab)
+        · show f (idx' ⟨(a : ℕ), ha⟩) > f i
+          have hle' : (⟨(a : ℕ), ha⟩ : Fin (decrLen f j.1)) ≤ last' := by
+            simp only [Fin.le_iff_val_le_val]; omega
+          have h1 : f (idx' ⟨(a : ℕ), ha⟩) ≥ f (idx' last') := hfmono'.monotone hle'
+          rw [hend'] at h1; omega
+      · exfalso; have hb' : (b : ℕ) < decrLen f i := b.isLt; omega
+    · simp only [idx]
+      have : ¬((⟨decrLen f i - 1, by have := decrLen_pos f i; omega⟩ : Fin (decrLen f i) : ℕ)
+          < decrLen f j.1) := by
+        simp only [Fin.val_mk]; omega
+      simp [this]
 
-lemma ldsAt_decr_step {n : ℕ} (f : Fin n → ℝ) {i j : Fin n}
-    (hij : j.val < i.val) (hfi : f j > f i) :
-    ldsAt f i ≥ ldsAt f j + 1 := by
-  obtain ⟨L, hLmem, hL_valid, hL_eq⟩ := exists_isDecr_of_ldsAt f j
-  rw [hL_eq]
-  obtain ⟨idx, hle, hidx, hf_anti, ⟨a₀, ha₀⟩⟩ := hL_valid
-  have h_fidx_le : ∀ a : Fin L, f j ≤ f (idx a) := by
-    intro a
-    rcases lt_trichotomy a a₀ with h | h | h
-    · have hlt : f (idx a₀) < f (idx a) := hf_anti h
-      rw [ha₀] at hlt
-      exact le_of_lt hlt
-    · rw [h, ha₀]
-    · exfalso
-      have hlt : (idx a₀).val < (idx a).val := hidx h
-      rw [ha₀] at hlt
-      have := hle a
-      omega
-  let idx' : Fin (L + 1) → Fin n := fun a =>
-    if ha : a.val < L then idx ⟨a.val, ha⟩ else i
-  have hidx'_mono : StrictMono (fun a : Fin (L + 1) => (idx' a).val) := by
-    intro a b hab
-    simp only [idx']
-    by_cases ha : a.val < L <;> by_cases hb : b.val < L
-    · simp only [dif_pos ha, dif_pos hb]; exact hidx hab
-    · simp only [dif_pos ha, dif_neg hb]
-      have hle_ab : (idx ⟨a.val, ha⟩).val ≤ j.val := hle _
-      have : b.val = L := by have := b.isLt; omega
-      omega
-    · exfalso; have := a.isLt; omega
-    · exfalso; have := a.isLt; have := b.isLt; omega
-  have hf'_mono : StrictAnti (fun a : Fin (L + 1) => f (idx' a)) := by
-    intro a b hab
-    simp only [idx']
-    by_cases ha : a.val < L <;> by_cases hb : b.val < L
-    · simp only [dif_pos ha, dif_pos hb]; exact hf_anti hab
-    · simp only [dif_pos ha, dif_neg hb]
-      have h1 := h_fidx_le ⟨a.val, ha⟩
-      exact lt_of_lt_of_le hfi h1
-    · exfalso; have := a.isLt; omega
-    · exfalso; have := a.isLt; have := b.isLt; omega
-  have h_ext_valid : IsDecrSubseqEndingAt f i (L + 1) := by
-    refine ⟨idx', ?_, hidx'_mono, hf'_mono, ⟨⟨L, Nat.lt_succ_self L⟩, ?_⟩⟩
-    · intro a
-      simp only [idx']
-      split_ifs with h
-      · exact le_trans (hle ⟨a.val, h⟩) (le_of_lt hij)
-      · exact le_refl _
-    · simp only [idx']
-      rw [dif_neg (Nat.lt_irrefl L)]
-  have h_mem : L + 1 ∈ Finset.Icc 1 (i.val + 1) := by
-    rw [Finset.mem_Icc]
-    refine ⟨by omega, ?_⟩
-    have hL_le : L ≤ j.val + 1 := (Finset.mem_Icc.mp hLmem).2
-    omega
-  unfold ldsAt
-  calc L + 1
-      = (if IsDecrSubseqEndingAt f i (L + 1) then (L + 1 : ℕ) else 0) := by
-        rw [if_pos h_ext_valid]
-    _ ≤ (Finset.Icc 1 (i.val + 1)).sup
-          (fun l => if IsDecrSubseqEndingAt f i l then l else 0) :=
-        Finset.le_sup
-          (f := fun l => if IsDecrSubseqEndingAt f i l then l else 0) h_mem
+lemma hasDecrSubseq_of_decrLen_ge {n s : ℕ} (f : Fin n → ℝ) (i : Fin n)
+    (hs : 1 ≤ s) (h : s ≤ decrLen f i) : HasDecrSubseq n s f := by
+  obtain ⟨idx, hmono, hfmono, _⟩ := exists_decr_subseq_ending f i
+  refine ⟨fun k => idx (Fin.castLE h k), ?_, ?_⟩
+  · intro a b hab; exact hmono (by simpa using hab)
+  · intro a b hab; exact hfmono (by simpa using hab)
 
-lemma lisAt_bound {n r : ℕ} (hr : 1 ≤ r) (f : Fin n → ℝ)
-    (h : ¬ HasIncrSubseq n r f) (i : Fin n) : lisAt f i ≤ r - 1 := by
-  by_contra hlt
-  have hrle : r ≤ lisAt f i := by omega
-  obtain ⟨L, hLmem, hL_valid, hL_eq⟩ := exists_isIncr_of_lisAt f i
-  have hL_ge : r ≤ L := by omega
-  obtain ⟨idx, _, hidx, hf_mono, _⟩ := hL_valid
-  apply h
-  refine ⟨fun a : Fin r => idx ⟨a.val, lt_of_lt_of_le a.isLt hL_ge⟩, ?_, ?_⟩
-  · intro a b hab; exact hidx hab
-  · intro a b hab; exact hf_mono hab
-
-lemma ldsAt_bound {n s : ℕ} (hs : 1 ≤ s) (f : Fin n → ℝ)
-    (h : ¬ HasDecrSubseq n s f) (i : Fin n) : ldsAt f i ≤ s - 1 := by
-  by_contra hlt
-  have hsle : s ≤ ldsAt f i := by omega
-  obtain ⟨L, hLmem, hL_valid, hL_eq⟩ := exists_isDecr_of_ldsAt f i
-  have hL_ge : s ≤ L := by omega
-  obtain ⟨idx, _, hidx, hf_anti, _⟩ := hL_valid
-  apply h
-  refine ⟨fun a : Fin s => idx ⟨a.val, lt_of_lt_of_le a.isLt hL_ge⟩, ?_, ?_⟩
-  · intro a b hab; exact hidx hab
-  · intro a b hab; exact hf_anti hab
-
-/-! ## Injectivity of the (p, q) map -/
-
-lemma pair_injective {n : ℕ} (f : Fin n → ℝ) (hf : Function.Injective f) :
-    Function.Injective (fun i : Fin n => (lisAt f i, ldsAt f i)) := by
-  intro i j hij
-  by_contra hne
-  have hfij : f i ≠ f j := fun h => hne (hf h)
-  have h1 : lisAt f i = lisAt f j := congrArg Prod.fst hij
-  have h2 : ldsAt f i = ldsAt f j := congrArg Prod.snd hij
-  rcases lt_trichotomy i.val j.val with hlt | heq | hlt
-  · rcases lt_or_gt_of_ne hfij with hltf | hltf
-    · have := lisAt_incr_step f hlt hltf; omega
-    · have := ldsAt_decr_step f hlt hltf; omega
-  · exact hne (Fin.ext heq)
-  · rcases lt_or_gt_of_ne (Ne.symm hfij) with hltf | hltf
-    · have := lisAt_incr_step f hlt hltf; omega
-    · have := ldsAt_decr_step f hlt hltf; omega
-
-/-! ## Main theorem -/
-
+/-- **Erdős–Szekeres 1935 (Monotone Subsequence Theorem).**
+    Every sequence of `(r-1)(s-1) + 1` distinct real numbers contains
+    either a strictly-increasing subsequence of length `r` or a
+    strictly-decreasing subsequence of length `s`. -/
 theorem erdos_szekeres_mono (r s : ℕ) (hr : 1 ≤ r) (hs : 1 ≤ s)
     (f : Fin ((r - 1) * (s - 1) + 1) → ℝ)
     (hf : Function.Injective f) :
     HasIncrSubseq _ r f ∨ HasDecrSubseq _ s f := by
-  rcases eq_or_lt_of_le hr with hr1 | hr2
+  by_cases hr1 : r = 1
   · subst hr1
     left
     refine ⟨fun _ => ⟨0, by omega⟩, ?_, ?_⟩
-    · intro a b hab; exact absurd hab (by omega)
-    · intro a b hab; exact absurd hab (by omega)
-  rcases eq_or_lt_of_le hs with hs1 | hs2
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+  by_cases hs1 : s = 1
   · subst hs1
     right
     refine ⟨fun _ => ⟨0, by omega⟩, ?_, ?_⟩
-    · intro a b hab; exact absurd hab (by omega)
-    · intro a b hab; exact absurd hab (by omega)
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
+    · intro a b hab; have ha := a.isLt; have hb := b.isLt; omega
   by_contra h
   push_neg at h
-  obtain ⟨h_no_incr, h_no_decr⟩ := h
-  have h_image_sub :
-      (Finset.univ.image
-        (fun i : Fin ((r - 1) * (s - 1) + 1) =>
-          (lisAt f i, ldsAt f i)))
-        ⊆ Finset.Icc 1 (r - 1) ×ˢ Finset.Icc 1 (s - 1) := by
-    intro x hx
-    simp only [Finset.mem_image, Finset.mem_univ, true_and] at hx
-    obtain ⟨i, rfl⟩ := hx
-    simp only [Finset.mem_product, Finset.mem_Icc]
-    exact ⟨⟨lisAt_ge_one f i, lisAt_bound hr2.le f h_no_incr i⟩,
-           ⟨ldsAt_ge_one f i, ldsAt_bound hs2.le f h_no_decr i⟩⟩
-  have h_image_card :
-      (Finset.univ.image
-        (fun i : Fin ((r - 1) * (s - 1) + 1) =>
-          (lisAt f i, ldsAt f i))).card
-        = (r - 1) * (s - 1) + 1 := by
-    rw [Finset.card_image_of_injective _ (pair_injective f hf)]
-    simp
-  have hS_card :
-      (Finset.Icc 1 (r - 1) ×ˢ Finset.Icc 1 (s - 1)).card
-        = (r - 1) * (s - 1) := by
-    rw [Finset.card_product]
-    have h1 : (Finset.Icc 1 (r - 1)).card = r - 1 := by
-      rw [Nat.card_Icc]; omega
-    have h2 : (Finset.Icc 1 (s - 1)).card = s - 1 := by
-      rw [Nat.card_Icc]; omega
-    rw [h1, h2]
-  have hle : (r - 1) * (s - 1) + 1 ≤ (r - 1) * (s - 1) := by
-    calc (r - 1) * (s - 1) + 1
-        = _ := h_image_card.symm
-      _ ≤ (Finset.Icc 1 (r - 1) ×ˢ Finset.Icc 1 (s - 1)).card :=
-          Finset.card_le_card h_image_sub
-      _ = (r - 1) * (s - 1) := hS_card
+  obtain ⟨h₁, h₂⟩ := h
+  have hp_bound : ∀ i, incrLen f i ≤ r - 1 := by
+    intro i
+    by_contra hlt
+    push_neg at hlt
+    exact h₁ (hasIncrSubseq_of_incrLen_ge f i hr (by omega))
+  have hq_bound : ∀ i, decrLen f i ≤ s - 1 := by
+    intro i
+    by_contra hlt
+    push_neg at hlt
+    exact h₂ (hasDecrSubseq_of_decrLen_ge f i hs (by omega))
+  let φ : Fin ((r - 1) * (s - 1) + 1) → Fin (r - 1) × Fin (s - 1) := fun i =>
+    (⟨incrLen f i - 1, by have := incrLen_pos f i; have := hp_bound i; omega⟩,
+     ⟨decrLen f i - 1, by have := decrLen_pos f i; have := hq_bound i; omega⟩)
+  have hφ_inj : Function.Injective φ := by
+    intro i j hij
+    by_contra hne
+    have hpq : incrLen f i = incrLen f j ∧ decrLen f i = decrLen f j := by
+      simp only [φ, Prod.mk.injEq, Fin.mk.injEq] at hij
+      exact ⟨by omega, by omega⟩
+    rcases lt_or_gt_of_ne hne with hlt | hlt
+    · have hfne : f i ≠ f j := fun heq => hne (hf heq)
+      rcases lt_or_gt_of_ne hfne with hfij | hfij
+      · have := incrLen_lt_of_lt f hlt hfij; omega
+      · have := decrLen_lt_of_lt f hlt hfij; omega
+    · have hfne : f j ≠ f i := fun heq => hne (hf heq).symm
+      rcases lt_or_gt_of_ne hfne with hfji | hfji
+      · have := incrLen_lt_of_lt f hlt hfji; omega
+      · have := decrLen_lt_of_lt f hlt hfji; omega
+  have hcard := Fintype.card_le_of_injective φ hφ_inj
+  simp [Fintype.card_fin, Fintype.card_prod] at hcard
   omega
 
 end ErdosSzekeres
-
-#print axioms ErdosSzekeres.erdos_szekeres_mono
