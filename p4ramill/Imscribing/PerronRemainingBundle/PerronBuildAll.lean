@@ -1,0 +1,23 @@
+import Imscribing.FractionalHall
+import Imscribing.PrimeEntryMatching
+import Imscribing.PrimeEntryFlow
+import Imscribing.PrimeFullMatching
+import Imscribing.PrimeWeightedAbel
+import Imscribing.PrimeThetaBridge
+import Imscribing.IntegratedZeroSum
+import Imscribing.PerronFinite
+import Imscribing.PerronKernelReal
+import Imscribing.PerronDiagonalIntegral
+import Imscribing.PerronOffDiagonalBlock
+import Imscribing.PerronDyadicTail
+import Imscribing.PerronPositiveLimit
+import Imscribing.PerronFiniteInversion
+import Imscribing.PerronExplicitFormulaAssembly
+import Imscribing.PerronCompletion
+
+namespace Imscribing
+
+theorem perron_build_all_ready : True := by
+  trivial
+
+end Imscribing
