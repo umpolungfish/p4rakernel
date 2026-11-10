@@ -61,6 +61,8 @@ globs = [
   "Imscribing.PerronExplicitFormulaAssembly",
   "Imscribing.PerronFiniteInversion",
   "Imscribing.PerronPositiveLimit",
+  "Imscribing.PerronChebyshevBridge",
+  "Imscribing.ErdosSzekeres",
   #"Imscribing.Erdos710_lower",
   "Imscribing.Erdos710_unified",
   "Imscribing.Erdos710_asymptotic",

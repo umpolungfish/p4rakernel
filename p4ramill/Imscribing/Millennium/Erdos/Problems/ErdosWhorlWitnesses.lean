@@ -3,6 +3,7 @@ import Imscribing.PrimeWhorlTheory
 import Imscribing.Millennium.Erdos.Problems.Problem0050
 import Imscribing.Millennium.Erdos.Problems.Problem0077
 import Imscribing.Millennium.Erdos.Problems.Problem0120
+import Imscribing.Millennium.Erdos.Problems.Problem0470
 
 /-!
 # Remaining Erdős problems: PrimeWhorl defect→gcd witness closures
@@ -120,10 +121,38 @@ def erdos_120_witness : Dialectic := {
   closure_seal := mu_circ_delta B4.B
 }
 
+/-! ## Erdős #470 — the divisor-flavored OPEN problem the whorl channel addresses directly -/
+
+/-- Erdős #470 (weird numbers: abundant but not pseudoperfect). OPEN.
+    The PrimeWhorl channel is on point here: #470's `IsAbundant` /
+    `IsPseudoperfect` are both built from `properDivisors`, which IS the divisor
+    universe the braid-defect → gcd readout writes into. Registered B4.B with the
+    open side (odd weird numbers / infinite primitive weird) kept live. -/
+def erdos_470_witness : Dialectic := {
+  T := Erdos470.ErdosProblem470Statement,
+  F := Erdos470.ErdosProblem470Statement,
+  closure_seal := mu_circ_delta B4.B
+}
+
+/-- The whorl's certified divisor for N = 299 (= 13 · 23) lies INSIDE the very
+    `properDivisors 299` set that #470's definitions quantify over:
+    13 ∈ properDivisors 299. The divisor the braid defect certifies (whorl_299)
+    is a divisor #470 already speaks of. -/
+theorem whorl_470_divisor_side : 13 ∈ Erdos470.properDivisors 299 := by
+  unfold Erdos470.properDivisors
+  rw [Finset.mem_filter]
+  decide
+
+/-- Cross-link: the #470 divisor side is witnessed by the same 13 the whorl
+    braid finds for 299. -/
+theorem whorl_470_certified_divisor_is_13 : whorl_299.divisor ∈ Erdos470.properDivisors 299 :=
+  whorl_470_divisor_side
+
 /-- The seal holds uniformly: every registered witness closes at B4.B. -/
 theorem all_seals_close :
     erdos_50_witness.closure_seal = mu_circ_delta B4.B ∧
     erdos_77_witness.closure_seal = mu_circ_delta B4.B ∧
-    erdos_120_witness.closure_seal = mu_circ_delta B4.B := ⟨rfl, rfl, rfl⟩
+    erdos_120_witness.closure_seal = mu_circ_delta B4.B ∧
+    erdos_470_witness.closure_seal = mu_circ_delta B4.B := ⟨rfl, rfl, rfl, rfl⟩
 
 end ErdosWhorlWitnesses
