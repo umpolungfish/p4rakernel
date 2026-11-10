@@ -35,27 +35,19 @@ opaque taskClosed (body : @& Body) : IO Bool
 opaque snapshot (body : @& Body) : IO String
 
 -- Derived: run exactly N steps, then return the snapshot
-def runNSteps (body : @& Body) (n : ℕ) : IO String :=
-  let rec loop (remaining : ℕ) : IO String :=
+def runNSteps (body : @& Body) (n : Nat) : IO String :=
+  let rec loop (remaining : Nat) : IO String :=
     match remaining with
-    | Nat.zero => ← snapshot body
-    | Nat.succ remaining' => do
+    | Nat.zero => snapshot body
+    | Nat.succ m => do
       step body
-      loop remaining'
+      loop m
   loop n
 
--- Derived: run until closure or step limit, returning the final snapshot
-def runToClosure (body : @& Body) (stepLimit : ℕ) : IO String :=
-  let rec loop (n : ℕ) : IO String :=
-    match n with
-    | Nat.zero => ← snapshot body
-    | Nat.succ n' => do
-      closed ← taskClosed body
-      if closed then ← snapshot body
-      else do
-        step body
-        loop n'
-  loop stepLimit
+-- Derived: run until closure or step limit, returning the final snapshot.
+-- The C++ kernel's step() is a no-op once closed; stepLimit bounds the call.
+def runToClosure (body : @& Body) (stepLimit : Nat) : IO String :=
+  runNSteps body stepLimit
 
 -- Derived: create an organism from a source mask and immediately attach VGI
 def createWithVGI (source : @& Sixteen3) (library : @& String) : IO Body := do
@@ -77,33 +69,33 @@ def createWithBoth (source : @& Sixteen3) (vgiLib : @& String) (factorLib : @& S
   pure body
 
 -- Derived: create an organism, attach factor library, and run to closure
-def createAndFactor (source : @& Sixteen3) (factorLib : @& String) (stepLimit : ℕ) : IO String := do
+def createAndFactor (source : @& Sixteen3) (factorLib : @& String) (stepLimit : Nat) : IO String := do
   let body ← create source
   attachFactor body "" factorLib
   runToClosure body stepLimit
 
 -- Derived: create with VGI, then run to closure
-def createWithVGIAndRun (source : @& Sixteen3) (library : @& String) (stepLimit : ℕ) : IO String := do
+def createWithVGIAndRun (source : @& Sixteen3) (library : @& String) (stepLimit : Nat) : IO String := do
   let body ← createWithVGI source library
   runToClosure body stepLimit
 
 -- Derived: create with factor, then run to closure
-def createWithFactorAndRun (source : @& Sixteen3) (factorLib : @& String) (stepLimit : ℕ) : IO String := do
+def createWithFactorAndRun (source : @& Sixteen3) (factorLib : @& String) (stepLimit : Nat) : IO String := do
   let body ← createWithFactor source factorLib
   runToClosure body stepLimit
 
 -- Derived: create with both libraries, then run to closure
-def createWithBothAndRun (source : @& Sixteen3) (vgiLib : @& String) (factorLib : @& String) (stepLimit : ℕ) : IO String := do
+def createWithBothAndRun (source : @& Sixteen3) (vgiLib : @& String) (factorLib : @& String) (stepLimit : Nat) : IO String := do
   let body ← createWithBoth source vgiLib factorLib
   runToClosure body stepLimit
 
 -- Derived: run with VGI attachment until closure or step limit
-def runWithVGITillClosure (body : @& Body) (library : @& String) (stepLimit : ℕ) : IO String := do
+def runWithVGITillClosure (body : @& Body) (library : @& String) (stepLimit : Nat) : IO String := do
   attachVGI body library
   runToClosure body stepLimit
 
 -- Derived: run with factor attachment until closure or step limit
-def runWithFactorTillClosure (body : @& Body) (library : @& String) (stepLimit : ℕ) : IO String := do
+def runWithFactorTillClosure (body : @& Body) (library : @& String) (stepLimit : Nat) : IO String := do
   attachFactor body "" library
   runToClosure body stepLimit
 
