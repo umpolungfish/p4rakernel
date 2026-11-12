@@ -475,6 +475,8 @@ globs = [
   "Imscribing.Paraconsistent.NonexistenceOfProbability",
   "Imscribing.Paraconsistent.Monism",
   "Imscribing.Paraconsistent.PSystem",
+  "Imscribing.Paraconsistent.PSystemGcd",
+  "Imscribing.Paraconsistent.BinaryMembrane",
   "Imscribing.Paraconsistent.SpindleGeometry",
   "Imscribing.Paraconsistent.ParadoxFS",
   "Imscribing.Paraconsistent.CrystalScheduler",
