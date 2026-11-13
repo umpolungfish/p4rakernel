@@ -151,6 +151,22 @@ theorem properFactorPair_input_ge_four
     _ = N :=
       f.productClosure
 
+/--
+A proper factor pair certifies that its input is not prime.
+-/
+theorem properFactorPair_input_not_prime
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    ¬ Nat.Prime N := by
+  intro hp
+  rcases
+      Nat.Prime.eq_one_or_self_of_dvd
+        hp f.P0 (properFactorPair_left_dvd f) with hOne | hN
+  · exact (Nat.ne_of_gt f.left_nonunit) hOne
+  · exact
+      (Nat.ne_of_lt
+        (properFactorPair_left_lt_input f)) hN
+
 theorem gcd_divides_input
     (N candidate : Nat) :
     Nat.gcd candidate N ∣ N :=
@@ -162,6 +178,24 @@ theorem gcd_quotient_product
       (N / Nat.gcd candidate N) = N := by
   exact Nat.mul_div_cancel'
     (gcd_divides_input N candidate)
+
+/--
+A prime input cannot satisfy ENGAGR.
+
+The GCD divides the prime input, so it must equal one or the
+entire input. ENGAGR excludes both cases.
+-/
+theorem prime_input_not_engaged
+    {N candidate : Nat}
+    (hprime : Nat.Prime N) :
+    ¬ paradoxCondition N candidate := by
+  intro h
+  rcases
+      Nat.Prime.eq_one_or_self_of_dvd
+        hprime (Nat.gcd candidate N)
+        (gcd_divides_input N candidate) with hOne | hN
+  · exact (Nat.ne_of_gt h.1) hOne
+  · exact (Nat.ne_of_lt h.2) hN
 
 /--
 A proper gcd has a complementary quotient strictly greater than one.
@@ -433,6 +467,14 @@ theorem membraneFactors_input_ge_four
   properFactorPair_input_ge_four
     (membraneProperPair N candidate h)
 
+/-- Successful engagement certifies that N is not prime. -/
+theorem membraneFactors_engaged_input_not_prime
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    ¬ Nat.Prime N :=
+  properFactorPair_input_not_prime
+    (membraneProperPair N candidate h)
+
 /-- On engagement, the selected first factor divides the candidate. -/
 theorem membraneFactors_engaged_left_dvd_candidate
     (N candidate : Nat)
@@ -519,12 +561,30 @@ theorem runBinaryMembrane_engaged_input_ge_four
     4 ≤ N :=
   membraneFactors_input_ge_four N candidate h
 
+/-- An engaged pipeline certifies that its input is not prime. -/
+theorem runBinaryMembrane_engaged_input_not_prime
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    ¬ Nat.Prime N :=
+  membraneFactors_engaged_input_not_prime N candidate h
+
 theorem runBinaryMembrane_phase
     (N candidate : Nat) :
     PSystem.isGlut
       (runBinaryMembrane N candidate).phase
       ↔ paradoxCondition N candidate :=
   engagement_glut_iff N candidate
+
+/--
+A prime input cannot produce an ENGAGR glut.
+-/
+theorem runBinaryMembrane_prime_not_glut
+    (N candidate : Nat)
+    (hprime : Nat.Prime N) :
+    ¬ PSystem.isGlut
+        (runBinaryMembrane N candidate).phase := by
+  rw [runBinaryMembrane_phase]
+  exact prime_input_not_engaged hprime
 
 /--
 The complete pipeline reports a glut exactly when its factor pair
@@ -656,6 +716,15 @@ theorem runBinaryMembrane_unengaged
   rw [membraneFactors_fallback N candidate h]
   constructor <;> rfl
 
+/-- Every prime input selects the exact unit fallback. -/
+theorem runBinaryMembrane_prime_fallback
+    (N candidate : Nat)
+    (hprime : Nat.Prime N) :
+    (runBinaryMembrane N candidate).factors.P0 = N ∧
+    (runBinaryMembrane N candidate).factors.P1 = 1 :=
+  runBinaryMembrane_unengaged N candidate
+    (prime_input_not_engaged hprime)
+
 theorem runBinaryMembrane_failed_candidate_closes
     (N candidate : Nat)
     (h : ¬ paradoxCondition N candidate) :
@@ -683,5 +752,91 @@ theorem binaryGround_reconstruction :
 theorem binaryGround_even_bound :
     binaryGroundEven < 2 :=
   binaryEvenChannel_bound binaryGroundN
+
+/-! ## 10. Existential ENGAGR Characterization -/
+
+/--
+Any ENGAGR witness supplies a nontrivial factorization of N.
+The GCD and its complementary quotient are the two factors.
+-/
+theorem engagement_implies_factorization
+    (N : Nat)
+    (h : ∃ candidate : Nat, paradoxCondition N candidate) :
+    ∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N := by
+  rcases h with ⟨candidate, hc⟩
+  let f := gcdProperPair N candidate hc
+  exact
+    ⟨f.P0, f.P1,
+      f.left_nonunit,
+      f.right_nonunit,
+      f.productClosure⟩
+
+/--
+Any nontrivial factorization of N supplies an ENGAGR witness.
+
+Choose the first factor as candidate. Since it divides N,
+the GCD of that candidate and N is the candidate itself.
+-/
+theorem factorization_implies_engagement
+    (N : Nat)
+    (h : ∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N) :
+    ∃ candidate : Nat, paradoxCondition N candidate := by
+  rcases h with ⟨a, b, ha, hb, hab⟩
+  refine ⟨a, ?_⟩
+
+  have haN : a ∣ N := by
+    exact ⟨b, hab.symm⟩
+
+  have hgcd : Nat.gcd a N = a := by
+    apply Nat.dvd_antisymm
+    · exact Nat.gcd_dvd_left a N
+    · exact Nat.dvd_gcd (dvd_refl a) haN
+
+  have haPos : 0 < a :=
+    Nat.lt_trans (by decide : 0 < 1) ha
+
+  constructor
+  · simpa [hgcd] using ha
+  · rw [hgcd]
+    calc
+      a = a * 1 := by simp
+      _ < a * b :=
+        Nat.mul_lt_mul_of_pos_left hb haPos
+      _ = N := hab
+
+/--
+Existence of an ENGAGR candidate is equivalent to a
+nontrivial factorization of N.
+-/
+theorem exists_engagement_iff_factorization
+    (N : Nat) :
+    (∃ candidate : Nat, paradoxCondition N candidate) ↔
+    (∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N) := by
+  constructor
+  · exact engagement_implies_factorization N
+  · exact factorization_implies_engagement N
+
+/--
+Existence of a pipeline glut is equivalent to a nontrivial
+factorization of N.
+-/
+theorem runBinaryMembrane_glut_exists_iff_factorization
+    (N : Nat) :
+    (∃ candidate : Nat,
+      PSystem.isGlut
+        (runBinaryMembrane N candidate).phase) ↔
+    (∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N) := by
+  constructor
+  · rintro ⟨candidate, hglut⟩
+    apply engagement_implies_factorization N
+    exact
+      ⟨candidate,
+        (runBinaryMembrane_phase N candidate).1 hglut⟩
+  · intro hfactor
+    obtain ⟨candidate, hEng⟩ :=
+      factorization_implies_engagement N hfactor
+    exact
+      ⟨candidate,
+        (runBinaryMembrane_phase N candidate).2 hEng⟩
 
 end Imscribing.Paraconsistent.BinaryMembrane
