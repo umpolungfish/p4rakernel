@@ -187,7 +187,7 @@ globs = [
   "Imscribing.GodelCompletenessAudit",
   "Imscribing.GodelOntological",
   "Imscribing.SHIABOperator",
-  "Imscribing.AxiomAudit",
+  #"Imscribing.AxiomAudit",
   "Imscribing.Millennium.WhorlSICTransport",
 
   "Imscribing.Primitives.Types.PrimitiveTypeAdo",

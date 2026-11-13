@@ -1,3 +1,4 @@
+
 import Imscribing.Paraconsistent.PSystem
 
 namespace Imscribing.Paraconsistent.BinaryMembrane
@@ -84,6 +85,72 @@ structure ProperFactorPair (N : Nat) where
   right_nonunit : 1 < P1
   productClosure : P0 * P1 = N
 
+/-- The first proper factor divides the represented number. -/
+theorem properFactorPair_left_dvd
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    f.P0 ∣ N := by
+  refine ⟨f.P1, ?_⟩
+  exact f.productClosure.symm
+
+/-- The second proper factor divides the represented number. -/
+theorem properFactorPair_right_dvd
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    f.P1 ∣ N := by
+  refine ⟨f.P0, ?_⟩
+  calc
+    N = f.P0 * f.P1 :=
+      f.productClosure.symm
+    _ = f.P1 * f.P0 :=
+      Nat.mul_comm _ _
+
+/-- A proper factor is strictly smaller than its product. -/
+theorem properFactorPair_left_lt_input
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    f.P0 < N := by
+  have hp : 0 < f.P0 :=
+    Nat.lt_trans (by decide : 0 < 1) f.left_nonunit
+  calc
+    f.P0 = f.P0 * 1 := by simp
+    _ < f.P0 * f.P1 :=
+      Nat.mul_lt_mul_of_pos_left f.right_nonunit hp
+    _ = N :=
+      f.productClosure
+
+/-- The complementary proper factor is strictly smaller than its product. -/
+theorem properFactorPair_right_lt_input
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    f.P1 < N := by
+  have hp : 0 < f.P1 :=
+    Nat.lt_trans (by decide : 0 < 1) f.right_nonunit
+  calc
+    f.P1 = 1 * f.P1 := by simp
+    _ < f.P0 * f.P1 :=
+      Nat.mul_lt_mul_of_pos_right f.left_nonunit hp
+    _ = N :=
+      f.productClosure
+
+/--
+Two nonunit natural-number factors have a product of at least four.
+-/
+theorem properFactorPair_input_ge_four
+    {N : Nat}
+    (f : ProperFactorPair N) :
+    4 ≤ N := by
+  have h0 : 2 ≤ f.P0 :=
+    Nat.succ_le_iff.mpr f.left_nonunit
+  have h1 : 2 ≤ f.P1 :=
+    Nat.succ_le_iff.mpr f.right_nonunit
+  calc
+    4 = 2 * 2 := by decide
+    _ ≤ f.P0 * f.P1 :=
+      Nat.mul_le_mul h0 h1
+    _ = N :=
+      f.productClosure
+
 theorem gcd_divides_input
     (N candidate : Nat) :
     Nat.gcd candidate N ∣ N :=
@@ -142,6 +209,7 @@ theorem gcd_complement_gt_one
         g = g * q := by rw [hqeq]; simp
         _ = N := hprod
     exact False.elim ((Nat.ne_of_lt hlt) hge)
+
 /-- Extract two proper factors from an ENGAGR gcd. -/
 def gcdProperPair
     (N candidate : Nat)
@@ -197,7 +265,60 @@ theorem gcdVerified_exact
       (gcdVerifiedPair N candidate h).P1 = N :=
   (gcdProperPair N candidate h).productClosure
 
-/-! ## 4. Exact Membrane Factor Selection -/
+/-! ## 4. GCD Identity and Greatest-Divisor Certificates -/
+
+/-- The GCD factor divides the candidate as well as N. -/
+theorem gcdVerified_left_dvd_candidate
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (gcdVerifiedPair N candidate h).P0 ∣ candidate := by
+  change Nat.gcd candidate N ∣ candidate
+  exact Nat.gcd_dvd_left candidate N
+
+/--
+Every common divisor of candidate and N divides the emitted GCD factor.
+This certifies its greatest-common-divisor property.
+-/
+theorem gcdVerified_left_greatest
+    (N candidate d : Nat)
+    (h : paradoxCondition N candidate)
+    (hdCandidate : d ∣ candidate)
+    (hdN : d ∣ N) :
+    d ∣ (gcdVerifiedPair N candidate h).P0 := by
+  change d ∣ Nat.gcd candidate N
+  exact Nat.dvd_gcd hdCandidate hdN
+
+/-- The first GCD certificate component is the actual GCD. -/
+theorem gcdVerified_left_eq_gcd
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (gcdVerifiedPair N candidate h).P0 =
+      Nat.gcd candidate N := by
+  rfl
+
+/-! ## 5. Verified Factor Divisibility -/
+
+/-- The first component of any verified pair divides N. -/
+theorem verifiedFactorPair_left_dvd
+    {N : Nat}
+    (f : VerifiedFactorPair N) :
+    f.P0 ∣ N := by
+  refine ⟨f.P1, ?_⟩
+  exact f.productClosure.symm
+
+/-- The second component of any verified pair divides N. -/
+theorem verifiedFactorPair_right_dvd
+    {N : Nat}
+    (f : VerifiedFactorPair N) :
+    f.P1 ∣ N := by
+  refine ⟨f.P0, ?_⟩
+  calc
+    N = f.P0 * f.P1 :=
+      f.productClosure.symm
+    _ = f.P1 * f.P0 :=
+      Nat.mul_comm _ _
+
+/-! ## 6. Exact Membrane Factor Selection -/
 
 def unitFallback (N : Nat) : VerifiedFactorPair N :=
   ⟨N, 1, by simp⟩
@@ -227,6 +348,17 @@ theorem membraneFactors_exact
       gcdVerified_exact N candidate h
   · simp [membraneFactors, h, unitFallback]
 
+/-- Both selected factors divide N, including the fallback case. -/
+theorem membraneFactors_divisibility
+    (N candidate : Nat) :
+    (membraneFactors N candidate).P0 ∣ N ∧
+    (membraneFactors N candidate).P1 ∣ N := by
+  constructor
+  · exact verifiedFactorPair_left_dvd
+      (membraneFactors N candidate)
+  · exact verifiedFactorPair_right_dvd
+      (membraneFactors N candidate)
+
 /-- Successful engagement produces two nonunit factors. -/
 theorem membraneFactors_proper
     (N candidate : Nat)
@@ -247,7 +379,84 @@ theorem membraneFactors_fallback
   classical
   simp [membraneFactors, h]
 
-/-! ## 5. Complete Binary Membrane Output -/
+/--
+The membrane emits two nonunit factors exactly when ENGAGR succeeds.
+-/
+theorem membraneFactors_proper_iff
+    (N candidate : Nat) :
+    (1 < (membraneFactors N candidate).P0 ∧
+     1 < (membraneFactors N candidate).P1)
+      ↔ paradoxCondition N candidate := by
+  constructor
+  · intro hp
+    by_contra h
+    have hf := membraneFactors_fallback N candidate h
+    rw [hf] at hp
+    exact (Nat.lt_irrefl 1)
+      (by simpa [unitFallback] using hp.2)
+  · intro h
+    exact membraneFactors_proper N candidate h
+
+/-- Recover a `ProperFactorPair` from a successful membrane selection. -/
+noncomputable def membraneProperPair
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    ProperFactorPair N := by
+  let f := membraneFactors N candidate
+  exact
+    ⟨
+      f.P0,
+      f.P1,
+      (membraneFactors_proper N candidate h).1,
+      (membraneFactors_proper N candidate h).2,
+      f.productClosure
+    ⟩
+
+/-- Both engaged factors are strictly smaller than their input N. -/
+theorem membraneFactors_strict_bounds
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (membraneFactors N candidate).P0 < N ∧
+    (membraneFactors N candidate).P1 < N := by
+  let f := membraneProperPair N candidate h
+  exact
+    ⟨
+      properFactorPair_left_lt_input f,
+      properFactorPair_right_lt_input f
+    ⟩
+
+/-- Successful engagement forces the input to be at least four. -/
+theorem membraneFactors_input_ge_four
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    4 ≤ N :=
+  properFactorPair_input_ge_four
+    (membraneProperPair N candidate h)
+
+/-- On engagement, the selected first factor divides the candidate. -/
+theorem membraneFactors_engaged_left_dvd_candidate
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (membraneFactors N candidate).P0 ∣ candidate := by
+  classical
+  simpa [membraneFactors, h] using
+    gcdVerified_left_dvd_candidate N candidate h
+
+/--
+The selected first factor retains the greatest-common-divisor property.
+-/
+theorem membraneFactors_engaged_left_greatest
+    (N candidate d : Nat)
+    (h : paradoxCondition N candidate)
+    (hdCandidate : d ∣ candidate)
+    (hdN : d ∣ N) :
+    d ∣ (membraneFactors N candidate).P0 := by
+  classical
+  simpa [membraneFactors, h] using
+    gcdVerified_left_greatest
+      N candidate d h hdCandidate hdN
+
+/-! ## 7. Complete Binary Membrane Output -/
 
 structure BinaryMembraneOutput (N : Nat) where
   evenLane : Nat
@@ -268,7 +477,7 @@ noncomputable def runBinaryMembrane
     phase := engagementState N candidate
   }
 
-/-! ## 6. Pipeline Certificates -/
+/-! ## 8. Pipeline Certificates -/
 
 theorem runBinaryMembrane_reconstruct
     (N candidate : Nat) :
@@ -283,12 +492,53 @@ theorem runBinaryMembrane_factor_closure
       (runBinaryMembrane N candidate).factors.P1 = N :=
   (runBinaryMembrane N candidate).factors.productClosure
 
+/-- Both factors emitted by the complete pipeline divide N. -/
+theorem runBinaryMembrane_factor_divisibility
+    (N candidate : Nat) :
+    (runBinaryMembrane N candidate).factors.P0 ∣ N ∧
+    (runBinaryMembrane N candidate).factors.P1 ∣ N := by
+  constructor
+  · exact verifiedFactorPair_left_dvd
+      (runBinaryMembrane N candidate).factors
+  · exact verifiedFactorPair_right_dvd
+      (runBinaryMembrane N candidate).factors
+
+/-- Both engaged pipeline factors are strictly smaller than N. -/
+theorem runBinaryMembrane_strict_factor_bounds
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (runBinaryMembrane N candidate).factors.P0 < N ∧
+    (runBinaryMembrane N candidate).factors.P1 < N := by
+  simpa [runBinaryMembrane] using
+    membraneFactors_strict_bounds N candidate h
+
+/-- Every engaged pipeline input is at least four. -/
+theorem runBinaryMembrane_engaged_input_ge_four
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    4 ≤ N :=
+  membraneFactors_input_ge_four N candidate h
+
 theorem runBinaryMembrane_phase
     (N candidate : Nat) :
     PSystem.isGlut
       (runBinaryMembrane N candidate).phase
       ↔ paradoxCondition N candidate :=
   engagement_glut_iff N candidate
+
+/--
+The complete pipeline reports a glut exactly when its factor pair
+contains two nonunit factors.
+-/
+theorem runBinaryMembrane_proper_iff_engaged
+    (N candidate : Nat) :
+    (1 < (runBinaryMembrane N candidate).factors.P0 ∧
+     1 < (runBinaryMembrane N candidate).factors.P1)
+      ↔ PSystem.isGlut
+          (runBinaryMembrane N candidate).phase := by
+  exact
+    (membraneFactors_proper_iff N candidate).trans
+      (runBinaryMembrane_phase N candidate).symm
 
 /-- Successful ENGAGR produces proper certified factors. -/
 theorem runBinaryMembrane_engaged
@@ -308,6 +558,93 @@ theorem runBinaryMembrane_engaged
   · exact (membraneFactors_proper N candidate h).2
   · exact runBinaryMembrane_factor_closure N candidate
 
+/--
+Full engaged-state certificate:
+glut phase, divisibility of both factors, nonunit factors,
+and exact product closure.
+-/
+theorem runBinaryMembrane_engaged_certificate
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    PSystem.isGlut
+      (runBinaryMembrane N candidate).phase ∧
+    (runBinaryMembrane N candidate).factors.P0 ∣ N ∧
+    (runBinaryMembrane N candidate).factors.P1 ∣ N ∧
+    1 < (runBinaryMembrane N candidate).factors.P0 ∧
+    1 < (runBinaryMembrane N candidate).factors.P1 ∧
+    (runBinaryMembrane N candidate).factors.P0 *
+      (runBinaryMembrane N candidate).factors.P1 = N := by
+  exact
+    ⟨
+      (runBinaryMembrane_phase N candidate).2 h,
+      (runBinaryMembrane_factor_divisibility N candidate).1,
+      (runBinaryMembrane_factor_divisibility N candidate).2,
+      (membraneFactors_proper N candidate h).1,
+      (membraneFactors_proper N candidate h).2,
+      runBinaryMembrane_factor_closure N candidate
+    ⟩
+
+/--
+Extended engaged-state certificate:
+both factors divide N, are strictly below N, are nonunits,
+and multiply exactly to N.
+-/
+theorem runBinaryMembrane_engaged_proper_certificate
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    PSystem.isGlut
+      (runBinaryMembrane N candidate).phase ∧
+    (runBinaryMembrane N candidate).factors.P0 ∣ N ∧
+    (runBinaryMembrane N candidate).factors.P1 ∣ N ∧
+    1 < (runBinaryMembrane N candidate).factors.P0 ∧
+    1 < (runBinaryMembrane N candidate).factors.P1 ∧
+    (runBinaryMembrane N candidate).factors.P0 < N ∧
+    (runBinaryMembrane N candidate).factors.P1 < N ∧
+    (runBinaryMembrane N candidate).factors.P0 *
+      (runBinaryMembrane N candidate).factors.P1 = N ∧
+    4 ≤ N := by
+  have hdiv :=
+    runBinaryMembrane_factor_divisibility N candidate
+  have hproper :=
+    membraneFactors_proper N candidate h
+  have hbounds :=
+    runBinaryMembrane_strict_factor_bounds N candidate h
+  exact
+    ⟨
+      (runBinaryMembrane_phase N candidate).2 h,
+      hdiv.1,
+      hdiv.2,
+      hproper.1,
+      hproper.2,
+      hbounds.1,
+      hbounds.2,
+      runBinaryMembrane_factor_closure N candidate,
+      runBinaryMembrane_engaged_input_ge_four N candidate h
+    ⟩
+
+/--
+The engaged pipeline's first factor is the GCD of candidate and N:
+it divides both, and every common divisor divides it.
+-/
+theorem runBinaryMembrane_engaged_gcd_certificate
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    (runBinaryMembrane N candidate).factors.P0 ∣ candidate ∧
+    (runBinaryMembrane N candidate).factors.P0 ∣ N ∧
+    (∀ d : Nat, d ∣ candidate → d ∣ N →
+      d ∣ (runBinaryMembrane N candidate).factors.P0) := by
+  constructor
+  · change (membraneFactors N candidate).P0 ∣ candidate
+    exact membraneFactors_engaged_left_dvd_candidate
+      N candidate h
+  constructor
+  · change (membraneFactors N candidate).P0 ∣ N
+    exact (membraneFactors_divisibility N candidate).1
+  · intro d hdc hdN
+    change d ∣ (membraneFactors N candidate).P0
+    exact membraneFactors_engaged_left_greatest
+      N candidate d h hdc hdN
+
 theorem runBinaryMembrane_unengaged
     (N candidate : Nat)
     (h : ¬ paradoxCondition N candidate) :
@@ -326,7 +663,7 @@ theorem runBinaryMembrane_failed_candidate_closes
       (runBinaryMembrane N candidate).factors.P1 = N :=
   runBinaryMembrane_factor_closure N candidate
 
-/-! ## 7. Binary Ground-State Reconstruction -/
+/-! ## 9. Binary Ground-State Reconstruction -/
 
 def binaryGroundN : Nat :=
   836395761902793056162479809868390235450428133654496069409301
