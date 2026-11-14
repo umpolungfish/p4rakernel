@@ -1,4 +1,3 @@
-
 import Imscribing.Paraconsistent.PSystem
 
 namespace Imscribing.Paraconsistent.BinaryMembrane
@@ -923,42 +922,31 @@ theorem runBinaryMembrane_glut_factor_is_normalized_witness
 
 /-! ## 13. Executable Bounded Candidate Search -/
 
-/--
-A Boolean decision procedure for ENGAGR, expressed directly
-as two decidable natural-number comparisons.
--/
+/-- Boolean decision procedure for ENGAGR. -/
 def engagementTest (N candidate : Nat) : Bool :=
   decide (1 < Nat.gcd candidate N) &&
     decide (Nat.gcd candidate N < N)
 
-/-- The Boolean test agrees with the proposition ENGAGR. -/
 theorem engagementTest_correct
     (N candidate : Nat) :
     engagementTest N candidate = true ↔
       paradoxCondition N candidate := by
   simp [engagementTest, paradoxCondition]
 
-/--
-The finite list of all candidates below N satisfying ENGAGR.
--/
+/-- All successful candidates below N, in ascending order. -/
 def engagementCandidates (N : Nat) : List Nat :=
   (List.range N).filter (engagementTest N)
 
-/-- Membership in the candidate list is exactly bounded ENGAGR. -/
 theorem engagementCandidates_mem_iff
     (N candidate : Nat) :
     candidate ∈ engagementCandidates N ↔
       candidate < N ∧ paradoxCondition N candidate := by
   simp [engagementCandidates, engagementTest_correct]
 
-/--
-Return the first successful candidate, or none when no
-candidate below N satisfies ENGAGR.
--/
+/-- Return the first successful candidate, or none. -/
 def engagementSearch (N : Nat) : Option Nat :=
   (engagementCandidates N).head?
 
-/-- Every returned candidate satisfies ENGAGR. -/
 theorem engagementSearch_sound
     (N candidate : Nat)
     (hsearch : engagementSearch N = some candidate) :
@@ -975,10 +963,6 @@ theorem engagementSearch_sound
         (engagementCandidates_mem_iff N first).mp
           (by simp [he])
 
-/--
-The search returns a candidate exactly when an ENGAGR
-candidate exists.
--/
 theorem engagementSearch_success_iff_engagement
     (N : Nat) :
     (∃ candidate : Nat,
@@ -1005,10 +989,6 @@ theorem engagementSearch_success_iff_engagement
     | cons first rest =>
         exact ⟨first, by simp [engagementSearch, he]⟩
 
-/--
-The executable search succeeds exactly when N has a
-nontrivial factorization.
--/
 theorem engagementSearch_success_iff_factorization
     (N : Nat) :
     (∃ candidate : Nat,
@@ -1017,10 +997,6 @@ theorem engagementSearch_success_iff_factorization
   (engagementSearch_success_iff_engagement N).trans
     (exists_engagement_iff_factorization N)
 
-/--
-Every returned search result carries its pipeline certificate:
-bounded candidate, ENGAGR, glut state, and exact GCD factors.
--/
 theorem engagementSearch_pipeline_certificate
     (N candidate : Nat)
     (hsearch : engagementSearch N = some candidate) :
@@ -1048,7 +1024,6 @@ theorem engagementSearch_pipeline_certificate
       hf.2
     ⟩
 
-/-- An unsuccessful exhaustive search means no nontrivial factorization exists. -/
 theorem engagementSearch_none_iff_no_factorization
     (N : Nat) :
     engagementSearch N = none ↔
@@ -1070,6 +1045,638 @@ theorem engagementSearch_none_iff_no_factorization
         apply hno
         exact
           (engagementSearch_success_iff_factorization N).1
+            ⟨candidate, hs⟩
+
+/-! ## 14. GCD Normalization as an Idempotent Projection -/
+
+/-- Canonical normalization sends any candidate to its GCD with N. -/
+def normalizeCandidate (N candidate : Nat) : Nat :=
+  Nat.gcd candidate N
+
+/-- Normalization is idempotent. -/
+theorem normalizeCandidate_idempotent
+    (N candidate : Nat) :
+    normalizeCandidate N
+      (normalizeCandidate N candidate) =
+        normalizeCandidate N candidate := by
+  change
+    Nat.gcd (Nat.gcd candidate N) N =
+      Nat.gcd candidate N
+  apply Nat.dvd_antisymm
+  · exact Nat.gcd_dvd_left _ _
+  · exact Nat.dvd_gcd
+      (dvd_refl (Nat.gcd candidate N))
+      (Nat.gcd_dvd_right candidate N)
+
+/--
+A candidate is a fixed point of normalization exactly when
+it divides N.
+-/
+theorem normalizeCandidate_eq_self_iff_dvd
+    (N candidate : Nat) :
+    normalizeCandidate N candidate = candidate ↔
+      candidate ∣ N := by
+  change Nat.gcd candidate N = candidate ↔
+    candidate ∣ N
+  constructor
+  · intro h
+    rw [← h]
+    exact Nat.gcd_dvd_right candidate N
+  · intro hdiv
+    apply Nat.dvd_antisymm
+    · exact Nat.gcd_dvd_left candidate N
+    · exact Nat.dvd_gcd (dvd_refl candidate) hdiv
+
+/-- Normalization always produces a divisor of N. -/
+theorem normalizeCandidate_divides_input
+    (N candidate : Nat) :
+    normalizeCandidate N candidate ∣ N :=
+  Nat.gcd_dvd_right candidate N
+
+/-- Every normalized candidate is a fixed point. -/
+theorem normalizeCandidate_fixed_point
+    (N candidate : Nat) :
+    normalizeCandidate N
+      (normalizeCandidate N candidate) =
+        normalizeCandidate N candidate :=
+  normalizeCandidate_idempotent N candidate
+
+/--
+A normalized engagement is a proper divisor of N together with
+the nonunit and strict-bound certificates.
+-/
+structure NormalizedEngagement (N : Nat) where
+  candidate : Nat
+  dividesInput : candidate ∣ N
+  nonunit : 1 < candidate
+  proper : candidate < N
+
+/--
+Convert any successful ENGAGR witness into its canonical
+normalized-divisor representation.
+-/
+def normalizedEngagementOfWitness
+    (N candidate : Nat)
+    (h : paradoxCondition N candidate) :
+    NormalizedEngagement N :=
+  ⟨
+    normalizeCandidate N candidate,
+    normalizeCandidate_divides_input N candidate,
+    by
+      simpa [normalizeCandidate] using h.1,
+    by
+      simpa [normalizeCandidate] using h.2
+  ⟩
+
+/--
+Every normalized engagement is already fixed by GCD normalization.
+-/
+theorem normalizedEngagement_fixed
+    (N : Nat)
+    (w : NormalizedEngagement N) :
+    normalizeCandidate N w.candidate = w.candidate :=
+  (normalizeCandidate_eq_self_iff_dvd N w.candidate).2
+    w.dividesInput
+
+/--
+A normalized proper divisor is itself an ENGAGR candidate.
+-/
+theorem normalizedEngagement_engages
+    (N : Nat)
+    (w : NormalizedEngagement N) :
+    paradoxCondition N w.candidate := by
+
+  have hfixed :
+      Nat.gcd w.candidate N = w.candidate := by
+    exact
+      (normalizeCandidate_eq_self_iff_dvd N w.candidate).2
+        w.dividesInput
+
+  change
+    1 < Nat.gcd w.candidate N ∧
+    Nat.gcd w.candidate N < N
+
+  rw [hfixed]
+  exact ⟨w.nonunit, w.proper⟩
+
+/--
+An ENGAGR candidate exists exactly when the normalized
+proper-divisor space is inhabited.
+-/
+theorem exists_engagement_iff_normalized_divisor
+    (N : Nat) :
+    (∃ candidate : Nat, paradoxCondition N candidate) ↔
+    Nonempty (NormalizedEngagement N) := by
+  constructor
+  · rintro ⟨candidate, h⟩
+    exact ⟨normalizedEngagementOfWitness N candidate h⟩
+  · rintro ⟨w⟩
+    exact ⟨w.candidate, normalizedEngagement_engages N w⟩
+
+/--
+Existence of an ENGAGR witness is equivalent to existence
+of a proper divisor strictly between 1 and N.
+-/
+theorem exists_engagement_iff_proper_divisor
+    (N : Nat) :
+    (∃ candidate : Nat, paradoxCondition N candidate) ↔
+    (∃ d : Nat, d ∣ N ∧ 1 < d ∧ d < N) := by
+  constructor
+  · rintro ⟨candidate, h⟩
+    let w := normalizedEngagementOfWitness N candidate h
+    exact
+      ⟨w.candidate, w.dividesInput, w.nonunit, w.proper⟩
+  · rintro ⟨d, hd, hdgt, hdlt⟩
+    have hfixed : Nat.gcd d N = d :=
+      (normalizeCandidate_eq_self_iff_dvd N d).2 hd
+    refine ⟨d, ?_⟩
+    change 1 < Nat.gcd d N ∧ Nat.gcd d N < N
+    rw [hfixed]
+    exact ⟨hdgt, hdlt⟩
+
+/--
+The normalized-divisor representation is equivalent to
+the existence of a pipeline glut.
+-/
+theorem runBinaryMembrane_glut_exists_iff_normalized_divisor
+    (N : Nat) :
+    (∃ candidate : Nat,
+      PSystem.isGlut
+        (runBinaryMembrane N candidate).phase) ↔
+    Nonempty (NormalizedEngagement N) := by
+  rw [← exists_engagement_iff_normalized_divisor]
+  constructor
+  · rintro ⟨candidate, hglut⟩
+    exact
+      ⟨candidate,
+        (runBinaryMembrane_phase N candidate).1 hglut⟩
+  · rintro ⟨candidate, heng⟩
+    exact
+      ⟨candidate,
+        (runBinaryMembrane_phase N candidate).2 heng⟩
+
+/-! ## 15. Square-Root-Bounded 6k ± 1 Wheel Search -/
+
+/--
+Every proper factorization has a nonunit factor no larger than
+the square root of the input.
+-/
+theorem factorization_has_small_divisor
+    (N a b : Nat)
+    (ha : 1 < a)
+    (hb : 1 < b)
+    (hab : a * b = N) :
+    ∃ d : Nat,
+      d ≤ Nat.sqrt N ∧
+      1 < d ∧
+      d ∣ N := by
+  by_cases hable : a ≤ b
+  · have hsq : a * a ≤ N := by
+      calc
+        a * a ≤ a * b :=
+          Nat.mul_le_mul_left a hable
+        _ = N := hab
+    refine ⟨a, Nat.le_sqrt.mpr hsq, ha, ?_⟩
+    exact ⟨b, hab.symm⟩
+  · have hba : b ≤ a := by omega
+    have hsq : b * b ≤ N := by
+      calc
+        b * b ≤ a * b :=
+          Nat.mul_le_mul_right b hba
+        _ = N := hab
+    refine ⟨b, Nat.le_sqrt.mpr hsq, hb, ?_⟩
+    refine ⟨a, ?_⟩
+    calc
+      N = a * b := hab.symm
+      _ = b * a := Nat.mul_comm _ _
+
+/--
+The finite specification of the reduced search domain:
+nonunit divisors no larger than sqrt N.
+-/
+def divisorEngagementDivisors (N : Nat) : Finset Nat :=
+  (Finset.range (Nat.sqrt N + 1)).filter
+    (fun d => 1 < d ∧ d ∣ N)
+
+theorem divisorEngagementDivisors_mem_iff
+    (N d : Nat) :
+    d ∈ divisorEngagementDivisors N ↔
+      d ≤ Nat.sqrt N ∧ 1 < d ∧ d ∣ N := by
+  simp [divisorEngagementDivisors, and_assoc]
+
+/--
+The unfiltered 6-wheel: test 2 and 3 explicitly, then enumerate
+numbers congruent to 1 or 5 modulo 6.
+-/
+def divisorEngagementWheelRaw (N : Nat) : List Nat :=
+  [2, 3] ++
+    (List.range (Nat.sqrt N / 6 + 1)).flatMap
+      (fun k => [6 * k + 1, 6 * k + 5])
+
+/--
+The 6-wheel trial candidates. Values 2 and 3 are handled separately;
+all remaining generated values have the form 6*k+1 or 6*k+5.
+Only nonunit divisors at most sqrt N survive the filter.
+-/
+def divisorEngagementCandidates (N : Nat) : List Nat :=
+  (divisorEngagementWheelRaw N).filter
+    (fun d =>
+      decide (1 < d ∧
+        d ≤ Nat.sqrt N ∧
+        d ∣ N))
+
+/--
+Every emitted candidate is a nonunit divisor no larger than
+the square root.
+-/
+theorem divisorEngagementCandidates_mem_sound
+    (N d : Nat)
+    (hmem : d ∈ divisorEngagementCandidates N) :
+    d ≤ Nat.sqrt N ∧
+    1 < d ∧
+    d ∣ N := by
+  rcases List.mem_filter.mp hmem with ⟨hraw, htest⟩
+  have hprop :
+      1 < d ∧
+      d ≤ Nat.sqrt N ∧
+      d ∣ N :=
+    of_decide_eq_true htest
+  exact ⟨hprop.2.1, hprop.1, hprop.2.2⟩
+
+/--
+Every square-root-bounded nonunit divisor gives an entry in the
+6-wheel search. If it is divisible by 2 or 3, that small factor
+is tested explicitly. Otherwise it is congruent to 1 or 5 modulo 6.
+-/
+theorem small_divisor_has_wheel_candidate
+    (N d : Nat)
+    (hbound : d ≤ Nat.sqrt N)
+    (hgt : 1 < d)
+    (hdvd : d ∣ N) :
+    ∃ candidate : Nat,
+      candidate ∈ divisorEngagementCandidates N := by
+  have addCandidate
+      (x : Nat)
+      (hraw : x ∈ divisorEngagementWheelRaw N)
+      (hxOne : 1 < x)
+      (hxBound : x ≤ Nat.sqrt N)
+      (hxdvd : x ∣ N) :
+      x ∈ divisorEngagementCandidates N := by
+    apply List.mem_filter.mpr
+    exact ⟨hraw, by
+      simp [divisorEngagementCandidates, hxOne, hxBound, hxdvd]⟩
+
+  by_cases hEven : d % 2 = 0
+  · have hdEq : d = 2 * (d / 2) := by
+      have hmod := Nat.mod_add_div d 2
+      omega
+    have h2dvd : 2 ∣ N := by
+      rcases hdvd with ⟨c, hNc⟩
+      refine ⟨(d / 2) * c, ?_⟩
+      calc
+        N = d * c := hNc
+        _ = (2 * (d / 2)) * c :=
+          congrArg (fun x => x * c) hdEq
+        _ = 2 * ((d / 2) * c) :=
+          Nat.mul_assoc 2 (d / 2) c
+    have h2bound : 2 ≤ Nat.sqrt N := by omega
+    have hraw2 : 2 ∈ divisorEngagementWheelRaw N := by
+      simp [divisorEngagementWheelRaw]
+    exact ⟨2, addCandidate 2 hraw2 (by decide) h2bound h2dvd⟩
+
+  · by_cases hThird : d % 3 = 0
+    · have hdEq : d = 3 * (d / 3) := by
+        have hmod := Nat.mod_add_div d 3
+        omega
+      have h3dvd : 3 ∣ N := by
+        rcases hdvd with ⟨c, hNc⟩
+        refine ⟨(d / 3) * c, ?_⟩
+        calc
+          N = d * c := hNc
+          _ = (3 * (d / 3)) * c :=
+            congrArg (fun x => x * c) hdEq
+          _ = 3 * ((d / 3) * c) :=
+            Nat.mul_assoc 3 (d / 3) c
+      have h3bound : 3 ≤ Nat.sqrt N := by
+        have hmod := Nat.mod_add_div d 3
+        omega
+      have hraw3 : 3 ∈ divisorEngagementWheelRaw N := by
+        simp [divisorEngagementWheelRaw]
+      exact ⟨3, addCandidate 3 hraw3 (by decide) h3bound h3dvd⟩
+
+    · have h2ne : d % 2 ≠ 0 := hEven
+      have h3ne : d % 3 ≠ 0 := hThird
+      have hmod2 : d % 2 + 2 * (d / 2) = d :=
+        Nat.mod_add_div d 2
+      have hmod3 : d % 3 + 3 * (d / 3) = d :=
+        Nat.mod_add_div d 3
+      have hmod6 : d % 6 + 6 * (d / 6) = d :=
+        Nat.mod_add_div d 6
+      have hmod2lt : d % 2 < 2 :=
+        Nat.mod_lt d (by decide)
+      have hmod3lt : d % 3 < 3 :=
+        Nat.mod_lt d (by decide)
+      have hmod6lt : d % 6 < 6 :=
+        Nat.mod_lt d (by decide)
+      have hmod2pos : 0 < d % 2 := by omega
+      have hmod3pos : 0 < d % 3 := by omega
+      have hres : d % 6 = 1 ∨ d % 6 = 5 := by omega
+
+      have hsMod :
+          Nat.sqrt N % 6 + 6 * (Nat.sqrt N / 6) = Nat.sqrt N :=
+        Nat.mod_add_div (Nat.sqrt N) 6
+      have hsModLt : Nat.sqrt N % 6 < 6 :=
+        Nat.mod_lt (Nat.sqrt N) (by decide)
+
+      rcases hres with hOne | hFive
+      · let k : Nat := d / 6
+        have hkBound : k < Nat.sqrt N / 6 + 1 := by
+          dsimp [k]
+          omega
+        have hkMem : k ∈ List.range (Nat.sqrt N / 6 + 1) :=
+          List.mem_range.mpr hkBound
+        have hdEq : d = 6 * k + 1 := by
+          dsimp [k]
+          omega
+        have hinner : d ∈ [6 * k + 1, 6 * k + 5] := by
+          simp [hdEq]
+        have hflat :
+            d ∈
+              (List.range (Nat.sqrt N / 6 + 1)).flatMap
+                (fun j => [6 * j + 1, 6 * j + 5]) := by
+          apply List.mem_flatMap.mpr
+          exact ⟨k, hkMem, hinner⟩
+        have hraw : d ∈ divisorEngagementWheelRaw N := by
+          unfold divisorEngagementWheelRaw
+          exact List.mem_append_right _ hflat
+        exact ⟨d, addCandidate d hraw hgt hbound hdvd⟩
+
+      · let k : Nat := d / 6
+        have hkBound : k < Nat.sqrt N / 6 + 1 := by
+          dsimp [k]
+          omega
+        have hkMem : k ∈ List.range (Nat.sqrt N / 6 + 1) :=
+          List.mem_range.mpr hkBound
+        have hdEq : d = 6 * k + 5 := by
+          dsimp [k]
+          omega
+        have hinner : d ∈ [6 * k + 1, 6 * k + 5] := by
+          simp [hdEq]
+        have hflat :
+            d ∈
+              (List.range (Nat.sqrt N / 6 + 1)).flatMap
+                (fun j => [6 * j + 1, 6 * j + 5]) := by
+          apply List.mem_flatMap.mpr
+          exact ⟨k, hkMem, hinner⟩
+        have hraw : d ∈ divisorEngagementWheelRaw N := by
+          unfold divisorEngagementWheelRaw
+          exact List.mem_append_right _ hflat
+        exact ⟨d, addCandidate d hraw hgt hbound hdvd⟩
+
+/--
+The 6-wheel list is contained in the full
+square-root-bounded divisor specification.
+-/
+theorem divisorEngagementCandidates_subset_divisors
+    (N d : Nat)
+    (hmem : d ∈ divisorEngagementCandidates N) :
+    d ∈ divisorEngagementDivisors N := by
+  have hs :=
+    divisorEngagementCandidates_mem_sound N d hmem
+  exact
+    (divisorEngagementDivisors_mem_iff N d).2
+      ⟨hs.1, hs.2.1, hs.2.2⟩
+
+/-- Return the first trial divisor, or none. -/
+def divisorEngagementSearch (N : Nat) : Option Nat :=
+  (divisorEngagementCandidates N).head?
+
+/--
+A returned candidate is a nonunit divisor below N.
+-/
+theorem divisorEngagementSearch_sound
+    (N candidate : Nat)
+    (hsearch : divisorEngagementSearch N = some candidate) :
+    candidate < N ∧
+    1 < candidate ∧
+    candidate ∣ N := by
+  cases hlist : divisorEngagementCandidates N with
+  | nil =>
+      simp [divisorEngagementSearch, hlist] at hsearch
+  | cons first rest =>
+      have hfirst : first = candidate := by
+        simpa [divisorEngagementSearch, hlist] using hsearch
+      subst candidate
+      have hmem :
+          first ∈ divisorEngagementCandidates N := by
+        simp [hlist]
+      have hs :=
+        divisorEngagementCandidates_mem_sound N first hmem
+      have hsquare : first * first ≤ N :=
+        Nat.le_sqrt.mp hs.1
+      have hpos : 0 < first :=
+        Nat.lt_trans (by decide : 0 < 1) hs.2.1
+      have hltSquare : first < first * first := by
+        calc
+          first = first * 1 := by simp
+          _ < first * first :=
+            Nat.mul_lt_mul_of_pos_left hs.2.1 hpos
+      exact
+        ⟨lt_of_lt_of_le hltSquare hsquare,
+          hs.2.1,
+          hs.2.2⟩
+
+/--
+The 6-wheel search succeeds exactly when a proper
+nonunit divisor exists.
+-/
+theorem divisorEngagementSearch_success_iff_proper_divisor
+    (N : Nat) :
+    (∃ candidate : Nat,
+      divisorEngagementSearch N = some candidate) ↔
+    (∃ d : Nat, d ∣ N ∧ 1 < d ∧ d < N) := by
+  constructor
+  · rintro ⟨candidate, hsearch⟩
+    have hs :=
+      divisorEngagementSearch_sound N candidate hsearch
+    exact ⟨candidate, hs.2.2, hs.2.1, hs.1⟩
+  · rintro ⟨d, hdvd, hgt, hlt⟩
+    have hEngagement :
+        ∃ candidate : Nat, paradoxCondition N candidate :=
+      (exists_engagement_iff_proper_divisor N).2
+        ⟨d, hdvd, hgt, hlt⟩
+    obtain ⟨a, b, ha, hb, hab⟩ :=
+      (exists_engagement_iff_factorization N).1
+        hEngagement
+    obtain ⟨small, hsmallBound, hsmallNonunit, hsmallDvd⟩ :=
+      factorization_has_small_divisor N a b ha hb hab
+    obtain ⟨wheelCandidate, hwheel⟩ :=
+      small_divisor_has_wheel_candidate
+        N small hsmallBound hsmallNonunit hsmallDvd
+    cases hlist : divisorEngagementCandidates N with
+    | nil =>
+        simp [hlist] at hwheel
+    | cons first rest =>
+        exact
+          ⟨first, by simp [divisorEngagementSearch, hlist]⟩
+
+/-- A proper divisor is itself an ENGAGR witness because gcd d N = d. -/
+theorem properDivisor_engages
+    (N d : Nat)
+    (hdvd : d ∣ N)
+    (hgt : 1 < d)
+    (hlt : d < N) :
+    paradoxCondition N d := by
+  have hfixed : Nat.gcd d N = d := by
+    exact (normalizeCandidate_eq_self_iff_dvd N d).2 hdvd
+  change 1 < Nat.gcd d N ∧ Nat.gcd d N < N
+  rw [hfixed]
+  exact ⟨hgt, hlt⟩
+
+theorem divisorEngagementSearch_success_iff_normalized_divisor
+    (N : Nat) :
+    (∃ candidate : Nat,
+      divisorEngagementSearch N = some candidate) ↔
+    Nonempty (NormalizedEngagement N) := by
+  constructor
+  · rintro ⟨candidate, hsearch⟩
+    obtain ⟨hbound, hgt, hdvd⟩ :=
+      divisorEngagementSearch_sound N candidate hsearch
+    exact ⟨⟨candidate, hdvd, hgt, hbound⟩⟩
+  · rintro ⟨w⟩
+    exact
+      (divisorEngagementSearch_success_iff_proper_divisor N).2
+        ⟨w.candidate, w.dividesInput, w.nonunit, w.proper⟩
+
+theorem divisorEngagementSearch_success_iff_factorization
+    (N : Nat) :
+    (∃ candidate : Nat,
+      divisorEngagementSearch N = some candidate) ↔
+    (∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N) := by
+  exact
+    (divisorEngagementSearch_success_iff_proper_divisor N).trans
+      ((exists_engagement_iff_proper_divisor N).symm.trans
+        (exists_engagement_iff_factorization N))
+
+/--
+A successful divisor search returns an exact proper factor and quotient,
+and the same pair is emitted by the membrane.
+-/
+theorem divisorEngagementSearch_pipeline_certificate
+    (N candidate : Nat)
+    (hsearch : divisorEngagementSearch N = some candidate) :
+    candidate ∣ N ∧
+    1 < candidate ∧
+    candidate < N ∧
+    1 < N / candidate ∧
+    candidate * (N / candidate) = N ∧
+    PSystem.isGlut
+      (runBinaryMembrane N candidate).phase ∧
+    (runBinaryMembrane N candidate).factors.P0 = candidate ∧
+    (runBinaryMembrane N candidate).factors.P1 = N / candidate := by
+  have hs :=
+    divisorEngagementSearch_sound N candidate hsearch
+  have hfixed : Nat.gcd candidate N = candidate := by
+    exact (normalizeCandidate_eq_self_iff_dvd N candidate).2 hs.2.2
+  have hquotientNonunit :
+      1 < N / Nat.gcd candidate N :=
+    gcd_complement_gt_one N candidate
+      (by simpa [hfixed] using hs.1)
+      (by simpa [hfixed] using hs.2.1)
+  have hquotient : 1 < N / candidate := by
+    simpa [hfixed] using hquotientNonunit
+  have hclosure : candidate * (N / candidate) = N :=
+    Nat.mul_div_cancel' hs.2.2
+  have heng : paradoxCondition N candidate := by
+    change 1 < Nat.gcd candidate N ∧ Nat.gcd candidate N < N
+    rw [hfixed]
+    exact ⟨hs.2.1, hs.1⟩
+  have hcomponents :=
+    runBinaryMembrane_engaged_components N candidate heng
+  refine
+    ⟨hs.2.2, hs.2.1, hs.1, hquotient, hclosure,
+      (runBinaryMembrane_phase N candidate).2 heng, ?_, ?_⟩
+  · calc
+      (runBinaryMembrane N candidate).factors.P0 =
+          Nat.gcd candidate N := hcomponents.1
+      _ = candidate := hfixed
+  · simpa [hfixed] using hcomponents.2
+
+/-! ## 16. Divisor Search Equivalence and Exact Output -/
+
+/--
+The finite search specification is exactly the range
+up to the square root, filtered by nonunit status and divisibility.
+-/
+theorem divisorEngagementDivisors_eq_filter
+    (N : Nat) :
+    divisorEngagementDivisors N =
+      (Finset.range (Nat.sqrt N + 1)).filter
+        (fun d => 1 < d ∧ d ∣ N) := rfl
+
+/--
+The reduced divisor search and the earlier bounded ENGAGR
+search agree on whether a witness exists.
+-/
+theorem divisorEngagementSearch_success_iff_bounded_search
+    (N : Nat) :
+    (∃ candidate : Nat,
+      divisorEngagementSearch N = some candidate) ↔
+    (∃ candidate : Nat, engagementSearch N = some candidate) := by
+  rw [divisorEngagementSearch_success_iff_factorization,
+    engagementSearch_success_iff_factorization]
+
+/-- Any successful divisor-search result is an exact factor pair. -/
+def divisorSearchFactorPair
+    (N candidate : Nat)
+    (hsearch : divisorEngagementSearch N = some candidate) :
+    ProperFactorPair N := by
+  have hcert :=
+    divisorEngagementSearch_pipeline_certificate N candidate hsearch
+  exact
+    ⟨candidate, N / candidate,
+      hcert.2.1,
+      hcert.2.2.2.1,
+      hcert.2.2.2.2.1⟩
+
+/-- The divisor search's emitted pair reconstructs the input. -/
+theorem divisorSearchFactorPair_closure
+    (N candidate : Nat)
+    (hsearch : divisorEngagementSearch N = some candidate) :
+    (divisorSearchFactorPair N candidate hsearch).P0 *
+      (divisorSearchFactorPair N candidate hsearch).P1 = N :=
+  (divisorSearchFactorPair N candidate hsearch).productClosure
+
+/-- The divisor search's factors are both strict nonunits. -/
+theorem divisorSearchFactorPair_proper
+    (N candidate : Nat)
+    (hsearch : divisorEngagementSearch N = some candidate) :
+    1 < (divisorSearchFactorPair N candidate hsearch).P0 ∧
+    1 < (divisorSearchFactorPair N candidate hsearch).P1 := by
+  exact
+    ⟨(divisorSearchFactorPair N candidate hsearch).left_nonunit,
+      (divisorSearchFactorPair N candidate hsearch).right_nonunit⟩
+
+/-- No divisor-search candidate exists exactly when no proper factorization exists. -/
+theorem divisorEngagementSearch_none_iff_no_factorization
+    (N : Nat) :
+    divisorEngagementSearch N = none ↔
+    ¬ (∃ a b : Nat, 1 < a ∧ 1 < b ∧ a * b = N) := by
+  constructor
+  · intro hnone hfactor
+    obtain ⟨candidate, hsearch⟩ :=
+      (divisorEngagementSearch_success_iff_factorization N).2 hfactor
+    rw [hnone] at hsearch
+    cases hsearch
+  · intro hno
+    by_contra hsome
+    cases hs : divisorEngagementSearch N with
+    | none =>
+        exact hsome hs
+    | some candidate =>
+        apply hno
+        exact
+          (divisorEngagementSearch_success_iff_factorization N).1
             ⟨candidate, hs⟩
 
 end Imscribing.Paraconsistent.BinaryMembrane
