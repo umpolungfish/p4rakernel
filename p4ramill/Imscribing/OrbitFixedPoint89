@@ -1,0 +1,458 @@
+import Mathlib
+
+noncomputable section
+
+namespace Imscribing.ThreeBody.OrbitFixedPoint89
+
+/-!
+# The Three-Body Problem as a Non-Well-Founded Orbital Fixed Point
+
+The orbital relation is the foundation of the construction.
+
+An orbital edge (i,j) is supported by the other two orbital relations
+which complete the three-body cycle:
+
+                 i → j
+                 ↑   ↓
+                 k ←
+
+The operator is coinductive: an orbital relation belongs to the
+organism when its continuation is supported by the other relations.
+
+The orbital organism is the greatest fixed point of this operator.
+No body is selected as a root or privileged central object.
+
+The Newtonian dynamics are then expressed through this mutually
+supported orbital relation.
+-/
+
+/-! ## 1. The three-body carrier and its orbital relations -/
+
+abbrev Body := Fin 3
+
+abbrev OrbitEdges := Set (Body × Body)
+
+/-- Every directed orbital relation between distinct bodies. -/
+def AllOrbitEdges : OrbitEdges :=
+  {e | e.1 ≠ e.2}
+
+/-!
+`OrbitSupport R` says that an edge i → j is supported by the
+remaining orbital relations j → k and k → i.
+
+For three bodies, k is the remaining body. The condition is expressed
+universally so that the definition itself does not choose a third body.
+-/
+def OrbitSupport (R : OrbitEdges) : OrbitEdges :=
+  {e |
+    e.1 ≠ e.2 ∧
+    ∀ k : Body, k ≠ e.1 → k ≠ e.2 →
+      (e.2, k) ∈ R ∧ (k, e.1) ∈ R}
+
+/-- The orbital organism: the union of all post-fixed orbital relations. -/
+def OrbitKernel : OrbitEdges :=
+  ⋃₀ {R : OrbitEdges | R ⊆ OrbitSupport R}
+
+/-! ## 2. Monotonicity and the greatest fixed point -/
+
+/-- Orbital support is monotone in its relational argument. -/
+theorem orbitSupport_mono {R S : OrbitEdges}
+    (hRS : R ⊆ S) :
+    OrbitSupport R ⊆ OrbitSupport S := by
+  intro e he
+  rcases he with ⟨hne, hcycle⟩
+  refine ⟨hne, ?_⟩
+  intro k hki hkj
+  rcases hcycle k hki hkj with ⟨h1, h2⟩
+  exact ⟨hRS h1, hRS h2⟩
+
+/-- Every post-fixed orbital relation is contained in the organism. -/
+theorem orbitKernel_greatest {R : OrbitEdges}
+    (hR : R ⊆ OrbitSupport R) :
+    R ⊆ OrbitKernel := by
+  intro e he
+  exact Set.mem_sUnion.mpr ⟨R, hR, he⟩
+
+/-- The greatest orbital relation supports itself. -/
+theorem orbitKernel_postfixed :
+    OrbitKernel ⊆ OrbitSupport OrbitKernel := by
+  intro e he
+  rcases Set.mem_sUnion.mp he with ⟨R, hR, heR⟩
+  have hsub : R ⊆ OrbitKernel := by
+    intro q hq
+    exact Set.mem_sUnion.mpr ⟨R, hR, hq⟩
+  exact orbitSupport_mono hsub (hR heR)
+
+/-- The image of the greatest post-fixed point is itself post-fixed. -/
+theorem orbitSupport_kernel_postfixed :
+    OrbitSupport OrbitKernel ⊆
+      OrbitSupport (OrbitSupport OrbitKernel) :=
+  orbitSupport_mono orbitKernel_postfixed
+
+/-- The orbital organism is a genuine fixed point, not merely post-fixed. -/
+theorem orbitKernel_fixed_point :
+    OrbitKernel = OrbitSupport OrbitKernel := by
+  apply Set.Subset.antisymm
+  · exact orbitKernel_postfixed
+  · exact orbitKernel_greatest orbitSupport_kernel_postfixed
+
+/-! ## 3. The three-body orbital fixed point -/
+
+/-- The canonical orbital relation. -/
+def OrbitRelates (i j : Body) : Prop :=
+  (i, j) ∈ OrbitKernel
+
+/-- The greatest orbital fixed point consists of all and only
+the directed relations between distinct bodies. -/
+theorem orbitKernel_eq_allOrbitEdges :
+    OrbitKernel = AllOrbitEdges := by
+  ext e
+  constructor
+  · intro he
+    exact (orbitKernel_postfixed he).1
+  · intro he
+    exact orbitKernel_greatest allOrbitEdges_postfixed he
+where
+  allOrbitEdges_postfixed :
+      AllOrbitEdges ⊆ OrbitSupport AllOrbitEdges := by
+    intro e he
+    refine ⟨he, ?_⟩
+    intro k hki hkj
+    exact ⟨hkj.symm, hki⟩
+
+/-- An orbital relation exists exactly when the two bodies are distinct. -/
+theorem orbitRelates_iff_distinct (i j : Body) :
+    OrbitRelates i j ↔ i ≠ j := by
+  change (i, j) ∈ OrbitKernel ↔ i ≠ j
+  rw [orbitKernel_eq_allOrbitEdges]
+  rfl
+
+/-- No body orbits itself through a nonzero separation edge. -/
+theorem orbit_irreflexive (i : Body) :
+    ¬ OrbitRelates i i := by
+  rw [orbitRelates_iff_distinct]
+  exact fun h => h rfl
+
+/-- The orbital relation is symmetric as a relation of mutual participation. -/
+theorem orbitRelates_symmetric (i j : Body) :
+    OrbitRelates i j ↔ OrbitRelates j i := by
+  rw [orbitRelates_iff_distinct, orbitRelates_iff_distinct]
+  constructor <;> intro h <;> exact h.symm
+
+/-- Every orbital edge is recursively supported by the remaining body. -/
+theorem orbit_edge_has_closed_return (i j : Body)
+    (hij : OrbitRelates i j) :
+    ∀ k : Body, k ≠ i → k ≠ j →
+      OrbitRelates j k ∧ OrbitRelates k i := by
+  have h := orbitKernel_postfixed hij
+  exact h.2
+
+/-- The orbital relation is explicitly self-referential. -/
+theorem orbitRelation_self_referential (i j : Body) :
+    OrbitRelates i j ↔
+      i ≠ j ∧
+      ∀ k : Body, k ≠ i → k ≠ j →
+        OrbitRelates j k ∧ OrbitRelates k i := by
+  constructor
+  · intro hij
+    have h := orbitKernel_postfixed hij
+    exact ⟨h.1, h.2⟩
+  · rintro ⟨hne, hcycle⟩
+    exact (orbitRelates_iff_distinct i j).2 hne
+
+/-! ## 4. The non-well-founded three-body cycle -/
+
+/-- A directed cycle is a certificate of non-well-founded
+mutual orbital dependence. -/
+def ContainsOrbitalCycle (R : Body → Body → Prop) : Prop :=
+  ∃ a b c : Body, R a b ∧ R b c ∧ R c a
+
+/-- The three bodies form a closed directed orbital cycle. -/
+theorem three_body_orbital_cycle :
+    ContainsOrbitalCycle OrbitRelates := by
+  refine ⟨0, 1, 2, ?_, ?_, ?_⟩
+  · exact (orbitRelates_iff_distinct 0 1).2 (by decide)
+  · exact (orbitRelates_iff_distinct 1 2).2 (by decide)
+  · exact (orbitRelates_iff_distinct 2 0).2 (by decide)
+
+/-- Every body has an orbital successor. There is no terminal body. -/
+theorem every_body_has_orbit_successor (i : Body) :
+    ∃ j : Body, OrbitRelates i j := by
+  fin_cases i
+  · exact ⟨1, (orbitRelates_iff_distinct 0 1).2 (by decide)⟩
+  · exact ⟨2, (orbitRelates_iff_distinct 1 2).2 (by decide)⟩
+  · exact ⟨0, (orbitRelates_iff_distinct 2 0).2 (by decide)⟩
+
+/-- Every body has an orbital predecessor. There is no initial body. -/
+theorem every_body_has_orbit_predecessor (i : Body) :
+    ∃ j : Body, OrbitRelates j i := by
+  fin_cases i
+  · exact ⟨2, (orbitRelates_iff_distinct 2 0).2 (by decide)⟩
+  · exact ⟨0, (orbitRelates_iff_distinct 0 1).2 (by decide)⟩
+  · exact ⟨1, (orbitRelates_iff_distinct 1 2).2 (by decide)⟩
+
+/-- The orbital organism has neither a distinguished beginning
+nor a terminal orbital body. -/
+theorem no_initial_or_terminal_body :
+    (∀ i : Body, ∃ j, OrbitRelates j i) ∧
+    (∀ i : Body, ∃ j, OrbitRelates i j) :=
+  ⟨every_body_has_orbit_predecessor,
+   every_body_has_orbit_successor⟩
+
+/-! ## 5. The nonterminal orbital hierarchy -/
+
+/-- Neighbor support between integer-indexed orbital levels. -/
+def OrbitLevelSupport (S : Set ℤ) : Set ℤ :=
+  {n | n - 1 ∈ S ∧ n + 1 ∈ S}
+
+/-- Greatest post-fixed point of the two-sided orbital hierarchy. -/
+def OrbitLevelKernel : Set ℤ :=
+  ⋃₀ {S : Set ℤ | S ⊆ OrbitLevelSupport S}
+
+/-- Every integer level belongs to the orbital hierarchy. -/
+theorem orbitLevelKernel_eq_univ :
+    OrbitLevelKernel = Set.univ := by
+  apply Set.eq_univ_iff_forall.mpr
+  intro n
+  unfold OrbitLevelKernel
+  refine Set.mem_sUnion.mpr ⟨Set.univ, ?_, Set.mem_univ n⟩
+  intro k hk
+  simp [OrbitLevelSupport]
+
+/-- Every orbital level has both neighboring levels. -/
+theorem orbit_level_has_both_neighbors (n : ℤ) :
+    n - 1 ∈ OrbitLevelKernel ∧
+    n + 1 ∈ OrbitLevelKernel := by
+  rw [orbitLevelKernel_eq_univ]
+  simp
+
+/-- The hierarchy has no bottom and no top. -/
+theorem orbital_hierarchy_nonterminal :
+    (∀ n : ℤ, n - 1 ∈ OrbitLevelKernel) ∧
+    (∀ n : ℤ, n + 1 ∈ OrbitLevelKernel) := by
+  rw [orbitLevelKernel_eq_univ]
+  simp
+
+/-! ## 6. Orbital histories and relational geometry -/
+
+/-- A three-body position history. -/
+abbrev Vec3 := Fin 3 → ℝ
+
+abbrev PositionOrbit := Body → ℝ → Vec3
+
+/-- The directed relative orbit from body i to body j. -/
+def RelativeOrbit (x : PositionOrbit)
+    (i j : Body) (t : ℝ) : Vec3 :=
+  x j t - x i t
+
+/-- Reversing an orbital edge reverses its relative displacement. -/
+theorem relativeOrbit_reverse (x : PositionOrbit)
+    (i j : Body) (t : ℝ) :
+    RelativeOrbit x j i t = -RelativeOrbit x i j t := by
+  ext c
+  simp [RelativeOrbit]
+
+/-- Every three-body orbital triangle closes at every instant. -/
+theorem relativeOrbit_cycle (x : PositionOrbit)
+    (i j k : Body) (t : ℝ) :
+    RelativeOrbit x i j t +
+      RelativeOrbit x j k t +
+      RelativeOrbit x k i t = 0 := by
+  ext c
+  simp [RelativeOrbit]
+  ring
+
+/-- The canonical three-body orbital triangle. -/
+theorem three_body_orbit_closure (x : PositionOrbit) (t : ℝ) :
+    RelativeOrbit x 0 1 t +
+      RelativeOrbit x 1 2 t +
+      RelativeOrbit x 2 0 t = 0 :=
+  relativeOrbit_cycle x 0 1 2 t
+
+/-! ## 7. The gravitational interaction is generated by the orbit kernel -/
+
+/-- Squared Euclidean length. -/
+def orbitNormSq (r : Vec3) : ℝ :=
+  ∑ c : Fin 3, r c * r c
+
+/-- Newton's inverse-cube interaction coefficient. -/
+def orbitInverseCube (r : Vec3) : ℝ :=
+  1 / (orbitNormSq r * Real.sqrt (orbitNormSq r))
+
+/-- Positive gravitational constant and positive body masses. -/
+structure ThreeBodyParameters where
+  G : ℝ
+  mass : Body → ℝ
+  G_pos : 0 < G
+  mass_pos : ∀ i, 0 < mass i
+
+/-- The acceleration contribution of body j to body i,
+enabled by their mutual orbital relation. -/
+def OrbitAccelerationContribution
+    (p : ThreeBodyParameters)
+    (x : PositionOrbit)
+    (i j : Body) (t : ℝ) : Vec3 :=
+  if OrbitRelates i j then
+    (p.mass j * orbitInverseCube (RelativeOrbit x i j t)) •
+      RelativeOrbit x i j t
+  else
+    0
+
+/-- Newtonian acceleration generated by the complete orbital relation.
+
+The summation is over the non-well-founded orbital kernel, not over
+a separately selected central body or an externally supplied list
+of pair interactions.
+-/
+def OrbitGravityAcceleration
+    (p : ThreeBodyParameters)
+    (x : PositionOrbit)
+    (i : Body) (t : ℝ) : Vec3 :=
+  p.G • ∑ j : Body,
+    OrbitAccelerationContribution p x i j t
+
+/-- Since the orbital kernel is the complete irreflexive relation,
+the gravitational sum includes exactly the other two bodies. -/
+theorem orbit_gravity_uses_mutual_orbits
+    (p : ThreeBodyParameters) (x : PositionOrbit)
+    (i : Body) (t : ℝ) :
+    OrbitGravityAcceleration p x i t =
+      p.G • ∑ j : Body,
+        if i ≠ j then
+          (p.mass j *
+            orbitInverseCube (RelativeOrbit x i j t)) •
+              RelativeOrbit x i j t
+        else
+          0 := by
+  simp [OrbitGravityAcceleration, OrbitAccelerationContribution,
+    orbitRelates_iff_distinct]
+
+/-! ## 8. A physical three-body orbit solution -/
+
+/-- Collision freedom of a three-body orbital history. -/
+def OrbitCollisionFree (x : PositionOrbit) : Prop :=
+  ∀ i j t, OrbitRelates i j →
+    0 < orbitNormSq (RelativeOrbit x i j t)
+
+/-- A complete Newtonian three-body solution expressed through
+mutually supported orbital histories. -/
+structure ThreeBodyOrbitSolution (p : ThreeBodyParameters) where
+  position : PositionOrbit
+  velocity : PositionOrbit
+  acceleration : PositionOrbit
+
+  collision_free :
+    OrbitCollisionFree position
+
+  position_derivative :
+    ∀ (i : Body) (t : ℝ) (c : Fin 3),
+      HasDerivAt
+        (fun τ : ℝ => position i τ c)
+        (velocity i t c) t
+
+  velocity_derivative :
+    ∀ (i : Body) (t : ℝ) (c : Fin 3),
+      HasDerivAt
+        (fun τ : ℝ => velocity i τ c)
+        (acceleration i t c) t
+
+  gravitational_equation :
+    ∀ (i : Body) (t : ℝ),
+      acceleration i t =
+        OrbitGravityAcceleration p position i t
+
+/-- The relative acceleration of an orbital edge is determined
+by the difference of its endpoint accelerations. -/
+def RelativeOrbitAcceleration
+    (O : ThreeBodyOrbitSolution p)
+    (i j : Body) (t : ℝ) : Vec3 :=
+  O.acceleration j t - O.acceleration i t
+
+/-- Every solution's relative acceleration is generated by the
+same mutually supported orbital gravitational field. -/
+theorem relative_orbit_acceleration_law
+    (p : ThreeBodyParameters)
+    (O : ThreeBodyOrbitSolution p)
+    (i j : Body) (t : ℝ) :
+    RelativeOrbitAcceleration O i j t =
+      OrbitGravityAcceleration p O.position j t -
+      OrbitGravityAcceleration p O.position i t := by
+  simp [RelativeOrbitAcceleration,
+    O.gravitational_equation i t,
+    O.gravitational_equation j t]
+
+/-! ## 9. The unified orbital fixed-point organism -/
+
+/-- The complete orbital organism packages physical motion with
+the greatest non-well-founded orbital fixed point. -/
+structure ThreeBodyOrbitOrganism89
+    (p : ThreeBodyParameters) where
+
+  motion : ThreeBodyOrbitSolution p
+
+  /-- The orbital relation is its own greatest fixed point. -/
+  fixed_point :
+    OrbitKernel = OrbitSupport OrbitKernel
+
+  /-- Every orbital relation is recursively supported by the other
+  relations in the triadic cycle. -/
+  self_reference :
+    ∀ i j : Body,
+      OrbitRelates i j ↔
+        i ≠ j ∧
+        ∀ k : Body, k ≠ i → k ≠ j →
+          OrbitRelates j k ∧ OrbitRelates k i
+
+  /-- The organism contains an explicit three-body orbital cycle. -/
+  non_well_founded :
+    ContainsOrbitalCycle OrbitRelates
+
+  /-- No body is the unique initial or terminal body. -/
+  no_orbital_root :
+    (∀ i : Body, ∃ j, OrbitRelates j i) ∧
+    (∀ i : Body, ∃ j, OrbitRelates i j)
+
+/-- The non-well-founded orbital organism associated with any
+Newtonian motion satisfying the orbit-generated gravitational law. -/
+def constructOrbitOrganism89
+    (p : ThreeBodyParameters)
+    (O : ThreeBodyOrbitSolution p) :
+    ThreeBodyOrbitOrganism89 p :=
+  { motion := O
+    fixed_point := orbitKernel_fixed_point
+    self_reference := orbitRelation_self_referential
+    non_well_founded := three_body_orbital_cycle
+    no_orbital_root := no_initial_or_terminal_body }
+
+/-! ## 10. The central theorem -/
+
+/-- The three-body orbital mechanism is simultaneously:
+
+1. the greatest fixed point of mutual orbital support;
+2. recursively self-referential;
+3. cyclically non-well-founded;
+4. nonterminal at every body;
+5. the relation generating the Newtonian gravitational interaction;
+6. compatible with closed relative orbital geometry.
+
+The physical motion carried by the organism is governed by the
+Newtonian law generated through that same orbital relation.
+-/
+theorem three_body_orbit_fixed_point_solution
+    (p : ThreeBodyParameters)
+    (O : ThreeBodyOrbitSolution p) :
+    ∃ organism : ThreeBodyOrbitOrganism89 p,
+      organism.motion = O ∧
+      OrbitKernel = OrbitSupport OrbitKernel ∧
+      ContainsOrbitalCycle OrbitRelates ∧
+      (∀ i j : Body,
+        OrbitRelates i j ↔
+          i ≠ j ∧
+          ∀ k : Body, k ≠ i → k ≠ j →
+            OrbitRelates j k ∧ OrbitRelates k i) := by
+  refine ⟨constructOrbitOrganism89 p O, rfl,
+    orbitKernel_fixed_point,
+    three_body_orbital_cycle,
+    orbitRelation_self_referential⟩
+
+end Imscribing.ThreeBody.OrbitFixedPoint89

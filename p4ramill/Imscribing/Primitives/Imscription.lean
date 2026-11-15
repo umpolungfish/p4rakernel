@@ -463,10 +463,10 @@ def Protection.shavian : Protection → String
 
 /-- Render an Imscription as a Shavian tuple -/
 def Imscription.shavian (s : Imscription) : String :=
-  "⟨" ++ s.dim.shavian ++ "·" ++ s.top.shavian ++ "·" ++ s.rel.shavian ++ "·" ++
-  s.pol.shavian ++ "·" ++ s.fid.shavian ++ "·" ++ s.kin.shavian ++ "·" ++
-  s.gran.shavian ++ "·" ++ s.gram.shavian ++ "·" ++ s.crit.shavian ++ "·" ++
-  s.chir.shavian ++ "·" ++ s.stoi.shavian ++ "·" ++ s.prot.shavian ++ "⟩"
+  "⟨" ++ s.dim.shavian ++ s.top.shavian ++ s.rel.shavian ++
+  s.pol.shavian ++ s.fid.shavian ++ s.kin.shavian ++
+  s.gran.shavian ++ s.gram.shavian ++ s.crit.shavian ++
+  s.chir.shavian ++ s.stoi.shavian ++ s.prot.shavian ++ "⟩"
 
 /-- The Stone's tuple in Shavian -/
 def stone_shavian : String :=
@@ -657,12 +657,12 @@ def protShavian (p : Protection) : String :=
 
 /-- Render a full Imscription tuple in Shavian notation. -/
 def imscriptionShavian (s : Imscription) : String :=
-  "⟨" ++ dimShavian s.dim ++ "·" ++ topShavian s.top ++ "·" ++ relShavian s.rel ++ "·" ++
-  polShavian s.pol ++ "·" ++ fidShavian s.fid ++ "·" ++ kinShavian s.kin ++ "·" ++
-  granShavian s.gran ++ "·" ++ gramShavian s.gram ++ "·" ++ critShavian s.crit ++ "·" ++
-  chirShavian s.chir ++ "·" ++ stoiShavian s.stoi ++ "·" ++ protShavian s.prot ++ "⟩"
+  "⟨" ++ dimShavian s.dim ++ topShavian s.top ++ relShavian s.rel ++
+  polShavian s.pol ++ fidShavian s.fid ++ kinShavian s.kin ++
+  granShavian s.gran ++ gramShavian s.gram ++ critShavian s.crit ++
+  chirShavian s.chir ++ stoiShavian s.stoi ++ protShavian s.prot ++ "⟩"
 
-/-- The Stone's tuple in Shavian: ⟨𐑦·𐑸·𐑾·𐑹·𐑐·𐑧·𐑲·𐑠·⊙·𐑫·𐑳·𐑭⟩ -/
+/-- The Stone's tuple: ⟨𐑦𐑸𐑾𐑹𐑐𐑧𐑲𐑠⊙𐑫𐑳𐑭⟩ -/
 def stoneShavian : String :=
   imscriptionShavian ⟨if', are, ian, or', peep, egg, ice, measure,
     monad, wool, up, ah⟩

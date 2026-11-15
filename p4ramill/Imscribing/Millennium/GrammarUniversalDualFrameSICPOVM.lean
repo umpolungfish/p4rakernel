@@ -58,7 +58,7 @@ def theGrammar : Imscription := {
   kin  := egg        -- ⊤ = 𐑧: slow/near-equilibrium kinetics
   gran := ice        -- ∈ = 𐑔: global/fine-grained
   gram := measure    -- ∋ = 𐑠: sequential composition
-  crit := monad      -- φ̂ = ⊙: critical (self-modeling gate)
+  crit := monad      -- ⊙ = ⊙: critical (self-modeling gate)
   chir := wool       -- ⊥ = 𐑫: eternal chirality
   stoi := hung       -- ⊞ = 𐑙: 1:1 self-referential
   prot := ah         -- ⊡ = 𐑭: integer ℤ winding (topological)
@@ -92,7 +92,7 @@ def belnapMultilatticeSICPOVM : Imscription := {
   kin  := egg        -- ⊤ = 𐑧: slow kinetics
   gran := ice        -- ∈ = 𐑔: global
   gram := measure    -- ∋ = 𐑠: sequential
-  crit := monad      -- φ̂ = ⊙: critical
+  crit := monad      -- ⊙ = ⊙: critical
   chir := sure       -- ⊥ = 𐑖: two-step chirality
   stoi := up         -- ⊞ = 𐑳: n:m heterogeneous
   prot := ah         -- ⊡ = 𐑭: integer winding
