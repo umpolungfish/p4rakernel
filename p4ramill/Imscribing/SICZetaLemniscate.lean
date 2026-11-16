@@ -382,4 +382,139 @@ theorem analytic_dual_frame_witness :
   ⟨zeta_neg_one, tetra_dual_left_inverse,
     GrammarUniversalDualFrameSICPOVM.grammar_frobenius_closure⟩
 
+/-! ### The universal fire lattice: both dyadic arms are one-omega-window
+chords measured from the two crossing depths.
+
+With `ord_p(2) = 2^a * m` (`m` odd) and `omega = ord_m(2)`, the walk's diff arm
+fires at the level pair `(a, a+omega)` and the sum arm at `(a-1, a-1+omega)`.
+The arithmetic core: the sum-arm congruence reduces through `(m+1)/2 = 2^(-1)
+(mod m)` to `m | 2^t - 1` for the offset `t = j - a + 1 >= 1`, and the diff-arm
+congruence reduces the same way for `t = j - i`. The sum arm has no site when
+`a = 0`: the rung `a-1 = -1` does not exist, a structural null rather than a
+failed congruence. -/
+
+private lemma odd_mul_even_right {m z : ℤ} (hm : Odd m) (h : Even (m * z)) : Even z := by
+  obtain ⟨k, rfl⟩ := hm
+  obtain ⟨e, he⟩ := h
+  refine ⟨e - k * z, ?_⟩
+  push_cast at he ⊢
+  linarith
+
+private lemma odd_dvd_mul_pow_two {m D : ℤ} (hm : Odd m) {n : ℕ}
+    (h : m ∣ (2 : ℤ) ^ n * D) : m ∣ D := by
+  induction n with
+  | zero => simpa using h
+  | succ n ih =>
+    obtain ⟨c, hc⟩ := h
+    have hce : Even c := by
+      refine odd_mul_even_right hm ⟨(2 : ℤ) ^ n * D, ?_⟩
+      rw [← hc, pow_succ]
+      ring
+    obtain ⟨e, rfl⟩ := hce
+    have hc2 : (2 : ℤ) * (m * e) = (2 : ℤ) * ((2 : ℤ) ^ n * D) := by
+      have h1 : (2 : ℤ) * (m * e) = m * (2 * e) := by ring
+      have h2 : (m : ℤ) * (2 * e) = m * (e + e) := by ring
+      rw [h1, h2, ← hc, pow_succ]
+      ring
+    exact ih ⟨e, (mul_left_cancel₀ (by norm_num) hc2).symm⟩
+
+private lemma two_pow_succ (t : ℕ) (ht : 0 < t) :
+    (2 : ℤ) ^ t = 2 * (2 : ℤ) ^ (t - 1) := by
+  obtain ⟨t', ht'⟩ : ∃ t', t = t' + 1 := ⟨t - 1, by omega⟩
+  subst ht'
+  rw [show (t' : ℕ) + 1 - 1 = t' by omega, pow_succ]
+  ring
+
+/-- Sum arm: for odd `m` and `t >= 1`,
+`2^a*m | 2^(a-1+t) - 2^(a-1)*(m+1)` iff `m | 2^t - 1`, i.e. iff
+`omega = ord_m(2)` divides the offset `t = j - a + 1`. Minimal sum site
+`(a-1, a-1+omega)`. -/
+theorem sum_arm_reduction (a m t : ℕ) (hm : Odd m) (ht : 0 < t) :
+    (m ∣ 2 ^ t - 1) ↔
+    ((2 : ℤ) ^ a * m ∣ (2 : ℤ) ^ (a - 1 + t) - (2 : ℤ) ^ (a - 1) * (m + 1)) := by
+  obtain ⟨m', hm'⟩ := hm
+  have hmz : Odd (m : ℤ) := ⟨m', by exact_mod_cast hm'⟩
+  have hcast : ((2 ^ t - 1 : ℕ) : ℤ) = (2 : ℤ) ^ t - 1 := by
+    have h0 : (0 : ℕ) < 2 ^ t := by positivity
+    have h1 : (1 : ℕ) ≤ 2 ^ t := by omega
+    rw [Nat.cast_sub h1]
+    push_cast
+    ring
+  have hsplit : (2 : ℤ) ^ (a - 1 + t) - (2 : ℤ) ^ (a - 1) * (m + 1) =
+      (2 : ℤ) ^ (a - 1) * ((2 : ℤ) ^ t - (m : ℤ) - 1) := by
+    push_cast [Nat.pow_add]
+    ring
+  constructor
+  · rintro ⟨u, hu⟩
+    have hzl : (2 : ℤ) ^ t - 1 = (m : ℤ) * (u : ℤ) := by
+      rw [← hcast]
+      exact_mod_cast hu
+    have hz : (2 : ℤ) ^ t = (m : ℤ) * (u : ℤ) + 1 := by linarith
+    have hmul : (m : ℤ) * (u - 1) = (m : ℤ) * (u : ℤ) - (m : ℤ) := by ring
+    have hDfac : (2 : ℤ) ^ t - (m : ℤ) - 1 = (m : ℤ) * (u - 1) := by
+      rw [hmul]
+      linarith
+    have hDeven : (2 : ℤ) ∣ (2 : ℤ) ^ t - (m : ℤ) - 1 := by
+      refine ⟨(2 : ℤ) ^ (t - 1) - (m' : ℤ) - 1, ?_⟩
+      rw [two_pow_succ t ht]
+      push_cast [hm']
+      ring
+    obtain ⟨v, hv⟩ := hDeven
+    have heven : Even ((m : ℤ) * (u - 1)) := by
+      refine ⟨v, ?_⟩
+      rw [hDfac.symm]
+      linarith
+    obtain ⟨w, hw⟩ := odd_mul_even_right hmz heven
+    by_cases ha : a = 0
+    · subst ha
+      refine ⟨w + w, ?_⟩
+      push_cast
+      simp only [Nat.zero_sub, Nat.zero_add, pow_zero, one_mul]
+      rw [← sub_sub, hDfac, hw]
+    · have ha1 : (0 : ℕ) < a := by omega
+      refine ⟨w, ?_⟩
+      rw [hsplit, hDfac, hw, two_pow_succ a ha1]
+      ring
+  · rintro ⟨x, hx⟩
+    rw [hsplit] at hx
+    have hmd : (m : ℤ) ∣ (2 : ℤ) ^ (a - 1) * ((2 : ℤ) ^ t - (m : ℤ) - 1) := by
+      refine ⟨(2 : ℤ) ^ a * x, ?_⟩
+      have hperm : (m : ℤ) * ((2 : ℤ) ^ a * x) = (2 : ℤ) ^ a * (m : ℤ) * x := by
+        ring
+      rw [hperm, hx]
+    obtain ⟨v, hv⟩ := odd_dvd_mul_pow_two hmz hmd
+    exact Int.natCast_dvd_natCast.mp ⟨v + 1, by rw [hcast]; linarith [hv]⟩
+
+/-- Diff arm: for odd `m` and `a <= i <= j`,
+`2^a*m | 2^i*(2^(j-i) - 1)` iff `m | 2^(j-i) - 1`, i.e. iff
+`omega = ord_m(2)` divides the offset `t = j - i >= 0`. Minimal diff site
+`(a, a+omega)`. -/
+theorem diff_arm_reduction (a m i j : ℕ) (hm : Odd m) (ha : a ≤ i) (hij : i ≤ j) :
+    (m ∣ 2 ^ (j - i) - 1) ↔
+    ((2 : ℤ) ^ a * m ∣ (2 : ℤ) ^ i * ((2 : ℤ) ^ (j - i) - 1)) := by
+  obtain ⟨m', hm'⟩ := hm
+  have hmz : Odd (m : ℤ) := ⟨m', by exact_mod_cast hm'⟩
+  have hcast : ((2 ^ (j - i) - 1 : ℕ) : ℤ) = (2 : ℤ) ^ (j - i) - 1 := by
+    have h0 : (0 : ℕ) < 2 ^ (j - i) := by positivity
+    have h1 : (1 : ℕ) ≤ 2 ^ (j - i) := by omega
+    rw [Nat.cast_sub h1]
+    push_cast
+    ring
+  have hsplit2 : (2 : ℤ) ^ i = (2 : ℤ) ^ a * (2 : ℤ) ^ (i - a) := by
+    conv_lhs => rw [show (i : ℕ) = a + (i - a) by omega]
+    rw [pow_add]
+  constructor
+  · rintro ⟨x, hx⟩
+    have hz : (2 : ℤ) ^ (j - i) - 1 = (m : ℤ) * (x : ℤ) := by
+      rw [← hcast]
+      exact_mod_cast hx
+    refine ⟨(2 : ℤ) ^ (i - a) * (x : ℤ), ?_⟩
+    rw [hz, hsplit2]
+    ring
+  · rintro ⟨x, hx⟩
+    have hmd : (m : ℤ) ∣ (2 : ℤ) ^ i * ((2 : ℤ) ^ (j - i) - 1) :=
+      ⟨(2 : ℤ) ^ a * x, by rw [hx]; ring⟩
+    obtain ⟨v, hv⟩ := odd_dvd_mul_pow_two hmz hmd
+    exact Int.natCast_dvd_natCast.mp ⟨v, by rw [hcast]; exact hv⟩
+
 end Imscribing.Millennium.ZetaSICDualFrame

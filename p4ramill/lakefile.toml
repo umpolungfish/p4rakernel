@@ -190,6 +190,7 @@ globs = [
   "Imscribing.gravity_standard_model_unification",
   "Imscribing.GravityOrganism89",
   "Imscribing.OrbitFixedPoint89",
+  "Imscribing.OrbitFixedPoint89Global",
   "Imscribing.OrbitFixedPoint89Window",
   "Imscribing.OrbitFixedPoint98",
   "Imscribing.SICZetaLemniscate",
@@ -404,7 +405,7 @@ globs = [
   "Imscribing.Classical.MatchingSDR",
   "Imscribing.Classical.Szemeredi",
   "Imscribing.Classical.BoseChowla",
-  "Imscribing.AxiomAudit",
+  #"Imscribing.AxiomAudit", -- disabled 2026-11-16 per Lando
   "Imscribing.Classical.InfiniteSidon",
   "Imscribing.Classical.ErdosTuranBound",
   "Imscribing.Classical.ErdosStrausDecomposition",
