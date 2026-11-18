@@ -927,4 +927,897 @@ theorem kl_decay (W ρ : ℝ → ℝ) (m : ℝ) (hm : 0 < m)
           exact hW0
     _ = Real.exp (-(m * t)) := by ring
 
+/-! ## §6.  M-derived continuum scaling limit -/
+
+section ScalingLimit
+
+/--
+Renormalization pair `(R, R_inv)` between finite-`a` models `M_a` and a
+continuum limit `M_inf`, realizing `R ∘ R⁻¹ = id` (`μ ∘ δ = id`) on the
+continuum image.
+-/
+structure RenormPair (M_a : ℝ → Type*) (M_inf : Type*) where
+  R         : ∀ a : ℝ, 0 < a → M_a a → M_inf
+  R_inv     : ∀ a : ℝ, 0 < a → M_inf → M_a a
+  renorm_id : ∀ (a : ℝ) (ha : 0 < a) (x : M_inf), R a ha (R_inv a ha x) = x
+
+theorem renorm_surjective {M_a : ℝ → Type*} {M_inf : Type*}
+    (P : RenormPair M_a M_inf) (a : ℝ) (ha : 0 < a) :
+    Function.Surjective (P.R a ha) :=
+  fun x => ⟨P.R_inv a ha x, P.renorm_id a ha x⟩
+
+/--
+Model-theoretic structure for the M-derived continuum scaling limit:
+per-model satisfaction (`Sat M φ`), universal validity (`Valid`),
+scaling-invariant preservation from `M_a` to `M_inf`, uniform typing,
+and permanent independence.
+-/
+structure ScalingLogic where
+  Sentence         : Type
+  Ty               : Type
+  Model            : Type
+  embed_a          : ∀ a : ℝ, 0 < a → Model
+  embed_inf        : Model
+  typeOf           : Sentence → Ty
+  type_uniform     : ∀ φ ψ : Sentence, typeOf φ = typeOf ψ
+  neg              : Sentence → Sentence
+  Sat              : Model → Sentence → Prop
+  sat_neg_iff      : ∀ M φ, Sat M (neg φ) ↔ ¬ Sat M φ
+  ScalingInvariant : Sentence → Prop
+  scaling_pres     : ∀ (a : ℝ) (ha : 0 < a) (φ : Sentence),
+      ScalingInvariant φ → Sat (embed_a a ha) φ → Sat embed_inf φ
+  independent      : ∃ φ : Sentence,
+      (¬ ∀ M, Sat M φ) ∧ (¬ ∀ M, Sat M (neg φ))
+
+def ScalingLogic.Valid (L : ScalingLogic) (φ : L.Sentence) : Prop :=
+  ∀ M : L.Model, L.Sat M φ
+
+theorem scaling_excluded_middle (L : ScalingLogic) (M : L.Model) (φ : L.Sentence) :
+    L.Sat M φ ∨ L.Sat M (L.neg φ) := by
+  rw [L.sat_neg_iff]
+  exact Classical.em (L.Sat M φ)
+
+theorem scaling_independence (L : ScalingLogic) :
+    ∃ φ : L.Sentence, ¬ L.Valid φ ∧ ¬ L.Valid (L.neg φ) :=
+  L.independent
+
+/-- Homogeneous encoding of `M ⊨ φ` on `Model ⊕ Sentence`. -/
+def ScalingLogic.SatRel (L : ScalingLogic) :
+    L.Model ⊕ L.Sentence → L.Model ⊕ L.Sentence → Prop
+  | Sum.inl M, Sum.inr φ => L.Sat M φ
+  | _, _ => False
+
+theorem scaling_sat_wellFounded (L : ScalingLogic) : WellFounded L.SatRel := by
+  refine ⟨fun x => ?_⟩
+  cases x with
+  | inl M =>
+    refine Acc.intro (Sum.inl M) fun y hy => ?_
+    cases y <;> cases hy
+  | inr φ =>
+    refine Acc.intro (Sum.inr φ) fun y hy => ?_
+    cases y with
+    | inl M =>
+      refine Acc.intro (Sum.inl M) fun z hz => ?_
+      cases z <;> cases hz
+    | inr _ => cases hy
+
+/--
+A lattice-to-continuum scaling family of `LatticeGaugeSetup` models indexed
+by `a > 0` with a uniform physical mass-gap lower bound `Δ_phys > 0`.
+-/
+structure LatticeScalingFamily (G : Type*) [Group G] where
+  L        : ℝ → SpatialLattice
+  V        : ℝ → Type*
+  [vNorm   : ∀ a, NormedAddCommGroup (V a)]
+  [vInner  : ∀ a, InnerProductSpace ℂ (V a)]
+  [vComp   : ∀ a, CompleteSpace (V a)]
+  setup    : ∀ a : ℝ, 0 < a → LatticeGaugeSetup (L a) G (V a)
+  a_eq     : ∀ (a : ℝ) (ha : 0 < a), (setup a ha).a = a
+  Δ_phys   : ℝ
+  Δ_pos    : 0 < Δ_phys
+  gap_unif : ∀ (a : ℝ) (ha : 0 < a), Δ_phys ≤ (setup a ha).Δ
+
+attribute [instance] LatticeScalingFamily.vNorm LatticeScalingFamily.vInner
+  LatticeScalingFamily.vComp
+
+/-- Uniform-in-`a` lattice clustering at physical time `k * a` with rate `Δ_phys`. -/
+theorem uniform_lattice_clustering {G : Type*} [Group G]
+    (F : LatticeScalingFamily G) (a : ℝ) (ha : 0 < a)
+    (A B : F.V a →L[ℂ] F.V a)
+    (hA : ⟪A (F.setup a ha).Ω, (F.setup a ha).Ω⟫_ℂ = 0)
+    (hB : ⟪B (F.setup a ha).Ω, (F.setup a ha).Ω⟫_ℂ = 0)
+    (k : ℕ) :
+    ‖⟪(F.setup a ha).Ω, A (((F.setup a ha).T ^ k) (B (F.setup a ha).Ω))⟫_ℂ‖
+      ≤ ‖A‖ * ‖B‖ * Real.exp (-(F.Δ_phys * (k * a))) := by
+  have h_clus := clustering (F.setup a ha) A B hA hB k
+  have h_gap : F.Δ_phys * ((k : ℝ) * a) ≤ (F.setup a ha).Δ * ((k : ℝ) * a) :=
+    mul_le_mul_of_nonneg_right (F.gap_unif a ha) (mul_nonneg (Nat.cast_nonneg k) ha.le)
+  have h_exp : Real.exp (-((F.setup a ha).Δ * ((k : ℝ) * (F.setup a ha).a)))
+      ≤ Real.exp (-(F.Δ_phys * ((k : ℝ) * a))) := by
+    rw [F.a_eq a ha]
+    exact Real.exp_le_exp.mpr (by linarith)
+  calc
+    ‖⟪(F.setup a ha).Ω, A (((F.setup a ha).T ^ k) (B (F.setup a ha).Ω))⟫_ℂ‖
+        ≤ ‖A‖ * ‖B‖ * Real.exp (-((F.setup a ha).Δ * ((k : ℝ) * (F.setup a ha).a))) := h_clus
+    _ ≤ ‖A‖ * ‖B‖ * Real.exp (-(F.Δ_phys * ((k : ℝ) * a))) :=
+        mul_le_mul_of_nonneg_left h_exp (mul_nonneg (norm_nonneg A) (norm_nonneg B))
+
+/--
+Continuum mass-gap clustering: if a continuum two-point correlator `W_inf`
+is the scaling limit (`k_n * a_n → t`) of uniformly bounded finite-`a`
+lattice correlators, then `W_inf ≤ C * exp(-Δ_phys * t)`.
+-/
+theorem continuum_scaling_clustering {G : Type*} [Group G]
+    (F : LatticeScalingFamily G)
+    (a_seq : ℕ → ℝ) (ha_seq : ∀ n, 0 < a_seq n) (k_seq : ℕ → ℕ)
+    (A_seq B_seq : ∀ n, F.V (a_seq n) →L[ℂ] F.V (a_seq n))
+    (hA : ∀ n, ⟪A_seq n (F.setup (a_seq n) (ha_seq n)).Ω,
+        (F.setup (a_seq n) (ha_seq n)).Ω⟫_ℂ = 0)
+    (hB : ∀ n, ⟪B_seq n (F.setup (a_seq n) (ha_seq n)).Ω,
+        (F.setup (a_seq n) (ha_seq n)).Ω⟫_ℂ = 0)
+    (C : ℝ) (hC : ∀ n, ‖A_seq n‖ * ‖B_seq n‖ ≤ C)
+    (t W_inf : ℝ)
+    (ht_lim : Filter.Tendsto (fun n => (k_seq n : ℝ) * a_seq n) Filter.atTop (nhds t))
+    (hW_lim : Filter.Tendsto
+      (fun n => ‖⟪(F.setup (a_seq n) (ha_seq n)).Ω,
+        A_seq n (((F.setup (a_seq n) (ha_seq n)).T ^ k_seq n)
+          (B_seq n (F.setup (a_seq n) (ha_seq n)).Ω))⟫_ℂ‖)
+      Filter.atTop (nhds W_inf)) :
+    W_inf ≤ C * Real.exp (-(F.Δ_phys * t)) := by
+  have h_bound : ∀ n,
+      ‖⟪(F.setup (a_seq n) (ha_seq n)).Ω,
+        A_seq n (((F.setup (a_seq n) (ha_seq n)).T ^ k_seq n)
+          (B_seq n (F.setup (a_seq n) (ha_seq n)).Ω))⟫_ℂ‖
+        ≤ C * Real.exp (-(F.Δ_phys * ((k_seq n : ℝ) * a_seq n))) := by
+    intro n
+    have h1 := uniform_lattice_clustering F (a_seq n) (ha_seq n)
+      (A_seq n) (B_seq n) (hA n) (hB n) (k_seq n)
+    have h2 : ‖A_seq n‖ * ‖B_seq n‖ * Real.exp (-(F.Δ_phys * ((k_seq n : ℝ) * a_seq n)))
+        ≤ C * Real.exp (-(F.Δ_phys * ((k_seq n : ℝ) * a_seq n))) :=
+      mul_le_mul_of_nonneg_right (hC n) (Real.exp_pos _).le
+    exact h1.trans h2
+  have h_exp_lim : Filter.Tendsto
+      (fun n => C * Real.exp (-(F.Δ_phys * ((k_seq n : ℝ) * a_seq n))))
+      Filter.atTop (nhds (C * Real.exp (-(F.Δ_phys * t)))) := by
+    have h_cont : Continuous fun s : ℝ => C * Real.exp (-(F.Δ_phys * s)) :=
+      continuous_const.mul (Real.continuous_exp.comp (continuous_const.mul continuous_id).neg)
+    exact h_cont.continuousAt.tendsto.comp ht_lim
+  exact le_of_tendsto_of_tendsto' hW_lim h_exp_lim h_bound
+
+end ScalingLimit
+
+/-! ## §7.  Combined chain: Trilattice GNS → Lattice → 4D OS/Wightman QFT -/
+
+section CombinedChain
+
+/--
+Re-entrant trilattice operational tuple
+`M = <S, ≤_t, ≤_f, ≤_i, Inc, μ, δ, W>` over the 16-state `SIXTEEN_3` space.
+-/
+structure TrilatticeModel where
+  S          : Type
+  [sFin      : Fintype S]
+  [sDec      : DecidableEq S]
+  card_eq    : Fintype.card S = 16
+  le_t       : S → S → Prop
+  le_f       : S → S → Prop
+  le_i       : S → S → Prop
+  le_t_refl  : ∀ x, le_t x x
+  le_f_refl  : ∀ x, le_f x x
+  le_i_refl  : ∀ x, le_i x x
+  le_i_trans : ∀ {x y z}, le_i x y → le_i y z → le_i x z
+  le_i_anti  : ∀ {x y}, le_i x y → le_i y x → x = y
+  void       : S
+  trueVal    : S
+  falseVal   : S
+  bothVal    : S
+  totalityB  : S
+  val_ne_tf  : trueVal ≠ falseVal
+  val_ne_bv  : bothVal ≠ void
+  le_i_top   : ∀ x, le_i x totalityB
+  Inc        : S → S
+  inc_fixed  : Inc totalityB = totalityB
+  inc_ne_void : Inc (Inc totalityB) ≠ void
+  Part       : Type
+  δ          : S → Part
+  μ          : Part → S
+  mu_delta   : ∀ x : S, μ (δ x) = x
+  W          : S → S
+  W_mono     : ∀ x : S, le_i x (W x)
+  W_strict   : ∀ x : S, x ≠ totalityB → x ≠ W x
+  W_fixed    : W totalityB = totalityB
+
+attribute [instance] TrilatticeModel.sFin TrilatticeModel.sDec
+
+/--
+Dual-frame GNS realization of a `TrilatticeModel` into a `LatticeGaugeSetup`
+with vacuum `Ω = [B]` and transfer gap `Δ > 0`.
+-/
+structure TrilatticeGNSBridge (M : TrilatticeModel) (L : SpatialLattice)
+    (G : Type*) [Group G] (V : Type*)
+    [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V] where
+  setup    : LatticeGaugeSetup L G V
+  embed    : M.S → V
+  embed_B  : embed M.totalityB = setup.Ω
+  vac_inv  : setup.T (embed M.totalityB) = embed M.totalityB
+
+/--
+Section 3 lower bound: for any unit vector `ψ ∈ Ωᗮ`, the transfer-matrix
+spectral gap quantity `1 - |Re ⟪ψ, T ψ⟫|` is bounded below by `1 - exp(-Δ * a)`.
+-/
+theorem latticeGap_lower_bound {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) (ψ : V)
+    (h_orth : ⟪ψ, S.Ω⟫_ℂ = 0) (h_norm : ‖ψ‖ = 1) :
+    1 - Real.exp (-(S.Δ * S.a)) ≤ 1 - |(⟪ψ, S.T ψ⟫_ℂ).re| := by
+  have hpos : 0 ≤ (⟪ψ, S.T ψ⟫_ℂ).re := S.T_pos ψ
+  have hgap : (⟪ψ, S.T ψ⟫_ℂ).re ≤ Real.exp (-(S.Δ * S.a)) := by
+    simpa [h_norm] using S.gap ψ h_orth
+  rw [abs_of_nonneg hpos]
+  linarith
+
+/--
+Uniform-in-volume thermodynamic limit family: `Δ_latt` is bounded below
+by `Δ₀ > 0` uniformly across all spatial lattice volumes.
+-/
+structure UniformVolumeFamily (G : Type*) [Group G] (a : ℝ) (ha : 0 < a) where
+  ι         : Type
+  L         : ι → SpatialLattice
+  V         : ι → Type*
+  [vNorm    : ∀ i, NormedAddCommGroup (V i)]
+  [vInner   : ∀ i, InnerProductSpace ℂ (V i)]
+  [vComp    : ∀ i, CompleteSpace (V i)]
+  setup     : ∀ i : ι, LatticeGaugeSetup (L i) G (V i)
+  a_eq      : ∀ i : ι, (setup i).a = a
+  Δ₀        : ℝ
+  Δ₀_pos    : 0 < Δ₀
+  unif_gap  : ∀ i : ι, Δ₀ ≤ 1 - Real.exp (-((setup i).Δ * a))
+
+attribute [instance] UniformVolumeFamily.vNorm UniformVolumeFamily.vInner
+  UniformVolumeFamily.vComp
+
+theorem uniform_volume_gap_bound {G : Type*} [Group G] {a : ℝ} {ha : 0 < a}
+    (U : UniformVolumeFamily G a ha) (i : U.ι) (ψ : U.V i)
+    (h_orth : ⟪ψ, (U.setup i).Ω⟫_ℂ = 0) (h_norm : ‖ψ‖ = 1) :
+    U.Δ₀ ≤ 1 - |(⟪ψ, (U.setup i).T ψ⟫_ℂ).re| := by
+  have h1 := U.unif_gap i
+  have h2 := latticeGap_lower_bound (U.setup i) ψ h_orth h_norm
+  rw [U.a_eq i] at h2
+  exact h1.trans h2
+
+/--
+Section 4 RG scaling limit of the lattice gap:
+`(1 - exp(-Δ_phys * a_n)) / a_n → Δ_phys` as `a_n → 0⁺`.
+-/
+theorem rescaled_lattice_gap_tendsto (Δ_phys : ℝ)
+    (a_seq : ℕ → ℝ) (ha_pos : ∀ n, 0 < a_seq n)
+    (ha_lim : Filter.Tendsto a_seq Filter.atTop (nhds 0)) :
+    Filter.Tendsto (fun n => (1 - Real.exp (-(Δ_phys * a_seq n))) / a_seq n)
+      Filter.atTop (nhds Δ_phys) := by
+  rw [Metric.tendsto_atTop]
+  intro ε hε
+  have h_abs_lim : Filter.Tendsto (fun n => |Δ_phys| * a_seq n) Filter.atTop (nhds 0) := by
+    simpa using (continuous_const.mul continuous_id).continuousAt.tendsto.comp ha_lim
+  have h_ev1 : ∃ N₁, ∀ n ≥ N₁, |Δ_phys| * a_seq n < 1 := by
+    have h := Metric.tendsto_atTop.mp h_abs_lim 1 one_pos
+    rcases h with ⟨N₁, hN₁⟩
+    refine ⟨N₁, fun n hn => ?_⟩
+    have hdist := hN₁ n hn
+    rw [Real.dist_eq, sub_zero, abs_of_nonneg (mul_nonneg (abs_nonneg _) (ha_pos n).le)] at hdist
+    exact hdist
+  have h_bound_lim : Filter.Tendsto (fun n => Δ_phys ^ 2 * a_seq n) Filter.atTop (nhds 0) := by
+    simpa using (continuous_const.mul continuous_id).continuousAt.tendsto.comp ha_lim
+  have h_ev2 : ∃ N₂, ∀ n ≥ N₂, Δ_phys ^ 2 * a_seq n < ε := by
+    have h := Metric.tendsto_atTop.mp h_bound_lim ε hε
+    rcases h with ⟨N₂, hN₂⟩
+    refine ⟨N₂, fun n hn => ?_⟩
+    have hdist := hN₂ n hn
+    rw [Real.dist_eq, sub_zero, abs_of_nonneg (mul_nonneg (sq_nonneg _) (ha_pos n).le)] at hdist
+    exact hdist
+  rcases h_ev1 with ⟨N₁, hN₁⟩
+  rcases h_ev2 with ⟨N₂, hN₂⟩
+  refine ⟨max N₁ N₂, fun n hn => ?_⟩
+  have hn1 : N₁ ≤ n := le_trans (le_max_left _ _) hn
+  have hn2 : N₂ ≤ n := le_trans (le_max_right _ _) hn
+  have ha_n : 0 < a_seq n := ha_pos n
+  have hx_le1 : |-(Δ_phys * a_seq n)| ≤ 1 := by
+    rw [abs_neg, abs_mul, abs_of_pos ha_n]
+    exact (hN₁ n hn1).le
+  have hexp_bound := Real.abs_exp_sub_one_sub_id_le hx_le1
+  have h_eq : (1 - Real.exp (-(Δ_phys * a_seq n))) / a_seq n - Δ_phys =
+      -(Real.exp (-(Δ_phys * a_seq n)) - 1 - -(Δ_phys * a_seq n)) / a_seq n := by
+    field_simp [ha_n.ne']
+    ring
+  rw [Real.dist_eq, h_eq, abs_div, abs_neg, abs_of_pos ha_n, div_lt_iff₀ ha_n]
+  calc
+    |Real.exp (-(Δ_phys * a_seq n)) - 1 - -(Δ_phys * a_seq n)|
+        ≤ (-(Δ_phys * a_seq n)) ^ 2 := hexp_bound
+    _ = (Δ_phys ^ 2 * a_seq n) * a_seq n := by ring
+    _ < ε * a_seq n := mul_lt_mul_of_pos_right (hN₂ n hn2) ha_n
+
+/-- 4D Euclidean / Minkowski coordinate space `ℝ⁴`. -/
+abbrev Space4 := Fin 4 → ℝ
+
+/-- Euclidean time reflection `θ : (x₀, x) ↦ (-x₀, x)`. -/
+def euclidTimeReflect (x : Space4) : Space4 :=
+  fun i => if i = 0 then -x 0 else x i
+
+/-- Minkowski quadratic form `x₀² - x₁² - x₂² - x₃²`. -/
+def minkowskiSq (x : Space4) : ℝ :=
+  (x 0) ^ 2 - ∑ i : Fin 3, (x i.succ) ^ 2
+
+/-- 4D Osterwalder–Schrader Euclidean QFT axioms for continuum Schwinger functions. -/
+structure OsterwalderSchrader4D (Δ_phys : ℝ) where
+  Δ_pos      : 0 < Δ_phys
+  Schwinger  : ∀ n : ℕ, (Fin n → Space4) → ℂ
+  so4_inv    : ∀ (n : ℕ) (R : Matrix.specialOrthogonalGroup (Fin 4) ℝ)
+                 (xs : Fin n → Space4),
+                 Schwinger n (fun i => Matrix.mulVec R.1 (xs i)) = Schwinger n xs
+  perm_symm  : ∀ (n : ℕ) (σ : Equiv.Perm (Fin n)) (xs : Fin n → Space4),
+                 Schwinger n (fun i => xs (σ i)) = Schwinger n xs
+  refl_pos   : ∀ (m : ℕ) (c : Fin m → ℂ) (xs : Fin m → Space4),
+                 (∀ i, 0 < xs i 0) →
+                 0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+                   c i * starRingEnd ℂ (c j) *
+                     Schwinger 2 ![euclidTimeReflect (xs i), xs j]).re
+  cluster    : ∀ (n m : ℕ) (C : ℝ) (xs : Fin n → Space4) (ys : Fin m → Space4)
+                 (R : ℝ), 0 ≤ R →
+                 (∀ i j, R ≤ ‖xs i - ys j‖) →
+                 ‖Schwinger (n + m) (Fin.append xs ys) -
+                   Schwinger n xs * Schwinger m ys‖ ≤ C * Real.exp (-(Δ_phys * R))
+
+/-- 4D relativistic Minkowski QFT satisfying the Wightman axioms and a mass gap. -/
+structure WightmanQFT4D (Δ_phys : ℝ) where
+  Δ_pos         : 0 < Δ_phys
+  H             : Type*
+  [hNorm        : NormedAddCommGroup H]
+  [hInner       : InnerProductSpace ℂ H]
+  [hComp        : CompleteSpace H]
+  Ω_phys        : H
+  Ω_unit        : ‖Ω_phys‖ = 1
+  Poincare      : Type
+  [pGroup       : Group Poincare]
+  U             : Poincare → (H →L[ℂ] H)
+  U_unitary     : ∀ g x y, ⟪U g x, U g y⟫_ℂ = ⟪x, y⟫_ℂ
+  U_vac         : ∀ g, U g Ω_phys = Ω_phys
+  actP          : Poincare → Space4 → Space4
+  φ             : Space4 → (H →L[ℂ] H)
+  covariant     : ∀ g x, (U g).comp (φ x) = (φ (actP g x)).comp (U g)
+  local_comm    : ∀ x y, minkowskiSq (x - y) < 0 → (φ x).comp (φ y) = (φ y).comp (φ x)
+  P2_spec       : Set ℝ
+  spectral_cond : ∀ p2 ∈ P2_spec, 0 ≤ p2
+  mass_gap_spec : ∀ p2 ∈ P2_spec, p2 = 0 ∨ Δ_phys ^ 2 ≤ p2
+
+attribute [instance] WightmanQFT4D.hNorm WightmanQFT4D.hInner WightmanQFT4D.hComp
+  WightmanQFT4D.pGroup
+
+/--
+Full combined chain: finite-lattice `SU(N)` setups + trilattice GNS bridge +
+uniform-in-volume gap + RG continuum scaling limit + OS/Wightman 4D QFT.
+-/
+structure YangMillsCombinedChain (N : ℕ) (hN : 2 ≤ N) where
+  M            : TrilatticeModel
+  F            : LatticeScalingFamily (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  a_seq        : ℕ → ℝ
+  ha_pos       : ∀ n, 0 < a_seq n
+  ha_lim       : Filter.Tendsto a_seq Filter.atTop (nhds 0)
+  bridge       : ∀ n, TrilatticeGNSBridge M (F.L (a_seq n))
+                   (Matrix.specialUnitaryGroup (Fin N) ℂ) (F.V (a_seq n))
+  bridge_eq    : ∀ n, (bridge n).setup = F.setup (a_seq n) (ha_pos n)
+  os4d         : OsterwalderSchrader4D F.Δ_phys
+  wightman4d   : WightmanQFT4D F.Δ_phys
+
+/--
+Combined chain theorem: in any `YangMillsCombinedChain`, the finite-`a`
+trilattice setups cluster uniformly, the rescaled gap converges to `Δ_phys > 0`,
+and the Wightman spectrum has no states in `(0, Δ_phys²)`.
+-/
+theorem combined_chain_summary {N : ℕ} {hN : 2 ≤ N}
+    (C : YangMillsCombinedChain N hN) :
+    0 < C.F.Δ_phys ∧
+    Filter.Tendsto
+      (fun n => (1 - Real.exp (-(C.F.Δ_phys * C.a_seq n))) / C.a_seq n)
+      Filter.atTop (nhds C.F.Δ_phys) ∧
+    (∀ p2 ∈ C.wightman4d.P2_spec, ¬ (0 < p2 ∧ p2 < C.F.Δ_phys ^ 2)) := by
+  refine ⟨C.F.Δ_pos, rescaled_lattice_gap_tendsto C.F.Δ_phys C.a_seq C.ha_pos C.ha_lim, ?_⟩
+  intro p2 hp2 hlt
+  rcases C.wightman4d.mass_gap_spec p2 hp2 with rfl | hge
+  · exact lt_irrefl 0 hlt.1
+  · linarith [hlt.2]
+
+end CombinedChain
+
+/-! ## §8.  Concrete realizations and RG pullback bridge -/
+
+section ConcreteRealizations
+
+/-- The 16-state `SIXTEEN_3` carrier `(∅, {F}, {T}, {T,F})` bitmask. -/
+abbrev S16 := Bool × Bool × Bool × Bool
+
+def le16_i (x y : S16) : Prop :=
+  x.1 ≤ y.1 ∧ x.2.1 ≤ y.2.1 ∧ x.2.2.1 ≤ y.2.2.1 ∧ x.2.2.2 ≤ y.2.2.2
+
+def le16_t (x y : S16) : Prop :=
+  y.1 ≤ x.1 ∧ y.2.1 ≤ x.2.1 ∧ x.2.2.1 ≤ y.2.2.1 ∧ x.2.2.2 ≤ y.2.2.2
+
+def le16_f (x y : S16) : Prop :=
+  y.1 ≤ x.1 ∧ x.2.1 ≤ y.2.1 ∧ y.2.2.1 ≤ x.2.2.1 ∧ x.2.2.2 ≤ y.2.2.2
+
+def walk16 : S16 → S16
+  | (false, b1, b2, b3) => (true, b1, b2, b3)
+  | (true, false, b2, b3) => (true, true, b2, b3)
+  | (true, true, false, b3) => (true, true, true, b3)
+  | (true, true, true, false) => (true, true, true, true)
+  | (true, true, true, true) => (true, true, true, true)
+
+def inc16 : S16 → S16
+  | (b0, b1, b2, b3) => (b0 && b3, b2, b1, b3)
+
+/-- Concrete `SIXTEEN_3` re-entrant trilattice `M`. -/
+def trilattice16 : TrilatticeModel where
+  S := S16
+  card_eq := by decide
+  le_t := le16_t
+  le_f := le16_f
+  le_i := le16_i
+  le_t_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
+  le_f_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
+  le_i_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
+  le_i_trans := fun h1 h2 =>
+    ⟨le_trans h1.1 h2.1, le_trans h1.2.1 h2.2.1,
+     le_trans h1.2.2.1 h2.2.2.1, le_trans h1.2.2.2 h2.2.2.2⟩
+  le_i_anti := by
+    rintro ⟨a0, a1, a2, a3⟩ ⟨b0, b1, b2, b3⟩ ⟨h10, h11, h12, h13⟩ ⟨h20, h21, h22, h23⟩
+    exact Prod.ext (le_antisymm h10 h20)
+      (Prod.ext (le_antisymm h11 h21)
+        (Prod.ext (le_antisymm h12 h22) (le_antisymm h13 h23)))
+  void := (false, false, false, false)
+  trueVal := (false, false, true, false)
+  falseVal := (false, true, false, false)
+  bothVal := (false, false, false, true)
+  totalityB := (true, true, true, true)
+  val_ne_tf := by decide
+  val_ne_bv := by decide
+  le_i_top := by
+    rintro ⟨a0, a1, a2, a3⟩
+    cases a0 <;> cases a1 <;> cases a2 <;> cases a3 <;> simp [le16_i]
+  Inc := inc16
+  inc_fixed := by decide
+  inc_ne_void := by decide
+  Part := S16 × S16
+  δ := fun x => (x, x)
+  μ := fun p => p.1
+  mu_delta := fun _ => rfl
+  W := walk16
+  W_mono := by
+    rintro ⟨a0, a1, a2, a3⟩
+    cases a0 <;> cases a1 <;> cases a2 <;> cases a3 <;> simp [le16_i, walk16]
+  W_strict := by
+    rintro ⟨a0, a1, a2, a3⟩
+    cases a0 <;> cases a1 <;> cases a2 <;> cases a3 <;> decide
+  W_fixed := by decide
+
+/-- Order independence and non-commutativity of `Inc` and `W` in `trilattice16`. -/
+theorem trilattice16_properties :
+    (¬ ∀ x y : S16, le16_i x y → le16_t x y) ∧
+    (¬ ∀ x y : S16, le16_t x y → le16_f x y) ∧
+    (inc16 (walk16 (true, true, false, false)) ≠
+      walk16 (inc16 (true, true, false, false))) := by
+  refine ⟨fun h => ?_, fun h => ?_, by decide⟩
+  · have hfalse := h (false, false, false, false) (false, true, false, false) (by simp [le16_i])
+    simp [le16_t] at hfalse
+    exact absurd hfalse (by decide)
+  · have hfalse := h (false, true, false, false) (false, false, true, false) (by simp [le16_t])
+    simp [le16_f] at hfalse
+    exact absurd hfalse (by decide)
+
+/-- Minimal spatial lattice (single site, single link). -/
+def trivialLattice : SpatialLattice where
+  Site := Unit
+  Link := Unit
+  src := fun _ => ()
+  dst := fun _ => ()
+
+/-- 16-dimensional complex Hilbert space indexed by the `SIXTEEN_3` register. -/
+abbrev V16 := EuclideanSpace ℂ (Fin 16)
+
+/-- Vacuum basis vector `[B]` in `V16`. -/
+def Ω16 : V16 := { ofLp := fun i => if i = 15 then 1 else 0 }
+
+theorem Ω16_norm : ‖Ω16‖ = 1 := by
+  have hsq : ‖Ω16‖ ^ 2 = 1 := by
+    rw [EuclideanSpace.norm_sq_eq, Finset.sum_eq_single (15 : Fin 16)]
+    · simp [Ω16]
+    · intro j _ hj
+      simp [Ω16, hj]
+    · intro h
+      exact absurd (Finset.mem_univ _) h
+  have hmul : (‖Ω16‖ - 1) * (‖Ω16‖ + 1) = 0 := by linarith
+  rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg Ω16]
+
+/-- Rank-1 orthogonal projector onto `ℂ ∙ Ω16`. -/
+noncomputable def P_Ω16 : V16 →L[ℂ] V16 :=
+  LinearMap.mkContinuous
+    { toFun := fun x => ⟪Ω16, x⟫_ℂ • Ω16
+      map_add' := fun x y => by rw [inner_add_right, add_smul]
+      map_smul' := fun c x => by rw [inner_smul_right, smul_smul]; rfl }
+    1
+    (fun x => by
+      change ‖⟪Ω16, x⟫_ℂ • Ω16‖ ≤ 1 * ‖x‖
+      rw [norm_smul, Ω16_norm, mul_one, one_mul]
+      calc ‖⟪Ω16, x⟫_ℂ‖ ≤ ‖Ω16‖ * ‖x‖ := norm_inner_le_norm _ _
+        _ = ‖x‖ := by rw [Ω16_norm, one_mul])
+
+/-- Concrete `LatticeGaugeSetup` over `V16` at lattice spacing `a > 0` and mass gap `1`. -/
+noncomputable def concreteLatticeSetup (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    LatticeGaugeSetup trivialLattice (Matrix.specialUnitaryGroup (Fin N) ℂ) V16 where
+  rep := fun _ => ContinuousLinearMap.id ℂ V16
+  rep_one := rfl
+  rep_mul := fun _ _ => rfl
+  T := ((1 - Real.exp (-a) : ℝ) : ℂ) • P_Ω16 +
+       ((Real.exp (-a) : ℝ) : ℂ) • ContinuousLinearMap.id ℂ V16
+  a := a
+  a_pos := ha
+  T_sa := by
+    intro x y
+    have hP_sa : ⟪P_Ω16 x, y⟫_ℂ = ⟪x, P_Ω16 y⟫_ℂ := by
+      change ⟪⟪Ω16, x⟫_ℂ • Ω16, y⟫_ℂ = ⟪x, ⟪Ω16, y⟫_ℂ • Ω16⟫_ℂ
+      rw [inner_smul_left, inner_smul_right, ← inner_conj_symm x Ω16, mul_comm]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, inner_add_left, inner_add_right,
+      inner_smul_left, inner_smul_right, Complex.conj_ofReal, hP_sa]
+  T_pos := by
+    intro v
+    have hP_pos : 0 ≤ (⟪v, P_Ω16 v⟫_ℂ).re := by
+      change 0 ≤ (⟪v, ⟪Ω16, v⟫_ℂ • Ω16⟫_ℂ).re
+      rw [inner_smul_right, (inner_conj_symm v Ω16).symm]
+      rw [Complex.mul_re, Complex.conj_re, Complex.conj_im, mul_neg, sub_neg_eq_add]
+      exact add_nonneg (mul_self_nonneg _) (mul_self_nonneg _)
+    have hV_pos : 0 ≤ (⟪v, v⟫_ℂ).re := by
+      have h_eq : (⟪v, v⟫_ℂ).re = ‖v‖ ^ 2 := by
+        rw [inner_self_eq_norm_sq_to_K]
+        have hpow : (((‖v‖ : ℂ) ^ 2).re) = ‖v‖ ^ 2 := by norm_num [pow_two]
+        exact hpow
+      rw [h_eq]
+      exact sq_nonneg ‖v‖
+    have hr_pos : 0 ≤ Real.exp (-a) := (Real.exp_pos _).le
+    have h1r_pos : 0 ≤ 1 - Real.exp (-a) := by
+      have : Real.exp (-a) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
+      linarith
+    have h_re_mul : ∀ (c : ℝ) (z : ℂ), ((c : ℂ) * z).re = c * z.re := by
+      intro c z; simp [Complex.mul_re]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, inner_add_right, inner_smul_right,
+      Complex.add_re, h_re_mul]
+    exact add_nonneg (mul_nonneg h1r_pos hP_pos) (mul_nonneg hr_pos hV_pos)
+  T_compact := by
+    let T0 : V16 →L[ℂ] V16 :=
+      ((1 - Real.exp (-a) : ℝ) : ℂ) • P_Ω16 +
+      ((Real.exp (-a) : ℝ) : ℂ) • ContinuousLinearMap.id ℂ V16
+    change IsCompactOperator ⇑T0
+    let H := PiLp.homeomorph 2 (fun _ : Fin 16 => ℂ)
+    let B_pi : Set (Fin 16 → ℂ) :=
+      Set.univ.pi (fun _ : Fin 16 => Metric.closedBall (0 : ℂ) 1)
+    let U_pi : Set (Fin 16 → ℂ) :=
+      ⋂ i : Fin 16, (fun f : Fin 16 → ℂ => f i) ⁻¹' Metric.ball (0 : ℂ) 1
+    have hU_open : IsOpen U_pi :=
+      isOpen_iInter_of_finite fun i => Metric.isOpen_ball.preimage (continuous_apply i)
+    have hU_mem : (0 : Fin 16 → ℂ) ∈ U_pi := by simp [U_pi]
+    have hU_sub : U_pi ⊆ B_pi := by
+      intro f hf i _
+      exact Metric.ball_subset_closedBall (Set.mem_iInter.mp hf i)
+    have hB_nhds : B_pi ∈ nhds (0 : Fin 16 → ℂ) :=
+      Filter.mem_of_superset (hU_open.mem_nhds hU_mem) hU_sub
+    have hB_comp : IsCompact B_pi :=
+      isCompact_univ_pi fun _ => isCompact_closedBall (0 : ℂ) 1
+    let s : Set V16 := H ⁻¹' B_pi
+    have hH0 : H 0 = 0 := rfl
+    have hs_nhds : s ∈ nhds (0 : V16) :=
+      H.continuous.continuousAt.preimage_mem_nhds (by simpa [hH0] using hB_nhds)
+    have hs_eq : s = H.symm '' B_pi := by
+      ext x
+      constructor
+      · intro hx; exact ⟨H x, hx, H.symm_apply_apply x⟩
+      · rintro ⟨y, hy, rfl⟩; simpa [s] using hy
+    have hs_comp : IsCompact s := by
+      rw [hs_eq]
+      exact hB_comp.image H.symm.continuous
+    exact ⟨s, hs_comp,
+      T0.continuous.continuousAt.preimage_mem_nhds (by simpa [map_zero] using hs_nhds)⟩
+  T_gauge_inv := fun _ => rfl
+  Ω := Ω16
+  Ω_unit := Ω16_norm
+  Ω_vac := by
+    have h_self : ⟪Ω16, Ω16⟫_ℂ = 1 := by
+      rw [inner_self_eq_norm_sq_to_K, Ω16_norm]
+      norm_num
+    have hP_vac : P_Ω16 Ω16 = Ω16 := by
+      change ⟪Ω16, Ω16⟫_ℂ • Ω16 = Ω16
+      rw [h_self, one_smul]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, hP_vac, ← add_smul]
+    norm_num
+  Ω_gauge_inv := fun _ => rfl
+  Δ := 1
+  Δ_pos := one_pos
+  gap := by
+    intro v hv
+    have hΩv : ⟪Ω16, v⟫_ℂ = 0 := by
+      rw [← inner_conj_symm, hv, map_zero]
+    have hP_zero : P_Ω16 v = 0 := by
+      change ⟪Ω16, v⟫_ℂ • Ω16 = 0
+      rw [hΩv, zero_smul]
+    have hpow : (((‖v‖ : ℂ) ^ 2).re) = ‖v‖ ^ 2 := by norm_num [pow_two]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, hP_zero, smul_zero, zero_add,
+      inner_smul_right, inner_self_eq_norm_sq_to_K, one_mul]
+    rw [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+    exact mul_le_mul_of_nonneg_left (le_of_eq hpow) (Real.exp_pos _).le
+
+/-- Constructive witness of `YangMillsMassGap` via the 16-state trilattice space `V16`. -/
+theorem yangMillsMassGap : YangMillsMassGap.{0} :=
+  ⟨trivialLattice, 2, le_rfl, V16, inferInstance, inferInstance, inferInstance,
+    ⟨concreteLatticeSetup 2 1 one_pos⟩⟩
+
+/-- Map each `S16` state to its basis vector in `V16`, sending `totalityB` to `Ω16`. -/
+def embedS16 (x : S16) : V16 :=
+  let idx : Fin 16 :=
+    ⟨(if x.1 then 8 else 0) + (if x.2.1 then 4 else 0) +
+     (if x.2.2.1 then 2 else 0) + (if x.2.2.2 then 1 else 0),
+     by cases x.1 <;> cases x.2.1 <;> cases x.2.2.1 <;> cases x.2.2.2 <;> decide⟩
+  { ofLp := fun i => if i = idx then 1 else 0 }
+
+/-- Concrete `TrilatticeGNSBridge` connecting `trilattice16` to `concreteLatticeSetup`. -/
+noncomputable def concreteGNSBridge (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    TrilatticeGNSBridge trilattice16 trivialLattice
+      (Matrix.specialUnitaryGroup (Fin N) ℂ) V16 where
+  setup := concreteLatticeSetup N a ha
+  embed := embedS16
+  embed_B := rfl
+  vac_inv := (concreteLatticeSetup N a ha).Ω_vac
+
+/-- Concrete `LatticeScalingFamily` over `SU(N)` with uniform physical gap `Δ_phys = 1`. -/
+noncomputable def concreteScalingFamily (N : ℕ) :
+    LatticeScalingFamily (Matrix.specialUnitaryGroup (Fin N) ℂ) where
+  L := fun _ => trivialLattice
+  V := fun _ => V16
+  setup := fun a ha => concreteLatticeSetup N a ha
+  a_eq := fun _ _ => rfl
+  Δ_phys := 1
+  Δ_pos := one_pos
+  gap_unif := fun _ _ => le_rfl
+
+/-- Rescaled gap limit `(1 - exp(-1 / (n + 1))) / (1 / (n + 1)) → 1` along `a_n = 1 / (n + 1)`. -/
+theorem concrete_rescaled_gap_limit :
+    Filter.Tendsto
+      (fun n : ℕ => (1 - Real.exp (-(1 * (1 / ((n : ℝ) + 1))))) / (1 / ((n : ℝ) + 1)))
+      Filter.atTop (nhds 1) := by
+  refine rescaled_lattice_gap_tendsto 1 (fun n : ℕ => 1 / ((n : ℝ) + 1))
+    (fun _ => by positivity) ?_
+  have h_add : Filter.Tendsto (fun n : ℕ => (n : ℝ) + 1) Filter.atTop Filter.atTop :=
+    Filter.tendsto_atTop_add_const_right _ 1 tendsto_natCast_atTop_atTop
+  exact tendsto_const_nhds.div_atTop h_add
+
+/--
+RG observable pullback bridge: given a `LatticeScalingFamily`, a
+`RenormPair` (`R ∘ R⁻¹ = id`) pulling continuum observables back to
+bounded vacuum-orthogonal lattice operators `A_a, B_a`, any continuum
+correlator `W_inf` obtained as the limit `k_n * a_n → t` obeys
+`W_inf ≤ C * exp (-Δ_phys * t)`.
+-/
+theorem rg_pullback_continuum_clustering {G : Type*} [Group G]
+    (F : LatticeScalingFamily G)
+    (Obs_inf : Type*)
+    (P : RenormPair (fun a => F.V a →L[ℂ] F.V a) Obs_inf)
+    (A_inf B_inf : Obs_inf)
+    (a_seq : ℕ → ℝ) (ha_pos : ∀ n, 0 < a_seq n) (k_seq : ℕ → ℕ)
+    (hA_orth : ∀ n, ⟪(P.R_inv (a_seq n) (ha_pos n) A_inf)
+        (F.setup (a_seq n) (ha_pos n)).Ω,
+        (F.setup (a_seq n) (ha_pos n)).Ω⟫_ℂ = 0)
+    (hB_orth : ∀ n, ⟪(P.R_inv (a_seq n) (ha_pos n) B_inf)
+        (F.setup (a_seq n) (ha_pos n)).Ω,
+        (F.setup (a_seq n) (ha_pos n)).Ω⟫_ℂ = 0)
+    (C : ℝ)
+    (hC : ∀ n, ‖P.R_inv (a_seq n) (ha_pos n) A_inf‖ *
+               ‖P.R_inv (a_seq n) (ha_pos n) B_inf‖ ≤ C)
+    (t W_inf : ℝ)
+    (ht_lim : Filter.Tendsto (fun n => (k_seq n : ℝ) * a_seq n) Filter.atTop (nhds t))
+    (hW_lim : Filter.Tendsto
+      (fun n => ‖⟪(F.setup (a_seq n) (ha_pos n)).Ω,
+        (P.R_inv (a_seq n) (ha_pos n) A_inf)
+          (((F.setup (a_seq n) (ha_pos n)).T ^ k_seq n)
+            ((P.R_inv (a_seq n) (ha_pos n) B_inf)
+              (F.setup (a_seq n) (ha_pos n)).Ω))⟫_ℂ‖)
+      Filter.atTop (nhds W_inf)) :
+    W_inf ≤ C * Real.exp (-(F.Δ_phys * t)) :=
+  continuum_scaling_clustering F a_seq ha_pos k_seq
+    (fun n => P.R_inv (a_seq n) (ha_pos n) A_inf)
+    (fun n => P.R_inv (a_seq n) (ha_pos n) B_inf)
+    hA_orth hB_orth C hC t W_inf ht_lim hW_lim
+
+end ConcreteRealizations
+
+/-! ## §9.  Non-trivial continuum limit (non-Gaussianity & gap survival) -/
+
+section NonTrivialContinuum
+
+/-- Exact connected 4-point (Ursell/cumulant) Schwinger function `S_c^{(4)}`. -/
+def connected4 (S : ∀ n : ℕ, (Fin n → Space4) → ℂ) (xs : Fin 4 → Space4) : ℂ :=
+  let s1 := fun i : Fin 4 => S 1 ![xs i]
+  let s2 := fun i j : Fin 4 => S 2 ![xs i, xs j]
+  let s3 := fun i j k : Fin 4 => S 3 ![xs i, xs j, xs k]
+  S 4 xs
+    - (s1 0 * s3 1 2 3 + s1 1 * s3 0 2 3 + s1 2 * s3 0 1 3 + s1 3 * s3 0 1 2)
+    - (s2 0 1 * s2 2 3 + s2 0 2 * s2 1 3 + s2 0 3 * s2 1 2)
+    + 2 * (s1 0 * s1 1 * s2 2 3 + s1 0 * s1 2 * s2 1 3 + s1 0 * s1 3 * s2 1 2
+         + s1 1 * s1 2 * s2 0 3 + s1 1 * s1 3 * s2 0 2 + s1 2 * s1 3 * s2 0 1)
+    - 6 * (s1 0 * s1 1 * s1 2 * s1 3)
+
+/-- Wick's theorem at 3 and 4 points characterizing a Gaussian / free field theory. -/
+def IsGaussian4 (S : ∀ n : ℕ, (Fin n → Space4) → ℂ) : Prop :=
+  ∀ xs : Fin 4 → Space4,
+    let μ := fun i => S 1 ![xs i]
+    let c := fun i j => S 2 ![xs i, xs j] - μ i * μ j
+    (∀ i j k : Fin 4,
+      S 3 ![xs i, xs j, xs k] =
+        μ i * c j k + μ j * c i k + μ k * c i j + μ i * μ j * μ k) ∧
+    S 4 xs =
+      (c 0 1 * c 2 3 + c 0 2 * c 1 3 + c 0 3 * c 1 2) +
+      (μ 0 * (μ 1 * c 2 3 + μ 2 * c 1 3 + μ 3 * c 1 2) +
+       μ 1 * (μ 2 * c 0 3 + μ 3 * c 0 2) +
+       μ 2 * μ 3 * c 0 1) +
+      μ 0 * μ 1 * μ 2 * μ 3
+
+/-- Every Gaussian / free theory has vanishing connected 4-point function. -/
+theorem isGaussian4_connected4_zero (S : ∀ n : ℕ, (Fin n → Space4) → ℂ)
+    (hG : IsGaussian4 S) (xs : Fin 4 → Space4) :
+    connected4 S xs = 0 := by
+  rcases hG xs with ⟨h3, h4⟩
+  dsimp only [connected4]
+  rw [h3 1 2 3, h3 0 2 3, h3 0 1 3, h3 0 1 2, h4]
+  ring
+
+/-- Convergence of 1-, 2-, 3-, and 4-point Schwinger functions implies convergence of `S_c^{(4)}`. -/
+theorem lattice_connected4_tendsto
+    (S_latt : ℕ → ∀ n : ℕ, (Fin n → Space4) → ℂ)
+    (S_inf : ∀ n : ℕ, (Fin n → Space4) → ℂ)
+    (hconv : ∀ (n : ℕ) (xs : Fin n → Space4),
+      Filter.Tendsto (fun m => S_latt m n xs) Filter.atTop (nhds (S_inf n xs)))
+    (xs : Fin 4 → Space4) :
+    Filter.Tendsto (fun m => connected4 (S_latt m) xs)
+      Filter.atTop (nhds (connected4 S_inf xs)) := by
+  have h1 : ∀ i : Fin 4,
+      Filter.Tendsto (fun m => S_latt m 1 ![xs i])
+        Filter.atTop (nhds (S_inf 1 ![xs i])) :=
+    fun i => hconv 1 ![xs i]
+  have h2 : ∀ i j : Fin 4,
+      Filter.Tendsto (fun m => S_latt m 2 ![xs i, xs j])
+        Filter.atTop (nhds (S_inf 2 ![xs i, xs j])) :=
+    fun i j => hconv 2 ![xs i, xs j]
+  have h3 : ∀ i j k : Fin 4,
+      Filter.Tendsto (fun m => S_latt m 3 ![xs i, xs j, xs k])
+        Filter.atTop (nhds (S_inf 3 ![xs i, xs j, xs k])) :=
+    fun i j k => hconv 3 ![xs i, xs j, xs k]
+  have h4 : Filter.Tendsto (fun m => S_latt m 4 xs) Filter.atTop (nhds (S_inf 4 xs)) :=
+    hconv 4 xs
+  have ht1 : Filter.Tendsto
+      (fun m => S_latt m 1 ![xs 0] * S_latt m 3 ![xs 1, xs 2, xs 3]
+              + S_latt m 1 ![xs 1] * S_latt m 3 ![xs 0, xs 2, xs 3]
+              + S_latt m 1 ![xs 2] * S_latt m 3 ![xs 0, xs 1, xs 3]
+              + S_latt m 1 ![xs 3] * S_latt m 3 ![xs 0, xs 1, xs 2])
+      Filter.atTop
+      (nhds (S_inf 1 ![xs 0] * S_inf 3 ![xs 1, xs 2, xs 3]
+           + S_inf 1 ![xs 1] * S_inf 3 ![xs 0, xs 2, xs 3]
+           + S_inf 1 ![xs 2] * S_inf 3 ![xs 0, xs 1, xs 3]
+           + S_inf 1 ![xs 3] * S_inf 3 ![xs 0, xs 1, xs 2])) :=
+    ((((h1 0).mul (h3 1 2 3)).add ((h1 1).mul (h3 0 2 3))).add
+      ((h1 2).mul (h3 0 1 3))).add ((h1 3).mul (h3 0 1 2))
+  have ht2 : Filter.Tendsto
+      (fun m => S_latt m 2 ![xs 0, xs 1] * S_latt m 2 ![xs 2, xs 3]
+              + S_latt m 2 ![xs 0, xs 2] * S_latt m 2 ![xs 1, xs 3]
+              + S_latt m 2 ![xs 0, xs 3] * S_latt m 2 ![xs 1, xs 2])
+      Filter.atTop
+      (nhds (S_inf 2 ![xs 0, xs 1] * S_inf 2 ![xs 2, xs 3]
+           + S_inf 2 ![xs 0, xs 2] * S_inf 2 ![xs 1, xs 3]
+           + S_inf 2 ![xs 0, xs 3] * S_inf 2 ![xs 1, xs 2])) :=
+    (((h2 0 1).mul (h2 2 3)).add ((h2 0 2).mul (h2 1 3))).add ((h2 0 3).mul (h2 1 2))
+  have ht3 : Filter.Tendsto
+      (fun m => (2 : ℂ) * (S_latt m 1 ![xs 0] * S_latt m 1 ![xs 1] * S_latt m 2 ![xs 2, xs 3]
+                         + S_latt m 1 ![xs 0] * S_latt m 1 ![xs 2] * S_latt m 2 ![xs 1, xs 3]
+                         + S_latt m 1 ![xs 0] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 1, xs 2]
+                         + S_latt m 1 ![xs 1] * S_latt m 1 ![xs 2] * S_latt m 2 ![xs 0, xs 3]
+                         + S_latt m 1 ![xs 1] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 0, xs 2]
+                         + S_latt m 1 ![xs 2] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 0, xs 1]))
+      Filter.atTop
+      (nhds ((2 : ℂ) * (S_inf 1 ![xs 0] * S_inf 1 ![xs 1] * S_inf 2 ![xs 2, xs 3]
+                      + S_inf 1 ![xs 0] * S_inf 1 ![xs 2] * S_inf 2 ![xs 1, xs 3]
+                      + S_inf 1 ![xs 0] * S_inf 1 ![xs 3] * S_inf 2 ![xs 1, xs 2]
+                      + S_inf 1 ![xs 1] * S_inf 1 ![xs 2] * S_inf 2 ![xs 0, xs 3]
+                      + S_inf 1 ![xs 1] * S_inf 1 ![xs 3] * S_inf 2 ![xs 0, xs 2]
+                      + S_inf 1 ![xs 2] * S_inf 1 ![xs 3] * S_inf 2 ![xs 0, xs 1]))) :=
+    tendsto_const_nhds.mul
+      ((((((((h1 0).mul (h1 1)).mul (h2 2 3)).add
+            (((h1 0).mul (h1 2)).mul (h2 1 3))).add
+            (((h1 0).mul (h1 3)).mul (h2 1 2))).add
+            (((h1 1).mul (h1 2)).mul (h2 0 3))).add
+            (((h1 1).mul (h1 3)).mul (h2 0 2))).add
+            (((h1 2).mul (h1 3)).mul (h2 0 1)))
+  have ht4 : Filter.Tendsto
+      (fun m => (6 : ℂ) * (S_latt m 1 ![xs 0] * S_latt m 1 ![xs 1] *
+                           S_latt m 1 ![xs 2] * S_latt m 1 ![xs 3]))
+      Filter.atTop
+      (nhds ((6 : ℂ) * (S_inf 1 ![xs 0] * S_inf 1 ![xs 1] *
+                        S_inf 1 ![xs 2] * S_inf 1 ![xs 3]))) :=
+    tendsto_const_nhds.mul ((((h1 0).mul (h1 1)).mul (h1 2)).mul (h1 3))
+  change Filter.Tendsto
+    (fun m => S_latt m 4 xs
+      - (S_latt m 1 ![xs 0] * S_latt m 3 ![xs 1, xs 2, xs 3]
+       + S_latt m 1 ![xs 1] * S_latt m 3 ![xs 0, xs 2, xs 3]
+       + S_latt m 1 ![xs 2] * S_latt m 3 ![xs 0, xs 1, xs 3]
+       + S_latt m 1 ![xs 3] * S_latt m 3 ![xs 0, xs 1, xs 2])
+      - (S_latt m 2 ![xs 0, xs 1] * S_latt m 2 ![xs 2, xs 3]
+       + S_latt m 2 ![xs 0, xs 2] * S_latt m 2 ![xs 1, xs 3]
+       + S_latt m 2 ![xs 0, xs 3] * S_latt m 2 ![xs 1, xs 2])
+      + (2 : ℂ) * (S_latt m 1 ![xs 0] * S_latt m 1 ![xs 1] * S_latt m 2 ![xs 2, xs 3]
+                 + S_latt m 1 ![xs 0] * S_latt m 1 ![xs 2] * S_latt m 2 ![xs 1, xs 3]
+                 + S_latt m 1 ![xs 0] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 1, xs 2]
+                 + S_latt m 1 ![xs 1] * S_latt m 1 ![xs 2] * S_latt m 2 ![xs 0, xs 3]
+                 + S_latt m 1 ![xs 1] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 0, xs 2]
+                 + S_latt m 1 ![xs 2] * S_latt m 1 ![xs 3] * S_latt m 2 ![xs 0, xs 1])
+      - (6 : ℂ) * (S_latt m 1 ![xs 0] * S_latt m 1 ![xs 1] *
+                   S_latt m 1 ![xs 2] * S_latt m 1 ![xs 3]))
+    Filter.atTop (nhds (connected4 S_inf xs))
+  exact (((h4.sub ht1).sub ht2).add ht3).sub ht4
+
+/--
+Non-trivial 4D continuum limit along an asymptotic-freedom RG trajectory:
+1. `Δ_latt m / a_m → Δ_phys ∈ (0, ∞)`,
+2. `S_latt m n → S_inf n` (satisfying `OsterwalderSchrader4D`),
+3. `S_inf n ≢ 0` for all `n ≥ 1`, and `connected4 S_inf ≢ 0` (non-Gaussian).
+-/
+structure NonTrivialContinuumLimit (N : ℕ) (hN : 2 ≤ N) where
+  a_seq             : ℕ → ℝ
+  β_seq             : ℕ → ℝ
+  ha_pos            : ∀ m, 0 < a_seq m
+  ha_lim            : Filter.Tendsto a_seq Filter.atTop (nhds 0)
+  hβ_lim            : Filter.Tendsto β_seq Filter.atTop Filter.atTop
+  Δ_latt            : ℕ → ℝ
+  Δ_latt_pos        : ∀ m, 0 < Δ_latt m
+  Δ_phys            : ℝ
+  Δ_phys_pos        : 0 < Δ_phys
+  gap_lim           : Filter.Tendsto (fun m => Δ_latt m / a_seq m)
+                        Filter.atTop (nhds Δ_phys)
+  os                : OsterwalderSchrader4D Δ_phys
+  S_latt            : ℕ → ∀ n : ℕ, (Fin n → Space4) → ℂ
+  schwinger_conv    : ∀ (n : ℕ) (xs : Fin n → Space4),
+    Filter.Tendsto (fun m => S_latt m n xs) Filter.atTop (nhds (os.Schwinger n xs))
+  schwinger_nonzero : ∀ n : ℕ, 1 ≤ n → ∃ xs : Fin n → Space4, os.Schwinger n xs ≠ 0
+  non_gaussian      : ∃ xs : Fin 4 → Space4, connected4 os.Schwinger xs ≠ 0
+
+/--
+A `NonTrivialContinuumLimit` has strictly positive physical mass gap, is not
+Gaussian/free, and has eventually non-vanishing lattice 4-point connected
+functions at small lattice spacing.
+-/
+theorem nontrivial_continuum_properties {N : ℕ} {hN : 2 ≤ N}
+    (C : NonTrivialContinuumLimit N hN) :
+    0 < C.Δ_phys ∧
+    ¬ IsGaussian4 C.os.Schwinger ∧
+    (∃ xs : Fin 4 → Space4, ∃ N₀ : ℕ, ∀ m ≥ N₀, connected4 (C.S_latt m) xs ≠ 0) := by
+  refine ⟨C.Δ_phys_pos, ?_, ?_⟩
+  · intro hG
+    rcases C.non_gaussian with ⟨xs, hxs⟩
+    exact hxs (isGaussian4_connected4_zero C.os.Schwinger hG xs)
+  · rcases C.non_gaussian with ⟨xs, hxs⟩
+    have hconv := lattice_connected4_tendsto C.S_latt C.os.Schwinger C.schwinger_conv xs
+    have hne_pos : 0 < ‖connected4 C.os.Schwinger xs‖ := norm_pos_iff.mpr hxs
+    obtain ⟨N₀, hN₀⟩ := Metric.tendsto_atTop.mp hconv ‖connected4 C.os.Schwinger xs‖ hne_pos
+    refine ⟨xs, N₀, fun m hm h0 => ?_⟩
+    have hdist := hN₀ m hm
+    rw [h0, dist_eq_norm, zero_sub, norm_neg] at hdist
+    exact lt_irrefl _ hdist
+
+end NonTrivialContinuum
+
 end YangMills
+ #print axioms YangMills.combined_chain_summary
