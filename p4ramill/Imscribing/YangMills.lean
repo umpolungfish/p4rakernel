@@ -7340,6 +7340,739 @@ theorem thermodynamic_limit_refl_pos {m : ℕ} (c : Fin m → ℂ)
 
 end CubicThermodynamicLimit
 
+/-! ## §27.  Genuine 4D Poincaré group $\mathbb{R}^4 \rtimes O(1,3)$ & infinite-dimensional Wightman QFT -/
+
+section Poincare4DWightman
+
+/-- Minkowski metric tensor `η = diag(1, -1, -1, -1)` on `ℝ⁴`. -/
+def minkowskiMetric4 : Matrix (Fin 4) (Fin 4) ℝ :=
+  Matrix.diagonal ![1, -1, -1, -1]
+
+theorem minkowskiMetric4_transpose : minkowskiMetric4.transpose = minkowskiMetric4 := by
+  simp [minkowskiMetric4]
+
+theorem minkowskiMetric4_mul_self : minkowskiMetric4 * minkowskiMetric4 = 1 := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [minkowskiMetric4, Matrix.mul_apply, Fin.sum_univ_four]
+
+/-- Minkowski inner product `x₀y₀ - x₁y₁ - x₂y₂ - x₃y₃`. -/
+def minkowskiInner (x y : Space4) : ℝ :=
+  x 0 * y 0 - ∑ i : Fin 3, x i.succ * y i.succ
+
+theorem minkowskiInner_self (x : Space4) : minkowskiInner x x = minkowskiSq x := by
+  simp [minkowskiInner, minkowskiSq, Fin.sum_univ_three, sq]
+
+theorem minkowskiInner_eq_dot (x y : Space4) :
+    minkowskiInner x y = dotProduct x (Matrix.mulVec minkowskiMetric4 y) := by
+  simp [minkowskiInner, dotProduct, minkowskiMetric4, Matrix.mulVec,
+    Fin.sum_univ_four, Fin.sum_univ_three]
+  ring
+
+/-- The 4D Lorentz group `O(1,3) = { Λ ∈ GL(4, ℝ) | Λᵀ η Λ = η }`. -/
+def LorentzMatrix4 : Type :=
+  { Λ : Matrix (Fin 4) (Fin 4) ℝ // Λ.transpose * minkowskiMetric4 * Λ = minkowskiMetric4 }
+
+theorem LorentzMatrix4.ext {Λ₁ Λ₂ : LorentzMatrix4} (h : Λ₁.1 = Λ₂.1) : Λ₁ = Λ₂ :=
+  Subtype.ext h
+
+private theorem lorentz_left_inv (Λ : LorentzMatrix4) :
+    (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4) * Λ.1 = 1 := by
+  calc (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4) * Λ.1
+      = minkowskiMetric4 * (Λ.1.transpose * minkowskiMetric4 * Λ.1) := by noncomm_ring
+    _ = minkowskiMetric4 * minkowskiMetric4 := by rw [Λ.2]
+    _ = 1 := minkowskiMetric4_mul_self
+
+private theorem lorentz_right_inv (Λ : LorentzMatrix4) :
+    Λ.1 * (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4) = 1 :=
+  mul_eq_one_comm.mp (lorentz_left_inv Λ)
+
+instance instGroupLorentzMatrix4 : Group LorentzMatrix4 where
+  one := ⟨1, by simp⟩
+  mul Λ₁ Λ₂ := ⟨Λ₁.1 * Λ₂.1, by
+    rw [Matrix.transpose_mul]
+    calc Λ₂.1.transpose * Λ₁.1.transpose * minkowskiMetric4 * (Λ₁.1 * Λ₂.1)
+        = Λ₂.1.transpose * (Λ₁.1.transpose * minkowskiMetric4 * Λ₁.1) * Λ₂.1 := by noncomm_ring
+      _ = Λ₂.1.transpose * minkowskiMetric4 * Λ₂.1 := by rw [Λ₁.2]
+      _ = minkowskiMetric4 := Λ₂.2⟩
+  inv Λ := ⟨minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4, by
+    rw [Matrix.transpose_mul, Matrix.transpose_mul, minkowskiMetric4_transpose,
+      Matrix.transpose_transpose]
+    calc (minkowskiMetric4 * (Λ.1 * minkowskiMetric4)) * minkowskiMetric4 *
+          (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4)
+        = minkowskiMetric4 * Λ.1 * (minkowskiMetric4 * minkowskiMetric4) *
+            (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4) := by noncomm_ring
+      _ = minkowskiMetric4 * (Λ.1 * (minkowskiMetric4 * Λ.1.transpose * minkowskiMetric4)) := by
+            rw [minkowskiMetric4_mul_self]
+            noncomm_ring
+      _ = minkowskiMetric4 * 1 := by rw [lorentz_right_inv Λ]
+      _ = minkowskiMetric4 := mul_one _⟩
+  mul_assoc a b c := LorentzMatrix4.ext (Matrix.mul_assoc a.1 b.1 c.1)
+  one_mul a := LorentzMatrix4.ext (Matrix.one_mul a.1)
+  mul_one a := LorentzMatrix4.ext (Matrix.mul_one a.1)
+  inv_mul_cancel a := LorentzMatrix4.ext (lorentz_left_inv a)
+
+theorem lorentz_preserves_minkowskiInner (Λ : LorentzMatrix4) (x y : Space4) :
+    minkowskiInner (Matrix.mulVec Λ.1 x) (Matrix.mulVec Λ.1 y) = minkowskiInner x y := by
+  rw [minkowskiInner_eq_dot, minkowskiInner_eq_dot, ← Matrix.vecMul_transpose,
+    ← Matrix.dotProduct_mulVec, Matrix.mulVec_mulVec, Matrix.mulVec_mulVec, Λ.2]
+
+/-- The 4D Poincaré group `ℝ⁴ ⋊ O(1,3)`. -/
+@[ext]
+structure Poincare4 where
+  trans   : Space4
+  lorentz : LorentzMatrix4
+
+instance instGroupPoincare4 : Group Poincare4 where
+  one := ⟨0, 1⟩
+  mul g₁ g₂ := ⟨g₁.trans + Matrix.mulVec g₁.lorentz.1 g₂.trans, g₁.lorentz * g₂.lorentz⟩
+  inv g := ⟨-Matrix.mulVec g.lorentz⁻¹.1 g.trans, g.lorentz⁻¹⟩
+  mul_assoc a b c := by
+    ext : 1
+    · dsimp [HMul.hMul, Mul.mul]
+      rw [Matrix.mulVec_add, Matrix.mulVec_mulVec]
+      abel
+    · exact mul_assoc a.lorentz b.lorentz c.lorentz
+  one_mul a := by
+    ext : 1
+    · change 0 + Matrix.mulVec (1 : Matrix (Fin 4) (Fin 4) ℝ) a.trans = a.trans
+      rw [zero_add, Matrix.one_mulVec]
+    · exact one_mul a.lorentz
+  mul_one a := by
+    ext : 1
+    · change a.trans + Matrix.mulVec a.lorentz.1 0 = a.trans
+      rw [Matrix.mulVec_zero, add_zero]
+    · exact mul_one a.lorentz
+  inv_mul_cancel a := by
+    ext : 1
+    · change -Matrix.mulVec a.lorentz⁻¹.1 a.trans + Matrix.mulVec a.lorentz⁻¹.1 a.trans = 0
+      abel
+    · exact inv_mul_cancel a.lorentz
+
+/-- Spacetime action `(a, Λ) · x = a + Λ x` on `Space4 = ℝ⁴`. -/
+def poincareAct (g : Poincare4) (x : Space4) : Space4 :=
+  g.trans + Matrix.mulVec g.lorentz.1 x
+
+theorem poincareAct_one (x : Space4) : poincareAct 1 x = x := by
+  change 0 + Matrix.mulVec (1 : Matrix (Fin 4) (Fin 4) ℝ) x = x
+  rw [zero_add, Matrix.one_mulVec]
+
+theorem poincareAct_mul (g₁ g₂ : Poincare4) (x : Space4) :
+    poincareAct (g₁ * g₂) x = poincareAct g₁ (poincareAct g₂ x) := by
+  change (g₁.trans + Matrix.mulVec g₁.lorentz.1 g₂.trans) +
+      Matrix.mulVec (g₁.lorentz.1 * g₂.lorentz.1) x =
+    g₁.trans + Matrix.mulVec g₁.lorentz.1 (g₂.trans + Matrix.mulVec g₂.lorentz.1 x)
+  rw [Matrix.mulVec_add, Matrix.mulVec_mulVec]
+  abel
+
+theorem poincareAct_preserves_minkowskiSq (g : Poincare4) (x y : Space4) :
+    minkowskiSq (poincareAct g x - poincareAct g y) = minkowskiSq (x - y) := by
+  have hsub : poincareAct g x - poincareAct g y = Matrix.mulVec g.lorentz.1 (x - y) := by
+    dsimp [poincareAct]
+    rw [Matrix.mulVec_sub]
+    abel
+  rw [hsub, ← minkowskiInner_self, ← minkowskiInner_self, lorentz_preserves_minkowskiInner]
+
+/-- Carrier `Option Space4` with discrete measurable space for the infinite-dimensional Hilbert space. -/
+def OptionSpace4 : Type := Option Space4
+
+@[reducible] instance instMeasurableSpaceOptionSpace4 : MeasurableSpace OptionSpace4 := ⊤
+
+/-- Counting measure on `OptionSpace4`: `μ {none} = 1` (vacuum) and `μ {some x} = 1` (`x ∈ ℝ⁴`). -/
+noncomputable def poincareCountMeasure : MeasureTheory.Measure OptionSpace4 :=
+  MeasureTheory.Measure.count
+
+/-- Infinite-dimensional complex Hilbert space `L²({none} ⊔ ℝ⁴, count)`. -/
+abbrev PoincareHilbert : Type := MeasureTheory.Lp ℂ 2 poincareCountMeasure
+
+private def poincareOptionEquiv (g : Poincare4) : OptionSpace4 ≃ᵐ OptionSpace4 where
+  toFun := fun o => match o with
+    | none => none
+    | some x => some (poincareAct g x)
+  invFun := fun o => match o with
+    | none => none
+    | some x => some (poincareAct g⁻¹ x)
+  left_inv o := by
+    cases o with
+    | none => rfl
+    | some x =>
+      change some (poincareAct g⁻¹ (poincareAct g x)) = some x
+      rw [← poincareAct_mul, inv_mul_cancel, poincareAct_one]
+  right_inv o := by
+    cases o with
+    | none => rfl
+    | some x =>
+      change some (poincareAct g (poincareAct g⁻¹ x)) = some x
+      rw [← poincareAct_mul, mul_inv_cancel, poincareAct_one]
+  measurable_toFun := fun _ _ => trivial
+  measurable_invFun := fun _ _ => trivial
+
+private theorem poincareOptionEquiv_mp (g : Poincare4) :
+    MeasureTheory.MeasurePreserving (poincareOptionEquiv g)
+      poincareCountMeasure poincareCountMeasure := by
+  refine ⟨(poincareOptionEquiv g).measurable, ?_⟩
+  ext s hs
+  rw [MeasureTheory.Measure.map_apply (poincareOptionEquiv g).measurable hs]
+  dsimp [poincareCountMeasure]
+  rw [MeasureTheory.Measure.count_apply (hs.preimage (poincareOptionEquiv g).measurable),
+    MeasureTheory.Measure.count_apply hs]
+  have hpre : poincareOptionEquiv g ⁻¹' s = (poincareOptionEquiv g).symm '' s :=
+    ((poincareOptionEquiv g).toEquiv.image_symm_eq_preimage s).symm
+  rw [hpre, (poincareOptionEquiv g).symm.injective.encard_image s]
+
+private theorem ae_count_eq_everywhere {f g : OptionSpace4 → ℂ}
+    (h : f =ᵐ[poincareCountMeasure] g) (a : OptionSpace4) : f a = g a := by
+  by_contra hne
+  have hnull : poincareCountMeasure {x | f x ≠ g x} = 0 := h
+  have hle : poincareCountMeasure {a} ≤ poincareCountMeasure {x | f x ≠ g x} :=
+    MeasureTheory.measure_mono (fun x hx => by
+      rw [Set.mem_singleton_iff] at hx
+      subst hx
+      exact hne)
+  rw [hnull] at hle
+  have h1 : poincareCountMeasure {a} = 1 := by
+    dsimp [poincareCountMeasure]
+    exact MeasureTheory.Measure.count_singleton a
+  rw [h1] at hle
+  exact one_ne_zero (le_antisymm hle (zero_le _))
+
+/-- Faithful unitary representation `U(a, Λ)` of `Poincare4` on `PoincareHilbert`. -/
+noncomputable def poincareRep (g : Poincare4) : PoincareHilbert →L[ℂ] PoincareHilbert :=
+  let e := poincareOptionEquiv g⁻¹
+  let hmp := poincareOptionEquiv_mp g⁻¹
+  LinearMap.mkContinuous
+    { toFun := fun ψ => (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).toLp
+        (fun x => ψ (e x))
+      map_add' := fun ψ₁ ψ₂ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_comp_measurePreserving poincareCountMeasure e hmp (ψ₁ + ψ₂)).coeFn_toLp
+        have h2 := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ₁).coeFn_toLp
+        have h3 := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ₂).coeFn_toLp
+        have hadd1 := MeasureTheory.Lp.coeFn_add ψ₁ ψ₂
+        have hadd2 := MeasureTheory.Lp.coeFn_add
+          ((memLp_comp_measurePreserving poincareCountMeasure e hmp ψ₁).toLp (fun x => ψ₁ (e x)))
+          ((memLp_comp_measurePreserving poincareCountMeasure e hmp ψ₂).toLp (fun x => ψ₂ (e x)))
+        filter_upwards [h1, h2, h3, ae_comp_measurePreserving hmp hadd1, hadd2] with x hx1 hx2 hx3 ha1 ha2
+        simp only [Pi.add_apply] at ha1 ha2 ⊢
+        rw [hx1, ha1, ha2, hx2, hx3]
+      map_smul' := fun c ψ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_comp_measurePreserving poincareCountMeasure e hmp (c • ψ)).coeFn_toLp
+        have h2 := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).coeFn_toLp
+        have hsm1 := MeasureTheory.Lp.coeFn_smul c ψ
+        have hsm2 := MeasureTheory.Lp.coeFn_smul c
+          ((memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).toLp (fun x => ψ (e x)))
+        filter_upwards [h1, h2, ae_comp_measurePreserving hmp hsm1, hsm2] with x hx1 hx2 hs1 hs2
+        simp only [Pi.smul_apply, RingHom.id_apply] at hs1 hs2 ⊢
+        rw [hx1, hs1, hs2, hx2] }
+    1
+    (fun ψ => by
+      let ψ' := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).toLp (fun x => ψ (e x))
+      have h_norm_sq : ‖ψ'‖ ^ 2 = ‖ψ‖ ^ 2 := by
+        have h_inner : ⟪ψ', ψ'⟫_ℂ = ⟪ψ, ψ⟫_ℂ := by
+          rw [MeasureTheory.L2.inner_def, MeasureTheory.L2.inner_def]
+          have hcoe := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).coeFn_toLp
+          calc ∫ x, ⟪ψ' x, ψ' x⟫_ℂ ∂poincareCountMeasure
+              = ∫ x, ⟪ψ (e x), ψ (e x)⟫_ℂ ∂poincareCountMeasure := by
+                  refine MeasureTheory.integral_congr_ae ?_
+                  filter_upwards [hcoe] with x hx
+                  rw [hx]
+            _ = ∫ x, ⟪ψ x, ψ x⟫_ℂ ∂poincareCountMeasure :=
+                hmp.integral_comp' (fun x => ⟪ψ x, ψ x⟫_ℂ)
+        have hre := congrArg Complex.re h_inner
+        rw [inner_self_eq_norm_sq_to_K, inner_self_eq_norm_sq_to_K] at hre
+        simpa [pow_two] using hre
+      change ‖ψ'‖ ≤ 1 * ‖ψ‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (by positivity), one_mul, h_norm_sq])
+
+theorem poincareRep_apply (g : Poincare4) (ψ : PoincareHilbert) (z : OptionSpace4) :
+    (⇑(poincareRep g ψ) : OptionSpace4 → ℂ) z =
+      (⇑ψ : OptionSpace4 → ℂ) (poincareOptionEquiv g⁻¹ z) := by
+  let e := poincareOptionEquiv g⁻¹
+  let hmp := poincareOptionEquiv_mp g⁻¹
+  have hcoe := (memLp_comp_measurePreserving poincareCountMeasure e hmp ψ).coeFn_toLp
+  exact ae_count_eq_everywhere hcoe z
+
+theorem poincareRep_unitary (g : Poincare4) (u v : PoincareHilbert) :
+    ⟪poincareRep g u, poincareRep g v⟫_ℂ = ⟪u, v⟫_ℂ := by
+  let e := poincareOptionEquiv g⁻¹
+  let hmp := poincareOptionEquiv_mp g⁻¹
+  have h1 := (memLp_comp_measurePreserving poincareCountMeasure e hmp u).coeFn_toLp
+  have h2 := (memLp_comp_measurePreserving poincareCountMeasure e hmp v).coeFn_toLp
+  rw [MeasureTheory.L2.inner_def, MeasureTheory.L2.inner_def]
+  calc ∫ x, ⟪(poincareRep g u) x, (poincareRep g v) x⟫_ℂ ∂poincareCountMeasure
+      = ∫ x, ⟪u (e x), v (e x)⟫_ℂ ∂poincareCountMeasure := by
+          refine MeasureTheory.integral_congr_ae ?_
+          filter_upwards [h1, h2] with x hx1 hx2
+          change ⟪((memLp_comp_measurePreserving poincareCountMeasure e hmp u).toLp
+            (fun z => u (e z))) x,
+            ((memLp_comp_measurePreserving poincareCountMeasure e hmp v).toLp
+            (fun z => v (e z))) x⟫_ℂ = _
+          rw [hx1, hx2]
+    _ = ∫ x, ⟪u x, v x⟫_ℂ ∂poincareCountMeasure := hmp.integral_comp' (fun x => ⟪u x, v x⟫_ℂ)
+
+private theorem poincareCount_singleton_ne_top (a : OptionSpace4) :
+    poincareCountMeasure {a} ≠ ⊤ := by
+  dsimp [poincareCountMeasure]
+  rw [MeasureTheory.Measure.count_singleton]
+  exact ENNReal.one_ne_top
+
+private theorem poincareCount_singleton_toReal (a : OptionSpace4) :
+    (poincareCountMeasure {a}).toReal = 1 := by
+  dsimp [poincareCountMeasure]
+  rw [MeasureTheory.Measure.count_singleton, ENNReal.toReal_one]
+
+/-- Basis state `δ_a` (`a : OptionSpace4`) in `PoincareHilbert`. -/
+noncomputable def deltaOption4 (a : OptionSpace4) : PoincareHilbert :=
+  MeasureTheory.indicatorConstLp (2 : ENNReal) (by trivial : MeasurableSet ({a} : Set OptionSpace4))
+    (poincareCount_singleton_ne_top a) (1 : ℂ)
+
+/-- Ground vacuum `Ω = δ_none` in `PoincareHilbert`. -/
+noncomputable def vacPoincare : PoincareHilbert := deltaOption4 (none : Option Space4)
+
+/-- 1-particle state `δ_{some x}` at `x : Space4` in `PoincareHilbert`. -/
+noncomputable def deltaSpace4 (x : Space4) : PoincareHilbert := deltaOption4 (some x)
+
+theorem deltaOption4_inner (a b : OptionSpace4) :
+    ⟪deltaOption4 a, deltaOption4 b⟫_ℂ = @ite _ (a = b) (Classical.propDecidable _) 1 0 := by
+  unfold deltaOption4
+  rw [MeasureTheory.L2.inner_indicatorConstLp_indicatorConstLp
+    (hμs := poincareCount_singleton_ne_top a)
+    (hμt := poincareCount_singleton_ne_top b)]
+  have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+    rw [inner_self_eq_norm_sq_to_K]
+    norm_num
+  rw [h1]
+  by_cases hab : a = b
+  · subst hab
+    rw [Set.inter_self, if_pos rfl, Measure.real, poincareCount_singleton_toReal, one_smul]
+  · have hinter : ({a} ∩ {b} : Set OptionSpace4) = ∅ := by
+      ext z; simp [hab]
+    rw [hinter, if_neg hab, Measure.real, MeasureTheory.measure_empty,
+      ENNReal.toReal_zero, zero_smul]
+
+theorem vacPoincare_norm : ‖vacPoincare‖ = 1 := by
+  have hsq : ‖vacPoincare‖ ^ 2 = 1 := by
+    have hre : (⟪vacPoincare, vacPoincare⟫_ℂ).re = 1 := by
+      rw [vacPoincare, deltaOption4_inner, if_pos rfl, Complex.one_re]
+    rw [inner_self_eq_norm_sq_to_K] at hre
+    simp [pow_two] at hre
+    linarith
+  have hmul : (‖vacPoincare‖ - 1) * (‖vacPoincare‖ + 1) = 0 := by linarith
+  rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg vacPoincare]
+
+private theorem deltaOption4_apply (a z : OptionSpace4) :
+    (⇑(deltaOption4 a) : OptionSpace4 → ℂ) z =
+      @ite _ (z = a) (Classical.propDecidable _) 1 0 := by
+  classical
+  have h := ae_count_eq_everywhere
+    (MeasureTheory.indicatorConstLp_coeFn (p := (2 : ENNReal))
+      (μ := poincareCountMeasure) (s := {a})
+      (hs := by trivial)
+      (hμs := poincareCount_singleton_ne_top a)
+      (c := (1 : ℂ))) z
+  change (⇑(deltaOption4 a) : OptionSpace4 → ℂ) z = _ at h
+  rw [h, Set.indicator_apply]
+  by_cases hz : z = a
+  · rw [if_pos (Set.mem_singleton_iff.mpr hz), if_pos hz]
+  · rw [if_neg (fun hm => hz (Set.mem_singleton_iff.mp hm)), if_neg hz]
+
+theorem poincareRep_deltaOption4 (g : Poincare4) (a : OptionSpace4) :
+    poincareRep g (deltaOption4 a) = deltaOption4 (poincareOptionEquiv g a) := by
+  apply MeasureTheory.Lp.ext
+  refine Filter.Eventually.of_forall fun z => ?_
+  rw [poincareRep_apply, deltaOption4_apply, deltaOption4_apply]
+  have heq : poincareOptionEquiv g⁻¹ z = a ↔ z = poincareOptionEquiv g a := by
+    constructor <;> intro h
+    · calc z = poincareOptionEquiv g (poincareOptionEquiv g⁻¹ z) := by
+              cases z with
+              | none => rfl
+              | some x =>
+                change some x = some (poincareAct g (poincareAct g⁻¹ x))
+                rw [← poincareAct_mul, mul_inv_cancel, poincareAct_one]
+          _ = poincareOptionEquiv g a := by rw [h]
+    · calc poincareOptionEquiv g⁻¹ z = poincareOptionEquiv g⁻¹ (poincareOptionEquiv g a) := by
+              rw [h]
+          _ = a := by
+              cases a with
+              | none => rfl
+              | some y =>
+                change some (poincareAct g⁻¹ (poincareAct g y)) = some y
+                rw [← poincareAct_mul, inv_mul_cancel, poincareAct_one]
+  by_cases hz : z = poincareOptionEquiv g a
+  · rw [if_pos (heq.mpr hz), if_pos hz]
+  · rw [if_neg (fun h => hz (heq.mp h)), if_neg hz]
+
+theorem poincareRep_vac (g : Poincare4) : poincareRep g vacPoincare = vacPoincare :=
+  poincareRep_deltaOption4 g none
+
+theorem poincareRep_deltaSpace4 (g : Poincare4) (x : Space4) :
+    poincareRep g (deltaSpace4 x) = deltaSpace4 (poincareAct g x) :=
+  poincareRep_deltaOption4 g (some x)
+
+/-- Field creation operator `φ(x) v = ⟪Ω, v⟫_ℂ • δ_{some x}` on `PoincareHilbert`. -/
+noncomputable def phiPoincare (x : Space4) : PoincareHilbert →L[ℂ] PoincareHilbert :=
+  LinearMap.mkContinuous
+    { toFun := fun v => ⟪vacPoincare, v⟫_ℂ • deltaSpace4 x
+      map_add' := fun u v => by rw [inner_add_right, add_smul]
+      map_smul' := fun c v => by rw [inner_smul_right, smul_smul]; rfl }
+    1
+    (fun v => by
+      have hnorm : ‖deltaSpace4 x‖ = 1 := by
+        have hsq : ‖deltaSpace4 x‖ ^ 2 = 1 := by
+          have hre : (⟪deltaSpace4 x, deltaSpace4 x⟫_ℂ).re = 1 := by
+            rw [deltaSpace4, deltaOption4_inner, if_pos rfl, Complex.one_re]
+          rw [inner_self_eq_norm_sq_to_K] at hre
+          simp [pow_two] at hre
+          linarith
+        have hmul : (‖deltaSpace4 x‖ - 1) * (‖deltaSpace4 x‖ + 1) = 0 := by linarith
+        rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg (deltaSpace4 x)]
+      change ‖⟪vacPoincare, v⟫_ℂ • deltaSpace4 x‖ ≤ 1 * ‖v‖
+      rw [norm_smul, hnorm, mul_one, one_mul]
+      calc ‖⟪vacPoincare, v⟫_ℂ‖ ≤ ‖vacPoincare‖ * ‖v‖ := norm_inner_le_norm _ _
+        _ = ‖v‖ := by rw [vacPoincare_norm, one_mul])
+
+/--
+**Infinite-dimensional relativistic `WightmanQFT4D 1`** with genuine 4D Poincaré group
+`Poincare4 = ℝ⁴ ⋊ O(1,3)`, faithful unitary representation `poincareRep`,
+non-trivial covariant local field `phiPoincare`, and mass gap `{0, 1}`.
+-/
+noncomputable def infDimWightman4D : WightmanQFT4D 1 where
+  Δ_pos := one_pos
+  H := PoincareHilbert
+  Ω_phys := vacPoincare
+  Ω_unit := vacPoincare_norm
+  Poincare := Poincare4
+  U := poincareRep
+  U_unitary := poincareRep_unitary
+  U_vac := poincareRep_vac
+  actP := poincareAct
+  φ := phiPoincare
+  covariant := fun g x => by
+    ext1 v
+    rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+    change poincareRep g (⟪vacPoincare, v⟫_ℂ • deltaSpace4 x) =
+      ⟪vacPoincare, poincareRep g v⟫_ℂ • deltaSpace4 (poincareAct g x)
+    rw [map_smul, poincareRep_deltaSpace4]
+    have h_in : ⟪vacPoincare, poincareRep g v⟫_ℂ = ⟪vacPoincare, v⟫_ℂ := by
+      calc ⟪vacPoincare, poincareRep g v⟫_ℂ
+          = ⟪poincareRep g vacPoincare, poincareRep g v⟫_ℂ := by rw [poincareRep_vac]
+        _ = ⟪vacPoincare, v⟫_ℂ := poincareRep_unitary g vacPoincare v
+    rw [h_in]
+  local_comm := fun x y _ => by
+    ext1 v
+    rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+    change ⟪vacPoincare, ⟪vacPoincare, v⟫_ℂ • deltaSpace4 y⟫_ℂ • deltaSpace4 x =
+      ⟪vacPoincare, ⟪vacPoincare, v⟫_ℂ • deltaSpace4 x⟫_ℂ • deltaSpace4 y
+    have h0x : ⟪vacPoincare, deltaSpace4 x⟫_ℂ = 0 := by
+      rw [vacPoincare, deltaSpace4, deltaOption4_inner]; simp
+    have h0y : ⟪vacPoincare, deltaSpace4 y⟫_ℂ = 0 := by
+      rw [vacPoincare, deltaSpace4, deltaOption4_inner]; simp
+    rw [inner_smul_right, inner_smul_right, h0x, h0y]
+    simp
+  P2_spec := {0, 1}
+  spectral_cond := fun p2 hp2 => by rcases hp2 with rfl | rfl <;> norm_num
+  mass_gap_spec := fun p2 hp2 => by
+    rcases hp2 with rfl | rfl
+    · exact Or.inl rfl
+    · exact Or.inr (by norm_num)
+
+private noncomputable def P_vac_poincare : PoincareHilbert →L[ℂ] PoincareHilbert :=
+  rankOneProj vacPoincare vacPoincare_norm
+
+private noncomputable def H_phys_poincare : PoincareHilbert →L[ℂ] PoincareHilbert :=
+  ContinuousLinearMap.id ℂ PoincareHilbert - P_vac_poincare
+
+private theorem P_vac_poincare_sa (x y : PoincareHilbert) :
+    ⟪P_vac_poincare x, y⟫_ℂ = ⟪x, P_vac_poincare y⟫_ℂ := by
+  change ⟪⟪vacPoincare, x⟫_ℂ • vacPoincare, y⟫_ℂ = ⟪x, ⟪vacPoincare, y⟫_ℂ • vacPoincare⟫_ℂ
+  have hconj : starRingEnd ℂ ⟪vacPoincare, x⟫_ℂ = ⟪x, vacPoincare⟫_ℂ :=
+    inner_conj_symm x vacPoincare
+  rw [inner_smul_left, inner_smul_right, hconj]
+  ring
+
+private theorem P_vac_poincare_idem (x : PoincareHilbert) :
+    P_vac_poincare (P_vac_poincare x) = P_vac_poincare x := by
+  have h1 : ⟪vacPoincare, vacPoincare⟫_ℂ = 1 := by
+    rw [vacPoincare, deltaOption4_inner, if_pos rfl]
+  change ⟪vacPoincare, ⟪vacPoincare, x⟫_ℂ • vacPoincare⟫_ℂ • vacPoincare =
+    ⟪vacPoincare, x⟫_ℂ • vacPoincare
+  rw [inner_smul_right, h1, mul_one]
+
+private theorem H_phys_poincare_sa (x y : PoincareHilbert) :
+    ⟪H_phys_poincare x, y⟫_ℂ = ⟪x, H_phys_poincare y⟫_ℂ := by
+  simp only [H_phys_poincare, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    inner_sub_left, inner_sub_right, P_vac_poincare_sa]
+
+private theorem H_phys_poincare_idem (x : PoincareHilbert) :
+    H_phys_poincare (H_phys_poincare x) = H_phys_poincare x := by
+  simp only [H_phys_poincare, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub, P_vac_poincare_idem]
+  abel
+
+private noncomputable def T_E_poincare (t : ℝ) : PoincareHilbert →L[ℂ] PoincareHilbert :=
+  P_vac_poincare + ((Real.exp (-t) : ℝ) : ℂ) • H_phys_poincare
+
+/--
+**Infinite-dimensional `OSReconstructionData 1 concreteOS4DContinuumTheory`**
+on `PoincareHilbert = L²({none} ⊔ ℝ⁴, count)` with genuine `Poincare4` symmetry.
+-/
+noncomputable def infDimOSReconstructionData :
+    OSReconstructionData 1 concreteOS4DContinuumTheory where
+  wightman := infDimWightman4D
+  T_E := T_E_poincare
+  T_E_zero := by
+    change T_E_poincare 0 = ContinuousLinearMap.id ℂ PoincareHilbert
+    exact ContinuousLinearMap.ext fun x => by simp [T_E_poincare, H_phys_poincare]
+  T_E_add := fun s t _ _ => by
+    change T_E_poincare (s + t) = (T_E_poincare s).comp (T_E_poincare t)
+    refine ContinuousLinearMap.ext fun x => ?_
+    have hp01 : P_vac_poincare (H_phys_poincare x) = 0 := by
+      simp [H_phys_poincare, P_vac_poincare_idem]
+    have hp10 : H_phys_poincare (P_vac_poincare x) = 0 := by
+      simp [H_phys_poincare, P_vac_poincare_idem]
+    simp only [T_E_poincare, ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.smul_apply, map_add, map_smul, P_vac_poincare_idem,
+      H_phys_poincare_idem, hp01, hp10, smul_zero, add_zero, zero_add]
+    rw [smul_smul, ← Complex.ofReal_mul, ← Real.exp_add,
+      show -t + -s = -(s + t) by ring]
+  T_E_sa := fun t x y _ => by
+    change ⟪T_E_poincare t (x : PoincareHilbert), (y : PoincareHilbert)⟫_ℂ =
+      ⟪(x : PoincareHilbert), T_E_poincare t (y : PoincareHilbert)⟫_ℂ
+    simp only [T_E_poincare, ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      inner_add_left, inner_add_right, inner_smul_left, inner_smul_right,
+      Complex.conj_ofReal, P_vac_poincare_sa, H_phys_poincare_sa]
+  T_E_contr := fun t x ht => by
+    change ‖T_E_poincare t (x : PoincareHilbert)‖ ≤ ‖(x : PoincareHilbert)‖
+    let x' : PoincareHilbert := x
+    rw [← sq_le_sq₀ (norm_nonneg _) (norm_nonneg _)]
+    have h_orth : ⟪P_vac_poincare x', H_phys_poincare x'⟫_ℂ = 0 := by
+      have hp01 : P_vac_poincare (H_phys_poincare x') = 0 := by
+        simp [H_phys_poincare, P_vac_poincare_idem]
+      rw [P_vac_poincare_sa, hp01, inner_zero_right]
+    have hre : RCLike.re ⟪P_vac_poincare x', ((Real.exp (-t) : ℝ) : ℂ) • H_phys_poincare x'⟫_ℂ = 0 := by
+      rw [inner_smul_right, h_orth, mul_zero, map_zero]
+    have hre' : RCLike.re ⟪P_vac_poincare x', Real.exp (-t) • H_phys_poincare x'⟫_ℂ = 0 := by
+      change RCLike.re ⟪P_vac_poincare x', ((Real.exp (-t) : ℝ) : ℂ) • H_phys_poincare x'⟫_ℂ = 0
+      exact hre
+    have h_sum_sq : ‖P_vac_poincare x'‖ ^ 2 + ‖H_phys_poincare x'‖ ^ 2 = ‖x'‖ ^ 2 := by
+      have hx : x' = P_vac_poincare x' + H_phys_poincare x' := by simp [H_phys_poincare]
+      conv_rhs => rw [hx]
+      rw [norm_add_sq (𝕜 := ℂ)]
+      have h0 : RCLike.re ⟪P_vac_poincare x', H_phys_poincare x'⟫_ℂ = 0 := by
+        rw [h_orth, map_zero]
+      rw [h0, mul_zero, add_zero]
+    have hsq : ‖T_E_poincare t x'‖ ^ 2 =
+        ‖P_vac_poincare x'‖ ^ 2 + (Real.exp (-t)) ^ 2 * ‖H_phys_poincare x'‖ ^ 2 := by
+      dsimp [T_E_poincare]
+      rw [norm_add_sq (𝕜 := ℂ)]
+      simp [hre', norm_smul, abs_of_nonneg (Real.exp_pos _).le, mul_pow]
+    have hexp_le : (Real.exp (-t)) ^ 2 ≤ 1 := by
+      have h1 : Real.exp (-t) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
+      nlinarith [(Real.exp_pos (-t)).le]
+    change ‖T_E_poincare t x'‖ ^ 2 ≤ ‖x'‖ ^ 2
+    rw [hsq, ← h_sum_sq]
+    exact add_le_add le_rfl (mul_le_of_le_one_left (sq_nonneg _) hexp_le)
+  H_phys := H_phys_poincare
+  H_phys_sa := H_phys_poincare_sa
+  H_phys_nonneg := fun x => by
+    change 0 ≤ (⟪(x : PoincareHilbert), H_phys_poincare (x : PoincareHilbert)⟫_ℂ).re
+    let x' : PoincareHilbert := x
+    have h_eq : ⟪x', H_phys_poincare x'⟫_ℂ = ⟪H_phys_poincare x', H_phys_poincare x'⟫_ℂ := by
+      conv_lhs => rw [← H_phys_poincare_idem x', ← H_phys_poincare_sa]
+    change 0 ≤ (⟪x', H_phys_poincare x'⟫_ℂ).re
+    rw [h_eq, inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+    exact mul_self_nonneg _
+  H_phys_vac := by
+    change H_phys_poincare vacPoincare = 0
+    have hv : P_vac_poincare vacPoincare = vacPoincare := by
+      have h1 : ⟪vacPoincare, vacPoincare⟫_ℂ = 1 := by
+        rw [vacPoincare, deltaOption4_inner, if_pos rfl]
+      change ⟪vacPoincare, vacPoincare⟫_ℂ • vacPoincare = vacPoincare
+      rw [h1, one_smul]
+    simp [H_phys_poincare, hv]
+  cyclic_dense := by
+    classical
+    let S : Set PoincareHilbert :=
+      {v : PoincareHilbert | ∃ (k : ℕ) (xs : Fin k → Space4),
+        v = (List.ofFn (fun i : Fin k => phiPoincare (xs i))).foldr
+          (fun A acc => A acc) vacPoincare}
+    have h_vac : vacPoincare ∈ S := ⟨0, Fin.elim0, rfl⟩
+    have h_delta : ∀ x : Space4, deltaSpace4 x ∈ S := by
+      intro x
+      refine ⟨1, fun _ => x, ?_⟩
+      have h1 : ⟪vacPoincare, vacPoincare⟫_ℂ = 1 := by
+        rw [vacPoincare, deltaOption4_inner, if_pos rfl]
+      change deltaSpace4 x = ⟪vacPoincare, vacPoincare⟫_ℂ • deltaSpace4 x
+      rw [h1, one_smul]
+    have h_cl_complete : CompleteSpace ↥(Submodule.span ℂ S).topologicalClosure := by
+      refine Metric.complete_of_cauchySeq_tendsto fun u hu => ?_
+      have huV : CauchySeq (fun n => (u n : PoincareHilbert)) :=
+        Metric.cauchySeq_iff.mpr (by simpa [Subtype.dist_eq] using Metric.cauchySeq_iff.mp hu)
+      obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete huV
+      have haK : a ∈ closure (Submodule.span ℂ S : Set PoincareHilbert) :=
+        isClosed_closure.mem_of_tendsto ha (Filter.Eventually.of_forall fun n => (u n).2)
+      exact ⟨⟨a, haK⟩, tendsto_subtype_rng.mpr ha⟩
+    haveI : (Submodule.span ℂ S).topologicalClosure.HasOrthogonalProjection :=
+      Submodule.HasOrthogonalProjection.ofCompleteSpace _
+    rw [← Submodule.orthogonal_eq_bot_iff, eq_bot_iff]
+    intro v hv
+    let v' : PoincareHilbert := v
+    have hv_zero_opt : ∀ a : OptionSpace4, ⟪deltaOption4 a, v'⟫_ℂ = 0 := by
+      intro a
+      have ha_mem : deltaOption4 a ∈ (Submodule.span ℂ S).topologicalClosure := by
+        apply subset_closure
+        apply Submodule.subset_span
+        cases a with
+        | none => exact h_vac
+        | some x => exact h_delta x
+      exact (Submodule.mem_orthogonal _ _).mp hv (deltaOption4 a) ha_mem
+    have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+      intro a b
+      have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+        rw [inner_self_eq_norm_sq_to_K]; norm_num
+      calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+        _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+              rw [inner_smul_left, inner_smul_right]
+        _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+    have hv_val : ∀ a : OptionSpace4, (⇑v' : OptionSpace4 → ℂ) a = 0 := by
+      intro a
+      have h_in : ⟪deltaOption4 a, v'⟫_ℂ = (⇑v' : OptionSpace4 → ℂ) a := by
+        rw [MeasureTheory.L2.inner_def]
+        have h_ae : (fun z => ⟪(⇑(deltaOption4 a) : OptionSpace4 → ℂ) z,
+              (⇑v' : OptionSpace4 → ℂ) z⟫_ℂ) =
+            fun z => if z = a then (⇑v' : OptionSpace4 → ℂ) a else 0 := by
+          funext z
+          rw [deltaOption4_apply]
+          by_cases hz : z = a
+          · subst hz
+            rw [if_pos rfl, if_pos rfl, hcinner, map_one, one_mul]
+          · rw [if_neg hz, if_neg hz, inner_zero_left]
+        rw [h_ae]
+        have h_ind : (fun z : OptionSpace4 => if z = a then (⇑v' : OptionSpace4 → ℂ) a else 0) =
+            Set.indicator {a} (fun _ => (⇑v' : OptionSpace4 → ℂ) a) := by
+          funext z
+          simp [Set.indicator_apply, Set.mem_singleton_iff]
+        rw [h_ind, MeasureTheory.integral_indicator (by trivial : MeasurableSet ({a} : Set OptionSpace4)),
+          MeasureTheory.setIntegral_const]
+        dsimp [Measure.real]
+        rw [poincareCount_singleton_toReal, Complex.ofReal_one, one_mul]
+      rw [← h_in]
+      exact hv_zero_opt a
+    rw [Submodule.mem_bot]
+    change v' = 0
+    apply MeasureTheory.Lp.ext
+    have h0 : ⇑(0 : PoincareHilbert) =ᵐ[poincareCountMeasure] 0 :=
+      MeasureTheory.Lp.coeFn_zero ℂ 2 poincareCountMeasure
+    filter_upwards [h0] with a ha
+    rw [hv_val a, ha]
+    rfl
+
+/-- Infinite-dimensional Poincaré-covariant realization of **§16**. -/
+theorem infdim_poincare_euclidean_os_verification :
+    ∃ D : EuclideanOSVerificationData concreteOS4DContinuumTheory infDimOSReconstructionData,
+      (∀ (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+        (xs : ∀ i : Fin m, Fin (n_pts i) → Space4),
+        (∀ i k, 0 < (xs i k) 0) →
+        0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+          c i * starRingEnd ℂ (c j) *
+            concreteOS4DContinuumTheory.os.Schwinger (n_pts i + n_pts j)
+              (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re) ∧
+      (∀ (n : ℕ) (Rot : Matrix.specialOrthogonalGroup (Fin 4) ℝ)
+        (xs : Fin n → Space4),
+        concreteOS4DContinuumTheory.os.Schwinger n (fun i => Matrix.mulVec Rot.1 (xs i)) =
+          concreteOS4DContinuumTheory.os.Schwinger n xs) ∧
+      ((∀ x y : infDimOSReconstructionData.wightman.H,
+          ⟪infDimOSReconstructionData.H_phys x, y⟫_ℂ =
+            ⟪x, infDimOSReconstructionData.H_phys y⟫_ℂ) ∧
+        (∀ x : infDimOSReconstructionData.wightman.H,
+          0 ≤ (⟪x, infDimOSReconstructionData.H_phys x⟫_ℂ).re) ∧
+        infDimOSReconstructionData.H_phys infDimOSReconstructionData.wightman.Ω_phys = 0) ∧
+      (0 < (1 : ℝ) ∧
+        (∀ (n m : ℕ), ∃ C : ℝ, ∀ (xs : Fin n → Space4) (ys : Fin m → Space4)
+          (dist : ℝ), 0 ≤ dist → (∀ i j, dist ≤ ‖xs i - ys j‖) →
+          ‖concreteOS4DContinuumTheory.os.Schwinger (n + m) (Fin.append xs ys) -
+            concreteOS4DContinuumTheory.os.Schwinger n xs *
+              concreteOS4DContinuumTheory.os.Schwinger m ys‖ ≤ C * Real.exp (-((1 : ℝ) * dist))) ∧
+        ¬ IsGaussian4 concreteOS4DContinuumTheory.os.Schwinger) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : infDimOSReconstructionData.wightman.H,
+          0 ≤ (⟪ψ, infDimOSReconstructionData.H_phys ψ⟫_ℂ).re)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x) ∧
+        (∀ i, lieBracketCLM (D.symm i) infDimOSReconstructionData.H_phys = 0) ∧
+        infDimOSReconstructionData.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  non_gaussian_4d_euclidean_os_axioms_verification
+    concreteOS4DContinuumTheory infDimOSReconstructionData
+
+/-- Infinite-dimensional Poincaré-covariant realization of **§17**. -/
+theorem infdim_poincare_wightman_reconstruction :
+    ∃ D : OSHilbertCompletionData infDimOSReconstructionData,
+      ((∀ u : OSQuotient D.bridge.F, 0 ≤ (osQuotInner D.bridge.F u u).re) ∧
+        (∀ u : OSQuotient D.bridge.F,
+          osQuotInner D.bridge.F u u = 0 ↔ u = osQuotMk D.bridge.F 0)) ∧
+      (Function.Injective D.bridge.ι ∧
+        (∀ u v, ⟪D.bridge.ι u, D.bridge.ι v⟫_ℂ = osQuotInner D.bridge.F u v) ∧
+        closure (Set.range D.bridge.ι) = Set.univ) ∧
+      ((∀ g x y, ⟪infDimOSReconstructionData.wightman.U g x,
+            infDimOSReconstructionData.wightman.U g y⟫_ℂ = ⟪x, y⟫_ℂ) ∧
+        (∀ g, infDimOSReconstructionData.wightman.U g
+            infDimOSReconstructionData.wightman.Ω_phys =
+          infDimOSReconstructionData.wightman.Ω_phys) ∧
+        (∀ x y, ⟪infDimOSReconstructionData.H_phys x, y⟫_ℂ =
+          ⟪x, infDimOSReconstructionData.H_phys y⟫_ℂ) ∧
+        (∀ x, 0 ≤ (⟪x, infDimOSReconstructionData.H_phys x⟫_ℂ).re) ∧
+        infDimOSReconstructionData.H_phys infDimOSReconstructionData.wightman.Ω_phys = 0) ∧
+      ((∀ g x, (infDimOSReconstructionData.wightman.U g).comp
+            (infDimOSReconstructionData.wightman.φ x) =
+          (infDimOSReconstructionData.wightman.φ
+            (infDimOSReconstructionData.wightman.actP g x)).comp
+              (infDimOSReconstructionData.wightman.U g)) ∧
+        (∀ x y, minkowskiSq (x - y) < 0 →
+          (infDimOSReconstructionData.wightman.φ x).comp
+            (infDimOSReconstructionData.wightman.φ y) =
+          (infDimOSReconstructionData.wightman.φ y).comp
+            (infDimOSReconstructionData.wightman.φ x)) ∧
+        (∀ p2 ∈ infDimOSReconstructionData.wightman.P2_spec, 0 ≤ p2) ∧
+        (∀ p2 ∈ infDimOSReconstructionData.wightman.P2_spec, p2 = 0 ∨ (1 : ℝ) ^ 2 ≤ p2) ∧
+        (Submodule.span ℂ
+          {v : infDimOSReconstructionData.wightman.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+            v = (List.ofFn (fun i : Fin k =>
+              infDimOSReconstructionData.wightman.φ (xs i))).foldr
+              (fun A acc => A acc) infDimOSReconstructionData.wightman.Ω_phys}).topologicalClosure =
+          ⊤) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : infDimOSReconstructionData.wightman.H,
+          0 ≤ (⟪ψ, infDimOSReconstructionData.H_phys ψ⟫_ℂ).re) ∧
+        (∀ i, lieBracketCLM (D.symm i) infDimOSReconstructionData.H_phys = 0) ∧
+        infDimOSReconstructionData.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  os_hilbert_completion_and_wightman_reconstruction infDimOSReconstructionData
+
+end Poincare4DWightman 
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -7495,3 +8228,13 @@ end YangMills
 #print axioms YangMills.cubic4Schwinger_thermodynamic_subseq
 #print axioms YangMills.thermodynamic_limit_perm_symm
 #print axioms YangMills.thermodynamic_limit_refl_pos
+
+-- §27. Genuine 4D Poincaré group & infinite-dimensional Wightman QFT
+#print axioms YangMills.lorentz_preserves_minkowskiInner
+#print axioms YangMills.poincareAct_preserves_minkowskiSq
+#print axioms YangMills.poincareRep_unitary
+#print axioms YangMills.poincareRep_deltaSpace4
+#print axioms YangMills.infDimWightman4D
+#print axioms YangMills.infDimOSReconstructionData
+#print axioms YangMills.infdim_poincare_euclidean_os_verification
+#print axioms YangMills.infdim_poincare_wightman_reconstruction
