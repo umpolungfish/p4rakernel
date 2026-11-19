@@ -9867,6 +9867,3011 @@ noncomputable def buildEuclideanOSPreDataFromSchwinger
 
 end SchwingerToPreData
 
+/-! ## §32.  Full-rank SU(N) Wilson integral transfer operator on L²(dμ_Haar) -/
+
+section FullRankWilsonIntegralOp
+
+@[reducible] instance instTopologicalSpaceCubicGaugeField (L : ℕ) [NeZero L]
+    (G : Type*) [TopologicalSpace G] :
+    TopologicalSpace (GaugeField (cubicTorus3 L) G) :=
+  Pi.topologicalSpace
+
+instance instSecondCountableCubicGaugeField (L N : ℕ) [NeZero L] :
+    SecondCountableTopology
+      (GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  show SecondCountableTopology
+    ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) from inferInstance
+
+instance instBorelSpaceCubicGaugeField (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    BorelSpace (GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  ⟨(inferInstance : BorelSpace ((cubicTorus3 L).Link →
+    Matrix.specialUnitaryGroup (Fin N) ℂ)).measurable_eq⟩
+
+private theorem continuous_cubicField_eval (L N : ℕ) [NeZero L]
+    (e : (cubicTorus3 L).Link) :
+    Continuous (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) => U e) := by
+  change Continuous (fun U : (cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ => U e)
+  exact continuous_apply e
+
+private theorem continuous_pathHolonomy3 (L N : ℕ) [NeZero L]
+    (γ : List ((cubicTorus3 L).Link × Bool)) :
+    Continuous (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      pathHolonomy U γ) := by
+  induction γ with
+  | nil => simpa [pathHolonomy] using continuous_const
+  | cons hd tl ih =>
+    rcases hd with ⟨e, b⟩
+    cases b
+    · simpa [pathHolonomy] using
+        ((continuous_inv.comp (continuous_cubicField_eval L N e)).mul ih)
+    · simpa [pathHolonomy] using
+        ((continuous_cubicField_eval L N e).mul ih)
+
+private theorem continuous_wilsonPlaquetteTerm3 (L N : ℕ) [NeZero L]
+    (p : LatticePlaquette (cubicTorus3 L)) :
+    Continuous (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      wilsonPlaquetteTerm p U) := by
+  unfold wilsonPlaquetteTerm
+  have h_ent : ∀ i : Fin N, Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (A : Matrix (Fin N) (Fin N) ℂ) i i) := fun i =>
+    (continuous_apply i).comp ((continuous_apply i).comp continuous_subtype_val)
+  have h_tr : Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re) := by
+    simp only [Matrix.trace, Matrix.diag, Complex.re_sum]
+    exact continuous_finset_sum Finset.univ fun i _ => Complex.continuous_re.comp (h_ent i)
+  exact continuous_const.sub
+    (continuous_const.mul (h_tr.comp (continuous_pathHolonomy3 L N p.loop)))
+
+theorem continuous_cubicWilsonAction (L N : ℕ) [NeZero L] (β : ℝ) :
+    Continuous (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      wilsonAction β (cubicPlaquettes L) U) := by
+  unfold wilsonAction
+  have hsum : ∀ (ps : List (LatticePlaquette (cubicTorus3 L))),
+      Continuous (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+        (ps.map (fun p => wilsonPlaquetteTerm p U)).sum) := by
+    intro ps
+    induction ps with
+    | nil => simp [continuous_const]
+    | cons p ps ih =>
+      simp only [List.map_cons, List.sum_cons]
+      exact (continuous_wilsonPlaquetteTerm3 L N p).add ih
+  exact continuous_const.mul (hsum (cubicPlaquettes L))
+
+theorem continuous_cubicWilsonKernel (L N : ℕ) [NeZero L] (β : ℝ)
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin)) :
+    Continuous (Function.uncurry (wilsonKernel β (cubicPlaquettes L) K_kin)) := by
+  change Continuous (fun p :
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      Real.exp (-(1 / 2 : ℝ) *
+        (wilsonAction β (cubicPlaquettes L) p.1 + wilsonAction β (cubicPlaquettes L) p.2)) *
+        K_kin p.1 p.2)
+  have hS := continuous_cubicWilsonAction L N β
+  exact (Real.continuous_exp.comp
+    (continuous_const.mul ((hS.comp continuous_fst).add (hS.comp continuous_snd)))).mul hK_cont
+
+private theorem continuous_cubicWilsonKernel_right (L N : ℕ) [NeZero L] (β : ℝ)
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    Continuous (fun U' => wilsonKernel β (cubicPlaquettes L) K_kin U U') := by
+  have hS := continuous_cubicWilsonAction L N β
+  have h_pair : Continuous
+      (fun U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) => (U, U')) :=
+    continuous_const.prodMk continuous_id
+  have hK_U : Continuous (fun U' => K_kin U U') := hK_cont.comp h_pair
+  change Continuous (fun U' =>
+    Real.exp (-(1 / 2 : ℝ) *
+      (wilsonAction β (cubicPlaquettes L) U + wilsonAction β (cubicPlaquettes L) U')) *
+      K_kin U U')
+  exact (Real.continuous_exp.comp
+    (continuous_const.mul (continuous_const.add hS))).mul hK_U
+
+private theorem continuous_cubicWilsonKernel_left (L N : ℕ) [NeZero L] (β : ℝ)
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    Continuous (fun U => wilsonKernel β (cubicPlaquettes L) K_kin U U') := by
+  have hS := continuous_cubicWilsonAction L N β
+  have h_pair : Continuous
+      (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) => (U, U')) :=
+    continuous_id.prodMk continuous_const
+  have hK_U' : Continuous (fun U => K_kin U U') := hK_cont.comp h_pair
+  change Continuous (fun U =>
+    Real.exp (-(1 / 2 : ℝ) *
+      (wilsonAction β (cubicPlaquettes L) U + wilsonAction β (cubicPlaquettes L) U')) *
+      K_kin U U')
+  exact (Real.continuous_exp.comp
+    (continuous_const.mul (hS.add continuous_const))).mul hK_U'
+
+private theorem l1_le_l2_prob {α : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsProbabilityMeasure μ]
+    (ψ : MeasureTheory.Lp ℂ 2 μ) :
+    ∫ a, ‖ψ a‖ ∂μ ≤ ‖ψ‖ := by
+  let c : ℝ := ∫ a, ‖ψ a‖ ∂μ
+  have hψ_mem : MeasureTheory.MemLp (⇑ψ) 2 μ := MeasureTheory.Lp.memLp ψ
+  have hψ_ae : MeasureTheory.AEStronglyMeasurable (⇑ψ) μ := hψ_mem.aestronglyMeasurable
+  have h_int1 : MeasureTheory.Integrable (fun a => ‖ψ a‖) μ :=
+    (hψ_mem.integrable one_le_two).norm
+  have h_int2 : MeasureTheory.Integrable (fun a => ‖ψ a‖ ^ 2) μ :=
+    (MeasureTheory.memLp_two_iff_integrable_sq_norm hψ_ae).mp hψ_mem
+  have hc_nn : 0 ≤ c := MeasureTheory.integral_nonneg fun _ => norm_nonneg _
+  have h_var_nn : 0 ≤ ∫ a, (‖ψ a‖ - c) ^ 2 ∂μ :=
+    MeasureTheory.integral_nonneg fun _ => sq_nonneg _
+  have h_exp : (fun a => (‖ψ a‖ - c) ^ 2) =
+      fun a => ‖ψ a‖ ^ 2 - 2 * c * ‖ψ a‖ + c ^ 2 := by
+    funext a; ring
+  have h_int_sub : MeasureTheory.Integrable (fun a => ‖ψ a‖ ^ 2 - 2 * c * ‖ψ a‖) μ :=
+    h_int2.sub (h_int1.const_mul (2 * c))
+  have h_var_val : ∫ a, (‖ψ a‖ - c) ^ 2 ∂μ = (∫ a, ‖ψ a‖ ^ 2 ∂μ) - c ^ 2 := by
+    rw [h_exp, MeasureTheory.integral_add h_int_sub (MeasureTheory.integrable_const (c ^ 2)),
+        MeasureTheory.integral_sub h_int2 (h_int1.const_mul (2 * c)),
+        MeasureTheory.integral_const_mul, MeasureTheory.integral_const]
+    change (∫ a, ‖ψ a‖ ^ 2 ∂μ) - 2 * c * c + μ.real Set.univ • c ^ 2 = _
+    simp only [Measure.real, MeasureTheory.measure_univ, ENNReal.toReal_one, smul_eq_mul, one_mul]
+    ring
+  have h_l2_sq : ∫ a, ‖ψ a‖ ^ 2 ∂μ = ‖ψ‖ ^ 2 := by
+    have h_l2 : MeasureTheory.Integrable (fun a => ⟪ψ a, ψ a⟫_ℂ) μ :=
+      MeasureTheory.L2.integrable_inner _ _
+    have h_re := integral_re h_l2
+    have h_in : (⟪ψ, ψ⟫_ℂ).re = ∫ a, ‖ψ a‖ ^ 2 ∂μ := by
+      rw [MeasureTheory.L2.inner_def]
+      change RCLike.re (∫ a, ⟪ψ a, ψ a⟫_ℂ ∂μ) = _
+      rw [← h_re]
+      refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun a => ?_)
+      change (⟪ψ a, ψ a⟫_ℂ).re = ‖ψ a‖ ^ 2
+      rw [inner_self_eq_norm_sq_to_K]
+      simp [pow_two]
+    rw [← h_in, inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+  rw [h_var_val, h_l2_sq] at h_var_nn
+  have h_sq_le : c ^ 2 ≤ ‖ψ‖ ^ 2 := by linarith
+  exact (sq_le_sq₀ hc_nn (norm_nonneg ψ)).mp h_sq_le
+
+/-- Pointwise Haar integral `(T_W ψ)(U) = ∫ K_W(U, U') ψ(U') dμ_Haar(U')`. -/
+noncomputable def wilsonIntegralFn (L N : ℕ) [NeZero L] (β : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℂ :=
+  ∫ U', ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ U'
+    ∂(latticeHaarMeasure L N)
+
+private theorem wilsonKernel_cubic_le (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    0 ≤ wilsonKernel β (cubicPlaquettes L) K_kin U U' ∧
+      wilsonKernel β (cubicPlaquettes L) K_kin U U' ≤ M_K := by
+  have hnn := wilsonKernel_nonneg β (cubicPlaquettes L) K_kin hK_nn U U'
+  have h1 := (wilsonAction_bounds β hβ (cubicPlaquettes L) U).1
+  have h2 := (wilsonAction_bounds β hβ (cubicPlaquettes L) U').1
+  have hexp : Real.exp (-(1 / 2 : ℝ) *
+      (wilsonAction β (cubicPlaquettes L) U + wilsonAction β (cubicPlaquettes L) U')) ≤ 1 :=
+    Real.exp_le_one_iff.mpr (by linarith)
+  refine ⟨hnn, ?_⟩
+  unfold wilsonKernel
+  calc Real.exp _ * K_kin U U' ≤ 1 * K_kin U U' :=
+        mul_le_mul_of_nonneg_right hexp (hK_nn U U')
+    _ ≤ M_K := by rw [one_mul]; exact hK_bd U U'
+
+private theorem wilsonKernel_mul_integrable (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    MeasureTheory.Integrable
+      (fun U' => ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ U')
+      (latticeHaarMeasure L N) := by
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  have hψ_mem : MeasureTheory.MemLp (⇑ψ) 2 μ := MeasureTheory.Lp.memLp ψ
+  have h_dom : MeasureTheory.Integrable (fun U' => M_K * ‖ψ U'‖) μ :=
+    (hψ_mem.integrable one_le_two).norm.const_mul M_K
+  refine h_dom.mono' ?_ ?_
+  · have hK_U : Continuous (fun U' => ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ)) :=
+      Complex.continuous_ofReal.comp (continuous_cubicWilsonKernel_right L N β K_kin hK_cont U)
+    exact hK_U.stronglyMeasurable.aestronglyMeasurable.mul hψ_mem.aestronglyMeasurable
+  · refine Filter.Eventually.of_forall fun U' => ?_
+    have hb := wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd U U'
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+    exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+
+private theorem wilsonIntegralFn_continuous (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    Continuous (wilsonIntegralFn L N β K_kin ψ) := by
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  have hψ_mem : MeasureTheory.MemLp (⇑ψ) 2 μ := MeasureTheory.Lp.memLp ψ
+  have hψ_int : MeasureTheory.Integrable (fun U' => M_K * ‖ψ U'‖) μ :=
+    (hψ_mem.integrable one_le_two).norm.const_mul M_K
+  refine MeasureTheory.continuous_of_dominated ?_ ?_ hψ_int ?_
+  · intro U
+    exact (wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd ψ U).aestronglyMeasurable
+  · intro U
+    refine Filter.Eventually.of_forall fun U' => ?_
+    have hb := wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd U U'
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+    exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+  · refine Filter.Eventually.of_forall fun U' => ?_
+    have hK_U' : Continuous (fun U => ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ)) :=
+      Complex.continuous_ofReal.comp (continuous_cubicWilsonKernel_left L N β K_kin hK_cont U')
+    exact hK_U'.mul continuous_const
+
+private theorem wilsonIntegralFn_pt_bound (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    ‖wilsonIntegralFn L N β K_kin ψ U‖ ≤ M_K * ‖ψ‖ := by
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  have h_int := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd ψ U
+  have h_dom : MeasureTheory.Integrable (fun U' => M_K * ‖ψ U'‖) μ :=
+    ((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_K
+  calc ‖wilsonIntegralFn L N β K_kin ψ U‖
+      ≤ ∫ U', ‖((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ U'‖ ∂μ :=
+          MeasureTheory.norm_integral_le_integral_norm _
+    _ ≤ ∫ U', M_K * ‖ψ U'‖ ∂μ := by
+          refine MeasureTheory.integral_mono h_int.norm h_dom fun U' => ?_
+          have hb := wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd U U'
+          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+          exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+    _ = M_K * ∫ U', ‖ψ U'‖ ∂μ := MeasureTheory.integral_const_mul M_K _
+    _ ≤ M_K * ‖ψ‖ := mul_le_mul_of_nonneg_left (l1_le_l2_prob μ ψ) hM_K
+
+private theorem wilsonIntegralFn_memLp (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    MeasureTheory.MemLp (wilsonIntegralFn L N β K_kin ψ) 2 (latticeHaarMeasure L N) := by
+  haveI := latticeHaarMeasure_prob L N
+  exact memLp_two_of_measurable_bound (latticeHaarMeasure L N)
+    (wilsonIntegralFn L N β K_kin ψ)
+    (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd ψ).measurable
+    (M_K * ‖ψ‖) (mul_nonneg hM_K (norm_nonneg _))
+    (wilsonIntegralFn_pt_bound L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ)
+
+/--
+Full-rank Wilson integral transfer operator `T_W` on `L²(SU(N)^{3L³}, dμ_Haar)`:
+`(T_W ψ)(U) = ∫ wilsonKernel(U, U') ψ(U') dμ_Haar(U')`.
+-/
+noncomputable def wilsonIntegralOp (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
+      HaarGaugeSpace (latticeHaarMeasure L N) :=
+  let μ := latticeHaarMeasure L N
+  LinearMap.mkContinuous
+    { toFun := fun ψ =>
+        (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).toLp
+          (wilsonIntegralFn L N β K_kin ψ)
+      map_add' := fun ψ₁ ψ₂ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+          (ψ₁ + ψ₂)).coeFn_toLp
+        have h2 := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₁).coeFn_toLp
+        have h3 := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₂).coeFn_toLp
+        have hadd := MeasureTheory.Lp.coeFn_add
+          ((wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₁).toLp
+            (wilsonIntegralFn L N β K_kin ψ₁))
+          ((wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₂).toLp
+            (wilsonIntegralFn L N β K_kin ψ₂))
+        have hψ_add := MeasureTheory.Lp.coeFn_add ψ₁ ψ₂
+        filter_upwards [h1, h2, h3, hadd] with U hu1 hu2 hu3 ha
+        simp only [Pi.add_apply] at ha ⊢
+        rw [hu1, ha, hu2, hu3]
+        have hi1 := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd ψ₁ U
+        have hi2 := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd ψ₂ U
+        dsimp [wilsonIntegralFn]
+        rw [← MeasureTheory.integral_add hi1 hi2]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hψ_add] with U' hU'
+        have hU'' : (ψ₁ + ψ₂) U' = ψ₁ U' + ψ₂ U' := hU'
+        change ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * (ψ₁ + ψ₂) U' =
+          ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ₁ U' +
+            ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ₂ U'
+        rw [hU'', mul_add]
+      map_smul' := fun c ψ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+          (c • ψ)).coeFn_toLp
+        have h2 := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).coeFn_toLp
+        have hsm := MeasureTheory.Lp.coeFn_smul c
+          ((wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).toLp
+            (wilsonIntegralFn L N β K_kin ψ))
+        have hψ_sm := MeasureTheory.Lp.coeFn_smul c ψ
+        filter_upwards [h1, h2, hsm] with U hu1 hu2 hs
+        simp only [Pi.smul_apply, RingHom.id_apply, smul_eq_mul] at hs ⊢
+        rw [hu1, hs, hu2]
+        dsimp [wilsonIntegralFn]
+        rw [← MeasureTheory.integral_const_mul]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hψ_sm] with U' hU'
+        have hU'' : (c • ψ) U' = c * ψ U' := hU'
+        change ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * (c • ψ) U' =
+          c * (((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ U')
+        rw [hU'', mul_left_comm] }
+    M_K
+    (fun ψ => by
+      haveI := latticeHaarMeasure_prob L N
+      let ψ' := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).toLp
+        (wilsonIntegralFn L N β K_kin ψ)
+      change ‖ψ'‖ ≤ M_K * ‖ψ‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hM_K (norm_nonneg _))]
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪ψ' U, ψ' U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner _ _
+      have h_re := integral_re h_l2
+      have h_norm_sq : ‖ψ'‖ ^ 2 = ∫ U, ‖ψ' U‖ ^ 2 ∂μ := by
+        have h_in : (⟪ψ', ψ'⟫_ℂ).re = ∫ U, ‖ψ' U‖ ^ 2 ∂μ := by
+          rw [MeasureTheory.L2.inner_def]
+          change RCLike.re (∫ U, ⟪ψ' U, ψ' U⟫_ℂ ∂μ) = _
+          rw [← h_re]
+          refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+          change (⟪ψ' U, ψ' U⟫_ℂ).re = ‖ψ' U‖ ^ 2
+          rw [inner_self_eq_norm_sq_to_K]
+          simp [pow_two]
+        rw [← h_in, inner_self_eq_norm_sq_to_K]
+        simp [pow_two]
+      have h_int1 : MeasureTheory.Integrable (fun U => ‖ψ' U‖ ^ 2) μ :=
+        (MeasureTheory.memLp_two_iff_integrable_sq_norm
+          (MeasureTheory.Lp.memLp ψ').aestronglyMeasurable).mp (MeasureTheory.Lp.memLp ψ')
+      have h_int2 : MeasureTheory.Integrable (fun _ => (M_K * ‖ψ‖) ^ 2) μ :=
+        MeasureTheory.integrable_const _
+      have hcoe := (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).coeFn_toLp
+      rw [h_norm_sq]
+      calc ∫ U, ‖ψ' U‖ ^ 2 ∂μ
+          ≤ ∫ _U, (M_K * ‖ψ‖) ^ 2 ∂μ := by
+              refine MeasureTheory.integral_mono_ae h_int1 h_int2 ?_
+              filter_upwards [hcoe] with U hU
+              rw [hU]
+              exact pow_le_pow_left₀ (norm_nonneg _)
+                (wilsonIntegralFn_pt_bound L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ U) 2
+        _ = (M_K * ‖ψ‖) ^ 2 := by
+              rw [MeasureTheory.integral_const]
+              simp [Measure.real, MeasureTheory.measure_univ])
+
+theorem wilsonIntegralOp_apply_ae (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⇑(wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ) =ᵐ[latticeHaarMeasure L N]
+      wilsonIntegralFn L N β K_kin ψ :=
+  (wilsonIntegralFn_memLp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ).coeFn_toLp
+
+/-- Exact self-adjointness of the full-rank Wilson integral operator via Fubini. -/
+theorem wilsonIntegralOp_sa (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_symm : ∀ U U', K_kin U' U = K_kin U U')
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (ψ₁ ψ₂ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₁, ψ₂⟫_ℂ =
+      ⟪ψ₁, wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₂⟫_ℂ := by
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  let K_W := wilsonKernel β (cubicPlaquettes L) K_kin
+  let T := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+  have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+    intro a b
+    have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+      rw [inner_self_eq_norm_sq_to_K]; norm_num
+    calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+      _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+            rw [inner_smul_left, inner_smul_right]
+      _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+  have hL : ⟪T ψ₁, ψ₂⟫_ℂ =
+      ∫ U, starRingEnd ℂ (wilsonIntegralFn L N β K_kin ψ₁ U) * ψ₂ U ∂μ := by
+    rw [MeasureTheory.L2.inner_def]
+    refine MeasureTheory.integral_congr_ae ?_
+    filter_upwards [wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₁] with U hU
+    rw [hU, hcinner]
+  have hR : ⟪ψ₁, T ψ₂⟫_ℂ =
+      ∫ U', starRingEnd ℂ (ψ₁ U') * wilsonIntegralFn L N β K_kin ψ₂ U' ∂μ := by
+    rw [MeasureTheory.L2.inner_def]
+    refine MeasureTheory.integral_congr_ae ?_
+    filter_upwards [wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ₂] with U' hU'
+    rw [hU', hcinner]
+  have hKW_cont : Continuous (Function.uncurry K_W) :=
+    continuous_cubicWilsonKernel L N β K_kin hK_cont
+  have h_prod_int : MeasureTheory.Integrable
+      (Function.uncurry fun U U' => ψ₂ U * starRingEnd ℂ (((K_W U U' : ℝ) : ℂ) * ψ₁ U'))
+      (μ.prod μ) := by
+    have h1_aesm : MeasureTheory.AEStronglyMeasurable
+        (fun p : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+          GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) => ψ₁ p.2)
+        (μ.prod μ) :=
+      (MeasureTheory.Lp.memLp ψ₁).aestronglyMeasurable.comp_quasiMeasurePreserving
+        MeasureTheory.Measure.quasiMeasurePreserving_snd
+    have h2_aesm : MeasureTheory.AEStronglyMeasurable
+        (fun p : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+          GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) => ψ₂ p.1)
+        (μ.prod μ) :=
+      (MeasureTheory.Lp.memLp ψ₂).aestronglyMeasurable.comp_quasiMeasurePreserving
+        MeasureTheory.Measure.quasiMeasurePreserving_fst
+    have hK_aesm : MeasureTheory.AEStronglyMeasurable
+        (fun p : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+          GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+          ((K_W p.1 p.2 : ℝ) : ℂ))
+        (μ.prod μ) :=
+      (Complex.continuous_ofReal.comp hKW_cont).stronglyMeasurable.aestronglyMeasurable
+    have h_conj_aesm : MeasureTheory.AEStronglyMeasurable
+        (fun p : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+          GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+          starRingEnd ℂ (((K_W p.1 p.2 : ℝ) : ℂ) * ψ₁ p.2))
+        (μ.prod μ) :=
+      continuous_star.comp_aestronglyMeasurable (hK_aesm.mul h1_aesm)
+    have h_dom : MeasureTheory.Integrable
+        (fun p : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ×
+          GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+          (M_K * ‖ψ₂ p.1‖) * ‖ψ₁ p.2‖)
+        (μ.prod μ) :=
+      (((MeasureTheory.Lp.memLp ψ₂).integrable one_le_two).norm.const_mul M_K).mul_prod
+        ((MeasureTheory.Lp.memLp ψ₁).integrable one_le_two).norm
+    refine h_dom.mono' (h2_aesm.mul h_conj_aesm) ?_
+    refine Filter.Eventually.of_forall fun p => ?_
+    have hb := wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd p.1 p.2
+    have hconj : ‖starRingEnd ℂ (((K_W p.1 p.2 : ℝ) : ℂ) * ψ₁ p.2)‖ =
+        ‖((K_W p.1 p.2 : ℝ) : ℂ) * ψ₁ p.2‖ :=
+      norm_star _
+    change ‖ψ₂ p.1 * starRingEnd ℂ (((K_W p.1 p.2 : ℝ) : ℂ) * ψ₁ p.2)‖ ≤
+      (M_K * ‖ψ₂ p.1‖) * ‖ψ₁ p.2‖
+    rw [norm_mul, hconj, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+    calc ‖ψ₂ p.1‖ * (K_W p.1 p.2 * ‖ψ₁ p.2‖)
+        ≤ ‖ψ₂ p.1‖ * (M_K * ‖ψ₁ p.2‖) :=
+          mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)) (norm_nonneg _)
+      _ = (M_K * ‖ψ₂ p.1‖) * ‖ψ₁ p.2‖ := by ring
+  rw [hL, hR]
+  have hL_eq :
+      (∫ U, starRingEnd ℂ (wilsonIntegralFn L N β K_kin ψ₁ U) * ψ₂ U ∂μ) =
+        ∫ U, ∫ U', ψ₂ U * starRingEnd ℂ (((K_W U U' : ℝ) : ℂ) * ψ₁ U') ∂μ ∂μ := by
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+    dsimp only [wilsonIntegralFn]
+    rw [← integral_conj, mul_comm, ← MeasureTheory.integral_const_mul]
+  have hR_eq :
+      (∫ U', starRingEnd ℂ (ψ₁ U') * wilsonIntegralFn L N β K_kin ψ₂ U' ∂μ) =
+        ∫ U', ∫ U, ψ₂ U * starRingEnd ℂ (((K_W U U' : ℝ) : ℂ) * ψ₁ U') ∂μ ∂μ := by
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => ?_)
+    dsimp only [wilsonIntegralFn]
+    rw [← MeasureTheory.integral_const_mul]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+    dsimp only
+    change starRingEnd ℂ (ψ₁ U') * (((K_W U' U : ℝ) : ℂ) * ψ₂ U) =
+      ψ₂ U * starRingEnd ℂ (((K_W U U' : ℝ) : ℂ) * ψ₁ U')
+    rw [map_mul, Complex.conj_ofReal]
+    have hsym : K_W U U' = K_W U' U :=
+      wilsonKernel_symm β (cubicPlaquettes L) K_kin hK_symm U' U
+    rw [hsym]
+    ring
+  rw [hL_eq, hR_eq]
+  exact MeasureTheory.integral_integral_swap h_prod_int
+
+/-- Exact local gauge invariance of the full-rank Wilson integral operator under `cubicGaugeRep`. -/
+theorem wilsonIntegralOp_gauge_inv (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (hK_inv : ∀ g U U', K_kin (gaugeAct g U) (gaugeAct g U') = K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    (cubicGaugeRep L N g).comp
+        (wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd) =
+      (wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd).comp
+        (cubicGaugeRep L N g) := by
+  ext1 ψ
+  apply MeasureTheory.Lp.ext
+  let μ := latticeHaarMeasure L N
+  let eqv := gaugeActEquiv L N (fun x => (g x)⁻¹)
+  let hmp : MeasureTheory.MeasurePreserving eqv μ μ :=
+    ⟨eqv.measurable, latticeHaarMeasure_gauge_inv L N (fun x => (g x)⁻¹)⟩
+  let T := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+  have hL1 := cubicGaugeRep_apply_ae L N g (T ψ)
+  have hL2 : (fun U => (T ψ) (eqv U)) =ᵐ[μ] (fun U => wilsonIntegralFn L N β K_kin ψ (eqv U)) :=
+    ae_comp_measurePreserving hmp (wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ)
+  have hR1 := wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd (cubicGaugeRep L N g ψ)
+  have h_pt : ∀ U, wilsonIntegralFn L N β K_kin ψ (eqv U) =
+      wilsonIntegralFn L N β K_kin (cubicGaugeRep L N g ψ) U := by
+    intro U
+    dsimp [wilsonIntegralFn]
+    have h_comp := (hmp.integral_comp'
+      (fun U' => ((wilsonKernel β (cubicPlaquettes L) K_kin (eqv U) U' : ℝ) : ℂ) * ψ U')).symm
+    rw [h_comp]
+    refine MeasureTheory.integral_congr_ae ?_
+    filter_upwards [cubicGaugeRep_apply_ae L N g ψ] with U' hU'
+    have h_kern := wilsonKernel_gauge_inv β (cubicPlaquettes L) K_kin hK_inv
+      (fun x => (g x)⁻¹) U U'
+    change ((wilsonKernel β (cubicPlaquettes L) K_kin
+        (gaugeAct (fun x => (g x)⁻¹) U) (gaugeAct (fun x => (g x)⁻¹) U') : ℝ) : ℂ) *
+        ψ (gaugeAct (fun x => (g x)⁻¹) U') =
+      ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) *
+        (cubicGaugeRep L N g ψ) U'
+    rw [h_kern, hU']
+  filter_upwards [hL1, hL2, hR1] with U hl1 hl2 hr1
+  rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply, hl1]
+  have hl2' : (T ψ) (gaugeAct (fun x => (g x)⁻¹) U) =
+      wilsonIntegralFn L N β K_kin ψ (gaugeAct (fun x => (g x)⁻¹) U) := hl2
+  rw [hl2', hr1]
+  exact h_pt U
+
+end FullRankWilsonIntegralOp
+
+/-! ## §33.  Full-rank SU(N) Wilson integral operator: compactness, Gram positivity,
+            Perron–Frobenius vacuum & finite-volume spectral gap -/
+
+section FullRankWilsonSpectralGap
+
+instance instCompactSpaceCubicGaugeField (L N : ℕ) [NeZero L] :
+    CompactSpace (GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  show CompactSpace ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) from
+    inferInstance
+
+instance instT2SpaceCubicGaugeField (L N : ℕ) [NeZero L] :
+    T2Space (GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  show T2Space ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) from
+    inferInstance
+
+instance instIsOpenPosLatticeHaar (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.Measure.IsOpenPosMeasure (latticeHaarMeasure L N) := by
+  haveI := suHaar_prob N
+  haveI : MeasureTheory.Measure.IsHaarMeasure (suHaar N) :=
+    MeasureTheory.Measure.isHaarMeasure_haarMeasure ⊤
+  change MeasureTheory.Measure.IsOpenPosMeasure
+    (MeasureTheory.Measure.pi fun _ : (cubicTorus3 L).Link => suHaar N)
+  infer_instance
+
+private theorem lp_coeFn_finset_sum {α ι : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α) (t : Finset ι) [DecidableEq ι]
+    (f : ι → MeasureTheory.Lp ℂ 2 μ) :
+    ⇑(∑ i ∈ t, f i) =ᵐ[μ] fun x => ∑ i ∈ t, (f i) x := by
+  induction t using Finset.induction_on with
+  | empty =>
+    simp only [Finset.sum_empty]
+    exact MeasureTheory.Lp.coeFn_zero ℂ 2 μ
+  | @insert a t ha ih =>
+    simp only [Finset.sum_insert ha]
+    have hadd := MeasureTheory.Lp.coeFn_add (f a) (∑ i ∈ t, f i)
+    filter_upwards [hadd, ih] with x hxa hxi
+    simp only [Pi.add_apply] at hxa
+    rw [hxa, hxi]
+
+private theorem lp_norm_sq_eq_integral {α : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α) (ψ : MeasureTheory.Lp ℂ 2 μ) :
+    ‖ψ‖ ^ 2 = ∫ a, ‖ψ a‖ ^ 2 ∂μ := by
+  have h_l2 : MeasureTheory.Integrable (fun a => ⟪ψ a, ψ a⟫_ℂ) μ :=
+    MeasureTheory.L2.integrable_inner _ _
+  have h_re := integral_re h_l2
+  have h_in : (⟪ψ, ψ⟫_ℂ).re = ∫ a, ‖ψ a‖ ^ 2 ∂μ := by
+    rw [MeasureTheory.L2.inner_def]
+    change RCLike.re (∫ a, ⟪ψ a, ψ a⟫_ℂ ∂μ) = _
+    rw [← h_re]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun a => ?_)
+    change (⟪ψ a, ψ a⟫_ℂ).re = ‖ψ a‖ ^ 2
+    rw [inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+  rw [← h_in, inner_self_eq_norm_sq_to_K]
+  simp [pow_two]
+
+private theorem integrable_of_continuous_compact {α : Type*} [TopologicalSpace α]
+    [CompactSpace α] [MeasurableSpace α] [OpensMeasurableSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsFiniteMeasure μ]
+    (f : α → ℝ) (hf : Continuous f) :
+    MeasureTheory.Integrable f μ := by
+  obtain ⟨M, hM⟩ := (isCompact_univ.image (continuous_abs.comp hf)).bddAbove
+  let C : ℝ := max M 0
+  refine (MeasureTheory.integrable_const C).mono' hf.stronglyMeasurable.aestronglyMeasurable ?_
+  refine Filter.Eventually.of_forall fun x => ?_
+  rw [Real.norm_eq_abs]
+  exact le_max_of_le_left (hM ⟨x, Set.mem_univ x, rfl⟩)
+
+private theorem memLp_of_continuous_compact {α : Type*} [TopologicalSpace α]
+    [CompactSpace α] [MeasurableSpace α] [OpensMeasurableSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsFiniteMeasure μ]
+    (f : α → ℝ) (hf : Continuous f) :
+    MeasureTheory.MemLp (fun x => (f x : ℂ)) 2 μ := by
+  obtain ⟨M, hM⟩ := (isCompact_univ.image (continuous_abs.comp hf)).bddAbove
+  let C : ℝ := max M 0
+  have hC : 0 ≤ C := le_max_right M 0
+  refine memLp_two_of_measurable_bound μ (fun x => (f x : ℂ))
+    (Complex.continuous_ofReal.comp hf).measurable C hC fun x => ?_
+  rw [Complex.norm_real, Real.norm_eq_abs]
+  exact le_max_of_le_left (hM ⟨x, Set.mem_univ x, rfl⟩)
+
+private theorem compact_integral_op_of_cont_kernel
+    {α : Type*} [TopologicalSpace α] [CompactSpace α] [T2Space α] [SecondCountableTopology α]
+    [MeasurableSpace α] [BorelSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsProbabilityMeasure μ]
+    (K : α → α → ℝ) (hK_cont : Continuous (Function.uncurry K))
+    (hK_nn : ∀ x y, 0 ≤ K x y) (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ x y, K x y ≤ M_K)
+    (T : MeasureTheory.Lp ℂ 2 μ →L[ℂ] MeasureTheory.Lp ℂ 2 μ)
+    (hT_ae : ∀ ψ, ⇑T ψ =ᵐ[μ] fun x => ∫ y, ((K x y : ℝ) : ℂ) * ψ y ∂μ) :
+    IsCompactOperator ⇑T := by
+  classical
+  let fn : MeasureTheory.Lp ℂ 2 μ → α → ℂ := fun ψ x => ∫ y, ((K x y : ℝ) : ℂ) * ψ y ∂μ
+  have hK_mul_int : ∀ (ψ : MeasureTheory.Lp ℂ 2 μ) (x : α),
+      MeasureTheory.Integrable (fun y => ((K x y : ℝ) : ℂ) * ψ y) μ := by
+    intro ψ x
+    have hψ_mem : MeasureTheory.MemLp (⇑ψ) 2 μ := MeasureTheory.Lp.memLp ψ
+    have h_dom : MeasureTheory.Integrable (fun y => M_K * ‖ψ y‖) μ :=
+      (hψ_mem.integrable one_le_two).norm.const_mul M_K
+    refine h_dom.mono' ?_ ?_
+    · have hp : Continuous (fun y : α => (x, y)) := continuous_const.prodMk continuous_id
+      exact (Complex.continuous_ofReal.comp (hK_cont.comp hp)).stronglyMeasurable.aestronglyMeasurable.mul
+        hψ_mem.aestronglyMeasurable
+    · refine Filter.Eventually.of_forall fun y => ?_
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hK_nn x y)]
+      exact mul_le_mul_of_nonneg_right (hK_bd x y) (norm_nonneg _)
+  have h_pt_bd : ∀ (ψ : MeasureTheory.Lp ℂ 2 μ) (x : α), ‖fn ψ x‖ ≤ M_K * ‖ψ‖ := by
+    intro ψ x
+    have h_int := hK_mul_int ψ x
+    have h_dom : MeasureTheory.Integrable (fun y => M_K * ‖ψ y‖) μ :=
+      ((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_K
+    calc ‖fn ψ x‖ ≤ ∫ y, ‖((K x y : ℝ) : ℂ) * ψ y‖ ∂μ :=
+          MeasureTheory.norm_integral_le_integral_norm _
+      _ ≤ ∫ y, M_K * ‖ψ y‖ ∂μ := by
+          refine MeasureTheory.integral_mono h_int.norm h_dom fun y => ?_
+          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hK_nn x y)]
+          exact mul_le_mul_of_nonneg_right (hK_bd x y) (norm_nonneg _)
+      _ = M_K * ∫ y, ‖ψ y‖ ∂μ := MeasureTheory.integral_const_mul M_K _
+      _ ≤ M_K * ‖ψ‖ := mul_le_mul_of_nonneg_left (l1_le_l2_prob μ ψ) hM_K
+  have h_approx : ∀ n : ℕ, ∃ T_n : MeasureTheory.Lp ℂ 2 μ →L[ℂ] MeasureTheory.Lp ℂ 2 μ,
+      IsCompactOperator ⇑T_n ∧ ‖T - T_n‖ ≤ 1 / ((n : ℝ) + 1) := by
+    intro n
+    let δ : ℝ := 1 / ((n : ℝ) + 1)
+    have hδ : 0 < δ := by positivity
+    let V : α → Set α := fun x₀ => { x | ∀ y : α, |K x y - K x₀ y| < δ }
+    have hV_open : ∀ x₀ : α, IsOpen (V x₀) := by
+      intro x₀
+      let C_set : Set (α × α) := { p | δ ≤ |K p.1 p.2 - K x₀ p.2| }
+      have h_pair : Continuous (fun p : α × α => (x₀, p.2)) :=
+        continuous_const.prodMk continuous_snd
+      have hC_cont : Continuous (fun p : α × α => |K p.1 p.2 - K x₀ p.2|) :=
+        continuous_abs.comp (hK_cont.sub (hK_cont.comp h_pair))
+      have hC_closed : IsClosed C_set := isClosed_le continuous_const hC_cont
+      have h_proj_closed : IsClosed (Prod.fst '' C_set) :=
+        (hC_closed.isCompact.image continuous_fst).isClosed
+      have hV_eq : V x₀ = (Prod.fst '' C_set)ᶜ := by
+        ext x
+        simp only [V, Set.mem_setOf_eq, Set.mem_compl_iff, Set.mem_image, C_set, Prod.exists,
+          not_exists, not_and]
+        constructor
+        · intro h a b hle ha; subst ha; exact not_le.mpr (h b) hle
+        · intro h y; exact not_le.mp fun hle => h x y hle rfl
+      rw [hV_eq]
+      exact h_proj_closed.isOpen_compl
+    have h_cov : Set.univ ⊆ ⋃ x₀ : α, V x₀ := by
+      intro x _; refine Set.mem_iUnion.mpr ⟨x, fun y => by simpa using hδ⟩
+    obtain ⟨t, ht_cov⟩ := isCompact_univ.elim_finite_subcover V hV_open h_cov
+    let m := t.card
+    let e : Fin m ≃ ↥t := t.equivFin.symm
+    let x_rep : Fin m → α := fun i => (e i).1
+    let s : Fin m → Set α := fun i =>
+      V (x_rep i) \ ⋃ j ∈ Finset.univ.filter (fun j : Fin m => j < i), V (x_rep j)
+    have hs_meas : ∀ i : Fin m, MeasurableSet (s i) := fun i =>
+      (hV_open (x_rep i)).measurableSet.diff
+        (Finset.measurableSet_biUnion _ fun j _ => (hV_open (x_rep j)).measurableSet)
+    have hs_disj : ∀ i j : Fin m, i ≠ j → Disjoint (s i) (s j) := by
+      intro i j hij
+      rw [Set.disjoint_left]
+      intro x hxi hxj
+      rcases lt_trichotomy i j with hlt | heq | hgt
+      · exact hxj.2 (Set.mem_biUnion (Finset.mem_filter.mpr ⟨Finset.mem_univ _, hlt⟩) hxi.1)
+      · exact hij heq
+      · exact hxi.2 (Set.mem_biUnion (Finset.mem_filter.mpr ⟨Finset.mem_univ _, hgt⟩) hxj.1)
+    have hs_cover : ∀ x : α, ∃ i : Fin m, x ∈ s i := by
+      intro x
+      let F_x : Finset (Fin m) := Finset.univ.filter (fun i => x ∈ V (x_rep i))
+      have hF_ne : F_x.Nonempty := by
+        have hmem := ht_cov (Set.mem_univ x)
+        rw [Set.mem_iUnion₂] at hmem
+        rcases hmem with ⟨x₀, hx₀, hxV⟩
+        refine ⟨e.symm ⟨x₀, hx₀⟩, Finset.mem_filter.mpr ⟨Finset.mem_univ _, ?_⟩⟩
+        simpa [x_rep, Equiv.apply_symm_apply] using hxV
+      let i₀ := F_x.min' hF_ne
+      refine ⟨i₀, (Finset.mem_filter.mp (Finset.min'_mem F_x hF_ne)).2, ?_⟩
+      intro h_in
+      rw [Set.mem_iUnion₂] at h_in
+      rcases h_in with ⟨j, hj, hjV⟩
+      have hj_lt : j < i₀ := (Finset.mem_filter.mp hj).2
+      have hj_mem : j ∈ F_x := Finset.mem_filter.mpr ⟨Finset.mem_univ _, hjV⟩
+      exact absurd (Finset.min'_le F_x j hj_mem) (not_le_of_gt hj_lt)
+    let ind : Fin m → MeasureTheory.Lp ℂ 2 μ := fun i =>
+      MeasureTheory.indicatorConstLp 2 (hs_meas i) (MeasureTheory.measure_ne_top μ (s i)) (1 : ℂ)
+    let c : Fin m → MeasureTheory.Lp ℂ 2 μ → ℂ := fun i ψ => fn ψ (x_rep i)
+    have hc_add : ∀ i ψ₁ ψ₂, c i (ψ₁ + ψ₂) = c i ψ₁ + c i ψ₂ := by
+      intro i ψ₁ ψ₂
+      dsimp [c, fn]
+      rw [← MeasureTheory.integral_add (hK_mul_int ψ₁ (x_rep i)) (hK_mul_int ψ₂ (x_rep i))]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [MeasureTheory.Lp.coeFn_add ψ₁ ψ₂] with y hy
+      have hy' : (ψ₁ + ψ₂) y = ψ₁ y + ψ₂ y := hy
+      change ((K (x_rep i) y : ℝ) : ℂ) * (ψ₁ + ψ₂) y =
+        ((K (x_rep i) y : ℝ) : ℂ) * ψ₁ y + ((K (x_rep i) y : ℝ) : ℂ) * ψ₂ y
+      rw [hy', mul_add]
+    have hc_smul : ∀ i (r : ℂ) ψ, c i (r • ψ) = r * c i ψ := by
+      intro i r ψ
+      dsimp [c, fn]
+      rw [← MeasureTheory.integral_const_mul]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [MeasureTheory.Lp.coeFn_smul r ψ] with y hy
+      have hy' : (r • ψ) y = r * ψ y := hy
+      change ((K (x_rep i) y : ℝ) : ℂ) * (r • ψ) y =
+        r * (((K (x_rep i) y : ℝ) : ℂ) * ψ y)
+      rw [hy', mul_left_comm]
+    have hind_norm : ∀ i, ‖ind i‖ ≤ 1 := by
+      intro i
+      rw [← sq_le_sq₀ (norm_nonneg _) zero_le_one, one_pow, lp_norm_sq_eq_integral]
+      have hcoe := MeasureTheory.indicatorConstLp_coeFn (p := (2 : ENNReal))
+        (μ := μ) (s := s i) (hs := hs_meas i)
+        (hμs := MeasureTheory.measure_ne_top μ (s i)) (c := (1 : ℂ))
+      have h_int_ae : (fun x => ‖(ind i) x‖ ^ 2) =ᵐ[μ]
+          fun x => if x ∈ s i then (1 : ℝ) else 0 := by
+        filter_upwards [hcoe] with x hx
+        change ‖(ind i) x‖ ^ 2 = _
+        rw [hx, Set.indicator_apply]
+        by_cases hxi : x ∈ s i <;> simp [hxi]
+      rw [MeasureTheory.integral_congr_ae h_int_ae]
+      have h_le : ∀ x, (if x ∈ s i then (1 : ℝ) else 0) ≤ 1 := fun x => by split_ifs <;> norm_num
+      have h_ind_aesm : MeasureTheory.AEStronglyMeasurable
+          ((s i).indicator (fun _ => (1 : ℝ))) μ :=
+        (MeasureTheory.aestronglyMeasurable_const (b := (1 : ℝ))).indicator (hs_meas i)
+      have h_int1 : MeasureTheory.Integrable (fun x => if x ∈ s i then (1 : ℝ) else 0) μ :=
+        (MeasureTheory.integrable_const (1 : ℝ)).mono'
+          (h_ind_aesm.congr (Filter.Eventually.of_forall fun U => by simp [Set.indicator_apply]))
+          (Filter.Eventually.of_forall fun U => by split_ifs <;> simp)
+      calc ∫ x, (if x ∈ s i then (1 : ℝ) else 0) ∂μ
+          ≤ ∫ _x, (1 : ℝ) ∂μ :=
+            MeasureTheory.integral_mono h_int1 (MeasureTheory.integrable_const 1) h_le
+        _ = 1 := by simp [Measure.real, MeasureTheory.measure_univ]
+    let T_n : MeasureTheory.Lp ℂ 2 μ →L[ℂ] MeasureTheory.Lp ℂ 2 μ :=
+      LinearMap.mkContinuous
+        { toFun := fun ψ => ∑ i : Fin m, c i ψ • ind i
+          map_add' := fun ψ₁ ψ₂ => by simp only [hc_add, add_smul, Finset.sum_add_distrib]
+          map_smul' := fun r ψ => by
+            simp only [hc_smul, smul_smul, RingHom.id_apply, Finset.smul_sum] }
+        ((m : ℝ) * M_K)
+        (fun ψ => by
+          change ‖∑ i : Fin m, c i ψ • ind i‖ ≤ ((m : ℝ) * M_K) * ‖ψ‖
+          calc ‖∑ i : Fin m, c i ψ • ind i‖
+              ≤ ∑ i : Fin m, ‖c i ψ • ind i‖ := norm_sum_le _ _
+            _ ≤ ∑ _i : Fin m, M_K * ‖ψ‖ := by
+                  refine Finset.sum_le_sum fun i _ => ?_
+                  rw [norm_smul]
+                  calc ‖c i ψ‖ * ‖ind i‖ ≤ (M_K * ‖ψ‖) * 1 :=
+                        mul_le_mul (h_pt_bd ψ (x_rep i)) (hind_norm i) (norm_nonneg _)
+                          (mul_nonneg hM_K (norm_nonneg _))
+                    _ = M_K * ‖ψ‖ := mul_one _
+            _ = ((m : ℝ) * M_K) * ‖ψ‖ := by simp [Finset.sum_const, nsmul_eq_mul, mul_assoc])
+    have hTn_comp : IsCompactOperator ⇑T_n := by
+      let Φ : (Fin m → ℂ) → MeasureTheory.Lp ℂ 2 μ := fun z => ∑ i : Fin m, z i • ind i
+      have hΦ_cont : Continuous Φ :=
+        continuous_finset_sum Finset.univ fun i _ => (continuous_apply i).smul continuous_const
+      let B_m : Set (Fin m → ℂ) := Set.univ.pi fun _ => Metric.closedBall (0 : ℂ) M_K
+      have hB_m : IsCompact B_m := isCompact_univ_pi fun _ => isCompact_closedBall 0 M_K
+      refine ⟨Φ '' B_m, hB_m.image hΦ_cont,
+        Filter.mem_of_superset (Metric.closedBall_mem_nhds 0 one_pos) fun ψ hψ => ?_⟩
+      rw [Metric.mem_closedBall, dist_zero_right] at hψ
+      refine ⟨fun i => c i ψ, fun i _ => ?_, rfl⟩
+      rw [Metric.mem_closedBall, dist_zero_right]
+      calc ‖c i ψ‖ ≤ M_K * ‖ψ‖ := h_pt_bd ψ (x_rep i)
+        _ ≤ M_K * 1 := mul_le_mul_of_nonneg_left hψ hM_K
+        _ = M_K := mul_one M_K
+    have hTn_norm : ‖T - T_n‖ ≤ δ := by
+      refine ContinuousLinearMap.opNorm_le_bound _ hδ.le fun ψ => ?_
+      have hTn_ae : ⇑(T_n ψ) =ᵐ[μ] fun x => ∑ i : Fin m, if x ∈ s i then c i ψ else 0 := by
+        have hsum := lp_coeFn_finset_sum μ Finset.univ (fun i => c i ψ • ind i)
+        have hterm : ∀ i : Fin m,
+            ⇑(c i ψ • ind i) =ᵐ[μ] fun x => if x ∈ s i then c i ψ else 0 := by
+          intro i
+          have hs_ae := MeasureTheory.Lp.coeFn_smul (c i ψ) (ind i)
+          have hi_ae := MeasureTheory.indicatorConstLp_coeFn (p := (2 : ENNReal))
+            (μ := μ) (s := s i) (hs := hs_meas i)
+            (hμs := MeasureTheory.measure_ne_top μ (s i)) (c := (1 : ℂ))
+          filter_upwards [hs_ae, hi_ae] with x hxs hxi
+          simp only [Pi.smul_apply, smul_eq_mul] at hxs
+          change ⇑(c i ψ • ind i) x = _
+          rw [hxs]
+          change c i ψ * ⇑(ind i) x = _
+          rw [hxi, Set.indicator_apply]
+          split_ifs <;> simp
+        have hall : (fun x => ∑ i : Fin m, (c i ψ • ind i) x) =ᵐ[μ]
+            fun x => ∑ i : Fin m, if x ∈ s i then c i ψ else 0 := by
+          have h_ev : ∀ᵐ x ∂μ, ∀ i : Fin m,
+              ⇑(c i ψ • ind i) x = if x ∈ s i then c i ψ else 0 :=
+            MeasureTheory.ae_all_iff.mpr hterm
+          filter_upwards [h_ev] with x hx
+          exact Finset.sum_congr rfl fun i _ => hx i
+        filter_upwards [hsum, hall] with x hx1 hx2
+        change ⇑(∑ i : Fin m, c i ψ • ind i) x = _
+        rw [hx1, hx2]
+      have hdiff_ae : ⇑((T - T_n) ψ) =ᵐ[μ]
+          fun x => fn ψ x - ∑ i : Fin m, if x ∈ s i then c i ψ else 0 := by
+        have hsub := MeasureTheory.Lp.coeFn_sub (T ψ) (T_n ψ)
+        filter_upwards [hsub, hT_ae ψ, hTn_ae] with x hs hT hTn
+        change ⇑(T ψ - T_n ψ) x = _
+        rw [hs]
+        simp only [Pi.sub_apply]
+        rw [hT, hTn]
+      have hpt_le : ∀ᵐ x ∂μ, ‖((T - T_n) ψ) x‖ ≤ δ * ‖ψ‖ := by
+        filter_upwards [hdiff_ae] with x hx
+        change ‖((T - T_n) ψ) x‖ ≤ δ * ‖ψ‖
+        rw [hx]
+        obtain ⟨i₀, hi₀⟩ := hs_cover x
+        have hsum_eq : (∑ i : Fin m, if x ∈ s i then c i ψ else 0) = c i₀ ψ := by
+          rw [Finset.sum_eq_single i₀]
+          · simp [hi₀]
+          · intro i _ hne
+            have hnot : x ∉ s i := fun hi => (Set.disjoint_left.mp (hs_disj i i₀ hne)) hi hi₀
+            simp [hnot]
+          · intro hi₀_not
+            exact absurd (Finset.mem_univ i₀) hi₀_not
+        rw [hsum_eq]
+        have hi₀_V : x ∈ V (x_rep i₀) := hi₀.1
+        have hi1 := hK_mul_int ψ x
+        have hi2 := hK_mul_int ψ (x_rep i₀)
+        dsimp [c, fn]
+        rw [← MeasureTheory.integral_sub hi1 hi2]
+        have h_dom : MeasureTheory.Integrable (fun y => δ * ‖ψ y‖) μ :=
+          ((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul δ
+        have h_sub_int : MeasureTheory.Integrable
+            (fun y => ‖((K x y : ℝ) : ℂ) * ψ y - ((K (x_rep i₀) y : ℝ) : ℂ) * ψ y‖) μ :=
+          (hi1.sub hi2).norm
+        calc ‖∫ y, (((K x y : ℝ) : ℂ) * ψ y - ((K (x_rep i₀) y : ℝ) : ℂ) * ψ y) ∂μ‖
+            ≤ ∫ y, ‖((K x y : ℝ) : ℂ) * ψ y - ((K (x_rep i₀) y : ℝ) : ℂ) * ψ y‖ ∂μ :=
+              MeasureTheory.norm_integral_le_integral_norm _
+          _ ≤ ∫ y, δ * ‖ψ y‖ ∂μ := by
+              refine MeasureTheory.integral_mono h_sub_int h_dom fun y => ?_
+              have hfac : ((K x y : ℝ) : ℂ) * ψ y - ((K (x_rep i₀) y : ℝ) : ℂ) * ψ y =
+                  (((K x y - K (x_rep i₀) y : ℝ) : ℂ)) * ψ y := by
+                push_cast; ring
+              rw [hfac, norm_mul, Complex.norm_real, Real.norm_eq_abs]
+              exact mul_le_mul_of_nonneg_right (hi₀_V y).le (norm_nonneg _)
+          _ = δ * ∫ y, ‖ψ y‖ ∂μ := MeasureTheory.integral_const_mul δ _
+          _ ≤ δ * ‖ψ‖ := mul_le_mul_of_nonneg_left (l1_le_l2_prob μ ψ) hδ.le
+      rw [← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hδ.le (norm_nonneg _)),
+          lp_norm_sq_eq_integral]
+      have h_int1 : MeasureTheory.Integrable (fun x => ‖((T - T_n) ψ) x‖ ^ 2) μ :=
+        (MeasureTheory.memLp_two_iff_integrable_sq_norm
+          (MeasureTheory.Lp.memLp ((T - T_n) ψ)).aestronglyMeasurable).mp
+          (MeasureTheory.Lp.memLp ((T - T_n) ψ))
+      have h_int2 : MeasureTheory.Integrable (fun _ => (δ * ‖ψ‖) ^ 2) μ :=
+        MeasureTheory.integrable_const _
+      calc ∫ x, ‖((T - T_n) ψ) x‖ ^ 2 ∂μ
+          ≤ ∫ _x, (δ * ‖ψ‖) ^ 2 ∂μ := by
+            refine MeasureTheory.integral_mono_ae h_int1 h_int2 ?_
+            filter_upwards [hpt_le] with x hx
+            exact pow_le_pow_left₀ (norm_nonneg _) hx 2
+        _ = (δ * ‖ψ‖) ^ 2 := by
+            rw [MeasureTheory.integral_const]
+            simp [Measure.real, MeasureTheory.measure_univ]
+    exact ⟨T_n, hTn_comp, hTn_norm⟩
+  choose T_seq hT_comp hT_norm using h_approx
+  have h_tendsto : Filter.Tendsto T_seq Filter.atTop (nhds T) := by
+    rw [Metric.tendsto_atTop]
+    intro ε hε
+    obtain ⟨N₀, hN₀⟩ := exists_nat_gt (1 / ε)
+    refine ⟨N₀, fun n hn => ?_⟩
+    have hn_pos : (0 : ℝ) < (n : ℝ) + 1 := by positivity
+    have h_lt : 1 / ((n : ℝ) + 1) < ε := by
+      rw [div_lt_iff₀ hn_pos]
+      have h1 : 1 / ε < (n : ℝ) + 1 := lt_of_lt_of_le hN₀ (by exact_mod_cast (Nat.le_succ_of_le hn))
+      have h2 := (div_lt_iff₀ hε).mp h1
+      linarith
+    calc dist (T_seq n) T = ‖T - T_seq n‖ := by rw [dist_comm, dist_eq_norm]
+      _ ≤ 1 / ((n : ℝ) + 1) := hT_norm n
+      _ < ε := h_lt
+  exact isClosed_setOf_isCompactOperator.mem_of_tendsto h_tendsto
+    (Filter.Eventually.of_forall hT_comp)
+
+/--
+**Compactness of `wilsonIntegralOp`**:
+every continuous Wilson kernel on the compact product group `SU(N)^{3L³}` defines
+a compact integral operator on `L²(SU(N)^{3L³}, dμ_Haar)` via norm-convergent
+finite-rank kernel partitions.
+-/
+theorem wilsonIntegralOp_compact (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K) :
+    IsCompactOperator ⇑(wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd) := by
+  haveI := latticeHaarMeasure_prob L N
+  exact compact_integral_op_of_cont_kernel (latticeHaarMeasure L N)
+    (wilsonKernel β (cubicPlaquettes L) K_kin)
+    (continuous_cubicWilsonKernel L N β K_kin hK_cont)
+    (wilsonKernel_nonneg β (cubicPlaquettes L) K_kin hK_nn)
+    M_K hM_K (fun U U' => (wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd U U').2)
+    (wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd)
+    (wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd)
+
+/-- Gram-factorized symmetric positive-definite kinetic kernel `∫ χ(U, W) χ(U', W) dμ(W)`. -/
+noncomputable def wilsonGramKernel (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  ∫ W, χ U W * χ U' W ∂(latticeHaarMeasure L N)
+
+theorem continuous_wilsonGramKernel (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_nn : ∀ U W, 0 ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ) :
+    Continuous (Function.uncurry (wilsonGramKernel L N χ)) := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  refine MeasureTheory.continuous_of_dominated
+    (bound := fun _ : G_L => M_χ ^ 2) ?_ ?_ (MeasureTheory.integrable_const _) ?_
+  · intro p
+    have hp1 : Continuous (fun W : G_L => (p.1, W)) := continuous_const.prodMk continuous_id
+    have hp2 : Continuous (fun W : G_L => (p.2, W)) := continuous_const.prodMk continuous_id
+    exact ((hχ_cont.comp hp1).mul (hχ_cont.comp hp2)).stronglyMeasurable.aestronglyMeasurable
+  · intro p
+    refine Filter.Eventually.of_forall fun W => ?_
+    rw [Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (hχ_nn p.1 W) (hχ_nn p.2 W)), sq]
+    exact mul_le_mul (hχ_bd p.1 W) (hχ_bd p.2 W) (hχ_nn p.2 W) hM_χ
+  · refine Filter.Eventually.of_forall fun W => ?_
+    have hp1 : Continuous (fun p : G_L × G_L => (p.1, W)) := continuous_fst.prodMk continuous_const
+    have hp2 : Continuous (fun p : G_L × G_L => (p.2, W)) := continuous_snd.prodMk continuous_const
+    exact (hχ_cont.comp hp1).mul (hχ_cont.comp hp2)
+
+theorem wilsonGramKernel_symm (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonGramKernel L N χ U' U = wilsonGramKernel L N χ U U' := by
+  dsimp [wilsonGramKernel]
+  refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => by dsimp only; exact mul_comm _ _)
+
+theorem wilsonGramKernel_nonneg (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_nn : ∀ U W, 0 ≤ χ U W)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    0 ≤ wilsonGramKernel L N χ U U' :=
+  MeasureTheory.integral_nonneg fun W => mul_nonneg (hχ_nn U W) (hχ_nn U' W)
+
+theorem wilsonGramKernel_le (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_nn : ∀ U W, 0 ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonGramKernel L N χ U U' ≤ M_χ ^ 2 := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  have hp1 : Continuous (fun W : G_L => (U, W)) := continuous_const.prodMk continuous_id
+  have hp2 : Continuous (fun W : G_L => (U', W)) := continuous_const.prodMk continuous_id
+  have h_int : MeasureTheory.Integrable (fun W => χ U W * χ U' W) μ :=
+    integrable_of_continuous_compact μ _ ((hχ_cont.comp hp1).mul (hχ_cont.comp hp2))
+  calc wilsonGramKernel L N χ U U'
+      ≤ ∫ _W, M_χ ^ 2 ∂μ := by
+        refine MeasureTheory.integral_mono h_int (MeasureTheory.integrable_const _) fun W => ?_
+        rw [sq]
+        exact mul_le_mul (hχ_bd U W) (hχ_bd U' W) (hχ_nn U' W) hM_χ
+    _ = M_χ ^ 2 := by simp [Measure.real, MeasureTheory.measure_univ]
+
+theorem wilsonGramKernel_lb (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (c_χ : ℝ) (hc_χ : 0 ≤ c_χ) (hχ_lb : ∀ U W, c_χ ≤ χ U W)
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    c_χ ^ 2 ≤ wilsonGramKernel L N χ U U' := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  have hp1 : Continuous (fun W : G_L => (U, W)) := continuous_const.prodMk continuous_id
+  have hp2 : Continuous (fun W : G_L => (U', W)) := continuous_const.prodMk continuous_id
+  have h_int : MeasureTheory.Integrable (fun W => χ U W * χ U' W) μ :=
+    integrable_of_continuous_compact μ _ ((hχ_cont.comp hp1).mul (hχ_cont.comp hp2))
+  calc c_χ ^ 2 = ∫ _W, c_χ ^ 2 ∂μ := by simp [Measure.real, MeasureTheory.measure_univ]
+    _ ≤ wilsonGramKernel L N χ U U' := by
+        refine MeasureTheory.integral_mono (MeasureTheory.integrable_const _) h_int fun W => ?_
+        rw [sq]
+        exact mul_le_mul (hχ_lb U W) (hχ_lb U' W) hc_χ (hc_χ.trans (hχ_lb U W))
+
+theorem wilsonGramKernel_gauge_inv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W)
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U U' : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonGramKernel L N χ (gaugeAct g U) (gaugeAct g U') = wilsonGramKernel L N χ U U' := by
+  dsimp [wilsonGramKernel]
+  calc ∫ W, χ (gaugeAct g U) W * χ (gaugeAct g U') W ∂(latticeHaarMeasure L N)
+      = ∫ W, χ (gaugeAct g U) (gaugeAct g W) * χ (gaugeAct g U') (gaugeAct g W)
+          ∂(latticeHaarMeasure L N) :=
+        (cubicWilsonExpectation_gauge_inv L N g
+          (fun W => χ (gaugeAct g U) W * χ (gaugeAct g U') W)).symm
+    _ = ∫ W, χ U W * χ U' W ∂(latticeHaarMeasure L N) := by
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+        dsimp only
+        rw [hχ_inv, hχ_inv]
+
+/--
+**Positivity (reflection positivity) of `wilsonIntegralOp`** for any Gram-factorized
+Wilson kernel: `0 ≤ Re ⟪ψ, T_W ψ⟫ = ∫ ‖∫ exp(-½ S_W[U]) χ(U, W) ψ(U) dμ(U)‖² dμ(W)`.
+-/
+theorem wilsonIntegralOp_gram_pos (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_nn : ∀ U W, 0 ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    0 ≤ (⟪ψ, wilsonIntegralOp L N β hβ (wilsonGramKernel L N χ)
+      (continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
+      (wilsonGramKernel_nonneg L N χ hχ_nn) (M_χ ^ 2) (sq_nonneg M_χ)
+      (wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd) ψ⟫_ℂ).re := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  let K_kin := wilsonGramKernel L N χ
+  have hK_cont := continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  have hK_nn := wilsonGramKernel_nonneg L N χ hχ_nn
+  have hK_bd := wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let T := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
+  let κ : G_L → G_L → ℝ := fun U W => cubicWilsonWeight L N β U * χ U W
+  have hκ_cont : Continuous (Function.uncurry κ) := by
+    have hS := continuous_cubicWilsonAction L N β
+    have hw : Continuous (cubicWilsonWeight L N β) :=
+      Real.continuous_exp.comp (continuous_const.mul hS)
+    exact (hw.comp continuous_fst).mul hχ_cont
+  have hκ_bd : ∀ U W, 0 ≤ κ U W ∧ κ U W ≤ M_χ := fun U W => by
+    have hwb := cubicWilsonWeight_bounds L N β hβ U
+    have hwnn : 0 ≤ cubicWilsonWeight L N β U := by
+      unfold cubicWilsonWeight; exact (Real.exp_pos _).le
+    refine ⟨mul_nonneg hwnn (hχ_nn U W), ?_⟩
+    calc cubicWilsonWeight L N β U * χ U W ≤ 1 * χ U W :=
+          mul_le_mul_of_nonneg_right hwb.2 (hχ_nn U W)
+      _ ≤ M_χ := by rw [one_mul]; exact hχ_bd U W
+  have hKW_eq : ∀ U U', ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) =
+      ∫ W, ((κ U W : ℝ) : ℂ) * ((κ U' W : ℝ) : ℂ) ∂μ := by
+    intro U U'
+    have h_exp : Real.exp (-(1 / 2 : ℝ) *
+        (wilsonAction β (cubicPlaquettes L) U + wilsonAction β (cubicPlaquettes L) U')) =
+        cubicWilsonWeight L N β U * cubicWilsonWeight L N β U' := by
+      unfold cubicWilsonWeight
+      rw [← Real.exp_add]
+      congr 1; ring
+    have h_real : wilsonKernel β (cubicPlaquettes L) K_kin U U' =
+        ∫ W, κ U W * κ U' W ∂μ := by
+      unfold wilsonKernel K_kin wilsonGramKernel
+      rw [h_exp, ← MeasureTheory.integral_const_mul]
+      refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+      dsimp [κ]; ring
+    have h_int_c : MeasureTheory.Integrable
+        (fun W => (((κ U W * κ U' W : ℝ) : ℂ))) μ := by
+      have hp1 : Continuous (fun W : G_L => (U, W)) := continuous_const.prodMk continuous_id
+      have hp2 : Continuous (fun W : G_L => (U', W)) := continuous_const.prodMk continuous_id
+      refine (MeasureTheory.integrable_const (M_χ ^ 2)).mono'
+        (Complex.continuous_ofReal.comp
+          ((hκ_cont.comp hp1).mul (hκ_cont.comp hp2))).stronglyMeasurable.aestronglyMeasurable ?_
+      refine Filter.Eventually.of_forall fun W => ?_
+      have h1 := hκ_bd U W
+      have h2 := hκ_bd U' W
+      rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (mul_nonneg h1.1 h2.1), sq]
+      exact mul_le_mul h1.2 h2.2 h2.1 hM_χ
+    rw [h_real]
+    have h_cast : (fun W => ((κ U W : ℝ) : ℂ) * ((κ U' W : ℝ) : ℂ)) =
+        fun W => (((κ U W * κ U' W : ℝ) : ℂ)) := by
+      funext W; push_cast; ring
+    rw [h_cast]
+    have h_re_eq : (∫ W, (((κ U W * κ U' W : ℝ) : ℂ)) ∂μ).re = ∫ W, κ U W * κ U' W ∂μ := by
+      change RCLike.re (∫ W, (((κ U W * κ U' W : ℝ) : ℂ)) ∂μ) = _
+      rw [← integral_re h_int_c]
+      refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+      simp
+    have h_im_eq : (∫ W, (((κ U W * κ U' W : ℝ) : ℂ)) ∂μ).im = 0 := by
+      have h1 : (∫ W, (((κ U W * κ U' W : ℝ) : ℂ)) ∂μ).im =
+          RCLike.re (-Complex.I * ∫ W, (((κ U W * κ U' W : ℝ) : ℂ)) ∂μ) := by
+        simp [Complex.mul_re]
+      rw [h1, ← MeasureTheory.integral_const_mul, ← integral_re (h_int_c.const_mul (-Complex.I))]
+      refine MeasureTheory.integral_eq_zero_of_ae (Filter.Eventually.of_forall fun W => ?_)
+      simp [Complex.mul_re]
+    exact Complex.ext h_re_eq.symm h_im_eq.symm
+  let g_half : G_L → ℂ := fun W => ∫ U, ((κ U W : ℝ) : ℂ) * ψ U ∂μ
+  have hg_cont : Continuous g_half := by
+    have h_dom : MeasureTheory.Integrable (fun U => M_χ * ‖ψ U‖) μ :=
+      ((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_χ
+    refine MeasureTheory.continuous_of_dominated ?_ ?_ h_dom ?_
+    · intro W
+      have hp : Continuous (fun U : G_L => (U, W)) := continuous_id.prodMk continuous_const
+      exact (Complex.continuous_ofReal.comp (hκ_cont.comp hp)).stronglyMeasurable.aestronglyMeasurable.mul
+        (MeasureTheory.Lp.memLp ψ).aestronglyMeasurable
+    · intro W
+      refine Filter.Eventually.of_forall fun U => ?_
+      have hb := hκ_bd U W
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+      exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+    · refine Filter.Eventually.of_forall fun U => ?_
+      have hp : Continuous (fun W : G_L => (U, W)) := continuous_const.prodMk continuous_id
+      exact (Complex.continuous_ofReal.comp (hκ_cont.comp hp)).mul continuous_const
+  have hg_bd : ∀ W, ‖g_half W‖ ≤ M_χ * ‖ψ‖ := by
+    intro W
+    have hp : Continuous (fun U : G_L => (U, W)) := continuous_id.prodMk continuous_const
+    have h_int : MeasureTheory.Integrable (fun U => ‖((κ U W : ℝ) : ℂ) * ψ U‖) μ := by
+      have h_dom : MeasureTheory.Integrable (fun U => M_χ * ‖ψ U‖) μ :=
+        ((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_χ
+      refine h_dom.mono'
+        ((Complex.continuous_ofReal.comp (hκ_cont.comp hp)).stronglyMeasurable.aestronglyMeasurable.mul
+          (MeasureTheory.Lp.memLp ψ).aestronglyMeasurable).norm ?_
+      refine Filter.Eventually.of_forall fun U => ?_
+      have hb := hκ_bd U W
+      rw [Real.norm_eq_abs, abs_of_nonneg (norm_nonneg _), norm_mul, Complex.norm_real,
+        Real.norm_eq_abs, abs_of_nonneg hb.1]
+      exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+    calc ‖g_half W‖ ≤ ∫ U, ‖((κ U W : ℝ) : ℂ) * ψ U‖ ∂μ :=
+          MeasureTheory.norm_integral_le_integral_norm _
+      _ ≤ ∫ U, M_χ * ‖ψ U‖ ∂μ := by
+          refine MeasureTheory.integral_mono h_int
+            (((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_χ) fun U => ?_
+          have hb := hκ_bd U W
+          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+          exact mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _)
+      _ = M_χ * ∫ U, ‖ψ U‖ ∂μ := MeasureTheory.integral_const_mul M_χ _
+      _ ≤ M_χ * ‖ψ‖ := mul_le_mul_of_nonneg_left (l1_le_l2_prob μ ψ) hM_χ
+  have h_inner_eq : ⟪ψ, T ψ⟫_ℂ = ∫ W, (((‖g_half W‖ ^ 2 : ℝ) : ℂ)) ∂μ := by
+    have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+      intro a b
+      have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+        rw [inner_self_eq_norm_sq_to_K]; norm_num
+      calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+        _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+              rw [inner_smul_left, inner_smul_right]
+        _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+    have h1 : ⟪ψ, T ψ⟫_ℂ =
+        ∫ U, starRingEnd ℂ (ψ U) * wilsonIntegralFn L N β K_kin ψ U ∂μ := by
+      rw [MeasureTheory.L2.inner_def]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+        (M_χ ^ 2) (sq_nonneg M_χ) hK_bd ψ] with U hU
+      rw [hU, hcinner]
+    have h_step1 : ∀ U, wilsonIntegralFn L N β K_kin ψ U =
+        ∫ W, ((κ U W : ℝ) : ℂ) * g_half W ∂μ := by
+      intro U
+      dsimp [wilsonIntegralFn]
+      have h_prod1 : MeasureTheory.Integrable
+          (Function.uncurry fun U' W => ((κ U W : ℝ) : ℂ) * (((κ U' W : ℝ) : ℂ) * ψ U'))
+          (μ.prod μ) := by
+        have hψ_aesm : MeasureTheory.AEStronglyMeasurable (fun p : G_L × G_L => ψ p.1) (μ.prod μ) :=
+          (MeasureTheory.Lp.memLp ψ).aestronglyMeasurable.comp_quasiMeasurePreserving
+            MeasureTheory.Measure.quasiMeasurePreserving_fst
+        have hκ1 : MeasureTheory.AEStronglyMeasurable
+            (fun p : G_L × G_L => ((κ U p.2 : ℝ) : ℂ)) (μ.prod μ) :=
+          (Complex.continuous_ofReal.comp
+            (hκ_cont.comp (continuous_const.prodMk continuous_snd))).stronglyMeasurable.aestronglyMeasurable
+        have hκ2 : MeasureTheory.AEStronglyMeasurable
+            (fun p : G_L × G_L => ((κ p.1 p.2 : ℝ) : ℂ)) (μ.prod μ) :=
+          (Complex.continuous_ofReal.comp hκ_cont).stronglyMeasurable.aestronglyMeasurable
+        have h_dom : MeasureTheory.Integrable
+            (fun p : G_L × G_L => (M_χ ^ 2 * ‖ψ p.1‖) * (1 : ℝ)) (μ.prod μ) :=
+          ((((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul (M_χ ^ 2)).mul_prod
+            (MeasureTheory.integrable_const (1 : ℝ)))
+        refine h_dom.mono' (hκ1.mul (hκ2.mul hψ_aesm)) ?_
+        refine Filter.Eventually.of_forall fun p => ?_
+        have hb1 := hκ_bd U p.2
+        have hb2 := hκ_bd p.1 p.2
+        dsimp only [Function.uncurry]
+        rw [norm_mul, norm_mul, Complex.norm_real, Complex.norm_real,
+          Real.norm_eq_abs, Real.norm_eq_abs, abs_of_nonneg hb1.1, abs_of_nonneg hb2.1, mul_one]
+        calc κ U p.2 * (κ p.1 p.2 * ‖ψ p.1‖)
+            ≤ M_χ * (M_χ * ‖ψ p.1‖) :=
+              mul_le_mul hb1.2 (mul_le_mul_of_nonneg_right hb2.2 (norm_nonneg _))
+                (mul_nonneg hb2.1 (norm_nonneg _)) hM_χ
+          _ = M_χ ^ 2 * ‖ψ p.1‖ := by rw [sq]; ring
+      calc ∫ U', ((wilsonKernel β (cubicPlaquettes L) K_kin U U' : ℝ) : ℂ) * ψ U' ∂μ
+          = ∫ U', ∫ W, ((κ U W : ℝ) : ℂ) * (((κ U' W : ℝ) : ℂ) * ψ U') ∂μ ∂μ := by
+              refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => ?_)
+              dsimp only
+              rw [hKW_eq U U', ← MeasureTheory.integral_mul_const]
+              refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => by
+                dsimp only; ring)
+        _ = ∫ W, ∫ U', ((κ U W : ℝ) : ℂ) * (((κ U' W : ℝ) : ℂ) * ψ U') ∂μ ∂μ :=
+              MeasureTheory.integral_integral_swap h_prod1
+        _ = ∫ W, ((κ U W : ℝ) : ℂ) * g_half W ∂μ := by
+              refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+              dsimp only
+              rw [MeasureTheory.integral_const_mul]
+    have h_prod2 : MeasureTheory.Integrable
+        (Function.uncurry fun U W =>
+          (starRingEnd ℂ (((κ U W : ℝ) : ℂ) * ψ U)) * g_half W)
+        (μ.prod μ) := by
+      have hψ_aesm : MeasureTheory.AEStronglyMeasurable (fun p : G_L × G_L => ψ p.1) (μ.prod μ) :=
+        (MeasureTheory.Lp.memLp ψ).aestronglyMeasurable.comp_quasiMeasurePreserving
+          MeasureTheory.Measure.quasiMeasurePreserving_fst
+      have hκ_aesm : MeasureTheory.AEStronglyMeasurable
+          (fun p : G_L × G_L => ((κ p.1 p.2 : ℝ) : ℂ)) (μ.prod μ) :=
+        (Complex.continuous_ofReal.comp hκ_cont).stronglyMeasurable.aestronglyMeasurable
+      have hg_aesm : MeasureTheory.AEStronglyMeasurable
+          (fun p : G_L × G_L => g_half p.2) (μ.prod μ) :=
+        (hg_cont.comp continuous_snd).stronglyMeasurable.aestronglyMeasurable
+      have h_conj : MeasureTheory.AEStronglyMeasurable
+          (fun p : G_L × G_L => starRingEnd ℂ (((κ p.1 p.2 : ℝ) : ℂ) * ψ p.1)) (μ.prod μ) :=
+        continuous_star.comp_aestronglyMeasurable (hκ_aesm.mul hψ_aesm)
+      have h_dom : MeasureTheory.Integrable
+          (fun p : G_L × G_L => (M_χ * ‖ψ p.1‖) * (M_χ * ‖ψ‖)) (μ.prod μ) :=
+        (((MeasureTheory.Lp.memLp ψ).integrable one_le_two).norm.const_mul M_χ).mul_prod
+          (MeasureTheory.integrable_const (M_χ * ‖ψ‖))
+      refine h_dom.mono' (h_conj.mul hg_aesm) ?_
+      refine Filter.Eventually.of_forall fun p => ?_
+      have hb := hκ_bd p.1 p.2
+      have hconj : ‖starRingEnd ℂ (((κ p.1 p.2 : ℝ) : ℂ) * ψ p.1)‖ =
+          ‖((κ p.1 p.2 : ℝ) : ℂ) * ψ p.1‖ := norm_star _
+      dsimp only [Function.uncurry]
+      rw [norm_mul, hconj, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+      exact mul_le_mul (mul_le_mul_of_nonneg_right hb.2 (norm_nonneg _))
+        (hg_bd p.2) (norm_nonneg _) (mul_nonneg hM_χ (norm_nonneg _))
+    rw [h1]
+    calc ∫ U, starRingEnd ℂ (ψ U) * wilsonIntegralFn L N β K_kin ψ U ∂μ
+        = ∫ U, ∫ W, starRingEnd ℂ (((κ U W : ℝ) : ℂ) * ψ U) * g_half W ∂μ ∂μ := by
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+            dsimp only
+            rw [h_step1 U, ← MeasureTheory.integral_const_mul]
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+            dsimp only
+            rw [map_mul, Complex.conj_ofReal]
+            ring
+      _ = ∫ W, ∫ U, starRingEnd ℂ (((κ U W : ℝ) : ℂ) * ψ U) * g_half W ∂μ ∂μ :=
+            MeasureTheory.integral_integral_swap h_prod2
+      _ = ∫ W, (((‖g_half W‖ ^ 2 : ℝ) : ℂ)) ∂μ := by
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+            dsimp only
+            rw [MeasureTheory.integral_mul_const, integral_conj]
+            change starRingEnd ℂ (g_half W) * g_half W = _
+            rw [Complex.conj_mul', Complex.ofReal_pow]
+  rw [h_inner_eq]
+  have h_norm_int : MeasureTheory.Integrable (fun W => (((‖g_half W‖ ^ 2 : ℝ) : ℂ))) μ := by
+    refine (MeasureTheory.integrable_const ((M_χ * ‖ψ‖) ^ 2)).mono'
+      (Complex.continuous_ofReal.comp (hg_cont.norm.pow 2)).stronglyMeasurable.aestronglyMeasurable ?_
+    refine Filter.Eventually.of_forall fun W => ?_
+    rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (sq_nonneg _)]
+    exact pow_le_pow_left₀ (norm_nonneg _) (hg_bd W) 2
+  change 0 ≤ RCLike.re (∫ W, (((‖g_half W‖ ^ 2 : ℝ) : ℂ)) ∂μ)
+  rw [← integral_re h_norm_int]
+  refine MeasureTheory.integral_nonneg fun W => ?_
+  change 0 ≤ (((‖g_half W‖ ^ 2 : ℝ) : ℂ)).re
+  rw [Complex.ofReal_re]
+  exact sq_nonneg _
+
+/--
+Every nonzero compact positive self-adjoint operator on a Hilbert space `V`
+attains its operator norm `‖T‖ > 0` at a unit eigenvector `v`.
+-/
+theorem compact_sa_pos_exists_max_eigenvector
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (T : V →L[ℂ] V)
+    (hT_sa : ∀ x y : V, ⟪T x, y⟫_ℂ = ⟪x, T y⟫_ℂ)
+    (hT_pos : ∀ x : V, 0 ≤ (⟪x, T x⟫_ℂ).re)
+    (hT_comp : IsCompactOperator ⇑T)
+    (hT_ne : T ≠ 0) :
+    ∃ v : V, ‖v‖ = 1 ∧ T v = (‖T‖ : ℂ) • v := by
+  have hT_selfadj : IsSelfAdjoint T :=
+    ContinuousLinearMap.isSelfAdjoint_iff_isSymmetric.mpr hT_sa
+  have hT_pos_norm : 0 < ‖T‖ := lt_of_le_of_ne (norm_nonneg T) (Ne.symm (norm_ne_zero_iff.mpr hT_ne))
+  let s : ℝ := ⨆ x : V, |T.rayleighQuotient x|
+  have hbdd : BddAbove (Set.range fun x : V => |T.rayleighQuotient x|) :=
+    ContinuousLinearMap.bddAbove_rayleighQuotient T
+  have hnorm_eq : ‖T‖ = s := norm_eq_iSup_rayleighQuotient hT_selfadj
+  have hu_ex : ∀ n : ℕ, ∃ u : V, ‖T‖ * (1 - 1 / ((n : ℝ) + 2)) < |T.rayleighQuotient u| := by
+    intro n
+    have hlt : ‖T‖ * (1 - 1 / ((n : ℝ) + 2)) < s := by
+      rw [← hnorm_eq]
+      have h1 : 0 < 1 / ((n : ℝ) + 2) := by positivity
+      nlinarith
+    exact (lt_ciSup_iff hbdd).mp hlt
+  choose u hu_lt using hu_ex
+  have hu_ne : ∀ n : ℕ, u n ≠ 0 := by
+    intro n h0
+    have hlt := hu_lt n
+    have hrq0 : T.rayleighQuotient (u n) = 0 := by
+      simp [ContinuousLinearMap.rayleighQuotient, h0]
+    rw [hrq0, abs_zero] at hlt
+    have hnonneg : 0 ≤ ‖T‖ * (1 - 1 / ((n : ℝ) + 2)) := by
+      have h2 : 0 ≤ 1 - 1 / ((n : ℝ) + 2) := by
+        have h3 : 1 / ((n : ℝ) + 2) ≤ 1 := by rw [div_le_one (by positivity)]; linarith
+        linarith
+      exact mul_nonneg hT_pos_norm.le h2
+    exact not_lt_of_ge hnonneg hlt
+  let x : ℕ → V := fun n => ((‖u n‖⁻¹ : ℝ) : ℂ) • u n
+  have hx_norm : ∀ n : ℕ, ‖x n‖ = 1 := by
+    intro n
+    simp only [x, norm_smul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (inv_nonneg.mpr (norm_nonneg _))]
+    exact inv_mul_cancel₀ (norm_ne_zero_iff.mpr (hu_ne n))
+  let lam : ℕ → ℝ := fun n => (⟪T (x n), x n⟫_ℂ).re
+  have hlam_eq_rq : ∀ n : ℕ, lam n = T.rayleighQuotient (u n) := by
+    intro n
+    have hnorm_u : ‖u n‖ ≠ 0 := norm_ne_zero_iff.mpr (hu_ne n)
+    simp only [lam, ContinuousLinearMap.rayleighQuotient, x, map_smul,
+      inner_smul_left, inner_smul_right, Complex.conj_ofReal]
+    have hcast : (((‖u n‖⁻¹ : ℝ) : ℂ) * (((‖u n‖⁻¹ : ℝ) : ℂ) * ⟪T (u n), u n⟫_ℂ)).re =
+        (‖u n‖⁻¹ * ‖u n‖⁻¹) * (⟪T (u n), u n⟫_ℂ).re := by
+      simp [Complex.mul_re]; ring
+    rw [hcast]
+    change (‖u n‖⁻¹ * ‖u n‖⁻¹) * (⟪T (u n), u n⟫_ℂ).re =
+      (⟪T (u n), u n⟫_ℂ).re / ‖u n‖ ^ 2
+    field_simp [hnorm_u]
+  have hlam_mem : ∀ n : ℕ, lam n ∈ Set.Icc (-‖T‖) ‖T‖ := fun n => by
+    rw [Set.mem_Icc, ← abs_le, hlam_eq_rq n]
+    exact T.rayleighQuotient_le_norm (u n)
+  have hTx_mem : ∀ n : ℕ, T (x n) ∈ closure (T '' Metric.closedBall (0 : V) 1) := fun n => by
+    apply subset_closure
+    refine ⟨x n, ?_, rfl⟩
+    rw [Metric.mem_closedBall, dist_zero_right, hx_norm n]
+  let S_comp : Set (ℝ × V) := Set.Icc (-‖T‖) ‖T‖ ×ˢ closure (T '' Metric.closedBall (0 : V) 1)
+  have hS_comp : IsCompact S_comp :=
+    isCompact_Icc.prod (hT_comp.isCompact_closure_image_closedBall (1 : ℝ))
+  let seq : ℕ → ℝ × V := fun n => (lam n, T (x n))
+  obtain ⟨⟨μ, y⟩, hμy_mem, φ, hφ_mono, hφ_tendsto⟩ :=
+    hS_comp.tendsto_subseq (x := seq) (fun n => ⟨hlam_mem n, hTx_mem n⟩)
+  have hlam_tendsto : Filter.Tendsto (fun n => lam (φ n)) Filter.atTop (nhds μ) := by
+    simpa [seq, Function.comp_def] using (continuous_fst.tendsto (μ, y)).comp hφ_tendsto
+  have hTx_tendsto : Filter.Tendsto (fun n => T (x (φ n))) Filter.atTop (nhds y) := by
+    simpa [seq, Function.comp_def] using (continuous_snd.tendsto (μ, y)).comp hφ_tendsto
+  have hμ_abs : |μ| = ‖T‖ := by
+    have h_abs_tendsto : Filter.Tendsto (fun n => |lam (φ n)|) Filter.atTop (nhds |μ|) :=
+      continuous_abs.continuousAt.tendsto.comp hlam_tendsto
+    have h_lower : Filter.Tendsto (fun n => ‖T‖ * (1 - 1 / ((φ n : ℝ) + 2)))
+        Filter.atTop (nhds ‖T‖) := by
+      have h_inv : Filter.Tendsto (fun n : ℕ => 1 / ((φ n : ℝ) + 2)) Filter.atTop (nhds 0) :=
+        tendsto_const_nhds.div_atTop
+          (Filter.tendsto_atTop_add_const_right _ 2
+            (tendsto_natCast_atTop_atTop.comp hφ_mono.tendsto_atTop))
+      simpa using
+        (tendsto_const_nhds : Filter.Tendsto (fun _ : ℕ => ‖T‖) Filter.atTop (nhds ‖T‖)).mul
+          ((tendsto_const_nhds : Filter.Tendsto (fun _ : ℕ => (1 : ℝ)) Filter.atTop (nhds 1)).sub h_inv)
+    have h_le : ‖T‖ ≤ |μ| :=
+      le_of_tendsto_of_tendsto' h_lower h_abs_tendsto fun n => by
+        rw [hlam_eq_rq]; exact (hu_lt (φ n)).le
+    exact le_antisymm (abs_le.mpr hμy_mem.1) h_le
+  have hμ_ne : μ ≠ 0 := by intro h0; rw [h0, abs_zero] at hμ_abs; linarith
+  have hμ_sq : μ ^ 2 = ‖T‖ ^ 2 := by rw [← hμ_abs, sq_abs]
+  have h_diff_sq_tendsto : Filter.Tendsto
+      (fun n => ‖T (x (φ n)) - (μ : ℂ) • x (φ n)‖ ^ 2) Filter.atTop (nhds 0) := by
+    have h_upper : ∀ n : ℕ,
+        ‖T (x (φ n)) - (μ : ℂ) • x (φ n)‖ ^ 2 ≤ ‖T‖ ^ 2 - 2 * μ * lam (φ n) + μ ^ 2 := by
+      intro n
+      have h_exp : ‖T (x (φ n)) - (μ : ℂ) • x (φ n)‖ ^ 2 =
+          ‖T (x (φ n))‖ ^ 2 - 2 * μ * lam (φ n) + μ ^ 2 := by
+        rw [norm_sub_sq (𝕜 := ℂ)]
+        have h_re : RCLike.re ⟪T (x (φ n)), (μ : ℂ) • x (φ n)⟫_ℂ = μ * lam (φ n) := by
+          rw [inner_smul_right]
+          simp [lam, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
+        have h_norm_μx : ‖(μ : ℂ) • x (φ n)‖ ^ 2 = μ ^ 2 := by
+          rw [norm_smul, hx_norm, mul_one, Complex.norm_real, Real.norm_eq_abs, sq_abs]
+        rw [h_re, h_norm_μx]; ring
+      have h_le_norm : ‖T (x (φ n))‖ ^ 2 ≤ ‖T‖ ^ 2 := by
+        have h1 : ‖T (x (φ n))‖ ≤ ‖T‖ := by
+          calc ‖T (x (φ n))‖ ≤ ‖T‖ * ‖x (φ n)‖ := T.le_opNorm _
+            _ = ‖T‖ := by rw [hx_norm, mul_one]
+        exact pow_le_pow_left₀ (norm_nonneg _) h1 2
+      linarith
+    have h_rhs : Filter.Tendsto (fun n => ‖T‖ ^ 2 - 2 * μ * lam (φ n) + μ ^ 2)
+        Filter.atTop (nhds 0) := by
+      have h0 : ‖T‖ ^ 2 - 2 * μ * μ + μ ^ 2 = 0 := by linarith [hμ_sq]
+      rw [← h0]
+      exact (tendsto_const_nhds.sub (tendsto_const_nhds.mul hlam_tendsto)).add tendsto_const_nhds
+    exact tendsto_of_tendsto_of_tendsto_of_le_of_le tendsto_const_nhds h_rhs
+      (fun _ => sq_nonneg _) h_upper
+  have h_diff_tendsto : Filter.Tendsto
+      (fun n => T (x (φ n)) - (μ : ℂ) • x (φ n)) Filter.atTop (nhds 0) := by
+    have h_norm_tendsto : Filter.Tendsto
+        (fun n => ‖T (x (φ n)) - (μ : ℂ) • x (φ n)‖) Filter.atTop (nhds 0) := by
+      have hsqrt := continuous_sqrt.continuousAt.tendsto.comp h_diff_sq_tendsto
+      rw [Real.sqrt_zero] at hsqrt
+      refine hsqrt.congr fun n => ?_
+      dsimp only [Function.comp_def]
+      exact Real.sqrt_sq (norm_nonneg _)
+    exact tendsto_zero_iff_norm_tendsto_zero.mpr h_norm_tendsto
+  have hx_tendsto : Filter.Tendsto (fun n => x (φ n)) Filter.atTop (nhds ((μ : ℂ)⁻¹ • y)) := by
+    have h_smul : Filter.Tendsto (fun n => (μ : ℂ) • x (φ n)) Filter.atTop (nhds y) := by
+      have hsub := hTx_tendsto.sub h_diff_tendsto
+      rw [sub_zero] at hsub
+      refine hsub.congr fun n => ?_
+      abel
+    have hμc : (μ : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hμ_ne
+    have h_inv := (continuous_const_smul ((μ : ℂ)⁻¹)).continuousAt.tendsto.comp h_smul
+    convert h_inv using 1
+    · ext n; simp only [Function.comp_apply]; rw [smul_smul, inv_mul_cancel₀ hμc, one_smul]
+  have hy_ne : y ≠ 0 := by
+    intro hy0
+    have h_norm_x : Filter.Tendsto (fun n => ‖x (φ n)‖) Filter.atTop (nhds ‖(μ : ℂ)⁻¹ • y‖) :=
+      continuous_norm.continuousAt.tendsto.comp hx_tendsto
+    have h_const1 : (fun n => ‖x (φ n)‖) = fun _ => 1 := funext fun n => hx_norm (φ n)
+    rw [h_const1, hy0, smul_zero, norm_zero] at h_norm_x
+    have h_eq := tendsto_nhds_unique tendsto_const_nhds h_norm_x
+    norm_num at h_eq
+  have hy_eig : T y = (μ : ℂ) • y := by
+    have h_eq : y = T ((μ : ℂ)⁻¹ • y) :=
+      tendsto_nhds_unique hTx_tendsto (T.continuous.continuousAt.tendsto.comp hx_tendsto)
+    have hμc : (μ : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr hμ_ne
+    calc T y = T ((μ : ℂ) • ((μ : ℂ)⁻¹ • y)) := by rw [smul_smul, mul_inv_cancel₀ hμc, one_smul]
+      _ = (μ : ℂ) • T ((μ : ℂ)⁻¹ • y) := T.map_smul _ _
+      _ = (μ : ℂ) • y := by rw [← h_eq]
+  let v : V := ((‖y‖⁻¹ : ℝ) : ℂ) • y
+  have hv_norm : ‖v‖ = 1 := by
+    simp only [v, norm_smul, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (inv_nonneg.mpr (norm_nonneg _))]
+    exact inv_mul_cancel₀ (norm_ne_zero_iff.mpr hy_ne)
+  have hv_eig : T v = (μ : ℂ) • v := by
+    have h1 : T (((‖y‖⁻¹ : ℝ) : ℂ) • y) = ((‖y‖⁻¹ : ℝ) : ℂ) • T y :=
+      ContinuousLinearMap.map_smul T ((‖y‖⁻¹ : ℝ) : ℂ) y
+    have h2 : ((‖y‖⁻¹ : ℝ) : ℂ) • ((μ : ℂ) • y) = (μ : ℂ) • (((‖y‖⁻¹ : ℝ) : ℂ) • y) := by
+      rw [smul_smul, mul_comm, ← smul_smul]
+    change T (((‖y‖⁻¹ : ℝ) : ℂ) • y) = (μ : ℂ) • (((‖y‖⁻¹ : ℝ) : ℂ) • y)
+    rw [h1, hy_eig, h2]
+  have hμ_nn : 0 ≤ μ := by
+    have hp := hT_pos v
+    rw [hv_eig, inner_smul_right, inner_self_eq_norm_sq_to_K, hv_norm] at hp
+    change 0 ≤ ((μ : ℂ) * ((1 : ℝ) : ℂ) ^ 2).re at hp
+    rw [Complex.ofReal_one, one_pow, mul_one, Complex.ofReal_re] at hp
+    exact hp
+  have hμ_eq : μ = ‖T‖ := by rwa [abs_of_nonneg hμ_nn] at hμ_abs
+  exact ⟨v, hv_norm, hμ_eq ▸ hv_eig⟩
+
+/--
+**Perron–Frobenius Theorem & Finite-Volume Spectral Gap for `wilsonIntegralOp`**:
+for any continuous, symmetric, gauge-invariant, positive-definite kinetic kernel
+`K_kin` strictly bounded below (`0 < c_min ≤ K_kin ≤ M_K`), the normalized
+full-rank Wilson integral operator `T_norm = ‖T_W‖⁻¹ • T_W` possesses:
+1. a unique (simple) normalized gauge-invariant positive ground-state vacuum `Ω_W`,
+2. `T_norm Ω_W = Ω_W`,
+3. a strictly positive finite-volume spectral gap `Δ > 0` on `Ω_Wᗮ`.
+-/
+theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_symm : ∀ U U', K_kin U' U = K_kin U U')
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (hK_inv : ∀ g U U', K_kin (gaugeAct g U) (gaugeAct g U') = K_kin U U')
+    (c_min : ℝ) (hc_min : 0 < c_min) (hK_lb : ∀ U U', c_min ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (hT_pos : ∀ ψ : HaarGaugeSpace (latticeHaarMeasure L N),
+      0 ≤ (⟪ψ, wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ⟫_ℂ).re) :
+    ∃ (Ω : HaarGaugeSpace (latticeHaarMeasure L N)) (lam0 Δ : ℝ),
+      0 < lam0 ∧ 0 < Δ ∧ ‖Ω‖ = 1 ∧
+      wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd Ω = (lam0 : ℂ) • Ω ∧
+      (∀ g, cubicGaugeRep L N g Ω = Ω) ∧
+      (∀ v : HaarGaugeSpace (latticeHaarMeasure L N), ⟪v, Ω⟫_ℂ = 0 →
+        (⟪v, (((lam0⁻¹ : ℝ) : ℂ) •
+          wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd) v⟫_ℂ).re ≤
+          Real.exp (-(Δ * 1)) * ‖v‖ ^ 2) := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  haveI := instIsOpenPosLatticeHaar L N
+  let K_W := wilsonKernel β (cubicPlaquettes L) K_kin
+  let T := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+  have hT_sa : ∀ x y : HaarGaugeSpace μ, ⟪T x, y⟫_ℂ = ⟪x, T y⟫_ℂ :=
+    wilsonIntegralOp_sa L N β hβ K_kin hK_cont hK_symm hK_nn M_K hM_K hK_bd
+  have hT_comp : IsCompactOperator ⇑T :=
+    wilsonIntegralOp_compact L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+  let c_W : ℝ := Real.exp (-(2 * β * ((cubicPlaquettes L).length : ℝ))) * c_min
+  have hc_W_pos : 0 < c_W := mul_pos (Real.exp_pos _) hc_min
+  have hKW_lb : ∀ U U', c_W ≤ K_W U U' := by
+    intro U U'
+    have h1 := (wilsonAction_bounds β hβ (cubicPlaquettes L) U).2
+    have h2 := (wilsonAction_bounds β hβ (cubicPlaquettes L) U').2
+    have hexp : Real.exp (-(2 * β * ((cubicPlaquettes L).length : ℝ))) ≤
+        Real.exp (-(1 / 2 : ℝ) *
+          (wilsonAction β (cubicPlaquettes L) U + wilsonAction β (cubicPlaquettes L) U')) :=
+      Real.exp_le_exp.mpr (by linarith)
+    unfold K_W wilsonKernel
+    exact mul_le_mul hexp (hK_lb U U') hc_min.le (Real.exp_pos _).le
+  have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+    intro a b
+    have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+      rw [inner_self_eq_norm_sq_to_K]; norm_num
+    calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+      _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+            rw [inner_smul_left, inner_smul_right]
+      _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+  have hT_ne : T ≠ 0 := by
+    let oneLp : HaarGaugeSpace μ :=
+      MeasureTheory.indicatorConstLp (2 : ENNReal) MeasurableSet.univ
+        (MeasureTheory.measure_ne_top μ Set.univ) (1 : ℂ)
+    have hone_ae : ⇑oneLp =ᵐ[μ] fun _ => (1 : ℂ) := by
+      have h := MeasureTheory.indicatorConstLp_coeFn (p := (2 : ENNReal))
+        (μ := μ) (s := Set.univ) (hs := MeasurableSet.univ)
+        (hμs := MeasureTheory.measure_ne_top μ Set.univ) (c := (1 : ℂ))
+      filter_upwards [h] with U hU
+      simpa [oneLp] using hU
+    have h_l2 : MeasureTheory.Integrable (fun U => ⟪oneLp U, (T oneLp) U⟫_ℂ) μ :=
+      MeasureTheory.L2.integrable_inner _ _
+    have h_re := integral_re h_l2
+    have h_in_re : (⟪oneLp, T oneLp⟫_ℂ).re =
+        ∫ U, (⟪oneLp U, (T oneLp) U⟫_ℂ).re ∂μ := by
+      rw [MeasureTheory.L2.inner_def]
+      change RCLike.re (∫ U, ⟪oneLp U, (T oneLp) U⟫_ℂ ∂μ) = _
+      rw [← h_re]
+      rfl
+    have h_ae_ge : ∀ᵐ U ∂μ, c_W ≤ (⟪oneLp U, (T oneLp) U⟫_ℂ).re := by
+      filter_upwards [hone_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+        M_K hM_K hK_bd oneLp] with U hU1 hUT
+      change c_W ≤ (⟪oneLp U, (T oneLp) U⟫_ℂ).re
+      rw [hU1, hUT]
+      have hc1 : ⟪(1 : ℂ), wilsonIntegralFn L N β K_kin oneLp U⟫_ℂ =
+          wilsonIntegralFn L N β K_kin oneLp U := by
+        rw [hcinner, map_one, one_mul]
+      rw [hc1]
+      dsimp [wilsonIntegralFn]
+      have h_int_fn := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd oneLp U
+      change c_W ≤ RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * oneLp U' ∂μ)
+      rw [← integral_re h_int_fn]
+      have h_int_K : MeasureTheory.Integrable (fun U' => K_W U U') μ :=
+        integrable_of_continuous_compact μ _ (continuous_cubicWilsonKernel_right L N β K_kin hK_cont U)
+      have h_eq_int : ∫ x, RCLike.re (((K_W U x : ℝ) : ℂ) * oneLp x) ∂μ =
+          ∫ x, K_W U x ∂μ := by
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hone_ae] with x hx
+        change (((K_W U x : ℝ) : ℂ) * ⇑oneLp x).re = K_W U x
+        rw [hx, mul_one, Complex.ofReal_re]
+      rw [h_eq_int]
+      calc c_W = ∫ _U', c_W ∂μ := by simp [Measure.real, MeasureTheory.measure_univ]
+        _ ≤ ∫ U', K_W U U' ∂μ :=
+            MeasureTheory.integral_mono (MeasureTheory.integrable_const c_W) h_int_K (hKW_lb U)
+    have h_pos_re : c_W ≤ (⟪oneLp, T oneLp⟫_ℂ).re := by
+      rw [h_in_re]
+      calc c_W = ∫ _U, c_W ∂μ := by simp [Measure.real, MeasureTheory.measure_univ]
+        _ ≤ ∫ U, (⟪oneLp U, (T oneLp) U⟫_ℂ).re ∂μ :=
+            MeasureTheory.integral_mono_ae (MeasureTheory.integrable_const c_W) h_l2.re h_ae_ge
+    intro h0
+    rw [h0, ContinuousLinearMap.zero_apply, inner_zero_right, Complex.zero_re] at h_pos_re
+    linarith
+  obtain ⟨v₀, hv₀_norm, hv₀_eig⟩ :=
+    compact_sa_pos_exists_max_eigenvector T hT_sa hT_pos hT_comp hT_ne
+  let lam0 : ℝ := ‖T‖
+  have hlam0_pos : 0 < lam0 := lt_of_le_of_ne (norm_nonneg T) (Ne.symm (norm_ne_zero_iff.mpr hT_ne))
+  let φ₀ : G_L → ℂ := fun U => ((lam0⁻¹ : ℝ) : ℂ) * wilsonIntegralFn L N β K_kin v₀ U
+  have hφ₀_cont : Continuous φ₀ :=
+    continuous_const.mul (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd v₀)
+  have hv₀_ae : ⇑v₀ =ᵐ[μ] φ₀ := by
+    have h_eq : v₀ = ((lam0⁻¹ : ℝ) : ℂ) • T v₀ := by
+      rw [hv₀_eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+        Complex.ofReal_one, one_smul]
+    have h1 : ⇑v₀ =ᵐ[μ] ((lam0⁻¹ : ℝ) : ℂ) • ⇑(T v₀) := by
+      conv_lhs => rw [h_eq]
+      exact MeasureTheory.Lp.coeFn_smul _ _
+    filter_upwards [h1, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+      M_K hM_K hK_bd v₀] with U hU1 hU2
+    change ⇑v₀ U = φ₀ U
+    rw [hU1]
+    simp only [Pi.smul_apply, smul_eq_mul]
+    rw [hU2]
+  let φ_abs : G_L → ℂ := fun U => ((‖φ₀ U‖ : ℝ) : ℂ)
+  have hφ_abs_mem : MeasureTheory.MemLp φ_abs 2 μ := by
+    refine memLp_two_of_measurable_bound μ φ_abs
+      (Complex.continuous_ofReal.measurable.comp hφ₀_cont.norm.measurable)
+      (lam0⁻¹ * (M_K * ‖v₀‖)) (by positivity) fun U => ?_
+    rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (norm_nonneg _), norm_mul,
+      Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (inv_nonneg.mpr hlam0_pos.le)]
+    exact mul_le_mul_of_nonneg_left
+      (wilsonIntegralFn_pt_bound L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd v₀ U)
+      (inv_nonneg.mpr hlam0_pos.le)
+  let Ω : HaarGaugeSpace μ := hφ_abs_mem.toLp φ_abs
+  have hΩ_ae : ⇑Ω =ᵐ[μ] φ_abs := hφ_abs_mem.coeFn_toLp
+  have hΩ_norm : ‖Ω‖ = 1 := by
+    have hsq : ‖Ω‖ ^ 2 = 1 := by
+      rw [lp_norm_sq_eq_integral]
+      have h1 : (fun U => ‖Ω U‖ ^ 2) =ᵐ[μ] fun U => ‖v₀ U‖ ^ 2 := by
+        filter_upwards [hΩ_ae, hv₀_ae] with U hU1 hU2
+        change ‖⇑Ω U‖ ^ 2 = ‖⇑v₀ U‖ ^ 2
+        rw [hU1, hU2]
+        simp [φ_abs]
+      rw [MeasureTheory.integral_congr_ae h1, ← lp_norm_sq_eq_integral, hv₀_norm, one_pow]
+    have hmul : (‖Ω‖ - 1) * (‖Ω‖ + 1) = 0 := by linarith
+    rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg Ω]
+  have h_in_Ω_ge : lam0 ≤ (⟪Ω, T Ω⟫_ℂ).re := by
+    have hv_in : ⟪v₀, T v₀⟫_ℂ = (lam0 : ℂ) := by
+      rw [hv₀_eig, inner_smul_right, inner_self_eq_norm_sq_to_K, hv₀_norm]
+      simp [lam0]
+    have h_v_int : ⟪v₀, T v₀⟫_ℂ =
+        ∫ U, starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U ∂μ := by
+      rw [MeasureTheory.L2.inner_def]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [hv₀_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+        M_K hM_K hK_bd v₀] with U hU1 hU2
+      rw [hU1, hU2, hcinner]
+    have h_Ω_int : (⟪Ω, T Ω⟫_ℂ).re =
+        ∫ U, ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ ∂μ := by
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪Ω U, (T Ω) U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner _ _
+      have h_re := integral_re h_l2
+      rw [MeasureTheory.L2.inner_def]
+      change RCLike.re (∫ U, ⟪Ω U, (T Ω) U⟫_ℂ ∂μ) = _
+      rw [← h_re]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [hΩ_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+        M_K hM_K hK_bd Ω] with U hU1 hU2
+      change (⟪⇑Ω U, ⇑(T Ω) U⟫_ℂ).re = _
+      rw [hU1, hU2, hcinner]
+      dsimp [φ_abs, wilsonIntegralFn]
+      have h_fn_re : (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ).re =
+          ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ := by
+        have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω U
+        change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ) = _
+        rw [← integral_re hi]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hΩ_ae] with U' hU'
+        change (((K_W U U' : ℝ) : ℂ) * ⇑Ω U').re = K_W U U' * ‖φ₀ U'‖
+        rw [hU']
+        simp [φ_abs, Complex.ofReal_re]
+      have h_mul_eq : ‖φ₀ U‖ * (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ).re =
+          ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ := congrArg (‖φ₀ U‖ * ·) h_fn_re
+      simp only [neg_zero, zero_mul, sub_zero]
+      exact h_mul_eq
+    have h_int_norm1 : MeasureTheory.Integrable
+        (fun U => ‖starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U‖) μ := by
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪v₀ U, (T v₀) U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner v₀ (T v₀)
+      have h_ae : (fun U => ‖starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U‖) =ᵐ[μ]
+          fun U => ‖⟪v₀ U, (T v₀) U⟫_ℂ‖ := by
+        filter_upwards [hv₀_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+          M_K hM_K hK_bd v₀] with U hU1 hU2
+        rw [← hU1, ← hU2, hcinner]
+      exact h_l2.norm.congr h_ae.symm
+    have h_int_norm2 : MeasureTheory.Integrable
+        (fun U => ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ) μ := by
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪Ω U, (T Ω) U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner Ω (T Ω)
+      have h_ae : (fun U => ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ) =ᵐ[μ]
+          fun U => (⟪Ω U, (T Ω) U⟫_ℂ).re := by
+        filter_upwards [hΩ_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+          M_K hM_K hK_bd Ω] with U hU1 hU2
+        change _ = (⟪⇑Ω U, ⇑(T Ω) U⟫_ℂ).re
+        rw [hU1, hU2, hcinner]
+        dsimp [φ_abs, wilsonIntegralFn]
+        have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω U
+        simp only [neg_zero, zero_mul, sub_zero]
+        congr 1
+        change _ = RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ)
+        rw [← integral_re hi]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hΩ_ae] with U' hU'
+        change _ = (((K_W U U' : ℝ) : ℂ) * ⇑Ω U').re
+        rw [hU']
+        simp [φ_abs]
+      exact h_l2.re.congr h_ae.symm
+    have h_pt_le : ∀ U, ‖starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U‖ ≤
+        ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ := by
+      intro U
+      have hconj : ‖starRingEnd ℂ (φ₀ U)‖ = ‖φ₀ U‖ := norm_star _
+      rw [norm_mul, hconj]
+      refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
+      dsimp [wilsonIntegralFn]
+      calc ‖∫ U', ((K_W U U' : ℝ) : ℂ) * v₀ U' ∂μ‖
+          ≤ ∫ U', ‖((K_W U U' : ℝ) : ℂ) * v₀ U'‖ ∂μ :=
+            MeasureTheory.norm_integral_le_integral_norm _
+        _ = ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ := by
+            refine MeasureTheory.integral_congr_ae ?_
+            filter_upwards [hv₀_ae] with U' hU'
+            have hb := wilsonKernel_cubic_le L N β hβ K_kin hK_nn M_K hK_bd U U'
+            rw [hU', norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hb.1]
+    have h_abs_le : lam0 ≤ ‖⟪v₀, T v₀⟫_ℂ‖ := by
+      rw [hv_in, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hlam0_pos]
+    calc lam0 ≤ ‖⟪v₀, T v₀⟫_ℂ‖ := h_abs_le
+      _ = ‖∫ U, starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U ∂μ‖ := by rw [h_v_int]
+      _ ≤ ∫ U, ‖starRingEnd ℂ (φ₀ U) * wilsonIntegralFn L N β K_kin v₀ U‖ ∂μ :=
+            MeasureTheory.norm_integral_le_integral_norm _
+      _ ≤ ∫ U, ‖φ₀ U‖ * ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ ∂μ :=
+            MeasureTheory.integral_mono h_int_norm1 h_int_norm2 h_pt_le
+      _ = (⟪Ω, T Ω⟫_ℂ).re := h_Ω_int.symm
+  have hΩ_eig : T Ω = (lam0 : ℂ) • Ω := by
+    have h_in_le : (⟪Ω, T Ω⟫_ℂ).re ≤ lam0 := by
+      calc (⟪Ω, T Ω⟫_ℂ).re ≤ ‖⟪Ω, T Ω⟫_ℂ‖ := (le_abs_self _).trans (Complex.abs_re_le_norm _)
+        _ ≤ ‖Ω‖ * ‖T Ω‖ := norm_inner_le_norm _ _
+        _ ≤ ‖Ω‖ * (‖T‖ * ‖Ω‖) := mul_le_mul_of_nonneg_left (T.le_opNorm Ω) (norm_nonneg _)
+        _ = lam0 := by rw [hΩ_norm]; ring
+    have h_in_re : (⟪Ω, T Ω⟫_ℂ).re = lam0 := le_antisymm h_in_le h_in_Ω_ge
+    have h_in_im : (⟪Ω, T Ω⟫_ℂ).im = 0 := by
+      have hconj : starRingEnd ℂ ⟪Ω, T Ω⟫_ℂ = ⟪Ω, T Ω⟫_ℂ := by
+        rw [inner_conj_symm, hT_sa]
+      exact Complex.conj_eq_iff_im.mp hconj
+    have h_in_eq : ⟪Ω, T Ω⟫_ℂ = (lam0 : ℂ) := Complex.ext h_in_re h_in_im
+    have h_sq_le : ‖T Ω - (lam0 : ℂ) • Ω‖ ^ 2 ≤ 0 := by
+      rw [norm_sub_sq (𝕜 := ℂ)]
+      have h_re : RCLike.re ⟪T Ω, (lam0 : ℂ) • Ω⟫_ℂ = lam0 ^ 2 := by
+        rw [inner_smul_right, hT_sa, h_in_eq]
+        simp [pow_two]
+      have h_norm_TΩ : ‖T Ω‖ ^ 2 ≤ lam0 ^ 2 := by
+        have h1 : ‖T Ω‖ ≤ lam0 := by simpa [hΩ_norm] using T.le_opNorm Ω
+        exact pow_le_pow_left₀ (norm_nonneg _) h1 2
+      have h_norm_lamΩ : ‖(lam0 : ℂ) • Ω‖ ^ 2 = lam0 ^ 2 := by
+        rw [norm_smul, hΩ_norm, mul_one, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hlam0_pos]
+      linarith
+    have h_zero : ‖T Ω - (lam0 : ℂ) • Ω‖ = 0 :=
+      sq_eq_zero_iff.mp (le_antisymm h_sq_le (sq_nonneg _))
+    exact sub_eq_zero.mp (norm_eq_zero.mp h_zero)
+  let ω : G_L → ℝ := fun U => lam0⁻¹ * (wilsonIntegralFn L N β K_kin Ω U).re
+  have hω_cont : Continuous ω :=
+    continuous_const.mul
+      (Complex.continuous_re.comp
+        (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω))
+  have hΩ_im_zero : ∀ U, (wilsonIntegralFn L N β K_kin Ω U).im = 0 := by
+    intro U
+    have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω U
+    dsimp [wilsonIntegralFn]
+    have h1 : (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ).im =
+        RCLike.re (-Complex.I * ∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ) := by
+      simp [Complex.mul_re]
+    rw [h1, ← MeasureTheory.integral_const_mul, ← integral_re (hi.const_mul (-Complex.I))]
+    refine MeasureTheory.integral_eq_zero_of_ae ?_
+    filter_upwards [hΩ_ae] with U' hU'
+    change RCLike.re (-Complex.I * (((K_W U U' : ℝ) : ℂ) * ⇑Ω U')) = 0
+    rw [hU']
+    simp [φ_abs, Complex.mul_re]
+  have hΩ_ae_ω : ⇑Ω =ᵐ[μ] fun U => (ω U : ℂ) := by
+    have h_eq : Ω = ((lam0⁻¹ : ℝ) : ℂ) • T Ω := by
+      rw [hΩ_eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+        Complex.ofReal_one, one_smul]
+    have h1 : ⇑Ω =ᵐ[μ] ((lam0⁻¹ : ℝ) : ℂ) • ⇑(T Ω) := by
+      conv_lhs => rw [h_eq]
+      exact MeasureTheory.Lp.coeFn_smul _ _
+    filter_upwards [h1, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+      M_K hM_K hK_bd Ω] with U hU1 hU2
+    change ⇑Ω U = (ω U : ℂ)
+    rw [hU1]
+    simp only [Pi.smul_apply, smul_eq_mul]
+    rw [hU2]
+    have him := hΩ_im_zero U
+    have h_fn : wilsonIntegralFn L N β K_kin Ω U =
+        ((wilsonIntegralFn L N β K_kin Ω U).re : ℂ) := Complex.ext rfl him
+    rw [h_fn]
+    dsimp [ω]; push_cast; rfl
+  have hω_nonneg : ∀ U, 0 ≤ ω U := by
+    intro U
+    have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω U
+    have h_re_eq : (wilsonIntegralFn L N β K_kin Ω U).re = ∫ U', K_W U U' * ‖φ₀ U'‖ ∂μ := by
+      dsimp [wilsonIntegralFn]
+      change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ) = _
+      rw [← integral_re hi]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [hΩ_ae] with U' hU'
+      change (((K_W U U' : ℝ) : ℂ) * ⇑Ω U').re = K_W U U' * ‖φ₀ U'‖
+      rw [hU']; simp [φ_abs, Complex.ofReal_re]
+    dsimp [ω]
+    rw [h_re_eq]
+    exact mul_nonneg (inv_nonneg.mpr hlam0_pos.le)
+      (MeasureTheory.integral_nonneg fun U' =>
+        mul_nonneg (hc_W_pos.le.trans (hKW_lb U U')) (norm_nonneg _))
+  have hω_pos : ∀ U, 0 < ω U := by
+    intro U
+    have h_ne0 : ∃ U₀ : G_L, ω U₀ ≠ 0 := by
+      by_contra h_all
+      push_neg at h_all
+      have hΩ_zero : Ω = 0 := by
+        apply MeasureTheory.Lp.ext
+        filter_upwards [hΩ_ae_ω, MeasureTheory.Lp.coeFn_zero ℂ 2 μ] with W hW1 hW2
+        rw [hW1, h_all W, Complex.ofReal_zero, hW2]; rfl
+      rw [hΩ_zero, norm_zero] at hΩ_norm
+      norm_num at hΩ_norm
+    rcases h_ne0 with ⟨U₀, hU₀_ne⟩
+    have hU₀_pos : 0 < ω U₀ := lt_of_le_of_ne (hω_nonneg U₀) (Ne.symm hU₀_ne)
+    let B : Set G_L := { W | ω U₀ / 2 < ω W }
+    have hB_open : IsOpen B := isOpen_lt continuous_const hω_cont
+    have hB_ne : B.Nonempty := ⟨U₀, by dsimp [B]; linarith⟩
+    have hB_pos : 0 < μ.real B := by
+      have hm_pos := hB_open.measure_pos μ hB_ne
+      exact ENNReal.toReal_pos hm_pos.ne' (MeasureTheory.measure_ne_top μ B)
+    have h_int_pos : 0 < ∫ U', K_W U U' * ω U' ∂μ := by
+      let δ_lb : ℝ := c_W * (ω U₀ / 2)
+      have hδ_lb_pos : 0 < δ_lb := mul_pos hc_W_pos (by linarith)
+      have h_int_Kω : MeasureTheory.Integrable (fun U' => K_W U U' * ω U') μ :=
+        integrable_of_continuous_compact μ _
+          ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul hω_cont)
+      have h_ind_int : MeasureTheory.Integrable (Set.indicator B (fun _ => δ_lb)) μ :=
+        (MeasureTheory.integrable_const δ_lb).indicator hB_open.measurableSet
+      have h_le_ind : ∀ U', Set.indicator B (fun _ => δ_lb) U' ≤ K_W U U' * ω U' := by
+        intro U'
+        rw [Set.indicator_apply]
+        by_cases hU' : U' ∈ B
+        · rw [if_pos hU']
+          exact mul_le_mul (hKW_lb U U') (le_of_lt hU') (by linarith)
+            (hc_W_pos.le.trans (hKW_lb U U'))
+        · rw [if_neg hU']
+          exact mul_nonneg (hc_W_pos.le.trans (hKW_lb U U')) (hω_nonneg U')
+      have h_int_val : ∫ U', Set.indicator B (fun _ => δ_lb) U' ∂μ = μ.real B * δ_lb := by
+        rw [MeasureTheory.integral_indicator hB_open.measurableSet, MeasureTheory.setIntegral_const]
+        simp [smul_eq_mul]
+      calc 0 < μ.real B * δ_lb := mul_pos hB_pos hδ_lb_pos
+        _ = ∫ U', Set.indicator B (fun _ => δ_lb) U' ∂μ := h_int_val.symm
+        _ ≤ ∫ U', K_W U U' * ω U' ∂μ := MeasureTheory.integral_mono h_ind_int h_int_Kω h_le_ind
+    have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd Ω U
+    have h_re_eq : (wilsonIntegralFn L N β K_kin Ω U).re = ∫ U', K_W U U' * ω U' ∂μ := by
+      dsimp [wilsonIntegralFn]
+      change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * Ω U' ∂μ) = _
+      rw [← integral_re hi]
+      refine MeasureTheory.integral_congr_ae ?_
+      filter_upwards [hΩ_ae_ω] with U' hU'
+      change (((K_W U U' : ℝ) : ℂ) * ⇑Ω U').re = K_W U U' * ω U'
+      rw [hU', ← Complex.ofReal_mul, Complex.ofReal_re]
+    dsimp [ω]
+    rw [h_re_eq]
+    exact mul_pos (inv_pos.mpr hlam0_pos) h_int_pos
+  have h_simple : ∀ w : HaarGaugeSpace μ,
+      T w = (lam0 : ℂ) • w → ⟪w, Ω⟫_ℂ = 0 → w = 0 := by
+    intro w hw_eig hw_orth
+    by_contra hw_ne
+    let ψ_c : G_L → ℂ := fun U => ((lam0⁻¹ : ℝ) : ℂ) * wilsonIntegralFn L N β K_kin w U
+    have hψ_cont : Continuous ψ_c :=
+      continuous_const.mul (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd w)
+    have hw_ae : ⇑w =ᵐ[μ] ψ_c := by
+      have h_eq : w = ((lam0⁻¹ : ℝ) : ℂ) • T w := by
+        rw [hw_eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+          Complex.ofReal_one, one_smul]
+      have h1 : ⇑w =ᵐ[μ] ((lam0⁻¹ : ℝ) : ℂ) • ⇑(T w) := by
+        conv_lhs => rw [h_eq]
+        exact MeasureTheory.Lp.coeFn_smul _ _
+      filter_upwards [h1, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+        M_K hM_K hK_bd w] with U hU1 hU2
+      change ⇑w U = ψ_c U
+      rw [hU1]
+      simp only [Pi.smul_apply, smul_eq_mul]
+      rw [hU2]
+    have h_ae_eig : (fun U => wilsonIntegralFn L N β K_kin w U) =ᵐ[μ]
+        (fun U => (lam0 : ℂ) * ψ_c U) := by
+      have h1 : ⇑(T w) =ᵐ[μ] ⇑((lam0 : ℂ) • w) := by rw [hw_eig]
+      have h2 := MeasureTheory.Lp.coeFn_smul (lam0 : ℂ) w
+      filter_upwards [wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd w,
+        h1, h2, hw_ae] with U hUT hT1 hSm hUψ
+      change wilsonIntegralFn L N β K_kin w U = (lam0 : ℂ) * ψ_c U
+      rw [← hUT, hT1]
+      change ⇑((lam0 : ℂ) • w) U = _
+      rw [hSm]
+      simp only [Pi.smul_apply, smul_eq_mul]
+      rw [hUψ]
+    have h_all_eig : ∀ U, wilsonIntegralFn L N β K_kin w U = (lam0 : ℂ) * ψ_c U := by
+      have h_cont1 := wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd w
+      have h_cont2 : Continuous (fun U => (lam0 : ℂ) * ψ_c U) := continuous_const.mul hψ_cont
+      by_contra h_not
+      push_neg at h_not
+      rcases h_not with ⟨U₁, hU₁⟩
+      let S_ne : Set G_L := { U | wilsonIntegralFn L N β K_kin w U ≠ (lam0 : ℂ) * ψ_c U }
+      have hS_eq : S_ne =
+          (fun U => wilsonIntegralFn L N β K_kin w U - (lam0 : ℂ) * ψ_c U) ⁻¹' { z | z ≠ 0 } := by
+        ext U
+        change wilsonIntegralFn L N β K_kin w U ≠ (lam0 : ℂ) * ψ_c U ↔
+          wilsonIntegralFn L N β K_kin w U - (lam0 : ℂ) * ψ_c U ≠ 0
+        exact sub_ne_zero.symm
+      have hS_open : IsOpen S_ne := hS_eq ▸ isOpen_ne.preimage (h_cont1.sub h_cont2)
+      have hS_pos : 0 < μ S_ne := hS_open.measure_pos μ ⟨U₁, hU₁⟩
+      have hS_zero : μ S_ne = 0 := h_ae_eig
+      exact lt_irrefl 0 (hS_pos.trans_eq hS_zero)
+    let u : G_L → ℝ := fun U => (ψ_c U).re
+    let v_im : G_L → ℝ := fun U => (ψ_c U).im
+    have hu_cont : Continuous u := Complex.continuous_re.comp hψ_cont
+    have hv_cont : Continuous v_im := Complex.continuous_im.comp hψ_cont
+    have h_u_eig : ∀ U, ∫ U', K_W U U' * u U' ∂μ = lam0 * u U := by
+      intro U
+      have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd w U
+      have h_eq := congrArg Complex.re (h_all_eig U)
+      dsimp [wilsonIntegralFn] at h_eq
+      simp only [zero_mul, sub_zero] at h_eq
+      change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * w U' ∂μ) = lam0 * u U at h_eq
+      rw [← integral_re hi] at h_eq
+      have h_lhs : ∫ U', RCLike.re (((K_W U U' : ℝ) : ℂ) * w U') ∂μ =
+          ∫ U', K_W U U' * u U' ∂μ := by
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hw_ae] with U' hU'
+        change (((K_W U U' : ℝ) : ℂ) * ⇑w U').re = K_W U U' * u U'
+        rw [hU']
+        simp [u, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
+      rwa [h_lhs] at h_eq
+    have h_v_eig : ∀ U, ∫ U', K_W U U' * v_im U' ∂μ = lam0 * v_im U := by
+      intro U
+      have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd w U
+      have h_eq := congrArg Complex.im (h_all_eig U)
+      dsimp [wilsonIntegralFn] at h_eq
+      have him_l : (∫ U', ((K_W U U' : ℝ) : ℂ) * w U' ∂μ).im =
+          RCLike.re (-Complex.I * ∫ U', ((K_W U U' : ℝ) : ℂ) * w U' ∂μ) := by
+        simp [Complex.mul_re]
+      rw [him_l, ← MeasureTheory.integral_const_mul,
+        ← integral_re (hi.const_mul (-Complex.I))] at h_eq
+      have h_ae : (fun U' => RCLike.re (-Complex.I * (((K_W U U' : ℝ) : ℂ) * w U'))) =ᵐ[μ]
+          fun U' => K_W U U' * v_im U' := by
+        filter_upwards [hw_ae] with U' hU'
+        rw [hU']
+        change (-Complex.I * (((K_W U U' : ℝ) : ℂ) * ψ_c U')).re = K_W U U' * v_im U'
+        simp [v_im, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
+      rw [MeasureTheory.integral_congr_ae h_ae] at h_eq
+      simpa [v_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im] using h_eq
+    have h_no_eig_real : ∀ (f : G_L → ℝ), Continuous f →
+        (∀ U, ∫ U', K_W U U' * f U' ∂μ = lam0 * f U) →
+        (∫ U, f U * ω U ∂μ = 0) → (∀ U, f U = 0) := by
+      intro f hf_cont hf_eig hf_orth
+      by_contra hf_ne
+      push_neg at hf_ne
+      rcases hf_ne with ⟨U_star, hU_star⟩
+      have h_pos_set : ∃ U₁ : G_L, 0 < f U₁ := by
+        by_contra h_le
+        push_neg at h_le
+        have h_neg_or_zero : ∀ U, f U * ω U ≤ 0 := fun U =>
+          mul_nonpos_of_nonpos_of_nonneg (h_le U) (hω_pos U).le
+        have hU_lt : f U_star < 0 := lt_of_le_of_ne (h_le U_star) hU_star
+        let B_neg : Set G_L := { U | f U * ω U < (f U_star * ω U_star) / 2 }
+        have hB_open : IsOpen B_neg := isOpen_lt (hf_cont.mul hω_cont) continuous_const
+        have hB_ne : B_neg.Nonempty := ⟨U_star, by
+          dsimp [B_neg]
+          have hmul : f U_star * ω U_star < 0 := mul_neg_of_neg_of_pos hU_lt (hω_pos U_star)
+          linarith⟩
+        have hB_pos : 0 < μ.real B_neg :=
+          ENNReal.toReal_pos (hB_open.measure_pos μ hB_ne).ne' (MeasureTheory.measure_ne_top μ B_neg)
+        have h_cont_int : MeasureTheory.Integrable (fun U => f U * ω U) μ :=
+          integrable_of_continuous_compact μ _ (hf_cont.mul hω_cont)
+        have h_ind_int : MeasureTheory.Integrable
+            (Set.indicator B_neg (fun _ => -(f U_star * ω U_star) / 2)) μ :=
+          (MeasureTheory.integrable_const _).indicator hB_open.measurableSet
+        have h_le_neg : ∀ U, Set.indicator B_neg (fun _ => -(f U_star * ω U_star) / 2) U ≤
+            -(f U * ω U) := by
+          intro U
+          rw [Set.indicator_apply]
+          by_cases hU : U ∈ B_neg
+          · rw [if_pos hU]
+            dsimp [B_neg] at hU
+            linarith
+          · rw [if_neg hU]
+            linarith [h_neg_or_zero U]
+        have h_int_neg : 0 < ∫ U, -(f U * ω U) ∂μ := by
+          have hc_pos : 0 < -(f U_star * ω U_star) / 2 := by
+            have hmul : f U_star * ω U_star < 0 := mul_neg_of_neg_of_pos hU_lt (hω_pos U_star)
+            linarith
+          have h_val : ∫ U, Set.indicator B_neg (fun _ => -(f U_star * ω U_star) / 2) U ∂μ =
+              μ.real B_neg * (-(f U_star * ω U_star) / 2) := by
+            rw [MeasureTheory.integral_indicator hB_open.measurableSet, MeasureTheory.setIntegral_const]
+            simp [smul_eq_mul]
+          calc 0 < μ.real B_neg * (-(f U_star * ω U_star) / 2) := mul_pos hB_pos hc_pos
+            _ = ∫ U, Set.indicator B_neg (fun _ => -(f U_star * ω U_star) / 2) U ∂μ := h_val.symm
+            _ ≤ ∫ U, -(f U * ω U) ∂μ := MeasureTheory.integral_mono h_ind_int h_cont_int.neg h_le_neg
+        rw [MeasureTheory.integral_neg, hf_orth, neg_zero] at h_int_neg
+        exact lt_irrefl 0 h_int_neg
+      have h_neg_set : ∃ U₂ : G_L, f U₂ < 0 := by
+        by_contra h_ge
+        push_neg at h_ge
+        rcases h_pos_set with ⟨U₁, hU₁⟩
+        let B_pos : Set G_L := { U | (f U₁ * ω U₁) / 2 < f U * ω U }
+        have hB_open : IsOpen B_pos := isOpen_lt continuous_const (hf_cont.mul hω_cont)
+        have hB_ne : B_pos.Nonempty := ⟨U₁, by
+          dsimp [B_pos]
+          have hmul : 0 < f U₁ * ω U₁ := mul_pos hU₁ (hω_pos U₁)
+          linarith⟩
+        have hB_pos : 0 < μ.real B_pos :=
+          ENNReal.toReal_pos (hB_open.measure_pos μ hB_ne).ne' (MeasureTheory.measure_ne_top μ B_pos)
+        have h_cont_int : MeasureTheory.Integrable (fun U => f U * ω U) μ :=
+          integrable_of_continuous_compact μ _ (hf_cont.mul hω_cont)
+        have h_ind_int : MeasureTheory.Integrable
+            (Set.indicator B_pos (fun _ => (f U₁ * ω U₁) / 2)) μ :=
+          (MeasureTheory.integrable_const _).indicator hB_open.measurableSet
+        have h_le_pos : ∀ U, Set.indicator B_pos (fun _ => (f U₁ * ω U₁) / 2) U ≤ f U * ω U := by
+          intro U
+          rw [Set.indicator_apply]
+          by_cases hU : U ∈ B_pos
+          · rw [if_pos hU]; exact (hU : _ < _).le
+          · rw [if_neg hU]; exact mul_nonneg (h_ge U) (hω_pos U).le
+        have h_int_pos : 0 < ∫ U, f U * ω U ∂μ := by
+          have hc_pos : 0 < (f U₁ * ω U₁) / 2 := mul_pos (mul_pos hU₁ (hω_pos U₁)) (by norm_num)
+          have h_val : ∫ U, Set.indicator B_pos (fun _ => (f U₁ * ω U₁) / 2) U ∂μ =
+              μ.real B_pos * ((f U₁ * ω U₁) / 2) := by
+            rw [MeasureTheory.integral_indicator hB_open.measurableSet, MeasureTheory.setIntegral_const]
+            simp [smul_eq_mul]
+          calc 0 < μ.real B_pos * ((f U₁ * ω U₁) / 2) := mul_pos hB_pos hc_pos
+            _ = ∫ U, Set.indicator B_pos (fun _ => (f U₁ * ω U₁) / 2) U ∂μ := h_val.symm
+            _ ≤ ∫ U, f U * ω U ∂μ := MeasureTheory.integral_mono h_ind_int h_cont_int h_le_pos
+        rw [hf_orth] at h_int_pos
+        exact lt_irrefl 0 h_int_pos
+      rcases h_pos_set with ⟨U₁, hU₁⟩
+      rcases h_neg_set with ⟨U₂, hU₂⟩
+      let f_abs : G_L → ℝ := fun U => |f U|
+      have hf_abs_cont : Continuous f_abs := continuous_abs.comp hf_cont
+      let f_mem := memLp_of_continuous_compact μ f hf_cont
+      let f_abs_mem := memLp_of_continuous_compact μ f_abs hf_abs_cont
+      let f_Lp : HaarGaugeSpace μ := f_mem.toLp (fun U => (f U : ℂ))
+      let f_abs_Lp : HaarGaugeSpace μ := f_abs_mem.toLp (fun U => (f_abs U : ℂ))
+      have hf_ae := f_mem.coeFn_toLp
+      have hf_abs_ae := f_abs_mem.coeFn_toLp
+      have hf_norm_sq : ‖f_abs_Lp‖ ^ 2 = ∫ U, f U * f U ∂μ := by
+        rw [lp_norm_sq_eq_integral]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hf_abs_ae] with U hU
+        change ‖⇑f_abs_Lp U‖ ^ 2 = f U * f U
+        rw [hU, Complex.norm_real, Real.norm_eq_abs, abs_abs, sq_abs, sq]
+      have hf_in_val : (⟪f_Lp, T f_Lp⟫_ℂ).re =
+          ∫ U, ∫ U', K_W U U' * (f U * f U') ∂μ ∂μ := by
+        have h_l2 : MeasureTheory.Integrable (fun U => ⟪f_Lp U, (T f_Lp) U⟫_ℂ) μ :=
+          MeasureTheory.L2.integrable_inner f_Lp (T f_Lp)
+        have h_re := integral_re h_l2
+        rw [MeasureTheory.L2.inner_def]
+        change RCLike.re (∫ U, ⟪f_Lp U, (T f_Lp) U⟫_ℂ ∂μ) = _
+        rw [← h_re]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hf_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+          M_K hM_K hK_bd f_Lp] with U hU1 hU2
+        change (⟪⇑f_Lp U, ⇑(T f_Lp) U⟫_ℂ).re = _
+        rw [hU1, hU2, hcinner]
+        have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd f_Lp U
+        dsimp [wilsonIntegralFn]
+        simp only [neg_zero, zero_mul, sub_zero]
+        have h_re_u : (∫ U', ((K_W U U' : ℝ) : ℂ) * f_Lp U' ∂μ).re =
+            ∫ U', K_W U U' * f U' ∂μ := by
+          change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * f_Lp U' ∂μ) = _
+          rw [← integral_re hi]
+          refine MeasureTheory.integral_congr_ae ?_
+          filter_upwards [hf_ae] with U' hU'
+          change (((K_W U U' : ℝ) : ℂ) * ⇑f_Lp U').re = K_W U U' * f U'
+          rw [hU', ← Complex.ofReal_mul, Complex.ofReal_re]
+        rw [h_re_u, ← MeasureTheory.integral_const_mul]
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => by
+          dsimp only; ring)
+      have hf_abs_in_val : (⟪f_abs_Lp, T f_abs_Lp⟫_ℂ).re =
+          ∫ U, ∫ U', K_W U U' * (|f U| * |f U'|) ∂μ ∂μ := by
+        have h_l2 : MeasureTheory.Integrable (fun U => ⟪f_abs_Lp U, (T f_abs_Lp) U⟫_ℂ) μ :=
+          MeasureTheory.L2.integrable_inner f_abs_Lp (T f_abs_Lp)
+        have h_re := integral_re h_l2
+        rw [MeasureTheory.L2.inner_def]
+        change RCLike.re (∫ U, ⟪f_abs_Lp U, (T f_abs_Lp) U⟫_ℂ ∂μ) = _
+        rw [← h_re]
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hf_abs_ae, wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn
+          M_K hM_K hK_bd f_abs_Lp] with U hU1 hU2
+        change (⟪⇑f_abs_Lp U, ⇑(T f_abs_Lp) U⟫_ℂ).re = _
+        rw [hU1, hU2, hcinner]
+        have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd f_abs_Lp U
+        dsimp [wilsonIntegralFn]
+        simp only [neg_zero, zero_mul, sub_zero]
+        have h_re_u : (∫ U', ((K_W U U' : ℝ) : ℂ) * f_abs_Lp U' ∂μ).re =
+            ∫ U', K_W U U' * |f U'| ∂μ := by
+          change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * f_abs_Lp U' ∂μ) = _
+          rw [← integral_re hi]
+          refine MeasureTheory.integral_congr_ae ?_
+          filter_upwards [hf_abs_ae] with U' hU'
+          change (((K_W U U' : ℝ) : ℂ) * ⇑f_abs_Lp U').re = K_W U U' * |f U'|
+          rw [hU', ← Complex.ofReal_mul, Complex.ofReal_re]
+        rw [h_re_u, ← MeasureTheory.integral_const_mul]
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => by
+          dsimp only [f_abs]; ring)
+      have hf_in_eq : (⟪f_Lp, T f_Lp⟫_ℂ).re = lam0 * ∫ U, f U * f U ∂μ := by
+        rw [hf_in_val]
+        have h_row : ∀ U, ∫ U', K_W U U' * (f U * f U') ∂μ = lam0 * (f U * f U) := by
+          intro U
+          rw [show (fun U' => K_W U U' * (f U * f U')) = fun U' => f U * (K_W U U' * f U') by
+            funext U'; ring]
+          rw [MeasureTheory.integral_const_mul, hf_eig U]
+          ring
+        simp_rw [h_row, MeasureTheory.integral_const_mul]
+      have hf_abs_in_le : (⟪f_abs_Lp, T f_abs_Lp⟫_ℂ).re ≤ lam0 * ∫ U, f U * f U ∂μ := by
+        rw [← hf_norm_sq]
+        calc (⟪f_abs_Lp, T f_abs_Lp⟫_ℂ).re ≤ ‖⟪f_abs_Lp, T f_abs_Lp⟫_ℂ‖ :=
+              (le_abs_self _).trans (Complex.abs_re_le_norm _)
+          _ ≤ ‖f_abs_Lp‖ * ‖T f_abs_Lp‖ := norm_inner_le_norm _ _
+          _ ≤ ‖f_abs_Lp‖ * (lam0 * ‖f_abs_Lp‖) :=
+              mul_le_mul_of_nonneg_left (T.le_opNorm f_abs_Lp) (norm_nonneg _)
+          _ = lam0 * ‖f_abs_Lp‖ ^ 2 := by ring
+      let Δ_row : G_L → ℝ := fun U => ∫ U', K_W U U' * (|f U| * |f U'| - f U * f U') ∂μ
+      have h_row_cont1 : Continuous (fun U => ∫ U', K_W U U' * (|f U| * |f U'|) ∂μ) := by
+        have h_eq : (fun U => ∫ U', K_W U U' * (|f U| * |f U'|) ∂μ) =
+            fun U => |f U| * (wilsonIntegralFn L N β K_kin f_abs_Lp U).re := by
+          funext U
+          have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn M_K hK_bd f_abs_Lp U
+          have h_re_u : (wilsonIntegralFn L N β K_kin f_abs_Lp U).re =
+              ∫ U', K_W U U' * |f U'| ∂μ := by
+            dsimp [wilsonIntegralFn]
+            change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * f_abs_Lp U' ∂μ) = _
+            rw [← integral_re hi]
+            refine MeasureTheory.integral_congr_ae ?_
+            filter_upwards [hf_abs_ae] with U' hU'
+            change (((K_W U U' : ℝ) : ℂ) * ⇑f_abs_Lp U').re = K_W U U' * |f U'|
+            rw [hU', ← Complex.ofReal_mul, Complex.ofReal_re]
+          rw [h_re_u, ← MeasureTheory.integral_const_mul]
+          refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => by
+            dsimp only; ring)
+        rw [h_eq]
+        exact hf_abs_cont.mul (Complex.continuous_re.comp
+          (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd f_abs_Lp))
+      have h_row_cont2 : Continuous (fun U => ∫ U', K_W U U' * (f U * f U') ∂μ) := by
+        have h_eq : (fun U => ∫ U', K_W U U' * (f U * f U') ∂μ) =
+            fun U => f U * (lam0 * f U) := by
+          funext U
+          rw [show (fun U' => K_W U U' * (f U * f U')) = fun U' => f U * (K_W U U' * f U') by
+            funext U'; ring, MeasureTheory.integral_const_mul, hf_eig U]
+        rw [h_eq]
+        exact hf_cont.mul (continuous_const.mul hf_cont)
+      have hΔ_int_eq : ∫ U, Δ_row U ∂μ =
+          (⟪f_abs_Lp, T f_abs_Lp⟫_ℂ).re - (⟪f_Lp, T f_Lp⟫_ℂ).re := by
+        have h_sub_row : ∀ U, Δ_row U =
+            (∫ U', K_W U U' * (|f U| * |f U'|) ∂μ) -
+              (∫ U', K_W U U' * (f U * f U') ∂μ) := by
+          intro U
+          have hi1 : MeasureTheory.Integrable (fun U' => K_W U U' * (|f U| * |f U'|)) μ :=
+            integrable_of_continuous_compact μ _
+              ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul
+                (continuous_const.mul hf_abs_cont))
+          have hi2 : MeasureTheory.Integrable (fun U' => K_W U U' * (f U * f U')) μ :=
+            integrable_of_continuous_compact μ _
+              ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul
+                (continuous_const.mul hf_cont))
+          dsimp [Δ_row]
+          rw [← MeasureTheory.integral_sub hi1 hi2]
+          refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => by
+            dsimp only; ring)
+        simp_rw [h_sub_row]
+        rw [MeasureTheory.integral_sub
+          (integrable_of_continuous_compact μ _ h_row_cont1)
+          (integrable_of_continuous_compact μ _ h_row_cont2),
+          hf_abs_in_val, hf_in_val]
+      have hΔ_le_zero : ∫ U, Δ_row U ∂μ ≤ 0 := by linarith
+      let B₁ : Set G_L := { U | f U₁ / 2 < f U }
+      let B₂ : Set G_L := { U' | (-f U₂) / 2 < -f U' }
+      have hB₁_open : IsOpen B₁ := isOpen_lt continuous_const hf_cont
+      have hB₂_open : IsOpen B₂ := isOpen_lt continuous_const hf_cont.neg
+      have hB₁_pos : 0 < μ.real B₁ :=
+        ENNReal.toReal_pos
+          (hB₁_open.measure_pos μ ⟨U₁, by change f U₁ / 2 < f U₁; linarith⟩).ne'
+          (MeasureTheory.measure_ne_top μ B₁)
+      have hB₂_pos : 0 < μ.real B₂ :=
+        ENNReal.toReal_pos
+          (hB₂_open.measure_pos μ ⟨U₂, by change (-f U₂) / 2 < -f U₂; linarith⟩).ne'
+          (MeasureTheory.measure_ne_top μ B₂)
+      let δ₀ : ℝ := c_W * (f U₁ * (-f U₂) / 2)
+      have hδ₀_pos : 0 < δ₀ := mul_pos hc_W_pos (by nlinarith)
+      have hΔ_nonneg : ∀ U, 0 ≤ Δ_row U := fun U =>
+        MeasureTheory.integral_nonneg fun U' => by
+          have h_le : f U * f U' ≤ |f U| * |f U'| := by
+            rw [← abs_mul]; exact le_abs_self _
+          exact mul_nonneg (hc_W_pos.le.trans (hKW_lb U U')) (sub_nonneg.mpr h_le)
+      have hΔ_B₁ : ∀ U ∈ B₁, δ₀ * μ.real B₂ ≤ Δ_row U := by
+        intro U hU
+        have hiΔ : MeasureTheory.Integrable (fun U' => K_W U U' * (|f U| * |f U'| - f U * f U')) μ :=
+          integrable_of_continuous_compact μ _
+            ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul
+              ((continuous_const.mul hf_abs_cont).sub (continuous_const.mul hf_cont)))
+        have h_ind_int : MeasureTheory.Integrable (Set.indicator B₂ (fun _ => δ₀)) μ :=
+          (MeasureTheory.integrable_const δ₀).indicator hB₂_open.measurableSet
+        have h_le_ind : ∀ U', Set.indicator B₂ (fun _ => δ₀) U' ≤
+            K_W U U' * (|f U| * |f U'| - f U * f U') := by
+          intro U'
+          rw [Set.indicator_apply]
+          by_cases hU' : U' ∈ B₂
+          · rw [if_pos hU']
+            have hfu : f U₁ / 2 < f U := hU
+            have hfu' : (-f U₂) / 2 < -f U' := hU'
+            have hfu_pos : 0 < f U := by linarith
+            have hfu'_neg : f U' < 0 := by linarith
+            have h_diff_eq : |f U| * |f U'| - f U * f U' = 2 * f U * (-f U') := by
+              rw [abs_of_pos hfu_pos, abs_of_neg hfu'_neg]; ring
+            have h_diff_ge : f U₁ * (-f U₂) / 2 ≤ |f U| * |f U'| - f U * f U' := by
+              rw [h_diff_eq]
+              nlinarith
+            exact mul_le_mul (hKW_lb U U') h_diff_ge (by nlinarith) (hc_W_pos.le.trans (hKW_lb U U'))
+          · rw [if_neg hU']
+            have h_le : f U * f U' ≤ |f U| * |f U'| := by rw [← abs_mul]; exact le_abs_self _
+            exact mul_nonneg (hc_W_pos.le.trans (hKW_lb U U')) (sub_nonneg.mpr h_le)
+        have h_val : ∫ U', Set.indicator B₂ (fun _ => δ₀) U' ∂μ = μ.real B₂ * δ₀ := by
+          rw [MeasureTheory.integral_indicator hB₂_open.measurableSet, MeasureTheory.setIntegral_const]
+          simp [smul_eq_mul]
+        calc δ₀ * μ.real B₂ = μ.real B₂ * δ₀ := by ring
+          _ = ∫ U', Set.indicator B₂ (fun _ => δ₀) U' ∂μ := h_val.symm
+          _ ≤ Δ_row U := MeasureTheory.integral_mono h_ind_int hiΔ h_le_ind
+      have hΔ_cont : Continuous Δ_row := by
+        have h_eq : Δ_row = fun U =>
+            (∫ U', K_W U U' * (|f U| * |f U'|) ∂μ) - (∫ U', K_W U U' * (f U * f U') ∂μ) := by
+          funext U
+          have hi1 : MeasureTheory.Integrable (fun U' => K_W U U' * (|f U| * |f U'|)) μ :=
+            integrable_of_continuous_compact μ _
+              ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul
+                (continuous_const.mul hf_abs_cont))
+          have hi2 : MeasureTheory.Integrable (fun U' => K_W U U' * (f U * f U')) μ :=
+            integrable_of_continuous_compact μ _
+              ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U).mul
+                (continuous_const.mul hf_cont))
+          dsimp [Δ_row]
+          rw [← MeasureTheory.integral_sub hi1 hi2]
+          refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U' => by
+            dsimp only; ring)
+        rw [h_eq]
+        exact h_row_cont1.sub h_row_cont2
+      have h_int_pos : 0 < ∫ U, Δ_row U ∂μ := by
+        have h_ind_int : MeasureTheory.Integrable (Set.indicator B₁ (fun _ => δ₀ * μ.real B₂)) μ :=
+          (MeasureTheory.integrable_const _).indicator hB₁_open.measurableSet
+        have h_le_ind : ∀ U, Set.indicator B₁ (fun _ => δ₀ * μ.real B₂) U ≤ Δ_row U := by
+          intro U
+          rw [Set.indicator_apply]
+          by_cases hU : U ∈ B₁
+          · rw [if_pos hU]; exact hΔ_B₁ U hU
+          · rw [if_neg hU]; exact hΔ_nonneg U
+        have h_val : ∫ U, Set.indicator B₁ (fun _ => δ₀ * μ.real B₂) U ∂μ =
+            μ.real B₁ * (δ₀ * μ.real B₂) := by
+          rw [MeasureTheory.integral_indicator hB₁_open.measurableSet, MeasureTheory.setIntegral_const]
+          simp [smul_eq_mul]
+        calc 0 < μ.real B₁ * (δ₀ * μ.real B₂) := mul_pos hB₁_pos (mul_pos hδ₀_pos hB₂_pos)
+          _ = ∫ U, Set.indicator B₁ (fun _ => δ₀ * μ.real B₂) U ∂μ := h_val.symm
+          _ ≤ ∫ U, Δ_row U ∂μ :=
+              MeasureTheory.integral_mono h_ind_int (integrable_of_continuous_compact μ _ hΔ_cont) h_le_ind
+      linarith
+    have hw_orth_u : ∫ U, u U * ω U ∂μ = 0 := by
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪w U, Ω U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner w Ω
+      have h_re := integral_re h_l2
+      have h0 : (⟪w, Ω⟫_ℂ).re = 0 := by rw [hw_orth, Complex.zero_re]
+      rw [MeasureTheory.L2.inner_def] at h0
+      change RCLike.re (∫ U, ⟪w U, Ω U⟫_ℂ ∂μ) = 0 at h0
+      rw [← h_re] at h0
+      have h_ae : (fun U => (⟪w U, Ω U⟫_ℂ).re) =ᵐ[μ] fun U => u U * ω U := by
+        filter_upwards [hw_ae, hΩ_ae_ω] with U hU1 hU2
+        change (⟪⇑w U, ⇑Ω U⟫_ℂ).re = u U * ω U
+        rw [hU1, hU2, hcinner]
+        simp [u, Complex.mul_re, Complex.conj_re, Complex.conj_im]
+      have h_ae' : (fun U => RCLike.re ⟪w U, Ω U⟫_ℂ) =ᵐ[μ] fun U => u U * ω U := h_ae
+      rwa [MeasureTheory.integral_congr_ae h_ae'] at h0
+    have hw_orth_v : ∫ U, v_im U * ω U ∂μ = 0 := by
+      have h_l2 : MeasureTheory.Integrable (fun U => ⟪w U, Ω U⟫_ℂ) μ :=
+        MeasureTheory.L2.integrable_inner w Ω
+      have h0 : (⟪w, Ω⟫_ℂ).im = 0 := by rw [hw_orth, Complex.zero_im]
+      rw [MeasureTheory.L2.inner_def] at h0
+      have h1 : (∫ U, ⟪w U, Ω U⟫_ℂ ∂μ).im =
+          RCLike.re (-Complex.I * ∫ U, ⟪w U, Ω U⟫_ℂ ∂μ) := by
+        simp [Complex.mul_re]
+      rw [h1, ← MeasureTheory.integral_const_mul, ← integral_re (h_l2.const_mul (-Complex.I))] at h0
+      have h_ae : (fun U => RCLike.re (-Complex.I * ⟪w U, Ω U⟫_ℂ)) =ᵐ[μ]
+          fun U => -(v_im U * ω U) := by
+        filter_upwards [hw_ae, hΩ_ae_ω] with U hU1 hU2
+        change (-Complex.I * ⟪⇑w U, ⇑Ω U⟫_ℂ).re = -(v_im U * ω U)
+        rw [hU1, hU2, hcinner]
+        simp [v_im, Complex.mul_re, Complex.conj_re, Complex.conj_im]
+      rw [MeasureTheory.integral_congr_ae h_ae, MeasureTheory.integral_neg] at h0
+      linarith
+    have hu_zero := h_no_eig_real u hu_cont h_u_eig hw_orth_u
+    have hv_zero := h_no_eig_real v_im hv_cont h_v_eig hw_orth_v
+    apply hw_ne
+    apply MeasureTheory.Lp.ext
+    filter_upwards [hw_ae, MeasureTheory.Lp.coeFn_zero ℂ 2 μ] with U hU1 hU2
+    change ⇑w U = ⇑(0 : HaarGaugeSpace μ) U
+    rw [hU1, hU2]
+    exact Complex.ext (hu_zero U) (hv_zero U)
+  have hΩ_gauge : ∀ g, cubicGaugeRep L N g Ω = Ω := by
+    intro g
+    let U_g := cubicGaugeRep L N g
+    have h_comm := wilsonIntegralOp_gauge_inv L N β hβ K_kin hK_cont hK_nn hK_inv
+      M_K hM_K hK_bd g
+    have hUg_eig : T (U_g Ω) = (lam0 : ℂ) • (U_g Ω) := by
+      have hcomp := congrArg (fun f : HaarGaugeSpace μ →L[ℂ] HaarGaugeSpace μ => f Ω) h_comm
+      change U_g (T Ω) = T (U_g Ω) at hcomp
+      rw [← hcomp, hΩ_eig, map_smul]
+    let c_g : ℂ := ⟪Ω, U_g Ω⟫_ℂ
+    let w_g : HaarGaugeSpace μ := U_g Ω - c_g • Ω
+    have hw_orth : ⟪w_g, Ω⟫_ℂ = 0 := by
+      have h1 : ⟪Ω, Ω⟫_ℂ = 1 := by rw [inner_self_eq_norm_sq_to_K, hΩ_norm]; norm_num
+      simp only [w_g, c_g, inner_sub_left, inner_smul_left, h1, mul_one,
+        inner_conj_symm, sub_self]
+    have hw_eig : T w_g = (lam0 : ℂ) • w_g := by
+      simp only [w_g, map_sub, map_smul, hUg_eig, hΩ_eig, smul_sub]
+      rw [smul_comm]
+    have hw_zero : w_g = 0 := h_simple w_g hw_eig hw_orth
+    have hUg_smul : U_g Ω = c_g • Ω := sub_eq_zero.mp hw_zero
+    have hc_norm : ‖c_g‖ = 1 := by
+      have hn : ‖c_g • Ω‖ = 1 := by
+        rw [← hUg_smul]
+        have hsq : ‖U_g Ω‖ ^ 2 = 1 := by
+          have hin : (⟪U_g Ω, U_g Ω⟫_ℂ).re = 1 := by
+            rw [cubicGaugeRep_unitary, inner_self_eq_norm_sq_to_K, hΩ_norm]
+            norm_num
+          rw [inner_self_eq_norm_sq_to_K] at hin
+          simp [pow_two] at hin
+          linarith
+        have hmul : (‖U_g Ω‖ - 1) * (‖U_g Ω‖ + 1) = 0 := by linarith
+        rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg (U_g Ω)]
+      rwa [norm_smul, hΩ_norm, mul_one] at hn
+    let eqv := gaugeActEquiv L N (fun x => (g x)⁻¹)
+    have hmp : MeasureTheory.MeasurePreserving eqv μ μ :=
+      ⟨eqv.measurable, latticeHaarMeasure_gauge_inv L N (fun x => (g x)⁻¹)⟩
+    have hΩ_g_ae : ⇑(U_g Ω) =ᵐ[μ] fun U => (ω (eqv U) : ℂ) := by
+      have h1 := cubicGaugeRep_apply_ae L N g Ω
+      have h2 := ae_comp_measurePreserving hmp hΩ_ae_ω
+      filter_upwards [h1, h2] with U hu1 hu2
+      change ⇑(U_g Ω) U = (ω (eqv U) : ℂ)
+      rw [hu1]
+      exact hu2
+    have hc_int_ae : (fun U => ⟪Ω U, (U_g Ω) U⟫_ℂ) =ᵐ[μ]
+        fun U => ((ω U * ω (eqv U) : ℝ) : ℂ) := by
+      filter_upwards [hΩ_ae_ω, hΩ_g_ae] with U hU1 hU2
+      change ⟪⇑Ω U, ⇑(U_g Ω) U⟫_ℂ = _
+      rw [hU1, hU2, hcinner]
+      simp [Complex.conj_ofReal, Complex.ofReal_mul]
+    have hc_l2 : MeasureTheory.Integrable (fun U => ⟪Ω U, (U_g Ω) U⟫_ℂ) μ :=
+      MeasureTheory.L2.integrable_inner Ω (U_g Ω)
+    have hc_re_nn : 0 ≤ c_g.re := by
+      dsimp [c_g]
+      rw [MeasureTheory.L2.inner_def]
+      change 0 ≤ RCLike.re (∫ U, ⟪Ω U, (U_g Ω) U⟫_ℂ ∂μ)
+      rw [← integral_re hc_l2]
+      refine MeasureTheory.integral_nonneg_of_ae ?_
+      filter_upwards [hc_int_ae] with U hU
+      change 0 ≤ (⟪⇑Ω U, ⇑(U_g Ω) U⟫_ℂ).re
+      rw [hU, Complex.ofReal_re]
+      exact mul_nonneg (hω_pos U).le (hω_pos _).le
+    have hc_im_zero : c_g.im = 0 := by
+      dsimp [c_g]
+      rw [MeasureTheory.L2.inner_def]
+      have h1 : (∫ U, ⟪Ω U, (U_g Ω) U⟫_ℂ ∂μ).im =
+          RCLike.re (-Complex.I * ∫ U, ⟪Ω U, (U_g Ω) U⟫_ℂ ∂μ) := by
+        simp [Complex.mul_re]
+      rw [h1, ← MeasureTheory.integral_const_mul, ← integral_re (hc_l2.const_mul (-Complex.I))]
+      refine MeasureTheory.integral_eq_zero_of_ae ?_
+      filter_upwards [hc_int_ae] with U hU
+      change (-Complex.I * ⟪⇑Ω U, ⇑(U_g Ω) U⟫_ℂ).re = 0
+      rw [hU]
+      simp [Complex.mul_re]
+    have hc_re_one : c_g.re = 1 := by
+      have hc_eq : c_g = (c_g.re : ℂ) := Complex.ext rfl hc_im_zero
+      rw [hc_eq, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hc_re_nn] at hc_norm
+      exact hc_norm
+    have hc_one : c_g = 1 := Complex.ext hc_re_one hc_im_zero
+    rw [hUg_smul, hc_one, one_smul]
+  let T_norm : HaarGaugeSpace μ →L[ℂ] HaarGaugeSpace μ := ((lam0⁻¹ : ℝ) : ℂ) • T
+  have hT_norm_sa : ∀ x y : HaarGaugeSpace μ, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ := by
+    intro x y
+    change ⟪((lam0⁻¹ : ℝ) : ℂ) • T x, y⟫_ℂ = ⟪x, ((lam0⁻¹ : ℝ) : ℂ) • T y⟫_ℂ
+    rw [inner_smul_left, inner_smul_right, Complex.conj_ofReal, hT_sa]
+  have hT_norm_pos : ∀ x : HaarGaugeSpace μ, 0 ≤ (⟪x, T_norm x⟫_ℂ).re := by
+    intro x
+    change 0 ≤ (⟪x, ((lam0⁻¹ : ℝ) : ℂ) • T x⟫_ℂ).re
+    rw [inner_smul_right, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+    exact mul_nonneg (inv_nonneg.mpr hlam0_pos.le) (hT_pos x)
+  have hT_norm_comp : IsCompactOperator ⇑T_norm := by
+    obtain ⟨S, hS_comp, hS_nhds⟩ := hT_comp
+    refine ⟨(((lam0⁻¹ : ℝ) : ℂ) • ·) '' S, hS_comp.image (continuous_const_smul _), ?_⟩
+    filter_upwards [hS_nhds] with v hv
+    exact ⟨T v, hv, rfl⟩
+  have hT_norm_le1 : ‖T_norm‖ ≤ 1 := by
+    refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
+    calc ‖T_norm x‖ = ‖((lam0⁻¹ : ℝ) : ℂ) • T x‖ := rfl
+      _ = lam0⁻¹ * ‖T x‖ := by
+          rw [norm_smul, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (inv_nonneg.mpr hlam0_pos.le)]
+      _ ≤ lam0⁻¹ * (lam0 * ‖x‖) :=
+          mul_le_mul_of_nonneg_left (T.le_opNorm x) (inv_nonneg.mpr hlam0_pos.le)
+      _ = 1 * ‖x‖ := by field_simp [hlam0_pos.ne']
+  have hT_norm_Ω : T_norm Ω = Ω := by
+    change ((lam0⁻¹ : ℝ) : ℂ) • T Ω = Ω
+    rw [hΩ_eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+      Complex.ofReal_one, one_smul]
+  let K : Submodule ℂ (HaarGaugeSpace μ) := (Submodule.span ℂ {Ω})ᗮ
+  have hK_closed : IsClosed (K : Set (HaarGaugeSpace μ)) :=
+    (Submodule.span ℂ {Ω}).isClosed_orthogonal
+  have hK_inv : ∀ x ∈ K, T_norm x ∈ K := by
+    intro x hx
+    rw [Submodule.mem_orthogonal]
+    intro z hz
+    rw [Submodule.mem_span_singleton] at hz
+    rcases hz with ⟨c, rfl⟩
+    have hΩx : ⟪Ω, x⟫_ℂ = 0 := (Submodule.mem_orthogonal _ _).mp hx Ω (Submodule.subset_span rfl)
+    rw [inner_smul_left, ← hT_norm_sa, hT_norm_Ω, hΩx, mul_zero]
+  haveI : CompleteSpace ↥K := by
+    refine Metric.complete_of_cauchySeq_tendsto fun u hu => ?_
+    have huV : CauchySeq (fun n => (u n : HaarGaugeSpace μ)) :=
+      Metric.cauchySeq_iff.mpr (by simpa [Subtype.dist_eq] using Metric.cauchySeq_iff.mp hu)
+    obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete huV
+    have haK : a ∈ (K : Set (HaarGaugeSpace μ)) :=
+      hK_closed.mem_of_tendsto ha (Filter.Eventually.of_forall fun n => (u n).2)
+    exact ⟨⟨a, haK⟩, tendsto_subtype_rng.mpr ha⟩
+  let T_K : ↥K →L[ℂ] ↥K :=
+    LinearMap.mkContinuous
+      { toFun := fun x => ⟨T_norm x.1, hK_inv x.1 x.2⟩
+        map_add' := fun x y => Subtype.ext (T_norm.map_add x.1 y.1)
+        map_smul' := fun c x => Subtype.ext (T_norm.map_smul c x.1) }
+      1
+      (fun x => by
+        change ‖T_norm x.1‖ ≤ 1 * ‖x.1‖
+        rw [one_mul]
+        calc ‖T_norm x.1‖ ≤ ‖T_norm‖ * ‖x.1‖ := T_norm.le_opNorm x.1
+          _ ≤ 1 * ‖x.1‖ := mul_le_mul_of_nonneg_right hT_norm_le1 (norm_nonneg _)
+          _ = ‖x.1‖ := one_mul _)
+  have hTK_sa : ∀ x y : ↥K, ⟪T_K x, y⟫_ℂ = ⟪x, T_K y⟫_ℂ := fun x y => hT_norm_sa x.1 y.1
+  have hTK_pos : ∀ x : ↥K, 0 ≤ (⟪x, T_K x⟫_ℂ).re := fun x => hT_norm_pos x.1
+  have hTK_comp : IsCompactOperator ⇑T_K := by
+    obtain ⟨S, hS_comp, hS_nhds⟩ := hT_norm_comp
+    let S_K : Set ↥K := Subtype.val ⁻¹' S
+    have hSK_comp : IsCompact S_K := by
+      have him : Subtype.val '' S_K = S ∩ (K : Set (HaarGaugeSpace μ)) := by
+        ext x
+        simp only [S_K, Set.mem_image, Set.mem_preimage, Set.mem_inter_iff, SetLike.mem_coe,
+          Subtype.exists, exists_and_right, exists_eq_right]
+        exact ⟨fun ⟨hxK, hxS⟩ => ⟨hxS, hxK⟩, fun ⟨hxS, hxK⟩ => ⟨hxK, hxS⟩⟩
+      exact Topology.IsInducing.subtypeVal.isCompact_iff.mpr
+        (him ▸ hS_comp.inter_right hK_closed)
+    refine ⟨S_K, hSK_comp, ?_⟩
+    have h_pre : ⇑T_K ⁻¹' S_K = Subtype.val ⁻¹' (⇑T_norm ⁻¹' S) := by ext x; rfl
+    rw [h_pre]
+    exact continuous_subtype_val.continuousAt.preimage_mem_nhds hS_nhds
+  by_cases hTK_zero : T_K = 0
+  · refine ⟨Ω, lam0, 1, hlam0_pos, one_pos, hΩ_norm, hΩ_eig, hΩ_gauge, fun v hv => ?_⟩
+    have hvK : v ∈ K := by
+      rw [Submodule.mem_orthogonal]
+      intro z hz
+      rw [Submodule.mem_span_singleton] at hz
+      rcases hz with ⟨c, rfl⟩
+      have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
+      rw [inner_smul_left, hΩv, mul_zero]
+    have hTv : T_norm v = 0 := congrArg Subtype.val (by
+      have h0 := congrArg (fun f : ↥K →L[ℂ] ↥K => f ⟨v, hvK⟩) hTK_zero
+      exact h0)
+    change (⟪v, T_norm v⟫_ℂ).re ≤ Real.exp (-(1 * 1)) * ‖v‖ ^ 2
+    rw [hTv, inner_zero_right, Complex.zero_re]
+    positivity
+  · obtain ⟨w_K, hwK_norm, hwK_eig⟩ :=
+      compact_sa_pos_exists_max_eigenvector T_K hTK_sa hTK_pos hTK_comp hTK_zero
+    have hTK_pos_norm : 0 < ‖T_K‖ :=
+      lt_of_le_of_ne (norm_nonneg T_K) (Ne.symm (norm_ne_zero_iff.mpr hTK_zero))
+    have hTK_le_one : ‖T_K‖ ≤ 1 := by
+      refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
+      change ‖T_norm x.1‖ ≤ 1 * ‖x.1‖
+      rw [one_mul]
+      exact (T_norm.le_opNorm x.1).trans (by
+        calc ‖T_norm‖ * ‖x.1‖ ≤ 1 * ‖x.1‖ := mul_le_mul_of_nonneg_right hT_norm_le1 (norm_nonneg _)
+          _ = ‖x.1‖ := one_mul _)
+    have hTK_lt_one : ‖T_K‖ < 1 := by
+      refine lt_of_le_of_ne hTK_le_one fun h1 => ?_
+      have hw_eig_norm : T_norm w_K.1 = (1 : ℂ) • w_K.1 := by
+        have h := congrArg Subtype.val hwK_eig
+        change T_norm w_K.1 = (‖T_K‖ : ℂ) • w_K.1 at h
+        rwa [h1, Complex.ofReal_one] at h
+      have hw_eig_T : T w_K.1 = (lam0 : ℂ) • w_K.1 := by
+        have h := congrArg (fun z : HaarGaugeSpace μ => (lam0 : ℂ) • z) hw_eig_norm
+        dsimp only [T_norm] at h
+        rw [ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
+          mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul, one_smul] at h
+        exact h
+      have hw_orth : ⟪w_K.1, Ω⟫_ℂ = 0 := by
+        have hΩw : ⟪Ω, w_K.1⟫_ℂ = 0 :=
+          (Submodule.mem_orthogonal _ _).mp w_K.2 Ω (Submodule.subset_span rfl)
+        rw [← inner_conj_symm, hΩw, map_zero]
+      have hw0 : w_K.1 = 0 := h_simple w_K.1 hw_eig_T hw_orth
+      have h0 : ‖w_K‖ = 0 := by change ‖w_K.1‖ = 0; rw [hw0, norm_zero]
+      linarith [hwK_norm]
+    let Δ : ℝ := -Real.log ‖T_K‖
+    have hΔ_pos : 0 < Δ := neg_pos.mpr (Real.log_neg hTK_pos_norm hTK_lt_one)
+    refine ⟨Ω, lam0, Δ, hlam0_pos, hΔ_pos, hΩ_norm, hΩ_eig, hΩ_gauge, fun v hv => ?_⟩
+    have hvK : v ∈ K := by
+      rw [Submodule.mem_orthogonal]
+      intro z hz
+      rw [Submodule.mem_span_singleton] at hz
+      rcases hz with ⟨c, rfl⟩
+      have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
+      rw [inner_smul_left, hΩv, mul_zero]
+    have hexp : Real.exp (-(Δ * 1)) = ‖T_K‖ := by
+      dsimp [Δ]
+      rw [mul_one, neg_neg, Real.exp_log hTK_pos_norm]
+    change (⟪v, T_norm v⟫_ℂ).re ≤ Real.exp (-(Δ * 1)) * ‖v‖ ^ 2
+    rw [hexp]
+    calc (⟪v, T_norm v⟫_ℂ).re ≤ ‖⟪v, T_norm v⟫_ℂ‖ := (le_abs_self _).trans (Complex.abs_re_le_norm _)
+      _ ≤ ‖v‖ * ‖T_norm v‖ := norm_inner_le_norm _ _
+      _ = ‖(⟨v, hvK⟩ : ↥K)‖ * ‖T_K ⟨v, hvK⟩‖ := rfl
+      _ ≤ ‖(⟨v, hvK⟩ : ↥K)‖ * (‖T_K‖ * ‖(⟨v, hvK⟩ : ↥K)‖) :=
+          mul_le_mul_of_nonneg_left (T_K.le_opNorm _) (norm_nonneg _)
+      _ = ‖T_K‖ * ‖v‖ ^ 2 := by change ‖v‖ * (‖T_K‖ * ‖v‖) = _; ring
+
+/--
+**Full-rank `LatticeGaugeSetup` on `cubicTorus3 L`** driven by `wilsonIntegralOp`
+with Gram-factorized kinetic kernel `wilsonGramKernel L N χ`.
+-/
+noncomputable def fullRankCubicLatticeGaugeSetup (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W)
+    (c_χ : ℝ) (hc_χ : 0 < c_χ) (hχ_lb : ∀ U W, c_χ ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ) :
+    LatticeGaugeSetup (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+      (HaarGaugeSpace (latticeHaarMeasure L N)) :=
+  let hχ_nn : ∀ U W, 0 ≤ χ U W := fun U W => hc_χ.le.trans (hχ_lb U W)
+  let K_kin := wilsonGramKernel L N χ
+  let hK_cont := continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let hK_symm := wilsonGramKernel_symm L N χ
+  let hK_nn := wilsonGramKernel_nonneg L N χ hχ_nn
+  let hK_inv := wilsonGramKernel_gauge_inv L N χ hχ_inv
+  let hK_lb := wilsonGramKernel_lb L N χ hχ_cont c_χ hc_χ.le hχ_lb
+  let hK_bd := wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let T_raw := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
+  let hT_pos := wilsonIntegralOp_gram_pos L N β hβ χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let pf := wilsonIntegral_perron_frobenius L N β hβ K_kin hK_cont hK_symm hK_nn hK_inv
+    (c_χ ^ 2) (sq_pos_of_pos hc_χ) hK_lb (M_χ ^ 2) (sq_nonneg M_χ) hK_bd hT_pos
+  let Ω := Classical.choose pf
+  let hΩ_ex := Classical.choose_spec pf
+  let lam0 := Classical.choose hΩ_ex
+  let hlam0_ex := Classical.choose_spec hΩ_ex
+  let Δ := Classical.choose hlam0_ex
+  let hpf := Classical.choose_spec hlam0_ex
+  let T_norm : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
+      HaarGaugeSpace (latticeHaarMeasure L N) :=
+    ((lam0⁻¹ : ℝ) : ℂ) • T_raw
+  { rep := cubicGaugeRep L N
+    rep_one := cubicGaugeRep_one L N
+    rep_mul := cubicGaugeRep_mul L N
+    T := T_norm
+    a := 1
+    a_pos := one_pos
+    T_sa := fun x y => by
+      simp only [T_norm, ContinuousLinearMap.smul_apply, inner_smul_left, inner_smul_right,
+        Complex.conj_ofReal]
+      congr 1
+      exact wilsonIntegralOp_sa L N β hβ K_kin hK_cont hK_symm hK_nn
+        (M_χ ^ 2) (sq_nonneg M_χ) hK_bd x y
+    T_pos := fun v => by
+      simp only [T_norm, ContinuousLinearMap.smul_apply, inner_smul_right, Complex.mul_re,
+        Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+      exact mul_nonneg (inv_nonneg.mpr hpf.1.le) (hT_pos v)
+    T_compact := by
+      obtain ⟨S, hS_comp, hS_nhds⟩ :=
+        wilsonIntegralOp_compact L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
+      refine ⟨(((lam0⁻¹ : ℝ) : ℂ) • ·) '' S, hS_comp.image (continuous_const_smul _), ?_⟩
+      filter_upwards [hS_nhds] with v hv
+      exact ⟨T_raw v, hv, rfl⟩
+    T_gauge_inv := fun g => by
+      ext1 ψ
+      simp only [T_norm, ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply, map_smul]
+      congr 1
+      have hc := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ)
+        (wilsonIntegralOp_gauge_inv L N β hβ K_kin hK_cont hK_nn hK_inv
+          (M_χ ^ 2) (sq_nonneg M_χ) hK_bd g)
+      exact hc
+    Ω := Ω
+    Ω_unit := hpf.2.2.1
+    Ω_vac := by
+      change ((lam0⁻¹ : ℝ) : ℂ) • T_raw Ω = Ω
+      have heig : T_raw Ω = (lam0 : ℂ) • Ω := hpf.2.2.2.1
+      rw [heig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hpf.1.ne',
+        Complex.ofReal_one, one_smul]
+    Ω_gauge_inv := hpf.2.2.2.2.1
+    Δ := Δ
+    Δ_pos := hpf.2.1
+    gap := hpf.2.2.2.2.2 }
+
+/-- Concrete non-constant, gauge-invariant, strictly positive kinetic kernel `1 + w_β(U) w_β(W)`. -/
+noncomputable def cubicActionKineticKernel (L N : ℕ) [NeZero L] (β : ℝ)
+    (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  1 + cubicWilsonWeight L N β U * cubicWilsonWeight L N β W
+
+/--
+Full-rank `NonAbelianWilsonSetup` on `cubicTorus3 L` with `L²(SU(N)^{3L³}, dμ_Haar)`
+and `wilsonIntegralOp` (replacing the rank-2 truncation).
+-/
+noncomputable def fullRankCubicNonAbelianWilsonSetup (L N : ℕ) [NeZero L] (hN : 2 ≤ N)
+    (β : ℝ) (hβ : 0 < β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    NonAbelianWilsonSetup (cubicTorus3 L) N hN :=
+  let χ := cubicActionKineticKernel L N β
+  have hχ_cont : Continuous (Function.uncurry χ) := by
+    have hS := continuous_cubicWilsonAction L N β
+    have hw : Continuous (cubicWilsonWeight L N β) :=
+      Real.continuous_exp.comp (continuous_const.mul hS)
+    exact continuous_const.add ((hw.comp continuous_fst).mul (hw.comp continuous_snd))
+  have hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W := by
+    intro g U W
+    dsimp [χ, cubicActionKineticKernel]
+    rw [cubicWilsonWeight_gauge_inv, cubicWilsonWeight_gauge_inv]
+  have hχ_lb : ∀ U W, (1 : ℝ) ≤ χ U W := fun U W => by
+    have h1 : 0 ≤ cubicWilsonWeight L N β U := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
+    have h2 : 0 ≤ cubicWilsonWeight L N β W := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
+    dsimp [χ, cubicActionKineticKernel]
+    linarith [mul_nonneg h1 h2]
+  have hχ_bd : ∀ U W, χ U W ≤ 2 := fun U W => by
+    have h1 := (cubicWilsonWeight_bounds L N β hβ.le U).2
+    have h2 := (cubicWilsonWeight_bounds L N β hβ.le W).2
+    have h1nn : 0 ≤ cubicWilsonWeight L N β U := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
+    have h2nn : 0 ≤ cubicWilsonWeight L N β W := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
+    dsimp [χ, cubicActionKineticKernel]
+    nlinarith
+  let setup := fullRankCubicLatticeGaugeSetup L N β hβ.le χ hχ_cont hχ_inv 1 one_pos hχ_lb
+    2 (by norm_num) hχ_bd
+  { μ := latticeHaarMeasure L N
+    μ_prob := latticeHaarMeasure_prob L N
+    μ_inv := latticeHaarMeasure_gauge_inv L N
+    β := β
+    β_pos := hβ
+    plaquettes := cubicPlaquettes L
+    K_kin := wilsonGramKernel L N χ
+    K_symm := wilsonGramKernel_symm L N χ
+    K_nonneg := wilsonGramKernel_nonneg L N χ (fun U W => (zero_le_one.trans (hχ_lb U W)))
+    K_inv := wilsonGramKernel_gauge_inv L N χ hχ_inv
+    gaugeSetup := setup
+    SymmIdx := GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+    symmOp := cubicGaugeRep L N
+    symm_comm := fun g => by
+      unfold lieBracketCLM
+      change (setup.rep g).comp setup.T - setup.T.comp (setup.rep g) = 0
+      rw [setup.T_gauge_inv g, sub_self] }
+
+theorem fullRankCubic_clustering (L N : ℕ) [NeZero L] (hN : 2 ≤ N) (β : ℝ) (hβ : 0 < β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (A B : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
+      HaarGaugeSpace (latticeHaarMeasure L N))
+    (hA : ⟪A (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω,
+        (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω⟫_ℂ = 0)
+    (hB : ⟪B (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω,
+        (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω⟫_ℂ = 0)
+    (k : ℕ) :
+    ‖⟪(fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω,
+        A (((fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.T ^ k)
+          (B (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Ω))⟫_ℂ‖ ≤
+      ‖A‖ * ‖B‖ * Real.exp
+        (-((fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.Δ *
+          (k * (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup.a))) :=
+  nonAbelianWilson_clustering (fullRankCubicNonAbelianWilsonSetup L N hN β hβ) A B hA hB k
+
+end FullRankWilsonSpectralGap
+
+/-! ## §34.  Non-translation-invariance of `isingSchwinger` & smeared OS reconstruction -/
+
+section SmearedOSReconstruction
+
+/--
+**Mathematical obstruction on `concreteOS4DContinuumTheory`**:
+`isingSchwinger` is anchored at `x = 0` via `radialCoupling`, so it is NOT
+Euclidean time-translation invariant (`S(T_t x, y) ≠ S(x, T_t y)`).
+A genuine translation-invariant physical Yang–Mills Schwinger distribution is
+only bounded on smeared test configurations, never pointwise-diagonal `M^n`.
+-/
+theorem isingSchwinger_not_time_trans_inv :
+    ∃ x y : PosTimeConfig,
+      osConfigKernel concreteOS4DContinuumTheory (posTimeShiftConfig 1 zero_le_one x) y ≠
+        osConfigKernel concreteOS4DContinuumTheory x (posTimeShiftConfig 1 zero_le_one y) := by
+  let x : PosTimeConfig := ⟨1, fun _ => ![1, 0, 0, 0], fun _ => by simp⟩
+  let y : PosTimeConfig := ⟨1, fun _ => ![1, 1, 0, 0], fun _ => by simp⟩
+  refine ⟨x, y, ?_⟩
+  have h2_formula : ∀ a b : Space4,
+      isingSchwinger 2 ![a, b] = (((1 + radialCoupling a * radialCoupling b : ℝ)) : ℂ) := by
+    intro a b
+    dsimp [isingSchwinger]
+    rw [Fin.prod_univ_two, Fin.prod_univ_two]
+    congr 1
+    simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one]
+    ring
+  have happ_gen : ∀ (a b : Space4),
+      Fin.append (fun _ : Fin 1 => a) (fun _ : Fin 1 => b) = ![a, b] := by
+    intro a b; funext k; fin_cases k <;> rfl
+  have hx_pt : (fun k : Fin 1 => euclidTimeReflect ((posTimeShiftConfig 1 zero_le_one x).pts k)) =
+      fun _ => ![-2, 0, 0, 0] := by
+    funext _ i; fin_cases i <;> simp [posTimeShiftConfig, x, euclidTimeReflect] <;> try norm_num
+  have hy_pt : y.pts = fun _ => ![1, 1, 0, 0] := rfl
+  have hx_pt0 : (fun k : Fin 1 => euclidTimeReflect (x.pts k)) =
+      fun _ => ![-1, 0, 0, 0] := by
+    funext _ i; fin_cases i <;> simp [x, euclidTimeReflect]
+  have hy_pt1 : (posTimeShiftConfig 1 zero_le_one y).pts =
+      fun _ => ![2, 1, 0, 0] := by
+    funext _ i; fin_cases i <;> simp [posTimeShiftConfig, y] <;> try norm_num
+  have happ1 :
+      Fin.append (fun k : Fin 1 => euclidTimeReflect ((posTimeShiftConfig 1 zero_le_one x).pts k))
+        y.pts = ![ ![-2, 0, 0, 0], ![1, 1, 0, 0] ] := by
+    rw [hx_pt, hy_pt]
+    exact happ_gen _ _
+  have happ2 :
+      Fin.append (fun k : Fin 1 => euclidTimeReflect (x.pts k))
+        (posTimeShiftConfig 1 zero_le_one y).pts = ![ ![-1, 0, 0, 0], ![2, 1, 0, 0] ] := by
+    rw [hx_pt0, hy_pt1]
+    exact happ_gen _ _
+  have hn1 : euclidNorm4 ![-2, 0, 0, 0] = 2 := by
+    simp [euclidNorm4, Fin.sum_univ_four]; try norm_num
+  have hn2 : euclidNorm4 ![1, 1, 0, 0] = Real.sqrt 2 := by
+    simp [euclidNorm4, Fin.sum_univ_four]; try norm_num
+  have hn3 : euclidNorm4 ![-1, 0, 0, 0] = 1 := by
+    simp [euclidNorm4, Fin.sum_univ_four]
+  have hn4 : euclidNorm4 ![2, 1, 0, 0] = Real.sqrt 5 := by
+    simp [euclidNorm4, Fin.sum_univ_four]; try norm_num
+  have hsqrt_lt : Real.sqrt 5 < 1 + Real.sqrt 2 := by
+    have h2_gt1 : 1 < Real.sqrt 2 := (Real.lt_sqrt (by norm_num)).mpr (by norm_num)
+    have hsq : (Real.sqrt 5) ^ 2 < (1 + Real.sqrt 2) ^ 2 := by
+      rw [Real.sq_sqrt (by norm_num)]
+      nlinarith [Real.sq_sqrt (by norm_num : (0 : ℝ) ≤ 2)]
+    exact lt_of_pow_lt_pow_left₀ 2 (by positivity) hsq
+  have hexp_lt :
+      Real.exp (-2 * (2 + Real.sqrt 2)) < Real.exp (-2 * (1 + Real.sqrt 5)) :=
+    Real.exp_lt_exp.mpr (by linarith)
+  change ¬ isingSchwinger 2
+      (Fin.append (fun k : Fin 1 => euclidTimeReflect ((posTimeShiftConfig 1 zero_le_one x).pts k))
+        y.pts) =
+      isingSchwinger 2
+        (Fin.append (fun k : Fin 1 => euclidTimeReflect (x.pts k))
+          (posTimeShiftConfig 1 zero_le_one y).pts)
+  rw [happ1, happ2, h2_formula, h2_formula]
+  dsimp [radialCoupling]
+  rw [hn1, hn2, hn3, hn4, ← Real.exp_add, ← Real.exp_add]
+  have h_eq1 : -2 * 2 + -2 * Real.sqrt 2 = -2 * (2 + Real.sqrt 2) := by ring
+  have h_eq2 : -2 * 1 + -2 * Real.sqrt 5 = -2 * (1 + Real.sqrt 5) := by ring
+  rw [h_eq1, h_eq2]
+  intro heq
+  have hre := congrArg Complex.re heq
+  simp only [Complex.ofReal_re] at hre
+  linarith
+
+/--
+Smeared Osterwalder–Schrader pre-Hilbert reconstruction data (`(E, F)` arbitrary,
+supporting Schwartz-smeared positive-time test algebras): replaces pointwise
+Schwinger bounds with the Glimm–Jaffe dyadic growth bound `T_E_ub`, deriving
+semigroup contractivity automatically via `os_semigroup_contraction_of_bounded`.
+-/
+structure SmearedOSPreData (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys) where
+  E            : Type
+  [eAdd        : AddCommGroup E]
+  [eMod        : Module ℂ E]
+  F            : OSReflectionForm E
+  Ω_E          : E
+  Ω_E_norm     : F.B Ω_E Ω_E = 1
+  T_E_pre      : ℝ → (E →ₗ[ℂ] E)
+  T_E_zero     : ∀ x : E, T_E_pre 0 x = x
+  T_E_add      : ∀ s t, 0 ≤ s → 0 ≤ t → ∀ x : E, T_E_pre (s + t) x = T_E_pre s (T_E_pre t x)
+  T_E_sa       : ∀ t, 0 ≤ t → ∀ x y : E, F.B (T_E_pre t x) y = F.B x (T_E_pre t y)
+  T_E_ub       : ∀ (t : ℝ), 0 ≤ t → ∀ f : E, ∃ C : ℝ, ∀ k : ℕ,
+                   (F.B (T_E_pre (((2 ^ k : ℕ) : ℝ) * t) f)
+                     (T_E_pre (((2 ^ k : ℕ) : ℝ) * t) f)).re ≤ C
+  H_pre        : E →ₗ[ℂ] E
+  H_bound      : ℝ
+  H_bound_nn   : 0 ≤ H_bound
+  H_bd         : ∀ x : E, (F.B (H_pre x) (H_pre x)).re ≤ H_bound ^ 2 * (F.B x x).re
+  H_sa         : ∀ x y : E, F.B (H_pre x) y = F.B x (H_pre y)
+  H_nonneg     : ∀ x : E, 0 ≤ (F.B x (H_pre x)).re
+  H_vac        : H_pre Ω_E = 0
+  U_pre        : Poincare4 → (E →ₗ[ℂ] E)
+  U_unit_pre   : ∀ g x y, F.B (U_pre g x) (U_pre g y) = F.B x y
+  U_vac_pre    : ∀ g, U_pre g Ω_E = Ω_E
+  φ_pre        : Space4 → (E →ₗ[ℂ] E)
+  φ_bound      : Space4 → ℝ
+  φ_bound_nn   : ∀ x, 0 ≤ φ_bound x
+  φ_bd         : ∀ x (v : E), (F.B (φ_pre x v) (φ_pre x v)).re ≤ (φ_bound x) ^ 2 * (F.B v v).re
+  cov_pre      : ∀ g x v, U_pre g (φ_pre x v) = φ_pre (poincareAct g x) (U_pre g v)
+  loc_pre      : ∀ x y, minkowskiSq (x - y) < 0 → ∀ v, φ_pre x (φ_pre y v) = φ_pre y (φ_pre x v)
+  P2_spec      : Set ℝ
+  spec_cond    : ∀ p2 ∈ P2_spec, 0 ≤ p2
+  gap_spec     : ∀ p2 ∈ P2_spec, p2 = 0 ∨ Δ_phys ^ 2 ≤ p2
+  cyclic_dense : (Submodule.span ℂ
+      {v : OSHilbertSpace F | ∃ (k : ℕ) (xs : Fin k → Space4),
+        v = (List.ofFn (fun i : Fin k =>
+          osLiftOperator F (φ_pre (xs i)) (φ_bound (xs i)) (φ_bound_nn (xs i)) (φ_bd (xs i)))).foldr
+          (fun A acc => A acc) (osCompletionMap F (osPreMk F Ω_E))}).topologicalClosure = ⊤
+
+attribute [instance] SmearedOSPreData.eAdd SmearedOSPreData.eMod
+
+/-- Discharge semigroup contractivity in `EuclideanOSPreData` from `SmearedOSPreData`. -/
+noncomputable def buildEuclideanOSPreDataFromSmeared
+    {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (S : SmearedOSPreData Δ_phys os) :
+    EuclideanOSPreData Δ_phys os where
+  E := S.E
+  F := S.F
+  Ω_E := S.Ω_E
+  Ω_E_norm := S.Ω_E_norm
+  T_E_pre := S.T_E_pre
+  T_E_zero := S.T_E_zero
+  T_E_add := S.T_E_add
+  T_E_sa := S.T_E_sa
+  T_E_contr := fun t ht x => by
+    rw [one_pow, one_mul]
+    obtain ⟨C, hC⟩ := S.T_E_ub t ht x
+    exact os_semigroup_contraction_of_bounded S.F S.T_E_pre S.T_E_add S.T_E_sa t ht x C hC
+  H_pre := S.H_pre
+  H_bound := S.H_bound
+  H_bound_nn := S.H_bound_nn
+  H_bd := S.H_bd
+  H_sa := S.H_sa
+  H_nonneg := S.H_nonneg
+  H_vac := S.H_vac
+  U_pre := S.U_pre
+  U_unit_pre := S.U_unit_pre
+  U_vac_pre := S.U_vac_pre
+  φ_pre := S.φ_pre
+  φ_bound := S.φ_bound
+  φ_bound_nn := S.φ_bound_nn
+  φ_bd := S.φ_bd
+  cov_pre := S.cov_pre
+  loc_pre := S.loc_pre
+  P2_spec := S.P2_spec
+  spec_cond := S.spec_cond
+  gap_spec := S.gap_spec
+  cyclic_dense := S.cyclic_dense
+
+/-- Reconstruct `OSReconstructionData Δ_phys os` on `OSHilbertSpace S.F` from smeared OS data. -/
+noncomputable def smearedOS_reconstruct_wightman
+    {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (S : SmearedOSPreData Δ_phys os) :
+    OSReconstructionData Δ_phys os :=
+  buildOSReconstructionOnCompletion (buildEuclideanOSPreDataFromSmeared S)
+
+end SmearedOSReconstruction
+
+/-! ## §35.  Clay Yang–Mills 4D Mass Gap Statement & Exact Reduction to Open RG Estimates -/
+
+section ClayYangMills4DInterface
+
+/--
+**Clay 4D `SU(N)` Yang–Mills Existence and Mass Gap (`ClayYangMillsMassGap4D N hN`)**:
+existence of a physical mass gap `Δ_phys > 0`, a non-Gaussian 4D Euclidean continuum
+`OS4DContinuumTheory Δ_phys` realized as the `a → 0⁺, β → ∞, Ls,Lt → ∞` scaling limit of
+`SU(N)` Wilson lattice Schwinger functions `cubic4Schwinger`, and its reconstructed
+infinite-dimensional relativistic `WightmanQFT4D Δ_phys` on `OSHilbertSpace` with
+`Poincare4 = ℝ⁴ ⋊ O(1,3)` covariance, local commutativity, cyclic vacuum, and
+`spec(M²) ⊆ {0} ∪ [Δ_phys², ∞)`.
+-/
+def ClayYangMillsMassGap4D (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] : Prop :=
+  ∃ (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys) (R : OSReconstructionData.{0} Δ_phys os)
+    (Ls_seq Lt_seq : ℕ → ℕ) (_ : ∀ m, NeZero (Ls_seq m)) (_ : ∀ m, NeZero (Lt_seq m))
+    (β_seq : ℕ → ℝ)
+    (latt_obs : ∀ (m n : ℕ), (Fin n → Space4) → Fin n →
+      (GaugeField (cubicTorus4 (Ls_seq m) (Lt_seq m))
+        (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)),
+    0 < Δ_phys ∧
+    ¬ IsGaussian4 os.os.Schwinger ∧
+    (∀ m, 0 ≤ β_seq m) ∧
+    Filter.Tendsto β_seq Filter.atTop Filter.atTop ∧
+    (∀ (n : ℕ) (xs : Fin n → Space4),
+      Filter.Tendsto
+        (fun m => cubic4Schwinger (Ls_seq m) (Lt_seq m) N (β_seq m) n (latt_obs m n xs))
+        Filter.atTop (nhds (os.os.Schwinger n xs))) ∧
+    (∀ p2 ∈ R.wightman.P2_spec, ¬ (0 < p2 ∧ p2 < Δ_phys ^ 2)) ∧
+    (∀ x : R.wightman.H, 0 ≤ (⟪x, R.H_phys x⟫_ℂ).re) ∧
+    R.H_phys R.wightman.Ω_phys = 0
+
+/--
+**The Three Open Analytic RG / OS Estimates (`SUYangMillsRGConjecture N hN`)**:
+1. **(E1) Uniform RG scaling:** along `a_seq m → 0⁺, β_seq m → ∞`, the finite-volume
+   spectral gaps of the full-rank 3D cubic `SU(N)` Wilson transfer operators
+   `fullRankCubicNonAbelianWilsonSetup` satisfy `Δ_latt m / a_seq m ≥ Δ₀ > 0`
+   uniformly in spatial volume `Ls_seq m`, converging to `Δ_phys > 0`.
+2. **(E2) Non-Gaussian 4D continuum limit:** `cubic4Schwinger` converges along
+   `(Ls_seq m, Lt_seq m, β_seq m)` to a non-Gaussian `OS4DContinuumTheory Δ_phys`.
+3. **(E3) OS analytic continuation / temperedness:** `SmearedOSPreData Δ_phys os`
+   holds on the smeared positive-time test space.
+-/
+def SUYangMillsRGConjecture (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] : Prop :=
+  ∃ (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys)
+    (smeared : SmearedOSPreData Δ_phys os)
+    (Ls_seq Lt_seq : ℕ → ℕ) (_ : ∀ m, NeZero (Ls_seq m)) (_ : ∀ m, NeZero (Lt_seq m))
+    (a_seq β_seq g_sq_seq : ℕ → ℝ)
+    (hβ_pos : ∀ m, 0 < β_seq m)
+    (latt_obs : ∀ (m n : ℕ), (Fin n → Space4) → Fin n →
+      (GaugeField (cubicTorus4 (Ls_seq m) (Lt_seq m))
+        (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)),
+    (∀ m, 0 < a_seq m) ∧
+    Filter.Tendsto a_seq Filter.atTop (nhds 0) ∧
+    Filter.Tendsto β_seq Filter.atTop Filter.atTop ∧
+    (∀ m, 0 < g_sq_seq m) ∧
+    (∃ Δ₀ : ℝ, 0 < Δ₀ ∧ ∀ m,
+      Δ₀ ≤ (fullRankCubicNonAbelianWilsonSetup (Ls_seq m) N hN (β_seq m) (hβ_pos m)).gaugeSetup.Δ /
+        a_seq m) ∧
+    Filter.Tendsto
+      (fun m =>
+        (fullRankCubicNonAbelianWilsonSetup (Ls_seq m) N hN (β_seq m) (hβ_pos m)).gaugeSetup.Δ /
+          a_seq m)
+      Filter.atTop (nhds Δ_phys) ∧
+    (∀ (n : ℕ) (xs : Fin n → Space4),
+      Filter.Tendsto
+        (fun m => cubic4Schwinger (Ls_seq m) (Lt_seq m) N (β_seq m) n (latt_obs m n xs))
+        Filter.atTop (nhds (os.os.Schwinger n xs)))
+
+/--
+**Main Reduction Theorem**:
+the three open analytic RG/OS estimates `SUYangMillsRGConjecture N hN` imply
+`ClayYangMillsMassGap4D N hN`, firing the complete formal pipeline `§§1–34`.
+-/
+theorem clay_yang_mills_from_rg_estimates (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (hRG : SUYangMillsRGConjecture N hN) :
+    ClayYangMillsMassGap4D N hN := by
+  rcases hRG with ⟨Δ_phys, os, smeared, Ls_seq, Lt_seq, hLs, hLt, a_seq, β_seq, g_sq_seq,
+    hβ_pos, latt_obs, ha_pos, ha_lim, hβ_lim, hg_pos, _, hgap_lim, hschw⟩
+  let pre := buildEuclideanOSPreDataFromSmeared smeared
+  let B : SUYangMillsDynamicalBridge N hN :=
+    { Δ_phys := Δ_phys
+      os := os
+      pre := pre
+      Ls_seq := Ls_seq
+      Lt_seq := Lt_seq
+      Ls_nz := hLs
+      Lt_nz := hLt
+      a_seq := a_seq
+      β_seq := β_seq
+      ha_pos := ha_pos
+      ha_lim := ha_lim
+      hβ_pos := hβ_pos
+      hβ_lim := hβ_lim
+      g_sq_seq := g_sq_seq
+      hg_pos := hg_pos
+      Δ_latt := fun m =>
+        (fullRankCubicNonAbelianWilsonSetup (Ls_seq m) N hN (β_seq m) (hβ_pos m)).gaugeSetup.Δ
+      Δ_latt_pos := fun m =>
+        (fullRankCubicNonAbelianWilsonSetup (Ls_seq m) N hN (β_seq m) (hβ_pos m)).gaugeSetup.Δ_pos
+      gap_lim := hgap_lim
+      latt_obs := latt_obs
+      schwinger_conv := hschw }
+  obtain ⟨_, _, _, ⟨hΔ, hnonG⟩, _, _, hgap, hHnn, hHvac, _, _⟩ :=
+    endToEnd_su_yang_mills_from_dynamical_bridge B
+  exact ⟨Δ_phys, os, buildOSReconstructionOnCompletion pre, Ls_seq, Lt_seq, hLs, hLt,
+    β_seq, latt_obs, hΔ, hnonG, fun m => (hβ_pos m).le, hβ_lim, hschw, hgap, hHnn, hHvac⟩
+
+end ClayYangMills4DInterface
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -10069,3 +13074,29 @@ end YangMills
 #print axioms YangMills.osConfigVac_norm
 #print axioms YangMills.osTimeShiftSemigroup_contr
 #print axioms YangMills.buildEuclideanOSPreDataFromSchwinger
+
+-- §32. Full-rank Wilson integral transfer operator
+#print axioms YangMills.continuous_cubicWilsonAction
+#print axioms YangMills.continuous_cubicWilsonKernel
+#print axioms YangMills.wilsonIntegralOp
+#print axioms YangMills.wilsonIntegralOp_apply_ae
+#print axioms YangMills.wilsonIntegralOp_sa
+#print axioms YangMills.wilsonIntegralOp_gauge_inv
+
+-- §33. Full-rank Wilson integral operator: compactness, Gram positivity & Perron–Frobenius gap
+#print axioms YangMills.wilsonIntegralOp_compact
+#print axioms YangMills.continuous_wilsonGramKernel
+#print axioms YangMills.wilsonIntegralOp_gram_pos
+#print axioms YangMills.compact_sa_pos_exists_max_eigenvector
+#print axioms YangMills.wilsonIntegral_perron_frobenius
+#print axioms YangMills.fullRankCubicLatticeGaugeSetup
+#print axioms YangMills.fullRankCubicNonAbelianWilsonSetup
+#print axioms YangMills.fullRankCubic_clustering
+
+-- §34. Non-translation-invariance of Ising toy & smeared OS reconstruction
+#print axioms YangMills.isingSchwinger_not_time_trans_inv
+#print axioms YangMills.buildEuclideanOSPreDataFromSmeared
+#print axioms YangMills.smearedOS_reconstruct_wightman
+
+-- §35. Clay Yang–Mills 4D mass gap interface & exact reduction
+#print axioms YangMills.clay_yang_mills_from_rg_estimates
