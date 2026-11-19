@@ -11383,16 +11383,131 @@ theorem compact_sa_pos_exists_max_eigenvector
   have hμ_eq : μ = ‖T‖ := by rwa [abs_of_nonneg hμ_nn] at hμ_abs
   exact ⟨v, hv_norm, hμ_eq ▸ hv_eig⟩
 
+/-- Orthogonal complement `Ωᗮ` of a vacuum state `Ω`. -/
+noncomputable def wilsonPerpSubmodule {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    (Ω : V) : Submodule ℂ V :=
+  (Submodule.span ℂ {Ω})ᗮ
+
+private theorem wilsonPerpSubmodule_inv {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    {T_norm : V →L[ℂ] V} {Ω : V}
+    (hT_sa : ∀ x y : V, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ)
+    (hT_Ω : T_norm Ω = Ω)
+    {x : V} (hx : x ∈ wilsonPerpSubmodule Ω) :
+    T_norm x ∈ wilsonPerpSubmodule Ω := by
+  unfold wilsonPerpSubmodule at hx ⊢
+  rw [Submodule.mem_orthogonal] at hx ⊢
+  intro z hz
+  rw [Submodule.mem_span_singleton] at hz
+  rcases hz with ⟨c, rfl⟩
+  have hΩx : ⟪Ω, x⟫_ℂ = 0 := hx Ω (Submodule.subset_span rfl)
+  rw [inner_smul_left, ← hT_sa, hT_Ω, hΩx, mul_zero]
+
+/-- Restriction of a self-adjoint operator `T_norm` (fixing `Ω`) to `Ωᗮ`. -/
+noncomputable def wilsonPerpOp {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    (T_norm : V →L[ℂ] V) (Ω : V)
+    (hT_sa : ∀ x y : V, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ)
+    (hT_Ω : T_norm Ω = Ω) :
+    ↥(wilsonPerpSubmodule Ω) →L[ℂ] ↥(wilsonPerpSubmodule Ω) :=
+  LinearMap.mkContinuous
+    { toFun := fun x => ⟨T_norm x.1, wilsonPerpSubmodule_inv hT_sa hT_Ω x.2⟩
+      map_add' := fun x y => Subtype.ext (T_norm.map_add x.1 y.1)
+      map_smul' := fun c x => Subtype.ext (T_norm.map_smul c x.1) }
+    ‖T_norm‖
+    (fun x => by
+      change ‖T_norm x.1‖ ≤ ‖T_norm‖ * ‖x.1‖
+      exact T_norm.le_opNorm x.1)
+
+/-- Exact spectral gap `-log ‖T_norm|_{Ωᗮ}‖` (with `1` when `T_norm|_{Ωᗮ} = 0`). -/
+noncomputable def wilsonExactGap {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    (T_norm : V →L[ℂ] V) (Ω : V)
+    (hT_sa : ∀ x y : V, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ)
+    (hT_Ω : T_norm Ω = Ω) : ℝ :=
+  if ‖wilsonPerpOp T_norm Ω hT_sa hT_Ω‖ = 0 then 1
+  else -Real.log ‖wilsonPerpOp T_norm Ω hT_sa hT_Ω‖
+
+private theorem eq_of_ae_continuous {α : Type*} [TopologicalSpace α]
+    [MeasurableSpace α] (μ : MeasureTheory.Measure α) [MeasureTheory.Measure.IsOpenPosMeasure μ]
+    {f g : α → ℂ} (hf : Continuous f) (hg : Continuous g) (h_ae : f =ᵐ[μ] g) :
+    ∀ x, f x = g x := by
+  intro x
+  by_contra hne
+  let S : Set α := { y | f y ≠ g y }
+  have hS_eq : S = (fun y => f y - g y) ⁻¹' { z | z ≠ 0 } := by
+    ext y
+    change f y ≠ g y ↔ f y - g y ≠ 0
+    exact sub_ne_zero.symm
+  have hS_open : IsOpen S := hS_eq ▸ isOpen_ne.preimage (hf.sub hg)
+  have hS_pos : 0 < μ S := hS_open.measure_pos μ ⟨x, hne⟩
+  have hS_zero : μ S = 0 := h_ae
+  exact lt_irrefl 0 (hS_pos.trans_eq hS_zero)
+
+private theorem eq_zero_of_continuous_sq_integral_zero {α : Type*} [TopologicalSpace α]
+    [CompactSpace α] [MeasurableSpace α] [OpensMeasurableSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsProbabilityMeasure μ]
+    [MeasureTheory.Measure.IsOpenPosMeasure μ]
+    (h : α → ℝ) (hh : Continuous h)
+    (h_int : ∫ x, h x ^ 2 ∂μ = 0) :
+    ∀ x, h x = 0 := by
+  intro x₀
+  by_contra hx₀
+  let δ : ℝ := (h x₀) ^ 2 / 2
+  have hδ : 0 < δ := by positivity
+  let B : Set α := { x | δ < h x ^ 2 }
+  have hB_open : IsOpen B := isOpen_lt continuous_const (hh.pow 2)
+  have hx0_sq : 0 < h x₀ ^ 2 := sq_pos_iff.mpr hx₀
+  have hB_pos : 0 < μ.real B :=
+    ENNReal.toReal_pos
+      (hB_open.measure_pos μ ⟨x₀, by change δ < h x₀ ^ 2; dsimp [δ]; linarith⟩).ne'
+      (MeasureTheory.measure_ne_top μ B)
+  have h_cont_int : MeasureTheory.Integrable (fun x => h x ^ 2) μ :=
+    integrable_of_continuous_compact μ _ (hh.pow 2)
+  have h_ind_int : MeasureTheory.Integrable (Set.indicator B (fun _ => δ)) μ :=
+    (MeasureTheory.integrable_const δ).indicator hB_open.measurableSet
+  have h_le : ∀ x, Set.indicator B (fun _ => δ) x ≤ h x ^ 2 := by
+    intro x
+    rw [Set.indicator_apply]
+    by_cases hx : x ∈ B
+    · rw [if_pos hx]; exact (hx : _ < _).le
+    · rw [if_neg hx]; exact sq_nonneg _
+  have h_val : ∫ x, Set.indicator B (fun _ => δ) x ∂μ = μ.real B * δ := by
+    rw [MeasureTheory.integral_indicator hB_open.measurableSet, MeasureTheory.setIntegral_const]
+    simp [smul_eq_mul]
+  have h_pos : 0 < ∫ x, h x ^ 2 ∂μ := by
+    calc 0 < μ.real B * δ := mul_pos hB_pos hδ
+      _ = ∫ x, Set.indicator B (fun _ => δ) x ∂μ := h_val.symm
+      _ ≤ ∫ x, h x ^ 2 ∂μ := MeasureTheory.integral_mono h_ind_int h_cont_int h_le
+  linarith
+
+private structure IsWilsonGroundState (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (Ω : HaarGaugeSpace (latticeHaarMeasure L N))
+    (ω : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ) : Prop where
+  norm_pos  : 0 < ‖wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd‖
+  unit      : ‖Ω‖ = 1
+  ω_cont    : Continuous ω
+  ω_pos     : ∀ U, 0 < ω U
+  ae_eq     : ⇑Ω =ᵐ[latticeHaarMeasure L N] (fun U => (ω U : ℂ))
+  eig       : wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd Ω =
+                (‖wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd‖ : ℂ) • Ω
+  gauge_inv : ∀ g, cubicGaugeRep L N g Ω = Ω
+  simple    : ∀ w : HaarGaugeSpace (latticeHaarMeasure L N),
+                wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd w =
+                  (‖wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd‖ : ℂ) • w →
+                ⟪w, Ω⟫_ℂ = 0 → w = 0
+
 /--
-**Perron–Frobenius Theorem & Finite-Volume Spectral Gap for `wilsonIntegralOp`**:
-for any continuous, symmetric, gauge-invariant, positive-definite kinetic kernel
-`K_kin` strictly bounded below (`0 < c_min ≤ K_kin ≤ M_K`), the normalized
-full-rank Wilson integral operator `T_norm = ‖T_W‖⁻¹ • T_W` possesses:
-1. a unique (simple) normalized gauge-invariant positive ground-state vacuum `Ω_W`,
-2. `T_norm Ω_W = Ω_W`,
-3. a strictly positive finite-volume spectral gap `Δ > 0` on `Ω_Wᗮ`.
+**Perron–Frobenius Ground State & Simplicity for `wilsonIntegralOp`**:
+for any continuous, symmetric, gauge-invariant, strictly positive kinetic kernel
+`K_kin`, `T = wilsonIntegralOp ...` has simple top eigenvalue `‖T‖ > 0`
+attained at a strictly positive continuous gauge-invariant eigenfunction `ω`.
 -/
-theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+private theorem wilsonIntegral_ground_state (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
     [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
     (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
@@ -11405,14 +11520,9 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
     (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
     (hT_pos : ∀ ψ : HaarGaugeSpace (latticeHaarMeasure L N),
       0 ≤ (⟪ψ, wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ⟫_ℂ).re) :
-    ∃ (Ω : HaarGaugeSpace (latticeHaarMeasure L N)) (lam0 Δ : ℝ),
-      0 < lam0 ∧ 0 < Δ ∧ ‖Ω‖ = 1 ∧
-      wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd Ω = (lam0 : ℂ) • Ω ∧
-      (∀ g, cubicGaugeRep L N g Ω = Ω) ∧
-      (∀ v : HaarGaugeSpace (latticeHaarMeasure L N), ⟪v, Ω⟫_ℂ = 0 →
-        (⟪v, (((lam0⁻¹ : ℝ) : ℂ) •
-          wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd) v⟫_ℂ).re ≤
-          Real.exp (-(Δ * 1)) * ‖v‖ ^ 2) := by
+    ∃ (Ω : HaarGaugeSpace (latticeHaarMeasure L N))
+      (ω : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ),
+      IsWilsonGroundState L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd Ω ω := by
   let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
   let μ := latticeHaarMeasure L N
   haveI := latticeHaarMeasure_prob L N
@@ -11797,23 +11907,10 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
       rw [hSm]
       simp only [Pi.smul_apply, smul_eq_mul]
       rw [hUψ]
-    have h_all_eig : ∀ U, wilsonIntegralFn L N β K_kin w U = (lam0 : ℂ) * ψ_c U := by
-      have h_cont1 := wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd w
-      have h_cont2 : Continuous (fun U => (lam0 : ℂ) * ψ_c U) := continuous_const.mul hψ_cont
-      by_contra h_not
-      push_neg at h_not
-      rcases h_not with ⟨U₁, hU₁⟩
-      let S_ne : Set G_L := { U | wilsonIntegralFn L N β K_kin w U ≠ (lam0 : ℂ) * ψ_c U }
-      have hS_eq : S_ne =
-          (fun U => wilsonIntegralFn L N β K_kin w U - (lam0 : ℂ) * ψ_c U) ⁻¹' { z | z ≠ 0 } := by
-        ext U
-        change wilsonIntegralFn L N β K_kin w U ≠ (lam0 : ℂ) * ψ_c U ↔
-          wilsonIntegralFn L N β K_kin w U - (lam0 : ℂ) * ψ_c U ≠ 0
-        exact sub_ne_zero.symm
-      have hS_open : IsOpen S_ne := hS_eq ▸ isOpen_ne.preimage (h_cont1.sub h_cont2)
-      have hS_pos : 0 < μ S_ne := hS_open.measure_pos μ ⟨U₁, hU₁⟩
-      have hS_zero : μ S_ne = 0 := h_ae_eig
-      exact lt_irrefl 0 (hS_pos.trans_eq hS_zero)
+    have h_all_eig : ∀ U, wilsonIntegralFn L N β K_kin w U = (lam0 : ℂ) * ψ_c U :=
+      eq_of_ae_continuous μ
+        (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn M_K hK_bd w)
+        (continuous_const.mul hψ_cont) h_ae_eig
     let u : G_L → ℝ := fun U => (ψ_c U).re
     let v_im : G_L → ℝ := fun U => (ψ_c U).im
     have hu_cont : Continuous u := Complex.continuous_re.comp hψ_cont
@@ -11883,11 +11980,8 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
           intro U
           rw [Set.indicator_apply]
           by_cases hU : U ∈ B_neg
-          · rw [if_pos hU]
-            dsimp [B_neg] at hU
-            linarith
-          · rw [if_neg hU]
-            linarith [h_neg_or_zero U]
+          · rw [if_pos hU]; dsimp [B_neg] at hU; linarith
+          · rw [if_neg hU]; linarith [h_neg_or_zero U]
         have h_int_neg : 0 < ∫ U, -(f U * ω U) ∂μ := by
           have hc_pos : 0 < -(f U_star * ω U_star) / 2 := by
             have hmul : f U_star * ω U_star < 0 := mul_neg_of_neg_of_pos hU_lt (hω_pos U_star)
@@ -12091,8 +12185,7 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
       have hδ₀_pos : 0 < δ₀ := mul_pos hc_W_pos (by nlinarith)
       have hΔ_nonneg : ∀ U, 0 ≤ Δ_row U := fun U =>
         MeasureTheory.integral_nonneg fun U' => by
-          have h_le : f U * f U' ≤ |f U| * |f U'| := by
-            rw [← abs_mul]; exact le_abs_self _
+          have h_le : f U * f U' ≤ |f U| * |f U'| := by rw [← abs_mul]; exact le_abs_self _
           exact mul_nonneg (hc_W_pos.le.trans (hKW_lb U U')) (sub_nonneg.mpr h_le)
       have hΔ_B₁ : ∀ U ∈ B₁, δ₀ * μ.real B₂ ≤ Δ_row U := by
         intro U hU
@@ -12115,8 +12208,7 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
             have h_diff_eq : |f U| * |f U'| - f U * f U' = 2 * f U * (-f U') := by
               rw [abs_of_pos hfu_pos, abs_of_neg hfu'_neg]; ring
             have h_diff_ge : f U₁ * (-f U₂) / 2 ≤ |f U| * |f U'| - f U * f U' := by
-              rw [h_diff_eq]
-              nlinarith
+              rw [h_diff_eq]; nlinarith
             exact mul_le_mul (hKW_lb U U') h_diff_ge (by nlinarith) (hc_W_pos.le.trans (hKW_lb U U'))
           · rw [if_neg hU']
             have h_le : f U * f U' ≤ |f U| * |f U'| := by rw [← abs_mul]; exact le_abs_self _
@@ -12282,18 +12374,178 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
       exact hc_norm
     have hc_one : c_g = 1 := Complex.ext hc_re_one hc_im_zero
     rw [hUg_smul, hc_one, one_smul]
-  let T_norm : HaarGaugeSpace μ →L[ℂ] HaarGaugeSpace μ := ((lam0⁻¹ : ℝ) : ℂ) • T
-  have hT_norm_sa : ∀ x y : HaarGaugeSpace μ, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ := by
+  exact ⟨Ω, ω, ⟨hlam0_pos, hΩ_norm, hω_cont, hω_pos, hΩ_ae_ω, hΩ_eig, hΩ_gauge, h_simple⟩⟩
+
+/-- Spectral gap properties of `wilsonExactGap` for any normalized compact positive operator. -/
+theorem wilsonExactGap_spec
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (T_norm : V →L[ℂ] V) (Ω : V)
+    (hT_sa : ∀ x y : V, ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ)
+    (hT_pos : ∀ x : V, 0 ≤ (⟪x, T_norm x⟫_ℂ).re)
+    (hT_comp : IsCompactOperator ⇑T_norm)
+    (hT_le1 : ‖T_norm‖ ≤ 1)
+    (hT_Ω : T_norm Ω = Ω)
+    (h_simple : ∀ w : V, T_norm w = (1 : ℂ) • w → ⟪w, Ω⟫_ℂ = 0 → w = 0) :
+    0 < wilsonExactGap T_norm Ω hT_sa hT_Ω ∧
+    (∀ v : V, ⟪v, Ω⟫_ℂ = 0 →
+      (⟪v, T_norm v⟫_ℂ).re ≤ Real.exp (-(wilsonExactGap T_norm Ω hT_sa hT_Ω * 1)) * ‖v‖ ^ 2) ∧
+    (wilsonPerpOp T_norm Ω hT_sa hT_Ω ≠ 0 →
+      wilsonExactGap T_norm Ω hT_sa hT_Ω =
+        -Real.log ‖wilsonPerpOp T_norm Ω hT_sa hT_Ω‖ ∧
+      ∃ w : V, ‖w‖ = 1 ∧ ⟪w, Ω⟫_ℂ = 0 ∧
+        T_norm w = (Real.exp (-wilsonExactGap T_norm Ω hT_sa hT_Ω) : ℂ) • w) := by
+  let K : Submodule ℂ V := wilsonPerpSubmodule Ω
+  let T_K : ↥K →L[ℂ] ↥K := wilsonPerpOp T_norm Ω hT_sa hT_Ω
+  have hK_closed : IsClosed (K : Set V) := (Submodule.span ℂ {Ω}).isClosed_orthogonal
+  haveI : CompleteSpace ↥K := by
+    refine Metric.complete_of_cauchySeq_tendsto fun u hu => ?_
+    have huV : CauchySeq (fun n => (u n : V)) :=
+      Metric.cauchySeq_iff.mpr (by simpa [Subtype.dist_eq] using Metric.cauchySeq_iff.mp hu)
+    obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete huV
+    have haK : a ∈ (K : Set V) :=
+      hK_closed.mem_of_tendsto ha (Filter.Eventually.of_forall fun n => (u n).2)
+    exact ⟨⟨a, haK⟩, tendsto_subtype_rng.mpr ha⟩
+  have hTK_sa : ∀ x y : ↥K, ⟪T_K x, y⟫_ℂ = ⟪x, T_K y⟫_ℂ := fun x y => hT_sa x.1 y.1
+  have hTK_pos : ∀ x : ↥K, 0 ≤ (⟪x, T_K x⟫_ℂ).re := fun x => hT_pos x.1
+  have hTK_comp : IsCompactOperator ⇑T_K := by
+    obtain ⟨S, hS_comp, hS_nhds⟩ := hT_comp
+    let S_K : Set ↥K := Subtype.val ⁻¹' S
+    have hSK_comp : IsCompact S_K := by
+      have him : Subtype.val '' S_K = S ∩ (K : Set V) := by
+        ext x
+        simp only [S_K, Set.mem_image, Set.mem_preimage, Set.mem_inter_iff, SetLike.mem_coe,
+          Subtype.exists, exists_and_right, exists_eq_right]
+        exact ⟨fun ⟨hxK, hxS⟩ => ⟨hxS, hxK⟩, fun ⟨hxS, hxK⟩ => ⟨hxK, hxS⟩⟩
+      exact Topology.IsInducing.subtypeVal.isCompact_iff.mpr
+        (him ▸ hS_comp.inter_right hK_closed)
+    refine ⟨S_K, hSK_comp, ?_⟩
+    have h_pre : ⇑T_K ⁻¹' S_K = Subtype.val ⁻¹' (⇑T_norm ⁻¹' S) := by ext x; rfl
+    rw [h_pre]
+    exact continuous_subtype_val.continuousAt.preimage_mem_nhds hS_nhds
+  have hTK_le_one : ‖T_K‖ ≤ 1 := by
+    refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
+    change ‖T_norm x.1‖ ≤ 1 * ‖x.1‖
+    rw [one_mul]
+    exact (T_norm.le_opNorm x.1).trans (by
+      calc ‖T_norm‖ * ‖x.1‖ ≤ 1 * ‖x.1‖ := mul_le_mul_of_nonneg_right hT_le1 (norm_nonneg _)
+        _ = ‖x.1‖ := one_mul _)
+  by_cases hTK_zero : T_K = 0
+  · have h_norm0 : ‖T_K‖ = 0 := norm_eq_zero.mpr hTK_zero
+    have h_gap_eq : wilsonExactGap T_norm Ω hT_sa hT_Ω = 1 := by
+      dsimp [wilsonExactGap]
+      rw [if_pos h_norm0]
+    refine ⟨by rw [h_gap_eq]; exact one_pos, fun v hv => ?_, fun hne => absurd hTK_zero hne⟩
+    have hvK : v ∈ K := by
+      change v ∈ wilsonPerpSubmodule Ω
+      unfold wilsonPerpSubmodule
+      rw [Submodule.mem_orthogonal]
+      intro z hz
+      rw [Submodule.mem_span_singleton] at hz
+      rcases hz with ⟨c, rfl⟩
+      have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
+      rw [inner_smul_left, hΩv, mul_zero]
+    have hTv : T_norm v = 0 := congrArg Subtype.val
+      (congrArg (fun f : ↥K →L[ℂ] ↥K => f ⟨v, hvK⟩) hTK_zero)
+    rw [h_gap_eq, hTv, inner_zero_right, Complex.zero_re]
+    positivity
+  · have hTK_pos_norm : 0 < ‖T_K‖ :=
+      lt_of_le_of_ne (norm_nonneg T_K) (Ne.symm (norm_ne_zero_iff.mpr hTK_zero))
+    have h_gap_eq : wilsonExactGap T_norm Ω hT_sa hT_Ω = -Real.log ‖T_K‖ := by
+      dsimp [wilsonExactGap]
+      rw [if_neg hTK_pos_norm.ne']
+    obtain ⟨w_K, hwK_norm, hwK_eig⟩ :=
+      compact_sa_pos_exists_max_eigenvector T_K hTK_sa hTK_pos hTK_comp hTK_zero
+    have hTK_lt_one : ‖T_K‖ < 1 := by
+      refine lt_of_le_of_ne hTK_le_one fun h1 => ?_
+      have hw_eig_norm : T_norm w_K.1 = (1 : ℂ) • w_K.1 := by
+        have h := congrArg Subtype.val hwK_eig
+        change T_norm w_K.1 = (‖T_K‖ : ℂ) • w_K.1 at h
+        rwa [h1, Complex.ofReal_one] at h
+      have hw_orth : ⟪w_K.1, Ω⟫_ℂ = 0 := by
+        have hΩw : ⟪Ω, w_K.1⟫_ℂ = 0 :=
+          (Submodule.mem_orthogonal _ _).mp w_K.2 Ω (Submodule.subset_span rfl)
+        rw [← inner_conj_symm, hΩw, map_zero]
+      have hw0 : w_K.1 = 0 := h_simple w_K.1 hw_eig_norm hw_orth
+      have h0 : ‖w_K‖ = 0 := by change ‖w_K.1‖ = 0; rw [hw0, norm_zero]
+      linarith [hwK_norm]
+    have h_gap_pos : 0 < wilsonExactGap T_norm Ω hT_sa hT_Ω := by
+      rw [h_gap_eq]
+      exact neg_pos.mpr (Real.log_neg hTK_pos_norm hTK_lt_one)
+    refine ⟨h_gap_pos, fun v hv => ?_, fun _ => ⟨h_gap_eq, w_K.1, hwK_norm, ?_, ?_⟩⟩
+    · have hvK : v ∈ K := by
+        change v ∈ wilsonPerpSubmodule Ω
+        unfold wilsonPerpSubmodule
+        rw [Submodule.mem_orthogonal]
+        intro z hz
+        rw [Submodule.mem_span_singleton] at hz
+        rcases hz with ⟨c, rfl⟩
+        have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
+        rw [inner_smul_left, hΩv, mul_zero]
+      have hexp : Real.exp (-(wilsonExactGap T_norm Ω hT_sa hT_Ω * 1)) = ‖T_K‖ := by
+        rw [h_gap_eq, mul_one, neg_neg, Real.exp_log hTK_pos_norm]
+      rw [hexp]
+      calc (⟪v, T_norm v⟫_ℂ).re ≤ ‖⟪v, T_norm v⟫_ℂ‖ := (le_abs_self _).trans (Complex.abs_re_le_norm _)
+        _ ≤ ‖v‖ * ‖T_norm v‖ := norm_inner_le_norm _ _
+        _ = ‖(⟨v, hvK⟩ : ↥K)‖ * ‖T_K ⟨v, hvK⟩‖ := rfl
+        _ ≤ ‖(⟨v, hvK⟩ : ↥K)‖ * (‖T_K‖ * ‖(⟨v, hvK⟩ : ↥K)‖) :=
+            mul_le_mul_of_nonneg_left (T_K.le_opNorm _) (norm_nonneg _)
+        _ = ‖T_K‖ * ‖v‖ ^ 2 := by change ‖v‖ * (‖T_K‖ * ‖v‖) = _; ring
+    · have hΩw : ⟪Ω, w_K.1⟫_ℂ = 0 :=
+        (Submodule.mem_orthogonal _ _).mp w_K.2 Ω (Submodule.subset_span rfl)
+      rw [← inner_conj_symm, hΩw, map_zero]
+    · have hexp : Real.exp (-wilsonExactGap T_norm Ω hT_sa hT_Ω) = ‖T_K‖ := by
+        rw [h_gap_eq, neg_neg, Real.exp_log hTK_pos_norm]
+      rw [hexp]
+      exact congrArg Subtype.val hwK_eig
+
+/--
+**Perron–Frobenius Theorem & Finite-Volume Spectral Gap for `wilsonIntegralOp`**:
+combines `wilsonIntegral_ground_state` and `wilsonExactGap_spec`.
+-/
+theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (K_kin : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_cont : Continuous (Function.uncurry K_kin))
+    (hK_symm : ∀ U U', K_kin U' U = K_kin U U')
+    (hK_nn : ∀ U U', 0 ≤ K_kin U U')
+    (hK_inv : ∀ g U U', K_kin (gaugeAct g U) (gaugeAct g U') = K_kin U U')
+    (c_min : ℝ) (hc_min : 0 < c_min) (hK_lb : ∀ U U', c_min ≤ K_kin U U')
+    (M_K : ℝ) (hM_K : 0 ≤ M_K) (hK_bd : ∀ U U', K_kin U U' ≤ M_K)
+    (hT_pos : ∀ ψ : HaarGaugeSpace (latticeHaarMeasure L N),
+      0 ≤ (⟪ψ, wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd ψ⟫_ℂ).re) :
+    ∃ (Ω : HaarGaugeSpace (latticeHaarMeasure L N)) (lam0 Δ : ℝ),
+      0 < lam0 ∧ 0 < Δ ∧ ‖Ω‖ = 1 ∧
+      wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd Ω = (lam0 : ℂ) • Ω ∧
+      (∀ g, cubicGaugeRep L N g Ω = Ω) ∧
+      (∀ v : HaarGaugeSpace (latticeHaarMeasure L N), ⟪v, Ω⟫_ℂ = 0 →
+        (⟪v, (((lam0⁻¹ : ℝ) : ℂ) •
+          wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd) v⟫_ℂ).re ≤
+          Real.exp (-(Δ * 1)) * ‖v‖ ^ 2) := by
+  let T := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
+  obtain ⟨Ω, _, hgs⟩ :=
+    wilsonIntegral_ground_state L N β hβ K_kin hK_cont hK_symm hK_nn hK_inv
+      c_min hc_min hK_lb M_K hM_K hK_bd hT_pos
+  let lam0 : ℝ := ‖T‖
+  have hlam0_pos : 0 < lam0 := hgs.norm_pos
+  let T_norm : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
+      HaarGaugeSpace (latticeHaarMeasure L N) := ((lam0⁻¹ : ℝ) : ℂ) • T
+  have hT_sa := wilsonIntegralOp_sa L N β hβ K_kin hK_cont hK_symm hK_nn M_K hM_K hK_bd
+  have hT_norm_sa : ∀ x y : HaarGaugeSpace (latticeHaarMeasure L N),
+      ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ := by
     intro x y
     change ⟪((lam0⁻¹ : ℝ) : ℂ) • T x, y⟫_ℂ = ⟪x, ((lam0⁻¹ : ℝ) : ℂ) • T y⟫_ℂ
     rw [inner_smul_left, inner_smul_right, Complex.conj_ofReal, hT_sa]
-  have hT_norm_pos : ∀ x : HaarGaugeSpace μ, 0 ≤ (⟪x, T_norm x⟫_ℂ).re := by
+  have hT_norm_pos : ∀ x : HaarGaugeSpace (latticeHaarMeasure L N),
+      0 ≤ (⟪x, T_norm x⟫_ℂ).re := by
     intro x
     change 0 ≤ (⟪x, ((lam0⁻¹ : ℝ) : ℂ) • T x⟫_ℂ).re
     rw [inner_smul_right, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
     exact mul_nonneg (inv_nonneg.mpr hlam0_pos.le) (hT_pos x)
   have hT_norm_comp : IsCompactOperator ⇑T_norm := by
-    obtain ⟨S, hS_comp, hS_nhds⟩ := hT_comp
+    obtain ⟨S, hS_comp, hS_nhds⟩ :=
+      wilsonIntegralOp_compact L N β hβ K_kin hK_cont hK_nn M_K hM_K hK_bd
     refine ⟨(((lam0⁻¹ : ℝ) : ℂ) • ·) '' S, hS_comp.image (continuous_const_smul _), ?_⟩
     filter_upwards [hS_nhds] with v hv
     exact ⟨T v, hv, rfl⟩
@@ -12305,129 +12557,75 @@ theorem wilsonIntegral_perron_frobenius (L N : ℕ) [NeZero L] (β : ℝ) (hβ :
             abs_of_nonneg (inv_nonneg.mpr hlam0_pos.le)]
       _ ≤ lam0⁻¹ * (lam0 * ‖x‖) :=
           mul_le_mul_of_nonneg_left (T.le_opNorm x) (inv_nonneg.mpr hlam0_pos.le)
-      _ = 1 * ‖x‖ := by field_simp [hlam0_pos.ne']
+      _ = 1 * ‖x‖ := by rw [← mul_assoc, inv_mul_cancel₀ hlam0_pos.ne', one_mul]
   have hT_norm_Ω : T_norm Ω = Ω := by
     change ((lam0⁻¹ : ℝ) : ℂ) • T Ω = Ω
-    rw [hΩ_eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+    rw [hgs.eig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
       Complex.ofReal_one, one_smul]
-  let K : Submodule ℂ (HaarGaugeSpace μ) := (Submodule.span ℂ {Ω})ᗮ
-  have hK_closed : IsClosed (K : Set (HaarGaugeSpace μ)) :=
-    (Submodule.span ℂ {Ω}).isClosed_orthogonal
-  have hK_inv : ∀ x ∈ K, T_norm x ∈ K := by
-    intro x hx
-    rw [Submodule.mem_orthogonal]
-    intro z hz
-    rw [Submodule.mem_span_singleton] at hz
-    rcases hz with ⟨c, rfl⟩
-    have hΩx : ⟪Ω, x⟫_ℂ = 0 := (Submodule.mem_orthogonal _ _).mp hx Ω (Submodule.subset_span rfl)
-    rw [inner_smul_left, ← hT_norm_sa, hT_norm_Ω, hΩx, mul_zero]
-  haveI : CompleteSpace ↥K := by
-    refine Metric.complete_of_cauchySeq_tendsto fun u hu => ?_
-    have huV : CauchySeq (fun n => (u n : HaarGaugeSpace μ)) :=
-      Metric.cauchySeq_iff.mpr (by simpa [Subtype.dist_eq] using Metric.cauchySeq_iff.mp hu)
-    obtain ⟨a, ha⟩ := cauchySeq_tendsto_of_complete huV
-    have haK : a ∈ (K : Set (HaarGaugeSpace μ)) :=
-      hK_closed.mem_of_tendsto ha (Filter.Eventually.of_forall fun n => (u n).2)
-    exact ⟨⟨a, haK⟩, tendsto_subtype_rng.mpr ha⟩
-  let T_K : ↥K →L[ℂ] ↥K :=
-    LinearMap.mkContinuous
-      { toFun := fun x => ⟨T_norm x.1, hK_inv x.1 x.2⟩
-        map_add' := fun x y => Subtype.ext (T_norm.map_add x.1 y.1)
-        map_smul' := fun c x => Subtype.ext (T_norm.map_smul c x.1) }
-      1
-      (fun x => by
-        change ‖T_norm x.1‖ ≤ 1 * ‖x.1‖
-        rw [one_mul]
-        calc ‖T_norm x.1‖ ≤ ‖T_norm‖ * ‖x.1‖ := T_norm.le_opNorm x.1
-          _ ≤ 1 * ‖x.1‖ := mul_le_mul_of_nonneg_right hT_norm_le1 (norm_nonneg _)
-          _ = ‖x.1‖ := one_mul _)
-  have hTK_sa : ∀ x y : ↥K, ⟪T_K x, y⟫_ℂ = ⟪x, T_K y⟫_ℂ := fun x y => hT_norm_sa x.1 y.1
-  have hTK_pos : ∀ x : ↥K, 0 ≤ (⟪x, T_K x⟫_ℂ).re := fun x => hT_norm_pos x.1
-  have hTK_comp : IsCompactOperator ⇑T_K := by
-    obtain ⟨S, hS_comp, hS_nhds⟩ := hT_norm_comp
-    let S_K : Set ↥K := Subtype.val ⁻¹' S
-    have hSK_comp : IsCompact S_K := by
-      have him : Subtype.val '' S_K = S ∩ (K : Set (HaarGaugeSpace μ)) := by
-        ext x
-        simp only [S_K, Set.mem_image, Set.mem_preimage, Set.mem_inter_iff, SetLike.mem_coe,
-          Subtype.exists, exists_and_right, exists_eq_right]
-        exact ⟨fun ⟨hxK, hxS⟩ => ⟨hxS, hxK⟩, fun ⟨hxS, hxK⟩ => ⟨hxK, hxS⟩⟩
-      exact Topology.IsInducing.subtypeVal.isCompact_iff.mpr
-        (him ▸ hS_comp.inter_right hK_closed)
-    refine ⟨S_K, hSK_comp, ?_⟩
-    have h_pre : ⇑T_K ⁻¹' S_K = Subtype.val ⁻¹' (⇑T_norm ⁻¹' S) := by ext x; rfl
-    rw [h_pre]
-    exact continuous_subtype_val.continuousAt.preimage_mem_nhds hS_nhds
-  by_cases hTK_zero : T_K = 0
-  · refine ⟨Ω, lam0, 1, hlam0_pos, one_pos, hΩ_norm, hΩ_eig, hΩ_gauge, fun v hv => ?_⟩
-    have hvK : v ∈ K := by
-      rw [Submodule.mem_orthogonal]
-      intro z hz
-      rw [Submodule.mem_span_singleton] at hz
-      rcases hz with ⟨c, rfl⟩
-      have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
-      rw [inner_smul_left, hΩv, mul_zero]
-    have hTv : T_norm v = 0 := congrArg Subtype.val (by
-      have h0 := congrArg (fun f : ↥K →L[ℂ] ↥K => f ⟨v, hvK⟩) hTK_zero
-      exact h0)
-    change (⟪v, T_norm v⟫_ℂ).re ≤ Real.exp (-(1 * 1)) * ‖v‖ ^ 2
-    rw [hTv, inner_zero_right, Complex.zero_re]
-    positivity
-  · obtain ⟨w_K, hwK_norm, hwK_eig⟩ :=
-      compact_sa_pos_exists_max_eigenvector T_K hTK_sa hTK_pos hTK_comp hTK_zero
-    have hTK_pos_norm : 0 < ‖T_K‖ :=
-      lt_of_le_of_ne (norm_nonneg T_K) (Ne.symm (norm_ne_zero_iff.mpr hTK_zero))
-    have hTK_le_one : ‖T_K‖ ≤ 1 := by
-      refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
-      change ‖T_norm x.1‖ ≤ 1 * ‖x.1‖
-      rw [one_mul]
-      exact (T_norm.le_opNorm x.1).trans (by
-        calc ‖T_norm‖ * ‖x.1‖ ≤ 1 * ‖x.1‖ := mul_le_mul_of_nonneg_right hT_norm_le1 (norm_nonneg _)
-          _ = ‖x.1‖ := one_mul _)
-    have hTK_lt_one : ‖T_K‖ < 1 := by
-      refine lt_of_le_of_ne hTK_le_one fun h1 => ?_
-      have hw_eig_norm : T_norm w_K.1 = (1 : ℂ) • w_K.1 := by
-        have h := congrArg Subtype.val hwK_eig
-        change T_norm w_K.1 = (‖T_K‖ : ℂ) • w_K.1 at h
-        rwa [h1, Complex.ofReal_one] at h
-      have hw_eig_T : T w_K.1 = (lam0 : ℂ) • w_K.1 := by
-        have h := congrArg (fun z : HaarGaugeSpace μ => (lam0 : ℂ) • z) hw_eig_norm
-        dsimp only [T_norm] at h
-        rw [ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
-          mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul, one_smul] at h
-        exact h
-      have hw_orth : ⟪w_K.1, Ω⟫_ℂ = 0 := by
-        have hΩw : ⟪Ω, w_K.1⟫_ℂ = 0 :=
-          (Submodule.mem_orthogonal _ _).mp w_K.2 Ω (Submodule.subset_span rfl)
-        rw [← inner_conj_symm, hΩw, map_zero]
-      have hw0 : w_K.1 = 0 := h_simple w_K.1 hw_eig_T hw_orth
-      have h0 : ‖w_K‖ = 0 := by change ‖w_K.1‖ = 0; rw [hw0, norm_zero]
-      linarith [hwK_norm]
-    let Δ : ℝ := -Real.log ‖T_K‖
-    have hΔ_pos : 0 < Δ := neg_pos.mpr (Real.log_neg hTK_pos_norm hTK_lt_one)
-    refine ⟨Ω, lam0, Δ, hlam0_pos, hΔ_pos, hΩ_norm, hΩ_eig, hΩ_gauge, fun v hv => ?_⟩
-    have hvK : v ∈ K := by
-      rw [Submodule.mem_orthogonal]
-      intro z hz
-      rw [Submodule.mem_span_singleton] at hz
-      rcases hz with ⟨c, rfl⟩
-      have hΩv : ⟪Ω, v⟫_ℂ = 0 := by rw [← inner_conj_symm, hv, map_zero]
-      rw [inner_smul_left, hΩv, mul_zero]
-    have hexp : Real.exp (-(Δ * 1)) = ‖T_K‖ := by
-      dsimp [Δ]
-      rw [mul_one, neg_neg, Real.exp_log hTK_pos_norm]
-    change (⟪v, T_norm v⟫_ℂ).re ≤ Real.exp (-(Δ * 1)) * ‖v‖ ^ 2
-    rw [hexp]
-    calc (⟪v, T_norm v⟫_ℂ).re ≤ ‖⟪v, T_norm v⟫_ℂ‖ := (le_abs_self _).trans (Complex.abs_re_le_norm _)
-      _ ≤ ‖v‖ * ‖T_norm v‖ := norm_inner_le_norm _ _
-      _ = ‖(⟨v, hvK⟩ : ↥K)‖ * ‖T_K ⟨v, hvK⟩‖ := rfl
-      _ ≤ ‖(⟨v, hvK⟩ : ↥K)‖ * (‖T_K‖ * ‖(⟨v, hvK⟩ : ↥K)‖) :=
-          mul_le_mul_of_nonneg_left (T_K.le_opNorm _) (norm_nonneg _)
-      _ = ‖T_K‖ * ‖v‖ ^ 2 := by change ‖v‖ * (‖T_K‖ * ‖v‖) = _; ring
+  have h_simple_norm : ∀ w, T_norm w = (1 : ℂ) • w → ⟪w, Ω⟫_ℂ = 0 → w = 0 := by
+    intro w hw hwo
+    apply hgs.simple w _ hwo
+    have h := congrArg (fun z : HaarGaugeSpace (latticeHaarMeasure L N) => (lam0 : ℂ) • z) hw
+    dsimp only [T_norm] at h
+    rw [ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
+      mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul, one_smul] at h
+    exact h
+  obtain ⟨hΔ_pos, hgap, _⟩ := wilsonExactGap_spec T_norm Ω hT_norm_sa hT_norm_pos
+    hT_norm_comp hT_norm_le1 hT_norm_Ω h_simple_norm
+  exact ⟨Ω, lam0, wilsonExactGap T_norm Ω hT_norm_sa hT_norm_Ω, hlam0_pos, hΔ_pos,
+    hgs.unit, hgs.eig, hgs.gauge_inv, hgap⟩
+
+private noncomputable def fullRankTRaw (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (c_χ : ℝ) (hc_χ : 0 < c_χ) (hχ_lb : ∀ U W, c_χ ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
+      HaarGaugeSpace (latticeHaarMeasure L N) :=
+  let hχ_nn : ∀ U W, 0 ≤ χ U W := fun U W => hc_χ.le.trans (hχ_lb U W)
+  wilsonIntegralOp L N β hβ (wilsonGramKernel L N χ)
+    (continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
+    (wilsonGramKernel_nonneg L N χ hχ_nn) (M_χ ^ 2) (sq_nonneg M_χ)
+    (wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
+
+private theorem fullRankGS (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W)
+    (c_χ : ℝ) (hc_χ : 0 < c_χ) (hχ_lb : ∀ U W, c_χ ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ) :
+    ∃ (Ω : HaarGaugeSpace (latticeHaarMeasure L N))
+      (ω : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ),
+      IsWilsonGroundState L N β hβ (wilsonGramKernel L N χ)
+        (continuous_wilsonGramKernel L N χ hχ_cont
+          (fun U W => hc_χ.le.trans (hχ_lb U W)) M_χ hM_χ hχ_bd)
+        (wilsonGramKernel_nonneg L N χ (fun U W => hc_χ.le.trans (hχ_lb U W)))
+        (M_χ ^ 2) (sq_nonneg M_χ)
+        (wilsonGramKernel_le L N χ hχ_cont
+          (fun U W => hc_χ.le.trans (hχ_lb U W)) M_χ hM_χ hχ_bd)
+        Ω ω :=
+  let hχ_nn : ∀ U W, 0 ≤ χ U W := fun U W => hc_χ.le.trans (hχ_lb U W)
+  wilsonIntegral_ground_state L N β hβ (wilsonGramKernel L N χ)
+    (continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
+    (wilsonGramKernel_symm L N χ)
+    (wilsonGramKernel_nonneg L N χ hχ_nn)
+    (wilsonGramKernel_gauge_inv L N χ hχ_inv)
+    (c_χ ^ 2) (sq_pos_of_pos hc_χ)
+    (wilsonGramKernel_lb L N χ hχ_cont c_χ hc_χ.le hχ_lb)
+    (M_χ ^ 2) (sq_nonneg M_χ)
+    (wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
+    (wilsonIntegralOp_gram_pos L N β hβ χ hχ_cont hχ_nn M_χ hM_χ hχ_bd)
 
 /--
 **Full-rank `LatticeGaugeSetup` on `cubicTorus3 L`** driven by `wilsonIntegralOp`
-with Gram-factorized kinetic kernel `wilsonGramKernel L N χ`.
+with Gram-factorized kinetic kernel `wilsonGramKernel L N χ`, exposing the exact
+constructive spectral gap `wilsonExactGap T_norm Ω` (`-log ‖T_norm|_{Ωᗮ}‖`).
 -/
 noncomputable def fullRankCubicLatticeGaugeSetup (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
@@ -12446,101 +12644,528 @@ noncomputable def fullRankCubicLatticeGaugeSetup (L N : ℕ) [NeZero L] (β : �
   let hK_symm := wilsonGramKernel_symm L N χ
   let hK_nn := wilsonGramKernel_nonneg L N χ hχ_nn
   let hK_inv := wilsonGramKernel_gauge_inv L N χ hχ_inv
-  let hK_lb := wilsonGramKernel_lb L N χ hχ_cont c_χ hc_χ.le hχ_lb
   let hK_bd := wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
-  let T_raw := wilsonIntegralOp L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
+  let T_raw := fullRankTRaw L N β hβ χ hχ_cont c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
   let hT_pos := wilsonIntegralOp_gram_pos L N β hβ χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
-  let pf := wilsonIntegral_perron_frobenius L N β hβ K_kin hK_cont hK_symm hK_nn hK_inv
-    (c_χ ^ 2) (sq_pos_of_pos hc_χ) hK_lb (M_χ ^ 2) (sq_nonneg M_χ) hK_bd hT_pos
-  let Ω := Classical.choose pf
-  let hΩ_ex := Classical.choose_spec pf
-  let lam0 := Classical.choose hΩ_ex
-  let hlam0_ex := Classical.choose_spec hΩ_ex
-  let Δ := Classical.choose hlam0_ex
-  let hpf := Classical.choose_spec hlam0_ex
+  let gs := fullRankGS L N β hβ χ hχ_cont hχ_inv c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
+  let Ω := Classical.choose gs
+  let hgs_spec := Classical.choose_spec (Classical.choose_spec gs)
+  let lam0 : ℝ := ‖T_raw‖
+  let hlam0_pos : 0 < lam0 := hgs_spec.norm_pos
   let T_norm : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ]
       HaarGaugeSpace (latticeHaarMeasure L N) :=
     ((lam0⁻¹ : ℝ) : ℂ) • T_raw
+  let hT_norm_sa : ∀ x y : HaarGaugeSpace (latticeHaarMeasure L N),
+      ⟪T_norm x, y⟫_ℂ = ⟪x, T_norm y⟫_ℂ := fun x y => by
+    change ⟪((lam0⁻¹ : ℝ) : ℂ) • T_raw x, y⟫_ℂ = ⟪x, ((lam0⁻¹ : ℝ) : ℂ) • T_raw y⟫_ℂ
+    rw [inner_smul_left, inner_smul_right, Complex.conj_ofReal]
+    congr 1
+    exact wilsonIntegralOp_sa L N β hβ K_kin hK_cont hK_symm hK_nn
+      (M_χ ^ 2) (sq_nonneg M_χ) hK_bd x y
+  let hT_norm_pos : ∀ v : HaarGaugeSpace (latticeHaarMeasure L N),
+      0 ≤ (⟪v, T_norm v⟫_ℂ).re := fun v => by
+    simp only [T_norm, ContinuousLinearMap.smul_apply, inner_smul_right, Complex.mul_re,
+      Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+    exact mul_nonneg (inv_nonneg.mpr hlam0_pos.le) (hT_pos v)
+  let hT_norm_comp : IsCompactOperator ⇑T_norm := by
+    obtain ⟨S, hS_comp, hS_nhds⟩ :=
+      wilsonIntegralOp_compact L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
+    exact ⟨(((lam0⁻¹ : ℝ) : ℂ) • ·) '' S, hS_comp.image (continuous_const_smul _), by
+      filter_upwards [hS_nhds] with v hv
+      exact ⟨T_raw v, hv, rfl⟩⟩
+  let hT_norm_le1 : ‖T_norm‖ ≤ 1 := by
+    refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
+    calc ‖T_norm x‖ = ‖((lam0⁻¹ : ℝ) : ℂ) • T_raw x‖ := rfl
+      _ = lam0⁻¹ * ‖T_raw x‖ := by
+          rw [norm_smul, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (inv_nonneg.mpr hlam0_pos.le)]
+      _ ≤ lam0⁻¹ * (lam0 * ‖x‖) :=
+          mul_le_mul_of_nonneg_left (T_raw.le_opNorm x) (inv_nonneg.mpr hlam0_pos.le)
+      _ = 1 * ‖x‖ := by rw [← mul_assoc, inv_mul_cancel₀ hlam0_pos.ne', one_mul]
+  let hT_norm_Ω : T_norm Ω = Ω := by
+    have heig : T_raw Ω = (lam0 : ℂ) • Ω := hgs_spec.eig
+    change ((lam0⁻¹ : ℝ) : ℂ) • T_raw Ω = Ω
+    rw [heig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hlam0_pos.ne',
+      Complex.ofReal_one, one_smul]
+  let h_simple : ∀ w, T_norm w = (1 : ℂ) • w → ⟪w, Ω⟫_ℂ = 0 → w = 0 := fun w hw hwo => by
+    apply hgs_spec.simple w _ hwo
+    have h := congrArg (fun z : HaarGaugeSpace (latticeHaarMeasure L N) => (lam0 : ℂ) • z) hw
+    dsimp only [T_norm] at h
+    rw [ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
+      mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul, one_smul] at h
+    exact h
+  let h_gap := wilsonExactGap_spec T_norm Ω hT_norm_sa hT_norm_pos hT_norm_comp
+    hT_norm_le1 hT_norm_Ω h_simple
   { rep := cubicGaugeRep L N
     rep_one := cubicGaugeRep_one L N
     rep_mul := cubicGaugeRep_mul L N
     T := T_norm
     a := 1
     a_pos := one_pos
-    T_sa := fun x y => by
-      simp only [T_norm, ContinuousLinearMap.smul_apply, inner_smul_left, inner_smul_right,
-        Complex.conj_ofReal]
-      congr 1
-      exact wilsonIntegralOp_sa L N β hβ K_kin hK_cont hK_symm hK_nn
-        (M_χ ^ 2) (sq_nonneg M_χ) hK_bd x y
-    T_pos := fun v => by
-      simp only [T_norm, ContinuousLinearMap.smul_apply, inner_smul_right, Complex.mul_re,
-        Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
-      exact mul_nonneg (inv_nonneg.mpr hpf.1.le) (hT_pos v)
-    T_compact := by
-      obtain ⟨S, hS_comp, hS_nhds⟩ :=
-        wilsonIntegralOp_compact L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd
-      refine ⟨(((lam0⁻¹ : ℝ) : ℂ) • ·) '' S, hS_comp.image (continuous_const_smul _), ?_⟩
-      filter_upwards [hS_nhds] with v hv
-      exact ⟨T_raw v, hv, rfl⟩
+    T_sa := hT_norm_sa
+    T_pos := hT_norm_pos
+    T_compact := hT_norm_comp
     T_gauge_inv := fun g => by
       ext1 ψ
       simp only [T_norm, ContinuousLinearMap.comp_apply, ContinuousLinearMap.smul_apply, map_smul]
       congr 1
-      have hc := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ)
+      exact congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ)
         (wilsonIntegralOp_gauge_inv L N β hβ K_kin hK_cont hK_nn hK_inv
           (M_χ ^ 2) (sq_nonneg M_χ) hK_bd g)
-      exact hc
     Ω := Ω
-    Ω_unit := hpf.2.2.1
-    Ω_vac := by
-      change ((lam0⁻¹ : ℝ) : ℂ) • T_raw Ω = Ω
-      have heig : T_raw Ω = (lam0 : ℂ) • Ω := hpf.2.2.2.1
-      rw [heig, smul_smul, ← Complex.ofReal_mul, inv_mul_cancel₀ hpf.1.ne',
-        Complex.ofReal_one, one_smul]
-    Ω_gauge_inv := hpf.2.2.2.2.1
-    Δ := Δ
-    Δ_pos := hpf.2.1
-    gap := hpf.2.2.2.2.2 }
+    Ω_unit := hgs_spec.unit
+    Ω_vac := hT_norm_Ω
+    Ω_gauge_inv := hgs_spec.gauge_inv
+    Δ := wilsonExactGap T_norm Ω hT_norm_sa hT_norm_Ω
+    Δ_pos := h_gap.1
+    gap := h_gap.2.1 }
 
-/-- Concrete non-constant, gauge-invariant, strictly positive kinetic kernel `1 + w_β(U) w_β(W)`. -/
+private theorem fullRankCubicLatticeGaugeSetup_exact_gap_of_det_ne
+    (L N : ℕ) [NeZero L] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (χ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hχ_cont : Continuous (Function.uncurry χ))
+    (hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W)
+    (c_χ : ℝ) (hc_χ : 0 < c_χ) (hχ_lb : ∀ U W, c_χ ≤ χ U W)
+    (M_χ : ℝ) (hM_χ : 0 ≤ M_χ) (hχ_bd : ∀ U W, χ U W ≤ M_χ)
+    (U₁ U₂ : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (h_det : χ U₁ U₁ * χ U₂ U₂ ≠ χ U₂ U₁ * χ U₁ U₂) :
+    let S := fullRankCubicLatticeGaugeSetup L N β hβ χ hχ_cont hχ_inv c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
+    wilsonPerpOp S.T S.Ω S.T_sa S.Ω_vac ≠ 0 ∧
+    S.Δ = -Real.log ‖wilsonPerpOp S.T S.Ω S.T_sa S.Ω_vac‖ ∧
+    ∃ w : HaarGaugeSpace (latticeHaarMeasure L N),
+      ‖w‖ = 1 ∧ ⟪w, S.Ω⟫_ℂ = 0 ∧
+      S.T w = (Real.exp (-S.Δ) : ℂ) • w := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let μ := latticeHaarMeasure L N
+  haveI := latticeHaarMeasure_prob L N
+  haveI := instIsOpenPosLatticeHaar L N
+  let hχ_nn : ∀ U W, 0 ≤ χ U W := fun U W => hc_χ.le.trans (hχ_lb U W)
+  let K_kin := wilsonGramKernel L N χ
+  let hK_cont := continuous_wilsonGramKernel L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let hK_symm := wilsonGramKernel_symm L N χ
+  let hK_nn := wilsonGramKernel_nonneg L N χ hχ_nn
+  let hK_bd := wilsonGramKernel_le L N χ hχ_cont hχ_nn M_χ hM_χ hχ_bd
+  let T_raw := fullRankTRaw L N β hβ χ hχ_cont c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
+  let gs := fullRankGS L N β hβ χ hχ_cont hχ_inv c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
+  let Ω := Classical.choose gs
+  let ω := Classical.choose (Classical.choose_spec gs)
+  let hgs := Classical.choose_spec (Classical.choose_spec gs)
+  let lam0 : ℝ := ‖T_raw‖
+  have hlam0_pos : 0 < lam0 := hgs.norm_pos
+  let S := fullRankCubicLatticeGaugeSetup L N β hβ χ hχ_cont hχ_inv c_χ hc_χ hχ_lb M_χ hM_χ hχ_bd
+  have hS_T_eq : S.T = ((lam0⁻¹ : ℝ) : ℂ) • T_raw := rfl
+  have hS_Ω_eq : S.Ω = Ω := rfl
+  have hS_Δ_eq : S.Δ = wilsonExactGap S.T S.Ω S.T_sa S.Ω_vac := rfl
+  have hT_norm_le1 : ‖S.T‖ ≤ 1 := by
+    refine ContinuousLinearMap.opNorm_le_bound _ zero_le_one fun x => ?_
+    calc ‖S.T x‖ = ‖((lam0⁻¹ : ℝ) : ℂ) • T_raw x‖ := by rw [hS_T_eq]; rfl
+      _ = lam0⁻¹ * ‖T_raw x‖ := by
+          rw [norm_smul, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (inv_nonneg.mpr hlam0_pos.le)]
+      _ ≤ lam0⁻¹ * (lam0 * ‖x‖) :=
+          mul_le_mul_of_nonneg_left (T_raw.le_opNorm x) (inv_nonneg.mpr hlam0_pos.le)
+      _ = 1 * ‖x‖ := by rw [← mul_assoc, inv_mul_cancel₀ hlam0_pos.ne', one_mul]
+  have h_simple_norm : ∀ w, S.T w = (1 : ℂ) • w → ⟪w, S.Ω⟫_ℂ = 0 → w = 0 := by
+    intro w hw hwo
+    have hwo' : ⟪w, Ω⟫_ℂ = 0 := hS_Ω_eq ▸ hwo
+    apply hgs.simple w _ hwo'
+    have h := congrArg (fun z : HaarGaugeSpace μ => (lam0 : ℂ) • z) hw
+    dsimp only at h
+    rw [hS_T_eq, ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
+      mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul, one_smul] at h
+    exact h
+  have h_perp_ne : wilsonPerpOp S.T S.Ω S.T_sa S.Ω_vac ≠ 0 := by
+    intro h_zero
+    let K_W := wilsonKernel β (cubicPlaquettes L) K_kin
+    have h_rank1 : ∀ ψ : HaarGaugeSpace μ, T_raw ψ = ((lam0 : ℂ) * ⟪Ω, ψ⟫_ℂ) • Ω := by
+      intro ψ
+      let c : ℂ := ⟪Ω, ψ⟫_ℂ
+      let v : HaarGaugeSpace μ := ψ - c • Ω
+      have hΩ_self : ⟪Ω, Ω⟫_ℂ = 1 := by
+        rw [inner_self_eq_norm_sq_to_K, hgs.unit]; norm_num
+      have hv_orth : ⟪v, Ω⟫_ℂ = 0 := by
+        simp only [v, c, inner_sub_left, inner_smul_left, hΩ_self, mul_one,
+          inner_conj_symm, sub_self]
+      have hvK : v ∈ wilsonPerpSubmodule S.Ω := by
+        unfold wilsonPerpSubmodule
+        rw [Submodule.mem_orthogonal]
+        intro z hz
+        rw [Submodule.mem_span_singleton] at hz
+        rcases hz with ⟨r, rfl⟩
+        have hΩv : ⟪S.Ω, v⟫_ℂ = 0 := by
+          rw [hS_Ω_eq, ← inner_conj_symm, hv_orth, map_zero]
+        rw [inner_smul_left, hΩv, mul_zero]
+      have hTv : S.T v = 0 := congrArg Subtype.val
+        (congrArg (fun f : ↥(wilsonPerpSubmodule S.Ω) →L[ℂ] _ => f ⟨v, hvK⟩) h_zero)
+      have hSTψ : S.T ψ = c • Ω := by
+        have hψ : ψ = c • Ω + v := by dsimp [v]; abel
+        conv_lhs => rw [hψ]
+        rw [map_add, map_smul, hTv, add_zero, ← hS_Ω_eq, S.Ω_vac, hS_Ω_eq]
+      have hTψ := congrArg (fun z : HaarGaugeSpace μ => (lam0 : ℂ) • z) hSTψ
+      dsimp only at hTψ
+      rw [hS_T_eq, ContinuousLinearMap.smul_apply, smul_smul, ← Complex.ofReal_mul,
+        mul_inv_cancel₀ hlam0_pos.ne', Complex.ofReal_one, one_smul] at hTψ
+      rw [hTψ, smul_smul]
+    let h : G_L → ℝ := fun U' => ω U₂ * K_W U₁ U' - ω U₁ * K_W U₂ U'
+    have hh_cont : Continuous h :=
+      (continuous_const.mul (continuous_cubicWilsonKernel_right L N β K_kin hK_cont U₁)).sub
+        (continuous_const.mul (continuous_cubicWilsonKernel_right L N β K_kin hK_cont U₂))
+    let h_mem := memLp_of_continuous_compact μ h hh_cont
+    let h_Lp : HaarGaugeSpace μ := h_mem.toLp (fun U => (h U : ℂ))
+    have hh_ae : ⇑h_Lp =ᵐ[μ] fun U => (h U : ℂ) := h_mem.coeFn_toLp
+    let c_h : ℂ := (lam0 : ℂ) * ⟪Ω, h_Lp⟫_ℂ
+    have hT_ae1 : ⇑(T_raw h_Lp) =ᵐ[μ] wilsonIntegralFn L N β K_kin h_Lp :=
+      wilsonIntegralOp_apply_ae L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) (sq_nonneg M_χ) hK_bd h_Lp
+    have hT_ae2 : ⇑(T_raw h_Lp) =ᵐ[μ] fun U => c_h * (ω U : ℂ) := by
+      have h1 : ⇑(T_raw h_Lp) =ᵐ[μ] ⇑(c_h • Ω) := by rw [h_rank1 h_Lp]
+      have h2 := MeasureTheory.Lp.coeFn_smul c_h Ω
+      filter_upwards [h1, h2, hgs.ae_eq] with U hu1 hu2 hu3
+      rw [hu1, hu2]
+      simp only [Pi.smul_apply, smul_eq_mul]
+      rw [hu3]
+    have h_all_eq : ∀ U, wilsonIntegralFn L N β K_kin h_Lp U = c_h * (ω U : ℂ) :=
+      eq_of_ae_continuous μ
+        (wilsonIntegralFn_continuous L N β hβ K_kin hK_cont hK_nn (M_χ ^ 2) hK_bd h_Lp)
+        (continuous_const.mul (Complex.continuous_ofReal.comp hgs.ω_cont))
+        (hT_ae1.symm.trans hT_ae2)
+    have h_int_re : ∀ U, ∫ U', K_W U U' * h U' ∂μ = c_h.re * ω U := by
+      intro U
+      have hi := wilsonKernel_mul_integrable L N β hβ K_kin hK_cont hK_nn
+        (M_χ ^ 2) hK_bd h_Lp U
+      have h_eq := congrArg Complex.re (h_all_eq U)
+      dsimp [wilsonIntegralFn] at h_eq
+      change RCLike.re (∫ U', ((K_W U U' : ℝ) : ℂ) * h_Lp U' ∂μ) = (c_h * (ω U : ℂ)).re at h_eq
+      rw [← integral_re hi] at h_eq
+      have h_lhs : ∫ U', RCLike.re (((K_W U U' : ℝ) : ℂ) * h_Lp U') ∂μ =
+          ∫ U', K_W U U' * h U' ∂μ := by
+        refine MeasureTheory.integral_congr_ae ?_
+        filter_upwards [hh_ae] with U' hU'
+        change (((K_W U U' : ℝ) : ℂ) * ⇑h_Lp U').re = K_W U U' * h U'
+        rw [hU', ← Complex.ofReal_mul, Complex.ofReal_re]
+      have h_rhs : (c_h * (ω U : ℂ)).re = c_h.re * ω U := by
+        simp [Complex.mul_re]
+      rw [h_lhs, h_rhs] at h_eq
+      exact h_eq
+    have hi1 : MeasureTheory.Integrable (fun U' => K_W U₁ U' * h U') μ :=
+      integrable_of_continuous_compact μ _
+        ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U₁).mul hh_cont)
+    have hi2 : MeasureTheory.Integrable (fun U' => K_W U₂ U' * h U') μ :=
+      integrable_of_continuous_compact μ _
+        ((continuous_cubicWilsonKernel_right L N β K_kin hK_cont U₂).mul hh_cont)
+    have h_sq_zero : ∫ U', h U' ^ 2 ∂μ = 0 := by
+      have h_eq : (fun U' => h U' ^ 2) = fun U' => ω U₂ * (K_W U₁ U' * h U') - ω U₁ * (K_W U₂ U' * h U') := by
+        funext U'; dsimp [h]; ring
+      rw [h_eq, MeasureTheory.integral_sub (hi1.const_mul _) (hi2.const_mul _),
+        MeasureTheory.integral_const_mul, MeasureTheory.integral_const_mul,
+        h_int_re U₁, h_int_re U₂]
+      ring
+    have hh_zero : ∀ U', h U' = 0 := eq_zero_of_continuous_sq_integral_zero μ h hh_cont h_sq_zero
+    let C : ℝ := (ω U₁ * cubicWilsonWeight L N β U₂) / (ω U₂ * cubicWilsonWeight L N β U₁)
+    have hω2_pos : 0 < ω U₂ := hgs.ω_pos U₂
+    have hw1_pos : 0 < cubicWilsonWeight L N β U₁ := by
+      unfold cubicWilsonWeight; exact Real.exp_pos _
+    have h_Kkin_eq : ∀ U', K_kin U₁ U' = C * K_kin U₂ U' := by
+      intro U'
+      have hw_pos : 0 < cubicWilsonWeight L N β U' := by
+        unfold cubicWilsonWeight; exact Real.exp_pos _
+      have h0 := sub_eq_zero.mp (hh_zero U')
+      have hKW1 : K_W U₁ U' = cubicWilsonWeight L N β U₁ * cubicWilsonWeight L N β U' * K_kin U₁ U' := by
+        dsimp [K_W, wilsonKernel, cubicWilsonWeight]
+        rw [← Real.exp_add]
+        congr 2; ring
+      have hKW2 : K_W U₂ U' = cubicWilsonWeight L N β U₂ * cubicWilsonWeight L N β U' * K_kin U₂ U' := by
+        dsimp [K_W, wilsonKernel, cubicWilsonWeight]
+        rw [← Real.exp_add]
+        congr 2; ring
+      rw [hKW1, hKW2] at h0
+      have hden : ω U₂ * cubicWilsonWeight L N β U₁ ≠ 0 := (mul_pos hω2_pos hw1_pos).ne'
+      have h_cancel : (ω U₂ * cubicWilsonWeight L N β U₁) * K_kin U₁ U' =
+          (ω U₁ * cubicWilsonWeight L N β U₂) * K_kin U₂ U' := by
+        apply mul_right_cancel₀ hw_pos.ne'
+        calc ((ω U₂ * cubicWilsonWeight L N β U₁) * K_kin U₁ U') * cubicWilsonWeight L N β U'
+            = ω U₂ * (cubicWilsonWeight L N β U₁ * cubicWilsonWeight L N β U' * K_kin U₁ U') := by ring
+          _ = ω U₁ * (cubicWilsonWeight L N β U₂ * cubicWilsonWeight L N β U' * K_kin U₂ U') := h0
+          _ = ((ω U₁ * cubicWilsonWeight L N β U₂) * K_kin U₂ U') * cubicWilsonWeight L N β U' := by ring
+      dsimp [C]
+      rw [div_mul_eq_mul_div, eq_div_iff hden, mul_comm (K_kin U₁ U')]
+      exact h_cancel
+    have h_diff_cont : Continuous (fun W : G_L => χ U₁ W - C * χ U₂ W) :=
+      (hχ_cont.comp (continuous_const.prodMk continuous_id)).sub
+        (continuous_const.mul (hχ_cont.comp (continuous_const.prodMk continuous_id)))
+    have h_diff_int : ∫ W, (χ U₁ W - C * χ U₂ W) ^ 2 ∂μ = 0 := by
+      have hi11 : MeasureTheory.Integrable (fun W => χ U₁ W * χ U₁ W) μ :=
+        integrable_of_continuous_compact μ _
+          ((hχ_cont.comp (continuous_const.prodMk continuous_id)).mul
+            (hχ_cont.comp (continuous_const.prodMk continuous_id)))
+      have hi12 : MeasureTheory.Integrable (fun W => χ U₁ W * χ U₂ W) μ :=
+        integrable_of_continuous_compact μ _
+          ((hχ_cont.comp (continuous_const.prodMk continuous_id)).mul
+            (hχ_cont.comp (continuous_const.prodMk continuous_id)))
+      have hi22 : MeasureTheory.Integrable (fun W => χ U₂ W * χ U₂ W) μ :=
+        integrable_of_continuous_compact μ _
+          ((hχ_cont.comp (continuous_const.prodMk continuous_id)).mul
+            (hχ_cont.comp (continuous_const.prodMk continuous_id)))
+      have hi12c : MeasureTheory.Integrable (fun W => (2 * C) * (χ U₁ W * χ U₂ W)) μ :=
+        hi12.const_mul (2 * C)
+      have hi22c : MeasureTheory.Integrable (fun W => (C ^ 2) * (χ U₂ W * χ U₂ W)) μ :=
+        hi22.const_mul (C ^ 2)
+      have h_sub_int : MeasureTheory.Integrable
+          (fun W => χ U₁ W * χ U₁ W - (2 * C) * (χ U₁ W * χ U₂ W)) μ :=
+        hi11.sub hi12c
+      have h_eq1 : ∫ W, (χ U₁ W - C * χ U₂ W) ^ 2 ∂μ =
+          ∫ W, (χ U₁ W * χ U₁ W - (2 * C) * (χ U₁ W * χ U₂ W)) ∂μ +
+            ∫ W, (C ^ 2) * (χ U₂ W * χ U₂ W) ∂μ := by
+        rw [← MeasureTheory.integral_add h_sub_int hi22c]
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
+        dsimp only; ring
+      rw [h_eq1, MeasureTheory.integral_sub hi11 hi12c,
+        MeasureTheory.integral_const_mul, MeasureTheory.integral_const_mul]
+      change K_kin U₁ U₁ - (2 * C) * K_kin U₁ U₂ + (C ^ 2) * K_kin U₂ U₂ = 0
+      rw [h_Kkin_eq U₁, h_Kkin_eq U₂,
+        show K_kin U₂ U₁ = K_kin U₁ U₂ from hK_symm U₁ U₂, h_Kkin_eq U₂]
+      ring
+    have h_chi_eq : ∀ W, χ U₁ W = C * χ U₂ W := fun W =>
+      sub_eq_zero.mp (eq_zero_of_continuous_sq_integral_zero μ _ h_diff_cont h_diff_int W)
+    have h_eq1 := h_chi_eq U₁
+    have h_eq2 := h_chi_eq U₂
+    have h_chi11_pos : 0 < χ U₁ U₁ := hc_χ.trans_le (hχ_lb U₁ U₁)
+    have hC_ne : C ≠ 0 := by
+      intro hC0
+      rw [hC0, zero_mul] at h_eq1
+      linarith
+    apply h_det
+    apply mul_left_cancel₀ hC_ne
+    calc C * (χ U₁ U₁ * χ U₂ U₂)
+        = χ U₁ U₁ * (C * χ U₂ U₂) := by ring
+      _ = (C * χ U₂ U₁) * χ U₁ U₂ := by rw [← h_eq1, ← h_eq2]
+      _ = C * (χ U₂ U₁ * χ U₁ U₂) := by ring
+  have h_spec := (wilsonExactGap_spec S.T S.Ω S.T_sa
+    S.T_pos S.T_compact hT_norm_le1 S.Ω_vac h_simple_norm).2.2 h_perp_ne
+  exact ⟨h_perp_ne, hS_Δ_eq.trans h_spec.1, h_spec.2⟩
+
+/-- Rank-2 Boltzmann kinetic kernel (kept for reference). -/
 noncomputable def cubicActionKineticKernel (L N : ℕ) [NeZero L] (β : ℝ)
     (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
   1 + cubicWilsonWeight L N β U * cubicWilsonWeight L N β W
 
 /--
-Full-rank `NonAbelianWilsonSetup` on `cubicTorus3 L` with `L²(SU(N)^{3L³}, dμ_Haar)`
-and `wilsonIntegralOp` (replacing the rank-2 truncation).
+**Link-coupled gauge-invariant Wilson kinetic kernel** on `cubicTorus3 L`:
+`χ_link(U, W) = ∏_{e} exp((β / (2N)) Re Tr(U_e W_e⁻¹))`.
+-/
+noncomputable def cubicLinkKineticKernel (L N : ℕ) [NeZero L] (β : ℝ)
+    (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  ∏ e : (cubicTorus3 L).Link,
+    Real.exp ((β / (2 * (N : ℝ))) *
+      (Matrix.trace (((U e * (W e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ))).re)
+
+private theorem su_trace_conj' {N : ℕ}
+    (A B : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    Matrix.trace ((A * B * A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ) =
+      Matrix.trace (B : Matrix (Fin N) (Fin N) ℂ) := by
+  have hmul : ∀ X Y : Matrix.specialUnitaryGroup (Fin N) ℂ,
+      ((X * Y : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) =
+        (X : Matrix (Fin N) (Fin N) ℂ) * (Y : Matrix (Fin N) (Fin N) ℂ) :=
+    fun _ _ => rfl
+  have hone : ((1 : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ) = 1 := rfl
+  have hinv : ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+    rw [← hmul A⁻¹ A, inv_mul_cancel, hone]
+  rw [hmul (A * B) A⁻¹, hmul A B,
+    Matrix.trace_mul_comm ((A : Matrix (Fin N) (Fin N) ℂ) * (B : Matrix (Fin N) (Fin N) ℂ))
+      ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ),
+    ← mul_assoc, hinv, one_mul]
+
+theorem continuous_cubicLinkKineticKernel (L N : ℕ) [NeZero L] (β : ℝ) :
+    Continuous (Function.uncurry (cubicLinkKineticKernel L N β)) := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  have h_ent : ∀ i : Fin N, Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (A : Matrix (Fin N) (Fin N) ℂ) i i) := fun i =>
+    (continuous_apply i).comp ((continuous_apply i).comp continuous_subtype_val)
+  have h_tr : Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re) := by
+    simp only [Matrix.trace, Matrix.diag, Complex.re_sum]
+    exact continuous_finset_sum Finset.univ fun i _ => Complex.continuous_re.comp (h_ent i)
+  change Continuous (fun p : G_L × G_L =>
+    ∏ e : (cubicTorus3 L).Link,
+      Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((p.1 e * (p.2 e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re))
+  refine continuous_finset_prod Finset.univ fun e _ => ?_
+  have h1 : Continuous (fun p : G_L × G_L => p.1 e) :=
+    (continuous_apply e).comp continuous_fst
+  have h2 : Continuous (fun p : G_L × G_L => (p.2 e)⁻¹) :=
+    continuous_inv.comp ((continuous_apply e).comp continuous_snd)
+  exact Real.continuous_exp.comp (continuous_const.mul (h_tr.comp (h1.mul h2)))
+
+theorem cubicLinkKineticKernel_gauge_inv (L N : ℕ) [NeZero L] (β : ℝ)
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    cubicLinkKineticKernel L N β (gaugeAct g U) (gaugeAct g W) =
+      cubicLinkKineticKernel L N β U W := by
+  dsimp only [cubicLinkKineticKernel]
+  refine Finset.prod_congr rfl fun e _ => ?_
+  have hconj : gaugeAct g U e * (gaugeAct g W e)⁻¹ =
+      g ((cubicTorus3 L).src e) * (U e * (W e)⁻¹) * (g ((cubicTorus3 L).src e))⁻¹ := by
+    simp only [gaugeAct, mul_inv_rev, inv_inv]
+    group
+  rw [hconj, su_trace_conj']
+
+theorem cubicLinkKineticKernel_bounds (L N : ℕ) [NeZero L] (hN : 1 ≤ N)
+    (β : ℝ) (hβ : 0 ≤ β)
+    (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    (Real.exp (-(β / 2))) ^ (Fintype.card (cubicTorus3 L).Link) ≤
+        cubicLinkKineticKernel L N β U W ∧
+      cubicLinkKineticKernel L N β U W ≤
+        (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) := by
+  have hN_pos : (0 : ℝ) < N := Nat.cast_pos.mpr hN
+  have h_fac_lb : ∀ e : (cubicTorus3 L).Link,
+      Real.exp (-(β / 2)) ≤
+        Real.exp ((β / (2 * (N : ℝ))) *
+          (Matrix.trace (((U e * (W e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+            Matrix (Fin N) (Fin N) ℂ))).re) := by
+    intro e
+    have htr := (abs_le.mp (abs_re_trace_su_le (U e * (W e)⁻¹))).1
+    have hmul : -(β / 2) ≤ (β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U e * (W e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re := by
+      have heq : -(β / 2) = (β / (2 * (N : ℝ))) * (-(N : ℝ)) := by
+        field_simp [hN_pos.ne']
+      rw [heq]
+      exact mul_le_mul_of_nonneg_left htr (by positivity)
+    exact Real.exp_le_exp.mpr hmul
+  have h_fac_ub : ∀ e : (cubicTorus3 L).Link,
+      Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U e * (W e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re) ≤
+        Real.exp (β / 2) := by
+    intro e
+    have htr := (abs_le.mp (abs_re_trace_su_le (U e * (W e)⁻¹))).2
+    have hmul : (β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U e * (W e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re ≤ β / 2 := by
+      have heq : β / 2 = (β / (2 * (N : ℝ))) * (N : ℝ) := by
+        field_simp [hN_pos.ne']
+      rw [heq]
+      exact mul_le_mul_of_nonneg_left htr (by positivity)
+    exact Real.exp_le_exp.mpr hmul
+  dsimp only [cubicLinkKineticKernel]
+  constructor
+  · calc (Real.exp (-(β / 2))) ^ (Fintype.card (cubicTorus3 L).Link)
+        = ∏ _e : (cubicTorus3 L).Link, Real.exp (-(β / 2)) := by
+            simp [Finset.prod_const, Finset.card_univ]
+      _ ≤ ∏ e : (cubicTorus3 L).Link, _ :=
+            Finset.prod_le_prod (fun _ _ => (Real.exp_pos _).le) (fun e _ => h_fac_lb e)
+  · calc ∏ e : (cubicTorus3 L).Link, _
+        ≤ ∏ _e : (cubicTorus3 L).Link, Real.exp (β / 2) :=
+            Finset.prod_le_prod (fun _ _ => (Real.exp_pos _).le) (fun e _ => h_fac_ub e)
+      _ = (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) := by
+            simp [Finset.prod_const, Finset.card_univ]
+
+private theorem suFlip2_inv_eq (N : ℕ) (hN : 2 ≤ N) :
+    (suFlip2 N hN)⁻¹ = suFlip2 N hN := by
+  have h_mul : ((suFlip2 N hN : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ) *
+      ((suFlip2 N hN : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ) = 1 := by
+    ext i j
+    by_cases hij : i = j
+    · subst hij
+      simp only [suFlip2, Matrix.mul_apply, Matrix.diagonal_apply_eq, Matrix.one_apply_eq]
+      rw [Finset.sum_eq_single i]
+      · by_cases hi : (i : ℕ) < 2 <;> simp [hi]
+      · intro k _ hki
+        simp [Matrix.diagonal_apply_ne _ hki.symm, Matrix.diagonal_apply_ne _ hki]
+      · intro hi; exact absurd (Finset.mem_univ i) hi
+    · simp only [suFlip2, Matrix.mul_apply, Matrix.one_apply_ne hij]
+      refine Finset.sum_eq_zero fun k _ => ?_
+      by_cases hki : k = i
+      · subst hki; simp [Matrix.diagonal_apply, hij]
+      · simp [Matrix.diagonal_apply, Ne.symm hki]
+  exact inv_eq_of_mul_eq_one_left (Subtype.ext h_mul)
+
+private theorem suFlip2_trace_re (N : ℕ) (hN : 2 ≤ N) :
+    (Matrix.trace ((suFlip2 N hN : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re = (N : ℝ) - 4 := by
+  simp only [suFlip2, Matrix.trace, Matrix.diag, Matrix.diagonal_apply_eq, Complex.re_sum]
+  let i0 : Fin N := ⟨0, by omega⟩
+  let i1 : Fin N := ⟨1, by omega⟩
+  have h01 : i0 ≠ i1 := by
+    intro h; have := congrArg Fin.val h; norm_num [i0, i1] at this
+  rw [← Finset.add_sum_erase Finset.univ _ (Finset.mem_univ i0)]
+  have hi1_mem : i1 ∈ Finset.univ.erase i0 := Finset.mem_erase.mpr ⟨h01.symm, Finset.mem_univ i1⟩
+  rw [← Finset.add_sum_erase (Finset.univ.erase i0) _ hi1_mem]
+  have h0 : ((if (i0 : ℕ) < 2 then (-1 : ℂ) else 1)).re = -1 := by simp [i0]
+  have h1 : ((if (i1 : ℕ) < 2 then (-1 : ℂ) else 1)).re = -1 := by simp [i1]
+  have h_rest : ∑ x ∈ (Finset.univ.erase i0).erase i1,
+      ((if (x : ℕ) < 2 then (-1 : ℂ) else 1)).re = (N : ℝ) - 2 := by
+    have h_eq : ∑ x ∈ (Finset.univ.erase i0).erase i1,
+        ((if (x : ℕ) < 2 then (-1 : ℂ) else 1)).re =
+        ∑ _x ∈ (Finset.univ.erase i0).erase i1, (1 : ℝ) := by
+      refine Finset.sum_congr rfl fun x hx => ?_
+      have hx1 : x ≠ i1 := (Finset.mem_erase.mp hx).1
+      have hx0 : x ≠ i0 := (Finset.mem_erase.mp (Finset.mem_erase.mp hx).2).1
+      have hge2 : ¬ (x : ℕ) < 2 := by
+        intro hlt
+        rcases Nat.lt_succ_iff_lt_or_eq.mp hlt with h_0 | h_1
+        · exact hx0 (Fin.ext (Nat.lt_one_iff.mp h_0))
+        · exact hx1 (Fin.ext h_1)
+      simp [hge2]
+    rw [h_eq, Finset.sum_const, nsmul_eq_mul, mul_one]
+    have hc1 : ((Finset.univ.erase i0).erase i1).card = N - 2 := by
+      rw [Finset.card_erase_of_mem hi1_mem, Finset.card_erase_of_mem (Finset.mem_univ i0),
+        Finset.card_univ, Fintype.card_fin]
+      omega
+    rw [hc1, Nat.cast_sub hN]
+    norm_num
+  rw [h0, h1, h_rest]
+  ring
+
+private theorem su_one_trace_re (N : ℕ) :
+    (Matrix.trace ((1 : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re = (N : ℝ) := by
+  change (Matrix.trace (1 : Matrix (Fin N) (Fin N) ℂ)).re = (N : ℝ)
+  simp
+
+private noncomputable def linkChiLb (L : ℕ) [NeZero L] (β : ℝ) : ℝ :=
+  (Real.exp (-(β / 2))) ^ (Fintype.card (cubicTorus3 L).Link)
+
+private noncomputable def linkChiUb (L : ℕ) [NeZero L] (β : ℝ) : ℝ :=
+  (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link)
+
+private theorem linkChiLb_pos (L : ℕ) [NeZero L] (β : ℝ) : 0 < linkChiLb L β :=
+  pow_pos (Real.exp_pos _) _
+
+private theorem linkChiUb_nonneg (L : ℕ) [NeZero L] (β : ℝ) : 0 ≤ linkChiUb L β :=
+  pow_nonneg (Real.exp_pos _).le _
+
+private theorem linkChi_nn (L N : ℕ) [NeZero L] (hN : 2 ≤ N) (β : ℝ) (hβ : 0 ≤ β)
+    (U W : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    0 ≤ cubicLinkKineticKernel L N β U W :=
+  (linkChiLb_pos L β).le.trans (cubicLinkKineticKernel_bounds L N (by omega) β hβ U W).1
+
+/--
+**Full-rank `NonAbelianWilsonSetup` on `cubicTorus3 L`** with `L²(SU(N)^{3L³}, dμ_Haar)`,
+the link-coupled kinetic kernel `cubicLinkKineticKernel`, and `wilsonIntegralOp`.
 -/
 noncomputable def fullRankCubicNonAbelianWilsonSetup (L N : ℕ) [NeZero L] (hN : 2 ≤ N)
     (β : ℝ) (hβ : 0 < β)
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
     [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
     NonAbelianWilsonSetup (cubicTorus3 L) N hN :=
-  let χ := cubicActionKineticKernel L N β
-  have hχ_cont : Continuous (Function.uncurry χ) := by
-    have hS := continuous_cubicWilsonAction L N β
-    have hw : Continuous (cubicWilsonWeight L N β) :=
-      Real.continuous_exp.comp (continuous_const.mul hS)
-    exact continuous_const.add ((hw.comp continuous_fst).mul (hw.comp continuous_snd))
-  have hχ_inv : ∀ g U W, χ (gaugeAct g U) (gaugeAct g W) = χ U W := by
-    intro g U W
-    dsimp [χ, cubicActionKineticKernel]
-    rw [cubicWilsonWeight_gauge_inv, cubicWilsonWeight_gauge_inv]
-  have hχ_lb : ∀ U W, (1 : ℝ) ≤ χ U W := fun U W => by
-    have h1 : 0 ≤ cubicWilsonWeight L N β U := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
-    have h2 : 0 ≤ cubicWilsonWeight L N β W := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
-    dsimp [χ, cubicActionKineticKernel]
-    linarith [mul_nonneg h1 h2]
-  have hχ_bd : ∀ U W, χ U W ≤ 2 := fun U W => by
-    have h1 := (cubicWilsonWeight_bounds L N β hβ.le U).2
-    have h2 := (cubicWilsonWeight_bounds L N β hβ.le W).2
-    have h1nn : 0 ≤ cubicWilsonWeight L N β U := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
-    have h2nn : 0 ≤ cubicWilsonWeight L N β W := by unfold cubicWilsonWeight; exact (Real.exp_pos _).le
-    dsimp [χ, cubicActionKineticKernel]
-    nlinarith
-  let setup := fullRankCubicLatticeGaugeSetup L N β hβ.le χ hχ_cont hχ_inv 1 one_pos hχ_lb
-    2 (by norm_num) hχ_bd
+  let χ := cubicLinkKineticKernel L N β
+  let setup := fullRankCubicLatticeGaugeSetup L N β hβ.le χ
+    (continuous_cubicLinkKineticKernel L N β)
+    (cubicLinkKineticKernel_gauge_inv L N β)
+    (linkChiLb L β) (linkChiLb_pos L β)
+    (fun U W => (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U W).1)
+    (linkChiUb L β) (linkChiUb_nonneg L β)
+    (fun U W => (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U W).2)
   { μ := latticeHaarMeasure L N
     μ_prob := latticeHaarMeasure_prob L N
     μ_inv := latticeHaarMeasure_gauge_inv L N
@@ -12549,8 +13174,8 @@ noncomputable def fullRankCubicNonAbelianWilsonSetup (L N : ℕ) [NeZero L] (hN 
     plaquettes := cubicPlaquettes L
     K_kin := wilsonGramKernel L N χ
     K_symm := wilsonGramKernel_symm L N χ
-    K_nonneg := wilsonGramKernel_nonneg L N χ (fun U W => (zero_le_one.trans (hχ_lb U W)))
-    K_inv := wilsonGramKernel_gauge_inv L N χ hχ_inv
+    K_nonneg := wilsonGramKernel_nonneg L N χ (linkChi_nn L N hN β hβ.le)
+    K_inv := wilsonGramKernel_gauge_inv L N χ (cubicLinkKineticKernel_gauge_inv L N β)
     gaugeSetup := setup
     SymmIdx := GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
     symmOp := cubicGaugeRep L N
@@ -12558,6 +13183,132 @@ noncomputable def fullRankCubicNonAbelianWilsonSetup (L N : ℕ) [NeZero L] (hN 
       unfold lieBracketCLM
       change (setup.rep g).comp setup.T - setup.T.comp (setup.rep g) = 0
       rw [setup.T_gauge_inv g, sub_self] }
+
+/--
+**Non-degeneracy and exact spectral gap** of `fullRankCubicNonAbelianWilsonSetup`:
+for every $L \ge 1$, $N \ge 2$, $\beta > 0$, the link-coupled transfer operator
+is non-degenerate on $\Omega^\perp$ (`wilsonPerpOp ≠ 0`), its spectral gap equals
+`setup.Δ = -Real.log ‖wilsonPerpOp‖ = log(λ₀ / λ₁)`, and `setup.T` attains
+`exp(-setup.Δ)` at a unit excited eigenstate `w ∈ Ωᗮ`.
+-/
+theorem fullRankCubicNonAbelianWilsonSetup_exact_gap
+    (L N : ℕ) [NeZero L] (hN : 2 ≤ N) (β : ℝ) (hβ : 0 < β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    let S := (fullRankCubicNonAbelianWilsonSetup L N hN β hβ).gaugeSetup
+    wilsonPerpOp S.T S.Ω S.T_sa S.Ω_vac ≠ 0 ∧
+    S.Δ = -Real.log ‖wilsonPerpOp S.T S.Ω S.T_sa S.Ω_vac‖ ∧
+    ∃ w : HaarGaugeSpace (latticeHaarMeasure L N),
+      ‖w‖ = 1 ∧ ⟪w, S.Ω⟫_ℂ = 0 ∧
+      S.T w = (Real.exp (-S.Δ) : ℂ) • w := by
+  let G_L := GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  let χ := cubicLinkKineticKernel L N β
+  let U₁ : G_L := fun _ => 1
+  let e₀ : (cubicTorus3 L).Link := ((0, 0, 0), 0)
+  let U₂ : G_L := fun e => if e = e₀ then suFlip2 N hN else 1
+  have hN_pos : (0 : ℝ) < N := Nat.cast_pos.mpr (by omega)
+  have h_11 : χ U₁ U₁ = (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) := by
+    dsimp only [χ, cubicLinkKineticKernel]
+    have h_each : ∀ e : (cubicTorus3 L).Link,
+        Real.exp ((β / (2 * (N : ℝ))) *
+          (Matrix.trace (((U₁ e * (U₁ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+            Matrix (Fin N) (Fin N) ℂ))).re) = Real.exp (β / 2) := by
+      intro e
+      simp only [U₁, mul_inv_cancel, su_one_trace_re]
+      congr 1; field_simp [hN_pos.ne']
+    simp_rw [h_each, Finset.prod_const, Finset.card_univ]
+  have h_22 : χ U₂ U₂ = (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) := by
+    dsimp only [χ, cubicLinkKineticKernel]
+    have h_each : ∀ e : (cubicTorus3 L).Link,
+        Real.exp ((β / (2 * (N : ℝ))) *
+          (Matrix.trace (((U₂ e * (U₂ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+            Matrix (Fin N) (Fin N) ℂ))).re) = Real.exp (β / 2) := by
+      intro e
+      simp only [mul_inv_cancel, su_one_trace_re]
+      congr 1; field_simp [hN_pos.ne']
+    simp_rw [h_each, Finset.prod_const, Finset.card_univ]
+  have h_lt_fac : Real.exp ((β / (2 * (N : ℝ))) * ((N : ℝ) - 4)) < Real.exp (β / 2) := by
+    have h_arg : (β / (2 * (N : ℝ))) * ((N : ℝ) - 4) < β / 2 := by
+      have heq : β / 2 = (β / (2 * (N : ℝ))) * (N : ℝ) := by field_simp [hN_pos.ne']
+      rw [heq]
+      exact mul_lt_mul_of_pos_left (by linarith) (by positivity)
+    exact Real.exp_lt_exp.mpr h_arg
+  have h_21_lt : χ U₂ U₁ < χ U₁ U₁ := by
+    rw [h_11]
+    dsimp only [χ, cubicLinkKineticKernel]
+    rw [← Finset.mul_prod_erase Finset.univ _ (Finset.mem_univ e₀)]
+    have h_e₀ : Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U₂ e₀ * (U₁ e₀)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re) =
+        Real.exp ((β / (2 * (N : ℝ))) * ((N : ℝ) - 4)) := by
+      simp only [U₂, U₁, ↓reduceIte, inv_one, mul_one, suFlip2_trace_re]
+    have h_rest : ∏ e ∈ Finset.univ.erase e₀, Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U₂ e * (U₁ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re) =
+        (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link - 1) := by
+      have h_each : ∀ e ∈ Finset.univ.erase e₀,
+          Real.exp ((β / (2 * (N : ℝ))) *
+            (Matrix.trace (((U₂ e * (U₁ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+              Matrix (Fin N) (Fin N) ℂ))).re) = Real.exp (β / 2) := by
+        intro e he
+        have hne : e ≠ e₀ := (Finset.mem_erase.mp he).1
+        simp only [U₂, U₁, if_neg hne, inv_one, mul_one, su_one_trace_re]
+        congr 1; field_simp [hN_pos.ne']
+      rw [Finset.prod_congr rfl h_each, Finset.prod_const,
+        Finset.card_erase_of_mem (Finset.mem_univ e₀), Finset.card_univ]
+    rw [h_e₀, h_rest]
+    have hcard_pos : 1 ≤ Fintype.card (cubicTorus3 L).Link :=
+      Fintype.card_pos_iff.mpr ⟨e₀⟩
+    have h_pow : (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) =
+        Real.exp (β / 2) * (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link - 1) := by
+      rw [← pow_succ', Nat.sub_add_cancel hcard_pos]
+    rw [h_pow]
+    exact mul_lt_mul_of_pos_right h_lt_fac (pow_pos (Real.exp_pos _) _)
+  have h_12_lt : χ U₁ U₂ < χ U₂ U₂ := by
+    rw [h_22]
+    dsimp only [χ, cubicLinkKineticKernel]
+    rw [← Finset.mul_prod_erase Finset.univ _ (Finset.mem_univ e₀)]
+    have h_e₀ : Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U₁ e₀ * (U₂ e₀)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re) =
+        Real.exp ((β / (2 * (N : ℝ))) * ((N : ℝ) - 4)) := by
+      simp only [U₁, U₂, ↓reduceIte, one_mul, suFlip2_inv_eq, suFlip2_trace_re]
+    have h_rest : ∏ e ∈ Finset.univ.erase e₀, Real.exp ((β / (2 * (N : ℝ))) *
+        (Matrix.trace (((U₁ e * (U₂ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ))).re) =
+        (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link - 1) := by
+      have h_each : ∀ e ∈ Finset.univ.erase e₀,
+          Real.exp ((β / (2 * (N : ℝ))) *
+            (Matrix.trace (((U₁ e * (U₂ e)⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+              Matrix (Fin N) (Fin N) ℂ))).re) = Real.exp (β / 2) := by
+        intro e he
+        have hne : e ≠ e₀ := (Finset.mem_erase.mp he).1
+        simp only [U₁, U₂, if_neg hne, one_mul, inv_one, su_one_trace_re]
+        congr 1; field_simp [hN_pos.ne']
+      rw [Finset.prod_congr rfl h_each, Finset.prod_const,
+        Finset.card_erase_of_mem (Finset.mem_univ e₀), Finset.card_univ]
+    rw [h_e₀, h_rest]
+    have hcard_pos : 1 ≤ Fintype.card (cubicTorus3 L).Link :=
+      Fintype.card_pos_iff.mpr ⟨e₀⟩
+    have h_pow : (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link) =
+        Real.exp (β / 2) * (Real.exp (β / 2)) ^ (Fintype.card (cubicTorus3 L).Link - 1) := by
+      rw [← pow_succ', Nat.sub_add_cancel hcard_pos]
+    rw [h_pow]
+    exact mul_lt_mul_of_pos_right h_lt_fac (pow_pos (Real.exp_pos _) _)
+  have h_chi21_pos : 0 < χ U₂ U₁ :=
+    (linkChiLb_pos L β).trans_le (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U₂ U₁).1
+  have h_chi12_pos : 0 < χ U₁ U₂ :=
+    (linkChiLb_pos L β).trans_le (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U₁ U₂).1
+  have h_det : χ U₁ U₁ * χ U₂ U₂ ≠ χ U₂ U₁ * χ U₁ U₂ :=
+    ne_of_gt (mul_lt_mul'' h_21_lt h_12_lt h_chi21_pos.le h_chi12_pos.le)
+  exact fullRankCubicLatticeGaugeSetup_exact_gap_of_det_ne L N β hβ.le χ
+    (continuous_cubicLinkKineticKernel L N β)
+    (cubicLinkKineticKernel_gauge_inv L N β)
+    (linkChiLb L β) (linkChiLb_pos L β)
+    (fun U W => (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U W).1)
+    (linkChiUb L β) (linkChiUb_nonneg L β)
+    (fun U W => (cubicLinkKineticKernel_bounds L N (by omega) β hβ.le U W).2)
+    U₁ U₂ h_det
 
 theorem fullRankCubic_clustering (L N : ℕ) [NeZero L] (hN : 2 ≤ N) (β : ℝ) (hβ : 0 < β)
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
