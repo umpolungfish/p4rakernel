@@ -5032,6 +5032,632 @@ theorem unconditional_interacting_yang_mills_hamiltonian_and_phase_space_dynamic
 
 end UnconditionalMasterTheorems 
 
+/-! ## §22.  True general Osterwalder–Schrader Hilbert completion & operator lifting -/
+
+section TrueOSCompletion
+
+/-- Quotient pre-Hilbert carrier `E / 𝒩` for any `OSReflectionForm E`. -/
+def OSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Type _ :=
+  Quotient (osSetoid F)
+
+def osPreMk {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x : E) : OSPreHilbert F :=
+  Quotient.mk (osSetoid F) x
+
+private def osPreNeg {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : OSPreHilbert F → OSPreHilbert F :=
+  Quotient.lift (fun x => osPreMk F (-x)) fun x y (hxy : x - y ∈ osNullSpace F) => by
+    apply Quotient.sound
+    change -x - (-y) ∈ osNullSpace F
+    rw [show -x - (-y) = -(x - y) by abel]
+    exact (osNullSpace F).neg_mem hxy
+
+instance instZeroOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Zero (OSPreHilbert F) :=
+  ⟨osPreMk F 0⟩
+
+instance instAddOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Add (OSPreHilbert F) :=
+  ⟨osQuotAdd F⟩
+
+instance instNegOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Neg (OSPreHilbert F) :=
+  ⟨osPreNeg F⟩
+
+instance instAddCommGroupOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : AddCommGroup (OSPreHilbert F) where
+  add := osQuotAdd F
+  add_assoc a b c := Quotient.inductionOn₃ a b c fun x y z =>
+    Quotient.sound (by change (x + y + z) - (x + (y + z)) ∈ osNullSpace F; simp [add_assoc])
+  zero := osPreMk F 0
+  zero_add a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (0 + x) - x ∈ osNullSpace F; simp)
+  add_zero a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (x + 0) - x ∈ osNullSpace F; simp)
+  neg := osPreNeg F
+  neg_add_cancel a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (-x + x) - 0 ∈ osNullSpace F; simp)
+  add_comm a b := Quotient.inductionOn₂ a b fun x y =>
+    Quotient.sound (by change (x + y) - (y + x) ∈ osNullSpace F; simp [add_comm])
+  nsmul := nsmulRec
+  zsmul := zsmulRec
+  nsmul_zero _ := rfl
+  nsmul_succ _ _ := rfl
+  zsmul_zero' _ := rfl
+  zsmul_succ' _ _ := rfl
+  zsmul_neg' _ _ := rfl
+
+instance instModuleOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Module ℂ (OSPreHilbert F) where
+  smul := osQuotSmul F
+  one_smul a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (1 : ℂ) • x - x ∈ osNullSpace F; simp)
+  mul_smul r s a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (r * s) • x - r • (s • x) ∈ osNullSpace F; simp [mul_smul])
+  smul_zero r := Quotient.sound (by change r • (0 : E) - 0 ∈ osNullSpace F; simp)
+  smul_add r a b := Quotient.inductionOn₂ a b fun x y =>
+    Quotient.sound (by change r • (x + y) - (r • x + r • y) ∈ osNullSpace F; simp [smul_add])
+  add_smul r s a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (r + s) • x - (r • x + s • x) ∈ osNullSpace F; simp [add_smul])
+  zero_smul a := Quotient.inductionOn a fun x =>
+    Quotient.sound (by change (0 : ℂ) • x - 0 ∈ osNullSpace F; simp)
+
+noncomputable instance instInnerOSPreHilbert {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Inner ℂ (OSPreHilbert F) where
+  inner := osQuotInner F
+
+noncomputable def osPreCore {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : InnerProductSpace.Core ℂ (OSPreHilbert F) where
+  inner := osQuotInner F
+  conj_inner_symm x y := (osQuotInner_conj_symm F x y).symm
+  re_inner_nonneg := osQuotInner_pos_re F
+  definite x hx := (osQuotInner_definite F x).mp hx
+  add_left := osQuotInner_add_left F
+  smul_left x y r := osQuotInner_smul_left F r x y
+
+noncomputable instance instNormedAddCommGroupOSPreHilbert
+    {E : Type*} [AddCommGroup E] [Module ℂ E] (F : OSReflectionForm E) :
+    NormedAddCommGroup (OSPreHilbert F) :=
+  @InnerProductSpace.Core.toNormedAddCommGroup ℂ (OSPreHilbert F) _ _ _ (osPreCore F)
+
+noncomputable instance instInnerProductSpaceOSPreHilbert
+    {E : Type*} [AddCommGroup E] [Module ℂ E] (F : OSReflectionForm E) :
+    InnerProductSpace ℂ (OSPreHilbert F) :=
+  InnerProductSpace.ofCore (osPreCore F).toCore
+
+/-- True Osterwalder–Schrader Hilbert space completion `H_OS = \overline{E / 𝒩}`. -/
+abbrev OSHilbertSpace {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) :=
+  UniformSpace.Completion (OSPreHilbert F)
+
+/-- Canonical continuous linear isometric embedding `E / 𝒩 → H_OS`. -/
+noncomputable def osCompletionMap {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : OSPreHilbert F →L[ℂ] OSHilbertSpace F where
+  toFun u := (u : OSHilbertSpace F)
+  map_add' := UniformSpace.Completion.coe_add
+  map_smul' := UniformSpace.Completion.coe_smul
+  cont := UniformSpace.Completion.continuous_coe _
+
+theorem osCompletionMap_norm {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u : OSPreHilbert F) :
+    ‖osCompletionMap F u‖ = ‖u‖ :=
+  UniformSpace.Completion.norm_coe u
+
+theorem osCompletionMap_inner {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u v : OSPreHilbert F) :
+    ⟪osCompletionMap F u, osCompletionMap F v⟫_ℂ = ⟪u, v⟫_ℂ := by
+  have h_re : ∀ a b : OSPreHilbert F,
+      (⟪osCompletionMap F a, osCompletionMap F b⟫_ℂ).re = (⟪a, b⟫_ℂ).re := by
+    intro a b
+    have h1 : ‖osCompletionMap F (a + b)‖ ^ 2 = ‖a + b‖ ^ 2 := by
+      rw [osCompletionMap_norm F (a + b)]
+    have h2 : ‖osCompletionMap F (a - b)‖ ^ 2 = ‖a - b‖ ^ 2 := by
+      rw [osCompletionMap_norm F (a - b)]
+    rw [map_add, norm_add_sq (𝕜 := ℂ)] at h1
+    rw [map_sub, norm_sub_sq (𝕜 := ℂ)] at h2
+    rw [norm_add_sq (𝕜 := ℂ)] at h1
+    rw [norm_sub_sq (𝕜 := ℂ)] at h2
+    rw [osCompletionMap_norm F a, osCompletionMap_norm F b] at h1 h2
+    change ‖a‖ ^ 2 + 2 * (⟪osCompletionMap F a, osCompletionMap F b⟫_ℂ).re + ‖b‖ ^ 2 =
+      ‖a‖ ^ 2 + 2 * (⟪a, b⟫_ℂ).re + ‖b‖ ^ 2 at h1
+    change ‖a‖ ^ 2 - 2 * (⟪osCompletionMap F a, osCompletionMap F b⟫_ℂ).re + ‖b‖ ^ 2 =
+      ‖a‖ ^ 2 - 2 * (⟪a, b⟫_ℂ).re + ‖b‖ ^ 2 at h2
+    linarith
+  have h_im : (⟪osCompletionMap F u, osCompletionMap F v⟫_ℂ).im = (⟪u, v⟫_ℂ).im := by
+    have h := h_re u (Complex.I • v)
+    rw [map_smul, inner_smul_right, inner_smul_right] at h
+    simp only [Complex.mul_re, Complex.I_re, Complex.I_im, zero_mul, one_mul, zero_sub] at h
+    linarith
+  exact Complex.ext (h_re u v) h_im
+
+theorem osCompletionMap_inj {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Function.Injective (osCompletionMap F) := by
+  intro u v huv
+  have h0 : ‖u - v‖ = 0 := by
+    rw [← osCompletionMap_norm F (u - v), map_sub, huv, sub_self, norm_zero]
+  exact sub_eq_zero.mp (norm_eq_zero.mp h0)
+
+theorem osCompletionMap_dense {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) :
+    closure (Set.range (osCompletionMap F)) = Set.univ :=
+  UniformSpace.Completion.denseRange_coe.closure_range
+
+private theorem osPre_norm_sq {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x : E) :
+    ‖osPreMk F x‖ ^ 2 = (F.B x x).re := by
+  rw [norm_sq_eq_re_inner (𝕜 := ℂ)]
+  rfl
+
+private noncomputable def osLiftPreOp {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re) :
+    OSPreHilbert F →L[ℂ] OSPreHilbert F :=
+  LinearMap.mkContinuous
+    { toFun := Quotient.lift (fun x => osPreMk F (T x)) fun x y hxy => by
+        apply Quotient.sound
+        change T x - T y ∈ osNullSpace F
+        rw [← map_sub]
+        have h0 : (F.B (x - y) (x - y)).re = 0 := by
+          change F.B (x - y) (x - y) = 0 at hxy
+          rw [hxy, Complex.zero_re]
+        have hre_le : (F.B (T (x - y)) (T (x - y))).re ≤ 0 := by
+          have := hbd (x - y)
+          rwa [h0, mul_zero] at this
+        have hre : (F.B (T (x - y)) (T (x - y))).re = 0 :=
+          le_antisymm hre_le (F.pos_re _)
+        exact Complex.ext hre (F.self_im_zero _)
+      map_add' := fun u v => Quotient.inductionOn₂ u v fun x y => by
+        change osPreMk F (T (x + y)) = osQuotAdd F (osPreMk F (T x)) (osPreMk F (T y))
+        rw [map_add]
+        rfl
+      map_smul' := fun c u => Quotient.inductionOn u fun x => by
+        change osPreMk F (T (c • x)) = osQuotSmul F c (osPreMk F (T x))
+        rw [map_smul]
+        rfl }
+    C
+    (fun u => by
+      refine Quotient.inductionOn u fun x => ?_
+      rw [← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hC (norm_nonneg _)), mul_pow]
+      change ‖osPreMk F (T x)‖ ^ 2 ≤ C ^ 2 * ‖osPreMk F x‖ ^ 2
+      rw [osPre_norm_sq, osPre_norm_sq]
+      exact hbd x)
+
+/-- Lift of an `F`-bounded Euclidean linear operator `T : E →ₗ[ℂ] E` to `OSHilbertSpace F`. -/
+noncomputable def osLiftOperator {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re) :
+    OSHilbertSpace F →L[ℂ] OSHilbertSpace F :=
+  let T_pre := osLiftPreOp F T C hC hbd
+  let f : OSHilbertSpace F → OSHilbertSpace F :=
+    UniformSpace.Completion.map T_pre
+  have hf_coe : ∀ u : OSPreHilbert F,
+      f (osCompletionMap F u) = osCompletionMap F (T_pre u) :=
+    fun u => UniformSpace.Completion.map_coe T_pre.uniformContinuous u
+  have hf_cont : Continuous f := UniformSpace.Completion.continuous_map
+  have hf_add : ∀ a b : OSHilbertSpace F, f (a + b) = f a + f b := by
+    intro a b
+    refine UniformSpace.Completion.induction_on₂ a b ?_ ?_
+    · exact isClosed_eq (hf_cont.comp continuous_add)
+        ((hf_cont.comp continuous_fst).add (hf_cont.comp continuous_snd))
+    · intro u v
+      change f (osCompletionMap F u + osCompletionMap F v) =
+        f (osCompletionMap F u) + f (osCompletionMap F v)
+      rw [← map_add, hf_coe, hf_coe, hf_coe, map_add, map_add]
+  have hf_smul : ∀ (c : ℂ) (a : OSHilbertSpace F), f (c • a) = c • f a := by
+    intro c a
+    refine UniformSpace.Completion.induction_on a ?_ ?_
+    · exact isClosed_eq (hf_cont.comp (continuous_const_smul c))
+        ((continuous_const_smul c).comp hf_cont)
+    · intro u
+      change f (c • osCompletionMap F u) = c • f (osCompletionMap F u)
+      rw [← map_smul, hf_coe, hf_coe, map_smul, map_smul]
+  { toFun := f
+    map_add' := hf_add
+    map_smul' := hf_smul
+    cont := hf_cont }
+
+theorem osLiftOperator_coe {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re) (x : E) :
+    osLiftOperator F T C hC hbd (osCompletionMap F (osPreMk F x)) =
+      osCompletionMap F (osPreMk F (T x)) :=
+  UniformSpace.Completion.map_coe (osLiftPreOp F T C hC hbd).uniformContinuous (osPreMk F x)
+
+theorem osLiftOperator_norm_le {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re)
+    (z : OSHilbertSpace F) :
+    ‖osLiftOperator F T C hC hbd z‖ ≤ C * ‖z‖ := by
+  refine UniformSpace.Completion.induction_on z ?_ ?_
+  · exact isClosed_le (continuous_norm.comp (osLiftOperator F T C hC hbd).continuous)
+      (continuous_const.mul continuous_norm)
+  · intro u
+    refine Quotient.inductionOn u fun x => ?_
+    change ‖osLiftOperator F T C hC hbd (osCompletionMap F (osPreMk F x))‖ ≤
+      C * ‖osCompletionMap F (osPreMk F x)‖
+    rw [osLiftOperator_coe, osCompletionMap_norm F, osCompletionMap_norm F]
+    rw [← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hC (norm_nonneg _)), mul_pow,
+      osPre_norm_sq, osPre_norm_sq]
+    exact hbd x
+
+theorem osLiftOperator_sa {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re)
+    (hsa : ∀ x y : E, F.B (T x) y = F.B x (T y))
+    (u v : OSHilbertSpace F) :
+    ⟪osLiftOperator F T C hC hbd u, v⟫_ℂ = ⟪u, osLiftOperator F T C hC hbd v⟫_ℂ := by
+  refine UniformSpace.Completion.induction_on₂ u v ?_ ?_
+  · exact isClosed_eq
+      (((osLiftOperator F T C hC hbd).continuous.comp continuous_fst).inner continuous_snd)
+      (continuous_fst.inner ((osLiftOperator F T C hC hbd).continuous.comp continuous_snd))
+  · intro a b
+    refine Quotient.inductionOn₂ a b fun x y => ?_
+    change ⟪osLiftOperator F T C hC hbd (osCompletionMap F (osPreMk F x)),
+        osCompletionMap F (osPreMk F y)⟫_ℂ =
+      ⟪osCompletionMap F (osPreMk F x),
+        osLiftOperator F T C hC hbd (osCompletionMap F (osPreMk F y))⟫_ℂ
+    rw [osLiftOperator_coe, osLiftOperator_coe,
+      osCompletionMap_inner, osCompletionMap_inner]
+    exact hsa x y
+
+end TrueOSCompletion
+
+/-! ## §23.  3D cubic torus, compact $SU(N)$ Haar product measure & Wilson gauge theory -/
+
+section CubicLatticeHaar
+
+/-- Periodic unit shift along coordinate `d : Fin 3` on `(Fin L × Fin L × Fin L)`. -/
+def cubicShift (L : ℕ) [NeZero L] (d : Fin 3) (x : Fin L × Fin L × Fin L) :
+    Fin L × Fin L × Fin L :=
+  match d with
+  | 0 => (x.1 + 1, x.2.1, x.2.2)
+  | 1 => (x.1, x.2.1 + 1, x.2.2)
+  | 2 => (x.1, x.2.1, x.2.2 + 1)
+
+theorem cubicShift_comm (L : ℕ) [NeZero L] (d₁ d₂ : Fin 3)
+    (x : Fin L × Fin L × Fin L) :
+    cubicShift L d₁ (cubicShift L d₂ x) = cubicShift L d₂ (cubicShift L d₁ x) := by
+  rcases x with ⟨a, b, c⟩
+  fin_cases d₁ <;> fin_cases d₂ <;> rfl
+
+/-- Genuine 3D periodic cubic spatial torus `(ℤ/Lℤ)³` (`L³` sites, `3L³` links). -/
+def cubicTorus3 (L : ℕ) [NeZero L] : SpatialLattice where
+  Site := Fin L × Fin L × Fin L
+  Link := (Fin L × Fin L × Fin L) × Fin 3
+  src := fun e => e.1
+  dst := fun e => cubicShift L e.2 e.1
+
+/-- Elementary 4-link square plaquette on `cubicTorus3 L` at site `x` in plane `(d₁, d₂)`. -/
+def cubicPlaquette {L : ℕ} [NeZero L] (x : (cubicTorus3 L).Site) (d₁ d₂ : Fin 3) :
+    List ((cubicTorus3 L).Link × Bool) :=
+  [ ((x, d₁), true),
+    ((cubicShift L d₁ x, d₂), true),
+    ((cubicShift L d₂ x, d₁), false),
+    ((x, d₂), false) ]
+
+theorem cubicPlaquette_isPath {L : ℕ} [NeZero L]
+    (x : (cubicTorus3 L).Site) (d₁ d₂ : Fin 3) :
+    IsLatticePath (cubicTorus3 L) x x (cubicPlaquette x d₁ d₂) := by
+  refine IsLatticePath.fwd (L := cubicTorus3 L) (x, d₁) _ rfl rfl ?_
+  refine IsLatticePath.fwd (L := cubicTorus3 L) (cubicShift L d₁ x, d₂) _ rfl rfl ?_
+  refine IsLatticePath.bwd (L := cubicTorus3 L) (cubicShift L d₂ x, d₁) _
+    (cubicShift_comm L d₁ d₂ x) rfl ?_
+  refine IsLatticePath.bwd (L := cubicTorus3 L) (x, d₂) _ rfl rfl ?_
+  exact IsLatticePath.nil (L := cubicTorus3 L) x
+
+/-- Complete list of all `3 L³` elementary spatial square plaquettes on `cubicTorus3 L`. -/
+noncomputable def cubicPlaquettes (L : ℕ) [NeZero L] : List (LatticePlaquette (cubicTorus3 L)) :=
+  (Finset.univ : Finset (Fin L × Fin L × Fin L)).toList.flatMap fun x =>
+    [ { base := x, loop := cubicPlaquette x 0 1, is_closed := cubicPlaquette_isPath x 0 1 },
+      { base := x, loop := cubicPlaquette x 0 2, is_closed := cubicPlaquette_isPath x 0 2 },
+      { base := x, loop := cubicPlaquette x 1 2, is_closed := cubicPlaquette_isPath x 1 2 } ]
+
+theorem cubicWilsonAction_gauge_inv (L N : ℕ) [NeZero L] (β : ℝ)
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubicPlaquettes L) (gaugeAct g U) =
+      wilsonAction β (cubicPlaquettes L) U :=
+  wilsonAction_gauge_inv β (cubicPlaquettes L) g U
+
+private theorem continuous_matrix_mul_val (N : ℕ) :
+    Continuous (fun p : Matrix (Fin N) (Fin N) ℂ × Matrix (Fin N) (Fin N) ℂ => p.1 * p.2) := by
+  have hM : ∀ i j : Fin N,
+      Continuous (fun A : Matrix (Fin N) (Fin N) ℂ => A i j) :=
+    fun i j => (continuous_apply j).comp ((continuous_apply i).comp continuous_id)
+  rw [continuous_pi_iff]
+  intro i
+  rw [continuous_pi_iff]
+  intro j
+  simp only [Matrix.mul_apply]
+  refine continuous_finset_sum (Finset.univ : Finset (Fin N)) fun k _ => ?_
+  exact ((hM i k).comp continuous_fst).mul ((hM k j).comp continuous_snd)
+
+private theorem continuous_matrix_conjTranspose (N : ℕ) :
+    Continuous (fun A : Matrix (Fin N) (Fin N) ℂ => star A) := by
+  rw [continuous_pi_iff]
+  intro i
+  rw [continuous_pi_iff]
+  intro j
+  exact continuous_star.comp ((continuous_apply i).comp ((continuous_apply j).comp continuous_id))
+
+private theorem continuous_matrix_det_val (N : ℕ) :
+    Continuous (fun A : Matrix (Fin N) (Fin N) ℂ => A.det) := by
+  simp only [Matrix.det_apply]
+  refine continuous_finset_sum (Finset.univ : Finset (Equiv.Perm (Fin N))) fun σ _ => ?_
+  refine Continuous.const_smul ?_ (Equiv.Perm.sign σ)
+  refine continuous_finset_prod (Finset.univ : Finset (Fin N)) fun i _ => ?_
+  exact (continuous_apply i).comp (continuous_apply (σ i))
+
+instance instIsTopologicalGroupSU (N : ℕ) :
+    IsTopologicalGroup (Matrix.specialUnitaryGroup (Fin N) ℂ) where
+  continuous_mul := by
+    refine Continuous.subtype_mk ?_ _
+    exact (continuous_matrix_mul_val N).comp
+      (continuous_subtype_val.comp continuous_fst |>.prodMk
+        (continuous_subtype_val.comp continuous_snd))
+  continuous_inv := by
+    refine Continuous.subtype_mk ?_ _
+    exact (continuous_matrix_conjTranspose N).comp continuous_subtype_val
+
+instance instSecondCountableSU (N : ℕ) :
+    SecondCountableTopology (Matrix.specialUnitaryGroup (Fin N) ℂ) := by
+  haveI : SecondCountableTopology (Matrix (Fin N) (Fin N) ℂ) :=
+    show SecondCountableTopology (Fin N → Fin N → ℂ) from inferInstance
+  exact Topology.IsInducing.subtypeVal.secondCountableTopology
+
+instance instCompactSpaceSU (N : ℕ) :
+    CompactSpace (Matrix.specialUnitaryGroup (Fin N) ℂ) := by
+  let B : Set (Matrix (Fin N) (Fin N) ℂ) :=
+    Set.univ.pi fun _ => Set.univ.pi fun _ => Metric.closedBall (0 : ℂ) 1
+  have hB : IsCompact B :=
+    isCompact_univ_pi fun _ => isCompact_univ_pi fun _ => isCompact_closedBall 0 1
+  let S : Set (Matrix (Fin N) (Fin N) ℂ) :=
+    Subtype.val '' (Set.univ : Set (Matrix.specialUnitaryGroup (Fin N) ℂ))
+  have hS_eq : S =
+      { A : Matrix (Fin N) (Fin N) ℂ | star A * A = 1 ∧ A * star A = 1 ∧ A.det = 1 } := by
+    ext A
+    constructor
+    · rintro ⟨⟨U, hU_mem, hU_det⟩, _, rfl⟩
+      rcases Unitary.mem_iff.mp hU_mem with ⟨h1, h2⟩
+      exact ⟨h1, h2, hU_det⟩
+    · rintro ⟨h1, h2, hdet⟩
+      refine ⟨⟨A, Unitary.mem_iff.mpr ⟨h1, h2⟩, hdet⟩, Set.mem_univ _, rfl⟩
+  have hS_closed : IsClosed S := by
+    rw [hS_eq]
+    have hc1 : IsClosed { A : Matrix (Fin N) (Fin N) ℂ | star A * A = 1 } :=
+      isClosed_eq ((continuous_matrix_mul_val N).comp
+        ((continuous_matrix_conjTranspose N).prodMk continuous_id)) continuous_const
+    have hc2 : IsClosed { A : Matrix (Fin N) (Fin N) ℂ | A * star A = 1 } :=
+      isClosed_eq ((continuous_matrix_mul_val N).comp
+        (continuous_id.prodMk (continuous_matrix_conjTranspose N))) continuous_const
+    have hc3 : IsClosed { A : Matrix (Fin N) (Fin N) ℂ | A.det = 1 } :=
+      isClosed_eq (continuous_matrix_det_val N) continuous_const
+    exact hc1.inter (hc2.inter hc3)
+  have hS_sub : S ⊆ B := by
+    intro A hA
+    rw [hS_eq] at hA
+    rcases hA with ⟨hstarA, _, _⟩
+    intro i _ j _
+    rw [Metric.mem_closedBall, dist_zero_right]
+    have hjj := congr_fun (congr_fun hstarA j) j
+    simp only [Matrix.mul_apply, Matrix.star_apply, Matrix.one_apply_eq] at hjj
+    have hre := congrArg Complex.re hjj
+    rw [Complex.re_sum, Complex.one_re] at hre
+    have hterm : ∀ k : Fin N, (star (A k j) * A k j).re = ‖A k j‖ ^ 2 := by
+      intro k
+      change ((starRingEnd ℂ) (A k j) * A k j).re = ‖A k j‖ ^ 2
+      rw [Complex.conj_mul', ← Complex.ofReal_pow, Complex.ofReal_re]
+    simp_rw [hterm] at hre
+    have hle_sum : ‖A i j‖ ^ 2 ≤ ∑ k : Fin N, ‖A k j‖ ^ 2 :=
+      Finset.single_le_sum (fun k _ => sq_nonneg ‖A k j‖) (Finset.mem_univ i)
+    have hsq_le : ‖A i j‖ ^ 2 ≤ 1 ^ 2 := by linarith
+    exact (sq_le_sq₀ (norm_nonneg _) zero_le_one).mp hsq_le
+  have hS_comp : IsCompact S := hB.of_isClosed_subset hS_closed hS_sub
+  rw [← isCompact_univ_iff]
+  exact Topology.IsInducing.subtypeVal.isCompact_iff.mpr hS_comp
+
+@[reducible] instance instMeasurableSpaceCubicGaugeField (L : ℕ) [NeZero L]
+    (G : Type*) [MeasurableSpace G] :
+    MeasurableSpace (GaugeField (cubicTorus3 L) G) :=
+  MeasurableSpace.pi
+
+/-- Normalized Borel Haar probability measure on `SU(N)`. -/
+noncomputable def suHaar (N : ℕ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.Measure (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+  MeasureTheory.Measure.haarMeasure ⊤
+
+theorem suHaar_prob (N : ℕ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.IsProbabilityMeasure (suHaar N) :=
+  ⟨MeasureTheory.Measure.haarMeasure_self⟩
+
+theorem suHaar_left_inv (N : ℕ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.Measure.IsMulLeftInvariant (suHaar N) :=
+  MeasureTheory.Measure.isMulLeftInvariant_haarMeasure ⊤
+
+theorem suHaar_map_mul_left (N : ℕ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    MeasureTheory.Measure.map (fun x => g * x) (suHaar N) = suHaar N := by
+  haveI := suHaar_left_inv N
+  exact MeasureTheory.map_mul_left_eq_self (suHaar N) g
+
+theorem suHaar_map_mul_right (N : ℕ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    MeasureTheory.Measure.map (fun x => x * g) (suHaar N) = suHaar N := by
+  let ν := MeasureTheory.Measure.map (fun x => x * g) (suHaar N)
+  haveI : MeasureTheory.IsProbabilityMeasure (suHaar N) := suHaar_prob N
+  haveI : MeasureTheory.Measure.IsHaarMeasure (suHaar N) :=
+    MeasureTheory.Measure.isHaarMeasure_haarMeasure ⊤
+  have hm : Measurable (fun x : Matrix.specialUnitaryGroup (Fin N) ℂ => x * g) :=
+    (continuous_mul_right g).measurable
+  have hν_prob : MeasureTheory.IsProbabilityMeasure ν :=
+    MeasureTheory.Measure.isProbabilityMeasure_map hm.aemeasurable
+  have hν_left : MeasureTheory.Measure.IsMulLeftInvariant ν := by
+    constructor
+    intro h
+    ext s hs
+    rw [MeasureTheory.Measure.map_apply (continuous_mul_left h).measurable hs,
+      MeasureTheory.Measure.map_apply hm (hs.preimage (continuous_mul_left h).measurable),
+      MeasureTheory.Measure.map_apply hm hs]
+    have hpre : (fun x : Matrix.specialUnitaryGroup (Fin N) ℂ => x * g) ⁻¹'
+        ((fun x => h * x) ⁻¹' s) =
+        (fun x => h * x) ⁻¹' ((fun x => x * g) ⁻¹' s) := by
+      ext x
+      simp [mul_assoc]
+    rw [hpre]
+    haveI := suHaar_left_inv N
+    exact MeasureTheory.measure_preimage_mul (suHaar N) h _
+  haveI : MeasureTheory.Measure.IsOpenPosMeasure ν := by
+    constructor
+    intro U hU_open hU_ne
+    rw [MeasureTheory.Measure.map_apply hm hU_open.measurableSet]
+    have hpre_open : IsOpen ((fun x => x * g) ⁻¹' U) :=
+      hU_open.preimage (continuous_mul_right g)
+    have hpre_ne : ((fun x => x * g) ⁻¹' U).Nonempty := by
+      rcases hU_ne with ⟨y, hy⟩
+      refine ⟨y * g⁻¹, ?_⟩
+      simpa [mul_assoc] using hy
+    exact hpre_open.measure_ne_zero (suHaar N) hpre_ne
+  haveI : MeasureTheory.Measure.IsHaarMeasure ν := {}
+  have huniq := MeasureTheory.Measure.haarMeasure_unique ν
+    (⊤ : TopologicalSpace.PositiveCompacts (Matrix.specialUnitaryGroup (Fin N) ℂ))
+  have h1 : ν (↑(⊤ : TopologicalSpace.PositiveCompacts
+      (Matrix.specialUnitaryGroup (Fin N) ℂ)) : Set _) = 1 := by simp
+  rw [h1, one_smul] at huniq
+  exact huniq
+
+/-- Product Haar probability measure `dμ_Haar` on `GaugeField (cubicTorus3 L) (SU(N))`. -/
+noncomputable def latticeHaarMeasure (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.Measure
+      (GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  MeasureTheory.Measure.pi (fun _ => suHaar N)
+
+theorem latticeHaarMeasure_prob (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.IsProbabilityMeasure (latticeHaarMeasure L N) := by
+  haveI := suHaar_prob N
+  change MeasureTheory.IsProbabilityMeasure
+    (MeasureTheory.Measure.pi fun _ : (cubicTorus3 L).Link => suHaar N)
+  infer_instance
+
+/--
+**Exact local gauge invariance of the product $SU(N)$ Haar measure** on `cubicTorus3 L`:
+for every local gauge transformation `g : Site → SU(N)`,
+`Measure.map (gaugeAct g) (latticeHaarMeasure L N) = latticeHaarMeasure L N`.
+-/
+theorem latticeHaarMeasure_gauge_inv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    MeasureTheory.Measure.map (gaugeAct g) (latticeHaarMeasure L N) =
+      latticeHaarMeasure L N := by
+  haveI := suHaar_prob N
+  haveI := latticeHaarMeasure_prob L N
+  let φ : (cubicTorus3 L).Link →
+      Matrix.specialUnitaryGroup (Fin N) ℂ → Matrix.specialUnitaryGroup (Fin N) ℂ :=
+    fun e u => g ((cubicTorus3 L).src e) * u * (g ((cubicTorus3 L).dst e))⁻¹
+  have hφ_meas : ∀ e, Measurable (φ e) := fun e =>
+    ((continuous_mul_right _).comp (continuous_mul_left _)).measurable
+  have hφ_inv : ∀ e (s : Set (Matrix.specialUnitaryGroup (Fin N) ℂ)),
+      MeasurableSet s → suHaar N (φ e ⁻¹' s) = suHaar N s := by
+    intro e s hs
+    have hcomp : φ e = (fun x => x * (g ((cubicTorus3 L).dst e))⁻¹) ∘
+        (fun x => g ((cubicTorus3 L).src e) * x) := rfl
+    have hmap : MeasureTheory.Measure.map (φ e) (suHaar N) = suHaar N := by
+      rw [hcomp, ← MeasureTheory.Measure.map_map (continuous_mul_right _).measurable
+          (continuous_mul_left _).measurable,
+        suHaar_map_mul_left, suHaar_map_mul_right]
+    rw [← MeasureTheory.Measure.map_apply (hφ_meas e) hs, hmap]
+  let μ_pi : MeasureTheory.Measure
+      ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    MeasureTheory.Measure.pi (fun _ => suHaar N)
+  have h_map_pi :
+      MeasureTheory.Measure.map (fun U : (cubicTorus3 L).Link → _ => fun e => φ e (U e)) μ_pi =
+        μ_pi := by
+    have hg_meas : Measurable (fun U : (cubicTorus3 L).Link → _ => fun e => φ e (U e)) :=
+      measurable_pi_iff.mpr fun e => (hφ_meas e).comp (measurable_pi_apply e)
+    symm
+    refine MeasureTheory.Measure.pi_eq fun s hs => ?_
+    rw [MeasureTheory.Measure.map_apply hg_meas (MeasurableSet.univ_pi hs)]
+    have hpre :
+        (fun U : (cubicTorus3 L).Link → _ => fun e => φ e (U e)) ⁻¹' Set.pi Set.univ s =
+          Set.pi Set.univ (fun e => φ e ⁻¹' s e) := by
+      ext U
+      simp
+    rw [hpre]
+    have hpi : μ_pi (Set.pi Set.univ (fun e => φ e ⁻¹' s e)) =
+        ∏ e, suHaar N (φ e ⁻¹' s e) :=
+      MeasureTheory.Measure.pi_pi (fun _ => suHaar N) _
+    rw [hpi]
+    refine Finset.prod_congr rfl fun e _ => hφ_inv e (s e) (hs e)
+  exact h_map_pi
+
+/-- `gaugeAct g` as a `MeasurableEquiv` on `GaugeField (cubicTorus3 L) (SU(N))`. -/
+def gaugeActEquiv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ≃ᵐ
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) where
+  toFun := gaugeAct g
+  invFun := gaugeAct (fun x => (g x)⁻¹)
+  left_inv U := by
+    rw [← gaugeAct_mul]
+    simp [gaugeAct_one]
+  right_inv U := by
+    rw [← gaugeAct_mul]
+    simp [gaugeAct_one]
+  measurable_toFun := by
+    change Measurable (fun U : (cubicTorus3 L).Link → _ => gaugeAct g U)
+    exact measurable_pi_iff.mpr fun e =>
+      ((continuous_mul_right _).comp (continuous_mul_left _)).measurable.comp
+        (measurable_pi_apply e)
+  measurable_invFun := by
+    change Measurable (fun U : (cubicTorus3 L).Link → _ => gaugeAct (fun x => (g x)⁻¹) U)
+    exact measurable_pi_iff.mpr fun e =>
+      ((continuous_mul_right _).comp (continuous_mul_left _)).measurable.comp
+        (measurable_pi_apply e)
+
+/-- Gauge-invariant Wilson Boltzmann weight `exp(-½ S_W[U])` on `cubicTorus3 L`. -/
+noncomputable def cubicWilsonWeight (L N : ℕ) [NeZero L] (β : ℝ)
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  Real.exp (-(1 / 2 : ℝ) * wilsonAction β (cubicPlaquettes L) U)
+
+theorem cubicWilsonWeight_gauge_inv (L N : ℕ) [NeZero L] (β : ℝ)
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    cubicWilsonWeight L N β (gaugeAct g U) = cubicWilsonWeight L N β U := by
+  unfold cubicWilsonWeight
+  rw [cubicWilsonAction_gauge_inv]
+
+/-- Exact gauge invariance of the `SU(N)` product Haar expectation functional on `cubicTorus3 L`. -/
+theorem cubicWilsonExpectation_gauge_inv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (f : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ) :
+    ∫ U, f (gaugeAct g U) ∂(latticeHaarMeasure L N) =
+      ∫ U, f U ∂(latticeHaarMeasure L N) := by
+  let e := gaugeActEquiv L N g
+  have hmp : MeasureTheory.MeasurePreserving e (latticeHaarMeasure L N) (latticeHaarMeasure L N) :=
+    ⟨e.measurable, latticeHaarMeasure_gauge_inv L N g⟩
+  exact hmp.integral_comp' f
+
+end CubicLatticeHaar 
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -5141,3 +5767,15 @@ end YangMills
 #print axioms YangMills.unconditional_non_gaussian_4d_euclidean_os_axioms_verification
 #print axioms YangMills.unconditional_os_hilbert_completion_and_wightman_reconstruction
 #print axioms YangMills.unconditional_interacting_yang_mills_hamiltonian_and_phase_space_dynamics
+
+-- §§22–23. True OS Hilbert completion & 3D cubic SU(N) Haar gauge theory
+#print axioms YangMills.osCompletionMap_inner
+#print axioms YangMills.osCompletionMap_dense
+#print axioms YangMills.osLiftOperator_sa
+#print axioms YangMills.cubicPlaquette_isPath
+#print axioms YangMills.cubicWilsonAction_gauge_inv
+#print axioms YangMills.instCompactSpaceSU
+#print axioms YangMills.suHaar_map_mul_right
+#print axioms YangMills.latticeHaarMeasure_gauge_inv
+#print axioms YangMills.cubicWilsonWeight_gauge_inv
+#print axioms YangMills.cubicWilsonExpectation_gauge_inv
