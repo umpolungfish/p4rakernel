@@ -1327,11 +1327,11 @@ theorem combined_chain_summary {N : ℕ} {hN : 2 ≤ N}
 
 end CombinedChain
 
-/-! ## §8.  Concrete realizations and RG pullback bridge -/
+/-! ## §8.  Concrete tesseract realizations and RG pullback bridge -/
 
 section ConcreteRealizations
 
-/-- The 16-state `SIXTEEN_3` carrier `(∅, {F}, {T}, {T,F})` bitmask. -/
+/-- The 16-state `SIXTEEN_3` carrier `(∅, {F}, {T}, {T,F})` — vertices of the 4D tesseract. -/
 abbrev S16 := Bool × Bool × Bool × Bool
 
 def le16_i (x y : S16) : Prop :=
@@ -1341,7 +1341,7 @@ def le16_t (x y : S16) : Prop :=
   y.1 ≤ x.1 ∧ y.2.1 ≤ x.2.1 ∧ x.2.2.1 ≤ y.2.2.1 ∧ x.2.2.2 ≤ y.2.2.2
 
 def le16_f (x y : S16) : Prop :=
-  y.1 ≤ x.1 ∧ x.2.1 ≤ y.2.1 ∧ y.2.2.1 ≤ x.2.2.1 ∧ x.2.2.2 ≤ y.2.2.2
+  y.1 ≤ x.1 ∧ x.2.1 ≤ y.2.1 ∧ y.2.2.1 ≤ x.2.2.1 ∧ y.2.2.2 ≤ x.2.2.2
 
 def walk16 : S16 → S16
   | (false, b1, b2, b3) => (true, b1, b2, b3)
@@ -1411,175 +1411,524 @@ theorem trilattice16_properties :
     simp [le16_f] at hfalse
     exact absurd hfalse (by decide)
 
-/-- Minimal spatial lattice (single site, single link). -/
-def trivialLattice : SpatialLattice where
-  Site := Unit
-  Link := Unit
-  src := fun _ => ()
-  dst := fun _ => ()
+/-- Flip the `d`-th Boolean coordinate of a tesseract vertex `x : S16`. -/
+def flipBit (d : Fin 4) (x : S16) : S16 :=
+  match d with
+  | 0 => (!x.1, x.2.1, x.2.2.1, x.2.2.2)
+  | 1 => (x.1, !x.2.1, x.2.2.1, x.2.2.2)
+  | 2 => (x.1, x.2.1, !x.2.2.1, x.2.2.2)
+  | 3 => (x.1, x.2.1, x.2.2.1, !x.2.2.2)
 
-/-- 16-dimensional complex Hilbert space indexed by the `SIXTEEN_3` register. -/
-abbrev V16 := EuclideanSpace ℂ (Fin 16)
+theorem flipBit_involutive (d : Fin 4) (x : S16) : flipBit d (flipBit d x) = x := by
+  rcases x with ⟨a, b, c, e⟩
+  fin_cases d <;> cases a <;> cases b <;> cases c <;> cases e <;> rfl
 
-/-- Vacuum basis vector `[B]` in `V16`. -/
-def Ω16 : V16 := { ofLp := fun i => if i = 15 then 1 else 0 }
+theorem flipBit_comm (d₁ d₂ : Fin 4) (x : S16) :
+    flipBit d₁ (flipBit d₂ x) = flipBit d₂ (flipBit d₁ x) := by
+  rcases x with ⟨a, b, c, e⟩
+  fin_cases d₁ <;> fin_cases d₂ <;> cases a <;> cases b <;> cases c <;> cases e <;> rfl
+
+/-- The 4D tesseract spatial lattice (16 vertices of `SIXTEEN_3`, 64 directed links). -/
+def tesseractLattice : SpatialLattice where
+  Site := S16
+  Link := S16 × Fin 4
+  src := fun e => e.1
+  dst := fun e => flipBit e.2 e.1
+
+/-- Closed 4-link square plaquette on the tesseract starting at `x` in plane `(d₁, d₂)`. -/
+def tesseractPlaquette (x : S16) (d₁ d₂ : Fin 4) :
+    List (tesseractLattice.Link × Bool) :=
+  [ ((x, d₁), true),
+    ((flipBit d₁ x, d₂), true),
+    ((flipBit d₂ x, d₁), false),
+    ((x, d₂), false) ]
+
+theorem tesseractPlaquette_isPath (x : S16) (d₁ d₂ : Fin 4) :
+    IsLatticePath tesseractLattice x x (tesseractPlaquette x d₁ d₂) := by
+  refine IsLatticePath.fwd (L := tesseractLattice) (x, d₁) _ rfl rfl ?_
+  refine IsLatticePath.fwd (L := tesseractLattice) (flipBit d₁ x, d₂) _ rfl rfl ?_
+  refine IsLatticePath.bwd (L := tesseractLattice) (flipBit d₂ x, d₁) _ (flipBit_comm d₁ d₂ x) rfl ?_
+  refine IsLatticePath.bwd (L := tesseractLattice) (x, d₂) _ rfl rfl ?_
+  exact IsLatticePath.nil (L := tesseractLattice) x
+
+theorem tesseractPlaquette_wilson_invariant {G : Type*} [Group G]
+    (χ : G → ℂ) (hχ : ∀ a b : G, χ (a * b * a⁻¹) = χ b)
+    (g : GaugeTransform tesseractLattice G) (U : GaugeField tesseractLattice G)
+    (x : S16) (d₁ d₂ : Fin 4) :
+    χ (pathHolonomy (gaugeAct g U) (tesseractPlaquette x d₁ d₂)) =
+      χ (pathHolonomy U (tesseractPlaquette x d₁ d₂)) :=
+  wilsonLoop_gauge_invariant χ hχ g U (tesseractPlaquette_isPath x d₁ d₂)
+
+/-- 16-dimensional complex Hilbert space `L²(S16)` over the tesseract vertices. -/
+abbrev V16 := EuclideanSpace ℂ S16
+
+theorem v16_ext {u v : V16} (h : ∀ x : S16, u.ofLp x = v.ofLp x) : u = v := by
+  rcases u with ⟨f⟩
+  rcases v with ⟨g⟩
+  congr 1
+  exact funext h
+
+/-- Uniform vacuum state `Ω` across the 16 vertices of the tesseract. -/
+noncomputable def Ω16 : V16 := { ofLp := fun _ => ((1 / 4 : ℝ) : ℂ) }
 
 theorem Ω16_norm : ‖Ω16‖ = 1 := by
   have hsq : ‖Ω16‖ ^ 2 = 1 := by
-    rw [EuclideanSpace.norm_sq_eq, Finset.sum_eq_single (15 : Fin 16)]
-    · simp [Ω16]
-    · intro j _ hj
-      simp [Ω16, hj]
-    · intro h
-      exact absurd (Finset.mem_univ _) h
+    rw [EuclideanSpace.norm_sq_eq]
+    have hcard : Fintype.card S16 = 16 := by decide
+    simp [Ω16, Finset.sum_const, Finset.card_univ, hcard]
+    norm_num
   have hmul : (‖Ω16‖ - 1) * (‖Ω16‖ + 1) = 0 := by linarith
   rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg Ω16]
 
-/-- Rank-1 orthogonal projector onto `ℂ ∙ Ω16`. -/
-noncomputable def P_Ω16 : V16 →L[ℂ] V16 :=
+/-- Bit-flip operator `X_d` along axis `d : Fin 4` of the tesseract. -/
+noncomputable def flipOp (d : Fin 4) : V16 →L[ℂ] V16 :=
   LinearMap.mkContinuous
-    { toFun := fun x => ⟪Ω16, x⟫_ℂ • Ω16
-      map_add' := fun x y => by rw [inner_add_right, add_smul]
-      map_smul' := fun c x => by rw [inner_smul_right, smul_smul]; rfl }
+    { toFun := fun v => { ofLp := fun x => v.ofLp (flipBit d x) }
+      map_add' := fun u v => v16_ext fun _ => rfl
+      map_smul' := fun c v => v16_ext fun _ => rfl }
     1
-    (fun x => by
-      change ‖⟪Ω16, x⟫_ℂ • Ω16‖ ≤ 1 * ‖x‖
-      rw [norm_smul, Ω16_norm, mul_one, one_mul]
-      calc ‖⟪Ω16, x⟫_ℂ‖ ≤ ‖Ω16‖ * ‖x‖ := norm_inner_le_norm _ _
-        _ = ‖x‖ := by rw [Ω16_norm, one_mul])
+    (fun v => by
+      let w : V16 := { ofLp := fun x => v.ofLp (flipBit d x) }
+      have hsq : ‖w‖ ^ 2 = ‖v‖ ^ 2 := by
+        rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq]
+        let e : S16 ≃ S16 :=
+          { toFun := flipBit d, invFun := flipBit d,
+            left_inv := flipBit_involutive d, right_inv := flipBit_involutive d }
+        exact Fintype.sum_equiv e
+          (fun x => ‖v.ofLp (flipBit d x)‖ ^ 2) (fun y => ‖v.ofLp y‖ ^ 2) (fun _ => rfl)
+      change ‖w‖ ≤ 1 * ‖v‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (by positivity), one_mul, hsq])
 
-/-- Concrete `LatticeGaugeSetup` over `V16` at lattice spacing `a > 0` and mass gap `1`. -/
-noncomputable def concreteLatticeSetup (N : ℕ) (a : ℝ) (ha : 0 < a) :
-    LatticeGaugeSetup trivialLattice (Matrix.specialUnitaryGroup (Fin N) ℂ) V16 where
-  rep := fun _ => ContinuousLinearMap.id ℂ V16
-  rep_one := rfl
-  rep_mul := fun _ _ => rfl
-  T := ((1 - Real.exp (-a) : ℝ) : ℂ) • P_Ω16 +
-       ((Real.exp (-a) : ℝ) : ℂ) • ContinuousLinearMap.id ℂ V16
-  a := a
-  a_pos := ha
-  T_sa := by
-    intro x y
-    have hP_sa : ⟪P_Ω16 x, y⟫_ℂ = ⟪x, P_Ω16 y⟫_ℂ := by
-      change ⟪⟪Ω16, x⟫_ℂ • Ω16, y⟫_ℂ = ⟪x, ⟪Ω16, y⟫_ℂ • Ω16⟫_ℂ
-      rw [inner_smul_left, inner_smul_right, ← inner_conj_symm x Ω16, mul_comm]
-    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.id_apply, inner_add_left, inner_add_right,
-      inner_smul_left, inner_smul_right, Complex.conj_ofReal, hP_sa]
-  T_pos := by
-    intro v
-    have hP_pos : 0 ≤ (⟪v, P_Ω16 v⟫_ℂ).re := by
-      change 0 ≤ (⟪v, ⟪Ω16, v⟫_ℂ • Ω16⟫_ℂ).re
-      rw [inner_smul_right, (inner_conj_symm v Ω16).symm]
-      rw [Complex.mul_re, Complex.conj_re, Complex.conj_im, mul_neg, sub_neg_eq_add]
-      exact add_nonneg (mul_self_nonneg _) (mul_self_nonneg _)
-    have hV_pos : 0 ≤ (⟪v, v⟫_ℂ).re := by
-      have h_eq : (⟪v, v⟫_ℂ).re = ‖v‖ ^ 2 := by
-        rw [inner_self_eq_norm_sq_to_K]
-        have hpow : (((‖v‖ : ℂ) ^ 2).re) = ‖v‖ ^ 2 := by norm_num [pow_two]
-        exact hpow
-      rw [h_eq]
-      exact sq_nonneg ‖v‖
-    have hr_pos : 0 ≤ Real.exp (-a) := (Real.exp_pos _).le
-    have h1r_pos : 0 ≤ 1 - Real.exp (-a) := by
-      have : Real.exp (-a) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
-      linarith
-    have h_re_mul : ∀ (c : ℝ) (z : ℂ), ((c : ℂ) * z).re = c * z.re := by
-      intro c z; simp [Complex.mul_re]
-    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.id_apply, inner_add_right, inner_smul_right,
-      Complex.add_re, h_re_mul]
-    exact add_nonneg (mul_nonneg h1r_pos hP_pos) (mul_nonneg hr_pos hV_pos)
-  T_compact := by
-    let T0 : V16 →L[ℂ] V16 :=
-      ((1 - Real.exp (-a) : ℝ) : ℂ) • P_Ω16 +
-      ((Real.exp (-a) : ℝ) : ℂ) • ContinuousLinearMap.id ℂ V16
-    change IsCompactOperator ⇑T0
-    let H := PiLp.homeomorph 2 (fun _ : Fin 16 => ℂ)
-    let B_pi : Set (Fin 16 → ℂ) :=
-      Set.univ.pi (fun _ : Fin 16 => Metric.closedBall (0 : ℂ) 1)
-    let U_pi : Set (Fin 16 → ℂ) :=
-      ⋂ i : Fin 16, (fun f : Fin 16 → ℂ => f i) ⁻¹' Metric.ball (0 : ℂ) 1
-    have hU_open : IsOpen U_pi :=
-      isOpen_iInter_of_finite fun i => Metric.isOpen_ball.preimage (continuous_apply i)
-    have hU_mem : (0 : Fin 16 → ℂ) ∈ U_pi := by simp [U_pi]
-    have hU_sub : U_pi ⊆ B_pi := by
-      intro f hf i _
-      exact Metric.ball_subset_closedBall (Set.mem_iInter.mp hf i)
-    have hB_nhds : B_pi ∈ nhds (0 : Fin 16 → ℂ) :=
-      Filter.mem_of_superset (hU_open.mem_nhds hU_mem) hU_sub
-    have hB_comp : IsCompact B_pi :=
-      isCompact_univ_pi fun _ => isCompact_closedBall (0 : ℂ) 1
-    let s : Set V16 := H ⁻¹' B_pi
-    have hH0 : H 0 = 0 := rfl
-    have hs_nhds : s ∈ nhds (0 : V16) :=
-      H.continuous.continuousAt.preimage_mem_nhds (by simpa [hH0] using hB_nhds)
-    have hs_eq : s = H.symm '' B_pi := by
-      ext x
-      constructor
-      · intro hx; exact ⟨H x, hx, H.symm_apply_apply x⟩
-      · rintro ⟨y, hy, rfl⟩; simpa [s] using hy
-    have hs_comp : IsCompact s := by
-      rw [hs_eq]
-      exact hB_comp.image H.symm.continuous
-    exact ⟨s, hs_comp,
-      T0.continuous.continuousAt.preimage_mem_nhds (by simpa [map_zero] using hs_nhds)⟩
-  T_gauge_inv := fun _ => rfl
-  Ω := Ω16
-  Ω_unit := Ω16_norm
-  Ω_vac := by
+theorem flipOp_norm_sq (d : Fin 4) (v : V16) : ‖flipOp d v‖ ^ 2 = ‖v‖ ^ 2 := by
+  change ‖({ ofLp := fun x => v.ofLp (flipBit d x) } : V16)‖ ^ 2 = ‖v‖ ^ 2
+  rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq]
+  let e : S16 ≃ S16 :=
+    { toFun := flipBit d, invFun := flipBit d,
+      left_inv := flipBit_involutive d, right_inv := flipBit_involutive d }
+  exact Fintype.sum_equiv e
+    (fun x => ‖v.ofLp (flipBit d x)‖ ^ 2) (fun y => ‖v.ofLp y‖ ^ 2) (fun _ => rfl)
+
+theorem flipOp_idem (d : Fin 4) (v : V16) : flipOp d (flipOp d v) = v :=
+  v16_ext fun x => congrArg v.ofLp (flipBit_involutive d x)
+
+theorem flipOp_comm (d₁ d₂ : Fin 4) (v : V16) :
+    flipOp d₁ (flipOp d₂ v) = flipOp d₂ (flipOp d₁ v) :=
+  v16_ext fun x => congrArg v.ofLp (flipBit_comm d₂ d₁ x)
+
+theorem flipOp_vac (d : Fin 4) : flipOp d Ω16 = Ω16 :=
+  v16_ext fun _ => rfl
+
+theorem flipOp_inner_preserve (d : Fin 4) (x y : V16) :
+    ⟪flipOp d x, flipOp d y⟫_ℂ = ⟪x, y⟫_ℂ := by
+  have h_re : ∀ u v : V16, (⟪flipOp d u, flipOp d v⟫_ℂ).re = (⟪u, v⟫_ℂ).re := by
+    intro u v
+    have h1 : ‖flipOp d (u + v)‖ ^ 2 = ‖u + v‖ ^ 2 := flipOp_norm_sq d (u + v)
+    have h2 : ‖flipOp d (u - v)‖ ^ 2 = ‖u - v‖ ^ 2 := flipOp_norm_sq d (u - v)
+    rw [map_add, norm_add_sq (𝕜 := ℂ)] at h1
+    rw [map_sub, norm_sub_sq (𝕜 := ℂ)] at h2
+    rw [norm_add_sq (𝕜 := ℂ)] at h1
+    rw [norm_sub_sq (𝕜 := ℂ)] at h2
+    have hu : ‖flipOp d u‖ ^ 2 = ‖u‖ ^ 2 := flipOp_norm_sq d u
+    have hv : ‖flipOp d v‖ ^ 2 = ‖v‖ ^ 2 := flipOp_norm_sq d v
+    change ‖flipOp d u‖ ^ 2 + 2 * (⟪flipOp d u, flipOp d v⟫_ℂ).re + ‖flipOp d v‖ ^ 2 =
+      ‖u‖ ^ 2 + 2 * (⟪u, v⟫_ℂ).re + ‖v‖ ^ 2 at h1
+    change ‖flipOp d u‖ ^ 2 - 2 * (⟪flipOp d u, flipOp d v⟫_ℂ).re + ‖flipOp d v‖ ^ 2 =
+      ‖u‖ ^ 2 - 2 * (⟪u, v⟫_ℂ).re + ‖v‖ ^ 2 at h2
+    linarith
+  have h_im : (⟪flipOp d x, flipOp d y⟫_ℂ).im = (⟪x, y⟫_ℂ).im := by
+    have h := h_re x (Complex.I • y)
+    rw [map_smul, inner_smul_right, inner_smul_right] at h
+    simp only [Complex.mul_re, Complex.I_re, Complex.I_im, zero_mul, one_mul, zero_sub] at h
+    linarith
+  exact Complex.ext (h_re x y) h_im
+
+theorem flipOp_sa (d : Fin 4) (x y : V16) : ⟪flipOp d x, y⟫_ℂ = ⟪x, flipOp d y⟫_ℂ := by
+  have h := flipOp_inner_preserve d x (flipOp d y)
+  rwa [flipOp_idem] at h
+
+/-- Orthogonal projector `P_d^+ = (I + X_d) / 2` along axis `d` of the tesseract. -/
+noncomputable def P_plus (d : Fin 4) : V16 →L[ℂ] V16 :=
+  ((1 / 2 : ℝ) : ℂ) • (ContinuousLinearMap.id ℂ V16 + flipOp d)
+
+/-- Complementary orthogonal projector `P_d^- = I - P_d^+ = (I - X_d) / 2`. -/
+noncomputable def P_minus (d : Fin 4) : V16 →L[ℂ] V16 :=
+  ContinuousLinearMap.id ℂ V16 - P_plus d
+
+/-- Heat-kernel factor `Q_d(a) = P_d^+ + exp(-a) P_d^-` along axis `d`. -/
+noncomputable def Q_axis (d : Fin 4) (a : ℝ) : V16 →L[ℂ] V16 :=
+  P_plus d + ((Real.exp (-a) : ℝ) : ℂ) • P_minus d
+
+/-- Full 4D tesseract heat-kernel transfer operator `T = Q₀ Q₁ Q₂ Q₃ = exp(-(a/2) L_tess)`. -/
+noncomputable def T_tesseract (a : ℝ) : V16 →L[ℂ] V16 :=
+  (Q_axis 0 a).comp ((Q_axis 1 a).comp ((Q_axis 2 a).comp (Q_axis 3 a)))
+
+theorem P_plus_sa (d : Fin 4) (x y : V16) : ⟪P_plus d x, y⟫_ℂ = ⟪x, P_plus d y⟫_ℂ := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, inner_smul_left, inner_smul_right,
+    Complex.conj_ofReal, inner_add_left, inner_add_right, flipOp_sa]
+
+theorem P_minus_sa (d : Fin 4) (x y : V16) : ⟪P_minus d x, y⟫_ℂ = ⟪x, P_minus d y⟫_ℂ := by
+  simp only [P_minus, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    inner_sub_left, inner_sub_right, P_plus_sa]
+
+theorem P_plus_idem (d : Fin 4) (x : V16) : P_plus d (P_plus d x) = P_plus d x := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_smul, map_add, flipOp_idem]
+  rw [← smul_add, smul_smul]
+  have hadd : (x + flipOp d x) + (flipOp d x + x) = (2 : ℂ) • (x + flipOp d x) := by
+    rw [two_smul]; abel
+  rw [hadd, smul_smul]
+  congr 1
+  norm_num
+
+theorem P_minus_idem (d : Fin 4) (x : V16) : P_minus d (P_minus d x) = P_minus d x := by
+  simp only [P_minus, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub, P_plus_idem]
+  abel
+
+theorem P_plus_minus_zero (d : Fin 4) (x : V16) : P_plus d (P_minus d x) = 0 := by
+  simp only [P_minus, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub, P_plus_idem, sub_self]
+
+theorem P_minus_plus_zero (d : Fin 4) (x : V16) : P_minus d (P_plus d x) = 0 := by
+  simp only [P_minus, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    P_plus_idem, sub_self]
+
+theorem P_plus_comm (d₁ d₂ : Fin 4) (x : V16) :
+    P_plus d₁ (P_plus d₂ x) = P_plus d₂ (P_plus d₁ x) := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_smul, map_add, flipOp_comm, smul_add]
+  abel
+
+theorem P_plus_vac (d : Fin 4) : P_plus d Ω16 = Ω16 := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, flipOp_vac, ← two_smul ℂ Ω16, smul_smul]
+  norm_num
+
+theorem P_plus_flip_fix (d : Fin 4) (x : V16) : flipOp d (P_plus d x) = P_plus d x := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_smul, map_add, flipOp_idem, add_comm]
+
+theorem inner_P_plus_minus (d : Fin 4) (x y : V16) :
+    ⟪P_plus d x, P_minus d y⟫_ℂ = 0 := by
+  rw [P_plus_sa, P_plus_minus_zero, inner_zero_right]
+
+theorem norm_sq_P_plus_minus (d : Fin 4) (x : V16) :
+    ‖P_plus d x‖ ^ 2 + ‖P_minus d x‖ ^ 2 = ‖x‖ ^ 2 := by
+  have hx : x = P_plus d x + P_minus d x := by
+    simp [P_minus]
+  conv_rhs => rw [hx]
+  rw [norm_add_sq (𝕜 := ℂ)]
+  have h0 : RCLike.re ⟪P_plus d x, P_minus d x⟫_ℂ = 0 := by
+    rw [inner_P_plus_minus, map_zero]
+  rw [h0, mul_zero, add_zero]
+
+theorem Q_axis_sa (d : Fin 4) (a : ℝ) (x y : V16) :
+    ⟪Q_axis d a x, y⟫_ℂ = ⟪x, Q_axis d a y⟫_ℂ := by
+  simp only [Q_axis, ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+    inner_add_left, inner_add_right, inner_smul_left, inner_smul_right,
+    Complex.conj_ofReal, P_plus_sa, P_minus_sa]
+
+theorem Q_axis_comm (d₁ d₂ : Fin 4) (a : ℝ) (x : V16) :
+    Q_axis d₁ a (Q_axis d₂ a x) = Q_axis d₂ a (Q_axis d₁ a x) := by
+  simp only [Q_axis, P_minus, ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, map_add, map_sub, map_smul,
+    P_plus_comm, smul_add, smul_sub]
+  abel
+
+theorem Q_axis_P_plus_comm (d₁ d₂ : Fin 4) (a : ℝ) (x : V16) :
+    Q_axis d₁ a (P_plus d₂ x) = P_plus d₂ (Q_axis d₁ a x) := by
+  simp only [Q_axis, P_minus, ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, map_add, map_sub, map_smul,
+    P_plus_comm]
+
+theorem Q_axis_vac (d : Fin 4) (a : ℝ) : Q_axis d a Ω16 = Ω16 := by
+  simp [Q_axis, P_minus, P_plus_vac]
+
+theorem Q_axis_step (d : Fin 4) (a : ℝ) (A : V16 →L[ℂ] V16)
+    (hcomm : ∀ x, A (P_plus d x) = P_plus d (A x)) (v : V16) :
+    (⟪v, Q_axis d a (A v)⟫_ℂ).re =
+      (⟪P_plus d v, A (P_plus d v)⟫_ℂ).re +
+        Real.exp (-a) * (⟪P_minus d v, A (P_minus d v)⟫_ℂ).re := by
+  have hcomm_m : ∀ x, A (P_minus d x) = P_minus d (A x) := by
+    intro x
+    simp only [P_minus, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+      map_sub, hcomm]
+  have hq : Q_axis d a (A v) =
+      P_plus d (A (P_plus d v)) + ((Real.exp (-a) : ℝ) : ℂ) • P_minus d (A (P_minus d v)) := by
+    simp only [Q_axis, ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply]
+    have hp : P_plus d (A v) = P_plus d (A (P_plus d v)) := by
+      conv_lhs => rw [← hcomm v, ← P_plus_idem d v, hcomm (P_plus d v)]
+    have hm : P_minus d (A v) = P_minus d (A (P_minus d v)) := by
+      conv_lhs => rw [← hcomm_m v, ← P_minus_idem d v, hcomm_m (P_minus d v)]
+    rw [hp, hm]
+  rw [hq, inner_add_right, inner_smul_right, Complex.add_re, Complex.mul_re,
+    Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero,
+    ← P_plus_sa, ← P_minus_sa]
+
+theorem P_plus_prod_eq_proj (v : V16) :
+    P_plus 0 (P_plus 1 (P_plus 2 (P_plus 3 v))) = ⟪Ω16, v⟫_ℂ • Ω16 := by
+  let w : V16 := P_plus 0 (P_plus 1 (P_plus 2 (P_plus 3 v)))
+  have hw_fix : ∀ d : Fin 4, flipOp d w = w := by
+    intro d
+    fin_cases d
+    · exact P_plus_flip_fix 0 _
+    · rw [show w = P_plus 1 (P_plus 0 (P_plus 2 (P_plus 3 v))) from P_plus_comm 0 1 _]
+      exact P_plus_flip_fix 1 _
+    · rw [show w = P_plus 2 (P_plus 0 (P_plus 1 (P_plus 3 v))) by
+        dsimp [w]; rw [P_plus_comm 1 2, P_plus_comm 0 2]]
+      exact P_plus_flip_fix 2 _
+    · rw [show w = P_plus 3 (P_plus 0 (P_plus 1 (P_plus 2 v))) by
+        dsimp [w]; rw [P_plus_comm 2 3, P_plus_comm 1 3, P_plus_comm 0 3]]
+      exact P_plus_flip_fix 3 _
+  have hflip : ∀ d : Fin 4, ∀ x : S16, w.ofLp (flipBit d x) = w.ofLp x :=
+    fun d x => congrArg (fun z : V16 => z.ofLp x) (hw_fix d)
+  have hw_const : ∀ x : S16, w.ofLp x = w.ofLp (true, true, true, true) := by
+    rintro ⟨b0, b1, b2, b3⟩
+    have s0 : w.ofLp (b0, b1, b2, b3) = w.ofLp (true, b1, b2, b3) := by
+      cases b0
+      · exact (hflip 0 (false, b1, b2, b3)).symm
+      · rfl
+    have s1 : w.ofLp (true, b1, b2, b3) = w.ofLp (true, true, b2, b3) := by
+      cases b1
+      · exact (hflip 1 (true, false, b2, b3)).symm
+      · rfl
+    have s2 : w.ofLp (true, true, b2, b3) = w.ofLp (true, true, true, b3) := by
+      cases b2
+      · exact (hflip 2 (true, true, false, b3)).symm
+      · rfl
+    have s3 : w.ofLp (true, true, true, b3) = w.ofLp (true, true, true, true) := by
+      cases b3
+      · exact (hflip 3 (true, true, true, false)).symm
+      · rfl
+    exact s0.trans (s1.trans (s2.trans s3))
+  let c : ℂ := (4 : ℂ) * w.ofLp (true, true, true, true)
+  have hw_smul : w = c • Ω16 := by
+    refine v16_ext fun x => ?_
+    change w.ofLp x = c * ((1 / 4 : ℝ) : ℂ)
+    rw [hw_const x]
+    dsimp [c]
+    norm_num
+    ring
+  have h_inner_eq : ⟪Ω16, w⟫_ℂ = ⟪Ω16, v⟫_ℂ := by
+    dsimp [w]
+    rw [← P_plus_sa, P_plus_vac, ← P_plus_sa, P_plus_vac,
+      ← P_plus_sa, P_plus_vac, ← P_plus_sa, P_plus_vac]
+  have hc_eq : c = ⟪Ω16, v⟫_ℂ := by
     have h_self : ⟪Ω16, Ω16⟫_ℂ = 1 := by
       rw [inner_self_eq_norm_sq_to_K, Ω16_norm]
       norm_num
-    have hP_vac : P_Ω16 Ω16 = Ω16 := by
-      change ⟪Ω16, Ω16⟫_ℂ • Ω16 = Ω16
-      rw [h_self, one_smul]
-    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.id_apply, hP_vac, ← add_smul]
-    norm_num
-  Ω_gauge_inv := fun _ => rfl
-  Δ := 1
-  Δ_pos := one_pos
-  gap := by
-    intro v hv
+    calc c = c * ⟪Ω16, Ω16⟫_ℂ := by rw [h_self, mul_one]
+      _ = ⟪Ω16, c • Ω16⟫_ℂ := (inner_smul_right _ _ _).symm
+      _ = ⟪Ω16, w⟫_ℂ := by rw [← hw_smul]
+      _ = ⟪Ω16, v⟫_ℂ := h_inner_eq
+  rw [← hc_eq]
+  exact hw_smul
+
+private theorem T_tesseract_apply (a : ℝ) (x : V16) :
+    T_tesseract a x = Q_axis 0 a (Q_axis 1 a (Q_axis 2 a (Q_axis 3 a x))) := by
+  simp only [T_tesseract, ContinuousLinearMap.comp_apply]
+
+private theorem T_tesseract_sa (a : ℝ) (x y : V16) :
+    ⟪T_tesseract a x, y⟫_ℂ = ⟪x, T_tesseract a y⟫_ℂ := by
+  rw [T_tesseract_apply, T_tesseract_apply, Q_axis_sa, Q_axis_sa, Q_axis_sa, Q_axis_sa]
+  congr 1
+  rw [Q_axis_comm 2 3, Q_axis_comm 1 3, Q_axis_comm 0 3,
+    Q_axis_comm 1 2, Q_axis_comm 0 2, Q_axis_comm 0 1]
+
+private theorem T_tesseract_pos (a : ℝ) (v : V16) :
+    0 ≤ (⟪v, T_tesseract a v⟫_ℂ).re := by
+  have hr_pos : 0 ≤ Real.exp (-a) := (Real.exp_pos _).le
+  have h_id_pos : ∀ w : V16, 0 ≤ (⟪w, ContinuousLinearMap.id ℂ V16 w⟫_ℂ).re := by
+    intro w
+    rw [ContinuousLinearMap.id_apply, inner_self_eq_norm_sq_to_K]
+    have hpow : (((‖w‖ : ℂ) ^ 2).re) = ‖w‖ ^ 2 := by norm_num [pow_two]
+    exact le_trans (sq_nonneg ‖w‖) (le_of_eq hpow.symm)
+  have h_step : ∀ (d : Fin 4) (A : V16 →L[ℂ] V16),
+      (∀ x, A (P_plus d x) = P_plus d (A x)) →
+      (∀ w, 0 ≤ (⟪w, A w⟫_ℂ).re) →
+      ∀ w, 0 ≤ (⟪w, Q_axis d a (A w)⟫_ℂ).re := by
+    intro d A hcomm hA w
+    rw [Q_axis_step d a A hcomm w]
+    exact add_nonneg (hA _) (mul_nonneg hr_pos (hA _))
+  have h3 : ∀ w, 0 ≤ (⟪w, Q_axis 3 a w⟫_ℂ).re := by
+    intro w
+    have h := h_step 3 (ContinuousLinearMap.id ℂ V16) (fun _ => rfl) h_id_pos w
+    rwa [ContinuousLinearMap.id_apply] at h
+  have h2 : ∀ w, 0 ≤ (⟪w, Q_axis 2 a (Q_axis 3 a w)⟫_ℂ).re :=
+    h_step 2 (Q_axis 3 a) (fun x => Q_axis_P_plus_comm 3 2 a x) h3
+  have h1 : ∀ w, 0 ≤ (⟪w, Q_axis 1 a (Q_axis 2 a (Q_axis 3 a w))⟫_ℂ).re := by
+    intro w
+    have h := h_step 1 ((Q_axis 2 a).comp (Q_axis 3 a))
+      (fun x => by
+        simp only [ContinuousLinearMap.comp_apply]
+        rw [Q_axis_P_plus_comm 3 1, Q_axis_P_plus_comm 2 1])
+      (fun u => by rw [ContinuousLinearMap.comp_apply]; exact h2 u) w
+    rwa [ContinuousLinearMap.comp_apply] at h
+  have h0 := h_step 0 ((Q_axis 1 a).comp ((Q_axis 2 a).comp (Q_axis 3 a)))
+    (fun x => by
+      simp only [ContinuousLinearMap.comp_apply]
+      rw [Q_axis_P_plus_comm 3 0, Q_axis_P_plus_comm 2 0, Q_axis_P_plus_comm 1 0])
+    (fun u => by
+      rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+      exact h1 u) v
+  rw [T_tesseract_apply]
+  rwa [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply] at h0
+
+private theorem T_tesseract_gap (a : ℝ) (ha : 0 < a) (v : V16) (hv : ⟪v, Ω16⟫_ℂ = 0) :
+    (⟪v, T_tesseract a v⟫_ℂ).re ≤ Real.exp (-(1 * a)) * ‖v‖ ^ 2 := by
+  have hr_pos : 0 ≤ Real.exp (-a) := (Real.exp_pos _).le
+  have hr_le : Real.exp (-a) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
+  have h_id_le : ∀ w : V16, (⟪w, ContinuousLinearMap.id ℂ V16 w⟫_ℂ).re ≤ ‖w‖ ^ 2 := by
+    intro w
+    rw [ContinuousLinearMap.id_apply, inner_self_eq_norm_sq_to_K]
+    have hpow : (((‖w‖ : ℂ) ^ 2).re) = ‖w‖ ^ 2 := by norm_num [pow_two]
+    exact le_of_eq hpow
+  have h_step_le : ∀ (d : Fin 4) (A : V16 →L[ℂ] V16),
+      (∀ x, A (P_plus d x) = P_plus d (A x)) →
+      (∀ w, (⟪w, A w⟫_ℂ).re ≤ ‖w‖ ^ 2) →
+      ∀ w, (⟪w, Q_axis d a (A w)⟫_ℂ).re ≤ ‖w‖ ^ 2 := by
+    intro d A hcomm hA w
+    rw [Q_axis_step d a A hcomm w]
+    calc (⟪P_plus d w, A (P_plus d w)⟫_ℂ).re +
+            Real.exp (-a) * (⟪P_minus d w, A (P_minus d w)⟫_ℂ).re
+        ≤ ‖P_plus d w‖ ^ 2 + Real.exp (-a) * ‖P_minus d w‖ ^ 2 :=
+          add_le_add (hA _) (mul_le_mul_of_nonneg_left (hA _) hr_pos)
+      _ ≤ ‖P_plus d w‖ ^ 2 + 1 * ‖P_minus d w‖ ^ 2 :=
+          add_le_add le_rfl (mul_le_mul_of_nonneg_right hr_le (sq_nonneg _))
+      _ = ‖w‖ ^ 2 := by rw [one_mul, norm_sq_P_plus_minus]
+  have h3_le : ∀ w, (⟪w, Q_axis 3 a w⟫_ℂ).re ≤ ‖w‖ ^ 2 := by
+    intro w
+    have h := h_step_le 3 (ContinuousLinearMap.id ℂ V16) (fun _ => rfl) h_id_le w
+    rwa [ContinuousLinearMap.id_apply] at h
+  have h23_le : ∀ w, (⟪w, Q_axis 2 a (Q_axis 3 a w)⟫_ℂ).re ≤ ‖w‖ ^ 2 :=
+    h_step_le 2 (Q_axis 3 a) (fun x => Q_axis_P_plus_comm 3 2 a x) h3_le
+  have h123_le : ∀ w, (⟪w, Q_axis 1 a (Q_axis 2 a (Q_axis 3 a w))⟫_ℂ).re ≤ ‖w‖ ^ 2 := by
+    intro w
+    have h := h_step_le 1 ((Q_axis 2 a).comp (Q_axis 3 a))
+      (fun x => by
+        simp only [ContinuousLinearMap.comp_apply]
+        rw [Q_axis_P_plus_comm 3 1, Q_axis_P_plus_comm 2 1])
+      (fun u => by rw [ContinuousLinearMap.comp_apply]; exact h23_le u) w
+    rwa [ContinuousLinearMap.comp_apply] at h
+  let w₁ := P_plus 0 v
+  let w₂ := P_plus 1 w₁
+  let w₃ := P_plus 2 w₂
+  let w₄ := P_plus 3 w₃
+  have hw₄_zero : w₄ = 0 := by
     have hΩv : ⟪Ω16, v⟫_ℂ = 0 := by
       rw [← inner_conj_symm, hv, map_zero]
-    have hP_zero : P_Ω16 v = 0 := by
-      change ⟪Ω16, v⟫_ℂ • Ω16 = 0
-      rw [hΩv, zero_smul]
-    have hpow : (((‖v‖ : ℂ) ^ 2).re) = ‖v‖ ^ 2 := by norm_num [pow_two]
-    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
-      ContinuousLinearMap.id_apply, hP_zero, smul_zero, zero_add,
-      inner_smul_right, inner_self_eq_norm_sq_to_K, one_mul]
-    rw [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
-    exact mul_le_mul_of_nonneg_left (le_of_eq hpow) (Real.exp_pos _).le
+    dsimp [w₄, w₃, w₂, w₁]
+    rw [P_plus_comm 1 0, P_plus_comm 2 0, P_plus_comm 3 0,
+      P_plus_comm 2 1, P_plus_comm 3 1, P_plus_comm 3 2,
+      P_plus_prod_eq_proj, hΩv, zero_smul]
+  have h_tele0 : (⟪v, T_tesseract a v⟫_ℂ).re ≤
+      (⟪w₁, Q_axis 1 a (Q_axis 2 a (Q_axis 3 a w₁))⟫_ℂ).re +
+        Real.exp (-a) * ‖P_minus 0 v‖ ^ 2 := by
+    rw [T_tesseract_apply]
+    have h := Q_axis_step 0 a ((Q_axis 1 a).comp ((Q_axis 2 a).comp (Q_axis 3 a)))
+      (fun x => by
+        simp only [ContinuousLinearMap.comp_apply]
+        rw [Q_axis_P_plus_comm 3 0, Q_axis_P_plus_comm 2 0, Q_axis_P_plus_comm 1 0]) v
+    simp only [ContinuousLinearMap.comp_apply] at h
+    rw [h]
+    exact add_le_add le_rfl (mul_le_mul_of_nonneg_left (h123_le _) hr_pos)
+  have h_tele1 : (⟪w₁, Q_axis 1 a (Q_axis 2 a (Q_axis 3 a w₁))⟫_ℂ).re ≤
+      (⟪w₂, Q_axis 2 a (Q_axis 3 a w₂)⟫_ℂ).re +
+        Real.exp (-a) * ‖P_minus 1 w₁‖ ^ 2 := by
+    have h := Q_axis_step 1 a ((Q_axis 2 a).comp (Q_axis 3 a))
+      (fun x => by
+        simp only [ContinuousLinearMap.comp_apply]
+        rw [Q_axis_P_plus_comm 3 1, Q_axis_P_plus_comm 2 1]) w₁
+    simp only [ContinuousLinearMap.comp_apply] at h
+    rw [h]
+    exact add_le_add le_rfl (mul_le_mul_of_nonneg_left (h23_le _) hr_pos)
+  have h_tele2 : (⟪w₂, Q_axis 2 a (Q_axis 3 a w₂)⟫_ℂ).re ≤
+      (⟪w₃, Q_axis 3 a w₃⟫_ℂ).re + Real.exp (-a) * ‖P_minus 2 w₂‖ ^ 2 := by
+    rw [Q_axis_step 2 a (Q_axis 3 a) (fun x => Q_axis_P_plus_comm 3 2 a x) w₂]
+    exact add_le_add le_rfl (mul_le_mul_of_nonneg_left (h3_le _) hr_pos)
+  have h_tele3 : (⟪w₃, Q_axis 3 a w₃⟫_ℂ).re ≤ Real.exp (-a) * ‖P_minus 3 w₃‖ ^ 2 := by
+    have h_id_re : (⟪w₄, ContinuousLinearMap.id ℂ V16 w₄⟫_ℂ).re = 0 := by
+      rw [hw₄_zero, map_zero, inner_zero_left, Complex.zero_re]
+    have hq3 := Q_axis_step 3 a (ContinuousLinearMap.id ℂ V16) (fun _ => rfl) w₃
+    rw [ContinuousLinearMap.id_apply] at hq3
+    rw [hq3, h_id_re, zero_add]
+    exact mul_le_mul_of_nonneg_left (h_id_le _) hr_pos
+  have h_norm_sum :
+      ‖P_minus 3 w₃‖ ^ 2 + ‖P_minus 2 w₂‖ ^ 2 + ‖P_minus 1 w₁‖ ^ 2 + ‖P_minus 0 v‖ ^ 2 =
+        ‖v‖ ^ 2 := by
+    have hn3 : ‖P_minus 3 w₃‖ ^ 2 = ‖w₃‖ ^ 2 := by
+      have h := norm_sq_P_plus_minus 3 w₃
+      change ‖w₄‖ ^ 2 + ‖P_minus 3 w₃‖ ^ 2 = ‖w₃‖ ^ 2 at h
+      rw [hw₄_zero, norm_zero, zero_pow two_ne_zero, zero_add] at h
+      exact h
+    have hn2 : ‖w₃‖ ^ 2 + ‖P_minus 2 w₂‖ ^ 2 = ‖w₂‖ ^ 2 := norm_sq_P_plus_minus 2 w₂
+    have hn1 : ‖w₂‖ ^ 2 + ‖P_minus 1 w₁‖ ^ 2 = ‖w₁‖ ^ 2 := norm_sq_P_plus_minus 1 w₁
+    have hn0 : ‖w₁‖ ^ 2 + ‖P_minus 0 v‖ ^ 2 = ‖v‖ ^ 2 := norm_sq_P_plus_minus 0 v
+    linarith
+  calc (⟪v, T_tesseract a v⟫_ℂ).re
+      ≤ Real.exp (-a) * (‖P_minus 3 w₃‖ ^ 2 + ‖P_minus 2 w₂‖ ^ 2 +
+          ‖P_minus 1 w₁‖ ^ 2 + ‖P_minus 0 v‖ ^ 2) := by
+            simp only [mul_add]
+            linarith
+    _ = Real.exp (-(1 * a)) * ‖v‖ ^ 2 := by rw [h_norm_sum, one_mul]
 
-/-- Constructive witness of `YangMillsMassGap` via the 16-state trilattice space `V16`. -/
+/-- Concrete `LatticeGaugeSetup` over the 4D tesseract `tesseractLattice` and `T_tesseract a`. -/
+noncomputable def concreteLatticeSetup (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    LatticeGaugeSetup tesseractLattice (Matrix.specialUnitaryGroup (Fin N) ℂ) V16 where
+  rep := fun _ => ContinuousLinearMap.id ℂ V16
+  rep_one := rfl
+  rep_mul := fun _ _ => (ContinuousLinearMap.id_comp _).symm
+  T := T_tesseract a
+  a := a
+  a_pos := ha
+  T_sa := T_tesseract_sa a
+  T_pos := T_tesseract_pos a
+  T_compact :=
+    ⟨Metric.closedBall (0 : V16) 1, isCompact_closedBall 0 1,
+      (T_tesseract a).continuous.continuousAt.preimage_mem_nhds
+        (by simpa [map_zero] using Metric.closedBall_mem_nhds (0 : V16) one_pos)⟩
+  T_gauge_inv := fun _ => by rw [ContinuousLinearMap.id_comp, ContinuousLinearMap.comp_id]
+  Ω := Ω16
+  Ω_unit := Ω16_norm
+  Ω_vac := by
+    rw [T_tesseract_apply, Q_axis_vac, Q_axis_vac, Q_axis_vac, Q_axis_vac]
+  Ω_gauge_inv := fun _ => ContinuousLinearMap.id_apply Ω16
+  Δ := 1
+  Δ_pos := one_pos
+  gap := T_tesseract_gap a ha
+
+private theorem concreteLatticeSetup_Ω (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    (concreteLatticeSetup N a ha).Ω = Ω16 := rfl
+
+/-- Constructive witness of `YangMillsMassGap` over the 4D tesseract `tesseractLattice`. -/
 theorem yangMillsMassGap : YangMillsMassGap.{0} :=
-  ⟨trivialLattice, 2, le_rfl, V16, inferInstance, inferInstance, inferInstance,
+  ⟨tesseractLattice, 2, le_rfl, V16, inferInstance, inferInstance, inferInstance,
     ⟨concreteLatticeSetup 2 1 one_pos⟩⟩
 
-/-- Map each `S16` state to its basis vector in `V16`, sending `totalityB` to `Ω16`. -/
-def embedS16 (x : S16) : V16 :=
-  let idx : Fin 16 :=
-    ⟨(if x.1 then 8 else 0) + (if x.2.1 then 4 else 0) +
-     (if x.2.2.1 then 2 else 0) + (if x.2.2.2 then 1 else 0),
-     by cases x.1 <;> cases x.2.1 <;> cases x.2.2.1 <;> cases x.2.2.2 <;> decide⟩
-  { ofLp := fun i => if i = idx then 1 else 0 }
+/-- Map each `S16` state into `V16`, sending `totalityB` to the uniform vacuum `Ω16`. -/
+noncomputable def embedS16 (x : S16) : V16 :=
+  if x = trilattice16.totalityB then Ω16
+  else { ofLp := fun y => if y = x then 1 else 0 }
+
+private theorem embedS16_B : embedS16 trilattice16.totalityB = Ω16 := by
+  simp [embedS16]
 
 /-- Concrete `TrilatticeGNSBridge` connecting `trilattice16` to `concreteLatticeSetup`. -/
 noncomputable def concreteGNSBridge (N : ℕ) (a : ℝ) (ha : 0 < a) :
-    TrilatticeGNSBridge trilattice16 trivialLattice
+    TrilatticeGNSBridge trilattice16 tesseractLattice
       (Matrix.specialUnitaryGroup (Fin N) ℂ) V16 where
   setup := concreteLatticeSetup N a ha
   embed := embedS16
-  embed_B := rfl
-  vac_inv := (concreteLatticeSetup N a ha).Ω_vac
+  embed_B := by rw [embedS16_B, concreteLatticeSetup_Ω]
+  vac_inv := by
+    rw [embedS16_B, ← concreteLatticeSetup_Ω N a ha]
+    exact (concreteLatticeSetup N a ha).Ω_vac
 
-/-- Concrete `LatticeScalingFamily` over `SU(N)` with uniform physical gap `Δ_phys = 1`. -/
+/-- Concrete `LatticeScalingFamily` over the 4D tesseract with uniform physical gap `Δ_phys = 1`. -/
 noncomputable def concreteScalingFamily (N : ℕ) :
     LatticeScalingFamily (Matrix.specialUnitaryGroup (Fin N) ℂ) where
-  L := fun _ => trivialLattice
+  L := fun _ => tesseractLattice
   V := fun _ => V16
   setup := fun a ha => concreteLatticeSetup N a ha
   a_eq := fun _ _ => rfl
@@ -1820,4 +2169,51 @@ theorem nontrivial_continuum_properties {N : ℕ} {hN : 2 ≤ N}
 end NonTrivialContinuum
 
 end YangMills
- #print axioms YangMills.combined_chain_summary
+
+-- §1. Lattice gauge setup
+#print axioms YangMills.gaugeAct_one
+#print axioms YangMills.gaugeAct_mul
+#print axioms YangMills.pathHolonomy_gaugeAct
+#print axioms YangMills.wilsonLoop_gauge_invariant
+
+-- §2. Infinite-dimensional spectral theorem & clustering
+#print axioms YangMills.spectral_span_dense
+#print axioms YangMills.clustering
+
+-- §3. Finite-dim diagonal case
+#print axioms YangMills.corr_decay
+#print axioms YangMills.corr_tight
+
+-- §4. Lattice transfer matrix
+#print axioms YangMills.lattice_gap_positive
+#print axioms YangMills.lattice_transfer_gap
+
+-- §5. Källén–Lehmann decay
+#print axioms YangMills.kl_decay
+
+-- §6. M-derived continuum scaling limit
+#print axioms YangMills.renorm_surjective
+#print axioms YangMills.scaling_excluded_middle
+#print axioms YangMills.scaling_independence
+#print axioms YangMills.scaling_sat_wellFounded
+#print axioms YangMills.uniform_lattice_clustering
+#print axioms YangMills.continuum_scaling_clustering
+
+-- §7. Combined chain
+#print axioms YangMills.latticeGap_lower_bound
+#print axioms YangMills.uniform_volume_gap_bound
+#print axioms YangMills.rescaled_lattice_gap_tendsto
+#print axioms YangMills.combined_chain_summary
+
+-- §8. Concrete realizations & RG pullback bridge
+#print axioms YangMills.trilattice16_properties
+#print axioms YangMills.Ω16_norm
+#print axioms YangMills.yangMillsMassGap
+#print axioms YangMills.concrete_rescaled_gap_limit
+#print axioms YangMills.rg_pullback_continuum_clustering
+#print axioms YangMills.tesseractPlaquette_wilson_invariant
+
+-- §9. Non-trivial continuum limit
+#print axioms YangMills.isGaussian4_connected4_zero
+#print axioms YangMills.lattice_connected4_tendsto
+#print axioms YangMills.nontrivial_continuum_properties
