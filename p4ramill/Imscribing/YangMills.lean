@@ -9590,6 +9590,283 @@ theorem cubic4Schwinger_joint_thermodynamic_subseq
 
 end OSPreHilbertFromSchwinger
 
+/-! ## §31.  Direct Schwinger-to-PreData wiring eliminating manual OS/semigroup fields -/
+
+section SchwingerToPreData
+
+/-- Norm-like `ℓ¹` weight bound `∑ x, ‖f x‖ * M ^ n_pts(x)` on `OSPosTestSpace`. -/
+noncomputable def osConfigNormBound (M : ℝ) (f : OSPosTestSpace) : ℝ :=
+  ∑ x ∈ f.support, ‖f x‖ * M ^ x.n_pts
+
+theorem osConfigNormBound_nonneg (M : ℝ) (hM : 0 ≤ M) (f : OSPosTestSpace) :
+    0 ≤ osConfigNormBound M f :=
+  Finset.sum_nonneg fun x _ => mul_nonneg (norm_nonneg _) (pow_nonneg hM _)
+
+theorem osConfigNormBound_add_le (M : ℝ) (hM : 0 ≤ M) (f g : OSPosTestSpace) :
+    osConfigNormBound M (f + g) ≤ osConfigNormBound M f + osConfigNormBound M g := by
+  let s := (f + g).support ∪ f.support ∪ g.support
+  have h_sub : ∀ (u : OSPosTestSpace), u.support ⊆ s →
+      osConfigNormBound M u = ∑ x ∈ s, ‖u x‖ * M ^ x.n_pts := by
+    intro u hu
+    refine Finset.sum_subset hu fun x _ hx => ?_
+    have hux : u x = 0 := by
+      by_contra hne
+      exact hx (Finsupp.mem_support_iff.mpr hne)
+    simp [hux]
+  rw [h_sub (f + g) (Finset.subset_union_left.trans Finset.subset_union_left),
+      h_sub f (Finset.subset_union_right.trans Finset.subset_union_left),
+      h_sub g Finset.subset_union_right,
+      ← Finset.sum_add_distrib]
+  refine Finset.sum_le_sum fun x _ => ?_
+  rw [Finsupp.add_apply, ← add_mul]
+  exact mul_le_mul_of_nonneg_right (norm_add_le (f x) (g x)) (pow_nonneg hM _)
+
+theorem osConfigNormBound_mapDomain_le (M : ℝ) (hM : 0 ≤ M)
+    (φ : PosTimeConfig → PosTimeConfig) (hφ : ∀ x, (φ x).n_pts = x.n_pts)
+    (f : OSPosTestSpace) :
+    osConfigNormBound M (Finsupp.mapDomain φ f) ≤ osConfigNormBound M f := by
+  refine Finsupp.induction f ?_ ?_
+  · simp [osConfigNormBound]
+  · intro a b f' ha hb ih
+    rw [Finsupp.mapDomain_add, Finsupp.mapDomain_single]
+    have h_add := osConfigNormBound_add_le M hM (Finsupp.single (φ a) b) (Finsupp.mapDomain φ f')
+    have h_s : osConfigNormBound M (Finsupp.single (φ a) b) ≤ ‖b‖ * M ^ a.n_pts := by
+      dsimp [osConfigNormBound]
+      rw [Finsupp.support_single_ne_zero (φ a) hb, Finset.sum_singleton,
+          Finsupp.single_eq_same, hφ a]
+    have hfa : f' a = 0 := by
+      by_contra hne
+      exact ha (Finsupp.mem_support_iff.mpr hne)
+    have hsub : (Finsupp.single a b + f').support ⊆ insert a f'.support := by
+      intro x hx
+      rw [Finsupp.mem_support_iff, Finsupp.add_apply] at hx
+      by_cases hxa : x = a
+      · exact hxa ▸ Finset.mem_insert_self a f'.support
+      · apply Finset.mem_insert_of_mem
+        rw [Finsupp.mem_support_iff]
+        intro hfx
+        apply hx
+        rw [Finsupp.single_apply, if_neg (Ne.symm hxa), hfx, add_zero]
+    have h_eq : osConfigNormBound M (Finsupp.single a b + f') =
+        ∑ x ∈ insert a f'.support, ‖(Finsupp.single a b + f') x‖ * M ^ x.n_pts := by
+      refine Finset.sum_subset hsub fun x _ hx => ?_
+      have hx0 : (Finsupp.single a b + f') x = 0 := by
+        by_contra hne
+        exact hx (Finsupp.mem_support_iff.mpr hne)
+      simp [hx0]
+    have h_rest : ∑ x ∈ f'.support, ‖(Finsupp.single a b + f') x‖ * M ^ x.n_pts =
+        osConfigNormBound M f' := by
+      refine Finset.sum_congr rfl fun x hx => ?_
+      have hxa : x ≠ a := fun h => ha (h ▸ hx)
+      rw [Finsupp.add_apply, Finsupp.single_apply, if_neg (Ne.symm hxa), zero_add]
+    have h_lhs : osConfigNormBound M (Finsupp.single a b + f') =
+        ‖b‖ * M ^ a.n_pts + osConfigNormBound M f' := by
+      rw [h_eq, Finset.sum_insert ha, Finsupp.add_apply, Finsupp.single_eq_same,
+          hfa, add_zero, h_rest]
+    linarith
+
+theorem osConfigInner_norm_le {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (M : ℝ) (hM : 0 ≤ M)
+    (h_bd : ∀ (n : ℕ) (xs : Fin n → Space4), ‖os.os.Schwinger n xs‖ ≤ M ^ n)
+    (f g : OSPosTestSpace) :
+    ‖osConfigInner os f g‖ ≤ osConfigNormBound M f * osConfigNormBound M g := by
+  dsimp [osConfigInner, osConfigNormBound]
+  calc ‖∑ x ∈ f.support, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y‖
+      ≤ ∑ x ∈ f.support, ‖∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y‖ :=
+          norm_sum_le _ _
+    _ ≤ ∑ x ∈ f.support, ∑ y ∈ g.support, ‖starRingEnd ℂ (f x) * g y * osConfigKernel os x y‖ :=
+          Finset.sum_le_sum fun x _ => norm_sum_le _ _
+    _ ≤ ∑ x ∈ f.support, ∑ y ∈ g.support, (‖f x‖ * M ^ x.n_pts) * (‖g y‖ * M ^ y.n_pts) := by
+          refine Finset.sum_le_sum fun x _ => Finset.sum_le_sum fun y _ => ?_
+          have hconj : ‖starRingEnd ℂ (f x)‖ = ‖f x‖ := norm_star (f x)
+          rw [norm_mul, norm_mul, hconj]
+          have hk : ‖osConfigKernel os x y‖ ≤ M ^ (x.n_pts + y.n_pts) :=
+            h_bd (x.n_pts + y.n_pts) _
+          calc ‖f x‖ * ‖g y‖ * ‖osConfigKernel os x y‖
+              ≤ ‖f x‖ * ‖g y‖ * M ^ (x.n_pts + y.n_pts) :=
+                  mul_le_mul_of_nonneg_left hk (mul_nonneg (norm_nonneg _) (norm_nonneg _))
+            _ = (‖f x‖ * M ^ x.n_pts) * (‖g y‖ * M ^ y.n_pts) := by
+                  rw [pow_add]; ring
+    _ = (∑ x ∈ f.support, ‖f x‖ * M ^ x.n_pts) * (∑ y ∈ g.support, ‖g y‖ * M ^ y.n_pts) := by
+          rw [Finset.sum_mul]
+          refine Finset.sum_congr rfl fun x _ => ?_
+          rw [← Finset.mul_sum]
+
+/-- 0-point vacuum configuration in `PosTimeConfig`. -/
+def emptyPosConfig : PosTimeConfig where
+  n_pts := 0
+  pts   := Fin.elim0
+  pos_t := fun k => Fin.elim0 k
+
+theorem osConfigVac_norm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (h_S0 : os.os.Schwinger 0 Fin.elim0 = 1) :
+    (osConfigForm os h_herm).B (osConfigSingle emptyPosConfig) (osConfigSingle emptyPosConfig) = 1 := by
+  change osConfigInner os (osConfigSingle emptyPosConfig) (osConfigSingle emptyPosConfig) = 1
+  rw [osConfigInner_single]
+  dsimp [osConfigKernel, emptyPosConfig]
+  have happ : Fin.append (fun k : Fin 0 => euclidTimeReflect (Fin.elim0 k)) Fin.elim0 = Fin.elim0 := by
+    funext k
+    exact Fin.elim0 k
+  rw [happ, h_S0]
+
+/-- Total Euclidean time-shift semigroup on `OSPosTestSpace` (identity for `t < 0`). -/
+noncomputable def osTimeShiftSemigroup (t : ℝ) : OSPosTestSpace →ₗ[ℂ] OSPosTestSpace :=
+  if ht : 0 ≤ t then osTimeShiftPre t ht else LinearMap.id
+
+theorem osTimeShiftSemigroup_zero (f : OSPosTestSpace) :
+    osTimeShiftSemigroup 0 f = f := by
+  dsimp [osTimeShiftSemigroup]
+  rw [dif_pos le_rfl]
+  exact osTimeShiftPre_zero f
+
+theorem osTimeShiftSemigroup_add (s t : ℝ) (hs : 0 ≤ s) (ht : 0 ≤ t) (f : OSPosTestSpace) :
+    osTimeShiftSemigroup (s + t) f = osTimeShiftSemigroup s (osTimeShiftSemigroup t f) := by
+  dsimp [osTimeShiftSemigroup]
+  rw [dif_pos (add_nonneg hs ht), dif_pos hs, dif_pos ht]
+  exact osTimeShiftPre_add s t hs ht f
+
+theorem osTimeShiftSemigroup_sa {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (h_kern : ∀ (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig),
+      osConfigKernel os (posTimeShiftConfig t ht x) y =
+        osConfigKernel os x (posTimeShiftConfig t ht y))
+    (t : ℝ) (ht : 0 ≤ t) (f g : OSPosTestSpace) :
+    (osConfigForm os h_herm).B (osTimeShiftSemigroup t f) g =
+      (osConfigForm os h_herm).B f (osTimeShiftSemigroup t g) := by
+  dsimp [osTimeShiftSemigroup]
+  rw [dif_pos ht]
+  exact osTimeShiftPre_sa os h_herm t ht (h_kern t ht) f g
+
+theorem osTimeShiftSemigroup_contr {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (h_kern : ∀ (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig),
+      osConfigKernel os (posTimeShiftConfig t ht x) y =
+        osConfigKernel os x (posTimeShiftConfig t ht y))
+    (M : ℝ) (hM : 0 ≤ M)
+    (h_bd : ∀ (n : ℕ) (xs : Fin n → Space4), ‖os.os.Schwinger n xs‖ ≤ M ^ n)
+    (t : ℝ) (ht : 0 ≤ t) (f : OSPosTestSpace) :
+    ((osConfigForm os h_herm).B (osTimeShiftSemigroup t f) (osTimeShiftSemigroup t f)).re ≤
+      1 ^ 2 * ((osConfigForm os h_herm).B f f).re := by
+  rw [one_pow, one_mul]
+  refine os_semigroup_contraction_of_bounded (osConfigForm os h_herm) osTimeShiftSemigroup
+    osTimeShiftSemigroup_add (osTimeShiftSemigroup_sa os h_herm h_kern) t ht f
+    ((osConfigNormBound M f) ^ 2) fun k => ?_
+  let s : ℝ := ((2 ^ k : ℕ) : ℝ) * t
+  have hs : 0 ≤ s := mul_nonneg (Nat.cast_nonneg _) ht
+  have hs_eq : osTimeShiftSemigroup s f = osTimeShiftPre s hs f := by
+    dsimp [osTimeShiftSemigroup]
+    rw [dif_pos hs]
+  change (osConfigInner os (osTimeShiftSemigroup s f) (osTimeShiftSemigroup s f)).re ≤
+    (osConfigNormBound M f) ^ 2
+  rw [hs_eq]
+  have h1 : (osConfigInner os (osTimeShiftPre s hs f) (osTimeShiftPre s hs f)).re ≤
+      ‖osConfigInner os (osTimeShiftPre s hs f) (osTimeShiftPre s hs f)‖ :=
+    (le_abs_self _).trans (Complex.abs_re_le_norm _)
+  have h2 : ‖osConfigInner os (osTimeShiftPre s hs f) (osTimeShiftPre s hs f)‖ ≤
+      osConfigNormBound M (osTimeShiftPre s hs f) * osConfigNormBound M (osTimeShiftPre s hs f) :=
+    osConfigInner_norm_le os M hM h_bd _ _
+  have h3 : osConfigNormBound M (osTimeShiftPre s hs f) ≤ osConfigNormBound M f :=
+    osConfigNormBound_mapDomain_le M hM (posTimeShiftConfig s hs) (fun _ => rfl) f
+  have h4 : osConfigNormBound M (osTimeShiftPre s hs f) *
+      osConfigNormBound M (osTimeShiftPre s hs f) ≤ (osConfigNormBound M f) ^ 2 := by
+    have hnn := osConfigNormBound_nonneg M hM (osTimeShiftPre s hs f)
+    rw [sq]
+    exact mul_le_mul h3 h3 hnn (osConfigNormBound_nonneg M hM f)
+  exact h1.trans (h2.trans h4)
+
+/--
+Reduced OS reconstruction inputs on `(OSPosTestSpace, osConfigForm os h_herm)`:
+only the Minkowski continuation operators (`H_pre`, `U_pre`, `φ_pre`, `P2_spec`, `cyclic_dense`)
+remain; `E`, `F`, `Ω_E`, `T_E_pre` and all semigroup axioms are constructed automatically.
+-/
+structure ReducedMinkowskiContinuationData (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys) where
+  h_herm       : ∀ x y : PosTimeConfig,
+                   osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x)
+  h_S0         : os.os.Schwinger 0 Fin.elim0 = 1
+  h_kern       : ∀ (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig),
+                   osConfigKernel os (posTimeShiftConfig t ht x) y =
+                     osConfigKernel os x (posTimeShiftConfig t ht y)
+  M_bd         : ℝ
+  hM_nn        : 0 ≤ M_bd
+  h_bd         : ∀ (n : ℕ) (xs : Fin n → Space4), ‖os.os.Schwinger n xs‖ ≤ M_bd ^ n
+  H_pre        : OSPosTestSpace →ₗ[ℂ] OSPosTestSpace
+  H_bound      : ℝ
+  H_bound_nn   : 0 ≤ H_bound
+  H_bd         : ∀ x : OSPosTestSpace,
+                   ((osConfigForm os h_herm).B (H_pre x) (H_pre x)).re ≤
+                     H_bound ^ 2 * ((osConfigForm os h_herm).B x x).re
+  H_sa         : ∀ x y : OSPosTestSpace,
+                   (osConfigForm os h_herm).B (H_pre x) y =
+                     (osConfigForm os h_herm).B x (H_pre y)
+  H_nonneg     : ∀ x : OSPosTestSpace, 0 ≤ ((osConfigForm os h_herm).B x (H_pre x)).re
+  H_vac        : H_pre (osConfigSingle emptyPosConfig) = 0
+  U_pre        : Poincare4 → (OSPosTestSpace →ₗ[ℂ] OSPosTestSpace)
+  U_unit_pre   : ∀ g x y,
+                   (osConfigForm os h_herm).B (U_pre g x) (U_pre g y) =
+                     (osConfigForm os h_herm).B x y
+  U_vac_pre    : ∀ g, U_pre g (osConfigSingle emptyPosConfig) = osConfigSingle emptyPosConfig
+  φ_pre        : Space4 → (OSPosTestSpace →ₗ[ℂ] OSPosTestSpace)
+  φ_bound      : Space4 → ℝ
+  φ_bound_nn   : ∀ x, 0 ≤ φ_bound x
+  φ_bd         : ∀ x (v : OSPosTestSpace),
+                   ((osConfigForm os h_herm).B (φ_pre x v) (φ_pre x v)).re ≤
+                     (φ_bound x) ^ 2 * ((osConfigForm os h_herm).B v v).re
+  cov_pre      : ∀ g x v, U_pre g (φ_pre x v) = φ_pre (poincareAct g x) (U_pre g v)
+  loc_pre      : ∀ x y, minkowskiSq (x - y) < 0 →
+                   ∀ v, φ_pre x (φ_pre y v) = φ_pre y (φ_pre x v)
+  P2_spec      : Set ℝ
+  spec_cond    : ∀ p2 ∈ P2_spec, 0 ≤ p2
+  gap_spec     : ∀ p2 ∈ P2_spec, p2 = 0 ∨ Δ_phys ^ 2 ≤ p2
+  cyclic_dense : (Submodule.span ℂ
+      {v : OSHilbertSpace (osConfigForm os h_herm) | ∃ (k : ℕ) (xs : Fin k → Space4),
+        v = (List.ofFn (fun i : Fin k =>
+          osLiftOperator (osConfigForm os h_herm) (φ_pre (xs i))
+            (φ_bound (xs i)) (φ_bound_nn (xs i)) (φ_bd (xs i)))).foldr
+          (fun A acc => A acc)
+          (osCompletionMap (osConfigForm os h_herm)
+            (osPreMk (osConfigForm os h_herm) (osConfigSingle emptyPosConfig)))}).topologicalClosure = ⊤
+
+/-- Assemble `EuclideanOSPreData` directly from `ReducedMinkowskiContinuationData`. -/
+noncomputable def buildEuclideanOSPreDataFromSchwinger
+    {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : ReducedMinkowskiContinuationData Δ_phys os) :
+    EuclideanOSPreData Δ_phys os where
+  E := OSPosTestSpace
+  F := osConfigForm os R.h_herm
+  Ω_E := osConfigSingle emptyPosConfig
+  Ω_E_norm := osConfigVac_norm os R.h_herm R.h_S0
+  T_E_pre := osTimeShiftSemigroup
+  T_E_zero := osTimeShiftSemigroup_zero
+  T_E_add := osTimeShiftSemigroup_add
+  T_E_sa := osTimeShiftSemigroup_sa os R.h_herm R.h_kern
+  T_E_contr := osTimeShiftSemigroup_contr os R.h_herm R.h_kern R.M_bd R.hM_nn R.h_bd
+  H_pre := R.H_pre
+  H_bound := R.H_bound
+  H_bound_nn := R.H_bound_nn
+  H_bd := R.H_bd
+  H_sa := R.H_sa
+  H_nonneg := R.H_nonneg
+  H_vac := R.H_vac
+  U_pre := R.U_pre
+  U_unit_pre := R.U_unit_pre
+  U_vac_pre := R.U_vac_pre
+  φ_pre := R.φ_pre
+  φ_bound := R.φ_bound
+  φ_bound_nn := R.φ_bound_nn
+  φ_bd := R.φ_bd
+  cov_pre := R.cov_pre
+  loc_pre := R.loc_pre
+  P2_spec := R.P2_spec
+  spec_cond := R.spec_cond
+  gap_spec := R.gap_spec
+  cyclic_dense := R.cyclic_dense
+
+end SchwingerToPreData
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -9776,3 +10053,19 @@ end YangMills
 #print axioms YangMills.buildWightmanOnOSCompletion
 #print axioms YangMills.buildOSReconstructionOnCompletion
 #print axioms YangMills.endToEnd_su_yang_mills_from_dynamical_bridge
+
+-- §30. OS pre-Hilbert GNS construction, Glimm–Jaffe contraction & joint thermodynamic limit
+#print axioms YangMills.osConfigInner_single
+#print axioms YangMills.osConfigForm
+#print axioms YangMills.osTimeShiftPre_zero
+#print axioms YangMills.osTimeShiftPre_add
+#print axioms YangMills.osTimeShiftPre_sa
+#print axioms YangMills.os_semigroup_contraction_of_bounded
+#print axioms YangMills.cubic4Schwinger_joint_thermodynamic_subseq
+
+-- §31. Direct Schwinger-to-PreData wiring
+#print axioms YangMills.osConfigNormBound_mapDomain_le
+#print axioms YangMills.osConfigInner_norm_le
+#print axioms YangMills.osConfigVac_norm
+#print axioms YangMills.osTimeShiftSemigroup_contr
+#print axioms YangMills.buildEuclideanOSPreDataFromSchwinger
