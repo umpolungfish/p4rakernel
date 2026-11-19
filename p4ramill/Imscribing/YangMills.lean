@@ -8073,6 +8073,854 @@ theorem infdim_poincare_wightman_reconstruction :
 
 end Poincare4DWightman 
 
+/-! ## §28.  Kogut–Susskind Yang–Mills Hamiltonian, non-commuting link algebra & Gauss law -/
+
+section KogutSusskindYM
+
+private theorem memLp_realMul {α : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α)
+    (f : α → ℝ) (hf_meas : Measurable f) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x, |f x| ≤ C) (ψ : MeasureTheory.Lp ℂ 2 μ) :
+    MeasureTheory.MemLp (fun x => ((f x : ℝ) : ℂ) * ψ x) 2 μ := by
+  have hψ_mem : MeasureTheory.MemLp (⇑ψ) 2 μ := MeasureTheory.Lp.memLp ψ
+  have hψ_ae : MeasureTheory.AEStronglyMeasurable (⇑ψ) μ := hψ_mem.aestronglyMeasurable
+  have hf_ae : MeasureTheory.AEStronglyMeasurable (fun x => ((f x : ℝ) : ℂ)) μ :=
+    (Complex.continuous_ofReal.measurable.comp hf_meas).stronglyMeasurable.aestronglyMeasurable
+  have h_ae : MeasureTheory.AEStronglyMeasurable (fun x => ((f x : ℝ) : ℂ) * ψ x) μ :=
+    hf_ae.mul hψ_ae
+  rw [MeasureTheory.memLp_two_iff_integrable_sq_norm h_ae]
+  have h_int : MeasureTheory.Integrable (fun x => ‖ψ x‖ ^ 2) μ :=
+    (MeasureTheory.memLp_two_iff_integrable_sq_norm hψ_ae).mp hψ_mem
+  refine (h_int.const_mul (C ^ 2)).mono' (h_ae.norm.pow 2) ?_
+  filter_upwards with x
+  rw [Real.norm_eq_abs, abs_of_nonneg (sq_nonneg _), norm_mul, Complex.norm_real,
+    Real.norm_eq_abs, mul_pow]
+  exact mul_le_mul_of_nonneg_right
+    (pow_le_pow_left₀ (abs_nonneg _) (hbd x) 2) (sq_nonneg _)
+
+/-- Bounded self-adjoint multiplication operator `ψ ↦ f · ψ` on `L²(μ)` for real `|f| ≤ C`. -/
+noncomputable def realMulOp {α : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α)
+    (f : α → ℝ) (hf_meas : Measurable f) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x, |f x| ≤ C) :
+    MeasureTheory.Lp ℂ 2 μ →L[ℂ] MeasureTheory.Lp ℂ 2 μ :=
+  LinearMap.mkContinuous
+    { toFun := fun ψ => (memLp_realMul μ f hf_meas C hC hbd ψ).toLp
+        (fun x => ((f x : ℝ) : ℂ) * ψ x)
+      map_add' := fun ψ₁ ψ₂ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_realMul μ f hf_meas C hC hbd (ψ₁ + ψ₂)).coeFn_toLp
+        have h2 := (memLp_realMul μ f hf_meas C hC hbd ψ₁).coeFn_toLp
+        have h3 := (memLp_realMul μ f hf_meas C hC hbd ψ₂).coeFn_toLp
+        have hadd1 := MeasureTheory.Lp.coeFn_add ψ₁ ψ₂
+        have hadd2 := MeasureTheory.Lp.coeFn_add
+          ((memLp_realMul μ f hf_meas C hC hbd ψ₁).toLp (fun x => ((f x : ℝ) : ℂ) * ψ₁ x))
+          ((memLp_realMul μ f hf_meas C hC hbd ψ₂).toLp (fun x => ((f x : ℝ) : ℂ) * ψ₂ x))
+        filter_upwards [h1, h2, h3, hadd1, hadd2] with x hx1 hx2 hx3 ha1 ha2
+        simp only [Pi.add_apply] at ha1 ha2 ⊢
+        rw [hx1, ha1, mul_add, ha2, hx2, hx3]
+      map_smul' := fun c ψ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_realMul μ f hf_meas C hC hbd (c • ψ)).coeFn_toLp
+        have h2 := (memLp_realMul μ f hf_meas C hC hbd ψ).coeFn_toLp
+        have hsm1 := MeasureTheory.Lp.coeFn_smul c ψ
+        have hsm2 := MeasureTheory.Lp.coeFn_smul c
+          ((memLp_realMul μ f hf_meas C hC hbd ψ).toLp (fun x => ((f x : ℝ) : ℂ) * ψ x))
+        filter_upwards [h1, h2, hsm1, hsm2] with x hx1 hx2 hs1 hs2
+        simp only [Pi.smul_apply, RingHom.id_apply, smul_eq_mul] at hs1 hs2 ⊢
+        rw [hx1, hs1, hs2, hx2]
+        ring }
+    C
+    (fun ψ => by
+      let ψ' := (memLp_realMul μ f hf_meas C hC hbd ψ).toLp (fun x => ((f x : ℝ) : ℂ) * ψ x)
+      change ‖ψ'‖ ≤ C * ‖ψ‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (mul_nonneg hC (norm_nonneg _)), mul_pow]
+      have h_inner_lhs : (⟪ψ', ψ'⟫_ℂ).re = ∫ x, ‖ψ' x‖ ^ 2 ∂μ := by
+        have h_l2 : MeasureTheory.Integrable (fun x => ⟪ψ' x, ψ' x⟫_ℂ) μ :=
+          MeasureTheory.L2.integrable_inner _ _
+        have h_re := integral_re h_l2
+        rw [MeasureTheory.L2.inner_def]
+        change RCLike.re (∫ x, ⟪ψ' x, ψ' x⟫_ℂ ∂μ) = _
+        rw [← h_re]
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+        change (⟪ψ' x, ψ' x⟫_ℂ).re = ‖ψ' x‖ ^ 2
+        rw [inner_self_eq_norm_sq_to_K]
+        simp [pow_two]
+      have h_inner_rhs : (⟪ψ, ψ⟫_ℂ).re = ∫ x, ‖ψ x‖ ^ 2 ∂μ := by
+        have h_l2 : MeasureTheory.Integrable (fun x => ⟪ψ x, ψ x⟫_ℂ) μ :=
+          MeasureTheory.L2.integrable_inner _ _
+        have h_re := integral_re h_l2
+        rw [MeasureTheory.L2.inner_def]
+        change RCLike.re (∫ x, ⟪ψ x, ψ x⟫_ℂ ∂μ) = _
+        rw [← h_re]
+        refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+        change (⟪ψ x, ψ x⟫_ℂ).re = ‖ψ x‖ ^ 2
+        rw [inner_self_eq_norm_sq_to_K]
+        simp [pow_two]
+      have h_norm_sq : ∀ (φ : MeasureTheory.Lp ℂ 2 μ), ‖φ‖ ^ 2 = (⟪φ, φ⟫_ℂ).re := by
+        intro φ
+        rw [inner_self_eq_norm_sq_to_K]
+        simp [pow_two]
+      rw [h_norm_sq ψ', h_norm_sq ψ, h_inner_lhs, h_inner_rhs, ← MeasureTheory.integral_const_mul]
+      have hcoe := (memLp_realMul μ f hf_meas C hC hbd ψ).coeFn_toLp
+      have hψ_ae : MeasureTheory.AEStronglyMeasurable (⇑ψ) μ :=
+        (MeasureTheory.Lp.memLp ψ).aestronglyMeasurable
+      have h_int1 : MeasureTheory.Integrable (fun x => ‖ψ' x‖ ^ 2) μ :=
+        (MeasureTheory.memLp_two_iff_integrable_sq_norm
+          (MeasureTheory.Lp.memLp ψ').aestronglyMeasurable).mp (MeasureTheory.Lp.memLp ψ')
+      have h_int2 : MeasureTheory.Integrable (fun x => C ^ 2 * ‖ψ x‖ ^ 2) μ :=
+        ((MeasureTheory.memLp_two_iff_integrable_sq_norm hψ_ae).mp
+          (MeasureTheory.Lp.memLp ψ)).const_mul (C ^ 2)
+      refine MeasureTheory.integral_mono_ae h_int1 h_int2 ?_
+      filter_upwards [hcoe] with x hx
+      rw [hx, norm_mul, Complex.norm_real, Real.norm_eq_abs, mul_pow]
+      exact mul_le_mul_of_nonneg_right
+        (pow_le_pow_left₀ (abs_nonneg _) (hbd x) 2) (sq_nonneg _))
+
+theorem realMulOp_apply_ae {α : Type*} [MeasurableSpace α] (μ : MeasureTheory.Measure α)
+    (f : α → ℝ) (hf_meas : Measurable f) (C : ℝ) (hC : 0 ≤ C) (hbd : ∀ x, |f x| ≤ C)
+    (ψ : MeasureTheory.Lp ℂ 2 μ) :
+    ⇑(realMulOp μ f hf_meas C hC hbd ψ) =ᵐ[μ] fun x => ((f x : ℝ) : ℂ) * ψ x :=
+  (memLp_realMul μ f hf_meas C hC hbd ψ).coeFn_toLp
+
+theorem realMulOp_sa {α : Type*} [MeasurableSpace α] (μ : MeasureTheory.Measure α)
+    (f : α → ℝ) (hf_meas : Measurable f) (C : ℝ) (hC : 0 ≤ C) (hbd : ∀ x, |f x| ≤ C)
+    (u v : MeasureTheory.Lp ℂ 2 μ) :
+    ⟪realMulOp μ f hf_meas C hC hbd u, v⟫_ℂ =
+      ⟪u, realMulOp μ f hf_meas C hC hbd v⟫_ℂ := by
+  have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+    intro a b
+    have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+      rw [inner_self_eq_norm_sq_to_K]; norm_num
+    calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+      _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+            rw [inner_smul_left, inner_smul_right]
+      _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+  rw [MeasureTheory.L2.inner_def, MeasureTheory.L2.inner_def]
+  have h1 := realMulOp_apply_ae μ f hf_meas C hC hbd u
+  have h2 := realMulOp_apply_ae μ f hf_meas C hC hbd v
+  refine MeasureTheory.integral_congr_ae ?_
+  filter_upwards [h1, h2] with x hx1 hx2
+  rw [hx1, hx2, hcinner, hcinner, map_mul, Complex.conj_ofReal]
+  ring
+
+theorem realMulOp_nonneg {α : Type*} [MeasurableSpace α] (μ : MeasureTheory.Measure α)
+    (f : α → ℝ) (hf_meas : Measurable f) (C : ℝ) (hC : 0 ≤ C) (hbd : ∀ x, |f x| ≤ C)
+    (hf_pos : ∀ x, 0 ≤ f x) (ψ : MeasureTheory.Lp ℂ 2 μ) :
+    0 ≤ (⟪ψ, realMulOp μ f hf_meas C hC hbd ψ⟫_ℂ).re := by
+  have hcinner : ∀ a b : ℂ, ⟪a, b⟫_ℂ = starRingEnd ℂ a * b := by
+    intro a b
+    have h1 : ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ = 1 := by
+      rw [inner_self_eq_norm_sq_to_K]; norm_num
+    calc ⟪a, b⟫_ℂ = ⟪a • (1 : ℂ), b • (1 : ℂ)⟫_ℂ := by simp
+      _ = starRingEnd ℂ a * (b * ⟪(1 : ℂ), (1 : ℂ)⟫_ℂ) := by
+            rw [inner_smul_left, inner_smul_right]
+      _ = starRingEnd ℂ a * b := by rw [h1, mul_one]
+  let opψ := realMulOp μ f hf_meas C hC hbd ψ
+  have h_l2 : MeasureTheory.Integrable (fun x => ⟪ψ x, opψ x⟫_ℂ) μ :=
+    MeasureTheory.L2.integrable_inner _ _
+  have h_re := integral_re h_l2
+  rw [MeasureTheory.L2.inner_def]
+  change 0 ≤ RCLike.re (∫ x, ⟪ψ x, opψ x⟫_ℂ ∂μ)
+  rw [← h_re]
+  refine MeasureTheory.integral_nonneg_of_ae ?_
+  have hcoe := realMulOp_apply_ae μ f hf_meas C hC hbd ψ
+  filter_upwards [hcoe] with x hx
+  change 0 ≤ (⟪ψ x, opψ x⟫_ℂ).re
+  have h_eq : opψ x = ((f x : ℝ) : ℂ) * ψ x := hx
+  rw [h_eq, hcinner]
+  have hmul : starRingEnd ℂ (ψ x) * (((f x : ℝ) : ℂ) * ψ x) =
+      ((f x : ℝ) : ℂ) * (starRingEnd ℂ (ψ x) * ψ x) := by ring
+  rw [hmul, Complex.conj_mul', ← Complex.ofReal_pow, ← Complex.ofReal_mul, Complex.ofReal_re]
+  exact mul_nonneg (hf_pos x) (sq_nonneg _)
+
+/-- Elementary Kogut–Susskind magnetic plaquette operator `ψ ↦ (1 - (1/N) Re Tr U_□) ψ`. -/
+noncomputable def ksPlaquetteOp (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (p : LatticePlaquette (cubicTorus3 L)) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  realMulOp (latticeHaarMeasure L N) (wilsonPlaquetteTerm p)
+    (measurable_wilsonPlaquetteTerm L N p) 2 (by norm_num) (fun U => by
+      have hb := wilsonPlaquetteTerm_bounds p U
+      rw [abs_of_nonneg hb.1]
+      exact hb.2)
+
+theorem ksPlaquetteOp_gauge_inv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (p : LatticePlaquette (cubicTorus3 L))
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    lieBracketCLM (cubicGaugeRep L N g) (ksPlaquetteOp L N p) = 0 := by
+  unfold lieBracketCLM
+  ext1 ψ
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.zero_apply, sub_eq_zero]
+  apply MeasureTheory.Lp.ext
+  let μ := latticeHaarMeasure L N
+  let eg := gaugeActEquiv L N (fun x => (g x)⁻¹)
+  let hmpg : MeasureTheory.MeasurePreserving eg μ μ :=
+    ⟨eg.measurable, latticeHaarMeasure_gauge_inv L N (fun x => (g x)⁻¹)⟩
+  have hL1 := cubicGaugeRep_apply_ae L N g (ksPlaquetteOp L N p ψ)
+  have hL2 : (fun U => (ksPlaquetteOp L N p ψ) (gaugeAct (fun x => (g x)⁻¹) U)) =ᵐ[μ]
+      (fun U => ((wilsonPlaquetteTerm p (gaugeAct (fun x => (g x)⁻¹) U) : ℝ) : ℂ) *
+        ψ (gaugeAct (fun x => (g x)⁻¹) U)) :=
+    ae_comp_measurePreserving hmpg (realMulOp_apply_ae μ _ _ _ _ _ ψ)
+  have hR1 := realMulOp_apply_ae μ (wilsonPlaquetteTerm p)
+    (measurable_wilsonPlaquetteTerm L N p) 2 (by norm_num) (fun U => by
+      have hb := wilsonPlaquetteTerm_bounds p U
+      rw [abs_of_nonneg hb.1]; exact hb.2) (cubicGaugeRep L N g ψ)
+  have hR2 := cubicGaugeRep_apply_ae L N g ψ
+  filter_upwards [hL1, hL2, hR1, hR2] with U hl1 hl2 hr1 hr2
+  change ⇑(cubicGaugeRep L N g (ksPlaquetteOp L N p ψ)) U =
+    ⇑(ksPlaquetteOp L N p (cubicGaugeRep L N g ψ)) U
+  change ⇑(ksPlaquetteOp L N p (cubicGaugeRep L N g ψ)) U = _ at hr1
+  rw [hl1, hl2, wilsonPlaquetteTerm_gauge_inv, hr1, hr2]
+
+/--
+Full Kogut–Susskind magnetic plaquette Hamiltonian
+`H_B = (1 / (g² a)) ∑_□ (1 - (1/N) Re Tr U_□)` on `L²(SU(N)^{3L³}, dμ_Haar)`.
+-/
+noncomputable def ksMagneticH (L N : ℕ) [NeZero L] (g_sq a : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  ((1 / (g_sq * a) : ℝ) : ℂ) •
+    ((cubicPlaquettes L).map (ksPlaquetteOp L N)).sum
+
+theorem ksMagneticH_sa (L N : ℕ) [NeZero L] (g_sq a : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (x y : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪ksMagneticH L N g_sq a x, y⟫_ℂ = ⟪x, ksMagneticH L N g_sq a y⟫_ℂ := by
+  have hsum_sa : ∀ (ps : List (LatticePlaquette (cubicTorus3 L))),
+      ⟪((ps.map (ksPlaquetteOp L N)).sum) x, y⟫_ℂ =
+        ⟪x, ((ps.map (ksPlaquetteOp L N)).sum) y⟫_ℂ := by
+    intro ps
+    induction ps with
+    | nil =>
+      change ⟪(0 : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _) x, y⟫_ℂ =
+        ⟪x, (0 : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _) y⟫_ℂ
+      simp
+    | cons p ps ih =>
+      simp only [List.map_cons, List.sum_cons, ContinuousLinearMap.add_apply,
+        inner_add_left, inner_add_right]
+      dsimp [ksPlaquetteOp]
+      rw [realMulOp_sa, ih]
+  change ⟪(((1 / (g_sq * a) : ℝ) : ℂ) •
+      ((cubicPlaquettes L).map (ksPlaquetteOp L N)).sum) x, y⟫_ℂ =
+    ⟪x, (((1 / (g_sq * a) : ℝ) : ℂ) •
+      ((cubicPlaquettes L).map (ksPlaquetteOp L N)).sum) y⟫_ℂ
+  rw [ContinuousLinearMap.smul_apply, ContinuousLinearMap.smul_apply,
+    inner_smul_left, inner_smul_right, Complex.conj_ofReal, hsum_sa]
+
+theorem ksMagneticH_nonneg (L N : ℕ) [NeZero L] (g_sq a : ℝ)
+    (hg : 0 < g_sq) (ha : 0 < a)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    0 ≤ (⟪ψ, ksMagneticH L N g_sq a ψ⟫_ℂ).re := by
+  have hsum_nonneg : ∀ (ps : List (LatticePlaquette (cubicTorus3 L))),
+      0 ≤ (⟪ψ, ((ps.map (ksPlaquetteOp L N)).sum) ψ⟫_ℂ).re := by
+    intro ps
+    induction ps with
+    | nil =>
+      change 0 ≤ (⟪ψ, (0 : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _) ψ⟫_ℂ).re
+      simp
+    | cons p ps ih =>
+      simp only [List.map_cons, List.sum_cons, ContinuousLinearMap.add_apply,
+        inner_add_right, Complex.add_re]
+      exact add_nonneg (realMulOp_nonneg _ _ _ _ _ _ (fun U => (wilsonPlaquetteTerm_bounds p U).1) ψ) ih
+  change 0 ≤ (⟪ψ, (((1 / (g_sq * a) : ℝ) : ℂ) •
+    ((cubicPlaquettes L).map (ksPlaquetteOp L N)).sum) ψ⟫_ℂ).re
+  rw [ContinuousLinearMap.smul_apply, inner_smul_right, Complex.mul_re,
+    Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero]
+  exact mul_nonneg (by positivity) (hsum_nonneg (cubicPlaquettes L))
+
+theorem ksMagneticH_gauge_inv (L N : ℕ) [NeZero L] (g_sq a : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    lieBracketCLM (cubicGaugeRep L N g) (ksMagneticH L N g_sq a) = 0 := by
+  have hsum_comm : ∀ (ps : List (LatticePlaquette (cubicTorus3 L))),
+      lieBracketCLM (cubicGaugeRep L N g) ((ps.map (ksPlaquetteOp L N)).sum) = 0 := by
+    intro ps
+    induction ps with
+    | nil =>
+      unfold lieBracketCLM
+      simp
+    | cons p ps ih =>
+      have hp := ksPlaquetteOp_gauge_inv L N p g
+      unfold lieBracketCLM at hp ih ⊢
+      ext1 ψ
+      have hp' := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ) hp
+      have ih' := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ) ih
+      simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+        ContinuousLinearMap.zero_apply, sub_eq_zero] at hp' ih' ⊢
+      simp only [List.map_cons, List.sum_cons, ContinuousLinearMap.add_apply, map_add,
+        hp', ih', sub_self]
+  have hc := hsum_comm (cubicPlaquettes L)
+  unfold lieBracketCLM at hc
+  unfold lieBracketCLM ksMagneticH
+  ext1 ψ
+  have hc' := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ) hc
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.zero_apply, map_smul, sub_eq_zero] at hc' ⊢
+  rw [hc']
+
+/-- Left multiplication shift along a single spatial link `e` by `u ∈ SU(N)`. -/
+def linkLeftShift (L N : ℕ) [NeZero L]
+    (e : (cubicTorus3 L).Link) (u : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+  fun e' => if e' = e then u * U e else U e'
+
+def linkLeftShiftEquiv (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (u : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ≃ᵐ
+      GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) where
+  toFun := linkLeftShift L N e u
+  invFun := linkLeftShift L N e u⁻¹
+  left_inv U := by
+    funext e'
+    by_cases he : e' = e <;> simp [linkLeftShift, he, ← mul_assoc]
+  right_inv U := by
+    funext e'
+    by_cases he : e' = e <;> simp [linkLeftShift, he, ← mul_assoc]
+  measurable_toFun := by
+    change Measurable (fun U : (cubicTorus3 L).Link → _ => linkLeftShift L N e u U)
+    refine measurable_pi_iff.mpr fun e' => ?_
+    by_cases he : e' = e
+    · simp only [linkLeftShift, he, ↓reduceIte]
+      exact (continuous_mul_left u).measurable.comp (measurable_pi_apply e)
+    · simp only [linkLeftShift, he, ↓reduceIte]
+      exact measurable_pi_apply e'
+  measurable_invFun := by
+    change Measurable (fun U : (cubicTorus3 L).Link → _ => linkLeftShift L N e u⁻¹ U)
+    refine measurable_pi_iff.mpr fun e' => ?_
+    by_cases he : e' = e
+    · simp only [linkLeftShift, he, ↓reduceIte]
+      exact (continuous_mul_left u⁻¹).measurable.comp (measurable_pi_apply e)
+    · simp only [linkLeftShift, he, ↓reduceIte]
+      exact measurable_pi_apply e'
+
+theorem linkLeftShiftEquiv_mp (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (u : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    MeasureTheory.MeasurePreserving (linkLeftShiftEquiv L N e u)
+      (latticeHaarMeasure L N) (latticeHaarMeasure L N) := by
+  haveI := suHaar_prob N
+  haveI := latticeHaarMeasure_prob L N
+  let φ : (cubicTorus3 L).Link →
+      Matrix.specialUnitaryGroup (Fin N) ℂ → Matrix.specialUnitaryGroup (Fin N) ℂ :=
+    fun e' w => if e' = e then u * w else w
+  have hφ_meas : ∀ e', Measurable (φ e') := fun e' => by
+    by_cases he : e' = e
+    · simp only [φ, he, ↓reduceIte]; exact (continuous_mul_left u).measurable
+    · simp only [φ, he, ↓reduceIte]; exact measurable_id
+  have hφ_inv : ∀ e' (s : Set (Matrix.specialUnitaryGroup (Fin N) ℂ)),
+      MeasurableSet s → suHaar N (φ e' ⁻¹' s) = suHaar N s := by
+    intro e' s hs
+    by_cases he : e' = e
+    · simp only [φ, he, ↓reduceIte]
+      rw [← MeasureTheory.Measure.map_apply (continuous_mul_left u).measurable hs,
+        suHaar_map_mul_left]
+    · simp only [φ, he, ↓reduceIte]; rfl
+  let F : ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    fun U e' => φ e' (U e')
+  have hF_eq : F = ⇑(linkLeftShiftEquiv L N e u) := by
+    funext U e'
+    by_cases he : e' = e
+    · subst he; simp [F, φ, linkLeftShiftEquiv, linkLeftShift]
+    · simp [F, φ, linkLeftShiftEquiv, linkLeftShift, he]
+  have hF_meas : Measurable F :=
+    measurable_pi_iff.mpr fun e' => (hφ_meas e').comp (measurable_pi_apply e')
+  refine ⟨(linkLeftShiftEquiv L N e u).measurable, ?_⟩
+  let μ_pi : MeasureTheory.Measure
+      ((cubicTorus3 L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    MeasureTheory.Measure.pi (fun _ => suHaar N)
+  rw [← hF_eq]
+  change MeasureTheory.Measure.map F μ_pi = MeasureTheory.Measure.pi (fun _ => suHaar N)
+  symm
+  refine MeasureTheory.Measure.pi_eq fun s hs => ?_
+  rw [MeasureTheory.Measure.map_apply hF_meas (MeasurableSet.univ_pi hs)]
+  have hpre : F ⁻¹' Set.pi Set.univ s = Set.pi Set.univ (fun e' => φ e' ⁻¹' s e') := by
+    ext U
+    simp [F]
+  rw [hpre, MeasureTheory.Measure.pi_pi (fun _ => suHaar N)]
+  exact Finset.prod_congr rfl fun e' _ => hφ_inv e' (s e') (hs e')
+
+/-- Unitary electric link-shift operator `(U_{e,v} ψ)(U) = ψ(linkLeftShift e v⁻¹ U)`. -/
+noncomputable def ksLinkShiftOp (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  let μ := latticeHaarMeasure L N
+  let eqv := linkLeftShiftEquiv L N e v⁻¹
+  let hmp := linkLeftShiftEquiv_mp L N e v⁻¹
+  LinearMap.mkContinuous
+    { toFun := fun ψ => (memLp_comp_measurePreserving μ eqv hmp ψ).toLp (fun U => ψ (eqv U))
+      map_add' := fun ψ₁ ψ₂ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_comp_measurePreserving μ eqv hmp (ψ₁ + ψ₂)).coeFn_toLp
+        have h2 := (memLp_comp_measurePreserving μ eqv hmp ψ₁).coeFn_toLp
+        have h3 := (memLp_comp_measurePreserving μ eqv hmp ψ₂).coeFn_toLp
+        have hadd1 := MeasureTheory.Lp.coeFn_add ψ₁ ψ₂
+        have hadd2 := MeasureTheory.Lp.coeFn_add
+          ((memLp_comp_measurePreserving μ eqv hmp ψ₁).toLp (fun U => ψ₁ (eqv U)))
+          ((memLp_comp_measurePreserving μ eqv hmp ψ₂).toLp (fun U => ψ₂ (eqv U)))
+        filter_upwards [h1, h2, h3, ae_comp_measurePreserving hmp hadd1, hadd2] with U hu1 hu2 hu3 ha1 ha2
+        simp only [Pi.add_apply] at ha1 ha2 ⊢
+        rw [hu1, ha1, ha2, hu2, hu3]
+      map_smul' := fun c ψ => by
+        apply MeasureTheory.Lp.ext
+        have h1 := (memLp_comp_measurePreserving μ eqv hmp (c • ψ)).coeFn_toLp
+        have h2 := (memLp_comp_measurePreserving μ eqv hmp ψ).coeFn_toLp
+        have hsm1 := MeasureTheory.Lp.coeFn_smul c ψ
+        have hsm2 := MeasureTheory.Lp.coeFn_smul c
+          ((memLp_comp_measurePreserving μ eqv hmp ψ).toLp (fun U => ψ (eqv U)))
+        filter_upwards [h1, h2, ae_comp_measurePreserving hmp hsm1, hsm2] with U hu1 hu2 hs1 hs2
+        simp only [Pi.smul_apply, RingHom.id_apply] at hs1 hs2 ⊢
+        rw [hu1, hs1, hs2, hu2] }
+    1
+    (fun ψ => by
+      let ψ' := (memLp_comp_measurePreserving μ eqv hmp ψ).toLp (fun U => ψ (eqv U))
+      have h_norm_sq : ‖ψ'‖ ^ 2 = ‖ψ‖ ^ 2 := by
+        have h_inner : ⟪ψ', ψ'⟫_ℂ = ⟪ψ, ψ⟫_ℂ := by
+          rw [MeasureTheory.L2.inner_def, MeasureTheory.L2.inner_def]
+          have hcoe := (memLp_comp_measurePreserving μ eqv hmp ψ).coeFn_toLp
+          calc ∫ U, ⟪ψ' U, ψ' U⟫_ℂ ∂μ
+              = ∫ U, ⟪ψ (eqv U), ψ (eqv U)⟫_ℂ ∂μ := by
+                  refine MeasureTheory.integral_congr_ae ?_
+                  filter_upwards [hcoe] with U hU
+                  rw [hU]
+            _ = ∫ U, ⟪ψ U, ψ U⟫_ℂ ∂μ := hmp.integral_comp' (fun U => ⟪ψ U, ψ U⟫_ℂ)
+        have hre := congrArg Complex.re h_inner
+        rw [inner_self_eq_norm_sq_to_K, inner_self_eq_norm_sq_to_K] at hre
+        simpa [pow_two] using hre
+      change ‖ψ'‖ ≤ 1 * ‖ψ‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (by positivity), one_mul, h_norm_sq])
+
+theorem ksLinkShiftOp_apply_ae (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⇑(ksLinkShiftOp L N e v ψ) =ᵐ[latticeHaarMeasure L N]
+      fun U => ψ (linkLeftShift L N e v⁻¹ U) :=
+  (memLp_comp_measurePreserving (latticeHaarMeasure L N)
+    (linkLeftShiftEquiv L N e v⁻¹) (linkLeftShiftEquiv_mp L N e v⁻¹) ψ).coeFn_toLp
+
+theorem ksLinkShiftOp_unitary (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (ψ₁ ψ₂ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪ksLinkShiftOp L N e v ψ₁, ksLinkShiftOp L N e v ψ₂⟫_ℂ = ⟪ψ₁, ψ₂⟫_ℂ := by
+  let μ := latticeHaarMeasure L N
+  let eqv := linkLeftShiftEquiv L N e v⁻¹
+  let hmp := linkLeftShiftEquiv_mp L N e v⁻¹
+  rw [MeasureTheory.L2.inner_def, MeasureTheory.L2.inner_def]
+  calc ∫ U, ⟪(ksLinkShiftOp L N e v ψ₁) U, (ksLinkShiftOp L N e v ψ₂) U⟫_ℂ ∂μ
+      = ∫ U, ⟪ψ₁ (eqv U), ψ₂ (eqv U)⟫_ℂ ∂μ := by
+          refine MeasureTheory.integral_congr_ae ?_
+          filter_upwards [ksLinkShiftOp_apply_ae L N e v ψ₁,
+            ksLinkShiftOp_apply_ae L N e v ψ₂] with U hu1 hu2
+          rw [hu1, hu2]
+          rfl
+    _ = ∫ U, ⟪ψ₁ U, ψ₂ U⟫_ℂ ∂μ := hmp.integral_comp' (fun U => ⟪ψ₁ U, ψ₂ U⟫_ℂ)
+
+theorem ksLinkShiftOp_adj (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (x y : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪ksLinkShiftOp L N e v x, y⟫_ℂ = ⟪x, ksLinkShiftOp L N e v⁻¹ y⟫_ℂ := by
+  calc ⟪ksLinkShiftOp L N e v x, y⟫_ℂ
+      = ⟪ksLinkShiftOp L N e v⁻¹ (ksLinkShiftOp L N e v x),
+          ksLinkShiftOp L N e v⁻¹ y⟫_ℂ :=
+          (ksLinkShiftOp_unitary L N e v⁻¹ _ _).symm
+    _ = ⟪x, ksLinkShiftOp L N e v⁻¹ y⟫_ℂ := by
+          congr 1
+          apply MeasureTheory.Lp.ext
+          let μ := latticeHaarMeasure L N
+          let eqv := linkLeftShiftEquiv L N e v
+          let hmp := linkLeftShiftEquiv_mp L N e v
+          have h1 := ksLinkShiftOp_apply_ae L N e v⁻¹ (ksLinkShiftOp L N e v x)
+          have h2 : (fun U => (ksLinkShiftOp L N e v x) (linkLeftShift L N e v U)) =ᵐ[μ]
+              (fun U => x (linkLeftShift L N e v⁻¹ (linkLeftShift L N e v U))) := by
+            simpa [eqv] using ae_comp_measurePreserving hmp (ksLinkShiftOp_apply_ae L N e v x)
+          filter_upwards [h1, h2] with U hu1 hu2
+          rw [inv_inv] at hu1
+          rw [hu1, hu2]
+          congr 1
+          funext e'
+          by_cases he : e' = e <;> simp [linkLeftShift, he, ← mul_assoc]
+
+/--
+Kogut–Susskind electric link Laplacian `Δ_{e, v} = 2 I - U_{e,v} - U_{e,v⁻¹} = (I - U_{e,v})* (I - U_{e,v})`
+on `L²(SU(N)^{3L³}, dμ_Haar)`.
+-/
+noncomputable def ksElectricLaplacian (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  (2 : ℂ) • ContinuousLinearMap.id ℂ (HaarGaugeSpace (latticeHaarMeasure L N)) -
+    ksLinkShiftOp L N e v - ksLinkShiftOp L N e v⁻¹
+
+theorem ksElectricLaplacian_sa (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (x y : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪ksElectricLaplacian L N e v x, y⟫_ℂ = ⟪x, ksElectricLaplacian L N e v y⟫_ℂ := by
+  simp only [ksElectricLaplacian, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply,
+    inner_sub_left, inner_sub_right, inner_smul_left, inner_smul_right,
+    Complex.conj_ofNat]
+  rw [ksLinkShiftOp_adj L N e v x y, ksLinkShiftOp_adj L N e v⁻¹ x y, inv_inv]
+  ring
+
+theorem ksElectricLaplacian_nonneg (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) (v : Matrix.specialUnitaryGroup (Fin N) ℂ)
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    0 ≤ (⟪ψ, ksElectricLaplacian L N e v ψ⟫_ℂ).re := by
+  let U := ksLinkShiftOp L N e v
+  have h_id : ⟪ψ, ksElectricLaplacian L N e v ψ⟫_ℂ = ⟪ψ - U ψ, ψ - U ψ⟫_ℂ := by
+    simp only [ksElectricLaplacian, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply,
+      inner_sub_right, inner_smul_right, inner_sub_left]
+    rw [← ksLinkShiftOp_adj L N e v ψ ψ, ksLinkShiftOp_unitary L N e v ψ ψ]
+    change 2 * ⟪ψ, ψ⟫_ℂ - ⟪ψ, U ψ⟫_ℂ - ⟪U ψ, ψ⟫_ℂ =
+      ⟪ψ, ψ⟫_ℂ - ⟪U ψ, ψ⟫_ℂ - (⟪ψ, U ψ⟫_ℂ - ⟪ψ, ψ⟫_ℂ)
+    ring
+  rw [h_id, inner_self_eq_norm_sq_to_K]
+  simp [pow_two]
+  exact mul_self_nonneg _
+
+private theorem measurable_ksLinkTrace (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) :
+    Measurable (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      (Matrix.trace ((U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ)).re) := by
+  have h_ent : ∀ i : Fin N, Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (A : Matrix (Fin N) (Fin N) ℂ) i i) := fun i =>
+    (continuous_apply i).comp ((continuous_apply i).comp continuous_subtype_val)
+  have h_tr : Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re) := by
+    simp only [Matrix.trace, Matrix.diag, Complex.re_sum]
+    exact continuous_finset_sum Finset.univ fun i _ => Complex.continuous_re.comp (h_ent i)
+  exact h_tr.measurable.comp (measurable_gaugeField_eval L N e)
+
+/-- Real link trace observable `ψ ↦ (Re Tr U_e) · ψ`. -/
+noncomputable def ksLinkTraceOp (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  realMulOp (latticeHaarMeasure L N)
+    (fun U => (Matrix.trace ((U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re)
+    (measurable_ksLinkTrace L N e)
+    (N : ℝ) (Nat.cast_nonneg N) (fun U => abs_re_trace_su_le (U e))
+
+/-- Canonical non-central `SU(N)` element `diag(-1, -1, 1, …, 1)` for `N ≥ 2`. -/
+def suFlip2 (N : ℕ) (hN : 2 ≤ N) : Matrix.specialUnitaryGroup (Fin N) ℂ :=
+  let d : Fin N → ℂ := fun i => if (i : ℕ) < 2 then -1 else 1
+  have hU : star (Matrix.diagonal d) * Matrix.diagonal d = 1 ∧
+      Matrix.diagonal d * star (Matrix.diagonal d) = 1 := by
+    constructor <;>
+    · ext i j
+      by_cases hij : i = j
+      · subst hij
+        simp only [Matrix.mul_apply, Matrix.star_apply, Matrix.diagonal_apply_eq,
+          Matrix.one_apply_eq]
+        rw [Finset.sum_eq_single i]
+        · by_cases hi : (i : ℕ) < 2 <;> simp [d, hi]
+        · intro k _ hki
+          simp [Matrix.diagonal_apply_ne _ hki.symm, Matrix.diagonal_apply_ne _ hki]
+        · intro hi; exact absurd (Finset.mem_univ i) hi
+      · simp only [Matrix.mul_apply, Matrix.star_apply, Matrix.one_apply_ne hij]
+        refine Finset.sum_eq_zero fun k _ => ?_
+        by_cases hki : k = i
+        · subst hki
+          simp [Matrix.diagonal_apply, hij, Ne.symm hij]
+        · simp [Matrix.diagonal_apply, hki, Ne.symm hki]
+  have hdet : (Matrix.diagonal d).det = 1 := by
+    rw [Matrix.det_diagonal]
+    let i0 : Fin N := ⟨0, by omega⟩
+    let i1 : Fin N := ⟨1, by omega⟩
+    have h01 : i0 ≠ i1 := by
+      intro h
+      have := congrArg Fin.val h
+      norm_num [i0, i1] at this
+    rw [← Finset.mul_prod_erase Finset.univ d (Finset.mem_univ i0)]
+    have hi1_mem : i1 ∈ Finset.univ.erase i0 := Finset.mem_erase.mpr ⟨h01.symm, Finset.mem_univ i1⟩
+    rw [← Finset.mul_prod_erase (Finset.univ.erase i0) d hi1_mem]
+    have h_rest : ∏ x ∈ (Finset.univ.erase i0).erase i1, d x = 1 := by
+      refine Finset.prod_eq_one fun x hx => ?_
+      have hx1 : x ≠ i1 := (Finset.mem_erase.mp hx).1
+      have hx0 : x ≠ i0 := (Finset.mem_erase.mp (Finset.mem_erase.mp hx).2).1
+      have hge2 : ¬ (x : ℕ) < 2 := by
+        intro hlt
+        rcases Nat.lt_succ_iff_lt_or_eq.mp hlt with h0 | h1
+        · exact hx0 (Fin.ext (Nat.lt_one_iff.mp h0))
+        · exact hx1 (Fin.ext h1)
+      simp [d, hge2]
+    have hd0 : d i0 = -1 := by simp [d, i0]
+    have hd1 : d i1 = -1 := by simp [d, i1]
+    rw [hd0, hd1, h_rest]
+    ring
+  ⟨Matrix.diagonal d, Unitary.mem_iff.mpr hU, hdet⟩
+
+/--
+**Non-commuting canonical electric–link bracket:**
+for any `N ≥ 2` and link `e` on `cubicTorus3 L`, the electric shift operator
+`ksLinkShiftOp L N e (suFlip2 N hN)` does NOT commute with `ksLinkTraceOp L N e`.
+-/
+theorem ks_electric_link_noncommute (L N : ℕ) [NeZero L] (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (e : (cubicTorus3 L).Link) :
+    lieBracketCLM (ksLinkShiftOp L N e (suFlip2 N hN)) (ksLinkTraceOp L N e) ≠ 0 := by
+  intro h0
+  let μ := latticeHaarMeasure L N
+  haveI := suHaar_prob N
+  haveI := latticeHaarMeasure_prob L N
+  haveI : MeasureTheory.Measure.IsHaarMeasure (suHaar N) :=
+    MeasureTheory.Measure.isHaarMeasure_haarMeasure ⊤
+  let oneLp : HaarGaugeSpace μ :=
+    MeasureTheory.indicatorConstLp (2 : ENNReal) MeasurableSet.univ
+      (MeasureTheory.measure_ne_top μ Set.univ) (1 : ℂ)
+  have hone_ae : ⇑oneLp =ᵐ[μ] fun _ => (1 : ℂ) := by
+    have h := MeasureTheory.indicatorConstLp_coeFn (p := (2 : ENNReal))
+      (μ := μ) (s := Set.univ) (hs := MeasurableSet.univ)
+      (hμs := MeasureTheory.measure_ne_top μ Set.univ) (c := (1 : ℂ))
+    filter_upwards [h] with U hU
+    simpa [oneLp] using hU
+  have hcomm := congrArg (fun f : HaarGaugeSpace μ →L[ℂ] HaarGaugeSpace μ => f oneLp) h0
+  dsimp only [lieBracketCLM] at hcomm
+  rw [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.comp_apply, ContinuousLinearMap.zero_apply, sub_eq_zero] at hcomm
+  let v := suFlip2 N hN
+  let eqv := linkLeftShiftEquiv L N e v⁻¹
+  let hmp := linkLeftShiftEquiv_mp L N e v⁻¹
+  let trFn : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ :=
+    fun U => (Matrix.trace ((U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re
+  have h_tr_ae : ∀ (ψ : HaarGaugeSpace μ),
+      ⇑(ksLinkTraceOp L N e ψ) =ᵐ[μ] fun U => ((trFn U : ℝ) : ℂ) * ψ U :=
+    fun ψ => realMulOp_apply_ae μ trFn (measurable_ksLinkTrace L N e)
+      (N : ℝ) (Nat.cast_nonneg N) (fun U => abs_re_trace_su_le (U e)) ψ
+  have hL1 := ksLinkShiftOp_apply_ae L N e v (ksLinkTraceOp L N e oneLp)
+  have hL2 := ae_comp_measurePreserving hmp (h_tr_ae oneLp)
+  have hL3 := ae_comp_measurePreserving hmp hone_ae
+  have hR1 := h_tr_ae (ksLinkShiftOp L N e v oneLp)
+  have hR2 := ksLinkShiftOp_apply_ae L N e v oneLp
+  have h_ae_diff : (fun U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      ((Matrix.trace ((v⁻¹ * U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ)).re : ℂ) -
+      ((Matrix.trace ((U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ)).re : ℂ)) =ᵐ[μ] 0 := by
+    have h_eq := MeasureTheory.Lp.ext_iff.mp hcomm
+    filter_upwards [h_eq, hL1, hL2, hL3, hR1, hR2, hone_ae] with U hU hl1 hl2 hl3 hr1 hr2 h_one
+    change ⇑((ksLinkShiftOp L N e v) ((ksLinkTraceOp L N e) oneLp)) U =
+      ⇑((ksLinkTraceOp L N e) ((ksLinkShiftOp L N e v) oneLp)) U at hU
+    have hl2' : ⇑((ksLinkTraceOp L N e) oneLp) (linkLeftShift L N e v⁻¹ U) =
+        ((trFn (linkLeftShift L N e v⁻¹ U) : ℝ) : ℂ) *
+          ⇑oneLp (linkLeftShift L N e v⁻¹ U) := by
+      simpa [eqv] using hl2
+    have hl3' : ⇑oneLp (linkLeftShift L N e v⁻¹ U) = 1 := by simpa [eqv] using hl3
+    have h_tr_shift : trFn (linkLeftShift L N e v⁻¹ U) =
+        (Matrix.trace ((v⁻¹ * U e : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ)).re := by
+      simp [trFn, linkLeftShift]
+    rw [hl1, hl2', hl3', mul_one, h_tr_shift, hr1, hr2, hl3', mul_one] at hU
+    change _ - _ = (0 : ℂ)
+    rw [hU, sub_self]
+  let g_su : Matrix.specialUnitaryGroup (Fin N) ℂ → ℝ := fun A =>
+    (Matrix.trace ((v⁻¹ * A : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re -
+    (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re
+  have hg_cont : Continuous g_su := by
+    have h_ent : ∀ i : Fin N, Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+        (A : Matrix (Fin N) (Fin N) ℂ) i i) := fun i =>
+      (continuous_apply i).comp ((continuous_apply i).comp continuous_subtype_val)
+    have h_tr : Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+        (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re) := by
+      simp only [Matrix.trace, Matrix.diag, Complex.re_sum]
+      exact continuous_finset_sum Finset.univ fun i _ => Complex.continuous_re.comp (h_ent i)
+    exact (h_tr.comp (continuous_mul_left v⁻¹)).sub h_tr
+  let S_open : Set (Matrix.specialUnitaryGroup (Fin N) ℂ) := { A | g_su A ≠ 0 }
+  have hS_open : IsOpen S_open := isOpen_ne.preimage hg_cont
+  have h1_mem : (1 : Matrix.specialUnitaryGroup (Fin N) ℂ) ∈ S_open := by
+    change g_su 1 ≠ 0
+    have hdiff : g_su 1 =
+        (Matrix.trace ((v⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+          Matrix (Fin N) (Fin N) ℂ)).re - (N : ℝ) := by
+      simp [g_su]
+    have h_le : (Matrix.trace ((v⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ)).re ≤ (N : ℝ) - 4 := by
+      have hv_inv : (v⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) = v := by
+        apply Subtype.ext
+        have h_mul : (v : Matrix (Fin N) (Fin N) ℂ) * (v : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+          ext i j
+          by_cases hij : i = j
+          · subst hij
+            simp only [v, suFlip2, Matrix.mul_apply, Matrix.diagonal_apply_eq, Matrix.one_apply_eq]
+            rw [Finset.sum_eq_single i]
+            · by_cases hi : (i : ℕ) < 2 <;> simp [hi]
+            · intro k _ hki
+              simp [Matrix.diagonal_apply_ne _ hki.symm, Matrix.diagonal_apply_ne _ hki]
+            · intro hi; exact absurd (Finset.mem_univ i) hi
+          · simp only [v, suFlip2, Matrix.mul_apply, Matrix.one_apply_ne hij]
+            refine Finset.sum_eq_zero fun k _ => ?_
+            by_cases hki : k = i
+            · subst hki
+              simp [Matrix.diagonal_apply, hij]
+            · simp [Matrix.diagonal_apply, Ne.symm hki]
+        have hv_eq : (v : Matrix (Fin N) (Fin N) ℂ) = (v⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) := by
+          have := congrArg (fun M : Matrix.specialUnitaryGroup (Fin N) ℂ => (M : Matrix (Fin N) (Fin N) ℂ))
+            (inv_eq_of_mul_eq_one_left (Subtype.ext h_mul))
+          exact this.symm
+        exact hv_eq.symm
+      rw [hv_inv]
+      simp only [v, suFlip2, Matrix.trace, Matrix.diag, Matrix.diagonal_apply_eq, Complex.re_sum]
+      let i0 : Fin N := ⟨0, by omega⟩
+      let i1 : Fin N := ⟨1, by omega⟩
+      have h01 : i0 ≠ i1 := by
+        intro h; have := congrArg Fin.val h; norm_num [i0, i1] at this
+      rw [← Finset.add_sum_erase Finset.univ _ (Finset.mem_univ i0)]
+      have hi1_mem : i1 ∈ Finset.univ.erase i0 := Finset.mem_erase.mpr ⟨h01.symm, Finset.mem_univ i1⟩
+      rw [← Finset.add_sum_erase (Finset.univ.erase i0) _ hi1_mem]
+      have h0 : ((if (i0 : ℕ) < 2 then (-1 : ℂ) else 1)).re = -1 := by simp [i0]
+      have h1 : ((if (i1 : ℕ) < 2 then (-1 : ℂ) else 1)).re = -1 := by simp [i1]
+      have h_rest : ∑ x ∈ (Finset.univ.erase i0).erase i1,
+          ((if (x : ℕ) < 2 then (-1 : ℂ) else 1)).re ≤ ((N : ℝ) - 2) := by
+        calc ∑ x ∈ (Finset.univ.erase i0).erase i1,
+              ((if (x : ℕ) < 2 then (-1 : ℂ) else 1)).re
+            ≤ ∑ _x ∈ (Finset.univ.erase i0).erase i1, (1 : ℝ) := by
+              refine Finset.sum_le_sum fun x _ => ?_
+              by_cases hx : (x : ℕ) < 2 <;> simp [hx]
+          _ = (((Finset.univ.erase i0).erase i1).card : ℝ) := by simp
+          _ = (N : ℝ) - 2 := by
+              have hc1 : ((Finset.univ.erase i0).erase i1).card = N - 2 := by
+                rw [Finset.card_erase_of_mem hi1_mem, Finset.card_erase_of_mem (Finset.mem_univ i0),
+                  Finset.card_univ, Fintype.card_fin]
+                omega
+              rw [hc1, Nat.cast_sub hN]
+              norm_num
+      linarith
+    rw [hdiff]
+    linarith
+  have hS_pos : 0 < suHaar N S_open :=
+    hS_open.measure_pos (suHaar N) ⟨1, h1_mem⟩
+  have h_prod_pos : 0 < μ { U | U e ∈ S_open } := by
+    let T_set : (cubicTorus3 L).Link → Set (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+      Function.update (fun _ => Set.univ) e S_open
+    have h_eq_pi : { U : GaugeField (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ) |
+        U e ∈ S_open } = Set.pi Set.univ T_set := by
+      ext U
+      simp only [Set.mem_setOf_eq, Set.mem_pi, Set.mem_univ, forall_true_left, T_set]
+      constructor
+      · intro h e'
+        by_cases he : e' = e
+        · subst he; simpa [Function.update_self] using h
+        · simp [Function.update_of_ne he]
+      · intro h
+        simpa [Function.update_self] using h e
+    have h_pi_val : μ (Set.pi Set.univ T_set) = ∏ e', suHaar N (T_set e') := by
+      change (MeasureTheory.Measure.pi (fun _ => suHaar N)) (Set.pi Set.univ T_set) = _
+      exact MeasureTheory.Measure.pi_pi (fun _ => suHaar N) T_set
+    have h_prod_eq : ∏ e', suHaar N (T_set e') = suHaar N S_open := by
+      rw [← Finset.mul_prod_erase Finset.univ (fun e' => suHaar N (T_set e')) (Finset.mem_univ e)]
+      have h_other : ∏ e' ∈ Finset.univ.erase e, suHaar N (T_set e') = 1 := by
+        refine Finset.prod_eq_one fun e' he' => ?_
+        have hne : e' ≠ e := (Finset.mem_erase.mp he').1
+        simp [T_set, Function.update_of_ne hne, MeasureTheory.measure_univ]
+      rw [h_other, mul_one]
+      simp [T_set, Function.update_self]
+    rw [h_eq_pi, h_pi_val, h_prod_eq]
+    exact hS_pos
+  have h_zero : μ { U | U e ∈ S_open } = 0 := by
+    refine MeasureTheory.measure_mono_null (fun U hU => ?_) h_ae_diff
+    intro h0_pt
+    have h0_re := congrArg Complex.re h0_pt
+    change g_su (U e) = 0 at h0_re
+    exact hU h0_re
+  exact lt_irrefl 0 (h_prod_pos.trans_eq h_zero)
+
+/--
+Full gauge-invariant Kogut–Susskind Hamiltonian combining the magnetic plaquette
+operator `ksMagneticH` and the Wilson transfer Hamiltonian `transferHamiltonian`.
+-/
+noncomputable def ksGaugeInvariantH (L N : ℕ) [NeZero L] (β g_sq a : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] HaarGaugeSpace (latticeHaarMeasure L N) :=
+  ksMagneticH L N g_sq a + transferHamiltonian (cubicLatticeGaugeSetup L N β hβ)
+
+theorem ksGaugeInvariantH_sa (L N : ℕ) [NeZero L] (β g_sq a : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (x y : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    ⟪ksGaugeInvariantH L N β g_sq a hβ x, y⟫_ℂ =
+      ⟪x, ksGaugeInvariantH L N β g_sq a hβ y⟫_ℂ := by
+  simp only [ksGaugeInvariantH, ContinuousLinearMap.add_apply, inner_add_left, inner_add_right,
+    ksMagneticH_sa, transferHamiltonian_sa]
+
+theorem ksGaugeInvariantH_nonneg (L N : ℕ) [NeZero L] (β g_sq a : ℝ)
+    (hβ : 0 ≤ β) (hg : 0 < g_sq) (ha : 0 < a)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (ψ : HaarGaugeSpace (latticeHaarMeasure L N)) :
+    0 ≤ (⟪ψ, ksGaugeInvariantH L N β g_sq a hβ ψ⟫_ℂ).re := by
+  simp only [ksGaugeInvariantH, ContinuousLinearMap.add_apply, inner_add_right, Complex.add_re]
+  exact add_nonneg (ksMagneticH_nonneg L N g_sq a hg ha ψ) (transferHamiltonian_nonneg _ ψ)
+
+theorem ksGaugeInvariantH_gauge_comm (L N : ℕ) [NeZero L] (β g_sq a : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (g : GaugeTransform (cubicTorus3 L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    lieBracketCLM (cubicGaugeRep L N g) (ksGaugeInvariantH L N β g_sq a hβ) = 0 := by
+  have hm := ksMagneticH_gauge_inv L N g_sq a g
+  have ht := transferHamiltonian_comm_of_comm (cubicLatticeGaugeSetup L N β hβ)
+    (cubicGaugeRep L N g) (by
+      unfold lieBracketCLM
+      change (cubicGaugeRep L N g).comp (cubicWilsonTransferOp L N β hβ) -
+        (cubicWilsonTransferOp L N β hβ).comp (cubicGaugeRep L N g) = 0
+      rw [cubicWilsonTransferOp_gauge_inv L N β hβ g, sub_self])
+  unfold lieBracketCLM at hm ht
+  unfold lieBracketCLM ksGaugeInvariantH
+  ext1 ψ
+  have hm' := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ) hm
+  have ht' := congrArg (fun f : HaarGaugeSpace (latticeHaarMeasure L N) →L[ℂ] _ => f ψ) ht
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.add_apply, ContinuousLinearMap.zero_apply, map_add, sub_eq_zero] at hm' ht' ⊢
+  rw [hm', ht']
+
+/-- Gauss-law invariance preserves `invarianceSet (cubicGaugeRep L N)` under `ksGaugeInvariantH`. -/
+theorem ksGaugeInvariantH_preserves_gaussLaw (L N : ℕ) [NeZero L] (β g_sq a : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    {ψ : HaarGaugeSpace (latticeHaarMeasure L N)}
+    (hψ : ψ ∈ invarianceSet (cubicGaugeRep L N)) :
+    ksGaugeInvariantH L N β g_sq a hβ ψ ∈ invarianceSet (cubicGaugeRep L N) :=
+  invarianceSet_preserved (cubicGaugeRep L N) (ksGaugeInvariantH L N β g_sq a hβ)
+    (fun g => sub_eq_zero.mp (ksGaugeInvariantH_gauge_comm L N β g_sq a hβ g)) hψ
+
+end KogutSusskindYM
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -8238,3 +9086,17 @@ end YangMills
 #print axioms YangMills.infDimOSReconstructionData
 #print axioms YangMills.infdim_poincare_euclidean_os_verification
 #print axioms YangMills.infdim_poincare_wightman_reconstruction
+
+-- §28. Kogut–Susskind Yang–Mills Hamiltonian, non-commuting link algebra & Gauss law
+#print axioms YangMills.ksPlaquetteOp_gauge_inv
+#print axioms YangMills.ksMagneticH_sa
+#print axioms YangMills.ksMagneticH_nonneg
+#print axioms YangMills.ksMagneticH_gauge_inv
+#print axioms YangMills.ksLinkShiftOp_unitary
+#print axioms YangMills.ksElectricLaplacian_sa
+#print axioms YangMills.ksElectricLaplacian_nonneg
+#print axioms YangMills.ks_electric_link_noncommute
+#print axioms YangMills.ksGaugeInvariantH_sa
+#print axioms YangMills.ksGaugeInvariantH_nonneg
+#print axioms YangMills.ksGaugeInvariantH_gauge_comm
+#print axioms YangMills.ksGaugeInvariantH_preserves_gaussLaw
