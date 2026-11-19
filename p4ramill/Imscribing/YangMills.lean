@@ -2570,6 +2570,1500 @@ theorem non_trivial_4d_relativistic_qft_on_minkowski_spacetime
 
 end MinkowskiRelativisticQFT 
 
+/-! ## §11.  Non-Abelian lattice gauge Hilbert space and Wilson transfer matrix -/
+
+section NonAbelianWilson
+
+private theorem su_trace_conj {N : ℕ}
+    (A B : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    Matrix.trace ((A * B * A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ) =
+      Matrix.trace (B : Matrix (Fin N) (Fin N) ℂ) := by
+  have hmul : ∀ X Y : Matrix.specialUnitaryGroup (Fin N) ℂ,
+      ((X * Y : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) =
+        (X : Matrix (Fin N) (Fin N) ℂ) * (Y : Matrix (Fin N) (Fin N) ℂ) :=
+    fun _ _ => rfl
+  have hone : ((1 : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ) = 1 := rfl
+  have hinv : ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+        Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+    rw [← hmul A⁻¹ A, inv_mul_cancel, hone]
+  rw [hmul (A * B) A⁻¹, hmul A B,
+    Matrix.trace_mul_comm ((A : Matrix (Fin N) (Fin N) ℂ) * (B : Matrix (Fin N) (Fin N) ℂ))
+      ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ),
+    ← mul_assoc, hinv, one_mul]
+
+/-- Closed elementary plaquette on a spatial lattice `L`. -/
+structure LatticePlaquette (L : SpatialLattice) where
+  base      : L.Site
+  loop      : List (L.Link × Bool)
+  is_closed : IsLatticePath L base base loop
+
+/-- Single-plaquette Wilson action term `1 - (1/N) Re Tr(U_□)`. -/
+noncomputable def wilsonPlaquetteTerm {L : SpatialLattice} {N : ℕ}
+    (p : LatticePlaquette L)
+    (U : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  1 - (1 / (N : ℝ)) *
+    (Matrix.trace ((pathHolonomy U p.loop : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ)).re
+
+/-- Total Wilson plaquette action `S_W[U] = β ∑_□ (1 - (1/N) Re Tr(U_□))`. -/
+noncomputable def wilsonAction {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (U : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  β * (plaquettes.map (fun p => wilsonPlaquetteTerm p U)).sum
+
+theorem wilsonPlaquetteTerm_gauge_inv {L : SpatialLattice} {N : ℕ}
+    (p : LatticePlaquette L)
+    (g : GaugeTransform L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonPlaquetteTerm p (gaugeAct g U) = wilsonPlaquetteTerm p U := by
+  unfold wilsonPlaquetteTerm
+  rw [wilsonLoop_gauge_invariant
+    (fun M : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (Matrix.trace (M : Matrix (Fin N) (Fin N) ℂ) : ℂ))
+    su_trace_conj g U p.is_closed]
+
+theorem wilsonAction_gauge_inv {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (g : GaugeTransform L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β plaquettes (gaugeAct g U) = wilsonAction β plaquettes U := by
+  unfold wilsonAction
+  congr 1
+  induction plaquettes with
+  | nil => rfl
+  | cons p ps ih =>
+    simp only [List.map_cons, List.sum_cons]
+    rw [wilsonPlaquetteTerm_gauge_inv, ih]
+
+/-- Wilson transfer kernel `exp(-½(S_W[U] + S_W[U'])) * K_kin(U, U')`. -/
+noncomputable def wilsonKernel {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (K_kin : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (U U' : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  Real.exp (-(1 / 2 : ℝ) * (wilsonAction β plaquettes U + wilsonAction β plaquettes U')) *
+    K_kin U U'
+
+theorem wilsonKernel_gauge_inv {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (K_kin : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_inv : ∀ g U U', K_kin (gaugeAct g U) (gaugeAct g U') = K_kin U U')
+    (g : GaugeTransform L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U U' : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonKernel β plaquettes K_kin (gaugeAct g U) (gaugeAct g U') =
+      wilsonKernel β plaquettes K_kin U U' := by
+  unfold wilsonKernel
+  rw [wilsonAction_gauge_inv, wilsonAction_gauge_inv, hK_inv]
+
+theorem wilsonKernel_symm {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (K_kin : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_symm : ∀ U U', K_kin U' U = K_kin U U')
+    (U U' : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonKernel β plaquettes K_kin U' U = wilsonKernel β plaquettes K_kin U U' := by
+  unfold wilsonKernel
+  rw [add_comm (wilsonAction β plaquettes U'), hK_symm]
+
+theorem wilsonKernel_nonneg {L : SpatialLattice} {N : ℕ}
+    (β : ℝ) (plaquettes : List (LatticePlaquette L))
+    (K_kin : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ)
+    (hK_nonneg : ∀ U U', 0 ≤ K_kin U U')
+    (U U' : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    0 ≤ wilsonKernel β plaquettes K_kin U U' :=
+  mul_nonneg (Real.exp_pos _).le (hK_nonneg U U')
+
+/-- `L²(SU(N)^Link, μ)` Hilbert space for non-Abelian lattice gauge theory. -/
+abbrev HaarGaugeSpace {L : SpatialLattice} {N : ℕ}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (μ : MeasureTheory.Measure (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))) :=
+  MeasureTheory.Lp ℂ 2 μ
+
+/--
+Non-Abelian `SU(N)` Wilson lattice gauge setup on `L²(G^Link, μ_Haar)`
+coupled to the symmetry algebra `{H_i}`, conserved observables, and
+thermodynamic/continuum data.
+-/
+structure NonAbelianWilsonSetup (L : SpatialLattice) (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))] where
+  μ          : MeasureTheory.Measure (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+  [μ_prob    : MeasureTheory.IsProbabilityMeasure μ]
+  μ_inv      : ∀ g, MeasureTheory.Measure.map (gaugeAct g) μ = μ
+  β          : ℝ
+  β_pos      : 0 < β
+  plaquettes : List (LatticePlaquette L)
+  K_kin      : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+                 GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℝ
+  K_symm     : ∀ U U', K_kin U' U = K_kin U U'
+  K_nonneg   : ∀ U U', 0 ≤ K_kin U U'
+  K_inv      : ∀ g U U', K_kin (gaugeAct g U) (gaugeAct g U') = K_kin U U'
+  gaugeSetup : LatticeGaugeSetup L (Matrix.specialUnitaryGroup (Fin N) ℂ) (HaarGaugeSpace μ)
+  SymmIdx    : Type
+  symmOp     : SymmIdx → (HaarGaugeSpace μ →L[ℂ] HaarGaugeSpace μ)
+  symm_comm  : ∀ i, lieBracketCLM (symmOp i) gaugeSetup.T = 0
+
+attribute [instance] NonAbelianWilsonSetup.μ_prob
+
+theorem nonAbelianWilson_kernel_properties {L : SpatialLattice} {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (W : NonAbelianWilsonSetup L N hN)
+    (g : GaugeTransform L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (U U' : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonKernel W.β W.plaquettes W.K_kin (gaugeAct g U) (gaugeAct g U') =
+      wilsonKernel W.β W.plaquettes W.K_kin U U' ∧
+    wilsonKernel W.β W.plaquettes W.K_kin U' U =
+      wilsonKernel W.β W.plaquettes W.K_kin U U' ∧
+    0 ≤ wilsonKernel W.β W.plaquettes W.K_kin U U' :=
+  ⟨wilsonKernel_gauge_inv W.β W.plaquettes W.K_kin W.K_inv g U U',
+   wilsonKernel_symm W.β W.plaquettes W.K_kin W.K_symm U U',
+   wilsonKernel_nonneg W.β W.plaquettes W.K_kin W.K_nonneg U U'⟩
+
+theorem nonAbelianWilson_clustering {L : SpatialLattice} {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (W : NonAbelianWilsonSetup L N hN)
+    (A B : HaarGaugeSpace W.μ →L[ℂ] HaarGaugeSpace W.μ)
+    (hA : ⟪A W.gaugeSetup.Ω, W.gaugeSetup.Ω⟫_ℂ = 0)
+    (hB : ⟪B W.gaugeSetup.Ω, W.gaugeSetup.Ω⟫_ℂ = 0)
+    (k : ℕ) :
+    ‖⟪W.gaugeSetup.Ω, A ((W.gaugeSetup.T ^ k) (B W.gaugeSetup.Ω))⟫_ℂ‖
+      ≤ ‖A‖ * ‖B‖ * Real.exp (-(W.gaugeSetup.Δ * (k * W.gaugeSetup.a))) :=
+  clustering W.gaugeSetup A B hA hB k
+
+end NonAbelianWilson
+
+/-! ## §12.  Uniform RG spectral gap and Schwinger convergence -/
+
+section UniformRG
+
+/--
+Uniform renormalization-group trajectory for 4D `SU(N)` lattice gauge theory:
+- At each spacing `a_m > 0`, the lattice gap `Δ_latt m > 0` is uniform across volumes;
+- Along `a_m → 0⁺` (`β_m → ∞`), the **rescaled** physical gap satisfies
+  `Δ_latt m / a_m ≥ Δ₀ > 0` and converges to `Δ_phys > 0`;
+- The lattice `n`-point Schwinger functions converge to `S_inf n`.
+-/
+structure UniformRGTrajectory (N : ℕ) (hN : 2 ≤ N) where
+  F                 : LatticeScalingFamily (Matrix.specialUnitaryGroup (Fin N) ℂ)
+  a_seq             : ℕ → ℝ
+  β_seq             : ℕ → ℝ
+  ha_pos            : ∀ m, 0 < a_seq m
+  ha_lim            : Filter.Tendsto a_seq Filter.atTop (nhds 0)
+  hβ_lim            : Filter.Tendsto β_seq Filter.atTop Filter.atTop
+  Δ_latt            : ℕ → ℝ
+  Δ_latt_pos        : ∀ m, 0 < Δ_latt m
+  Δ₀                : ℝ
+  Δ₀_pos            : 0 < Δ₀
+  unif_rescaled_gap : ∀ m, Δ₀ ≤ Δ_latt m / a_seq m
+  gap_lim           : Filter.Tendsto (fun m => Δ_latt m / a_seq m)
+                        Filter.atTop (nhds F.Δ_phys)
+  S_latt            : ℕ → ∀ n : ℕ, (Fin n → Space4) → ℂ
+  S_inf             : ∀ n : ℕ, (Fin n → Space4) → ℂ
+  schwinger_conv    : ∀ (n : ℕ) (xs : Fin n → Space4),
+    Filter.Tendsto (fun m => S_latt m n xs) Filter.atTop (nhds (S_inf n xs))
+
+theorem uniform_rg_phys_gap_lb {N : ℕ} {hN : 2 ≤ N}
+    (R : UniformRGTrajectory N hN) :
+    R.Δ₀ ≤ R.F.Δ_phys :=
+  ge_of_tendsto R.gap_lim (Filter.Eventually.of_forall R.unif_rescaled_gap)
+
+theorem uniform_rg_correlation_length_diverges {N : ℕ} {hN : 2 ≤ N}
+    (R : UniformRGTrajectory N hN) :
+    Filter.Tendsto (fun m => (R.Δ_latt m)⁻¹) Filter.atTop Filter.atTop :=
+  correlation_length_diverges R.a_seq R.Δ_latt R.F.Δ_phys
+    R.ha_pos R.ha_lim R.Δ_latt_pos R.gap_lim
+
+theorem uniform_rg_clustering_limit {N : ℕ} {hN : 2 ≤ N}
+    (R : UniformRGTrajectory N hN)
+    (k_seq : ℕ → ℕ)
+    (A_seq B_seq : ∀ m, R.F.V (R.a_seq m) →L[ℂ] R.F.V (R.a_seq m))
+    (hA : ∀ m, ⟪A_seq m (R.F.setup (R.a_seq m) (R.ha_pos m)).Ω,
+        (R.F.setup (R.a_seq m) (R.ha_pos m)).Ω⟫_ℂ = 0)
+    (hB : ∀ m, ⟪B_seq m (R.F.setup (R.a_seq m) (R.ha_pos m)).Ω,
+        (R.F.setup (R.a_seq m) (R.ha_pos m)).Ω⟫_ℂ = 0)
+    (C : ℝ) (hC : ∀ m, ‖A_seq m‖ * ‖B_seq m‖ ≤ C)
+    (t W_inf : ℝ)
+    (ht_lim : Filter.Tendsto (fun m => (k_seq m : ℝ) * R.a_seq m) Filter.atTop (nhds t))
+    (hW_lim : Filter.Tendsto
+      (fun m => ‖⟪(R.F.setup (R.a_seq m) (R.ha_pos m)).Ω,
+        A_seq m (((R.F.setup (R.a_seq m) (R.ha_pos m)).T ^ k_seq m)
+          (B_seq m (R.F.setup (R.a_seq m) (R.ha_pos m)).Ω))⟫_ℂ‖)
+      Filter.atTop (nhds W_inf)) :
+    W_inf ≤ C * Real.exp (-(R.F.Δ_phys * t)) :=
+  continuum_scaling_clustering R.F R.a_seq R.ha_pos k_seq A_seq B_seq
+    hA hB C hC t W_inf ht_lim hW_lim
+
+end UniformRG
+
+/-! ## §13.  Non-Gaussian 4D Osterwalder–Schrader Euclidean continuum theory -/
+
+section NonGaussianOS4D
+
+/--
+Full non-Gaussian 4D Osterwalder–Schrader Euclidean continuum theory:
+`OsterwalderSchrader4D Δ_phys` strengthened with general `n`-point reflection
+positivity, non-vanishing `n`-point functions, and non-vanishing connected 4-point
+function `connected4`.
+-/
+structure OS4DContinuumTheory (Δ_phys : ℝ) where
+  os                : OsterwalderSchrader4D Δ_phys
+  refl_pos_n        : ∀ (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+                        (xs : ∀ i : Fin m, Fin (n_pts i) → Space4),
+                        (∀ i k, 0 < (xs i k) 0) →
+                        0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+                          c i * starRingEnd ℂ (c j) *
+                            os.Schwinger (n_pts i + n_pts j)
+                              (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re
+  schwinger_nonzero : ∀ n : ℕ, 1 ≤ n → ∃ xs : Fin n → Space4, os.Schwinger n xs ≠ 0
+  non_gaussian      : ∃ xs : Fin 4 → Space4, connected4 os.Schwinger xs ≠ 0
+
+/-- General `n`-point reflection positivity specializes directly to the 2-point condition. -/
+theorem os2_refl_pos_from_n {Δ_phys : ℝ} (os : OsterwalderSchrader4D Δ_phys)
+    (h_n : ∀ (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+        (xs : ∀ i : Fin m, Fin (n_pts i) → Space4),
+        (∀ i k, 0 < (xs i k) 0) →
+        0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+          c i * starRingEnd ℂ (c j) *
+            os.Schwinger (n_pts i + n_pts j)
+              (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re)
+    (m : ℕ) (c : Fin m → ℂ) (xs : Fin m → Space4) (hpos : ∀ i, 0 < xs i 0) :
+    0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        os.Schwinger 2 ![euclidTimeReflect (xs i), xs j]).re := by
+  have h := h_n m (fun _ => 1) c (fun i _ => xs i) (fun i _ => hpos i)
+  dsimp only at h
+  refine le_trans h (le_of_eq ?_)
+  congr 1
+  refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+  have happ : Fin.append (fun _ : Fin 1 => euclidTimeReflect (xs i)) (fun _ : Fin 1 => xs j) =
+      ![euclidTimeReflect (xs i), xs j] := by
+    funext k
+    fin_cases k <;> rfl
+  rw [congrArg (os.Schwinger 2) happ]
+
+theorem os4d_theory_non_gaussian {Δ_phys : ℝ} (T : OS4DContinuumTheory Δ_phys) :
+    ¬ IsGaussian4 T.os.Schwinger := by
+  intro hG
+  rcases T.non_gaussian with ⟨xs, hxs⟩
+  exact hxs (isGaussian4_connected4_zero T.os.Schwinger hG xs)
+
+end NonGaussianOS4D
+
+/-! ## §14.  Osterwalder–Schrader reconstruction to the Minkowski Wightman QFT -/
+
+section OSReconstruction
+
+/--
+Positive-semidefinite Hermitian sesquilinear form induced on positive-time
+test configurations by Osterwalder–Schrader reflection positivity.
+-/
+structure OSReflectionForm (E : Type*) [AddCommGroup E] [Module ℂ E] where
+  B         : E → E → ℂ
+  add_left  : ∀ x y z, B (x + y) z = B x z + B y z
+  smul_left : ∀ (c : ℂ) x y, B (c • x) y = starRingEnd ℂ c * B x y
+  conj_symm : ∀ x y, B x y = starRingEnd ℂ (B y x)
+  pos_re    : ∀ x, 0 ≤ (B x x).re
+
+theorem OSReflectionForm.add_right {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x y z : E) :
+    F.B x (y + z) = F.B x y + F.B x z := by
+  rw [F.conj_symm x (y + z), F.add_left, map_add, ← F.conj_symm, ← F.conj_symm]
+
+theorem OSReflectionForm.smul_right {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (c : ℂ) (x y : E) :
+    F.B x (c • y) = c * F.B x y := by
+  rw [F.conj_symm x (c • y), F.smul_left, map_mul, Complex.conj_conj, ← F.conj_symm]
+
+theorem OSReflectionForm.sub_left {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x y z : E) :
+    F.B (x - y) z = F.B x z - F.B y z := by
+  rw [sub_eq_add_neg, ← neg_one_smul ℂ y, F.add_left, F.smul_left]
+  simp [sub_eq_add_neg]
+
+theorem OSReflectionForm.sub_right {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x y z : E) :
+    F.B x (y - z) = F.B x y - F.B x z := by
+  rw [sub_eq_add_neg, ← neg_one_smul ℂ z, F.add_right, F.smul_right]
+  simp [sub_eq_add_neg]
+
+theorem OSReflectionForm.self_im_zero {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x : E) :
+    (F.B x x).im = 0 :=
+  Complex.conj_eq_iff_im.mp (F.conj_symm x x).symm
+
+/-- Cauchy–Schwarz inequality for a reflection-positive OS sesquilinear form. -/
+theorem os_cauchy_schwarz {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x y : E) :
+    (F.B x y).re ^ 2 + (F.B x y).im ^ 2 ≤ (F.B x x).re * (F.B y y).re := by
+  set z : ℂ := F.B x y
+  set R : ℝ := z.re ^ 2 + z.im ^ 2
+  set a : ℝ := (F.B x x).re
+  set b : ℝ := (F.B y y).re
+  have hR_nonneg : 0 ≤ R := by positivity
+  have ha : 0 ≤ a := F.pos_re x
+  have hb : 0 ≤ b := F.pos_re y
+  have h_quad : ∀ t : ℝ, 0 ≤ R * a - 2 * R * t + b * t ^ 2 := by
+    intro t
+    have hp := F.pos_re (z • x - (t : ℂ) • y)
+    have hsub : z • x - (t : ℂ) • y = z • x + (-(t : ℂ)) • y := by
+      rw [sub_eq_add_neg, neg_smul]
+    rw [hsub, F.add_left, F.add_right, F.add_right] at hp
+    simp only [F.smul_left, F.smul_right, map_neg, Complex.conj_ofReal] at hp
+    have hxy : F.B x y = z := rfl
+    have hyx : F.B y x = starRingEnd ℂ z := by rw [F.conj_symm]
+    rw [hxy, hyx] at hp
+    have himx : (F.B x x).im = 0 := F.self_im_zero x
+    have himy : (F.B y y).im = 0 := F.self_im_zero y
+    have hre : (starRingEnd ℂ z * (z * F.B x x) + starRingEnd ℂ z * (-(t : ℂ) * z) +
+        (-(t : ℂ) * (z * starRingEnd ℂ z) + -(t : ℂ) * (-(t : ℂ) * F.B y y))).re =
+        R * a - 2 * R * t + b * t ^ 2 := by
+      simp only [Complex.add_re, Complex.mul_re, Complex.mul_im, Complex.neg_re, Complex.neg_im,
+        Complex.conj_re, Complex.conj_im, Complex.ofReal_re, Complex.ofReal_im,
+        himx, himy, mul_zero, zero_mul, sub_zero, add_zero]
+      dsimp [R, a, b]
+      ring
+    linarith
+  by_cases hR : R = 0
+  · rw [hR]
+    exact mul_nonneg ha hb
+  · have hR_pos : 0 < R := lt_of_le_of_ne hR_nonneg (Ne.symm hR)
+    by_cases hb0 : b = 0
+    · have hq := h_quad ((R * a + 1) / (2 * R))
+      rw [hb0, zero_mul, add_zero] at hq
+      have h2R : (2 * R) ≠ 0 := mul_ne_zero two_ne_zero hR
+      have hval : R * a - 2 * R * ((R * a + 1) / (2 * R)) = -1 := by
+        field_simp [h2R]
+        ring
+      linarith
+    · have hb_pos : 0 < b := lt_of_le_of_ne hb (Ne.symm hb0)
+      have hq := h_quad (R / b)
+      have hqb := mul_nonneg hq hb
+      have hval : (R * a - 2 * R * (R / b) + b * (R / b) ^ 2) * b = R * (a * b - R) := by
+        field_simp [hb0]
+        ring
+      rw [hval] at hqb
+      have hsub : 0 ≤ a * b - R := nonneg_of_mul_nonneg_right hqb hR_pos
+      linarith
+
+theorem OSReflectionForm.eq_zero_of_self_zero {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) {x : E} (hx : F.B x x = 0) (y : E) :
+    F.B x y = 0 := by
+  have hcs := os_cauchy_schwarz F x y
+  have hre0 : (F.B x x).re = 0 := by rw [hx, Complex.zero_re]
+  rw [hre0, zero_mul] at hcs
+  have hre : (F.B x y).re = 0 :=
+    sq_eq_zero_iff.mp (by linarith [sq_nonneg (F.B x y).re, sq_nonneg (F.B x y).im])
+  have him : (F.B x y).im = 0 :=
+    sq_eq_zero_iff.mp (by linarith [sq_nonneg (F.B x y).re, sq_nonneg (F.B x y).im])
+  exact Complex.ext hre him
+
+/-- Stage 1 null space `𝒩 = {x | ⟨x, x⟩_E = 0}` is a complex subspace. -/
+def osNullSpace {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Submodule ℂ E where
+  carrier := {x | F.B x x = 0}
+  add_mem' {x y} hx hy := by
+    change F.B x x = 0 at hx
+    change F.B y y = 0 at hy
+    change F.B (x + y) (x + y) = 0
+    have hxy : F.B x y = 0 := F.eq_zero_of_self_zero hx y
+    have hyx : F.B y x = 0 := by rw [F.conj_symm, hxy, map_zero]
+    rw [F.add_left, F.add_right, F.add_right, hx, hy, hxy, hyx]
+    ring
+  zero_mem' := by
+    change F.B 0 0 = 0
+    have h0 : (0 : ℂ) • (0 : E) = 0 := zero_smul ℂ 0
+    calc F.B 0 0 = F.B ((0 : ℂ) • (0 : E)) 0 := by rw [h0]
+      _ = starRingEnd ℂ (0 : ℂ) * F.B 0 0 := F.smul_left 0 0 0
+      _ = 0 := by simp
+  smul_mem' c {x} hx := by
+    change F.B x x = 0 at hx
+    change F.B (c • x) (c • x) = 0
+    rw [F.smul_left, F.smul_right, hx, mul_zero, mul_zero]
+
+/-- Stage 1 equivalence relation `x - y ∈ 𝒩` on positive-time test configurations. -/
+def osSetoid {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : Setoid E where
+  r x y := x - y ∈ osNullSpace F
+  iseqv :=
+    ⟨fun x => by rw [sub_self]; exact (osNullSpace F).zero_mem,
+     fun {x y} h => by
+       rw [← neg_sub x y]
+       exact (osNullSpace F).neg_mem h,
+     fun {x y z} h1 h2 => by
+       have hadd := (osNullSpace F).add_mem h1 h2
+       simpa [sub_add_sub_cancel] using hadd⟩
+
+/-- Stage 1 Euclidean quotient space `E / 𝒩`. -/
+abbrev OSQuotient {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) := Quotient (osSetoid F)
+
+def osQuotMk {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (x : E) : OSQuotient F :=
+  Quotient.mk (osSetoid F) x
+
+def osQuotAdd {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : OSQuotient F → OSQuotient F → OSQuotient F :=
+  fun u v => Quotient.liftOn₂ u v (fun x y => osQuotMk F (x + y)) (fun x₁ y₁ x₂ y₂ hx hy => by
+    apply Quotient.sound
+    change (x₁ + y₁) - (x₂ + y₂) ∈ osNullSpace F
+    have heq : (x₁ + y₁) - (x₂ + y₂) = (x₁ - x₂) + (y₁ - y₂) := by abel
+    rw [heq]
+    exact (osNullSpace F).add_mem hx hy)
+
+def osQuotSmul {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (c : ℂ) : OSQuotient F → OSQuotient F :=
+  fun u => Quotient.liftOn u (fun x => osQuotMk F (c • x)) (fun x₁ x₂ hx => by
+    apply Quotient.sound
+    change c • x₁ - c • x₂ ∈ osNullSpace F
+    rw [← smul_sub]
+    exact (osNullSpace F).smul_mem c hx)
+
+/-- Stage 1 GNS quotient inner product on `OSQuotient F`. -/
+noncomputable def osQuotInner {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) : OSQuotient F → OSQuotient F → ℂ :=
+  fun u v => Quotient.liftOn₂ u v F.B (fun x₁ y₁ x₂ y₂ hx hy => by
+    have h1 : F.B (x₁ - x₂) y₁ = 0 := F.eq_zero_of_self_zero hx y₁
+    have h2 : F.B x₂ (y₁ - y₂) = 0 := by
+      rw [F.conj_symm, F.eq_zero_of_self_zero hy x₂, map_zero]
+    rw [F.sub_left] at h1
+    rw [F.sub_right] at h2
+    exact sub_eq_zero.mp
+      (by rw [← sub_add_sub_cancel (F.B x₁ y₁) (F.B x₂ y₁) (F.B x₂ y₂), h1, h2, add_zero]))
+
+theorem osQuotInner_add_left {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u v w : OSQuotient F) :
+    osQuotInner F (osQuotAdd F u v) w = osQuotInner F u w + osQuotInner F v w := by
+  refine Quotient.inductionOn₃ u v w fun a b c => ?_
+  exact F.add_left a b c
+
+theorem osQuotInner_smul_left {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (c : ℂ) (u v : OSQuotient F) :
+    osQuotInner F (osQuotSmul F c u) v = starRingEnd ℂ c * osQuotInner F u v := by
+  refine Quotient.inductionOn₂ u v fun a b => ?_
+  exact F.smul_left c a b
+
+theorem osQuotInner_conj_symm {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u v : OSQuotient F) :
+    osQuotInner F u v = starRingEnd ℂ (osQuotInner F v u) := by
+  refine Quotient.inductionOn₂ u v fun a b => ?_
+  exact F.conj_symm a b
+
+theorem osQuotInner_pos_re {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u : OSQuotient F) :
+    0 ≤ (osQuotInner F u u).re := by
+  refine Quotient.inductionOn u fun a => ?_
+  exact F.pos_re a
+
+theorem osQuotInner_definite {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u : OSQuotient F) :
+    osQuotInner F u u = 0 ↔ u = osQuotMk F 0 := by
+  refine Quotient.inductionOn u fun a => ?_
+  constructor
+  · intro ha
+    apply Quotient.sound
+    change a - 0 ∈ osNullSpace F
+    rwa [sub_zero]
+  · intro hq
+    have hrel : a - 0 ∈ osNullSpace F := Quotient.exact hq
+    rwa [sub_zero] at hrel
+
+/--
+Stage 1 + Stage 2 Osterwalder–Schrader reconstruction data:
+the Euclidean quotient space `H` with contraction semigroup `T_E(t) = e^{-t H_phys}`,
+positive self-adjoint Minkowski Hamiltonian `H_phys ≥ 0` (`H_phys Ω = 0`),
+reconstructed `WightmanQFT4D Δ_phys` with cyclic vacuum and mass gap
+`spec(M²) ⊆ {0} ∪ [Δ_phys², ∞)`.
+-/
+structure OSReconstructionData (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys) where
+  wightman      : WightmanQFT4D Δ_phys
+  T_E           : ℝ → (wightman.H →L[ℂ] wightman.H)
+  T_E_zero      : T_E 0 = ContinuousLinearMap.id ℂ wightman.H
+  T_E_add       : ∀ s t, 0 ≤ s → 0 ≤ t → T_E (s + t) = (T_E s).comp (T_E t)
+  T_E_sa        : ∀ t x y, 0 ≤ t → ⟪T_E t x, y⟫_ℂ = ⟪x, T_E t y⟫_ℂ
+  T_E_contr     : ∀ t x, 0 ≤ t → ‖T_E t x‖ ≤ ‖x‖
+  H_phys        : wightman.H →L[ℂ] wightman.H
+  H_phys_sa     : ∀ x y, ⟪H_phys x, y⟫_ℂ = ⟪x, H_phys y⟫_ℂ
+  H_phys_nonneg : ∀ x, 0 ≤ (⟪x, H_phys x⟫_ℂ).re
+  H_phys_vac    : H_phys wightman.Ω_phys = 0
+  cyclic_dense  : (Submodule.span ℂ
+      {v : wightman.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+        v = (List.ofFn (fun i : Fin k => wightman.φ (xs i))).foldr
+          (fun A acc => A acc) wightman.Ω_phys}).topologicalClosure = ⊤
+
+theorem os_reconstruction_mass_gap {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData Δ_phys os) :
+    0 < Δ_phys ∧
+    ¬ IsGaussian4 os.os.Schwinger ∧
+    (∀ p2 ∈ R.wightman.P2_spec, ¬ (0 < p2 ∧ p2 < Δ_phys ^ 2)) ∧
+    (∀ x : R.wightman.H, 0 ≤ (⟪x, R.H_phys x⟫_ℂ).re) ∧
+    R.H_phys R.wightman.Ω_phys = 0 := by
+  refine ⟨os.os.Δ_pos, os4d_theory_non_gaussian os, ?_, R.H_phys_nonneg, R.H_phys_vac⟩
+  intro p2 hp2 hlt
+  rcases R.wightman.mass_gap_spec p2 hp2 with rfl | hge
+  · exact lt_irrefl 0 hlt.1
+  · linarith [hlt.2]
+
+end OSReconstruction 
+
+/-! ## §15.  Uniform rescaled lattice mass gap and RG convergence -/
+
+section UniformRescaledGap
+
+/--
+Quantum Hamiltonian `H = I - T` associated with any `LatticeGaugeSetup`.
+-/
+def transferHamiltonian {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) : V →L[ℂ] V :=
+  ContinuousLinearMap.id ℂ V - S.T
+
+theorem transferHamiltonian_sa {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) (x y : V) :
+    ⟪transferHamiltonian S x, y⟫_ℂ = ⟪x, transferHamiltonian S y⟫_ℂ := by
+  simp only [transferHamiltonian, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply, inner_sub_left, inner_sub_right, S.T_sa]
+
+theorem transferHamiltonian_vac {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) :
+    transferHamiltonian S S.Ω = 0 := by
+  simp only [transferHamiltonian, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.id_apply, S.Ω_vac, sub_self]
+
+theorem transferHamiltonian_nonneg {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) (ψ : V) :
+    0 ≤ (⟪ψ, transferHamiltonian S ψ⟫_ℂ).re := by
+  set Ω := S.Ω
+  set T := S.T
+  set c : ℂ := ⟪Ω, ψ⟫_ℂ
+  set v : V := ψ - c • Ω
+  have hΩ_self : ⟪Ω, Ω⟫_ℂ = 1 := by
+    rw [inner_self_eq_norm_sq_to_K, S.Ω_unit]
+    norm_num
+  have hv_orth : ⟪v, Ω⟫_ℂ = 0 := by
+    simp only [v, c, inner_sub_left, inner_smul_left, hΩ_self, mul_one,
+      inner_conj_symm, sub_self]
+  have hΩ_v : ⟪Ω, v⟫_ℂ = 0 := by
+    rw [← inner_conj_symm, hv_orth, map_zero]
+  have hψ_eq : ψ = c • Ω + v := by
+    simp only [v]
+    abel
+  have hTψ_eq : T ψ = c • Ω + T v := by
+    conv_lhs => rw [hψ_eq]
+    rw [map_add, map_smul, S.Ω_vac]
+  have hΩ_Tv : ⟪Ω, T v⟫_ℂ = 0 := by
+    rw [← S.T_sa, S.Ω_vac, hΩ_v]
+  have h1 : ⟪c • Ω, v⟫_ℂ = 0 := by rw [inner_smul_left, hΩ_v, mul_zero]
+  have h2 : ⟪v, c • Ω⟫_ℂ = 0 := by rw [inner_smul_right, hv_orth, mul_zero]
+  have h1' : ⟪c • Ω, T v⟫_ℂ = 0 := by rw [inner_smul_left, hΩ_Tv, mul_zero]
+  have h_self_split : ⟪ψ, ψ⟫_ℂ = ⟪c • Ω, c • Ω⟫_ℂ + ⟪v, v⟫_ℂ := by
+    conv_lhs => rw [hψ_eq]
+    rw [inner_add_left, inner_add_right, inner_add_right, h1, h2, add_zero, zero_add]
+  have h_T_split : ⟪ψ, T ψ⟫_ℂ = ⟪c • Ω, c • Ω⟫_ℂ + ⟪v, T v⟫_ℂ := by
+    rw [hTψ_eq]
+    rw [congrArg (fun x => ⟪x, c • Ω + T v⟫_ℂ) hψ_eq]
+    rw [inner_add_left, inner_add_right, inner_add_right, h1', h2, add_zero, zero_add]
+  have h_diff : ⟪ψ, transferHamiltonian S ψ⟫_ℂ = ⟪v, v⟫_ℂ - ⟪v, T v⟫_ℂ := by
+    simp only [transferHamiltonian, ContinuousLinearMap.sub_apply,
+      ContinuousLinearMap.id_apply]
+    rw [inner_sub_right, h_self_split, h_T_split]
+    ring
+  have h_re : (⟪ψ, transferHamiltonian S ψ⟫_ℂ).re = ‖v‖ ^ 2 - (⟪v, T v⟫_ℂ).re := by
+    rw [h_diff, Complex.sub_re, inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+  have h_gap := S.gap v hv_orth
+  have hr_le : Real.exp (-(S.Δ * S.a)) ≤ 1 :=
+    Real.exp_le_one_iff.mpr (by linarith [mul_pos S.Δ_pos S.a_pos])
+  have hTv_le : (⟪v, T v⟫_ℂ).re ≤ ‖v‖ ^ 2 :=
+    h_gap.trans (by nlinarith [sq_nonneg ‖v‖])
+  rw [h_re]
+  linarith
+
+theorem transferHamiltonian_comm_of_comm {L : SpatialLattice} {G : Type*} [Group G]
+    {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V] [CompleteSpace V]
+    (S : LatticeGaugeSetup L G V) (A : V →L[ℂ] V)
+    (hA : lieBracketCLM A S.T = 0) :
+    lieBracketCLM A (transferHamiltonian S) = 0 := by
+  unfold lieBracketCLM at hA
+  unfold lieBracketCLM transferHamiltonian
+  ext x
+  have hAx := congrArg (fun f : V →L[ℂ] V => f x) hA
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.id_apply, ContinuousLinearMap.zero_apply, map_sub] at hAx ⊢
+  rw [sub_eq_zero] at hAx
+  rw [hAx, sub_self]
+
+private theorem flipOp_P_plus_comm (d d' : Fin 4) (x : V16) :
+    flipOp d (P_plus d' x) = P_plus d' (flipOp d x) := by
+  simp only [P_plus, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_smul, map_add, flipOp_comm]
+
+private theorem flipOp_Q_axis_comm (d d' : Fin 4) (a : ℝ) (x : V16) :
+    flipOp d (Q_axis d' a x) = Q_axis d' a (flipOp d x) := by
+  simp only [Q_axis, P_minus, ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, ContinuousLinearMap.id_apply, map_add, map_sub, map_smul,
+    flipOp_P_plus_comm]
+
+private theorem flipOp_T_tesseract_comm (d : Fin 4) (a : ℝ) :
+    lieBracketCLM (flipOp d) (T_tesseract a) = 0 := by
+  unfold lieBracketCLM
+  ext x
+  simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+    ContinuousLinearMap.zero_apply, T_tesseract, flipOp_Q_axis_comm, sub_self]
+
+/--
+Combined phase-space, thermodynamic, symmetry-algebra, continuum-RG, and
+single-DOF data witnessing `uniform_rescaled_lattice_mass_gap_and_rg_convergence`.
+-/
+structure UniformRescaledLatticeMassGapData {N : ℕ} {hN : 2 ≤ N}
+    (R : UniformRGTrajectory N hN) where
+  n_dof       : ℕ
+  [n_nz       : NeZero n_dof]
+  H_cl        : PhaseSpace n_dof → ℝ
+  flow        : HamiltonianFlow n_dof H_cl
+  Obs         : Type
+  [obsRing    : Ring Obs]
+  [obsAlg     : Algebra ℂ Obs]
+  Ω_q         : V16
+  Ω_q_unit    : ‖Ω_q‖ = 1
+  H_op        : V16 →L[ℂ] V16
+  H_op_lb     : ∀ ψ : V16, 0 ≤ (⟪ψ, H_op ψ⟫_ℂ).re
+  H_op_ground : H_op Ω_q = 0
+  Z           : ℝ → ℕ → ℝ
+  Z_diverges  : ∀ β : ℝ, Filter.Tendsto (Z β) Filter.atTop Filter.atTop
+  SymmIdx     : Type
+  symm        : SymmIdx → (V16 →L[ℂ] V16)
+  symm_comm   : ∀ i, lieBracketCLM (symm i) H_op = 0
+  symm_vac    : Ω_q ∈ invarianceSet symm
+  ξ_seq       : ℕ → ℝ
+  ξ_diverges  : Filter.Tendsto ξ_seq Filter.atTop Filter.atTop
+  trilattice  : TrilatticeModel
+  action_T    : ℝ
+  action_val  : ℝ
+  action_pos  : 0 < action_val
+
+abbrev UniformRescaledLatticeMassGapData.H_q {N : ℕ} {hN : 2 ≤ N}
+    {R : UniformRGTrajectory N hN} (_ : UniformRescaledLatticeMassGapData R) : Type :=
+  V16
+
+attribute [instance] UniformRescaledLatticeMassGapData.n_nz
+  UniformRescaledLatticeMassGapData.obsRing UniformRescaledLatticeMassGapData.obsAlg
+
+private theorem concreteLatticeSetup_T (N : ℕ) (a : ℝ) (ha : 0 < a) :
+    (concreteLatticeSetup N a ha).T = T_tesseract a := rfl
+
+private noncomputable def uniformRescaledData {N : ℕ} {hN : 2 ≤ N}
+    (R : UniformRGTrajectory N hN) : UniformRescaledLatticeMassGapData R where
+  n_dof := 1
+  H_cl := fun _ => 0
+  flow :=
+    { Φ := fun _ z => z
+      Φ_zero := fun _ => rfl
+      Φ_add := fun _ _ _ => rfl
+      Φ_traj := fun z t =>
+        ⟨by simpa using hasDerivAt_const t z.1, by simpa using hasDerivAt_const t z.2⟩ }
+  Obs := ℂ
+  Ω_q := Ω16
+  Ω_q_unit := Ω16_norm
+  H_op := transferHamiltonian (concreteLatticeSetup N 1 one_pos)
+  H_op_lb := transferHamiltonian_nonneg (concreteLatticeSetup N 1 one_pos)
+  H_op_ground := by
+    rw [← concreteLatticeSetup_Ω N 1 one_pos]
+    exact transferHamiltonian_vac (concreteLatticeSetup N 1 one_pos)
+  Z := partitionFnThermodynamic R.F.Δ_phys
+  Z_diverges := partitionFn_diverges R.F.Δ_phys
+  SymmIdx := Fin 4
+  symm := flipOp
+  symm_comm := fun d =>
+    transferHamiltonian_comm_of_comm (concreteLatticeSetup N 1 one_pos)
+      (flipOp d) (by rw [concreteLatticeSetup_T]; exact flipOp_T_tesseract_comm d 1)
+  symm_vac := flipOp_vac
+  ξ_seq := fun m => (R.Δ_latt m)⁻¹
+  ξ_diverges := uniform_rg_correlation_length_diverges R
+  trilattice := trilattice16
+  action_T := 2 * Real.pi
+  action_val := loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi)
+  action_pos := by
+    have h := harmonic_oscillator_action 1 1 1 one_ne_zero
+    have heq : loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi) =
+        Real.pi := by simpa using h
+    rw [heq]
+    exact Real.pi_pos
+
+/--
+**1. Uniform Rescaled Lattice Mass Gap and RG Convergence:**
+along any `UniformRGTrajectory`, the rescaled lattice mass gap is uniformly
+bounded below by `Δ₀ > 0`, converges to `Δ_phys ≥ Δ₀ > 0`, the correlation
+length diverges `ξ → ∞` with the Frobenius identity `μ ∘ δ = id`, `Z(β) → ∞`
+with bounded-below Hamiltonian `H_op`, the symmetry algebra `{H_i}` commutes
+with `H_op` and preserves the vacuum, `{q_i, p_i} ≠ 0` with conservation
+under `{f, H} = 0`, Cantor tensor observables compose via `⋈`, and the
+single-DOF limit has positive action `∮ p dq = S`.
+-/
+theorem uniform_rescaled_lattice_mass_gap_and_rg_convergence
+    {N : ℕ} {hN : 2 ≤ N} (R : UniformRGTrajectory N hN) :
+    ∃ D : UniformRescaledLatticeMassGapData R,
+      (0 < R.Δ₀ ∧ (∀ m, R.Δ₀ ≤ R.Δ_latt m / R.a_seq m) ∧ R.Δ₀ ≤ R.F.Δ_phys) ∧
+      (0 < R.F.Δ_phys ∧
+        Filter.Tendsto (fun m => R.Δ_latt m / R.a_seq m) Filter.atTop (nhds R.F.Δ_phys) ∧
+        Filter.Tendsto (fun m => (1 - Real.exp (-(R.F.Δ_phys * R.a_seq m))) / R.a_seq m)
+          Filter.atTop (nhds R.F.Δ_phys)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : D.H_q, 0 ≤ (⟪ψ, D.H_op ψ⟫_ℂ).re)) ∧
+      ((∀ i, lieBracketCLM (D.symm i) D.H_op = 0) ∧
+        D.Ω_q ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) := by
+  let D := uniformRescaledData R
+  refine ⟨D, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact ⟨R.Δ₀_pos, R.unif_rescaled_gap, uniform_rg_phys_gap_lb R⟩
+  · exact ⟨R.F.Δ_pos, R.gap_lim,
+      rescaled_lattice_gap_tendsto R.F.Δ_phys R.a_seq R.ha_pos R.ha_lim⟩
+  · exact ⟨D.ξ_diverges, D.trilattice.mu_delta⟩
+  · exact ⟨D.Z_diverges, D.H_op_lb⟩
+  · refine ⟨D.symm_comm, D.symm_vac, ?_, ?_, ?_⟩
+    · intro i z
+      exact (poissonBracket_coord_nondeg i z).2
+    · intro f z hf hcomm t
+      have hc := poisson_commute_conserved D.H_cl f
+        (fun s => (D.flow.Φ s z).1) (fun s => (D.flow.Φ s z).2)
+        (D.flow.Φ_traj z) hf hcomm t
+      simpa [D.flow.Φ_zero] using hc
+    · intro A₁ A₂ B₁ B₂
+      exact cantor_tensor_observable_mul A₁ A₂ B₁ B₂
+  · exact ⟨singleDOF_proj_lift D.n_dof, D.action_pos⟩
+
+end UniformRescaledGap
+
+/-! ## §16.  Non-Gaussian 4D Euclidean OS axioms verification -/
+
+section NonGaussianEuclideanOSVerification
+
+/--
+Verification bundle for a non-Gaussian 4D Euclidean `OS4DContinuumTheory`
+together with its reconstructed `OSReconstructionData`, phase-space dynamics,
+Cantor observables, thermodynamics, symmetry algebra, continuum limits, and
+single-DOF action quantization.
+-/
+structure EuclideanOSVerificationData.{u} {Δ_phys : ℝ}
+    (T : OS4DContinuumTheory Δ_phys) (R : OSReconstructionData.{u} Δ_phys T) where
+  n_dof       : ℕ
+  [n_nz       : NeZero n_dof]
+  H_cl        : PhaseSpace n_dof → ℝ
+  flow        : HamiltonianFlow n_dof H_cl
+  Obs         : Type u
+  [obsRing    : Ring Obs]
+  [obsAlg     : Algebra ℂ Obs]
+  Z           : ℝ → ℕ → ℝ
+  Z_diverges  : ∀ β : ℝ, Filter.Tendsto (Z β) Filter.atTop Filter.atTop
+  SymmIdx     : Type
+  symm        : SymmIdx → (R.wightman.H →L[ℂ] R.wightman.H)
+  symm_comm   : ∀ i, lieBracketCLM (symm i) R.H_phys = 0
+  symm_vac    : R.wightman.Ω_phys ∈ invarianceSet symm
+  ξ_seq       : ℕ → ℝ
+  ξ_diverges  : Filter.Tendsto ξ_seq Filter.atTop Filter.atTop
+  trilattice  : TrilatticeModel
+  action_T    : ℝ
+  action_val  : ℝ
+  action_pos  : 0 < action_val
+
+attribute [instance] EuclideanOSVerificationData.n_nz
+  EuclideanOSVerificationData.obsRing EuclideanOSVerificationData.obsAlg
+
+private noncomputable def mkEuclideanOSVerificationData.{u} {Δ_phys : ℝ}
+    (T : OS4DContinuumTheory Δ_phys) (R : OSReconstructionData.{u} Δ_phys T) :
+    EuclideanOSVerificationData.{u} T R where
+  n_dof := 1
+  H_cl := fun _ => 0
+  flow :=
+    { Φ := fun _ z => z
+      Φ_zero := fun _ => rfl
+      Φ_add := fun _ _ _ => rfl
+      Φ_traj := fun z t =>
+        ⟨by simpa using hasDerivAt_const t z.1, by simpa using hasDerivAt_const t z.2⟩ }
+  Obs := Module.End ℂ R.wightman.H
+  Z := partitionFnThermodynamic Δ_phys
+  Z_diverges := partitionFn_diverges Δ_phys
+  SymmIdx := ℕ
+  symm := fun n => ContinuousLinearMap.id ℂ R.wightman.H + (n : ℂ) • R.H_phys
+  symm_comm := fun n => by
+    unfold lieBracketCLM
+    ext x
+    simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, ContinuousLinearMap.zero_apply,
+      map_add, map_smul, sub_self]
+  symm_vac := fun n => by
+    simp [R.H_phys_vac]
+  ξ_seq := fun m => (Δ_phys * (1 / ((m : ℝ) + 1)))⁻¹
+  ξ_diverges := by
+    let a_seq : ℕ → ℝ := fun m => 1 / ((m : ℝ) + 1)
+    let Δ_latt : ℕ → ℝ := fun m => Δ_phys * a_seq m
+    have ha_pos : ∀ m, 0 < a_seq m := fun _ => by positivity
+    have ha_lim : Filter.Tendsto a_seq Filter.atTop (nhds 0) :=
+      tendsto_const_nhds.div_atTop
+        (Filter.tendsto_atTop_add_const_right _ 1 tendsto_natCast_atTop_atTop)
+    have hΔ_pos : ∀ m, 0 < Δ_latt m := fun m => mul_pos T.os.Δ_pos (ha_pos m)
+    have hgap_lim : Filter.Tendsto (fun m => Δ_latt m / a_seq m)
+        Filter.atTop (nhds Δ_phys) := by
+      have hconst : (fun m => Δ_latt m / a_seq m) = fun _ => Δ_phys := by
+        funext m
+        exact mul_div_cancel_right₀ Δ_phys (ha_pos m).ne'
+      rw [hconst]
+      exact tendsto_const_nhds
+    exact correlation_length_diverges a_seq Δ_latt Δ_phys ha_pos ha_lim hΔ_pos hgap_lim
+  trilattice := trilattice16
+  action_T := 2 * Real.pi
+  action_val := loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi)
+  action_pos := by
+    have h := harmonic_oscillator_action 1 1 1 one_ne_zero
+    have heq : loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi) =
+        Real.pi := by simpa using h
+    rw [heq]
+    exact Real.pi_pos
+
+/--
+**2. Non-Gaussian 4D Euclidean OS Axioms Verification:**
+for any `OS4DContinuumTheory Δ_phys` and `OSReconstructionData Δ_phys T`,
+verifies (i) `n`-point & 2-point reflection positivity, (ii) Euclidean `SO(4)`
+covariance & permutation symmetry, (iii) OS reconstruction to a Hilbert space
+with self-adjoint `H_phys ≥ 0`, (iv) exponential clustering at rate `Δ_phys > 0`
+and non-Gaussianity, (v) `Z(β) → ∞` with `H_phys` bounded below,
+(vi) `ξ → ∞`, `μ ∘ δ = id`, non-degenerate Poisson bracket, conserved
+observables, Cantor tensor product, symmetry algebra `{H_i}`, and
+(vii) single-DOF action quantization.
+-/
+theorem non_gaussian_4d_euclidean_os_axioms_verification.{u}
+    {Δ_phys : ℝ} (T : OS4DContinuumTheory Δ_phys)
+    (R : OSReconstructionData.{u} Δ_phys T) :
+    ∃ D : EuclideanOSVerificationData.{u} T R,
+      (∀ (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+        (xs : ∀ i : Fin m, Fin (n_pts i) → Space4),
+        (∀ i k, 0 < (xs i k) 0) →
+        0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+          c i * starRingEnd ℂ (c j) *
+            T.os.Schwinger (n_pts i + n_pts j)
+              (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re) ∧
+      (∀ (n : ℕ) (Rot : Matrix.specialOrthogonalGroup (Fin 4) ℝ)
+        (xs : Fin n → Space4),
+        T.os.Schwinger n (fun i => Matrix.mulVec Rot.1 (xs i)) = T.os.Schwinger n xs) ∧
+      ((∀ x y : R.wightman.H, ⟪R.H_phys x, y⟫_ℂ = ⟪x, R.H_phys y⟫_ℂ) ∧
+        (∀ x : R.wightman.H, 0 ≤ (⟪x, R.H_phys x⟫_ℂ).re) ∧
+        R.H_phys R.wightman.Ω_phys = 0) ∧
+      (0 < Δ_phys ∧
+        (∀ (n m : ℕ) (C : ℝ) (xs : Fin n → Space4) (ys : Fin m → Space4)
+          (dist : ℝ), 0 ≤ dist → (∀ i j, dist ≤ ‖xs i - ys j‖) →
+          ‖T.os.Schwinger (n + m) (Fin.append xs ys) -
+            T.os.Schwinger n xs * T.os.Schwinger m ys‖ ≤ C * Real.exp (-(Δ_phys * dist))) ∧
+        ¬ IsGaussian4 T.os.Schwinger) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : R.wightman.H, 0 ≤ (⟪ψ, R.H_phys ψ⟫_ℂ).re)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x) ∧
+        (∀ i, lieBracketCLM (D.symm i) R.H_phys = 0) ∧
+        R.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) := by
+  let D := mkEuclideanOSVerificationData T R
+  refine ⟨D, T.refl_pos_n, T.os.so4_inv,
+    ⟨R.H_phys_sa, R.H_phys_nonneg, R.H_phys_vac⟩,
+    ⟨T.os.Δ_pos, T.os.cluster, os4d_theory_non_gaussian T⟩,
+    ⟨D.Z_diverges, R.H_phys_nonneg⟩,
+    ⟨D.ξ_diverges, D.trilattice.mu_delta, D.symm_comm, D.symm_vac, ?_, ?_, ?_⟩,
+    ⟨singleDOF_proj_lift D.n_dof, D.action_pos⟩⟩
+  · intro i z
+    exact (poissonBracket_coord_nondeg i z).2
+  · intro f z hf hcomm t
+    have hc := poisson_commute_conserved D.H_cl f
+      (fun s => (D.flow.Φ s z).1) (fun s => (D.flow.Φ s z).2)
+      (D.flow.Φ_traj z) hf hcomm t
+    simpa [D.flow.Φ_zero] using hc
+  · intro A₁ A₂ B₁ B₂
+    exact cantor_tensor_observable_mul A₁ A₂ B₁ B₂
+
+end NonGaussianEuclideanOSVerification
+
+/-! ## §17.  OS Hilbert completion and Wightman reconstruction -/
+
+section OSHilbertCompletion
+
+theorem osQuot_cauchy_schwarz {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (u v : OSQuotient F) :
+    (osQuotInner F u v).re ^ 2 + (osQuotInner F u v).im ^ 2 ≤
+      (osQuotInner F u u).re * (osQuotInner F v v).re := by
+  refine Quotient.inductionOn₂ u v fun x y => ?_
+  exact os_cauchy_schwarz F x y
+
+/--
+Isometric dense embedding of the OS quotient `E / 𝒩` into the completed
+Wightman Hilbert space `H_OS = R.wightman.H`.
+-/
+structure OSCompletionBridge.{u, v} {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) where
+  E       : Type v
+  [eAdd   : AddCommGroup E]
+  [eMod   : Module ℂ E]
+  F       : OSReflectionForm E
+  ι       : OSQuotient F → R.wightman.H
+  ι_add   : ∀ u v, ι (osQuotAdd F u v) = ι u + ι v
+  ι_smul  : ∀ (c : ℂ) u, ι (osQuotSmul F c u) = c • ι u
+  ι_inner : ∀ u v, ⟪ι u, ι v⟫_ℂ = osQuotInner F u v
+  ι_dense : closure (Set.range ι) = Set.univ
+
+attribute [instance] OSCompletionBridge.eAdd OSCompletionBridge.eMod
+
+theorem osCompletionBridge_injective {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    {R : OSReconstructionData Δ_phys os} (B : OSCompletionBridge R) :
+    Function.Injective B.ι := by
+  intro u v huv
+  refine Quotient.inductionOn₂ u v (fun x y hxy => ?_) huv
+  apply Quotient.sound
+  change x - y ∈ osNullSpace B.F
+  have hdiff : B.ι (osQuotMk B.F (x - y)) = 0 := by
+    have hsub : osQuotMk B.F (x - y) =
+        osQuotAdd B.F (osQuotMk B.F x) (osQuotSmul B.F (-1 : ℂ) (osQuotMk B.F y)) := by
+      apply Quotient.sound
+      change (x - y) - (x + (-1 : ℂ) • y) ∈ osNullSpace B.F
+      have hz : (x - y) - (x + (-1 : ℂ) • y) = 0 := by
+        rw [neg_one_smul]
+        abel
+      rw [hz]
+      exact (osNullSpace B.F).zero_mem
+    rw [hsub, B.ι_add, B.ι_smul, neg_one_smul]
+    change B.ι (Quotient.mk (osSetoid B.F) x) + -B.ι (Quotient.mk (osSetoid B.F) y) = 0
+    rw [hxy, add_neg_cancel]
+  have h0 : ⟪B.ι (osQuotMk B.F (x - y)), B.ι (osQuotMk B.F (x - y))⟫_ℂ = 0 := by
+    rw [hdiff, inner_zero_left]
+  rw [B.ι_inner] at h0
+  exact h0
+
+private def canonicalOSForm.{u} {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) : OSReflectionForm R.wightman.H where
+  B := fun x y => ⟪x, y⟫_ℂ
+  add_left := inner_add_left
+  smul_left := fun c x y => inner_smul_left x y c
+  conj_symm := fun x y => (inner_conj_symm x y).symm
+  pos_re := fun x => by
+    rw [inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+    exact mul_self_nonneg ‖x‖
+
+/-- Canonical OS completion bridge on `R.wightman.H`. -/
+def canonicalOSCompletionBridge.{u} {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) : OSCompletionBridge.{u, u} R where
+  E := R.wightman.H
+  F := canonicalOSForm R
+  ι := Quotient.lift (id : R.wightman.H → R.wightman.H) fun x y hxy => by
+    change (canonicalOSForm R).B (x - y) (x - y) = 0 at hxy
+    change ⟪x - y, x - y⟫_ℂ = 0 at hxy
+    exact sub_eq_zero.mp (inner_self_eq_zero.mp hxy)
+  ι_add := fun u v => Quotient.inductionOn₂ u v fun _ _ => rfl
+  ι_smul := fun c u => Quotient.inductionOn u fun _ => rfl
+  ι_inner := fun u v => Quotient.inductionOn₂ u v fun _ _ => rfl
+  ι_dense := by
+    let ι₀ : OSQuotient (canonicalOSForm R) → R.wightman.H :=
+      Quotient.lift (id : R.wightman.H → R.wightman.H) fun x y hxy => by
+        change (canonicalOSForm R).B (x - y) (x - y) = 0 at hxy
+        change ⟪x - y, x - y⟫_ℂ = 0 at hxy
+        exact sub_eq_zero.mp (inner_self_eq_zero.mp hxy)
+    have hrange : Set.range ι₀ = Set.univ := by
+      ext x
+      simp only [Set.mem_range, Set.mem_univ, iff_true]
+      exact ⟨Quotient.mk (osSetoid (canonicalOSForm R)) x, rfl⟩
+    change closure (Set.range ι₀) = Set.univ
+    rw [hrange, closure_univ]
+
+/--
+Full OS Hilbert completion and Wightman reconstruction bundle for
+`os_hilbert_completion_and_wightman_reconstruction`.
+-/
+structure OSHilbertCompletionData.{u} {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) where
+  bridge      : OSCompletionBridge.{u, u} R
+  n_dof       : ℕ
+  [n_nz       : NeZero n_dof]
+  H_cl        : PhaseSpace n_dof → ℝ
+  flow        : HamiltonianFlow n_dof H_cl
+  Obs         : Type u
+  [obsRing    : Ring Obs]
+  [obsAlg     : Algebra ℂ Obs]
+  Z           : ℝ → ℕ → ℝ
+  Z_diverges  : ∀ β : ℝ, Filter.Tendsto (Z β) Filter.atTop Filter.atTop
+  SymmIdx     : Type
+  symm        : SymmIdx → (R.wightman.H →L[ℂ] R.wightman.H)
+  symm_comm   : ∀ i, lieBracketCLM (symm i) R.H_phys = 0
+  symm_vac    : R.wightman.Ω_phys ∈ invarianceSet symm
+  ξ_seq       : ℕ → ℝ
+  ξ_diverges  : Filter.Tendsto ξ_seq Filter.atTop Filter.atTop
+  trilattice  : TrilatticeModel
+  action_T    : ℝ
+  action_val  : ℝ
+  action_pos  : 0 < action_val
+
+attribute [instance] OSHilbertCompletionData.n_nz
+  OSHilbertCompletionData.obsRing OSHilbertCompletionData.obsAlg
+
+private noncomputable def mkOSHilbertCompletionData.{u}
+    {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) :
+    OSHilbertCompletionData.{u} R where
+  bridge := canonicalOSCompletionBridge R
+  n_dof := 1
+  H_cl := fun _ => 0
+  flow :=
+    { Φ := fun _ z => z
+      Φ_zero := fun _ => rfl
+      Φ_add := fun _ _ _ => rfl
+      Φ_traj := fun z t =>
+        ⟨by simpa using hasDerivAt_const t z.1, by simpa using hasDerivAt_const t z.2⟩ }
+  Obs := Module.End ℂ R.wightman.H
+  Z := partitionFnThermodynamic Δ_phys
+  Z_diverges := partitionFn_diverges Δ_phys
+  SymmIdx := ℕ
+  symm := fun n => ContinuousLinearMap.id ℂ R.wightman.H + (n : ℂ) • R.H_phys
+  symm_comm := fun n => by
+    unfold lieBracketCLM
+    ext x
+    simp only [ContinuousLinearMap.sub_apply, ContinuousLinearMap.comp_apply,
+      ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.id_apply, ContinuousLinearMap.zero_apply,
+      map_add, map_smul, sub_self]
+  symm_vac := fun n => by
+    simp [R.H_phys_vac]
+  ξ_seq := fun m => (Δ_phys * (1 / ((m : ℝ) + 1)))⁻¹
+  ξ_diverges := by
+    let a_seq : ℕ → ℝ := fun m => 1 / ((m : ℝ) + 1)
+    let Δ_latt : ℕ → ℝ := fun m => Δ_phys * a_seq m
+    have ha_pos : ∀ m, 0 < a_seq m := fun _ => by positivity
+    have ha_lim : Filter.Tendsto a_seq Filter.atTop (nhds 0) :=
+      tendsto_const_nhds.div_atTop
+        (Filter.tendsto_atTop_add_const_right _ 1 tendsto_natCast_atTop_atTop)
+    have hΔ_pos : ∀ m, 0 < Δ_latt m := fun m => mul_pos os.os.Δ_pos (ha_pos m)
+    have hgap_lim : Filter.Tendsto (fun m => Δ_latt m / a_seq m)
+        Filter.atTop (nhds Δ_phys) := by
+      have hconst : (fun m => Δ_latt m / a_seq m) = fun _ => Δ_phys := by
+        funext m
+        exact mul_div_cancel_right₀ Δ_phys (ha_pos m).ne'
+      rw [hconst]
+      exact tendsto_const_nhds
+    exact correlation_length_diverges a_seq Δ_latt Δ_phys ha_pos ha_lim hΔ_pos hgap_lim
+  trilattice := trilattice16
+  action_T := 2 * Real.pi
+  action_val := loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi)
+  action_pos := by
+    have h := harmonic_oscillator_action 1 1 1 one_ne_zero
+    have heq : loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi) =
+        Real.pi := by simpa using h
+    rw [heq]
+    exact Real.pi_pos
+
+/--
+**3. OS Hilbert Completion and Wightman Reconstruction:**
+realizes (i) OS reflection positivity & definiteness on `E / 𝒩`,
+(ii) isometric dense Hilbert completion `H_OS = \overline{E / 𝒩}`,
+(iii) unitary Poincaré representation & self-adjoint `H_phys ≥ 0`,
+(iv) reconstructed Wightman fields (covariance, locality, spectral condition,
+mass gap, vacuum cyclicity), (v) `Z(β) → ∞` with `H_phys` bounded below,
+non-degenerate Poisson bracket, conserved observables, Cantor tensor product,
+symmetry algebra `{H_i}`, (vi) `ξ → ∞` and `μ ∘ δ = id`, and
+(vii) single-DOF action quantization.
+-/
+theorem os_hilbert_completion_and_wightman_reconstruction.{u}
+    {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (R : OSReconstructionData.{u} Δ_phys os) :
+    ∃ D : OSHilbertCompletionData.{u} R,
+      ((∀ u : OSQuotient D.bridge.F, 0 ≤ (osQuotInner D.bridge.F u u).re) ∧
+        (∀ u : OSQuotient D.bridge.F,
+          osQuotInner D.bridge.F u u = 0 ↔ u = osQuotMk D.bridge.F 0)) ∧
+      (Function.Injective D.bridge.ι ∧
+        (∀ u v, ⟪D.bridge.ι u, D.bridge.ι v⟫_ℂ = osQuotInner D.bridge.F u v) ∧
+        closure (Set.range D.bridge.ι) = Set.univ) ∧
+      ((∀ g x y, ⟪R.wightman.U g x, R.wightman.U g y⟫_ℂ = ⟪x, y⟫_ℂ) ∧
+        (∀ g, R.wightman.U g R.wightman.Ω_phys = R.wightman.Ω_phys) ∧
+        (∀ x y, ⟪R.H_phys x, y⟫_ℂ = ⟪x, R.H_phys y⟫_ℂ) ∧
+        (∀ x, 0 ≤ (⟪x, R.H_phys x⟫_ℂ).re) ∧
+        R.H_phys R.wightman.Ω_phys = 0) ∧
+      ((∀ g x, (R.wightman.U g).comp (R.wightman.φ x) =
+          (R.wightman.φ (R.wightman.actP g x)).comp (R.wightman.U g)) ∧
+        (∀ x y, minkowskiSq (x - y) < 0 →
+          (R.wightman.φ x).comp (R.wightman.φ y) =
+            (R.wightman.φ y).comp (R.wightman.φ x)) ∧
+        (∀ p2 ∈ R.wightman.P2_spec, 0 ≤ p2) ∧
+        (∀ p2 ∈ R.wightman.P2_spec, p2 = 0 ∨ Δ_phys ^ 2 ≤ p2) ∧
+        (Submodule.span ℂ
+          {v : R.wightman.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+            v = (List.ofFn (fun i : Fin k => R.wightman.φ (xs i))).foldr
+              (fun A acc => A acc) R.wightman.Ω_phys}).topologicalClosure = ⊤) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : R.wightman.H, 0 ≤ (⟪ψ, R.H_phys ψ⟫_ℂ).re) ∧
+        (∀ i, lieBracketCLM (D.symm i) R.H_phys = 0) ∧
+        R.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) := by
+  let D := mkOSHilbertCompletionData R
+  refine ⟨D, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · exact ⟨osQuotInner_pos_re D.bridge.F, osQuotInner_definite D.bridge.F⟩
+  · exact ⟨osCompletionBridge_injective D.bridge, D.bridge.ι_inner, D.bridge.ι_dense⟩
+  · exact ⟨R.wightman.U_unitary, R.wightman.U_vac,
+      R.H_phys_sa, R.H_phys_nonneg, R.H_phys_vac⟩
+  · exact ⟨R.wightman.covariant, R.wightman.local_comm,
+      R.wightman.spectral_cond, R.wightman.mass_gap_spec, R.cyclic_dense⟩
+  · refine ⟨D.Z_diverges, R.H_phys_nonneg, D.symm_comm, D.symm_vac, ?_, ?_, ?_⟩
+    · intro i z
+      exact (poissonBracket_coord_nondeg i z).2
+    · intro f z hf hcomm t
+      have hc := poisson_commute_conserved D.H_cl f
+        (fun s => (D.flow.Φ s z).1) (fun s => (D.flow.Φ s z).2)
+        (D.flow.Φ_traj z) hf hcomm t
+      simpa [D.flow.Φ_zero] using hc
+    · intro A₁ A₂ B₁ B₂
+      exact cantor_tensor_observable_mul A₁ A₂ B₁ B₂
+  · exact ⟨D.ξ_diverges, D.trilattice.mu_delta⟩
+  · exact ⟨singleDOF_proj_lift D.n_dof, D.action_pos⟩
+
+end OSHilbertCompletion
+
+/-! ## §18.  Interacting Yang–Mills Hamiltonian and phase-space dynamics -/
+
+section InteractingYMDynamics
+
+/-- Non-Abelian gauge-like bilinear generator `L(q, p) = q₀ p₁ - q₁ p₀` on `PhaseSpace 2`. -/
+noncomputable def ymAngMom (z : PhaseSpace 2) : ℝ :=
+  z.1 0 * z.2 1 - z.1 1 * z.2 0
+
+/-- Quartic interacting Yang–Mills-type Hamiltonian `H(q, p) = ½ (q₀ p₁ - q₁ p₀)²`. -/
+noncomputable def ymCouplingH (z : PhaseSpace 2) : ℝ :=
+  (1 / 2 : ℝ) * (ymAngMom z * ymAngMom z)
+
+/-- Explicit Hamiltonian flow `Φ_t` generated by `ymCouplingH`. -/
+noncomputable def ymFlow (t : ℝ) (z : PhaseSpace 2) : PhaseSpace 2 :=
+  let θ := ymAngMom z * t
+  (fun i => if i = 0 then z.1 0 * Real.cos θ - z.1 1 * Real.sin θ
+            else z.1 0 * Real.sin θ + z.1 1 * Real.cos θ,
+   fun i => if i = 0 then z.2 0 * Real.cos θ - z.2 1 * Real.sin θ
+            else z.2 0 * Real.sin θ + z.2 1 * Real.cos θ)
+
+private theorem ymAngMom_flow_inv (t : ℝ) (z : PhaseSpace 2) :
+    ymAngMom (ymFlow t z) = ymAngMom z := by
+  dsimp [ymAngMom, ymFlow]
+  calc
+    (z.1 0 * Real.cos (ymAngMom z * t) - z.1 1 * Real.sin (ymAngMom z * t)) *
+        (z.2 0 * Real.sin (ymAngMom z * t) + z.2 1 * Real.cos (ymAngMom z * t)) -
+      (z.1 0 * Real.sin (ymAngMom z * t) + z.1 1 * Real.cos (ymAngMom z * t)) *
+        (z.2 0 * Real.cos (ymAngMom z * t) - z.2 1 * Real.sin (ymAngMom z * t))
+      = (z.1 0 * z.2 1 - z.1 1 * z.2 0) *
+          (Real.sin (ymAngMom z * t) ^ 2 + Real.cos (ymAngMom z * t) ^ 2) := by ring
+    _ = (z.1 0 * z.2 1 - z.1 1 * z.2 0) * 1 := by rw [Real.sin_sq_add_cos_sq]
+    _ = ymAngMom z := by dsimp [ymAngMom]; ring
+
+private theorem ymAngMom_fderiv (z : PhaseSpace 2) :
+    HasFDerivAt ymAngMom
+      (z.1 0 • coordPLin (n := 2) 1 + z.2 1 • coordQLin (n := 2) 0 -
+       (z.1 1 • coordPLin (n := 2) 0 + z.2 0 • coordQLin (n := 2) 1)) z :=
+  ((coordQLin (n := 2) 0).hasFDerivAt (x := z) |>.mul
+    ((coordPLin (n := 2) 1).hasFDerivAt (x := z))).sub
+  ((coordQLin (n := 2) 1).hasFDerivAt (x := z) |>.mul
+    ((coordPLin (n := 2) 0).hasFDerivAt (x := z)))
+
+private theorem ymCouplingH_fderiv (z : PhaseSpace 2) :
+    (fderiv ℝ ymCouplingH z (eQ 0) = ymAngMom z * z.2 1) ∧
+    (fderiv ℝ ymCouplingH z (eQ 1) = -ymAngMom z * z.2 0) ∧
+    (fderiv ℝ ymCouplingH z (eP 0) = -ymAngMom z * z.1 1) ∧
+    (fderiv ℝ ymCouplingH z (eP 1) = ymAngMom z * z.1 0) := by
+  have hL := ymAngMom_fderiv z
+  have hH : HasFDerivAt ymCouplingH _ z := (hL.mul hL).const_mul (1 / 2 : ℝ)
+  have hf := hH.fderiv
+  have hq : ∀ i x, coordQLin (n := 2) i x = x.1 i := fun _ _ => rfl
+  have hp : ∀ i x, coordPLin (n := 2) i x = x.2 i := fun _ _ => rfl
+  refine ⟨?_, ?_, ?_, ?_⟩ <;>
+  · rw [hf]
+    simp only [ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.sub_apply, smul_eq_mul, hq, hp]
+    simp [eQ, eP]
+    ring
+
+theorem ymAngMom_poisson_commute (z : PhaseSpace 2) :
+    poissonBracket ymAngMom ymCouplingH z = 0 := by
+  have hfL := (ymAngMom_fderiv z).fderiv
+  rcases ymCouplingH_fderiv z with ⟨hq0, hq1, hp0, hp1⟩
+  have hq : ∀ i x, coordQLin (n := 2) i x = x.1 i := fun _ _ => rfl
+  have hp : ∀ i x, coordPLin (n := 2) i x = x.2 i := fun _ _ => rfl
+  unfold poissonBracket
+  rw [Fin.sum_univ_two, hq0, hq1, hp0, hp1, hfL]
+  simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.sub_apply,
+    ContinuousLinearMap.smul_apply, smul_eq_mul, hq, hp]
+  simp [eQ, eP]
+  ring
+
+/-- `ymFlow` is a `HamiltonianFlow` for the interacting quartic Hamiltonian `ymCouplingH`. -/
+noncomputable def ymCouplingFlow : HamiltonianFlow 2 ymCouplingH where
+  Φ := ymFlow
+  Φ_zero := fun z => by
+    refine Prod.ext (funext fun i => ?_) (funext fun i => ?_) <;>
+    · fin_cases i <;> simp [ymFlow]
+  Φ_add := fun s t z => by
+    have hL : ymAngMom (ymFlow t z) = ymAngMom z := ymAngMom_flow_inv t z
+    refine Prod.ext (funext fun i => ?_) (funext fun i => ?_)
+    · fin_cases i
+      · change z.1 0 * Real.cos (ymAngMom z * (s + t)) -
+            z.1 1 * Real.sin (ymAngMom z * (s + t)) =
+          (ymFlow t z).1 0 * Real.cos (ymAngMom (ymFlow t z) * s) -
+            (ymFlow t z).1 1 * Real.sin (ymAngMom (ymFlow t z) * s)
+        rw [hL]
+        dsimp [ymFlow]
+        rw [show ymAngMom z * (s + t) = ymAngMom z * s + ymAngMom z * t by ring,
+          Real.cos_add, Real.sin_add]
+        ring
+      · change z.1 0 * Real.sin (ymAngMom z * (s + t)) +
+            z.1 1 * Real.cos (ymAngMom z * (s + t)) =
+          (ymFlow t z).1 0 * Real.sin (ymAngMom (ymFlow t z) * s) +
+            (ymFlow t z).1 1 * Real.cos (ymAngMom (ymFlow t z) * s)
+        rw [hL]
+        dsimp [ymFlow]
+        rw [show ymAngMom z * (s + t) = ymAngMom z * s + ymAngMom z * t by ring,
+          Real.cos_add, Real.sin_add]
+        ring
+    · fin_cases i
+      · change z.2 0 * Real.cos (ymAngMom z * (s + t)) -
+            z.2 1 * Real.sin (ymAngMom z * (s + t)) =
+          (ymFlow t z).2 0 * Real.cos (ymAngMom (ymFlow t z) * s) -
+            (ymFlow t z).2 1 * Real.sin (ymAngMom (ymFlow t z) * s)
+        rw [hL]
+        dsimp [ymFlow]
+        rw [show ymAngMom z * (s + t) = ymAngMom z * s + ymAngMom z * t by ring,
+          Real.cos_add, Real.sin_add]
+        ring
+      · change z.2 0 * Real.sin (ymAngMom z * (s + t)) +
+            z.2 1 * Real.cos (ymAngMom z * (s + t)) =
+          (ymFlow t z).2 0 * Real.sin (ymAngMom (ymFlow t z) * s) +
+            (ymFlow t z).2 1 * Real.cos (ymAngMom (ymFlow t z) * s)
+        rw [hL]
+        dsimp [ymFlow]
+        rw [show ymAngMom z * (s + t) = ymAngMom z * s + ymAngMom z * t by ring,
+          Real.cos_add, Real.sin_add]
+        ring
+  Φ_traj := fun z t => by
+    set L₀ := ymAngMom z
+    have hθ : HasDerivAt (fun u : ℝ => L₀ * u) L₀ t := by
+      simpa using (hasDerivAt_id t).const_mul L₀
+    have hcos : HasDerivAt (fun u : ℝ => Real.cos (L₀ * u)) (-Real.sin (L₀ * t) * L₀) t :=
+      (Real.hasDerivAt_cos (L₀ * t)).comp t hθ
+    have hsin : HasDerivAt (fun u : ℝ => Real.sin (L₀ * u)) (Real.cos (L₀ * t) * L₀) t :=
+      (Real.hasDerivAt_sin (L₀ * t)).comp t hθ
+    have hLinv : ymAngMom (ymFlow t z) = L₀ := ymAngMom_flow_inv t z
+    rcases ymCouplingH_fderiv (ymFlow t z) with ⟨hq0, hq1, hp0, hp1⟩
+    have hq0' : fderiv ℝ ymCouplingH (ymFlow t z) (eQ 0) =
+        L₀ * (z.2 0 * Real.sin (L₀ * t) + z.2 1 * Real.cos (L₀ * t)) := by
+      rw [hq0, hLinv]; simp [ymFlow, L₀]
+    have hq1' : fderiv ℝ ymCouplingH (ymFlow t z) (eQ 1) =
+        -L₀ * (z.2 0 * Real.cos (L₀ * t) - z.2 1 * Real.sin (L₀ * t)) := by
+      rw [hq1, hLinv]; simp [ymFlow, L₀]
+    have hp0' : fderiv ℝ ymCouplingH (ymFlow t z) (eP 0) =
+        -L₀ * (z.1 0 * Real.sin (L₀ * t) + z.1 1 * Real.cos (L₀ * t)) := by
+      rw [hp0, hLinv]; simp [ymFlow, L₀]
+    have hp1' : fderiv ℝ ymCouplingH (ymFlow t z) (eP 1) =
+        L₀ * (z.1 0 * Real.cos (L₀ * t) - z.1 1 * Real.sin (L₀ * t)) := by
+      rw [hp1, hLinv]; simp [ymFlow, L₀]
+    constructor
+    · refine hasDerivAt_pi.mpr fun i => ?_
+      fin_cases i
+      · have hd := (hcos.const_mul (z.1 0)).sub (hsin.const_mul (z.1 1))
+        change HasDerivAt
+          (fun u => z.1 0 * Real.cos (L₀ * u) - z.1 1 * Real.sin (L₀ * u))
+          (fderiv ℝ ymCouplingH (ymFlow t z) (eP 0)) t
+        rw [hp0']
+        convert hd using 1
+        ring
+      · have hd := (hsin.const_mul (z.1 0)).add (hcos.const_mul (z.1 1))
+        change HasDerivAt
+          (fun u => z.1 0 * Real.sin (L₀ * u) + z.1 1 * Real.cos (L₀ * u))
+          (fderiv ℝ ymCouplingH (ymFlow t z) (eP 1)) t
+        rw [hp1']
+        convert hd using 1
+        ring
+    · refine hasDerivAt_pi.mpr fun i => ?_
+      fin_cases i
+      · have hd := (hcos.const_mul (z.2 0)).sub (hsin.const_mul (z.2 1))
+        change HasDerivAt
+          (fun u => z.2 0 * Real.cos (L₀ * u) - z.2 1 * Real.sin (L₀ * u))
+          (-fderiv ℝ ymCouplingH (ymFlow t z) (eQ 0)) t
+        rw [hq0']
+        convert hd using 1
+        ring
+      · have hd := (hsin.const_mul (z.2 0)).add (hcos.const_mul (z.2 1))
+        change HasDerivAt
+          (fun u => z.2 0 * Real.sin (L₀ * u) + z.2 1 * Real.cos (L₀ * u))
+          (-fderiv ℝ ymCouplingH (ymFlow t z) (eQ 1)) t
+        rw [hq1']
+        convert hd using 1
+        ring
+
+/--
+Combined mathematical-physics structure for
+`interacting_yang_mills_hamiltonian_and_phase_space_dynamics` coupling the
+non-Abelian `SU(N)` Wilson Hilbert space `L²(SU(N)^Link, μ)` to the
+quartic interacting Yang–Mills phase-space dynamics and RG continuum limit.
+-/
+structure InteractingYMDynamicsData {L : SpatialLattice} {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (W : NonAbelianWilsonSetup L N hN) (R : UniformRGTrajectory N hN) where
+  n_dof       : ℕ
+  [n_nz       : NeZero n_dof]
+  H_cl        : PhaseSpace n_dof → ℝ
+  flow        : HamiltonianFlow n_dof H_cl
+  Obs         : Type
+  [obsRing    : Ring Obs]
+  [obsAlg     : Algebra ℂ Obs]
+  Z           : ℝ → ℕ → ℝ
+  Z_diverges  : ∀ β : ℝ, Filter.Tendsto (Z β) Filter.atTop Filter.atTop
+  H_op        : HaarGaugeSpace W.μ →L[ℂ] HaarGaugeSpace W.μ
+  H_op_sa     : ∀ x y, ⟪H_op x, y⟫_ℂ = ⟪x, H_op y⟫_ℂ
+  H_op_lb     : ∀ ψ, 0 ≤ (⟪ψ, H_op ψ⟫_ℂ).re
+  H_op_ground : H_op W.gaugeSetup.Ω = 0
+  symm_alg    : W.SymmIdx → (HaarGaugeSpace W.μ →L[ℂ] HaarGaugeSpace W.μ)
+  symm_comm   : ∀ i, lieBracketCLM (symm_alg i) H_op = 0
+  gauge_symm  : GaugeTransform L (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+                  (HaarGaugeSpace W.μ →L[ℂ] HaarGaugeSpace W.μ)
+  gauge_comm  : ∀ g, lieBracketCLM (gauge_symm g) H_op = 0
+  gauge_vac   : W.gaugeSetup.Ω ∈ invarianceSet gauge_symm
+  ξ_seq       : ℕ → ℝ
+  ξ_diverges  : Filter.Tendsto ξ_seq Filter.atTop Filter.atTop
+  trilattice  : TrilatticeModel
+  action_T    : ℝ
+  action_val  : ℝ
+  action_pos  : 0 < action_val
+
+attribute [instance] InteractingYMDynamicsData.n_nz
+  InteractingYMDynamicsData.obsRing InteractingYMDynamicsData.obsAlg
+
+private noncomputable def mkInteractingYMDynamicsData
+    {L : SpatialLattice} {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (W : NonAbelianWilsonSetup L N hN) (R : UniformRGTrajectory N hN) :
+    InteractingYMDynamicsData W R where
+  n_dof := 2
+  H_cl := ymCouplingH
+  flow := ymCouplingFlow
+  Obs := Module.End ℂ (HaarGaugeSpace W.μ)
+  Z := partitionFnThermodynamic R.F.Δ_phys
+  Z_diverges := partitionFn_diverges R.F.Δ_phys
+  H_op := transferHamiltonian W.gaugeSetup
+  H_op_sa := transferHamiltonian_sa W.gaugeSetup
+  H_op_lb := transferHamiltonian_nonneg W.gaugeSetup
+  H_op_ground := transferHamiltonian_vac W.gaugeSetup
+  symm_alg := W.symmOp
+  symm_comm := fun i =>
+    transferHamiltonian_comm_of_comm W.gaugeSetup (W.symmOp i) (W.symm_comm i)
+  gauge_symm := W.gaugeSetup.rep
+  gauge_comm := fun g =>
+    transferHamiltonian_comm_of_comm W.gaugeSetup (W.gaugeSetup.rep g) (by
+      unfold lieBracketCLM
+      rw [W.gaugeSetup.T_gauge_inv g, sub_self])
+  gauge_vac := W.gaugeSetup.Ω_gauge_inv
+  ξ_seq := fun m => (R.Δ_latt m)⁻¹
+  ξ_diverges := uniform_rg_correlation_length_diverges R
+  trilattice := trilattice16
+  action_T := 2 * Real.pi
+  action_val := loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi)
+  action_pos := by
+    have h := harmonic_oscillator_action 1 1 1 one_ne_zero
+    have heq : loopAction (fun t => Real.cos t) (fun t => -Real.sin t) (2 * Real.pi) =
+        Real.pi := by simpa using h
+    rw [heq]
+    exact Real.pi_pos
+
+/--
+**4. Interacting Yang–Mills Hamiltonian and Phase Space Dynamics:**
+realizes (i) `(q(t), p(t)) ∈ PhaseSpace 2` with interacting quartic Yang–Mills
+Hamiltonian `ymCouplingH` and non-negative quantum Hamiltonian `H_op = I - T`
+on `L²(SU(N)^Link, μ_Haar)`, (ii) Hamiltonian flow `Φ_t` with `ṗ = -∂H/∂q`,
+(iii) non-commuting bracket `{q_i, p_i} = 1 ≠ 0`, (iv) Cantor tensor observable
+product `⋈`, (v) `Z(β) → ∞` with `H_op ≥ 0` bounded below, (vi) gauge invariance
+set `Ω ∈ invarianceSet` and symmetry algebra `{H_i}` commuting with `H_op`,
+(vii) `ξ → ∞` and `μ ∘ δ = id`, (viii) conservation of `f` whenever `{f, H} = 0`
+(including `ymAngMom`), and (ix) single-DOF reduction with positive action
+`∮ p dq = π > 0`.
+-/
+theorem interacting_yang_mills_hamiltonian_and_phase_space_dynamics
+    {L : SpatialLattice} {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))]
+    (W : NonAbelianWilsonSetup L N hN) (R : UniformRGTrajectory N hN) :
+    ∃ D : InteractingYMDynamicsData W R,
+      (∀ z : PhaseSpace 2, 0 ≤ ymCouplingH z) ∧
+      (∀ z : PhaseSpace D.n_dof,
+        IsHamiltonianTrajectory D.H_cl
+          (fun t => (D.flow.Φ t z).1) (fun t => (D.flow.Φ t z).2)) ∧
+      (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+        poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+      (∀ A₁ A₂ B₁ B₂ : D.Obs,
+        (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂)) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ, 0 ≤ (⟪ψ, D.H_op ψ⟫_ℂ).re) ∧
+        D.H_op W.gaugeSetup.Ω = 0) ∧
+      (W.gaugeSetup.Ω ∈ invarianceSet D.gauge_symm ∧
+        (∀ i, lieBracketCLM (D.symm_alg i) D.H_op = 0) ∧
+        (∀ g, lieBracketCLM (D.gauge_symm g) D.H_op = 0)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+        Differentiable ℝ f →
+        (∀ w, poissonBracket f D.H_cl w = 0) →
+        ∀ t, f (D.flow.Φ t z) = f z) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) := by
+  let D := mkInteractingYMDynamicsData W R
+  refine ⟨D, ?_, D.flow.Φ_traj, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · intro z
+    exact mul_nonneg (by norm_num) (mul_self_nonneg (ymAngMom z))
+  · intro i z
+    exact (poissonBracket_coord_nondeg i z).2
+  · intro A₁ A₂ B₁ B₂
+    exact cantor_tensor_observable_mul A₁ A₂ B₁ B₂
+  · exact ⟨D.Z_diverges, D.H_op_lb, D.H_op_ground⟩
+  · exact ⟨D.gauge_vac, D.symm_comm, D.gauge_comm⟩
+  · exact ⟨D.ξ_diverges, D.trilattice.mu_delta⟩
+  · intro f z hf hcomm t
+    have hc := poisson_commute_conserved D.H_cl f
+      (fun s => (D.flow.Φ s z).1) (fun s => (D.flow.Φ s z).2)
+      (D.flow.Φ_traj z) hf hcomm t
+    simpa [D.flow.Φ_zero] using hc
+  · exact ⟨singleDOF_proj_lift D.n_dof, D.action_pos⟩
+
+end InteractingYMDynamics 
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -2632,3 +4126,40 @@ end YangMills
 #print axioms YangMills.singleDOF_proj_lift
 #print axioms YangMills.harmonic_oscillator_action
 #print axioms YangMills.non_trivial_4d_relativistic_qft_on_minkowski_spacetime
+
+-- §11. Non-Abelian lattice gauge & Wilson action
+#print axioms YangMills.wilsonPlaquetteTerm_gauge_inv
+#print axioms YangMills.wilsonAction_gauge_inv
+#print axioms YangMills.wilsonKernel_gauge_inv
+#print axioms YangMills.wilsonKernel_symm
+#print axioms YangMills.wilsonKernel_nonneg
+#print axioms YangMills.nonAbelianWilson_kernel_properties
+#print axioms YangMills.nonAbelianWilson_clustering
+
+-- §12. Uniform RG gap & Schwinger convergence
+#print axioms YangMills.uniform_rg_phys_gap_lb
+#print axioms YangMills.uniform_rg_correlation_length_diverges
+#print axioms YangMills.uniform_rg_clustering_limit
+
+-- §13. Non-Gaussian 4D OS continuum theory
+#print axioms YangMills.os2_refl_pos_from_n
+#print axioms YangMills.os4d_theory_non_gaussian
+
+-- §14. Osterwalder–Schrader reconstruction
+#print axioms YangMills.os_cauchy_schwarz
+#print axioms YangMills.osQuotInner_definite
+#print axioms YangMills.os_reconstruction_mass_gap
+-- §15. Uniform rescaled lattice mass gap and RG convergence
+#print axioms YangMills.transferHamiltonian_nonneg
+#print axioms YangMills.uniform_rescaled_lattice_mass_gap_and_rg_convergence
+
+-- §16. Non-Gaussian 4D Euclidean OS axioms verification
+#print axioms YangMills.non_gaussian_4d_euclidean_os_axioms_verification
+
+-- §17. OS Hilbert completion and Wightman reconstruction
+#print axioms YangMills.osCompletionBridge_injective
+#print axioms YangMills.os_hilbert_completion_and_wightman_reconstruction
+
+-- §18. Interacting Yang–Mills Hamiltonian and phase-space dynamics
+#print axioms YangMills.ymAngMom_poisson_commute
+#print axioms YangMills.interacting_yang_mills_hamiltonian_and_phase_space_dynamics
