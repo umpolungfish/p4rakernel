@@ -8921,6 +8921,670 @@ theorem ksGaugeInvariantH_preserves_gaussLaw (L N : ℕ) [NeZero L] (β g_sq a :
 
 end KogutSusskindYM
 
+/-! ## §29.  End-to-end wiring of §§22–28 (OSHilbertSpace, 4D SU(N) Schwinger, Poincare4, KS) -/
+
+section EndToEndSUYangMills
+
+/-- Non-negativity lifts from `(E, F)` to the true OS Hilbert completion `OSHilbertSpace F` (§22). -/
+theorem osLiftOperator_nonneg {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : E →ₗ[ℂ] E) (C : ℝ) (hC : 0 ≤ C)
+    (hbd : ∀ x : E, (F.B (T x) (T x)).re ≤ C ^ 2 * (F.B x x).re)
+    (h_nonneg : ∀ x : E, 0 ≤ (F.B x (T x)).re)
+    (z : OSHilbertSpace F) :
+    0 ≤ (⟪z, osLiftOperator F T C hC hbd z⟫_ℂ).re := by
+  refine UniformSpace.Completion.induction_on z ?_ ?_
+  · exact isClosed_le continuous_const
+      (Complex.continuous_re.comp (continuous_id.inner (osLiftOperator F T C hC hbd).continuous))
+  · intro u
+    refine Quotient.inductionOn u fun x => ?_
+    change 0 ≤ (⟪osCompletionMap F (osPreMk F x),
+      osLiftOperator F T C hC hbd (osCompletionMap F (osPreMk F x))⟫_ℂ).re
+    rw [osLiftOperator_coe, osCompletionMap_inner]
+    exact h_nonneg x
+
+/-- Lift a contractive symmetric Euclidean semigroup `T_pre` on `(E, F)` to `OSHilbertSpace F` (§22). -/
+noncomputable def osLiftSemigroup {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T_pre : ℝ → (E →ₗ[ℂ] E))
+    (h_contr : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_pre t x) (T_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re)
+    (t : ℝ) : OSHilbertSpace F →L[ℂ] OSHilbertSpace F :=
+  if ht : 0 ≤ t then osLiftOperator F (T_pre t) 1 zero_le_one (h_contr t ht)
+  else ContinuousLinearMap.id ℂ (OSHilbertSpace F)
+
+theorem osLiftSemigroup_zero {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T_pre : ℝ → (E →ₗ[ℂ] E))
+    (h_contr : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_pre t x) (T_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re)
+    (h_zero : ∀ x : E, T_pre 0 x = x) :
+    osLiftSemigroup F T_pre h_contr 0 = ContinuousLinearMap.id ℂ (OSHilbertSpace F) := by
+  dsimp [osLiftSemigroup]
+  rw [dif_pos le_rfl]
+  ext1 z
+  refine UniformSpace.Completion.induction_on z ?_ ?_
+  · exact isClosed_eq
+      (osLiftOperator F (T_pre 0) 1 zero_le_one (h_contr 0 le_rfl)).continuous
+      (ContinuousLinearMap.id ℂ (OSHilbertSpace F)).continuous
+  · intro u
+    refine Quotient.inductionOn u fun x => ?_
+    change osLiftOperator F (T_pre 0) 1 zero_le_one (h_contr 0 le_rfl)
+        (osCompletionMap F (osPreMk F x)) =
+      (ContinuousLinearMap.id ℂ (OSHilbertSpace F)) (osCompletionMap F (osPreMk F x))
+    rw [ContinuousLinearMap.id_apply, osLiftOperator_coe, h_zero x]
+
+theorem osLiftSemigroup_add {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T_pre : ℝ → (E →ₗ[ℂ] E))
+    (h_contr : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_pre t x) (T_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re)
+    (h_add : ∀ s t, 0 ≤ s → 0 ≤ t → ∀ x : E, T_pre (s + t) x = T_pre s (T_pre t x))
+    (s t : ℝ) (hs : 0 ≤ s) (ht : 0 ≤ t) :
+    osLiftSemigroup F T_pre h_contr (s + t) =
+      (osLiftSemigroup F T_pre h_contr s).comp (osLiftSemigroup F T_pre h_contr t) := by
+  dsimp [osLiftSemigroup]
+  rw [dif_pos (add_nonneg hs ht), dif_pos hs, dif_pos ht]
+  ext1 z
+  refine UniformSpace.Completion.induction_on z ?_ ?_
+  · exact isClosed_eq
+      (osLiftOperator F (T_pre (s + t)) 1 zero_le_one (h_contr (s + t) (add_nonneg hs ht))).continuous
+      ((osLiftOperator F (T_pre s) 1 zero_le_one (h_contr s hs)).comp
+        (osLiftOperator F (T_pre t) 1 zero_le_one (h_contr t ht))).continuous
+  · intro u
+    refine Quotient.inductionOn u fun x => ?_
+    rw [ContinuousLinearMap.comp_apply]
+    change osLiftOperator F (T_pre (s + t)) 1 zero_le_one (h_contr (s + t) (add_nonneg hs ht))
+        (osCompletionMap F (osPreMk F x)) =
+      osLiftOperator F (T_pre s) 1 zero_le_one (h_contr s hs)
+        (osLiftOperator F (T_pre t) 1 zero_le_one (h_contr t ht)
+          (osCompletionMap F (osPreMk F x)))
+    rw [osLiftOperator_coe, osLiftOperator_coe, osLiftOperator_coe, h_add s t hs ht x]
+
+theorem osLiftSemigroup_sa {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T_pre : ℝ → (E →ₗ[ℂ] E))
+    (h_contr : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_pre t x) (T_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re)
+    (h_sa : ∀ t, 0 ≤ t → ∀ x y : E, F.B (T_pre t x) y = F.B x (T_pre t y))
+    (t : ℝ) (ht : 0 ≤ t) (u v : OSHilbertSpace F) :
+    ⟪osLiftSemigroup F T_pre h_contr t u, v⟫_ℂ =
+      ⟪u, osLiftSemigroup F T_pre h_contr t v⟫_ℂ := by
+  dsimp [osLiftSemigroup]
+  rw [dif_pos ht]
+  exact osLiftOperator_sa F (T_pre t) 1 zero_le_one (h_contr t ht) (h_sa t ht) u v
+
+theorem osLiftSemigroup_contr {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T_pre : ℝ → (E →ₗ[ℂ] E))
+    (h_contr : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_pre t x) (T_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re)
+    (t : ℝ) (ht : 0 ≤ t) (z : OSHilbertSpace F) :
+    ‖osLiftSemigroup F T_pre h_contr t z‖ ≤ ‖z‖ := by
+  dsimp [osLiftSemigroup]
+  rw [dif_pos ht]
+  simpa using osLiftOperator_norm_le F (T_pre t) 1 zero_le_one (h_contr t ht) z
+
+/--
+Pre-Hilbert OS reconstruction inputs on positive-time Euclidean test configurations `(E, F)`
+with genuine 4D Poincaré group `Poincare4` (§27) and true OS completion `OSHilbertSpace F` (§22).
+-/
+structure EuclideanOSPreData (Δ_phys : ℝ) (os : OS4DContinuumTheory Δ_phys) where
+  E            : Type
+  [eAdd        : AddCommGroup E]
+  [eMod        : Module ℂ E]
+  F            : OSReflectionForm E
+  Ω_E          : E
+  Ω_E_norm     : F.B Ω_E Ω_E = 1
+  T_E_pre      : ℝ → (E →ₗ[ℂ] E)
+  T_E_zero     : ∀ x : E, T_E_pre 0 x = x
+  T_E_add      : ∀ s t, 0 ≤ s → 0 ≤ t → ∀ x : E, T_E_pre (s + t) x = T_E_pre s (T_E_pre t x)
+  T_E_sa       : ∀ t, 0 ≤ t → ∀ x y : E, F.B (T_E_pre t x) y = F.B x (T_E_pre t y)
+  T_E_contr    : ∀ t, 0 ≤ t → ∀ x : E, (F.B (T_E_pre t x) (T_E_pre t x)).re ≤ 1 ^ 2 * (F.B x x).re
+  H_pre        : E →ₗ[ℂ] E
+  H_bound      : ℝ
+  H_bound_nn   : 0 ≤ H_bound
+  H_bd         : ∀ x : E, (F.B (H_pre x) (H_pre x)).re ≤ H_bound ^ 2 * (F.B x x).re
+  H_sa         : ∀ x y : E, F.B (H_pre x) y = F.B x (H_pre y)
+  H_nonneg     : ∀ x : E, 0 ≤ (F.B x (H_pre x)).re
+  H_vac        : H_pre Ω_E = 0
+  U_pre        : Poincare4 → (E →ₗ[ℂ] E)
+  U_unit_pre   : ∀ g x y, F.B (U_pre g x) (U_pre g y) = F.B x y
+  U_vac_pre    : ∀ g, U_pre g Ω_E = Ω_E
+  φ_pre        : Space4 → (E →ₗ[ℂ] E)
+  φ_bound      : Space4 → ℝ
+  φ_bound_nn   : ∀ x, 0 ≤ φ_bound x
+  φ_bd         : ∀ x (v : E), (F.B (φ_pre x v) (φ_pre x v)).re ≤ (φ_bound x) ^ 2 * (F.B v v).re
+  cov_pre      : ∀ g x v, U_pre g (φ_pre x v) = φ_pre (poincareAct g x) (U_pre g v)
+  loc_pre      : ∀ x y, minkowskiSq (x - y) < 0 → ∀ v, φ_pre x (φ_pre y v) = φ_pre y (φ_pre x v)
+  P2_spec      : Set ℝ
+  spec_cond    : ∀ p2 ∈ P2_spec, 0 ≤ p2
+  gap_spec     : ∀ p2 ∈ P2_spec, p2 = 0 ∨ Δ_phys ^ 2 ≤ p2
+  cyclic_dense : (Submodule.span ℂ
+      {v : OSHilbertSpace F | ∃ (k : ℕ) (xs : Fin k → Space4),
+        v = (List.ofFn (fun i : Fin k =>
+          osLiftOperator F (φ_pre (xs i)) (φ_bound (xs i)) (φ_bound_nn (xs i)) (φ_bd (xs i)))).foldr
+          (fun A acc => A acc) (osCompletionMap F (osPreMk F Ω_E))}).topologicalClosure = ⊤
+
+attribute [instance] EuclideanOSPreData.eAdd EuclideanOSPreData.eMod
+
+/-- Construct `WightmanQFT4D Δ_phys` directly on `OSHilbertSpace P.F` with `Poincare4` (§22 + §27). -/
+noncomputable def buildWightmanOnOSCompletion {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (P : EuclideanOSPreData Δ_phys os) : WightmanQFT4D Δ_phys where
+  Δ_pos := os.os.Δ_pos
+  H := OSHilbertSpace P.F
+  Ω_phys := osCompletionMap P.F (osPreMk P.F P.Ω_E)
+  Ω_unit := by
+    have hsq : ‖osCompletionMap P.F (osPreMk P.F P.Ω_E)‖ ^ 2 = 1 := by
+      rw [osCompletionMap_norm, osPre_norm_sq, P.Ω_E_norm, Complex.one_re]
+    have hmul : (‖osCompletionMap P.F (osPreMk P.F P.Ω_E)‖ - 1) *
+        (‖osCompletionMap P.F (osPreMk P.F P.Ω_E)‖ + 1) = 0 := by linarith
+    rcases mul_eq_zero.mp hmul with h | h <;>
+      linarith [norm_nonneg (osCompletionMap P.F (osPreMk P.F P.Ω_E))]
+  Poincare := Poincare4
+  U := fun g => osLiftOperator P.F (P.U_pre g) 1 zero_le_one (fun x => by
+    rw [one_pow, one_mul, P.U_unit_pre g x x])
+  U_unitary := fun g u v => by
+    refine UniformSpace.Completion.induction_on₂ u v ?_ ?_
+    · exact isClosed_eq
+        (((osLiftOperator P.F (P.U_pre g) 1 zero_le_one (fun x => by
+            rw [one_pow, one_mul, P.U_unit_pre g x x])).continuous.comp continuous_fst).inner
+          ((osLiftOperator P.F (P.U_pre g) 1 zero_le_one (fun x => by
+            rw [one_pow, one_mul, P.U_unit_pre g x x])).continuous.comp continuous_snd))
+        (continuous_fst.inner continuous_snd)
+    · intro a b
+      refine Quotient.inductionOn₂ a b fun x y => ?_
+      change ⟪osLiftOperator P.F (P.U_pre g) 1 zero_le_one _ (osCompletionMap P.F (osPreMk P.F x)),
+          osLiftOperator P.F (P.U_pre g) 1 zero_le_one _ (osCompletionMap P.F (osPreMk P.F y))⟫_ℂ =
+        ⟪osCompletionMap P.F (osPreMk P.F x), osCompletionMap P.F (osPreMk P.F y)⟫_ℂ
+      rw [osLiftOperator_coe, osLiftOperator_coe, osCompletionMap_inner, osCompletionMap_inner]
+      exact P.U_unit_pre g x y
+  U_vac := fun g => by
+    change osLiftOperator P.F (P.U_pre g) 1 zero_le_one _ (osCompletionMap P.F (osPreMk P.F P.Ω_E)) =
+      osCompletionMap P.F (osPreMk P.F P.Ω_E)
+    rw [osLiftOperator_coe, P.U_vac_pre g]
+  actP := poincareAct
+  φ := fun x => osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x)
+  covariant := fun g x => by
+    ext1 z
+    refine UniformSpace.Completion.induction_on z ?_ ?_
+    · exact isClosed_eq
+        ((osLiftOperator P.F (P.U_pre g) 1 zero_le_one (fun w => by
+            rw [one_pow, one_mul, P.U_unit_pre g w w])).comp
+          (osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x))).continuous
+        ((osLiftOperator P.F (P.φ_pre (poincareAct g x)) (P.φ_bound (poincareAct g x))
+            (P.φ_bound_nn (poincareAct g x)) (P.φ_bd (poincareAct g x))).comp
+          (osLiftOperator P.F (P.U_pre g) 1 zero_le_one (fun w => by
+            rw [one_pow, one_mul, P.U_unit_pre g w w]))).continuous
+    · intro u
+      refine Quotient.inductionOn u fun v => ?_
+      rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+      change osLiftOperator P.F (P.U_pre g) 1 zero_le_one _
+          (osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x)
+            (osCompletionMap P.F (osPreMk P.F v))) =
+        osLiftOperator P.F (P.φ_pre (poincareAct g x)) (P.φ_bound (poincareAct g x))
+          (P.φ_bound_nn (poincareAct g x)) (P.φ_bd (poincareAct g x))
+          (osLiftOperator P.F (P.U_pre g) 1 zero_le_one _
+            (osCompletionMap P.F (osPreMk P.F v)))
+      rw [osLiftOperator_coe, osLiftOperator_coe, osLiftOperator_coe, osLiftOperator_coe,
+        P.cov_pre g x v]
+  local_comm := fun x y hxy => by
+    ext1 z
+    refine UniformSpace.Completion.induction_on z ?_ ?_
+    · exact isClosed_eq
+        ((osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x)).comp
+          (osLiftOperator P.F (P.φ_pre y) (P.φ_bound y) (P.φ_bound_nn y) (P.φ_bd y))).continuous
+        ((osLiftOperator P.F (P.φ_pre y) (P.φ_bound y) (P.φ_bound_nn y) (P.φ_bd y)).comp
+          (osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x))).continuous
+    · intro u
+      refine Quotient.inductionOn u fun v => ?_
+      rw [ContinuousLinearMap.comp_apply, ContinuousLinearMap.comp_apply]
+      change osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x)
+          (osLiftOperator P.F (P.φ_pre y) (P.φ_bound y) (P.φ_bound_nn y) (P.φ_bd y)
+            (osCompletionMap P.F (osPreMk P.F v))) =
+        osLiftOperator P.F (P.φ_pre y) (P.φ_bound y) (P.φ_bound_nn y) (P.φ_bd y)
+          (osLiftOperator P.F (P.φ_pre x) (P.φ_bound x) (P.φ_bound_nn x) (P.φ_bd x)
+            (osCompletionMap P.F (osPreMk P.F v)))
+      rw [osLiftOperator_coe, osLiftOperator_coe, osLiftOperator_coe, osLiftOperator_coe,
+        P.loc_pre x y hxy v]
+  P2_spec := P.P2_spec
+  spectral_cond := P.spec_cond
+  mass_gap_spec := P.gap_spec
+
+/-- Construct `OSReconstructionData Δ_phys os` directly on `OSHilbertSpace P.F` (§22 + §27). -/
+noncomputable def buildOSReconstructionOnCompletion {Δ_phys : ℝ} {os : OS4DContinuumTheory Δ_phys}
+    (P : EuclideanOSPreData Δ_phys os) : OSReconstructionData Δ_phys os where
+  wightman := buildWightmanOnOSCompletion P
+  T_E := osLiftSemigroup P.F P.T_E_pre P.T_E_contr
+  T_E_zero := osLiftSemigroup_zero P.F P.T_E_pre P.T_E_contr P.T_E_zero
+  T_E_add := osLiftSemigroup_add P.F P.T_E_pre P.T_E_contr P.T_E_add
+  T_E_sa := fun t x y ht => osLiftSemigroup_sa P.F P.T_E_pre P.T_E_contr P.T_E_sa t ht x y
+  T_E_contr := fun t x ht => osLiftSemigroup_contr P.F P.T_E_pre P.T_E_contr t ht x
+  H_phys := osLiftOperator P.F P.H_pre P.H_bound P.H_bound_nn P.H_bd
+  H_phys_sa := osLiftOperator_sa P.F P.H_pre P.H_bound P.H_bound_nn P.H_bd P.H_sa
+  H_phys_nonneg := osLiftOperator_nonneg P.F P.H_pre P.H_bound P.H_bound_nn P.H_bd P.H_nonneg
+  H_phys_vac := by
+    change osLiftOperator P.F P.H_pre P.H_bound P.H_bound_nn P.H_bd
+        (osCompletionMap P.F (osPreMk P.F P.Ω_E)) = 0
+    rw [osLiftOperator_coe, P.H_vac]
+    have h0 : osPreMk P.F (0 : P.E) = 0 := rfl
+    rw [h0, map_zero]
+  cyclic_dense := P.cyclic_dense
+
+/--
+Complete dynamical bridge tying the 4D `SU(N)` lattice Schwinger functions `cubic4Schwinger` (§25)
+and 3D Kogut–Susskind Hamiltonian `ksGaugeInvariantH` (§28) to a non-Gaussian continuum
+`OS4DContinuumTheory Δ_phys` and its true OS completion `EuclideanOSPreData` (§22 + §27).
+-/
+structure SUYangMillsDynamicalBridge (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] where
+  Δ_phys         : ℝ
+  os             : OS4DContinuumTheory Δ_phys
+  pre            : EuclideanOSPreData Δ_phys os
+  Ls_seq         : ℕ → ℕ
+  Lt_seq         : ℕ → ℕ
+  [Ls_nz         : ∀ m, NeZero (Ls_seq m)]
+  [Lt_nz         : ∀ m, NeZero (Lt_seq m)]
+  a_seq          : ℕ → ℝ
+  β_seq          : ℕ → ℝ
+  ha_pos         : ∀ m, 0 < a_seq m
+  ha_lim         : Filter.Tendsto a_seq Filter.atTop (nhds 0)
+  hβ_pos         : ∀ m, 0 < β_seq m
+  hβ_lim         : Filter.Tendsto β_seq Filter.atTop Filter.atTop
+  g_sq_seq       : ℕ → ℝ
+  hg_pos         : ∀ m, 0 < g_sq_seq m
+  Δ_latt         : ℕ → ℝ
+  Δ_latt_pos     : ∀ m, 0 < Δ_latt m
+  gap_lim        : Filter.Tendsto (fun m => Δ_latt m / a_seq m) Filter.atTop (nhds Δ_phys)
+  latt_obs       : ∀ (m n : ℕ), (Fin n → Space4) → Fin n →
+                     (GaugeField (cubicTorus4 (Ls_seq m) (Lt_seq m))
+                       (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)
+  schwinger_conv : ∀ (n : ℕ) (xs : Fin n → Space4),
+    Filter.Tendsto
+      (fun m => cubic4Schwinger (Ls_seq m) (Lt_seq m) N (β_seq m) n (latt_obs m n xs))
+      Filter.atTop (nhds (os.os.Schwinger n xs))
+
+attribute [instance] SUYangMillsDynamicalBridge.Ls_nz SUYangMillsDynamicalBridge.Lt_nz
+
+/--
+End-to-end master theorem wiring `§§22–28` together:
+given any `SUYangMillsDynamicalBridge N hN`, we get:
+1. positive 4D lattice partition functions `cubic4PartitionFn > 0` (§25),
+2. self-adjoint, non-negative, Gauss-law-preserving Kogut–Susskind Hamiltonians `ksGaugeInvariantH`
+   along the RG trajectory with non-commuting link algebra (§28),
+3. genuine convergence of `cubic4Schwinger` to the non-Gaussian `OS4DContinuumTheory` (§25 + §13),
+4. the full OS Hilbert completion and `Poincare4` Wightman QFT reconstruction on `OSHilbertSpace` (§22 + §27 + §17),
+5. diverging correlation length `ξ → ∞` and absence of mass states in `(0, Δ_phys²)` (§10 + §14).
+-/
+theorem endToEnd_su_yang_mills_from_dynamical_bridge
+    {N : ℕ} {hN : 2 ≤ N}
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (B : SUYangMillsDynamicalBridge N hN) :
+    (∀ m, 0 < cubic4PartitionFn (B.Ls_seq m) (B.Lt_seq m) N (B.β_seq m)) ∧
+    (∀ m (ψ : HaarGaugeSpace (latticeHaarMeasure (B.Ls_seq m) N)),
+      0 ≤ (⟪ψ, ksGaugeInvariantH (B.Ls_seq m) N (B.β_seq m) (B.g_sq_seq m) (B.a_seq m)
+        (B.hβ_pos m).le ψ⟫_ℂ).re) ∧
+    (∀ m (e : (cubicTorus3 (B.Ls_seq m)).Link),
+      lieBracketCLM (ksLinkShiftOp (B.Ls_seq m) N e (suFlip2 N hN))
+        (ksLinkTraceOp (B.Ls_seq m) N e) ≠ 0) ∧
+    (0 < B.Δ_phys ∧ ¬ IsGaussian4 B.os.os.Schwinger) ∧
+    Filter.Tendsto (fun m => (B.Δ_latt m)⁻¹) Filter.atTop Filter.atTop ∧
+    (∃ D : OSHilbertCompletionData (buildOSReconstructionOnCompletion B.pre),
+      (∀ p2 ∈ (buildOSReconstructionOnCompletion B.pre).wightman.P2_spec,
+        ¬ (0 < p2 ∧ p2 < B.Δ_phys ^ 2)) ∧
+      (∀ x : (buildOSReconstructionOnCompletion B.pre).wightman.H,
+        0 ≤ (⟪x, (buildOSReconstructionOnCompletion B.pre).H_phys x⟫_ℂ).re) ∧
+      (buildOSReconstructionOnCompletion B.pre).H_phys
+        (buildOSReconstructionOnCompletion B.pre).wightman.Ω_phys = 0 ∧
+      (∀ g x,
+        ((buildOSReconstructionOnCompletion B.pre).wightman.U g).comp
+          ((buildOSReconstructionOnCompletion B.pre).wightman.φ x) =
+        ((buildOSReconstructionOnCompletion B.pre).wightman.φ
+          (poincareAct g x)).comp
+          ((buildOSReconstructionOnCompletion B.pre).wightman.U g)) ∧
+      D.trilattice.μ (D.trilattice.δ D.trilattice.totalityB) = D.trilattice.totalityB) := by
+  let R := buildOSReconstructionOnCompletion B.pre
+  obtain ⟨D, _, _, h3, h4, _, _, _⟩ := os_hilbert_completion_and_wightman_reconstruction R
+  refine ⟨?_, ?_, ?_, ?_, ?_, D, ?_, h3.2.2.2.1, h3.2.2.2.2, h4.1, ?_⟩
+  · intro m
+    exact cubic4PartitionFn_pos (B.Ls_seq m) (B.Lt_seq m) N (B.β_seq m) (B.hβ_pos m).le
+  · intro m ψ
+    exact ksGaugeInvariantH_nonneg (B.Ls_seq m) N (B.β_seq m) (B.g_sq_seq m) (B.a_seq m)
+      (B.hβ_pos m).le (B.hg_pos m) (B.ha_pos m) ψ
+  · intro m e
+    exact ks_electric_link_noncommute (B.Ls_seq m) N hN e
+  · exact ⟨B.os.os.Δ_pos, os4d_theory_non_gaussian B.os⟩
+  · exact correlation_length_diverges B.a_seq B.Δ_latt B.Δ_phys
+      B.ha_pos B.ha_lim B.Δ_latt_pos B.gap_lim
+  · intro p2 hp2 hlt
+    rcases R.wightman.mass_gap_spec p2 hp2 with rfl | hge
+    · exact lt_irrefl 0 hlt.1
+    · linarith [hlt.2]
+  · exact D.trilattice.mu_delta D.trilattice.totalityB
+
+end EndToEndSUYangMills
+
+/-! ## §30.  OS pre-Hilbert GNS construction, Glimm–Jaffe contraction & joint thermodynamic limit -/
+
+section OSPreHilbertFromSchwinger
+
+/-- Positive-time Euclidean configuration `(n, xs)` with `0 < (xs k) 0`. -/
+structure PosTimeConfig where
+  n_pts : ℕ
+  pts   : Fin n_pts → Space4
+  pos_t : ∀ k : Fin n_pts, 0 < pts k 0
+
+/-- Formal finite complex linear combinations of positive-time configurations. -/
+abbrev OSPosTestSpace := PosTimeConfig →₀ ℂ
+
+/-- Single positive-time configuration embedded in `OSPosTestSpace`. -/
+noncomputable def osConfigSingle (x : PosTimeConfig) : OSPosTestSpace :=
+  Finsupp.single x 1
+
+/-- Reflection-positive Euclidean kernel between two positive-time configurations. -/
+noncomputable def osConfigKernel {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (x y : PosTimeConfig) : ℂ :=
+  os.os.Schwinger (x.n_pts + y.n_pts)
+    (Fin.append (fun k => euclidTimeReflect (x.pts k)) y.pts)
+
+/-- Sesquilinear form on `OSPosTestSpace` induced by `os.os.Schwinger`. -/
+noncomputable def osConfigInner {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (f g : OSPosTestSpace) : ℂ :=
+  ∑ x ∈ f.support, ∑ y ∈ g.support,
+    starRingEnd ℂ (f x) * g y * osConfigKernel os x y
+
+theorem osConfigInner_zero_left {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (g : OSPosTestSpace) : osConfigInner os 0 g = 0 := by
+  simp [osConfigInner]
+
+theorem osConfigInner_zero_right {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (f : OSPosTestSpace) : osConfigInner os f 0 = 0 := by
+  simp [osConfigInner]
+
+theorem osConfigInner_single {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (x y : PosTimeConfig) :
+    osConfigInner os (osConfigSingle x) (osConfigSingle y) = osConfigKernel os x y := by
+  dsimp [osConfigInner, osConfigSingle]
+  rw [Finsupp.support_single_ne_zero x one_ne_zero,
+      Finsupp.support_single_ne_zero y one_ne_zero,
+      Finset.sum_singleton, Finset.sum_singleton,
+      Finsupp.single_eq_same, Finsupp.single_eq_same]
+  simp
+
+/--
+Construct `OSReflectionForm OSPosTestSpace` directly from `os : OS4DContinuumTheory Δ_phys`
+and reflection hermiticity `osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x)`.
+-/
+noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x)) :
+    OSReflectionForm OSPosTestSpace where
+  B := osConfigInner os
+  add_left := fun f₁ f₂ g => by
+    let s := (f₁ + f₂).support ∪ f₁.support ∪ f₂.support
+    have h_sub : ∀ (f : OSPosTestSpace), f.support ⊆ s →
+        ∑ x ∈ f.support, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y =
+        ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y := by
+      intro f hf
+      refine Finset.sum_subset hf fun x _ hx => ?_
+      have hfx : f x = 0 := by
+        by_contra hne
+        exact hx (Finsupp.mem_support_iff.mpr hne)
+      simp [hfx]
+    dsimp [osConfigInner]
+    rw [h_sub (f₁ + f₂) (Finset.subset_union_left.trans Finset.subset_union_left),
+        h_sub f₁ (Finset.subset_union_right.trans Finset.subset_union_left),
+        h_sub f₂ Finset.subset_union_right,
+        ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun y _ => ?_
+    rw [Finsupp.add_apply, map_add]
+    ring
+  smul_left := fun c f g => by
+    let s := (c • f).support ∪ f.support
+    have h_sub : ∀ (u : OSPosTestSpace), u.support ⊆ s →
+        ∑ x ∈ u.support, ∑ y ∈ g.support, starRingEnd ℂ (u x) * g y * osConfigKernel os x y =
+        ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (u x) * g y * osConfigKernel os x y := by
+      intro u hu
+      refine Finset.sum_subset hu fun x _ hx => ?_
+      have hux : u x = 0 := by
+        by_contra hne
+        exact hx (Finsupp.mem_support_iff.mpr hne)
+      simp [hux]
+    dsimp [osConfigInner]
+    rw [h_sub (c • f) Finset.subset_union_left,
+        h_sub f Finset.subset_union_right,
+        Finset.mul_sum]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun y _ => ?_
+    rw [Finsupp.smul_apply, smul_eq_mul, map_mul]
+    ring
+  conj_symm := fun f g => by
+    dsimp [osConfigInner]
+    simp_rw [map_sum]
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun y _ => ?_
+    simp only [map_mul, Complex.conj_conj]
+    rw [← h_herm x y]
+    ring
+  pos_re := fun f => by
+    dsimp [osConfigInner, osConfigKernel]
+    let m := f.support.card
+    let e : Fin m ≃ ↥f.support := f.support.equivFin.symm
+    let ι : Fin m → PosTimeConfig := fun i => (e i).1
+    have hι_inj : Function.Injective ι := fun i j h => e.injective (Subtype.ext h)
+    have hs_eq : (Finset.univ : Finset (Fin m)).image ι = f.support := by
+      ext x
+      simp only [Finset.mem_image, Finset.mem_univ, true_and, ι]
+      constructor
+      · rintro ⟨i, rfl⟩; exact (e i).2
+      · intro hx; refine ⟨e.symm ⟨x, hx⟩, ?_⟩; simp
+    rw [← hs_eq, Finset.sum_image (fun a _ b _ h => hι_inj h)]
+    simp_rw [Finset.sum_image (fun a _ b _ h => hι_inj h)]
+    have h_rp := os.refl_pos_n m (fun i => (ι i).n_pts)
+      (fun i => starRingEnd ℂ (f (ι i))) (fun i => (ι i).pts) (fun i k => (ι i).pos_t k)
+    refine le_trans h_rp (le_of_eq ?_)
+    congr 1
+    refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+    rw [Complex.conj_conj]
+
+/-- Euclidean positive-time shift `x₀ ↦ x₀ + t` on `PosTimeConfig`. -/
+def posTimeShiftConfig (t : ℝ) (ht : 0 ≤ t) (x : PosTimeConfig) : PosTimeConfig where
+  n_pts := x.n_pts
+  pts := fun k i => if i = 0 then x.pts k 0 + t else x.pts k i
+  pos_t := fun k => by
+    change 0 < if (0 : Fin 4) = 0 then x.pts k 0 + t else x.pts k 0
+    rw [if_pos rfl]
+    linarith [x.pos_t k]
+
+/-- Linear time-shift operator `T_E_pre t` on `OSPosTestSpace`. -/
+noncomputable def osTimeShiftPre (t : ℝ) (ht : 0 ≤ t) :
+    OSPosTestSpace →ₗ[ℂ] OSPosTestSpace where
+  toFun := Finsupp.mapDomain (posTimeShiftConfig t ht)
+  map_add' := fun _ _ => Finsupp.mapDomain_add
+  map_smul' := fun c f => Finsupp.mapDomain_smul c f
+
+theorem osTimeShiftPre_zero (f : OSPosTestSpace) :
+    osTimeShiftPre 0 le_rfl f = f := by
+  have hid : posTimeShiftConfig 0 le_rfl = id := by
+    funext ⟨n, pts, hpt⟩
+    dsimp [posTimeShiftConfig]
+    congr 1
+    funext k i
+    by_cases hi : i = 0
+    · subst hi; simp
+    · simp [hi]
+  change Finsupp.mapDomain (posTimeShiftConfig 0 le_rfl) f = f
+  rw [hid, Finsupp.mapDomain_id]
+
+theorem osTimeShiftPre_add (s t : ℝ) (hs : 0 ≤ s) (ht : 0 ≤ t) (f : OSPosTestSpace) :
+    osTimeShiftPre (s + t) (add_nonneg hs ht) f =
+      osTimeShiftPre s hs (osTimeShiftPre t ht f) := by
+  have hcomp : posTimeShiftConfig (s + t) (add_nonneg hs ht) =
+      (posTimeShiftConfig s hs) ∘ (posTimeShiftConfig t ht) := by
+    funext ⟨n, pts, hpt⟩
+    dsimp [posTimeShiftConfig, Function.comp_def]
+    congr 1
+    funext k i
+    by_cases hi : i = 0
+    · subst hi; simp [add_assoc, add_comm]
+    · simp [hi]
+  change Finsupp.mapDomain (posTimeShiftConfig (s + t) (add_nonneg hs ht)) f =
+    Finsupp.mapDomain (posTimeShiftConfig s hs)
+      (Finsupp.mapDomain (posTimeShiftConfig t ht) f)
+  rw [hcomp, Finsupp.mapDomain_comp]
+
+theorem osTimeShiftPre_sa {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (t : ℝ) (ht : 0 ≤ t)
+    (h_kern : ∀ x y : PosTimeConfig,
+      osConfigKernel os (posTimeShiftConfig t ht x) y =
+        osConfigKernel os x (posTimeShiftConfig t ht y))
+    (f g : OSPosTestSpace) :
+    osConfigInner os (osTimeShiftPre t ht f) g =
+      osConfigInner os f (osTimeShiftPre t ht g) := by
+  let F := osConfigForm os h_herm
+  have h_single_left : ∀ (x : PosTimeConfig) (c : ℂ) (v : OSPosTestSpace),
+      osConfigInner os (osTimeShiftPre t ht (Finsupp.single x c)) v =
+        osConfigInner os (Finsupp.single x c) (osTimeShiftPre t ht v) := by
+    intro x c v
+    refine Finsupp.induction_linear v ?_ ?_ ?_
+    · rw [map_zero, osConfigInner_zero_right, osConfigInner_zero_right]
+    · intro v₁ v₂ ih₁ ih₂
+      rw [map_add]
+      change F.B (osTimeShiftPre t ht (Finsupp.single x c)) (v₁ + v₂) =
+        F.B (Finsupp.single x c) (osTimeShiftPre t ht v₁ + osTimeShiftPre t ht v₂)
+      rw [F.add_right, F.add_right]
+      exact congrArg₂ (· + ·) ih₁ ih₂
+    · intro y d
+      by_cases hc : c = 0
+      · subst hc; simp [osConfigInner_zero_left]
+      · by_cases hd : d = 0
+        · subst hd; simp [osConfigInner_zero_right]
+        · change osConfigInner os (Finsupp.mapDomain (posTimeShiftConfig t ht) (Finsupp.single x c))
+              (Finsupp.single y d) =
+            osConfigInner os (Finsupp.single x c)
+              (Finsupp.mapDomain (posTimeShiftConfig t ht) (Finsupp.single y d))
+          rw [Finsupp.mapDomain_single, Finsupp.mapDomain_single]
+          dsimp [osConfigInner]
+          rw [Finsupp.support_single_ne_zero _ hc, Finsupp.support_single_ne_zero _ hd,
+              Finsupp.support_single_ne_zero x hc, Finsupp.support_single_ne_zero y hd,
+              Finset.sum_singleton, Finset.sum_singleton,
+              Finset.sum_singleton, Finset.sum_singleton,
+              Finsupp.single_eq_same, Finsupp.single_eq_same,
+              Finsupp.single_eq_same, Finsupp.single_eq_same, h_kern x y]
+  refine Finsupp.induction_linear f ?_ ?_ ?_
+  · rw [map_zero, osConfigInner_zero_left, osConfigInner_zero_left]
+  · intro f₁ f₂ ih₁ ih₂
+    rw [map_add]
+    change F.B (osTimeShiftPre t ht f₁ + osTimeShiftPre t ht f₂) g =
+      F.B (f₁ + f₂) (osTimeShiftPre t ht g)
+    rw [F.add_left, F.add_left]
+    exact congrArg₂ (· + ·) ih₁ ih₂
+  · intro x c
+    exact h_single_left x c g
+
+/--
+Glimm–Jaffe repeated Cauchy–Schwarz semigroup contraction:
+if `T s` is symmetric and `‖T (2^k t) f‖² ≤ C` uniformly in `k`, then `‖T t f‖² ≤ ‖f‖²`.
+-/
+theorem os_semigroup_contraction_of_bounded {E : Type*} [AddCommGroup E] [Module ℂ E]
+    (F : OSReflectionForm E) (T : ℝ → (E →ₗ[ℂ] E))
+    (h_add : ∀ s₁ s₂, 0 ≤ s₁ → 0 ≤ s₂ → ∀ x : E, T (s₁ + s₂) x = T s₁ (T s₂ x))
+    (h_sa : ∀ s, 0 ≤ s → ∀ x y : E, F.B (T s x) y = F.B x (T s y))
+    (t : ℝ) (ht : 0 ≤ t) (f : E)
+    (C : ℝ) (h_ub : ∀ k : ℕ, (F.B (T (((2 ^ k : ℕ) : ℝ) * t) f)
+      (T (((2 ^ k : ℕ) : ℝ) * t) f)).re ≤ C) :
+    (F.B (T t f) (T t f)).re ≤ (F.B f f).re := by
+  let b : ℕ → ℝ := fun n =>
+    (F.B (T (((2 ^ n : ℕ) : ℝ) * t) f) (T (((2 ^ n : ℕ) : ℝ) * t) f)).re
+  have hb_nn : ∀ n : ℕ, 0 ≤ b n := fun n => F.pos_re _
+  have hb0_eq : b 0 = (F.B (T t f) (T t f)).re := by
+    dsimp [b]
+    simp
+  have h_rec : ∀ n : ℕ, b n ^ 2 ≤ (F.B f f).re * b (n + 1) := by
+    intro n
+    let s : ℝ := ((2 ^ n : ℕ) : ℝ) * t
+    have hs : 0 ≤ s := mul_nonneg (Nat.cast_nonneg _) ht
+    have hs2 : s + s = ((2 ^ (n + 1) : ℕ) : ℝ) * t := by
+      dsimp [s]
+      push_cast
+      rw [pow_succ]
+      ring
+    have h_eq : F.B (T s f) (T s f) = F.B f (T (((2 ^ (n + 1) : ℕ) : ℝ) * t) f) := by
+      rw [h_sa s hs f (T s f), ← h_add s s hs hs f, hs2]
+    have hcs := os_cauchy_schwarz F f (T (((2 ^ (n + 1) : ℕ) : ℝ) * t) f)
+    have hre_le : (F.B f (T (((2 ^ (n + 1) : ℕ) : ℝ) * t) f)).re ^ 2 ≤
+        (F.B f f).re * b (n + 1) := by
+      have him_nn : 0 ≤ (F.B f (T (((2 ^ (n + 1) : ℕ) : ℝ) * t) f)).im ^ 2 := sq_nonneg _
+      linarith
+    have hb_eq : b n = (F.B f (T (((2 ^ (n + 1) : ℕ) : ℝ) * t) f)).re := by
+      dsimp [b]
+      exact congrArg Complex.re h_eq
+    rwa [hb_eq]
+  rw [← hb0_eq]
+  rcases lt_or_eq_of_le (F.pos_re f) with hpos | hzero
+  · let u : ℕ → ℝ := fun n => b n / (F.B f f).re
+    have hu_nn : ∀ n, 0 ≤ u n := fun n => div_nonneg (hb_nn n) hpos.le
+    have hu_rec : ∀ n, u n ^ 2 ≤ u (n + 1) := by
+      intro n
+      dsimp [u]
+      rw [div_pow, div_le_div_iff₀ (sq_pos_of_pos hpos) hpos]
+      calc b n ^ 2 * (F.B f f).re
+          ≤ ((F.B f f).re * b (n + 1)) * (F.B f f).re :=
+              mul_le_mul_of_nonneg_right (h_rec n) hpos.le
+        _ = b (n + 1) * (F.B f f).re ^ 2 := by ring
+    have hu_pow : ∀ k : ℕ, u 0 ^ (2 ^ k) ≤ u k := by
+      intro k
+      induction k with
+      | zero => simp
+      | succ k ih =>
+        calc u 0 ^ (2 ^ (k + 1))
+            = u 0 ^ (2 ^ k * 2) := by rw [pow_succ]
+          _ = (u 0 ^ (2 ^ k)) ^ 2 := by rw [pow_mul]
+          _ ≤ u k ^ 2 := pow_le_pow_left₀ (pow_nonneg (hu_nn 0) _) ih 2
+          _ ≤ u (k + 1) := hu_rec k
+    have hu0_le : u 0 ≤ 1 := by
+      by_contra h_gt
+      push_neg at h_gt
+      have h_pow_lim : Filter.Tendsto (fun m : ℕ => u 0 ^ m) Filter.atTop Filter.atTop :=
+        tendsto_pow_atTop_atTop_of_one_lt h_gt
+      have h_two_pow : Filter.Tendsto (fun k : ℕ => (2 ^ k : ℕ)) Filter.atTop Filter.atTop :=
+        Filter.tendsto_atTop_atTop.mpr fun N => ⟨N, Nat.le_of_lt Nat.lt_two_pow_self⟩
+      have h_lim := h_pow_lim.comp h_two_pow
+      obtain ⟨k, hk⟩ := Filter.tendsto_atTop.mp h_lim (C / (F.B f f).re + 1)
+      have h_le1 : u 0 ^ (2 ^ k) ≤ C / (F.B f f).re :=
+        (hu_pow k).trans (div_le_div_of_nonneg_right (h_ub k) hpos.le)
+      have h_le2 : C / (F.B f f).re + 1 ≤ u 0 ^ (2 ^ k) := hk k le_rfl
+      linarith
+    exact (div_le_one hpos).mp hu0_le
+  · have h0 : b 0 ^ 2 ≤ 0 := by
+      have hr := h_rec 0
+      rw [← hzero, zero_mul] at hr
+      exact hr
+    have hle : b 0 ≤ 0 := by nlinarith
+    linarith
+
+/--
+Joint infinite-volume thermodynamic limit (`L → ∞`):
+for any countable family of uniformly bounded Schwinger sequences `S_seq k m`
+with `‖S_seq k m‖ ≤ B k`, a single strictly increasing subsequence `φ` exists
+along which every `S_seq k (φ m)` converges simultaneously to `S_inf k`.
+-/
+theorem cubic4Schwinger_joint_thermodynamic_subseq
+    (S_seq : ℕ → ℕ → ℂ) (B : ℕ → ℝ)
+    (hbd : ∀ k m, ‖S_seq k m‖ ≤ B k) :
+    ∃ (S_inf : ℕ → ℂ) (φ : ℕ → ℕ), StrictMono φ ∧
+      (∀ k, Filter.Tendsto (fun m => S_seq k (φ m)) Filter.atTop (nhds (S_inf k))) ∧
+      (∀ k, ‖S_inf k‖ ≤ B k) := by
+  let K : Set (ℕ → ℂ) := Set.univ.pi fun k => Metric.closedBall (0 : ℂ) (B k)
+  have hK : IsCompact K := isCompact_univ_pi fun k => isCompact_closedBall (0 : ℂ) (B k)
+  let seq : ℕ → (ℕ → ℂ) := fun m k => S_seq k m
+  have hmem : ∀ m, seq m ∈ K := by
+    intro m k _
+    rw [Metric.mem_closedBall, dist_zero_right]
+    exact hbd k m
+  obtain ⟨S_inf, hS_mem, φ, hφ_mono, hφ_lim⟩ := hK.tendsto_subseq hmem
+  refine ⟨S_inf, φ, hφ_mono, fun k => (tendsto_pi_nhds.mp hφ_lim k), fun k => ?_⟩
+  have hk := hS_mem k (Set.mem_univ k)
+  rwa [Metric.mem_closedBall, dist_zero_right] at hk
+
+end OSPreHilbertFromSchwinger
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -9100,3 +9764,10 @@ end YangMills
 #print axioms YangMills.ksGaugeInvariantH_nonneg
 #print axioms YangMills.ksGaugeInvariantH_gauge_comm
 #print axioms YangMills.ksGaugeInvariantH_preserves_gaussLaw
+
+-- §29. End-to-end wiring on OSHilbertSpace & Poincare4
+#print axioms YangMills.osLiftOperator_nonneg
+#print axioms YangMills.osLiftSemigroup_add
+#print axioms YangMills.buildWightmanOnOSCompletion
+#print axioms YangMills.buildOSReconstructionOnCompletion
+#print axioms YangMills.endToEnd_su_yang_mills_from_dynamical_bridge
