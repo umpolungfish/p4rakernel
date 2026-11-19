@@ -1260,7 +1260,7 @@ structure OsterwalderSchrader4D (Δ_phys : ℝ) where
                  0 ≤ (∑ i : Fin m, ∑ j : Fin m,
                    c i * starRingEnd ℂ (c j) *
                      Schwinger 2 ![euclidTimeReflect (xs i), xs j]).re
-  cluster    : ∀ (n m : ℕ) (C : ℝ) (xs : Fin n → Space4) (ys : Fin m → Space4)
+  cluster    : ∀ (n m : ℕ), ∃ C : ℝ, ∀ (xs : Fin n → Space4) (ys : Fin m → Space4)
                  (R : ℝ), 0 ≤ R →
                  (∀ i j, R ≤ ‖xs i - ys j‖) →
                  ‖Schwinger (n + m) (Fin.append xs ys) -
@@ -3466,7 +3466,7 @@ theorem non_gaussian_4d_euclidean_os_axioms_verification.{u}
         (∀ x : R.wightman.H, 0 ≤ (⟪x, R.H_phys x⟫_ℂ).re) ∧
         R.H_phys R.wightman.Ω_phys = 0) ∧
       (0 < Δ_phys ∧
-        (∀ (n m : ℕ) (C : ℝ) (xs : Fin n → Space4) (ys : Fin m → Space4)
+        (∀ (n m : ℕ), ∃ C : ℝ, ∀ (xs : Fin n → Space4) (ys : Fin m → Space4)
           (dist : ℝ), 0 ≤ dist → (∀ i j, dist ≤ ‖xs i - ys j‖) →
           ‖T.os.Schwinger (n + m) (Fin.append xs ys) -
             T.os.Schwinger n xs * T.os.Schwinger m ys‖ ≤ C * Real.exp (-(Δ_phys * dist))) ∧
@@ -4064,6 +4064,974 @@ theorem interacting_yang_mills_hamiltonian_and_phase_space_dynamics
 
 end InteractingYMDynamics 
 
+/-! ## §19.  Concrete non-Gaussian 4D Euclidean Schwinger family & RG trajectory -/
+
+section ConcreteOSAndRG
+
+/-- Euclidean norm on `Space4 = Fin 4 → ℝ` (invariant under `SO(4)` and `θ`). -/
+noncomputable def euclidNorm4 (x : Space4) : ℝ :=
+  Real.sqrt (∑ i : Fin 4, (x i) ^ 2)
+
+private theorem euclidNorm4_nonneg (x : Space4) : 0 ≤ euclidNorm4 x :=
+  Real.sqrt_nonneg _
+
+private theorem euclidNorm4_zero : euclidNorm4 0 = 0 := by
+  simp [euclidNorm4]
+
+private theorem euclidNorm4_unit0 : euclidNorm4 ![1, 0, 0, 0] = 1 := by
+  simp [euclidNorm4, Fin.sum_univ_four]
+
+private theorem euclidNorm4_reflect (x : Space4) :
+    euclidNorm4 (euclidTimeReflect x) = euclidNorm4 x := by
+  unfold euclidNorm4
+  congr 1
+  refine Finset.sum_congr rfl fun i _ => ?_
+  fin_cases i <;> simp [euclidTimeReflect]
+
+private theorem euclidNorm4_mulVec
+    (R : Matrix.specialOrthogonalGroup (Fin 4) ℝ) (x : Space4) :
+    euclidNorm4 (Matrix.mulVec R.1 x) = euclidNorm4 x := by
+  have hO : star R.1 * R.1 = 1 := (Unitary.mem_iff.mp R.2.1).1
+  have h_sum : ∑ k : Fin 4, (Matrix.mulVec R.1 x k) ^ 2 = ∑ j : Fin 4, (x j) ^ 2 := by
+    simp only [Matrix.mulVec, dotProduct]
+    calc ∑ k : Fin 4, (∑ j : Fin 4, R.1 k j * x j) ^ 2
+        = ∑ k : Fin 4, ∑ i : Fin 4, ∑ j : Fin 4, (R.1 k i * R.1 k j) * (x i * x j) := by
+          refine Finset.sum_congr rfl fun k _ => ?_
+          rw [sq, Finset.sum_mul]
+          refine Finset.sum_congr rfl fun i _ => ?_
+          rw [Finset.mul_sum]
+          refine Finset.sum_congr rfl fun j _ => by ring
+      _ = ∑ i : Fin 4, ∑ j : Fin 4, (∑ k : Fin 4, R.1 k i * R.1 k j) * (x i * x j) := by
+          rw [Finset.sum_comm]
+          refine Finset.sum_congr rfl fun i _ => ?_
+          rw [Finset.sum_comm]
+          refine Finset.sum_congr rfl fun j _ => ?_
+          rw [Finset.sum_mul]
+      _ = ∑ i : Fin 4, ∑ j : Fin 4, (if i = j then (1 : ℝ) else 0) * (x i * x j) := by
+          refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+          have hij := congr_fun (congr_fun hO i) j
+          simp only [Matrix.mul_apply, Matrix.star_apply, star_trivial, Matrix.one_apply] at hij
+          rw [hij]
+      _ = ∑ i : Fin 4, (x i) ^ 2 := by
+          refine Finset.sum_congr rfl fun i _ => ?_
+          simp [sq]
+  unfold euclidNorm4
+  rw [h_sum]
+
+private theorem euclidNorm4_sub_le (x y : Space4) :
+    euclidNorm4 (x - y) ≤ euclidNorm4 x + euclidNorm4 y := by
+  let x' : EuclideanSpace ℝ (Fin 4) := { ofLp := x }
+  let y' : EuclideanSpace ℝ (Fin 4) := { ofLp := y }
+  have hx : ‖x'‖ = euclidNorm4 x := by
+    have hsq : ‖x'‖ ^ 2 = ∑ i : Fin 4, (x i) ^ 2 := by
+      rw [EuclideanSpace.norm_sq_eq]
+      simp [x', Real.norm_eq_abs, sq_abs]
+    rw [euclidNorm4, ← hsq, Real.sqrt_sq (norm_nonneg _)]
+  have hy : ‖y'‖ = euclidNorm4 y := by
+    have hsq : ‖y'‖ ^ 2 = ∑ i : Fin 4, (y i) ^ 2 := by
+      rw [EuclideanSpace.norm_sq_eq]
+      simp [y', Real.norm_eq_abs, sq_abs]
+    rw [euclidNorm4, ← hsq, Real.sqrt_sq (norm_nonneg _)]
+  have hxy : ‖x' - y'‖ = euclidNorm4 (x - y) := by
+    have hsq : ‖x' - y'‖ ^ 2 = ∑ i : Fin 4, ((x - y) i) ^ 2 := by
+      rw [EuclideanSpace.norm_sq_eq]
+      simp [x', y', Real.norm_eq_abs, sq_abs]
+    rw [euclidNorm4, ← hsq, Real.sqrt_sq (norm_nonneg _)]
+  rw [← hx, ← hy, ← hxy]
+  exact norm_sub_le x' y'
+
+private theorem norm_le_euclidNorm4 (z : Space4) : ‖z‖ ≤ euclidNorm4 z := by
+  rw [pi_norm_le_iff_of_nonneg (euclidNorm4_nonneg z)]
+  intro i
+  rw [Real.norm_eq_abs, ← Real.sqrt_sq_eq_abs (z i)]
+  apply Real.sqrt_le_sqrt
+  exact Finset.single_le_sum (fun j _ => sq_nonneg (z j)) (Finset.mem_univ i)
+
+/-- Radial exponential weight `g(x) = exp(-2 ‖x‖₂)`. -/
+noncomputable def radialCoupling (x : Space4) : ℝ :=
+  Real.exp (-2 * euclidNorm4 x)
+
+private theorem radialCoupling_nonneg (x : Space4) : 0 ≤ radialCoupling x :=
+  (Real.exp_pos _).le
+
+private theorem radialCoupling_le_one (x : Space4) : radialCoupling x ≤ 1 :=
+  Real.exp_le_one_iff.mpr (by linarith [euclidNorm4_nonneg x])
+
+/--
+Explicit `SO(4)`-invariant, permutation-symmetric, reflection-positive,
+exponentially clustering (`Δ_phys = 1`), non-Gaussian 4D Euclidean Schwinger family:
+`S_n(x₁,…,x_n) = ½ (∏ (1 + g(x_i)) + ∏ (1 - g(x_i)))`.
+-/
+noncomputable def isingSchwinger (n : ℕ) (xs : Fin n → Space4) : ℂ :=
+  (((1 / 2 : ℝ) *
+      (∏ i : Fin n, (1 + radialCoupling (xs i)) +
+       ∏ i : Fin n, (1 - radialCoupling (xs i))) : ℝ) : ℂ)
+
+private theorem prod_sub_prod_bound {ι : Type*} [DecidableEq ι]
+    (s : Finset ι) (a b : ι → ℝ) (δ : ℝ)
+    (hδ : 0 ≤ δ)
+    (ha : ∀ i ∈ s, |a i| ≤ 2) (hb : ∀ i ∈ s, |b i| ≤ 2)
+    (hab : ∀ i ∈ s, |a i - b i| ≤ 2 * δ) :
+    |∏ i ∈ s, a i - ∏ i ∈ s, b i| ≤ (2 : ℝ) ^ s.card * (s.card : ℝ) * δ := by
+  induction s using Finset.induction_on with
+  | empty => simp
+  | @insert x s hx ih =>
+    have ha' : ∀ i ∈ s, |a i| ≤ 2 := fun i hi => ha i (Finset.mem_insert_of_mem hi)
+    have hb' : ∀ i ∈ s, |b i| ≤ 2 := fun i hi => hb i (Finset.mem_insert_of_mem hi)
+    have hab' : ∀ i ∈ s, |a i - b i| ≤ 2 * δ := fun i hi => hab i (Finset.mem_insert_of_mem hi)
+    have ih' := ih ha' hb' hab'
+    have hprod_a : |∏ i ∈ s, a i| ≤ (2 : ℝ) ^ s.card := by
+      rw [Finset.abs_prod]
+      calc ∏ i ∈ s, |a i| ≤ ∏ _i ∈ s, (2 : ℝ) :=
+            Finset.prod_le_prod (fun i _ => abs_nonneg _) ha'
+        _ = (2 : ℝ) ^ s.card := by rw [Finset.prod_const]
+    have hax := hab x (Finset.mem_insert_self x s)
+    have hbx := hb x (Finset.mem_insert_self x s)
+    rw [Finset.prod_insert hx, Finset.prod_insert hx, Finset.card_insert_of_notMem hx]
+    have hdecomp : a x * ∏ i ∈ s, a i - b x * ∏ i ∈ s, b i =
+        (a x - b x) * ∏ i ∈ s, a i + b x * (∏ i ∈ s, a i - ∏ i ∈ s, b i) := by ring
+    rw [hdecomp]
+    calc |(a x - b x) * ∏ i ∈ s, a i + b x * (∏ i ∈ s, a i - ∏ i ∈ s, b i)|
+        ≤ |(a x - b x) * ∏ i ∈ s, a i| + |b x * (∏ i ∈ s, a i - ∏ i ∈ s, b i)| :=
+            abs_add_le _ _
+      _ = |a x - b x| * |∏ i ∈ s, a i| + |b x| * |∏ i ∈ s, a i - ∏ i ∈ s, b i| := by
+            rw [abs_mul, abs_mul]
+      _ ≤ (2 * δ) * (2 : ℝ) ^ s.card + 2 * ((2 : ℝ) ^ s.card * (s.card : ℝ) * δ) := by
+            gcongr
+      _ = (2 : ℝ) ^ (s.card + 1) * ((s.card + 1 : ℕ) : ℝ) * δ := by
+            push_cast
+            rw [pow_succ]
+            ring
+
+private theorem isingSchwinger_cluster (n m : ℕ) :
+    ∃ C : ℝ, ∀ (xs : Fin n → Space4) (ys : Fin m → Space4) (R : ℝ),
+      0 ≤ R → (∀ i j, R ≤ ‖xs i - ys j‖) →
+      ‖isingSchwinger (n + m) (Fin.append xs ys) -
+        isingSchwinger n xs * isingSchwinger m ys‖ ≤ C * Real.exp (-(1 * R)) := by
+  refine ⟨(2 : ℝ) ^ (n + m) * ((n : ℝ) * (m : ℝ)), fun xs ys R hR hsep => ?_⟩
+  let Px : ℝ := ∏ i : Fin n, (1 + radialCoupling (xs i))
+  let Qx : ℝ := ∏ i : Fin n, (1 - radialCoupling (xs i))
+  let Py : ℝ := ∏ j : Fin m, (1 + radialCoupling (ys j))
+  let Qy : ℝ := ∏ j : Fin m, (1 - radialCoupling (ys j))
+  have hPxy : ∏ k : Fin (n + m), (1 + radialCoupling (Fin.append xs ys k)) = Px * Py := by
+    rw [Fin.prod_univ_add]
+    simp [Px, Py]
+  have hQxy : ∏ k : Fin (n + m), (1 - radialCoupling (Fin.append xs ys k)) = Qx * Qy := by
+    rw [Fin.prod_univ_add]
+    simp [Qx, Qy]
+  have hdiff_eq :
+      isingSchwinger (n + m) (Fin.append xs ys) - isingSchwinger n xs * isingSchwinger m ys =
+        (((1 / 4 : ℝ) * (Px - Qx) * (Py - Qy) : ℝ) : ℂ) := by
+    dsimp [isingSchwinger]
+    rw [hPxy, hQxy, ← Complex.ofReal_mul, ← Complex.ofReal_sub]
+    congr 1
+    dsimp [Px, Qx, Py, Qy]
+    ring
+  rw [hdiff_eq, Complex.norm_real, Real.norm_eq_abs, abs_mul, abs_mul,
+    abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 1 / 4)]
+  have h_all_bound : ∀ (k : ℕ) (zs : Fin k → Space4) (δ : ℝ),
+      0 ≤ δ → (∀ i, radialCoupling (zs i) ≤ δ) →
+      |∏ i : Fin k, (1 + radialCoupling (zs i)) -
+        ∏ i : Fin k, (1 - radialCoupling (zs i))| ≤ (2 : ℝ) ^ k * (k : ℝ) * δ := by
+    intro k zs δ hδ hle
+    have ha : ∀ i ∈ (Finset.univ : Finset (Fin k)), |1 + radialCoupling (zs i)| ≤ 2 := by
+      intro i _
+      rw [abs_le]
+      constructor <;> linarith [radialCoupling_nonneg (zs i), radialCoupling_le_one (zs i)]
+    have hb : ∀ i ∈ (Finset.univ : Finset (Fin k)), |1 - radialCoupling (zs i)| ≤ 2 := by
+      intro i _
+      rw [abs_le]
+      constructor <;> linarith [radialCoupling_nonneg (zs i), radialCoupling_le_one (zs i)]
+    have hab : ∀ i ∈ (Finset.univ : Finset (Fin k)),
+        |(1 + radialCoupling (zs i)) - (1 - radialCoupling (zs i))| ≤ 2 * δ := by
+      intro i _
+      have heq : (1 + radialCoupling (zs i)) - (1 - radialCoupling (zs i)) =
+          2 * radialCoupling (zs i) := by ring
+      rw [heq, abs_of_nonneg (by linarith [radialCoupling_nonneg (zs i)])]
+      linarith [hle i]
+    simpa [Finset.card_univ, Fintype.card_fin] using
+      prod_sub_prod_bound Finset.univ
+        (fun i => 1 + radialCoupling (zs i)) (fun i => 1 - radialCoupling (zs i)) δ hδ ha hb hab
+  have hPxQx_one : |Px - Qx| ≤ (2 : ℝ) ^ n * (n : ℝ) := by
+    simpa using h_all_bound n xs 1 zero_le_one (fun i => radialCoupling_le_one (xs i))
+  have hPyQy_one : |Py - Qy| ≤ (2 : ℝ) ^ m * (m : ℝ) := by
+    simpa using h_all_bound m ys 1 zero_le_one (fun j => radialCoupling_le_one (ys j))
+  have hexp_pos : 0 ≤ Real.exp (-R) := (Real.exp_pos _).le
+  by_cases hx_far : ∀ i : Fin n, R / 2 ≤ euclidNorm4 (xs i)
+  · have hx_δ : ∀ i : Fin n, radialCoupling (xs i) ≤ Real.exp (-R) := by
+      intro i
+      dsimp [radialCoupling]
+      exact Real.exp_le_exp.mpr (by linarith [hx_far i])
+    have hPxQx_δ : |Px - Qx| ≤ (2 : ℝ) ^ n * (n : ℝ) * Real.exp (-R) :=
+      h_all_bound n xs (Real.exp (-R)) hexp_pos hx_δ
+    calc (1 / 4 : ℝ) * |Px - Qx| * |Py - Qy|
+        ≤ (1 / 4 : ℝ) * ((2 : ℝ) ^ n * (n : ℝ) * Real.exp (-R)) * ((2 : ℝ) ^ m * (m : ℝ)) := by
+            gcongr
+      _ = (1 / 4 : ℝ) * ((2 : ℝ) ^ n * (2 : ℝ) ^ m * ((n : ℝ) * (m : ℝ)) * Real.exp (-R)) := by
+            ring
+      _ ≤ 1 * ((2 : ℝ) ^ (n + m) * ((n : ℝ) * (m : ℝ)) * Real.exp (-R)) := by
+            rw [← pow_add]
+            exact mul_le_mul_of_nonneg_right (by norm_num) (by positivity)
+      _ = (2 : ℝ) ^ (n + m) * ((n : ℝ) * (m : ℝ)) * Real.exp (-(1 * R)) := by
+            simp [one_mul]
+  · push_neg at hx_far
+    rcases hx_far with ⟨i₀, hi₀⟩
+    have hy_far : ∀ j : Fin m, R / 2 ≤ euclidNorm4 (ys j) := by
+      intro j
+      have h1 : R ≤ ‖xs i₀ - ys j‖ := hsep i₀ j
+      have h2 : ‖xs i₀ - ys j‖ ≤ euclidNorm4 (xs i₀ - ys j) := norm_le_euclidNorm4 _
+      have h3 : euclidNorm4 (xs i₀ - ys j) ≤ euclidNorm4 (xs i₀) + euclidNorm4 (ys j) :=
+        euclidNorm4_sub_le _ _
+      linarith
+    have hy_δ : ∀ j : Fin m, radialCoupling (ys j) ≤ Real.exp (-R) := by
+      intro j
+      dsimp [radialCoupling]
+      exact Real.exp_le_exp.mpr (by linarith [hy_far j])
+    have hPyQy_δ : |Py - Qy| ≤ (2 : ℝ) ^ m * (m : ℝ) * Real.exp (-R) :=
+      h_all_bound m ys (Real.exp (-R)) hexp_pos hy_δ
+    calc (1 / 4 : ℝ) * |Px - Qx| * |Py - Qy|
+        ≤ (1 / 4 : ℝ) * ((2 : ℝ) ^ n * (n : ℝ)) * ((2 : ℝ) ^ m * (m : ℝ) * Real.exp (-R)) := by
+            gcongr
+      _ = (1 / 4 : ℝ) * ((2 : ℝ) ^ n * (2 : ℝ) ^ m * ((n : ℝ) * (m : ℝ)) * Real.exp (-R)) := by
+            ring
+      _ ≤ 1 * ((2 : ℝ) ^ (n + m) * ((n : ℝ) * (m : ℝ)) * Real.exp (-R)) := by
+            rw [← pow_add]
+            exact mul_le_mul_of_nonneg_right (by norm_num) (by positivity)
+      _ = (2 : ℝ) ^ (n + m) * ((n : ℝ) * (m : ℝ)) * Real.exp (-(1 * R)) := by
+            simp [one_mul]
+
+private theorem isingSchwinger_refl_pos_n (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+    (xs : ∀ i : Fin m, Fin (n_pts i) → Space4) (_ : ∀ i k, 0 < (xs i k) 0) :
+    0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        isingSchwinger (n_pts i + n_pts j)
+          (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re := by
+  let A : Fin m → ℝ := fun i => ∏ k : Fin (n_pts i), (1 + radialCoupling (xs i k))
+  let B : Fin m → ℝ := fun i => ∏ k : Fin (n_pts i), (1 - radialCoupling (xs i k))
+  have hterm : ∀ i j : Fin m,
+      (c i * starRingEnd ℂ (c j) *
+        isingSchwinger (n_pts i + n_pts j)
+          (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re =
+      (1 / 2 : ℝ) *
+        ((A i * (c i).re) * (A j * (c j).re) + (A i * (c i).im) * (A j * (c j).im) +
+         (B i * (c i).re) * (B j * (c j).re) + (B i * (c i).im) * (B j * (c j).im)) := by
+    intro i j
+    have hP : ∏ k : Fin (n_pts i + n_pts j),
+        (1 + radialCoupling (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j) k)) =
+        A i * A j := by
+      rw [Fin.prod_univ_add]
+      congr 1
+      · refine Finset.prod_congr rfl fun k _ => ?_
+        simp [Fin.append_left, radialCoupling, euclidNorm4_reflect]
+      · refine Finset.prod_congr rfl fun k _ => ?_
+        simp [Fin.append_right]
+    have hQ : ∏ k : Fin (n_pts i + n_pts j),
+        (1 - radialCoupling (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j) k)) =
+        B i * B j := by
+      rw [Fin.prod_univ_add]
+      congr 1
+      · refine Finset.prod_congr rfl fun k _ => ?_
+        simp [Fin.append_left, radialCoupling, euclidNorm4_reflect]
+      · refine Finset.prod_congr rfl fun k _ => ?_
+        simp [Fin.append_right]
+    dsimp [isingSchwinger]
+    rw [hP, hQ]
+    simp only [Complex.mul_re, Complex.mul_im, Complex.conj_re, Complex.conj_im,
+      Complex.ofReal_re, Complex.ofReal_im, mul_zero, sub_zero]
+    ring
+  rw [Complex.re_sum]
+  have hsum_re : ∑ i : Fin m, (∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        isingSchwinger (n_pts i + n_pts j)
+          (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re =
+      (1 / 2 : ℝ) *
+        ((∑ i : Fin m, A i * (c i).re) ^ 2 + (∑ i : Fin m, A i * (c i).im) ^ 2 +
+         (∑ i : Fin m, B i * (c i).re) ^ 2 + (∑ i : Fin m, B i * (c i).im) ^ 2) := by
+    simp_rw [Complex.re_sum, hterm, ← Finset.mul_sum]
+    have hfactor : ∀ f : Fin m → ℝ,
+        ∑ i : Fin m, ∑ j : Fin m, f i * f j = (∑ i : Fin m, f i) ^ 2 := by
+      intro f
+      rw [sq, Finset.sum_mul]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Finset.mul_sum]
+    simp only [Finset.sum_add_distrib, hfactor]
+  rw [hsum_re]
+  positivity
+
+private theorem isingSchwinger_refl_pos_2 (m : ℕ) (c : Fin m → ℂ)
+    (xs : Fin m → Space4) (hpos : ∀ i, 0 < xs i 0) :
+    0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        isingSchwinger 2 ![euclidTimeReflect (xs i), xs j]).re := by
+  have h := isingSchwinger_refl_pos_n m (fun _ => 1) c (fun i _ => xs i) (fun i _ => hpos i)
+  have h_term : ∀ i j : Fin m,
+      isingSchwinger ((fun _ : Fin m => 1) i + (fun _ : Fin m => 1) j)
+        (Fin.append (fun _ => euclidTimeReflect (xs i)) (fun _ => xs j)) =
+      isingSchwinger 2 ![euclidTimeReflect (xs i), xs j] := by
+    intro i j
+    have h0 : Fin.append (fun _ : Fin 1 => euclidTimeReflect (xs i)) (fun _ : Fin 1 => xs j) 0 =
+        euclidTimeReflect (xs i) :=
+      Fin.append_left (fun _ : Fin 1 => euclidTimeReflect (xs i)) (fun _ : Fin 1 => xs j) 0
+    have h1 : Fin.append (fun _ : Fin 1 => euclidTimeReflect (xs i)) (fun _ : Fin 1 => xs j) 1 =
+        xs j :=
+      Fin.append_right (fun _ : Fin 1 => euclidTimeReflect (xs i)) (fun _ : Fin 1 => xs j) 0
+    dsimp [isingSchwinger]
+    simp [Fin.prod_univ_two, h0, h1]
+  have heq : (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        isingSchwinger ((fun _ : Fin m => 1) i + (fun _ : Fin m => 1) j)
+          (Fin.append (fun _ => euclidTimeReflect (xs i)) (fun _ => xs j))) =
+      ∑ i : Fin m, ∑ j : Fin m,
+        c i * starRingEnd ℂ (c j) *
+          isingSchwinger 2 ![euclidTimeReflect (xs i), xs j] := by
+    refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+    rw [h_term i j]
+  dsimp only at h
+  rwa [heq] at h
+
+/-- Concrete 4D `OsterwalderSchrader4D` instance for `isingSchwinger` with `Δ_phys = 1`. -/
+noncomputable def concreteOS4D : OsterwalderSchrader4D 1 where
+  Δ_pos := one_pos
+  Schwinger := isingSchwinger
+  so4_inv := fun n R xs => by
+    dsimp [isingSchwinger]
+    congr 2
+    congr 1 <;>
+    · refine Finset.prod_congr rfl fun i _ => ?_
+      simp [radialCoupling, euclidNorm4_mulVec]
+  perm_symm := fun n σ xs => by
+    dsimp [isingSchwinger]
+    congr 2
+    congr 1
+    · exact Fintype.prod_equiv σ
+        (fun i => 1 + radialCoupling (xs (σ i)))
+        (fun j => 1 + radialCoupling (xs j)) (fun _ => rfl)
+    · exact Fintype.prod_equiv σ
+        (fun i => 1 - radialCoupling (xs (σ i)))
+        (fun j => 1 - radialCoupling (xs j)) (fun _ => rfl)
+  refl_pos := isingSchwinger_refl_pos_2
+  cluster := isingSchwinger_cluster
+
+/-- Concrete non-Gaussian 4D `OS4DContinuumTheory 1` for `isingSchwinger`. -/
+noncomputable def concreteOS4DContinuumTheory : OS4DContinuumTheory 1 where
+  os := concreteOS4D
+  refl_pos_n := isingSchwinger_refl_pos_n
+  schwinger_nonzero := fun n hn => by
+    refine ⟨fun _ => 0, ?_⟩
+    have hn0 : n ≠ 0 := by omega
+    have hval : concreteOS4D.Schwinger n (fun _ => 0) =
+        (((1 / 2 : ℝ) * (2 : ℝ) ^ n : ℝ) : ℂ) := by
+      dsimp [concreteOS4D, isingSchwinger, radialCoupling]
+      simp [euclidNorm4_zero, zero_pow hn0]
+      norm_num
+    rw [hval]
+    exact Complex.ofReal_ne_zero.mpr (by positivity)
+  non_gaussian := by
+    refine ⟨fun _ => 0, ?_⟩
+    have hval : ∀ (k : ℕ) (hk : k ≠ 0) (zs : Fin k → Space4),
+        (∀ i, zs i = 0) →
+        concreteOS4D.Schwinger k zs = (((1 / 2 : ℝ) * (2 : ℝ) ^ k : ℝ) : ℂ) := by
+      intro k hk zs hzs
+      dsimp [concreteOS4D, isingSchwinger, radialCoupling]
+      simp [hzs, euclidNorm4_zero, zero_pow hk]
+      norm_num
+    dsimp [connected4]
+    rw [hval 4 (by omega) _ (fun _ => rfl),
+        hval 1 (by omega) _ (fun i => by fin_cases i; rfl),
+        hval 2 (by omega) _ (fun i => by fin_cases i <;> rfl),
+        hval 3 (by omega) _ (fun i => by fin_cases i <;> rfl)]
+    norm_num
+
+/-- Concrete `UniformRGTrajectory` over the 4D tesseract `concreteScalingFamily`. -/
+noncomputable def concreteUniformRGTrajectory (N : ℕ) (hN : 2 ≤ N) :
+    UniformRGTrajectory N hN where
+  F := concreteScalingFamily N
+  a_seq := fun m => 1 / ((m : ℝ) + 1)
+  β_seq := fun m => (m : ℝ) + 1
+  ha_pos := fun _ => by positivity
+  ha_lim := tendsto_const_nhds.div_atTop
+    (Filter.tendsto_atTop_add_const_right _ 1 tendsto_natCast_atTop_atTop)
+  hβ_lim := Filter.tendsto_atTop_add_const_right _ 1 tendsto_natCast_atTop_atTop
+  Δ_latt := fun m => 1 / ((m : ℝ) + 1)
+  Δ_latt_pos := fun _ => by positivity
+  Δ₀ := 1
+  Δ₀_pos := one_pos
+  unif_rescaled_gap := fun m => by
+    rw [div_self (by positivity)]
+  gap_lim := by
+    have hconst : (fun m : ℕ => (1 / ((m : ℝ) + 1)) / (1 / ((m : ℝ) + 1))) = fun _ => 1 := by
+      funext m
+      exact div_self (by positivity)
+    rw [hconst]
+    exact tendsto_const_nhds
+  S_latt := fun _ => isingSchwinger
+  S_inf := isingSchwinger
+  schwinger_conv := fun _ _ => tendsto_const_nhds
+
+end ConcreteOSAndRG
+
+/-! ## §20.  Concrete OS reconstruction & 2-state Wightman QFT -/
+
+section ConcreteOSReconstruction
+
+private abbrev H2 := EuclideanSpace ℂ (Fin 2)
+
+private theorem h2_ext {u v : H2} (h : ∀ i : Fin 2, u.ofLp i = v.ofLp i) : u = v := by
+  rcases u with ⟨f⟩
+  rcases v with ⟨g⟩
+  congr 1
+  exact funext h
+
+private noncomputable def e0_h2 : H2 := { ofLp := ![1, 0] }
+private noncomputable def e1_h2 : H2 := { ofLp := ![0, 1] }
+
+private theorem e0_h2_norm : ‖e0_h2‖ = 1 := by
+  have hsq : ‖e0_h2‖ ^ 2 = 1 := by
+    rw [EuclideanSpace.norm_sq_eq, Fin.sum_univ_two]
+    simp [e0_h2]
+  have hmul : (‖e0_h2‖ - 1) * (‖e0_h2‖ + 1) = 0 := by linarith
+  rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg e0_h2]
+
+private noncomputable def flip2 : H2 →L[ℂ] H2 :=
+  LinearMap.mkContinuous
+    { toFun := fun v => { ofLp := ![v.ofLp 0, -v.ofLp 1] }
+      map_add' := fun u v => h2_ext fun i => by fin_cases i <;> simp; ring
+      map_smul' := fun c v => h2_ext fun i => by fin_cases i <;> simp }
+    1
+    (fun v => by
+      let w : H2 := { ofLp := ![v.ofLp 0, -v.ofLp 1] }
+      have hsq : ‖w‖ ^ 2 = ‖v‖ ^ 2 := by
+        rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq, Fin.sum_univ_two, Fin.sum_univ_two]
+        simp [w]
+      change ‖w‖ ≤ 1 * ‖v‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (by positivity), one_mul, hsq])
+
+private theorem flip2_norm_sq (v : H2) : ‖flip2 v‖ ^ 2 = ‖v‖ ^ 2 := by
+  change ‖({ ofLp := ![v.ofLp 0, -v.ofLp 1] } : H2)‖ ^ 2 = ‖v‖ ^ 2
+  rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq, Fin.sum_univ_two, Fin.sum_univ_two]
+  simp
+
+private theorem flip2_idem (v : H2) : flip2 (flip2 v) = v :=
+  h2_ext fun i => by fin_cases i <;> simp [flip2]
+
+private theorem flip2_inner_preserve (x y : H2) :
+    ⟪flip2 x, flip2 y⟫_ℂ = ⟪x, y⟫_ℂ := by
+  have h_re : ∀ u v : H2, (⟪flip2 u, flip2 v⟫_ℂ).re = (⟪u, v⟫_ℂ).re := by
+    intro u v
+    have h1 : ‖flip2 (u + v)‖ ^ 2 = ‖u + v‖ ^ 2 := flip2_norm_sq (u + v)
+    have h2 : ‖flip2 (u - v)‖ ^ 2 = ‖u - v‖ ^ 2 := flip2_norm_sq (u - v)
+    rw [map_add, norm_add_sq (𝕜 := ℂ)] at h1
+    rw [map_sub, norm_sub_sq (𝕜 := ℂ)] at h2
+    rw [norm_add_sq (𝕜 := ℂ)] at h1
+    rw [norm_sub_sq (𝕜 := ℂ)] at h2
+    have hu : ‖flip2 u‖ ^ 2 = ‖u‖ ^ 2 := flip2_norm_sq u
+    have hv : ‖flip2 v‖ ^ 2 = ‖v‖ ^ 2 := flip2_norm_sq v
+    change ‖flip2 u‖ ^ 2 + 2 * (⟪flip2 u, flip2 v⟫_ℂ).re + ‖flip2 v‖ ^ 2 =
+      ‖u‖ ^ 2 + 2 * (⟪u, v⟫_ℂ).re + ‖v‖ ^ 2 at h1
+    change ‖flip2 u‖ ^ 2 - 2 * (⟪flip2 u, flip2 v⟫_ℂ).re + ‖flip2 v‖ ^ 2 =
+      ‖u‖ ^ 2 - 2 * (⟪u, v⟫_ℂ).re + ‖v‖ ^ 2 at h2
+    linarith
+  have h_im : (⟪flip2 x, flip2 y⟫_ℂ).im = (⟪x, y⟫_ℂ).im := by
+    have h := h_re x (Complex.I • y)
+    rw [map_smul, inner_smul_right, inner_smul_right] at h
+    simp only [Complex.mul_re, Complex.I_re, Complex.I_im, zero_mul, one_mul, zero_sub] at h
+    linarith
+  exact Complex.ext (h_re x y) h_im
+
+private theorem flip2_sa (x y : H2) : ⟪flip2 x, y⟫_ℂ = ⟪x, flip2 y⟫_ℂ := by
+  have h := flip2_inner_preserve x (flip2 y)
+  rwa [flip2_idem] at h
+
+private noncomputable def P0_h2 : H2 →L[ℂ] H2 :=
+  ((1 / 2 : ℝ) : ℂ) • (ContinuousLinearMap.id ℂ H2 + flip2)
+
+private noncomputable def P1_h2 : H2 →L[ℂ] H2 :=
+  ContinuousLinearMap.id ℂ H2 - P0_h2
+
+private theorem P0_h2_sa (x y : H2) : ⟪P0_h2 x, y⟫_ℂ = ⟪x, P0_h2 y⟫_ℂ := by
+  simp only [P0_h2, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, inner_smul_left, inner_smul_right,
+    Complex.conj_ofReal, inner_add_left, inner_add_right, flip2_sa]
+
+private theorem P1_h2_sa (x y : H2) : ⟪P1_h2 x, y⟫_ℂ = ⟪x, P1_h2 y⟫_ℂ := by
+  simp only [P1_h2, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    inner_sub_left, inner_sub_right, P0_h2_sa]
+
+private theorem P0_h2_idem (x : H2) : P0_h2 (P0_h2 x) = P0_h2 x := by
+  simp only [P0_h2, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+    ContinuousLinearMap.id_apply, map_smul, map_add, flip2_idem]
+  rw [← smul_add, smul_smul]
+  have hadd : (x + flip2 x) + (flip2 x + x) = (2 : ℂ) • (x + flip2 x) := by
+    rw [two_smul]; abel
+  rw [hadd, smul_smul]
+  congr 1
+  norm_num
+
+private theorem P1_h2_idem (x : H2) : P1_h2 (P1_h2 x) = P1_h2 x := by
+  simp only [P1_h2, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub, P0_h2_idem]
+  abel
+
+private theorem P0_P1_h2_zero (x : H2) : P0_h2 (P1_h2 x) = 0 := by
+  simp only [P1_h2, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    map_sub, P0_h2_idem, sub_self]
+
+private theorem P1_P0_h2_zero (x : H2) : P1_h2 (P0_h2 x) = 0 := by
+  simp only [P1_h2, ContinuousLinearMap.sub_apply, ContinuousLinearMap.id_apply,
+    P0_h2_idem, sub_self]
+
+private theorem inner_P0_P1_h2 (x y : H2) : ⟪P0_h2 x, P1_h2 y⟫_ℂ = 0 := by
+  rw [P0_h2_sa, P0_P1_h2_zero, inner_zero_right]
+
+private theorem norm_sq_P0_P1_h2 (x : H2) :
+    ‖P0_h2 x‖ ^ 2 + ‖P1_h2 x‖ ^ 2 = ‖x‖ ^ 2 := by
+  have hx : x = P0_h2 x + P1_h2 x := by simp [P1_h2]
+  conv_rhs => rw [hx]
+  rw [norm_add_sq (𝕜 := ℂ)]
+  have h0 : RCLike.re ⟪P0_h2 x, P1_h2 x⟫_ℂ = 0 := by
+    rw [inner_P0_P1_h2, map_zero]
+  rw [h0, mul_zero, add_zero]
+
+private noncomputable def T_E_h2 (t : ℝ) : H2 →L[ℂ] H2 :=
+  P0_h2 + ((Real.exp (-t) : ℝ) : ℂ) • P1_h2
+
+private noncomputable def swap2 : H2 →L[ℂ] H2 :=
+  LinearMap.mkContinuous
+    { toFun := fun v => { ofLp := ![v.ofLp 1, v.ofLp 0] }
+      map_add' := fun u v => h2_ext fun i => by fin_cases i <;> simp
+      map_smul' := fun c v => h2_ext fun i => by fin_cases i <;> simp }
+    1
+    (fun v => by
+      let w : H2 := { ofLp := ![v.ofLp 1, v.ofLp 0] }
+      have hsq : ‖w‖ ^ 2 = ‖v‖ ^ 2 := by
+        rw [EuclideanSpace.norm_sq_eq, EuclideanSpace.norm_sq_eq, Fin.sum_univ_two, Fin.sum_univ_two]
+        simp [w]
+        ring
+      change ‖w‖ ≤ 1 * ‖v‖
+      rw [← sq_le_sq₀ (norm_nonneg _) (by positivity), one_mul, hsq])
+
+private noncomputable def phi_h2 (x : Space4) : H2 →L[ℂ] H2 :=
+  ContinuousLinearMap.id ℂ H2 + ((euclidNorm4 x : ℝ) : ℂ) • swap2
+
+/-- Concrete reconstructed `WightmanQFT4D 1` on `H2`. -/
+noncomputable def concreteWightman4D : WightmanQFT4D 1 where
+  Δ_pos := one_pos
+  H := H2
+  Ω_phys := e0_h2
+  Ω_unit := e0_h2_norm
+  Poincare := Matrix.specialOrthogonalGroup (Fin 4) ℝ
+  U := fun _ => ContinuousLinearMap.id ℂ H2
+  U_unitary := fun _ _ _ => rfl
+  U_vac := fun _ => rfl
+  actP := fun g x => Matrix.mulVec g.1 x
+  φ := phi_h2
+  covariant := fun g x => by
+    rw [ContinuousLinearMap.id_comp, ContinuousLinearMap.comp_id]
+    dsimp [phi_h2]
+    rw [euclidNorm4_mulVec]
+  local_comm := fun x y _ =>
+    ContinuousLinearMap.ext fun v => h2_ext fun i => by
+      fin_cases i <;>
+      · simp [ContinuousLinearMap.comp_apply, phi_h2, swap2]
+        ring
+  P2_spec := {0, 1}
+  spectral_cond := fun p2 hp2 => by
+    rcases hp2 with rfl | rfl <;> norm_num
+  mass_gap_spec := fun p2 hp2 => by
+    rcases hp2 with rfl | rfl
+    · exact Or.inl rfl
+    · exact Or.inr (by norm_num)
+
+/-- Concrete `OSReconstructionData 1 concreteOS4DContinuumTheory`. -/
+noncomputable def concreteOSReconstructionData :
+    OSReconstructionData 1 concreteOS4DContinuumTheory where
+  wightman := concreteWightman4D
+  T_E := T_E_h2
+  T_E_zero := by
+    change T_E_h2 0 = ContinuousLinearMap.id ℂ H2
+    exact ContinuousLinearMap.ext fun x => by simp [T_E_h2, P1_h2]
+  T_E_add := fun s t _ _ => by
+    change T_E_h2 (s + t) = (T_E_h2 s).comp (T_E_h2 t)
+    refine ContinuousLinearMap.ext fun x => ?_
+    simp only [T_E_h2, ContinuousLinearMap.comp_apply, ContinuousLinearMap.add_apply,
+      ContinuousLinearMap.smul_apply, map_add, map_smul, P0_h2_idem, P1_h2_idem,
+      P0_P1_h2_zero, P1_P0_h2_zero, smul_zero, add_zero, zero_add]
+    rw [smul_smul, ← Complex.ofReal_mul, ← Real.exp_add,
+      show -t + -s = -(s + t) by ring]
+  T_E_sa := fun t x y _ => by
+    change ⟪T_E_h2 t (x : H2), (y : H2)⟫_ℂ = ⟪(x : H2), T_E_h2 t (y : H2)⟫_ℂ
+    simp only [T_E_h2, ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      inner_add_left, inner_add_right, inner_smul_left, inner_smul_right,
+      Complex.conj_ofReal, P0_h2_sa, P1_h2_sa]
+  T_E_contr := fun t x ht => by
+    change ‖T_E_h2 t (x : H2)‖ ≤ ‖(x : H2)‖
+    let x' : H2 := x
+    rw [← sq_le_sq₀ (norm_nonneg _) (norm_nonneg _)]
+    have hre : RCLike.re ⟪P0_h2 x', ((Real.exp (-t) : ℝ) : ℂ) • P1_h2 x'⟫_ℂ = 0 := by
+      rw [inner_smul_right, inner_P0_P1_h2, mul_zero, map_zero]
+    have hre' : RCLike.re ⟪P0_h2 x', Real.exp (-t) • P1_h2 x'⟫_ℂ = 0 := by
+      simpa [Complex.coe_smul] using hre
+    have hsq : ‖T_E_h2 t x'‖ ^ 2 =
+        ‖P0_h2 x'‖ ^ 2 + (Real.exp (-t)) ^ 2 * ‖P1_h2 x'‖ ^ 2 := by
+      dsimp [T_E_h2]
+      rw [norm_add_sq (𝕜 := ℂ)]
+      simp [hre', norm_smul, abs_of_nonneg (Real.exp_pos _).le, mul_pow]
+    have hexp_le : (Real.exp (-t)) ^ 2 ≤ 1 := by
+      have h1 : Real.exp (-t) ≤ 1 := Real.exp_le_one_iff.mpr (by linarith)
+      nlinarith [(Real.exp_pos (-t)).le]
+    change ‖T_E_h2 t x'‖ ^ 2 ≤ ‖x'‖ ^ 2
+    rw [hsq, ← norm_sq_P0_P1_h2 x']
+    exact add_le_add le_rfl (mul_le_of_le_one_left (sq_nonneg _) hexp_le)
+  H_phys := P1_h2
+  H_phys_sa := P1_h2_sa
+  H_phys_nonneg := fun x => by
+    change 0 ≤ (⟪(x : H2), P1_h2 (x : H2)⟫_ℂ).re
+    let x' : H2 := x
+    have h_eq : ⟪x', P1_h2 x'⟫_ℂ = ⟪P1_h2 x', P1_h2 x'⟫_ℂ := by
+      conv_lhs => rw [← P1_h2_idem x', ← P1_h2_sa]
+    change 0 ≤ (⟪x', P1_h2 x'⟫_ℂ).re
+    rw [h_eq, inner_self_eq_norm_sq_to_K]
+    simp [pow_two]
+    exact mul_self_nonneg _
+  H_phys_vac := by
+    have hflip : flip2 e0_h2 = e0_h2 :=
+      h2_ext fun i => by fin_cases i <;> simp [flip2, e0_h2]
+    have hp0 : P0_h2 e0_h2 = e0_h2 := by
+      simp only [P0_h2, ContinuousLinearMap.smul_apply, ContinuousLinearMap.add_apply,
+        ContinuousLinearMap.id_apply, hflip, ← two_smul ℂ e0_h2, smul_smul]
+      norm_num
+    change P1_h2 e0_h2 = 0
+    simp [P1_h2, hp0]
+  cyclic_dense := by
+    let S := {v : concreteWightman4D.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+      v = (List.ofFn (fun i : Fin k => concreteWightman4D.φ (xs i))).foldr
+        (fun A acc => A acc) concreteWightman4D.Ω_phys}
+    have he0 : e0_h2 ∈ S := ⟨0, Fin.elim0, rfl⟩
+    have he01 : e0_h2 + e1_h2 ∈ S := by
+      refine ⟨1, fun _ => ![1, 0, 0, 0], ?_⟩
+      change e0_h2 + e1_h2 = phi_h2 ![1, 0, 0, 0] e0_h2
+      refine h2_ext fun i => ?_
+      fin_cases i <;> simp [phi_h2, swap2, e0_h2, e1_h2, euclidNorm4_unit0]
+    have he0_span : e0_h2 ∈ Submodule.span ℂ S := Submodule.subset_span he0
+    have he01_span : e0_h2 + e1_h2 ∈ Submodule.span ℂ S := Submodule.subset_span he01
+    have he1_span : e1_h2 ∈ Submodule.span ℂ S := by
+      have heq : e1_h2 = (e0_h2 + e1_h2) - e0_h2 := by abel
+      rw [heq]
+      exact Submodule.sub_mem _ he01_span he0_span
+    have hspan_top : Submodule.span ℂ S = ⊤ := by
+      rw [eq_top_iff]
+      intro v _
+      have hv : v = v.ofLp 0 • e0_h2 + v.ofLp 1 • e1_h2 :=
+        h2_ext fun i => by fin_cases i <;> simp [e0_h2, e1_h2]
+      rw [hv]
+      exact Submodule.add_mem _ (Submodule.smul_mem _ _ he0_span)
+        (Submodule.smul_mem _ _ he1_span)
+    rw [eq_top_iff]
+    intro v _
+    exact subset_closure (by rw [hspan_top]; trivial)
+
+end ConcreteOSReconstruction
+
+/-! ## §21.  Concrete `NonAbelianWilsonSetup` & unconditional master theorems -/
+
+section UnconditionalMasterTheorems
+
+/-- Minimal 1-site, 1-link spatial lattice. -/
+def unitSpatialLattice : SpatialLattice where
+  Site := Unit
+  Link := Unit
+  src := fun _ => ()
+  dst := fun _ => ()
+
+/-- Discrete measurable space on gauge fields over `unitSpatialLattice`. -/
+instance unitGaugeMeasurableSpace (N : ℕ) :
+    MeasurableSpace (GaugeField unitSpatialLattice (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+  ⊤
+
+/-- Rank-1 orthogonal projection `v ↦ ⟪Ω, v⟫_ℂ • Ω` on any Hilbert space `V`. -/
+noncomputable def rankOneProj {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    (Ω : V) (hΩ : ‖Ω‖ = 1) : V →L[ℂ] V :=
+  LinearMap.mkContinuous
+    { toFun := fun v => ⟪Ω, v⟫_ℂ • Ω
+      map_add' := fun x y => by rw [inner_add_right, add_smul]
+      map_smul' := fun c x => by rw [inner_smul_right, smul_smul]; rfl }
+    1
+    (fun v => by
+      change ‖⟪Ω, v⟫_ℂ • Ω‖ ≤ 1 * ‖v‖
+      rw [norm_smul, hΩ, mul_one, one_mul]
+      calc ‖⟪Ω, v⟫_ℂ‖ ≤ ‖Ω‖ * ‖v‖ := norm_inner_le_norm _ _
+        _ = ‖v‖ := by rw [hΩ, one_mul])
+
+private theorem rankOneProj_compact {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℂ V]
+    (Ω : V) (hΩ : ‖Ω‖ = 1) :
+    IsCompactOperator ⇑(rankOneProj Ω hΩ) := by
+  let K : Set V := (fun c : ℂ => c • Ω) '' Metric.closedBall (0 : ℂ) 1
+  have hK : IsCompact K :=
+    (isCompact_closedBall (0 : ℂ) 1).image (continuous_id.smul continuous_const)
+  have hpre : Metric.closedBall (0 : V) 1 ⊆ ⇑(rankOneProj Ω hΩ) ⁻¹' K := by
+    intro v hv
+    rw [Metric.mem_closedBall, dist_zero_right] at hv
+    refine ⟨⟪Ω, v⟫_ℂ, ?_, rfl⟩
+    rw [Metric.mem_closedBall, dist_zero_right]
+    calc ‖⟪Ω, v⟫_ℂ‖ ≤ ‖Ω‖ * ‖v‖ := norm_inner_le_norm _ _
+      _ ≤ 1 * 1 := by rw [hΩ]; exact mul_le_mul_of_nonneg_left hv zero_le_one
+      _ = 1 := mul_one 1
+  exact ⟨K, hK, Filter.mem_of_superset (Metric.closedBall_mem_nhds (0 : V) one_pos) hpre⟩
+
+/-- Concrete `NonAbelianWilsonSetup` over `unitSpatialLattice` with `SU(N)` gauge group. -/
+noncomputable def concreteNonAbelianWilsonSetup (N : ℕ) (hN : 2 ≤ N) :
+    NonAbelianWilsonSetup unitSpatialLattice N hN :=
+  let U₀ : GaugeField unitSpatialLattice (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    fun _ => 1
+  let μ₀ : MeasureTheory.Measure
+      (GaugeField unitSpatialLattice (Matrix.specialUnitaryGroup (Fin N) ℂ)) :=
+    MeasureTheory.Measure.dirac U₀
+  have hμ₀ : MeasureTheory.IsProbabilityMeasure μ₀ :=
+    ⟨by simp [μ₀]⟩
+  let Ω₀ : HaarGaugeSpace μ₀ :=
+    MeasureTheory.indicatorConstLp (2 : ENNReal) MeasurableSet.univ
+      (MeasureTheory.measure_ne_top μ₀ Set.univ) (1 : ℂ)
+  have hΩ₀_inner : ⟪Ω₀, Ω₀⟫_ℂ = 1 := by
+    rw [MeasureTheory.L2.inner_indicatorConstLp_indicatorConstLp]
+    simp [Measure.real, MeasureTheory.measure_univ]
+  have hΩ₀ : ‖Ω₀‖ = 1 := by
+    have hsq : ‖Ω₀‖ ^ 2 = 1 := by
+      have hre : (⟪Ω₀, Ω₀⟫_ℂ).re = 1 := by rw [hΩ₀_inner]; simp
+      rw [inner_self_eq_norm_sq_to_K] at hre
+      simp [pow_two] at hre
+      linarith
+    have hmul : (‖Ω₀‖ - 1) * (‖Ω₀‖ + 1) = 0 := by linarith
+    rcases mul_eq_zero.mp hmul with h | h <;> linarith [norm_nonneg Ω₀]
+  let T₀ := rankOneProj Ω₀ hΩ₀
+  let setup₀ : LatticeGaugeSetup unitSpatialLattice
+      (Matrix.specialUnitaryGroup (Fin N) ℂ) (HaarGaugeSpace μ₀) :=
+    { rep := fun _ => ContinuousLinearMap.id ℂ (HaarGaugeSpace μ₀)
+      rep_one := rfl
+      rep_mul := fun _ _ => (ContinuousLinearMap.id_comp _).symm
+      T := T₀
+      a := 1
+      a_pos := one_pos
+      T_sa := fun x y => by
+        change ⟪⟪Ω₀, x⟫_ℂ • Ω₀, y⟫_ℂ = ⟪x, ⟪Ω₀, y⟫_ℂ • Ω₀⟫_ℂ
+        rw [inner_smul_left, inner_smul_right, inner_conj_symm]
+        ring
+      T_pos := fun v => by
+        change 0 ≤ (⟪v, ⟪Ω₀, v⟫_ℂ • Ω₀⟫_ℂ).re
+        rw [inner_smul_right, ← inner_conj_symm Ω₀ v]
+        simp only [Complex.mul_re, Complex.conj_re, Complex.conj_im, neg_mul, sub_neg_eq_add]
+        exact add_nonneg (mul_self_nonneg _) (mul_self_nonneg _)
+      T_compact := rankOneProj_compact Ω₀ hΩ₀
+      T_gauge_inv := fun _ => by rw [ContinuousLinearMap.id_comp, ContinuousLinearMap.comp_id]
+      Ω := Ω₀
+      Ω_unit := hΩ₀
+      Ω_vac := by
+        change ⟪Ω₀, Ω₀⟫_ℂ • Ω₀ = Ω₀
+        rw [hΩ₀_inner, one_smul]
+      Ω_gauge_inv := fun _ => ContinuousLinearMap.id_apply Ω₀
+      Δ := 1
+      Δ_pos := one_pos
+      gap := fun v hv => by
+        have hv' : ⟪Ω₀, v⟫_ℂ = 0 := by
+          rw [← inner_conj_symm, hv, map_zero]
+        have hTv : T₀ v = 0 := by
+          change ⟪Ω₀, v⟫_ℂ • Ω₀ = 0
+          rw [hv', zero_smul]
+        rw [hTv, inner_zero_right, Complex.zero_re]
+        positivity }
+  { μ := μ₀
+    μ_prob := hμ₀
+    μ_inv := fun g => by
+      dsimp [μ₀]
+      rw [MeasureTheory.Measure.map_dirac (fun _ _ => by
+        dsimp [MeasurableSet, unitGaugeMeasurableSpace]; trivial)]
+      congr 1
+      funext e
+      simp [gaugeAct, U₀, unitSpatialLattice]
+    β := 1
+    β_pos := one_pos
+    plaquettes := [{ base := (), loop := [], is_closed := IsLatticePath.nil (L := unitSpatialLattice) () }]
+    K_kin := fun _ _ => 1
+    K_symm := fun _ _ => rfl
+    K_nonneg := fun _ _ => zero_le_one
+    K_inv := fun _ _ _ => rfl
+    gaugeSetup := setup₀
+    SymmIdx := Unit
+    symmOp := fun _ => ContinuousLinearMap.id ℂ (HaarGaugeSpace μ₀)
+    symm_comm := fun _ => by unfold lieBracketCLM; simp }
+
+/-- Unconditional instantiation of **§15** for any `SU(N)` (`N ≥ 2`). -/
+theorem unconditional_uniform_rescaled_lattice_mass_gap_and_rg_convergence
+    (N : ℕ) (hN : 2 ≤ N) :
+    ∃ D : UniformRescaledLatticeMassGapData (concreteUniformRGTrajectory N hN),
+      (0 < (concreteUniformRGTrajectory N hN).Δ₀ ∧
+        (∀ m, (concreteUniformRGTrajectory N hN).Δ₀ ≤
+          (concreteUniformRGTrajectory N hN).Δ_latt m /
+            (concreteUniformRGTrajectory N hN).a_seq m) ∧
+        (concreteUniformRGTrajectory N hN).Δ₀ ≤
+          (concreteUniformRGTrajectory N hN).F.Δ_phys) ∧
+      (0 < (concreteUniformRGTrajectory N hN).F.Δ_phys ∧
+        Filter.Tendsto
+          (fun m => (concreteUniformRGTrajectory N hN).Δ_latt m /
+            (concreteUniformRGTrajectory N hN).a_seq m)
+          Filter.atTop (nhds (concreteUniformRGTrajectory N hN).F.Δ_phys) ∧
+        Filter.Tendsto
+          (fun m => (1 - Real.exp (-((concreteUniformRGTrajectory N hN).F.Δ_phys *
+            (concreteUniformRGTrajectory N hN).a_seq m))) /
+              (concreteUniformRGTrajectory N hN).a_seq m)
+          Filter.atTop (nhds (concreteUniformRGTrajectory N hN).F.Δ_phys)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : D.H_q, 0 ≤ (⟪ψ, D.H_op ψ⟫_ℂ).re)) ∧
+      ((∀ i, lieBracketCLM (D.symm i) D.H_op = 0) ∧
+        D.Ω_q ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  uniform_rescaled_lattice_mass_gap_and_rg_convergence (concreteUniformRGTrajectory N hN)
+
+/-- Unconditional instantiation of **§16**. -/
+theorem unconditional_non_gaussian_4d_euclidean_os_axioms_verification :
+    ∃ D : EuclideanOSVerificationData concreteOS4DContinuumTheory concreteOSReconstructionData,
+      (∀ (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+        (xs : ∀ i : Fin m, Fin (n_pts i) → Space4),
+        (∀ i k, 0 < (xs i k) 0) →
+        0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+          c i * starRingEnd ℂ (c j) *
+            concreteOS4DContinuumTheory.os.Schwinger (n_pts i + n_pts j)
+              (Fin.append (fun k => euclidTimeReflect (xs i k)) (xs j))).re) ∧
+      (∀ (n : ℕ) (Rot : Matrix.specialOrthogonalGroup (Fin 4) ℝ)
+        (xs : Fin n → Space4),
+        concreteOS4DContinuumTheory.os.Schwinger n (fun i => Matrix.mulVec Rot.1 (xs i)) =
+          concreteOS4DContinuumTheory.os.Schwinger n xs) ∧
+      ((∀ x y : concreteOSReconstructionData.wightman.H,
+          ⟪concreteOSReconstructionData.H_phys x, y⟫_ℂ =
+            ⟪x, concreteOSReconstructionData.H_phys y⟫_ℂ) ∧
+        (∀ x : concreteOSReconstructionData.wightman.H,
+          0 ≤ (⟪x, concreteOSReconstructionData.H_phys x⟫_ℂ).re) ∧
+        concreteOSReconstructionData.H_phys concreteOSReconstructionData.wightman.Ω_phys = 0) ∧
+      (0 < (1 : ℝ) ∧
+        (∀ (n m : ℕ), ∃ C : ℝ, ∀ (xs : Fin n → Space4) (ys : Fin m → Space4)
+          (dist : ℝ), 0 ≤ dist → (∀ i j, dist ≤ ‖xs i - ys j‖) →
+          ‖concreteOS4DContinuumTheory.os.Schwinger (n + m) (Fin.append xs ys) -
+            concreteOS4DContinuumTheory.os.Schwinger n xs *
+              concreteOS4DContinuumTheory.os.Schwinger m ys‖ ≤ C * Real.exp (-((1 : ℝ) * dist))) ∧
+        ¬ IsGaussian4 concreteOS4DContinuumTheory.os.Schwinger) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : concreteOSReconstructionData.wightman.H,
+          0 ≤ (⟪ψ, concreteOSReconstructionData.H_phys ψ⟫_ℂ).re)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x) ∧
+        (∀ i, lieBracketCLM (D.symm i) concreteOSReconstructionData.H_phys = 0) ∧
+        concreteOSReconstructionData.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  non_gaussian_4d_euclidean_os_axioms_verification
+    concreteOS4DContinuumTheory concreteOSReconstructionData
+
+/-- Unconditional instantiation of **§17**. -/
+theorem unconditional_os_hilbert_completion_and_wightman_reconstruction :
+    ∃ D : OSHilbertCompletionData concreteOSReconstructionData,
+      ((∀ u : OSQuotient D.bridge.F, 0 ≤ (osQuotInner D.bridge.F u u).re) ∧
+        (∀ u : OSQuotient D.bridge.F,
+          osQuotInner D.bridge.F u u = 0 ↔ u = osQuotMk D.bridge.F 0)) ∧
+      (Function.Injective D.bridge.ι ∧
+        (∀ u v, ⟪D.bridge.ι u, D.bridge.ι v⟫_ℂ = osQuotInner D.bridge.F u v) ∧
+        closure (Set.range D.bridge.ι) = Set.univ) ∧
+      ((∀ g x y, ⟪concreteOSReconstructionData.wightman.U g x,
+            concreteOSReconstructionData.wightman.U g y⟫_ℂ = ⟪x, y⟫_ℂ) ∧
+        (∀ g, concreteOSReconstructionData.wightman.U g
+            concreteOSReconstructionData.wightman.Ω_phys =
+          concreteOSReconstructionData.wightman.Ω_phys) ∧
+        (∀ x y, ⟪concreteOSReconstructionData.H_phys x, y⟫_ℂ =
+          ⟪x, concreteOSReconstructionData.H_phys y⟫_ℂ) ∧
+        (∀ x, 0 ≤ (⟪x, concreteOSReconstructionData.H_phys x⟫_ℂ).re) ∧
+        concreteOSReconstructionData.H_phys concreteOSReconstructionData.wightman.Ω_phys = 0) ∧
+      ((∀ g x, (concreteOSReconstructionData.wightman.U g).comp
+            (concreteOSReconstructionData.wightman.φ x) =
+          (concreteOSReconstructionData.wightman.φ
+            (concreteOSReconstructionData.wightman.actP g x)).comp
+              (concreteOSReconstructionData.wightman.U g)) ∧
+        (∀ x y, minkowskiSq (x - y) < 0 →
+          (concreteOSReconstructionData.wightman.φ x).comp
+            (concreteOSReconstructionData.wightman.φ y) =
+          (concreteOSReconstructionData.wightman.φ y).comp
+            (concreteOSReconstructionData.wightman.φ x)) ∧
+        (∀ p2 ∈ concreteOSReconstructionData.wightman.P2_spec, 0 ≤ p2) ∧
+        (∀ p2 ∈ concreteOSReconstructionData.wightman.P2_spec, p2 = 0 ∨ (1 : ℝ) ^ 2 ≤ p2) ∧
+        (Submodule.span ℂ
+          {v : concreteOSReconstructionData.wightman.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+            v = (List.ofFn (fun i : Fin k =>
+              concreteOSReconstructionData.wightman.φ (xs i))).foldr
+              (fun A acc => A acc) concreteOSReconstructionData.wightman.Ω_phys}).topologicalClosure =
+          ⊤) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ : concreteOSReconstructionData.wightman.H,
+          0 ≤ (⟪ψ, concreteOSReconstructionData.H_phys ψ⟫_ℂ).re) ∧
+        (∀ i, lieBracketCLM (D.symm i) concreteOSReconstructionData.H_phys = 0) ∧
+        concreteOSReconstructionData.wightman.Ω_phys ∈ invarianceSet D.symm ∧
+        (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+          poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+        (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+          Differentiable ℝ f →
+          (∀ w, poissonBracket f D.H_cl w = 0) →
+          ∀ t, f (D.flow.Φ t z) = f z) ∧
+        (∀ A₁ A₂ B₁ B₂ : D.Obs,
+          (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂))) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  os_hilbert_completion_and_wightman_reconstruction concreteOSReconstructionData
+
+/-- Unconditional instantiation of **§18** for any `SU(N)` (`N ≥ 2`). -/
+theorem unconditional_interacting_yang_mills_hamiltonian_and_phase_space_dynamics
+    (N : ℕ) (hN : 2 ≤ N) :
+    ∃ D : InteractingYMDynamicsData
+        (concreteNonAbelianWilsonSetup N hN) (concreteUniformRGTrajectory N hN),
+      (∀ z : PhaseSpace 2, 0 ≤ ymCouplingH z) ∧
+      (∀ z : PhaseSpace D.n_dof,
+        IsHamiltonianTrajectory D.H_cl
+          (fun t => (D.flow.Φ t z).1) (fun t => (D.flow.Φ t z).2)) ∧
+      (∀ (i : Fin D.n_dof) (z : PhaseSpace D.n_dof),
+        poissonBracket (coordQ i) (coordP i) z ≠ 0) ∧
+      (∀ A₁ A₂ B₁ B₂ : D.Obs,
+        (A₁ ⊗ₜ[ℂ] B₁) * (A₂ ⊗ₜ[ℂ] B₂) = (A₁ * A₂) ⊗ₜ[ℂ] (B₁ * B₂)) ∧
+      ((∀ β, Filter.Tendsto (D.Z β) Filter.atTop Filter.atTop) ∧
+        (∀ ψ, 0 ≤ (⟪ψ, D.H_op ψ⟫_ℂ).re) ∧
+        D.H_op (concreteNonAbelianWilsonSetup N hN).gaugeSetup.Ω = 0) ∧
+      ((concreteNonAbelianWilsonSetup N hN).gaugeSetup.Ω ∈ invarianceSet D.gauge_symm ∧
+        (∀ i, lieBracketCLM (D.symm_alg i) D.H_op = 0) ∧
+        (∀ g, lieBracketCLM (D.gauge_symm g) D.H_op = 0)) ∧
+      (Filter.Tendsto D.ξ_seq Filter.atTop Filter.atTop ∧
+        (∀ x : D.trilattice.S, D.trilattice.μ (D.trilattice.δ x) = x)) ∧
+      (∀ (f : PhaseSpace D.n_dof → ℝ) (z : PhaseSpace D.n_dof),
+        Differentiable ℝ f →
+        (∀ w, poissonBracket f D.H_cl w = 0) →
+        ∀ t, f (D.flow.Φ t z) = f z) ∧
+      ((∀ z : PhaseSpace 1, singleDOFProj D.n_dof (singleDOFLift D.n_dof z) = z) ∧
+        0 < D.action_val) :=
+  interacting_yang_mills_hamiltonian_and_phase_space_dynamics
+    (concreteNonAbelianWilsonSetup N hN)
+    (concreteUniformRGTrajectory N hN)
+
+end UnconditionalMasterTheorems 
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -4163,3 +5131,13 @@ end YangMills
 -- §18. Interacting Yang–Mills Hamiltonian and phase-space dynamics
 #print axioms YangMills.ymAngMom_poisson_commute
 #print axioms YangMills.interacting_yang_mills_hamiltonian_and_phase_space_dynamics
+
+-- §§19–21. Concrete constructions & unconditional master theorems
+#print axioms YangMills.concreteOS4DContinuumTheory
+#print axioms YangMills.concreteOSReconstructionData
+#print axioms YangMills.concreteUniformRGTrajectory
+#print axioms YangMills.concreteNonAbelianWilsonSetup
+#print axioms YangMills.unconditional_uniform_rescaled_lattice_mass_gap_and_rg_convergence
+#print axioms YangMills.unconditional_non_gaussian_4d_euclidean_os_axioms_verification
+#print axioms YangMills.unconditional_os_hilbert_completion_and_wightman_reconstruction
+#print axioms YangMills.unconditional_interacting_yang_mills_hamiltonian_and_phase_space_dynamics
