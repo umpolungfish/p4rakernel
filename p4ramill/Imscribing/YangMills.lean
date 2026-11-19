@@ -9265,6 +9265,9 @@ structure PosTimeConfig where
   pts   : Fin n_pts → Space4
   pos_t : ∀ k : Fin n_pts, 0 < pts k 0
 
+noncomputable instance instDecidableEqPosTimeConfig : DecidableEq PosTimeConfig :=
+  Classical.decEq PosTimeConfig
+
 /-- Formal finite complex linear combinations of positive-time configurations. -/
 abbrev OSPosTestSpace := PosTimeConfig →₀ ℂ
 
@@ -9314,15 +9317,14 @@ noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys
   add_left := fun f₁ f₂ g => by
     let s := (f₁ + f₂).support ∪ f₁.support ∪ f₂.support
     have h_sub : ∀ (f : OSPosTestSpace), f.support ⊆ s →
-        ∑ x ∈ f.support, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y =
-        ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y := by
+        osConfigInner os f g =
+          ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (f x) * g y * osConfigKernel os x y := by
       intro f hf
       refine Finset.sum_subset hf fun x _ hx => ?_
       have hfx : f x = 0 := by
         by_contra hne
         exact hx (Finsupp.mem_support_iff.mpr hne)
       simp [hfx]
-    dsimp [osConfigInner]
     rw [h_sub (f₁ + f₂) (Finset.subset_union_left.trans Finset.subset_union_left),
         h_sub f₁ (Finset.subset_union_right.trans Finset.subset_union_left),
         h_sub f₂ Finset.subset_union_right,
@@ -9335,15 +9337,14 @@ noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys
   smul_left := fun c f g => by
     let s := (c • f).support ∪ f.support
     have h_sub : ∀ (u : OSPosTestSpace), u.support ⊆ s →
-        ∑ x ∈ u.support, ∑ y ∈ g.support, starRingEnd ℂ (u x) * g y * osConfigKernel os x y =
-        ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (u x) * g y * osConfigKernel os x y := by
+        osConfigInner os u g =
+          ∑ x ∈ s, ∑ y ∈ g.support, starRingEnd ℂ (u x) * g y * osConfigKernel os x y := by
       intro u hu
       refine Finset.sum_subset hu fun x _ hx => ?_
       have hux : u x = 0 := by
         by_contra hne
         exact hx (Finsupp.mem_support_iff.mpr hne)
       simp [hux]
-    dsimp [osConfigInner]
     rw [h_sub (c • f) Finset.subset_union_left,
         h_sub f Finset.subset_union_right,
         Finset.mul_sum]
@@ -9358,7 +9359,7 @@ noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys
     rw [Finset.sum_comm]
     refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun y _ => ?_
     simp only [map_mul, Complex.conj_conj]
-    rw [← h_herm x y]
+    rw [h_herm y x]
     ring
   pos_re := fun f => by
     dsimp [osConfigInner, osConfigKernel]
@@ -9371,7 +9372,9 @@ noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys
       simp only [Finset.mem_image, Finset.mem_univ, true_and, ι]
       constructor
       · rintro ⟨i, rfl⟩; exact (e i).2
-      · intro hx; refine ⟨e.symm ⟨x, hx⟩, ?_⟩; simp
+      · intro hx
+        refine ⟨e.symm ⟨x, hx⟩, ?_⟩
+        rw [Equiv.apply_symm_apply]
     rw [← hs_eq, Finset.sum_image (fun a _ b _ h => hι_inj h)]
     simp_rw [Finset.sum_image (fun a _ b _ h => hι_inj h)]
     have h_rp := os.refl_pos_n m (fun i => (ι i).n_pts)
@@ -9461,12 +9464,11 @@ theorem osTimeShiftPre_sa {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys)
               (Finsupp.mapDomain (posTimeShiftConfig t ht) (Finsupp.single y d))
           rw [Finsupp.mapDomain_single, Finsupp.mapDomain_single]
           dsimp [osConfigInner]
-          rw [Finsupp.support_single_ne_zero _ hc, Finsupp.support_single_ne_zero _ hd,
-              Finsupp.support_single_ne_zero x hc, Finsupp.support_single_ne_zero y hd,
-              Finset.sum_singleton, Finset.sum_singleton,
-              Finset.sum_singleton, Finset.sum_singleton,
-              Finsupp.single_eq_same, Finsupp.single_eq_same,
-              Finsupp.single_eq_same, Finsupp.single_eq_same, h_kern x y]
+          rw [Finsupp.support_single_ne_zero (posTimeShiftConfig t ht x) hc,
+              Finsupp.support_single_ne_zero y hd,
+              Finsupp.support_single_ne_zero x hc,
+              Finsupp.support_single_ne_zero (posTimeShiftConfig t ht y) hd]
+          simp only [Finset.sum_singleton, Finsupp.single_eq_same, h_kern x y]
   refine Finsupp.induction_linear f ?_ ?_ ?_
   · rw [map_zero, osConfigInner_zero_left, osConfigInner_zero_left]
   · intro f₁ f₂ ih₁ ih₂
@@ -9544,9 +9546,12 @@ theorem os_semigroup_contraction_of_bounded {E : Type*} [AddCommGroup E] [Module
       have h_pow_lim : Filter.Tendsto (fun m : ℕ => u 0 ^ m) Filter.atTop Filter.atTop :=
         tendsto_pow_atTop_atTop_of_one_lt h_gt
       have h_two_pow : Filter.Tendsto (fun k : ℕ => (2 ^ k : ℕ)) Filter.atTop Filter.atTop :=
-        Filter.tendsto_atTop_atTop.mpr fun N => ⟨N, Nat.le_of_lt Nat.lt_two_pow_self⟩
+        Filter.tendsto_atTop_atTop.mpr fun N =>
+          ⟨N, fun a ha => le_trans ha (Nat.le_of_lt Nat.lt_two_pow_self)⟩
       have h_lim := h_pow_lim.comp h_two_pow
-      obtain ⟨k, hk⟩ := Filter.tendsto_atTop.mp h_lim (C / (F.B f f).re + 1)
+      have h_ev := (Filter.tendsto_atTop.mp h_lim) (C / (F.B f f).re + 1)
+      rw [Filter.eventually_atTop] at h_ev
+      obtain ⟨k, hk⟩ := h_ev
       have h_le1 : u 0 ^ (2 ^ k) ≤ C / (F.B f f).re :=
         (hu_pow k).trans (div_le_div_of_nonneg_right (h_ub k) hpos.le)
       have h_le2 : C / (F.B f f).re + 1 ≤ u 0 ^ (2 ^ k) := hk k le_rfl
