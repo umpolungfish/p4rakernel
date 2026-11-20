@@ -13623,6 +13623,1799 @@ theorem clay_yang_mills_from_rg_estimates (N : ℕ) (hN : 2 ≤ N)
 
 end ClayYangMills4DInterface
 
+/-! ## §36.  4D Wilson Schwinger reflection positivity, time-reflection, translation & hypercubic symmetries -/
+
+section CubicSpacetime4DOSAndSymmetries
+
+private theorem su_inv_val_eq_star {N : ℕ} (A : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) =
+      star (A : Matrix (Fin N) (Fin N) ℂ) := by
+  have hU : star (A : Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ) = 1 :=
+    (Unitary.mem_iff.mp A.2.1).1
+  have hinv : (A : Matrix (Fin N) (Fin N) ℂ) *
+      ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+    have h1 : ((A * A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+      rw [mul_inv_cancel]; rfl
+    exact h1
+  calc ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ)
+      = 1 * ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) := (one_mul _).symm
+    _ = (star (A : Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ)) *
+          ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) := by rw [hU]
+    _ = star (A : Matrix (Fin N) (Fin N) ℂ) *
+          ((A : Matrix (Fin N) (Fin N) ℂ) *
+            ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ)) := by rw [mul_assoc]
+    _ = star (A : Matrix (Fin N) (Fin N) ℂ) * 1 := by rw [hinv]
+    _ = star (A : Matrix (Fin N) (Fin N) ℂ) := mul_one _
+
+private theorem su_trace_inv_re {N : ℕ} (A : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    (Matrix.trace ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ)).re =
+      (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re := by
+  rw [su_inv_val_eq_star]
+  simp only [Matrix.trace, Matrix.diag, Matrix.star_apply, Complex.re_sum]
+  exact Finset.sum_congr rfl fun i _ => Complex.conj_re _
+
+private theorem su_trace_conj_4d {N : ℕ}
+    (A B : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+    Matrix.trace ((A * B * A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) :
+      Matrix (Fin N) (Fin N) ℂ) =
+      Matrix.trace (B : Matrix (Fin N) (Fin N) ℂ) := by
+  have hmul : ∀ X Y : Matrix.specialUnitaryGroup (Fin N) ℂ,
+      ((X * Y : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) =
+        (X : Matrix (Fin N) (Fin N) ℂ) * (Y : Matrix (Fin N) (Fin N) ℂ) := fun _ _ => rfl
+  have hone : ((1 : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) = 1 := rfl
+  have hinv : ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ) *
+      (A : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+    rw [← hmul A⁻¹ A, inv_mul_cancel, hone]
+  rw [hmul (A * B) A⁻¹, hmul A B,
+    Matrix.trace_mul_comm ((A : Matrix (Fin N) (Fin N) ℂ) * (B : Matrix (Fin N) (Fin N) ℂ))
+      ((A⁻¹ : Matrix.specialUnitaryGroup (Fin N) ℂ) : Matrix (Fin N) (Fin N) ℂ),
+    ← mul_assoc, hinv, one_mul]
+
+private theorem sum_map_flatMap {α β : Type*} (l : List α) (g : α → List β) (f : β → ℝ) :
+    ((l.flatMap g).map f).sum = (l.map (fun x => ((g x).map f).sum)).sum := by
+  induction l with
+  | nil => rfl
+  | cons a l ih =>
+    change (((g a ++ l.flatMap g)).map f).sum = _
+    rw [List.map_append, List.sum_append, ih]
+    rfl
+
+private theorem sum_map_univ_toList {α : Type*} [Fintype α] [DecidableEq α] (f : α → ℝ) :
+    ((Finset.univ : Finset α).toList.map f).sum = ∑ x : α, f x := by
+  rw [← List.sum_toFinset f (Finset.nodup_toList Finset.univ)]
+  congr 1
+  ext x
+  simp [Finset.mem_toList]
+
+private noncomputable def sitePlaqSum4 (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (x : (cubicTorus4 Ls Lt).Site) : ℝ :=
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U +
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+  wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U
+
+private theorem wilsonAction_cubic4_eq_sum (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubic4Plaquettes Ls Lt) U =
+      β * ∑ x : (cubicTorus4 Ls Lt).Site, sitePlaqSum4 Ls Lt N U x := by
+  unfold wilsonAction cubic4Plaquettes
+  rw [sum_map_flatMap, sum_map_univ_toList]
+  congr 1
+  refine Finset.sum_congr rfl fun x _ => ?_
+  dsimp [sitePlaqSum4]
+  ring
+
+private theorem fin_neg_add_one {n : ℕ} [NeZero n] (t : Fin n) : -(t + 1) = -t - 1 := by
+  abel
+
+private theorem fin_neg_sub_one_add_one {n : ℕ} [NeZero n] (t : Fin n) : (-t - 1) + 1 = -t := by
+  abel
+
+private theorem fin_neg_sub_one_invol {n : ℕ} [NeZero n] (t : Fin n) : -(-t - 1) - 1 = t := by
+  abel
+
+private theorem wilsonPlaquetteTerm_spatial_timeReflect
+    (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (x : (cubicTorus4 Ls Lt).Site) (d₁ d₂ : Fin 4) (hd₁ : d₁ ≠ 0) (hd₂ : d₂ ≠ 0) :
+    wilsonPlaquetteTerm
+        ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩
+        (cubic4TimeReflect Ls Lt N U) =
+      wilsonPlaquetteTerm
+        ⟨(-x.1, x.2.1, x.2.2.1, x.2.2.2),
+          cubic4Plaquette (-x.1, x.2.1, x.2.2.1, x.2.2.2) d₁ d₂,
+          cubic4Plaquette_isPath (-x.1, x.2.1, x.2.2.1, x.2.2.2) d₁ d₂⟩
+        U := by
+  have hsh : ∀ (d : Fin 4), d ≠ 0 → ∀ y : (cubicTorus4 Ls Lt).Site,
+      cubicShift4 Ls Lt d (-y.1, y.2.1, y.2.2.1, y.2.2.2) =
+        (-(cubicShift4 Ls Lt d y).1, (cubicShift4 Ls Lt d y).2.1,
+          (cubicShift4 Ls Lt d y).2.2.1, (cubicShift4 Ls Lt d y).2.2.2) := by
+    intro d hd ⟨t, a, b, c⟩
+    fin_cases d
+    · exact absurd rfl hd
+    · rfl
+    · rfl
+    · rfl
+  unfold wilsonPlaquetteTerm
+  simp only [cubic4Plaquette, pathHolonomy, cubic4TimeReflect, hd₁, hd₂, ↓reduceIte,
+    hsh d₁ hd₁ x, hsh d₂ hd₂ x]
+
+private theorem wilsonPlaquetteTerm_temporal_timeReflect
+    (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (x : (cubicTorus4 Ls Lt).Site) (d : Fin 4) (hd : d ≠ 0) :
+    wilsonPlaquetteTerm
+        ⟨x, cubic4Plaquette x 0 d, cubic4Plaquette_isPath x 0 d⟩
+        (cubic4TimeReflect Ls Lt N U) =
+      wilsonPlaquetteTerm
+        ⟨(-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2),
+          cubic4Plaquette (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2) 0 d,
+          cubic4Plaquette_isPath (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2) 0 d⟩
+        U := by
+  let x' : (cubicTorus4 Ls Lt).Site := (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2)
+  have h_s0 : (-((cubicShift4 Ls Lt 0 x).1), (cubicShift4 Ls Lt 0 x).2.1,
+      (cubicShift4 Ls Lt 0 x).2.2.1, (cubicShift4 Ls Lt 0 x).2.2.2) = x' := by
+    rcases x with ⟨t, a, b, c⟩
+    dsimp [cubicShift4, x']
+    congr 1
+    exact fin_neg_add_one t
+  have h_sd : (-((cubicShift4 Ls Lt d x).1) - 1, (cubicShift4 Ls Lt d x).2.1,
+      (cubicShift4 Ls Lt d x).2.2.1, (cubicShift4 Ls Lt d x).2.2.2) =
+      cubicShift4 Ls Lt d x' := by
+    rcases x with ⟨t, a, b, c⟩
+    fin_cases d
+    · exact absurd rfl hd
+    · rfl
+    · rfl
+    · rfl
+  have h_s0' : cubicShift4 Ls Lt 0 x' = (-x.1, x.2.1, x.2.2.1, x.2.2.2) := by
+    rcases x with ⟨t, a, b, c⟩
+    dsimp [cubicShift4, x']
+    congr 1
+    exact fin_neg_sub_one_add_one t
+  let A := U (x', 0)
+  let B := U (x', d)
+  let C := U (cubicShift4 Ls Lt d x', 0)
+  let D := U (cubicShift4 Ls Lt 0 x', d)
+  have hH : pathHolonomy (cubic4TimeReflect Ls Lt N U) (cubic4Plaquette x 0 d) =
+      A⁻¹ * B * C * D⁻¹ := by
+    simp only [cubic4Plaquette, pathHolonomy, cubic4TimeReflect, ↓reduceIte, hd, inv_inv,
+      h_s0, h_sd, ← h_s0']
+    dsimp only [A, B, C, D, x']
+    group
+  have hH' : pathHolonomy U (cubic4Plaquette x' 0 d) = A * D * C⁻¹ * B⁻¹ := by
+    simp only [cubic4Plaquette, pathHolonomy]
+    dsimp only [A, B, C, D]
+    group
+  have h_conj : pathHolonomy (cubic4TimeReflect Ls Lt N U) (cubic4Plaquette x 0 d) =
+      A⁻¹ * (pathHolonomy U (cubic4Plaquette x' 0 d))⁻¹ * (A⁻¹)⁻¹ := by
+    rw [hH, hH', mul_inv_rev, mul_inv_rev, mul_inv_rev, inv_inv, inv_inv, inv_inv]
+    group
+  unfold wilsonPlaquetteTerm
+  rw [h_conj, su_trace_conj_4d, su_trace_inv_re]
+
+/-- Exact invariance of the 4D Wilson action under Euclidean time reflection `cubic4TimeReflect`. -/
+theorem cubic4WilsonAction_timeReflect (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubic4Plaquettes Ls Lt) (cubic4TimeReflect Ls Lt N U) =
+      wilsonAction β (cubic4Plaquettes Ls Lt) U := by
+  rw [wilsonAction_cubic4_eq_sum, wilsonAction_cubic4_eq_sum]
+  congr 1
+  let e_sp : (cubicTorus4 Ls Lt).Site ≃ (cubicTorus4 Ls Lt).Site :=
+    { toFun := fun x => (-x.1, x.2.1, x.2.2.1, x.2.2.2)
+      invFun := fun x => (-x.1, x.2.1, x.2.2.1, x.2.2.2)
+      left_inv := fun ⟨t, a, b, c⟩ => by simp
+      right_inv := fun ⟨t, a, b, c⟩ => by simp }
+  let e_tm : (cubicTorus4 Ls Lt).Site ≃ (cubicTorus4 Ls Lt).Site :=
+    { toFun := fun x => (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2)
+      invFun := fun x => (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2)
+      left_inv := fun ⟨t, a, b, c⟩ => by simp only [Prod.mk.injEq, fin_neg_sub_one_invol, true_and]
+      right_inv := fun ⟨t, a, b, c⟩ => by simp only [Prod.mk.injEq, fin_neg_sub_one_invol, true_and] }
+  have hsplit : ∀ V : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ),
+      ∑ x : (cubicTorus4 Ls Lt).Site, sitePlaqSum4 Ls Lt N V x =
+        (∑ x : (cubicTorus4 Ls Lt).Site,
+          (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ V +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ V +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ V)) +
+        (∑ x : (cubicTorus4 Ls Lt).Site,
+          (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ V +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ V +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ V)) := by
+    intro V
+    rw [← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    dsimp [sitePlaqSum4]
+    ring
+  rw [hsplit (cubic4TimeReflect Ls Lt N U), hsplit U]
+  have h_tm :
+      ∑ x : (cubicTorus4 Ls Lt).Site,
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩
+            (cubic4TimeReflect Ls Lt N U) +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩
+            (cubic4TimeReflect Ls Lt N U) +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩
+            (cubic4TimeReflect Ls Lt N U)) =
+      ∑ x : (cubicTorus4 Ls Lt).Site,
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U) := by
+    refine Fintype.sum_equiv e_tm _ _ fun x => ?_
+    rw [wilsonPlaquetteTerm_temporal_timeReflect Ls Lt N U x 1 (by decide),
+      wilsonPlaquetteTerm_temporal_timeReflect Ls Lt N U x 2 (by decide),
+      wilsonPlaquetteTerm_temporal_timeReflect Ls Lt N U x 3 (by decide)]
+    rfl
+  have h_sp :
+      ∑ x : (cubicTorus4 Ls Lt).Site,
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩
+            (cubic4TimeReflect Ls Lt N U) +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩
+            (cubic4TimeReflect Ls Lt N U) +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩
+            (cubic4TimeReflect Ls Lt N U)) =
+      ∑ x : (cubicTorus4 Ls Lt).Site,
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U) := by
+    refine Fintype.sum_equiv e_sp _ _ fun x => ?_
+    rw [wilsonPlaquetteTerm_spatial_timeReflect Ls Lt N U x 1 2 (by decide) (by decide),
+      wilsonPlaquetteTerm_spatial_timeReflect Ls Lt N U x 1 3 (by decide) (by decide),
+      wilsonPlaquetteTerm_spatial_timeReflect Ls Lt N U x 2 3 (by decide) (by decide)]
+    rfl
+  rw [h_tm, h_sp]
+
+theorem cubic4WilsonWeight_timeReflect (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    cubic4WilsonWeight Ls Lt N β (cubic4TimeReflect Ls Lt N U) =
+      cubic4WilsonWeight Ls Lt N β U := by
+  unfold cubic4WilsonWeight
+  rw [cubic4WilsonAction_timeReflect]
+
+/-- `cubic4TimeReflect` as a `MeasurePreserving` measurable equivalence on 4D gauge fields. -/
+def cubic4TimeReflectEquiv (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) ≃ᵐ
+      GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) where
+  toFun := cubic4TimeReflect Ls Lt N
+  invFun := cubic4TimeReflect Ls Lt N
+  left_inv := cubic4TimeReflect_involutive Ls Lt N
+  right_inv := cubic4TimeReflect_involutive Ls Lt N
+  measurable_toFun := by
+    change Measurable (fun U : (cubicTorus4 Ls Lt).Link → _ => cubic4TimeReflect Ls Lt N U)
+    refine measurable_pi_iff.mpr fun ⟨⟨t, a, b, c⟩, d⟩ => ?_
+    by_cases hd : d = 0
+    · subst hd
+      simp only [cubic4TimeReflect, ↓reduceIte]
+      exact (continuous_inv (G := Matrix.specialUnitaryGroup (Fin N) ℂ)).measurable.comp
+        (measurable_pi_apply ((-t - 1, a, b, c), 0))
+    · simp only [cubic4TimeReflect, hd, ↓reduceIte]
+      exact measurable_pi_apply ((-t, a, b, c), d)
+  measurable_invFun := by
+    change Measurable (fun U : (cubicTorus4 Ls Lt).Link → _ => cubic4TimeReflect Ls Lt N U)
+    refine measurable_pi_iff.mpr fun ⟨⟨t, a, b, c⟩, d⟩ => ?_
+    by_cases hd : d = 0
+    · subst hd
+      simp only [cubic4TimeReflect, ↓reduceIte]
+      exact (continuous_inv (G := Matrix.specialUnitaryGroup (Fin N) ℂ)).measurable.comp
+        (measurable_pi_apply ((-t - 1, a, b, c), 0))
+    · simp only [cubic4TimeReflect, hd, ↓reduceIte]
+      exact measurable_pi_apply ((-t, a, b, c), d)
+
+theorem cubic4TimeReflectEquiv_mp (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    MeasureTheory.MeasurePreserving (cubic4TimeReflectEquiv Ls Lt N)
+      (spacetimeHaarMeasure Ls Lt N) (spacetimeHaarMeasure Ls Lt N) :=
+  ⟨(cubic4TimeReflectEquiv Ls Lt N).measurable, spacetimeHaarMeasure_timeReflect Ls Lt N⟩
+
+/-- Exact Euclidean time-reflection invariance of the 4D lattice Schwinger functions. -/
+theorem cubic4Schwinger_timeReflect_inv (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (n : ℕ)
+    (obs : Fin n →
+      (GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)) :
+    cubic4Schwinger Ls Lt N β n (fun i U => obs i (cubic4TimeReflect Ls Lt N U)) =
+      cubic4Schwinger Ls Lt N β n obs := by
+  unfold cubic4Schwinger
+  congr 1
+  calc ∫ U, (∏ i : Fin n, obs i (cubic4TimeReflect Ls Lt N U)) *
+          ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ) ∂(spacetimeHaarMeasure Ls Lt N)
+      = ∫ U, (∏ i : Fin n, obs i ((cubic4TimeReflectEquiv Ls Lt N) U)) *
+          ((cubic4WilsonWeight Ls Lt N β ((cubic4TimeReflectEquiv Ls Lt N) U) : ℝ) : ℂ)
+          ∂(spacetimeHaarMeasure Ls Lt N) := by
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+            change (∏ i : Fin n, obs i (cubic4TimeReflect Ls Lt N U)) *
+                ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ) =
+              (∏ i : Fin n, obs i (cubic4TimeReflect Ls Lt N U)) *
+                ((cubic4WilsonWeight Ls Lt N β (cubic4TimeReflect Ls Lt N U) : ℝ) : ℂ)
+            rw [cubic4WilsonWeight_timeReflect]
+    _ = ∫ U, (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ)
+          ∂(spacetimeHaarMeasure Ls Lt N) :=
+        (cubic4TimeReflectEquiv_mp Ls Lt N).integral_comp'
+          (fun U => (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ))
+
+/-- Boundary-slice links (`t = 0` or `t = M`, spatial directions `d ≠ 0`) on `cubicTorus4 Ls (2 * M)`. -/
+def isBdryTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) : Prop :=
+  e.2 ≠ 0 ∧ (e.1.1.val = 0 ∨ e.1.1.val = M)
+
+/-- Positive-time links on `cubicTorus4 Ls (2 * M)`. -/
+def isPosTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) : Prop :=
+  if e.2 = 0 then e.1.1.val < M else (0 < e.1.1.val ∧ e.1.1.val < M)
+
+/-- Negative-time links on `cubicTorus4 Ls (2 * M)`. -/
+def isNegTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) : Prop :=
+  if e.2 = 0 then M ≤ e.1.1.val else M < e.1.1.val
+
+instance instDecidableBdryTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M] :
+    DecidablePred (isBdryTimeLink Ls M) := fun e => by
+  unfold isBdryTimeLink; infer_instance
+
+instance instDecidablePosTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M] :
+    DecidablePred (isPosTimeLink Ls M) := fun e => by
+  unfold isPosTimeLink; infer_instance
+
+instance instDecidableNegTimeLink (Ls M : ℕ) [NeZero Ls] [NeZero M] :
+    DecidablePred (isNegTimeLink Ls M) := fun e => by
+  unfold isNegTimeLink; infer_instance
+
+/-- Observable supported solely on positive-time and boundary-slice links (`¬ isNegTimeLink`). -/
+def SupportedOnPosTime (Ls M N : ℕ) [NeZero Ls] [NeZero M]
+    (f : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ) : Prop :=
+  ∀ U V, (∀ e, ¬ isNegTimeLink Ls M e → U e = V e) → f U = f V
+
+private theorem fin_2M_neg_val (M : ℕ) [NeZero M] (t : Fin (2 * M)) :
+    (-t).val = if t.val = 0 then 0 else 2 * M - t.val := by
+  by_cases ht : t.val = 0
+  · have ht0 : t = 0 := Fin.ext ht
+    subst ht0
+    simp
+  · rw [if_neg ht]
+    have hlt : 2 * M - t.val < 2 * M := by omega
+    let r : Fin (2 * M) := ⟨2 * M - t.val, hlt⟩
+    have hadd : t + r = 0 := by
+      apply Fin.ext
+      rw [Fin.val_add]
+      change (t.val + (2 * M - t.val)) % (2 * M) = 0
+      rw [Nat.add_sub_of_le (le_of_lt t.isLt), Nat.mod_self]
+    have hr : -t = r := neg_eq_of_add_eq_zero_right hadd
+    rw [hr]
+
+private theorem fin_2M_neg_sub_one_val (M : ℕ) [NeZero M] (t : Fin (2 * M)) :
+    (-t - 1).val = 2 * M - 1 - t.val := by
+  have hM : 0 < M := Nat.pos_of_ne_zero (NeZero.ne M)
+  have hlt : 2 * M - 1 - t.val < 2 * M := by omega
+  let r : Fin (2 * M) := ⟨2 * M - 1 - t.val, hlt⟩
+  have hadd : t + r = -1 := by
+    have hadd1 : t + r + 1 = 0 := by
+      apply Fin.ext
+      have h1val : (1 : Fin (2 * M)).val = 1 := by
+        change 1 % (2 * M) = 1
+        exact Nat.mod_eq_of_lt (by omega)
+      rw [Fin.val_add, Fin.val_add, h1val, Fin.val_zero, Nat.mod_add_mod]
+      have heq : t.val + r.val + 1 = 2 * M := by dsimp [r]; omega
+      rw [heq, Nat.mod_self]
+    exact eq_neg_of_add_eq_zero_left hadd1
+  have hr : -t - 1 = r := by
+    have h := neg_eq_of_add_eq_zero_right (show (t + 1) + r = 0 by
+      rw [add_right_comm, hadd, neg_add_cancel])
+    calc -t - 1 = -(t + 1) := (fin_neg_add_one t).symm
+      _ = r := h
+  rw [hr]
+
+private theorem link_partition_trichotomy (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) :
+    (¬ isBdryTimeLink Ls M e ∧ ¬ isPosTimeLink Ls M e ↔ isNegTimeLink Ls M e) ∧
+    (isBdryTimeLink Ls M e → ¬ isPosTimeLink Ls M e ∧ ¬ isNegTimeLink Ls M e) := by
+  rcases e with ⟨⟨t, a, b, c⟩, d⟩
+  have hlt : t.val < 2 * M := t.isLt
+  by_cases hd : d = 0
+  · simp only [isBdryTimeLink, isPosTimeLink, isNegTimeLink, hd, ne_eq, not_true_eq_false,
+      false_and, not_false_eq_true, ↓reduceIte, true_and, false_implies, and_true]
+    omega
+  · simp only [isBdryTimeLink, isPosTimeLink, isNegTimeLink, hd, ne_eq, not_false_eq_true,
+      true_and, ↓reduceIte]
+    omega
+
+private theorem cubic4TimeReflectLink_zero (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (t : Fin Lt) (a b c : Fin Ls) :
+    cubic4TimeReflectLink Ls Lt ((t, a, b, c), 0) = ((-t - 1, a, b, c), 0) := by
+  simp [cubic4TimeReflectLink]
+
+private theorem cubic4TimeReflectLink_succ (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (t : Fin Lt) (a b c : Fin Ls) (d : Fin 4) (hd : d ≠ 0) :
+    cubic4TimeReflectLink Ls Lt ((t, a, b, c), d) = ((-t, a, b, c), d) := by
+  simp [cubic4TimeReflectLink, hd]
+
+private theorem isPosTimeLink_zero (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (t : Fin (2 * M)) (a b c : Fin Ls) :
+    isPosTimeLink Ls M ((t, a, b, c), 0) ↔ t.val < M := by
+  simp [isPosTimeLink]
+
+private theorem isPosTimeLink_ne_zero (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (t : Fin (2 * M)) (a b c : Fin Ls) {d : Fin 4} (hd : d ≠ 0) :
+    isPosTimeLink Ls M ((t, a, b, c), d) ↔ (0 < t.val ∧ t.val < M) := by
+  simp [isPosTimeLink, hd]
+
+private theorem isNegTimeLink_zero (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (t : Fin (2 * M)) (a b c : Fin Ls) :
+    isNegTimeLink Ls M ((t, a, b, c), 0) ↔ M ≤ t.val := by
+  simp [isNegTimeLink]
+
+private theorem isNegTimeLink_ne_zero (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (t : Fin (2 * M)) (a b c : Fin Ls) {d : Fin 4} (hd : d ≠ 0) :
+    isNegTimeLink Ls M ((t, a, b, c), d) ↔ M < t.val := by
+  simp [isNegTimeLink, hd]
+
+private theorem isBdryTimeLink_iff (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (t : Fin (2 * M)) (a b c : Fin Ls) (d : Fin 4) :
+    isBdryTimeLink Ls M ((t, a, b, c), d) ↔ d ≠ 0 ∧ (t.val = 0 ∨ t.val = M) :=
+  Iff.rfl
+
+private theorem cubic4TimeReflectLink_bdry_iff (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) :
+    isBdryTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) ↔ isBdryTimeLink Ls M e := by
+  have hM : 0 < M := NeZero.pos M
+  rcases e with ⟨⟨t, a, b, c⟩, d⟩
+  have hlt : t.val < 2 * M := t.isLt
+  by_cases hd : d = 0
+  · subst hd
+    rw [cubic4TimeReflectLink_zero, isBdryTimeLink_iff, isBdryTimeLink_iff]
+    simp
+  · rw [cubic4TimeReflectLink_succ Ls (2 * M) t a b c d hd,
+      isBdryTimeLink_iff, isBdryTimeLink_iff, fin_2M_neg_val M t]
+    simp only [hd, ne_eq, not_false_eq_true, true_and]
+    split_ifs <;> omega
+
+private theorem cubic4TimeReflect_bdry_fix (Ls M N : ℕ) [NeZero Ls] [NeZero M]
+    (U : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    {e : (cubicTorus4 Ls (2 * M)).Link} (he : isBdryTimeLink Ls M e) :
+    cubic4TimeReflect Ls (2 * M) N U e = U e := by
+  rcases e with ⟨⟨t, a, b, c⟩, d⟩
+  rw [isBdryTimeLink_iff] at he
+  rcases he with ⟨hd, ht0 | htM⟩
+  · have ht : t = 0 := Fin.ext ht0
+    subst ht
+    simp [cubic4TimeReflect, hd]
+  · have hM_neg : -t = t := by
+      apply Fin.ext
+      rw [fin_2M_neg_val]
+      have hM : 0 < M := Nat.pos_of_ne_zero (NeZero.ne M)
+      rw [if_neg (by omega), htM]
+      omega
+    simp [cubic4TimeReflect, hd, hM_neg]
+
+private theorem cubic4TimeReflectLink_pos_iff_neg (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) :
+    isPosTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) ↔ isNegTimeLink Ls M e := by
+  have hM : 0 < M := NeZero.pos M
+  rcases e with ⟨⟨t, a, b, c⟩, d⟩
+  have hlt : t.val < 2 * M := t.isLt
+  by_cases hd : d = 0
+  · subst hd
+    rw [cubic4TimeReflectLink_zero, isPosTimeLink_zero, isNegTimeLink_zero,
+      fin_2M_neg_sub_one_val]
+    omega
+  · rw [cubic4TimeReflectLink_succ Ls (2 * M) t a b c d hd,
+      isPosTimeLink_ne_zero Ls M (-t) a b c hd,
+      isNegTimeLink_ne_zero Ls M t a b c hd,
+      fin_2M_neg_val]
+    split_ifs <;> omega
+private theorem cubic4TimeReflectLink_neg_iff_pos (Ls M : ℕ) [NeZero Ls] [NeZero M]
+    (e : (cubicTorus4 Ls (2 * M)).Link) :
+    isNegTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) ↔ isPosTimeLink Ls M e := by
+  have h := cubic4TimeReflectLink_pos_iff_neg Ls M (cubic4TimeReflectLink Ls (2 * M) e)
+  have hinv : cubic4TimeReflectLink Ls (2 * M) (cubic4TimeReflectLink Ls (2 * M) e) = e :=
+    (cubic4TimeReflectLink Ls (2 * M)).left_inv e
+  rw [hinv] at h
+  exact h.symm
+
+private noncomputable def wilsonActionBdry (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  β * ∑ x : (cubicTorus4 Ls (2 * M)).Site,
+    if (x.1.val = 0 ∨ x.1.val = M) then
+      (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+       wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+       wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+    else 0
+
+private noncomputable def wilsonActionPos (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ)) : ℝ :=
+  β * ∑ x : (cubicTorus4 Ls (2 * M)).Site,
+    ((if (0 < x.1.val ∧ x.1.val < M) then
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+      else 0) +
+     (if x.1.val < M then
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U)
+      else 0))
+
+private theorem wilsonAction_split_pos_neg (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ)
+    (U : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubic4Plaquettes Ls (2 * M)) U =
+      wilsonActionBdry Ls M N β U +
+      wilsonActionPos Ls M N β U +
+      wilsonActionPos Ls M N β (cubic4TimeReflect Ls (2 * M) N U) := by
+  let S_neg : ℝ := β * ∑ x : (cubicTorus4 Ls (2 * M)).Site,
+    ((if M < x.1.val then
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+      else 0) +
+     (if M ≤ x.1.val then
+        (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+         wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U)
+      else 0))
+  have h_sum_eq : wilsonAction β (cubic4Plaquettes Ls (2 * M)) U =
+      wilsonActionBdry Ls M N β U + wilsonActionPos Ls M N β U + S_neg := by
+    rw [wilsonAction_cubic4_eq_sum]
+    dsimp [wilsonActionBdry, wilsonActionPos, S_neg]
+    rw [← mul_add, ← mul_add]
+    congr 1
+    rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun x _ => ?_
+    dsimp [sitePlaqSum4]
+    have hM : 0 < M := Nat.pos_of_ne_zero (NeZero.ne M)
+    by_cases ht0 : x.1.val = 0
+    · have h1 : ¬ (0 < x.1.val ∧ x.1.val < M) := by omega
+      have h2 : ¬ (M < x.1.val) := by omega
+      have h3 : ¬ (M ≤ x.1.val) := by omega
+      rw [if_pos (Or.inl ht0), if_neg h1, if_pos (by omega : x.1.val < M),
+        if_neg h2, if_neg h3]
+      ring
+    · by_cases htM : x.1.val = M
+      · have h1 : ¬ (0 < x.1.val ∧ x.1.val < M) := by omega
+        have h2 : ¬ (x.1.val < M) := by omega
+        have h3 : ¬ (M < x.1.val) := by omega
+        rw [if_pos (Or.inr htM), if_neg h1, if_neg h2, if_neg h3,
+          if_pos (by omega : M ≤ x.1.val)]
+        ring
+      · by_cases hltM : x.1.val < M
+        · have h1 : ¬ (x.1.val = 0 ∨ x.1.val = M) := by omega
+          have h2 : 0 < x.1.val ∧ x.1.val < M := by omega
+          have h3 : ¬ (M < x.1.val) := by omega
+          have h4 : ¬ (M ≤ x.1.val) := by omega
+          rw [if_neg h1, if_pos h2, if_pos hltM, if_neg h3, if_neg h4]
+          ring
+        · have h1 : ¬ (x.1.val = 0 ∨ x.1.val = M) := by omega
+          have h2 : ¬ (0 < x.1.val ∧ x.1.val < M) := by omega
+          have h3 : M < x.1.val := by omega
+          have h4 : M ≤ x.1.val := by omega
+          rw [if_neg h1, if_neg h2, if_neg hltM, if_pos h3, if_pos h4]
+          ring
+  have h_neg_eq : S_neg = wilsonActionPos Ls M N β (cubic4TimeReflect Ls (2 * M) N U) := by
+    dsimp [S_neg, wilsonActionPos]
+    congr 1
+    rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+    congr 1
+    · let e_sp : (cubicTorus4 Ls (2 * M)).Site ≃ (cubicTorus4 Ls (2 * M)).Site :=
+        { toFun := fun x => (-x.1, x.2.1, x.2.2.1, x.2.2.2)
+          invFun := fun x => (-x.1, x.2.1, x.2.2.1, x.2.2.2)
+          left_inv := fun ⟨t, a, b, c⟩ => by simp
+          right_inv := fun ⟨t, a, b, c⟩ => by simp }
+      refine Fintype.sum_equiv e_sp _ _ fun x => ?_
+      have h_cond : (M < x.1.val) ↔ (0 < (-x.1).val ∧ (-x.1).val < M) := by
+        have hlt := x.1.isLt
+        rw [fin_2M_neg_val]
+        by_cases ht0 : x.1.val = 0
+        · rw [if_pos ht0]; omega
+        · rw [if_neg ht0]; omega
+      change (if M < x.1.val then _ else 0) =
+        (if (0 < (-x.1).val ∧ (-x.1).val < M) then _ else 0)
+      by_cases hx : M < x.1.val
+      · rw [if_pos hx, if_pos (h_cond.mp hx)]
+        dsimp only [e_sp, Equiv.coe_fn_mk]
+        rw [wilsonPlaquetteTerm_spatial_timeReflect Ls (2 * M) N U
+              (-x.1, x.2.1, x.2.2.1, x.2.2.2) 1 2 (by decide) (by decide),
+            wilsonPlaquetteTerm_spatial_timeReflect Ls (2 * M) N U
+              (-x.1, x.2.1, x.2.2.1, x.2.2.2) 1 3 (by decide) (by decide),
+            wilsonPlaquetteTerm_spatial_timeReflect Ls (2 * M) N U
+              (-x.1, x.2.1, x.2.2.1, x.2.2.2) 2 3 (by decide) (by decide)]
+        simp [neg_neg]
+      · rw [if_neg hx, if_neg (mt h_cond.mpr hx)]
+    · let e_tm : (cubicTorus4 Ls (2 * M)).Site ≃ (cubicTorus4 Ls (2 * M)).Site :=
+        { toFun := fun x => (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2)
+          invFun := fun x => (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2)
+          left_inv := fun ⟨t, a, b, c⟩ => by simp only [Prod.mk.injEq, fin_neg_sub_one_invol, true_and]
+          right_inv := fun ⟨t, a, b, c⟩ => by simp only [Prod.mk.injEq, fin_neg_sub_one_invol, true_and] }
+      refine Fintype.sum_equiv e_tm _ _ fun x => ?_
+      have h_cond : (M ≤ x.1.val) ↔ (-x.1 - 1).val < M := by
+        have hlt := x.1.isLt
+        rw [fin_2M_neg_sub_one_val]
+        omega
+      change (if M ≤ x.1.val then _ else 0) = (if (-x.1 - 1).val < M then _ else 0)
+      by_cases hx : M ≤ x.1.val
+      · rw [if_pos hx, if_pos (h_cond.mp hx)]
+        dsimp only [e_tm, Equiv.coe_fn_mk]
+        rw [wilsonPlaquetteTerm_temporal_timeReflect Ls (2 * M) N U
+              (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2) 1 (by decide),
+            wilsonPlaquetteTerm_temporal_timeReflect Ls (2 * M) N U
+              (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2) 2 (by decide),
+            wilsonPlaquetteTerm_temporal_timeReflect Ls (2 * M) N U
+              (-x.1 - 1, x.2.1, x.2.2.1, x.2.2.2) 3 (by decide)]
+        simp only [fin_neg_sub_one_invol]
+        rfl
+      · rw [if_neg hx, if_neg (mt h_cond.mpr hx)]
+  rw [h_sum_eq, h_neg_eq]
+
+private theorem wilsonPlaquetteTerm_depends_on_links
+    {L : SpatialLattice} {N : ℕ} (p : LatticePlaquette L)
+    (U V : GaugeField L (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (hUV : ∀ (e : L.Link) (b : Bool), (e, b) ∈ p.loop → U e = V e) :
+    wilsonPlaquetteTerm p U = wilsonPlaquetteTerm p V := by
+  have hhol : ∀ (γ : List (L.Link × Bool)),
+      (∀ (e : L.Link) (b : Bool), (e, b) ∈ γ → U e = V e) →
+      pathHolonomy U γ = pathHolonomy V γ := by
+    intro γ hγ
+    induction γ with
+    | nil => rfl
+    | cons hd tl ih =>
+      rcases hd with ⟨e, b⟩
+      have he : U e = V e := hγ e b (by simp)
+      have htl : pathHolonomy U tl = pathHolonomy V tl :=
+        ih (fun e' b' hm => hγ e' b' (by simp [hm]))
+      cases b <;> simp [pathHolonomy, he, htl]
+  unfold wilsonPlaquetteTerm
+  rw [hhol p.loop hUV]
+
+private theorem wilsonActionBdry_depends_only (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ)
+    (U V : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (hUV : ∀ e, isBdryTimeLink Ls M e → U e = V e) :
+    wilsonActionBdry Ls M N β U = wilsonActionBdry Ls M N β V := by
+  dsimp [wilsonActionBdry]
+  congr 1
+  refine Finset.sum_congr rfl fun x _ => ?_
+  split_ifs with hx
+  · have hsp : ∀ (d₁ d₂ : Fin 4), d₁ ≠ 0 → d₂ ≠ 0 →
+        wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩ U =
+        wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩ V := by
+      intro d₁ d₂ hd₁ hd₂
+      refine wilsonPlaquetteTerm_depends_on_links _ U V fun e b hm => ?_
+      apply hUV
+      have he_mem : e = (x, d₁) ∨ e = (cubicShift4 Ls (2 * M) d₁ x, d₂) ∨
+          e = (cubicShift4 Ls (2 * M) d₂ x, d₁) ∨ e = (x, d₂) := by
+        simp [cubic4Plaquette] at hm
+        rcases hm with h | h | h | h <;> simp [h]
+      have hsh_t : ∀ (d : Fin 4), d ≠ 0 → (cubicShift4 Ls (2 * M) d x).1 = x.1 := by
+        intro d hd; rcases x with ⟨t, a, b', c⟩; fin_cases d <;> first | exact absurd rfl hd | rfl
+      rcases he_mem with rfl | rfl | rfl | rfl
+      · exact ⟨hd₁, hx⟩
+      · exact ⟨hd₂, by rw [hsh_t d₁ hd₁]; exact hx⟩
+      · exact ⟨hd₁, by rw [hsh_t d₂ hd₂]; exact hx⟩
+      · exact ⟨hd₂, hx⟩
+    rw [hsp 1 2 (by decide) (by decide), hsp 1 3 (by decide) (by decide),
+      hsp 2 3 (by decide) (by decide)]
+  · rfl
+
+private theorem not_isNeg_of_lt {Ls M : ℕ} [NeZero Ls] [NeZero M]
+    (y : (cubicTorus4 Ls (2 * M)).Site) (d : Fin 4)
+    (h0 : d = 0 → y.1.val < M) (hd : d ≠ 0 → y.1.val ≤ M) :
+    ¬ isNegTimeLink Ls M (y, d) := by
+  by_cases h : d = 0
+  · simp only [isNegTimeLink, if_pos h]
+    exact not_le_of_gt (h0 h)
+  · simp only [isNegTimeLink, if_neg h]
+    exact not_lt_of_ge (hd h)
+
+private theorem wilsonActionPos_supported_on_pos (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ)
+    (U V : GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (hUV : ∀ e, ¬ isNegTimeLink Ls M e → U e = V e) :
+    wilsonActionPos Ls M N β U = wilsonActionPos Ls M N β V := by
+  dsimp [wilsonActionPos]
+  congr 1
+  refine Finset.sum_congr rfl fun x _ => ?_
+  rcases x with ⟨t, a, b', c⟩
+  have hsh_t : ∀ (d : Fin 4), d ≠ 0 → ∀ y : (cubicTorus4 Ls (2 * M)).Site,
+      (cubicShift4 Ls (2 * M) d y).1 = y.1 := by
+    intro d hd ⟨t', a', b'', c'⟩; fin_cases d <;> first | exact absurd rfl hd | rfl
+  have h1 : (if (0 < t.val ∧ t.val < M) then
+        (wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 1 2,
+            cubic4Plaquette_isPath (t, a, b', c) 1 2⟩ U +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 1 3,
+            cubic4Plaquette_isPath (t, a, b', c) 1 3⟩ U +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 2 3,
+            cubic4Plaquette_isPath (t, a, b', c) 2 3⟩ U)
+      else 0) =
+      (if (0 < t.val ∧ t.val < M) then
+        (wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 1 2,
+            cubic4Plaquette_isPath (t, a, b', c) 1 2⟩ V +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 1 3,
+            cubic4Plaquette_isPath (t, a, b', c) 1 3⟩ V +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 2 3,
+            cubic4Plaquette_isPath (t, a, b', c) 2 3⟩ V)
+      else 0) := by
+    split_ifs with hx
+    · have hsp : ∀ (d₁ d₂ : Fin 4), d₁ ≠ 0 → d₂ ≠ 0 →
+          wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) d₁ d₂,
+              cubic4Plaquette_isPath (t, a, b', c) d₁ d₂⟩ U =
+          wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) d₁ d₂,
+              cubic4Plaquette_isPath (t, a, b', c) d₁ d₂⟩ V := by
+        intro d₁ d₂ hd₁ hd₂
+        refine wilsonPlaquetteTerm_depends_on_links _ U V fun e b hm => ?_
+        apply hUV
+        have he_mem : e = ((t, a, b', c), d₁) ∨
+            e = (cubicShift4 Ls (2 * M) d₁ (t, a, b', c), d₂) ∨
+            e = (cubicShift4 Ls (2 * M) d₂ (t, a, b', c), d₁) ∨
+            e = ((t, a, b', c), d₂) := by
+          simp [cubic4Plaquette] at hm
+          rcases hm with h | h | h | h <;> simp [h]
+        rcases he_mem with rfl | rfl | rfl | rfl
+        · exact not_isNeg_of_lt (t, a, b', c) d₁ (fun h => absurd h hd₁) (fun _ => hx.2.le)
+        · exact not_isNeg_of_lt _ d₂ (fun h => absurd h hd₂)
+            (fun _ => by rw [hsh_t d₁ hd₁]; exact hx.2.le)
+        · exact not_isNeg_of_lt _ d₁ (fun h => absurd h hd₁)
+            (fun _ => by rw [hsh_t d₂ hd₂]; exact hx.2.le)
+        · exact not_isNeg_of_lt (t, a, b', c) d₂ (fun h => absurd h hd₂) (fun _ => hx.2.le)
+      rw [hsp 1 2 (by decide) (by decide), hsp 1 3 (by decide) (by decide),
+        hsp 2 3 (by decide) (by decide)]
+    · rfl
+  have h2 : (if t.val < M then
+        (wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 1,
+            cubic4Plaquette_isPath (t, a, b', c) 0 1⟩ U +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 2,
+            cubic4Plaquette_isPath (t, a, b', c) 0 2⟩ U +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 3,
+            cubic4Plaquette_isPath (t, a, b', c) 0 3⟩ U)
+      else 0) =
+      (if t.val < M then
+        (wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 1,
+            cubic4Plaquette_isPath (t, a, b', c) 0 1⟩ V +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 2,
+            cubic4Plaquette_isPath (t, a, b', c) 0 2⟩ V +
+         wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 3,
+            cubic4Plaquette_isPath (t, a, b', c) 0 3⟩ V)
+      else 0) := by
+    split_ifs with hx
+    · have htm : ∀ (d : Fin 4), d ≠ 0 →
+          wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 d,
+              cubic4Plaquette_isPath (t, a, b', c) 0 d⟩ U =
+          wilsonPlaquetteTerm ⟨(t, a, b', c), cubic4Plaquette (t, a, b', c) 0 d,
+              cubic4Plaquette_isPath (t, a, b', c) 0 d⟩ V := by
+        intro d hd
+        refine wilsonPlaquetteTerm_depends_on_links _ U V fun e b hm => ?_
+        apply hUV
+        have he_mem : e = ((t, a, b', c), 0) ∨
+            e = (cubicShift4 Ls (2 * M) 0 (t, a, b', c), d) ∨
+            e = (cubicShift4 Ls (2 * M) d (t, a, b', c), 0) ∨
+            e = ((t, a, b', c), d) := by
+          simp [cubic4Plaquette] at hm
+          rcases hm with h | h | h | h <;> simp [h]
+        have hx1_le : (t + 1).val ≤ M := by
+          have h1lt : 1 < 2 * M := by have := NeZero.pos M; omega
+          have h1val : (1 : Fin (2 * M)).val = 1 := by
+            change 1 % (2 * M) = 1
+            exact Nat.mod_eq_of_lt h1lt
+          rw [Fin.val_add, h1val, Nat.mod_eq_of_lt (by omega : t.val + 1 < 2 * M)]
+          omega
+        rcases he_mem with rfl | rfl | rfl | rfl
+        · exact not_isNeg_of_lt (t, a, b', c) 0 (fun _ => hx) (fun h => absurd rfl h)
+        · exact not_isNeg_of_lt _ d (fun h => absurd h hd) (fun _ => hx1_le)
+        · exact not_isNeg_of_lt _ 0 (fun _ => by rw [hsh_t d hd]; exact hx)
+            (fun h => absurd rfl h)
+        · exact not_isNeg_of_lt (t, a, b', c) d (fun h => absurd h hd) (fun _ => hx.le)
+      rw [htm 1 (by decide), htm 2 (by decide), htm 3 (by decide)]
+    · rfl
+  exact congrArg₂ (· + ·) h1 h2
+
+private theorem measurable_cubic4_plaquette_term (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (p : LatticePlaquette (cubicTorus4 Ls Lt)) :
+    Measurable (fun U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      wilsonPlaquetteTerm p U) := by
+  have hev : ∀ e : (cubicTorus4 Ls Lt).Link,
+      Measurable (fun U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) => U e) := by
+    intro e
+    change Measurable (fun U : (cubicTorus4 Ls Lt).Link → _ => U e)
+    exact measurable_pi_apply e
+  have hhol : ∀ γ : List ((cubicTorus4 Ls Lt).Link × Bool),
+      Measurable (fun U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+        pathHolonomy U γ) := by
+    intro γ
+    induction γ with
+    | nil => simpa [pathHolonomy] using measurable_const
+    | cons hd tl ih =>
+      rcases hd with ⟨e, b⟩
+      cases b
+      · simpa [pathHolonomy] using
+          ((continuous_inv (G := Matrix.specialUnitaryGroup (Fin N) ℂ)).measurable.comp (hev e)).mul ih
+      · simpa [pathHolonomy] using (hev e).mul ih
+  unfold wilsonPlaquetteTerm
+  have h_ent : ∀ i : Fin N, Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (A : Matrix (Fin N) (Fin N) ℂ) i i) := fun i =>
+    (continuous_apply i).comp ((continuous_apply i).comp continuous_subtype_val)
+  have h_tr : Continuous (fun A : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      (Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re) := by
+    simp only [Matrix.trace, Matrix.diag, Complex.re_sum]
+    exact continuous_finset_sum Finset.univ fun i _ => Complex.continuous_re.comp (h_ent i)
+  exact measurable_const.sub (measurable_const.mul (h_tr.measurable.comp (hhol p.loop)))
+
+private theorem integrable_of_measurable_bound {α : Type*} [MeasurableSpace α]
+    (μ : MeasureTheory.Measure α) [MeasureTheory.IsProbabilityMeasure μ]
+    (f : α → ℂ) (hf : Measurable f) (C : ℝ) (hbd : ∀ x, ‖f x‖ ≤ C) :
+    MeasureTheory.Integrable f μ := by
+  refine (MeasureTheory.integrable_const C).mono' hf.stronglyMeasurable.aestronglyMeasurable ?_
+  exact Filter.Eventually.of_forall hbd
+
+private theorem measurable_finset_sum_real {ι α : Type*} [MeasurableSpace α]
+    (s : Finset ι) (f : ι → α → ℝ) (hf : ∀ i ∈ s, Measurable (f i)) :
+    Measurable (fun a => ∑ i ∈ s, f i a) :=
+  Finset.measurable_sum s hf
+
+private theorem measurable_finset_sum_complex {ι α : Type*} [MeasurableSpace α]
+    (s : Finset ι) (f : ι → α → ℂ) (hf : ∀ i ∈ s, Measurable (f i)) :
+    Measurable (fun a => ∑ i ∈ s, f i a) :=
+  Finset.measurable_sum s hf
+
+/--
+**4D Wilson Lattice $n$-Point Osterwalder–Schrader Reflection Positivity** directly for
+`cubic4Schwinger Ls (2 * M) N β`: for any finite family of measurable bounded
+positive-time gauge-field observables `obs i k` (`SupportedOnPosTime`),
+`0 ≤ Re ∑_{i,j} c_i · c̄_j · S^{(n_i+n_j)}((obs_i ∘ Θ)* ‖ obs_j)`.
+-/
+theorem cubic4Schwinger_refl_pos_n (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (m : ℕ) (n_pts : Fin m → ℕ) (c : Fin m → ℂ)
+    (obs : ∀ i : Fin m, Fin (n_pts i) →
+      (GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ))
+    (h_meas : ∀ i k, Measurable (obs i k))
+    (C_bd : ℝ) (hC_bd : 0 ≤ C_bd) (h_bd : ∀ i k U, ‖obs i k U‖ ≤ C_bd)
+    (h_pos_supp : ∀ i k, SupportedOnPosTime Ls M N (obs i k)) :
+    0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        cubic4Schwinger Ls (2 * M) N β (n_pts i + n_pts j)
+          (Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+            (obs j))).re := by
+  let G := Matrix.specialUnitaryGroup (Fin N) ℂ
+  let G_4 := GaugeField (cubicTorus4 Ls (2 * M)) G
+  let μ := spacetimeHaarMeasure Ls (2 * M) N
+  haveI := suHaar_prob N
+  haveI := spacetimeHaarMeasure_prob Ls (2 * M) N
+  let Z := cubic4PartitionFn Ls (2 * M) N β
+  have hZ_pos : 0 < Z := cubic4PartitionFn_pos Ls (2 * M) N β hβ
+  let w_bdry : G_4 → ℝ := fun U => Real.exp (-wilsonActionBdry Ls M N β U)
+  let w_pos : G_4 → ℝ := fun U => Real.exp (-wilsonActionPos Ls M N β U)
+  have hw_bdry_meas : Measurable w_bdry := by
+    have h_sum_meas : Measurable (fun U : G_4 => ∑ x : (cubicTorus4 Ls (2 * M)).Site,
+        if (x.1.val = 0 ∨ x.1.val = M) then
+          (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+           wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+        else (0 : ℝ)) := by
+      refine Finset.measurable_sum Finset.univ fun x _ => ?_
+      by_cases hx : x.1.val = 0 ∨ x.1.val = M
+      · simp_rw [if_pos hx]
+        exact ((measurable_cubic4_plaquette_term Ls (2 * M) N _).add
+          (measurable_cubic4_plaquette_term Ls (2 * M) N _)).add
+          (measurable_cubic4_plaquette_term Ls (2 * M) N _)
+      · simp_rw [if_neg hx]
+        exact measurable_const
+    exact Real.continuous_exp.measurable.comp (Measurable.neg (measurable_const.mul h_sum_meas))
+  have hw_pos_meas : Measurable w_pos := by
+    have h_term : ∀ x : (cubicTorus4 Ls (2 * M)).Site, Measurable (fun U : G_4 =>
+        (if (0 < x.1.val ∧ x.1.val < M) then
+            (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+          else (0 : ℝ)) +
+         (if x.1.val < M then
+            (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U)
+          else (0 : ℝ))) := by
+      intro x
+      refine Measurable.add ?_ ?_
+      · by_cases hx : 0 < x.1.val ∧ x.1.val < M
+        · simp_rw [if_pos hx]
+          exact ((measurable_cubic4_plaquette_term Ls (2 * M) N _).add
+            (measurable_cubic4_plaquette_term Ls (2 * M) N _)).add
+            (measurable_cubic4_plaquette_term Ls (2 * M) N _)
+        · simp_rw [if_neg hx]
+          exact measurable_const
+      · by_cases hx : x.1.val < M
+        · simp_rw [if_pos hx]
+          exact ((measurable_cubic4_plaquette_term Ls (2 * M) N _).add
+            (measurable_cubic4_plaquette_term Ls (2 * M) N _)).add
+            (measurable_cubic4_plaquette_term Ls (2 * M) N _)
+        · simp_rw [if_neg hx]
+          exact measurable_const
+    have h_sum_meas : Measurable (fun U : G_4 => ∑ x : (cubicTorus4 Ls (2 * M)).Site,
+        ((if (0 < x.1.val ∧ x.1.val < M) then
+            (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 2, cubic4Plaquette_isPath x 1 2⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 1 3, cubic4Plaquette_isPath x 1 3⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 2 3, cubic4Plaquette_isPath x 2 3⟩ U)
+          else (0 : ℝ)) +
+         (if x.1.val < M then
+            (wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 1, cubic4Plaquette_isPath x 0 1⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 2, cubic4Plaquette_isPath x 0 2⟩ U +
+             wilsonPlaquetteTerm ⟨x, cubic4Plaquette x 0 3, cubic4Plaquette_isPath x 0 3⟩ U)
+          else (0 : ℝ)))) :=
+      measurable_finset_sum_real Finset.univ _ (fun x _ => h_term x)
+    have h_act_meas : Measurable (fun U : G_4 => wilsonActionPos Ls M N β U) :=
+      measurable_const.mul h_sum_meas
+    exact Real.continuous_exp.measurable.comp h_act_meas.neg
+  have hw_bdry_bounds : ∀ U, 0 ≤ w_bdry U ∧ w_bdry U ≤ 1 := fun U => by
+    have hact : 0 ≤ wilsonActionBdry Ls M N β U := by
+      dsimp [wilsonActionBdry]
+      refine mul_nonneg hβ (Finset.sum_nonneg fun x _ => ?_)
+      split_ifs
+      · exact add_nonneg (add_nonneg (wilsonPlaquetteTerm_bounds _ U).1
+          (wilsonPlaquetteTerm_bounds _ U).1) (wilsonPlaquetteTerm_bounds _ U).1
+      · exact le_rfl
+    exact ⟨(Real.exp_pos _).le, Real.exp_le_one_iff.mpr (by linarith)⟩
+  have hw_pos_bounds : ∀ U, 0 ≤ w_pos U ∧ w_pos U ≤ 1 := fun U => by
+    have hact : 0 ≤ wilsonActionPos Ls M N β U := by
+      dsimp [wilsonActionPos]
+      refine mul_nonneg hβ (Finset.sum_nonneg fun x _ => add_nonneg ?_ ?_)
+      · split_ifs
+        · exact add_nonneg (add_nonneg (wilsonPlaquetteTerm_bounds _ U).1
+            (wilsonPlaquetteTerm_bounds _ U).1) (wilsonPlaquetteTerm_bounds _ U).1
+        · exact le_rfl
+      · split_ifs
+        · exact add_nonneg (add_nonneg (wilsonPlaquetteTerm_bounds _ U).1
+            (wilsonPlaquetteTerm_bounds _ U).1) (wilsonPlaquetteTerm_bounds _ U).1
+        · exact le_rfl
+    exact ⟨(Real.exp_pos _).le, Real.exp_le_one_iff.mpr (by linarith)⟩
+  have hw_fact : ∀ U, cubic4WilsonWeight Ls (2 * M) N β U =
+      w_bdry U * w_pos U * w_pos (cubic4TimeReflect Ls (2 * M) N U) := by
+    intro U
+    unfold cubic4WilsonWeight
+    rw [wilsonAction_split_pos_neg Ls M N β U]
+    dsimp [w_bdry, w_pos]
+    rw [← Real.exp_add, ← Real.exp_add]
+    congr 1; ring
+  let F_sum : G_4 → ℂ := fun U =>
+    (∑ j : Fin m, starRingEnd ℂ (c j) * ∏ k : Fin (n_pts j), obs j k U) * ((w_pos U : ℝ) : ℂ)
+  have hF_meas : Measurable F_sum := by
+    have hF_sum_meas : Measurable (fun U : G_4 =>
+        (∑ j : Fin m, starRingEnd ℂ (c j) * ∏ k : Fin (n_pts j), obs j k U : ℂ)) :=
+      Finset.measurable_sum (Finset.univ : Finset (Fin m)) fun j _ =>
+        measurable_const.mul (Finset.measurable_prod Finset.univ fun k _ => h_meas j k)
+    exact hF_sum_meas.mul (Complex.continuous_ofReal.measurable.comp hw_pos_meas)
+  let C_sum : ℝ := ∑ j : Fin m, ‖c j‖ * C_bd ^ (n_pts j)
+  have hF_bd : ∀ U, ‖F_sum U‖ ≤ C_sum := fun U => by
+    dsimp [F_sum, C_sum]
+    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hw_pos_bounds U).1]
+    let f_term : Fin m → ℂ := fun j => starRingEnd ℂ (c j) * ∏ k : Fin (n_pts j), obs j k U
+    change ‖∑ j : Fin m, f_term j‖ * w_pos U ≤ ∑ j : Fin m, ‖c j‖ * C_bd ^ (n_pts j)
+    calc ‖(∑ j : Fin m, f_term j : ℂ)‖ * w_pos U
+        ≤ ‖(∑ j : Fin m, f_term j : ℂ)‖ * 1 :=
+          mul_le_mul_of_nonneg_left (hw_pos_bounds U).2 (norm_nonneg _)
+      _ = ‖(∑ j : Fin m, f_term j : ℂ)‖ := mul_one _
+      _ ≤ (∑ j : Fin m, ‖f_term j‖ : ℝ) :=
+          norm_sum_le (Finset.univ : Finset (Fin m)) f_term
+      _ ≤ (∑ j : Fin m, ‖c j‖ * C_bd ^ (n_pts j) : ℝ) := by
+          refine Finset.sum_le_sum fun j _ => ?_
+          dsimp [f_term]
+          rw [norm_mul, Complex.norm_conj]
+          exact mul_le_mul_of_nonneg_left
+            (norm_prod_fin_le (fun k => obs j k U) C_bd hC_bd (fun k => h_bd j k U))
+            (norm_nonneg _)
+  have hF_supp : SupportedOnPosTime Ls M N F_sum := by
+    intro U V hUV
+    dsimp [F_sum, w_pos]
+    rw [wilsonActionPos_supported_on_pos Ls M N β U V hUV]
+    refine congrArg (· * _) ?_
+    refine Finset.sum_congr rfl fun j _ => ?_
+    refine congrArg (starRingEnd ℂ (c j) * ·) ?_
+    exact Finset.prod_congr rfl fun k _ => h_pos_supp j k U V hUV
+  let θ_F : G_4 → ℂ := fun U =>
+    starRingEnd ℂ (F_sum (cubic4TimeReflect Ls (2 * M) N U)) * F_sum U * ((w_bdry U : ℝ) : ℂ)
+  have hθ_F_meas : Measurable θ_F :=
+    ((continuous_star.measurable.comp
+      (hF_meas.comp (cubic4TimeReflectEquiv Ls (2 * M) N).measurable)).mul hF_meas).mul
+      (Complex.continuous_ofReal.measurable.comp hw_bdry_meas)
+  have h_int_ij : ∀ i j : Fin m, MeasureTheory.Integrable (fun U =>
+      c i * starRingEnd ℂ (c j) *
+        ((∏ x : Fin (n_pts i + n_pts j),
+            Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+              (obs j) x U) *
+          ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ))) μ := by
+    intro i j
+    have hm : Measurable (fun U =>
+        c i * starRingEnd ℂ (c j) *
+          ((∏ x : Fin (n_pts i + n_pts j),
+              Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+                (obs j) x U) *
+            ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ))) := by
+      refine measurable_const.mul ((Finset.measurable_prod Finset.univ fun x _ => ?_).mul
+        (Complex.continuous_ofReal.measurable.comp (measurable_cubic4WilsonWeight Ls (2 * M) N β)))
+      induction x using Fin.addCases with
+      | left k =>
+        simp only [Fin.append_left]
+        exact continuous_star.measurable.comp
+          ((h_meas i k).comp (cubic4TimeReflectEquiv Ls (2 * M) N).measurable)
+      | right k =>
+        simp only [Fin.append_right]
+        exact h_meas j k
+    refine integrable_of_measurable_bound μ _ hm
+      (‖c i‖ * ‖c j‖ * C_bd ^ (n_pts i + n_pts j)) fun U => ?_
+    rw [norm_mul, norm_mul, norm_mul, Complex.norm_conj, Complex.norm_real, Real.norm_eq_abs]
+    have hwb := cubic4WilsonWeight_bounds Ls (2 * M) N β hβ U
+    have hwnn : 0 ≤ cubic4WilsonWeight Ls (2 * M) N β U := by
+      unfold cubic4WilsonWeight; exact (Real.exp_pos _).le
+    rw [abs_of_nonneg hwnn]
+    have hpb : ‖∏ x : Fin (n_pts i + n_pts j),
+        Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+          (obs j) x U‖ ≤ C_bd ^ (n_pts i + n_pts j) := by
+      refine norm_prod_fin_le _ C_bd hC_bd fun x => ?_
+      induction x using Fin.addCases with
+      | left k =>
+        simp only [Fin.append_left, Complex.norm_conj]
+        exact h_bd i k _
+      | right k =>
+        simp only [Fin.append_right]
+        exact h_bd j k U
+    calc ‖c i‖ * ‖c j‖ * (‖∏ x : Fin (n_pts i + n_pts j), _‖ * cubic4WilsonWeight Ls (2 * M) N β U)
+        ≤ ‖c i‖ * ‖c j‖ * (C_bd ^ (n_pts i + n_pts j) * 1) := by
+            gcongr; exact hwb.2
+      _ = ‖c i‖ * ‖c j‖ * C_bd ^ (n_pts i + n_pts j) := by ring
+  have h_sum_eq :
+      (∑ i : Fin m, ∑ j : Fin m,
+        c i * starRingEnd ℂ (c j) *
+          cubic4Schwinger Ls (2 * M) N β (n_pts i + n_pts j)
+            (Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+              (obs j))) =
+      ((Z : ℂ)⁻¹) * ∫ U, θ_F U ∂μ := by
+    unfold cubic4Schwinger
+    have h_pull : ∀ i j : Fin m,
+        c i * starRingEnd ℂ (c j) * (((Z : ℂ)⁻¹) *
+          ∫ U, (∏ x : Fin (n_pts i + n_pts j),
+              Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+                (obs j) x U) *
+            ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ) ∂μ) =
+        ((Z : ℂ)⁻¹) * ∫ U, c i * starRingEnd ℂ (c j) *
+          ((∏ x : Fin (n_pts i + n_pts j),
+              Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+                (obs j) x U) *
+            ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ)) ∂μ := by
+      intro i j
+      rw [MeasureTheory.integral_const_mul]
+      ring
+    change (∑ i : Fin m, ∑ j : Fin m,
+        c i * starRingEnd ℂ (c j) * (((Z : ℂ)⁻¹) * ∫ U, _ ∂μ)) =
+      ((Z : ℂ)⁻¹) * ∫ U, θ_F U ∂μ
+    simp_rw [h_pull, ← Finset.mul_sum]
+    congr 1
+    have h_in : ∀ i : Fin m,
+        (∑ j : Fin m, ∫ U, c i * starRingEnd ℂ (c j) *
+          ((∏ x : Fin (n_pts i + n_pts j),
+              Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+                (obs j) x U) *
+            ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ)) ∂μ) =
+        ∫ U, ∑ j : Fin m, c i * starRingEnd ℂ (c j) *
+          ((∏ x : Fin (n_pts i + n_pts j),
+              Fin.append (fun k U => starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U)))
+                (obs j) x U) *
+            ((cubic4WilsonWeight Ls (2 * M) N β U : ℝ) : ℂ)) ∂μ :=
+      fun i => (MeasureTheory.integral_finset_sum _ (fun j _ => h_int_ij i j)).symm
+    simp_rw [h_in]
+    rw [← MeasureTheory.integral_finset_sum _ (fun i _ =>
+      MeasureTheory.integrable_finset_sum _ (fun j _ => h_int_ij i j))]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+    dsimp [θ_F, F_sum]
+    simp_rw [Fin.prod_univ_add, Fin.append_left, Fin.append_right, hw_fact U]
+    simp only [map_mul, map_sum, map_prod, Complex.conj_conj, Complex.conj_ofReal,
+      Complex.ofReal_mul]
+    let L : Fin m → ℂ := fun i => c i * ∏ k : Fin (n_pts i),
+      starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U))
+    let R : Fin m → ℂ := fun j => starRingEnd ℂ (c j) * ∏ k : Fin (n_pts j), obs j k U
+    calc ∑ i : Fin m, ∑ j : Fin m, c i * starRingEnd ℂ (c j) *
+          ((∏ k : Fin (n_pts i), starRingEnd ℂ (obs i k (cubic4TimeReflect Ls (2 * M) N U))) *
+           (∏ k : Fin (n_pts j), obs j k U) *
+           ((w_bdry U : ℂ) * (w_pos U : ℂ) * (w_pos (cubic4TimeReflect Ls (2 * M) N U) : ℂ)))
+        = ∑ i : Fin m, ∑ j : Fin m, L i * (R j *
+            ((w_bdry U : ℂ) * (w_pos U : ℂ) * (w_pos (cubic4TimeReflect Ls (2 * M) N U) : ℂ))) := by
+            refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+            dsimp only [L, R]; ring
+      _ = ∑ i : Fin m, L i * ((∑ j : Fin m, R j) *
+            ((w_bdry U : ℂ) * (w_pos U : ℂ) * (w_pos (cubic4TimeReflect Ls (2 * M) N U) : ℂ))) := by
+            refine Finset.sum_congr rfl fun i _ => ?_
+            rw [← Finset.mul_sum, ← Finset.sum_mul]
+      _ = (∑ i : Fin m, L i) * ((∑ j : Fin m, R j) *
+            ((w_bdry U : ℂ) * (w_pos U : ℂ) * (w_pos (cubic4TimeReflect Ls (2 * M) N U) : ℂ))) := by
+            rw [← Finset.sum_mul]
+      _ = ((∑ i : Fin m, L i) * (w_pos (cubic4TimeReflect Ls (2 * M) N U) : ℂ)) *
+            ((∑ j : Fin m, R j) * (w_pos U : ℂ)) * (w_bdry U : ℂ) := by ring
+  rw [h_sum_eq, ← Complex.ofReal_inv, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    zero_mul, sub_zero]
+  refine mul_nonneg (inv_nonneg.mpr hZ_pos.le) ?_
+  let p_b := isBdryTimeLink Ls M
+  let E_b := { e : (cubicTorus4 Ls (2 * M)).Link // p_b e }
+  let E_nb := { e : (cubicTorus4 Ls (2 * M)).Link // ¬ p_b e }
+  let p_p : E_nb → Prop := fun e => isPosTimeLink Ls M e.1
+  let E_p := { e : E_nb // p_p e }
+  let E_n := { e : E_nb // ¬ p_p e }
+  let e₁ : G_4 ≃ᵐ (E_b → G) × (E_nb → G) :=
+    MeasurableEquiv.piEquivPiSubtypeProd (fun _ : (cubicTorus4 Ls (2 * M)).Link => G) p_b
+  let e₂ : (E_nb → G) ≃ᵐ (E_p → G) × (E_n → G) :=
+    MeasurableEquiv.piEquivPiSubtypeProd (fun _ : E_nb => G) p_p
+  let μ_b : MeasureTheory.Measure (E_b → G) := MeasureTheory.Measure.pi (fun _ => suHaar N)
+  let μ_nb : MeasureTheory.Measure (E_nb → G) := MeasureTheory.Measure.pi (fun _ => suHaar N)
+  let μ_p : MeasureTheory.Measure (E_p → G) := MeasureTheory.Measure.pi (fun _ => suHaar N)
+  let μ_n : MeasureTheory.Measure (E_n → G) := MeasureTheory.Measure.pi (fun _ => suHaar N)
+  haveI : MeasureTheory.IsProbabilityMeasure μ_b := by dsimp [μ_b]; infer_instance
+  haveI : MeasureTheory.IsProbabilityMeasure μ_nb := by dsimp [μ_nb]; infer_instance
+  haveI : MeasureTheory.IsProbabilityMeasure μ_p := by dsimp [μ_p]; infer_instance
+  haveI : MeasureTheory.IsProbabilityMeasure μ_n := by dsimp [μ_n]; infer_instance
+  have mp₁ : MeasureTheory.MeasurePreserving e₁ μ (μ_b.prod μ_nb) :=
+    MeasureTheory.measurePreserving_piEquivPiSubtypeProd
+      (fun _ : (cubicTorus4 Ls (2 * M)).Link => suHaar N) p_b
+  have mp₂ : MeasureTheory.MeasurePreserving e₂ μ_nb (μ_p.prod μ_n) :=
+    MeasureTheory.measurePreserving_piEquivPiSubtypeProd (fun _ : E_nb => suHaar N) p_p
+  let reflIdx : E_p ≃ E_n :=
+    { toFun := fun ⟨⟨e, hnb⟩, hp⟩ =>
+        ⟨⟨cubic4TimeReflectLink Ls (2 * M) e,
+            fun hb => hnb ((cubic4TimeReflectLink_bdry_iff Ls M e).mp hb)⟩,
+          fun hp' => ((link_partition_trichotomy Ls M _).1.mpr
+            ((cubic4TimeReflectLink_neg_iff_pos Ls M e).mpr hp)).2 hp'⟩
+      invFun := fun ⟨⟨e, hnb⟩, hnp⟩ =>
+        ⟨⟨cubic4TimeReflectLink Ls (2 * M) e,
+            fun hb => hnb ((cubic4TimeReflectLink_bdry_iff Ls M e).mp hb)⟩,
+          (cubic4TimeReflectLink_pos_iff_neg Ls M e).mpr
+            ((link_partition_trichotomy Ls M e).1.mp ⟨hnb, hnp⟩)⟩
+      left_inv := fun ⟨⟨e, _⟩, _⟩ => by
+        apply Subtype.ext; apply Subtype.ext; exact (cubic4TimeReflectLink Ls (2 * M)).left_inv e
+      right_inv := fun ⟨⟨e, _⟩, _⟩ => by
+        apply Subtype.ext; apply Subtype.ext; exact (cubic4TimeReflectLink Ls (2 * M)).right_inv e }
+  let e_refl : (E_p → G) ≃ᵐ (E_n → G) :=
+    { toFun := fun U_p e_n =>
+        if e_n.1.1.2 = 0 then (U_p (reflIdx.symm e_n))⁻¹ else U_p (reflIdx.symm e_n)
+      invFun := fun U_n e_p =>
+        if e_p.1.1.2 = 0 then (U_n (reflIdx e_p))⁻¹ else U_n (reflIdx e_p)
+      left_inv := fun U_p => by
+        funext ⟨⟨e, hnb⟩, hp⟩
+        have hd_eq : (reflIdx ⟨⟨e, hnb⟩, hp⟩).1.1.2 = e.2 := by
+          dsimp [reflIdx, cubic4TimeReflectLink]
+          split_ifs <;> rfl
+        dsimp only
+        by_cases hd : e.2 = 0
+        · rw [hd_eq, if_pos hd, if_pos hd, reflIdx.symm_apply_apply, inv_inv]
+        · rw [hd_eq, if_neg hd, if_neg hd, reflIdx.symm_apply_apply]
+      right_inv := fun U_n => by
+        funext ⟨⟨e, hnb⟩, hnp⟩
+        have hd_eq : (reflIdx.symm ⟨⟨e, hnb⟩, hnp⟩).1.1.2 = e.2 := by
+          dsimp [reflIdx, cubic4TimeReflectLink]
+          split_ifs <;> rfl
+        dsimp only
+        by_cases hd : e.2 = 0
+        · rw [hd_eq, if_pos hd, if_pos hd, reflIdx.apply_symm_apply, inv_inv]
+        · rw [hd_eq, if_neg hd, if_neg hd, reflIdx.apply_symm_apply]
+      measurable_toFun := by
+        refine measurable_pi_iff.mpr fun e_n => ?_
+        change Measurable (fun U_p : E_p → G =>
+          if e_n.1.1.2 = 0 then (U_p (reflIdx.symm e_n))⁻¹ else U_p (reflIdx.symm e_n))
+        split_ifs
+        · exact (continuous_inv (G := G)).measurable.comp (measurable_pi_apply (reflIdx.symm e_n))
+        · exact measurable_pi_apply (reflIdx.symm e_n)
+      measurable_invFun := by
+        refine measurable_pi_iff.mpr fun e_p => ?_
+        change Measurable (fun U_n : E_n → G =>
+          if e_p.1.1.2 = 0 then (U_n (reflIdx e_p))⁻¹ else U_n (reflIdx e_p))
+        split_ifs
+        · exact (continuous_inv (G := G)).measurable.comp (measurable_pi_apply (reflIdx e_p))
+        · exact measurable_pi_apply (reflIdx e_p) }
+  have he_refl_app : ∀ (U_p : E_p → G) (e_n : E_n),
+      e_refl U_p e_n =
+        if e_n.1.1.2 = 0 then (U_p (reflIdx.symm e_n))⁻¹ else U_p (reflIdx.symm e_n) :=
+    fun _ _ => rfl
+  have mp_refl : MeasureTheory.MeasurePreserving e_refl μ_p μ_n := by
+    refine ⟨e_refl.measurable, ?_⟩
+    symm
+    refine MeasureTheory.Measure.pi_eq fun s hs => ?_
+    rw [MeasureTheory.Measure.map_apply e_refl.measurable (MeasurableSet.univ_pi hs)]
+    let φ : E_p → G → G := fun e_p u => if e_p.1.1.2 = 0 then u⁻¹ else u
+    have hpre : e_refl ⁻¹' Set.pi Set.univ s =
+        Set.pi Set.univ (fun e_p => φ e_p ⁻¹' s (reflIdx e_p)) := by
+      ext U_p
+      simp only [Set.mem_preimage, Set.mem_pi, Set.mem_univ, forall_true_left, e_refl, φ]
+      constructor
+      · intro h e_p
+        have hd_eq : (reflIdx e_p).1.1.2 = e_p.1.1.2 := by
+          rcases e_p with ⟨⟨e, hnb⟩, hp⟩
+          dsimp [reflIdx, cubic4TimeReflectLink]
+          split_ifs <;> rfl
+        have he := h (reflIdx e_p)
+        rw [he_refl_app, hd_eq, reflIdx.symm_apply_apply] at he
+        exact he
+      · intro h e_n
+        have hd_eq : (reflIdx.symm e_n).1.1.2 = e_n.1.1.2 := by
+          rcases e_n with ⟨⟨e, hnb⟩, hnp⟩
+          dsimp [reflIdx, cubic4TimeReflectLink]
+          split_ifs <;> rfl
+        have he := h (reflIdx.symm e_n)
+        rw [reflIdx.apply_symm_apply] at he
+        rw [he_refl_app, ← hd_eq]
+        exact he
+    rw [hpre]
+    have hpi : μ_p (Set.pi Set.univ (fun e_p => φ e_p ⁻¹' s (reflIdx e_p))) =
+        ∏ e_p : E_p, suHaar N (φ e_p ⁻¹' s (reflIdx e_p)) :=
+      MeasureTheory.Measure.pi_pi (fun _ => suHaar N) _
+    rw [hpi]
+    have h_each : ∀ e_p : E_p, suHaar N (φ e_p ⁻¹' s (reflIdx e_p)) = suHaar N (s (reflIdx e_p)) := by
+      intro e_p
+      by_cases hd : e_p.1.1.2 = 0
+      · simp only [φ, hd, ↓reduceIte]
+        rw [← MeasureTheory.Measure.map_apply (continuous_inv (G := G)).measurable
+          (hs (reflIdx e_p)), suHaar_map_inv N]
+      · simp only [φ, hd, ↓reduceIte]; rfl
+    rw [Finset.prod_congr rfl fun e_p _ => h_each e_p]
+    exact Fintype.prod_equiv reflIdx (fun e_p => suHaar N (s (reflIdx e_p)))
+      (fun e_n => suHaar N (s e_n)) (fun _ => rfl)
+  let combine : (E_b → G) → (E_p → G) → (E_p → G) → G_4 :=
+    fun U_b U_p U_p' => e₁.symm (U_b, e₂.symm (U_p, e_refl U_p'))
+  have h_comb_bdry : ∀ U_b U_p U_p' (e : (cubicTorus4 Ls (2 * M)).Link) (hb : p_b e),
+      combine U_b U_p U_p' e = U_b ⟨e, hb⟩ := fun U_b U_p U_p' e hb =>
+    congrArg (fun q => q.1 ⟨e, hb⟩) (e₁.apply_symm_apply (U_b, e₂.symm (U_p, e_refl U_p')))
+  have h_comb_pos : ∀ U_b U_p U_p' (e : (cubicTorus4 Ls (2 * M)).Link)
+      (hnb : ¬ p_b e) (hp : p_p ⟨e, hnb⟩),
+      combine U_b U_p U_p' e = U_p ⟨⟨e, hnb⟩, hp⟩ := fun U_b U_p U_p' e hnb hp =>
+    (congrArg (fun q => q.2 ⟨e, hnb⟩)
+      (e₁.apply_symm_apply (U_b, e₂.symm (U_p, e_refl U_p')))).trans
+      (congrArg (fun q => q.1 ⟨⟨e, hnb⟩, hp⟩) (e₂.apply_symm_apply (U_p, e_refl U_p')))
+  have h_comb_neg : ∀ U_b U_p U_p' (e : (cubicTorus4 Ls (2 * M)).Link)
+      (hnb : ¬ p_b e) (hnp : ¬ p_p ⟨e, hnb⟩),
+      combine U_b U_p U_p' e = e_refl U_p' ⟨⟨e, hnb⟩, hnp⟩ := fun U_b U_p U_p' e hnb hnp =>
+    (congrArg (fun q => q.2 ⟨e, hnb⟩)
+      (e₁.apply_symm_apply (U_b, e₂.symm (U_p, e_refl U_p')))).trans
+      (congrArg (fun q => q.2 ⟨⟨e, hnb⟩, hnp⟩) (e₂.apply_symm_apply (U_p, e_refl U_p')))
+  have h_combine_reflect : ∀ U_b U_p U_p',
+      cubic4TimeReflect Ls (2 * M) N (combine U_b U_p U_p') = combine U_b U_p' U_p := by
+    intro U_b U_p U_p'
+    funext e
+    by_cases hb : isBdryTimeLink Ls M e
+    · rw [cubic4TimeReflect_bdry_fix Ls M N _ hb, h_comb_bdry _ _ _ e hb, h_comb_bdry _ _ _ e hb]
+    · have hc_e := cubic4TimeReflectLink_bdry_iff Ls M e
+      have hb_refl : ¬ isBdryTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) :=
+        fun h => hb (hc_e.mp h)
+      have h_lhs_val : cubic4TimeReflect Ls (2 * M) N (combine U_b U_p U_p') e =
+          if e.2 = 0 then (combine U_b U_p U_p' (cubic4TimeReflectLink Ls (2 * M) e))⁻¹
+          else combine U_b U_p U_p' (cubic4TimeReflectLink Ls (2 * M) e) := by
+        rcases e with ⟨⟨t, a, b', c⟩, d⟩
+        by_cases hd : d = 0 <;> simp [cubic4TimeReflect, cubic4TimeReflectLink, hd]
+      rw [h_lhs_val]
+      by_cases hp : isPosTimeLink Ls M e
+      · have hn_refl : isNegTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) :=
+          (cubic4TimeReflectLink_neg_iff_pos Ls M e).mpr hp
+        have hnp_refl : ¬ isPosTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) :=
+          ((link_partition_trichotomy Ls M _).1.mpr hn_refl).2
+        rw [h_comb_neg U_b U_p U_p' _ hb_refl hnp_refl, h_comb_pos U_b U_p' U_p e hb hp,
+          he_refl_app]
+        have hd_eq : (⟨⟨cubic4TimeReflectLink Ls (2 * M) e, hb_refl⟩, hnp_refl⟩ : E_n).1.1.2 = e.2 := by
+          rcases e with ⟨⟨t, a, b', c⟩, d⟩
+          dsimp [cubic4TimeReflectLink]
+          split_ifs <;> rfl
+        have hrefl_eq : reflIdx.symm ⟨⟨cubic4TimeReflectLink Ls (2 * M) e, hb_refl⟩, hnp_refl⟩ =
+            ⟨⟨e, hb⟩, hp⟩ := by
+          apply Subtype.ext; apply Subtype.ext
+          exact (cubic4TimeReflectLink Ls (2 * M)).left_inv e
+        rw [hd_eq, hrefl_eq]
+        by_cases hd : e.2 = 0
+        · simp only [hd, ↓reduceIte]
+          exact inv_inv _
+        · simp only [hd, ↓reduceIte]
+      · have hn : isNegTimeLink Ls M e := (link_partition_trichotomy Ls M e).1.mp ⟨hb, hp⟩
+        have hp_refl : isPosTimeLink Ls M (cubic4TimeReflectLink Ls (2 * M) e) :=
+          (cubic4TimeReflectLink_pos_iff_neg Ls M e).mpr hn
+        rw [h_comb_pos U_b U_p U_p' _ hb_refl hp_refl, h_comb_neg U_b U_p' U_p e hb hp,
+          he_refl_app]
+        have hrefl_eq : reflIdx.symm ⟨⟨e, hb⟩, hp⟩ =
+            ⟨⟨cubic4TimeReflectLink Ls (2 * M) e, hb_refl⟩, hp_refl⟩ := rfl
+        rw [hrefl_eq]
+  have h_bdry_const : ∀ U_b U_p U_p',
+      w_bdry (combine U_b U_p U_p') = w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) := by
+    intro U_b U_p U_p'
+    dsimp [w_bdry]
+    congr 2
+    refine wilsonActionBdry_depends_only Ls M N β _ _ fun e he => ?_
+    rw [h_comb_bdry _ _ _ e he, h_comb_bdry _ _ _ e he]
+  let g_val : (E_b → G) → (E_p → G) → ℂ :=
+    fun U_b U_p => F_sum (combine U_b U_p (fun _ => 1))
+  have h_F_indep : ∀ U_b U_p U_p', F_sum (combine U_b U_p U_p') = g_val U_b U_p := by
+    intro U_b U_p U_p'
+    refine hF_supp _ _ fun e hne => ?_
+    by_cases hb : isBdryTimeLink Ls M e
+    · rw [h_comb_bdry _ _ _ e hb, h_comb_bdry _ _ _ e hb]
+    · have hp : isPosTimeLink Ls M e := by
+        by_contra hnp
+        exact hne ((link_partition_trichotomy Ls M e).1.mp ⟨hb, hnp⟩)
+      rw [h_comb_pos _ _ _ e hb hp, h_comb_pos _ _ _ e hb hp]
+  have hm_comb2 : Measurable (fun z : (E_b → G) × ((E_p → G) × (E_p → G)) =>
+      combine z.1 z.2.1 z.2.2) := by
+    have hm1 : Measurable (fun q : (E_p → G) × (E_p → G) => e₂.symm (q.1, e_refl q.2)) :=
+      e₂.symm.measurable.comp (measurable_fst.prodMk (e_refl.measurable.comp measurable_snd))
+    exact e₁.symm.measurable.comp (measurable_fst.prodMk (hm1.comp measurable_snd))
+  have h_int_rewrite :
+      ∫ U, θ_F U ∂μ =
+        ∫ U_b, ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) : ℝ) : ℂ) *
+          (∫ U_p, (∫ U_p', starRingEnd ℂ (g_val U_b U_p') * g_val U_b U_p ∂μ_p) ∂μ_p) ∂μ_b := by
+    have hmp1_sym := MeasureTheory.MeasurePreserving.symm e₁ mp₁
+    have hmp2_sym := MeasureTheory.MeasurePreserving.symm e₂ mp₂
+    rw [← hmp1_sym.integral_comp' θ_F]
+    have h_int1 : MeasureTheory.Integrable (fun p => θ_F (e₁.symm p)) (μ_b.prod μ_nb) :=
+      integrable_of_measurable_bound (μ_b.prod μ_nb) _ (hθ_F_meas.comp e₁.symm.measurable)
+        (C_sum ^ 2) fun p => by
+          dsimp [θ_F]
+          rw [norm_mul, norm_mul, Complex.norm_conj, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (hw_bdry_bounds _).1]
+          calc ‖F_sum _‖ * ‖F_sum _‖ * w_bdry _
+              ≤ C_sum * C_sum * 1 := by
+                gcongr
+                · exact hF_bd _
+                · exact hF_bd _
+                · exact (hw_bdry_bounds _).2
+            _ = C_sum ^ 2 := by ring
+    rw [MeasureTheory.integral_prod _ h_int1]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_b => ?_)
+    dsimp only
+    rw [← hmp2_sym.integral_comp' (fun U_nb => θ_F (e₁.symm (U_b, U_nb)))]
+    have h_int2 : MeasureTheory.Integrable (fun q => θ_F (e₁.symm (U_b, e₂.symm q)))
+        (μ_p.prod μ_n) :=
+      integrable_of_measurable_bound (μ_p.prod μ_n) _
+        (hθ_F_meas.comp (e₁.symm.measurable.comp (measurable_const.prodMk e₂.symm.measurable)))
+        (C_sum ^ 2) fun q => by
+          dsimp [θ_F]
+          rw [norm_mul, norm_mul, Complex.norm_conj, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (hw_bdry_bounds _).1]
+          calc ‖F_sum _‖ * ‖F_sum _‖ * w_bdry _
+              ≤ C_sum * C_sum * 1 := by
+                gcongr
+                · exact hF_bd _
+                · exact hF_bd _
+                · exact (hw_bdry_bounds _).2
+            _ = C_sum ^ 2 := by ring
+    rw [MeasureTheory.integral_prod _ h_int2, ← MeasureTheory.integral_const_mul]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_p => ?_)
+    dsimp only
+    rw [← mp_refl.integral_comp' (fun U_n => θ_F (e₁.symm (U_b, e₂.symm (U_p, U_n)))),
+      ← MeasureTheory.integral_const_mul]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_p' => ?_)
+    change θ_F (combine U_b U_p U_p') =
+      ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) : ℝ) : ℂ) *
+        (starRingEnd ℂ (g_val U_b U_p') * g_val U_b U_p)
+    dsimp [θ_F]
+    rw [h_combine_reflect, h_F_indep U_b U_p' U_p, h_F_indep U_b U_p U_p', h_bdry_const]
+    ring
+  have h_factor_pos : ∀ U_b : E_b → G,
+      (∫ U_p, (∫ U_p', starRingEnd ℂ (g_val U_b U_p') * g_val U_b U_p ∂μ_p) ∂μ_p) =
+        (((‖∫ U_p, g_val U_b U_p ∂μ_p‖ ^ 2 : ℝ) : ℂ)) := by
+    intro U_b
+    let I_b : ℂ := ∫ U_p, g_val U_b U_p ∂μ_p
+    have h_inner_p : ∀ U_p,
+        (∫ U_p', starRingEnd ℂ (g_val U_b U_p') * g_val U_b U_p ∂μ_p) =
+          starRingEnd ℂ I_b * g_val U_b U_p := by
+      intro U_p
+      rw [MeasureTheory.integral_mul_const, integral_conj]
+    simp_rw [h_inner_p, MeasureTheory.integral_const_mul]
+    change starRingEnd ℂ I_b * I_b = _
+    rw [Complex.conj_mul', Complex.ofReal_pow]
+  have h_final_eq :
+      ∫ U, θ_F U ∂μ =
+        ∫ U_b, ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) *
+          ‖∫ U_p, g_val U_b U_p ∂μ_p‖ ^ 2 : ℝ) : ℂ) ∂μ_b := by
+    rw [h_int_rewrite]
+    refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_b => ?_)
+    dsimp only
+    rw [h_factor_pos U_b, ← Complex.ofReal_mul]
+  rw [h_final_eq]
+  have h_int_comb : MeasureTheory.Integrable
+      (fun z : (E_b → G) × ((E_p → G) × (E_p → G)) => θ_F (combine z.1 z.2.1 z.2.2))
+      (μ_b.prod (μ_p.prod μ_p)) :=
+    integrable_of_measurable_bound (μ_b.prod (μ_p.prod μ_p)) _ (hθ_F_meas.comp hm_comb2)
+      (C_sum ^ 2) fun z => by
+        dsimp [θ_F]
+        rw [norm_mul, norm_mul, Complex.norm_conj, Complex.norm_real, Real.norm_eq_abs,
+          abs_of_nonneg (hw_bdry_bounds _).1]
+        calc ‖F_sum _‖ * ‖F_sum _‖ * w_bdry _
+            ≤ C_sum * C_sum * 1 := by
+              gcongr; exact hF_bd _; exact hF_bd _; exact (hw_bdry_bounds _).2
+          _ = C_sum ^ 2 := by ring
+  have h_real_int : MeasureTheory.Integrable
+      (fun U_b => ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) *
+        ‖∫ U_p, g_val U_b U_p ∂μ_p‖ ^ 2 : ℝ) : ℂ)) μ_b := by
+    refine h_int_comb.integral_prod_left.congr (Filter.Eventually.of_forall fun U_b => ?_)
+    have h_int_ub : MeasureTheory.Integrable
+        (fun q : (E_p → G) × (E_p → G) => θ_F (combine U_b q.1 q.2)) (μ_p.prod μ_p) :=
+      integrable_of_measurable_bound (μ_p.prod μ_p) _
+        (hθ_F_meas.comp (hm_comb2.comp (measurable_const.prodMk measurable_id)))
+        (C_sum ^ 2) fun q => by
+          dsimp [θ_F]
+          rw [norm_mul, norm_mul, Complex.norm_conj, Complex.norm_real, Real.norm_eq_abs,
+            abs_of_nonneg (hw_bdry_bounds _).1]
+          calc ‖F_sum _‖ * ‖F_sum _‖ * w_bdry _
+              ≤ C_sum * C_sum * 1 := by
+                gcongr; exact hF_bd _; exact hF_bd _; exact (hw_bdry_bounds _).2
+            _ = C_sum ^ 2 := by ring
+    dsimp only
+    rw [MeasureTheory.integral_prod _ h_int_ub]
+    have h_inner_eq :
+        (∫ U_p, ∫ U_p', θ_F (combine U_b U_p U_p') ∂μ_p ∂μ_p) =
+          ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) : ℝ) : ℂ) *
+            ∫ U_p, ∫ U_p', starRingEnd ℂ (g_val U_b U_p') * g_val U_b U_p ∂μ_p ∂μ_p := by
+      rw [← MeasureTheory.integral_const_mul]
+      refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_p => ?_)
+      dsimp only
+      rw [← MeasureTheory.integral_const_mul]
+      refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U_p' => ?_)
+      dsimp only [θ_F]
+      rw [h_combine_reflect, h_F_indep U_b U_p' U_p, h_F_indep U_b U_p U_p', h_bdry_const]
+      ring
+    rw [h_inner_eq, h_factor_pos U_b, ← Complex.ofReal_mul]
+  change 0 ≤ RCLike.re (∫ U_b, ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) *
+    ‖∫ U_p, g_val U_b U_p ∂μ_p‖ ^ 2 : ℝ) : ℂ) ∂μ_b)
+  rw [← integral_re h_real_int]
+  refine MeasureTheory.integral_nonneg fun U_b => ?_
+  change 0 ≤ ((w_bdry (combine U_b (fun _ => 1) (fun _ => 1)) *
+    ‖∫ U_p, g_val U_b U_p ∂μ_p‖ ^ 2 : ℝ) : ℂ).re
+  rw [Complex.ofReal_re]
+  exact mul_nonneg (hw_bdry_bounds _).1 (sq_nonneg _)
+
+/-- 2-point specialization of `cubic4Schwinger_refl_pos_n`. -/
+theorem cubic4Schwinger_refl_pos_2 (Ls M N : ℕ) [NeZero Ls] [NeZero M] (β : ℝ) (hβ : 0 ≤ β)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (m : ℕ) (c : Fin m → ℂ)
+    (obs : Fin m →
+      (GaugeField (cubicTorus4 Ls (2 * M)) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ))
+    (h_meas : ∀ i, Measurable (obs i))
+    (C_bd : ℝ) (hC_bd : 0 ≤ C_bd) (h_bd : ∀ i U, ‖obs i U‖ ≤ C_bd)
+    (h_pos_supp : ∀ i, SupportedOnPosTime Ls M N (obs i)) :
+    0 ≤ (∑ i : Fin m, ∑ j : Fin m,
+      c i * starRingEnd ℂ (c j) *
+        cubic4Schwinger Ls (2 * M) N β 2
+          ![fun U => starRingEnd ℂ (obs i (cubic4TimeReflect Ls (2 * M) N U)), obs j]).re := by
+  have h := cubic4Schwinger_refl_pos_n Ls M N β hβ m (fun _ => 1) c (fun i _ => obs i)
+    (fun i _ => h_meas i) C_bd hC_bd (fun i _ U => h_bd i U) (fun i _ => h_pos_supp i)
+  have heq :
+      (∑ i : Fin m, ∑ j : Fin m,
+        c i * starRingEnd ℂ (c j) *
+          cubic4Schwinger Ls (2 * M) N β (1 + 1)
+            (Fin.append
+              (fun (_ : Fin 1) U => starRingEnd ℂ (obs i (cubic4TimeReflect Ls (2 * M) N U)))
+              (fun (_ : Fin 1) => obs j))) =
+      ∑ i : Fin m, ∑ j : Fin m,
+        c i * starRingEnd ℂ (c j) *
+          cubic4Schwinger Ls (2 * M) N β 2
+            ![fun U => starRingEnd ℂ (obs i (cubic4TimeReflect Ls (2 * M) N U)), obs j] := by
+    refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+    have happ :
+        Fin.append
+            (fun (_ : Fin 1) U => starRingEnd ℂ (obs i (cubic4TimeReflect Ls (2 * M) N U)))
+            (fun (_ : Fin 1) => obs j) =
+          ![fun U => starRingEnd ℂ (obs i (cubic4TimeReflect Ls (2 * M) N U)), obs j] := by
+      funext k; fin_cases k <;> rfl
+    rw [happ]
+  rwa [← heq]
+
+/-- 4D spacetime lattice translation on sites. -/
+def siteShiftVec4 (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (a x : (cubicTorus4 Ls Lt).Site) : (cubicTorus4 Ls Lt).Site :=
+  (x.1 + a.1, x.2.1 + a.2.1, x.2.2.1 + a.2.2.1, x.2.2.2 + a.2.2.2)
+
+/-- Link bijection for 4D spacetime translation by `a`. -/
+def cubic4TransLink (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (a : (cubicTorus4 Ls Lt).Site) :
+    (cubicTorus4 Ls Lt).Link ≃ (cubicTorus4 Ls Lt).Link where
+  toFun e := (siteShiftVec4 Ls Lt a e.1, e.2)
+  invFun e := (siteShiftVec4 Ls Lt (-a.1, -a.2.1, -a.2.2.1, -a.2.2.2) e.1, e.2)
+  left_inv := fun ⟨⟨t, x, y, z⟩, d⟩ => by simp [siteShiftVec4]
+  right_inv := fun ⟨⟨t, x, y, z⟩, d⟩ => by simp [siteShiftVec4]
+
+/-- 4D spacetime lattice translation of a gauge field `U`. -/
+def cubic4Translate (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (a : (cubicTorus4 Ls Lt).Site)
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+  fun e => U (cubic4TransLink Ls Lt a e)
+
+theorem spacetimeHaarMeasure_translate (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (a : (cubicTorus4 Ls Lt).Site) :
+    MeasureTheory.Measure.map (cubic4Translate Ls Lt N a) (spacetimeHaarMeasure Ls Lt N) =
+      spacetimeHaarMeasure Ls Lt N := by
+  haveI := suHaar_prob N
+  haveI := spacetimeHaarMeasure_prob Ls Lt N
+  let σ := cubic4TransLink Ls Lt a
+  let F : ((cubicTorus4 Ls Lt).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      ((cubicTorus4 Ls Lt).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    fun U e => U (σ e)
+  have hF_meas : Measurable F := measurable_pi_iff.mpr fun e => measurable_pi_apply (σ e)
+  let μ_pi : MeasureTheory.Measure
+      ((cubicTorus4 Ls Lt).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    MeasureTheory.Measure.pi (fun _ => suHaar N)
+  change MeasureTheory.Measure.map F μ_pi = μ_pi
+  symm
+  refine MeasureTheory.Measure.pi_eq fun s hs => ?_
+  rw [MeasureTheory.Measure.map_apply hF_meas (MeasurableSet.univ_pi hs)]
+  have hpre : F ⁻¹' Set.pi Set.univ s = Set.pi Set.univ (fun e' => s (σ.symm e')) := by
+    ext U
+    simp only [Set.mem_preimage, Set.mem_pi, Set.mem_univ, forall_true_left, F]
+    constructor
+    · intro h e'; simpa using h (σ.symm e')
+    · intro h e; simpa using h (σ e)
+  rw [hpre, MeasureTheory.Measure.pi_pi (fun _ => suHaar N)]
+  exact Fintype.prod_equiv σ.symm (fun e' => suHaar N (s (σ.symm e')))
+    (fun e => suHaar N (s e)) (fun _ => rfl)
+
+theorem cubic4WilsonAction_translate (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    (a : (cubicTorus4 Ls Lt).Site)
+    (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubic4Plaquettes Ls Lt) (cubic4Translate Ls Lt N a U) =
+      wilsonAction β (cubic4Plaquettes Ls Lt) U := by
+  rw [wilsonAction_cubic4_eq_sum, wilsonAction_cubic4_eq_sum]
+  congr 1
+  let e_site : (cubicTorus4 Ls Lt).Site ≃ (cubicTorus4 Ls Lt).Site :=
+    { toFun := siteShiftVec4 Ls Lt a
+      invFun := siteShiftVec4 Ls Lt (-a.1, -a.2.1, -a.2.2.1, -a.2.2.2)
+      left_inv := fun ⟨t, x, y, z⟩ => by simp [siteShiftVec4]
+      right_inv := fun ⟨t, x, y, z⟩ => by simp [siteShiftVec4] }
+  have hsh : ∀ (d : Fin 4) (x : (cubicTorus4 Ls Lt).Site),
+      siteShiftVec4 Ls Lt a (cubicShift4 Ls Lt d x) =
+        cubicShift4 Ls Lt d (siteShiftVec4 Ls Lt a x) := by
+    intro d ⟨t, x₁, x₂, x₃⟩
+    fin_cases d <;> simp [siteShiftVec4, cubicShift4, add_right_comm]
+  have hpt : ∀ x d₁ d₂,
+      wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩
+          (cubic4Translate Ls Lt N a U) =
+        wilsonPlaquetteTerm ⟨siteShiftVec4 Ls Lt a x,
+          cubic4Plaquette (siteShiftVec4 Ls Lt a x) d₁ d₂,
+          cubic4Plaquette_isPath (siteShiftVec4 Ls Lt a x) d₁ d₂⟩ U := by
+    intro x d₁ d₂
+    unfold wilsonPlaquetteTerm
+    simp only [cubic4Plaquette, pathHolonomy, cubic4Translate, cubic4TransLink,
+      Equiv.coe_fn_mk, hsh]
+  refine Fintype.sum_equiv e_site _ _ fun x => ?_
+  dsimp [sitePlaqSum4, e_site]
+  rw [hpt x 0 1, hpt x 0 2, hpt x 0 3, hpt x 1 2, hpt x 1 3, hpt x 2 3]
+
+/-- **Exact 4D spacetime lattice translation invariance of `cubic4Schwinger`**. -/
+theorem cubic4Schwinger_trans_inv (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (a : (cubicTorus4 Ls Lt).Site) (n : ℕ)
+    (obs : Fin n →
+      (GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)) :
+    cubic4Schwinger Ls Lt N β n (fun i U => obs i (cubic4Translate Ls Lt N a U)) =
+      cubic4Schwinger Ls Lt N β n obs := by
+  let eqv : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) ≃ᵐ
+      GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    { toFun := cubic4Translate Ls Lt N a
+      invFun := cubic4Translate Ls Lt N (-a.1, -a.2.1, -a.2.2.1, -a.2.2.2)
+      left_inv := fun U => by funext ⟨x, d⟩; simp [cubic4Translate, cubic4TransLink, siteShiftVec4]
+      right_inv := fun U => by funext ⟨x, d⟩; simp [cubic4Translate, cubic4TransLink, siteShiftVec4]
+      measurable_toFun := measurable_pi_iff.mpr fun e =>
+        measurable_pi_apply (cubic4TransLink Ls Lt a e)
+      measurable_invFun := measurable_pi_iff.mpr fun e =>
+        measurable_pi_apply (cubic4TransLink Ls Lt (-a.1, -a.2.1, -a.2.2.1, -a.2.2.2) e) }
+  have hmp : MeasureTheory.MeasurePreserving eqv
+      (spacetimeHaarMeasure Ls Lt N) (spacetimeHaarMeasure Ls Lt N) :=
+    ⟨eqv.measurable, spacetimeHaarMeasure_translate Ls Lt N a⟩
+  unfold cubic4Schwinger
+  congr 1
+  calc ∫ U, (∏ i : Fin n, obs i (cubic4Translate Ls Lt N a U)) *
+          ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ) ∂(spacetimeHaarMeasure Ls Lt N)
+      = ∫ U, (∏ i : Fin n, obs i (eqv U)) *
+          ((cubic4WilsonWeight Ls Lt N β (eqv U) : ℝ) : ℂ) ∂(spacetimeHaarMeasure Ls Lt N) := by
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+            change (∏ i : Fin n, obs i (cubic4Translate Ls Lt N a U)) *
+                ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ) =
+              (∏ i : Fin n, obs i (cubic4Translate Ls Lt N a U)) *
+                ((cubic4WilsonWeight Ls Lt N β (cubic4Translate Ls Lt N a U) : ℝ) : ℂ)
+            unfold cubic4WilsonWeight
+            rw [cubic4WilsonAction_translate]
+    _ = ∫ U, (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ)
+          ∂(spacetimeHaarMeasure Ls Lt N) :=
+        hmp.integral_comp'
+          (fun U => (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ))
+
+private def siteCoord4 (L : ℕ) [NeZero L] (x : (cubicTorus4 L L).Site) : Fin 4 → Fin L
+  | 0 => x.1
+  | 1 => x.2.1
+  | 2 => x.2.2.1
+  | 3 => x.2.2.2
+
+private def ofSiteCoord4 (L : ℕ) [NeZero L] (f : Fin 4 → Fin L) : (cubicTorus4 L L).Site :=
+  (f 0, f 1, f 2, f 3)
+
+private theorem siteCoord4_ofSiteCoord4 (L : ℕ) [NeZero L] (f : Fin 4 → Fin L) :
+    siteCoord4 L (ofSiteCoord4 L f) = f := by
+  funext d; fin_cases d <;> rfl
+
+private theorem ofSiteCoord4_siteCoord4 (L : ℕ) [NeZero L] (x : (cubicTorus4 L L).Site) :
+    ofSiteCoord4 L (siteCoord4 L x) = x := by
+  rcases x with ⟨t, a, b, c⟩; rfl
+
+/-- Site permutation induced by `σ : Equiv.Perm (Fin 4)` on the isotropic 4D torus `cubicTorus4 L L`. -/
+def sitePerm4 (L : ℕ) [NeZero L] (σ : Equiv.Perm (Fin 4))
+    (x : (cubicTorus4 L L).Site) : (cubicTorus4 L L).Site :=
+  ofSiteCoord4 L (fun d => siteCoord4 L x (σ.symm d))
+
+/-- Link permutation induced by `σ : Equiv.Perm (Fin 4)` on `cubicTorus4 L L`. -/
+def cubic4AxisPermLink (L : ℕ) [NeZero L] (σ : Equiv.Perm (Fin 4)) :
+    (cubicTorus4 L L).Link ≃ (cubicTorus4 L L).Link where
+  toFun e := (sitePerm4 L σ e.1, σ e.2)
+  invFun e := (sitePerm4 L σ.symm e.1, σ.symm e.2)
+  left_inv := fun ⟨x, d⟩ => by
+    simp only [sitePerm4, siteCoord4_ofSiteCoord4, Equiv.symm_symm,
+      Equiv.apply_symm_apply, Equiv.symm_apply_apply, ofSiteCoord4_siteCoord4]
+  right_inv := fun ⟨x, d⟩ => by
+    simp only [sitePerm4, siteCoord4_ofSiteCoord4, Equiv.symm_symm,
+      Equiv.apply_symm_apply, ofSiteCoord4_siteCoord4]
+
+/-- 4D hypercubic axis-permutation action on gauge fields over `cubicTorus4 L L`. -/
+def cubic4AxisPermField (L N : ℕ) [NeZero L] (σ : Equiv.Perm (Fin 4))
+    (U : GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+  fun e => U (cubic4AxisPermLink L σ e)
+
+theorem spacetimeHaarMeasure_axisPerm (L N : ℕ) [NeZero L]
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (σ : Equiv.Perm (Fin 4)) :
+    MeasureTheory.Measure.map (cubic4AxisPermField L N σ) (spacetimeHaarMeasure L L N) =
+      spacetimeHaarMeasure L L N := by
+  haveI := suHaar_prob N
+  haveI := spacetimeHaarMeasure_prob L L N
+  let e_lk := cubic4AxisPermLink L σ
+  let F : ((cubicTorus4 L L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      ((cubicTorus4 L L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    fun U e => U (e_lk e)
+  have hF_meas : Measurable F := measurable_pi_iff.mpr fun e => measurable_pi_apply (e_lk e)
+  let μ_pi : MeasureTheory.Measure
+      ((cubicTorus4 L L).Link → Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    MeasureTheory.Measure.pi (fun _ => suHaar N)
+  change MeasureTheory.Measure.map F μ_pi = μ_pi
+  symm
+  refine MeasureTheory.Measure.pi_eq fun s hs => ?_
+  rw [MeasureTheory.Measure.map_apply hF_meas (MeasurableSet.univ_pi hs)]
+  have hpre : F ⁻¹' Set.pi Set.univ s = Set.pi Set.univ (fun e' => s (e_lk.symm e')) := by
+    ext U
+    simp only [Set.mem_preimage, Set.mem_pi, Set.mem_univ, forall_true_left, F]
+    constructor
+    · intro h e'; simpa using h (e_lk.symm e')
+    · intro h e; simpa using h (e_lk e)
+  rw [hpre, MeasureTheory.Measure.pi_pi (fun _ => suHaar N)]
+  exact Fintype.prod_equiv e_lk.symm (fun e' => suHaar N (s (e_lk.symm e')))
+    (fun e => suHaar N (s e)) (fun _ => rfl)
+
+private theorem sitePerm4_cubicShift4 (L : ℕ) [NeZero L] (σ : Equiv.Perm (Fin 4))
+    (d : Fin 4) (x : (cubicTorus4 L L).Site) :
+    sitePerm4 L σ (cubicShift4 L L d x) = cubicShift4 L L (σ d) (sitePerm4 L σ x) := by
+  dsimp [sitePerm4]
+  have hcoord : ∀ (y : (cubicTorus4 L L).Site) (d' : Fin 4),
+      siteCoord4 L (cubicShift4 L L d' y) =
+        fun k => siteCoord4 L y k + if k = d' then (1 : Fin L) else 0 := by
+    intro ⟨t, a, b, c⟩ d'
+    funext k
+    fin_cases d' <;> fin_cases k <;> simp [cubicShift4, siteCoord4]
+  have h_eq : (fun k => siteCoord4 L (cubicShift4 L L d x) (σ.symm k)) =
+      siteCoord4 L (cubicShift4 L L (σ d) (ofSiteCoord4 L (fun k => siteCoord4 L x (σ.symm k)))) := by
+    rw [hcoord, hcoord]
+    funext k
+    rw [siteCoord4_ofSiteCoord4]
+    have heq : (σ.symm k = d) ↔ (k = σ d) := Equiv.symm_apply_eq σ
+    simp [heq]
+  rw [h_eq, ofSiteCoord4_siteCoord4]
+
+private theorem wilsonPlaquetteTerm_swap_axes (L N : ℕ) [NeZero L]
+    (U : GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ))
+    (x : (cubicTorus4 L L).Site) (d₁ d₂ : Fin 4) :
+    wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩ U =
+      wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₂ d₁, cubic4Plaquette_isPath x d₂ d₁⟩ U := by
+  unfold wilsonPlaquetteTerm
+  have hinv : pathHolonomy U (cubic4Plaquette x d₁ d₂) =
+      (pathHolonomy U (cubic4Plaquette x d₂ d₁))⁻¹ := by
+    simp only [cubic4Plaquette, pathHolonomy, mul_inv_rev, inv_inv]
+    group
+  rw [hinv, su_trace_inv_re]
+
+theorem cubic4WilsonAction_axisPerm (L N : ℕ) [NeZero L] (β : ℝ)
+    (σ : Equiv.Perm (Fin 4))
+    (U : GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
+    wilsonAction β (cubic4Plaquettes L L) (cubic4AxisPermField L N σ U) =
+      wilsonAction β (cubic4Plaquettes L L) U := by
+  let T_all : GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ) →
+      (cubicTorus4 L L).Site → ℝ := fun V x =>
+    ∑ d₁ : Fin 4, ∑ d₂ : Fin 4,
+      if d₁ = d₂ then 0
+      else wilsonPlaquetteTerm ⟨x, cubic4Plaquette x d₁ d₂, cubic4Plaquette_isPath x d₁ d₂⟩ V
+  have h_site_eq : ∀ V x, sitePlaqSum4 L L N V x = (1 / 2 : ℝ) * T_all V x := by
+    intro V x
+    dsimp [T_all, sitePlaqSum4]
+    rw [Fin.sum_univ_four]
+    simp only [Fin.sum_univ_four, Fin.reduceEq, ↓reduceIte]
+    rw [wilsonPlaquetteTerm_swap_axes L N V x 1 0,
+      wilsonPlaquetteTerm_swap_axes L N V x 2 0,
+      wilsonPlaquetteTerm_swap_axes L N V x 3 0,
+      wilsonPlaquetteTerm_swap_axes L N V x 2 1,
+      wilsonPlaquetteTerm_swap_axes L N V x 3 1,
+      wilsonPlaquetteTerm_swap_axes L N V x 3 2]
+    ring
+  rw [wilsonAction_cubic4_eq_sum, wilsonAction_cubic4_eq_sum]
+  simp_rw [h_site_eq, ← Finset.mul_sum]
+  congr 2
+  let e_site : (cubicTorus4 L L).Site ≃ (cubicTorus4 L L).Site :=
+    { toFun := sitePerm4 L σ
+      invFun := sitePerm4 L σ.symm
+      left_inv := fun x => by
+        simp only [sitePerm4, siteCoord4_ofSiteCoord4, Equiv.symm_symm,
+          Equiv.symm_apply_apply, ofSiteCoord4_siteCoord4]
+      right_inv := fun x => by
+        simp only [sitePerm4, siteCoord4_ofSiteCoord4, Equiv.symm_symm,
+          Equiv.apply_symm_apply, ofSiteCoord4_siteCoord4] }
+  refine Fintype.sum_equiv e_site _ _ fun x => ?_
+  dsimp [T_all, e_site]
+  refine Fintype.sum_equiv σ _ _ fun d₁ => Fintype.sum_equiv σ _ _ fun d₂ => ?_
+  by_cases h12 : d₁ = d₂
+  · subst h12; simp
+  · have h12' : σ d₁ ≠ σ d₂ := fun h => h12 (σ.injective h)
+    simp only [h12, h12', ↓reduceIte]
+    unfold wilsonPlaquetteTerm
+    simp only [cubic4Plaquette, pathHolonomy, cubic4AxisPermField, cubic4AxisPermLink,
+      Equiv.coe_fn_mk, sitePerm4_cubicShift4]
+
+/-- **Exact 4D hypercubic $S_4$ axis-permutation symmetry of `cubic4Schwinger` on `cubicTorus4 L L`**. -/
+theorem cubic4Schwinger_axis_perm_inv (L N : ℕ) [NeZero L] (β : ℝ)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (σ : Equiv.Perm (Fin 4)) (n : ℕ)
+    (obs : Fin n →
+      (GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)) :
+    cubic4Schwinger L L N β n (fun i U => obs i (cubic4AxisPermField L N σ U)) =
+      cubic4Schwinger L L N β n obs := by
+  let eqv : GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ) ≃ᵐ
+      GaugeField (cubicTorus4 L L) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    { toFun := cubic4AxisPermField L N σ
+      invFun := cubic4AxisPermField L N σ.symm
+      left_inv := fun U => by
+        funext ⟨x, d⟩
+        simp only [cubic4AxisPermField, cubic4AxisPermLink, Equiv.coe_fn_mk, sitePerm4,
+          siteCoord4_ofSiteCoord4, Equiv.symm_symm, Equiv.apply_symm_apply,
+          Equiv.symm_apply_apply, ofSiteCoord4_siteCoord4]
+      right_inv := fun U => by
+        funext ⟨x, d⟩
+        simp only [cubic4AxisPermField, cubic4AxisPermLink, Equiv.coe_fn_mk, sitePerm4,
+          siteCoord4_ofSiteCoord4, Equiv.symm_symm, Equiv.apply_symm_apply,
+          Equiv.symm_apply_apply, ofSiteCoord4_siteCoord4]
+      measurable_toFun := measurable_pi_iff.mpr fun e =>
+        measurable_pi_apply (cubic4AxisPermLink L σ e)
+      measurable_invFun := measurable_pi_iff.mpr fun e =>
+        measurable_pi_apply (cubic4AxisPermLink L σ.symm e) }
+  have hmp : MeasureTheory.MeasurePreserving eqv
+      (spacetimeHaarMeasure L L N) (spacetimeHaarMeasure L L N) :=
+    ⟨eqv.measurable, spacetimeHaarMeasure_axisPerm L N σ⟩
+  unfold cubic4Schwinger
+  congr 1
+  calc ∫ U, (∏ i : Fin n, obs i (cubic4AxisPermField L N σ U)) *
+          ((cubic4WilsonWeight L L N β U : ℝ) : ℂ) ∂(spacetimeHaarMeasure L L N)
+      = ∫ U, (∏ i : Fin n, obs i (eqv U)) *
+          ((cubic4WilsonWeight L L N β (eqv U) : ℝ) : ℂ) ∂(spacetimeHaarMeasure L L N) := by
+            refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun U => ?_)
+            change (∏ i : Fin n, obs i (cubic4AxisPermField L N σ U)) *
+                ((cubic4WilsonWeight L L N β U : ℝ) : ℂ) =
+              (∏ i : Fin n, obs i (cubic4AxisPermField L N σ U)) *
+                ((cubic4WilsonWeight L L N β (cubic4AxisPermField L N σ U) : ℝ) : ℂ)
+            unfold cubic4WilsonWeight
+            rw [cubic4WilsonAction_axisPerm]
+    _ = ∫ U, (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight L L N β U : ℝ) : ℂ)
+          ∂(spacetimeHaarMeasure L L N) :=
+        hmp.integral_comp'
+          (fun U => (∏ i : Fin n, obs i U) * ((cubic4WilsonWeight L L N β U : ℝ) : ℂ))
+
+end CubicSpacetime4DOSAndSymmetries
+
 end YangMills
 
 -- §1. Lattice gauge setup
@@ -13851,3 +15644,14 @@ end YangMills
 
 -- §35. Clay Yang–Mills 4D mass gap interface & exact reduction
 #print axioms YangMills.clay_yang_mills_from_rg_estimates
+
+-- §33 exact non-degenerate link-coupled gap
+#print axioms YangMills.fullRankCubicNonAbelianWilsonSetup_exact_gap
+
+-- §36 4D Wilson Schwinger reflection positivity & symmetries
+#print axioms YangMills.cubic4WilsonAction_timeReflect
+#print axioms YangMills.cubic4Schwinger_timeReflect_inv
+#print axioms YangMills.cubic4Schwinger_refl_pos_n
+#print axioms YangMills.cubic4Schwinger_refl_pos_2
+#print axioms YangMills.cubic4Schwinger_trans_inv
+#print axioms YangMills.cubic4Schwinger_axis_perm_inv
