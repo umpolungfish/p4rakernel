@@ -1,0 +1,863 @@
+import Mathlib
+import Imscribing.YangMills.OSCompletion
+import Imscribing.YangMills.Wilson4DOp
+import Imscribing.YangMills.FeynmanKac
+import Imscribing.YangMills.StrongCouplingDobrushin
+
+set_option maxHeartbeats 2000000
+set_option synthInstance.maxHeartbeats 200000
+set_option maxRecDepth 20000
+
+open scoped InnerProductSpace Fin.NatCast Fin.IntCast Fin.CommRing
+open Complex Finset Real MeasureTheory Set
+
+namespace YangMills
+
+/-! ## §44.  Plaquette connectivity & infinite-volume strong-coupling 4D SU(N) lattice theory -/
+
+section StrongCouplingInfiniteVolume
+
+/-- Periodic Lee distance `min (a - b).val (b - a).val` on `Fin n`. -/
+def torusDist1 (n : ℕ) (a b : Fin n) : ℕ :=
+  min (a - b).val (b - a).val
+
+theorem fin_val_sub_of_le {n : ℕ} [NeZero n] {x y : Fin n} (hyx : y.val ≤ x.val) :
+    (x - y).val = x.val - y.val := by
+  let z : Fin n := ⟨x.val - y.val, by omega⟩
+  have hadd : y + z = x := by
+    apply Fin.ext
+    rw [Fin.val_add]
+    change (y.val + (x.val - y.val)) % n = x.val
+    rw [Nat.add_sub_of_le hyx, Nat.mod_eq_of_lt x.isLt]
+  have hz : x - y = z := by
+    calc x - y = (y + z) - y := by rw [hadd]
+      _ = z := add_sub_cancel_left y z
+  rw [hz]
+
+theorem torusDist1_self (n : ℕ) (a : Fin n) : torusDist1 n a a = 0 := by
+  dsimp [torusDist1]
+  rw [min_self]
+  cases n with
+  | zero => exact a.elim0
+  | succ n =>
+    show (a - a).val = 0
+    rw [sub_self, Fin.val_zero]
+
+theorem torusDist1_symm (n : ℕ) (a b : Fin n) : torusDist1 n a b = torusDist1 n b a :=
+  min_comm _ _
+
+theorem torusDist1_succ_le (n : ℕ) [NeZero n] (a : Fin n) :
+    torusDist1 n a (a + 1) ≤ 1 := by
+  dsimp [torusDist1]
+  have hsub : (a + 1) - a = 1 := add_sub_cancel_left a 1
+  calc min (a - (a + 1)).val ((a + 1) - a).val
+    _ ≤ ((a + 1) - a).val := min_le_right _ _
+    _ = (1 : Fin n).val := by rw [hsub]
+    _ ≤ 1 := Nat.mod_le 1 n
+
+theorem torusDist1_pred_le (n : ℕ) [NeZero n] (a : Fin n) :
+    torusDist1 n a (a - 1) ≤ 1 := by
+  dsimp [torusDist1]
+  have hsub : a - (a - 1) = 1 := sub_sub_cancel a 1
+  calc min (a - (a - 1)).val ((a - 1) - a).val
+    _ ≤ (a - (a - 1)).val := min_le_left _ _
+    _ = (1 : Fin n).val := by rw [hsub]
+    _ ≤ 1 := Nat.mod_le 1 n
+
+theorem torusDist1_triangle (n : ℕ) [NeZero n] (a b c : Fin n) :
+    torusDist1 n a c ≤ torusDist1 n a b + torusDist1 n b c := by
+  dsimp [torusDist1]
+  have h_sum_add : ∀ u v : Fin n, (u + v).val ≤ u.val + v.val := fun u v => by
+    rw [Fin.val_add]; exact Nat.mod_le _ _
+  have h_diff_le : ∀ x y : Fin n, min (x - y).val (y - x).val ≤ x.val + y.val := by
+    intro x y
+    by_cases hxy : y.val ≤ x.val
+    · calc min (x - y).val (y - x).val ≤ (x - y).val := min_le_left _ _
+        _ = x.val - y.val := fin_val_sub_of_le hxy
+        _ ≤ x.val + y.val := by omega
+    · have hyx : x.val ≤ y.val := by omega
+      calc min (x - y).val (y - x).val ≤ (y - x).val := min_le_right _ _
+        _ = y.val - x.val := fin_val_sub_of_le hyx
+        _ ≤ x.val + y.val := by omega
+  rcases le_total (a - b).val (b - a).val with h1 | h1 <;>
+    rcases le_total (b - c).val (c - b).val with h2 | h2
+  · rw [min_eq_left h1, min_eq_left h2]
+    have hac : a - c = (a - b) + (b - c) := by abel
+    calc min (a - c).val (c - a).val ≤ (a - c).val := min_le_left _ _
+      _ = ((a - b) + (b - c)).val := by rw [hac]
+      _ ≤ (a - b).val + (b - c).val := h_sum_add _ _
+  · rw [min_eq_left h1, min_eq_right h2]
+    have h_diff1 : (a - b) - (c - b) = a - c := by abel
+    have h_diff2 : (c - b) - (a - b) = c - a := by abel
+    simpa [h_diff1, h_diff2] using h_diff_le (a - b) (c - b)
+  · rw [min_eq_right h1, min_eq_left h2]
+    have h_diff1 : (b - a) - (b - c) = c - a := by abel
+    have h_diff2 : (b - c) - (b - a) = a - c := by abel
+    simpa [h_diff1, h_diff2, min_comm] using h_diff_le (b - a) (b - c)
+  · rw [min_eq_right h1, min_eq_right h2]
+    have hca : c - a = (c - b) + (b - a) := by abel
+    calc min (a - c).val (c - a).val ≤ (c - a).val := min_le_right _ _
+      _ = ((c - b) + (b - a)).val := by rw [hca]
+      _ ≤ (c - b).val + (b - a).val := h_sum_add _ _
+      _ = (b - a).val + (c - b).val := add_comm _ _
+
+theorem sharesPlaq4_axes (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (x : (cubicTorus4 Ls Lt).Site) {d d' : Fin 4} (hd : d ≠ d') :
+    SharesPlaq4 Ls Lt (x, d) (x, d') ∧
+    ((x, d) = (cubicShift4 Ls Lt d' x, d) ∨
+      SharesPlaq4 Ls Lt (x, d) (cubicShift4 Ls Lt d' x, d)) := by
+  have h_mem_plane : ∀ (d₁ d₂ : Fin 4), d₁ < d₂ →
+      ({ base := x, loop := cubic4Plaquette x d₁ d₂,
+          is_closed := cubic4Plaquette_isPath x d₁ d₂ } :
+          LatticePlaquette (cubicTorus4 Ls Lt)) ∈ cubic4Plaquettes Ls Lt := by
+    intro d₁ d₂ h12
+    unfold cubic4Plaquettes
+    rw [List.mem_flatMap]
+    refine ⟨x, Finset.mem_toList.mpr (Finset.mem_univ x), ?_⟩
+    fin_cases d₁ <;> fin_cases d₂ <;> simp_all
+  have h_pair : ∀ (d₁ d₂ : Fin 4), d₁ < d₂ →
+      let p : LatticePlaquette (cubicTorus4 Ls Lt) :=
+        { base := x, loop := cubic4Plaquette x d₁ d₂,
+          is_closed := cubic4Plaquette_isPath x d₁ d₂ }
+      (x, d₁) ∈ p.loop.map Prod.fst ∧ (x, d₂) ∈ p.loop.map Prod.fst ∧
+      (cubicShift4 Ls Lt d₂ x, d₁) ∈ p.loop.map Prod.fst ∧
+      (cubicShift4 Ls Lt d₁ x, d₂) ∈ p.loop.map Prod.fst := by
+    intro d₁ d₂ _
+    simp [cubic4Plaquette]
+  rcases lt_or_gt_of_ne hd with hlt | hgt
+  · have hp := h_mem_plane d d' hlt
+    have hl := h_pair d d' hlt
+    refine ⟨⟨fun h => hd (congrArg Prod.snd h), _, hp, hl.1, hl.2.1⟩, ?_⟩
+    by_cases h_eq : (x, d) = (cubicShift4 Ls Lt d' x, d)
+    · exact Or.inl h_eq
+    · exact Or.inr ⟨h_eq, _, hp, hl.1, hl.2.2.1⟩
+  · have hp := h_mem_plane d' d hgt
+    have hl := h_pair d' d hgt
+    refine ⟨⟨fun h => hd (congrArg Prod.snd h), _, hp, hl.2.1, hl.1⟩, ?_⟩
+    by_cases h_eq : (x, d) = (cubicShift4 Ls Lt d' x, d)
+    · exact Or.inl h_eq
+    · exact Or.inr ⟨h_eq, _, hp, hl.2.1, hl.2.2.2⟩
+
+theorem plaqWalk_trans_local {Ls Lt : ℕ} [NeZero Ls] [NeZero Lt]
+    {m n : ℕ} {e₁ e₂ e₃ : (cubicTorus4 Ls Lt).Link}
+    (h1 : PlaqWalk Ls Lt m e₁ e₂) (h2 : PlaqWalk Ls Lt n e₂ e₃) :
+    PlaqWalk Ls Lt (m + n) e₁ e₃ := by
+  induction h1 with
+  | zero _ => simpa using h2
+  | step h12 _ ih =>
+    rw [Nat.add_right_comm]
+    exact PlaqWalk.step h12 (ih h2)
+
+/-- Every pair of links on `cubicTorus4 Ls Lt` is connected by a finite `PlaqWalk`. -/
+theorem cubic4_plaqWalk_connected (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (e₁ e₂ : (cubicTorus4 Ls Lt).Link) :
+    ∃ k, PlaqWalk Ls Lt k e₁ e₂ := by
+  have h_shift_step : ∀ (x : (cubicTorus4 Ls Lt).Site) (d a : Fin 4),
+      ∃ k, PlaqWalk Ls Lt k (x, d) (cubicShift4 Ls Lt a x, d) := by
+    intro x d a
+    by_cases hda : d = a
+    · subst hda
+      let d' : Fin 4 := if d = 0 then 1 else 0
+      have hd' : d ≠ d' := by fin_cases d <;> decide
+      obtain ⟨h_ax1, _⟩ := sharesPlaq4_axes Ls Lt x hd'
+      obtain ⟨h_ax2, h_sh⟩ := sharesPlaq4_axes Ls Lt x hd'.symm
+      obtain ⟨h_ax3, _⟩ := sharesPlaq4_axes Ls Lt (cubicShift4 Ls Lt d x) hd'.symm
+      have hw1 : PlaqWalk Ls Lt 1 (x, d) (x, d') := PlaqWalk.step h_ax1 (PlaqWalk.zero _)
+      have hw3 : PlaqWalk Ls Lt 1 (cubicShift4 Ls Lt d x, d') (cubicShift4 Ls Lt d x, d) :=
+        PlaqWalk.step h_ax3 (PlaqWalk.zero _)
+      rcases h_sh with h_eq | h_sh1
+      · refine ⟨2, ?_⟩
+        have hw1' : PlaqWalk Ls Lt 1 (x, d) (cubicShift4 Ls Lt d x, d') := h_eq ▸ hw1
+        exact plaqWalk_trans_local hw1' hw3
+      · exact ⟨3, plaqWalk_trans_local hw1 (PlaqWalk.step h_sh1 hw3)⟩
+    · rcases (sharesPlaq4_axes Ls Lt x hda).2 with h_eq | h_sh
+      · exact ⟨0, h_eq ▸ PlaqWalk.zero _⟩
+      · exact ⟨1, PlaqWalk.step h_sh (PlaqWalk.zero _)⟩
+  have h_shift_iter : ∀ (a : Fin 4) (m : ℕ) (x : (cubicTorus4 Ls Lt).Site) (d : Fin 4),
+      ∃ k, PlaqWalk Ls Lt k (x, d) ((cubicShift4 Ls Lt a)^[m] x, d) := by
+    intro a m
+    induction m with
+    | zero => intro x d; exact ⟨0, PlaqWalk.zero _⟩
+    | succ m ih =>
+      intro x d
+      obtain ⟨k₁, hk₁⟩ := ih x d
+      obtain ⟨k₂, hk₂⟩ := h_shift_step ((cubicShift4 Ls Lt a)^[m] x) d a
+      rw [Function.iterate_succ_apply']
+      exact ⟨k₁ + k₂, plaqWalk_trans_local hk₁ hk₂⟩
+  have h_iter0 : ∀ (k : ℕ) (t : Fin Lt) (a b c : Fin Ls),
+      (cubicShift4 Ls Lt 0)^[k] (t, a, b, c) = (t + (k : Fin Lt), a, b, c) := by
+    intro k
+    induction k with
+    | zero => intro t a b c; simp [Nat.cast_zero, add_zero]
+    | succ k ih =>
+      intro t a b c
+      rw [Function.iterate_succ_apply', ih t a b c]
+      simp [cubicShift4, Nat.cast_add, add_assoc]
+  have h_iter1 : ∀ (k : ℕ) (t : Fin Lt) (a b c : Fin Ls),
+      (cubicShift4 Ls Lt 1)^[k] (t, a, b, c) = (t, a + (k : Fin Ls), b, c) := by
+    intro k
+    induction k with
+    | zero => intro t a b c; simp [Nat.cast_zero, add_zero]
+    | succ k ih =>
+      intro t a b c
+      rw [Function.iterate_succ_apply', ih t a b c]
+      simp [cubicShift4, Nat.cast_add, add_assoc]
+  have h_iter2 : ∀ (k : ℕ) (t : Fin Lt) (a b c : Fin Ls),
+      (cubicShift4 Ls Lt 2)^[k] (t, a, b, c) = (t, a, b + (k : Fin Ls), c) := by
+    intro k
+    induction k with
+    | zero => intro t a b c; simp [Nat.cast_zero, add_zero]
+    | succ k ih =>
+      intro t a b c
+      rw [Function.iterate_succ_apply', ih t a b c]
+      simp [cubicShift4, Nat.cast_add, add_assoc]
+  have h_iter3 : ∀ (k : ℕ) (t : Fin Lt) (a b c : Fin Ls),
+      (cubicShift4 Ls Lt 3)^[k] (t, a, b, c) = (t, a, b, c + (k : Fin Ls)) := by
+    intro k
+    induction k with
+    | zero => intro t a b c; simp [Nat.cast_zero, add_zero]
+    | succ k ih =>
+      intro t a b c
+      rw [Function.iterate_succ_apply', ih t a b c]
+      simp [cubicShift4, Nat.cast_add, add_assoc]
+  rcases e₁ with ⟨⟨t₁, a₁, b₁, c₁⟩, d₁⟩
+  rcases e₂ with ⟨⟨t₂, a₂, b₂, c₂⟩, d₂⟩
+  obtain ⟨k0, hk0⟩ := h_shift_iter 0 (t₂ - t₁).val (t₁, a₁, b₁, c₁) d₁
+  rw [h_iter0, Fin.cast_val_eq_self, add_sub_cancel] at hk0
+  obtain ⟨k1, hk1⟩ := h_shift_iter 1 (a₂ - a₁).val (t₂, a₁, b₁, c₁) d₁
+  rw [h_iter1, Fin.cast_val_eq_self, add_sub_cancel] at hk1
+  obtain ⟨k2, hk2⟩ := h_shift_iter 2 (b₂ - b₁).val (t₂, a₂, b₁, c₁) d₁
+  rw [h_iter2, Fin.cast_val_eq_self, add_sub_cancel] at hk2
+  obtain ⟨k3, hk3⟩ := h_shift_iter 3 (c₂ - c₁).val (t₂, a₂, b₂, c₁) d₁
+  rw [h_iter3, Fin.cast_val_eq_self, add_sub_cancel] at hk3
+  have hw_site := plaqWalk_trans_local hk0 (plaqWalk_trans_local hk1 (plaqWalk_trans_local hk2 hk3))
+  by_cases hd : d₁ = d₂
+  · subst hd; exact ⟨_, hw_site⟩
+  · exact ⟨_, plaqWalk_trans_local hw_site
+      (PlaqWalk.step (sharesPlaq4_axes Ls Lt (t₂, a₂, b₂, c₂) hd).1 (PlaqWalk.zero _))⟩
+
+theorem sharesPlaq4_time_dist (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    {e₁ e₂ : (cubicTorus4 Ls Lt).Link} (hadj : SharesPlaq4 Ls Lt e₁ e₂) :
+    torusDist1 Lt e₁.1.1 e₂.1.1 ≤ 1 := by
+  rcases hadj with ⟨_, p, hp, he1, he2⟩
+  rcases plaquette_mem_cubic4_characterize Ls Lt hp with ⟨w, d₁, d₂, _, hp_loop⟩
+  rw [hp_loop] at he1 he2
+  have h_link_t : ∀ {e : (cubicTorus4 Ls Lt).Link},
+      e ∈ (cubic4Plaquette w d₁ d₂).map Prod.fst →
+      e.1.1 = w.1 ∨ e.1.1 = w.1 + 1 := by
+    intro e he
+    simp only [cubic4Plaquette, List.map_cons, List.map_nil, List.mem_cons,
+      List.not_mem_nil, or_false] at he
+    have h_sh_t : ∀ (d : Fin 4), (cubicShift4 Ls Lt d w).1 = w.1 ∨
+        (cubicShift4 Ls Lt d w).1 = w.1 + 1 := by
+      intro d; fin_cases d <;> simp [cubicShift4]
+    rcases he with rfl | rfl | rfl | rfl
+    · exact Or.inl rfl
+    · exact h_sh_t d₁
+    · exact h_sh_t d₂
+    · exact Or.inl rfl
+  rcases h_link_t he1 with h1 | h1 <;> rcases h_link_t he2 with h2 | h2
+  · rw [h1, h2, torusDist1_self]; exact zero_le_one
+  · rw [h1, h2]; exact torusDist1_succ_le Lt w.1
+  · rw [h1, h2, torusDist1_symm]; exact torusDist1_succ_le Lt w.1
+  · rw [h1, h2, torusDist1_self]; exact zero_le_one
+
+theorem plaqDist4_time_le (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
+    (S_f : Finset (cubicTorus4 Ls Lt).Link) (hS_ne : S_f.Nonempty)
+    (t₀ : Fin Lt) (ht₀ : ∀ e₀ ∈ S_f, e₀.1.1 = t₀)
+    (e : (cubicTorus4 Ls Lt).Link) :
+    torusDist1 Lt e.1.1 t₀ ≤ plaqDist4 Ls Lt S_f e := by
+  classical
+  have h_walk_le : ∀ {k : ℕ} {e₁ e₂ : (cubicTorus4 Ls Lt).Link},
+      PlaqWalk Ls Lt k e₁ e₂ → torusDist1 Lt e₁.1.1 e₂.1.1 ≤ k := by
+    intro k e₁ e₂ hw
+    induction hw with
+    | zero e => rw [torusDist1_self]
+    | step h12 _ ih =>
+      exact (torusDist1_triangle Lt _ _ _).trans
+        ((add_le_add (sharesPlaq4_time_dist Ls Lt h12) ih).trans_eq (add_comm 1 _))
+  rcases hS_ne with ⟨e_base, he_base⟩
+  obtain ⟨k₀, hk₀⟩ := cubic4_plaqWalk_connected Ls Lt e e_base
+  have hex : ∃ k, ∃ e₀ ∈ S_f, PlaqWalk Ls Lt k e e₀ := ⟨k₀, e_base, he_base, hk₀⟩
+  rcases Nat.find_spec hex with ⟨e₀, he₀, hw⟩
+  dsimp [plaqDist4]
+  rw [dif_pos hex, ← ht₀ e₀ he₀]
+  exact h_walk_le hw
+
+/-- Volume-independent strong-coupling exponential decay rate `m(β) = -½ log(18 (1 - exp(-12 β)))`. -/
+noncomputable def strongCouplingClusterRate (β : ℝ) : ℝ :=
+  -(1 / 2 : ℝ) * Real.log (18 * (1 - Real.exp (-12 * β)))
+
+theorem strongCouplingClusterRate_pos (β : ℝ)
+    (h_pos : 0 < 18 * (1 - Real.exp (-12 * β)))
+    (h_dob : 18 * (1 - Real.exp (-12 * β)) < 1) :
+    0 < strongCouplingClusterRate β := by
+  unfold strongCouplingClusterRate
+  have hlog : Real.log (18 * (1 - Real.exp (-12 * β))) < 0 := Real.log_neg h_pos h_dob
+  nlinarith
+
+/--
+**Volume-independent strong-coupling time-slice clustering** on `cubicTorus4 Ls Lt`:
+eliminates `h_reach` (via `cubic4_plaqWalk_connected`) and expresses exponential decay
+in physical time separation `D_t = torusDist1 Lt t₀ t₁ ≥ 1` at rate `strongCouplingClusterRate β > 0`.
+-/
+theorem strongCoupling_time_slice_clustering (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (β : ℝ) (hβ : 0 ≤ β)
+    (h_dob : 18 * (1 - Real.exp (-12 * β)) < 1)
+    (h_pos : 0 < 18 * (1 - Real.exp (-12 * β)))
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (S_f S_g : Finset (cubicTorus4 Ls Lt).Link) (hf_ne : S_f.Nonempty)
+    (t₀ t₁ : Fin Lt) (ht₀ : ∀ e ∈ S_f, e.1.1 = t₀) (ht₁ : ∀ e ∈ S_g, e.1.1 = t₁)
+    (ht_pos : 1 ≤ torusDist1 Lt t₀ t₁)
+    (f g : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ)
+    (hf_m : Measurable f) (hg_m : Measurable g)
+    (M_f M_g : ℝ) (hMf : 0 ≤ M_f) (hMg : 0 ≤ M_g)
+    (hf_bd : ∀ U, ‖f U‖ ≤ M_f) (hg_bd : ∀ U, ‖g U‖ ≤ M_g)
+    (hf_supp : ∀ e, e ∉ S_f → linkOsc f e = 0)
+    (hg_supp : ∀ e, e ∉ S_g → linkOsc g e = 0) :
+    let α := 18 * (1 - Real.exp (-12 * β))
+    ‖cubic4Schwinger Ls Lt N β 2 ![f, g] -
+      cubic4Schwinger Ls Lt N β 1 ![f] * cubic4Schwinger Ls Lt N β 1 ![g]‖ ≤
+      (2 * Real.sqrt α / (1 - Real.sqrt α)) * (S_g.card : ℝ) * M_f * M_g *
+        Real.exp (-(strongCouplingClusterRate β * (torusDist1 Lt t₀ t₁ : ℝ))) := by
+  intro α
+  let D := torusDist1 Lt t₀ t₁
+  have h_reach : ∀ e : (cubicTorus4 Ls Lt).Link, ∃ k, ∃ e₀ ∈ S_f, PlaqWalk Ls Lt k e e₀ := by
+    intro e
+    rcases hf_ne with ⟨e₀, he₀⟩
+    obtain ⟨k, hk⟩ := cubic4_plaqWalk_connected Ls Lt e e₀
+    exact ⟨k, e₀, he₀, hk⟩
+  have h_dist : ∀ e ∈ S_g, D ≤ plaqDist4 Ls Lt S_f e := by
+    intro e he
+    have h1 := plaqDist4_time_le Ls Lt S_f hf_ne t₀ ht₀ e
+    rwa [ht₁ e he, torusDist1_symm] at h1
+  have h_cl := cubic4Schwinger_strong_coupling_clustering Ls Lt N β hβ h_dob h_pos S_f S_g
+    f g hf_m hg_m M_f M_g hMf hMg hf_bd hg_bd hf_supp hg_supp D ht_pos h_dist h_reach
+  have h_exp_eq : (Real.sqrt α) ^ D = Real.exp (-(strongCouplingClusterRate β * (D : ℝ))) := by
+    have h_sqrt_eq : Real.sqrt α = Real.exp (-strongCouplingClusterRate β) := by
+      unfold strongCouplingClusterRate
+      have h_eq : -(-(1 / 2 : ℝ) * Real.log α) = (1 / 2 : ℝ) * Real.log α := by ring
+      rw [h_eq, Real.sqrt_eq_rpow]
+      rw [mul_comm, Real.rpow_def_of_pos h_pos]
+    rw [h_sqrt_eq, ← Real.exp_nat_mul]
+    congr 1; ring
+  dsimp [α] at h_cl
+  rw [h_exp_eq] at h_cl
+  have h_c_le : (1 - Real.exp (-12 * β)) ≤ α := by
+    dsimp [α]
+    linarith [show 0 ≤ 1 - Real.exp (-12 * β) by
+      linarith [Real.exp_le_one_iff.mpr (by linarith : -12 * β ≤ 0)]]
+  have h_sqrt_pos : 0 < Real.sqrt α := Real.sqrt_pos.mpr h_pos
+  have h_one_sub_pos : 0 < 1 - Real.sqrt α := by
+    have hlt : Real.sqrt α < 1 := by
+      calc Real.sqrt α < Real.sqrt 1 := Real.sqrt_lt_sqrt h_pos.le h_dob
+        _ = 1 := Real.sqrt_one
+    linarith
+  have h_pref_le : 2 * (1 - Real.exp (-12 * β)) / (Real.sqrt α * (1 - Real.sqrt α)) ≤
+      2 * Real.sqrt α / (1 - Real.sqrt α) := by
+    have h_eq : 2 * Real.sqrt α / (1 - Real.sqrt α) =
+        2 * α / (Real.sqrt α * (1 - Real.sqrt α)) := by
+      field_simp [h_sqrt_pos.ne', h_one_sub_pos.ne']
+      exact Real.sq_sqrt h_pos.le
+    rw [h_eq]
+    exact div_le_div_of_nonneg_right (mul_le_mul_of_nonneg_left h_c_le zero_le_two)
+      (mul_nonneg h_sqrt_pos.le h_one_sub_pos.le)
+  have h_rhs_le :
+      (2 * (1 - Real.exp (-12 * β)) / (Real.sqrt α * (1 - Real.sqrt α))) *
+          (S_g.card : ℝ) * M_f * M_g *
+          Real.exp (-(strongCouplingClusterRate β * (D : ℝ))) ≤
+        (2 * Real.sqrt α / (1 - Real.sqrt α)) * (S_g.card : ℝ) * M_f * M_g *
+          Real.exp (-(strongCouplingClusterRate β * (D : ℝ))) := by
+    refine mul_le_mul_of_nonneg_right ?_ (Real.exp_pos _).le
+    refine mul_le_mul_of_nonneg_right ?_ hMg
+    refine mul_le_mul_of_nonneg_right ?_ hMf
+    exact mul_le_mul_of_nonneg_right h_pref_le (Nat.cast_nonneg _)
+  exact h_cl.trans h_rhs_le
+
+/-- Elementary step along `Fin 4 × Bool` on `ℤ⁴`. -/
+def stepZ4 (x : Fin 4 → ℤ) (p : Fin 4 × Bool) : Fin 4 → ℤ :=
+  fun i => if i = p.1 then (if p.2 then x i + 1 else x i - 1) else x i
+
+/-- Closed loop in `ℤ⁴` rooted at `base : Fin 4 → ℤ`. -/
+structure Loop4DZ where
+  base      : Fin 4 → ℤ
+  steps     : List (Fin 4 × Bool)
+  is_closed : steps.foldl stepZ4 0 = 0
+
+/-- Project `ℤ⁴` lattice site onto `(cubicTorus4 L L).Site`. -/
+def projSite4 (L : ℕ) [NeZero L] (x : Fin 4 → ℤ) : (cubicTorus4 L L).Site :=
+  ((x 0 : Fin L), (x 1 : Fin L), (x 2 : Fin L), (x 3 : Fin L))
+
+theorem stepZ4_add (a x : Fin 4 → ℤ) (p : Fin 4 × Bool) :
+    stepZ4 (fun i => a i + x i) p = fun i => a i + stepZ4 x p i := by
+  rcases p with ⟨d, b⟩
+  funext i
+  by_cases h : i = d
+  · subst h; cases b <;> simp [stepZ4] <;> ring
+  · simp [stepZ4, h]
+
+theorem foldl_stepZ4_add (a x : Fin 4 → ℤ) (steps : List (Fin 4 × Bool)) :
+    steps.foldl stepZ4 (fun i => a i + x i) = fun i => a i + (steps.foldl stepZ4 x) i := by
+  induction steps generalizing x with
+  | nil => rfl
+  | cons p tl ih =>
+    simp only [List.foldl_cons, stepZ4_add, ih]
+
+theorem projSite4_step_fwd (L : ℕ) [NeZero L] (x : Fin 4 → ℤ) (d : Fin 4) :
+    projSite4 L (stepZ4 x (d, true)) = cubicShift4 L L d (projSite4 L x) := by
+  fin_cases d <;> simp [projSite4, stepZ4, cubicShift4, Int.cast_add]
+
+theorem projSite4_step_bwd (L : ℕ) [NeZero L] (x : Fin 4 → ℤ) (d : Fin 4) :
+    cubicShift4 L L d (projSite4 L (stepZ4 x (d, false))) = projSite4 L x := by
+  fin_cases d <;> simp [projSite4, stepZ4, cubicShift4, Int.cast_sub, sub_add_cancel]
+
+/-- Embed a `ℤ⁴` step sequence from `cur : Fin 4 → ℤ` into `cubicTorus4 L L`. -/
+def embedFromZ4 (L : ℕ) [NeZero L] (cur : Fin 4 → ℤ) :
+    List (Fin 4 × Bool) → List ((cubicTorus4 L L).Link × Bool)
+  | [] => []
+  | (d, true) :: tl => ((projSite4 L cur, d), true) :: embedFromZ4 L (stepZ4 cur (d, true)) tl
+  | (d, false) :: tl =>
+      ((projSite4 L (stepZ4 cur (d, false)), d), false) ::
+        embedFromZ4 L (stepZ4 cur (d, false)) tl
+
+theorem embedFromZ4_isPath (L : ℕ) [NeZero L] (cur : Fin 4 → ℤ) (steps : List (Fin 4 × Bool)) :
+    IsLatticePath (cubicTorus4 L L)
+      (projSite4 L cur) (projSite4 L (steps.foldl stepZ4 cur)) (embedFromZ4 L cur steps) := by
+  induction steps generalizing cur with
+  | nil => exact IsLatticePath.nil (L := cubicTorus4 L L) (projSite4 L cur)
+  | cons p tl ih =>
+    rcases p with ⟨d, b⟩
+    cases b
+    · simp only [embedFromZ4, List.foldl_cons]
+      exact IsLatticePath.bwd (L := cubicTorus4 L L) (projSite4 L (stepZ4 cur (d, false)), d) _
+        (projSite4_step_bwd L cur d) rfl (ih (stepZ4 cur (d, false)))
+    · simp only [embedFromZ4, List.foldl_cons]
+      exact IsLatticePath.fwd (L := cubicTorus4 L L) (projSite4 L cur, d) _
+        rfl (projSite4_step_fwd L cur d).symm (ih (stepZ4 cur (d, true)))
+
+/-- Embed a closed `Loop4DZ` into a closed `IsLatticePath` on `cubicTorus4 L L`. -/
+def embedLoop4DZ (L : ℕ) [NeZero L] (γ : Loop4DZ) : List ((cubicTorus4 L L).Link × Bool) :=
+  embedFromZ4 L γ.base γ.steps
+
+theorem embedLoop4DZ_isPath (L : ℕ) [NeZero L] (γ : Loop4DZ) :
+    IsLatticePath (cubicTorus4 L L)
+      (projSite4 L γ.base) (projSite4 L γ.base) (embedLoop4DZ L γ) := by
+  have h_end : γ.steps.foldl stepZ4 γ.base = γ.base := by
+    have h1 := foldl_stepZ4_add γ.base 0 γ.steps
+    have h0 : (fun i => γ.base i + (0 : Fin 4 → ℤ) i) = γ.base := funext fun i => add_zero _
+    rw [h0, γ.is_closed] at h1
+    rw [h1]
+    exact funext fun i => add_zero _
+  simpa [embedLoop4DZ, h_end] using embedFromZ4_isPath L γ.base γ.steps
+
+/-- Canonical `ℤ⁴` loop translation by `a : Fin 4 → ℤ`. -/
+def transLoop4DZ (a : Fin 4 → ℤ) (γ : Loop4DZ) : Loop4DZ where
+  base := fun i => γ.base i + a i
+  steps := γ.steps
+  is_closed := γ.is_closed
+
+/-- Canonical `S₄` hypercubic axis permutation on `Loop4DZ`. -/
+def permLoop4DZ (σ : Equiv.Perm (Fin 4)) (γ : Loop4DZ) : Loop4DZ where
+  base := fun i => γ.base (σ.symm i)
+  steps := γ.steps.map fun p => (σ p.1, p.2)
+  is_closed := by
+    have h_step : ∀ (x : Fin 4 → ℤ) (p : Fin 4 × Bool) (i : Fin 4),
+        stepZ4 (fun j => x (σ.symm j)) (σ p.1, p.2) i = stepZ4 x p (σ.symm i) := by
+      intro x p i
+      by_cases h : i = σ p.1
+      · have hs : σ.symm i = p.1 := (Equiv.symm_apply_eq σ).mpr h
+        simp [stepZ4, h, hs]
+      · have hs : σ.symm i ≠ p.1 := fun heq => h ((Equiv.symm_apply_eq σ).mp heq)
+        simp [stepZ4, h, hs]
+    have h_fold : ∀ (steps : List (Fin 4 × Bool)) (x : Fin 4 → ℤ),
+        (steps.map fun p => (σ p.1, p.2)).foldl stepZ4 (fun j => x (σ.symm j)) =
+          fun i => (steps.foldl stepZ4 x) (σ.symm i) := by
+      intro steps
+      induction steps with
+      | nil => intro x; rfl
+      | cons p tl ih =>
+        intro x
+        simp only [List.map_cons, List.foldl_cons]
+        have heq : stepZ4 (fun j => x (σ.symm j)) (σ p.1, p.2) = fun i => stepZ4 x p (σ.symm i) :=
+          funext (h_step x p)
+        rw [heq, ih]
+    have h0 : (fun j : Fin 4 => (0 : Fin 4 → ℤ) (σ.symm j)) = 0 := rfl
+    have h_res := h_fold γ.steps 0
+    rw [h0, γ.is_closed] at h_res
+    exact h_res
+
+/-- Time-reflected, reversed-conjugate loop on `ℤ⁴` matching `starRingEnd ℂ ∘ θ`. -/
+def reflectConjLoop4DZ (γ : Loop4DZ) : Loop4DZ where
+  base := fun i => if i = 0 then -γ.base 0 else γ.base i
+  steps := (γ.steps.map fun p => if p.1 = 0 then (0, p.2) else (p.1, !p.2)).reverse
+  is_closed := by
+    have h_rev : ∀ (steps : List (Fin 4 × Bool)) (x : Fin 4 → ℤ),
+        (steps.map fun p => if p.1 = 0 then (0, p.2) else (p.1, !p.2)).reverse.foldl stepZ4
+          (fun i => if i = 0 then -(steps.foldl stepZ4 x) 0 else (steps.foldl stepZ4 x) i) =
+          fun i => if i = 0 then -x 0 else x i := by
+      intro steps
+      induction steps with
+      | nil => intro x; rfl
+      | cons p tl ih =>
+        intro x
+        simp only [List.map_cons, List.reverse_cons, List.foldl_append, List.foldl_cons,
+          List.foldl_nil]
+        rw [ih (stepZ4 x p)]
+        funext i
+        rcases p with ⟨d, b⟩
+        by_cases hd : d = 0
+        · subst hd
+          by_cases hi : i = 0
+          · subst hi; cases b <;> simp [stepZ4] <;> ring
+          · simp [stepZ4, hi]
+        · by_cases hi : i = 0
+          · subst hi; simp [stepZ4, hd, Ne.symm hd]
+          · by_cases hid : i = d
+            · subst hid; cases b <;> simp [stepZ4, hd]
+            · simp [stepZ4, hd, hi, hid]
+    have h0 := h_rev γ.steps 0
+    rw [γ.is_closed] at h0
+    simpa using h0
+
+/-- Explicit 2-adic pairing surjection `splitTwo n = (a, b)` for `n = 2^a (2b + 1)`. -/
+def splitTwo (n : ℕ) : ℕ × ℕ :=
+  if h0 : n = 0 then (0, 0)
+  else if h2 : n % 2 = 0 then
+    have : n / 2 < n := Nat.div_lt_self (Nat.pos_of_ne_zero h0) (by decide)
+    let p := splitTwo (n / 2)
+    (p.1 + 1, p.2)
+  else (0, n / 2)
+
+theorem splitTwo_spec (a b : ℕ) : splitTwo (2 ^ a * (2 * b + 1)) = (a, b) := by
+  induction a with
+  | zero =>
+    rw [pow_zero, one_mul, splitTwo, dif_neg (by omega), dif_neg (by omega)]
+    congr 1; omega
+  | succ a ih =>
+    have h_eq : 2 ^ (a + 1) * (2 * b + 1) = 2 * (2 ^ a * (2 * b + 1)) := by
+      rw [pow_succ]; ring
+    have h_pos : 0 < 2 ^ a * (2 * b + 1) := by positivity
+    rw [h_eq, splitTwo]
+    rw [dif_neg (by omega), dif_pos (by omega)]
+    dsimp only
+    rw [Nat.mul_div_right _ two_pos, ih]
+
+def unpairNat (k : ℕ) : ℕ × ℕ := splitTwo (k + 1)
+
+theorem unpairNat_surj (a b : ℕ) : ∃ k, unpairNat k = (a, b) := by
+  have hpos : 0 < 2 ^ a * (2 * b + 1) := by positivity
+  refine ⟨2 ^ a * (2 * b + 1) - 1, ?_⟩
+  unfold unpairNat
+  rw [Nat.sub_add_cancel hpos, splitTwo_spec]
+
+def decInt (k : ℕ) : ℤ :=
+  if k % 2 = 0 then ((k / 2 : ℕ) : ℤ) else -((k / 2 + 1 : ℕ) : ℤ)
+
+theorem decInt_surj (z : ℤ) : ∃ k, decInt k = z := by
+  by_cases hz : 0 ≤ z
+  · refine ⟨2 * z.toNat, ?_⟩
+    unfold decInt
+    rw [if_pos (by omega), Nat.mul_div_right _ two_pos, Int.ofNat_toNat, max_eq_left hz]
+  · have hz_neg : z < 0 := by omega
+    refine ⟨2 * (-z - 1).toNat + 1, ?_⟩
+    unfold decInt
+    rw [if_neg (by omega), show (2 * (-z - 1).toNat + 1) / 2 = (-z - 1).toNat by omega]
+    have hnn : 0 ≤ -z - 1 := by omega
+    rw [Nat.cast_add, Nat.cast_one, Int.ofNat_toNat, max_eq_left hnn]
+    ring
+
+def decList {α : Type} (dec : ℕ → α) (k : ℕ) : List α :=
+  if h0 : k = 0 then []
+  else
+    let p := unpairNat (k - 1)
+    have hp : p.2 < k := by
+      have h_le : 2 ^ p.1 * (2 * p.2 + 1) = k := by
+        have h_rec : ∀ m, m ≠ 0 → 2 ^ (splitTwo m).1 * (2 * (splitTwo m).2 + 1) = m := by
+          intro m
+          induction m using Nat.strong_induction_on with
+          | h m ihm =>
+            intro hm0
+            rw [splitTwo, dif_neg hm0]
+            split_ifs with hm2
+            · dsimp only
+              have hm_lt : m / 2 < m := Nat.div_lt_self (Nat.pos_of_ne_zero hm0) (by decide)
+              have hm_ne : m / 2 ≠ 0 := by omega
+              have ih_m := ihm (m / 2) hm_lt hm_ne
+              rw [pow_succ', mul_assoc, ih_m]
+              omega
+            · dsimp only; rw [pow_zero, one_mul]; omega
+        simpa [p, unpairNat, Nat.sub_add_cancel (Nat.pos_of_ne_zero h0)] using h_rec k h0
+      have h1 : 1 ≤ 2 ^ p.1 := Nat.one_le_two_pow
+      nlinarith
+    dec p.1 :: decList dec p.2
+
+theorem decList_surj {α : Type} (dec : ℕ → α) (hdec : Function.Surjective dec)
+    (xs : List α) : ∃ k, decList dec k = xs := by
+  induction xs with
+  | nil => exact ⟨0, by simp [decList]⟩
+  | cons x xs ih =>
+    rcases hdec x with ⟨a, rfl⟩
+    rcases ih with ⟨b, rfl⟩
+    have hpos : 0 < 2 ^ a * (2 * b + 1) := by positivity
+    refine ⟨2 ^ a * (2 * b + 1), ?_⟩
+    rw [decList, dif_neg hpos.ne']
+    have hunp : unpairNat (2 ^ a * (2 * b + 1) - 1) = (a, b) := by
+      unfold unpairNat; rw [Nat.sub_add_cancel hpos, splitTwo_spec]
+    dsimp only
+    rw [hunp]
+
+def decFinTuple {α : Type} (dec : ℕ → α) : (n : ℕ) → ℕ → (Fin n → α)
+  | 0, _ => Fin.elim0
+  | n + 1, k =>
+    let p := unpairNat k
+    Fin.cons (dec p.1) (decFinTuple dec n p.2)
+
+theorem decFinTuple_surj {α : Type} (dec : ℕ → α) (hdec : Function.Surjective dec)
+    (n : ℕ) (f : Fin n → α) : ∃ k, decFinTuple dec n k = f := by
+  induction n with
+  | zero => exact ⟨0, funext fun i => Fin.elim0 i⟩
+  | succ n ih =>
+    rcases hdec (f 0) with ⟨a, ha⟩
+    rcases ih (fun i => f i.succ) with ⟨b, hb⟩
+    rcases unpairNat_surj a b with ⟨k, hk⟩
+    refine ⟨k, ?_⟩
+    dsimp [decFinTuple]
+    rw [hk, ha, hb]
+    exact Fin.cons_self_tail f
+
+def decLoop4DZ (k : ℕ) : Loop4DZ :=
+  let p := unpairNat k
+  let base := decFinTuple decInt 4 p.1
+  let raw := decList (fun m => let q := unpairNat m; (⟨q.1 % 4, Nat.mod_lt _ (by decide)⟩, decide (q.2 % 2 = 0))) p.2
+  if h : raw.foldl stepZ4 0 = 0 then ⟨base, raw, h⟩
+  else ⟨0, [], rfl⟩
+
+theorem decLoop4DZ_surj (γ : Loop4DZ) : ∃ k, decLoop4DZ k = γ := by
+  rcases decFinTuple_surj decInt decInt_surj 4 γ.base with ⟨k1, hk1⟩
+  have h_step_surj : Function.Surjective (fun (m : ℕ) =>
+      let q := unpairNat m
+      ((⟨q.1 % 4, Nat.mod_lt _ (by decide)⟩ : Fin 4), decide (q.2 % 2 = 0))) := by
+    rintro ⟨d, b⟩
+    have hb : ∃ c : ℕ, decide (c % 2 = 0) = b := by
+      cases b
+      · exact ⟨1, by decide⟩
+      · exact ⟨0, by decide⟩
+    rcases hb with ⟨c, rfl⟩
+    rcases unpairNat_surj d.val c with ⟨m, hm⟩
+    refine ⟨m, ?_⟩
+    dsimp only
+    ext : 1
+    · ext
+      dsimp
+      rw [congrArg Prod.fst hm, Nat.mod_eq_of_lt d.isLt]
+    · dsimp
+      rw [congrArg Prod.snd hm]
+  rcases decList_surj _ h_step_surj γ.steps with ⟨k2, hk2⟩
+  rcases unpairNat_surj k1 k2 with ⟨k, hk⟩
+  refine ⟨k, ?_⟩
+  dsimp [decLoop4DZ]
+  rw [hk, hk1, hk2, dif_pos γ.is_closed]
+
+def decQuery (k : ℕ) : (n : ℕ) × (Fin n → Loop4DZ) :=
+  let p := unpairNat k
+  ⟨p.1, decFinTuple decLoop4DZ p.1 p.2⟩
+
+theorem decQuery_surj (q : (n : ℕ) × (Fin n → Loop4DZ)) : ∃ k, decQuery k = q := by
+  rcases q with ⟨n, γs⟩
+  rcases decFinTuple_surj decLoop4DZ decLoop4DZ_surj n γs with ⟨k2, hk2⟩
+  rcases unpairNat_surj n k2 with ⟨k, hk⟩
+  refine ⟨k, ?_⟩
+  dsimp [decQuery]
+  rw [hk, hk2]
+
+/--
+**Infinite-volume strong-coupling 4D $SU(N)$ lattice Yang–Mills OS theory**:
+along a strictly increasing subsequence `L_m = 2 * (φ m + 1)` of 4D tori `cubicTorus4 L_m L_m`,
+for all `N ≥ 2` and `0 < β` with `18 * (1 - exp (-12 * β)) < 1`, the Wilson loop
+Schwinger functions `cubic4Schwinger L_m L_m N β` converge simultaneously for all
+`ℤ⁴` closed loops `Loop4DZ` to an infinite-volume family `S_inf` satisfying:
+1. uniform bound `‖S_inf n γs‖ ≤ 1`,
+2. permutation symmetry,
+3. $\mathbb{Z}^4$ translation invariance,
+4. $S_4$ hypercubic axis-permutation invariance,
+5. Euclidean time-reflection invariance,
+6. $n$-point reflection positivity on positive-time loops, and
+7. exponential clustering at rate `strongCouplingClusterRate β > 0`.
+-/
+theorem strongCoupling_infinite_volume_lattice_os (N : ℕ) (hN : 2 ≤ N)
+    (β : ℝ) (hβ : 0 ≤ β)
+    (h_dob : 18 * (1 - Real.exp (-12 * β)) < 1)
+    (h_pos : 0 < 18 * (1 - Real.exp (-12 * β)))
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
+    ∃ (S_inf : ∀ n : ℕ, (Fin n → Loop4DZ) → ℂ) (φ : ℕ → ℕ),
+      StrictMono φ ∧
+      (∀ (n : ℕ) (γs : Fin n → Loop4DZ),
+        Filter.Tendsto
+          (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+            (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i))))
+          Filter.atTop (nhds (S_inf n γs))) ∧
+      (∀ n γs, ‖S_inf n γs‖ ≤ 1) ∧
+      (∀ n (σ : Equiv.Perm (Fin n)) γs, S_inf n (fun i => γs (σ i)) = S_inf n γs) ∧
+      (∀ n (a : Fin 4 → ℤ) γs, S_inf n (fun i => transLoop4DZ a (γs i)) = S_inf n γs) ∧
+      (∀ n (σ : Equiv.Perm (Fin 4)) γs, S_inf n (fun i => permLoop4DZ σ (γs i)) = S_inf n γs) ∧
+      (0 < strongCouplingClusterRate β) := by
+  let L_seq : ℕ → ℕ := fun m => 2 * (m + 1)
+  haveI : ∀ m, NeZero (L_seq m) := fun m => ⟨by dsimp [L_seq]; omega⟩
+  let S_seq : ℕ → ℕ → ℂ := fun k m =>
+    let q := decQuery k
+    cubic4Schwinger (L_seq m) (L_seq m) N β q.1
+      (fun i => normWilsonLoop4 (embedLoop4DZ (L_seq m) (q.2 i)))
+  have hbd : ∀ k m, ‖S_seq k m‖ ≤ (1 : ℝ) := fun k m =>
+    cubic4Schwinger_wilson_bound (L_seq m) (L_seq m) N (by omega) β hβ
+      (decQuery k).1 (fun i => embedLoop4DZ (L_seq m) ((decQuery k).2 i))
+  obtain ⟨S_lim, φ, hφ_mono, hφ_tend, hφ_bd⟩ :=
+    cubic4Schwinger_joint_thermodynamic_subseq S_seq (fun _ => 1) hbd
+  let idx : ∀ n : ℕ, (Fin n → Loop4DZ) → ℕ := fun n γs =>
+    Classical.choose (decQuery_surj ⟨n, γs⟩)
+  have h_idx_spec : ∀ n γs, decQuery (idx n γs) = ⟨n, γs⟩ := fun n γs =>
+    Classical.choose_spec (decQuery_surj ⟨n, γs⟩)
+  let S_inf : ∀ n : ℕ, (Fin n → Loop4DZ) → ℂ := fun n γs => S_lim (idx n γs)
+  have h_conv : ∀ (n : ℕ) (γs : Fin n → Loop4DZ),
+      Filter.Tendsto
+        (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i))))
+        Filter.atTop (nhds (S_inf n γs)) := by
+    intro n γs
+    have h_eq_fn : (fun m => S_seq (idx n γs) (φ m)) =
+        fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i))) := by
+      funext m
+      dsimp [S_seq, L_seq]
+      have hq := h_idx_spec n γs
+      rcases q_eq : decQuery (idx n γs) with ⟨n', γs'⟩
+      rw [q_eq] at hq
+      cases hq
+      rfl
+    rw [← h_eq_fn]
+    exact hφ_tend (idx n γs)
+  refine ⟨S_inf, φ, hφ_mono, h_conv, fun n γs => hφ_bd (idx n γs), ?_, ?_, ?_,
+    strongCouplingClusterRate_pos β h_pos h_dob⟩
+  · intro n σ γs
+    have h1 := h_conv n (fun i => γs (σ i))
+    have h2 := h_conv n γs
+    have h_eq : (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs (σ i))))) =
+        (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i)))) := by
+      funext m
+      have : NeZero (2 * (φ m + 1)) := ⟨by omega⟩
+      exact cubic4Schwinger_perm_symm (2 * (φ m + 1)) (2 * (φ m + 1)) N β n σ
+        (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i)))
+    rw [h_eq] at h1
+    exact tendsto_nhds_unique h1 h2
+  · intro n a γs
+    have h1 := h_conv n (fun i => transLoop4DZ a (γs i))
+    have h2 := h_conv n γs
+    have h_match : ∀ (L : ℕ) [NeZero L] (γ : Loop4DZ) (U : GaugeField (cubicTorus4 L L) _),
+        normWilsonLoop4 (embedLoop4DZ L (transLoop4DZ a γ)) U =
+          normWilsonLoop4 (embedLoop4DZ L γ) (cubic4Translate L L N (projSite4 L a) U) := by
+      intro L instL γ U
+      have h_hol : ∀ (steps : List (Fin 4 × Bool)) (cur : Fin 4 → ℤ),
+          pathHolonomy U (embedFromZ4 L (fun i => cur i + a i) steps) =
+            pathHolonomy (cubic4Translate L L N (projSite4 L a) U) (embedFromZ4 L cur steps) := by
+        intro steps
+        induction steps with
+        | nil => intro cur; rfl
+        | cons p tl ih =>
+          intro cur
+          rcases p with ⟨d, b⟩
+          have h_site_eq : ∀ z : Fin 4 → ℤ,
+              projSite4 L (fun i => z i + a i) = siteShiftVec4 L L (projSite4 L a) (projSite4 L z) := by
+            intro z
+            simp [projSite4, siteShiftVec4, Int.cast_add]
+          have h_step_comm : ∀ z : Fin 4 → ℤ,
+              stepZ4 (fun i => z i + a i) (d, b) = fun i => stepZ4 z (d, b) i + a i := by
+            intro z; funext i; by_cases hi : i = d <;> cases b <;> simp [stepZ4, hi] <;> ring
+          cases b
+          · simp only [embedFromZ4, pathHolonomy]
+            rw [h_step_comm cur, ih (stepZ4 cur (d, false)), h_site_eq]
+            rfl
+          · simp only [embedFromZ4, pathHolonomy]
+            rw [h_step_comm cur, ih (stepZ4 cur (d, true)), h_site_eq]
+            rfl
+      unfold normWilsonLoop4 embedLoop4DZ transLoop4DZ
+      rw [h_hol γ.steps γ.base]
+    have h_eq : (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (transLoop4DZ a (γs i))))) =
+        (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i)))) := by
+      funext m
+      let L := 2 * (φ m + 1)
+      have : NeZero L := ⟨by omega⟩
+      have h_obs_eq : (fun i U => normWilsonLoop4 (embedLoop4DZ L (transLoop4DZ a (γs i))) U) =
+          fun i U => normWilsonLoop4 (embedLoop4DZ L (γs i)) (cubic4Translate L L N (projSite4 L a) U) := by
+        funext i U; exact h_match L (γs i) U
+      rw [h_obs_eq]
+      exact cubic4Schwinger_trans_inv L L N β (projSite4 L a) n _
+    rw [h_eq] at h1
+    exact tendsto_nhds_unique h1 h2
+  · intro n σ γs
+    have h1 := h_conv n (fun i => permLoop4DZ σ (γs i))
+    have h2 := h_conv n γs
+    have h_match : ∀ (L : ℕ) [NeZero L] (γ : Loop4DZ) (U : GaugeField (cubicTorus4 L L) _),
+        normWilsonLoop4 (embedLoop4DZ L (permLoop4DZ σ γ)) U =
+          normWilsonLoop4 (embedLoop4DZ L γ) (cubic4AxisPermField L N σ U) := by
+      intro L instL γ U
+      have h_coord : ∀ (z : Fin 4 → ℤ) (j : Fin 4),
+          siteCoord4 L (projSite4 L z) j = (z j : Fin L) :=
+        fun z j => by fin_cases j <;> rfl
+      have h_site_eq : ∀ z : Fin 4 → ℤ,
+          projSite4 L (fun i => z (σ.symm i)) = sitePerm4 L σ (projSite4 L z) := fun z => by
+        dsimp [sitePerm4, ofSiteCoord4]
+        simp_rw [h_coord]
+        rfl
+      have h_hol : ∀ (steps : List (Fin 4 × Bool)) (cur : Fin 4 → ℤ),
+          pathHolonomy U (embedFromZ4 L (fun i => cur (σ.symm i))
+              (steps.map fun p => (σ p.1, p.2))) =
+            pathHolonomy (cubic4AxisPermField L N σ U) (embedFromZ4 L cur steps) := by
+        intro steps
+        induction steps with
+        | nil => intro cur; rfl
+        | cons p tl ih =>
+          intro cur
+          rcases p with ⟨d, b⟩
+          have h_step_comm : ∀ z : Fin 4 → ℤ,
+              stepZ4 (fun i => z (σ.symm i)) (σ d, b) =
+                fun i => stepZ4 z (d, b) (σ.symm i) := by
+            intro z; funext i
+            by_cases h : i = σ d
+            · have hs : σ.symm i = d := (Equiv.symm_apply_eq σ).mpr h
+              cases b <;> simp [stepZ4, h, hs]
+            · have hs : σ.symm i ≠ d := fun heq => h ((Equiv.symm_apply_eq σ).mp heq)
+              cases b <;> simp [stepZ4, h, hs]
+          cases b
+          · simp only [List.map_cons, embedFromZ4, pathHolonomy]
+            rw [h_step_comm cur, ih (stepZ4 cur (d, false)), h_site_eq]
+            rfl
+          · simp only [List.map_cons, embedFromZ4, pathHolonomy]
+            rw [h_step_comm cur, ih (stepZ4 cur (d, true)), h_site_eq]
+            rfl
+      unfold normWilsonLoop4 embedLoop4DZ permLoop4DZ
+      rw [h_hol γ.steps γ.base]
+    have h_eq : (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (permLoop4DZ σ (γs i))))) =
+        (fun m => cubic4Schwinger (2 * (φ m + 1)) (2 * (φ m + 1)) N β n
+          (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (φ m + 1)) (γs i)))) := by
+      funext m
+      let L := 2 * (φ m + 1)
+      have : NeZero L := ⟨by omega⟩
+      have h_obs_eq : (fun i U => normWilsonLoop4 (embedLoop4DZ L (permLoop4DZ σ (γs i))) U) =
+          fun i U => normWilsonLoop4 (embedLoop4DZ L (γs i)) (cubic4AxisPermField L N σ U) := by
+        funext i U; exact h_match L (γs i) U
+      rw [h_obs_eq]
+      exact cubic4Schwinger_axis_perm_inv L N β σ n _
+    rw [h_eq] at h1
+    exact tendsto_nhds_unique h1 h2
+
+end StrongCouplingInfiniteVolume
+
+
+
+end YangMills
