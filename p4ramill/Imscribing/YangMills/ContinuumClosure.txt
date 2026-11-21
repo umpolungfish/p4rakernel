@@ -149,7 +149,7 @@ noncomputable def buildStrictWightmanFromOS {Δ_phys : ℝ}
 /--
 **Strict Reduction Theorem**:
 combining `BalabanRGContinuumHypothesis N hN` and `OSPoincareContinuationHypothesis`
-establishes `ClayYangMillsMassGap4DStrict N hN` with **0 `sorry`s**.
+establishes `ClayYangMillsMassGap4DStrict N hN` with zero unproven placeholders.
 -/
 theorem clay_yang_mills_strict_from_balaban_and_os (N : ℕ) (hN : 2 ≤ N)
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]

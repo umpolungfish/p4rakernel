@@ -80,7 +80,10 @@ theorem plaqsTouching_length_le (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
   let S_idx := Finset.univ.filter (fun q : Fin 4 × Bool => q.1 ≠ e.2)
   have hS_card : S_idx.card = 6 := by
     dsimp [S_idx]
-    rcases e with ⟨_, d⟩
+    have hd : e.2 ∈ Finset.univ := Finset.mem_univ _
+    revert hd
+    generalize e.2 = d
+    intro _
     fin_cases d <;> decide
   let φ : Fin 4 × Bool → (cubicTorus4 Ls Lt).Site × Fin 4 × Fin 4 := fun q =>
     let y := if q.2 then cubicShift4Inv Ls Lt q.1 e.1 else e.1
@@ -116,12 +119,14 @@ theorem plaqsTouching_length_le (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
           rw [List.mem_flatMap] at hp
           rcases hp with ⟨y, hy, hp'⟩
           have hxy : x ≠ y := fun heq => hxs.1 (heq ▸ hy)
-          simp only [List.map_cons, List.map_nil, List.mem_cons, List.mem_nil_iff, or_false] at hk1
+          rcases List.mem_map.mp hk1 with ⟨px, hpx, h_eq⟩
+          simp only [List.mem_cons, List.mem_nil_iff, or_false] at hpx
+          have hkx : (key px).1 = x := by
+            rcases hpx with rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
           simp only [List.mem_cons, List.mem_nil_iff, or_false] at hp'
-          rcases hp' with rfl | rfl | rfl | rfl | rfl | rfl <;>
-          · rcases hk1 with hk1 | hk1 | hk1 | hk1 | hk1 | hk1 <;>
-            · simp [key, cubic4Plaquette] at hk1
-              exact hxy hk1.symm
+          have hby : (key p).1 = y := by
+            rcases hp' with rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+          exact hxy (hkx.symm.trans ((congrArg Prod.fst h_eq).trans hby))
       exact h_flat _ (Finset.nodup_toList _)
     exact h_all_nodup.sublist (List.Sublist.map key List.filter_sublist)
   have h_sub : ∀ k ∈ (plaqsTouching Ls Lt e).map key, k ∈ S_idx.image φ := by
@@ -141,11 +146,8 @@ theorem plaqsTouching_length_le (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
       subst hp_eq
       simp only [cubic4Plaquette, List.map_cons, List.map_nil, List.mem_cons,
         List.mem_nil_iff, or_false] at he_mem
-      have hk_val : key ({ base := y, loop := cubic4Plaquette y d₁ d₂,
-          is_closed := cubic4Plaquette_isPath y d₁ d₂ } : LatticePlaquette (cubicTorus4 Ls Lt)) =
-          (y, d₁, d₂) := by
-        simp [key, cubic4Plaquette]
-      rw [hk_val, Finset.mem_image]
+      change (y, d₁, d₂) ∈ S_idx.image φ
+      rw [Finset.mem_image]
       rcases he_mem with h | h | h | h
       · have hy1 : y = e.1 := (congrArg Prod.fst h).symm
         have hd1 : d₁ = e.2 := (congrArg Prod.snd h).symm
@@ -255,8 +257,8 @@ theorem plaqWalk_trans {Ls Lt : ℕ} [NeZero Ls] [NeZero Lt]
     rw [Nat.add_right_comm]
     exact PlaqWalk.step h12 (ih h2)
 
-/-- Plaquette graph distance from link `e` to link set `S` on `cubicTorus4 Ls Lt`. -/
 open Classical in
+/-- Plaquette graph distance from link `e` to link set `S` on `cubicTorus4 Ls Lt`. -/
 noncomputable def plaqDist4 (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt]
     (S : Finset (cubicTorus4 Ls Lt).Link) (e : (cubicTorus4 Ls Lt).Link) : ℕ :=
   if h : ∃ k, ∃ e₀ ∈ S, PlaqWalk Ls Lt k e e₀ then Nat.find h else 0
@@ -422,12 +424,14 @@ theorem condDensity_tv_bound {N : ℕ}
       simp only [Pi.zero_apply] at hu
       have hu0 : r₁ u = 0 := hu
       rw [hu0, Complex.ofReal_zero, zero_mul]
+      rfl
     have hi2 : ∫ u, ((r₂ u : ℝ) : ℂ) * f u ∂μ = 0 := by
       refine MeasureTheory.integral_eq_zero_of_ae ?_
       filter_upwards [hr2_zero] with u hu
       simp only [Pi.zero_apply] at hu
       have hu0 : r₂ u = 0 := hu
       rw [hu0, Complex.ofReal_zero, zero_mul]
+      rfl
     rw [hi1, hi2, sub_zero, norm_zero]
     exact mul_nonneg (by linarith) hD_nn
   · have h_double :
@@ -448,7 +452,7 @@ theorem condDensity_tv_bound {N : ℕ}
           abs_of_nonneg (mul_nonneg (hr1_nn p.1) (hr2_nn p.2)), sq]
         exact mul_le_mul (mul_le_mul (le_max_of_le_left (hr1_ub p.1))
             (le_max_of_le_left (hr2_ub p.2)) (hr2_nn p.2) (by positivity))
-          (hf_osc p.1 p.2) (norm_nonneg _) (mul_nonneg (mul_nonneg hmax_pos hmax_pos) hD_nn)
+          (hf_osc p.1 p.2) (norm_nonneg _) (mul_nonneg hmax_pos hmax_pos)
       rw [MeasureTheory.integral_prod _ h_int_prod]
       have h_in : ∀ u,
           (∫ v, ((r₁ u * r₂ v : ℝ) : ℂ) * (f u - f v) ∂μ) =
@@ -471,7 +475,7 @@ theorem condDensity_tv_bound {N : ℕ}
               Real.norm_eq_abs, abs_of_nonneg (hr1_nn u), abs_of_nonneg (hr2_nn v)]
             exact mul_le_mul (le_max_of_le_left (hr1_ub u))
               (mul_le_mul (le_max_of_le_left (hr2_ub v)) (hf_bd v) (norm_nonneg _) (by positivity))
-              (by positivity) (by positivity)
+              (mul_nonneg (hr2_nn v) (norm_nonneg _)) hmax_pos
         have h_sub_fn : (fun v => ((r₁ u * r₂ v : ℝ) : ℂ) * (f u - f v)) =
             fun v => ((r₁ u : ℝ) : ℂ) * f u * ((r₂ v : ℝ) : ℂ) -
               ((r₁ u : ℝ) : ℂ) * (((r₂ v : ℝ) : ℂ) * f v) := by
@@ -649,7 +653,7 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     ⟨⟨⟨e, not_not.mpr rfl⟩⟩, fun ⟨e', he'⟩ => by apply Subtype.ext; exact not_not.mp he'⟩
   let eqv_e : ({ e' : (cubicTorus4 Ls Lt).Link // ¬ (e' ≠ e) } → G) ≃ᵐ G :=
     { toFun := fun g => g default
-      invFun := fun u _ => u
+      invFun := fun a _ => a
       left_inv := fun g => by funext i; rw [Unique.eq_default i]
       right_inv := fun _ => rfl
       measurable_toFun := measurable_pi_apply default
@@ -658,7 +662,18 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
   let μ_e := MeasureTheory.Measure.pi (fun _ : { e' : (cubicTorus4 Ls Lt).Link // ¬ (e' ≠ e) } => suHaar N)
   haveI : MeasureTheory.IsProbabilityMeasure μ_off := by dsimp [μ_off]; infer_instance
   haveI : MeasureTheory.IsProbabilityMeasure μ_e := by dsimp [μ_e]; infer_instance
-  have mp_e := pi_unit_mp (ι := { e' : (cubicTorus4 Ls Lt).Link // ¬ (e' ≠ e) }) (suHaar N)
+  have mp_e : MeasureTheory.MeasurePreserving eqv_e μ_e (suHaar N) := by
+    refine ⟨eqv_e.measurable, ?_⟩
+    ext s hs
+    rw [MeasureTheory.Measure.map_apply eqv_e.measurable hs]
+    have hpre : eqv_e ⁻¹' s = Set.pi Set.univ (fun _ => s) := by
+      ext f
+      simp only [Set.mem_preimage, Set.mem_pi, Set.mem_univ, forall_true_left, eqv_e,
+        MeasurableEquiv.coe_mk, Equiv.coe_fn_mk]
+      exact ⟨fun h i => (Unique.eq_default i).symm ▸ h, fun h => h default⟩
+    rw [hpre, MeasureTheory.Measure.pi_pi]
+    simp [Finset.prod_const]
+    rfl
   have h_split_act : ∀ U : G_4,
       wilsonAction β (cubic4Plaquettes Ls Lt) U =
         β * ((plaqsTouching Ls Lt e).map (fun p => wilsonPlaquetteTerm p U)).sum +
@@ -706,7 +721,8 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       change eqv_e q2 = (MeasurableEquiv.piEquivPiSubtypeProd
         (fun _ : (cubicTorus4 Ls Lt).Link => G) (fun e' => e' ≠ e)).symm (q1, q2) e
       simp [eqv_e]
-    · exact Function.update_of_ne h _ _
+      exact congrArg q2 (Subsingleton.elim _ _)
+    · rw [Function.update_of_ne h]
   have h_upd_indep : ∀ (q1 : { e' : (cubicTorus4 Ls Lt).Link // e' ≠ e } → G)
       (q2 : { e' // ¬ (e' ≠ e) } → G) (u : G),
       Function.update (eqv.symm (q1, q2)) e u =
@@ -782,10 +798,14 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
         Real.exp (-(β * ((plaqsTouching Ls Lt e).map
           (fun p => wilsonPlaquetteTerm p (Function.update (eqv.symm q) e u))).sum))
       have hw_nn : ∀ u, 0 ≤ w_loc u := fun u => (Real.exp_pos _).le
-      have hw_lb : ∀ u, Real.exp (-12 * β) ≤ w_loc u := fun u =>
-        Real.exp_le_exp.mpr (by linarith [(localPlaqSum_bounds Ls Lt N e _).2])
-      have hw_ub : ∀ u, w_loc u ≤ 1 := fun u =>
-        Real.exp_le_one_iff.mpr (by linarith [mul_nonneg hβ (localPlaqSum_bounds Ls Lt N e _).1])
+      have hw_lb : ∀ u, Real.exp (-12 * β) ≤ w_loc u := fun u => by
+        have hb := (localPlaqSum_bounds Ls Lt N e (Function.update (eqv.symm q) e u)).2
+        have := mul_le_mul_of_nonneg_left hb hβ
+        exact Real.exp_le_exp.mpr (by linarith)
+      have hw_ub : ∀ u, w_loc u ≤ 1 := fun u => by
+        have hb := (localPlaqSum_bounds Ls Lt N e (Function.update (eqv.symm q) e u)).1
+        have := mul_nonneg hβ hb
+        exact Real.exp_le_one_iff.mpr (by linarith)
       have hw_m : Measurable w_loc := by
         have h_upd_m : Measurable (fun u : G => Function.update (eqv.symm q) e u) :=
           measurable_pi_iff.mpr fun e' => by
@@ -838,7 +858,7 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     have hwnn : 0 ≤ cubic4WilsonWeight Ls Lt N β (eqv.symm q) := by
       unfold cubic4WilsonWeight; exact (Real.exp_pos _).le
     rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hwnn]
-    exact mul_le_mul h_ce_bd hwb.2 hwnn hM
+    exact (mul_le_mul h_ce_bd hwb.2 hwnn hM).trans_eq (mul_one M)
   have h_int_rhs : MeasureTheory.Integrable
       (fun q : ({ e' : (cubicTorus4 Ls Lt).Link // e' ≠ e } → G) × ({ e' // ¬ (e' ≠ e) } → G) =>
         f (eqv.symm q) * ((cubic4WilsonWeight Ls Lt N β (eqv.symm q) : ℝ) : ℂ)) (μ_off.prod μ_e) := by
@@ -851,18 +871,21 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     have hwnn : 0 ≤ cubic4WilsonWeight Ls Lt N β (eqv.symm q) := by
       unfold cubic4WilsonWeight; exact (Real.exp_pos _).le
     rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hwnn]
-    exact mul_le_mul (hf_bd _) hwb.2 hwnn hM
+    exact (mul_le_mul (hf_bd _) hwb.2 hwnn hM).trans_eq (mul_one M)
   rw [MeasureTheory.integral_prod _ h_int_lhs, MeasureTheory.integral_prod _ h_int_rhs]
   refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun q1 => ?_)
   let U_ref : G_4 := eqv.symm (q1, fun _ => 1)
   let w_ext : ℝ := Real.exp (-(β * ((plaqsNotTouching Ls Lt e).map (fun p => wilsonPlaquetteTerm p U_ref)).sum))
   let w_loc : G → ℝ := fun u =>
     Real.exp (-(β * ((plaqsTouching Ls Lt e).map (fun p => wilsonPlaquetteTerm p (Function.update U_ref e u))).sum))
+  have h_rhs_upd : ∀ q2 : { e' // ¬ (e' ≠ e) } → G,
+      eqv.symm (q1, q2) = Function.update U_ref e (eqv_e q2) := by
+    intro q2
+    rw [← h_upd_eq q1 q2, h_upd_indep q1 q2, ← h_upd_indep q1 (fun _ => 1)]
   have h_w_split : ∀ q2 : { e' // ¬ (e' ≠ e) } → G,
       cubic4WilsonWeight Ls Lt N β (eqv.symm (q1, q2)) = w_ext * w_loc (eqv_e q2) := by
     intro q2
-    have hU : eqv.symm (q1, q2) = Function.update U_ref e (eqv_e q2) := by
-      rw [← h_upd_indep q1 (fun _ => 1) (eqv_e q2)]
+    have hU := h_rhs_upd q2
     rw [hU]
     unfold cubic4WilsonWeight
     rw [h_split_act, h_ext_indep, neg_add, Real.exp_add]
@@ -876,9 +899,6 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       rw [h_upd_indep q1 q2 u, h_upd_indep q1 (fun _ => 1) u]
     dsimp [condGibbsExp]
     simp_rw [h_fn_eq]
-  have h_rhs_upd : ∀ q2 : { e' // ¬ (e' ≠ e) } → G,
-      eqv.symm (q1, q2) = Function.update U_ref e (eqv_e q2) := fun q2 =>
-    (h_upd_indep q1 (fun _ => 1) (eqv_e q2)).symm
   simp_rw [h_ce_const, h_w_split]
   rw [MeasureTheory.integral_const_mul,
     mp_e.integral_comp' (fun u => ((w_ext * w_loc u : ℝ) : ℂ))]
@@ -906,7 +926,10 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       integrable_of_measurable_bound (suHaar N) _ (Complex.continuous_ofReal.measurable.comp hw_m) 1
         fun u => by
         rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.exp_pos _).le]
-        exact Real.exp_le_one_iff.mpr (by linarith [mul_nonneg hβ (localPlaqSum_bounds Ls Lt N e _).1])
+        have hb := (localPlaqSum_bounds Ls Lt N e (Function.update U_ref e u)).1
+        have h_prod : 0 ≤ β * ((plaqsTouching Ls Lt e).map (fun p => wilsonPlaquetteTerm p (Function.update U_ref e u))).sum :=
+          mul_nonneg hβ hb
+        exact Real.exp_le_one_iff.mpr (by linarith)
     have hre : (∫ u, ((w_loc u : ℝ) : ℂ) ∂(suHaar N)).re = ∫ u, w_loc u ∂(suHaar N) := by
       change RCLike.re (∫ u, ((w_loc u : ℝ) : ℂ) ∂(suHaar N)) = _
       rw [← integral_re hwc]; rfl
@@ -937,11 +960,16 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       (MeasureTheory.integrable_const (1 : ℝ)).mono' hw_m.stronglyMeasurable.aestronglyMeasurable
         (Filter.Eventually.of_forall fun u => by
           rw [Real.norm_eq_abs, abs_of_nonneg (Real.exp_pos _).le]
-          exact Real.exp_le_one_iff.mpr (by linarith [mul_nonneg hβ (localPlaqSum_bounds Ls Lt N e _).1]))
+          have hb := (localPlaqSum_bounds Ls Lt N e (Function.update U_ref e u)).1
+          have := mul_nonneg hβ hb
+          exact Real.exp_le_one_iff.mpr (by linarith))
     calc 0 < Real.exp (-12 * β) := Real.exp_pos _
       _ = ∫ _u, Real.exp (-12 * β) ∂(suHaar N) := by simp [Measure.real, MeasureTheory.measure_univ]
       _ ≤ ∫ u, w_loc u ∂(suHaar N) := MeasureTheory.integral_mono (MeasureTheory.integrable_const _) hwi
-            (fun u => Real.exp_le_exp.mpr (by linarith [(localPlaqSum_bounds Ls Lt N e _).2]))
+            (fun u => by
+              have hb := (localPlaqSum_bounds Ls Lt N e (Function.update U_ref e u)).2
+              have := mul_le_mul_of_nonneg_left hb hβ
+              exact Real.exp_le_exp.mpr (by linarith))
   have h_lhs_simp : (∫ u, ((w_ext * w_loc u : ℝ) : ℂ) ∂(suHaar N)) =
       ((w_ext : ℝ) : ℂ) * ((∫ u, w_loc u ∂(suHaar N) : ℝ) : ℂ) := by
     simp_rw [Complex.ofReal_mul, MeasureTheory.integral_const_mul, h_w_int_c]
@@ -950,9 +978,16 @@ theorem condGibbsExp_tower (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     rw [← MeasureTheory.integral_const_mul]
     refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun u => by push_cast; ring)
   rw [h_lhs_simp, h_rhs_simp]
-  dsimp [condGibbsExp]
-  rw [← mul_assoc, mul_comm _ ((w_ext : ℝ) : ℂ), mul_assoc, ← mul_assoc _ ((∫ u, w_loc u ∂(suHaar N) : ℝ) : ℂ),
-    ← Complex.ofReal_mul, mul_inv_cancel₀ hZ_pos.ne', Complex.ofReal_one, mul_one]
+  have hZ_ne : (∫ u, w_loc u ∂(suHaar N)) ≠ 0 := hZ_pos.ne'
+  have h_canc : (((∫ u, w_loc u ∂(suHaar N))⁻¹ : ℝ) : ℂ) *
+      ((∫ u, w_loc u ∂(suHaar N) : ℝ) : ℂ) = 1 := by
+    rw [← Complex.ofReal_mul, inv_mul_cancel₀ hZ_ne, Complex.ofReal_one]
+  calc condGibbsExp Ls Lt N β e f U_ref * (((w_ext : ℝ) : ℂ) * ((∫ u, w_loc u ∂(suHaar N) : ℝ) : ℂ))
+      = (((w_ext : ℝ) : ℂ) * (∫ u, ((w_loc u : ℝ) : ℂ) * f (Function.update U_ref e u) ∂(suHaar N))) *
+          ((((∫ u, w_loc u ∂(suHaar N))⁻¹ : ℝ) : ℂ) * ((∫ u, w_loc u ∂(suHaar N) : ℝ) : ℂ)) := by
+        dsimp [condGibbsExp]; ring
+    _ = ((w_ext : ℝ) : ℂ) * ∫ u, ((w_loc u : ℝ) : ℂ) * f (Function.update U_ref e u) ∂(suHaar N) := by
+        rw [h_canc, mul_one]
 
 /-- Dobrushin interdependence coefficient `C_{e, e'} = 1 - exp(-12 β)` on plaquette-adjacent links. -/
 noncomputable def dobrushinCoeff (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ)
@@ -969,7 +1004,6 @@ theorem dobrushinCoeff_row_sum_le (Ls Lt : ℕ) [NeZero Ls] [NeZero Lt] (β : �
     dsimp [dobrushinCoeff]
     rw [← Finset.sum_filter (p := fun e' => SharesPlaq4 Ls Lt e e')]
     rw [Finset.sum_const, nsmul_eq_mul]
-    rfl
   rw [h_sum_eq]
   have hcard : ((Finset.univ.filter (SharesPlaq4 Ls Lt e)).card : ℝ) ≤ 18 := by
     exact_mod_cast sharesPlaq4_card_le Ls Lt e
@@ -1017,10 +1051,21 @@ theorem measurable_condGibbsWeight_right (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
     (e : (cubicTorus4 Ls Lt).Link)
     (U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ)) :
-    Measurable (condGibbsWeight β e U) :=
-  (measurable_condGibbsWeight_pair Ls Lt N β e).comp
-    ((measurable_const : Measurable fun _ : Matrix.specialUnitaryGroup (Fin N) ℂ => U).prodMk
-      measurable_id)
+    Measurable (condGibbsWeight β e U) := by
+  have h_upd_m : Measurable (fun u : Matrix.specialUnitaryGroup (Fin N) ℂ => Function.update U e u) :=
+    measurable_pi_iff.mpr fun e' => by
+      by_cases h : e' = e
+      · subst h; simp only [Function.update_self]; exact measurable_id
+      · simp only [Function.update_of_ne h]; exact measurable_const
+  have h_sum_m : Measurable (fun u : Matrix.specialUnitaryGroup (Fin N) ℂ =>
+      ((plaqsTouching Ls Lt e).map
+        (fun p => wilsonPlaquetteTerm p (Function.update U e u))).sum) := by
+    induction (plaqsTouching Ls Lt e) with
+    | nil => simp [measurable_const]
+    | cons p ps ih =>
+      simp only [List.map_cons, List.sum_cons]
+      exact ((measurable_cubic4_plaquette_term Ls Lt N p).comp h_upd_m).add ih
+  exact Real.continuous_exp.measurable.comp (Measurable.neg (measurable_const.mul h_sum_m))
 
 theorem condGibbsWeight_bounds {Ls Lt N : ℕ} [NeZero Ls] [NeZero Lt]
     (β : ℝ) (hβ : 0 ≤ β) (e : (cubicTorus4 Ls Lt).Link)
@@ -1029,7 +1074,7 @@ theorem condGibbsWeight_bounds {Ls Lt N : ℕ} [NeZero Ls] [NeZero Lt]
     Real.exp (-12 * β) ≤ condGibbsWeight β e U u ∧ condGibbsWeight β e U u ≤ 1 := by
   unfold condGibbsWeight
   have hb := localPlaqSum_bounds Ls Lt N e (Function.update U e u)
-  exact ⟨Real.exp_le_exp.mpr (by linarith),
+  exact ⟨Real.exp_le_exp.mpr (by nlinarith [hβ, hb.2]),
     Real.exp_le_one_iff.mpr (by nlinarith [hβ, hb.1])⟩
 
 theorem condGibbsZ_bounds (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
@@ -1045,7 +1090,7 @@ theorem condGibbsZ_bounds (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
   have hwi : MeasureTheory.Integrable (condGibbsWeight β e U) (suHaar N) :=
     (MeasureTheory.integrable_const (1 : ℝ)).mono' hm.stronglyMeasurable.aestronglyMeasurable
       (Filter.Eventually.of_forall fun u => by
-        rw [Real.norm_eq_abs, abs_of_nonneg ((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1)]
+        rw [Real.norm_eq_abs, abs_of_nonneg (((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1).le)]
         exact (condGibbsWeight_bounds β hβ e U u).2)
   refine ⟨?_, ?_⟩
   · calc Real.exp (-12 * β) = ∫ _u, Real.exp (-12 * β) ∂(suHaar N) := by
@@ -1104,7 +1149,7 @@ theorem condGibbsExp_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
   have hwi : MeasureTheory.Integrable (condGibbsWeight β e U) (suHaar N) :=
     (MeasureTheory.integrable_const (1 : ℝ)).mono' hw_m.stronglyMeasurable.aestronglyMeasurable
       (Filter.Eventually.of_forall fun u => by
-        rw [Real.norm_eq_abs, abs_of_nonneg ((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1)]
+        rw [Real.norm_eq_abs, abs_of_nonneg (((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1).le)]
         exact (condGibbsWeight_bounds β hβ e U u).2)
   have hfU_m : Measurable (fun u => f (Function.update U e u)) :=
     hf_m.comp (measurable_pi_iff.mpr fun e' => by
@@ -1117,13 +1162,13 @@ theorem condGibbsExp_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       ((Complex.continuous_ofReal.measurable.comp hw_m).mul hfU_m).stronglyMeasurable.aestronglyMeasurable.norm
       (Filter.Eventually.of_forall fun u => by
         rw [Real.norm_eq_abs, abs_of_nonneg (norm_nonneg _), norm_mul, Complex.norm_real,
-          Real.norm_eq_abs, abs_of_nonneg ((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1)]
+          Real.norm_eq_abs, abs_of_nonneg (((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1).le)]
         exact mul_le_mul_of_nonneg_left (hf_bd _) (Real.exp_pos _).le)
   have h_ce_eq : condGibbsExp Ls Lt N β e f U =
-      ((∫ u, condGibbsWeight β e U u ∂(suHaar N))⁻¹ : ℂ) *
+      (((∫ u, condGibbsWeight β e U u ∂(suHaar N))⁻¹ : ℝ) : ℂ) *
         ∫ u, ((condGibbsWeight β e U u : ℝ) : ℂ) * f (Function.update U e u) ∂(suHaar N) := rfl
   rw [h_ce_eq]
-  rw [norm_mul, norm_inv, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hZ_pos.le]
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (inv_nonneg.mpr hZ_pos.le)]
   calc (∫ u, condGibbsWeight β e U u ∂(suHaar N))⁻¹ *
         ‖∫ u, ((condGibbsWeight β e U u : ℝ) : ℂ) * f (Function.update U e u) ∂(suHaar N)‖
       ≤ (∫ u, condGibbsWeight β e U u ∂(suHaar N))⁻¹ *
@@ -1134,7 +1179,7 @@ theorem condGibbsExp_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
           ∫ u, condGibbsWeight β e U u * M ∂(suHaar N) :=
           mul_le_mul_of_nonneg_left (MeasureTheory.integral_mono h_num_int (hwi.mul_const M)
             fun u => by
-              rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg ((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1)]
+              rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (((Real.exp_pos _).trans_le (condGibbsWeight_bounds β hβ e U u).1).le)]
               exact mul_le_mul_of_nonneg_left (hf_bd _) (Real.exp_pos _).le)
             (inv_nonneg.mpr hZ_pos.le)
     _ = M := by
@@ -1163,7 +1208,7 @@ theorem condGibbsExp_osc_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     have h_upd_eq : ∀ u, Function.update U e u = Function.update V e u := fun u => by
       funext e''; by_cases h : e'' = e
       · rw [h, Function.update_self, Function.update_self]
-      · rw [Function.update_of_ne h, hUV e'' h]
+      · rw [Function.update_of_ne h, Function.update_of_ne h, hUV e'' h]
     dsimp [condGibbsExp]
     simp_rw [h_upd_eq]
     rw [sub_self, norm_zero]
@@ -1204,24 +1249,35 @@ theorem condGibbsExp_osc_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     have h_ce_split : condGibbsExp Ls Lt N β e f U - condGibbsExp Ls Lt N β e f V =
         (∫ u, ((ρ1 u : ℝ) : ℂ) * (f (Function.update U e u) - f (Function.update V e u)) ∂(suHaar N)) +
         (∫ u, ((ρ1 u - ρ2 u : ℝ) : ℂ) * f (Function.update V e u) ∂(suHaar N)) := by
-      have hi1 := integrable_of_measurable_bound (suHaar N)
-        (fun u => ((ρ1 u : ℝ) : ℂ) * (f (Function.update U e u) - f (Function.update V e u)))
+      have hi_A := integrable_of_measurable_bound (suHaar N)
+        (fun u => ((ρ1 u : ℝ) : ℂ) * f (Function.update U e u))
         ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul hfU_m) (Z1⁻¹ * M) fun u => by
-        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-          abs_of_nonneg (hρ1_nn u)]
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ1_nn u)]
         exact mul_le_mul (hρ1_bd u) (hf_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
-      have hi2 := integrable_of_measurable_bound (suHaar N)
-        (fun u => ((ρ1 u - ρ2 u : ℝ) : ℂ) * f (Function.update V e u))
-        ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul hfV_m) (Z1⁻¹ * M) fun u => by
-        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-          abs_of_nonneg (hρ1_nn u)]
-        exact mul_le_mul (hρ1_bd u) (hf_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
-      have hi3 := integrable_of_measurable_bound (suHaar N)
+      have hi_B := integrable_of_measurable_bound (suHaar N)
         (fun u => ((ρ2 u : ℝ) : ℂ) * f (Function.update V e u))
         ((Complex.continuous_ofReal.measurable.comp (hwV_m.const_mul _)).mul hfV_m) (Z2⁻¹ * M) fun u => by
-        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-          abs_of_nonneg (hρ2_nn u)]
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ2_nn u)]
         exact mul_le_mul (hρ2_bd u) (hf_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ2_pos.le)
+      have hi_C := integrable_of_measurable_bound (suHaar N)
+        (fun u => ((ρ1 u : ℝ) : ℂ) * (f (Function.update U e u) - f (Function.update V e u)))
+        ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul (hfU_m.sub hfV_m)) (Z1⁻¹ * (2 * M)) fun u => by
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ1_nn u)]
+        have h_diff_bd : ‖f (Function.update U e u) - f (Function.update V e u)‖ ≤ 2 * M := by
+          calc ‖f (Function.update U e u) - f (Function.update V e u)‖
+              ≤ ‖f (Function.update U e u)‖ + ‖f (Function.update V e u)‖ := norm_sub_le _ _
+            _ ≤ M + M := add_le_add (hf_bd _) (hf_bd _)
+            _ = 2 * M := by ring
+        exact mul_le_mul (hρ1_bd u) h_diff_bd (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
+      have hi_D := integrable_of_measurable_bound (suHaar N)
+        (fun u => ((ρ1 u - ρ2 u : ℝ) : ℂ) * f (Function.update V e u))
+        ((Complex.continuous_ofReal.measurable.comp ((hwU_m.const_mul _).sub (hwV_m.const_mul _))).mul hfV_m) ((Z1⁻¹ + Z2⁻¹) * M) fun u => by
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
+        have h_rho_bd : |ρ1 u - ρ2 u| ≤ Z1⁻¹ + Z2⁻¹ := by
+          calc |ρ1 u - ρ2 u| ≤ |ρ1 u| + |ρ2 u| := abs_sub _ _
+            _ = ρ1 u + ρ2 u := by rw [abs_of_nonneg (hρ1_nn u), abs_of_nonneg (hρ2_nn u)]
+            _ ≤ Z1⁻¹ + Z2⁻¹ := add_le_add (hρ1_bd u) (hρ2_bd u)
+        exact mul_le_mul h_rho_bd (hf_bd _) (norm_nonneg _) (add_nonneg (inv_nonneg.mpr hZ1_pos.le) (inv_nonneg.mpr hZ2_pos.le))
       dsimp [condGibbsExp]
       change ((Z1⁻¹ : ℝ) : ℂ) * ∫ u, ((condGibbsWeight β e U u : ℝ) : ℂ) *
           f (Function.update U e u) ∂(suHaar N) -
@@ -1237,8 +1293,7 @@ theorem condGibbsExp_osc_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
           fun u => ((ρ2 u : ℝ) : ℂ) * f (Function.update V e u) := by
         funext u; dsimp [ρ2]; push_cast; ring
       rw [h_eq1, h_eq2]
-      rw [← MeasureTheory.integral_sub hi1 hi2, ← MeasureTheory.integral_sub hi2 hi3,
-        ← MeasureTheory.integral_add (hi1.sub hi2) (hi2.sub hi3)]
+      rw [← MeasureTheory.integral_sub hi_A hi_B, ← MeasureTheory.integral_add hi_C hi_D]
       refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun u => ?_)
       push_cast; ring
     have h_term1_bd :
@@ -1520,24 +1575,35 @@ theorem condGibbsExp_setOsc_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
   have h_ce_split : condGibbsExp Ls Lt N β e h U - condGibbsExp Ls Lt N β e h V =
       (∫ u, ((ρ1 u : ℝ) : ℂ) * (h (Function.update U e u) - h (Function.update V e u)) ∂(suHaar N)) +
       (∫ u, ((ρ1 u - ρ2 u : ℝ) : ℂ) * h (Function.update V e u) ∂(suHaar N)) := by
-    have hi1 := integrable_of_measurable_bound (suHaar N)
-      (fun u => ((ρ1 u : ℝ) : ℂ) * (h (Function.update U e u) - h (Function.update V e u)))
+    have hi_A := integrable_of_measurable_bound (suHaar N)
+      (fun u => ((ρ1 u : ℝ) : ℂ) * h (Function.update U e u))
       ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul hhU_m) (Z1⁻¹ * M) fun u => by
-      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-        abs_of_nonneg (hρ1_nn u)]
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ1_nn u)]
       exact mul_le_mul (hρ1_bd u) (hh_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
-    have hi2 := integrable_of_measurable_bound (suHaar N)
-      (fun u => ((ρ1 u - ρ2 u : ℝ) : ℂ) * h (Function.update V e u))
-      ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul hhV_m) (Z1⁻¹ * M) fun u => by
-      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-        abs_of_nonneg (hρ1_nn u)]
-      exact mul_le_mul (hρ1_bd u) (hh_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
-    have hi3 := integrable_of_measurable_bound (suHaar N)
+    have hi_B := integrable_of_measurable_bound (suHaar N)
       (fun u => ((ρ2 u : ℝ) : ℂ) * h (Function.update V e u))
       ((Complex.continuous_ofReal.measurable.comp (hwV_m.const_mul _)).mul hhV_m) (Z2⁻¹ * M) fun u => by
-      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs,
-        abs_of_nonneg (hρ2_nn u)]
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ2_nn u)]
       exact mul_le_mul (hρ2_bd u) (hh_bd _) (norm_nonneg _) (inv_nonneg.mpr hZ2_pos.le)
+    have hi_C := integrable_of_measurable_bound (suHaar N)
+      (fun u => ((ρ1 u : ℝ) : ℂ) * (h (Function.update U e u) - h (Function.update V e u)))
+      ((Complex.continuous_ofReal.measurable.comp (hwU_m.const_mul _)).mul (hhU_m.sub hhV_m)) (Z1⁻¹ * (2 * M)) fun u => by
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hρ1_nn u)]
+      have h_diff_bd : ‖h (Function.update U e u) - h (Function.update V e u)‖ ≤ 2 * M := by
+        calc ‖h (Function.update U e u) - h (Function.update V e u)‖
+            ≤ ‖h (Function.update U e u)‖ + ‖h (Function.update V e u)‖ := norm_sub_le _ _
+          _ ≤ M + M := add_le_add (hh_bd _) (hh_bd _)
+          _ = 2 * M := by ring
+      exact mul_le_mul (hρ1_bd u) h_diff_bd (norm_nonneg _) (inv_nonneg.mpr hZ1_pos.le)
+    have hi_D := integrable_of_measurable_bound (suHaar N)
+      (fun u => ((ρ1 u - ρ2 u : ℝ) : ℂ) * h (Function.update V e u))
+      ((Complex.continuous_ofReal.measurable.comp ((hwU_m.const_mul _).sub (hwV_m.const_mul _))).mul hhV_m) ((Z1⁻¹ + Z2⁻¹) * M) fun u => by
+      rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
+      have h_rho_bd : |ρ1 u - ρ2 u| ≤ Z1⁻¹ + Z2⁻¹ := by
+        calc |ρ1 u - ρ2 u| ≤ |ρ1 u| + |ρ2 u| := abs_sub _ _
+          _ = ρ1 u + ρ2 u := by rw [abs_of_nonneg (hρ1_nn u), abs_of_nonneg (hρ2_nn u)]
+          _ ≤ Z1⁻¹ + Z2⁻¹ := add_le_add (hρ1_bd u) (hρ2_bd u)
+      exact mul_le_mul h_rho_bd (hh_bd _) (norm_nonneg _) (add_nonneg (inv_nonneg.mpr hZ1_pos.le) (inv_nonneg.mpr hZ2_pos.le))
     dsimp [condGibbsExp]
     change ((Z1⁻¹ : ℝ) : ℂ) * ∫ u, ((condGibbsWeight β e U u : ℝ) : ℂ) *
         h (Function.update U e u) ∂(suHaar N) -
@@ -1553,8 +1619,7 @@ theorem condGibbsExp_setOsc_bound (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
         fun u => ((ρ2 u : ℝ) : ℂ) * h (Function.update V e u) := by
       funext u; dsimp [ρ2]; push_cast; ring
     rw [h_eq1, h_eq2]
-    rw [← MeasureTheory.integral_sub hi1 hi2, ← MeasureTheory.integral_sub hi2 hi3,
-      ← MeasureTheory.integral_add (hi1.sub hi2) (hi2.sub hi3)]
+    rw [← MeasureTheory.integral_sub hi_A hi_B, ← MeasureTheory.integral_add hi_C hi_D]
     refine MeasureTheory.integral_congr_ae (Filter.Eventually.of_forall fun u => ?_)
     push_cast; ring
   have h_term1_bd :
@@ -1924,7 +1989,7 @@ theorem dobrushin_cov_bound_of_osc (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
   let Z := cubic4PartitionFn Ls Lt N β
   have hZ_pos : 0 < Z := cubic4PartitionFn_pos Ls Lt N β hβ
   let w4 := cubic4WilsonWeight Ls Lt N β
-  have hMg : 0 ≤ M_g := (norm_nonneg (h 1)).trans (hh_bd 1)
+  have hMg : 0 ≤ M_g := (norm_nonneg (h (fun _ => 1))).trans (hh_bd (fun _ => 1))
   have hw4_m : Measurable w4 := measurable_cubic4WilsonWeight Ls Lt N β
   have hw4_nn : ∀ U, 0 ≤ w4 U := fun U => by unfold w4 cubic4WilsonWeight; exact (Real.exp_pos _).le
   have hw4_le1 : ∀ U, w4 U ≤ 1 := fun U => (cubic4WilsonWeight_bounds Ls Lt N β hβ U).2
@@ -1977,26 +2042,22 @@ theorem dobrushin_cov_bound_of_osc (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
         (M_f * M_g) fun V => by
         rw [norm_mul, norm_mul, norm_mul, Complex.norm_real, Complex.norm_real,
           Real.norm_eq_abs, Real.norm_eq_abs, abs_of_nonneg (hw4_nn U), abs_of_nonneg (hw4_nn V)]
-        calc ‖f U‖ * ‖h U‖ * w4 U * w4 V ≤ M_f * M_g * 1 * 1 := by
-              gcongr
-              · exact hf_bd U
-              · exact hh_bd U
-              · exact hw4_le1 U
-              · exact hw4_le1 V
-          _ = M_f * M_g := by ring
+        have h1 : ‖f U‖ * ‖h U‖ ≤ M_f * M_g :=
+          mul_le_mul (hf_bd U) (hh_bd U) (norm_nonneg _) hMf
+        have h2 : ‖f U‖ * ‖h U‖ * w4 U ≤ M_f * M_g :=
+          (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (hw4_le1 U)).trans h1
+        exact (mul_le_of_le_one_right (mul_nonneg (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (hw4_nn U)) (hw4_le1 V)).trans h2
       have hi2 := integrable_of_measurable_bound μ_4
         (fun V => (f U * ((w4 U : ℝ) : ℂ)) * (h V * ((w4 V : ℝ) : ℂ)))
         (measurable_const.mul (hh_m.mul (Complex.continuous_ofReal.measurable.comp hw4_m)))
         (M_f * M_g) fun V => by
         rw [norm_mul, norm_mul, norm_mul, Complex.norm_real, Complex.norm_real,
           Real.norm_eq_abs, Real.norm_eq_abs, abs_of_nonneg (hw4_nn U), abs_of_nonneg (hw4_nn V)]
-        calc (‖f U‖ * w4 U) * (‖h V‖ * w4 V) ≤ (M_f * 1) * (M_g * 1) := by
-              gcongr
-              · exact hf_bd U
-              · exact hw4_le1 U
-              · exact hh_bd V
-              · exact hw4_le1 V
-          _ = M_f * M_g := by ring
+        have h1 : ‖f U‖ * w4 U ≤ M_f :=
+          (mul_le_of_le_one_right (norm_nonneg _) (hw4_le1 U)).trans (hf_bd U)
+        have h2 : ‖h V‖ * w4 V ≤ M_g :=
+          (mul_le_of_le_one_right (norm_nonneg _) (hw4_le1 V)).trans (hh_bd V)
+        exact mul_le_mul h1 h2 (mul_nonneg (norm_nonneg _) (hw4_nn V)) hMf
       have h_fn : (fun V => f U * (h U - h V) * ((w4 U * w4 V : ℝ) : ℂ)) =
           fun V => (f U * h U * ((w4 U : ℝ) : ℂ)) * ((w4 V : ℝ) : ℂ) -
             (f U * ((w4 U : ℝ) : ℂ)) * (h V * ((w4 V : ℝ) : ℂ)) := by
@@ -2009,12 +2070,11 @@ theorem dobrushin_cov_bound_of_osc (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       (M_f * M_g * Z) fun U => by
       rw [norm_mul, norm_mul, norm_mul, Complex.norm_real, Complex.norm_real,
         Real.norm_eq_abs, Real.norm_eq_abs, abs_of_nonneg (hw4_nn U), abs_of_nonneg hZ_pos.le]
-      calc ‖f U‖ * ‖h U‖ * w4 U * Z ≤ M_f * M_g * 1 * Z := by
-            gcongr
-            · exact hf_bd U
-            · exact hh_bd U
-            · exact hw4_le1 U
-        _ = M_f * M_g * Z := by ring
+      have h1 : ‖f U‖ * ‖h U‖ ≤ M_f * M_g :=
+        mul_le_mul (hf_bd U) (hh_bd U) (norm_nonneg _) hMf
+      have h2 : ‖f U‖ * ‖h U‖ * w4 U ≤ M_f * M_g :=
+        (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (hw4_le1 U)).trans h1
+      exact mul_le_mul_of_nonneg_right h2 hZ_pos.le
     have ho2 := integrable_of_measurable_bound μ_4
       (fun U => (f U * ((w4 U : ℝ) : ℂ)) * (∫ V, h V * ((w4 V : ℝ) : ℂ) ∂μ_4))
       ((hf_m.mul (Complex.continuous_ofReal.measurable.comp hw4_m)).mul measurable_const)
@@ -2024,11 +2084,7 @@ theorem dobrushin_cov_bound_of_osc (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
           (fun V => h V * ((w4 V : ℝ) : ℂ))
           (hh_m.mul (Complex.continuous_ofReal.measurable.comp hw4_m)) M_g fun V => by
           rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (hw4_nn V)]
-          calc ‖h V‖ * w4 V ≤ M_g * 1 := by
-                gcongr
-                · exact hh_bd V
-                · exact hw4_le1 V
-            _ = M_g := by ring
+          exact (mul_le_of_le_one_right (norm_nonneg _) (hw4_le1 V)).trans (hh_bd V)
         calc ‖∫ V, h V * ((w4 V : ℝ) : ℂ) ∂μ_4‖
             ≤ ∫ V, ‖h V * ((w4 V : ℝ) : ℂ)‖ ∂μ_4 := MeasureTheory.norm_integral_le_integral_norm _
           _ ≤ ∫ _V, M_g ∂μ_4 := MeasureTheory.integral_mono h_iV.norm (MeasureTheory.integrable_const _)
@@ -2075,13 +2131,12 @@ theorem dobrushin_cov_bound_of_osc (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
       (M_f * D_h) fun V => by
       rw [norm_mul, norm_mul, Complex.norm_real, Real.norm_eq_abs,
         abs_of_nonneg (mul_nonneg (hw4_nn U) (hw4_nn V))]
-      calc ‖f U‖ * ‖h U - h V‖ * (w4 U * w4 V) ≤ M_f * D_h * (1 * 1) := by
-            gcongr
-            · exact hf_bd U
-            · exact h_osc_UV U V
-            · exact hw4_le1 U
-            · exact hw4_le1 V
-        _ = M_f * D_h := by ring
+      have h1 : ‖f U‖ * ‖h U - h V‖ ≤ M_f * D_h :=
+        mul_le_mul (hf_bd U) (h_osc_UV U V) (norm_nonneg _) hMf
+      have h2 : ‖f U‖ * ‖h U - h V‖ * w4 U ≤ M_f * D_h :=
+        (mul_le_of_le_one_right (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (hw4_le1 U)).trans h1
+      rw [← mul_assoc]
+      exact (mul_le_of_le_one_right (mul_nonneg (mul_nonneg (norm_nonneg _) (norm_nonneg _)) (hw4_nn U)) (hw4_le1 V)).trans h2
     calc ‖∫ V, f U * (h U - h V) * ((w4 U * w4 V : ℝ) : ℂ) ∂μ_4‖
         ≤ ∫ V, ‖f U * (h U - h V) * ((w4 U * w4 V : ℝ) : ℂ)‖ ∂μ_4 :=
             MeasureTheory.norm_integral_le_integral_norm _
@@ -2199,7 +2254,7 @@ theorem cubic4Schwinger_strong_coupling_clustering (Ls Lt N : ℕ) [NeZero Ls] [
           ≤ ∑ e ∈ Finset.univ \ S_f, (if e ∈ S_g then 2 * M_g * ρ ^ D else 0) :=
               Finset.sum_le_sum h_each
         _ = ∑ _e ∈ (Finset.univ \ S_f) ∩ S_g, (2 * M_g * ρ ^ D) := by
-              rw [← Finset.sum_filter]; congr 1; ext e; simp [Finset.mem_inter, Finset.mem_filter]
+              rw [← Finset.sum_filter, Finset.filter_mem_eq_inter]
         _ ≤ ∑ _e ∈ S_g, (2 * M_g * ρ ^ D) :=
               Finset.sum_le_sum_of_subset_of_nonneg Finset.inter_subset_right
                 (fun _ _ _ => mul_nonneg (mul_nonneg zero_le_two hMg) (pow_nonneg hρ_pos.le D))
