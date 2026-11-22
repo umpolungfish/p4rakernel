@@ -272,6 +272,7 @@ globs = [
   "Imscribing.Primitives.OPN_2adic",
   "Imscribing.Primitives.BSD_2adic",
   "Imscribing.Primitives.Imscription",
+  "Imscribing.SchwingerReentry",
   "Imscribing.Primitives.TierCrossing",
   "Imscribing.Primitives.Crystal",
   "Imscribing.Primitives.CLU",
