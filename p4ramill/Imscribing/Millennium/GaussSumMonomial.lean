@@ -765,4 +765,56 @@ theorem d2048_discriminant_product :
     _ = 5 * 3 * 409 * 683 := by rw [h5, h3, h409, h683]
     _ = 4190205 := by norm_num
 
+/-! ## Part 4: Certified Rational Enclosure of M_{2048} -/
+
+theorem m2048_rational_bracket :
+    let r : ℝ := Real.sqrt (m_d 2048 : ℝ)
+    let M : ℝ := ((coeffA 2047 : ℝ) + (coeffB 2047 : ℝ) * r) / 2
+    (488281016884 : ℝ) / 10^15 < M ∧
+      M < (488281016885 : ℝ) / 10^15 ∧
+      |M - 1 / 2048| < 3 / 10^10 := by
+  intro r M
+  have hm_eq : (m_d 2048 : ℝ) = 4190205 := by
+    unfold m_d; norm_num
+  have hr_nonneg : 0 ≤ r := Real.sqrt_nonneg _
+  have hr_sq : r^2 = (m_d 2048 : ℝ) := Real.sq_sqrt (by rw [hm_eq]; norm_num)
+  have hL_sq : ((2046999022960 : ℝ) / 10^9)^2 < r^2 := by
+    rw [hr_sq, hm_eq]; norm_num
+  have hU_sq : r^2 < ((2046999022961 : ℝ) / 10^9)^2 := by
+    rw [hr_sq, hm_eq]; norm_num
+  have hL : (2046999022960 : ℝ) / 10^9 < r := by nlinarith
+  have hU : r < (2046999022961 : ℝ) / 10^9 := by nlinarith
+  have hrat := rationalized_eval_eq (d := 2048) (by decide) r hr_sq hr_nonneg
+  dsimp [makeRationalizedMonomial] at hrat
+  norm_num at hrat
+  have hdata := d2048_exact_data
+  have hA : (coeffA 2047 : ℝ) = -73534985899138338825 := by exact_mod_cast hdata.2.1
+  have hB : (coeffB 2047 : ℝ) = 35923312651511805 := by exact_mod_cast hdata.2.2.1
+  have hN : (normMonomial 2048 : ℝ) = -35905737691441125 := by exact_mod_cast hdata.2.2.2
+  have hM_eq : M = (71811475382882250 : ℝ) / (73534985899138338825 + 35923312651511805 * r) := by
+    dsimp [M]
+    rw [hrat, hA, hB, hN]
+    have hdenom_ne : (73534985899138338825 + 35923312651511805 * r : ℝ) ≠ 0 := by nlinarith
+    have hdenom_ne' : (-73534985899138338825 : ℝ) - 35923312651511805 * r ≠ 0 := by nlinarith
+    field_simp [hdenom_ne, hdenom_ne']
+    ring
+  set D : ℝ := 73534985899138338825 + 35923312651511805 * r
+  have hD_pos : 0 < D := by dsimp [D]; nlinarith
+  have hD_lo : 73534985899138338825 + 35923312651511805 * ((2046999022960 : ℝ) / 10^9) < D := by
+    dsimp [D]; nlinarith
+  have hD_hi : D < 73534985899138338825 + 35923312651511805 * ((2046999022961 : ℝ) / 10^9) := by
+    dsimp [D]; nlinarith
+  have hM_lo : (488281016884 : ℝ) / 10^15 < M := by
+    rw [hM_eq, lt_div_iff₀ hD_pos]
+    have hnum : (488281016884 : ℝ) / 10^15 *
+        (73534985899138338825 + 35923312651511805 * ((2046999022961 : ℝ) / 10^9)) <
+        71811475382882250 := by norm_num
+    nlinarith
+  have hM_hi : M < (488281016885 : ℝ) / 10^15 := by
+    rw [hM_eq, div_lt_iff₀ hD_pos]
+    have hnum : (71811475382882250 : ℝ) < (488281016885 : ℝ) / 10^15 *
+        (73534985899138338825 + 35923312651511805 * ((2046999022960 : ℝ) / 10^9)) := by norm_num
+    nlinarith
+  refine ⟨hM_lo, hM_hi, abs_lt.mpr ⟨by linarith, by linarith⟩⟩
+
 end Imscribing.Millennium.GaussSumMonomial

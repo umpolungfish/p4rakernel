@@ -628,6 +628,8 @@ globs = [
   "Imscribing.Millennium.UniverseRulesets",
   "Imscribing.Millennium.truth",
   "Imscribing.Millennium.GaussSumMonomial",
+  "Imscribing.Millennium.SaturationLaw",
+  "Imscribing.Millennium.Uroboraeus",
 
   "Imscribing.Millennium.FrobeniusUnification",
   "Imscribing.Millennium.BSD_Complete_Witness",
