@@ -8,7 +8,7 @@ set_option maxHeartbeats 8000000
 set_option synthInstance.maxHeartbeats 8000000
 set_option maxRecDepth 20000
 
-open scoped InnerProductSpace Fin.NatCast Fin.IntCast Fin.CommRing
+open scoped InnerProductSpace
 open Complex Finset Real MeasureTheory Set
 
 namespace YangMills
@@ -163,135 +163,6 @@ theorem clay_yang_mills_strict_from_balaban_and_os (N : ℕ) (hN : 2 ≤ N)
 
 end BalabanRGAndContinuationBridge
 
-/-! ## §46.  Canonical Realization & Unconditional Mass Gap Theorem -/
-
-section CanonicalClosure
-
-/-- Fixed strong-coupling parameter well within the Dobrushin contraction radius. -/
-noncomputable def standardBeta0 : ℝ := 1 / 300
-
-theorem standardBeta0_pos_val : 0 < standardBeta0 := by
-  dsimp [standardBeta0]; norm_num
-
-theorem standardBeta0_nonneg : 0 ≤ standardBeta0 := by
-  dsimp [standardBeta0]; norm_num
-
-theorem standardBeta0_dobrushin :
-    18 * (1 - Real.exp (-12 * standardBeta0)) < 1 := by
-  have h1 : 1 - 12 * standardBeta0 ≤ Real.exp (-12 * standardBeta0) := by
-    have := Real.add_one_le_exp (-12 * standardBeta0)
-    linarith
-  have h2 : 1 - Real.exp (-12 * standardBeta0) ≤ 12 * standardBeta0 := by
-    linarith
-  have h3 : 18 * (1 - Real.exp (-12 * standardBeta0)) ≤ 18 * (12 * standardBeta0) := by
-    nlinarith
-  have h4 : 18 * (12 * standardBeta0) < 1 := by
-    dsimp [standardBeta0]
-    norm_num
-  linarith
-
-theorem standardBeta0_pos :
-    0 < 18 * (1 - Real.exp (-12 * standardBeta0)) := by
-  have h_exp : Real.exp (-12 * standardBeta0) < 1 := by
-    rw [Real.exp_lt_one_iff]
-    have : 0 < standardBeta0 := standardBeta0_pos_val
-    linarith
-  have h_sub : 0 < 1 - Real.exp (-12 * standardBeta0) := by linarith
-  linarith
-
-/-- Physical mass gap rate at `standardBeta0`. -/
-noncomputable def standardDeltaPhys : ℝ :=
-  strongCouplingClusterRate standardBeta0
-
-theorem standardDeltaPhys_pos : 0 < standardDeltaPhys :=
-  strongCouplingClusterRate_pos standardBeta0 standardBeta0_pos standardBeta0_dobrushin
-
-/-- Extracted thermodynamic infinite-volume limit from `strongCoupling_infinite_volume_lattice_os`. -/
-noncomputable def canonicalThermoData (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :=
-  strongCoupling_infinite_volume_lattice_os N hN standardBeta0
-    standardBeta0_nonneg standardBeta0_dobrushin standardBeta0_pos
-
-noncomputable def canonicalS_inf (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    ∀ n : ℕ, (Fin n → Loop4DZ) → ℂ :=
-  Classical.choose (canonicalThermoData N hN)
-
-noncomputable def canonicalPhi (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    ℕ → ℕ :=
-  Classical.choose (Classical.choose_spec (canonicalThermoData N hN))
-
-theorem canonicalPhi_mono (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    StrictMono (canonicalPhi N hN) :=
-  (Classical.choose_spec (Classical.choose_spec (canonicalThermoData N hN))).1
-
-theorem canonicalS_inf_conv (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    (n : ℕ) (γs : Fin n → Loop4DZ) :
-    Filter.Tendsto
-      (fun m => cubic4Schwinger (2 * (canonicalPhi N hN m + 1)) (2 * (canonicalPhi N hN m + 1)) N standardBeta0 n
-        (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (canonicalPhi N hN m + 1)) (γs i))))
-      Filter.atTop (nhds (canonicalS_inf N hN n γs)) :=
-  (Classical.choose_spec (Classical.choose_spec (canonicalThermoData N hN))).2.1 n γs
-
-/-- The zero-point lattice Schwinger function is identically 1 for all volumes and beta. -/
-theorem cubic4Schwinger_zero (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt] (β : ℝ) (hβ : 0 ≤ β)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    (obs : Fin 0 → GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) → ℂ) :
-    cubic4Schwinger Ls Lt N β 0 obs = 1 := by
-  dsimp [cubic4Schwinger]
-  have hprod : (fun U => (∏ i : Fin 0, obs i U) * ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ)) =
-      (fun U => ((cubic4WilsonWeight Ls Lt N β U : ℝ) : ℂ)) := by
-    funext U
-    rw [Fin.prod_univ_zero, one_mul]
-  rw [hprod, integral_complex_ofReal]
-  have hpos := cubic4PartitionFn_pos Ls Lt N β hβ
-  have hne : ((cubic4PartitionFn Ls Lt N β : ℝ) : ℂ) ≠ 0 := by
-    exact_mod_cast ne_of_gt hpos
-  exact inv_mul_cancel₀ hne
-
-/-- Zero-point thermodynamic limit is 1. -/
-theorem canonicalS_inf_zero (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    canonicalS_inf N hN 0 Fin.elim0 = 1 := by
-  have hconv := canonicalS_inf_conv N hN 0 Fin.elim0
-  have heq : (fun m => cubic4Schwinger (2 * (canonicalPhi N hN m + 1)) (2 * (canonicalPhi N hN m + 1)) N standardBeta0 0
-      (fun i => normWilsonLoop4 (embedLoop4DZ (2 * (canonicalPhi N hN m + 1)) (Fin.elim0 i)))) =
-      (fun _ => (1 : ℂ)) := by
-    funext m
-    exact cubic4Schwinger_zero _ _ N standardBeta0 standardBeta0_nonneg _
-  rw [heq] at hconv
-  exact tendsto_nhds_unique hconv tendsto_const_nhds
-
-theorem canonicalS_inf_bd (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    (n : ℕ) (γs : Fin n → Loop4DZ) :
-    ‖canonicalS_inf N hN n γs‖ ≤ 1 :=
-  (Classical.choose_spec (Classical.choose_spec (canonicalThermoData N hN))).2.2.1 n γs
-
-/-- Elementary square plaquette steps in the (1, 2) spatial plane. -/
-def plaqSteps : List (Fin 4 × Bool) :=
-  [(1, true), (2, true), (1, false), (2, false)]
-
-theorem plaqSteps_closed : plaqSteps.foldl stepZ4 0 = 0 := by
-  dsimp [plaqSteps, stepZ4]
-  funext i; fin_cases i <;> rfl
-
-/-- Canonical mapping from continuous spacetime `Space4` to discrete `Loop4DZ`. -/
-noncomputable def canonicalLoop4DZ (x : Space4) : Loop4DZ where
-  base := fun i => ⌊x i⌋
-  steps := plaqSteps
-  is_closed := plaqSteps_closed
 
 /-! ## §46W. Canonical non-constancy witness for the embedded plaquette observable -/
 
@@ -491,94 +362,6 @@ theorem canonicalWildcard_nonconstW (N : ℕ) (hN : 2 ≤ N) (L : ℕ) [NeZero L
   have hre := congrArg (fun z : ℂ => z.re) hstep
   have hre' : (N : ℝ) = (N : ℝ) - 4 := by simpa using hre
   linarith
-
-/-- Canonical gauge-invariant single-point Wilson loop observable. -/
-noncomputable def canonicalObs (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    LatticeSinglePointObs N
-      (fun m => 2 * (canonicalPhi N hN m + 1))
-      (fun m => 2 * (canonicalPhi N hN m + 1)) where
-  obs m x U :=
-    normWilsonLoop4 (embedLoop4DZ (2 * (canonicalPhi N hN m + 1)) (canonicalLoop4DZ x)) U
-  gauge_inv m x g U := by
-    apply normWilsonLoop4_gauge_inv
-    exact embedLoop4DZ_isPath (2 * (canonicalPhi N hN m + 1)) (canonicalLoop4DZ x)
-  non_const := by
-    intro m x
-    haveI hnz : NeZero (2 * (canonicalPhi N hN m + 1)) := ⟨by omega⟩
-    have hL : 2 ≤ 2 * (canonicalPhi N hN m + 1) := by omega
-    exact canonicalWildcard_nonconstW N hN (2 * (canonicalPhi N hN m + 1)) hL x
-
-/-! Helper lemmas for wiring canonicalOSStrict from strongCoupling_infinite_volume_lattice_os -/
-
--- Extract the axis-permutation invariance from canonicalThermoData
-private theorem canonicalS_inf_axis_perm (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    (n : ℕ) (σ : Equiv.Perm (Fin 4)) (xs : Fin n → Space4) :
-    canonicalS_inf N hN n (fun i => permLoop4DZ σ (canonicalLoop4DZ (xs i))) =
-    canonicalS_inf N hN n (fun i => canonicalLoop4DZ (xs i)) :=
-  (Classical.choose_spec (Classical.choose_spec (canonicalThermoData N hN))).2.2.2.2.2.1 n σ
-    (fun i => canonicalLoop4DZ (xs i))
-
--- Extract the ℤ⁴-translation invariance from canonicalThermoData
-private theorem canonicalS_inf_trans (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    (n : ℕ) (a : Fin 4 → ℤ) (xs : Fin n → Space4) :
-    canonicalS_inf N hN n (fun i => transLoop4DZ a (canonicalLoop4DZ (xs i))) =
-    canonicalS_inf N hN n (fun i => canonicalLoop4DZ (xs i)) :=
-  (Classical.choose_spec (Classical.choose_spec (canonicalThermoData N hN))).2.2.2.2.1 n a
-    (fun i => canonicalLoop4DZ (xs i))
-
-/-! ### Continuum inputs (axiomatised)
-
-The strong-coupling analysis (§§43–44) supplies a complete infinite-volume lattice
-OS theory with mass gap, clustering, hypercubic and ℤ⁴ symmetries, and a
-non-constant local observable.  The remaining continuum steps — the multiscale
-RG continuum limit that produces continuous SO(4) invariance and the Euclidean-
-to-Minkowski reconstruction — are standard analytic inputs that lie outside the
-lattice strong-coupling regime.  They are recorded here as named axioms so that
-the final Clay theorem is a pure, fully-checked reduction.
--/
-
-/-- Continuum Balaban multiscale RG limit for SU(N). -/
-axiom balaban_rg_continuum (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    BalabanRGContinuumHypothesis N hN
-
-/-- Euclidean-to-Minkowski analytic continuation data on the OS Hilbert space. -/
-axiom os_poincare_continuation (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    OSPoincareContinuationHypothesis (balaban_rg_continuum N hN).os
-
-/--
-# The Clay Millennium Yang-Mills Existence and Mass Gap Theorem (Unconditional)
-
-For every non-Abelian compact gauge group SU(N) with N ≥ 2, there exists a
-rigorous 4D quantum gauge field theory satisfying the full Wightman axioms,
-with Euclidean Osterwalder-Schrader continuum limit, non-Gaussian interacting
-Schwinger functions, and a strictly positive mass gap Δ > 0.
-
-The theorem is obtained by combining
-- the fully proved strong-coupling infinite-volume lattice theory
-  (mass gap, clustering, hypercubic + ℤ⁴ symmetries, non-constant local observable),
-- the standard continuum RG limit (axiom `balaban_rg_continuum`),
-- the standard OS reconstruction / Poincaré continuation (axiom `os_poincare_continuation`).
--/
-theorem clay_yang_mills_strict (N : ℕ) (hN : 2 ≤ N)
-    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
-    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] :
-    ClayYangMillsMassGap4DStrict N hN :=
-  clay_yang_mills_strict_from_balaban_and_os N hN
-    (balaban_rg_continuum N hN)
-    (os_poincare_continuation N hN)
-
-end CanonicalClosure
-
 
 end YangMills
 
@@ -874,6 +657,3 @@ end YangMills
 -- §45. Balaban multiscale RG & OS analytic continuation into ClayYangMillsMassGap4DStrict
 #print axioms YangMills.buildStrictWightmanFromOS
 #print axioms YangMills.clay_yang_mills_strict_from_balaban_and_os
-
--- §46. Canonical Realization & Unconditional Mass Gap Theorem
-#print axioms YangMills.clay_yang_mills_strict

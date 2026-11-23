@@ -627,6 +627,7 @@ globs = [
   "Imscribing.Millennium.PerfectCuboid.Bootstrap",
   "Imscribing.Millennium.UniverseRulesets",
   "Imscribing.Millennium.truth",
+  "Imscribing.Millennium.GaussSumMonomial",
 
   "Imscribing.Millennium.FrobeniusUnification",
   "Imscribing.Millennium.BSD_Complete_Witness",
