@@ -196,7 +196,8 @@ theorem sic_accuracy_dominates_every_weaker_residual_certificate
     hC t ht⟩
 
 /-- A strictly smaller SIC residual budget gives a strictly tighter certified
-error envelope at every positive time in the interval. -/
+error envelope at every positive time in the interval. Both trajectories remain
+bounded by their respective envelopes on the same full interval. -/
 theorem sic_accuracy_strictly_dominates_every_weaker_residual_certificate
     {F : ℝ → E → E} {region : ℝ → Set E} {a b εS εC δ : ℝ}
     {K : ℝ≥0}
@@ -208,11 +209,18 @@ theorem sic_accuracy_strictly_dominates_every_weaker_residual_certificate
     (competitorInitialError : dist (competitorHistory.state a) (reference.state a) ≤ δ)
     (sicResidualSmaller : εS < εC) :
     ∀ t ∈ Icc a b, a < t →
-      gronwallBound δ K εS (t - a) < gronwallBound δ K εC (t - a) := by
+      dist (sicHistory.state t) (reference.state t) ≤ gronwallBound δ K εS (t - a) ∧
+      gronwallBound δ K εS (t - a) < gronwallBound δ K εC (t - a) ∧
+      dist (competitorHistory.state t) (reference.state t) ≤
+        gronwallBound δ K εC (t - a) := by
+  have hS := history_error_bound lipschitz sicHistory reference sicInitialError
+  have hC := history_error_bound lipschitz competitorHistory reference competitorInitialError
   intro t ht hat
   have htime : 0 < t - a := by linarith
-  exact gronwallBound_strictMono_residual_budget
-    (K := (K : ℝ)) (t := t - a) (by exact_mod_cast K.property) htime sicResidualSmaller
+  exact ⟨hS t ht,
+    gronwallBound_strictMono_residual_budget
+      (K := (K : ℝ)) (t := t - a) (by exact_mod_cast K.property) htime sicResidualSmaller,
+    hC t ht⟩
 
 /-- The archived left-branch 32-panel bound, represented exactly as a rational. -/
 def si32LeftTubeBound : ℚ := 4908438476977142 / 10 ^ 25
