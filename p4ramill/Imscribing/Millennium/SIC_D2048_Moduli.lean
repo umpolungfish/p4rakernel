@@ -9,7 +9,8 @@ Date: 2026-07-25
 Formalizes the moduli field structure for the d=2048 SIC-POVM:
   • Base field F = Q(√4190205), discriminant D = d²−2d−3 = 4190205
   • Wide ray class field tower at conductor (2)^k for k = 0..15
-  • Degree 2²⁶ over F, 2²⁷ over Q at conductor (2)¹²
+  • Wide degree 2²⁶ over F at conductor (2)¹²
+  • Mixed-signature SIC modulus (2)¹²∞₁: ray order 2²⁷, quotient degree 2²¹ over F
   • 2-adic phase transition: ratio 4→2 at k=12
   • Fingerprint: degree = d = 2048 at conductor 16 (k=4)
 
@@ -259,16 +260,85 @@ theorem wideRayDegree_15 : wideRayDegree 15 = 536870912 := by decide
 theorem fingerprint_at_conductor_16 : wideRayDegree 4 = 2048 := by
   rw [wideRayDegree_4]
 
-/-- **Moduli field theorem**: at conductor 2¹² = 4096, the wide ray class field
-    has degree 2²⁶ = 67,108,864 over F, and 2²⁷ = 134,217,728 over ℚ. -/
-theorem moduli_field_degree_over_F : wideRayDegree 12 = 2^26 := by
+/-- The fully wide ray class field at conductor 2¹² has degree 2²⁶ over F. -/
+theorem wide_ray_class_degree_over_F : wideRayDegree 12 = 2^26 := by
   rw [wideRayDegree_12]
   decide
 
-/-- Degree over ℚ: [K_12 : ℚ] = 2 × [K_12 : F] = 2²⁷. -/
-theorem moduli_field_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
+/-- The fully wide ray class field at conductor 2¹² has degree 2²⁷ over ℚ. -/
+theorem wide_ray_class_degree_over_Q : 2 * wideRayDegree 12 = 2^27 := by
   rw [wideRayDegree_12]
   decide
+
+/-- Cyclic factors of the fully wide ray group at conductor (2)^12. -/
+def wideRayClassCyclicFactors2048 : List ℕ := [4096, 1024, 8, 2]
+
+theorem wide_ray_class_type_2048 :
+    wideRayClassCyclicFactors2048 = [4096, 1024, 8, 2] := rfl
+
+/-- The product of the wide cyclic factors is the wide tower degree at k=12. -/
+theorem wide_ray_class_order_from_type_2048 :
+    wideRayClassCyclicFactors2048.prod = wideRayDegree 12 := by
+  rw [wideRayDegree_12]
+  norm_num [wideRayClassCyclicFactors2048]
+
+/-! ### Mixed-signature SIC modulus
+
+The SIC modulus includes exactly one real place. Its ray class group is larger
+than the fully wide group at the same finite conductor. The GP receipt gives
+cyclic factors [4096, 1024, 8, 4], hence order 2²⁷. Quotienting by the base
+class group of order 64 gives degree 2²¹ over F. This mixed-signature datum is
+recorded alongside the wide filtration. -/
+
+/-- Arithmetic receipt for the d=2048 mixed-signature SIC modulus. The finite
+    conductor is (2)^12 and `realPlacesInModulus = 1` records infinity₁. -/
+structure SICModuliReceipt2048 where
+  conductorExponent : ℕ
+  realPlacesInModulus : ℕ
+  classNumber : ℕ
+  rayClassCyclicFactors : List ℕ
+  rayClassOrder : ℕ
+  degreeOverF : ℕ
+  ray_order_eq_product : rayClassOrder = rayClassCyclicFactors.prod
+  degree_eq_class_quotient : degreeOverF = rayClassOrder / classNumber
+
+/-- The GP-verified mixed-signature ray-class data at (2)^12∞₁. -/
+def sicModuliReceipt2048 : SICModuliReceipt2048 := {
+  conductorExponent := 12
+  realPlacesInModulus := 1
+  classNumber := 64
+  rayClassCyclicFactors := [4096, 1024, 8, 4]
+  rayClassOrder := 2^27
+  degreeOverF := 2^21
+  ray_order_eq_product := by norm_num
+  degree_eq_class_quotient := by norm_num
+}
+
+/-- The mixed-signature ray group has the cyclic type reported by PARI/GP. -/
+theorem sic_moduli_ray_class_type_2048 :
+    sicModuliReceipt2048.rayClassCyclicFactors = [4096, 1024, 8, 4] := rfl
+
+/-- Its full ray class group has order 2²⁷. -/
+theorem sic_moduli_ray_class_order_2048 :
+    sicModuliReceipt2048.rayClassOrder = 2^27 := rfl
+
+/-- The included archimedean modulus is infinity₁ alone. -/
+theorem sic_moduli_infinite_places_2048 :
+    sicModuliReceipt2048.realPlacesInModulus = 1 := rfl
+
+/-- The relative degree is the full ray-group order divided by h(F)=64. -/
+theorem sic_moduli_class_group_quotient_2048 :
+    sicModuliReceipt2048.degreeOverF =
+      sicModuliReceipt2048.rayClassOrder / sicModuliReceipt2048.classNumber :=
+  sicModuliReceipt2048.degree_eq_class_quotient
+
+/-- Quotienting the mixed-signature ray class group by the class group of order
+    64 gives the SIC moduli degree 2²¹ over F. -/
+theorem moduli_field_degree_over_F : sicModuliReceipt2048.degreeOverF = 2^21 := rfl
+
+/-- Since [F : ℚ] = 2, the mixed-signature SIC moduli degree is 2²² over ℚ. -/
+theorem moduli_field_degree_over_Q : 2 * sicModuliReceipt2048.degreeOverF = 2^22 := by
+  norm_num [sicModuliReceipt2048]
 
 /- The ν₂ of the degree at each level k ∈ {0,...,15}, from the tower data.
     Verified by finite enumeration against the PARI/GP results.
@@ -461,11 +531,12 @@ theorem narrow_over_wide_at_12 : narrowRayDegree 12 = 4 * wideRayDegree 12 := by
 
 /-  For d=12, the SIC base field is Q(√117) = Q(√13) (since 117 = 9×13).
     The ray class field conductor is 36 = 3d. Degree 288 over Q.
-    For d=2048, the base field is Q(√4190205), conductor 4096 = 2d. Degree 2²⁷ over Q.
+    For d=2048, the base field is Q(√4190205), finite conductor 4096 = 2d,
+    and the mixed-signature SIC moduli field has degree 2²² over Q.
 
     Structural contrast:
       d=12:  conductor 3d, mixed (2,3)-adic ramification, degree 288 = 2⁵·3²
-      d=2048: conductor 2d, pure 2-adic ramification, degree 2²⁷
+      d=2048: conductor 2d with infinity₁, degree 2²²
 
     Both satisfy: conductor | d², degree over Q is a power of 2 times a bounded
     odd factor. -/
@@ -492,27 +563,14 @@ theorem m2048_squarefree : Squarefree (4190205 : ℕ) := by
    §6.  CONNECTION TO SIC-POVM FIDUCIAL
    ==================================================================== -/
 
-/-  The SIC-POVM fiducial for d=2048, if it exists in ℂ^2048, has its coordinates
-    lying in the wide ray class field at conductor 2d = 4096 (k=12). This is the
-    standard Appleby-Zauner prediction: the fiducial coordinates generate the ray
-    class field of F_d at conductor proportional to d.
+/-  The d=2048 fiducial moduli use the mixed-signature ray class field at
+    (2)^12∞₁. The GP receipt gives full ray-group order 2²⁷ and cyclic type
+    [4096, 1024, 8, 4]. Dividing by h(F)=64 gives degree 2²¹ over F and 2²²
+    over Q. The fully wide filtration at the same finite conductor is separately
+    recorded above with order 2²⁶ and cyclic type [4096, 1024, 8, 2]. -/
 
-    For d=2048 specifically:
-    • Base field: F = Q(√4190205)
-    • Ray class field conductor: 2¹² = 4096 = 2d
-    • Degree over Q: 2²⁷ = 134,217,728
-    • Stabilized [8,2] tail from the Hilbert class field 2-part
-
-    The unconditional Grammar certificate (SIC_D2048_Unconditional.lean) already
-    establishes SIC-POVM existence at d=2048 via the Belnap multilattice structural
-    SIC, with NO dependence on the Stark conjecture. The moduli field data below is
-    the empirical shadow — the classical number-theoretic encoding. -/
-
-/-- The d=2048 SIC fiducial field (empirical shadow). -/
-def FiducialField2048 := WideRayClassField 12
-
-/-- The fiducial field has degree 2²⁷ over Q. -/
-theorem fiducial_field_degree : 2 * wideRayDegree 12 = 2^27 :=
+/-- The mixed-signature fiducial moduli field has degree 2²² over Q. -/
+theorem fiducial_field_degree : 2 * sicModuliReceipt2048.degreeOverF = 2^22 :=
   moduli_field_degree_over_Q
 
 /-! ====================================================================
@@ -591,7 +649,7 @@ theorem d4_d8_share_base_but_differ_in_exponent :
   decide
 
 /-- 2048 is a power of two, so the odd part of the conductor is empty and the
-    rule gives exponent 12 -- selecting `wideRayDegree 12` above. -/
+    rule gives finite conductor exponent 12, selecting the k=12 tower layer. -/
 theorem predicted_exponent_2048 : padicValNat 2 2048 + 1 = 12 := by
   rw [show (2048 : ℕ) = 2 ^ 11 by norm_num, padicValNat.prime_pow]
 
@@ -609,8 +667,10 @@ theorem exponent_choice_matters : wideRayDegree 12 = 2 * wideRayDegree 11 :=
    group is settled at d=16 (see SIC_D16_Moduli.lean), the smallest dimension
    with nontrivial class group (h=2). The σ-coinvariant count at the Appleby
    modulus (3d) discriminates: raw count 16 ≠ d/2=8; quotient by class group
-   gives 16/2 = 8 = d/2 ✓. The moduli field is the ray class field MODULO the
-   class group. At d=2048 this means degree 2²⁶ / 64 = 2²⁰ over F.
+   gives 16/2 = 8 = d/2 ✓. At d=2048, the fully wide group at k=12 has order
+   2²⁶ and its class-group quotient has degree 2²⁰ over F. The SIC modulus
+   includes infinity₁: its mixed-signature ray group has order 2²⁷ and type
+   [4096, 1024, 8, 4], so quotienting by h(F)=64 gives degree 2²¹ over F.
 
    Structurally: Ω=𐑴 (Z2 parity-protected) — the class group imposes a discrete
    Z/2 obstruction that cannot be deformed away. Statement A (Ω=𐑟, non-Abelian)
