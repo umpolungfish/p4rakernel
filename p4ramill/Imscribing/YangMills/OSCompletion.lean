@@ -2464,16 +2464,38 @@ def trilattice16Strict : TrilatticeModel where
   le_f := le16_f
   le_i := le16_i
   le_t_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
+  le_t_trans := le16_t_trans
+  le_t_anti := le16_t_anti
   le_f_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
+  le_f_trans := le16_f_trans
+  le_f_anti := le16_f_anti
   le_i_refl := fun _ => ⟨le_rfl, le_rfl, le_rfl, le_rfl⟩
-  le_i_trans := fun h1 h2 =>
-    ⟨le_trans h1.1 h2.1, le_trans h1.2.1 h2.2.1,
-     le_trans h1.2.2.1 h2.2.2.1, le_trans h1.2.2.2 h2.2.2.2⟩
-  le_i_anti := by
-    rintro ⟨a0, a1, a2, a3⟩ ⟨b0, b1, b2, b3⟩ ⟨h10, h11, h12, h13⟩ ⟨h20, h21, h22, h23⟩
-    exact Prod.ext (le_antisymm h10 h20)
-      (Prod.ext (le_antisymm h11 h21)
-        (Prod.ext (le_antisymm h12 h22) (le_antisymm h13 h23)))
+  le_i_trans := le16_i_trans
+  le_i_anti := le16_i_anti
+  sup_t := sup16_t
+  le_t_sup_left := sup16_t_left
+  le_t_sup_right := sup16_t_right
+  sup_t_least := sup16_t_least
+  inf_t := inf16_t
+  le_t_inf_left := inf16_t_left
+  le_t_inf_right := inf16_t_right
+  inf_t_greatest := inf16_t_greatest
+  sup_f := sup16_f
+  le_f_sup_left := sup16_f_left
+  le_f_sup_right := sup16_f_right
+  sup_f_least := sup16_f_least
+  inf_f := inf16_f
+  le_f_inf_left := inf16_f_left
+  le_f_inf_right := inf16_f_right
+  inf_f_greatest := inf16_f_greatest
+  sup_i := sup16_i
+  le_i_sup_left := sup16_i_left
+  le_i_sup_right := sup16_i_right
+  sup_i_least := sup16_i_least
+  inf_i := inf16_i
+  le_i_inf_left := inf16_i_left
+  le_i_inf_right := inf16_i_right
+  inf_i_greatest := inf16_i_greatest
   void := (false, false, false, false)
   trueVal := (false, false, true, false)
   falseVal := (false, true, false, false)
