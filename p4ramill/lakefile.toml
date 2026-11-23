@@ -1127,6 +1127,10 @@ name = "ZetaSICDualFrame"
 roots = ["Imscribing.Millennium.ZetaSICDualFrame", "Imscribing.Millennium.ZetaSICDualFrameAudit"]
 
 [[lean_lib]]
+name = "ThreeBodyAccuracy"
+roots = ["Imscribing.Gravity.OrbitAccuracy"]
+
+[[lean_lib]]
 name = "QuquartMembraneReentry"
 roots = ["Imscribing.Paraconsistent.QuquartMembraneReentry", "Imscribing.Paraconsistent.QuquartMembraneReentryAudit"]
 
