@@ -1478,6 +1478,24 @@ noncomputable def osConfigForm {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_phys
     refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
     rw [Complex.conj_conj]
 
+/--
+The canonical OS completion vectors for two positive-time configurations have
+inner product exactly the reflected Schwinger kernel used to construct them.
+-/
+theorem osConfigKernel_eq_completion_inner {Δ_phys : ℝ}
+    (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (x y : PosTimeConfig) :
+    ⟪osCompletionMap (osConfigForm os h_herm)
+        (osPreMk (osConfigForm os h_herm) (osConfigSingle x)),
+      osCompletionMap (osConfigForm os h_herm)
+        (osPreMk (osConfigForm os h_herm) (osConfigSingle y))⟫_ℂ =
+      osConfigKernel os x y := by
+  rw [osCompletionMap_inner]
+  change osConfigInner os (osConfigSingle x) (osConfigSingle y) = _
+  exact osConfigInner_single os x y
+
 /-- Euclidean positive-time shift `x₀ ↦ x₀ + t` on `PosTimeConfig`. -/
 def posTimeShiftConfig (t : ℝ) (ht : 0 ≤ t) (x : PosTimeConfig) : PosTimeConfig where
   n_pts := x.n_pts
@@ -1871,6 +1889,39 @@ theorem osTimeShiftSemigroup_contr {Δ_phys : ℝ} (os : OS4DContinuumTheory Δ_
     rw [sq]
     exact mul_le_mul h3 h3 hnn (osConfigNormBound_nonneg M hM f)
   exact h1.trans (h2.trans h4)
+
+/--
+The lifted Euclidean time semigroup has the reflected Schwinger kernel as its
+matrix coefficient on canonical configuration vectors.
+-/
+theorem osTimeShiftConfig_eq_completion_inner {Δ_phys : ℝ}
+    (os : OS4DContinuumTheory Δ_phys)
+    (h_herm : ∀ x y : PosTimeConfig,
+      osConfigKernel os x y = starRingEnd ℂ (osConfigKernel os y x))
+    (h_kern : ∀ (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig),
+      osConfigKernel os (posTimeShiftConfig t ht x) y =
+        osConfigKernel os x (posTimeShiftConfig t ht y))
+    (M : ℝ) (hM : 0 ≤ M)
+    (h_bd : ∀ (n : ℕ) (xs : Fin n → Space4), ‖os.os.Schwinger n xs‖ ≤ M ^ n)
+    (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig) :
+    let F := osConfigForm os h_herm
+    ⟪osLiftSemigroup F osTimeShiftSemigroup
+        (osTimeShiftSemigroup_contr os h_herm h_kern M hM h_bd) t
+        (osCompletionMap F (osPreMk F (osConfigSingle x))),
+      osCompletionMap F (osPreMk F (osConfigSingle y))⟫_ℂ =
+        osConfigKernel os (posTimeShiftConfig t ht x) y := by
+  let F := osConfigForm os h_herm
+  have h_shift : osTimeShiftSemigroup t (osConfigSingle x) =
+      osConfigSingle (posTimeShiftConfig t ht x) := by
+    dsimp [osTimeShiftSemigroup]
+    rw [dif_pos ht]
+    change Finsupp.mapDomain (posTimeShiftConfig t ht) (Finsupp.single x 1) = _
+    rw [Finsupp.mapDomain_single]
+    rfl
+  dsimp [osLiftSemigroup]
+  rw [dif_pos ht, osLiftOperator_coe, h_shift]
+  exact osConfigKernel_eq_completion_inner os h_herm
+    (posTimeShiftConfig t ht x) y
 
 /--
 Reduced OS reconstruction inputs on `(OSPosTestSpace, osConfigForm os h_herm)`:

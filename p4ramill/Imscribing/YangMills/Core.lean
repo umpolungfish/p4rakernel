@@ -2290,7 +2290,11 @@ noncomputable def concreteGNSBridge (N : ℕ) (a : ℝ) (ha : 0 < a) :
     rw [embedS16_B, ← concreteLatticeSetup_Ω N a ha]
     exact (concreteLatticeSetup N a ha).Ω_vac
 
-/-- Concrete `LatticeScalingFamily` over the 4D tesseract with uniform physical gap `Δ_phys = 1`. -/
+/--
+Concrete `LatticeScalingFamily` over the 4D tesseract. The proved
+`T_tesseract_gap` estimate supplies the decay factor `exp(-a)`, establishing
+physical decay rate `1` at spacing `a`.
+-/
 noncomputable def concreteScalingFamily (N : ℕ) :
     LatticeScalingFamily (Matrix.specialUnitaryGroup (Fin N) ℂ) where
   L := fun _ => tesseractLattice
@@ -4807,7 +4811,12 @@ noncomputable def concreteOS4DContinuumTheory : OS4DContinuumTheory 1 where
         hval 3 (by omega) _ (fun i => by fin_cases i <;> rfl)]
     norm_num
 
-/-- Concrete `UniformRGTrajectory` over the 4D tesseract `concreteScalingFamily`. -/
+/--
+Concrete `UniformRGTrajectory` over the 4D tesseract. Here
+`a_seq m = Δ_latt m = 1 / (m + 1)`, so the rescaled gap is exactly `1` at
+every stage. `gap_lim` proves that this exact quotient converges to the
+continuum rate `F.Δ_phys`.
+-/
 noncomputable def concreteUniformRGTrajectory (N : ℕ) (hN : 2 ≤ N) :
     UniformRGTrajectory N hN where
   F := concreteScalingFamily N

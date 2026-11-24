@@ -6,6 +6,7 @@
 -/
 import Mathlib
 import Imscribing.YangMills.IIDSchwingerFromWilson
+import Imscribing.YangMills.OSCompletion
 import Imscribing.YangMills.PlaquetteStep3
 import Imscribing.YangMills.RademacherMulti
 import Imscribing.YangMills.ProbIntegralTransform
@@ -1600,6 +1601,127 @@ theorem stageObservable_moment
           rw [integral_const_mul, rademacher_integral_Ico_zero K hK]
           simp [Real.volume_Ico]
 
+/-- The stage observable is field-dependent.  Its first two Wilson moments
+rule out a constant value on the full configuration space. -/
+theorem stageObservable_nonconstant
+    (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (hN : 2 ≤ N) (hLt2 : 2 ≤ Lt)
+    (submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U →
+      (∀ x ∈ U, deriv g x ≠ 0) →
+      ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ)
+    (β : ℝ) (hβ : 0 ≤ β) (a : ℝ) (ha : 0 < a) (x : Space4) (K : ℕ)
+    (hK : 0 < K) :
+    ∃ U₁ U₂ : GaugeField (cubicTorus4 Ls Lt)
+        (Matrix.specialUnitaryGroup (Fin N) ℂ),
+      stageObservable Ls Lt N β hβ a ha x K U₁ ≠
+        stageObservable Ls Lt N β hβ a ha x K U₂ := by
+  classical
+  let μ := wilsonMeasure Ls Lt N β
+  let f := fun U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+    stageObservable Ls Lt N β hβ a ha x K U
+  haveI : IsProbabilityMeasure μ := by
+    dsimp [μ]
+    exact wilsonMeasure_isProbability Ls Lt N β hβ
+  have hAC := wilson_plaquette_absolutelyContinuous Ls Lt N β hβ hN hLt2
+    submersion_1d (stageSiteMap Ls Lt a ha x)
+  by_contra h
+  push_neg at h
+  let U₀ : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) :=
+    fun _ => 1
+  let c := f U₀
+  have hc : ∀ U, f U = c := fun U => by
+    simpa [f, c] using h U U₀
+  have hfirst := stageObservable_moment Ls Lt N β hβ a ha x K hK 1 hAC
+  have hsecond := stageObservable_moment Ls Lt N β hβ a ha x K hK 2 hAC
+  have hfirst' : ∫ U, f U ∂μ = c := by
+    calc
+      ∫ U, f U ∂μ = ∫ _ : GaugeField (cubicTorus4 Ls Lt)
+          (Matrix.specialUnitaryGroup (Fin N) ℂ), c ∂μ := by
+            apply integral_congr_ae
+            filter_upwards with U
+            exact hc U
+      _ = c := by simp [MeasureTheory.integral_const]
+  have hfirstConst :
+      ∫ U, (stageObservable Ls Lt N β hβ a ha x K U) ^ 1
+        ∂(wilsonMeasure Ls Lt N β) = c := by
+    simpa [μ, f, pow_one] using hfirst'
+  have hsecond' : ∫ U, (f U) ^ 2 ∂μ = c ^ 2 := by
+    calc
+      ∫ U, (f U) ^ 2 ∂μ = ∫ _ : GaugeField (cubicTorus4 Ls Lt)
+          (Matrix.specialUnitaryGroup (Fin N) ℂ), c ^ 2 ∂μ := by
+            apply integral_congr_ae
+            filter_upwards with U
+            rw [hc U]
+      _ = c ^ 2 := by simp [MeasureTheory.integral_const]
+  have hsecondConst :
+      ∫ U, (stageObservable Ls Lt N β hβ a ha x K U) ^ 2
+        ∂(wilsonMeasure Ls Lt N β) = c ^ 2 := by
+    simpa [μ, f] using hsecond'
+  have hmoment1 : c = (3 / 2 : ℝ) := by
+    rw [hfirstConst] at hfirst
+    norm_num at hfirst
+    exact hfirst
+  have hmoment2 : c ^ 2 = (5 / 2 : ℝ) := by
+    rw [hsecondConst] at hsecond
+    norm_num at hsecond
+    exact hsecond
+  nlinarith
+
+/-- The stage observable is not constant even up to Wilson-measure-null sets.
+The unequal first and second moments exclude almost-sure constancy. -/
+theorem stageObservable_not_ae_constant
+    (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
+    (hN : 2 ≤ N) (hLt2 : 2 ≤ Lt)
+    (submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U →
+      (∀ x ∈ U, deriv g x ≠ 0) →
+      ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ)
+    (β : ℝ) (hβ : 0 ≤ β) (a : ℝ) (ha : 0 < a) (x : Space4) (K : ℕ)
+    (hK : 0 < K) :
+    ¬ ∃ c : ℝ, (fun U : GaugeField (cubicTorus4 Ls Lt)
+        (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+      stageObservable Ls Lt N β hβ a ha x K U) =ᵐ[wilsonMeasure Ls Lt N β]
+        fun _ => c := by
+  classical
+  let μ := wilsonMeasure Ls Lt N β
+  let f := fun U : GaugeField (cubicTorus4 Ls Lt) (Matrix.specialUnitaryGroup (Fin N) ℂ) =>
+    stageObservable Ls Lt N β hβ a ha x K U
+  haveI : IsProbabilityMeasure μ := by
+    dsimp [μ]
+    exact wilsonMeasure_isProbability Ls Lt N β hβ
+  have hAC := wilson_plaquette_absolutelyContinuous Ls Lt N β hβ hN hLt2
+    submersion_1d (stageSiteMap Ls Lt a ha x)
+  intro hconst
+  obtain ⟨c, hc⟩ := hconst
+  have hfirst := stageObservable_moment Ls Lt N β hβ a ha x K hK 1 hAC
+  have hsecond := stageObservable_moment Ls Lt N β hβ a ha x K hK 2 hAC
+  have hfirst' : ∫ U, f U ∂μ = c := by
+    calc
+      ∫ U, f U ∂μ = ∫ _ : GaugeField (cubicTorus4 Ls Lt)
+          (Matrix.specialUnitaryGroup (Fin N) ℂ), c ∂μ := by
+            apply integral_congr_ae
+            exact hc
+      _ = c := by simp [MeasureTheory.integral_const]
+  have hsecond' : ∫ U, (f U) ^ 2 ∂μ = c ^ 2 := by
+    calc
+      ∫ U, (f U) ^ 2 ∂μ = ∫ _ : GaugeField (cubicTorus4 Ls Lt)
+          (Matrix.specialUnitaryGroup (Fin N) ℂ), c ^ 2 ∂μ := by
+            apply integral_congr_ae
+            filter_upwards [hc] with U hU
+            simpa [f, hU]
+      _ = c ^ 2 := by simp [MeasureTheory.integral_const]
+  have hfirstConst :
+      ∫ U, (stageObservable Ls Lt N β hβ a ha x K U) ^ 1
+        ∂(wilsonMeasure Ls Lt N β) = c := by
+    simpa [μ, f, pow_one] using hfirst'
+  have hsecondConst :
+      ∫ U, (stageObservable Ls Lt N β hβ a ha x K U) ^ 2
+        ∂(wilsonMeasure Ls Lt N β) = c ^ 2 := by
+    simpa [μ, f] using hsecond'
+  rw [hfirstConst] at hfirst
+  rw [hsecondConst] at hsecond
+  norm_num at hfirst hsecond
+  nlinarith
+
 theorem stageObservable_gauge_inv (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
     [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
@@ -1615,5 +1737,37 @@ theorem stageObservable_gauge_inv (Ls Lt N : ℕ) [NeZero Ls] [NeZero Lt]
     rw [normWilsonLoop4_gauge_inv (cubic4Plaquette_isPath v 0 1) g U]
   simp only [stageObservable]
   rw [hdef]
+
+/-- A parameterized family of the proved Wilson stage observables satisfies
+the strict single-point observable interface. -/
+noncomputable def stageObservable_latticeSinglePointObs
+    (N : ℕ) (Ls_seq Lt_seq : ℕ → ℕ)
+    [∀ m, NeZero (Ls_seq m)] [∀ m, NeZero (Lt_seq m)]
+    (β_seq a_seq : ℕ → ℝ) (K_seq : ℕ → ℕ)
+    (hN : 2 ≤ N)
+    (hLt2 : ∀ m, 2 ≤ Lt_seq m)
+    (submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U →
+      (∀ x ∈ U, deriv g x ≠ 0) →
+      ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ)
+    (hβ : ∀ m, 0 ≤ β_seq m) (ha : ∀ m, 0 < a_seq m)
+    (hK : ∀ m, 0 < K_seq m) :
+    LatticeSinglePointObs N Ls_seq Lt_seq := by
+  refine
+    { obs := fun m x U =>
+        ((stageObservable (Ls_seq m) (Lt_seq m) N (β_seq m) (hβ m)
+          (a_seq m) (ha m) x (K_seq m) U : ℝ) : ℂ)
+      gauge_inv := ?_
+      non_const := ?_ }
+  · intro m x g U
+    exact congrArg (fun y : ℝ => (y : ℂ))
+      (stageObservable_gauge_inv (Ls_seq m) (Lt_seq m) N (β_seq m) (hβ m)
+        (a_seq m) (ha m) x (K_seq m) g U)
+  · intro m x
+    obtain ⟨U₁, U₂, hneq⟩ := stageObservable_nonconstant
+      (Ls_seq m) (Lt_seq m) N hN (hLt2 m) submersion_1d
+      (β_seq m) (hβ m) (a_seq m) (ha m) x (K_seq m) (hK m)
+    refine ⟨U₁, U₂, ?_⟩
+    intro heq
+    exact hneq (Complex.ofReal_injective heq)
 
 end YangMills

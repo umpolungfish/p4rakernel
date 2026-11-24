@@ -147,6 +147,108 @@ noncomputable def buildStrictWightmanFromOS {Δ_phys : ℝ}
     cyclic_dense := C.cyclic_dense }
 
 /--
+The Wightman object assembled from OS data uses the same completed configuration
+vectors, whose inner products recover the reflected Schwinger kernel.
+-/
+theorem buildStrictWightmanFromOS_config_inner {Δ_phys : ℝ}
+    (os : OsterwalderSchrader4DStrict Δ_phys)
+    (C : OSPoincareContinuationHypothesis os)
+    (x y : PosTimeConfig) :
+    let W := buildStrictWightmanFromOS os C
+    let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+    letI : InnerProductSpace ℂ W.H := W.hInner
+    ⟪(osCompletionMap F (osPreMk F (osConfigSingle x)) : W.H),
+      (osCompletionMap F (osPreMk F (osConfigSingle y)) : W.H)⟫_ℂ =
+        osConfigKernel os.toOS4DContinuumTheory x y := by
+  let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+  let W := buildStrictWightmanFromOS os C
+  letI : InnerProductSpace ℂ W.H := W.hInner
+  exact osConfigKernel_eq_completion_inner os.toOS4DContinuumTheory C.h_herm x y
+
+/-- The assembled Wightman Hilbert space retains the OS time-shift kernel matrix coefficients. -/
+theorem buildStrictWightmanFromOS_time_shift_kernel {Δ_phys : ℝ}
+    (os : OsterwalderSchrader4DStrict Δ_phys)
+    (C : OSPoincareContinuationHypothesis os)
+    (t : ℝ) (ht : 0 ≤ t) (x y : PosTimeConfig) :
+    let W := buildStrictWightmanFromOS os C
+    let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+    letI : InnerProductSpace ℂ W.H := W.hInner
+    ⟪W.T_E t (osCompletionMap F (osPreMk F (osConfigSingle x))),
+      osCompletionMap F (osPreMk F (osConfigSingle y))⟫_ℂ =
+        osConfigKernel os.toOS4DContinuumTheory (posTimeShiftConfig t ht x) y := by
+  let W := buildStrictWightmanFromOS os C
+  let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+  letI : InnerProductSpace ℂ W.H := W.hInner
+  exact osTimeShiftConfig_eq_completion_inner os.toOS4DContinuumTheory C.h_herm
+    C.h_kern C.M_bd C.hM_nn C.h_bd t ht x y
+
+/-- Positive-time Schwinger values are vacuum coefficients of canonical states in the built space. -/
+theorem buildStrictWightmanFromOS_schwinger_vacuum_coefficient {Δ_phys : ℝ}
+    (os : OsterwalderSchrader4DStrict Δ_phys)
+    (C : OSPoincareContinuationHypothesis os)
+    (y : PosTimeConfig) :
+    let W := buildStrictWightmanFromOS os C
+    let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+    letI : InnerProductSpace ℂ W.H := W.hInner
+    ⟪W.Ω_phys,
+      (osCompletionMap F (osPreMk F (osConfigSingle y)) : W.H)⟫_ℂ =
+        os.os.Schwinger y.n_pts y.pts := by
+  let W := buildStrictWightmanFromOS os C
+  let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+  letI : InnerProductSpace ℂ W.H := W.hInner
+  change ⟪osCompletionMap F (osPreMk F (osConfigSingle emptyPosConfig)),
+      osCompletionMap F (osPreMk F (osConfigSingle y))⟫_ℂ = _
+  rw [osConfigKernel_eq_completion_inner]
+  exact osConfigKernel_empty_left os.os.Δ_pos os.toOS4DContinuumTheory C.h_S0 y
+
+/--
+Positive-time Schwinger vacuum coefficients are limits of finite linear
+combinations of vacuum coefficients of Wightman field words.
+-/
+theorem buildStrictWightmanFromOS_schwinger_field_word_approx {Δ_phys : ℝ}
+    (os : OsterwalderSchrader4DStrict Δ_phys)
+    (C : OSPoincareContinuationHypothesis os)
+    (y : PosTimeConfig) :
+    let W := buildStrictWightmanFromOS os C
+    let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+    letI : InnerProductSpace ℂ W.H := W.hInner
+    ∀ ε > 0, ∃ v : W.H,
+      v ∈ Submodule.span ℂ
+        {w : W.H | ∃ (k : ℕ) (xs : Fin k → Space4),
+          w = (List.ofFn (fun i : Fin k => W.φ (xs i))).foldr
+            (fun A acc => A acc) W.Ω_phys} ∧
+      ‖os.os.Schwinger y.n_pts y.pts - ⟪W.Ω_phys, v⟫_ℂ‖ < ε := by
+  let W := buildStrictWightmanFromOS os C
+  let F := osConfigForm os.toOS4DContinuumTheory C.h_herm
+  letI : InnerProductSpace ℂ W.H := W.hInner
+  let ψ : W.H := osCompletionMap F (osPreMk F (osConfigSingle y))
+  let fieldWords : Set W.H := {w | ∃ (k : ℕ) (xs : Fin k → Space4),
+    w = (List.ofFn (fun i : Fin k => W.φ (xs i))).foldr
+      (fun A acc => A acc) W.Ω_phys}
+  let fieldSpan : Submodule ℂ W.H := Submodule.span ℂ fieldWords
+  have h_dense : fieldSpan.topologicalClosure = ⊤ := by
+    simpa [fieldSpan, fieldWords] using W.cyclic_dense
+  have h_mem : ψ ∈ (fieldSpan.topologicalClosure : Set W.H) := by
+    rw [h_dense]
+    exact Set.mem_univ ψ
+  change ψ ∈ closure (fieldSpan : Set W.H) at h_mem
+  intro W' F' ε hε
+  have h_mem' : ψ ∈ closure (fieldSpan : Set W.H) := h_mem
+  rw [Metric.mem_closure_iff] at h_mem'
+  obtain ⟨v, hv_span, hv_dist⟩ := h_mem' (ε / 2) (by linarith)
+  refine ⟨v, hv_span, ?_⟩
+  have h_coeff : os.os.Schwinger y.n_pts y.pts = ⟪W.Ω_phys, ψ⟫_ℂ :=
+    (buildStrictWightmanFromOS_schwinger_vacuum_coefficient os C y).symm
+  calc
+    ‖os.os.Schwinger y.n_pts y.pts - ⟪W.Ω_phys, v⟫_ℂ‖ =
+        ‖⟪W.Ω_phys, ψ - v⟫_ℂ‖ := by rw [h_coeff, ← inner_sub_right]
+    _ ≤ ‖W.Ω_phys‖ * ‖ψ - v‖ := norm_inner_le_norm _ _
+    _ < ε := by
+      rw [W.Ω_unit]
+      have hnorm : ‖ψ - v‖ < ε / 2 := by simpa [dist_eq_norm] using hv_dist
+      linarith
+
+/--
 **Strict Reduction Theorem**:
 combining `BalabanRGContinuumHypothesis N hN` and `OSPoincareContinuationHypothesis`
 establishes `ClayYangMillsMassGap4DStrict N hN` with zero unproven placeholders.
@@ -160,6 +262,55 @@ theorem clay_yang_mills_strict_from_balaban_and_os (N : ℕ) (hN : 2 ≤ N)
   ⟨B.Δ_phys, B.os, buildStrictWightmanFromOS B.os C, B.Ls_seq, B.Lt_seq,
     B.Ls_nz, B.Lt_nz, B.β_seq, B.obs, B.os.os.Δ_pos, B.non_gaussian,
     B.Ls_lim, B.Lt_lim, B.hβ_nn, B.hβ_lim, B.schwinger_conv⟩
+
+/-- The strengthened target records the actual OS continuation witness and
+requires its Wightman theory to be the object built on the OS Hilbert completion. -/
+def ClayYangMillsMassGap4DStrictOnOSCompletion (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)] : Prop :=
+  ∃ (Δ_phys : ℝ) (os : OsterwalderSchrader4DStrict Δ_phys)
+    (C : OSPoincareContinuationHypothesis os)
+    (Ls_seq Lt_seq : ℕ → ℕ) (hLs : ∀ m, NeZero (Ls_seq m))
+    (hLt : ∀ m, NeZero (Lt_seq m)) (β_seq : ℕ → ℝ)
+    (O : LatticeSinglePointObs N Ls_seq Lt_seq)
+    (W : WightmanQFT4DStrict Δ_phys),
+    0 < Δ_phys ∧
+    ¬ IsGaussian4 os.os.Schwinger ∧
+    Filter.Tendsto Ls_seq Filter.atTop Filter.atTop ∧
+    Filter.Tendsto Lt_seq Filter.atTop Filter.atTop ∧
+    (∀ m, 0 ≤ β_seq m) ∧
+    Filter.Tendsto β_seq Filter.atTop Filter.atTop ∧
+    (∀ (n : ℕ) (xs : Fin n → Space4),
+      Filter.Tendsto
+        (fun m => cubic4Schwinger (Ls_seq m) (Lt_seq m) N (β_seq m) n
+          (fun i => O.obs m (xs i)))
+        Filter.atTop (nhds (os.os.Schwinger n xs))) ∧
+    W = buildStrictWightmanFromOS os C
+
+/-- Balaban continuum data and its continuation witness inhabit the strengthened
+target with the Wightman theory fixed to the OS completion construction. -/
+theorem clay_yang_mills_strict_on_os_completion_from_balaban_and_os
+    (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (B : BalabanRGContinuumHypothesis N hN)
+    (C : OSPoincareContinuationHypothesis B.os) :
+    ClayYangMillsMassGap4DStrictOnOSCompletion N hN :=
+  ⟨B.Δ_phys, B.os, C, B.Ls_seq, B.Lt_seq, B.Ls_nz, B.Lt_nz, B.β_seq,
+    B.obs, buildStrictWightmanFromOS B.os C, B.os.os.Δ_pos, B.non_gaussian,
+    B.Ls_lim, B.Lt_lim, B.hβ_nn, B.hβ_lim, B.schwinger_conv, rfl⟩
+
+/-- Forgetting the reconstruction identity recovers the existing strict target. -/
+theorem clay_yang_mills_strict_on_os_completion_implies_strict
+    (N : ℕ) (hN : 2 ≤ N)
+    [MeasurableSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    [BorelSpace (Matrix.specialUnitaryGroup (Fin N) ℂ)]
+    (h : ClayYangMillsMassGap4DStrictOnOSCompletion N hN) :
+    ClayYangMillsMassGap4DStrict N hN := by
+  rcases h with ⟨Δ_phys, os, C, Ls_seq, Lt_seq, hLs, hLt, β_seq, O, W,
+    hΔ, hnonG, hLs_lim, hLt_lim, hβ_nn, hβ_lim, hconv, hW⟩
+  exact ⟨Δ_phys, os, W, Ls_seq, Lt_seq, hLs, hLt, β_seq, O,
+    hΔ, hnonG, hLs_lim, hLt_lim, hβ_nn, hβ_lim, hconv⟩
 
 end BalabanRGAndContinuationBridge
 
@@ -1327,6 +1478,8 @@ end YangMills
 
 -- §30. OS pre-Hilbert GNS construction, Glimm–Jaffe contraction & joint thermodynamic limit
 #print axioms YangMills.osConfigInner_single
+#print axioms YangMills.osConfigKernel_eq_completion_inner
+#print axioms YangMills.osTimeShiftConfig_eq_completion_inner
 #print axioms YangMills.osConfigForm
 #print axioms YangMills.osTimeShiftPre_zero
 #print axioms YangMills.osTimeShiftPre_add
@@ -1430,4 +1583,10 @@ end YangMills
 
 -- §45. Balaban multiscale RG & OS analytic continuation into ClayYangMillsMassGap4DStrict
 #print axioms YangMills.buildStrictWightmanFromOS
+#print axioms YangMills.buildStrictWightmanFromOS_config_inner
+#print axioms YangMills.buildStrictWightmanFromOS_time_shift_kernel
+#print axioms YangMills.buildStrictWightmanFromOS_schwinger_vacuum_coefficient
+#print axioms YangMills.buildStrictWightmanFromOS_schwinger_field_word_approx
 #print axioms YangMills.clay_yang_mills_strict_from_balaban_and_os
+#print axioms YangMills.clay_yang_mills_strict_on_os_completion_from_balaban_and_os
+#print axioms YangMills.clay_yang_mills_strict_on_os_completion_implies_strict
