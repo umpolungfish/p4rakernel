@@ -1,0 +1,3 @@
+import Imscribing.IntegratedZeroSum
+
+#print axioms integrated_zero_term_by_parts

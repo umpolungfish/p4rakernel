@@ -1,0 +1,3 @@
+Prove a lower bound |2^k - 3^j| >= 2^k / f(k) with f subexponential, for all k, j >= 1.
+With it the proved bound (n+1)(2^k - 3^j) <= (k-j) 2^k turns a bound on a Collatz
+cycle's minimum into a bound on the cycle's length, closing the cycle half.

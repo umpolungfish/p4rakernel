@@ -1,0 +1,66 @@
+*~
+\#*
+.#*
+*.lock
+.lake
+lake-manifest.json
+/build
+/src/lakefile.toml
+/lakefile.toml
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+.projectile
+.lean_options
+.vs
+compile_commands.json
+*.idea
+tasks.json
+settings.json
+.gdb_history
+.vscode/*
+script/__pycache__
+*.produced.out
+CMakeSettings.json
+CppProperties.json
+result
+fwIn.txt
+fwOut.txt
+wdErr.txt
+wdIn.txt
+wdOut.txt
+downstream_releases/
+
+# Loose top-level Lean build artifacts (regenerate with `make lean-oleans`).
+# Committing version-specific oleans caused a stock/4.30 vs fork/4.28 version soup.
+*.olean
+__pycache__/
+p4ramill/sweep/wordsCollatzDepth.tsv
+p4ramill/sweep/.rawCollatzDepth.tsv
+p4ramill/sweep/erdos_all/test_bisect.tsv
+p4ramill/Imscribing/BealProof
+# Historical dependency links are retained in native_overlay_archive.tar.gz.
+measurements/ns_kernel_reentry_20261009/lib/
+stage1.tar.zst
+measurements/kernel_features_20261009/reentry_runtime
+p4ramill/measurements/
+
+# Local measurements and execution receipts
+measurements/
+
+# --- local build and execution artifacts ---
+*:Zone.Identifier
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+node_modules/
+target/
+*.rlib
+*.rmeta
+.DS_Store
+dist/
+public/data/

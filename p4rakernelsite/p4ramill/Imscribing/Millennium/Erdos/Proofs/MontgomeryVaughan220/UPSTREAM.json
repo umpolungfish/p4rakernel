@@ -1,0 +1,139 @@
+{
+  "repository": "https://github.com/plby/lean-proofs",
+  "commit": "8822f7ddef30fadbd92e1c6ab4ed897af356af5e",
+  "upstream_toolchain": "leanprover/lean4:v4.33.0",
+  "port_toolchain": "p4rakernel / Lean 4.28.0",
+  "files": [
+    {
+      "upstream_module": "ErdosProblems.Erdos220",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Main",
+      "upstream_sha256": "5f6a99e83012642f120a91b983eb1b9e1b6ef3bb4d30a65fc67610672d2e0bb9",
+      "port_sha256": "83d2fb17c3877052490c72214ba907fb60b9330eda1874907d2be1862f0b708f"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.Basic",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Basic",
+      "upstream_sha256": "c5f9ef79204c033961541742e305f78c8879b8cbf0a0ee95bd025004ecb6be3a",
+      "port_sha256": "aca942d0863d9335f814535522680f34af59eb9b1e170ef7f1e45f2700f5435f"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.CompatibleFundamental",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.CompatibleFundamental",
+      "upstream_sha256": "b421e44fb9ecfa78c890fd9a9b276683531257a9a58e6c397eba75d61fc4902d",
+      "port_sha256": "3d456cc91e14c89d0ac9cc30d2ea850cdd3bf1b62ad368e709fb25d8dfd007bb"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.CompatibleModel",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.CompatibleModel",
+      "upstream_sha256": "af2de5b50c40c59527fa45130057b8a5f39ee6c1c0054a429a8ec7957d77208d",
+      "port_sha256": "bd5ad6bfbc542289a607df3841a606482f5a4692be42d09f73946697eddf3038"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.CompatiblePrimeCoordinate",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.CompatiblePrimeCoordinate",
+      "upstream_sha256": "dda0918e9518402d1fe12fdd80ef2b7c39196496ad07327f28552afedbbf4fdb",
+      "port_sha256": "9a532af2544d3c844112eb65ec5ca0a7834b93cf103e793e3a700824bd8eb312"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.CompatibleStateEquiv",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.CompatibleStateEquiv",
+      "upstream_sha256": "538776328788d91ade812a049bbb6f88bfdc4cb793c6fe9b620bfc9f6ccd6b88",
+      "port_sha256": "e894c31886269fda903ac6703ba110ae17e84d4ca33dd26b1216b3753ad0c796"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.ConcreteGaps",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.ConcreteGaps",
+      "upstream_sha256": "e674d9b8cfdc6bdf35d7415bfb54b9652115369bb3fbc3b47929eb7510dd692b",
+      "port_sha256": "8008fb8e757dd491aa3b81d34aa5deb5901a120065f2d5e7c363c721cc83a9b1"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.Fourier",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Fourier",
+      "upstream_sha256": "2e0698a3df7d3c447f584ff4bbf6a2518fe249f779521564d3667062578defbf",
+      "port_sha256": "a84bdb02a156dd4b0c9c0f7d0cffb3cf6d7dfbcea5d00732da77d27440416fbe"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.Fundamental",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Fundamental",
+      "upstream_sha256": "25a4431db98a66441a4489732947b28471f5ec60e7a7f04fd3498c7ac441618a",
+      "port_sha256": "cf8ba2dbde727055e63f8604b6dc343c1f9677df70e81b7d3a219e2388698ca4"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.LargePrime",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.LargePrime",
+      "upstream_sha256": "cd7009d8194dc4f067982bfcc879cd4760ee342e931636dc639b0cccc4102bc8",
+      "port_sha256": "b0cae45e4cb8e4a31145db9149035d819f4f0637e8be03bbe18c468aa0bc66d9"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.Mertens",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Mertens",
+      "upstream_sha256": "215e896e041e300e6bab6abf49b1a568f007e62804e8d180c313f508f8647a9a",
+      "port_sha256": "d96ac58cd95cae9b483d73848dffb617127e8d745f4085eb6da267c6245c90c6"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.MomentEnergy",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.MomentEnergy",
+      "upstream_sha256": "69959a339b590376c0861f4486b68c20b7725ddf83333a21f38697c5cad109f1",
+      "port_sha256": "e6aad1b9cf589e0395c4bbb1b334df8c06922fa34fcdd16f74c49cd4a017ea50"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.MomentExpansion",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.MomentExpansion",
+      "upstream_sha256": "ec23e0f18c0e14b0012e8a674defa35fe5bc0afa89633304490874c0185f5989",
+      "port_sha256": "d0df7dd45eba8c6681dfa5196f28182566ed62c2fa412de058b6bab15f0846fe"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.ProductParseval",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.ProductParseval",
+      "upstream_sha256": "444b062e5e54aacb6f983c733af54917f418e2a249cc30c51d96f406eb11953e",
+      "port_sha256": "6b75bbbe0b72ccc32d3953776d55e7c057bd240a1ed5c18a630c90201c464c1e"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.SmallMoment",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.SmallMoment",
+      "upstream_sha256": "06d5d741cc57b9a193bd61bda9ec731a97d93a6391b33ab3c6fd5462925bb321",
+      "port_sha256": "d9a051fc75c2594359118087f9bf05b8e522dfb8b40412e4089aea481a7470d2"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.SmoothRough",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.SmoothRough",
+      "upstream_sha256": "516b5de27517d93d3c99d8c3e459a2e97b61205648eed0bd3390f5081ab975d5",
+      "port_sha256": "88b24ef5339b0d5361e8c48a1f88976ce5acac4c53f2a6b335ccf5fa49fb0c7f"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.SupportAssembly",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.SupportAssembly",
+      "upstream_sha256": "5d3d19b5f6baab0075d297aee9342762046c9c8f0a9c4ef69690485941579215",
+      "port_sha256": "31c90e484082d2cf5d6040fb0294c94141851af2b60e05b241517368bde80e5e"
+    },
+    {
+      "upstream_module": "ErdosProblems.Erdos220.SupportFactor",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.SupportFactor",
+      "upstream_sha256": "336eaf8d8b4395f124c89a1344b437f9e423c35f34e1c223782adc3cb91fc9af",
+      "port_sha256": "b46bd3abae7b340905b05e3d9253925fc53d2362fcc0cea7eafa83aef6dac0e9"
+    },
+    {
+      "upstream_module": "UnitFractions.ForMathlib.BasicEstimates",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Support.BasicEstimates",
+      "upstream_sha256": "1475f84517f02f43f91563e7852b147d677d661d57e7cac6b4b3120570613775",
+      "port_sha256": "14cc39fee92ace31283caddccede30393a439ee40f91ffc6bc0484a6c10f68fe"
+    },
+    {
+      "upstream_module": "UnitFractions.ForMathlib.IntegralRPow",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Support.IntegralRPow",
+      "upstream_sha256": "884ed8b4343eb10c4e5fa123069c9ac584d74123aea3173974bf3afdb6c48134",
+      "port_sha256": "9b7e2135cbaa76b0fb9157197a05dcb43a55ccaa7cdad338f0f62070b2bcd5fa"
+    },
+    {
+      "upstream_module": "UnitFractions.ForMathlib.Misc",
+      "local_module": "Imscribing.Millennium.Erdos.Proofs.MontgomeryVaughan220.Support.Misc",
+      "upstream_sha256": "99e31b4fcb5ff24d26b0c9261ca280f4d96aea91e9f1cde7b8ae59a43361f3dd",
+      "port_sha256": "7d1daf7c71f908aaad3328a490c3837b222d2f6496393ed26b47b7ce3029ebbc"
+    }
+  ],
+  "port_notes": [
+    "Rebased imports and Lean/Mathlib 4.28 API names; proved finite-support permutation extension and nonnegative real product comparison compatibility lemmas.",
+    "Retained BasicEstimates through weak_mertens_third_upper_all; omitted unused later estimates and one unused generic helper.",
+    "No axioms or admissions added. Public theorem uses one positive real constant independent of the modulus."
+  ]
+}

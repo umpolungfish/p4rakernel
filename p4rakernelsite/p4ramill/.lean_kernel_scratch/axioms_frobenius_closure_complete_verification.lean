@@ -1,0 +1,3 @@
+import Imscribing.Paraconsistent.ParaconsistentFrobeniusClosure
+
+#print axioms frobenius_closure_complete_verification

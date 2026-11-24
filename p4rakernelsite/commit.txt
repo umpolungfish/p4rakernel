@@ -1,0 +1,3 @@
+I align the d=2048 SIC modulus with the mixed-signature receipt
+
+I distinguish the fully wide ray tower from the one-infinite-place SIC modulus, formalize both cyclic types and the class-group quotient degrees, and carry the corrected result into the SIC moduli report.

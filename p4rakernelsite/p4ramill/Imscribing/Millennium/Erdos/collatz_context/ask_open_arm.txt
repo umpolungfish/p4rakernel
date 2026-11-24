@@ -1,0 +1,1 @@
+The object whose closure is the open arm of the holder-first reading of this map. Say what it holds, what fuses it, and what the fusion costs.
