@@ -639,6 +639,8 @@ globs = [
   "Imscribing.Millennium.TwoTrineGearing",
   "Imscribing.Millennium.Spin10Intertwiner",
   "Imscribing.Millennium.StandardModelStabilizer",
+  "Imscribing.Millennium.StandardModelThreeFamily",
+  "Imscribing.Millennium.TwoTrineGearing",
 
   "Imscribing.Millennium.FrobeniusUnification",
   "Imscribing.Millennium.BSD_Complete_Witness",
