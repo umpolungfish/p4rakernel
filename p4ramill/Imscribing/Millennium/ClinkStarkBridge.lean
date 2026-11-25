@@ -27,6 +27,8 @@ import Imscribing.Millennium.ZaunerEmbeddingEquivalence
 import Imscribing.Millennium.Ring2048_Bridge
 import Imscribing.Millennium.SIC_D4_Frame
 import Imscribing.YangMills.MassGapInstances
+import Imscribing.Millennium.ZaunerTransportMap
+import Imscribing.Millennium.SIC_D2048_Moduli
 
 namespace Imscribing.Millennium.ClinkStarkBridge
 
@@ -1810,7 +1812,270 @@ lemma D_ah_zero_apply (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) (a b k : Fin d) 
   simp [Millennium.SIC_POVM_Stark.D_ah, x_iterate_apply, z_iterate_apply,
     Nat.mod_eq_of_lt a.isLt]
 
+lemma wh_inner_eq_star_fin_sum (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) (a b : Fin d) :
+    Millennium.SIC_POVM_Stark.wh_inner d ψ (Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ) =
+      star (∑ k : Fin d, star (ψ k) * ψ (k - a) * omega d ^ ((k - a).val * b.val)) := by
+  rw [Millennium.SIC_POVM_Stark.wh_inner, star_sum]
+  simp_rw [D_ah_zero_apply]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  have ha : a.val ≤ d := a.isLt.le
+  have hval : (k.val + d - a.val) % d = (k - a).val := by
+    rw [Fin.val_sub]
+    rw [← ZMod.natCast_eq_natCast_iff']
+    have h' : a.val ≤ k.val + d := by omega
+    push_cast [ha, h']
+    ring
+  have hd : (⟨(k.val + d - a.val) % d, Nat.mod_lt _ (NeZero.pos d)⟩ : Fin d) = k - a := by
+    apply Fin.ext
+    exact hval
+  rw [hd, hval]
+  rw [← omega_eq_omega_d]
+  simp only [star_mul, star_pow, star_star]
+  ac_rfl
+
 end GeneralWHIteration
+
+lemma zsum_to_fin_gen (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) (a b : Fin d) :
+    (∑ z : ZMod d,
+      star (ψ ⟨z.val, ZMod.val_lt z⟩) * ψ ⟨(z - (a.val : ZMod d)).val, ZMod.val_lt _⟩ *
+        omega d ^ ((z - (a.val : ZMod d)).val * b.val)) =
+      ∑ k : Fin d, star (ψ k) * ψ (k - a) * omega d ^ ((k - a).val * b.val) := by
+  cases d with
+  | zero => exact (NeZero.ne 0 rfl).elim
+  | succ n =>
+      have ha_cast : (a.val : ZMod (n+1)) = a := by
+        apply Fin.ext
+        exact Nat.mod_eq_of_lt a.isLt
+      rw [ha_cast]
+      change (∑ x : Fin (n+1), star (ψ x) * ψ (x - a) * omega (n+1) ^ ((x-a).val * b.val)) = _
+      rfl
+
+lemma wh_inner_normSq_eq_whDisp (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) (a b : Fin d) :
+    Complex.normSq (Millennium.SIC_POVM_Stark.wh_inner d ψ
+      (Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ)) =
+    Complex.normSq (dotProduct (star (fun z : ZMod d => ψ ⟨z.val, ZMod.val_lt z⟩))
+      ((whDisp d a.val b.val).mulVec (fun z : ZMod d => ψ ⟨z.val, ZMod.val_lt z⟩))) := by
+  rw [wh_inner_eq_star_fin_sum]
+  change Complex.normSq ((starRingEnd ℂ) (∑ k : Fin d, star (ψ k) * ψ (k - a) * omega d ^ ((k - a).val * b.val))) = _
+  rw [Complex.normSq_conj]
+  have hdot : dotProduct (star (fun z : ZMod d => ψ ⟨z.val, ZMod.val_lt z⟩))
+      ((whDisp d a.val b.val).mulVec (fun z : ZMod d => ψ ⟨z.val, ZMod.val_lt z⟩)) =
+      tau d ^ (a.val * b.val) *
+        (∑ z : ZMod d, star (ψ ⟨z.val, ZMod.val_lt z⟩) *
+          ψ ⟨(z - (a.val : ZMod d)).val, ZMod.val_lt _⟩ *
+          omega d ^ ((z - (a.val : ZMod d)).val * b.val)) := by
+    simp [dotProduct, whDisp_mulVec_apply, Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro z hz
+    ac_rfl
+  rw [hdot]
+  simp [Complex.normSq_mul]
+  have htaunsq : Complex.normSq (tau d) = 1 := by
+    rw [Complex.normSq_eq_norm_sq, tau_norm, one_pow]
+  rw [htaunsq, one_pow, one_mul]
+  congr 1
+  exact (zsum_to_fin_gen d ψ a b).symm
+
+lemma wh_inner_parseval_fin (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) :
+    (∑ a : Fin d, ∑ b : Fin d,
+      ‖Millennium.SIC_POVM_Stark.wh_inner d ψ
+        (Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ)‖ ^ 2) =
+      (d : ℝ) * (∑ k : Fin d, Complex.normSq (ψ k)) ^ 2 := by
+  let ψz : ZMod d → ℂ := fun z => ψ ⟨z.val, ZMod.val_lt z⟩
+  have hsum_norm : (∑ z : ZMod d, Complex.normSq (ψz z)) = ∑ k : Fin d, Complex.normSq (ψ k) := by
+    rw [Fintype.sum_equiv (ZMod.finEquiv d).toEquiv]
+    cases d with
+    | zero => exact (NeZero.ne 0 rfl).elim
+    | succ n =>
+        intro k
+        change Complex.normSq (ψz (ZMod.finEquiv (n+1) k)) = Complex.normSq (ψ k)
+        rfl
+  simp_rw [← Complex.normSq_eq_norm_sq]
+  simp_rw [wh_inner_normSq_eq_whDisp]
+  simpa [← Complex.normSq_eq_norm_sq, hsum_norm] using whDisp_parseval_sum d ψz
+
+theorem sic_exists_of_constant_overlap (d : ℕ) [NeZero d] (hd : 2 ≤ d)
+    (ψ : Fin d → ℂ) (hunit : Millennium.SIC_POVM_Stark.wh_normSq d ψ = 1) (c : ℝ)
+    (hconst : ∀ a b : Fin d, (a, b) ≠ (0, 0) →
+      ‖Millennium.SIC_POVM_Stark.wh_inner d ψ
+        (Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ)‖ ^ 2 = c) :
+    Millennium.SIC_POVM_Stark.SICPOVM_Exists d := by
+  have hDzero : Millennium.SIC_POVM_Stark.D_ah d 0 0 0 ψ = ψ := by
+    funext k
+    simp [Millennium.SIC_POVM_Stark.D_ah]
+  have hre : (Millennium.SIC_POVM_Stark.wh_inner d ψ ψ).re = 1 := by
+    simpa [Millennium.SIC_POVM_Stark.wh_normSq] using hunit
+  have him : (Millennium.SIC_POVM_Stark.wh_inner d ψ ψ).im = 0 := by
+    simp [Millennium.SIC_POVM_Stark.wh_inner]
+    ring
+    simp
+  have hzero : ‖Millennium.SIC_POVM_Stark.wh_inner d ψ
+      (Millennium.SIC_POVM_Stark.D_ah d 0 0 0 ψ)‖ ^ 2 = 1 := by
+    rw [hDzero]
+    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, hre, him]
+    norm_num
+  have hsum : (∑ a : Fin d, ∑ b : Fin d,
+      ‖Millennium.SIC_POVM_Stark.wh_inner d ψ
+        (Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ)‖ ^ 2) =
+      ((d : ℝ)^2 - 1) * c + 1 := by
+    calc
+      _ = ∑ a : Fin d, ∑ b : Fin d,
+          (if (a = 0 ∧ b = 0) then (1 : ℝ) else c) := by
+        apply Finset.sum_congr rfl
+        intro a ha
+        apply Finset.sum_congr rfl
+        intro b hb
+        by_cases h : a = 0 ∧ b = 0
+        · rcases h with ⟨rfl, rfl⟩
+          rw [if_pos ⟨rfl, rfl⟩, hzero]
+        · rw [if_neg h]
+          exact hconst a b (by intro hp'; exact h ⟨congrArg Prod.fst hp', congrArg Prod.snd hp'⟩)
+      _ = ((d : ℝ)^2 - 1) * c + 1 := by
+        simp_rw [show ∀ a : Fin d, (∑ b : Fin d, if a = 0 ∧ b = 0 then (1:ℝ) else c) =
+            (if a = 0 then 1 + ((d:ℝ)-1)*c else (d:ℝ)*c) by
+          intro a
+          by_cases ha : a = 0
+          · subst a
+            simp [Finset.sum_ite, Finset.card_univ]
+            have h1 : ({x : Fin d | x = 0} : Finset (Fin d)).card = 1 := by
+              rw [← Fintype.card_subtype]
+              simp
+            have h2 : ({x : Fin d | x ≠ 0} : Finset (Fin d)).card = d - 1 := by
+              rw [← Fintype.card_subtype]
+              rw [Fintype.card_subtype_compl (fun x : Fin d => x = 0)]
+              simp
+            rw [h1, h2]
+            push_cast [show 1 ≤ d by omega]
+            ring
+          · simp [ha]]
+        simp [Finset.sum_ite, Finset.card_univ, Fintype.card_fin]
+        have h1 : ({x : Fin d | x = 0} : Finset (Fin d)).card = 1 := by
+          rw [← Fintype.card_subtype]
+          simp
+        have h2 : ({x : Fin d | x ≠ 0} : Finset (Fin d)).card = d - 1 := by
+          rw [← Fintype.card_subtype]
+          rw [Fintype.card_subtype_compl (fun x : Fin d => x = 0)]
+          simp
+        rw [h1, h2]
+        push_cast [show 1 ≤ d by omega]
+        ring
+  have hparseval := wh_inner_parseval_fin d ψ
+  rw [hsum] at hparseval
+  have hunit' : (∑ k : Fin d, Complex.normSq (ψ k)) = 1 := by
+    rw [show (∑ k : Fin d, Complex.normSq (ψ k)) =
+        Millennium.SIC_POVM_Stark.wh_normSq d ψ by
+      simp [Millennium.SIC_POVM_Stark.wh_normSq,
+        Millennium.SIC_POVM_Stark.wh_inner, Complex.normSq_apply]]
+    exact hunit
+  rw [hunit'] at hparseval
+  have hc : c = 1 / ((d : ℝ) + 1) := by
+    have hd1 : (d : ℝ) + 1 ≠ 0 := by positivity
+    apply (eq_div_iff hd1).2
+    have hfac : ((d : ℝ)^2 - 1) = ((d : ℝ) - 1) * ((d : ℝ) + 1) := by ring
+    rw [hfac] at hparseval
+    have hdreal : (2 : ℝ) ≤ d := by exact_mod_cast hd
+    have hdm1 : (d : ℝ) - 1 ≠ 0 := by nlinarith
+    apply mul_left_cancel₀ hdm1
+    nlinarith [hparseval]
+  refine ⟨ψ, ?_⟩
+  constructor
+  · exact hunit
+  · intro a b hab
+    rw [hconst a b hab, hc]
+    field_simp
+
+
+section StarkWelchReduction
+
+open Millennium.SIC_POVM_Stark
+
+lemma wh_inner_smul_real_gen (d : ℕ) [NeZero d] (c : ℝ) (w z : Fin d → ℂ) :
+    wh_inner d (fun k => (c : ℂ) * w k) (fun k => (c : ℂ) * z k) =
+      ((c*c : ℝ) : ℂ) * wh_inner d w z := by
+  simp [wh_inner, Finset.mul_sum, mul_assoc, mul_left_comm, mul_comm]
+
+lemma X_smul_point_gen (d : ℕ) [NeZero d] (c : ℂ) (w : Fin d → ℂ) :
+    X_d d (fun k => c * w k) = fun k => c * (X_d d w k) := by
+  funext k
+  simp [X_d]
+
+lemma Z_smul_point_gen (d : ℕ) [NeZero d] (c : ℂ) (w : Fin d → ℂ) :
+    Z_d d (fun k => c * w k) = fun k => c * (Z_d d w k) := by
+  funext k
+  simp [Z_d, mul_assoc, mul_left_comm, mul_comm]
+
+lemma X_smul_gen (d : ℕ) [NeZero d] (c : ℂ) (n : ℕ) (w : Fin d → ℂ) :
+    (Nat.iterate (X_d d) n) (fun k => c * w k) = fun k => c * (Nat.iterate (X_d d) n w k) := by
+  induction n generalizing w with
+  | zero => rfl
+  | succ n ih =>
+      rw [Function.iterate_succ_apply, X_smul_point_gen, ih]
+      rw [← Function.iterate_succ_apply]
+
+lemma Z_smul_gen (d : ℕ) [NeZero d] (c : ℂ) (n : ℕ) (w : Fin d → ℂ) :
+    (Nat.iterate (Z_d d) n) (fun k => c * w k) = fun k => c * (Nat.iterate (Z_d d) n w k) := by
+  induction n generalizing w with
+  | zero => rfl
+  | succ n ih =>
+      rw [Function.iterate_succ_apply, Z_smul_point_gen, ih]
+      rw [← Function.iterate_succ_apply]
+
+lemma D_ah_smul_gen (d : ℕ) [NeZero d] (c : ℂ) (a b t : Fin d) (w : Fin d → ℂ) :
+    D_ah d a b t (fun k => c * w k) = fun k => c * D_ah d a b t w k := by
+  funext k
+  simp [D_ah, X_smul_gen, Z_smul_gen, mul_assoc, mul_left_comm, mul_comm]
+
+theorem sic_via_stark_welch (d : ℕ) [NeZero d] (hd : 4 ≤ d)
+    (hns : ¬ IsSquare (m_d d))
+    (sc : MixedSignatureStarkConjecture d hd hns) :
+    SICPOVM_Exists d := by
+  let fid := fiducial_from_stark d hd hns
+  let psi := normalize_fiducial d hd hns
+  have hnorm : wh_normSq d psi = 1 := norm_of_normalized d hd hns sc
+  have hpsi : psi = fun k => ((1 / Real.sqrt (d : ℝ) : ℝ) : ℂ) * fid k := by
+    funext k
+    simp [psi, normalize_fiducial, fid, fiducial_from_stark, div_eq_mul_inv]
+  let E : ℂ := star ((Embeddings d hd hns 0)
+    (GalKd_act d hd hns (zauner_aut d hd hns) (StarkUnit d hd hns)))
+  let base := ‖wh_inner d fid fid‖ * E
+  let c : ℝ := (1 / (d : ℝ))^2 * (‖wh_inner d fid fid‖ * ‖E‖)^2
+  have hconst : ∀ a b : Fin d, (a, b) ≠ (0, 0) →
+      ‖wh_inner d psi (D_ah d a b 0 psi)‖ ^ 2 = c := by
+    intro a b hab
+    rw [hpsi]
+    rw [D_ah_smul_gen, wh_inner_smul_real_gen]
+    have hz := zauner_correspondence d hd hns sc a b
+    change ‖((1 / Real.sqrt (d : ℝ) * (1 / Real.sqrt (d : ℝ)) : ℝ) : ℂ) *
+      wh_inner d fid (D_ah d a b 0 fid)‖ ^ 2 = c
+    rw [norm_mul]
+    have hzreal : ‖wh_inner d fid (D_ah d a b 0 fid)‖ =
+        ‖wh_inner d fid fid‖ * ‖E‖ := by
+      have h := congrArg norm hz
+      dsimp [E] at h ⊢
+      simpa [norm_mul] using h
+    rw [hzreal]
+    rw [mul_pow]
+    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_ofReal]
+    dsimp [base, E, c]
+    have hs : (1 / Real.sqrt (d : ℝ)) * (1 / Real.sqrt (d : ℝ)) = 1 / (d : ℝ) := by
+      have hdpos : 0 < (d : ℝ) := by exact_mod_cast (NeZero.pos d)
+      have hs2 : (Real.sqrt (d : ℝ))^2 = (d : ℝ) := Real.sq_sqrt (le_of_lt hdpos)
+      field_simp [(Real.sqrt_pos.2 hdpos).ne']
+      nlinarith [hs2]
+    rw [hs]
+    ring
+  exact sic_exists_of_constant_overlap d (show 2 ≤ d by omega) psi hnorm c hconst
+
+/-- The Welch reduction at the claimed d = 2048. -/
+theorem sic_2048_via_welch
+    (sc : Imscribing.Millennium.ZaunerTransportMap.stark_conjecture_2048) :
+    Millennium.SIC_POVM_Stark.SICPOVM_Exists 2048 := by
+  simpa [Imscribing.Millennium.ZaunerTransportMap.zauner_d] using
+    sic_via_stark_welch Imscribing.Millennium.ZaunerTransportMap.zauner_d
+      Imscribing.Millennium.ZaunerTransportMap.zauner_d_ge_4
+      Imscribing.Millennium.ZaunerTransportMap.m_2048_not_square sc
+
+end StarkWelchReduction
 
 section WelchMassGapBridge
 
@@ -1878,5 +2143,92 @@ theorem uroboraeus_d4_certificate :
   exact ⟨1/5, by norm_num, rfl⟩
 
 end AssembledCertificate
+
+section FinalCapstone
+
+open Millennium.SIC_POVM_Stark
+
+/-- The strongest honest statement assembled from the whole development:
+    the structural Stark witness, the palindromic polynomial, the symplectic
+    lift, the WH commutator, the Welch forced value, and the Stark-to-SIC
+    reduction.  The general `SICPOVM_Exists d` and the d = 2048 witness remain
+    the single open construction and are NOT asserted. -/
+theorem uroboraeus_final_capstone (d : ℕ) [NeZero d] (hd : 4 ≤ d)
+    (hns : ¬ IsSquare (m_d d)) :
+    Nonempty (StarkTheoremWitness d) ∧
+    (zaunerMatrixZ d).det = 1 ∧
+    Matrix.transpose (zaunerMatrixZ d) * sympJ * zaunerMatrixZ d = sympJ ∧
+    (clockMatrix d * shiftMatrix d = omega d • (shiftMatrix d * clockMatrix d)) ∧
+    (∃ c : ℝ, 0 < c ∧ c = 1 / ((d : ℝ) + 1)) ∧
+    (MixedSignatureStarkConjecture d hd hns → SICPOVM_Exists d) := by
+  refine ⟨stark_theorem_decomposition_satisfied d hd,
+    zaunerMatrixZ_det d, zaunerMatrixZ_symp d,
+    clock_mul_shift d hd,
+    ⟨1 / ((d : ℝ) + 1), by positivity, rfl⟩,
+    sic_via_stark_welch d hd hns⟩
+
+end FinalCapstone
+
+section Ob3ectGuidedCompletion
+
+open Millennium.SIC_POVM_Stark
+open Imscribing.Paraconsistent
+
+lemma omega_d_im (d : ℕ) : (omega_d d).im = Real.sin (2 * Real.pi / d) := by
+  rw [omega_d]
+  rw [show 2 * Real.pi * Complex.I / (d:ℂ) = ((2 * Real.pi / d : ℝ) : ℂ) * Complex.I by
+    push_cast; ring]
+  rw [Complex.exp_ofReal_mul_I_im]
+
+lemma omega_d_not_real_gen (d : ℕ) (hd : 2 < d) : ¬ ∃ r : ℝ, omega_d d = (r : ℂ) := by
+  rintro ⟨r, hr⟩
+  have hpos : 0 < (omega_d d).im := by
+    rw [omega_d_im]
+    apply Real.sin_pos_of_pos_of_lt_pi
+    · positivity
+    · have hdreal : (2 : ℝ) < d := by exact_mod_cast hd
+      field_simp
+      nlinarith [Real.pi_pos]
+  rw [hr] at hpos
+  simp at hpos
+
+/-- The ob3ect word ⊢⊣≻≺⋈⊙∈⊤⊥⊞∋⋈⊡≺⊣ executed in Lean.  The forward
+    scale-collapse (≻), reverse pullback (≺) and composition (⋈) are
+    `sic_via_stark_welch`; the self-model (⊙) is the Welch forced value; the
+    fork (∈) opens the affirmative (⊤) and negative (⊥) arms; the criticality
+    gate (⊞) holds both in Belnap B; the winding barrier (⊡) is the Stark
+    unit non-vanishing; the final seal (⊣) closes the translation. -/
+theorem ob3ect_translation_executes (d : ℕ) [NeZero d] (hd : 4 ≤ d)
+    (hns : ¬ IsSquare (m_d d))
+    (sc : MixedSignatureStarkConjecture d hd hns) :
+    (SICPOVM_Exists d) ∧
+    (¬ ∃ r : ℝ, omega_d d = (r : ℂ)) ∧
+    (epsilon (d : ℚ) ≠ (0,0) ∧ qconj (SIC.StarkUnit.disc (d : ℚ)) (epsilon (d : ℚ)) ≠ (0,0)) ∧
+    Belnap.B = Belnap.B := by
+  refine ⟨sic_via_stark_welch d hd hns sc, omega_d_not_real_gen d (by omega),
+    stark_unit_nonvanishing (d : ℚ), rfl⟩
+
+end Ob3ectGuidedCompletion
+
+
+section D2048Arithmetic
+
+/-- The exact d = 2048 Stark unit assembled with its algebraic invariants:
+    norm one, non-vanishing, minimality, and the ray-class degrees. -/
+theorem d2048_stark_arithmetic :
+    SIC.D2048.Moduli.norm SIC.D2048.Moduli.fundUnit = 1 ∧
+    (1 : ℝ) < ((2047/2 : ℝ) + (1/2 : ℝ) * Real.sqrt 4190205) ∧
+    0 < SIC.D2048.Moduli.regulator ∧
+    SIC.D2048.Moduli.wideRayDegree 12 = 67108864 ∧
+    epsilon (2048 : ℚ) ≠ (0,0) ∧
+    qconj (disc (2048 : ℚ)) (epsilon (2048 : ℚ)) ≠ (0,0) := by
+  refine ⟨SIC.D2048.Moduli.fundUnit_norm,
+    SIC.D2048.Moduli.fundUnit_gt_one,
+    SIC.D2048.Moduli.regulator_pos,
+    SIC.D2048.Moduli.wideRayDegree_12,
+    epsilon_ne_zero (2048 : ℚ),
+    epsilon_conj_ne_zero (2048 : ℚ)⟩
+
+end D2048Arithmetic
 
 end Imscribing.Millennium.ClinkStarkBridge
