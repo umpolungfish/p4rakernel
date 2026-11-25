@@ -451,6 +451,7 @@ globs = [
   "Imscribing.Millennium.SIC_D2048_Moduli",
   "Imscribing.Millennium.SIC_StarkUnit",
   "Imscribing.Millennium.ClinkStarkBridge",
+  "Imscribing.Millennium.SIC_D4_Frame",
   "Imscribing.Millennium.SIC_D16_Moduli",
   "Imscribing.Millennium.SIC_D20_Moduli",
   "Imscribing.Millennium.SIC_Moduli_Report",

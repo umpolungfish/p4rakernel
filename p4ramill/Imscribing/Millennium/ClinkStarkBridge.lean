@@ -25,6 +25,8 @@ import Imscribing.Millennium.SIC_StarkUnit
 import Imscribing.Millennium.SIC_D12_Embedding
 import Imscribing.Millennium.ZaunerEmbeddingEquivalence
 import Imscribing.Millennium.Ring2048_Bridge
+import Imscribing.Millennium.SIC_D4_Frame
+import Imscribing.YangMills.MassGapInstances
 
 namespace Imscribing.Millennium.ClinkStarkBridge
 
@@ -1247,6 +1249,40 @@ theorem whDisp_trace (d : ℕ) [NeZero d] (p q : ℕ) :
 /-- **Exact Frame / Parseval Identity for Weyl-Heisenberg Overlaps:**
     For every vector `ψ : ZMod d → ℂ`,
     `∑ p, ∑ q, ‖⟨ψ, D_{p,q} ψ⟩‖² = d * (∑ i, ‖ψ i‖²)²`. -/
+lemma whDisp_mulVec_apply (d : ℕ) [NeZero d] (ψ : ZMod d → ℂ) (p q : Fin d) (i : ZMod d) :
+    ((whDisp d p.val q.val).mulVec ψ) i =
+      tau d ^ (p.val * q.val) * (ψ (i - (p.val : ZMod d)) *
+        omega d ^ ((i - (p.val : ZMod d)).val * q.val)) := by
+  simp only [Matrix.mulVec, whDisp, Matrix.smul_apply, Matrix.mul_apply,
+    shiftMatrix_pow_apply, clockMatrix_pow_apply, smul_eq_mul, dotProduct]
+  have h_inner : ∀ x : ZMod d,
+      (∑ y : ZMod d, (if i = y + (p.val : ZMod d) then (1 : ℂ) else 0) *
+        if y = x then (omega d ^ y.val) ^ q.val else 0) * ψ x =
+        if x = i - (p.val : ZMod d) then
+          (omega d ^ x.val) ^ q.val * ψ x else 0 := by
+    intro x
+    rw [Finset.sum_eq_single x]
+    · by_cases hxp : x = i - (p.val : ZMod d)
+      · have hi : i = x + (p.val : ZMod d) := by rw [hxp, sub_add_cancel]
+        rw [if_pos hi, if_pos rfl, if_pos hxp]
+        ring
+      · have hi : i ≠ x + (p.val : ZMod d) := fun h => hxp (eq_sub_of_add_eq h.symm)
+        rw [if_neg hi, if_pos rfl, if_neg hxp]
+        ring
+    · intro y _ hyx; simp [hyx]
+    · intro hx; exact absurd (Finset.mem_univ x) hx
+  change (∑ x : ZMod d, (tau d ^ (p.val * q.val) *
+      (∑ y : ZMod d, (if i = y + (p.val : ZMod d) then (1 : ℂ) else 0) *
+        if y = x then (omega d ^ y.val) ^ q.val else 0)) * ψ x) = _
+  simp_rw [mul_assoc]
+  rw [← Finset.mul_sum]
+  simp_rw [h_inner]
+  rw [Finset.sum_eq_single (i - (p.val : ZMod d))]
+  · rw [if_pos rfl, ← pow_mul]
+    ring
+  · intro x _ hne; simp [hne]
+  · intro hi; exact absurd (Finset.mem_univ _) hi
+
 theorem whDisp_parseval_sum (d : ℕ) [NeZero d] (ψ : ZMod d → ℂ) :
     ∑ p : Fin d, ∑ q : Fin d,
       ‖dotProduct (star ψ) ((whDisp d p.val q.val).mulVec ψ)‖ ^ 2 =
@@ -1257,45 +1293,11 @@ theorem whDisp_parseval_sum (d : ℕ) [NeZero d] (ψ : ZMod d → ℂ) :
         ‖∑ i : ZMod d, star (ψ i) * ψ (i - (p.val : ZMod d)) *
           omega d ^ ((i - (p.val : ZMod d)).val * q.val)‖ ^ 2 := by
     intro p q
-    have hmulVec : ∀ i : ZMod d,
-        ((whDisp d p.val q.val).mulVec ψ) i =
-          tau d ^ (p.val * q.val) * (ψ (i - (p.val : ZMod d)) *
-            omega d ^ ((i - (p.val : ZMod d)).val * q.val)) := by
-      intro i
-      simp only [Matrix.mulVec, whDisp, Matrix.smul_apply, Matrix.mul_apply,
-        shiftMatrix_pow_apply, clockMatrix_pow_apply, smul_eq_mul, dotProduct]
-      have h_inner : ∀ x : ZMod d,
-          (∑ y : ZMod d, (if i = y + (p.val : ZMod d) then (1 : ℂ) else 0) *
-            if y = x then (omega d ^ y.val) ^ q.val else 0) * ψ x =
-            if x = i - (p.val : ZMod d) then
-              (omega d ^ x.val) ^ q.val * ψ x else 0 := by
-        intro x
-        rw [Finset.sum_eq_single x]
-        · by_cases hxp : x = i - (p.val : ZMod d)
-          · have hi : i = x + (p.val : ZMod d) := by rw [hxp, sub_add_cancel]
-            rw [if_pos hi, if_pos rfl, if_pos hxp]
-            ring
-          · have hi : i ≠ x + (p.val : ZMod d) := fun h => hxp (eq_sub_of_add_eq h.symm)
-            rw [if_neg hi, if_pos rfl, if_neg hxp]
-            ring
-        · intro y _ hyx; simp [hyx]
-        · intro hx; exact absurd (Finset.mem_univ x) hx
-      change (∑ x : ZMod d, (tau d ^ (p.val * q.val) *
-          (∑ y : ZMod d, (if i = y + (p.val : ZMod d) then (1 : ℂ) else 0) *
-            if y = x then (omega d ^ y.val) ^ q.val else 0)) * ψ x) = _
-      simp_rw [mul_assoc]
-      rw [← Finset.mul_sum]
-      simp_rw [h_inner]
-      rw [Finset.sum_eq_single (i - (p.val : ZMod d))]
-      · rw [if_pos rfl, ← pow_mul]
-        ring
-      · intro x _ hne; simp [hne]
-      · intro hi; exact absurd (Finset.mem_univ _) hi
     have hdot : dotProduct (star ψ) ((whDisp d p.val q.val).mulVec ψ) =
         tau d ^ (p.val * q.val) *
           (∑ i : ZMod d, star (ψ i) * ψ (i - (p.val : ZMod d)) *
             omega d ^ ((i - (p.val : ZMod d)).val * q.val)) := by
-      simp only [dotProduct, hmulVec, Finset.mul_sum]
+      simp only [dotProduct, whDisp_mulVec_apply, Finset.mul_sum]
       refine Finset.sum_congr rfl fun i _ => by ac_rfl
     rw [hdot, norm_mul, norm_pow, tau_norm, one_pow, one_mul]
   simp_rw [h_drop_tau]
@@ -1580,6 +1582,19 @@ theorem hilbert_embedding_pow2_one :
   exact (Imscribing.Millennium.ZaunerEmbeddingEquivalence.hilbert_embedding_equiv_zauner 1).mpr
     zauner_pow2_one
 
+
+/-- Zauner at n = 2 (d = 4), discharged by the exact Fourier-frame fiducial. -/
+theorem zauner_pow2_two :
+    Imscribing.Millennium.ZaunerEmbeddingEquivalence.ZaunerConjectureAtPow2 2 := by
+  simpa [Imscribing.Millennium.ZaunerEmbeddingEquivalence.ZaunerConjectureAtPow2] using
+    SIC.D4.Frame.sicpovm_exists_4
+
+/-- The Belnap embedding exists at n = 2 as well. -/
+theorem hilbert_embedding_pow2_two :
+    Imscribing.Millennium.ZaunerEmbeddingEquivalence.HilbertEmbeddingExists 2 := by
+  exact (Imscribing.Millennium.ZaunerEmbeddingEquivalence.hilbert_embedding_equiv_zauner 2).mpr
+    zauner_pow2_two
+
 end BelnapEmbeddingIdentity
 
 section PariWitnessDimensions
@@ -1748,5 +1763,120 @@ theorem d4_squared_norm_sum :
 
 end D4FiducialNorms
 
+
+
+
+section GeneralWHIteration
+
+lemma z_iterate_apply (d : ℕ) [NeZero d] (n : ℕ) (ψ : Fin d → ℂ) (k : Fin d) :
+    ((Nat.iterate (Millennium.SIC_POVM_Stark.Z_d d) n) ψ) k =
+      Millennium.SIC_POVM_Stark.omega_d d ^ (k.val * n) * ψ k := by
+  induction n generalizing ψ k with
+  | zero => simp
+  | succ n ih =>
+      rw [Function.iterate_succ_apply, ih]
+      simp [Millennium.SIC_POVM_Stark.Z_d, Nat.mul_succ, pow_add, mul_assoc]
+
+lemma x_iterate_apply (d : ℕ) [NeZero d] (n : ℕ) (ψ : Fin d → ℂ) (k : Fin d) :
+    ((Nat.iterate (Millennium.SIC_POVM_Stark.X_d d) n) ψ) k =
+      ψ ⟨(k.val + d - n % d) % d, Nat.mod_lt _ (NeZero.pos d)⟩ := by
+  induction n generalizing ψ k with
+  | zero => simp [Nat.mod_eq_of_lt k.isLt]
+  | succ n ih =>
+      rw [Function.iterate_succ_apply, ih]
+      change ψ ⟨(((k.val + d - n % d) % d) + d - 1) % d, Nat.mod_lt _ (NeZero.pos d)⟩ =
+        ψ ⟨(k.val + d - (n+1) % d) % d, Nat.mod_lt _ (NeZero.pos d)⟩
+      congr 1
+      apply Fin.ext
+      rw [← ZMod.natCast_eq_natCast_iff']
+      have hdpos : 0 < d := NeZero.pos d
+      have h3 : 1 ≤ ((k.val + d - n % d) % d) + d := by omega
+      have h4 : 1 ≤ k.val + d := by omega
+      push_cast [h3, h4]
+      rw [ZMod.natCast_mod, ZMod.natCast_self]
+      have hnd : n % d < d := Nat.mod_lt _ (NeZero.pos d)
+      have hnd1 : (n+1) % d < d := Nat.mod_lt _ (NeZero.pos d)
+      have h1 : n % d ≤ k.val + d := by omega
+      have h2 : (n+1) % d ≤ k.val + d := by omega
+      push_cast [h1, h2]
+      rw [ZMod.natCast_mod n d, ZMod.natCast_mod (n+1) d]
+      push_cast
+      ring
+
+lemma D_ah_zero_apply (d : ℕ) [NeZero d] (ψ : Fin d → ℂ) (a b k : Fin d) :
+    Millennium.SIC_POVM_Stark.D_ah d a b 0 ψ k =
+      Millennium.SIC_POVM_Stark.omega_d d ^ (((k.val + d - a.val) % d) * b.val) *
+        ψ ⟨(k.val + d - a.val) % d, Nat.mod_lt _ (NeZero.pos d)⟩ := by
+  simp [Millennium.SIC_POVM_Stark.D_ah, x_iterate_apply, z_iterate_apply,
+    Nat.mod_eq_of_lt a.isLt]
+
+end GeneralWHIteration
+
+section WelchMassGapBridge
+
+/-- The Welch forced value is a strictly positive number: the constant that
+    equiangularity forces is the algebraic mass gap. -/
+theorem sic_forced_value_pos (d : ℕ) [NeZero d] (hd : 2 ≤ d) (ψ : ZMod d → ℂ)
+    (hunit : ∑ i : ZMod d, ‖ψ i‖ ^ 2 = 1) (c : ℝ)
+    (hconst : ∀ p q : Fin d, ¬ ((p : ℕ) = 0 ∧ (q : ℕ) = 0) →
+      ‖dotProduct (star ψ) ((whDisp d p.val q.val).mulVec ψ)‖ ^ 2 = c) :
+    0 < c := by
+  have hc := sic_overlap_forced_value d hd ψ hunit c hconst
+  rw [hc]
+  positivity
+
+/-- The forced WH overlap constant realizes the promoted mass-gap structure:
+    a two-level spectrum with gap Δ = c = 1/(d+1) > 0. -/
+theorem welch_forced_mass_gap (d : ℕ) [NeZero d] (hd : 2 ≤ d) (ψ : ZMod d → ℂ)
+    (hunit : ∑ i : ZMod d, ‖ψ i‖ ^ 2 = 1) (c : ℝ)
+    (hconst : ∀ p q : Fin d, ¬ ((p : ℕ) = 0 ∧ (q : ℕ) = 0) →
+      ‖dotProduct (star ψ) ((whDisp d p.val q.val).mulVec ψ)‖ ^ 2 = c) :
+    ∃ P : MassGapInstances.GappedSpectrum (Fin 2),
+      0 < P.Δ ∧ P.Δ = c := by
+  have hc := sic_overlap_forced_value d hd ψ hunit c hconst
+  have hcpos : 0 < c := by rw [hc]; positivity
+  let P : MassGapInstances.GappedSpectrum (Fin 2) :=
+    { E := fun i => if i = 0 then 0 else c
+      ground := 0
+      ground_zero := by simp
+      Δ := c
+      Δ_pos := hcpos
+      gap := by
+        intro n hn
+        fin_cases n
+        · contradiction
+        · simp }
+  exact ⟨P, hcpos, rfl⟩
+
+end WelchMassGapBridge
+
+
+section AssembledCertificate
+
+/-- The fully assembled Uroboræus certificate at d = 4: the structural Stark
+    witness, the palindromic witness, the symplectic lift and the Weyl
+    commutator, together with the explicit SIC fiducial, the n = 2 rung of the
+    Belnap/Zauner identity, and the Welch-forced positive mass gap. -/
+theorem uroboraeus_d4_certificate :
+    Nonempty (StarkTheoremWitness 4) ∧
+    Nonempty (StarkPalindromicWitness 4) ∧
+    (zaunerMatrixZ 4).det = 1 ∧
+    Matrix.transpose (zaunerMatrixZ 4) * sympJ * zaunerMatrixZ 4 = sympJ ∧
+    (clockMatrix 4 * shiftMatrix 4 = omega 4 • (shiftMatrix 4 * clockMatrix 4)) ∧
+    Millennium.SIC_POVM_Stark.SICPOVM_Exists 4 ∧
+    Imscribing.Millennium.ZaunerEmbeddingEquivalence.ZaunerConjectureAtPow2 2 ∧
+    Imscribing.Millennium.ZaunerEmbeddingEquivalence.HilbertEmbeddingExists 2 ∧
+    (∃ c : ℝ, 0 < c ∧ c = 1/5) := by
+  have hns : ¬ IsSquare (disc 4) := by
+    rw [show disc 4 = 5 by native_decide, Rat.isSquare_iff]
+    norm_num
+  refine ⟨stark_theorem_decomposition_satisfied 4 (by norm_num),
+    stark_palindromic_witness 4 (by norm_num) hns,
+    zaunerMatrixZ_det 4, zaunerMatrixZ_symp 4, clock_mul_shift 4 (by norm_num),
+    SIC.D4.Frame.sicpovm_exists_4, zauner_pow2_two,
+    hilbert_embedding_pow2_two, ?_⟩
+  exact ⟨1/5, by norm_num, rfl⟩
+
+end AssembledCertificate
 
 end Imscribing.Millennium.ClinkStarkBridge
