@@ -131,6 +131,8 @@ globs = [
   "Imscribing.TrilatticeYM.MultiLinkVacuum",
   "Imscribing.TrilatticeYM.SICChannel",
   "Imscribing.TrilatticeYM.Trilattice",
+  "Imscribing.TrilatticeYM.ClosureTransfer",
+  "Imscribing.TrilatticeYM.FourCubeIncidence",
 
   "Imscribing.Biochem.PrimaLogicaMechanicalGlut",
   "Imscribing.Biochem.NativePairFoldOperator",
