@@ -27,7 +27,7 @@ dies, `e^{-iπ·con/2} = -i` (`con ≡ 1 (mod 4)`), `φ(m) → 0`:
 the odd part tends to `-i·2·gaussSumHalf(4·con·t/(t²+4))` and `√(t·con)·that → -i`.
 -/
 
-set_option maxHeartbeats 1000000
+set_option maxHeartbeats 8000000
 
 open Complex Real Filter Topology
 open scoped Complex Real Topology
@@ -98,6 +98,10 @@ theorem exp_I_two_pi (k : ℤ) :
   rw [h]
   exact Complex.exp_int_mul_two_pi_mul_I _
 
+theorem exp_I_two_pi_natneg (m : ℕ) :
+    cexp (I * Complex.ofReal (((-((m : ℕ) : ℤ)) : ℝ) * 2 * π)) = 1 := by
+  convert exp_I_two_pi (-(m : ℤ)) using 1 <;> push_cast <;> ring
+
 theorem exp_I_neg_half : cexp (I * (Complex.ofReal (-(π / 2 : ℝ)))) = -(I : ℂ) := by
   have h : I * (Complex.ofReal (-(π / 2 : ℝ))) = -↑π / 2 * I := by
     push_cast
@@ -112,42 +116,31 @@ theorem dualParam_eq (t : ℝ) :
     Complex.ofReal (con : ℝ) / ((t : ℂ) - 2 * I)
       = Complex.ofReal ((con : ℝ) * t / (t ^ 2 + 4))
         + Complex.ofReal ((con : ℝ) * 2 / (t ^ 2 + 4)) * I := by
-  have hZ : ((t : ℂ) - 2 * I) ≠ 0 := by
-    intro h
-    have him : ((t : ℂ) - 2 * I).im = -2 := by
-      simp [Complex.sub_im, Complex.ofReal_im, Complex.mul_im, Complex.I_im]
-    rw [h] at him
-    simp at him
-  have hmul : ((t : ℂ) - 2 * I)
-        * (Complex.ofReal ((con : ℝ) * t / (t ^ 2 + 4))
-          + Complex.ofReal ((con : ℝ) * 2 / (t ^ 2 + 4)) * I)
-      = Complex.ofReal (con : ℝ) := by
-    refine Complex.ext ?_ ?_
-    · simp only [mul_add, mul_sub, Complex.mul_re, Complex.mul_im,
-        Complex.sub_re, Complex.sub_im, Complex.add_re, Complex.ofReal_re, Complex.ofReal_im,
-        Complex.I_re, Complex.I_im]
-      have hD : (0 : ℝ) < t ^ 2 + 4 := by positivity
-      field_simp
-      ring
-    · simp only [mul_add, mul_sub, Complex.mul_re, Complex.mul_im,
-        Complex.sub_re, Complex.sub_im, Complex.add_im, Complex.ofReal_re, Complex.ofReal_im,
-        Complex.I_re, Complex.I_im]
-      have hD : (0 : ℝ) < t ^ 2 + 4 := by positivity
-      field_simp
-      ring
-  exact (eq_div_of_mul_eq hZ (by rw [mul_comm]; exact hmul)).symm
+  apply Complex.ext
+  · rw [Complex.div_re]
+    simp only [Complex.ofReal_re, Complex.ofReal_im, Complex.sub_re, Complex.mul_re,
+      Complex.I_re, Complex.I_im, Complex.normSq_apply, Complex.add_re, Complex.sub_im]
+    norm_num
+    ring
+  · rw [Complex.div_im]
+    simp only [Complex.ofReal_re, Complex.ofReal_im, Complex.sub_im, Complex.mul_im,
+      Complex.I_re, Complex.I_im, Complex.normSq_apply, Complex.add_im, Complex.sub_re]
+    norm_num
+    ring
 
 /-- The real part of `con / (t - 2i)`. -/
 theorem re_dualParam (t : ℝ) : (Complex.ofReal (con : ℝ) / ((t : ℂ) - 2 * I)).re
     = (con : ℝ) * t / (t ^ 2 + 4) := by
   rw [dualParam_eq t]
-  simp
+  simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im,
+    Complex.I_re, Complex.I_im, mul_zero, mul_one, sub_zero, add_zero]
 
 /-- The imaginary part of `con / (t - 2i)`. -/
 theorem im_dualParam (t : ℝ) : (Complex.ofReal (con : ℝ) / ((t : ℂ) - 2 * I)).im
     = (con : ℝ) * 2 / (t ^ 2 + 4) := by
   rw [dualParam_eq t]
-  simp
+  simp only [Complex.add_im, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+    Complex.I_re, Complex.I_im, zero_mul, mul_one, zero_add, add_zero]
 
 /-- The exponent of the dual series, rewritten into Gaussian + phase parts. -/
 theorem dualExponent_eq (t : ℝ) (ht : 0 < t) (n : ℤ) :
@@ -195,17 +188,18 @@ theorem dualTerm_norm (t : ℝ) (ht : 0 < t) (n : ℤ) :
       = 1 := by
     have hre2 : (Complex.ofReal (-π * ((con : ℝ) * 2 / (t ^ 2 + 4)) * ((n : ℤ) : ℝ) ^ 2) * I).re
         = 0 := by
-      simp [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im]
+      simp only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im,
+        mul_zero, zero_mul, sub_self]
     rw [Complex.norm_exp, hre2, Real.exp_zero]
   simp only [dualTerm]
-  rw [harg, Complex.exp_add, norm_mul, rexp_norm_ofReal, h2, mul_one]
+  rw [harg, Complex.exp_add, norm_mul, rexp_norm_ofReal, h2] <;> simp
 
 theorem summable_dualTerm (t : ℝ) (ht : 0 < t) :
     Summable (fun n : ℤ => dualTerm t n) := by
   refine Summable.of_norm ?_
   have ha : 0 < (con : ℝ) * t / (t ^ 2 + 4) := by
     exact div_pos (mul_pos (Nat.cast_pos.mpr con_pos) ht) (by positivity)
-  exact (summable_gaussReal _ ha).congr (fun n => by rw [dualTerm_norm t ht n]; congr 1; ring)
+  exact (summable_gaussReal _ ha).congr (fun n => by rw [dualTerm_norm t ht n])
 
 /-- Evenness of the dual terms. -/
 theorem dualTerm_even (t : ℝ) : ∀ k : ℤ, dualTerm t (-k) = dualTerm t k := by
@@ -300,7 +294,7 @@ theorem summable_oddSq (a : ℝ) (ha : 0 < a) :
       _ = 4 * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2 * rexp (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by
           ring
       _ ≤ 4 * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2 * rexp (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2)) :=
-          (by refine mul_le_mul_of_nonneg_left ?_ (by norm_num); exact mul_le_mul_of_nonneg_right h2 (sq_nonneg _))
+          (by refine mul_le_mul_of_nonneg_left ?_ (by norm_num); exact mul_le_mul_of_nonneg_left h2 (sq_nonneg _))
   have hsucc : Summable (fun n : ℕ => ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2
       * rexp (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2))) :=
     (summable_sqMoment a ha).comp_injective Nat.succ_injective
@@ -338,7 +332,7 @@ theorem oddSqMoment_le (a : ℝ) (ha : 0 < a) (hle : a ≤ 1) :
       _ = 4 * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2 * rexp (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by
           ring
       _ ≤ 4 * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2 * rexp (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2)) :=
-          (by refine mul_le_mul_of_nonneg_left ?_ (by norm_num); exact mul_le_mul_of_nonneg_right h2 (sq_nonneg _))
+          (by refine mul_le_mul_of_nonneg_left ?_ (by norm_num); exact mul_le_mul_of_nonneg_left h2 (sq_nonneg _))
   have hsucc : Summable (fun n : ℕ => ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2
       * rexp (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2))) :=
     (summable_sqMoment a ha).comp_injective Nat.succ_injective
@@ -388,21 +382,31 @@ theorem oddSqMoment_le' (a : ℝ) (ha : 0 < a) :
 /-! ## The main terms match the Gaussian bricks -/
 
 /-- The even main half-line series is the complexification of `gaussSumNat`. -/
-theorem evenMain_eq (a : ℝ) :
+theorem evenMain_eq (a : ℝ) (ha : 0 < a) :
     (∑' n : ℕ, cexp ((-π * a * ((n : ℕ) : ℝ) ^ 2) : ℂ))
       = ((gaussSumNat a : ℝ) : ℂ) := by
   have hconv : (∑' n : ℕ, cexp ((-π * a * ((n : ℕ) : ℝ) ^ 2) : ℂ))
-      = ∑' n : ℕ, (Complex.ofReal (rexp (-π * a * ((n : ℕ) : ℝ) ^ 2)) : ℂ) :=
-    tsum_congr (fun n => (Complex.ofReal_exp _).symm)
-  rw [hconv, Complex.ofRealCLM.map_tsum (summable_gaussNat a (by positivity))]
+      = ∑' n : ℕ, (Complex.ofReal (rexp (-π * a * ((n : ℕ) : ℝ) ^ 2)) : ℂ) := by
+    refine tsum_congr (fun n => ?_)
+    have hx : ((-π * a * ((n : ℕ) : ℝ) ^ 2 : ℝ) : ℂ)
+        = -↑π * ↑a * ↑((n : ℕ) : ℝ) ^ 2 := by push_cast; ring
+    rw [← hx]
+    exact cexp_ofReal _
+  rw [hconv]
+  simpa [gaussSumNat] using
+    (Complex.ofRealCLM.map_tsum (summable_gaussNat a ha)).symm
 
 /-- The odd main half-line series is the complexification of `gaussSumHalf`. -/
 theorem oddMain_eq (a : ℝ) (ha : 0 < a) :
     (∑' n : ℕ, cexp ((-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
       = ((gaussSumHalf (4 * a) : ℝ) : ℂ) := by
   have hconv : (∑' n : ℕ, cexp ((-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
-      = ∑' n : ℕ, (Complex.ofReal (rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) : ℂ) :=
-    tsum_congr (fun n => (Complex.ofReal_exp _).symm)
+      = ∑' n : ℕ, (Complex.ofReal (rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) : ℂ) := by
+    refine tsum_congr (fun n => ?_)
+    have hx : ((-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2) : ℝ) : ℂ)
+        = -↑π * ↑a * ↑(((2 * n + 1 : ℕ) : ℝ)) ^ 2 := by push_cast; ring
+    rw [← hx]
+    exact cexp_ofReal _
   have hsum : Summable (fun n : ℕ =>
       rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by
     refine Summable.of_nonneg_of_le (fun n => exp_nonneg _) (fun n => ?_)
@@ -412,8 +416,12 @@ theorem oddMain_eq (a : ℝ) (ha : 0 < a) :
       have h2 : (((2 * n + 1 : ℕ) : ℝ)) = 2 * ((n : ℕ) : ℝ) + 1 := by push_cast; ring
       rw [h2]; nlinarith [sq_nonneg ((n : ℕ) : ℝ)]
     have hneg : -π * a ≤ 0 := by linarith [mul_pos Real.pi_pos ha]
-    exact mul_le_mul_of_nonpos_right h1 hneg
-  rw [hconv, Complex.ofRealCLM.map_tsum hsum]
+    exact mul_le_mul_of_nonpos_left h1 hneg
+  rw [hconv]
+  have ht : (∑' n : ℕ, (Complex.ofReal (rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) : ℂ))
+      = Complex.ofReal (∑' n : ℕ, rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) :=
+    (Complex.ofRealCLM.map_tsum hsum).symm
+  rw [ht]
   rw [tsum_congr (fun n : ℕ => (by congr 1; push_cast; ring :
     rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
       = rexp (-π * (4 * a) * (((n : ℕ) : ℝ) + 1 / 2) ^ 2)))]
@@ -425,7 +433,7 @@ theorem dualEven_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
       = cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
         * cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) := by
   have h := dualExponent_eq t ht ((2 * n : ℕ) : ℤ)
-  have hcast : (((2 * n : ℕ) : ℤ) : ℝ) = ((2 * n : ℕ) : ℝ) := by push_cast
+  have hcast : (((2 * n : ℕ) : ℤ) : ℝ) = ((2 * n : ℕ) : ℝ) := by push_cast; ring
   rw [hcast] at h
   simp only [dualTerm]
   rw [h, Complex.exp_add, mul_comm (Complex.ofReal _) I]
@@ -436,12 +444,16 @@ theorem dualEven_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
     congr 1
     push_cast
     field_simp
-    ring
+    ring_nf
   rw [hvs, mul_add, Complex.exp_add]
-  rw [exp_I_two_pi (-((con * (n * n) : ℕ) : ℤ)), one_mul]
+  rw [exp_I_two_pi_natneg (con * (n * n)), one_mul]
   rw [mul_comm]
   rw [show (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n : ℕ) : ℝ) ^ 2))
-      = -π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2 from by ring]
+      = -π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2 from by push_cast; ring_nf]
+  rw [← Complex.exp_add, ← Complex.exp_add]
+  congr 1
+  push_cast
+  ring_nf
 /-- The odd `n = 2m+1` term: Gaussian times `-i` up to a decaying phase. -/
 theorem dualOdd_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
     dualTerm t ((2 * n + 1 : ℕ) : ℤ)
@@ -449,7 +461,7 @@ theorem dualOdd_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
             / (2 * (t ^ 2 + 4))) : ℂ))
         * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ) := by
   have h := dualExponent_eq t ht ((2 * n + 1 : ℕ) : ℤ)
-  have hcast : (((2 * n + 1 : ℕ) : ℤ) : ℝ) = ((2 * n + 1 : ℕ) : ℝ) := by push_cast
+  have hcast : (((2 * n + 1 : ℕ) : ℤ) : ℝ) = ((2 * n + 1 : ℕ) : ℝ) := by push_cast; ring
   rw [hcast] at h
   simp only [dualTerm]
   rw [h, Complex.exp_add, mul_comm (Complex.ofReal _) I]
@@ -462,9 +474,9 @@ theorem dualOdd_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
     congr 1
     push_cast
     field_simp
-    ring
+    ring_nf
   rw [hvs, mul_add, mul_add, Complex.exp_add, Complex.exp_add]
-  rw [exp_I_two_pi (-((con * (n * (n + 1)) : ℕ) : ℤ)), one_mul]
+  rw [exp_I_two_pi_natneg (con * (n * (n + 1))), one_mul]
   have h5 := Nat.div_add_mod con 4
   rw [con_mod_four] at h5
   have h6 : con / 4 = (con - 1) / 4 := by omega
@@ -472,15 +484,16 @@ theorem dualOdd_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
     have hsplit : (-(π * (con : ℝ) / 2) : ℝ)
         = (((-(((con - 1) / 4 : ℕ) : ℤ)) : ℝ) * 2 * π) + (-(π / 2 : ℝ)) := by
       have hq : (con : ℝ) = 4 * (((con - 1) / 4 : ℕ) : ℝ) + 1 := by
-        conv_lhs => rw [h5, h6]
-        push_cast
+        norm_num [con]
       rw [hq]
       field_simp
       ring
     rw [hsplit, Complex.ofReal_add, mul_add, Complex.exp_add,
-      exp_I_two_pi (-(((con - 1) / 4 : ℕ) : ℤ)), one_mul, exp_I_neg_half]
+      exp_I_two_pi_natneg ((con - 1) / 4), one_mul, exp_I_neg_half]
   rw [hint2]
-  ring
+  ring_nf
+  push_cast
+  ring_nf
 
 /-! ## Deviation terms and their bounds -/
 
@@ -497,10 +510,15 @@ theorem dualEven_dev_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
         norm_mul_le _ _
     _ = rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)
           * ‖cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1‖ := by
-        rw [rexp_norm_ofReal]
+        congr 1
+        convert rexp_norm_ofReal (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) using 1 <;> push_cast <;> ring
     _ ≤ rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)
-          * (2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) :=
-        mul_le_mul_of_nonneg_left (norm_exp_I_sub_one _) (exp_nonneg _)
+          * (2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) := by
+        have hθ : 0 ≤ 2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4) := by positivity
+        refine mul_le_mul_of_nonneg_left ?_ (exp_nonneg _)
+        have hh := norm_exp_I_sub_one (2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4))
+        rw [abs_of_nonneg hθ] at hh
+        convert hh using 1 <;> push_cast <;> ring
     _ = (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (((n : ℕ) : ℝ) ^ 2
           * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)) := by ring
 
@@ -511,12 +529,13 @@ theorem dualEven_dev_summable (t : ℝ) (ht : 0 < t) :
     div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht) (by positivity)
   have hdom : Summable (fun n : ℕ => (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (((n : ℕ) : ℝ) ^ 2
       * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2))) :=
-    summable_const_mul (summable_sqMoment _ ha0) _
-  exact Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualEven_dev_term t ht) hdom
+    by convert summable_const_mul (summable_sqMoment (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0)
+        (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) using 1 <;> ext n <;> ring
+  exact Summable.of_norm (Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualEven_dev_term t ht) hdom)
 
 theorem dualEven_dev_bound (t : ℝ) (ht : 0 < t) :
-    ‖∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
-        * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖
+    (∑' n : ℕ, ‖cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+        * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖)
       ≤ (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))
         * (2 / ((4 * (con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
           + 2) := by
@@ -524,26 +543,28 @@ theorem dualEven_dev_bound (t : ℝ) (ht : 0 < t) :
     div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht) (by positivity)
   have hdom : Summable (fun n : ℕ => (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (((n : ℕ) : ℝ) ^ 2
       * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2))) :=
-    summable_const_mul (summable_sqMoment _ ha0) _
+    by convert summable_const_mul (summable_sqMoment (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0)
+        (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) using 1 <;> ext n <;> ring
   have hnorms : Summable (fun n : ℕ =>
       ‖cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
         * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖) :=
     Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualEven_dev_term t ht) hdom
   have hsq := sqMoment_le' (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0
-  calc ‖∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
-          * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖
-      ≤ ∑' n : ℕ, ‖cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
-          * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖ :=
-        norm_tsum_le_tsum_norm hnorms
-    _ ≤ ∑' n : ℕ, (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (((n : ℕ) : ℝ) ^ 2
+  have hsucc : Summable (fun n : ℕ => ((n : ℕ) : ℝ) ^ 2
+      * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)) := by
+    convert summable_sqMoment (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0 using 1 <;> ext n <;> ring_nf
+  calc (∑' n : ℕ, ‖cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+          * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ)) - 1)‖)
+      ≤ ∑' n : ℕ, (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (((n : ℕ) : ℝ) ^ 2
           * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)) :=
         Summable.tsum_le_tsum (dualEven_dev_term t ht) hnorms hdom
     _ = (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) * (∑' n : ℕ, ((n : ℕ) : ℝ) ^ 2
           * rexp (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)) :=
-        (Summable.tsum_mul_left _ hdom).symm
+        (by
+          rw [← Summable.tsum_mul_left (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)) hsucc])
     _ ≤ (2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))
           * (2 / ((4 * (con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
-            + 2) := mul_le_mul_of_nonneg_left hsq (by positivity)
+            + 2) := mul_le_mul_of_nonneg_left (by simpa [mul_assoc] using hsq) (by positivity)
 
 theorem summable_oddGauss (a : ℝ) (ha : 0 < a) :
     Summable (fun n : ℕ => rexp (-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by
@@ -553,7 +574,7 @@ theorem summable_oddGauss (a : ℝ) (ha : 0 < a) :
     have h2 : (((2 * n + 1 : ℕ) : ℝ)) = 2 * ((n : ℕ) : ℝ) + 1 := by push_cast; ring
     rw [h2]; nlinarith [sq_nonneg ((n : ℕ) : ℝ)]
   have hneg : -π * a ≤ 0 := by linarith [mul_pos Real.pi_pos ha]
-  exact mul_le_mul_of_nonpos_right h1 hneg
+  exact mul_le_mul_of_nonpos_left h1 hneg
 
 /-- Per-term bound for the odd deviation series. -/
 theorem dualOdd_dev_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
@@ -569,20 +590,21 @@ theorem dualOdd_dev_term (t : ℝ) (ht : 0 < t) (n : ℕ) :
             / (2 * (t ^ 2 + 4))) : ℂ)))‖
       ≤ ‖cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)‖
           * ‖1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-            / (2 * (t ^ 2 + 4))) : ℂ))‖ :=
-        le_trans (norm_mul_le _ _)
-          (mul_le_mul_of_nonneg_right (le_trans (norm_mul_le _ _)
-            (mul_le_mul (by norm_num [Complex.norm_I]) (le_refl _) (by simp [Complex.norm_I])
-              (norm_nonneg _))) (norm_nonneg _))
+            / (2 * (t ^ 2 + 4))) : ℂ))‖ := by
+        simp [norm_mul, Complex.norm_I]
     _ = rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
           * ‖1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
             / (2 * (t ^ 2 + 4))) : ℂ))‖ := by
-        rw [rexp_norm_ofReal]
+        congr 1
+        convert rexp_norm_ofReal (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) using 1 <;> push_cast <;> ring
     _ ≤ rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
           * (π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2 / (2 * (t ^ 2 + 4))) := by
         refine mul_le_mul_of_nonneg_left ?_ (exp_nonneg _)
         rw [norm_sub_rev]
-        exact norm_exp_I_sub_one _
+        have hθ : 0 ≤ π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2 / (2 * (t ^ 2 + 4)) := by positivity
+        have hh := norm_exp_I_sub_one (π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2 / (2 * (t ^ 2 + 4)))
+        rw [abs_of_nonneg hθ] at hh
+        convert hh using 1 <;> push_cast <;> ring
     _ = (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) * ((((2 * n + 1 : ℕ) : ℝ) ^ 2)
           * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by ring
 
@@ -596,14 +618,15 @@ theorem dualOdd_dev_summable (t : ℝ) (ht : 0 < t) :
   have hdom : Summable (fun n : ℕ => (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
       * ((((2 * n + 1 : ℕ) : ℝ) ^ 2)
         * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)))) :=
-    summable_const_mul (summable_oddSq _ ha0) _
-  exact Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualOdd_dev_term t ht) hdom
+    by convert summable_const_mul (summable_oddSq ((con : ℝ) * t / (t ^ 2 + 4)) ha0)
+        (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) using 1 <;> ext n <;> ring
+  exact Summable.of_norm (Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualOdd_dev_term t ht) hdom)
 
 theorem dualOdd_dev_bound (t : ℝ) (ht : 0 < t) :
-    ‖∑' n : ℕ, (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+    (∑' n : ℕ, ‖(I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
             * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
         * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-            / (2 * (t ^ 2 + 4))) : ℂ)))‖
+            / (2 * (t ^ 2 + 4))) : ℂ)))‖)
       ≤ (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
         * (8 / (((con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt ((con : ℝ) * t / (t ^ 2 + 4))) + 8) := by
   have ha0 : 0 < (con : ℝ) * t / (t ^ 2 + 4) :=
@@ -611,7 +634,8 @@ theorem dualOdd_dev_bound (t : ℝ) (ht : 0 < t) :
   have hdom : Summable (fun n : ℕ => (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
       * ((((2 * n + 1 : ℕ) : ℝ) ^ 2)
         * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)))) :=
-    summable_const_mul (summable_oddSq _ ha0) _
+    by convert summable_const_mul (summable_oddSq ((con : ℝ) * t / (t ^ 2 + 4)) ha0)
+        (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) using 1 <;> ext n <;> ring
   have hnorms : Summable (fun n : ℕ =>
       ‖(I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
             * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
@@ -619,23 +643,23 @@ theorem dualOdd_dev_bound (t : ℝ) (ht : 0 < t) :
             / (2 * (t ^ 2 + 4))) : ℂ)))‖) :=
     Summable.of_nonneg_of_le (fun n => norm_nonneg _) (dualOdd_dev_term t ht) hdom
   have hsq := oddSqMoment_le' ((con : ℝ) * t / (t ^ 2 + 4)) ha0
-  calc ‖∑' n : ℕ, (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+  have hsucc : Summable (fun n : ℕ => (((2 * n + 1 : ℕ) : ℝ) ^ 2)
+      * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) := by
+    convert summable_oddSq ((con : ℝ) * t / (t ^ 2 + 4)) ha0 using 1 <;> ext n <;> ring_nf
+  calc (∑' n : ℕ, ‖(I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
             * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
         * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-            / (2 * (t ^ 2 + 4))) : ℂ)))‖
-      ≤ ∑' n : ℕ, ‖(I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
-            * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
-          * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-            / (2 * (t ^ 2 + 4))) : ℂ)))‖ := norm_tsum_le_tsum_norm hnorms
-    _ ≤ ∑' n : ℕ, (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) * ((((2 * n + 1 : ℕ) : ℝ) ^ 2)
+            / (2 * (t ^ 2 + 4))) : ℂ)))‖)
+      ≤ ∑' n : ℕ, (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) * ((((2 * n + 1 : ℕ) : ℝ) ^ 2)
           * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) :=
         Summable.tsum_le_tsum (dualOdd_dev_term t ht) hnorms hdom
     _ = (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) * (∑' n : ℕ, (((2 * n + 1 : ℕ) : ℝ) ^ 2)
           * rexp (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))) :=
-        (Summable.tsum_mul_left _ hdom).symm
+        (by
+          rw [← Summable.tsum_mul_left (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4))) hsucc])
     _ ≤ (π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
           * (8 / (((con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt ((con : ℝ) * t / (t ^ 2 + 4)))
-            + 8) := mul_le_mul_of_nonneg_left hsq (by positivity)
+            + 8) := mul_le_mul_of_nonneg_left (by simpa [mul_assoc] using hsq) (by positivity)
 
 /-! ## The even/odd rearrangements -/
 
@@ -651,7 +675,8 @@ theorem dualEven_eq (t : ℝ) (ht : 0 < t) :
       cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)) := by
     refine Summable.of_norm ?_
     exact (summable_gaussNat (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0).congr
-      (fun n => by rw [rexp_norm_ofReal])
+      (fun n => by
+        convert (rexp_norm_ofReal (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)).symm using 1 <;> push_cast <;> ring)
   have hsd := dualEven_dev_summable t ht
   have hsplit : (∑' n : ℕ, dualTerm t ((2 * n : ℕ) : ℤ))
       = (∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ))
@@ -666,6 +691,9 @@ theorem dualEven_eq (t : ℝ) (ht : 0 < t) :
     rw [h]
     push_cast
     ring
+  have hE : (∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ))
+      = ((gaussSumNat (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ) := by
+    convert evenMain_eq (4 * (con : ℝ) * t / (t ^ 2 + 4)) ha0 using 1 <;> push_cast <;> ring
   calc dualEven t
       = 2 * (∑' n : ℕ, dualTerm t ((2 * n : ℕ) : ℤ)) - 1 := rfl
     _ = 2 * ((∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ))
@@ -676,7 +704,7 @@ theorem dualEven_eq (t : ℝ) (ht : 0 < t) :
           + 2 * (∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
             * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
               - 1)) := by
-        rw [evenMain_eq, hGint]
+        rw [hE, hGint]
         ring
 
 theorem dualOdd_eq (t : ℝ) (ht : 0 < t) :
@@ -692,24 +720,35 @@ theorem dualOdd_eq (t : ℝ) (ht : 0 < t) :
       cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)) := by
     refine Summable.of_norm ?_
     exact (summable_oddGauss ((con : ℝ) * t / (t ^ 2 + 4)) ha0).congr
-      (fun n => by rw [rexp_norm_ofReal])
+      (fun n => by
+        convert (rexp_norm_ofReal (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))).symm using 1 <;> push_cast <;> ring)
   have hsd := dualOdd_dev_summable t ht
+  have hsuI : Summable (fun n : ℕ => (-(I : ℂ)) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+      * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)) := Summable.mul_left (-(I : ℂ)) hsu
   have hsplit : (∑' n : ℕ, dualTerm t ((2 * n + 1 : ℕ) : ℤ))
-      = (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+      = (-(I : ℂ)) * (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
             * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
         + (∑' n : ℕ, (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
               * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
               / (2 * (t ^ 2 + 4))) : ℂ)))) := by
-    rw [← Summable.tsum_add hsu hsd]
-    exact tsum_congr (fun n => by rw [dualOdd_term t ht n]; ring)
+    rw [← Summable.tsum_mul_left (-(I : ℂ)) hsu]
+    rw [← Summable.tsum_add hsuI hsd]
+    exact tsum_congr (fun n => by rw [dualOdd_term t ht n]; ring_nf)
   have hodd : ((2 * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)
       = 2 * (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
             * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)) := by
-    rw [oddMain_eq]
+    have hO : (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+          * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
+        = ((gaussSumHalf (4 * ((con : ℝ) * t / (t ^ 2 + 4))) : ℝ) : ℂ) := by
+      convert oddMain_eq ((con : ℝ) * t / (t ^ 2 + 4)) ha0 using 1 <;> push_cast <;> ring
+    rw [hO]
+    push_cast
+    congr 2
+    ring
   calc dualOdd t
       = 2 * (∑' n : ℕ, dualTerm t ((2 * n + 1 : ℕ) : ℤ)) := rfl
-    _ = 2 * ((∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+    _ = 2 * ((-(I : ℂ)) * (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
               * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
           + (∑' n : ℕ, (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
               * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
@@ -720,8 +759,12 @@ theorem dualOdd_eq (t : ℝ) (ht : 0 < t) :
               * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
               / (2 * (t ^ 2 + 4))) : ℂ)))) := by
-        rw [hodd]
-        ring
+        rw [mul_add]
+        rw [show 2 * ((-(I : ℂ)) * (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+              * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))
+            ) = (-(I : ℂ)) * (2 * (∑' n : ℕ, cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
+              * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ))) by ring]
+        rw [← hodd]
 
 /-! ## Tendsto machinery -/
 
@@ -732,14 +775,13 @@ theorem extra_tendsto (K : ℝ) :
   have h1 : Tendsto (fun t : ℝ => Real.sqrt ((con : ℝ) * t)) (𝓝[>] 0) (𝓝 0) := by
     have hc : ContinuousAt (fun t : ℝ => Real.sqrt ((con : ℝ) * t)) 0 :=
       Real.continuous_sqrt.continuousAt.comp (by fun_prop)
-    exact Tendsto.mono_left nhdsWithin_le_nhds (by simpa using hc.tendsto)
+    exact Tendsto.mono_left (by simpa using hc.tendsto) nhdsWithin_le_nhds
   have h2 : Tendsto (fun t : ℝ => K * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)))
       (𝓝[>] 0) (𝓝 0) := by
     have hc : ContinuousAt (fun t : ℝ => K * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))) 0 := by
       refine ContinuousAt.mul continuousAt_const ?_
-      refine ContinuousAt.div₀ (by fun_prop) continuousAt_const (by norm_num)
-      fun_prop
-    exact Tendsto.mono_left nhdsWithin_le_nhds (by simpa using hc.tendsto)
+      refine ContinuousAt.div₀ (by fun_prop) (by fun_prop) (by norm_num)
+    exact Tendsto.mono_left (by simpa using hc.tendsto) nhdsWithin_le_nhds
   simpa using h1.mul h2
 
 /-- `√(t·con)/√(4·con·t/(t²+4)) → 1`. -/
@@ -753,23 +795,26 @@ theorem sqrtRatio_tendsto :
     have htne : (t : ℝ) ≠ 0 := ne_of_gt ht.1
     have h1 : Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4))
         = Real.sqrt (4 * (con : ℝ) * t) / Real.sqrt (t ^ 2 + 4) :=
-      Real.sqrt_div (by positivity)
+      Real.sqrt_div (mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 4) (Nat.cast_nonneg _)) (le_of_lt ht.1)) (t ^ 2 + 4)
     have hD : Real.sqrt ((con : ℝ) * t) / (Real.sqrt (4 * (con : ℝ) * t)
           / Real.sqrt (t ^ 2 + 4)) = Real.sqrt ((t ^ 2 + 4) / 4) := by
-      rw [div_eq_mul_inv, inv_div, mul_div_assoc',
-        ← Real.sqrt_mul (by positivity : 0 ≤ (con : ℝ) * t),
-        Real.sqrt_div (by positivity : 0 ≤ (con : ℝ) * t * (t ^ 2 + 4))]
-      congr 1
-      field_simp
+      have hposct : 0 < (con : ℝ) * t := mul_pos (Nat.cast_pos.mpr con_pos) ht.1
+      have hs4 : Real.sqrt (4 * (con : ℝ) * t) = 2 * Real.sqrt ((con : ℝ) * t) := by
+        rw [show 4 * (con : ℝ) * t = (4 : ℝ) * ((con : ℝ) * t) by ring,
+          Real.sqrt_mul (by norm_num : (0 : ℝ) ≤ 4)]
+        norm_num
+      rw [hs4, Real.sqrt_div (by positivity : 0 ≤ t ^ 2 + 4) 4]
+      field_simp [Real.sqrt_ne_zero'.2 hposct]
+      ring
     rw [h1, hD]
-  refine Tendsto.congr' hcongr ?_
+  refine Tendsto.congr' hcongr.symm ?_
   have hcv : ContinuousAt (fun t : ℝ => Real.sqrt ((t ^ 2 + 4) / 4)) 0 := by
     refine Real.continuous_sqrt.continuousAt.comp ?_
-    exact ContinuousAt.div₀ (by fun_prop) continuousAt_const (by norm_num)
+    exact ContinuousAt.div₀ (by fun_prop) (by fun_prop) (by norm_num)
   have hval : (Real.sqrt ((0 ^ 2 + 4) / 4) : ℝ) = 1 := by norm_num
   have hT := hcv.tendsto
   rw [hval] at hT
-  exact Tendsto.mono_left nhdsWithin_le_nhds hT
+  exact Tendsto.mono_left hT nhdsWithin_le_nhds
 
 /-- `c₀·t/(t²+4) → 0⁺` along `t → 0⁺`. -/
 theorem tendsto_a1 {c₀ : ℝ} (hc₀ : 0 < c₀) :
@@ -777,11 +822,10 @@ theorem tendsto_a1 {c₀ : ℝ} (hc₀ : 0 < c₀) :
   rw [tendsto_nhdsWithin_iff]
   refine ⟨?_, ?_⟩
   · have hc : ContinuousAt (fun t : ℝ => c₀ * t / (t ^ 2 + 4)) 0 := by
-      refine ContinuousAt.div₀ (by fun_prop) continuousAt_const (by norm_num)
-      fun_prop
-    exact Tendsto.mono_left nhdsWithin_le_nhds (by simpa using hc.tendsto)
+      refine ContinuousAt.div₀ (by fun_prop) (by fun_prop) (by norm_num)
+    exact Tendsto.mono_left (by simpa using hc.tendsto) nhdsWithin_le_nhds
   · filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    exact mem_Ioi.mpr (div_pos (mul_pos hc₀ ht.1) (by positivity))
+    exact Set.mem_Ioi.mpr (div_pos (mul_pos hc₀ ht.1) (by positivity))
 
 /-- **Brick R1b, scaled.** `√(t·con)·gaussSumHalf(4·con·t/(t²+4)) → 1/2`. -/
 theorem sq_mul_gaussHalf_tendsto :
@@ -796,14 +840,13 @@ theorem sq_mul_gaussHalf_tendsto :
           * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)))) := by
     filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
     have hpos : 0 < 4 * (con : ℝ) * t / (t ^ 2 + 4) :=
-      div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht) (by positivity)
-    rw [← mul_assoc, div_mul_cancel₀ _ (sqrt_ne_zero.mpr (ne_of_gt hpos))]
-  refine Tendsto.congr' hcongr ?_
+      div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht.1) (by positivity)
+    rw [← mul_assoc, div_mul_cancel₀ _ (Real.sqrt_ne_zero'.2 hpos)]
+  refine Tendsto.congr' hcongr.symm ?_
   have h1 : Tendsto (fun t : ℝ => Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4))
       * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4))) (𝓝[>] 0) (𝓝 (1 / 2)) := by
-    refine Tendsto.congr'
-      (Filter.Eventually.of_forall (fun t => by rw [Real.sqrt_eq_rpow])) ?_
-    exact gaussSumHalf_asympt.comp (tendsto_a1 hc₀)
+    have hA := gaussSumHalf_asympt.comp (tendsto_a1 hc₀)
+    convert hA using 1 <;> ext t <;> simp [Real.sqrt_eq_rpow]
   simpa using sqrtRatio_tendsto.mul h1
 
 /-- **Brick R1b, doubled and scaled.** `√(t·con)·2·gaussSumHalf(4·con·t/(t²+4)) → 1`. -/
@@ -817,7 +860,7 @@ theorem gaussSumHalf2_scaled :
         * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)))) := by
     filter_upwards with t
     ring
-  refine Tendsto.congr' hcongr ?_
+  refine Tendsto.congr' hcongr.symm ?_
   simpa using (sq_mul_gaussHalf_tendsto).const_mul 2
 
 /-- **Brick R0, scaled.** `√(t·con)·gaussSumInt(4·con·t/(t²+4)) → 1`. -/
@@ -833,21 +876,37 @@ theorem gaussSumInt_scaled :
           * gaussSumInt (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)) := by
     filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
     have hpos : 0 < 4 * (con : ℝ) * t / (t ^ 2 + 4) :=
-      div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht) (by positivity)
+      div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht.1) (by positivity)
     push_cast
-    rw [← mul_assoc, div_mul_cancel₀ _ (sqrt_ne_zero.mpr (ne_of_gt hpos))]
-  refine Tendsto.congr' hcongr ?_
+    have hsne : Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)) ≠ 0 := Real.sqrt_ne_zero'.2 hpos
+    have hsne' : ((Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ) ≠ 0 := by exact_mod_cast hsne
+    have harg3 : 0 < 4190205 * (t * 4) / (t ^ 2 + 4) := by
+      apply div_pos
+      · nlinarith [ht.1]
+      · positivity
+    have hsne3 : (↑√(4190205 * (t * 4) / (t ^ 2 + 4)) : ℂ) ≠ 0 := by
+      exact_mod_cast (Real.sqrt_ne_zero'.2 harg3)
+    have hsne4 : (↑√(4190205 * t * (4 / (t ^ 2 + 4))) : ℂ) ≠ 0 := by
+      exact_mod_cast (Real.sqrt_ne_zero'.2 (mul_pos (mul_pos (by norm_num : (0 : ℝ) < 4190205) ht.1)
+        (mul_pos (by norm_num : (0 : ℝ) < 4) (inv_pos.mpr (by positivity)))))
+    field_simp [hsne, hsne', hsne3, hsne4]
+    have hsneX : (↑√(4190205 * t * 4 / (t ^ 2 + 4)) : ℂ) ≠ 0 := by
+      have hnum : 0 < 4190205 * t * 4 := by nlinarith [ht.1]
+      have hden : 0 < t ^ 2 + 4 := by positivity
+      exact_mod_cast (Real.sqrt_ne_zero'.2 (div_pos hnum hden))
+    exact (mul_div_cancel_right₀ _ hsneX).symm
+  refine Tendsto.congr' hcongr.symm ?_
   have h1 : Tendsto (fun t : ℝ => ((Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4))
         * gaussSumInt (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)) (𝓝[>] 0) (𝓝 1) := by
     have hcomp := thetaAsympt_full.comp (tendsto_a1 hc₀)
     have hcast := (Complex.ofRealCLM).continuous.continuousAt.tendsto.comp hcomp
-    refine Tendsto.congr'
-      (Filter.Eventually.of_forall (fun t => by rw [Real.sqrt_eq_rpow])) ?_
-    exact hcast
+    have hA := (Complex.ofRealCLM).continuous.continuousAt.tendsto.comp
+      (thetaAsympt_full.comp (tendsto_a1 hc₀))
+    convert hA using 1 <;> ext t <;> simp [Real.sqrt_eq_rpow, gaussSumInt] <;> push_cast <;> ring_nf
   have h2 : Tendsto (fun t : ℝ => ((Real.sqrt ((con : ℝ) * t)
       / Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)) (𝓝[>] 0) (𝓝 1) := by
     have hcast := (Complex.ofRealCLM).continuous.continuousAt.tendsto.comp sqrtRatio_tendsto
-    simpa using hcast
+    convert hcast using 1 <;> ext t <;> simp [Function.comp_def] <;> push_cast <;> ring
   simpa using h2.mul h1
 
 /-- **The scaled deviation brick.** `√(t·con)·κ·(π·con·t²/(t²+4))·2/(a·√a) → 0`
@@ -869,16 +928,19 @@ theorem devScale_tendsto {κ c₀ : ℝ} (hc₀ : 0 < c₀) :
     have htne : (t : ℝ) ≠ 0 := ne_of_gt ht.1
     have hT4 : (t ^ 2 + 4) ≠ 0 := ne_of_gt (by positivity)
     have hpt : 0 < c₀ * t := mul_pos hc₀ ht.1
-    have hsqne : Real.sqrt (c₀ * t) ≠ 0 := sqrt_ne_zero.mpr (ne_of_gt hpt)
+    have hsqne : Real.sqrt (c₀ * t) ≠ 0 := Real.sqrt_ne_zero'.2 hpt
     have h1 : Real.sqrt (c₀ * t / (t ^ 2 + 4)) = Real.sqrt (c₀ * t) / Real.sqrt (t ^ 2 + 4) :=
-      Real.sqrt_div (by positivity)
+      Real.sqrt_div (mul_nonneg (le_of_lt hc₀) (le_of_lt ht.1)) (t ^ 2 + 4)
     have h2 : Real.sqrt ((con : ℝ) * t) / Real.sqrt (c₀ * t) = Real.sqrt ((con : ℝ) / c₀) := by
-      rw [Real.sqrt_div (by positivity)]
-      congr 1
-      field_simp
+      rw [Real.sqrt_mul (Nat.cast_nonneg _) t,
+          Real.sqrt_mul (le_of_lt hc₀) t,
+          Real.sqrt_div (Nat.cast_nonneg _) c₀]
+      field_simp [Real.sqrt_ne_zero'.2 ht.1, Real.sqrt_ne_zero'.2 (Nat.cast_pos.mpr con_pos),
+        Real.sqrt_ne_zero'.2 hc₀]
     have h4 : (2 : ℝ) / ((c₀ * t / (t ^ 2 + 4)) * Real.sqrt (c₀ * t / (t ^ 2 + 4)))
         = 2 * ((t ^ 2 + 4) * Real.sqrt (t ^ 2 + 4)) / (c₀ * t * Real.sqrt (c₀ * t)) := by
       rw [h1, div_mul_div_comm, div_eq_mul_inv, inv_div]
+      ring_nf
     rw [h4]
     have hkey : Real.sqrt ((con : ℝ) * t)
           * ((κ * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)))
@@ -890,12 +952,12 @@ theorem devScale_tendsto {κ c₀ : ℝ} (hc₀ : 0 < c₀) :
         | field_simp
     rw [hkey, h2]
     ring
-  refine Tendsto.congr' hcongr ?_
+  refine Tendsto.congr' hcongr.symm ?_
   have hc : ContinuousAt (fun t : ℝ => (t : ℝ) * Real.sqrt (t ^ 2 + 4)) 0 := by
     refine ContinuousAt.mul (by fun_prop) ?_
     exact Real.continuous_sqrt.continuousAt.comp (by fun_prop)
   have h1 : Tendsto (fun t : ℝ => (t : ℝ) * Real.sqrt (t ^ 2 + 4)) (𝓝[>] 0) (𝓝 0) := by
-    exact Tendsto.mono_left nhdsWithin_le_nhds (by simpa using hc.tendsto)
+    exact Tendsto.mono_left (by simpa using hc.tendsto) nhdsWithin_le_nhds
   simpa using h1.const_mul _
 
 /-! ## Squeeze helper -/
@@ -904,32 +966,22 @@ theorem devScale_tendsto {κ c₀ : ℝ} (hc₀ : 0 < c₀) :
 theorem nonneg_le_tendsto_zero {f g : ℝ → ℝ}
     (hnn : ∀ t : ℝ, 0 ≤ f t) (hfg : ∀ᶠ t in 𝓝[>] (0 : ℝ), f t ≤ g t)
     (hg : Tendsto g (𝓝[>] (0 : ℝ)) (𝓝 0)) : Tendsto f (𝓝[>] (0 : ℝ)) (𝓝 0) := by
-  rw [Metric.tendsto_nhds]
-  intro ε hε
-  have hg' := Metric.tendsto_nhdsWithin_iff.mp hg ε hε
-  filter_upwards [hfg, hg'] with t h1 h2
-  rw [mem_ball, Real.dist_eq]
-  simp only [sub_zero]
-  have hgn : 0 ≤ g t := le_trans (hnn t) h1
-  calc |f t| = f t := abs_of_nonneg (hnn t)
-    _ ≤ g t := h1
-    _ ≤ |g t| := le_abs_self _
-    _ < ε := by simpa [Real.dist_eq, sub_zero] using h2.1
+  exact squeeze_zero' (Filter.Eventually.of_forall hnn) hfg hg
 
 /-! ## Scaled deviation limits -/
 
 /-- The norm bound for the scaled even deviation. -/
 theorem dualEven_norm_dev (t : ℝ) (ht : 0 < t) :
-    Complex.abs (((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) * (2 * (∑' n : ℕ,
+    ‖(((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) * (2 * (∑' n : ℕ,
         cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
           * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
-            - 1))))
+            - 1))))‖
       ≤ Real.sqrt ((con : ℝ) * t) * (2 * ((2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))
         * (2 / ((4 * (con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
           + 2))) := by
   have hpos : 0 < 4 * (con : ℝ) * t / (t ^ 2 + 4) :=
     div_pos (mul_pos (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos)) ht) (by positivity)
-  have hsqnn : Complex.abs ((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
+  have hsqnn : ‖((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)‖
       = Real.sqrt ((con : ℝ) * t) := by
     rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.sqrt_nonneg _)]
   rw [norm_mul, hsqnn]
@@ -937,23 +989,23 @@ theorem dualEven_norm_dev (t : ℝ) (ht : 0 < t) :
       cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
         * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
           - 1)) := dualEven_dev_summable t ht
-  calc Real.sqrt ((con : ℝ) * t) * Complex.abs (2 * (∑' n : ℕ,
+  calc Real.sqrt ((con : ℝ) * t) * ‖(2 * (∑' n : ℕ,
           cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
             * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
-              - 1)))
-      ≤ Real.sqrt ((con : ℝ) * t) * (2 * Complex.abs (∑' n : ℕ,
+              - 1)))‖
+      ≤ Real.sqrt ((con : ℝ) * t) * (2 * ‖(∑' n : ℕ,
           cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
             * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
-              - 1))) := by
+              - 1))‖) := by
         refine mul_le_mul_of_nonneg_left ?_ (Real.sqrt_nonneg _)
-        have h2n : Complex.abs ((2 : ℂ)) = 2 := by norm_num
+        have h2n : ‖((2 : ℂ))‖ = 2 := by norm_num
         rw [norm_mul, h2n]
-    _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ∑' n : ℕ, Complex.abs (
+    _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ∑' n : ℕ, ‖(
           cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
             * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
-              - 1))) := by
+              - 1))‖) := by
         refine mul_le_mul_of_nonneg_left ?_ (Real.sqrt_nonneg _)
-        exact mul_le_mul_of_nonneg_left (norm_tsum_le_tsum_norm hS) (by norm_num)
+        exact mul_le_mul_of_nonneg_left (norm_tsum_le_tsum_norm hS.norm) (by norm_num)
     _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ((2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))
           * (2 / ((4 * (con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
             + 2))) := by
@@ -966,34 +1018,34 @@ theorem dualEven_dev_limit :
         cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
           * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
             - 1)))) (𝓝[>] 0) (𝓝 0) := by
-  refine nonneg_le_tendsto_zero (f := fun t => Complex.abs (((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  refine nonneg_le_tendsto_zero (f := fun t => ‖(((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
       * (2 * (∑' n : ℕ, cexp ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
           * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
-            - 1)))))
+            - 1))))‖)
     (g := fun t => Real.sqrt ((con : ℝ) * t) * (2 * ((2 * π * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))
       * (2 / ((4 * (con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
         + 2)))) ?_ ?_ ?_
-  · intro t; exact Real.zero_le _
+  · intro t; exact norm_nonneg _
   · filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    exact dualEven_norm_dev t ht
-  · refine Tendsto.congr' ?_ (Tendsto.add ?_ ?_)
-    · filter_upwards with t; ring
-    · exact devScale_tendsto (c₀ := 4 * (con : ℝ)) (κ := 4)
+    exact dualEven_norm_dev t ht.1
+  · have hA := devScale_tendsto (c₀ := 4 * (con : ℝ)) (κ := 4)
         (mul_pos (by norm_num) (Nat.cast_pos.mpr con_pos))
-    · exact extra_tendsto 8
+    have hB := extra_tendsto 8
+    convert hA.add hB using 1 <;> ext t <;> ring
 
 /-- The norm bound for the scaled odd deviation. -/
 theorem dualOdd_norm_dev (t : ℝ) (ht : 0 < t) :
-    Complex.abs (((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) * (2 * (∑' n : ℕ,
+    ‖(((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) * (2 * (∑' n : ℕ,
         (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
           * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-            / (2 * (t ^ 2 + 4))) : ℂ))))))
+            / (2 * (t ^ 2 + 4))) : ℂ))))))‖
       ≤ Real.sqrt ((con : ℝ) * t) * (2 * ((π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
         * (8 / (((con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt ((con : ℝ) * t / (t ^ 2 + 4)))
           + 8))) := by
   have hpos : 0 < (con : ℝ) * t / (t ^ 2 + 4) :=
     div_pos (mul_pos (Nat.cast_pos.mpr con_pos) ht) (by positivity)
-  have hsqnn : Complex.abs ((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
+  have hsqnn : ‖((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)‖
       = Real.sqrt ((con : ℝ) * t) := by
     rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (Real.sqrt_nonneg _)]
   rw [norm_mul, hsqnn]
@@ -1001,23 +1053,23 @@ theorem dualOdd_norm_dev (t : ℝ) (ht : 0 < t) :
       (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
         * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
           / (2 * (t ^ 2 + 4))) : ℂ)))) := dualOdd_dev_summable t ht
-  calc Real.sqrt ((con : ℝ) * t) * Complex.abs (2 * (∑' n : ℕ,
+  calc Real.sqrt ((con : ℝ) * t) * ‖(2 * (∑' n : ℕ,
           (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-              / (2 * (t ^ 2 + 4))) : ℂ)))))
-      ≤ Real.sqrt ((con : ℝ) * t) * (2 * Complex.abs (∑' n : ℕ,
+              / (2 * (t ^ 2 + 4))) : ℂ)))))‖
+      ≤ Real.sqrt ((con : ℝ) * t) * (2 * ‖(∑' n : ℕ,
           (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-              / (2 * (t ^ 2 + 4))) : ℂ))))) := by
+              / (2 * (t ^ 2 + 4))) : ℂ))))‖) := by
         refine mul_le_mul_of_nonneg_left ?_ (Real.sqrt_nonneg _)
-        have h2n : Complex.abs ((2 : ℂ)) = 2 := by norm_num
+        have h2n : ‖((2 : ℂ))‖ = 2 := by norm_num
         rw [norm_mul, h2n]
-    _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ∑' n : ℕ, Complex.abs (
+    _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ∑' n : ℕ, ‖(
           (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-              / (2 * (t ^ 2 + 4))) : ℂ))))) := by
+              / (2 * (t ^ 2 + 4))) : ℂ))))‖) := by
         refine mul_le_mul_of_nonneg_left ?_ (Real.sqrt_nonneg _)
-        exact mul_le_mul_of_nonneg_left (norm_tsum_le_tsum_norm hS) (by norm_num)
+        exact mul_le_mul_of_nonneg_left (norm_tsum_le_tsum_norm hS.norm) (by norm_num)
     _ ≤ Real.sqrt ((con : ℝ) * t) * (2 * ((π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
           * (8 / (((con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt ((con : ℝ) * t / (t ^ 2 + 4)))
             + 8))) := by
@@ -1030,21 +1082,30 @@ theorem dualOdd_dev_limit :
         (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
           * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
             / (2 * (t ^ 2 + 4))) : ℂ)))))) (𝓝[>] 0) (𝓝 0) := by
-  refine nonneg_le_tendsto_zero (f := fun t => Complex.abs (((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  refine nonneg_le_tendsto_zero (f := fun t => ‖(((Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ)
       * (2 * (∑' n : ℕ, (I : ℂ) * cexp ((-π * ((con : ℝ) * t / (t ^ 2 + 4))
           * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
         * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
-          / (2 * (t ^ 2 + 4))) : ℂ))))))
-    (g := fun t => Real.sqrt ((con : ℝ) * t) * (2 * ((π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
+          / (2 * (t ^ 2 + 4))) : ℂ))))))‖
+    ) (g := fun t => Real.sqrt ((con : ℝ) * t) * (2 * ((π * (con : ℝ) * t ^ 2 / (2 * (t ^ 2 + 4)))
       * (8 / (((con : ℝ) * t / (t ^ 2 + 4)) * Real.sqrt ((con : ℝ) * t / (t ^ 2 + 4))) + 8))))
     ?_ ?_ ?_
-  · intro t; exact Real.zero_le _
+  · intro t; exact norm_nonneg _
   · filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    exact dualOdd_norm_dev t ht
-  · refine Tendsto.congr' ?_ (Tendsto.add ?_ ?_)
-    · filter_upwards with t; ring
-    · exact devScale_tendsto (c₀ := (con : ℝ)) (κ := 4) (Nat.cast_pos.mpr con_pos)
-    · exact extra_tendsto 8
+    exact dualOdd_norm_dev t ht.1
+  · have hA := devScale_tendsto (c₀ := (con : ℝ)) (κ := 4) (Nat.cast_pos.mpr con_pos)
+    have hB := extra_tendsto 8
+    convert hA.add hB using 1
+    ext t
+    by_cases ht0 : t = 0
+    · subst t
+      norm_num
+    · have h1 : (t ^ 2 + 4) ≠ 0 := by positivity
+      have h2 : (8 + t ^ 2 * 2) ≠ 0 := by positivity
+      field_simp [h1, h2, ht0]
+      ring
+    simp
 
 /-! ## The three dual limits -/
 
@@ -1060,8 +1121,8 @@ theorem dualEven_limit :
             * (cexp (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
               - 1)))) := by
     filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    rw [dualEven_eq t ht, mul_add]
-  refine Tendsto.congr' hcongr ?_
+    rw [dualEven_eq t ht.1, mul_add]
+  refine Tendsto.congr' hcongr.symm ?_
   simpa using (gaussSumInt_scaled).add dualEven_dev_limit
 
 /-- **The odd dual limit.** `√(t·con)·dualOdd(t) → −i` as `t → 0⁺`. -/
@@ -1077,12 +1138,12 @@ theorem dualOdd_limit :
             * (1 - cexp (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2
               / (2 * (t ^ 2 + 4))) : ℂ)))))) := by
     filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    rw [dualOdd_eq t ht, mul_add]
+    rw [dualOdd_eq t ht.1, mul_add]
     ring
-  refine Tendsto.congr' hcongr ?_
+  refine Tendsto.congr' hcongr.symm ?_
   have hcast : Tendsto (fun t : ℝ => ((Real.sqrt ((con : ℝ) * t) : ℂ)
       * ((2 * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ))) (𝓝[>] 0) (𝓝 1) := by
-    simpa using (Complex.ofRealCLM).continuous.continuousAt.tendsto.comp gaussSumHalf2_scaled
+    convert (Complex.ofRealCLM).continuous.continuousAt.tendsto.comp gaussSumHalf2_scaled using 1 <;> ext t <;> simp [Function.comp_def] <;> push_cast <;> ring_nf
   have h1 : Tendsto (fun t : ℝ => (-(I : ℂ) * ((Real.sqrt ((con : ℝ) * t) : ℂ)
       * ((2 * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)))) (𝓝[>] 0)
       (𝓝 (-(I : ℂ))) := by
@@ -1098,8 +1159,8 @@ theorem dualTheta_limit :
       (fun t : ℝ => Real.sqrt ((con : ℝ) * t) * (dualEven t)
         + Real.sqrt ((con : ℝ) * t) * (dualOdd t)) := by
     filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
-    rw [dualTheta_split t ht, mul_add]
-  refine Tendsto.congr' hcongr ?_
+    rw [dualTheta_split t ht.1, mul_add]
+  refine Tendsto.congr' hcongr.symm ?_
   simpa using (dualEven_limit).add (dualOdd_limit)
 
 end Imscribing.Millennium.StarkDualLimit
