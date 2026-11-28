@@ -470,7 +470,7 @@ private theorem stdAddChar_ne_zero (N : ℕ) [NeZero N] (hf : 1 < N) :
 `#{x² = y} = (1+χ₃)(1+χ₅)(1+χ₄₀₉)(1+χ₆₈₃)` expands into sixteen Jacobi terms;
 fourteen vanish by divisor-vanishing, the trivial term vanishes since `ψ` is
 nontrivial, and the full-modulus term is exactly the Gauss sum. -/
-private theorem chirp_con :
+theorem chirp_con :
     ∑ x : ZMod con, stdAddChar (N := con) (x * x) = gaussSum qchar' stdAddChar := by
   haveI hN15 : NeZero (15 * 279347) := ⟨by norm_num⟩
   haveI hN409 : NeZero (409 * 683) := ⟨by norm_num⟩

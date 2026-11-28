@@ -1,4 +1,5 @@
 import Imscribing.Millennium.StarkRungFiveDual
+import Imscribing.Millennium.SIC_D2048_StarkTheorem
 import Imscribing.Millennium.StarkRungFiveTheta
 
 /-!
@@ -28,6 +29,7 @@ the odd part tends to `-i·2·gaussSumHalf(4·con·t/(t²+4))` and `√(t·con)�
 -/
 
 set_option maxHeartbeats 8000000
+set_option maxRecDepth 8000
 
 open Complex Real Filter Topology
 open scoped Complex Real Topology
@@ -1162,5 +1164,697 @@ theorem dualTheta_limit :
     rw [dualTheta_split t ht.1, mul_add]
   refine Tendsto.congr' hcongr.symm ?_
   simpa using (dualEven_limit).add (dualOdd_limit)
+
+/-! ## K3b: from the dual theta limit to the Gauss-sum sign
+
+The powerset re-entry is the identity here: just as bind unions `{f(x) | x ∈ K}`,
+the theta-grouping below re-indexes one resident ℤ-word by its residue frame and
+reassembles the boundary marks; no independent producers are created.
+-/
+
+lemma sqrt_neg_two_I_div_con : ((-2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2) = (1 - I) / (Real.sqrt (con : ℝ) : ℂ) := by
+  rw [show ((1:ℂ)/2) = (2:ℂ)⁻¹ by norm_num]
+  change Complex.sqrt ((-2 * I) / (con : ℂ)) = (1 - I) / (Real.sqrt (con : ℝ) : ℂ)
+  rw [Complex.sqrt_eq_real_add_ite]
+  have hnorm : ‖((-2 * I) / (con : ℂ))‖ = 2 / (con : ℝ) := by
+    rw [norm_div, norm_mul]
+    norm_num [Complex.normSq, Complex.norm_real]
+  have hre : ((-2 * I) / (con : ℂ)).re = 0 := by simp
+  have him : ((-2 * I) / (con : ℂ)).im = -2 / (con : ℝ) := by simp
+  rw [hnorm, hre, him]
+  have hneg : ¬ (0 : ℝ) ≤ -2 / (con : ℝ) := by norm_num [con]
+  rw [if_neg hneg]
+  rw [show (2 / (con : ℝ) + 0) / 2 = 1 / (con : ℝ) by ring]
+  rw [show (2 / (con : ℝ) - 0) / 2 = 1 / (con : ℝ) by ring]
+  rw [show Real.sqrt (1 / (con : ℝ)) = (Real.sqrt (con : ℝ))⁻¹ by rw [one_div, Real.sqrt_inv]]
+  rw [div_eq_mul_inv, Complex.ofReal_inv]
+  ring
+
+theorem inv_cpow_tendsto :
+    Tendsto (fun t : ℝ => 1 / ((((t : ℂ) - 2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2)))
+    (𝓝[>] 0) (𝓝 ((Real.sqrt (con : ℝ) : ℂ) * (1 + I) / 2)) := by
+  have hofreal : Tendsto (fun t : ℝ => (t : ℂ)) (𝓝[>] 0) (𝓝 (0 : ℂ)) :=
+    (Complex.continuous_ofReal.tendsto 0).mono_left nhdsWithin_le_nhds
+  have hz : Tendsto (fun t : ℝ => ((t : ℂ) - 2 * I) / (con : ℂ)) (𝓝[>] 0)
+      (𝓝 ((-2 * I) / (con : ℂ))) := by
+    simpa using (hofreal.sub_const (2 * I)).div_const (con : ℂ)
+  have hslit : ((-2 * I) / (con : ℂ)) ∈ slitPlane := by
+    rw [slitPlane]
+    right
+    simp [con]
+  have hcpow : Tendsto (fun t : ℝ => (((t : ℂ) - 2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2))
+      (𝓝[>] 0) (𝓝 (((-2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2))) :=
+    hz.cpow tendsto_const_nhds hslit
+  rw [sqrt_neg_two_I_div_con] at hcpow
+  have hne : (1 - I : ℂ) ≠ 0 := by norm_num [Complex.ext_iff]
+  have hsne : (Real.sqrt (con : ℝ) : ℂ) ≠ 0 := by exact_mod_cast (by positivity : Real.sqrt (con : ℝ) ≠ 0)
+  have hinv := hcpow.inv₀ (div_ne_zero hne hsne)
+  have hcalc : ((1 - I) / (Real.sqrt (con : ℝ) : ℂ))⁻¹ = (Real.sqrt (con : ℝ) : ℂ) * (1 + I) / 2 := by
+    rw [inv_div]
+    field_simp [hsne]
+    ring_nf
+    rw [show I ^ 2 = (-1 : ℂ) by norm_num [pow_two, Complex.I_mul_I]]
+    ring
+  rw [hcalc] at hinv
+  simpa [one_div] using hinv
+
+lemma sqrt_t_div_sqrt_t_mul_con (t : ℝ) (ht : 0 < t) :
+    Real.sqrt t / Real.sqrt ((con : ℝ) * t) = 1 / Real.sqrt (con : ℝ) := by
+  rw [show (con : ℝ) * t = t * (con : ℝ) by ring]
+  rw [Real.sqrt_mul (le_of_lt ht) (con : ℝ)]
+  field_simp [Real.sqrt_ne_zero'.2 ht, Real.sqrt_ne_zero'.2 (by exact_mod_cast con_pos : (0:ℝ) < con)]
+
+theorem sqrt_t_chirp_theta_tendsto_one :
+    Tendsto (fun t : ℝ => Real.sqrt t *
+      (1 / ((((t : ℂ) - 2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2))) * (dualTheta t))
+    (𝓝[>] 0) (𝓝 1) := by
+  have h1 : Tendsto (fun t : ℝ => 1 / ((((t : ℂ) - 2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2)))
+      (𝓝[>] 0) (𝓝 ((Real.sqrt (con : ℝ) : ℂ) * (1 + I) / 2)) := by
+    -- reuse previous proof
+    have hofreal : Tendsto (fun t : ℝ => (t : ℂ)) (𝓝[>] 0) (𝓝 (0 : ℂ)) :=
+      (Complex.continuous_ofReal.tendsto 0).mono_left nhdsWithin_le_nhds
+    have hz : Tendsto (fun t : ℝ => ((t : ℂ) - 2 * I) / (con : ℂ)) (𝓝[>] 0)
+        (𝓝 ((-2 * I) / (con : ℂ))) := by
+      simpa using (hofreal.sub_const (2 * I)).div_const (con : ℂ)
+    have hslit : ((-2 * I) / (con : ℂ)) ∈ slitPlane := by
+      rw [slitPlane]; right; simp [con]
+    have hcpow : Tendsto (fun t : ℝ => (((t : ℂ) - 2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2))
+        (𝓝[>] 0) (𝓝 (((-2 * I) / (con : ℂ)) ^ ((1 : ℂ) / 2))) :=
+      hz.cpow tendsto_const_nhds hslit
+    rw [sqrt_neg_two_I_div_con] at hcpow
+    have hne : (1 - I : ℂ) ≠ 0 := by norm_num [Complex.ext_iff]
+    have hsne : (Real.sqrt (con : ℝ) : ℂ) ≠ 0 := by exact_mod_cast (by positivity : Real.sqrt (con : ℝ) ≠ 0)
+    have hinv := hcpow.inv₀ (div_ne_zero hne hsne)
+    have hcalc : ((1 - I) / (Real.sqrt (con : ℝ) : ℂ))⁻¹ = (Real.sqrt (con : ℝ) : ℂ) * (1 + I) / 2 := by
+      rw [inv_div]
+      field_simp [hsne]
+      ring_nf
+      rw [show I ^ 2 = (-1 : ℂ) by norm_num [pow_two, Complex.I_mul_I]]
+      ring
+    rw [hcalc] at hinv
+    simpa [one_div] using hinv
+  have h2 : Tendsto (fun t : ℝ => Real.sqrt ((con : ℝ) * t) * (dualTheta t)) (𝓝[>] 0)
+      (𝓝 (1 - I)) := dualTheta_limit
+  have hprod := h1.mul h2
+  -- hprod limit: √con(1+I)/2 * (1-I) = 1
+  have hlimval : ((Real.sqrt (con : ℝ) : ℂ) * (1 + I) / 2) * (1 - I) = (Real.sqrt (con : ℝ) : ℂ) := by
+    have hsne : (Real.sqrt (con : ℝ) : ℂ) ≠ 0 := by exact_mod_cast (by positivity : Real.sqrt (con : ℝ) ≠ 0)
+    field_simp [hsne]
+    ring_nf
+    rw [show I ^ 2 = (-1 : ℂ) by norm_num [pow_two, Complex.I_mul_I]]
+    ring
+  rw [hlimval] at hprod
+  -- congr: √t*(1/z)*dualTheta = (1/√con) * ((1/z)* (√con_t*dualTheta))
+  have hconst := hprod.const_mul ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)
+  have hcanc : ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) * (Real.sqrt (con : ℝ) : ℂ) = 1 := by
+    norm_cast
+    exact one_div_mul_cancel (by positivity)
+  rw [hcanc] at hconst
+  refine Tendsto.congr' ?_ hconst
+  filter_upwards [Ioo_mem_nhdsGT (show (0:ℝ) < 1 by norm_num)] with t ht
+  have hs : Real.sqrt t / Real.sqrt ((con : ℝ) * t) = 1 / Real.sqrt (con : ℝ) :=
+    sqrt_t_div_sqrt_t_mul_con t ht.1
+  push_cast
+  have hre : Real.sqrt t = (Real.sqrt t / Real.sqrt ((con : ℝ) * t)) * Real.sqrt ((con : ℝ) * t) := by
+    have hsne : Real.sqrt ((con : ℝ) * t) ≠ 0 := Real.sqrt_ne_zero'.2 (mul_pos (by exact_mod_cast con_pos : (0:ℝ) < con) ht.1)
+    field_simp [hsne]
+  have hreC : (Real.sqrt t : ℂ) = ((Real.sqrt t / Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) * (Real.sqrt ((con : ℝ) * t) : ℂ) := by
+    exact_mod_cast hre
+  rw [hreC]
+  have hsC2 : ((Real.sqrt t / Real.sqrt ((con : ℝ) * t) : ℝ) : ℂ) = ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) := by
+    rw [hs]
+  rw [hsC2]
+  have hinvC : ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) = 1 / (Real.sqrt (con : ℝ) : ℂ) := by
+    rw [one_div, Complex.ofReal_inv, one_div]
+  rw [hinvC]
+  ring
+
+/-! ### K3b theta-grouping machinery ### -/
+
+lemma T_r_tendsto (r : ℕ) :
+    Tendsto (fun t : ℝ => ∑' m : ℤ,
+        cexp (-π / (t * (con : ℝ)) * ((m : ℝ) ^ 2)) *
+          cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (m : ℝ)))
+      (𝓝[>] 0) (𝓝 1) := by
+  let f : ℝ → ℤ → ℂ := fun t m =>
+    (rexp (-π / (t * (con : ℝ)) * ((m : ℝ) ^ 2)) : ℂ) *
+      cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (m : ℝ))
+  let g : ℤ → ℂ := fun m => if m = 0 then 1 else 0
+  let bound : ℤ → ℝ := fun m => rexp (-π * (1 / (con : ℝ)) * ((m : ℝ) ^ 2))
+  have hsum : Summable bound := by
+    dsimp [bound]
+    exact summable_gaussReal (1 / (con : ℝ)) (by positivity)
+  have hterm : ∀ m : ℤ, Tendsto (f · m) (𝓝[>] 0) (𝓝 (g m)) := by
+    intro m
+    by_cases hm : m = 0
+    · subst m
+      simp [f, g]
+    · simp only [g, hm, if_false]
+      have hm2 : (0 : ℝ) < ((m : ℝ) ^ 2) := by
+        have hne : (m : ℝ) ≠ 0 := by exact_mod_cast hm
+        exact sq_pos_of_ne_zero hne
+      have hc : (0 : ℝ) < π * ((m : ℝ) ^ 2) / (con : ℝ) := by positivity
+      have htop : Tendsto (fun t : ℝ => (π * ((m : ℝ) ^ 2) / (con : ℝ)) * t⁻¹)
+          (𝓝[>] 0) atTop := Tendsto.const_mul_atTop hc tendsto_inv_nhdsGT_zero
+      have hexp : Tendsto (fun t : ℝ => rexp (-((π * ((m : ℝ) ^ 2) / (con : ℝ)) * t⁻¹)))
+          (𝓝[>] 0) (𝓝 0) := Real.tendsto_exp_neg_atTop_nhds_zero.comp htop
+      have hfeq : (fun t : ℝ => -π / (t * (con : ℝ)) * ((m : ℝ) ^ 2))
+          = (fun t : ℝ => -((π * ((m : ℝ) ^ 2) / (con : ℝ)) * t⁻¹)) := by
+        funext t
+        field_simp
+      have hreal : Tendsto (fun t : ℝ => rexp (-π / (t * (con : ℝ)) * ((m : ℝ) ^ 2)))
+          (𝓝[>] 0) (𝓝 0) := by
+        convert hexp using 1
+        funext t
+        congr 1
+        exact congrFun hfeq t
+      have hcast : Tendsto (fun t : ℝ => (rexp (-π / (t * (con : ℝ)) * ((m : ℝ) ^ 2)) : ℂ))
+          (𝓝[>] 0) (𝓝 (0 : ℂ)) := Complex.continuous_ofReal.tendsto 0 |>.comp hreal
+      simpa [f] using hcast.mul_const (cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (m : ℝ)))
+  have hbound_ev : ∀ᶠ t in 𝓝[>] (0 : ℝ), ∀ m : ℤ, ‖f t m‖ ≤ bound m := by
+    filter_upwards [Ioo_mem_nhdsGT (show (0:ℝ) < 1 by norm_num)] with t ht
+    intro m
+    dsimp [f, bound]
+    rw [norm_mul]
+    conv_lhs =>
+      rhs
+      rw [Complex.norm_exp]
+      norm_num [Complex.mul_re, Complex.div_re, Complex.normSq_apply]
+    rw [mul_one]
+    rw [Complex.norm_real, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
+    have hle : -π / (t * (con : ℝ)) * ((m : ℝ) ^ 2) ≤ -π * (1 / (con : ℝ)) * ((m : ℝ) ^ 2) := by
+      have hinv : (1 : ℝ) ≤ t⁻¹ := by
+        have hmul := mul_le_mul_of_nonneg_right ht.2.le (inv_nonneg.mpr ht.1.le)
+        simpa [mul_inv_cancel₀ (ne_of_gt ht.1)] using hmul
+      have hform : -π / (t * (con : ℝ)) * ((m : ℝ) ^ 2) = -(π * ((m : ℝ) ^ 2) / (con : ℝ)) * t⁻¹ := by field_simp
+      have hform2 : -π * (1 / (con : ℝ)) * ((m : ℝ) ^ 2) = -(π * ((m : ℝ) ^ 2) / (con : ℝ)) := by field_simp
+      rw [hform, hform2]
+      have hnon : 0 ≤ π * ((m : ℝ) ^ 2) / (con : ℝ) := by positivity
+      nlinarith
+    exact Real.exp_le_exp.mpr hle
+  have htsum := tendsto_tsum_of_dominated_convergence hsum hterm hbound_ev
+  have hval : (∑' m : ℤ, g m) = 1 := by
+    dsimp [g]
+    rw [tsum_eq_single 0]
+    · simp
+    · intro b hb
+      simp [hb]
+  have htsum' : Tendsto (fun t : ℝ => ∑' m : ℤ, f t m) (𝓝[>] 0) (𝓝 1) := by simpa [hval] using htsum
+  refine Tendsto.congr' ?_ htsum'
+  filter_upwards with t
+  apply tsum_congr
+  intro m
+  dsimp [f]
+  apply congrArg (fun z : ℂ => z * cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (m : ℝ)))
+  apply Complex.ext <;>
+    simp [Complex.exp_re, Complex.exp_im] <;>
+    push_cast <;> ring
+
+lemma shifted_gauss_poisson (r : ℕ) (t : ℝ) (ht : 0 < t) :
+    (∑' q : ℤ, cexp (-π * (t * (con : ℝ) : ℂ) * ((q : ℂ) ^ 2)
+        + 2 * π * (-(t * (r : ℝ)) : ℂ) * (q : ℂ)))
+      = 1 / ((t * (con : ℝ) : ℂ) ^ ((1 : ℂ) / 2)) *
+        (∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) *
+          (((n : ℂ) + I * (-(t * (r : ℝ)) : ℂ)) ^ 2))) := by
+  have ha : 0 < ((t * (con : ℝ) : ℂ)).re := by simp [ht]
+  exact Complex.tsum_exp_neg_quadratic ha (-(t * (r : ℝ)) : ℂ)
+
+lemma rhs_sum_eq (r : ℕ) (t : ℝ) (ht : 0 < t) :
+    (∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) *
+      (((n : ℂ) + I * (-(t * (r : ℝ)) : ℂ)) ^ 2)))
+      = (cexp (π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ))) *
+        (∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+          cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (n : ℝ))) := by
+  rw [← tsum_mul_left]
+  apply tsum_congr
+  intro n
+  have harg : -π / (t * (con : ℝ) : ℂ) * (((n : ℂ) + I * (-(t * (r : ℝ)) : ℂ)) ^ 2)
+      = π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ)
+        + (-π / (t * (con : ℝ) : ℂ) * ((n : ℂ) ^ 2)
+          + 2 * π * I * ((r : ℝ) / (con : ℝ)) * (n : ℝ)) := by
+    have htne : (t : ℂ) ≠ 0 := by exact_mod_cast (ne_of_gt ht)
+    field_simp [htne]
+    ring_nf
+    rw [show I ^ 2 = (-1 : ℂ) by norm_num [pow_two, Complex.I_mul_I]]
+    norm_num
+    ring_nf
+  rw [harg, Complex.exp_add, Complex.exp_add]
+
+lemma shifted_term_eq (r : ℕ) (t : ℝ) (ht : 0 < t) (q : ℤ) :
+    cexp (-π * (t / (con : ℝ) : ℝ) * (((r : ℝ) + (q : ℝ) * (con : ℝ)) ^ 2) : ℂ)
+      = cexp (-π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ)) *
+        cexp (-π * (t * (con : ℝ) : ℂ) * ((q : ℂ) ^ 2)
+          + 2 * π * (-(t * (r : ℝ)) : ℂ) * (q : ℂ)) := by
+  have harg : (-π * (t / (con : ℝ)) * (((r : ℝ) + (q : ℝ) * (con : ℝ)) ^ 2) : ℂ)
+      = (-(π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ)))
+        + (-π * (t * (con : ℝ) : ℂ) * ((q : ℂ) ^ 2)
+          + 2 * π * (-(t * (r : ℝ)) : ℂ) * (q : ℂ)) := by
+    have htne : (t : ℂ) ≠ 0 := by exact_mod_cast (ne_of_gt ht)
+    have hcne : (con : ℂ) ≠ 0 := by norm_num [con]
+    field_simp [htne, hcne]
+    push_cast
+    ring
+  rw [Complex.ofReal_div, harg, Complex.exp_add]
+  ring
+
+lemma sqrt_t_shifted_gauss (r : ℕ) (t : ℝ) (ht : 0 < t) :
+    Real.sqrt t * (∑' q : ℤ, cexp (-π * (t / (con : ℝ) : ℝ) * (((r : ℝ) + (q : ℝ) * (con : ℝ)) ^ 2)))
+      = ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) *
+        (∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+          cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (n : ℝ))) := by
+  rw [show (∑' q : ℤ, cexp (-π * (t / (con : ℝ) : ℝ) * (((r : ℝ) + (q : ℝ) * (con : ℝ)) ^ 2)))
+      = cexp (-π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ)) *
+        (∑' q : ℤ, cexp (-π * (t * (con : ℝ) : ℂ) * ((q : ℂ) ^ 2)
+          + 2 * π * (-(t * (r : ℝ)) : ℂ) * (q : ℂ))) from by
+    rw [← tsum_mul_left]
+    apply tsum_congr
+    intro q
+    exact shifted_term_eq r t ht q]
+  rw [shifted_gauss_poisson r t ht]
+  rw [rhs_sum_eq r t ht]
+  let T : ℂ := ∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+          cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (n : ℝ))
+  let A : ℂ := -π * (t : ℂ) * ((r : ℝ) ^ 2 : ℂ) / (con : ℂ)
+  have hcoef : (Real.sqrt t : ℂ) * cexp A * (1 / ((t * (con : ℝ) : ℂ) ^ ((1 : ℂ) / 2))) * cexp (-A)
+      = ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) := by
+    rw [one_div]
+    have hreorder : (Real.sqrt t : ℂ) * cexp A * (((t * (con : ℝ) : ℂ) ^ ((1 : ℂ) / 2))⁻¹) * cexp (-A)
+        = (Real.sqrt t : ℂ) * ((cexp A * cexp (-A)) * (((t * (con : ℝ) : ℂ) ^ ((1 : ℂ) / 2))⁻¹)) := by ring
+    rw [hreorder]
+    rw [← Complex.exp_add]
+    have hA : A + -A = 0 := by ring
+    rw [hA, Complex.exp_zero]
+    simp
+    have hcpow : (((t : ℂ) * 4190205) ^ ((2 : ℂ)⁻¹)) = (Real.sqrt ((con : ℝ) * t) : ℂ) := by
+      change Complex.sqrt (((t : ℂ) * 4190205)) = (Real.sqrt ((con : ℝ) * t) : ℂ)
+      rw [show ((t : ℂ) * 4190205) = ((con : ℝ) * t : ℝ) by norm_num [con]; push_cast; ring]
+      rw [Complex.sqrt_of_nonneg]
+      · simp
+      · exact_mod_cast (mul_nonneg (Nat.cast_nonneg _) (le_of_lt ht))
+    rw [hcpow]
+    have hratio := sqrt_t_div_sqrt_t_mul_con t ht
+    have hratio' : Real.sqrt t * (Real.sqrt ((con : ℝ) * t))⁻¹ = (Real.sqrt (con : ℝ))⁻¹ := by
+      rw [← div_eq_mul_inv, hratio, one_div]
+    exact_mod_cast hratio'
+  ring_nf
+  have hce : cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205)) * ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205)) = ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) := by
+    rw [show cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205)) * ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205))
+      = (cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205)) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205))) * ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) by ring]
+    rw [← Complex.exp_add]
+    have hz : ↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205) +
+        ↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205) = 0 := by ring
+    rw [hz, Complex.exp_zero, one_mul]
+  rw [show (Real.sqrt t : ℂ) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205)) * ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205)) * (∑' (n : ℤ), cexp (-(↑π * ((t : ℂ)⁻¹) * (((4190205 : ℝ) : ℂ))⁻¹ * ((n : ℤ) : ℂ) ^ 2)) * cexp (↑π * ((r : ℝ) : ℂ) * (((4190205 : ℝ) : ℂ))⁻¹ * I * (((n : ℤ) : ℝ) : ℂ) * 2))
+      = (cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (-1 / 4190205)) * ((((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2))⁻¹) * cexp (↑π * (t : ℂ) * ((r : ℝ) : ℂ) ^ 2 * (1 / 4190205))) * ((Real.sqrt t : ℂ) * (∑' (n : ℤ), cexp (-(↑π * ((t : ℂ)⁻¹) * (((4190205 : ℝ) : ℂ))⁻¹ * ((n : ℤ) : ℂ) ^ 2)) * cexp (↑π * ((r : ℝ) : ℂ) * (((4190205 : ℝ) : ℂ))⁻¹ * I * (((n : ℤ) : ℝ) : ℂ) * 2))) by ring]
+  rw [hce]
+  have hcpow : ((t : ℂ) * ((4190205 : ℝ) : ℂ)) ^ ((1 : ℂ) / 2) = (Real.sqrt ((con : ℝ) * t) : ℂ) := by
+    rw [show ((1:ℂ)/2) = (2:ℂ)⁻¹ by norm_num]
+    change Complex.sqrt ((t : ℂ) * ((4190205 : ℝ) : ℂ)) = (Real.sqrt ((con : ℝ) * t) : ℂ)
+    rw [show (t : ℂ) * ((4190205 : ℝ) : ℂ) = ((con : ℝ) * t : ℝ) by norm_num [con]; push_cast; ring]
+    rw [Complex.sqrt_of_nonneg]
+    · simp
+    · exact_mod_cast (mul_nonneg (Nat.cast_nonneg _) (le_of_lt ht))
+  rw [hcpow]
+  have hratio := sqrt_t_div_sqrt_t_mul_con t ht
+  have hratio' : (Real.sqrt t : ℂ) * ((Real.sqrt ((con : ℝ) * t) : ℂ)⁻¹) = ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) := by
+    rw [← Complex.ofReal_inv]
+    exact_mod_cast (by
+      rw [← div_eq_mul_inv]
+      exact hratio)
+  rw [show (Real.sqrt ((con : ℝ) * t) : ℂ)⁻¹ * ((Real.sqrt t : ℂ) *
+        (∑' (n : ℤ), cexp (-(↑π * ((t : ℂ)⁻¹) * (((4190205 : ℝ) : ℂ))⁻¹ * (((n : ℤ) : ℂ) ^ 2))) * cexp (↑π * ((r : ℝ) : ℂ) * (((4190205 : ℝ) : ℂ))⁻¹ * I * (((n : ℤ) : ℝ) : ℂ) * 2)))
+      = ((Real.sqrt t : ℂ) * (Real.sqrt ((con : ℝ) * t) : ℂ)⁻¹) *
+        (∑' (n : ℤ), cexp (-(↑π * ((t : ℂ)⁻¹) * (((4190205 : ℝ) : ℂ))⁻¹ * (((n : ℤ) : ℂ) ^ 2))) * cexp (↑π * ((r : ℝ) : ℂ) * (((4190205 : ℝ) : ℂ))⁻¹ * I * (((n : ℤ) : ℝ) : ℂ) * 2)) by ring]
+  rw [hratio']
+  rw [show ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) = (Real.sqrt (con : ℝ) : ℂ)⁻¹ by
+    rw [one_div, Complex.ofReal_inv]]
+  rw [Complex.ofReal_inv]
+  ring
+
+open ZMod
+open StarkLogRung
+open Imscribing.Millennium.StarkGaussSign
+open Imscribing.Millennium.StarkTheta
+open Imscribing.Millennium.StarkRungOne
+open Imscribing.Millennium.StarkRungFour
+open Imscribing.Millennium.ClinkStarkBridge
+open Imscribing.Millennium.StarkTheoremD2048
+
+/-! ### K3b grouping ### -/
+
+noncomputable def zmodQuotEquiv (N : ℕ) [NeZero N] : ℤ ≃ (ZMod N × ℤ) where
+  toFun n := ((n : ZMod N), n / (N : ℤ))
+  invFun p := (p.1.val : ℤ) + p.2 * (N : ℤ)
+  left_inv n := by
+    simp only
+    rw [ZMod.val_intCast]
+    have h := Int.emod_add_mul_ediv n (N : ℤ)
+    linarith
+  right_inv p := by
+    rcases p with ⟨x, k⟩
+    apply Prod.ext
+    · simp
+    · simp only
+      rw [Int.add_ediv_of_dvd_right]
+      · have hxlt : (x.val : ℤ) < (N : ℤ) := by exact_mod_cast x.val_lt
+        have hxdiv : (x.val : ℤ) / (N : ℤ) = 0 :=
+          Int.ediv_eq_zero_of_lt (Int.natCast_nonneg _) hxlt
+        have hkdiv : (k * (N : ℤ)) / (N : ℤ) = k := by
+          rw [mul_comm]
+          exact Int.mul_ediv_cancel_left _ (by exact_mod_cast (NeZero.ne N))
+        rw [hxdiv, hkdiv, zero_add]
+      · exact dvd_mul_left _ _
+
+noncomputable def chirpSum (t : ℝ) : ℂ :=
+  ∑' n : ℤ, cexp (-(π : ℂ) * ((t / (con : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+    cexp (2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (con : ℂ))
+
+lemma chirpSum_group (t : ℝ) (ht : 0 < t) :
+    chirpSum t = ∑' x : ZMod con,
+      (cexp (2 * π * I * ((x.val : ℝ) ^ 2) / (con : ℝ))) *
+      (∑' k : ℤ, cexp (-π * (t / (con : ℝ) : ℝ) *
+        (((x.val : ℝ) + (k : ℝ) * (con : ℝ)) ^ 2))) := by
+  dsimp [chirpSum]
+  rw [show (∑' n : ℤ, cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+      cexp (2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (4190205 : ℂ)))
+      = ∑' p : ZMod con × ℤ,
+          cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * (((p.1.val : ℤ) + p.2 * (con : ℤ) : ℤ) : ℂ) ^ 2) *
+          cexp (2 * (π : ℂ) * I * ((((p.1.val : ℤ) + p.2 * (con : ℤ) : ℤ) : ℂ) ^ 2) / (4190205 : ℂ)) from by
+    exact ((zmodQuotEquiv con).symm.tsum_eq (fun n : ℤ =>
+      cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+      cexp (2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (4190205 : ℂ)))).symm]
+  have hf : Summable (fun n : ℤ =>
+      cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+      cexp (2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (4190205 : ℂ))) := by
+    refine Summable.of_norm ?_
+    have hg := summable_gaussReal (t / (con : ℝ)) (by positivity)
+    refine hg.congr (fun n => ?_)
+    rw [norm_mul, Complex.norm_exp, Complex.norm_exp]
+    have hnre : (((n : ℤ) : ℂ) ^ 2).re = ((n : ℝ) ^ 2) := by
+      norm_num [pow_two, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im]
+    have hnim : (((n : ℤ) : ℂ) ^ 2).im = 0 := by
+      norm_num [pow_two, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im]
+    have hre1 : (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)).re
+        = -π * (t / (con : ℝ)) * ((n : ℝ) ^ 2) := by
+      simp [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, hnre, hnim]
+    have hre2 : (2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (4190205 : ℂ)).re = 0 := by
+      simp [Complex.mul_re, Complex.div_re, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im, hnim]
+    rw [hre1, hre2, Real.exp_zero, mul_one]
+  have hfprod : Summable (fun p : ZMod con × ℤ =>
+      cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((((p.1.val : ℤ) + p.2 * (con : ℤ) : ℤ) : ℂ) ^ 2)) *
+      cexp (2 * (π : ℂ) * I * ((((p.1.val : ℤ) + p.2 * (con : ℤ) : ℤ) : ℂ) ^ 2) / (4190205 : ℂ))) := by
+    exact hf.comp_injective (zmodQuotEquiv con).symm.injective
+  rw [hfprod.tsum_prod]
+  apply tsum_congr
+  intro x
+  rw [← tsum_mul_left]
+  apply tsum_congr
+  intro k
+  simp only [Prod.fst, Prod.snd]
+  have hphase : cexp (2 * (π : ℂ) * I * ((((x.val : ℤ) + k * (con : ℤ) : ℤ) : ℂ) ^ 2) / (con : ℂ))
+      = cexp (2 * (π : ℂ) * I * ((x.val : ℂ) ^ 2) / (con : ℂ)) := by
+    have hsq_int : ((x.val : ℤ) + k * (con : ℤ)) ^ 2
+        = (x.val : ℤ) ^ 2 + (k * (2 * (x.val : ℤ) + k * (con : ℤ))) * (con : ℤ) := by ring
+    have hcne : (con : ℂ) ≠ 0 := by norm_num [con]
+    have harg : 2 * (π : ℂ) * I * ((((x.val : ℤ) + k * (con : ℤ) : ℤ) : ℂ) ^ 2) / (con : ℂ)
+        = 2 * (π : ℂ) * I * ((x.val : ℂ) ^ 2) / (con : ℂ)
+          + ((k * (2 * (x.val : ℤ) + k * (con : ℤ)) : ℤ) : ℂ) * (2 * (π : ℂ) * I) := by
+      rw [show ((((x.val : ℤ) + k * (con : ℤ) : ℤ) : ℂ) ^ 2)
+          = (((x.val : ℤ) + k * (con : ℤ)) ^ 2 : ℤ) by norm_num]
+      rw [hsq_int]
+      push_cast
+      field_simp [hcne]
+    rw [harg, Complex.exp_add]
+    have hper : cexp (((k * (2 * (x.val : ℤ) + k * (con : ℤ)) : ℤ) : ℂ) * (2 * (π : ℂ) * I)) = 1 := by
+      exact Complex.exp_int_mul_two_pi_mul_I _
+    rw [hper, mul_one]
+  rw [show (con : ℂ) = 4190205 by norm_num [con]] at hphase
+  rw [hphase]
+  have hgauss : cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) *
+        ((((x.val : ℤ) + k * (con : ℤ) : ℤ) : ℂ) ^ 2))
+      = cexp (-(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) *
+        (((x.val : ℂ) + (k : ℂ) * (4190205 : ℂ)) ^ 2)) := by
+    congr 1
+    push_cast
+    norm_num [con]
+  rw [hgauss]
+  ring
+
+lemma chirpSum_eq_chirp_lhs (t : ℝ) :
+    chirpSum t = ∑' n : ℤ,
+      cexp (-(π : ℂ) * (((t : ℂ) - 2 * I) / (con : ℂ)) * ((n : ℂ) ^ 2)) := by
+  dsimp [chirpSum]
+  apply tsum_congr
+  intro n
+  have hcne : (4190205 : ℂ) ≠ 0 := by norm_num
+  have harg : -(π : ℂ) * (((t : ℂ) - 2 * I) / (4190205 : ℂ)) * ((n : ℂ) ^ 2)
+      = -(π : ℂ) * ((t / (4190205 : ℝ) : ℝ) : ℂ) * ((n : ℂ) ^ 2)
+        + 2 * (π : ℂ) * I * ((n : ℂ) ^ 2) / (4190205 : ℂ) := by
+    field_simp [hcne]
+    push_cast
+    ring_nf
+  rw [harg, Complex.exp_add]
+
+lemma sqrt_t_chirpSum_tendsto_one :
+    Tendsto (fun t : ℝ => Real.sqrt t * chirpSum t) (𝓝[>] 0) (𝓝 1) := by
+  refine Tendsto.congr' ?_ sqrt_t_chirp_theta_tendsto_one
+  filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
+  rw [chirpSum_eq_chirp_lhs t, chirp_theta t ht.1]
+  have hsum : (∑' n : ℤ, cexp (-↑π / ((↑t - 2 * I) / ↑con) * ((n : ℂ) ^ 2))) = dualTheta t := by
+    dsimp [dualTheta, dualTerm]
+    apply tsum_congr
+    intro n
+    congr 1
+    have hcne2 : (con : ℂ) ≠ 0 := by norm_num [con]
+    have htne : (↑t - 2 * I : ℂ) ≠ 0 := by
+      intro h
+      have him := congrArg Complex.im h
+      norm_num [con] at him
+    field_simp [hcne2, htne]
+  rw [hsum]
+  ring
+
+lemma phase_eq_stdAddChar (x : ZMod con) :
+    cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))
+      = stdAddChar (N := con) (x * x) := by
+  have hsc : stdAddChar (N := con) (x * x) = rootExp (x * x).val con := by
+    have hj : ((((x * x).val : ℤ) : ZMod con)) = x * x := by simp
+    have h1 := stdAddChar_coe (N := con) ((x * x).val : ℤ)
+    rw [hj] at h1
+    rw [h1]
+    unfold rootExp
+    push_cast
+    ring_nf
+  rw [hsc]
+  unfold rootExp
+  rw [ZMod.val_mul]
+  have hnat : x.val ^ 2 = x.val ^ 2 / con * con + x.val ^ 2 % con := by
+    rw [mul_comm (x.val ^ 2 / con) con]
+    exact (Nat.div_add_mod (x.val ^ 2) con).symm
+  have hnatC : (((x.val ^ 2 : ℕ) : ℝ) : ℂ)
+      = (((x.val ^ 2 / con : ℕ) : ℝ) : ℂ) * (con : ℂ)
+        + (((x.val ^ 2 % con : ℕ) : ℝ) : ℂ) := by
+    exact_mod_cast hnat
+  have hcne : (con : ℂ) ≠ 0 := by norm_num [con]
+  have harg : (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))
+      = 2 * (π : ℂ) * I * (((x.val ^ 2 % con : ℕ) : ℝ) : ℂ) / (con : ℂ)
+        + (((x.val ^ 2 / con : ℕ) : ℝ) : ℂ) * (2 * (π : ℂ) * I) := by
+    rw [hnatC]
+    field_simp [hcne]
+    ring
+  norm_num [pow_two] at harg ⊢
+  rw [harg, Complex.exp_add]
+  have hper : cexp (((x.val * x.val / con : ℕ) : ℂ) * (2 * (π : ℂ) * I)) = 1 := by
+    simpa using (Complex.exp_int_mul_two_pi_mul_I ((x.val * x.val / con : ℕ) : ℤ))
+  rw [hper, mul_one]
+  congr 1
+  ring
+
+noncomputable def GShift (r : ℕ) (t : ℝ) : ℂ :=
+  ∑' k : ℤ, cexp (-π * (t / (con : ℝ) : ℝ) * (((r : ℝ) + (k : ℝ) * (con : ℝ)) ^ 2))
+
+lemma sqrt_t_shifted_gauss' (r : ℕ) (t : ℝ) (ht : 0 < t) :
+    Real.sqrt t * GShift r t = ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) *
+      (∑' n : ℤ, cexp (-π / (t * (con : ℝ) : ℂ) * ((n : ℂ) ^ 2)) *
+        cexp (2 * π * I * ((r : ℝ) / (con : ℝ)) * (n : ℝ))) := by
+  exact sqrt_t_shifted_gauss r t ht
+
+lemma sum_phase_eq_tau :
+    (∑' x : ZMod con, cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ)))
+      = gaussSum qchar' stdAddChar := by
+  rw [tsum_fintype]
+  calc
+    (∑ x : ZMod con, cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ)))
+        = ∑ x : ZMod con, stdAddChar (N := con) (x * x) := by
+          apply Finset.sum_congr rfl
+          intro x hx
+          exact phase_eq_stdAddChar x
+    _ = gaussSum qchar' stdAddChar := by rw [chirp_con]
+
+lemma sqrt_t_chirpSum_tendsto_tau :
+    Tendsto (fun t : ℝ => Real.sqrt t * chirpSum t) (𝓝[>] 0)
+      (𝓝 (gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ))) := by
+  have hS : ∀ x : ZMod con, Tendsto (fun t : ℝ => Real.sqrt t * GShift x.val t)
+      (𝓝[>] 0) (𝓝 ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)) := by
+    intro x
+    have hT : Tendsto (fun t : ℝ => ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) *
+        (∑' m : ℤ, cexp (-↑π / (↑t * ↑↑con) * ↑m ^ 2) * cexp (2 * ↑π * I * (↑↑x.val / ↑↑con) * ↑m)))
+        (𝓝[>] 0) (𝓝 ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)) := by
+      simpa using (T_r_tendsto x.val).const_mul ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)
+    refine Tendsto.congr' ?_ hT
+    filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
+    exact (sqrt_t_shifted_gauss' x.val t ht.1).symm
+  have hsumlim : Tendsto (fun t : ℝ => ∑' x : ZMod con,
+        (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+          (Real.sqrt t * GShift x.val t)) (𝓝[>] 0)
+      (𝓝 (∑' x : ZMod con,
+        (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+          ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ))) := by
+    simp only [tsum_fintype]
+    exact tendsto_finset_sum Finset.univ (fun x hx => (hS x).const_mul _)
+  have hlimval : (∑' x : ZMod con,
+      (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+        ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ))
+      = gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) := by
+    rw [tsum_mul_right, sum_phase_eq_tau]
+  have hsumlim' : Tendsto (fun t : ℝ => ∑' x : ZMod con,
+        (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+          (Real.sqrt t * GShift x.val t)) (𝓝[>] 0)
+      (𝓝 (gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ))) := by
+    rw [hlimval] at hsumlim
+    exact hsumlim
+  refine Tendsto.congr' ?_ hsumlim'
+  filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with t ht
+  rw [chirpSum_group t ht.1]
+  rw [show (∑' x : ZMod con,
+        (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+          (Real.sqrt t * GShift x.val t))
+      = Real.sqrt t * (∑' x : ZMod con,
+        (cexp (2 * (π : ℂ) * I * (((x.val ^ 2 : ℕ) : ℝ) : ℂ) / (con : ℂ))) *
+          GShift x.val t) by
+    rw [tsum_fintype, tsum_fintype, Finset.mul_sum]
+    apply Finset.sum_congr rfl
+    intro x hx
+    ring]
+  congr 1
+  apply tsum_congr
+  intro x
+  congr 2
+  all_goals norm_num [pow_two]
+
+
+/-- **K3b closed.** The quadratic Gauss sum is `+√con`, unconditionally. -/
+theorem gaussSum_re_pos : 0 < (gaussSum qchar' stdAddChar : ℂ).re := by
+  have h1 := sqrt_t_chirpSum_tendsto_one
+  have h2 := sqrt_t_chirpSum_tendsto_tau
+  have heq : (1 : ℂ) = gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) :=
+    tendsto_nhds_unique h1 h2
+  have hspos : (0 : ℝ) < Real.sqrt (con : ℝ) := by
+    exact Real.sqrt_pos.2 (by exact_mod_cast con_pos)
+  have hsne : (Real.sqrt (con : ℝ) : ℂ) ≠ 0 := by exact_mod_cast (ne_of_gt hspos)
+  have hmul : (1 : ℂ) * (Real.sqrt (con : ℝ) : ℂ)
+      = (gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)) *
+        (Real.sqrt (con : ℝ) : ℂ) := by
+    simpa using congrArg (fun z : ℂ => z * (Real.sqrt (con : ℝ) : ℂ)) heq
+  rw [one_mul] at hmul
+  have hcanc : ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) * (Real.sqrt (con : ℝ) : ℂ) = 1 := by
+    rw [← Complex.ofReal_mul]
+    norm_num
+  rw [show (gaussSum qchar' stdAddChar * ((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ)) *
+        (Real.sqrt (con : ℝ) : ℂ)
+      = gaussSum qchar' stdAddChar * (((1 / Real.sqrt (con : ℝ) : ℝ) : ℂ) *
+        (Real.sqrt (con : ℝ) : ℂ)) by ring] at hmul
+  rw [hcanc, mul_one] at hmul
+  have hτ : gaussSum qchar' stdAddChar = (Real.sqrt (con : ℝ) : ℂ) := hmul.symm
+  rw [hτ]
+  exact hspos
+
+theorem gaussSum_eq_sqrt_con_unconditional :
+    gaussSum qchar' stdAddChar = ((Real.sqrt (con : ℝ) : ℝ) : ℂ) := by
+  exact gaussSum_eq_sqrt_con gaussSum_re_pos
+
+
+/-! ### Final rung: K4 / class-number relation ### -/
+
+/-- K3b converts the analytic side to the Kronecker log-sum form. -/
+theorem sqrt_con_mul_L_one_eq_neg_log_sum :
+    ((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1
+      = ((∑ j : ZMod con, qcharR j *
+          -(Real.log (2 * Real.sin (Real.pi * (j.val : ℝ) / (con : ℝ))))) : ℝ) := by
+  have hre := re_tau_mul_L_one_eq_log_sum
+  rw [gaussSum_eq_sqrt_con_unconditional] at hre
+  change (((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1).re = _ at hre
+  rw [show (((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1).re
+      = (Real.sqrt (con : ℝ)) * (ZMod.LFunction qchar 1).re by simp [Complex.mul_re]] at hre
+  have him : (ZMod.LFunction qchar 1).im = 0 := im_LFunction_one_eq_zero
+  apply Complex.ext
+  · -- real part
+    simpa only [Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im, zero_mul, sub_zero] using hre
+  · -- imaginary part
+    simp [Complex.mul_im, Complex.ofReal_im, him]
+
+/-- K4 has two equivalent statements: the complex class-number relation and the
+    Kronecker log-sum relation. -/
+theorem cnf_iff_kronecker :
+    (((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1
+        = (2 : ℂ) * ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ)) ↔
+    (∑ j : ZMod con, qcharR j *
+        -(Real.log (2 * Real.sin (Real.pi * (j.val : ℝ) / (con : ℝ)))))
+      = 2 * (((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048)) := by
+  rw [sqrt_con_mul_L_one_eq_neg_log_sum]
+  let S : ℝ := ∑ j : ZMod con, qcharR j *
+        -(Real.log (2 * Real.sin (Real.pi * (j.val : ℝ) / (con : ℝ))))
+  let T : ℝ := ((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048)
+  change ((S : ℝ) : ℂ) = (2 : ℂ) * ((T : ℝ) : ℂ) ↔ S = 2 * T
+  constructor
+  · intro h
+    simpa using congrArg Complex.re h
+  · intro h
+    have h' : ((S : ℝ) : ℂ) = ((2 * T : ℝ) : ℂ) := by exact_mod_cast h
+    simpa only [Complex.ofReal_mul, Complex.ofReal_ofNat] using h'
+
+/-- The analytic Stark theorem at d = 2048: K3b is discharged; the single
+    remaining named input is the Dirichlet class-number relation. -/
+theorem analytic_stark_of_CNF
+    (hCNF : ((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1
+        = (2 : ℂ) * ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ)) :
+    deriv (ZMod.LFunction qchar) 0
+      = ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ) := by
+  exact lprime_zero_eq_hLog_of_gaussSign_of_CNF
+    gaussSum_eq_sqrt_con_unconditional hCNF
+
+
+
+/-- CNF and the Stark L-side derivative identity are the same statement now
+    that K3b is discharged. -/
+theorem cnf_iff_stark_L_side :
+    ((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1
+        = (2 : ℂ) * ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ) ↔
+    deriv (ZMod.LFunction qchar) 0
+      = ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ) := by
+  constructor
+  · exact analytic_stark_of_CNF
+  · intro hL
+    have h1 := two_lprime_zero_eq_tau
+    rw [gaussSum_eq_sqrt_con_unconditional] at h1
+    rw [hL] at h1
+    simpa only [mul_assoc] using h1.symm
+
+/-- **The last rung.** With K3b discharged, the complete Stark Theorem at
+    d = 2048 — algebraic unit data and the analytic derivative identity —
+    follows from the single Dirichlet class-number relation. -/
+theorem stark_ladder_closed
+    (hCNF : ((Real.sqrt (con : ℝ) : ℝ) : ℂ) * ZMod.LFunction qchar 1
+        = (2 : ℂ) * ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ)) :
+    (epsilonReal 2048 * epsilonConjReal 2048 = 1 ∧
+    epsilonReal 2048 + epsilonConjReal 2048 = (2047 : ℝ) ∧
+    (2046 : ℝ) < epsilonReal 2048 ∧ epsilonReal 2048 < (2047 : ℝ) ∧
+    (1/2047 : ℝ) < epsilonConjReal 2048 ∧ epsilonConjReal 2048 < (1/2046 : ℝ) ∧
+    epsilonReal 2048 ≠ 0 ∧ epsilonConjReal 2048 ≠ 0 ∧
+    2 * Real.cosh (Real.log (epsilonReal 2048)) = (2047 : ℝ) ∧
+    Real.log (epsilonReal 2048) + Real.log (epsilonConjReal 2048) = 0) ∧
+    deriv (ZMod.LFunction qchar) 0
+      = ((((hField : ℕ) : ℝ) * Real.log (epsilonReal 2048) : ℝ) : ℂ) := by
+  exact ⟨stark_theorem_d2048, analytic_stark_of_CNF hCNF⟩
 
 end Imscribing.Millennium.StarkDualLimit

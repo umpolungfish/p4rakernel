@@ -170,7 +170,6 @@ theorem ym_mass_gap_exists (p : LatticeParams) (alpha : ℝ) (h_alpha : alpha > 
     have h_alpha_ne : alpha ≠ 0 := ne_of_gt h_alpha
     have h_Lambda_ne : p.Lambda ≠ 0 := ne_of_gt p.h_Lambda_pos
     field_simp
-    ring
 
 end YMMassGap
 
