@@ -1,0 +1,98 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk2probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk2probe.lean:418:39: error: failed to prove positivity/nonnegativity/nonzeroness
+../../chunk2probe.lean:437:42: error: failed to prove positivity/nonnegativity/nonzeroness
+../../chunk2probe.lean:438:4: error: Type mismatch
+  exp_le_exp.mpr ?m.137
+has type
+  rexp ?m.133 ≤ rexp ?m.134
+but is expected to have type
+  rexp (-π * (4 * a) * ↑n ^ 2) = rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2)
+../../chunk2probe.lean:454:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(-π * a * ↑(2 * n + 1) ^ 2)
+in the target expression
+  cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+
+a : ℝ
+hsum : Summable fun n => rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2)
+hmap : ↑(∑' (n : ℕ), rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2)) = ∑' (n : ℕ), ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+n : ℕ
+hid : ↑(-π * a * ↑(2 * n + 1) ^ 2) = ↑(-π * (4 * a) * (↑n + 1 / 2) ^ 2)
+⊢ cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+../../chunk2probe.lean:467:62: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) * I
+⊢ 2 * ↑n = 2 * ↑n
+../../chunk2probe.lean:476:67: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) * I
+hcast : ↑↑(2 * n) = ↑(2 * n)
+⊢ ↑k = -(4190205 * (↑n * ↑n))
+../../chunk2probe.lean:496:70: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) * I
+⊢ 2 * ↑n + 1 = 2 * ↑n + 1
+../../chunk2probe.lean:506:73: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+⊢ ↑k = -(4190205 * (↑n * (↑n + 1)))
+../../chunk2probe.lean:516:63: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(↑k * 2 * π) + ↑(-(π * ↑con / 2)) + ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+hn : con = 4 * ((con - 1) / 4) + 1
+⊢ 4 * ↑((con - 1) / 4) + 1 = 4 * ↑(4 * ((con - 1) / 4) / 4) + 1
+../../chunk2probe.lean:522:64: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(↑k * 2 * π) + ↑(-(π * ↑con / 2)) + ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+hn : con = 4 * ((con - 1) / 4) + 1
+hq : ↑con = 4 * ↑((con - 1) / 4) + 1
+k2 : ℤ
+⊢ ↑k2 = -↑((con - 1) / 4)

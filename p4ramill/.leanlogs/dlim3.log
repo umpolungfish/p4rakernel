@@ -1,0 +1,612 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:51:4: error: linarith failed to find a contradiction
+case h1.h
+I : ℂ
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+h : Real.sin (θ / 2) ^ 2 + Real.cos (θ / 2) ^ 2 = 1
+a✝ : Real.cos (θ / 2) ^ 2 - Real.sin (θ / 2) ^ 2 < 1 - 2 * Real.sin (2 * (θ / 2) / 2) ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:55:55: error: unsolved goals
+I : ℂ
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+hcos : Real.cos θ = 1 - 2 * Real.sin (θ / 2) ^ 2
+h1 : ‖cexp (I * ↑θ) - 1‖ ^ 2 = Complex.normSq (cexp (I * ↑θ) - 1)
+⊢ rexp (I.re * θ) * Real.cos (I.im * θ) = Real.cos θ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:57:55: error: unsolved goals
+I : ℂ
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+hcos : Real.cos θ = 1 - 2 * Real.sin (θ / 2) ^ 2
+h1 : ‖cexp (I * ↑θ) - 1‖ ^ 2 = Complex.normSq (cexp (I * ↑θ) - 1)
+hre : (cexp (I * ↑θ)).re = Real.cos θ
+⊢ rexp (I.re * θ) * Real.sin (I.im * θ) = Real.sin θ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:63:48: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Real.sin θ ^ 2
+in the target expression
+  (Real.cos θ - 1) * (Real.cos θ - 1) + Real.sin θ * Real.sin θ = 4 * Real.sin (θ / 2) ^ 2
+
+I : ℂ
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+hcos : Real.cos θ = 1 - 2 * Real.sin (θ / 2) ^ 2
+h1 : ‖cexp (I * ↑θ) - 1‖ ^ 2 = Complex.normSq (cexp (I * ↑θ) - 1)
+hre : (cexp (I * ↑θ)).re = Real.cos θ
+him : (cexp (I * ↑θ)).im = Real.sin θ
+hsq1 : Real.sin θ ^ 2 = 1 - Real.cos θ ^ 2
+⊢ (Real.cos θ - 1) * (Real.cos θ - 1) + Real.sin θ * Real.sin θ = 4 * Real.sin (θ / 2) ^ 2
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:67:18: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?a * ?b) ^ ?n
+in the target expression
+  4 * Real.sin (θ / 2) ^ 2 ≤ 4 * (θ / 2) ^ 2
+
+I : ℂ
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+hcos : Real.cos θ = 1 - 2 * Real.sin (θ / 2) ^ 2
+hsq : ‖cexp (I * ↑θ) - 1‖ ^ 2 = 4 * Real.sin (θ / 2) ^ 2
+hθ4 : θ ^ 2 = 4 * (θ / 2) ^ 2
+⊢ 4 * Real.sin (θ / 2) ^ 2 ≤ 4 * (θ / 2) ^ 2
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:102:2: error: Type mismatch
+  Complex.exp_int_mul_two_pi_mul_I ?m.54
+has type
+  cexp (↑?m.54 * (2 * ↑π * Complex.I)) = 1
+but is expected to have type
+  cexp (↑k * (2 * ↑π * I)) = 1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:109:2: error: Type mismatch
+  Complex.exp_neg_pi_div_two_mul_I
+has type
+  cexp (-↑π / 2 * Complex.I) = -Complex.I
+but is expected to have type
+  cexp (-↑π / 2 * I) = -I
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:115:37: error: unsolved goals
+I : ℂ
+t : ℝ
+h2r : Complex.re 2 = 2
+h2i : Complex.im 2 = 0
+⊢ t * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 4190205 -
+      I.re * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 8380410 =
+    t * (4 + t ^ 2)⁻¹ * 4190205
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:118:29: warning: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵ ̵Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:120:14: warning: This simp argument is unused:
+  Complex.I_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:120:28: warning: This simp argument is unused:
+  Complex.I_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵i̵m̵]̵C̲o̲m̲p̲l̲e̲x̲.̲I̲_̲r̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:125:37: error: unsolved goals
+I : ℂ
+t : ℝ
+h2r : Complex.re 2 = 2
+h2i : Complex.im 2 = 0
+⊢ I.im * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 8380410 = (4 + t ^ 2)⁻¹ * 8380410
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:128:13: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  simp only [̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲d̲i̲v̲_̲i̲m̲,̲ Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:130:14: warning: This simp argument is unused:
+  Complex.I_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:130:28: warning: This simp argument is unused:
+  Complex.I_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵i̵m̵]̵C̲o̲m̲p̲l̲e̲x̲.̲I̲_̲r̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:143:2: error: `simp` made no progress
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:152:59: error(lean.unknownIdentifier): Unknown identifier `I`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:168:15: error: don't know how to synthesize implicit argument `I`
+  @dualExponent_eq ?m.56 t ht n
+context:
+t : ℝ
+ht : 0 < t
+n : ℤ
+⊢ ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:168:7: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:167:86: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℤ
+⊢ ‖dualTerm t n‖ = rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:181:80: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:187:13: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:184:8: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:192:41: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:190:8: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:206:69: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:221:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:222:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:231:4: error: linarith failed to find a contradiction
+case neg.h
+a : ℝ
+ha : 0 < a
+hle : ¬a ≤ 1
+h1 : 1 ≤ a
+hpt : ∀ (k : ℕ), ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2) ≤ ↑k ^ 2 * rexp (-(π * 1) * ↑k ^ 2)
+hd : Summable fun k => ↑k ^ 2 * rexp (-(π * 1) * ↑k ^ 2)
+hs : ∑' (i : ℕ), ↑i ^ 2 * rexp (-(π * a) * ↑i ^ 2) ≤ ∑' (i : ℕ), ↑i ^ 2 * rexp (-(π * 1) * ↑i ^ 2)
+h2 : ∑' (k : ℕ), ↑k ^ 2 * rexp (-(π * 1) * ↑k ^ 2) ≤ 2 / 1
+a✝ : 2 / (a * √a) + 2 < ∑' (k : ℕ), ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2)
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:235:44: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:236:9: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:237:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:257:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:258:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:265:21: error: Application type mismatch: The argument
+  h1
+has type
+  ↑(2 * n + 1) ^ 2 ≤ 4 * ↑(n + 1) ^ 2
+but is expected to have type
+  ↑(2 * n + 1) ^ 2 ≤ 4
+in the application
+  mul_le_mul h1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:265:28: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:265:43: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:270:40: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:289:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:290:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:297:21: error: Application type mismatch: The argument
+  h1
+has type
+  ↑(2 * n + 1) ^ 2 ≤ 4 * ↑(n + 1) ^ 2
+but is expected to have type
+  ↑(2 * n + 1) ^ 2 ≤ 4
+in the application
+  mul_le_mul h1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:297:28: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:297:43: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:308:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (b : ℕ), ↑b ^ 2 * rexp (-(π * a) * ↑b ^ 2)
+in the target expression
+  ∑' (i : ℕ), ↑(2 * i + 1) ^ 2 * rexp (-(π * a) * ↑(2 * i + 1) ^ 2) ≤
+    4 * ∑' (i : ℕ), ↑(i + 1) ^ 2 * rexp (-(π * a) * ↑(i + 1) ^ 2)
+
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hmain : ∑' (k : ℕ), ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2) ≤ 2 / (a * √a)
+hterm :
+  ∀ (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ 4 * (↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2))
+hsucc : Summable fun n => ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+h4s : Summable fun n => 4 * (↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2))
+hle2 :
+  ∑' (i : ℕ), ↑(2 * i + 1) ^ 2 * rexp (-(π * a) * ↑(2 * i + 1) ^ 2) ≤
+    4 * ∑' (i : ℕ), ↑(i + 1) ^ 2 * rexp (-(π * a) * ↑(i + 1) ^ 2)
+htail : ∑' (b : ℕ), ↑b ^ 2 * rexp (-(π * a) * ↑b ^ 2) = ∑' (b : ℕ), ↑(b + 1) ^ 2 * rexp (-(π * a) * ↑(b + 1) ^ 2)
+h0 : ↑0 ^ 2 * rexp (-(π * a) * ↑0 ^ 2) = 0
+⊢ ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ 8 / (a * √a)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:332:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:333:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:340:4: error: linarith failed to find a contradiction
+case neg.h
+a : ℝ
+ha : 0 < a
+hle : ¬a ≤ 1
+h1 : 1 ≤ a
+hpt :
+  ∀ (n : ℕ),
+    ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ ↑(2 * n + 1) ^ 2 * rexp (-(π * 1) * ↑(2 * n + 1) ^ 2)
+hd : Summable fun n => ↑(2 * n + 1) ^ 2 * rexp (-(π * 1) * ↑(2 * n + 1) ^ 2)
+hs :
+  ∑' (i : ℕ), ↑(2 * i + 1) ^ 2 * rexp (-(π * a) * ↑(2 * i + 1) ^ 2) ≤
+    ∑' (i : ℕ), ↑(2 * i + 1) ^ 2 * rexp (-(π * 1) * ↑(2 * i + 1) ^ 2)
+h2 : ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-(π * 1) * ↑(2 * n + 1) ^ 2) ≤ 8 / 1
+a✝ : 8 / (a * √a) + 8 < ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2)
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:350:25: error: Type mismatch
+  Eq.symm (Complex.ofReal_exp ?m.120)
+has type
+  cexp ↑?m.120 = ↑(rexp ?m.120)
+but is expected to have type
+  cexp (-↑π * ↑a * ↑↑n ^ 2) = ↑(rexp (-π * a * ↑n ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:351:13: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Complex.ofRealCLM (∑' (z : ℕ), rexp (-π * a * ↑z ^ 2))
+in the target expression
+  ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2)) = ↑(gaussSumNat a)
+
+a : ℝ
+hconv : ∑' (n : ℕ), cexp (-↑π * ↑a * ↑↑n ^ 2) = ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2))
+⊢ ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2)) = ↑(gaussSumNat a)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:359:25: error: Type mismatch
+  Eq.symm (Complex.ofReal_exp ?m.166)
+has type
+  cexp ↑?m.166 = ↑(rexp ?m.166)
+but is expected to have type
+  cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:362:46: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:364:11: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:365:4: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:370:13: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Complex.ofRealCLM (∑' (z : ℕ), rexp (-π * a * ↑(2 * z + 1) ^ 2))
+in the target expression
+  ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2)) = ↑(gaussSumHalf (4 * a))
+
+a : ℝ
+ha : 0 < a
+hconv : ∑' (n : ℕ), cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2))
+hsum : Summable fun n => rexp (-π * a * ↑(2 * n + 1) ^ 2)
+⊢ ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2)) = ↑(gaussSumHalf (4 * a))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:381:12: error: don't know how to synthesize implicit argument `I`
+  @dualExponent_eq ?m.136 t ht ↑(2 * n)
+context:
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:381:7: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:380:92: error: unsolved goals
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ dualTerm t ↑(2 * n) =
+    cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+      cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4)))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:405:12: error: don't know how to synthesize implicit argument `I`
+  @dualExponent_eq ?m.166 t ht ↑(2 * n + 1)
+context:
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:405:7: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:404:91: error: unsolved goals
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ dualTerm t ↑(2 * n + 1) =
+    -I * cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))) *
+      cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:457:58: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:457:34: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:461:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:471:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:504:44: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:505:9: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:506:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:529:25: error: unsolved goals
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+hphi : 0 ≤ π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4))
+⊢ ?m.657 ≤ ‖?m.670‖
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:529:71: error: `simp` made no progress
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:534:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ‖cexp ↑?x‖
+in the target expression
+  ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖ *
+      ‖1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4))))‖ =
+    rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      ‖1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4))))‖
+
+I : ℂ
+t : ℝ
+ht : 0 < t
+n : ℕ
+hphi : 0 ≤ π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4))
+⊢ ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖ *
+      ‖1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4))))‖ =
+    rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      ‖1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4))))‖
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:537:45: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:539:8: error: Type mismatch
+  norm_exp_I_sub_one ?m.1159
+has type
+  ‖cexp (?m.1158 * ↑?m.1159) - 1‖ ≤ |?m.1159|
+but is expected to have type
+  ‖cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))) - 1‖ ≤
+    π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:543:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:556:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:608:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ‖cexp ↑?x‖
+in the target expression
+  rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) = ‖cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)‖
+
+I : ℂ
+t : ℝ
+ht : 0 < t
+ha0 : 0 < 4 * ↑con * t / (t ^ 2 + 4)
+n : ℕ
+⊢ rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) = ‖cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)‖
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:601:23: error: unsolved goals
+I : ℂ
+t : ℝ
+ht : 0 < t
+ha0 : 0 < 4 * ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)
+⊢ dualEven t =
+    ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4))) +
+      2 *
+        ∑' (n : ℕ),
+          cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+            (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:649:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ‖cexp ↑?x‖
+in the target expression
+  rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖
+
+I : ℂ
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+n : ℕ
+⊢ rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:642:46: error: unsolved goals
+I : ℂ
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+⊢ dualOdd t =
+    -I * ↑(2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))) +
+      2 *
+        ∑' (n : ℕ),
+          I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+            (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:684:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => Real.sqrt ((con : ℝ) * t) * (K * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:686:12: error: Function expected at
+  Tendsto
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => Real.sqrt ((con : ℝ) * t))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:689:10: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:690:12: error: Function expected at
+  Tendsto
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => K * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4)))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:694:45: error: Application type mismatch: The argument
+  continuousAt_const
+has type
+  ContinuousAt (fun x => ?m.172) ?m.171
+but is expected to have type
+  ContinuousAt (fun t => t ^ 2 + 4) 0
+in the application
+  ContinuousAt.div₀ (ContinuousAt.fun_mul continuousAt_const (ContinuousAt.pow (continuousAt_id' 0) 2))
+    continuousAt_const
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:696:10: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:701:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => Real.sqrt ((con : ℝ) * t) / Real.sqrt (4 * (con : ℝ) * t / (t ^ 2 + 4)))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:710:6: error: Type mismatch
+  Real.sqrt_div ?m.211
+has type
+  ∀ (y : ℝ), √(?m.210 / y) = √?m.210 / √y
+but is expected to have type
+  √(4 * ↑con * t / (t ^ 2 + 4)) = √(4 * ↑con * t) / √(t ^ 2 + 4)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:710:24: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:714:28: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:715:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(↑con * t * (t ^ 2 + 4) / ?y)
+in the target expression
+  √(↑con * t * (t ^ 2 + 4)) / √(4 * ↑con * t) = √((t ^ 2 + 4) / 4)
+
+x✝ : Sort u_1
+Tendsto : x✝
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+htne : t ≠ 0
+h1 : √(4 * ↑con * t / (t ^ 2 + 4)) = √(4 * ↑con * t) / √(t ^ 2 + 4)
+⊢ √(↑con * t * (t ^ 2 + 4)) / √(4 * ↑con * t) = √((t ^ 2 + 4) / 4)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:719:9: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:715:26: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:720:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:730:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => c₀ * t / (t ^ 2 + 4))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:742:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => Real.sqrt ((con : ℝ) * t) * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4)))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:753:74: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  mul_pos (mul_pos ?m.324 (Nat.cast_pos.mpr con_pos)) ht
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:754:40: error(lean.unknownIdentifier): Unknown identifier `sqrt_ne_zero.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:755:9: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:756:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:765:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => Real.sqrt ((con : ℝ) * t) * (2 * gaussSumHalf (4 * (con : ℝ) * t / (t ^ 2 + 4))))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:774:9: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:775:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:779:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ => ((Real.sqrt ((con : ℝ) * t) : ℂ) * ((gaussSumInt (4 * (con : ℝ) * t / (t ^ 2 + 4)) : ℝ) : ℂ)))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:790:74: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  mul_pos (mul_pos ?m.324 (Nat.cast_pos.mpr con_pos)) ht
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:792:40: error(lean.unknownIdentifier): Unknown identifier `sqrt_ne_zero.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:793:9: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:794:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:811:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun t : ℝ =>
+    Real.sqrt ((con : ℝ) * t) *
+      ((κ * ((π : ℝ) * (con : ℝ) * t ^ 2 / (t ^ 2 + 4))) *
+        (2 / ((c₀ * t / (t ^ 2 + 4)) * Real.sqrt (c₀ * t / (t ^ 2 + 4))))))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:826:43: error(lean.unknownIdentifier): Unknown identifier `sqrt_ne_zero.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:828:6: error: Type mismatch
+  Real.sqrt_div ?m.417
+has type
+  ∀ (y : ℝ), √(?m.416 / y) = √?m.416 / √y
+but is expected to have type
+  √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:829:93: error: unsolved goals
+case e_a
+x✝ : Sort u_1
+Tendsto : x✝
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hc0 : c₀ ≠ 0
+htne : t ≠ 0
+hT4 : t ^ 2 + 4 ≠ 0
+hpt : 0 < c₀ * t
+hsqne : √(c₀ * t) ≠ 0
+h1 : √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+⊢ √(↑con * t) = √↑con
+
+case e_a
+x✝ : Sort u_1
+Tendsto : x✝
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hc0 : c₀ ≠ 0
+htne : t ≠ 0
+hT4 : t ^ 2 + 4 ≠ 0
+hpt : 0 < c₀ * t
+hsqne : √(c₀ * t) ≠ 0
+h1 : √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+⊢ √(c₀ * t) = √c₀
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:834:87: error: maximum number of errors (100; from option `maxErrors`) reached, exiting

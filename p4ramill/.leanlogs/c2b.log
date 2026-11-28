@@ -1,0 +1,107 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk2probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk2probe.lean:403:55: error: unsolved goals
+a : ℝ
+n : ℕ
+⊢ -↑π * ↑a * ↑n ^ 2 = -↑π * ↑a * ↑n ^ 2
+../../chunk2probe.lean:409:65: error: unsolved goals
+a : ℝ
+n : ℕ
+⊢ -↑π * ↑a * (2 * ↑n + 1) ^ 2 = -↑π * ↑a * (2 * ↑n + 1) ^ 2
+../../chunk2probe.lean:418:11: error: typeclass instance problem is stuck
+  TopologicalSpace ?m.115
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `TopologicalSpace` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+../../chunk2probe.lean:430:11: error: typeclass instance problem is stuck
+  TopologicalSpace ?m.166
+
+Note: Lean will not try to resolve this typeclass instance problem because the type argument to `TopologicalSpace` is a metavariable. This argument must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+../../chunk2probe.lean:450:62: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) * I
+⊢ 2 * ↑n = 2 * ↑n
+../../chunk2probe.lean:459:67: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) * I
+hcast : ↑↑(2 * n) = ↑(2 * n)
+⊢ ↑k = -(4190205 * (↑n * ↑n))
+../../chunk2probe.lean:479:70: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) * I
+⊢ 2 * ↑n + 1 = 2 * ↑n + 1
+../../chunk2probe.lean:489:73: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+⊢ ↑k = -(4190205 * (↑n * (↑n + 1)))
+../../chunk2probe.lean:500:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  4 * (con / 4) + 1
+in the target expression
+  ↑con
+
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(↑k * 2 * π) + ↑(-(π * ↑con / 2)) + ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+h5 : 4 * (con / 4) + 1 = con
+h6 : con / 4 = (con - 1) / 4
+| ↑con
+../../chunk2probe.lean:509:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  cexp (I * ↑(↑(-↑((con - 1) / 4)) * 2 * π))
+in the target expression
+  cexp (I * ↑(-↑↑((con - 1) / 4) * 2 * π)) * cexp (I * ↑(-(π / 2))) = -I
+
+t : ℝ
+ht : 0 < t
+n : ℕ
+k : ℤ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(↑k * 2 * π) + ↑(-(π * ↑con / 2)) + ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+hq : ↑con = 4 * ↑((con - 1) / 4) + 1
+hsplit : -(π * ↑con / 2) = -↑↑((con - 1) / 4) * 2 * π + -(π / 2)
+⊢ cexp (I * ↑(-↑↑((con - 1) / 4) * 2 * π)) * cexp (I * ↑(-(π / 2))) = -I

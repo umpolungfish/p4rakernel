@@ -40,7 +40,7 @@ theorem sesquilinear_cauchy_schwarz
       dsimp [u]
       have h_nz : (‖B x y‖ : ℂ) ≠ 0 := by exact_mod_cast hnorm_pos.ne'
       have h_star_real : star (‖B x y‖ : ℂ) = (‖B x y‖ : ℂ) := Complex.conj_ofReal _
-      rw [star_div₀, h_star_real, div_mul_div_comm, ← sq]
+      rw [← Complex.star_def, star_div₀, h_star_real, div_mul_div_comm, ← sq]
       have h_nsq : star (B x y) * B x y = ((‖B x y‖ ^ 2 : ℝ) : ℂ) := by
         rw [mul_comm, show star (B x y) = starRingEnd ℂ (B x y) from rfl, Complex.mul_conj]
         norm_cast
@@ -52,7 +52,7 @@ theorem sesquilinear_cauchy_schwarz
       dsimp [u]
       have h_nz : (‖B x y‖ : ℂ) ≠ 0 := by exact_mod_cast hnorm_pos.ne'
       have h_star_real : star (‖B x y‖ : ℂ) = (‖B x y‖ : ℂ) := Complex.conj_ofReal _
-      rw [star_div₀, h_star_real, div_mul_eq_mul_div]
+      rw [← Complex.star_def, star_div₀, h_star_real, div_mul_eq_mul_div]
       have h_nsq : star (B x y) * B x y = ((‖B x y‖ ^ 2 : ℝ) : ℂ) := by
         rw [mul_comm, show star (B x y) = starRingEnd ℂ (B x y) from rfl, Complex.mul_conj]
         norm_cast
@@ -66,30 +66,30 @@ theorem sesquilinear_cauchy_schwarz
       have hnn := h_nonneg (a • x + y)
       have h_expand : B (a • x + y) (a • x + y) =
           (star a * a) * B x x + star a * B x y + a * B y x + B y y := by
-        rw [h_add_left, h_add_right, h_add_right, h_smul_left, h_smul_right,
-            h_smul_left, h_smul_right, h_smul_left, h_smul_right]
+        simp only [h_add_left, h_add_right, h_smul_left, h_smul_right]
         ring
       have h_sa_a : star a * a = ((t ^ 2 : ℝ) : ℂ) := by
         dsimp [a]
-        rw [star_mul, show star (t : ℂ) = (t : ℂ) from Complex.conj_ofReal t]
+        rw [← Complex.star_def, star_mul, show star (t : ℂ) = (t : ℂ) from Complex.conj_ofReal t]
         calc
-          (u.star * (t : ℂ)) * ((t : ℂ) * u) = ((t : ℂ) * (t : ℂ)) * (star u * u) := by ring
+          (star u * (t : ℂ)) * ((t : ℂ) * u) = ((t : ℂ) * (t : ℂ)) * (star u * u) := by ring
           _ = ((t : ℂ) * (t : ℂ)) * 1 := by rw [hu_mul]
           _ = ((t ^ 2 : ℝ) : ℂ) := by push_cast; ring
       have h_sa_B : star a * B x y = ((t * ‖B x y‖ : ℝ) : ℂ) := by
         dsimp [a]
-        rw [star_mul, show star (t : ℂ) = (t : ℂ) from Complex.conj_ofReal t]
+        rw [← Complex.star_def, star_mul, show star (t : ℂ) = (t : ℂ) from Complex.conj_ofReal t]
         calc
           (star u * (t : ℂ)) * B x y = (t : ℂ) * (star u * B x y) := by ring
           _ = (t : ℂ) * (‖B x y‖ : ℂ) := by rw [hu_B]
           _ = ((t * ‖B x y‖ : ℝ) : ℂ) := by push_cast; rfl
       have h_a_Byx : a * B y x = ((t * ‖B x y‖ : ℝ) : ℂ) := by
-        rw [h_herm x y, ← star_mul']
+        rw [h_herm x y]
         have h1 : star (star a * B x y) = a * star (B x y) := by
           rw [star_mul, star_star, mul_comm]
-        rw [← h1, h_sa_B, Complex.conj_ofReal]
+        rw [← h1, h_sa_B, Complex.star_def, Complex.conj_ofReal]
       rw [h_expand, h_sa_a, h_sa_B, h_a_Byx] at hnn
-      simpa [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im] using hnn
+      simp only [Complex.add_re, Complex.mul_re, Complex.ofReal_re, Complex.ofReal_im] at hnn
+      linarith
     by_cases hxx : (B x x).re = 0
     · have h_bad := h_quad (-((B y y).re + 1) / (2 * ‖B x y‖))
       rw [hxx, mul_zero, zero_add] at h_bad
@@ -106,7 +106,7 @@ theorem sesquilinear_cauchy_schwarz
         ring
       rw [h_eq] at h_min
       have h_le : ‖B x y‖ ^ 2 / (B x x).re ≤ (B y y).re := sub_nonneg.mp h_min
-      exact (div_le_iff₀ hxx_pos).mp h_le
+      exact ((div_le_iff₀ hxx_pos).mp h_le).trans_eq (mul_comm _ _)
 
 /-- Null-space kernel N₀ = { x | Re B(x, x) = 0 } as a ℂ-submodule of E. -/
 def sesquilinearNullSubmodule
@@ -133,6 +133,9 @@ def sesquilinearNullSubmodule
     have hyx : B y x = 0 := by rw [h_herm, hxy, star_zero]
     have hsum : B (x + y) (x + y) = B x x + B x y + B y x + B y y := by
       rw [h_add_left, h_add_right, h_add_right]; ring
+    change (B (x + y) (x + y)).re = 0
+    change (B x x).re = 0 at hx
+    change (B y y).re = 0 at hy
     rw [hsum, hxy, hyx]
     simp [hx, hy]
   smul_mem' := by
@@ -143,6 +146,7 @@ def sesquilinearNullSubmodule
       h_smul_right h_herm h_nonneg x x
     rw [hx, zero_mul] at h_cs
     have hxx0 : B x x = 0 := norm_eq_zero.mp (by nlinarith [norm_nonneg (B x x)])
+    change (B (c • x) (c • x)).re = 0
     rw [hsc, hxx0, mul_zero, Complex.zero_re]
 
 end SesquilinearRP
@@ -155,15 +159,16 @@ variable {H₀ : Type*} [NormedAddCommGroup H₀] [InnerProductSpace ℂ H₀]
 noncomputable def liftContractionToCompletion
     (f₀ : H₀ →ₗ[ℂ] H₀) (h_contr : ∀ v : H₀, ‖f₀ v‖ ≤ ‖v‖) :
     UniformSpace.Completion H₀ →L[ℂ] UniformSpace.Completion H₀ :=
-  let fCLM : H₀ →ₗ[ℂ] H₀ := LinearMap.mkContinuous f₀ 1 (fun v => by simpa using h_contr v)
+  let fCLM : H₀ →L[ℂ] H₀ := LinearMap.mkContinuous f₀ 1 (fun v => by simpa using h_contr v)
   let rawMap : UniformSpace.Completion H₀ → UniformSpace.Completion H₀ :=
     UniformSpace.Completion.map fCLM
   have h_cont : Continuous rawMap := UniformSpace.Completion.continuous_map
   have h_add : ∀ x y : UniformSpace.Completion H₀, rawMap (x + y) = rawMap x + rawMap y := by
     intro x y
     induction x, y using UniformSpace.Completion.induction_on₂ with
-    | hp => exact isClosed_eq (h_cont.comp continuous_add)
-        ((h_cont.comp continuous_fst).add (h_cont.comp continuous_snd))
+    | hp =>
+        refine isClosed_eq (h_cont.comp continuous_add) ?_
+        exact (h_cont.comp continuous_fst).add (h_cont.comp continuous_snd)
     | ih x y =>
         change UniformSpace.Completion.map fCLM (↑x + ↑y) =
           UniformSpace.Completion.map fCLM ↑x + UniformSpace.Completion.map fCLM ↑y
@@ -175,8 +180,9 @@ noncomputable def liftContractionToCompletion
   have h_smul : ∀ (c : ℂ) (x : UniformSpace.Completion H₀), rawMap (c • x) = c • rawMap x := by
     intro c x
     induction x using UniformSpace.Completion.induction_on with
-    | hp => exact isClosed_eq (h_cont.comp (continuous_const_smul c))
-        ((continuous_const_smul c).comp h_cont)
+    | hp =>
+        refine isClosed_eq (h_cont.comp (continuous_const_smul c)) ?_
+        exact (continuous_const_smul c).comp h_cont
     | ih x =>
         change UniformSpace.Completion.map fCLM (c • ↑x) =
           c • UniformSpace.Completion.map fCLM ↑x
@@ -203,17 +209,13 @@ theorem liftContractionToCompletion_coe
     (f₀ : H₀ →ₗ[ℂ] H₀) (h_contr : ∀ v : H₀, ‖f₀ v‖ ≤ ‖v‖) (v : H₀) :
     liftContractionToCompletion f₀ h_contr (v : UniformSpace.Completion H₀) =
       (f₀ v : UniformSpace.Completion H₀) := by
-  change UniformSpace.Completion.map
-      (LinearMap.mkContinuous f₀ 1 (fun w => by simpa using h_contr w)) ↑v = ↑(f₀ v)
+  unfold liftContractionToCompletion
+  dsimp only [LinearMap.mkContinuous_apply, LinearMap.coe_mk, AddHom.coe_mk]
   rw [UniformSpace.Completion.map_coe
       (LinearMap.mkContinuous f₀ 1 (fun w => by simpa using h_contr w)).uniformContinuous]
   rfl
 
-/-- **Full OS Completion Semigroup Theorem.**
-    Given a pre-Hilbert space `H₀`, unit vacuum `Ω₀`, and symmetric pre-semigroup `T₀`
-    with polynomial bound and `Ω₀⊥` clustering rate `Δ > 0`, produces the complete
-    Hilbert space `H = Completion H₀`, vacuum `Ω`, and contraction semigroup `T`
-    satisfying all semigroup hypotheses of `OSReconstructedInput`. -/
+/-- **Full OS Completion Semigroup Theorem.** -/
 theorem os_completion_semigroup_bridge
     (Ω₀ : H₀) (hΩ₀ : ‖Ω₀‖ = 1)
     (T₀ : ℝ → H₀ →ₗ[ℂ] H₀)
@@ -279,7 +281,7 @@ theorem os_completion_semigroup_bridge
       intro x
       have h_proj_cont : Continuous (fun z : UniformSpace.Completion H₀ =>
           z - ⟪(Ω₀ : UniformSpace.Completion H₀), z⟫_ℂ • (Ω₀ : UniformSpace.Completion H₀)) :=
-        continuous_id.sub (((innerSL ℂ (Ω₀ : UniformSpace.Completion H₀)).continuous).smul continuous_const)
+        continuous_id.sub ((continuous_const.inner continuous_id).smul continuous_const)
       induction x using UniformSpace.Completion.induction_on with
       | hp =>
           exact isClosed_le

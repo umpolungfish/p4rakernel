@@ -2,32 +2,20 @@ import Imscribing.YangMills.CenteredLatticeTranslation4D
 
 /-!
 # Interior Non-Wrapping Shift & O((a L)⁻¹) Exterior Tail Decay
-
-Proves unconditionally (`0 sorry`):
-1. `interior_box_shift_exact`: When `8 ≤ L` and shifts `v` in the
-   interior box, `centeredLatSite L a (xs k - v) = centeredLatSite L a (xs k) -
-   centeredLatSite L a v` with zero wraparound.
-2. `centered_exterior_tail_bound`: The Riemann sum of `‖f(centeredLatSite L a xs)‖`
-   outside the interior box is bounded by
-   `(8 / (a * L)) * 4096^n * ∑_{j ≤ 8n+1} choose(8n + 1, j) seminorm j 0 f`,
-   vanishing uniformly as `a_m * L_m → ∞`.
 -/
 
 namespace Imscribing.YangMills.LatticeExteriorCutoff4D
 
-open Imscribing.YangMills.ClaySpec
 open Imscribing.YangMills.ContinuumInterfaces
 open Imscribing.YangMills.WilsonLattice4D
 open Imscribing.YangMills.CenteredTranslation4D
 
 /-- Interior quarter-torus predicate preventing periodic wraparound under shifts. -/
-def InInteriorBox (L n : ℕ) (xs : Fin n → Lat4 L) : Prop :=
+def InInteriorBox (L n : ℕ) [NeZero L] (xs : Fin n → Lat4 L) : Prop :=
   ∀ k : Fin n, ∀ μ : Fin 4, |centeredCoord L (xs k μ)| < (L : ℤ) / 4
 
-/-- **Exact Non-Wrapping Shift on `InInteriorBox`:**
-    For `8 ≤ L`, any shift `v` with `|centeredCoord L (v μ)| < L / 4` acts
-    on `xs ∈ InInteriorBox L n` without periodic wraparound. -/
-theorem interior_box_shift_exact (L n : ℕ) [NeZero L] (hL : 8 ≤ L) (a : ℝ)
+/-- **Exact Non-Wrapping Shift on `InInteriorBox`:** -/
+theorem interior_box_shift_exact (L n : ℕ) [NeZero L] (_hL : 8 ≤ L) (a : ℝ)
     (xs : Fin n → Lat4 L) (hxs : InInteriorBox L n xs)
     (v : Lat4 L) (hv : ∀ μ : Fin 4, |centeredCoord L (v μ)| < (L : ℤ) / 4) :
     ∀ k : Fin n, centeredLatSite L a (xs k - v) =
@@ -35,24 +23,19 @@ theorem interior_box_shift_exact (L n : ℕ) [NeZero L] (hL : 8 ≤ L) (a : ℝ)
   intro k
   apply centeredLatSite_sub_exact L a (xs k) v
   intro μ
-  have h1 := hxs k μ
-  have h2 := hv μ
-  omega
+  exact ⟨hxs k μ, hv μ⟩
 
-/-- **Explicit `O((a L)⁻¹)` Exterior Box Tail Bound:**
-    For `8 ≤ L` and `a ∈ (0, 1]`, the contribution of lattice tuples outside
-    `InInteriorBox L n` to the Riemann sum is bounded by `(8 / (a * L))` times a
-    uniform Schwartz seminorm combination. -/
+/-- **Explicit `O((a L)⁻¹)` Exterior Box Tail Bound:** -/
 theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
     {a : ℝ} (ha0 : 0 < a) (ha1 : a ≤ 1) (f : EuclideanSchwartz n) :
-    letI := Classical.propDecidable
+    letI : ∀ xs, Decidable (InInteriorBox L n xs) := fun xs => Classical.propDecidable (InInteriorBox L n xs)
     a ^ (4 * n) * ∑ xs : Fin n → Lat4 L,
       (if InInteriorBox L n xs then 0 else ‖f (fun k => centeredLatSite L a (xs k))‖) ≤
       (8 / (a * (L : ℝ))) * (4096 : ℝ) ^ n *
         ∑ j ∈ Finset.range (8 * n + 2),
           ((8 * n + 1).choose j : ℝ) * SchwartzMap.seminorm ℂ j 0 f := by
-  classical
-  have hL_pos : (0 : ℝ) < (L : ℝ) := by exact_mod_cast (by omega : 0 < L)
+  letI : ∀ xs, Decidable (InInteriorBox L n xs) := fun xs => Classical.propDecidable (InInteriorBox L n xs)
+  have hL_pos : (0 : ℝ) < (L : ℝ) := Nat.cast_pos.mpr (NeZero.pos L)
   have h_1d := centered_1d_riemann_le_eight L ha0 ha1
   have h_4d : ∑ x : Lat4 L, ∏ μ : Fin 4, (a / (1 + a * |(centeredCoord L (x μ) : ℝ)|) ^ 2) ≤ 4096 := by
     have h_prod_sum :
@@ -104,17 +87,23 @@ theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
       obtain ⟨k₀, μ₀, hk₀⟩ := h_out
       let x_phys : Fin n → Spacetime4 := fun k => centeredLatSite L a (xs k)
       have h_L8 : (L : ℝ) ≤ 8 * |(centeredCoord L (xs k₀ μ₀) : ℝ)| := by
-        have h_int : (L : ℤ) ≤ 8 * |centeredCoord L (xs k₀ μ₀)| := by omega
+        have h_int : (L : ℤ) ≤ 8 * |centeredCoord L (xs k₀ μ₀)| := by
+          have hL8 : (8 : ℤ) ≤ (L : ℤ) := by exact_mod_cast hL
+          have h_div := Int.mul_ediv_add_emod (L : ℤ) 4
+          have h_rem : (L : ℤ) % 4 < 4 := Int.emod_lt_of_pos (L : ℤ) (by norm_num)
+          have h_ge2 : (2 : ℤ) ≤ (L : ℤ) / 4 := by linarith
+          linarith
         have h_r : ((L : ℤ) : ℝ) ≤ ((8 * |centeredCoord L (xs k₀ μ₀)| : ℤ) : ℝ) := by
           exact_mod_cast h_int
         simpa using h_r
       have h_norm_ge : a * (L : ℝ) / 8 ≤ ‖x_phys‖ := by
         have h1 : a * |(centeredCoord L (xs k₀ μ₀) : ℝ)| = ‖(x_phys k₀) μ₀‖ := by
-          dsimp [x_phys, centeredLatSite]
-          rw [WithLp.equiv_symm_pi_apply, Real.norm_eq_abs, abs_mul, abs_of_pos ha0]
+          change a * |(centeredCoord L (xs k₀ μ₀) : ℝ)| = ‖a * (centeredCoord L (xs k₀ μ₀) : ℝ)‖
+          rw [Real.norm_eq_abs, abs_mul, abs_of_pos ha0]
         have h2 : ‖(x_phys k₀) μ₀‖ ≤ ‖x_phys k₀‖ := PiLp.norm_apply_le (x_phys k₀) μ₀
         have h3 : ‖x_phys k₀‖ ≤ ‖x_phys‖ := norm_le_pi_norm x_phys k₀
-        nlinarith
+        have ha_L := mul_le_mul_of_nonneg_left h_L8 ha0.le
+        linarith
       have h_one_le : 1 ≤ (8 / (a * (L : ℝ))) * ‖x_phys‖ := by
         have haL_pos : 0 < a * (L : ℝ) := mul_pos ha0 hL_pos
         calc
@@ -125,8 +114,8 @@ theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
           1 + a * |(centeredCoord L (xs k μ) : ℝ)| ≤ 1 + ‖x_phys‖ := by
         intro k μ
         have h1 : a * |(centeredCoord L (xs k μ) : ℝ)| = ‖(x_phys k) μ‖ := by
-          dsimp [x_phys, centeredLatSite]
-          rw [WithLp.equiv_symm_pi_apply, Real.norm_eq_abs, abs_mul, abs_of_pos ha0]
+          change a * |(centeredCoord L (xs k μ) : ℝ)| = ‖a * (centeredCoord L (xs k μ) : ℝ)‖
+          rw [Real.norm_eq_abs, abs_mul, abs_of_pos ha0]
         have h2 : ‖(x_phys k) μ‖ ≤ ‖x_phys k‖ := PiLp.norm_apply_le (x_phys k) μ
         have h3 : ‖x_phys k‖ ≤ ‖x_phys‖ := norm_le_pi_norm x_phys k
         linarith
@@ -140,7 +129,7 @@ theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
                     fun k _ => Finset.prod_le_prod (fun _ _ => by positivity) fun μ _ =>
                       pow_le_pow_left₀ (by positivity) (h_coord_le k μ) 2
           _ = (1 + ‖x_phys‖) ^ (8 * n) := by
-                simp [Finset.prod_const, ← pow_mul]; ring
+                simp [Finset.prod_const, ← pow_mul]
       have h_f_bound : (1 + ‖x_phys‖) ^ (8 * n + 1) * ‖f x_phys‖ ≤ S_semi := by
         rw [add_comm, add_pow, Finset.sum_mul]
         dsimp [S_semi]
@@ -170,22 +159,20 @@ theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
             ‖f x_phys‖ ≤ (1 + ‖x_phys‖) ^ (8 * n) * ‖f x_phys‖ :=
           mul_le_mul_of_nonneg_right h_prod_den (norm_nonneg _)
         have h2 : (1 + ‖x_phys‖) ^ (8 * n) * ‖f x_phys‖ ≤
-            (8 / (a * (L : ℝ))) * (1 + ‖x_phys‖) ^ (8 * n + 1) * ‖f x_phys‖ := by
+            (8 / (a * (L : ℝ))) * ((1 + ‖x_phys‖) ^ (8 * n + 1) * ‖f x_phys‖) := by
           have h_mul1 : (1 + ‖x_phys‖) ^ (8 * n) ≤
               (8 / (a * (L : ℝ))) * (1 + ‖x_phys‖) ^ (8 * n + 1) := by
-            have h1 : 1 ≤ (8 / (a * (L : ℝ))) * ‖x_phys‖ := h_one_le
             calc
               (1 + ‖x_phys‖) ^ (8 * n) = (1 + ‖x_phys‖) ^ (8 * n) * 1 := by simp [mul_one]
               _ ≤ (1 + ‖x_phys‖) ^ (8 * n) * ((8 / (a * (L : ℝ))) * ‖x_phys‖) := by
-                  gcongr <;> linarith
+                  gcongr
               _ ≤ (1 + ‖x_phys‖) ^ (8 * n) * ((8 / (a * (L : ℝ))) * (1 + ‖x_phys‖)) := by
-                  gcongr <;> linarith
-              _ = (8 / (a * (L : ℝ))) * (1 + ‖x_phys‖) ^ (8 * n + 1) := by
-                    ring
+                  gcongr; linarith
+              _ = (8 / (a * (L : ℝ))) * (1 + ‖x_phys‖) ^ (8 * n + 1) := by ring
           calc
             (1 + ‖x_phys‖) ^ (8 * n) * ‖f x_phys‖
                 ≤ ((8 / (a * (L : ℝ))) * (1 + ‖x_phys‖) ^ (8 * n + 1)) * ‖f x_phys‖ := by
-                    gcongr <;> linarith
+                    gcongr
             _ = (8 / (a * (L : ℝ))) * ((1 + ‖x_phys‖) ^ (8 * n + 1) * ‖f x_phys‖) := by ring
         have h3 : (8 / (a * (L : ℝ))) * ((1 + ‖x_phys‖) ^ (8 * n + 1) * ‖f x_phys‖) ≤
             (8 / (a * (L : ℝ))) * S_semi :=
@@ -199,7 +186,7 @@ theorem centered_exterior_tail_bound (L n : ℕ) [NeZero L] (hL : 8 ≤ L)
                 ‖f x_phys‖) *
               (∏ k : Fin n, ∏ μ : Fin 4, (a / (1 + a * |(centeredCoord L (xs k μ) : ℝ)|) ^ 2)) := by ring
         _ ≤ ((8 / (a * (L : ℝ))) * S_semi) *
-              (∏ k : Fin n, ∏ μ : Fin 4, (a / (1 + a * |(centeredCoord L (xs k μ) : ℝ)|) ^ 2)) := by
+              (∏ k : Fin n, ∏ μ : Fin 4, (a / (1 + a * |(centeredCoord L (xs k μ) : ℝ)|) ^ 2)) :=
               mul_le_mul_of_nonneg_right h_step_norm
                 (Finset.prod_nonneg fun _ _ => Finset.prod_nonneg fun _ _ => by positivity)
   have h_a4n : a ^ (4 * n) = ∏ _k : Fin n, ∏ _μ : Fin 4, a := by

@@ -62,7 +62,7 @@ theorem borchers_axioms_of_lattice_limit
     have h1 : Filter.Tendsto (fun m : ℕ => (B_m m F F).re) Filter.atTop
         (𝓝 (borchersForm C R F F).re) :=
       (Complex.continuous_re.tendsto _).comp (h_conv F F)
-    exact le_of_tendsto h1 (Filter.Eventually.of_forall fun m => h_rp_m m F)
+    exact ge_of_tendsto h1 (Filter.Eventually.of_forall fun m => h_rp_m m F)
   · intro t ht F G
     have h1 := h_conv F (borchersShift R t G)
     have h2 := h_conv (borchersShift R t F) G
@@ -95,8 +95,8 @@ theorem borchers_axioms_of_lattice_limit
       obtain ⟨h_add_l, h_smul_l, h_add_r, h_smul_r, _⟩ := h_lin_m m
       have hs : F - c m • borchersVac = F + (-c m) • borchersVac := by
         rw [sub_eq_add_neg, neg_smul]
-      rw [hs, h_add_l, h_add_r, h_add_r, h_smul_l, h_smul_r, h_smul_r, h_smul_l, h_smul_r]
-      simp only [star_neg]
+      rw [hs]
+      simp only [h_add_l, h_add_r, h_smul_l, h_smul_r, star_neg]
       ring
     have h_shift_G : ∀ m : ℕ,
         borchersShift R t (G m) = borchersShift R t F - c m • borchersVac := by
@@ -115,8 +115,8 @@ theorem borchers_axioms_of_lattice_limit
       have hs : borchersShift R t F - c m • borchersVac =
           borchersShift R t F + (-c m) • borchersVac := by
         rw [sub_eq_add_neg, neg_smul]
-      rw [hs, h_add_l, h_add_r, h_add_r, h_smul_l, h_smul_r, h_smul_r, h_smul_l, h_smul_r]
-      simp only [star_neg]
+      rw [hs]
+      simp only [h_add_l, h_add_r, h_smul_l, h_smul_r, star_neg]
       ring
     have h_lhs_tend : Filter.Tendsto
         (fun m : ℕ => (B_m m (borchersShift R t (G m)) (borchersShift R t (G m))).re)
@@ -135,7 +135,7 @@ theorem borchers_axioms_of_lattice_limit
           Filter.atTop (𝓝 0) := by
         simpa using (hc_star.mul hc_lim).mul (h_conv borchersVac borchersVac)
       have hC := ((h_t1.sub h_t2).sub h_t3).add h_t4
-      simpa using (Complex.continuous_re.tendsto _).comp hC
+      simpa only [Function.comp_apply, sub_zero, add_zero] using (Complex.continuous_re.tendsto _).comp hC
     have h_rhs_tend : Filter.Tendsto
         (fun m : ℕ => Real.exp (-2 * C.cluster_rate * t) * (B_m m (G m) (G m)).re)
         Filter.atTop (𝓝 (Real.exp (-2 * C.cluster_rate * t) * (borchersForm C R F F).re)) := by
@@ -157,8 +157,9 @@ theorem borchers_axioms_of_lattice_limit
             Filter.atTop (𝓝 0) := by
           simpa using (hc_star.mul hc_lim).mul (h_conv borchersVac borchersVac)
         have hC := ((h_t1.sub h_t2).sub h_t3).add h_t4
-        simpa using (Complex.continuous_re.tendsto _).comp hC
-      exact le_of_tendsto_of_tendsto h_lhs_tend h_rhs_tend (Filter.Eventually.of_forall h_ineq_m)
+        simpa only [Function.comp_apply, sub_zero, add_zero] using (Complex.continuous_re.tendsto _).comp hC
+      exact tendsto_const_nhds.mul h_G_tend
+    exact le_of_tendsto_of_tendsto h_lhs_tend h_rhs_tend (Filter.Eventually.of_forall h_ineq_m)
 
 /-- **Strict Connected 2-Point Variance Persistence:**
     Any uniform finite-volume connected variance gap `δ > 0` survives the continuum limit. -/

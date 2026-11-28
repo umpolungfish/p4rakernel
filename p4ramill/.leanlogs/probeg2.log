@@ -1,0 +1,30 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/ProbeGauss.lean:13:32: warning: unused variable `hp`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Imscribing/Millennium/ProbeGauss.lean:23:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero p
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/ProbeGauss.lean:24:8: error: No goals to be solved
+Imscribing/Millennium/ProbeGauss.lean:32:34: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+Imscribing/Millennium/ProbeGauss.lean:33:34: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+Imscribing/Millennium/ProbeGauss.lean:54:6: error(lean.unknownIdentifier): Unknown constant `legendreSym.to_jacobiSym`
+Imscribing/Millennium/ProbeGauss.lean:49:51: error: unsolved goals
+p : ℕ
+inst✝ : Fact (Nat.Prime p)
+hp : p ≠ 2
+y : ZMod p
+h2 : ↑(Fintype.card { b // b ∈ {x | x ^ 2 = ↑↑y.val} }) = legendreSym p ↑y.val + 1
+⊢ ↑(Fintype.card { x // x ^ 2 = y }) = 1 + ↑(jacobiSym (↑y.val) p)

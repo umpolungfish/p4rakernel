@@ -1,0 +1,66 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk2probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk2probe.lean:423:2: error: Type mismatch
+  exp_int_mul_two_pi_mul_I ?m.59
+has type
+  cexp (↑?m.59 * (2 * ↑π * I)) = 1
+but is expected to have type
+  cexp (-↑↑m * (2 * ↑π * I)) = 1
+../../chunk2probe.lean:451:68: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+n : ℕ
+a✝ : (↑n + 1 / 2) ^ 2 < ↑n ^ 2
+⊢ False
+failed
+../../chunk2probe.lean:466:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(-π * a * ↑(2 * n + 1) ^ 2)
+in the target expression
+  cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+
+a : ℝ
+ha : 0 < a
+hsum : Summable fun n => rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2)
+hmap : ↑(∑' (n : ℕ), rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2)) = ∑' (n : ℕ), ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+n : ℕ
+hid : ↑(-π * a * ↑(2 * n + 1) ^ 2) = ↑(-π * (4 * a) * (↑n + 1 / 2) ^ 2)
+⊢ cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * (4 * a) * (↑n + 1 / 2) ^ 2))
+../../chunk2probe.lean:478:62: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) * I
+⊢ 2 * ↑n = 2 * ↑n
+../../chunk2probe.lean:505:70: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) * I
+⊢ 2 * ↑n + 1 = 2 * ↑n + 1
+../../chunk2probe.lean:525:63: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(-↑(con * (n * (n + 1))) * 2 * π) + ↑(-(π * ↑con / 2)) + ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+hn : con = 4 * ((con - 1) / 4) + 1
+⊢ 4 * ↑((con - 1) / 4) + 1 = 4 * ↑((con - 1) / 4) + 1

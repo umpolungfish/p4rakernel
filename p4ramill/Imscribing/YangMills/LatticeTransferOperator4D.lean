@@ -18,7 +18,6 @@ namespace Imscribing.YangMills.LatticeTransfer4D
 open MeasureTheory
 open Imscribing.YangMills.WilsonLattice4D
 open Imscribing.YangMills.WilsonBounds4D
-open Imscribing.YangMills.LatticeRP4D
 open Imscribing.YangMills.PosDefKernels
 
 /-- 3D periodic spatial torus `(ℤ/Lℤ)³`. -/
@@ -35,24 +34,24 @@ def spatPlaq {N L : ℕ} (U : SpatConfig N L) (x : SpatLat L) (i j : Fin 3) : Ga
   U x i * U (x + spatStep L i) j * (U (x + spatStep L j) i)⁻¹ * (U x j)⁻¹
 
 /-- Half-weighted 3D spatial plaquette action `V_spat(U)`. -/
-noncomputable def spatAction (N L : ℕ) [NeZero N] (β : ℝ) (U : SpatConfig N L) : ℝ :=
+noncomputable def spatAction (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ) (U : SpatConfig N L) : ℝ :=
   (β / 2) * ∑ x : SpatLat L, ∑ i : Fin 3, ∑ j : Fin 3,
     (1 - realTrace (spatPlaq U x i j) / (N : ℝ))
 
 /-- Temporal-plaquette link coupling between spatial slices `U` and `V` via `W`. -/
-noncomputable def bondTraceSum {N L : ℕ} (U V : SpatConfig N L)
+noncomputable def bondTraceSum {N L : ℕ} [NeZero L] (U V : SpatConfig N L)
     (W : SpatLat L → GaugeGroup N) : ℝ :=
   ∑ x : SpatLat L, ∑ i : Fin 3,
     realTrace ((W x)⁻¹ * U x i * W (x + spatStep L i) * (V x i)⁻¹)
 
 /-- Exact 4D SU(N) Wilson transfer kernel `K_W(U, V)` integrating out temporal links `W`. -/
-noncomputable def wilsonTransferKernel (N L : ℕ) [NeZero N] (β : ℝ)
+noncomputable def wilsonTransferKernel (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ)
     [MeasurableSpace (SpatLat L → GaugeGroup N)] (μ_W : Measure (SpatLat L → GaugeGroup N))
     (U V : SpatConfig N L) : ℝ :=
   Real.exp (-spatAction N L β U) * Real.exp (-spatAction N L β V) *
     ∫ W : SpatLat L → GaugeGroup N, Real.exp ((β / (N : ℝ)) * bondTraceSum U V W) ∂μ_W
 
-theorem spatAction_bounds {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β) (U : SpatConfig N L) :
+theorem spatAction_bounds {N L : ℕ} [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β) (U : SpatConfig N L) :
     0 ≤ spatAction N L β U ∧
     spatAction N L β U ≤ 9 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ) := by
   unfold spatAction
@@ -75,7 +74,7 @@ theorem spatAction_bounds {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β) (U 
   have h1 := mul_le_mul_of_nonneg_left hup (by positivity : 0 ≤ β / 2)
   linarith
 
-theorem bondTraceSum_abs_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
+theorem bondTraceSum_abs_le {N L : ℕ} [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β)
     (U V : SpatConfig N L) (W : SpatLat L → GaugeGroup N) :
     |(β / (N : ℝ)) * bondTraceSum U V W| ≤ 3 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ) := by
   have hN : (0 : ℝ) < (N : ℝ) := Nat.cast_pos.mpr (NeZero.pos N)
@@ -100,7 +99,29 @@ theorem bondTraceSum_abs_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
       3 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ) := by field_simp [hN.ne']
   rwa [heq] at h_le
 
-private lemma bondTraceSum_inv (U V : SpatConfig N L) (W : SpatLat L → GaugeGroup N) :
+private lemma realTrace_inv {N : ℕ} (A : GaugeGroup N) : realTrace A⁻¹ = realTrace A := by
+  have h_inv_coe : ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ) =
+      star (A : Matrix (Fin N) (Fin N) ℂ) := by
+    have h1 : (A : Matrix (Fin N) (Fin N) ℂ) * ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ) = 1 := by
+      change ((A * A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ) = 1
+      simp
+    have h2 : star (A : Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ) = 1 :=
+      Matrix.mem_unitaryGroup_iff'.mp (Matrix.mem_specialUnitaryGroup_iff.mp A.prop).1
+    calc
+      ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ)
+          = 1 * ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ) := (one_mul _).symm
+      _ = (star (A : Matrix (Fin N) (Fin N) ℂ) * (A : Matrix (Fin N) (Fin N) ℂ)) *
+            ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ) := by rw [← h2]
+      _ = star (A : Matrix (Fin N) (Fin N) ℂ) *
+            ((A : Matrix (Fin N) (Fin N) ℂ) * ((A⁻¹ : GaugeGroup N) : Matrix (Fin N) (Fin N) ℂ)) := by
+          rw [Matrix.mul_assoc]
+      _ = star (A : Matrix (Fin N) (Fin N) ℂ) := by rw [h1, Matrix.mul_one]
+  unfold realTrace
+  rw [h_inv_coe, show star (A : Matrix (Fin N) (Fin N) ℂ) = (A : Matrix (Fin N) (Fin N) ℂ).conjTranspose from rfl,
+    Matrix.trace_conjTranspose]
+  exact Complex.conj_re (A : Matrix (Fin N) (Fin N) ℂ).trace
+
+private lemma bondTraceSum_inv [NeZero L] (U V : SpatConfig N L) (W : SpatLat L → GaugeGroup N) :
     bondTraceSum V U (fun x => (W x)⁻¹) = bondTraceSum U V W := by
   unfold bondTraceSum
   refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun i _ => ?_
@@ -111,11 +132,11 @@ private lemma bondTraceSum_inv (U V : SpatConfig N L) (W : SpatLat L → GaugeGr
 
 /-- **Exact Symmetry of the 4D SU(N) Wilson Transfer Kernel:** `K_W(U, V) = K_W(V, U)`
     when `μ_W` is invariant under point-wise group inversion `W ↦ W⁻¹`. -/
-theorem wilsonTransferKernel_symm (N L : ℕ) [NeZero N] (β : ℝ)
+theorem wilsonTransferKernel_symm (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ)
     [MeasurableSpace (SpatLat L → GaugeGroup N)] (μ_W : Measure (SpatLat L → GaugeGroup N))
     (h_inv_mp : Measure.map (fun W : SpatLat L → GaugeGroup N => fun x => (W x)⁻¹) μ_W = μ_W)
     (h_inv_meas : Measurable (fun W : SpatLat L → GaugeGroup N => fun x => (W x)⁻¹))
-    (h_bond_meas : ∀ U V, Measurable (fun W => Real.exp ((β / (N : ℝ)) * bondTraceSum U V W)))
+    (h_bond_meas : ∀ U V : SpatConfig N L, Measurable (fun W => Real.exp ((β / (N : ℝ)) * bondTraceSum U V W)))
     (U V : SpatConfig N L) :
     wilsonTransferKernel N L β μ_W U V = wilsonTransferKernel N L β μ_W V U := by
   unfold wilsonTransferKernel
@@ -123,14 +144,15 @@ theorem wilsonTransferKernel_symm (N L : ℕ) [NeZero N] (β : ℝ)
       ∫ W, Real.exp ((β / (N : ℝ)) * bondTraceSum V U W) ∂μ_W := by
     conv_rhs => rw [← h_inv_mp, integral_map h_inv_meas.aemeasurable (h_bond_meas V U).aestronglyMeasurable]
     refine integral_congr_ae (Filter.Eventually.of_forall fun W => ?_)
-    rw [bondTraceSum_inv]
+    dsimp only
+    rw [bondTraceSum_inv U V W]
   rw [h_int]; ring
 
 /-- **Strict Uniform Positive Lower and Upper Bounds on `K_W(U, V)`.** -/
-theorem wilsonTransferKernel_bounds (N L : ℕ) [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
+theorem wilsonTransferKernel_bounds (N L : ℕ) [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β)
     [MeasurableSpace (SpatLat L → GaugeGroup N)] (μ_W : Measure (SpatLat L → GaugeGroup N))
     [IsProbabilityMeasure μ_W]
-    (h_bond_meas : ∀ U V, Measurable (fun W => Real.exp ((β / (N : ℝ)) * bondTraceSum U V W)))
+    (h_bond_meas : ∀ U V : SpatConfig N L, Measurable (fun W => Real.exp ((β / (N : ℝ)) * bondTraceSum U V W)))
     (U V : SpatConfig N L) :
     0 < Real.exp (-(21 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ))) ∧
     Real.exp (-(21 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ))) ≤
@@ -181,11 +203,11 @@ theorem wilsonTransferKernel_bounds (N L : ℕ) [NeZero N] {β : ℝ} (hβ : 0 �
       _ = Real.exp (3 * β * C) := one_mul _
 
 /-- **Positive Semi-Definiteness of the 4D SU(N) Transfer Kernel:**
-    Splitting `W = W₂⁻¹ W₁` factors `bondTraceSum U V (W₂⁻¹ W₁)` as
-    `∑ x i, realTrace (A_{x,i}(U, W₁) * (A_{x,i}(V, W₂))⁻¹)`, yielding
-    `0 ≤ Re ∫∫ star(f U) f V K_W_split(U, W₁; V, W₂) dμ dμ` for every bounded measurable `f`. -/
+    Splitting `W = W₁ W₂⁻¹` factors `bondTraceSum U V (W₁ W₂⁻¹)` as
+    `∑ x i, realTrace (A_{x,i}(U, W₁) * (A_{x,i}(V, W₂))⁻¹)` (up to `W₂`-conjugation),
+    yielding `0 ≤ Re ∫∫ star(f U) f V K_W_split(U, W₁; V, W₂) dμ dμ` for bounded measurable `f`. -/
 theorem wilsonTransferKernel_pos_semidef
-    {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
+    {N L : ℕ} [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β)
     [MeasurableSpace (GaugeGroup N)] [MeasurableMul₂ (GaugeGroup N)] [MeasurableInv (GaugeGroup N)]
     (hEntry : ∀ i j : Fin N, Measurable (fun A : GaugeGroup N => (A : Matrix (Fin N) (Fin N) ℂ) i j))
     (μ : Measure (SpatConfig N L × (SpatLat L → GaugeGroup N))) [IsFiniteMeasure μ]
@@ -193,15 +215,15 @@ theorem wilsonTransferKernel_pos_semidef
     (hf_bound : ∀ U, ‖f U‖ ≤ Bf) :
     0 ≤ (∫ p, (∫ q, star (f p.1) * f q.1 *
       (Real.exp (-spatAction N L β p.1) * Real.exp (-spatAction N L β q.1) *
-        Real.exp ((β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => (q.2 x)⁻¹ * p.2 x)) : ℂ) ∂μ) ∂μ).re := by
+        Real.exp ((β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => p.2 x * (q.2 x)⁻¹)) : ℂ) ∂μ) ∂μ).re := by
   let bondA : SpatLat L → Fin 3 → (SpatConfig N L × (SpatLat L → GaugeGroup N)) → GaugeGroup N :=
-    fun x i r => (r.2 x) * r.1 x i * (r.2 (x + spatStep L i))⁻¹
+    fun x i r => (r.2 x)⁻¹ * r.1 x i * r.2 (x + spatStep L i)
   let K_bond : (SpatConfig N L × (SpatLat L → GaugeGroup N)) →
       (SpatConfig N L × (SpatLat L → GaugeGroup N)) → ℝ := fun p q =>
     ∑ x : SpatLat L, ∑ i : Fin 3,
       (β / (N : ℝ)) * realTrace (bondA x i p * (bondA x i q)⁻¹)
   have hK_eq : ∀ p q,
-      (β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => (q.2 x)⁻¹ * p.2 x) = K_bond p q := by
+      (β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => p.2 x * (q.2 x)⁻¹) = K_bond p q := by
     intro p q
     unfold bondTraceSum K_bond
     rw [Finset.mul_sum]
@@ -210,12 +232,12 @@ theorem wilsonTransferKernel_pos_semidef
     refine Finset.sum_congr rfl fun i _ => ?_
     congr 1
     dsimp [bondA]
-    have h_cyc : ((q.2 x)⁻¹ * p.2 x)⁻¹ * p.1 x i * ((q.2 (x + spatStep L i))⁻¹ * p.2 (x + spatStep L i)) *
+    have h_cyc : (p.2 x * (q.2 x)⁻¹)⁻¹ * p.1 x i * (p.2 (x + spatStep L i) * (q.2 (x + spatStep L i))⁻¹) *
         (q.1 x i)⁻¹ =
-        (p.2 x)⁻¹ * ((p.2 x * p.1 x i * (p.2 (x + spatStep L i))⁻¹) *
-          (q.2 x * q.1 x i * (q.2 (x + spatStep L i))⁻¹)⁻¹) * p.2 x := by
+        (q.2 x) * ((p.2 x)⁻¹ * p.1 x i * p.2 (x + spatStep L i) *
+          ((q.2 x)⁻¹ * q.1 x i * q.2 (x + spatStep L i))⁻¹) * (q.2 x)⁻¹ := by
       group
-    rw [h_cyc, show (p.2 x)⁻¹ * _ * p.2 x = (p.2 x)⁻¹ * _ * ((p.2 x)⁻¹)⁻¹ from by simp, realTrace_conj]
+    rw [h_cyc, realTrace_conj]
   have hK_posdef : IsBoundedPosDefKernel (fun p q => (K_bond p q : ℂ)) := by
     have h_c : (fun p q => (K_bond p q : ℂ)) = fun p q =>
         ∑ x : SpatLat L, ∑ i : Fin 3, ((β / (N : ℝ) : ℝ) : ℂ) *
@@ -228,13 +250,13 @@ theorem wilsonTransferKernel_pos_semidef
       (realTrace_unitary_kernel_isPosDef (bondA x i) ?_)
     intro a b
     dsimp [bondA]
-    have mp1 : Measurable (fun r : SpatConfig N L × (SpatLat L → GaugeGroup N) => r.2 x) :=
-      (measurable_pi_apply x).comp measurable_snd
+    have mp1 : Measurable (fun r : SpatConfig N L × (SpatLat L → GaugeGroup N) => (r.2 x)⁻¹) :=
+      ((measurable_pi_apply x).comp measurable_snd).inv
     have mp2 : Measurable (fun r : SpatConfig N L × (SpatLat L → GaugeGroup N) => r.1 x i) :=
-      ((measurable_pi_apply i).comp (measurable_pi_apply x)).comp measurable_fst
+      (measurable_pi_apply i).comp ((measurable_pi_apply x).comp measurable_fst)
     have mp3 : Measurable (fun r : SpatConfig N L × (SpatLat L → GaugeGroup N) =>
-        (r.2 (x + spatStep L i))⁻¹) :=
-      ((measurable_pi_apply _).comp measurable_snd).inv
+        r.2 (x + spatStep L i)) :=
+      (measurable_pi_apply _).comp measurable_snd
     exact (hEntry a b).comp ((mp1.mul mp2).mul mp3)
   let B_bond : ℝ := 3 * β * ((Fintype.card (SpatLat L) : ℕ) : ℝ)
   have hK_bound : ∀ p q, |K_bond p q| ≤ B_bond := fun p q => by
@@ -247,14 +269,14 @@ theorem wilsonTransferKernel_pos_semidef
       Finset.measurable_sum _ fun i _ => Finset.measurable_sum _ fun j _ => ?_)
     refine measurable_const.sub ((Complex.continuous_re.measurable.comp ?_).div_const _)
     unfold spatPlaq
-    have ml1 : Measurable (fun U : SpatConfig N L => U x i) :=
-      (measurable_pi_apply i).comp (measurable_pi_apply x)
-    have ml2 : Measurable (fun U : SpatConfig N L => U (x + spatStep L i) j) :=
-      (measurable_pi_apply j).comp (measurable_pi_apply _)
-    have ml3 : Measurable (fun U : SpatConfig N L => (U (x + spatStep L j) i)⁻¹) :=
-      ((measurable_pi_apply i).comp (measurable_pi_apply _)).inv
-    have ml4 : Measurable (fun U : SpatConfig N L => (U x j)⁻¹) :=
-      ((measurable_pi_apply j).comp (measurable_pi_apply x)).inv
+    have mcoord : ∀ (y : SpatLat L) (k : Fin 3),
+        Measurable (fun U : SpatConfig N L => U y k) := fun y k =>
+      (measurable_pi_apply (X := fun _ : Fin 3 => GaugeGroup N) k).comp
+        (measurable_pi_apply (X := fun _ : SpatLat L => Fin 3 → GaugeGroup N) y)
+    have ml1 := mcoord x i
+    have ml2 := mcoord (x + spatStep L i) j
+    have ml3 := (mcoord (x + spatStep L j) i).inv
+    have ml4 := (mcoord x j).inv
     have mprod : Measurable (fun U : SpatConfig N L => spatPlaq U x i j) :=
       ((ml1.mul ml2).mul ml3).mul ml4
     change Measurable (fun U : SpatConfig N L =>
@@ -276,14 +298,24 @@ theorem wilsonTransferKernel_pos_semidef
   have h_eq_int : ∀ p q,
       star (f p.1) * f q.1 *
         (Real.exp (-spatAction N L β p.1) * Real.exp (-spatAction N L β q.1) *
-          Real.exp ((β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => (q.2 x)⁻¹ * p.2 x)) : ℂ) =
+          Real.exp ((β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => p.2 x * (q.2 x)⁻¹)) : ℂ) =
       star (g p) * g q * (Real.exp (K_bond p q) : ℂ) := by
     intro p q
     rw [hK_eq p q]
     dsimp [g]
-    rw [star_mul, Complex.conj_ofReal]
-    push_cast
+    have h_star : starRingEnd ℂ (f p.1 * (Real.exp (-spatAction N L β p.1) : ℂ)) =
+        starRingEnd ℂ (f p.1) * (Real.exp (-spatAction N L β p.1) : ℂ) := by
+      rw [map_mul, Complex.conj_ofReal]
+    rw [h_star]
     ring
-  simpa [h_eq_int] using h_pos
+  have h_int_eq :
+      (∫ p, (∫ q, star (f p.1) * f q.1 *
+        (Real.exp (-spatAction N L β p.1) * Real.exp (-spatAction N L β q.1) *
+          Real.exp ((β / (N : ℝ)) * bondTraceSum p.1 q.1 (fun x => p.2 x * (q.2 x)⁻¹)) : ℂ) ∂μ) ∂μ) =
+      (∫ p, (∫ q, star (g p) * g q * (Real.exp (K_bond p q) : ℂ) ∂μ) ∂μ) := by
+    refine integral_congr_ae (Filter.Eventually.of_forall fun p => ?_)
+    exact integral_congr_ae (Filter.Eventually.of_forall fun q => h_eq_int p q)
+  rw [h_int_eq]
+  exact h_pos
 
 end Imscribing.YangMills.LatticeTransfer4D

@@ -1,0 +1,218 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:302:9: error: synthesized type class instance is not definitionally equal to expression inferred by typing rules, synthesized
+  @Subtype.fintype (ZMod N) (fun x => x ^ 2 = y) (fun a => inst✝ (a ^ 2) y) (ZMod.fintype N)
+inferred
+  @Subtype.fintype (ZMod N) (fun x => x ^ 2 = y) (fun a => ZMod.decidableEq N (a ^ 2) y) (ZMod.fintype N)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:303:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:308:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero n
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:308:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ((castHom ?hp (ZMod ?m.30)) ?x).val
+in the target expression
+  y.val % m = y.val % m
+
+n m : ℕ
+inst✝ : NeZero m
+h₁ h₂ : m ∣ n
+y : ZMod n
+⊢ y.val % m = y.val % m
+Imscribing/Millennium/StarkRungFourGaussSign.lean:316:8: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero d
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:317:10: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero c
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:323:67: error: Type mismatch
+  rfl
+has type
+  ?m.108 = ?m.108
+but is expected to have type
+  (hE w).1 = w.cast.1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:327:67: error: Type mismatch
+  rfl
+has type
+  ?m.139 = ?m.139
+but is expected to have type
+  (hE w).2 = w.cast.2
+Imscribing/Millennium/StarkRungFourGaussSign.lean:336:46: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?f (?a ^ ?n)
+in the target expression
+  hE x ^ 2 = hE y
+
+d c : ℕ
+inst✝ : NeZero (d * c)
+hcop : d.Coprime c
+y : ZMod (d * c)
+hd0 : NeZero d
+hc0 : NeZero c
+hE : ZMod (d * c) ≃+* ZMod d × ZMod c
+hEc1 : ∀ (w : ZMod (d * c)), (hE w).1 = (castHom ⋯ (ZMod d)) w
+hEc2 : ∀ (w : ZMod (d * c)), (hE w).2 = (castHom ⋯ (ZMod c)) w
+x : ZMod (d * c)
+hx : x ^ 2 = y
+⊢ hE x ^ 2 = hE y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:341:10: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  MonoidHomClass (ZMod (d * c) ≃ ZMod d × ZMod c) (ZMod (d * c)) (ZMod d × ZMod c)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:343:70: error: Type mismatch
+  hx.left
+has type
+  (hE.toEquiv x).1 ^ 2 = (castHom ⋯ (ZMod d)) y
+but is expected to have type
+  (castHom ⋯ (ZMod d)) x ^ 2 = (castHom ⋯ (ZMod d)) y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:345:70: error: Type mismatch
+  hx.right
+has type
+  (hE.toEquiv x).2 ^ 2 = (castHom ⋯ (ZMod c)) y
+but is expected to have type
+  (castHom ⋯ (ZMod c)) x ^ 2 = (castHom ⋯ (ZMod c)) y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:339:4: error: unsolved goals
+d c : ℕ
+inst✝ : NeZero (d * c)
+hcop : d.Coprime c
+y : ZMod (d * c)
+hd0 : NeZero d
+hc0 : NeZero c
+hE : ZMod (d * c) ≃+* ZMod d × ZMod c
+hEc1 : ∀ (w : ZMod (d * c)), (hE w).1 = (castHom ⋯ (ZMod d)) w
+hEc2 : ∀ (w : ZMod (d * c)), (hE w).2 = (castHom ⋯ (ZMod c)) w
+x : ZMod (d * c)
+hx : (hE.toEquiv x).1 ^ 2 = (castHom ⋯ (ZMod d)) y ∧ (hE.toEquiv x).2 ^ 2 = (castHom ⋯ (ZMod c)) y
+⊢ MonoidHomClass (ZMod (d * c) ≃ ZMod d × ZMod c) (ZMod (d * c)) (ZMod d × ZMod c)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:371:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(Fintype.card { x // x ^ 2 = y })
+in the target expression
+  ↑(sqFiber p y) = 1 + ↑(jacobiSym (↑y.val) p)
+
+p : ℕ
+inst✝ : Fact (Nat.Prime p)
+hp : p ≠ 2
+y : ZMod p
+this : NeZero p
+hset : {x | x ^ 2 = ↑↑y.val} = {x | x ^ 2 = y}
+h2 : ↑(Fintype.card { x // x ^ 2 = y }) = jacobiSym (↑y.val) p + 1
+h3 : #{x | x ^ 2 = y}.toFinset = Fintype.card { x // x ^ 2 = y }
+h5 : ↑(Fintype.card { x // x ^ 2 = y }) = jacobiSym (↑y.val) p + 1
+h6 : ↑(Fintype.card { x // x ^ 2 = y }) = ↑↑(Fintype.card { x // x ^ 2 = y })
+⊢ ↑(sqFiber p y) = 1 + ↑(jacobiSym (↑y.val) p)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:385:44: error: unsolved goals
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+y : ZMod con
+⊢ ↑(jacobiSym (↑y.val) d) * ↑(jacobiSym (↑y.val) c) = ↑(jacobiSym (↑y.val) d * jacobiSym (↑y.val) c)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:400:74: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(x.val % d)
+in the target expression
+  ↑(jacobiSym (↑x.val % ↑d) d) = ↑(jacobiSym (↑y.val % ↑d) d)
+
+d c : ℕ
+inst✝ : NeZero (d * c)
+x y : ZMod (d * c)
+hxy : (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y
+hv : x.val % d = y.val % d
+hmodx : ↑(x.val % d) = ↑x.val % ↑d
+hmody : ↑(y.val % d) = ↑y.val % ↑d
+⊢ ↑(jacobiSym (↑x.val % ↑d) d) = ↑(jacobiSym (↑y.val % ↑d) d)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:408:42: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:409:43: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:416:58: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ZMod.val ?z
+in the target expression
+  ZMod.val ?m.134 = ZMod.val ?m.135
+
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+x y : ZMod (d * c)
+hxy : E x = E y
+⊢ ZMod.val ?m.134 = ZMod.val ?m.135
+Imscribing/Millennium/StarkRungFourGaussSign.lean:427:65: error: Tactic `rewrite` failed: motive is not type correct:
+  fun _a => rootExp (E z).val _a = rootExp (E z).val (d * c)
+Error: Application type mismatch: The argument
+  E
+has type
+  ZMod (d * c) →+* ZMod con
+but is expected to have type
+  ZMod (d * c) →+* ZMod _a
+in the application
+  ⇑E
+
+Explanation: The rewrite tactic rewrites an expression 'e' using an equality 'a = b' by the following process. First, it looks for all 'a' in 'e'. Second, it tries to abstract these occurrences of 'a' to create a function 'm := fun _a => ...', called the *motive*, with the property that 'm a' is definitionally equal to 'e'. Third, we observe that 'congrArg' implies that 'm a = m b', which can be used with lemmas such as 'Eq.mpr' to change the goal. However, if 'e' depends on specific properties of 'a', then the motive 'm' might not typecheck.
+
+Possible solutions: use rewrite's 'occs' configuration option to limit which occurrences are rewritten, or use 'simp' or 'conv' mode, which have strategies for certain kinds of dependencies (these tactics can handle proofs and 'Decidable' instances whose types depend on the rewritten term, and 'simp' can apply user-defined '@[congr]' theorems as well).
+
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+hbij : Function.Bijective ⇑E
+hχ : ∀ (z : ZMod (d * c)), chiP d (E z) = ↑(jacobiSym (↑z.val) d)
+z : ZMod (d * c)
+⊢ rootExp (E z).val con = rootExp (E z).val (d * c)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:428:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ x, ?m.194 (E x)
+in the target expression
+  ∑ y, chiP d y * stdAddChar y = 0
+
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+hbij : Function.Bijective ⇑E
+hχ : ∀ (z : ZMod (d * c)), chiP d (E z) = ↑(jacobiSym (↑z.val) d)
+hψ : ∀ (z : ZMod (d * c)), stdAddChar (E z) = stdAddChar z
+⊢ ∑ y, chiP d y * stdAddChar y = 0
+Imscribing/Millennium/StarkRungFourGaussSign.lean:452:8: error: failed to synthesize
+  Fact (1 < N)
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:492:45: error: unexpected token ':'; expected ')'
+Imscribing/Millennium/StarkRungFourGaussSign.lean:475:29: error: Invalid rewrite argument: Expected an equality or iff proof or definition name, but `mem_univ ?x` is a proof of
+  ?x ∈ univ
+Imscribing/Millennium/StarkRungFourGaussSign.lean:477:11: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information

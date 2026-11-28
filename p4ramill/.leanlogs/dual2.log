@@ -1,0 +1,95 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:51:7: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  rexp (w ^ 2 / 2) * rexp (-w ^ 2 / 2)
+in the target expression
+  w ^ 2 * rexp (-w ^ 2 / 2) ≤ 2 * rexp (w ^ 2 / 2) * rexp (-w ^ 2 / 2)
+
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+hm : w ^ 2 * rexp (-w ^ 2 / 2) ≤ 2 * rexp (w ^ 2 / 2) * rexp (-w ^ 2 / 2)
+⊢ w ^ 2 * rexp (-w ^ 2 / 2) ≤ 4
+Imscribing/Millennium/StarkRungFiveDual.lean:60:8: error(lean.unknownIdentifier): Unknown identifier `sq_mul`
+Imscribing/Millennium/StarkRungFiveDual.lean:67:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a + -?a
+in the target expression
+  rexp (-(c / 2) * x ^ 2 + c * x ^ 2 / 2) = 1
+
+c : ℝ
+hc : 0 < c
+x : ℝ
+hsqrt : c * x ^ 2 = (√c * x) ^ 2
+hkey : c * x ^ 2 * rexp (-(c * x ^ 2) / 2) ≤ 4
+hsplt : rexp (-c * x ^ 2) * rexp (c * x ^ 2 / 2) = rexp (-(c / 2) * x ^ 2)
+⊢ rexp (-(c / 2) * x ^ 2 + c * x ^ 2 / 2) = 1
+Imscribing/Millennium/StarkRungFiveDual.lean:58:67: error: unsolved goals
+c : ℝ
+hc : 0 < c
+x : ℝ
+hsqrt : c * x ^ 2 = (√c * x) ^ 2
+hkey : c * x ^ 2 * rexp (-(c * x ^ 2) / 2) ≤ 4
+hsplt : rexp (-c * x ^ 2) * rexp (c * x ^ 2 / 2) = rexp (-(c / 2) * x ^ 2)
+hunit : rexp (-(c / 2) * x ^ 2) * rexp (c * x ^ 2 / 2) = 1
+h4 : 4 / c * rexp (-(c / 2) * x ^ 2) = 4 * rexp (-(c / 2) * x ^ 2) / c
+⊢ x ^ 2 * rexp (-c * x ^ 2) * c ≤ 4 * rexp (-(c / 2) * x ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:89:10: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:78:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:114:54: error: linarith failed to find a contradiction
+case h
+a✝ : ?m.51 ≤ ?m.50
+⊢ False
+failed
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:182:28: error: Application type mismatch: The argument
+  LE.le.trans hnat2 ?m.593
+has type
+  ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2) ≤ ?m.589
+but is expected to have type
+  ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2) = ?m.584
+in the application
+  Eq.trans hconv1 (LE.le.trans hnat2 ?m.593)
+Imscribing/Millennium/StarkRungFiveDual.lean:217:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:266:4: error: Type mismatch
+  Summable.const_smul ?m.277 (summable_gaussReal (a / 2) ?m.284)
+has type
+  Summable fun (i : ℤ) => ?m.277 • rexp (-π * (a / 2) * ↑i ^ 2)
+but is expected to have type
+  Summable fun (x : ℝ) => 4 / (π * a) * rexp (-(π * a / 2) * x ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:269:35: error: Application type mismatch: The argument
+  hmajor
+has type
+  Summable fun (x : ℝ) => 4 / (π * a) * rexp (-(π * a / 2) * x ^ 2)
+but is expected to have type
+  Summable fun (m : ℤ) => 4 / (π * a) * rexp (-(π * a / 2) * ↑m ^ 2)
+in the application
+  Summable.of_nonneg_of_le (fun m => mul_nonneg (sq_nonneg ↑m) (exp_nonneg (-(π * a) * ↑m ^ 2))) (fun m => hpt ↑m)
+    hmajor
+Imscribing/Millennium/StarkRungFiveDual.lean:258:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

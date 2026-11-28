@@ -49,7 +49,7 @@ theorem wick_inner_eq_neg_euclid (x y : Spacetime4) :
     minkowskiComplexInner (wickMap x) (wickMap y) =
       -(∑ μ : Fin 4, (x μ : ℂ) * (y μ : ℂ)) := by
   unfold minkowskiComplexInner wickMap
-  simp only [Fin.sum_univ_four, ↓reduceIte]
+  simp only [Fin.sum_univ_four, Fin.ext_iff]; norm_num
   have hI : Complex.I * (x 0 : ℂ) * (Complex.I * (y 0 : ℂ)) = -((x 0 : ℂ) * (y 0 : ℂ)) := by
     calc
       Complex.I * (x 0 : ℂ) * (Complex.I * (y 0 : ℂ))
@@ -64,19 +64,18 @@ theorem euclid_complex_bilin_of_orthogonal {R : Matrix (Fin 4) (Fin 4) ℂ}
     (hR : Matrix.transpose R * R = 1) (u v : Fin 4 → ℂ) :
     ∑ μ : Fin 4, (R.mulVec u μ) * (R.mulVec v μ) = ∑ μ : Fin 4, u μ * v μ := by
   have h1 : dotProduct (R.mulVec u) (R.mulVec v) = dotProduct u ((Matrix.transpose R * R).mulVec v) := by
-    rw [Matrix.mulVec_mulVec, Matrix.dotProduct_mulVec, Matrix.vecMul_transpose]
+    rw [← Matrix.vecMul_transpose R u, ← Matrix.dotProduct_mulVec, Matrix.mulVec_mulVec]
   rw [hR, Matrix.one_mulVec] at h1
   simpa [dotProduct] using h1
 
 /-- Wick-conjugated complex Lorentz transformation `W R W⁻¹` from `R ∈ SO(4)`. -/
-def wickConjugate (R : Matrix (Fin 4) (Fin 4) ℂ) : Matrix (Fin 4) (Fin 4) ℂ :=
+noncomputable def wickConjugate (R : Matrix (Fin 4) (Fin 4) ℂ) : Matrix (Fin 4) (Fin 4) ℂ :=
   wickMat * R * wickInvMat
 
 theorem wick_rot_commutes_with_wick (R : Matrix (Fin 4) (Fin 4) ℝ) (x : Spacetime4) :
     (wickConjugate (R.map Complex.ofReal)).mulVec (wickMap x) =
       wickMap (WithLp.equiv 2 (Fin 4 → ℝ) |>.symm (R.mulVec x)) := by
-  rw [wickConjugate, ← wickMat_mulVec_eq_wickMap, Matrix.mulVec_mulVec, Matrix.mulVec_mulVec,
-      wickInvMat_mul_wickMat, Matrix.one_mulVec]
+  rw [wickConjugate, ← wickMat_mulVec_eq_wickMap, Matrix.mulVec_mulVec, Matrix.mul_assoc _ wickInvMat wickMat, wickInvMat_mul_wickMat, Matrix.mul_one, ← Matrix.mulVec_mulVec]
   rw [← wickMat_mulVec_eq_wickMap]
   congr 1
   ext μ
@@ -99,15 +98,14 @@ theorem wick_rot_preserves_minkowski {R : Matrix (Fin 4) (Fin 4) ℝ}
       calc
         (Complex.I * u 0) * (Complex.I * v 0) = (Complex.I * Complex.I) * (u 0 * v 0) := by ring
         _ = -(u 0 * v 0) := by rw [Complex.I_mul_I]; ring
-    simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
-      Matrix.cons_val_three, one_mul]
+    simp [Matrix.vecHead, Matrix.vecTail]
     rw [hI]; ring
   have h_inv_wick : ∀ u : Fin 4 → ℂ, wickMat.mulVec (wickInvMat.mulVec u) = u := by
-    intro u; rw [← Matrix.mulVec_mulVec, wickMat_mul_wickInvMat, Matrix.one_mulVec]
+    intro u; rw [Matrix.mulVec_mulVec, wickMat_mul_wickInvMat, Matrix.one_mulVec]
   have hR_C : Matrix.transpose (R.map Complex.ofReal) * (R.map Complex.ofReal) = 1 := by
     ext i j
     have hij := congrArg (fun M : Matrix (Fin 4) (Fin 4) ℝ => (M i j : ℂ)) hR
-    simpa [Matrix.mul_apply, Matrix.transpose_apply, Matrix.one_apply] using hij
+    simpa [Matrix.mul_apply, Matrix.transpose_apply, Matrix.one_apply, apply_ite Complex.ofReal] using hij
   calc
     minkowskiComplexInner
         ((wickConjugate (R.map Complex.ofReal)).mulVec z)
@@ -115,7 +113,7 @@ theorem wick_rot_preserves_minkowski {R : Matrix (Fin 4) (Fin 4) ℝ}
         = minkowskiComplexInner
             (wickMat.mulVec ((R.map Complex.ofReal).mulVec (wickInvMat.mulVec z)))
             (wickMat.mulVec ((R.map Complex.ofReal).mulVec (wickInvMat.mulVec w))) := by
-              simp [wickConjugate, Matrix.mulVec_mulVec]
+              simp [wickConjugate, Matrix.mulVec_mulVec, Matrix.mul_assoc]
     _ = -(∑ μ : Fin 4, ((R.map Complex.ofReal).mulVec (wickInvMat.mulVec z) μ) *
             ((R.map Complex.ofReal).mulVec (wickInvMat.mulVec w) μ)) := h_mink_wick _ _
     _ = -(∑ μ : Fin 4, (wickInvMat.mulVec z μ) * (wickInvMat.mulVec w μ)) := by
@@ -127,11 +125,11 @@ theorem wick_rot_preserves_minkowski {R : Matrix (Fin 4) (Fin 4) ℝ}
 theorem wick_rot_det_one {R : Matrix (Fin 4) (Fin 4) ℝ} (hdet : R.det = 1) :
     (wickConjugate (R.map Complex.ofReal)).det = 1 := by
   have hR_det : (R.map Complex.ofReal).det = 1 := by
-    rw [← (RingHom.map_det Complex.ofRealHom R), hdet, map_one]
+    change (Complex.ofRealHom.mapMatrix R).det = 1; rw [← RingHom.map_det, hdet, map_one]
   have hWI : wickMat.det * wickInvMat.det = 1 := by
     rw [← Matrix.det_mul, wickMat_mul_wickInvMat, Matrix.det_one]
   unfold wickConjugate
-  rw [Matrix.det_mul, Matrix.det_mul, hR_det, mul_one, mul_comm, hWI]
+  rw [Matrix.det_mul, Matrix.det_mul, hR_det, mul_one, hWI]
 
 /-- Complexified Euclidean (0, 1)-rotation matrix by angle θ. -/
 noncomputable def rot01C (θ : ℂ) : Matrix (Fin 4) (Fin 4) ℂ :=

@@ -1,0 +1,198 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFourGaussSign.lean:93:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑r
+in the target expression
+  ↑n * ↑↑f = ↑↑r
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+hr : r % f ≠ 0
+this : NeZero f
+n : ℤ
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+h11 : ↑n.toNat = n
+⊢ ↑n * ↑↑f = ↑↑r
+Imscribing/Millennium/StarkRungFourGaussSign.lean:94:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑n.toNat
+in the target expression
+  n.toNat * f = r
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+hr : r % f ≠ 0
+this : NeZero f
+n : ℤ
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+h11 : ↑n.toNat = n
+hc : ↑(n * ↑f) = ↑↑r
+⊢ n.toNat * f = r
+Imscribing/Millennium/StarkRungFourGaussSign.lean:112:4: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  a ≥ 1
+where
+ a := ↑n
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:205:40: error: Application type mismatch: The argument
+  hm
+has type
+  1 < m
+but is expected to have type
+  0 < m
+in the application
+  Nat.ne_of_gt hm
+Imscribing/Millennium/StarkRungFourGaussSign.lean:226:30: error: Type mismatch: After simplification, term
+  h6
+ has type
+  1 = 0
+but is expected to have type
+  m = 1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:233:67: error: Type mismatch
+  rfl
+has type
+  ?m.343 = ?m.343
+but is expected to have type
+  (hE z).1 = z.cast.1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:249:6: error: Tactic `rfl` failed: The left-hand side
+  (b, t)
+is not definitionally equal to the right-hand side
+  (b, 0) + (0, t)
+
+d m : ℕ
+inst✝ : NeZero (d * m)
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hmN : NeZero m
+hd0 : d ≠ 0
+hdN : NeZero d
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hlt : 1 < d * m
+hnz : hE.symm (0, 1) ≠ 0
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = (hE z).1
+hreindex : ∑ x, f x * stdAddChar x = ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2
+b : ZMod d
+t : ZMod m
+⊢ (b, t) = (b, 0) + (0, t)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:253:38: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  f (hE.symm (b, t))
+in the target expression
+  f (hE.symm (b, 0) + hE.symm (0, t)) * (stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))) =
+    f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+
+d m : ℕ
+inst✝ : NeZero (d * m)
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hmN : NeZero m
+hd0 : d ≠ 0
+hdN : NeZero d
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hlt : 1 < d * m
+hnz : hE.symm (0, 1) ≠ 0
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = (hE z).1
+hreindex : ∑ x, f x * stdAddChar x = ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2
+b : ZMod d
+t : ZMod m
+hdec : hE.symm (b, t) = hE.symm (b, 0) + hE.symm (0, t)
+hfdep : f (hE.symm (b, t)) = f (hE.symm (b, 0))
+⊢ f (hE.symm (b, 0) + hE.symm (0, t)) * (stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))) =
+    f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+Imscribing/Millennium/StarkRungFourGaussSign.lean:257:52: error: unsolved goals
+d m : ℕ
+inst✝ : NeZero (d * m)
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hmN : NeZero m
+hd0 : d ≠ 0
+hdN : NeZero d
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hlt : 1 < d * m
+hnz : hE.symm (0, 1) ≠ 0
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = (hE z).1
+hreindex : ∑ x, f x * stdAddChar x = ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2
+hsplit :
+  ∀ (b : ZMod d) (t : ZMod m),
+    f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t)) =
+      f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+t : ZMod m
+⊢ stdAddChar (hE.symm.toAddMonoidHom (0, t)) = stdAddChar (hE.symm (0, t))
+Imscribing/Millennium/StarkRungFourGaussSign.lean:268:24: error: Invalid projection: Projections cannot be used on functions, and
+  ZMod.val_eq_zero
+has function type
+  ∀ (a : ZMod ?m.789), a.val = 0 ↔ a = 0
+Imscribing/Millennium/StarkRungFourGaussSign.lean:269:16: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ x, ?f x.1 x.2
+in the target expression
+  ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2 = 0
+
+d m : ℕ
+inst✝ : NeZero (d * m)
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hmN : NeZero m
+hd0 : d ≠ 0
+hdN : NeZero d
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hlt : 1 < d * m
+hnz : hE.symm (0, 1) ≠ 0
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = (hE z).1
+hreindex : ∑ x, f x * stdAddChar x = ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2
+hsplit :
+  ∀ (b : ZMod d) (t : ZMod m),
+    f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t)) =
+      f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+hψt :
+  ∀ (t : ZMod m),
+    (stdAddChar.compAddMonoidHom (hE.symm.toAddMonoidHom.comp (AddMonoidHom.inr (ZMod d) (ZMod m)))) t =
+      stdAddChar (hE.symm (0, t))
+hψ₀ne : stdAddChar.compAddMonoidHom (hE.symm.toAddMonoidHom.comp (AddMonoidHom.inr (ZMod d) (ZMod m))) ≠ 0
+⊢ ∑ p, (fun b t => f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t))) p.1 p.2 = 0

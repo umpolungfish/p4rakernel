@@ -11,8 +11,8 @@ import Imscribing.YangMills.PlaquetteStep3
 import Imscribing.YangMills.RademacherMulti
 import Imscribing.YangMills.ProbIntegralTransform
 import Imscribing.YangMills.SUNHaar
-import Imscribing.Millennium.ContinuumLatticeBridge
-import Imscribing.Millennium.TorusWraparoundBridge
+import Imscribing.YangMills.ContinuumLatticeBridge
+import Imscribing.YangMills.TorusWraparoundBridge
 
 set_option maxHeartbeats 8000000
 set_option maxRecDepth 20000

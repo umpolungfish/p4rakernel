@@ -1,0 +1,61 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:301:30: error: unsolved goals
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hc : 0 < π * a
+hpt : ∀ (k : ℕ), ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2) ≤ 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+hgsum : Summable fun k => rexp (-(π * a / 2) * ↑k ^ 2)
+hscaled : Summable fun k => 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+hl : Summable fun k => ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2)
+hval : ∑' (k : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2) = 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+hstep : ∑' (i : ℕ), ↑i ^ 2 * rexp (-(π * a) * ↑i ^ 2) ≤ 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+hhalf : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ 21 / 19 * (2 / a) ^ (1 / 2)
+⊢ 0 ≤ ?m.613
+Imscribing/Millennium/StarkRungFiveDual.lean:316:12: error(lean.unknownIdentifier): Unknown identifier `div_le_div_right`
+Imscribing/Millennium/StarkRungFiveDual.lean:315:33: error: unsolved goals
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hc : 0 < π * a
+hpt : ∀ (k : ℕ), ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2) ≤ 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+hgsum : Summable fun k => rexp (-(π * a / 2) * ↑k ^ 2)
+hscaled : Summable fun k => 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+hl : Summable fun k => ↑k ^ 2 * rexp (-(π * a) * ↑k ^ 2)
+hval : ∑' (k : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2) = 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+hstep : ∑' (i : ℕ), ↑i ^ 2 * rexp (-(π * a) * ↑i ^ 2) ≤ 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+hhalf : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ 21 / 19 * (2 / a) ^ (1 / 2)
+hsqrt2 : √2 < 17 / 12
+hconst : 42 * √2 ≤ 19 * π
+hpi0 : π ≠ 0
+hconv : 4 / (π * a) * (21 / 19 * (2 / a) ^ (1 / 2)) = 84 * √2 / (19 * π) / (a * √a)
+⊢ 84 * √2 / (19 * π) / (a * √a) ≤ 2 / (a * √a)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+
+real	0m9.533s
+user	0m14.801s
+sys	0m2.494s

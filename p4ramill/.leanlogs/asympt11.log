@@ -1,0 +1,123 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:94:23: warning: This simp argument is unused:
+  if_neg hk
+
+Hint: Omit it from the simp argument list.
+  simp only [hk,̵ ̵i̵f̵_̵n̵e̵g̵ ̵h̵k̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveAsympt.lean:151:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(-n) ^ 2
+in the target expression
+  (fun n => rexp (-π * a * ↑n ^ 2)) (-n) = (fun n => rexp (-π * a * ↑n ^ 2)) n
+
+a : ℝ
+ha : 0 < a
+n : ℤ
+hsq : ↑(-n) ^ 2 = ↑n ^ 2
+⊢ (fun n => rexp (-π * a * ↑n ^ 2)) (-n) = (fun n => rexp (-π * a * ↑n ^ 2)) n
+Imscribing/Millennium/StarkRungFiveAsympt.lean:159:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (n : ℕ+), ?m.201 ↑n
+in the target expression
+  ∑' (n : ℕ+), (fun m => rexp (-π * a * ↑m ^ 2)) ↑↑n = gaussSumNat a - 1
+
+a : ℝ
+ha : 0 < a
+heven : Function.Even fun n => rexp (-π * a * ↑n ^ 2)
+h0 : rexp (-π * a * ↑0 ^ 2) = 1
+h : ∑' (n : ℤ), rexp (-π * a * ↑n ^ 2) = 1 + ↑2 * ∑' (n : ℕ+), rexp (-π * a * ↑↑↑n ^ 2)
+⊢ ∑' (n : ℕ+), (fun m => rexp (-π * a * ↑m ^ 2)) ↑↑n = gaussSumNat a - 1
+Imscribing/Millennium/StarkRungFiveAsympt.lean:179:52: error: Application type mismatch: The argument
+  0
+has type
+  ℝ
+of sort `Type` but is expected to have type
+  ?m.87 ∈ 𝓝 √?m.86
+of sort `Prop` in the application
+  Continuous.continuousAt continuous_sqrt 0
+Imscribing/Millennium/StarkRungFiveAsympt.lean:208:35: error: typeclass instance problem is stuck
+  IsOrderedRing ?m.145
+
+Note: Lean will not try to resolve this typeclass instance problem because the first, second, and third type arguments to `IsOrderedRing` are metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:200:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (800000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:254:24: error: Application type mismatch: The argument
+  LT.lt.le hb
+has type
+  0 ≤ b
+but is expected to have type
+  0 ≤ 4
+in the application
+  mul_rpow (LT.lt.le hb)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:252:52: error: unsolved goals
+hscale :
+  ∀ (b : ℝ), 0 < b → b ^ (1 / 2) * gaussSumHalf b = b ^ (1 / 2) * gaussSumNat (b / 4) - b ^ (1 / 2) * gaussSumNat b
+b : ℝ
+hb : 0 < b
+h1 : b = 4 * (b / 4)
+h4 : 4 ^ (1 / 2) = 2
+⊢ (4 * (b / 4)) ^ (1 / 2) = (4 * (4 * (b / 4) / 4)) ^ (1 / 2)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:259:58: error: aesop: error in norm simp: `simp` failed: maximum number of steps exceeded
+Imscribing/Millennium/StarkRungFiveAsympt.lean:260:6: error: Type mismatch
+  Tendsto.mono_left (ContinuousAt.tendsto hc) nhdsWithin_le_nhds
+has type
+  Tendsto (fun b => b / 4) (𝓝[?m.391] 0) (𝓝 (0 / 4))
+but is expected to have type
+  Tendsto (fun b => b / 4) (𝓝[>] 0) (𝓝 0)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:275:17: error: Application type mismatch: The argument
+  hb
+has type
+  b ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < b
+in the application
+  hsqrt4 b hb
+Imscribing/Millennium/StarkRungFiveAsympt.lean:284:31: error: Type mismatch: After simplification, term
+  Tendsto.sub hfirst hA
+ has type
+  Tendsto (fun x => x ^ 2⁻¹ * gaussSumNat (x / 4) - x ^ 2⁻¹ * gaussSumNat x) (𝓝[>] 0) (𝓝 (1 - 2⁻¹))
+but is expected to have type
+  Tendsto (fun b => b ^ 2⁻¹ * gaussSumNat (b / 4) - b ^ 2⁻¹ * gaussSumNat b) (𝓝[>] 0) (𝓝 2⁻¹)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:241:8: error: (kernel) unknown constant 'Imscribing.Millennium.StarkAsympt.gaussSumHalf_eq'

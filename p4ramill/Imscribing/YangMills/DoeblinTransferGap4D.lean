@@ -24,6 +24,12 @@ theorem unnormalized_jensen_sq_le {α : Type*} [MeasurableSpace α]
     {c : ℝ} (hc_nn : 0 ≤ c) (hR_mass : ∫ y, R y ∂π = c)
     (φ : α → ℂ) (hφ_meas : Measurable φ) (Bφ : ℝ) (hφ_bound : ∀ y, ‖φ y‖ ≤ Bφ) :
     (∫ y, R y * ‖φ y‖ ∂π) ^ 2 ≤ c * ∫ y, R y * ‖φ y‖ ^ 2 ∂π := by
+  haveI : Nonempty α := by
+    by_contra h
+    have hU : (Set.univ : Set α) = ∅ := Set.ext fun x => ⟨fun _ => h ⟨x⟩, False.elim⟩
+    have h1 : π Set.univ = 1 := measure_univ
+    rw [hU, measure_empty] at h1
+    exact zero_ne_one h1
   have hBφ_nn : 0 ≤ Bφ := le_trans (norm_nonneg _) (hφ_bound (Classical.arbitrary α))
   have hBR_nn : 0 ≤ BR := le_trans (hR_nn _) (hR_bound (Classical.arbitrary α))
   have hR_int : Integrable R π :=
@@ -63,9 +69,10 @@ theorem unnormalized_jensen_sq_le {α : Type*} [MeasurableSpace α]
         (∫ y, (s ^ 2 * R y - 2 * s * c * (R y * ‖φ y‖) + c ^ 2 * (R y * ‖φ y‖ ^ 2)) ∂π) =
           s ^ 2 * (∫ y, R y ∂π) - 2 * s * c * (∫ y, R y * ‖φ y‖ ∂π) +
             c ^ 2 * (∫ y, R y * ‖φ y‖ ^ 2 ∂π) := by
-      rw [integral_add ((hR_int.const_mul (s ^ 2)).sub (hR1_int.const_mul (2 * s * c)))
-            (hR2_int.const_mul (c ^ 2)),
-          integral_sub (hR_int.const_mul (s ^ 2)) (hR1_int.const_mul (2 * s * c)),
+      have h1 := integral_add ((hR_int.const_mul (s ^ 2)).sub (hR1_int.const_mul (2 * s * c))) (hR2_int.const_mul (c ^ 2))
+      have h2 := integral_sub (hR_int.const_mul (s ^ 2)) (hR1_int.const_mul (2 * s * c))
+      simp only [Pi.sub_apply] at h1 h2
+      rw [h1, h2,
           integral_const_mul, integral_const_mul, integral_const_mul]
     rw [h_expand, hR_mass] at h_quad_nn
     change 0 ≤ s ^ 2 * c - 2 * s * c * s + c ^ 2 * ∫ y, R y * ‖φ y‖ ^ 2 ∂π at h_quad_nn
@@ -93,6 +100,12 @@ theorem doeblin_markov_l2_contraction
       (1 - ε) ^ 2 * ∫ y, ‖φ y‖ ^ 2 ∂π ∧
     (1 - ε) ^ 2 * ∫ y, ‖φ y‖ ^ 2 ∂π ≤
       Real.exp (-2 * ε) * ∫ y, ‖φ y‖ ^ 2 ∂π := by
+  haveI : Nonempty α := by
+    by_contra h
+    have hU : (Set.univ : Set α) = ∅ := Set.ext fun x => ⟨fun _ => h ⟨x⟩, False.elim⟩
+    have h1 : π Set.univ = 1 := measure_univ
+    rw [hU, measure_empty] at h1
+    exact zero_ne_one h1
   have hBφ_nn : 0 ≤ Bφ := le_trans (norm_nonneg _) (hφ_bound (Classical.arbitrary α))
   have hBK_nn : 0 ≤ BK :=
     le_trans hε_pos.le (le_trans (hK_lb (Classical.arbitrary α) (Classical.arbitrary α)) (hK_bound _ _))
@@ -156,7 +169,7 @@ theorem doeblin_markov_l2_contraction
             norm_integral_le_integral_norm _
         _ = ∫ y, R x y * ‖φ y‖ ∂π := by
             refine integral_congr_ae (Filter.Eventually.of_forall fun y => ?_)
-            rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (hR_nn x y)]
+            dsimp only; rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (hR_nn x y)]
     have h_sq_le : ‖∫ y, (R x y : ℂ) * φ y ∂π‖ ^ 2 ≤ (∫ y, R x y * ‖φ y‖ ∂π) ^ 2 :=
       pow_le_pow_left₀ (norm_nonneg _) h_norm_le 2
     exact le_trans h_sq_le (unnormalized_jensen_sq_le π (R x) (hR_nn x) (hR_meas_y x)
@@ -171,8 +184,7 @@ theorem doeblin_markov_l2_contraction
       (sq_nonneg _) hBK_nn
   have h_lhs_int : Integrable (fun x => ‖∫ y, (K x y : ℂ) * φ y ∂π‖ ^ 2) π := by
     have hm_in : Measurable (fun x => ∫ y, (K x y : ℂ) * φ y ∂π) :=
-      Measurable.integral_prod_right' (f := fun x y => (K x y : ℂ) * φ y)
-        ((Complex.continuous_ofReal.measurable.comp hK_meas).mul (hφ_meas.comp measurable_snd))
+      (MeasureTheory.StronglyMeasurable.integral_prod_right' (ν := π) ((Complex.continuous_ofReal.measurable.comp hK_meas).mul (hφ_meas.comp measurable_snd)).stronglyMeasurable).measurable
     refine Integrable.of_bound ((continuous_norm.measurable.comp hm_in).pow_const 2).aestronglyMeasurable
       ((BK * Bφ) ^ 2) (Filter.Eventually.of_forall fun x => ?_)
     rw [Real.norm_of_nonneg (sq_nonneg _)]
@@ -183,7 +195,7 @@ theorem doeblin_markov_l2_contraction
         _ ≤ ∫ _y, (BK * Bφ) ∂π := by
             refine integral_mono_of_nonneg (Filter.Eventually.of_forall fun _ => norm_nonneg _)
               (integrable_const _) (Filter.Eventually.of_forall fun y => ?_)
-            rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (le_trans hε_pos.le (hK_lb x y))]
+            dsimp only; rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (le_trans hε_pos.le (hK_lb x y))]
             exact mul_le_mul (hK_bound x y) (hφ_bound y) (norm_nonneg _) hBK_nn
         _ = BK * Bφ := by simp [integral_const]
     exact pow_le_pow_left₀ (norm_nonneg _) h_in_le 2
@@ -202,6 +214,7 @@ theorem doeblin_markov_l2_contraction
     _ = (1 - ε) * ∫ y, (1 - ε) * ‖φ y‖ ^ 2 ∂π := by
           congr 1
           refine integral_congr_ae (Filter.Eventually.of_forall fun y => ?_)
+          dsimp only
           have h_symm_R : (fun x => R x y) = R y := by
             ext x; simp [R, hK_symm x y]
           rw [h_symm_R, hR_mass y]

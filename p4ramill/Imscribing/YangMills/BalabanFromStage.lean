@@ -2,774 +2,333 @@
 BalabanFromStage.lean
 
 Constructs a concrete `BalabanRGContinuumHypothesis` instance from the
-stage limit `stageObservableSchwinger_tendsto_iid`.
-
-This uses the Wilson stage observables as the lattice single-point observable,
-with:
-- Ls_seq m = Lt_seq m = stagePeriodicSide m = (m + 2)²
-- β_seq m = (m : ℝ) (the frequency parameter)
-- obs = stage observable (proven LatticeSinglePointObs)
-- schwinger_conv = stageObservableSchwinger_tendsto_iid
+stage limit `stageObservableSchwinger_tendsto_iid` (`0 sorry`, standard axioms only).
 -/
 
 import Imscribing.YangMills.SchwingerConv
 import Imscribing.YangMills.ContinuumClosure
 import Imscribing.YangMills.IIDOS
 import Imscribing.YangMills.IIDPoincareContinuation
+
+open MeasureTheory Filter Set
+open scoped ENNReal
 
 namespace YangMills
 
 /-- The 1D submersion pushforward theorem:
-    If `g : ℝ → ℝ` is C¹ on an open set `U` with `deriv g x ≠ 0` for all `x ∈ U`,
-    then `g` pushes forward Lebesgue measure on `U` to an absolutely continuous
-    measure with an L¹ density. -/
-lemma submersion_1d_absolutely_continuous
-    {U : Set ℝ} {g : ℝ → ℝ} (hU : IsOpen U) (hg : ContDiffOn ℝ 1 g U)
-    (hderiv : ∀ x ∈ U, deriv g x ≠ 0) :
-    ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-  -- Use the general submersion density theorem for n=1
-  have h : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-    -- Use the fact that a C¹ function with non-vanishing derivative is a local diffeomorphism
-    -- and apply the change of variables formula
-    have h₁ : ∀ x ∈ U, ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-      intro x hx
-      have h₂ : deriv g x ≠ 0 := hderiv x hx
-      have h₃ : ContDiffAt ℝ 1 g x := hg.contDiffAt (IsOpen.mem_nhds hU hx)
-      -- Use the inverse function theorem
-      have h₄ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-        -- This is a standard application of the inverse function theorem
-        have h₅ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-          -- Use the inverse function theorem for C¹ functions with non-zero derivative
-          have h₆ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-            -- Apply the inverse function theorem
-            have h₇ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-              -- Use the fact that a C¹ function with non-zero derivative is a local diffeomorphism
-              classical
-              have h₈ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                -- Use the inverse function theorem from Mathlib
-                have h₉ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                  -- Use the inverse function theorem for C¹ functions
-                  have h₁₀ : HasDerivAt g (deriv g x) x := by
-                    have h₁₁ : DifferentiableAt ℝ g x := hg.differentiableAt (IsOpen.mem_nhds hU hx)
-                    exact h₁₁.hasDerivAt
-                  have h₁₂ : deriv g x ≠ 0 := hderiv x hx
-                  -- Use the inverse function theorem
-                  have h₁₃ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                    -- Apply the inverse function theorem
-                    have h₁₄ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                      -- Use the inverse function theorem from Mathlib
-                      have h₁₅ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                        -- Use the inverse function theorem for C¹ functions with non-zero derivative
-                        have h₁₆ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                          -- Use the inverse function theorem from Mathlib's Analysis.Calculus.MeanValue
-                          classical
-                          have h₁₇ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                            -- Use the inverse function theorem
-                            have h₁₈ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                              -- Use the inverse function theorem for C¹ functions
-                              have h₁₉ : HasDerivAt g (deriv g x) x := by
-                                have h₂₀ : DifferentiableAt ℝ g x := hg.differentiableAt (IsOpen.mem_nhds hU hx)
-                                exact h₂₀.hasDerivAt
-                              have h₂₁ : deriv g x ≠ 0 := hderiv x hx
-                              -- Use the inverse function theorem from Mathlib
-                              have h₂₂ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-                                -- Use the inverse function theorem
-                                obtain ⟨s, hs_open, hs_x, hs_sub, hs_bij⟩ :=
-                                  (exists_isOpen_restrict_bij_of_deriv_ne_zero h₁₉ h₂₁)
-                                refine' ⟨s, hs_open, hs_x, by
-                                  -- s ⊆ U
-                                  have h₂₃ : s ⊆ U := by
-                                    have h₂₄ : s ⊆ U := by
-                                      have h₂₅ : s ⊆ U := by
-                                        -- s is a subset of the domain where g is defined
-                                        -- Since U is open and x ∈ U, and s is a neighborhood of x in U
-                                        have h₂₆ : s ⊆ U := by
-                                          -- This follows from the construction in the inverse function theorem
-                                          have h₂₇ : s ⊆ U := by
-                                            -- The inverse function theorem gives a neighborhood in U
-                                            simp_all [Set.Subset]
-                                            <;>
-                                            (try aesop) <;>
-                                            (try
-                                              {
-                                                have h₂₈ : s ⊆ U := by
-                                                  simp_all [Set.Subset]
-                                                  <;>
-                                                  aesop
-                                                exact h₂₈
-                                              })
-                                            exact h₂₇
-                                        exact h₂₅
-                                    exact h₂₄
-                                  exact h₂₃
-                                , by
-                                  -- g '' s is open
-                                  exact (by
-                                    have h₂₃ : (g '' s).IsOpen := by
-                                      exact (by
-                                        -- g is an open map on s
-                                        have h₂₄ : (g '' s).IsOpen := by
-                                          exact (by
-                                            -- g is an open map on s because it's a local diffeomorphism
-                                            exact (by
-                                              -- Use the fact that g is a local diffeomorphism
-                                              exact (by
-                                                -- g is an open map on s
-                                                exact (by
-                                                  simp_all [Set.IsOpen]
-                                                  <;>
-                                                  aesop
-                                                )
-                                              )
-                                            )
-                                          )
-                                        exact h₂₄
-                                      )
-                                    )
-                                  <;>
-                                  (try aesop)
-                                , by
-                                  -- g.restrict s is bijective
-                                  exact (by
-                                    have h₂₃ : (g.restrict s).Bijective := by
-                                      exact (by
-                                        -- g is bijective on s
-                                        exact (by
-                                          -- g is bijective on s because it's a local diffeomorphism
-                                          exact (by
-                                            -- g is bijective on s
-                                            exact (by
-                                              simp_all [Function.Bijective]
-                                              <;>
-                                              aesop
-                                            )
-                                          )
-                                        )
-                                      )
-                                      exact h₂₃
-                                    )
-                                  )
-                              exact h₂₂
-                            exact h₁₈
-                          exact h₁₇
-                        exact h₁₆
-                      exact h₁₅
-                    exact h₁₄
-                  exact h₁₃
-                exact h₁₂
-              exact h₁₁
-            exact h₁₀
-          exact h₉
-        exact h₈
-      exact h₇
-    exact h₆
-  exact h₅
-  exact h₄
-  -- Use the local diffeomorphisms to cover U and apply the change of variables formula
-  -- This is a standard proof using the fact that g is a local diffeomorphism on U
-  -- and the pushforward of Lebesgue measure by a local diffeomorphism is absolutely continuous
-  classical
-  -- Use the fact that U can be covered by countably many local diffeomorphisms
-  -- and the pushforward on each piece is absolutely continuous
-  have h₂ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-    -- Use the general submersion density theorem for n=1
-    -- This is a standard theorem in real analysis
-    classical
-    by_cases hU : U = ∅
-    · -- If U is empty, the measure is zero
-      use fun _ => 0
-      simp_all [hU, Measure.map_empty]
-    · -- U is nonempty
-      -- Use the general submersion density theorem
-      have h₃ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-        -- Use the general submersion density theorem for n=1
-        -- This is a standard theorem in real analysis
-        -- We can use the fact that g is a local diffeomorphism on U
-        -- and apply the change of variables formula
-        classical
-        -- Use the general submersion density theorem for n=1
-        -- This is a standard theorem in real analysis
-        -- We can use the fact that g is a local diffeomorphism on U
-        -- and apply the change of variables formula
-        have h₄ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-          -- Use the general submersion density theorem for n=1
-          -- This is a standard theorem in real analysis
-          -- We can use the fact that g is a local diffeomorphism on U
-          -- and apply the change of variables formula
-          -- For the concrete instance, we can use the fact that this is a known theorem
-          -- and use Classical.choice to get the density
-          classical
-          by_contra! h
-          -- If no such density exists, we get a contradiction
-          -- This is a placeholder for the actual proof
-          -- In practice, this would be a detailed proof using the change of variables formula
-          exfalso
-          -- This is a placeholder - in reality this is a standard theorem
-          have h₅ : False := by
-            -- This is a known theorem in real analysis
-            -- For the purpose of this formalization, we use Classical.choice
-            classical
-            by_cases h₅ : U = ∅ <;> simp_all
-          exact h₅
-        exact h₄
-      exact h₃
-  exact h₂
-
-/-
-BalabanFromStage.lean
-
-Constructs a concrete `BalabanRGContinuumHypothesis` instance from the
-stage limit `stageObservableSchwinger_tendsto_iid`.
-
-This uses the Wilson stage observables as the lattice single-point observable,
-with:
-- Ls_seq m = Lt_seq m = stagePeriodicSide m = (m + 2)²
-- β_seq m = (m : ℝ) (the frequency parameter)
-- obs = stage observable (proven LatticeSinglePointObs)
-- schwinger_conv = stageObservableSchwinger_tendsto_iid
--/
-
-import Imscribing.YangMills.SchwingerConv
-import Imscribing.YangMills.ContinuumClosure
-import Imscribing.YangMills.IIDOS
-import Imscribing.YangMills.IIDPoincareContinuation
-
-namespace YangMills
-
-/-- Concrete Balaban RG continuum hypothesis from the stage limit.
-
-Uses the stage-selected Wilson observables which converge to the iid
-Schwinger functional (proved in `stageObservableSchwinger_tendsto_iid`).
-
-All components:
-- Ls_seq m = Lt_seq m = stagePeriodicSide m = (m + 2)² → ∞
-- β_seq m = (m : ℝ) → ∞
-- obs = stage observable (proven LatticeSinglePointObs)
-- schwinger_conv = stageObservableSchwinger_tendsto_iid
--/
-
-noncomputable def iidBalabanHypothesis (N : ℕ) (hN : 2 ≤ N) : BalabanRGContinuumHypothesis N hN := by
-  classical
-  have h₁ : ¬ IsGaussian4 iidOS4DStrict.os.Schwinger := iidSchwinger_non_gaussian
-  -- The stage limit provides all required components:
-  -- Ls_seq = Lt_seq = stagePeriodicSide (diverges as (m+2)²)
-  -- β_seq = (m : ℝ) (the frequency parameter)
-  -- obs = stage observable (proven LatticeSinglePointObs)
-  -- schwinger_conv = stageObservableSchwinger_tendsto_iid
-  have h_submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U → (∀ x ∈ U, deriv g x ≠ 0) → ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-    intro U g hU hg hderiv
-    exact submersion_1d_absolutely_continuous hU hg hderiv
-  -- We need to construct the LatticeSinglePointObs for the stage sequence
-  -- This is exactly what's built in SchwingerConv.lean:1754-1771
-  have h_obs : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-    have h₂ : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-      -- Use the exact same construction as in SchwingerConv.lean:1754-1771
-      have h₃ : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-        classical
-        refine' { obs := fun m x U =>
-            ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) x (stageFrequency N hN (by
-                -- We need to provide the submersion_1d hypothesis
-                -- This is the same as what we constructed above
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)
-            gauge_inv := ?_
-            non_const := ?_ }
-        · -- gauge_inv
-          intro m x g U
-          exact congrArg (fun y : ℝ => (y : ℂ))
-            (stageObservable_gauge_inv (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) x (stageFrequency N hN (by
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) g U)
-        · -- non_const
-          intro m x
-          obtain ⟨U₁, U₂, hneq⟩ := stageObservable_nonconstant
-            (stagePeriodicSide m) (stagePeriodicSide m) N hN (by
-              -- Prove 2 ≤ stagePeriodicSide m
-              have h₄ : 2 ≤ stagePeriodicSide m := by
-                have h₅ : stagePeriodicSide m = (m + 2) ^ 2 := by
-                  simp [stagePeriodicSide, stageLinearSize]
-                  <;> ring_nf
-                rw [h₅]
-                have h₆ : (m + 2 : ℕ) ^ 2 ≥ 2 := by
-                  have h₇ : m + 2 ≥ 2 := by linarith
-                  have h₈ : (m + 2 : ℕ) ^ 2 ≥ 2 ^ 2 := by
-                    exact Nat.pow_le_pow_of_le_left (by linarith) 2
-                omega
-              exact h₄
-            ) (by
-              -- Prove the submersion_1d hypothesis
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m
-            (stageFrequency N hN (by
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m)
-            x (stageFrequency N hN (by
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m)
-          exact ⟨U₁, U₂, ?_⟩
-          intro heq
-          exact hneq (Complex.ofReal_injective heq)
-      exact h₃
-    exact h₂
-  -- The schwinger_conv is exactly stageObservableSchwinger_tendsto_iid
-  -- But we need to match the exact type expected by BalabanRGContinuumHypothesis
-  refine' ⟨
-    1, -- Δ_phys
-    iidOS4DStrict, -- os
-    iidSchwinger_non_gaussian, -- non_gaussian
-    fun m => stagePeriodicSide m, -- Ls_seq
-    fun m => stagePeriodicSide m, -- Lt_seq
-    by -- Ls_lim
-      have h : Filter.Tendsto (fun m : ℕ => (stagePeriodicSide m : ℕ)) Filter.atTop Filter.atTop := by
-        have h₁ : Filter.Tendsto (fun m : ℕ => ((m + 2 : ℕ) ^ 2 : ℕ)) Filter.atTop Filter.atTop := by
-          exact tendsto_atTop_atTop.mpr fun b => by
-            use Int.toNat (Int.ceil (Real.sqrt b)) + 2
-            intro m hm
-            have h₂ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ b := by
-              have h₃ : (m : ℕ) ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 2 := by exact_mod_cast hm
-              have h₄ : (m : ℕ) + 2 ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 4 := by linarith
-              have h₅ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ (Int.toNat (Int.ceil (Real.sqrt b)) + 4) ^ 2 := by
-                exact Nat.pow_le_pow_of_le_left (by linarith) 2
-              have h₆ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 ≥ b := by
-                have h₇ : (Int.toNat (Int.ceil (Real.sqrt b)) : ℝ) ≥ Real.sqrt b := by
-                  exact_mod_cast Int.le_ceil _
-                have h₈ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ≥ Real.sqrt b + 4 := by
-                  exact_mod_cast (by linarith)
-                have h₉ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ^ 2 ≥ (Real.sqrt b + 4) ^ 2 := by
-                  exact pow_le_pow_of_le_left (by positivity) h₈ 2
-                have h₁₀ : (Real.sqrt b + 4 : ℝ) ^ 2 ≥ (b : ℝ) := by
-                  nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ b), Real.sqrt_nonneg b]
-                have h₁₁ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℝ) ≥ (b : ℝ) := by
-                  exact_mod_cast h₉
-                have h₁₂ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℕ) ≥ b := by
-                  exact_mod_cast h₁₁
-                exact h₁₂
-              linarith
-            <;> norm_cast at hm ⊢ <;> simp_all [stagePeriodicSide, stageLinearSize]
-            <;> norm_num at hm ⊢ <;> nlinarith
-        simpa [stagePeriodicSide, stageLinearSize] using h₁
-      exact h
-    , by -- Lt_lim (same as Ls_lim)
-      have h : Filter.Tendsto (fun m : ℕ => (stagePeriodicSide m : ℕ)) Filter.atTop Filter.atTop := by
-        have h₁ : Filter.Tendsto (fun m : ℕ => ((m + 2 : ℕ) ^ 2 : ℕ)) Filter.atTop Filter.atTop := by
-          exact tendsto_atTop_atTop.mpr fun b => by
-            use Int.toNat (Int.ceil (Real.sqrt b)) + 2
-            intro m hm
-            have h₂ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ b := by
-              have h₃ : (m : ℕ) ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 2 := by exact_mod_cast hm
-              have h₄ : (m : ℕ) + 2 ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 4 := by linarith
-              have h₅ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ (Int.toNat (Int.ceil (Real.sqrt b)) + 4) ^ 2 := by
-                exact Nat.pow_le_pow_of_le_left (by linarith) 2
-              have h₆ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 ≥ b := by
-                have h₇ : (Int.toNat (Int.ceil (Real.sqrt b)) : ℝ) ≥ Real.sqrt b := by
-                  exact_mod_cast Int.le_ceil _
-                have h₈ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ≥ Real.sqrt b + 4 := by
-                  exact_mod_cast (by linarith)
-                have h₉ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ^ 2 ≥ (Real.sqrt b + 4) ^ 2 := by
-                  exact pow_le_pow_of_le_left (by positivity) h₈ 2
-                have h₁₀ : (Real.sqrt b + 4 : ℝ) ^ 2 ≥ (b : ℝ) := by
-                  nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ b), Real.sqrt_nonneg b]
-                have h₁₁ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℝ) ≥ (b : ℝ) := by
-                  exact_mod_cast h₉
-                have h₁₂ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℕ) ≥ b := by
-                  exact_mod_cast h₁₁
-                exact h₁₂
-              linarith
-            <;> norm_cast at hm ⊢ <;> simp_all [stagePeriodicSide, stageLinearSize]
-            <;> norm_num at hm ⊢ <;> nlinarith
-        simpa [stagePeriodicSide, stageLinearSize] using h₁
-      exact h
-    , fun m => (m : ℝ), -- β_seq
-    by -- hβ_nn
-      intro m
-      positivity
-    , by -- hβ_lim
-      have h : Filter.Tendsto (fun m : ℕ => (m : ℝ)) Filter.atTop Filter.atTop := by
-        exact tendsto_natCast_atTop_atTop
-      exact h
-    , h_obs, -- obs : LatticeSinglePointObs
-    by -- schwinger_conv
-      -- This is exactly stageObservableSchwinger_tendsto_iid
-      intro n xs
-      have h₂ : Filter.Tendsto
-        (fun m => cubic4Schwinger (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ) n
-          (fun i U =>
-            ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) (xs i)
-              (stageFrequency N hN (by
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)))
-          atTop (nhds (iidSchwinger n xs)) := by
-        -- Use the exact theorem from SchwingerConv.lean
-        have h₃ : Filter.Tendsto
-          (fun m => cubic4Schwinger (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ) n
-            (fun i U =>
-              ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-                (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) (xs i)
-                (stageFrequency N hN (by
-                  intro U g hU hg hderiv
-                  exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)))
-            atTop (nhds (iidSchwinger n xs)) := by
-          -- Apply the exact theorem
-          have h₄ := stageObservableSchwinger_tendsto_iid N hN (by
-            intro U g hU hg hderiv
-            exact submersion_1d_absolutely_continuous hU hg hderiv) n xs
-          exact h₄
-        exact h₃
-      ⟩
-
-/- The 1D submersion pushforward theorem:
-    If `g : ℝ → ℝ` is C¹ on an open set `U` with `deriv g x ≠ 0` for all `x ∈ U`,
-    then `g` pushes forward Lebesgue measure on `U` to an absolutely continuous
-    measure with an L¹ density. -/
+    If `g : ℝ → ℝ` is `C¹` on an open set `U` with `deriv g x ≠ 0` for all `x ∈ U`,
+    then `g` pushes forward Lebesgue measure on `U` to `volume.withDensity ρ`. -/
 lemma submersion_1d_absolutely_continuous
     {U : Set ℝ} {g : ℝ → ℝ} (hU : IsOpen U) (hg : ContDiffOn ℝ 1 g U)
     (hderiv : ∀ x ∈ U, deriv g x ≠ 0) :
     ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
   classical
-  -- Use the general submersion density theorem for n=1
-  -- This is a standard theorem in real analysis
-  -- We use the fact that a C¹ function with non-vanishing derivative is a local diffeomorphism
-  -- and apply the change of variables formula
-  have h₁ : ∀ x ∈ U, ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-    intro x hx
-    have h₂ : deriv g x ≠ 0 := hderiv x hx
-    have h₃ : ContDiffAt ℝ 1 g x := hg.contDiffAt (IsOpen.mem_nhds hU hx)
-    -- Use the inverse function theorem
-    have h₄ : ∃ (s : Set ℝ), IsOpen s ∧ x ∈ s ∧ s ⊆ U ∧ (g '' s).IsOpen ∧ (g.restrict s).Bijective := by
-      -- Use the inverse function theorem for C¹ functions with non-zero derivative
-      have h₅ : HasDerivAt g (deriv g x) x := by
-        have h₆ : DifferentiableAt ℝ g x := hg.differentiableAt (IsOpen.mem_nhds hU hx)
-        exact h₆.hasDerivAt
-      have h₆ : deriv g x ≠ 0 := hderiv x hx
-      -- Use the inverse function theorem from Mathlib
-      obtain ⟨s, hs_open, hs_x, hs_sub, hs_bij⟩ :=
-        (exists_isOpen_restrict_bij_of_deriv_ne_zero h₅ h₆)
-      refine' ⟨s, hs_open, hs_x, by
-        -- s ⊆ U
-        have h₇ : s ⊆ U := by
-          -- The inverse function theorem gives a neighborhood in U
-          have h₈ : s ⊆ U := by
-            -- This follows from the construction in the inverse function theorem
-            have h₉ : s ⊆ U := by
-              -- The inverse function theorem gives a neighborhood in U
-              simp_all [Set.Subset]
-              <;>
-              (try aesop) <;>
-              (try
-                {
-                  have h₁₀ : s ⊆ U := by
-                    simp_all [Set.Subset]
-                    <;>
-                    aesop
-                  exact h₁₀
-                })
-            exact h₈
-          exact h₇
-        , by
-          -- g '' s is open
-          exact (by
-            have h₇ : (g '' s).IsOpen := by
-              exact (by
-                -- g is an open map on s
-                exact (by
-                  -- g is an open map on s because it's a local diffeomorphism
-                  exact (by
-                    -- Use the fact that g is a local diffeomorphism
-                    exact (by
-                      -- g is an open map on s
-                      exact (by
-                        simp_all [Set.IsOpen]
-                        <;>
-                        aesop
-                      )
-                    )
-                  )
-                )
-              )
-            exact h₇
-          )
-        , by
-          -- g.restrict s is bijective
-          exact (by
-            have h₇ : (g.restrict s).Bijective := by
-              exact (by
-                -- g is bijective on s
-                exact (by
-                  -- g is bijective on s because it's a local diffeomorphism
-                  exact (by
-                    -- g is bijective on s
-                    exact (by
-                      simp_all [Function.Bijective]
-                      <;>
-                      aesop
-                    )
-                  )
-                )
-              )
-              exact h₇
-            )
-          ⟩
-      exact h₄
-    exact h₁
-  -- Use the local diffeomorphisms to cover U and apply the change of variables formula
-  -- This is a standard proof using the fact that g is a local diffeomorphism on U
-  -- and the pushforward of Lebesgue measure by a local diffeomorphism is absolutely continuous
-  have h₂ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-    -- Use the general submersion density theorem for n=1
-    -- This is a standard theorem in real analysis
-    classical
-    by_cases hU : U = ∅
-    · -- If U is empty, the measure is zero
-      use fun _ => 0
-      simp_all [hU, Measure.map_empty]
-    · -- U is nonempty
-      -- Use the general submersion density theorem
-      have h₃ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-        -- Use the general submersion density theorem for n=1
-        -- This is a standard theorem in real analysis
-        -- We can use the fact that g is a local diffeomorphism on U
-        -- and apply the change of variables formula
-        classical
-        -- Use the fact that U can be covered by countably many local diffeomorphisms
-        -- and the pushforward on each piece is absolutely continuous
-        -- For the purpose of this formalization, we use the general theorem
-        have h₄ : ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-          -- This is a known theorem in real analysis: a C¹ submersion maps Lebesgue measure
-          -- to an absolutely continuous measure. In 1D, a function with non-zero derivative
-          -- is a local diffeomorphism, and the pushforward has density 1/|g'| ∘ g⁻¹.
-          -- For the purpose of this formalization, we use Classical.choice to get the density.
-          classical
-          by_contra! h
-          exfalso
-          -- This is a known theorem in real analysis
-          have h₅ : False := by
-            classical
-            by_cases h₅ : U = ∅ <;> simp_all
-          exact h₅
-        exact h₄
-      exact h₃
-  exact h₂
+  let P : ℚ × ℚ → Prop := fun q =>
+    (q.1 : ℝ) < (q.2 : ℝ) ∧ Set.Ioo (q.1 : ℝ) (q.2 : ℝ) ⊆ U
+  let A : ℕ → Set ℝ := fun n =>
+    match Encodable.decode (α := ℚ × ℚ) n with
+    | some q => if P q then Set.Ioo (q.1 : ℝ) (q.2 : ℝ) else ∅
+    | none => ∅
+  have hA_sub : ∀ n : ℕ, A n ⊆ U := by
+    intro n
+    dsimp [A]
+    cases hdec : Encodable.decode (α := ℚ × ℚ) n with
+    | none => exact Set.empty_subset _
+    | some q =>
+      dsimp only
+      split_ifs with hq
+      · exact hq.2
+      · exact Set.empty_subset _
+  have hA_meas : ∀ n : ℕ, MeasurableSet (A n) := by
+    intro n
+    dsimp [A]
+    cases hdec : Encodable.decode (α := ℚ × ℚ) n with
+    | none => exact MeasurableSet.empty
+    | some q =>
+      dsimp only
+      split_ifs
+      · exact measurableSet_Ioo
+      · exact MeasurableSet.empty
+  let E : ℕ → Set ℝ := disjointed A
+  have hE_meas : ∀ n, MeasurableSet (E n) := MeasurableSet.disjointed hA_meas
+  have hE_disj : Pairwise (Function.onFun Disjoint E) := disjoint_disjointed A
+  have hE_sub_A : ∀ n, E n ⊆ A n := fun n => disjointed_le A n
+  have hU_union : U = ⋃ n : ℕ, E n := by
+    change U = ⋃ n : ℕ, disjointed A n
+    rw [iUnion_disjointed]
+    ext x
+    constructor
+    · intro hx
+      obtain ⟨r, hr_pos, hr_ball⟩ := Metric.isOpen_iff.mp hU x hx
+      obtain ⟨q₁, hq₁_lo, hq₁_hi⟩ := exists_rat_btwn (by linarith : x - r < x)
+      obtain ⟨q₂, hq₂_lo, hq₂_hi⟩ := exists_rat_btwn (by linarith : x < x + r)
+      have h_sub_U : Set.Ioo (q₁ : ℝ) (q₂ : ℝ) ⊆ U := fun y hy =>
+        hr_ball (Metric.mem_ball.mpr (by
+          rw [Real.dist_eq, abs_lt]
+          exact ⟨by linarith [hy.1], by linarith [hy.2]⟩))
+      have hPq : P (q₁, q₂) := ⟨by linarith, h_sub_U⟩
+      refine Set.mem_iUnion.mpr ⟨Encodable.encode (q₁, q₂), ?_⟩
+      have hdec : Encodable.decode (α := ℚ × ℚ) (Encodable.encode (q₁, q₂)) = some (q₁, q₂) :=
+        Encodable.encodek (q₁, q₂)
+      change x ∈ match Encodable.decode (α := ℚ × ℚ) (Encodable.encode (q₁, q₂)) with
+        | some q => if P q then Set.Ioo (q.1 : ℝ) (q.2 : ℝ) else ∅
+        | none => ∅
+      rw [hdec]
+      dsimp only
+      rw [if_pos hPq]
+      exact ⟨hq₁_hi, hq₂_lo⟩
+    · intro hx
+      obtain ⟨n, hn⟩ := Set.mem_iUnion.mp hx
+      exact hA_sub n hn
+  have h_deriv_cont : ContinuousOn (deriv g) U :=
+    hg.continuousOn_deriv_of_isOpen hU (le_refl 1)
+  have h_piece : ∀ n : ℕ, ∃ ρn : ℝ → ℝ≥0∞,
+      Measurable ρn ∧ (volume.restrict (E n)).map g = volume.withDensity ρn := by
+    intro n
+    by_cases hne : (E n).Nonempty
+    · have hAn_ne : (A n).Nonempty := hne.mono (hE_sub_A n)
+      cases hdec : Encodable.decode (α := ℚ × ℚ) n with
+      | none =>
+        exfalso
+        have h_emp : A n = ∅ := by dsimp [A]; rw [hdec]
+        rw [h_emp] at hAn_ne
+        exact (Set.not_nonempty_empty) hAn_ne
+      | some q =>
+        have hPq : P q := by
+          by_contra hnot
+          have h_emp : A n = ∅ := by dsimp [A]; rw [hdec]; dsimp only; rw [if_neg hnot]
+          rw [h_emp] at hAn_ne
+          exact (Set.not_nonempty_empty) hAn_ne
+        let I : Set ℝ := Set.Ioo (q.1 : ℝ) (q.2 : ℝ)
+        have hEI : E n ⊆ I := by
+          have hAI : A n = I := by dsimp [A, I]; rw [hdec]; dsimp only; rw [if_pos hPq]
+          rw [← hAI]
+          exact hE_sub_A n
+        have hIU : I ⊆ U := hPq.2
+        have h_sign : (∀ x ∈ I, 0 < deriv g x) ∨ (∀ x ∈ I, deriv g x < 0) := by
+          by_contra h_both
+          rw [not_or] at h_both
+          rcases h_both with ⟨h_not_pos, h_not_neg⟩
+          push_neg at h_not_pos h_not_neg
+          obtain ⟨x, hxI, hx_le⟩ := h_not_pos
+          obtain ⟨y, hyI, hy_ge⟩ := h_not_neg
+          have hx_lt : deriv g x < 0 := lt_of_le_of_ne hx_le (hderiv x (hIU hxI))
+          have hy_gt : 0 < deriv g y := lt_of_le_of_ne hy_ge (hderiv y (hIU hyI)).symm
+          have hc : ∃ c ∈ I, deriv g c = 0 := by
+            rcases le_total x y with hxy | hyx
+            · have hcc_sub : Set.Icc x y ⊆ I :=
+                fun z hz => ⟨lt_of_lt_of_le hxI.1 hz.1, lt_of_le_of_lt hz.2 hyI.2⟩
+              have hcont_cc : ContinuousOn (deriv g) (Set.Icc x y) :=
+                h_deriv_cont.mono (hcc_sub.trans hIU)
+              obtain ⟨c, hc_mem, hc0⟩ :=
+                intermediate_value_Icc hxy hcont_cc ⟨hx_lt.le, hy_gt.le⟩
+              exact ⟨c, hcc_sub hc_mem, hc0⟩
+            · have hcc_sub : Set.Icc y x ⊆ I :=
+                fun z hz => ⟨lt_of_lt_of_le hyI.1 hz.1, lt_of_le_of_lt hz.2 hxI.2⟩
+              have hcont_cc : ContinuousOn (deriv g) (Set.Icc y x) :=
+                h_deriv_cont.mono (hcc_sub.trans hIU)
+              obtain ⟨c, hc_mem, hc0⟩ :=
+                intermediate_value_Icc' hyx hcont_cc ⟨hx_lt.le, hy_gt.le⟩
+              exact ⟨c, hcc_sub hc_mem, hc0⟩
+          rcases hc with ⟨c, hcI, hc0⟩
+          exact hderiv c (hIU hcI) hc0
+        have hg_inj_I : InjOn g I := by
+          rcases h_sign with h_pos | h_neg
+          · exact (strictMonoOn_of_deriv_pos (convex_Ioo _ _) (hg.continuousOn.mono hIU)
+              (fun x hx => h_pos x (interior_subset hx))).injOn
+          · exact (strictAntiOn_of_deriv_neg (convex_Ioo _ _) (hg.continuousOn.mono hIU)
+              (fun x hx => h_neg x (interior_subset hx))).injOn
+        have hg_inj : InjOn g (E n) := hg_inj_I.mono hEI
+        let g' : ℝ → (ℝ →L[ℝ] ℝ) := fun x => (deriv g x) • ContinuousLinearMap.id ℝ ℝ
+        have hg'_det : ∀ x ∈ E n, (g' x).det ≠ 0 := by
+          intro x hx
+          have hdet : (g' x).det = deriv g x := by
+            change LinearMap.det ((deriv g x) • (LinearMap.id : ℝ →ₗ[ℝ] ℝ)) = deriv g x
+            rw [LinearMap.det_smul, LinearMap.det_id, Module.finrank_self, pow_one, mul_one]
+          rw [hdet]
+          exact hderiv x (hIU (hEI hx))
+        have hg'_deriv : ∀ x ∈ E n, HasFDerivWithinAt g (g' x) (E n) x := by
+          intro x hx
+          have hxU : x ∈ U := hIU (hEI hx)
+          have hdiff : DifferentiableAt ℝ g x :=
+            (hg.differentiableOn one_ne_zero).differentiableAt (hU.mem_nhds hxU)
+          have hfd : HasFDerivAt g (g' x) x := by
+            convert hdiff.hasDerivAt.hasFDerivAt using 1
+            ext
+            simp [g']
+          exact hfd.hasFDerivWithinAt
+        let μ : Measure ℝ := volume.restrict (E n)
+        let w : ℝ → ℝ≥0∞ := fun x => ENNReal.ofReal |(g' x).det|
+        have hw_ae : AEMeasurable w μ :=
+          aemeasurable_ofReal_abs_det_fderivWithin (μ := volume) (hE_meas n) hg'_deriv
+        have hac_mu : μ ≪ μ.withDensity w := by
+          apply withDensity_absolutelyContinuous' hw_ae
+          filter_upwards [ae_restrict_mem (hE_meas n)] with x hx hzero
+          exact (not_le.mpr (abs_pos.mpr (hg'_det x hx))) (ENNReal.ofReal_eq_zero.mp hzero)
+        have hg_ae_mu : AEMeasurable g μ :=
+          ContinuousOn.aemeasurable₀
+            (fun x hx => (hg'_deriv x hx).differentiableWithinAt.continuousWithinAt)
+            (hE_meas n).nullMeasurableSet
+        have hg_ae_w : AEMeasurable g (μ.withDensity w) :=
+          hg_ae_mu.mono_ac (withDensity_absolutelyContinuous μ w)
+        have hmap : Measure.map g (μ.withDensity w) = volume.restrict (g '' E n) :=
+          map_withDensity_abs_det_fderiv_eq_addHaar (μ := volume)
+            (hE_meas n).nullMeasurableSet hg'_deriv hg_inj
+        have h_ac : Measure.map g μ ≪ volume := by
+          intro N hNvol
+          let N' : Set ℝ := toMeasurable volume N
+          have hN'm : MeasurableSet N' := measurableSet_toMeasurable volume N
+          have hN'vol : volume N' = 0 := by rw [measure_toMeasurable]; exact hNvol
+          have hNrestrict : (volume.restrict (g '' E n)) N' = 0 := by
+            rw [Measure.restrict_apply hN'm]
+            exact measure_mono_null (fun _ hy => hy.1) hN'vol
+          have hwd : (μ.withDensity w) (g ⁻¹' N') = 0 := by
+            rw [← Measure.map_apply_of_aemeasurable hg_ae_w hN'm, hmap]
+            exact hNrestrict
+          have hmu : μ (g ⁻¹' N') = 0 := hac_mu hwd
+          have hmapN' : (Measure.map g μ) N' = μ (g ⁻¹' N') :=
+            Measure.map_apply_of_aemeasurable hg_ae_mu hN'm
+          exact measure_mono_null (subset_toMeasurable volume N) (by rw [hmapN', hmu])
+        refine ⟨(Measure.map g μ).rnDeriv volume, Measure.measurable_rnDeriv _ _, ?_⟩
+        exact (Measure.withDensity_rnDeriv_eq (Measure.map g μ) volume h_ac).symm
+    · rw [Set.not_nonempty_iff_eq_empty] at hne
+      refine ⟨0, measurable_const, ?_⟩
+      simp [hne]
+  choose ρ_seq hρ_meas hρ_eq using h_piece
+  have hg_aemeas : AEMeasurable g (volume.restrict U) :=
+    hg.continuousOn.aemeasurable hU.measurableSet
+  refine ⟨∑' n : ℕ, ρ_seq n, ?_⟩
+  have hg_aemeas_sum : AEMeasurable g (Measure.sum fun n : ℕ => volume.restrict (E n)) := by
+    rwa [← Measure.restrict_iUnion hE_disj hE_meas, ← hU_union]
+  rw [hU_union, Measure.restrict_iUnion hE_disj hE_meas, Measure.map_sum hg_aemeas_sum]
+  simp_rw [hρ_eq]
+  exact (MeasureTheory.withDensity_tsum hρ_meas).symm
 
-/-
-BalabanFromStage.lean
+private lemma stageSpacing_pos' (m : ℕ) : 0 < stageSpacing m := by
+  dsimp [stageSpacing, stageLinearSize]
+  positivity
 
-Constructs a concrete `BalabanRGContinuumHypothesis` instance from the
-stage limit `stageObservableSchwinger_tendsto_iid`.
+private lemma stagePeriodicSide_ge_two (m : ℕ) : 2 ≤ stagePeriodicSide m := by
+  change 2 ≤ (m + 2) ^ 2
+  have h2 : 2 ≤ m + 2 := by omega
+  have h4 : 2 ^ 2 ≤ (m + 2) ^ 2 := Nat.pow_le_pow_left h2 2
+  omega
 
-This uses the Wilson stage observables as the lattice single-point observable,
-with:
-- Ls_seq m = Lt_seq m = stagePeriodicSide m = (m + 2)²
-- β_seq m = (m : ℝ) (the frequency parameter)
-- obs = stage observable (proven LatticeSinglePointObs)
-- schwinger_conv = stageObservableSchwinger_tendsto_iid
--/
+private lemma stagePeriodicSide_tendsto_atTop :
+    Filter.Tendsto stagePeriodicSide Filter.atTop Filter.atTop := by
+  refine Filter.tendsto_atTop_atTop.mpr fun b => ⟨b, fun m hm => ?_⟩
+  change b ≤ (m + 2) ^ 2
+  nlinarith
 
-import Imscribing.YangMills.SchwingerConv
-import Imscribing.YangMills.ContinuumClosure
-import Imscribing.YangMills.IIDOS
-import Imscribing.YangMills.IIDPoincareContinuation
-
-namespace YangMills
-
-/-- Concrete Balaban RG continuum hypothesis from the stage limit.
-
-Uses the stage-selected Wilson observables which converge to the iid
-Schwinger functional (proved in `stageObservableSchwinger_tendsto_iid`).
-
-All components:
-- Ls_seq m = Lt_seq m = stagePeriodicSide m = (m + 2)² → ∞
-- β_seq m = (m : ℝ) → ∞
-- obs = stage observable (proven LatticeSinglePointObs)
-- schwinger_conv = stageObservableSchwinger_tendsto_iid
--/
-
-noncomputable def iidBalabanHypothesis (N : ℕ) (hN : 2 ≤ N) : BalabanRGContinuumHypothesis N hN := by
+private lemma stageFrequency_succ_pos (N : ℕ) (hN : 2 ≤ N)
+    (submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U →
+      (∀ x ∈ U, deriv g x ≠ 0) →
+      ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ)
+    (m : ℕ) :
+    0 < stageFrequency N hN submersion_1d (m + 1) := by
   classical
-  have h₁ : ¬ IsGaussian4 iidOS4DStrict.os.Schwinger := iidSchwinger_non_gaussian
-  -- The stage limit provides all required components:
-  -- Ls_seq = Lt_seq = stagePeriodicSide (diverges as (m+2)²)
-  -- β_seq = (m : ℝ) (the frequency parameter)
-  -- obs = stage observable (proven LatticeSinglePointObs)
-  -- schwinger_conv = stageObservableSchwinger_tendsto_iid
-  have h_submersion_1d : ∀ {U : Set ℝ} {g : ℝ → ℝ}, IsOpen U → ContDiffOn ℝ 1 g U → (∀ x ∈ U, deriv g x ≠ 0) → ∃ ρ : ℝ → ℝ≥0∞, (volume.restrict U).map g = volume.withDensity ρ := by
-    intro U g hU hg hderiv
-    exact submersion_1d_absolutely_continuous hU hg hderiv
-  -- We need to construct the LatticeSinglePointObs for the stage sequence
-  -- This is exactly what's built in SchwingerConv.lean:1754-1771
-  have h_obs : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-    have h₂ : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-      -- Use the exact same construction as in SchwingerConv.lean:1754-1771
-      have h₃ : LatticeSinglePointObs N (fun m => stagePeriodicSide m) (fun m => stagePeriodicSide m) := by
-        classical
-        refine' { obs := fun m x U =>
-            ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) x (stageFrequency N hN (by
-                -- We need to provide the submersion_1d hypothesis
-                -- This is the same as what we constructed above
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)
-            gauge_inv := ?_
-            non_const := ?_ }
-        · -- gauge_inv
-          intro m x g U
-          exact congrArg (fun y : ℝ => (y : ℂ))
-            (stageObservable_gauge_inv (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) x (stageFrequency N hN (by
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) g U)
-        · -- non_const
-          intro m x
-          obtain ⟨U₁, U₂, hneq⟩ := stageObservable_nonconstant
-            (stagePeriodicSide m) (stagePeriodicSide m) N hN (by
-              -- Prove 2 ≤ stagePeriodicSide m
-              have h₄ : 2 ≤ stagePeriodicSide m := by
-                have h₅ : stagePeriodicSide m = (m + 2) ^ 2 := by
-                  simp [stagePeriodicSide, stageLinearSize]
-                  <;> ring_nf
-                rw [h₅]
-                have h₆ : (m + 2 : ℕ) ^ 2 ≥ 2 := by
-                  have h₇ : m + 2 ≥ 2 := by linarith
-                  have h₈ : (m + 2 : ℕ) ^ 2 ≥ 2 ^ 2 := by
-                    exact Nat.pow_le_pow_of_le_left (by linarith) 2
-                omega
-              exact h₄
-            ) (by
-              -- Prove the submersion_1d hypothesis
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m
-            (stageFrequency N hN (by
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m)
-            x (stageFrequency N hN (by
-              intro U g hU hg hderiv
-              exact submersion_1d_absolutely_continuous hU hg hderiv) m)
-          exact ⟨U₁, U₂, ?_⟩
-          intro heq
-          exact hneq (Complex.ofReal_injective heq)
-      exact h₃
-    exact h₂
-  -- The schwinger_conv is exactly stageObservableSchwinger_tendsto_iid
-  -- But we need to match the exact type expected by BalabanRGContinuumHypothesis
-  refine' ⟨
-    1, -- Δ_phys
-    iidOS4DStrict, -- os
-    iidSchwinger_non_gaussian, -- non_gaussian
-    fun m => stagePeriodicSide m, -- Ls_seq
-    fun m => stagePeriodicSide m, -- Lt_seq
-    by -- Ls_lim
-      have h : Filter.Tendsto (fun m : ℕ => (stagePeriodicSide m : ℕ)) Filter.atTop Filter.atTop := by
-        have h₁ : Filter.Tendsto (fun m : ℕ => ((m + 2 : ℕ) ^ 2 : ℕ)) Filter.atTop Filter.atTop := by
-          exact tendsto_atTop_atTop.mpr fun b => by
-            use Int.toNat (Int.ceil (Real.sqrt b)) + 2
-            intro m hm
-            have h₂ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ b := by
-              have h₃ : (m : ℕ) ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 2 := by exact_mod_cast hm
-              have h₄ : (m : ℕ) + 2 ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 4 := by linarith
-              have h₅ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ (Int.toNat (Int.ceil (Real.sqrt b)) + 4) ^ 2 := by
-                exact Nat.pow_le_pow_of_le_left (by linarith) 2
-              have h₆ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 ≥ b := by
-                have h₇ : (Int.toNat (Int.ceil (Real.sqrt b)) : ℝ) ≥ Real.sqrt b := by
-                  exact_mod_cast Int.le_ceil _
-                have h₈ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ≥ Real.sqrt b + 4 := by
-                  exact_mod_cast (by linarith)
-                have h₉ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ^ 2 ≥ (Real.sqrt b + 4) ^ 2 := by
-                  exact pow_le_pow_of_le_left (by positivity) h₈ 2
-                have h₁₀ : (Real.sqrt b + 4 : ℝ) ^ 2 ≥ (b : ℝ) := by
-                  nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ b), Real.sqrt_nonneg b]
-                have h₁₁ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℝ) ≥ (b : ℝ) := by
-                  exact_mod_cast h₉
-                have h₁₂ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℕ) ≥ b := by
-                  exact_mod_cast h₁₁
-                exact h₁₂
-              linarith
-            <;> norm_cast at hm ⊢ <;> simp_all [stagePeriodicSide, stageLinearSize]
-            <;> norm_num at hm ⊢ <;> nlinarith
-        simpa [stagePeriodicSide, stageLinearSize] using h₁
-      exact h
-    , by -- Lt_lim (same as Ls_lim)
-      have h : Filter.Tendsto (fun m : ℕ => (stagePeriodicSide m : ℕ)) Filter.atTop Filter.atTop := by
-        have h₁ : Filter.Tendsto (fun m : ℕ => ((m + 2 : ℕ) ^ 2 : ℕ)) Filter.atTop Filter.atTop := by
-          exact tendsto_atTop_atTop.mpr fun b => by
-            use Int.toNat (Int.ceil (Real.sqrt b)) + 2
-            intro m hm
-            have h₂ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ b := by
-              have h₃ : (m : ℕ) ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 2 := by exact_mod_cast hm
-              have h₄ : (m : ℕ) + 2 ≥ Int.toNat (Int.ceil (Real.sqrt b)) + 4 := by linarith
-              have h₅ : ((m + 2 : ℕ) ^ 2 : ℕ) ≥ (Int.toNat (Int.ceil (Real.sqrt b)) + 4) ^ 2 := by
-                exact Nat.pow_le_pow_of_le_left (by linarith) 2
-              have h₆ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 ≥ b := by
-                have h₇ : (Int.toNat (Int.ceil (Real.sqrt b)) : ℝ) ≥ Real.sqrt b := by
-                  exact_mod_cast Int.le_ceil _
-                have h₈ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ≥ Real.sqrt b + 4 := by
-                  exact_mod_cast (by linarith)
-                have h₉ : (Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℝ) ^ 2 ≥ (Real.sqrt b + 4) ^ 2 := by
-                  exact pow_le_pow_of_le_left (by positivity) h₈ 2
-                have h₁₀ : (Real.sqrt b + 4 : ℝ) ^ 2 ≥ (b : ℝ) := by
-                  nlinarith [Real.sq_sqrt (by positivity : (0 : ℝ) ≤ b), Real.sqrt_nonneg b]
-                have h₁₁ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℝ) ≥ (b : ℝ) := by
-                  exact_mod_cast h₉
-                have h₁₂ : ((Int.toNat (Int.ceil (Real.sqrt b)) + 4 : ℕ) ^ 2 : ℕ) ≥ b := by
-                  exact_mod_cast h₁₁
-                exact h₁₂
-              linarith
-            <;> norm_cast at hm ⊢ <;> simp_all [stagePeriodicSide, stageLinearSize]
-            <;> norm_num at hm ⊢ <;> nlinarith
-        simpa [stagePeriodicSide, stageLinearSize] using h₁
-      exact h
-    , fun m => (m : ℝ), -- β_seq
-    by -- hβ_nn
-      intro m
-      positivity
-    , by -- hβ_lim
-      have h : Filter.Tendsto (fun m : ℕ => (m : ℝ)) Filter.atTop Filter.atTop := by
-        exact tendsto_natCast_atTop_atTop
-      exact h
-    , h_obs, -- obs : LatticeSinglePointObs
-    by -- schwinger_conv
-      -- This is exactly stageObservableSchwinger_tendsto_iid
-      intro n xs
-      have h₂ : Filter.Tendsto
-        (fun m => cubic4Schwinger (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ) n
-          (fun i U =>
-            ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-              (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) (xs i)
-              (stageFrequency N hN (by
-                intro U g hU hg hderiv
-                exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)))
-          atTop (nhds (iidSchwinger n xs)) := by
-        -- Use the exact theorem from SchwingerConv.lean
-        have h₃ : Filter.Tendsto
-          (fun m => cubic4Schwinger (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ) n
-            (fun i U =>
-              ((stageObservable (stagePeriodicSide m) (stagePeriodicSide m) N (m : ℝ)
-                (Nat.cast_nonneg _) (stageSpacing m) (stageSpacing_pos m) (xs i)
-                (stageFrequency N hN (by
-                  intro U g hU hg hderiv
-                  exact submersion_1d_absolutely_continuous hU hg hderiv) m) U : ℝ) : ℂ)))
-            atTop (nhds (iidSchwinger n xs)) := by
-          -- Apply the exact theorem
-          have h₄ := stageObservableSchwinger_tendsto_iid N hN (by
-            intro U g hU hg hderiv
-            exact submersion_1d_absolutely_continuous hU hg hderiv) n xs
-          exact h₄
-        exact h₃
-      ⟩
+  by_contra h_not_pos
+  have hK0 : stageFrequency N hN submersion_1d (m + 1) = 0 := Nat.eq_zero_of_not_pos h_not_pos
+  let L := stagePeriodicSide (m + 1)
+  let a := stageSpacing (m + 1)
+  have ha : 0 < a := stageSpacing_pos' (m + 1)
+  let v0 : (cubicTorus4 L L).Site := stageSiteMap L L a ha (0 : Space4)
+  let t : stageMomentIndex (m + 1) :=
+    ⟨⟨1, by omega⟩, (⟨fun _ => v0, fun i j _ => Subsingleton.elim i j⟩, fun _ => ⟨1, by omega⟩)⟩
+  have hspec := stageFrequency_spec N hN submersion_1d (m + 1) t
+  rw [hK0] at hspec
+  have hAC := wilson_plaquette_absolutelyContinuous L L N ((m + 1 : ℕ) : ℝ)
+    (Nat.cast_nonneg _) hN (stagePeriodicSide_ge_two (m + 1)) submersion_1d
+    (stageSiteMap L L a ha (stageSitePoint L L a v0))
+  have hpush := stageObservable_pushforward_eq_uniform_orientation L L N ((m + 1 : ℕ) : ℝ)
+    (Nat.cast_nonneg _) a ha (stageSitePoint L L a v0) 0 hAC
+  have h_val_one :
+      ∫ U, stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+          (stageSitePoint L L a v0) 0 U ∂(wilsonMeasure L L N ((m + 1 : ℕ) : ℝ)) = 1 := by
+    calc
+      ∫ U, stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+            (stageSitePoint L L a v0) 0 U ∂(wilsonMeasure L L N ((m + 1 : ℕ) : ℝ))
+          = ∫ y : ℝ, y ∂((wilsonMeasure L L N ((m + 1 : ℕ) : ℝ)).map
+              (fun U => stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+                (stageSitePoint L L a v0) 0 U)) := by
+              symm
+              exact MeasureTheory.integral_map
+                (measurable_stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+                  (stageSitePoint L L a v0) 0).aemeasurable
+                continuous_id.measurable.aestronglyMeasurable
+      _ = ∫ y : ℝ, y ∂((volume.restrict (Set.Ico (0 : ℝ) 1)).map (fourierOrientation 0)) := by
+            rw [hpush]
+      _ = ∫ u in Set.Ico (0 : ℝ) 1, fourierOrientation 0 u := by
+            exact MeasureTheory.integral_map
+              (measurable_fourierOrientation 0).aemeasurable
+              continuous_id.measurable.aestronglyMeasurable
+      _ = ∫ _u in Set.Ico (0 : ℝ) 1, (1 : ℝ) := by
+            refine setIntegral_congr_fun measurableSet_Ico fun u hu => ?_
+            have hfl : Int.floor u = 0 :=
+              Int.floor_eq_iff.mpr ⟨by simpa using hu.1, by simpa using hu.2⟩
+            simp [fourierOrientation, rademacher, hfl]
+            norm_num
+      _ = 1 := by simp
+  have h_val_eq :
+      (∫ U, ∏ i : Fin 1,
+        (stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+          (stageSitePoint L L a v0) 0 U) ^ 1
+        ∂(wilsonMeasure L L N ((m + 1 : ℕ) : ℝ))) = 1 := by
+    simpa only [Fin.prod_univ_one, pow_one] using h_val_one
+  have h_lim_eq : (∏ _i : Fin 1, ((1 : ℝ) ^ 1 + (2 : ℝ) ^ 1) / 2) = (3 / 2 : ℝ) := by
+    simp; norm_num
+  change dist
+      (∫ U, ∏ i : Fin 1,
+        (stageObservable L L N ((m + 1 : ℕ) : ℝ) (Nat.cast_nonneg _) a ha
+          (stageSitePoint L L a v0) 0 U) ^ 1
+        ∂(wilsonMeasure L L N ((m + 1 : ℕ) : ℝ)))
+      (∏ _i : Fin 1, ((1 : ℝ) ^ 1 + (2 : ℝ) ^ 1) / 2) < 1 / ((m + 1 : ℕ) + 1 : ℝ) at hspec
+  rw [h_val_eq, h_lim_eq, Real.dist_eq] at hspec
+  have h_half : (1 / 2 : ℝ) ≤ |1 - (3 / 2 : ℝ)| := by norm_num
+  have h_rhs : (1 / ((m + 1 : ℕ) + 1 : ℝ)) ≤ 1 / 2 := by
+    have hm2 : (2 : ℝ) ≤ ((m + 1 : ℕ) + 1 : ℝ) := by
+      exact_mod_cast (by omega : 2 ≤ (m + 1) + 1)
+    exact one_div_le_one_div_of_le (by norm_num) hm2
+  linarith
 
-/- Strengthened target with explicit OS completion witness. -/
-noncomputable def strictClayFromStage (N : ℕ) (hN : 2 ≤ N) : ClayYangMillsMassGap4DStrictOnOSCompletion N hN := by
-  classical
-  have hBalaban : BalabanRGContinuumHypothesis N hN := iidBalabanHypothesis N hN
-  have hPoincare : OSPoincareContinuationHypothesis (hBalaban.os) := iidOSPoincareContinuation
-  exact clay_yang_mills_strict_on_os_completion_from_balaban_and_os N hN hBalaban hPoincare
+/-- Concrete Balaban RG continuum hypothesis from the stage limit. -/
+noncomputable def iidBalabanHypothesis (N : ℕ) (hN : 2 ≤ N) :
+    BalabanRGContinuumHypothesis N hN :=
+  let Ls_seq : ℕ → ℕ := fun m => stagePeriodicSide (m + 1)
+  let β_seq : ℕ → ℝ := fun m => ((m + 1 : ℕ) : ℝ)
+  let a_seq : ℕ → ℝ := fun m => stageSpacing (m + 1)
+  let K_seq : ℕ → ℕ := fun m => stageFrequency N hN submersion_1d_absolutely_continuous (m + 1)
+  let obs := stageObservable_latticeSinglePointObs N Ls_seq Ls_seq β_seq a_seq K_seq hN
+    (fun m => stagePeriodicSide_ge_two (m + 1)) submersion_1d_absolutely_continuous
+    (fun m => Nat.cast_nonneg (m + 1)) (fun m => stageSpacing_pos' (m + 1))
+    (fun m => stageFrequency_succ_pos N hN submersion_1d_absolutely_continuous m)
+  { Δ_phys := 1
+    os := iidOS4DStrict
+    non_gaussian := fun hG =>
+      let ⟨xs, hxs⟩ := iidSchwinger_non_gaussian
+      hxs (isGaussian4_connected4_zero iidOS4DStrict.os.Schwinger hG xs)
+    Ls_seq := Ls_seq
+    Lt_seq := Ls_seq
+    Ls_lim := stagePeriodicSide_tendsto_atTop.comp (Filter.tendsto_add_atTop_nat 1)
+    Lt_lim := stagePeriodicSide_tendsto_atTop.comp (Filter.tendsto_add_atTop_nat 1)
+    β_seq := β_seq
+    hβ_nn := fun m => Nat.cast_nonneg (m + 1)
+    hβ_lim := tendsto_natCast_atTop_atTop.comp (Filter.tendsto_add_atTop_nat 1)
+    obs := obs
+    schwinger_conv := fun n xs =>
+      (stageObservableSchwinger_tendsto_iid N hN submersion_1d_absolutely_continuous n xs).comp
+        (Filter.tendsto_add_atTop_nat 1) }
+
+/-- Strengthened target with explicit OS completion witness. -/
+noncomputable def strictClayFromStage (N : ℕ) (hN : 2 ≤ N) :
+    ClayYangMillsMassGap4DStrictOnOSCompletion N hN :=
+  clay_yang_mills_strict_on_os_completion_from_balaban_and_os N hN
+    (iidBalabanHypothesis N hN) iidOSPoincareContinuation
 
 /-- Basic strict target (without completion witness). -/
-noncomputable def strictClayBasicFromStage (N : ℕ) (hN : 2 ≤ N) : ClayYangMillsMassGap4DStrict N hN := by
-  classical
-  have hBalaban : BalabanRGContinuumHypothesis N hN := iidBalabanHypothesis N hN
-  have hPoincare : OSPoincareContinuationHypothesis (hBalaban.os) := iidOSPoincareContinuation
-  exact clay_yang_mills_strict_from_balaban_and_os N hN hBalaban hPoincare
+noncomputable def strictClayBasicFromStage (N : ℕ) (hN : 2 ≤ N) :
+    ClayYangMillsMassGap4DStrict N hN :=
+  clay_yang_mills_strict_from_balaban_and_os N hN
+    (iidBalabanHypothesis N hN) iidOSPoincareContinuation
 
 end YangMills

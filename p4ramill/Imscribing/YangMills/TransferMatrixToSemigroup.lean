@@ -28,7 +28,7 @@ theorem thermodynamic_clustering_persistence
   intro x
   have h_norm : Filter.Tendsto (fun L : ℕ => ‖S_vol L x‖) Filter.atTop (𝓝 ‖S_inf x‖) :=
     (continuous_norm.tendsto _).comp (h_lim x)
-  exact le_of_tendsto h_norm h_unif
+  exact le_of_tendsto h_norm (h_unif x)
 
 section ContinuumTransfer
 
@@ -83,7 +83,7 @@ theorem discrete_semigroup_to_continuum
     | zero => intro x; simp
     | succ k ih =>
         intro x
-        rw [pow_succ, ContinuousLinearMap.mul_apply]
+        rw [pow_succ', ContinuousLinearMap.mul_apply]
         exact le_trans (hT_contr m _) (ih x)
   have hpow_symm : ∀ m (k : ℕ) (x y : H),
       ⟪x, ((T_lat m) ^ k) y⟫_ℂ = ⟪((T_lat m) ^ k) x, y⟫_ℂ := by
@@ -92,13 +92,15 @@ theorem discrete_semigroup_to_continuum
     | zero => intro x y; simp
     | succ k ih =>
         intro x y
-        rw [pow_succ, ContinuousLinearMap.mul_apply, ContinuousLinearMap.mul_apply]
+        rw [pow_succ', ContinuousLinearMap.mul_apply, ContinuousLinearMap.mul_apply]
         rw [hT_symm m, ih]
+        congr 1
+        rw [← ContinuousLinearMap.mul_apply, ← pow_succ, pow_succ', ContinuousLinearMap.mul_apply]
   have hpow_vac : ∀ m (k : ℕ), ((T_lat m) ^ k) Ω = Ω := by
     intro m k
     induction k with
     | zero => simp
-    | succ k ih => rw [pow_succ, ContinuousLinearMap.mul_apply, ih, hT_vac m]
+    | succ k ih => rw [pow_succ', ContinuousLinearMap.mul_apply, ih, hT_vac m]
   refine ⟨?_, ?_, ?_, ?_⟩
   · intro t ht
     have h1 := h_conv t ht Ω
@@ -111,11 +113,29 @@ theorem discrete_semigroup_to_continuum
     have hx := h_conv t ht x
     have hy := h_conv t ht y
     have h_lhs : Filter.Tendsto (fun m : ℕ => ⟪x, ((T_lat m) ^ Nat.floor (t / a m)) y⟫_ℂ)
-        Filter.atTop (𝓝 ⟪x, T t y⟫_ℂ) :=
-      ((innerSL ℂ x).continuous.tendsto _).comp hy
+        Filter.atTop (𝓝 ⟪x, T t y⟫_ℂ) := by
+      rw [tendsto_iff_norm_sub_tendsto_zero]
+      have h_le : ∀ m : ℕ, ‖⟪x, ((T_lat m) ^ Nat.floor (t / a m)) y⟫_ℂ - ⟪x, T t y⟫_ℂ‖ ≤
+          ‖x‖ * ‖((T_lat m) ^ Nat.floor (t / a m)) y - T t y‖ := fun m => by
+        rw [← inner_sub_right]
+        exact norm_inner_le_norm x _
+      have h_mul : Filter.Tendsto (fun m : ℕ => ‖x‖ * ‖((T_lat m) ^ Nat.floor (t / a m)) y - T t y‖)
+          Filter.atTop (𝓝 (‖x‖ * 0)) :=
+        (tendsto_const_nhds (x := ‖x‖)).mul (tendsto_iff_norm_sub_tendsto_zero.mp hy)
+      rw [mul_zero] at h_mul
+      exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
     have h_rhs : Filter.Tendsto (fun m : ℕ => ⟪((T_lat m) ^ Nat.floor (t / a m)) x, y⟫_ℂ)
-        Filter.atTop (𝓝 ⟪T t x, y⟫_ℂ) :=
-      ((continuous_id.inner continuous_const).tendsto _).comp hx
+        Filter.atTop (𝓝 ⟪T t x, y⟫_ℂ) := by
+      rw [tendsto_iff_norm_sub_tendsto_zero]
+      have h_le : ∀ m : ℕ, ‖⟪((T_lat m) ^ Nat.floor (t / a m)) x, y⟫_ℂ - ⟪T t x, y⟫_ℂ‖ ≤
+          ‖((T_lat m) ^ Nat.floor (t / a m)) x - T t x‖ * ‖y‖ := fun m => by
+        rw [← inner_sub_left]
+        exact norm_inner_le_norm _ y
+      have h_mul : Filter.Tendsto (fun m : ℕ => ‖((T_lat m) ^ Nat.floor (t / a m)) x - T t x‖ * ‖y‖)
+          Filter.atTop (𝓝 (0 * ‖y‖)) :=
+        (tendsto_iff_norm_sub_tendsto_zero.mp hx).mul (tendsto_const_nhds (x := ‖y‖))
+      rw [zero_mul] at h_mul
+      exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
     have h_eq : (fun m : ℕ => ⟪x, ((T_lat m) ^ Nat.floor (t / a m)) y⟫_ℂ) =
         fun m : ℕ => ⟪((T_lat m) ^ Nat.floor (t / a m)) x, y⟫_ℂ := by
       ext m; exact hpow_symm m _ x y
@@ -146,7 +166,7 @@ theorem discrete_semigroup_to_continuum
             ((T_lat m) ^ Nat.floor (s / a m)) (((T_lat m) ^ Nat.floor (t / a m)) x) - T s (T t x) := by
           rw [map_sub]; abel
         rw [h_eq] at h_tri
-        exact le_trans h_tri (add_le_add_right (hpow_contr m _ _) _)
+        exact le_trans h_tri (add_le_add (hpow_contr m _ _) le_rfl)
       have h_t0 : Filter.Tendsto (fun m : ℕ => ‖((T_lat m) ^ Nat.floor (t / a m)) x - T t x‖)
           Filter.atTop (𝓝 0) := by
         simpa [tendsto_iff_norm_sub_tendsto_zero] using h_conv t ht x
@@ -191,8 +211,8 @@ theorem discrete_semigroup_to_continuum
         have h_cases : kst = ks + kt ∨ kst = ks + kt + 1 := by omega
         rcases h_cases with heq | heq
         · rw [heq, sub_self, norm_zero]; exact norm_nonneg _
-        · rw [heq, pow_succ', ContinuousLinearMap.mul_apply, ← map_sub]
-          exact hpow_contr m (ks + kt) (T_lat m x - x)
+        · rw [heq, pow_succ, ContinuousLinearMap.mul_apply, ← map_sub]
+          exact hpow_contr m (ks + kt) ((T_lat m) x - x)
       have h_step_norm : Filter.Tendsto (fun m : ℕ => ‖T_lat m x - x‖) Filter.atTop (𝓝 0) := by
         simpa using (continuous_norm.tendsto _).comp (h_step x)
       exact squeeze_zero (fun _ => norm_nonneg _) h_bound h_step_norm

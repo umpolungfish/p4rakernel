@@ -1,0 +1,92 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk3probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk3probe.lean:580:24: error: Application type mismatch: The argument
+  summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0
+has type
+  Summable fun k => ↑k ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑k ^ 2)
+but is expected to have type
+  Summable fun n => ↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2)
+in the application
+  Summable.mul_left (2 * π * ↑con * t ^ 2 / (t ^ 2 + 4)) (summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0)
+../../chunk3probe.lean:581:2: error: Type mismatch
+  Summable.of_nonneg_of_le
+    (fun n =>
+      norm_nonneg
+        (cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+          (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)))
+    (dualEven_dev_term t ht) hdom
+has type
+  Summable fun n =>
+    ‖cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+        (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)‖
+but is expected to have type
+  Summable fun n =>
+    cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) * (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)
+../../chunk3probe.lean:594:24: error: Application type mismatch: The argument
+  summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0
+has type
+  Summable fun k => ↑k ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑k ^ 2)
+but is expected to have type
+  Summable fun n => ↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2)
+in the application
+  Summable.mul_left (2 * π * ↑con * t ^ 2 / (t ^ 2 + 4)) (summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0)
+../../chunk3probe.lean:618:46: error: Application type mismatch: The argument
+  hsq
+has type
+  ∑' (k : ℕ), ↑k ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑k ^ 2) ≤
+    2 / (4 * ↑con * t / (t ^ 2 + 4) * √(4 * ↑con * t / (t ^ 2 + 4))) + 2
+but is expected to have type
+  ∑' (n : ℕ), ↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) ≤
+    2 / (4 * ↑con * t / (t ^ 2 + 4) * √(4 * ↑con * t / (t ^ 2 + 4))) + 2
+in the application
+  mul_le_mul_of_nonneg_left hsq
+../../chunk3probe.lean:676:24: error: Application type mismatch: The argument
+  summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0
+has type
+  Summable fun n => ↑(2 * n + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * n + 1) ^ 2)
+but is expected to have type
+  Summable fun n => ↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2)
+in the application
+  Summable.mul_left (π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4))) (summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0)
+../../chunk3probe.lean:677:2: error: Type mismatch
+  Summable.of_nonneg_of_le
+    (fun n =>
+      norm_nonneg
+        (I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))))
+    (dualOdd_dev_term t ht) hdom
+has type
+  Summable fun n =>
+    ‖I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+        (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))‖
+but is expected to have type
+  Summable fun n =>
+    I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+../../chunk3probe.lean:691:24: error: Application type mismatch: The argument
+  summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0
+has type
+  Summable fun n => ↑(2 * n + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * n + 1) ^ 2)
+but is expected to have type
+  Summable fun n => ↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2)
+in the application
+  Summable.mul_left (π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4))) (summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0)
+../../chunk3probe.lean:715:46: error: Application type mismatch: The argument
+  hsq
+has type
+  ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * n + 1) ^ 2) ≤
+    8 / (↑con * t / (t ^ 2 + 4) * √(↑con * t / (t ^ 2 + 4))) + 8
+but is expected to have type
+  ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) ≤
+    8 / (↑con * t / (t ^ 2 + 4) * √(↑con * t / (t ^ 2 + 4))) + 8
+in the application
+  mul_le_mul_of_nonneg_left hsq

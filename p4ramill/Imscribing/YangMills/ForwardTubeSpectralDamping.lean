@@ -34,7 +34,7 @@ private lemma r3_cs (a b : Fin 4 → ℝ) :
       (a 2 * b 3 - a 3 * b 2) ^ 2 := by positivity
   linarith [h]
 
-private def toS4 (v : Fin 4 → ℝ) : Spacetime4 :=
+def toS4 (v : Fin 4 → ℝ) : ClaySpec.Spacetime4 :=
   (WithLp.equiv 2 (Fin 4 → ℝ)).symm v
 
 /-- **Forward Cone Positivity:** `0 ≤ minkowskiInner y p` for `y ∈ V₊` and `p ∈ V̄₊`. -/
@@ -50,7 +50,7 @@ theorem forward_cone_inner_nonneg {y p : Fin 4 → ℝ}
     calc
       (y 1 * p 1 + y 2 * p 2 + y 3 * p 3) ^ 2
           ≤ (y 1 ^ 2 + y 2 ^ 2 + y 3 ^ 2) * (p 1 ^ 2 + p 2 ^ 2 + p 3 ^ 2) := hcs
-      _ ≤ y 0 ^ 2 * p 0 ^ 2 := mul_le_mul hysq.le hpsq hnn2 (sq_nonneg y 0)
+      _ ≤ y 0 ^ 2 * p 0 ^ 2 := mul_le_mul hysq.le hpsq hnn2 (sq_nonneg (y 0))
       _ = (y 0 * p 0) ^ 2 := by ring
   have h_lin : y 1 * p 1 + y 2 * p 2 + y 3 * p 3 ≤ y 0 * p 0 := by
     nlinarith [mul_nonneg hy0.le hp0]
@@ -80,7 +80,8 @@ theorem forward_cone_massive_damping {Δ : ℝ} (hΔ : 0 ≤ Δ) {y p : Fin 4 �
     have h_sq : dot ^ 2 ≤ (Real.sqrt ys2 * Real.sqrt ps2) ^ 2 := by
       rw [mul_pow, Real.sq_sqrt (by positivity), Real.sq_sqrt (by positivity)]
       exact h_cs
-    nlinarith [Real.sqrt_nonneg ys2, Real.sqrt_nonneg ps2]
+    have hnn : 0 ≤ Real.sqrt ys2 * Real.sqrt ps2 := by positivity
+    nlinarith [hnn]
   have h_gap_sq : (y 0 ^ 2 - ys2) * (p 0 ^ 2 - ps2) ≤ (y 0 * p 0 - Real.sqrt ys2 * Real.sqrt ps2) ^ 2 := by
     have h_id : (y 0 * p 0 - Real.sqrt ys2 * Real.sqrt ps2) ^ 2 - (y 0 ^ 2 - ys2) * (p 0 ^ 2 - ps2) =
         (y 0 * Real.sqrt ps2 - p 0 * Real.sqrt ys2) ^ 2 := by
@@ -129,7 +130,7 @@ theorem forwardTube_laplace_damping {n : ℕ} {Δ : ℝ} (hΔ : 0 ≤ Δ)
   have h_prod_eq :
       (∏ k : Fin n, Real.exp (-minkowskiInner (toS4 (tubeDiffIm z k)) (toS4 (p k)))) =
         Real.exp (-∑ k : Fin n, minkowskiInner (toS4 (tubeDiffIm z k)) (toS4 (p k))) := by
-    rw [Real.exp_sum, Finset.sum_neg_distrib]
+    rw [← Real.exp_sum, Finset.sum_neg_distrib]
   have h_damp_sum :
       Δ * ∑ k : Fin n,
           Real.sqrt (minkowskiInner (toS4 (tubeDiffIm z k)) (toS4 (tubeDiffIm z k))) ≤
@@ -141,7 +142,7 @@ theorem forwardTube_laplace_damping {n : ℕ} {Δ : ℝ} (hΔ : 0 ≤ Δ)
       Real.sqrt (minkowskiInner (toS4 (tubeDiffIm z k)) (toS4 (tubeDiffIm z k))) :=
     Finset.sum_nonneg fun k _ => Real.sqrt_nonneg _
   rw [h_prod_eq]
-  refine ⟨Real.exp_le_exp.mpr (neg_le_neg h_damp_sum), Real.exp_le_one_iff.mpr ?_⟩
+  refine ⟨by simpa [neg_mul] using Real.exp_le_exp.mpr (neg_le_neg h_damp_sum), Real.exp_le_one_iff.mpr ?_⟩
   nlinarith
 
 end Imscribing.YangMills.SpectralDamping

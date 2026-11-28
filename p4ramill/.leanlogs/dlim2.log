@@ -1,0 +1,713 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:45:37: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:45:38: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:50:4: error: linarith failed to find a contradiction
+case h1.h
+x✝ : Sort u_1
+cexp : x✝
+θ : ℝ
+hθ2 : θ = 2 * (θ / 2)
+h : Real.sin (θ / 2) ^ 2 + Real.cos (θ / 2) ^ 2 = 1
+a✝ : Real.cos (θ / 2) ^ 2 - Real.sin (θ / 2) ^ 2 < 1 - 2 * Real.sin (2 * (θ / 2) / 2) ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:51:14: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:51:13: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:52:15: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:52:61: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:52:14: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:64:15: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:64:14: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:66:8: error(lean.unknownIdentifier): Unknown identifier `hsq`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:75:8: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:75:46: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (θ : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:77:47: error(lean.unknownIdentifier): Unknown identifier `hsq2`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:75:7: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:75:45: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:76:21: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  SeminormedAddGroup ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:88:30: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((x : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:88:63: error: Function expected at
+  rexp
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  x
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:91:36: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((x : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:91:54: error: Function expected at
+  rexp
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  x
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:96:4: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (I * Complex.ofReal (((k : ℤ) : ℝ) * 2 * π))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:11: error(lean.unknownIdentifier): Unknown identifier `I`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:51: error(lean.unknownIdentifier): Unknown identifier `π`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:83: error(lean.unknownIdentifier): Unknown identifier `π`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:87: error(lean.unknownIdentifier): Unknown identifier `I`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:93: error: unsolved goals
+x✝ : Sort u_1
+cexp : x✝
+k : ℤ
+⊢ sorry * ↑k * ↑sorry * 2 = sorry ^ 2 * ↑k * 2
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:103:25: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (I * (Complex.ofReal (-(π / 2 : ℝ))))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:104:34: error(lean.unknownIdentifier): Unknown identifier `π`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:104:51: error(lean.unknownIdentifier): Unknown identifier `π`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:104:64: error: unsolved goals
+x✝ : Sort u_1
+cexp : x✝
+I : ℂ
+⊢ I * ↑sorry * (-1 / 2) = I * sorry * (-1 / 2)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:114:37: error: unsolved goals
+I : ℂ
+t : ℝ
+h2r : Complex.re 2 = 2
+h2i : Complex.im 2 = 0
+⊢ t * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 4190205 -
+      I.re * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 8380410 =
+    t * (4 + t ^ 2)⁻¹ * 4190205
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:117:29: warning: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵ ̵Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:119:14: warning: This simp argument is unused:
+  Complex.I_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:119:28: warning: This simp argument is unused:
+  Complex.I_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵i̵m̵]̵C̲o̲m̲p̲l̲e̲x̲.̲I̲_̲r̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:124:37: error: unsolved goals
+I : ℂ
+t : ℝ
+h2r : Complex.re 2 = 2
+h2i : Complex.im 2 = 0
+⊢ I.im * (-(t * I.re * 4) + t ^ 2 + I.re ^ 2 * 4 + I.im ^ 2 * 4)⁻¹ * 8380410 = (4 + t ^ 2)⁻¹ * 8380410
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:127:13: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  simp only [̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲d̲i̲v̲_̲i̲m̲,̲ Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:129:14: warning: This simp argument is unused:
+  Complex.I_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:129:28: warning: This simp argument is unused:
+  Complex.I_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, Complex.div_im, Complex.normSq_apply, Complex.sub_re, Complex.sub_im,
+  ̲  ̲ ̲ ̲Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵i̵m̵]̵C̲o̲m̲p̲l̲e̲x̲.̲I̲_̲r̲e̲]̲
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:135:24: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HMul ℂ ℂ ℝ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:136:26: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HMul ℂ ℂ ℝ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:142:2: error: `simp` made no progress
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:151:2: error(lean.unknownIdentifier): Unknown identifier `cexp`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:166:21: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-π * ((con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℤ) : ℝ) ^ 2)
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:166:86: error: unsolved goals
+x✝ : Sort u_1
+rexp : x✝
+t : ℝ
+ht : 0 < t
+n : ℤ
+⊢ ‖dualTerm t n‖ = sorry
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:180:50: error: unsolved goals
+t : ℝ
+ht : 0 < t
+ha : 0 < ↑con * t / (t ^ 2 + 4)
+n : ℤ
+⊢ Real.exp (-(Real.pi * t * (4 + t ^ 2)⁻¹ * ↑n ^ 2 * 4190205)) = sorry
+
+t : ℝ
+ht : 0 < t
+ha : 0 < ↑con * t / (t ^ 2 + 4)
+n : ℤ
+⊢ Sort ?u.44207
+
+t : ℝ
+ht : 0 < t
+ha : 0 < ↑con * t / (t ^ 2 + 4)
+n : ℤ
+⊢ ?m.80
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:186:13: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:183:8: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:186:23: warning: This simp argument is unused:
+  h1
+
+Hint: Omit it from the simp argument list.
+  simp only [dualTerm,̵ ̵h̵1̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:191:32: error: unsolved goals
+t : ℝ
+ht : 0 < t
+hg : Summable fun n => dualTerm t n
+⊢ sorry () = 1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:191:41: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:201:47: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((k : ℕ) : ℝ) ^ 2)
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:202:16: error(lean.unknownIdentifier): Unknown identifier `π`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:203:38: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a / 2) * ((k : ℕ) : ℝ) ^ 2)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:204:63: error: unsolved goals
+x✝ : Sort u_1
+rexp : x✝
+a : ℝ
+ha : 0 < a
+hc : 0 < sorry * a
+k : ℕ
+⊢ Real.exp (Real.pi * a * ↑k ^ 2 * (-1 / 2)) = sorry
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:205:69: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:206:83: error(lean.unknownIdentifier): Unknown identifier `π`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:210:34: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((k : ℕ) : ℝ) ^ 2)
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:214:4: error: linarith failed to find a contradiction
+case pos.h
+x✝ : Sort u_1
+rexp : x✝
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+this : ∑' (k : ℕ), ↑k ^ 2 * Real.exp (-(Real.pi * a) * ↑k ^ 2) ≤ 2 / (a * √a)
+a✝ : 2 / (a * √a) + 2 < ∑' (k : ℕ), ↑k ^ 2 * sorry
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:216:44: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((k : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:217:30: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * 1) * ((k : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:220:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:221:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:225:57: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * 1) * ((k : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:233:27: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-π * a * (((n : ℕ) : ℝ) + 1 / 2) ^ 2)
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:234:44: error(lean.unknownIdentifier): Unknown identifier `exp_nonneg`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:243:8: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:245:8: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:246:45: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:254:14: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:255:10: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:266:8: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:243:58: error: unsolved goals
+x✝ : Sort u_1
+rexp : x✝
+a : ℝ
+ha : 0 < a
+hterm : ∀ (n : ℕ), ↑(2 * n + 1) ^ 2 * sorry ≤ 4 * (↑(n + 1) ^ 2 * sorry)
+⊢ Summable fun n => ↑(2 * n + 1) ^ 2 * sorry
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:273:8: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:277:8: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:278:43: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:286:14: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:287:10: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * ((((n : ℕ) + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:298:8: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((n : ℕ) + 1 : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:274:33: error: unsolved goals
+x✝ : Sort u_1
+rexp : x✝
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hmain : ∑' (k : ℕ), ↑k ^ 2 * Real.exp (-(Real.pi * a) * ↑k ^ 2) ≤ 2 / (a * √a)
+hterm : ∀ (n : ℕ), ↑(2 * n + 1) ^ 2 * sorry ≤ 4 * (↑(n + 1) ^ 2 * sorry)
+⊢ ∑' (n : ℕ), ↑(2 * n + 1) ^ 2 * sorry ≤ 8 / (a * √a)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:320:8: error: Function expected at
+  rexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:327:10: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * a) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:328:40: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * 1) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:331:13: error(lean.unknownIdentifier): Unknown identifier `exp_le_exp.mpr`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:332:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:335:10: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-(π * 1) * (((2 * n + 1 : ℕ) : ℝ) ^ 2))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:345:15: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * a * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:347:26: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * a * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:348:35: error(lean.unknownIdentifier): Unknown identifier `rexp`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:354:15: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:356:26: error: Function expected at
+  cexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * a * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:357:35: error(lean.unknownIdentifier): Unknown identifier `rexp`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:360:6: error(lean.unknownIdentifier): Unknown identifier `rexp`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:355:44: error: unsolved goals
+x✝ : Sort u_1
+cexp : x✝
+a : ℝ
+ha : 0 < a
+hconv : ∑' (n : ℕ), sorry = ∑' (n : ℕ), ↑sorry
+⊢ ∑' (n : ℕ), sorry = ↑(gaussSumHalf (4 * a))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:378:8: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:379:10: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:379:92: error: unsolved goals
+x✝ : Sort u_1
+cexp : x✝
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ dualTerm t ↑(2 * n) = sorry * sorry
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:401:19: error: Function expected at
+  cexp
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((π * (con : ℝ) * (((2 * n + 1 : ℕ) : ℝ) ^ 2) * t ^ 2 / (2 * (t ^ 2 + 4))) : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:403:10: error: Function expected at
+  cexp
+but this term has type
+  ?m.2
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * ((con : ℝ) * t / (t ^ 2 + 4)) * (((2 * n + 1 : ℕ) : ℝ) ^ 2)) : ℂ)
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:403:91: error: unsolved goals
+I : ℂ
+x✝ : Sort u_1
+cexp : x✝
+t : ℝ
+ht : 0 < t
+n : ℕ
+⊢ dualTerm t ↑(2 * n + 1) = -I * sorry * sorry
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:442:4: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Norm ℕ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:442:5: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:443:11: error: Function expected at
+  cexp
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
+
+Hint: The identifier `cexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:445:12: error: Function expected at
+  rexp
+but this term has type
+  ?m.3
+
+Note: Expected a function because this term is being applied to the argument
+  (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)
+
+Hint: The identifier `rexp` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:446:8: error: Function expected at
+  cexp
+but this term has type
+  x✝¹
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:447:13: error: Function expected at
+  cexp
+but this term has type
+  x✝¹
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:448:9: error: Function expected at
+  cexp
+but this term has type
+  x✝¹
+
+Note: Expected a function because this term is being applied to the argument
+  ((-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2) : ℂ)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:449:13: error: Function expected at
+  cexp
+but this term has type
+  x✝¹
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:451:8: error: Function expected at
+  rexp
+but this term has type
+  x✝
+
+Note: Expected a function because this term is being applied to the argument
+  (-π * (4 * (con : ℝ) * t / (t ^ 2 + 4)) * ((n : ℕ) : ℝ) ^ 2)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:452:13: error: Function expected at
+  cexp
+but this term has type
+  x✝¹
+
+Note: Expected a function because this term is being applied to the argument
+  (I * ((2 * π * (con : ℝ) * ((n : ℕ) : ℝ) ^ 2 * t ^ 2 / (t ^ 2 + 4)) : ℂ))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:446:7: error: maximum number of errors (100; from option `maxErrors`) reached, exiting
+
+real	0m11.145s
+user	0m18.155s
+sys	0m3.097s

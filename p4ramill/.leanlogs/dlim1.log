@@ -1,0 +1,261 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:65:17: error(lean.unknownIdentifier): Unknown constant `Complex.star_one`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:65:6: error: `simp` made no progress
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:70:6: error: Type mismatch
+  Real.sin_sq_add_cos_sq θ
+has type
+  Real.sin θ ^ 2 + Real.cos θ ^ 2 = 1
+but is expected to have type
+  Real.cos θ ^ 2 + Real.sin θ ^ 2 = 1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:78:29: error: Application type mismatch: The argument
+  abs_sin_le_abs
+has type
+  |Real.sin ?m.561| ≤ |?m.561|
+but is expected to have type
+  npowRec 1 |Real.sin (θ / 2)| ≤ npowRec 1 |θ / 2|
+in the application
+  mul_le_mul abs_sin_le_abs
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:81:9: error: invalid 'calc' step, left-hand side is
+  4 * Real.sin (θ / 2) ^ 2 : Real
+but is expected to be
+  4 * Real.sin (2 * (θ / 2) / 2) ^ 2 : Real
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:83:6: error: invalid 'calc' step, right-hand side is
+  (2 * (θ / 2)) ^ 2 : Real
+but is expected to be
+  2 ^ 2 * (θ / 2) ^ 2 : Real
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:91:35: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  |c|
+in the target expression
+  ‖c‖ * ‖z‖ = c * ‖z‖
+
+c : ℝ
+hc : 0 ≤ c
+z : ℂ
+⊢ ‖c‖ * ‖z‖ = c * ‖z‖
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:97:47: error: Ambiguous term
+  exp
+Possible interpretations:
+  rexp (-π * a * ↑k ^ 2) : ℝ
+  
+  cexp (-↑π * ↑a * ↑↑k ^ 2) : ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:99:42: error: Ambiguous term
+  exp
+Possible interpretations:
+  rexp (-π * a * ↑k ^ 2) : ℝ
+  
+  cexp (-↑π * ↑a * ↑↑k ^ 2) : ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:100:24: error: Ambiguous term
+  exp
+Possible interpretations:
+  rexp (-π * (a / 2) * ↑k ^ 2) : ℝ
+  
+  cexp (-↑π * (↑a / 2) * ↑↑k ^ 2) : ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:102:38: error: Ambiguous term
+  exp
+Possible interpretations:
+  rexp (-π * (a / 2) * ↑k ^ 2) : ℝ
+  
+  cexp (-↑π * (↑a / 2) * ↑↑k ^ 2) : ℂ
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:103:75: error: No goals to be solved
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:111:68: error: unsolved goals
+t : ℝ
+⊢ -(t * (I * 2).re * 2) + t ^ 2 + (I * 2).re ^ 2 + (I * 2).im ^ 2 = 4 + t ^ 2
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:115:22: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (↑?r).re
+in the target expression
+  (↑con).re * (↑t - 2 * I).re / normSq (↑t - 2 * I) + (↑con).im * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    ↑con * t / (t ^ 2 + 4)
+
+t : ℝ
+hnsq : normSq (↑t - 2 * I) = t ^ 2 + 4
+⊢ (↑con).re * (↑t - 2 * I).re / normSq (↑t - 2 * I) + (↑con).im * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    ↑con * t / (t ^ 2 + 4)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:113:25: warning: This simp argument is unused:
+  Complex.I_re
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.ofReal_re,
+        Complex.ofReal_im, Complex.I_r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:113:39: warning: This simp argument is unused:
+  Complex.I_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.ofReal_re,
+        Complex.ofReal_im, Complex.I_re,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵I̵_̵i̵m̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:123:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HDiv ℝ ℝ ℂ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:123:50: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HDiv ℝ ℝ ℂ
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:130:2: error: No applicable extensionality theorem found for type
+  ℂ
+
+Note: Extensionality theorems can be registered by marking them with the `[ext]` attribute
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:144:2: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:153:71: error: `fun_prop` was unable to prove `ContinuousAt (fun t => c₀ * t / (t ^ 2 + 4)) 0`
+
+Issues:
+  Failed to prove necessary assumption `(c₀ * 0, 0 ^ 2 + 4).2 ≠ 0` when applying theorem `ContinuousAt.div₀`.
+  Failed to prove necessary assumption `0 ^ 2 + 4 ≠ 0` when applying theorem `ContinuousAt.div₀`.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:156:11: error: invalid 'by' tactic, expected type has not been provided
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:166:56: error: unsolved goals
+case h.e_x
+c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+⊢ t * t⁻¹ = 1
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:171:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0, √(↑con * t / (c₀ * t / (t ^ 2 + 4))) = √(↑con * (t ^ 2 + 4) / c₀)
+but is expected to have type
+  ?m.217 =ᶠ[𝓝[>] 0] fun t => √(↑con * t / (c₀ * t / (t ^ 2 + 4)))
+in the application
+  Tendsto.congr' hcongr
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:163:46: error: unsolved goals
+c₀ : ℝ
+hc₀ : 0 < c₀
+hcongr : ∀ᶠ (t : ℝ) in 𝓝[>] 0, √(↑con * t / (c₀ * t / (t ^ 2 + 4))) = √(↑con * (t ^ 2 + 4) / c₀)
+⊢ Tendsto (fun t => √(↑con * t / (c₀ * t / (t ^ 2 + 4)))) (𝓝[>] 0) (𝓝 (2 * √(↑con / c₀)))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:195:47: error: failed to prove positivity/nonnegativity/nonzeroness
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:199:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(c₀ * t / (t ^ 2 + 4)) * √(↑con * t / (c₀ * t / (t ^ 2 + 4)))
+in the target expression
+  √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * √(c₀ * t / (t ^ 2 + 4)) = √(↑con * t)
+
+c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hpos : 0 < c₀ * t / (t ^ 2 + 4)
+⊢ √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * √(c₀ * t / (t ^ 2 + 4)) = √(↑con * t)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:205:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * gaussSumNat (c₀ * t / (t ^ 2 + 4)) =
+      √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * ((c₀ * t / (t ^ 2 + 4)) ^ (1 / 2) * gaussSumNat (c₀ * t / (t ^ 2 + 4)))
+but is expected to have type
+  ?m.583 =ᶠ[𝓝[>] 0] fun t => √(↑con * t) * gaussSumNat (c₀ * t / (t ^ 2 + 4))
+in the application
+  Tendsto.congr' hcongr
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:189:51: error: unsolved goals
+c₀ : ℝ
+hc₀ : 0 < c₀
+hcongr :
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * gaussSumNat (c₀ * t / (t ^ 2 + 4)) =
+      √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * ((c₀ * t / (t ^ 2 + 4)) ^ (1 / 2) * gaussSumNat (c₀ * t / (t ^ 2 + 4)))
+⊢ Tendsto (fun t => √(↑con * t) * gaussSumNat (c₀ * t / (t ^ 2 + 4))) (𝓝[>] 0) (𝓝 √(↑con / c₀))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:225:47: error: failed to prove positivity/nonnegativity/nonzeroness
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:229:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(c₀ * t / (t ^ 2 + 4)) * √(↑con * t / (c₀ * t / (t ^ 2 + 4)))
+in the target expression
+  √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * √(c₀ * t / (t ^ 2 + 4)) = √(↑con * t)
+
+c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hpos : 0 < c₀ * t / (t ^ 2 + 4)
+⊢ √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * √(c₀ * t / (t ^ 2 + 4)) = √(↑con * t)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:235:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * gaussSumHalf (c₀ * t / (t ^ 2 + 4)) =
+      √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * ((c₀ * t / (t ^ 2 + 4)) ^ (1 / 2) * gaussSumHalf (c₀ * t / (t ^ 2 + 4)))
+but is expected to have type
+  ?m.583 =ᶠ[𝓝[>] 0] fun t => √(↑con * t) * gaussSumHalf (c₀ * t / (t ^ 2 + 4))
+in the application
+  Tendsto.congr' hcongr
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:219:51: error: unsolved goals
+c₀ : ℝ
+hc₀ : 0 < c₀
+hcongr :
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * gaussSumHalf (c₀ * t / (t ^ 2 + 4)) =
+      √(↑con * t / (c₀ * t / (t ^ 2 + 4))) * ((c₀ * t / (t ^ 2 + 4)) ^ (1 / 2) * gaussSumHalf (c₀ * t / (t ^ 2 + 4)))
+⊢ Tendsto (fun t => √(↑con * t) * gaussSumHalf (c₀ * t / (t ^ 2 + 4))) (𝓝[>] 0) (𝓝 √(↑con / c₀))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:261:48: error: failed to prove positivity/nonnegativity/nonzeroness
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:263:79: error: unsolved goals
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hapos : 0 < c₀ * t / (t ^ 2 + 4)
+hinv : (c₀ * t / (t ^ 2 + 4))⁻¹ = (t ^ 2 + 4) / (c₀ * t)
+⊢ 2 * ((t ^ 2 + 4) / (c₀ * t) * √((t ^ 2 + 4) / (c₀ * t))) = 2 * ((t ^ 2 + 4) / (c₀ * t)) * √((t ^ 2 + 4) / (c₀ * t))
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:269:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √((t ^ 2 + 4) / (c₀ * t)) * √(↑con * t)
+in the target expression
+  √(↑con * t) * √((t ^ 2 + 4) / (c₀ * t)) = √(↑con * (t ^ 2 + 4) / c₀)
+
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hapos : 0 < c₀ * t / (t ^ 2 + 4)
+h1 : 2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4))) = 2 * ((t ^ 2 + 4) / (c₀ * t)) * √((t ^ 2 + 4) / (c₀ * t))
+⊢ √(↑con * t) * √((t ^ 2 + 4) / (c₀ * t)) = √(↑con * (t ^ 2 + 4) / c₀)
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:269:30: error: failed to prove positivity/nonnegativity/nonzeroness
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:284:10: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:285:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4))))) =
+      2 * κ * π * (↑con * t / c₀ * √(↑con * (t ^ 2 + 4) / c₀))
+but is expected to have type
+  ?m.1209 =ᶠ[𝓝[>] 0] fun t =>
+    √(↑con * t) * (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4)))))
+in the application
+  Tendsto.congr' hcongr
+Imscribing/Millennium/StarkRungFiveDualLimit.lean:254:24: error: unsolved goals
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+hcongr :
+  ∀ᶠ (t : ℝ) in 𝓝[>] 0,
+    √(↑con * t) * (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4))))) =
+      2 * κ * π * (↑con * t / c₀ * √(↑con * (t ^ 2 + 4) / c₀))
+⊢ Tendsto
+    (fun t =>
+      √(↑con * t) * (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4))))))
+    (𝓝[>] 0) (𝓝 0)
+
+real	0m9.383s
+user	0m10.374s
+sys	0m2.717s

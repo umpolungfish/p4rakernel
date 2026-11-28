@@ -1,0 +1,152 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:53:15: error: don't know how to synthesize implicit argument `a`
+  @mul_le_mul_of_nonneg_right ℝ instMul instZero instPreorder (rexp ?m.225) (w ^ 2) (2 * rexp (w ^ 2 / 2))
+    instIsOrderedRing.toMulPosMono hu (exp_nonneg ?m.225)
+context:
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+hmerge : rexp (w ^ 2 / 2) * rexp (-w ^ 2 / 2) = 1
+⊢ ℝ
+Imscribing/Millennium/StarkRungFiveDual.lean:53:57: error: don't know how to synthesize placeholder for argument `x`
+context:
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+hmerge : rexp (w ^ 2 / 2) * rexp (-w ^ 2 / 2) = 1
+⊢ ℝ
+Imscribing/Millennium/StarkRungFiveDual.lean:53:9: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveDual.lean:94:8: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+s : ℝ
+hs : 0 < s
+hneg : -π * s < 0
+hr1 : rexp (-π * s) < 1
+hg : Summable ((fun n => rexp (-π * s) ^ n) ∘ Nat.succ)
+n : ℕ
+⊢ rexp (-π * s * ↑(n + 1) ^ 2) ≤ ((fun n => rexp (-π * s) ^ n) ∘ Nat.succ) n
+Imscribing/Millennium/StarkRungFiveDual.lean:151:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  20⁻¹ ≤ (rexp ?m.427)⁻¹
+in the target expression
+  (rexp π)⁻¹ ≤ 1 / 20
+
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hr0 : 0 ≤ rexp (-π)
+hgeo : ∑' (n : ℕ), rexp (-π) ^ n = (1 - rexp (-π))⁻¹
+hfn : ∀ (n : ℕ), rexp (-π * (↑n + 1)) = rexp (-π) ^ (n + 1)
+hsh : ∑' (n : ℕ), rexp (-π) ^ (n + 1) = rexp (-π) * ∑' (n : ℕ), rexp (-π) ^ n
+⊢ (rexp π)⁻¹ ≤ 1 / 20
+Imscribing/Millennium/StarkRungFiveDual.lean:168:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  rexp ?x ^ ?n
+in the target expression
+  ((fun n => rexp (-π) ^ n) ∘ Nat.succ) n = rexp (-π * 1 * ↑(n + 1))
+
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hr0 : 0 ≤ rexp (-π)
+hgeom : ∑' (n : ℕ), rexp (-π * (↑n + 1)) ≤ 1 / 19
+hgeom1 : ∑' (n : ℕ), rexp (-π * 1 * ↑(n + 1)) ≤ 1 / 19
+hg1 : Summable ((fun n => rexp (-π) ^ n) ∘ Nat.succ)
+n : ℕ
+⊢ ((fun n => rexp (-π) ^ n) ∘ Nat.succ) n = rexp (-π * 1 * ↑(n + 1))
+Imscribing/Millennium/StarkRungFiveDual.lean:176:6: error: linarith failed to find a contradiction
+case h
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hr0 : 0 ≤ rexp (-π)
+hgeom : ∑' (n : ℕ), rexp (-π * (↑n + 1)) ≤ 1 / 19
+hgeom1 : ∑' (n : ℕ), rexp (-π * 1 * ↑(n + 1)) ≤ 1 / 19
+hgeo1 : Summable fun n => rexp (-π * 1 * ↑(n + 1))
+n : ℕ
+hn : 0 ≤ ↑n
+a✝ : ↑(n + 1) ^ 2 < ↑n + 1
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDual.lean:177:4: error: linarith failed to find a contradiction
+case h
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hr0 : 0 ≤ rexp (-π)
+hgeom : ∑' (n : ℕ), rexp (-π * (↑n + 1)) ≤ 1 / 19
+hgeom1 : ∑' (n : ℕ), rexp (-π * 1 * ↑(n + 1)) ≤ 1 / 19
+hgeo1 : Summable fun n => rexp (-π * 1 * ↑(n + 1))
+n : ℕ
+hq : ↑n + 1 ≤ ↑(n + 1) ^ 2
+a✝ : -π * 1 * ↑(n + 1) < -π * 1 * ↑(n + 1) ^ 2
+⊢ False
+failed
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:225:50: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDual.lean:243:32: error: Application type mismatch: The argument
+  ?m.1202
+has type
+  0 ≤ 2 / a
+of sort `Prop` but is expected to have type
+  ℝ
+of sort `Type` in the application
+  sqrt_mul ?m.1191 ?m.1202
+Imscribing/Millennium/StarkRungFiveDual.lean:240:71: error: unsolved goals
+a : ℝ
+ha : 0 < a
+hle : a ≤ 2
+hconv1 : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) = ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2)
+hconv2 : ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hsplit :
+  ∑' (m : ℤ), rexp (-π * (a / 2) * ↑m ^ 2) =
+    ∑' (n : ℕ), rexp (-π * (a / 2) * ↑↑n ^ 2) + ∑' (n : ℕ), rexp (-π * (a / 2) * ↑(↑n + 1) ^ 2)
+hnat2 : ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hnat : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2)
+hmono : ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2) ≤ ∑' (n : ℤ), rexp (-π * ↑n ^ 2)
+hpois : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2)
+hkey : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) ≤ 21 / 19
+hpos2 : 0 < (a / 2) ^ (1 / 2)
+h1 : (a / 2) ^ (1 / 2) * (2 / a) ^ (1 / 2) = 1
+⊢ (2 / a) ^ (1 / 2) * (a / 2) ^ (1 / 2) = 1
+Imscribing/Millennium/StarkRungFiveDual.lean:253:40: error: Application type mismatch: The argument
+  hkey
+has type
+  (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) ≤ 21 / 19
+but is expected to have type
+  (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2) ≤ 21 / 19
+in the application
+  mul_le_mul_of_nonneg_left hkey
+Imscribing/Millennium/StarkRungFiveDual.lean:243:25: error: Type mismatch
+  a / 2
+has type
+  ℝ
+of sort `outParam Type` but is expected to have type
+  0 ≤ ?m.1184
+of sort `Prop`
+Imscribing/Millennium/StarkRungFiveDual.lean:259:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:300:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+
+real	0m29.227s
+user	0m55.717s
+sys	0m2.581s

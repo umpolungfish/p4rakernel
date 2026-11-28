@@ -1,0 +1,122 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFourGaussSign.lean:83:38: error: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  c ≥ 1
+  b ≤ -1
+  a ≥ 2
+where
+ a := ↑f
+ b := n
+ c := ↑r % ↑f
+Imscribing/Millennium/StarkRungFourGaussSign.lean:84:41: error: mod_cast has type
+  1 < f
+but is expected to have type
+  0 < f
+Imscribing/Millennium/StarkRungFourGaussSign.lean:86:36: error(lean.unknownIdentifier): Unknown identifier `cast_nonneg`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:91:10: error(lean.unknownIdentifier): Unknown constant `Int.cast_toNat_of_nonneg`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:93:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  n.toNat * f
+in the target expression
+  r % f ≠ 0
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+hr : r % f ≠ 0
+this : NeZero f
+n : ℤ
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+h8 : n.toNat * f = r
+⊢ False
+Imscribing/Millennium/StarkRungFourGaussSign.lean:99:52: error: unsolved goals
+n p : ℕ
+inst✝ : NeZero n
+hp : p ∣ n
+x : ZMod n
+⊢ x.cast.val = x.val % p
+Imscribing/Millennium/StarkRungFourGaussSign.lean:108:11: error(lean.unknownIdentifier): Unknown constant `ZMod.val_inj`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:109:8: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:127:58: error: Application type mismatch: The argument
+  hde
+has type
+  d ∣ e
+of sort `Prop` but is expected to have type
+  ℕ
+of sort `Type` in the application
+  Nat.mod_mod_of_dvd hde
+Imscribing/Millennium/StarkRungFourGaussSign.lean:131:40: error: Application type mismatch: The argument
+  hde
+has type
+  d ∣ e
+of sort `Prop` but is expected to have type
+  ℕ
+of sort `Type` in the application
+  Nat.mod_mod_of_dvd hde
+Imscribing/Millennium/StarkRungFourGaussSign.lean:130:8: error: Type mismatch
+  hxy
+has type
+  x.val % e = y.val % e
+but is expected to have type
+  x.val % e % d = y.val % e % d
+Imscribing/Millennium/StarkRungFourGaussSign.lean:160:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(ZMod.val ?a)
+in the target expression
+  stdAddChar ↑↑j.val = cexp (2 * ↑π * I * ↑↑j.val / ↑N)
+
+N : ℕ
+inst✝ : NeZero N
+j : ZMod N
+h2 : stdAddChar ↑↑j.val = cexp (2 * ↑π * I * ↑↑j.val / ↑N)
+⊢ stdAddChar j = cexp (2 * ↑π * I * (↑j.val / ↑N))
+Imscribing/Millennium/StarkRungFourGaussSign.lean:186:77: error: Application type mismatch: The argument
+  x
+has type
+  ZMod (d * m)
+but is expected to have type
+  ZMod (m * d)
+in the application
+  (castHom ⋯ (ZMod d)) x
+Imscribing/Millennium/StarkRungFourGaussSign.lean:187:53: error: Application type mismatch: The argument
+  y
+has type
+  ZMod (d * m)
+but is expected to have type
+  ZMod (m * d)
+in the application
+  (castHom ⋯ (ZMod d)) y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:188:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (ZMod (d * m))
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:188:15: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:195:16: error: Application type mismatch: The argument
+  hcop
+has type
+  m = 1
+but is expected to have type
+  1 = m
+in the application
+  LT.lt.ne hm hcop
+Imscribing/Millennium/StarkRungFourGaussSign.lean:198:63: error: Type mismatch
+  rfl
+has type
+  ?m.125 = ?m.125
+but is expected to have type
+  hφ t = hE.symm (0, t)
+EXIT=1

@@ -1,0 +1,158 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:48:13: error: don't know how to synthesize implicit argument `a`
+  @mul_le_mul_of_nonneg_right ℝ instMul instZero instPreorder (rexp ?m.127) (w ^ 2) (2 * rexp (w ^ 2 / 2))
+    instIsOrderedRing.toMulPosMono hu (exp_nonneg ?m.127)
+context:
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+⊢ ℝ
+Imscribing/Millennium/StarkRungFiveDual.lean:48:55: error: don't know how to synthesize placeholder for argument `x`
+context:
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+⊢ ℝ
+Imscribing/Millennium/StarkRungFiveDual.lean:48:7: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveDual.lean:45:63: error: unsolved goals
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+⊢ w ^ 2 * rexp (-w ^ 2 / 2) ≤ 4
+Imscribing/Millennium/StarkRungFiveDual.lean:58:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √c * √c
+in the target expression
+  c * x ^ 2 = (√c * x) ^ 2
+
+c : ℝ
+hc : 0 < c
+x : ℝ
+⊢ c * x ^ 2 = (√c * x) ^ 2
+Imscribing/Millennium/StarkRungFiveDual.lean:60:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  c * x ^ 2
+in the target expression
+  (√c * x) ^ 2 * rexp (-(√c * x) ^ 2 / 2) ≤ 4
+
+c : ℝ
+hc : 0 < c
+x : ℝ
+hsqrt : c * x ^ 2 = (√c * x) ^ 2
+hkey : (√c * x) ^ 2 * rexp (-(√c * x) ^ 2 / 2) ≤ 4
+⊢ x ^ 2 * rexp (-c * x ^ 2) ≤ 4 / c * rexp (-(c / 2) * x ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:83:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a ^ ?n * ?a
+in the target expression
+  rexp (-π * s * (↑n + 1)) = rexp (-π * s) * rexp (-π * s) ^ n
+
+case h
+s : ℝ
+hs : 0 < s
+n : ℕ
+⊢ rexp (-π * s * (↑n + 1)) = rexp (-π * s) * rexp (-π * s) ^ n
+Imscribing/Millennium/StarkRungFiveDual.lean:87:10: error: Invalid field notation: Function `Function.const_mul` does not have a usable parameter of type `Function` for which to substitute
+  @Summable ?m.122 ?m.123 ?m.124 ?m.125
+
+Note: Such a parameter must be explicit, or implicit with a unique name, to be used by field notation
+Imscribing/Millennium/StarkRungFiveDual.lean:90:34: error: Application type mismatch: The argument
+  exp_nonneg ?m.129
+has type
+  0 ≤ rexp ?m.129
+but is expected to have type
+  ∀ (b : ℕ), 0 ≤ rexp (-π * s * ↑(b + 1) ^ 2)
+in the application
+  Summable.of_nonneg_of_le (exp_nonneg ?m.129)
+Imscribing/Millennium/StarkRungFiveDual.lean:91:2: error: linarith failed to find a contradiction
+case h
+s : ℝ
+hs : 0 < s
+hgeo : Summable fun n => rexp (-π * s * (↑n + 1))
+n : ℕ
+a✝ : -π * s * (↑n + 1) < -π * s * ↑(n + 1) ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDual.lean:100:77: error: Type mismatch
+  Eq.symm (hev n)
+has type
+  f (↑n + 1) = f (-(↑n + 1))
+but is expected to have type
+  f ↑n = f (-(↑n + 1))
+Imscribing/Millennium/StarkRungFiveDual.lean:101:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (b : ℕ), (f ↑b + f (-(↑b + 1)) + ?m.109 b)
+in the target expression
+  ∑' (n : ℕ), (f ↑n + f (-(↑n + 1))) = ∑' (n : ℕ), f ↑n + ∑' (n : ℕ), f (↑n + 1)
+
+f : ℤ → ℝ
+hf : Summable f
+hfa : Summable fun n => f ↑n
+hev : ∀ (n : ℕ), f (-(↑n + 1)) = f (↑n + 1)
+hz : ∑' (n : ℕ), (f ↑n + f (-(↑n + 1))) = ∑' (n : ℤ), f n
+hfb : Summable fun n => f (-(↑n + 1))
+⊢ ∑' (n : ℕ), (f ↑n + f (-(↑n + 1))) = ∑' (n : ℕ), f ↑n + ∑' (n : ℕ), f (↑n + 1)
+Imscribing/Millennium/StarkRungFiveDual.lean:108:54: error: linarith failed to find a contradiction
+case h
+a✝ : ?m.51 ≤ ?m.50
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDual.lean:164:6: error: Type mismatch
+  mul_le_mul_of_nonneg_left h21 (LT.lt.le pi_pos)
+has type
+  π * 1 ≤ π * (2 / a)
+but is expected to have type
+  π ≤ π * (2 / a)
+Imscribing/Millennium/StarkRungFiveDual.lean:165:11: error(lean.unknownIdentifier): Unknown identifier `tsum_le_tsum`
+Imscribing/Millennium/StarkRungFiveDual.lean:167:4: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDual.lean:168:16: error(lean.unknownIdentifier): Unknown identifier `Imscribing.Millennium.StarkTheta.thetaReal_poisson`
+Imscribing/Millennium/StarkRungFiveDual.lean:155:47: error: unsolved goals
+a : ℝ
+ha : 0 < a
+hle : a ≤ 2
+hsplit :
+  ∑' (m : ℤ), rexp (-π * (a / 2) * ↑m ^ 2) =
+    ∑' (n : ℕ), rexp (-π * (a / 2) * ↑↑n ^ 2) + ∑' (n : ℕ), rexp (-π * (a / 2) * ↑(↑n + 1) ^ 2)
+hmono : ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2) ≤ ∑' (n : ℤ), rexp (-π * ↑n ^ 2)
+⊢ ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ 21 / 19 * (2 / a) ^ (1 / 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:208:48: error(lean.invalidField): Invalid field `const_mul`: The environment does not contain `Exists.const_mul`, so it is not possible to project the field `const_mul` from an expression
+  summable_gaussNat (a / 2) ?m.274
+of type
+  ∃ a_1, HasSum (fun n => rexp (-π * (a / 2) * ↑n ^ 2)) a_1
+Imscribing/Millennium/StarkRungFiveDual.lean:213:4: error: Type mismatch
+  Summable.tsum_mul_left ?m.481 hscaled
+has type
+  ∑' (i : ℕ), ?m.481 * (4 / (π * a) * rexp (-(π * a / 2) * ↑i ^ 2)) =
+    ?m.481 * ∑' (i : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑i ^ 2)
+but is expected to have type
+  ∑' (k : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2) = 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:245:52: error(lean.invalidField): Invalid field `const_mul`: The environment does not contain `Exists.const_mul`, so it is not possible to project the field `const_mul` from an expression
+  summable_gaussReal (a / 2) ?m.297
+of type
+  ∃ a_1, HasSum (fun n => rexp (-π * (a / 2) * ↑n ^ 2)) a_1
+Imscribing/Millennium/StarkRungFiveDual.lean:249:51: error(lean.invalidField): Invalid field `const_mul`: The environment does not contain `Exists.const_mul`, so it is not possible to project the field `const_mul` from an expression
+  summable_gaussNat (a / 2) ?m.385
+of type
+  ∃ a_1, HasSum (fun n => rexp (-π * (a / 2) * ↑n ^ 2)) a_1
+Imscribing/Millennium/StarkRungFiveDual.lean:257:2: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hc : 0 < π * a
+hpt : ∀ (x : ℝ), x ^ 2 * rexp (-(π * a) * x ^ 2) ≤ 4 / (π * a) * rexp (-(π * a / 2) * x ^ 2)
+hs : Summable fun m => ↑m ^ 2 * rexp (-(π * a) * ↑m ^ 2)
+hfa : Summable fun n => ↑n ^ 2 * rexp (-(π * a) * ↑n ^ 2)
+hsplit :
+  ∑' (m : ℤ), ↑m ^ 2 * rexp (-(π * a) * ↑m ^ 2) =
+    ∑' (n : ℕ), ↑↑n ^ 2 * rexp (-(π * a) * ↑↑n ^ 2) + ∑' (n : ℕ), ↑(↑n + 1) ^ 2 * rexp (-(π * a) * ↑(↑n + 1) ^ 2)
+hz2 : ∑' (b : ℕ), ↑b ^ 2 * rexp (-(π * a) * ↑b ^ 2) = 0 + ∑' (b : ℕ), ↑(b + 1) ^ 2 * rexp (-(π * a) * ↑(b + 1) ^ 2)
+hf0 : ↑0 ^ 2 * rexp (-(π * a) * ↑0 ^ 2) = 0
+a✝ :
+  4 / (a * √a) <
+    ∑' (n : ℕ), ↑↑n ^ 2 * rexp (-(π * a) * ↑↑n ^ 2) + ∑' (n : ℕ), ↑(↑n + 1) ^ 2 * rexp (-(π * a) * ↑(↑n + 1) ^ 2)
+⊢ False
+failed

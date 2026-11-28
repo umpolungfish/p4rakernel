@@ -1,4 +1,4 @@
-import Mathlib.Analysis.Distribution.SchwartzSpace
+import Mathlib.Analysis.Distribution.SchwartzSpace.Deriv
 import Mathlib.LinearAlgebra.DFinsupp
 import Imscribing.YangMills.OSBorchersBridge
 import Imscribing.YangMills.ClayReductionBridge
@@ -24,7 +24,7 @@ open scoped InnerProductSpace
 
 /-- Positive-time Schwartz test functions on `(ℝ⁴)ⁿ`.
     At degree `0`, the vacuum scalar `ℂ` carries no time-support restriction. -/
-def PosSchwartzSubmodule (n : ℕ) :
+noncomputable def PosSchwartzSubmodule (n : ℕ) :
     Submodule ℂ (ContinuumInterfaces.EuclideanSchwartz n) where
   carrier := { f | n = 0 ∨ ∀ x, f x ≠ 0 → ∀ i : Fin n, 0 < (x i) 0 }
   zero_mem' := by
@@ -32,7 +32,7 @@ def PosSchwartzSubmodule (n : ℕ) :
     intro x h0
     exact absurd rfl h0
   add_mem' := by
-    rintro a b (rfl | ha) (rfl | hb)
+    rintro a b (h_n0_0 | ha) (h_n0_1 | hb) <;> (try subst h_n0_0) <;> (try subst h_n0_1)
     · left; rfl
     · left; rfl
     · left; rfl
@@ -44,7 +44,7 @@ def PosSchwartzSubmodule (n : ℕ) :
         exact hb x hbx i
       · exact ha x hax i
   smul_mem' := by
-    rintro c a (rfl | ha)
+    rintro c a (h_n0_0 | ha) <;> (try subst h_n0_0)
     · left; rfl
     · right
       intro x hx i
@@ -54,6 +54,20 @@ def PosSchwartzSubmodule (n : ℕ) :
 
 /-- Concrete Borchers positive-time Euclidean tensor algebra `⨁ₙ 𝓢₊((ℝ⁴)ⁿ, ℂ)`. -/
 abbrev BorchersPos : Type := Π₀ n : ℕ, PosSchwartzSubmodule n
+
+set_option synthInstance.maxHeartbeats 200000
+set_option maxHeartbeats 800000
+
+noncomputable instance (priority := high) instAddCommMonoidPosSchwartz (n : ℕ) :
+    AddCommMonoid (PosSchwartzSubmodule n) := inferInstance
+noncomputable instance (priority := high) instModulePosSchwartz (n : ℕ) :
+    Module ℂ (PosSchwartzSubmodule n) := Submodule.module (PosSchwartzSubmodule n)
+noncomputable instance (priority := high) instAddCommMonoidBorchersPos :
+    AddCommMonoid BorchersPos := DFinsupp.addCommMonoid
+noncomputable instance (priority := high) instModuleBorchersPos :
+    Module ℂ BorchersPos := DFinsupp.module
+noncomputable instance (priority := high) instSMulBorchersPos :
+    SMul ℂ BorchersPos := instModuleBorchersPos.toSMul
 
 /-- Vacuum unit in degree 0 of `BorchersPos`. -/
 noncomputable def borchersVac : BorchersPos :=
@@ -97,7 +111,7 @@ structure BorchersOSData (N : ℕ) where
     letI : NormedAddCommGroup (BorchersPos ⧸ OSBorchers.nullSubmodule pre) :=
       core.toNormedAddCommGroup
     letI : InnerProductSpace ℂ (BorchersPos ⧸ OSBorchers.nullSubmodule pre) :=
-      InnerProductSpace.ofCore core
+      InnerProductSpace.ofCore core.toCore
     let H := UniformSpace.Completion (BorchersPos ⧸ OSBorchers.nullSubmodule pre)
     let Ω : H := ((Submodule.Quotient.mk borchersVac : BorchersPos ⧸ OSBorchers.nullSubmodule pre) : H)
     ∃ (U : ClaySpec.Poincare4 → H →ₗᵢ[ℂ] H)
@@ -118,7 +132,7 @@ structure BorchersOSData (N : ℕ) where
         ∀ hΩ hg, ⟪Ω, field f ⟨field g ⟨Ω, hΩ⟩, hg⟩⟫_ℂ ≠ 0)
 
 /-- Package `BorchersOSData N` into `OSBorchers.EuclideanPreData BorchersPos`. -/
-def toEuclideanPreData {N : ℕ} (D : BorchersOSData N) :
+noncomputable def toEuclideanPreData {N : ℕ} (D : BorchersOSData N) :
     OSBorchers.EuclideanPreData BorchersPos where
   B := D.B
   B_add_left := D.B_add_left
@@ -141,6 +155,105 @@ def toEuclideanPreData {N : ℕ} (D : BorchersOSData N) :
 /-- **Unconditional Borchers-to-Clay Reduction:**
     Every `BorchersOSData N` produces a strict Clay 4D `WightmanQFT4D` satisfying
     `HasYangMillsUVScaling N Q` and `HasStrictMassGap Q D.Δ`. -/
+private theorem lift_os_input_universe {N : ℕ}
+    (inData0 : ClayReduction.OSReconstructedInput.{0} N) :
+    ∃ Q, ClaySpec.HasYangMillsUVScaling N Q ∧ ClaySpec.HasStrictMassGap Q inData0.Δ := by
+  letI := inData0.instNormedAddCommGroup
+  letI := inData0.instInnerProductSpace
+  letI := inData0.instCompleteSpace
+  let H1 : Type 1 := ULift.{1, 0} inData0.H
+  letI : Inner ℂ H1 := ⟨fun x y => ⟪x.down, y.down⟫_ℂ⟩
+  letI : InnerProductSpace ℂ H1 :=
+    { norm_sq_eq_re_inner := fun x => InnerProductSpace.norm_sq_eq_re_inner (𝕜 := ℂ) x.down
+      conj_inner_symm := fun x y => InnerProductSpace.conj_inner_symm x.down y.down
+      add_left := fun x y z => InnerProductSpace.add_left x.down y.down z.down
+      smul_left := fun x y r => InnerProductSpace.smul_left x.down y.down r }
+  let h_norm_ulift : ∀ x : inData0.H, ‖(ULift.up x : H1)‖ = ‖x‖ := fun _ => rfl
+  letI : CompleteSpace H1 := Metric.complete_of_cauchySeq_tendsto fun s hs => by
+    have hdist : ∀ a b : H1, dist a b = dist a.down b.down := fun a b => by
+      rw [dist_eq_norm, dist_eq_norm]; rfl
+    have hs0 : CauchySeq (fun k => (s k).down) := by
+      rw [Metric.cauchySeq_iff] at hs ⊢
+      intro ε hε
+      obtain ⟨N₀, hN₀⟩ := hs ε hε
+      exact ⟨N₀, fun m hm n hn => by simpa [hdist] using hN₀ m hm n hn⟩
+    obtain ⟨x₀, hx₀⟩ := cauchySeq_tendsto_of_complete hs0
+    refine ⟨ULift.up x₀, ?_⟩
+    rw [Metric.tendsto_atTop] at hx₀ ⊢
+    intro ε hε
+    obtain ⟨N₀, hN₀⟩ := hx₀ ε hε
+    exact ⟨N₀, fun k hk => by simpa [hdist] using hN₀ k hk⟩
+  let upIso : inData0.H →ₗᵢ[ℂ] H1 :=
+    { toFun := ULift.up
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl
+      norm_map' := h_norm_ulift }
+  let downIso : H1 →ₗᵢ[ℂ] inData0.H :=
+    { toFun := ULift.down
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl
+      norm_map' := fun x => (h_norm_ulift x.down).symm }
+  let fieldDomain1 : Submodule ℂ H1 := inData0.fieldDomain.map upIso.toLinearMap
+  let domDown : ↥fieldDomain1 →ₗ[ℂ] ↥inData0.fieldDomain :=
+    { toFun := fun ψ => ⟨ψ.1.down, by obtain ⟨x, hx, hxq⟩ := ψ.2; rw [← hxq]; exact hx⟩
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl }
+  let Ω1 : H1 := upIso inData0.Ω
+  let U1 : ClaySpec.Poincare4 → H1 →ₗᵢ[ℂ] H1 :=
+    fun g => upIso.comp ((inData0.U g).comp downIso)
+  let T1 : ℝ → H1 →ₗ[ℂ] H1 :=
+    fun t => upIso.toLinearMap.comp ((inData0.T t).comp downIso.toLinearMap)
+  let field1 : ClaySpec.TestFn4 → ↥fieldDomain1 →ₗ[ℂ] H1 :=
+    fun fn => upIso.toLinearMap.comp ((inData0.field fn).comp domDown)
+  let h_dense1 : Dense (fieldDomain1 : Set H1) := by
+    rw [Metric.dense_iff]
+    intro x ε hε
+    obtain ⟨y, hy_dist, hy_dom⟩ := Metric.dense_iff.mp inData0.fieldDomain_dense x.down ε hε
+    have hd : dist (upIso y) x = dist y x.down := by
+      rw [dist_eq_norm, dist_eq_norm]; rfl
+    refine ⟨upIso y, ?_, ⟨y, hy_dom, rfl⟩⟩
+    rw [Metric.mem_ball, hd]
+    exact Metric.mem_ball.mp hy_dist
+  let inData1 : ClayReduction.OSReconstructedInput.{1} N :=
+    { hN := inData0.hN
+      H := H1
+      Ω := Ω1
+      Ω_norm := by simpa [Ω1, upIso, h_norm_ulift] using inData0.Ω_norm
+      U := U1
+      U_vac := fun g => congrArg ULift.up (inData0.U_vac g)
+      U_time_zero := by ext x; simp [U1, upIso, downIso, inData0.U_time_zero]
+      U_time_add := fun s t => by ext x; simp [U1, upIso, downIso, inData0.U_time_add s t]
+      T := T1
+      T_vac := fun t ht => congrArg ULift.up (inData0.T_vac t ht)
+      T_symm := fun t ht x y => inData0.T_symm t ht x.down y.down
+      T_add := fun s t hs ht x => congrArg ULift.up (inData0.T_add s t hs ht x.down)
+      T_poly := fun x => by
+        obtain ⟨C, k, hC, hk, hbd⟩ := inData0.T_poly x.down
+        exact ⟨C, k, hC, hk, fun t ht => by
+          simpa [T1, upIso, downIso, h_norm_ulift] using hbd t ht⟩
+      Δ := inData0.Δ
+      Δ_pos := inData0.Δ_pos
+      T_decay := fun t ht φ hφ => by
+        simpa [T1, upIso, downIso, h_norm_ulift] using inData0.T_decay t ht φ.down hφ
+      fieldDomain := fieldDomain1
+      fieldDomain_dense := h_dense1
+      Ω_in_fieldDom := ⟨inData0.Ω, inData0.Ω_in_fieldDom, rfl⟩
+      field := field1
+      field_maps_into := fun fn ψ =>
+        ⟨(inData0.field fn) (domDown ψ), inData0.field_maps_into fn (domDown ψ), rfl⟩
+      locality := fun a b hab ψ =>
+        congrArg ULift.up (inData0.locality a b hab (domDown ψ))
+      variance_witness := upIso inData0.variance_witness
+      variance_strict := by simpa [Ω1, upIso, h_norm_ulift] using inData0.variance_strict
+      separated_f := inData0.separated_f
+      separated_g := inData0.separated_g
+      separated_disjoint := inData0.separated_disjoint
+      separated_2pt_nz := inData0.separated_2pt_nz }
+  refine ⟨ClayReduction.toWightmanQFT4D inData1, ?_⟩
+  have h_target := ClayReduction.clay_target_from_os_input inData1
+  dsimp only [letFun] at h_target
+  exact h_target
+
 theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
     ∃ (Q : ClaySpec.WightmanQFT4D),
       ClaySpec.HasYangMillsUVScaling N Q ∧ ClaySpec.HasStrictMassGap Q D.Δ := by
@@ -149,7 +262,7 @@ theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
   letI : NormedAddCommGroup (BorchersPos ⧸ OSBorchers.nullSubmodule pre) :=
     core.toNormedAddCommGroup
   letI : InnerProductSpace ℂ (BorchersPos ⧸ OSBorchers.nullSubmodule pre) :=
-    InnerProductSpace.ofCore core
+    InnerProductSpace.ofCore core.toCore
   obtain ⟨T, hΩ_norm, hT_vac, hT_symm, hT_add, hT_contr, hT_decay⟩ :=
     OSBorchers.os_borchers_to_completion pre
   have hvar := OSBorchers.strict_variance_in_completion pre D.variance_strict
@@ -158,7 +271,7 @@ theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
   let H := UniformSpace.Completion (BorchersPos ⧸ OSBorchers.nullSubmodule pre)
   let Ω : H := ((Submodule.Quotient.mk borchersVac :
     BorchersPos ⧸ OSBorchers.nullSubmodule pre) : H)
-  let inData : ClayReduction.OSReconstructedInput N :=
+  let inData0 : ClayReduction.OSReconstructedInput.{0} N :=
     { hN := D.hN
       H := H
       Ω := Ω
@@ -167,12 +280,12 @@ theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
       U_vac := hU_vac
       U_time_zero := hU_zero
       U_time_add := hU_add
-      T := T
+      T := fun t => (T t).toLinearMap
       T_vac := hT_vac
       T_symm := hT_symm
       T_add := hT_add
-      T_poly := fun x => ⟨‖x‖ + 1, 0, by positivity, le_rfl, fun t _ => by
-        simpa using le_trans (hT_contr t (by assumption) x) (by linarith)⟩
+      T_poly := fun x => ⟨‖x‖ + 1, 0, by positivity, le_rfl, fun t ht => by
+        simpa using le_trans (hT_contr t ht x) (le_add_of_nonneg_right zero_le_one)⟩
       Δ := D.Δ
       Δ_pos := D.Δ_pos
       T_decay := hT_decay
@@ -181,7 +294,7 @@ theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
       Ω_in_fieldDom := hΩ_dom
       field := field
       field_maps_into := h_maps
-      locality := fun a b hab ψ => h_loc a b hab ψ _ _
+      locality := fun a b hab ψ => h_loc a b hab ψ (h_maps b ψ) (h_maps a ψ)
       variance_witness := ((Submodule.Quotient.mk D.variance_elem :
         BorchersPos ⧸ OSBorchers.nullSubmodule pre) : H)
       variance_strict := hvar
@@ -189,6 +302,6 @@ theorem borchers_to_clay_target {N : ℕ} (D : BorchersOSData N) :
       separated_g := g
       separated_disjoint := h_disj
       separated_2pt_nz := h_2pt hΩ_dom (h_maps g ⟨Ω, hΩ_dom⟩) }
-  exact ⟨ClayReduction.toWightmanQFT4D inData, ClayReduction.clay_target_from_os_input inData⟩
+  exact lift_os_input_universe inData0
 
 end Imscribing.YangMills.BorchersReconstruction

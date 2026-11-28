@@ -1907,7 +1907,7 @@ theorem sic_exists_of_constant_overlap (d : ℕ) [NeZero d] (hd : 2 ≤ d)
     simpa [Millennium.SIC_POVM_Stark.wh_normSq] using hunit
   have him : (Millennium.SIC_POVM_Stark.wh_inner d ψ ψ).im = 0 := by
     simp [Millennium.SIC_POVM_Stark.wh_inner]
-    ring
+    ring_nf
     simp
   have hzero : ‖Millennium.SIC_POVM_Stark.wh_inner d ψ
       (Millennium.SIC_POVM_Stark.D_ah d 0 0 0 ψ)‖ ^ 2 = 1 := by

@@ -1,0 +1,44 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveTheta.lean:41:54: error: Type mismatch
+  con
+has type
+  ℂ
+but is expected to have type
+  ℝ
+Imscribing/Millennium/StarkRungFiveTheta.lean:44:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ((↑t - 2 * I) / con).re
+in the target expression
+  ∑' (n : ℤ), cexp (-↑π * ((↑t - 2 * I) / con) * ↑n ^ 2) =
+    1 / ((↑t - 2 * I) / con) ^ (1 / 2) * ∑' (n : ℤ), cexp (-↑π / ((↑t - 2 * I) / con) * ↑n ^ 2)
+
+con : ℂ
+t : ℝ
+ht : 0 < t
+hre : ((↑t - 2 * I) / con).re = t / sorry
+⊢ ∑' (n : ℤ), cexp (-↑π * ((↑t - 2 * I) / con) * ↑n ^ 2) =
+    1 / ((↑t - 2 * I) / con) ^ (1 / 2) * ∑' (n : ℤ), cexp (-↑π / ((↑t - 2 * I) / con) * ↑n ^ 2)
+Imscribing/Millennium/StarkRungFiveTheta.lean:61:14: error: don't know how to synthesize implicit argument `con`
+  @chirp_theta ?m.342 t ht
+context:
+con : ℂ
+t : ℝ
+ht : 0 < t
+hterm :
+  ∀ (n : ℤ), cexp (2 * ↑π * I * (↑n ^ 2 / con) - ↑π * ↑t * (↑n ^ 2 / con)) = cexp (-↑π * ((↑t - 2 * I) / con) * ↑n ^ 2)
+⊢ ℂ
+Imscribing/Millennium/StarkRungFiveTheta.lean:61:7: error: failed to infer `have` declaration type
+Imscribing/Millennium/StarkRungFiveTheta.lean:54:82: error: unsolved goals
+con : ℂ
+t : ℝ
+ht : 0 < t
+hterm :
+  ∀ (n : ℤ), cexp (2 * ↑π * I * (↑n ^ 2 / con) - ↑π * ↑t * (↑n ^ 2 / con)) = cexp (-↑π * ((↑t - 2 * I) / con) * ↑n ^ 2)
+⊢ ∑' (n : ℤ), cexp (2 * ↑π * I * (↑n ^ 2 / con) - ↑π * ↑t * (↑n ^ 2 / con)) =
+    1 / ((↑t - 2 * I) / con) ^ (1 / 2) * ∑' (n : ℤ), cexp (-↑π / ((↑t - 2 * I) / con) * ↑n ^ 2)

@@ -39,8 +39,12 @@ noncomputable def extendIsometryFromDense
       rw [← dist_eq_norm, dist_comm]
       exact (Classical.choose_spec (h_approx x n)).le
     have h_rhs0 : Filter.Tendsto (fun n : ℕ => 1 / ((n : ℝ) + 1)) Filter.atTop (𝓝 0) :=
-      tendsto_const_nhds.div_atTop
-        (Filter.tendsto_natCast_atTop_atTop.atTop_add tendsto_const_nhds)
+      Metric.tendsto_atTop.mpr fun ε hε => by
+        obtain ⟨N, hN⟩ := exists_nat_one_div_lt hε
+        refine ⟨N, fun n hn => ?_⟩
+        rw [Real.dist_eq, sub_zero, abs_of_pos (by positivity)]
+        exact lt_of_le_of_lt
+          (one_div_le_one_div_of_le (by positivity) (by exact_mod_cast Nat.add_le_add_right hn 1)) hN
     exact squeeze_zero (fun _ => norm_nonneg _) h_bd h_rhs0
   have h_U_cauchy : ∀ s : ℕ → D₀, ∀ x : H,
       Filter.Tendsto (fun n => (s n : H)) Filter.atTop (𝓝 x) →
@@ -51,7 +55,7 @@ noncomputable def extendIsometryFromDense
     intro ε hε
     obtain ⟨N, hN⟩ := h_cs ε hε
     refine ⟨N, fun m hm n hn => ?_⟩
-    rw [dist_eq_norm, ← map_sub, h_iso (s m - s n)]
+    rw [dist_eq_norm, ← map_sub, h_iso (s m - s n), Submodule.coe_sub, ← dist_eq_norm]
     exact hN m hm n hn
   have h_lim_ex : ∀ x : H, ∃ y : H,
       Filter.Tendsto (fun n => U₀ (seq x n)) Filter.atTop (𝓝 y) := fun x =>
@@ -105,7 +109,7 @@ noncomputable def extendIsometryFromDense
   have h_ext : ∀ ψ : D₀, Ufun (ψ : H) = U₀ ψ := by
     intro ψ
     have h1 := h_unique (s := fun _ => ψ) tendsto_const_nhds
-    exact (tendsto_nhds_unique h1 tendsto_const_nhds).symm
+    exact tendsto_nhds_unique h1 tendsto_const_nhds
   exact ⟨{ toFun := Ufun, map_add' := h_add, map_smul' := h_smul, norm_map' := h_norm }, h_ext⟩
 
 end DenseExtend
@@ -145,8 +149,13 @@ theorem iterIso_comm_comp (f g : H →ₗᵢ[ℂ] H)
   induction k with
   | zero => simp [iterIso]
   | succ k ih =>
-      simp only [iterIso_apply, LinearIsometry.comp_apply, ih]
-      rw [h_swap]
+      have h_swap_g : ∀ (m : ℕ) (y : H), g (iterIso f m y) = iterIso f m (g y) := by
+        intro m
+        induction m with
+        | zero => intro y; simp [iterIso]
+        | succ m ihm => intro y; simp only [iterIso_apply, ihm, ← hcomm]
+      change f (g (iterIso (f.comp g) k x)) = f (iterIso f k (g (iterIso g k x)))
+      rw [ih, h_swap_g]
 
 /-- **Local-to-Global 1-Parameter Unitary Group Extension:**
     Extends any local isometry family `U_loc` on `(-δ, δ)` (`δ > 0`) to a global
@@ -186,14 +195,16 @@ noncomputable def globalUnitaryGroupFromLocal
               have hle : (1 : ℝ) ≤ ((m' + 2 : ℕ) : ℝ) := by
                 exact_mod_cast (by omega : 1 ≤ m' + 2)
               have : |u| ≤ |((m' + 2 : ℕ) : ℝ) * u| := by
-                rw [abs_mul, abs_of_pos (by positivity)]
+                rw [abs_mul, abs_of_nonneg (a := ((m' + 2 : ℕ) : ℝ)) (Nat.cast_nonneg _)]
                 exact le_mul_of_one_le_left (abs_nonneg u) hle
               exact lt_of_le_of_lt this hku
             have hprev_lt : |((m' + 1 : ℕ) : ℝ) * u| < δ := by
               have hle : ((m' + 1 : ℕ) : ℝ) ≤ ((m' + 2 : ℕ) : ℝ) := by
                 exact_mod_cast (by omega : m' + 1 ≤ m' + 2)
               have : |((m' + 1 : ℕ) : ℝ) * u| ≤ |((m' + 2 : ℕ) : ℝ) * u| := by
-                rw [abs_mul, abs_mul, abs_of_nonneg (Nat.cast_nonneg _), abs_of_nonneg (Nat.cast_nonneg _)]
+                rw [abs_mul, abs_mul,
+                  abs_of_nonneg (a := ((m' + 1 : ℕ) : ℝ)) (Nat.cast_nonneg _),
+                  abs_of_nonneg (a := ((m' + 2 : ℕ) : ℝ)) (Nat.cast_nonneg _)]
                 exact mul_le_mul_of_nonneg_right hle (abs_nonneg u)
               exact lt_of_le_of_lt this hku
             have hadd_eq : ((m' + 2 : ℕ) : ℝ) * u = u + ((m' + 1 : ℕ) : ℝ) * u := by

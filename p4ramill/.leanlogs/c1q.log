@@ -1,0 +1,108 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk1probe.lean:117:29: warning: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵ ̵Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+../../chunk1probe.lean:127:13: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  simp only [̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲d̲i̲v̲_̲i̲m̲,̲ Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+../../chunk1probe.lean:143:2: error: unsolved goals
+case refine_1
+t : ℝ
+ht : 0 < t
+n : ℤ
+hq2 : ↑n ^ 2 = ↑(↑n ^ 2)
+h2r : re 2 = 2
+h2i : im 2 = 0
+⊢ -(π * t * (4 + t ^ 2)⁻¹ * ↑n ^ 2 * 4190205) - (4 + t ^ 2)⁻¹ * (-↑π).im * ↑n ^ 2 * 8380410 =
+    -(π * t * (4 + t ^ 2)⁻¹ * ↑n ^ 2 * 4190205)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+../../chunk1probe.lean:147:2: error: unsolved goals
+case refine_2
+t : ℝ
+ht : 0 < t
+n : ℤ
+hq2 : ↑n ^ 2 = ↑(↑n ^ 2)
+h2r : re 2 = 2
+h2i : im 2 = 0
+⊢ (-↑π).re * (4 + t ^ 2)⁻¹ * ↑n ^ 2 * 8380410 = -((4 + t ^ 2)⁻¹ * ↑n ^ 2 * π * 8380410)
+../../chunk1probe.lean:174:13: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℤ
+harg :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑n ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑n ^ 2) * I
+⊢ π * (4190205 * 2 / (↑t ^ 2 + 4)).re * (↑n ^ 2).im + π * (4190205 * 2 / (↑t ^ 2 + 4)).im * (↑n ^ 2).re = 0
+../../chunk1probe.lean:185:80: error: No goals to be solved
+../../chunk1probe.lean:273:42: error: Application type mismatch: The argument
+  hneg
+has type
+  -π * a ≤ 0
+but is expected to have type
+  -(π * a) ≤ 0
+in the application
+  mul_le_mul_of_nonpos_left hge hneg
+../../chunk1probe.lean:280:98: error: Application type mismatch: The argument
+  h2
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ rexp (-(π * a) * ↑(n + 1) ^ 2)
+but is expected to have type
+  ↑(n + 1) ^ 2 ≤ ↑(n + 1) ^ 2
+in the application
+  mul_le_mul_of_nonneg_right h2
+../../chunk1probe.lean:276:10: error: Type mismatch
+  mul_le_mul_of_nonneg_right h1 (exp_nonneg ?m.695)
+has type
+  ↑(2 * n + 1) ^ 2 * rexp ?m.695 ≤ 4 * ↑(n + 1) ^ 2 * rexp ?m.695
+but is expected to have type
+  ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ 4 * ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+../../chunk1probe.lean:311:42: error: Application type mismatch: The argument
+  hneg
+has type
+  -π * a ≤ 0
+but is expected to have type
+  -(π * a) ≤ 0
+in the application
+  mul_le_mul_of_nonpos_left hge hneg
+../../chunk1probe.lean:318:98: error: Application type mismatch: The argument
+  h2
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ rexp (-(π * a) * ↑(n + 1) ^ 2)
+but is expected to have type
+  ↑(n + 1) ^ 2 ≤ ↑(n + 1) ^ 2
+in the application
+  mul_le_mul_of_nonneg_right h2
+../../chunk1probe.lean:314:10: error: Type mismatch
+  mul_le_mul_of_nonneg_right h1 (exp_nonneg ?m.721)
+has type
+  ↑(2 * n + 1) ^ 2 * rexp ?m.721 ≤ 4 * ↑(n + 1) ^ 2 * rexp ?m.721
+but is expected to have type
+  ↑(2 * n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ 4 * ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)

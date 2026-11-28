@@ -1,0 +1,88 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveAsympt.lean:40:10: error: mod_cast has type
+  n ≤ n * n
+but is expected to have type
+  n * 1 ≤ n * n
+Imscribing/Millennium/StarkRungFiveAsympt.lean:43:6: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+n : ℕ
+hsq : ↑n ^ 2 ≥ ↑n * 1
+a✝ : -π * a * ↑n < -π * a * ↑n ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:35:2: error: unsolved goals
+case refine_1.calc.step
+a : ℝ
+ha : 0 < a
+n : ℕ
+hsq : ↑n ^ 2 ≥ ↑n * 1
+hmono : -π * a * ↑n ^ 2 ≤ -π * a * ↑n
+⊢ rexp (-π * a) ^ n ≤ a ^ n
+Imscribing/Millennium/StarkRungFiveAsympt.lean:50:58: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+a✝ : 0 ≤ -π * a
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:51:4: error: Type mismatch: After simplification, term
+  hlt
+ has type
+  0 < π * a
+but is expected to have type
+  a < 1
+Imscribing/Millennium/StarkRungFiveAsympt.lean:63:2: error: Type mismatch: After simplification, term
+  summable_gaussNat a ha
+ has type
+  Summable fun n => rexp (-π * a * ↑n ^ 2)
+but is expected to have type
+  Summable fun n => rexp (-π * a * ↑(-↑n) ^ 2)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:76:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a * ?b * ?c
+in the target expression
+  (fun t => s ^ (1 / 2) * t) (∑' (n : ℤ), rexp (-π * s * ↑n ^ 2)) =
+    (fun t => s ^ (1 / 2) * t) (1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2))
+
+s : ℝ
+hs : 0 < s
+h : ∑' (n : ℤ), rexp (-π * s * ↑n ^ 2) = 1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)
+h2 :
+  (fun t => s ^ (1 / 2) * t) (∑' (n : ℤ), rexp (-π * s * ↑n ^ 2)) =
+    (fun t => s ^ (1 / 2) * t) (1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2))
+⊢ s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * s * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:90:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun β : ℝ => (β : ℝ)⁻¹)
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:91:8: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+x✝ : Sort u_1
+Tendsto : x✝
+⊢ sorry
+Imscribing/Millennium/StarkRungFiveAsympt.lean:114:4: error: Function expected at
+  Tendsto
+but this term has type
+  ?m.1
+
+Note: Expected a function because this term is being applied to the argument
+  (fun β : ℝ => (β ^ ((1 : ℝ) / 2)) * ∑' n : ℤ, exp (-π * β * ((n : ℤ) : ℝ) ^ 2))
+
+Hint: The identifier `Tendsto` is unknown, and Lean's `autoImplicit` option causes an unknown identifier to be treated as an implicitly bound variable with an unknown type. However, the unknown type cannot be a function, and a function is what Lean expects here. This is often the result of a typo or a missing `import` or `open` statement.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:120:9: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  Tendsto
+has type `x✝` which does not have the necessary form.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:121:2: error: No goals to be solved

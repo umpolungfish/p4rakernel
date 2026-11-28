@@ -1,0 +1,48 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk1probe.lean:117:29: warning: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵ ̵Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+../../chunk1probe.lean:127:13: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  simp only [̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲d̲i̲v̲_̲i̲m̲,̲ Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+../../chunk1probe.lean:133:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk1probe.lean:176:15: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℤ
+harg :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑n ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑n ^ 2) * I
+⊢ π * (4190205 * 2 / (↑t ^ 2 + 4)).re * (↑n ^ 2).im + π * (4190205 * 2 / (↑t ^ 2 + 4)).im * (↑n ^ 2).re = 0
+../../chunk1probe.lean:187:80: error: No goals to be solved
+../../chunk1probe.lean:282:65: error: Type mismatch
+  mul_le_mul_of_nonneg_right h2 (sq_nonneg ?m.856)
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) * ?m.856 ^ 2 ≤ rexp (-(π * a) * ↑(n + 1) ^ 2) * ?m.856 ^ 2
+but is expected to have type
+  ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+../../chunk1probe.lean:320:65: error: Type mismatch
+  mul_le_mul_of_nonneg_right h2 (sq_nonneg ?m.882)
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) * ?m.882 ^ 2 ≤ rexp (-(π * a) * ↑(n + 1) ^ 2) * ?m.882 ^ 2
+but is expected to have type
+  ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)

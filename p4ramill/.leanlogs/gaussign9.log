@@ -1,0 +1,50 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:277:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ i ∈ ?s, ?a * ?f i
+in the target expression
+  ∑ b, ∑ t, f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t)) = 0
+
+d m : ℕ
+inst✝ : NeZero (d * m)
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hmN : NeZero m
+hd0 : d ≠ 0
+hdN : NeZero d
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m := chineseRemainder hcop
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hlt : 1 < d * m
+hnz : hE.symm (0, 1) ≠ 0
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = (hE z).1
+hreindex : ∑ x, f x * stdAddChar x = ∑ p, f (hE.symm p) * stdAddChar (hE.symm p)
+hsplit :
+  ∀ (b : ZMod d) (t : ZMod m),
+    f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t)) =
+      f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+hψt :
+  ∀ (t : ZMod m),
+    (stdAddChar.compAddMonoidHom (hE.symm.toAddMonoidHom.comp (AddMonoidHom.inr (ZMod d) (ZMod m)))) t =
+      stdAddChar (hE.symm (0, t))
+hψ₀ne : stdAddChar.compAddMonoidHom (hE.symm.toAddMonoidHom.comp (AddMonoidHom.inr (ZMod d) (ZMod m))) ≠ 0
+hsum :
+  ∑ b, ∑ t, f (hE.symm (b, t)) * stdAddChar (hE.symm (b, t)) =
+    ∑ b, ∑ t, f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t))
+⊢ ∑ b, ∑ t, f (hE.symm (b, 0)) * stdAddChar (hE.symm (b, 0)) * stdAddChar (hE.symm (0, t)) = 0

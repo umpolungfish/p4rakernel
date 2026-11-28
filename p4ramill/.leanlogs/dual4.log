@@ -1,0 +1,192 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:48:60: error: unsolved goals
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+⊢ rexp 0 = 1
+Imscribing/Millennium/StarkRungFiveDual.lean:90:8: error: Type mismatch: After simplification, term
+  exp_lt_exp.mpr
+    (have this :=
+      lt_of_not_ge fun a =>
+        Mathlib.Tactic.Linarith.lt_irrefl
+          (Eq.mp
+            (congrArg (fun _a => _a < 0)
+              (Mathlib.Tactic.Ring.of_eq
+                (Mathlib.Tactic.Ring.add_congr
+                  (Mathlib.Tactic.Ring.sub_congr
+                    (Mathlib.Tactic.Ring.cast_zero (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero))
+                    (Mathlib.Tactic.Ring.mul_congr
+                      (Mathlib.Tactic.Ring.neg_congr (Mathlib.Tactic.Ring.atom_pf π)
+                        (Mathlib.Tactic.Ring.neg_add
+                          (Mathlib.Tactic.Ring.neg_mul π (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.neg_one_mul
+                              (Mathlib.Meta.NormNum.IsInt.to_raw_eq
+                                (Mathlib.Meta.NormNum.isInt_mul (Eq.refl HMul.hMul)
+                                  (Mathlib.Meta.NormNum.IsInt.of_raw ℝ (Int.negOfNat 1))
+                                  (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.IsNat.of_raw ℝ 1))
+                                  (Eq.refl (Int.negOfNat 1))))))
+                          Mathlib.Tactic.Ring.neg_zero))
+                      (Mathlib.Tactic.Ring.atom_pf s)
+                      (Mathlib.Tactic.Ring.add_mul
+                        (Mathlib.Tactic.Ring.mul_add
+                          (Mathlib.Tactic.Ring.mul_pf_left π (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.mul_pf_right s (Nat.rawCast 1)
+                              (Mathlib.Tactic.Ring.mul_one (Int.negOfNat 1).rawCast)))
+                          (Mathlib.Tactic.Ring.mul_zero (π ^ Nat.rawCast 1 * (Int.negOfNat 1).rawCast))
+                          (Mathlib.Tactic.Ring.add_pf_add_zero
+                            (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * (Int.negOfNat 1).rawCast) + 0)))
+                        (Mathlib.Tactic.Ring.zero_mul (s ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                        (Mathlib.Tactic.Ring.add_pf_add_zero
+                          (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * (Int.negOfNat 1).rawCast) + 0))))
+                    (Mathlib.Tactic.Ring.sub_pf
+                      (Mathlib.Tactic.Ring.neg_add
+                        (Mathlib.Tactic.Ring.neg_mul π (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.neg_mul s (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.neg_one_mul
+                              (Mathlib.Meta.NormNum.IsNat.to_raw_eq
+                                (Mathlib.Meta.NormNum.IsInt.to_isNat
+                                  (Mathlib.Meta.NormNum.isInt_mul (Eq.refl HMul.hMul)
+                                    (Mathlib.Meta.NormNum.IsInt.of_raw ℝ (Int.negOfNat 1))
+                                    (Mathlib.Meta.NormNum.IsInt.of_raw ℝ (Int.negOfNat 1)) (Eq.refl (Int.ofNat 1))))))))
+                        Mathlib.Tactic.Ring.neg_zero)
+                      (Mathlib.Tactic.Ring.add_pf_zero_add
+                        (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * Nat.rawCast 1) + 0))))
+                  (Mathlib.Tactic.Ring.sub_congr
+                    (Mathlib.Tactic.Ring.cast_zero (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero))
+                    (Mathlib.Tactic.Ring.mul_congr (Mathlib.Tactic.Ring.atom_pf π) (Mathlib.Tactic.Ring.atom_pf s)
+                      (Mathlib.Tactic.Ring.add_mul
+                        (Mathlib.Tactic.Ring.mul_add
+                          (Mathlib.Tactic.Ring.mul_pf_left π (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.mul_pf_right s (Nat.rawCast 1)
+                              (Mathlib.Tactic.Ring.one_mul (Nat.rawCast 1))))
+                          (Mathlib.Tactic.Ring.mul_zero (π ^ Nat.rawCast 1 * Nat.rawCast 1))
+                          (Mathlib.Tactic.Ring.add_pf_add_zero
+                            (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * Nat.rawCast 1) + 0)))
+                        (Mathlib.Tactic.Ring.zero_mul (s ^ Nat.rawCast 1 * Nat.rawCast 1 + 0))
+                        (Mathlib.Tactic.Ring.add_pf_add_zero
+                          (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * Nat.rawCast 1) + 0))))
+                    (Mathlib.Tactic.Ring.sub_pf
+                      (Mathlib.Tactic.Ring.neg_add
+                        (Mathlib.Tactic.Ring.neg_mul π (Nat.rawCast 1)
+                          (Mathlib.Tactic.Ring.neg_mul s (Nat.rawCast 1)
+                            (Mathlib.Tactic.Ring.neg_one_mul
+                              (Mathlib.Meta.NormNum.IsInt.to_raw_eq
+                                (Mathlib.Meta.NormNum.isInt_mul (Eq.refl HMul.hMul)
+                                  (Mathlib.Meta.NormNum.IsInt.of_raw ℝ (Int.negOfNat 1))
+                                  (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.IsNat.of_raw ℝ 1))
+                                  (Eq.refl (Int.negOfNat 1)))))))
+                        Mathlib.Tactic.Ring.neg_zero)
+                      (Mathlib.Tactic.Ring.add_pf_zero_add
+                        (π ^ Nat.rawCast 1 * (s ^ Nat.rawCast 1 * (Int.negOfNat 1).rawCast) + 0))))
+                  (Mathlib.Tactic.Ring.add_pf_add_overlap_zero
+                    (Mathlib.Tactic.Ring.add_overlap_pf_zero π (Nat.rawCast 1)
+                      (Mathlib.Tactic.Ring.add_overlap_pf_zero s (Nat.rawCast 1)
+                        (Mathlib.Meta.NormNum.IsInt.to_isNat
+                          (Mathlib.Meta.NormNum.isInt_add (Eq.refl HAdd.hAdd)
+                            (Mathlib.Meta.NormNum.IsNat.to_isInt (Mathlib.Meta.NormNum.IsNat.of_raw ℝ 1))
+                            (Mathlib.Meta.NormNum.IsInt.of_raw ℝ (Int.negOfNat 1)) (Eq.refl (Int.ofNat 0))))))
+                    (Mathlib.Tactic.Ring.add_pf_zero_add 0)))
+                (Mathlib.Tactic.Ring.cast_zero (Mathlib.Meta.NormNum.isNat_ofNat ℝ Nat.cast_zero))))
+            (Mathlib.Tactic.Linarith.add_lt_of_le_of_neg (Mathlib.Tactic.Linarith.sub_nonpos_of_le a)
+              (Mathlib.Tactic.Linarith.sub_neg_of_lt (mul_pos pi_pos hs))));
+    this)
+ has type
+  0 < π * s
+but is expected to have type
+  ?m.49 < 0
+Imscribing/Millennium/StarkRungFiveDual.lean:88:74: error: unsolved goals
+s : ℝ
+hs : 0 < s
+hg : Summable ((fun n => rexp sorry ^ n) ∘ Nat.succ)
+⊢ Summable fun n => rexp (-π * s * ↑(n + 1) ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:125:48: error: unsolved goals
+hr1 : rexp (-π) < 1
+h3 : 3 < π
+hp : rexp 3 < rexp π
+he : 2.7182818283 < rexp 1
+⊢ rexp 3 = rexp (1 + 1 + 1)
+Imscribing/Millennium/StarkRungFiveDual.lean:145:37: error: Application type mismatch: The argument
+  hshr
+has type
+  Summable fun n => rexp (-π) * rexp (-π) ^ n
+but is expected to have type
+  Summable (HPow.hPow (rexp (-π)))
+in the application
+  Summable.tsum_mul_left (rexp (-π)) hshr
+Imscribing/Millennium/StarkRungFiveDual.lean:146:12: error(lean.invalidField): Invalid field `tsum_congr`: The environment does not contain `Function.tsum_congr`, so it is not possible to project the field `tsum_congr` from an expression
+  hfn
+of type
+  ∀ (n : ℕ), rexp (-π * (↑n + 1)) = rexp (-π) ^ (n + 1)
+Imscribing/Millennium/StarkRungFiveDual.lean:151:58: error: Application type mismatch: The argument
+  pi_pos
+has type
+  0 < π
+but is expected to have type
+  0 < 1
+in the application
+  summable_gaussReal 1 pi_pos
+Imscribing/Millennium/StarkRungFiveDual.lean:152:25: error: Application type mismatch: The argument
+  pi_pos
+has type
+  0 < π
+but is expected to have type
+  0 < 1
+in the application
+  summable_gaussNat 1 pi_pos
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:153:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (m : ℤ), rexp (-π * 1 * ↑m ^ 2)
+in the target expression
+  ∑' (n : ℤ), rexp (-π * ↑n ^ 2) ≤ 21 / 19
+
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hgeom : ∑' (n : ℕ), rexp (-π * (↑n + 1)) ≤ 1 / 19
+hsplit :
+  ∑' (m : ℤ), rexp (-π * 1 * ↑m ^ 2) = ∑' (n : ℕ), rexp (-π * 1 * ↑↑n ^ 2) + ∑' (n : ℕ), rexp (-π * 1 * ↑(↑n + 1) ^ 2)
+⊢ ∑' (n : ℤ), rexp (-π * ↑n ^ 2) ≤ 21 / 19
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:194:26: error(lean.unknownIdentifier): Unknown identifier `n`
+Imscribing/Millennium/StarkRungFiveDual.lean:198:7: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:168:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:227:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:268:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

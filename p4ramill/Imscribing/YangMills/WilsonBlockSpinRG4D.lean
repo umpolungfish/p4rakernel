@@ -38,15 +38,21 @@ private lemma blockOrigin_add_stepDir (k L : ℕ) [NeZero L] (x : Lat4 L) (μ : 
       calc
         k * ((x ν).val + 1) = k * (L * (((x ν).val + 1) / L) + ((x ν).val + 1) % L) := by
             rw [hdiv]
-        _ = (k * L) * (((x ν).val + 1) / L) + k * (((x ν).val + 1) % L) := by ring
+        _ = (k * L) * (((x ν).val + 1) / L) + k * (((x ν).val + 1) % L) := by
+            ring
     have h_eqZ : ((k * ((x ν).val + 1) : ℕ) : ZMod (k * L)) =
         ((k * (((x ν).val + 1) % L) : ℕ) : ZMod (k * L)) := by
-      have hcast := congrArg (Nat.cast (R := ZMod (k * L))) hmul_div
-      push_cast at hcast
-      rw [ZMod.natCast_self, zero_mul, zero_add] at hcast
-      exact hcast
+      calc ((k * ((x ν).val + 1) : ℕ) : ZMod (k * L))
+          = ((k * L * (((x ν).val + 1) / L) + k * (((x ν).val + 1) % L) : ℕ) : ZMod (k * L)) := by
+            rw [hmul_div]
+        _ = ((k * L : ℕ) : ZMod (k * L)) * (((x ν).val + 1) / L : ℕ) +
+            ((k * (((x ν).val + 1) % L) : ℕ) : ZMod (k * L)) := by
+            push_cast; rfl
+        _ = ((k * (((x ν).val + 1) % L) : ℕ) : ZMod (k * L)) := by
+            rw [ZMod.natCast_self, zero_mul, zero_add]
     rw [hmod, ← h_eqZ]
     push_cast
+    simp [stepDir]
     ring
   · simp [blockOrigin, stepDir, hν]
 
@@ -80,6 +86,7 @@ theorem blockLink_applyGauge {N : ℕ} (k L : ℕ) [NeZero L] (hk : 0 < k)
       applyGauge (fun x => g (blockOrigin k L x)) (blockLink k L U) := by
   ext x μ
   unfold blockLink applyGauge
+  rw [show (fun x μ => g x * U x μ * (g (x + stepDir (k * L) μ))⁻¹) = applyGauge g U from rfl]
   rw [pathHolonomy_applyGauge g U hk (blockPath k L x μ) (blockPath_isContiguous k L x μ),
       blockPath_endpoint k L hk x μ]
   have h0 : (blockPath k L x μ ⟨0, hk⟩).1 = blockOrigin k L x := by

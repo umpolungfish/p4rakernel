@@ -72,7 +72,7 @@ theorem generator_gap_of_semigroup_decay
         (⟪ψ, (t⁻¹ : ℂ) • (ψ - T t ψ)⟫_ℂ).re := by
     filter_upwards [self_mem_nhdsWithin] with t (ht : 0 < t)
     have h_cs : (⟪ψ, T t ψ⟫_ℂ).re ≤ ‖ψ‖ * ‖T t ψ‖ :=
-      le_trans (RCLike.re_le_norm _) (norm_inner_le_norm ψ (T t ψ))
+      le_trans (Complex.re_le_norm ⟪ψ, (T t) ψ⟫_ℂ) (norm_inner_le_norm ψ (T t ψ))
     have h_dec := hT_decay t ht.le ψ h_orth
     have h_re_T : (⟪ψ, T t ψ⟫_ℂ).re ≤ Real.exp (-Δ * t) * ‖ψ‖ ^ 2 := by
       have hψnn : 0 ≤ ‖ψ‖ := norm_nonneg ψ
@@ -110,7 +110,17 @@ theorem generator_gap_of_semigroup_decay
       (𝓝[>] 0) (𝓝 (⟪ψ, Hψ⟫_ℂ).re) := by
     have h_inner : Filter.Tendsto (fun t : ℝ => ⟪ψ, (t⁻¹ : ℂ) • (ψ - T t ψ)⟫_ℂ)
         (𝓝[>] 0) (𝓝 ⟪ψ, Hψ⟫_ℂ) :=
-      ((innerSL ℂ ψ).continuous.tendsto Hψ).comp h_gen
+      by
+        rw [tendsto_iff_norm_sub_tendsto_zero]
+        have h_le : ∀ t : ℝ, ‖⟪ψ, (t⁻¹ : ℂ) • (ψ - T t ψ)⟫_ℂ - ⟪ψ, Hψ⟫_ℂ‖ ≤
+            ‖ψ‖ * ‖(t⁻¹ : ℂ) • (ψ - T t ψ) - Hψ‖ := fun t => by
+          rw [← inner_sub_right]
+          exact norm_inner_le_norm ψ _
+        have h_mul : Filter.Tendsto (fun t : ℝ => ‖ψ‖ * ‖(t⁻¹ : ℂ) • (ψ - T t ψ) - Hψ‖)
+            (𝓝[>] 0) (𝓝 (‖ψ‖ * 0)) :=
+          (tendsto_const_nhds (x := ‖ψ‖)).mul (tendsto_iff_norm_sub_tendsto_zero.mp h_gen)
+        rw [mul_zero] at h_mul
+        exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
     exact (Complex.continuous_re.tendsto _).comp h_inner
   exact le_of_tendsto_of_tendsto h_lhs_tend h_rhs_tend h_ineq
 
@@ -129,7 +139,7 @@ theorem nontrivial_orth_of_strict_variance
   · intro hzero
     have hS : S = ⟪Ω, S⟫_ℂ • Ω := sub_eq_zero.mp hzero
     have hnorm : ‖S‖ = ‖⟪Ω, S⟫_ℂ‖ := by
-      rw [hS, norm_smul, hΩ, mul_one]
+      rw [hS, norm_smul, hΩ, mul_one, ← hS]
     linarith
 
 end HilbertGap

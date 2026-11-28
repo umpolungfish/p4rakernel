@@ -1,0 +1,98 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:158:6: error: Type mismatch
+  h20
+has type
+  20 < rexp π
+but is expected to have type
+  20 ≤ rexp π
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:279:53: error: unexpected token 'set_option'; expected 'lemma'
+Imscribing/Millennium/StarkRungFiveDual.lean:290:4: error: Type mismatch
+  summable_const_mul (summable_gaussNat (a / 2) ?m.276) (4 / (π * a))
+has type
+  Summable fun i => 4 / (π * a) * rexp (-π * (a / 2) * ↑i ^ 2)
+but is expected to have type
+  Summable fun k => 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:295:29: error: Application type mismatch: The argument
+  hscaled
+has type
+  Summable fun k => 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2)
+but is expected to have type
+  Summable fun k => rexp (-(π * a / 2) * ↑k ^ 2)
+in the application
+  Summable.tsum_mul_left (4 / (π * a)) hscaled
+Imscribing/Millennium/StarkRungFiveDual.lean:296:61: error: Application type mismatch: The argument
+  hval
+has type
+  ∑' (k : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑k ^ 2) = 4 / (π * a) * ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2)
+but is expected to have type
+  ∑' (i : ℕ), 4 / (π * a) * rexp (-(π * a / 2) * ↑i ^ 2) ≤ ?m.512
+in the application
+  LE.le.trans (Summable.tsum_le_tsum hpt hl hscaled) hval
+Imscribing/Millennium/StarkRungFiveDual.lean:317:60: error: unexpected token 'set_option'; expected 'lemma'
+Imscribing/Millennium/StarkRungFiveDual.lean:326:4: error: Type mismatch
+  summable_const_mul (summable_gaussReal (a / 2) ?m.276) (4 / (π * a))
+has type
+  Summable fun i => 4 / (π * a) * rexp (-π * (a / 2) * ↑i ^ 2)
+but is expected to have type
+  Summable fun m => 4 / (π * a) * rexp (-(π * a / 2) * ↑m ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:333:6: error: Application type mismatch: The argument
+  summable_const_mul (summable_gaussNat (a / 2) ?m.457) (4 / (π * a))
+has type
+  Summable fun i => 4 / (π * a) * rexp (-π * (a / 2) * ↑i ^ 2)
+but is expected to have type
+  Summable fun n => 4 / (π * a) * rexp (-(π * a / 2) * ↑n ^ 2)
+in the application
+  Summable.of_nonneg_of_le (fun n => mul_nonneg (sq_nonneg ↑n) (exp_nonneg (-(π * a) * ↑n ^ 2))) (fun n => hpt ↑n)
+    (summable_const_mul (summable_gaussNat (a / 2) ?m.457) (4 / (π * a)))
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:345:2: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+hle : a ≤ 1
+hc : 0 < π * a
+hpt : ∀ (x : ℝ), x ^ 2 * rexp (-(π * a) * x ^ 2) ≤ 4 / (π * a) * rexp (-(π * a / 2) * x ^ 2)
+hmajor : Summable fun m => 4 / (π * a) * rexp (-(π * a / 2) * ↑m ^ 2)
+hs : Summable fun m => ↑m ^ 2 * rexp (-(π * a) * ↑m ^ 2)
+hfa : Summable fun n => ↑n ^ 2 * rexp (-(π * a) * ↑n ^ 2)
+hsplit :
+  ∑' (m : ℤ), ↑m ^ 2 * rexp (-(π * a) * ↑m ^ 2) =
+    ∑' (n : ℕ), ↑↑n ^ 2 * rexp (-(π * a) * ↑↑n ^ 2) + ∑' (n : ℕ), ↑(↑n + 1) ^ 2 * rexp (-(π * a) * ↑(↑n + 1) ^ 2)
+hz2 : ∑' (b : ℕ), ↑b ^ 2 * rexp (-(π * a) * ↑b ^ 2) = 0 + ∑' (b : ℕ), ↑(b + 1) ^ 2 * rexp (-(π * a) * ↑(b + 1) ^ 2)
+hf0 : ↑0 ^ 2 * rexp (-(π * a) * ↑0 ^ 2) = 0
+hcon :
+  ∑' (n : ℕ), ↑(↑n + 1) ^ 2 * rexp (-(π * a) * ↑(↑n + 1) ^ 2) =
+    ∑' (n : ℕ), ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+a✝ :
+  4 / (a * √a) <
+    ∑' (n : ℕ), ↑↑n ^ 2 * rexp (-(π * a) * ↑↑n ^ 2) + ∑' (n : ℕ), ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+⊢ False
+failed
+
+real	1m23.399s
+user	2m6.673s
+sys	0m3.267s

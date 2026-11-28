@@ -19,14 +19,14 @@ open Imscribing.YangMills.ContinuumInterfaces
 
 /-- Wick rotation from Euclidean ℝ⁴ to complex Minkowski space ℂ⁴:
     x ↦ (i x₀, x₁, x₂, x₃). -/
-noncomputable def wickMap (x : Spacetime4) : Fin 4 → ℂ :=
+noncomputable def wickMap (x : ClaySpec.Spacetime4) : Fin 4 → ℂ :=
   fun μ => if μ = 0 then Complex.I * (x 0 : ℂ) else (x μ : ℂ)
 
 /-- Open forward light cone V₊ ⊂ ℝ⁴: y₀ > 0 and y₁² + y₂² + y₃² < y₀². -/
 def Vplus : Set (Fin 4 → ℝ) :=
   { y | 0 < y 0 ∧ y 1 ^ 2 + y 2 ^ 2 + y 3 ^ 2 < y 0 ^ 2 }
 
-theorem wick_ordered_mem_ForwardTube {n : ℕ} (x : Fin n → Spacetime4)
+theorem wick_ordered_mem_ForwardTube {n : ℕ} (x : Fin n → ClaySpec.Spacetime4)
     (h0 : ∀ hk : 0 < n, 0 < (x ⟨0, hk⟩) 0)
     (hinc : ∀ k : Fin n, ∀ hk : 0 < (k : ℕ),
       (x ⟨(k : ℕ) - 1, by omega⟩) 0 < (x k) 0) :
@@ -121,7 +121,6 @@ theorem forwardTube_isOpen (n : ℕ) : IsOpen (ForwardTube n) := by
         0 < diff 0 ^ 2 - (diff 1 ^ 2 + diff 2 ^ 2 + diff 3 ^ 2) } := by
     ext z
     simp only [ForwardTube, Set.mem_iInter, Set.mem_inter_iff, Set.mem_setOf_eq, sub_pos]
-    rfl
   rw [heq]
   refine isOpen_iInter_of_finite fun k => ?_
   have h_cont_diff : ∀ μ : Fin 4, Continuous (fun z : Fin n → Fin 4 → ℂ =>
@@ -132,7 +131,7 @@ theorem forwardTube_isOpen (n : ℕ) : IsOpen (ForwardTube n) := by
       exact Complex.continuous_im.comp ((continuous_apply μ).comp (continuous_apply k))
     · simp only [hk, ↓reduceDIte]
       exact (Complex.continuous_im.comp ((continuous_apply μ).comp (continuous_apply k))).sub
-        (Complex.continuous_im.comp ((continuous_apply μ).comp (continuous_apply ⟨k - 1, by omega⟩)))
+        (Complex.continuous_im.comp ((continuous_apply μ).comp (continuous_apply (⟨(k : ℕ) - 1, by omega⟩ : Fin n))))
   refine IsOpen.inter (isOpen_lt continuous_const (h_cont_diff 0)) ?_
   have h_quad : Continuous (fun z : Fin n → Fin 4 → ℂ =>
       (if hk : (k : ℕ) = 0 then (z k 0).im else (z k 0).im - (z ⟨k - 1, by omega⟩ 0).im) ^ 2 -
@@ -146,8 +145,8 @@ theorem forwardTube_isOpen (n : ℕ) : IsOpen (ForwardTube n) := by
 /-- Every orthochronous proper Lorentz transformation preserves the forward light cone V₊. -/
 theorem lorentz_preserves_Vplus (Λ : Lorentz4) {y : Fin 4 → ℝ} (hy : y ∈ Vplus) :
     Λ.mat.mulVec y ∈ Vplus := by
-  let e₀ : Spacetime4 := (WithLp.equiv 2 (Fin 4 → ℝ)).symm ![1, 0, 0, 0]
-  let yS : Spacetime4 := (WithLp.equiv 2 (Fin 4 → ℝ)).symm y
+  let e₀ : ClaySpec.Spacetime4 := (WithLp.equiv 2 (Fin 4 → ℝ)).symm ![1, 0, 0, 0]
+  let yS : ClaySpec.Spacetime4 := (WithLp.equiv 2 (Fin 4 → ℝ)).symm y
   have he0_self := Λ.preserves_metric e₀ e₀
   have hy_self := Λ.preserves_metric yS yS
   have he0_y := Λ.preserves_metric e₀ yS
@@ -157,11 +156,11 @@ theorem lorentz_preserves_Vplus (Λ : Lorentz4) {y : Fin 4 → ℝ} (hy : y ∈ 
   have ha_sq : (Λ.mat 0 0) ^ 2 - (Λ.mat 1 0 ^ 2 + Λ.mat 2 0 ^ 2 + Λ.mat 3 0 ^ 2) = 1 := by
     have h1 : minkowskiInner e₀ e₀ = 1 := by simp [minkowskiInner, e₀]
     rw [h1] at he0_self
-    simpa [minkowskiInner, h_a_eq] using he0_self
+    simpa [minkowskiInner, h_a_eq, sq] using he0_self
   have hw_sq : (Λ.mat.mulVec y 0) ^ 2 -
       (Λ.mat.mulVec y 1 ^ 2 + Λ.mat.mulVec y 2 ^ 2 + Λ.mat.mulVec y 3 ^ 2) =
       y 0 ^ 2 - (y 1 ^ 2 + y 2 ^ 2 + y 3 ^ 2) := by
-    simpa [minkowskiInner, yS] using hy_self
+    simpa [minkowskiInner, yS, sq] using hy_self
   have haw_dot : Λ.mat 0 0 * Λ.mat.mulVec y 0 -
       (Λ.mat 1 0 * Λ.mat.mulVec y 1 + Λ.mat 2 0 * Λ.mat.mulVec y 2 +
        Λ.mat 3 0 * Λ.mat.mulVec y 3) = y 0 := by
@@ -189,9 +188,8 @@ theorem lorentz_preserves_Vplus (Λ : Lorentz4) {y : Fin 4 → ℝ} (hy : y ∈ 
   have hw0_pos : 0 < Λ.mat.mulVec y 0 := by
     by_contra hle
     push_neg at hle
-    nlinarith [sq_nonneg (Λ.mat 0 0 * Λ.mat.mulVec y 0 +
-      (Λ.mat 1 0 * Λ.mat.mulVec y 1 + Λ.mat 2 0 * Λ.mat.mulVec y 2 +
-       Λ.mat 3 0 * Λ.mat.mulVec y 3))]
+    have hnp : Λ.mat 0 0 * Λ.mat.mulVec y 0 ≤ 0 := mul_nonpos_of_nonneg_of_nonpos ha0.le hle
+    nlinarith [hnp]
   exact ⟨hw0_pos, hw_pos_sq⟩
 
 /-- Every orthochronous proper Lorentz transformation maps `ForwardTube n` into itself. -/
@@ -211,11 +209,8 @@ theorem lorentz_maps_forwardTube {n : ℕ} (Λ : Lorentz4) {z : Fin n → Fin 4 
       Λ.mat.mulVec (fun μ =>
         if hk : (k : ℕ) = 0 then (z k μ).im else (z k μ).im - (z ⟨k - 1, by omega⟩ μ).im) := by
     by_cases hk : (k : ℕ) = 0
-    · ext μ; simp [hk, h_im]
-    · ext μ
-      simp only [hk, ↓reduceDIte]
-      rw [h_im, h_im, ← Matrix.mulVec_sub]
-      rfl
+    · ext μ; simp only [hk, ↓reduceDIte]; exact congrFun (h_im (z k)) μ
+    · ext μ; simp only [hk, ↓reduceDIte]; rw [congrFun (h_im (z k)) μ, congrFun (h_im (z ⟨k - 1, by omega⟩)) μ]; simpa [Pi.sub_apply] using (congrFun (Matrix.mulVec_sub Λ.mat _ _) μ).symm
   change (fun μ : Fin 4 =>
       if hk : (k : ℕ) = 0 then ((Λ.mat.map Complex.ofReal).mulVec (z k) μ).im
       else ((Λ.mat.map Complex.ofReal).mulVec (z k) μ).im -

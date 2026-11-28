@@ -1,0 +1,110 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk2probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk2probe.lean:402:25: error: Type mismatch
+  Eq.symm (ofReal_exp ?m.120)
+has type
+  cexp ↑?m.120 = ↑(rexp ?m.120)
+but is expected to have type
+  cexp (-↑π * ↑a * ↑↑n ^ 2) = ↑(rexp (-π * a * ↑n ^ 2))
+../../chunk2probe.lean:403:13: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ofRealCLM (∑' (z : ℕ), rexp (-π * a * ↑z ^ 2))
+in the target expression
+  ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2)) = ↑(gaussSumNat a)
+
+a : ℝ
+hconv : ∑' (n : ℕ), cexp (-↑π * ↑a * ↑↑n ^ 2) = ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2))
+⊢ ∑' (n : ℕ), ↑(rexp (-π * a * ↑n ^ 2)) = ↑(gaussSumNat a)
+../../chunk2probe.lean:411:25: error: Type mismatch
+  Eq.symm (ofReal_exp ?m.166)
+has type
+  cexp ↑?m.166 = ↑(rexp ?m.166)
+but is expected to have type
+  cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2))
+../../chunk2probe.lean:421:4: error: Type mismatch
+  mul_le_mul_of_nonpos_right h1 hneg
+has type
+  ↑(2 * n + 1) ^ 2 * (-π * a) ≤ ↑n ^ 2 * (-π * a)
+but is expected to have type
+  -π * a * ↑(2 * n + 1) ^ 2 ≤ -π * a * ↑n ^ 2
+../../chunk2probe.lean:422:13: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ofRealCLM (∑' (z : ℕ), rexp (-π * a * ↑(2 * z + 1) ^ 2))
+in the target expression
+  ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2)) = ↑(gaussSumHalf (4 * a))
+
+a : ℝ
+ha : 0 < a
+hconv : ∑' (n : ℕ), cexp (-↑π * ↑a * ↑↑(2 * n + 1) ^ 2) = ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2))
+hsum : Summable fun n => rexp (-π * a * ↑(2 * n + 1) ^ 2)
+⊢ ∑' (n : ℕ), ↑(rexp (-π * a * ↑(2 * n + 1) ^ 2)) = ↑(gaussSumHalf (4 * a))
+../../chunk2probe.lean:434:62: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n) ^ 2) * I
+⊢ 2 * ↑n = 2 * ↑n
+../../chunk2probe.lean:447:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  cexp (I * ↑(↑(-↑(con * (n * n))) * 2 * π))
+in the target expression
+  cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) *
+      (cexp (I * ↑(-↑↑(con * (n * n)) * 2 * π)) * cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4)))) =
+    cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+      cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4)))
+
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) * I
+hcast : ↑↑(2 * n) = ↑(2 * n)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) =
+    ↑(-↑↑(con * (n * n)) * 2 * π) + ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))
+⊢ cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n) ^ 2) *
+      (cexp (I * ↑(-↑↑(con * (n * n)) * 2 * π)) * cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4)))) =
+    cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+      cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4)))
+../../chunk2probe.lean:458:70: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) * I
+⊢ 2 * ↑n + 1 = 2 * ↑n + 1
+../../chunk2probe.lean:473:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  cexp (I * ↑(↑(-↑(con * (n * (n + 1)))) * 2 * π))
+in the target expression
+  cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (cexp (I * ↑(-↑↑(con * (n * (n + 1))) * 2 * π)) * cexp (I * ↑(-(π * ↑con / 2))) *
+        cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4))))) =
+    -I * cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))) *
+      cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+
+t : ℝ
+ht : 0 < t
+n : ℕ
+h :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑↑(2 * n + 1) ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) * I
+hcast : ↑↑(2 * n + 1) = ↑(2 * n + 1)
+hvs :
+  ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ↑(-↑↑(con * (n * (n + 1))) * 2 * π) + ↑(-(π * ↑con / 2)) +
+      ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))
+⊢ cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (cexp (I * ↑(-↑↑(con * (n * (n + 1))) * 2 * π)) * cexp (I * ↑(-(π * ↑con / 2))) *
+        cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4))))) =
+    -I * cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))) *
+      cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)

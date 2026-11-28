@@ -1,24 +1,13 @@
 import Imscribing.YangMills.LatticeRiemannSchwartzBound4D
 
 /-!
-# Cantor Diagonal Extraction & Schwartz Equicontinuous Continuum Limit
-
-Proves unconditionally (`0 sorry`):
-1. `cantor_diagonal_subseq`: Any pointwise-bounded `F : ℕ → ℕ → ℂ` has a strictly
-   monotone subsequence `φ` converging at every `k : ℕ`.
-2. `equicontinuous_dense_limit`: Any family `S_m : TestFn →ₗ[ℂ] ℂ` uniformly
-   dominated by a subadditive seminorm `p` converges along a subsequence on ALL
-   of `TestFn` to a linear functional `S_∞` with `‖S_∞ f‖ ≤ p f`.
-3. `wilson_lattice_subsequential_schwinger_limit`: Extracts a continuum Schwartz
-   distribution `S_∞` from `smearedPlaqSchwinger` along any sequence with bounded
-   `Z_ren m`, preserving the uniform Schwartz seminorm bound.
+# Cantor Diagonal Extraction, Schwartz Equicontinuous Limit, & Permutation Symmetry
 -/
 
 namespace Imscribing.YangMills.CantorSchwartzLimit
 
 open scoped Topology
 open MeasureTheory
-open Imscribing.YangMills.ClaySpec
 open Imscribing.YangMills.ContinuumInterfaces
 open Imscribing.YangMills.WilsonLattice4D
 open Imscribing.YangMills.WilsonFrobenius4D
@@ -26,7 +15,7 @@ open Imscribing.YangMills.LatticeRiemannBound4D
 
 private lemma extract_subseq_at
     (F : ℕ → ℕ → ℂ) (k : ℕ) (B : ℝ) (hB : ∀ m, ‖F m k‖ ≤ B)
-    (ψ : ℕ → ℕ) (hψ : StrictMono ψ) :
+    (ψ : ℕ → ℕ) (_hψ : StrictMono ψ) :
     ∃ (L : ℂ) (σ : ℕ → ℕ), StrictMono σ ∧
       Filter.Tendsto (fun m => F (ψ (σ m)) k) Filter.atTop (𝓝 L) := by
   have h_mem : ∀ m : ℕ, F (ψ m) k ∈ Metric.closedBall (0 : ℂ) B := fun m => by
@@ -34,9 +23,7 @@ private lemma extract_subseq_at
   obtain ⟨L, _, σ, hσ, h_tend⟩ := (isCompact_closedBall (0 : ℂ) B).tendsto_subseq h_mem
   exact ⟨L, σ, hσ, h_tend⟩
 
-/-- **Cantor Diagonal Subsequence Theorem:**
-    Every pointwise-bounded sequence `F : ℕ → ℕ → ℂ` admits a strictly monotone
-    subsequence `φ : ℕ → ℕ` such that `F (φ m) k` converges for every `k : ℕ`. -/
+/-- **Cantor Diagonal Subsequence Theorem:** -/
 theorem cantor_diagonal_subseq (F : ℕ → ℕ → ℂ)
     (h_bd : ∀ k : ℕ, ∃ B : ℝ, ∀ m : ℕ, ‖F m k‖ ≤ B) :
     ∃ φ : ℕ → ℕ, StrictMono φ ∧
@@ -47,9 +34,7 @@ theorem cantor_diagonal_subseq (F : ℕ → ℕ → ℂ)
       (Classical.choose_spec (h_bd k)) s.1 s.2
     ⟨s.1 ∘ Classical.choose (Classical.choose_spec ex),
       s.2.comp (Classical.choose_spec (Classical.choose_spec ex)).1⟩
-  let step : ℕ → S
-    | 0 => ⟨id, strictMono_id⟩
-    | k + 1 => next k (step k)
+  let step : ℕ → S := fun k => Nat.rec ⟨id, strictMono_id⟩ (fun n s => next n s) k
   have h_step_sub : ∀ k : ℕ, ∃ (L : ℂ) (σ : ℕ → ℕ), StrictMono σ ∧
       (step (k + 1)).1 = (step k).1 ∘ σ ∧
       Filter.Tendsto (fun n => F ((step (k + 1)).1 n) k) Filter.atTop (𝓝 L) := by
@@ -102,15 +87,11 @@ theorem cantor_diagonal_subseq (F : ℕ → ℕ → ℂ)
   rw [h_phi_m]
   exact hN (τ m) h_ge
 
-/-- **Equicontinuous Subsequential Limit Extension:**
-    Any family of linear functionals `S_m : TestFn →ₗ[ℂ] ℂ` bounded uniformly by
-    a subadditive seminorm `p` converges along a subsequence on ALL of `TestFn`
-    (given a `p`-dense countable core `D : ℕ → TestFn`) to a linear
-    functional `S_∞ : TestFn →ₗ[ℂ] ℂ` with `‖S_∞ f‖ ≤ p f`. -/
+/-- **Equicontinuous Subsequential Limit Extension:** -/
 theorem equicontinuous_dense_limit
     {TestFn : Type*} [AddCommGroup TestFn] [Module ℂ TestFn]
-    (p : TestFn → ℝ) (hp_nn : ∀ f, 0 ≤ p f)
-    (hp_add : ∀ f g, p (f + g) ≤ p f + p g) (hp_neg : ∀ f, p (-f) = p f)
+    (p : TestFn → ℝ) (_hp_nn : ∀ f, 0 ≤ p f)
+    (_hp_add : ∀ f g, p (f + g) ≤ p f + p g) (_hp_neg : ∀ f, p (-f) = p f)
     (D : ℕ → TestFn) (h_dense : ∀ f : TestFn, ∀ ε : ℝ, 0 < ε → ∃ k : ℕ, p (f - D k) < ε)
     (S_m : ℕ → TestFn →ₗ[ℂ] ℂ)
     (h_unif : ∀ m (f : TestFn), ‖S_m m f‖ ≤ p f) :
@@ -136,7 +117,7 @@ theorem equicontinuous_dense_limit
     have h2 : ‖S_m (φ m₁) (D k) - S_m (φ m₂) (D k)‖ < ε / 3 := by
       simpa [dist_eq_norm] using hN m₁ hm₁ m₂ hm₂
     have h3 : ‖S_m (φ m₂) (D k) - S_m (φ m₂) f‖ < ε / 3 := by
-      rw [← map_sub, norm_sub_rev]
+      rw [norm_sub_rev, ← map_sub]
       exact lt_of_le_of_lt (h_unif (φ m₂) (f - D k)) hk
     rw [dist_eq_norm]
     have h_tri :
@@ -145,13 +126,10 @@ theorem equicontinuous_dense_limit
           (S_m (φ m₁) (D k) - S_m (φ m₂) (D k)) +
           (S_m (φ m₂) (D k) - S_m (φ m₂) f) := by ring
     rw [h_tri]
-    calc
-      ‖_ + _ + _‖ ≤ ‖S_m (φ m₁) f - S_m (φ m₁) (D k)‖ +
-          ‖S_m (φ m₁) (D k) - S_m (φ m₂) (D k)‖ +
-          ‖S_m (φ m₂) (D k) - S_m (φ m₂) f‖ :=
-          le_trans (norm_add_le _ _) (add_le_add_right (norm_add_le _ _) _)
-      _ < ε / 3 + ε / 3 + ε / 3 := add_lt_add (add_lt_add h1 h2) h3
-      _ = ε := by ring
+    have h_12 := norm_add_le (S_m (φ m₁) f - S_m (φ m₁) (D k)) (S_m (φ m₁) (D k) - S_m (φ m₂) (D k))
+    have h_123 := norm_add_le ((S_m (φ m₁) f - S_m (φ m₁) (D k)) +
+      (S_m (φ m₁) (D k) - S_m (φ m₂) (D k))) (S_m (φ m₂) (D k) - S_m (φ m₂) f)
+    linarith
   have h_ex : ∀ f : TestFn, ∃ z : ℂ,
       Filter.Tendsto (fun m => S_m (φ m) f) Filter.atTop (𝓝 z) :=
     fun f => cauchySeq_tendsto_of_complete (h_cauchy f)
@@ -178,10 +156,7 @@ theorem equicontinuous_dense_limit
     exact le_of_tendsto h_norm (Filter.Eventually.of_forall fun m => h_unif (φ m) f)
   exact ⟨φ, S_inf, hφ, h_spec, h_bd⟩
 
-/-- **Subsequential Continuum Schwinger Distribution from 4D SU(N) Lattice Wilson Measures:**
-    For any sequence of volumes `L m ≥ 1`, spacings `a m ∈ (0, 1]`, couplings `β m ≥ 0`,
-    and bounded renormalization `|Z_ren m| ≤ Z_max`, `smearedPlaqSchwinger` admits a
-    convergent subsequence to a linear Schwartz distribution `S_∞` with E0 continuity bound. -/
+/-- **Subsequential Continuum Schwinger Distribution from 4D SU(N) Lattice Wilson Measures:** -/
 theorem wilson_lattice_subsequential_schwinger_limit
     (N n : ℕ) [NeZero N]
     (L : ℕ → ℕ) [∀ m, NeZero (L m)]
@@ -202,14 +177,14 @@ theorem wilson_lattice_subsequential_schwinger_limit
     let p : EuclideanSchwartz n → ℝ := fun f =>
       (Z_max * 8192) ^ n * ∑ j ∈ Finset.range (8 * n + 1),
         ((8 * n).choose j : ℝ) * SchwartzMap.seminorm ℂ j 0 f
-    ∃ (φ : ℕ → ℕ) (S_∞ : EuclideanSchwartz n →ₗ[ℂ] ℂ),
+    ∃ (φ : ℕ → ℕ) (S_inf : EuclideanSchwartz n →ₗ[ℂ] ℂ),
       StrictMono φ ∧
       (∀ f : EuclideanSchwartz n,
         Filter.Tendsto (fun m =>
-          @smearedPlaqSchwinger N (L (φ m)) n _ (a (φ m)) (β (φ m)) (Z_ren (φ m))
+          @smearedPlaqSchwinger N (L (φ m)) n _ _ (a (φ m)) (β (φ m)) (Z_ren (φ m))
             (h_meas_sp (φ m)) (μ (φ m)) f)
-          Filter.atTop (𝓝 (S_∞ f))) ∧
-      (∀ f : EuclideanSchwartz n, ‖S_∞ f‖ ≤ p f) := by
+          Filter.atTop (𝓝 (S_inf f))) ∧
+      (∀ f : EuclideanSchwartz n, ‖S_inf f‖ ≤ p f) := by
   intro p
   have hp_nn : ∀ f, 0 ≤ p f := fun f => by
     dsimp [p]
@@ -227,7 +202,7 @@ theorem wilson_lattice_subsequential_schwinger_limit
     refine congrArg _ (Finset.sum_congr rfl fun j _ => ?_)
     rw [map_neg_eq_map]
   let S_m : ℕ → EuclideanSchwartz n →ₗ[ℂ] ℂ := fun m =>
-    @smearedPlaqSchwinger N (L m) n _ (a m) (β m) (Z_ren m) (h_meas_sp m) (μ m)
+    @smearedPlaqSchwinger N (L m) n _ _ (a m) (β m) (Z_ren m) (h_meas_sp m) (μ m)
   have h_unif : ∀ m (f : EuclideanSchwartz n), ‖S_m m f‖ ≤ p f := by
     intro m f
     letI := h_meas_sp m
@@ -237,8 +212,64 @@ theorem wilson_lattice_subsequential_schwinger_limit
     refine le_trans h1 ?_
     dsimp [p]
     gcongr
-    · exact hZ m
-    · exact Finset.sum_nonneg fun j _ => mul_nonneg (Nat.cast_nonneg _) (apply_nonneg _ _)
+    exact hZ m
   exact equicontinuous_dense_limit p hp_nn hp_add hp_neg D h_dense S_m h_unif
 
 end Imscribing.YangMills.CantorSchwartzLimit
+
+namespace Imscribing.YangMills.SchwingerSymmetry
+
+open scoped Topology
+open MeasureTheory
+open Imscribing.YangMills.ContinuumInterfaces
+open Imscribing.YangMills.WilsonLattice4D
+open Imscribing.YangMills.WilsonFrobenius4D
+
+theorem smearedPlaqSchwinger_perm_symm (N L n : ℕ) [NeZero N] [NeZero L]
+    (a β Z_ren : ℝ) [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L))
+    (π : Equiv.Perm (Fin n)) (f f_π : EuclideanSchwartz n)
+    (hf : ∀ y : Fin n → Spacetime4, f_π y = f (fun k => y (π k))) :
+    smearedPlaqSchwinger N L n a β Z_ren μ f_π =
+      smearedPlaqSchwinger N L n a β Z_ren μ f := by
+  dsimp [smearedPlaqSchwinger]
+  congr 1
+  let e : (Fin n → Lat4 L) ≃ (Fin n → Lat4 L) :=
+    { toFun := fun xs k => xs (π k)
+      invFun := fun xs k => xs (π.symm k)
+      left_inv := fun xs => by funext k; simp
+      right_inv := fun xs => by funext k; simp }
+  refine Fintype.sum_equiv e _ _ fun xs => ?_
+  have hf_eq : f_π (fun k => latSiteToSpacetime L a (xs k)) =
+      f (fun k => latSiteToSpacetime L a (e xs k)) := by
+    rw [hf]; rfl
+  have hprod_eq : (fun U : LinkConfig N L => (∏ k : Fin n, localPlaqDensity N L U (xs k) : ℂ)) =
+      (fun U : LinkConfig N L => (∏ k : Fin n, localPlaqDensity N L U (e xs k) : ℂ)) := by
+    funext U
+    exact (Fintype.prod_equiv π _ _ fun k => by simp [e]).symm
+  rw [hf_eq, hprod_eq]
+
+theorem continuum_schwinger_perm_symm
+    (N n : ℕ) [NeZero N]
+    (L : ℕ → ℕ) [∀ m, NeZero (L m)] (a β Z_ren : ℕ → ℝ)
+    (h_meas_sp : ∀ m, MeasurableSpace (LinkConfig N (L m)))
+    (μ : ∀ m, @Measure (LinkConfig N (L m)) (h_meas_sp m))
+    (S_inf : EuclideanSchwartz n →ₗ[ℂ] ℂ)
+    (h_lim : ∀ f : EuclideanSchwartz n,
+      Filter.Tendsto (fun m =>
+        @smearedPlaqSchwinger N (L m) n _ _ (a m) (β m) (Z_ren m) (h_meas_sp m) (μ m) f)
+        Filter.atTop (𝓝 (S_inf f)))
+    (π : Equiv.Perm (Fin n)) (f f_π : EuclideanSchwartz n)
+    (hf : ∀ y : Fin n → Spacetime4, f_π y = f (fun k => y (π k))) :
+    S_inf f_π = S_inf f := by
+  have h1 := h_lim f_π
+  have h2 := h_lim f
+  have h_eq : (fun m => @smearedPlaqSchwinger N (L m) n _ _ (a m) (β m) (Z_ren m)
+      (h_meas_sp m) (μ m) f_π) =
+      fun m => @smearedPlaqSchwinger N (L m) n _ _ (a m) (β m) (Z_ren m)
+        (h_meas_sp m) (μ m) f := by
+    funext m
+    exact smearedPlaqSchwinger_perm_symm N (L m) n (a m) (β m) (Z_ren m) (μ m) π f f_π hf
+  rw [h_eq] at h1
+  exact tendsto_nhds_unique h1 h2
+
+end Imscribing.YangMills.SchwingerSymmetry

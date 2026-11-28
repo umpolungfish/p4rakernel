@@ -1,0 +1,37 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk3probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk3probe.lean:580:4: error: Type mismatch
+  summable_const_mul (summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0) ?m.449
+has type
+  Summable fun i => ?m.449 * (↑i ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑i ^ 2))
+but is expected to have type
+  Summable fun n => 2 * π * ↑con * t ^ 2 / (t ^ 2 + 4) * (↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2))
+../../chunk3probe.lean:594:4: error: Type mismatch
+  summable_const_mul (summable_sqMoment (4 * ↑con * t / (t ^ 2 + 4)) ha0) ?m.582
+has type
+  Summable fun i => ?m.582 * (↑i ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑i ^ 2))
+but is expected to have type
+  Summable fun n => 2 * π * ↑con * t ^ 2 / (t ^ 2 + 4) * (↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2))
+../../chunk3probe.lean:676:4: error: Type mismatch
+  summable_const_mul (summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0) ?m.480
+has type
+  Summable fun i => ?m.480 * (↑(2 * i + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * i + 1) ^ 2))
+but is expected to have type
+  Summable fun n =>
+    π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4)) * (↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2))
+../../chunk3probe.lean:691:4: error: Type mismatch
+  summable_const_mul (summable_oddSq (↑con * t / (t ^ 2 + 4)) ha0) ?m.601
+has type
+  Summable fun i => ?m.601 * (↑(2 * i + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * i + 1) ^ 2))
+but is expected to have type
+  Summable fun n =>
+    π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4)) * (↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2))

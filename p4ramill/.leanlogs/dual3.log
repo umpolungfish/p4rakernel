@@ -1,0 +1,70 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:51:33: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a + -?a
+in the target expression
+  w ^ 2 * rexp (-w ^ 2 / 2) ≤ 2 * rexp (w ^ 2 / 2 + -w ^ 2 / 2)
+
+w : ℝ
+h1 : w ^ 2 / 2 + 1 ≤ rexp (w ^ 2 / 2)
+hu : w ^ 2 ≤ 2 * rexp (w ^ 2 / 2)
+hm : w ^ 2 * rexp (-w ^ 2 / 2) ≤ 2 * rexp (w ^ 2 / 2 + -w ^ 2 / 2)
+⊢ w ^ 2 * rexp (-w ^ 2 / 2) ≤ 4
+Imscribing/Millennium/StarkRungFiveDual.lean:71:35: error: Application type mismatch: The argument
+  hkey
+has type
+  c * x ^ 2 * rexp (-(c * x ^ 2) / 2) ≤ 4
+but is expected to have type
+  c * x ^ 2 * rexp (-(c / 2) * x ^ 2) ≤ 4
+in the application
+  mul_le_mul_of_nonneg_right hkey
+Imscribing/Millennium/StarkRungFiveDual.lean:82:24: error: linarith failed to find a contradiction
+case h
+s : ℝ
+hs : 0 < s
+a✝ : ?m.51 ≤ ?m.50
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveDual.lean:110:54: error: linarith failed to find a contradiction
+case h
+a✝ : ?m.51 ≤ ?m.50
+⊢ False
+failed
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:183:6: error: Type mismatch
+  mul_le_mul_of_nonneg_left h21 (LT.lt.le pi_pos)
+has type
+  π * 1 ≤ π * (2 / a)
+but is expected to have type
+  π ≤ π * (2 / a)
+Imscribing/Millennium/StarkRungFiveDual.lean:185:7: error: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:158:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:213:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:254:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

@@ -2,13 +2,6 @@ import Imscribing.YangMills.WilsonActionBounds4D
 
 /-!
 # Osterwalder–Seiler Time-Reflection Symmetry on 4D SU(N) Lattice Gauge Theory
-
-1. Defines the temporal site reflection `reflectSite` (t ↦ -(t + 1)) and link
-   reflection involution `linkReflect` (Θ) on `LinkConfig N L`.
-2. Proves `reflectSite_involutive`, `reflectSite_ne_self` on every even temporal
-   torus `L = 2 * M`, and `linkReflect_involutive` (Θ² = id).
-3. Proves `realTrace_inv` and exact plaquette reflection covariance, yielding
-   `wilsonAction_linkReflect : wilsonAction N L β (linkReflect U) = wilsonAction N L β U`.
 -/
 
 namespace Imscribing.YangMills.LatticeRP4D
@@ -31,26 +24,25 @@ theorem reflectSite_involutive (L : ℕ) (x : Lat4 L) :
 theorem reflectSite_bijective (L : ℕ) : Function.Bijective (reflectSite L) :=
   Function.Involutive.bijective (reflectSite_involutive L)
 
-/-- On an even temporal lattice `L = 2 * M` (M ≠ 0), `reflectSite` has no fixed points,
-    partitioning sites cleanly into positive-time (`t.val < M`) and negative-time halves. -/
+/-- On an even temporal lattice `L = 2 * M` (M ≠ 0), `reflectSite` has no fixed points. -/
 theorem reflectSite_ne_self (M : ℕ) [NeZero M] (x : Lat4 (2 * M)) :
     reflectSite (2 * M) x ≠ x := by
   intro heq
   have h0 := congrFun heq 0
   simp only [reflectSite, ↓reduceIte] at h0
-  have hzero : 2 * (x 0) + 1 = 0 := by
-    have h1 : x 0 + (x 0 + 1) = 0 := by
-      calc
-        x 0 + (x 0 + 1) = -(x 0 + 1) + (x 0 + 1) := by conv_lhs => lhs; rw [← heq]
-        _ = 0 := neg_add_cancel _
-    linear_combination h1
-  have hcast : ((2 * (x 0).val + 1 : ℕ) : ZMod (2 * M)) = 0 := by
+  have h2 : (2 : ZMod (2 * M)) * x 0 + 1 = 0 := by
+    calc (2 : ZMod (2 * M)) * x 0 + 1
+        = x 0 + x 0 + 1 := by ring
+      _ = -(x 0 + 1) + x 0 + 1 := congrArg (· + x 0 + 1) h0.symm
+      _ = 0 := by ring
+  have hsum : ((2 * (x 0).val + 1 : ℕ) : ZMod (2 * M)) = 0 := by
     push_cast
     rw [ZMod.natCast_zmod_val]
-    exact hzero
-  have hdvd : (2 * M) ∣ (2 * (x 0).val + 1) :=
-    (ZMod.natCast_zmod_eq_zero_iff_dvd _ _).mp hcast
-  obtain ⟨k, hk⟩ := hdvd
+    exact h2
+  have hval := congrArg ZMod.val hsum
+  rw [ZMod.val_natCast, ZMod.val_zero] at hval
+  have hdvd : 2 ∣ 2 * (x 0).val + 1 :=
+    dvd_trans (dvd_mul_right 2 M) (Nat.dvd_of_mod_eq_zero hval)
   omega
 
 /-- Osterwalder–Seiler link reflection Θ on 4D SU(N) link configurations. -/
@@ -70,7 +62,7 @@ private lemma reflectSite_sub_stepDir_zero (L : ℕ) (x : Lat4 L) :
     reflectSite L (x - stepDir L 0) = reflectSite L x + stepDir L 0 := by
   ext ν
   by_cases hν : ν = 0
-  · subst hν; simp [reflectSite, stepDir]; ring
+  · subst hν; simp [reflectSite, stepDir]
   · simp [reflectSite, stepDir, hν]
 
 private lemma reflectSite_add_stepDir_spatial (L : ℕ) (x : Lat4 L) {μ : Fin 4} (hμ : μ ≠ 0) :
@@ -113,8 +105,10 @@ theorem realTrace_inv {N : ℕ} (A : GaugeGroup N) :
               rw [Matrix.mul_assoc]
       _ = star (A : Matrix (Fin N) (Fin N) ℂ) := by rw [hL, Matrix.one_mul]
   unfold realTrace
-  rw [hinv_star, Matrix.trace, Matrix.diag]
-  simp only [Matrix.star_apply, Complex.re_sum]
+  rw [hinv_star]
+  change (∑ i : Fin N, (star (A : Matrix (Fin N) (Fin N) ℂ)) i i).re =
+    (∑ i : Fin N, (A : Matrix (Fin N) (Fin N) ℂ) i i).re
+  rw [Complex.re_sum, Complex.re_sum]
   refine Finset.sum_congr rfl fun i _ => ?_
   exact Complex.conj_re _
 
@@ -159,47 +153,45 @@ theorem realTrace_plaquette_linkReflect_time_first {N L : ℕ} (U : LinkConfig N
     realTrace_conj, realTrace_inv]
 
 /-- **Exact Osterwalder–Seiler time-reflection invariance of the 4D SU(N) Wilson action.** -/
-theorem wilsonAction_linkReflect (N L : ℕ) [NeZero N] (β : ℝ) (U : LinkConfig N L) :
+theorem wilsonAction_linkReflect (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ) (U : LinkConfig N L) :
     wilsonAction N L β (linkReflect U) = wilsonAction N L β U := by
   unfold wilsonAction
-  congr 1
-  rw [Finset.sum_comm]
-  conv_rhs => rw [Finset.sum_comm]
-  refine Finset.sum_congr rfl fun μ _ => ?_
-  rw [Finset.sum_comm]
-  conv_rhs => rw [Finset.sum_comm]
-  refine Finset.sum_congr rfl fun ν _ => ?_
+  refine congrArg (β * ·) ?_
+  have h_swap : ∀ f : Lat4 L → Fin 4 → Fin 4 → ℝ,
+      (∑ x : Lat4 L, ∑ μ : Fin 4, ∑ ν : Fin 4, f x μ ν) =
+        ∑ μ : Fin 4, ∑ ν : Fin 4, ∑ x : Lat4 L, f x μ ν := by
+    intro f
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun μ _ => Finset.sum_comm
+  rw [h_swap, h_swap]
+  refine Finset.sum_congr rfl fun μ _ => Finset.sum_congr rfl fun ν _ => ?_
+  let e_refl : Lat4 L ≃ Lat4 L :=
+    { toFun := reflectSite L
+      invFun := reflectSite L
+      left_inv := reflectSite_involutive L
+      right_inv := reflectSite_involutive L }
+  let e_shift : Lat4 L ≃ Lat4 L :=
+    { toFun := fun x => reflectSite L x - stepDir L 0
+      invFun := fun y => reflectSite L (y + stepDir L 0)
+      left_inv := fun x => by simp [sub_add_cancel, reflectSite_involutive]
+      right_inv := fun y => by simp [reflectSite_involutive, add_sub_cancel_right] }
   by_cases hμ : μ = 0
   · subst hμ
     by_cases hν : ν = 0
     · subst hν
       simp [plaquetteHolonomy_diag]
-    · have h_tr : ∀ x : Lat4 L,
-          (1 - realTrace (plaquetteHolonomy (linkReflect U) x 0 ν) / (N : ℝ)) =
-          (1 - realTrace (plaquetteHolonomy U (reflectSite L x - stepDir L 0) 0 ν) / (N : ℝ)) :=
-        fun x => by rw [realTrace_plaquette_linkReflect_time_first U x hν]
-      simp_rw [h_tr]
-      exact Fintype.sum_bijective (fun x => reflectSite L x - stepDir L 0)
-        ((Equiv.subRight (stepDir L 0)).bijective.comp (reflectSite_bijective L))
-        _ _ (fun _ => rfl)
+    · refine Fintype.sum_equiv e_shift _ _ fun x => ?_
+      dsimp [e_shift]
+      rw [realTrace_plaquette_linkReflect_time_first U x hν]
   · by_cases hν : ν = 0
     · subst hν
-      have h_tr : ∀ x : Lat4 L,
-          (1 - realTrace (plaquetteHolonomy (linkReflect U) x μ 0) / (N : ℝ)) =
-          (1 - realTrace (plaquetteHolonomy U (reflectSite L x - stepDir L 0) μ 0) / (N : ℝ)) := by
-        intro x
-        rw [plaquetteHolonomy_swap (linkReflect U) x 0 μ, realTrace_inv,
-            realTrace_plaquette_linkReflect_time_first U x hμ,
-            plaquetteHolonomy_swap U _ 0 μ, realTrace_inv]
-      simp_rw [h_tr]
-      exact Fintype.sum_bijective (fun x => reflectSite L x - stepDir L 0)
-        ((Equiv.subRight (stepDir L 0)).bijective.comp (reflectSite_bijective L))
-        _ _ (fun _ => rfl)
-    · have h_tr : ∀ x : Lat4 L,
-          (1 - realTrace (plaquetteHolonomy (linkReflect U) x μ ν) / (N : ℝ)) =
-          (1 - realTrace (plaquetteHolonomy U (reflectSite L x) μ ν) / (N : ℝ)) :=
-        fun x => by rw [realTrace_plaquette_linkReflect_spatial U x hμ hν]
-      simp_rw [h_tr]
-      exact Fintype.sum_bijective (reflectSite L) (reflectSite_bijective L) _ _ (fun _ => rfl)
+      refine Fintype.sum_equiv e_shift _ _ fun x => ?_
+      dsimp [e_shift]
+      rw [plaquetteHolonomy_swap (linkReflect U) x 0 μ, realTrace_inv,
+          realTrace_plaquette_linkReflect_time_first U x hμ,
+          plaquetteHolonomy_swap U _ 0 μ, realTrace_inv]
+    · refine Fintype.sum_equiv e_refl _ _ fun x => ?_
+      dsimp [e_refl]
+      rw [realTrace_plaquette_linkReflect_spatial U x hμ hν]
 
 end Imscribing.YangMills.LatticeRP4D

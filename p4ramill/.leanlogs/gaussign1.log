@@ -1,0 +1,201 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFourGaussSign.lean:39:25: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HPow ℂ ℝ ?m.11
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:41:16: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:43:30: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:43:2: warning: 'rw [Complex.ofReal_cpow (by exact_mod_cast con_pos.le) (1 / 2 : ℝ), Complex.ofReal_re]' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:45:16: warning: declaration uses `sorry`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:47:30: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:47:2: warning: 'rw [Complex.ofReal_cpow (by exact_mod_cast con_pos.le) (1 / 2 : ℝ), Complex.ofReal_im]' tactic does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:68:41: error: Application type mismatch: The argument
+  pi_ne_zero
+has type
+  π ≠ 0
+but is expected to have type
+  ↑π ≠ 0
+in the application
+  mul_ne_zero two_ne_zero pi_ne_zero
+Imscribing/Millennium/StarkRungFourGaussSign.lean:69:73: error: Application type mismatch: The argument
+  hn
+has type
+  2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+but is expected to have type
+  ↑r / ↑f * (2 * ↑π * I) = ↑n * (2 * ↑π * I)
+in the application
+  mul_right_cancel₀ hpi hn
+Imscribing/Millennium/StarkRungFourGaussSign.lean:79:11: error(lean.unknownIdentifier): Unknown identifier `lt_or_le`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:79:29: error: Tactic `rcases` failed: `x✝ : ?m.146` is not an inductive datatype
+Imscribing/Millennium/StarkRungFourGaussSign.lean:86:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑n * ↑f
+in the target expression
+  ↑n.toNat * ↑f = ↑r
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+hr : r % f ≠ 0
+this : NeZero f
+n : ℤ
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+⊢ ↑n.toNat * ↑f = ↑r
+Imscribing/Millennium/StarkRungFourGaussSign.lean:88:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  n.toNat * f
+in the target expression
+  r % f ≠ 0
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+hr : r % f ≠ 0
+this : NeZero f
+n : ℤ
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+h7 : n.toNat * f = r
+⊢ False
+Imscribing/Millennium/StarkRungFourGaussSign.lean:99:52: error: unsolved goals
+n p : ℕ
+inst✝ : NeZero n
+hp : p ∣ n
+x : ZMod n
+⊢ x.cast.val = x.val % p
+Imscribing/Millennium/StarkRungFourGaussSign.lean:111:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (castHom hde (ZMod d)) ((castHom hee (ZMod e)) x)
+in the target expression
+  (castHom hdc (ZMod d)) x = (castHom hdc (ZMod d)) y
+
+d e : ℕ
+hdc : d ∣ con
+hde : d ∣ e
+hee : e ∣ con
+f : ZMod con → ℂ
+hf : castDep d hdc f
+x y : ZMod con
+hxy : (castHom hee (ZMod e)) x = (castHom hee (ZMod e)) y
+⊢ (castHom hdc (ZMod d)) x = (castHom hdc (ZMod d)) y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:116:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  f x
+in the target expression
+  (fun y => f y * g y) x = (fun y => f y * g y) y
+
+d : ℕ
+hd : d ∣ con
+f g : ZMod con → ℂ
+hf : castDep d hd f
+hg : castDep d hd g
+x y : ZMod con
+hxy : (castHom hd (ZMod d)) x = (castHom hd (ZMod d)) y
+⊢ (fun y => f y * g y) x = (fun y => f y * g y) y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:128:10: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+p : ℕ
+hp : p ∣ con
+y : ZMod con
+⊢ ℕ
+Imscribing/Millennium/StarkRungFourGaussSign.lean:134:4: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ((castHom hp (ZMod p)) x).val
+in the target expression
+  ↑(jacobiSym (↑(x.val % p)) p) = ↑(jacobiSym (↑(y.val % p)) p)
+
+p : ℕ
+hp : p ∣ con
+x y : ZMod con
+hxy : (castHom hp (ZMod p)) x = (castHom hp (ZMod p)) y
+⊢ ↑(jacobiSym (↑(x.val % p)) p) = ↑(jacobiSym (↑(y.val % p)) p)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:169:17: error: Invalid projection: Type of
+  p
+is not known; cannot resolve projection `1`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:169:31: error: Invalid projection: Type of
+  p
+is not known; cannot resolve projection `2`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:172:13: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+d : ℕ
+hd : d ∣ con
+hlt : 1 < con / d
+hcop : d.Coprime (con / d)
+f : ZMod con → ℂ
+hf : castDep d hd f
+⊢ ?m.38
+Imscribing/Millennium/StarkRungFourGaussSign.lean:187:12: error: Tactic `introN` failed: There are no additional binders or `let` bindings in the goal to introduce
+
+d : ℕ
+hd : d ∣ con
+hlt : 1 < con / d
+hcop : d.Coprime (con / d)
+f : ZMod con → ℂ
+hf : castDep d hd f
+⊢ ?m.40
+Imscribing/Millennium/StarkRungFourGaussSign.lean:162:4: error: linarith failed to find a contradiction
+case h
+d : ℕ
+hd : d ∣ con
+hlt : 1 < con / d
+hcop : d.Coprime (con / d)
+f : ZMod con → ℂ
+hf : castDep d hd f
+h1 : d * 1 ≤ con
+a✝ : con ≤ d
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFourGaussSign.lean:163:71: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero d
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:157:46: error: unsolved goals
+case hE
+d : ℕ
+hd : d ∣ con
+hlt : 1 < con / d
+hcop : d.Coprime (con / d)
+f : ZMod con → ℂ
+hf : castDep d hd f
+hcon : d < con
+hconlt : 1 < con
+this✝ : NeZero d
+this : NeZero (con / d)
+⊢ ZMod d × ZMod (con / d) ≃ ZMod con
+
+d : ℕ
+hd : d ∣ con
+hlt : 1 < con / d
+hcop : d.Coprime (con / d)
+f : ZMod con → ℂ
+hf : castDep d hd f
+hcon : d < con
+hconlt : 1 < con
+this✝ : NeZero d
+this : NeZero (con / d)
+hE : ZMod d × ZMod (con / d) ≃ ZMod con
+⊢ ∑ x, f x * stdAddChar x = 0
+Imscribing/Millennium/StarkRungFourGaussSign.lean:150:0: error: internal exception #3
+Imscribing/Millennium/StarkRungFourGaussSign.lean:192:2: error: unexpected token 'have'; expected command
+EXIT=1

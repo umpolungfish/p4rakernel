@@ -1,0 +1,177 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFourGaussSign.lean:94:13: error: typeclass instance problem is stuck
+  CharZero ?m.336
+
+Note: Lean will not try to resolve this typeclass instance problem because the first and second type arguments to `CharZero` contain metavariables. These arguments must be fully determined before Lean will try to resolve the typeclass.
+
+Hint: Adding type annotations and supplying implicit arguments to functions can give Lean more information for typeclass resolution. For example, if you have a variable `x` that you intend to be a `Nat`, but Lean reports it as having an unresolved type like `?m`, replacing `x` with `(x : Nat)` can get typeclass resolution un-stuck.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:97:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?m * ?n % ?m
+in the target expression
+  n.toNat * f % f ≠ 0
+
+f : ℕ
+hf : 1 < f
+r : ℕ
+this : NeZero f
+n : ℤ
+hr : n.toNat * f % f ≠ 0
+hn : 2 * ↑π * I * (↑r / ↑f) = ↑n * (2 * ↑π * I)
+hpi : 2 * ↑π * I ≠ 0
+h2 : ↑r / ↑f = ↑n
+hf0 : ↑f ≠ 0
+h4 : ↑r = ↑n * ↑f
+h5 : ↑r = ↑n * ↑f
+hn0 : 0 ≤ n
+h8 : n.toNat * f = r
+⊢ False
+Imscribing/Millennium/StarkRungFourGaussSign.lean:115:11: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero p
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:116:8: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:135:57: error: Application type mismatch: The argument
+  hxy
+has type
+  (castHom hee (ZMod e)) x = (castHom hee (ZMod e)) y
+but is expected to have type
+  x.val % e = y.val % e
+in the application
+  congrArg (fun a => a % d) hxy
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:196:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (ZMod (d * m))
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:196:15: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:214:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (AddMonoidHom.comp ?g ?f) ?x
+in the target expression
+  hφ t = hE.symm (0, t)
+
+d m : ℕ
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hd0 : d ≠ 0
+hlt : 1 < d * m
+hφ : ZMod m →+ ZMod (d * m)
+t : ZMod m
+⊢ hφ t = hE.symm (0, t)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:223:30: error: Type mismatch: After simplification, term
+  h6
+ has type
+  1 = 0
+but is expected to have type
+  m = 1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:225:16: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:232:20: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (ZMod (d * m))
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:232:29: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:233:10: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (ZMod d × ZMod m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:233:47: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:235:37: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:234:5: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fintype (ZMod d × ZMod m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:240:27: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:241:31: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:242:13: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  NeZero (d * m)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:244:68: error: unsolved goals
+d m : ℕ
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hd0 : d ≠ 0
+hlt : 1 < d * m
+hφ : ZMod m →+ ZMod (d * m)
+hφapp : ∀ (t : ZMod m), hφ t = hE.symm (0, t)
+hnz : hE.symm (0, 1) ≠ 0
+hψ₀ne : sorry ≠ 0
+hreindex : ∑ x, f x * sorry = ∑ p ∈ sorry, f (hE.symm p) * sorry
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = ((chineseRemainder hcop) z).1
+b : ZMod d
+t : ZMod m
+⊢ (b, t) = (b, 0) + (0, t)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:249:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  hE (hE.symm ?w)
+in the target expression
+  ((chineseRemainder hcop) (hE.symm (b, t))).1 = ((chineseRemainder hcop) (hE.symm (b, 0))).1
+
+d m : ℕ
+hcop : d.Coprime m
+hm : 1 < m
+f : ZMod (d * m) → ℂ
+hf : ∀ (x y : ZMod (d * m)), (castHom ⋯ (ZMod d)) x = (castHom ⋯ (ZMod d)) y → f x = f y
+hE : ZMod (d * m) ≃+* ZMod d × ZMod m
+hApp : ∀ (w : ZMod d × ZMod m), hE (hE.symm w) = w
+hSApp : ∀ (z : ZMod (d * m)), hE.symm (hE z) = z
+hEinj : Function.Injective ⇑hE
+hE0 : hE 0 = 0
+hd0 : d ≠ 0
+hlt : 1 < d * m
+hφ : ZMod m →+ ZMod (d * m)
+hφapp : ∀ (t : ZMod m), hφ t = hE.symm (0, t)
+hnz : hE.symm (0, 1) ≠ 0
+hψ₀ne : sorry ≠ 0
+hreindex : ∑ x, f x * sorry = ∑ p ∈ sorry, f (hE.symm p) * sorry
+hconn : ∀ (z : ZMod (d * m)), (castHom ⋯ (ZMod d)) z = ((chineseRemainder hcop) z).1
+b : ZMod d
+t : ZMod m
+hdec : hE.symm (b, t) = hE.symm (b, 0) + hE.symm (0, t)
+⊢ ((chineseRemainder hcop) (hE.symm (b, t))).1 = ((chineseRemainder hcop) (hE.symm (b, 0))).1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:250:14: error(lean.unknownIdentifier): Unknown identifier `map_add_eq_mul`

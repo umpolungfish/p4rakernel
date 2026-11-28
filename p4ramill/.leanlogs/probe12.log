@@ -1,0 +1,48 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../probe_tmp.lean:7:40: error: Function expected at
+  abs_sin_le_abs
+but this term has type
+  |Real.sin ?m.9| ≤ |?m.9|
+
+Note: Expected a function because this term is being applied to the argument
+  x
+../../probe_tmp.lean:8:64: error(lean.unknownIdentifier): Unknown identifier `pow_le_pow_left`
+../../probe_tmp.lean:9:11: warning: unused variable `b`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../probe_tmp.lean:11:22: error: Application type mismatch: The argument
+  h2
+has type
+  a ≤ b
+but is expected to have type
+  b ≤ b
+in the application
+  mul_le_mul h1 h2
+../../probe_tmp.lean:16:82: error(lean.invalidField): Invalid field `le`: The environment does not contain `Real.le.le`, so it is not possible to project the field `le` from an expression
+  sqrt_le_sqrt h
+of type `Real.le✝ √0 √x`
+@Metric.tendsto_nhds : ∀ {α : Type u_1} {β : Type u_2} [inst : PseudoMetricSpace α] {f : Filter β} {u : β → α} {a : α},
+  Tendsto u f (𝓝 a) ↔ ∀ ε > 0, ∀ᶠ (x : β) in f, dist (u x) a < ε
+../../probe_tmp.lean:18:8: error(lean.unknownIdentifier): Unknown identifier `Metric.tendsto_nhdsWithin_iff`
+../../probe_tmp.lean:20:48: error: Type mismatch
+  Eq.symm (normSq_eq_norm_sq z)
+has type
+  ‖z‖ ^ 2 = normSq z
+but is expected to have type
+  normSq z = ‖z‖ ^ 2
+../../probe_tmp.lean:21:17: warning: unused variable `hr`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../probe_tmp.lean:22:56: error: Type mismatch
+  Eq.symm (sqrt_sq hr)
+has type
+  r = √(r ^ 2)
+but is expected to have type
+  √(r ^ 2) = r

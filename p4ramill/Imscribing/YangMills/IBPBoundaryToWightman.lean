@@ -48,7 +48,9 @@ private lemma ftc_rpow_step
       have : (r + 1) - 1 = r := by ring
       rw [this]
       field_simp [hr_ne]
-    simpa [F, F', h_eq] using hd.const_mul (A / (r + 1))
+    convert hd.const_mul (A / (r + 1)) using 1
+    dsimp [F']
+    exact h_eq.symm
   have hF'_cont : ContinuousOn F' (Set.Icc ε 1) := by
     refine ContinuousOn.mul continuousOn_const ?_
     exact ContinuousOn.rpow_const continuousOn_id fun t ht => Or.inl (lt_of_lt_of_le hε0 ht.1).ne'
@@ -91,7 +93,7 @@ theorem ibp_blowup_reduction
       ‖W_reg t f‖ ≤ q M f * t ^ (-(M : ℝ) - 1 / 2) := by
   intro M
   induction M with
-  | zero => exact h_base
+  | zero => exact (by simpa using h_base)
   | succ k ih => exact fun f => h_step k f ih
 
 /-- **OS-I Integrated Boundary Theorem from `ε ^ (-1/2)` Derivative Bound:**
@@ -134,7 +136,11 @@ theorem boundary_value_of_half_blowup
         filter_upwards [Ioi_mem_nhds ht_pos] with u hu
         dsimp [F]
         rw [Real.sqrt_eq_rpow]
-      exact (by simpa [F', h_eq] using hd.const_mul (2 * C f)).congr_of_eventuallyEq h_sqrt_eq.symm
+      have hd' : HasDerivAt (fun u : ℝ => 2 * C f * u ^ (1 / 2 : ℝ)) (F' t) t := by
+        convert hd.const_mul (2 * C f) using 1
+        dsimp [F']
+        exact h_eq.symm
+      exact hd'.congr_of_eventuallyEq h_sqrt_eq.symm
     have hF'_cont : ContinuousOn F' (Set.Icc x y) := by
       refine ContinuousOn.mul continuousOn_const ?_
       exact ContinuousOn.rpow_const continuousOn_id fun t ht => Or.inl (lt_of_lt_of_le hx ht.1).ne'
@@ -147,7 +153,12 @@ theorem boundary_value_of_half_blowup
         ((continuous_norm.comp_continuousOn h_cont_xy).intervalIntegrable_of_Icc hxy)
         (hF'_cont.intervalIntegrable_of_Icc hxy)
         fun t ht => h_half f t ⟨lt_of_lt_of_le hx ht.1, le_trans ht.2 hy1⟩
-    have hFx_nn : 0 ≤ F x := by dsimp [F]; positivity
+    have hCf_nn : 0 ≤ C f := by
+      have h1 := le_trans (norm_nonneg (W_reg x (D_ibp f))) (h_half f x ⟨hx, le_trans hxy hy1⟩)
+      exact nonneg_of_mul_nonneg_left h1 (Real.rpow_pos_of_pos hx _)
+    have hFx_nn : 0 ≤ F x := by
+      dsimp [F]
+      exact mul_nonneg (mul_nonneg (by norm_num) hCf_nn) (Real.sqrt_nonneg x)
     rw [← h_ftc]
     calc
       ‖∫ t in x..y, W_reg t (D_ibp f)‖ ≤ F y - F x := le_trans (le_trans h_norm_int h_mono) (by rw [h_ftc_F])
@@ -195,7 +206,7 @@ theorem boundary_value_of_half_blowup
       calc
         ‖W_reg x f‖ = ‖W_reg 1 f - (W_reg 1 f - W_reg x f)‖ := by ring_nf
         _ ≤ ‖W_reg 1 f‖ + ‖W_reg 1 f - W_reg x f‖ := norm_sub_le _ _
-        _ ≤ ‖W_reg 1 f‖ + 2 * C f := add_le_add_left h1 _
+        _ ≤ ‖W_reg 1 f‖ + 2 * C f := add_le_add le_rfl h1
     exact ⟨L, hL, le_of_tendsto ((continuous_norm.tendsto L).comp hL) h_ev⟩
   let W₀Fun : TestFn → ℂ := fun f => Classical.choose (h_ex f)
   have h_spec : ∀ f, Filter.Tendsto (fun ε => W_reg ε f) (𝓝[>] 0) (𝓝 (W₀Fun f)) ∧
@@ -239,7 +250,7 @@ theorem os_ibp_polynomial_to_boundary
         have ht_pos : 0 < t := ht.1
         have ht_le1 : t ≤ 1 := ht.2
         have h_rpow : t ^ (-(M : ℝ)) ≤ t ^ (-((M - 0 : ℕ) : ℝ) - 1 / 2) := by
-          have hexp : -((M - 0 : ℕ) : ℝ) - 1 / 2 ≤ -(M : ℝ) := by simp; norm_num
+          have hexp : -((M - 0 : ℕ) : ℝ) - 1 / 2 ≤ -(M : ℝ) := by simp
           exact Real.rpow_le_rpow_of_exponent_ge ht_pos ht_le1 hexp
         exact le_trans h1 (mul_le_mul_of_nonneg_left h_rpow (hp_nn g))
     | succ k ih =>
@@ -265,7 +276,7 @@ theorem os_ibp_polynomial_to_boundary
             have hexp_nonpos : -(m : ℝ) - 1 / 2 ≤ 0 := by
               have : (0 : ℝ) ≤ (m : ℝ) := Nat.cast_nonneg m
               linarith
-            exact Real.rpow_le_rpow_of_exponent_ge ht.1 ht.2 hexp_nonpos
+            simpa using Real.rpow_le_rpow_of_exponent_ge ht.1 ht.2 hexp_nonpos
           have h_num_le : (1 - t ^ (-(m : ℝ) - 1 / 2)) / (-(m : ℝ) - 1 / 2) ≤
               t ^ (-(m : ℝ) - 1 / 2) / ((m : ℝ) + 1 / 2) := by
             have hneg_eq : (1 - t ^ (-(m : ℝ) - 1 / 2)) / (-(m : ℝ) - 1 / 2) =
@@ -300,16 +311,3 @@ theorem os_ibp_polynomial_to_boundary
   exact ⟨fun f => qM (D_ibp f), W₀, fun f => hqM_nn (D_ibp f), h_tend, h_bd⟩
 
 end Imscribing.YangMills.OSIBPBoundary
-
-Check on One Lemma in IBPBoundaryToWightman.lean
-
-In os_ibp_polynomial_to_boundary: Real.one_le_rpow_of_pos_of_le_one_of_nonpos
-(if your Mathlib spells it Real.one_le_rpow_of_pos_of_le_one_of_nonpos vs
-Real.one_le_rpow): Wait: for 0 < t ≤ 1 and r ≤ 0, 1 ≤ t ^ r follows in 2 lines
-from Real.rpow_le_rpow_of_exponent_ge (1 = t ^ (0 : ℝ) ≤ t ^ r since r ≤ 0!). If
-lake build flags Real.one_le_rpow_of_pos_of_le_one_of_nonpos, replace that line
-with by simpa using Real.rpow_le_rpow_of_exponent_ge ht.1 ht.2 hexp_nonpos.
-
-Once these build, we can tackle concrete ReflectTensorData on SchwartzMap
-(ConcreteSchwartzOperations.lean) to eliminate ReflectTensorData as an input
-parameter as well!

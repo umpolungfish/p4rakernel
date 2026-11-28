@@ -1,15 +1,12 @@
-import Mathlib.Topology.Algebra.Matrix
+import Mathlib.Analysis.Complex.Basic
+import Mathlib.LinearAlgebra.Matrix.Determinant.Basic
+import Mathlib.LinearAlgebra.Matrix.SpecialLinearGroup
+import Mathlib.Topology.Compactness.Compact
 import Mathlib.MeasureTheory.Integral.Bochner.Basic
 import Imscribing.YangMills.WilsonActionBounds4D
 
 /-!
 # Compactness of SU(N) & Normalized Finite-Volume Wilson Expectations
-
-1. `isCompact_specialUnitaryGroup` & `compactSpace_gaugeGroup`: proves SU(N) is
-   compact inside M_N(ℂ) via the row-norm bound `‖A i j‖ ≤ 1`.
-2. `wilsonPartitionFn` & `wilsonExpectation`: normalized Gibbs measure expectations
-   with `0 < exp(-32 β L⁴) ≤ Z ≤ 1`, uniform observable bounds `‖⟨F⟩‖ ≤ BF`,
-   and exact closed-loop gauge invariance.
 -/
 
 namespace Imscribing.YangMills.WilsonMeasure4D
@@ -32,16 +29,23 @@ theorem isCompact_specialUnitaryGroup (N : ℕ) :
   have h_eq : { M : Matrix (Fin N) (Fin N) ℂ | M ∈ Matrix.specialUnitaryGroup (Fin N) ℂ } =
       { M : Matrix (Fin N) (Fin N) ℂ | M * star M = 1 ∧ M.det = 1 } := by
     ext M
-    rw [Matrix.mem_specialUnitaryGroup_iff, Matrix.mem_unitaryGroup_iff]
+    simp only [Set.mem_setOf_eq, Matrix.mem_specialUnitaryGroup_iff, Matrix.mem_unitaryGroup_iff]
   have h_cont_det : Continuous (fun M : Matrix (Fin N) (Fin N) ℂ => M.det) := by
     have hdet_eq : (fun M : Matrix (Fin N) (Fin N) ℂ => M.det) =
         fun M => ∑ σ : Equiv.Perm (Fin N), (Equiv.Perm.sign σ : ℂ) * ∏ i : Fin N, M (σ i) i := by
-      ext M; simp [Matrix.det_apply]
+      ext M
+      rw [Matrix.det_apply]
+      refine Finset.sum_congr rfl fun σ _ => ?_
+      change ((Equiv.Perm.sign σ : ℤ) • ∏ i, M (σ i) i) = _
+      rw [zsmul_eq_mul]
     rw [hdet_eq]
     refine continuous_finset_sum _ fun σ _ => continuous_const.mul
       (continuous_finset_prod _ fun i _ => (continuous_apply i).comp (continuous_apply (σ i)))
-  have h_closed1 : IsClosed { M : Matrix (Fin N) (Fin N) ℂ | M * star M = 1 } :=
-    isClosed_eq (continuous_id.mul continuous_star) continuous_const
+  have h_closed1 : IsClosed { M : Matrix (Fin N) (Fin N) ℂ | M * star M = 1 } := by
+    have h_mul : Continuous (fun M : Matrix (Fin N) (Fin N) ℂ => M * star M) := by
+      refine Continuous.mul ?_ continuous_star
+      exact continuous_pi (fun _ => continuous_pi (fun _ => (continuous_apply _).comp (continuous_apply _)))
+    exact isClosed_eq h_mul continuous_const
   have h_closed2 : IsClosed { M : Matrix (Fin N) (Fin N) ℂ | M.det = 1 } :=
     isClosed_eq h_cont_det continuous_const
   have h_closed : IsClosed { M : Matrix (Fin N) (Fin N) ℂ | M ∈ Matrix.specialUnitaryGroup (Fin N) ℂ } := by
@@ -53,19 +57,19 @@ theorem compactSpace_gaugeGroup (N : ℕ) : CompactSpace (GaugeGroup N) :=
   isCompact_iff_compactSpace.mp (isCompact_specialUnitaryGroup N)
 
 /-- Finite-volume 4D SU(N) Wilson partition function `Z = ∫ exp(-S_W(β, U)) dμ(U)`. -/
-noncomputable def wilsonPartitionFn (N L : ℕ) [NeZero N] (β : ℝ)
+noncomputable def wilsonPartitionFn (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ)
     [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L)) : ℝ :=
   ∫ U : LinkConfig N L, Real.exp (-wilsonAction N L β U) ∂μ
 
 /-- Normalized Wilson expectation `⟨F⟩ = Z⁻¹ ∫ F(U) exp(-S_W(β, U)) dμ(U)`. -/
-noncomputable def wilsonExpectation (N L : ℕ) [NeZero N] (β : ℝ)
+noncomputable def wilsonExpectation (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ)
     [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L))
     (F : LinkConfig N L → ℂ) : ℂ :=
   ((wilsonPartitionFn N L β μ)⁻¹ : ℂ) *
     ∫ U : LinkConfig N L, F U * (Real.exp (-wilsonAction N L β U) : ℂ) ∂μ
 
 /-- Uniform strictly positive lower bound and unit upper bound on `Z_{N, L}(β)`. -/
-theorem wilsonPartitionFn_bounds {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
+theorem wilsonPartitionFn_bounds {N L : ℕ} [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β)
     [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L)) [IsProbabilityMeasure μ]
     (h_meas : Measurable (fun U : LinkConfig N L => wilsonAction N L β U)) :
     0 < Real.exp (-(32 * β * ((Fintype.card (Lat4 L) : ℕ) : ℝ))) ∧
@@ -93,7 +97,7 @@ theorem wilsonPartitionFn_bounds {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ 
   exact ⟨Real.exp_pos _, h_lower, h_upper⟩
 
 /-- Uniform norm bound `‖⟨F⟩‖ ≤ BF` for any bounded measurable observable `‖F U‖ ≤ BF`. -/
-theorem wilsonExpectation_norm_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤ β)
+theorem wilsonExpectation_norm_le {N L : ℕ} [NeZero N] [NeZero L] {β : ℝ} (hβ : 0 ≤ β)
     [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L)) [IsProbabilityMeasure μ]
     (h_meas : Measurable (fun U : LinkConfig N L => wilsonAction N L β U))
     (F : LinkConfig N L → ℂ) (hF_meas : Measurable F) (BF : ℝ) (hBF : 0 ≤ BF)
@@ -102,7 +106,7 @@ theorem wilsonExpectation_norm_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤
   obtain ⟨hpos_lb, hZ_lb, _⟩ := wilsonPartitionFn_bounds hβ μ h_meas
   have hZ_pos : 0 < wilsonPartitionFn N L β μ := lt_of_lt_of_le hpos_lb hZ_lb
   unfold wilsonExpectation
-  rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (inv_nonneg.mpr hZ_pos.le)]
+  rw [norm_mul, norm_inv, Complex.norm_real, Real.norm_of_nonneg hZ_pos.le]
   have h_int_norm :
       ‖∫ U : LinkConfig N L, F U * (Real.exp (-wilsonAction N L β U) : ℂ) ∂μ‖ ≤
         BF * wilsonPartitionFn N L β μ := by
@@ -119,6 +123,7 @@ theorem wilsonExpectation_norm_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤
       _ ≤ ∫ U, BF * Real.exp (-wilsonAction N L β U) ∂μ := by
             refine integral_mono_of_nonneg (Filter.Eventually.of_forall fun _ => norm_nonneg _)
               (h_int_exp.const_mul BF) (Filter.Eventually.of_forall fun U => ?_)
+            dsimp only
             rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (Real.exp_pos _).le]
             exact mul_le_mul_of_nonneg_right (hF_bound U) (Real.exp_pos _).le
       _ = BF * wilsonPartitionFn N L β μ := integral_const_mul BF _
@@ -132,7 +137,7 @@ theorem wilsonExpectation_norm_le {N L : ℕ} [NeZero N] {β : ℝ} (hβ : 0 ≤
 /-- **Gauge invariance of normalized Wilson loop expectations** under any
     gauge-transformation-preserving measure `μ`. -/
 theorem wilsonExpectation_gaugeInvariant
-    {N L k : ℕ} [NeZero N] (hk : 0 < k) (β : ℝ)
+    {N L k : ℕ} [NeZero N] [NeZero L] (hk : 0 < k) (β : ℝ)
     [MeasurableSpace (LinkConfig N L)] (μ : Measure (LinkConfig N L))
     (g : GaugeTransform N L)
     (hg_mp : Measure.map (applyGauge g) μ = μ)

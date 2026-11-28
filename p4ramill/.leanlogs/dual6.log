@@ -1,0 +1,98 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveDual.lean:107:46: error: Type mismatch
+  exp_nat_mul ?m.345 ?m.346
+has type
+  rexp (↑?m.346 * ?m.345) = rexp ?m.345 ^ ?m.346
+but is expected to have type
+  rexp (-π * s * ↑(n + 1)) = rexp (-π * s) ^ (n + 1)
+Imscribing/Millennium/StarkRungFiveDual.lean:155:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  20⁻¹ ≤ (rexp ?m.431)⁻¹
+in the target expression
+  (rexp π)⁻¹ ≤ 20⁻¹
+
+hr1 : rexp (-π) < 1
+h20 : 20 < rexp π
+hr0 : 0 ≤ rexp (-π)
+hgeo : ∑' (n : ℕ), rexp (-π) ^ n = (1 - rexp (-π))⁻¹
+hfn : ∀ (n : ℕ), rexp (-π * (↑n + 1)) = rexp (-π) ^ (n + 1)
+hsh : ∑' (n : ℕ), rexp (-π) ^ (n + 1) = rexp (-π) * ∑' (n : ℕ), rexp (-π) ^ n
+⊢ (rexp π)⁻¹ ≤ 20⁻¹
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveDual.lean:254:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(2 / a) * √(a / 2)
+in the target expression
+  √(a / 2) * √(2 / a) = 1
+
+a : ℝ
+ha : 0 < a
+hle : a ≤ 2
+hconv1 : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) = ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2)
+hconv2 : ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hsplit :
+  ∑' (m : ℤ), rexp (-π * (a / 2) * ↑m ^ 2) =
+    ∑' (n : ℕ), rexp (-π * (a / 2) * ↑↑n ^ 2) + ∑' (n : ℕ), rexp (-π * (a / 2) * ↑(↑n + 1) ^ 2)
+hnat2 : ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hnat : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2)
+hmono : ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2) ≤ ∑' (n : ℤ), rexp (-π * ↑n ^ 2)
+hpois : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2)
+hkey : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) ≤ 21 / 19
+hpos2 : 0 < (a / 2) ^ (1 / 2)
+⊢ √(a / 2) * √(2 / a) = 1
+Imscribing/Millennium/StarkRungFiveDual.lean:257:36: error: Application type mismatch: The argument
+  h1
+has type
+  (a / 2) ^ (1 / 2) * (2 / a) ^ (1 / 2) = 1
+but is expected to have type
+  (2 / a) ^ (1 / 2) * (a / 2) ^ (1 / 2) = 1
+in the application
+  eq_inv_of_mul_eq_one_left h1
+Imscribing/Millennium/StarkRungFiveDual.lean:263:43: error: No goals to be solved
+Imscribing/Millennium/StarkRungFiveDual.lean:261:71: error: unsolved goals
+a : ℝ
+ha : 0 < a
+hle : a ≤ 2
+hconv1 : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) = ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2)
+hconv2 : ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hsplit :
+  ∑' (m : ℤ), rexp (-π * (a / 2) * ↑m ^ 2) =
+    ∑' (n : ℕ), rexp (-π * (a / 2) * ↑↑n ^ 2) + ∑' (n : ℕ), rexp (-π * (a / 2) * ↑(↑n + 1) ^ 2)
+hnat2 : ∑' (k : ℕ), rexp (-π * (a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+hnat : ∑' (k : ℕ), rexp (-(π * a / 2) * ↑k ^ 2) ≤ ∑' (n : ℤ), rexp (-(π * a / 2) * ↑n ^ 2)
+hmono : ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2) ≤ ∑' (n : ℤ), rexp (-π * ↑n ^ 2)
+hpois : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / (a / 2) * ↑n ^ 2)
+hkey : (a / 2) ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2) ≤ 21 / 19
+hpos2 : 0 < (a / 2) ^ (1 / 2)
+hinv : (2 / a) ^ (1 / 2) = ((a / 2) ^ (1 / 2))⁻¹
+⊢ ∑' (b : ℤ), rexp (-(π * a / 2) * ↑b ^ 2) = ∑' (n : ℤ), rexp (-π * (a / 2) * ↑n ^ 2)
+Imscribing/Millennium/StarkRungFiveDual.lean:271:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+Imscribing/Millennium/StarkRungFiveDual.lean:312:0: error: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+
+real	0m29.150s
+user	0m55.988s
+sys	0m2.730s

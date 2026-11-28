@@ -53,7 +53,7 @@ theorem plaquetteHolonomy_applyGauge {N L : ℕ} (g : GaugeTransform N L) (U : L
   group
 
 /-- Real trace of a matrix in SU(N). -/
-def realTrace {N : ℕ} (A : GaugeGroup N) : ℝ :=
+noncomputable def realTrace {N : ℕ} (A : GaugeGroup N) : ℝ :=
   ((Matrix.trace (A : Matrix (Fin N) (Fin N) ℂ)).re)
 
 /-- Cyclic invariance of `realTrace` under SU(N) conjugation. -/
@@ -70,26 +70,24 @@ theorem realTrace_conj {N : ℕ} (g A : GaugeGroup N) :
   rw [hcoe, Matrix.trace_mul_cycle, hinv, one_mul]
 
 /-- 4D SU(N) Wilson plaquette action S_W(β, U). -/
-noncomputable def wilsonAction (N L : ℕ) [NeZero N] (β : ℝ) (U : LinkConfig N L) : ℝ :=
+noncomputable def wilsonAction (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ) (U : LinkConfig N L) : ℝ :=
   β * ∑ x : Lat4 L, ∑ μ : Fin 4, ∑ ν : Fin 4,
     (1 - realTrace (plaquetteHolonomy U x μ ν) / (N : ℝ))
 
 /-- **Exact finite-volume gauge invariance of the 4D SU(N) Wilson action.** -/
-theorem wilsonAction_gaugeInvariant (N L : ℕ) [NeZero N] (β : ℝ)
+theorem wilsonAction_gaugeInvariant (N L : ℕ) [NeZero N] [NeZero L] (β : ℝ)
     (g : GaugeTransform N L) (U : LinkConfig N L) :
     wilsonAction N L β (applyGauge g U) = wilsonAction N L β U := by
   unfold wilsonAction
-  congr 1
-  refine Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun μ _ =>
-    Finset.sum_congr rfl fun ν _ => ?_
-  rw [plaquetteHolonomy_applyGauge, realTrace_conj]
+  exact congrArg (β * ·) (Finset.sum_congr rfl fun x _ => Finset.sum_congr rfl fun μ _ =>
+    Finset.sum_congr rfl fun ν _ => by rw [plaquetteHolonomy_applyGauge, realTrace_conj])
 
 /-- **Remaining Weak-Coupling Continuum Target:**
     Deriving an `OSReconstructedInput N` (whose Schwinger/Wightman observables arise
     from renormalized weak-coupling limits of `wilsonAction N (L m) (ymBetaAF N m)`
     as `ymSpacing m → 0`) discharges `ClaySpec.ClayYangMillsConjecture N`. -/
 def WilsonWeakCouplingContinuumExists (N : ℕ) : Prop :=
-  2 ≤ N → Nonempty (ClayReduction.OSReconstructedInput N)
+  2 ≤ N → Nonempty (ClayReduction.OSReconstructedInput.{1} N)
 
 theorem clay_yang_mills_of_wilson_continuum
     (N : ℕ) (hN : 2 ≤ N)
@@ -98,7 +96,7 @@ theorem clay_yang_mills_of_wilson_continuum
       ClaySpec.HasYangMillsUVScaling N Q ∧
       ClaySpec.HasStrictMassGap Q Δ := by
   obtain ⟨inData⟩ := h_cont hN
-  exact ⟨ClayReduction.toWightmanQFT4D inData, inData.Δ,
-    ClayReduction.clay_target_from_os_input inData⟩
+  refine ⟨ClayReduction.toWightmanQFT4D inData, inData.Δ, ?_⟩
+  simpa using ClayReduction.clay_target_from_os_input inData
 
 end Imscribing.YangMills.WilsonLattice4D

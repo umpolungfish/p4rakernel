@@ -1,0 +1,31 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../probe_tmp.lean:4:26: error(lean.unknownIdentifier): Unknown identifier `π`
+fun a x =>
+  @HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+    (@Neg.neg Real Real.instNeg
+      (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+        (sorryAx (Unit → Real) true
+          (@Function.const Unit Lean.Name Unit.unit
+            `_stdin.4.26.4.27.26.27._sorry._@._stdin.2047865594._hygCtx._hyg.23))
+        a))
+    x : Real → Real → Real
+../../probe_tmp.lean:7:25: error(lean.unknownIdentifier): Unknown identifier `π`
+fun a x =>
+  @HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+    (@HMul.hMul Real Real Real (@instHMul Real Real.instMul)
+      (@Neg.neg Real Real.instNeg
+        (sorryAx (Unit → Real) true
+          (@Function.const Unit Lean.Name Unit.unit
+            `_stdin.7.25.7.26.25.26._sorry._@._stdin.750406696._hygCtx._hyg.23)))
+      a)
+    x : Real → Real → Real
+../../probe_tmp.lean:9:49: error: unsolved goals
+π a x : ℝ
+⊢ -(π * a * x) = -π * a * x

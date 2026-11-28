@@ -14,6 +14,10 @@ Combines `AnalyticVectorExponential` and `UnitaryGroupExtension` (`0 sorry`):
 
 namespace Imscribing.YangMills.PoincareUnitary
 
+set_option maxSynthPendingDepth 1
+set_option maxHeartbeats 800000
+
+
 open scoped InnerProductSpace Topology BigOperators
 open Imscribing.YangMills.AnalyticVectorExp
 open Imscribing.YangMills.UnitaryExtension
@@ -130,8 +134,12 @@ theorem expSeries_group_law_small
     have h_ch_le : ((j + k).choose j : ℝ) ≤ (2 ^ (j + k) : ℝ) := by
       exact_mod_cast choose_le_two_pow (j + k) j
     dsimp [w, b_s, b_t]
-    rw [norm_smul, norm_mul, norm_div, norm_div, norm_pow, norm_pow, norm_mul, norm_mul,
-        Complex.norm_I, one_mul, Complex.norm_real, Complex.norm_natCast, Complex.norm_natCast]
+    have h_norm_w : ‖(((Complex.I * (s : ℂ)) ^ j / (j.factorial : ℂ)) *
+          ((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ))) • (iterA D A hA (j + k) ψ : H)‖ =
+        (|s| ^ j / (j.factorial : ℝ)) * (|t| ^ k / (k.factorial : ℝ)) *
+          ‖(iterA D A hA (j + k) ψ : H)‖ := by
+      simp only [norm_smul, norm_mul, norm_div, norm_pow, Complex.norm_I, one_mul,
+        Complex.norm_real, Complex.norm_natCast, Real.norm_eq_abs]
     have h_iter := hbound (j + k)
     rw [h_ch] at h_iter
     have h_num : (|s| ^ j / (j.factorial : ℝ)) * (|t| ^ k / (k.factorial : ℝ)) *
@@ -139,17 +147,15 @@ theorem expSeries_group_law_small
         (|s| ^ j / (j.factorial : ℝ)) * (|t| ^ k / (k.factorial : ℝ)) *
         (M * r ^ (j + k) * (2 ^ (j + k) * (j.factorial : ℝ) * (k.factorial : ℝ))) := by
       gcongr
-      calc
-        M * r ^ (j + k) * (((j + k).choose j : ℝ) * (j.factorial : ℝ) * (k.factorial : ℝ))
-            ≤ M * r ^ (j + k) * ((2 ^ (j + k) : ℝ) * (j.factorial : ℝ) * (k.factorial : ℝ)) := by
-                gcongr
+      exact le_trans h_iter (by gcongr)
     have h_eq_rhs :
         (|s| ^ j / (j.factorial : ℝ)) * (|t| ^ k / (k.factorial : ℝ)) *
           (M * r ^ (j + k) * (2 ^ (j + k) * (j.factorial : ℝ) * (k.factorial : ℝ))) =
           M * (2 * r * |s|) ^ j * (2 * r * |t|) ^ k := by
       rw [pow_add, pow_add, mul_pow, mul_pow, mul_pow, mul_pow]
       field_simp [hjf.ne', hkf.ne']
-      ring
+      try ring
+    rw [h_norm_w]
     exact le_trans h_num (le_of_eq h_eq_rhs)
   have h_Us_tsum :
       Filter.Tendsto (fun N : ℕ => ∑ k ∈ Finset.range N, ∑ j ∈ Finset.range N, w j k)
@@ -162,9 +168,14 @@ theorem expSeries_group_law_small
           ∑' k : ℕ, ((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ)) •
             U_s (iterA D A hA k ψ : H) := by
         unfold expSeries
-        rw [U_s.toContinuousLinearMap.map_tsum (expSeries_summable D A hA (h_unif ψ) ht1)]
+        change U_s.toContinuousLinearMap (∑' k : ℕ,
+            ((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ)) • (iterA D A hA k ψ : H)) = _
+        rw [ContinuousLinearMap.map_tsum U_s.toContinuousLinearMap
+          (expSeries_summable D A hA (h_unif ψ) ht1)]
         refine tsum_congr fun k => ?_
-        simp
+        change U_s.toContinuousLinearMap _ = _
+        rw [U_s.toContinuousLinearMap.map_smul]
+        rfl
       rw [h_lin]
       refine tsum_congr fun k => ?_
       rw [h_ext (iterA D A hA k ψ)]
@@ -200,9 +211,12 @@ theorem expSeries_group_law_small
             U_s (iterA D A hA k ψ : H) := by
         ext k; rw [h_ext (iterA D A hA k ψ)]
       rw [h_eq]
-      have h_s1 := (expSeries_summable D A hA (h_unif ψ) ht1)
-      have h_clm := h_s1.mapL U_s.toContinuousLinearMap
-      simpa [ContinuousLinearMap.map_smul] using h_clm
+      have h_s1 := expSeries_summable D A hA (h_unif ψ) ht1
+      have h_eq2 : (fun k => ((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ)) • U_s (iterA D A hA k ψ : H)) =
+          fun k => U_s.toContinuousLinearMap (((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ)) • (iterA D A hA k ψ : H)) := by
+        ext k; change _ = U_s.toContinuousLinearMap _; rw [map_smul]; rfl
+      rw [h_eq2]
+      exact h_s1.mapL U_s.toContinuousLinearMap
     rw [tendsto_iff_norm_sub_tendsto_zero]
     have h_bd_N : ∀ N : ℕ,
         ‖(∑ k ∈ Finset.range N, ∑ j ∈ Finset.range N, w j k) - U_s (expSeries D A hA t ψ)‖ ≤
@@ -232,7 +246,7 @@ theorem expSeries_group_law_small
           (∑ k ∈ Finset.range N, ∑ j ∈ Finset.range N, w j k) - U_s (expSeries D A hA t ψ) := by
         abel
       rw [h_eq_sub] at h_split
-      refine le_trans h_split (add_le_add_right ?_ _)
+      refine le_trans h_split (add_le_add ?_ le_rfl)
       rw [← Finset.sum_sub_distrib]
       refine le_trans (norm_sum_le _ _) ?_
       have h_term_tail : ∀ k ∈ Finset.range N,
@@ -248,20 +262,29 @@ theorem expSeries_group_law_small
             _ = M * b_t k * b_s j := by ring
         have h_tail : (∑ j ∈ Finset.range N, w j k) - (∑' j : ℕ, w j k) =
             -(∑' j : ℕ, w (N + j) k) := by
-          rw [← h_sum_j.sum_add_tsum_nat_add N]
-          ring
+          have h_comm : (∑' j : ℕ, w (N + j) k) = ∑' j : ℕ, w (j + N) k :=
+            tsum_congr fun j => by rw [add_comm]
+          rw [h_comm, ← h_sum_j.sum_add_tsum_nat_add N]
+          abel
         rw [h_tail, norm_neg]
-        have h_sum_tail : Summable (fun j => w (N + j) k) :=
-          (summable_nat_add_iff N).mpr h_sum_j
-        have h_bt_tail : Summable (fun j => M * b_t k * b_s (N + j)) :=
-          ((summable_nat_add_iff N).mpr hbs_sum).mul_left (M * b_t k)
+        have h_sum_tail : Summable (fun j => w (N + j) k) := by
+          simpa [add_comm] using (summable_nat_add_iff N).mpr h_sum_j
+        have h_bt_tail : Summable (fun j => M * b_t k * b_s (N + j)) := by
+          simpa [add_comm] using ((summable_nat_add_iff N).mpr hbs_sum).mul_left (M * b_t k)
+        have h_norm_tail : Summable (fun j => ‖w (N + j) k‖) :=
+          Summable.of_nonneg_of_le (fun _ => norm_nonneg _)
+            (fun j => by
+              calc ‖w (N + j) k‖ ≤ M * b_s (N + j) * b_t k := hw_bound (N + j) k
+                _ = M * b_t k * b_s (N + j) := by ring)
+            h_bt_tail
         calc
           ‖∑' j : ℕ, w (N + j) k‖ ≤ ∑' j : ℕ, ‖w (N + j) k‖ :=
-              norm_tsum_le_tsum_norm h_sum_tail
-          _ ≤ ∑' j : ℕ, M * b_t k * b_s (N + j) := by
-              refine h_sum_tail.norm.tsum_le_tsum (fun j => ?_) h_bt_tail
-              calc ‖w (N + j) k‖ ≤ M * b_s (N + j) * b_t k := hw_bound (N + j) k
-                _ = M * b_t k * b_s (N + j) := by ring
+              norm_tsum_le_tsum_norm h_norm_tail
+          _ ≤ ∑' j : ℕ, M * b_t k * b_s (N + j) :=
+              Summable.tsum_le_tsum (fun j => by
+                calc ‖w (N + j) k‖ ≤ M * b_s (N + j) * b_t k := hw_bound (N + j) k
+                  _ = M * b_t k * b_s (N + j) := by ring)
+                h_norm_tail h_bt_tail
           _ = (M * b_t k) * (∑' j : ℕ, b_s (N + j)) := tsum_mul_left
       calc
         ∑ k ∈ Finset.range N, ‖_‖ ≤ ∑ k ∈ Finset.range N, (M * b_t k) * (∑' j, b_s (N + j)) :=
@@ -269,14 +292,22 @@ theorem expSeries_group_law_small
         _ = (M * ∑ k ∈ Finset.range N, b_t k) * (∑' j, b_s (N + j)) := by
             rw [← Finset.sum_mul, ← Finset.mul_sum]
         _ ≤ (M * ∑' k, b_t k) * (∑' j, b_s (N + j)) := by
-            gcongr
-            · exact tsum_nonneg fun _ => by dsimp [b_s]; positivity
-            · exact hbt_sum.sum_le_tsum (Finset.range N) fun _ _ => by dsimp [b_t]; positivity
-    have h_tail_s0 : Filter.Tendsto (fun N : ℕ => ∑' j, b_s (N + j)) Filter.atTop (𝓝 0) :=
-      tendsto_sum_nat_of_summable_norm hbs_sum
+            refine mul_le_mul_of_nonneg_right
+              (mul_le_mul_of_nonneg_left
+                (hbt_sum.sum_le_tsum (Finset.range N) fun _ _ => by dsimp [b_t]; positivity)
+                hM)
+              (tsum_nonneg fun _ => by dsimp [b_s]; positivity)
+    have h_tail_s0 : Filter.Tendsto (fun N : ℕ => ∑' j, b_s (N + j)) Filter.atTop (𝓝 0) := by
+      have h_comm : (fun N : ℕ => ∑' j, b_s (N + j)) = fun N : ℕ => ∑' j, b_s (j + N) := by
+        ext N; congr 1; ext j; rw [add_comm]
+      rw [h_comm]
+      exact tendsto_sum_nat_add b_s
     have h_outer0 : Filter.Tendsto (fun N : ℕ =>
-        (M * (∑' k, b_t k)) * (∑' j, b_s (N + j))) Filter.atTop (𝓝 0) := by
-      simpa using (h_tail_s0.const_mul (M * ∑' k, b_t k)).add ((h_ico_v.const_mul (M * ∑' j, b_s j)))
+        ‖(∑ k ∈ Finset.range N, ((Complex.I * (t : ℂ)) ^ k / (k.factorial : ℂ)) •
+            expSeries D A hA s (iterA D A hA k ψ)) -
+          U_s (expSeries D A hA t ψ)‖) Filter.atTop (𝓝 0) := by
+      rw [h_map_tsum]
+      exact tendsto_iff_norm_sub_tendsto_zero.mp h_sum_outer.hasSum.tendsto_sum_nat
     exact squeeze_zero (fun _ => norm_nonneg _) h_bd_N
       (by simpa using (h_tail_s0.const_mul (M * ∑' k, b_t k)).add h_outer0)
   have h_tri_tend :
@@ -303,10 +334,11 @@ theorem expSeries_group_law_small
         have hnjf : ((n - j).factorial : ℂ) ≠ 0 :=
           Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero (n - j))
         have hnf : (n.factorial : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero n)
+        have hch : (n.choose j : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.ne_of_gt (Nat.choose_pos hj_le))
         rw [h_ch]
-        field_simp [hjf, hnjf, hnf]
-        ring
-      rw [Finset.sum_congr rfl h_eq, ← Finset.sum_mul, ← Finset.sum_div]
+        field_simp [hjf, hnjf, hnf, hch]
+        try ring
+      rw [Finset.sum_congr rfl h_eq, ← Finset.sum_smul, ← Finset.sum_div]
       congr 1
       have h_bin : (∑ j ∈ Finset.range (n + 1),
           (n.choose j : ℂ) * (Complex.I * (s : ℂ)) ^ j * (Complex.I * (t : ℂ)) ^ (n - j)) =
@@ -315,7 +347,7 @@ theorem expSeries_group_law_small
         refine Finset.sum_congr rfl fun j _ => by ring
       rw [h_bin]
       congr 1
-      push_cast; ring
+      push_cast; try ring
     simp_rw [h_row]
     exact (expSeries_summable D A hA (h_unif ψ) hst1).hasSum.tendsto_sum_nat
   have h_sq_tri_diff :
@@ -332,7 +364,7 @@ theorem expSeries_group_law_small
       have h_sigma :
           (∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), w j (n - j)) =
           ∑ p ∈ (Finset.range N).sigma (fun n => Finset.range (n + 1)),
-            w p.2 (p.1 - p.2) := (Finset.sum_sigma _ _ _).symm
+            w p.2 (p.1 - p.2) := by rw [Finset.sum_sigma]
       rw [h_sigma]
       refine Finset.sum_bij (fun p _ => (p.2, p.1 - p.2)) ?_ ?_ ?_ ?_
       · rintro ⟨n, j⟩ hp
@@ -343,11 +375,14 @@ theorem expSeries_group_law_small
         simp only [Finset.mem_sigma, Finset.mem_range] at h₁ h₂
         have hj : j₁ = j₂ := congrArg Prod.fst heq
         have hd : n₁ - j₁ = n₂ - j₂ := congrArg Prod.snd heq
-        ext <;> omega
+        have hj₁ : j₁ ≤ n₁ := Nat.lt_succ_iff.mp h₁.2
+        have hj₂ : j₂ ≤ n₂ := Nat.lt_succ_iff.mp h₂.2
+        have hn : n₁ = n₂ := by omega
+        subst hn; subst hj; rfl
       · rintro ⟨j, k⟩ hjk
         simp only [Finset.mem_filter, Finset.mem_product, Finset.mem_range] at hjk
         refine ⟨⟨j + k, j⟩, ?_, ?_⟩
-        · simp only [Finset.mem_sigma, Finset.mem_range]; exact ⟨hjk.2, by omega⟩
+        · simp only [Finset.mem_sigma, Finset.mem_range]; exact ⟨by omega, by omega⟩
         · ext <;> simp
       · rintro ⟨n, j⟩ _; rfl
     have h_sq_eq : ∀ N : ℕ,
@@ -360,105 +395,120 @@ theorem expSeries_group_law_small
           (∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), w j (n - j))) - 0‖ ≤
           M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k) +
                (∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k)) := by
-    intro N
-    rw [sub_zero, h_sq_eq N, h_tri_eq N, ← Finset.sum_sdiff_eq_sub (Finset.filter_subset _ _)]
-    have h_sub :
-        (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)) ⊆
-        (Finset.Ico (N / 2) N ×ˢ Finset.range N) ∪
-          (Finset.range N ×ˢ Finset.Ico (N / 2) N) := by
-      rintro ⟨j, k⟩ hp
-      simp only [Finset.mem_sdiff, Finset.mem_filter, Finset.mem_product,
-        Finset.mem_range, not_and, not_lt] at hp
-      rcases hp with ⟨⟨hjN, hkN⟩, hjk⟩
-      have hge := hjk ⟨hjN, hkN⟩
-      simp only [Finset.mem_union, Finset.mem_product, Finset.mem_Ico, Finset.mem_range]
-      by_cases hj : N / 2 ≤ j
-      · exact Or.inl ⟨⟨hj, hjN⟩, hkN⟩
-      · exact Or.inr ⟨hjN, ⟨by omega, hkN⟩⟩
-    have h_le1 :
-        ‖∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            w p.1 p.2‖ ≤
-          ∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            ‖w p.1 p.2‖ := by
-      refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun p _ => ?_)
-      exact norm_inner_le_norm (u p.1) (v p.2)
-    have h_le2 :
-        (∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            ‖w p.1 p.2‖) ≤
-          (∑ p ∈ (Finset.Ico (N / 2) N ×ˢ Finset.range N), ‖w p.1 p.2‖) +
-          (∑ p ∈ (Finset.range N ×ˢ Finset.Ico (N / 2) N), ‖w p.1 p.2‖) := by
-        refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg h_sub
-          (fun _ _ _ => by dsimp [b_s, b_t]; positivity)) ?_
-        exact Finset.sum_union_le (fun i _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _))
-    have h_f1 :
-        (∑ p ∈ Finset.Ico (N / 2) N ×ˢ Finset.range N, ‖w p.1 p.2‖) ≤
-          (∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k) := by
-      rw [Finset.sum_product, ← Finset.sum_mul]
-      simp_rw [← Finset.mul_sum]
-      refine mul_le_mul_of_nonneg_left
-        (hbt_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
-        (Finset.sum_nonneg fun _ _ => norm_nonneg _)
-    have h_f2 :
-        (∑ p ∈ Finset.range N ×ˢ Finset.Ico (N / 2) N, ‖w p.1 p.2‖) ≤
-          (∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k) := by
-      rw [Finset.sum_product]
-      simp_rw [← Finset.mul_sum]
-      rw [← Finset.sum_mul]
-      refine mul_le_mul_of_nonneg_right
-        (hbs_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
-        (Finset.sum_nonneg fun _ _ => norm_nonneg _)
-    exact le_trans h_le1 (le_trans h_le2 (add_le_add h_f1 h_f2))
-  have h_ico_s : Filter.Tendsto (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, b_s j)
-      Filter.atTop (𝓝 0) := by
-    have h_cau := hbs_sum.tendsto_sum_nat
-    have h_diff_t : Filter.Tendsto
-        (fun N : ℕ => (∑ j ∈ Finset.range N, b_s j) - (∑ j ∈ Finset.range (N / 2), b_s j))
-        Filter.atTop (𝓝 (∑' j, b_s j - ∑' j, b_s j)) :=
-      h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
-    rw [sub_self] at h_diff_t
-    have h_eq : (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, b_s j) =
-        fun N : ℕ => (∑ j ∈ Finset.range N, b_s j) - (∑ j ∈ Finset.range (N / 2), b_s j) := by
-      ext N
-      rw [← Finset.sum_Ico_add (f := b_s) 0 (N / 2) N (Nat.zero_le _) (Nat.div_le_self N 2)]
-      simp [Finset.range_eq_Ico]
-    rwa [h_eq]
-  have h_ico_t : Filter.Tendsto (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, b_t k)
-      Filter.atTop (𝓝 0) := by
-    have h_cau := hbt_sum.tendsto_sum_nat
-    have h_diff_t : Filter.Tendsto
-        (fun N : ℕ => (∑ k ∈ Finset.range N, b_t k) - (∑ k ∈ Finset.range (N / 2), b_t k))
-        Filter.atTop (𝓝 (∑' k, b_t k - ∑' k, b_t k)) :=
-      h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
-    rw [sub_self] at h_diff_t
-    have h_eq : (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, b_t k) =
-        fun N : ℕ => (∑ k ∈ Finset.range N, b_t k) - (∑ k ∈ Finset.range (N / 2), b_t k) := by
-      ext N
-      rw [← Finset.sum_Ico_add (f := b_t) 0 (N / 2) N (Nat.zero_le _) (Nat.div_le_self N 2)]
-      simp [Finset.range_eq_Ico]
-    rwa [h_eq]
-  have h_rhs0 : Filter.Tendsto (fun N : ℕ =>
-      M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k) +
-           (∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k))) Filter.atTop (𝓝 0) := by
-    simpa using ((h_ico_s.mul_const _).add (h_ico_t.const_mul _)).const_mul M
-  exact squeeze_zero (fun _ => norm_nonneg _) h_bound h_rhs0
-  have h_tri_const : Filter.Tendsto
-      (fun N : ℕ => ∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), w j (n - j))
-      Filter.atTop (𝓝 (expSeries D A hA (s + t) ψ)) := by
-    have h_ev : ∀ᶠ N : ℕ in Filter.atTop,
-        (∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), w j (n - j)) =
-          expSeries D A hA (s + t) ψ := by
-      rw [Filter.eventually_atTop]
-      refine ⟨1, fun N hN => ?_⟩
-      have h1 := inner_expSeries_partial_eq D A hA h_symm t ψ φ N
-      have hne : N ≠ 0 := by omega
-      simpa [hne] using h1
-    exact tendsto_const_nhds.congr' (h_ev.mono fun _ h => h.symm)
-  have h_diff2 := h_partial_tend.sub h_tri_const
-  exact sub_eq_zero.mp (tendsto_nhds_unique h_diff2 h_tri_diff) |>.symm
+      intro N
+      rw [sub_zero, h_sq_eq N, h_tri_eq N, ← Finset.sum_sdiff_eq_sub (Finset.filter_subset _ _)]
+      set S_diff := (Finset.range N ×ˢ Finset.range N) \
+        ((Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N))
+      set A_box := Finset.Ico (N / 2) N ×ˢ Finset.range N
+      set B_box := Finset.range N ×ˢ Finset.Ico (N / 2) N
+      have h_sub : S_diff ⊆ A_box ∪ B_box := by
+        rintro ⟨j, k⟩ hp
+        simp only [S_diff, Finset.mem_sdiff, Finset.mem_filter, Finset.mem_product,
+          Finset.mem_range, not_and, not_lt] at hp
+        rcases hp with ⟨⟨hjN, hkN⟩, hjk⟩
+        have hge := hjk ⟨hjN, hkN⟩
+        simp only [A_box, B_box, Finset.mem_union, Finset.mem_product, Finset.mem_Ico, Finset.mem_range]
+        by_cases hj : N / 2 ≤ j
+        · exact Or.inl ⟨⟨hj, hjN⟩, hkN⟩
+        · exact Or.inr ⟨hjN, ⟨by omega, hkN⟩⟩
+      have h_le1 : ‖∑ p ∈ S_diff, w p.1 p.2‖ ≤ ∑ p ∈ S_diff, (M * b_s p.1 * b_t p.2) :=
+        le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun p _ => hw_bound p.1 p.2)
+      have h_nonneg : ∀ p : ℕ × ℕ, 0 ≤ M * b_s p.1 * b_t p.2 := fun p => by
+        dsimp [b_s, b_t]; positivity
+      have h_le2 :
+          (∑ p ∈ S_diff, (M * b_s p.1 * b_t p.2)) ≤
+            (∑ p ∈ A_box, (M * b_s p.1 * b_t p.2)) +
+            (∑ p ∈ B_box, (M * b_s p.1 * b_t p.2)) := by
+        have h_u1 := Finset.sum_le_sum_of_subset_of_nonneg h_sub (fun p _ _ => h_nonneg p)
+        have h_eqU : A_box ∪ B_box = A_box ∪ (B_box \ A_box) := by
+          ext x; simp only [Finset.mem_union, Finset.mem_sdiff]; tauto
+        have h_disjU : Disjoint A_box (B_box \ A_box) :=
+          Finset.disjoint_left.mpr fun _ hx hxa => (Finset.mem_sdiff.mp hxa).2 hx
+        have h_u2 :
+            ∑ p ∈ A_box ∪ B_box, (M * b_s p.1 * b_t p.2) ≤
+            (∑ p ∈ A_box, (M * b_s p.1 * b_t p.2)) +
+            (∑ p ∈ B_box, (M * b_s p.1 * b_t p.2)) := by
+          rw [h_eqU, Finset.sum_union h_disjU]
+          exact add_le_add le_rfl
+            (Finset.sum_le_sum_of_subset_of_nonneg Finset.sdiff_subset (fun p _ _ => h_nonneg p))
+        exact le_trans h_u1 h_u2
+      have h_f1 :
+          (∑ p ∈ A_box, (M * b_s p.1 * b_t p.2)) ≤
+            M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k)) := by
+        rw [Finset.sum_product]
+        have h_eq1 : (∑ x ∈ Finset.Ico (N / 2) N, ∑ y ∈ Finset.range N, M * b_s x * b_t y) =
+            M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑ k ∈ Finset.range N, b_t k)) := by
+          simp_rw [mul_assoc, ← Finset.mul_sum, ← Finset.sum_mul]
+        rw [h_eq1]
+        refine mul_le_mul_of_nonneg_left
+          (mul_le_mul_of_nonneg_left
+            (hbt_sum.sum_le_tsum (Finset.range N) (fun _ _ => by dsimp [b_t]; positivity))
+            (Finset.sum_nonneg fun _ _ => by dsimp [b_s]; positivity))
+          hM
+      have h_f2 :
+          (∑ p ∈ B_box, (M * b_s p.1 * b_t p.2)) ≤
+            M * ((∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k)) := by
+        rw [Finset.sum_product]
+        have h_eq2 : (∑ x ∈ Finset.range N, ∑ y ∈ Finset.Ico (N / 2) N, M * b_s x * b_t y) =
+            M * ((∑ j ∈ Finset.range N, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k)) := by
+          simp_rw [mul_assoc, ← Finset.mul_sum, ← Finset.sum_mul]
+        rw [h_eq2]
+        refine mul_le_mul_of_nonneg_left
+          (mul_le_mul_of_nonneg_right
+            (hbs_sum.sum_le_tsum (Finset.range N) (fun _ _ => by dsimp [b_s]; positivity))
+            (Finset.sum_nonneg fun _ _ => by dsimp [b_t]; positivity))
+          hM
+      calc
+        ‖∑ p ∈ S_diff, w p.1 p.2‖
+            ≤ ∑ p ∈ S_diff, (M * b_s p.1 * b_t p.2) := h_le1
+        _ ≤ (∑ p ∈ A_box, (M * b_s p.1 * b_t p.2)) +
+            (∑ p ∈ B_box, (M * b_s p.1 * b_t p.2)) := h_le2
+        _ ≤ M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k)) +
+            M * ((∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k)) := add_le_add h_f1 h_f2
+        _ = M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k) +
+                 (∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k)) := by ring
+    have h_ico_s : Filter.Tendsto (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, b_s j)
+        Filter.atTop (𝓝 0) := by
+      have h_cau := hbs_sum.hasSum.tendsto_sum_nat
+      have h_diff_t : Filter.Tendsto
+          (fun N : ℕ => (∑ j ∈ Finset.range N, b_s j) - (∑ j ∈ Finset.range (N / 2), b_s j))
+          Filter.atTop (𝓝 (∑' j, b_s j - ∑' j, b_s j)) :=
+        h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
+      rw [sub_self] at h_diff_t
+      have h_eq : (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, b_s j) =
+          fun N : ℕ => (∑ j ∈ Finset.range N, b_s j) - (∑ j ∈ Finset.range (N / 2), b_s j) := by
+        ext N
+        have h_sub_range : Finset.range (N / 2) ⊆ Finset.range N :=
+          Finset.range_mono (Nat.div_le_self N 2)
+        have h_sdiff : Finset.range N \ Finset.range (N / 2) = Finset.Ico (N / 2) N := by
+          ext x; simp only [Finset.mem_sdiff, Finset.mem_range, Finset.mem_Ico]; omega
+        rw [← h_sdiff, Finset.sum_sdiff_eq_sub h_sub_range]
+      rwa [h_eq]
+    have h_ico_t : Filter.Tendsto (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, b_t k)
+        Filter.atTop (𝓝 0) := by
+      have h_cau := hbt_sum.hasSum.tendsto_sum_nat
+      have h_diff_t : Filter.Tendsto
+          (fun N : ℕ => (∑ k ∈ Finset.range N, b_t k) - (∑ k ∈ Finset.range (N / 2), b_t k))
+          Filter.atTop (𝓝 (∑' k, b_t k - ∑' k, b_t k)) :=
+        h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
+      rw [sub_self] at h_diff_t
+      have h_eq : (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, b_t k) =
+          fun N : ℕ => (∑ k ∈ Finset.range N, b_t k) - (∑ k ∈ Finset.range (N / 2), b_t k) := by
+        ext N
+        have h_sub_range : Finset.range (N / 2) ⊆ Finset.range N :=
+          Finset.range_mono (Nat.div_le_self N 2)
+        have h_sdiff : Finset.range N \ Finset.range (N / 2) = Finset.Ico (N / 2) N := by
+          ext x; simp only [Finset.mem_sdiff, Finset.mem_range, Finset.mem_Ico]; omega
+        rw [← h_sdiff, Finset.sum_sdiff_eq_sub h_sub_range]
+      rwa [h_eq]
+    have h_rhs0 : Filter.Tendsto (fun N : ℕ =>
+        M * ((∑ j ∈ Finset.Ico (N / 2) N, b_s j) * (∑' k, b_t k) +
+             (∑' j, b_s j) * (∑ k ∈ Finset.Ico (N / 2) N, b_t k))) Filter.atTop (𝓝 0) := by
+      simpa using ((h_ico_s.mul_const _).add (h_ico_t.const_mul _)).const_mul M
+    exact squeeze_zero (fun _ => norm_nonneg _) h_bound h_rhs0
+  have h_sub := h_Us_tsum.sub h_tri_tend
+  have h_lim := tendsto_nhds_unique h_sub h_sq_tri_diff
+  exact sub_eq_zero.mp h_lim
 
 /-- **Full Nelson Unitary Group Theorem:**
     Every symmetric operator `A : D →ₗ[ℂ] H` preserving a dense uniform analytic-vector
@@ -479,7 +529,8 @@ noncomputable def nelson_global_unitary_group
     if ht : |t| < δ then
       have ht1 : r * |t| < 1 := by
         have h1 : |t| < (2 * r)⁻¹ := ht
-        have h2 : 2 * r * |t| < 1 := (lt_div_iff₀' (by positivity : 0 < 2 * r)).mp (by simpa [one_div] using h1)
+        have h2 : 2 * r * |t| < 1 := by calc 2 * r * |t| < 2 * r * (2 * r)⁻¹ := mul_lt_mul_of_pos_left h1 (by positivity)
+          _ = 1 := mul_inv_cancel₀ (by positivity)
         nlinarith [abs_nonneg t]
       let U₀ : D →ₗ[ℂ] H :=
         { toFun := fun ψ => expSeries D A hA t ψ
@@ -509,24 +560,20 @@ noncomputable def nelson_global_unitary_group
       rw [hU_loc_eq (by simpa using hδ) ψ, expSeries_zero]
     ext x
     have hc : Continuous (U_loc 0) := (U_loc 0).continuous
-    exact h_dense.equalizer hc continuous_id (fun y hy => h_dense_eq ⟨y, hy⟩) x
+    exact congrFun (hc.ext_on h_dense continuous_id fun y hy => h_dense_eq ⟨y, hy⟩) x
   have hU_loc_add : ∀ s t : ℝ, |s| < δ → |t| < δ → |s + t| < δ →
       ∀ x : H, U_loc (s + t) x = U_loc s (U_loc t x) := by
     intro s t hs ht hst x
     have h_dense_eq : ∀ ψ : D, U_loc (s + t) (ψ : H) = U_loc s (U_loc t (ψ : H)) := by
       intro ψ
-      have hs2 : 2 * r * |s| < 1 := by
-        have := (lt_div_iff₀' (by positivity : 0 < 2 * r)).mpr (by simpa [δ, one_div] using hs)
-        linarith
-      have ht2 : 2 * r * |t| < 1 := by
-        have := (lt_div_iff₀' (by positivity : 0 < 2 * r)).mpr (by simpa [δ, one_div] using ht)
-        linarith
+      have hs2 : 2 * r * |s| < 1 := by calc 2 * r * |s| < 2 * r * (2 * r)⁻¹ := mul_lt_mul_of_pos_left hs (by positivity)
+        _ = 1 := mul_inv_cancel₀ (by positivity)
+      have ht2 : 2 * r * |t| < 1 := by calc 2 * r * |t| < 2 * r * (2 * r)⁻¹ := mul_lt_mul_of_pos_left ht (by positivity)
+        _ = 1 := mul_inv_cancel₀ (by positivity)
       rw [hU_loc_eq hst ψ, hU_loc_eq ht ψ]
       exact (expSeries_group_law_small D A hA hr h_unif (U_loc s) hs2 ht2
         (fun φ => hU_loc_eq hs φ) ψ).symm
-    exact h_dense.equalizer (U_loc (s + t)).continuous
-      ((U_loc s).continuous.comp (U_loc t).continuous)
-      (fun y hy => h_dense_eq ⟨y, hy⟩) x
+    exact congrFun ((U_loc (s + t)).continuous.ext_on h_dense ((U_loc s).continuous.comp (U_loc t).continuous) fun y hy => h_dense_eq ⟨y, hy⟩) x
   obtain ⟨U, hU0, hUadd, hUsmall⟩ :=
     globalUnitaryGroupFromLocal U_loc δ hδ hU_loc_zero hU_loc_add
   refine ⟨U, hU0, hUadd, fun t ht ψ => ?_⟩

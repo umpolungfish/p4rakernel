@@ -1,0 +1,100 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:348:10: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  Fintype.card { c // ?m.396 c.1 ∧ ?m.397 c.2 }
+in the target expression
+  Fintype.card { u // u.1 ^ 2 = (castHom ⋯ (ZMod d)) y ∧ u.2 ^ 2 = (castHom ⋯ (ZMod c)) y } =
+    Fintype.card { x // x ^ 2 = (castHom ⋯ (ZMod d)) y } * Fintype.card { x // x ^ 2 = (castHom ⋯ (ZMod c)) y }
+
+d c : ℕ
+inst✝² : NeZero d
+inst✝¹ : NeZero c
+inst✝ : NeZero (d * c)
+hcop : d.Coprime c
+y : ZMod (d * c)
+hE : ZMod (d * c) ≃+* ZMod d × ZMod c := chineseRemainder hcop
+hEc1 : ∀ (w : ZMod (d * c)), (hE w).1 = (castHom ⋯ (ZMod d)) w
+hEc2 : ∀ (w : ZMod (d * c)), (hE w).2 = (castHom ⋯ (ZMod c)) w
+hpow : ∀ (w : ZMod (d * c)), hE w ^ 2 = hE (w ^ 2)
+h1 :
+  Fintype.card { x // x ^ 2 = y } =
+    Fintype.card { u // u.1 ^ 2 = (castHom ⋯ (ZMod d)) y ∧ u.2 ^ 2 = (castHom ⋯ (ZMod c)) y }
+⊢ Fintype.card { u // u.1 ^ 2 = (castHom ⋯ (ZMod d)) y ∧ u.2 ^ 2 = (castHom ⋯ (ZMod c)) y } =
+    Fintype.card { x // x ^ 2 = (castHom ⋯ (ZMod d)) y } * Fintype.card { x // x ^ 2 = (castHom ⋯ (ZMod c)) y }
+Imscribing/Millennium/StarkRungFourGaussSign.lean:386:44: error: unsolved goals
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+y : ZMod con
+⊢ ↑(jacobiSym (↑y.val) d) * ↑(jacobiSym (↑y.val) c) = ↑(jacobiSym (↑y.val) d) * ↑(jacobiSym (↑y.val) c)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:411:42: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:412:43: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:421:6: error: Type mismatch
+  ZMod.val_injective con ?m.141
+has type
+  ?m.139 = ?m.140
+but is expected to have type
+  x = y
+Imscribing/Millennium/StarkRungFourGaussSign.lean:426:44: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?m.168 % (d * c) % con
+in the target expression
+  y.val % (d * c) = y.val
+
+case right
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+y : ZMod con
+⊢ y.val % (d * c) = y.val
+Imscribing/Millennium/StarkRungFourGaussSign.lean:436:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ x, ?m.226 (E x)
+in the target expression
+  ∑ y, chiP d y * stdAddChar y = 0
+
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+hbij : Function.Bijective ⇑E
+hχ : ∀ (z : ZMod (d * c)), chiP d (E z) = ↑(jacobiSym (↑z.val) d)
+hψ : ∀ (z : ZMod (d * c)), stdAddChar (E z) = stdAddChar z
+⊢ ∑ y, chiP d y * stdAddChar y = 0
+Imscribing/Millennium/StarkRungFourGaussSign.lean:459:43: error: unsolved goals
+N : ℕ
+inst✝ : NeZero N
+hf : 1 < N
+h1 : rootExp (ZMod.val 1) N = 1
+⊢ ¬N = 1
+Imscribing/Millennium/StarkRungFourGaussSign.lean:499:45: error: unexpected token ':'; expected ')'
+Imscribing/Millennium/StarkRungFourGaussSign.lean:484:11: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information

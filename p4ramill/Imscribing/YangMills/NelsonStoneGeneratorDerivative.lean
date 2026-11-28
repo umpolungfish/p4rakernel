@@ -29,7 +29,7 @@ variable {H : Type*} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteS
     `HasDerivAt (fun t => expSeries D A hA t ψ) (Complex.I • (A ψ : H)) 0`. -/
 theorem expSeries_hasDerivAt_zero
     (D : Submodule ℂ H) (A : D →ₗ[ℂ] H) (hA : ∀ ψ : D, A ψ ∈ D)
-    {r : ℝ} (hr : 0 < r) (h_psi : IsAnalyticVector D A hA ψ r) :
+    {r : ℝ} (hr : 0 < r) (ψ : D) (h_psi : IsAnalyticVector D A hA ψ r) :
     HasDerivAt (fun t : ℝ => expSeries D A hA t ψ) (Complex.I • (A ψ : H)) 0 := by
   rw [hasDerivAt_iff_tendsto_slope]
   obtain ⟨_, M, hM, hbound⟩ := h_psi
@@ -37,14 +37,15 @@ theorem expSeries_hasDerivAt_zero
   have h_slope_bound : ∀ᶠ t : ℝ in 𝓝[≠] 0,
       ‖slope (fun u => expSeries D A hA u ψ) 0 t - Complex.I • (A ψ : H)‖ ≤
         (2 * M * r ^ 2) * |t| := by
-    have h_ball : Set.Ioo (-(2 * r)⁻¹) ((2 * r)⁻¹) \ {0} ∈ 𝓝[≠] (0 : ℝ) := by
-      refine inter_mem_nhdsWithin _ ?_
-      exact Ioo_mem_nhds (by linarith [show 0 < (2 * r)⁻¹ by positivity])
-        (by positivity)
+    have h_ball : Set.Ioo (-(2 * r)⁻¹) ((2 * r)⁻¹) \ {0} ∈ 𝓝[≠] (0 : ℝ) :=
+      mem_nhdsWithin.mpr ⟨Set.Ioo (-(2 * r)⁻¹) ((2 * r)⁻¹), isOpen_Ioo,
+        ⟨neg_lt_zero.mpr (by positivity), by positivity⟩, fun _ hx => ⟨hx.1, hx.2⟩⟩
     filter_upwards [h_ball] with t ⟨ht_ioo, ht_ne⟩
     have ht_abs : |t| < (2 * r)⁻¹ := abs_lt.mpr ⟨ht_ioo.1, ht_ioo.2⟩
     have ht_half : r * |t| ≤ 1 / 2 := by
-      have h1 : 2 * r * |t| < 1 := (lt_div_iff₀' (by positivity : 0 < 2 * r)).mp (by simpa [one_div] using ht_abs)
+      have h1 : 2 * r * |t| < 1 := by
+        calc 2 * r * |t| < 2 * r * (2 * r)⁻¹ := mul_lt_mul_of_pos_left ht_abs (by positivity)
+          _ = 1 := mul_inv_cancel₀ (by positivity)
       linarith
     have ht1 : r * |t| < 1 := by linarith
     have h_sum := expSeries_summable D A hA ⟨hr, M, hM, hbound⟩ ht1
@@ -56,11 +57,11 @@ theorem expSeries_hasDerivAt_zero
         (ψ : H) + (Complex.I * (t : ℂ)) • (A ψ : H) + ∑' m : ℕ, u (m + 2) := by
       change (∑' n, u n) = _
       rw [h_sum.tsum_eq_zero_add, h_sum1.tsum_eq_zero_add]
-      have hu0 : u 0 = (ψ : H) := by simp [u]
-      have hu1 : u 1 = (Complex.I * (t : ℂ)) • (A ψ : H) := by
+      have hu0 : ((Complex.I * (t : ℂ)) ^ 0 / ((Nat.factorial 0 : ℕ) : ℂ)) •
+          (iterA D A hA 0 ψ : H) = (ψ : H) := by simp [iterA_zero]
+      have hu1 : u (0 + 1) = (Complex.I * (t : ℂ)) • (A ψ : H) := by
         simp [u, iterA_succ]
-      rw [hu0, hu1, add_assoc]
-      rfl
+      rw [hu0, hu1, ← add_assoc]
     have h_slope_eq : slope (fun u => expSeries D A hA u ψ) 0 t - Complex.I • (A ψ : H) =
         t⁻¹ • ∑' m : ℕ, u (m + 2) := by
       rw [slope_def_module, sub_zero, expSeries_zero, h_tsum_split]
@@ -68,41 +69,41 @@ theorem expSeries_hasDerivAt_zero
           (Complex.I * (t : ℂ)) • (A ψ : H) + ∑' m, u (m + 2) := by abel
       rw [h_sub_psi, smul_add]
       have h_t_cancel : t⁻¹ • ((Complex.I * (t : ℂ)) • (A ψ : H)) = Complex.I • (A ψ : H) := by
-        rw [Real.smul_def, smul_smul]
+        rw [← smul_assoc, Complex.real_smul]
+        have ht_c : (t : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr ht_ne
         have h_mul : ((t⁻¹ : ℝ) : ℂ) * (Complex.I * (t : ℂ)) = Complex.I := by
-          push_cast; field_simp [ht_ne]
+          push_cast; field_simp [ht_c]
         rw [h_mul]
       rw [h_t_cancel]
       abel
     rw [h_slope_eq, norm_smul, Real.norm_eq_abs, abs_inv]
-    have h_norm_sum2 : Summable (fun m => ‖u (m + 2)‖) := h_sum2.norm
     have h_geom : Summable (fun m : ℕ => (M * r ^ 2 * |t| ^ 2) * (1 / 2 : ℝ) ^ m) :=
       (summable_geometric_of_lt_one (by norm_num) (by norm_num)).mul_left _
     have h_term_le : ∀ m : ℕ, ‖u (m + 2)‖ ≤ (M * r ^ 2 * |t| ^ 2) * (1 / 2 : ℝ) ^ m := by
       intro m
       dsimp [u]
       have hfac : (0 : ℝ) < ((m + 2).factorial : ℝ) := Nat.cast_pos.mpr (Nat.factorial_pos _)
-      rw [norm_smul, norm_div, norm_pow, norm_mul, Complex.norm_I, one_mul,
-          Complex.norm_real, Complex.norm_natCast]
+      simp only [norm_smul, norm_div, norm_pow, norm_mul, Complex.norm_I, one_mul,
+          Complex.norm_real, Complex.norm_natCast, Real.norm_eq_abs]
       have h_iter := hbound (m + 2)
-      rw [h_ch] at h_iter
       have h_num : (|t| ^ (m + 2) / ((m + 2).factorial : ℝ)) * ‖(iterA D A hA (m + 2) ψ : H)‖ ≤
           (|t| ^ (m + 2) / ((m + 2).factorial : ℝ)) *
             (M * r ^ (m + 2) * ((m + 2).factorial : ℝ)) := by gcongr
       have h2 : (|t| ^ (m + 2) / ((m + 2).factorial : ℝ)) *
           (M * r ^ (m + 2) * ((m + 2).factorial : ℝ)) =
           (M * r ^ 2 * |t| ^ 2) * (r * |t|) ^ m := by
-        rw [pow_add, pow_add, mul_pow]; field_simp [hfac.ne']; ring
+        rw [pow_add, pow_add, mul_pow]; field_simp [hfac.ne']; try ring
       have h3 : (M * r ^ 2 * |t| ^ 2) * (r * |t|) ^ m ≤
           (M * r ^ 2 * |t| ^ 2) * (1 / 2 : ℝ) ^ m := by
         gcongr
-        exact pow_le_pow_left₀ (by positivity) ht_half m
-      exact le_trans h1 (le_trans h2 h3)
+      exact le_trans h_num (le_trans (le_of_eq h2) h3)
+    have h_norm_sum2 : Summable (fun m => ‖u (m + 2)‖) :=
+      Summable.of_nonneg_of_le (fun _ => norm_nonneg _) h_term_le h_geom
     have h_tsum_le : ‖∑' m : ℕ, u (m + 2)‖ ≤ (M * r ^ 2 * |t| ^ 2) * 2 := by
       have h1 : ‖∑' m : ℕ, u (m + 2)‖ ≤ ∑' m : ℕ, ‖u (m + 2)‖ :=
         norm_tsum_le_tsum_norm h_norm_sum2
       have h2 : ∑' m : ℕ, ‖u (m + 2)‖ ≤ ∑' m : ℕ, (M * r ^ 2 * |t| ^ 2) * (1 / 2 : ℝ) ^ m :=
-        h_norm_sum2.tsum_le_tsum h_term_le h_geom
+        Summable.tsum_le_tsum h_term_le h_norm_sum2 h_geom
       have h3 : (∑' m : ℕ, (M * r ^ 2 * |t| ^ 2) * (1 / 2 : ℝ) ^ m) =
           (M * r ^ 2 * |t| ^ 2) * 2 := by
         rw [tsum_mul_left, tsum_geometric_of_lt_one (by norm_num) (by norm_num)]
@@ -112,7 +113,7 @@ theorem expSeries_hasDerivAt_zero
       mul_le_mul_of_nonneg_left h_tsum_le (inv_nonneg.mpr (abs_nonneg t))
     have h_eq : |t|⁻¹ * ((M * r ^ 2 * |t| ^ 2) * 2) = (2 * M * r ^ 2) * |t| := by
       have hta : |t| ≠ 0 := abs_ne_zero.mpr ht_ne
-      field_simp [hta]; ring
+      field_simp [hta]; try ring
     rwa [h_eq] at h_mul_le
   have h_rhs0 : Filter.Tendsto (fun t : ℝ => (2 * M * r ^ 2) * |t|) (𝓝[≠] 0) (𝓝 0) := by
     have h_abs0 : Filter.Tendsto (fun t : ℝ => |t|) (𝓝[≠] 0) (𝓝 0) :=
@@ -134,14 +135,30 @@ theorem nelson_unitary_hasDerivAt_all
   have h_spec := (nelson_global_unitary_group D h_dense A hA h_symm hr h_unif).2
   have hU_add := h_spec.2.1
   have hU_small := h_spec.2.2
-  have h_deriv0 := expSeries_hasDerivAt_zero D A hA hr (h_unif ψ)
+  have h_deriv0 := expSeries_hasDerivAt_zero D A hA hr ψ (h_unif ψ)
   have h_comp0 : HasDerivAt (fun h : ℝ => U s (expSeries D A hA h ψ))
       ((U s).toContinuousLinearMap (Complex.I • (A ψ : H))) 0 :=
-    (U s).toContinuousLinearMap.hasDerivAt.comp 0 h_deriv0
+    ((U s).toContinuousLinearMap.restrictScalars ℝ).hasFDerivAt.comp_hasDerivAt (0 : ℝ) h_deriv0
   have h_shift : HasDerivAt (fun t : ℝ => U s (expSeries D A hA (t - s) ψ))
       (U s (Complex.I • (A ψ : H))) s := by
-    have h1 := h_comp0.comp s ((hasDerivAt_id s).sub_const s)
-    simpa using h1
+    have h_slope0 : Filter.Tendsto (slope (fun h : ℝ => U s (expSeries D A hA h ψ)) 0)
+        (𝓝[≠] 0) (𝓝 ((U s).toContinuousLinearMap (Complex.I • (A ψ : H)))) :=
+      hasDerivAt_iff_tendsto_slope.mp h_comp0
+    have h_sub_nhds : Filter.Tendsto (fun t : ℝ => t - s) (𝓝[≠] s) (𝓝[≠] 0) := by
+      refine tendsto_nhdsWithin_iff.mpr ⟨?_, ?_⟩
+      · have hc : Filter.Tendsto (fun t : ℝ => t - s) (𝓝 s) (𝓝 (s - s)) :=
+          (continuous_id.sub continuous_const).tendsto s
+        rw [sub_self] at hc
+        exact hc.mono_left nhdsWithin_le_nhds
+      · filter_upwards [self_mem_nhdsWithin] with t ht
+        exact sub_ne_zero.mpr ht
+    rw [hasDerivAt_iff_tendsto_slope]
+    have h_eq_sl : slope (fun t : ℝ => U s (expSeries D A hA (t - s) ψ)) s =
+        fun t => slope (fun h : ℝ => U s (expSeries D A hA h ψ)) 0 (t - s) := by
+      ext t
+      simp [slope_def_module]
+    rw [h_eq_sl]
+    exact h_slope0.comp h_sub_nhds
   have h_ev : (fun t : ℝ => U s (expSeries D A hA (t - s) ψ)) =ᶠ[𝓝 s]
       (fun t : ℝ => U t (ψ : H)) := by
     have h_mem : Set.Ioo (s - (4 * r)⁻¹) (s + (4 * r)⁻¹) ∈ 𝓝 s :=

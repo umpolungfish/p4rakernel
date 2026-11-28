@@ -1,0 +1,82 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:559:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑ y, stdAddChar y
+in the target expression
+  ∑ x,
+      (1 + chiP 3 x + chiP 5 x + chiP 409 x + chiP 683 x + chiP (3 * 5) x + chiP (3 * 409) x + chiP (3 * 683) x +
+                        chiP (5 * 409) x +
+                      chiP (5 * 683) x +
+                    chiP (409 * 683) x +
+                  chiP (3 * 5 * 409) x +
+                chiP (3 * 5 * 683) x +
+              chiP (3 * 409 * 683) x +
+            chiP (5 * 409 * 683) x +
+          chiP (3 * 5 * 409 * 683) x) *
+        stdAddChar x =
+    gaussSum qchar' stdAddChar
+
+hN15 : NeZero (15 * 279347)
+hN409 : NeZero (409 * 683)
+hinner : ∀ (y : ZMod con), ∑ x with x ^ 2 = y, stdAddChar (x * x) = ↑(sqFiber con y) * stdAddChar y
+hcount : ∀ (y : ZMod con), ↑(sqFiber con y) = (1 + chiP 3 y) * (1 + chiP 5 y) * (1 + chiP 409 y) * (1 + chiP 683 y)
+hψ0 : ∑ y, stdAddChar y = 0
+hstep :
+  ∑ y, (1 + chiP 3 y) * (1 + chiP 5 y) * (1 + chiP 409 y) * (1 + chiP 683 y) * stdAddChar y =
+    ∑ y,
+      (1 + chiP 3 y + chiP 5 y + chiP 409 y + chiP 683 y + chiP 3 y * chiP 5 y + chiP 3 y * chiP 409 y +
+                          chiP 3 y * chiP 683 y +
+                        chiP 5 y * chiP 409 y +
+                      chiP 5 y * chiP 683 y +
+                    chiP 409 y * chiP 683 y +
+                  chiP 3 y * chiP 5 y * chiP 409 y +
+                chiP 3 y * chiP 5 y * chiP 683 y +
+              chiP 3 y * chiP 409 y * chiP 683 y +
+            chiP 5 y * chiP 409 y * chiP 683 y +
+          chiP 3 y * chiP 5 y * chiP 409 y * chiP 683 y) *
+        stdAddChar y
+⊢ ∑ x,
+      (1 + chiP 3 x + chiP 5 x + chiP 409 x + chiP 683 x + chiP (3 * 5) x + chiP (3 * 409) x + chiP (3 * 683) x +
+                        chiP (5 * 409) x +
+                      chiP (5 * 683) x +
+                    chiP (409 * 683) x +
+                  chiP (3 * 5 * 409) x +
+                chiP (3 * 5 * 683) x +
+              chiP (3 * 409 * 683) x +
+            chiP (5 * 409 * 683) x +
+          chiP (3 * 5 * 409 * 683) x) *
+        stdAddChar x =
+    gaussSum qchar' stdAddChar
+Imscribing/Millennium/StarkRungFourGaussSign.lean:558:13: warning: This simp argument is unused:
+  mul_add
+
+Hint: Omit it from the simp argument list.
+  simp only [m̵u̵l̵_̵a̵d̵d̵,̵ ̵Finset.sum_add_distrib, one_mul, chiP_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:558:22: warning: This simp argument is unused:
+  Finset.sum_add_distrib
+
+Hint: Omit it from the simp argument list.
+  simp only [mul_add, F̵i̵n̵s̵e̵t̵.̵s̵u̵m̵_̵a̵d̵d̵_̵d̵i̵s̵t̵r̵i̵b̵,̵ ̵one_mul, chiP_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Imscribing/Millennium/StarkRungFourGaussSign.lean:558:46: warning: This simp argument is unused:
+  one_mul
+
+Hint: Omit it from the simp argument list.
+  simp only [mul_add, Finset.sum_add_distrib, o̵n̵e̵_̵m̵u̵l̵,̵ ̵chiP_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

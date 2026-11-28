@@ -1,0 +1,46 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+intCast_re : ∀ (n : ℤ), (↑n).re = ↑n
+intCast_im : ∀ (n : ℤ), (↑n).im = 0
+ofReal_pow : ∀ (r : ℝ) (n : ℕ), ↑(r ^ n) = ↑r ^ n
+neg_re : ∀ (z : ℂ), (-z).re = -z.re
+norm_I : ‖I‖ = 1
+ofReal_add : ∀ (r s : ℝ), ↑(r + s) = ↑r + ↑s
+ofReal_mul : ∀ (r s : ℝ), ↑(r * s) = ↑r * ↑s
+normSq_apply : ∀ (z : ℂ), normSq z = z.re * z.re + z.im * z.im
+probe_tmp.lean:35:7: error: invalid coercion notation, expected type is not known
+probe_tmp.lean:35:14: error: invalid coercion notation, expected type is not known
+probe_tmp.lean:55:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (↑c / (↑t - 2 * I)).re
+in the target expression
+  (↑c).re * (↑t - 2 * I).re / normSq (↑t - 2 * I) + (↑c).im * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    (↑(c * t / (t ^ 2 + 4)) + ↑(c * 2 / (t ^ 2 + 4)) * I).re
+
+case refine_1
+t c : ℝ
+hPre : (↑c / (↑t - 2 * I)).re = c * t / (t ^ 2 + 4)
+hPim : (↑c / (↑t - 2 * I)).im = c * 2 / (t ^ 2 + 4)
+⊢ (↑c).re * (↑t - 2 * I).re / normSq (↑t - 2 * I) + (↑c).im * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    (↑(c * t / (t ^ 2 + 4)) + ↑(c * 2 / (t ^ 2 + 4)) * I).re
+probe_tmp.lean:59:24: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (↑c / (↑t - 2 * I)).im
+in the target expression
+  (↑c).im * (↑t - 2 * I).re / normSq (↑t - 2 * I) - (↑c).re * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    (↑(c * t / (t ^ 2 + 4)) + ↑(c * 2 / (t ^ 2 + 4)) * I).im
+
+case refine_2
+t c : ℝ
+hPre : (↑c / (↑t - 2 * I)).re = c * t / (t ^ 2 + 4)
+hPim : (↑c / (↑t - 2 * I)).im = c * 2 / (t ^ 2 + 4)
+⊢ (↑c).im * (↑t - 2 * I).re / normSq (↑t - 2 * I) - (↑c).re * (↑t - 2 * I).im / normSq (↑t - 2 * I) =
+    (↑(c * t / (t ^ 2 + 4)) + ↑(c * 2 / (t ^ 2 + 4)) * I).im
+
+real	0m6.655s
+user	0m4.520s
+sys	0m2.312s

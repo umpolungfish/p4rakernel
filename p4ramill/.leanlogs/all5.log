@@ -1,0 +1,448 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../probeall.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../probeall.lean:741:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ‖cexp ↑?x‖
+in the target expression
+  rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) = ‖cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)‖
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < 4 * ↑con * t / (t ^ 2 + 4)
+n : ℕ
+⊢ rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) = ‖cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)‖
+../../probeall.lean:748:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (b : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑b ^ 2) +
+    ∑' (b : ℕ),
+      cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑b ^ 2) *
+        (cexp (I * ↑(2 * π * ↑con * ↑b ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)
+in the target expression
+  ∑' (n : ℕ), dualTerm t ↑(2 * n) =
+    ∑' (n : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) +
+      ∑' (n : ℕ),
+        cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+          (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < 4 * ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)
+hsd :
+  Summable fun n =>
+    cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) * (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)
+⊢ ∑' (n : ℕ), dualTerm t ↑(2 * n) =
+    ∑' (n : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) +
+      ∑' (n : ℕ),
+        cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+          (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+../../probeall.lean:766:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (n : ℕ), cexp (-↑π * ↑?a * ↑↑n ^ 2)
+in the target expression
+  2 *
+        (∑' (n : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) +
+          ∑' (n : ℕ),
+            cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+              (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)) -
+      1 =
+    ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4))) +
+      2 *
+        ∑' (n : ℕ),
+          cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+            (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < 4 * ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2)
+hsd :
+  Summable fun n =>
+    cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) * (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)
+hsplit :
+  ∑' (n : ℕ), dualTerm t ↑(2 * n) =
+    ∑' (n : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) +
+      ∑' (n : ℕ),
+        cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+          (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+hGint : ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4))) = 2 * ↑(gaussSumNat (4 * ↑con * t / (t ^ 2 + 4))) - 1
+⊢ 2 *
+        (∑' (n : ℕ), cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) +
+          ∑' (n : ℕ),
+            cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+              (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)) -
+      1 =
+    ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4))) +
+      2 *
+        ∑' (n : ℕ),
+          cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+            (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1)
+../../probeall.lean:782:23: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ‖cexp ↑?x‖
+in the target expression
+  rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+n : ℕ
+⊢ rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) =
+    ‖cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)‖
+../../probeall.lean:791:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (b : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * b + 1) ^ 2) +
+    ∑' (b : ℕ),
+      I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * b + 1) ^ 2) *
+        (1 - cexp (I * ↑(π * ↑con * ↑(2 * b + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+in the target expression
+  ∑' (n : ℕ), dualTerm t ↑(2 * n + 1) =
+    ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) +
+      ∑' (n : ℕ),
+        I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))))
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+hsd :
+  Summable fun n =>
+    I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+⊢ ∑' (n : ℕ), dualTerm t ↑(2 * n + 1) =
+    ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) +
+      ∑' (n : ℕ),
+        I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))))
+../../probeall.lean:796:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ∑' (n : ℕ), cexp (-↑π * ↑?a * ↑↑(2 * n + 1) ^ 2)
+in the target expression
+  ↑(2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))) =
+    2 * ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+hsd :
+  Summable fun n =>
+    I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+hsplit :
+  ∑' (n : ℕ), dualTerm t ↑(2 * n + 1) =
+    ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) +
+      ∑' (n : ℕ),
+        I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))))
+⊢ ↑(2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))) =
+    2 * ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+../../probeall.lean:809:46: error: unsolved goals
+t : ℝ
+ht : 0 < t
+ha0 : 0 < ↑con * t / (t ^ 2 + 4)
+hsu : Summable fun n => cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+hsd :
+  Summable fun n =>
+    I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+hsplit :
+  ∑' (n : ℕ), dualTerm t ↑(2 * n + 1) =
+    ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) +
+      ∑' (n : ℕ),
+        I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4)))))
+hodd :
+  ↑(2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))) =
+    2 * ∑' (n : ℕ), cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2)
+⊢ (∑' (n : ℕ), cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2))) * 2 +
+      (∑' (n : ℕ),
+          (I * cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2)) -
+            I * cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2)) *
+              cexp (↑π * ↑4190205 * ↑t ^ 2 * I * ↑↑(1 + n * 2) ^ 2 * (8 + ↑t ^ 2 * 2)⁻¹))) *
+        2 =
+    -((∑' (n : ℕ), cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2))) * I * 2) +
+      (∑' (n : ℕ),
+          (I * cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2)) -
+            I * cexp (-(↑π * ↑4190205 * ↑t * (4 + ↑t ^ 2)⁻¹ * ↑↑(1 + n * 2) ^ 2)) *
+              cexp (↑π * ↑4190205 * ↑t ^ 2 * I * (8 + ↑t ^ 2 * 2)⁻¹ * ↑↑(1 + n * 2) ^ 2))) *
+        2
+../../probeall.lean:822:28: error: Application type mismatch: The argument
+  nhdsWithin_le_nhds
+has type
+  𝓝[?m.174] ?m.173 ≤ 𝓝 ?m.173
+but is expected to have type
+  Tendsto (fun t => √(↑con * t)) ?m.168 (𝓝 0)
+in the application
+  Tendsto.mono_left nhdsWithin_le_nhds
+../../probeall.lean:822:51: error: Type mismatch: After simplification, term
+  ContinuousAt.tendsto hc
+ has type
+  Tendsto (fun t => √4190205 * √t) (𝓝 0) (𝓝 0)
+but is expected to have type
+  𝓝[>] 0 ≤ ?m.168
+../../probeall.lean:827:45: error: Application type mismatch: The argument
+  continuousAt_const
+has type
+  ContinuousAt (fun x => ?m.389) ?m.388
+but is expected to have type
+  ContinuousAt (fun t => t ^ 2 + 4) 0
+in the application
+  ContinuousAt.div₀ (ContinuousAt.fun_mul continuousAt_const (ContinuousAt.pow (continuousAt_id' 0) 2))
+    continuousAt_const
+../../probeall.lean:829:28: error: Application type mismatch: The argument
+  nhdsWithin_le_nhds
+has type
+  𝓝[?m.434] ?m.433 ≤ 𝓝 ?m.433
+but is expected to have type
+  Tendsto (fun t => K * (π * ↑con * t ^ 2 / (t ^ 2 + 4))) ?m.428 (𝓝 0)
+in the application
+  Tendsto.mono_left nhdsWithin_le_nhds
+../../probeall.lean:829:51: error: Type mismatch: After simplification, term
+  ContinuousAt.tendsto hc
+ has type
+  Tendsto (fun t => K * (π * 4190205 * t ^ 2 / (t ^ 2 + 4))) (𝓝 0) (𝓝 0)
+but is expected to have type
+  𝓝[>] 0 ≤ ?m.428
+../../probeall.lean:843:6: error: Type mismatch
+  sqrt_div ?m.273
+has type
+  ∀ (y : ℝ), √(?m.272 / y) = √?m.272 / √y
+but is expected to have type
+  √(4 * ↑con * t / (t ^ 2 + 4)) = √(4 * ↑con * t) / √(t ^ 2 + 4)
+../../probeall.lean:843:24: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+../../probeall.lean:847:28: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+../../probeall.lean:848:8: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  √(↑con * t * (t ^ 2 + 4) / ?y)
+in the target expression
+  √(↑con * t * (t ^ 2 + 4)) / √(4 * ↑con * t) = √((t ^ 2 + 4) / 4)
+
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+htne : t ≠ 0
+h1 : √(4 * ↑con * t / (t ^ 2 + 4)) = √(4 * ↑con * t) / √(t ^ 2 + 4)
+⊢ √(↑con * t * (t ^ 2 + 4)) / √(4 * ↑con * t) = √((t ^ 2 + 4) / 4)
+../../probeall.lean:848:26: error: failed to prove nonnegativity, but it would be possible to prove nonzeroness if desired
+../../probeall.lean:852:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => √(↑con * t) / √(4 * ↑con * t / (t ^ 2 + 4))) =ᶠ[𝓝[>] 0] fun t => √((t ^ 2 + 4) / 4)
+but is expected to have type
+  ?m.406 =ᶠ[𝓝[>] 0] fun t => √(↑con * t) / √(4 * ↑con * t / (t ^ 2 + 4))
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:867:45: error: Application type mismatch: The argument
+  continuousAt_const
+has type
+  ContinuousAt (fun x => ?m.137) ?m.136
+but is expected to have type
+  ContinuousAt (fun t => t ^ 2 + 4) 0
+in the application
+  ContinuousAt.div₀ (ContinuousAt.fun_mul continuousAt_const (continuousAt_id' 0)) continuousAt_const
+../../probeall.lean:869:28: error: Application type mismatch: The argument
+  nhdsWithin_le_nhds
+has type
+  𝓝[?m.169] ?m.168 ≤ 𝓝 ?m.168
+but is expected to have type
+  Tendsto (fun t => c₀ * t / (t ^ 2 + 4)) ?m.163 (𝓝 0)
+in the application
+  Tendsto.mono_left nhdsWithin_le_nhds
+../../probeall.lean:869:51: error: Type mismatch: After simplification, term
+  ContinuousAt.tendsto hc
+ has type
+  Tendsto (fun t => c₀ * t / (t ^ 2 + 4)) (𝓝 0) (𝓝 0)
+but is expected to have type
+  𝓝[>] 0 ≤ ?m.163
+../../probeall.lean:871:10: error(lean.unknownIdentifier): Unknown identifier `mem_Ioi.mpr`
+../../probeall.lean:886:74: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  mul_pos (mul_pos ?m.392 (Nat.cast_pos.mpr con_pos)) ht
+../../probeall.lean:887:40: error(lean.unknownIdentifier): Unknown constant `Real.sqrt_ne_zero.mpr`
+../../probeall.lean:888:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => √(↑con * t) * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))) =ᶠ[𝓝[>] 0] fun t =>
+    √(↑con * t) / √(4 * ↑con * t / (t ^ 2 + 4)) *
+      (√(4 * ↑con * t / (t ^ 2 + 4)) * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4)))
+but is expected to have type
+  ?m.417 =ᶠ[𝓝[>] 0] fun t => √(↑con * t) * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4))
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:907:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => √(↑con * t) * (2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4)))) =ᶠ[𝓝[>] 0] fun t =>
+    2 * (√(↑con * t) * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4)))
+but is expected to have type
+  ?m.212 =ᶠ[𝓝[>] 0] fun t => √(↑con * t) * (2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4)))
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:923:74: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  mul_pos (mul_pos ?m.386 (Nat.cast_pos.mpr con_pos)) ht
+../../probeall.lean:925:40: error(lean.unknownIdentifier): Unknown constant `Real.sqrt_ne_zero.mpr`
+../../probeall.lean:926:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => ↑√(↑con * t) * ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4)))) =ᶠ[𝓝[>] 0] fun t =>
+    ↑(√(↑con * t) / √(4 * ↑con * t / (t ^ 2 + 4))) *
+      ↑(√(4 * ↑con * t / (t ^ 2 + 4)) * gaussSumInt (4 * ↑con * t / (t ^ 2 + 4)))
+but is expected to have type
+  ?m.412 =ᶠ[𝓝[>] 0] fun t => ↑√(↑con * t) * ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4)))
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:959:43: error(lean.unknownIdentifier): Unknown constant `Real.sqrt_ne_zero.mpr`
+../../probeall.lean:961:6: error: Type mismatch
+  sqrt_div ?m.606
+has type
+  ∀ (y : ℝ), √(?m.605 / y) = √?m.605 / √y
+but is expected to have type
+  √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+../../probeall.lean:962:93: error: unsolved goals
+case e_a
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hc0 : c₀ ≠ 0
+htne : t ≠ 0
+hT4 : t ^ 2 + 4 ≠ 0
+hpt : 0 < c₀ * t
+hsqne : √(c₀ * t) ≠ 0
+h1 : √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+⊢ √(↑con * t) = √↑con
+
+case e_a
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hc0 : c₀ ≠ 0
+htne : t ≠ 0
+hT4 : t ^ 2 + 4 ≠ 0
+hpt : 0 < c₀ * t
+hsqne : √(c₀ * t) ≠ 0
+h1 : √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+⊢ √(c₀ * t) = √c₀
+../../probeall.lean:967:87: error: unsolved goals
+κ c₀ : ℝ
+hc₀ : 0 < c₀
+t : ℝ
+ht : t ∈ Set.Ioo 0 1
+hc0 : c₀ ≠ 0
+htne : t ≠ 0
+hT4 : t ^ 2 + 4 ≠ 0
+hpt : 0 < c₀ * t
+hsqne : √(c₀ * t) ≠ 0
+h1 : √(c₀ * t / (t ^ 2 + 4)) = √(c₀ * t) / √(t ^ 2 + 4)
+h2 : √(↑con * t) / √(c₀ * t) = √(↑con / c₀)
+⊢ 2 * ((t ^ 2 + 4) * √(t ^ 2 + 4) / (c₀ * t * √(c₀ * t))) = 2 * ((t ^ 2 + 4) * √(t ^ 2 + 4)) / (c₀ * t * √(c₀ * t))
+../../probeall.lean:980:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t =>
+      √(↑con * t) *
+        (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4)))))) =ᶠ[𝓝[>] 0]
+    fun t => 2 * κ * π * ↑con * √(↑con / c₀) / c₀ * (t * √(t ^ 2 + 4))
+but is expected to have type
+  ?m.975 =ᶠ[𝓝[>] 0] fun t =>
+    √(↑con * t) * (κ * (π * ↑con * t ^ 2 / (t ^ 2 + 4)) * (2 / (c₀ * t / (t ^ 2 + 4) * √(c₀ * t / (t ^ 2 + 4)))))
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:996:14: error(lean.unknownIdentifier): Unknown identifier `Metric.tendsto_nhdsWithin_iff.mp`
+../../probeall.lean:993:78: error: unsolved goals
+f g : ℝ → ℝ
+hnn : ∀ (t : ℝ), 0 ≤ f t
+hfg : ∀ᶠ (t : ℝ) in 𝓝[>] 0, f t ≤ g t
+hg : Tendsto g (𝓝[>] 0) (𝓝 0)
+ε : ℝ
+hε : ε > 0
+⊢ ∀ᶠ (x : ℝ) in 𝓝[>] 0, dist (f x) 0 < ε
+../../probeall.lean:1010:4: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1019:15: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1056:47: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1074:4: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1083:15: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1128:11: error: unexpected token ';'; expected ')'
+../../probeall.lean:1120:47: error(lean.unknownIdentifier): Unknown constant `Complex.abs`
+../../probeall.lean:1150:22: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  dualEven_eq t ht
+../../probeall.lean:1151:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => ↑√(↑con * t) * dualEven t) =ᶠ[𝓝[>] 0] fun t =>
+    ↑√(↑con * t) * ↑(gaussSumInt (4 * ↑con * t / (t ^ 2 + 4))) +
+      ↑√(↑con * t) *
+        (2 *
+          ∑' (n : ℕ),
+            cexp (-↑π * (4 * ↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑n ^ 2) *
+              (cexp (I * (2 * ↑π * ↑↑con * ↑↑n ^ 2 * ↑t ^ 2 / (↑t ^ 2 + 4))) - 1))
+but is expected to have type
+  ?m.373 =ᶠ[𝓝[>] 0] fun t => ↑√(↑con * t) * dualEven t
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:1167:21: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  dualOdd_eq t ht
+../../probeall.lean:1169:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => ↑√(↑con * t) * dualOdd t) =ᶠ[𝓝[>] 0] fun t =>
+    -I * (↑√(↑con * t) * ↑(2 * gaussSumHalf (4 * ↑con * t / (t ^ 2 + 4)))) +
+      ↑√(↑con * t) *
+        (2 *
+          ∑' (n : ℕ),
+            I * cexp (-↑π * (↑↑con * ↑t / (↑t ^ 2 + 4)) * ↑↑(2 * n + 1) ^ 2) *
+              (1 - cexp (I * (↑π * ↑↑con * ↑↑(2 * n + 1) ^ 2 * ↑t ^ 2 / (2 * (↑t ^ 2 + 4))))))
+but is expected to have type
+  ?m.411 =ᶠ[𝓝[>] 0] fun t => ↑√(↑con * t) * dualOdd t
+in the application
+  Tendsto.congr' hcongr
+../../probeall.lean:1188:26: error: Application type mismatch: The argument
+  ht
+has type
+  t ∈ Set.Ioo 0 1
+but is expected to have type
+  0 < t
+in the application
+  dualTheta_split t ht
+../../probeall.lean:1189:24: error: Application type mismatch: The argument
+  hcongr
+has type
+  (fun t => ↑√(↑con * t) * dualTheta t) =ᶠ[𝓝[>] 0] fun t => ↑√(↑con * t) * dualEven t + ↑√(↑con * t) * dualOdd t
+but is expected to have type
+  ?m.101 =ᶠ[𝓝[>] 0] fun t => ↑√(↑con * t) * dualTheta t
+in the application
+  Tendsto.congr' hcongr

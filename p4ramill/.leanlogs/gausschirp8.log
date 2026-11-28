@@ -1,0 +1,30 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:510:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:521:6: error: No goals to be solved
+Imscribing/Millennium/StarkRungFourGaussSign.lean:537:6: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Fact (Nat.Prime 5)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:541:6: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ↑(sqFiber con ?y)
+in the target expression
+  ∑ x, ↑(sqFiber con x) * stdAddChar x = gaussSum qchar' stdAddChar
+
+hN15 : NeZero (15 * 279347)
+hN409 : NeZero (409 * 683)
+hinner : ∀ (y : ZMod con), ∑ x with x ^ 2 = y, stdAddChar (x * x) = ↑(sqFiber con y) * stdAddChar y
+hcount : ∀ (y : ZMod con), ↑(sqFiber con y) = (1 + chiP 3 y) * (1 + chiP 5 y) * (1 + chiP 409 y) * (1 + chiP 683 y)
+⊢ ∑ x, ↑(sqFiber con x) * stdAddChar x = gaussSum qchar' stdAddChar

@@ -122,6 +122,16 @@ globs = [
   "Imscribing.OntologicalDerivation",
   "Imscribing.OrbitLevels",
 
+  "Imscribing.TrilatticeYM",
+  "Imscribing.TrilatticeYM.AssignedModel",
+  "Imscribing.TrilatticeYM.Feshbach",
+  "Imscribing.TrilatticeYM.FourCubeIntertwiner",
+  "Imscribing.TrilatticeYM.Frobenius",
+  "Imscribing.TrilatticeYM.MassGapBridge",
+  "Imscribing.TrilatticeYM.MultiLinkVacuum",
+  "Imscribing.TrilatticeYM.SICChannel",
+  "Imscribing.TrilatticeYM.Trilattice",
+
   "Imscribing.Biochem.PrimaLogicaMechanicalGlut",
   "Imscribing.Biochem.NativePairFoldOperator",
   "Imscribing.Biochem.PrimaLogicaMechanicalGlutAudit",
@@ -485,6 +495,29 @@ globs = [
   "Imscribing.Millennium.WienerKhinchin",
   "Imscribing.Millennium.WKExpand",
   "Imscribing.Millennium.WienerKhinchinFull",
+  "Imscribing.Millennium.SIC_D2048_WKBridge",
+  "Imscribing.Millennium.SIC_D2048_StarkTheorem",
+  "Imscribing.Millennium.SIC_D2048_StarkAbelianity",
+  "Imscribing.Millennium.SIC_D2048_StarkGalois",
+  "Imscribing.Millennium.SIC_D2048_StarkGaloisAbelian",
+  "Imscribing.Millennium.SIC_D2048_StarkGaloisCard",
+  "Imscribing.Millennium.SIC_D2048_StarkCharacter",
+  "Imscribing.Millennium.SIC_D2048_LPrimeZero",
+  "Imscribing.Millennium.BoundaryLog",
+  "Imscribing.Millennium.StarkLogRung",
+  "Imscribing.Millennium.StarkCharFilter",
+  "Imscribing.Millennium.StarkGaussSum",
+  "Imscribing.Millennium.LSeriesConv",
+  "Imscribing.Millennium.LValOne",
+  "Imscribing.Millennium.LFuncDerivZero",
+  "Imscribing.Millennium.StarkRungOne",
+  "Imscribing.Millennium.StarkRungFour",
+  "Imscribing.Millennium.StarkRungFourContinued",
+  "Imscribing.Millennium.StarkRungFourGaussSign",
+  "Imscribing.Millennium.StarkRungFiveTheta",
+  "Imscribing.Millennium.StarkRungFiveAsympt",
+  "Imscribing.Millennium.StarkRungFiveDual",
+  "Imscribing.Millennium.StarkRungFiveDualLimit",
   "Imscribing.Millennium.SIC_D16_Moduli",
   "Imscribing.Millennium.SIC_D20_Moduli",
   "Imscribing.Millennium.SIC_Moduli_Report",
@@ -1167,6 +1200,11 @@ roots = ["Imscribing.Scratch.ProverScratch", "Imscribing.Scratch.ProverScratchB"
 [[lean_lib]]
 name = "NSKernelReentry"
 roots = ["Imscribing.NS_KernelReentry", "Imscribing.NS_KernelReentryAudit"]
+
+[[lean_lib]]
+name = "TrilatticeYM"
+roots = ["Imscribing.TrilatticeYM"]
+globs = ["Imscribing.TrilatticeYM.+"]
 
 [[lean_lib]]
 name = "TensorFiltration"

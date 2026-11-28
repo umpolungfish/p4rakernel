@@ -33,10 +33,7 @@ theorem euclidean_skew_to_minkowski_boost_symm
   intro K ψ φ
   dsimp [K]
   simp only [LinearMap.smul_apply, inner_smul_right, inner_smul_left, h_skew ψ φ]
-  have hstar : star Complex.I = -Complex.I := by
-    change starRingEnd ℂ Complex.I = -Complex.I
-    simp
-  rw [hstar]
+  rw [Complex.conj_I]
   ring
 
 /-- **Euclidean ISO(4) → Minkowski Poincaré Lie-Algebra Commutators:**
@@ -60,13 +57,11 @@ theorem minkowski_poincare_commutators
         Complex.I • (⟨J_euc ψ, hJ_mem ψ⟩ : D) := rfl
     rw [hKψ, map_smul]
     dsimp [K]
-    simp only [LinearMap.smul_apply]
     rw [← smul_sub, h_JH ψ]
   · have hKψ : (⟨K ψ, D.smul_mem Complex.I (hJ_mem ψ)⟩ : D) =
         Complex.I • (⟨J_euc ψ, hJ_mem ψ⟩ : D) := rfl
     rw [hKψ, map_smul]
     dsimp [K]
-    simp only [LinearMap.smul_apply]
     rw [← smul_sub, h_JP ψ, smul_neg, neg_smul]
 
 end LieAlgebra
@@ -89,12 +84,7 @@ theorem unitary_fixes_vacuum_of_generator_zero
     intro s _
     have hs := h_deriv s
     rwa [hA0, smul_zero, map_zero] at hs
-  have h_bound : ∀ s ∈ (Set.univ : Set ℝ), ‖(0 : H)‖ ≤ (0 : ℝ) := fun _ _ => by simp
-  have h_mvt := convex_univ.norm_image_sub_le_of_norm_deriv_le h_deriv_zero h_bound
-    (Set.mem_univ (0 : ℝ)) (Set.mem_univ t)
-  rw [zero_mul] at h_mvt
-  have h_eq0 : U t Ω - U 0 Ω = 0 := norm_eq_zero.mp (le_antisymm h_mvt (norm_nonneg _))
-  have h_eq : U t Ω = U 0 Ω := sub_eq_zero.mp h_eq0
+  have h_eq : U t Ω = U 0 Ω := (fun h x y => is_const_of_deriv_eq_zero (fun s => (h s (Set.mem_univ s)).differentiableAt) (fun s => (h s (Set.mem_univ s)).deriv) x y) h_deriv_zero t 0
   simpa [hU0] using h_eq
 
 end VacuumInvariance

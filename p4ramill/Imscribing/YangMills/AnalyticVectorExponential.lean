@@ -1,4 +1,5 @@
 import Mathlib.Analysis.InnerProductSpace.Basic
+import Mathlib.Analysis.InnerProductSpace.Continuous
 import Mathlib.Analysis.Normed.Group.InfiniteSum
 import Mathlib.Analysis.SpecificLimits.Basic
 import Mathlib.Data.Nat.Choose.Sum
@@ -121,31 +122,22 @@ private lemma inner_expSeries_partial_eq
         dsimp [u, v]
         rw [inner_smul_left, inner_smul_right,
             iterA_symm D A hA h_symm j (n - j) ψ φ, Nat.add_sub_cancel' hj_le]
-        have h_star : star ((Complex.I * (t : ℂ)) ^ j / (j.factorial : ℂ)) =
+        have h_star : starRingEnd ℂ ((Complex.I * (t : ℂ)) ^ j / (j.factorial : ℂ)) =
             (-Complex.I * (t : ℂ)) ^ j / (j.factorial : ℂ) := by
-          rw [star_div₀, star_pow, star_mul, Complex.conj_ofReal]
-          have hI : star Complex.I = -Complex.I := by
-            change starRingEnd ℂ Complex.I = -Complex.I; simp
-          have hnat : star (j.factorial : ℂ) = (j.factorial : ℂ) := by
-            change starRingEnd ℂ ((j.factorial : ℝ) : ℂ) = _; exact Complex.conj_ofReal _
-          rw [hI, hnat, mul_comm (t : ℂ) (-Complex.I)]
+          rw [map_div₀, map_pow, map_mul, Complex.conj_ofReal]
+          have hI : starRingEnd ℂ Complex.I = -Complex.I := by simp
+          have hnat : starRingEnd ℂ (j.factorial : ℂ) = (j.factorial : ℂ) := by simp
+          rw [hI, hnat]
         rw [h_star]
         have h_choose : (n.factorial : ℂ) =
             (n.choose j : ℂ) * (j.factorial : ℂ) * ((n - j).factorial : ℂ) := by
-          have := Nat.add_choose_mul_factorial_mul_factorial j (n - j)
-          rw [Nat.add_sub_cancel' hj_le] at this
-          have hchoose_symm : (n.choose (n - j)) = n.choose j := Nat.choose_symm hj_le
-          have h_nat : n.factorial = n.choose j * j.factorial * (n - j).factorial := by
-            have := Nat.choose_mul_factorial_mul_factorial hj_le
-            linarith
-          exact_mod_cast h_nat.symm
+          exact_mod_cast (Nat.choose_mul_factorial_mul_factorial hj_le).symm
         have hjf : (j.factorial : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero j)
         have hnjf : ((n - j).factorial : ℂ) ≠ 0 :=
           Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero (n - j))
         have hnf : (n.factorial : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero n)
-        rw [h_choose]
-        field_simp [hjf, hnjf, hnf]
-        ring
+        have hch : (n.choose j : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (Nat.choose_pos hj_le).ne'
+        rw [h_choose]; field_simp [hjf, hnjf, hnf, hch]
       rw [Finset.sum_congr rfl h_term, ← Finset.sum_mul, ← Finset.sum_div]
       have h_binom : (∑ j ∈ Finset.range (n + 1),
           (n.choose j : ℂ) * (-Complex.I * (t : ℂ)) ^ j * (Complex.I * (t : ℂ)) ^ (n - j)) =
@@ -181,7 +173,7 @@ theorem expSeries_inner_eq
   have h_partial_tend :
       Filter.Tendsto (fun N : ℕ => ⟪∑ j ∈ Finset.range N, u j, ∑ k ∈ Finset.range N, v k⟫_ℂ)
         Filter.atTop (𝓝 ⟪expSeries D A hA t ψ, expSeries D A hA t φ⟫_ℂ) :=
-    (hu_sum.hasSum.tendsto_sum_nat).inner (hv_sum.hasSum.tendsto_sum_nat)
+    Filter.Tendsto.inner (hu_sum.hasSum.tendsto_sum_nat) (hv_sum.hasSum.tendsto_sum_nat)
   -- Compare square partial sum with triangle sum `j + k < N`
   have h_tri_diff :
       Filter.Tendsto (fun N : ℕ =>
@@ -197,7 +189,7 @@ theorem expSeries_inner_eq
       have h_sigma :
           (∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), ⟪u j, v (n - j)⟫_ℂ) =
           ∑ p ∈ (Finset.range N).sigma (fun n => Finset.range (n + 1)),
-            ⟪u p.2, v (p.1 - p.2)⟫_ℂ := (Finset.sum_sigma _ _ _).symm
+            ⟪u p.2, v (p.1 - p.2)⟫_ℂ := by rw [Finset.sum_sigma]
       rw [h_sigma]
       refine Finset.sum_bij (fun p _ => (p.2, p.1 - p.2)) ?_ ?_ ?_ ?_
       · rintro ⟨n, j⟩ hp
@@ -208,7 +200,8 @@ theorem expSeries_inner_eq
         simp only [Finset.mem_sigma, Finset.mem_range] at h₁ h₂
         have hj : j₁ = j₂ := congrArg Prod.fst heq
         have hd : n₁ - j₁ = n₂ - j₂ := congrArg Prod.snd heq
-        ext <;> omega
+        have hn : n₁ = n₂ := by omega
+        subst hn; subst hj; rfl
       · rintro ⟨j, k⟩ hjk
         simp only [Finset.mem_filter, Finset.mem_product, Finset.mem_range] at hjk
         refine ⟨⟨j + k, j⟩, ?_, ?_⟩
@@ -227,93 +220,94 @@ theorem expSeries_inner_eq
           (∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), ⟪u j, v (n - j)⟫_ℂ)) - 0‖ ≤
           (∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) * (∑' k, ‖v k‖) +
           (∑' j, ‖u j‖) * (∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖) := by
-    intro N
-    rw [sub_zero, h_sq_eq N, h_tri_eq N,
-        ← Finset.sum_sdiff_eq_sub (Finset.filter_subset _ _)]
-    have h_sub_set :
-        (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)) ⊆
-        (Finset.Ico (N / 2) N ×ˢ Finset.range N) ∪
-          (Finset.range N ×ˢ Finset.Ico (N / 2) N) := by
-      rintro ⟨j, k⟩ hp
-      simp only [Finset.mem_sdiff, Finset.mem_filter, Finset.mem_product,
-        Finset.mem_range, not_and, not_lt] at hp
-      rcases hp with ⟨⟨hjN, hkN⟩, hjk⟩
-      have hge := hjk ⟨hjN, hkN⟩
-      simp only [Finset.mem_union, Finset.mem_product, Finset.mem_Ico, Finset.mem_range]
-      by_cases hj : N / 2 ≤ j
-      · exact Or.inl ⟨⟨hj, hjN⟩, hkN⟩
-      · exact Or.inr ⟨hjN, ⟨by omega, hkN⟩⟩
-    have h_le1 :
-        ‖∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            ⟪u p.1, v p.2⟫_ℂ‖ ≤
-          ∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            ‖u p.1‖ * ‖v p.2‖ := by
-      refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun p _ => ?_)
-      exact norm_inner_le_norm (u p.1) (v p.2)
-    have h_le2 :
-        (∑ p ∈ (Finset.range N ×ˢ Finset.range N \
-            (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
-            ‖u p.1‖ * ‖v p.2‖) ≤
-          (∑ p ∈ (Finset.Ico (N / 2) N ×ˢ Finset.range N), ‖u p.1‖ * ‖v p.2‖) +
-          (∑ p ∈ (Finset.range N ×ˢ Finset.Ico (N / 2) N), ‖u p.1‖ * ‖v p.2‖) := by
-        refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg h_sub_set
-          (fun _ _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _))) ?_
-        exact Finset.sum_union_le (fun i _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _))
-    have h_f1 :
-        (∑ p ∈ Finset.Ico (N / 2) N ×ˢ Finset.range N, ‖u p.1‖ * ‖v p.2‖) ≤
-          (∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) * (∑' k, ‖v k‖) := by
-      rw [Finset.sum_product, ← Finset.sum_mul]
-      simp_rw [← Finset.mul_sum]
-      refine mul_le_mul_of_nonneg_left
-        (hv_norm_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
-        (Finset.sum_nonneg fun _ _ => norm_nonneg _)
-    have h_f2 :
-        (∑ p ∈ Finset.range N ×ˢ Finset.Ico (N / 2) N, ‖u p.1‖ * ‖v p.2‖) ≤
-          (∑' j, ‖u j‖) * (∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖) := by
-      rw [Finset.sum_product]
-      simp_rw [← Finset.mul_sum]
-      rw [← Finset.sum_mul]
-      refine mul_le_mul_of_nonneg_right
-        (hu_norm_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
-        (Finset.sum_nonneg fun _ _ => norm_nonneg _)
-    exact le_trans h_le1 (le_trans h_le2 (add_le_add h_f1 h_f2))
-  have h_ico_u : Filter.Tendsto (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖)
-      Filter.atTop (𝓝 0) := by
-    have h_cau := hu_norm_sum.tendsto_sum_nat
-    have h_diff_t : Filter.Tendsto
-        (fun N : ℕ => (∑ j ∈ Finset.range N, ‖u j‖) - (∑ j ∈ Finset.range (N / 2), ‖u j‖))
-        Filter.atTop (𝓝 (∑' j, ‖u j‖ - ∑' j, ‖u j‖)) :=
-      h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
-    rw [sub_self] at h_diff_t
-    have h_eq : (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) =
-        fun N : ℕ => (∑ j ∈ Finset.range N, ‖u j‖) - (∑ j ∈ Finset.range (N / 2), ‖u j‖) := by
-      ext N
-      rw [← Finset.sum_Ico_add (f := fun j => ‖u j‖) 0 (N / 2) N (Nat.zero_le _) (Nat.div_le_self N 2)]
-      simp [Finset.range_eq_Ico]
-    rwa [h_eq]
-  have h_ico_v : Filter.Tendsto (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖)
-      Filter.atTop (𝓝 0) := by
-    have h_cau := hv_norm_sum.tendsto_sum_nat
-    have h_diff_t : Filter.Tendsto
-        (fun N : ℕ => (∑ k ∈ Finset.range N, ‖v k‖) - (∑ k ∈ Finset.range (N / 2), ‖v k‖))
-        Filter.atTop (𝓝 (∑' k, ‖v k‖ - ∑' k, ‖v k‖)) :=
-      h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
-    rw [sub_self] at h_diff_t
-    have h_eq : (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖) =
-        fun N : ℕ => (∑ k ∈ Finset.range N, ‖v k‖) - (∑ k ∈ Finset.range (N / 2), ‖v k‖) := by
-      ext N
-      rw [← Finset.sum_Ico_add (f := fun k => ‖v k‖) 0 (N / 2) N (Nat.zero_le _) (Nat.div_le_self N 2)]
-      simp [Finset.range_eq_Ico]
-    rwa [h_eq]
-  have h_rhs0 : Filter.Tendsto (fun N : ℕ =>
-      (∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) * (∑' k, ‖v k‖) +
-      (∑' j, ‖u j‖) * (∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖))
-      Filter.atTop (𝓝 0) := by
-    simpa using (h_ico_u.mul_const (∑' k, ‖v k‖)).add ((h_ico_v.const_mul (∑' j, ‖u j‖)))
-  exact squeeze_zero (fun _ => norm_nonneg _) h_bound h_rhs0
+      intro N
+      rw [sub_zero, h_sq_eq N, h_tri_eq N,
+          ← Finset.sum_sdiff_eq_sub (Finset.filter_subset _ _)]
+      have h_sub_set :
+          (Finset.range N ×ˢ Finset.range N \
+              (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)) ⊆
+          (Finset.Ico (N / 2) N ×ˢ Finset.range N) ∪
+            (Finset.range N ×ˢ Finset.Ico (N / 2) N) := by
+        rintro ⟨j, k⟩ hp
+        simp only [Finset.mem_sdiff, Finset.mem_filter, Finset.mem_product,
+          Finset.mem_range, not_and, not_lt] at hp
+        rcases hp with ⟨⟨hjN, hkN⟩, hjk⟩
+        have hge := hjk ⟨hjN, hkN⟩
+        simp only [Finset.mem_union, Finset.mem_product, Finset.mem_Ico, Finset.mem_range]
+        by_cases hj : N / 2 ≤ j
+        · exact Or.inl ⟨⟨hj, hjN⟩, hkN⟩
+        · exact Or.inr ⟨hjN, ⟨by omega, hkN⟩⟩
+      have h_le1 :
+          ‖∑ p ∈ (Finset.range N ×ˢ Finset.range N \
+              (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
+              ⟪u p.1, v p.2⟫_ℂ‖ ≤
+            ∑ p ∈ (Finset.range N ×ˢ Finset.range N \
+              (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
+              ‖u p.1‖ * ‖v p.2‖ := by
+        refine le_trans (norm_sum_le _ _) (Finset.sum_le_sum fun p _ => ?_)
+        exact norm_inner_le_norm (u p.1) (v p.2)
+      have h_le2 :
+          (∑ p ∈ (Finset.range N ×ˢ Finset.range N \
+              (Finset.range N ×ˢ Finset.range N).filter (fun p => p.1 + p.2 < N)),
+              ‖u p.1‖ * ‖v p.2‖) ≤
+            (∑ p ∈ (Finset.Ico (N / 2) N ×ˢ Finset.range N), ‖u p.1‖ * ‖v p.2‖) +
+            (∑ p ∈ (Finset.range N ×ˢ Finset.Ico (N / 2) N), ‖u p.1‖ * ‖v p.2‖) := by
+          refine le_trans (Finset.sum_le_sum_of_subset_of_nonneg h_sub_set
+            (fun _ _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _))) ?_
+          exact (le_add_of_nonneg_right (Finset.sum_nonneg fun _ _ => mul_nonneg (norm_nonneg _) (norm_nonneg _))).trans_eq (Finset.sum_union_inter (f := fun p : ℕ × ℕ => ‖u p.1‖ * ‖v p.2‖))
+      have h_f1 :
+          (∑ p ∈ Finset.Ico (N / 2) N ×ˢ Finset.range N, ‖u p.1‖ * ‖v p.2‖) ≤
+            (∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) * (∑' k, ‖v k‖) := by
+        rw [Finset.sum_product]; dsimp only
+        simp_rw [← Finset.mul_sum]
+        rw [← Finset.sum_mul]
+        refine mul_le_mul_of_nonneg_left
+          (hv_norm_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
+          (Finset.sum_nonneg fun _ _ => norm_nonneg _)
+      have h_f2 :
+          (∑ p ∈ Finset.range N ×ˢ Finset.Ico (N / 2) N, ‖u p.1‖ * ‖v p.2‖) ≤
+            (∑' j, ‖u j‖) * (∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖) := by
+        rw [Finset.sum_product]
+        simp_rw [← Finset.mul_sum]
+        rw [← Finset.sum_mul]
+        refine mul_le_mul_of_nonneg_right
+          (hu_norm_sum.sum_le_tsum (Finset.range N) (fun _ _ => norm_nonneg _))
+          (Finset.sum_nonneg fun _ _ => norm_nonneg _)
+      exact le_trans h_le1 (le_trans h_le2 (add_le_add h_f1 h_f2))
+    have h_ico_u : Filter.Tendsto (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖)
+        Filter.atTop (𝓝 0) := by
+      have h_cau := hu_norm_sum.hasSum.tendsto_sum_nat
+      have h_diff_t : Filter.Tendsto
+          (fun N : ℕ => (∑ j ∈ Finset.range N, ‖u j‖) - (∑ j ∈ Finset.range (N / 2), ‖u j‖))
+          Filter.atTop (𝓝 (∑' j, ‖u j‖ - ∑' j, ‖u j‖)) :=
+        h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
+      rw [sub_self] at h_diff_t
+      have h_eq : (fun N : ℕ => ∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) =
+          fun N : ℕ => (∑ j ∈ Finset.range N, ‖u j‖) - (∑ j ∈ Finset.range (N / 2), ‖u j‖) := by
+        ext N
+        simp only [Finset.range_eq_Ico]
+        linarith [Finset.sum_Ico_consecutive (fun j => ‖u j‖) (Nat.zero_le (N / 2)) (Nat.div_le_self N 2)]
+      rwa [h_eq]
+    have h_ico_v : Filter.Tendsto (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖)
+        Filter.atTop (𝓝 0) := by
+      have h_cau := hv_norm_sum.hasSum.tendsto_sum_nat
+      have h_diff_t : Filter.Tendsto
+          (fun N : ℕ => (∑ k ∈ Finset.range N, ‖v k‖) - (∑ k ∈ Finset.range (N / 2), ‖v k‖))
+          Filter.atTop (𝓝 (∑' k, ‖v k‖ - ∑' k, ‖v k‖)) :=
+        h_cau.sub (h_cau.comp (Filter.tendsto_atTop_atTop.mpr fun b => ⟨2 * b, fun n hn => by omega⟩))
+      rw [sub_self] at h_diff_t
+      have h_eq : (fun N : ℕ => ∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖) =
+          fun N : ℕ => (∑ k ∈ Finset.range N, ‖v k‖) - (∑ k ∈ Finset.range (N / 2), ‖v k‖) := by
+        ext N
+        simp only [Finset.range_eq_Ico]
+        linarith [Finset.sum_Ico_consecutive (fun k => ‖v k‖) (Nat.zero_le (N / 2)) (Nat.div_le_self N 2)]
+      rwa [h_eq]
+    have h_rhs0 : Filter.Tendsto (fun N : ℕ =>
+        (∑ j ∈ Finset.Ico (N / 2) N, ‖u j‖) * (∑' k, ‖v k‖) +
+        (∑' j, ‖u j‖) * (∑ k ∈ Finset.Ico (N / 2) N, ‖v k‖))
+        Filter.atTop (𝓝 0) := by
+      simpa using (h_ico_u.mul_const (∑' k, ‖v k‖)).add ((h_ico_v.const_mul (∑' j, ‖u j‖)))
+    exact squeeze_zero (fun _ => norm_nonneg _) h_bound h_rhs0
   have h_tri_const : Filter.Tendsto
       (fun N : ℕ => ∑ n ∈ Finset.range N, ∑ j ∈ Finset.range (n + 1), ⟪u j, v (n - j)⟫_ℂ)
       Filter.atTop (𝓝 ⟪(ψ : H), (φ : H)⟫_ℂ) := by

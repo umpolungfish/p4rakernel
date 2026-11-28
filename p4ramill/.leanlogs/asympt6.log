@@ -1,0 +1,62 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:98:49: error: linarith failed to find a contradiction
+case h
+hpois : ∀ (β : ℝ), 0 < β → β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / β * ↑n ^ 2)
+k : ℤ
+hk : ¬k = 0
+hk2 : 0 < ↑k ^ 2
+a✝ : π / ↑k ^ 2 ≤ 0
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:108:10: error: unsolved goals
+case neg.e_x
+hpois : ∀ (β : ℝ), 0 < β → β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / β * ↑n ^ 2)
+k : ℤ
+hk : ¬k = 0
+hk2 : 0 < ↑k ^ 2
+hpc : 0 < π / ↑k ^ 2
+htop : Tendsto (fun β => π / ↑k ^ 2 * β⁻¹) (𝓝[>] 0) atTop
+hcomp : Tendsto (fun β => rexp (-(π / ↑k ^ 2 * β⁻¹))) (𝓝[>] 0) (𝓝 0)
+β : ℝ
+hβ0 : ¬β = 0
+⊢ -↑k ^ 4 = -1
+Imscribing/Millennium/StarkRungFiveAsympt.lean:117:8: error: linarith failed to find a contradiction
+case h
+hpois : ∀ (β : ℝ), 0 < β → β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / β * ↑n ^ 2)
+β : ℝ
+hβ : β ∈ Set.Ioo 0 1
+k : ℤ
+a✝ : 1 < 1 * β
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:121:8: error: linarith failed to find a contradiction
+case h
+hpois : ∀ (β : ℝ), 0 < β → β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / β * ↑n ^ 2)
+β : ℝ
+hβ : β ∈ Set.Ioo 0 1
+k : ℤ
+hβ1 : 1 ≤ 1 / β
+hdiv : 1 / β * ↑k ^ 2 ≥ 1 * ↑k ^ 2
+a✝ : -π * 1 * ↑k ^ 2 < -π / β * ↑k ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:94:23: warning: This simp argument is unused:
+  if_neg hk
+
+Hint: Omit it from the simp argument list.
+  simp only [hk,̵ ̵i̵f̵_̵n̵e̵g̵ ̵h̵k̵]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`

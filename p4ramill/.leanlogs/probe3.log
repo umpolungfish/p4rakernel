@@ -1,0 +1,76 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+@Summable.tsum_le_tsum : ∀ {ι : Type u_1} {α : Type u_2} {L : SummationFilter ι} [inst : AddCommMonoid α]
+  [inst_1 : PartialOrder α] [IsOrderedAddMonoid α] [inst_3 : TopologicalSpace α] [OrderClosedTopology α] {f g : ι → α}
+  [L.NeBot], (∀ (i : ι), f i ≤ g i) → Summable f L → Summable g L → ∑'[L] (i : ι), f i ≤ ∑'[L] (i : ι), g i
+@Summable.tsum_mul_left : ∀ {ι : Type u_1} {α : Type u_2} {L : SummationFilter ι} [inst : NonUnitalNonAssocSemiring α]
+  [inst_1 : TopologicalSpace α] [IsTopologicalSemiring α] {f : ι → α} [T2Space α] [L.NeBot] (a : α),
+  Summable f L → ∑'[L] (i : ι), a * f i = a * ∑'[L] (i : ι), f i
+@Summable.tsum_add : ∀ {α : Type u_1} {β : Type u_2} [inst : AddCommMonoid α] [inst_1 : TopologicalSpace α]
+  {f g : β → α} {L : SummationFilter β} [T2Space α] [ContinuousAdd α] [L.NeBot],
+  Summable f L → Summable g L → ∑'[L] (b : β), (f b + g b) = ∑'[L] (b : β), f b + ∑'[L] (b : β), g b
+@Summable.tsum_eq_zero_add : ∀ {G : Type u_1} [inst : AddCommGroup G] [inst_1 : TopologicalSpace G]
+  [IsTopologicalAddGroup G] [T2Space G] {f : ℕ → G}, Summable f → ∑' (b : ℕ), f b = f 0 + ∑' (b : ℕ), f (b + 1)
+@tsum_congr : ∀ {α : Type u_1} {β : Type u_2} [inst : AddCommMonoid α] [inst_1 : TopologicalSpace α]
+  {L : SummationFilter β} {f g : β → α}, (∀ (b : β), f b = g b) → ∑'[L] (b : β), f b = ∑'[L] (b : β), g b
+@squeeze_zero : ∀ {α : Type u_1} {f g : α → ℝ} {t₀ : Filter α},
+  (∀ (t : α), 0 ≤ f t) → (∀ (t : α), f t ≤ g t) → Filter.Tendsto g t₀ (nhds 0) → Filter.Tendsto f t₀ (nhds 0)
+@tendsto_zero_iff_norm_tendsto_zero : ∀ {α : Type u_1} {E : Type u_2} [inst : SeminormedAddGroup E] {f : α → E}
+  {a : Filter α}, Filter.Tendsto f a (nhds 0) ↔ Filter.Tendsto (fun x => ‖f x‖) a (nhds 0)
+@mul_le_mul_of_nonneg_left : ∀ {α : Type u_1} [inst : Mul α] [inst_1 : Zero α] [inst_2 : Preorder α] {a b c : α}
+  [PosMulMono α], b ≤ c → 0 ≤ a → a * b ≤ a * c
+sqrt_nonneg : ∀ (x : ℝ), 0 ≤ √x
+@norm_mul_le : ∀ {α : Type u_1} [inst : NonUnitalSeminormedRing α] (a b : α), ‖a * b‖ ≤ ‖a‖ * ‖b‖
+@exp_le_exp : ∀ {x y : ℝ}, rexp x ≤ rexp y ↔ x ≤ y
+Complex.exp_add : ∀ (x y : ℂ), cexp (x + y) = cexp x * cexp y
+Real.cos_two_mul' : ∀ (x : ℝ), Real.cos (2 * x) = Real.cos x ^ 2 - Real.sin x ^ 2
+Real.sin_two_mul : ∀ (x : ℝ), Real.sin (2 * x) = 2 * Real.sin x * Real.cos x
+@abs_sin_le_abs : ∀ {x : ℝ}, |Real.sin x| ≤ |x|
+ofReal_pow : ∀ (r : ℝ) (n : ℕ), ↑(r ^ n) = ↑r ^ n
+fun ι L inst inst_1 f =>
+  ContinuousLinearMap.map_tsum
+    ofRealCLM : ∀ (ι : Type u_1) (L : SummationFilter ι),
+  T2Space ℂ → L.NeBot → ∀ (f : ι → ℝ), Summable f L → ofRealCLM (∑'[L] (z : ι), f z) = ∑'[L] (z : ι), ofRealCLM (f z)
+probe_tmp.lean:38:9: warning: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+probe_tmp.lean:44:34: warning: This simp argument is unused:
+  Complex.neg_re
+
+Hint: Omit it from the simp argument list.
+  simp only [hq2, Complex.mul_re, Complex.n̵e̵g̵_̵r̵e̵,̵ ̵C̵om̵p̵l̵e̵x̵.̵o̵fReal_re, Complex.ofReal_im,
+  ̵  ̵ ̵ ̵Complex.add_re,
+  ̲  ̲ ̲ ̲Complex.add_im, Complex.mul_im, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+probe_tmp.lean:48:9: warning: unused variable `t`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+probe_tmp.lean:54:50: warning: This simp argument is unused:
+  Complex.neg_re
+
+Hint: Omit it from the simp argument list.
+  simp only [hq2, Complex.mul_re, Complex.mul_im, Complex.n̵e̵g̵_̵r̵e̵,̵ ̵C̵om̵p̵l̵e̵x̵.̵o̵fReal_re,
+  ̵  ̵ ̵ ̵Complex.ofReal_im,
+  ̲  ̲ ̲ ̲Complex.add_re, Complex.add_im, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+probe_tmp.lean:58:97: error: unsolved goals
+t c : ℝ
+⊢ re 2 * (t * im 2 * 2 + t ^ 2 + re 2 ^ 2 + im 2 ^ 2)⁻¹ * c = c * (4 + t ^ 2)⁻¹ * 2
+
+real	0m6.893s
+user	0m4.775s
+sys	0m2.306s

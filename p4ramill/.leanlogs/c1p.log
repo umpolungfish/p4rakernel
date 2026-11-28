@@ -1,0 +1,99 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk1probe.lean:58:6: error: Type mismatch
+  normSq_eq_norm_sq ?m.272
+has type
+  normSq ?m.272 = ‖?m.272‖ ^ 2
+but is expected to have type
+  ‖cexp (I * ↑θ) - 1‖ ^ 2 = normSq (cexp (I * ↑θ) - 1)
+../../chunk1probe.lean:74:37: error: Function expected at
+  sin_sq_le_sq
+but this term has type
+  Real.sin ?m.364 ^ 2 ≤ ?m.364 ^ 2
+
+Note: Expected a function because this term is being applied to the argument
+  _
+../../chunk1probe.lean:117:29: warning: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  simp only [Complex.div_re, C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵ ̵Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+../../chunk1probe.lean:127:13: warning: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  simp only [̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵r̵e̵,̵ ̵C̵o̵m̵p̵l̵e̵x̵.̵d̵i̵v̵_̵i̵m̵,̵[̲C̲o̲m̲p̲l̲e̲x̲.̲d̲i̲v̲_̲i̲m̲,̲ Complex.normSq_apply, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+  ̲  ̲ ̲ ̲Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, h2r, h2i, Complex.I_re, Complex.I_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+../../chunk1probe.lean:142:2: error: `simp` made no progress
+../../chunk1probe.lean:169:13: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℤ
+harg :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑n ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑n ^ 2) * I
+⊢ π * (4190205 * 2 / (↑t ^ 2 + 4)).re * (↑n ^ 2).im + π * (4190205 * 2 / (↑t ^ 2 + 4)).im * (↑n ^ 2).re = 0
+../../chunk1probe.lean:173:61: error(lean.unknownIdentifier): Unknown identifier `rexp_zero`
+../../chunk1probe.lean:166:86: error: unsolved goals
+t : ℝ
+ht : 0 < t
+n : ℤ
+harg :
+  -↑π * (↑↑con / (↑t - 2 * I)) * ↑n ^ 2 =
+    ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) + ↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑n ^ 2) * I
+h2 : ‖cexp (↑(-π * (↑con * 2 / (t ^ 2 + 4)) * ↑n ^ 2) * I)‖ = 1
+⊢ rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) * 1 = rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑n ^ 2)
+../../chunk1probe.lean:180:80: error: No goals to be solved
+../../chunk1probe.lean:239:4: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+n : ℕ
+a✝ : (↑n + 1 / 2) ^ 2 < ↑n ^ 2
+⊢ False
+failed
+../../chunk1probe.lean:241:2: error: Type mismatch
+  mul_le_mul_of_nonpos_right hsq hneg
+has type
+  (↑n + 1 / 2) ^ 2 * (-π * a) ≤ ↑n ^ 2 * (-π * a)
+but is expected to have type
+  -π * a * (↑n + 1 / 2) ^ 2 ≤ -π * a * ↑n ^ 2
+../../chunk1probe.lean:265:6: error: Type mismatch
+  mul_le_mul_of_nonpos_right hge hneg
+has type
+  ↑(2 * n + 1) ^ 2 * (-π * a) ≤ ↑(n + 1) ^ 2 * (-π * a)
+but is expected to have type
+  -(π * a) * ↑(2 * n + 1) ^ 2 ≤ -(π * a) * ↑(n + 1) ^ 2
+../../chunk1probe.lean:272:36: error: Application type mismatch: The argument
+  h2
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ rexp (-(π * a) * ↑(n + 1) ^ 2)
+but is expected to have type
+  ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2) ≤ ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+in the application
+  mul_le_mul_of_nonneg_left h2
+../../chunk1probe.lean:303:6: error: Type mismatch
+  mul_le_mul_of_nonpos_right hge hneg
+has type
+  ↑(2 * n + 1) ^ 2 * (-π * a) ≤ ↑(n + 1) ^ 2 * (-π * a)
+but is expected to have type
+  -(π * a) * ↑(2 * n + 1) ^ 2 ≤ -(π * a) * ↑(n + 1) ^ 2
+../../chunk1probe.lean:310:36: error: Application type mismatch: The argument
+  h2
+has type
+  rexp (-(π * a) * ↑(2 * n + 1) ^ 2) ≤ rexp (-(π * a) * ↑(n + 1) ^ 2)
+but is expected to have type
+  ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2) ≤ ↑(n + 1) ^ 2 * rexp (-(π * a) * ↑(n + 1) ^ 2)
+in the application
+  mul_le_mul_of_nonneg_left h2

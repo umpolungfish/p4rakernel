@@ -1,0 +1,90 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+../../chunk3probe.lean:157:33: warning: unused variable `ht`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+../../chunk3probe.lean:581:2: error: Type mismatch
+  Summable.of_nonneg_of_le
+    (fun n =>
+      norm_nonneg
+        (cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+          (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)))
+    (fun n =>
+      Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              ‖cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+                    (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)‖ ≤
+                2 * π * ↑con * t ^ 2 / (t ^ 2 + 4) * (↑n ^ 2 * rexp (_a * ↑n ^ 2)))
+            (Eq.symm (neg_mul π (4 * ↑con * t / (t ^ 2 + 4))))))
+        (dualEven_dev_term t ht n))
+    hdom
+has type
+  Summable fun n =>
+    ‖cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+        (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)‖
+but is expected to have type
+  Summable fun n =>
+    cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) * (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)
+../../chunk3probe.lean:614:30: error: Application type mismatch: The argument
+  dualEven_dev_term t ht
+has type
+  ∀ (n : ℕ),
+    ‖cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2) *
+          (cexp (I * ↑(2 * π * ↑con * ↑n ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)‖ ≤
+      2 * π * ↑con * t ^ 2 / (t ^ 2 + 4) * (↑n ^ 2 * rexp (-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑n ^ 2))
+but is expected to have type
+  ∀ (i : ℕ),
+    ‖cexp ↑(-π * (4 * ↑con * t / (t ^ 2 + 4)) * ↑i ^ 2) *
+          (cexp (I * ↑(2 * π * ↑con * ↑i ^ 2 * t ^ 2 / (t ^ 2 + 4))) - 1)‖ ≤
+      2 * π * ↑con * t ^ 2 / (t ^ 2 + 4) * (↑i ^ 2 * rexp (-(π * (4 * ↑con * t / (t ^ 2 + 4))) * ↑i ^ 2))
+in the application
+  Summable.tsum_le_tsum (dualEven_dev_term t ht)
+../../chunk3probe.lean:680:2: error: Type mismatch
+  Summable.of_nonneg_of_le
+    (fun n =>
+      norm_nonneg
+        (I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))))
+    (fun n =>
+      Eq.mpr
+        (id
+          (congrArg
+            (fun _a =>
+              ‖I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+                    (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))‖ ≤
+                π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4)) * (↑(2 * n + 1) ^ 2 * rexp (_a * ↑(2 * n + 1) ^ 2)))
+            (Eq.symm (neg_mul π (↑con * t / (t ^ 2 + 4))))))
+        (dualOdd_dev_term t ht n))
+    hdom
+has type
+  Summable fun n =>
+    ‖I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+        (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))‖
+but is expected to have type
+  Summable fun n =>
+    I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+      (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))
+../../chunk3probe.lean:714:30: error: Application type mismatch: The argument
+  dualOdd_dev_term t ht
+has type
+  ∀ (n : ℕ),
+    ‖I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2) *
+          (1 - cexp (I * ↑(π * ↑con * ↑(2 * n + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))‖ ≤
+      π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4)) *
+        (↑(2 * n + 1) ^ 2 * rexp (-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * n + 1) ^ 2))
+but is expected to have type
+  ∀ (i : ℕ),
+    ‖I * cexp ↑(-π * (↑con * t / (t ^ 2 + 4)) * ↑(2 * i + 1) ^ 2) *
+          (1 - cexp (I * ↑(π * ↑con * ↑(2 * i + 1) ^ 2 * t ^ 2 / (2 * (t ^ 2 + 4)))))‖ ≤
+      π * ↑con * t ^ 2 / (2 * (t ^ 2 + 4)) *
+        (↑(2 * i + 1) ^ 2 * rexp (-(π * (↑con * t / (t ^ 2 + 4))) * ↑(2 * i + 1) ^ 2))
+in the application
+  Summable.tsum_le_tsum (dualOdd_dev_term t ht)

@@ -1,5 +1,6 @@
 import Mathlib.Analysis.InnerProductSpace.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
+import Mathlib.Analysis.SpecialFunctions.Pow.Real
 import Imscribing.YangMills.SemigroupGapBridge
 
 /-!
@@ -32,7 +33,7 @@ private lemma norm_sq_le_of_symm_semigroup
   have h_shift : ⟪T s x, T s x⟫_ℂ = ⟪x, T (2 * s) x⟫_ℂ := by
     rw [← h_symm s hs x (T s x), ← h_add s s hs hs x, two_mul]
   have h_cs : (⟪x, T (2 * s) x⟫_ℂ).re ≤ ‖x‖ * ‖T (2 * s) x‖ :=
-    le_trans (RCLike.re_le_norm _) (norm_inner_le_norm x (T (2 * s) x))
+    le_trans (Complex.re_le_norm _) (norm_inner_le_norm x (T (2 * s) x))
   rw [h_self, h_shift]
   exact h_cs
 
@@ -242,6 +243,7 @@ noncomputable def semigroupGenerator (T : ℝ → H →ₗ[ℂ] H) :
         rw [map_add, add_sub_add_comm, smul_add]
       rw [heq]
       exact hx.add hy
+    exact tendsto_nhds_unique hxy (by simpa [Submodule.coe_add] using hsum)
   map_smul' c x := by
     have hx := Classical.choose_spec x.prop
     have hcx := Classical.choose_spec (c • x).prop
@@ -253,6 +255,7 @@ noncomputable def semigroupGenerator (T : ℝ → H →ₗ[ℂ] H) :
         rw [map_smul, ← smul_sub, smul_comm]
       rw [heq]
       exact hx.const_smul c
+    exact tendsto_nhds_unique hcx (by simpa [Submodule.coe_smul] using hsm)
 
 theorem semigroupGenerator_tendsto (T : ℝ → H →ₗ[ℂ] H) (ψ : semigroupGeneratorDomain T) :
     Filter.Tendsto (fun t : ℝ => (t⁻¹ : ℂ) • ((ψ : H) - T t ψ))
@@ -287,20 +290,43 @@ theorem semigroupGenerator_symm
     ⟪(ψ : H), semigroupGenerator T φ⟫_ℂ = ⟪semigroupGenerator T ψ, (φ : H)⟫_ℂ := by
   have h_lhs : Filter.Tendsto
       (fun t : ℝ => ⟪(ψ : H), (t⁻¹ : ℂ) • ((φ : H) - T t φ)⟫_ℂ)
-      (𝓝[>] 0) (𝓝 ⟪(ψ : H), semigroupGenerator T φ⟫_ℂ) :=
-    ((innerSL ℂ (ψ : H)).continuous.tendsto _).comp (semigroupGenerator_tendsto T φ)
+      (𝓝[>] 0) (𝓝 ⟪(ψ : H), semigroupGenerator T φ⟫_ℂ) := by
+    rw [tendsto_iff_norm_sub_tendsto_zero]
+    have h_le : ∀ t : ℝ,
+        ‖⟪(ψ : H), (t⁻¹ : ℂ) • ((φ : H) - T t φ)⟫_ℂ - ⟪(ψ : H), semigroupGenerator T φ⟫_ℂ‖ ≤
+          ‖(ψ : H)‖ * ‖(t⁻¹ : ℂ) • ((φ : H) - T t φ) - semigroupGenerator T φ‖ := fun t => by
+      rw [← inner_sub_right]
+      exact norm_inner_le_norm (ψ : H) _
+    have h_mul : Filter.Tendsto
+        (fun t : ℝ => ‖(ψ : H)‖ * ‖(t⁻¹ : ℂ) • ((φ : H) - T t φ) - semigroupGenerator T φ‖)
+        (𝓝[>] 0) (𝓝 (‖(ψ : H)‖ * 0)) :=
+      (tendsto_const_nhds (x := ‖(ψ : H)‖)).mul
+        (tendsto_iff_norm_sub_tendsto_zero.mp (semigroupGenerator_tendsto T φ))
+    rw [mul_zero] at h_mul
+    exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
   have h_rhs : Filter.Tendsto
       (fun t : ℝ => ⟪(t⁻¹ : ℂ) • ((ψ : H) - T t ψ), (φ : H)⟫_ℂ)
       (𝓝[>] 0) (𝓝 ⟪semigroupGenerator T ψ, (φ : H)⟫_ℂ) := by
-    have hcont : Continuous (fun x : H => ⟪x, (φ : H)⟫_ℂ) := continuous_id.inner continuous_const
-    exact (hcont.tendsto _).comp (semigroupGenerator_tendsto T ψ)
+    rw [tendsto_iff_norm_sub_tendsto_zero]
+    have h_le : ∀ t : ℝ,
+        ‖⟪(t⁻¹ : ℂ) • ((ψ : H) - T t ψ), (φ : H)⟫_ℂ - ⟪semigroupGenerator T ψ, (φ : H)⟫_ℂ‖ ≤
+          ‖(t⁻¹ : ℂ) • ((ψ : H) - T t ψ) - semigroupGenerator T ψ‖ * ‖(φ : H)‖ := fun t => by
+      rw [← inner_sub_left]
+      exact norm_inner_le_norm _ (φ : H)
+    have h_mul : Filter.Tendsto
+        (fun t : ℝ => ‖(t⁻¹ : ℂ) • ((ψ : H) - T t ψ) - semigroupGenerator T ψ‖ * ‖(φ : H)‖)
+        (𝓝[>] 0) (𝓝 (0 * ‖(φ : H)‖)) :=
+      (tendsto_iff_norm_sub_tendsto_zero.mp (semigroupGenerator_tendsto T ψ)).mul
+        (tendsto_const_nhds (x := ‖(φ : H)‖))
+    rw [zero_mul] at h_mul
+    exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
   have h_eq : ∀ᶠ t : ℝ in 𝓝[>] 0,
       ⟪(ψ : H), (t⁻¹ : ℂ) • ((φ : H) - T t φ)⟫_ℂ =
         ⟪(t⁻¹ : ℂ) • ((ψ : H) - T t ψ), (φ : H)⟫_ℂ := by
     filter_upwards [self_mem_nhdsWithin] with t (ht : 0 < t)
     rw [inner_smul_right, inner_smul_left, inner_sub_right, inner_sub_left]
-    have hstar : star (t⁻¹ : ℂ) = (t⁻¹ : ℂ) := by
-      change star (t⁻¹ : ℂ) = (t⁻¹ : ℂ)
+    have hstar : (starRingEnd ℂ) (t⁻¹ : ℂ) = (t⁻¹ : ℂ) := by
+      rw [← Complex.ofReal_inv]
       exact Complex.conj_ofReal _
     rw [hstar, h_symm t ht.le (ψ : H) (φ : H)]
   exact tendsto_nhds_unique h_lhs (h_rhs.congr' (h_eq.mono fun _ h => h.symm))
@@ -321,8 +347,58 @@ theorem semigroupGenerator_gap_and_nonneg
   have h_gap_orth : ∀ ψ : semigroupGeneratorDomain T, ⟪Ω, (ψ : H)⟫_ℂ = 0 →
       Δ * ‖(ψ : H)‖ ^ 2 ≤ (⟪(ψ : H), semigroupGenerator T ψ⟫_ℂ).re := by
     intro ψ h_orth
-    exact SemigroupGapBridge.generator_gap_of_semigroup_decay T Ω Δ hT_decay h_orth
-      (semigroupGenerator_tendsto T ψ)
+    have h_tend := semigroupGenerator_tendsto T ψ
+    have h_ineq : ∀ᶠ t : ℝ in 𝓝[>] 0,
+        t⁻¹ * (1 - Real.exp (-Δ * t)) * ‖(ψ : H)‖ ^ 2 ≤
+          (⟪(ψ : H), (t⁻¹ : ℂ) • ((ψ : H) - T t ψ)⟫_ℂ).re := by
+      filter_upwards [self_mem_nhdsWithin] with t (ht : 0 < t)
+      have h_dec := hT_decay t ht.le (ψ : H) h_orth
+      have h_cs : (⟪(ψ : H), T t ψ⟫_ℂ).re ≤ ‖(ψ : H)‖ * (Real.exp (-Δ * t) * ‖(ψ : H)‖) :=
+        le_trans (Complex.re_le_norm _) (le_trans (norm_inner_le_norm _ _)
+          (mul_le_mul_of_nonneg_left h_dec (norm_nonneg _)))
+      have h_self : (⟪(ψ : H), (ψ : H)⟫_ℂ).re = ‖(ψ : H)‖ ^ 2 := by
+        rw [inner_self_eq_norm_sq_to_K]; norm_cast
+      have h_rhs_eq : (⟪(ψ : H), (t⁻¹ : ℂ) • ((ψ : H) - T t ψ)⟫_ℂ).re =
+          t⁻¹ * (‖(ψ : H)‖ ^ 2 - (⟪(ψ : H), T t ψ⟫_ℂ).re) := by
+        have h_inv : (t⁻¹ : ℂ) = ((t⁻¹ : ℝ) : ℂ) := (Complex.ofReal_inv t).symm
+        rw [inner_smul_right, inner_sub_right, h_inv, Complex.mul_re, Complex.ofReal_re,
+          Complex.ofReal_im, zero_mul, sub_zero, Complex.sub_re, h_self]
+      rw [h_rhs_eq]
+      have h_diff : (1 - Real.exp (-Δ * t)) * ‖(ψ : H)‖ ^ 2 ≤ ‖(ψ : H)‖ ^ 2 - (⟪(ψ : H), T t ψ⟫_ℂ).re := by
+        nlinarith [norm_nonneg (ψ : H)]
+      have h_mul := mul_le_mul_of_nonneg_left h_diff (inv_nonneg.mpr ht.le)
+      linarith
+    have h_lhs_tend : Filter.Tendsto (fun t : ℝ => t⁻¹ * (1 - Real.exp (-Δ * t)) * ‖(ψ : H)‖ ^ 2)
+        (𝓝[>] 0) (𝓝 (Δ * ‖(ψ : H)‖ ^ 2)) := by
+      have hd : HasDerivAt (fun t : ℝ => -Real.exp (-Δ * t)) Δ 0 := by
+        have h1 : HasDerivAt (fun t : ℝ => -Δ * t) (-Δ) 0 := by
+          simpa using (hasDerivAt_id (0 : ℝ)).const_mul (-Δ)
+        simpa using h1.exp.neg
+      have h_slope : Filter.Tendsto (fun t : ℝ => t⁻¹ • (-Real.exp (-Δ * (0 + t)) - -Real.exp (-Δ * 0)))
+          (𝓝[>] 0) (𝓝 Δ) :=
+        hd.tendsto_slope_zero.mono_left (nhdsWithin_mono 0 fun _ (ht : 0 < _) => ht.ne')
+      have h_eq : (fun t : ℝ => t⁻¹ * (1 - Real.exp (-Δ * t)) * ‖(ψ : H)‖ ^ 2) =
+          fun t : ℝ => (t⁻¹ • (-Real.exp (-Δ * (0 + t)) - -Real.exp (-Δ * 0))) * ‖(ψ : H)‖ ^ 2 := by
+        ext t; rw [smul_eq_mul, zero_add, mul_zero, Real.exp_zero]; ring
+      rw [h_eq]
+      exact h_slope.mul_const (‖(ψ : H)‖ ^ 2)
+    have h_rhs_tend : Filter.Tendsto (fun t : ℝ => (⟪(ψ : H), (t⁻¹ : ℂ) • ((ψ : H) - T t ψ)⟫_ℂ).re)
+        (𝓝[>] 0) (𝓝 (⟪(ψ : H), semigroupGenerator T ψ⟫_ℂ).re) := by
+      have h_c : Filter.Tendsto (fun t : ℝ => ⟪(ψ : H), (t⁻¹ : ℂ) • ((ψ : H) - T t ψ)⟫_ℂ)
+          (𝓝[>] 0) (𝓝 ⟪(ψ : H), semigroupGenerator T ψ⟫_ℂ) := by
+        rw [tendsto_iff_norm_sub_tendsto_zero]
+        have h_le : ∀ t : ℝ,
+            ‖⟪(ψ : H), (t⁻¹ : ℂ) • ((ψ : H) - T t ψ)⟫_ℂ - ⟪(ψ : H), semigroupGenerator T ψ⟫_ℂ‖ ≤
+              ‖(ψ : H)‖ * ‖(t⁻¹ : ℂ) • ((ψ : H) - T t ψ) - semigroupGenerator T ψ‖ := fun t => by
+          rw [← inner_sub_right]; exact norm_inner_le_norm (ψ : H) _
+        have h_mul : Filter.Tendsto
+            (fun t : ℝ => ‖(ψ : H)‖ * ‖(t⁻¹ : ℂ) • ((ψ : H) - T t ψ) - semigroupGenerator T ψ‖)
+            (𝓝[>] 0) (𝓝 (‖(ψ : H)‖ * 0)) :=
+          (tendsto_const_nhds (x := ‖(ψ : H)‖)).mul (tendsto_iff_norm_sub_tendsto_zero.mp h_tend)
+        rw [mul_zero] at h_mul
+        exact squeeze_zero (fun _ => norm_nonneg _) h_le h_mul
+      exact (Complex.continuous_re.tendsto _).comp h_c
+    exact le_of_tendsto_of_tendsto h_lhs_tend h_rhs_tend h_ineq
   have h_nonneg : ∀ ψ : semigroupGeneratorDomain T,
       0 ≤ (⟪(ψ : H), semigroupGenerator T ψ⟫_ℂ).re := by
     intro ψ
@@ -370,7 +446,7 @@ theorem semigroupGenerator_gap_and_nonneg
       simp [φ, map_sub, map_smul, hH_vac, hzero]
     have h_lb := h_gap_orth φ hφ_orth
     rw [hH_φ, inner_zero_right, Complex.zero_re] at h_lb
-    have hnorm0 : ‖(φ : H)‖ = 0 := by nlinarith [norm_nonneg (φ : H)]
+    have hnorm0 : ‖(φ : H)‖ = 0 := sq_eq_zero_iff.mp (le_antisymm (nonpos_of_mul_nonpos_right h_lb hΔ) (sq_nonneg _))
     have hφ0 : (φ : H) = 0 := norm_eq_zero.mp hnorm0
     exact ⟨c, sub_eq_zero.mp (by simpa [φ, Ω_mem] using hφ0)⟩
   exact ⟨h_gap_orth, h_nonneg, h_ker⟩

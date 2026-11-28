@@ -1,0 +1,40 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFourGaussSign.lean:443:21: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  chiP d (E ?z)
+in the target expression
+  (fun z => ↑(jacobiSym (↑z.val) d) * stdAddChar z) z = (fun y => chiP d y * stdAddChar y) (E z)
+
+d c : ℕ
+inst✝¹ : NeZero d
+inst✝ : NeZero c
+hdc : con = d * c
+hcop : d.Coprime c
+hm : 1 < c
+hNdc : NeZero (d * c)
+hdvd : con ∣ d * c
+hdvd' : d * c ∣ con
+E : ZMod (d * c) →+* ZMod con := castHom hdvd (ZMod con)
+hEdef : E = castHom hdvd (ZMod con)
+hEval : ∀ (z : ZMod (d * c)), (E z).val = z.val
+hbij : Function.Bijective ⇑E
+hχ : ∀ (z : ZMod (d * c)), chiP d (E z) = ↑(jacobiSym (↑z.val) d)
+hψ : ∀ (z : ZMod (d * c)), stdAddChar (E z) = stdAddChar z
+z : ZMod (d * c)
+⊢ (fun z => ↑(jacobiSym (↑z.val) d) * stdAddChar z) z = (fun y => chiP d y * stdAddChar y) (E z)
+Imscribing/Millennium/StarkRungFourGaussSign.lean:513:45: error: unexpected token ':'; expected ')'
+Imscribing/Millennium/StarkRungFourGaussSign.lean:486:11: error: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information

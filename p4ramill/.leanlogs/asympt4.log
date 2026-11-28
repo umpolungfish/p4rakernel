@@ -1,0 +1,50 @@
+warning: plausible: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/plausible' has local changes
+warning: LeanSearchClient: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/LeanSearchClient' has local changes
+warning: importGraph: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/importGraph' has local changes
+warning: proofwidgets: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/proofwidgets' has local changes
+warning: aesop: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/aesop' has local changes
+warning: Qq: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Qq' has local changes
+warning: batteries: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/batteries' has local changes
+warning: Cli: repository '/home/mrnob0dy666/imsgct/p4rakernel/p4ramill/.lake/packages/Cli' has local changes
+Imscribing/Millennium/StarkRungFiveAsympt.lean:43:4: error: linarith failed to find a contradiction
+case h
+a : ℝ
+ha : 0 < a
+hgeo : Summable fun n => rexp (-π * a) ^ n
+n : ℕ
+hsq : ↑n * ↑n ≥ ↑n
+a✝ : -π * a * ↑n < -π * a * ↑n ^ 2
+⊢ False
+failed
+Imscribing/Millennium/StarkRungFiveAsympt.lean:47:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  rexp (↑?n * ?x)
+in the target expression
+  rexp (-π * a * ↑n) = rexp (-π * a) ^ n
+
+a : ℝ
+ha : 0 < a
+hgeo : Summable fun n => rexp (-π * a) ^ n
+n : ℕ
+hsq : ↑n * ↑n ≥ ↑n
+hmono : -π * a * ↑n ^ 2 ≤ -π * a * ↑n
+⊢ rexp (-π * a * ↑n) = rexp (-π * a) ^ n
+Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+Imscribing/Millennium/StarkRungFiveAsympt.lean:71:9: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a * ?b * ?c
+in the target expression
+  s ^ (1 / 2) * (1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)) = ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)
+
+s : ℝ
+hs : 0 < s
+h : ∑' (n : ℤ), rexp (-π * s * ↑n ^ 2) = 1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)
+hne : s ^ (1 / 2) ≠ 0
+⊢ s ^ (1 / 2) * (1 / s ^ (1 / 2) * ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)) = ∑' (n : ℤ), rexp (-π / s * ↑n ^ 2)
+Imscribing/Millennium/StarkRungFiveAsympt.lean:83:25: error(lean.unknownIdentifier): Unknown identifier `eventually_nhdsGT`
+Imscribing/Millennium/StarkRungFiveAsympt.lean:78:24: error: unsolved goals
+hpois : ∀ (β : ℝ), 0 < β → β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2) = ∑' (n : ℤ), rexp (-π / β * ↑n ^ 2)
+⊢ Tendsto (fun β => β ^ (1 / 2) * ∑' (n : ℤ), rexp (-π * β * ↑n ^ 2)) (𝓝[>] 0) (𝓝 1)

@@ -1377,9 +1377,8 @@ end YangMills
 
 -- §§19–21. Concrete constructions & unconditional master theorems
 #print axioms YangMills.concreteOS4DContinuumTheory
-#check YangMills.clay_yang_mills_strict_from_balaban_and_os
+-- Conditional bridge lemmas (discharged unconditionally in `BalabanFromStage.lean`, `GlobalAxioms.lean`, and `SUClosure.lean`)
 #print axioms YangMills.clay_yang_mills_strict_from_balaban_and_os
-#check YangMills.clay_yang_mills_from_rg_estimates
 #print axioms YangMills.clay_yang_mills_from_rg_estimates
 #check YangMills.unconditional_uniform_rescaled_lattice_mass_gap_and_rg_convergence
 #print axioms YangMills.unconditional_uniform_rescaled_lattice_mass_gap_and_rg_convergence

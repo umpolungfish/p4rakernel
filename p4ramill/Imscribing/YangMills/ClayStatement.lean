@@ -1,4 +1,4 @@
-import Mathlib.Analysis.Distribution.SchwartzSpace
+import Mathlib.Analysis.Distribution.SchwartzSpace.Deriv
 import Mathlib.Analysis.InnerProductSpace.Adjoint
 import Mathlib.LinearAlgebra.UnitaryGroup
 import Mathlib.MeasureTheory.Measure.MeasureSpace
@@ -53,9 +53,8 @@ def SpacelikeDisjoint (f g : TestFn4) : Prop :=
   ∀ x y : Spacetime4, f x ≠ 0 → g y ≠ 0 → minkowskiInner (x - y) (x - y) < 0
 
 /-- Standard Wightman 4D QFT axioms on a separable/complete complex Hilbert space. -/
-@[universe_polymorphic]
-structure WightmanQFT4D (u : Type u) where
-  H : Type u
+structure WightmanQFT4D where
+  H : Type 1
   [instNormedAddCommGroup : NormedAddCommGroup H]
   [instInnerProductSpace : InnerProductSpace ℂ H]
   [instCompleteSpace : CompleteSpace H]
@@ -97,24 +96,24 @@ attribute [instance] WightmanQFT4D.instCompleteSpace
 
 /-- Non-triviality: non-empty orthogonal complement of Ω and non-vanishing
     connected 2-point correlation on strictly disjoint compact supports. -/
-def IsNonTrivialSeparatedQFT {u : Type u} (Q : WightmanQFT4D u) : Prop :=
+def IsNonTrivialSeparatedQFT (Q : WightmanQFT4D) : Prop :=
   (∃ ψ : Q.H, ⟪Q.Ω, ψ⟫_ℂ = 0 ∧ ψ ≠ 0) ∧
   (∃ f g : TestFn4, Disjoint (Function.support f) (Function.support g) ∧
     Q.wightman2 f g ≠ 0)
 
 /-- UV identification hook: the continuum Schwinger/Wightman 2-point function arises
     as the renormalized weak-coupling scaling limit of 4D SU(N) Wilson lattice gauge theory. -/
-def HasYangMillsUVScaling (N : ℕ) {u : Type u} (Q : WightmanQFT4D u) : Prop :=
+def HasYangMillsUVScaling (N : ℕ) (Q : WightmanQFT4D) : Prop :=
   2 ≤ N ∧
   ∃ (a β : ℕ → ℝ),
     Filter.Tendsto a Filter.atTop (nhds 0) ∧
     Filter.Tendsto β Filter.atTop Filter.atTop ∧
     (∀ m, 0 < a m ∧ 0 < β m) ∧
-    (∃ (G : Type*), Nonempty (G ≃ Matrix.specialUnitaryGroup (Fin N) ℂ)) ∧
+    (∃ (G : Type), Nonempty (G ≃ Matrix.specialUnitaryGroup (Fin N) ℂ)) ∧
     IsNonTrivialSeparatedQFT Q
 
 /-- Strict mass gap Δ > 0: unique vacuum Ω and spec(H) ⊂ {0} ∪ [Δ, ∞). -/
-def HasStrictMassGap {u : Type u} (Q : WightmanQFT4D u) (Δ : ℝ) : Prop :=
+def HasStrictMassGap (Q : WightmanQFT4D) (Δ : ℝ) : Prop :=
   0 < Δ ∧
   (∀ ψ : Q.hamDomain, Q.H_op ψ = 0 → ∃ c : ℂ, (ψ : Q.H) = c • Q.Ω) ∧
   (∀ ψ : Q.hamDomain, ⟪Q.Ω, (ψ : Q.H)⟫_ℂ = 0 →
@@ -123,7 +122,7 @@ def HasStrictMassGap {u : Type u} (Q : WightmanQFT4D u) (Δ : ℝ) : Prop :=
 /-- Top-level unconditional Clay Yang–Mills Existence and Mass Gap statement. -/
 def ClayYangMillsConjecture (N : ℕ) : Prop :=
   2 ≤ N →
-  ∃ (Q : WightmanQFT4D Type) (Δ : ℝ),
+  ∃ (Q : WightmanQFT4D) (Δ : ℝ),
     HasYangMillsUVScaling N Q ∧
     HasStrictMassGap Q Δ
 

@@ -15,6 +15,9 @@ Wires together:
 
 namespace Imscribing.YangMills.SchwingerClayMaster
 
+set_option synthInstance.maxHeartbeats 200000
+set_option maxHeartbeats 800000
+
 open scoped InnerProductSpace
 open Imscribing.YangMills.ClaySpec
 open Imscribing.YangMills.ContinuumInterfaces
@@ -51,12 +54,12 @@ structure ContinuumWightmanBridgeData (N : ℕ) where
     let pre := buildBorchersPreData C R h_herm h_rp h_symm h_cluster
     let core := quotInnerCore pre
     letI : NormedAddCommGroup (BorchersPos ⧸ nullSubmodule pre) := core.toNormedAddCommGroup
-    letI : InnerProductSpace ℂ (BorchersPos ⧸ nullSubmodule pre) := InnerProductSpace.ofCore core
+    letI : InnerProductSpace ℂ (BorchersPos ⧸ nullSubmodule pre) := InnerProductSpace.ofCore core.toCore
     let H := UniformSpace.Completion (BorchersPos ⧸ nullSubmodule pre)
     let Ω : H := ((Submodule.Quotient.mk borchersVac : BorchersPos ⧸ nullSubmodule pre) : H)
     ∃ (U : Poincare4 → H →ₗᵢ[ℂ] H)
       (fieldDomain : Submodule ℂ H)
-      (field : TestFn4 → fieldDomain →ₗ[ℂ] H),
+      (field : TestFn4 → ↥fieldDomain →ₗ[ℂ] H),
       (∀ g : Poincare4, U g Ω = Ω) ∧
       U (poincareTimeTrans 0) = LinearIsometry.id ∧
       (∀ s t : ℝ,
@@ -64,11 +67,11 @@ structure ContinuumWightmanBridgeData (N : ℕ) where
           fun ψ => U (poincareTimeTrans s) (U (poincareTimeTrans t) ψ)) ∧
       Dense (fieldDomain : Set H) ∧
       Ω ∈ fieldDomain ∧
-      (∀ f (ψ : fieldDomain), field f ψ ∈ fieldDomain) ∧
-      (∀ f g : TestFn4, SpacelikeDisjoint f g →
-        ∀ (ψ₁ ψ₂ : fieldDomain),
-          ⟪(ψ₁ : H), field f ⟨field g ψ₂, ‹∀ f ψ, _› g ψ₂⟩⟫_ℂ =
-          ⟪(ψ₁ : H), field g ⟨field f ψ₂, ‹∀ f ψ, _› f ψ₂⟩⟫_ℂ) ∧
+      ∃ (h_maps : ∀ f (ψ : ↥fieldDomain), field f ψ ∈ fieldDomain),
+        (∀ f g : TestFn4, SpacelikeDisjoint f g →
+          ∀ (ψ₁ ψ₂ : ↥fieldDomain),
+            ⟪(ψ₁ : H), field f ⟨field g ψ₂, h_maps g ψ₂⟩⟫_ℂ =
+            ⟪(ψ₁ : H), field g ⟨field f ψ₂, h_maps f ψ₂⟩⟫_ℂ) ∧
       (∃ (f₀ g₀ : TestFn4)
          (W_reg W_deriv : ℝ → TestFn4 →ₗ[ℂ] ℂ)
          (p : TestFn4 → ℝ) (C₁ C₂ : ℝ),
@@ -92,13 +95,114 @@ theorem clay_yang_mills_from_continuum_schwinger {N : ℕ}
   let pre := buildBorchersPreData D.C D.R D.h_herm D.h_rp D.h_symm D.h_cluster
   let core := quotInnerCore pre
   letI : NormedAddCommGroup (BorchersPos ⧸ nullSubmodule pre) := core.toNormedAddCommGroup
-  letI : InnerProductSpace ℂ (BorchersPos ⧸ nullSubmodule pre) := InnerProductSpace.ofCore core
+  letI : InnerProductSpace ℂ (BorchersPos ⧸ nullSubmodule pre) := InnerProductSpace.ofCore core.toCore
   obtain ⟨U, fieldDomain, field, hU_vac, hU_zero, hU_add, h_dense, hΩ_dom,
     h_maps, h_weak_loc, f₀, g₀, W_reg, W_deriv, p, C₁, C₂,
     hp_nn, hC₁, hC₂, h_at1, h_deriv, h_dbound, h_disj, h_2pt⟩ := D.poincare_and_weak_fields
   -- Verify that the boundary distribution W₀ exists and is tempered (certifying E0 → S')
-  have _h_W₀ := wightman_boundary_tempered W_reg W_deriv p hp_nn C₁ C₂ hC₁ hC₂
-    h_at1 h_deriv h_dbound
+  have _h_W₀ :
+      ∃ W₀ : TestFn4 →ₗ[ℂ] ℂ,
+        (∀ f, Filter.Tendsto (fun t => W_reg t f) (nhdsWithin 0 (Set.Ioi 0)) (nhds (W₀ f))) ∧
+        (∀ f, ‖W₀ f‖ ≤ (C₁ + C₂) * p f) := by
+    have h_mvt : ∀ (f : TestFn4) {a b : ℝ},
+        a ∈ Set.Ioc (0 : ℝ) 1 → b ∈ Set.Ioc (0 : ℝ) 1 →
+        ‖W_reg a f - W_reg b f‖ ≤ C₂ * p f * |a - b| := by
+      intro f a b ha hb
+      simpa only [Real.norm_eq_abs] using
+        (convex_Ioc (0 : ℝ) 1).norm_image_sub_le_of_norm_hasDerivWithin_le
+          (fun t ht => (h_deriv f t ht).hasDerivWithinAt)
+          (fun t ht => h_dbound f t ht) hb ha
+    have h_lim : ∀ f : TestFn4,
+        ∃ L : ℂ, Filter.Tendsto (fun t => W_reg t f) (nhdsWithin 0 (Set.Ioi 0)) (nhds L) := by
+      intro f
+      have hM : 0 ≤ C₂ * p f := mul_nonneg hC₂ (hp_nn f)
+      let u : ℕ → ℂ := fun n => W_reg (1 / ((n : ℝ) + 1)) f
+      have hu_cauchy : CauchySeq u := by
+        rw [Metric.cauchySeq_iff]
+        intro ε hε
+        obtain ⟨N, hN⟩ := exists_nat_gt ((C₂ * p f + 1) / ε)
+        refine ⟨N, fun m hm n hn => ?_⟩
+        have hm1 : (1 / ((m : ℝ) + 1)) ∈ Set.Ioc (0 : ℝ) 1 :=
+          ⟨by positivity, div_le_one_of_le₀ (by linarith) (by positivity)⟩
+        have hn1 : (1 / ((n : ℝ) + 1)) ∈ Set.Ioc (0 : ℝ) 1 :=
+          ⟨by positivity, div_le_one_of_le₀ (by linarith) (by positivity)⟩
+        have hmN : (1 / ((m : ℝ) + 1)) ≤ 1 / ((N : ℝ) + 1) :=
+          one_div_le_one_div_of_le (by positivity) (by exact_mod_cast Nat.add_le_add_right hm 1)
+        have hnN : (1 / ((n : ℝ) + 1)) ≤ 1 / ((N : ℝ) + 1) :=
+          one_div_le_one_div_of_le (by positivity) (by exact_mod_cast Nat.add_le_add_right hn 1)
+        have h_abs : |1 / ((m : ℝ) + 1) - 1 / ((n : ℝ) + 1)| ≤ 1 / ((N : ℝ) + 1) := by
+          rw [abs_le]
+          constructor <;> linarith [hm1.1, hn1.1]
+        have hN_lt : 1 / ((N : ℝ) + 1) < ε / (C₂ * p f + 1) := by
+          have hN' : (C₂ * p f + 1) / ε < (N : ℝ) + 1 := lt_trans hN (lt_add_one _)
+          rw [div_lt_div_iff₀ (by positivity) (by positivity)]
+          rw [div_lt_iff₀ hε] at hN'
+          linarith
+        have h_est := h_mvt f hm1 hn1
+        rw [dist_eq_norm]
+        calc
+          ‖u m - u n‖ ≤ C₂ * p f * |1 / ((m : ℝ) + 1) - 1 / ((n : ℝ) + 1)| := h_est
+          _ ≤ C₂ * p f * (1 / ((N : ℝ) + 1)) := mul_le_mul_of_nonneg_left h_abs hM
+          _ ≤ C₂ * p f * (ε / (C₂ * p f + 1)) := mul_le_mul_of_nonneg_left hN_lt.le hM
+          _ < ε := by
+            rw [← mul_div_assoc, div_lt_iff₀ (by positivity)]
+            nlinarith
+      obtain ⟨L, hL⟩ := cauchySeq_tendsto_of_complete hu_cauchy
+      refine ⟨L, Metric.tendsto_nhdsWithin_nhds.mpr fun ε hε => ?_⟩
+      let δ : ℝ := min 1 (ε / (2 * (C₂ * p f + 1)))
+      have hδ_pos : 0 < δ := lt_min one_pos (div_pos hε (by positivity))
+      obtain ⟨N₁, hN₁⟩ := exists_nat_one_div_lt hδ_pos
+      obtain ⟨N₂, hN₂⟩ := Metric.tendsto_atTop.mp hL (ε / 2) (half_pos hε)
+      let k : ℕ := max N₁ N₂
+      have hk_lt : (1 / ((k : ℝ) + 1)) < δ := by
+        refine lt_of_le_of_lt ?_ hN₁
+        exact one_div_le_one_div_of_le (by positivity) (by exact_mod_cast Nat.add_le_add_right (le_max_left N₁ N₂) 1)
+      have hk_dist : dist (u k) L < ε / 2 := hN₂ k (le_max_right N₁ N₂)
+      refine ⟨δ, hδ_pos, fun {t} ht_pos ht_dist => ?_⟩
+      have ht_lt : t < δ := by
+        have ht0 : 0 < t := ht_pos
+        simpa [Real.dist_eq, abs_of_pos ht0] using ht_dist
+      have ht1 : t ∈ Set.Ioc (0 : ℝ) 1 := ⟨ht_pos, ht_lt.le.trans (min_le_left _ _)⟩
+      have hk1 : (1 / ((k : ℝ) + 1)) ∈ Set.Ioc (0 : ℝ) 1 :=
+        ⟨by positivity, hk_lt.le.trans (min_le_left _ _)⟩
+      have h_abs : |t - 1 / ((k : ℝ) + 1)| < δ := by
+        rw [abs_sub_lt_iff]
+        constructor <;> linarith [ht1.1, hk1.1]
+      have h_mvt_tk : dist (W_reg t f) (u k) ≤ ε / 2 := by
+        rw [dist_eq_norm]
+        calc
+          ‖W_reg t f - u k‖ ≤ C₂ * p f * |t - 1 / ((k : ℝ) + 1)| := h_mvt f ht1 hk1
+          _ ≤ C₂ * p f * δ := mul_le_mul_of_nonneg_left h_abs.le hM
+          _ ≤ C₂ * p f * (ε / (2 * (C₂ * p f + 1))) :=
+            mul_le_mul_of_nonneg_left (min_le_right _ _) hM
+          _ ≤ ε / 2 := by
+            rw [← mul_div_assoc, div_le_iff₀ (by positivity)]
+            nlinarith
+      exact lt_of_le_of_lt (dist_triangle (W_reg t f) (u k) L) (by linarith)
+    choose W₀_fun hW₀_tend using h_lim
+    refine ⟨{ toFun := W₀_fun
+              map_add' := fun f g => by
+                have hadd : Filter.Tendsto (fun t => W_reg t (f + g)) (nhdsWithin 0 (Set.Ioi 0))
+                    (nhds (W₀_fun f + W₀_fun g)) := by
+                  simpa only [map_add] using (hW₀_tend f).add (hW₀_tend g)
+                exact tendsto_nhds_unique (hW₀_tend (f + g)) hadd
+              map_smul' := fun c f => by
+                have hsmul : Filter.Tendsto (fun t => W_reg t (c • f)) (nhdsWithin 0 (Set.Ioi 0))
+                    (nhds (c • W₀_fun f)) := by
+                  simpa only [map_smul] using (hW₀_tend f).const_smul c
+                exact tendsto_nhds_unique (hW₀_tend (c • f)) hsmul },
+      hW₀_tend, fun f => ?_⟩
+    refine le_of_tendsto (hW₀_tend f).norm ?_
+    refine Filter.eventually_of_mem (Ioc_mem_nhdsGT (zero_lt_one : (0 : ℝ) < 1)) fun t ht => ?_
+    have h1 : (1 : ℝ) ∈ Set.Ioc (0 : ℝ) 1 := ⟨zero_lt_one, le_rfl⟩
+    have h_abs1 : |t - 1| ≤ 1 := abs_le.mpr ⟨by linarith [ht.1], by linarith [ht.2]⟩
+    calc
+      ‖W_reg t f‖ = ‖(W_reg t f - W_reg 1 f) + W_reg 1 f‖ := by simp
+      _ ≤ ‖W_reg t f - W_reg 1 f‖ + ‖W_reg 1 f‖ := norm_add_le _ _
+      _ ≤ C₂ * p f * |t - 1| + C₁ * p f := add_le_add (h_mvt f ht h1) (h_at1 f)
+      _ ≤ C₂ * p f * 1 + C₁ * p f :=
+        add_le_add (mul_le_mul_of_nonneg_left h_abs1 (mul_nonneg hC₂ (hp_nn f))) le_rfl
+      _ = (C₁ + C₂) * p f := by ring
   let BData : BorchersOSData N :=
     { hN := D.hN
       B := borchersForm D.C D.R
